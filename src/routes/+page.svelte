@@ -4,7 +4,9 @@
 	import ScatterQuadrant from '$lib/components/viz/ScatterQuadrant.svelte';
 	import StatsHeader from '$lib/components/ui/StatsHeader.svelte';
 	import FilterPanel from '$lib/components/ui/FilterPanel.svelte';
+	import InsightsPanel from '$lib/components/ui/InsightsPanel.svelte';
 	import OccupationCardList from '$lib/components/ui/OccupationCardList.svelte';
+	import HeroSearch from '$lib/components/ui/HeroSearch.svelte';
 
 	let { data } = $props();
 
@@ -42,28 +44,32 @@
 	<meta name="twitter:description" content="Three layers of AI impact across 562 Singapore occupations — exposure, human bottleneck, and market resilience. Academic indices, not LLM vibes." />
 </svelte:head>
 
-<!-- Hero + Stats -->
-<div class="border-b border-gray-200 bg-white">
-	<div class="mx-auto max-w-screen-2xl px-4 py-5 sm:px-6">
-		<h1 class="text-xl font-bold text-gray-900 sm:text-2xl">
-			Singapore AI Occupation Impact Index
-		</h1>
-		<p class="mt-1 max-w-2xl text-sm text-gray-500">
-			Three layers of AI impact across 562 occupations — exposure, human bottleneck, and market resilience.
-			Peer-reviewed indices, risk bands, and visible confidence.
-		</p>
-		<div class="mt-3">
+<!-- Hero + Search -->
+<div class="bg-white">
+	<div class="mx-auto max-w-screen-2xl px-4 py-8 sm:px-6">
+		<div class="mx-auto max-w-2xl text-center">
+			<h1 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+				How will AI affect your job?
+			</h1>
+			<p class="mt-2 text-base text-gray-500">
+				562 Singapore occupations scored across exposure, human bottleneck, and market resilience.
+			</p>
+			<div class="mt-5">
+				<HeroSearch occupations={data.occupations} />
+			</div>
+		</div>
+		<div class="mt-6">
 			<StatsHeader occupations={filteredOccupations} />
 		</div>
 	</div>
 </div>
 
 <!-- Main content: full-width treemap with sidebar filters -->
-<div class="mx-auto max-w-screen-2xl px-4 py-4 sm:px-6">
-	<div class="flex gap-5">
+<div class="mx-auto max-w-screen-2xl px-4 py-8 sm:px-6">
+	<div class="flex gap-6">
 		<!-- Sidebar filters (desktop) — single instance, responsive -->
 		<aside class="hidden w-[260px] shrink-0 lg:block">
-			<div class="sticky top-16 max-h-[calc(100vh-5rem)] overflow-y-auto rounded-lg border border-gray-200 bg-white p-4">
+			<div class="card sticky top-16 max-h-[calc(100vh-5rem)] overflow-y-auto p-5">
 				<FilterPanel occupations={data.occupations} onfilter={handleFilter} />
 			</div>
 		</aside>
@@ -72,8 +78,8 @@
 		<div class="min-w-0 flex-1">
 			<!-- Mobile filters — separate instance but same callback -->
 			{#if innerWidth < 1024}
-				<div class="mb-4">
-					<details class="rounded-lg border border-gray-200 bg-white">
+				<div class="mb-5">
+					<details class="card">
 						<summary class="cursor-pointer px-4 py-3 text-sm font-medium text-gray-700">
 							Filters & Search
 						</summary>
@@ -84,24 +90,45 @@
 				</div>
 			{/if}
 
+			<!-- Insights panel: collapsible on screens below xl -->
+			{#if innerWidth < 1280 && innerWidth >= 768}
+				<details class="card mb-5">
+					<summary class="cursor-pointer px-5 py-3 text-sm font-semibold uppercase tracking-wide text-gray-400">
+						Insights & Rankings
+					</summary>
+					<div class="border-t border-gray-100 p-5">
+						<InsightsPanel occupations={filteredOccupations} />
+					</div>
+				</details>
+			{/if}
+
 			{#if innerWidth >= 768}
 				<!-- Treemap — full width, tall -->
-				<section class="rounded-lg border border-gray-200 bg-white p-3">
-					<div class="mb-2 flex items-center justify-between">
-						<h2 class="text-xs font-medium uppercase tracking-wide text-gray-400">Occupation Treemap</h2>
-						<span class="text-xs text-gray-400">{filteredOccupations.length} occupations</span>
+				<section class="card p-5">
+					<div class="mb-3 flex items-center justify-between">
+						<h2 class="text-sm font-semibold uppercase tracking-wide text-gray-400">Occupation Treemap</h2>
+						<span class="text-sm text-gray-400">{filteredOccupations.length} occupations</span>
 					</div>
 					<Treemap occupations={filteredOccupations} />
 				</section>
 
 				<!-- Scatter plot -->
-				<section class="mt-5 rounded-lg border border-gray-200 bg-white p-3">
-					<h2 class="mb-2 text-xs font-medium uppercase tracking-wide text-gray-400">Exposure vs Human Bottleneck</h2>
+				<section class="card mt-8 p-5">
+					<h2 class="mb-3 text-sm font-semibold uppercase tracking-wide text-gray-400">Exposure vs Human Bottleneck</h2>
 					<ScatterQuadrant occupations={filteredOccupations} />
 				</section>
 			{:else}
 				<OccupationCardList occupations={filteredOccupations} />
 			{/if}
 		</div>
+
+		<!-- Right sidebar: insights panel (xl+ only) -->
+		{#if innerWidth >= 1280}
+			<aside class="hidden w-[280px] shrink-0 xl:block">
+				<div class="card sticky top-16 max-h-[calc(100vh-5rem)] overflow-y-auto p-5">
+					<InsightsPanel occupations={filteredOccupations} />
+				</div>
+			</aside>
+		{/if}
 	</div>
 </div>

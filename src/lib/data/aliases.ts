@@ -1,0 +1,120 @@
+/**
+ * Common modern job title aliases mapped to SSOC codes.
+ * Used for search — when someone types "product manager" we match them
+ * to the relevant SSOC occupations even though MOM uses different titles.
+ */
+export const jobAliases: Record<string, string[]> = {
+	'product manager': ['12222', '24211', '24313'],
+	'project manager': ['12190', '24211'],
+	'recruiter': ['24232', '24233'],
+	'ux designer': ['21664'],
+	'ui designer': ['21664', '21661'],
+	'devops engineer': ['25231', '25232'],
+	'scrum master': ['24211'],
+	'data engineer': ['25211', '25212', '25220'],
+	'product owner': ['12222', '24313'],
+	'growth hacker': ['24314'],
+	'content writer': ['26413'],
+	'full stack developer': ['25121', '25122'],
+	'frontend developer': ['25122', '25121'],
+	'backend developer': ['25121', '25140'],
+	'mobile developer': ['25122', '25123'],
+	'qa engineer': ['25151'],
+	'site reliability engineer': ['25232', '25231'],
+	'technical writer': ['26413'],
+	'business analyst': ['25112'],
+	'solutions architect': ['25113'],
+	'cloud engineer': ['25231'],
+	'machine learning engineer': ['25220', '25121'],
+	'ai engineer': ['25220', '25121'],
+	'data analyst': ['25220', '24112'],
+	'financial analyst': ['24130', '24111'],
+	'management consultant': ['24211'],
+	'hr manager': ['12121'],
+	'operations manager': ['12112'],
+	'marketing manager': ['12222'],
+	'sales manager': ['12211'],
+	'software developer': ['25121', '25122'],
+	'software engineer': ['25121', '25122'],
+	'web developer': ['25122', '25121'],
+	'graphic designer': ['21661'],
+	'interior designer': ['21662'],
+	'accountant': ['24112'],
+	'auditor': ['24112'],
+	'lawyer': ['26112'],
+	'nurse': ['22211', '22212'],
+	'doctor': ['22111', '22112'],
+	'pharmacist': ['22620'],
+	'teacher': ['23111', '23112', '23201'],
+	'lecturer': ['23101', '23102'],
+	'chef': ['51201'],
+	'cook': ['51201', '51202'],
+	'barista': ['51301'],
+	'waiter': ['51301'],
+	'receptionist': ['42241'],
+	'secretary': ['41201'],
+	'personal assistant': ['41201'],
+	'executive assistant': ['41201'],
+	'copywriter': ['26413'],
+	'journalist': ['26411'],
+	'photographer': ['26522'],
+	'videographer': ['26521'],
+	'social media manager': ['24314', '12222'],
+	'digital marketer': ['24314'],
+	'seo specialist': ['24314'],
+	'cybersecurity analyst': ['25232'],
+	'security engineer': ['25232'],
+	'network engineer': ['25231'],
+	'database administrator': ['25211'],
+	'system administrator': ['25231'],
+	'it manager': ['13310'],
+	'cto': ['13310'],
+	'cfo': ['12110'],
+	'ceo': ['11120'],
+	'data scientist': ['25220', '21210'],
+	'actuary': ['21210'],
+	'statistician': ['21210'],
+	'research scientist': ['21110', '21120'],
+	'civil engineer': ['21410'],
+	'mechanical engineer': ['21430'],
+	'electrical engineer': ['21510'],
+	'architect': ['21610'],
+	'urban planner': ['21640'],
+	'physiotherapist': ['22610'],
+	'dentist': ['22610'],
+	'psychologist': ['22630'],
+	'social worker': ['26351'],
+	'counsellor': ['26352'],
+	'real estate agent': ['33220'],
+	'property agent': ['33220'],
+	'insurance agent': ['33210'],
+	'financial planner': ['24130'],
+	'wealth manager': ['24130'],
+	'bank teller': ['42111'],
+	'cashier': ['52301'],
+	'retail assistant': ['52101'],
+	'delivery driver': ['83210'],
+	'logistics coordinator': ['43311'],
+	'supply chain manager': ['13240'],
+	'warehouse manager': ['13240'],
+	'customer service': ['42221'],
+	'call center agent': ['42221']
+};
+
+/**
+ * Find alias matches for a search query.
+ * Returns SSOC codes that match any alias containing the query,
+ * plus the alias text that matched.
+ */
+export function findAliasMatches(query: string): { alias: string; ssocs: string[] }[] {
+	const q = query.trim().toLowerCase();
+	if (!q || q.length < 2) return [];
+
+	const matches: { alias: string; ssocs: string[] }[] = [];
+	for (const [alias, ssocs] of Object.entries(jobAliases)) {
+		if (alias.includes(q) || q.includes(alias)) {
+			matches.push({ alias, ssocs });
+		}
+	}
+	return matches;
+}

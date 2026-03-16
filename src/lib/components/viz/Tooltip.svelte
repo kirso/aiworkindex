@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Occupation } from '$lib/data';
+	import type { Occupation, ImpactType } from '$lib/data';
 	import { riskBandLabels, riskBandColors, impactTypeLabels, impactTypeColors } from '$lib/data';
 
 	let {
@@ -13,38 +13,103 @@
 		y: number;
 		visible: boolean;
 	} = $props();
+
+	const impactSummaries: Record<ImpactType, string> = {
+		ai_leveraged: 'AI amplifies productivity in this role — humans remain essential.',
+		at_risk: 'High exposure with low human bottleneck — vulnerable to automation.',
+		stable: 'Low AI exposure — this occupation is largely unaffected for now.',
+		mixed: 'Moderate signals across dimensions — outcome depends on adoption patterns.'
+	};
+
+	function formatEmployment(thousands: number): string {
+		const total = thousands * 1000;
+		if (total >= 1000) return (total / 1000).toFixed(1) + 'K';
+		return Math.round(total).toString();
+	}
+
+	function scoreBarWidth(value: number): string {
+		return (value * 100).toFixed(0) + '%';
+	}
 </script>
 
 {#if visible && occupation}
 	<div
-		class="pointer-events-none fixed z-50 max-w-xs rounded-lg border border-gray-200 bg-white px-3 py-2 shadow-lg"
-		style="left: {x + 12}px; top: {y - 12}px;"
+		class="pointer-events-none fixed z-50 w-72 rounded-xl border border-gray-100 bg-white p-4 shadow-xl"
+		style="left: {x + 16}px; top: {y - 16}px;"
 	>
-		<p class="text-sm font-semibold text-gray-900">{occupation.title}</p>
-		<p class="mt-0.5 text-xs text-gray-500">{occupation.major_group}</p>
-		<div class="mt-1.5 flex items-center gap-2">
+		<!-- Title + group -->
+		<p class="text-sm font-bold leading-snug text-gray-900">{occupation.title}</p>
+		<p class="mt-0.5 text-xs text-gray-400">{occupation.major_group}</p>
+
+		<!-- Badges row -->
+		<div class="mt-2 flex items-center gap-1.5">
 			<span
-				class="rounded px-1.5 py-0.5 text-xs font-medium text-white"
+				class="rounded-full px-2 py-0.5 text-[10px] font-semibold text-white"
 				style="background-color: {riskBandColors[occupation.risk_band]};"
 			>
-				{riskBandLabels[occupation.risk_band]}
+				{riskBandLabels[occupation.risk_band]} Risk
 			</span>
 			<span
-				class="rounded px-1.5 py-0.5 text-xs font-medium text-white"
+				class="rounded-full px-2 py-0.5 text-[10px] font-semibold text-white"
 				style="background-color: {impactTypeColors[occupation.impact_type]};"
 			>
 				{impactTypeLabels[occupation.impact_type]}
 			</span>
-			<span class="text-xs font-medium text-gray-700">
-				Net Risk: {(occupation.net_risk * 100).toFixed(0)}%
-			</span>
 		</div>
-		<div class="mt-1 flex gap-3 text-xs text-gray-600">
-			<span>Exposure: {(occupation.exposure * 100).toFixed(0)}%</span>
-			<span>Bottleneck: {(occupation.bottleneck * 100).toFixed(0)}%</span>
+
+		<!-- Key stats grid -->
+		<div class="mt-3 grid grid-cols-3 gap-x-3 gap-y-1.5">
+			<div>
+				<p class="text-[10px] font-medium text-gray-400">Net Risk</p>
+				<p class="text-sm font-bold tabular-nums text-gray-900">{(occupation.net_risk * 100).toFixed(0)}%</p>
+			</div>
+			<div>
+				<p class="text-[10px] font-medium text-gray-400">Median Wage</p>
+				<p class="text-sm font-bold tabular-nums text-gray-900">SGD {occupation.gross_wage_median.toLocaleString()}</p>
+			</div>
+			<div>
+				<p class="text-[10px] font-medium text-gray-400">Jobs</p>
+				<p class="text-sm font-bold tabular-nums text-gray-900">~{formatEmployment(occupation.employment_thousands)}</p>
+			</div>
 		</div>
-		<p class="mt-1 text-xs text-gray-600">
-			Median wage: SGD {occupation.gross_wage_median.toLocaleString()}
+
+		<!-- Score bars -->
+		<div class="mt-3 space-y-1.5">
+			<div>
+				<div class="flex items-center justify-between">
+					<span class="text-[10px] font-medium text-gray-400">Exposure</span>
+					<span class="text-[10px] tabular-nums text-gray-500">{(occupation.exposure * 100).toFixed(0)}%</span>
+				</div>
+				<div class="mt-0.5 h-1.5 w-full overflow-hidden rounded-full bg-gray-100">
+					<div class="h-full rounded-full bg-rose-400" style="width: {scoreBarWidth(occupation.exposure)};"></div>
+				</div>
+			</div>
+			<div>
+				<div class="flex items-center justify-between">
+					<span class="text-[10px] font-medium text-gray-400">Bottleneck</span>
+					<span class="text-[10px] tabular-nums text-gray-500">{(occupation.bottleneck * 100).toFixed(0)}%</span>
+				</div>
+				<div class="mt-0.5 h-1.5 w-full overflow-hidden rounded-full bg-gray-100">
+					<div class="h-full rounded-full bg-emerald-400" style="width: {scoreBarWidth(occupation.bottleneck)};"></div>
+				</div>
+			</div>
+			<div>
+				<div class="flex items-center justify-between">
+					<span class="text-[10px] font-medium text-gray-400">Market Resilience</span>
+					<span class="text-[10px] tabular-nums text-gray-500">{(occupation.market.market_resilience * 100).toFixed(0)}%</span>
+				</div>
+				<div class="mt-0.5 h-1.5 w-full overflow-hidden rounded-full bg-gray-100">
+					<div class="h-full rounded-full bg-blue-400" style="width: {scoreBarWidth(occupation.market.market_resilience)};"></div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Impact summary -->
+		<p class="mt-3 text-[11px] leading-relaxed text-gray-500 italic">
+			{impactSummaries[occupation.impact_type]}
 		</p>
+
+		<!-- CTA hint -->
+		<p class="mt-2 text-center text-[10px] font-medium text-indigo-500">Click to view full details</p>
 	</div>
 {/if}

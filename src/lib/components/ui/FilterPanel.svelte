@@ -4,6 +4,7 @@
 	import { SvelteSet } from 'svelte/reactivity';
 	import type { Occupation, RiskBand } from '$lib/data';
 	import { majorGroups, riskBandLabels, riskBandColors } from '$lib/data';
+	import { findAliasMatches } from '$lib/data/aliases';
 
 	let {
 		occupations,
@@ -60,13 +61,31 @@
 		initialized = true;
 	});
 
+	// Alias matching for "Did you mean?" suggestions
+	let aliasMatches = $derived.by(() => {
+		const q = search.trim().toLowerCase();
+		if (!q || q.length < 2) return [];
+		return findAliasMatches(q);
+	});
+
 	// Apply filters reactively
 	let filtered = $derived.by(() => {
 		let result = occupations;
 
 		if (search.trim()) {
 			const q = search.trim().toLowerCase();
-			result = result.filter((o) => o.title.toLowerCase().includes(q));
+			// Direct title match
+			const directMatches = result.filter((o) => o.title.toLowerCase().includes(q));
+
+			if (directMatches.length > 0) {
+				result = directMatches;
+			} else if (aliasMatches.length > 0) {
+				// Fall back to alias matches
+				const aliasSSocs = new Set(aliasMatches.flatMap((m) => m.ssocs));
+				result = result.filter((o) => aliasSSocs.has(o.ssoc));
+			} else {
+				result = directMatches; // empty
+			}
 		}
 
 		if (selectedGroups.size > 0) {
@@ -84,6 +103,14 @@
 		}
 
 		return result;
+	});
+
+	// Show "Did you mean?" when search has no direct title match but has alias matches
+	let showDidYouMean = $derived.by(() => {
+		if (!search.trim() || search.trim().length < 2) return false;
+		const q = search.trim().toLowerCase();
+		const hasDirectMatch = occupations.some((o) => o.title.toLowerCase().includes(q));
+		return !hasDirectMatch && aliasMatches.length > 0;
 	});
 
 	// Push filtered results to parent whenever filtered changes
@@ -142,10 +169,16 @@
 		<input
 			id="occ-search"
 			type="text"
-			placeholder="Search occupations..."
+			placeholder="e.g., Software Developer, Nurse..."
 			bind:value={search}
-			class="w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 placeholder-gray-400 outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400"
+			class="w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 placeholder-gray-400 outline-none transition-colors focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
 		/>
+		{#if showDidYouMean}
+			<p class="mt-1.5 text-xs text-gray-500">
+				Matched via alias: {aliasMatches.map((m) => `"${m.alias}"`).join(', ')}
+				<span class="text-gray-400">({filtered.length} results)</span>
+			</p>
+		{/if}
 	</div>
 
 	<!-- Risk band chips -->
@@ -157,10 +190,10 @@
 				{@const bandColor = opt.key !== 'all' ? riskBandColors[opt.key as RiskBand] : undefined}
 				<button
 					type="button"
-					class="rounded-full border px-3 py-1 text-xs font-medium transition-colors
+					class="rounded-full border px-3 py-1 text-xs font-medium transition-all duration-150
 						{isActive
-							? 'border-gray-900 bg-gray-900 text-white'
-							: 'border-gray-200 bg-white text-gray-600 hover:border-gray-300'}"
+							? 'chip-active border-indigo-600 bg-indigo-600 text-white shadow-sm'
+							: 'border-gray-200 bg-white text-gray-600 hover:border-gray-300 hover:shadow-sm'}"
 					onclick={() => (selectedCategory = opt.key)}
 				>
 					{#if bandColor && !isActive}

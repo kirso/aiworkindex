@@ -2,6 +2,8 @@
 	import '../app.css';
 	import favicon from '$lib/assets/favicon.svg';
 	import { page } from '$app/stores';
+	import { fade } from 'svelte/transition';
+	import { prefersReducedMotion } from 'svelte/motion';
 
 	let { children } = $props();
 
@@ -10,6 +12,9 @@
 		{ href: '/methodology', label: 'Methodology' },
 		{ href: '/about', label: 'About' }
 	];
+
+	let currentPath = $derived($page.url.pathname);
+	let duration = $derived(prefersReducedMotion.current ? 0 : 180);
 </script>
 
 <svelte:head>
@@ -20,20 +25,20 @@
 </svelte:head>
 
 <div class="flex min-h-screen flex-col bg-gray-50">
-	<!-- Sticky header / nav -->
-	<header class="sticky top-0 z-50 border-b border-gray-200 bg-white/95 backdrop-blur-sm">
+	<!-- Sticky header / nav — dark slate -->
+	<header class="sticky top-0 z-50 border-b border-slate-700 bg-slate-900 shadow-md">
 		<div class="mx-auto flex max-w-screen-2xl items-center justify-between px-4 py-3 sm:px-6">
-			<a href="/" class="flex items-center gap-2 font-semibold text-gray-900 hover:text-gray-700">
+			<a href="/" class="flex items-center gap-2 font-semibold text-white transition-colors hover:text-gray-300">
 				<span class="text-lg">SG AI Jobs</span>
 			</a>
 			<nav class="flex items-center gap-1">
-				{#each navLinks as link}
+				{#each navLinks as link (link.href)}
 					<a
 						href={link.href}
 						class="rounded-md px-3 py-1.5 text-sm font-medium transition-colors
 							{$page.url.pathname === link.href
-								? 'bg-gray-100 text-gray-900'
-								: 'text-gray-500 hover:bg-gray-50 hover:text-gray-700'}"
+								? 'bg-white/15 text-white'
+								: 'text-gray-400 hover:bg-white/10 hover:text-gray-200'}"
 					>
 						{link.label}
 					</a>
@@ -43,7 +48,11 @@
 	</header>
 
 	<div class="flex-1">
-		{@render children()}
+		{#key currentPath}
+			<div in:fade={{ duration }}>
+				{@render children()}
+			</div>
+		{/key}
 	</div>
 
 	<footer class="border-t border-gray-200 bg-white">
@@ -56,7 +65,7 @@
 					<p class="mt-0.5 text-xs text-gray-400">
 						Scores represent technical AI exposure, not employment predictions.
 						Exposure and displacement are distinct — see
-						<a href="/methodology" class="underline hover:text-gray-600">methodology</a>.
+						<a href="/methodology" class="text-indigo-600 underline hover:text-indigo-700">methodology</a>.
 					</p>
 				</div>
 				<div class="flex gap-3 text-xs text-gray-400">

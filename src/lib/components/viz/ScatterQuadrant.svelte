@@ -124,7 +124,7 @@
 						r={sizeScale(occ.group_employment_thousands)}
 						fill={groupColor(occ.major_group)}
 						opacity="0.65"
-						class="cursor-pointer transition-opacity duration-100 hover:opacity-100"
+						class="scatter-dot cursor-pointer"
 						role="button"
 						tabindex="0"
 						onmousemove={(e) => handleMouseMove(e, occ)}

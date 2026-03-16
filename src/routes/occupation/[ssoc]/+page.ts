@@ -8,17 +8,41 @@ export const load: PageLoad = ({ params }) => {
 		error(404, 'Occupation not found');
 	}
 
-	// Find 5 similar occupations by net_risk proximity
-	const similar = occupations
+	const sameGroup = occupations.filter(
+		(o) => o.major_group === occupation.major_group && o.ssoc !== occupation.ssoc
+	);
+
+	// Lower risk alternatives — same group, lower net_risk, sorted by closest
+	const lowerRisk = sameGroup
+		.filter((o) => o.net_risk < occupation.net_risk)
+		.sort((a, b) => b.net_risk - a.net_risk)
+		.slice(0, 3);
+
+	// Higher pay options — same group, higher median wage
+	const higherPay = sameGroup
+		.filter((o) => o.gross_wage_median > occupation.gross_wage_median)
+		.sort((a, b) => b.gross_wage_median - a.gross_wage_median)
+		.slice(0, 3);
+
+	// In-demand roles — occupations with high market momentum and scarcity
+	const inDemand = occupations
 		.filter((o) => o.ssoc !== occupation.ssoc)
-		.map((o) => ({ occ: o, dist: Math.abs(o.net_risk - occupation.net_risk) }))
-		.sort((a, b) => a.dist - b.dist)
-		.slice(0, 5)
-		.map((s) => s.occ);
+		.filter((o) => o.market.occupation_scarcity > 0.6 && o.market.market_momentum > 0.5)
+		.sort((a, b) => b.market.occupation_scarcity - a.market.occupation_scarcity)
+		.slice(0, 3);
+
+	// Compute national median wage for comparison
+	const allWages = occupations.map((o) => o.gross_wage_median).sort((a, b) => a - b);
+	const nationalMedian = allWages[Math.floor(allWages.length / 2)];
 
 	return {
 		occupation,
-		similar
+		relatedPaths: {
+			lowerRisk,
+			higherPay,
+			inDemand
+		},
+		nationalMedian
 	};
 };
 

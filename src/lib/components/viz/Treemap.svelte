@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
+	import { fade } from 'svelte/transition';
+	import { prefersReducedMotion } from 'svelte/motion';
 	import * as d3Hierarchy from 'd3-hierarchy';
 	import type { HierarchyRectangularNode } from 'd3-hierarchy';
 	import * as d3Scale from 'd3-scale';
@@ -27,13 +29,16 @@
 	let tooltipY = $state(0);
 	let tooltipVisible = $state(false);
 
-	// Color scale: major group key -> color
+	// Color scale: major group key -> color (for group backgrounds)
 	const colorByGroup = new Map<string, string>(
 		majorGroups.map((g) => [g.key, g.color])
 	);
 
-	// Opacity scale: net_risk 0-1 -> opacity 0.35-1.0
-	const opacityScale = d3Scale.scaleLinear().domain([0, 1]).range([0.35, 1.0]).clamp(true);
+	// Risk color scale: green → amber → orange → rose (continuous)
+	const riskColorScale = d3Scale.scaleLinear<string>()
+		.domain([0, 0.15, 0.35, 0.60])
+		.range(['#10b981', '#f59e0b', '#f97316', '#f43f5e'])
+		.clamp(true);
 
 	// Group occupations by major_group
 	let groupedOccupations = $derived.by(() => {
@@ -205,6 +210,8 @@
 		const g = majorGroupByKey.get(key);
 		return g?.label ?? key;
 	}
+
+	let fadeDuration = $derived(prefersReducedMotion.current ? 0 : 200);
 </script>
 
 <div bind:this={containerEl} class="relative w-full">
@@ -227,6 +234,7 @@
 	{#if browser}
 		{#if !zoomedGroup}
 			<!-- OVERVIEW: Major group rectangles -->
+			<div in:fade={{ duration: fadeDuration }}>
 			<svg {width} {height} class="block" role="img" aria-label="Treemap showing 9 major occupation groups in Singapore, sized by total employment. Click a group to zoom in.">
 				{#each overviewNodes as node (node.data.name)}
 					{@const nw = cellWidth(node)}
@@ -238,8 +246,8 @@
 						y={node.y0}
 						width={nw}
 						height={nh}
-						fill={groupColor}
-						opacity={opacityScale(avgRisk)}
+						fill={riskColorScale(avgRisk)}
+						opacity="0.85"
 						rx="3"
 						class="cursor-pointer transition-opacity duration-150 hover:opacity-100"
 						role="button"
@@ -275,8 +283,10 @@
 					{/if}
 				{/each}
 			</svg>
+			</div>
 		{:else}
 			<!-- ZOOMED: Occupations within the selected group -->
+			<div in:fade={{ duration: fadeDuration }}>
 			<svg {width} {height} class="block" role="img" aria-label="Treemap showing occupations in {groupLabel(zoomedGroup)}, sized by employment and shaded by net AI displacement risk">
 				{#each zoomedLeaves as leaf (leaf.data.occupation?.ssoc ?? leaf.data.name)}
 					{@const occ = leaf.data.occupation as Occupation}
@@ -287,8 +297,8 @@
 						y={leaf.y0}
 						width={lw}
 						height={lh}
-						fill={colorByGroup.get(occ.major_group) ?? '#ccc'}
-						opacity={opacityScale(occ.net_risk)}
+						fill={riskColorScale(occ.net_risk)}
+						opacity="0.85"
 						rx="1"
 						class="cursor-pointer transition-opacity duration-150 hover:opacity-100"
 						role="button"
@@ -316,6 +326,7 @@
 					{/if}
 				{/each}
 			</svg>
+			</div>
 		{/if}
 
 		<!-- Screen reader summary -->
