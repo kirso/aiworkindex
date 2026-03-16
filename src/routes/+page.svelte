@@ -42,48 +42,59 @@
 	<meta name="twitter:description" content="Four axes of AI impact across 562 Singapore occupations. Academic indices, not LLM vibes." />
 </svelte:head>
 
-<main class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-	<div class="mb-6">
-		<h1 class="text-2xl font-bold text-gray-900 sm:text-3xl">
+<!-- Hero + Stats -->
+<div class="border-b border-gray-200 bg-white">
+	<div class="mx-auto max-w-screen-2xl px-4 py-5 sm:px-6">
+		<h1 class="text-xl font-bold text-gray-900 sm:text-2xl">
 			Singapore AI Occupation Impact Index
 		</h1>
-		<p class="mt-1 text-sm text-gray-500">
-			Four axes of AI impact across 562 occupations — exposure, task share, market resilience,
-			and displacement risk. Academic indices, not LLM vibes.
+		<p class="mt-1 max-w-2xl text-sm text-gray-500">
+			Three layers of AI impact across 562 occupations — exposure, human bottleneck, and market resilience.
+			Peer-reviewed indices, risk bands, and visible confidence.
 		</p>
-		<div class="mt-2 flex gap-3 text-sm">
-			<a href="/methodology" class="text-blue-600 hover:text-blue-800">Methodology</a>
-			<a href="/about" class="text-blue-600 hover:text-blue-800">About</a>
+		<div class="mt-3">
+			<StatsHeader occupations={filteredOccupations} />
 		</div>
 	</div>
+</div>
 
-	<StatsHeader occupations={filteredOccupations} />
-
-	<div class="mt-6 flex gap-6">
+<!-- Main content: full-width treemap with sidebar filters -->
+<div class="mx-auto max-w-screen-2xl px-4 py-4 sm:px-6">
+	<div class="flex gap-5">
 		<!-- Sidebar filters (desktop) -->
-		<aside class="hidden w-[280px] shrink-0 md:block">
-			<div class="sticky top-4">
+		<aside class="hidden w-[260px] shrink-0 lg:block">
+			<div class="sticky top-16 max-h-[calc(100vh-5rem)] overflow-y-auto rounded-lg border border-gray-200 bg-white p-4">
 				<FilterPanel occupations={data.occupations} onfilter={handleFilter} />
 			</div>
 		</aside>
 
-		<!-- Main content -->
+		<!-- Main viz area -->
 		<div class="min-w-0 flex-1">
 			<!-- Mobile filters -->
-			<div class="md:hidden">
-				<FilterPanel occupations={data.occupations} onfilter={handleFilter} />
+			<div class="mb-4 lg:hidden">
+				<details class="rounded-lg border border-gray-200 bg-white">
+					<summary class="cursor-pointer px-4 py-3 text-sm font-medium text-gray-700">
+						Filters & Search
+					</summary>
+					<div class="border-t border-gray-100 p-4">
+						<FilterPanel occupations={data.occupations} onfilter={handleFilter} />
+					</div>
+				</details>
 			</div>
 
 			{#if innerWidth >= 768}
-				<!-- Treemap -->
-				<section>
-					<h2 class="mb-2 text-sm font-medium text-gray-500">Occupation Treemap</h2>
+				<!-- Treemap — full width, tall -->
+				<section class="rounded-lg border border-gray-200 bg-white p-3">
+					<div class="mb-2 flex items-center justify-between">
+						<h2 class="text-xs font-medium uppercase tracking-wide text-gray-400">Occupation Treemap</h2>
+						<span class="text-xs text-gray-400">{filteredOccupations.length} occupations</span>
+					</div>
 					<Treemap occupations={filteredOccupations} />
 				</section>
 
 				<!-- Scatter plot -->
-				<section class="mt-8">
-					<h2 class="mb-2 text-sm font-medium text-gray-500">Exposure vs Complementarity</h2>
+				<section class="mt-5 rounded-lg border border-gray-200 bg-white p-3">
+					<h2 class="mb-2 text-xs font-medium uppercase tracking-wide text-gray-400">Exposure vs Human Bottleneck</h2>
 					<ScatterQuadrant occupations={filteredOccupations} />
 				</section>
 			{:else}
@@ -91,4 +102,4 @@
 			{/if}
 		</div>
 	</div>
-</main>
+</div>

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import RadarChart from '$lib/components/viz/RadarChart.svelte';
-	import { categoryLabels, categoryColors, majorGroupByKey } from '$lib/data';
+	import { riskBandLabels, riskBandColors, majorGroupByKey } from '$lib/data';
 
 	let { data } = $props();
 	let occ = $derived(data.occupation);
@@ -11,19 +11,26 @@
 	let wageLeftPct = $derived((occ.gross_wage_25th / maxWage) * 100);
 	let wageRightPct = $derived((occ.gross_wage_75th / maxWage) * 100);
 	let wageMedianPct = $derived((occ.gross_wage_median / maxWage) * 100);
+
+	// Confidence badge color
+	function confidenceColor(level: string): string {
+		if (level === 'high') return '#16a34a';
+		if (level === 'medium') return '#ca8a04';
+		return '#dc2626';
+	}
 </script>
 
 <svelte:head>
-	<title>{occ.title} — AI Impact Score | SG AI Occupation Index</title>
+	<title>{occ.title} — AI Displacement Risk | SG AI Occupation Index</title>
 	<meta
 		name="description"
-		content="{occ.title} (SSOC {occ.ssoc}): Technical AI exposure {occ.scores.c_aioe.toFixed(2)}, categorized as {categoryLabels[occ.scores.category]}. Median wage SGD {occ.gross_wage_median.toLocaleString()}."
+		content="{occ.title} (SSOC {occ.ssoc}): Net displacement risk {(occ.net_risk * 100).toFixed(0)}%, rated {riskBandLabels[occ.risk_band]}. Median wage SGD {occ.gross_wage_median.toLocaleString()}."
 	/>
-	<meta property="og:title" content="{occ.title} — AI Impact Score | SG AI Occupation Index" />
-	<meta property="og:description" content="Technical exposure: {occ.scores.c_aioe.toFixed(2)} ({categoryLabels[occ.scores.category]}). Median wage SGD {occ.gross_wage_median.toLocaleString()}." />
+	<meta property="og:title" content="{occ.title} — AI Displacement Risk | SG AI Occupation Index" />
+	<meta property="og:description" content="Net risk: {(occ.net_risk * 100).toFixed(0)}% ({riskBandLabels[occ.risk_band]}). Median wage SGD {occ.gross_wage_median.toLocaleString()}." />
 	<meta property="og:url" content="https://sg-ai-jobs.vercel.app/occupation/{occ.ssoc}" />
-	<meta name="twitter:title" content="{occ.title} — AI Impact Score" />
-	<meta name="twitter:description" content="Technical exposure: {occ.scores.c_aioe.toFixed(2)} ({categoryLabels[occ.scores.category]})" />
+	<meta name="twitter:title" content="{occ.title} — AI Displacement Risk" />
+	<meta name="twitter:description" content="Net risk: {(occ.net_risk * 100).toFixed(0)}% ({riskBandLabels[occ.risk_band]})" />
 	{@html `<script type="application/ld+json">${JSON.stringify({
 		"@context": "https://schema.org",
 		"@type": "Occupation",
@@ -40,13 +47,25 @@
 		"occupationLocation": {
 			"@type": "Country",
 			"name": "Singapore"
-		}
+		},
+		"additionalProperty": [
+			{
+				"@type": "PropertyValue",
+				"name": "AI Net Displacement Risk",
+				"value": occ.net_risk
+			},
+			{
+				"@type": "PropertyValue",
+				"name": "Risk Band",
+				"value": riskBandLabels[occ.risk_band]
+			}
+		]
 	})}</script>`}
 </svelte:head>
 
 <main class="mx-auto max-w-4xl px-4 py-6 sm:px-6 lg:px-8">
 	<!-- Breadcrumb -->
-	<nav class="mb-4 text-sm text-gray-500">
+	<nav class="mb-4 text-sm text-gray-500" aria-label="Breadcrumb">
 		<a href="/" class="hover:text-gray-700">Home</a>
 		<span class="mx-1">/</span>
 		<span class="text-gray-900">{occ.title}</span>
@@ -66,82 +85,112 @@
 				<p class="mt-0.5 text-sm text-gray-500">
 					SSOC {occ.ssoc} &middot; {group?.label ?? occ.major_group}
 				</p>
+				<div class="mt-2 flex flex-wrap items-center gap-2">
+					<span
+						class="rounded-full px-3 py-1 text-sm font-semibold text-white"
+						style="background-color: {riskBandColors[occ.risk_band]};"
+					>
+						{riskBandLabels[occ.risk_band]} Risk
+					</span>
+					<span
+						class="rounded-full border px-2.5 py-0.5 text-xs font-medium"
+						style="color: {confidenceColor(occ.confidence.level)}; border-color: {confidenceColor(occ.confidence.level)};"
+					>
+						{occ.confidence.level.charAt(0).toUpperCase() + occ.confidence.level.slice(1)} Confidence
+					</span>
+				</div>
 			</div>
 		</div>
 	</div>
 
 	<div class="grid gap-6 md:grid-cols-2">
-		<!-- Score Card -->
+		<!-- Score Breakdown -->
 		<div class="rounded-lg border border-gray-200 bg-white p-5">
-			<h2 class="mb-3 text-sm font-semibold text-gray-700">Technical AI Exposure</h2>
+			<h2 class="mb-3 text-sm font-semibold text-gray-700">Score Breakdown</h2>
+			<RadarChart occupation={occ} />
+		</div>
 
-			<div class="mb-4 flex items-center gap-2">
-				<span
-					class="rounded px-2 py-1 text-sm font-semibold text-white"
-					style="background-color: {categoryColors[occ.scores.category]};"
-				>
-					{categoryLabels[occ.scores.category]}
-				</span>
-			</div>
-
-			<div class="space-y-3">
-				<div>
-					<div class="flex justify-between text-sm">
-						<span class="text-gray-600">AI Exposure (AIOE)</span>
-						<span class="font-medium text-gray-900">{occ.scores.aioe.toFixed(2)}</span>
-					</div>
-					<div class="mt-1 h-2 overflow-hidden rounded-full bg-gray-100">
-						<div
-							class="h-full rounded-full bg-blue-500"
-							style="width: {occ.scores.aioe * 100}%;"
-						></div>
-					</div>
+		<!-- Net Risk Explanation -->
+		<div class="rounded-lg border border-gray-200 bg-white p-5">
+			<h2 class="mb-3 text-sm font-semibold text-gray-700">How Net Risk is Computed</h2>
+			<div class="space-y-3 text-sm text-gray-600">
+				<div class="flex items-center justify-between rounded bg-red-50 px-3 py-2">
+					<span class="font-medium text-red-700">Exposure (percentile)</span>
+					<span class="font-semibold tabular-nums text-red-700">{(occ.exposure * 100).toFixed(0)}%</span>
 				</div>
-
-				<div>
-					<div class="flex justify-between text-sm">
-						<span class="text-gray-600">Complementarity (Theta)</span>
-						<span class="font-medium text-gray-900">{occ.scores.theta.toFixed(2)}</span>
-					</div>
-					<div class="mt-1 h-2 overflow-hidden rounded-full bg-gray-100">
-						<div
-							class="h-full rounded-full bg-emerald-500"
-							style="width: {occ.scores.theta * 100}%;"
-						></div>
-					</div>
+				<div class="flex items-center justify-center text-gray-400">
+					<span class="text-lg">-</span>
 				</div>
-
-				<div>
-					<div class="flex justify-between text-sm">
-						<span class="text-gray-600">Combined Exposure (C-AIOE)</span>
-						<span class="font-medium text-gray-900">{occ.scores.c_aioe.toFixed(2)}</span>
-					</div>
-					<div class="mt-1 h-2 overflow-hidden rounded-full bg-gray-100">
-						<div
-							class="h-full rounded-full bg-red-400"
-							style="width: {occ.scores.c_aioe * 100}%;"
-						></div>
-					</div>
+				<div class="flex items-center justify-between rounded bg-green-50 px-3 py-2">
+					<span class="font-medium text-green-700">Bottleneck (percentile)</span>
+					<span class="font-semibold tabular-nums text-green-700">{(occ.bottleneck * 100).toFixed(0)}%</span>
+				</div>
+				<div class="flex items-center justify-center text-gray-400">
+					<span class="text-lg">x</span>
+				</div>
+				<div class="flex items-center justify-between rounded bg-blue-50 px-3 py-2">
+					<span class="font-medium text-blue-700">Market Modifier</span>
+					<span class="font-semibold tabular-nums text-blue-700">{occ.market.market_modifier.toFixed(2)}</span>
+				</div>
+				<div class="flex items-center justify-center text-gray-400">
+					<span class="text-lg">=</span>
+				</div>
+				<div class="flex items-center justify-between rounded px-3 py-2" style="background-color: {riskBandColors[occ.risk_band]}20;">
+					<span class="font-semibold text-gray-900">Net Displacement Risk</span>
+					<span class="text-lg font-bold tabular-nums text-gray-900">{(occ.net_risk * 100).toFixed(0)}%</span>
 				</div>
 			</div>
-
-			<div class="mt-4 rounded border border-blue-100 bg-blue-50 px-3 py-2">
-				<p class="text-[11px] text-blue-700">
-					This page shows technical AI exposure (Stage 1). Market resilience and net displacement risk
-					will be added in v1.1.
-				</p>
-			</div>
-
 			<p class="mt-3 text-xs text-gray-400">
 				<a href="/methodology" class="underline hover:text-gray-600">About this scoring</a>
 			</p>
 		</div>
 
-		<!-- Radar Chart -->
+		<!-- Market Details -->
 		<div class="rounded-lg border border-gray-200 bg-white p-5">
-			<h2 class="mb-3 text-sm font-semibold text-gray-700">Score Profile</h2>
-			<div class="flex justify-center">
-				<RadarChart occupation={occ} groupAverage={data.groupAverage} />
+			<h2 class="mb-3 text-sm font-semibold text-gray-700">Market Signals</h2>
+			<div class="space-y-3">
+				<div>
+					<div class="mb-1 flex items-center justify-between text-sm">
+						<span class="text-gray-600">Market Momentum</span>
+						<span class="font-medium tabular-nums text-gray-900">{occ.market.market_momentum.toFixed(2)}</span>
+					</div>
+					<div class="h-2 w-full overflow-hidden rounded-full bg-gray-100">
+						<div
+							class="h-full rounded-full bg-purple-400"
+							style="width: {Math.min(occ.market.market_momentum * 100, 100)}%;"
+						></div>
+					</div>
+				</div>
+				<div>
+					<div class="mb-1 flex items-center justify-between text-sm">
+						<span class="text-gray-600">Occupation Scarcity</span>
+						<span class="font-medium tabular-nums text-gray-900">{occ.market.occupation_scarcity.toFixed(2)}</span>
+					</div>
+					<div class="h-2 w-full overflow-hidden rounded-full bg-gray-100">
+						<div
+							class="h-full rounded-full bg-amber-400"
+							style="width: {Math.min(occ.market.occupation_scarcity * 100, 100)}%;"
+						></div>
+					</div>
+				</div>
+				<div>
+					<div class="mb-1 flex items-center justify-between text-sm">
+						<span class="text-gray-600">Market Resilience</span>
+						<span class="font-medium tabular-nums text-gray-900">{occ.market.market_resilience.toFixed(2)}</span>
+					</div>
+					<div class="h-2 w-full overflow-hidden rounded-full bg-gray-100">
+						<div
+							class="h-full rounded-full bg-blue-400"
+							style="width: {Math.min(occ.market.market_resilience * 100, 100)}%;"
+						></div>
+					</div>
+				</div>
+				<div class="border-t border-gray-100 pt-2">
+					<div class="flex items-center justify-between text-sm">
+						<span class="font-medium text-gray-700">Market Modifier</span>
+						<span class="font-semibold tabular-nums text-gray-900">{occ.market.market_modifier.toFixed(2)}</span>
+					</div>
+				</div>
 			</div>
 		</div>
 
@@ -166,16 +215,16 @@
 
 				<!-- Labels -->
 				<div class="mt-2 flex justify-between text-xs text-gray-500">
-					<span>25th: ${occ.gross_wage_25th.toLocaleString()}</span>
-					<span class="font-medium text-gray-900">Median: ${occ.gross_wage_median.toLocaleString()}</span>
-					<span>75th: ${occ.gross_wage_75th.toLocaleString()}</span>
+					<span>25th: SGD {occ.gross_wage_25th.toLocaleString()}</span>
+					<span class="font-medium text-gray-900">Median: SGD {occ.gross_wage_median.toLocaleString()}</span>
+					<span>75th: SGD {occ.gross_wage_75th.toLocaleString()}</span>
 				</div>
 			</div>
 		</div>
 
 		<!-- Similar Occupations -->
-		<div class="rounded-lg border border-gray-200 bg-white p-5">
-			<h2 class="mb-3 text-sm font-semibold text-gray-700">Similar Occupations</h2>
+		<div class="rounded-lg border border-gray-200 bg-white p-5 md:col-span-2">
+			<h2 class="mb-3 text-sm font-semibold text-gray-700">Similar Occupations (by Net Risk)</h2>
 			<div class="space-y-2">
 				{#each data.similar as sim (sim.ssoc)}
 					<a
@@ -183,12 +232,17 @@
 						class="flex items-center justify-between rounded-md px-2 py-1.5 text-sm hover:bg-gray-50"
 					>
 						<span class="truncate text-gray-700">{sim.title}</span>
-						<span
-							class="ml-2 shrink-0 rounded px-1.5 py-0.5 text-[10px] font-medium text-white"
-							style="background-color: {categoryColors[sim.scores.category]};"
-						>
-							{sim.scores.c_aioe.toFixed(2)}
-						</span>
+						<div class="ml-2 flex shrink-0 items-center gap-2">
+							<span
+								class="rounded px-1.5 py-0.5 text-[10px] font-medium text-white"
+								style="background-color: {riskBandColors[sim.risk_band]};"
+							>
+								{riskBandLabels[sim.risk_band]}
+							</span>
+							<span class="tabular-nums text-xs text-gray-500">
+								{(sim.net_risk * 100).toFixed(0)}%
+							</span>
+						</div>
 					</a>
 				{/each}
 			</div>

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Occupation } from '$lib/data';
-	import { categoryLabels, categoryColors } from '$lib/data';
+	import { riskBandLabels, riskBandColors } from '$lib/data';
 
 	let {
 		occupation = null,
@@ -25,20 +25,20 @@
 		<div class="mt-1.5 flex items-center gap-2">
 			<span
 				class="rounded px-1.5 py-0.5 text-xs font-medium text-white"
-				style="background-color: {categoryColors[occupation.scores.category]};"
+				style="background-color: {riskBandColors[occupation.risk_band]};"
 			>
-				{categoryLabels[occupation.scores.category]}
+				{riskBandLabels[occupation.risk_band]}
 			</span>
-			<span class="text-xs text-gray-600">
-				C-AIOE: {occupation.scores.c_aioe.toFixed(2)}
+			<span class="text-xs font-medium text-gray-700">
+				Net Risk: {(occupation.net_risk * 100).toFixed(0)}%
 			</span>
 		</div>
 		<div class="mt-1 flex gap-3 text-xs text-gray-600">
-			<span>AIOE: {occupation.scores.aioe.toFixed(2)}</span>
-			<span>Theta: {occupation.scores.theta.toFixed(2)}</span>
+			<span>Exposure: {(occupation.exposure * 100).toFixed(0)}%</span>
+			<span>Bottleneck: {(occupation.bottleneck * 100).toFixed(0)}%</span>
 		</div>
 		<p class="mt-1 text-xs text-gray-600">
-			Median wage: ${occupation.gross_wage_median.toLocaleString()}
+			Median wage: SGD {occupation.gross_wage_median.toLocaleString()}
 		</p>
 	</div>
 {/if}

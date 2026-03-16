@@ -1,9 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import { goto } from '$app/navigation';
-	import { page } from '$app/state';
-	import type { Occupation, MajorGroup } from '$lib/data';
-	import { majorGroups, categoryLabels, categoryColors } from '$lib/data';
+	import type { Occupation, RiskBand } from '$lib/data';
+	import { majorGroups, riskBandLabels, riskBandColors } from '$lib/data';
 
 	let {
 		occupations,
@@ -25,6 +23,16 @@
 	const WAGE_FLOOR = 0;
 	const WAGE_CEIL = 30000;
 	const WAGE_STEP = 500;
+
+	// Risk band filter options
+	const riskBandOptions: { key: string; label: string }[] = [
+		{ key: 'all', label: 'All' },
+		{ key: 'very_low', label: riskBandLabels.very_low },
+		{ key: 'low', label: riskBandLabels.low },
+		{ key: 'moderate', label: riskBandLabels.moderate },
+		{ key: 'high', label: riskBandLabels.high },
+		{ key: 'very_high', label: riskBandLabels.very_high }
+	];
 
 	// Initialize from URL params
 	$effect(() => {
@@ -67,7 +75,7 @@
 		}
 
 		if (selectedCategory !== 'all') {
-			result = result.filter((o) => o.scores.category === selectedCategory);
+			result = result.filter((o) => o.risk_band === selectedCategory);
 		}
 
 		return result;
@@ -119,13 +127,6 @@
 		wageMax < WAGE_CEIL ||
 		selectedCategory !== 'all'
 	);
-
-	const categories = [
-		{ key: 'all', label: 'All' },
-		{ key: 'high_exposure_low_complementarity', label: 'At Risk' },
-		{ key: 'high_exposure_high_complementarity', label: 'Augmented' },
-		{ key: 'low_exposure', label: 'Low Impact' }
-	];
 </script>
 
 <!-- Mobile toggle -->
@@ -158,20 +159,28 @@
 		/>
 	</div>
 
-	<!-- Category chips -->
+	<!-- Risk band chips -->
 	<div>
-		<span class="mb-1.5 block text-xs font-medium text-gray-500">Risk Category</span>
+		<span class="mb-1.5 block text-xs font-medium text-gray-500">Risk Band</span>
 		<div class="flex flex-wrap gap-1.5">
-			{#each categories as cat}
+			{#each riskBandOptions as opt}
+				{@const isActive = selectedCategory === opt.key}
+				{@const bandColor = opt.key !== 'all' ? riskBandColors[opt.key as RiskBand] : undefined}
 				<button
 					type="button"
 					class="rounded-full border px-3 py-1 text-xs font-medium transition-colors
-						{selectedCategory === cat.key
+						{isActive
 							? 'border-gray-900 bg-gray-900 text-white'
 							: 'border-gray-200 bg-white text-gray-600 hover:border-gray-300'}"
-					onclick={() => (selectedCategory = cat.key)}
+					onclick={() => (selectedCategory = opt.key)}
 				>
-					{cat.label}
+					{#if bandColor && !isActive}
+						<span
+							class="mr-1 inline-block h-2 w-2 rounded-full"
+							style="background-color: {bandColor};"
+						></span>
+					{/if}
+					{opt.label}
 				</button>
 			{/each}
 		</div>
@@ -202,7 +211,7 @@
 	<!-- Wage range -->
 	<div>
 		<span class="mb-1.5 block text-xs font-medium text-gray-500">
-			Wage Range: ${wageMin.toLocaleString()} – ${wageMax.toLocaleString()}
+			Wage Range: SGD {wageMin.toLocaleString()} – SGD {wageMax.toLocaleString()}
 		</span>
 		<div class="space-y-2">
 			<div class="flex items-center gap-2">

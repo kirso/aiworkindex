@@ -3,7 +3,7 @@
 	import { goto } from '$app/navigation';
 	import * as d3Scale from 'd3-scale';
 	import type { Occupation } from '$lib/data';
-	import { majorGroupByKey, categoryLabels } from '$lib/data';
+	import { majorGroupByKey } from '$lib/data';
 	import Tooltip from './Tooltip.svelte';
 
 	let { occupations }: { occupations: Occupation[] } = $props();
@@ -19,22 +19,10 @@
 	let tooltipY = $state(0);
 	let tooltipVisible = $state(false);
 
-	// Compute median values for crosshair
-	let medianAioe = $derived.by(() => {
-		const vals = occupations.map((o) => o.scores.aioe).sort((a, b) => a - b);
-		const mid = Math.floor(vals.length / 2);
-		return vals.length % 2 ? vals[mid] : (vals[mid - 1] + vals[mid]) / 2;
-	});
-
-	let medianTheta = $derived.by(() => {
-		const vals = occupations.map((o) => o.scores.theta).sort((a, b) => a - b);
-		const mid = Math.floor(vals.length / 2);
-		return vals.length % 2 ? vals[mid] : (vals[mid - 1] + vals[mid]) / 2;
-	});
-
 	let plotWidth = $derived(width - margin.left - margin.right);
 	let plotHeight = $derived(height - margin.top - margin.bottom);
 
+	// Exposure and bottleneck are already 0-1 percentile ranks
 	let xScale = $derived(d3Scale.scaleLinear().domain([0, 1]).range([0, plotWidth]));
 	let yScale = $derived(d3Scale.scaleLinear().domain([0, 1]).range([plotHeight, 0]));
 
@@ -43,6 +31,10 @@
 			.domain([0, Math.max(...occupations.map((o) => o.group_employment_thousands))])
 			.range([2.5, 7])
 	);
+
+	// Crosshair at the median (0.5 percentile)
+	const crosshairX = 0.5;
+	const crosshairY = 0.5;
 
 	// ResizeObserver
 	$effect(() => {
@@ -82,32 +74,32 @@
 
 	// Quadrant labels
 	const quadrantLabels = [
-		{ label: 'Unaffected', x: 0.15, y: 0.85 },
-		{ label: 'Stable', x: 0.15, y: 0.15 },
-		{ label: 'At Risk', x: 0.85, y: 0.85 },
-		{ label: 'AI Augmented', x: 0.85, y: 0.15 }
+		{ label: 'Resilient', x: 0.15, y: 0.85 },
+		{ label: 'Unaffected', x: 0.15, y: 0.15 },
+		{ label: 'AI Augmented', x: 0.85, y: 0.85 },
+		{ label: 'At Risk', x: 0.85, y: 0.15 }
 	];
 </script>
 
 <div bind:this={containerEl} class="relative w-full">
 	{#if browser}
-		<svg {width} {height} class="block" role="img" aria-label="Scatter plot of AI Exposure (AIOE) vs Complementarity (Theta) for {occupations.length} occupations, divided into four quadrants: AI Augmented, At Risk, Stable, and Unaffected">
+		<svg {width} {height} class="block" role="img" aria-label="Scatter plot of Exposure (percentile) vs Human Bottleneck (percentile) for {occupations.length} occupations, divided into four quadrants: AI Augmented, At Risk, Resilient, and Unaffected">
 			<g transform="translate({margin.left},{margin.top})">
 				<!-- Quadrant background fills -->
-				<rect x={0} y={0} width={xScale(medianAioe)} height={yScale(medianTheta)} fill="#f0fdf4" opacity="0.5" />
-				<rect x={xScale(medianAioe)} y={0} width={plotWidth - xScale(medianAioe)} height={yScale(medianTheta)} fill="#fef3c7" opacity="0.5" />
-				<rect x={0} y={yScale(medianTheta)} width={xScale(medianAioe)} height={plotHeight - yScale(medianTheta)} fill="#f0f9ff" opacity="0.5" />
-				<rect x={xScale(medianAioe)} y={yScale(medianTheta)} width={plotWidth - xScale(medianAioe)} height={plotHeight - yScale(medianTheta)} fill="#fef2f2" opacity="0.5" />
+				<rect x={0} y={0} width={xScale(crosshairX)} height={yScale(crosshairY)} fill="#f0fdf4" opacity="0.5" />
+				<rect x={xScale(crosshairX)} y={0} width={plotWidth - xScale(crosshairX)} height={yScale(crosshairY)} fill="#fef3c7" opacity="0.5" />
+				<rect x={0} y={yScale(crosshairY)} width={xScale(crosshairX)} height={plotHeight - yScale(crosshairY)} fill="#f0f9ff" opacity="0.5" />
+				<rect x={xScale(crosshairX)} y={yScale(crosshairY)} width={plotWidth - xScale(crosshairX)} height={plotHeight - yScale(crosshairY)} fill="#fef2f2" opacity="0.5" />
 
 				<!-- Crosshair lines -->
 				<line
-					x1={xScale(medianAioe)} y1={0}
-					x2={xScale(medianAioe)} y2={plotHeight}
+					x1={xScale(crosshairX)} y1={0}
+					x2={xScale(crosshairX)} y2={plotHeight}
 					stroke="#9ca3af" stroke-width="1" stroke-dasharray="4,3"
 				/>
 				<line
-					x1={0} y1={yScale(medianTheta)}
-					x2={plotWidth} y2={yScale(medianTheta)}
+					x1={0} y1={yScale(crosshairY)}
+					x2={plotWidth} y2={yScale(crosshairY)}
 					stroke="#9ca3af" stroke-width="1" stroke-dasharray="4,3"
 				/>
 
@@ -127,8 +119,8 @@
 				<!-- Dots -->
 				{#each occupations as occ (occ.ssoc)}
 					<circle
-						cx={xScale(occ.scores.aioe)}
-						cy={yScale(occ.scores.theta)}
+						cx={xScale(occ.exposure)}
+						cy={yScale(occ.bottleneck)}
 						r={sizeScale(occ.group_employment_thousands)}
 						fill={groupColor(occ.major_group)}
 						opacity="0.65"
@@ -160,7 +152,7 @@
 					text-anchor="middle"
 					class="fill-gray-600 text-xs font-medium"
 				>
-					AI Exposure (AIOE)
+					Exposure (percentile)
 				</text>
 
 				<!-- Y axis -->
@@ -182,7 +174,7 @@
 					transform="rotate(-90)"
 					class="fill-gray-600 text-xs font-medium"
 				>
-					Complementarity (Theta)
+					Human Bottleneck (percentile)
 				</text>
 			</g>
 		</svg>

@@ -5,7 +5,7 @@
 
 	let { occupations }: { occupations: Occupation[] } = $props();
 
-	// Group the provided occupations
+	// Group the provided occupations, sort within each group by net_risk descending
 	let grouped = $derived.by(() => {
 		const map = new Map<string, Occupation[]>();
 		for (const o of occupations) {
@@ -17,7 +17,7 @@
 			.filter((g) => map.has(g.key))
 			.map((g) => ({
 				group: g,
-				occupations: map.get(g.key)!.sort((a, b) => b.scores.c_aioe - a.scores.c_aioe)
+				occupations: map.get(g.key)!.sort((a, b) => b.net_risk - a.net_risk)
 			}));
 	});
 

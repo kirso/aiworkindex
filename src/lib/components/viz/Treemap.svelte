@@ -4,7 +4,7 @@
 	import * as d3Hierarchy from 'd3-hierarchy';
 	import * as d3Scale from 'd3-scale';
 	import type { Occupation } from '$lib/data';
-	import { majorGroups, majorGroupByKey, categoryLabels } from '$lib/data';
+	import { majorGroups, majorGroupByKey, riskBandLabels, riskBandColors } from '$lib/data';
 	import Tooltip from './Tooltip.svelte';
 
 	let { occupations }: { occupations: Occupation[] } = $props();
@@ -24,7 +24,7 @@
 		majorGroups.map((g) => [g.key, g.color])
 	);
 
-	// Opacity scale: c_aioe 0-1 -> opacity 0.3-1.0
+	// Opacity scale: net_risk 0-1 -> opacity 0.35-1.0
 	const opacityScale = d3Scale.scaleLinear().domain([0, 1]).range([0.35, 1.0]).clamp(true);
 
 	// Build hierarchy data structure
@@ -85,7 +85,9 @@
 			for (const entry of entries) {
 				const rect = entry.contentRect;
 				width = rect.width;
-				height = Math.max(400, Math.min(rect.width * 0.65, 700));
+				// Fill most of viewport: at least 500px, up to 85vh, aspect ratio ~1.6:1
+				const viewportH = typeof window !== 'undefined' ? window.innerHeight : 800;
+				height = Math.max(500, Math.min(rect.width * 0.7, viewportH * 0.75, 900));
 			}
 		});
 
@@ -137,7 +139,7 @@
 
 <div bind:this={containerEl} class="relative w-full">
 	{#if browser}
-		<svg {width} {height} class="block" role="img" aria-label="Treemap visualization of {occupations.length} Singapore occupations grouped by major occupation group, sized by wage and colored by AI exposure risk">
+		<svg {width} {height} class="block" role="img" aria-label="Treemap visualization of {occupations.length} Singapore occupations grouped by major occupation group, sized by wage and shaded by net AI displacement risk">
 			<!-- Group background rects -->
 			{#each groupNodes as group (group.data.name)}
 				{@const gw = cellWidth(group)}
@@ -174,12 +176,12 @@
 					width={lw}
 					height={lh}
 					fill={colorByGroup.get(occ.major_group) ?? '#ccc'}
-					opacity={opacityScale(occ.scores.c_aioe)}
+					opacity={opacityScale(occ.net_risk)}
 					rx="1"
 					class="cursor-pointer transition-opacity duration-150 hover:opacity-100"
 					role="button"
 					tabindex="0"
-					aria-label="{occ.title}: C-AIOE {occ.scores.c_aioe.toFixed(2)}, {categoryLabels[occ.scores.category]}, median wage ${occ.gross_wage_median.toLocaleString()}"
+					aria-label="{occ.title}: Net Risk {(occ.net_risk * 100).toFixed(0)}%, {riskBandLabels[occ.risk_band]}, median wage SGD {occ.gross_wage_median.toLocaleString()}"
 					onmousemove={(e) => handleMouseMove(e, occ)}
 					onmouseleave={handleMouseLeave}
 					onclick={() => handleClick(occ)}
@@ -187,7 +189,7 @@
 						if (e.key === 'Enter') handleClick(occ);
 					}}
 				>
-					<title>{occ.title} — C-AIOE: {occ.scores.c_aioe.toFixed(2)} ({categoryLabels[occ.scores.category]})</title>
+					<title>{occ.title} — Net Risk: {(occ.net_risk * 100).toFixed(0)}% ({riskBandLabels[occ.risk_band]})</title>
 				</rect>
 
 				{#if shouldShowLabel(leaf)}

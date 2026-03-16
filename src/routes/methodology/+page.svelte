@@ -6,11 +6,11 @@
 	<meta property="og:url" content="https://sg-ai-jobs.vercel.app/methodology" />
 </svelte:head>
 
-<main class="mx-auto max-w-3xl px-4 py-8 sm:px-6 lg:px-8">
-	<nav class="mb-6 text-sm text-gray-500">
-		<a href="/" class="hover:text-gray-700">Home</a>
+<main class="mx-auto max-w-3xl px-4 py-8 sm:px-6">
+	<nav class="mb-4 text-sm text-gray-400">
+		<a href="/" class="hover:text-gray-600">Explorer</a>
 		<span class="mx-1">/</span>
-		<span class="text-gray-900">Methodology</span>
+		<span class="text-gray-700">Methodology</span>
 	</nav>
 
 	<h1 class="text-2xl font-bold text-gray-900 sm:text-3xl">Methodology</h1>
