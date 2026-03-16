@@ -248,6 +248,47 @@
 					The 0.35 cap means the market layer can reduce net risk by up to 35%.
 				</p>
 			</div>
+
+			<div class="rounded-lg border border-gray-200 bg-white p-5">
+				<h3 class="font-semibold text-gray-900">Singapore Demand Signals (occupation-level bonuses)</h3>
+				<p class="mt-1 text-sm text-gray-600">
+					Two MOM data sources provide occupation-level demand flags that boost market resilience:
+				</p>
+				<ul class="mt-2 list-inside list-disc space-y-1 text-sm text-gray-600">
+					<li>
+						<strong>Shortage Occupation List (SOL) 2026</strong>: EP/COMPASS shortage list (released Nov 2025, effective Jan 2026).
+						36 occupations across semiconductors, healthcare, ICT, green economy, maritime, agritech, financial services.
+						Matched to 62 SSOC codes. <strong>+15% market resilience bonus.</strong>
+					</li>
+					<li>
+						<strong>Jobs in Demand 2025</strong>: Broader resident demand list (released Dec 30, 2025).
+						Covers PMET and non-PMET roles: software developers, nurses, waiters, drivers, security officers, auditors.
+						Matched to 29 SSOC codes. <strong>+10% market resilience bonus.</strong>
+					</li>
+				</ul>
+				<p class="mt-2 text-sm text-gray-500 italic">
+					Where both signals match (e.g., software developer appears on both SOL and Jobs in Demand), bonuses stack (capped at 1.0).
+					SOL is EP/COMPASS-focused (PMET bias); Jobs in Demand offsets this by covering non-PMET roles.
+				</p>
+			</div>
+
+			<div class="rounded-lg border border-gray-200 bg-white p-5">
+				<h3 class="font-semibold text-gray-900">Anthropic Economic Index (exposure calibration)</h3>
+				<p class="mt-1 text-sm text-gray-600">
+					Observed AI usage rates from Claude conversations (HuggingFace dataset, Jan 2026 report).
+					Calibrates the theoretical AIOE exposure by up to &plusmn;30% based on the gap between
+					theoretical and observed AI usage per occupation.
+				</p>
+				<p class="mt-2 text-sm text-gray-600">
+					Applied to 525 of 562 occupations via SOC code crosswalk. Key finding: some occupations
+					(data entry, customer service) show higher observed usage than AIOE predicts, while others
+					(teachers, software developers) show lower observed usage.
+				</p>
+				<p class="mt-2 text-sm text-gray-500 italic">
+					Used as calibration, not replacement. Anthropic measures Claude usage specifically,
+					not universal AI adoption.
+				</p>
+			</div>
 		</div>
 	</section>
 
@@ -547,6 +588,14 @@
 			<li>
 				<p class="font-medium text-gray-800">Ministry of Manpower, Singapore (2025)</p>
 				<p>"Job Vacancies 2024." Released March 28, 2025.</p>
+			</li>
+			<li>
+				<p class="font-medium text-gray-800">Ministry of Manpower, Singapore (2025)</p>
+				<p>COMPASS Shortage Occupation List (SOL). Released November 2025, effective January 1, 2026.</p>
+			</li>
+			<li>
+				<p class="font-medium text-gray-800">Anthropic (2026)</p>
+				<p>"The Anthropic Economic Index: Economic Primitives." January 15, 2026. Dataset on HuggingFace.</p>
 			</li>
 		</ul>
 	</section>
