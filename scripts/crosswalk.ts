@@ -140,17 +140,18 @@ export const ISCO_TO_SOC: Record<string, string[]> = {
   "2434": ["41-3031"], // ICT sales professionals
   "2435": ["41-3031", "13-1199"], // Commodities traders, ship charterers
   "2436": ["41-3031", "13-1199"], // Ship brokers, trade brokers
-  "2511": ["15-1211", "15-1212"], // Systems analysts
-  "2512": ["15-1252", "15-1254"], // Software developers
-  "2513": ["15-1251", "15-1253"], // Web and multimedia developers
-  "2514": ["15-1221"], // Applications programmers → Computer and Info Research Scientists
-  "2515": ["15-1212", "15-1299"], // ICT auditors, QA specialists
-  "2519": ["15-1299"], // Software and applications developers nec
-  "2521": ["15-1241", "15-1244"], // Database designers and administrators
-  "2522": ["15-1231", "15-1232"], // Systems administrators
-  "2523": ["15-1231"], // Computer network professionals
-  "2524": ["15-1212", "15-1299"], // Cybersecurity specialists
-  "2529": ["15-1299"], // Database and network professionals nec
+  // SOC 2010 codes (matching Felten AIOE dataset)
+  "2511": ["15-1121"], // Systems analysts → Computer Systems Analysts
+  "2512": ["15-1132", "15-1133"], // Software developers → SW Dev Applications + Systems Software
+  "2513": ["15-1134", "15-1131"], // Web and multimedia developers → Web Developers + Computer Programmers
+  "2514": ["15-1131", "15-1111"], // Applications programmers → Computer Programmers + Computer/Info Research Scientists
+  "2515": ["15-1122", "15-1199"], // ICT auditors, QA → Info Security Analysts + Computer Occupations Other
+  "2519": ["15-1132", "15-1199"], // SW and app developers nec → SW Dev Applications + Other
+  "2521": ["15-1141"], // Database designers and administrators → Database Administrators
+  "2522": ["15-1142"], // Systems administrators → Network and Computer Systems Administrators
+  "2523": ["15-1143"], // Computer network professionals → Computer Network Architects
+  "2524": ["15-1122", "15-1199"], // Cybersecurity specialists → Info Security Analysts + Other
+  "2529": ["15-1199"], // Database and network professionals nec → Computer Occupations Other
   "2611": ["23-1011", "23-1021"], // Lawyers
   "2612": ["23-1021", "23-1023"], // Judges
   "2619": ["23-2011", "23-2093"], // Legal professionals nec

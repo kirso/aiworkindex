@@ -352,9 +352,10 @@ function loadMomSol(): { exactCodes: Set<string>; prefixes: Set<string> } {
   return { exactCodes, prefixes };
 }
 
-function isSolMatch(ssoc: string, sol: { exactCodes: Set<string>; prefixes: Set<string> }): boolean {
-  if (sol.exactCodes.has(ssoc)) return true;
-  return sol.prefixes.has(ssoc.substring(0, 4));
+function isSolMatch(ssoc: string, sol: { exactCodes: Set<string>; prefixes: Set<string> }): "exact" | "prefix" | false {
+  if (sol.exactCodes.has(ssoc)) return "exact";
+  if (sol.prefixes.has(ssoc.substring(0, 4))) return "prefix";
+  return false;
 }
 
 // ===== Step 3e: Load MOM Jobs in Demand 2025 =====
@@ -381,9 +382,10 @@ function loadJobsInDemand(): { exactCodes: Set<string>; prefixes: Set<string> } 
   return { exactCodes, prefixes };
 }
 
-function isDemandMatch(ssoc: string, demand: { exactCodes: Set<string>; prefixes: Set<string> }): boolean {
-  if (demand.exactCodes.has(ssoc)) return true;
-  return demand.prefixes.has(ssoc.substring(0, 4));
+function isDemandMatch(ssoc: string, demand: { exactCodes: Set<string>; prefixes: Set<string> }): "exact" | "prefix" | false {
+  if (demand.exactCodes.has(ssoc)) return "exact";
+  if (demand.prefixes.has(ssoc.substring(0, 4))) return "prefix";
+  return false;
 }
 
 // ===== Step 3d: Compute crosswalk dispersion for SOC code groups =====
@@ -753,10 +755,15 @@ function riskBand(netRisk: number): RiskBand {
 // Impact type from displacement × augmentation 2×2 matrix
 function impactType(
   displacement: number,
-  augmentation: number
+  augmentation: number,
+  hasDemandSignal: boolean = false
 ): "at_risk" | "ai_leveraged" | "stable" | "mixed" {
   const highDisplacement = displacement >= 0.25;
-  const highAugmentation = augmentation >= 0.15;
+  const highAugmentation = augmentation >= 0.12; // Lowered from 0.15 — was cutting off ICT roles at 0.145
+
+  // Signal conflict: high displacement BUT demand signal (SOL/JiD) → "mixed" not "at_risk"
+  // This captures roles like software developer: high exposure, moderate bottleneck, but strong demand
+  if (highDisplacement && hasDemandSignal && !highAugmentation) return "mixed";
 
   if (highDisplacement && !highAugmentation) return "at_risk";
   if (highDisplacement && highAugmentation) return "mixed";
@@ -858,8 +865,8 @@ function scoreOccupations(
     majorGroupCode: number;
     anthropicMatch: boolean;
     anthropicObservedExposure: number | null;
-    solMatch: boolean;
-    demandMatch: boolean;
+    solMatch: "exact" | "prefix" | false;
+    demandMatch: "exact" | "prefix" | false;
     aioeDispersion: number;
     thetaDispersion: number;
   }
@@ -1136,16 +1143,22 @@ function scoreOccupations(
     let marketResilience = 0.6 * mm + 0.4 * os;
 
     // === 4b: MOM demand signals ===
-    // SOL 2026 (EP/COMPASS shortage): 15% boost to market_resilience
-    // Jobs in Demand 2025 (broader resident demand): 10% boost
-    // If both match, bonuses stack (capped at 1.0)
+    // Exact match = full bonus; prefix match = half bonus (inferred, not confirmed)
+    // SOL 2026: exact +15%, prefix +8%
+    // Jobs in Demand 2025: exact +10%, prefix +5%
     let marketResilienceAdjusted = marketResilience;
-    if (r.solMatch) {
+    if (r.solMatch === "exact") {
       marketResilienceAdjusted = Math.min(1.0, marketResilienceAdjusted + 0.15);
       solMatchCount++;
+    } else if (r.solMatch === "prefix") {
+      marketResilienceAdjusted = Math.min(1.0, marketResilienceAdjusted + 0.08);
+      solMatchCount++;
     }
-    if (r.demandMatch) {
+    if (r.demandMatch === "exact") {
       marketResilienceAdjusted = Math.min(1.0, marketResilienceAdjusted + 0.10);
+      demandMatchCount++;
+    } else if (r.demandMatch === "prefix") {
+      marketResilienceAdjusted = Math.min(1.0, marketResilienceAdjusted + 0.05);
       demandMatchCount++;
     }
     const marketModifier = 1 - 0.35 * marketResilienceAdjusted;
@@ -1166,7 +1179,10 @@ function scoreOccupations(
     }
 
     // === 4d: Variable confidence factors ===
-    const marketDataGranularity = (r.solMatch || r.demandMatch) ? 0.8 : 0.6;
+    // Exact demand match = 0.9, prefix = 0.7, none = 0.5
+    const hasExactDemand = r.solMatch === "exact" || r.demandMatch === "exact";
+    const hasPrefixDemand = r.solMatch === "prefix" || r.demandMatch === "prefix";
+    const marketDataGranularity = hasExactDemand ? 0.9 : hasPrefixDemand ? 0.7 : 0.4;
     const sourceFreshness = r.anthropicMatch ? 0.9 : 0.7;
 
     const confidenceScore = (crosswalkQuality + marketDataGranularity + sourceFreshness) / 3;
@@ -1195,7 +1211,7 @@ function scoreOccupations(
       risk_band: band,
       augmentation: round(exposure * bottleneck * marketResilienceAdjusted, 4),
       augmentation_band: riskBand(exposure * bottleneck * marketResilienceAdjusted),
-      impact_type: impactType(netRisk, exposure * bottleneck * marketResilienceAdjusted),
+      impact_type: impactType(netRisk, exposure * bottleneck * marketResilienceAdjusted, r.solMatch || r.demandMatch),
       confidence: {
         score: round(confidenceScore, 4),
         level: confidenceLevel,
@@ -1217,7 +1233,7 @@ function scoreOccupations(
         aioe: round(r.avgAioe, 4),
         theta: round(r.avgTheta, 4),
         c_aioe: round(cAioe, 4),
-        category: impactTypeToCategory(impactType(netRisk, exposure * bottleneck * marketResilienceAdjusted)),
+        category: impactTypeToCategory(impactType(netRisk, exposure * bottleneck * marketResilienceAdjusted, r.solMatch || r.demandMatch)),
         isco_codes_matched: r.iscoMatched,
         match_quality: r.matchQuality,
       },
