@@ -212,8 +212,12 @@
 	<meta property="og:title" content="{occ.title} — AI Displacement Risk | SG AI Occupation Index" />
 	<meta property="og:description" content="Net risk: {(occ.net_risk * 100).toFixed(0)}% ({riskBandLabels[occ.risk_band]}). Median wage SGD {occ.gross_wage_median.toLocaleString()}." />
 	<meta property="og:url" content="https://sg-ai-jobs.vercel.app/occupation/{occ.ssoc}" />
+	<meta property="og:image" content="https://sg-ai-jobs.vercel.app/og/{occ.ssoc}.png" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
 	<meta name="twitter:title" content="{occ.title} — AI Displacement Risk" />
 	<meta name="twitter:description" content="Net risk: {(occ.net_risk * 100).toFixed(0)}% ({riskBandLabels[occ.risk_band]})" />
+	<meta name="twitter:image" content="https://sg-ai-jobs.vercel.app/og/{occ.ssoc}.png" />
 	{@html `<script type="application/ld+json">${JSON.stringify({
 		"@context": "https://schema.org",
 		"@type": "Occupation",
