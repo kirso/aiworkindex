@@ -6,9 +6,10 @@
 
 	let { occupations }: { occupations: Occupation[] } = $props();
 
-	let totalWorkers = $derived(
-		occupations.reduce((sum, o) => sum + o.employment_thousands * 1000, 0)
-	);
+	// Official MOM total workforce figure (thousands)
+	const OFFICIAL_TOTAL_WORKERS_K = 2376.4;
+
+	let totalWorkers = $derived(OFFICIAL_TOTAL_WORKERS_K * 1000);
 
 	const bandOrder: RiskBand[] = ['very_low', 'low', 'moderate', 'high', 'very_high'];
 	const impactOrder: ImpactType[] = ['at_risk', 'ai_leveraged', 'stable', 'mixed'];
@@ -46,7 +47,7 @@
 <div class="space-y-3">
 	<div class="flex flex-wrap items-center gap-x-6 gap-y-2 rounded-xl bg-gray-50 px-4 py-3 text-sm">
 		<div>
-			<span class="text-gray-500">Total Workers:</span>
+			<span class="text-gray-500">SG Workforce (MOM):</span>
 			<span class="ml-1 font-semibold text-gray-900 tabular-nums">
 				{tweenedWorkers.current.toFixed(0)}K
 			</span>
@@ -64,7 +65,7 @@
 				></span>
 				<span class="text-gray-600">{riskBandLabels[band]}:</span>
 				<span class="font-semibold text-gray-900">{bandCounts[band] ?? 0}</span>
-				<span class="text-gray-400">({pct(band)}%)</span>
+				<span class="text-gray-400">({pct(band)}% of occupations)</span>
 			</div>
 		{/each}
 	</div>

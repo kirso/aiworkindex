@@ -113,7 +113,7 @@
 			name: zoomedGroup,
 			children: occs.map((o) => ({
 				name: o.title,
-				value: Math.max(o.employment_thousands, 0.1),
+				value: Math.max(o.gross_wage_median, 1),
 				occupation: o
 			}))
 		};
@@ -287,7 +287,7 @@
 		{:else}
 			<!-- ZOOMED: Occupations within the selected group -->
 			<div in:fade={{ duration: fadeDuration }}>
-			<svg {width} {height} class="block" role="img" aria-label="Treemap showing occupations in {groupLabel(zoomedGroup)}, sized by employment and shaded by net AI displacement risk">
+			<svg {width} {height} class="block" role="img" aria-label="Treemap showing occupations in {groupLabel(zoomedGroup)}, sized by median wage and shaded by net AI displacement risk">
 				{#each zoomedLeaves as leaf (leaf.data.occupation?.ssoc ?? leaf.data.name)}
 					{@const occ = leaf.data.occupation as Occupation}
 					{@const lw = cellWidth(leaf)}

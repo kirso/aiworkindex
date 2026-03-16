@@ -7,16 +7,15 @@
 	const bandOrder: RiskBand[] = ['very_low', 'low', 'moderate', 'high', 'very_high'];
 	const impactOrder: ImpactType[] = ['at_risk', 'ai_leveraged', 'stable', 'mixed'];
 
-	let totalWorkers = $derived(
-		occupations.reduce((sum, o) => sum + o.employment_thousands * 1000, 0)
-	);
+	// Official MOM total workforce figure (thousands)
+	const OFFICIAL_TOTAL_WORKERS_K = 2376.4;
 
-	let weightedExposure = $derived.by(() => {
-		if (totalWorkers === 0) return 0;
-		const weighted = occupations.reduce(
-			(sum, o) => sum + o.exposure * o.employment_thousands * 1000, 0
-		);
-		return weighted / totalWorkers;
+	let totalWorkers = $derived(OFFICIAL_TOTAL_WORKERS_K * 1000);
+
+	let avgExposure = $derived.by(() => {
+		if (occupations.length === 0) return 0;
+		const sum = occupations.reduce((s, o) => s + o.exposure, 0);
+		return sum / occupations.length;
 	});
 
 	let bandCounts = $derived.by(() => {
@@ -43,11 +42,9 @@
 		Math.max(...impactOrder.map((t) => impactCounts[t] ?? 0), 1)
 	);
 
-	let wagesAtRisk = $derived.by(() => {
-		return occupations
-			.filter((o) => o.risk_band === 'high' || o.risk_band === 'very_high')
-			.reduce((sum, o) => sum + o.gross_wage_median * o.employment_thousands, 0);
-	});
+	let highRiskCount = $derived(
+		occupations.filter((o) => o.risk_band === 'high' || o.risk_band === 'very_high').length
+	);
 
 	let topHighRisk = $derived(
 		[...occupations]
@@ -88,11 +85,11 @@
 			</div>
 			<div class="rounded-lg bg-gray-50 px-3 py-2">
 				<p class="text-[10px] font-medium text-gray-400">Avg Exposure</p>
-				<p class="text-lg font-bold tabular-nums text-gray-900">{(weightedExposure * 100).toFixed(0)}%</p>
+				<p class="text-lg font-bold tabular-nums text-gray-900">{(avgExposure * 100).toFixed(0)}%</p>
 			</div>
 			<div class="rounded-lg bg-gray-50 px-3 py-2">
-				<p class="text-[10px] font-medium text-gray-400">Wages at Risk</p>
-				<p class="text-lg font-bold tabular-nums text-rose-600">{formatWages(wagesAtRisk)}</p>
+				<p class="text-[10px] font-medium text-gray-400">High/Very High Risk</p>
+				<p class="text-lg font-bold tabular-nums text-rose-600">{highRiskCount} occupations</p>
 			</div>
 		</div>
 	</div>

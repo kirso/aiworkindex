@@ -12,6 +12,9 @@ node_modules
 .DS_Store
 Thumbs.db
 
+# Generated OG images (build artifact, ~45MB)
+static/og/*.png
+
 # Env
 .env
 .env.*

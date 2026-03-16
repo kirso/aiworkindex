@@ -51,7 +51,7 @@
 				How will AI affect your job?
 			</h1>
 			<p class="mt-1 text-sm text-gray-500">
-				562 Singapore occupations. Peer-reviewed indices, not LLM vibes.
+				Search 562 Singapore occupations. See how AI affects your role.
 			</p>
 			<div class="mt-4">
 				<HeroSearch occupations={data.occupations} />

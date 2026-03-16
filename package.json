@@ -13,6 +13,7 @@
 	},
 	"devDependencies": {
 		"@internationalized/date": "^3.10.0",
+		"@resvg/resvg-js": "^2.6.2",
 		"@sveltejs/adapter-auto": "^7.0.0",
 		"@sveltejs/kit": "^2.50.2",
 		"@sveltejs/vite-plugin-svelte": "^6.2.4",
@@ -24,6 +25,7 @@
 		"@types/d3-scale-chromatic": "^3.1.0",
 		"@types/d3-shape": "^3.1.8",
 		"bits-ui": "^2.14.4",
+		"satori": "^0.25.0",
 		"svelte": "^5.51.0",
 		"svelte-check": "^4.4.2",
 		"tailwind-variants": "^3.2.2",

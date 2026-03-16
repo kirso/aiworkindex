@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Occupation, ImpactType } from '$lib/data';
-	import { riskBandLabels, riskBandColors, impactTypeLabels, impactTypeColors } from '$lib/data';
+	import { riskBandLabels, riskBandColors, impactTypeLabels, impactTypeColors, majorGroupByKey } from '$lib/data';
 
 	let {
 		occupation = null,
@@ -21,10 +21,13 @@
 		mixed: 'Moderate signals across dimensions — outcome depends on adoption patterns.'
 	};
 
-	function formatEmployment(thousands: number): string {
-		const total = thousands * 1000;
-		if (total >= 1000) return (total / 1000).toFixed(1) + 'K';
-		return Math.round(total).toString();
+	function formatGroupEmployment(thousands: number): string {
+		if (thousands >= 1) return thousands.toFixed(1) + 'K';
+		return Math.round(thousands * 1000).toString();
+	}
+
+	function groupLabel(key: string): string {
+		return majorGroupByKey.get(key)?.label ?? key;
 	}
 
 	function scoreBarWidth(value: number): string {
@@ -68,8 +71,9 @@
 				<p class="text-sm font-bold tabular-nums text-gray-900">SGD {occupation.gross_wage_median.toLocaleString()}</p>
 			</div>
 			<div>
-				<p class="text-[10px] font-medium text-gray-400">Jobs</p>
-				<p class="text-sm font-bold tabular-nums text-gray-900">~{formatEmployment(occupation.employment_thousands)}</p>
+				<p class="text-[10px] font-medium text-gray-400">Group</p>
+				<p class="text-xs font-bold text-gray-900">{groupLabel(occupation.major_group)}</p>
+				<p class="text-[10px] tabular-nums text-gray-500">{formatGroupEmployment(occupation.group_employment_thousands)} workers</p>
 			</div>
 		</div>
 
