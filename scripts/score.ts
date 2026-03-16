@@ -1,9 +1,15 @@
 #!/usr/bin/env bun
 /**
- * score.ts — Main scoring pipeline for Singapore AI Job Exposure Map.
+ * score.ts — V3 scoring pipeline for Singapore AI Job Exposure Map.
  *
- * Computes Felten AIOE, Pizzinelli theta, and combined C-AIOE for each
- * of 562 Singapore SSOC occupations using peer-reviewed academic indices.
+ * Computes Felten AIOE, Pizzinelli theta, market resilience layer,
+ * and net displacement risk for each of 562 Singapore SSOC occupations.
+ *
+ * V3 formula:
+ *   exposure     = pctile(aioe)
+ *   bottleneck   = pctile(theta)
+ *   market_modifier = 1 - 0.35 * market_resilience
+ *   net_risk     = exposure * (1 - bottleneck) * market_modifier
  *
  * Run: bun run scripts/score.ts
  */
@@ -50,6 +56,31 @@ interface SgOccupation {
   group_median_income: number | null;
 }
 
+interface MarketScores {
+  market_momentum: number;
+  occupation_scarcity: number;
+  market_resilience: number;
+  market_modifier: number;
+}
+
+interface ConfidenceScores {
+  score: number;
+  level: "high" | "medium" | "low";
+  crosswalk_quality: number;
+  market_data_granularity: number;
+  source_freshness: number;
+}
+
+interface RawScores {
+  aioe: number;
+  theta: number;
+  c_aioe: number;
+  log_wage_spread: number | null;
+  wage_position: number | null;
+}
+
+type RiskBand = "very_low" | "low" | "moderate" | "high" | "very_high";
+
 interface ScoredOccupation {
   ssoc: string;
   title: string;
@@ -60,6 +91,16 @@ interface ScoredOccupation {
   gross_wage_75th: number | null;
   employment_thousands: number | null;
   group_employment_thousands: number | null;
+  exposure: number;
+  bottleneck: number;
+  market: MarketScores;
+  net_risk: number;
+  risk_band: RiskBand;
+  confidence: ConfidenceScores;
+  raw: RawScores;
+  isco_codes_matched: string[];
+  match_quality: "direct" | "submajor_fallback" | "major_fallback";
+  // Backward-compat: keep scores object for frontend
   scores: {
     aioe: number;
     theta: number;
@@ -82,6 +123,33 @@ const MAJOR_GROUP_CODES: Record<string, number> = {
   "CLEANERS, LABOURERS AND RELATED WORKERS": 9,
   // Alternative names that might appear
   "SKILLED AGRICULTURAL AND FISHERY WORKERS": 6,
+  "AGRICULTURAL AND FISHERY WORKERS": 6,
+};
+
+// ===== Mapping from major_group to employment CSV row names =====
+const MAJOR_GROUP_TO_EMPL_CSV: Record<string, string> = {
+  MANAGERS: "Managers & Administrators (Including Working Proprietors)",
+  PROFESSIONALS: "Professionals",
+  "ASSOCIATE PROFESSIONALS AND TECHNICIANS": "Associate Professionals & Technicians",
+  "CLERICAL SUPPORT WORKERS": "Clerical Support Workers",
+  "SERVICE AND SALES WORKERS": "Service & Sales Workers",
+  "CRAFTSMEN AND RELATED TRADES WORKERS": "Craftsmen & Related Trade Workers",
+  "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": "Plant & Machine Operators & Assemblers",
+  "CLEANERS, LABOURERS AND RELATED WORKERS": "Cleaners, Labourers & Related Workers",
+  "AGRICULTURAL AND FISHERY WORKERS": "Others",
+};
+
+// ===== Mapping from major_group to income CSV row name prefix =====
+const MAJOR_GROUP_TO_INCOME_CSV: Record<string, string> = {
+  MANAGERS: "Managers & Administrators (Including Working Proprietors)",
+  PROFESSIONALS: "Professionals",
+  "ASSOCIATE PROFESSIONALS AND TECHNICIANS": "Associate Professionals & Technicians",
+  "CLERICAL SUPPORT WORKERS": "Clerical Support Workers",
+  "SERVICE AND SALES WORKERS": "Service & Sales Workers",
+  "CRAFTSMEN AND RELATED TRADES WORKERS": "Craftsmen & Related Trades Workers",
+  "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": "Plant & Machine Operators & Assemblers",
+  "CLEANERS, LABOURERS AND RELATED WORKERS": "Cleaners, Labourers & Related Workers",
+  "AGRICULTURAL AND FISHERY WORKERS": "Cleaners, Labourers & Related Workers",
 };
 
 // ===== Pizzinelli Theta Variables =====
@@ -143,7 +211,7 @@ function loadWorkContext(): Map<string, Map<string, number>> {
   const content = fs.readFileSync(filePath, "utf-8");
   const lines = content.split("\n");
 
-  // Map: SOC code → element ID → value
+  // Map: SOC code -> element ID -> value
   const wcMap = new Map<string, Map<string, number>>();
 
   // Parse tab-delimited, filter to CX scale only (context mean)
@@ -157,7 +225,7 @@ function loadWorkContext(): Map<string, Map<string, number>> {
     const dataValue = parseFloat(dataValueStr);
     if (isNaN(dataValue)) continue;
 
-    // Normalize SOC code: "11-1011.00" → "11-1011"
+    // Normalize SOC code: "11-1011.00" -> "11-1011"
     const soc = socFull.split(".")[0];
 
     if (!wcMap.has(soc)) {
@@ -264,7 +332,7 @@ function computeTheta(
       dimensionMeans.push(structured / 5);
     }
 
-    // Skills: Job Zone (1-5) → scale to 0-1
+    // Skills: Job Zone (1-5) -> scale to 0-1
     if (jz !== undefined) {
       dimensionMeans.push(jz / 5);
     }
@@ -305,13 +373,287 @@ function loadSgOccupations(): SgOccupation[] {
   return data;
 }
 
-// ===== Step 6: Score all occupations =====
+// ===== Percentile Rank =====
+// For each value in `values`, compute its rank / N (0 = lowest, 1 = highest)
+// Uses average rank for ties.
+function percentileRanks(values: number[]): number[] {
+  const n = values.length;
+  if (n === 0) return [];
+  if (n === 1) return [0.5]; // single value gets 0.5
+
+  // Create indexed pairs, sort by value
+  const indexed = values.map((v, i) => ({ v, i }));
+  indexed.sort((a, b) => a.v - b.v);
+
+  const ranks = new Array<number>(n);
+
+  // Assign average ranks for ties
+  let i = 0;
+  while (i < n) {
+    let j = i;
+    while (j < n && indexed[j].v === indexed[i].v) j++;
+    // Positions i..j-1 are tied; average rank = mean of (i..j-1) / (n-1)
+    const avgRank = (i + j - 1) / 2;
+    for (let k = i; k < j; k++) {
+      ranks[indexed[k].i] = n > 1 ? avgRank / (n - 1) : 0.5;
+    }
+    i = j;
+  }
+  return ranks;
+}
+
+// ===== Winsorize =====
+function winsorize(values: number[], lowerPctile: number, upperPctile: number): number[] {
+  const sorted = [...values].sort((a, b) => a - b);
+  const n = sorted.length;
+  const lowerIdx = Math.floor(n * lowerPctile);
+  const upperIdx = Math.min(Math.floor(n * upperPctile), n - 1);
+  const lowerBound = sorted[lowerIdx];
+  const upperBound = sorted[upperIdx];
+  return values.map(v => Math.max(lowerBound, Math.min(upperBound, v)));
+}
+
+// ===== Step 6: Load Market Data =====
+interface GroupMarketData {
+  employment_2015: number;
+  employment_2025: number;
+  employment_cagr: number;
+  wage_2015: number; // average of male+female median
+  wage_2023: number;
+  wage_cagr: number;
+}
+
+function parseCSVValue(val: string): number | null {
+  if (!val) return null;
+  const cleaned = val.trim().replace(/"/g, "").replace(/,/g, "");
+  if (cleaned === "na" || cleaned === "-" || cleaned === "") return null;
+  const n = parseFloat(cleaned);
+  return isNaN(n) ? null : n;
+}
+
+function parseCSVRow(line: string): string[] {
+  const result: string[] = [];
+  let current = "";
+  let inQuotes = false;
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (ch === '"') {
+      inQuotes = !inQuotes;
+    } else if (ch === ',' && !inQuotes) {
+      result.push(current);
+      current = "";
+    } else {
+      current += ch;
+    }
+  }
+  result.push(current);
+  return result;
+}
+
+function loadEmploymentData(): Map<string, { e2015: number; e2025: number }> {
+  console.log("Loading employment by occupation data...");
+  const filePath = path.join(RAW_DIR, "employment_by_occupation.csv");
+  const content = fs.readFileSync(filePath, "utf-8");
+  const lines = content.split("\n").filter(l => l.trim());
+
+  // Parse header to find year column indices
+  const headerFields = parseCSVRow(lines[0]);
+  const yearIdx2025 = headerFields.indexOf("2025");
+  const yearIdx2015 = headerFields.indexOf("2015");
+
+  if (yearIdx2025 < 0 || yearIdx2015 < 0) {
+    throw new Error("Cannot find 2025 or 2015 columns in employment CSV");
+  }
+
+  // We only want the top-level rows (Total Employed Residents section, lines 2-10 roughly)
+  // These are the indented rows directly under the "All Occupation Groups" row
+  const result = new Map<string, { e2015: number; e2025: number }>();
+
+  // The top-level group rows are lines 3-10 (0-indexed: 2-9)
+  // They have 4-space indent and are under "All Occupation Groups"
+  for (let i = 2; i <= 10 && i < lines.length; i++) {
+    const fields = parseCSVRow(lines[i]);
+    const name = fields[0].trim();
+    if (!name || name.startsWith("All ") || name.startsWith("Employed Residents")) continue;
+
+    const e2025 = parseCSVValue(fields[yearIdx2025]);
+    const e2015 = parseCSVValue(fields[yearIdx2015]);
+
+    if (e2025 !== null && e2015 !== null) {
+      result.set(name, { e2015, e2025 });
+    }
+  }
+
+  console.log(`  Loaded employment data for ${result.size} groups`);
+  for (const [name, data] of result) {
+    console.log(`    ${name}: 2015=${data.e2015}, 2025=${data.e2025}`);
+  }
+  return result;
+}
+
+function loadIncomeData(): Map<string, { w2015: number; w2023: number }> {
+  console.log("Loading median income by occupation data...");
+  const filePath = path.join(RAW_DIR, "median_income_by_occupation.csv");
+  const content = fs.readFileSync(filePath, "utf-8");
+  const lines = content.split("\n").filter(l => l.trim());
+
+  const headerFields = parseCSVRow(lines[0]);
+  const yearIdx2023 = headerFields.indexOf("2023");
+  const yearIdx2015 = headerFields.indexOf("2015");
+
+  if (yearIdx2023 < 0 || yearIdx2015 < 0) {
+    throw new Error("Cannot find 2023 or 2015 columns in income CSV");
+  }
+
+  // Income CSV has Male and Female rows for each group; average them
+  const maleData = new Map<string, { w2015: number; w2023: number }>();
+  const femaleData = new Map<string, { w2015: number; w2023: number }>();
+
+  for (let i = 1; i < lines.length; i++) {
+    const fields = parseCSVRow(lines[i]);
+    const rawName = fields[0].trim();
+
+    const w2023 = parseCSVValue(fields[yearIdx2023]);
+    const w2015 = parseCSVValue(fields[yearIdx2015]);
+
+    if (w2023 === null || w2015 === null) continue;
+
+    // Parse group name and gender
+    const isMale = rawName.endsWith("- Male");
+    const isFemale = rawName.endsWith("- Female");
+    const groupName = rawName.replace(/ - (Male|Female)$/, "").trim();
+
+    if (isMale) {
+      maleData.set(groupName, { w2015, w2023 });
+    } else if (isFemale) {
+      femaleData.set(groupName, { w2015, w2023 });
+    }
+  }
+
+  // Average male + female
+  const result = new Map<string, { w2015: number; w2023: number }>();
+  for (const [group, male] of maleData) {
+    const female = femaleData.get(group);
+    if (female) {
+      result.set(group, {
+        w2015: (male.w2015 + female.w2015) / 2,
+        w2023: (male.w2023 + female.w2023) / 2,
+      });
+    } else {
+      result.set(group, male);
+    }
+  }
+
+  console.log(`  Loaded income data for ${result.size} groups`);
+  for (const [name, data] of result) {
+    console.log(`    ${name}: 2015=${data.w2015}, 2023=${data.w2023}`);
+  }
+  return result;
+}
+
+function findBestMatch<T>(
+  needle: string,
+  haystack: Map<string, T>
+): T | undefined {
+  // 1. Exact match
+  const exact = haystack.get(needle);
+  if (exact) return exact;
+
+  // 2. Case-insensitive exact
+  for (const [name, data] of haystack) {
+    if (name.toLowerCase() === needle.toLowerCase()) return data;
+  }
+
+  // 3. Longest substring match (prefer more specific matches)
+  let bestMatch: T | undefined;
+  let bestLen = 0;
+  for (const [name, data] of haystack) {
+    const nl = needle.toLowerCase();
+    const hl = name.toLowerCase();
+    if (nl.includes(hl) || hl.includes(nl)) {
+      const matchLen = Math.min(nl.length, hl.length);
+      if (matchLen > bestLen) {
+        bestLen = matchLen;
+        bestMatch = data;
+      }
+    }
+  }
+  return bestMatch;
+}
+
+function computeGroupMarketData(
+  emplData: Map<string, { e2015: number; e2025: number }>,
+  incomeData: Map<string, { w2015: number; w2023: number }>
+): Map<string, GroupMarketData> {
+  console.log("Computing group-level market data...");
+
+  const result = new Map<string, GroupMarketData>();
+
+  for (const [majorGroup, csvName] of Object.entries(MAJOR_GROUP_TO_EMPL_CSV)) {
+    // Find employment data
+    const emplEntry = findBestMatch(csvName, emplData);
+
+    // Find income data
+    const incomeCsvName = MAJOR_GROUP_TO_INCOME_CSV[majorGroup];
+    const incomeEntry = findBestMatch(incomeCsvName, incomeData);
+
+    if (emplEntry && incomeEntry) {
+      // 10-year employment CAGR
+      const emplCagr = Math.pow(emplEntry.e2025 / emplEntry.e2015, 1 / 10) - 1;
+      // 8-year wage CAGR
+      const wageCagr = Math.pow(incomeEntry.w2023 / incomeEntry.w2015, 1 / 8) - 1;
+
+      result.set(majorGroup, {
+        employment_2015: emplEntry.e2015,
+        employment_2025: emplEntry.e2025,
+        employment_cagr: emplCagr,
+        wage_2015: incomeEntry.w2015,
+        wage_2023: incomeEntry.w2023,
+        wage_cagr: wageCagr,
+      });
+
+      console.log(
+        `  ${majorGroup}: empl_cagr=${(emplCagr * 100).toFixed(2)}%, wage_cagr=${(wageCagr * 100).toFixed(2)}%`
+      );
+    } else {
+      console.warn(`  WARNING: Missing market data for ${majorGroup} (empl=${!!emplEntry}, income=${!!incomeEntry})`);
+    }
+  }
+
+  return result;
+}
+
+// ===== Risk Band Classification =====
+function riskBand(netRisk: number): RiskBand {
+  if (netRisk < 0.05) return "very_low";
+  if (netRisk < 0.15) return "low";
+  if (netRisk < 0.30) return "moderate";
+  if (netRisk < 0.50) return "high";
+  return "very_high";
+}
+
+// Map risk_band to legacy category for backward compatibility
+function riskBandToCategory(band: RiskBand): string {
+  switch (band) {
+    case "very_low":
+    case "low":
+      return "low_exposure";
+    case "moderate":
+      return "high_exposure_high_complementarity";
+    case "high":
+    case "very_high":
+      return "high_exposure_low_complementarity";
+  }
+}
+
+// ===== Step 7: Score all occupations (V3) =====
 function scoreOccupations(
   sgOccs: SgOccupation[],
   aioeMap: Map<string, number>,
-  thetaMap: Map<string, number>
+  thetaMap: Map<string, number>,
+  groupMarket: Map<string, GroupMarketData>
 ): ScoredOccupation[] {
-  console.log("Scoring occupations...");
+  console.log("\nScoring occupations (V3)...");
 
   // Pre-compute theta_MIN for C-AIOE formula
   const allTheta = [...thetaMap.values()];
@@ -319,7 +661,7 @@ function scoreOccupations(
   console.log(
     `  Theta range: min=${thetaMin.toFixed(4)}, max=${Math.max(
       ...allTheta
-    ).toFixed(4)}, median=${median(allTheta).toFixed(4)}`
+    ).toFixed(4)}, median=${medianFn(allTheta).toFixed(4)}`
   );
 
   // Pre-compute AIOE stats
@@ -327,7 +669,7 @@ function scoreOccupations(
   console.log(
     `  AIOE range: min=${Math.min(...allAioe).toFixed(4)}, max=${Math.max(
       ...allAioe
-    ).toFixed(4)}, median=${median(allAioe).toFixed(4)}`
+    ).toFixed(4)}, median=${medianFn(allAioe).toFixed(4)}`
   );
 
   // Pre-compute sub-major group averages for fallback
@@ -369,7 +711,17 @@ function scoreOccupations(
   let subMajorFallbacks = 0;
   let majorFallbacks = 0;
 
-  const results: ScoredOccupation[] = [];
+  // First pass: compute raw aioe/theta per occupation (same crosswalk logic as before)
+  interface IntermediateResult {
+    occ: SgOccupation;
+    avgAioe: number;
+    avgTheta: number;
+    matchQuality: "direct" | "submajor_fallback" | "major_fallback";
+    iscoMatched: string[];
+    majorGroupCode: number;
+  }
+
+  const intermediates: IntermediateResult[] = [];
 
   for (const occ of sgOccs) {
     const isco = ssocToIsco(occ.ssoc);
@@ -418,8 +770,8 @@ function scoreOccupations(
     }
 
     // Final fallback: use global median
-    if (avgAioe === null) avgAioe = median(allAioe);
-    if (avgTheta === null) avgTheta = median(allTheta);
+    if (avgAioe === null) avgAioe = medianFn(allAioe);
+    if (avgTheta === null) avgTheta = medianFn(allTheta);
 
     if (matchQuality === "direct" && socCodes.length > 0) {
       directMatches++;
@@ -429,33 +781,16 @@ function scoreOccupations(
       majorFallbacks++;
     }
 
-    // Compute C-AIOE = AIOE × (1 - (theta - theta_MIN))
-    const cAioe = avgAioe * (1 - (avgTheta - thetaMin));
-
-    // Classify
-    const category = classify(avgAioe, avgTheta, allAioe, allTheta);
-
     const majorGroupCode =
       MAJOR_GROUP_CODES[occ.major_group] || parseInt(occ.ssoc[0]) || 0;
 
-    results.push({
-      ssoc: occ.ssoc,
-      title: occ.title,
-      major_group: occ.major_group,
-      major_group_code: majorGroupCode,
-      gross_wage_median: occ.gross_wage_median,
-      gross_wage_25th: occ.gross_wage_25th,
-      gross_wage_75th: occ.gross_wage_75th,
-      employment_thousands: occ.estimated_employment_thousands,
-      group_employment_thousands: occ.group_employment_thousands,
-      scores: {
-        aioe: round(avgAioe, 4),
-        theta: round(avgTheta, 4),
-        c_aioe: round(cAioe, 4),
-        category,
-        isco_codes_matched: iscoMatched,
-        match_quality: matchQuality,
-      },
+    intermediates.push({
+      occ,
+      avgAioe,
+      avgTheta,
+      matchQuality,
+      iscoMatched,
+      majorGroupCode,
     });
   }
 
@@ -463,6 +798,181 @@ function scoreOccupations(
   console.log(`  Direct crosswalk matches: ${directMatches}/${sgOccs.length} (${coverage.toFixed(1)}%)`);
   console.log(`  Sub-major group fallbacks: ${subMajorFallbacks}`);
   console.log(`  Major group fallbacks: ${majorFallbacks}`);
+
+  // ===== Second pass: compute percentile ranks across all matched occupations =====
+  console.log("\n  Computing percentile ranks...");
+  const rawAioeValues = intermediates.map(r => r.avgAioe);
+  const rawThetaValues = intermediates.map(r => r.avgTheta);
+  const aioeRanks = percentileRanks(rawAioeValues);
+  const thetaRanks = percentileRanks(rawThetaValues);
+
+  // ===== Market Momentum: group-level =====
+  console.log("  Computing market momentum...");
+  const allGroups = [...new Set(intermediates.map(r => r.occ.major_group))];
+  const groupCagrEmpl: number[] = [];
+  const groupCagrWage: number[] = [];
+  const groupToIdx = new Map<string, number>();
+
+  for (const g of allGroups) {
+    const mkt = groupMarket.get(g);
+    groupToIdx.set(g, groupCagrEmpl.length);
+    groupCagrEmpl.push(mkt ? mkt.employment_cagr : 0);
+    groupCagrWage.push(mkt ? mkt.wage_cagr : 0);
+  }
+
+  const emplCagrRanks = percentileRanks(groupCagrEmpl);
+  const wageCagrRanks = percentileRanks(groupCagrWage);
+
+  // Market momentum per group
+  const groupMomentum = new Map<string, number>();
+  for (const g of allGroups) {
+    const idx = groupToIdx.get(g)!;
+    const mm = (emplCagrRanks[idx] + wageCagrRanks[idx]) / 2;
+    groupMomentum.set(g, mm);
+  }
+
+  // ===== Occupation Scarcity =====
+  console.log("  Computing occupation scarcity...");
+
+  // Compute log(q75/q25) for each occupation
+  const logWageSpreads: number[] = [];
+  const logWageSpreadMap: (number | null)[] = [];
+  for (const r of intermediates) {
+    const q25 = r.occ.gross_wage_25th;
+    const q75 = r.occ.gross_wage_75th;
+    if (q25 !== null && q75 !== null && q25 > 0 && q75 > 0) {
+      logWageSpreads.push(Math.log(q75 / q25));
+      logWageSpreadMap.push(Math.log(q75 / q25));
+    } else {
+      logWageSpreadMap.push(null);
+    }
+  }
+
+  // Winsorize log wage spreads at 1st/99th percentile
+  const winsorizedSpreads = winsorize(logWageSpreads, 0.01, 0.99);
+  // Map winsorized values back
+  let wIdx = 0;
+  const finalLogSpreads: (number | null)[] = logWageSpreadMap.map(v => {
+    if (v !== null) return winsorizedSpreads[wIdx++];
+    return null;
+  });
+
+  // Compute within-group median ratio: occupation gross_wage_median / group median
+  // Group median = median of gross_wage_median values within the group
+  const groupWageMedians = new Map<string, number[]>();
+  for (const r of intermediates) {
+    if (r.occ.gross_wage_median !== null) {
+      if (!groupWageMedians.has(r.occ.major_group)) {
+        groupWageMedians.set(r.occ.major_group, []);
+      }
+      groupWageMedians.get(r.occ.major_group)!.push(r.occ.gross_wage_median);
+    }
+  }
+  const groupMedianWage = new Map<string, number>();
+  for (const [g, wages] of groupWageMedians) {
+    groupMedianWage.set(g, medianFn(wages));
+  }
+
+  const withinGroupRatios: (number | null)[] = intermediates.map(r => {
+    if (r.occ.gross_wage_median !== null) {
+      const gm = groupMedianWage.get(r.occ.major_group);
+      if (gm && gm > 0) return r.occ.gross_wage_median / gm;
+    }
+    return null;
+  });
+
+  // Percentile-rank both components, using only non-null values
+  // For null values, assign the median rank (0.5)
+  const validLogSpreads = finalLogSpreads.filter(v => v !== null) as number[];
+  const validRatios = withinGroupRatios.filter(v => v !== null) as number[];
+  const logSpreadRanksValid = percentileRanks(validLogSpreads);
+  const ratioRanksValid = percentileRanks(validRatios);
+
+  // Map back to full arrays
+  let lsIdx = 0;
+  let rrIdx = 0;
+  const logSpreadRanks = finalLogSpreads.map(v => v !== null ? logSpreadRanksValid[lsIdx++] : 0.5);
+  const ratioRanks = withinGroupRatios.map(v => v !== null ? ratioRanksValid[rrIdx++] : 0.5);
+
+  // Occupation scarcity = mean of two percentile ranks
+  const occScarcity = intermediates.map((_, i) => (logSpreadRanks[i] + ratioRanks[i]) / 2);
+
+  // ===== Assemble final results =====
+  console.log("  Assembling final results...");
+  const results: ScoredOccupation[] = [];
+
+  for (let i = 0; i < intermediates.length; i++) {
+    const r = intermediates[i];
+    const exposure = aioeRanks[i];
+    const bottleneck = thetaRanks[i];
+
+    const mm = groupMomentum.get(r.occ.major_group) ?? 0.5;
+    const os = occScarcity[i];
+    const marketResilience = 0.6 * mm + 0.4 * os;
+    const marketModifier = 1 - 0.35 * marketResilience;
+
+    const netRisk = exposure * (1 - bottleneck) * marketModifier;
+    const band = riskBand(netRisk);
+
+    // C-AIOE for backward compat
+    const cAioe = r.avgAioe * (1 - (r.avgTheta - thetaMin));
+
+    // Confidence
+    const crosswalkQuality = r.matchQuality === "direct" ? 1.0
+      : r.matchQuality === "submajor_fallback" ? 0.6 : 0.3;
+    const marketDataGranularity = 0.6;
+    const sourceFreshness = 0.8;
+    const confidenceScore = (crosswalkQuality + marketDataGranularity + sourceFreshness) / 3;
+    const confidenceLevel: "high" | "medium" | "low" =
+      confidenceScore >= 0.7 ? "high" : confidenceScore >= 0.4 ? "medium" : "low";
+
+    results.push({
+      ssoc: r.occ.ssoc,
+      title: r.occ.title,
+      major_group: r.occ.major_group,
+      major_group_code: r.majorGroupCode,
+      gross_wage_median: r.occ.gross_wage_median,
+      gross_wage_25th: r.occ.gross_wage_25th,
+      gross_wage_75th: r.occ.gross_wage_75th,
+      employment_thousands: r.occ.estimated_employment_thousands,
+      group_employment_thousands: r.occ.group_employment_thousands,
+      exposure: round(exposure, 4),
+      bottleneck: round(bottleneck, 4),
+      market: {
+        market_momentum: round(mm, 4),
+        occupation_scarcity: round(os, 4),
+        market_resilience: round(marketResilience, 4),
+        market_modifier: round(marketModifier, 4),
+      },
+      net_risk: round(netRisk, 4),
+      risk_band: band,
+      confidence: {
+        score: round(confidenceScore, 4),
+        level: confidenceLevel,
+        crosswalk_quality: crosswalkQuality,
+        market_data_granularity: marketDataGranularity,
+        source_freshness: sourceFreshness,
+      },
+      raw: {
+        aioe: round(r.avgAioe, 4),
+        theta: round(r.avgTheta, 4),
+        c_aioe: round(cAioe, 4),
+        log_wage_spread: finalLogSpreads[i] !== null ? round(finalLogSpreads[i]!, 4) : null,
+        wage_position: withinGroupRatios[i] !== null ? round(withinGroupRatios[i]!, 4) : null,
+      },
+      isco_codes_matched: r.iscoMatched,
+      match_quality: r.matchQuality,
+      // Backward-compat scores object for frontend
+      scores: {
+        aioe: round(r.avgAioe, 4),
+        theta: round(r.avgTheta, 4),
+        c_aioe: round(cAioe, 4),
+        category: riskBandToCategory(band),
+        isco_codes_matched: r.iscoMatched,
+        match_quality: r.matchQuality,
+      },
+    });
+  }
 
   return results;
 }
@@ -494,29 +1004,8 @@ function averageScoresForSocCodes(
   };
 }
 
-// ===== Classification =====
-function classify(
-  aioe: number,
-  theta: number,
-  allAioe: number[],
-  allTheta: number[]
-): string {
-  const aioeMedian = median(allAioe);
-  const thetaMedian = median(allTheta);
-
-  if (aioe >= aioeMedian) {
-    if (theta >= thetaMedian) {
-      return "high_exposure_high_complementarity"; // AI Augmented
-    } else {
-      return "high_exposure_low_complementarity"; // At Risk
-    }
-  } else {
-    return "low_exposure"; // Low Impact
-  }
-}
-
 // ===== Helpers =====
-function median(arr: number[]): number {
+function medianFn(arr: number[]): number {
   const sorted = [...arr].sort((a, b) => a - b);
   const mid = Math.floor(sorted.length / 2);
   return sorted.length % 2 !== 0
@@ -529,9 +1018,82 @@ function round(n: number, decimals: number): number {
   return Math.round(n * factor) / factor;
 }
 
+// ===== Distribution Analysis =====
+function printDistributionAnalysis(results: ScoredOccupation[]) {
+  console.log("\n=== V3 Risk Band Distribution ===");
+  const bands: RiskBand[] = ["very_low", "low", "moderate", "high", "very_high"];
+  const bandLabels: Record<RiskBand, string> = {
+    very_low: "Very Low  (0.00-0.05)",
+    low: "Low       (0.05-0.15)",
+    moderate: "Moderate  (0.15-0.30)",
+    high: "High      (0.30-0.50)",
+    very_high: "Very High (0.50+)    ",
+  };
+
+  const bandCounts = new Map<RiskBand, number>();
+  for (const b of bands) bandCounts.set(b, 0);
+  for (const r of results) {
+    bandCounts.set(r.risk_band, (bandCounts.get(r.risk_band) ?? 0) + 1);
+  }
+
+  for (const b of bands) {
+    const count = bandCounts.get(b) ?? 0;
+    const pct = ((count / results.length) * 100).toFixed(1);
+    const bar = "#".repeat(Math.round(count / 5));
+    console.log(`  ${bandLabels[b]}: ${String(count).padStart(4)} (${pct.padStart(5)}%) ${bar}`);
+  }
+
+  // Anchor check
+  console.log("\n=== Anchor Check ===");
+  const anchors = [
+    { pattern: /software developer/i, label: "Software Developer" },
+    { pattern: /data entry/i, label: "Data Entry Clerk" },
+    { pattern: /surgeon/i, label: "Surgeon" },
+    { pattern: /cashier/i, label: "Cashier" },
+    { pattern: /teacher/i, label: "Teacher (first match)" },
+    { pattern: /accountant/i, label: "Accountant" },
+  ];
+
+  for (const anchor of anchors) {
+    const match = results.find(r => anchor.pattern.test(r.title));
+    if (match) {
+      console.log(
+        `  ${anchor.label.padEnd(25)} | ${match.title.substring(0, 40).padEnd(40)} | ` +
+        `exp=${match.exposure.toFixed(3)} bot=${match.bottleneck.toFixed(3)} ` +
+        `mkt=${match.market.market_modifier.toFixed(3)} net=${match.net_risk.toFixed(3)} ` +
+        `[${match.risk_band}]`
+      );
+    } else {
+      console.log(`  ${anchor.label.padEnd(25)} | NOT FOUND`);
+    }
+  }
+
+  // Histogram of net_risk in 0.05 bins
+  console.log("\n=== Net Risk Histogram (0.05 bins) ===");
+  const binSize = 0.05;
+  const bins = new Map<string, number>();
+  for (let b = 0; b < 1.0; b += binSize) {
+    const label = `${b.toFixed(2)}-${(b + binSize).toFixed(2)}`;
+    bins.set(label, 0);
+  }
+
+  for (const r of results) {
+    const binIdx = Math.min(Math.floor(r.net_risk / binSize), 19);
+    const b = binIdx * binSize;
+    const label = `${b.toFixed(2)}-${(b + binSize).toFixed(2)}`;
+    bins.set(label, (bins.get(label) ?? 0) + 1);
+  }
+
+  for (const [label, count] of bins) {
+    if (count === 0) continue;
+    const bar = "#".repeat(Math.round(count / 3));
+    console.log(`  ${label}: ${String(count).padStart(4)} ${bar}`);
+  }
+}
+
 // ===== Main =====
 async function main() {
-  console.log("=== Singapore AI Job Exposure Scoring Pipeline ===\n");
+  console.log("=== Singapore AI Job Exposure Scoring Pipeline (V3) ===\n");
 
   // Load all data sources
   const aioeMap = loadAioe();
@@ -540,29 +1102,16 @@ async function main() {
   const thetaMap = computeTheta(wcMap, jzMap);
   const sgOccs = loadSgOccupations();
 
+  // Load market data
+  const emplData = loadEmploymentData();
+  const incomeData = loadIncomeData();
+  const groupMarket = computeGroupMarketData(emplData, incomeData);
+
   // Score all occupations
-  const results = scoreOccupations(sgOccs, aioeMap, thetaMap);
+  const results = scoreOccupations(sgOccs, aioeMap, thetaMap, groupMarket);
 
-  // Output statistics
-  const categories = {
-    high_exposure_high_complementarity: 0,
-    high_exposure_low_complementarity: 0,
-    low_exposure: 0,
-  };
-  for (const r of results) {
-    categories[r.scores.category as keyof typeof categories]++;
-  }
-
-  console.log("\n=== Category Distribution ===");
-  console.log(
-    `  AI Augmented (high exp + high comp): ${categories.high_exposure_high_complementarity} (${((categories.high_exposure_high_complementarity / results.length) * 100).toFixed(1)}%)`
-  );
-  console.log(
-    `  At Risk (high exp + low comp):       ${categories.high_exposure_low_complementarity} (${((categories.high_exposure_low_complementarity / results.length) * 100).toFixed(1)}%)`
-  );
-  console.log(
-    `  Low Impact (low exp):                ${categories.low_exposure} (${((categories.low_exposure / results.length) * 100).toFixed(1)}%)`
-  );
+  // Distribution analysis
+  printDistributionAnalysis(results);
 
   // Save intermediate theta data
   const thetaData: Record<string, number> = {};

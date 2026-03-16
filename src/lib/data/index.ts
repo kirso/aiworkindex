@@ -1,6 +1,33 @@
 import occupationsData from './occupations.json';
 import majorGroupsData from './major-groups.json';
 
+// V3 types
+export type RiskBand = 'very_low' | 'low' | 'moderate' | 'high' | 'very_high';
+
+export interface MarketScores {
+	market_momentum: number;
+	occupation_scarcity: number;
+	market_resilience: number;
+	market_modifier: number;
+}
+
+export interface ConfidenceScores {
+	score: number;
+	level: 'high' | 'medium' | 'low';
+	crosswalk_quality: number;
+	market_data_granularity: number;
+	source_freshness: number;
+}
+
+export interface RawScores {
+	aioe: number;
+	theta: number;
+	c_aioe: number;
+	log_wage_spread: number | null;
+	wage_position: number | null;
+}
+
+// Backward-compat scores sub-object (still used by frontend viz)
 export interface OccupationScores {
 	aioe: number;
 	theta: number;
@@ -19,6 +46,17 @@ export interface Occupation {
 	gross_wage_75th: number;
 	employment_thousands: number;
 	group_employment_thousands: number;
+	// V3 fields
+	exposure: number;
+	bottleneck: number;
+	market: MarketScores;
+	net_risk: number;
+	risk_band: RiskBand;
+	confidence: ConfidenceScores;
+	raw: RawScores;
+	isco_codes_matched: string[];
+	match_quality: string;
+	// Backward-compat
 	scores: OccupationScores;
 }
 
@@ -57,4 +95,20 @@ export const categoryColors: Record<string, string> = {
 	high_exposure_high_complementarity: '#f28e2b',
 	high_exposure_low_complementarity: '#e15759',
 	low_exposure: '#59a14f'
+};
+
+export const riskBandLabels: Record<RiskBand, string> = {
+	very_low: 'Very Low',
+	low: 'Low',
+	moderate: 'Moderate',
+	high: 'High',
+	very_high: 'Very High'
+};
+
+export const riskBandColors: Record<RiskBand, string> = {
+	very_low: '#4ade80',
+	low: '#86efac',
+	moderate: '#fbbf24',
+	high: '#f97316',
+	very_high: '#ef4444'
 };
