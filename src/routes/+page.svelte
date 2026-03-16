@@ -43,17 +43,17 @@
 	<meta name="twitter:description" content="Three layers of AI impact across 562 Singapore occupations — exposure, human bottleneck, and market resilience. Academic indices, not LLM vibes." />
 </svelte:head>
 
-<!-- Hero + Search — compact, gets users to the treemap fast -->
-<div class="border-b border-gray-200 bg-white">
-	<div class="mx-auto max-w-screen-2xl px-4 py-6 sm:px-6">
+<!-- Hero + Search -->
+<div class="border-b border-border bg-card">
+	<div class="mx-auto max-w-screen-2xl px-5 py-8 sm:px-6">
 		<div class="mx-auto max-w-2xl text-center">
-			<h1 class="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+			<h1 class="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
 				How will AI affect your job?
 			</h1>
-			<p class="mt-1 text-sm text-gray-500">
+			<p class="mt-2 text-sm text-muted-foreground">
 				Search 562 Singapore occupations. See how AI affects your role.
 			</p>
-			<div class="mt-4">
+			<div class="mt-5">
 				<HeroSearch occupations={data.occupations} />
 			</div>
 		</div>

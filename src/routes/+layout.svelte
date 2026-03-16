@@ -25,21 +25,26 @@
 	<meta name="twitter:card" content="summary_large_image" />
 </svelte:head>
 
-<div class="flex min-h-screen flex-col bg-gray-50">
-	<!-- Sticky header / nav — dark slate -->
-	<header class="sticky top-0 z-50 border-b border-slate-700 bg-slate-900 shadow-md">
-		<div class="mx-auto flex max-w-screen-2xl items-center justify-between px-4 py-3 sm:px-6">
-			<a href="/" class="flex items-center gap-2 font-semibold text-white transition-colors hover:text-gray-300">
-				<span class="text-lg">SG AI Jobs</span>
+<div class="flex min-h-screen flex-col bg-background">
+	<!-- Sticky header -->
+	<header class="sticky top-0 z-50 bg-header-bg shadow-sm">
+		<div class="mx-auto flex max-w-screen-2xl items-center justify-between px-5 py-3 sm:px-6">
+			<a href="/" class="flex items-center gap-2.5 text-header-text transition-colors hover:text-white">
+				<svg class="h-5 w-5 text-ring" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<path d="M12 2L2 7l10 5 10-5-10-5z"/>
+					<path d="M2 17l10 5 10-5"/>
+					<path d="M2 12l10 5 10-5"/>
+				</svg>
+				<span class="text-base font-semibold tracking-tight">SG AI Jobs</span>
 			</a>
-			<nav class="flex items-center gap-1">
+			<nav class="flex items-center gap-0.5">
 				{#each navLinks as link (link.href)}
 					<a
 						href={link.href}
-						class="rounded-md px-3 py-1.5 text-sm font-medium transition-colors
+						class="rounded-lg px-3 py-1.5 text-[13px] font-medium transition-colors
 							{$page.url.pathname === link.href
-								? 'bg-white/15 text-white'
-								: 'text-gray-400 hover:bg-white/10 hover:text-gray-200'}"
+								? 'bg-header-active-bg text-white'
+								: 'text-header-muted hover:bg-header-active-bg hover:text-header-text'}"
 					>
 						{link.label}
 					</a>
@@ -56,17 +61,17 @@
 		{/key}
 	</div>
 
-	<footer class="border-t border-gray-200 bg-white">
-		<div class="mx-auto max-w-screen-2xl px-4 py-6 sm:px-6">
+	<footer class="border-t border-border bg-card">
+		<div class="mx-auto max-w-screen-2xl px-5 py-6 sm:px-6">
 			<div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
 				<div>
-					<p class="text-xs text-gray-500">
+					<p class="text-xs text-muted-foreground">
 						Data: Ministry of Manpower, Singapore. Methodology: Felten et al. (2021), Pizzinelli et al. (2023).
 					</p>
-					<p class="mt-0.5 text-xs text-gray-400">
+					<p class="mt-0.5 text-xs text-muted-foreground/70">
 						Scores represent technical AI exposure, not employment predictions.
 						Exposure and displacement are distinct — see
-						<a href="/methodology" class="text-indigo-600 underline hover:text-indigo-700">methodology</a>.
+						<a href="/methodology" class="text-ring underline hover:text-ring/80">methodology</a>.
 					</p>
 				</div>
 				<div class="flex flex-col gap-1.5 text-xs text-gray-400 sm:items-end">

@@ -1,57 +1,143 @@
+/*
+ * SG AI Jobs Design System
+ *
+ * Inspired by: Our World in Data (content clarity), Linear (polish), Vercel (layout)
+ * Built on: Tailwind CSS v4 + shadcn-svelte oklch tokens
+ *
+ * Principles:
+ * - Typography does the heavy lifting
+ * - Color is semantic (green=safe, red=risk) — never decorative
+ * - Generous whitespace — let content breathe
+ * - Cards are subtle — thin borders or slight shadows
+ * - Animations are functional — state transitions, not eye candy
+ */
+
 @import "tailwindcss";
 @import "tw-animate-css";
 @custom-variant dark (&:is(.dark *));
 
+/* ============================================
+   DESIGN TOKENS
+   ============================================ */
+
 :root {
-  /* shadcn-svelte default tokens (oklch) */
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
+  /* --- Radius --- */
+  --radius: 0.5rem;
+
+  /* --- Typography --- */
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Code", monospace;
+  --tracking-tight: -0.015em;
+  --leading-snug: 1.35;
+
+  /* --- Surface & Text (light mode, shadcn-svelte compatible) --- */
+  --background: oklch(0.985 0 0);        /* very subtle warm gray, not pure white */
+  --foreground: oklch(0.145 0.014 285);  /* near-black with blue undertone (Linear-style) */
+  --card: oklch(1 0 0);                  /* pure white cards on gray bg */
+  --card-foreground: oklch(0.145 0.014 285);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0.014 285);
+
+  /* --- Brand --- */
+  --primary: oklch(0.21 0.034 265);      /* deep navy-blue (trustworthy, authoritative) */
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.965 0.003 265);   /* light blue-gray tint */
+  --secondary-foreground: oklch(0.21 0.034 265);
+
+  /* --- UI Chrome --- */
+  --muted: oklch(0.955 0.003 265);
+  --muted-foreground: oklch(0.52 0.015 265);
+  --accent: oklch(0.955 0.003 265);
+  --accent-foreground: oklch(0.21 0.034 265);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --border: oklch(0.915 0.005 265);      /* subtle blue-gray border */
+  --input: oklch(0.915 0.005 265);
+  --ring: oklch(0.55 0.15 262);          /* indigo focus ring */
 
-  /* Our custom risk spectrum */
-  --risk-very-low: oklch(0.765 0.177 163);
-  --risk-low: oklch(0.723 0.191 142);
-  --risk-moderate: oklch(0.795 0.184 86);
-  --risk-high: oklch(0.725 0.183 55);
-  --risk-very-high: oklch(0.645 0.246 16);
+  /* --- Risk Spectrum (perceptually balanced oklch) --- */
+  --risk-very-low: oklch(0.72 0.17 155);   /* teal-green — calm, safe */
+  --risk-low: oklch(0.72 0.16 145);        /* green */
+  --risk-moderate: oklch(0.78 0.16 85);    /* warm amber */
+  --risk-high: oklch(0.70 0.18 50);        /* orange */
+  --risk-very-high: oklch(0.62 0.24 20);   /* coral-red — urgent */
 
-  /* Impact types */
-  --impact-leveraged: oklch(0.546 0.245 262);
-  --impact-at-risk: oklch(0.577 0.245 27);
-  --impact-stable: oklch(0.556 0 0);
-  --impact-mixed: oklch(0.795 0.184 86);
+  /* --- Impact Types --- */
+  --impact-leveraged: oklch(0.55 0.20 260); /* strong blue — opportunity */
+  --impact-at-risk: oklch(0.60 0.22 25);    /* red — danger */
+  --impact-stable: oklch(0.56 0.01 265);    /* neutral gray */
+  --impact-mixed: oklch(0.75 0.16 85);      /* amber — caution */
 
-  /* Chart colors for visualizations */
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
+  /* --- Chart Colors (5-color qualitative palette, oklch) --- */
+  --chart-1: oklch(0.65 0.22 41);
+  --chart-2: oklch(0.60 0.12 185);
+  --chart-3: oklch(0.40 0.07 227);
+  --chart-4: oklch(0.83 0.19 84);
+  --chart-5: oklch(0.77 0.19 70);
+
+  /* --- Header (dark surface) --- */
+  --header-bg: oklch(0.16 0.02 265);      /* very dark navy */
+  --header-text: oklch(0.92 0 0);
+  --header-muted: oklch(0.65 0.02 265);
+  --header-active-bg: oklch(1 0 0 / 12%);
+
+  /* --- Sidebar --- */
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0.014 285);
+  --sidebar-primary: oklch(0.21 0.034 265);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.955 0.003 265);
+  --sidebar-accent-foreground: oklch(0.21 0.034 265);
+  --sidebar-border: oklch(0.915 0.005 265);
+  --sidebar-ring: oklch(0.55 0.15 262);
 }
 
+/* Dark mode tokens (future) */
+.dark {
+  --background: oklch(0.13 0.015 265);
+  --foreground: oklch(0.93 0 0);
+  --card: oklch(0.18 0.015 265);
+  --card-foreground: oklch(0.93 0 0);
+  --popover: oklch(0.22 0.015 265);
+  --popover-foreground: oklch(0.93 0 0);
+  --primary: oklch(0.85 0.01 265);
+  --primary-foreground: oklch(0.13 0.015 265);
+  --secondary: oklch(0.22 0.015 265);
+  --secondary-foreground: oklch(0.85 0.01 265);
+  --muted: oklch(0.22 0.015 265);
+  --muted-foreground: oklch(0.65 0.015 265);
+  --accent: oklch(0.28 0.015 265);
+  --accent-foreground: oklch(0.93 0 0);
+  --destructive: oklch(0.70 0.19 22);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.50 0.15 262);
+  --header-bg: oklch(0.10 0.015 265);
+}
+
+/* ============================================
+   TAILWIND THEME BRIDGE
+   Maps CSS vars → Tailwind utility classes
+   ============================================ */
+
 @theme inline {
+  /* Radius scale */
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
+  /* Typography */
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+
+  /* Surface colors → bg-background, text-foreground, etc. */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
@@ -64,85 +150,107 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+
+  /* Chart palette → bg-chart-1, text-chart-2, etc. */
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
+
+  /* Risk spectrum → bg-risk-very-low, text-risk-high, etc. */
   --color-risk-very-low: var(--risk-very-low);
   --color-risk-low: var(--risk-low);
   --color-risk-moderate: var(--risk-moderate);
   --color-risk-high: var(--risk-high);
   --color-risk-very-high: var(--risk-very-high);
+
+  /* Impact types → bg-impact-leveraged, etc. */
+  --color-impact-leveraged: var(--impact-leveraged);
+  --color-impact-at-risk: var(--impact-at-risk);
+  --color-impact-stable: var(--impact-stable);
+  --color-impact-mixed: var(--impact-mixed);
+
+  /* Header */
+  --color-header-bg: var(--header-bg);
+  --color-header-text: var(--header-text);
+  --color-header-muted: var(--header-muted);
+  --color-header-active-bg: var(--header-active-bg);
+
+  /* Sidebar */
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
 }
+
+/* ============================================
+   BASE LAYER
+   ============================================ */
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11"; /* Inter stylistic sets */
+    letter-spacing: var(--tracking-tight);
+  }
+  h1, h2, h3, h4, h5, h6 {
+    letter-spacing: -0.025em;
+    line-height: var(--leading-snug);
   }
 }
 
-/* Base typography */
-html {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+/* ============================================
+   UTILITY CLASSES
+   Minimal set — prefer Tailwind utilities
+   ============================================ */
 
-/* Smooth page transitions */
-@media (prefers-reduced-motion: no-preference) {
-  html {
-    scroll-behavior: smooth;
-  }
-}
-
-/* Card base style */
+/* Legacy .card class (gradually replace with shadcn <Card>) */
 .card {
-  background: white;
-  border-radius: 0.75rem;
-  box-shadow:
-    0 1px 3px 0 rgb(0 0 0 / 0.05),
-    0 1px 2px -1px rgb(0 0 0 / 0.05);
-  transition:
-    box-shadow 0.2s ease,
-    transform 0.2s ease;
+  background: var(--card);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border);
+  transition: box-shadow 0.2s ease;
 }
-
 .card:hover {
-  box-shadow:
-    0 4px 6px -1px rgb(0 0 0 / 0.07),
-    0 2px 4px -2px rgb(0 0 0 / 0.05);
+  box-shadow: 0 4px 12px -2px oklch(0 0 0 / 0.06);
 }
 
 /* Chip animation for filter buttons */
 .chip-active {
   animation: chip-pop 0.15s ease-out;
 }
-
 @keyframes chip-pop {
-  0% {
-    transform: scale(0.95);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
-  }
+  0% { transform: scale(0.95); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
 }
 
 /* Scatter dot hover */
 .scatter-dot {
-  transition:
-    opacity 0.15s ease,
-    transform 0.15s ease;
+  transition: opacity 0.15s ease, transform 0.15s ease;
   transform-origin: center;
   transform-box: fill-box;
 }
-
 .scatter-dot:hover {
-  transform: scale(1.6);
+  transform: scale(1.5);
   opacity: 1 !important;
+}
+
+/* Smooth page transitions */
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+/* Font smoothing */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
