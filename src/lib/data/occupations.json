@@ -19,6 +19,9 @@
     },
     "net_risk": 0.1583,
     "risk_band": "moderate",
+    "augmentation": 0.3894,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -68,6 +71,9 @@
     },
     "net_risk": 0.1545,
     "risk_band": "moderate",
+    "augmentation": 0.4179,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -117,6 +123,9 @@
     },
     "net_risk": 0.1033,
     "risk_band": "low",
+    "augmentation": 0.0886,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -166,6 +175,9 @@
     },
     "net_risk": 0.0133,
     "risk_band": "very_low",
+    "augmentation": 0.2741,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -215,6 +227,9 @@
     },
     "net_risk": 0.0883,
     "risk_band": "low",
+    "augmentation": 0.0876,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -264,6 +279,9 @@
     },
     "net_risk": 0.1504,
     "risk_band": "moderate",
+    "augmentation": 0.4826,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -313,6 +331,9 @@
     },
     "net_risk": 0.1485,
     "risk_band": "low",
+    "augmentation": 0.5055,
+    "augmentation_band": "very_high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -362,6 +383,9 @@
     },
     "net_risk": 0.1751,
     "risk_band": "moderate",
+    "augmentation": 0.4139,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -411,6 +435,9 @@
     },
     "net_risk": 0.294,
     "risk_band": "moderate",
+    "augmentation": 0.1309,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -460,6 +487,9 @@
     },
     "net_risk": 0.0757,
     "risk_band": "low",
+    "augmentation": 0.0753,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -509,6 +539,9 @@
     },
     "net_risk": 0.0053,
     "risk_band": "very_low",
+    "augmentation": 0.4483,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -558,6 +591,9 @@
     },
     "net_risk": 0.0266,
     "risk_band": "very_low",
+    "augmentation": 0.3256,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -607,6 +643,9 @@
     },
     "net_risk": 0.0921,
     "risk_band": "low",
+    "augmentation": 0.2512,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -656,6 +695,9 @@
     },
     "net_risk": 0.026,
     "risk_band": "very_low",
+    "augmentation": 0.353,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -705,6 +747,9 @@
     },
     "net_risk": 0.087,
     "risk_band": "low",
+    "augmentation": 0.3686,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -754,6 +799,9 @@
     },
     "net_risk": 0.2803,
     "risk_band": "moderate",
+    "augmentation": 0.1592,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -803,6 +851,9 @@
     },
     "net_risk": 0.0868,
     "risk_band": "low",
+    "augmentation": 0.1597,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -852,6 +903,9 @@
     },
     "net_risk": 0.2075,
     "risk_band": "moderate",
+    "augmentation": 0.2056,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -901,6 +955,9 @@
     },
     "net_risk": 0.2084,
     "risk_band": "moderate",
+    "augmentation": 0.2027,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -950,6 +1007,9 @@
     },
     "net_risk": 0.0731,
     "risk_band": "low",
+    "augmentation": 0.0903,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -999,6 +1059,9 @@
     },
     "net_risk": 0.1758,
     "risk_band": "moderate",
+    "augmentation": 0.407,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -1048,6 +1111,9 @@
     },
     "net_risk": 0.0374,
     "risk_band": "very_low",
+    "augmentation": 0.189,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -1097,6 +1163,9 @@
     },
     "net_risk": 0.0055,
     "risk_band": "very_low",
+    "augmentation": 0.4117,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -1146,6 +1215,9 @@
     },
     "net_risk": 0.188,
     "risk_band": "moderate",
+    "augmentation": 0.3512,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -1195,6 +1267,9 @@
     },
     "net_risk": 0.2062,
     "risk_band": "moderate",
+    "augmentation": 0.2099,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -1244,6 +1319,9 @@
     },
     "net_risk": 0.0889,
     "risk_band": "low",
+    "augmentation": 0.3012,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -1293,6 +1371,9 @@
     },
     "net_risk": 0.0257,
     "risk_band": "very_low",
+    "augmentation": 0.3617,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -1342,6 +1423,9 @@
     },
     "net_risk": 0.0873,
     "risk_band": "low",
+    "augmentation": 0.3633,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -1391,6 +1475,9 @@
     },
     "net_risk": 0.154,
     "risk_band": "moderate",
+    "augmentation": 0.4229,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -1440,6 +1527,9 @@
     },
     "net_risk": 0.0907,
     "risk_band": "low",
+    "augmentation": 0.2723,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -1489,6 +1579,9 @@
     },
     "net_risk": 0.1749,
     "risk_band": "moderate",
+    "augmentation": 0.416,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -1538,6 +1631,9 @@
     },
     "net_risk": 0.0054,
     "risk_band": "very_low",
+    "augmentation": 0.4162,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -1587,6 +1683,9 @@
     },
     "net_risk": 0.1787,
     "risk_band": "moderate",
+    "augmentation": 0.384,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -1636,6 +1735,9 @@
     },
     "net_risk": 0.1917,
     "risk_band": "moderate",
+    "augmentation": 0.3277,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -1685,6 +1787,9 @@
     },
     "net_risk": 0.0117,
     "risk_band": "very_low",
+    "augmentation": 0.303,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -1734,6 +1839,9 @@
     },
     "net_risk": 0.062,
     "risk_band": "low",
+    "augmentation": 0.2777,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -1783,6 +1891,9 @@
     },
     "net_risk": 0.0597,
     "risk_band": "low",
+    "augmentation": 0.3254,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -1832,6 +1943,9 @@
     },
     "net_risk": 0.0899,
     "risk_band": "low",
+    "augmentation": 0.2863,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -1881,6 +1995,9 @@
     },
     "net_risk": 0.1008,
     "risk_band": "low",
+    "augmentation": 0.0988,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -1930,6 +2047,9 @@
     },
     "net_risk": 0.0597,
     "risk_band": "low",
+    "augmentation": 0.325,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -1979,6 +2099,9 @@
     },
     "net_risk": 0.0197,
     "risk_band": "very_low",
+    "augmentation": 0.1383,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -2028,6 +2151,9 @@
     },
     "net_risk": 0.065,
     "risk_band": "low",
+    "augmentation": 0.3599,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -2077,6 +2203,9 @@
     },
     "net_risk": 0.1701,
     "risk_band": "moderate",
+    "augmentation": 0.4563,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -2126,6 +2255,9 @@
     },
     "net_risk": 0.0182,
     "risk_band": "very_low",
+    "augmentation": 0.1861,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -2175,6 +2307,9 @@
     },
     "net_risk": 0.0765,
     "risk_band": "low",
+    "augmentation": 0.0711,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -2224,6 +2359,9 @@
     },
     "net_risk": 0.0914,
     "risk_band": "low",
+    "augmentation": 0.1555,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -2273,6 +2411,9 @@
     },
     "net_risk": 0.0112,
     "risk_band": "very_low",
+    "augmentation": 0.351,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -2322,6 +2463,9 @@
     },
     "net_risk": 0.1811,
     "risk_band": "moderate",
+    "augmentation": 0.3637,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -2371,6 +2515,9 @@
     },
     "net_risk": 0.0153,
     "risk_band": "very_low",
+    "augmentation": 0.3746,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -2420,6 +2567,9 @@
     },
     "net_risk": 0.0863,
     "risk_band": "low",
+    "augmentation": 0.3442,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -2469,6 +2619,9 @@
     },
     "net_risk": 0.1242,
     "risk_band": "low",
+    "augmentation": 0.1559,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -2518,6 +2671,9 @@
     },
     "net_risk": 0.0053,
     "risk_band": "very_low",
+    "augmentation": 0.4573,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -2567,6 +2723,9 @@
     },
     "net_risk": 0.0731,
     "risk_band": "low",
+    "augmentation": 0.1423,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -2616,6 +2775,9 @@
     },
     "net_risk": 0.0112,
     "risk_band": "very_low",
+    "augmentation": 0.3531,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -2665,6 +2827,9 @@
     },
     "net_risk": 0.0619,
     "risk_band": "low",
+    "augmentation": 0.2808,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -2714,6 +2879,9 @@
     },
     "net_risk": 0.066,
     "risk_band": "low",
+    "augmentation": 0.3398,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -2763,6 +2931,9 @@
     },
     "net_risk": 0.21,
     "risk_band": "moderate",
+    "augmentation": 0.2114,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -2812,6 +2983,9 @@
     },
     "net_risk": 0.0597,
     "risk_band": "low",
+    "augmentation": 0.3256,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -2861,6 +3035,9 @@
     },
     "net_risk": 0.082,
     "risk_band": "low",
+    "augmentation": 0.209,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -2910,6 +3087,9 @@
     },
     "net_risk": 0.087,
     "risk_band": "low",
+    "augmentation": 0.0936,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -2959,6 +3139,9 @@
     },
     "net_risk": 0.0842,
     "risk_band": "low",
+    "augmentation": 0.2196,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -3008,6 +3191,9 @@
     },
     "net_risk": 0.6001,
     "risk_band": "very_high",
+    "augmentation": 0.1302,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -3057,6 +3243,9 @@
     },
     "net_risk": 0.5016,
     "risk_band": "very_high",
+    "augmentation": 0.2276,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -3106,6 +3295,9 @@
     },
     "net_risk": 0.176,
     "risk_band": "moderate",
+    "augmentation": 0.2248,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -3155,6 +3347,9 @@
     },
     "net_risk": 0.1563,
     "risk_band": "moderate",
+    "augmentation": 0.3058,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -3204,6 +3399,9 @@
     },
     "net_risk": 0.0178,
     "risk_band": "very_low",
+    "augmentation": 0.2304,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -3253,6 +3451,9 @@
     },
     "net_risk": 0.1573,
     "risk_band": "moderate",
+    "augmentation": 0.2338,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.5667,
       "level": "medium",
@@ -3302,6 +3503,9 @@
     },
     "net_risk": 0.115,
     "risk_band": "low",
+    "augmentation": 0.2856,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -3351,6 +3555,9 @@
     },
     "net_risk": 0.2385,
     "risk_band": "moderate",
+    "augmentation": 0.1319,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -3400,6 +3607,9 @@
     },
     "net_risk": 0.1587,
     "risk_band": "moderate",
+    "augmentation": 0.2811,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -3449,6 +3659,9 @@
     },
     "net_risk": 0.5926,
     "risk_band": "very_high",
+    "augmentation": 0.1384,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -3498,6 +3711,9 @@
     },
     "net_risk": 0.5044,
     "risk_band": "very_high",
+    "augmentation": 0.0542,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -3547,6 +3763,9 @@
     },
     "net_risk": 0.1398,
     "risk_band": "low",
+    "augmentation": 0.4577,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -3596,6 +3815,9 @@
     },
     "net_risk": 0.1242,
     "risk_band": "low",
+    "augmentation": 0.3131,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -3645,6 +3867,9 @@
     },
     "net_risk": 0.2045,
     "risk_band": "moderate",
+    "augmentation": 0.2715,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -3694,6 +3919,9 @@
     },
     "net_risk": 0.1729,
     "risk_band": "moderate",
+    "augmentation": 0.1987,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -3743,6 +3971,9 @@
     },
     "net_risk": 0.2172,
     "risk_band": "moderate",
+    "augmentation": 0.3097,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -3792,6 +4023,9 @@
     },
     "net_risk": 0.3817,
     "risk_band": "high",
+    "augmentation": 0.2082,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -3841,6 +4075,9 @@
     },
     "net_risk": 0.237,
     "risk_band": "moderate",
+    "augmentation": 0.4449,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -3890,6 +4127,9 @@
     },
     "net_risk": 0.2293,
     "risk_band": "moderate",
+    "augmentation": 0.4926,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -3939,6 +4179,9 @@
     },
     "net_risk": 0.1838,
     "risk_band": "moderate",
+    "augmentation": 0.2392,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -3988,6 +4231,9 @@
     },
     "net_risk": 0.0181,
     "risk_band": "very_low",
+    "augmentation": 0.2173,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -4037,6 +4283,9 @@
     },
     "net_risk": 0.0773,
     "risk_band": "low",
+    "augmentation": 0.3572,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -4086,6 +4335,9 @@
     },
     "net_risk": 0.1358,
     "risk_band": "low",
+    "augmentation": 0.2674,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -4135,6 +4387,9 @@
     },
     "net_risk": 0.0457,
     "risk_band": "very_low",
+    "augmentation": 0.2003,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -4184,6 +4439,9 @@
     },
     "net_risk": 0.3649,
     "risk_band": "high",
+    "augmentation": 0.2568,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -4233,6 +4491,9 @@
     },
     "net_risk": 0.1178,
     "risk_band": "low",
+    "augmentation": 0.1876,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -4282,6 +4543,9 @@
     },
     "net_risk": 0.1129,
     "risk_band": "low",
+    "augmentation": 0.4542,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -4331,6 +4595,9 @@
     },
     "net_risk": 0.1422,
     "risk_band": "low",
+    "augmentation": 0.3426,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.5667,
       "level": "medium",
@@ -4380,6 +4647,9 @@
     },
     "net_risk": 0.0038,
     "risk_band": "very_low",
+    "augmentation": 0.157,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -4429,6 +4699,9 @@
     },
     "net_risk": 0.4565,
     "risk_band": "high",
+    "augmentation": 0.2062,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -4478,6 +4751,9 @@
     },
     "net_risk": 0.3657,
     "risk_band": "high",
+    "augmentation": 0.2438,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -4527,6 +4803,9 @@
     },
     "net_risk": 0.518,
     "risk_band": "very_high",
+    "augmentation": 0.1918,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -4576,6 +4855,9 @@
     },
     "net_risk": 0.2409,
     "risk_band": "moderate",
+    "augmentation": 0.1253,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -4625,6 +4907,9 @@
     },
     "net_risk": 0.5011,
     "risk_band": "very_high",
+    "augmentation": 0.0558,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -4674,6 +4959,9 @@
     },
     "net_risk": 0.0792,
     "risk_band": "low",
+    "augmentation": 0.3134,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -4723,6 +5011,9 @@
     },
     "net_risk": 0.2879,
     "risk_band": "moderate",
+    "augmentation": 0.3093,
+    "augmentation_band": "high",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -4772,6 +5063,9 @@
     },
     "net_risk": 0.1643,
     "risk_band": "moderate",
+    "augmentation": 0.1304,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -4821,6 +5115,9 @@
     },
     "net_risk": 0.1454,
     "risk_band": "low",
+    "augmentation": 0.3192,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.5667,
       "level": "medium",
@@ -4870,6 +5167,9 @@
     },
     "net_risk": 0.146,
     "risk_band": "low",
+    "augmentation": 0.3151,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.5667,
       "level": "medium",
@@ -4919,6 +5219,9 @@
     },
     "net_risk": 0.1577,
     "risk_band": "moderate",
+    "augmentation": 0.2308,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.5667,
       "level": "medium",
@@ -4968,6 +5271,9 @@
     },
     "net_risk": 0.6022,
     "risk_band": "very_high",
+    "augmentation": 0.1216,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -5017,6 +5323,9 @@
     },
     "net_risk": 0.1446,
     "risk_band": "low",
+    "augmentation": 0.3253,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.5667,
       "level": "medium",
@@ -5066,6 +5375,9 @@
     },
     "net_risk": 0.1427,
     "risk_band": "low",
+    "augmentation": 0.3388,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.5667,
       "level": "medium",
@@ -5115,6 +5427,9 @@
     },
     "net_risk": 0.0171,
     "risk_band": "very_low",
+    "augmentation": 0.2764,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -5164,6 +5479,9 @@
     },
     "net_risk": 0.0175,
     "risk_band": "very_low",
+    "augmentation": 0.2507,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -5213,6 +5531,9 @@
     },
     "net_risk": 0.0702,
     "risk_band": "low",
+    "augmentation": 0.3843,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -5262,6 +5583,9 @@
     },
     "net_risk": 0.2979,
     "risk_band": "moderate",
+    "augmentation": 0.2737,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -5311,6 +5635,9 @@
     },
     "net_risk": 0.1087,
     "risk_band": "low",
+    "augmentation": 0.3564,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -5360,6 +5687,9 @@
     },
     "net_risk": 0.1325,
     "risk_band": "low",
+    "augmentation": 0.1331,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -5409,6 +5739,9 @@
     },
     "net_risk": 0.3752,
     "risk_band": "high",
+    "augmentation": 0.3196,
+    "augmentation_band": "high",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -5458,6 +5791,9 @@
     },
     "net_risk": 0.2071,
     "risk_band": "moderate",
+    "augmentation": 0.3959,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -5507,6 +5843,9 @@
     },
     "net_risk": 0.1099,
     "risk_band": "low",
+    "augmentation": 0.3438,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -5556,6 +5895,9 @@
     },
     "net_risk": 0.2428,
     "risk_band": "moderate",
+    "augmentation": 0.1843,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -5605,6 +5947,9 @@
     },
     "net_risk": 0.2293,
     "risk_band": "moderate",
+    "augmentation": 0.1568,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -5654,6 +5999,9 @@
     },
     "net_risk": 0.2247,
     "risk_band": "moderate",
+    "augmentation": 0.1691,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -5703,6 +6051,9 @@
     },
     "net_risk": 0.0179,
     "risk_band": "very_low",
+    "augmentation": 0.2252,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -5752,6 +6103,9 @@
     },
     "net_risk": 0.1552,
     "risk_band": "moderate",
+    "augmentation": 0.2912,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -5801,6 +6155,9 @@
     },
     "net_risk": 0.1415,
     "risk_band": "low",
+    "augmentation": 0.3471,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.5667,
       "level": "medium",
@@ -5850,6 +6207,9 @@
     },
     "net_risk": 0.1042,
     "risk_band": "low",
+    "augmentation": 0.3862,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -5899,6 +6259,9 @@
     },
     "net_risk": 0.1717,
     "risk_band": "moderate",
+    "augmentation": 0.4855,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -5948,6 +6311,9 @@
     },
     "net_risk": 0.065,
     "risk_band": "low",
+    "augmentation": 0.5336,
+    "augmentation_band": "very_high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -5997,6 +6363,9 @@
     },
     "net_risk": 0.3225,
     "risk_band": "high",
+    "augmentation": 0.2853,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -6046,6 +6415,9 @@
     },
     "net_risk": 0.2051,
     "risk_band": "moderate",
+    "augmentation": 0.2432,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -6095,6 +6467,9 @@
     },
     "net_risk": 0.5268,
     "risk_band": "very_high",
+    "augmentation": 0.1816,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -6144,6 +6519,9 @@
     },
     "net_risk": 0.5096,
     "risk_band": "very_high",
+    "augmentation": 0.2016,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -6193,6 +6571,9 @@
     },
     "net_risk": 0.1872,
     "risk_band": "moderate",
+    "augmentation": 0.227,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -6242,6 +6623,9 @@
     },
     "net_risk": 0.0035,
     "risk_band": "very_low",
+    "augmentation": 0.197,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -6291,6 +6675,9 @@
     },
     "net_risk": 0.2813,
     "risk_band": "moderate",
+    "augmentation": 0.2481,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -6340,6 +6727,9 @@
     },
     "net_risk": 0.4674,
     "risk_band": "high",
+    "augmentation": 0.192,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -6389,6 +6779,9 @@
     },
     "net_risk": 0.4351,
     "risk_band": "high",
+    "augmentation": 0.2723,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -6438,6 +6831,9 @@
     },
     "net_risk": 0.5034,
     "risk_band": "very_high",
+    "augmentation": 0.2087,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -6487,6 +6883,9 @@
     },
     "net_risk": 0,
     "risk_band": "very_low",
+    "augmentation": 0.103,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -6536,6 +6935,9 @@
     },
     "net_risk": 0.0173,
     "risk_band": "very_low",
+    "augmentation": 0.2627,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -6585,6 +6987,9 @@
     },
     "net_risk": 0.0181,
     "risk_band": "very_low",
+    "augmentation": 0.2143,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -6634,6 +7039,9 @@
     },
     "net_risk": 0.3031,
     "risk_band": "high",
+    "augmentation": 0.1253,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -6683,6 +7091,9 @@
     },
     "net_risk": 0.2922,
     "risk_band": "moderate",
+    "augmentation": 0.4047,
+    "augmentation_band": "high",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -6732,6 +7143,9 @@
     },
     "net_risk": 0.3538,
     "risk_band": "high",
+    "augmentation": 0.0927,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -6781,6 +7195,9 @@
     },
     "net_risk": 0.1488,
     "risk_band": "low",
+    "augmentation": 0.2952,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.5667,
       "level": "medium",
@@ -6830,6 +7247,9 @@
     },
     "net_risk": 0.1469,
     "risk_band": "low",
+    "augmentation": 0.3082,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.5667,
       "level": "medium",
@@ -6879,6 +7299,9 @@
     },
     "net_risk": 0.1423,
     "risk_band": "low",
+    "augmentation": 0.3415,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.5667,
       "level": "medium",
@@ -6928,6 +7351,9 @@
     },
     "net_risk": 0.2694,
     "risk_band": "moderate",
+    "augmentation": 0.3149,
+    "augmentation_band": "high",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -6977,6 +7403,9 @@
     },
     "net_risk": 0.1128,
     "risk_band": "low",
+    "augmentation": 0.2285,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -7026,6 +7455,9 @@
     },
     "net_risk": 0.1586,
     "risk_band": "moderate",
+    "augmentation": 0.2878,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -7075,6 +7507,9 @@
     },
     "net_risk": 0.3275,
     "risk_band": "high",
+    "augmentation": 0.2653,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -7124,6 +7559,9 @@
     },
     "net_risk": 0.1656,
     "risk_band": "moderate",
+    "augmentation": 0.2368,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -7173,6 +7611,9 @@
     },
     "net_risk": 0.078,
     "risk_band": "low",
+    "augmentation": 0.5872,
+    "augmentation_band": "very_high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -7222,6 +7663,9 @@
     },
     "net_risk": 0.2212,
     "risk_band": "moderate",
+    "augmentation": 0.1787,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -7271,6 +7715,9 @@
     },
     "net_risk": 0.5881,
     "risk_band": "very_high",
+    "augmentation": 0.0938,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -7320,6 +7767,9 @@
     },
     "net_risk": 0.686,
     "risk_band": "very_high",
+    "augmentation": 0.0196,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -7369,6 +7819,9 @@
     },
     "net_risk": 0.2749,
     "risk_band": "moderate",
+    "augmentation": 0.1911,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -7418,6 +7871,9 @@
     },
     "net_risk": 0.0179,
     "risk_band": "very_low",
+    "augmentation": 0.2284,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -7467,6 +7923,9 @@
     },
     "net_risk": 0.1466,
     "risk_band": "low",
+    "augmentation": 0.311,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.5667,
       "level": "medium",
@@ -7516,6 +7975,9 @@
     },
     "net_risk": 0.2219,
     "risk_band": "moderate",
+    "augmentation": 0.3104,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -7565,6 +8027,9 @@
     },
     "net_risk": 0.3563,
     "risk_band": "high",
+    "augmentation": 0.09,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -7614,6 +8079,9 @@
     },
     "net_risk": 0.2184,
     "risk_band": "moderate",
+    "augmentation": 0.2758,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -7663,6 +8131,9 @@
     },
     "net_risk": 0.1808,
     "risk_band": "moderate",
+    "augmentation": 0.2146,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -7712,6 +8183,9 @@
     },
     "net_risk": 0.2479,
     "risk_band": "moderate",
+    "augmentation": 0.168,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -7761,6 +8235,9 @@
     },
     "net_risk": 0.2271,
     "risk_band": "moderate",
+    "augmentation": 0.506,
+    "augmentation_band": "very_high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -7810,6 +8287,9 @@
     },
     "net_risk": 0.1461,
     "risk_band": "low",
+    "augmentation": 0.3921,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -7859,6 +8339,9 @@
     },
     "net_risk": 0.1855,
     "risk_band": "moderate",
+    "augmentation": 0.1736,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -7908,6 +8391,9 @@
     },
     "net_risk": 0.0443,
     "risk_band": "very_low",
+    "augmentation": 0.2206,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -7957,6 +8443,9 @@
     },
     "net_risk": 0.0463,
     "risk_band": "very_low",
+    "augmentation": 0.192,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -8006,6 +8495,9 @@
     },
     "net_risk": 0.2977,
     "risk_band": "moderate",
+    "augmentation": 0.2746,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -8055,6 +8547,9 @@
     },
     "net_risk": 0.2808,
     "risk_band": "moderate",
+    "augmentation": 0.3347,
+    "augmentation_band": "high",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -8104,6 +8599,9 @@
     },
     "net_risk": 0.1651,
     "risk_band": "moderate",
+    "augmentation": 0.2393,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -8153,6 +8651,9 @@
     },
     "net_risk": 0.1558,
     "risk_band": "moderate",
+    "augmentation": 0.3101,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -8202,6 +8703,9 @@
     },
     "net_risk": 0.533,
     "risk_band": "very_high",
+    "augmentation": 0.0836,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -8251,6 +8755,9 @@
     },
     "net_risk": 0.2786,
     "risk_band": "moderate",
+    "augmentation": 0.2839,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -8300,6 +8807,9 @@
     },
     "net_risk": 0.0472,
     "risk_band": "very_low",
+    "augmentation": 0.2603,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -8349,6 +8859,9 @@
     },
     "net_risk": 0.1245,
     "risk_band": "low",
+    "augmentation": 0.3094,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -8398,6 +8911,9 @@
     },
     "net_risk": 0.1259,
     "risk_band": "low",
+    "augmentation": 0.2928,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -8447,6 +8963,9 @@
     },
     "net_risk": 0.0688,
     "risk_band": "low",
+    "augmentation": 0.2354,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -8496,6 +9015,9 @@
     },
     "net_risk": 0.0555,
     "risk_band": "low",
+    "augmentation": 0.5236,
+    "augmentation_band": "very_high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -8545,6 +9067,9 @@
     },
     "net_risk": 0.2937,
     "risk_band": "moderate",
+    "augmentation": 0.1473,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -8594,6 +9119,9 @@
     },
     "net_risk": 0.1519,
     "risk_band": "moderate",
+    "augmentation": 0.2727,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.5667,
       "level": "medium",
@@ -8643,6 +9171,9 @@
     },
     "net_risk": 0.2857,
     "risk_band": "moderate",
+    "augmentation": 0.1658,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -8692,6 +9223,9 @@
     },
     "net_risk": 0.155,
     "risk_band": "moderate",
+    "augmentation": 0.2502,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.5667,
       "level": "medium",
@@ -8741,6 +9275,9 @@
     },
     "net_risk": 0.0666,
     "risk_band": "low",
+    "augmentation": 0.4888,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -8790,6 +9327,9 @@
     },
     "net_risk": 0.0179,
     "risk_band": "very_low",
+    "augmentation": 0.2297,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -8839,6 +9379,9 @@
     },
     "net_risk": 0.0667,
     "risk_band": "low",
+    "augmentation": 0.4867,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -8888,6 +9431,9 @@
     },
     "net_risk": 0.0038,
     "risk_band": "very_low",
+    "augmentation": 0.1392,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -8937,6 +9483,9 @@
     },
     "net_risk": 0.3654,
     "risk_band": "high",
+    "augmentation": 0.2445,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -8986,6 +9535,9 @@
     },
     "net_risk": 0.5245,
     "risk_band": "very_high",
+    "augmentation": 0.1961,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -9035,6 +9587,9 @@
     },
     "net_risk": 0.0173,
     "risk_band": "very_low",
+    "augmentation": 0.2664,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -9084,6 +9639,9 @@
     },
     "net_risk": 0.024,
     "risk_band": "very_low",
+    "augmentation": 0.1998,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -9133,6 +9691,9 @@
     },
     "net_risk": 0.0182,
     "risk_band": "very_low",
+    "augmentation": 0.2081,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -9182,6 +9743,9 @@
     },
     "net_risk": 0.0174,
     "risk_band": "very_low",
+    "augmentation": 0.2551,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -9231,6 +9795,9 @@
     },
     "net_risk": 0.0179,
     "risk_band": "very_low",
+    "augmentation": 0.2272,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -9280,6 +9847,9 @@
     },
     "net_risk": 0.3384,
     "risk_band": "high",
+    "augmentation": 0.2226,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -9329,6 +9899,9 @@
     },
     "net_risk": 0.0103,
     "risk_band": "very_low",
+    "augmentation": 0.2642,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -9378,6 +9951,9 @@
     },
     "net_risk": 0.1139,
     "risk_band": "low",
+    "augmentation": 0.4419,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -9427,6 +10003,9 @@
     },
     "net_risk": 0.0038,
     "risk_band": "very_low",
+    "augmentation": 0.1308,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -9476,6 +10055,9 @@
     },
     "net_risk": 0.0479,
     "risk_band": "very_low",
+    "augmentation": 0.242,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -9525,6 +10107,9 @@
     },
     "net_risk": 0.4556,
     "risk_band": "high",
+    "augmentation": 0.1844,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -9574,6 +10159,9 @@
     },
     "net_risk": 0.2319,
     "risk_band": "moderate",
+    "augmentation": 0.2194,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -9623,6 +10211,9 @@
     },
     "net_risk": 0.1513,
     "risk_band": "moderate",
+    "augmentation": 0.3367,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -9672,6 +10263,9 @@
     },
     "net_risk": 0.1674,
     "risk_band": "moderate",
+    "augmentation": 0.2274,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -9721,6 +10315,9 @@
     },
     "net_risk": 0.1106,
     "risk_band": "low",
+    "augmentation": 0.3359,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -9770,6 +10367,9 @@
     },
     "net_risk": 0.2007,
     "risk_band": "moderate",
+    "augmentation": 0.2674,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -9819,6 +10419,9 @@
     },
     "net_risk": 0.1438,
     "risk_band": "low",
+    "augmentation": 0.4161,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -9868,6 +10471,9 @@
     },
     "net_risk": 0.0176,
     "risk_band": "very_low",
+    "augmentation": 0.2482,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -9917,6 +10523,9 @@
     },
     "net_risk": 0.3303,
     "risk_band": "high",
+    "augmentation": 0.2084,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -9966,6 +10575,9 @@
     },
     "net_risk": 0.1466,
     "risk_band": "low",
+    "augmentation": 0.3866,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -10015,6 +10627,9 @@
     },
     "net_risk": 0.1759,
     "risk_band": "moderate",
+    "augmentation": 0.1829,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -10064,6 +10679,9 @@
     },
     "net_risk": 0.0471,
     "risk_band": "very_low",
+    "augmentation": 0.2632,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -10113,6 +10731,9 @@
     },
     "net_risk": 0.0277,
     "risk_band": "very_low",
+    "augmentation": 0.1909,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -10162,6 +10783,9 @@
     },
     "net_risk": 0.3178,
     "risk_band": "high",
+    "augmentation": 0.2134,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -10211,6 +10835,9 @@
     },
     "net_risk": 0.289,
     "risk_band": "moderate",
+    "augmentation": 0.3053,
+    "augmentation_band": "high",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -10260,6 +10887,9 @@
     },
     "net_risk": 0.1768,
     "risk_band": "moderate",
+    "augmentation": 0.2203,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -10309,6 +10939,9 @@
     },
     "net_risk": 0.2684,
     "risk_band": "moderate",
+    "augmentation": 0.3181,
+    "augmentation_band": "high",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -10358,6 +10991,9 @@
     },
     "net_risk": 0.0745,
     "risk_band": "low",
+    "augmentation": 0.4205,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -10407,6 +11043,9 @@
     },
     "net_risk": 0.5046,
     "risk_band": "very_high",
+    "augmentation": 0.0541,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -10456,6 +11095,9 @@
     },
     "net_risk": 0.4602,
     "risk_band": "high",
+    "augmentation": 0.2014,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -10505,6 +11147,9 @@
     },
     "net_risk": 0.4389,
     "risk_band": "high",
+    "augmentation": 0.2655,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -10554,6 +11199,9 @@
     },
     "net_risk": 0.1436,
     "risk_band": "low",
+    "augmentation": 0.3323,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.5667,
       "level": "medium",
@@ -10603,6 +11251,9 @@
     },
     "net_risk": 0.2329,
     "risk_band": "moderate",
+    "augmentation": 0.1471,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -10652,6 +11303,9 @@
     },
     "net_risk": 0.3006,
     "risk_band": "high",
+    "augmentation": 0.1448,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -10701,6 +11355,9 @@
     },
     "net_risk": 0.3655,
     "risk_band": "high",
+    "augmentation": 0.2444,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -10750,6 +11407,9 @@
     },
     "net_risk": 0.3635,
     "risk_band": "high",
+    "augmentation": 0.248,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -10799,6 +11459,9 @@
     },
     "net_risk": 0.0495,
     "risk_band": "very_low",
+    "augmentation": 0.2618,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -10848,6 +11511,9 @@
     },
     "net_risk": 0.0703,
     "risk_band": "low",
+    "augmentation": 0.2092,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -10897,6 +11563,9 @@
     },
     "net_risk": 0.1436,
     "risk_band": "low",
+    "augmentation": 0.3321,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.5667,
       "level": "medium",
@@ -10946,6 +11615,9 @@
     },
     "net_risk": 0.1597,
     "risk_band": "moderate",
+    "augmentation": 0.2714,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -10995,6 +11667,9 @@
     },
     "net_risk": 0.6028,
     "risk_band": "very_high",
+    "augmentation": 0.1216,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -11044,6 +11719,9 @@
     },
     "net_risk": 0.6506,
     "risk_band": "very_high",
+    "augmentation": 0.0888,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -11093,6 +11771,9 @@
     },
     "net_risk": 0.1512,
     "risk_band": "moderate",
+    "augmentation": 0.2774,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.5667,
       "level": "medium",
@@ -11142,6 +11823,9 @@
     },
     "net_risk": 0.5349,
     "risk_band": "very_high",
+    "augmentation": 0.2022,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -11191,6 +11875,9 @@
     },
     "net_risk": 0.132,
     "risk_band": "low",
+    "augmentation": 0.3653,
+    "augmentation_band": "high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -11240,6 +11927,9 @@
     },
     "net_risk": 0.2817,
     "risk_band": "moderate",
+    "augmentation": 0.2732,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -11289,6 +11979,9 @@
     },
     "net_risk": 0.4862,
     "risk_band": "high",
+    "augmentation": 0.0629,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -11338,6 +12031,9 @@
     },
     "net_risk": 0.0566,
     "risk_band": "low",
+    "augmentation": 0.2503,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -11387,6 +12083,9 @@
     },
     "net_risk": 0.5173,
     "risk_band": "very_high",
+    "augmentation": 0.0939,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -11436,6 +12135,9 @@
     },
     "net_risk": 0.3619,
     "risk_band": "high",
+    "augmentation": 0.2511,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -11485,6 +12187,9 @@
     },
     "net_risk": 0.0012,
     "risk_band": "very_low",
+    "augmentation": 0.1579,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -11534,6 +12239,9 @@
     },
     "net_risk": 0.4813,
     "risk_band": "high",
+    "augmentation": 0.1518,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -11583,6 +12291,9 @@
     },
     "net_risk": 0.4063,
     "risk_band": "high",
+    "augmentation": 0.1729,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -11632,6 +12343,9 @@
     },
     "net_risk": 0.5378,
     "risk_band": "very_high",
+    "augmentation": 0.1688,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -11681,6 +12395,9 @@
     },
     "net_risk": 0.1192,
     "risk_band": "low",
+    "augmentation": 0.5489,
+    "augmentation_band": "very_high",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -11730,6 +12447,9 @@
     },
     "net_risk": 0.2385,
     "risk_band": "moderate",
+    "augmentation": 0.2128,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -11779,6 +12499,9 @@
     },
     "net_risk": 0.0174,
     "risk_band": "very_low",
+    "augmentation": 0.2581,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -11828,6 +12551,9 @@
     },
     "net_risk": 0.0005,
     "risk_band": "very_low",
+    "augmentation": 0.2343,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -11877,6 +12603,9 @@
     },
     "net_risk": 0.1526,
     "risk_band": "moderate",
+    "augmentation": 0.2678,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.5667,
       "level": "medium",
@@ -11926,6 +12655,9 @@
     },
     "net_risk": 0.3474,
     "risk_band": "high",
+    "augmentation": 0.165,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -11975,6 +12707,9 @@
     },
     "net_risk": 0.1623,
     "risk_band": "moderate",
+    "augmentation": 0.1093,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -12024,6 +12759,9 @@
     },
     "net_risk": 0.4266,
     "risk_band": "high",
+    "augmentation": 0.2305,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -12073,6 +12811,9 @@
     },
     "net_risk": 0.1076,
     "risk_band": "low",
+    "augmentation": 0.0828,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -12122,6 +12863,9 @@
     },
     "net_risk": 0.2194,
     "risk_band": "moderate",
+    "augmentation": 0.1582,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -12171,6 +12915,9 @@
     },
     "net_risk": 0.0393,
     "risk_band": "very_low",
+    "augmentation": 0.12,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -12220,6 +12967,9 @@
     },
     "net_risk": 0.1373,
     "risk_band": "low",
+    "augmentation": 0.0704,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -12269,6 +13019,9 @@
     },
     "net_risk": 0.4583,
     "risk_band": "high",
+    "augmentation": 0.0974,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -12318,6 +13071,9 @@
     },
     "net_risk": 0.1073,
     "risk_band": "low",
+    "augmentation": 0.0839,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -12367,6 +13123,9 @@
     },
     "net_risk": 0.5152,
     "risk_band": "very_high",
+    "augmentation": 0.1223,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -12416,6 +13175,9 @@
     },
     "net_risk": 0.4786,
     "risk_band": "high",
+    "augmentation": 0.0815,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -12465,6 +13227,9 @@
     },
     "net_risk": 0.6237,
     "risk_band": "very_high",
+    "augmentation": 0.104,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -12514,6 +13279,9 @@
     },
     "net_risk": 0.1975,
     "risk_band": "moderate",
+    "augmentation": 0.0956,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -12563,6 +13331,9 @@
     },
     "net_risk": 0.1945,
     "risk_band": "moderate",
+    "augmentation": 0.103,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -12612,6 +13383,9 @@
     },
     "net_risk": 0.192,
     "risk_band": "moderate",
+    "augmentation": 0.1091,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -12661,6 +13435,9 @@
     },
     "net_risk": 0.2002,
     "risk_band": "moderate",
+    "augmentation": 0.0888,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -12710,6 +13487,9 @@
     },
     "net_risk": 0.2035,
     "risk_band": "moderate",
+    "augmentation": 0.0808,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -12759,6 +13539,9 @@
     },
     "net_risk": 0.18,
     "risk_band": "moderate",
+    "augmentation": 0.1545,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -12808,6 +13591,9 @@
     },
     "net_risk": 0.1526,
     "risk_band": "moderate",
+    "augmentation": 0.0725,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -12857,6 +13643,9 @@
     },
     "net_risk": 0.6096,
     "risk_band": "very_high",
+    "augmentation": 0.1196,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -12906,6 +13695,9 @@
     },
     "net_risk": 0.1699,
     "risk_band": "moderate",
+    "augmentation": 0.0861,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -12955,6 +13747,9 @@
     },
     "net_risk": 0.1673,
     "risk_band": "moderate",
+    "augmentation": 0.094,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -13004,6 +13799,9 @@
     },
     "net_risk": 0.157,
     "risk_band": "moderate",
+    "augmentation": 0.1275,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -13053,6 +13851,9 @@
     },
     "net_risk": 0.4407,
     "risk_band": "high",
+    "augmentation": 0.2025,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -13102,6 +13903,9 @@
     },
     "net_risk": 0.207,
     "risk_band": "moderate",
+    "augmentation": 0.1764,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -13151,6 +13955,9 @@
     },
     "net_risk": 0.1207,
     "risk_band": "low",
+    "augmentation": 0.2227,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -13200,6 +14007,9 @@
     },
     "net_risk": 0.2281,
     "risk_band": "moderate",
+    "augmentation": 0.054,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -13249,6 +14059,9 @@
     },
     "net_risk": 0.2245,
     "risk_band": "moderate",
+    "augmentation": 0.0584,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -13298,6 +14111,9 @@
     },
     "net_risk": 0.2315,
     "risk_band": "moderate",
+    "augmentation": 0.0767,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -13347,6 +14163,9 @@
     },
     "net_risk": 0.1467,
     "risk_band": "low",
+    "augmentation": 0.1884,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -13396,6 +14215,9 @@
     },
     "net_risk": 0.1113,
     "risk_band": "low",
+    "augmentation": 0.0668,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -13445,6 +14267,9 @@
     },
     "net_risk": 0.7568,
     "risk_band": "very_high",
+    "augmentation": 0.0021,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -13494,6 +14319,9 @@
     },
     "net_risk": 0.2406,
     "risk_band": "moderate",
+    "augmentation": 0.0753,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -13543,6 +14371,9 @@
     },
     "net_risk": 0.1218,
     "risk_band": "low",
+    "augmentation": 0.0347,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -13592,6 +14423,9 @@
     },
     "net_risk": 0.3539,
     "risk_band": "high",
+    "augmentation": 0.0727,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -13641,6 +14475,9 @@
     },
     "net_risk": 0.393,
     "risk_band": "high",
+    "augmentation": 0.1453,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -13690,6 +14527,9 @@
     },
     "net_risk": 0.0562,
     "risk_band": "low",
+    "augmentation": 0.1249,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -13739,6 +14579,9 @@
     },
     "net_risk": 0.1834,
     "risk_band": "moderate",
+    "augmentation": 0.0719,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -13788,6 +14631,9 @@
     },
     "net_risk": 0.1075,
     "risk_band": "low",
+    "augmentation": 0.083,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -13837,6 +14683,9 @@
     },
     "net_risk": 0.153,
     "risk_band": "moderate",
+    "augmentation": 0.0714,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -13886,6 +14735,9 @@
     },
     "net_risk": 0.6608,
     "risk_band": "very_high",
+    "augmentation": 0.0708,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -13935,6 +14787,9 @@
     },
     "net_risk": 0.04,
     "risk_band": "very_low",
+    "augmentation": 0.085,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -13984,6 +14839,9 @@
     },
     "net_risk": 0.1083,
     "risk_band": "low",
+    "augmentation": 0.0632,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -14033,6 +14891,9 @@
     },
     "net_risk": 0.349,
     "risk_band": "high",
+    "augmentation": 0.1901,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -14082,6 +14943,9 @@
     },
     "net_risk": 0.6421,
     "risk_band": "very_high",
+    "augmentation": 0.0959,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -14131,6 +14995,9 @@
     },
     "net_risk": 0.047,
     "risk_band": "very_low",
+    "augmentation": 0.1055,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -14180,6 +15047,9 @@
     },
     "net_risk": 0.1068,
     "risk_band": "low",
+    "augmentation": 0.0862,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -14229,6 +15099,9 @@
     },
     "net_risk": 0.0112,
     "risk_band": "very_low",
+    "augmentation": 0.0233,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -14278,6 +15151,9 @@
     },
     "net_risk": 0.4759,
     "risk_band": "high",
+    "augmentation": 0.1795,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -14327,6 +15203,9 @@
     },
     "net_risk": 0.1554,
     "risk_band": "moderate",
+    "augmentation": 0.0652,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -14376,6 +15255,9 @@
     },
     "net_risk": 0.6905,
     "risk_band": "very_high",
+    "augmentation": 0.0038,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -14425,6 +15307,9 @@
     },
     "net_risk": 0.2619,
     "risk_band": "moderate",
+    "augmentation": 0.0324,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -14474,6 +15359,9 @@
     },
     "net_risk": 0.3172,
     "risk_band": "high",
+    "augmentation": 0.2417,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -14523,6 +15411,9 @@
     },
     "net_risk": 0.2033,
     "risk_band": "moderate",
+    "augmentation": 0.0489,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -14572,6 +15463,9 @@
     },
     "net_risk": 0.1974,
     "risk_band": "moderate",
+    "augmentation": 0.0569,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -14621,6 +15515,9 @@
     },
     "net_risk": 0.1932,
     "risk_band": "moderate",
+    "augmentation": 0.0625,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -14670,6 +15567,9 @@
     },
     "net_risk": 0.123,
     "risk_band": "low",
+    "augmentation": 0.1961,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -14719,6 +15619,9 @@
     },
     "net_risk": 0.1492,
     "risk_band": "low",
+    "augmentation": 0.1738,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -14768,6 +15671,9 @@
     },
     "net_risk": 0.0144,
     "risk_band": "very_low",
+    "augmentation": 0.0367,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -14817,6 +15723,9 @@
     },
     "net_risk": 0.5165,
     "risk_band": "very_high",
+    "augmentation": 0.1203,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -14866,6 +15775,9 @@
     },
     "net_risk": 0.6672,
     "risk_band": "very_high",
+    "augmentation": 0.0223,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -14915,6 +15827,9 @@
     },
     "net_risk": 0.1699,
     "risk_band": "moderate",
+    "augmentation": 0.1977,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -14964,6 +15879,9 @@
     },
     "net_risk": 0.1826,
     "risk_band": "moderate",
+    "augmentation": 0.0734,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -15013,6 +15931,9 @@
     },
     "net_risk": 0.1085,
     "risk_band": "low",
+    "augmentation": 0.0786,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -15062,6 +15983,9 @@
     },
     "net_risk": 0.3469,
     "risk_band": "high",
+    "augmentation": 0.1513,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -15111,6 +16035,9 @@
     },
     "net_risk": 0.141,
     "risk_band": "low",
+    "augmentation": 0.0616,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -15160,6 +16087,9 @@
     },
     "net_risk": 0.3316,
     "risk_band": "high",
+    "augmentation": 0.1846,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -15209,6 +16139,9 @@
     },
     "net_risk": 0.4112,
     "risk_band": "high",
+    "augmentation": 0.1122,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -15258,6 +16191,9 @@
     },
     "net_risk": 0.1715,
     "risk_band": "moderate",
+    "augmentation": 0.081,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -15307,6 +16243,9 @@
     },
     "net_risk": 0.1074,
     "risk_band": "low",
+    "augmentation": 0.0833,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -15356,6 +16295,9 @@
     },
     "net_risk": 0.0105,
     "risk_band": "very_low",
+    "augmentation": 0.0881,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -15405,6 +16347,9 @@
     },
     "net_risk": 0.1623,
     "risk_band": "moderate",
+    "augmentation": 0.1094,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -15454,6 +16399,9 @@
     },
     "net_risk": 0.4484,
     "risk_band": "high",
+    "augmentation": 0.1872,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -15503,6 +16451,9 @@
     },
     "net_risk": 0.0253,
     "risk_band": "very_low",
+    "augmentation": 0.1316,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -15552,6 +16503,9 @@
     },
     "net_risk": 0.0004,
     "risk_band": "very_low",
+    "augmentation": 0.0653,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -15601,6 +16555,9 @@
     },
     "net_risk": 0.1049,
     "risk_band": "low",
+    "augmentation": 0.0943,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -15650,6 +16607,9 @@
     },
     "net_risk": 0.1449,
     "risk_band": "low",
+    "augmentation": 0.0521,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -15699,6 +16659,9 @@
     },
     "net_risk": 0.2718,
     "risk_band": "moderate",
+    "augmentation": 0.0267,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -15748,6 +16711,9 @@
     },
     "net_risk": 0.2505,
     "risk_band": "moderate",
+    "augmentation": 0.0398,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -15797,6 +16763,9 @@
     },
     "net_risk": 0.0963,
     "risk_band": "low",
+    "augmentation": 0.0587,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -15846,6 +16815,9 @@
     },
     "net_risk": 0.4728,
     "risk_band": "high",
+    "augmentation": 0.1388,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -15895,6 +16867,9 @@
     },
     "net_risk": 0.529,
     "risk_band": "very_high",
+    "augmentation": 0.1021,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -15944,6 +16919,9 @@
     },
     "net_risk": 0.1992,
     "risk_band": "moderate",
+    "augmentation": 0.0877,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.5667,
       "level": "medium",
@@ -15993,6 +16971,9 @@
     },
     "net_risk": 0.113,
     "risk_band": "low",
+    "augmentation": 0.0533,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -16042,6 +17023,9 @@
     },
     "net_risk": 0.4712,
     "risk_band": "high",
+    "augmentation": 0.1419,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -16091,6 +17075,9 @@
     },
     "net_risk": 0.4057,
     "risk_band": "high",
+    "augmentation": 0.1222,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -16140,6 +17127,9 @@
     },
     "net_risk": 0.1261,
     "risk_band": "low",
+    "augmentation": 0.0765,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -16189,6 +17179,9 @@
     },
     "net_risk": 0.1168,
     "risk_band": "low",
+    "augmentation": 0.0452,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -16238,6 +17231,9 @@
     },
     "net_risk": 0.1206,
     "risk_band": "low",
+    "augmentation": 0.223,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -16287,6 +17283,9 @@
     },
     "net_risk": 0.2009,
     "risk_band": "moderate",
+    "augmentation": 0.0352,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -16336,6 +17335,9 @@
     },
     "net_risk": 0.1563,
     "risk_band": "moderate",
+    "augmentation": 0.0503,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -16385,6 +17387,9 @@
     },
     "net_risk": 0.0259,
     "risk_band": "very_low",
+    "augmentation": 0.1107,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -16434,6 +17439,9 @@
     },
     "net_risk": 0.0419,
     "risk_band": "very_low",
+    "augmentation": 0.0844,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -16483,6 +17491,9 @@
     },
     "net_risk": 0.014,
     "risk_band": "very_low",
+    "augmentation": 0.0434,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -16532,6 +17543,9 @@
     },
     "net_risk": 0.0519,
     "risk_band": "low",
+    "augmentation": 0.1347,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -16581,6 +17595,9 @@
     },
     "net_risk": 0.4886,
     "risk_band": "high",
+    "augmentation": 0.1609,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -16630,6 +17647,9 @@
     },
     "net_risk": 0.1687,
     "risk_band": "moderate",
+    "augmentation": 0.0897,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -16679,6 +17699,9 @@
     },
     "net_risk": 0.1641,
     "risk_band": "moderate",
+    "augmentation": 0.1039,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -16728,6 +17751,9 @@
     },
     "net_risk": 0.2133,
     "risk_band": "moderate",
+    "augmentation": 0.1505,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -16777,6 +17803,9 @@
     },
     "net_risk": 0.1655,
     "risk_band": "moderate",
+    "augmentation": 0.0995,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -16826,6 +17855,9 @@
     },
     "net_risk": 0.153,
     "risk_band": "moderate",
+    "augmentation": 0.274,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -16875,6 +17907,9 @@
     },
     "net_risk": 0.5144,
     "risk_band": "very_high",
+    "augmentation": 0.1234,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -16924,6 +17959,9 @@
     },
     "net_risk": 0.1518,
     "risk_band": "moderate",
+    "augmentation": 0.1584,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -16973,6 +18011,9 @@
     },
     "net_risk": 0.1069,
     "risk_band": "low",
+    "augmentation": 0.0859,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -17022,6 +18063,9 @@
     },
     "net_risk": 0.1769,
     "risk_band": "moderate",
+    "augmentation": 0.0646,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -17071,6 +18115,9 @@
     },
     "net_risk": 0.3204,
     "risk_band": "high",
+    "augmentation": 0.2336,
+    "augmentation_band": "moderate",
+    "impact_type": "mixed",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -17120,6 +18167,9 @@
     },
     "net_risk": 0.2303,
     "risk_band": "moderate",
+    "augmentation": 0.0699,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -17169,6 +18219,9 @@
     },
     "net_risk": 0.1438,
     "risk_band": "low",
+    "augmentation": 0.0955,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -17218,6 +18271,9 @@
     },
     "net_risk": 0.7429,
     "risk_band": "very_high",
+    "augmentation": 0.0024,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -17267,6 +18323,9 @@
     },
     "net_risk": 0.1153,
     "risk_band": "low",
+    "augmentation": 0.1017,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -17316,6 +18375,9 @@
     },
     "net_risk": 0.0935,
     "risk_band": "low",
+    "augmentation": 0.0666,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -17365,6 +18427,9 @@
     },
     "net_risk": 0.0232,
     "risk_band": "very_low",
+    "augmentation": 0.208,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -17414,6 +18479,9 @@
     },
     "net_risk": 0.6148,
     "risk_band": "very_high",
+    "augmentation": 0.1138,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -17463,6 +18531,9 @@
     },
     "net_risk": 0.0376,
     "risk_band": "very_low",
+    "augmentation": 0.0241,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -17512,6 +18583,9 @@
     },
     "net_risk": 0.1113,
     "risk_band": "low",
+    "augmentation": 0.0667,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -17561,6 +18635,9 @@
     },
     "net_risk": 0.0422,
     "risk_band": "very_low",
+    "augmentation": 0.0804,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -17610,6 +18687,9 @@
     },
     "net_risk": 0.1187,
     "risk_band": "low",
+    "augmentation": 0.0412,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -17659,6 +18739,9 @@
     },
     "net_risk": 0.2587,
     "risk_band": "moderate",
+    "augmentation": 0.0343,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -17708,6 +18791,9 @@
     },
     "net_risk": 0.2584,
     "risk_band": "moderate",
+    "augmentation": 0.0345,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -17757,6 +18843,9 @@
     },
     "net_risk": 0.1123,
     "risk_band": "low",
+    "augmentation": 0.1215,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -17806,6 +18895,9 @@
     },
     "net_risk": 0.1913,
     "risk_band": "moderate",
+    "augmentation": 0.065,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -17855,6 +18947,9 @@
     },
     "net_risk": 0.1184,
     "risk_band": "low",
+    "augmentation": 0.0815,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -17904,6 +18999,9 @@
     },
     "net_risk": 0.3068,
     "risk_band": "high",
+    "augmentation": 0.0245,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -17953,6 +19051,9 @@
     },
     "net_risk": 0.6079,
     "risk_band": "very_high",
+    "augmentation": 0.0242,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -18002,6 +19103,9 @@
     },
     "net_risk": 0.718,
     "risk_band": "very_high",
+    "augmentation": 0.0079,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -18051,6 +19155,9 @@
     },
     "net_risk": 0.3537,
     "risk_band": "high",
+    "augmentation": 0.0387,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -18100,6 +19207,9 @@
     },
     "net_risk": 0.5656,
     "risk_band": "very_high",
+    "augmentation": 0.0361,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -18149,6 +19259,9 @@
     },
     "net_risk": 0.5971,
     "risk_band": "very_high",
+    "augmentation": 0.0272,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -18198,6 +19311,9 @@
     },
     "net_risk": 0.5752,
     "risk_band": "very_high",
+    "augmentation": 0.0334,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -18247,6 +19363,9 @@
     },
     "net_risk": 0.3472,
     "risk_band": "high",
+    "augmentation": 0.0488,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -18296,6 +19415,9 @@
     },
     "net_risk": 0.3453,
     "risk_band": "high",
+    "augmentation": 0.0505,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -18345,6 +19467,9 @@
     },
     "net_risk": 0.4331,
     "risk_band": "high",
+    "augmentation": 0.0052,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -18394,6 +19519,9 @@
     },
     "net_risk": 0.4132,
     "risk_band": "high",
+    "augmentation": 0.007,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -18443,6 +19571,9 @@
     },
     "net_risk": 0.7688,
     "risk_band": "very_high",
+    "augmentation": 0.0197,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -18492,6 +19623,9 @@
     },
     "net_risk": 0.3584,
     "risk_band": "high",
+    "augmentation": 0.0387,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -18541,6 +19675,9 @@
     },
     "net_risk": 0.3577,
     "risk_band": "high",
+    "augmentation": 0.0394,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -18590,6 +19727,9 @@
     },
     "net_risk": 0.705,
     "risk_band": "very_high",
+    "augmentation": 0.0086,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -18639,6 +19779,9 @@
     },
     "net_risk": 0.2926,
     "risk_band": "moderate",
+    "augmentation": 0.0336,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -18688,6 +19831,9 @@
     },
     "net_risk": 0.5878,
     "risk_band": "very_high",
+    "augmentation": 0.0299,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -18737,6 +19883,9 @@
     },
     "net_risk": 0.4471,
     "risk_band": "high",
+    "augmentation": 0.021,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -18786,6 +19935,9 @@
     },
     "net_risk": 0.2952,
     "risk_band": "moderate",
+    "augmentation": 0.0118,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -18835,6 +19987,9 @@
     },
     "net_risk": 0.2124,
     "risk_band": "moderate",
+    "augmentation": 0.0517,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -18884,6 +20039,9 @@
     },
     "net_risk": 0.3635,
     "risk_band": "high",
+    "augmentation": 0.0341,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -18933,6 +20091,9 @@
     },
     "net_risk": 0.3382,
     "risk_band": "high",
+    "augmentation": 0.0498,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -18982,6 +20143,9 @@
     },
     "net_risk": 0.6089,
     "risk_band": "very_high",
+    "augmentation": 0.0112,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -19031,6 +20195,9 @@
     },
     "net_risk": 0.4277,
     "risk_band": "high",
+    "augmentation": 0.1091,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -19080,6 +20247,9 @@
     },
     "net_risk": 0.3448,
     "risk_band": "high",
+    "augmentation": 0.0509,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -19129,6 +20299,9 @@
     },
     "net_risk": 0.5949,
     "risk_band": "very_high",
+    "augmentation": 0.0279,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -19178,6 +20351,9 @@
     },
     "net_risk": 0.5731,
     "risk_band": "very_high",
+    "augmentation": 0.034,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -19227,6 +20403,9 @@
     },
     "net_risk": 0.5868,
     "risk_band": "very_high",
+    "augmentation": 0.0141,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -19276,6 +20455,9 @@
     },
     "net_risk": 0.3712,
     "risk_band": "high",
+    "augmentation": 0.0262,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -19325,6 +20507,9 @@
     },
     "net_risk": 0.3827,
     "risk_band": "high",
+    "augmentation": 0.0048,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -19374,6 +20559,9 @@
     },
     "net_risk": 0.5878,
     "risk_band": "very_high",
+    "augmentation": 0.0299,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -19423,6 +20611,9 @@
     },
     "net_risk": 0.2171,
     "risk_band": "moderate",
+    "augmentation": 0.0467,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -19472,6 +20663,9 @@
     },
     "net_risk": 0.386,
     "risk_band": "high",
+    "augmentation": 0.0162,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -19521,6 +20715,9 @@
     },
     "net_risk": 0.355,
     "risk_band": "high",
+    "augmentation": 0.0418,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -19570,6 +20767,9 @@
     },
     "net_risk": 0.588,
     "risk_band": "very_high",
+    "augmentation": 0.0182,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -19619,6 +20819,9 @@
     },
     "net_risk": 0.7239,
     "risk_band": "very_high",
+    "augmentation": 0.0076,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -19668,6 +20871,9 @@
     },
     "net_risk": 0.2995,
     "risk_band": "moderate",
+    "augmentation": 0.0292,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -19717,6 +20923,9 @@
     },
     "net_risk": 0.763,
     "risk_band": "very_high",
+    "augmentation": 0.0208,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -19766,6 +20975,9 @@
     },
     "net_risk": 0.0944,
     "risk_band": "low",
+    "augmentation": 0.0091,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -19815,6 +21027,9 @@
     },
     "net_risk": 0.0985,
     "risk_band": "low",
+    "augmentation": 0.0066,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -19864,6 +21079,9 @@
     },
     "net_risk": 0.4467,
     "risk_band": "high",
+    "augmentation": 0.0284,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -19913,6 +21131,9 @@
     },
     "net_risk": 0.1177,
     "risk_band": "low",
+    "augmentation": 0.0539,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -19962,6 +21183,9 @@
     },
     "net_risk": 0.7033,
     "risk_band": "very_high",
+    "augmentation": 0.0604,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -20011,6 +21235,9 @@
     },
     "net_risk": 0.1594,
     "risk_band": "moderate",
+    "augmentation": 0.1658,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -20060,6 +21287,9 @@
     },
     "net_risk": 0.0517,
     "risk_band": "low",
+    "augmentation": 0.0428,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -20109,6 +21339,9 @@
     },
     "net_risk": 0.1117,
     "risk_band": "low",
+    "augmentation": 0.0029,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -20158,6 +21391,9 @@
     },
     "net_risk": 0.1106,
     "risk_band": "low",
+    "augmentation": 0.003,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -20207,6 +21443,9 @@
     },
     "net_risk": 0.1094,
     "risk_band": "low",
+    "augmentation": 0.0571,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -20256,6 +21495,9 @@
     },
     "net_risk": 0.3957,
     "risk_band": "high",
+    "augmentation": 0.0126,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -20305,6 +21547,9 @@
     },
     "net_risk": 0.1115,
     "risk_band": "low",
+    "augmentation": 0.0677,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -20354,6 +21599,9 @@
     },
     "net_risk": 0.1929,
     "risk_band": "moderate",
+    "augmentation": 0.0038,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -20403,6 +21651,9 @@
     },
     "net_risk": 0.135,
     "risk_band": "low",
+    "augmentation": 0.0035,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -20452,6 +21703,9 @@
     },
     "net_risk": 0.2009,
     "risk_band": "moderate",
+    "augmentation": 0.0032,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -20501,6 +21755,9 @@
     },
     "net_risk": 0.1111,
     "risk_band": "low",
+    "augmentation": 0.0687,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -20550,6 +21807,9 @@
     },
     "net_risk": 0.1117,
     "risk_band": "low",
+    "augmentation": 0.0515,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -20599,6 +21859,9 @@
     },
     "net_risk": 0.1174,
     "risk_band": "low",
+    "augmentation": 0.0335,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -20648,6 +21911,9 @@
     },
     "net_risk": 0.1571,
     "risk_band": "moderate",
+    "augmentation": 0.0394,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -20697,6 +21963,9 @@
     },
     "net_risk": 0,
     "risk_band": "very_low",
+    "augmentation": 0,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -20746,6 +22015,9 @@
     },
     "net_risk": 0.1164,
     "risk_band": "low",
+    "augmentation": 0.0437,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -20795,6 +22067,9 @@
     },
     "net_risk": 0.3528,
     "risk_band": "high",
+    "augmentation": 0.0151,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -20844,6 +22119,9 @@
     },
     "net_risk": 0.0662,
     "risk_band": "low",
+    "augmentation": 0.0368,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -20893,6 +22171,9 @@
     },
     "net_risk": 0.1594,
     "risk_band": "moderate",
+    "augmentation": 0.0366,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -20942,6 +22223,9 @@
     },
     "net_risk": 0.0255,
     "risk_band": "very_low",
+    "augmentation": 0.0863,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -20991,6 +22275,9 @@
     },
     "net_risk": 0.0249,
     "risk_band": "very_low",
+    "augmentation": 0.0946,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -21040,6 +22327,9 @@
     },
     "net_risk": 0.0252,
     "risk_band": "very_low",
+    "augmentation": 0.09,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -21089,6 +22379,9 @@
     },
     "net_risk": 0.1977,
     "risk_band": "moderate",
+    "augmentation": 0.0847,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -21138,6 +22431,9 @@
     },
     "net_risk": 0.0815,
     "risk_band": "low",
+    "augmentation": 0.0035,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -21187,6 +22483,9 @@
     },
     "net_risk": 0.0882,
     "risk_band": "low",
+    "augmentation": 0.0489,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -21236,6 +22535,9 @@
     },
     "net_risk": 0.1145,
     "risk_band": "low",
+    "augmentation": 0.0481,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -21285,6 +22587,9 @@
     },
     "net_risk": 0.0803,
     "risk_band": "low",
+    "augmentation": 0.0107,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -21334,6 +22639,9 @@
     },
     "net_risk": 0.1552,
     "risk_band": "moderate",
+    "augmentation": 0.0417,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -21383,6 +22691,9 @@
     },
     "net_risk": 0.3497,
     "risk_band": "high",
+    "augmentation": 0.0157,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -21432,6 +22743,9 @@
     },
     "net_risk": 0.1134,
     "risk_band": "low",
+    "augmentation": 0.038,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -21481,6 +22795,9 @@
     },
     "net_risk": 0.0793,
     "risk_band": "low",
+    "augmentation": 0.0302,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -21530,6 +22847,9 @@
     },
     "net_risk": 0.0511,
     "risk_band": "low",
+    "augmentation": 0,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -21579,6 +22899,9 @@
     },
     "net_risk": 0.2389,
     "risk_band": "moderate",
+    "augmentation": 0.0438,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -21628,6 +22951,9 @@
     },
     "net_risk": 0.0483,
     "risk_band": "very_low",
+    "augmentation": 0,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -21677,6 +23003,9 @@
     },
     "net_risk": 0.1112,
     "risk_band": "low",
+    "augmentation": 0.0418,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -21726,6 +23055,9 @@
     },
     "net_risk": 0.1144,
     "risk_band": "low",
+    "augmentation": 0.0374,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -21775,6 +23107,9 @@
     },
     "net_risk": 0.1125,
     "risk_band": "low",
+    "augmentation": 0.0395,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -21824,6 +23159,9 @@
     },
     "net_risk": 0.1098,
     "risk_band": "low",
+    "augmentation": 0.0442,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -21873,6 +23211,9 @@
     },
     "net_risk": 0.2449,
     "risk_band": "moderate",
+    "augmentation": 0.0394,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -21922,6 +23263,9 @@
     },
     "net_risk": 0.0715,
     "risk_band": "low",
+    "augmentation": 0.018,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -21971,6 +23315,9 @@
     },
     "net_risk": 0.2545,
     "risk_band": "moderate",
+    "augmentation": 0.0901,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -22020,6 +23367,9 @@
     },
     "net_risk": 0.6183,
     "risk_band": "very_high",
+    "augmentation": 0.0055,
+    "augmentation_band": "very_low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -22069,6 +23419,9 @@
     },
     "net_risk": 0.1593,
     "risk_band": "moderate",
+    "augmentation": 0.1664,
+    "augmentation_band": "moderate",
+    "impact_type": "ai_leveraged",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -22118,6 +23471,9 @@
     },
     "net_risk": 0.0172,
     "risk_band": "very_low",
+    "augmentation": 0.1477,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -22167,6 +23523,9 @@
     },
     "net_risk": 0.1424,
     "risk_band": "low",
+    "augmentation": 0.0027,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -22216,6 +23575,9 @@
     },
     "net_risk": 0.0135,
     "risk_band": "very_low",
+    "augmentation": 0.0045,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -22265,6 +23627,9 @@
     },
     "net_risk": 0.2248,
     "risk_band": "moderate",
+    "augmentation": 0.0529,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -22314,6 +23679,9 @@
     },
     "net_risk": 0.2044,
     "risk_band": "moderate",
+    "augmentation": 0.0847,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -22363,6 +23731,9 @@
     },
     "net_risk": 0.0112,
     "risk_band": "very_low",
+    "augmentation": 0.0035,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -22412,6 +23783,9 @@
     },
     "net_risk": 0.0357,
     "risk_band": "very_low",
+    "augmentation": 0.0082,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -22461,6 +23835,9 @@
     },
     "net_risk": 0.1854,
     "risk_band": "moderate",
+    "augmentation": 0.0045,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -22510,6 +23887,9 @@
     },
     "net_risk": 0.0233,
     "risk_band": "very_low",
+    "augmentation": 0.0207,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -22559,6 +23939,9 @@
     },
     "net_risk": 0.1733,
     "risk_band": "moderate",
+    "augmentation": 0.0004,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -22608,6 +23991,9 @@
     },
     "net_risk": 0.1268,
     "risk_band": "low",
+    "augmentation": 0.002,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -22657,6 +24043,9 @@
     },
     "net_risk": 0.0068,
     "risk_band": "very_low",
+    "augmentation": 0.0098,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -22706,6 +24095,9 @@
     },
     "net_risk": 0.0398,
     "risk_band": "very_low",
+    "augmentation": 0.0135,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -22755,6 +24147,9 @@
     },
     "net_risk": 0.0396,
     "risk_band": "very_low",
+    "augmentation": 0.0144,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -22804,6 +24199,9 @@
     },
     "net_risk": 0.0383,
     "risk_band": "very_low",
+    "augmentation": 0.0204,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -22853,6 +24251,9 @@
     },
     "net_risk": 0.0137,
     "risk_band": "very_low",
+    "augmentation": 0.0295,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -22902,6 +24303,9 @@
     },
     "net_risk": 0.0215,
     "risk_band": "very_low",
+    "augmentation": 0.0007,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -22951,6 +24355,9 @@
     },
     "net_risk": 0.036,
     "risk_band": "very_low",
+    "augmentation": 0.0005,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -23000,6 +24407,9 @@
     },
     "net_risk": 0.0279,
     "risk_band": "very_low",
+    "augmentation": 0.0099,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -23049,6 +24459,9 @@
     },
     "net_risk": 0.0068,
     "risk_band": "very_low",
+    "augmentation": 0.0094,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -23098,6 +24511,9 @@
     },
     "net_risk": 0.0222,
     "risk_band": "very_low",
+    "augmentation": 0.0985,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -23147,6 +24563,9 @@
     },
     "net_risk": 0.1377,
     "risk_band": "low",
+    "augmentation": 0.0078,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -23196,6 +24615,9 @@
     },
     "net_risk": 0.0276,
     "risk_band": "very_low",
+    "augmentation": 0.0111,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -23245,6 +24667,9 @@
     },
     "net_risk": 0.2306,
     "risk_band": "moderate",
+    "augmentation": 0.0091,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -23294,6 +24719,9 @@
     },
     "net_risk": 0.1368,
     "risk_band": "low",
+    "augmentation": 0.0086,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -23343,6 +24771,9 @@
     },
     "net_risk": 0.1838,
     "risk_band": "moderate",
+    "augmentation": 0.0051,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -23392,6 +24823,9 @@
     },
     "net_risk": 0.0075,
     "risk_band": "very_low",
+    "augmentation": 0.0089,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -23441,6 +24875,9 @@
     },
     "net_risk": 0.2421,
     "risk_band": "moderate",
+    "augmentation": 0.006,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -23490,6 +24927,9 @@
     },
     "net_risk": 0.0159,
     "risk_band": "very_low",
+    "augmentation": 0.0743,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -23539,6 +24979,9 @@
     },
     "net_risk": 0.0217,
     "risk_band": "very_low",
+    "augmentation": 0.1205,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -23588,6 +25031,9 @@
     },
     "net_risk": 0.1198,
     "risk_band": "low",
+    "augmentation": 0.0388,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -23637,6 +25083,9 @@
     },
     "net_risk": 0.1101,
     "risk_band": "low",
+    "augmentation": 0.0834,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -23686,6 +25135,9 @@
     },
     "net_risk": 0.1127,
     "risk_band": "low",
+    "augmentation": 0.0714,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -23735,6 +25187,9 @@
     },
     "net_risk": 0.0752,
     "risk_band": "low",
+    "augmentation": 0.0005,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -23784,6 +25239,9 @@
     },
     "net_risk": 0.1358,
     "risk_band": "low",
+    "augmentation": 0.0094,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -23833,6 +25291,9 @@
     },
     "net_risk": 0.0121,
     "risk_band": "very_low",
+    "augmentation": 0.0202,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -23882,6 +25343,9 @@
     },
     "net_risk": 0.2241,
     "risk_band": "moderate",
+    "augmentation": 0.0113,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -23931,6 +25395,9 @@
     },
     "net_risk": 0.044,
     "risk_band": "very_low",
+    "augmentation": 0.0013,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -23980,6 +25447,9 @@
     },
     "net_risk": 0.0189,
     "risk_band": "very_low",
+    "augmentation": 0.0082,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -24029,6 +25499,9 @@
     },
     "net_risk": 0.0925,
     "risk_band": "low",
+    "augmentation": 0.0266,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -24078,6 +25551,9 @@
     },
     "net_risk": 0.0418,
     "risk_band": "very_low",
+    "augmentation": 0.0054,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -24127,6 +25603,9 @@
     },
     "net_risk": 0.0901,
     "risk_band": "low",
+    "augmentation": 0.0303,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -24176,6 +25655,9 @@
     },
     "net_risk": 0.0575,
     "risk_band": "low",
+    "augmentation": 0.0133,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -24225,6 +25707,9 @@
     },
     "net_risk": 0.0234,
     "risk_band": "very_low",
+    "augmentation": 0.0127,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -24274,6 +25759,9 @@
     },
     "net_risk": 0.0217,
     "risk_band": "very_low",
+    "augmentation": 0.0177,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -24323,6 +25811,9 @@
     },
     "net_risk": 0.1389,
     "risk_band": "low",
+    "augmentation": 0.0066,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -24372,6 +25863,9 @@
     },
     "net_risk": 0.0114,
     "risk_band": "very_low",
+    "augmentation": 0.0372,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -24421,6 +25915,9 @@
     },
     "net_risk": 0.0629,
     "risk_band": "low",
+    "augmentation": 0.0081,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -24470,6 +25967,9 @@
     },
     "net_risk": 0.1229,
     "risk_band": "low",
+    "augmentation": 0.0059,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -24519,6 +26019,9 @@
     },
     "net_risk": 0.0353,
     "risk_band": "very_low",
+    "augmentation": 0.0231,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -24568,6 +26071,9 @@
     },
     "net_risk": 0.0068,
     "risk_band": "very_low",
+    "augmentation": 0.0012,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -24617,6 +26123,9 @@
     },
     "net_risk": 0.0596,
     "risk_band": "low",
+    "augmentation": 0.0113,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -24666,6 +26175,9 @@
     },
     "net_risk": 0.0555,
     "risk_band": "low",
+    "augmentation": 0.0056,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -24715,6 +26227,9 @@
     },
     "net_risk": 0.0991,
     "risk_band": "low",
+    "augmentation": 0.0178,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -24764,6 +26279,9 @@
     },
     "net_risk": 0.0483,
     "risk_band": "very_low",
+    "augmentation": 0.0032,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -24813,6 +26331,9 @@
     },
     "net_risk": 0.0978,
     "risk_band": "low",
+    "augmentation": 0.0369,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -24862,6 +26383,9 @@
     },
     "net_risk": 0.0567,
     "risk_band": "low",
+    "augmentation": 0.0022,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -24911,6 +26435,9 @@
     },
     "net_risk": 0.0418,
     "risk_band": "very_low",
+    "augmentation": 0.0144,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -24960,6 +26487,9 @@
     },
     "net_risk": 0.0606,
     "risk_band": "low",
+    "augmentation": 0.0103,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -25009,6 +26539,9 @@
     },
     "net_risk": 0.056,
     "risk_band": "low",
+    "augmentation": 0.0045,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -25058,6 +26591,9 @@
     },
     "net_risk": 0.0947,
     "risk_band": "low",
+    "augmentation": 0.0232,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -25107,6 +26643,9 @@
     },
     "net_risk": 0.0109,
     "risk_band": "very_low",
+    "augmentation": 0.0486,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -25156,6 +26695,9 @@
     },
     "net_risk": 0.0581,
     "risk_band": "low",
+    "augmentation": 0.002,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -25205,6 +26747,9 @@
     },
     "net_risk": 0.214,
     "risk_band": "moderate",
+    "augmentation": 0.0161,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -25254,6 +26799,9 @@
     },
     "net_risk": 0.0734,
     "risk_band": "low",
+    "augmentation": 0.0001,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -25303,6 +26851,9 @@
     },
     "net_risk": 0.0985,
     "risk_band": "low",
+    "augmentation": 0.1363,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -25352,6 +26903,9 @@
     },
     "net_risk": 0.0994,
     "risk_band": "low",
+    "augmentation": 0.1319,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -25401,6 +26955,9 @@
     },
     "net_risk": 0.0575,
     "risk_band": "low",
+    "augmentation": 0.0133,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -25450,6 +27007,9 @@
     },
     "net_risk": 0.032,
     "risk_band": "very_low",
+    "augmentation": 0.0498,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -25499,6 +27059,9 @@
     },
     "net_risk": 0.092,
     "risk_band": "low",
+    "augmentation": 0.0274,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -25548,6 +27111,9 @@
     },
     "net_risk": 0.0584,
     "risk_band": "low",
+    "augmentation": 0.0124,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -25597,6 +27163,9 @@
     },
     "net_risk": 0.0037,
     "risk_band": "very_low",
+    "augmentation": 0.0009,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -25646,6 +27215,9 @@
     },
     "net_risk": 0.0944,
     "risk_band": "low",
+    "augmentation": 0.0101,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -25695,6 +27267,9 @@
     },
     "net_risk": 0.0947,
     "risk_band": "low",
+    "augmentation": 0.01,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -25744,6 +27319,9 @@
     },
     "net_risk": 0.0566,
     "risk_band": "low",
+    "augmentation": 0.0193,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -25793,6 +27371,9 @@
     },
     "net_risk": 0.1376,
     "risk_band": "low",
+    "augmentation": 0.0151,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -25842,6 +27423,9 @@
     },
     "net_risk": 0.1203,
     "risk_band": "low",
+    "augmentation": 0.0243,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -25891,6 +27475,9 @@
     },
     "net_risk": 0.0008,
     "risk_band": "very_low",
+    "augmentation": 0.0004,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -25940,6 +27527,9 @@
     },
     "net_risk": 0.0239,
     "risk_band": "very_low",
+    "augmentation": 0.1073,
+    "augmentation_band": "low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -25989,6 +27579,9 @@
     },
     "net_risk": 0.2952,
     "risk_band": "moderate",
+    "augmentation": 0.1496,
+    "augmentation_band": "low",
+    "impact_type": "at_risk",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -26038,6 +27631,9 @@
     },
     "net_risk": 0.0155,
     "risk_band": "very_low",
+    "augmentation": 0.0002,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -26087,6 +27683,9 @@
     },
     "net_risk": 0.0598,
     "risk_band": "low",
+    "augmentation": 0.0163,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -26136,6 +27735,9 @@
     },
     "net_risk": 0.1096,
     "risk_band": "low",
+    "augmentation": 0.0127,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -26185,6 +27787,9 @@
     },
     "net_risk": 0.0157,
     "risk_band": "very_low",
+    "augmentation": 0.0001,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -26234,6 +27839,9 @@
     },
     "net_risk": 0.1135,
     "risk_band": "low",
+    "augmentation": 0.0112,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -26283,6 +27891,9 @@
     },
     "net_risk": 0.0313,
     "risk_band": "very_low",
+    "augmentation": 0.0067,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -26332,6 +27943,9 @@
     },
     "net_risk": 0.0084,
     "risk_band": "very_low",
+    "augmentation": 0.0021,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -26381,6 +27995,9 @@
     },
     "net_risk": 0.0114,
     "risk_band": "very_low",
+    "augmentation": 0.0011,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -26430,6 +28047,9 @@
     },
     "net_risk": 0.1285,
     "risk_band": "low",
+    "augmentation": 0.0199,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -26479,6 +28099,9 @@
     },
     "net_risk": 0.0247,
     "risk_band": "very_low",
+    "augmentation": 0.0016,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -26528,6 +28151,9 @@
     },
     "net_risk": 0.0245,
     "risk_band": "very_low",
+    "augmentation": 0.0016,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -26577,6 +28203,9 @@
     },
     "net_risk": 0.1129,
     "risk_band": "low",
+    "augmentation": 0.0114,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -26626,6 +28255,9 @@
     },
     "net_risk": 0.1192,
     "risk_band": "low",
+    "augmentation": 0.0248,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -26675,6 +28307,9 @@
     },
     "net_risk": 0.0283,
     "risk_band": "very_low",
+    "augmentation": 0.0037,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -26724,6 +28359,9 @@
     },
     "net_risk": 0.0653,
     "risk_band": "low",
+    "augmentation": 0.0158,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -26773,6 +28411,9 @@
     },
     "net_risk": 0.0174,
     "risk_band": "very_low",
+    "augmentation": 0.0008,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -26822,6 +28463,9 @@
     },
     "net_risk": 0.0036,
     "risk_band": "very_low",
+    "augmentation": 0.001,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -26871,6 +28515,9 @@
     },
     "net_risk": 0.0662,
     "risk_band": "low",
+    "augmentation": 0.0149,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.6667,
       "level": "medium",
@@ -26920,6 +28567,9 @@
     },
     "net_risk": 0.0254,
     "risk_band": "very_low",
+    "augmentation": 0.0014,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -26969,6 +28619,9 @@
     },
     "net_risk": 0.0239,
     "risk_band": "very_low",
+    "augmentation": 0.0018,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -27018,6 +28671,9 @@
     },
     "net_risk": 0.0249,
     "risk_band": "very_low",
+    "augmentation": 0.0015,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -27067,6 +28723,9 @@
     },
     "net_risk": 0.1237,
     "risk_band": "low",
+    "augmentation": 0.0225,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -27116,6 +28775,9 @@
     },
     "net_risk": 0.0978,
     "risk_band": "low",
+    "augmentation": 0.0088,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -27165,6 +28827,9 @@
     },
     "net_risk": 0.009,
     "risk_band": "very_low",
+    "augmentation": 0.0007,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -27214,6 +28879,9 @@
     },
     "net_risk": 0.1243,
     "risk_band": "low",
+    "augmentation": 0.0222,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -27263,6 +28931,9 @@
     },
     "net_risk": 0.0156,
     "risk_band": "very_low",
+    "augmentation": 0.0002,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -27312,6 +28983,9 @@
     },
     "net_risk": 0.114,
     "risk_band": "low",
+    "augmentation": 0.011,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -27361,6 +29035,9 @@
     },
     "net_risk": 0.0281,
     "risk_band": "very_low",
+    "augmentation": 0.0039,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -27410,6 +29087,9 @@
     },
     "net_risk": 0.0037,
     "risk_band": "very_low",
+    "augmentation": 0.0009,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -27459,6 +29139,9 @@
     },
     "net_risk": 0.0038,
     "risk_band": "very_low",
+    "augmentation": 0.0009,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",
@@ -27508,6 +29191,9 @@
     },
     "net_risk": 0.0291,
     "risk_band": "very_low",
+    "augmentation": 0.0085,
+    "augmentation_band": "very_low",
+    "impact_type": "stable",
     "confidence": {
       "score": 0.8,
       "level": "high",

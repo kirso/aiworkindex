@@ -96,6 +96,9 @@ interface ScoredOccupation {
   market: MarketScores;
   net_risk: number;
   risk_band: RiskBand;
+  augmentation: number;
+  augmentation_band: RiskBand;
+  impact_type: "at_risk" | "ai_leveraged" | "stable" | "mixed";
   confidence: ConfidenceScores;
   raw: RawScores;
   isco_codes_matched: string[];
@@ -632,6 +635,20 @@ function riskBand(netRisk: number): RiskBand {
   return "very_high";
 }
 
+// Impact type from displacement × augmentation 2×2 matrix
+function impactType(
+  displacement: number,
+  augmentation: number
+): "at_risk" | "ai_leveraged" | "stable" | "mixed" {
+  const highDisplacement = displacement >= 0.25;
+  const highAugmentation = augmentation >= 0.15;
+
+  if (highDisplacement && !highAugmentation) return "at_risk";
+  if (highDisplacement && highAugmentation) return "mixed";
+  if (!highDisplacement && highAugmentation) return "ai_leveraged";
+  return "stable";
+}
+
 // Map risk_band to legacy category for backward compatibility
 function riskBandToCategory(band: RiskBand): string {
   switch (band) {
@@ -946,6 +963,9 @@ function scoreOccupations(
       },
       net_risk: round(netRisk, 4),
       risk_band: band,
+      augmentation: round(exposure * bottleneck * marketResilience, 4),
+      augmentation_band: riskBand(exposure * bottleneck * marketResilience),
+      impact_type: impactType(netRisk, exposure * bottleneck * marketResilience),
       confidence: {
         score: round(confidenceScore, 4),
         level: confidenceLevel,
@@ -1043,6 +1063,15 @@ function printDistributionAnalysis(results: ScoredOccupation[]) {
     console.log(`  ${bandLabels[b]}: ${String(count).padStart(4)} (${pct.padStart(5)}%) ${bar}`);
   }
 
+  // Impact type distribution
+  console.log("\n=== Impact Type Distribution ===");
+  const impactTypes = { at_risk: 0, ai_leveraged: 0, stable: 0, mixed: 0 };
+  for (const r of results) impactTypes[r.impact_type]++;
+  console.log(`  At Risk:      ${String(impactTypes.at_risk).padStart(4)} (${((impactTypes.at_risk / results.length) * 100).toFixed(1)}%)`);
+  console.log(`  AI Leveraged: ${String(impactTypes.ai_leveraged).padStart(4)} (${((impactTypes.ai_leveraged / results.length) * 100).toFixed(1)}%)`);
+  console.log(`  Stable:       ${String(impactTypes.stable).padStart(4)} (${((impactTypes.stable / results.length) * 100).toFixed(1)}%)`);
+  console.log(`  Mixed:        ${String(impactTypes.mixed).padStart(4)} (${((impactTypes.mixed / results.length) * 100).toFixed(1)}%)`);
+
   // Anchor check
   console.log("\n=== Anchor Check ===");
   const anchors = [
@@ -1061,7 +1090,7 @@ function printDistributionAnalysis(results: ScoredOccupation[]) {
         `  ${anchor.label.padEnd(25)} | ${match.title.substring(0, 40).padEnd(40)} | ` +
         `exp=${match.exposure.toFixed(3)} bot=${match.bottleneck.toFixed(3)} ` +
         `mkt=${match.market.market_modifier.toFixed(3)} net=${match.net_risk.toFixed(3)} ` +
-        `[${match.risk_band}]`
+        `aug=${match.augmentation.toFixed(3)} [${match.risk_band}] [${match.impact_type}]`
       );
     } else {
       console.log(`  ${anchor.label.padEnd(25)} | NOT FOUND`);
