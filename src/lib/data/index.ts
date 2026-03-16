@@ -19,6 +19,42 @@ export interface ConfidenceScores {
 	source_freshness: number;
 }
 
+export interface EvidenceSignals {
+	anthropic_calibrated: boolean;
+	anthropic_gap: number | null;
+	anthropic_observed_pctile: number | null;
+	sol_match: 'exact' | 'prefix' | false;
+	jobs_in_demand_match: 'exact' | 'prefix' | false;
+}
+
+export interface StabilityScores {
+	optimistic_risk: number;
+	optimistic_band: RiskBand;
+	pessimistic_risk: number;
+	pessimistic_band: RiskBand;
+	distance_to_band_edge: number;
+	label: 'stable' | 'watch' | 'sensitive';
+}
+
+export interface VacancyQuarter {
+	quarter: string;
+	openings: number;
+}
+
+export interface VacancyMonitor {
+	cluster_key: 'pmet' | 'clerical_sales_service' | 'production_transport';
+	cluster_label: string;
+	latest_quarter: string | null;
+	latest_openings: number | null;
+	previous_quarter: string | null;
+	previous_openings: number | null;
+	change_qoq: number | null;
+	four_quarter_average: number | null;
+	trend_8q: 'heating_up' | 'cooling_down' | 'stable' | 'unknown';
+	trend_score: number | null;
+	recent_quarters: VacancyQuarter[];
+}
+
 export interface RawScores {
 	aioe: number;
 	theta: number;
@@ -58,7 +94,10 @@ export interface Occupation {
 	augmentation: number;
 	augmentation_band: AugmentationBand;
 	impact_type: ImpactType;
+	evidence: EvidenceSignals;
 	confidence: ConfidenceScores;
+	stability: StabilityScores;
+	vacancy_monitor: VacancyMonitor | null;
 	raw: RawScores;
 	isco_codes_matched: string[];
 	match_quality: string;

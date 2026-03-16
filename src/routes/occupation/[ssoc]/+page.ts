@@ -27,8 +27,8 @@ export const load: PageLoad = ({ params }) => {
 	// In-demand roles — occupations with high market momentum and scarcity
 	const inDemand = occupations
 		.filter((o) => o.ssoc !== occupation.ssoc)
-		.filter((o) => o.market.occupation_scarcity > 0.6 && o.market.market_momentum > 0.5)
-		.sort((a, b) => b.market.occupation_scarcity - a.market.occupation_scarcity)
+		.filter((o) => o.evidence.sol_match || o.evidence.jobs_in_demand_match)
+		.sort((a, b) => b.market.market_resilience - a.market.market_resilience)
 		.slice(0, 3);
 
 	// Compute national median wage for comparison

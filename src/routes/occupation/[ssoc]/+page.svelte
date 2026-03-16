@@ -66,6 +66,77 @@
 		return 'weakens';
 	}
 
+	function demandMatchLabel(match: 'exact' | 'prefix' | false): string | null {
+		if (match === 'exact') return 'Exact match';
+		if (match === 'prefix') return 'Prefix inferred';
+		return null;
+	}
+
+	function demandMatchTone(match: 'exact' | 'prefix' | false): string {
+		if (match === 'exact') return 'bg-emerald-50 text-emerald-700 border-emerald-200';
+		if (match === 'prefix') return 'bg-amber-50 text-amber-700 border-amber-200';
+		return 'bg-gray-50 text-gray-500 border-gray-200';
+	}
+
+	function stabilityTone(label: string): string {
+		if (label === 'stable') return 'bg-emerald-50 border-emerald-200 text-emerald-800';
+		if (label === 'watch') return 'bg-amber-50 border-amber-200 text-amber-800';
+		return 'bg-rose-50 border-rose-200 text-rose-800';
+	}
+
+	function stabilityCopy(label: string): string {
+		if (label === 'stable') return 'This band holds under a +/-5 point stress test on the three core layers.';
+		if (label === 'watch') return 'A modest change in one layer could move this role by one risk band.';
+		return 'This role is sensitive to assumptions. Small shifts can move it across multiple bands.';
+	}
+
+	function vacancyTrendLabel(trend: string): string {
+		if (trend === 'heating_up') return 'Heating up';
+		if (trend === 'cooling_down') return 'Cooling down';
+		if (trend === 'stable') return 'Stable';
+		return 'Unknown';
+	}
+
+	function vacancyTrendTone(trend: string): string {
+		if (trend === 'heating_up') return 'bg-emerald-50 text-emerald-700 border-emerald-200';
+		if (trend === 'cooling_down') return 'bg-rose-50 text-rose-700 border-rose-200';
+		if (trend === 'stable') return 'bg-blue-50 text-blue-700 border-blue-200';
+		return 'bg-gray-50 text-gray-500 border-gray-200';
+	}
+
+	function formatPct(value: number | null): string {
+		if (value === null) return 'n/a';
+		const pct = Math.round(value * 100);
+		return `${pct > 0 ? '+' : ''}${pct}%`;
+	}
+
+	let demandEvidence = $derived.by(() => {
+		const items: { label: string; detail: string; tone: string }[] = [];
+		if (occ.evidence.sol_match) {
+			items.push({
+				label: 'SOL 2026',
+				detail: demandMatchLabel(occ.evidence.sol_match) ?? 'Matched',
+				tone: demandMatchTone(occ.evidence.sol_match)
+			});
+		}
+		if (occ.evidence.jobs_in_demand_match) {
+			items.push({
+				label: 'Jobs in Demand 2025',
+				detail: demandMatchLabel(occ.evidence.jobs_in_demand_match) ?? 'Matched',
+				tone: demandMatchTone(occ.evidence.jobs_in_demand_match)
+			});
+		}
+		if (occ.evidence.anthropic_calibrated) {
+			const gap = occ.evidence.anthropic_gap ?? 0;
+			items.push({
+				label: 'Observed AI Usage',
+				detail: gap >= 0 ? `Above theory ${formatPct(gap)}` : `Below theory ${formatPct(gap)}`,
+				tone: gap >= 0 ? 'bg-rose-50 text-rose-700 border-rose-200' : 'bg-blue-50 text-blue-700 border-blue-200'
+			});
+		}
+		return items;
+	});
+
 	// Count of occupations with same impact_type
 	let impactTypeCount = $derived(
 		allOccupations.filter((o) => o.impact_type === occ.impact_type).length
@@ -410,6 +481,64 @@
 				</div>
 			</div>
 		</div>
+
+		{#if demandEvidence.length > 0}
+			<h3 class="mb-2 mt-5 text-sm font-semibold text-gray-700">Official Evidence</h3>
+			<div class="flex flex-wrap gap-2">
+				{#each demandEvidence as item}
+					<div class="rounded-lg border px-3 py-2 {item.tone}">
+						<p class="text-xs font-semibold">{item.label}</p>
+						<p class="text-xs opacity-80">{item.detail}</p>
+					</div>
+				{/each}
+			</div>
+		{/if}
+
+		{#if occ.vacancy_monitor}
+			<h3 class="mb-2 mt-5 text-sm font-semibold text-gray-700">Quarterly Vacancy Monitor</h3>
+			<div class="rounded-lg border border-gray-100 bg-gray-50 p-4">
+				<div class="flex flex-wrap items-start justify-between gap-3">
+					<div>
+						<p class="text-xs font-semibold uppercase tracking-wide text-gray-500">
+							{occ.vacancy_monitor.cluster_label}
+						</p>
+						<p class="mt-1 text-sm text-gray-700">
+							Latest official vacancies: <span class="font-semibold text-gray-900">{occ.vacancy_monitor.latest_openings?.toLocaleString() ?? 'n/a'}</span>
+							{#if occ.vacancy_monitor.latest_quarter}
+								<span class="text-gray-500">in {occ.vacancy_monitor.latest_quarter}</span>
+							{/if}
+						</p>
+						<p class="mt-1 text-xs text-gray-500">
+							4-quarter average: {occ.vacancy_monitor.four_quarter_average?.toLocaleString() ?? 'n/a'}
+							{#if occ.vacancy_monitor.change_qoq !== null}
+								&middot; QoQ {formatPct(occ.vacancy_monitor.change_qoq)}
+							{/if}
+						</p>
+					</div>
+					<span class="rounded-full border px-2.5 py-1 text-xs font-medium {vacancyTrendTone(occ.vacancy_monitor.trend_8q)}">
+						{vacancyTrendLabel(occ.vacancy_monitor.trend_8q)}
+					</span>
+				</div>
+
+				{#if occ.vacancy_monitor.recent_quarters.length > 0}
+					<div class="mt-4">
+						<div class="flex items-end gap-2">
+							{#each occ.vacancy_monitor.recent_quarters as point}
+								<div class="flex-1">
+									<div class="flex h-16 items-end">
+										<div
+											class="w-full rounded-t bg-indigo-400/80"
+											style="height: {Math.max((point.openings / Math.max(...occ.vacancy_monitor.recent_quarters.map((p) => p.openings))) * 100, 8)}%;"
+										></div>
+									</div>
+									<p class="mt-1 text-center text-[10px] text-gray-400">{point.quarter.replace('20', '')}</p>
+								</div>
+							{/each}
+						</div>
+					</div>
+				{/if}
+			</div>
+		{/if}
 	</section>
 
 	<!-- 6. Technical Scores — COLLAPSED -->
@@ -454,6 +583,19 @@
 							<div class="flex items-center justify-between rounded px-3 py-2" style="background-color: {riskBandColors[occ.risk_band]}20;">
 								<span class="font-semibold text-gray-900">Net Displacement Risk</span>
 								<span class="text-lg font-bold tabular-nums text-gray-900">{(occ.net_risk * 100).toFixed(0)}%</span>
+							</div>
+							<div class="rounded border px-3 py-2 {stabilityTone(occ.stability.label)}">
+								<div class="flex items-center justify-between gap-3">
+									<span class="text-sm font-semibold">Band Stability</span>
+									<span class="text-xs font-semibold uppercase tracking-wide">{occ.stability.label}</span>
+								</div>
+								<p class="mt-1 text-xs leading-relaxed opacity-90">
+									{stabilityCopy(occ.stability.label)}
+								</p>
+								<p class="mt-2 text-xs opacity-80">
+									Optimistic: {(occ.stability.optimistic_risk * 100).toFixed(0)}% ({riskBandLabels[occ.stability.optimistic_band]})
+									&middot; Pessimistic: {(occ.stability.pessimistic_risk * 100).toFixed(0)}% ({riskBandLabels[occ.stability.pessimistic_band]})
+								</p>
 							</div>
 							<!-- Augmentation Potential -->
 							<div class="mt-2 border-t border-gray-100 pt-3">

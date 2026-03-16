@@ -69,12 +69,48 @@ interface MarketScores {
   market_modifier: number;
 }
 
+interface EvidenceSignals {
+  anthropic_calibrated: boolean;
+  anthropic_gap: number | null;
+  anthropic_observed_pctile: number | null;
+  sol_match: "exact" | "prefix" | false;
+  jobs_in_demand_match: "exact" | "prefix" | false;
+}
+
 interface ConfidenceScores {
   score: number;
   level: "high" | "medium" | "low";
   crosswalk_quality: number;
   market_data_granularity: number;
   source_freshness: number;
+}
+
+interface StabilityScores {
+  optimistic_risk: number;
+  optimistic_band: RiskBand;
+  pessimistic_risk: number;
+  pessimistic_band: RiskBand;
+  distance_to_band_edge: number;
+  label: "stable" | "watch" | "sensitive";
+}
+
+interface VacancyQuarter {
+  quarter: string;
+  openings: number;
+}
+
+interface VacancyMonitor {
+  cluster_key: "pmet" | "clerical_sales_service" | "production_transport";
+  cluster_label: string;
+  latest_quarter: string | null;
+  latest_openings: number | null;
+  previous_quarter: string | null;
+  previous_openings: number | null;
+  change_qoq: number | null;
+  four_quarter_average: number | null;
+  trend_8q: "heating_up" | "cooling_down" | "stable" | "unknown";
+  trend_score: number | null;
+  recent_quarters: VacancyQuarter[];
 }
 
 interface RawScores {
@@ -105,7 +141,10 @@ interface ScoredOccupation {
   augmentation: number;
   augmentation_band: RiskBand;
   impact_type: "at_risk" | "ai_leveraged" | "stable" | "mixed";
+  evidence: EvidenceSignals;
   confidence: ConfidenceScores;
+  stability: StabilityScores;
+  vacancy_monitor: VacancyMonitor | null;
   raw: RawScores;
   isco_codes_matched: string[];
   match_quality: "direct" | "submajor_fallback" | "major_fallback";
@@ -159,6 +198,31 @@ const MAJOR_GROUP_TO_INCOME_CSV: Record<string, string> = {
   "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": "Plant & Machine Operators & Assemblers",
   "CLEANERS, LABOURERS AND RELATED WORKERS": "Cleaners, Labourers & Related Workers",
   "AGRICULTURAL AND FISHERY WORKERS": "Cleaners, Labourers & Related Workers",
+};
+
+// ===== Mapping from SSOC major groups to official vacancy-monitor clusters =====
+const MAJOR_GROUP_TO_VACANCY_CLUSTER: Record<
+  string,
+  "pmet" | "clerical_sales_service" | "production_transport"
+> = {
+  MANAGERS: "pmet",
+  PROFESSIONALS: "pmet",
+  "ASSOCIATE PROFESSIONALS AND TECHNICIANS": "pmet",
+  "CLERICAL SUPPORT WORKERS": "clerical_sales_service",
+  "SERVICE AND SALES WORKERS": "clerical_sales_service",
+  "CRAFTSMEN AND RELATED TRADES WORKERS": "production_transport",
+  "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": "production_transport",
+  "CLEANERS, LABOURERS AND RELATED WORKERS": "production_transport",
+  "AGRICULTURAL AND FISHERY WORKERS": "production_transport",
+};
+
+const VACANCY_CLUSTER_SOURCE_LABEL: Record<
+  "pmet" | "clerical_sales_service" | "production_transport",
+  string
+> = {
+  pmet: "Professionals, Managers, Executives & Technicians",
+  clerical_sales_service: "Clerical, Sales & Service Workers",
+  production_transport: "Production & Transport Operators, Cleaners & Labourers",
 };
 
 // ===== Pizzinelli Theta Variables =====
@@ -543,6 +607,13 @@ interface GroupMarketData {
   wage_cagr: number;
 }
 
+interface VacancyClusterSeries {
+  cluster_key: "pmet" | "clerical_sales_service" | "production_transport";
+  cluster_label: string;
+  quarters_desc: string[];
+  values_desc: number[];
+}
+
 function parseCSVValue(val: string): number | null {
   if (!val) return null;
   const cleaned = val.trim().replace(/"/g, "").replace(/,/g, "");
@@ -567,6 +638,96 @@ function parseCSVRow(line: string): string[] {
     }
   }
   result.push(current);
+  return result;
+}
+
+function formatQuarterLabel(token: string): string {
+  const year = token.slice(0, 4);
+  const quarter = token.slice(4, 5);
+  return `${year} Q${quarter}`;
+}
+
+function computeLinearSlope(values: number[]): number | null {
+  if (values.length < 2) return null;
+
+  let sumX = 0;
+  let sumY = 0;
+  let sumXY = 0;
+  let sumXX = 0;
+  const n = values.length;
+
+  for (let i = 0; i < n; i++) {
+    sumX += i;
+    sumY += values[i];
+    sumXY += i * values[i];
+    sumXX += i * i;
+  }
+
+  const denominator = n * sumXX - sumX * sumX;
+  if (denominator === 0) return null;
+  return (n * sumXY - sumX * sumY) / denominator;
+}
+
+function loadVacancyMonitorData(): Map<string, VacancyClusterSeries> {
+  console.log("Loading quarterly vacancy monitor...");
+  const filePath = path.join(
+    RAW_DIR,
+    "job_vacancies_by_industry_and_occupation_quarterly.csv"
+  );
+  if (!fs.existsSync(filePath)) {
+    console.log(
+      "  WARNING: vacancy CSV not found, skipping quarterly vacancy monitor"
+    );
+    return new Map();
+  }
+
+  const lines = fs
+    .readFileSync(filePath, "utf-8")
+    .split("\n")
+    .filter((line) => line.trim());
+  const header = parseCSVRow(lines[0]);
+  const quarterColumns = header
+    .slice(1)
+    .filter((column) => /^\d{5}Q?$/.test(column) || /^\d{4}[1-4]Q$/.test(column));
+
+  const result = new Map<string, VacancyClusterSeries>();
+
+  for (const [clusterKey, sourceLabel] of Object.entries(
+    VACANCY_CLUSTER_SOURCE_LABEL
+  ) as Array<
+    [
+      "pmet" | "clerical_sales_service" | "production_transport",
+      string,
+    ]
+  >) {
+    const row = lines
+      .slice(1)
+      .map((line) => parseCSVRow(line))
+      .find((fields) => fields[0].replace(/^"+|"+$/g, "").trim() === sourceLabel);
+
+    if (!row) {
+      console.log(`  WARNING: vacancy row not found for ${sourceLabel}`);
+      continue;
+    }
+
+    const valuesDesc: number[] = [];
+    const quartersDesc: string[] = [];
+    for (let i = 0; i < quarterColumns.length; i++) {
+      const raw = parseCSVValue(row[i + 1]);
+      if (raw === null) continue;
+      valuesDesc.push(raw);
+      quartersDesc.push(formatQuarterLabel(quarterColumns[i]));
+    }
+
+    result.set(clusterKey, {
+      cluster_key: clusterKey,
+      cluster_label: sourceLabel,
+      quarters_desc: quartersDesc,
+      values_desc: valuesDesc,
+    });
+  }
+
+  console.log(`  Loaded vacancy monitor for ${result.size} labour clusters`);
   return result;
 }
 
@@ -752,6 +913,25 @@ function riskBand(netRisk: number): RiskBand {
   return "very_high";
 }
 
+function riskBandBounds(band: RiskBand): { lower: number; upper: number } {
+  switch (band) {
+    case "very_low":
+      return { lower: 0, upper: 0.05 };
+    case "low":
+      return { lower: 0.05, upper: 0.15 };
+    case "moderate":
+      return { lower: 0.15, upper: 0.30 };
+    case "high":
+      return { lower: 0.30, upper: 0.50 };
+    case "very_high":
+      return { lower: 0.50, upper: 1 };
+  }
+}
+
+function clamp01(value: number): number {
+  return Math.max(0, Math.min(1, value));
+}
+
 // Impact type from displacement × augmentation 2×2 matrix
 function impactType(
   displacement: number,
@@ -787,6 +967,123 @@ function impactTypeToCategory(
   }
 }
 
+function buildVacancyMonitor(
+  majorGroup: string,
+  vacancySeries: Map<string, VacancyClusterSeries>
+): VacancyMonitor | null {
+  const clusterKey = MAJOR_GROUP_TO_VACANCY_CLUSTER[majorGroup];
+  if (!clusterKey) return null;
+
+  const series = vacancySeries.get(clusterKey);
+  if (!series || series.values_desc.length === 0) return null;
+
+  const latestOpenings = series.values_desc[0] ?? null;
+  const previousOpenings = series.values_desc[1] ?? null;
+  const latestQuarter = series.quarters_desc[0] ?? null;
+  const previousQuarter = series.quarters_desc[1] ?? null;
+  const recentPairsDesc = series.values_desc
+    .slice(0, 8)
+    .map((openings, index) => ({
+      quarter: series.quarters_desc[index],
+      openings,
+    }))
+    .filter((item) => item.quarter);
+  const recentPairs = [...recentPairsDesc].reverse();
+  const recentValues = recentPairs.map((item) => item.openings);
+  const lastFourValues = series.values_desc.slice(0, 4);
+  const fourQuarterAverage =
+    lastFourValues.length > 0
+      ? lastFourValues.reduce((sum, value) => sum + value, 0) / lastFourValues.length
+      : null;
+
+  const changeQoq =
+    latestOpenings !== null && previousOpenings !== null && previousOpenings > 0
+      ? (latestOpenings - previousOpenings) / previousOpenings
+      : null;
+
+  const slope = computeLinearSlope(recentValues);
+  const averageRecent =
+    recentValues.length > 0
+      ? recentValues.reduce((sum, value) => sum + value, 0) / recentValues.length
+      : null;
+  const normalizedTrend =
+    slope !== null && averageRecent && averageRecent > 0
+      ? slope / averageRecent
+      : null;
+
+  let trendLabel: VacancyMonitor["trend_8q"] = "unknown";
+  if (normalizedTrend !== null) {
+    if (normalizedTrend > 0.04) trendLabel = "heating_up";
+    else if (normalizedTrend < -0.04) trendLabel = "cooling_down";
+    else trendLabel = "stable";
+  }
+
+  return {
+    cluster_key: clusterKey,
+    cluster_label: series.cluster_label,
+    latest_quarter: latestQuarter,
+    latest_openings: latestOpenings,
+    previous_quarter: previousQuarter,
+    previous_openings: previousOpenings,
+    change_qoq: changeQoq !== null ? round(changeQoq, 4) : null,
+    four_quarter_average:
+      fourQuarterAverage !== null ? round(fourQuarterAverage, 1) : null,
+    trend_8q: trendLabel,
+    trend_score: normalizedTrend !== null ? round(normalizedTrend, 4) : null,
+    recent_quarters: recentPairs.map((item) => ({
+      quarter: item.quarter,
+      openings: item.openings,
+    })),
+  };
+}
+
+function buildStabilityScores(
+  exposure: number,
+  bottleneck: number,
+  marketResilience: number,
+  currentRisk: number
+): StabilityScores {
+  const optimisticExposure = clamp01(exposure - 0.05);
+  const optimisticBottleneck = clamp01(bottleneck + 0.05);
+  const optimisticMarket = clamp01(marketResilience + 0.05);
+  const pessimisticExposure = clamp01(exposure + 0.05);
+  const pessimisticBottleneck = clamp01(bottleneck - 0.05);
+  const pessimisticMarket = clamp01(marketResilience - 0.05);
+
+  const optimisticRisk =
+    optimisticExposure * (1 - optimisticBottleneck) * (1 - 0.35 * optimisticMarket);
+  const pessimisticRisk =
+    pessimisticExposure * (1 - pessimisticBottleneck) * (1 - 0.35 * pessimisticMarket);
+
+  const currentBand = riskBand(currentRisk);
+  const optimisticBand = riskBand(optimisticRisk);
+  const pessimisticBand = riskBand(pessimisticRisk);
+  const bounds = riskBandBounds(currentBand);
+  const distanceToBandEdge = Math.min(
+    currentRisk - bounds.lower,
+    bounds.upper - currentRisk
+  );
+
+  let label: StabilityScores["label"] = "stable";
+  if (optimisticBand !== currentBand || pessimisticBand !== currentBand) {
+    label =
+      optimisticBand !== pessimisticBand &&
+      optimisticBand !== currentBand &&
+      pessimisticBand !== currentBand
+        ? "sensitive"
+        : "watch";
+  }
+
+  return {
+    optimistic_risk: round(optimisticRisk, 4),
+    optimistic_band: optimisticBand,
+    pessimistic_risk: round(pessimisticRisk, 4),
+    pessimistic_band: pessimisticBand,
+    distance_to_band_edge: round(Math.max(distanceToBandEdge, 0), 4),
+    label,
+  };
+}
+
 // ===== Step 7: Score all occupations (V3.1) =====
 function scoreOccupations(
   sgOccs: SgOccupation[],
@@ -795,7 +1092,8 @@ function scoreOccupations(
   groupMarket: Map<string, GroupMarketData>,
   anthropicExposure: Map<string, number>,
   solData: { exactCodes: Set<string>; prefixes: Set<string> },
-  demandData: { exactCodes: Set<string>; prefixes: Set<string> }
+  demandData: { exactCodes: Set<string>; prefixes: Set<string> },
+  vacancySeries: Map<string, VacancyClusterSeries>
 ): ScoredOccupation[] {
   console.log("\nScoring occupations (V3.1)...");
 
@@ -1128,6 +1426,7 @@ function scoreOccupations(
     const r = intermediates[i];
     let exposure = aioeRanks[i];
     const bottleneck = thetaRanks[i];
+    const theoreticalExposure = exposure;
 
     // === 4a: Anthropic exposure calibration ===
     // If we have observed usage data, adjust exposure by up to ±30%
@@ -1165,6 +1464,25 @@ function scoreOccupations(
 
     const netRisk = exposure * (1 - bottleneck) * marketModifier;
     const band = riskBand(netRisk);
+    const augmentation = exposure * bottleneck * marketResilienceAdjusted;
+    const stability = buildStabilityScores(
+      exposure,
+      bottleneck,
+      marketResilienceAdjusted,
+      netRisk
+    );
+    const vacancyMonitor = buildVacancyMonitor(r.occ.major_group, vacancySeries);
+    const evidence: EvidenceSignals = {
+      anthropic_calibrated: r.anthropicMatch,
+      anthropic_gap:
+        anthropicPctiles[i] >= 0
+          ? round(anthropicPctiles[i] - theoreticalExposure, 4)
+          : null,
+      anthropic_observed_pctile:
+        anthropicPctiles[i] >= 0 ? round(anthropicPctiles[i], 4) : null,
+      sol_match: r.solMatch,
+      jobs_in_demand_match: r.demandMatch,
+    };
 
     // C-AIOE for backward compat
     const cAioe = r.avgAioe * (1 - (r.avgTheta - thetaMin));
@@ -1209,9 +1527,10 @@ function scoreOccupations(
       },
       net_risk: round(netRisk, 4),
       risk_band: band,
-      augmentation: round(exposure * bottleneck * marketResilienceAdjusted, 4),
-      augmentation_band: riskBand(exposure * bottleneck * marketResilienceAdjusted),
-      impact_type: impactType(netRisk, exposure * bottleneck * marketResilienceAdjusted, r.solMatch || r.demandMatch),
+      augmentation: round(augmentation, 4),
+      augmentation_band: riskBand(augmentation),
+      impact_type: impactType(netRisk, augmentation, r.solMatch || r.demandMatch),
+      evidence,
       confidence: {
         score: round(confidenceScore, 4),
         level: confidenceLevel,
@@ -1219,6 +1538,8 @@ function scoreOccupations(
         market_data_granularity: marketDataGranularity,
         source_freshness: sourceFreshness,
       },
+      stability,
+      vacancy_monitor: vacancyMonitor,
       raw: {
         aioe: round(r.avgAioe, 4),
         theta: round(r.avgTheta, 4),
@@ -1233,7 +1554,7 @@ function scoreOccupations(
         aioe: round(r.avgAioe, 4),
         theta: round(r.avgTheta, 4),
         c_aioe: round(cAioe, 4),
-        category: impactTypeToCategory(impactType(netRisk, exposure * bottleneck * marketResilienceAdjusted, r.solMatch || r.demandMatch)),
+        category: impactTypeToCategory(impactType(netRisk, augmentation, r.solMatch || r.demandMatch)),
         isco_codes_matched: r.iscoMatched,
         match_quality: r.matchQuality,
       },
@@ -1393,6 +1714,7 @@ async function main() {
   const emplData = loadEmploymentData();
   const incomeData = loadIncomeData();
   const groupMarket = computeGroupMarketData(emplData, incomeData);
+  const vacancySeries = loadVacancyMonitorData();
 
   // Load V3.1 data sources
   const anthropicExposure = loadAnthropicExposure();
@@ -1400,7 +1722,16 @@ async function main() {
   const demandData = loadJobsInDemand();
 
   // Score all occupations
-  const results = scoreOccupations(sgOccs, aioeMap, thetaMap, groupMarket, anthropicExposure, solData, demandData);
+  const results = scoreOccupations(
+    sgOccs,
+    aioeMap,
+    thetaMap,
+    groupMarket,
+    anthropicExposure,
+    solData,
+    demandData,
+    vacancySeries
+  );
 
   // Distribution analysis
   printDistributionAnalysis(results);
