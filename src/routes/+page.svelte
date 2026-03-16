@@ -2,7 +2,6 @@
 	import { browser } from '$app/environment';
 	import Treemap from '$lib/components/viz/Treemap.svelte';
 	import ScatterQuadrant from '$lib/components/viz/ScatterQuadrant.svelte';
-	import StatsHeader from '$lib/components/ui/StatsHeader.svelte';
 	import FilterPanel from '$lib/components/ui/FilterPanel.svelte';
 	import InsightsPanel from '$lib/components/ui/InsightsPanel.svelte';
 	import OccupationCardList from '$lib/components/ui/OccupationCardList.svelte';
@@ -44,28 +43,25 @@
 	<meta name="twitter:description" content="Three layers of AI impact across 562 Singapore occupations — exposure, human bottleneck, and market resilience. Academic indices, not LLM vibes." />
 </svelte:head>
 
-<!-- Hero + Search -->
-<div class="bg-white">
-	<div class="mx-auto max-w-screen-2xl px-4 py-8 sm:px-6">
+<!-- Hero + Search — compact, gets users to the treemap fast -->
+<div class="border-b border-gray-200 bg-white">
+	<div class="mx-auto max-w-screen-2xl px-4 py-6 sm:px-6">
 		<div class="mx-auto max-w-2xl text-center">
-			<h1 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+			<h1 class="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
 				How will AI affect your job?
 			</h1>
-			<p class="mt-2 text-base text-gray-500">
-				562 Singapore occupations scored across exposure, human bottleneck, and market resilience.
+			<p class="mt-1 text-sm text-gray-500">
+				562 Singapore occupations. Peer-reviewed indices, not LLM vibes.
 			</p>
-			<div class="mt-5">
+			<div class="mt-4">
 				<HeroSearch occupations={data.occupations} />
 			</div>
-		</div>
-		<div class="mt-6">
-			<StatsHeader occupations={filteredOccupations} />
 		</div>
 	</div>
 </div>
 
-<!-- Main content: full-width treemap with sidebar filters -->
-<div class="mx-auto max-w-screen-2xl px-4 py-8 sm:px-6">
+<!-- Main content: treemap with sidebar filters + insights -->
+<div class="mx-auto max-w-screen-2xl px-4 py-5 sm:px-6">
 	<div class="flex gap-6">
 		<!-- Sidebar filters (desktop) — single instance, responsive -->
 		<aside class="hidden w-[260px] shrink-0 lg:block">

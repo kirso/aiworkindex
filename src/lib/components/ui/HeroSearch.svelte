@@ -67,10 +67,8 @@
 	}
 </script>
 
-<div class="mx-auto max-w-2xl text-center">
-	<h2 class="text-2xl font-bold text-gray-900 sm:text-3xl">How will AI affect your job?</h2>
-	<p class="mt-2 text-sm text-gray-500">Search {occupations.length} Singapore occupations</p>
-	<div class="relative mt-4">
+<div class="relative mx-auto max-w-2xl">
+	<div class="relative">
 		<input
 			type="text"
 			placeholder="e.g., Software Developer, Nurse, Accountant..."
