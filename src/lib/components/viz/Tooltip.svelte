@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Occupation } from '$lib/data';
-	import { riskBandLabels, riskBandColors } from '$lib/data';
+	import { riskBandLabels, riskBandColors, impactTypeLabels, impactTypeColors } from '$lib/data';
 
 	let {
 		occupation = null,
@@ -28,6 +28,12 @@
 				style="background-color: {riskBandColors[occupation.risk_band]};"
 			>
 				{riskBandLabels[occupation.risk_band]}
+			</span>
+			<span
+				class="rounded px-1.5 py-0.5 text-xs font-medium text-white"
+				style="background-color: {impactTypeColors[occupation.impact_type]};"
+			>
+				{impactTypeLabels[occupation.impact_type]}
 			</span>
 			<span class="text-xs font-medium text-gray-700">
 				Net Risk: {(occupation.net_risk * 100).toFixed(0)}%

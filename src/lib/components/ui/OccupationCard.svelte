@@ -3,6 +3,11 @@
 	import { riskBandLabels, riskBandColors } from '$lib/data';
 
 	let { occupation }: { occupation: Occupation } = $props();
+
+	function formatEmployment(thousands: number): string {
+		if (thousands >= 1) return `~${thousands.toFixed(1)}K jobs`;
+		return `~${Math.round(thousands * 1000)} jobs`;
+	}
 </script>
 
 <a
@@ -13,6 +18,9 @@
 		<p class="truncate text-sm font-medium text-gray-900">{occupation.title}</p>
 		<p class="mt-0.5 text-xs text-gray-500">
 			Median: SGD {occupation.gross_wage_median.toLocaleString()}
+		</p>
+		<p class="mt-0.5 text-xs text-gray-400">
+			{formatEmployment(occupation.employment_thousands)}
 		</p>
 	</div>
 	<div class="ml-3 flex flex-col items-end gap-1">

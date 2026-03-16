@@ -33,13 +33,13 @@
 	<title>Singapore AI Occupation Impact Index — 562 Occupations Scored</title>
 	<meta
 		name="description"
-		content="Four axes of AI impact across 562 Singapore occupations — exposure, task share, market resilience, and displacement risk. Academic indices, not LLM vibes."
+		content="Three layers of AI impact across 562 Singapore occupations — exposure, human bottleneck, and market resilience. Risk bands with visible confidence. Academic indices, not LLM vibes."
 	/>
 	<meta property="og:title" content="Singapore AI Occupation Impact Index — 562 Occupations Scored" />
-	<meta property="og:description" content="Four axes of AI impact across 562 Singapore occupations. Academic indices, not LLM vibes." />
+	<meta property="og:description" content="Three layers of AI impact across 562 Singapore occupations — exposure, human bottleneck, and market resilience. Academic indices, not LLM vibes." />
 	<meta property="og:url" content="https://sg-ai-jobs.vercel.app" />
 	<meta name="twitter:title" content="Singapore AI Occupation Impact Index — 562 Occupations Scored" />
-	<meta name="twitter:description" content="Four axes of AI impact across 562 Singapore occupations. Academic indices, not LLM vibes." />
+	<meta name="twitter:description" content="Three layers of AI impact across 562 Singapore occupations — exposure, human bottleneck, and market resilience. Academic indices, not LLM vibes." />
 </svelte:head>
 
 <!-- Hero + Stats -->

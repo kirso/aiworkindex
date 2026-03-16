@@ -2,16 +2,24 @@
 	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
 	import * as d3Hierarchy from 'd3-hierarchy';
+	import type { HierarchyRectangularNode } from 'd3-hierarchy';
 	import * as d3Scale from 'd3-scale';
 	import type { Occupation } from '$lib/data';
 	import { majorGroups, majorGroupByKey, riskBandLabels, riskBandColors } from '$lib/data';
 	import Tooltip from './Tooltip.svelte';
+
+	// Treemap nodes get x0/y0/x1/y1 added at runtime by d3 treemap layout.
+	// We also attach custom data properties (count, avgRisk, occupation) to hierarchy node data.
+	// Use type assertions when accessing these properties on the nodes.
 
 	let { occupations }: { occupations: Occupation[] } = $props();
 
 	let containerEl: HTMLDivElement | undefined = $state();
 	let width = $state(800);
 	let height = $state(600);
+
+	// Zoom state: null = overview of all groups, string = zoomed into a group
+	let zoomedGroup: string | null = $state(null);
 
 	// Tooltip state
 	let tooltipOccupation: Occupation | null = $state(null);
@@ -27,33 +35,53 @@
 	// Opacity scale: net_risk 0-1 -> opacity 0.35-1.0
 	const opacityScale = d3Scale.scaleLinear().domain([0, 1]).range([0.35, 1.0]).clamp(true);
 
-	// Build hierarchy data structure
-	let hierarchyData = $derived.by(() => {
-		// Group occupations by major_group
+	// Group occupations by major_group
+	let groupedOccupations = $derived.by(() => {
 		const groups = new Map<string, Occupation[]>();
 		for (const o of occupations) {
 			const list = groups.get(o.major_group) ?? [];
 			list.push(o);
 			groups.set(o.major_group, list);
 		}
+		return groups;
+	});
 
+	// Compute average net_risk per group
+	let groupAvgRisk = $derived.by(() => {
+		const avgs = new Map<string, number>();
+		for (const [key, occs] of groupedOccupations) {
+			const sum = occs.reduce((s, o) => s + o.net_risk, 0);
+			avgs.set(key, sum / occs.length);
+		}
+		return avgs;
+	});
+
+	// Compute total employment per group (for sizing in overview mode)
+	let groupEmployment = $derived.by(() => {
+		const emp = new Map<string, number>();
+		for (const [key, occs] of groupedOccupations) {
+			const total = occs.reduce((s, o) => s + o.employment_thousands, 0);
+			emp.set(key, total);
+		}
+		return emp;
+	});
+
+	// OVERVIEW MODE: hierarchy of just groups (depth 1 = groups as leaves)
+	let overviewHierarchyData = $derived.by(() => {
 		return {
 			name: 'root',
-			children: Array.from(groups.entries()).map(([groupKey, occs]) => ({
+			children: Array.from(groupedOccupations.entries()).map(([groupKey, occs]) => ({
 				name: groupKey,
-				children: occs.map((o) => ({
-					name: o.title,
-					value: Math.max(o.gross_wage_median, 100),
-					occupation: o
-				}))
+				value: groupEmployment.get(groupKey) ?? 1,
+				count: occs.length,
+				avgRisk: groupAvgRisk.get(groupKey) ?? 0
 			}))
 		};
 	});
 
-	// Compute treemap layout
-	let treemapRoot = $derived.by(() => {
+	let overviewRoot = $derived.by(() => {
 		const root = d3Hierarchy
-			.hierarchy(hierarchyData)
+			.hierarchy(overviewHierarchyData)
 			.sum((d: any) => d.value ?? 0)
 			.sort((a: any, b: any) => (b.value ?? 0) - (a.value ?? 0));
 
@@ -61,20 +89,51 @@
 			.treemap<any>()
 			.size([width, height])
 			.paddingOuter(3)
-			.paddingTop(20)
-			.paddingInner(1)
+			.paddingInner(3)
 			.round(true)
 			.tile(d3Hierarchy.treemapSquarify)(root);
 
 		return root;
 	});
 
-	// Extract group nodes (depth 1) and leaf nodes (depth 2)
-	let groupNodes = $derived(
-		treemapRoot.descendants().filter((d: any) => d.depth === 1)
+	let overviewNodes = $derived(
+		(overviewRoot.children ?? []) as HierarchyRectangularNode<any>[]
 	);
-	let leafNodes = $derived(
-		treemapRoot.leaves()
+
+	// ZOOMED MODE: hierarchy of occupations within the selected group
+	let zoomedHierarchyData = $derived.by(() => {
+		if (!zoomedGroup) return null;
+		const occs = groupedOccupations.get(zoomedGroup) ?? [];
+		return {
+			name: zoomedGroup,
+			children: occs.map((o) => ({
+				name: o.title,
+				value: Math.max(o.employment_thousands, 0.1),
+				occupation: o
+			}))
+		};
+	});
+
+	let zoomedRoot = $derived.by(() => {
+		if (!zoomedHierarchyData) return null;
+		const root = d3Hierarchy
+			.hierarchy(zoomedHierarchyData)
+			.sum((d: any) => d.value ?? 0)
+			.sort((a: any, b: any) => (b.value ?? 0) - (a.value ?? 0));
+
+		d3Hierarchy
+			.treemap<any>()
+			.size([width, height])
+			.paddingOuter(4)
+			.paddingInner(2)
+			.round(true)
+			.tile(d3Hierarchy.treemapSquarify)(root);
+
+		return root;
+	});
+
+	let zoomedLeaves = $derived(
+		(zoomedRoot?.leaves() ?? []) as HierarchyRectangularNode<any>[]
 	);
 
 	// ResizeObserver
@@ -85,7 +144,6 @@
 			for (const entry of entries) {
 				const rect = entry.contentRect;
 				width = rect.width;
-				// Fill most of viewport: at least 500px, up to 85vh, aspect ratio ~1.6:1
 				const viewportH = typeof window !== 'undefined' ? window.innerHeight : 800;
 				height = Math.max(500, Math.min(rect.width * 0.7, viewportH * 0.75, 900));
 			}
@@ -96,7 +154,7 @@
 		return () => observer.disconnect();
 	});
 
-	function handleMouseMove(e: MouseEvent, occ: Occupation) {
+	function handleMouseMoveOcc(e: MouseEvent, occ: Occupation) {
 		tooltipOccupation = occ;
 		tooltipX = e.clientX;
 		tooltipY = e.clientY;
@@ -108,8 +166,16 @@
 		tooltipOccupation = null;
 	}
 
-	function handleClick(occ: Occupation) {
+	function handleClickGroup(groupKey: string) {
+		zoomedGroup = groupKey;
+	}
+
+	function handleClickOcc(occ: Occupation) {
 		goto('/occupation/' + occ.ssoc);
+	}
+
+	function handleBack() {
+		zoomedGroup = null;
 	}
 
 	function cellWidth(d: any): number {
@@ -124,9 +190,13 @@
 		return cellWidth(d) >= 40 && cellHeight(d) >= 16;
 	}
 
+	function shouldShowGroupLabel(d: any): boolean {
+		return cellWidth(d) >= 60 && cellHeight(d) >= 30;
+	}
+
 	function truncateLabel(text: string, maxWidth: number): string {
 		const charWidth = 6;
-		const maxChars = Math.floor((maxWidth - 4) / charWidth);
+		const maxChars = Math.floor((maxWidth - 8) / charWidth);
 		if (text.length <= maxChars) return text;
 		return text.slice(0, Math.max(0, maxChars - 1)) + '\u2026';
 	}
@@ -138,75 +208,123 @@
 </script>
 
 <div bind:this={containerEl} class="relative w-full">
+	{#if zoomedGroup}
+		<button
+			onclick={handleBack}
+			class="mb-2 inline-flex items-center gap-1 rounded-md bg-gray-100 px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200"
+		>
+			<span aria-hidden="true">&larr;</span> Back to all groups
+		</button>
+		<p class="mb-2 text-sm text-gray-500">
+			{groupLabel(zoomedGroup)} &mdash; {groupedOccupations.get(zoomedGroup)?.length ?? 0} occupations. Click a cell to view details.
+		</p>
+	{:else}
+		<p class="mb-2 text-sm text-gray-500">
+			Click a group to explore its occupations.
+		</p>
+	{/if}
+
 	{#if browser}
-		<svg {width} {height} class="block" role="img" aria-label="Treemap visualization of {occupations.length} Singapore occupations grouped by major occupation group, sized by wage and shaded by net AI displacement risk">
-			<!-- Group background rects -->
-			{#each groupNodes as group (group.data.name)}
-				{@const gw = cellWidth(group)}
-				{@const gh = cellHeight(group)}
-				<rect
-					x={group.x0}
-					y={group.y0}
-					width={gw}
-					height={gh}
-					fill={colorByGroup.get(group.data.name) ?? '#ccc'}
-					opacity="0.15"
-					rx="2"
-				/>
-				{#if gw > 60}
-					<text
-						x={group.x0 + 4}
-						y={group.y0 + 14}
-						class="fill-gray-700 text-[10px] font-semibold"
-						style="pointer-events: none;"
+		{#if !zoomedGroup}
+			<!-- OVERVIEW: Major group rectangles -->
+			<svg {width} {height} class="block" role="img" aria-label="Treemap showing 9 major occupation groups in Singapore, sized by total employment. Click a group to zoom in.">
+				{#each overviewNodes as node (node.data.name)}
+					{@const nw = cellWidth(node)}
+					{@const nh = cellHeight(node)}
+					{@const groupColor = colorByGroup.get(node.data.name) ?? '#ccc'}
+					{@const avgRisk = node.data.avgRisk ?? 0}
+					<rect
+						x={node.x0}
+						y={node.y0}
+						width={nw}
+						height={nh}
+						fill={groupColor}
+						opacity={opacityScale(avgRisk)}
+						rx="3"
+						class="cursor-pointer transition-opacity duration-150 hover:opacity-100"
+						role="button"
+						tabindex="0"
+						aria-label="{groupLabel(node.data.name)}: {node.data.count} occupations, average net risk {(avgRisk * 100).toFixed(0)}%"
+						onclick={() => handleClickGroup(node.data.name)}
+						onkeydown={(e) => {
+							if (e.key === 'Enter') handleClickGroup(node.data.name);
+						}}
 					>
-						{truncateLabel(groupLabel(group.data.name), gw - 8)}
-					</text>
-				{/if}
-			{/each}
+						<title>{groupLabel(node.data.name)}: {node.data.count} occupations</title>
+					</rect>
 
-			<!-- Leaf cells -->
-			{#each leafNodes as leaf (leaf.data.occupation?.ssoc ?? leaf.data.name)}
-				{@const occ = leaf.data.occupation as Occupation}
-				{@const lw = cellWidth(leaf)}
-				{@const lh = cellHeight(leaf)}
-				<rect
-					x={leaf.x0}
-					y={leaf.y0}
-					width={lw}
-					height={lh}
-					fill={colorByGroup.get(occ.major_group) ?? '#ccc'}
-					opacity={opacityScale(occ.net_risk)}
-					rx="1"
-					class="cursor-pointer transition-opacity duration-150 hover:opacity-100"
-					role="button"
-					tabindex="0"
-					aria-label="{occ.title}: Net Risk {(occ.net_risk * 100).toFixed(0)}%, {riskBandLabels[occ.risk_band]}, median wage SGD {occ.gross_wage_median.toLocaleString()}"
-					onmousemove={(e) => handleMouseMove(e, occ)}
-					onmouseleave={handleMouseLeave}
-					onclick={() => handleClick(occ)}
-					onkeydown={(e) => {
-						if (e.key === 'Enter') handleClick(occ);
-					}}
-				>
-					<title>{occ.title} — Net Risk: {(occ.net_risk * 100).toFixed(0)}% ({riskBandLabels[occ.risk_band]})</title>
-				</rect>
-
-				{#if shouldShowLabel(leaf)}
-					<text
-						x={leaf.x0 + 2}
-						y={leaf.y0 + 12}
-						class="pointer-events-none fill-white text-[9px]"
-						style="text-shadow: 0 1px 2px rgba(0,0,0,0.5);"
+					{#if shouldShowGroupLabel(node)}
+						<text
+							x={node.x0 + nw / 2}
+							y={node.y0 + nh / 2 - 6}
+							text-anchor="middle"
+							class="pointer-events-none fill-white text-xs font-semibold"
+							style="text-shadow: 0 1px 3px rgba(0,0,0,0.6);"
+						>
+							{truncateLabel(groupLabel(node.data.name), nw - 12)}
+						</text>
+						<text
+							x={node.x0 + nw / 2}
+							y={node.y0 + nh / 2 + 10}
+							text-anchor="middle"
+							class="pointer-events-none fill-white/80 text-[10px]"
+							style="text-shadow: 0 1px 3px rgba(0,0,0,0.6);"
+						>
+							({node.data.count})
+						</text>
+					{/if}
+				{/each}
+			</svg>
+		{:else}
+			<!-- ZOOMED: Occupations within the selected group -->
+			<svg {width} {height} class="block" role="img" aria-label="Treemap showing occupations in {groupLabel(zoomedGroup)}, sized by employment and shaded by net AI displacement risk">
+				{#each zoomedLeaves as leaf (leaf.data.occupation?.ssoc ?? leaf.data.name)}
+					{@const occ = leaf.data.occupation as Occupation}
+					{@const lw = cellWidth(leaf)}
+					{@const lh = cellHeight(leaf)}
+					<rect
+						x={leaf.x0}
+						y={leaf.y0}
+						width={lw}
+						height={lh}
+						fill={colorByGroup.get(occ.major_group) ?? '#ccc'}
+						opacity={opacityScale(occ.net_risk)}
+						rx="1"
+						class="cursor-pointer transition-opacity duration-150 hover:opacity-100"
+						role="button"
+						tabindex="0"
+						aria-label="{occ.title}: Net Risk {(occ.net_risk * 100).toFixed(0)}%, {riskBandLabels[occ.risk_band]}, median wage SGD {occ.gross_wage_median.toLocaleString()}"
+						onmousemove={(e) => handleMouseMoveOcc(e, occ)}
+						onmouseleave={handleMouseLeave}
+						onclick={() => handleClickOcc(occ)}
+						onkeydown={(e) => {
+							if (e.key === 'Enter') handleClickOcc(occ);
+						}}
 					>
-						{truncateLabel(occ.title, lw)}
-					</text>
-				{/if}
-			{/each}
-		</svg>
+						<title>{occ.title} — Net Risk: {(occ.net_risk * 100).toFixed(0)}% ({riskBandLabels[occ.risk_band]})</title>
+					</rect>
+
+					{#if shouldShowLabel(leaf)}
+						<text
+							x={leaf.x0 + 3}
+							y={leaf.y0 + 13}
+							class="pointer-events-none fill-white text-[10px]"
+							style="text-shadow: 0 1px 2px rgba(0,0,0,0.5);"
+						>
+							{truncateLabel(occ.title, lw)}
+						</text>
+					{/if}
+				{/each}
+			</svg>
+		{/if}
+
 		<!-- Screen reader summary -->
 		<div class="sr-only">
-			Treemap showing {occupations.length} occupations. Use keyboard Tab to navigate between cells and Enter to view details.
+			{#if zoomedGroup}
+				Showing {zoomedLeaves.length} occupations in {groupLabel(zoomedGroup)}. Use keyboard Tab to navigate between cells and Enter to view details.
+			{:else}
+				Treemap showing {overviewNodes.length} major occupation groups. Use Tab to navigate and Enter to zoom into a group.
+			{/if}
 		</div>
 	{:else}
 		<div class="flex h-96 items-center justify-center bg-gray-50 text-gray-400">

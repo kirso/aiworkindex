@@ -200,7 +200,7 @@
       "aioe": 0.8927,
       "theta": 0.7866,
       "c_aioe": 0.59,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "1433"
       ],
@@ -356,7 +356,7 @@
       "aioe": 1.4462,
       "theta": 0.7218,
       "c_aioe": 1.0496,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "1211"
       ],
@@ -460,7 +460,7 @@
       "aioe": 0.8893,
       "theta": 0.6693,
       "c_aioe": 0.692,
-      "category": "high_exposure_high_complementarity",
+      "category": "high_exposure_low_complementarity",
       "isco_codes_matched": [
         "1224"
       ],
@@ -564,7 +564,7 @@
       "aioe": 0.9434,
       "theta": 0.8052,
       "c_aioe": 0.606,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "1330"
       ],
@@ -616,7 +616,7 @@
       "aioe": 0.5749,
       "theta": 0.7783,
       "c_aioe": 0.3847,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "1120"
       ],
@@ -668,7 +668,7 @@
       "aioe": 0.9647,
       "theta": 0.7299,
       "c_aioe": 0.6923,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "1349"
       ],
@@ -720,7 +720,7 @@
       "aioe": 0.5749,
       "theta": 0.7783,
       "c_aioe": 0.3847,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "1120"
       ],
@@ -772,7 +772,7 @@
       "aioe": 1.0291,
       "theta": 0.7299,
       "c_aioe": 0.7385,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "1323"
       ],
@@ -876,7 +876,7 @@
       "aioe": 0.3641,
       "theta": 0.7202,
       "c_aioe": 0.2648,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "1439"
       ],
@@ -1136,7 +1136,7 @@
       "aioe": 0.4022,
       "theta": 0.7542,
       "c_aioe": 0.2788,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "1411"
       ],
@@ -1188,7 +1188,7 @@
       "aioe": 0.9434,
       "theta": 0.8052,
       "c_aioe": 0.606,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "1330"
       ],
@@ -1344,7 +1344,7 @@
       "aioe": 0.9647,
       "theta": 0.7299,
       "c_aioe": 0.6923,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "1219"
       ],
@@ -1396,7 +1396,7 @@
       "aioe": 0.5749,
       "theta": 0.7783,
       "c_aioe": 0.3847,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "1120"
       ],
@@ -1448,7 +1448,7 @@
       "aioe": 1.0291,
       "theta": 0.7299,
       "c_aioe": 0.7385,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "1321"
       ],
@@ -1552,7 +1552,7 @@
       "aioe": 0.9647,
       "theta": 0.7299,
       "c_aioe": 0.6923,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "1349"
       ],
@@ -1656,7 +1656,7 @@
       "aioe": 0.9434,
       "theta": 0.8052,
       "c_aioe": 0.606,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "1330"
       ],
@@ -1812,7 +1812,7 @@
       "aioe": 0.5087,
       "theta": 0.7831,
       "c_aioe": 0.338,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "1213"
       ],
@@ -1864,7 +1864,7 @@
       "aioe": 0.8908,
       "theta": 0.7384,
       "c_aioe": 0.6317,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "1324"
       ],
@@ -1916,7 +1916,7 @@
       "aioe": 0.8908,
       "theta": 0.7384,
       "c_aioe": 0.6317,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "1324"
       ],
@@ -1968,7 +1968,7 @@
       "aioe": 0.9647,
       "theta": 0.7299,
       "c_aioe": 0.6923,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "1219"
       ],
@@ -2072,7 +2072,7 @@
       "aioe": 0.8908,
       "theta": 0.7384,
       "c_aioe": 0.6317,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "1324"
       ],
@@ -2176,7 +2176,7 @@
       "aioe": 0.9008,
       "theta": 0.7378,
       "c_aioe": 0.6393,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "1329"
       ],
@@ -2280,7 +2280,7 @@
       "aioe": -0.1444,
       "theta": 0.7675,
       "c_aioe": -0.0982,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "1223"
       ],
@@ -2384,7 +2384,7 @@
       "aioe": 0.297,
       "theta": 0.7148,
       "c_aioe": 0.2176,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "1420"
       ],
@@ -2436,7 +2436,7 @@
       "aioe": 0.5087,
       "theta": 0.7831,
       "c_aioe": 0.338,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "1213"
       ],
@@ -2540,7 +2540,7 @@
       "aioe": 1.255,
       "theta": 0.7885,
       "c_aioe": 0.827,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "1345"
       ],
@@ -2592,7 +2592,7 @@
       "aioe": 0.9647,
       "theta": 0.7299,
       "c_aioe": 0.6923,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "1219"
       ],
@@ -2644,7 +2644,7 @@
       "aioe": 0.3541,
       "theta": 0.7006,
       "c_aioe": 0.2645,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "1344"
       ],
@@ -2696,7 +2696,7 @@
       "aioe": 0.9434,
       "theta": 0.8052,
       "c_aioe": 0.606,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "1330"
       ],
@@ -2800,7 +2800,7 @@
       "aioe": 0.5087,
       "theta": 0.7831,
       "c_aioe": 0.338,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "1213"
       ],
@@ -2852,7 +2852,7 @@
       "aioe": 0.8908,
       "theta": 0.7384,
       "c_aioe": 0.6317,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "1324"
       ],
@@ -2904,7 +2904,7 @@
       "aioe": 0.9008,
       "theta": 0.7378,
       "c_aioe": 0.6393,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "1329"
       ],
@@ -3008,7 +3008,7 @@
       "aioe": 0.8908,
       "theta": 0.7384,
       "c_aioe": 0.6317,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "1324"
       ],
@@ -3060,7 +3060,7 @@
       "aioe": 0.3641,
       "theta": 0.7202,
       "c_aioe": 0.2648,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "1439"
       ],
@@ -3164,7 +3164,7 @@
       "aioe": 0.297,
       "theta": 0.7148,
       "c_aioe": 0.2176,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "1420"
       ],
@@ -3268,7 +3268,7 @@
       "aioe": 1.4582,
       "theta": 0.6557,
       "c_aioe": 1.1546,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2121"
       ],
@@ -3424,7 +3424,7 @@
       "aioe": 0.4503,
       "theta": 0.7822,
       "c_aioe": 0.2996,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2214"
       ],
@@ -3528,7 +3528,7 @@
       "aioe": 0.9388,
       "theta": 0.7208,
       "c_aioe": 0.6822,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2654"
       ],
@@ -3580,7 +3580,7 @@
       "aioe": 0.6655,
       "theta": 0.676,
       "c_aioe": 0.5134,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "2152"
       ],
@@ -3788,7 +3788,7 @@
       "aioe": 1.2829,
       "theta": 0.7205,
       "c_aioe": 0.9326,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2141"
       ],
@@ -3840,7 +3840,7 @@
       "aioe": 1.093,
       "theta": 0.7227,
       "c_aioe": 0.7922,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2134"
       ],
@@ -4048,7 +4048,7 @@
       "aioe": 1.3387,
       "theta": 0.6808,
       "c_aioe": 1.0264,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2142"
       ],
@@ -4256,7 +4256,7 @@
       "aioe": 0.4503,
       "theta": 0.7822,
       "c_aioe": 0.2996,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2213"
       ],
@@ -4308,7 +4308,7 @@
       "aioe": 1.1582,
       "theta": 0.7484,
       "c_aioe": 0.8097,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2637"
       ],
@@ -4360,7 +4360,7 @@
       "aioe": 0.7669,
       "theta": 0.704,
       "c_aioe": 0.5702,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2113"
       ],
@@ -4412,7 +4412,7 @@
       "aioe": 0.0104,
       "theta": 0.7296,
       "c_aioe": 0.0074,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2171"
       ],
@@ -4464,7 +4464,7 @@
       "aioe": 1.3387,
       "theta": 0.6808,
       "c_aioe": 1.0264,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2142"
       ],
@@ -4516,7 +4516,7 @@
       "aioe": 0.6207,
       "theta": 0.7061,
       "c_aioe": 0.4602,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2634"
       ],
@@ -4568,7 +4568,7 @@
       "aioe": 1.093,
       "theta": 0.7227,
       "c_aioe": 0.7922,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2134"
       ],
@@ -4620,7 +4620,7 @@
       "aioe": 0.9233,
       "theta": 0.7045,
       "c_aioe": 0.686,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2523"
       ],
@@ -4672,7 +4672,7 @@
       "aioe": -0.1944,
       "theta": 0.7933,
       "c_aioe": -0.1272,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2172"
       ],
@@ -4724,7 +4724,7 @@
       "aioe": 1.3185,
       "theta": 0.6539,
       "c_aioe": 1.0464,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2415"
       ],
@@ -4776,7 +4776,7 @@
       "aioe": 1.152,
       "theta": 0.6658,
       "c_aioe": 0.9005,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2435"
       ],
@@ -4828,7 +4828,7 @@
       "aioe": 1.3806,
       "theta": 0.6502,
       "c_aioe": 1.1008,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2413"
       ],
@@ -4880,7 +4880,7 @@
       "aioe": 0.6655,
       "theta": 0.676,
       "c_aioe": 0.5134,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "2152"
       ],
@@ -4984,7 +4984,7 @@
       "aioe": 1.1582,
       "theta": 0.7484,
       "c_aioe": 0.8097,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2637"
       ],
@@ -5088,7 +5088,7 @@
       "aioe": 0.2927,
       "theta": 0.6829,
       "c_aioe": 0.2238,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "2621"
       ],
@@ -5140,7 +5140,7 @@
       "aioe": 0.9233,
       "theta": 0.7045,
       "c_aioe": 0.686,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2524"
       ],
@@ -5192,7 +5192,7 @@
       "aioe": 0.9233,
       "theta": 0.7045,
       "c_aioe": 0.686,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2524"
       ],
@@ -5348,7 +5348,7 @@
       "aioe": 0.9233,
       "theta": 0.7045,
       "c_aioe": 0.686,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2521"
       ],
@@ -5400,7 +5400,7 @@
       "aioe": 0.9233,
       "theta": 0.7045,
       "c_aioe": 0.686,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2521"
       ],
@@ -5452,7 +5452,7 @@
       "aioe": 0.4503,
       "theta": 0.7822,
       "c_aioe": 0.2996,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2212"
       ],
@@ -5504,7 +5504,7 @@
       "aioe": 0.4503,
       "theta": 0.7822,
       "c_aioe": 0.2996,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2214"
       ],
@@ -5556,7 +5556,7 @@
       "aioe": 1.3428,
       "theta": 0.7562,
       "c_aioe": 0.9283,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2265"
       ],
@@ -5660,7 +5660,7 @@
       "aioe": 0.9388,
       "theta": 0.7208,
       "c_aioe": 0.6822,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2654"
       ],
@@ -5764,7 +5764,7 @@
       "aioe": 1.4038,
       "theta": 0.6798,
       "c_aioe": 1.0776,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2631"
       ],
@@ -5868,7 +5868,7 @@
       "aioe": 0.9388,
       "theta": 0.7208,
       "c_aioe": 0.6822,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2654"
       ],
@@ -6076,7 +6076,7 @@
       "aioe": 0.4503,
       "theta": 0.7822,
       "c_aioe": 0.2996,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2214"
       ],
@@ -6180,7 +6180,7 @@
       "aioe": 0.9233,
       "theta": 0.7045,
       "c_aioe": 0.686,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2511"
       ],
@@ -6232,7 +6232,7 @@
       "aioe": 1.3436,
       "theta": 0.7376,
       "c_aioe": 0.9538,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2143"
       ],
@@ -6336,7 +6336,7 @@
       "aioe": 1.3428,
       "theta": 0.7562,
       "c_aioe": 0.9283,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2263"
       ],
@@ -6388,7 +6388,7 @@
       "aioe": 1.3474,
       "theta": 0.689,
       "c_aioe": 1.022,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2423"
       ],
@@ -6492,7 +6492,7 @@
       "aioe": 1.3806,
       "theta": 0.6502,
       "c_aioe": 1.1008,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2413"
       ],
@@ -6544,7 +6544,7 @@
       "aioe": 1.3806,
       "theta": 0.6502,
       "c_aioe": 1.1008,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2413"
       ],
@@ -6648,7 +6648,7 @@
       "aioe": -0.1944,
       "theta": 0.7933,
       "c_aioe": -0.1272,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2172"
       ],
@@ -6752,7 +6752,7 @@
       "aioe": 1.3185,
       "theta": 0.6539,
       "c_aioe": 1.0464,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2415"
       ],
@@ -6804,7 +6804,7 @@
       "aioe": 1.371,
       "theta": 0.6651,
       "c_aioe": 1.0726,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2414"
       ],
@@ -6856,7 +6856,7 @@
       "aioe": 1.3806,
       "theta": 0.6502,
       "c_aioe": 1.1008,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2413"
       ],
@@ -6960,7 +6960,7 @@
       "aioe": 0.4503,
       "theta": 0.7822,
       "c_aioe": 0.2996,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2211"
       ],
@@ -7012,7 +7012,7 @@
       "aioe": 0.4503,
       "theta": 0.7822,
       "c_aioe": 0.2996,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2213"
       ],
@@ -7220,7 +7220,7 @@
       "aioe": 0.9233,
       "theta": 0.7045,
       "c_aioe": 0.686,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2515"
       ],
@@ -7272,7 +7272,7 @@
       "aioe": 0.9233,
       "theta": 0.7045,
       "c_aioe": 0.686,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2511"
       ],
@@ -7324,7 +7324,7 @@
       "aioe": 0.9233,
       "theta": 0.7045,
       "c_aioe": 0.686,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2515"
       ],
@@ -7428,7 +7428,7 @@
       "aioe": 0.6207,
       "theta": 0.7061,
       "c_aioe": 0.4602,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2634"
       ],
@@ -7532,7 +7532,7 @@
       "aioe": 1.3474,
       "theta": 0.689,
       "c_aioe": 1.022,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2423"
       ],
@@ -7636,7 +7636,7 @@
       "aioe": 1.3517,
       "theta": 0.749,
       "c_aioe": 0.9442,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2611"
       ],
@@ -7896,7 +7896,7 @@
       "aioe": 0.4503,
       "theta": 0.7822,
       "c_aioe": 0.2996,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2212"
       ],
@@ -7948,7 +7948,7 @@
       "aioe": 0.9233,
       "theta": 0.7045,
       "c_aioe": 0.686,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2523"
       ],
@@ -8312,7 +8312,7 @@
       "aioe": 1.2829,
       "theta": 0.7205,
       "c_aioe": 0.9326,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2141"
       ],
@@ -8416,7 +8416,7 @@
       "aioe": 0.0104,
       "theta": 0.7296,
       "c_aioe": 0.0074,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2171"
       ],
@@ -8468,7 +8468,7 @@
       "aioe": 0.0104,
       "theta": 0.7296,
       "c_aioe": 0.0074,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2171"
       ],
@@ -8832,7 +8832,7 @@
       "aioe": 0.711,
       "theta": 0.751,
       "c_aioe": 0.4952,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2269"
       ],
@@ -8884,7 +8884,7 @@
       "aioe": 1.093,
       "theta": 0.7227,
       "c_aioe": 0.7922,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2134"
       ],
@@ -8936,7 +8936,7 @@
       "aioe": 1.093,
       "theta": 0.7227,
       "c_aioe": 0.7922,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2134"
       ],
@@ -8988,7 +8988,7 @@
       "aioe": 0.7762,
       "theta": 0.7314,
       "c_aioe": 0.5558,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2635"
       ],
@@ -9040,7 +9040,7 @@
       "aioe": 1.2467,
       "theta": 0.7565,
       "c_aioe": 0.8615,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2636"
       ],
@@ -9092,7 +9092,7 @@
       "aioe": 0.9187,
       "theta": 0.6732,
       "c_aioe": 0.7113,
-      "category": "high_exposure_high_complementarity",
+      "category": "high_exposure_low_complementarity",
       "isco_codes_matched": [
         "2166"
       ],
@@ -9300,7 +9300,7 @@
       "aioe": 1.3428,
       "theta": 0.7562,
       "c_aioe": 0.9283,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2265"
       ],
@@ -9352,7 +9352,7 @@
       "aioe": 0.4503,
       "theta": 0.7822,
       "c_aioe": 0.2996,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2214"
       ],
@@ -9404,7 +9404,7 @@
       "aioe": 1.3428,
       "theta": 0.7562,
       "c_aioe": 0.9283,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2263"
       ],
@@ -9508,7 +9508,7 @@
       "aioe": 1.152,
       "theta": 0.6658,
       "c_aioe": 0.9005,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2435"
       ],
@@ -9560,7 +9560,7 @@
       "aioe": 1.4582,
       "theta": 0.6557,
       "c_aioe": 1.1546,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2121"
       ],
@@ -9612,7 +9612,7 @@
       "aioe": 0.4503,
       "theta": 0.7822,
       "c_aioe": 0.2996,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2214"
       ],
@@ -9664,7 +9664,7 @@
       "aioe": 0.4131,
       "theta": 0.7796,
       "c_aioe": 0.2759,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2267"
       ],
@@ -9716,7 +9716,7 @@
       "aioe": 0.4503,
       "theta": 0.7822,
       "c_aioe": 0.2996,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2213"
       ],
@@ -9768,7 +9768,7 @@
       "aioe": 0.4503,
       "theta": 0.7822,
       "c_aioe": 0.2996,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2214"
       ],
@@ -9820,7 +9820,7 @@
       "aioe": 0.4503,
       "theta": 0.7822,
       "c_aioe": 0.2996,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2212"
       ],
@@ -9872,7 +9872,7 @@
       "aioe": 1.3474,
       "theta": 0.689,
       "c_aioe": 1.022,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2423"
       ],
@@ -9924,7 +9924,7 @@
       "aioe": 0.6059,
       "theta": 0.7872,
       "c_aioe": 0.4001,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2262"
       ],
@@ -9976,7 +9976,7 @@
       "aioe": 1.093,
       "theta": 0.7227,
       "c_aioe": 0.7922,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2134"
       ],
@@ -10080,7 +10080,7 @@
       "aioe": 0.711,
       "theta": 0.751,
       "c_aioe": 0.4952,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2269"
       ],
@@ -10132,7 +10132,7 @@
       "aioe": 1.3126,
       "theta": 0.6615,
       "c_aioe": 1.0317,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2422"
       ],
@@ -10340,7 +10340,7 @@
       "aioe": 0.9388,
       "theta": 0.7208,
       "c_aioe": 0.6822,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2654"
       ],
@@ -10444,7 +10444,7 @@
       "aioe": 1.2829,
       "theta": 0.7205,
       "c_aioe": 0.9326,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2141"
       ],
@@ -10496,7 +10496,7 @@
       "aioe": 0.4503,
       "theta": 0.7822,
       "c_aioe": 0.2996,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2212"
       ],
@@ -10548,7 +10548,7 @@
       "aioe": 1.2849,
       "theta": 0.6828,
       "c_aioe": 0.9825,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2432"
       ],
@@ -10600,7 +10600,7 @@
       "aioe": 1.2829,
       "theta": 0.7205,
       "c_aioe": 0.9326,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2141"
       ],
@@ -10704,7 +10704,7 @@
       "aioe": 0.711,
       "theta": 0.751,
       "c_aioe": 0.4952,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2269"
       ],
@@ -10756,7 +10756,7 @@
       "aioe": 0.2294,
       "theta": 0.7678,
       "c_aioe": 0.1559,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2220"
       ],
@@ -10808,7 +10808,7 @@
       "aioe": 1.1879,
       "theta": 0.6827,
       "c_aioe": 0.9085,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2429"
       ],
@@ -11016,7 +11016,7 @@
       "aioe": 1.1582,
       "theta": 0.7484,
       "c_aioe": 0.8097,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2637"
       ],
@@ -11120,7 +11120,7 @@
       "aioe": 1.3185,
       "theta": 0.6539,
       "c_aioe": 1.0464,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2415"
       ],
@@ -11172,7 +11172,7 @@
       "aioe": 1.371,
       "theta": 0.6651,
       "c_aioe": 1.0726,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2414"
       ],
@@ -11224,7 +11224,7 @@
       "aioe": 0.9233,
       "theta": 0.7045,
       "c_aioe": 0.686,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2524"
       ],
@@ -11276,7 +11276,7 @@
       "aioe": 0.6655,
       "theta": 0.676,
       "c_aioe": 0.5134,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "2152"
       ],
@@ -11380,7 +11380,7 @@
       "aioe": 1.152,
       "theta": 0.6658,
       "c_aioe": 0.9005,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2436"
       ],
@@ -11432,7 +11432,7 @@
       "aioe": 1.152,
       "theta": 0.6658,
       "c_aioe": 0.9005,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2435"
       ],
@@ -11484,7 +11484,7 @@
       "aioe": 0.6966,
       "theta": 0.7496,
       "c_aioe": 0.4861,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2632"
       ],
@@ -11536,7 +11536,7 @@
       "aioe": 0.7762,
       "theta": 0.7314,
       "c_aioe": 0.5558,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2635"
       ],
@@ -11588,7 +11588,7 @@
       "aioe": 0.9233,
       "theta": 0.7045,
       "c_aioe": 0.686,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2512"
       ],
@@ -11848,7 +11848,7 @@
       "aioe": 1.482,
       "theta": 0.6501,
       "c_aioe": 1.1817,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2411"
       ],
@@ -11900,7 +11900,7 @@
       "aioe": 1.3493,
       "theta": 0.7261,
       "c_aioe": 0.9735,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2310"
       ],
@@ -12056,7 +12056,7 @@
       "aioe": 0.9345,
       "theta": 0.754,
       "c_aioe": 0.6481,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2330"
       ],
@@ -12160,7 +12160,7 @@
       "aioe": 1.152,
       "theta": 0.6658,
       "c_aioe": 0.9005,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2436"
       ],
@@ -12212,7 +12212,7 @@
       "aioe": -0.1863,
       "theta": 0.8188,
       "c_aioe": -0.1171,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2230"
       ],
@@ -12264,7 +12264,7 @@
       "aioe": 1.3197,
       "theta": 0.6609,
       "c_aioe": 1.0381,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2424"
       ],
@@ -12316,7 +12316,7 @@
       "aioe": 1.1113,
       "theta": 0.6617,
       "c_aioe": 0.8733,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2643"
       ],
@@ -12368,7 +12368,7 @@
       "aioe": 1.3806,
       "theta": 0.6502,
       "c_aioe": 1.1008,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2413"
       ],
@@ -12420,7 +12420,7 @@
       "aioe": 1.3493,
       "theta": 0.7261,
       "c_aioe": 0.9735,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2310"
       ],
@@ -12524,7 +12524,7 @@
       "aioe": 0.4503,
       "theta": 0.7822,
       "c_aioe": 0.2996,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2213"
       ],
@@ -12576,7 +12576,7 @@
       "aioe": -0.075,
       "theta": 0.8396,
       "c_aioe": -0.0456,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "2250"
       ],
@@ -12680,7 +12680,7 @@
       "aioe": 1.0477,
       "theta": 0.674,
       "c_aioe": 0.8103,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "3339"
       ],
@@ -12732,7 +12732,7 @@
       "aioe": 0.1941,
       "theta": 0.6811,
       "c_aioe": 0.1488,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "3121"
       ],
@@ -12784,7 +12784,7 @@
       "aioe": 1.3413,
       "theta": 0.6672,
       "c_aioe": 1.0466,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "3322"
       ],
@@ -13304,7 +13304,7 @@
       "aioe": 0.2728,
       "theta": 0.6737,
       "c_aioe": 0.2111,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "3100"
       ],
@@ -13356,7 +13356,7 @@
       "aioe": 0.2728,
       "theta": 0.6737,
       "c_aioe": 0.2111,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "3100"
       ],
@@ -13408,7 +13408,7 @@
       "aioe": 0.2728,
       "theta": 0.6737,
       "c_aioe": 0.2111,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "3100"
       ],
@@ -13460,7 +13460,7 @@
       "aioe": 0.2728,
       "theta": 0.6737,
       "c_aioe": 0.2111,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "3100"
       ],
@@ -13512,7 +13512,7 @@
       "aioe": 0.2728,
       "theta": 0.6737,
       "c_aioe": 0.2111,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "3100"
       ],
@@ -13616,7 +13616,7 @@
       "aioe": -0.055,
       "theta": 0.6745,
       "c_aioe": -0.0425,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "3114"
       ],
@@ -13720,7 +13720,7 @@
       "aioe": 0.1941,
       "theta": 0.6811,
       "c_aioe": 0.1488,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "3117"
       ],
@@ -13772,7 +13772,7 @@
       "aioe": 0.1941,
       "theta": 0.6811,
       "c_aioe": 0.1488,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "3121"
       ],
@@ -13824,7 +13824,7 @@
       "aioe": 0.6616,
       "theta": 0.7006,
       "c_aioe": 0.4942,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "3112"
       ],
@@ -13876,7 +13876,7 @@
       "aioe": 1.3413,
       "theta": 0.6672,
       "c_aioe": 1.0466,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "3322"
       ],
@@ -13980,7 +13980,7 @@
       "aioe": 0.9388,
       "theta": 0.7208,
       "c_aioe": 0.6822,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "3434"
       ],
@@ -14032,7 +14032,7 @@
       "aioe": 0.0628,
       "theta": 0.6503,
       "c_aioe": 0.0501,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "3116"
       ],
@@ -14084,7 +14084,7 @@
       "aioe": 0.0628,
       "theta": 0.6503,
       "c_aioe": 0.0501,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "3116"
       ],
@@ -14136,7 +14136,7 @@
       "aioe": 0.2565,
       "theta": 0.6587,
       "c_aioe": 0.2023,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "3111"
       ],
@@ -14188,7 +14188,7 @@
       "aioe": 0.6616,
       "theta": 0.7006,
       "c_aioe": 0.4942,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "3112"
       ],
@@ -14344,7 +14344,7 @@
       "aioe": 0.3012,
       "theta": 0.6632,
       "c_aioe": 0.2363,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "3141"
       ],
@@ -14604,7 +14604,7 @@
       "aioe": 0.0237,
       "theta": 0.6671,
       "c_aioe": 0.0185,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "3113"
       ],
@@ -14708,7 +14708,7 @@
       "aioe": -0.055,
       "theta": 0.6745,
       "c_aioe": -0.0425,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "3114"
       ],
@@ -14916,7 +14916,7 @@
       "aioe": 1.2973,
       "theta": 0.6821,
       "c_aioe": 0.993,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "3332"
       ],
@@ -15176,7 +15176,7 @@
       "aioe": 1.3253,
       "theta": 0.6571,
       "c_aioe": 1.0475,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "3620"
       ],
@@ -15228,7 +15228,7 @@
       "aioe": -0.055,
       "theta": 0.6745,
       "c_aioe": -0.0425,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "3114"
       ],
@@ -15332,7 +15332,7 @@
       "aioe": 0.0552,
       "theta": 0.6253,
       "c_aioe": 0.0454,
-      "category": "high_exposure_high_complementarity",
+      "category": "high_exposure_low_complementarity",
       "isco_codes_matched": [
         "3432"
       ],
@@ -15384,7 +15384,7 @@
       "aioe": 1.0477,
       "theta": 0.674,
       "c_aioe": 0.8103,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "3339"
       ],
@@ -15436,7 +15436,7 @@
       "aioe": -0.0313,
       "theta": 0.6539,
       "c_aioe": -0.0248,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "3512"
       ],
@@ -15488,7 +15488,7 @@
       "aioe": -0.0313,
       "theta": 0.6539,
       "c_aioe": -0.0248,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "3512"
       ],
@@ -15540,7 +15540,7 @@
       "aioe": -0.0313,
       "theta": 0.6539,
       "c_aioe": -0.0248,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "3512"
       ],
@@ -15592,7 +15592,7 @@
       "aioe": 0.9388,
       "theta": 0.7208,
       "c_aioe": 0.6822,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "3434"
       ],
@@ -15644,7 +15644,7 @@
       "aioe": 0.6616,
       "theta": 0.7006,
       "c_aioe": 0.4942,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "3112"
       ],
@@ -15904,7 +15904,7 @@
       "aioe": 0.0237,
       "theta": 0.6671,
       "c_aioe": 0.0185,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "3113"
       ],
@@ -16008,7 +16008,7 @@
       "aioe": 0.9986,
       "theta": 0.6726,
       "c_aioe": 0.7738,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "3346"
       ],
@@ -16112,7 +16112,7 @@
       "aioe": 0.9986,
       "theta": 0.6726,
       "c_aioe": 0.7738,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "3346"
       ],
@@ -16216,7 +16216,7 @@
       "aioe": 0.1941,
       "theta": 0.6811,
       "c_aioe": 0.1488,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "3117"
       ],
@@ -16372,7 +16372,7 @@
       "aioe": 0.1941,
       "theta": 0.6811,
       "c_aioe": 0.1488,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "3121"
       ],
@@ -16424,7 +16424,7 @@
       "aioe": 1.3413,
       "theta": 0.6672,
       "c_aioe": 1.0466,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "3322"
       ],
@@ -16684,7 +16684,7 @@
       "aioe": 0.0552,
       "theta": 0.6253,
       "c_aioe": 0.0454,
-      "category": "high_exposure_high_complementarity",
+      "category": "high_exposure_low_complementarity",
       "isco_codes_matched": [
         "3521"
       ],
@@ -16736,7 +16736,7 @@
       "aioe": 0.0772,
       "theta": 0.6451,
       "c_aioe": 0.062,
-      "category": "high_exposure_high_complementarity",
+      "category": "high_exposure_low_complementarity",
       "isco_codes_matched": [
         "3212"
       ],
@@ -16944,7 +16944,7 @@
       "aioe": 0.3039,
       "theta": 0.6766,
       "c_aioe": 0.2343,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "3991"
       ],
@@ -17256,7 +17256,7 @@
       "aioe": 0.9388,
       "theta": 0.7208,
       "c_aioe": 0.6822,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "3434"
       ],
@@ -17308,7 +17308,7 @@
       "aioe": -0.0912,
       "theta": 0.6511,
       "c_aioe": -0.0727,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "3213"
       ],
@@ -17360,7 +17360,7 @@
       "aioe": -0.1681,
       "theta": 0.6507,
       "c_aioe": -0.1339,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "3431"
       ],
@@ -17620,7 +17620,7 @@
       "aioe": 1.3253,
       "theta": 0.6571,
       "c_aioe": 1.0475,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "3691"
       ],
@@ -17672,7 +17672,7 @@
       "aioe": 0.1941,
       "theta": 0.6811,
       "c_aioe": 0.1488,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "3117"
       ],
@@ -17724,7 +17724,7 @@
       "aioe": 0.1941,
       "theta": 0.6811,
       "c_aioe": 0.1488,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "3117"
       ],
@@ -17828,7 +17828,7 @@
       "aioe": 0.1941,
       "theta": 0.6811,
       "c_aioe": 0.1488,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "3117"
       ],
@@ -18088,7 +18088,7 @@
       "aioe": 0.1941,
       "theta": 0.6811,
       "c_aioe": 0.1488,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "3121"
       ],
@@ -18140,7 +18140,7 @@
       "aioe": 1.0477,
       "theta": 0.674,
       "c_aioe": 0.8103,
-      "category": "high_exposure_low_complementarity",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "3339"
       ],
@@ -18192,7 +18192,7 @@
       "aioe": 0.2633,
       "theta": 0.6639,
       "c_aioe": 0.2063,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "3172"
       ],
@@ -18452,7 +18452,7 @@
       "aioe": 0.1169,
       "theta": 0.7726,
       "c_aioe": 0.0789,
-      "category": "low_exposure",
+      "category": "high_exposure_high_complementarity",
       "isco_codes_matched": [
         "3422"
       ],
@@ -18764,7 +18764,7 @@
       "aioe": 0.0552,
       "theta": 0.6253,
       "c_aioe": 0.0454,
-      "category": "high_exposure_high_complementarity",
+      "category": "high_exposure_low_complementarity",
       "isco_codes_matched": [
         "3521"
       ],
@@ -18816,7 +18816,7 @@
       "aioe": 0.0552,
       "theta": 0.6253,
       "c_aioe": 0.0454,
-      "category": "high_exposure_high_complementarity",
+      "category": "high_exposure_low_complementarity",
       "isco_codes_matched": [
         "3432"
       ],
@@ -18920,7 +18920,7 @@
       "aioe": -0.0313,
       "theta": 0.6539,
       "c_aioe": -0.0248,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "3514"
       ],
@@ -19804,7 +19804,7 @@
       "aioe": 0.2232,
       "theta": 0.6329,
       "c_aioe": 0.1818,
-      "category": "high_exposure_high_complementarity",
+      "category": "high_exposure_low_complementarity",
       "isco_codes_matched": [
         "4323"
       ],
@@ -19960,7 +19960,7 @@
       "aioe": 0.038,
       "theta": 0.6181,
       "c_aioe": 0.0315,
-      "category": "high_exposure_high_complementarity",
+      "category": "high_exposure_low_complementarity",
       "isco_codes_matched": [
         "4411"
       ],
@@ -20012,7 +20012,7 @@
       "aioe": -0.0232,
       "theta": 0.6463,
       "c_aioe": -0.0186,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "4322"
       ],
@@ -20636,7 +20636,7 @@
       "aioe": -0.0232,
       "theta": 0.6463,
       "c_aioe": -0.0186,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "4322"
       ],
@@ -20896,7 +20896,7 @@
       "aioe": 0.2232,
       "theta": 0.6329,
       "c_aioe": 0.1818,
-      "category": "high_exposure_high_complementarity",
+      "category": "high_exposure_low_complementarity",
       "isco_codes_matched": [
         "4323"
       ],
@@ -21624,7 +21624,7 @@
       "aioe": -0.2481,
       "theta": 0.5532,
       "c_aioe": -0.2219,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "5230"
       ],
@@ -21728,7 +21728,7 @@
       "aioe": -0.2481,
       "theta": 0.5532,
       "c_aioe": -0.2219,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "5230"
       ],
@@ -21936,7 +21936,7 @@
       "aioe": -0.1885,
       "theta": 0.6534,
       "c_aioe": -0.1497,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "5320"
       ],
@@ -22196,7 +22196,7 @@
       "aioe": -0.1885,
       "theta": 0.6534,
       "c_aioe": -0.1497,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "5320"
       ],
@@ -22404,7 +22404,7 @@
       "aioe": 0.0764,
       "theta": 0.6608,
       "c_aioe": 0.0601,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "5419"
       ],
@@ -22664,7 +22664,7 @@
       "aioe": -0.1885,
       "theta": 0.6534,
       "c_aioe": -0.1497,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "5320"
       ],
@@ -22924,7 +22924,7 @@
       "aioe": 0.0532,
       "theta": 0.6363,
       "c_aioe": 0.0432,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "5220"
       ],
@@ -23236,7 +23236,7 @@
       "aioe": 0.0532,
       "theta": 0.6363,
       "c_aioe": 0.0432,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "5220"
       ],
@@ -23340,7 +23340,7 @@
       "aioe": 0.4517,
       "theta": 0.6658,
       "c_aioe": 0.3531,
-      "category": "high_exposure_high_complementarity",
+      "category": "high_exposure_low_complementarity",
       "isco_codes_matched": [
         "5312"
       ],
@@ -23652,7 +23652,7 @@
       "aioe": 0.1705,
       "theta": 0.6591,
       "c_aioe": 0.1344,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "6113"
       ],
@@ -23704,7 +23704,7 @@
       "aioe": 0.1705,
       "theta": 0.6591,
       "c_aioe": 0.1344,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "6113"
       ],
@@ -23860,7 +23860,7 @@
       "aioe": -0.3853,
       "theta": 0.5997,
       "c_aioe": -0.3267,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "7512"
       ],
@@ -23964,7 +23964,7 @@
       "aioe": -0.569,
       "theta": 0.5517,
       "c_aioe": -0.5097,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "7131"
       ],
@@ -24692,7 +24692,7 @@
       "aioe": -0.156,
       "theta": 0.6037,
       "c_aioe": -0.1316,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "7311"
       ],
@@ -24796,7 +24796,7 @@
       "aioe": -0.3853,
       "theta": 0.5997,
       "c_aioe": -0.3267,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "7512"
       ],
@@ -24900,7 +24900,7 @@
       "aioe": -0.1493,
       "theta": 0.6063,
       "c_aioe": -0.1256,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "7321"
       ],
@@ -25368,7 +25368,7 @@
       "aioe": -0.156,
       "theta": 0.6037,
       "c_aioe": -0.1316,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "7311"
       ],
@@ -26772,7 +26772,7 @@
       "aioe": -0.1493,
       "theta": 0.6063,
       "c_aioe": -0.1256,
-      "category": "high_exposure_high_complementarity",
+      "category": "low_exposure",
       "isco_codes_matched": [
         "8184"
       ],
@@ -27604,7 +27604,7 @@
       "aioe": 0.8558,
       "theta": 0.6623,
       "c_aioe": 0.672,
-      "category": "high_exposure_high_complementarity",
+      "category": "high_exposure_low_complementarity",
       "isco_codes_matched": [
         "9627"
       ],

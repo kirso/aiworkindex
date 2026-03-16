@@ -649,17 +649,19 @@ function impactType(
   return "stable";
 }
 
-// Map risk_band to legacy category for backward compatibility
-function riskBandToCategory(band: RiskBand): string {
-  switch (band) {
-    case "very_low":
-    case "low":
-      return "low_exposure";
-    case "moderate":
+// Map impact_type to legacy category for backward compatibility
+function impactTypeToCategory(
+  impact: "at_risk" | "ai_leveraged" | "stable" | "mixed"
+): string {
+  switch (impact) {
+    case "ai_leveraged":
       return "high_exposure_high_complementarity";
-    case "high":
-    case "very_high":
+    case "at_risk":
       return "high_exposure_low_complementarity";
+    case "stable":
+      return "low_exposure";
+    case "mixed":
+      return "high_exposure_high_complementarity";
   }
 }
 
@@ -987,7 +989,7 @@ function scoreOccupations(
         aioe: round(r.avgAioe, 4),
         theta: round(r.avgTheta, 4),
         c_aioe: round(cAioe, 4),
-        category: riskBandToCategory(band),
+        category: impactTypeToCategory(impactType(netRisk, exposure * bottleneck * marketResilience)),
         isco_codes_matched: r.iscoMatched,
         match_quality: r.matchQuality,
       },

@@ -187,7 +187,7 @@ market_modifier = 1 - 0.35 * market_resilience
 ```
 
 - **0.6/0.4 weighting**: Group-level trends are stronger (direct measurement). Occupation-level wage structure adds within-group differentiation but is noisier.
-- **0.35 cap**: Market layer can adjust net risk by at most +/-35%. Exposure and bottleneck remain primary drivers.
+- **0.35 cap**: Market layer can reduce net risk by up to 35% (market_modifier is always <= 1.0 since market_resilience >= 0). Weak markets don't amplify risk beyond the technical signal. Exposure and bottleneck remain primary drivers.
 
 ### 4.4 Net Risk
 

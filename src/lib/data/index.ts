@@ -36,6 +36,9 @@ export interface OccupationScores {
 	match_quality: string;
 }
 
+export type ImpactType = 'ai_leveraged' | 'at_risk' | 'stable' | 'mixed';
+export type AugmentationBand = 'very_low' | 'low' | 'moderate' | 'high' | 'very_high';
+
 export interface Occupation {
 	ssoc: string;
 	title: string;
@@ -52,6 +55,9 @@ export interface Occupation {
 	market: MarketScores;
 	net_risk: number;
 	risk_band: RiskBand;
+	augmentation: number;
+	augmentation_band: AugmentationBand;
+	impact_type: ImpactType;
 	confidence: ConfidenceScores;
 	raw: RawScores;
 	isco_codes_matched: string[];
@@ -111,4 +117,26 @@ export const riskBandColors: Record<RiskBand, string> = {
 	moderate: '#fbbf24',
 	high: '#f97316',
 	very_high: '#ef4444'
+};
+
+export const impactTypeLabels: Record<ImpactType, string> = {
+	ai_leveraged: 'AI Leveraged',
+	at_risk: 'At Risk',
+	stable: 'Stable',
+	mixed: 'Mixed'
+};
+
+export const impactTypeColors: Record<ImpactType, string> = {
+	ai_leveraged: '#2563eb',
+	at_risk: '#ef4444',
+	stable: '#6b7280',
+	mixed: '#f59e0b'
+};
+
+export const augmentationBandLabels: Record<AugmentationBand, string> = {
+	very_low: 'Very Low',
+	low: 'Low',
+	moderate: 'Moderate',
+	high: 'High',
+	very_high: 'Very High'
 };

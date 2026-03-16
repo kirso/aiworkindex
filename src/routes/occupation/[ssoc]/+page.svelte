@@ -1,6 +1,14 @@
 <script lang="ts">
 	import RadarChart from '$lib/components/viz/RadarChart.svelte';
-	import { riskBandLabels, riskBandColors, majorGroupByKey } from '$lib/data';
+	import {
+		riskBandLabels,
+		riskBandColors,
+		majorGroupByKey,
+		impactTypeLabels,
+		impactTypeColors,
+		augmentationBandLabels,
+		occupations as allOccupations
+	} from '$lib/data';
 
 	let { data } = $props();
 	let occ = $derived(data.occupation);
@@ -18,6 +26,76 @@
 		if (level === 'medium') return '#ca8a04';
 		return '#dc2626';
 	}
+
+	// Employment formatting
+	function formatEmployment(thousands: number): string {
+		if (thousands >= 1) return `~${thousands.toFixed(1)}K jobs`;
+		return `~${Math.round(thousands * 1000)} jobs`;
+	}
+
+	function formatEmploymentLong(thousands: number): string {
+		if (thousands >= 1) return `Estimated ~${(thousands * 1000).toLocaleString()} jobs in Singapore`;
+		return `Estimated ~${Math.round(thousands * 1000)} jobs in Singapore`;
+	}
+
+	// Helpers for plain-English summary
+	function levelLabel(value: number): string {
+		if (value > 0.66) return 'high';
+		if (value >= 0.33) return 'moderate';
+		return 'low';
+	}
+
+	function bottleneckInterpretation(bottleneck: number): string {
+		if (bottleneck > 0.66) return 'judgment, creativity, and interpersonal skills';
+		if (bottleneck >= 0.33) return 'specialized judgment and interpersonal skills';
+		return 'routine task patterns with few unique human dependencies';
+	}
+
+	function momentumLabel(momentum: number): string {
+		if (momentum > 0.6) return 'growing';
+		if (momentum >= 0.4) return 'stable';
+		return 'declining';
+	}
+
+	function momentumVerb(momentum: number): string {
+		if (momentum > 0.6) return 'supports';
+		if (momentum >= 0.4) return "doesn't significantly change";
+		return 'weakens';
+	}
+
+	// Count of occupations with same impact_type
+	let impactTypeCount = $derived(
+		allOccupations.filter((o) => o.impact_type === occ.impact_type).length
+	);
+
+	// Plain-English summary sentence 1
+	let summaryText = $derived.by(() => {
+		const title = occ.title;
+		const exposureLevel = levelLabel(occ.exposure);
+		const bottleneckLevel = levelLabel(occ.bottleneck);
+		const bottleneckDesc = bottleneckInterpretation(occ.bottleneck);
+
+		switch (occ.impact_type) {
+			case 'ai_leveraged':
+				return `AI is likely to enhance productivity in this role rather than replace it. ${title} has ${exposureLevel} AI exposure, but strong human bottlenecks \u2014 like ${bottleneckDesc} \u2014 mean AI augments rather than substitutes. This is one of ${impactTypeCount} \u2018AI Leveraged\u2019 occupations in Singapore.`;
+			case 'at_risk':
+				return `This role faces significant AI displacement pressure. ${title} has ${exposureLevel} exposure to AI capabilities with relatively ${bottleneckLevel === 'low' ? 'weak' : 'few'} human bottlenecks to slow adoption. Workers in this field should consider developing skills that AI cannot easily replicate.`;
+			case 'stable':
+				return `AI is unlikely to significantly disrupt this role in the near term. ${title} has ${exposureLevel} AI exposure, meaning current AI capabilities have limited overlap with the core tasks. The occupation remains relatively stable.`;
+			case 'mixed':
+				return `This role shows conflicting AI signals \u2014 high exposure but also strong human dependencies. ${title} could see both displacement of some tasks and augmentation of others. The net outcome depends on how organizations choose to adopt AI.`;
+			default:
+				return '';
+		}
+	});
+
+	// Plain-English summary sentence 2 (market context)
+	let marketContext = $derived.by(() => {
+		const groupLabel = group?.label ?? occ.major_group;
+		const momentum = momentumLabel(occ.market.market_momentum);
+		const verb = momentumVerb(occ.market.market_momentum);
+		return `The ${groupLabel} sector in Singapore has seen ${momentum} employment trends, which ${verb} the outlook.`;
+	});
 </script>
 
 <svelte:head>
@@ -85,12 +163,21 @@
 				<p class="mt-0.5 text-sm text-gray-500">
 					SSOC {occ.ssoc} &middot; {group?.label ?? occ.major_group}
 				</p>
+				<p class="mt-0.5 text-sm text-gray-500">
+					{formatEmploymentLong(occ.employment_thousands)}
+				</p>
 				<div class="mt-2 flex flex-wrap items-center gap-2">
 					<span
 						class="rounded-full px-3 py-1 text-sm font-semibold text-white"
 						style="background-color: {riskBandColors[occ.risk_band]};"
 					>
 						{riskBandLabels[occ.risk_band]} Risk
+					</span>
+					<span
+						class="rounded-full px-3 py-1 text-sm font-semibold text-white"
+						style="background-color: {impactTypeColors[occ.impact_type]};"
+					>
+						{impactTypeLabels[occ.impact_type]}
 					</span>
 					<span
 						class="rounded-full border px-2.5 py-0.5 text-xs font-medium"
@@ -101,6 +188,13 @@
 				</div>
 			</div>
 		</div>
+	</div>
+
+	<!-- What This Means -->
+	<div class="mb-6 rounded-lg border border-gray-200 bg-blue-50/50 p-5">
+		<h2 class="mb-2 text-sm font-semibold text-gray-700">What This Means</h2>
+		<p class="text-sm leading-relaxed text-gray-700">{summaryText}</p>
+		<p class="mt-2 text-sm leading-relaxed text-gray-600">{marketContext}</p>
 	</div>
 
 	<div class="grid gap-6 md:grid-cols-2">
@@ -119,14 +213,14 @@
 					<span class="font-semibold tabular-nums text-red-700">{(occ.exposure * 100).toFixed(0)}%</span>
 				</div>
 				<div class="flex items-center justify-center text-gray-400">
-					<span class="text-lg">-</span>
+					<span class="font-mono text-sm">&times;</span>
 				</div>
 				<div class="flex items-center justify-between rounded bg-green-50 px-3 py-2">
-					<span class="font-medium text-green-700">Bottleneck (percentile)</span>
-					<span class="font-semibold tabular-nums text-green-700">{(occ.bottleneck * 100).toFixed(0)}%</span>
+					<span class="font-medium text-green-700">(1 - Bottleneck)</span>
+					<span class="font-semibold tabular-nums text-green-700">{((1 - occ.bottleneck) * 100).toFixed(0)}%</span>
 				</div>
 				<div class="flex items-center justify-center text-gray-400">
-					<span class="text-lg">x</span>
+					<span class="font-mono text-sm">&times;</span>
 				</div>
 				<div class="flex items-center justify-between rounded bg-blue-50 px-3 py-2">
 					<span class="font-medium text-blue-700">Market Modifier</span>
@@ -138,6 +232,20 @@
 				<div class="flex items-center justify-between rounded px-3 py-2" style="background-color: {riskBandColors[occ.risk_band]}20;">
 					<span class="font-semibold text-gray-900">Net Displacement Risk</span>
 					<span class="text-lg font-bold tabular-nums text-gray-900">{(occ.net_risk * 100).toFixed(0)}%</span>
+				</div>
+				<!-- Augmentation Potential -->
+				<div class="mt-2 border-t border-gray-100 pt-3">
+					<div class="mb-1 flex items-center justify-between text-sm">
+						<span class="font-medium text-indigo-700">Augmentation Potential</span>
+						<span class="text-xs font-medium text-indigo-600">{augmentationBandLabels[occ.augmentation_band]}</span>
+					</div>
+					<div class="h-2 w-full overflow-hidden rounded-full bg-gray-100">
+						<div
+							class="h-full rounded-full"
+							style="width: {Math.min(occ.augmentation * 100, 100)}%; background: linear-gradient(to right, #818cf8, #6366f1);"
+						></div>
+					</div>
+					<div class="mt-0.5 text-right text-xs tabular-nums text-indigo-600">{(occ.augmentation * 100).toFixed(0)}%</div>
 				</div>
 			</div>
 			<p class="mt-3 text-xs text-gray-400">

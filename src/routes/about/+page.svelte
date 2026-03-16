@@ -1,6 +1,6 @@
 <svelte:head>
 	<title>About — Singapore AI Occupation Impact Index</title>
-	<meta name="description" content="Data sources, credits, and license for the Singapore AI Occupation Impact Index. Four axes of AI impact. Open-source, MIT licensed." />
+	<meta name="description" content="Data sources, credits, and license for the Singapore AI Occupation Impact Index. Three layers of AI impact: exposure, human bottleneck, and market resilience. Open-source, MIT licensed." />
 	<meta property="og:title" content="About — Singapore AI Occupation Impact Index" />
 	<meta property="og:description" content="Data sources, credits, and license. Open-source, MIT licensed." />
 	<meta property="og:url" content="https://sg-ai-jobs.vercel.app/about" />
@@ -16,9 +16,9 @@
 	<h1 class="text-2xl font-bold text-gray-900 sm:text-3xl">About This Project</h1>
 	<p class="mt-2 text-gray-600">
 		The Singapore AI Occupation Impact Index measures how 562 occupations in Singapore are affected by AI
-		across four visible axes: exposure, automatable task share, market resilience, and net displacement risk.
-		We use peer-reviewed academic indices instead of LLM self-assessment — because using AI to score
-		how replaceable jobs are by AI is methodologically circular.
+		across three interpretable layers: exposure, human bottleneck, and market resilience, producing risk bands
+		with visible confidence. We use peer-reviewed academic indices instead of LLM self-assessment — because
+		using AI to score how replaceable jobs are by AI is methodologically circular.
 	</p>
 	<p class="mt-2 text-gray-600">
 		Inspired by Andrej Karpathy's AI Employment Outlook Map, this project goes further by
@@ -96,7 +96,7 @@
 					<tr class="border-b border-gray-100">
 						<td class="py-2 pr-4">Axes</td>
 						<td class="py-2 pr-4">1 (ad hoc 0-10)</td>
-						<td class="py-2">4 (exposure, task share, resilience, risk)</td>
+						<td class="py-2">3 layers (exposure, bottleneck, market resilience) + risk bands</td>
 					</tr>
 					<tr class="border-b border-gray-100">
 						<td class="py-2 pr-4">Detail pages</td>
