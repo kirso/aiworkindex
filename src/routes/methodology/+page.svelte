@@ -495,8 +495,7 @@
 			classification are included.
 		</p>
 		<p class="mt-2 text-sm text-gray-600">
-			<strong>Not yet implemented:</strong> Occupation-level employment data (MOM OED, not publicly available),
-			MOM Jobs in Demand 2025 flags as direct inputs to the market layer,
+			<strong>Not yet implemented:</strong> Occupation-level employment data (MOM OED, not publicly available)
 			and career-stage analysis (informed by Stanford's "Canaries in the Coal Mine" research).
 		</p>
 	</section>

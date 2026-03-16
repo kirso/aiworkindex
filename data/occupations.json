@@ -66,19 +66,19 @@
     "market": {
       "market_momentum": 0.5625,
       "occupation_scarcity": 0.582,
-      "market_resilience": 0.5703,
-      "market_modifier": 0.8004
+      "market_resilience": 0.6703,
+      "market_modifier": 0.7654
     },
-    "net_risk": 0.1492,
+    "net_risk": 0.1427,
     "risk_band": "low",
-    "augmentation": 0.3615,
+    "augmentation": 0.4249,
     "augmentation_band": "high",
     "impact_type": "ai_leveraged",
     "confidence": {
-      "score": 0.8239,
+      "score": 0.8905,
       "level": "high",
       "crosswalk_quality": 0.9716,
-      "market_data_granularity": 0.6,
+      "market_data_granularity": 0.8,
       "source_freshness": 0.9
     },
     "raw": {
@@ -1314,19 +1314,19 @@
     "market": {
       "market_momentum": 0.5625,
       "occupation_scarcity": 0.4015,
-      "market_resilience": 0.4981,
-      "market_modifier": 0.8257
+      "market_resilience": 0.5981,
+      "market_modifier": 0.7907
     },
-    "net_risk": 0.0829,
+    "net_risk": 0.0794,
     "risk_band": "low",
-    "augmentation": 0.2801,
-    "augmentation_band": "moderate",
+    "augmentation": 0.3363,
+    "augmentation_band": "high",
     "impact_type": "ai_leveraged",
     "confidence": {
-      "score": 0.8333,
+      "score": 0.9,
       "level": "high",
       "crosswalk_quality": 1,
-      "market_data_granularity": 0.6,
+      "market_data_granularity": 0.8,
       "source_freshness": 0.9
     },
     "raw": {
@@ -1470,19 +1470,19 @@
     "market": {
       "market_momentum": 0.5625,
       "occupation_scarcity": 0.6025,
-      "market_resilience": 0.5785,
-      "market_modifier": 0.7975
+      "market_resilience": 0.6785,
+      "market_modifier": 0.7625
     },
-    "net_risk": 0.1487,
+    "net_risk": 0.1422,
     "risk_band": "low",
-    "augmentation": 0.3667,
+    "augmentation": 0.4301,
     "augmentation_band": "high",
     "impact_type": "ai_leveraged",
     "confidence": {
-      "score": 0.8239,
+      "score": 0.8905,
       "level": "high",
       "crosswalk_quality": 0.9716,
-      "market_data_granularity": 0.6,
+      "market_data_granularity": 0.8,
       "source_freshness": 0.9
     },
     "raw": {
@@ -1938,19 +1938,19 @@
     "market": {
       "market_momentum": 0.5625,
       "occupation_scarcity": 0.3021,
-      "market_resilience": 0.4584,
-      "market_modifier": 0.8396
+      "market_resilience": 0.5584,
+      "market_modifier": 0.8046
     },
-    "net_risk": 0.0843,
+    "net_risk": 0.0808,
     "risk_band": "low",
-    "augmentation": 0.2577,
-    "augmentation_band": "moderate",
+    "augmentation": 0.314,
+    "augmentation_band": "high",
     "impact_type": "ai_leveraged",
     "confidence": {
-      "score": 0.8333,
+      "score": 0.9,
       "level": "high",
       "crosswalk_quality": 1,
-      "market_data_granularity": 0.6,
+      "market_data_granularity": 0.8,
       "source_freshness": 0.9
     },
     "raw": {
@@ -2562,19 +2562,19 @@
     "market": {
       "market_momentum": 0.5625,
       "occupation_scarcity": 0.5348,
-      "market_resilience": 0.5514,
-      "market_modifier": 0.807
+      "market_resilience": 0.6514,
+      "market_modifier": 0.772
     },
-    "net_risk": 0.081,
+    "net_risk": 0.0775,
     "risk_band": "low",
-    "augmentation": 0.3101,
+    "augmentation": 0.3663,
     "augmentation_band": "high",
     "impact_type": "ai_leveraged",
     "confidence": {
-      "score": 0.8333,
+      "score": 0.9,
       "level": "high",
       "crosswalk_quality": 1,
-      "market_data_granularity": 0.6,
+      "market_data_granularity": 0.8,
       "source_freshness": 0.9
     },
     "raw": {
@@ -3186,12 +3186,12 @@
     "market": {
       "market_momentum": 0.625,
       "occupation_scarcity": 0.1889,
-      "market_resilience": 0.6006,
-      "market_modifier": 0.7898
+      "market_resilience": 0.7006,
+      "market_modifier": 0.7548
     },
-    "net_risk": 0.5489,
+    "net_risk": 0.5246,
     "risk_band": "very_high",
-    "augmentation": 0.1615,
+    "augmentation": 0.1884,
     "augmentation_band": "moderate",
     "impact_type": "mixed",
     "confidence": {
@@ -3654,12 +3654,12 @@
     "market": {
       "market_momentum": 0.625,
       "occupation_scarcity": 0.2513,
-      "market_resilience": 0.6255,
-      "market_modifier": 0.7811
+      "market_resilience": 0.7255,
+      "market_modifier": 0.7461
     },
-    "net_risk": 0.5429,
+    "net_risk": 0.5185,
     "risk_band": "very_high",
-    "augmentation": 0.1682,
+    "augmentation": 0.1951,
     "augmentation_band": "moderate",
     "impact_type": "mixed",
     "confidence": {
@@ -4798,12 +4798,12 @@
     "market": {
       "market_momentum": 0.625,
       "occupation_scarcity": 0.7086,
-      "market_resilience": 0.8084,
-      "market_modifier": 0.7171
+      "market_resilience": 0.9084,
+      "market_modifier": 0.6821
     },
-    "net_risk": 0.4954,
+    "net_risk": 0.4712,
     "risk_band": "high",
-    "augmentation": 0.2268,
+    "augmentation": 0.2548,
     "augmentation_band": "moderate",
     "impact_type": "mixed",
     "confidence": {
@@ -6462,12 +6462,12 @@
     "market": {
       "market_momentum": 0.625,
       "occupation_scarcity": 0.6168,
-      "market_resilience": 0.7717,
-      "market_modifier": 0.7299
+      "market_resilience": 0.8717,
+      "market_modifier": 0.6949
     },
-    "net_risk": 0.5043,
-    "risk_band": "very_high",
-    "augmentation": 0.2165,
+    "net_risk": 0.4801,
+    "risk_band": "high",
+    "augmentation": 0.2445,
     "augmentation_band": "moderate",
     "impact_type": "mixed",
     "confidence": {
@@ -6514,12 +6514,12 @@
     "market": {
       "market_momentum": 0.625,
       "occupation_scarcity": 0.8583,
-      "market_resilience": 0.8683,
-      "market_modifier": 0.6961
+      "market_resilience": 0.9683,
+      "market_modifier": 0.6611
     },
-    "net_risk": 0.4809,
+    "net_risk": 0.4567,
     "risk_band": "high",
-    "augmentation": 0.2436,
+    "augmentation": 0.2716,
     "augmentation_band": "moderate",
     "impact_type": "mixed",
     "confidence": {
@@ -6826,12 +6826,12 @@
     "market": {
       "market_momentum": 0.625,
       "occupation_scarcity": 0.9207,
-      "market_resilience": 0.8933,
-      "market_modifier": 0.6874
+      "market_resilience": 0.9933,
+      "market_modifier": 0.6524
     },
-    "net_risk": 0.4749,
+    "net_risk": 0.4507,
     "risk_band": "high",
-    "augmentation": 0.2506,
+    "augmentation": 0.2786,
     "augmentation_band": "moderate",
     "impact_type": "mixed",
     "confidence": {
@@ -9114,12 +9114,12 @@
     "market": {
       "market_momentum": 0.625,
       "occupation_scarcity": 0.41,
-      "market_resilience": 0.689,
-      "market_modifier": 0.7589
+      "market_resilience": 0.789,
+      "market_modifier": 0.7239
     },
-    "net_risk": 0.1612,
+    "net_risk": 0.1538,
     "risk_band": "moderate",
-    "augmentation": 0.3685,
+    "augmentation": 0.422,
     "augmentation_band": "high",
     "impact_type": "ai_leveraged",
     "confidence": {
@@ -9218,19 +9218,19 @@
     "market": {
       "market_momentum": 0.625,
       "occupation_scarcity": 0.3538,
-      "market_resilience": 0.5165,
-      "market_modifier": 0.8192
+      "market_resilience": 0.6165,
+      "market_modifier": 0.7842
     },
-    "net_risk": 0.1732,
+    "net_risk": 0.1658,
     "risk_band": "moderate",
-    "augmentation": 0.2749,
-    "augmentation_band": "moderate",
+    "augmentation": 0.3281,
+    "augmentation_band": "high",
     "impact_type": "ai_leveraged",
     "confidence": {
-      "score": 0.6,
+      "score": 0.6667,
       "level": "medium",
       "crosswalk_quality": 0.3,
-      "market_data_granularity": 0.6,
+      "market_data_granularity": 0.8,
       "source_freshness": 0.9
     },
     "raw": {
@@ -11558,12 +11558,12 @@
     "market": {
       "market_momentum": 0.625,
       "occupation_scarcity": 0.7371,
-      "market_resilience": 0.8198,
-      "market_modifier": 0.7131
+      "market_resilience": 0.9198,
+      "market_modifier": 0.6781
     },
-    "net_risk": 0.1515,
-    "risk_band": "moderate",
-    "augmentation": 0.4384,
+    "net_risk": 0.1441,
+    "risk_band": "low",
+    "augmentation": 0.4919,
     "augmentation_band": "high",
     "impact_type": "ai_leveraged",
     "confidence": {
@@ -11818,12 +11818,12 @@
     "market": {
       "market_momentum": 0.625,
       "occupation_scarcity": 0.8369,
-      "market_resilience": 0.8598,
-      "market_modifier": 0.6991
+      "market_resilience": 0.9598,
+      "market_modifier": 0.6641
     },
-    "net_risk": 0.4859,
+    "net_risk": 0.4616,
     "risk_band": "high",
-    "augmentation": 0.2312,
+    "augmentation": 0.2581,
     "augmentation_band": "moderate",
     "impact_type": "mixed",
     "confidence": {
@@ -12338,12 +12338,12 @@
     "market": {
       "market_momentum": 0.625,
       "occupation_scarcity": 0.5339,
-      "market_resilience": 0.7385,
-      "market_modifier": 0.7415
+      "market_resilience": 0.8385,
+      "market_modifier": 0.7065
     },
-    "net_risk": 0.5123,
-    "risk_band": "very_high",
-    "augmentation": 0.2072,
+    "net_risk": 0.4881,
+    "risk_band": "high",
+    "augmentation": 0.2352,
     "augmentation_band": "moderate",
     "impact_type": "mixed",
     "confidence": {
@@ -12598,12 +12598,12 @@
     "market": {
       "market_momentum": 0.625,
       "occupation_scarcity": 0.3783,
-      "market_resilience": 0.6763,
-      "market_modifier": 0.7633
+      "market_resilience": 0.7763,
+      "market_modifier": 0.7283
     },
-    "net_risk": 0.1622,
+    "net_risk": 0.1547,
     "risk_band": "moderate",
-    "augmentation": 0.3617,
+    "augmentation": 0.4152,
     "augmentation_band": "high",
     "impact_type": "ai_leveraged",
     "confidence": {
@@ -21646,19 +21646,19 @@
     "market": {
       "market_momentum": 0.625,
       "occupation_scarcity": 0.5579,
-      "market_resilience": 0.5982,
-      "market_modifier": 0.7906
+      "market_resilience": 0.6982,
+      "market_modifier": 0.7556
     },
-    "net_risk": 0.1228,
+    "net_risk": 0.1173,
     "risk_band": "low",
-    "augmentation": 0.0035,
+    "augmentation": 0.0041,
     "augmentation_band": "very_low",
     "impact_type": "stable",
     "confidence": {
-      "score": 0.8048,
+      "score": 0.8715,
       "level": "high",
       "crosswalk_quality": 0.9144,
-      "market_data_granularity": 0.6,
+      "market_data_granularity": 0.8,
       "source_freshness": 0.9
     },
     "raw": {
@@ -22738,19 +22738,19 @@
     "market": {
       "market_momentum": 0.625,
       "occupation_scarcity": 0.3636,
-      "market_resilience": 0.5205,
-      "market_modifier": 0.8178
+      "market_resilience": 0.6205,
+      "market_modifier": 0.7828
     },
-    "net_risk": 0.0979,
+    "net_risk": 0.0937,
     "risk_band": "low",
-    "augmentation": 0.0371,
+    "augmentation": 0.0443,
     "augmentation_band": "very_low",
     "impact_type": "stable",
     "confidence": {
-      "score": 0.8333,
+      "score": 0.9,
       "level": "high",
       "crosswalk_quality": 1,
-      "market_data_granularity": 0.6,
+      "market_data_granularity": 0.8,
       "source_freshness": 0.9
     },
     "raw": {
@@ -22998,19 +22998,19 @@
     "market": {
       "market_momentum": 0.625,
       "occupation_scarcity": 0.4234,
-      "market_resilience": 0.5443,
-      "market_modifier": 0.8095
+      "market_resilience": 0.6443,
+      "market_modifier": 0.7745
     },
-    "net_risk": 0.0969,
+    "net_risk": 0.0927,
     "risk_band": "low",
-    "augmentation": 0.0388,
+    "augmentation": 0.046,
     "augmentation_band": "very_low",
     "impact_type": "stable",
     "confidence": {
-      "score": 0.8333,
+      "score": 0.9,
       "level": "high",
       "crosswalk_quality": 1,
-      "market_data_granularity": 0.6,
+      "market_data_granularity": 0.8,
       "source_freshness": 0.9
     },
     "raw": {
@@ -23102,19 +23102,19 @@
     "market": {
       "market_momentum": 0.625,
       "occupation_scarcity": 0.3752,
-      "market_resilience": 0.5251,
-      "market_modifier": 0.8162
+      "market_resilience": 0.6251,
+      "market_modifier": 0.7812
     },
-    "net_risk": 0.0977,
+    "net_risk": 0.0935,
     "risk_band": "low",
-    "augmentation": 0.0375,
+    "augmentation": 0.0446,
     "augmentation_band": "very_low",
     "impact_type": "stable",
     "confidence": {
-      "score": 0.8333,
+      "score": 0.9,
       "level": "high",
       "crosswalk_quality": 1,
-      "market_data_granularity": 0.6,
+      "market_data_granularity": 0.8,
       "source_freshness": 0.9
     },
     "raw": {
@@ -23154,19 +23154,19 @@
     "market": {
       "market_momentum": 0.625,
       "occupation_scarcity": 0.4715,
-      "market_resilience": 0.5636,
-      "market_modifier": 0.8027
+      "market_resilience": 0.6636,
+      "market_modifier": 0.7677
     },
-    "net_risk": 0.0961,
+    "net_risk": 0.0919,
     "risk_band": "low",
-    "augmentation": 0.0402,
+    "augmentation": 0.0474,
     "augmentation_band": "very_low",
     "impact_type": "stable",
     "confidence": {
-      "score": 0.8333,
+      "score": 0.9,
       "level": "high",
       "crosswalk_quality": 1,
-      "market_data_granularity": 0.6,
+      "market_data_granularity": 0.8,
       "source_freshness": 0.9
     },
     "raw": {
@@ -23518,19 +23518,19 @@
     "market": {
       "market_momentum": 0.625,
       "occupation_scarcity": 0.1586,
-      "market_resilience": 0.4385,
-      "market_modifier": 0.8465
+      "market_resilience": 0.5385,
+      "market_modifier": 0.8115
     },
-    "net_risk": 0.1314,
+    "net_risk": 0.126,
     "risk_band": "low",
-    "augmentation": 0.0026,
+    "augmentation": 0.0032,
     "augmentation_band": "very_low",
     "impact_type": "stable",
     "confidence": {
-      "score": 0.8048,
+      "score": 0.8715,
       "level": "high",
       "crosswalk_quality": 0.9144,
-      "market_data_granularity": 0.6,
+      "market_data_granularity": 0.8,
       "source_freshness": 0.9
     },
     "raw": {
@@ -25494,19 +25494,19 @@
     "market": {
       "market_momentum": 0.5,
       "occupation_scarcity": 0.5553,
-      "market_resilience": 0.5221,
-      "market_modifier": 0.8173
+      "market_resilience": 0.6221,
+      "market_modifier": 0.7823
     },
-    "net_risk": 0.084,
+    "net_risk": 0.0804,
     "risk_band": "low",
-    "augmentation": 0.0285,
+    "augmentation": 0.034,
     "augmentation_band": "very_low",
     "impact_type": "stable",
     "confidence": {
-      "score": 0.8333,
+      "score": 0.9,
       "level": "high",
       "crosswalk_quality": 1,
-      "market_data_granularity": 0.6,
+      "market_data_granularity": 0.8,
       "source_freshness": 0.9
     },
     "raw": {
@@ -25598,19 +25598,19 @@
     "market": {
       "market_momentum": 0.5,
       "occupation_scarcity": 0.6702,
-      "market_resilience": 0.5681,
-      "market_modifier": 0.8012
+      "market_resilience": 0.6681,
+      "market_modifier": 0.7662
     },
-    "net_risk": 0.0824,
+    "net_risk": 0.0788,
     "risk_band": "low",
-    "augmentation": 0.031,
+    "augmentation": 0.0365,
     "augmentation_band": "very_low",
     "impact_type": "stable",
     "confidence": {
-      "score": 0.8333,
+      "score": 0.9,
       "level": "high",
       "crosswalk_quality": 1,
-      "market_data_granularity": 0.6,
+      "market_data_granularity": 0.8,
       "source_freshness": 0.9
     },
     "raw": {
@@ -25910,19 +25910,19 @@
     "market": {
       "market_momentum": 0.5,
       "occupation_scarcity": 0.2335,
-      "market_resilience": 0.3934,
-      "market_modifier": 0.8623
+      "market_resilience": 0.4934,
+      "market_modifier": 0.8273
     },
-    "net_risk": 0.105,
+    "net_risk": 0.1007,
     "risk_band": "low",
-    "augmentation": 0.0163,
+    "augmentation": 0.0205,
     "augmentation_band": "very_low",
     "impact_type": "stable",
     "confidence": {
-      "score": 0.6814,
-      "level": "medium",
+      "score": 0.7481,
+      "level": "high",
       "crosswalk_quality": 0.5442,
-      "market_data_granularity": 0.6,
+      "market_data_granularity": 0.8,
       "source_freshness": 0.9
     },
     "raw": {
@@ -26482,19 +26482,19 @@
     "market": {
       "market_momentum": 0.5,
       "occupation_scarcity": 0.4804,
-      "market_resilience": 0.4922,
-      "market_modifier": 0.8277
+      "market_resilience": 0.5922,
+      "market_modifier": 0.7927
     },
-    "net_risk": 0.1008,
+    "net_risk": 0.0965,
     "risk_band": "low",
-    "augmentation": 0.0204,
+    "augmentation": 0.0246,
     "augmentation_band": "very_low",
     "impact_type": "stable",
     "confidence": {
-      "score": 0.6814,
-      "level": "medium",
+      "score": 0.7481,
+      "level": "high",
       "crosswalk_quality": 0.5442,
-      "market_data_granularity": 0.6,
+      "market_data_granularity": 0.8,
       "source_freshness": 0.9
     },
     "raw": {
@@ -26586,19 +26586,19 @@
     "market": {
       "market_momentum": 0.5,
       "occupation_scarcity": 0.41,
-      "market_resilience": 0.464,
-      "market_modifier": 0.8376
+      "market_resilience": 0.564,
+      "market_modifier": 0.8026
     },
-    "net_risk": 0.0861,
+    "net_risk": 0.0825,
     "risk_band": "low",
-    "augmentation": 0.0253,
+    "augmentation": 0.0308,
     "augmentation_band": "very_low",
     "impact_type": "stable",
     "confidence": {
-      "score": 0.8333,
+      "score": 0.9,
       "level": "high",
       "crosswalk_quality": 1,
-      "market_data_granularity": 0.6,
+      "market_data_granularity": 0.8,
       "source_freshness": 0.9
     },
     "raw": {
@@ -27054,19 +27054,19 @@
     "market": {
       "market_momentum": 0.5,
       "occupation_scarcity": 0.5989,
-      "market_resilience": 0.5396,
-      "market_modifier": 0.8111
+      "market_resilience": 0.6396,
+      "market_modifier": 0.7761
     },
-    "net_risk": 0.0834,
+    "net_risk": 0.0798,
     "risk_band": "low",
-    "augmentation": 0.0294,
+    "augmentation": 0.0349,
     "augmentation_band": "very_low",
     "impact_type": "stable",
     "confidence": {
-      "score": 0.8333,
+      "score": 0.9,
       "level": "high",
       "crosswalk_quality": 1,
-      "market_data_granularity": 0.6,
+      "market_data_granularity": 0.8,
       "source_freshness": 0.9
     },
     "raw": {

@@ -353,10 +353,37 @@ function loadMomSol(): { exactCodes: Set<string>; prefixes: Set<string> } {
 }
 
 function isSolMatch(ssoc: string, sol: { exactCodes: Set<string>; prefixes: Set<string> }): boolean {
-  // Exact 5-digit match first
   if (sol.exactCodes.has(ssoc)) return true;
-  // Fall back to 4-digit prefix match (covers entire SSOC unit group)
   return sol.prefixes.has(ssoc.substring(0, 4));
+}
+
+// ===== Step 3e: Load MOM Jobs in Demand 2025 =====
+function loadJobsInDemand(): { exactCodes: Set<string>; prefixes: Set<string> } {
+  console.log("Loading MOM Jobs in Demand 2025...");
+  const filePath = path.join(EXT_DIR, "mom_jobs_in_demand_2025.json");
+  if (!fs.existsSync(filePath)) {
+    console.log("  WARNING: mom_jobs_in_demand_2025.json not found, skipping");
+    return { exactCodes: new Set(), prefixes: new Set() };
+  }
+
+  const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+  const exactCodes = new Set<string>();
+  const prefixes = new Set<string>();
+
+  for (const entry of data.occupations as { title: string; ssoc_matches: string[] }[]) {
+    for (const ssoc of entry.ssoc_matches) {
+      exactCodes.add(ssoc);
+      prefixes.add(ssoc.substring(0, 4));
+    }
+  }
+
+  console.log(`  Loaded ${data.occupations.length} Jobs in Demand occupations mapping to ${exactCodes.size} exact SSOC codes (${prefixes.size} 4-digit prefixes)`);
+  return { exactCodes, prefixes };
+}
+
+function isDemandMatch(ssoc: string, demand: { exactCodes: Set<string>; prefixes: Set<string> }): boolean {
+  if (demand.exactCodes.has(ssoc)) return true;
+  return demand.prefixes.has(ssoc.substring(0, 4));
 }
 
 // ===== Step 3d: Compute crosswalk dispersion for SOC code groups =====
@@ -760,7 +787,8 @@ function scoreOccupations(
   thetaMap: Map<string, number>,
   groupMarket: Map<string, GroupMarketData>,
   anthropicExposure: Map<string, number>,
-  solData: { exactCodes: Set<string>; prefixes: Set<string> }
+  solData: { exactCodes: Set<string>; prefixes: Set<string> },
+  demandData: { exactCodes: Set<string>; prefixes: Set<string> }
 ): ScoredOccupation[] {
   console.log("\nScoring occupations (V3.1)...");
 
@@ -831,6 +859,7 @@ function scoreOccupations(
     anthropicMatch: boolean;
     anthropicObservedExposure: number | null;
     solMatch: boolean;
+    demandMatch: boolean;
     aioeDispersion: number;
     thetaDispersion: number;
   }
@@ -918,6 +947,9 @@ function scoreOccupations(
     // === MOM SOL match ===
     const solMatch = isSolMatch(occ.ssoc, solData);
 
+    // === MOM Jobs in Demand 2025 match ===
+    const demandMatch = isDemandMatch(occ.ssoc, demandData);
+
     // === Crosswalk dispersion (std dev of AIOE/theta across matched SOC codes) ===
     let aioeDispersion = 0;
     let thetaDispersion = 0;
@@ -944,6 +976,7 @@ function scoreOccupations(
       anthropicMatch,
       anthropicObservedExposure,
       solMatch,
+      demandMatch,
       aioeDispersion,
       thetaDispersion,
     });
@@ -1078,6 +1111,7 @@ function scoreOccupations(
 
   let anthropicCalibrationCount = 0;
   let solMatchCount = 0;
+  let demandMatchCount = 0;
 
   // ===== Assemble final results =====
   console.log("  Assembling final results...");
@@ -1101,12 +1135,18 @@ function scoreOccupations(
     const os = occScarcity[i];
     let marketResilience = 0.6 * mm + 0.4 * os;
 
-    // === 4b: MOM SOL demand bonus ===
-    // SOL occupations get a 15% boost to market_resilience
+    // === 4b: MOM demand signals ===
+    // SOL 2026 (EP/COMPASS shortage): 15% boost to market_resilience
+    // Jobs in Demand 2025 (broader resident demand): 10% boost
+    // If both match, bonuses stack (capped at 1.0)
     let marketResilienceAdjusted = marketResilience;
     if (r.solMatch) {
-      marketResilienceAdjusted = Math.min(1.0, marketResilience + 0.15);
+      marketResilienceAdjusted = Math.min(1.0, marketResilienceAdjusted + 0.15);
       solMatchCount++;
+    }
+    if (r.demandMatch) {
+      marketResilienceAdjusted = Math.min(1.0, marketResilienceAdjusted + 0.10);
+      demandMatchCount++;
     }
     const marketModifier = 1 - 0.35 * marketResilienceAdjusted;
 
@@ -1126,7 +1166,7 @@ function scoreOccupations(
     }
 
     // === 4d: Variable confidence factors ===
-    const marketDataGranularity = r.solMatch ? 0.8 : 0.6;
+    const marketDataGranularity = (r.solMatch || r.demandMatch) ? 0.8 : 0.6;
     const sourceFreshness = r.anthropicMatch ? 0.9 : 0.7;
 
     const confidenceScore = (crosswalkQuality + marketDataGranularity + sourceFreshness) / 3;
@@ -1186,6 +1226,7 @@ function scoreOccupations(
 
   console.log(`  Anthropic calibration applied to ${anthropicCalibrationCount} occupations`);
   console.log(`  MOM SOL match bonus applied to ${solMatchCount} occupations`);
+  console.log(`  MOM Jobs in Demand bonus applied to ${demandMatchCount} occupations`);
 
   return results;
 }
@@ -1279,6 +1320,9 @@ function printDistributionAnalysis(results: ScoredOccupation[]) {
     { pattern: /registered nurse/i, label: "Registered Nurse (SOL)" },
     { pattern: /physiotherapist/i, label: "Physiotherapist (SOL)" },
     { pattern: /cloud specialist/i, label: "Cloud Specialist (SOL)" },
+    { pattern: /waiter/i, label: "Waiter (JiD)" },
+    { pattern: /private security officer/i, label: "Security Officer (JiD)" },
+    { pattern: /shop sales/i, label: "Shop Sales Asst (JiD)" },
   ];
 
   for (const anchor of anchors) {
@@ -1337,9 +1381,10 @@ async function main() {
   // Load V3.1 data sources
   const anthropicExposure = loadAnthropicExposure();
   const solData = loadMomSol();
+  const demandData = loadJobsInDemand();
 
   // Score all occupations
-  const results = scoreOccupations(sgOccs, aioeMap, thetaMap, groupMarket, anthropicExposure, solData);
+  const results = scoreOccupations(sgOccs, aioeMap, thetaMap, groupMarket, anthropicExposure, solData, demandData);
 
   // Distribution analysis
   printDistributionAnalysis(results);
