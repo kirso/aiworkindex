@@ -129,9 +129,17 @@
 	<section class="mt-8">
 		<h2 class="text-lg font-semibold text-gray-900">Credits</h2>
 		<p class="mt-2 text-sm text-gray-600">
+			Made by <a href="https://www.linkedin.com/in/kirso/" target="_blank" rel="noopener noreferrer" class="font-medium text-indigo-600 hover:text-indigo-700">Kirill So</a>
+			in collaboration with
+			<a href="https://www.anthropic.com" target="_blank" rel="noopener noreferrer" class="font-medium text-indigo-600 hover:text-indigo-700">Claude</a> (Anthropic)
+			&amp;
+			<a href="https://openai.com" target="_blank" rel="noopener noreferrer" class="font-medium text-indigo-600 hover:text-indigo-700">Codex</a> (OpenAI).
+		</p>
+		<p class="mt-2 text-sm text-gray-600">
 			Built with data from Singapore's Ministry of Manpower, academic research by Felten et al. (2021)
 			and Pizzinelli et al. (2023), the O*NET program from the US Department of Labor,
-			and insights from Stanford Digital Economy Lab's "Canaries in the Coal Mine" research (2025).
+			observed AI usage data from the Anthropic Economic Index, and insights from Stanford Digital Economy Lab's
+			"Canaries in the Coal Mine" research (2025).
 		</p>
 	</section>
 

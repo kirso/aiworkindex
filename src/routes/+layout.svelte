@@ -68,11 +68,20 @@
 						<a href="/methodology" class="text-indigo-600 underline hover:text-indigo-700">methodology</a>.
 					</p>
 				</div>
-				<div class="flex gap-3 text-xs text-gray-400">
+				<div class="flex flex-col gap-1.5 text-xs text-gray-400 sm:items-end">
+				<div class="flex gap-3">
 					<a href="/about" class="hover:text-gray-600">About</a>
 					<span>&middot;</span>
 					<span>MIT License</span>
 				</div>
+				<p>
+					Made by <a href="https://www.linkedin.com/in/kirso/" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:text-indigo-700">Kirill So</a>
+					in collaboration with
+					<a href="https://www.anthropic.com" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:text-indigo-700">Claude</a>
+					&amp;
+					<a href="https://openai.com" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:text-indigo-700">Codex</a>
+				</p>
+			</div>
 			</div>
 		</div>
 	</footer>
