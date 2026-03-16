@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
+	import { onMount } from 'svelte';
+	import { SvelteSet } from 'svelte/reactivity';
 	import type { Occupation, RiskBand } from '$lib/data';
 	import { majorGroups, riskBandLabels, riskBandColors } from '$lib/data';
 
@@ -13,18 +15,18 @@
 
 	// Filter state
 	let search = $state('');
-	let selectedGroups = $state(new Set<string>());
+	let selectedGroups = new SvelteSet<string>();
 	let wageMin = $state(0);
 	let wageMax = $state(30000);
 	let selectedCategory = $state('all');
 	let mobileOpen = $state(false);
+	let initialized = $state(false);
 
 	// Wage bounds
 	const WAGE_FLOOR = 0;
 	const WAGE_CEIL = 30000;
 	const WAGE_STEP = 500;
 
-	// Risk band filter options
 	const riskBandOptions: { key: string; label: string }[] = [
 		{ key: 'all', label: 'All' },
 		{ key: 'very_low', label: riskBandLabels.very_low },
@@ -34,16 +36,17 @@
 		{ key: 'very_high', label: riskBandLabels.very_high }
 	];
 
-	// Initialize from URL params
-	$effect(() => {
-		if (!browser) return;
+	// Read URL params ONCE on mount — not reactively
+	onMount(() => {
 		const params = new URLSearchParams(window.location.search);
 
 		const q = params.get('q');
 		if (q) search = q;
 
 		const groups = params.get('groups');
-		if (groups) selectedGroups = new Set(groups.split(','));
+		if (groups) {
+			for (const g of groups.split(',')) selectedGroups.add(g);
+		}
 
 		const wMin = params.get('wmin');
 		if (wMin) wageMin = parseInt(wMin);
@@ -53,6 +56,8 @@
 
 		const cat = params.get('cat');
 		if (cat) selectedCategory = cat;
+
+		initialized = true;
 	});
 
 	// Apply filters reactively
@@ -81,14 +86,14 @@
 		return result;
 	});
 
-	// Push filtered results to parent
+	// Push filtered results to parent whenever filtered changes
 	$effect(() => {
 		onfilter(filtered);
 	});
 
-	// Sync filters to URL
+	// Sync filters to URL — only after initialization to prevent flash
 	$effect(() => {
-		if (!browser) return;
+		if (!browser || !initialized) return;
 
 		const params = new URLSearchParams();
 		if (search.trim()) params.set('q', search.trim());
@@ -106,15 +111,16 @@
 	});
 
 	function toggleGroup(key: string) {
-		const next = new Set(selectedGroups);
-		if (next.has(key)) next.delete(key);
-		else next.add(key);
-		selectedGroups = next;
+		if (selectedGroups.has(key)) {
+			selectedGroups.delete(key);
+		} else {
+			selectedGroups.add(key);
+		}
 	}
 
 	function clearFilters() {
 		search = '';
-		selectedGroups = new Set();
+		selectedGroups.clear();
 		wageMin = WAGE_FLOOR;
 		wageMax = WAGE_CEIL;
 		selectedCategory = 'all';
@@ -129,24 +135,7 @@
 	);
 </script>
 
-<!-- Mobile toggle -->
-<div class="mb-3 md:hidden">
-	<button
-		type="button"
-		class="flex w-full items-center justify-between rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-700"
-		onclick={() => (mobileOpen = !mobileOpen)}
-	>
-		<span>Filters {hasActiveFilters ? `(active)` : ''}</span>
-		<svg
-			class="h-4 w-4 transition-transform {mobileOpen ? 'rotate-180' : ''}"
-			fill="none" stroke="currentColor" viewBox="0 0 24 24"
-		>
-			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-		</svg>
-	</button>
-</div>
-
-<div class="space-y-4 {mobileOpen ? 'block' : 'hidden'} md:block">
+<div class="space-y-4">
 	<!-- Search -->
 	<div>
 		<label for="occ-search" class="mb-1 block text-xs font-medium text-gray-500">Search</label>
@@ -163,7 +152,7 @@
 	<div>
 		<span class="mb-1.5 block text-xs font-medium text-gray-500">Risk Band</span>
 		<div class="flex flex-wrap gap-1.5">
-			{#each riskBandOptions as opt}
+			{#each riskBandOptions as opt (opt.key)}
 				{@const isActive = selectedCategory === opt.key}
 				{@const bandColor = opt.key !== 'all' ? riskBandColors[opt.key as RiskBand] : undefined}
 				<button
@@ -211,7 +200,7 @@
 	<!-- Wage range -->
 	<div>
 		<span class="mb-1.5 block text-xs font-medium text-gray-500">
-			Wage Range: SGD {wageMin.toLocaleString()} – SGD {wageMax.toLocaleString()}
+			Wage Range: SGD {wageMin.toLocaleString()} &ndash; SGD {wageMax.toLocaleString()}
 		</span>
 		<div class="space-y-2">
 			<div class="flex items-center gap-2">

@@ -1,11 +1,11 @@
 <script lang="ts">
+	import { SvelteSet } from 'svelte/reactivity';
 	import type { Occupation } from '$lib/data';
-	import { majorGroups, majorGroupByKey, occupationsByGroup } from '$lib/data';
+	import { majorGroups } from '$lib/data';
 	import OccupationCard from './OccupationCard.svelte';
 
 	let { occupations }: { occupations: Occupation[] } = $props();
 
-	// Group the provided occupations, sort within each group by net_risk descending
 	let grouped = $derived.by(() => {
 		const map = new Map<string, Occupation[]>();
 		for (const o of occupations) {
@@ -21,16 +21,14 @@
 			}));
 	});
 
-	let expandedGroups = $state(new Set<string>());
+	let expandedGroups = new SvelteSet<string>();
 
 	function toggleGroup(key: string) {
-		const next = new Set(expandedGroups);
-		if (next.has(key)) {
-			next.delete(key);
+		if (expandedGroups.has(key)) {
+			expandedGroups.delete(key);
 		} else {
-			next.add(key);
+			expandedGroups.add(key);
 		}
-		expandedGroups = next;
 	}
 </script>
 

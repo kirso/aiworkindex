@@ -61,7 +61,7 @@
 <!-- Main content: full-width treemap with sidebar filters -->
 <div class="mx-auto max-w-screen-2xl px-4 py-4 sm:px-6">
 	<div class="flex gap-5">
-		<!-- Sidebar filters (desktop) -->
+		<!-- Sidebar filters (desktop) — single instance, responsive -->
 		<aside class="hidden w-[260px] shrink-0 lg:block">
 			<div class="sticky top-16 max-h-[calc(100vh-5rem)] overflow-y-auto rounded-lg border border-gray-200 bg-white p-4">
 				<FilterPanel occupations={data.occupations} onfilter={handleFilter} />
@@ -70,17 +70,19 @@
 
 		<!-- Main viz area -->
 		<div class="min-w-0 flex-1">
-			<!-- Mobile filters -->
-			<div class="mb-4 lg:hidden">
-				<details class="rounded-lg border border-gray-200 bg-white">
-					<summary class="cursor-pointer px-4 py-3 text-sm font-medium text-gray-700">
-						Filters & Search
-					</summary>
-					<div class="border-t border-gray-100 p-4">
-						<FilterPanel occupations={data.occupations} onfilter={handleFilter} />
-					</div>
-				</details>
-			</div>
+			<!-- Mobile filters — separate instance but same callback -->
+			{#if innerWidth < 1024}
+				<div class="mb-4">
+					<details class="rounded-lg border border-gray-200 bg-white">
+						<summary class="cursor-pointer px-4 py-3 text-sm font-medium text-gray-700">
+							Filters & Search
+						</summary>
+						<div class="border-t border-gray-100 p-4">
+							<FilterPanel occupations={data.occupations} onfilter={handleFilter} />
+						</div>
+					</details>
+				</div>
+			{/if}
 
 			{#if innerWidth >= 768}
 				<!-- Treemap — full width, tall -->
