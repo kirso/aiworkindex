@@ -26,13 +26,13 @@ Specific limitations of existing approaches:
 
 Build **a Singapore AI Occupation Impact Index** — not another exposure map, but a two-stage system that separates technical exposure from labor-market translation, with four visible axes:
 
-1. **Exposure** — How much does this job overlap with AI capabilities? (Felten AIOE)
-2. **Automatable Task Share** — What % of this job's core tasks can AI actually perform? (LLM-structured, deterministically scored)
-3. **Market Resilience** — How strong are the human bottlenecks, demand signals, and regulatory barriers? (MOM data + O*NET factors)
-4. **Net Displacement Risk** — Combining the above into a defensible composite with visible confidence
+1. **Exposure** — How much does this job overlap with AI capabilities? (Felten AIOE, occupation-level)
+2. **Human Bottleneck** — How much does this job require judgment, presence, and responsibility? (Pizzinelli theta from O*NET, occupation-level)
+3. **Market Resilience** — Is Singapore's labor market for this occupation growing or shrinking? (MOM trends + occupation wage structure, hierarchical)
+4. **Net Risk** — Published as risk bands (Very Low to Very High) with visible confidence, not pseudo-precise decimals
 
 ### Goals
-- **For job seekers:** Understand how AI affects *your* specific occupation in Singapore — not a single vague number, but four distinct axes showing exposure, task share, market resilience, and net risk, with a confidence indicator.
+- **For job seekers:** Understand how AI affects *your* specific occupation in Singapore — not a single vague number, but three interpretable layers (exposure, human bottleneck, market resilience) producing a risk band with visible confidence.
 - **For policy makers:** A transparent, reproducible methodology that separates technical exposure from market dynamics, with full academic citations and open data.
 - **For researchers:** An open-source framework adaptable to any country via ISCO-08 crosswalks, with a methodology that advances beyond single-index exposure-only approaches.
 - **For SEO:** 562 programmatic long-tail pages targeting "[occupation] AI impact Singapore" searches with rich, unique content per page.
@@ -83,40 +83,49 @@ Build **a Singapore AI Occupation Impact Index** — not another exposure map, b
 
 ---
 
-## 4. Scoring Methodology
+## 4. Scoring Methodology (v3 — Definitive Spec)
 
-### Core Principle: Two-Stage System
+### Core Principle
 
-**AI exposure and job displacement are different objects.** We deliberately separate them into two stages:
+**AI exposure and job displacement are different objects.** We model them as three interpretable layers:
 
-- **Stage 1 — Technical Substitution**: How much of this job *could* AI do? (occupation-level, deterministic)
-- **Stage 2 — Market Translation**: How much of that technical potential *will* translate to actual displacement? (hierarchical: occupation-specific where data exists, major-group calibration otherwise)
+1. **Exposure** — How much does this job overlap with AI capabilities? (Felten AIOE, occupation-level)
+2. **Human Bottleneck** — How much does this job require judgment, presence, and responsibility that resists automation? (Pizzinelli theta, occupation-level)
+3. **Market Resilience** — Is Singapore's labor market for this occupation growing or shrinking? (MOM data, hierarchical: group-level trends + occupation-level scarcity proxies)
 
-This produces four visible axes per occupation, not one magic number:
+The published output is **sub-scores + risk band + confidence level**, not a single pseudo-precise decimal.
 
-| Axis | What it measures | Source | Level |
-|------|-----------------|--------|-------|
-| **Exposure** | AI capability overlap with job abilities | Felten AIOE (2021) | Per-occupation |
-| **Automatable Task Share** | % of core tasks AI can perform today | LLM-structured decomposition, deterministic scoring | Per-occupation |
-| **Market Resilience** | Human bottlenecks + demand + regulation + physicality | O*NET + MOM data + demand flags | Hierarchical |
-| **Net Displacement Risk** | Combined estimate with confidence | Composite formula | Per-occupation |
+**The core formula is fully deterministic.** No LLM, no analyst judgment labels, no hand-set elasticity classes. Every input is an observable signal from a published dataset.
 
-### 4.1 Stage 1 — Technical Substitution
+```
+net_risk = exposure × (1 - bottleneck) × market_modifier
+```
 
-#### 4.1.1 AI Exposure (AIOE)
+| Layer | What it measures | Source | Granularity |
+|-------|-----------------|--------|-------------|
+| **Exposure** | AI capability overlap | Felten AIOE (2021) | Per-occupation (via crosswalk) |
+| **Bottleneck** | Human judgment, presence, responsibility | Pizzinelli theta from O*NET (2023) | Per-occupation (via crosswalk) |
+| **Market Resilience** | Employment momentum + wage scarcity | MOM employment/wage trends + occupation wage structure | Hierarchical: group + occupation |
+| **Confidence** | Score reliability | Crosswalk quality + data coverage | Per-occupation |
 
-- **Source**: Felten, Raj & Seamans (2021). "Occupational, industry, and geographic exposure to artificial intelligence: A novel dataset and its potential uses." *Strategic Management Journal*, 42(12), 2195-2217. https://doi.org/10.1002/smj.3286
+### 4.1 Layer 1 — Exposure (occupation-level)
+
+**Variable**: `exposure = pctile(aioe)`
+
+- **Source**: Felten, Raj & Seamans (2021). *Strategic Management Journal*, 42(12), 2195-2217. https://doi.org/10.1002/smj.3286
 - **Dataset**: https://github.com/AIOE-Data/AIOE (`AIOE_DataAppendix.xlsx`)
-- **Method**: Maps 10 AI application categories to 52 human abilities via crowdsourced ratings (Amazon Mechanical Turk), then links abilities to occupations via O*NET ability importance scores.
-- **Coverage**: ~800 US occupations by 6-digit SOC code
-- **Scale**: Continuous (higher = more of this job's required abilities overlap with AI capabilities)
+- **Method**: Maps 10 AI application categories -> 52 human abilities via crowdsourced ratings (AMT) -> occupations via O*NET ability importance scores
+- **Coverage**: ~774 US occupations by 6-digit SOC code
+- **Normalization**: Percentile-rank across all matched occupations -> 0-1 scale
 - **What it does NOT measure**: Whether exposure leads to augmentation or replacement
 
-#### 4.1.2 Complementarity (Theta)
+### 4.2 Layer 2 — Human Bottleneck (occupation-level)
 
-- **Source**: Pizzinelli, Panton, Mendes Tavares, Cerdeiro & Stanton (2023). "Labor Market Exposure to AI: Cross-country Differences and Distributional Implications." *IMF Working Paper* WP/23/216. https://www.imf.org/en/Publications/WP/Issues/2023/10/04
-- **Data**: O*NET Work Context variables + Job Zones (publicly available from https://www.onetcenter.org/database.html, CC-BY 4.0 license)
-- **Method**: 12 O*NET variables across 6 dimensions:
+**Variable**: `bottleneck = pctile(theta)`
+
+- **Source**: Pizzinelli et al. (2023). *IMF Working Paper* WP/23/216. https://www.imf.org/en/Publications/WP/Issues/2023/10/04
+- **Data**: O*NET Work Context + Job Zones (https://www.onetcenter.org/database.html, CC-BY 4.0)
+- **12 O*NET variables across 6 dimensions**:
   1. **Communication**: Face-to-Face Discussions (4.C.1.a.2.l), Public Speaking (4.C.1.a.4)
   2. **Responsibility**: Outcomes/Results (4.C.1.c.1), Health/Safety (4.C.1.c.2)
   3. **Physical Conditions**: Outdoors/Weather (4.C.2.d.1.e), Physical Proximity (4.C.2.d.1.i)
@@ -124,169 +133,168 @@ This produces four visible axes per occupation, not one magic number:
   5. **Routine** (inverted): Degree of Automation (4.C.3.d.4), Structured vs. Unstructured (4.C.3.d.8)
   6. **Skills**: Job Zone (1-5, scaled to 20-100)
 - **Formula**: `theta = mean(communication, responsibility, physical, criticality, routine, skills) / 100`
-- **Scale**: 0 to 1 (higher = more complementary to AI, harder to substitute)
+- **Normalization**: Percentile-rank across all matched occupations -> 0-1 scale
+- **Interpretation**: Higher = stronger human bottleneck = harder to substitute
 
-#### 4.1.3 Automatable Task Share (exposed_task_share)
+**Critical design decision -- no double-counting**: We use AIOE and theta as **separate, independent layers**. We do NOT use C-AIOE as an input to net_risk, because `c_aioe = aioe * f(theta)` -- multiplying by `(1 - theta)` would double-count complementarity. C-AIOE is computed and displayed as a reference score for IMF comparability only.
 
-- **Method**: LLM-structured task decomposition with deterministic scoring
-- **Process**:
-  1. For each occupation, Claude Sonnet decomposes the role into 5-8 core tasks with time-weight percentages
-  2. Each task is classified against a fixed rubric: `routine-cognitive`, `routine-manual`, `creative`, `interpersonal`, `physical`
-  3. Run 3 times per occupation; take majority classification per task; flag >1 disagreement for review
-  4. `exposed_task_share` = sum of time-weights for tasks classified as `routine-cognitive` or `routine-manual`
-- **LLM role**: Structured decomposition only. The LLM produces JSON (task name, time %, category). Scoring is deterministic. The LLM never assigns a risk score.
-- **Cost**: ~$5-10 for 562 occupations (3 passes × 562 × ~500 tokens)
-- **Examples**:
-  - Software developer: ~35% (code writing is routine-cognitive; architecture, debugging, code review, meetings are creative/interpersonal)
-  - Data entry clerk: ~85% (nearly all tasks are routine-cognitive)
-  - Surgeon: ~15% (pre-op planning is routine-cognitive; surgery itself is physical + creative)
+### 4.3 Layer 3 — Market Resilience (hierarchical)
 
-#### 4.1.4 Technical Substitution Score
+Market data is a **calibrator**, not an override. Employment and wages are lagging and confounded.
+
+#### 4.3.1 Market Momentum (major-group level)
 
 ```
-technical_substitution = geometric_mean(c_aioe, exposed_task_share)
-```
-
-Where `c_aioe = AIOE × (1 - (theta - theta_MIN))` per Pizzinelli et al. (2023).
-
-Geometric mean (not arithmetic) because both signals must be present for technical substitution to be real. A job with high C-AIOE but low task share (surgeon) or high task share but low C-AIOE (manual assembler doing repetitive physical work) both score lower than a job high on both (data entry clerk).
-
-### 4.2 Stage 2 — Market Translation
-
-Technical substitution potential doesn't directly predict job loss. Stage 2 models the **market buffer** — factors that dampen or accelerate the translation from technical exposure to actual displacement.
-
-#### 4.2.1 Market Resilience Subfactors
-
-Replace the single "elastic/neutral/inelastic" label with decomposed subfactors (each 0-1, higher = more resilient):
-
-| Subfactor | Source | Method | Level |
-|-----------|--------|--------|-------|
-| **Complementarity** | Pizzinelli theta (already computed) | Direct from Stage 1 | Per-occupation |
-| **Demand Strength** | MOM Jobs in Demand 2025, Job Vacancies 2024 | Binary flag: is this occupation listed as in-demand by MOM? | Per-occupation where available, group-level otherwise |
-| **Hiring Shortage** | MOM employment trends 2020→2025 | Employment growth rate by major group; wage growth rate as demand proxy | Major-group level (data granularity limitation) |
-| **Regulation / Licensing** | O*NET Work Context: Consequence of Errors, Responsibility for Health/Safety | High-consequence occupations face regulatory barriers to AI adoption | Per-occupation (via crosswalk) |
-| **Physicality** | O*NET Work Context: Outdoors/Weather, Physical Proximity | Physical presence requirements limit AI substitution | Per-occupation (via crosswalk) |
-
-```
-market_buffer = weighted_mean(
-  complementarity,        // weight: 0.25
-  demand_strength,        // weight: 0.25
-  hiring_shortage,        // weight: 0.20
-  regulation,             // weight: 0.15
-  physicality             // weight: 0.15
+market_momentum = mean(
+  pctile(group_employment_cagr_2015_2025),
+  pctile(group_wage_cagr_2015_2023)
 )
 ```
 
-**Key design decision**: Labor market data (employment trends, wages) is a **calibrator**, not an override. Employment and wages are lagging and confounded by many factors. They dampen or elevate risk — they don't erase the exposure layer.
+| Source file | Variable |
+|-------------|----------|
+| `employment_by_occupation.csv` | Employment CAGR per major group, 2015->2025 (10-year) |
+| `median_income_by_occupation.csv` | Wage CAGR per major group, 2015->2023 (8-year) |
 
-#### 4.2.2 Hierarchical Data Strategy
+Known employment CAGRs: Professionals +4.45%, Associate Prof +2.81%, Managers +1.47%, Service/Sales +0.92%, Plant/Machine -0.62%, Clerical -2.82%, Craftsmen -4.74%.
 
-Our MOM data is coarser than the 562-occupation level:
-- `employment_by_occupation.csv` — major-group series, not per-occupation
-- `median_income_by_occupation.csv` — major-group × sex series
-
-v1 scoring is therefore **hierarchical**:
-- **Occupation-level**: technical score (AIOE, theta, task share from crosswalk + LLM)
-- **Major-group adjustment**: market buffer calibrated from MOM group-level employment/wage trends
-- **Occupation-specific flags**: MOM Jobs in Demand 2025 and Job Vacancies 2024 provide binary in-demand flags for specific occupations (e.g., software developers, data scientists, nurses)
-
-This is actually strong enough for a credible Singapore release. The granularity matches what the IMF used in their own Singapore analysis.
-
-### 4.3 Net Displacement Risk (Composite)
+#### 4.3.2 Occupation Scarcity (occupation-level)
 
 ```
-net_displacement_risk = technical_substitution × (1 - market_buffer)
+occupation_scarcity = mean(
+  pctile(log(q75 / q25)),
+  pctile(within_group_median_ratio)
+)
 ```
 
-Where:
-- `technical_substitution = geometric_mean(c_aioe, exposed_task_share)`
-- `market_buffer = weighted_mean(complementarity, demand_strength, hiring_shortage, regulation, physicality)`
-- Scale: 0 to 1 (higher = higher displacement risk)
+**Signal 1 -- Wage Spread: `log(q75 / q25)`**
+- Source: `sg_occupations_complete_2024.json` (all 562 occupations have 25th/50th/75th)
+- Raw ratio range: 1.04 to 4.94
+- **Rules**: Winsorize at 1st/99th percentile -> log transform -> percentile-rank
+- **Interpretation**: Scarcity/market-structure proxy. High spread = skill-differentiated role. Can also reflect seniority ladders -- hence modest weight.
 
-#### 4.3.1 Confidence Score
+**Signal 2 -- Wage Position: `occupation_median / group_median`**
+- Source: `sg_occupations_complete_2024.json`
+- Compute as percentile rank **within the major group**
+- **Interpretation**: Above-group-median = relative scarcity/specialization
 
-Every score carries a visible confidence indicator:
+#### 4.3.3 Combined Market Resilience & Modifier
 
 ```
-confidence = crosswalk_confidence × task_consensus × data_coverage
+market_resilience = 0.6 * market_momentum + 0.4 * occupation_scarcity
+
+market_modifier = 1 - 0.35 * market_resilience
 ```
 
-Where:
-- `crosswalk_confidence`: 1.0 for direct ISCO match, 0.7 for 2-digit group average, 0.4 for interpolated
-- `task_consensus`: Agreement rate across 3 LLM decomposition passes (0-1)
-- `data_coverage`: 1.0 if MOM demand flag exists, 0.7 if only group-level data, 0.5 if no local data
+- **0.6/0.4 weighting**: Group-level trends are stronger (direct measurement). Occupation-level wage structure adds within-group differentiation but is noisier.
+- **0.35 cap**: Market layer can adjust net risk by at most +/-35%. Exposure and bottleneck remain primary drivers.
 
-Displayed on every occupation page as: High / Medium / Low confidence badge.
+### 4.4 Net Risk
 
-### 4.4 Worked Examples
+```
+net_risk = exposure * (1 - bottleneck) * market_modifier
+```
+
+**Published as risk bands:**
+
+| Band | Range | Meaning |
+|------|-------|---------|
+| **Very Low** | 0.00 -- 0.05 | Negligible displacement pressure |
+| **Low** | 0.05 -- 0.15 | Limited pressure; AI likely augments |
+| **Moderate** | 0.15 -- 0.30 | Mixed; bottlenecks or market provide buffer |
+| **High** | 0.30 -- 0.50 | Significant pressure; weaker bottlenecks and/or declining market |
+| **Very High** | 0.50+ | Strong pressure across multiple signals |
+
+### 4.5 Confidence (first-class)
+
+```
+confidence = mean(crosswalk_quality, market_data_granularity, source_freshness)
+```
+
+| Factor | High (1.0) | Medium (0.6) | Low (0.3) |
+|--------|-----------|-------------|----------|
+| **Crosswalk quality** | Direct ISCO match | 2-digit sub-major group avg | Major group fallback |
+| **Market data granularity** | Occupation-level wage signals strong | Group-level trends only | Sparse group |
+| **Source freshness** | All inputs 2023+ | Mix of 2021 and 2024 | Key input >3 years old |
+
+Published as: **High** (>=0.7) / **Medium** (0.4--0.7) / **Low** (<0.4)
+
+### 4.6 Worked Examples
 
 **Software Developer (SSOC 21661):**
-| Axis | Value | Rationale |
-|------|-------|-----------|
-| AIOE | 0.82 | High — coding, analysis, documentation all overlap with AI capabilities |
-| Theta | 0.71 | High — creative problem-solving, system design, collaboration |
-| Exposed task share | 0.35 | Code writing (~35% of time) is routine-cognitive; architecture, debugging, code review, meetings are not |
-| C-AIOE | 0.58 | Moderate — high exposure dampened by high complementarity |
-| Technical substitution | geometric_mean(0.58, 0.35) = **0.45** | |
-| Market buffer | weighted_mean(0.71, 1.0, 0.8, 0.3, 0.1) = **0.62** | High complementarity + MOM in-demand flag + growing employment; low regulation/physicality |
-| **Net displacement risk** | 0.45 × (1 - 0.62) = **0.17** | Low |
-| Confidence | 1.0 × 0.95 × 1.0 = **0.95** | High — direct crosswalk, strong task consensus, MOM demand flag |
+
+| Layer | Value | Source |
+|-------|-------|--------|
+| Exposure | pctile(aioe) = 0.82 | Coding, analysis, docs overlap with AI |
+| Bottleneck | pctile(theta) = 0.71 | Creative problem-solving, system design |
+| Market momentum | pctile = 0.90 | Professionals: +4.45% CAGR |
+| Occupation scarcity | pctile = 0.75 | High wage spread, above-group median |
+| Market resilience | 0.6x0.90 + 0.4x0.75 = 0.84 | |
+| Market modifier | 1 - 0.35x0.84 = 0.71 | |
+| **Net risk** | 0.82 x 0.29 x 0.71 = **0.17** | **Band: Low** |
+| Confidence | **High** | Direct crosswalk, strong signals |
 
 **Data Entry Clerk (SSOC 41320):**
-| Axis | Value | Rationale |
-|------|-------|-----------|
-| AIOE | 0.88 | Very high — data processing is core AI capability |
-| Theta | 0.32 | Low — routine, structured, low consequence, no physical presence |
-| Exposed task share | 0.85 | Nearly all tasks are routine-cognitive data processing |
-| C-AIOE | 0.82 | High — high exposure with low complementarity |
-| Technical substitution | geometric_mean(0.82, 0.85) = **0.83** | |
-| Market buffer | weighted_mean(0.32, 0.0, 0.4, 0.1, 0.05) = **0.21** | Low complementarity, not in-demand, declining employment, no regulation/physicality |
-| **Net displacement risk** | 0.83 × (1 - 0.21) = **0.66** | High |
-| Confidence | 1.0 × 0.90 × 0.7 = **0.63** | Medium — direct crosswalk, good consensus, group-level data only |
+
+| Layer | Value | Source |
+|-------|-------|--------|
+| Exposure | pctile(aioe) = 0.88 | Data processing = core AI capability |
+| Bottleneck | pctile(theta) = 0.18 | Routine, structured, low consequence |
+| Market momentum | pctile = 0.15 | Clerical: -2.82% CAGR |
+| Occupation scarcity | pctile = 0.20 | Low spread, below-group median |
+| Market resilience | 0.6x0.15 + 0.4x0.20 = 0.17 | |
+| Market modifier | 1 - 0.35x0.17 = 0.94 | Barely buffers |
+| **Net risk** | 0.88 x 0.82 x 0.94 = **0.68** | **Band: Very High** |
+| Confidence | **Medium** | Direct crosswalk, group-level only |
 
 **Surgeon (SSOC 22121):**
-| Axis | Value | Rationale |
-|------|-------|-----------|
-| AIOE | 0.45 | Moderate — some diagnostic/planning tasks overlap, but core surgical work doesn't |
-| Theta | 0.89 | Very high — life/death responsibility, physical presence, independent judgment |
-| Exposed task share | 0.15 | Only pre-op planning and documentation are routine-cognitive |
-| C-AIOE | 0.30 | Low — moderate exposure heavily dampened by very high complementarity |
-| Technical substitution | geometric_mean(0.30, 0.15) = **0.21** | |
-| Market buffer | weighted_mean(0.89, 0.8, 0.9, 0.95, 0.7) = **0.86** | Extreme regulation, physical presence, high responsibility, growing demand |
-| **Net displacement risk** | 0.21 × (1 - 0.86) = **0.03** | Very Low |
-| Confidence | 1.0 × 0.98 × 0.7 = **0.69** | Medium-High |
 
-### 4.5 Career-Stage Lens (v1.1)
+| Layer | Value | Source |
+|-------|-------|--------|
+| Exposure | pctile(aioe) = 0.45 | Some diagnostic overlap, surgery doesn't |
+| Bottleneck | pctile(theta) = 0.95 | Life/death, physical, independent judgment |
+| Market momentum | pctile = 0.90 | Professionals: +4.45% CAGR |
+| Occupation scarcity | pctile = 0.85 | Very high spread, well above group median |
+| Market resilience | 0.6x0.90 + 0.4x0.85 = 0.88 | |
+| Market modifier | 1 - 0.35x0.88 = 0.69 | |
+| **Net risk** | 0.45 x 0.05 x 0.69 = **0.016** | **Band: Very Low** |
+| Confidence | **High** | Direct crosswalk, growing group |
 
-Stanford's "Canaries in the Coal Mine" research ([Stanford DEL, 2025](https://digitaleconomy.stanford.edu/publications/canaries-in-the-coal-mine/)) shows AI's early labor market effects are concentrated on early-career workers. "Software engineering is fine overall" and "junior developers are getting squeezed" can both be true.
+### 4.7 LLM Policy
 
-v1.1 will add a career-stage modifier:
-- Jobs where AI automates **entry-level tasks** (the learning pathway into the profession) face higher long-term risk even if current employment is growing
-- This is modeled by examining which tasks in the decomposition are typically performed by junior vs. senior workers
-- Not in v1 because it requires additional occupation-specific context beyond what crosswalk data provides
+**The scoring formula is fully deterministic.** No LLM output feeds into net_risk, any sub-score, or confidence.
 
-### 4.6 LLM Usage Policy
+The LLM is used only for supplementary detail-page content (v1.1):
+1. **Task decomposition for display** -- context, not a score input
+2. **Plain-language rationale** -- interpreting sub-scores
+3. **Contradiction flagging** -- for human review
 
-The LLM (Claude Sonnet) is used **only** for:
-1. **Structured task decomposition** — Produce JSON with task name, time %, category. Run 3 times. Score deterministically.
-2. **Missing-factor detection** — Flag occupations where crosswalk quality is low and additional context would help.
-3. **Contradiction checks** — "Given these scores, does this classification make sense?" Flag disagreements for human review.
+### 4.8 Crosswalk
 
-The LLM **never** assigns a risk score, exposure number, or category label. All scoring is deterministic from academic indices and survey data.
+- SSOC 2020 -> ISCO-08: SingStat concordance (https://www.singstat.gov.sg)
+- ISCO-08 -> US SOC 2010: BLS crosswalk (https://www.bls.gov/soc/)
+- One-to-many: average AIOE and theta
+- Fallback: 2-digit ISCO sub-major group average
+- Current coverage: **89.5% direct** (503/562), 7.1% sub-major (40), 3.4% major (19)
 
-### 4.7 Crosswalk Chain
+### 4.9 Future Enhancements
 
-- SSOC 2020 → ISCO-08: SingStat published concordance (https://www.singstat.gov.sg)
-- ISCO-08 → US SOC 2010: BLS published crosswalk (https://www.bls.gov/soc/)
-- When one ISCO maps to multiple SOC codes: average AIOE and theta values
-- Unmapped occupations: fall back to 2-digit ISCO sub-major group average
-- Expected coverage: >85% of 562 occupations with direct match
+- **v1.1**: LLM task decomposition for display (not in formula). MOM Jobs in Demand flags as occupation-level market signal.
+- **v1.2**: Career-stage lens per Stanford "Canaries in the Coal Mine" ([Stanford DEL, 2025](https://digitaleconomy.stanford.edu/publications/canaries-in-the-coal-mine/))
+- **Ceiling**: MOM OED (occupation-level employment series, not public) would replace group-level momentum
 
-### 4.8 Limitations (disclosed transparently)
+### 4.10 Limitations
 
-1. **Exposure ≠ displacement** — We model this gap explicitly, but the market translation layer uses heuristics and lagging indicators. Real displacement dynamics are more complex than any index can capture.
-2. **US-centric ability data** — O*NET surveys US workers. Task composition may differ in Singapore's regulatory and cultural environment. We follow Pizzinelli et al.'s own caveat.
-3. **Proportional employment** — Per-occupation employment is group_total / count, not actual counts. Real per-occupation data requires MOM's OED (not publicly available). Market buffer at occupation level uses demand flags, not employment counts.
+1. **Exposure != displacement** -- modeled but via lagging market indicators
+2. **US-centric ability data** -- O*NET surveys US workers (per Pizzinelli's own caveat)
+3. **Hierarchical market granularity** -- momentum is group-level; occupation-level wage signals are scarcity proxies, not direct demand
+4. **Proportional employment** -- not used in scoring (it's group_total / count)
+5. **Static exposure** -- AIOE reflects 2021 capabilities
+6. **Career stage blind spot** -- v1 scores whole occupation; junior/senior impact differs (Stanford Canaries)
+7. **Crosswalk imprecision** -- 10.5% use fallback scores; confidence reflects this
+8. **Wage-spread ambiguity** -- high ratio can mean specialization OR seniority ladder; used at ~16% effective weight
+9. **No occupation-level employment series** -- the real ceiling
+
 4. **Hierarchical granularity** — Market signals are major-group level with occupation-specific flags where MOM data exists. This means two occupations in the same major group share the same hiring shortage and employment trend signal.
 5. **Static exposure snapshot** — Felten AIOE reflects 2021 AI capabilities. The GenAI AIOE extension partially addresses this for language models.
 6. **Career stage blind spot in v1** — v1 scores the occupation as a whole. Stanford's Canaries research suggests junior/senior impact differs significantly. Addressed in v1.1.
