@@ -46,12 +46,12 @@
 				<p>BLS SOC-to-ISCO crosswalk and SingStat SSOC-to-ISCO concordance tables for mapping Singapore occupations to US scores.</p>
 			</li>
 			<li>
-				<p class="font-medium text-gray-800">MOM Jobs in Demand 2025</p>
-				<p>Ministry of Manpower — Occupation-specific in-demand flags for market resilience scoring. Released December 30, 2025.</p>
+				<p class="font-medium text-gray-800">MOM Shortage Occupation List (SOL) 2026</p>
+				<p>Ministry of Manpower — Occupation-level shortage flags used in market resilience. Effective January 1, 2026.</p>
 			</li>
 			<li>
-				<p class="font-medium text-gray-800">MOM Job Vacancies 2024</p>
-				<p>Ministry of Manpower — Occupation-specific demand signals. Released March 28, 2025.</p>
+				<p class="font-medium text-gray-800">Anthropic Economic Index (2025-2026)</p>
+				<p>Observed AI usage rates by occupation from Claude conversations. Used as exposure calibration layer.</p>
 			</li>
 			<li>
 				<p class="font-medium text-gray-800">Stanford "Canaries in the Coal Mine" (2025)</p>

@@ -1,15 +1,21 @@
 #!/usr/bin/env bun
 /**
- * score.ts — V3 scoring pipeline for Singapore AI Job Exposure Map.
+ * score.ts — V3.1 scoring pipeline for Singapore AI Job Exposure Map.
  *
  * Computes Felten AIOE, Pizzinelli theta, market resilience layer,
  * and net displacement risk for each of 562 Singapore SSOC occupations.
+ *
+ * V3.1 additions:
+ *   - Anthropic Economic Index observed AI usage calibration
+ *   - MOM Shortage Occupation List (SOL) 2026 demand bonus
+ *   - Crosswalk dispersion penalty for confidence
+ *   - Variable confidence factors based on data match quality
  *
  * V3 formula:
  *   exposure     = pctile(aioe)
  *   bottleneck   = pctile(theta)
  *   market_modifier = 1 - 0.35 * market_resilience
- *   net_risk     = exposure * (1 - bottleneck) * market_modifier
+ *   net_risk     = exposure_calibrated * (1 - bottleneck) * market_modifier
  *
  * Run: bun run scripts/score.ts
  */
@@ -279,6 +285,88 @@ function loadJobZones(): Map<string, number> {
 
   console.log(`  Loaded Job Zones for ${jzMap.size} SOC codes`);
   return jzMap;
+}
+
+// ===== Step 3b: Load Anthropic Economic Index (observed AI usage) =====
+function loadAnthropicExposure(): Map<string, number> {
+  console.log("Loading Anthropic Economic Index...");
+  const filePath = path.join(EXT_DIR, "anthropic_job_exposure.csv");
+  if (!fs.existsSync(filePath)) {
+    console.log("  WARNING: anthropic_job_exposure.csv not found, skipping");
+    return new Map();
+  }
+
+  const content = fs.readFileSync(filePath, "utf-8");
+  const lines = content.split("\n").filter(l => l.trim());
+  const exposureMap = new Map<string, number>();
+
+  // Parse CSV: occ_code,title,observed_exposure
+  for (let i = 1; i < lines.length; i++) {
+    const parts = lines[i].split(",");
+    if (parts.length < 3) continue;
+    const socCode = parts[0].trim();
+    // Handle quoted title field
+    const rawExposure = parts[parts.length - 1].trim();
+    const exposure = parseFloat(rawExposure);
+    if (socCode && !isNaN(exposure)) {
+      exposureMap.set(socCode, exposure);
+    }
+  }
+
+  const nonZero = [...exposureMap.values()].filter(v => v > 0);
+  console.log(`  Loaded ${exposureMap.size} SOC codes, ${nonZero.length} with non-zero exposure`);
+  console.log(`  Max observed exposure: ${Math.max(...exposureMap.values()).toFixed(4)}`);
+  return exposureMap;
+}
+
+// ===== Step 3c: Load MOM Shortage Occupation List (SOL) 2026 =====
+interface SolEntry {
+  sn: number;
+  shortage_occupation: string;
+  sector: string;
+  ssoc_matches: string[];
+  match_notes: string;
+}
+
+function loadMomSol(): { exactCodes: Set<string>; prefixes: Set<string> } {
+  console.log("Loading MOM Shortage Occupation List 2026...");
+  const filePath = path.join(EXT_DIR, "mom_sol_2026.json");
+  if (!fs.existsSync(filePath)) {
+    console.log("  WARNING: mom_sol_2026.json not found, skipping");
+    return { exactCodes: new Set(), prefixes: new Set() };
+  }
+
+  const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+  const exactCodes = new Set<string>();
+  const prefixes = new Set<string>();
+
+  for (const entry of data.occupations as SolEntry[]) {
+    for (const ssoc of entry.ssoc_matches) {
+      exactCodes.add(ssoc);
+      // Also add 4-digit prefix for broader matching
+      prefixes.add(ssoc.substring(0, 4));
+    }
+  }
+
+  console.log(`  Loaded ${data.occupations.length} SOL occupations mapping to ${exactCodes.size} exact SSOC codes (${prefixes.size} 4-digit prefixes)`);
+  return { exactCodes, prefixes };
+}
+
+function isSolMatch(ssoc: string, sol: { exactCodes: Set<string>; prefixes: Set<string> }): boolean {
+  // Exact 5-digit match first
+  if (sol.exactCodes.has(ssoc)) return true;
+  // Fall back to 4-digit prefix match (covers entire SSOC unit group)
+  return sol.prefixes.has(ssoc.substring(0, 4));
+}
+
+// ===== Step 3d: Compute crosswalk dispersion for SOC code groups =====
+function computeDispersion(
+  values: number[]
+): number {
+  if (values.length <= 1) return 0;
+  const mean = values.reduce((a, b) => a + b, 0) / values.length;
+  const variance = values.reduce((a, v) => a + (v - mean) ** 2, 0) / values.length;
+  return Math.sqrt(variance);
 }
 
 // ===== Step 4: Compute theta for each SOC code =====
@@ -665,14 +753,16 @@ function impactTypeToCategory(
   }
 }
 
-// ===== Step 7: Score all occupations (V3) =====
+// ===== Step 7: Score all occupations (V3.1) =====
 function scoreOccupations(
   sgOccs: SgOccupation[],
   aioeMap: Map<string, number>,
   thetaMap: Map<string, number>,
-  groupMarket: Map<string, GroupMarketData>
+  groupMarket: Map<string, GroupMarketData>,
+  anthropicExposure: Map<string, number>,
+  solData: { exactCodes: Set<string>; prefixes: Set<string> }
 ): ScoredOccupation[] {
-  console.log("\nScoring occupations (V3)...");
+  console.log("\nScoring occupations (V3.1)...");
 
   // Pre-compute theta_MIN for C-AIOE formula
   const allTheta = [...thetaMap.values()];
@@ -738,6 +828,11 @@ function scoreOccupations(
     matchQuality: "direct" | "submajor_fallback" | "major_fallback";
     iscoMatched: string[];
     majorGroupCode: number;
+    anthropicMatch: boolean;
+    anthropicObservedExposure: number | null;
+    solMatch: boolean;
+    aioeDispersion: number;
+    thetaDispersion: number;
   }
 
   const intermediates: IntermediateResult[] = [];
@@ -803,6 +898,42 @@ function scoreOccupations(
     const majorGroupCode =
       MAJOR_GROUP_CODES[occ.major_group] || parseInt(occ.ssoc[0]) || 0;
 
+    // === Anthropic observed exposure for matched SOC codes ===
+    let anthropicMatch = false;
+    let anthropicObservedExposure: number | null = null;
+    if (socCodes.length > 0 && anthropicExposure.size > 0) {
+      const anthropicValues: number[] = [];
+      for (const soc of socCodes) {
+        const val = anthropicExposure.get(soc);
+        if (val !== undefined) {
+          anthropicValues.push(val);
+        }
+      }
+      if (anthropicValues.length > 0) {
+        anthropicMatch = true;
+        anthropicObservedExposure = anthropicValues.reduce((a, b) => a + b, 0) / anthropicValues.length;
+      }
+    }
+
+    // === MOM SOL match ===
+    const solMatch = isSolMatch(occ.ssoc, solData);
+
+    // === Crosswalk dispersion (std dev of AIOE/theta across matched SOC codes) ===
+    let aioeDispersion = 0;
+    let thetaDispersion = 0;
+    if (socCodes.length > 1) {
+      const aioeVals: number[] = [];
+      const thetaVals: number[] = [];
+      for (const soc of socCodes) {
+        const a = aioeMap.get(soc);
+        if (a !== undefined) aioeVals.push(a);
+        const t = thetaMap.get(soc);
+        if (t !== undefined) thetaVals.push(t);
+      }
+      aioeDispersion = computeDispersion(aioeVals);
+      thetaDispersion = computeDispersion(thetaVals);
+    }
+
     intermediates.push({
       occ,
       avgAioe,
@@ -810,6 +941,11 @@ function scoreOccupations(
       matchQuality,
       iscoMatched,
       majorGroupCode,
+      anthropicMatch,
+      anthropicObservedExposure,
+      solMatch,
+      aioeDispersion,
+      thetaDispersion,
     });
   }
 
@@ -887,9 +1023,19 @@ function scoreOccupations(
       groupWageMedians.get(r.occ.major_group)!.push(r.occ.gross_wage_median);
     }
   }
+  // Use official group_median_income from MOM source data (not recomputed)
+  // Fall back to computed median only if source field is missing
   const groupMedianWage = new Map<string, number>();
+  for (const r of intermediates) {
+    if (r.occ.group_median_income !== null && r.occ.group_median_income > 0) {
+      groupMedianWage.set(r.occ.major_group, r.occ.group_median_income);
+    }
+  }
+  // Fill any missing groups with computed median
   for (const [g, wages] of groupWageMedians) {
-    groupMedianWage.set(g, medianFn(wages));
+    if (!groupMedianWage.has(g)) {
+      groupMedianWage.set(g, medianFn(wages));
+    }
   }
 
   const withinGroupRatios: (number | null)[] = intermediates.map(r => {
@@ -916,19 +1062,53 @@ function scoreOccupations(
   // Occupation scarcity = mean of two percentile ranks
   const occScarcity = intermediates.map((_, i) => (logSpreadRanks[i] + ratioRanks[i]) / 2);
 
+  // ===== V3.1: Anthropic exposure calibration =====
+  // Compute percentile ranks of Anthropic observed exposure for calibration
+  console.log("  Applying Anthropic exposure calibration...");
+  const anthropicValues = intermediates.map(r => r.anthropicObservedExposure);
+  const validAnthropicValues = anthropicValues.filter(v => v !== null) as number[];
+  let anthropicPctiles: number[] = [];
+  if (validAnthropicValues.length > 0) {
+    const anthropicRanksValid = percentileRanks(validAnthropicValues);
+    let aIdx = 0;
+    anthropicPctiles = anthropicValues.map(v => v !== null ? anthropicRanksValid[aIdx++] : -1);
+  } else {
+    anthropicPctiles = intermediates.map(() => -1);
+  }
+
+  let anthropicCalibrationCount = 0;
+  let solMatchCount = 0;
+
   // ===== Assemble final results =====
   console.log("  Assembling final results...");
   const results: ScoredOccupation[] = [];
 
   for (let i = 0; i < intermediates.length; i++) {
     const r = intermediates[i];
-    const exposure = aioeRanks[i];
+    let exposure = aioeRanks[i];
     const bottleneck = thetaRanks[i];
+
+    // === 4a: Anthropic exposure calibration ===
+    // If we have observed usage data, adjust exposure by up to ±30%
+    if (anthropicPctiles[i] >= 0) {
+      const observedPctile = anthropicPctiles[i];
+      const exposureCalibrated = exposure + 0.3 * (observedPctile - exposure);
+      exposure = Math.max(0, Math.min(1, exposureCalibrated));
+      anthropicCalibrationCount++;
+    }
 
     const mm = groupMomentum.get(r.occ.major_group) ?? 0.5;
     const os = occScarcity[i];
-    const marketResilience = 0.6 * mm + 0.4 * os;
-    const marketModifier = 1 - 0.35 * marketResilience;
+    let marketResilience = 0.6 * mm + 0.4 * os;
+
+    // === 4b: MOM SOL demand bonus ===
+    // SOL occupations get a 15% boost to market_resilience
+    let marketResilienceAdjusted = marketResilience;
+    if (r.solMatch) {
+      marketResilienceAdjusted = Math.min(1.0, marketResilience + 0.15);
+      solMatchCount++;
+    }
+    const marketModifier = 1 - 0.35 * marketResilienceAdjusted;
 
     const netRisk = exposure * (1 - bottleneck) * marketModifier;
     const band = riskBand(netRisk);
@@ -936,11 +1116,19 @@ function scoreOccupations(
     // C-AIOE for backward compat
     const cAioe = r.avgAioe * (1 - (r.avgTheta - thetaMin));
 
-    // Confidence
-    const crosswalkQuality = r.matchQuality === "direct" ? 1.0
+    // === 4c: Crosswalk dispersion penalty for confidence ===
+    let crosswalkQuality = r.matchQuality === "direct" ? 1.0
       : r.matchQuality === "submajor_fallback" ? 0.6 : 0.3;
-    const marketDataGranularity = 0.6;
-    const sourceFreshness = 0.8;
+
+    if (r.aioeDispersion > 0 || r.thetaDispersion > 0) {
+      const dispersionPenalty = Math.max(0, 1 - (r.aioeDispersion + r.thetaDispersion) * 2);
+      crosswalkQuality = crosswalkQuality * dispersionPenalty;
+    }
+
+    // === 4d: Variable confidence factors ===
+    const marketDataGranularity = r.solMatch ? 0.8 : 0.6;
+    const sourceFreshness = r.anthropicMatch ? 0.9 : 0.7;
+
     const confidenceScore = (crosswalkQuality + marketDataGranularity + sourceFreshness) / 3;
     const confidenceLevel: "high" | "medium" | "low" =
       confidenceScore >= 0.7 ? "high" : confidenceScore >= 0.4 ? "medium" : "low";
@@ -960,18 +1148,18 @@ function scoreOccupations(
       market: {
         market_momentum: round(mm, 4),
         occupation_scarcity: round(os, 4),
-        market_resilience: round(marketResilience, 4),
+        market_resilience: round(marketResilienceAdjusted, 4),
         market_modifier: round(marketModifier, 4),
       },
       net_risk: round(netRisk, 4),
       risk_band: band,
-      augmentation: round(exposure * bottleneck * marketResilience, 4),
-      augmentation_band: riskBand(exposure * bottleneck * marketResilience),
-      impact_type: impactType(netRisk, exposure * bottleneck * marketResilience),
+      augmentation: round(exposure * bottleneck * marketResilienceAdjusted, 4),
+      augmentation_band: riskBand(exposure * bottleneck * marketResilienceAdjusted),
+      impact_type: impactType(netRisk, exposure * bottleneck * marketResilienceAdjusted),
       confidence: {
         score: round(confidenceScore, 4),
         level: confidenceLevel,
-        crosswalk_quality: crosswalkQuality,
+        crosswalk_quality: round(crosswalkQuality, 4),
         market_data_granularity: marketDataGranularity,
         source_freshness: sourceFreshness,
       },
@@ -989,12 +1177,15 @@ function scoreOccupations(
         aioe: round(r.avgAioe, 4),
         theta: round(r.avgTheta, 4),
         c_aioe: round(cAioe, 4),
-        category: impactTypeToCategory(impactType(netRisk, exposure * bottleneck * marketResilience)),
+        category: impactTypeToCategory(impactType(netRisk, exposure * bottleneck * marketResilienceAdjusted)),
         isco_codes_matched: r.iscoMatched,
         match_quality: r.matchQuality,
       },
     });
   }
+
+  console.log(`  Anthropic calibration applied to ${anthropicCalibrationCount} occupations`);
+  console.log(`  MOM SOL match bonus applied to ${solMatchCount} occupations`);
 
   return results;
 }
@@ -1083,6 +1274,11 @@ function printDistributionAnalysis(results: ScoredOccupation[]) {
     { pattern: /cashier/i, label: "Cashier" },
     { pattern: /teacher/i, label: "Teacher (first match)" },
     { pattern: /accountant/i, label: "Accountant" },
+    { pattern: /data scientist/i, label: "Data Scientist (SOL)" },
+    { pattern: /cyber.*architect/i, label: "Cybersec Architect (SOL)" },
+    { pattern: /registered nurse/i, label: "Registered Nurse (SOL)" },
+    { pattern: /physiotherapist/i, label: "Physiotherapist (SOL)" },
+    { pattern: /cloud specialist/i, label: "Cloud Specialist (SOL)" },
   ];
 
   for (const anchor of anchors) {
@@ -1124,7 +1320,7 @@ function printDistributionAnalysis(results: ScoredOccupation[]) {
 
 // ===== Main =====
 async function main() {
-  console.log("=== Singapore AI Job Exposure Scoring Pipeline (V3) ===\n");
+  console.log("=== Singapore AI Job Exposure Scoring Pipeline (V3.1) ===\n");
 
   // Load all data sources
   const aioeMap = loadAioe();
@@ -1138,8 +1334,12 @@ async function main() {
   const incomeData = loadIncomeData();
   const groupMarket = computeGroupMarketData(emplData, incomeData);
 
+  // Load V3.1 data sources
+  const anthropicExposure = loadAnthropicExposure();
+  const solData = loadMomSol();
+
   // Score all occupations
-  const results = scoreOccupations(sgOccs, aioeMap, thetaMap, groupMarket);
+  const results = scoreOccupations(sgOccs, aioeMap, thetaMap, groupMarket, anthropicExposure, solData);
 
   // Distribution analysis
   printDistributionAnalysis(results);
