@@ -79,7 +79,7 @@ Build **a Singapore AI Occupation Impact Index** — not another exposure map, b
 | Frey & Osborne (2013) | Pioneered the field | Outdated, binary classification, no AI-specific abilities |
 | Webb (2020) | Patent-based, forward-looking | Complex methodology, not replicable for most countries |
 
-**Our differentiation:** First to explicitly separate technical exposure from labor-market displacement risk, with four visible axes, confidence scores, and a reproducible open-source methodology. Not another LLM-vibes leaderboard.
+**Our differentiation:** First to explicitly separate technical exposure from labor-market displacement risk, with three scoring layers, derived risk/augmentation outcomes, visible confidence, and a reproducible open-source methodology. Not another LLM-vibes leaderboard.
 
 ---
 
@@ -211,11 +211,11 @@ net_risk = exposure * (1 - bottleneck) * market_modifier
 confidence = mean(crosswalk_quality, market_data_granularity, source_freshness)
 ```
 
-| Factor | High (1.0) | Medium (0.6) | Low (0.3) |
-|--------|-----------|-------------|----------|
-| **Crosswalk quality** | Direct ISCO match | 2-digit sub-major group avg | Major group fallback |
-| **Market data granularity** | Occupation-level wage signals strong | Group-level trends only | Sparse group |
-| **Source freshness** | All inputs 2023+ | Mix of 2021 and 2024 | Key input >3 years old |
+| Factor | How it is assigned | Typical range |
+|--------|--------------------|---------------|
+| **Crosswalk quality** | Direct = 1.0, sub-major fallback = 0.6, major fallback = 0.3, then reduced by crosswalk dispersion when mapped SOC scores disagree | 0.3-1.0 |
+| **Market data granularity** | Baseline from occupation wage structure + group employment/wage trends. Exact official demand evidence adds more occupation-specific Singapore signal than prefix-inferred or absent demand evidence | 0.65-0.85 |
+| **Source freshness** | Baseline reflects 2021 academic exposure data mixed with recent Singapore labour data. Anthropic observed-usage calibration raises freshness where available | 0.75-0.85 |
 
 Published as: **High** (>=0.7) / **Medium** (0.4--0.7) / **Low** (<0.4)
 
@@ -275,7 +275,7 @@ The LLM is used only for supplementary detail-page content (v1.1):
 - ISCO-08 -> US SOC 2010: BLS crosswalk (https://www.bls.gov/soc/)
 - One-to-many: average AIOE and theta
 - Fallback: 2-digit ISCO sub-major group average
-- Current coverage: **89.5% direct** (503/562), 7.1% sub-major (40), 3.4% major (19)
+- Current coverage: **92.7% direct** (521/562), 7.1% sub-major (40), 0.2% major (1)
 
 ### 4.9 Augmentation Score (v1.1 — highest-priority enhancement)
 
@@ -316,7 +316,7 @@ This is the single biggest improvement beyond the current spec. It makes the met
 
 3. **Signal conflict flag** — When signals strongly disagree (e.g., high exposure + strong bottleneck + strong market), surface as "Contested" instead of looking overly certain. This is different from low confidence (data quality) — it means the signals genuinely point in different directions.
 
-4. **MOM Jobs in Demand 2025** — Pull into market layer as occupation-level demand flag. Cleanest SG-specific signal still missing from the formula.
+4. **Quarterly vacancy monitor** — Pull official data.gov.sg vacancy trends into the occupation pages as a cluster-level labour-market monitor. This adds a recurring public signal without pretending we have occupation-level employment series.
 
 5. **Distribution-calibrated bands** — Current thresholds (0.05/0.15/0.30/0.50) are hand-set. After gold set review, adjust so each band contains a meaningful proportion and anchors land correctly.
 
@@ -332,15 +332,10 @@ This is the single biggest improvement beyond the current spec. It makes the met
 4. **Proportional employment** -- not used in scoring (it's group_total / count)
 5. **Static exposure** -- AIOE reflects 2021 capabilities
 6. **Career stage blind spot** -- v1 scores whole occupation; junior/senior impact differs (Stanford Canaries)
-7. **Crosswalk imprecision** -- 10.5% use fallback scores; confidence reflects this
+7. **Crosswalk imprecision** -- 7.3% use fallback scores; confidence reflects this
 8. **Wage-spread ambiguity** -- high ratio can mean specialization OR seniority ladder; used at ~16% effective weight
 9. **No occupation-level employment series** -- the real ceiling
-
-4. **Hierarchical granularity** — Market signals are major-group level with occupation-specific flags where MOM data exists. This means two occupations in the same major group share the same hiring shortage and employment trend signal.
-5. **Static exposure snapshot** — Felten AIOE reflects 2021 AI capabilities. The GenAI AIOE extension partially addresses this for language models.
-6. **Career stage blind spot in v1** — v1 scores the occupation as a whole. Stanford's Canaries research suggests junior/senior impact differs significantly. Addressed in v1.1.
-7. **Crosswalk imprecision** — Some SSOC occupations are Singapore-specific (e.g., "HDB estate manager") and may not have clean US SOC equivalents. Confidence score reflects this.
-8. **LLM task decomposition variance** — 3-pass majority voting reduces but doesn't eliminate LLM inconsistency. Task consensus score makes this visible.
+10. **Cluster-level vacancy monitoring** -- the live labour monitor is by occupation cluster, not by exact occupation
 
 ---
 
@@ -401,14 +396,14 @@ This is the single biggest improvement beyond the current spec. It makes the met
 
 **Hero Section:**
 - Title: "Singapore AI Occupation Impact Index"
-- Subtitle: "Four axes of AI impact across 562 occupations — exposure, task share, market resilience, and displacement risk. Academic indices, not LLM vibes."
+- Subtitle: "Three layers of AI impact across 562 occupations — exposure, human bottleneck, and market resilience. Risk bands with visible confidence."
 - Key stats bar: Total Workers (2,376,400) | Occupations (562) | High Risk (XX%) | Augmented (XX%) | Low Impact (XX%)
 
 **Interactive Treemap:**
 - All 562 occupations in nested treemap (major group → occupation)
 - Area: outer cells = group employment (accurate), inner cells = wage median (proxy)
 - Color: major group (categorical)
-- Opacity: C-AIOE score (darker = higher risk)
+- Opacity: net risk band intensity (darker = higher risk)
 - Hover: tooltip with occupation name, scores, category, wage
 - Click: navigate to occupation detail page
 - Desktop: full SVG treemap with ResizeObserver
@@ -418,7 +413,7 @@ This is the single biggest improvement beyond the current spec. It makes the met
 - Below treemap
 - X = AIOE (exposure), Y = Theta (complementarity)
 - Quadrant labels: "AI Augmented" (top-right), "At Risk" (bottom-right), "Stable" (top-left), "Unaffected" (bottom-left)
-- Dot size = employment weight, dot color = major group
+- Dot size = fixed, dot color = major group
 - Hover: tooltip, click: navigate to detail
 
 **Filter Panel:**
@@ -495,7 +490,7 @@ Full transparency — this page earns academic/policy backlinks.
 5. **Layer 3: Market Resilience** — Group-level momentum + occupation-level scarcity. Why market is a calibrator, not override.
 6. **Net Risk Formula** — `exposure * (1 - bottleneck) * market_modifier`. Risk bands, not decimals.
 7. **Confidence** — Crosswalk quality, data granularity, source freshness. Why confidence is first-class.
-8. **Crosswalk** — SSOC -> ISCO-08 -> SOC chain. Coverage stats (89.5% direct).
+8. **Crosswalk** — SSOC -> ISCO-08 -> SOC chain. Coverage stats (92.7% direct).
 9. **Worked examples** — Software developer (Low), data entry clerk (Very High), surgeon (Very Low).
 10. **Limitations** — All 9 limitations from section 4.10 with honest disclosure.
 11. **Data sources** — Table of all datasets with download links.

@@ -36,23 +36,31 @@ export interface StabilityScores {
 	label: 'stable' | 'watch' | 'sensitive';
 }
 
-export interface VacancyQuarter {
-	quarter: string;
-	openings: number;
-}
-
-export interface VacancyMonitor {
+export interface LabourClusterMonitor {
 	cluster_key: 'pmet' | 'clerical_sales_service' | 'production_transport';
 	cluster_label: string;
-	latest_quarter: string | null;
-	latest_openings: number | null;
-	previous_quarter: string | null;
-	previous_openings: number | null;
-	change_qoq: number | null;
-	four_quarter_average: number | null;
-	trend_8q: 'heating_up' | 'cooling_down' | 'stable' | 'unknown';
-	trend_score: number | null;
-	recent_quarters: VacancyQuarter[];
+	vacancy: {
+		latest_rate: number;
+		latest_quarter: string;
+		trend_4q_pct: number;
+		signal: 1 | 0 | -1;
+		recent_quarters: Array<{ quarter: string; rate: number }>;
+	};
+	hiring: {
+		recruitment_rate: number;
+		resignation_rate: number;
+		net_pressure: number;
+		signal: 1 | 0 | -1;
+	} | null;
+	retrenchment: {
+		latest_count: number;
+		latest_quarter: string;
+		trend_4q_pct: number;
+		signal: 1 | 0 | -1;
+		recent_quarters: Array<{ quarter: string; count: number }>;
+	} | null;
+	overall: 'strong' | 'moderate' | 'weak' | 'deteriorating';
+	data_as_of: string;
 }
 
 export interface RawScores {
@@ -97,7 +105,7 @@ export interface Occupation {
 	evidence: EvidenceSignals;
 	confidence: ConfidenceScores;
 	stability: StabilityScores;
-	vacancy_monitor: VacancyMonitor | null;
+	labour_monitor: LabourClusterMonitor | null;
 	raw: RawScores;
 	isco_codes_matched: string[];
 	match_quality: string;

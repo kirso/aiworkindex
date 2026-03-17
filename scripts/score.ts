@@ -94,23 +94,31 @@ interface StabilityScores {
   label: "stable" | "watch" | "sensitive";
 }
 
-interface VacancyQuarter {
-  quarter: string;
-  openings: number;
-}
-
-interface VacancyMonitor {
+interface LabourClusterMonitor {
   cluster_key: "pmet" | "clerical_sales_service" | "production_transport";
   cluster_label: string;
-  latest_quarter: string | null;
-  latest_openings: number | null;
-  previous_quarter: string | null;
-  previous_openings: number | null;
-  change_qoq: number | null;
-  four_quarter_average: number | null;
-  trend_8q: "heating_up" | "cooling_down" | "stable" | "unknown";
-  trend_score: number | null;
-  recent_quarters: VacancyQuarter[];
+  vacancy: {
+    latest_rate: number;
+    latest_quarter: string;
+    trend_4q_pct: number;
+    signal: 1 | 0 | -1;
+    recent_quarters: Array<{ quarter: string; rate: number }>;
+  };
+  hiring: {
+    recruitment_rate: number;
+    resignation_rate: number;
+    net_pressure: number;
+    signal: 1 | 0 | -1;
+  } | null;
+  retrenchment: {
+    latest_count: number;
+    latest_quarter: string;
+    trend_4q_pct: number;
+    signal: 1 | 0 | -1;
+    recent_quarters: Array<{ quarter: string; count: number }>;
+  } | null;
+  overall: "strong" | "moderate" | "weak" | "deteriorating";
+  data_as_of: string;
 }
 
 interface RawScores {
@@ -144,7 +152,7 @@ interface ScoredOccupation {
   evidence: EvidenceSignals;
   confidence: ConfidenceScores;
   stability: StabilityScores;
-  vacancy_monitor: VacancyMonitor | null;
+  labour_monitor: LabourClusterMonitor | null;
   raw: RawScores;
   isco_codes_matched: string[];
   match_quality: "direct" | "submajor_fallback" | "major_fallback";
@@ -200,8 +208,8 @@ const MAJOR_GROUP_TO_INCOME_CSV: Record<string, string> = {
   "AGRICULTURAL AND FISHERY WORKERS": "Cleaners, Labourers & Related Workers",
 };
 
-// ===== Mapping from SSOC major groups to official vacancy-monitor clusters =====
-const MAJOR_GROUP_TO_VACANCY_CLUSTER: Record<
+// ===== Mapping from SSOC major groups to labour-monitor clusters =====
+const MAJOR_GROUP_TO_LABOUR_CLUSTER: Record<
   string,
   "pmet" | "clerical_sales_service" | "production_transport"
 > = {
@@ -214,15 +222,6 @@ const MAJOR_GROUP_TO_VACANCY_CLUSTER: Record<
   "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": "production_transport",
   "CLEANERS, LABOURERS AND RELATED WORKERS": "production_transport",
   "AGRICULTURAL AND FISHERY WORKERS": "production_transport",
-};
-
-const VACANCY_CLUSTER_SOURCE_LABEL: Record<
-  "pmet" | "clerical_sales_service" | "production_transport",
-  string
-> = {
-  pmet: "Professionals, Managers, Executives & Technicians",
-  clerical_sales_service: "Clerical, Sales & Service Workers",
-  production_transport: "Production & Transport Operators, Cleaners & Labourers",
 };
 
 // ===== Pizzinelli Theta Variables =====
@@ -607,12 +606,7 @@ interface GroupMarketData {
   wage_cagr: number;
 }
 
-interface VacancyClusterSeries {
-  cluster_key: "pmet" | "clerical_sales_service" | "production_transport";
-  cluster_label: string;
-  quarters_desc: string[];
-  values_desc: number[];
-}
+// (VacancyClusterSeries removed — replaced by LabourClusterMonitor from labour-monitor.json)
 
 function parseCSVValue(val: string): number | null {
   if (!val) return null;
@@ -641,93 +635,43 @@ function parseCSVRow(line: string): string[] {
   return result;
 }
 
-function formatQuarterLabel(token: string): string {
-  const year = token.slice(0, 4);
-  const quarter = token.slice(4, 5);
-  return `${year} Q${quarter}`;
+function parseQuarterToken(
+  token: string
+): { year: string; quarter: string; label: string } | null {
+  const cleaned = token.replace(/^"+|"+$/g, "").trim();
+  let match = cleaned.match(/^(\d{4})([1-4])Q$/);
+  if (!match) match = cleaned.match(/^(\d{4})Q([1-4])$/);
+  if (!match) match = cleaned.match(/^(\d{4})[-\s]?([1-4])Q$/);
+  if (!match) match = cleaned.match(/^(\d{4})[-\s]?Q([1-4])$/);
+  if (!match) return null;
+
+  const [, year, quarter] = match;
+  return {
+    year,
+    quarter,
+    label: `${year} Q${quarter}`,
+  };
 }
 
-function computeLinearSlope(values: number[]): number | null {
-  if (values.length < 2) return null;
+// (computeLinearSlope removed — trend computation moved to build-labour-monitor.ts)
 
-  let sumX = 0;
-  let sumY = 0;
-  let sumXY = 0;
-  let sumXX = 0;
-  const n = values.length;
-
-  for (let i = 0; i < n; i++) {
-    sumX += i;
-    sumY += values[i];
-    sumXY += i * values[i];
-    sumXX += i * i;
-  }
-
-  const denominator = n * sumXX - sumX * sumX;
-  if (denominator === 0) return null;
-  return (n * sumXY - sumX * sumY) / denominator;
-}
-
-function loadVacancyMonitorData(): Map<string, VacancyClusterSeries> {
-  console.log("Loading quarterly vacancy monitor...");
-  const filePath = path.join(
-    RAW_DIR,
-    "job_vacancies_by_industry_and_occupation_quarterly.csv"
-  );
+function loadLabourMonitor(): Map<string, LabourClusterMonitor> {
+  console.log("Loading labour monitor from labour-monitor.json...");
+  const filePath = path.join(DATA_DIR, "labour-monitor.json");
   if (!fs.existsSync(filePath)) {
     console.log(
-      "  WARNING: vacancy CSV not found, skipping quarterly vacancy monitor"
+      "  WARNING: labour-monitor.json not found — run scripts/build-labour-monitor.ts first"
     );
     return new Map();
   }
 
-  const lines = fs
-    .readFileSync(filePath, "utf-8")
-    .split("\n")
-    .filter((line) => line.trim());
-  const header = parseCSVRow(lines[0]);
-  const quarterColumns = header
-    .slice(1)
-    .filter((column) => /^\d{5}Q?$/.test(column) || /^\d{4}[1-4]Q$/.test(column));
-
-  const result = new Map<string, VacancyClusterSeries>();
-
-  for (const [clusterKey, sourceLabel] of Object.entries(
-    VACANCY_CLUSTER_SOURCE_LABEL
-  ) as Array<
-    [
-      "pmet" | "clerical_sales_service" | "production_transport",
-      string,
-    ]
-  >) {
-    const row = lines
-      .slice(1)
-      .map((line) => parseCSVRow(line))
-      .find((fields) => fields[0].replace(/^"+|"+$/g, "").trim() === sourceLabel);
-
-    if (!row) {
-      console.log(`  WARNING: vacancy row not found for ${sourceLabel}`);
-      continue;
-    }
-
-    const valuesDesc: number[] = [];
-    const quartersDesc: string[] = [];
-    for (let i = 0; i < quarterColumns.length; i++) {
-      const raw = parseCSVValue(row[i + 1]);
-      if (raw === null) continue;
-      valuesDesc.push(raw);
-      quartersDesc.push(formatQuarterLabel(quarterColumns[i]));
-    }
-
-    result.set(clusterKey, {
-      cluster_key: clusterKey,
-      cluster_label: sourceLabel,
-      quarters_desc: quartersDesc,
-      values_desc: valuesDesc,
-    });
+  const raw = fs.readFileSync(filePath, "utf-8");
+  const monitors: LabourClusterMonitor[] = JSON.parse(raw);
+  const result = new Map<string, LabourClusterMonitor>();
+  for (const m of monitors) {
+    result.set(m.cluster_key, m);
   }
-
-  console.log(`  Loaded vacancy monitor for ${result.size} labour clusters`);
+  console.log(`  Loaded labour monitor for ${result.size} clusters`);
   return result;
 }
 
@@ -967,74 +911,13 @@ function impactTypeToCategory(
   }
 }
 
-function buildVacancyMonitor(
+function lookupLabourMonitor(
   majorGroup: string,
-  vacancySeries: Map<string, VacancyClusterSeries>
-): VacancyMonitor | null {
-  const clusterKey = MAJOR_GROUP_TO_VACANCY_CLUSTER[majorGroup];
+  labourMonitors: Map<string, LabourClusterMonitor>
+): LabourClusterMonitor | null {
+  const clusterKey = MAJOR_GROUP_TO_LABOUR_CLUSTER[majorGroup];
   if (!clusterKey) return null;
-
-  const series = vacancySeries.get(clusterKey);
-  if (!series || series.values_desc.length === 0) return null;
-
-  const latestOpenings = series.values_desc[0] ?? null;
-  const previousOpenings = series.values_desc[1] ?? null;
-  const latestQuarter = series.quarters_desc[0] ?? null;
-  const previousQuarter = series.quarters_desc[1] ?? null;
-  const recentPairsDesc = series.values_desc
-    .slice(0, 8)
-    .map((openings, index) => ({
-      quarter: series.quarters_desc[index],
-      openings,
-    }))
-    .filter((item) => item.quarter);
-  const recentPairs = [...recentPairsDesc].reverse();
-  const recentValues = recentPairs.map((item) => item.openings);
-  const lastFourValues = series.values_desc.slice(0, 4);
-  const fourQuarterAverage =
-    lastFourValues.length > 0
-      ? lastFourValues.reduce((sum, value) => sum + value, 0) / lastFourValues.length
-      : null;
-
-  const changeQoq =
-    latestOpenings !== null && previousOpenings !== null && previousOpenings > 0
-      ? (latestOpenings - previousOpenings) / previousOpenings
-      : null;
-
-  const slope = computeLinearSlope(recentValues);
-  const averageRecent =
-    recentValues.length > 0
-      ? recentValues.reduce((sum, value) => sum + value, 0) / recentValues.length
-      : null;
-  const normalizedTrend =
-    slope !== null && averageRecent && averageRecent > 0
-      ? slope / averageRecent
-      : null;
-
-  let trendLabel: VacancyMonitor["trend_8q"] = "unknown";
-  if (normalizedTrend !== null) {
-    if (normalizedTrend > 0.04) trendLabel = "heating_up";
-    else if (normalizedTrend < -0.04) trendLabel = "cooling_down";
-    else trendLabel = "stable";
-  }
-
-  return {
-    cluster_key: clusterKey,
-    cluster_label: series.cluster_label,
-    latest_quarter: latestQuarter,
-    latest_openings: latestOpenings,
-    previous_quarter: previousQuarter,
-    previous_openings: previousOpenings,
-    change_qoq: changeQoq !== null ? round(changeQoq, 4) : null,
-    four_quarter_average:
-      fourQuarterAverage !== null ? round(fourQuarterAverage, 1) : null,
-    trend_8q: trendLabel,
-    trend_score: normalizedTrend !== null ? round(normalizedTrend, 4) : null,
-    recent_quarters: recentPairs.map((item) => ({
-      quarter: item.quarter,
-      openings: item.openings,
-    })),
-  };
+  return labourMonitors.get(clusterKey) ?? null;
 }
 
 function buildStabilityScores(
@@ -1093,7 +976,7 @@ function scoreOccupations(
   anthropicExposure: Map<string, number>,
   solData: { exactCodes: Set<string>; prefixes: Set<string> },
   demandData: { exactCodes: Set<string>; prefixes: Set<string> },
-  vacancySeries: Map<string, VacancyClusterSeries>
+  labourMonitors: Map<string, LabourClusterMonitor>
 ): ScoredOccupation[] {
   console.log("\nScoring occupations (V3.1)...");
 
@@ -1463,15 +1346,16 @@ function scoreOccupations(
     const marketModifier = 1 - 0.35 * marketResilienceAdjusted;
 
     const netRisk = exposure * (1 - bottleneck) * marketModifier;
-    const band = riskBand(netRisk);
+    const netRiskRounded = round(netRisk, 4);
+    const band = riskBand(netRiskRounded);
     const augmentation = exposure * bottleneck * marketResilienceAdjusted;
     const stability = buildStabilityScores(
       exposure,
       bottleneck,
       marketResilienceAdjusted,
-      netRisk
+      netRiskRounded
     );
-    const vacancyMonitor = buildVacancyMonitor(r.occ.major_group, vacancySeries);
+    const labourMonitor = lookupLabourMonitor(r.occ.major_group, labourMonitors);
     const evidence: EvidenceSignals = {
       anthropic_calibrated: r.anthropicMatch,
       anthropic_gap:
@@ -1497,11 +1381,13 @@ function scoreOccupations(
     }
 
     // === 4d: Variable confidence factors ===
-    // Exact demand match = 0.9, prefix = 0.7, none = 0.5
+    // Confidence should reflect uncertainty, not outcome direction.
+    // All occupations have occupation-level wage structure + group market trends,
+    // while exact official demand evidence adds more occupation-specific market granularity.
     const hasExactDemand = r.solMatch === "exact" || r.demandMatch === "exact";
     const hasPrefixDemand = r.solMatch === "prefix" || r.demandMatch === "prefix";
-    const marketDataGranularity = hasExactDemand ? 0.9 : hasPrefixDemand ? 0.7 : 0.4;
-    const sourceFreshness = r.anthropicMatch ? 0.9 : 0.7;
+    const marketDataGranularity = hasExactDemand ? 0.85 : hasPrefixDemand ? 0.75 : 0.65;
+    const sourceFreshness = r.anthropicMatch ? 0.85 : 0.75;
 
     const confidenceScore = (crosswalkQuality + marketDataGranularity + sourceFreshness) / 3;
     const confidenceLevel: "high" | "medium" | "low" =
@@ -1525,7 +1411,7 @@ function scoreOccupations(
         market_resilience: round(marketResilienceAdjusted, 4),
         market_modifier: round(marketModifier, 4),
       },
-      net_risk: round(netRisk, 4),
+      net_risk: netRiskRounded,
       risk_band: band,
       augmentation: round(augmentation, 4),
       augmentation_band: riskBand(augmentation),
@@ -1539,7 +1425,7 @@ function scoreOccupations(
         source_freshness: sourceFreshness,
       },
       stability,
-      vacancy_monitor: vacancyMonitor,
+      labour_monitor: labourMonitor,
       raw: {
         aioe: round(r.avgAioe, 4),
         theta: round(r.avgTheta, 4),
@@ -1714,7 +1600,7 @@ async function main() {
   const emplData = loadEmploymentData();
   const incomeData = loadIncomeData();
   const groupMarket = computeGroupMarketData(emplData, incomeData);
-  const vacancySeries = loadVacancyMonitorData();
+  const labourMonitors = loadLabourMonitor();
 
   // Load V3.1 data sources
   const anthropicExposure = loadAnthropicExposure();
@@ -1730,7 +1616,7 @@ async function main() {
     anthropicExposure,
     solData,
     demandData,
-    vacancySeries
+    labourMonitors
   );
 
   // Distribution analysis

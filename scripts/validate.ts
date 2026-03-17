@@ -1,16 +1,12 @@
 #!/usr/bin/env bun
 /**
- * validate.ts — Sanity checks on the scored occupations.
+ * validate.ts — Regression and anchor checks for the current scoring model.
  *
  * Checks:
- * 1. Physical jobs (roofers, electricians) should have low AIOE
- * 2. Digital jobs (data entry, bookkeepers) should have high AIOE
- * 3. Surgeons/judges should have high theta (complementarity)
- * 4. Telemarketers should have low theta
- * 5. Coverage: >85% direct crosswalk match
- * 6. All 562 occupations have scores
- * 7. C-AIOE values are in reasonable range
- * 8. Category distribution roughly matches IMF findings
+ * 1. Record completeness for the current public data model
+ * 2. Crosswalk and evidence coverage
+ * 3. Distribution sanity for bands, impact types, confidence, stability
+ * 4. Anchor occupations behave directionally as expected
  *
  * Run: bun run scripts/validate.ts
  */
@@ -20,24 +16,59 @@ import * as path from "path";
 
 const DATA_FILE = path.join(import.meta.dir, "..", "data", "occupations.json");
 
-interface ScoredOccupation {
+type RiskBand = "very_low" | "low" | "moderate" | "high" | "very_high";
+type ImpactType = "at_risk" | "ai_leveraged" | "stable" | "mixed";
+
+interface Occupation {
   ssoc: string;
   title: string;
-  major_group: string;
-  major_group_code: number;
-  gross_wage_median: number | null;
-  gross_wage_25th: number | null;
-  gross_wage_75th: number | null;
-  employment_thousands: number | null;
-  group_employment_thousands: number | null;
-  scores: {
-    aioe: number;
-    theta: number;
-    c_aioe: number;
-    category: string;
-    isco_codes_matched: string[];
-    match_quality: "direct" | "submajor_fallback" | "major_fallback";
+  match_quality: "direct" | "submajor_fallback" | "major_fallback";
+  exposure: number;
+  bottleneck: number;
+  net_risk: number;
+  risk_band: RiskBand;
+  augmentation: number;
+  impact_type: ImpactType;
+  market: {
+    market_momentum: number;
+    occupation_scarcity: number;
+    market_resilience: number;
+    market_modifier: number;
   };
+  confidence: {
+    score: number;
+    level: "high" | "medium" | "low";
+  };
+  evidence: {
+    anthropic_calibrated: boolean;
+    anthropic_gap: number | null;
+    sol_match: "exact" | "prefix" | false;
+    jobs_in_demand_match: "exact" | "prefix" | false;
+  };
+  stability: {
+    label: "stable" | "watch" | "sensitive";
+  };
+  labour_monitor: {
+    cluster_key: string;
+    cluster_label: string;
+    vacancy: {
+      latest_rate: number;
+      latest_quarter: string;
+      trend_4q_pct: number;
+      signal: number;
+      recent_quarters: Array<{ quarter: string; rate: number }>;
+    };
+    overall: "strong" | "moderate" | "weak" | "deteriorating";
+    data_as_of: string;
+  } | null;
+}
+
+function riskBandForValue(value: number): RiskBand {
+  if (value < 0.05) return "very_low";
+  if (value < 0.15) return "low";
+  if (value < 0.30) return "moderate";
+  if (value < 0.50) return "high";
+  return "very_high";
 }
 
 function main() {
@@ -48,9 +79,8 @@ function main() {
     process.exit(1);
   }
 
-  const data: ScoredOccupation[] = JSON.parse(
-    fs.readFileSync(DATA_FILE, "utf-8")
-  );
+  const data: Occupation[] = JSON.parse(fs.readFileSync(DATA_FILE, "utf-8"));
+
   let passed = 0;
   let failed = 0;
   let warnings = 0;
@@ -70,207 +100,245 @@ function main() {
     warnings++;
   }
 
-  // === Check 1: Total count ===
+  function find(pattern: RegExp): Occupation | undefined {
+    return data.find((row) => pattern.test(row.title));
+  }
+
   console.log("--- Record counts ---");
   check("Total occupations = 562", data.length === 562, `got ${data.length}`);
 
-  // === Check 2: All have scores ===
-  console.log("\n--- Score completeness ---");
-  const missingScores = data.filter(
-    (d) =>
-      d.scores.aioe === null ||
-      d.scores.theta === null ||
-      d.scores.c_aioe === null
+  console.log("\n--- Completeness ---");
+  check(
+    "All occupations have current core fields",
+    data.every(
+      (row) =>
+        typeof row.exposure === "number" &&
+        typeof row.bottleneck === "number" &&
+        typeof row.net_risk === "number" &&
+        typeof row.augmentation === "number" &&
+        !!row.market &&
+        !!row.confidence &&
+        !!row.evidence &&
+        !!row.stability
+    )
   );
   check(
-    "All occupations have AIOE + theta + C-AIOE",
-    missingScores.length === 0,
-    `${missingScores.length} missing`
+    "All occupations have labour monitor coverage",
+    data.every((row) => row.labour_monitor !== null)
   );
 
-  // === Check 3: Coverage ===
-  console.log("\n--- Crosswalk coverage ---");
-  const direct = data.filter((d) => d.scores.match_quality === "direct").length;
+  console.log("\n--- Coverage ---");
+  const direct = data.filter((row) => row.match_quality === "direct").length;
   const submajor = data.filter(
-    (d) => d.scores.match_quality === "submajor_fallback"
+    (row) => row.match_quality === "submajor_fallback"
   ).length;
   const major = data.filter(
-    (d) => d.scores.match_quality === "major_fallback"
+    (row) => row.match_quality === "major_fallback"
   ).length;
-  const coverage = (direct / data.length) * 100;
   check(
-    `Direct crosswalk coverage >85%`,
-    coverage > 85,
-    `${coverage.toFixed(1)}% (${direct}/${data.length})`
+    "Direct crosswalk coverage > 90%",
+    direct / data.length > 0.9,
+    `${direct}/${data.length} direct`
   );
   console.log(
     `       Direct: ${direct}, Sub-major fallback: ${submajor}, Major fallback: ${major}`
   );
 
-  // === Check 4: Sanity — physical jobs should have LOW AIOE ===
-  console.log("\n--- Sanity: Physical jobs should have low AIOE ---");
-  const physicalJobs = [
-    { pattern: /roofer/i, expectLow: true },
-    { pattern: /electrician/i, expectLow: true },
-    { pattern: /plumber/i, expectLow: true },
-    { pattern: /carpenter/i, expectLow: true },
-    { pattern: /welder/i, expectLow: true },
-    { pattern: /bricklayer/i, expectLow: true },
-  ];
-
-  const allAioe = data.map((d) => d.scores.aioe).sort((a, b) => a - b);
-  const aioeMedian = allAioe[Math.floor(allAioe.length / 2)];
-
-  for (const { pattern, expectLow } of physicalJobs) {
-    const matches = data.filter((d) => pattern.test(d.title));
-    for (const m of matches) {
-      const isLow = m.scores.aioe < aioeMedian;
-      if (expectLow) {
-        check(
-          `${m.title} (AIOE=${m.scores.aioe.toFixed(3)}) below median`,
-          isLow,
-          `median=${aioeMedian.toFixed(3)}`
-        );
-      }
-    }
-    if (matches.length === 0) {
-      warn(`No match for ${pattern}`, "job not found in dataset");
-    }
-  }
-
-  // === Check 5: Sanity — digital jobs should have HIGH AIOE ===
-  console.log("\n--- Sanity: Digital jobs should have high AIOE ---");
-  const digitalJobs = [
-    { pattern: /data entry/i, expectHigh: true },
-    { pattern: /bookkeep/i, expectHigh: true },
-    { pattern: /accounting clerk/i, expectHigh: true },
-    { pattern: /telemarket/i, expectHigh: true },
-    { pattern: /secretary/i, expectHigh: true },
-  ];
-
-  for (const { pattern, expectHigh } of digitalJobs) {
-    const matches = data.filter((d) => pattern.test(d.title));
-    for (const m of matches) {
-      const isHigh = m.scores.aioe >= aioeMedian;
-      if (expectHigh) {
-        check(
-          `${m.title} (AIOE=${m.scores.aioe.toFixed(3)}) above median`,
-          isHigh,
-          `median=${aioeMedian.toFixed(3)}`
-        );
-      }
-    }
-    if (matches.length === 0) {
-      warn(`No match for ${pattern}`, "job not found in dataset");
-    }
-  }
-
-  // === Check 6: Sanity — complementarity checks ===
-  console.log("\n--- Sanity: High complementarity jobs ---");
-  const highCompJobs = [
-    /surgeon/i,
-    /judge/i,
-    /lawyer/i,
-    /software developer/i,
-    /doctor/i,
-    /\bnurs(?:e|ing)\b(?!.*(?:nursery|aide|assistant))/i,
-  ];
-
-  const allTheta = data.map((d) => d.scores.theta).sort((a, b) => a - b);
-  const thetaMedian = allTheta[Math.floor(allTheta.length / 2)];
-
-  for (const pattern of highCompJobs) {
-    const matches = data.filter((d) => pattern.test(d.title));
-    for (const m of matches) {
-      check(
-        `${m.title} (theta=${m.scores.theta.toFixed(3)}) above median`,
-        m.scores.theta >= thetaMedian,
-        `median=${thetaMedian.toFixed(3)}`
-      );
-    }
-    if (matches.length === 0) {
-      warn(`No match for ${pattern}`, "job not found in dataset");
-    }
-  }
-
-  // === Check 7: C-AIOE range ===
-  console.log("\n--- C-AIOE range checks ---");
-  const allCaioe = data.map((d) => d.scores.c_aioe);
-  const minCaioe = Math.min(...allCaioe);
-  const maxCaioe = Math.max(...allCaioe);
+  const anthropicCount = data.filter(
+    (row) => row.evidence.anthropic_calibrated
+  ).length;
+  const demandFlagged = data.filter(
+    (row) => row.evidence.sol_match || row.evidence.jobs_in_demand_match
+  ).length;
   check(
-    "C-AIOE values span a meaningful range",
-    maxCaioe - minCaioe > 0.5,
-    `range: ${minCaioe.toFixed(3)} to ${maxCaioe.toFixed(3)}`
+    "Anthropic calibration covers most occupations",
+    anthropicCount > 450,
+    `${anthropicCount} calibrated`
   );
   check(
-    "No negative C-AIOE values",
-    allCaioe.every((v) => v >= -5),
-    `min=${minCaioe.toFixed(3)}`
+    "Official demand signals cover a meaningful subset",
+    demandFlagged >= 50,
+    `${demandFlagged} flagged`
   );
 
-  // === Check 8: Category distribution ===
-  console.log("\n--- Category distribution ---");
-  const cats = {
-    high_exposure_high_complementarity: 0,
-    high_exposure_low_complementarity: 0,
-    low_exposure: 0,
+  console.log("\n--- Distribution sanity ---");
+  const bandCounts: Record<RiskBand, number> = {
+    very_low: 0,
+    low: 0,
+    moderate: 0,
+    high: 0,
+    very_high: 0,
   };
-  for (const d of data) {
-    cats[d.scores.category as keyof typeof cats]++;
+  const impactCounts: Record<ImpactType, number> = {
+    at_risk: 0,
+    ai_leveraged: 0,
+    stable: 0,
+    mixed: 0,
+  };
+  const confidenceCounts = { high: 0, medium: 0, low: 0 };
+  const stabilityCounts = { stable: 0, watch: 0, sensitive: 0 };
+
+  for (const row of data) {
+    bandCounts[row.risk_band]++;
+    impactCounts[row.impact_type]++;
+    confidenceCounts[row.confidence.level]++;
+    stabilityCounts[row.stability.label]++;
   }
 
-  const highExpPct =
-    ((cats.high_exposure_high_complementarity +
-      cats.high_exposure_low_complementarity) /
-      data.length) *
-    100;
-  console.log(
-    `  AI Augmented: ${cats.high_exposure_high_complementarity} (${((cats.high_exposure_high_complementarity / data.length) * 100).toFixed(1)}%)`
-  );
-  console.log(
-    `  At Risk:      ${cats.high_exposure_low_complementarity} (${((cats.high_exposure_low_complementarity / data.length) * 100).toFixed(1)}%)`
-  );
-  console.log(
-    `  Low Impact:   ${cats.low_exposure} (${((cats.low_exposure / data.length) * 100).toFixed(1)}%)`
-  );
-  // IMF Singapore findings: ~77% high exposure. Ours uses median split so expect ~50%.
   check(
-    "High exposure occupations exist",
-    highExpPct > 30,
-    `${highExpPct.toFixed(1)}% of occupations`
+    "Every risk band is populated",
+    Object.values(bandCounts).every((count) => count > 0)
+  );
+  check(
+    "Stored risk bands match stored net_risk thresholds",
+    data.every((row) => riskBandForValue(row.net_risk) === row.risk_band)
+  );
+  check(
+    "At Risk and AI Leveraged occupations both exist",
+    impactCounts.at_risk > 0 && impactCounts.ai_leveraged > 0
+  );
+  check(
+    "Confidence has at least two populated tiers",
+    [confidenceCounts.high, confidenceCounts.medium, confidenceCounts.low].filter(
+      (count) => count > 0
+    ).length >= 2,
+    JSON.stringify(confidenceCounts)
+  );
+  check(
+    "Stability has at least two populated tiers",
+    [stabilityCounts.stable, stabilityCounts.watch, stabilityCounts.sensitive].filter(
+      (count) => count > 0
+    ).length >= 2,
+    JSON.stringify(stabilityCounts)
   );
 
-  // === Top/Bottom lists ===
-  console.log("\n--- Top 10 highest C-AIOE (most at risk) ---");
-  const byCaioe = [...data].sort(
-    (a, b) => b.scores.c_aioe - a.scores.c_aioe
-  );
-  for (const d of byCaioe.slice(0, 10)) {
-    console.log(
-      `  ${d.scores.c_aioe.toFixed(3)} | ${d.scores.category.padEnd(42)} | ${d.title}`
+  console.log(`       Bands: ${JSON.stringify(bandCounts)}`);
+  console.log(`       Impact: ${JSON.stringify(impactCounts)}`);
+  console.log(`       Confidence: ${JSON.stringify(confidenceCounts)}`);
+  console.log(`       Stability: ${JSON.stringify(stabilityCounts)}`);
+
+  console.log("\n--- Anchor occupations ---");
+  const software = find(/software developer/i);
+  const dataEntry = find(/data entry clerk/i);
+  const surgeon = find(/surgeon/i);
+  const telemarketer = find(/telemarketer/i);
+  const nurse = find(/registered nurse/i);
+  const dataScientist = find(/data scientist/i);
+
+  check("Software developer exists", !!software);
+  if (software) {
+    check("Software developer is a direct crosswalk", software.match_quality === "direct");
+    check(
+      "Software developer is not classified At Risk",
+      software.impact_type !== "at_risk",
+      `${software.impact_type} / ${software.risk_band}`
+    );
+    check(
+      "Software developer has official demand evidence",
+      !!(software.evidence.sol_match || software.evidence.jobs_in_demand_match)
+    );
+    check(
+      "Software developer is not Very High risk",
+      software.risk_band !== "very_high",
+      `${software.net_risk.toFixed(3)}`
     );
   }
 
-  console.log("\n--- Top 10 lowest C-AIOE (least at risk) ---");
-  for (const d of byCaioe.slice(-10).reverse()) {
-    console.log(
-      `  ${d.scores.c_aioe.toFixed(3)} | ${d.scores.category.padEnd(42)} | ${d.title}`
+  check("Data entry clerk exists", !!dataEntry);
+  if (dataEntry) {
+    check(
+      "Data entry clerk is high displacement",
+      dataEntry.risk_band === "high" || dataEntry.risk_band === "very_high",
+      `${dataEntry.risk_band}`
+    );
+    check(
+      "Data entry clerk is At Risk",
+      dataEntry.impact_type === "at_risk",
+      `${dataEntry.impact_type}`
     );
   }
 
-  console.log("\n--- Top 10 highest theta (most human-complementary) ---");
-  const byTheta = [...data].sort(
-    (a, b) => b.scores.theta - a.scores.theta
+  check("Surgeon exists", !!surgeon);
+  if (surgeon) {
+    check(
+      "Surgeon is very low risk",
+      surgeon.risk_band === "very_low",
+      `${surgeon.net_risk.toFixed(3)}`
+    );
+    check(
+      "Surgeon is AI Leveraged",
+      surgeon.impact_type === "ai_leveraged",
+      `${surgeon.impact_type}`
+    );
+  }
+
+  check("Telemarketer exists", !!telemarketer);
+  if (telemarketer) {
+    check(
+      "Telemarketer remains highly exposed",
+      telemarketer.risk_band === "high" || telemarketer.risk_band === "very_high",
+      `${telemarketer.risk_band}`
+    );
+    check(
+      "Telemarketer is At Risk",
+      telemarketer.impact_type === "at_risk",
+      `${telemarketer.impact_type}`
+    );
+  }
+
+  check("Registered nurse exists", !!nurse);
+  if (nurse) {
+    check(
+      "Registered nurse is low risk",
+      nurse.risk_band === "very_low" || nurse.risk_band === "low",
+      `${nurse.risk_band}`
+    );
+    check(
+      "Registered nurse is AI Leveraged",
+      nurse.impact_type === "ai_leveraged",
+      `${nurse.impact_type}`
+    );
+  }
+
+  check("Data scientist exists", !!dataScientist);
+  if (dataScientist) {
+    check(
+      "Data scientist has official demand evidence",
+      !!(dataScientist.evidence.sol_match || dataScientist.evidence.jobs_in_demand_match)
+    );
+    check(
+      "Data scientist is not classified Stable",
+      dataScientist.impact_type !== "stable",
+      `${dataScientist.impact_type}`
+    );
+  }
+
+  console.log("\n--- Labour monitor sanity ---");
+  const labourRowsMissingRecent = data.filter(
+    (row) => (row.labour_monitor?.vacancy.recent_quarters.length ?? 0) < 4
+  ).length;
+  check(
+    "Labour monitor has recent quarters for all occupations",
+    labourRowsMissingRecent === 0,
+    `${labourRowsMissingRecent} missing 4+ quarters`
   );
-  for (const d of byTheta.slice(0, 10)) {
-    console.log(
-      `  ${d.scores.theta.toFixed(3)} | ${d.title}`
-    );
+  const labourOverallCounts = {
+    strong: data.filter((row) => row.labour_monitor?.overall === "strong").length,
+    moderate: data.filter((row) => row.labour_monitor?.overall === "moderate").length,
+    weak: data.filter((row) => row.labour_monitor?.overall === "weak").length,
+    deteriorating: data.filter((row) => row.labour_monitor?.overall === "deteriorating").length,
+  };
+  check(
+    "Labour monitor overall signals present",
+    Object.values(labourOverallCounts).some((count) => count > 0),
+    JSON.stringify(labourOverallCounts)
+  );
+
+  if (!find(/teacher/i)) {
+    warn("Teacher anchor", "No teacher title matched for optional review");
   }
 
-  // === Summary ===
-  console.log(`\n=== Summary ===`);
+  console.log("\n=== Summary ===");
   console.log(`  Passed: ${passed}`);
   console.log(`  Failed: ${failed}`);
   console.log(`  Warnings: ${warnings}`);
@@ -278,9 +346,9 @@ function main() {
   if (failed > 0) {
     console.log("\nSome checks FAILED. Review the output above.");
     process.exit(1);
-  } else {
-    console.log("\nAll checks PASSED.");
   }
+
+  console.log("\nAll checks passed.");
 }
 
 main();

@@ -1,0 +1,146 @@
+[
+  {
+    "cluster_key": "pmet",
+    "cluster_label": "Professionals, Managers, Executives & Technicians",
+    "vacancy": {
+      "latest_rate": 3.2,
+      "latest_quarter": "2024 Q4",
+      "trend_4q_pct": -15.19,
+      "signal": -1,
+      "recent_quarters": [
+        {
+          "quarter": "2023 Q1",
+          "rate": 4.4
+        },
+        {
+          "quarter": "2023 Q2",
+          "rate": 4.2
+        },
+        {
+          "quarter": "2023 Q3",
+          "rate": 3.7
+        },
+        {
+          "quarter": "2023 Q4",
+          "rate": 3.5
+        },
+        {
+          "quarter": "2024 Q1",
+          "rate": 3.7
+        },
+        {
+          "quarter": "2024 Q2",
+          "rate": 3.6
+        },
+        {
+          "quarter": "2024 Q3",
+          "rate": 2.9
+        },
+        {
+          "quarter": "2024 Q4",
+          "rate": 3.2
+        }
+      ]
+    },
+    "hiring": null,
+    "retrenchment": null,
+    "overall": "deteriorating",
+    "data_as_of": "2024 Q4"
+  },
+  {
+    "cluster_key": "clerical_sales_service",
+    "cluster_label": "Clerical, Sales & Service Workers",
+    "vacancy": {
+      "latest_rate": 3.5,
+      "latest_quarter": "2024 Q4",
+      "trend_4q_pct": -17.55,
+      "signal": -1,
+      "recent_quarters": [
+        {
+          "quarter": "2023 Q1",
+          "rate": 5.2
+        },
+        {
+          "quarter": "2023 Q2",
+          "rate": 4.8
+        },
+        {
+          "quarter": "2023 Q3",
+          "rate": 4.4
+        },
+        {
+          "quarter": "2023 Q4",
+          "rate": 4.4
+        },
+        {
+          "quarter": "2024 Q1",
+          "rate": 4.3
+        },
+        {
+          "quarter": "2024 Q2",
+          "rate": 4.2
+        },
+        {
+          "quarter": "2024 Q3",
+          "rate": 3.5
+        },
+        {
+          "quarter": "2024 Q4",
+          "rate": 3.5
+        }
+      ]
+    },
+    "hiring": null,
+    "retrenchment": null,
+    "overall": "deteriorating",
+    "data_as_of": "2024 Q4"
+  },
+  {
+    "cluster_key": "production_transport",
+    "cluster_label": "Production & Transport Operators, Cleaners & Labourers",
+    "vacancy": {
+      "latest_rate": 2.4,
+      "latest_quarter": "2024 Q4",
+      "trend_4q_pct": -12.15,
+      "signal": -1,
+      "recent_quarters": [
+        {
+          "quarter": "2023 Q1",
+          "rate": 3.3
+        },
+        {
+          "quarter": "2023 Q2",
+          "rate": 2.7
+        },
+        {
+          "quarter": "2023 Q3",
+          "rate": 2.3
+        },
+        {
+          "quarter": "2023 Q4",
+          "rate": 2.4
+        },
+        {
+          "quarter": "2024 Q1",
+          "rate": 2.6
+        },
+        {
+          "quarter": "2024 Q2",
+          "rate": 2.7
+        },
+        {
+          "quarter": "2024 Q3",
+          "rate": 1.7
+        },
+        {
+          "quarter": "2024 Q4",
+          "rate": 2.4
+        }
+      ]
+    },
+    "hiring": null,
+    "retrenchment": null,
+    "overall": "deteriorating",
+    "data_as_of": "2024 Q4"
+  }
+]

@@ -1,3 +1,31 @@
+<script lang="ts">
+	import { occupations, impactTypeLabels, riskBandLabels } from '$lib/data';
+
+	const occupationCount = occupations.length;
+	const directCount = occupations.filter((occupation) => occupation.match_quality === 'direct').length;
+	const submajorFallbackCount = occupations.filter(
+		(occupation) => occupation.match_quality === 'submajor_fallback'
+	).length;
+	const majorFallbackCount = occupations.filter(
+		(occupation) => occupation.match_quality === 'major_fallback'
+	).length;
+	const fallbackCount = submajorFallbackCount + majorFallbackCount;
+	const anthropicCoverageCount = occupations.filter(
+		(occupation) => occupation.evidence.anthropic_calibrated
+	).length;
+
+	function pct(value: number, total: number): string {
+		return ((value / total) * 100).toFixed(1);
+	}
+
+	function findOccupation(pattern: RegExp) {
+		return occupations.find((occupation) => pattern.test(occupation.title));
+	}
+
+	const softwareDeveloper = findOccupation(/software developer/i);
+	const dataEntryClerk = findOccupation(/data entry clerk/i);
+</script>
+
 <svelte:head>
 	<title>Methodology — Singapore AI Occupation Impact Index</title>
 	<meta name="description" content="Three-layer scoring: exposure (AIOE), human bottleneck (theta), and market resilience. Net risk published as risk bands with visible confidence. No LLM in the scoring pipeline." />
@@ -273,17 +301,55 @@
 			</div>
 
 			<div class="rounded-lg border border-gray-200 bg-white p-5">
+				<h3 class="font-semibold text-gray-900">Labour Monitor (cluster-level evidence layer)</h3>
+				<p class="mt-1 text-sm text-gray-600">
+					We ingest official MOM/SingStat quarterly data from data.gov.sg and compute a unified labour monitor
+					for three broad occupation clusters:
+				</p>
+				<ul class="mt-2 list-inside list-disc space-y-1 text-sm text-gray-600">
+					<li><strong>PMET</strong> — Professionals, Managers, Executives &amp; Technicians</li>
+					<li><strong>Clerical, Sales &amp; Service Workers</strong></li>
+					<li><strong>Production &amp; Transport Operators, Cleaners &amp; Labourers</strong></li>
+				</ul>
+				<p class="mt-2 text-sm text-gray-600">
+					Three signals are computed per cluster (where data is available):
+				</p>
+				<ol class="mt-2 list-inside list-decimal space-y-1 text-sm text-gray-600">
+					<li><strong>Vacancy rate trend</strong>: 4-quarter-over-4-quarter average trend. Signal: &gt;+5% = heating up (+1), &lt;-5% = cooling down (-1), else stable (0).</li>
+					<li><strong>Net hiring pressure</strong>: recruitment rate minus resignation rate (when available). Signal: net &gt;+0.1pp = positive (+1), &lt;-0.1pp = negative (-1), else neutral (0).</li>
+					<li><strong>Retrenchment trend</strong>: count and 4Q-over-4Q trend (when available). Falling retrenchment = positive (+1), rising = negative (-1).</li>
+				</ol>
+				<p class="mt-2 text-sm text-gray-600">
+					The three signals are summed into an overall label:
+				</p>
+				<p class="mt-1 rounded bg-gray-50 px-3 py-2 font-mono text-sm text-gray-800">
+					total = vacancy_signal + hiring_signal + retrenchment_signal<br/>
+					2-3 = "strong" | 1 = "moderate" | 0 = "weak" | &lt;0 = "deteriorating"
+				</p>
+				<p class="mt-2 text-sm text-gray-500 italic">
+					This is <strong>cluster-level data</strong>, not occupation-level. It provides context about the broad labour market
+					conditions for each occupation's cluster, displayed as an evidence layer on occupation pages.
+					It is not a scoring input — we show it to ground the analysis in current labour-market reality
+					without overfitting a sparse cluster-level series into the per-occupation formula.
+				</p>
+				<p class="mt-2 text-sm text-gray-500 italic">
+					Data sources: vacancy rates (data.gov.sg, quarterly), recruitment/resignation rates, and retrenchment counts.
+					Updated quarterly when new data is published.
+				</p>
+			</div>
+
+			<div class="rounded-lg border border-gray-200 bg-white p-5">
 				<h3 class="font-semibold text-gray-900">Anthropic Economic Index (exposure calibration)</h3>
 				<p class="mt-1 text-sm text-gray-600">
 					Observed AI usage rates from Claude conversations (HuggingFace dataset, Jan 2026 report).
 					Calibrates the theoretical AIOE exposure by up to &plusmn;30% based on the gap between
 					theoretical and observed AI usage per occupation.
 				</p>
-				<p class="mt-2 text-sm text-gray-600">
-					Applied to 525 of 562 occupations via SOC code crosswalk. Key finding: some occupations
-					(data entry, customer service) show higher observed usage than AIOE predicts, while others
-					(teachers, software developers) show lower observed usage.
-				</p>
+					<p class="mt-2 text-sm text-gray-600">
+						Applied to {anthropicCoverageCount} of {occupationCount} occupations via SOC code crosswalk. Key finding: some occupations
+						(data entry, customer service) show higher observed usage than AIOE predicts, while others
+						(teachers, software developers) show lower observed usage.
+					</p>
 				<p class="mt-2 text-sm text-gray-500 italic">
 					Used as calibration, not replacement. Anthropic measures Claude usage specifically,
 					not universal AI adoption.
@@ -390,45 +456,40 @@
 		<p class="mt-2 rounded bg-gray-50 px-3 py-2 font-mono text-sm text-gray-800">
 			confidence = mean(crosswalk_quality, market_data_granularity, source_freshness)
 		</p>
-		<div class="mt-3 overflow-x-auto">
-			<table class="w-full text-left text-sm">
-				<thead>
-					<tr class="border-b border-gray-200">
-						<th class="py-2 pr-3 font-medium text-gray-700">Factor</th>
-						<th class="py-2 pr-3 font-medium text-gray-700">High (1.0)</th>
-						<th class="py-2 pr-3 font-medium text-gray-700">Medium (0.6)</th>
-						<th class="py-2 font-medium text-gray-700">Low (0.3)</th>
-					</tr>
-				</thead>
-				<tbody class="text-gray-600">
-					<tr class="border-b border-gray-100">
-						<td class="py-2 pr-3 font-medium">Crosswalk quality</td>
-						<td class="py-2 pr-3">Direct ISCO match</td>
-						<td class="py-2 pr-3">2-digit sub-major group average</td>
-						<td class="py-2">Major group fallback</td>
-					</tr>
-					<tr class="border-b border-gray-100">
-						<td class="py-2 pr-3 font-medium">Market data granularity</td>
-						<td class="py-2 pr-3">Occupation-level wage signals strong</td>
-						<td class="py-2 pr-3">Group-level trends only</td>
-						<td class="py-2">Sparse group</td>
-					</tr>
-					<tr>
-						<td class="py-2 pr-3 font-medium">Source freshness</td>
-						<td class="py-2 pr-3">All inputs 2023+</td>
-						<td class="py-2 pr-3">Mix of 2021 and 2024</td>
-						<td class="py-2">Key input >3 years old</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+			<div class="mt-3 overflow-x-auto">
+				<table class="w-full text-left text-sm">
+					<thead>
+						<tr class="border-b border-gray-200">
+							<th class="py-2 pr-3 font-medium text-gray-700">Factor</th>
+							<th class="py-2 pr-3 font-medium text-gray-700">How it is assigned</th>
+							<th class="py-2 font-medium text-gray-700">Typical range</th>
+						</tr>
+					</thead>
+					<tbody class="text-gray-600">
+						<tr class="border-b border-gray-100">
+							<td class="py-2 pr-3 font-medium">Crosswalk quality</td>
+							<td class="py-2 pr-3">Direct = 1.0, sub-major fallback = 0.6, major fallback = 0.3, then reduced further by crosswalk dispersion where mapped SOC scores disagree.</td>
+							<td class="py-2">0.3 - 1.0</td>
+						</tr>
+						<tr class="border-b border-gray-100">
+							<td class="py-2 pr-3 font-medium">Market data granularity</td>
+							<td class="py-2 pr-3">Baseline = occupation wage structure + group employment/wage trends. Exact official demand evidence adds more occupation-specific Singapore signal than prefix-inferred or absent demand evidence.</td>
+							<td class="py-2">0.65 - 0.85</td>
+						</tr>
+						<tr>
+							<td class="py-2 pr-3 font-medium">Source freshness</td>
+							<td class="py-2 pr-3">Baseline reflects a mix of 2021 academic exposure data and recent Singapore labour data. Anthropic observed-usage calibration raises freshness where available.</td>
+							<td class="py-2">0.75 - 0.85</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		<p class="mt-2 text-sm text-gray-500">
 			Published as: <strong>High</strong> (&ge;0.7) / <strong>Medium</strong> (0.4&ndash;0.7) / <strong>Low</strong> (&lt;0.4).
 		</p>
 		<p class="mt-2 text-sm text-gray-500 italic">
-			Note: In v1, market_data_granularity and source_freshness are currently set to uniform values (0.6 and 0.8 respectively)
-			across all occupations because we do not yet have occupation-level market signals. Crosswalk quality is the primary
-			differentiator of confidence in this version.
+			In the current implementation, confidence varies by direct vs fallback crosswalk, exact vs prefix-inferred demand evidence,
+			and whether Anthropic observed-usage calibration is available for the matched occupation.
 		</p>
 	</section>
 
@@ -444,26 +505,34 @@
 			<div class="rounded-lg border border-gray-200 bg-white p-4">
 				<p class="text-sm font-semibold text-gray-900">Software Developer</p>
 				<ul class="mt-2 space-y-1 text-xs text-gray-600">
-					<li>Exposure: pctile(aioe) = 0.82 (high)</li>
-					<li>Bottleneck: pctile(theta) = 0.71 (strong human bottleneck)</li>
-					<li>Market resilience: 0.84 (Professionals: +4.45% CAGR)</li>
-					<li>Market modifier: 1 - 0.35 &times; 0.84 = 0.71</li>
-					<li>Net risk: 0.82 &times; 0.29 &times; 0.71 = <strong class="text-emerald-700">0.17 (Low)</strong></li>
-					<li>Impact type: <strong class="text-blue-700">AI Leveraged</strong></li>
-				</ul>
+						{#if softwareDeveloper}
+							<li>Exposure: pctile(aioe) = {softwareDeveloper.exposure.toFixed(2)}</li>
+							<li>Bottleneck: pctile(theta) = {softwareDeveloper.bottleneck.toFixed(2)}</li>
+							<li>Market resilience: {softwareDeveloper.market.market_resilience.toFixed(2)}</li>
+							<li>Market modifier: {softwareDeveloper.market.market_modifier.toFixed(2)}</li>
+							<li>
+								Net risk: <strong class="text-emerald-700">{softwareDeveloper.net_risk.toFixed(2)} ({riskBandLabels[softwareDeveloper.risk_band]})</strong>
+							</li>
+							<li>Impact type: <strong class="text-blue-700">{impactTypeLabels[softwareDeveloper.impact_type]}</strong></li>
+						{/if}
+					</ul>
+				</div>
+				<div class="rounded-lg border border-gray-200 bg-white p-4">
+					<p class="text-sm font-semibold text-gray-900">Data Entry Clerk</p>
+					<ul class="mt-2 space-y-1 text-xs text-gray-600">
+						{#if dataEntryClerk}
+							<li>Exposure: pctile(aioe) = {dataEntryClerk.exposure.toFixed(2)}</li>
+							<li>Bottleneck: pctile(theta) = {dataEntryClerk.bottleneck.toFixed(2)}</li>
+							<li>Market resilience: {dataEntryClerk.market.market_resilience.toFixed(2)}</li>
+							<li>Market modifier: {dataEntryClerk.market.market_modifier.toFixed(2)}</li>
+							<li>
+								Net risk: <strong class="text-red-600">{dataEntryClerk.net_risk.toFixed(2)} ({riskBandLabels[dataEntryClerk.risk_band]})</strong>
+							</li>
+							<li>Impact type: <strong class="text-red-600">{impactTypeLabels[dataEntryClerk.impact_type]}</strong></li>
+						{/if}
+					</ul>
+				</div>
 			</div>
-			<div class="rounded-lg border border-gray-200 bg-white p-4">
-				<p class="text-sm font-semibold text-gray-900">Data Entry Clerk</p>
-				<ul class="mt-2 space-y-1 text-xs text-gray-600">
-					<li>Exposure: pctile(aioe) = 0.88 (very high)</li>
-					<li>Bottleneck: pctile(theta) = 0.18 (weak human bottleneck)</li>
-					<li>Market resilience: 0.17 (Clerical: -2.82% CAGR)</li>
-					<li>Market modifier: 1 - 0.35 &times; 0.17 = 0.94</li>
-					<li>Net risk: 0.88 &times; 0.82 &times; 0.94 = <strong class="text-red-600">0.68 (Very High)</strong></li>
-					<li>Impact type: <strong class="text-red-600">At Risk</strong></li>
-				</ul>
-			</div>
-		</div>
 
 		<p class="mt-3 text-sm text-gray-500">
 			This is why a single "AI exposure score" is misleading. The software developer has higher exposure than many
@@ -523,7 +592,11 @@
 			<li>Fallback 1: 2-digit ISCO sub-major group average (confidence = 0.6)</li>
 			<li>Fallback 2: 1-digit major group average (confidence = 0.3)</li>
 		</ol>
-		<p class="mt-2 text-sm text-gray-500">Current coverage: 89.5% direct match (503/562), 7.1% sub-major fallback (40), 3.4% major fallback (19).</p>
+		<p class="mt-2 text-sm text-gray-500">
+			Current coverage: {pct(directCount, occupationCount)}% direct match ({directCount}/{occupationCount}),
+			{pct(submajorFallbackCount, occupationCount)}% sub-major fallback ({submajorFallbackCount}),
+			{pct(majorFallbackCount, occupationCount)}% major fallback ({majorFallbackCount}).
+		</p>
 	</section>
 
 	<!-- What this version shows -->
@@ -551,9 +624,9 @@
 			<li><strong>Proportional employment</strong> — Per-occupation employment is group_total / count, not actual counts. Treemap inner cells sized by wage as proxy.</li>
 			<li><strong>Static exposure snapshot</strong> — Felten AIOE reflects 2021 AI capabilities. The GenAI AIOE extension partially addresses this.</li>
 			<li><strong>Career-stage blind spot</strong> — v1 scores the occupation as a whole. Stanford's Canaries research suggests junior/senior impact differs significantly.</li>
-			<li><strong>Crosswalk imprecision</strong> — 10.5% of occupations use fallback scores. Some SSOC occupations are Singapore-specific. Confidence score reflects this.</li>
+			<li><strong>Crosswalk imprecision</strong> — {pct(fallbackCount, occupationCount)}% of occupations use fallback scores. Some SSOC occupations are Singapore-specific. Confidence score reflects this.</li>
 			<li><strong>Wage-spread ambiguity</strong> — High wage ratio can mean specialization OR seniority ladder. Used at ~16% effective weight in the overall formula.</li>
-			<li><strong>Uniform confidence components</strong> — market_data_granularity (0.6) and source_freshness (0.8) are currently uniform across all occupations. Crosswalk quality is the only per-occupation differentiator.</li>
+			<li><strong>Cluster-level labour monitor</strong> — the quarterly vacancy, hiring, and retrenchment signals are official and current, but only available for three broad labour clusters (PMET, clerical/sales/service, production/transport) rather than all 562 occupations. Always labeled as cluster-level data.</li>
 		</ul>
 	</section>
 

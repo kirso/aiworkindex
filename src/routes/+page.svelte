@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import Treemap from '$lib/components/viz/Treemap.svelte';
+	import Histogram from '$lib/components/viz/Histogram.svelte';
+	import WageBracketChart from '$lib/components/viz/WageBracketChart.svelte';
 	import ScatterQuadrant from '$lib/components/viz/ScatterQuadrant.svelte';
 	import FilterPanel from '$lib/components/ui/FilterPanel.svelte';
 	import InsightsPanel from '$lib/components/ui/InsightsPanel.svelte';
@@ -108,11 +110,36 @@
 					<Treemap occupations={filteredOccupations} />
 				</section>
 
-				<!-- Scatter plot -->
+				<!-- Risk Distribution -->
 				<section class="card mt-8 p-5">
-					<h2 class="mb-3 text-sm font-semibold uppercase tracking-wide text-gray-400">Exposure vs Human Bottleneck</h2>
-					<ScatterQuadrant occupations={filteredOccupations} />
+					<div class="mb-3">
+						<h2 class="text-sm font-semibold uppercase tracking-wide text-gray-400">Risk Distribution</h2>
+						<p class="mt-1 text-xs text-gray-500">
+							How {filteredOccupations.length} occupations distribute across net displacement risk levels.
+						</p>
+					</div>
+					<div class="grid gap-6 md:grid-cols-2">
+						<div>
+							<h3 class="mb-2 text-xs font-medium text-gray-500">Score Histogram</h3>
+							<Histogram occupations={filteredOccupations} />
+						</div>
+						<div>
+							<h3 class="mb-2 text-xs font-medium text-gray-500">Risk by Wage Bracket</h3>
+							<WageBracketChart occupations={filteredOccupations} />
+						</div>
+					</div>
 				</section>
+
+				<!-- Scatter plot -->
+					<section class="card mt-8 p-5">
+						<div class="mb-3">
+							<h2 class="text-sm font-semibold uppercase tracking-wide text-gray-400">Exposure vs Human Bottleneck</h2>
+							<p class="mt-1 text-xs text-gray-500">
+								Each dot is one occupation. Dot size is fixed to avoid implying occupation-level workforce counts we do not have.
+							</p>
+						</div>
+						<ScatterQuadrant occupations={filteredOccupations} />
+					</section>
 			{:else}
 				<OccupationCardList occupations={filteredOccupations} />
 			{/if}

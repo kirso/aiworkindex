@@ -61,7 +61,7 @@
 		</div>
 
 		<!-- Key stats grid -->
-		<div class="mt-3 grid grid-cols-3 gap-x-3 gap-y-1.5">
+			<div class="mt-3 grid grid-cols-3 gap-x-3 gap-y-1.5">
 			<div>
 				<p class="text-[10px] font-medium text-gray-400">Net Risk</p>
 				<p class="text-sm font-bold tabular-nums text-gray-900">{(occupation.net_risk * 100).toFixed(0)}%</p>
@@ -70,11 +70,13 @@
 				<p class="text-[10px] font-medium text-gray-400">Median Wage</p>
 				<p class="text-sm font-bold tabular-nums text-gray-900">SGD {occupation.gross_wage_median.toLocaleString()}</p>
 			</div>
-			<div>
-				<p class="text-[10px] font-medium text-gray-400">Group</p>
-				<p class="text-xs font-bold text-gray-900">{groupLabel(occupation.major_group)}</p>
-				<p class="text-[10px] tabular-nums text-gray-500">{formatGroupEmployment(occupation.group_employment_thousands)} workers</p>
-			</div>
+				<div>
+					<p class="text-[10px] font-medium text-gray-400">Major Group</p>
+					<p class="text-xs font-bold text-gray-900">{groupLabel(occupation.major_group)}</p>
+					<p class="text-[10px] tabular-nums text-gray-500">
+						Group workforce: {formatGroupEmployment(occupation.group_employment_thousands)} workers
+					</p>
+				</div>
 		</div>
 
 		<!-- Score bars -->

@@ -65,8 +65,7 @@
 	let groupEmployment = $derived.by(() => {
 		const emp = new Map<string, number>();
 		for (const [key, occs] of groupedOccupations) {
-			const total = occs.reduce((s, o) => s + o.employment_thousands, 0);
-			emp.set(key, total);
+			emp.set(key, occs[0]?.group_employment_thousands ?? occs.length);
 		}
 		return emp;
 	});
@@ -342,6 +341,13 @@
 			Loading visualization...
 		</div>
 	{/if}
+</div>
+
+<!-- Color Legend -->
+<div class="mt-3 flex items-center gap-2">
+	<span class="text-[10px] text-gray-500">Very Low</span>
+	<div class="h-2.5 flex-1 rounded-full" style="background: linear-gradient(to right, #10b981, #f59e0b, #f97316, #f43f5e);"></div>
+	<span class="text-[10px] text-gray-500">Very High Risk</span>
 </div>
 
 <Tooltip

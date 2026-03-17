@@ -26,11 +26,7 @@
 	let xScale = $derived(d3Scale.scaleLinear().domain([0, 1]).range([0, plotWidth]));
 	let yScale = $derived(d3Scale.scaleLinear().domain([0, 1]).range([plotHeight, 0]));
 
-	let sizeScale = $derived(
-		d3Scale.scaleSqrt()
-			.domain([0, Math.max(...occupations.map((o) => o.group_employment_thousands))])
-			.range([2.5, 7])
-	);
+	const dotRadius = 4.5;
 
 	// Crosshair at the median (0.5 percentile)
 	const crosshairX = 0.5;
@@ -121,7 +117,7 @@
 					<circle
 						cx={xScale(occ.exposure)}
 						cy={yScale(occ.bottleneck)}
-						r={sizeScale(occ.group_employment_thousands)}
+						r={dotRadius}
 						fill={groupColor(occ.major_group)}
 						opacity="0.65"
 						class="scatter-dot cursor-pointer"

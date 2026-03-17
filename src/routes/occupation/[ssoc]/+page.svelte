@@ -90,24 +90,129 @@
 		return 'This role is sensitive to assumptions. Small shifts can move it across multiple bands.';
 	}
 
-	function vacancyTrendLabel(trend: string): string {
-		if (trend === 'heating_up') return 'Heating up';
-		if (trend === 'cooling_down') return 'Cooling down';
-		if (trend === 'stable') return 'Stable';
-		return 'Unknown';
+	function vacancySignalLabel(signal: number): string {
+		if (signal > 0) return 'Heating Up';
+		if (signal < 0) return 'Cooling Down';
+		return 'Stable';
 	}
 
-	function vacancyTrendTone(trend: string): string {
-		if (trend === 'heating_up') return 'bg-emerald-50 text-emerald-700 border-emerald-200';
-		if (trend === 'cooling_down') return 'bg-rose-50 text-rose-700 border-rose-200';
-		if (trend === 'stable') return 'bg-blue-50 text-blue-700 border-blue-200';
-		return 'bg-gray-50 text-gray-500 border-gray-200';
+	function vacancySignalTone(signal: number): string {
+		if (signal > 0) return 'bg-emerald-50 text-emerald-700 border-emerald-200';
+		if (signal < 0) return 'bg-rose-50 text-rose-700 border-rose-200';
+		return 'bg-blue-50 text-blue-700 border-blue-200';
+	}
+
+	function overallSignalLabel(overall: string): string {
+		if (overall === 'strong') return 'Strong';
+		if (overall === 'moderate') return 'Moderate';
+		if (overall === 'weak') return 'Weak';
+		return 'Deteriorating';
+	}
+
+	function overallSignalTone(overall: string): string {
+		if (overall === 'strong') return 'bg-emerald-50 text-emerald-700 border-emerald-200';
+		if (overall === 'moderate') return 'bg-blue-50 text-blue-700 border-blue-200';
+		if (overall === 'weak') return 'bg-amber-50 text-amber-700 border-amber-200';
+		return 'bg-rose-50 text-rose-700 border-rose-200';
 	}
 
 	function formatPct(value: number | null): string {
 		if (value === null) return 'n/a';
 		const pct = Math.round(value * 100);
 		return `${pct > 0 ? '+' : ''}${pct}%`;
+	}
+
+	// Percentile computation
+	let netRiskPercentile = $derived.by(() => {
+		const sorted = [...allOccupations].sort((a, b) => a.net_risk - b.net_risk);
+		const rank = sorted.findIndex((o) => o.ssoc === occ.ssoc);
+		return Math.round((rank / (sorted.length - 1)) * 100);
+	});
+
+	let wagePercentile = $derived.by(() => {
+		const sorted = [...allOccupations].sort((a, b) => a.gross_wage_median - b.gross_wage_median);
+		const rank = sorted.findIndex((o) => o.ssoc === occ.ssoc);
+		return Math.round((rank / (sorted.length - 1)) * 100);
+	});
+
+	// Group context
+	let groupOccupations = $derived(
+		allOccupations.filter((o) => o.major_group === occ.major_group)
+	);
+	let groupAvgRisk = $derived(
+		Math.round(
+			(groupOccupations.reduce((s, o) => s + o.net_risk, 0) / groupOccupations.length) * 100
+		)
+	);
+
+	// Evidence trail items
+	let evidenceTrail = $derived.by(() => {
+		const items: Array<{ icon: string; label: string; detail: string; tone: string }> = [];
+
+		// AIOE
+		items.push({
+			icon: occ.match_quality === 'direct' ? 'check' : 'approx',
+			label: 'AIOE',
+			detail: occ.match_quality === 'direct' ? 'direct crosswalk' : `${occ.match_quality.replace('_', ' ')}`,
+			tone: occ.match_quality === 'direct' ? 'text-emerald-600' : 'text-amber-600'
+		});
+
+		// Theta
+		items.push({
+			icon: occ.match_quality === 'direct' ? 'check' : 'approx',
+			label: 'Theta',
+			detail: occ.match_quality === 'direct' ? 'direct crosswalk' : `${occ.match_quality.replace('_', ' ')}`,
+			tone: occ.match_quality === 'direct' ? 'text-emerald-600' : 'text-amber-600'
+		});
+
+		// SOL
+		if (occ.evidence.sol_match) {
+			items.push({
+				icon: 'check',
+				label: 'SOL 2026',
+				detail: occ.evidence.sol_match === 'exact' ? 'exact match — shortage occupation' : 'prefix inferred',
+				tone: 'text-emerald-600'
+			});
+		}
+
+		// Jobs in Demand
+		if (occ.evidence.jobs_in_demand_match) {
+			items.push({
+				icon: 'check',
+				label: 'Jobs in Demand 2025',
+				detail: occ.evidence.jobs_in_demand_match === 'exact' ? 'exact match' : 'prefix inferred',
+				tone: 'text-emerald-600'
+			});
+		}
+
+		// Anthropic
+		if (occ.evidence.anthropic_calibrated) {
+			const gap = occ.evidence.anthropic_gap ?? 0;
+			items.push({
+				icon: 'check',
+				label: 'Anthropic',
+				detail: `calibrated (${gap >= 0 ? '+' : ''}${Math.round(gap * 100)}% ${gap >= 0 ? 'above' : 'below'} theoretical)`,
+				tone: gap >= 0 ? 'text-rose-600' : 'text-blue-600'
+			});
+		}
+
+		// Labour monitor
+		if (occ.labour_monitor) {
+			items.push({
+				icon: 'cluster',
+				label: 'Labour monitor',
+				detail: `${occ.labour_monitor.cluster_label} cluster — ${overallSignalLabel(occ.labour_monitor.overall)}`,
+				tone: occ.labour_monitor.overall === 'strong' || occ.labour_monitor.overall === 'moderate' ? 'text-emerald-600' : 'text-amber-600'
+			});
+		}
+
+		return items;
+	});
+
+	function formatPointDelta(value: number | null): string {
+		if (value === null) return 'n/a';
+		const points = Math.round(value * 100);
+		return `${points > 0 ? '+' : ''}${points} pts`;
 	}
 
 	let demandEvidence = $derived.by(() => {
@@ -126,14 +231,14 @@
 				tone: demandMatchTone(occ.evidence.jobs_in_demand_match)
 			});
 		}
-		if (occ.evidence.anthropic_calibrated) {
-			const gap = occ.evidence.anthropic_gap ?? 0;
-			items.push({
-				label: 'Observed AI Usage',
-				detail: gap >= 0 ? `Above theory ${formatPct(gap)}` : `Below theory ${formatPct(gap)}`,
-				tone: gap >= 0 ? 'bg-rose-50 text-rose-700 border-rose-200' : 'bg-blue-50 text-blue-700 border-blue-200'
-			});
-		}
+			if (occ.evidence.anthropic_calibrated) {
+				const gap = occ.evidence.anthropic_gap ?? 0;
+				items.push({
+					label: 'Observed AI Usage',
+					detail: gap >= 0 ? `Above theory ${formatPointDelta(gap)}` : `Below theory ${formatPointDelta(gap)}`,
+					tone: gap >= 0 ? 'bg-rose-50 text-rose-700 border-rose-200' : 'bg-blue-50 text-blue-700 border-blue-200'
+				});
+			}
 		return items;
 	});
 
@@ -344,7 +449,7 @@
 					SSOC {occ.ssoc} &middot; {group?.label ?? occ.major_group}
 				</p>
 				<p class="mt-0.5 text-sm text-gray-500">
-					Part of {group?.label ?? occ.major_group} ({formatGroupEmployment(occ.group_employment_thousands)})
+					1 of {groupOccupations.length} {group?.label ?? occ.major_group} occupations &middot; Cluster avg risk: {groupAvgRisk}%
 				</p>
 				<div class="mt-3 flex flex-wrap items-center gap-2">
 					<span
@@ -482,9 +587,23 @@
 			</div>
 		</div>
 
+		<!-- Evidence Trail -->
+		<h3 class="mb-2 mt-5 text-sm font-semibold text-gray-700">Evidence Trail</h3>
+		<div class="space-y-1.5">
+			{#each evidenceTrail as item}
+				<div class="flex items-start gap-2 text-xs">
+					<span class="{item.tone} mt-0.5 font-bold">
+						{#if item.icon === 'check'}&#10003;{:else if item.icon === 'approx'}&#9675;{:else}&#9679;{/if}
+					</span>
+					<span class="text-gray-700">
+						<span class="font-semibold">{item.label}</span>: {item.detail}
+					</span>
+				</div>
+			{/each}
+		</div>
+
 		{#if demandEvidence.length > 0}
-			<h3 class="mb-2 mt-5 text-sm font-semibold text-gray-700">Official Evidence</h3>
-			<div class="flex flex-wrap gap-2">
+			<div class="mt-3 flex flex-wrap gap-2">
 				{#each demandEvidence as item}
 					<div class="rounded-lg border px-3 py-2 {item.tone}">
 						<p class="text-xs font-semibold">{item.label}</p>
@@ -494,41 +613,97 @@
 			</div>
 		{/if}
 
-		{#if occ.vacancy_monitor}
-			<h3 class="mb-2 mt-5 text-sm font-semibold text-gray-700">Quarterly Vacancy Monitor</h3>
+		<!-- Percentile Bars -->
+		<h3 class="mb-2 mt-5 text-sm font-semibold text-gray-700">Where This Occupation Stands</h3>
+		<div class="space-y-3">
+			<div>
+				<div class="mb-1 flex items-center justify-between text-xs">
+					<span class="text-gray-600">Net Risk Percentile</span>
+					<span class="font-medium text-gray-900">Higher than {netRiskPercentile}% of {allOccupations.length} occupations</span>
+				</div>
+				<div class="relative h-3 w-full overflow-hidden rounded-full bg-gray-100">
+					<div
+						class="absolute inset-y-0 left-0 rounded-full"
+						style="width: {netRiskPercentile}%; background: linear-gradient(to right, #10b981, #f59e0b, #ef4444);"
+					></div>
+					<div
+						class="absolute top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-gray-800 shadow"
+						style="left: {netRiskPercentile}%;"
+					></div>
+				</div>
+			</div>
+			<div>
+				<div class="mb-1 flex items-center justify-between text-xs">
+					<span class="text-gray-600">Wage Percentile</span>
+					<span class="font-medium text-gray-900">Higher than {wagePercentile}% of {allOccupations.length} occupations</span>
+				</div>
+				<div class="relative h-3 w-full overflow-hidden rounded-full bg-gray-100">
+					<div
+						class="absolute inset-y-0 left-0 rounded-full bg-blue-400"
+						style="width: {wagePercentile}%;"
+					></div>
+					<div
+						class="absolute top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-blue-700 shadow"
+						style="left: {wagePercentile}%;"
+					></div>
+				</div>
+			</div>
+		</div>
+
+		{#if occ.labour_monitor}
+			<h3 class="mb-2 mt-5 text-sm font-semibold text-gray-700">Labour Monitor</h3>
 			<div class="rounded-lg border border-gray-100 bg-gray-50 p-4">
 				<div class="flex flex-wrap items-start justify-between gap-3">
 					<div>
 						<p class="text-xs font-semibold uppercase tracking-wide text-gray-500">
-							{occ.vacancy_monitor.cluster_label}
+							Labour cluster: {occ.labour_monitor.cluster_label}
 						</p>
 						<p class="mt-1 text-sm text-gray-700">
-							Latest official vacancies: <span class="font-semibold text-gray-900">{occ.vacancy_monitor.latest_openings?.toLocaleString() ?? 'n/a'}</span>
-							{#if occ.vacancy_monitor.latest_quarter}
-								<span class="text-gray-500">in {occ.vacancy_monitor.latest_quarter}</span>
-							{/if}
+							Vacancy rate: <span class="font-semibold text-gray-900">{occ.labour_monitor.vacancy.latest_rate}%</span>
+							<span class="text-gray-500">in {occ.labour_monitor.vacancy.latest_quarter}</span>
 						</p>
 						<p class="mt-1 text-xs text-gray-500">
-							4-quarter average: {occ.vacancy_monitor.four_quarter_average?.toLocaleString() ?? 'n/a'}
-							{#if occ.vacancy_monitor.change_qoq !== null}
-								&middot; QoQ {formatPct(occ.vacancy_monitor.change_qoq)}
-							{/if}
+							4Q-over-4Q trend: {occ.labour_monitor.vacancy.trend_4q_pct > 0 ? '+' : ''}{occ.labour_monitor.vacancy.trend_4q_pct.toFixed(1)}%
 						</p>
 					</div>
-					<span class="rounded-full border px-2.5 py-1 text-xs font-medium {vacancyTrendTone(occ.vacancy_monitor.trend_8q)}">
-						{vacancyTrendLabel(occ.vacancy_monitor.trend_8q)}
-					</span>
+					<div class="flex flex-col items-end gap-1.5">
+						<span class="rounded-full border px-2.5 py-1 text-xs font-medium {vacancySignalTone(occ.labour_monitor.vacancy.signal)}">
+							{vacancySignalLabel(occ.labour_monitor.vacancy.signal)}
+						</span>
+						<span class="rounded-full border px-2.5 py-1 text-xs font-medium {overallSignalTone(occ.labour_monitor.overall)}">
+							Overall: {overallSignalLabel(occ.labour_monitor.overall)}
+						</span>
+					</div>
 				</div>
 
-				{#if occ.vacancy_monitor.recent_quarters.length > 0}
+				{#if occ.labour_monitor.hiring}
+					<div class="mt-3 rounded bg-white/60 px-3 py-2">
+						<p class="text-xs text-gray-600">
+							Net Hiring: Recruitment {occ.labour_monitor.hiring.recruitment_rate}% &middot;
+							Resignation {occ.labour_monitor.hiring.resignation_rate}% &middot;
+							Net: {occ.labour_monitor.hiring.net_pressure > 0 ? '+' : ''}{occ.labour_monitor.hiring.net_pressure}pp
+						</p>
+					</div>
+				{/if}
+
+				{#if occ.labour_monitor.retrenchment}
+					<div class="mt-2 rounded bg-white/60 px-3 py-2">
+						<p class="text-xs text-gray-600">
+							Retrenchment: {occ.labour_monitor.retrenchment.latest_count.toLocaleString()} in {occ.labour_monitor.retrenchment.latest_quarter}
+							&middot; Trend: {occ.labour_monitor.retrenchment.trend_4q_pct > 0 ? '+' : ''}{occ.labour_monitor.retrenchment.trend_4q_pct.toFixed(1)}%
+						</p>
+					</div>
+				{/if}
+
+				{#if occ.labour_monitor.vacancy.recent_quarters.length > 0}
 					<div class="mt-4">
 						<div class="flex items-end gap-2">
-							{#each occ.vacancy_monitor.recent_quarters as point}
+							{#each occ.labour_monitor.vacancy.recent_quarters as point}
 								<div class="flex-1">
 									<div class="flex h-16 items-end">
 										<div
 											class="w-full rounded-t bg-indigo-400/80"
-											style="height: {Math.max((point.openings / Math.max(...occ.vacancy_monitor.recent_quarters.map((p) => p.openings))) * 100, 8)}%;"
+											style="height: {Math.max((point.rate / Math.max(...occ.labour_monitor.vacancy.recent_quarters.map((p) => p.rate))) * 100, 8)}%;"
 										></div>
 									</div>
 									<p class="mt-1 text-center text-[10px] text-gray-400">{point.quarter.replace('20', '')}</p>
@@ -537,6 +712,10 @@
 						</div>
 					</div>
 				{/if}
+
+				<p class="mt-3 text-[10px] text-gray-400">
+					Source: MOM/SingStat via data.gov.sg. Latest: {occ.labour_monitor.data_as_of}. Cluster-level data.
+				</p>
 			</div>
 		{/if}
 	</section>
