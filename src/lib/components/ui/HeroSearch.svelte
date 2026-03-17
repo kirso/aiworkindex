@@ -5,7 +5,8 @@
 	import { findAliasMatches } from '$lib/data/aliases';
 	import { syntheticRoles } from '$lib/data/synthetic-roles';
 	import type { SyntheticRole } from '$lib/data/synthetic-roles';
-	import { riskBadge } from '$lib/design-system';
+	import { riskBadge, card, formInput } from '$lib/design-system';
+	import { cn } from '$lib/utils';
 
 	let {
 		occupations
@@ -99,10 +100,10 @@
 			onkeydown={handleKeydown}
 			onfocus={handleFocus}
 			onblur={handleBlur}
-			class="w-full rounded-xl border-2 border-border bg-card px-6 py-4 text-lg shadow-sm transition-colors placeholder:text-muted-foreground focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/30"
+			class={cn(formInput({ size: 'lg' }), 'rounded-xl border-2 shadow-sm focus:ring-2 focus:ring-ring/30')}
 		/>
 		{#if showDropdown && results.length > 0}
-			<div class="absolute left-0 right-0 z-50 mt-2 max-h-80 overflow-y-auto rounded-xl border border-border bg-card shadow-lg">
+			<div class={cn(card({ padding: 'none' }), 'absolute left-0 right-0 z-50 mt-2 max-h-80 overflow-y-auto shadow-lg')}>
 				{#each results as result, i}
 					{#if result.type === 'role'}
 						<button
@@ -134,7 +135,7 @@
 									SSOC {result.occupation.ssoc} &middot; SGD {result.occupation.gross_wage_median.toLocaleString()} median
 								</p>
 							</div>
-							<span class={riskBadge({ band: result.occupation.risk_band }) + ' ml-3 shrink-0'}>
+							<span class={cn(riskBadge({ band: result.occupation.risk_band }), 'ml-3 shrink-0')}>
 								{riskBandLabels[result.occupation.risk_band]}
 							</span>
 						</button>
@@ -143,7 +144,7 @@
 			</div>
 		{/if}
 		{#if showDropdown && query.trim().length >= 2 && results.length === 0}
-			<div class="absolute left-0 right-0 z-50 mt-2 rounded-xl border border-border bg-card px-5 py-4 text-sm text-muted-foreground shadow-lg">
+			<div class={cn(card({ padding: 'md' }), 'absolute left-0 right-0 z-50 mt-2 text-sm text-muted-foreground shadow-lg')}>
 				No occupations found for "{query.trim()}". Try a different job title.
 			</div>
 		{/if}

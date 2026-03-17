@@ -12,6 +12,7 @@
 	} from '$lib/data';
 	import type { Occupation } from '$lib/data';
 	import { title as titleStyle, card, riskBadge, impactBadge } from '$lib/design-system';
+	import { cn } from '$lib/utils';
 
 	let { data } = $props();
 
@@ -161,7 +162,7 @@
 	{/if}
 
 	{#if selected.length === 0}
-		<div class={card({ padding: 'lg' }) + ' text-center'}>
+		<div class={cn(card({ padding: 'lg' }), 'text-center')}>
 			<p class="text-muted-foreground">Search above to add occupations for comparison.</p>
 			<p class="mt-2 text-sm text-muted-foreground">
 				You can also link directly: <code class="rounded bg-muted px-1 text-xs">/compare?jobs=25121,41320</code>
@@ -281,7 +282,7 @@
 		</div>
 
 		<!-- Comparison table -->
-		<div class={card() + ' overflow-x-auto'}>
+		<div class={cn(card(), 'overflow-x-auto')}>
 			<table class="w-full text-left text-sm">
 				<thead>
 					<tr class="border-b border-border bg-muted">

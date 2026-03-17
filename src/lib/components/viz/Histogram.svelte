@@ -1,9 +1,21 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import type { Occupation } from '$lib/data';
-	import * as d3Scale from 'd3-scale';
+	import { riskColorScale } from '$lib/design-system';
 
 	let { occupations }: { occupations: Occupation[] } = $props();
+
+	let containerEl: HTMLDivElement | undefined = $state();
+	let chartWidth = $state(600);
+
+	$effect(() => {
+		if (!browser || !containerEl) return;
+		const observer = new ResizeObserver((entries) => {
+			chartWidth = entries[0].contentRect.width;
+		});
+		observer.observe(containerEl);
+		return () => observer.disconnect();
+	});
 
 	const binSize = 0.05;
 	const maxRisk = 0.80;
@@ -29,18 +41,11 @@
 
 	let maxCount = $derived(Math.max(...binData.map((b) => b.count), 1));
 
-	const riskColorScale = d3Scale
-		.scaleLinear<string>()
-		.domain([0, 0.15, 0.35, 0.6])
-		.range(['#10b981', '#f59e0b', '#f97316', '#f43f5e'])
-		.clamp(true);
-
-	const chartWidth = 600;
 	const chartHeight = 200;
 	const marginLeft = 40;
 	const marginBottom = 30;
 	const marginTop = 10;
-	const plotWidth = chartWidth - marginLeft;
+	let plotWidth = $derived(chartWidth - marginLeft);
 	const plotHeight = chartHeight - marginBottom - marginTop;
 
 	// Round Y-axis ticks (item 10)
@@ -57,6 +62,7 @@
 	});
 </script>
 
+<div bind:this={containerEl}>
 {#if browser}
 	<svg viewBox="0 0 {chartWidth} {chartHeight}" class="block w-full" role="img" aria-label="Histogram of net displacement risk across {occupations.length} occupations">
 		<!-- Y axis -->
@@ -99,3 +105,4 @@
 		<text x={chartWidth / 2} y={chartHeight - 0} text-anchor="middle" class="fill-muted-foreground text-[10px]">Risk Score</text>
 	</svg>
 {/if}
+</div>

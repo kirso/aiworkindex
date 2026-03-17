@@ -9,6 +9,7 @@
 	import OccupationCardList from '$lib/components/ui/OccupationCardList.svelte';
 	import HeroSearch from '$lib/components/ui/HeroSearch.svelte';
 	import { title as titleStyle, sectionLabel, card } from '$lib/design-system';
+	import { cn } from '$lib/utils';
 
 	let { data } = $props();
 
@@ -82,7 +83,7 @@
 	<div class="flex gap-6">
 		<!-- Sidebar filters (desktop) — single instance, responsive -->
 		<aside class="hidden w-[260px] shrink-0 lg:block">
-			<div class={card({ padding: 'md' }) + ' sticky top-16 max-h-[calc(100vh-5rem)] overflow-y-auto'}>
+			<div class={cn(card({ padding: 'md' }), 'sticky top-16 max-h-[calc(100vh-5rem)] overflow-y-auto')}>
 				<FilterPanel occupations={data.occupations} onfilter={handleFilter} />
 			</div>
 		</aside>
@@ -105,7 +106,7 @@
 
 			<!-- Insights panel: collapsible on screens below xl -->
 			{#if innerWidth < 1280 && innerWidth >= 768}
-				<details class={card() + ' mb-5'}>
+				<details class={cn(card(), 'mb-5')}>
 					<summary class={'cursor-pointer px-5 py-3 ' + sectionLabel()}>
 						Insights & Rankings
 					</summary>
@@ -126,7 +127,7 @@
 				</section>
 
 				<!-- Risk Distribution -->
-				<section class={card({ padding: 'md' }) + ' mt-8'}>
+				<section class={cn(card({ padding: 'md' }), 'mt-8')}>
 					<div class="mb-3">
 						<h2 class={sectionLabel()}>How risk breaks down</h2>
 						<p class="mt-1 text-xs text-muted-foreground">
@@ -146,7 +147,7 @@
 				</section>
 
 				<!-- Scatter plot -->
-					<section class={card({ padding: 'md' }) + ' mt-8'}>
+					<section class={cn(card({ padding: 'md' }), 'mt-8')}>
 						<div class="mb-3">
 							<h2 class={sectionLabel()}>AI Exposure vs Human Skills</h2>
 							<p class="mt-1 text-xs text-muted-foreground">
@@ -163,7 +164,7 @@
 		<!-- Right sidebar: insights panel (xl+ only) -->
 		{#if innerWidth >= 1280}
 			<aside class="hidden w-[280px] shrink-0 xl:block">
-				<div class={card({ padding: 'md' }) + ' sticky top-16 max-h-[calc(100vh-5rem)] overflow-y-auto'}>
+				<div class={cn(card({ padding: 'md' }), 'sticky top-16 max-h-[calc(100vh-5rem)] overflow-y-auto')}>
 					<InsightsPanel occupations={filteredOccupations} />
 				</div>
 			</aside>

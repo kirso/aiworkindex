@@ -4,6 +4,7 @@
 	import { page } from '$app/stores';
 	import { fade } from 'svelte/transition';
 	import { prefersReducedMotion } from 'svelte/motion';
+	import { pageContainer } from '$lib/design-system';
 
 	let { children } = $props();
 
@@ -28,7 +29,7 @@
 <div class="flex min-h-screen flex-col bg-background">
 	<!-- Sticky header -->
 	<header class="sticky top-0 z-50 bg-header-bg shadow-sm">
-		<div class="mx-auto flex max-w-screen-2xl items-center justify-between px-5 py-3 sm:px-6">
+		<div class="{pageContainer()} flex items-center justify-between py-3">
 			<a href="/" class="flex items-center gap-2.5 text-header-text transition-colors hover:text-white">
 				<svg class="h-5 w-5 text-ring" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 					<path d="M12 2L2 7l10 5 10-5-10-5z"/>
@@ -62,7 +63,7 @@
 	</div>
 
 	<footer class="border-t border-border bg-card">
-		<div class="mx-auto max-w-screen-2xl px-5 py-6 sm:px-6">
+		<div class="{pageContainer()} py-6">
 			<div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
 				<div>
 					<p class="text-xs text-muted-foreground">

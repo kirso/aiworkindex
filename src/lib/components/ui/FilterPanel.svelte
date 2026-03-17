@@ -5,7 +5,7 @@
 	import type { Occupation, RiskBand } from '$lib/data';
 	import { majorGroups, riskBandLabels, riskBandColors } from '$lib/data';
 	import { findAliasMatches } from '$lib/data/aliases';
-	import { chip } from '$lib/design-system';
+	import { chip, formInput } from '$lib/design-system';
 
 	let {
 		occupations,
@@ -172,7 +172,7 @@
 			type="text"
 			placeholder="Filter occupations..."
 			bind:value={search}
-			class="w-full rounded-md border border-border bg-card px-3 py-2 text-sm text-foreground placeholder-muted-foreground outline-none transition-colors focus:border-ring focus:ring-1 focus:ring-ring"
+			class={formInput({ size: 'md' })}
 		/>
 		{#if showDidYouMean}
 			<p class="mt-1.5 text-xs text-muted-foreground">

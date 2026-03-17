@@ -1,14 +1,15 @@
 <script lang="ts">
 	import type { Occupation } from '$lib/data';
 	import { riskBandLabels, riskBandColors } from '$lib/data';
-	import { riskBadge } from '$lib/design-system';
+	import { riskBadge, card } from '$lib/design-system';
+	import { cn } from '$lib/utils';
 
 	let { occupation }: { occupation: Occupation } = $props();
 </script>
 
 <a
 	href="/occupation/{occupation.ssoc}"
-	class="flex items-center justify-between rounded-md border border-border/50 bg-card px-3 py-2 transition-colors hover:bg-muted"
+	class={cn(card({ padding: 'sm', hover: true }), 'flex items-center justify-between')}
 >
 	<div class="min-w-0 flex-1">
 		<p class="truncate text-sm font-medium text-foreground">{occupation.title}</p>

@@ -13,6 +13,7 @@
  */
 
 import { tv, type VariantProps } from "tailwind-variants";
+import * as d3Scale from "d3-scale";
 
 // ============================================
 // TYPOGRAPHY
@@ -235,6 +236,81 @@ export const evidenceItem = tv({
 });
 
 // ============================================
+// FORM INPUTS
+// ============================================
+
+/** Form input component */
+export const formInput = tv({
+	base: "w-full rounded-lg border border-border bg-card px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground outline-none transition-colors focus:border-ring focus:ring-1 focus:ring-ring",
+	variants: {
+		size: {
+			sm: "px-2.5 py-1.5 text-xs",
+			md: "px-3 py-2 text-sm",
+			lg: "px-4 py-3 text-base",
+		},
+	},
+	defaultVariants: { size: "md" },
+});
+
+// ============================================
+// RISK COLOR SCALE
+// ============================================
+
+/** Shared risk color scale — used by all viz components */
+export const riskColorScale = d3Scale
+	.scaleLinear<string>()
+	.domain([0, 0.15, 0.35, 0.6])
+	.range(["#10b981", "#f59e0b", "#f97316", "#f43f5e"])
+	.clamp(true);
+
+// ============================================
+// COLOR TONE FUNCTIONS
+// ============================================
+
+/** Confidence badge color (hex) */
+export function confidenceColor(level: string): string {
+	if (level === "high") return "#16a34a";
+	if (level === "medium") return "#ca8a04";
+	return "#dc2626";
+}
+
+/** Demand match badge tone classes */
+export function demandMatchTone(match: "exact" | "prefix" | false): string {
+	if (match === "exact")
+		return "bg-emerald-50 text-emerald-700 border-emerald-200";
+	if (match === "prefix")
+		return "bg-amber-50 text-amber-700 border-amber-200";
+	return "bg-secondary text-muted-foreground border-border";
+}
+
+/** Stability badge tone classes */
+export function stabilityTone(label: string): string {
+	if (label === "stable")
+		return "bg-emerald-50 border-emerald-200 text-emerald-800";
+	if (label === "watch")
+		return "bg-amber-50 border-amber-200 text-amber-800";
+	return "bg-rose-50 border-rose-200 text-rose-800";
+}
+
+/** Overall hiring signal tone classes */
+export function overallSignalTone(overall: string): string {
+	if (overall === "strong")
+		return "bg-emerald-50 text-emerald-700 border-emerald-200";
+	if (overall === "moderate")
+		return "bg-blue-50 text-blue-700 border-blue-200";
+	if (overall === "weak")
+		return "bg-amber-50 text-amber-700 border-amber-200";
+	return "bg-rose-50 text-rose-700 border-rose-200";
+}
+
+/** Vacancy signal tone classes */
+export function vacancySignalTone(trend: number): string {
+	if (trend > 0) return "bg-emerald-50 text-emerald-700 border-emerald-200";
+	if (trend < 0) return "bg-rose-50 text-rose-700 border-rose-200";
+	return "bg-blue-50 text-blue-700 border-blue-200";
+}
+
+// ============================================
 // TYPE EXPORTS
 // ============================================
 
@@ -246,3 +322,4 @@ export type ConfidenceBadgeVariants = VariantProps<typeof confidenceBadge>;
 export type BadgeVariants = VariantProps<typeof badge>;
 export type ChipVariants = VariantProps<typeof chip>;
 export type ScoreBarVariants = VariantProps<typeof scoreBar>;
+export type FormInputVariants = VariantProps<typeof formInput>;

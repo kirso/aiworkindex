@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Occupation, RiskBand } from '$lib/data';
 	import { impactTypeColors, impactTypeLabels, riskBandColors } from '$lib/data';
-	import { sectionLabel } from '$lib/design-system';
+	import { sectionLabel, card } from '$lib/design-system';
 
 	let { occupations }: { occupations: Occupation[] } = $props();
 
@@ -94,33 +94,33 @@
 	<div>
 		<h3 class={sectionLabel()}>Overview</h3>
 		<div class="mt-2 grid grid-cols-2 gap-2">
-				<div class="rounded-lg bg-secondary px-3 py-2">
+				<div class={card({ padding: 'sm', variant: 'muted' })}>
 					<p class="text-xs text-muted-foreground">SG Workforce</p>
 					<p class="text-base font-bold tabular-nums text-foreground">
 						{(OFFICIAL_TOTAL_WORKERS_K / 1000).toFixed(2)}M
 					</p>
 				</div>
-			<div class="rounded-lg bg-secondary px-3 py-2">
+			<div class={card({ padding: 'sm', variant: 'muted' })}>
 				<p class="text-xs text-muted-foreground">Occupations</p>
 				<p class="text-base font-bold tabular-nums text-foreground">{occupations.length}</p>
 			</div>
-			<div class="rounded-lg bg-secondary px-3 py-2">
+			<div class={card({ padding: 'sm', variant: 'muted' })}>
 				<p class="text-xs text-muted-foreground">Median Pay</p>
 				<p class="text-base font-bold tabular-nums text-foreground">SGD {medianPay.toLocaleString()}</p>
 			</div>
-			<div class="rounded-lg bg-secondary px-3 py-2">
+			<div class={card({ padding: 'sm', variant: 'muted' })}>
 				<p class="text-xs text-muted-foreground">High+ Risk</p>
 				<p class="text-base font-bold tabular-nums text-risk-very-high">{highRiskCount}</p>
 			</div>
-			<div class="rounded-lg bg-secondary px-3 py-2">
+			<div class={card({ padding: 'sm', variant: 'muted' })}>
 				<p class="text-xs text-muted-foreground">High Est. Confidence</p>
 				<p class="text-base font-bold tabular-nums text-foreground">{highConfidenceCount}</p>
 			</div>
-			<div class="rounded-lg bg-secondary px-3 py-2">
+			<div class={card({ padding: 'sm', variant: 'muted' })}>
 				<p class="text-xs text-muted-foreground">Demand Flagged</p>
 				<p class="text-base font-bold tabular-nums text-emerald-700">{demandFlaggedCount}</p>
 			</div>
-			<div class="rounded-lg bg-secondary px-3 py-2">
+			<div class={card({ padding: 'sm', variant: 'muted' })}>
 				<p class="text-xs text-muted-foreground">Observed AI Usage</p>
 				<p class="text-base font-bold tabular-nums text-blue-700">{observedCalibratedCount}</p>
 			</div>

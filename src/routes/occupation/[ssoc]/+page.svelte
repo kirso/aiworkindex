@@ -9,7 +9,8 @@
 		augmentationBandLabels,
 		occupations as allOccupations
 	} from '$lib/data';
-	import { title as titleStyle, sectionLabel, card, riskBadge, impactBadge, confidenceBadge } from '$lib/design-system';
+	import { title as titleStyle, sectionLabel, card, riskBadge, impactBadge, confidenceBadge, confidenceColor, demandMatchTone, stabilityTone, overallSignalTone, vacancySignalTone } from '$lib/design-system';
+	import { cn } from '$lib/utils';
 
 	let { data } = $props();
 	let occ = $derived(data.occupation);
@@ -28,13 +29,6 @@
 		if (pct < 3) return 'near the national median';
 		return diff > 0 ? `${pct}% above the national median` : `${pct}% below the national median`;
 	});
-
-	// Confidence badge color
-	function confidenceColor(level: string): string {
-		if (level === 'high') return '#16a34a';
-		if (level === 'medium') return '#ca8a04';
-		return '#dc2626';
-	}
 
 	// Group employment formatting
 	function formatGroupEmployment(groupThousands: number): string {
@@ -73,17 +67,6 @@
 		return null;
 	}
 
-	function demandMatchTone(match: 'exact' | 'prefix' | false): string {
-		if (match === 'exact') return 'bg-emerald-50 text-emerald-700 border-emerald-200';
-		if (match === 'prefix') return 'bg-amber-50 text-amber-700 border-amber-200';
-		return 'bg-secondary text-muted-foreground border-border';
-	}
-
-	function stabilityTone(label: string): string {
-		if (label === 'stable') return 'bg-emerald-50 border-emerald-200 text-emerald-800';
-		if (label === 'watch') return 'bg-amber-50 border-amber-200 text-amber-800';
-		return 'bg-rose-50 border-rose-200 text-rose-800';
-	}
 
 	function stabilityCopy(label: string): string {
 		if (label === 'stable') return 'This band holds under a +/-5 point stress test on the three core layers.';
@@ -97,24 +80,11 @@
 		return 'Stable';
 	}
 
-	function vacancySignalTone(signal: number): string {
-		if (signal > 0) return 'bg-emerald-50 text-emerald-700 border-emerald-200';
-		if (signal < 0) return 'bg-rose-50 text-rose-700 border-rose-200';
-		return 'bg-blue-50 text-blue-700 border-blue-200';
-	}
-
 	function overallSignalLabel(overall: string): string {
 		if (overall === 'strong') return 'Strong';
 		if (overall === 'moderate') return 'Moderate';
 		if (overall === 'weak') return 'Weak';
 		return 'Deteriorating';
-	}
-
-	function overallSignalTone(overall: string): string {
-		if (overall === 'strong') return 'bg-emerald-50 text-emerald-700 border-emerald-200';
-		if (overall === 'moderate') return 'bg-blue-50 text-blue-700 border-blue-200';
-		if (overall === 'weak') return 'bg-amber-50 text-amber-700 border-amber-200';
-		return 'bg-rose-50 text-rose-700 border-rose-200';
 	}
 
 	function formatPct(value: number | null): string {
@@ -502,23 +472,23 @@
 	</section>
 
 	<!-- 3. What AI Can and Can't Do -->
-	<section class={card({ padding: 'md' }) + ' mb-4'}>
-		<h2 class={titleStyle({ size: 'section' }) + ' mb-3'}>What AI Can and Can't Do</h2>
+	<section class={cn(card({ padding: 'md' }), 'mb-4')}>
+		<h2 class={cn(titleStyle({ size: 'section' }), 'mb-3')}>What AI Can and Can't Do</h2>
 		<div class="grid gap-4 sm:grid-cols-2">
 			<div class="rounded-lg bg-muted p-4">
-				<p class={sectionLabel() + ' mb-1'}>AI can handle</p>
+				<p class={cn(sectionLabel(), 'mb-1')}>AI can handle</p>
 				<p class="text-sm leading-relaxed text-foreground/80">{aiCanAndCant.canDo}</p>
 			</div>
 			<div class="rounded-lg bg-muted p-4">
-				<p class={sectionLabel() + ' mb-1'}>Humans still needed for</p>
+				<p class={cn(sectionLabel(), 'mb-1')}>Humans still needed for</p>
 				<p class="text-sm leading-relaxed text-foreground/80">{aiCanAndCant.cantDo}</p>
 			</div>
 		</div>
 	</section>
 
 	<!-- 4. Skills to Focus On -->
-	<section class={card({ padding: 'md' }) + ' mb-4'}>
-		<h2 class={titleStyle({ size: 'section' }) + ' mb-3'}>Skills to Focus On</h2>
+	<section class={cn(card({ padding: 'md' }), 'mb-4')}>
+		<h2 class={cn(titleStyle({ size: 'section' }), 'mb-3')}>Skills to Focus On</h2>
 		<div class="grid gap-3 sm:grid-cols-2">
 			{#each skillRecommendations as skill}
 				<div class="rounded-lg border border-border/50 bg-muted p-4">
@@ -530,8 +500,8 @@
 	</section>
 
 	<!-- 5. Where This Occupation Stands -->
-	<section class={card({ padding: 'md' }) + ' mb-4'}>
-		<h2 class={titleStyle({ size: 'section' }) + ' mb-3'}>Where This Occupation Stands</h2>
+	<section class={cn(card({ padding: 'md' }), 'mb-4')}>
+		<h2 class={cn(titleStyle({ size: 'section' }), 'mb-3')}>Where This Occupation Stands</h2>
 
 		<!-- Percentile Bars -->
 		<div class="space-y-3">
@@ -811,8 +781,8 @@
 	</section>
 
 	<!-- 7. Related Career Paths -->
-	<section class={card({ padding: 'md' }) + ' mb-4'}>
-		<h2 class={titleStyle({ size: 'section' }) + ' mb-4'}>Related Career Paths</h2>
+	<section class={cn(card({ padding: 'md' }), 'mb-4')}>
+		<h2 class={cn(titleStyle({ size: 'section' }), 'mb-4')}>Related Career Paths</h2>
 		<div class="grid gap-4 sm:grid-cols-3">
 			{#if data.relatedPaths.lowerRisk.length > 0}
 				<div>
@@ -825,7 +795,7 @@
 							>
 								<span class="truncate text-foreground/80">{sim.title}</span>
 								<span
-									class={riskBadge({ band: sim.risk_band }) + ' ml-2 shrink-0'}
+									class={cn(riskBadge({ band: sim.risk_band }), 'ml-2 shrink-0')}
 								>
 									{(sim.net_risk * 100).toFixed(0)}%
 								</span>
@@ -865,7 +835,7 @@
 							>
 								<span class="truncate text-foreground/80">{sim.title}</span>
 								<span
-									class={riskBadge({ band: sim.risk_band }) + ' ml-2 shrink-0'}
+									class={cn(riskBadge({ band: sim.risk_band }), 'ml-2 shrink-0')}
 								>
 									{riskBandLabels[sim.risk_band]}
 								</span>

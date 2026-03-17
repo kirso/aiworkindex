@@ -1,9 +1,21 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import type { Occupation } from '$lib/data';
-	import * as d3Scale from 'd3-scale';
+	import { riskColorScale } from '$lib/design-system';
 
 	let { occupations }: { occupations: Occupation[] } = $props();
+
+	let containerEl: HTMLDivElement | undefined = $state();
+	let chartWidth = $state(400);
+
+	$effect(() => {
+		if (!browser || !containerEl) return;
+		const observer = new ResizeObserver((entries) => {
+			chartWidth = entries[0].contentRect.width;
+		});
+		observer.observe(containerEl);
+		return () => observer.disconnect();
+	});
 
 	const brackets = [
 		{ label: '< 2K', min: 0, max: 2000 },
@@ -12,13 +24,6 @@
 		{ label: '6-10K', min: 6000, max: 10000 },
 		{ label: '10K+', min: 10000, max: Infinity }
 	];
-
-	// Risk color scale matching treemap (item 7)
-	const riskColorScale = d3Scale
-		.scaleLinear<string>()
-		.domain([0, 0.15, 0.35, 0.6])
-		.range(['#10b981', '#f59e0b', '#f97316', '#f43f5e'])
-		.clamp(true);
 
 	let bracketData = $derived.by(() => {
 		return brackets.map((bracket) => {
@@ -37,16 +42,16 @@
 
 	let maxRisk = $derived(Math.max(...bracketData.map((b) => b.avgRisk), 0.01));
 
-	const chartWidth = 400;
 	const chartHeight = 180;
 	const marginLeft = 50;
 	const marginBottom = 30;
 	const marginTop = 10;
 	const marginRight = 10;
-	const plotWidth = chartWidth - marginLeft - marginRight;
+	let plotWidth = $derived(chartWidth - marginLeft - marginRight);
 	const plotHeight = chartHeight - marginBottom - marginTop;
 </script>
 
+<div bind:this={containerEl}>
 {#if browser}
 	<svg viewBox="0 0 {chartWidth} {chartHeight}" class="block w-full" role="img" aria-label="Average occupation risk by wage bracket across {occupations.length} occupations">
 		<!-- Y axis labels -->
@@ -79,3 +84,4 @@
 		<text x={marginLeft + plotWidth / 2} y={chartHeight - 4} text-anchor="middle" class="fill-muted-foreground text-[10px]">Average risk score by salary range</text>
 	</svg>
 {/if}
+</div>

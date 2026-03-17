@@ -68,6 +68,14 @@
 		goto('/occupation/' + occ.ssoc);
 	}
 
+	// Quadrant background colors — consistent hex from design system palette
+	const quadrantColors = {
+		resilient: '#d1fae5',    // emerald-100 — low exposure, high human skills
+		augmented: '#fef3c7',    // amber-100 — high exposure, high human skills
+		unaffected: '#dbeafe',   // blue-100 — low exposure, low human skills
+		atRisk: '#ffe4e6',       // rose-100 — high exposure, low human skills
+	} as const;
+
 	// Quadrant labels (item 17: plain English)
 	const quadrantLabels = [
 		{ label: 'Resilient', x: 0.15, y: 0.85 },
@@ -81,11 +89,11 @@
 	{#if browser}
 		<svg {width} {height} class="block" role="img" aria-label="Scatter plot of AI Exposure vs Human Skills Required for {occupations.length} occupations, divided into four quadrants: AI Augmented, At Risk, Resilient, and Unaffected">
 			<g transform="translate({margin.left},{margin.top})">
-				<!-- Quadrant background fills (item 19: muted token-compatible) -->
-				<rect x={0} y={0} width={xScale(crosshairX)} height={yScale(crosshairY)} fill="oklch(0.96 0.02 155)" opacity="0.4" />
-				<rect x={xScale(crosshairX)} y={0} width={plotWidth - xScale(crosshairX)} height={yScale(crosshairY)} fill="oklch(0.96 0.02 85)" opacity="0.4" />
-				<rect x={0} y={yScale(crosshairY)} width={xScale(crosshairX)} height={plotHeight - yScale(crosshairY)} fill="oklch(0.97 0.01 265)" opacity="0.4" />
-				<rect x={xScale(crosshairX)} y={yScale(crosshairY)} width={plotWidth - xScale(crosshairX)} height={plotHeight - yScale(crosshairY)} fill="oklch(0.96 0.02 20)" opacity="0.4" />
+				<!-- Quadrant background fills -->
+				<rect x={0} y={0} width={xScale(crosshairX)} height={yScale(crosshairY)} fill={quadrantColors.resilient} opacity="0.4" />
+				<rect x={xScale(crosshairX)} y={0} width={plotWidth - xScale(crosshairX)} height={yScale(crosshairY)} fill={quadrantColors.augmented} opacity="0.4" />
+				<rect x={0} y={yScale(crosshairY)} width={xScale(crosshairX)} height={plotHeight - yScale(crosshairY)} fill={quadrantColors.unaffected} opacity="0.4" />
+				<rect x={xScale(crosshairX)} y={yScale(crosshairY)} width={plotWidth - xScale(crosshairX)} height={plotHeight - yScale(crosshairY)} fill={quadrantColors.atRisk} opacity="0.4" />
 
 				<!-- Crosshair lines -->
 				<line
@@ -177,10 +185,10 @@
 
 		<!-- Quadrant legend (item 18) -->
 		<div class="mt-3 grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-muted-foreground sm:grid-cols-4">
-			<div><span class="inline-block h-2 w-2 rounded-sm" style="background: oklch(0.96 0.02 155);"></span> <span class="font-medium">Resilient</span> — Low exposure, high human skills</div>
-			<div><span class="inline-block h-2 w-2 rounded-sm" style="background: oklch(0.96 0.02 85);"></span> <span class="font-medium">AI Augmented</span> — High exposure, high human skills</div>
-			<div><span class="inline-block h-2 w-2 rounded-sm" style="background: oklch(0.97 0.01 265);"></span> <span class="font-medium">Unaffected</span> — Low exposure, low human skills</div>
-			<div><span class="inline-block h-2 w-2 rounded-sm" style="background: oklch(0.96 0.02 20);"></span> <span class="font-medium">At Risk</span> — High exposure, low human skills</div>
+			<div><span class="inline-block h-2 w-2 rounded-sm" style="background: {quadrantColors.resilient};"></span> <span class="font-medium">Resilient</span> — Low exposure, high human skills</div>
+			<div><span class="inline-block h-2 w-2 rounded-sm" style="background: {quadrantColors.augmented};"></span> <span class="font-medium">AI Augmented</span> — High exposure, high human skills</div>
+			<div><span class="inline-block h-2 w-2 rounded-sm" style="background: {quadrantColors.unaffected};"></span> <span class="font-medium">Unaffected</span> — Low exposure, low human skills</div>
+			<div><span class="inline-block h-2 w-2 rounded-sm" style="background: {quadrantColors.atRisk};"></span> <span class="font-medium">At Risk</span> — High exposure, low human skills</div>
 		</div>
 	{:else}
 		<div class="flex h-80 items-center justify-center bg-muted text-muted-foreground">

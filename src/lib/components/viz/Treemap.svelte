@@ -5,9 +5,9 @@
 	import { prefersReducedMotion } from 'svelte/motion';
 	import * as d3Hierarchy from 'd3-hierarchy';
 	import type { HierarchyRectangularNode } from 'd3-hierarchy';
-	import * as d3Scale from 'd3-scale';
 	import type { Occupation } from '$lib/data';
 	import { majorGroups, majorGroupByKey, riskBandLabels, riskBandColors } from '$lib/data';
+	import { riskColorScale } from '$lib/design-system';
 	import Tooltip from './Tooltip.svelte';
 
 	// Treemap nodes get x0/y0/x1/y1 added at runtime by d3 treemap layout.
@@ -33,12 +33,6 @@
 	const colorByGroup = new Map<string, string>(
 		majorGroups.map((g) => [g.key, g.color])
 	);
-
-	// Risk color scale: green → amber → orange → rose (continuous)
-	const riskColorScale = d3Scale.scaleLinear<string>()
-		.domain([0, 0.15, 0.35, 0.60])
-		.range(['#10b981', '#f59e0b', '#f97316', '#f43f5e'])
-		.clamp(true);
 
 	// Group occupations by major_group
 	let groupedOccupations = $derived.by(() => {

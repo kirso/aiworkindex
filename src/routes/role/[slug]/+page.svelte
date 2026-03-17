@@ -6,17 +6,11 @@
 		impactTypeColors,
 		augmentationBandLabels
 	} from '$lib/data';
-	import { title as titleStyle, card, riskBadge, impactBadge, confidenceBadge } from '$lib/design-system';
+	import { title as titleStyle, card, riskBadge, impactBadge, confidenceBadge, confidenceColor } from '$lib/design-system';
+	import { cn } from '$lib/utils';
 
 	let { data } = $props();
 	let scored = $derived(data.scored);
-
-	// Confidence badge color
-	function confidenceColor(level: string): string {
-		if (level === 'high') return '#16a34a';
-		if (level === 'medium') return '#ca8a04';
-		return '#dc2626';
-	}
 
 	// Summary card color based on impact type
 	let summaryCardStyle = $derived.by(() => {
@@ -196,8 +190,8 @@
 	</section>
 
 	<!-- 3. Built From — Component Occupations -->
-	<section class={card({ padding: 'md' }) + ' mb-4'}>
-		<h2 class={titleStyle({ size: 'section' }) + ' mb-3'}>Built From</h2>
+	<section class={cn(card({ padding: 'md' }), 'mb-4')}>
+		<h2 class={cn(titleStyle({ size: 'section' }), 'mb-3')}>Built From</h2>
 		<p class="mb-4 text-sm text-muted-foreground">
 			This role's scores are a weighted average of these official SSOC occupations:
 		</p>
@@ -227,7 +221,7 @@
 							</a>
 							<p class="mt-0.5 text-xs text-muted-foreground">
 								SSOC {comp.ssoc} &middot; Risk: {(comp.occupation.net_risk * 100).toFixed(0)}%
-								<span class={riskBadge({ band: comp.occupation.risk_band }) + ' ml-1'}>
+								<span class={cn(riskBadge({ band: comp.occupation.risk_band }), 'ml-1')}>
 									{riskBandLabels[comp.occupation.risk_band]}
 								</span>
 							</p>
@@ -244,8 +238,8 @@
 	</section>
 
 	<!-- 4. Score Breakdown -->
-	<section class={card({ padding: 'md' }) + ' mb-4'}>
-		<h2 class={titleStyle({ size: 'section' }) + ' mb-3'}>Score Breakdown</h2>
+	<section class={cn(card({ padding: 'md' }), 'mb-4')}>
+		<h2 class={cn(titleStyle({ size: 'section' }), 'mb-3')}>Score Breakdown</h2>
 		<div class="space-y-3">
 			<div>
 				<div class="mb-1 flex items-center justify-between text-sm">
@@ -316,8 +310,8 @@
 	</section>
 
 	<!-- 5. Skills to Focus On -->
-	<section class={card({ padding: 'md' }) + ' mb-4'}>
-		<h2 class={titleStyle({ size: 'section' }) + ' mb-3'}>Skills to Focus On</h2>
+	<section class={cn(card({ padding: 'md' }), 'mb-4')}>
+		<h2 class={cn(titleStyle({ size: 'section' }), 'mb-3')}>Skills to Focus On</h2>
 		<div class="grid gap-3 sm:grid-cols-2">
 			{#each skillRecommendations as skill}
 				<div class="rounded-lg border border-border/50 bg-muted p-4">
@@ -329,8 +323,8 @@
 	</section>
 
 	<!-- 6. Explore Component Occupations -->
-	<section class={card({ padding: 'md' }) + ' mb-4'}>
-		<h2 class={titleStyle({ size: 'section' }) + ' mb-3'}>Explore Component Occupations</h2>
+	<section class={cn(card({ padding: 'md' }), 'mb-4')}>
+		<h2 class={cn(titleStyle({ size: 'section' }), 'mb-3')}>Explore Component Occupations</h2>
 		<p class="mb-3 text-sm text-muted-foreground">
 			Each component has its own detailed page with wage data, labour market signals, and evidence trail.
 		</p>
@@ -345,7 +339,7 @@
 						<p class="text-xs text-muted-foreground">SSOC {comp.ssoc}</p>
 					</div>
 					<span
-						class={riskBadge({ band: comp.occupation?.risk_band ?? 'moderate' }) + ' ml-2 shrink-0'}
+						class={cn(riskBadge({ band: comp.occupation?.risk_band ?? 'moderate' }), 'ml-2 shrink-0')}
 					>
 						{riskBandLabels[comp.occupation?.risk_band ?? 'moderate']}
 					</span>
