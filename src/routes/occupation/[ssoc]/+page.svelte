@@ -504,7 +504,7 @@
 
 	<!-- 2. What This Means For You -->
 	<section class="mb-4 rounded-xl border-2 {summaryCardStyle.border} {summaryCardStyle.bg} p-6">
-		<h2 class="mb-3 text-lg font-bold {meaningHeadingColor}">What This Means For You</h2>
+		<h2 class="mb-3 text-base font-bold {meaningHeadingColor}">What This Means For You</h2>
 		<p class="text-base leading-relaxed text-foreground/80">{summaryText}</p>
 		<p class="mt-3 text-sm leading-relaxed text-muted-foreground">{marketContext}</p>
 	</section>
@@ -514,11 +514,11 @@
 		<h2 class="mb-3 text-base font-bold text-foreground">What AI Can and Can't Do</h2>
 		<div class="grid gap-4 sm:grid-cols-2">
 			<div class="rounded-lg bg-muted p-4">
-				<p class="mb-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">AI can handle</p>
+				<p class="mb-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground">AI can handle</p>
 				<p class="text-sm leading-relaxed text-foreground/80">{aiCanAndCant.canDo}</p>
 			</div>
 			<div class="rounded-lg bg-muted p-4">
-				<p class="mb-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Humans still needed for</p>
+				<p class="mb-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Humans still needed for</p>
 				<p class="text-sm leading-relaxed text-foreground/80">{aiCanAndCant.cantDo}</p>
 			</div>
 		</div>
@@ -671,7 +671,7 @@
 					<div class="rounded-lg border border-border/50 bg-muted p-4">
 						<div class="flex flex-wrap items-start justify-between gap-3">
 							<div>
-								<p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+								<p class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
 									Labour cluster: {occ.labour_monitor.cluster_label}
 								</p>
 								<p class="mt-1 text-sm text-foreground/80">
@@ -722,14 +722,14 @@
 													style="height: {Math.max((point.rate / Math.max(...occ.labour_monitor.vacancy.recent_quarters.map((p) => p.rate))) * 100, 8)}%;"
 												></div>
 											</div>
-											<p class="mt-1 text-center text-[10px] text-muted-foreground">{point.quarter.replace('20', '')}</p>
+											<p class="mt-1 text-center text-xs text-muted-foreground">{point.quarter.replace('20', '')}</p>
 										</div>
 									{/each}
 								</div>
 							</div>
 						{/if}
 
-						<p class="mt-3 text-[10px] text-muted-foreground">
+						<p class="mt-3 text-xs text-muted-foreground">
 							Source: MOM/SingStat via data.gov.sg. Latest: {occ.labour_monitor.data_as_of}. Cluster-level data.
 						</p>
 					</div>
@@ -779,7 +779,7 @@
 							</div>
 							<div class="flex items-center justify-between rounded px-3 py-2" style="background-color: {riskBandColors[occ.risk_band]}20;">
 								<span class="font-semibold text-foreground">AI Risk Score <span class="text-xs text-muted-foreground">(Net Displacement Risk)</span></span>
-								<span class="text-lg font-bold tabular-nums text-foreground">{(occ.net_risk * 100).toFixed(0)}%</span>
+								<span class="text-base font-bold tabular-nums text-foreground">{(occ.net_risk * 100).toFixed(0)}%</span>
 							</div>
 							<div class="rounded border px-3 py-2 {stabilityTone(occ.stability.label)}">
 								<div class="flex items-center justify-between gap-3">
@@ -833,7 +833,7 @@
 							>
 								<span class="truncate text-foreground/80">{sim.title}</span>
 								<span
-									class="ml-2 shrink-0 rounded px-1.5 py-0.5 text-[10px] font-medium text-white"
+									class="ml-2 shrink-0 rounded px-1.5 py-0.5 text-xs font-medium text-white"
 									style="background-color: {riskBandColors[sim.risk_band]};"
 								>
 									{(sim.net_risk * 100).toFixed(0)}%
@@ -874,7 +874,7 @@
 							>
 								<span class="truncate text-foreground/80">{sim.title}</span>
 								<span
-									class="ml-2 shrink-0 rounded px-1.5 py-0.5 text-[10px] font-medium text-white"
+									class="ml-2 shrink-0 rounded px-1.5 py-0.5 text-xs font-medium text-white"
 									style="background-color: {riskBandColors[sim.risk_band]};"
 								>
 									{riskBandLabels[sim.risk_band]}

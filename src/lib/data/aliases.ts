@@ -129,7 +129,32 @@ export const jobAliases: Record<string, string[]> = {
 	'content designer': ['21664', '26413'],
 	'technical support engineer': ['35121'],
 	'test engineer': ['25151'],
-	'prompt engineer': ['25121', '25220']
+	'prompt engineer': ['25121', '25220'],
+	'venture capitalist': ['24133', '24131', '24211'],
+	'vc': ['24133', '24131', '24211'],
+	'solutions engineer': ['24331', '25113', '25121'],
+	'operations analyst': ['21212', '24212', '12112'],
+	'brand manager': ['12222', '24314', '24313'],
+	'community manager': ['24314', '26413', '24212'],
+	'sales engineer': ['24331', '25113', '25121'],
+	'developer advocate': ['25121', '26413', '24314'],
+	'developer relations': ['25121', '26413', '24314'],
+	'devrel': ['25121', '26413', '24314'],
+	'investment banker': ['24133', '24131', '24211'],
+	'partnerships manager': ['12212', '24211', '12213'],
+	'partner manager': ['12212', '24211', '12213'],
+	'supply chain analyst': ['13241', '21212', '24212'],
+	'ml engineer': ['25220', '25121', '25211'],
+	'machine learning': ['25220', '25121'],
+	'technical product manager': ['25112', '25121', '12222'],
+	'technical pm': ['25112', '25121', '12222'],
+	'people partner': ['24231', '12121', '24233'],
+	'people ops': ['24231', '12121', '24233'],
+	'revops manager': ['12211', '24212', '25112', '24111'],
+	'revops': ['12211', '24212', '25112', '24111'],
+	'revenue operations': ['12211', '24212', '25112', '24111'],
+	'procurement manager': ['13242', '24211', '24212'],
+	'procurement': ['13242', '24211', '24212']
 };
 
 /**

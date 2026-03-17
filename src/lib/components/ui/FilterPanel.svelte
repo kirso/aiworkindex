@@ -237,7 +237,7 @@
 		</span>
 		<div class="space-y-2">
 			<div class="flex items-center gap-2">
-				<span class="text-[10px] text-muted-foreground">Min</span>
+				<span class="text-xs text-muted-foreground">Min</span>
 				<input
 					type="range"
 					min={WAGE_FLOOR}
@@ -248,7 +248,7 @@
 				/>
 			</div>
 			<div class="flex items-center gap-2">
-				<span class="text-[10px] text-muted-foreground">Max</span>
+				<span class="text-xs text-muted-foreground">Max</span>
 				<input
 					type="range"
 					min={WAGE_FLOOR}

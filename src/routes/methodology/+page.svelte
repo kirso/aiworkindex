@@ -63,7 +63,7 @@
 
 	<!-- Three-layer overview -->
 	<section class="mt-8">
-		<h2 class="text-lg font-semibold text-foreground">Three-Layer System</h2>
+		<h2 class="text-base font-semibold text-foreground">Three-Layer System</h2>
 		<div class="mt-3 space-y-4">
 			<div class="rounded-lg border border-border bg-card p-4">
 				<h3 class="text-sm font-semibold text-red-700">Layer 1: Exposure</h3>
@@ -126,7 +126,7 @@
 
 	<!-- Net Risk Formula -->
 	<section class="mt-8">
-		<h2 class="text-lg font-semibold text-foreground">The Formula</h2>
+		<h2 class="text-base font-semibold text-foreground">The Formula</h2>
 		<p class="mt-2 rounded bg-muted px-3 py-2 font-mono text-sm text-foreground/80">
 			net_risk = pctile(aioe) &times; (1 - pctile(theta)) &times; market_modifier
 		</p>
@@ -144,7 +144,7 @@
 
 	<!-- Layer 1 details -->
 	<section class="mt-8">
-		<h2 class="text-lg font-semibold text-foreground">Layer 1: Exposure</h2>
+		<h2 class="text-base font-semibold text-foreground">Layer 1: Exposure</h2>
 
 		<div class="mt-4 rounded-lg border border-border bg-card p-5">
 			<h3 class="font-semibold text-foreground">AIOE (AI Occupational Exposure)</h3>
@@ -163,7 +163,7 @@
 
 	<!-- Layer 2 details -->
 	<section class="mt-8">
-		<h2 class="text-lg font-semibold text-foreground">Layer 2: Human Bottleneck (Theta)</h2>
+		<h2 class="text-base font-semibold text-foreground">Layer 2: Human Bottleneck (Theta)</h2>
 
 		<div class="mt-4 rounded-lg border border-border bg-card p-5">
 			<h3 class="font-semibold text-foreground">Pizzinelli Theta (Complementarity)</h3>
@@ -229,7 +229,7 @@
 
 	<!-- Layer 3 details -->
 	<section class="mt-8">
-		<h2 class="text-lg font-semibold text-foreground">Layer 3: Market Resilience</h2>
+		<h2 class="text-base font-semibold text-foreground">Layer 3: Market Resilience</h2>
 		<p class="mt-2 text-sm text-muted-foreground">
 			Market data is a <strong>calibrator</strong>, not an override. Employment and wages are lagging
 			and confounded. The market layer can reduce net risk by up to 35% — it never amplifies risk
@@ -360,7 +360,7 @@
 
 	<!-- Risk Bands -->
 	<section class="mt-8">
-		<h2 class="text-lg font-semibold text-foreground">Risk Bands</h2>
+		<h2 class="text-base font-semibold text-foreground">Risk Bands</h2>
 		<p class="mt-2 text-sm text-muted-foreground">
 			Net risk is published as bands, not pseudo-precise decimals:
 		</p>
@@ -406,7 +406,7 @@
 
 	<!-- Augmentation & Impact Type -->
 	<section class="mt-8">
-		<h2 class="text-lg font-semibold text-foreground">Augmentation & Impact Type</h2>
+		<h2 class="text-base font-semibold text-foreground">Augmentation & Impact Type</h2>
 		<p class="mt-2 text-sm text-muted-foreground">
 			A single displacement risk number misses half the story. We compute augmentation potential from the
 			<strong>same three layers</strong>, with a different formula:
@@ -449,7 +449,7 @@
 
 	<!-- Confidence -->
 	<section class="mt-8">
-		<h2 class="text-lg font-semibold text-foreground">Confidence Scores</h2>
+		<h2 class="text-base font-semibold text-foreground">Confidence Scores</h2>
 		<p class="mt-2 text-sm text-muted-foreground">
 			Every score carries a visible confidence indicator:
 		</p>
@@ -495,7 +495,7 @@
 
 	<!-- Worked example -->
 	<section class="mt-8">
-		<h2 class="text-lg font-semibold text-foreground">Worked Examples</h2>
+		<h2 class="text-base font-semibold text-foreground">Worked Examples</h2>
 		<p class="mt-2 text-sm text-muted-foreground">
 			Both occupations score high on AI exposure. But their outcomes differ dramatically because of
 			the bottleneck and market layers:
@@ -542,7 +542,7 @@
 
 	<!-- Classification (IMF-style) -->
 	<section class="mt-8">
-		<h2 class="text-lg font-semibold text-foreground">Classification</h2>
+		<h2 class="text-base font-semibold text-foreground">Classification</h2>
 		<p class="mt-2 text-sm text-muted-foreground">
 			Building on the IMF framework, occupations are classified into four impact types based on the 2&times;2 matrix of
 			displacement risk and augmentation potential:
@@ -581,7 +581,7 @@
 
 	<!-- Crosswalk -->
 	<section class="mt-8">
-		<h2 class="text-lg font-semibold text-foreground">Crosswalk: Singapore to US Scores</h2>
+		<h2 class="text-base font-semibold text-foreground">Crosswalk: Singapore to US Scores</h2>
 		<p class="mt-2 text-sm text-muted-foreground">
 			AIOE and theta scores originate from US O*NET data. We map Singapore's SSOC occupations to these scores via:
 		</p>
@@ -601,7 +601,7 @@
 
 	<!-- What this version shows -->
 	<section class="mt-8">
-		<h2 class="text-lg font-semibold text-foreground">What v1 Shows</h2>
+		<h2 class="text-base font-semibold text-foreground">What v1 Shows</h2>
 		<p class="mt-2 text-sm text-muted-foreground">
 			v1 implements the full three-layer model: exposure (AIOE percentile), human bottleneck (theta percentile),
 			and market resilience (group-level employment/wage trends + occupation-level wage structure).
@@ -616,7 +616,7 @@
 
 	<!-- Limitations -->
 	<section class="mt-8">
-		<h2 class="text-lg font-semibold text-foreground">Known Limitations</h2>
+		<h2 class="text-base font-semibold text-foreground">Known Limitations</h2>
 		<ul class="mt-2 list-inside list-disc space-y-1.5 text-sm text-muted-foreground">
 			<li><strong>Exposure does not equal displacement</strong> — We model this gap explicitly, but the market translation layer uses heuristics and lagging indicators.</li>
 			<li><strong>US-centric ability data</strong> — O*NET surveys US workers. Task composition may differ in Singapore's regulatory and cultural environment.</li>
@@ -632,7 +632,7 @@
 
 	<!-- References -->
 	<section class="mt-8">
-		<h2 class="text-lg font-semibold text-foreground">Academic References</h2>
+		<h2 class="text-base font-semibold text-foreground">Academic References</h2>
 		<ul class="mt-2 space-y-3 text-sm text-muted-foreground">
 			<li>
 				<p class="font-medium text-foreground/80">Felten, Raj &amp; Seamans (2021)</p>
@@ -675,7 +675,7 @@
 
 	<!-- Reproduce -->
 	<section class="mt-8">
-		<h2 class="text-lg font-semibold text-foreground">Reproduce Our Results</h2>
+		<h2 class="text-base font-semibold text-foreground">Reproduce Our Results</h2>
 		<p class="mt-2 text-sm text-muted-foreground">
 			The entire scoring pipeline is open source and deterministic:
 		</p>

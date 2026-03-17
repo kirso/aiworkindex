@@ -17,15 +17,15 @@
 	</div>
 	<div class="ml-3 flex flex-col items-end gap-1">
 		<span
-			class="rounded px-1.5 py-0.5 text-[10px] font-medium text-white"
+			class="rounded px-1.5 py-0.5 text-xs font-medium text-white"
 			style="background-color: {riskBandColors[occupation.risk_band]};"
 		>
 			{riskBandLabels[occupation.risk_band]}
 		</span>
-		<span class="text-[10px] tabular-nums text-muted-foreground">
+		<span class="text-xs tabular-nums text-muted-foreground">
 			Risk: {(occupation.net_risk * 100).toFixed(0)}%
 		</span>
-		<span class="text-[10px] text-muted-foreground">
+		<span class="text-xs text-muted-foreground">
 			Confidence: {occupation.confidence.level}
 		</span>
 	</div>

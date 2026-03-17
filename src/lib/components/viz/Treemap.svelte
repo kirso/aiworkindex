@@ -345,9 +345,9 @@
 
 <!-- Color Legend -->
 <div class="mt-3 flex items-center gap-2">
-	<span class="text-[10px] text-muted-foreground">Lower AI Risk</span>
+	<span class="text-xs text-muted-foreground">Lower AI Risk</span>
 	<div class="h-2.5 flex-1 rounded-full" style="background: linear-gradient(to right, #10b981, #f59e0b, #f97316, #f43f5e);"></div>
-	<span class="text-[10px] text-muted-foreground">Higher AI Risk</span>
+	<span class="text-xs text-muted-foreground">Higher AI Risk</span>
 </div>
 
 <Tooltip

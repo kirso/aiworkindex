@@ -105,7 +105,7 @@
 			<!-- Insights panel: collapsible on screens below xl -->
 			{#if innerWidth < 1280 && innerWidth >= 768}
 				<details class="card mb-5">
-					<summary class="cursor-pointer px-5 py-3 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+					<summary class="cursor-pointer px-5 py-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
 						Insights & Rankings
 					</summary>
 					<div class="border-t border-border/50 p-5">
@@ -118,7 +118,7 @@
 				<!-- Treemap — full width, tall -->
 				<section class="card p-5">
 					<div class="mb-3 flex items-center justify-between">
-						<h2 class="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Explore all occupations</h2>
+						<h2 class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Explore all occupations</h2>
 						<span class="text-sm text-muted-foreground">{filteredOccupations.length} occupations</span>
 					</div>
 					<Treemap occupations={filteredOccupations} />
@@ -127,7 +127,7 @@
 				<!-- Risk Distribution -->
 				<section class="card mt-8 p-5">
 					<div class="mb-3">
-						<h2 class="text-sm font-semibold uppercase tracking-wide text-muted-foreground">How risk breaks down</h2>
+						<h2 class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">How risk breaks down</h2>
 						<p class="mt-1 text-xs text-muted-foreground">
 							How {filteredOccupations.length} occupations distribute across AI risk levels.
 						</p>
@@ -147,7 +147,7 @@
 				<!-- Scatter plot -->
 					<section class="card mt-8 p-5">
 						<div class="mb-3">
-							<h2 class="text-sm font-semibold uppercase tracking-wide text-muted-foreground">AI Exposure vs Human Skills</h2>
+							<h2 class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">AI Exposure vs Human Skills</h2>
 							<p class="mt-1 text-xs text-muted-foreground">
 								Each dot is one occupation. Dot size is fixed to avoid implying occupation-level workforce counts we do not have.
 							</p>

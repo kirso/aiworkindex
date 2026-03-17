@@ -41,7 +41,7 @@
 				{#each navLinks as link (link.href)}
 					<a
 						href={link.href}
-						class="rounded-lg px-3 py-1.5 text-[13px] font-medium transition-colors
+						class="rounded-lg px-3 py-1.5 text-sm font-medium transition-colors
 							{$page.url.pathname === link.href
 								? 'bg-header-active-bg text-white'
 								: 'text-header-muted hover:bg-header-active-bg hover:text-header-text'}"

@@ -196,7 +196,7 @@
 
 	<!-- 2. What This Means For You -->
 	<section class="mb-4 rounded-xl border-2 {summaryCardStyle.border} {summaryCardStyle.bg} p-6">
-		<h2 class="mb-3 text-lg font-bold {meaningHeadingColor}">What This Means For You</h2>
+		<h2 class="mb-3 text-base font-bold {meaningHeadingColor}">What This Means For You</h2>
 		<p class="text-base leading-relaxed text-foreground/80">{summaryText}</p>
 		<p class="mt-3 text-sm leading-relaxed text-muted-foreground">
 			This estimate blends {scored.components.length} official Singapore occupations. Actual outcomes depend on your specific employer, industry, and task mix. Confidence is capped at Medium for all synthetic roles.
@@ -220,7 +220,7 @@
 								style="width: {comp.weight * 100}%;"
 							></div>
 						</div>
-						<p class="mt-1 text-center text-[10px] font-semibold tabular-nums text-muted-foreground">
+						<p class="mt-1 text-center text-xs font-semibold tabular-nums text-muted-foreground">
 							{(comp.weight * 100).toFixed(0)}%
 						</p>
 					</div>
@@ -236,7 +236,7 @@
 							<p class="mt-0.5 text-xs text-muted-foreground">
 								SSOC {comp.ssoc} &middot; Risk: {(comp.occupation.net_risk * 100).toFixed(0)}%
 								<span
-									class="ml-1 inline-block rounded px-1.5 py-0.5 text-[10px] font-medium text-white"
+									class="ml-1 inline-block rounded px-1.5 py-0.5 text-xs font-medium text-white"
 									style="background-color: {riskBandColors[comp.occupation.risk_band]};"
 								>
 									{riskBandLabels[comp.occupation.risk_band]}
@@ -297,7 +297,7 @@
 			<div class="border-t border-border/50 pt-3">
 				<div class="mb-1 flex items-center justify-between text-sm">
 					<span class="font-medium text-foreground">AI Risk Score <span class="text-xs">(Net Risk)</span></span>
-					<span class="text-lg font-bold tabular-nums text-foreground">{(scored.net_risk * 100).toFixed(0)}%</span>
+					<span class="text-base font-bold tabular-nums text-foreground">{(scored.net_risk * 100).toFixed(0)}%</span>
 				</div>
 				<div class="h-3 w-full overflow-hidden rounded-full bg-muted">
 					<div

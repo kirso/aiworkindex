@@ -111,7 +111,7 @@
 
 	<div class="mb-6 flex flex-wrap items-start justify-between gap-3">
 		<div>
-			<h1 class="text-xl font-bold text-foreground sm:text-2xl">Compare Occupations</h1>
+			<h1 class="text-2xl font-bold text-foreground sm:text-3xl">Compare Occupations</h1>
 			<p class="mt-1 text-sm text-muted-foreground">Side-by-side AI risk comparison (up to 3 occupations)</p>
 		</div>
 		{#if selected.length > 0}
@@ -148,7 +148,7 @@
 							<span class="truncate text-foreground/80">{result.title}</span>
 							<div class="ml-2 flex shrink-0 items-center gap-2">
 								<span
-									class="rounded px-1.5 py-0.5 text-[10px] font-medium text-white"
+									class="rounded px-1.5 py-0.5 text-xs font-medium text-white"
 									style="background-color: {riskBandColors[result.risk_band]};"
 								>
 									{riskBandLabels[result.risk_band]}

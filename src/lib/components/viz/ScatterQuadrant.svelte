@@ -176,7 +176,7 @@
 		</svg>
 
 		<!-- Quadrant legend (item 18) -->
-		<div class="mt-3 grid grid-cols-2 gap-x-4 gap-y-1 text-[10px] text-muted-foreground sm:grid-cols-4">
+		<div class="mt-3 grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-muted-foreground sm:grid-cols-4">
 			<div><span class="inline-block h-2 w-2 rounded-sm" style="background: oklch(0.96 0.02 155);"></span> <span class="font-medium">Resilient</span> — Low exposure, high human skills</div>
 			<div><span class="inline-block h-2 w-2 rounded-sm" style="background: oklch(0.96 0.02 85);"></span> <span class="font-medium">AI Augmented</span> — High exposure, high human skills</div>
 			<div><span class="inline-block h-2 w-2 rounded-sm" style="background: oklch(0.97 0.01 265);"></span> <span class="font-medium">Unaffected</span> — Low exposure, low human skills</div>

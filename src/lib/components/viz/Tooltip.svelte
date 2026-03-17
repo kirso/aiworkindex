@@ -39,7 +39,7 @@
 		<!-- Risk badge -->
 		<div class="mt-2 flex items-center gap-1.5">
 			<span
-				class="rounded-full px-2 py-0.5 text-[10px] font-semibold text-white"
+				class="rounded-full px-2 py-0.5 text-xs font-semibold text-white"
 				style="background-color: {riskBandColors[occupation.risk_band]};"
 			>
 				{riskBandLabels[occupation.risk_band]} Risk &middot; {(occupation.net_risk * 100).toFixed(0)}%
@@ -48,12 +48,12 @@
 
 		<!-- Scores -->
 		<div class="mt-2 space-y-0.5">
-			<p class="text-[10px] text-muted-foreground">
+			<p class="text-xs text-muted-foreground">
 				<span class="text-foreground">AI Task Overlap</span>
 				<span class="text-muted-foreground/60">(Exposure)</span>:
 				<span class="font-semibold text-foreground">{(occupation.exposure * 100).toFixed(0)}%</span>
 			</p>
-			<p class="text-[10px] text-muted-foreground">
+			<p class="text-xs text-muted-foreground">
 				<span class="text-foreground">Human Advantage</span>
 				<span class="text-muted-foreground/60">(Bottleneck)</span>:
 				<span class="font-semibold text-foreground">{(occupation.bottleneck * 100).toFixed(0)}%</span>
@@ -66,11 +66,11 @@
 		</div>
 
 		<!-- Impact summary -->
-		<p class="mt-2 text-[11px] leading-relaxed text-muted-foreground italic">
+		<p class="mt-2 text-xs leading-relaxed text-muted-foreground italic">
 			{impactSummaries[occupation.impact_type]}
 		</p>
 
 		<!-- CTA hint -->
-		<p class="mt-2 text-center text-[10px] font-medium text-primary">Click to view full details</p>
+		<p class="mt-2 text-center text-xs font-medium text-primary">Click to view full details</p>
 	</div>
 {/if}
