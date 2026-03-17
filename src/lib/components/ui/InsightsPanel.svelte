@@ -112,7 +112,7 @@
 				<p class="text-base font-bold tabular-nums text-risk-very-high">{highRiskCount}</p>
 			</div>
 			<div class="rounded-lg bg-secondary px-3 py-2">
-				<p class="text-[10px] text-muted-foreground">High Confidence</p>
+				<p class="text-[10px] text-muted-foreground">High Est. Confidence</p>
 				<p class="text-base font-bold tabular-nums text-foreground">{highConfidenceCount}</p>
 			</div>
 			<div class="rounded-lg bg-secondary px-3 py-2">
@@ -120,14 +120,14 @@
 				<p class="text-base font-bold tabular-nums text-emerald-700">{demandFlaggedCount}</p>
 			</div>
 			<div class="rounded-lg bg-secondary px-3 py-2">
-				<p class="text-[10px] text-muted-foreground">Observed Calibrated</p>
+				<p class="text-[10px] text-muted-foreground">Observed AI Usage</p>
 				<p class="text-base font-bold tabular-nums text-blue-700">{observedCalibratedCount}</p>
 			</div>
 		</div>
 	</div>
 
 	<div>
-		<h3 class="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Risk Distribution</h3>
+		<h3 class="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">AI Risk Score Distribution</h3>
 		<div class="mt-2 space-y-1">
 			{#each bandOrder as band (band)}
 				{@const count = bandCounts[band] ?? 0}
@@ -195,7 +195,7 @@
 	</div>
 
 	<div>
-		<h3 class="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Theory Vs Practice Gap</h3>
+		<h3 class="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Observed AI Usage Gap</h3>
 		<ol class="mt-2 space-y-1">
 			{#each theoryVsPractice as occ, i (occ.ssoc)}
 				<li class="flex items-start gap-1.5">

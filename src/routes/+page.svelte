@@ -53,10 +53,24 @@
 				How will AI affect your job?
 			</h1>
 			<p class="mt-2 text-sm text-muted-foreground">
-				Search 562 Singapore occupations. See how AI affects your role.
+				See whether AI is likely to replace, augment, or barely affect your role in Singapore.
 			</p>
 			<div class="mt-5">
 				<HeroSearch occupations={data.occupations} />
+			</div>
+			<div class="grid grid-cols-3 gap-3 max-w-2xl mx-auto mt-4">
+				<div class="text-center text-xs text-muted-foreground">
+					<span class="inline-block w-3 h-3 rounded-full bg-risk-very-low mr-1"></span>
+					Green = lower risk
+				</div>
+				<div class="text-center text-xs text-muted-foreground">
+					<span class="inline-block w-3 h-3 rounded-full bg-risk-moderate mr-1"></span>
+					Amber = mixed signals
+				</div>
+				<div class="text-center text-xs text-muted-foreground">
+					<span class="inline-block w-3 h-3 rounded-full bg-risk-very-high mr-1"></span>
+					Red = higher risk
+				</div>
 			</div>
 		</div>
 	</div>
@@ -104,7 +118,7 @@
 				<!-- Treemap — full width, tall -->
 				<section class="card p-5">
 					<div class="mb-3 flex items-center justify-between">
-						<h2 class="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Occupation Treemap</h2>
+						<h2 class="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Explore all occupations</h2>
 						<span class="text-sm text-muted-foreground">{filteredOccupations.length} occupations</span>
 					</div>
 					<Treemap occupations={filteredOccupations} />
@@ -113,9 +127,9 @@
 				<!-- Risk Distribution -->
 				<section class="card mt-8 p-5">
 					<div class="mb-3">
-						<h2 class="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Risk Distribution</h2>
+						<h2 class="text-sm font-semibold uppercase tracking-wide text-muted-foreground">How risk breaks down</h2>
 						<p class="mt-1 text-xs text-muted-foreground">
-							How {filteredOccupations.length} occupations distribute across net displacement risk levels.
+							How {filteredOccupations.length} occupations distribute across AI risk levels.
 						</p>
 					</div>
 					<div class="grid gap-6 md:grid-cols-2">
@@ -133,7 +147,7 @@
 				<!-- Scatter plot -->
 					<section class="card mt-8 p-5">
 						<div class="mb-3">
-							<h2 class="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Exposure vs Human Bottleneck</h2>
+							<h2 class="text-sm font-semibold uppercase tracking-wide text-muted-foreground">AI Exposure vs Human Skills</h2>
 							<p class="mt-1 text-xs text-muted-foreground">
 								Each dot is one occupation. Dot size is fixed to avoid implying occupation-level workforce counts we do not have.
 							</p>

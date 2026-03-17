@@ -46,6 +46,20 @@
 			</span>
 		</div>
 
+		<!-- Scores -->
+		<div class="mt-2 space-y-0.5">
+			<p class="text-[10px] text-muted-foreground">
+				<span class="text-foreground">AI Task Overlap</span>
+				<span class="text-muted-foreground/60">(Exposure)</span>:
+				<span class="font-semibold text-foreground">{(occupation.exposure * 100).toFixed(0)}%</span>
+			</p>
+			<p class="text-[10px] text-muted-foreground">
+				<span class="text-foreground">Human Advantage</span>
+				<span class="text-muted-foreground/60">(Bottleneck)</span>:
+				<span class="font-semibold text-foreground">{(occupation.bottleneck * 100).toFixed(0)}%</span>
+			</p>
+		</div>
+
 		<!-- Wage -->
 		<div class="mt-2">
 			<p class="text-xs text-muted-foreground">Median Wage: <span class="font-semibold text-foreground">SGD {occupation.gross_wage_median.toLocaleString()}</span></p>
