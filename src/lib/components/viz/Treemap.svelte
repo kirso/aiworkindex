@@ -259,17 +259,9 @@
 							if (e.key === 'Enter') handleClickGroup(node.data.name);
 						}}
 					>
-						<title>{groupLabel(node.data.name)}: {node.data.count} occupations</title>
 					</rect>
 
 					{#if shouldShowGroupLabel(node)}
-						<circle
-							cx={node.x0 + nw / 2 - (truncateLabel(groupLabel(node.data.name), nw - 12).length * 3) - 6}
-							cy={node.y0 + nh / 2 - 9}
-							r="4"
-							fill={groupColor}
-							class="pointer-events-none"
-						/>
 						<text
 							x={node.x0 + nw / 2}
 							y={node.y0 + nh / 2 - 6}
@@ -319,7 +311,7 @@
 							if (e.key === 'Enter') handleClickOcc(occ);
 						}}
 					>
-						<title>{occ.title} — Net Risk: {(occ.net_risk * 100).toFixed(0)}% ({riskBandLabels[occ.risk_band]})</title>
+						<!-- No <title> — our custom Tooltip handles hover display -->
 					</rect>
 
 					{#if shouldShowLabel(leaf)}

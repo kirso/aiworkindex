@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { Occupation, ImpactType } from '$lib/data';
-	import { riskBandLabels, riskBandColors, impactTypeLabels, impactTypeColors, majorGroupByKey } from '$lib/data';
-	import { riskBadge, card as cardStyle } from '$lib/design-system';
+	import type { Occupation } from '$lib/data';
+	import { riskBandLabels, impactTypeLabels } from '$lib/data';
+	import { riskBadge } from '$lib/design-system';
 
 	let {
 		occupation = null,
@@ -14,61 +14,20 @@
 		y: number;
 		visible: boolean;
 	} = $props();
-
-	const impactSummaries: Record<ImpactType, string> = {
-		ai_leveraged: 'AI amplifies productivity in this role — humans remain essential.',
-		at_risk: 'High exposure with low human bottleneck — vulnerable to automation.',
-		stable: 'Low AI exposure — this occupation is largely unaffected for now.',
-		mixed: 'Moderate signals across dimensions — outcome depends on adoption patterns.'
-	};
-
-	function groupLabel(key: string): string {
-		return majorGroupByKey.get(key)?.label ?? key;
-	}
 </script>
 
 {#if visible && occupation}
 	<div
-		class={cardStyle({ padding: 'sm' }) + ' pointer-events-none fixed z-50 w-64 shadow-xl'}
-		style="left: {x + 16}px; top: {y - 16}px;"
+		class="pointer-events-none fixed z-50 w-56 rounded-lg border border-border bg-card p-3 shadow-lg"
+		style="left: {x + 14}px; top: {y - 14}px;"
 	>
-		<!-- Title -->
-		<p class="text-sm font-bold leading-snug text-foreground">{occupation.title}</p>
-		<!-- Group -->
-		<p class="mt-0.5 text-xs text-muted-foreground">{groupLabel(occupation.major_group)}</p>
-
-		<!-- Risk badge -->
-		<div class="mt-2 flex items-center gap-1.5">
+		<p class="text-sm font-semibold leading-snug text-foreground">{occupation.title}</p>
+		<div class="mt-1.5 flex items-center gap-1.5">
 			<span class={riskBadge({ band: occupation.risk_band })}>
-				{riskBandLabels[occupation.risk_band]} Risk &middot; {(occupation.net_risk * 100).toFixed(0)}%
+				{riskBandLabels[occupation.risk_band]}
 			</span>
+			<span class="text-xs text-muted-foreground">SGD {occupation.gross_wage_median.toLocaleString()}/mo</span>
 		</div>
-
-		<!-- Scores -->
-		<div class="mt-2 space-y-0.5">
-			<p class="text-xs text-muted-foreground">
-				<span class="text-foreground">AI Task Overlap</span>
-				<span class="text-muted-foreground/60">(Exposure)</span>:
-				<span class="font-semibold text-foreground">{(occupation.exposure * 100).toFixed(0)}%</span>
-			</p>
-			<p class="text-xs text-muted-foreground">
-				<span class="text-foreground">Human Advantage</span>
-				<span class="text-muted-foreground/60">(Bottleneck)</span>:
-				<span class="font-semibold text-foreground">{(occupation.bottleneck * 100).toFixed(0)}%</span>
-			</p>
-		</div>
-
-		<!-- Wage -->
-		<div class="mt-2">
-			<p class="text-xs text-muted-foreground">Median Wage: <span class="font-semibold text-foreground">SGD {occupation.gross_wage_median.toLocaleString()}</span></p>
-		</div>
-
-		<!-- Impact summary -->
-		<p class="mt-2 text-xs leading-relaxed text-muted-foreground italic">
-			{impactSummaries[occupation.impact_type]}
-		</p>
-
-		<!-- CTA hint -->
-		<p class="mt-2 text-center text-xs font-medium text-primary">Click to view full details</p>
+		<p class="mt-1.5 text-xs text-muted-foreground">{impactTypeLabels[occupation.impact_type]} · Click for details</p>
 	</div>
 {/if}

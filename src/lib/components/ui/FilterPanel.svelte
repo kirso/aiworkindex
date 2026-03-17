@@ -164,13 +164,13 @@
 </script>
 
 <div class="space-y-4">
-	<!-- Search -->
+	<!-- Filter by name -->
 	<div>
-		<label for="occ-search" class="mb-1 block text-xs font-medium text-muted-foreground">Search</label>
+		<label for="occ-search" class="mb-1 block text-xs font-medium text-muted-foreground">Filter by name</label>
 		<input
 			id="occ-search"
 			type="text"
-			placeholder="e.g., Software Developer, Nurse..."
+			placeholder="Filter occupations..."
 			bind:value={search}
 			class="w-full rounded-md border border-border bg-card px-3 py-2 text-sm text-foreground placeholder-muted-foreground outline-none transition-colors focus:border-ring focus:ring-1 focus:ring-ring"
 		/>
