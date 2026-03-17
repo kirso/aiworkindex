@@ -11,6 +11,7 @@
 		occupationsBySSoc
 	} from '$lib/data';
 	import type { Occupation } from '$lib/data';
+	import { title as titleStyle, card, riskBadge, impactBadge } from '$lib/design-system';
 
 	let { data } = $props();
 
@@ -111,7 +112,7 @@
 
 	<div class="mb-6 flex flex-wrap items-start justify-between gap-3">
 		<div>
-			<h1 class="text-2xl font-bold text-foreground sm:text-3xl">Compare Occupations</h1>
+			<h1 class={titleStyle({ size: 'page' })}>Compare Occupations</h1>
 			<p class="mt-1 text-sm text-muted-foreground">Side-by-side AI risk comparison (up to 3 occupations)</p>
 		</div>
 		{#if selected.length > 0}
@@ -147,10 +148,7 @@
 						>
 							<span class="truncate text-foreground/80">{result.title}</span>
 							<div class="ml-2 flex shrink-0 items-center gap-2">
-								<span
-									class="rounded px-1.5 py-0.5 text-xs font-medium text-white"
-									style="background-color: {riskBandColors[result.risk_band]};"
-								>
+								<span class={riskBadge({ band: result.risk_band })}>
 									{riskBandLabels[result.risk_band]}
 								</span>
 								<span class="text-xs text-muted-foreground">SSOC {result.ssoc}</span>
@@ -163,7 +161,7 @@
 	{/if}
 
 	{#if selected.length === 0}
-		<div class="rounded-lg border border-border bg-card p-8 text-center">
+		<div class={card({ padding: 'lg' }) + ' text-center'}>
 			<p class="text-muted-foreground">Search above to add occupations for comparison.</p>
 			<p class="mt-2 text-sm text-muted-foreground">
 				You can also link directly: <code class="rounded bg-muted px-1 text-xs">/compare?jobs=25121,41320</code>
@@ -173,7 +171,7 @@
 		<!-- Side-by-side columns -->
 		<div class="mb-8 grid gap-4" style="grid-template-columns: repeat({selected.length}, minmax(0, 1fr));">
 			{#each selected as occ (occ.ssoc)}
-				<div class="rounded-lg border border-border bg-card p-4">
+				<div class={card({ padding: 'sm' })}>
 					<div class="mb-3 flex items-start justify-between">
 						<div>
 							<a href="/occupation/{occ.ssoc}" class="font-semibold text-foreground hover:text-primary">
@@ -195,16 +193,10 @@
 
 					<!-- Risk band badge -->
 					<div class="mb-4 flex flex-wrap items-center gap-2">
-						<span
-							class="rounded-full px-2.5 py-0.5 text-xs font-semibold text-white"
-							style="background-color: {riskBandColors[occ.risk_band]};"
-						>
+						<span class={riskBadge({ band: occ.risk_band })}>
 							{riskBandLabels[occ.risk_band]} Risk
 						</span>
-						<span
-							class="rounded-full px-2.5 py-0.5 text-xs font-semibold text-white"
-							style="background-color: {impactTypeColors[occ.impact_type]};"
-						>
+						<span class={impactBadge({ type: occ.impact_type })}>
 							{impactTypeLabels[occ.impact_type]}
 						</span>
 					</div>
@@ -289,7 +281,7 @@
 		</div>
 
 		<!-- Comparison table -->
-		<div class="overflow-x-auto rounded-lg border border-border bg-card">
+		<div class={card() + ' overflow-x-auto'}>
 			<table class="w-full text-left text-sm">
 				<thead>
 					<tr class="border-b border-border bg-muted">

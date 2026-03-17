@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Occupation } from '$lib/data';
 	import { riskBandLabels, riskBandColors } from '$lib/data';
+	import { riskBadge } from '$lib/design-system';
 
 	let { occupation }: { occupation: Occupation } = $props();
 </script>
@@ -16,10 +17,7 @@
 		</p>
 	</div>
 	<div class="ml-3 flex flex-col items-end gap-1">
-		<span
-			class="rounded px-1.5 py-0.5 text-xs font-medium text-white"
-			style="background-color: {riskBandColors[occupation.risk_band]};"
-		>
+		<span class={riskBadge({ band: occupation.risk_band })}>
 			{riskBandLabels[occupation.risk_band]}
 		</span>
 		<span class="text-xs tabular-nums text-muted-foreground">

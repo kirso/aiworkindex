@@ -5,6 +5,7 @@
 	import { findAliasMatches } from '$lib/data/aliases';
 	import { syntheticRoles } from '$lib/data/synthetic-roles';
 	import type { SyntheticRole } from '$lib/data/synthetic-roles';
+	import { riskBadge } from '$lib/design-system';
 
 	let {
 		occupations
@@ -133,10 +134,7 @@
 									SSOC {result.occupation.ssoc} &middot; SGD {result.occupation.gross_wage_median.toLocaleString()} median
 								</p>
 							</div>
-							<span
-								class="ml-3 shrink-0 rounded-full px-2.5 py-0.5 text-xs font-medium text-white"
-								style="background-color: {riskBandColors[result.occupation.risk_band]};"
-							>
+							<span class={riskBadge({ band: result.occupation.risk_band }) + ' ml-3 shrink-0'}>
 								{riskBandLabels[result.occupation.risk_band]}
 							</span>
 						</button>

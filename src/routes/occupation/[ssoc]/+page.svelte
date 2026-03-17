@@ -9,6 +9,7 @@
 		augmentationBandLabels,
 		occupations as allOccupations
 	} from '$lib/data';
+	import { title as titleStyle, sectionLabel, card, riskBadge, impactBadge, confidenceBadge } from '$lib/design-system';
 
 	let { data } = $props();
 	let occ = $derived(data.occupation);
@@ -183,16 +184,16 @@
 			});
 		}
 
-		// Anthropic observed usage
+		// Anthropic observed usage — gap is percentile points, not percent change
 		if (occ.evidence.anthropic_calibrated) {
 			const gap = occ.evidence.anthropic_gap ?? 0;
-			const pct = Math.abs(Math.round(gap * 100));
+			const pts = Math.abs(Math.round(gap * 100));
 			items.push({
 				icon: 'check',
 				label: 'Observed AI Usage (Anthropic)',
 				sentence: gap >= 0
-					? `AI is used ${pct}% more than theory predicts for this role.`
-					: `AI is used ${pct}% less than theory predicts for this role.`,
+					? `Observed AI usage is ${pts} percentile points above theoretical exposure.`
+					: `Observed AI usage is ${pts} percentile points below theoretical exposure.`,
 				tone: gap >= 0 ? 'text-risk-high' : 'text-risk-low'
 			});
 		}
@@ -465,28 +466,19 @@
 				></span>
 			{/if}
 			<div>
-				<h1 class="text-2xl font-bold text-foreground sm:text-3xl">{occ.title}</h1>
+				<h1 class={titleStyle({ size: 'page' })}>{occ.title}</h1>
 				<p class="mt-1 text-sm text-muted-foreground">
 					{group?.label ?? occ.major_group}
-					&middot; 1 of {groupOccupations.length} occupations &middot; Cluster avg risk: {groupAvgRisk}%
+					&middot; 1 of {groupOccupations.length} {group?.label ?? occ.major_group} occupations &middot; Group avg risk: {groupAvgRisk}%
 				</p>
 				<div class="mt-3 flex flex-wrap items-center gap-2">
-					<span
-						class="rounded-full px-3 py-1 text-sm font-semibold text-white"
-						style="background-color: {riskBandColors[occ.risk_band]};"
-					>
+					<span class={riskBadge({ band: occ.risk_band })}>
 						{riskBandLabels[occ.risk_band]} Risk
 					</span>
-					<span
-						class="rounded-full px-3 py-1 text-sm font-semibold text-white"
-						style="background-color: {impactTypeColors[occ.impact_type]};"
-					>
+					<span class={impactBadge({ type: occ.impact_type })}>
 						{impactTypeLabels[occ.impact_type]}
 					</span>
-					<span
-						class="rounded-full px-3 py-1 text-sm font-medium text-white"
-						style="background-color: {confidenceColor(occ.confidence.level)};"
-					>
+					<span class={confidenceBadge({ level: occ.confidence.level })}>
 						{occ.confidence.level.charAt(0).toUpperCase() + occ.confidence.level.slice(1)} Estimate Confidence
 					</span>
 				</div>
@@ -510,23 +502,23 @@
 	</section>
 
 	<!-- 3. What AI Can and Can't Do -->
-	<section class="mb-4 rounded-lg border border-border bg-card p-5">
-		<h2 class="mb-3 text-base font-bold text-foreground">What AI Can and Can't Do</h2>
+	<section class={card({ padding: 'md' }) + ' mb-4'}>
+		<h2 class={titleStyle({ size: 'section' }) + ' mb-3'}>What AI Can and Can't Do</h2>
 		<div class="grid gap-4 sm:grid-cols-2">
 			<div class="rounded-lg bg-muted p-4">
-				<p class="mb-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground">AI can handle</p>
+				<p class={sectionLabel() + ' mb-1'}>AI can handle</p>
 				<p class="text-sm leading-relaxed text-foreground/80">{aiCanAndCant.canDo}</p>
 			</div>
 			<div class="rounded-lg bg-muted p-4">
-				<p class="mb-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Humans still needed for</p>
+				<p class={sectionLabel() + ' mb-1'}>Humans still needed for</p>
 				<p class="text-sm leading-relaxed text-foreground/80">{aiCanAndCant.cantDo}</p>
 			</div>
 		</div>
 	</section>
 
 	<!-- 4. Skills to Focus On -->
-	<section class="mb-4 rounded-lg border border-border bg-card p-5">
-		<h2 class="mb-3 text-base font-bold text-foreground">Skills to Focus On</h2>
+	<section class={card({ padding: 'md' }) + ' mb-4'}>
+		<h2 class={titleStyle({ size: 'section' }) + ' mb-3'}>Skills to Focus On</h2>
 		<div class="grid gap-3 sm:grid-cols-2">
 			{#each skillRecommendations as skill}
 				<div class="rounded-lg border border-border/50 bg-muted p-4">
@@ -538,8 +530,8 @@
 	</section>
 
 	<!-- 5. Where This Occupation Stands -->
-	<section class="mb-4 rounded-lg border border-border bg-card p-5">
-		<h2 class="mb-3 text-base font-bold text-foreground">Where This Occupation Stands</h2>
+	<section class={card({ padding: 'md' }) + ' mb-4'}>
+		<h2 class={titleStyle({ size: 'section' }) + ' mb-3'}>Where This Occupation Stands</h2>
 
 		<!-- Percentile Bars -->
 		<div class="space-y-3">
@@ -671,7 +663,7 @@
 					<div class="rounded-lg border border-border/50 bg-muted p-4">
 						<div class="flex flex-wrap items-start justify-between gap-3">
 							<div>
-								<p class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+								<p class={sectionLabel()}>
 									Labour cluster: {occ.labour_monitor.cluster_label}
 								</p>
 								<p class="mt-1 text-sm text-foreground/80">
@@ -819,8 +811,8 @@
 	</section>
 
 	<!-- 7. Related Career Paths -->
-	<section class="mb-4 rounded-lg border border-border bg-card p-5">
-		<h2 class="mb-4 text-base font-bold text-foreground">Related Career Paths</h2>
+	<section class={card({ padding: 'md' }) + ' mb-4'}>
+		<h2 class={titleStyle({ size: 'section' }) + ' mb-4'}>Related Career Paths</h2>
 		<div class="grid gap-4 sm:grid-cols-3">
 			{#if data.relatedPaths.lowerRisk.length > 0}
 				<div>
@@ -833,8 +825,7 @@
 							>
 								<span class="truncate text-foreground/80">{sim.title}</span>
 								<span
-									class="ml-2 shrink-0 rounded px-1.5 py-0.5 text-xs font-medium text-white"
-									style="background-color: {riskBandColors[sim.risk_band]};"
+									class={riskBadge({ band: sim.risk_band }) + ' ml-2 shrink-0'}
 								>
 									{(sim.net_risk * 100).toFixed(0)}%
 								</span>
@@ -874,8 +865,7 @@
 							>
 								<span class="truncate text-foreground/80">{sim.title}</span>
 								<span
-									class="ml-2 shrink-0 rounded px-1.5 py-0.5 text-xs font-medium text-white"
-									style="background-color: {riskBandColors[sim.risk_band]};"
+									class={riskBadge({ band: sim.risk_band }) + ' ml-2 shrink-0'}
 								>
 									{riskBandLabels[sim.risk_band]}
 								</span>

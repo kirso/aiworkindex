@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Occupation, ImpactType } from '$lib/data';
 	import { riskBandLabels, riskBandColors, impactTypeLabels, impactTypeColors, majorGroupByKey } from '$lib/data';
+	import { riskBadge, card as cardStyle } from '$lib/design-system';
 
 	let {
 		occupation = null,
@@ -28,7 +29,7 @@
 
 {#if visible && occupation}
 	<div
-		class="pointer-events-none fixed z-50 w-64 rounded-xl border border-border bg-card p-4 shadow-xl"
+		class={cardStyle({ padding: 'sm' }) + ' pointer-events-none fixed z-50 w-64 shadow-xl'}
 		style="left: {x + 16}px; top: {y - 16}px;"
 	>
 		<!-- Title -->
@@ -38,10 +39,7 @@
 
 		<!-- Risk badge -->
 		<div class="mt-2 flex items-center gap-1.5">
-			<span
-				class="rounded-full px-2 py-0.5 text-xs font-semibold text-white"
-				style="background-color: {riskBandColors[occupation.risk_band]};"
-			>
+			<span class={riskBadge({ band: occupation.risk_band })}>
 				{riskBandLabels[occupation.risk_band]} Risk &middot; {(occupation.net_risk * 100).toFixed(0)}%
 			</span>
 		</div>

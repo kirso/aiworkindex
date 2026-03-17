@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { occupations, impactTypeLabels, riskBandLabels } from '$lib/data';
+	import { title as titleStyle, contentContainer } from '$lib/design-system';
 
 	const occupationCount = occupations.length;
 	const directCount = occupations.filter((occupation) => occupation.match_quality === 'direct').length;
@@ -41,7 +42,7 @@
 		<span class="text-foreground/80">Methodology</span>
 	</nav>
 
-	<h1 class="text-2xl font-bold text-foreground sm:text-3xl">Methodology</h1>
+	<h1 class={titleStyle({ size: 'page' })}>Methodology</h1>
 
 	<!-- Core insight -->
 	<div class="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-4">
@@ -63,7 +64,7 @@
 
 	<!-- Three-layer overview -->
 	<section class="mt-8">
-		<h2 class="text-base font-semibold text-foreground">Three-Layer System</h2>
+		<h2 class={titleStyle({ size: 'section' })}>Three-Layer System</h2>
 		<div class="mt-3 space-y-4">
 			<div class="rounded-lg border border-border bg-card p-4">
 				<h3 class="text-sm font-semibold text-red-700">Layer 1: Exposure</h3>
@@ -126,7 +127,7 @@
 
 	<!-- Net Risk Formula -->
 	<section class="mt-8">
-		<h2 class="text-base font-semibold text-foreground">The Formula</h2>
+		<h2 class={titleStyle({ size: 'section' })}>The Formula</h2>
 		<p class="mt-2 rounded bg-muted px-3 py-2 font-mono text-sm text-foreground/80">
 			net_risk = pctile(aioe) &times; (1 - pctile(theta)) &times; market_modifier
 		</p>
@@ -144,7 +145,7 @@
 
 	<!-- Layer 1 details -->
 	<section class="mt-8">
-		<h2 class="text-base font-semibold text-foreground">Layer 1: Exposure</h2>
+		<h2 class={titleStyle({ size: 'section' })}>Layer 1: Exposure</h2>
 
 		<div class="mt-4 rounded-lg border border-border bg-card p-5">
 			<h3 class="font-semibold text-foreground">AIOE (AI Occupational Exposure)</h3>
@@ -163,7 +164,7 @@
 
 	<!-- Layer 2 details -->
 	<section class="mt-8">
-		<h2 class="text-base font-semibold text-foreground">Layer 2: Human Bottleneck (Theta)</h2>
+		<h2 class={titleStyle({ size: 'section' })}>Layer 2: Human Bottleneck (Theta)</h2>
 
 		<div class="mt-4 rounded-lg border border-border bg-card p-5">
 			<h3 class="font-semibold text-foreground">Pizzinelli Theta (Complementarity)</h3>
@@ -229,7 +230,7 @@
 
 	<!-- Layer 3 details -->
 	<section class="mt-8">
-		<h2 class="text-base font-semibold text-foreground">Layer 3: Market Resilience</h2>
+		<h2 class={titleStyle({ size: 'section' })}>Layer 3: Market Resilience</h2>
 		<p class="mt-2 text-sm text-muted-foreground">
 			Market data is a <strong>calibrator</strong>, not an override. Employment and wages are lagging
 			and confounded. The market layer can reduce net risk by up to 35% — it never amplifies risk
@@ -360,7 +361,7 @@
 
 	<!-- Risk Bands -->
 	<section class="mt-8">
-		<h2 class="text-base font-semibold text-foreground">Risk Bands</h2>
+		<h2 class={titleStyle({ size: 'section' })}>Risk Bands</h2>
 		<p class="mt-2 text-sm text-muted-foreground">
 			Net risk is published as bands, not pseudo-precise decimals:
 		</p>
@@ -406,7 +407,7 @@
 
 	<!-- Augmentation & Impact Type -->
 	<section class="mt-8">
-		<h2 class="text-base font-semibold text-foreground">Augmentation & Impact Type</h2>
+		<h2 class={titleStyle({ size: 'section' })}>Augmentation & Impact Type</h2>
 		<p class="mt-2 text-sm text-muted-foreground">
 			A single displacement risk number misses half the story. We compute augmentation potential from the
 			<strong>same three layers</strong>, with a different formula:
@@ -449,7 +450,7 @@
 
 	<!-- Confidence -->
 	<section class="mt-8">
-		<h2 class="text-base font-semibold text-foreground">Confidence Scores</h2>
+		<h2 class={titleStyle({ size: 'section' })}>Confidence Scores</h2>
 		<p class="mt-2 text-sm text-muted-foreground">
 			Every score carries a visible confidence indicator:
 		</p>
@@ -495,7 +496,7 @@
 
 	<!-- Worked example -->
 	<section class="mt-8">
-		<h2 class="text-base font-semibold text-foreground">Worked Examples</h2>
+		<h2 class={titleStyle({ size: 'section' })}>Worked Examples</h2>
 		<p class="mt-2 text-sm text-muted-foreground">
 			Both occupations score high on AI exposure. But their outcomes differ dramatically because of
 			the bottleneck and market layers:
@@ -542,7 +543,7 @@
 
 	<!-- Classification (IMF-style) -->
 	<section class="mt-8">
-		<h2 class="text-base font-semibold text-foreground">Classification</h2>
+		<h2 class={titleStyle({ size: 'section' })}>Classification</h2>
 		<p class="mt-2 text-sm text-muted-foreground">
 			Building on the IMF framework, occupations are classified into four impact types based on the 2&times;2 matrix of
 			displacement risk and augmentation potential:
@@ -581,7 +582,7 @@
 
 	<!-- Crosswalk -->
 	<section class="mt-8">
-		<h2 class="text-base font-semibold text-foreground">Crosswalk: Singapore to US Scores</h2>
+		<h2 class={titleStyle({ size: 'section' })}>Crosswalk: Singapore to US Scores</h2>
 		<p class="mt-2 text-sm text-muted-foreground">
 			AIOE and theta scores originate from US O*NET data. We map Singapore's SSOC occupations to these scores via:
 		</p>
@@ -601,7 +602,7 @@
 
 	<!-- What this version shows -->
 	<section class="mt-8">
-		<h2 class="text-base font-semibold text-foreground">What v1 Shows</h2>
+		<h2 class={titleStyle({ size: 'section' })}>What v1 Shows</h2>
 		<p class="mt-2 text-sm text-muted-foreground">
 			v1 implements the full three-layer model: exposure (AIOE percentile), human bottleneck (theta percentile),
 			and market resilience (group-level employment/wage trends + occupation-level wage structure).
@@ -616,7 +617,7 @@
 
 	<!-- Limitations -->
 	<section class="mt-8">
-		<h2 class="text-base font-semibold text-foreground">Known Limitations</h2>
+		<h2 class={titleStyle({ size: 'section' })}>Known Limitations</h2>
 		<ul class="mt-2 list-inside list-disc space-y-1.5 text-sm text-muted-foreground">
 			<li><strong>Exposure does not equal displacement</strong> — We model this gap explicitly, but the market translation layer uses heuristics and lagging indicators.</li>
 			<li><strong>US-centric ability data</strong> — O*NET surveys US workers. Task composition may differ in Singapore's regulatory and cultural environment.</li>
@@ -630,9 +631,90 @@
 		</ul>
 	</section>
 
+	<!-- Implementation Constants -->
+	<section class="mt-8">
+		<h2 class={titleStyle({ size: 'section' })}>Implementation Constants</h2>
+		<p class="mt-2 text-sm text-muted-foreground">
+			Key constants and thresholds used in the scoring pipeline. All values are deterministic and reproducible.
+		</p>
+		<div class="mt-3 overflow-x-auto">
+			<table class="w-full text-left text-sm">
+				<thead>
+					<tr class="border-b border-border">
+						<th class="py-2 pr-3 font-medium text-foreground/80">Parameter</th>
+						<th class="py-2 pr-3 font-medium text-foreground/80">Value</th>
+						<th class="py-2 font-medium text-foreground/80">Details</th>
+					</tr>
+				</thead>
+				<tbody class="text-muted-foreground">
+					<tr class="border-b border-border/50">
+						<td class="py-2 pr-3 font-medium">Anthropic calibration cap</td>
+						<td class="py-2 pr-3">&plusmn;30%</td>
+						<td class="py-2"><code class="rounded bg-muted px-1 text-xs">exposure + 0.3 &times; (observed - exposure)</code></td>
+					</tr>
+					<tr class="border-b border-border/50">
+						<td class="py-2 pr-3 font-medium">SOL exact bonus</td>
+						<td class="py-2 pr-3">+15%</td>
+						<td class="py-2">Exact match to Shortage Occupation List adds 15% to market resilience</td>
+					</tr>
+					<tr class="border-b border-border/50">
+						<td class="py-2 pr-3 font-medium">SOL prefix bonus</td>
+						<td class="py-2 pr-3">+8%</td>
+						<td class="py-2">Prefix-inferred match to SOL adds 8% to market resilience</td>
+					</tr>
+					<tr class="border-b border-border/50">
+						<td class="py-2 pr-3 font-medium">Jobs in Demand exact bonus</td>
+						<td class="py-2 pr-3">+10%</td>
+						<td class="py-2">Exact match to Jobs in Demand adds 10% to market resilience</td>
+					</tr>
+					<tr class="border-b border-border/50">
+						<td class="py-2 pr-3 font-medium">Jobs in Demand prefix bonus</td>
+						<td class="py-2 pr-3">+5%</td>
+						<td class="py-2">Prefix-inferred match to Jobs in Demand adds 5% to market resilience</td>
+					</tr>
+					<tr class="border-b border-border/50">
+						<td class="py-2 pr-3 font-medium">Displacement cutoff (high)</td>
+						<td class="py-2 pr-3">&ge; 0.25</td>
+						<td class="py-2">Displacement risk &ge; 0.25 classified as "high displacement" for impact type</td>
+					</tr>
+					<tr class="border-b border-border/50">
+						<td class="py-2 pr-3 font-medium">Augmentation cutoff (high)</td>
+						<td class="py-2 pr-3">&ge; 0.12</td>
+						<td class="py-2">Augmentation potential &ge; 0.12 classified as "high augmentation" for impact type</td>
+					</tr>
+					<tr class="border-b border-border/50">
+						<td class="py-2 pr-3 font-medium">Stability stress test</td>
+						<td class="py-2 pr-3">&plusmn;5 percentile points</td>
+						<td class="py-2">Each of the three core layers is perturbed by &plusmn;5 percentile points to test band stability</td>
+					</tr>
+					<tr class="border-b border-border/50">
+						<td class="py-2 pr-3 font-medium">Confidence: high</td>
+						<td class="py-2 pr-3">&ge; 0.7</td>
+						<td class="py-2">Confidence score &ge; 0.7 published as "High"</td>
+					</tr>
+					<tr class="border-b border-border/50">
+						<td class="py-2 pr-3 font-medium">Confidence: medium</td>
+						<td class="py-2 pr-3">0.4 &ndash; 0.7</td>
+						<td class="py-2">Confidence score between 0.4 and 0.7 published as "Medium"</td>
+					</tr>
+					<tr class="border-b border-border/50">
+						<td class="py-2 pr-3 font-medium">Confidence: low</td>
+						<td class="py-2 pr-3">&lt; 0.4</td>
+						<td class="py-2">Confidence score below 0.4 published as "Low"</td>
+					</tr>
+					<tr>
+						<td class="py-2 pr-3 font-medium">Market modifier cap</td>
+						<td class="py-2 pr-3">0.35</td>
+						<td class="py-2"><code class="rounded bg-muted px-1 text-xs">market_modifier = 1 - 0.35 &times; market_resilience</code></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+
 	<!-- References -->
 	<section class="mt-8">
-		<h2 class="text-base font-semibold text-foreground">Academic References</h2>
+		<h2 class={titleStyle({ size: 'section' })}>Academic References</h2>
 		<ul class="mt-2 space-y-3 text-sm text-muted-foreground">
 			<li>
 				<p class="font-medium text-foreground/80">Felten, Raj &amp; Seamans (2021)</p>
@@ -675,7 +757,7 @@
 
 	<!-- Reproduce -->
 	<section class="mt-8">
-		<h2 class="text-base font-semibold text-foreground">Reproduce Our Results</h2>
+		<h2 class={titleStyle({ size: 'section' })}>Reproduce Our Results</h2>
 		<p class="mt-2 text-sm text-muted-foreground">
 			The entire scoring pipeline is open source and deterministic:
 		</p>

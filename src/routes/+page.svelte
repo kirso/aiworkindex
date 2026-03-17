@@ -8,6 +8,7 @@
 	import InsightsPanel from '$lib/components/ui/InsightsPanel.svelte';
 	import OccupationCardList from '$lib/components/ui/OccupationCardList.svelte';
 	import HeroSearch from '$lib/components/ui/HeroSearch.svelte';
+	import { title as titleStyle, sectionLabel, card } from '$lib/design-system';
 
 	let { data } = $props();
 
@@ -49,7 +50,7 @@
 <div class="border-b border-border bg-card">
 	<div class="mx-auto max-w-screen-2xl px-5 py-8 sm:px-6">
 		<div class="mx-auto max-w-2xl text-center">
-			<h1 class="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+			<h1 class={titleStyle({ size: 'page' })}>
 				How will AI affect your job?
 			</h1>
 			<p class="mt-2 text-sm text-muted-foreground">
@@ -81,7 +82,7 @@
 	<div class="flex gap-6">
 		<!-- Sidebar filters (desktop) — single instance, responsive -->
 		<aside class="hidden w-[260px] shrink-0 lg:block">
-			<div class="card sticky top-16 max-h-[calc(100vh-5rem)] overflow-y-auto p-5">
+			<div class={card({ padding: 'md' }) + ' sticky top-16 max-h-[calc(100vh-5rem)] overflow-y-auto'}>
 				<FilterPanel occupations={data.occupations} onfilter={handleFilter} />
 			</div>
 		</aside>
@@ -91,7 +92,7 @@
 			<!-- Mobile filters — separate instance but same callback -->
 			{#if innerWidth < 1024}
 				<div class="mb-5">
-					<details class="card">
+					<details class={card()}>
 						<summary class="cursor-pointer px-4 py-3 text-sm font-medium text-foreground/80">
 							Filters & Search
 						</summary>
@@ -104,8 +105,8 @@
 
 			<!-- Insights panel: collapsible on screens below xl -->
 			{#if innerWidth < 1280 && innerWidth >= 768}
-				<details class="card mb-5">
-					<summary class="cursor-pointer px-5 py-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+				<details class={card() + ' mb-5'}>
+					<summary class={'cursor-pointer px-5 py-3 ' + sectionLabel()}>
 						Insights & Rankings
 					</summary>
 					<div class="border-t border-border/50 p-5">
@@ -116,18 +117,18 @@
 
 			{#if innerWidth >= 768}
 				<!-- Treemap — full width, tall -->
-				<section class="card p-5">
+				<section class={card({ padding: 'md' })}>
 					<div class="mb-3 flex items-center justify-between">
-						<h2 class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Explore all occupations</h2>
+						<h2 class={sectionLabel()}>Explore all occupations</h2>
 						<span class="text-sm text-muted-foreground">{filteredOccupations.length} occupations</span>
 					</div>
 					<Treemap occupations={filteredOccupations} />
 				</section>
 
 				<!-- Risk Distribution -->
-				<section class="card mt-8 p-5">
+				<section class={card({ padding: 'md' }) + ' mt-8'}>
 					<div class="mb-3">
-						<h2 class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">How risk breaks down</h2>
+						<h2 class={sectionLabel()}>How risk breaks down</h2>
 						<p class="mt-1 text-xs text-muted-foreground">
 							How {filteredOccupations.length} occupations distribute across AI risk levels.
 						</p>
@@ -145,9 +146,9 @@
 				</section>
 
 				<!-- Scatter plot -->
-					<section class="card mt-8 p-5">
+					<section class={card({ padding: 'md' }) + ' mt-8'}>
 						<div class="mb-3">
-							<h2 class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">AI Exposure vs Human Skills</h2>
+							<h2 class={sectionLabel()}>AI Exposure vs Human Skills</h2>
 							<p class="mt-1 text-xs text-muted-foreground">
 								Each dot is one occupation. Dot size is fixed to avoid implying occupation-level workforce counts we do not have.
 							</p>
@@ -162,7 +163,7 @@
 		<!-- Right sidebar: insights panel (xl+ only) -->
 		{#if innerWidth >= 1280}
 			<aside class="hidden w-[280px] shrink-0 xl:block">
-				<div class="card sticky top-16 max-h-[calc(100vh-5rem)] overflow-y-auto p-5">
+				<div class={card({ padding: 'md' }) + ' sticky top-16 max-h-[calc(100vh-5rem)] overflow-y-auto'}>
 					<InsightsPanel occupations={filteredOccupations} />
 				</div>
 			</aside>

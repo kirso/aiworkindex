@@ -1,3 +1,7 @@
+<script lang="ts">
+	import { title as titleStyle } from '$lib/design-system';
+</script>
+
 <svelte:head>
 	<title>About — Singapore AI Occupation Impact Index</title>
 	<meta name="description" content="Data sources, credits, and license for the Singapore AI Occupation Impact Index. Three layers of AI impact: exposure, human bottleneck, and market resilience. Open-source, MIT licensed." />
@@ -13,7 +17,7 @@
 		<span class="text-foreground/80">About</span>
 	</nav>
 
-	<h1 class="text-2xl font-bold text-foreground sm:text-3xl">About This Project</h1>
+	<h1 class={titleStyle({ size: 'page' })}>About This Project</h1>
 	<p class="mt-2 text-muted-foreground">
 		The Singapore AI Occupation Impact Index measures how 562 occupations in Singapore are affected by AI
 		across three interpretable layers: exposure, human bottleneck, and market resilience, producing risk bands
@@ -27,7 +31,7 @@
 	</p>
 
 	<section class="mt-8">
-		<h2 class="text-base font-semibold text-foreground">Data Sources</h2>
+		<h2 class={titleStyle({ size: 'section' })}>Data Sources</h2>
 		<ul class="mt-3 space-y-3 text-sm text-muted-foreground">
 			<li>
 				<p class="font-medium text-foreground/80">Singapore Occupation Data</p>
@@ -61,7 +65,7 @@
 	</section>
 
 	<section class="mt-8">
-		<h2 class="text-base font-semibold text-foreground">Technical Stack</h2>
+		<h2 class={titleStyle({ size: 'section' })}>Technical Stack</h2>
 		<ul class="mt-2 list-inside list-disc space-y-1 text-sm text-muted-foreground">
 			<li>SvelteKit + Svelte 5 (static site generation via adapter-static)</li>
 			<li>D3.js for layout computation (treemap, scales — no DOM manipulation)</li>
@@ -72,7 +76,7 @@
 	</section>
 
 	<section class="mt-8">
-		<h2 class="text-base font-semibold text-foreground">Comparison with Karpathy's Approach</h2>
+		<h2 class={titleStyle({ size: 'section' })}>Comparison with Karpathy's Approach</h2>
 		<div class="mt-3 overflow-x-auto">
 			<table class="w-full text-left text-sm">
 				<thead>
@@ -119,7 +123,7 @@
 	</section>
 
 	<section class="mt-8">
-		<h2 class="text-base font-semibold text-foreground">License</h2>
+		<h2 class={titleStyle({ size: 'section' })}>License</h2>
 		<p class="mt-2 text-sm text-muted-foreground">
 			This project is released under the MIT License. The code and methodology are designed to be
 			adaptable for other countries via ISCO-08 crosswalks — see the repository for a country adapter template.
@@ -127,7 +131,7 @@
 	</section>
 
 	<section class="mt-8">
-		<h2 class="text-base font-semibold text-foreground">Credits</h2>
+		<h2 class={titleStyle({ size: 'section' })}>Credits</h2>
 		<p class="mt-2 text-sm text-muted-foreground">
 			Made by <a href="https://www.linkedin.com/in/kirso/" target="_blank" rel="noopener noreferrer" class="font-medium text-primary hover:text-primary/80">Kirill So</a>
 			in collaboration with

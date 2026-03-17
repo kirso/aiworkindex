@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Occupation, RiskBand } from '$lib/data';
 	import { impactTypeColors, impactTypeLabels, riskBandColors } from '$lib/data';
+	import { sectionLabel } from '$lib/design-system';
 
 	let { occupations }: { occupations: Occupation[] } = $props();
 
@@ -91,7 +92,7 @@
 
 <div class="space-y-5 text-sm">
 	<div>
-		<h3 class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Overview</h3>
+		<h3 class={sectionLabel()}>Overview</h3>
 		<div class="mt-2 grid grid-cols-2 gap-2">
 				<div class="rounded-lg bg-secondary px-3 py-2">
 					<p class="text-xs text-muted-foreground">SG Workforce</p>
@@ -127,7 +128,7 @@
 	</div>
 
 	<div>
-		<h3 class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">AI Risk Score Distribution</h3>
+		<h3 class={sectionLabel()}>AI Risk Score Distribution</h3>
 		<div class="mt-2 space-y-1">
 			{#each bandOrder as band (band)}
 				{@const count = bandCounts[band] ?? 0}
@@ -146,7 +147,7 @@
 	</div>
 
 	<div>
-		<h3 class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Impact Type</h3>
+		<h3 class={sectionLabel()}>Impact Type</h3>
 		<div class="mt-2 space-y-1">
 			{#each impactOrder as type (type)}
 				{@const count = impactCounts[type] ?? 0}
@@ -165,7 +166,7 @@
 	</div>
 
 	<div>
-		<h3 class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Highest Risk</h3>
+		<h3 class={sectionLabel()}>Highest Risk</h3>
 		<ol class="mt-2 space-y-1">
 			{#each topHighRisk as occ, i (occ.ssoc)}
 				<li class="flex items-start gap-1.5">
@@ -180,7 +181,7 @@
 	</div>
 
 	<div>
-		<h3 class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Most Resilient</h3>
+		<h3 class={sectionLabel()}>Most Resilient</h3>
 		<ol class="mt-2 space-y-1">
 			{#each topLowRisk as occ, i (occ.ssoc)}
 				<li class="flex items-start gap-1.5">
@@ -195,7 +196,7 @@
 	</div>
 
 	<div>
-		<h3 class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Observed AI Usage Gap</h3>
+		<h3 class={sectionLabel()}>Observed AI Usage Gap</h3>
 		<ol class="mt-2 space-y-1">
 			{#each theoryVsPractice as occ, i (occ.ssoc)}
 				<li class="flex items-start gap-1.5">

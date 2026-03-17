@@ -5,6 +5,7 @@
 	import type { Occupation, RiskBand } from '$lib/data';
 	import { majorGroups, riskBandLabels, riskBandColors } from '$lib/data';
 	import { findAliasMatches } from '$lib/data/aliases';
+	import { chip } from '$lib/design-system';
 
 	let {
 		occupations,
@@ -190,10 +191,7 @@
 				{@const bandColor = opt.key !== 'all' ? riskBandColors[opt.key as RiskBand] : undefined}
 				<button
 					type="button"
-					class="rounded-full border px-3 py-1 text-xs font-medium transition-all duration-150
-						{isActive
-							? 'chip-active border-primary bg-primary text-primary-foreground shadow-sm'
-							: 'border-border bg-card text-muted-foreground hover:border-border hover:shadow-sm'}"
+					class={chip({ active: isActive })}
 					onclick={() => (selectedCategory = opt.key)}
 				>
 					{#if bandColor && !isActive}

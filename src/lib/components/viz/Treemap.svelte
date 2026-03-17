@@ -246,6 +246,8 @@
 						width={nw}
 						height={nh}
 						fill={riskColorScale(avgRisk)}
+						stroke={groupColor}
+						stroke-width="2"
 						opacity="0.85"
 						rx="3"
 						class="cursor-pointer transition-opacity duration-150 hover:opacity-100"
@@ -261,6 +263,13 @@
 					</rect>
 
 					{#if shouldShowGroupLabel(node)}
+						<circle
+							cx={node.x0 + nw / 2 - (truncateLabel(groupLabel(node.data.name), nw - 12).length * 3) - 6}
+							cy={node.y0 + nh / 2 - 9}
+							r="4"
+							fill={groupColor}
+							class="pointer-events-none"
+						/>
 						<text
 							x={node.x0 + nw / 2}
 							y={node.y0 + nh / 2 - 6}
