@@ -145,27 +145,29 @@
 		)
 	);
 
-	// Evidence trail items — plain English sentences
+	// Evidence trail items — source label + plain English explanation
 	let evidenceTrail = $derived.by(() => {
-		const items: Array<{ icon: string; sentence: string; tone: string }> = [];
+		const items: Array<{ icon: string; label: string; sentence: string; tone: string }> = [];
 
-		// AIOE
+		// AIOE crosswalk
 		items.push({
 			icon: occ.match_quality === 'direct' ? 'check' : 'approx',
+			label: 'AI Exposure Match (AIOE)',
 			sentence: occ.match_quality === 'direct'
-				? 'This estimate uses a direct occupation match to the academic AI exposure dataset.'
-				: `This estimate uses a ${occ.match_quality.replace('_', ' ')} match to the AI exposure dataset, which adds some uncertainty.`,
-			tone: occ.match_quality === 'direct' ? 'text-emerald-600' : 'text-amber-600'
+				? 'Direct occupation match to the academic AI exposure dataset.'
+				: `${occ.match_quality.replace('_', ' ')} match — adds some uncertainty to the exposure estimate.`,
+			tone: occ.match_quality === 'direct' ? 'text-risk-very-low' : 'text-risk-moderate'
 		});
 
 		// SOL
 		if (occ.evidence.sol_match) {
 			items.push({
 				icon: 'check',
+				label: 'Shortage Occupation List (SOL 2026)',
 				sentence: occ.evidence.sol_match === 'exact'
-					? 'This role is listed as a shortage occupation on Singapore\'s 2026 Strategic Occupation List.'
-					: 'This role partially matches a shortage occupation on Singapore\'s 2026 Strategic Occupation List.',
-				tone: 'text-emerald-600'
+					? 'Listed as a shortage occupation — strong Singapore demand signal.'
+					: 'Partially matches a shortage occupation — moderate demand signal.',
+				tone: 'text-risk-very-low'
 			});
 		}
 
@@ -173,32 +175,39 @@
 		if (occ.evidence.jobs_in_demand_match) {
 			items.push({
 				icon: 'check',
+				label: 'Jobs in Demand (MOM 2025)',
 				sentence: occ.evidence.jobs_in_demand_match === 'exact'
-					? 'This role appears on Singapore\'s 2025 Jobs in Demand list.'
-					: 'This role partially matches an entry on the 2025 Jobs in Demand list.',
-				tone: 'text-emerald-600'
+					? 'Appears on Singapore\'s official in-demand occupations list.'
+					: 'Partially matches an in-demand occupation.',
+				tone: 'text-risk-very-low'
 			});
 		}
 
-		// Anthropic
+		// Anthropic observed usage
 		if (occ.evidence.anthropic_calibrated) {
 			const gap = occ.evidence.anthropic_gap ?? 0;
 			const pct = Math.abs(Math.round(gap * 100));
 			items.push({
 				icon: 'check',
+				label: 'Observed AI Usage (Anthropic)',
 				sentence: gap >= 0
-					? `Observed AI usage for this role is ${pct}% higher than theory suggests.`
-					: `Observed AI usage for this role is ${pct}% lower than theory suggests.`,
-				tone: gap >= 0 ? 'text-rose-600' : 'text-blue-600'
+					? `AI is used ${pct}% more than theory predicts for this role.`
+					: `AI is used ${pct}% less than theory predicts for this role.`,
+				tone: gap >= 0 ? 'text-risk-high' : 'text-risk-low'
 			});
 		}
 
 		// Labour monitor
 		if (occ.labour_monitor) {
+			const signal = occ.labour_monitor.overall;
 			items.push({
 				icon: 'cluster',
-				sentence: `Local hiring data (${occ.labour_monitor.cluster_label} cluster) shows ${overallSignalLabel(occ.labour_monitor.overall).toLowerCase()} demand signals.`,
-				tone: occ.labour_monitor.overall === 'strong' || occ.labour_monitor.overall === 'moderate' ? 'text-emerald-600' : 'text-amber-600'
+				label: `Local Hiring Signal (${occ.labour_monitor.cluster_label})`,
+				sentence: signal === 'strong' ? 'Active hiring with growing vacancies.'
+					: signal === 'moderate' ? 'Steady hiring activity.'
+					: signal === 'weak' ? 'Hiring activity is flat or slowing.'
+					: 'Vacancy and hiring signals are declining.',
+				tone: signal === 'strong' || signal === 'moderate' ? 'text-risk-very-low' : 'text-risk-moderate'
 			});
 		}
 
@@ -594,27 +603,19 @@
 
 		<!-- Evidence Trail -->
 		<h3 class="mb-2 mt-5 text-sm font-semibold text-foreground/80">Evidence Trail</h3>
-		<div class="space-y-1.5">
+		<div class="space-y-2">
 			{#each evidenceTrail as item}
-				<div class="flex items-start gap-2 text-xs">
-					<span class="{item.tone} mt-0.5 font-bold">
+				<div class="flex items-start gap-2">
+					<span class="{item.tone} mt-0.5 text-sm font-bold shrink-0">
 						{#if item.icon === 'check'}&#10003;{:else if item.icon === 'approx'}&#9675;{:else}&#9679;{/if}
 					</span>
-					<span class="text-foreground/80">{item.sentence}</span>
+					<div>
+						<span class="text-xs font-semibold text-foreground">{item.label}</span>
+						<p class="text-xs text-muted-foreground leading-relaxed">{item.sentence}</p>
+					</div>
 				</div>
 			{/each}
 		</div>
-
-		{#if demandEvidence.length > 0}
-			<div class="mt-3 flex flex-wrap gap-2">
-				{#each demandEvidence as item}
-					<div class="rounded-lg border px-3 py-2 {item.tone}">
-						<p class="text-xs font-semibold">{item.label}</p>
-						<p class="text-xs opacity-80">{item.detail}</p>
-					</div>
-				{/each}
-			</div>
-		{/if}
 	</section>
 
 	<!-- 6. Local Market Evidence — COLLAPSED -->
