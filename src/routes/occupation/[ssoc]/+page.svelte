@@ -9,8 +9,9 @@
 		augmentationBandLabels,
 		occupations as allOccupations
 	} from '$lib/data';
-	import { title as titleStyle, sectionLabel, card, riskBadge, impactBadge, confidenceBadge, confidenceColor, demandMatchTone, stabilityTone, overallSignalTone, vacancySignalTone } from '$lib/design-system';
+	import { title as titleStyle, sectionLabel, card, riskBadge, impactBadge, confidenceBadge, confidenceColor, demandMatchTone, stabilityTone, overallSignalTone, vacancySignalTone, scoreBar } from '$lib/design-system';
 	import { cn } from '$lib/utils';
+	import { getPersonalizedContent } from '$lib/data/role-archetypes';
 
 	let { data } = $props();
 	let occ = $derived(data.occupation);
@@ -588,48 +589,51 @@
 			</summary>
 			<div class="border-t border-border/50 p-5">
 				<!-- Market Signals -->
-				<h3 class="mb-2 text-sm font-semibold text-foreground/80">Market Signals</h3>
-				<div class="space-y-3">
-					<div>
-						<div class="mb-1 flex items-center justify-between text-sm">
-							<span class="text-muted-foreground">Market Momentum</span>
-							<span class="font-medium tabular-nums text-foreground">{occ.market.market_momentum.toFixed(2)}</span>
+				<div class="mb-4">
+					<h3 class="mb-2 text-sm font-semibold text-foreground/80">Market Signals</h3>
+					<div class="space-y-3">
+						<div>
+							<div class="mb-1 flex items-center justify-between text-sm">
+								<span class="text-muted-foreground">Market Momentum</span>
+								<span class="font-medium tabular-nums text-foreground">{occ.market.market_momentum.toFixed(2)}</span>
+							</div>
+							<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
+								<div
+									class="h-full rounded-full bg-blue-400"
+									style="width: {Math.min(occ.market.market_momentum * 100, 100)}%;"
+								></div>
+							</div>
 						</div>
-						<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
-							<div
-								class="h-full rounded-full bg-blue-400"
-								style="width: {Math.min(occ.market.market_momentum * 100, 100)}%;"
-							></div>
+						<div>
+							<div class="mb-1 flex items-center justify-between text-sm">
+								<span class="text-muted-foreground">Occupation Scarcity</span>
+								<span class="font-medium tabular-nums text-foreground">{occ.market.occupation_scarcity.toFixed(2)}</span>
+							</div>
+							<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
+								<div
+									class="h-full rounded-full bg-amber-400"
+									style="width: {Math.min(occ.market.occupation_scarcity * 100, 100)}%;"
+								></div>
+							</div>
 						</div>
-					</div>
-					<div>
-						<div class="mb-1 flex items-center justify-between text-sm">
-							<span class="text-muted-foreground">Occupation Scarcity</span>
-							<span class="font-medium tabular-nums text-foreground">{occ.market.occupation_scarcity.toFixed(2)}</span>
-						</div>
-						<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
-							<div
-								class="h-full rounded-full bg-amber-400"
-								style="width: {Math.min(occ.market.occupation_scarcity * 100, 100)}%;"
-							></div>
-						</div>
-					</div>
-					<div>
-						<div class="mb-1 flex items-center justify-between text-sm">
-							<span class="text-muted-foreground">Singapore Demand Buffer <span class="text-xs text-muted-foreground/60">(Market Resilience)</span></span>
-							<span class="font-medium tabular-nums text-foreground">{occ.market.market_resilience.toFixed(2)}</span>
-						</div>
-						<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
-							<div
-								class="h-full rounded-full bg-blue-400"
-								style="width: {Math.min(occ.market.market_resilience * 100, 100)}%;"
-							></div>
+						<div>
+							<div class="mb-1 flex items-center justify-between text-sm">
+								<span class="text-muted-foreground">Singapore Demand Buffer <span class="text-xs text-muted-foreground/60">(Market Resilience)</span></span>
+								<span class="font-medium tabular-nums text-foreground">{occ.market.market_resilience.toFixed(2)}</span>
+							</div>
+							<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
+								<div
+									class="h-full rounded-full bg-blue-400"
+									style="width: {Math.min(occ.market.market_resilience * 100, 100)}%;"
+								></div>
+							</div>
 						</div>
 					</div>
 				</div>
 
 				{#if occ.labour_monitor}
-					<h3 class="mb-2 mt-5 text-sm font-semibold text-foreground/80">Local Hiring Signal <span class="text-xs font-normal text-muted-foreground">(Labour Monitor)</span></h3>
+					<div class="border-t border-border/30 pt-4 mb-4">
+					<h3 class="mb-2 text-sm font-semibold text-foreground/80">Local Hiring Signal <span class="text-xs font-normal text-muted-foreground">(Labour Monitor)</span></h3>
 					<div class="rounded-lg border border-border/50 bg-muted p-4">
 						<div class="flex flex-wrap items-start justify-between gap-3">
 							<div>
@@ -694,6 +698,7 @@
 						<p class="mt-3 text-xs text-muted-foreground">
 							Source: MOM/SingStat via data.gov.sg. Latest: {occ.labour_monitor.data_as_of}. Cluster-level data.
 						</p>
+					</div>
 					</div>
 				{/if}
 			</div>

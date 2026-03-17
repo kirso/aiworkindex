@@ -107,7 +107,7 @@
 			<!-- Insights panel: collapsible on screens below xl -->
 			{#if innerWidth < 1280 && innerWidth >= 768}
 				<details class={cn(card(), 'mb-5')}>
-					<summary class={'cursor-pointer px-5 py-3 ' + sectionLabel()}>
+					<summary class={cn('cursor-pointer px-5 py-3', sectionLabel())}>
 						Insights & Rankings
 					</summary>
 					<div class="border-t border-border/50 p-5">
