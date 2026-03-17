@@ -6,8 +6,9 @@
 		impactTypeColors,
 		augmentationBandLabels
 	} from '$lib/data';
-	import { title as titleStyle, card, riskBadge, impactBadge, confidenceBadge, confidenceColor } from '$lib/design-system';
+	import { title as titleStyle, card, riskBadge, impactBadge, confidenceBadge, confidenceColor, sectionLabel } from '$lib/design-system';
 	import { cn } from '$lib/utils';
+	import { getPersonalizedContent } from '$lib/data/role-archetypes';
 
 	let { data } = $props();
 	let scored = $derived(data.scored);
@@ -76,60 +77,28 @@
 		}
 	});
 
-	// Skills: derived from the highest-weight component's major group
-	let skillRecommendations = $derived.by(() => {
-		const skills: { label: string; description: string }[] = [];
-
-		// Use overall scores to determine skills
-		const bt = scored.bottleneck;
-		const exp = scored.exposure;
-
-		if (bt > 0.6) {
-			skills.push({ label: 'Complex Problem Solving', description: 'Tackling ambiguous, multi-factor challenges that resist formulaic solutions' });
-			skills.push({ label: 'Interpersonal Communication', description: 'Persuading, negotiating, and building trust across diverse stakeholders' });
-		}
-		if (bt > 0.4) {
-			skills.push({ label: 'Critical Thinking', description: 'Evaluating information quality and making sound judgments under uncertainty' });
-		}
-
-		// Tag-specific skills
-		if (scored.tags.includes('tech') || scored.tags.includes('engineering')) {
-			skills.push({ label: 'System Design', description: 'Architecting scalable, maintainable systems and understanding trade-offs' });
-		}
-		if (scored.tags.includes('management')) {
-			skills.push({ label: 'Strategic Leadership', description: 'Setting direction, managing change, and aligning teams with organizational goals' });
-		}
-		if (scored.tags.includes('sales') || scored.tags.includes('customer')) {
-			skills.push({ label: 'Relationship Building', description: 'Developing long-term trust and rapport with clients and partners' });
-		}
-		if (scored.tags.includes('hr') || scored.tags.includes('talent')) {
-			skills.push({ label: 'People Development', description: 'Coaching, mentoring, and unlocking potential in individuals and teams' });
-		}
-		if (scored.tags.includes('design') || scored.tags.includes('ux')) {
-			skills.push({ label: 'Design Thinking', description: 'Empathizing with users and iterating on solutions through prototyping and testing' });
-		}
-		if (scored.tags.includes('data')) {
-			skills.push({ label: 'Data Modeling', description: 'Designing efficient data structures and pipelines for scale and reliability' });
-		}
-
-		if (exp > 0.5) {
-			skills.push({ label: 'AI Literacy', description: 'Understanding AI capabilities and limitations to work alongside AI tools effectively' });
-		}
-
-		// Deduplicate by label and limit to 4
-		const seen = new Set<string>();
-		return skills.filter((s) => {
-			if (seen.has(s.label)) return false;
-			seen.add(s.label);
-			return true;
-		}).slice(0, 4);
-	});
-
 	// Highest-weight component for primary occupation reference
 	let primaryComponent = $derived.by(() => {
 		const sorted = [...scored.components].sort((a, b) => b.weight - a.weight);
 		return sorted[0] ?? null;
 	});
+
+	// Personalized content from role-archetypes engine (uses primary component occupation)
+	let personalizedContent = $derived.by(() => {
+		const primary = primaryComponent;
+		if (primary?.occupation) {
+			return getPersonalizedContent(primary.ssoc, primary.occupation.title, primary.occupation.major_group);
+		}
+		// Fallback: use the synthetic role title with a generic SSOC
+		return getPersonalizedContent('00000', scored.title, '');
+	});
+
+	let aiCanAndCant = $derived({
+		canDo: personalizedContent.aiCanDo,
+		cantDo: personalizedContent.humanNeeded
+	});
+
+	let skillRecommendations = $derived(personalizedContent.skills);
 </script>
 
 <svelte:head>
@@ -201,10 +170,7 @@
 					<!-- Weight bar -->
 					<div class="w-16 shrink-0">
 						<div class="h-2 w-full overflow-hidden rounded-full bg-border">
-							<div
-								class="h-full rounded-full bg-blue-500"
-								style="width: {comp.weight * 100}%;"
-							></div>
+							<div class="h-full rounded-full bg-blue-500" style="width: {comp.weight * 100}%;"></div>
 						</div>
 						<p class="mt-1 text-center text-xs font-semibold tabular-nums text-muted-foreground">
 							{(comp.weight * 100).toFixed(0)}%
@@ -237,76 +203,19 @@
 		</div>
 	</section>
 
-	<!-- 4. Score Breakdown -->
+	<!-- 4. What AI Can and Can't Do -->
 	<section class={cn(card({ padding: 'md' }), 'mb-4')}>
-		<h2 class={cn(titleStyle({ size: 'section' }), 'mb-3')}>Score Breakdown</h2>
-		<div class="space-y-3">
-			<div>
-				<div class="mb-1 flex items-center justify-between text-sm">
-					<span class="text-muted-foreground">AI Task Overlap <span class="text-xs">(Exposure)</span></span>
-					<span class="font-medium tabular-nums text-foreground">{(scored.exposure * 100).toFixed(0)}%</span>
-				</div>
-				<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
-					<div
-						class="h-full rounded-full bg-red-400"
-						style="width: {Math.min(scored.exposure * 100, 100)}%;"
-					></div>
-				</div>
+		<h2 class={cn(titleStyle({ size: 'section' }), 'mb-3')}>What AI Can and Can't Do</h2>
+		<div class="grid gap-4 sm:grid-cols-2">
+			<div class="rounded-lg bg-muted p-4">
+				<p class={cn(sectionLabel(), 'mb-1')}>AI can handle</p>
+				<p class="text-sm leading-relaxed text-foreground/80">{aiCanAndCant.canDo}</p>
 			</div>
-			<div>
-				<div class="mb-1 flex items-center justify-between text-sm">
-					<span class="text-muted-foreground">Human Advantage <span class="text-xs">(Bottleneck)</span></span>
-					<span class="font-medium tabular-nums text-foreground">{(scored.bottleneck * 100).toFixed(0)}%</span>
-				</div>
-				<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
-					<div
-						class="h-full rounded-full bg-green-400"
-						style="width: {Math.min(scored.bottleneck * 100, 100)}%;"
-					></div>
-				</div>
-			</div>
-			<div>
-				<div class="mb-1 flex items-center justify-between text-sm">
-					<span class="text-muted-foreground">Singapore Demand Buffer <span class="text-xs">(Market Resilience)</span></span>
-					<span class="font-medium tabular-nums text-foreground">{(scored.market_resilience * 100).toFixed(0)}%</span>
-				</div>
-				<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
-					<div
-						class="h-full rounded-full bg-blue-400"
-						style="width: {Math.min(scored.market_resilience * 100, 100)}%;"
-					></div>
-				</div>
-			</div>
-			<div class="border-t border-border/50 pt-3">
-				<div class="mb-1 flex items-center justify-between text-sm">
-					<span class="font-medium text-foreground">AI Risk Score <span class="text-xs">(Net Risk)</span></span>
-					<span class="text-base font-bold tabular-nums text-foreground">{(scored.net_risk * 100).toFixed(0)}%</span>
-				</div>
-				<div class="h-3 w-full overflow-hidden rounded-full bg-muted">
-					<div
-						class="h-full rounded-full"
-						style="width: {Math.min(scored.net_risk * 100, 100)}%; background-color: {riskBandColors[scored.risk_band]};"
-					></div>
-				</div>
-			</div>
-			<div class="border-t border-border/50 pt-3">
-				<div class="mb-1 flex items-center justify-between text-sm">
-					<span class="font-medium text-primary">Augmentation Potential</span>
-					<span class="text-xs font-medium text-primary">{augmentationBandLabels[scored.augmentation_band]}</span>
-				</div>
-				<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
-					<div
-						class="h-full rounded-full bg-primary"
-						style="width: {Math.min(scored.augmentation * 100, 100)}%;"
-					></div>
-				</div>
-				<div class="mt-0.5 text-right text-xs tabular-nums text-primary">{(scored.augmentation * 100).toFixed(0)}%</div>
+			<div class="rounded-lg bg-muted p-4">
+				<p class={cn(sectionLabel(), 'mb-1')}>Humans still needed for</p>
+				<p class="text-sm leading-relaxed text-foreground/80">{aiCanAndCant.cantDo}</p>
 			</div>
 		</div>
-		<p class="mt-3 text-xs text-muted-foreground">
-			Formula: Exposure &times; (1 - Bottleneck) &times; (1 - 0.35 &times; Market Resilience).
-			<a href="/methodology" class="underline hover:text-foreground/80">About this scoring</a>
-		</p>
 	</section>
 
 	<!-- 5. Skills to Focus On -->
@@ -322,7 +231,64 @@
 		</div>
 	</section>
 
-	<!-- 6. Explore Component Occupations -->
+	<!-- 6. Score Breakdown -->
+	<section class={cn(card({ padding: 'md' }), 'mb-4')}>
+		<h2 class={cn(titleStyle({ size: 'section' }), 'mb-3')}>Score Breakdown</h2>
+		<div class="space-y-3">
+			<div>
+				<div class="mb-1 flex items-center justify-between text-sm">
+					<span class="text-muted-foreground">AI Task Overlap <span class="text-xs text-muted-foreground/60">(Exposure)</span></span>
+					<span class="font-medium tabular-nums text-foreground">{(scored.exposure * 100).toFixed(0)}%</span>
+				</div>
+				<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
+					<div class="h-full rounded-full bg-risk-high transition-all duration-300" style="width: {Math.min(scored.exposure * 100, 100)}%;"></div>
+				</div>
+			</div>
+			<div>
+				<div class="mb-1 flex items-center justify-between text-sm">
+					<span class="text-muted-foreground">Human Advantage <span class="text-xs text-muted-foreground/60">(Bottleneck)</span></span>
+					<span class="font-medium tabular-nums text-foreground">{(scored.bottleneck * 100).toFixed(0)}%</span>
+				</div>
+				<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
+					<div class="h-full rounded-full bg-risk-very-low transition-all duration-300" style="width: {Math.min(scored.bottleneck * 100, 100)}%;"></div>
+				</div>
+			</div>
+			<div>
+				<div class="mb-1 flex items-center justify-between text-sm">
+					<span class="text-muted-foreground">Singapore Demand Buffer <span class="text-xs text-muted-foreground/60">(Market Resilience)</span></span>
+					<span class="font-medium tabular-nums text-foreground">{(scored.market_resilience * 100).toFixed(0)}%</span>
+				</div>
+				<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
+					<div class="h-full rounded-full bg-impact-leveraged transition-all duration-300" style="width: {Math.min(scored.market_resilience * 100, 100)}%;"></div>
+				</div>
+			</div>
+			<div class="border-t border-border/50 pt-3">
+				<div class="mb-1 flex items-center justify-between text-sm">
+					<span class="font-semibold text-foreground">AI Risk Score <span class="text-xs font-normal text-muted-foreground">(Net Displacement Risk)</span></span>
+					<span class="text-base font-bold tabular-nums text-foreground">{(scored.net_risk * 100).toFixed(0)}%</span>
+				</div>
+				<div class="h-3 w-full overflow-hidden rounded-full bg-muted">
+					<div class="h-full rounded-full" style="width: {Math.min(scored.net_risk * 100, 100)}%; background-color: {riskBandColors[scored.risk_band]};"></div>
+				</div>
+			</div>
+			<div class="border-t border-border/50 pt-3">
+				<div class="mb-1 flex items-center justify-between text-sm">
+					<span class="font-medium text-impact-leveraged">Augmentation Potential</span>
+					<span class="text-xs font-medium text-impact-leveraged">{augmentationBandLabels[scored.augmentation_band]}</span>
+				</div>
+				<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
+					<div class="h-full rounded-full bg-impact-leveraged transition-all duration-300" style="width: {Math.min(scored.augmentation * 100, 100)}%;"></div>
+				</div>
+				<div class="mt-0.5 text-right text-xs tabular-nums text-impact-leveraged">{(scored.augmentation * 100).toFixed(0)}%</div>
+			</div>
+		</div>
+		<p class="mt-3 text-xs text-muted-foreground">
+			Formula: Exposure &times; (1 - Bottleneck) &times; (1 - 0.35 &times; Market Resilience).
+			<a href="/methodology" class="underline hover:text-foreground/80">About this scoring</a>
+		</p>
+	</section>
+
+	<!-- 7. Explore Component Occupations -->
 	<section class={cn(card({ padding: 'md' }), 'mb-4')}>
 		<h2 class={cn(titleStyle({ size: 'section' }), 'mb-3')}>Explore Component Occupations</h2>
 		<p class="mb-3 text-sm text-muted-foreground">

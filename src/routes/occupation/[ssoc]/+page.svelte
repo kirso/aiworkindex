@@ -9,7 +9,7 @@
 		augmentationBandLabels,
 		occupations as allOccupations
 	} from '$lib/data';
-	import { title as titleStyle, sectionLabel, card, riskBadge, impactBadge, confidenceBadge, confidenceColor, demandMatchTone, stabilityTone, overallSignalTone, vacancySignalTone, scoreBar } from '$lib/design-system';
+	import { title as titleStyle, sectionLabel, card, riskBadge, impactBadge, confidenceBadge, confidenceColor, demandMatchTone, stabilityTone, overallSignalTone, vacancySignalTone } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import { getPersonalizedContent } from '$lib/data/role-archetypes';
 
@@ -285,91 +285,15 @@
 		return `The ${groupLabel} sector in Singapore has seen ${momentum} employment trends, which ${verb} the outlook. Median wage of SGD ${occ.gross_wage_median.toLocaleString()} places this role ${wageVsNational} of SGD ${data.nationalMedian.toLocaleString()}.`;
 	});
 
-	// "What AI Can and Can't Do" — deterministic content
-	let aiCanAndCant = $derived.by(() => {
-		const highExposure = occ.exposure > 0.6;
-		const highBottleneck = occ.bottleneck > 0.6;
-		const mg = occ.major_group;
+	// Personalized content from role-archetypes engine
+	let personalizedContent = $derived(getPersonalizedContent(occ.ssoc, occ.title, occ.major_group));
 
-		// Group-specific flavor
-		let humanAspect = 'specialized human judgment';
-		if (mg.includes('HEALTH') || mg === 'PROFESSIONALS') humanAspect = 'patient care, clinical judgment, and ethical decision-making';
-		else if (mg.includes('SERVICE') || mg.includes('SALES')) humanAspect = 'customer interaction, empathy, and situational awareness';
-		else if (mg === 'MANAGERS') humanAspect = 'leadership, strategic thinking, and stakeholder management';
-		else if (mg.includes('CRAFT') || mg.includes('PLANT') || mg.includes('MACHINE')) humanAspect = 'hands-on expertise, physical coordination, and site-specific knowledge';
-		else if (mg.includes('CLERICAL')) humanAspect = 'process coordination, institutional knowledge, and exception handling';
-		else if (mg.includes('CLEAN') || mg.includes('LABOUR')) humanAspect = 'physical dexterity, environmental adaptation, and on-site problem solving';
-		else if (mg.includes('AGRICULTURAL')) humanAspect = 'environmental judgment, physical labor, and seasonal decision-making';
-
-		let canDo: string;
-		let cantDo: string;
-
-		if (highExposure && highBottleneck) {
-			canDo = 'AI can handle routine analysis, data processing, and pattern recognition tasks in this role.';
-			cantDo = `However, ${humanAspect} remain firmly in human territory. Expect AI to augment your work, not replace it.`;
-		} else if (highExposure && !highBottleneck) {
-			canDo = 'Most core tasks in this role overlap with current AI capabilities, including analysis, generation, and structured decision-making.';
-			cantDo = `The strongest protection comes from market demand, workforce scarcity, or the need for physical presence. Building skills in ${humanAspect} can strengthen your position.`;
-		} else {
-			canDo = 'Current AI capabilities have limited overlap with the core tasks in this role.';
-			cantDo = `${humanAspect.charAt(0).toUpperCase() + humanAspect.slice(1)} keeps this role relatively insulated from AI disruption for now.`;
-		}
-
-		return { canDo, cantDo };
+	let aiCanAndCant = $derived({
+		canDo: personalizedContent.aiCanDo,
+		cantDo: personalizedContent.humanNeeded
 	});
 
-	// "Skills to Focus On" — based on bottleneck and major group
-	let skillRecommendations = $derived.by(() => {
-		const skills: { label: string; description: string }[] = [];
-		const bt = occ.bottleneck;
-		const mg = occ.major_group;
-
-		// High bottleneck → strong human skills
-		if (bt > 0.6) {
-			skills.push({ label: 'Complex Problem Solving', description: 'Tackling ambiguous, multi-factor challenges that resist formulaic solutions' });
-			skills.push({ label: 'Interpersonal Communication', description: 'Persuading, negotiating, and building trust across diverse stakeholders' });
-		}
-		if (bt > 0.4) {
-			skills.push({ label: 'Critical Thinking', description: 'Evaluating information quality and making sound judgments under uncertainty' });
-		}
-
-		// Group-specific skills
-		if (mg === 'MANAGERS') {
-			skills.push({ label: 'Strategic Leadership', description: 'Setting direction, managing change, and aligning teams with organizational goals' });
-			skills.push({ label: 'Stakeholder Management', description: 'Navigating competing priorities across internal and external partners' });
-		} else if (mg === 'PROFESSIONALS') {
-			skills.push({ label: 'Domain Expertise', description: 'Deep specialized knowledge that requires years of study and practice' });
-			skills.push({ label: 'Ethical Judgment', description: 'Navigating professional standards and regulatory frameworks' });
-		} else if (mg.includes('ASSOCIATE')) {
-			skills.push({ label: 'Technical Proficiency', description: 'Applied technical skills bridging theory and hands-on execution' });
-			skills.push({ label: 'Adaptability', description: 'Learning new tools and processes as technology evolves' });
-		} else if (mg.includes('SERVICE') || mg.includes('SALES')) {
-			skills.push({ label: 'Emotional Intelligence', description: 'Reading customer needs and responding with empathy and care' });
-			skills.push({ label: 'Conflict Resolution', description: 'De-escalating situations and finding win-win outcomes' });
-		} else if (mg.includes('CRAFT') || mg.includes('PLANT') || mg.includes('MACHINE')) {
-			skills.push({ label: 'Hands-On Expertise', description: 'Physical skills and spatial awareness that cannot be automated' });
-			skills.push({ label: 'Safety Protocols', description: 'Quality assurance and error prevention in high-stakes environments' });
-		} else if (mg.includes('CLERICAL')) {
-			skills.push({ label: 'Process Optimization', description: 'Streamlining workflows and identifying efficiency improvements' });
-			skills.push({ label: 'AI Tool Proficiency', description: 'Leveraging AI assistants to multiply your output' });
-		} else {
-			skills.push({ label: 'Physical Adaptability', description: 'On-site problem solving and environmental awareness' });
-			skills.push({ label: 'Reliability', description: 'Consistent, dependable performance in variable conditions' });
-		}
-
-		// If exposure is high, always suggest AI literacy
-		if (occ.exposure > 0.5) {
-			skills.push({ label: 'AI Literacy', description: 'Understanding AI capabilities and limitations to work alongside AI tools effectively' });
-		}
-
-		// Deduplicate by label and limit to 4
-		const seen = new Set<string>();
-		return skills.filter((s) => {
-			if (seen.has(s.label)) return false;
-			seen.add(s.label);
-			return true;
-		}).slice(0, 4);
-	});
+	let skillRecommendations = $derived(personalizedContent.skills);
 </script>
 
 <svelte:head>
@@ -598,10 +522,7 @@
 								<span class="font-medium tabular-nums text-foreground">{occ.market.market_momentum.toFixed(2)}</span>
 							</div>
 							<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
-								<div
-									class="h-full rounded-full bg-blue-400"
-									style="width: {Math.min(occ.market.market_momentum * 100, 100)}%;"
-								></div>
+								<div class="h-full rounded-full bg-blue-400" style="width: {Math.min(occ.market.market_momentum * 100, 100)}%;"></div>
 							</div>
 						</div>
 						<div>
@@ -610,10 +531,7 @@
 								<span class="font-medium tabular-nums text-foreground">{occ.market.occupation_scarcity.toFixed(2)}</span>
 							</div>
 							<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
-								<div
-									class="h-full rounded-full bg-amber-400"
-									style="width: {Math.min(occ.market.occupation_scarcity * 100, 100)}%;"
-								></div>
+								<div class="h-full rounded-full bg-amber-400" style="width: {Math.min(occ.market.occupation_scarcity * 100, 100)}%;"></div>
 							</div>
 						</div>
 						<div>
@@ -622,10 +540,7 @@
 								<span class="font-medium tabular-nums text-foreground">{occ.market.market_resilience.toFixed(2)}</span>
 							</div>
 							<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
-								<div
-									class="h-full rounded-full bg-blue-400"
-									style="width: {Math.min(occ.market.market_resilience * 100, 100)}%;"
-								></div>
+								<div class="h-full rounded-full bg-blue-400" style="width: {Math.min(occ.market.market_resilience * 100, 100)}%;"></div>
 							</div>
 						</div>
 					</div>
@@ -713,13 +628,54 @@
 			</summary>
 			<div class="border-t border-border/50 p-5">
 				<div class="grid gap-6 md:grid-cols-2">
-					<!-- Score Breakdown -->
+					<!-- Score Bars -->
 					<div>
 						<h3 class="mb-3 text-sm font-semibold text-foreground/80">Score Breakdown</h3>
-						<RadarChart occupation={occ} />
+						<div class="space-y-4">
+							<div>
+								<div class="mb-1 flex items-center justify-between text-sm">
+									<span class="text-muted-foreground">AI Task Overlap <span class="text-xs text-muted-foreground/60">(Exposure)</span></span>
+									<span class="font-medium tabular-nums text-foreground">{(occ.exposure * 100).toFixed(0)}%</span>
+								</div>
+								<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
+									<div class="h-full rounded-full bg-risk-high transition-all duration-300" style="width: {Math.min(occ.exposure * 100, 100)}%;"></div>
+								</div>
+							</div>
+							<div>
+								<div class="mb-1 flex items-center justify-between text-sm">
+									<span class="text-muted-foreground">Human Advantage <span class="text-xs text-muted-foreground/60">(Bottleneck)</span></span>
+									<span class="font-medium tabular-nums text-foreground">{(occ.bottleneck * 100).toFixed(0)}%</span>
+								</div>
+								<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
+									<div class="h-full rounded-full bg-risk-very-low transition-all duration-300" style="width: {Math.min(occ.bottleneck * 100, 100)}%;"></div>
+								</div>
+							</div>
+							<div>
+								<div class="mb-1 flex items-center justify-between text-sm">
+									<span class="text-muted-foreground">Singapore Demand Buffer <span class="text-xs text-muted-foreground/60">(Market Resilience)</span></span>
+									<span class="font-medium tabular-nums text-foreground">{(occ.market.market_resilience * 100).toFixed(0)}%</span>
+								</div>
+								<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
+									<div class="h-full rounded-full bg-impact-leveraged transition-all duration-300" style="width: {Math.min(occ.market.market_resilience * 100, 100)}%;"></div>
+								</div>
+							</div>
+							<div class="border-t border-border/50 pt-3">
+								<div class="mb-1 flex items-center justify-between text-sm">
+									<span class="font-medium text-foreground">Augmentation Potential</span>
+									<span class="text-xs font-medium text-impact-leveraged">{augmentationBandLabels[occ.augmentation_band]}</span>
+								</div>
+								<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
+									<div class="h-full rounded-full bg-impact-leveraged transition-all duration-300" style="width: {Math.min(occ.augmentation * 100, 100)}%;"></div>
+								</div>
+								<div class="mt-0.5 text-right text-xs tabular-nums text-impact-leveraged">{(occ.augmentation * 100).toFixed(0)}%</div>
+							</div>
+						</div>
+						<div class="mt-4">
+							<RadarChart occupation={occ} />
+						</div>
 					</div>
 
-					<!-- Net Risk Explanation -->
+					<!-- Net Risk Formula -->
 					<div>
 						<h3 class="mb-3 text-sm font-semibold text-foreground/80">How Net Risk is Computed</h3>
 						<div class="space-y-3 text-sm text-muted-foreground">
@@ -745,7 +701,7 @@
 								<span class="text-lg">=</span>
 							</div>
 							<div class="flex items-center justify-between rounded px-3 py-2" style="background-color: {riskBandColors[occ.risk_band]}20;">
-								<span class="font-semibold text-foreground">AI Risk Score <span class="text-xs text-muted-foreground">(Net Displacement Risk)</span></span>
+								<span class="text-sm font-semibold text-foreground">AI Risk Score <span class="text-xs font-normal text-muted-foreground">(Net Displacement Risk)</span></span>
 								<span class="text-base font-bold tabular-nums text-foreground">{(occ.net_risk * 100).toFixed(0)}%</span>
 							</div>
 							<div class="rounded border px-3 py-2 {stabilityTone(occ.stability.label)}">
@@ -760,20 +716,6 @@
 									Optimistic: {(occ.stability.optimistic_risk * 100).toFixed(0)}% ({riskBandLabels[occ.stability.optimistic_band]})
 									&middot; Pessimistic: {(occ.stability.pessimistic_risk * 100).toFixed(0)}% ({riskBandLabels[occ.stability.pessimistic_band]})
 								</p>
-							</div>
-							<!-- Augmentation Potential -->
-							<div class="mt-2 border-t border-border/50 pt-3">
-								<div class="mb-1 flex items-center justify-between text-sm">
-									<span class="font-medium text-primary">Augmentation Potential</span>
-									<span class="text-xs font-medium text-primary">{augmentationBandLabels[occ.augmentation_band]}</span>
-								</div>
-								<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
-									<div
-										class="h-full rounded-full bg-primary"
-										style="width: {Math.min(occ.augmentation * 100, 100)}%;"
-									></div>
-								</div>
-								<div class="mt-0.5 text-right text-xs tabular-nums text-primary">{(occ.augmentation * 100).toFixed(0)}%</div>
 							</div>
 						</div>
 						<p class="mt-3 text-xs text-muted-foreground">

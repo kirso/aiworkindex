@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Occupation, RiskBand } from '$lib/data';
 	import { riskBandLabels, riskBandColors } from '$lib/data';
+	import { Progress } from '$lib/components/ui/progress';
 
 	let {
 		occupation
@@ -8,10 +9,10 @@
 		occupation: Occupation;
 	} = $props();
 
-	const bars = [
-		{ key: 'exposure' as const, label: 'Exposure', colorFrom: '#fca5a5', colorTo: '#ef4444' },
-		{ key: 'bottleneck' as const, label: 'Bottleneck', colorFrom: '#86efac', colorTo: '#22c55e' },
-		{ key: 'market_resilience' as const, label: 'Market Resilience', colorFrom: '#93c5fd', colorTo: '#3b82f6' }
+	const bars: Array<{ key: 'exposure' | 'bottleneck' | 'market_resilience'; label: string; indicatorClass: string; indicatorStyle: string }> = [
+		{ key: 'exposure', label: 'AI Task Overlap (Exposure)', indicatorClass: '', indicatorStyle: 'background: linear-gradient(to right, #fca5a5, #ef4444)' },
+		{ key: 'bottleneck', label: 'Human Advantage (Bottleneck)', indicatorClass: '', indicatorStyle: 'background: linear-gradient(to right, #86efac, #22c55e)' },
+		{ key: 'market_resilience', label: 'Singapore Demand Buffer (Market Resilience)', indicatorClass: '', indicatorStyle: 'background: linear-gradient(to right, #93c5fd, #3b82f6)' }
 	];
 
 	function getValue(key: string): number {
@@ -32,19 +33,14 @@
 					<span class="font-medium text-foreground/80">{bar.label}</span>
 					<span class="tabular-nums text-muted-foreground">{(value * 100).toFixed(0)}%</span>
 				</div>
-				<div class="h-3 w-full overflow-hidden rounded-full bg-muted" role="meter" aria-label="{bar.label}: {(value * 100).toFixed(0)}%" aria-valuenow={value * 100} aria-valuemin={0} aria-valuemax={100}>
-					<div
-						class="h-full rounded-full transition-all duration-300"
-						style="width: {value * 100}%; background: linear-gradient(to right, {bar.colorFrom}, {bar.colorTo});"
-					></div>
-				</div>
+				<Progress value={value * 100} max={100} class="h-3 bg-muted" indicatorClass={bar.indicatorClass} indicatorStyle={bar.indicatorStyle} />
 			</div>
 		{/each}
 	</div>
 
 	<!-- Net Risk result -->
 	<div class="mt-5 rounded-lg border border-border bg-muted p-4 text-center">
-		<p class="mb-1 text-xs font-medium uppercase tracking-wide text-muted-foreground">Net Displacement Risk</p>
+		<p class="mb-1 text-xs font-medium uppercase tracking-wide text-muted-foreground">AI Risk Score (Net Displacement Risk)</p>
 		<div class="flex items-center justify-center gap-3">
 			<span class="text-3xl font-bold tabular-nums text-foreground">
 				{(occupation.net_risk * 100).toFixed(0)}%

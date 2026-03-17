@@ -105,8 +105,8 @@
 				<p class="text-base font-bold tabular-nums text-foreground">{occupations.length}</p>
 			</div>
 			<div class={card({ padding: 'sm', variant: 'muted' })}>
-				<p class="text-xs text-muted-foreground">Median Pay</p>
-				<p class="text-base font-bold tabular-nums text-foreground">SGD {medianPay.toLocaleString()}</p>
+				<p class="text-xs text-muted-foreground">Median Pay (SGD)</p>
+				<p class="text-base font-bold tabular-nums text-foreground">{medianPay.toLocaleString()}/mo</p>
 			</div>
 			<div class={card({ padding: 'sm', variant: 'muted' })}>
 				<p class="text-xs text-muted-foreground">High+ Risk</p>
