@@ -45,33 +45,33 @@
 </script>
 
 <div class="space-y-3">
-	<div class="flex flex-wrap items-center gap-x-6 gap-y-2 rounded-xl bg-gray-50 px-4 py-3 text-sm">
+	<div class="flex flex-wrap items-center gap-x-6 gap-y-2 rounded-xl bg-muted px-4 py-3 text-sm">
 		<div>
-			<span class="text-gray-500">SG Workforce (MOM):</span>
-			<span class="ml-1 font-semibold text-gray-900 tabular-nums">
+			<span class="text-muted-foreground">SG Workforce (MOM):</span>
+			<span class="ml-1 font-semibold text-foreground tabular-nums">
 				{tweenedWorkers.current.toFixed(0)}K
 			</span>
 		</div>
 		<div>
-			<span class="text-gray-500">Occupations:</span>
-			<span class="ml-1 font-semibold text-gray-900 tabular-nums">{Math.round(tweenedOccupations.current)}</span>
+			<span class="text-muted-foreground">Occupations:</span>
+			<span class="ml-1 font-semibold text-foreground tabular-nums">{Math.round(tweenedOccupations.current)}</span>
 		</div>
-		<div class="hidden h-4 w-px bg-gray-300 sm:block"></div>
+		<div class="hidden h-4 w-px bg-border sm:block"></div>
 		{#each bandOrder as band (band)}
 			<div class="flex items-center gap-1.5">
 				<span
 					class="inline-block h-2.5 w-2.5 rounded-full"
 					style="background-color: {riskBandColors[band]};"
 				></span>
-				<span class="text-gray-600">{riskBandLabels[band]}:</span>
-				<span class="font-semibold text-gray-900">{bandCounts[band] ?? 0}</span>
-				<span class="text-gray-400">({pct(band)}% of occupations)</span>
+				<span class="text-muted-foreground">{riskBandLabels[band]}:</span>
+				<span class="font-semibold text-foreground">{bandCounts[band] ?? 0}</span>
+				<span class="text-muted-foreground">({pct(band)}% of occupations)</span>
 			</div>
 		{/each}
 	</div>
-	<div class="flex flex-wrap items-center gap-x-6 gap-y-2 rounded-xl bg-gray-50 px-4 py-3 text-sm">
+	<div class="flex flex-wrap items-center gap-x-6 gap-y-2 rounded-xl bg-muted px-4 py-3 text-sm">
 		<div>
-			<span class="text-gray-500">Impact Type:</span>
+			<span class="text-muted-foreground">Impact Type:</span>
 		</div>
 		{#each impactOrder as type (type)}
 			<div class="flex items-center gap-1.5">
@@ -79,9 +79,9 @@
 					class="inline-block h-2.5 w-2.5 rounded-full"
 					style="background-color: {impactTypeColors[type]};"
 				></span>
-				<span class="text-gray-600">{impactTypeLabels[type]}:</span>
-				<span class="font-semibold text-gray-900">{impactCounts[type] ?? 0}</span>
-				<span class="text-gray-400">({impactPct(type)}%)</span>
+				<span class="text-muted-foreground">{impactTypeLabels[type]}:</span>
+				<span class="font-semibold text-foreground">{impactCounts[type] ?? 0}</span>
+				<span class="text-muted-foreground">({impactPct(type)}%)</span>
 			</div>
 		{/each}
 	</div>

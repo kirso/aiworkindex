@@ -68,7 +68,7 @@
 		goto('/occupation/' + occ.ssoc);
 	}
 
-	// Quadrant labels
+	// Quadrant labels (item 17: plain English)
 	const quadrantLabels = [
 		{ label: 'Resilient', x: 0.15, y: 0.85 },
 		{ label: 'Unaffected', x: 0.15, y: 0.15 },
@@ -79,24 +79,24 @@
 
 <div bind:this={containerEl} class="relative w-full">
 	{#if browser}
-		<svg {width} {height} class="block" role="img" aria-label="Scatter plot of Exposure (percentile) vs Human Bottleneck (percentile) for {occupations.length} occupations, divided into four quadrants: AI Augmented, At Risk, Resilient, and Unaffected">
+		<svg {width} {height} class="block" role="img" aria-label="Scatter plot of AI Exposure vs Human Skills Required for {occupations.length} occupations, divided into four quadrants: AI Augmented, At Risk, Resilient, and Unaffected">
 			<g transform="translate({margin.left},{margin.top})">
-				<!-- Quadrant background fills -->
-				<rect x={0} y={0} width={xScale(crosshairX)} height={yScale(crosshairY)} fill="#f0fdf4" opacity="0.5" />
-				<rect x={xScale(crosshairX)} y={0} width={plotWidth - xScale(crosshairX)} height={yScale(crosshairY)} fill="#fef3c7" opacity="0.5" />
-				<rect x={0} y={yScale(crosshairY)} width={xScale(crosshairX)} height={plotHeight - yScale(crosshairY)} fill="#f0f9ff" opacity="0.5" />
-				<rect x={xScale(crosshairX)} y={yScale(crosshairY)} width={plotWidth - xScale(crosshairX)} height={plotHeight - yScale(crosshairY)} fill="#fef2f2" opacity="0.5" />
+				<!-- Quadrant background fills (item 19: muted token-compatible) -->
+				<rect x={0} y={0} width={xScale(crosshairX)} height={yScale(crosshairY)} fill="oklch(0.96 0.02 155)" opacity="0.4" />
+				<rect x={xScale(crosshairX)} y={0} width={plotWidth - xScale(crosshairX)} height={yScale(crosshairY)} fill="oklch(0.96 0.02 85)" opacity="0.4" />
+				<rect x={0} y={yScale(crosshairY)} width={xScale(crosshairX)} height={plotHeight - yScale(crosshairY)} fill="oklch(0.97 0.01 265)" opacity="0.4" />
+				<rect x={xScale(crosshairX)} y={yScale(crosshairY)} width={plotWidth - xScale(crosshairX)} height={plotHeight - yScale(crosshairY)} fill="oklch(0.96 0.02 20)" opacity="0.4" />
 
 				<!-- Crosshair lines -->
 				<line
 					x1={xScale(crosshairX)} y1={0}
 					x2={xScale(crosshairX)} y2={plotHeight}
-					stroke="#9ca3af" stroke-width="1" stroke-dasharray="4,3"
+					stroke="var(--muted-foreground)" stroke-width="1" stroke-dasharray="4,3" opacity="0.4"
 				/>
 				<line
 					x1={0} y1={yScale(crosshairY)}
 					x2={plotWidth} y2={yScale(crosshairY)}
-					stroke="#9ca3af" stroke-width="1" stroke-dasharray="4,3"
+					stroke="var(--muted-foreground)" stroke-width="1" stroke-dasharray="4,3" opacity="0.4"
 				/>
 
 				<!-- Quadrant labels -->
@@ -105,7 +105,7 @@
 						x={xScale(ql.x)}
 						y={yScale(ql.y)}
 						text-anchor="middle"
-						class="fill-gray-400 text-[11px] font-medium"
+						class="fill-muted-foreground text-[11px] font-medium"
 						style="pointer-events: none;"
 					>
 						{ql.label}
@@ -131,13 +131,13 @@
 				{/each}
 
 				<!-- X axis -->
-				<line x1={0} y1={plotHeight} x2={plotWidth} y2={plotHeight} stroke="#d1d5db" />
+				<line x1={0} y1={plotHeight} x2={plotWidth} y2={plotHeight} stroke="var(--border)" />
 				{#each [0, 0.25, 0.5, 0.75, 1] as tick}
 					<text
 						x={xScale(tick)}
 						y={plotHeight + 18}
 						text-anchor="middle"
-						class="fill-gray-500 text-[10px]"
+						class="fill-muted-foreground text-[10px]"
 					>
 						{tick.toFixed(2)}
 					</text>
@@ -146,19 +146,19 @@
 					x={plotWidth / 2}
 					y={plotHeight + 38}
 					text-anchor="middle"
-					class="fill-gray-600 text-xs font-medium"
+					class="fill-muted-foreground text-xs font-medium"
 				>
-					Exposure (percentile)
+					AI Exposure
 				</text>
 
 				<!-- Y axis -->
-				<line x1={0} y1={0} x2={0} y2={plotHeight} stroke="#d1d5db" />
+				<line x1={0} y1={0} x2={0} y2={plotHeight} stroke="var(--border)" />
 				{#each [0, 0.25, 0.5, 0.75, 1] as tick}
 					<text
 						x={-8}
 						y={yScale(tick) + 4}
 						text-anchor="end"
-						class="fill-gray-500 text-[10px]"
+						class="fill-muted-foreground text-[10px]"
 					>
 						{tick.toFixed(2)}
 					</text>
@@ -168,14 +168,22 @@
 					y={-40}
 					text-anchor="middle"
 					transform="rotate(-90)"
-					class="fill-gray-600 text-xs font-medium"
+					class="fill-muted-foreground text-xs font-medium"
 				>
-					Human Bottleneck (percentile)
+					Human Skills Required
 				</text>
 			</g>
 		</svg>
+
+		<!-- Quadrant legend (item 18) -->
+		<div class="mt-3 grid grid-cols-2 gap-x-4 gap-y-1 text-[10px] text-muted-foreground sm:grid-cols-4">
+			<div><span class="inline-block h-2 w-2 rounded-sm" style="background: oklch(0.96 0.02 155);"></span> <span class="font-medium">Resilient</span> — Low exposure, high human skills</div>
+			<div><span class="inline-block h-2 w-2 rounded-sm" style="background: oklch(0.96 0.02 85);"></span> <span class="font-medium">AI Augmented</span> — High exposure, high human skills</div>
+			<div><span class="inline-block h-2 w-2 rounded-sm" style="background: oklch(0.97 0.01 265);"></span> <span class="font-medium">Unaffected</span> — Low exposure, low human skills</div>
+			<div><span class="inline-block h-2 w-2 rounded-sm" style="background: oklch(0.96 0.02 20);"></span> <span class="font-medium">At Risk</span> — High exposure, low human skills</div>
+		</div>
 	{:else}
-		<div class="flex h-80 items-center justify-center bg-gray-50 text-gray-400">
+		<div class="flex h-80 items-center justify-center bg-muted text-muted-foreground">
 			Loading scatter plot...
 		</div>
 	{/if}

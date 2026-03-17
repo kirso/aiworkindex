@@ -217,15 +217,15 @@
 	{#if zoomedGroup}
 		<button
 			onclick={handleBack}
-			class="mb-2 inline-flex items-center gap-1 rounded-md bg-gray-100 px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200"
+			class="mb-2 inline-flex items-center gap-1 rounded-md bg-muted px-3 py-1.5 text-sm font-medium text-foreground/80 transition-colors hover:bg-accent"
 		>
 			<span aria-hidden="true">&larr;</span> Back to all groups
 		</button>
-		<p class="mb-2 text-sm text-gray-500">
+		<p class="mb-2 text-sm text-muted-foreground">
 			{groupLabel(zoomedGroup)} &mdash; {groupedOccupations.get(zoomedGroup)?.length ?? 0} occupations. Click a cell to view details.
 		</p>
 	{:else}
-		<p class="mb-2 text-sm text-gray-500">
+		<p class="mb-2 text-sm text-muted-foreground">
 			Click a group to explore its occupations.
 		</p>
 	{/if}
@@ -337,7 +337,7 @@
 			{/if}
 		</div>
 	{:else}
-		<div class="flex h-96 items-center justify-center bg-gray-50 text-gray-400">
+		<div class="flex h-96 items-center justify-center bg-muted text-muted-foreground">
 			Loading visualization...
 		</div>
 	{/if}
@@ -345,9 +345,9 @@
 
 <!-- Color Legend -->
 <div class="mt-3 flex items-center gap-2">
-	<span class="text-[10px] text-gray-500">Very Low</span>
+	<span class="text-[10px] text-muted-foreground">Very Low</span>
 	<div class="h-2.5 flex-1 rounded-full" style="background: linear-gradient(to right, #10b981, #f59e0b, #f97316, #f43f5e);"></div>
-	<span class="text-[10px] text-gray-500">Very High Risk</span>
+	<span class="text-[10px] text-muted-foreground">Very High Risk</span>
 </div>
 
 <Tooltip

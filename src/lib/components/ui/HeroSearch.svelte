@@ -76,20 +76,20 @@
 			onkeydown={handleKeydown}
 			onfocus={handleFocus}
 			onblur={handleBlur}
-			class="w-full rounded-xl border-2 border-gray-200 bg-white px-6 py-4 text-lg shadow-sm transition-colors placeholder:text-gray-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"
+			class="w-full rounded-xl border-2 border-border bg-card px-6 py-4 text-lg shadow-sm transition-colors placeholder:text-muted-foreground focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/30"
 		/>
 		{#if showDropdown && results.length > 0}
-			<div class="absolute left-0 right-0 z-50 mt-2 max-h-80 overflow-y-auto rounded-xl border border-gray-200 bg-white shadow-lg">
+			<div class="absolute left-0 right-0 z-50 mt-2 max-h-80 overflow-y-auto rounded-xl border border-border bg-card shadow-lg">
 				{#each results as occ, i (occ.ssoc)}
 					<button
 						type="button"
-						class="flex w-full items-center justify-between px-5 py-3 text-left text-sm transition-colors hover:bg-gray-50
-							{i === selectedIndex ? 'bg-indigo-50' : ''}"
+						class="flex w-full items-center justify-between px-5 py-3 text-left text-sm transition-colors hover:bg-muted
+							{i === selectedIndex ? 'bg-accent' : ''}"
 						onmousedown={() => navigateTo(occ)}
 					>
 						<div class="min-w-0 flex-1">
-							<p class="truncate font-medium text-gray-900">{occ.title}</p>
-							<p class="mt-0.5 text-xs text-gray-500">
+							<p class="truncate font-medium text-foreground">{occ.title}</p>
+							<p class="mt-0.5 text-xs text-muted-foreground">
 								SGD {occ.gross_wage_median.toLocaleString()} median
 							</p>
 						</div>
@@ -104,7 +104,7 @@
 			</div>
 		{/if}
 		{#if showDropdown && query.trim().length >= 2 && results.length === 0}
-			<div class="absolute left-0 right-0 z-50 mt-2 rounded-xl border border-gray-200 bg-white px-5 py-4 text-sm text-gray-500 shadow-lg">
+			<div class="absolute left-0 right-0 z-50 mt-2 rounded-xl border border-border bg-card px-5 py-4 text-sm text-muted-foreground shadow-lg">
 				No occupations found for "{query.trim()}". Try a different job title.
 			</div>
 		{/if}

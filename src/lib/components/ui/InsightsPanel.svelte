@@ -199,7 +199,7 @@
 		<ol class="mt-2 space-y-1">
 			{#each theoryVsPractice as occ, i (occ.ssoc)}
 				<li class="flex items-start gap-1.5">
-					<span class="mt-px flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-[9px] font-bold text-indigo-600">{i + 1}</span>
+					<span class="mt-px flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-secondary text-[9px] font-bold text-primary">{i + 1}</span>
 					<a href="/occupation/{occ.ssoc}" class="text-xs leading-tight text-foreground hover:text-ring hover:underline">
 						{occ.title}
 						<span class="ml-1 tabular-nums text-muted-foreground">{gapPoints(occ.evidence.anthropic_gap)}</span>

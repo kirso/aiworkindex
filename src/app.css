@@ -52,7 +52,7 @@
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.915 0.005 265);      /* subtle blue-gray border */
   --input: oklch(0.915 0.005 265);
-  --ring: oklch(0.55 0.15 262);          /* indigo focus ring */
+  --ring: oklch(0.55 0.10 250);          /* muted blue focus ring */
 
   /* --- Risk Spectrum (perceptually balanced oklch) --- */
   --risk-very-low: oklch(0.72 0.17 155);   /* teal-green — calm, safe */

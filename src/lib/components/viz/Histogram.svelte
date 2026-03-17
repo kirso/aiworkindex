@@ -42,16 +42,29 @@
 	const marginTop = 10;
 	const plotWidth = chartWidth - marginLeft;
 	const plotHeight = chartHeight - marginBottom - marginTop;
+
+	// Round Y-axis ticks (item 10)
+	let yTicks = $derived.by(() => {
+		const max = maxCount;
+		if (max <= 25) {
+			const ticks = [];
+			for (let t = 0; t <= max; t += 5) ticks.push(t);
+			if (ticks[ticks.length - 1] < max) ticks.push(max);
+			return ticks;
+		}
+		const candidates = [0, 25, 50, 75, 100, 125, 150, 175, 200];
+		return candidates.filter((t) => t <= max * 1.05);
+	});
 </script>
 
 {#if browser}
 	<svg viewBox="0 0 {chartWidth} {chartHeight}" class="block w-full" role="img" aria-label="Histogram of net displacement risk across {occupations.length} occupations">
 		<!-- Y axis -->
-		<line x1={marginLeft} y1={marginTop} x2={marginLeft} y2={marginTop + plotHeight} stroke="#e5e7eb" />
-		{#each [0, Math.round(maxCount / 2), maxCount] as tick}
+		<line x1={marginLeft} y1={marginTop} x2={marginLeft} y2={marginTop + plotHeight} stroke="var(--border)" />
+		{#each yTicks as tick}
 			{@const y = marginTop + plotHeight - (tick / maxCount) * plotHeight}
-			<text x={marginLeft - 6} {y} text-anchor="end" class="fill-gray-400 text-[10px]" dominant-baseline="middle">{tick}</text>
-			<line x1={marginLeft} y1={y} x2={chartWidth} y2={y} stroke="#f3f4f6" />
+			<text x={marginLeft - 6} {y} text-anchor="end" class="fill-muted-foreground text-[10px]" dominant-baseline="middle">{tick}</text>
+			<line x1={marginLeft} y1={y} x2={chartWidth} y2={y} stroke="var(--border)" opacity="0.4" />
 		{/each}
 
 		<!-- Bars -->
@@ -78,11 +91,11 @@
 		{#each binData as bin, i}
 			{#if i % 2 === 0}
 				{@const x = marginLeft + i * (plotWidth / binData.length) + (plotWidth / binData.length) / 2}
-				<text x={x} y={chartHeight - 8} text-anchor="middle" class="fill-gray-400 text-[9px]">{bin.label}</text>
+				<text x={x} y={chartHeight - 8} text-anchor="middle" class="fill-muted-foreground text-[9px]">{bin.label}</text>
 			{/if}
 		{/each}
 
-		<!-- Axis label -->
-		<text x={chartWidth / 2} y={chartHeight - 0} text-anchor="middle" class="fill-gray-500 text-[10px]">Net Displacement Risk</text>
+		<!-- Axis label (item 11) -->
+		<text x={chartWidth / 2} y={chartHeight - 0} text-anchor="middle" class="fill-muted-foreground text-[10px]">Risk Score</text>
 	</svg>
 {/if}

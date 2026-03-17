@@ -34,7 +34,7 @@
 
 <div class="space-y-2">
 	{#each grouped as { group, occupations: groupOccs } (group.key)}
-		<div class="rounded-lg border border-gray-200 bg-white">
+		<div class="rounded-lg border border-border bg-card">
 			<button
 				type="button"
 				class="flex w-full items-center justify-between px-4 py-3 text-left"
@@ -45,11 +45,11 @@
 						class="inline-block h-3 w-3 rounded-sm"
 						style="background-color: {group.color};"
 					></span>
-					<span class="text-sm font-semibold text-gray-900">{group.label}</span>
-					<span class="text-xs text-gray-400">({groupOccs.length})</span>
+					<span class="text-sm font-semibold text-foreground">{group.label}</span>
+					<span class="text-xs text-muted-foreground">({groupOccs.length})</span>
 				</div>
 				<svg
-					class="h-4 w-4 text-gray-400 transition-transform {expandedGroups.has(group.key) ? 'rotate-180' : ''}"
+					class="h-4 w-4 text-muted-foreground transition-transform {expandedGroups.has(group.key) ? 'rotate-180' : ''}"
 					fill="none"
 					stroke="currentColor"
 					viewBox="0 0 24 24"

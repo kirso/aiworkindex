@@ -103,22 +103,22 @@
 
 <main class="mx-auto max-w-6xl px-4 py-6 sm:px-6 lg:px-8">
 	<!-- Breadcrumb -->
-	<nav class="mb-4 text-sm text-gray-500" aria-label="Breadcrumb">
-		<a href="/" class="hover:text-gray-700">Home</a>
+	<nav class="mb-4 text-sm text-muted-foreground" aria-label="Breadcrumb">
+		<a href="/" class="hover:text-foreground/80">Home</a>
 		<span class="mx-1">/</span>
-		<span class="text-gray-900">Compare</span>
+		<span class="text-foreground">Compare</span>
 	</nav>
 
 	<div class="mb-6 flex flex-wrap items-start justify-between gap-3">
 		<div>
-			<h1 class="text-xl font-bold text-gray-900 sm:text-2xl">Compare Occupations</h1>
-			<p class="mt-1 text-sm text-gray-500">Side-by-side AI risk comparison (up to 3 occupations)</p>
+			<h1 class="text-xl font-bold text-foreground sm:text-2xl">Compare Occupations</h1>
+			<p class="mt-1 text-sm text-muted-foreground">Side-by-side AI risk comparison (up to 3 occupations)</p>
 		</div>
 		{#if selected.length > 0}
 			<button
 				type="button"
 				onclick={shareUrl}
-				class="rounded-md border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
+				class="rounded-md border border-border bg-card px-3 py-1.5 text-sm font-medium text-foreground/80 hover:bg-muted"
 			>
 				{copied ? 'Copied!' : 'Share this comparison'}
 			</button>
@@ -134,18 +134,18 @@
 					placeholder="Search occupations to compare..."
 					bind:value={searchQuery}
 					onfocus={() => (showSearch = true)}
-					class="w-full max-w-md rounded-md border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 placeholder-gray-400 outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400"
+					class="w-full max-w-md rounded-md border border-border bg-card px-3 py-2 text-sm text-foreground placeholder-gray-400 outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400"
 				/>
 			</div>
 			{#if showSearch && searchResults.length > 0}
-				<div class="absolute z-10 mt-1 w-full max-w-md rounded-md border border-gray-200 bg-white shadow-lg">
+				<div class="absolute z-10 mt-1 w-full max-w-md rounded-md border border-border bg-card shadow-lg">
 					{#each searchResults as result (result.ssoc)}
 						<button
 							type="button"
-							class="flex w-full items-center justify-between px-3 py-2 text-left text-sm hover:bg-gray-50"
+							class="flex w-full items-center justify-between px-3 py-2 text-left text-sm hover:bg-muted"
 							onclick={() => addOccupation(result)}
 						>
-							<span class="truncate text-gray-700">{result.title}</span>
+							<span class="truncate text-foreground/80">{result.title}</span>
 							<div class="ml-2 flex shrink-0 items-center gap-2">
 								<span
 									class="rounded px-1.5 py-0.5 text-[10px] font-medium text-white"
@@ -153,7 +153,7 @@
 								>
 									{riskBandLabels[result.risk_band]}
 								</span>
-								<span class="text-xs text-gray-400">SSOC {result.ssoc}</span>
+								<span class="text-xs text-muted-foreground">SSOC {result.ssoc}</span>
 							</div>
 						</button>
 					{/each}
@@ -163,28 +163,28 @@
 	{/if}
 
 	{#if selected.length === 0}
-		<div class="rounded-lg border border-gray-200 bg-white p-8 text-center">
-			<p class="text-gray-500">Search above to add occupations for comparison.</p>
-			<p class="mt-2 text-sm text-gray-400">
-				You can also link directly: <code class="rounded bg-gray-100 px-1 text-xs">/compare?jobs=25121,41320</code>
+		<div class="rounded-lg border border-border bg-card p-8 text-center">
+			<p class="text-muted-foreground">Search above to add occupations for comparison.</p>
+			<p class="mt-2 text-sm text-muted-foreground">
+				You can also link directly: <code class="rounded bg-muted px-1 text-xs">/compare?jobs=25121,41320</code>
 			</p>
 		</div>
 	{:else}
 		<!-- Side-by-side columns -->
 		<div class="mb-8 grid gap-4" style="grid-template-columns: repeat({selected.length}, minmax(0, 1fr));">
 			{#each selected as occ (occ.ssoc)}
-				<div class="rounded-lg border border-gray-200 bg-white p-4">
+				<div class="rounded-lg border border-border bg-card p-4">
 					<div class="mb-3 flex items-start justify-between">
 						<div>
-							<a href="/occupation/{occ.ssoc}" class="font-semibold text-gray-900 hover:text-blue-600">
+							<a href="/occupation/{occ.ssoc}" class="font-semibold text-foreground hover:text-primary">
 								{occ.title}
 							</a>
-							<p class="text-xs text-gray-500">SSOC {occ.ssoc}</p>
+							<p class="text-xs text-muted-foreground">SSOC {occ.ssoc}</p>
 						</div>
 						<button
 							type="button"
 							onclick={() => removeOccupation(occ.ssoc)}
-							class="ml-2 shrink-0 rounded p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600"
+							class="ml-2 shrink-0 rounded p-1 text-muted-foreground hover:bg-muted hover:text-muted-foreground"
 							aria-label="Remove {occ.title}"
 						>
 							<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
@@ -213,10 +213,10 @@
 					<div class="space-y-3">
 						<div>
 							<div class="mb-1 flex items-center justify-between text-xs">
-								<span class="text-gray-600">Net Risk</span>
+								<span class="text-muted-foreground">Net Risk</span>
 								<span class="font-medium tabular-nums">{pct(occ.net_risk)}</span>
 							</div>
-							<div class="h-2 w-full overflow-hidden rounded-full bg-gray-100">
+							<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
 								<div
 									class="h-full rounded-full"
 									style="width: {Math.min(occ.net_risk * 100, 100)}%; background-color: {riskBandColors[occ.risk_band]};"
@@ -226,10 +226,10 @@
 
 						<div>
 							<div class="mb-1 flex items-center justify-between text-xs">
-								<span class="text-gray-600">Exposure</span>
+								<span class="text-muted-foreground">Exposure</span>
 								<span class="font-medium tabular-nums">{pct(occ.exposure)}</span>
 							</div>
-							<div class="h-2 w-full overflow-hidden rounded-full bg-gray-100">
+							<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
 								<div
 									class="h-full rounded-full"
 									style="width: {Math.min(occ.exposure * 100, 100)}%; background-color: {barColor(occ.exposure)};"
@@ -239,10 +239,10 @@
 
 						<div>
 							<div class="mb-1 flex items-center justify-between text-xs">
-								<span class="text-gray-600">Human Bottleneck</span>
+								<span class="text-muted-foreground">Human Bottleneck</span>
 								<span class="font-medium tabular-nums">{pct(occ.bottleneck)}</span>
 							</div>
-							<div class="h-2 w-full overflow-hidden rounded-full bg-gray-100">
+							<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
 								<div
 									class="h-full rounded-full"
 									style="width: {Math.min(occ.bottleneck * 100, 100)}%; background-color: {barColor(occ.bottleneck, true)};"
@@ -252,10 +252,10 @@
 
 						<div>
 							<div class="mb-1 flex items-center justify-between text-xs">
-								<span class="text-gray-600">Market Resilience</span>
+								<span class="text-muted-foreground">Market Resilience</span>
 								<span class="font-medium tabular-nums">{occ.market.market_resilience.toFixed(2)}</span>
 							</div>
-							<div class="h-2 w-full overflow-hidden rounded-full bg-gray-100">
+							<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
 								<div
 									class="h-full rounded-full bg-blue-400"
 									style="width: {Math.min(occ.market.market_resilience * 100, 100)}%;"
@@ -265,23 +265,23 @@
 
 						<div>
 							<div class="mb-1 flex items-center justify-between text-xs">
-								<span class="text-gray-600">Augmentation</span>
+								<span class="text-muted-foreground">Augmentation</span>
 								<span class="font-medium tabular-nums">{pct(occ.augmentation)}</span>
 							</div>
-							<div class="h-2 w-full overflow-hidden rounded-full bg-gray-100">
+							<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
 								<div
 									class="h-full rounded-full"
-									style="width: {Math.min(occ.augmentation * 100, 100)}%; background: linear-gradient(to right, #818cf8, #6366f1);"
+									style="width: {Math.min(occ.augmentation * 100, 100)}%; background-color: var(--primary);"
 								></div>
 							</div>
 						</div>
 					</div>
 
 					<!-- Wage -->
-					<div class="mt-4 border-t border-gray-100 pt-3">
+					<div class="mt-4 border-t border-border/50 pt-3">
 						<div class="flex items-center justify-between text-xs">
-							<span class="text-gray-600">Median Wage</span>
-							<span class="font-semibold text-gray-900">{formatWage(occ.gross_wage_median)}</span>
+							<span class="text-muted-foreground">Median Wage</span>
+							<span class="font-semibold text-foreground">{formatWage(occ.gross_wage_median)}</span>
 						</div>
 					</div>
 				</div>
@@ -289,22 +289,22 @@
 		</div>
 
 		<!-- Comparison table -->
-		<div class="overflow-x-auto rounded-lg border border-gray-200 bg-white">
+		<div class="overflow-x-auto rounded-lg border border-border bg-card">
 			<table class="w-full text-left text-sm">
 				<thead>
-					<tr class="border-b border-gray-200 bg-gray-50">
-						<th class="px-4 py-3 font-medium text-gray-700">Metric</th>
+					<tr class="border-b border-border bg-muted">
+						<th class="px-4 py-3 font-medium text-foreground/80">Metric</th>
 						{#each selected as occ (occ.ssoc)}
-							<th class="px-4 py-3 font-medium text-gray-700">{occ.title}</th>
+							<th class="px-4 py-3 font-medium text-foreground/80">{occ.title}</th>
 						{/each}
 					</tr>
 				</thead>
 				<tbody>
 					{#each metrics as metric, i (metric.key)}
-						<tr class="{i % 2 === 0 ? 'bg-white' : 'bg-gray-50'} border-b border-gray-100">
-							<td class="px-4 py-2.5 font-medium text-gray-600">{metric.label}</td>
+						<tr class="{i % 2 === 0 ? 'bg-card' : 'bg-muted'} border-b border-border/50">
+							<td class="px-4 py-2.5 font-medium text-muted-foreground">{metric.label}</td>
 							{#each selected as occ (occ.ssoc)}
-								<td class="px-4 py-2.5 tabular-nums text-gray-900">{metric.format(occ)}</td>
+								<td class="px-4 py-2.5 tabular-nums text-foreground">{metric.format(occ)}</td>
 							{/each}
 						</tr>
 					{/each}

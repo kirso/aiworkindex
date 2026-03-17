@@ -13,6 +13,13 @@
 		{ label: '10K+', min: 10000, max: Infinity }
 	];
 
+	// Risk color scale matching treemap (item 7)
+	const riskColorScale = d3Scale
+		.scaleLinear<string>()
+		.domain([0, 0.15, 0.35, 0.6])
+		.range(['#10b981', '#f59e0b', '#f97316', '#f43f5e'])
+		.clamp(true);
+
 	let bracketData = $derived.by(() => {
 		return brackets.map((bracket) => {
 			const occs = occupations.filter(
@@ -30,12 +37,6 @@
 
 	let maxRisk = $derived(Math.max(...bracketData.map((b) => b.avgRisk), 0.01));
 
-	const riskColorScale = d3Scale
-		.scaleLinear<string>()
-		.domain([0, 0.15, 0.35, 0.6])
-		.range(['#10b981', '#f59e0b', '#f97316', '#f43f5e'])
-		.clamp(true);
-
 	const chartWidth = 400;
 	const chartHeight = 180;
 	const marginLeft = 50;
@@ -52,7 +53,7 @@
 		{#each bracketData as bracket, i}
 			{@const barHeight = plotHeight / bracketData.length - 4}
 			{@const y = marginTop + i * (plotHeight / bracketData.length) + 2}
-			<text x={marginLeft - 6} y={y + barHeight / 2} text-anchor="end" class="fill-gray-500 text-[10px]" dominant-baseline="middle">{bracket.label}</text>
+			<text x={marginLeft - 6} y={y + barHeight / 2} text-anchor="end" class="fill-muted-foreground text-[10px]" dominant-baseline="middle">{bracket.label}</text>
 			<rect
 				x={marginLeft}
 				{y}
@@ -67,14 +68,14 @@
 			<text
 				x={marginLeft + Math.max((bracket.avgRisk / maxRisk) * plotWidth, 2) + 4}
 				y={y + barHeight / 2}
-				class="fill-gray-600 text-[9px]"
+				class="fill-muted-foreground text-[9px]"
 				dominant-baseline="middle"
 			>
 				{(bracket.avgRisk * 100).toFixed(0)}% ({bracket.count})
 			</text>
 		{/each}
 
-		<!-- Axis label -->
-		<text x={marginLeft + plotWidth / 2} y={chartHeight - 4} text-anchor="middle" class="fill-gray-500 text-[10px]">Avg Occupation Risk (not worker-weighted)</text>
+		<!-- Axis label (item 9) -->
+		<text x={marginLeft + plotWidth / 2} y={chartHeight - 4} text-anchor="middle" class="fill-muted-foreground text-[10px]">Average risk score by salary range</text>
 	</svg>
 {/if}

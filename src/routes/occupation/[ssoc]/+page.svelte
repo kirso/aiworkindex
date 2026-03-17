@@ -75,7 +75,7 @@
 	function demandMatchTone(match: 'exact' | 'prefix' | false): string {
 		if (match === 'exact') return 'bg-emerald-50 text-emerald-700 border-emerald-200';
 		if (match === 'prefix') return 'bg-amber-50 text-amber-700 border-amber-200';
-		return 'bg-gray-50 text-gray-500 border-gray-200';
+		return 'bg-secondary text-muted-foreground border-border';
 	}
 
 	function stabilityTone(label: string): string {
@@ -247,19 +247,35 @@
 		allOccupations.filter((o) => o.impact_type === occ.impact_type).length
 	);
 
-	// Summary card color based on impact type
+	// Summary card color based on impact type (item 3: warm tints)
 	let summaryCardStyle = $derived.by(() => {
 		switch (occ.impact_type) {
 			case 'ai_leveraged':
-				return { bg: 'bg-blue-50', border: 'border-blue-200', accent: 'text-blue-800' };
+				return { bg: 'bg-emerald-50/60', border: 'border-emerald-200', accent: '' };
 			case 'at_risk':
-				return { bg: 'bg-red-50', border: 'border-red-200', accent: 'text-red-800' };
+				return { bg: 'bg-rose-50/60', border: 'border-rose-200', accent: '' };
 			case 'stable':
-				return { bg: 'bg-green-50', border: 'border-green-200', accent: 'text-green-800' };
+				return { bg: 'bg-secondary', border: 'border-border', accent: '' };
 			case 'mixed':
-				return { bg: 'bg-amber-50', border: 'border-amber-200', accent: 'text-amber-800' };
+				return { bg: 'bg-amber-50/60', border: 'border-amber-200', accent: '' };
 			default:
-				return { bg: 'bg-gray-50', border: 'border-gray-200', accent: 'text-gray-800' };
+				return { bg: 'bg-secondary', border: 'border-border', accent: '' };
+		}
+	});
+
+	// "What This Means For You" heading color based on risk band (item 2)
+	let meaningHeadingColor = $derived.by(() => {
+		switch (occ.risk_band) {
+			case 'very_low':
+			case 'low':
+				return 'text-emerald-700';
+			case 'moderate':
+				return 'text-amber-700';
+			case 'high':
+			case 'very_high':
+				return 'text-rose-700';
+			default:
+				return 'text-foreground';
 		}
 	});
 
@@ -428,14 +444,14 @@
 
 <main class="mx-auto max-w-4xl px-4 py-6 sm:px-6 lg:px-8">
 	<!-- Breadcrumb -->
-	<nav class="mb-4 text-sm text-gray-500" aria-label="Breadcrumb">
-		<a href="/" class="hover:text-gray-700">Home</a>
+	<nav class="mb-4 text-sm text-muted-foreground" aria-label="Breadcrumb">
+		<a href="/" class="hover:text-foreground/80">Home</a>
 		<span class="mx-1">/</span>
-		<span class="text-gray-900">{occ.title}</span>
+		<span class="text-foreground">{occ.title}</span>
 	</nav>
 
 	<!-- 1. Hero Header -->
-	<div class="mb-6">
+	<div class="mb-4">
 		<div class="flex items-start gap-3">
 			{#if group}
 				<span
@@ -444,12 +460,10 @@
 				></span>
 			{/if}
 			<div>
-				<h1 class="text-2xl font-bold text-gray-900 sm:text-3xl">{occ.title}</h1>
-				<p class="mt-1 text-sm text-gray-500">
-					SSOC {occ.ssoc} &middot; {group?.label ?? occ.major_group}
-				</p>
-				<p class="mt-0.5 text-sm text-gray-500">
-					1 of {groupOccupations.length} {group?.label ?? occ.major_group} occupations &middot; Cluster avg risk: {groupAvgRisk}%
+				<h1 class="text-2xl font-bold text-foreground sm:text-3xl">{occ.title}</h1>
+				<p class="mt-1 text-sm text-muted-foreground">
+					{group?.label ?? occ.major_group}
+					&middot; 1 of {groupOccupations.length} occupations &middot; Cluster avg risk: {groupAvgRisk}%
 				</p>
 				<div class="mt-3 flex flex-wrap items-center gap-2">
 					<span
@@ -465,68 +479,68 @@
 						{impactTypeLabels[occ.impact_type]}
 					</span>
 					<span
-						class="rounded-full border px-2.5 py-0.5 text-xs font-medium"
-						style="color: {confidenceColor(occ.confidence.level)}; border-color: {confidenceColor(occ.confidence.level)};"
+						class="rounded-full px-3 py-1 text-sm font-medium text-white"
+						style="background-color: {confidenceColor(occ.confidence.level)};"
 					>
 						{occ.confidence.level.charAt(0).toUpperCase() + occ.confidence.level.slice(1)} Confidence
 					</span>
 				</div>
-			</div>
-			<div class="mt-3">
-				<a
-					href="/compare?jobs={occ.ssoc}"
-					class="inline-flex items-center gap-1 rounded-md border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-indigo-600 transition-colors hover:bg-indigo-50"
-				>
-					Compare with another role &rarr;
-				</a>
+				<div class="mt-2">
+					<a
+						href="/compare?jobs={occ.ssoc}"
+						class="text-xs text-muted-foreground underline decoration-border hover:text-foreground/80"
+					>
+						Compare with another role &rarr;
+					</a>
+				</div>
 			</div>
 		</div>
 	</div>
 
 	<!-- 2. What This Means For You -->
-	<section class="mb-6 rounded-xl border-2 {summaryCardStyle.border} {summaryCardStyle.bg} p-6">
-		<h2 class="mb-3 text-lg font-bold {summaryCardStyle.accent}">What This Means For You</h2>
-		<p class="text-base leading-relaxed text-gray-800">{summaryText}</p>
-		<p class="mt-3 text-sm leading-relaxed text-gray-600">{marketContext}</p>
+	<section class="mb-4 rounded-xl border-2 {summaryCardStyle.border} {summaryCardStyle.bg} p-6">
+		<h2 class="mb-3 text-lg font-bold {meaningHeadingColor}">What This Means For You</h2>
+		<p class="text-base leading-relaxed text-foreground/80">{summaryText}</p>
+		<p class="mt-3 text-sm leading-relaxed text-muted-foreground">{marketContext}</p>
 	</section>
 
 	<!-- 3. What AI Can and Can't Do -->
-	<section class="mb-6 rounded-lg border border-gray-200 bg-white p-5">
-		<h2 class="mb-3 text-base font-bold text-gray-900">What AI Can and Can't Do</h2>
+	<section class="mb-4 rounded-lg border border-border bg-card p-5">
+		<h2 class="mb-3 text-base font-bold text-foreground">What AI Can and Can't Do</h2>
 		<div class="grid gap-4 sm:grid-cols-2">
-			<div class="rounded-lg bg-gray-50 p-4">
-				<p class="mb-1 text-xs font-semibold uppercase tracking-wide text-gray-500">AI can handle</p>
-				<p class="text-sm leading-relaxed text-gray-700">{aiCanAndCant.canDo}</p>
+			<div class="rounded-lg bg-muted p-4">
+				<p class="mb-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">AI can handle</p>
+				<p class="text-sm leading-relaxed text-foreground/80">{aiCanAndCant.canDo}</p>
 			</div>
-			<div class="rounded-lg bg-gray-50 p-4">
-				<p class="mb-1 text-xs font-semibold uppercase tracking-wide text-gray-500">Humans still needed for</p>
-				<p class="text-sm leading-relaxed text-gray-700">{aiCanAndCant.cantDo}</p>
+			<div class="rounded-lg bg-muted p-4">
+				<p class="mb-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Humans still needed for</p>
+				<p class="text-sm leading-relaxed text-foreground/80">{aiCanAndCant.cantDo}</p>
 			</div>
 		</div>
 	</section>
 
 	<!-- 4. Skills to Focus On -->
-	<section class="mb-6 rounded-lg border border-gray-200 bg-white p-5">
-		<h2 class="mb-3 text-base font-bold text-gray-900">Skills to Focus On</h2>
+	<section class="mb-4 rounded-lg border border-border bg-card p-5">
+		<h2 class="mb-3 text-base font-bold text-foreground">Skills to Focus On</h2>
 		<div class="grid gap-3 sm:grid-cols-2">
 			{#each skillRecommendations as skill}
-				<div class="rounded-lg border border-gray-100 bg-gray-50 p-4">
-					<p class="text-sm font-semibold text-gray-900">{skill.label}</p>
-					<p class="mt-1 text-xs leading-relaxed text-gray-500">{skill.description}</p>
+				<div class="rounded-lg border border-border/50 bg-muted p-4">
+					<p class="text-sm font-semibold text-foreground">{skill.label}</p>
+					<p class="mt-1 text-xs leading-relaxed text-muted-foreground">{skill.description}</p>
 				</div>
 			{/each}
 		</div>
 	</section>
 
 	<!-- 5. Wage & Market Context -->
-	<section class="mb-6 rounded-lg border border-gray-200 bg-white p-5">
-		<h2 class="mb-3 text-base font-bold text-gray-900">Wage & Market</h2>
+	<section class="mb-4 rounded-lg border border-border bg-card p-5">
+		<h2 class="mb-3 text-base font-bold text-foreground">Wage & Market</h2>
 
 		<!-- Wage Range -->
-		<h3 class="mb-2 text-sm font-semibold text-gray-700">Gross Monthly Wage (SGD)</h3>
+		<h3 class="mb-2 text-sm font-semibold text-foreground/80">Gross Monthly Wage (SGD)</h3>
 		<div class="relative pb-2 pt-6">
 			<div class="relative h-6">
-				<div class="absolute inset-y-0 left-0 right-0 rounded bg-gray-100"></div>
+				<div class="absolute inset-y-0 left-0 right-0 rounded bg-muted"></div>
 				<div
 					class="absolute inset-y-0 rounded bg-blue-200"
 					style="left: {wageLeftPct}%; width: {wageRightPct - wageLeftPct}%;"
@@ -536,37 +550,37 @@
 					style="left: {wageMedianPct}%;"
 				></div>
 			</div>
-			<div class="mt-2 flex justify-between text-xs text-gray-500">
+			<div class="mt-2 flex justify-between text-xs text-muted-foreground">
 				<span>25th: SGD {occ.gross_wage_25th.toLocaleString()}</span>
-				<span class="font-medium text-gray-900">Median: SGD {occ.gross_wage_median.toLocaleString()}</span>
+				<span class="font-medium text-foreground">Median: SGD {occ.gross_wage_median.toLocaleString()}</span>
 				<span>75th: SGD {occ.gross_wage_75th.toLocaleString()}</span>
 			</div>
 		</div>
-		<p class="mt-2 text-sm text-gray-600">
+		<p class="mt-2 text-sm text-muted-foreground">
 			This role pays {wageVsNational} of SGD {data.nationalMedian.toLocaleString()}.
 		</p>
 
 		<!-- Market Signals -->
-		<h3 class="mb-2 mt-5 text-sm font-semibold text-gray-700">Market Signals</h3>
+		<h3 class="mb-2 mt-5 text-sm font-semibold text-foreground/80">Market Signals</h3>
 		<div class="space-y-3">
 			<div>
 				<div class="mb-1 flex items-center justify-between text-sm">
-					<span class="text-gray-600">Market Momentum</span>
-					<span class="font-medium tabular-nums text-gray-900">{occ.market.market_momentum.toFixed(2)}</span>
+					<span class="text-muted-foreground">Market Momentum</span>
+					<span class="font-medium tabular-nums text-foreground">{occ.market.market_momentum.toFixed(2)}</span>
 				</div>
-				<div class="h-2 w-full overflow-hidden rounded-full bg-gray-100">
+				<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
 					<div
-						class="h-full rounded-full bg-purple-400"
+						class="h-full rounded-full bg-blue-400"
 						style="width: {Math.min(occ.market.market_momentum * 100, 100)}%;"
 					></div>
 				</div>
 			</div>
 			<div>
 				<div class="mb-1 flex items-center justify-between text-sm">
-					<span class="text-gray-600">Occupation Scarcity</span>
-					<span class="font-medium tabular-nums text-gray-900">{occ.market.occupation_scarcity.toFixed(2)}</span>
+					<span class="text-muted-foreground">Occupation Scarcity</span>
+					<span class="font-medium tabular-nums text-foreground">{occ.market.occupation_scarcity.toFixed(2)}</span>
 				</div>
-				<div class="h-2 w-full overflow-hidden rounded-full bg-gray-100">
+				<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
 					<div
 						class="h-full rounded-full bg-amber-400"
 						style="width: {Math.min(occ.market.occupation_scarcity * 100, 100)}%;"
@@ -575,10 +589,10 @@
 			</div>
 			<div>
 				<div class="mb-1 flex items-center justify-between text-sm">
-					<span class="text-gray-600">Market Resilience</span>
-					<span class="font-medium tabular-nums text-gray-900">{occ.market.market_resilience.toFixed(2)}</span>
+					<span class="text-muted-foreground">Market Resilience</span>
+					<span class="font-medium tabular-nums text-foreground">{occ.market.market_resilience.toFixed(2)}</span>
 				</div>
-				<div class="h-2 w-full overflow-hidden rounded-full bg-gray-100">
+				<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
 					<div
 						class="h-full rounded-full bg-blue-400"
 						style="width: {Math.min(occ.market.market_resilience * 100, 100)}%;"
@@ -588,14 +602,14 @@
 		</div>
 
 		<!-- Evidence Trail -->
-		<h3 class="mb-2 mt-5 text-sm font-semibold text-gray-700">Evidence Trail</h3>
+		<h3 class="mb-2 mt-5 text-sm font-semibold text-foreground/80">Evidence Trail</h3>
 		<div class="space-y-1.5">
 			{#each evidenceTrail as item}
 				<div class="flex items-start gap-2 text-xs">
 					<span class="{item.tone} mt-0.5 font-bold">
 						{#if item.icon === 'check'}&#10003;{:else if item.icon === 'approx'}&#9675;{:else}&#9679;{/if}
 					</span>
-					<span class="text-gray-700">
+					<span class="text-foreground/80">
 						<span class="font-semibold">{item.label}</span>: {item.detail}
 					</span>
 				</div>
@@ -614,30 +628,30 @@
 		{/if}
 
 		<!-- Percentile Bars -->
-		<h3 class="mb-2 mt-5 text-sm font-semibold text-gray-700">Where This Occupation Stands</h3>
+		<h3 class="mb-2 mt-5 text-sm font-semibold text-foreground/80">Where This Occupation Stands</h3>
 		<div class="space-y-3">
 			<div>
 				<div class="mb-1 flex items-center justify-between text-xs">
-					<span class="text-gray-600">Net Risk Percentile</span>
-					<span class="font-medium text-gray-900">Higher than {netRiskPercentile}% of {allOccupations.length} occupations</span>
+					<span class="text-muted-foreground">Net Risk Percentile</span>
+					<span class="font-medium text-foreground">Higher than {netRiskPercentile}% of {allOccupations.length} occupations</span>
 				</div>
-				<div class="relative h-3 w-full overflow-hidden rounded-full bg-gray-100">
+				<div class="relative h-3 w-full overflow-hidden rounded-full bg-muted">
 					<div
 						class="absolute inset-y-0 left-0 rounded-full"
 						style="width: {netRiskPercentile}%; background: linear-gradient(to right, #10b981, #f59e0b, #ef4444);"
 					></div>
 					<div
-						class="absolute top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-gray-800 shadow"
+						class="absolute top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-foreground shadow"
 						style="left: {netRiskPercentile}%;"
 					></div>
 				</div>
 			</div>
 			<div>
 				<div class="mb-1 flex items-center justify-between text-xs">
-					<span class="text-gray-600">Wage Percentile</span>
-					<span class="font-medium text-gray-900">Higher than {wagePercentile}% of {allOccupations.length} occupations</span>
+					<span class="text-muted-foreground">Wage Percentile</span>
+					<span class="font-medium text-foreground">Higher than {wagePercentile}% of {allOccupations.length} occupations</span>
 				</div>
-				<div class="relative h-3 w-full overflow-hidden rounded-full bg-gray-100">
+				<div class="relative h-3 w-full overflow-hidden rounded-full bg-muted">
 					<div
 						class="absolute inset-y-0 left-0 rounded-full bg-blue-400"
 						style="width: {wagePercentile}%;"
@@ -651,18 +665,18 @@
 		</div>
 
 		{#if occ.labour_monitor}
-			<h3 class="mb-2 mt-5 text-sm font-semibold text-gray-700">Labour Monitor</h3>
-			<div class="rounded-lg border border-gray-100 bg-gray-50 p-4">
+			<h3 class="mb-2 mt-5 text-sm font-semibold text-foreground/80">Labour Monitor</h3>
+			<div class="rounded-lg border border-border/50 bg-muted p-4">
 				<div class="flex flex-wrap items-start justify-between gap-3">
 					<div>
-						<p class="text-xs font-semibold uppercase tracking-wide text-gray-500">
+						<p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
 							Labour cluster: {occ.labour_monitor.cluster_label}
 						</p>
-						<p class="mt-1 text-sm text-gray-700">
-							Vacancy rate: <span class="font-semibold text-gray-900">{occ.labour_monitor.vacancy.latest_rate}%</span>
-							<span class="text-gray-500">in {occ.labour_monitor.vacancy.latest_quarter}</span>
+						<p class="mt-1 text-sm text-foreground/80">
+							Vacancy rate: <span class="font-semibold text-foreground">{occ.labour_monitor.vacancy.latest_rate}%</span>
+							<span class="text-muted-foreground">in {occ.labour_monitor.vacancy.latest_quarter}</span>
 						</p>
-						<p class="mt-1 text-xs text-gray-500">
+						<p class="mt-1 text-xs text-muted-foreground">
 							4Q-over-4Q trend: {occ.labour_monitor.vacancy.trend_4q_pct > 0 ? '+' : ''}{occ.labour_monitor.vacancy.trend_4q_pct.toFixed(1)}%
 						</p>
 					</div>
@@ -678,7 +692,7 @@
 
 				{#if occ.labour_monitor.hiring}
 					<div class="mt-3 rounded bg-white/60 px-3 py-2">
-						<p class="text-xs text-gray-600">
+						<p class="text-xs text-muted-foreground">
 							Net Hiring: Recruitment {occ.labour_monitor.hiring.recruitment_rate}% &middot;
 							Resignation {occ.labour_monitor.hiring.resignation_rate}% &middot;
 							Net: {occ.labour_monitor.hiring.net_pressure > 0 ? '+' : ''}{occ.labour_monitor.hiring.net_pressure}pp
@@ -688,7 +702,7 @@
 
 				{#if occ.labour_monitor.retrenchment}
 					<div class="mt-2 rounded bg-white/60 px-3 py-2">
-						<p class="text-xs text-gray-600">
+						<p class="text-xs text-muted-foreground">
 							Retrenchment: {occ.labour_monitor.retrenchment.latest_count.toLocaleString()} in {occ.labour_monitor.retrenchment.latest_quarter}
 							&middot; Trend: {occ.labour_monitor.retrenchment.trend_4q_pct > 0 ? '+' : ''}{occ.labour_monitor.retrenchment.trend_4q_pct.toFixed(1)}%
 						</p>
@@ -702,18 +716,18 @@
 								<div class="flex-1">
 									<div class="flex h-16 items-end">
 										<div
-											class="w-full rounded-t bg-indigo-400/80"
+											class="w-full rounded-t bg-blue-400/80"
 											style="height: {Math.max((point.rate / Math.max(...occ.labour_monitor.vacancy.recent_quarters.map((p) => p.rate))) * 100, 8)}%;"
 										></div>
 									</div>
-									<p class="mt-1 text-center text-[10px] text-gray-400">{point.quarter.replace('20', '')}</p>
+									<p class="mt-1 text-center text-[10px] text-muted-foreground">{point.quarter.replace('20', '')}</p>
 								</div>
 							{/each}
 						</div>
 					</div>
 				{/if}
 
-				<p class="mt-3 text-[10px] text-gray-400">
+				<p class="mt-3 text-[10px] text-muted-foreground">
 					Source: MOM/SingStat via data.gov.sg. Latest: {occ.labour_monitor.data_as_of}. Cluster-level data.
 				</p>
 			</div>
@@ -721,47 +735,47 @@
 	</section>
 
 	<!-- 6. Technical Scores — COLLAPSED -->
-	<section class="mb-6">
-		<details class="rounded-lg border border-gray-200 bg-white">
-			<summary class="cursor-pointer px-5 py-4 text-sm font-semibold text-gray-700">
+	<section class="mb-4">
+		<details class="rounded-lg border border-border bg-card">
+			<summary class="cursor-pointer px-5 py-4 text-sm font-semibold text-foreground/80">
 				Technical Scoring Details
 			</summary>
-			<div class="border-t border-gray-100 p-5">
+			<div class="border-t border-border/50 p-5">
 				<div class="grid gap-6 md:grid-cols-2">
 					<!-- Score Breakdown -->
 					<div>
-						<h3 class="mb-3 text-sm font-semibold text-gray-700">Score Breakdown</h3>
+						<h3 class="mb-3 text-sm font-semibold text-foreground/80">Score Breakdown</h3>
 						<RadarChart occupation={occ} />
 					</div>
 
 					<!-- Net Risk Explanation -->
 					<div>
-						<h3 class="mb-3 text-sm font-semibold text-gray-700">How Net Risk is Computed</h3>
-						<div class="space-y-3 text-sm text-gray-600">
+						<h3 class="mb-3 text-sm font-semibold text-foreground/80">How Net Risk is Computed</h3>
+						<div class="space-y-3 text-sm text-muted-foreground">
 							<div class="flex items-center justify-between rounded bg-red-50 px-3 py-2">
 								<span class="font-medium text-red-700">Exposure (percentile)</span>
 								<span class="font-semibold tabular-nums text-red-700">{(occ.exposure * 100).toFixed(0)}%</span>
 							</div>
-							<div class="flex items-center justify-center text-gray-400">
+							<div class="flex items-center justify-center text-muted-foreground">
 								<span class="font-mono text-sm">&times;</span>
 							</div>
 							<div class="flex items-center justify-between rounded bg-green-50 px-3 py-2">
 								<span class="font-medium text-green-700">(1 - Bottleneck)</span>
 								<span class="font-semibold tabular-nums text-green-700">{((1 - occ.bottleneck) * 100).toFixed(0)}%</span>
 							</div>
-							<div class="flex items-center justify-center text-gray-400">
+							<div class="flex items-center justify-center text-muted-foreground">
 								<span class="font-mono text-sm">&times;</span>
 							</div>
 							<div class="flex items-center justify-between rounded bg-blue-50 px-3 py-2">
 								<span class="font-medium text-blue-700">Market Modifier</span>
 								<span class="font-semibold tabular-nums text-blue-700">{occ.market.market_modifier.toFixed(2)}</span>
 							</div>
-							<div class="flex items-center justify-center text-gray-400">
+							<div class="flex items-center justify-center text-muted-foreground">
 								<span class="text-lg">=</span>
 							</div>
 							<div class="flex items-center justify-between rounded px-3 py-2" style="background-color: {riskBandColors[occ.risk_band]}20;">
-								<span class="font-semibold text-gray-900">Net Displacement Risk</span>
-								<span class="text-lg font-bold tabular-nums text-gray-900">{(occ.net_risk * 100).toFixed(0)}%</span>
+								<span class="font-semibold text-foreground">Net Displacement Risk</span>
+								<span class="text-lg font-bold tabular-nums text-foreground">{(occ.net_risk * 100).toFixed(0)}%</span>
 							</div>
 							<div class="rounded border px-3 py-2 {stabilityTone(occ.stability.label)}">
 								<div class="flex items-center justify-between gap-3">
@@ -777,22 +791,22 @@
 								</p>
 							</div>
 							<!-- Augmentation Potential -->
-							<div class="mt-2 border-t border-gray-100 pt-3">
+							<div class="mt-2 border-t border-border/50 pt-3">
 								<div class="mb-1 flex items-center justify-between text-sm">
-									<span class="font-medium text-indigo-700">Augmentation Potential</span>
-									<span class="text-xs font-medium text-indigo-600">{augmentationBandLabels[occ.augmentation_band]}</span>
+									<span class="font-medium text-primary">Augmentation Potential</span>
+									<span class="text-xs font-medium text-primary">{augmentationBandLabels[occ.augmentation_band]}</span>
 								</div>
-								<div class="h-2 w-full overflow-hidden rounded-full bg-gray-100">
+								<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
 									<div
-										class="h-full rounded-full"
-										style="width: {Math.min(occ.augmentation * 100, 100)}%; background: linear-gradient(to right, #818cf8, #6366f1);"
+										class="h-full rounded-full bg-primary"
+										style="width: {Math.min(occ.augmentation * 100, 100)}%;"
 									></div>
 								</div>
-								<div class="mt-0.5 text-right text-xs tabular-nums text-indigo-600">{(occ.augmentation * 100).toFixed(0)}%</div>
+								<div class="mt-0.5 text-right text-xs tabular-nums text-primary">{(occ.augmentation * 100).toFixed(0)}%</div>
 							</div>
 						</div>
-						<p class="mt-3 text-xs text-gray-400">
-							<a href="/methodology" class="underline hover:text-gray-600">About this scoring</a>
+						<p class="mt-3 text-xs text-muted-foreground">
+							<a href="/methodology" class="underline hover:text-foreground/80">About this scoring</a>
 						</p>
 					</div>
 				</div>
@@ -801,19 +815,19 @@
 	</section>
 
 	<!-- 7. Related Career Paths -->
-	<section class="mb-6 rounded-lg border border-gray-200 bg-white p-5">
-		<h2 class="mb-4 text-base font-bold text-gray-900">Related Career Paths</h2>
+	<section class="mb-4 rounded-lg border border-border bg-card p-5">
+		<h2 class="mb-4 text-base font-bold text-foreground">Related Career Paths</h2>
 		<div class="grid gap-4 sm:grid-cols-3">
 			{#if data.relatedPaths.lowerRisk.length > 0}
 				<div>
-					<h3 class="mb-2 text-xs font-semibold uppercase tracking-wide text-green-700">Lower Risk Alternatives</h3>
+					<h3 class="mb-2 text-xs font-semibold uppercase tracking-wide text-emerald-700">Lower Risk Alternatives</h3>
 					<div class="space-y-1.5">
 						{#each data.relatedPaths.lowerRisk as sim (sim.ssoc)}
 							<a
 								href="/occupation/{sim.ssoc}"
-								class="flex items-center justify-between rounded-md px-2 py-1.5 text-sm hover:bg-gray-50"
+								class="flex items-center justify-between rounded-md px-2 py-1.5 text-sm hover:bg-muted"
 							>
-								<span class="truncate text-gray-700">{sim.title}</span>
+								<span class="truncate text-foreground/80">{sim.title}</span>
 								<span
 									class="ml-2 shrink-0 rounded px-1.5 py-0.5 text-[10px] font-medium text-white"
 									style="background-color: {riskBandColors[sim.risk_band]};"
@@ -833,10 +847,10 @@
 						{#each data.relatedPaths.higherPay as sim (sim.ssoc)}
 							<a
 								href="/occupation/{sim.ssoc}"
-								class="flex items-center justify-between rounded-md px-2 py-1.5 text-sm hover:bg-gray-50"
+								class="flex items-center justify-between rounded-md px-2 py-1.5 text-sm hover:bg-muted"
 							>
-								<span class="truncate text-gray-700">{sim.title}</span>
-								<span class="ml-2 shrink-0 text-xs tabular-nums text-gray-500">
+								<span class="truncate text-foreground/80">{sim.title}</span>
+								<span class="ml-2 shrink-0 text-xs tabular-nums text-muted-foreground">
 									SGD {sim.gross_wage_median.toLocaleString()}
 								</span>
 							</a>
@@ -847,14 +861,14 @@
 
 			{#if data.relatedPaths.inDemand.length > 0}
 				<div>
-					<h3 class="mb-2 text-xs font-semibold uppercase tracking-wide text-purple-700">In-Demand Roles</h3>
+					<h3 class="mb-2 text-xs font-semibold uppercase tracking-wide text-amber-700">In-Demand Roles</h3>
 					<div class="space-y-1.5">
 						{#each data.relatedPaths.inDemand as sim (sim.ssoc)}
 							<a
 								href="/occupation/{sim.ssoc}"
-								class="flex items-center justify-between rounded-md px-2 py-1.5 text-sm hover:bg-gray-50"
+								class="flex items-center justify-between rounded-md px-2 py-1.5 text-sm hover:bg-muted"
 							>
-								<span class="truncate text-gray-700">{sim.title}</span>
+								<span class="truncate text-foreground/80">{sim.title}</span>
 								<span
 									class="ml-2 shrink-0 rounded px-1.5 py-0.5 text-[10px] font-medium text-white"
 									style="background-color: {riskBandColors[sim.risk_band]};"
@@ -870,7 +884,7 @@
 	</section>
 
 	<!-- 8. Data Sources -->
-	<footer class="border-t border-gray-100 pt-4 text-center text-xs text-gray-400">
+	<footer class="border-t border-border/50 pt-4 text-center text-xs text-muted-foreground">
 		<p>
 			Data: MOM Singapore | Felten AIOE | Pizzinelli/IMF | Anthropic | SOL 2026
 		</p>

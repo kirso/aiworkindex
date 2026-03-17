@@ -78,10 +78,10 @@
 			{#if innerWidth < 1024}
 				<div class="mb-5">
 					<details class="card">
-						<summary class="cursor-pointer px-4 py-3 text-sm font-medium text-gray-700">
+						<summary class="cursor-pointer px-4 py-3 text-sm font-medium text-foreground/80">
 							Filters & Search
 						</summary>
-						<div class="border-t border-gray-100 p-4">
+						<div class="border-t border-border/50 p-4">
 							<FilterPanel occupations={data.occupations} onfilter={handleFilter} />
 						</div>
 					</details>
@@ -91,10 +91,10 @@
 			<!-- Insights panel: collapsible on screens below xl -->
 			{#if innerWidth < 1280 && innerWidth >= 768}
 				<details class="card mb-5">
-					<summary class="cursor-pointer px-5 py-3 text-sm font-semibold uppercase tracking-wide text-gray-400">
+					<summary class="cursor-pointer px-5 py-3 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
 						Insights & Rankings
 					</summary>
-					<div class="border-t border-gray-100 p-5">
+					<div class="border-t border-border/50 p-5">
 						<InsightsPanel occupations={filteredOccupations} />
 					</div>
 				</details>
@@ -104,8 +104,8 @@
 				<!-- Treemap — full width, tall -->
 				<section class="card p-5">
 					<div class="mb-3 flex items-center justify-between">
-						<h2 class="text-sm font-semibold uppercase tracking-wide text-gray-400">Occupation Treemap</h2>
-						<span class="text-sm text-gray-400">{filteredOccupations.length} occupations</span>
+						<h2 class="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Occupation Treemap</h2>
+						<span class="text-sm text-muted-foreground">{filteredOccupations.length} occupations</span>
 					</div>
 					<Treemap occupations={filteredOccupations} />
 				</section>
@@ -113,18 +113,18 @@
 				<!-- Risk Distribution -->
 				<section class="card mt-8 p-5">
 					<div class="mb-3">
-						<h2 class="text-sm font-semibold uppercase tracking-wide text-gray-400">Risk Distribution</h2>
-						<p class="mt-1 text-xs text-gray-500">
+						<h2 class="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Risk Distribution</h2>
+						<p class="mt-1 text-xs text-muted-foreground">
 							How {filteredOccupations.length} occupations distribute across net displacement risk levels.
 						</p>
 					</div>
 					<div class="grid gap-6 md:grid-cols-2">
 						<div>
-							<h3 class="mb-2 text-xs font-medium text-gray-500">Score Histogram</h3>
+							<h3 class="mb-2 text-xs font-medium text-muted-foreground">Score Histogram</h3>
 							<Histogram occupations={filteredOccupations} />
 						</div>
 						<div>
-							<h3 class="mb-2 text-xs font-medium text-gray-500">Risk by Wage Bracket</h3>
+							<h3 class="mb-2 text-xs font-medium text-muted-foreground">Risk by Wage Bracket</h3>
 							<WageBracketChart occupations={filteredOccupations} />
 						</div>
 					</div>
@@ -133,8 +133,8 @@
 				<!-- Scatter plot -->
 					<section class="card mt-8 p-5">
 						<div class="mb-3">
-							<h2 class="text-sm font-semibold uppercase tracking-wide text-gray-400">Exposure vs Human Bottleneck</h2>
-							<p class="mt-1 text-xs text-gray-500">
+							<h2 class="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Exposure vs Human Bottleneck</h2>
+							<p class="mt-1 text-xs text-muted-foreground">
 								Each dot is one occupation. Dot size is fixed to avoid implying occupation-level workforce counts we do not have.
 							</p>
 						</div>

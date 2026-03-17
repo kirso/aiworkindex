@@ -29,10 +29,10 @@
 			{@const value = getValue(bar.key)}
 			<div>
 				<div class="mb-1 flex items-center justify-between text-sm">
-					<span class="font-medium text-gray-700">{bar.label}</span>
-					<span class="tabular-nums text-gray-600">{(value * 100).toFixed(0)}%</span>
+					<span class="font-medium text-foreground/80">{bar.label}</span>
+					<span class="tabular-nums text-muted-foreground">{(value * 100).toFixed(0)}%</span>
 				</div>
-				<div class="h-3 w-full overflow-hidden rounded-full bg-gray-100" role="meter" aria-label="{bar.label}: {(value * 100).toFixed(0)}%" aria-valuenow={value * 100} aria-valuemin={0} aria-valuemax={100}>
+				<div class="h-3 w-full overflow-hidden rounded-full bg-muted" role="meter" aria-label="{bar.label}: {(value * 100).toFixed(0)}%" aria-valuenow={value * 100} aria-valuemin={0} aria-valuemax={100}>
 					<div
 						class="h-full rounded-full transition-all duration-300"
 						style="width: {value * 100}%; background: linear-gradient(to right, {bar.colorFrom}, {bar.colorTo});"
@@ -43,10 +43,10 @@
 	</div>
 
 	<!-- Net Risk result -->
-	<div class="mt-5 rounded-lg border border-gray-200 bg-gray-50 p-4 text-center">
-		<p class="mb-1 text-xs font-medium uppercase tracking-wide text-gray-500">Net Displacement Risk</p>
+	<div class="mt-5 rounded-lg border border-border bg-muted p-4 text-center">
+		<p class="mb-1 text-xs font-medium uppercase tracking-wide text-muted-foreground">Net Displacement Risk</p>
 		<div class="flex items-center justify-center gap-3">
-			<span class="text-3xl font-bold tabular-nums text-gray-900">
+			<span class="text-3xl font-bold tabular-nums text-foreground">
 				{(occupation.net_risk * 100).toFixed(0)}%
 			</span>
 			<span

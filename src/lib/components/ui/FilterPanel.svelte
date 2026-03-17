@@ -165,25 +165,25 @@
 <div class="space-y-4">
 	<!-- Search -->
 	<div>
-		<label for="occ-search" class="mb-1 block text-xs font-medium text-gray-500">Search</label>
+		<label for="occ-search" class="mb-1 block text-xs font-medium text-muted-foreground">Search</label>
 		<input
 			id="occ-search"
 			type="text"
 			placeholder="e.g., Software Developer, Nurse..."
 			bind:value={search}
-			class="w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 placeholder-gray-400 outline-none transition-colors focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+			class="w-full rounded-md border border-border bg-card px-3 py-2 text-sm text-foreground placeholder-muted-foreground outline-none transition-colors focus:border-ring focus:ring-1 focus:ring-ring"
 		/>
 		{#if showDidYouMean}
-			<p class="mt-1.5 text-xs text-gray-500">
+			<p class="mt-1.5 text-xs text-muted-foreground">
 				Matched via alias: {aliasMatches.map((m) => `"${m.alias}"`).join(', ')}
-				<span class="text-gray-400">({filtered.length} results)</span>
+				<span class="text-muted-foreground">({filtered.length} results)</span>
 			</p>
 		{/if}
 	</div>
 
 	<!-- Risk band chips -->
 	<div>
-		<span class="mb-1.5 block text-xs font-medium text-gray-500">Risk Band</span>
+		<span class="mb-1.5 block text-xs font-medium text-muted-foreground">Risk Band</span>
 		<div class="flex flex-wrap gap-1.5">
 			{#each riskBandOptions as opt (opt.key)}
 				{@const isActive = selectedCategory === opt.key}
@@ -192,8 +192,8 @@
 					type="button"
 					class="rounded-full border px-3 py-1 text-xs font-medium transition-all duration-150
 						{isActive
-							? 'chip-active border-indigo-600 bg-indigo-600 text-white shadow-sm'
-							: 'border-gray-200 bg-white text-gray-600 hover:border-gray-300 hover:shadow-sm'}"
+							? 'chip-active border-primary bg-primary text-primary-foreground shadow-sm'
+							: 'border-border bg-card text-muted-foreground hover:border-border hover:shadow-sm'}"
 					onclick={() => (selectedCategory = opt.key)}
 				>
 					{#if bandColor && !isActive}
@@ -210,15 +210,15 @@
 
 	<!-- Major group checkboxes -->
 	<div>
-		<span class="mb-1.5 block text-xs font-medium text-gray-500">Major Group</span>
+		<span class="mb-1.5 block text-xs font-medium text-muted-foreground">Major Group</span>
 		<div class="space-y-1">
 			{#each majorGroups as group (group.key)}
-				<label class="flex cursor-pointer items-center gap-2 rounded px-1 py-0.5 text-sm text-gray-700 hover:bg-gray-50">
+				<label class="flex cursor-pointer items-center gap-2 rounded px-1 py-0.5 text-sm text-foreground/80 hover:bg-muted">
 					<input
 						type="checkbox"
 						checked={selectedGroups.has(group.key)}
 						onchange={() => toggleGroup(group.key)}
-						class="h-3.5 w-3.5 rounded border-gray-300"
+						class="h-3.5 w-3.5 rounded border-border"
 					/>
 					<span
 						class="inline-block h-2.5 w-2.5 rounded-sm"
@@ -232,12 +232,12 @@
 
 	<!-- Wage range -->
 	<div>
-		<span class="mb-1.5 block text-xs font-medium text-gray-500">
+		<span class="mb-1.5 block text-xs font-medium text-muted-foreground">
 			Wage Range: SGD {wageMin.toLocaleString()} &ndash; SGD {wageMax.toLocaleString()}
 		</span>
 		<div class="space-y-2">
 			<div class="flex items-center gap-2">
-				<span class="text-[10px] text-gray-400">Min</span>
+				<span class="text-[10px] text-muted-foreground">Min</span>
 				<input
 					type="range"
 					min={WAGE_FLOOR}
@@ -248,7 +248,7 @@
 				/>
 			</div>
 			<div class="flex items-center gap-2">
-				<span class="text-[10px] text-gray-400">Max</span>
+				<span class="text-[10px] text-muted-foreground">Max</span>
 				<input
 					type="range"
 					min={WAGE_FLOOR}
@@ -265,11 +265,11 @@
 	{#if hasActiveFilters}
 		<button
 			type="button"
-			class="w-full rounded-md border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-50"
+			class="w-full rounded-md border border-border bg-card px-3 py-1.5 text-xs font-medium text-muted-foreground hover:bg-muted"
 			onclick={clearFilters}
 		>
 			Clear all filters
 		</button>
-		<p class="text-xs text-gray-400">{filtered.length} of {occupations.length} occupations</p>
+		<p class="text-xs text-muted-foreground">{filtered.length} of {occupations.length} occupations</p>
 	{/if}
 </div>

@@ -7,11 +7,11 @@
 
 <a
 	href="/occupation/{occupation.ssoc}"
-	class="flex items-center justify-between rounded-md border border-gray-100 bg-white px-3 py-2 transition-colors hover:bg-gray-50"
+	class="flex items-center justify-between rounded-md border border-border/50 bg-card px-3 py-2 transition-colors hover:bg-muted"
 >
 	<div class="min-w-0 flex-1">
-		<p class="truncate text-sm font-medium text-gray-900">{occupation.title}</p>
-		<p class="mt-0.5 text-xs text-gray-500">
+		<p class="truncate text-sm font-medium text-foreground">{occupation.title}</p>
+		<p class="mt-0.5 text-xs text-muted-foreground">
 			Median: SGD {occupation.gross_wage_median.toLocaleString()}
 		</p>
 	</div>
@@ -22,10 +22,10 @@
 		>
 			{riskBandLabels[occupation.risk_band]}
 		</span>
-		<span class="text-[10px] tabular-nums text-gray-400">
+		<span class="text-[10px] tabular-nums text-muted-foreground">
 			Risk: {(occupation.net_risk * 100).toFixed(0)}%
 		</span>
-		<span class="text-[10px] text-gray-400">
+		<span class="text-[10px] text-muted-foreground">
 			Confidence: {occupation.confidence.level}
 		</span>
 	</div>
