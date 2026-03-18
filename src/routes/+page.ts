@@ -18,22 +18,9 @@ export const load: PageLoad = () => {
 		o => o.evidence.sol_match || o.evidence.jobs_in_demand_match
 	).length;
 
-	// Featured lists
-	const highestRisk = [...occupations].sort((a, b) => b.net_risk - a.net_risk).slice(0, 5);
-	const safestHighPay = occupations
-		.filter(o => o.gross_wage_median > nationalMedian && o.risk_band === 'very_low')
-		.sort((a, b) => b.gross_wage_median - a.gross_wage_median)
-		.slice(0, 5);
-	const augmented = occupations
-		.filter(o => o.impact_type === 'ai_leveraged')
-		.sort((a, b) => b.exposure - a.exposure)
-		.slice(0, 5);
-	const mostResilient = [...occupations].sort((a, b) => a.net_risk - b.net_risk).slice(0, 5);
-
 	return {
 		occupations,
 		majorGroups,
-		stats: { highRiskCount, avgExposure, demandCount, nationalMedian },
-		featured: { highestRisk, safestHighPay, augmented, mostResilient }
+		stats: { highRiskCount, avgExposure, demandCount, nationalMedian }
 	};
 };

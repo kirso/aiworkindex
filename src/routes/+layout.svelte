@@ -14,8 +14,7 @@
 	let { children } = $props();
 
 	const navLinks = [
-		{ href: '/', label: 'Home' },
-		{ href: '/explore', label: 'Explore' },
+		{ href: '/', label: 'Explore' },
 		{ href: '/rankings', label: 'Rankings' },
 		{ href: '/compare', label: 'Compare' },
 		{ href: '/methodology', label: 'Methodology' },

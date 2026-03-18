@@ -1,15 +1,26 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import Treemap from '$lib/components/viz/Treemap.svelte';
+	import Histogram from '$lib/components/viz/Histogram.svelte';
+	import WageBracketChart from '$lib/components/viz/WageBracketChart.svelte';
+	import ScatterQuadrant from '$lib/components/viz/ScatterQuadrant.svelte';
 	import HeroSearch from '$lib/components/ui/HeroSearch.svelte';
-	import { card, riskBadge, sectionLabel, caption } from '$lib/design-system';
+	import FilterPanel from '$lib/components/ui/FilterPanel.svelte';
+	import OccupationCardList from '$lib/components/ui/OccupationCardList.svelte';
+	import { card, sectionLabel, caption } from '$lib/design-system';
 	import { cn } from '$lib/utils';
-	import { riskBandLabels } from '$lib/data';
+	import { riskBandLabels, riskBandColors, impactTypeLabels, impactTypeColors } from '$lib/data';
+	import type { RiskBand, ImpactType } from '$lib/data';
 	import { SITE, DATA_VINTAGE } from '$lib/data/scoring-constants';
 
 	let { data } = $props();
 
 	let innerWidth = $state(1024);
+	let filterResult: typeof data.occupations | null = $state(null);
+	let filteredOccupations = $derived(filterResult ?? data.occupations);
+	let isFiltered = $derived(
+		filterResult !== null && filteredOccupations.length !== data.occupations.length
+	);
 
 	$effect(() => {
 		if (!browser) return;
@@ -21,6 +32,48 @@
 		return () => window.removeEventListener('resize', onResize);
 	});
 
+	function handleFilter(filtered: typeof data.occupations) {
+		filterResult = filtered;
+	}
+
+	// Distributions (reactive to filters)
+	let riskBandCounts = $derived.by(() => {
+		const c: Record<string, number> = {
+			very_low: 0,
+			low: 0,
+			moderate: 0,
+			high: 0,
+			very_high: 0
+		};
+		for (const o of filteredOccupations) c[o.risk_band] = (c[o.risk_band] || 0) + 1;
+		return c;
+	});
+	let impactTypeCounts = $derived.by(() => {
+		const c: Record<string, number> = { ai_leveraged: 0, at_risk: 0, stable: 0, mixed: 0 };
+		for (const o of filteredOccupations) c[o.impact_type] = (c[o.impact_type] || 0) + 1;
+		return c;
+	});
+
+	// Top 5 lists (reactive to filters)
+	let topHighRisk = $derived(
+		[...filteredOccupations].sort((a, b) => b.net_risk - a.net_risk).slice(0, 5)
+	);
+	let topSafest = $derived(
+		[...filteredOccupations].sort((a, b) => a.net_risk - b.net_risk).slice(0, 5)
+	);
+	let topAugmented = $derived(
+		filteredOccupations
+			.filter(o => o.impact_type === 'ai_leveraged')
+			.sort((a, b) => b.exposure - a.exposure)
+			.slice(0, 5)
+	);
+	let topInDemand = $derived(
+		filteredOccupations
+			.filter(o => o.evidence.sol_match || o.evidence.jobs_in_demand_match)
+			.sort((a, b) => b.market.market_resilience - a.market.market_resilience)
+			.slice(0, 5)
+	);
+
 	const faqJsonLd = `<script type="application/ld+json">${JSON.stringify({
 		'@context': 'https://schema.org',
 		'@type': 'FAQPage',
@@ -30,15 +83,7 @@
 				name: 'Will AI replace my job in Singapore?',
 				acceptedAnswer: {
 					'@type': 'Answer',
-					text: 'It depends on your occupation. Of 562 Singapore occupations scored, 48 face very high AI displacement risk while 111 face very low risk. The outcome depends on three factors: AI task overlap, human advantage (judgment, creativity, physical presence), and Singapore labour market demand.'
-				}
-			},
-			{
-				'@type': 'Question',
-				name: 'Which jobs in Singapore are most at risk from AI?',
-				acceptedAnswer: {
-					'@type': 'Answer',
-					text: 'Occupations with high AI task overlap and low human bottlenecks face the most risk. Data entry clerks, telemarketers, bookkeepers, and statistical clerks score highest. However, high AI exposure alone does not mean displacement — software developers have high exposure but are augmented because of strong human advantages.'
+					text: 'It depends on your occupation. Of 562 Singapore occupations scored, 48 face very high AI displacement risk while 111 face very low risk.'
 				}
 			},
 			{
@@ -46,7 +91,7 @@
 				name: 'How is the Singapore AI job risk score calculated?',
 				acceptedAnswer: {
 					'@type': 'Answer',
-					text: 'Net displacement risk = AI exposure × (1 − human bottleneck) × market modifier. Exposure comes from the Felten AIOE academic index. Human bottleneck uses Pizzinelli theta from O*NET work context data. Market modifier uses Singapore employment trends and MOM demand signals. No LLM is used in the scoring pipeline.'
+					text: 'Net displacement risk = AI exposure × (1 − human bottleneck) × market modifier. No LLM is used in the scoring pipeline.'
 				}
 			}
 		]
@@ -60,45 +105,32 @@
 		content="Find out if AI will replace, augment, or barely affect your role in Singapore. 562 occupations scored using official data and peer-reviewed research."
 	/>
 	<meta property="og:title" content="AI Work Index — How will AI affect your job?" />
-	<meta
-		property="og:description"
-		content="562 Singapore occupations scored for AI displacement risk. Official data, academic indices, no LLM in the scoring pipeline."
-	/>
 	<meta property="og:url" content={SITE.url} />
-	<meta name="twitter:title" content="AI Work Index" />
-	<meta
-		name="twitter:description"
-		content="How will AI affect your job in Singapore? 562 occupations scored."
-	/>
 	{@html faqJsonLd}
 </svelte:head>
 
-<!-- ===== HERO: Search ===== -->
-<div class="mx-auto max-w-screen-2xl px-4 sm:px-6">
-	<div class="mx-auto max-w-2xl py-10 sm:py-14 text-center">
-		<h1 class="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-			How will AI affect your job?
-		</h1>
-		<p class="mt-2 text-sm text-muted-foreground">
-			Search any occupation or role to see its AI displacement risk score
-		</p>
-		<div class="mt-5">
-			<HeroSearch occupations={data.occupations} />
-		</div>
-	</div>
-</div>
-
-<!-- ===== STATS STRIP ===== -->
-<div class="border-y border-border bg-inset">
+<!-- ===== HERO: Search + Stats ===== -->
+<div class="bg-card border-b border-border">
 	<div class="mx-auto max-w-screen-2xl px-4 sm:px-6">
+		<div class="mx-auto max-w-2xl py-8 sm:py-10 text-center">
+			<h1 class="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+				How will AI affect your job?
+			</h1>
+			<p class="mt-1.5 text-sm text-muted-foreground">
+				Search any Singapore occupation or modern role
+			</p>
+			<div class="mt-4">
+				<HeroSearch occupations={data.occupations} />
+			</div>
+		</div>
+		<!-- Stats strip -->
 		<div
-			class="flex flex-wrap items-center justify-center gap-x-5 gap-y-1 py-2.5 text-xs text-muted-foreground"
+			class="flex flex-wrap items-center justify-center gap-x-5 gap-y-1 pb-3 text-xs text-muted-foreground"
 		>
 			<span
 				><strong class="font-mono text-foreground">{data.occupations.length}</strong> occupations</span
 			>
-			<span
-				><strong class="font-mono text-foreground">{DATA_VINTAGE.role_count}</strong> modern roles</span
+			<span><strong class="font-mono text-foreground">{DATA_VINTAGE.role_count}</strong> roles</span
 			>
 			<span
 				><strong class="font-mono text-foreground">{data.stats.highRiskCount}</strong> high+ risk</span
@@ -120,170 +152,244 @@
 	</div>
 </div>
 
-<!-- ===== TREEMAP ===== -->
-<div class="mx-auto max-w-screen-2xl px-4 sm:px-6 pt-5">
-	<div class="flex items-center justify-between mb-2">
-		<h2 class={sectionLabel()}>Occupation Map</h2>
-		<div class="flex items-center gap-3">
-			<p class={caption()}>Size = employment · Colour = risk</p>
-			<a href="/explore" class="text-xs text-primary hover:underline">Full explorer →</a>
-		</div>
-	</div>
+<!-- ===== MAIN: Sidebar + Content ===== -->
+<div class="mx-auto max-w-screen-2xl px-4 sm:px-6 py-4">
+	<div class="flex gap-5">
+		<!-- Filter sidebar (desktop) -->
+		<aside class="hidden w-[220px] shrink-0 lg:block">
+			<div
+				class={cn(
+					card({ padding: 'sm' }),
+					'sticky top-14 max-h-[calc(100vh-4.5rem)] overflow-y-auto'
+				)}
+			>
+				<FilterPanel occupations={data.occupations} onfilter={handleFilter} />
 
-	{#if innerWidth >= 768}
-		<Treemap occupations={data.occupations} />
-	{:else}
-		<div class="grid gap-2 grid-cols-2">
-			{#each data.majorGroups as group}
-				<a
-					href="/explore"
-					class={cn(card({ padding: 'sm', hover: true }), 'flex items-center gap-2')}
-				>
-					<span class="h-2.5 w-2.5 rounded-sm shrink-0" style="background-color: {group.color};"
-					></span>
-					<span class="text-xs font-medium text-foreground truncate">{group.label}</span>
-				</a>
-			{/each}
-		</div>
-	{/if}
-</div>
+				<!-- Risk distribution -->
+				<div class="mt-3 border-t border-border pt-3">
+					<p class={caption({ weight: 'semibold' })}>Risk Bands</p>
+					<div class="mt-1.5 space-y-1">
+						{#each ['very_low', 'low', 'moderate', 'high', 'very_high'] as const as band}
+							{@const count = riskBandCounts[band] ?? 0}
+							{@const pct =
+								filteredOccupations.length > 0 ? (count / filteredOccupations.length) * 100 : 0}
+							<div class="flex items-center gap-1.5">
+								<span class="w-14 shrink-0 text-right text-xs text-muted-foreground"
+									>{riskBandLabels[band as RiskBand]
+										.replace('Very Low', 'V.Low')
+										.replace('Very High', 'V.High')}</span
+								>
+								<div class="h-2.5 min-w-0 flex-1 overflow-hidden rounded-sm bg-inset">
+									<div
+										class="h-full rounded-sm"
+										style="width: {pct}%; background-color: {riskBandColors[band as RiskBand]};"
+									></div>
+								</div>
+								<span class="w-5 shrink-0 text-right font-mono text-xs text-foreground"
+									>{count}</span
+								>
+							</div>
+						{/each}
+					</div>
+				</div>
 
-<!-- ===== FEATURED: 4 cards ===== -->
-<div class="mx-auto max-w-screen-2xl px-4 sm:px-6 py-5">
-	<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-		<!-- Highest Risk -->
-		<div class={card({ padding: 'sm' })}>
-			<div class="flex items-center justify-between mb-2">
-				<h3 class={sectionLabel()}>Highest Risk</h3>
-				<a href="/rankings/highest-risk" class="text-xs text-primary hover:underline">See all →</a>
+				<!-- Impact type -->
+				<div class="mt-3 border-t border-border pt-3">
+					<p class={caption({ weight: 'semibold' })}>Impact Type</p>
+					<div class="mt-1.5 space-y-1">
+						{#each ['ai_leveraged', 'at_risk', 'stable', 'mixed'] as const as type}
+							{@const count = impactTypeCounts[type] ?? 0}
+							{@const pct =
+								filteredOccupations.length > 0 ? (count / filteredOccupations.length) * 100 : 0}
+							<div class="flex items-center gap-1.5">
+								<span class="w-16 shrink-0 text-right text-xs text-muted-foreground"
+									>{impactTypeLabels[type as ImpactType]}</span
+								>
+								<div class="h-2.5 min-w-0 flex-1 overflow-hidden rounded-sm bg-inset">
+									<div
+										class="h-full rounded-sm"
+										style="width: {pct}%; background-color: {impactTypeColors[type as ImpactType]};"
+									></div>
+								</div>
+								<span class="w-5 shrink-0 text-right font-mono text-xs text-foreground"
+									>{count}</span
+								>
+							</div>
+						{/each}
+					</div>
+				</div>
 			</div>
-			{#each data.featured.highestRisk as occ (occ.ssoc)}
-				<a
-					href="/occupation/{occ.ssoc}"
-					class="flex items-center justify-between rounded-sm py-1.5 px-1 -mx-1 hover:bg-accent transition-colors"
-				>
-					<span class="text-sm text-foreground truncate">{occ.title}</span>
-					<span class="ml-2 shrink-0 font-mono text-sm font-semibold text-risk-very-high"
-						>{(occ.net_risk * 100).toFixed(0)}%</span
+		</aside>
+
+		<!-- Main content -->
+		<div class="min-w-0 flex-1">
+			<!-- Mobile filters -->
+			{#if innerWidth < 1024}
+				<div class="mb-4">
+					<details class={cn(card({ padding: 'none' }))}>
+						<summary
+							class="flex w-full cursor-pointer items-center justify-between px-4 py-3 text-sm font-medium text-foreground/80 list-none [&::-webkit-details-marker]:hidden"
+						>
+							Filters & Search
+							<svg
+								class="h-4 w-4 text-muted-foreground"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"><path d="m6 9 6 6 6-6" /></svg
+							>
+						</summary>
+						<div class="border-t border-border/50 p-4">
+							<FilterPanel occupations={data.occupations} onfilter={handleFilter} />
+						</div>
+					</details>
+				</div>
+			{/if}
+
+			{#if isFiltered}
+				<p class="mb-3 text-xs text-muted-foreground">
+					Showing {filteredOccupations.length} of {data.occupations.length} occupations ·
+					<button class="text-primary hover:underline" onclick={() => (filterResult = null)}
+						>Reset</button
 					>
-				</a>
-			{/each}
+				</p>
+			{/if}
+
+			{#if innerWidth >= 768}
+				<!-- Treemap -->
+				<div class={cn(card({ padding: 'sm' }), 'mb-4')}>
+					<div class="mb-1.5 flex items-center justify-between px-1">
+						<h2 class={sectionLabel()}>Occupation Map</h2>
+						<p class={caption()}>Size = employment · Colour = risk</p>
+					</div>
+					<Treemap occupations={filteredOccupations} />
+				</div>
+
+				<!-- Charts: 2-column -->
+				<div class="grid gap-4 md:grid-cols-2 mb-4">
+					<div class={card({ padding: 'sm' })}>
+						<h3 class={cn(sectionLabel(), 'mb-2 px-1')}>Score Distribution</h3>
+						<Histogram occupations={filteredOccupations} />
+					</div>
+					<div class={card({ padding: 'sm' })}>
+						<h3 class={cn(sectionLabel(), 'mb-2 px-1')}>Risk by Wage</h3>
+						<WageBracketChart occupations={filteredOccupations} />
+					</div>
+				</div>
+
+				<!-- Scatter: full width -->
+				<div class={cn(card({ padding: 'sm' }), 'mb-4')}>
+					<div class="mb-1.5 flex items-center justify-between px-1">
+						<h2 class={sectionLabel()}>Exposure vs Human Skills</h2>
+						<p class={caption()}>Each dot = one occupation · 4 quadrants</p>
+					</div>
+					<ScatterQuadrant occupations={filteredOccupations} />
+				</div>
+
+				<!-- Featured: 4 cards -->
+				<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-4">
+					<!-- Highest Risk -->
+					<div class={card({ padding: 'sm' })}>
+						<div class="flex items-center justify-between mb-2">
+							<h3 class={sectionLabel()}>Highest Risk</h3>
+							<a href="/rankings/highest-risk" class="text-xs text-primary hover:underline">All →</a
+							>
+						</div>
+						{#each topHighRisk as occ, i (occ.ssoc)}
+							<a
+								href="/occupation/{occ.ssoc}"
+								class="flex items-center gap-1.5 rounded-sm py-1 hover:bg-accent transition-colors text-xs"
+							>
+								<span class="font-mono font-bold text-risk-very-high w-3">{i + 1}</span>
+								<span class="flex-1 text-foreground truncate">{occ.title}</span>
+								<span class="shrink-0 font-mono text-risk-very-high"
+									>{(occ.net_risk * 100).toFixed(0)}%</span
+								>
+							</a>
+						{/each}
+					</div>
+
+					<!-- Most Resilient -->
+					<div class={card({ padding: 'sm' })}>
+						<div class="flex items-center justify-between mb-2">
+							<h3 class={sectionLabel()}>Most Resilient</h3>
+							<a href="/rankings/safest-high-paying" class="text-xs text-primary hover:underline"
+								>All →</a
+							>
+						</div>
+						{#each topSafest as occ, i (occ.ssoc)}
+							<a
+								href="/occupation/{occ.ssoc}"
+								class="flex items-center gap-1.5 rounded-sm py-1 hover:bg-accent transition-colors text-xs"
+							>
+								<span class="font-mono font-bold text-risk-very-low w-3">{i + 1}</span>
+								<span class="flex-1 text-foreground truncate">{occ.title}</span>
+								<span class="shrink-0 font-mono text-risk-very-low"
+									>{(occ.net_risk * 100).toFixed(0)}%</span
+								>
+							</a>
+						{/each}
+					</div>
+
+					<!-- Augmented -->
+					<div class={card({ padding: 'sm' })}>
+						<div class="flex items-center justify-between mb-2">
+							<h3 class={sectionLabel()}>Augmented</h3>
+							<a href="/rankings/ai-leveraged" class="text-xs text-primary hover:underline">All →</a
+							>
+						</div>
+						{#each topAugmented as occ, i (occ.ssoc)}
+							<a
+								href="/occupation/{occ.ssoc}"
+								class="flex items-center gap-1.5 rounded-sm py-1 hover:bg-accent transition-colors text-xs"
+							>
+								<span class="font-mono font-bold text-impact-leveraged w-3">{i + 1}</span>
+								<span class="flex-1 text-foreground truncate">{occ.title}</span>
+								<span class="shrink-0 font-mono text-muted-foreground"
+									>{riskBandLabels[occ.risk_band]}</span
+								>
+							</a>
+						{/each}
+					</div>
+
+					<!-- In Demand -->
+					<div class={card({ padding: 'sm' })}>
+						<div class="flex items-center justify-between mb-2">
+							<h3 class={sectionLabel()}>In Demand</h3>
+							<a
+								href="/rankings/high-exposure-in-demand"
+								class="text-xs text-primary hover:underline">All →</a
+							>
+						</div>
+						{#each topInDemand as occ, i (occ.ssoc)}
+							<a
+								href="/occupation/{occ.ssoc}"
+								class="flex items-center gap-1.5 rounded-sm py-1 hover:bg-accent transition-colors text-xs"
+							>
+								<span class="font-mono font-bold text-risk-very-low w-3">{i + 1}</span>
+								<span class="flex-1 text-foreground truncate">{occ.title}</span>
+								<span class="shrink-0 font-mono text-muted-foreground"
+									>SGD {(occ.gross_wage_median / 1000).toFixed(0)}K</span
+								>
+							</a>
+						{/each}
+					</div>
+				</div>
+
+				<!-- Browse pills -->
+				<div class="flex flex-wrap items-center gap-2 text-xs">
+					<span class={caption({ weight: 'medium' })}>More:</span>
+					{#each [{ href: '/rankings', label: 'All Rankings' }, { href: '/compare', label: 'Compare' }, { href: '/methodology', label: 'Methodology' }] as link}
+						<a
+							href={link.href}
+							class="rounded-md border border-border bg-card px-2.5 py-1 font-medium text-foreground hover:bg-accent transition-colors"
+							>{link.label}</a
+						>
+					{/each}
+				</div>
+			{:else}
+				<OccupationCardList occupations={filteredOccupations} />
+			{/if}
 		</div>
-
-		<!-- Augmented -->
-		<div class={card({ padding: 'sm' })}>
-			<div class="flex items-center justify-between mb-2">
-				<h3 class={sectionLabel()}>Augmented</h3>
-				<a href="/rankings/ai-leveraged" class="text-xs text-primary hover:underline">See all →</a>
-			</div>
-			{#each data.featured.augmented as occ (occ.ssoc)}
-				<a
-					href="/occupation/{occ.ssoc}"
-					class="flex items-center justify-between rounded-sm py-1.5 px-1 -mx-1 hover:bg-accent transition-colors"
-				>
-					<span class="text-sm text-foreground truncate">{occ.title}</span>
-					<span class={cn(riskBadge({ band: occ.risk_band }), 'ml-2 shrink-0')}
-						>{riskBandLabels[occ.risk_band]}</span
-					>
-				</a>
-			{/each}
-		</div>
-
-		<!-- Safest + High Pay -->
-		<div class={card({ padding: 'sm' })}>
-			<div class="flex items-center justify-between mb-2">
-				<h3 class={sectionLabel()}>Safest + High Pay</h3>
-				<a href="/rankings/safest-high-paying" class="text-xs text-primary hover:underline"
-					>See all →</a
-				>
-			</div>
-			{#each data.featured.safestHighPay as occ (occ.ssoc)}
-				<a
-					href="/occupation/{occ.ssoc}"
-					class="flex items-center justify-between rounded-sm py-1.5 px-1 -mx-1 hover:bg-accent transition-colors"
-				>
-					<span class="text-sm text-foreground truncate">{occ.title}</span>
-					<span class="ml-2 shrink-0 font-mono text-xs text-muted-foreground"
-						>SGD {occ.gross_wage_median.toLocaleString()}</span
-					>
-				</a>
-			{/each}
-		</div>
-
-		<!-- Most Resilient -->
-		<div class={card({ padding: 'sm' })}>
-			<div class="flex items-center justify-between mb-2">
-				<h3 class={sectionLabel()}>Most Resilient</h3>
-				<a href="/rankings/safest-high-paying" class="text-xs text-primary hover:underline"
-					>See all →</a
-				>
-			</div>
-			{#each data.featured.mostResilient as occ (occ.ssoc)}
-				<a
-					href="/occupation/{occ.ssoc}"
-					class="flex items-center justify-between rounded-sm py-1.5 px-1 -mx-1 hover:bg-accent transition-colors"
-				>
-					<span class="text-sm text-foreground truncate">{occ.title}</span>
-					<span class="ml-2 shrink-0 font-mono text-sm font-semibold text-risk-very-low"
-						>{(occ.net_risk * 100).toFixed(0)}%</span
-					>
-				</a>
-			{/each}
-		</div>
-	</div>
-</div>
-
-<!-- ===== QUICK BROWSE ===== -->
-<div class="mx-auto max-w-screen-2xl px-4 sm:px-6 pb-5">
-	<div class="flex flex-wrap items-center gap-2">
-		<span class={caption({ weight: 'medium' })}>Browse:</span>
-		<a
-			href="/rankings/highest-risk"
-			class="rounded-md border border-border bg-card px-3 py-1 text-xs font-medium text-foreground hover:bg-accent transition-colors"
-		>
-			Highest Risk
-		</a>
-		<a
-			href="/rankings/ai-leveraged"
-			class="rounded-md border border-border bg-card px-3 py-1 text-xs font-medium text-foreground hover:bg-accent transition-colors"
-		>
-			Augmented
-		</a>
-		<a
-			href="/rankings/safest-high-paying"
-			class="rounded-md border border-border bg-card px-3 py-1 text-xs font-medium text-foreground hover:bg-accent transition-colors"
-		>
-			Safest High-Paying
-		</a>
-		<a
-			href="/rankings/high-exposure-in-demand"
-			class="rounded-md border border-border bg-card px-3 py-1 text-xs font-medium text-foreground hover:bg-accent transition-colors"
-		>
-			High Exposure + In Demand
-		</a>
-		<a
-			href="/rankings/theory-vs-practice"
-			class="rounded-md border border-border bg-card px-3 py-1 text-xs font-medium text-foreground hover:bg-accent transition-colors"
-		>
-			Theory vs Practice
-		</a>
-		<a
-			href="/explore"
-			class="rounded-md border border-primary/30 bg-card px-3 py-1 text-xs font-medium text-primary hover:bg-primary/5 transition-colors"
-		>
-			Full Explorer →
-		</a>
-	</div>
-</div>
-
-<!-- ===== ABOUT LINE ===== -->
-<div class="border-t border-border">
-	<div class="mx-auto max-w-screen-2xl px-4 sm:px-6 py-4 text-center">
-		<p class="text-xs text-muted-foreground">
-			Three-layer scoring model: AI exposure × human bottleneck × Singapore market signals. No LLM
-			in the scoring pipeline.
-			<a href="/methodology" class="text-primary hover:underline">Methodology</a> ·
-			<a href="/about" class="text-primary hover:underline">About</a>
-		</p>
 	</div>
 </div>
