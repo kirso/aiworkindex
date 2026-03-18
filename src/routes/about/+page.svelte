@@ -157,7 +157,57 @@
 		</div>
 	</section>
 
-	<!-- License + Credits combined -->
+	<!-- Inspiration & What We Do Differently -->
+	<section class="mb-8 mt-8">
+		<p class={sectionLabel()}>Inspiration & How We Differ</p>
+		<p class="mt-2 text-sm text-muted-foreground">
+			Inspired by
+			<a
+				href="https://karpathy.ai/jobs/"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="font-medium text-primary hover:underline">Andrej Karpathy's AI Job Exposure Map</a
+			>
+			(March 2026) and
+			<a
+				href="https://joshkale.github.io/jobs/"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="font-medium text-primary hover:underline">Josh Kale's extended visualization</a
+			>, which score 342 US occupations using LLM-generated ratings (Gemini Flash, 0–10 scale).
+		</p>
+		<p class="mt-2 text-sm text-muted-foreground">
+			<strong>What we do differently:</strong>
+		</p>
+		<ul class="mt-1 list-inside list-disc space-y-1 text-sm text-muted-foreground">
+			<li>
+				<strong>No LLM in scoring</strong> — we use peer-reviewed academic indices (Felten AIOE, Pizzinelli
+				theta), not LLM-generated subjective ratings
+			</li>
+			<li>
+				<strong>Singapore-specific</strong> — SSOC occupational classification, MOM demand signals (SOL
+				2026, Jobs in Demand), Singapore labour market data
+			</li>
+			<li>
+				<strong>Three-layer decomposition</strong> — we separate AI exposure from human bottleneck from
+				market resilience, not a single composite score
+			</li>
+			<li>
+				<strong>Validated</strong> — cluster-level backtesting against actual labour outcomes (3/4 directional
+				checks pass), 48 structural checks
+			</li>
+			<li>
+				<strong>Seniority modifiers</strong> — research-grounded experience level adjustments (Stanford
+				DEL, Anthropic 2026)
+			</li>
+			<li>
+				<strong>80 synthetic roles</strong> — modern job titles (AI Engineer, Prompt Engineer) scored
+				as weighted SSOC blends
+			</li>
+		</ul>
+	</section>
+
+	<!-- License + Credits -->
 	<section class="mb-8 mt-8">
 		<p class={sectionLabel()}>License & Credits</p>
 		<p class="mt-2 text-sm text-muted-foreground">
@@ -185,7 +235,8 @@
 				rel="noopener noreferrer"
 				class="font-medium text-primary hover:underline">Codex</a
 			>
-			(OpenAI). Data from MOM, Felten et al. (2021), O*NET, Anthropic Economic Index, and Stanford DEL.
+			(OpenAI). Data from MOM, Felten et al. (2021), Pizzinelli et al. (2023), O*NET, Anthropic Economic
+			Index, and Stanford DEL.
 		</p>
 	</section>
 
