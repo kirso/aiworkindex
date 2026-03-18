@@ -1643,7 +1643,7 @@ function printDistributionAnalysis(results: ScoredOccupation[]) {
 		`  At Risk:      ${String(impactTypes.at_risk).padStart(4)} (${((impactTypes.at_risk / results.length) * 100).toFixed(1)}%)`
 	);
 	console.log(
-		`  AI Leveraged: ${String(impactTypes.ai_leveraged).padStart(4)} (${((impactTypes.ai_leveraged / results.length) * 100).toFixed(1)}%)`
+		`  Augmented:    ${String(impactTypes.ai_leveraged).padStart(4)} (${((impactTypes.ai_leveraged / results.length) * 100).toFixed(1)}%)`
 	);
 	console.log(
 		`  Stable:       ${String(impactTypes.stable).padStart(4)} (${((impactTypes.stable / results.length) * 100).toFixed(1)}%)`

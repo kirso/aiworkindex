@@ -185,7 +185,7 @@ export const riskBandColors: Record<RiskBand, string> = {
 };
 
 export const impactTypeLabels: Record<ImpactType, string> = {
-	ai_leveraged: 'AI Leveraged',
+	ai_leveraged: 'Augmented',
 	at_risk: 'At Risk',
 	stable: 'Stable',
 	mixed: 'Mixed'

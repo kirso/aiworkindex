@@ -118,7 +118,7 @@ Canonical source: `src/lib/data/scoring-constants.ts`. Also documented in `score
 | very_high | ≥ 0.50 | Very High |
 
 **Impact type logic** (displacement × augmentation matrix):
-- `ai_leveraged`: net_risk < 0.25 AND augmentation ≥ 0.12
+- `ai_leveraged` (Augmented): net_risk < 0.25 AND augmentation ≥ 0.12
 - `at_risk`: net_risk ≥ 0.25 AND augmentation < 0.12 AND no demand signal
 - `mixed`: net_risk ≥ 0.25 AND (augmentation ≥ 0.12 OR has SOL/JiD demand signal)
 - `stable`: net_risk < 0.25 AND augmentation < 0.12

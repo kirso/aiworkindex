@@ -139,7 +139,7 @@
 			href="/rankings/ai-leveraged"
 			class="rounded-md border border-border bg-card px-3 py-1 text-xs font-medium text-foreground hover:bg-accent transition-colors"
 		>
-			AI Leveraged
+			Augmented
 		</a>
 		<a
 			href="/rankings/safest-high-paying"
@@ -218,10 +218,10 @@
 				{/each}
 			</div>
 
-			<!-- AI Leveraged -->
+			<!-- Augmented -->
 			<div>
 				<div class="flex items-center justify-between mb-3">
-					<h3 class={sectionLabel()}>AI Leveraged</h3>
+					<h3 class={sectionLabel()}>Augmented</h3>
 					<a href="/rankings/ai-leveraged" class="text-xs text-primary hover:underline">See all</a>
 				</div>
 				{#each data.featured.aiLeveraged as occ (occ.ssoc)}

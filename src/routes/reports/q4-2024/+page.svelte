@@ -146,9 +146,9 @@
 			>
 		</div>
 
-		<!-- AI Leveraged -->
+		<!-- Augmented -->
 		<div>
-			<h2 class="text-sm font-semibold text-foreground">AI Leveraged</h2>
+			<h2 class="text-sm font-semibold text-foreground">Augmented</h2>
 			<div class="mt-3 space-y-1">
 				{#each data.aiLeveraged as occ, i (occ.ssoc)}
 					<a

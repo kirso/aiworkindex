@@ -41,7 +41,7 @@ const RISK_LABELS: Record<string, string> = {
 };
 
 const IMPACT_LABELS: Record<string, string> = {
-	ai_leveraged: 'AI Leveraged',
+	ai_leveraged: 'Augmented',
 	at_risk: 'At Risk',
 	stable: 'Stable',
 	mixed: 'Mixed'

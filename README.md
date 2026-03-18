@@ -7,7 +7,7 @@ Three layers of AI impact across 562 Singapore occupations -- exposure, human bo
 ## Key Findings
 
 - **562 occupations scored**: 53% Low/Very Low risk, 24% Moderate, 23% High/Very High
-- **Impact types**: 177 AI Leveraged, 85 At Risk, 214 Stable, 86 Mixed
+- **Impact types**: 177 Augmented, 85 At Risk, 214 Stable, 86 Mixed
 - **Crosswalk coverage**: 92.7% direct match (521/562), 7.1% sub-major fallback, 0.2% major fallback
 
 ## How It Works

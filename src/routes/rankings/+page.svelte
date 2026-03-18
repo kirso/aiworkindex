@@ -25,7 +25,7 @@
 		},
 		{
 			href: '/rankings/ai-leveraged',
-			title: 'AI Leveraged',
+			title: 'Augmented',
 			description:
 				'Roles where AI augments rather than replaces — high exposure + strong human bottlenecks',
 			color: 'text-impact-leveraged',
@@ -169,9 +169,9 @@
 		</div>
 	</div>
 
-	<!-- Quick preview: AI Leveraged -->
+	<!-- Quick preview: Augmented -->
 	<div class="mb-8">
-		<h2 class={cn(sectionLabel(), 'mb-3')}>Top 5 AI Leveraged</h2>
+		<h2 class={cn(sectionLabel(), 'mb-3')}>Top 5 Augmented</h2>
 		<div class={card({ padding: 'md' })}>
 			<div class="flex items-center justify-between mb-3">
 				<p class={caption()}>Roles where AI augments rather than replaces</p>

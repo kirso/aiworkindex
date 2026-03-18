@@ -295,15 +295,15 @@ Both are deterministic, both use the same three layers. But they answer differen
 |  | Low Augmentation | High Augmentation |
 |---|---|---|
 | **High Displacement** | **At Risk** — AI substitutes, weak bottleneck | **Mixed** — conflicting signals, high uncertainty |
-| **Low Displacement** | **Stable** — AI has limited overlap | **AI Leveraged** — AI amplifies, human essential |
+| **Low Displacement** | **Stable** — AI has limited overlap | **Augmented** — AI amplifies, human essential |
 
 **Worked examples with augmentation:**
 
 | Occupation | Displacement | Augmentation | Impact Type |
 |-----------|-------------|-------------|-------------|
-| Software Developer | 0.17 (Low) | 0.82 × 0.71 × 0.84 = **0.49** (High) | AI Leveraged |
+| Software Developer | 0.17 (Low) | 0.82 × 0.71 × 0.84 = **0.49** (High) | Augmented |
 | Data Entry Clerk | 0.68 (Very High) | 0.88 × 0.18 × 0.17 = **0.03** (Very Low) | At Risk |
-| Surgeon | 0.016 (Very Low) | 0.45 × 0.95 × 0.88 = **0.38** (Moderate) | AI Leveraged |
+| Surgeon | 0.016 (Very Low) | 0.45 × 0.95 × 0.88 = **0.38** (Moderate) | Augmented |
 | Accountant | 0.60 (Very High) | 0.996 × 0.28 × 0.84 = **0.23** (Moderate) | Mixed |
 
 This is the single biggest improvement beyond the current spec. It makes the methodology much stronger than a one-number index.

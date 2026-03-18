@@ -189,7 +189,7 @@ async function main() {
 		data.every(row => riskBandForValue(row.net_risk) === row.risk_band)
 	);
 	check(
-		'At Risk and AI Leveraged occupations both exist',
+		'At Risk and Augmented occupations both exist',
 		impactCounts.at_risk > 0 && impactCounts.ai_leveraged > 0
 	);
 	check(
@@ -260,11 +260,7 @@ async function main() {
 			surgeon.risk_band === 'very_low',
 			`${surgeon.net_risk.toFixed(3)}`
 		);
-		check(
-			'Surgeon is AI Leveraged',
-			surgeon.impact_type === 'ai_leveraged',
-			`${surgeon.impact_type}`
-		);
+		check('Surgeon is Augmented', surgeon.impact_type === 'ai_leveraged', `${surgeon.impact_type}`);
 	}
 
 	check('Telemarketer exists', !!telemarketer);
@@ -289,7 +285,7 @@ async function main() {
 			`${nurse.risk_band}`
 		);
 		check(
-			'Registered nurse is AI Leveraged',
+			'Registered nurse is Augmented',
 			nurse.impact_type === 'ai_leveraged',
 			`${nurse.impact_type}`
 		);

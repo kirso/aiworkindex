@@ -36,12 +36,12 @@
 </script>
 
 <svelte:head>
-	<title>AI Leveraged Occupations — AI Work Index</title>
+	<title>Augmented Occupations — AI Work Index</title>
 	<meta
 		name="description"
 		content="Singapore occupations where AI augments rather than replaces — high exposure but strong human bottlenecks create augmentation potential."
 	/>
-	<meta property="og:title" content="Top 25 AI Leveraged Occupations in Singapore" />
+	<meta property="og:title" content="Top 25 Augmented Occupations in Singapore" />
 	<meta
 		property="og:description"
 		content="These roles have high AI exposure but strong human bottlenecks — AI makes them more productive, not redundant."
@@ -53,11 +53,11 @@
 		items={[
 			{ label: 'Home', href: '/' },
 			{ label: 'Rankings', href: '/rankings' },
-			{ label: 'AI Leveraged' }
+			{ label: 'Augmented' }
 		]}
 	/>
 
-	<h1 class={titleStyle({ size: 'page' })}>AI Leveraged Occupations</h1>
+	<h1 class={titleStyle({ size: 'page' })}>Augmented Occupations</h1>
 	<p class="mt-2 text-sm text-muted-foreground">
 		These roles have high AI exposure but strong human bottlenecks — judgment, creativity, and
 		interpersonal skills mean AI augments rather than replaces. Ranked by augmentation potential.
@@ -68,7 +68,7 @@
 	</section>
 
 	<p class="mt-4 text-xs text-muted-foreground">
-		AI Leveraged = exposure &gt; 0.6 AND bottleneck &gt; 0.6. Augmentation = exposure &times;
+		Augmented = exposure &gt; 0.6 AND bottleneck &gt; 0.6. Augmentation = exposure &times;
 		bottleneck &times; market_resilience.
 		<a href="/methodology" class="text-primary underline">Learn more</a>
 	</p>

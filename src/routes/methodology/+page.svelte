@@ -543,7 +543,7 @@
 							><span class="font-semibold text-green-600">Stable</span> — AI has limited overlap</td
 						>
 						<td class="py-2"
-							><span class="font-semibold text-impact-leveraged">AI Leveraged</span> — AI amplifies, human
+							><span class="font-semibold text-impact-leveraged">Augmented</span> — AI amplifies, human
 							essential</td
 						>
 					</tr>
@@ -702,7 +702,7 @@
 				<span class="mt-0.5 inline-block h-3 w-3 rounded-sm" style="background-color: #4e79a7;"
 				></span>
 				<div>
-					<p class="text-sm font-medium text-foreground">AI Leveraged</p>
+					<p class="text-sm font-medium text-foreground">Augmented</p>
 					<p class="text-sm text-muted-foreground">
 						Low displacement, high augmentation (e.g., software developers, surgeons)
 					</p>
@@ -1146,7 +1146,7 @@
 						>
 					</tr>
 					<tr class="border-b border-border/50">
-						<td class="py-2 pr-3 font-medium">AI Leveraged threshold</td>
+						<td class="py-2 pr-3 font-medium">Augmented threshold</td>
 						<td class="py-2 pr-3">net_risk &lt; 0.25 AND augmentation &ge; 0.12</td>
 						<td class="py-2">Low displacement with meaningful augmentation potential</td>
 					</tr>

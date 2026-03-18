@@ -20,7 +20,7 @@
 
 	const impactShortLabels: Record<ImpactType, string> = {
 		at_risk: 'At Risk',
-		ai_leveraged: 'Leveraged',
+		ai_leveraged: 'Augmented',
 		stable: 'Stable',
 		mixed: 'Mixed'
 	};
