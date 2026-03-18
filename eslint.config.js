@@ -140,11 +140,15 @@ export default [
 	{
 		name: 'sg-ai-jobs/schema-html-exceptions',
 		files: [
+			'src/lib/components/ui/Seo.svelte',
 			'src/routes/occupation/*/+page.svelte',
 			'src/routes/role/*/+page.svelte',
 			'src/routes/+page.svelte',
 			'src/routes/+layout.svelte',
-			'src/routes/rankings/highest-risk/+page.svelte'
+			'src/routes/rankings/*/+page.svelte',
+			'src/routes/about/+page.svelte',
+			'src/routes/data/+page.svelte',
+			'src/routes/reports/*/+page.svelte'
 		],
 		plugins: { svelte },
 		rules: {

@@ -367,6 +367,72 @@ async function main() {
 		console.log(`Could not generate role OG images: ${err.message}`);
 	}
 
+	// Generate default OG image for static pages (homepage, about, etc.)
+	try {
+		const defaultMarkup = h(
+			'div',
+			{
+				style: {
+					width: '1200px',
+					height: '630px',
+					display: 'flex',
+					flexDirection: 'column',
+					justifyContent: 'space-between',
+					padding: '60px',
+					background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
+					color: 'white',
+					fontFamily: 'Inter'
+				}
+			},
+			h(
+				'div',
+				{ style: { fontSize: '22px', color: '#94a3b8', letterSpacing: '0.1em' } },
+				'AI WORK INDEX'
+			),
+			h(
+				'div',
+				{ style: { display: 'flex', flexDirection: 'column', gap: '20px' } },
+				h(
+					'div',
+					{ style: { fontSize: '48px', fontWeight: 700, lineHeight: 1.15, maxWidth: '900px' } },
+					'How will AI affect your job in Singapore?'
+				),
+				h(
+					'div',
+					{ style: { fontSize: '24px', color: '#94a3b8' } },
+					`${occupations.length} occupations scored for AI displacement risk`
+				)
+			),
+			h(
+				'div',
+				{
+					style: { display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }
+				},
+				h(
+					'div',
+					{ style: { display: 'flex', gap: '30px', fontSize: '20px', color: '#64748b' } },
+					h('div', {}, 'Peer-reviewed research'),
+					h('div', {}, 'Official SG data'),
+					h('div', {}, 'No LLM in scoring')
+				),
+				h('div', { style: { fontSize: '18px', color: '#475569' } }, 'aiworkindex.pages.dev')
+			)
+		);
+
+		const svg = await satori(defaultMarkup as any, {
+			width: 1200,
+			height: 630,
+			fonts: [{ name: 'Inter', data: fontData, weight: 500, style: 'normal' as const }]
+		});
+		const resvg = new Resvg(svg, { fitTo: { mode: 'width' as const, value: 1200 } });
+		fs.writeFileSync(path.join(OUT_DIR, 'default.png'), resvg.render().asPng());
+		generated++;
+		console.log(`\nDefault OG image generated`);
+	} catch (err: any) {
+		console.log(`Error generating default OG: ${err.message}`);
+		errors++;
+	}
+
 	const totalSize = fs
 		.readdirSync(OUT_DIR)
 		.filter(f => f.endsWith('.png'))

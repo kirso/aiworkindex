@@ -28,6 +28,7 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
+	import Seo from '$lib/components/ui/Seo.svelte';
 
 	type CompareEntityRef = { kind: 'occupation'; id: string } | { kind: 'role'; id: string };
 
@@ -255,13 +256,11 @@
 	];
 </script>
 
-<svelte:head>
-	<title>Compare — AI Work Index</title>
-	<meta
-		name="description"
-		content="Compare AI displacement risk across Singapore occupations and modern roles side by side."
-	/>
-</svelte:head>
+<Seo
+	title="Compare"
+	description="Compare AI displacement risk across Singapore occupations and modern roles side by side."
+	path="/compare"
+/>
 
 <main class={pageLayout({ width: 'feature' })}>
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Compare' }]} />

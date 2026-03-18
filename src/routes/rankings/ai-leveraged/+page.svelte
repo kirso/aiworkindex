@@ -4,8 +4,27 @@
 	import type { Occupation } from '$lib/data';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import { pageLayout } from '$lib/design-system';
+	import { SITE } from '$lib/data/scoring-constants';
+	import Seo from '$lib/components/ui/Seo.svelte';
 
 	let { data } = $props();
+
+	let itemListJsonLd = $derived(
+		`<script type="application/ld+json">${JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'ItemList',
+			name: 'AI-Augmented Occupations in Singapore',
+			description:
+				'Top 25 Singapore occupations where AI augments rather than replaces workers, ranked by augmentation potential',
+			numberOfItems: data.ranked.length,
+			itemListElement: data.ranked.slice(0, 10).map((occ: Occupation, i: number) => ({
+				'@type': 'ListItem',
+				position: i + 1,
+				name: occ.title,
+				url: SITE.url + '/occupation/' + occ.ssoc
+			}))
+		})}<\/script>`
+	);
 
 	const columns = [
 		{
@@ -35,18 +54,12 @@
 	];
 </script>
 
-<svelte:head>
-	<title>Augmented Occupations — AI Work Index</title>
-	<meta
-		name="description"
-		content="Singapore occupations where AI augments rather than replaces — high exposure but strong human bottlenecks create augmentation potential."
-	/>
-	<meta property="og:title" content="Top 25 Augmented Occupations in Singapore" />
-	<meta
-		property="og:description"
-		content="These roles have high AI exposure but strong human bottlenecks — AI makes them more productive, not redundant."
-	/>
-</svelte:head>
+<Seo
+	title="Augmented Occupations"
+	description="Singapore occupations where AI augments rather than replaces — high exposure but strong human bottlenecks create augmentation potential."
+	path="/rankings/ai-leveraged"
+	jsonLd={[itemListJsonLd]}
+/>
 
 <main class={pageLayout({ width: 'feature' })}>
 	<PageBreadcrumb

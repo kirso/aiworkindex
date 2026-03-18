@@ -2,15 +2,14 @@
 	import { pageLayout, sectionLabel, caption } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
+	import Seo from '$lib/components/ui/Seo.svelte';
 </script>
 
-<svelte:head>
-	<title>Implementation Appendix — AI Work Index</title>
-	<meta
-		name="description"
-		content="Complete implementation reference for the V3.1 scoring pipeline: risk bands, impact classification, seniority modifiers, confidence, market modifier, stability, and synthetic role rules."
-	/>
-</svelte:head>
+<Seo
+	title="Implementation Appendix"
+	description="Complete implementation reference for the V3.1 scoring pipeline: risk bands, impact classification, seniority modifiers, confidence, market modifier, stability, and synthetic role rules."
+	path="/methodology/appendix"
+/>
 
 <main class={pageLayout({ width: 'prose' })}>
 	<PageBreadcrumb

@@ -8,6 +8,11 @@
  */
 
 import type { Occupation } from './index';
+import {
+	VARIANT_SENSITIVITY_WEIGHTS,
+	FORECAST_CONSTANTS,
+	LABOUR_MARKET_EFFECTS
+} from './scoring-constants';
 
 export type OutlookStatus = 'resilient' | 'watch' | 'under_pressure' | 'at_risk';
 export type Direction = 'improving' | 'stable' | 'worsening';
@@ -118,10 +123,10 @@ export function computeOutlook(occ: Occupation, scenario: ScenarioParams): Outlo
 	const lm = occ.labour_monitor;
 
 	// Scenario adjustments
-	const adoptionEffect = (scenario.ai_adoption_speed - 1.0) * 0.15;
-	const costEffect = scenario.employer_cost_cutting * 0.1;
-	const macroEffect = -scenario.macro_backdrop * 0.08;
-	const sectorEffect = scenario.sector_readiness * 0.05;
+	const adoptionEffect = (scenario.ai_adoption_speed - 1.0) * FORECAST_CONSTANTS.adoption_effect_scale;
+	const costEffect = scenario.employer_cost_cutting * FORECAST_CONSTANTS.cost_effect_scale;
+	const macroEffect = -scenario.macro_backdrop * FORECAST_CONSTANTS.macro_effect_scale;
+	const sectorEffect = scenario.sector_readiness * FORECAST_CONSTANTS.sector_effect_scale;
 
 	// --- Seniority adjustment (scales with variant_sensitivity) ---
 	let seniorityExposureAdj = 0;
@@ -130,10 +135,10 @@ export function computeOutlook(occ: Occupation, scenario: ScenarioParams): Outlo
 	if (seniority !== 'mid') {
 		// Use variant_sensitivity from workflow overlay if available, else default 0.5
 		const varSens = occ.workflow_overlay
-			? 0.3 * occ.workflow_overlay.institutional_knowledge +
-				0.25 * occ.workflow_overlay.relationship_intensity +
-				0.25 * occ.workflow_overlay.regulatory_weight +
-				0.2 * occ.workflow_overlay.real_time_coordination
+			? VARIANT_SENSITIVITY_WEIGHTS.institutional_knowledge * occ.workflow_overlay.institutional_knowledge +
+				VARIANT_SENSITIVITY_WEIGHTS.relationship_intensity * occ.workflow_overlay.relationship_intensity +
+				VARIANT_SENSITIVITY_WEIGHTS.regulatory_weight * occ.workflow_overlay.regulatory_weight +
+				VARIANT_SENSITIVITY_WEIGHTS.real_time_coordination * occ.workflow_overlay.real_time_coordination
 			: 0.5;
 
 		const adj = seniorityAdjustments[seniority];
@@ -148,24 +153,24 @@ export function computeOutlook(occ: Occupation, scenario: ScenarioParams): Outlo
 
 	if (lm) {
 		// Vacancy trend: positive YoY growth improves demand outlook
-		if (lm.vacancy.trend_4q_pct > 5) labourDemandAdj -= 0.08;
-		else if (lm.vacancy.trend_4q_pct > 0) labourDemandAdj -= 0.04;
-		else if (lm.vacancy.trend_4q_pct < -5) labourDemandAdj += 0.06;
+		if (lm.vacancy.trend_4q_pct > 5) labourDemandAdj += LABOUR_MARKET_EFFECTS.vacancy_strong_bonus;
+		else if (lm.vacancy.trend_4q_pct > 0) labourDemandAdj += LABOUR_MARKET_EFFECTS.vacancy_moderate_bonus;
+		else if (lm.vacancy.trend_4q_pct < -5) labourDemandAdj += LABOUR_MARKET_EFFECTS.vacancy_decline_penalty;
 
 		// Hiring: positive net pressure (recruitment > resignation) improves demand
-		if (lm.hiring && lm.hiring.net_pressure > 0) labourDemandAdj -= 0.05;
-		else if (lm.hiring && lm.hiring.net_pressure < -0.3) labourDemandAdj += 0.04;
+		if (lm.hiring && lm.hiring.net_pressure > 0) labourDemandAdj += LABOUR_MARKET_EFFECTS.hiring_positive_bonus;
+		else if (lm.hiring && lm.hiring.net_pressure < -0.3) labourDemandAdj += LABOUR_MARKET_EFFECTS.hiring_negative_penalty;
 
 		// Retrenchment: low incidence reduces displacement pressure
 		if (lm.retrenchment?.incidence_per_1000 != null) {
-			if (lm.retrenchment.incidence_per_1000 < 2) labourDisplacementAdj -= 0.05;
-			else if (lm.retrenchment.incidence_per_1000 > 4) labourDisplacementAdj += 0.05;
+			if (lm.retrenchment.incidence_per_1000 < 2) labourDisplacementAdj += LABOUR_MARKET_EFFECTS.retrenchment_low_bonus;
+			else if (lm.retrenchment.incidence_per_1000 > 4) labourDisplacementAdj += LABOUR_MARKET_EFFECTS.retrenchment_high_penalty;
 		}
 
 		// Re-entry: high 12-month re-entry rate reduces wage pressure
 		if (lm.re_entry?.rate_12m != null) {
-			if (lm.re_entry.rate_12m > 70) labourWageAdj -= 0.06;
-			else if (lm.re_entry.rate_12m < 50) labourWageAdj += 0.04;
+			if (lm.re_entry.rate_12m > 70) labourWageAdj += LABOUR_MARKET_EFFECTS.reentry_high_bonus;
+			else if (lm.re_entry.rate_12m < 50) labourWageAdj += LABOUR_MARKET_EFFECTS.reentry_low_penalty;
 		}
 	}
 
@@ -200,7 +205,7 @@ export function computeOutlook(occ: Occupation, scenario: ScenarioParams): Outlo
 	const scenarioDeviation = Math.abs(scenario.ai_adoption_speed - 1.0) +
 		Math.abs(scenario.employer_cost_cutting - 0.5) +
 		Math.abs(scenario.macro_backdrop);
-	const confidence: ConfidenceLevel = scenarioDeviation < 0.8 ? 'medium' : 'low';
+	const confidence: ConfidenceLevel = scenarioDeviation < FORECAST_CONSTANTS.scenario_confidence_threshold ? 'medium' : 'low';
 
 	// Summary
 	const status = classifyStatus(displacementScore);

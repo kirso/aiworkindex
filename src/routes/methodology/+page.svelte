@@ -4,7 +4,7 @@
 	import { cn } from '$lib/utils';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import { title as titleStyle } from '$lib/design-system';
-	import { SITE } from '$lib/data/scoring-constants';
+	import Seo from '$lib/components/ui/Seo.svelte';
 
 	const occupationCount = occupations.length;
 	const directCount = occupations.filter(
@@ -33,19 +33,11 @@
 	const dataEntryClerk = findOccupation(/data entry clerk/i);
 </script>
 
-<svelte:head>
-	<title>Methodology — AI Work Index</title>
-	<meta
-		name="description"
-		content="Three-layer scoring: exposure (AIOE), human bottleneck (theta), and market resilience. Net risk published as risk bands with visible confidence. No LLM in the scoring pipeline."
-	/>
-	<meta property="og:title" content="Methodology — AI Work Index" />
-	<meta
-		property="og:description"
-		content="Three-layer scoring separating technical AI exposure from labor-market displacement. Academic indices, not LLM vibes."
-	/>
-	<meta property="og:url" content="{SITE.url}/methodology" />
-</svelte:head>
+<Seo
+	title="Methodology"
+	description="Three-layer scoring: exposure (AIOE), human bottleneck (theta), and market resilience. Net risk published as risk bands with visible confidence. No LLM in the scoring pipeline."
+	path="/methodology"
+/>
 
 <main class={pageLayout({ width: 'prose' })}>
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Methodology' }]} />
@@ -514,6 +506,12 @@
 				augmentation = exposure &times; bottleneck &times; market_resilience
 			</p>
 		</div>
+		<p class="mt-2 text-sm text-muted-foreground">
+			Augmentation is highest when AI capability overlaps with strong human bottlenecks AND the
+			local market has demand for the occupation. High exposure alone does not guarantee
+			augmentation — the occupation must also have irreplaceable human elements (high bottleneck)
+			that make AI a complement rather than a substitute.
+		</p>
 		<p class="mt-3 text-sm text-muted-foreground">
 			Crossing displacement with augmentation gives a 2&times;2 <strong>impact type</strong>:
 		</p>
@@ -976,7 +974,8 @@
 						<td class="py-2">
 							More routine tasks, less institutional knowledge. Anthropic (2026): 14% drop in
 							job-finding for ages 22-25. Stanford DEL (2025): entry-level faces disproportionate
-							pressure.
+							pressure. Brynjolfsson et al. (2023): largest AI productivity gains among junior
+							workers, compressing the experience gap.
 						</td>
 					</tr>
 					<tr class="border-b border-border/50">
@@ -1209,68 +1208,150 @@
 			<li>
 				<p class="font-medium text-foreground/80">Felten, Raj &amp; Seamans (2021)</p>
 				<p>
-					"Occupational, Industry, and Geographic Exposure to Artificial Intelligence: A Novel
-					Dataset and Its Potential Uses." <em>Strategic Management Journal</em>, 42(12), 2195-2217.
+					<a
+						href="https://doi.org/10.1002/smj.3286"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="underline"
+						>"Occupational, Industry, and Geographic Exposure to Artificial Intelligence: A Novel
+						Dataset and Its Potential Uses."</a
+					> <em>Strategic Management Journal</em>, 42(12), 2195-2217.
 				</p>
 			</li>
 			<li>
 				<p class="font-medium text-foreground/80">Pizzinelli et al. (2023)</p>
 				<p>
-					"Labor Market Exposure to AI: Cross-country Differences and Distributional Implications." <em
-						>IMF Working Paper</em
-					> WP/23/216.
+					<a
+						href="https://www.imf.org/en/Publications/WP/Issues/2023/10/05/Labor-Market-Exposure-to-AI-Cross-country-Differences-and-Distributional-Implications-540476"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="underline"
+						>"Labor Market Exposure to AI: Cross-country Differences and Distributional
+						Implications."</a
+					> <em>IMF Working Paper</em> WP/23/216.
 				</p>
 			</li>
 			<li>
 				<p class="font-medium text-foreground/80">IMF Singapore (2024)</p>
 				<p>
-					"Impact of Artificial Intelligence on the Singapore Labor Market." <em
-						>IMF Selected Issues Paper</em
-					> SIP/2024/040.
+					<a
+						href="https://www.imf.org/en/Publications/selected-issues-papers/Issues/2024/07/30/Impact-of-Artificial-Intelligence-on-the-Singapore-Labor-Market-552447"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="underline">"Impact of Artificial Intelligence on the Singapore Labor Market."</a
+					> <em>IMF Selected Issues Paper</em> SIP/2024/040.
 				</p>
 			</li>
 			<li>
 				<p class="font-medium text-foreground/80">Acemoglu &amp; Restrepo (2019)</p>
 				<p>
-					"Automation and New Tasks: How Technology Displaces and Reinstates Labor." <em
-						>Journal of Economic Perspectives</em
-					>, 33(2), 3-30. Displacement-vs-reinstatement framework referenced in our limitations.
+					<a
+						href="https://www.aeaweb.org/articles?id=10.1257/jep.33.2.3"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="underline"
+						>"Automation and New Tasks: How Technology Displaces and Reinstates Labor."</a
+					> <em>Journal of Economic Perspectives</em>, 33(2), 3-30. Displacement-vs-reinstatement
+					framework referenced in our limitations.
+				</p>
+			</li>
+			<li>
+				<p class="font-medium text-foreground/80">Brynjolfsson, Li &amp; Raymond (2023)</p>
+				<p>
+					<a
+						href="https://www.nber.org/papers/w31161"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="underline">"Generative AI at Work."</a
+					> <em>NBER Working Paper</em> 31161. Largest AI productivity gains among junior workers; narrows
+					experience gap.
 				</p>
 			</li>
 			<li>
 				<p class="font-medium text-foreground/80">Eloundou et al. (2023)</p>
 				<p>
-					"GPTs are GPTs: An Early Look at the Labor Market Impact Potential of Large Language
-					Models." <em>arXiv:2303.10130</em>.
+					<a
+						href="https://arxiv.org/abs/2303.10130"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="underline"
+						>"GPTs are GPTs: An Early Look at the Labor Market Impact Potential of Large Language
+						Models."</a
+					> <em>arXiv:2303.10130</em>. Published in <em>Science</em> (2024).
 				</p>
 			</li>
 			<li>
 				<p class="font-medium text-foreground/80">Demirer et al. (2025)</p>
 				<p>
-					"Canaries in the Coal Mine: Early Signals from AI's Impact on the Labor Market." <em
-						>Stanford Digital Economy Lab</em
-					>.
+					<a
+						href="https://digitaleconomy.stanford.edu/publications/canaries-in-the-coal-mine/"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="underline"
+						>"Canaries in the Coal Mine: Early Signals from AI's Impact on the Labor Market."</a
+					> <em>Stanford Digital Economy Lab</em>.
+				</p>
+			</li>
+			<li>
+				<p class="font-medium text-foreground/80">Frank et al. (2025)</p>
+				<p>
+					<a
+						href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11983276/"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="underline">"AI Exposure Predicts Unemployment Risk."</a
+					> <em>PNAS Nexus</em>. Ensemble of exposure measures outperforms any single score.
 				</p>
 			</li>
 			<li>
 				<p class="font-medium text-foreground/80">Ministry of Manpower, Singapore (2025)</p>
-				<p>"Jobs in Demand 2025." Released December 30, 2025.</p>
-			</li>
-			<li>
-				<p class="font-medium text-foreground/80">Ministry of Manpower, Singapore (2025)</p>
-				<p>"Job Vacancies 2024." Released March 28, 2025.</p>
+				<p>
+					<a
+						href="https://www.mom.gov.sg/newsroom/press-releases/2025/1230-jobs-in-demand-2025"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="underline">"Jobs in Demand 2025."</a
+					> Released December 30, 2025.
+				</p>
 			</li>
 			<li>
 				<p class="font-medium text-foreground/80">Ministry of Manpower, Singapore (2025)</p>
 				<p>
-					COMPASS Shortage Occupation List (SOL). Released November 2025, effective January 1, 2026.
+					<a
+						href="https://stats.mom.gov.sg/Pages/Job-Vacancies.aspx"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="underline">"Job Vacancies 2024."</a
+					> Released March 28, 2025.
+				</p>
+			</li>
+			<li>
+				<p class="font-medium text-foreground/80">Ministry of Manpower, Singapore (2025)</p>
+				<p>
+					<a
+						href="https://www.mom.gov.sg/passes-and-permits/employment-pass/compass/shortage-occupation-list"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="underline">COMPASS Shortage Occupation List (SOL).</a
+					> Released November 2025, effective January 1, 2026.
 				</p>
 			</li>
 			<li>
 				<p class="font-medium text-foreground/80">Anthropic (2026)</p>
 				<p>
-					"The Anthropic Economic Index: Economic Primitives." January 15, 2026. Dataset on
-					HuggingFace.
+					<a
+						href="https://www.anthropic.com/research/anthropic-economic-index-january-2026-report"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="underline">"The Anthropic Economic Index: Economic Primitives."</a
+					>
+					January 15, 2026.
+					<a
+						href="https://huggingface.co/datasets/Anthropic/EconomicIndex"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="underline">Dataset on HuggingFace</a
+					>.
 				</p>
 			</li>
 		</ul>

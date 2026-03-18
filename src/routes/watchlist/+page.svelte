@@ -8,6 +8,7 @@
 		card,
 		sectionLabel
 	} from '$lib/design-system';
+	import Seo from '$lib/components/ui/Seo.svelte';
 	import { pageLayout } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import type { Occupation } from '$lib/data';
@@ -61,13 +62,12 @@
 	}
 </script>
 
-<svelte:head>
-	<title>Watchlist — AI Work Index</title>
-	<meta
-		name="description"
-		content="Your saved occupations. Track AI displacement risk for the roles you care about."
-	/>
-</svelte:head>
+<Seo
+	title="Watchlist"
+	description="Your saved occupations. Track AI displacement risk for the roles you care about."
+	path="/watchlist"
+	noindex={true}
+/>
 
 <main class={pageLayout({ width: 'content' })}>
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Watchlist' }]} />

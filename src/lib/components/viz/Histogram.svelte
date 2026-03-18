@@ -122,6 +122,28 @@
 				{/if}
 			{/each}
 
+			<!-- Risk band threshold lines -->
+			{#each [{ v: 0.05, label: 'Low' }, { v: 0.15, label: 'Mod' }, { v: 0.3, label: 'High' }, { v: 0.5, label: 'V.High' }] as threshold}
+				{@const tx = marginLeft + (threshold.v / maxRisk) * plotWidth}
+				<line
+					x1={tx}
+					y1={marginTop}
+					x2={tx}
+					y2={marginTop + plotHeight}
+					stroke="var(--foreground)"
+					stroke-width="1"
+					stroke-dasharray="3,3"
+					opacity="0.2"
+				/>
+				<text
+					x={tx}
+					y={marginTop - 2}
+					text-anchor="middle"
+					class="fill-muted-foreground"
+					style="font-size: 8px;">{threshold.label}</text
+				>
+			{/each}
+
 			<!-- Axis label -->
 			<text
 				x={marginLeft + plotWidth / 2}

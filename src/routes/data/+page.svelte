@@ -4,7 +4,27 @@
 	import * as Alert from '$lib/components/ui/alert/index.js';
 	import * as Table from '$lib/components/ui/table/index.js';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
-	import { SITE } from '$lib/data/scoring-constants';
+	import { SITE, DATA_VINTAGE } from '$lib/data/scoring-constants';
+	import Seo from '$lib/components/ui/Seo.svelte';
+
+	const datasetJsonLd = `<script type="application/ld+json">${JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'Dataset',
+		name: 'AI Work Index — Singapore Occupation Scores',
+		description: `${DATA_VINTAGE.occupation_count} Singapore occupations scored for AI displacement risk using Felten AIOE, Pizzinelli theta, and MOM labour data.`,
+		url: SITE.url + '/data',
+		license: 'https://opensource.org/licenses/MIT',
+		creator: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+		dateModified: DATA_VINTAGE.last_updated,
+		spatialCoverage: { '@type': 'Country', name: 'Singapore' },
+		variableMeasured: [
+			'AI exposure (AIOE)',
+			'Human bottleneck (theta)',
+			'Net displacement risk',
+			'Augmentation potential',
+			'Market resilience'
+		]
+	})}<\/script>`;
 
 	const fields = [
 		{ name: 'ssoc', type: 'string', description: 'Singapore Standard Occupational Classification code (4-digit)' },
@@ -32,12 +52,12 @@
 	];
 </script>
 
-<svelte:head>
-	<title>Data Downloads — AI Work Index</title>
-	<meta name="description" content="Download the complete AI Work Index dataset. 562 occupations with exposure, bottleneck, risk, and market scores." />
-	<meta property="og:title" content="Data Downloads — AI Work Index" />
-	<meta property="og:description" content="Download the full dataset: 562 Singapore occupations scored for AI displacement risk." />
-</svelte:head>
+<Seo
+	title="Data Downloads"
+	description="Download the complete AI Work Index dataset. 562 occupations with exposure, bottleneck, risk, and market scores."
+	path="/data"
+	jsonLd={[datasetJsonLd]}
+/>
 
 <main class={pageLayout({ width: 'content' })}>
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Data' }]} />

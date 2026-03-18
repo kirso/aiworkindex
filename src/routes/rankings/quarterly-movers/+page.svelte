@@ -3,15 +3,14 @@
 	import { cn } from '$lib/utils';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import { pageLayout } from '$lib/design-system';
+	import Seo from '$lib/components/ui/Seo.svelte';
 </script>
 
-<svelte:head>
-	<title>Quarterly Movers — Rankings | AI Work Index</title>
-	<meta
-		name="description"
-		content="Occupations that changed risk bands between quarterly snapshots."
-	/>
-</svelte:head>
+<Seo
+	title="Quarterly Movers"
+	description="Occupations that changed risk bands between quarterly snapshots."
+	path="/rankings/quarterly-movers"
+/>
 
 <main class={pageLayout({ width: 'feature' })}>
 	<PageBreadcrumb

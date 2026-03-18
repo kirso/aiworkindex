@@ -11,7 +11,8 @@
 	import { cn } from '$lib/utils';
 	import { riskBandLabels, riskBandColors, impactTypeLabels, impactTypeColors } from '$lib/data';
 	import type { RiskBand, ImpactType } from '$lib/data';
-	import { SITE, DATA_VINTAGE } from '$lib/data/scoring-constants';
+	import { DATA_VINTAGE } from '$lib/data/scoring-constants';
+	import Seo from '$lib/components/ui/Seo.svelte';
 	import { shortTitle } from '$lib/data/display-names';
 
 	let { data } = $props();
@@ -99,16 +100,13 @@
 	})}<\/script>`;
 </script>
 
-<svelte:head>
-	<title>AI Work Index — How will AI affect your job?</title>
-	<meta
-		name="description"
-		content="Find out if AI will replace, augment, or barely affect your role in Singapore. 562 occupations scored using official data and peer-reviewed research."
-	/>
-	<meta property="og:title" content="AI Work Index — How will AI affect your job?" />
-	<meta property="og:url" content={SITE.url} />
-	{@html faqJsonLd}
-</svelte:head>
+<Seo
+	title="AI Work Index — How will AI affect your job?"
+	description="Find out if AI will replace, augment, or barely affect your role in Singapore. 562 occupations scored using official data and peer-reviewed research."
+	path="/"
+	ogImage="/og/default.png"
+	jsonLd={[faqJsonLd]}
+/>
 
 <!-- ===== HERO: Search + Stats ===== -->
 <div class="bg-card border-b border-border">

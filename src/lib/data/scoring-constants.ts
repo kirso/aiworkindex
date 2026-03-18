@@ -129,7 +129,7 @@ export const DATA_VINTAGE = {
 	/** Synthetic role count */
 	role_count: 80,
 	/** Validation check count */
-	validation_checks: 48,
+	validation_checks: 49,
 	/** Page count */
 	page_count: 661
 } as const;
@@ -150,4 +150,47 @@ export const MARKET_CONSTANTS = {
 	/** Jobs in Demand bonuses */
 	jid_exact_bonus: 0.10,
 	jid_prefix_bonus: 0.05
+} as const;
+
+// ============================================
+// ANTHROPIC CALIBRATION
+// ============================================
+
+export const ANTHROPIC_CONSTANTS = {
+	/** Calibration weight: how much observed usage shifts theoretical exposure */
+	calibration_weight: 0.3
+} as const;
+
+// ============================================
+// FORECAST ENGINE CONSTANTS
+// ============================================
+
+/** Variant sensitivity weights for seniority scaling */
+export const VARIANT_SENSITIVITY_WEIGHTS = {
+	institutional_knowledge: 0.3,
+	relationship_intensity: 0.25,
+	regulatory_weight: 0.25,
+	real_time_coordination: 0.2
+} as const;
+
+/** Scenario effect scales for outlook computation */
+export const FORECAST_CONSTANTS = {
+	scenario_confidence_threshold: 0.8,
+	adoption_effect_scale: 0.15,
+	cost_effect_scale: 0.1,
+	macro_effect_scale: 0.08,
+	sector_effect_scale: 0.05
+} as const;
+
+/** Labour market effect sizes for outlook adjustments */
+export const LABOUR_MARKET_EFFECTS = {
+	vacancy_strong_bonus: -0.08,
+	vacancy_moderate_bonus: -0.04,
+	vacancy_decline_penalty: 0.06,
+	hiring_positive_bonus: -0.05,
+	hiring_negative_penalty: 0.04,
+	retrenchment_low_bonus: -0.05,
+	retrenchment_high_penalty: 0.05,
+	reentry_high_bonus: -0.06,
+	reentry_low_penalty: 0.04
 } as const;

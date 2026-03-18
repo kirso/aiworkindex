@@ -22,6 +22,7 @@
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import LabourMarketCard from '$lib/components/ui/LabourMarketCard.svelte';
 	import { SITE } from '$lib/data/scoring-constants';
+	import Seo from '$lib/components/ui/Seo.svelte';
 
 	const WATCHLIST_KEY = 'aiworkindex-watchlist';
 
@@ -110,29 +111,112 @@
 		const overlay = archetypeOverlayDefaults[archetype];
 		return overlay ? generateWorkflowNarrative(overlay) : null;
 	});
+
+	let roleJsonLd = $derived(
+		`<script type="application/ld+json">${JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'Occupation',
+			name: scored.title,
+			description:
+				'Estimated modern role — weighted blend of ' +
+				scored.components.length +
+				' official Singapore occupations',
+			occupationLocation: { '@type': 'Country', name: 'Singapore' },
+			additionalProperty: [
+				{
+					'@type': 'PropertyValue',
+					name: 'AI Net Displacement Risk',
+					value: scored.net_risk
+				},
+				{
+					'@type': 'PropertyValue',
+					name: 'Risk Band',
+					value: riskBandLabels[scored.risk_band]
+				},
+				{
+					'@type': 'PropertyValue',
+					name: 'Estimate Type',
+					value: 'Synthetic role (weighted SSOC blend)'
+				}
+			]
+		})}<\/script>`
+	);
+
+	let breadcrumbJsonLd = $derived(
+		`<script type="application/ld+json">${JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'BreadcrumbList',
+			itemListElement: [
+				{
+					'@type': 'ListItem',
+					position: 1,
+					name: 'Home',
+					item: SITE.url + '/'
+				},
+				{
+					'@type': 'ListItem',
+					position: 2,
+					name: scored.title,
+					item: SITE.url + '/role/' + scored.slug
+				}
+			]
+		})}<\/script>`
+	);
+
+	let faqJsonLd = $derived(
+		`<script type="application/ld+json">${JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'FAQPage',
+			mainEntity: [
+				{
+					'@type': 'Question',
+					name: 'Will AI replace ' + scored.title + ' in Singapore?',
+					acceptedAnswer: {
+						'@type': 'Answer',
+						text:
+							summaryText +
+							' Estimated displacement risk: ' +
+							(scored.net_risk * 100).toFixed(0) +
+							'% (' +
+							riskBandLabels[scored.risk_band] +
+							'). Based on ' +
+							scored.components.length +
+							' official occupations.'
+					}
+				},
+				{
+					'@type': 'Question',
+					name: 'What is the AI risk score for ' + scored.title + '?',
+					acceptedAnswer: {
+						'@type': 'Answer',
+						text:
+							scored.title +
+							' has an estimated AI displacement risk of ' +
+							(scored.net_risk * 100).toFixed(0) +
+							'%, rated ' +
+							riskBandLabels[scored.risk_band] +
+							'. This is a synthetic role estimate based on ' +
+							scored.components.length +
+							' weighted official occupations.'
+					}
+				}
+			]
+		})}<\/script>`
+	);
+
+	let pageTitle = $derived(`${scored.title} — AI Risk Estimate | AI Work Index`);
+	let pageDescription = $derived(
+		`${scored.title}: Estimated AI risk ${(scored.net_risk * 100).toFixed(0)}%, rated ${riskBandLabels[scored.risk_band]}. Based on ${scored.components.length} official occupations.`
+	);
 </script>
 
-<svelte:head>
-	<title>{scored.title} — AI Risk Estimate | {SITE.name}</title>
-	<meta
-		name="description"
-		content="{scored.title}: Estimated AI risk {(scored.net_risk * 100).toFixed(
-			0
-		)}%, rated {riskBandLabels[scored.risk_band]}. Based on {scored.components
-			.length} official occupations."
-	/>
-	<meta property="og:title" content="{scored.title} — AI Risk Estimate | {SITE.name}" />
-	<meta
-		property="og:description"
-		content="Estimated risk: {(scored.net_risk * 100).toFixed(0)}% ({riskBandLabels[
-			scored.risk_band
-		]})."
-	/>
-	<meta property="og:url" content="{SITE.url}/role/{scored.slug}" />
-	<meta property="og:image" content="{SITE.url}/og/role-{scored.slug}.png" />
-	<meta property="og:image:width" content="1200" />
-	<meta property="og:image:height" content="630" />
-</svelte:head>
+<Seo
+	title={pageTitle}
+	description={pageDescription}
+	path="/role/{scored.slug}"
+	ogImage="/og/role-{scored.slug}.png"
+	jsonLd={[roleJsonLd, breadcrumbJsonLd, faqJsonLd]}
+/>
 
 <main class={pageLayout({ width: 'content' })}>
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: scored.title }]} />

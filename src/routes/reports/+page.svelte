@@ -3,15 +3,14 @@
 	import { cn } from '$lib/utils';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
+	import Seo from '$lib/components/ui/Seo.svelte';
 </script>
 
-<svelte:head>
-	<title>Reports — AI Work Index</title>
-	<meta
-		name="description"
-		content="Quarterly reports on AI impact across Singapore occupations. Labour market trends, scoring updates, and analysis."
-	/>
-</svelte:head>
+<Seo
+	title="Reports"
+	description="Quarterly reports on AI impact across Singapore occupations. Labour market trends, scoring updates, and analysis."
+	path="/reports"
+/>
 
 <main class={pageLayout({ width: 'content' })}>
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Reports' }]} />

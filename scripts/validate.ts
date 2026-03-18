@@ -188,6 +188,16 @@ async function main() {
 		'Stored risk bands match stored net_risk thresholds',
 		data.every(row => riskBandForValue(row.net_risk) === row.risk_band)
 	);
+
+	// Recompute impact_type from net_risk, augmentation, and demand signals
+	const { classifyImpactType } = await import('../src/lib/data/scoring-constants');
+	check(
+		'Stored impact types match recomputed classification',
+		data.every(row => {
+			const hasDemand = !!(row.evidence.sol_match || row.evidence.jobs_in_demand_match);
+			return classifyImpactType(row.net_risk, row.augmentation, hasDemand) === row.impact_type;
+		})
+	);
 	check(
 		'At Risk and Augmented occupations both exist',
 		impactCounts.at_risk > 0 && impactCounts.ai_leveraged > 0

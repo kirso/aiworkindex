@@ -3,17 +3,35 @@
 	import { cn } from '$lib/utils';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import { pageLayout } from '$lib/design-system';
+	import { SITE } from '$lib/data/scoring-constants';
+	import Seo from '$lib/components/ui/Seo.svelte';
 
 	let { data } = $props();
+
+	let itemListJsonLd = $derived(
+		`<script type="application/ld+json">${JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'ItemList',
+			name: 'Best AI Career Transitions in Singapore',
+			description:
+				'Top high-risk Singapore occupations with the most feasible transition paths to lower-risk alternatives',
+			numberOfItems: data.transitions.length,
+			itemListElement: data.transitions.slice(0, 10).map((t, i: number) => ({
+				'@type': 'ListItem',
+				position: i + 1,
+				name: t.from.title,
+				url: SITE.url + '/occupation/' + t.from.ssoc
+			}))
+		})}<\/script>`
+	);
 </script>
 
-<svelte:head>
-	<title>Best Transitions — Rankings | AI Work Index</title>
-	<meta
-		name="description"
-		content="High-risk occupations with the highest transition scores to lower-risk alternatives."
-	/>
-</svelte:head>
+<Seo
+	title="Best Transitions"
+	description="High-risk occupations with the highest transition scores to lower-risk alternatives."
+	path="/rankings/best-transitions"
+	jsonLd={[itemListJsonLd]}
+/>
 
 <main class={pageLayout({ width: 'feature' })}>
 	<PageBreadcrumb

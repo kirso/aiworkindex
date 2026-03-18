@@ -130,6 +130,11 @@
 		</div>
 	{/each}
 
+	<p class="text-[10px] text-muted-foreground/70 italic mt-1">
+		These factors combine multiplicatively — larger bars do not mean proportionally larger
+		contributions to the final score.
+	</p>
+
 	<!-- Net result -->
 	<div class="mt-3 flex items-center justify-between border-t border-border/50 pt-3">
 		<span class="text-sm font-semibold text-foreground">Net Displacement Risk</span>

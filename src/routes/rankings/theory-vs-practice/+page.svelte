@@ -4,8 +4,27 @@
 	import type { Occupation } from '$lib/data';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import { pageLayout } from '$lib/design-system';
+	import { SITE } from '$lib/data/scoring-constants';
+	import Seo from '$lib/components/ui/Seo.svelte';
 
 	let { data } = $props();
+
+	let itemListJsonLd = $derived(
+		`<script type="application/ld+json">${JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'ItemList',
+			name: 'Theory vs Practice: AI Exposure Gaps in Singapore',
+			description:
+				'Top 25 Singapore occupations ranked by the gap between theoretical AI exposure and observed real-world AI usage',
+			numberOfItems: data.ranked.length,
+			itemListElement: data.ranked.slice(0, 10).map((occ: Occupation, i: number) => ({
+				'@type': 'ListItem',
+				position: i + 1,
+				name: occ.title,
+				url: SITE.url + '/occupation/' + occ.ssoc
+			}))
+		})}<\/script>`
+	);
 
 	const columns = [
 		{
@@ -46,18 +65,12 @@
 	}
 </script>
 
-<svelte:head>
-	<title>Theory vs Practice — AI Work Index</title>
-	<meta
-		name="description"
-		content="Where does observed AI usage diverge most from theoretical exposure? The biggest gaps between Anthropic's real-world data and academic AI exposure indices."
-	/>
-	<meta property="og:title" content="Theory vs Practice — AI Exposure Gaps in Singapore" />
-	<meta
-		property="og:description"
-		content="Biggest gaps between theoretical AI exposure and observed real-world usage from Anthropic data."
-	/>
-</svelte:head>
+<Seo
+	title="Theory vs Practice"
+	description="Where does observed AI usage diverge most from theoretical exposure? The biggest gaps between Anthropic's real-world data and academic AI exposure indices."
+	path="/rankings/theory-vs-practice"
+	jsonLd={[itemListJsonLd]}
+/>
 
 <main class={pageLayout({ width: 'feature' })}>
 	<PageBreadcrumb

@@ -4,8 +4,27 @@
 	import type { Occupation } from '$lib/data';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import { pageLayout } from '$lib/design-system';
+	import { SITE } from '$lib/data/scoring-constants';
+	import Seo from '$lib/components/ui/Seo.svelte';
 
 	let { data } = $props();
+
+	let itemListJsonLd = $derived(
+		`<script type="application/ld+json">${JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'ItemList',
+			name: 'High AI Exposure but In-Demand Occupations in Singapore',
+			description:
+				'Singapore occupations with high AI exposure that remain on shortage or in-demand lists',
+			numberOfItems: data.ranked.length,
+			itemListElement: data.ranked.slice(0, 10).map((occ: Occupation, i: number) => ({
+				'@type': 'ListItem',
+				position: i + 1,
+				name: occ.title,
+				url: SITE.url + '/occupation/' + occ.ssoc
+			}))
+		})}<\/script>`
+	);
 
 	const columns = [
 		{
@@ -39,21 +58,12 @@
 	];
 </script>
 
-<svelte:head>
-	<title>High Exposure + In Demand — AI Work Index</title>
-	<meta
-		name="description"
-		content="Singapore occupations with high AI exposure that remain on shortage or in-demand lists — paradox roles where demand persists despite AI overlap."
-	/>
-	<meta
-		property="og:title"
-		content="High AI Exposure but Still In Demand — Singapore Occupations"
-	/>
-	<meta
-		property="og:description"
-		content="These paradox roles have significant AI task overlap yet remain on Singapore's shortage or in-demand lists."
-	/>
-</svelte:head>
+<Seo
+	title="High Exposure + In Demand"
+	description="Singapore occupations with high AI exposure that remain on shortage or in-demand lists — paradox roles where demand persists despite AI overlap."
+	path="/rankings/high-exposure-in-demand"
+	jsonLd={[itemListJsonLd]}
+/>
 
 <main class={pageLayout({ width: 'feature' })}>
 	<PageBreadcrumb

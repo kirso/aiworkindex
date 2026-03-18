@@ -4,8 +4,27 @@
 	import type { Occupation } from '$lib/data';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import { pageLayout } from '$lib/design-system';
+	import { SITE } from '$lib/data/scoring-constants';
+	import Seo from '$lib/components/ui/Seo.svelte';
 
 	let { data } = $props();
+
+	let itemListJsonLd = $derived(
+		`<script type="application/ld+json">${JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'ItemList',
+			name: 'Safest High-Paying Jobs in Singapore',
+			description:
+				'Top 25 Singapore occupations with low AI displacement risk and above-median wages',
+			numberOfItems: data.ranked.length,
+			itemListElement: data.ranked.slice(0, 10).map((occ: Occupation, i: number) => ({
+				'@type': 'ListItem',
+				position: i + 1,
+				name: occ.title,
+				url: SITE.url + '/occupation/' + occ.ssoc
+			}))
+		})}<\/script>`
+	);
 
 	const columns = [
 		{
@@ -35,18 +54,12 @@
 	];
 </script>
 
-<svelte:head>
-	<title>Safest High-Paying Jobs — AI Work Index</title>
-	<meta
-		name="description"
-		content="Low AI displacement risk + above-median wages. The 25 safest well-paying occupations in Singapore."
-	/>
-	<meta property="og:title" content="25 Safest High-Paying Jobs in Singapore" />
-	<meta
-		property="og:description"
-		content="Low AI risk + above-median wages. These occupations sit in the sweet spot — well-compensated and resilient to AI disruption."
-	/>
-</svelte:head>
+<Seo
+	title="Safest High-Paying Jobs"
+	description="Low AI displacement risk + above-median wages. The 25 safest well-paying occupations in Singapore."
+	path="/rankings/safest-high-paying"
+	jsonLd={[itemListJsonLd]}
+/>
 
 <main class={pageLayout({ width: 'feature' })}>
 	<PageBreadcrumb

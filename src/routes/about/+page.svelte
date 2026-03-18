@@ -3,17 +3,46 @@
 	import { cn } from '$lib/utils';
 	import { DATA_VINTAGE, SITE } from '$lib/data/scoring-constants';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
+	import Seo from '$lib/components/ui/Seo.svelte';
+
+	const aboutJsonLd = `<script type="application/ld+json">${JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'FAQPage',
+		mainEntity: [
+			{
+				'@type': 'Question',
+				name: 'What is the AI Work Index?',
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text: `The AI Work Index scores ${DATA_VINTAGE.occupation_count} Singapore occupations and ${DATA_VINTAGE.role_count} modern roles for AI displacement risk using a three-layer model: exposure (Felten AIOE), human bottleneck (Pizzinelli theta), and market resilience (MOM data). No LLM is used in the scoring pipeline.`
+				}
+			},
+			{
+				'@type': 'Question',
+				name: 'How is the AI job risk score calculated?',
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text: 'Net displacement risk = AI exposure × (1 − human bottleneck) × market modifier. Exposure comes from the Felten AIOE academic index, bottleneck from Pizzinelli theta (O*NET work context), and market resilience from Singapore MOM employment and wage data.'
+				}
+			},
+			{
+				'@type': 'Question',
+				name: 'Is the AI Work Index open source?',
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text: `Yes. The entire scoring pipeline, data, and website are MIT licensed and available on GitHub at ${SITE.github}. Anyone can reproduce the results by running the deterministic scoring script.`
+				}
+			}
+		]
+	})}<\/script>`;
 </script>
 
-<svelte:head>
-	<title>About — AI Work Index</title>
-	<meta
-		name="description"
-		content="About the AI Work Index: purpose, model card, data sources, and credits. Open-source, MIT licensed."
-	/>
-	<meta property="og:title" content="About — AI Work Index" />
-	<meta property="og:url" content="{SITE.url}/about" />
-</svelte:head>
+<Seo
+	title="About"
+	description="About the AI Work Index: purpose, model card, data sources, and credits. Open-source, MIT licensed."
+	path="/about"
+	jsonLd={[aboutJsonLd]}
+/>
 
 <main class={pageLayout({ width: 'prose' })}>
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'About' }]} />

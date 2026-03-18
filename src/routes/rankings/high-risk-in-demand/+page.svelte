@@ -4,8 +4,27 @@
 	import type { Occupation } from '$lib/data';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import { pageLayout } from '$lib/design-system';
+	import { SITE } from '$lib/data/scoring-constants';
+	import Seo from '$lib/components/ui/Seo.svelte';
 
 	let { data } = $props();
+
+	let itemListJsonLd = $derived(
+		`<script type="application/ld+json">${JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'ItemList',
+			name: 'High-Risk but In-Demand Occupations in Singapore',
+			description:
+				'Singapore occupations with high AI displacement risk that still appear on official demand lists',
+			numberOfItems: data.ranked.length,
+			itemListElement: data.ranked.slice(0, 10).map((occ: Occupation, i: number) => ({
+				'@type': 'ListItem',
+				position: i + 1,
+				name: occ.title,
+				url: SITE.url + '/occupation/' + occ.ssoc
+			}))
+		})}<\/script>`
+	);
 
 	const columns = [
 		{
@@ -41,13 +60,12 @@
 	];
 </script>
 
-<svelte:head>
-	<title>High Risk but In-Demand — Rankings | AI Work Index</title>
-	<meta
-		name="description"
-		content="Occupations with high AI displacement risk that still appear on Singapore's official demand lists."
-	/>
-</svelte:head>
+<Seo
+	title="High Risk but In-Demand"
+	description="Occupations with high AI displacement risk that still appear on Singapore's official demand lists."
+	path="/rankings/high-risk-in-demand"
+	jsonLd={[itemListJsonLd]}
+/>
 
 <main class={pageLayout({ width: 'feature' })}>
 	<PageBreadcrumb

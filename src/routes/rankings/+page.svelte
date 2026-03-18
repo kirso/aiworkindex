@@ -11,6 +11,7 @@
 	import { pageLayout } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
+	import Seo from '$lib/components/ui/Seo.svelte';
 
 	let { data } = $props();
 
@@ -87,18 +88,11 @@
 	];
 </script>
 
-<svelte:head>
-	<title>Rankings — AI Work Index</title>
-	<meta
-		name="description"
-		content="Ranked lists of Singapore occupations by AI displacement risk, augmentation potential, wage safety, and more."
-	/>
-	<meta property="og:title" content="Rankings — AI Work Index" />
-	<meta
-		property="og:description"
-		content="Ranked lists of Singapore occupations by AI displacement risk, augmentation potential, wage safety, and more."
-	/>
-</svelte:head>
+<Seo
+	title="Rankings"
+	description="Ranked lists of Singapore occupations by AI displacement risk, augmentation potential, wage safety, and more."
+	path="/rankings"
+/>
 
 <main class={pageLayout({ width: 'content' })}>
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Rankings' }]} />

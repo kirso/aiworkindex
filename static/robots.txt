@@ -1,5 +1,21 @@
-# allow crawling everything by default
+# Allow all crawlers
 User-agent: *
 Disallow:
 
-Sitemap: https://sg-ai-jobs.vercel.app/sitemap.xml
+# Explicitly allow AI crawlers for AEO/GEO
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+Sitemap: https://aiworkindex.pages.dev/sitemap.xml
