@@ -38,15 +38,7 @@
 				name: 'Which jobs in Singapore are most at risk from AI?',
 				acceptedAnswer: {
 					'@type': 'Answer',
-					text: 'Occupations with high AI task overlap and low human bottlenecks face the most risk. Data entry clerks, telemarketers, bookkeepers, and statistical clerks score highest. However, high AI exposure alone does not mean displacement — software developers have high exposure but are AI-leveraged because of strong human advantages.'
-				}
-			},
-			{
-				'@type': 'Question',
-				name: 'Which Singapore jobs are safest from AI?',
-				acceptedAnswer: {
-					'@type': 'Answer',
-					text: 'Occupations requiring physical presence, clinical judgment, or deep interpersonal skills are most resilient. Surgeons, registered nurses, physiotherapists, electricians, and childcare workers score very low on AI displacement risk. These roles have strong human bottlenecks that current AI cannot replicate.'
+					text: 'Occupations with high AI task overlap and low human bottlenecks face the most risk. Data entry clerks, telemarketers, bookkeepers, and statistical clerks score highest. However, high AI exposure alone does not mean displacement — software developers have high exposure but are augmented because of strong human advantages.'
 				}
 			},
 			{
@@ -55,14 +47,6 @@
 				acceptedAnswer: {
 					'@type': 'Answer',
 					text: 'Net displacement risk = AI exposure × (1 − human bottleneck) × market modifier. Exposure comes from the Felten AIOE academic index. Human bottleneck uses Pizzinelli theta from O*NET work context data. Market modifier uses Singapore employment trends and MOM demand signals. No LLM is used in the scoring pipeline.'
-				}
-			},
-			{
-				'@type': 'Question',
-				name: "What is Singapore's labour market outlook in 2025-2026?",
-				acceptedAnswer: {
-					'@type': 'Answer',
-					text: "Singapore's labour market grew by 57,300 jobs in 2025 (vs 44,500 in 2024). Q4 2025 added 19,600 jobs. Unemployment held steady at 2.0% (Dec 2025). Retrenchments fell to 1.5 per 1,000 employees in Q4 (full-year: 14,400 or 6.2 per 1,000). Source: MOM Labour Market Advance Release Q4 2025."
 				}
 			}
 		]
@@ -89,9 +73,9 @@
 	{@html faqJsonLd}
 </svelte:head>
 
-<!-- ===== HERO: Search is the product ===== -->
-<div class="mx-auto max-w-screen-xl px-5 sm:px-6">
-	<div class="mx-auto max-w-2xl py-12 sm:py-16 text-center">
+<!-- ===== HERO: Search ===== -->
+<div class="mx-auto max-w-screen-2xl px-4 sm:px-6">
+	<div class="mx-auto max-w-2xl py-10 sm:py-14 text-center">
 		<h1 class="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
 			How will AI affect your job?
 		</h1>
@@ -104,29 +88,153 @@
 	</div>
 </div>
 
-<!-- ===== DATA SNAPSHOT: Our World in Data style — scope of the dataset ===== -->
+<!-- ===== STATS STRIP ===== -->
 <div class="border-y border-border bg-inset">
-	<div class="mx-auto max-w-screen-xl px-5 sm:px-6">
+	<div class="mx-auto max-w-screen-2xl px-4 sm:px-6">
 		<div
-			class="flex items-center justify-center gap-6 sm:gap-10 py-3 text-xs text-muted-foreground"
+			class="flex flex-wrap items-center justify-center gap-x-5 gap-y-1 py-2.5 text-xs text-muted-foreground"
 		>
 			<span
 				><strong class="font-mono text-foreground">{data.occupations.length}</strong> occupations</span
 			>
-			<span class="text-border">|</span>
 			<span
 				><strong class="font-mono text-foreground">{DATA_VINTAGE.role_count}</strong> modern roles</span
 			>
-			<span class="text-border">|</span>
-			<span><strong class="font-mono text-foreground">9</strong> occupation groups</span>
-			<span class="hidden sm:inline text-border">|</span>
-			<span class="hidden sm:inline">Q4 2025 data</span>
+			<span
+				><strong class="font-mono text-foreground">{data.stats.highRiskCount}</strong> high+ risk</span
+			>
+			<span
+				><strong class="font-mono text-foreground"
+					>{(data.stats.avgExposure * 100).toFixed(0)}%</strong
+				> avg exposure</span
+			>
+			<span
+				><strong class="font-mono text-foreground">{data.stats.demandCount}</strong> in demand</span
+			>
+			<span
+				><strong class="font-mono text-foreground"
+					>SGD {(data.stats.nationalMedian / 1000).toFixed(1)}K</strong
+				> median</span
+			>
 		</div>
 	</div>
 </div>
 
-<!-- ===== QUICK BROWSE: Ranking shortcuts as pills ===== -->
-<div class="mx-auto max-w-screen-xl px-5 py-6 sm:px-6">
+<!-- ===== TREEMAP ===== -->
+<div class="mx-auto max-w-screen-2xl px-4 sm:px-6 pt-5">
+	<div class="flex items-center justify-between mb-2">
+		<h2 class={sectionLabel()}>Occupation Map</h2>
+		<div class="flex items-center gap-3">
+			<p class={caption()}>Size = employment · Colour = risk</p>
+			<a href="/explore" class="text-xs text-primary hover:underline">Full explorer →</a>
+		</div>
+	</div>
+
+	{#if innerWidth >= 768}
+		<Treemap occupations={data.occupations} />
+	{:else}
+		<div class="grid gap-2 grid-cols-2">
+			{#each data.majorGroups as group}
+				<a
+					href="/explore"
+					class={cn(card({ padding: 'sm', hover: true }), 'flex items-center gap-2')}
+				>
+					<span class="h-2.5 w-2.5 rounded-sm shrink-0" style="background-color: {group.color};"
+					></span>
+					<span class="text-xs font-medium text-foreground truncate">{group.label}</span>
+				</a>
+			{/each}
+		</div>
+	{/if}
+</div>
+
+<!-- ===== FEATURED: 4 cards ===== -->
+<div class="mx-auto max-w-screen-2xl px-4 sm:px-6 py-5">
+	<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+		<!-- Highest Risk -->
+		<div class={card({ padding: 'sm' })}>
+			<div class="flex items-center justify-between mb-2">
+				<h3 class={sectionLabel()}>Highest Risk</h3>
+				<a href="/rankings/highest-risk" class="text-xs text-primary hover:underline">See all →</a>
+			</div>
+			{#each data.featured.highestRisk as occ (occ.ssoc)}
+				<a
+					href="/occupation/{occ.ssoc}"
+					class="flex items-center justify-between rounded-sm py-1.5 px-1 -mx-1 hover:bg-accent transition-colors"
+				>
+					<span class="text-sm text-foreground truncate">{occ.title}</span>
+					<span class="ml-2 shrink-0 font-mono text-sm font-semibold text-risk-very-high"
+						>{(occ.net_risk * 100).toFixed(0)}%</span
+					>
+				</a>
+			{/each}
+		</div>
+
+		<!-- Augmented -->
+		<div class={card({ padding: 'sm' })}>
+			<div class="flex items-center justify-between mb-2">
+				<h3 class={sectionLabel()}>Augmented</h3>
+				<a href="/rankings/ai-leveraged" class="text-xs text-primary hover:underline">See all →</a>
+			</div>
+			{#each data.featured.augmented as occ (occ.ssoc)}
+				<a
+					href="/occupation/{occ.ssoc}"
+					class="flex items-center justify-between rounded-sm py-1.5 px-1 -mx-1 hover:bg-accent transition-colors"
+				>
+					<span class="text-sm text-foreground truncate">{occ.title}</span>
+					<span class={cn(riskBadge({ band: occ.risk_band }), 'ml-2 shrink-0')}
+						>{riskBandLabels[occ.risk_band]}</span
+					>
+				</a>
+			{/each}
+		</div>
+
+		<!-- Safest + High Pay -->
+		<div class={card({ padding: 'sm' })}>
+			<div class="flex items-center justify-between mb-2">
+				<h3 class={sectionLabel()}>Safest + High Pay</h3>
+				<a href="/rankings/safest-high-paying" class="text-xs text-primary hover:underline"
+					>See all →</a
+				>
+			</div>
+			{#each data.featured.safestHighPay as occ (occ.ssoc)}
+				<a
+					href="/occupation/{occ.ssoc}"
+					class="flex items-center justify-between rounded-sm py-1.5 px-1 -mx-1 hover:bg-accent transition-colors"
+				>
+					<span class="text-sm text-foreground truncate">{occ.title}</span>
+					<span class="ml-2 shrink-0 font-mono text-xs text-muted-foreground"
+						>SGD {occ.gross_wage_median.toLocaleString()}</span
+					>
+				</a>
+			{/each}
+		</div>
+
+		<!-- Most Resilient -->
+		<div class={card({ padding: 'sm' })}>
+			<div class="flex items-center justify-between mb-2">
+				<h3 class={sectionLabel()}>Most Resilient</h3>
+				<a href="/rankings/safest-high-paying" class="text-xs text-primary hover:underline"
+					>See all →</a
+				>
+			</div>
+			{#each data.featured.mostResilient as occ (occ.ssoc)}
+				<a
+					href="/occupation/{occ.ssoc}"
+					class="flex items-center justify-between rounded-sm py-1.5 px-1 -mx-1 hover:bg-accent transition-colors"
+				>
+					<span class="text-sm text-foreground truncate">{occ.title}</span>
+					<span class="ml-2 shrink-0 font-mono text-sm font-semibold text-risk-very-low"
+						>{(occ.net_risk * 100).toFixed(0)}%</span
+					>
+				</a>
+			{/each}
+		</div>
+	</div>
+</div>
+
+<!-- ===== QUICK BROWSE ===== -->
+<div class="mx-auto max-w-screen-2xl px-4 sm:px-6 pb-5">
 	<div class="flex flex-wrap items-center gap-2">
 		<span class={caption({ weight: 'medium' })}>Browse:</span>
 		<a
@@ -168,109 +276,12 @@
 	</div>
 </div>
 
-<!-- ===== OCCUPATION MAP: Primary exploration surface ===== -->
-<div class="mx-auto max-w-screen-xl px-5 sm:px-6 pb-8">
-	<div class="flex items-center justify-between mb-3">
-		<h2 class={sectionLabel()}>Occupation Map</h2>
-		<p class={caption()}>Size = employment weight · Colour = risk level</p>
-	</div>
-
-	{#if innerWidth >= 768}
-		<Treemap occupations={data.occupations} />
-	{:else}
-		<div class="grid gap-2 grid-cols-2">
-			{#each data.majorGroups as group}
-				<a
-					href="/explore"
-					class={cn(card({ padding: 'sm', hover: true }), 'flex items-center gap-2')}
-				>
-					<span class="h-2.5 w-2.5 rounded-sm shrink-0" style="background-color: {group.color};"
-					></span>
-					<span class="text-xs font-medium text-foreground truncate">{group.label}</span>
-				</a>
-			{/each}
-		</div>
-	{/if}
-</div>
-
-<!-- ===== FEATURED DATA: Three lenses into the data ===== -->
+<!-- ===== ABOUT LINE ===== -->
 <div class="border-t border-border">
-	<div class="mx-auto max-w-screen-xl px-5 py-8 sm:px-6">
-		<div class="grid gap-6 sm:grid-cols-3">
-			<!-- Highest Risk -->
-			<div>
-				<div class="flex items-center justify-between mb-3">
-					<h3 class={sectionLabel()}>Highest Risk</h3>
-					<a href="/rankings/highest-risk" class="text-xs text-primary hover:underline">See all</a>
-				</div>
-				{#each data.featured.highestRisk as occ (occ.ssoc)}
-					<a
-						href="/occupation/{occ.ssoc}"
-						class="flex items-center justify-between rounded-md px-2 py-2 -mx-2 hover:bg-accent transition-colors group"
-					>
-						<div class="min-w-0 flex-1">
-							<p class="text-sm text-foreground group-hover:text-primary truncate">{occ.title}</p>
-						</div>
-						<span class="ml-2 font-mono text-xs text-risk-very-high shrink-0"
-							>{(occ.net_risk * 100).toFixed(0)}%</span
-						>
-					</a>
-				{/each}
-			</div>
-
-			<!-- Augmented -->
-			<div>
-				<div class="flex items-center justify-between mb-3">
-					<h3 class={sectionLabel()}>Augmented</h3>
-					<a href="/rankings/ai-leveraged" class="text-xs text-primary hover:underline">See all</a>
-				</div>
-				{#each data.featured.aiLeveraged as occ (occ.ssoc)}
-					<a
-						href="/occupation/{occ.ssoc}"
-						class="flex items-center justify-between rounded-md px-2 py-2 -mx-2 hover:bg-accent transition-colors group"
-					>
-						<div class="min-w-0 flex-1">
-							<p class="text-sm text-foreground group-hover:text-primary truncate">{occ.title}</p>
-						</div>
-						<span class={cn(riskBadge({ band: occ.risk_band }), 'ml-2 shrink-0')}
-							>{riskBandLabels[occ.risk_band]}</span
-						>
-					</a>
-				{/each}
-			</div>
-
-			<!-- Safest High-Paying -->
-			<div>
-				<div class="flex items-center justify-between mb-3">
-					<h3 class={sectionLabel()}>Safest + High Pay</h3>
-					<a href="/rankings/safest-high-paying" class="text-xs text-primary hover:underline"
-						>See all</a
-					>
-				</div>
-				{#each data.featured.safestHighPay as occ (occ.ssoc)}
-					<a
-						href="/occupation/{occ.ssoc}"
-						class="flex items-center justify-between rounded-md px-2 py-2 -mx-2 hover:bg-accent transition-colors group"
-					>
-						<div class="min-w-0 flex-1">
-							<p class="text-sm text-foreground group-hover:text-primary truncate">{occ.title}</p>
-						</div>
-						<span class="ml-2 font-mono text-xs text-muted-foreground shrink-0"
-							>SGD {occ.gross_wage_median.toLocaleString()}</span
-						>
-					</a>
-				{/each}
-			</div>
-		</div>
-	</div>
-</div>
-
-<!-- ===== ABOUT: One line, not a section ===== -->
-<div class="border-t border-border">
-	<div class="mx-auto max-w-screen-xl px-5 py-5 sm:px-6 text-center">
+	<div class="mx-auto max-w-screen-2xl px-4 sm:px-6 py-4 text-center">
 		<p class="text-xs text-muted-foreground">
-			Scores use a three-layer model: AI exposure × human bottleneck × Singapore market signals. No
-			LLM in the scoring pipeline.
+			Three-layer scoring model: AI exposure × human bottleneck × Singapore market signals. No LLM
+			in the scoring pipeline.
 			<a href="/methodology" class="text-primary hover:underline">Methodology</a> ·
 			<a href="/about" class="text-primary hover:underline">About</a>
 		</p>
