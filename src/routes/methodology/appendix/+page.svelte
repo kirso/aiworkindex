@@ -349,7 +349,7 @@
 
 	<!-- Validation -->
 	<section class="mb-8">
-		<p class={sectionLabel()}>Validation Checks (43 total)</p>
+		<p class={sectionLabel()}>Validation Checks (48 total)</p>
 		<ul class="mt-2 list-inside list-disc space-y-1.5 text-sm text-muted-foreground">
 			<li>Record completeness (562 occupations, all fields present)</li>
 			<li>Crosswalk coverage and evidence signals</li>

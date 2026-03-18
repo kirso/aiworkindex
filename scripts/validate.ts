@@ -571,6 +571,62 @@ async function main() {
 		warn('Transition capacity validation', `Could not import: ${e}`);
 	}
 
+	// --- Data Vintage & Consistency Checks ---
+	console.log('\n--- Data vintage & consistency ---');
+	try {
+		const { DATA_VINTAGE, RISK_BAND_THRESHOLDS } =
+			await import('../src/lib/data/scoring-constants');
+		const { syntheticRoles } = await import('../src/lib/data/synthetic-roles');
+
+		// Occupation count matches actual data
+		check(
+			'DATA_VINTAGE.occupation_count matches actual data',
+			DATA_VINTAGE.occupation_count === data.length,
+			`vintage says ${DATA_VINTAGE.occupation_count}, actual ${data.length}`
+		);
+
+		// Role count matches actual roles
+		check(
+			'DATA_VINTAGE.role_count matches actual synthetic roles',
+			DATA_VINTAGE.role_count === syntheticRoles.length,
+			`vintage says ${DATA_VINTAGE.role_count}, actual ${syntheticRoles.length}`
+		);
+
+		// Risk band thresholds match score.ts logic
+		check(
+			'Risk band moderate upper = 0.30',
+			RISK_BAND_THRESHOLDS.moderate.upper === 0.3,
+			`got ${RISK_BAND_THRESHOLDS.moderate.upper}`
+		);
+		check(
+			'Risk band high upper = 0.50',
+			RISK_BAND_THRESHOLDS.high.upper === 0.5,
+			`got ${RISK_BAND_THRESHOLDS.high.upper}`
+		);
+
+		// Staleness check: DATA_VINTAGE.last_updated within 120 days
+		const lastUpdated = new Date(DATA_VINTAGE.last_updated);
+		const now = new Date();
+		const daysSinceUpdate = Math.floor(
+			(now.getTime() - lastUpdated.getTime()) / (1000 * 60 * 60 * 24)
+		);
+		if (daysSinceUpdate > 120) {
+			warn(
+				'Data vintage staleness',
+				`DATA_VINTAGE.last_updated is ${daysSinceUpdate} days old (${DATA_VINTAGE.last_updated}). Consider re-running the scoring pipeline.`
+			);
+		} else {
+			check(`Data vintage is fresh (${daysSinceUpdate} days old)`, true);
+		}
+
+		// Validation check count matches
+		const expectedChecks = DATA_VINTAGE.validation_checks;
+		// We'll verify this at the end after counting
+		console.log(`  INFO: DATA_VINTAGE expects ${expectedChecks} checks`);
+	} catch (e) {
+		warn('Data vintage validation', `Could not import: ${e}`);
+	}
+
 	console.log('\n=== Summary ===');
 	console.log(`  Passed: ${passed}`);
 	console.log(`  Failed: ${failed}`);

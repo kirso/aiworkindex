@@ -1304,7 +1304,7 @@
 					Ensemble exposure framework (GPTs-are-GPTs crosscheck ready). Cluster-level backtesting
 					(3/4 directional checks pass). Labour data updated to Q4 2025 advance release. 80
 					synthetic roles (added AI Engineer, Prompt Engineer, AI Product Manager, Data Architect,
-					IT Security Manager). Archetype classification expanded to cover all SSOC prefixes. 43
+					IT Security Manager). Archetype classification expanded to cover all SSOC prefixes. 48
 					validation checks. Outlook simplified to 2 tabs with seniority toggle.
 				</p>
 			</div>
