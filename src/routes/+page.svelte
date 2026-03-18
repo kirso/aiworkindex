@@ -169,26 +169,22 @@
 				<!-- Risk distribution -->
 				<div class="mt-3 border-t border-border pt-3">
 					<p class={caption({ weight: 'semibold' })}>Risk Bands</p>
-					<div class="mt-1.5 space-y-1">
+					<div class="mt-1.5 space-y-0.5">
 						{#each ['very_low', 'low', 'moderate', 'high', 'very_high'] as const as band}
 							{@const count = riskBandCounts[band] ?? 0}
 							{@const pct =
 								filteredOccupations.length > 0 ? (count / filteredOccupations.length) * 100 : 0}
-							<div class="flex items-center gap-1.5">
-								<span class="w-14 shrink-0 text-right text-xs text-muted-foreground"
-									>{riskBandLabels[band as RiskBand]
-										.replace('Very Low', 'V.Low')
-										.replace('Very High', 'V.High')}</span
+							<div class="flex items-center gap-1">
+								<span class="w-16 shrink-0 text-right text-xs text-muted-foreground"
+									>{riskBandLabels[band as RiskBand]}</span
 								>
-								<div class="h-2.5 min-w-0 flex-1 overflow-hidden rounded-sm bg-inset">
-									<div
-										class="h-full rounded-sm"
-										style="width: {pct}%; background-color: {riskBandColors[band as RiskBand]};"
-									></div>
-								</div>
-								<span class="w-5 shrink-0 text-right font-mono text-xs text-foreground"
-									>{count}</span
-								>
+								<div
+									class="h-3.5 rounded-sm"
+									style="width: {Math.max(pct, 4)}%; background-color: {riskBandColors[
+										band as RiskBand
+									]};"
+								></div>
+								<span class="shrink-0 font-mono text-xs text-foreground">{count}</span>
 							</div>
 						{/each}
 					</div>
@@ -197,24 +193,22 @@
 				<!-- Impact type -->
 				<div class="mt-3 border-t border-border pt-3">
 					<p class={caption({ weight: 'semibold' })}>Impact Type</p>
-					<div class="mt-1.5 space-y-1">
+					<div class="mt-1.5 space-y-0.5">
 						{#each ['ai_leveraged', 'at_risk', 'stable', 'mixed'] as const as type}
 							{@const count = impactTypeCounts[type] ?? 0}
 							{@const pct =
 								filteredOccupations.length > 0 ? (count / filteredOccupations.length) * 100 : 0}
-							<div class="flex items-center gap-1.5">
+							<div class="flex items-center gap-1">
 								<span class="w-16 shrink-0 text-right text-xs text-muted-foreground"
 									>{impactTypeLabels[type as ImpactType]}</span
 								>
-								<div class="h-2.5 min-w-0 flex-1 overflow-hidden rounded-sm bg-inset">
-									<div
-										class="h-full rounded-sm"
-										style="width: {pct}%; background-color: {impactTypeColors[type as ImpactType]};"
-									></div>
-								</div>
-								<span class="w-5 shrink-0 text-right font-mono text-xs text-foreground"
-									>{count}</span
-								>
+								<div
+									class="h-3.5 rounded-sm"
+									style="width: {Math.max(pct, 4)}%; background-color: {impactTypeColors[
+										type as ImpactType
+									]};"
+								></div>
+								<span class="shrink-0 font-mono text-xs text-foreground">{count}</span>
 							</div>
 						{/each}
 					</div>

@@ -210,21 +210,31 @@
 
 	<!-- Major group checkboxes -->
 	<div>
-		<span class="mb-1.5 block text-xs font-medium text-muted-foreground">Major Group</span>
-		<div class="space-y-1">
+		<span class="mb-1.5 block text-xs font-medium text-muted-foreground">Occupation Group</span>
+		<div class="space-y-0.5">
 			{#each majorGroups as group (group.key)}
+				{@const shortLabel = group.label
+					.replace('Associate Professionals & Technicians', 'Assoc. Professionals')
+					.replace('Plant & Machine Operators & Assemblers', 'Plant & Machine Ops')
+					.replace('Cleaners, Labourers & Related Workers', 'Cleaners & Labourers')
+					.replace('Craftsmen & Related Trades Workers', 'Craftsmen & Trades')
+					.replace('Agricultural & Fishery Workers', 'Agriculture & Fishery')
+					.replace('Service & Sales Workers', 'Service & Sales')
+					.replace('Clerical Support Workers', 'Clerical Support')}
 				<label
-					class="flex cursor-pointer items-center gap-2 rounded px-1 py-0.5 text-sm text-foreground/80 hover:bg-muted"
+					class="flex cursor-pointer items-center gap-1.5 rounded px-1 py-0.5 text-foreground/80 hover:bg-muted"
 				>
 					<input
 						type="checkbox"
 						checked={selectedGroups.has(group.key)}
 						onchange={() => toggleGroup(group.key)}
-						class="h-3.5 w-3.5 rounded border-border"
+						class="h-3 w-3 shrink-0 rounded border-border"
 					/>
-					<span class="inline-block h-2.5 w-2.5 rounded-sm" style="background-color: {group.color};"
+					<span
+						class="inline-block h-2 w-2 shrink-0 rounded-full"
+						style="background-color: {group.color};"
 					></span>
-					<span class="truncate text-xs">{group.label}</span>
+					<span class="text-xs leading-tight">{shortLabel}</span>
 				</label>
 			{/each}
 		</div>
