@@ -29,9 +29,11 @@ export interface ArchetypeContent {
 	aiCanDo: string;
 	humanNeeded: string;
 	skills: Array<{ label: string; description: string }>;
+	/** Inline research citation for the archetype, if available */
+	evidence?: string;
 }
 
-export function classifyArchetype(ssoc: string, title: string, majorGroup: string): Archetype {
+export function classifyArchetype(ssoc: string, title: string, _majorGroup: string): Archetype {
 	const t = title.toLowerCase();
 	const prefix2 = ssoc.substring(0, 2);
 	const prefix3 = ssoc.substring(0, 3);
@@ -39,7 +41,8 @@ export function classifyArchetype(ssoc: string, title: string, majorGroup: strin
 	// Title-based (highest priority)
 	if (t.includes('journalist') || t.includes('editor') || t.includes('writer') || t.includes('reporter')) return 'writing_editorial';
 	if (t.includes('teacher') || t.includes('lecturer') || t.includes('instructor') || t.includes('trainer')) return 'teaching_learning';
-	if (t.includes('software') || t.includes('developer') || t.includes('programmer') || t.includes('web ')) return 'software_engineering';
+	if (/\bcto\b/.test(t) || /\bcio\b/.test(t) || t.includes('chief technology') || t.includes('chief information') || t.includes('engineering manager') || t.includes('software manager') || t.includes('ict manager')) return 'software_engineering';
+	if (t.includes('software') || t.includes('developer') || t.includes('programmer') || t.includes('web ') || t.includes('devops') || t.includes('sre') || t.includes('platform engineer')) return 'software_engineering';
 	if ((t.includes('data') || t.includes('statistician') || t.includes('analyst')) && !t.includes('financial')) return 'data_analytics';
 	if (t.includes('product manager') || t.includes('product director') || t.includes('product lead')) return 'product_strategy';
 	if (t.includes('marketing') || t.includes('sales') || t.includes('business development')) return 'sales_gtm';
@@ -51,19 +54,38 @@ export function classifyArchetype(ssoc: string, title: string, majorGroup: strin
 	if (t.includes('logistics') || t.includes('supply chain') || t.includes('warehouse') || t.includes('procurement')) return 'operations_logistics';
 	if (t.includes('waiter') || t.includes('cook') || t.includes('chef') || t.includes('barista') || t.includes('receptionist')) return 'service_hospitality';
 
-	// SSOC prefix fallback
+	// SSOC prefix fallback — prefix3 checks first (more specific)
+	if (prefix3 === '133') return 'software_engineering'; // ICT managers (CTO, CIO, etc)
+	if (prefix3 === '134') return 'teaching_learning'; // Education/social service managers
+	if (prefix3 === '122' || prefix3 === '121') return 'product_strategy'; // Business services/admin managers
+
+	// prefix2 checks — professionals and managers
 	if (prefix2 === '25') return 'software_engineering'; // ICT professionals
 	if (prefix2 === '22') return 'healthcare_clinical'; // Health professionals
 	if (prefix2 === '23') return 'teaching_learning'; // Teaching professionals
 	if (prefix2 === '24') return 'general_professional'; // Business/admin professionals
 	if (prefix2 === '26') return 'writing_editorial'; // Legal, social, cultural professionals
 	if (prefix2 === '21') return 'data_analytics'; // Science/engineering professionals
-	if (prefix3 === '122' || prefix3 === '121') return 'product_strategy'; // Managers
-	if (prefix2 === '33' || prefix2 === '34' || prefix2 === '35') return 'general_technical'; // Technicians
-	if (prefix2 === '41' || prefix2 === '42') return 'general_clerical'; // Clerical
-	if (prefix2 === '51' || prefix2 === '52' || prefix2 === '54') return 'service_hospitality'; // Service/sales
+	if (prefix2 === '11') return 'product_strategy'; // Senior executives (CEOs, directors)
+	if (prefix2 === '12') return 'general_professional'; // Administrative/commercial managers
+	if (prefix2 === '13') return 'operations_logistics'; // Production/service managers
+	if (prefix2 === '14') return 'service_hospitality'; // Hospitality/retail/service managers
 
-	return 'field_manual'; // Default for trades, plant operators, cleaners
+	// prefix2 checks — technicians and associate professionals
+	if (prefix2 === '31') return 'general_technical'; // Science/engineering technicians
+	if (prefix2 === '32') return 'healthcare_clinical'; // Health associate professionals
+	if (prefix2 === '33' || prefix2 === '34' || prefix2 === '35') return 'general_technical'; // Technicians
+	if (prefix2 === '36') return 'general_technical'; // Other associate professionals (e.g. tutors)
+	if (prefix2 === '39') return 'general_professional'; // Associate professionals n.e.c.
+
+	// prefix2 checks — clerical and service
+	if (prefix2 === '40') return 'general_clerical'; // Office supervisors
+	if (prefix2 === '41' || prefix2 === '42') return 'general_clerical'; // Clerical
+	if (prefix2 === '43' || prefix2 === '44') return 'general_clerical'; // Numerical/other clerks
+	if (prefix2 === '51' || prefix2 === '52' || prefix2 === '54') return 'service_hospitality'; // Service/sales
+	if (prefix2 === '53') return 'service_hospitality'; // Personal care workers
+
+	return 'field_manual'; // Default for trades (71-74), operators (81-83), agricultural (61), labourers (91-96)
 }
 
 const archetypeContentMap: Record<Archetype, ArchetypeContent> = {
@@ -75,7 +97,8 @@ const archetypeContentMap: Record<Archetype, ArchetypeContent> = {
 			{ label: 'Source-Building', description: 'Cultivating trusted contacts and developing long-term relationships for exclusive insights' },
 			{ label: 'Editorial Judgment', description: 'Deciding what to publish, when, and how to frame stories for clarity and fairness' },
 			{ label: 'Beat Expertise', description: 'Deep domain knowledge that allows spotting newsworthy patterns others miss' }
-		]
+		],
+		evidence: 'Noy & Zhang (2023) found writing professionals using AI completed tasks 37% faster with no quality loss — but the gap between experienced and novice writers narrowed significantly.'
 	},
 	teaching_learning: {
 		aiCanDo: 'Generating lesson plans, creating quizzes and practice exercises, summarizing curricula, personalizing reading lists, and grading objective assessments.',
@@ -95,7 +118,8 @@ const archetypeContentMap: Record<Archetype, ArchetypeContent> = {
 			{ label: 'Debugging Complex Systems', description: 'Diagnosing production issues that span multiple services, caches, and data stores' },
 			{ label: 'Stakeholder Communication', description: 'Translating technical constraints into business language and negotiating priorities' },
 			{ label: 'Security Awareness', description: 'Identifying vulnerabilities, threat modeling, and ensuring code meets security standards' }
-		]
+		],
+		evidence: 'Dell\'Acqua et al. (2023) found consultants using AI improved quality 12-40% depending on task boundary — but performance dropped when AI was used outside its capability frontier ("jagged frontier" effect).'
 	},
 	data_analytics: {
 		aiCanDo: 'Running standard statistical analyses, generating charts, cleaning data, writing SQL queries, and producing summary reports from structured data.',
@@ -205,7 +229,8 @@ const archetypeContentMap: Record<Archetype, ArchetypeContent> = {
 			{ label: 'Conflict De-escalation', description: 'Turning negative experiences into positive ones through calm, confident communication' },
 			{ label: 'Cultural Sensitivity', description: 'Adapting service style to diverse customer backgrounds and expectations' },
 			{ label: 'Experience Crafting', description: 'Creating moments that make customers feel valued and eager to return' }
-		]
+		],
+		evidence: 'Brynjolfsson et al. (2023) found customer service agents using AI saw +14% productivity, with the biggest gains among junior workers — AI compressed the experience gap.'
 	},
 	general_professional: {
 		aiCanDo: 'Report drafting, data compilation, meeting summarization, email triaging, and standard analytical tasks.',
@@ -243,3 +268,49 @@ export function getPersonalizedContent(ssoc: string, title: string, majorGroup: 
 	const archetype = classifyArchetype(ssoc, title, majorGroup);
 	return archetypeContentMap[archetype];
 }
+
+/**
+ * Blend archetype content from multiple components.
+ * Uses the role title to determine the primary archetype, then enriches
+ * skills from component archetypes (deduplicated).
+ */
+export function blendArchetypes(
+	roleTitle: string,
+	components: Array<{ ssoc: string; title: string; majorGroup: string; weight: number }>
+): ArchetypeContent {
+	// Primary archetype comes from the role title itself
+	const primaryArchetype = classifyArchetype('00000', roleTitle, '');
+	const primaryContent = archetypeContentMap[primaryArchetype];
+
+	if (components.length === 0) return primaryContent;
+
+	// Collect unique skills from component archetypes (weighted by component weight)
+	const seenLabels = new Set(primaryContent.skills.map((s) => s.label));
+	const extraSkills: Array<{ label: string; description: string; weight: number }> = [];
+
+	for (const comp of components) {
+		const arch = classifyArchetype(comp.ssoc, comp.title, comp.majorGroup);
+		if (arch === primaryArchetype) continue;
+
+		const content = archetypeContentMap[arch];
+		for (const skill of content.skills) {
+			if (!seenLabels.has(skill.label)) {
+				seenLabels.add(skill.label);
+				extraSkills.push({ ...skill, weight: comp.weight });
+			}
+		}
+	}
+
+	// Take top 2 extra skills by weight to add diversity without overwhelming
+	const bonusSkills = extraSkills
+		.sort((a, b) => b.weight - a.weight)
+		.slice(0, 2)
+		.map(({ label, description }) => ({ label, description }));
+
+	return {
+		aiCanDo: primaryContent.aiCanDo,
+		humanNeeded: primaryContent.humanNeeded,
+		skills: [...primaryContent.skills, ...bonusSkills]
+	};
+}
+

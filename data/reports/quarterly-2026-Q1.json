@@ -1,0 +1,22 @@
+{
+  "generated_at": "2026-03-17T08:50:46.023Z",
+  "current_snapshot": "occupations-v3-2026-03.json",
+  "previous_snapshot": null,
+  "total_occupations": 562,
+  "band_distribution": {
+    "moderate": 132,
+    "low": 187,
+    "very_low": 111,
+    "high": 84,
+    "very_high": 48
+  },
+  "band_movers": [],
+  "top_risers": [],
+  "top_fallers": [],
+  "demand_changes": {
+    "new_sol": [],
+    "removed_sol": [],
+    "new_jid": [],
+    "removed_jid": []
+  }
+}

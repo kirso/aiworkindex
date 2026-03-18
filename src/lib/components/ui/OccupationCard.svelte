@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Occupation } from '$lib/data';
-	import { riskBandLabels, riskBandColors } from '$lib/data';
+	import { riskBandLabels } from '$lib/data';
 	import { riskBadge, card } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 

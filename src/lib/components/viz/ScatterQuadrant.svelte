@@ -36,7 +36,7 @@
 	$effect(() => {
 		if (!browser || !containerEl) return;
 
-		const observer = new ResizeObserver((entries) => {
+		const observer = new ResizeObserver(entries => {
 			for (const entry of entries) {
 				const rect = entry.contentRect;
 				width = rect.width;
@@ -68,12 +68,12 @@
 		goto('/occupation/' + occ.ssoc);
 	}
 
-	// Quadrant background colors — consistent hex from design system palette
+	// Quadrant background colors — use CSS variables from design system
 	const quadrantColors = {
-		resilient: '#d1fae5',    // emerald-100 — low exposure, high human skills
-		augmented: '#fef3c7',    // amber-100 — high exposure, high human skills
-		unaffected: '#dbeafe',   // blue-100 — low exposure, low human skills
-		atRisk: '#ffe4e6',       // rose-100 — high exposure, low human skills
+		resilient: 'var(--color-risk-very-low-subtle)',
+		augmented: 'var(--color-risk-moderate-subtle)',
+		unaffected: 'var(--color-impact-leveraged-subtle)',
+		atRisk: 'var(--color-risk-very-high-subtle)'
 	} as const;
 
 	// Quadrant labels (item 17: plain English)
@@ -87,24 +87,68 @@
 
 <div bind:this={containerEl} class="relative w-full">
 	{#if browser}
-		<svg {width} {height} class="block" role="img" aria-label="Scatter plot of AI Exposure vs Human Skills Required for {occupations.length} occupations, divided into four quadrants: AI Augmented, At Risk, Resilient, and Unaffected">
+		<svg
+			{width}
+			{height}
+			class="block"
+			role="img"
+			aria-label="Scatter plot of AI Exposure vs Human Skills Required for {occupations.length} occupations, divided into four quadrants: AI Augmented, At Risk, Resilient, and Unaffected"
+		>
 			<g transform="translate({margin.left},{margin.top})">
 				<!-- Quadrant background fills -->
-				<rect x={0} y={0} width={xScale(crosshairX)} height={yScale(crosshairY)} fill={quadrantColors.resilient} opacity="0.4" />
-				<rect x={xScale(crosshairX)} y={0} width={plotWidth - xScale(crosshairX)} height={yScale(crosshairY)} fill={quadrantColors.augmented} opacity="0.4" />
-				<rect x={0} y={yScale(crosshairY)} width={xScale(crosshairX)} height={plotHeight - yScale(crosshairY)} fill={quadrantColors.unaffected} opacity="0.4" />
-				<rect x={xScale(crosshairX)} y={yScale(crosshairY)} width={plotWidth - xScale(crosshairX)} height={plotHeight - yScale(crosshairY)} fill={quadrantColors.atRisk} opacity="0.4" />
+				<rect
+					x={0}
+					y={0}
+					width={xScale(crosshairX)}
+					height={yScale(crosshairY)}
+					fill={quadrantColors.resilient}
+					opacity="0.4"
+				/>
+				<rect
+					x={xScale(crosshairX)}
+					y={0}
+					width={plotWidth - xScale(crosshairX)}
+					height={yScale(crosshairY)}
+					fill={quadrantColors.augmented}
+					opacity="0.4"
+				/>
+				<rect
+					x={0}
+					y={yScale(crosshairY)}
+					width={xScale(crosshairX)}
+					height={plotHeight - yScale(crosshairY)}
+					fill={quadrantColors.unaffected}
+					opacity="0.4"
+				/>
+				<rect
+					x={xScale(crosshairX)}
+					y={yScale(crosshairY)}
+					width={plotWidth - xScale(crosshairX)}
+					height={plotHeight - yScale(crosshairY)}
+					fill={quadrantColors.atRisk}
+					opacity="0.4"
+				/>
 
 				<!-- Crosshair lines -->
 				<line
-					x1={xScale(crosshairX)} y1={0}
-					x2={xScale(crosshairX)} y2={plotHeight}
-					stroke="var(--muted-foreground)" stroke-width="1" stroke-dasharray="4,3" opacity="0.4"
+					x1={xScale(crosshairX)}
+					y1={0}
+					x2={xScale(crosshairX)}
+					y2={plotHeight}
+					stroke="var(--muted-foreground)"
+					stroke-width="1"
+					stroke-dasharray="4,3"
+					opacity="0.4"
 				/>
 				<line
-					x1={0} y1={yScale(crosshairY)}
-					x2={plotWidth} y2={yScale(crosshairY)}
-					stroke="var(--muted-foreground)" stroke-width="1" stroke-dasharray="4,3" opacity="0.4"
+					x1={0}
+					y1={yScale(crosshairY)}
+					x2={plotWidth}
+					y2={yScale(crosshairY)}
+					stroke="var(--muted-foreground)"
+					stroke-width="1"
+					stroke-dasharray="4,3"
+					opacity="0.4"
 				/>
 
 				<!-- Quadrant labels -->
@@ -113,7 +157,7 @@
 						x={xScale(ql.x)}
 						y={yScale(ql.y)}
 						text-anchor="middle"
-						class="fill-muted-foreground text-[11px] font-medium"
+						class="fill-muted-foreground text-xs font-medium"
 						style="pointer-events: none;"
 					>
 						{ql.label}
@@ -131,10 +175,12 @@
 						class="scatter-dot cursor-pointer"
 						role="button"
 						tabindex="0"
-						onmousemove={(e) => handleMouseMove(e, occ)}
+						onmousemove={e => handleMouseMove(e, occ)}
 						onmouseleave={handleMouseLeave}
 						onclick={() => handleClick(occ)}
-						onkeydown={(e) => { if (e.key === 'Enter') handleClick(occ); }}
+						onkeydown={e => {
+							if (e.key === 'Enter') handleClick(occ);
+						}}
 					/>
 				{/each}
 
@@ -145,7 +191,7 @@
 						x={xScale(tick)}
 						y={plotHeight + 18}
 						text-anchor="middle"
-						class="fill-muted-foreground text-[10px]"
+						class="fill-muted-foreground text-xs"
 					>
 						{tick.toFixed(2)}
 					</text>
@@ -162,12 +208,7 @@
 				<!-- Y axis -->
 				<line x1={0} y1={0} x2={0} y2={plotHeight} stroke="var(--border)" />
 				{#each [0, 0.25, 0.5, 0.75, 1] as tick}
-					<text
-						x={-8}
-						y={yScale(tick) + 4}
-						text-anchor="end"
-						class="fill-muted-foreground text-[10px]"
-					>
+					<text x={-8} y={yScale(tick) + 4} text-anchor="end" class="fill-muted-foreground text-xs">
 						{tick.toFixed(2)}
 					</text>
 				{/each}
@@ -185,10 +226,28 @@
 
 		<!-- Quadrant legend (item 18) -->
 		<div class="mt-3 grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-muted-foreground sm:grid-cols-4">
-			<div><span class="inline-block h-2 w-2 rounded-sm" style="background: {quadrantColors.resilient};"></span> <span class="font-medium">Resilient</span> — Low exposure, high human skills</div>
-			<div><span class="inline-block h-2 w-2 rounded-sm" style="background: {quadrantColors.augmented};"></span> <span class="font-medium">AI Augmented</span> — High exposure, high human skills</div>
-			<div><span class="inline-block h-2 w-2 rounded-sm" style="background: {quadrantColors.unaffected};"></span> <span class="font-medium">Unaffected</span> — Low exposure, low human skills</div>
-			<div><span class="inline-block h-2 w-2 rounded-sm" style="background: {quadrantColors.atRisk};"></span> <span class="font-medium">At Risk</span> — High exposure, low human skills</div>
+			<div>
+				<span
+					class="inline-block h-2 w-2 rounded-sm"
+					style="background: {quadrantColors.resilient};"
+				></span> <span class="font-medium">Resilient</span> — Low exposure, high human skills
+			</div>
+			<div>
+				<span
+					class="inline-block h-2 w-2 rounded-sm"
+					style="background: {quadrantColors.augmented};"
+				></span> <span class="font-medium">AI Augmented</span> — High exposure, high human skills
+			</div>
+			<div>
+				<span
+					class="inline-block h-2 w-2 rounded-sm"
+					style="background: {quadrantColors.unaffected};"
+				></span> <span class="font-medium">Unaffected</span> — Low exposure, low human skills
+			</div>
+			<div>
+				<span class="inline-block h-2 w-2 rounded-sm" style="background: {quadrantColors.atRisk};"
+				></span> <span class="font-medium">At Risk</span> — High exposure, low human skills
+			</div>
 		</div>
 	{:else}
 		<div class="flex h-80 items-center justify-center bg-muted text-muted-foreground">
@@ -197,9 +256,4 @@
 	{/if}
 </div>
 
-<Tooltip
-	occupation={tooltipOccupation}
-	x={tooltipX}
-	y={tooltipY}
-	visible={tooltipVisible}
-/>
+<Tooltip occupation={tooltipOccupation} x={tooltipX} y={tooltipY} visible={tooltipVisible} />

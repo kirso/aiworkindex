@@ -1,173 +1,278 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import Treemap from '$lib/components/viz/Treemap.svelte';
-	import Histogram from '$lib/components/viz/Histogram.svelte';
-	import WageBracketChart from '$lib/components/viz/WageBracketChart.svelte';
-	import ScatterQuadrant from '$lib/components/viz/ScatterQuadrant.svelte';
-	import FilterPanel from '$lib/components/ui/FilterPanel.svelte';
-	import InsightsPanel from '$lib/components/ui/InsightsPanel.svelte';
-	import OccupationCardList from '$lib/components/ui/OccupationCardList.svelte';
 	import HeroSearch from '$lib/components/ui/HeroSearch.svelte';
-	import { title as titleStyle, sectionLabel, card } from '$lib/design-system';
+	import { card, riskBadge, sectionLabel, caption } from '$lib/design-system';
 	import { cn } from '$lib/utils';
+	import { riskBandLabels } from '$lib/data';
 
 	let { data } = $props();
 
 	let innerWidth = $state(1024);
-	let filterResult: typeof data.occupations | null = $state(null);
-	let filteredOccupations = $derived(filterResult ?? data.occupations);
 
 	$effect(() => {
 		if (!browser) return;
 		innerWidth = window.innerWidth;
-
 		function onResize() {
 			innerWidth = window.innerWidth;
 		}
-
 		window.addEventListener('resize', onResize);
 		return () => window.removeEventListener('resize', onResize);
 	});
 
-	function handleFilter(filtered: typeof data.occupations) {
-		filterResult = filtered;
-	}
+	const faqJsonLd = `<script type="application/ld+json">${JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'FAQPage',
+		mainEntity: [
+			{
+				'@type': 'Question',
+				name: 'Will AI replace my job in Singapore?',
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text: 'It depends on your occupation. Of 562 Singapore occupations scored, 48 face very high AI displacement risk while 111 face very low risk. The outcome depends on three factors: AI task overlap, human advantage (judgment, creativity, physical presence), and Singapore labour market demand.'
+				}
+			},
+			{
+				'@type': 'Question',
+				name: 'Which jobs in Singapore are most at risk from AI?',
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text: 'Occupations with high AI task overlap and low human bottlenecks face the most risk. Data entry clerks, telemarketers, bookkeepers, and statistical clerks score highest. However, high AI exposure alone does not mean displacement — software developers have high exposure but are AI-leveraged because of strong human advantages.'
+				}
+			},
+			{
+				'@type': 'Question',
+				name: 'Which Singapore jobs are safest from AI?',
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text: 'Occupations requiring physical presence, clinical judgment, or deep interpersonal skills are most resilient. Surgeons, registered nurses, physiotherapists, electricians, and childcare workers score very low on AI displacement risk. These roles have strong human bottlenecks that current AI cannot replicate.'
+				}
+			},
+			{
+				'@type': 'Question',
+				name: 'How is the Singapore AI job risk score calculated?',
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text: 'Net displacement risk = AI exposure × (1 − human bottleneck) × market modifier. Exposure comes from the Felten AIOE academic index. Human bottleneck uses Pizzinelli theta from O*NET work context data. Market modifier uses Singapore employment trends and MOM demand signals. No LLM is used in the scoring pipeline.'
+				}
+			},
+			{
+				'@type': 'Question',
+				name: "What is Singapore's labour market outlook in 2025-2026?",
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text: "Singapore's labour market grew by 57,300 jobs in 2025 (vs 44,500 in 2024). Q4 2025 added 19,600 jobs. Unemployment held steady at 2.0% (Dec 2025). Retrenchments fell to 1.5 per 1,000 employees in Q4 (full-year: 14,400 or 6.2 per 1,000). Source: MOM Labour Market Advance Release Q4 2025."
+				}
+			}
+		]
+	})}<\/script>`;
 </script>
 
 <svelte:head>
-	<title>Singapore AI Occupation Impact Index — 562 Occupations Scored</title>
+	<title>Singapore AI Occupation Index — How will AI affect your job?</title>
 	<meta
 		name="description"
-		content="Three layers of AI impact across 562 Singapore occupations — exposure, human bottleneck, and market resilience. Risk bands with visible confidence. Academic indices, not LLM vibes."
+		content="Find out if AI will replace, augment, or barely affect your role in Singapore. 562 occupations scored using official data and peer-reviewed research."
 	/>
-	<meta property="og:title" content="Singapore AI Occupation Impact Index — 562 Occupations Scored" />
-	<meta property="og:description" content="Three layers of AI impact across 562 Singapore occupations — exposure, human bottleneck, and market resilience. Academic indices, not LLM vibes." />
+	<meta
+		property="og:title"
+		content="Singapore AI Occupation Index — How will AI affect your job?"
+	/>
+	<meta
+		property="og:description"
+		content="562 Singapore occupations scored for AI displacement risk. Official data, academic indices, no LLM in the scoring pipeline."
+	/>
 	<meta property="og:url" content="https://sg-ai-jobs.vercel.app" />
-	<meta name="twitter:title" content="Singapore AI Occupation Impact Index — 562 Occupations Scored" />
-	<meta name="twitter:description" content="Three layers of AI impact across 562 Singapore occupations — exposure, human bottleneck, and market resilience. Academic indices, not LLM vibes." />
+	<meta name="twitter:title" content="Singapore AI Occupation Index" />
+	<meta
+		name="twitter:description"
+		content="How will AI affect your job in Singapore? 562 occupations scored."
+	/>
+	{@html faqJsonLd}
 </svelte:head>
 
-<!-- Hero + Search -->
-<div class="border-b border-border bg-card">
-	<div class="mx-auto max-w-screen-2xl px-5 py-8 sm:px-6">
-		<div class="mx-auto max-w-2xl text-center">
-			<h1 class={titleStyle({ size: 'page' })}>
-				How will AI affect your job?
-			</h1>
-			<p class="mt-2 text-sm text-muted-foreground">
-				See whether AI is likely to replace, augment, or barely affect your role in Singapore.
-			</p>
-			<div class="mt-5">
-				<HeroSearch occupations={data.occupations} />
+<!-- ===== HERO: Search is the product ===== -->
+<div class="mx-auto max-w-screen-xl px-5 sm:px-6">
+	<div class="mx-auto max-w-2xl py-12 sm:py-16 text-center">
+		<h1 class="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+			How will AI affect your job?
+		</h1>
+		<p class="mt-2 text-sm text-muted-foreground">
+			Search any occupation or role to see its AI displacement risk score
+		</p>
+		<div class="mt-5">
+			<HeroSearch occupations={data.occupations} />
+		</div>
+	</div>
+</div>
+
+<!-- ===== DATA SNAPSHOT: Our World in Data style — scope of the dataset ===== -->
+<div class="border-y border-border bg-inset">
+	<div class="mx-auto max-w-screen-xl px-5 sm:px-6">
+		<div
+			class="flex items-center justify-center gap-6 sm:gap-10 py-3 text-xs text-muted-foreground"
+		>
+			<span
+				><strong class="font-mono text-foreground">{data.occupations.length}</strong> occupations</span
+			>
+			<span class="text-border">|</span>
+			<span><strong class="font-mono text-foreground">80</strong> modern roles</span>
+			<span class="text-border">|</span>
+			<span><strong class="font-mono text-foreground">9</strong> occupation groups</span>
+			<span class="hidden sm:inline text-border">|</span>
+			<span class="hidden sm:inline">Q4 2025 data</span>
+		</div>
+	</div>
+</div>
+
+<!-- ===== QUICK BROWSE: Ranking shortcuts as pills ===== -->
+<div class="mx-auto max-w-screen-xl px-5 py-6 sm:px-6">
+	<div class="flex flex-wrap items-center gap-2">
+		<span class={caption({ weight: 'medium' })}>Browse:</span>
+		<a
+			href="/rankings/highest-risk"
+			class="rounded-md border border-border bg-card px-3 py-1 text-xs font-medium text-foreground hover:bg-accent transition-colors"
+		>
+			Highest Risk
+		</a>
+		<a
+			href="/rankings/ai-leveraged"
+			class="rounded-md border border-border bg-card px-3 py-1 text-xs font-medium text-foreground hover:bg-accent transition-colors"
+		>
+			AI Leveraged
+		</a>
+		<a
+			href="/rankings/safest-high-paying"
+			class="rounded-md border border-border bg-card px-3 py-1 text-xs font-medium text-foreground hover:bg-accent transition-colors"
+		>
+			Safest High-Paying
+		</a>
+		<a
+			href="/rankings/high-exposure-in-demand"
+			class="rounded-md border border-border bg-card px-3 py-1 text-xs font-medium text-foreground hover:bg-accent transition-colors"
+		>
+			High Exposure + In Demand
+		</a>
+		<a
+			href="/rankings/theory-vs-practice"
+			class="rounded-md border border-border bg-card px-3 py-1 text-xs font-medium text-foreground hover:bg-accent transition-colors"
+		>
+			Theory vs Practice
+		</a>
+		<a
+			href="/explore"
+			class="rounded-md border border-primary/30 bg-card px-3 py-1 text-xs font-medium text-primary hover:bg-primary/5 transition-colors"
+		>
+			Full Explorer →
+		</a>
+	</div>
+</div>
+
+<!-- ===== OCCUPATION MAP: Primary exploration surface ===== -->
+<div class="mx-auto max-w-screen-xl px-5 sm:px-6 pb-8">
+	<div class="flex items-center justify-between mb-3">
+		<h2 class={sectionLabel()}>Occupation Map</h2>
+		<p class={caption()}>Size = employment weight · Colour = risk level</p>
+	</div>
+
+	{#if innerWidth >= 768}
+		<Treemap occupations={data.occupations} />
+	{:else}
+		<div class="grid gap-2 grid-cols-2">
+			{#each data.majorGroups as group}
+				<a
+					href="/explore"
+					class={cn(card({ padding: 'sm', hover: true }), 'flex items-center gap-2')}
+				>
+					<span class="h-2.5 w-2.5 rounded-sm shrink-0" style="background-color: {group.color};"
+					></span>
+					<span class="text-xs font-medium text-foreground truncate">{group.label}</span>
+				</a>
+			{/each}
+		</div>
+	{/if}
+</div>
+
+<!-- ===== FEATURED DATA: Three lenses into the data ===== -->
+<div class="border-t border-border">
+	<div class="mx-auto max-w-screen-xl px-5 py-8 sm:px-6">
+		<div class="grid gap-6 sm:grid-cols-3">
+			<!-- Highest Risk -->
+			<div>
+				<div class="flex items-center justify-between mb-3">
+					<h3 class={sectionLabel()}>Highest Risk</h3>
+					<a href="/rankings/highest-risk" class="text-xs text-primary hover:underline">See all</a>
+				</div>
+				{#each data.featured.highestRisk as occ (occ.ssoc)}
+					<a
+						href="/occupation/{occ.ssoc}"
+						class="flex items-center justify-between rounded-md px-2 py-2 -mx-2 hover:bg-accent transition-colors group"
+					>
+						<div class="min-w-0 flex-1">
+							<p class="text-sm text-foreground group-hover:text-primary truncate">{occ.title}</p>
+						</div>
+						<span class="ml-2 font-mono text-xs text-risk-very-high shrink-0"
+							>{(occ.net_risk * 100).toFixed(0)}%</span
+						>
+					</a>
+				{/each}
 			</div>
-			<div class="grid grid-cols-3 gap-3 max-w-2xl mx-auto mt-4">
-				<div class="text-center text-xs text-muted-foreground">
-					<span class="inline-block w-3 h-3 rounded-full bg-risk-very-low mr-1"></span>
-					Green = lower risk
+
+			<!-- AI Leveraged -->
+			<div>
+				<div class="flex items-center justify-between mb-3">
+					<h3 class={sectionLabel()}>AI Leveraged</h3>
+					<a href="/rankings/ai-leveraged" class="text-xs text-primary hover:underline">See all</a>
 				</div>
-				<div class="text-center text-xs text-muted-foreground">
-					<span class="inline-block w-3 h-3 rounded-full bg-risk-moderate mr-1"></span>
-					Amber = mixed signals
+				{#each data.featured.aiLeveraged as occ (occ.ssoc)}
+					<a
+						href="/occupation/{occ.ssoc}"
+						class="flex items-center justify-between rounded-md px-2 py-2 -mx-2 hover:bg-accent transition-colors group"
+					>
+						<div class="min-w-0 flex-1">
+							<p class="text-sm text-foreground group-hover:text-primary truncate">{occ.title}</p>
+						</div>
+						<span class={cn(riskBadge({ band: occ.risk_band }), 'ml-2 shrink-0')}
+							>{riskBandLabels[occ.risk_band]}</span
+						>
+					</a>
+				{/each}
+			</div>
+
+			<!-- Safest High-Paying -->
+			<div>
+				<div class="flex items-center justify-between mb-3">
+					<h3 class={sectionLabel()}>Safest + High Pay</h3>
+					<a href="/rankings/safest-high-paying" class="text-xs text-primary hover:underline"
+						>See all</a
+					>
 				</div>
-				<div class="text-center text-xs text-muted-foreground">
-					<span class="inline-block w-3 h-3 rounded-full bg-risk-very-high mr-1"></span>
-					Red = higher risk
-				</div>
+				{#each data.featured.safestHighPay as occ (occ.ssoc)}
+					<a
+						href="/occupation/{occ.ssoc}"
+						class="flex items-center justify-between rounded-md px-2 py-2 -mx-2 hover:bg-accent transition-colors group"
+					>
+						<div class="min-w-0 flex-1">
+							<p class="text-sm text-foreground group-hover:text-primary truncate">{occ.title}</p>
+						</div>
+						<span class="ml-2 font-mono text-xs text-muted-foreground shrink-0"
+							>SGD {occ.gross_wage_median.toLocaleString()}</span
+						>
+					</a>
+				{/each}
 			</div>
 		</div>
 	</div>
 </div>
 
-<!-- Main content: treemap with sidebar filters + insights -->
-<div class="mx-auto max-w-screen-2xl px-4 py-5 sm:px-6">
-	<div class="flex gap-6">
-		<!-- Sidebar filters (desktop) — single instance, responsive -->
-		<aside class="hidden w-[260px] shrink-0 lg:block">
-			<div class={cn(card({ padding: 'md' }), 'sticky top-16 max-h-[calc(100vh-5rem)] overflow-y-auto')}>
-				<FilterPanel occupations={data.occupations} onfilter={handleFilter} />
-			</div>
-		</aside>
-
-		<!-- Main viz area -->
-		<div class="min-w-0 flex-1">
-			<!-- Mobile filters — separate instance but same callback -->
-			{#if innerWidth < 1024}
-				<div class="mb-5">
-					<details class={card()}>
-						<summary class="cursor-pointer px-4 py-3 text-sm font-medium text-foreground/80">
-							Filters & Search
-						</summary>
-						<div class="border-t border-border/50 p-4">
-							<FilterPanel occupations={data.occupations} onfilter={handleFilter} />
-						</div>
-					</details>
-				</div>
-			{/if}
-
-			<!-- Insights panel: collapsible on screens below xl -->
-			{#if innerWidth < 1280 && innerWidth >= 768}
-				<details class={cn(card(), 'mb-5')}>
-					<summary class={cn('cursor-pointer px-5 py-3', sectionLabel())}>
-						Insights & Rankings
-					</summary>
-					<div class="border-t border-border/50 p-5">
-						<InsightsPanel occupations={filteredOccupations} />
-					</div>
-				</details>
-			{/if}
-
-			{#if innerWidth >= 768}
-				<!-- Treemap — full width, tall -->
-				<section class={card({ padding: 'md' })}>
-					<div class="mb-3 flex items-center justify-between">
-						<h2 class={sectionLabel()}>Explore all occupations</h2>
-						<span class="text-sm text-muted-foreground">{filteredOccupations.length} occupations</span>
-					</div>
-					<Treemap occupations={filteredOccupations} />
-				</section>
-
-				<!-- Risk Distribution -->
-				<section class={cn(card({ padding: 'md' }), 'mt-8')}>
-					<div class="mb-3">
-						<h2 class={sectionLabel()}>How risk breaks down</h2>
-						<p class="mt-1 text-xs text-muted-foreground">
-							How {filteredOccupations.length} occupations distribute across AI risk levels.
-						</p>
-					</div>
-					<div class="grid gap-6 md:grid-cols-2">
-						<div>
-							<h3 class="mb-2 text-xs font-medium text-muted-foreground">Score Histogram</h3>
-							<Histogram occupations={filteredOccupations} />
-						</div>
-						<div>
-							<h3 class="mb-2 text-xs font-medium text-muted-foreground">Risk by Wage Bracket</h3>
-							<WageBracketChart occupations={filteredOccupations} />
-						</div>
-					</div>
-				</section>
-
-				<!-- Scatter plot -->
-					<section class={cn(card({ padding: 'md' }), 'mt-8')}>
-						<div class="mb-3">
-							<h2 class={sectionLabel()}>AI Exposure vs Human Skills</h2>
-							<p class="mt-1 text-xs text-muted-foreground">
-								Each dot is one occupation. Dot size is fixed to avoid implying occupation-level workforce counts we do not have.
-							</p>
-						</div>
-						<ScatterQuadrant occupations={filteredOccupations} />
-					</section>
-			{:else}
-				<OccupationCardList occupations={filteredOccupations} />
-			{/if}
-		</div>
-
-		<!-- Right sidebar: insights panel (xl+ only) -->
-		{#if innerWidth >= 1280}
-			<aside class="hidden w-[280px] shrink-0 xl:block">
-				<div class={cn(card({ padding: 'md' }), 'sticky top-16 max-h-[calc(100vh-5rem)] overflow-y-auto')}>
-					<InsightsPanel occupations={filteredOccupations} />
-				</div>
-			</aside>
-		{/if}
+<!-- ===== ABOUT: One line, not a section ===== -->
+<div class="border-t border-border">
+	<div class="mx-auto max-w-screen-xl px-5 py-5 sm:px-6 text-center">
+		<p class="text-xs text-muted-foreground">
+			Scores use a three-layer model: AI exposure × human bottleneck × Singapore market signals. No
+			LLM in the scoring pipeline.
+			<a href="/methodology" class="text-primary hover:underline">Methodology</a> ·
+			<a href="/about" class="text-primary hover:underline">About</a>
+		</p>
 	</div>
 </div>

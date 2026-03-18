@@ -10,15 +10,15 @@
 
 	$effect(() => {
 		if (!browser || !containerEl) return;
-		const observer = new ResizeObserver((entries) => {
-			chartWidth = entries[0].contentRect.width;
+		const observer = new ResizeObserver(entries => {
+			chartWidth = entries[0]!.contentRect.width;
 		});
 		observer.observe(containerEl);
 		return () => observer.disconnect();
 	});
 
 	const binSize = 0.05;
-	const maxRisk = 0.80;
+	const maxRisk = 0.8;
 	const bins = Array.from({ length: Math.ceil(maxRisk / binSize) }, (_, i) => {
 		const lower = i * binSize;
 		const upper = lower + binSize;
@@ -31,19 +31,19 @@
 	});
 
 	let binData = $derived.by(() => {
-		const b = bins.map((bin) => ({ ...bin, count: 0 }));
+		const b = bins.map(bin => ({ ...bin, count: 0 }));
 		for (const occ of occupations) {
 			const idx = Math.min(Math.floor(occ.net_risk / binSize), b.length - 1);
-			if (idx >= 0 && idx < b.length) b[idx].count++;
+			if (idx >= 0 && idx < b.length) b[idx]!.count++;
 		}
 		return b;
 	});
 
-	let maxCount = $derived(Math.max(...binData.map((b) => b.count), 1));
+	let maxCount = $derived(Math.max(...binData.map(b => b.count), 1));
 
-	const chartHeight = 200;
+	const chartHeight = 220;
 	const marginLeft = 40;
-	const marginBottom = 30;
+	const marginBottom = 40;
 	const marginTop = 10;
 	let plotWidth = $derived(chartWidth - marginLeft);
 	const plotHeight = chartHeight - marginBottom - marginTop;
@@ -54,55 +54,81 @@
 		if (max <= 25) {
 			const ticks = [];
 			for (let t = 0; t <= max; t += 5) ticks.push(t);
-			if (ticks[ticks.length - 1] < max) ticks.push(max);
+			if (ticks[ticks.length - 1]! < max) ticks.push(max);
 			return ticks;
 		}
 		const candidates = [0, 25, 50, 75, 100, 125, 150, 175, 200];
-		return candidates.filter((t) => t <= max * 1.05);
+		return candidates.filter(t => t <= max * 1.05);
 	});
 </script>
 
 <div bind:this={containerEl}>
-{#if browser}
-	<svg viewBox="0 0 {chartWidth} {chartHeight}" class="block w-full" role="img" aria-label="Histogram of net displacement risk across {occupations.length} occupations">
-		<!-- Y axis -->
-		<line x1={marginLeft} y1={marginTop} x2={marginLeft} y2={marginTop + plotHeight} stroke="var(--border)" />
-		{#each yTicks as tick}
-			{@const y = marginTop + plotHeight - (tick / maxCount) * plotHeight}
-			<text x={marginLeft - 6} {y} text-anchor="end" class="fill-muted-foreground text-[10px]" dominant-baseline="middle">{tick}</text>
-			<line x1={marginLeft} y1={y} x2={chartWidth} y2={y} stroke="var(--border)" opacity="0.4" />
-		{/each}
+	{#if browser}
+		<svg
+			viewBox="0 0 {chartWidth} {chartHeight}"
+			class="block w-full"
+			role="img"
+			aria-label="Histogram of net displacement risk across {occupations.length} occupations"
+		>
+			<!-- Y axis -->
+			<line
+				x1={marginLeft}
+				y1={marginTop}
+				x2={marginLeft}
+				y2={marginTop + plotHeight}
+				stroke="var(--border)"
+			/>
+			{#each yTicks as tick}
+				{@const y = marginTop + plotHeight - (tick / maxCount) * plotHeight}
+				<text
+					x={marginLeft - 6}
+					{y}
+					text-anchor="end"
+					class="fill-muted-foreground text-xs"
+					dominant-baseline="middle">{tick}</text
+				>
+				<line x1={marginLeft} y1={y} x2={chartWidth} y2={y} stroke="var(--border)" opacity="0.4" />
+			{/each}
 
-		<!-- Bars -->
-		{#each binData as bin, i}
-			{@const barWidth = plotWidth / binData.length - 2}
-			{@const barHeight = (bin.count / maxCount) * plotHeight}
-			{@const x = marginLeft + i * (plotWidth / binData.length) + 1}
-			{@const y = marginTop + plotHeight - barHeight}
-			{@const midpoint = (bin.lower + bin.upper) / 2}
-			<rect
-				{x}
-				{y}
-				width={barWidth}
-				height={barHeight}
-				fill={riskColorScale(midpoint)}
-				opacity="0.85"
-				rx="1"
+			<!-- Bars + X axis labels -->
+			{#each binData as bin, i}
+				{@const slotWidth = plotWidth / binData.length}
+				{@const gap = 1}
+				{@const barWidth = slotWidth - gap * 2}
+				{@const barHeight = (bin.count / maxCount) * plotHeight}
+				{@const barX = marginLeft + i * slotWidth + gap}
+				{@const barCenterX = marginLeft + i * slotWidth + slotWidth / 2}
+				{@const barY = marginTop + plotHeight - barHeight}
+				{@const midpoint = (bin.lower + bin.upper) / 2}
+				<rect
+					x={barX}
+					y={barY}
+					width={barWidth}
+					height={barHeight}
+					fill={riskColorScale(midpoint)}
+					opacity="0.85"
+					rx="1"
+				>
+					<title>{bin.label}-{(bin.upper * 100).toFixed(0)}%: {bin.count} occupations</title>
+				</rect>
+
+				{#if i % 2 === 0}
+					<text
+						x={barCenterX}
+						y={marginTop + plotHeight + 16}
+						text-anchor="middle"
+						class="fill-muted-foreground text-xs tabular-nums">{bin.label}</text
+					>
+				{/if}
+			{/each}
+
+			<!-- Axis label -->
+			<text
+				x={marginLeft + plotWidth / 2}
+				y={chartHeight - 6}
+				text-anchor="middle"
+				class="fill-muted-foreground text-xs">Risk Score</text
 			>
-				<title>{bin.label}-{((bin.upper) * 100).toFixed(0)}%: {bin.count} occupations</title>
-			</rect>
-		{/each}
-
-		<!-- X axis labels -->
-		{#each binData as bin, i}
-			{#if i % 2 === 0}
-				{@const x = marginLeft + i * (plotWidth / binData.length) + (plotWidth / binData.length) / 2}
-				<text x={x} y={chartHeight - 8} text-anchor="middle" class="fill-muted-foreground text-[9px]">{bin.label}</text>
-			{/if}
-		{/each}
-
-		<!-- Axis label (item 11) -->
-		<text x={chartWidth / 2} y={chartHeight - 0} text-anchor="middle" class="fill-muted-foreground text-[10px]">Risk Score</text>
-	</svg>
-{/if}
+		</svg>
+	{/if}
 </div>

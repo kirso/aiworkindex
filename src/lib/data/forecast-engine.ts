@@ -1,0 +1,249 @@
+/**
+ * Forecast Engine — Rule-based v1 for occupation/role outlooks.
+ *
+ * Produces directional signals (not point predictions) across 4 dimensions:
+ * displacement_pressure, augmentation_upside, demand_outlook, wage_pressure
+ *
+ * Three scenario presets: Conservative, Base, Fast Adoption
+ */
+
+import type { Occupation } from './index';
+
+export type OutlookStatus = 'resilient' | 'watch' | 'under_pressure' | 'at_risk';
+export type Direction = 'improving' | 'stable' | 'worsening';
+export type ConfidenceLevel = 'high' | 'medium' | 'low';
+export type ScenarioPreset = 'conservative' | 'base' | 'fast_adoption';
+export type SeniorityLevel = 'junior' | 'mid' | 'senior';
+
+export interface ScenarioParams {
+	/** AI adoption speed multiplier (0.5 = slow, 1.0 = baseline, 2.0 = rapid) */
+	ai_adoption_speed: number;
+	/** Employer cost-cutting intensity (0.0 = none, 1.0 = aggressive) */
+	employer_cost_cutting: number;
+	/** Macro backdrop (-1 = recession, 0 = neutral, 1 = growth) */
+	macro_backdrop: number;
+	/** Sector readiness for AI (0 = lagging, 1 = leading) */
+	sector_readiness: number;
+	/** Experience level adjustment (optional — defaults to 'mid' = no adjustment) */
+	seniority?: SeniorityLevel;
+}
+
+/**
+ * Seniority adjustment multipliers, grounded in research:
+ * - Anthropic Economic Index (2026): 14% drop in job-finding for ages 22-25 in AI-exposed occupations
+ * - Stanford "Canaries in the Coal Mine" (2025): entry-level faces disproportionate displacement
+ * - Brynjolfsson et al. (2023): biggest AI productivity gains among junior workers (leveling effect)
+ * - Noy & Zhang (2023): AI narrows gap between experienced and novice writers
+ *
+ * The adjustment scales with the occupation's variant_sensitivity from workflow overlay.
+ * High variant_sensitivity = seniority matters more (e.g., software engineering).
+ * Low variant_sensitivity = seniority matters less (e.g., truck driver).
+ */
+export const seniorityAdjustments: Record<
+	SeniorityLevel,
+	{ exposure: number; bottleneck: number; label: string }
+> = {
+	junior: { exposure: 0.12, bottleneck: -0.10, label: 'Entry-level / Junior' },
+	mid: { exposure: 0, bottleneck: 0, label: 'Mid-career' },
+	senior: { exposure: -0.10, bottleneck: 0.12, label: 'Senior / Lead' }
+};
+
+export interface OutlookResult {
+	displacement_pressure: OutlookStatus;
+	augmentation_upside: OutlookStatus;
+	demand_outlook: OutlookStatus;
+	wage_pressure: OutlookStatus;
+	direction_12m: Direction;
+	confidence: ConfidenceLevel;
+	summary: string;
+}
+
+export const scenarioPresets: Record<ScenarioPreset, { label: string; description: string; params: ScenarioParams }> = {
+	conservative: {
+		label: 'Conservative',
+		description: 'Slow AI adoption, strong macro, employer caution',
+		params: {
+			ai_adoption_speed: 0.6,
+			employer_cost_cutting: 0.2,
+			macro_backdrop: 0.5,
+			sector_readiness: 0.4
+		}
+	},
+	base: {
+		label: 'Base Case',
+		description: 'Current trajectory continues',
+		params: {
+			ai_adoption_speed: 1.0,
+			employer_cost_cutting: 0.5,
+			macro_backdrop: 0.0,
+			sector_readiness: 0.6
+		}
+	},
+	fast_adoption: {
+		label: 'Fast Adoption',
+		description: 'Rapid AI deployment, cost pressure, mixed macro',
+		params: {
+			ai_adoption_speed: 1.8,
+			employer_cost_cutting: 0.8,
+			macro_backdrop: -0.3,
+			sector_readiness: 0.8
+		}
+	}
+};
+
+function classifyStatus(score: number): OutlookStatus {
+	if (score <= 0.2) return 'resilient';
+	if (score <= 0.45) return 'watch';
+	if (score <= 0.7) return 'under_pressure';
+	return 'at_risk';
+}
+
+function classifyDirection(delta: number): Direction {
+	if (delta < -0.03) return 'improving';
+	if (delta > 0.03) return 'worsening';
+	return 'stable';
+}
+
+/**
+ * Compute outlook for an occupation under a given scenario.
+ * Incorporates real labour market data (vacancy, hiring, retrenchment, re-entry)
+ * when available, so the Now/12M tabs reflect actual conditions — not just
+ * a repackaged version of the structural score.
+ */
+export function computeOutlook(occ: Occupation, scenario: ScenarioParams): OutlookResult {
+	// Base structural scores
+	const baseDisplacement = occ.net_risk;
+	const baseAugmentation = occ.augmentation;
+	const baseDemand = occ.market.market_resilience;
+	const lm = occ.labour_monitor;
+
+	// Scenario adjustments
+	const adoptionEffect = (scenario.ai_adoption_speed - 1.0) * 0.15;
+	const costEffect = scenario.employer_cost_cutting * 0.1;
+	const macroEffect = -scenario.macro_backdrop * 0.08;
+	const sectorEffect = scenario.sector_readiness * 0.05;
+
+	// --- Seniority adjustment (scales with variant_sensitivity) ---
+	let seniorityExposureAdj = 0;
+	let seniorityBottleneckAdj = 0;
+	const seniority = scenario.seniority ?? 'mid';
+	if (seniority !== 'mid') {
+		// Use variant_sensitivity from workflow overlay if available, else default 0.5
+		const varSens = occ.workflow_overlay
+			? 0.3 * occ.workflow_overlay.institutional_knowledge +
+				0.25 * occ.workflow_overlay.relationship_intensity +
+				0.25 * occ.workflow_overlay.regulatory_weight +
+				0.2 * occ.workflow_overlay.real_time_coordination
+			: 0.5;
+
+		const adj = seniorityAdjustments[seniority];
+		seniorityExposureAdj = adj.exposure * varSens;
+		seniorityBottleneckAdj = adj.bottleneck * varSens;
+	}
+
+	// --- Labour market adjustments (only when real data exists) ---
+	let labourDemandAdj = 0;
+	let labourDisplacementAdj = 0;
+	let labourWageAdj = 0;
+
+	if (lm) {
+		// Vacancy trend: positive YoY growth improves demand outlook
+		if (lm.vacancy.trend_4q_pct > 5) labourDemandAdj -= 0.08;
+		else if (lm.vacancy.trend_4q_pct > 0) labourDemandAdj -= 0.04;
+		else if (lm.vacancy.trend_4q_pct < -5) labourDemandAdj += 0.06;
+
+		// Hiring: positive net pressure (recruitment > resignation) improves demand
+		if (lm.hiring && lm.hiring.net_pressure > 0) labourDemandAdj -= 0.05;
+		else if (lm.hiring && lm.hiring.net_pressure < -0.3) labourDemandAdj += 0.04;
+
+		// Retrenchment: low incidence reduces displacement pressure
+		if (lm.retrenchment?.incidence_per_1000 != null) {
+			if (lm.retrenchment.incidence_per_1000 < 2) labourDisplacementAdj -= 0.05;
+			else if (lm.retrenchment.incidence_per_1000 > 4) labourDisplacementAdj += 0.05;
+		}
+
+		// Re-entry: high 12-month re-entry rate reduces wage pressure
+		if (lm.re_entry?.rate_12m != null) {
+			if (lm.re_entry.rate_12m > 70) labourWageAdj -= 0.06;
+			else if (lm.re_entry.rate_12m < 50) labourWageAdj += 0.04;
+		}
+	}
+
+	// Displacement pressure: seniority-adjusted exposure × (1 - seniority-adjusted bottleneck)
+	const adjExposure = Math.max(0, Math.min(1, occ.exposure + seniorityExposureAdj));
+	const adjBottleneck = Math.max(0, Math.min(1, occ.bottleneck + seniorityBottleneckAdj));
+	const seniorityDisplacement = adjExposure * (1 - adjBottleneck) * occ.market.market_modifier;
+	const displacementScore = Math.max(0, Math.min(1,
+		seniorityDisplacement + adoptionEffect + costEffect + macroEffect + labourDisplacementAdj
+	));
+
+	// Augmentation upside: higher with faster adoption if bottleneck is high
+	const augScore = Math.max(0, Math.min(1,
+		baseAugmentation + (adjBottleneck > 0.5 ? adoptionEffect * 0.5 : -adoptionEffect * 0.3)
+	));
+
+	// Demand outlook: based on market resilience + macro + actual vacancy/hiring signals
+	const demandScore = Math.max(0, Math.min(1,
+		1 - baseDemand + macroEffect - sectorEffect + labourDemandAdj
+	));
+
+	// Wage pressure: displacement erodes wages, demand supports them, re-entry rate moderates
+	const wageScore = Math.max(0, Math.min(1,
+		displacementScore * 0.6 + (1 - baseDemand) * 0.4 + labourWageAdj
+	));
+
+	// 12-month direction: compare scenario-adjusted to base
+	const delta = displacementScore - baseDisplacement;
+	const direction = classifyDirection(delta);
+
+	// Confidence: lower if scenario deviates heavily from base
+	const scenarioDeviation = Math.abs(scenario.ai_adoption_speed - 1.0) +
+		Math.abs(scenario.employer_cost_cutting - 0.5) +
+		Math.abs(scenario.macro_backdrop);
+	const confidence: ConfidenceLevel = scenarioDeviation < 0.8 ? 'medium' : 'low';
+
+	// Summary
+	const status = classifyStatus(displacementScore);
+	const summaries: Record<OutlookStatus, string> = {
+		resilient: `${occ.title} appears resilient under this scenario. Strong human bottlenecks and/or market demand provide substantial buffer against AI displacement.`,
+		watch: `${occ.title} should be monitored. While not facing immediate pressure, shifts in AI capability or employer strategy could change the picture.`,
+		under_pressure: `${occ.title} faces growing pressure under this scenario. AI capabilities overlap significantly with core tasks, and market buffers are limited.`,
+		at_risk: `${occ.title} faces significant displacement risk under this scenario. Core tasks are highly automatable with limited offsetting demand or bottlenecks.`
+	};
+
+	return {
+		displacement_pressure: classifyStatus(displacementScore),
+		augmentation_upside: classifyStatus(1 - augScore), // invert: high aug = resilient
+		demand_outlook: classifyStatus(demandScore),
+		wage_pressure: classifyStatus(wageScore),
+		direction_12m: direction,
+		confidence,
+		summary: summaries[status]
+	};
+}
+
+export const outlookStatusLabels: Record<OutlookStatus, string> = {
+	resilient: 'Resilient',
+	watch: 'Watch',
+	under_pressure: 'Under Pressure',
+	at_risk: 'At Risk'
+};
+
+export const outlookStatusColors: Record<OutlookStatus, string> = {
+	resilient: 'text-risk-very-low',
+	watch: 'text-risk-moderate',
+	under_pressure: 'text-risk-high',
+	at_risk: 'text-risk-very-high'
+};
+
+export const directionLabels: Record<Direction, string> = {
+	improving: 'Improving',
+	stable: 'Stable',
+	worsening: 'Worsening'
+};
+
+export const directionColors: Record<Direction, string> = {
+	improving: 'text-risk-very-low',
+	stable: 'text-foreground',
+	worsening: 'text-risk-very-high'
+};

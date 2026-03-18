@@ -1,0 +1,129 @@
+{
+  "validation_date": "2026-03-17",
+  "data_period": "Q3 2025",
+  "model_version": "V3.1",
+  "cluster_stats": [
+    {
+      "cluster_key": "pmet",
+      "cluster_label": "Professionals, Managers, Executives & Technicians",
+      "occupation_count": 365,
+      "avg_net_risk": 0.2062,
+      "avg_exposure": 0.616,
+      "avg_bottleneck": 0.6131,
+      "risk_band_distribution": {
+        "moderate": 99,
+        "low": 116,
+        "very_low": 61,
+        "high": 62,
+        "very_high": 27
+      },
+      "impact_type_distribution": {
+        "ai_leveraged": 168,
+        "stable": 75,
+        "mixed": 85,
+        "at_risk": 37
+      },
+      "vacancy_rate": 3.1,
+      "vacancy_trend_4q_pct": 6.9,
+      "hiring_net_pressure": 0.6,
+      "retrenchment_incidence": 2.6,
+      "re_entry_rate_12m": 73,
+      "overall_signal": "strong"
+    },
+    {
+      "cluster_key": "clerical_sales_service",
+      "cluster_label": "Clerical, Sales & Service Workers",
+      "occupation_count": 88,
+      "avg_net_risk": 0.3029,
+      "avg_exposure": 0.4508,
+      "avg_bottleneck": 0.2461,
+      "risk_band_distribution": {
+        "moderate": 15,
+        "very_high": 21,
+        "high": 20,
+        "low": 26,
+        "very_low": 6
+      },
+      "impact_type_distribution": {
+        "at_risk": 46,
+        "stable": 36,
+        "ai_leveraged": 6
+      },
+      "vacancy_rate": 3.3,
+      "vacancy_trend_4q_pct": -5.71,
+      "hiring_net_pressure": 1,
+      "retrenchment_incidence": 0.9,
+      "re_entry_rate_12m": 80.1,
+      "overall_signal": "deteriorating"
+    },
+    {
+      "cluster_key": "production_transport",
+      "cluster_label": "Production & Transport Operators, Cleaners & Labourers",
+      "occupation_count": 109,
+      "avg_net_risk": 0.0866,
+      "avg_exposure": 0.1646,
+      "avg_bottleneck": 0.3264,
+      "risk_band_distribution": {
+        "very_low": 44,
+        "moderate": 18,
+        "high": 2,
+        "low": 45
+      },
+      "impact_type_distribution": {
+        "stable": 103,
+        "at_risk": 2,
+        "ai_leveraged": 3,
+        "mixed": 1
+      },
+      "vacancy_rate": 2,
+      "vacancy_trend_4q_pct": 17.65,
+      "hiring_net_pressure": 0.8,
+      "retrenchment_incidence": 0.3,
+      "re_entry_rate_12m": 82.6,
+      "overall_signal": "strong"
+    }
+  ],
+  "correlation_checks": [
+    {
+      "test": "Risk vs vacancy trend (Spearman)",
+      "expected": "Negative correlation (higher risk → lower vacancy growth)",
+      "actual": "ρ = -1.000",
+      "pass": true,
+      "note": "Directionally consistent"
+    },
+    {
+      "test": "Risk vs retrenchment incidence (Spearman)",
+      "expected": "Positive correlation (higher risk → higher retrenchment)",
+      "actual": "ρ = 0.500",
+      "pass": true,
+      "note": "Directionally consistent"
+    },
+    {
+      "test": "Risk vs hiring net pressure (Spearman)",
+      "expected": "Negative correlation (higher risk → weaker hiring)",
+      "actual": "ρ = 0.500",
+      "pass": false,
+      "note": "Hiring pressure not yet reflecting structural AI risk differences across clusters"
+    },
+    {
+      "test": "Directional accuracy (risk rank vs vacancy trend)",
+      "expected": "High-risk clusters have equal or lower vacancy growth than low-risk",
+      "actual": "2/2 = 100%",
+      "pass": true,
+      "note": "Majority of pairwise comparisons are directionally correct"
+    }
+  ],
+  "directional_accuracy": 1,
+  "summary": {
+    "checks_passed": 3,
+    "checks_total": 4,
+    "interpretation": "Structural risk scores show directional consistency with cluster-level labour outcomes. The model captures broad patterns but is not designed to predict short-run employment fluctuations.",
+    "caveats": [
+      "Only 3 labour clusters available — statistical power is very limited",
+      "Cluster-level aggregation masks within-cluster variation",
+      "Q3 2025 is a single observation — trends need multi-quarter validation",
+      "Vacancy rates reflect overall demand, not AI-specific displacement",
+      "Frank et al. (2025): single exposure measures misrepresent AI impact — ensemble approach recommended"
+    ]
+  }
+}

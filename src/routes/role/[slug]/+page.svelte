@@ -1,326 +1,484 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
+	import { riskBandLabels, impactTypeLabels, augmentationBandLabels } from '$lib/data';
 	import {
-		riskBandLabels,
-		riskBandColors,
-		impactTypeLabels,
-		impactTypeColors,
-		augmentationBandLabels
-	} from '$lib/data';
-	import { title as titleStyle, card, riskBadge, impactBadge, confidenceBadge, confidenceColor, sectionLabel } from '$lib/design-system';
+		card,
+		riskBadge,
+		impactBadge,
+		confidenceBadge,
+		pageLayout,
+		display,
+		title as titleStyle,
+		sectionLabel,
+		caption
+	} from '$lib/design-system';
 	import { cn } from '$lib/utils';
-	import { getPersonalizedContent } from '$lib/data/role-archetypes';
+	import { blendArchetypes, classifyArchetype } from '$lib/data/role-archetypes';
+	import { archetypeOverlayDefaults, generateWorkflowNarrative } from '$lib/data/workflow-overlay';
+	import OutlookSection from '$lib/components/ui/OutlookSection.svelte';
+	import DriverWaterfall from '$lib/components/viz/DriverWaterfall.svelte';
+	import { Button } from '$lib/components/ui/button/index.js';
+	import * as Collapsible from '$lib/components/ui/collapsible/index.js';
+	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
+	import LabourMarketCard from '$lib/components/ui/LabourMarketCard.svelte';
+
+	const WATCHLIST_KEY = 'sg-ai-jobs-watchlist';
 
 	let { data } = $props();
 	let scored = $derived(data.scored);
 
-	// Summary card color based on impact type
-	let summaryCardStyle = $derived.by(() => {
-		switch (scored.impact_type) {
-			case 'ai_leveraged':
-				return { bg: 'bg-emerald-50/60', border: 'border-emerald-200' };
-			case 'at_risk':
-				return { bg: 'bg-rose-50/60', border: 'border-rose-200' };
-			case 'stable':
-				return { bg: 'bg-secondary', border: 'border-border' };
-			case 'mixed':
-				return { bg: 'bg-amber-50/60', border: 'border-amber-200' };
-			default:
-				return { bg: 'bg-secondary', border: 'border-border' };
+	let isWatchlisted = $state(false);
+	$effect(() => {
+		if (!browser) return;
+		try {
+			const stored = localStorage.getItem(WATCHLIST_KEY);
+			const list: string[] = stored ? JSON.parse(stored) : [];
+			const primarySsoc = scored.components[0]?.ssoc;
+			isWatchlisted = primarySsoc ? list.includes(primarySsoc) : false;
+		} catch {
+			isWatchlisted = false;
 		}
 	});
 
-	let meaningHeadingColor = $derived.by(() => {
-		switch (scored.risk_band) {
-			case 'very_low':
-			case 'low':
-				return 'text-emerald-700';
-			case 'moderate':
-				return 'text-amber-700';
-			case 'high':
-			case 'very_high':
-				return 'text-rose-700';
-			default:
-				return 'text-foreground';
-		}
-	});
-
-	// Helpers for plain-English summary
-	function levelLabel(value: number): string {
-		if (value > 0.66) return 'high';
-		if (value >= 0.33) return 'moderate';
-		return 'low';
+	function toggleWatchlist() {
+		if (!browser) return;
+		const primarySsoc = scored.components[0]?.ssoc;
+		if (!primarySsoc) return;
+		try {
+			const stored = localStorage.getItem(WATCHLIST_KEY);
+			let list: string[] = stored ? JSON.parse(stored) : [];
+			if (list.includes(primarySsoc)) {
+				list = list.filter((s: string) => s !== primarySsoc);
+				isWatchlisted = false;
+			} else {
+				list.push(primarySsoc);
+				isWatchlisted = true;
+			}
+			localStorage.setItem(WATCHLIST_KEY, JSON.stringify(list));
+		} catch {}
 	}
 
-	function bottleneckInterpretation(bottleneck: number): string {
-		if (bottleneck > 0.66) return 'judgment, creativity, and interpersonal skills';
-		if (bottleneck >= 0.33) return 'specialized judgment and interpersonal skills';
-		return 'routine task patterns with few unique human dependencies';
+	function levelLabel(v: number): string {
+		return v > 0.66 ? 'high' : v >= 0.33 ? 'moderate' : 'low';
 	}
 
-	// Plain-English summary for the role
 	let summaryText = $derived.by(() => {
-		const title = scored.title;
-		const exposureLevel = levelLabel(scored.exposure);
-		const bottleneckDesc = bottleneckInterpretation(scored.bottleneck);
-
+		const e = levelLabel(scored.exposure);
 		switch (scored.impact_type) {
 			case 'ai_leveraged':
-				return `AI is likely to enhance productivity in this role rather than replace it. ${title} has ${exposureLevel} AI exposure, but strong human bottlenecks \u2014 like ${bottleneckDesc} \u2014 mean AI augments rather than substitutes.`;
+				return `AI is likely to enhance ${scored.title}, not replace it. ${e} AI exposure, but strong human bottlenecks mean AI augments rather than substitutes.`;
 			case 'at_risk':
-				return `This role faces significant AI displacement pressure. ${title} has ${exposureLevel} exposure to AI capabilities with relatively few human bottlenecks to slow adoption. Workers in this field should consider developing skills that AI cannot easily replicate.`;
+				return `${scored.title} faces significant AI displacement pressure. ${e} AI exposure with few human bottlenecks.`;
 			case 'stable':
-				return `AI is unlikely to significantly disrupt this role in the near term. ${title} has ${exposureLevel} AI exposure, meaning current AI capabilities have limited overlap with the core tasks.`;
+				return `AI is unlikely to significantly disrupt ${scored.title}. ${e} AI exposure — limited overlap with core tasks.`;
 			case 'mixed':
-				return `This role shows conflicting AI signals \u2014 high exposure but also strong human dependencies. ${title} could see both displacement of some tasks and augmentation of others. The net outcome depends on how organizations choose to adopt AI.`;
+				return `${scored.title} shows mixed AI signals — high exposure but also strong human dependencies.`;
 			default:
 				return '';
 		}
 	});
 
-	// Highest-weight component for primary occupation reference
 	let primaryComponent = $derived.by(() => {
-		const sorted = [...scored.components].sort((a, b) => b.weight - a.weight);
-		return sorted[0] ?? null;
+		return [...scored.components].sort((a, b) => b.weight - a.weight)[0] ?? null;
 	});
 
-	// Personalized content from role-archetypes engine (uses primary component occupation)
+	// Blended archetype content
 	let personalizedContent = $derived.by(() => {
-		const primary = primaryComponent;
-		if (primary?.occupation) {
-			return getPersonalizedContent(primary.ssoc, primary.occupation.title, primary.occupation.major_group);
-		}
-		// Fallback: use the synthetic role title with a generic SSOC
-		return getPersonalizedContent('00000', scored.title, '');
+		const components = scored.components
+			.filter((c: { occupation: { title: string; major_group: string } | null }) => c.occupation)
+			.map(
+				(c: {
+					ssoc: string;
+					weight: number;
+					occupation: { title: string; major_group: string } | null;
+				}) => ({
+					ssoc: c.ssoc,
+					title: c.occupation!.title,
+					majorGroup: c.occupation!.major_group,
+					weight: c.weight
+				})
+			);
+		return blendArchetypes(scored.title, components);
 	});
 
-	let aiCanAndCant = $derived({
-		canDo: personalizedContent.aiCanDo,
-		cantDo: personalizedContent.humanNeeded
-	});
+	let transitions = $derived(data.transitions);
 
-	let skillRecommendations = $derived(personalizedContent.skills);
+	// Workflow narrative from primary archetype
+	let workflowNarrative = $derived.by(() => {
+		const archetype = classifyArchetype('00000', scored.title, '');
+		const overlay = archetypeOverlayDefaults[archetype];
+		return overlay ? generateWorkflowNarrative(overlay) : null;
+	});
 </script>
 
 <svelte:head>
-	<title>{scored.title} — AI Risk Estimate | SG AI Occupation Index</title>
+	<title>{scored.title} — AI Risk Estimate | SG AI Jobs</title>
 	<meta
 		name="description"
-		content="{scored.title}: Estimated AI displacement risk {(scored.net_risk * 100).toFixed(0)}%, rated {riskBandLabels[scored.risk_band]}. A modern role estimate based on related official occupations."
+		content="{scored.title}: Estimated AI risk {(scored.net_risk * 100).toFixed(
+			0
+		)}%, rated {riskBandLabels[scored.risk_band]}. Based on {scored.components
+			.length} official occupations."
 	/>
-	<meta property="og:title" content="{scored.title} — AI Risk Estimate | SG AI Occupation Index" />
-	<meta property="og:description" content="Estimated risk: {(scored.net_risk * 100).toFixed(0)}% ({riskBandLabels[scored.risk_band]}). Modern role estimate based on {scored.components.length} official SSOC occupations." />
+	<meta property="og:title" content="{scored.title} — AI Risk Estimate | SG AI Jobs" />
+	<meta
+		property="og:description"
+		content="Estimated risk: {(scored.net_risk * 100).toFixed(0)}% ({riskBandLabels[
+			scored.risk_band
+		]})."
+	/>
 	<meta property="og:url" content="https://sg-ai-jobs.vercel.app/role/{scored.slug}" />
+	<meta property="og:image" content="https://sg-ai-jobs.vercel.app/og/role-{scored.slug}.png" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
 </svelte:head>
 
-<main class="mx-auto max-w-4xl px-4 py-6 sm:px-6 lg:px-8">
-	<!-- Breadcrumb -->
-	<nav class="mb-4 text-sm text-muted-foreground" aria-label="Breadcrumb">
-		<a href="/" class="hover:text-foreground/80">Home</a>
-		<span class="mx-1">/</span>
-		<span class="text-foreground">{scored.title}</span>
-	</nav>
+<main class={pageLayout({ width: 'content' })}>
+	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: scored.title }]} />
 
-	<!-- Synthetic role banner -->
-	<div class="mb-4 rounded-lg border border-amber-200 bg-amber-50/60 px-4 py-3">
-		<p class="text-sm text-amber-800">
-			<span class="font-semibold">Estimated modern role</span> &mdash;
-			This is not an official Singapore occupation. Scores are computed as a weighted blend of {scored.components.length} related official occupations.
-		</p>
+	<!-- Synthetic role notice -->
+	<div
+		class="mb-4 flex items-start gap-2 rounded-md border border-risk-moderate-border bg-risk-moderate-subtle px-3 py-2"
+	>
+		<svg
+			class="mt-0.5 h-3.5 w-3.5 shrink-0 text-risk-moderate"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="2"><path d="M12 9v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg
+		>
+		<div class="text-xs text-risk-moderate">
+			<p>
+				Estimated modern role — scores are a weighted blend of {scored.components.length} official occupations.
+				Confidence capped at Medium.
+			</p>
+			{#if data.primaryMatch && data.primaryMatch.riskDiff < 0.03}
+				<p class="mt-1">
+					Closely matches
+					<a
+						href="/occupation/{data.primaryMatch.ssoc}"
+						class="font-medium text-primary hover:underline">{data.primaryMatch.title}</a
+					>
+					({(data.primaryMatch.risk * 100).toFixed(0)}% risk).
+				</p>
+			{/if}
+		</div>
 	</div>
 
-	<!-- 1. Hero Header -->
-	<div class="mb-4">
-		<div>
-			<h1 class={titleStyle({ size: 'page' })}>{scored.title}</h1>
-			<p class="mt-1 text-sm text-muted-foreground">
-				{scored.description}
-			</p>
-			<div class="mt-3 flex flex-wrap items-center gap-2">
-				<span class={riskBadge({ band: scored.risk_band })}>
+	<!-- ===== HERO: The Score IS the Interface ===== -->
+	<div class={cn(card({ padding: 'lg', accent: scored.risk_band }), 'mb-8')}>
+		<div class="flex flex-col sm:flex-row sm:items-start sm:gap-8">
+			<!-- Left: The Big Number -->
+			<div class="flex flex-col items-center sm:items-start shrink-0 mb-4 sm:mb-0">
+				<p class={display({ size: 'xl' })}>{(scored.net_risk * 100).toFixed(0)}%</p>
+				<span class={cn(riskBadge({ band: scored.risk_band }), 'mt-1')}>
 					{riskBandLabels[scored.risk_band]} Risk
 				</span>
-				<span class={impactBadge({ type: scored.impact_type })}>
-					{impactTypeLabels[scored.impact_type]}
-				</span>
-				<span class={confidenceBadge({ level: 'medium' })}>
-					Medium Confidence
-				</span>
+			</div>
+
+			<!-- Right: Context -->
+			<div class="flex-1 min-w-0">
+				<h1 class={titleStyle({ size: 'page' })}>{scored.title}</h1>
+				<p class={caption()}>{scored.description}</p>
+
+				<p class="mt-3 text-sm text-foreground/80 leading-relaxed">{summaryText}</p>
+				{#if workflowNarrative}
+					<p class="mt-2 text-sm text-foreground/60 leading-relaxed">{workflowNarrative}</p>
+				{/if}
+				{#if scored.dispersion > 0.08}
+					<div class="mt-3 rounded-md bg-inset p-3">
+						<p class="text-xs font-medium text-foreground">
+							Risk depends on your actual work split
+						</p>
+						<div class="mt-1.5 flex items-center gap-2">
+							<span class="font-mono text-xs text-risk-very-low"
+								>{(scored.risk_range.optimistic * 100).toFixed(0)}%</span
+							>
+							<div class="flex-1 h-1.5 rounded-full bg-border relative">
+								<div
+									class="absolute h-full rounded-full bg-gradient-to-r from-risk-very-low to-risk-very-high"
+									style="left: {Math.max(scored.risk_range.optimistic * 100, 0)}%; right: {Math.max(
+										100 - scored.risk_range.pessimistic * 100,
+										0
+									)}%;"
+								></div>
+								<div
+									class="absolute h-3 w-0.5 bg-foreground rounded-full -top-[3px]"
+									style="left: {scored.net_risk * 100}%;"
+								></div>
+							</div>
+							<span class="font-mono text-xs text-risk-very-high"
+								>{(scored.risk_range.pessimistic * 100).toFixed(0)}%</span
+							>
+						</div>
+						<p class="mt-1 text-xs text-muted-foreground">
+							More management-focused → lower risk. More hands-on → higher risk.
+						</p>
+					</div>
+				{/if}
+
+				<div class="mt-3 flex flex-wrap items-center gap-2">
+					<span class={impactBadge({ type: scored.impact_type })}>
+						{impactTypeLabels[scored.impact_type]}
+					</span>
+					<span class={confidenceBadge({ level: 'medium' })}>Medium Confidence</span>
+					<span class="text-xs text-muted-foreground">
+						Higher risk than {data.riskPercentile}% of occupations
+					</span>
+					<div class="ml-auto flex items-center gap-2">
+						<a
+							href="/compare?entities=role:{scored.slug}"
+							class="text-xs text-primary hover:underline">Compare</a
+						>
+						<Button
+							variant={isWatchlisted ? 'default' : 'outline'}
+							size="sm"
+							class="h-7 gap-1 text-xs"
+							onclick={toggleWatchlist}
+						>
+							<svg
+								class="h-3.5 w-3.5"
+								viewBox="0 0 24 24"
+								fill={isWatchlisted ? 'currentColor' : 'none'}
+								stroke="currentColor"
+								stroke-width="2"
+							>
+								<path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+							</svg>
+							{isWatchlisted ? 'Saved' : 'Save'}
+						</Button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 
-	<!-- 2. What This Means For You -->
-	<section class="mb-4 rounded-xl border-2 {summaryCardStyle.border} {summaryCardStyle.bg} p-6">
-		<h2 class="mb-3 text-base font-bold {meaningHeadingColor}">What This Means For You</h2>
-		<p class="text-base leading-relaxed text-foreground/80">{summaryText}</p>
-		<p class="mt-3 text-sm leading-relaxed text-muted-foreground">
-			This estimate blends {scored.components.length} official Singapore occupations. Actual outcomes depend on your specific employer, industry, and task mix. Confidence is capped at Medium for all synthetic roles.
+	<!-- ===== SCORE BREAKDOWN: Waterfall gets visual prominence ===== -->
+	<section class="mb-8">
+		<h2 class={cn(sectionLabel(), 'mb-3')}>Score Breakdown</h2>
+		<div class={card({ padding: 'md' })}>
+			{#if primaryComponent?.occupation}
+				<DriverWaterfall occupation={primaryComponent.occupation} />
+			{:else}
+				<!-- Fallback: simple bar display when no primary occupation available -->
+				<div class="space-y-3 text-sm">
+					<div class="flex items-center justify-between">
+						<span class="text-muted-foreground">AI Task Overlap</span>
+						<span class="font-mono text-xs tabular-nums">{(scored.exposure * 100).toFixed(0)}%</span
+						>
+					</div>
+					<div class="flex items-center justify-between">
+						<span class="text-muted-foreground">Human Advantage</span>
+						<span class="font-mono text-xs tabular-nums"
+							>{(scored.bottleneck * 100).toFixed(0)}%</span
+						>
+					</div>
+					<div class="flex items-center justify-between">
+						<span class="text-muted-foreground">SG Demand Buffer</span>
+						<span class="font-mono text-xs tabular-nums"
+							>{(scored.market_resilience * 100).toFixed(0)}%</span
+						>
+					</div>
+					<div class="flex items-center justify-between border-t border-border pt-3">
+						<span class="font-semibold text-foreground">Net Risk</span>
+						<span class="font-mono text-sm font-bold tabular-nums"
+							>{(scored.net_risk * 100).toFixed(0)}%</span
+						>
+					</div>
+				</div>
+			{/if}
+		</div>
+		<p class="mt-2 text-xs text-muted-foreground">
+			Weighted average of {scored.components.length} official occupations.
+			<a href="/methodology" class="text-primary hover:underline">How this works</a>
 		</p>
 	</section>
 
-	<!-- 3. Built From — Component Occupations -->
-	<section class={cn(card({ padding: 'md' }), 'mb-4')}>
-		<h2 class={cn(titleStyle({ size: 'section' }), 'mb-3')}>Built From</h2>
-		<p class="mb-4 text-sm text-muted-foreground">
-			This role's scores are a weighted average of these official SSOC occupations:
-		</p>
-		<div class="space-y-3">
-			{#each scored.components as comp}
-				<div class="flex items-center gap-3 rounded-lg border border-border/50 bg-muted p-3">
-					<!-- Weight bar -->
-					<div class="w-16 shrink-0">
-						<div class="h-2 w-full overflow-hidden rounded-full bg-border">
-							<div class="h-full rounded-full bg-blue-500" style="width: {comp.weight * 100}%;"></div>
+	<!-- ===== WHAT AI CHANGES: Narrative, not grid ===== -->
+	<section class="mb-8">
+		<h2 class={cn(sectionLabel(), 'mb-3')}>What AI Changes</h2>
+		<div class={card({ padding: 'md' })}>
+			<div class="space-y-4">
+				<div>
+					<p class="text-xs font-semibold text-risk-high mb-1">Tasks AI can handle</p>
+					<p class="text-sm text-muted-foreground leading-relaxed">
+						{personalizedContent.aiCanDo}
+					</p>
+				</div>
+				<div>
+					<p class="text-xs font-semibold text-risk-very-low mb-1">Where humans stay essential</p>
+					<p class="text-sm text-muted-foreground leading-relaxed">
+						{personalizedContent.humanNeeded}
+					</p>
+				</div>
+			</div>
+
+			{#if personalizedContent.skills.length > 0}
+				<div class="mt-4 pt-4 border-t border-border">
+					<p class="text-xs font-semibold text-foreground mb-2">Skills to focus on</p>
+					<div class="grid gap-2 sm:grid-cols-2">
+						{#each personalizedContent.skills.slice(0, 4) as skill}
+							<div class="flex gap-2">
+								<div class="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-primary"></div>
+								<div>
+									<p class="text-xs font-medium text-foreground">{skill.label}</p>
+									<p class="text-xs text-muted-foreground">{skill.description}</p>
+								</div>
+							</div>
+						{/each}
+					</div>
+				</div>
+			{/if}
+		</div>
+	</section>
+
+	<!-- ===== MARKET CONTEXT: Labour + Outlook ===== -->
+	{#if primaryComponent?.occupation?.labour_monitor}
+		<section class="mb-8">
+			<h2 class={cn(sectionLabel(), 'mb-3')}>Market Context</h2>
+			<LabourMarketCard monitor={primaryComponent.occupation.labour_monitor} />
+		</section>
+	{/if}
+
+	{#if primaryComponent?.occupation}
+		<section class="mb-8">
+			<OutlookSection occupation={primaryComponent.occupation} />
+		</section>
+	{/if}
+
+	<!-- ===== CAREER PATHS ===== -->
+	{#if transitions}
+		<section class="mb-8">
+			<h2 class={cn(sectionLabel(), 'mb-3')}>Career Paths</h2>
+			<div class={card({ padding: 'md' })}>
+				<div class="grid gap-6 sm:grid-cols-2">
+					{#if transitions.easierSwitch.length > 0}
+						<div>
+							<p class="text-xs font-semibold text-impact-leveraged mb-2">Easier Switch</p>
+							{#each transitions.easierSwitch as t (t.to_ssoc)}
+								<a
+									href="/occupation/{t.to_ssoc}"
+									class="flex items-center justify-between rounded-md px-2 py-1.5 -mx-2 text-sm hover:bg-accent hover:text-primary transition-colors"
+								>
+									<span class="truncate text-foreground/80">{t.to_title}</span>
+									<span class="ml-2 shrink-0 font-mono text-xs text-muted-foreground"
+										>{(t.composite * 100).toFixed(0)}%</span
+									>
+								</a>
+							{/each}
 						</div>
-						<p class="mt-1 text-center text-xs font-semibold tabular-nums text-muted-foreground">
-							{(comp.weight * 100).toFixed(0)}%
-						</p>
-					</div>
-					<!-- Occupation details -->
-					<div class="min-w-0 flex-1">
-						{#if comp.occupation}
-							<a
-								href="/occupation/{comp.ssoc}"
-								class="text-sm font-medium text-foreground hover:text-blue-600 hover:underline"
+					{/if}
+					{#if transitions.lowerRisk.length > 0}
+						<div>
+							<p class="text-xs font-semibold text-risk-very-low mb-2">Lower Risk</p>
+							{#each transitions.lowerRisk as t (t.to_ssoc)}
+								<a
+									href="/occupation/{t.to_ssoc}"
+									class="flex items-center justify-between rounded-md px-2 py-1.5 -mx-2 text-sm hover:bg-accent hover:text-primary transition-colors"
+								>
+									<span class="truncate text-foreground/80">{t.to_title}</span>
+									<span class="ml-2 shrink-0 font-mono text-xs text-muted-foreground"
+										>{(t.composite * 100).toFixed(0)}%</span
+									>
+								</a>
+							{/each}
+						</div>
+					{/if}
+					{#if transitions.betterPay.length > 0}
+						<div>
+							<p class="text-xs font-semibold text-risk-moderate mb-2">Better Pay</p>
+							{#each transitions.betterPay as t (t.to_ssoc)}
+								<a
+									href="/occupation/{t.to_ssoc}"
+									class="flex items-center justify-between rounded-md px-2 py-1.5 -mx-2 text-sm hover:bg-accent hover:text-primary transition-colors"
+								>
+									<span class="truncate text-foreground/80">{t.to_title}</span>
+									<span class="ml-2 shrink-0 font-mono text-xs text-muted-foreground"
+										>{(t.composite * 100).toFixed(0)}%</span
+									>
+								</a>
+							{/each}
+						</div>
+					{/if}
+					{#if transitions.strongDemand.length > 0}
+						<div>
+							<p class="text-xs font-semibold text-chart-5 mb-2">Strong Demand</p>
+							{#each transitions.strongDemand as t (t.to_ssoc)}
+								<a
+									href="/occupation/{t.to_ssoc}"
+									class="flex items-center justify-between rounded-md px-2 py-1.5 -mx-2 text-sm hover:bg-accent hover:text-primary transition-colors"
+								>
+									<span class="truncate text-foreground/80">{t.to_title}</span>
+									<span class="ml-2 shrink-0 font-mono text-xs text-muted-foreground"
+										>{(t.composite * 100).toFixed(0)}%</span
+									>
+								</a>
+							{/each}
+						</div>
+					{/if}
+				</div>
+			</div>
+		</section>
+	{/if}
+
+	<!-- ===== TECHNICAL DETAILS ===== -->
+	<Collapsible.Root class={cn(card({ padding: 'none' }), 'mb-8')}>
+		<Collapsible.Trigger
+			class="flex w-full items-center justify-between px-5 py-3 text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors"
+		>
+			Technical Details · {scored.components.length} components · medium confidence
+			<svg
+				class="h-3.5 w-3.5 transition-transform [[data-state=open]>&]:rotate-180"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"><path d="m6 9 6 6 6-6" /></svg
+			>
+		</Collapsible.Trigger>
+		<Collapsible.Content class="border-t border-border px-5 py-4">
+			<div class="grid gap-4 sm:grid-cols-2 text-xs text-muted-foreground">
+				<div>
+					<p class="font-semibold text-foreground mb-1">Built From</p>
+					{#each scored.components as comp}
+						<div class="flex items-center justify-between py-0.5">
+							{#if comp.occupation}
+								<a href="/occupation/{comp.ssoc}" class="hover:text-primary"
+									>{comp.occupation.title} (SSOC {comp.ssoc})</a
+								>
+							{:else}
+								<span>SSOC {comp.ssoc} — not found</span>
+							{/if}
+							<span class="tabular-nums font-mono font-medium"
+								>{(comp.weight * 100).toFixed(0)}%</span
 							>
-								{comp.occupation.title}
-							</a>
-							<p class="mt-0.5 text-xs text-muted-foreground">
-								SSOC {comp.ssoc} &middot; Risk: {(comp.occupation.net_risk * 100).toFixed(0)}%
-								<span class={cn(riskBadge({ band: comp.occupation.risk_band }), 'ml-1')}>
-									{riskBandLabels[comp.occupation.risk_band]}
-								</span>
-							</p>
-						{:else}
-							<p class="text-sm font-medium text-muted-foreground">
-								SSOC {comp.ssoc} — not found in dataset
-							</p>
-						{/if}
-						<p class="mt-0.5 text-xs italic text-muted-foreground/70">{comp.rationale}</p>
-					</div>
+						</div>
+					{/each}
 				</div>
-			{/each}
-		</div>
-	</section>
-
-	<!-- 4. What AI Can and Can't Do -->
-	<section class={cn(card({ padding: 'md' }), 'mb-4')}>
-		<h2 class={cn(titleStyle({ size: 'section' }), 'mb-3')}>What AI Can and Can't Do</h2>
-		<div class="grid gap-4 sm:grid-cols-2">
-			<div class="rounded-lg bg-muted p-4">
-				<p class={cn(sectionLabel(), 'mb-1')}>AI can handle</p>
-				<p class="text-sm leading-relaxed text-foreground/80">{aiCanAndCant.canDo}</p>
-			</div>
-			<div class="rounded-lg bg-muted p-4">
-				<p class={cn(sectionLabel(), 'mb-1')}>Humans still needed for</p>
-				<p class="text-sm leading-relaxed text-foreground/80">{aiCanAndCant.cantDo}</p>
-			</div>
-		</div>
-	</section>
-
-	<!-- 5. Skills to Focus On -->
-	<section class={cn(card({ padding: 'md' }), 'mb-4')}>
-		<h2 class={cn(titleStyle({ size: 'section' }), 'mb-3')}>Skills to Focus On</h2>
-		<div class="grid gap-3 sm:grid-cols-2">
-			{#each skillRecommendations as skill}
-				<div class="rounded-lg border border-border/50 bg-muted p-4">
-					<p class="text-sm font-semibold text-foreground">{skill.label}</p>
-					<p class="mt-1 text-xs leading-relaxed text-muted-foreground">{skill.description}</p>
+				<div>
+					<p class="font-semibold text-foreground mb-1">Augmentation</p>
+					<p>
+						{augmentationBandLabels[scored.augmentation_band]} ({(
+							scored.augmentation * 100
+						).toFixed(0)}%)
+					</p>
 				</div>
-			{/each}
-		</div>
-	</section>
-
-	<!-- 6. Score Breakdown -->
-	<section class={cn(card({ padding: 'md' }), 'mb-4')}>
-		<h2 class={cn(titleStyle({ size: 'section' }), 'mb-3')}>Score Breakdown</h2>
-		<div class="space-y-3">
-			<div>
-				<div class="mb-1 flex items-center justify-between text-sm">
-					<span class="text-muted-foreground">AI Task Overlap <span class="text-xs text-muted-foreground/60">(Exposure)</span></span>
-					<span class="font-medium tabular-nums text-foreground">{(scored.exposure * 100).toFixed(0)}%</span>
+				<div>
+					<p class="font-semibold text-foreground mb-1">Dispersion</p>
+					<p class="font-mono">
+						{(scored.dispersion * 100).toFixed(1)}pp spread · {(
+							scored.risk_range.optimistic * 100
+						).toFixed(0)}%–{(scored.risk_range.pessimistic * 100).toFixed(0)}% range
+					</p>
 				</div>
-				<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
-					<div class="h-full rounded-full bg-risk-high transition-all duration-300" style="width: {Math.min(scored.exposure * 100, 100)}%;"></div>
+				<div>
+					<p class="font-semibold text-foreground mb-1">Raw Scores</p>
+					<p class="font-mono">
+						Exp {scored.exposure.toFixed(3)} · Bot {scored.bottleneck.toFixed(3)} · Mkt {scored.market_resilience.toFixed(
+							3
+						)}
+					</p>
 				</div>
 			</div>
-			<div>
-				<div class="mb-1 flex items-center justify-between text-sm">
-					<span class="text-muted-foreground">Human Advantage <span class="text-xs text-muted-foreground/60">(Bottleneck)</span></span>
-					<span class="font-medium tabular-nums text-foreground">{(scored.bottleneck * 100).toFixed(0)}%</span>
-				</div>
-				<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
-					<div class="h-full rounded-full bg-risk-very-low transition-all duration-300" style="width: {Math.min(scored.bottleneck * 100, 100)}%;"></div>
-				</div>
-			</div>
-			<div>
-				<div class="mb-1 flex items-center justify-between text-sm">
-					<span class="text-muted-foreground">Singapore Demand Buffer <span class="text-xs text-muted-foreground/60">(Market Resilience)</span></span>
-					<span class="font-medium tabular-nums text-foreground">{(scored.market_resilience * 100).toFixed(0)}%</span>
-				</div>
-				<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
-					<div class="h-full rounded-full bg-impact-leveraged transition-all duration-300" style="width: {Math.min(scored.market_resilience * 100, 100)}%;"></div>
-				</div>
-			</div>
-			<div class="border-t border-border/50 pt-3">
-				<div class="mb-1 flex items-center justify-between text-sm">
-					<span class="font-semibold text-foreground">AI Risk Score <span class="text-xs font-normal text-muted-foreground">(Net Displacement Risk)</span></span>
-					<span class="text-base font-bold tabular-nums text-foreground">{(scored.net_risk * 100).toFixed(0)}%</span>
-				</div>
-				<div class="h-3 w-full overflow-hidden rounded-full bg-muted">
-					<div class="h-full rounded-full" style="width: {Math.min(scored.net_risk * 100, 100)}%; background-color: {riskBandColors[scored.risk_band]};"></div>
-				</div>
-			</div>
-			<div class="border-t border-border/50 pt-3">
-				<div class="mb-1 flex items-center justify-between text-sm">
-					<span class="font-medium text-impact-leveraged">Augmentation Potential</span>
-					<span class="text-xs font-medium text-impact-leveraged">{augmentationBandLabels[scored.augmentation_band]}</span>
-				</div>
-				<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
-					<div class="h-full rounded-full bg-impact-leveraged transition-all duration-300" style="width: {Math.min(scored.augmentation * 100, 100)}%;"></div>
-				</div>
-				<div class="mt-0.5 text-right text-xs tabular-nums text-impact-leveraged">{(scored.augmentation * 100).toFixed(0)}%</div>
-			</div>
-		</div>
-		<p class="mt-3 text-xs text-muted-foreground">
-			Formula: Exposure &times; (1 - Bottleneck) &times; (1 - 0.35 &times; Market Resilience).
-			<a href="/methodology" class="underline hover:text-foreground/80">About this scoring</a>
-		</p>
-	</section>
-
-	<!-- 7. Explore Component Occupations -->
-	<section class={cn(card({ padding: 'md' }), 'mb-4')}>
-		<h2 class={cn(titleStyle({ size: 'section' }), 'mb-3')}>Explore Component Occupations</h2>
-		<p class="mb-3 text-sm text-muted-foreground">
-			Each component has its own detailed page with wage data, labour market signals, and evidence trail.
-		</p>
-		<div class="grid gap-2 sm:grid-cols-2">
-			{#each scored.components.filter(c => c.occupation) as comp}
-				<a
-					href="/occupation/{comp.ssoc}"
-					class="flex items-center justify-between rounded-lg border border-border/50 px-4 py-3 transition-colors hover:bg-muted"
-				>
-					<div class="min-w-0 flex-1">
-						<p class="truncate text-sm font-medium text-foreground">{comp.occupation?.title}</p>
-						<p class="text-xs text-muted-foreground">SSOC {comp.ssoc}</p>
-					</div>
-					<span
-						class={cn(riskBadge({ band: comp.occupation?.risk_band ?? 'moderate' }), 'ml-2 shrink-0')}
-					>
-						{riskBandLabels[comp.occupation?.risk_band ?? 'moderate']}
-					</span>
-				</a>
-			{/each}
-		</div>
-	</section>
-
-	<!-- Footer -->
-	<footer class="border-t border-border/50 pt-4 text-center text-xs text-muted-foreground">
-		<p>
-			Data: MOM Singapore | Felten AIOE | Pizzinelli/IMF | Anthropic | SOL 2026
-		</p>
-		<p class="mt-1">
-			Confidence: Medium &mdash; Synthetic role estimate based on weighted blend of official occupations
-		</p>
-	</footer>
+		</Collapsible.Content>
+	</Collapsible.Root>
 </main>

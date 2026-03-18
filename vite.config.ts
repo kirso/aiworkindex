@@ -9,5 +9,15 @@ export default defineConfig({
 	},
 	preview: {
 		port: 4174
+	},
+	build: {
+		chunkSizeWarningLimit: 1100,
+		rollupOptions: {
+			output: {
+				manualChunks(id) {
+					if (id.includes('occupations.json')) return 'occupation-data';
+				}
+			}
+		}
 	}
 });

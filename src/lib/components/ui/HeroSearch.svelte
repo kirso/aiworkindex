@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import type { Occupation } from '$lib/data';
-	import { riskBandLabels, riskBandColors } from '$lib/data';
+	import { riskBandLabels } from '$lib/data';
 	import { findAliasMatches } from '$lib/data/aliases';
 	import { syntheticRoles } from '$lib/data/synthetic-roles';
 	import type { SyntheticRole } from '$lib/data/synthetic-roles';
-	import { riskBadge, card, formInput } from '$lib/design-system';
+	import { riskBadge, card } from '$lib/design-system';
 	import { cn } from '$lib/utils';
+	import { Input } from '$lib/components/ui/input/index.js';
 
 	let {
 		occupations
@@ -22,36 +23,53 @@
 	let showDropdown = $state(false);
 	let selectedIndex = $state(-1);
 
-	let results = $derived.by(() => {
+	// Word-boundary matching for short queries
+	function titleMatches(title: string, q: string): boolean {
+		const t = title.toLowerCase();
+		if (q.length >= 4) return t.includes(q);
+		const words = t.split(/[\s/(),]+/);
+		return words.some(w => w.startsWith(q));
+	}
+
+	// Split results into grouped categories
+	let grouped = $derived.by(() => {
 		const q = query.trim().toLowerCase();
-		if (!q || q.length < 2) return [] as SearchResult[];
+		if (!q || q.length < 2)
+			return {
+				roles: [] as SearchResult[],
+				occupations: [] as SearchResult[],
+				flat: [] as SearchResult[]
+			};
 
-		const items: SearchResult[] = [];
+		const roles: SearchResult[] = [];
+		const occs: SearchResult[] = [];
 
-		// Synthetic role matches (shown first)
-		const roleMatches = syntheticRoles.filter((r) => r.title.toLowerCase().includes(q));
-		for (const role of roleMatches) {
-			items.push({ type: 'role', role });
+		// Synthetic role matches
+		const roleMatches = syntheticRoles.filter(r => titleMatches(r.title, q));
+		for (const role of roleMatches.slice(0, 5)) {
+			roles.push({ type: 'role', role });
 		}
 
-		// Direct title matches
-		let occMatches = occupations.filter((o) => o.title.toLowerCase().includes(q));
+		// Alias matches first (highest relevance)
+		const aliasHits = findAliasMatches(q);
+		const aliasSsocs = new Set(aliasHits.flatMap(m => m.ssocs));
+		const aliasOccs = aliasSsocs.size > 0 ? occupations.filter(o => aliasSsocs.has(o.ssoc)) : [];
 
-		// If no direct matches, try aliases
-		if (occMatches.length === 0) {
-			const aliasHits = findAliasMatches(q);
-			if (aliasHits.length > 0) {
-				const ssocs = new Set(aliasHits.flatMap((m) => m.ssocs));
-				occMatches = occupations.filter((o) => ssocs.has(o.ssoc));
-			}
+		// Direct title matches (excluding already-found alias matches)
+		const aliasSet = new Set(aliasOccs.map(o => o.ssoc));
+		const titleOccs = occupations.filter(o => !aliasSet.has(o.ssoc) && titleMatches(o.title, q));
+
+		// Alias results first, then title matches
+		const allOccs = [...aliasOccs, ...titleOccs];
+		for (const occ of allOccs.slice(0, 8)) {
+			occs.push({ type: 'occupation', occupation: occ });
 		}
 
-		for (const occ of occMatches.slice(0, 8)) {
-			items.push({ type: 'occupation', occupation: occ });
-		}
-
-		return items.slice(0, 10);
+		const flat = [...roles, ...occs].slice(0, 12);
+		return { roles, occupations: occs, flat };
 	});
+
+	let results = $derived(grouped.flat);
 
 	function handleKeydown(e: KeyboardEvent) {
 		if (e.key === 'ArrowDown') {
@@ -62,7 +80,7 @@
 			selectedIndex = Math.max(selectedIndex - 1, -1);
 		} else if (e.key === 'Enter' && selectedIndex >= 0 && results[selectedIndex]) {
 			e.preventDefault();
-			navigateToResult(results[selectedIndex]);
+			navigateToResult(results[selectedIndex]!);
 		} else if (e.key === 'Escape') {
 			showDropdown = false;
 		}
@@ -83,69 +101,127 @@
 	}
 
 	function handleBlur() {
-		// Delay to allow click on dropdown items
 		setTimeout(() => {
 			showDropdown = false;
 			selectedIndex = -1;
 		}, 200);
 	}
+
+	// Track flat index for keyboard nav across groups
+	function flatIndex(group: 'roles' | 'occupations', groupIdx: number): number {
+		if (group === 'roles') return groupIdx;
+		return grouped.roles.length + groupIdx;
+	}
 </script>
 
 <div class="relative mx-auto max-w-2xl">
 	<div class="relative">
-		<input
+		<Input
 			type="text"
 			placeholder="e.g., Software Developer, Nurse, Accountant..."
 			bind:value={query}
 			onkeydown={handleKeydown}
 			onfocus={handleFocus}
 			onblur={handleBlur}
-			class={cn(formInput({ size: 'lg' }), 'rounded-xl border-2 shadow-sm focus:ring-2 focus:ring-ring/30')}
+			aria-label="Search for an occupation or role"
+			class="h-12 rounded-xl border-2 text-base shadow-sm"
 		/>
 		{#if showDropdown && results.length > 0}
-			<div class={cn(card({ padding: 'none' }), 'absolute left-0 right-0 z-50 mt-2 max-h-80 overflow-y-auto shadow-lg')}>
-				{#each results as result, i}
-					{#if result.type === 'role'}
+			<div
+				role="listbox"
+				class={cn(
+					card({ padding: 'none' }),
+					'absolute left-0 right-0 z-50 mt-2 max-h-96 overflow-y-auto shadow-lg'
+				)}
+			>
+				<!-- Estimated Modern Roles group -->
+				{#if grouped.roles.length > 0}
+					<div class="border-b border-border/50 px-4 py-1.5">
+						<span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+							>Estimated Modern Roles</span
+						>
+					</div>
+					{#each grouped.roles as result, i}
 						<button
 							type="button"
-							class="flex w-full items-center justify-between px-5 py-3 text-left text-sm transition-colors hover:bg-muted
-								{i === selectedIndex ? 'bg-accent' : ''}"
+							role="option"
+							aria-selected={flatIndex('roles', i) === selectedIndex}
+							class="flex w-full items-center justify-between px-5 py-2.5 text-left text-sm transition-colors hover:bg-muted
+								{flatIndex('roles', i) === selectedIndex ? 'bg-accent' : ''}"
 							onmousedown={() => navigateToResult(result)}
 						>
 							<div class="min-w-0 flex-1">
-								<p class="truncate font-medium text-foreground">{result.role.title}</p>
-								<p class="mt-0.5 text-xs text-amber-600">
-									Estimated modern role &middot; Medium confidence
+								<p class="truncate font-medium text-foreground">
+									{result.type === 'role' ? result.role.title : ''}
+								</p>
+								<p class="mt-0.5 text-xs text-risk-moderate">
+									Weighted blend of official occupations
 								</p>
 							</div>
-							<span class="ml-3 shrink-0 rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-700">
+							<span
+								class="ml-3 shrink-0 rounded-full bg-risk-moderate-subtle px-2.5 py-0.5 text-xs font-medium text-risk-moderate"
+							>
 								Estimate
 							</span>
 						</button>
-					{:else}
-						<button
-							type="button"
-							class="flex w-full items-center justify-between px-5 py-3 text-left text-sm transition-colors hover:bg-muted
-								{i === selectedIndex ? 'bg-accent' : ''}"
-							onmousedown={() => navigateToResult(result)}
+					{/each}
+				{/if}
+
+				<!-- Official Occupations group -->
+				{#if grouped.occupations.length > 0}
+					<div
+						class="border-b border-border/50 px-4 py-1.5 {grouped.roles.length > 0
+							? 'border-t'
+							: ''}"
+					>
+						<span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+							>Official Occupations</span
 						>
-							<div class="min-w-0 flex-1">
-								<p class="truncate font-medium text-foreground">{result.occupation.title}</p>
-								<p class="mt-0.5 text-xs text-muted-foreground">
-									SSOC {result.occupation.ssoc} &middot; SGD {result.occupation.gross_wage_median.toLocaleString()} median
-								</p>
-							</div>
-							<span class={cn(riskBadge({ band: result.occupation.risk_band }), 'ml-3 shrink-0')}>
-								{riskBandLabels[result.occupation.risk_band]}
-							</span>
-						</button>
-					{/if}
-				{/each}
+					</div>
+					{#each grouped.occupations as result, i}
+						{@const occ = result.type === 'occupation' ? result.occupation : null}
+						{#if occ}
+							<button
+								type="button"
+								role="option"
+								aria-selected={flatIndex('occupations', i) === selectedIndex}
+								class="flex w-full items-center justify-between px-5 py-2.5 text-left text-sm transition-colors hover:bg-muted
+									{flatIndex('occupations', i) === selectedIndex ? 'bg-accent' : ''}"
+								onmousedown={() => navigateToResult(result)}
+							>
+								<div class="min-w-0 flex-1">
+									<p class="truncate font-medium text-foreground">{occ.title}</p>
+									<p class="mt-0.5 text-xs text-muted-foreground">
+										SSOC {occ.ssoc} &middot; SGD {occ.gross_wage_median.toLocaleString()} median
+									</p>
+								</div>
+								<span class={cn(riskBadge({ band: occ.risk_band }), 'ml-3 shrink-0')}>
+									{riskBandLabels[occ.risk_band]}
+								</span>
+							</button>
+						{/if}
+					{/each}
+				{/if}
 			</div>
 		{/if}
 		{#if showDropdown && query.trim().length >= 2 && results.length === 0}
-			<div class={cn(card({ padding: 'md' }), 'absolute left-0 right-0 z-50 mt-2 text-sm text-muted-foreground shadow-lg')}>
-				No occupations found for "{query.trim()}". Try a different job title.
+			<div class={cn(card({ padding: 'md' }), 'absolute left-0 right-0 z-50 mt-2 shadow-lg')}>
+				<p class="text-sm text-muted-foreground">
+					No occupations found for "<span class="font-medium text-foreground">{query.trim()}</span
+					>".
+				</p>
+				<p class="mt-2 text-sm text-muted-foreground">
+					Try a different job title, or browse our <a
+						href="/rankings"
+						class="text-primary underline">rankings</a
+					> to explore all occupations.
+				</p>
+				<div class="mt-3 border-t border-border/50 pt-3">
+					<p class="text-xs text-muted-foreground">
+						We cover 562 official Singapore occupations and {syntheticRoles.length} estimated modern roles.
+						If your role isn't listed, it may fall under a broader SSOC category.
+					</p>
+				</div>
 			</div>
 		{/if}
 	</div>

@@ -5,7 +5,11 @@
 	import type { Occupation, RiskBand } from '$lib/data';
 	import { majorGroups, riskBandLabels, riskBandColors } from '$lib/data';
 	import { findAliasMatches } from '$lib/data/aliases';
-	import { chip, formInput } from '$lib/design-system';
+	import { chip } from '$lib/design-system';
+	import { Slider } from '$lib/components/ui/slider/index.js';
+	import { Input } from '$lib/components/ui/input/index.js';
+	import { Label } from '$lib/components/ui/label/index.js';
+	import { Button } from '$lib/components/ui/button/index.js';
 
 	let {
 		occupations,
@@ -21,7 +25,7 @@
 	let wageMin = $state(0);
 	let wageMax = $state(30000);
 	let selectedCategory = $state('all');
-	let mobileOpen = $state(false);
+	let _mobileOpen = $state(false);
 	let initialized = $state(false);
 
 	// Wage bounds
@@ -76,31 +80,29 @@
 		if (search.trim()) {
 			const q = search.trim().toLowerCase();
 			// Direct title match
-			const directMatches = result.filter((o) => o.title.toLowerCase().includes(q));
+			const directMatches = result.filter(o => o.title.toLowerCase().includes(q));
 
 			if (directMatches.length > 0) {
 				result = directMatches;
 			} else if (aliasMatches.length > 0) {
 				// Fall back to alias matches
-				const aliasSSocs = new Set(aliasMatches.flatMap((m) => m.ssocs));
-				result = result.filter((o) => aliasSSocs.has(o.ssoc));
+				const aliasSSocs = new Set(aliasMatches.flatMap(m => m.ssocs));
+				result = result.filter(o => aliasSSocs.has(o.ssoc));
 			} else {
 				result = directMatches; // empty
 			}
 		}
 
 		if (selectedGroups.size > 0) {
-			result = result.filter((o) => selectedGroups.has(o.major_group));
+			result = result.filter(o => selectedGroups.has(o.major_group));
 		}
 
 		if (wageMin > WAGE_FLOOR || wageMax < WAGE_CEIL) {
-			result = result.filter(
-				(o) => o.gross_wage_median >= wageMin && o.gross_wage_median <= wageMax
-			);
+			result = result.filter(o => o.gross_wage_median >= wageMin && o.gross_wage_median <= wageMax);
 		}
 
 		if (selectedCategory !== 'all') {
-			result = result.filter((o) => o.risk_band === selectedCategory);
+			result = result.filter(o => o.risk_band === selectedCategory);
 		}
 
 		return result;
@@ -110,7 +112,7 @@
 	let showDidYouMean = $derived.by(() => {
 		if (!search.trim() || search.trim().length < 2) return false;
 		const q = search.trim().toLowerCase();
-		const hasDirectMatch = occupations.some((o) => o.title.toLowerCase().includes(q));
+		const hasDirectMatch = occupations.some(o => o.title.toLowerCase().includes(q));
 		return !hasDirectMatch && aliasMatches.length > 0;
 	});
 
@@ -156,27 +158,27 @@
 
 	let hasActiveFilters = $derived(
 		search.trim() !== '' ||
-		selectedGroups.size > 0 ||
-		wageMin > WAGE_FLOOR ||
-		wageMax < WAGE_CEIL ||
-		selectedCategory !== 'all'
+			selectedGroups.size > 0 ||
+			wageMin > WAGE_FLOOR ||
+			wageMax < WAGE_CEIL ||
+			selectedCategory !== 'all'
 	);
 </script>
 
 <div class="space-y-4">
 	<!-- Filter by name -->
 	<div>
-		<label for="occ-search" class="mb-1 block text-xs font-medium text-muted-foreground">Filter by name</label>
-		<input
+		<Label for="occ-search" class="mb-1 text-xs">Filter by name</Label>
+		<Input
 			id="occ-search"
 			type="text"
 			placeholder="Filter occupations..."
 			bind:value={search}
-			class={formInput({ size: 'md' })}
+			aria-label="Search occupations by title"
 		/>
 		{#if showDidYouMean}
 			<p class="mt-1.5 text-xs text-muted-foreground">
-				Matched via alias: {aliasMatches.map((m) => `"${m.alias}"`).join(', ')}
+				Matched via alias: {aliasMatches.map(m => `"${m.alias}"`).join(', ')}
 				<span class="text-muted-foreground">({filtered.length} results)</span>
 			</p>
 		{/if}
@@ -185,7 +187,7 @@
 	<!-- Risk band chips -->
 	<div>
 		<span class="mb-1.5 block text-xs font-medium text-muted-foreground">Risk Band</span>
-		<div class="flex flex-wrap gap-1.5">
+		<div class="flex flex-wrap gap-1.5" aria-label="Filter by risk level">
 			{#each riskBandOptions as opt (opt.key)}
 				{@const isActive = selectedCategory === opt.key}
 				{@const bandColor = opt.key !== 'all' ? riskBandColors[opt.key as RiskBand] : undefined}
@@ -211,16 +213,16 @@
 		<span class="mb-1.5 block text-xs font-medium text-muted-foreground">Major Group</span>
 		<div class="space-y-1">
 			{#each majorGroups as group (group.key)}
-				<label class="flex cursor-pointer items-center gap-2 rounded px-1 py-0.5 text-sm text-foreground/80 hover:bg-muted">
+				<label
+					class="flex cursor-pointer items-center gap-2 rounded px-1 py-0.5 text-sm text-foreground/80 hover:bg-muted"
+				>
 					<input
 						type="checkbox"
 						checked={selectedGroups.has(group.key)}
 						onchange={() => toggleGroup(group.key)}
 						class="h-3.5 w-3.5 rounded border-border"
 					/>
-					<span
-						class="inline-block h-2.5 w-2.5 rounded-sm"
-						style="background-color: {group.color};"
+					<span class="inline-block h-2.5 w-2.5 rounded-sm" style="background-color: {group.color};"
 					></span>
 					<span class="truncate text-xs">{group.label}</span>
 				</label>
@@ -233,27 +235,25 @@
 		<span class="mb-1.5 block text-xs font-medium text-muted-foreground">
 			Wage Range: SGD {wageMin.toLocaleString()} &ndash; SGD {wageMax.toLocaleString()}
 		</span>
-		<div class="space-y-2">
+		<div class="space-y-3">
 			<div class="flex items-center gap-2">
-				<span class="text-xs text-muted-foreground">Min</span>
-				<input
-					type="range"
+				<span class="w-7 text-xs text-muted-foreground">Min</span>
+				<Slider
+					bind:value={wageMin}
 					min={WAGE_FLOOR}
 					max={WAGE_CEIL}
 					step={WAGE_STEP}
-					bind:value={wageMin}
-					class="h-1.5 w-full cursor-pointer accent-gray-700"
+					class="flex-1"
 				/>
 			</div>
 			<div class="flex items-center gap-2">
-				<span class="text-xs text-muted-foreground">Max</span>
-				<input
-					type="range"
+				<span class="w-7 text-xs text-muted-foreground">Max</span>
+				<Slider
+					bind:value={wageMax}
 					min={WAGE_FLOOR}
 					max={WAGE_CEIL}
 					step={WAGE_STEP}
-					bind:value={wageMax}
-					class="h-1.5 w-full cursor-pointer accent-gray-700"
+					class="flex-1"
 				/>
 			</div>
 		</div>
@@ -261,13 +261,11 @@
 
 	<!-- Clear -->
 	{#if hasActiveFilters}
-		<button
-			type="button"
-			class="w-full rounded-md border border-border bg-card px-3 py-1.5 text-xs font-medium text-muted-foreground hover:bg-muted"
-			onclick={clearFilters}
-		>
+		<Button variant="outline" size="sm" class="w-full text-xs" onclick={clearFilters}>
 			Clear all filters
-		</button>
-		<p class="text-xs text-muted-foreground">{filtered.length} of {occupations.length} occupations</p>
+		</Button>
+		<p class="text-xs text-muted-foreground">
+			{filtered.length} of {occupations.length} occupations
+		</p>
 	{/if}
 </div>

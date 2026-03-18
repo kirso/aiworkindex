@@ -26,8 +26,12 @@
 			<span class={riskBadge({ band: occupation.risk_band })}>
 				{riskBandLabels[occupation.risk_band]}
 			</span>
-			<span class="text-xs text-muted-foreground">SGD {occupation.gross_wage_median.toLocaleString()}/mo</span>
+			<span class="text-xs text-muted-foreground"
+				>SGD {occupation.gross_wage_median.toLocaleString()}/mo</span
+			>
 		</div>
-		<p class="mt-1.5 text-xs text-muted-foreground">{impactTypeLabels[occupation.impact_type]} · Click for details</p>
+		<p class="mt-1.5 text-xs text-muted-foreground">
+			{impactTypeLabels[occupation.impact_type]} · Click for details
+		</p>
 	</div>
 {/if}

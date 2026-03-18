@@ -6,7 +6,7 @@
 	import * as d3Hierarchy from 'd3-hierarchy';
 	import type { HierarchyRectangularNode } from 'd3-hierarchy';
 	import type { Occupation } from '$lib/data';
-	import { majorGroups, majorGroupByKey, riskBandLabels, riskBandColors } from '$lib/data';
+	import { majorGroupByKey, riskBandLabels } from '$lib/data';
 	import { riskColorScale } from '$lib/design-system';
 	import Tooltip from './Tooltip.svelte';
 
@@ -30,9 +30,6 @@
 	let tooltipVisible = $state(false);
 
 	// Color scale: major group key -> color (for group backgrounds)
-	const colorByGroup = new Map<string, string>(
-		majorGroups.map((g) => [g.key, g.color])
-	);
 
 	// Group occupations by major_group
 	let groupedOccupations = $derived.by(() => {
@@ -94,9 +91,7 @@
 		return root;
 	});
 
-	let overviewNodes = $derived(
-		(overviewRoot.children ?? []) as HierarchyRectangularNode<any>[]
-	);
+	let overviewNodes = $derived((overviewRoot.children ?? []) as HierarchyRectangularNode<any>[]);
 
 	// ZOOMED MODE: hierarchy of occupations within the selected group
 	let zoomedHierarchyData = $derived.by(() => {
@@ -104,7 +99,7 @@
 		const occs = groupedOccupations.get(zoomedGroup) ?? [];
 		return {
 			name: zoomedGroup,
-			children: occs.map((o) => ({
+			children: occs.map(o => ({
 				name: o.title,
 				value: Math.max(o.gross_wage_median, 1),
 				occupation: o
@@ -130,15 +125,13 @@
 		return root;
 	});
 
-	let zoomedLeaves = $derived(
-		(zoomedRoot?.leaves() ?? []) as HierarchyRectangularNode<any>[]
-	);
+	let zoomedLeaves = $derived((zoomedRoot?.leaves() ?? []) as HierarchyRectangularNode<any>[]);
 
 	// ResizeObserver
 	$effect(() => {
 		if (!browser || !containerEl) return;
 
-		const observer = new ResizeObserver((entries) => {
+		const observer = new ResizeObserver(entries => {
 			for (const entry of entries) {
 				const rect = entry.contentRect;
 				width = rect.width;
@@ -216,119 +209,136 @@
 			<span aria-hidden="true">&larr;</span> Back to all groups
 		</button>
 		<p class="mb-2 text-sm text-muted-foreground">
-			{groupLabel(zoomedGroup)} &mdash; {groupedOccupations.get(zoomedGroup)?.length ?? 0} occupations. Click a cell to view details.
+			{groupLabel(zoomedGroup)} &mdash; {groupedOccupations.get(zoomedGroup)?.length ?? 0} occupations.
+			Click a cell to view details.
 		</p>
 	{:else}
-		<p class="mb-2 text-sm text-muted-foreground">
-			Click a group to explore its occupations.
-		</p>
+		<p class="mb-2 text-sm text-muted-foreground">Click a group to explore its occupations.</p>
 	{/if}
 
 	{#if browser}
 		{#if !zoomedGroup}
 			<!-- OVERVIEW: Major group rectangles -->
 			<div in:fade={{ duration: fadeDuration }}>
-			<svg {width} {height} class="block" role="img" aria-label="Treemap showing 9 major occupation groups in Singapore, sized by total employment. Click a group to zoom in.">
-				{#each overviewNodes as node (node.data.name)}
-					{@const nw = cellWidth(node)}
-					{@const nh = cellHeight(node)}
-					{@const groupColor = colorByGroup.get(node.data.name) ?? '#ccc'}
-					{@const avgRisk = node.data.avgRisk ?? 0}
-					<rect
-						x={node.x0}
-						y={node.y0}
-						width={nw}
-						height={nh}
-						fill={riskColorScale(avgRisk)}
-						stroke={groupColor}
-						stroke-width="2"
-						opacity="0.85"
-						rx="3"
-						class="cursor-pointer transition-opacity duration-150 hover:opacity-100"
-						role="button"
-						tabindex="0"
-						aria-label="{groupLabel(node.data.name)}: {node.data.count} occupations, average net risk {(avgRisk * 100).toFixed(0)}%"
-						onclick={() => handleClickGroup(node.data.name)}
-						onkeydown={(e) => {
-							if (e.key === 'Enter') handleClickGroup(node.data.name);
-						}}
-					>
-					</rect>
+				<svg
+					{width}
+					{height}
+					class="block"
+					role="img"
+					aria-label="Treemap showing 9 major occupation groups in Singapore, sized by total employment. Click a group to zoom in."
+				>
+					{#each overviewNodes as node (node.data.name)}
+						{@const nw = cellWidth(node)}
+						{@const nh = cellHeight(node)}
+						{@const avgRisk = node.data.avgRisk ?? 0}
+						<rect
+							x={node.x0}
+							y={node.y0}
+							width={nw}
+							height={nh}
+							fill={riskColorScale(avgRisk)}
+							stroke="var(--border)"
+							stroke-width="1"
+							opacity="0.9"
+							rx="4"
+							class="cursor-pointer transition-opacity duration-150 hover:opacity-100"
+							role="button"
+							tabindex="0"
+							aria-label="{groupLabel(node.data.name)}: {node.data
+								.count} occupations, average net risk {(avgRisk * 100).toFixed(0)}%"
+							onclick={() => handleClickGroup(node.data.name)}
+							onkeydown={e => {
+								if (e.key === 'Enter') handleClickGroup(node.data.name);
+							}}
+						>
+						</rect>
 
-					{#if shouldShowGroupLabel(node)}
-						<text
-							x={node.x0 + nw / 2}
-							y={node.y0 + nh / 2 - 6}
-							text-anchor="middle"
-							class="pointer-events-none fill-white text-xs font-semibold"
-							style="text-shadow: 0 1px 3px rgba(0,0,0,0.6);"
-						>
-							{truncateLabel(groupLabel(node.data.name), nw - 12)}
-						</text>
-						<text
-							x={node.x0 + nw / 2}
-							y={node.y0 + nh / 2 + 10}
-							text-anchor="middle"
-							class="pointer-events-none fill-white/80 text-[10px]"
-							style="text-shadow: 0 1px 3px rgba(0,0,0,0.6);"
-						>
-							({node.data.count})
-						</text>
-					{/if}
-				{/each}
-			</svg>
+						{#if shouldShowGroupLabel(node)}
+							<text
+								x={node.x0 + nw / 2}
+								y={node.y0 + nh / 2 - 6}
+								text-anchor="middle"
+								class="pointer-events-none fill-white text-xs font-semibold"
+								style="text-shadow: 0 1px 3px rgba(0,0,0,0.6);"
+							>
+								{truncateLabel(groupLabel(node.data.name), nw - 12)}
+							</text>
+							<text
+								x={node.x0 + nw / 2}
+								y={node.y0 + nh / 2 + 10}
+								text-anchor="middle"
+								class="pointer-events-none fill-white/80 text-xs"
+								style="text-shadow: 0 1px 3px rgba(0,0,0,0.6);"
+							>
+								({node.data.count})
+							</text>
+						{/if}
+					{/each}
+				</svg>
 			</div>
 		{:else}
 			<!-- ZOOMED: Occupations within the selected group -->
 			<div in:fade={{ duration: fadeDuration }}>
-			<svg {width} {height} class="block" role="img" aria-label="Treemap showing occupations in {groupLabel(zoomedGroup)}, sized by median wage and shaded by net AI displacement risk">
-				{#each zoomedLeaves as leaf (leaf.data.occupation?.ssoc ?? leaf.data.name)}
-					{@const occ = leaf.data.occupation as Occupation}
-					{@const lw = cellWidth(leaf)}
-					{@const lh = cellHeight(leaf)}
-					<rect
-						x={leaf.x0}
-						y={leaf.y0}
-						width={lw}
-						height={lh}
-						fill={riskColorScale(occ.net_risk)}
-						opacity="0.85"
-						rx="1"
-						class="cursor-pointer transition-opacity duration-150 hover:opacity-100"
-						role="button"
-						tabindex="0"
-						aria-label="{occ.title}: Net Risk {(occ.net_risk * 100).toFixed(0)}%, {riskBandLabels[occ.risk_band]}, median wage SGD {occ.gross_wage_median.toLocaleString()}"
-						onmousemove={(e) => handleMouseMoveOcc(e, occ)}
-						onmouseleave={handleMouseLeave}
-						onclick={() => handleClickOcc(occ)}
-						onkeydown={(e) => {
-							if (e.key === 'Enter') handleClickOcc(occ);
-						}}
-					>
-						<!-- No <title> — our custom Tooltip handles hover display -->
-					</rect>
-
-					{#if shouldShowLabel(leaf)}
-						<text
-							x={leaf.x0 + 3}
-							y={leaf.y0 + 13}
-							class="pointer-events-none fill-white text-[10px]"
-							style="text-shadow: 0 1px 2px rgba(0,0,0,0.5);"
+				<svg
+					{width}
+					{height}
+					class="block"
+					role="img"
+					aria-label="Treemap showing occupations in {groupLabel(
+						zoomedGroup
+					)}, sized by median wage and shaded by net AI displacement risk"
+				>
+					{#each zoomedLeaves as leaf (leaf.data.occupation?.ssoc ?? leaf.data.name)}
+						{@const occ = leaf.data.occupation as Occupation}
+						{@const lw = cellWidth(leaf)}
+						{@const lh = cellHeight(leaf)}
+						<rect
+							x={leaf.x0}
+							y={leaf.y0}
+							width={lw}
+							height={lh}
+							fill={riskColorScale(occ.net_risk)}
+							opacity="0.85"
+							rx="1"
+							class="cursor-pointer transition-opacity duration-150 hover:opacity-100"
+							role="button"
+							tabindex="0"
+							aria-label="{occ.title}: Net Risk {(occ.net_risk * 100).toFixed(0)}%, {riskBandLabels[
+								occ.risk_band
+							]}, median wage SGD {occ.gross_wage_median.toLocaleString()}"
+							onmousemove={e => handleMouseMoveOcc(e, occ)}
+							onmouseleave={handleMouseLeave}
+							onclick={() => handleClickOcc(occ)}
+							onkeydown={e => {
+								if (e.key === 'Enter') handleClickOcc(occ);
+							}}
 						>
-							{truncateLabel(occ.title, lw)}
-						</text>
-					{/if}
-				{/each}
-			</svg>
+							<!-- No <title> — our custom Tooltip handles hover display -->
+						</rect>
+
+						{#if shouldShowLabel(leaf)}
+							<text
+								x={leaf.x0 + 3}
+								y={leaf.y0 + 13}
+								class="pointer-events-none fill-white text-xs"
+								style="text-shadow: 0 1px 2px rgba(0,0,0,0.5);"
+							>
+								{truncateLabel(occ.title, lw)}
+							</text>
+						{/if}
+					{/each}
+				</svg>
 			</div>
 		{/if}
 
 		<!-- Screen reader summary -->
 		<div class="sr-only">
 			{#if zoomedGroup}
-				Showing {zoomedLeaves.length} occupations in {groupLabel(zoomedGroup)}. Use keyboard Tab to navigate between cells and Enter to view details.
+				Showing {zoomedLeaves.length} occupations in {groupLabel(zoomedGroup)}. Use keyboard Tab to
+				navigate between cells and Enter to view details.
 			{:else}
-				Treemap showing {overviewNodes.length} major occupation groups. Use Tab to navigate and Enter to zoom into a group.
+				Treemap showing {overviewNodes.length} major occupation groups. Use Tab to navigate and Enter
+				to zoom into a group.
 			{/if}
 		</div>
 	{:else}
@@ -341,13 +351,11 @@
 <!-- Color Legend -->
 <div class="mt-3 flex items-center gap-2">
 	<span class="text-xs text-muted-foreground">Lower AI Risk</span>
-	<div class="h-2.5 flex-1 rounded-full" style="background: linear-gradient(to right, #10b981, #f59e0b, #f97316, #f43f5e);"></div>
+	<div
+		class="h-2.5 flex-1 rounded-full"
+		style="background: linear-gradient(to right, var(--color-risk-very-low), var(--color-risk-moderate), var(--color-risk-high), var(--color-risk-very-high));"
+	></div>
 	<span class="text-xs text-muted-foreground">Higher AI Risk</span>
 </div>
 
-<Tooltip
-	occupation={tooltipOccupation}
-	x={tooltipX}
-	y={tooltipY}
-	visible={tooltipVisible}
-/>
+<Tooltip occupation={tooltipOccupation} x={tooltipX} y={tooltipY} visible={tooltipVisible} />

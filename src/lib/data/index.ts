@@ -1,7 +1,7 @@
 import occupationsData from './occupations.json';
 import majorGroupsData from './major-groups.json';
 
-// V3 types
+// V3.1 types
 export type RiskBand = 'very_low' | 'low' | 'moderate' | 'high' | 'very_high';
 
 export interface MarketScores {
@@ -25,6 +25,10 @@ export interface EvidenceSignals {
 	anthropic_observed_pctile: number | null;
 	sol_match: 'exact' | 'prefix' | false;
 	jobs_in_demand_match: 'exact' | 'prefix' | false;
+	/** GPTs-are-GPTs (Eloundou et al. 2023) exposure percentile, if matched via SOC crosswalk */
+	gpt_exposure?: number | null;
+	/** Agreement across exposure measures: consensus_high, consensus_low, divergent, insufficient_data */
+	exposure_agreement?: string | null;
 }
 
 export interface StabilityScores {
@@ -45,6 +49,8 @@ export interface LabourClusterMonitor {
 		trend_4q_pct: number;
 		signal: 1 | 0 | -1;
 		recent_quarters: Array<{ quarter: string; rate: number }>;
+		/** Annual rates for sparkline: 2022, 2023, 2024, latest */
+		annual_rates?: Array<{ year: string; rate: number }>;
 	};
 	hiring: {
 		recruitment_rate: number;
@@ -58,9 +64,19 @@ export interface LabourClusterMonitor {
 		trend_4q_pct: number;
 		signal: 1 | 0 | -1;
 		recent_quarters: Array<{ quarter: string; count: number }>;
+		/** Per 1,000 employees */
+		incidence_per_1000?: number;
 	} | null;
+	/** Re-entry rate for retrenched workers */
+	re_entry?: {
+		rate_6m: number;
+		rate_12m: number;
+		quarter: string;
+	};
 	overall: 'strong' | 'moderate' | 'weak' | 'deteriorating';
+	summary?: string;
 	data_as_of: string;
+	source?: string;
 }
 
 export interface RawScores {
@@ -93,7 +109,7 @@ export interface Occupation {
 	gross_wage_75th: number;
 	employment_thousands: number;
 	group_employment_thousands: number;
-	// V3 fields
+	// V3.1 fields
 	exposure: number;
 	bottleneck: number;
 	market: MarketScores;
@@ -111,6 +127,8 @@ export interface Occupation {
 	match_quality: string;
 	// Backward-compat
 	scores: OccupationScores;
+	// Optional workflow overlay (Phase 1A)
+	workflow_overlay?: import('./workflow-overlay').WorkflowOverlay;
 }
 
 export interface MajorGroup {
