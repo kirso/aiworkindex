@@ -1314,12 +1314,11 @@
 					<span class={caption()}>February 2026</span>
 				</div>
 				<p class="mt-1 text-sm text-muted-foreground">
-					Three-layer scoring: exposure (AIOE), bottleneck (theta), market resilience. Produces:
-					net risk, augmentation, impact type, stability, confidence. Anthropic observed-usage
-					calibration. SOL 2026 and Jobs in Demand 2025 demand signals. Cluster-level labour
-					monitor (Q3 2025 vacancy, recruitment/resignation, retrenchment, re-entry rates).
-					Stability stress testing. 75 estimated modern roles. Rule-based outlook/scenario engine
-					with 3 presets.
+					Three-layer scoring: exposure (AIOE), bottleneck (theta), market resilience. Produces: net
+					risk, augmentation, impact type, stability, confidence. Anthropic observed-usage
+					calibration. SOL 2026 and Jobs in Demand 2025 demand signals. Cluster-level labour monitor
+					(Q3 2025 vacancy, recruitment/resignation, retrenchment, re-entry rates). Stability stress
+					testing. 75 estimated modern roles. Rule-based outlook/scenario engine with 3 presets.
 				</p>
 			</div>
 			<div class={cn(card({ variant: 'inset', padding: 'sm' }))}>

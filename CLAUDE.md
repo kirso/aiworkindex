@@ -107,11 +107,11 @@ These thresholds appear in `score.ts`, `synthetic-roles.ts`, `validate.ts`, and 
 | high | 0.30–0.50 | High |
 | very_high | ≥ 0.50 | Very High |
 
-**Impact type logic:**
+**Impact type logic** (displacement × augmentation matrix):
 - `ai_leveraged`: net_risk < 0.25 AND augmentation ≥ 0.12
-- `at_risk`: net_risk ≥ 0.25 AND augmentation < 0.12
-- `stable`: exposure < 0.3
-- `mixed`: everything else
+- `at_risk`: net_risk ≥ 0.25 AND augmentation < 0.12 AND no demand signal
+- `mixed`: net_risk ≥ 0.25 AND (augmentation ≥ 0.12 OR has SOL/JiD demand signal)
+- `stable`: net_risk < 0.25 AND augmentation < 0.12
 
 ## Code Quality
 
