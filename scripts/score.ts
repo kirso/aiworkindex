@@ -1742,6 +1742,40 @@ async function main() {
 		labourMonitors
 	);
 
+	// Apply sub-major group employment data (2-digit SSOC, from Labour Force 2024 Table D8)
+	// This replaces the uniform major-group allocation with real sub-major employment
+	const subMajorEmployment: Record<string, number> = {
+		'11': 50.3, '12': 187.6, '13': 122.1, '14': 44.8,
+		'21': 157.1, '22': 58.3, '23': 62.3, '24': 221.4, '25': 76.4, '26': 44.6,
+		'31': 104.9, '32': 17.7, '33': 248.9, '34': 38.4, '35': 26.2, '36': 45.8, '39': 1.2,
+		'40': 3.9, '41': 99.9, '42': 50.1, '43': 50.9, '44': 4.8,
+		'51': 74.9, '52': 106.6, '53': 19.6, '54': 40.4, '59': 0.2,
+		'61': 2.7, '62': 2.7,
+		'71': 18.4, '72': 13.5, '73': 2.5, '74': 10.9, '75': 9.5,
+		'81': 9.7, '82': 6.3, '83': 112.4,
+		'91': 73.5, '92': 1.1, '93': 29.9, '94': 38.5, '96': 22.7
+	};
+
+	// Count occupations per sub-major group
+	const subMajorCounts: Record<string, number> = {};
+	for (const r of results) {
+		const prefix2 = r.ssoc.substring(0, 2);
+		subMajorCounts[prefix2] = (subMajorCounts[prefix2] || 0) + 1;
+	}
+
+	// Allocate employment proportionally within each sub-major group
+	let updated = 0;
+	for (const r of results) {
+		const prefix2 = r.ssoc.substring(0, 2);
+		const groupEmp = subMajorEmployment[prefix2];
+		const groupCount = subMajorCounts[prefix2];
+		if (groupEmp !== undefined && groupCount) {
+			(r as any).employment_thousands = round(groupEmp / groupCount, 1);
+			updated++;
+		}
+	}
+	console.log(`\nUpdated employment_thousands for ${updated}/${results.length} occupations using sub-major group data (Labour Force 2024 Table D8)`);
+
 	// Distribution analysis
 	printDistributionAnalysis(results);
 
