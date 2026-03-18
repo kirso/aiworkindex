@@ -12,6 +12,7 @@
 	import { riskBandLabels, riskBandColors, impactTypeLabels, impactTypeColors } from '$lib/data';
 	import type { RiskBand, ImpactType } from '$lib/data';
 	import { SITE, DATA_VINTAGE } from '$lib/data/scoring-constants';
+	import { shortTitle } from '$lib/data/display-names';
 
 	let { data } = $props();
 
@@ -301,7 +302,7 @@
 								class="flex items-center gap-1.5 rounded-sm py-1 hover:bg-accent transition-colors text-xs"
 							>
 								<span class="font-mono font-bold text-risk-very-high w-3">{i + 1}</span>
-								<span class="flex-1 text-foreground truncate">{occ.title}</span>
+								<span class="flex-1 text-foreground truncate">{shortTitle(occ.title)}</span>
 								<span class="shrink-0 font-mono text-risk-very-high"
 									>{(occ.net_risk * 100).toFixed(0)}%</span
 								>
@@ -323,7 +324,7 @@
 								class="flex items-center gap-1.5 rounded-sm py-1 hover:bg-accent transition-colors text-xs"
 							>
 								<span class="font-mono font-bold text-risk-very-low w-3">{i + 1}</span>
-								<span class="flex-1 text-foreground truncate">{occ.title}</span>
+								<span class="flex-1 text-foreground truncate">{shortTitle(occ.title)}</span>
 								<span class="shrink-0 font-mono text-risk-very-low"
 									>{(occ.net_risk * 100).toFixed(0)}%</span
 								>
@@ -344,7 +345,7 @@
 								class="flex items-center gap-1.5 rounded-sm py-1 hover:bg-accent transition-colors text-xs"
 							>
 								<span class="font-mono font-bold text-impact-leveraged w-3">{i + 1}</span>
-								<span class="flex-1 text-foreground truncate">{occ.title}</span>
+								<span class="flex-1 text-foreground truncate">{shortTitle(occ.title)}</span>
 								<span class="shrink-0 font-mono text-muted-foreground"
 									>{riskBandLabels[occ.risk_band]}</span
 								>
@@ -367,7 +368,7 @@
 								class="flex items-center gap-1.5 rounded-sm py-1 hover:bg-accent transition-colors text-xs"
 							>
 								<span class="font-mono font-bold text-risk-very-low w-3">{i + 1}</span>
-								<span class="flex-1 text-foreground truncate">{occ.title}</span>
+								<span class="flex-1 text-foreground truncate">{shortTitle(occ.title)}</span>
 								<span class="shrink-0 font-mono text-muted-foreground"
 									>SGD {(occ.gross_wage_median / 1000).toFixed(0)}K</span
 								>
