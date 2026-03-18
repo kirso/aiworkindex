@@ -259,6 +259,13 @@
 				<span class={cn(riskBadge({ band: scored.risk_band }), 'mt-1')}>
 					{riskBandLabels[scored.risk_band]} Risk
 				</span>
+				{#if scored.risk_range}
+					<span class="mt-1 text-xs tabular-nums text-muted-foreground">
+						Range: {(scored.risk_range.optimistic * 100).toFixed(0)}–{(
+							scored.risk_range.pessimistic * 100
+						).toFixed(0)}%
+					</span>
+				{/if}
 			</div>
 
 			<!-- Right: Context -->

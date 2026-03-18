@@ -969,8 +969,8 @@
 				<tbody class="text-muted-foreground">
 					<tr class="border-b border-border/50">
 						<td class="py-2 pr-3 font-medium">Entry-level</td>
-						<td class="py-2 pr-3 font-mono">+12pp × sensitivity</td>
-						<td class="py-2 pr-3 font-mono">−10pp × sensitivity</td>
+						<td class="py-2 pr-3 font-mono">+14pp × sensitivity</td>
+						<td class="py-2 pr-3 font-mono">−12pp × sensitivity</td>
 						<td class="py-2">
 							More routine tasks, less institutional knowledge. Anthropic (2026): 14% drop in
 							job-finding for ages 22-25. Stanford DEL (2025): entry-level faces disproportionate

@@ -251,6 +251,11 @@
 				<span class={cn(riskBadge({ band: occ.risk_band }), 'mt-1')}>
 					{riskBandLabels[occ.risk_band]} Risk
 				</span>
+				<span class="mt-1 text-xs tabular-nums text-muted-foreground">
+					Range: {(occ.stability.optimistic_risk * 100).toFixed(0)}–{(
+						occ.stability.pessimistic_risk * 100
+					).toFixed(0)}%
+				</span>
 			</div>
 
 			<!-- Right: Context -->

@@ -7,7 +7,7 @@
 
 <Seo
 	title="Implementation Appendix"
-	description="Complete implementation reference for the V3.1 scoring pipeline: risk bands, impact classification, seniority modifiers, confidence, market modifier, stability, and synthetic role rules."
+	description="Complete implementation reference for the V3.2 scoring pipeline: risk bands, impact classification, seniority modifiers, confidence, market modifier, stability, and synthetic role rules."
 	path="/methodology/appendix"
 />
 
@@ -297,7 +297,7 @@
 
 	<!-- Seniority Modifiers -->
 	<section class="mb-8">
-		<p class={sectionLabel()}>Seniority Modifiers (V3.1)</p>
+		<p class={sectionLabel()}>Seniority Modifiers (V3.2)</p>
 		<p class="mt-2 text-sm text-muted-foreground">
 			Applied in the Outlook engine. Adjustments scale with the occupation's variant_sensitivity
 			(0–1), derived from institutional knowledge, relationship intensity, regulatory weight, and
@@ -315,8 +315,8 @@
 				<tbody class="text-muted-foreground">
 					<tr class="border-b border-border/50">
 						<td class="py-2 pr-3 font-medium">Entry-level</td>
-						<td class="py-2 pr-3 font-mono">+0.12 × sensitivity</td>
-						<td class="py-2 font-mono">−0.10 × sensitivity</td>
+						<td class="py-2 pr-3 font-mono">+0.14 × sensitivity</td>
+						<td class="py-2 font-mono">−0.12 × sensitivity</td>
 					</tr>
 					<tr class="border-b border-border/50">
 						<td class="py-2 pr-3 font-medium">Mid-career</td>

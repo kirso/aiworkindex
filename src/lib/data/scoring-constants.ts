@@ -85,10 +85,17 @@ export const AUGMENTATION_THRESHOLDS = {
 // SENIORITY MODIFIERS
 // ============================================
 
+/**
+ * Seniority modifiers — recalibrated V3.2 based on Stanford DEL (2025):
+ * - Ages 22-25 in AI-exposed occupations: 16% relative employment decline
+ * - Ages 30+ in same occupations: 6-12% growth
+ * - Effects concentrated in automation-prone occupations
+ * Asymmetric: junior penalty (0.14) > senior bonus (0.10) per empirical data
+ */
 export const SENIORITY_MODIFIERS = {
-	junior: { exposure_adj: 0.12, bottleneck_adj: -0.1 },
+	junior: { exposure_adj: 0.14, bottleneck_adj: -0.12 },
 	mid: { exposure_adj: 0, bottleneck_adj: 0 },
-	senior: { exposure_adj: -0.1, bottleneck_adj: 0.12 }
+	senior: { exposure_adj: -0.10, bottleneck_adj: 0.12 }
 } as const;
 
 // ============================================

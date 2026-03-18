@@ -48,7 +48,7 @@ export const seniorityAdjustments: Record<
 	SeniorityLevel,
 	{ exposure: number; bottleneck: number; label: string }
 > = {
-	junior: { exposure: 0.12, bottleneck: -0.10, label: 'Entry-level / Junior' },
+	junior: { exposure: 0.14, bottleneck: -0.12, label: 'Entry-level / Junior' },
 	mid: { exposure: 0, bottleneck: 0, label: 'Mid-career' },
 	senior: { exposure: -0.10, bottleneck: 0.12, label: 'Senior / Lead' }
 };
