@@ -5,6 +5,7 @@
 	import { fade } from 'svelte/transition';
 	import { prefersReducedMotion } from 'svelte/motion';
 	import { pageContainer } from '$lib/design-system';
+	import { DATA_VINTAGE } from '$lib/data/scoring-constants';
 	import * as Sheet from '$lib/components/ui/sheet/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
@@ -60,7 +61,7 @@
 			'query-input': 'required name=search_term_string'
 		},
 		inLanguage: 'en',
-		dateModified: '2026-03-18'
+		dateModified: DATA_VINTAGE.last_updated
 	})}<\/script>`;
 </script>
 
@@ -188,18 +189,30 @@
 		{/key}
 	</div>
 
-	<!-- Footer: Minimal -->
+	<!-- Footer -->
 	<footer class="border-t border-border">
 		<div class="{pageContainer()} py-5">
-			<div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-				<p class="text-xs text-muted-foreground">
-					Structural AI exposure scores, not employment predictions.
-					<a href="/methodology" class="text-primary hover:underline">Methodology</a>
-				</p>
+			<div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+				<div>
+					<p class="text-xs text-muted-foreground">
+						Structural AI exposure scores, not employment predictions.
+						<a href="/methodology" class="text-primary hover:underline">Methodology</a>
+					</p>
+					<p class="mt-1 text-xs text-muted-foreground/60">
+						{DATA_VINTAGE.model_version} · {DATA_VINTAGE.wages} wages · {DATA_VINTAGE.labour_monitor}
+						labour data · {DATA_VINTAGE.occupation_count} occupations · {DATA_VINTAGE.role_count} roles
+					</p>
+				</div>
 				<div class="flex items-center gap-3 text-xs text-muted-foreground">
 					<a href="/data" class="hover:text-foreground">Data</a>
 					<a href="/reports" class="hover:text-foreground">Reports</a>
 					<a href="/about" class="hover:text-foreground">About</a>
+					<a
+						href="https://github.com/kirso/sg-ai-jobs"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="hover:text-foreground">GitHub</a
+					>
 					<span class="text-muted-foreground/40">MIT</span>
 				</div>
 			</div>

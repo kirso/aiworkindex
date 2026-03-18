@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { title as titleStyle, pageLayout, card, sectionLabel } from '$lib/design-system';
+	import { title as titleStyle, pageLayout, card, sectionLabel, caption } from '$lib/design-system';
 	import { cn } from '$lib/utils';
+	import { DATA_VINTAGE } from '$lib/data/scoring-constants';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 </script>
 
@@ -8,13 +9,9 @@
 	<title>About — Singapore AI Occupation Impact Index</title>
 	<meta
 		name="description"
-		content="Data sources, credits, and license for the Singapore AI Occupation Impact Index. Three layers of AI impact: exposure, human bottleneck, and market resilience. Open-source, MIT licensed."
+		content="About the Singapore AI Occupation Index: purpose, model card, data sources, and credits. Open-source, MIT licensed."
 	/>
 	<meta property="og:title" content="About — Singapore AI Occupation Impact Index" />
-	<meta
-		property="og:description"
-		content="Data sources, credits, and license. Open-source, MIT licensed."
-	/>
 	<meta property="og:url" content="https://sg-ai-jobs.vercel.app/about" />
 </svelte:head>
 
@@ -23,167 +20,67 @@
 
 	<h1 class={titleStyle({ size: 'page' })}>About This Project</h1>
 	<p class="mt-2 text-muted-foreground">
-		The Singapore AI Occupation Index scores 562 occupations and 80 modern roles for AI displacement
-		risk. It uses a three-layer model — exposure, human bottleneck, and market resilience — grounded
-		in peer-reviewed academic indices and official Singapore government data.
+		The Singapore AI Occupation Index scores {DATA_VINTAGE.occupation_count} occupations and {DATA_VINTAGE.role_count}
+		modern roles for AI displacement risk. It uses a three-layer model — exposure, human bottleneck, and
+		market resilience — grounded in peer-reviewed academic indices and official Singapore government data.
 	</p>
 	<p class="mt-2 text-muted-foreground">
 		This is a structural score of AI pressure, not a prediction of exact job losses. No LLM is used
-		in the scoring pipeline — avoiding the circularity of using AI to score AI replaceability. The
-		model explicitly separates technical exposure from labour-market displacement, because a
-		software developer and a data entry clerk can both score high on AI exposure yet have very
+		in the scoring pipeline. The model separates technical exposure from labour-market displacement
+		— a software developer and a data entry clerk can both score high on AI exposure yet have very
 		different outcomes.
 	</p>
-	<p class="mt-2 text-muted-foreground">
-		Labour market context is updated quarterly using MOM data (latest: Q4 2025 advance release). The
-		scoring pipeline is open source and fully deterministic.
-	</p>
 
-	<!-- Displacement vs Reinstatement framing -->
+	<!-- Key context boxes -->
 	<div
-		class={cn(
-			card({ padding: 'sm', variant: 'default' }),
-			'mt-4 border-risk-moderate-border bg-risk-moderate-subtle'
-		)}
+		class={cn(card({ padding: 'sm' }), 'mt-4 border-risk-moderate-border bg-risk-moderate-subtle')}
 	>
-		<p class="text-sm font-medium text-foreground">
-			Important: This model measures one side of the equation
-		</p>
+		<p class="text-sm font-medium text-foreground">This model measures one side of the equation</p>
 		<p class="mt-1 text-sm text-foreground/80">
-			In the <a
+			In the
+			<a
 				href="https://www.aeaweb.org/articles?id=10.1257/jep.33.2.3"
 				target="_blank"
 				rel="noopener noreferrer"
 				class="underline">Acemoglu &amp; Restrepo (2019)</a
 			>
-			framework, AI's net impact = <strong>displacement</strong> - <strong>reinstatement</strong>.
-			We measure displacement potential (how much AI overlaps with existing tasks). We do
-			<em>not</em> capture the reinstatement effect — new tasks and roles that AI creates. This means
-			our scores likely overstate net job risk for occupations where AI generates new work.
+			framework, AI's net impact = displacement − reinstatement. We measure displacement only. Scores
+			likely overstate net risk for occupations where AI creates new work.
 		</p>
 	</div>
 
-	<!-- State of the Science -->
 	<div
 		class={cn(
-			card({ padding: 'sm', variant: 'default' }),
-			'mt-4 border-impact-leveraged-border bg-impact-leveraged-subtle'
+			card({ padding: 'sm' }),
+			'mt-3 border-impact-leveraged-border bg-impact-leveraged-subtle'
 		)}
 	>
-		<p class="text-sm font-medium text-foreground">State of the science (as of early 2026)</p>
-		<ul class="mt-2 space-y-1.5 text-sm text-foreground/80">
+		<p class="text-sm font-medium text-foreground">State of the science (early 2026)</p>
+		<ul class="mt-1.5 space-y-1 text-sm text-foreground/80">
 			<li>
-				Individual AI exposure scores are poor predictors of actual unemployment (<a
+				Single exposure scores are poor unemployment predictors — ensembles do better (<a
 					href="http://www.yongyeol.com/papers/frank2025ai.pdf"
 					target="_blank"
 					rel="noopener noreferrer"
 					class="underline">Frank et al., 2025</a
-				>) — ensembles of multiple measures do better
+				>)
 			</li>
 			<li>
-				Research is "<a
+				No consensus on measurement — "<a
 					href="https://www.brookings.edu/articles/research-on-ai-and-the-labor-market-is-still-in-the-first-inning/"
 					target="_blank"
 					rel="noopener noreferrer"
 					class="underline">still in the first inning</a
-				>" with no consensus on measurement (Brookings/PIIE, 2026)
+				>" (Brookings/PIIE, 2026)
 			</li>
-			<li>
-				No clear aggregate displacement through 2025 (<a
-					href="https://budgetlab.yale.edu/research/labor-market-ai-exposure-what-do-we-know"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="underline">Yale Budget Lab</a
-				>)
-			</li>
-			<li>
-				Entry-level workers in exposed occupations show earliest pressure signals (Stanford DEL,
-				2025)
-			</li>
-			<li>
-				Our approach: structural pressure model, validated directionally at cluster level, not
-				causally
-			</li>
+			<li>Entry-level workers face earliest pressure (Stanford DEL, 2025; Anthropic, 2026)</li>
 		</ul>
 	</div>
 
-	<section class="mb-8 mt-8">
-		<p class={sectionLabel()}>Data Sources</p>
-		<ul class="mt-3 space-y-3 text-sm text-muted-foreground">
-			<li>
-				<p class="font-medium text-foreground/80">Singapore Occupation Data</p>
-				<p>
-					Ministry of Manpower (MOM) — 562 occupations with SSOC codes, titles, wage distributions
-					(25th/median/75th percentile), and employment estimates. Based on 2024 published data.
-				</p>
-			</li>
-			<li>
-				<p class="font-medium text-foreground/80">AIOE Scores</p>
-				<p>
-					Felten, Raj &amp; Seamans (2021) — AI Occupational Exposure index. Published dataset
-					covering ~800 US occupations via O*NET ability mapping.
-				</p>
-			</li>
-			<li>
-				<p class="font-medium text-foreground/80">O*NET Data</p>
-				<p>
-					O*NET OnLine (US Department of Labor) — Work Context survey data and Job Zone
-					classifications used to compute the complementarity (theta) score. CC-BY 4.0 license.
-				</p>
-			</li>
-			<li>
-				<p class="font-medium text-foreground/80">Crosswalk Tables</p>
-				<p>
-					BLS SOC-to-ISCO crosswalk and SingStat SSOC-to-ISCO concordance tables for mapping
-					Singapore occupations to US scores.
-				</p>
-			</li>
-			<li>
-				<p class="font-medium text-foreground/80">MOM Shortage Occupation List (SOL) 2026</p>
-				<p>
-					Ministry of Manpower — Occupation-level shortage flags used in market resilience.
-					Effective January 1, 2026.
-				</p>
-			</li>
-			<li>
-				<p class="font-medium text-foreground/80">Anthropic Economic Index (2025-2026)</p>
-				<p>
-					Observed AI usage rates by occupation from Claude conversations. Used as exposure
-					calibration layer.
-				</p>
-			</li>
-			<li>
-				<p class="font-medium text-foreground/80">MOM Labour Market Report (Q3 2025)</p>
-				<p>
-					Ministry of Manpower — Quarterly vacancy rates, recruitment/resignation rates,
-					retrenchment counts and incidence, and re-entry into employment by occupation cluster.
-					Released December 2025.
-				</p>
-			</li>
-			<li>
-				<p class="font-medium text-foreground/80">Stanford "Canaries in the Coal Mine" (2025)</p>
-				<p>
-					Demirer et al. — Early signals from AI's impact on the labor market. Research informing
-					career-stage impact analysis.
-				</p>
-			</li>
-		</ul>
-	</section>
-
-	<section class="mb-8 mt-8">
-		<p class={sectionLabel()}>Technical Stack</p>
-		<ul class="mt-2 list-inside list-disc space-y-1 text-sm text-muted-foreground">
-			<li>SvelteKit + Svelte 5 (static site generation via adapter-static)</li>
-			<li>D3.js for layout computation (treemap, scales — no DOM manipulation)</li>
-			<li>Tailwind CSS v4 for styling</li>
-			<li>TypeScript scoring pipeline (runs via Bun)</li>
-			<li>Deployed on Vercel</li>
-		</ul>
-	</section>
-
+	<!-- Model Card — the good part, keeping it -->
 	<section class="mb-8 mt-8">
 		<p class={sectionLabel()}>Model Card</p>
-		<div class="mt-3 space-y-3">
+		<div class="mt-3">
 			<div class={card({ padding: 'sm' })}>
 				<div class="grid gap-3 sm:grid-cols-2">
 					<div>
@@ -213,10 +110,10 @@
 							Synthetic / Illustrative
 						</p>
 						<ul class="mt-1.5 space-y-1 text-sm text-muted-foreground">
-							<li>Modern role estimates (weighted blends of official occupations)</li>
+							<li>Modern role estimates (weighted SSOC blends, medium confidence)</li>
 							<li>Transition scores (heuristic feasibility estimates)</li>
 							<li>Outlook/scenario modelling (rule-based, not predictive)</li>
-							<li>Personalized AI impact content (archetype-based)</li>
+							<li>Seniority modifiers (research-grounded, not validated)</li>
 						</ul>
 					</div>
 					<div>
@@ -224,10 +121,8 @@
 							Not Validated
 						</p>
 						<ul class="mt-1.5 space-y-1 text-sm text-muted-foreground">
-							<li>
-								Occupation-level backtesting (cluster-level only: 3/4 directional checks pass)
-							</li>
-							<li>Career-stage heterogeneity (junior vs senior impact)</li>
+							<li>Occupation-level backtesting (cluster-level only: 3/4 pass)</li>
+							<li>Company-size modifiers (not yet implemented)</li>
 							<li>Causal displacement claims (directional correlation only)</li>
 							<li>Occupation-level employment data (not publicly available)</li>
 						</ul>
@@ -237,50 +132,71 @@
 		</div>
 	</section>
 
+	<!-- Data Vintage -->
 	<section class="mb-8 mt-8">
-		<p class={sectionLabel()}>License</p>
-		<p class="mt-2 text-sm text-muted-foreground">
-			This project is released under the MIT License. The code and methodology are designed to be
-			adaptable for other countries via ISCO-08 crosswalks — see the repository for a country
-			adapter template.
-		</p>
+		<p class={sectionLabel()}>Data Vintage</p>
+		<div class="mt-3 grid gap-2 sm:grid-cols-2">
+			<div class={card({ padding: 'sm', variant: 'flat' })}>
+				<p class={caption({ weight: 'medium' })}>Wages</p>
+				<p class="text-sm text-foreground">{DATA_VINTAGE.wages} MOM data</p>
+			</div>
+			<div class={card({ padding: 'sm', variant: 'flat' })}>
+				<p class={caption({ weight: 'medium' })}>Demand Signals</p>
+				<p class="text-sm text-foreground">{DATA_VINTAGE.demand_signals}</p>
+			</div>
+			<div class={card({ padding: 'sm', variant: 'flat' })}>
+				<p class={caption({ weight: 'medium' })}>Labour Market</p>
+				<p class="text-sm text-foreground">{DATA_VINTAGE.labour_monitor}</p>
+			</div>
+			<div class={card({ padding: 'sm', variant: 'flat' })}>
+				<p class={caption({ weight: 'medium' })}>Model Version</p>
+				<p class="text-sm text-foreground">
+					{DATA_VINTAGE.model_version} · {DATA_VINTAGE.validation_checks} checks
+				</p>
+			</div>
+		</div>
 	</section>
 
+	<!-- License + Credits combined -->
 	<section class="mb-8 mt-8">
-		<p class={sectionLabel()}>Credits</p>
+		<p class={sectionLabel()}>License & Credits</p>
 		<p class="mt-2 text-sm text-muted-foreground">
-			Made by <a
+			MIT License. Adaptable for other countries via ISCO-08 crosswalks.
+		</p>
+		<p class="mt-2 text-sm text-muted-foreground">
+			Made by
+			<a
 				href="https://www.linkedin.com/in/kirso/"
 				target="_blank"
 				rel="noopener noreferrer"
-				class="font-medium text-primary hover:text-primary/80">Kirill So</a
+				class="font-medium text-primary hover:underline">Kirill So</a
 			>
-			in collaboration with
+			with
 			<a
 				href="https://www.anthropic.com"
 				target="_blank"
 				rel="noopener noreferrer"
-				class="font-medium text-primary hover:text-primary/80">Claude</a
+				class="font-medium text-primary hover:underline">Claude</a
 			>
 			(Anthropic) &amp;
 			<a
 				href="https://openai.com"
 				target="_blank"
 				rel="noopener noreferrer"
-				class="font-medium text-primary hover:text-primary/80">Codex</a
-			> (OpenAI).
-		</p>
-		<p class="mt-2 text-sm text-muted-foreground">
-			Built with data from Singapore's Ministry of Manpower, academic research by Felten et al.
-			(2021) and Pizzinelli et al. (2023), the O*NET program from the US Department of Labor,
-			observed AI usage data from the Anthropic Economic Index, and insights from Stanford Digital
-			Economy Lab's "Canaries in the Coal Mine" research (2025).
+				class="font-medium text-primary hover:underline">Codex</a
+			>
+			(OpenAI). Data from MOM, Felten et al. (2021), O*NET, Anthropic Economic Index, and Stanford DEL.
 		</p>
 	</section>
 
-	<div class="mt-10 border-t border-border pt-4 text-sm text-muted-foreground">
-		<a href="/" class="hover:text-muted-foreground">&larr; Back to index</a>
-		<span class="mx-2">&middot;</span>
-		<a href="/methodology" class="hover:text-muted-foreground">Methodology</a>
+	<div
+		class="mt-10 border-t border-border pt-4 flex items-center justify-between text-sm text-muted-foreground"
+	>
+		<a href="/" class="hover:text-foreground">&larr; Home</a>
+		<div class="flex items-center gap-3">
+			<a href="/methodology" class="hover:text-foreground">Methodology</a>
+			<a href="/methodology/appendix" class="hover:text-foreground">Appendix</a>
+			<a href="/data" class="hover:text-foreground">Data</a>
+		</div>
 	</div>
 </main>
