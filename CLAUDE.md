@@ -1,6 +1,6 @@
 # CLAUDE.md — AI Work Index
 
-Singapore AI Occupation Index: 562 occupations and 80 modern roles scored for AI displacement risk using a deterministic three-layer model (exposure, human bottleneck, market resilience). Static site, no backend.
+AI Work Index: 562 Singapore occupations and 80 modern roles scored for AI displacement risk using a deterministic three-layer model (exposure, human bottleneck, market resilience). Static site, no backend.
 
 ## Core Commands
 

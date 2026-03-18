@@ -5,7 +5,7 @@
 	import { card, riskBadge, sectionLabel, caption } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import { riskBandLabels } from '$lib/data';
-	import { SITE } from '$lib/data/scoring-constants';
+	import { SITE, DATA_VINTAGE } from '$lib/data/scoring-constants';
 
 	let { data } = $props();
 
@@ -114,7 +114,9 @@
 				><strong class="font-mono text-foreground">{data.occupations.length}</strong> occupations</span
 			>
 			<span class="text-border">|</span>
-			<span><strong class="font-mono text-foreground">80</strong> modern roles</span>
+			<span
+				><strong class="font-mono text-foreground">{DATA_VINTAGE.role_count}</strong> modern roles</span
+			>
 			<span class="text-border">|</span>
 			<span><strong class="font-mono text-foreground">9</strong> occupation groups</span>
 			<span class="hidden sm:inline text-border">|</span>

@@ -7,8 +7,9 @@
 	import FilterPanel from '$lib/components/ui/FilterPanel.svelte';
 	import InsightsPanel from '$lib/components/ui/InsightsPanel.svelte';
 	import OccupationCardList from '$lib/components/ui/OccupationCardList.svelte';
-	import { sectionLabel, card, display, riskBadge, caption } from '$lib/design-system';
+	import { sectionLabel, card, caption } from '$lib/design-system';
 	import { riskBandLabels, impactTypeLabels } from '$lib/data';
+	import type { RiskBand } from '$lib/data';
 	import { cn } from '$lib/utils';
 	import * as Collapsible from '$lib/components/ui/collapsible/index.js';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
@@ -54,7 +55,17 @@
 		return counts;
 	});
 
-	// Demand signal count
+	// Key insights computed from filtered data
+	let avgRisk = $derived(
+		filteredOccupations.length > 0
+			? filteredOccupations.reduce((s, o) => s + o.net_risk, 0) / filteredOccupations.length
+			: 0
+	);
+	let avgExposure = $derived(
+		filteredOccupations.length > 0
+			? filteredOccupations.reduce((s, o) => s + o.exposure, 0) / filteredOccupations.length
+			: 0
+	);
 	let demandSignalCount = $derived(
 		filteredOccupations.filter(o => o.evidence.sol_match || o.evidence.jobs_in_demand_match).length
 	);
@@ -71,96 +82,105 @@
 <div class={pageLayout({ width: 'wide' })}>
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Explore' }]} />
 
-	<div class="mb-8">
-		<h1 class="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-			Explore All Occupations
-		</h1>
-		<p class="mt-1 text-sm text-muted-foreground">
-			Filter, browse, and analyse {data.occupations.length} Singapore occupations by AI risk, wage, and
-			occupation group.
-		</p>
+	<!-- Header: compact, data-dense -->
+	<div class="mb-6 flex items-end justify-between">
+		<div>
+			<h1 class="text-xl font-bold tracking-tight text-foreground sm:text-2xl">Explore</h1>
+			<p class="mt-0.5 text-xs text-muted-foreground">
+				{filteredOccupations.length} of {data.occupations.length} occupations
+				{#if filterResult}
+					<button class="ml-1 text-primary hover:underline" onclick={() => (filterResult = null)}
+						>Clear filters</button
+					>
+				{/if}
+			</p>
+		</div>
+
+		<!-- Compact stats strip -->
+		<div class="hidden items-center gap-4 text-xs text-muted-foreground sm:flex">
+			<span
+				>Avg risk <strong class="font-mono text-foreground">{(avgRisk * 100).toFixed(0)}%</strong
+				></span
+			>
+			<span
+				>Avg exposure <strong class="font-mono text-foreground"
+					>{(avgExposure * 100).toFixed(0)}%</strong
+				></span
+			>
+			{#if demandSignalCount > 0}
+				<span class="text-risk-very-low">{demandSignalCount} in demand</span>
+			{/if}
+		</div>
 	</div>
 
 	<div class="flex gap-6">
 		<!-- Sidebar filters (desktop) -->
-		<aside class="hidden w-[260px] shrink-0 lg:block">
+		<aside class="hidden w-[240px] shrink-0 lg:block">
 			<div
 				class={cn(
-					card({ padding: 'md' }),
-					'sticky top-16 max-h-[calc(100vh-5rem)] overflow-y-auto'
+					card({ padding: 'sm' }),
+					'sticky top-14 max-h-[calc(100vh-4.5rem)] overflow-y-auto'
 				)}
 			>
 				<FilterPanel occupations={data.occupations} onfilter={handleFilter} />
+
+				<!-- Risk distribution inline in sidebar -->
+				<div class="mt-4 border-t border-border pt-3">
+					<p class={caption({ weight: 'semibold' })}>Risk Distribution</p>
+					<div class="mt-2 space-y-1">
+						{#each ['very_high', 'high', 'moderate', 'low', 'very_low'] as const as band}
+							{@const count = riskBandCounts[band] ?? 0}
+							{@const pct =
+								filteredOccupations.length > 0 ? (count / filteredOccupations.length) * 100 : 0}
+							<div class="flex items-center gap-2">
+								<span class="h-2 w-2 shrink-0 rounded-sm bg-risk-{band.replace('_', '-')}"></span>
+								<span class="flex-1 text-xs text-muted-foreground truncate"
+									>{riskBandLabels[band as RiskBand]}</span
+								>
+								<span class="font-mono text-xs text-foreground">{count}</span>
+								<div class="w-12 h-1.5 rounded-full bg-inset overflow-hidden">
+									<div
+										class="h-full rounded-full bg-risk-{band.replace('_', '-')}"
+										style="width: {pct}%"
+									></div>
+								</div>
+							</div>
+						{/each}
+					</div>
+				</div>
+
+				<!-- Impact classification inline in sidebar -->
+				<div class="mt-3 border-t border-border pt-3">
+					<p class={caption({ weight: 'semibold' })}>Impact Type</p>
+					<div class="mt-2 space-y-1">
+						{#each ['ai_leveraged', 'at_risk', 'stable', 'mixed'] as const as type}
+							{@const count = impactTypeCounts[type] ?? 0}
+							<div class="flex items-center gap-2">
+								<span
+									class="h-2 w-2 shrink-0 rounded-sm {type === 'ai_leveraged'
+										? 'bg-impact-leveraged'
+										: type === 'at_risk'
+											? 'bg-impact-at-risk'
+											: type === 'stable'
+												? 'bg-impact-stable'
+												: 'bg-impact-mixed'}"
+								></span>
+								<span class="flex-1 text-xs text-muted-foreground truncate"
+									>{impactTypeLabels[type]}</span
+								>
+								<span class="font-mono text-xs text-foreground">{count}</span>
+							</div>
+						{/each}
+					</div>
+				</div>
 			</div>
 		</aside>
 
 		<!-- Main content -->
 		<div class="min-w-0 flex-1">
-			<!-- Risk band summary cards -->
-			<div class="mb-8">
-				<h2 class={cn(sectionLabel(), 'mb-3')}>Risk Bands</h2>
-				<div class="grid grid-cols-5 gap-2">
-					{#each ['very_high', 'high', 'moderate', 'low', 'very_low'] as const as band}
-						<div class={cn(card({ padding: 'sm' }), 'text-center')}>
-							<p class={display({ size: 'md' })}>{riskBandCounts[band]}</p>
-							<p class={cn(riskBadge({ band }), 'text-xs mt-0.5')}>
-								{riskBandLabels[band]}
-							</p>
-						</div>
-					{/each}
-				</div>
-			</div>
-
-			<!-- Impact type breakdown -->
-			<div class={cn(card({ padding: 'sm' }), 'mb-8')}>
-				<p class={caption({ weight: 'medium' })}>Impact classification</p>
-				<div class="mt-2 flex h-5 w-full overflow-hidden rounded-md">
-					{#each ['ai_leveraged', 'at_risk', 'stable', 'mixed'] as const as type}
-						{@const pct =
-							filteredOccupations.length > 0
-								? ((impactTypeCounts[type] ?? 0) / filteredOccupations.length) * 100
-								: 0}
-						{#if pct > 0}
-							<div
-								class="h-full transition-all {type === 'ai_leveraged'
-									? 'bg-impact-leveraged'
-									: type === 'at_risk'
-										? 'bg-impact-at-risk'
-										: type === 'stable'
-											? 'bg-impact-stable'
-											: 'bg-impact-mixed'}"
-								style="width: {pct}%;"
-								title="{impactTypeLabels[type]}: {impactTypeCounts[type]} ({pct.toFixed(0)}%)"
-							></div>
-						{/if}
-					{/each}
-				</div>
-				<div class="mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-0.5">
-					{#each ['ai_leveraged', 'at_risk', 'stable', 'mixed'] as const as type}
-						<span class={cn(caption(), 'flex items-center gap-1')}>
-							<span
-								class="inline-block h-2 w-2 rounded-sm {type === 'ai_leveraged'
-									? 'bg-impact-leveraged'
-									: type === 'at_risk'
-										? 'bg-impact-at-risk'
-										: type === 'stable'
-											? 'bg-impact-stable'
-											: 'bg-impact-mixed'}"
-							></span>
-							{impactTypeLabels[type]} ({impactTypeCounts[type]})
-						</span>
-					{/each}
-					{#if demandSignalCount > 0}
-						<span class={cn(caption(), 'ml-auto text-risk-very-low')}
-							>{demandSignalCount} with demand signals</span
-						>
-					{/if}
-				</div>
-			</div>
-
 			{#if innerWidth < 1024}
-				<div class="mb-8">
-					<Collapsible.Root class={card()}>
+				<div class="mb-6">
+					<Collapsible.Root class={card({ padding: 'none' })}>
 						<Collapsible.Trigger
 							class="flex w-full items-center justify-between px-4 py-3 text-sm font-medium text-foreground/80"
 						>
@@ -181,49 +201,56 @@
 			{/if}
 
 			{#if innerWidth >= 768}
-				<section class={cn(card({ padding: 'md' }), 'mb-8')}>
-					<div class="mb-3 flex items-center justify-between">
+				<!-- TREEMAP: The hero visualization -->
+				<section class="mb-6">
+					<div class="mb-2 flex items-center justify-between">
 						<h2 class={sectionLabel()}>Occupation Map</h2>
-						<span class={caption()}>{filteredOccupations.length} occupations</span>
+						<p class={caption()}>Size = employment · Colour = risk level</p>
 					</div>
-					<Treemap occupations={filteredOccupations} />
+					<div class={card({ padding: 'sm' })}>
+						<Treemap occupations={filteredOccupations} />
+					</div>
 				</section>
 
-				<section class={cn(card({ padding: 'md' }), 'mb-8')}>
-					<div class="mb-3">
-						<h2 class={sectionLabel()}>Risk Distribution</h2>
-					</div>
-					<div class="grid gap-6 md:grid-cols-2">
-						<div>
-							<h3 class={cn(caption({ weight: 'medium' }), 'mb-2')}>Score Histogram</h3>
+				<!-- Charts grid: 2 columns -->
+				<div class="grid gap-6 md:grid-cols-2 mb-6">
+					<section>
+						<h2 class={cn(sectionLabel(), 'mb-2')}>Score Distribution</h2>
+						<div class={card({ padding: 'sm' })}>
 							<Histogram occupations={filteredOccupations} />
 						</div>
-						<div>
-							<h3 class={cn(caption({ weight: 'medium' }), 'mb-2')}>Risk by Wage Bracket</h3>
+					</section>
+					<section>
+						<h2 class={cn(sectionLabel(), 'mb-2')}>Risk by Wage</h2>
+						<div class={card({ padding: 'sm' })}>
 							<WageBracketChart occupations={filteredOccupations} />
 						</div>
-					</div>
-				</section>
+					</section>
+				</div>
 
-				<section class={cn(card({ padding: 'md' }), 'mb-8')}>
-					<div class="mb-3">
-						<h2 class={sectionLabel()}>AI Exposure vs Human Skills</h2>
-						<p class={cn(caption(), 'mt-1')}>Each dot is one occupation.</p>
+				<!-- Scatter: full width -->
+				<section class="mb-6">
+					<div class="mb-2 flex items-center justify-between">
+						<h2 class={sectionLabel()}>Exposure vs Human Skills</h2>
+						<p class={caption()}>Each dot is one occupation</p>
 					</div>
-					<ScatterQuadrant occupations={filteredOccupations} />
+					<div class={card({ padding: 'sm' })}>
+						<ScatterQuadrant occupations={filteredOccupations} />
+					</div>
 				</section>
 			{:else}
+				<!-- Mobile: card list -->
 				<OccupationCardList occupations={filteredOccupations} />
 			{/if}
 		</div>
 
 		<!-- Right sidebar: insights (xl+ only) -->
 		{#if innerWidth >= 1280}
-			<aside class="hidden w-[280px] shrink-0 xl:block">
+			<aside class="hidden w-[260px] shrink-0 xl:block">
 				<div
 					class={cn(
-						card({ padding: 'md' }),
-						'sticky top-16 max-h-[calc(100vh-5rem)] overflow-y-auto'
+						card({ padding: 'sm' }),
+						'sticky top-14 max-h-[calc(100vh-4.5rem)] overflow-y-auto'
 					)}
 				>
 					<InsightsPanel occupations={filteredOccupations} />
