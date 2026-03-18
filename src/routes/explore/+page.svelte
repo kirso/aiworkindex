@@ -162,113 +162,113 @@
 			<Treemap occupations={filteredOccupations} />
 		</div>
 
-		<!-- ===== DISTRIBUTIONS: Risk + Impact inline ===== -->
-		<div class="grid gap-4 sm:grid-cols-2 mb-4">
+		<!-- ===== CHARTS: 2-column (histogram + wage) ===== -->
+		<div class="grid gap-4 md:grid-cols-2 mb-4">
 			<div class={card({ padding: 'sm' })}>
-				<h3 class={cn(sectionLabel(), 'mb-2 px-1')}>Risk Distribution</h3>
-				<div class="space-y-1 px-1">
-					{#each ['very_low', 'low', 'moderate', 'high', 'very_high'] as const as band}
-						{@const count = riskBandCounts[band] ?? 0}
-						{@const pct =
-							filteredOccupations.length > 0 ? (count / filteredOccupations.length) * 100 : 0}
-						<div class="flex items-center gap-2">
-							<span class="w-12 shrink-0 text-right text-xs text-muted-foreground"
-								>{riskBandLabels[band as RiskBand]}</span
-							>
-							<div class="h-4 min-w-0 flex-1 overflow-hidden rounded-sm bg-inset">
-								<div
-									class="h-full rounded-sm transition-all duration-200"
-									style="width: {pct}%; background-color: {riskBandColors[band as RiskBand]};"
-								></div>
-							</div>
-							<span class="w-8 shrink-0 text-right font-mono text-xs text-foreground">{count}</span>
-						</div>
-					{/each}
-				</div>
-			</div>
-			<div class={card({ padding: 'sm' })}>
-				<h3 class={cn(sectionLabel(), 'mb-2 px-1')}>Impact Classification</h3>
-				<div class="space-y-1 px-1">
-					{#each ['ai_leveraged', 'at_risk', 'stable', 'mixed'] as const as type}
-						{@const count = impactTypeCounts[type] ?? 0}
-						{@const pct =
-							filteredOccupations.length > 0 ? (count / filteredOccupations.length) * 100 : 0}
-						<div class="flex items-center gap-2">
-							<span class="w-16 shrink-0 text-right text-xs text-muted-foreground"
-								>{impactTypeLabels[type as ImpactType]}</span
-							>
-							<div class="h-4 min-w-0 flex-1 overflow-hidden rounded-sm bg-inset">
-								<div
-									class="h-full rounded-sm transition-all duration-200"
-									style="width: {pct}%; background-color: {impactTypeColors[type as ImpactType]};"
-								></div>
-							</div>
-							<span class="w-8 shrink-0 text-right font-mono text-xs text-foreground">{count}</span>
-						</div>
-					{/each}
-				</div>
-			</div>
-		</div>
-
-		<!-- ===== CHARTS: 3-column ===== -->
-		<div class="grid gap-4 md:grid-cols-3 mb-4">
-			<div class={card({ padding: 'sm' })}>
-				<h3 class={cn(sectionLabel(), 'mb-2 px-1')}>Score Histogram</h3>
+				<h3 class={cn(sectionLabel(), 'mb-2 px-1')}>Score Distribution</h3>
 				<Histogram occupations={filteredOccupations} />
 			</div>
 			<div class={card({ padding: 'sm' })}>
 				<h3 class={cn(sectionLabel(), 'mb-2 px-1')}>Risk by Wage</h3>
 				<WageBracketChart occupations={filteredOccupations} />
 			</div>
-			<div class={card({ padding: 'sm' })}>
-				<h3 class={cn(sectionLabel(), 'mb-2 px-1')}>Exposure vs Skills</h3>
-				<ScatterQuadrant occupations={filteredOccupations} />
-			</div>
 		</div>
 
-		<!-- ===== KEY FINDINGS: 2-column ===== -->
-		<div class="grid gap-4 sm:grid-cols-2 mb-4">
+		<!-- ===== SCATTER: Full width (needs space for 562 dots) ===== -->
+		<div class={cn(card({ padding: 'sm' }), 'mb-4')}>
+			<div class="mb-1.5 flex items-center justify-between px-1">
+				<h2 class={sectionLabel()}>Exposure vs Human Skills</h2>
+				<p class={caption()}>Each dot = one occupation · 4 quadrants</p>
+			</div>
+			<ScatterQuadrant occupations={filteredOccupations} />
+		</div>
+
+		<!-- ===== BOTTOM: 4-column grid (distributions + top 5 lists) ===== -->
+		<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-4">
+			<!-- Risk distribution -->
 			<div class={card({ padding: 'sm' })}>
-				<div class="flex items-center justify-between px-1 mb-2">
+				<h3 class={cn(sectionLabel(), 'mb-2')}>Risk Bands</h3>
+				<div class="space-y-1">
+					{#each ['very_low', 'low', 'moderate', 'high', 'very_high'] as const as band}
+						{@const count = riskBandCounts[band] ?? 0}
+						{@const pct =
+							filteredOccupations.length > 0 ? (count / filteredOccupations.length) * 100 : 0}
+						<div class="flex items-center gap-1.5">
+							<span class="w-8 shrink-0 text-right text-xs text-muted-foreground"
+								>{riskBandLabels[band as RiskBand].replace('Very ', 'V.')}</span
+							>
+							<div class="h-3 min-w-0 flex-1 overflow-hidden rounded-sm bg-inset">
+								<div
+									class="h-full rounded-sm"
+									style="width: {pct}%; background-color: {riskBandColors[band as RiskBand]};"
+								></div>
+							</div>
+							<span class="w-6 shrink-0 text-right font-mono text-xs text-foreground">{count}</span>
+						</div>
+					{/each}
+				</div>
+			</div>
+
+			<!-- Impact classification -->
+			<div class={card({ padding: 'sm' })}>
+				<h3 class={cn(sectionLabel(), 'mb-2')}>Impact Type</h3>
+				<div class="space-y-1">
+					{#each ['ai_leveraged', 'at_risk', 'stable', 'mixed'] as const as type}
+						{@const count = impactTypeCounts[type] ?? 0}
+						{@const pct =
+							filteredOccupations.length > 0 ? (count / filteredOccupations.length) * 100 : 0}
+						<div class="flex items-center gap-1.5">
+							<span class="w-14 shrink-0 text-right text-xs text-muted-foreground"
+								>{impactTypeLabels[type as ImpactType]}</span
+							>
+							<div class="h-3 min-w-0 flex-1 overflow-hidden rounded-sm bg-inset">
+								<div
+									class="h-full rounded-sm"
+									style="width: {pct}%; background-color: {impactTypeColors[type as ImpactType]};"
+								></div>
+							</div>
+							<span class="w-6 shrink-0 text-right font-mono text-xs text-foreground">{count}</span>
+						</div>
+					{/each}
+				</div>
+			</div>
+
+			<!-- Top 5 highest risk -->
+			<div class={card({ padding: 'sm' })}>
+				<div class="flex items-center justify-between mb-2">
 					<h3 class={sectionLabel()}>Highest Risk</h3>
-					<a href="/rankings/highest-risk" class="text-xs text-primary hover:underline"
-						>View all →</a
-					>
+					<a href="/rankings/highest-risk" class="text-xs text-primary hover:underline">All →</a>
 				</div>
 				{#each topHighRisk as occ, i (occ.ssoc)}
 					<a
 						href="/occupation/{occ.ssoc}"
-						class="flex items-center gap-2 rounded-md px-2 py-1.5 -mx-1 hover:bg-accent transition-colors"
+						class="flex items-center gap-1.5 rounded-sm py-1 hover:bg-accent transition-colors text-xs"
 					>
-						<span
-							class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-risk-very-high-subtle text-xs font-bold text-risk-very-high"
-							>{i + 1}</span
-						>
-						<span class="flex-1 text-sm text-foreground truncate">{occ.title}</span>
-						<span class="shrink-0 font-mono text-sm font-semibold text-risk-very-high"
+						<span class="font-mono font-bold text-risk-very-high w-3">{i + 1}</span>
+						<span class="flex-1 text-foreground truncate">{occ.title}</span>
+						<span class="shrink-0 font-mono text-risk-very-high"
 							>{(occ.net_risk * 100).toFixed(0)}%</span
 						>
 					</a>
 				{/each}
 			</div>
+
+			<!-- Top 5 safest -->
 			<div class={card({ padding: 'sm' })}>
-				<div class="flex items-center justify-between px-1 mb-2">
+				<div class="flex items-center justify-between mb-2">
 					<h3 class={sectionLabel()}>Most Resilient</h3>
 					<a href="/rankings/safest-high-paying" class="text-xs text-primary hover:underline"
-						>View all →</a
+						>All →</a
 					>
 				</div>
 				{#each topSafest as occ, i (occ.ssoc)}
 					<a
 						href="/occupation/{occ.ssoc}"
-						class="flex items-center gap-2 rounded-md px-2 py-1.5 -mx-1 hover:bg-accent transition-colors"
+						class="flex items-center gap-1.5 rounded-sm py-1 hover:bg-accent transition-colors text-xs"
 					>
-						<span
-							class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-risk-very-low-subtle text-xs font-bold text-risk-very-low"
-							>{i + 1}</span
-						>
-						<span class="flex-1 text-sm text-foreground truncate">{occ.title}</span>
-						<span class="shrink-0 font-mono text-sm font-semibold text-risk-very-low"
+						<span class="font-mono font-bold text-risk-very-low w-3">{i + 1}</span>
+						<span class="flex-1 text-foreground truncate">{occ.title}</span>
+						<span class="shrink-0 font-mono text-risk-very-low"
 							>{(occ.net_risk * 100).toFixed(0)}%</span
 						>
 					</a>
@@ -277,15 +277,12 @@
 		</div>
 
 		<!-- ===== INSIGHT ===== -->
-		<div class="rounded-md bg-inset px-4 py-3 text-sm text-muted-foreground">
-			<strong class="text-foreground">Key finding:</strong> Higher-paying occupations face higher AI
-			exposure — from
-			<span class="font-mono font-semibold text-foreground">17%</span> avg exposure (below SGD 2K)
-			to
-			<span class="font-mono font-semibold text-foreground">71%</span> (above SGD 10K). AI primarily
-			targets knowledge work.
+		<p class="text-xs text-muted-foreground px-1">
+			Higher-paying occupations face higher AI exposure — from
+			<strong class="font-mono text-foreground">17%</strong> (below SGD 2K) to
+			<strong class="font-mono text-foreground">71%</strong> (above SGD 10K).
 			<a href="/methodology" class="text-primary hover:underline">How we score →</a>
-		</div>
+		</p>
 	{:else}
 		<!-- Mobile: card list with filter collapsible -->
 		<OccupationCardList occupations={filteredOccupations} />
