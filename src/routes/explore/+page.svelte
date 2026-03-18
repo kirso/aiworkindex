@@ -8,8 +8,6 @@
 	import InsightsPanel from '$lib/components/ui/InsightsPanel.svelte';
 	import OccupationCardList from '$lib/components/ui/OccupationCardList.svelte';
 	import { sectionLabel, card, caption } from '$lib/design-system';
-	import { riskBandLabels, impactTypeLabels } from '$lib/data';
-	import type { RiskBand } from '$lib/data';
 	import { cn } from '$lib/utils';
 	import * as Collapsible from '$lib/components/ui/collapsible/index.js';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
@@ -20,6 +18,9 @@
 	let innerWidth = $state(1024);
 	let filterResult: typeof data.occupations | null = $state(null);
 	let filteredOccupations = $derived(filterResult ?? data.occupations);
+	let isFiltered = $derived(
+		filterResult !== null && filteredOccupations.length !== data.occupations.length
+	);
 
 	$effect(() => {
 		if (!browser) return;
@@ -35,27 +36,7 @@
 		filterResult = filtered;
 	}
 
-	// Risk band distribution
-	let riskBandCounts = $derived.by(() => {
-		const counts: Record<string, number> = {
-			very_high: 0,
-			high: 0,
-			moderate: 0,
-			low: 0,
-			very_low: 0
-		};
-		for (const o of filteredOccupations) counts[o.risk_band] = (counts[o.risk_band] || 0) + 1;
-		return counts;
-	});
-
-	// Impact type distribution
-	let impactTypeCounts = $derived.by(() => {
-		const counts: Record<string, number> = { ai_leveraged: 0, at_risk: 0, stable: 0, mixed: 0 };
-		for (const o of filteredOccupations) counts[o.impact_type] = (counts[o.impact_type] || 0) + 1;
-		return counts;
-	});
-
-	// Key insights computed from filtered data
+	// Computed insights
 	let avgRisk = $derived(
 		filteredOccupations.length > 0
 			? filteredOccupations.reduce((s, o) => s + o.net_risk, 0) / filteredOccupations.length
@@ -82,21 +63,19 @@
 <div class={pageLayout({ width: 'wide' })}>
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Explore' }]} />
 
-	<!-- Header: compact, data-dense -->
-	<div class="mb-6 flex items-end justify-between">
+	<!-- Header row -->
+	<div class="mb-5 flex items-end justify-between">
 		<div>
 			<h1 class="text-xl font-bold tracking-tight text-foreground sm:text-2xl">Explore</h1>
 			<p class="mt-0.5 text-xs text-muted-foreground">
 				{filteredOccupations.length} of {data.occupations.length} occupations
-				{#if filterResult}
+				{#if isFiltered}
 					<button class="ml-1 text-primary hover:underline" onclick={() => (filterResult = null)}
-						>Clear filters</button
+						>Reset</button
 					>
 				{/if}
 			</p>
 		</div>
-
-		<!-- Compact stats strip -->
 		<div class="hidden items-center gap-4 text-xs text-muted-foreground sm:flex">
 			<span
 				>Avg risk <strong class="font-mono text-foreground">{(avgRisk * 100).toFixed(0)}%</strong
@@ -108,13 +87,13 @@
 				></span
 			>
 			{#if demandSignalCount > 0}
-				<span class="text-risk-very-low">{demandSignalCount} in demand</span>
+				<span class="text-risk-very-low font-medium">{demandSignalCount} in demand</span>
 			{/if}
 		</div>
 	</div>
 
-	<div class="flex gap-6">
-		<!-- Sidebar filters (desktop) -->
+	<div class="flex gap-5">
+		<!-- Left sidebar: filters only (desktop) -->
 		<aside class="hidden w-[240px] shrink-0 lg:block">
 			<div
 				class={cn(
@@ -123,63 +102,14 @@
 				)}
 			>
 				<FilterPanel occupations={data.occupations} onfilter={handleFilter} />
-
-				<!-- Risk distribution inline in sidebar -->
-				<div class="mt-4 border-t border-border pt-3">
-					<p class={caption({ weight: 'semibold' })}>Risk Distribution</p>
-					<div class="mt-2 space-y-1">
-						{#each ['very_high', 'high', 'moderate', 'low', 'very_low'] as const as band}
-							{@const count = riskBandCounts[band] ?? 0}
-							{@const pct =
-								filteredOccupations.length > 0 ? (count / filteredOccupations.length) * 100 : 0}
-							<div class="flex items-center gap-2">
-								<span class="h-2 w-2 shrink-0 rounded-sm bg-risk-{band.replace('_', '-')}"></span>
-								<span class="flex-1 text-xs text-muted-foreground truncate"
-									>{riskBandLabels[band as RiskBand]}</span
-								>
-								<span class="font-mono text-xs text-foreground">{count}</span>
-								<div class="w-12 h-1.5 rounded-full bg-inset overflow-hidden">
-									<div
-										class="h-full rounded-full bg-risk-{band.replace('_', '-')}"
-										style="width: {pct}%"
-									></div>
-								</div>
-							</div>
-						{/each}
-					</div>
-				</div>
-
-				<!-- Impact classification inline in sidebar -->
-				<div class="mt-3 border-t border-border pt-3">
-					<p class={caption({ weight: 'semibold' })}>Impact Type</p>
-					<div class="mt-2 space-y-1">
-						{#each ['ai_leveraged', 'at_risk', 'stable', 'mixed'] as const as type}
-							{@const count = impactTypeCounts[type] ?? 0}
-							<div class="flex items-center gap-2">
-								<span
-									class="h-2 w-2 shrink-0 rounded-sm {type === 'ai_leveraged'
-										? 'bg-impact-leveraged'
-										: type === 'at_risk'
-											? 'bg-impact-at-risk'
-											: type === 'stable'
-												? 'bg-impact-stable'
-												: 'bg-impact-mixed'}"
-								></span>
-								<span class="flex-1 text-xs text-muted-foreground truncate"
-									>{impactTypeLabels[type]}</span
-								>
-								<span class="font-mono text-xs text-foreground">{count}</span>
-							</div>
-						{/each}
-					</div>
-				</div>
 			</div>
 		</aside>
 
 		<!-- Main content -->
 		<div class="min-w-0 flex-1">
+			<!-- Mobile filters -->
 			{#if innerWidth < 1024}
-				<div class="mb-6">
+				<div class="mb-5">
 					<Collapsible.Root class={card({ padding: 'none' })}>
 						<Collapsible.Trigger
 							class="flex w-full items-center justify-between px-4 py-3 text-sm font-medium text-foreground/80"
@@ -201,50 +131,63 @@
 			{/if}
 
 			{#if innerWidth >= 768}
-				<!-- TREEMAP: The hero visualization -->
-				<section class="mb-6">
-					<div class="mb-2 flex items-center justify-between">
+				<!-- Key insight bar -->
+				<div
+					class="mb-5 flex items-center gap-3 rounded-md bg-inset px-4 py-2.5 text-xs text-muted-foreground"
+				>
+					<svg
+						class="h-3.5 w-3.5 shrink-0 text-primary"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						><path d="M12 2L2 7l10 5 10-5-10-5z M2 17l10 5 10-5 M2 12l10 5 10-5" /></svg
+					>
+					<span>
+						Higher-paying occupations face higher AI exposure — average exposure rises from <strong
+							class="font-mono text-foreground">17%</strong
+						>
+						(below SGD 2K) to
+						<strong class="font-mono text-foreground">71%</strong> (above SGD 10K). AI targets knowledge
+						work.
+					</span>
+				</div>
+
+				<!-- TREEMAP -->
+				<div class={cn(card({ padding: 'sm' }), 'mb-5')}>
+					<div class="mb-2 flex items-center justify-between px-1">
 						<h2 class={sectionLabel()}>Occupation Map</h2>
-						<p class={caption()}>Size = employment · Colour = risk level</p>
+						<p class={caption()}>Size = employment · Colour = risk</p>
+					</div>
+					<Treemap occupations={filteredOccupations} />
+				</div>
+
+				<!-- Charts: 2 columns -->
+				<div class="grid gap-5 md:grid-cols-2 mb-5">
+					<div class={card({ padding: 'sm' })}>
+						<h3 class={cn(sectionLabel(), 'mb-2 px-1')}>Score Distribution</h3>
+						<Histogram occupations={filteredOccupations} />
 					</div>
 					<div class={card({ padding: 'sm' })}>
-						<Treemap occupations={filteredOccupations} />
+						<h3 class={cn(sectionLabel(), 'mb-2 px-1')}>Risk by Wage</h3>
+						<WageBracketChart occupations={filteredOccupations} />
 					</div>
-				</section>
-
-				<!-- Charts grid: 2 columns -->
-				<div class="grid gap-6 md:grid-cols-2 mb-6">
-					<section>
-						<h2 class={cn(sectionLabel(), 'mb-2')}>Score Distribution</h2>
-						<div class={card({ padding: 'sm' })}>
-							<Histogram occupations={filteredOccupations} />
-						</div>
-					</section>
-					<section>
-						<h2 class={cn(sectionLabel(), 'mb-2')}>Risk by Wage</h2>
-						<div class={card({ padding: 'sm' })}>
-							<WageBracketChart occupations={filteredOccupations} />
-						</div>
-					</section>
 				</div>
 
 				<!-- Scatter: full width -->
-				<section class="mb-6">
-					<div class="mb-2 flex items-center justify-between">
+				<div class={card({ padding: 'sm' })}>
+					<div class="mb-2 flex items-center justify-between px-1">
 						<h2 class={sectionLabel()}>Exposure vs Human Skills</h2>
-						<p class={caption()}>Each dot is one occupation</p>
+						<p class={caption()}>Each dot = one occupation</p>
 					</div>
-					<div class={card({ padding: 'sm' })}>
-						<ScatterQuadrant occupations={filteredOccupations} />
-					</div>
-				</section>
+					<ScatterQuadrant occupations={filteredOccupations} />
+				</div>
 			{:else}
-				<!-- Mobile: card list -->
 				<OccupationCardList occupations={filteredOccupations} />
 			{/if}
 		</div>
 
-		<!-- Right sidebar: insights (xl+ only) -->
+		<!-- Right sidebar: insights (xl+) -->
 		{#if innerWidth >= 1280}
 			<aside class="hidden w-[260px] shrink-0 xl:block">
 				<div
