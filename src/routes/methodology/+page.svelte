@@ -1069,8 +1069,9 @@
 				adds occupation-level differentiation as a proxy.
 			</li>
 			<li>
-				<strong>Proportional employment</strong> — Per-occupation employment is group_total / count, not
-				actual counts.
+				<strong>Proportional employment</strong> — Per-occupation employment is sub-major-group total
+				/ count (41 groups from Labour Force 2024 Table D8), not actual per-occupation counts. Better
+				than the previous 8 major groups but still an allocation, not a measurement.
 			</li>
 			<li>
 				<strong>Static exposure snapshot</strong> — AIOE reflects 2021 AI capabilities.
