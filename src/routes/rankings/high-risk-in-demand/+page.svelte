@@ -42,7 +42,7 @@
 </script>
 
 <svelte:head>
-	<title>High Risk but In-Demand — Rankings | SG AI Jobs</title>
+	<title>High Risk but In-Demand — Rankings | AI Work Index</title>
 	<meta
 		name="description"
 		content="Occupations with high AI displacement risk that still appear on Singapore's official demand lists."

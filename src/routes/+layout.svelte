@@ -44,7 +44,7 @@
 	const layoutJsonLd = `<script type="application/ld+json">${JSON.stringify({
 		'@context': 'https://schema.org',
 		'@type': 'WebSite',
-		name: `${SITE.name} — Singapore AI Occupation Index`,
+		name: `AI Work Index — Singapore AI Occupation Index`,
 		url: SITE.url,
 		description:
 			'How will AI affect jobs in Singapore? 562 occupations scored for AI displacement risk using official data and peer-reviewed research.',
@@ -68,7 +68,7 @@
 <svelte:head>
 	<link rel="icon" href={favicon} />
 	<link rel="canonical" href="{SITE.url}{currentPath}" />
-	<meta property="og:site_name" content="{SITE.name} — Singapore AI Occupation Index" />
+	<meta property="og:site_name" content="AI Work Index — Singapore AI Occupation Index" />
 	<meta property="og:type" content="website" />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="robots" content="index, follow" />

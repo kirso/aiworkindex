@@ -256,7 +256,7 @@
 </script>
 
 <svelte:head>
-	<title>Compare — SG AI Occupation Index</title>
+	<title>Compare — AI Work Index</title>
 	<meta
 		name="description"
 		content="Compare AI displacement risk across Singapore occupations and modern roles side by side."

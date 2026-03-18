@@ -32,16 +32,13 @@
 </script>
 
 <svelte:head>
-	<title>Q4 2024 Quarterly Report — SG AI Occupation Index</title>
+	<title>Q4 2024 Quarterly Report — AI Work Index</title>
 	<meta
 		name="description"
-		content="Singapore AI Occupation Impact Index quarterly snapshot for Q4 2024. Risk distribution, top movers, and labour market highlights."
+		content="AI Work Index quarterly snapshot for Q4 2024. Risk distribution, top movers, and labour market highlights."
 	/>
-	<meta property="og:title" content="Q4 2024 Quarterly Report — SG AI Occupation Index" />
-	<meta
-		property="og:description"
-		content="Singapore AI Occupation Impact Index quarterly snapshot for Q4 2024."
-	/>
+	<meta property="og:title" content="Q4 2024 Quarterly Report — AI Work Index" />
+	<meta property="og:description" content="AI Work Index quarterly snapshot for Q4 2024." />
 </svelte:head>
 
 <main class={pageLayout({ width: 'content' })}>
@@ -54,9 +51,7 @@
 	/>
 
 	<h1 class={titleStyle({ size: 'page' })}>Q4 2024 Quarterly Report</h1>
-	<p class="mt-2 text-sm text-muted-foreground">
-		Singapore AI Occupation Impact Index — Quarterly Snapshot
-	</p>
+	<p class="mt-2 text-sm text-muted-foreground">AI Work Index — Quarterly Snapshot</p>
 
 	<!-- Stat strip — borderless, editorial OWID style -->
 	<div class="mt-8 grid grid-cols-2 gap-x-8 gap-y-4 sm:grid-cols-4">

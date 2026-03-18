@@ -62,7 +62,7 @@
 </script>
 
 <svelte:head>
-	<title>Watchlist — SG AI Occupation Index</title>
+	<title>Watchlist — AI Work Index</title>
 	<meta
 		name="description"
 		content="Your saved occupations. Track AI displacement risk for the roles you care about."

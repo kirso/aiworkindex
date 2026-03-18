@@ -36,7 +36,7 @@
 </script>
 
 <svelte:head>
-	<title>Safest High-Paying Jobs — SG AI Occupation Index</title>
+	<title>Safest High-Paying Jobs — AI Work Index</title>
 	<meta
 		name="description"
 		content="Low AI displacement risk + above-median wages. The 25 safest well-paying occupations in Singapore."

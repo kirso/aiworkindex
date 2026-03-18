@@ -6,12 +6,12 @@
 </script>
 
 <svelte:head>
-	<title>About — Singapore AI Occupation Impact Index</title>
+	<title>About — AI Work Index</title>
 	<meta
 		name="description"
-		content="About the Singapore AI Occupation Index: purpose, model card, data sources, and credits. Open-source, MIT licensed."
+		content="About the AI Work Index: purpose, model card, data sources, and credits. Open-source, MIT licensed."
 	/>
-	<meta property="og:title" content="About — Singapore AI Occupation Impact Index" />
+	<meta property="og:title" content="About — AI Work Index" />
 	<meta property="og:url" content="{SITE.url}/about" />
 </svelte:head>
 
@@ -20,7 +20,7 @@
 
 	<h1 class={titleStyle({ size: 'page' })}>About This Project</h1>
 	<p class="mt-2 text-muted-foreground">
-		The Singapore AI Occupation Index scores {DATA_VINTAGE.occupation_count} occupations and {DATA_VINTAGE.role_count}
+		The AI Work Index scores {DATA_VINTAGE.occupation_count} occupations and {DATA_VINTAGE.role_count}
 		modern roles for AI displacement risk. It uses a three-layer model — exposure, human bottleneck, and
 		market resilience — grounded in peer-reviewed academic indices and official Singapore government data.
 	</p>

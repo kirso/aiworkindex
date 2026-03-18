@@ -1,5 +1,5 @@
 /**
- * SG AI Jobs — "Signal" Design System
+ * AI Work Index — "Signal" Design System
  *
  * The score IS the interface. Data-first, everything else supports it.
  * Single source of truth for all component styling.

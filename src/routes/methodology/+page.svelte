@@ -34,12 +34,12 @@
 </script>
 
 <svelte:head>
-	<title>Methodology — Singapore AI Occupation Impact Index</title>
+	<title>Methodology — AI Work Index</title>
 	<meta
 		name="description"
 		content="Three-layer scoring: exposure (AIOE), human bottleneck (theta), and market resilience. Net risk published as risk bands with visible confidence. No LLM in the scoring pipeline."
 	/>
-	<meta property="og:title" content="Methodology — Singapore AI Occupation Impact Index" />
+	<meta property="og:title" content="Methodology — AI Work Index" />
 	<meta
 		property="og:description"
 		content="Three-layer scoring separating technical AI exposure from labor-market displacement. Academic indices, not LLM vibes."

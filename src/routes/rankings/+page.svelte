@@ -88,12 +88,12 @@
 </script>
 
 <svelte:head>
-	<title>Rankings — SG AI Occupation Index</title>
+	<title>Rankings — AI Work Index</title>
 	<meta
 		name="description"
 		content="Ranked lists of Singapore occupations by AI displacement risk, augmentation potential, wage safety, and more."
 	/>
-	<meta property="og:title" content="Rankings — SG AI Occupation Index" />
+	<meta property="og:title" content="Rankings — AI Work Index" />
 	<meta
 		property="og:description"
 		content="Ranked lists of Singapore occupations by AI displacement risk, augmentation potential, wage safety, and more."

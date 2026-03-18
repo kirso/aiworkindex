@@ -36,7 +36,7 @@
 </script>
 
 <svelte:head>
-	<title>AI Leveraged Occupations — SG AI Occupation Index</title>
+	<title>AI Leveraged Occupations — AI Work Index</title>
 	<meta
 		name="description"
 		content="Singapore occupations where AI augments rather than replaces — high exposure but strong human bottlenecks create augmentation potential."

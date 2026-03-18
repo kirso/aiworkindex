@@ -47,7 +47,7 @@
 </script>
 
 <svelte:head>
-	<title>Theory vs Practice — SG AI Occupation Index</title>
+	<title>Theory vs Practice — AI Work Index</title>
 	<meta
 		name="description"
 		content="Where does observed AI usage diverge most from theoretical exposure? The biggest gaps between Anthropic's real-world data and academic AI exposure indices."

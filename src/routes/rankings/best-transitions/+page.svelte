@@ -8,7 +8,7 @@
 </script>
 
 <svelte:head>
-	<title>Best Transitions — Rankings | SG AI Jobs</title>
+	<title>Best Transitions — Rankings | AI Work Index</title>
 	<meta
 		name="description"
 		content="High-risk occupations with the highest transition scores to lower-risk alternatives."

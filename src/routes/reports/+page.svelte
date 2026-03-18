@@ -6,7 +6,7 @@
 </script>
 
 <svelte:head>
-	<title>Reports — SG AI Occupation Index</title>
+	<title>Reports — AI Work Index</title>
 	<meta
 		name="description"
 		content="Quarterly reports on AI impact across Singapore occupations. Labour market trends, scoring updates, and analysis."

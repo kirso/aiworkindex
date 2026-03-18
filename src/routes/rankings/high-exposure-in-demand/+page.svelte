@@ -40,7 +40,7 @@
 </script>
 
 <svelte:head>
-	<title>High Exposure + In Demand — SG AI Occupation Index</title>
+	<title>High Exposure + In Demand — AI Work Index</title>
 	<meta
 		name="description"
 		content="Singapore occupations with high AI exposure that remain on shortage or in-demand lists — paradox roles where demand persists despite AI overlap."

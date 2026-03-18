@@ -70,21 +70,18 @@
 </script>
 
 <svelte:head>
-	<title>Singapore AI Occupation Index — How will AI affect your job?</title>
+	<title>AI Work Index — How will AI affect your job?</title>
 	<meta
 		name="description"
 		content="Find out if AI will replace, augment, or barely affect your role in Singapore. 562 occupations scored using official data and peer-reviewed research."
 	/>
-	<meta
-		property="og:title"
-		content="Singapore AI Occupation Index — How will AI affect your job?"
-	/>
+	<meta property="og:title" content="AI Work Index — How will AI affect your job?" />
 	<meta
 		property="og:description"
 		content="562 Singapore occupations scored for AI displacement risk. Official data, academic indices, no LLM in the scoring pipeline."
 	/>
 	<meta property="og:url" content={SITE.url} />
-	<meta name="twitter:title" content="Singapore AI Occupation Index" />
+	<meta name="twitter:title" content="AI Work Index" />
 	<meta
 		name="twitter:description"
 		content="How will AI affect your job in Singapore? 562 occupations scored."

@@ -61,7 +61,7 @@
 </script>
 
 <svelte:head>
-	<title>Explore — Singapore AI Occupation Index</title>
+	<title>Explore — AI Work Index</title>
 	<meta
 		name="description"
 		content="Explore all 562 Singapore occupations by AI risk level, wage, and occupation group. Filter, compare, and analyse."

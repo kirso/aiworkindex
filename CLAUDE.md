@@ -39,7 +39,7 @@ Singapore AI Occupation Index: 562 occupations and 80 modern roles scored for AI
 
 ## Tech Stack
 
-- **SvelteKit 5** with `adapter-static` (fully prerendered, deployed to Vercel)
+- **SvelteKit 5** with `adapter-static` (fully prerendered, deployed to Cloudflare Workers)
 - **Svelte 5** with runes (`$state`, `$derived`, `$effect`, `$props`)
 - **TypeScript** with strict mode, `noUncheckedIndexedAccess`, `noImplicitOverride`
 - **Tailwind CSS v4** with `@tailwindcss/vite` (proper `@theme` + `@theme inline` architecture)

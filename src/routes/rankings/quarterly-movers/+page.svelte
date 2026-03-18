@@ -6,7 +6,7 @@
 </script>
 
 <svelte:head>
-	<title>Quarterly Movers — Rankings | SG AI Jobs</title>
+	<title>Quarterly Movers — Rankings | AI Work Index</title>
 	<meta
 		name="description"
 		content="Occupations that changed risk bands between quarterly snapshots."

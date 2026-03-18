@@ -5,7 +5,7 @@
 </script>
 
 <svelte:head>
-	<title>Implementation Appendix — Singapore AI Occupation Impact Index</title>
+	<title>Implementation Appendix — AI Work Index</title>
 	<meta
 		name="description"
 		content="Complete implementation reference for the V3.1 scoring pipeline: risk bands, impact classification, seniority modifiers, confidence, market modifier, stability, and synthetic role rules."

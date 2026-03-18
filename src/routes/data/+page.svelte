@@ -33,9 +33,9 @@
 </script>
 
 <svelte:head>
-	<title>Data Downloads — SG AI Occupation Index</title>
-	<meta name="description" content="Download the complete Singapore AI occupation impact dataset. 562 occupations with exposure, bottleneck, risk, and market scores." />
-	<meta property="og:title" content="Data Downloads — SG AI Occupation Index" />
+	<title>Data Downloads — AI Work Index</title>
+	<meta name="description" content="Download the complete AI Work Index dataset. 562 occupations with exposure, bottleneck, risk, and market scores." />
+	<meta property="og:title" content="Data Downloads — AI Work Index" />
 	<meta property="og:description" content="Download the full dataset: 562 Singapore occupations scored for AI displacement risk." />
 </svelte:head>
 
