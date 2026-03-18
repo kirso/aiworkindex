@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { title as titleStyle, pageLayout, card, sectionLabel, caption } from '$lib/design-system';
 	import { cn } from '$lib/utils';
-	import { DATA_VINTAGE } from '$lib/data/scoring-constants';
+	import { DATA_VINTAGE, SITE } from '$lib/data/scoring-constants';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 </script>
 
@@ -12,7 +12,7 @@
 		content="About the Singapore AI Occupation Index: purpose, model card, data sources, and credits. Open-source, MIT licensed."
 	/>
 	<meta property="og:title" content="About — Singapore AI Occupation Impact Index" />
-	<meta property="og:url" content="https://sg-ai-jobs.vercel.app/about" />
+	<meta property="og:url" content="{SITE.url}/about" />
 </svelte:head>
 
 <main class={pageLayout({ width: 'prose' })}>

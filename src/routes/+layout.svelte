@@ -5,7 +5,7 @@
 	import { fade } from 'svelte/transition';
 	import { prefersReducedMotion } from 'svelte/motion';
 	import { pageContainer } from '$lib/design-system';
-	import { DATA_VINTAGE } from '$lib/data/scoring-constants';
+	import { DATA_VINTAGE, SITE } from '$lib/data/scoring-constants';
 	import * as Sheet from '$lib/components/ui/sheet/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
@@ -44,20 +44,20 @@
 	const layoutJsonLd = `<script type="application/ld+json">${JSON.stringify({
 		'@context': 'https://schema.org',
 		'@type': 'WebSite',
-		name: 'SG AI Jobs — Singapore AI Occupation Index',
-		url: 'https://sg-ai-jobs.vercel.app',
+		name: `${SITE.name} — Singapore AI Occupation Index`,
+		url: SITE.url,
 		description:
 			'How will AI affect jobs in Singapore? 562 occupations scored for AI displacement risk using official data and peer-reviewed research.',
 		publisher: {
 			'@type': 'Organization',
-			name: 'SG AI Jobs',
-			url: 'https://sg-ai-jobs.vercel.app',
+			name: SITE.name,
+			url: SITE.url,
 			areaServed: { '@type': 'Country', name: 'Singapore' },
 			description: 'Open-source AI job impact scoring for Singapore occupations'
 		},
 		potentialAction: {
 			'@type': 'SearchAction',
-			target: 'https://sg-ai-jobs.vercel.app/?q={search_term_string}',
+			target: `${SITE.url}/?q={search_term_string}`,
 			'query-input': 'required name=search_term_string'
 		},
 		inLanguage: 'en',
@@ -67,8 +67,8 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
-	<link rel="canonical" href="https://sg-ai-jobs.vercel.app{currentPath}" />
-	<meta property="og:site_name" content="SG AI Jobs — Singapore AI Occupation Index" />
+	<link rel="canonical" href="{SITE.url}{currentPath}" />
+	<meta property="og:site_name" content="{SITE.name} — Singapore AI Occupation Index" />
 	<meta property="og:type" content="website" />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="robots" content="index, follow" />
@@ -97,7 +97,7 @@
 					<path d="M2 17l10 5 10-5" />
 					<path d="M2 12l10 5 10-5" />
 				</svg>
-				<span class="text-sm font-bold tracking-tight">SG AI Jobs</span>
+				<span class="text-sm font-bold tracking-tight">{SITE.name}</span>
 			</a>
 
 			<!-- Desktop nav -->
@@ -208,7 +208,7 @@
 					<a href="/reports" class="hover:text-foreground">Reports</a>
 					<a href="/about" class="hover:text-foreground">About</a>
 					<a
-						href="https://github.com/kirso/sg-ai-jobs"
+						href={SITE.github}
 						target="_blank"
 						rel="noopener noreferrer"
 						class="hover:text-foreground">GitHub</a

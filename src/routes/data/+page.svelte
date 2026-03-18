@@ -4,6 +4,7 @@
 	import * as Alert from '$lib/components/ui/alert/index.js';
 	import * as Table from '$lib/components/ui/table/index.js';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
+	import { SITE } from '$lib/data/scoring-constants';
 
 	const fields = [
 		{ name: 'ssoc', type: 'string', description: 'Singapore Standard Occupational Classification code (4-digit)' },
@@ -79,7 +80,7 @@
 			</div>
 		</a>
 
-		<a href="https://github.com/kirso/sg-ai-jobs" target="_blank" rel="noopener noreferrer" class="no-underline">
+		<a href={SITE.github} target="_blank" rel="noopener noreferrer" class="no-underline">
 			<div class={cn(card({ padding: 'lg', hover: true }), 'flex h-full flex-col items-start')}>
 				<div class="flex items-center gap-2">
 					<svg class="h-5 w-5 text-impact-leveraged" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -89,7 +90,7 @@
 					<span class="text-base font-semibold text-foreground">Source Code</span>
 				</div>
 				<p class="mt-1 text-sm text-muted-foreground">Full source code, scoring pipeline, and raw data. Open source on GitHub.</p>
-				<span class="mt-2 text-xs text-primary">github.com/kirso/sg-ai-jobs</span>
+				<span class="mt-2 text-xs text-primary">{SITE.github.replace('https://', '')}</span>
 			</div>
 		</a>
 	</div>

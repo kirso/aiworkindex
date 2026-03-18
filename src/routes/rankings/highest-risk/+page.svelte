@@ -4,6 +4,7 @@
 	import type { Occupation } from '$lib/data';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import { pageLayout } from '$lib/design-system';
+	import { SITE } from '$lib/data/scoring-constants';
 
 	let { data } = $props();
 
@@ -45,7 +46,7 @@
 				'@type': 'ListItem',
 				position: i + 1,
 				name: occ.title,
-				url: 'https://sg-ai-jobs.vercel.app/occupation/' + occ.ssoc
+				url: SITE.url + '/occupation/' + occ.ssoc
 			}))
 		})}<\/script>`
 	);

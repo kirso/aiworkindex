@@ -16,8 +16,8 @@
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 
-	const STORAGE_KEY = 'sg-ai-jobs-watchlist';
-	const TIMESTAMP_KEY = 'sg-ai-jobs-watchlist-saved-at';
+	const STORAGE_KEY = 'aiworkindex-watchlist';
+	const TIMESTAMP_KEY = 'aiworkindex-watchlist-saved-at';
 
 	let savedSsocs = $state<string[]>([]);
 	let savedTimestamp = $state<string | null>(null);

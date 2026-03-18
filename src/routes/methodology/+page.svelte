@@ -4,6 +4,7 @@
 	import { cn } from '$lib/utils';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import { title as titleStyle } from '$lib/design-system';
+	import { SITE } from '$lib/data/scoring-constants';
 
 	const occupationCount = occupations.length;
 	const directCount = occupations.filter(
@@ -43,7 +44,7 @@
 		property="og:description"
 		content="Three-layer scoring separating technical AI exposure from labor-market displacement. Academic indices, not LLM vibes."
 	/>
-	<meta property="og:url" content="https://sg-ai-jobs.vercel.app/methodology" />
+	<meta property="og:url" content="{SITE.url}/methodology" />
 </svelte:head>
 
 <main class={pageLayout({ width: 'prose' })}>

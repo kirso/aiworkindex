@@ -29,8 +29,9 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import * as Collapsible from '$lib/components/ui/collapsible/index.js';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
+	import { SITE } from '$lib/data/scoring-constants';
 
-	const WATCHLIST_KEY = 'sg-ai-jobs-watchlist';
+	const WATCHLIST_KEY = 'aiworkindex-watchlist';
 
 	let { data } = $props();
 	let occ = $derived(data.occupation);
@@ -166,13 +167,13 @@
 					'@type': 'ListItem',
 					position: 1,
 					name: 'Home',
-					item: 'https://sg-ai-jobs.vercel.app/'
+					item: SITE.url + '/'
 				},
 				{
 					'@type': 'ListItem',
 					position: 2,
 					name: occ.title,
-					item: 'https://sg-ai-jobs.vercel.app/occupation/' + occ.ssoc
+					item: SITE.url + '/occupation/' + occ.ssoc
 				}
 			]
 		})}<\/script>`
@@ -225,7 +226,7 @@
 </script>
 
 <svelte:head>
-	<title>{occ.title} — AI Risk | SG AI Jobs</title>
+	<title>{occ.title} — AI Risk | {SITE.name}</title>
 	<meta
 		name="description"
 		content="{occ.title} (SSOC {occ.ssoc}): AI displacement risk {(occ.net_risk * 100).toFixed(
@@ -234,15 +235,15 @@
 			occ.risk_band
 		]}. Median wage SGD {occ.gross_wage_median.toLocaleString()}."
 	/>
-	<meta property="og:title" content="{occ.title} — AI Risk | SG AI Jobs" />
+	<meta property="og:title" content="{occ.title} — AI Risk | {SITE.name}" />
 	<meta
 		property="og:description"
 		content="Risk: {(occ.net_risk * 100).toFixed(0)}% ({riskBandLabels[
 			occ.risk_band
 		]}). Wage: SGD {occ.gross_wage_median.toLocaleString()}."
 	/>
-	<meta property="og:url" content="https://sg-ai-jobs.vercel.app/occupation/{occ.ssoc}" />
-	<meta property="og:image" content="https://sg-ai-jobs.vercel.app/og/{occ.ssoc}.png" />
+	<meta property="og:url" content="{SITE.url}/occupation/{occ.ssoc}" />
+	<meta property="og:image" content="{SITE.url}/og/{occ.ssoc}.png" />
 	<meta property="og:image:width" content="1200" />
 	<meta property="og:image:height" content="630" />
 	{@html occJsonLd}

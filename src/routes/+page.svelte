@@ -5,6 +5,7 @@
 	import { card, riskBadge, sectionLabel, caption } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import { riskBandLabels } from '$lib/data';
+	import { SITE } from '$lib/data/scoring-constants';
 
 	let { data } = $props();
 
@@ -82,7 +83,7 @@
 		property="og:description"
 		content="562 Singapore occupations scored for AI displacement risk. Official data, academic indices, no LLM in the scoring pipeline."
 	/>
-	<meta property="og:url" content="https://sg-ai-jobs.vercel.app" />
+	<meta property="og:url" content={SITE.url} />
 	<meta name="twitter:title" content="Singapore AI Occupation Index" />
 	<meta
 		name="twitter:description"

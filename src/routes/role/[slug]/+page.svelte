@@ -21,8 +21,9 @@
 	import * as Collapsible from '$lib/components/ui/collapsible/index.js';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import LabourMarketCard from '$lib/components/ui/LabourMarketCard.svelte';
+	import { SITE } from '$lib/data/scoring-constants';
 
-	const WATCHLIST_KEY = 'sg-ai-jobs-watchlist';
+	const WATCHLIST_KEY = 'aiworkindex-watchlist';
 
 	let { data } = $props();
 	let scored = $derived(data.scored);
@@ -112,7 +113,7 @@
 </script>
 
 <svelte:head>
-	<title>{scored.title} — AI Risk Estimate | SG AI Jobs</title>
+	<title>{scored.title} — AI Risk Estimate | {SITE.name}</title>
 	<meta
 		name="description"
 		content="{scored.title}: Estimated AI risk {(scored.net_risk * 100).toFixed(
@@ -120,15 +121,15 @@
 		)}%, rated {riskBandLabels[scored.risk_band]}. Based on {scored.components
 			.length} official occupations."
 	/>
-	<meta property="og:title" content="{scored.title} — AI Risk Estimate | SG AI Jobs" />
+	<meta property="og:title" content="{scored.title} — AI Risk Estimate | {SITE.name}" />
 	<meta
 		property="og:description"
 		content="Estimated risk: {(scored.net_risk * 100).toFixed(0)}% ({riskBandLabels[
 			scored.risk_band
 		]})."
 	/>
-	<meta property="og:url" content="https://sg-ai-jobs.vercel.app/role/{scored.slug}" />
-	<meta property="og:image" content="https://sg-ai-jobs.vercel.app/og/role-{scored.slug}.png" />
+	<meta property="og:url" content="{SITE.url}/role/{scored.slug}" />
+	<meta property="og:image" content="{SITE.url}/og/role-{scored.slug}.png" />
 	<meta property="og:image:width" content="1200" />
 	<meta property="og:image:height" content="630" />
 </svelte:head>

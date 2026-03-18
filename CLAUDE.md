@@ -1,4 +1,4 @@
-# CLAUDE.md — SG AI Jobs
+# CLAUDE.md — AI Work Index
 
 Singapore AI Occupation Index: 562 occupations and 80 modern roles scored for AI displacement risk using a deterministic three-layer model (exposure, human bottleneck, market resilience). Static site, no backend.
 
