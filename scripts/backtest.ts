@@ -287,6 +287,55 @@ function main() {
 				: 'Structural risk model captures long-run pressure, not short-run demand fluctuations'
 	});
 
+	// ===== Sub-major group analysis (2-digit SSOC) =====
+	console.log('\n=== Sub-major Group Analysis ===\n');
+	const subMajorGroups = new Map<string, { occs: Occupation[]; label: string }>();
+	for (const occ of occupations) {
+		const prefix = occ.ssoc.substring(0, 2);
+		const group = subMajorGroups.get(prefix) ?? { occs: [], label: occ.major_group ?? prefix };
+		group.occs.push(occ);
+		subMajorGroups.set(prefix, group);
+	}
+
+	const subMajorStats = [...subMajorGroups.entries()]
+		.filter(([_, g]) => g.occs.length >= 5)
+		.map(([prefix, g]) => {
+			const avgRisk = g.occs.reduce((s, o) => s + o.net_risk, 0) / g.occs.length;
+			const avgWage = g.occs.reduce((s, o) => s + o.gross_wage_median, 0) / g.occs.length;
+			const avgExposure = g.occs.reduce((s, o) => s + o.exposure, 0) / g.occs.length;
+			return {
+				prefix,
+				label: g.label,
+				count: g.occs.length,
+				avg_net_risk: Number(avgRisk.toFixed(4)),
+				avg_wage: Math.round(avgWage),
+				avg_exposure: Number(avgExposure.toFixed(4))
+			};
+		})
+		.sort((a, b) => b.avg_net_risk - a.avg_net_risk);
+
+	console.log(`Sub-major groups with 5+ occupations: ${subMajorStats.length}`);
+	for (const s of subMajorStats.slice(0, 10)) {
+		console.log(
+			`  ${s.prefix} ${s.label.substring(0, 40).padEnd(40)} | n=${String(s.count).padStart(3)} | risk=${(s.avg_net_risk * 100).toFixed(1).padStart(5)}% | wage=${String(s.avg_wage).padStart(6)}`
+		);
+	}
+
+	// Cross-group risk-wage correlation (higher risk → lower wages as structural pressure signal)
+	if (subMajorStats.length >= 5) {
+		const smRisks = subMajorStats.map(s => s.avg_net_risk);
+		const smWages = subMajorStats.map(s => s.avg_wage);
+		const riskWageRho = spearmanCorrelation(smRisks, smWages);
+		console.log(
+			`\n  Risk vs wage correlation (n=${subMajorStats.length}): ρ = ${isNaN(riskWageRho) ? 'N/A' : riskWageRho.toFixed(3)}`
+		);
+		console.log(
+			riskWageRho < 0
+				? '  Negative: higher risk groups tend to have lower wages (consistent with structural pressure)'
+				: '  Non-negative: higher risk groups do not systematically have lower wages'
+		);
+	}
+
 	// Summary
 	const passCount = checks.filter(c => c.pass).length;
 	const totalChecks = checks.length;
@@ -294,8 +343,9 @@ function main() {
 	const result = {
 		validation_date: new Date().toISOString().split('T')[0],
 		data_period: 'Q3 2025',
-		model_version: 'V3.1',
+		model_version: 'V3.3',
 		cluster_stats: clusterStats,
+		sub_major_group_stats: subMajorStats,
 		correlation_checks: checks,
 		directional_accuracy: directionalAccuracy,
 		summary: {
@@ -310,7 +360,7 @@ function main() {
 				'Cluster-level aggregation masks within-cluster variation',
 				'Q3 2025 is a single observation — trends need multi-quarter validation',
 				'Vacancy rates reflect overall demand, not AI-specific displacement',
-				'Frank et al. (2025): single exposure measures misrepresent AI impact — ensemble approach recommended'
+				'V3.3: Ensemble exposure (AIOE 50% + Anthropic observed usage 50%) per Frank et al. (2025) recommendation'
 			]
 		}
 	};

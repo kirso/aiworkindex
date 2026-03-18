@@ -1431,12 +1431,13 @@ function scoreOccupations(
 		const bottleneck = thetaRanks[i];
 		const theoreticalExposure = exposure;
 
-		// === 4a: Anthropic exposure calibration ===
-		// If we have observed usage data, adjust exposure by up to ±30%
+		// === 4a: Ensemble exposure (AIOE + Anthropic) ===
+		// V3.3: Equal-weight ensemble per Frank et al. (2025) PNAS Nexus.
+		// When Anthropic observed usage data is available, blend 50/50 with AIOE.
+		// Fallback: AIOE-only when Anthropic data unavailable.
 		if (anthropicPctiles[i] >= 0) {
 			const observedPctile = anthropicPctiles[i];
-			const exposureCalibrated = exposure + 0.3 * (observedPctile - exposure);
-			exposure = Math.max(0, Math.min(1, exposureCalibrated));
+			exposure = Math.max(0, Math.min(1, 0.5 * exposure + 0.5 * observedPctile));
 			anthropicCalibrationCount++;
 		}
 

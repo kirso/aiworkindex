@@ -128,9 +128,9 @@ export const DATA_VINTAGE = {
 	/** Anthropic Economic Index date */
 	anthropic: 'January 2026',
 	/** Model version */
-	model_version: 'V3.1',
+	model_version: 'V3.3',
 	/** Last scoring run date */
-	last_updated: '2026-03-18',
+	last_updated: '2026-03-19',
 	/** Occupation count */
 	occupation_count: 562,
 	/** Synthetic role count */
@@ -163,9 +163,18 @@ export const MARKET_CONSTANTS = {
 // ANTHROPIC CALIBRATION
 // ============================================
 
+/**
+ * Ensemble exposure weights (V3.2 → V3.3 upgrade):
+ * Previously: calibration_weight 0.3 (AIOE 70% / Anthropic 30%)
+ * Now: equal-weight ensemble per Frank et al. (2025) PNAS Nexus recommendation
+ * that ensemble approaches outperform any single exposure score.
+ * AIOE-only fallback used when Anthropic data is unavailable.
+ */
 export const ANTHROPIC_CONSTANTS = {
-	/** Calibration weight: how much observed usage shifts theoretical exposure */
-	calibration_weight: 0.3
+	/** AIOE weight in ensemble (when Anthropic data available) */
+	aioe_weight: 0.5,
+	/** Anthropic observed usage weight in ensemble */
+	anthropic_weight: 0.5
 } as const;
 
 // ============================================
