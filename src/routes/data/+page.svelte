@@ -15,7 +15,7 @@
 		{ name: 'exposure', type: 'number', description: 'AI technical exposure score (0-1). Based on AIOE index mapping to SSOC via ISCO crosswalk' },
 		{ name: 'bottleneck', type: 'number', description: 'Human bottleneck strength (0-1). Higher = stronger human advantage from judgment, creativity, interpersonal skills' },
 		{ name: 'net_risk', type: 'number', description: 'Net displacement risk (0-1). Formula: exposure × (1 - bottleneck) × market_modifier' },
-		{ name: 'risk_band', type: 'enum', description: 'Categorical risk: very_low (<5%), low (<15%), moderate (<25%), high (<35%), very_high (≥35%)' },
+		{ name: 'risk_band', type: 'enum', description: 'Categorical risk: very_low (<5%), low (<15%), moderate (<30%), high (<50%), very_high (≥50%)' },
 		{ name: 'augmentation', type: 'number', description: 'Augmentation potential (0-1). How much AI can enhance (not replace) this role' },
 		{ name: 'impact_type', type: 'enum', description: 'ai_leveraged | at_risk | stable | mixed — based on exposure and bottleneck thresholds' },
 		{ name: 'market.market_momentum', type: 'number', description: 'Employment growth trend (0-1)' },
