@@ -141,6 +141,38 @@ const AUDIT_DEFINITIONS: AuditEntryDefinition[] = [
 		usedBy: ['worker profile']
 	},
 	{
+		key: 'planning_area_residence_by_occupation',
+		file: 'planning_area_residence_by_occupation.json',
+		location: 'raw',
+		label: 'Planning area of residence by occupation',
+		expectedType: 'json',
+		usedBy: ['geography context']
+	},
+	{
+		key: 'travel_time_to_work_by_occupation',
+		file: 'travel_time_to_work_by_occupation.json',
+		location: 'raw',
+		label: 'Travel time to work by occupation',
+		expectedType: 'json',
+		usedBy: ['geography context']
+	},
+	{
+		key: 'unemployment_rate_quarterly',
+		file: 'unemployment_rate_quarterly.json',
+		location: 'raw',
+		label: 'Quarterly unemployment rate',
+		expectedType: 'json',
+		usedBy: ['macro context']
+	},
+	{
+		key: 'job_vacancy_to_unemployed_ratio',
+		file: 'job_vacancy_to_unemployed_ratio.json',
+		location: 'raw',
+		label: 'Job vacancy to unemployed ratio',
+		expectedType: 'json',
+		usedBy: ['macro context']
+	},
+	{
 		key: 'wsq_trainees_by_statement_attainment',
 		file: 'wsq_trainees_by_statement_attainment.json',
 		location: 'raw',

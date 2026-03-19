@@ -168,6 +168,28 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 			'Broad occupation-group worker composition and 2-digit occupation-family gender anchors used as Singapore context, not as score multipliers.'
 	},
 	{
+		key: 'singstat_planning_area_residence_by_occupation',
+		label: 'SingStat Planning Area of Residence by Occupation',
+		tier: 'official_sg',
+		status: 'live',
+		vintage: '2020',
+		used_for: ['geography context', 'planning-area concentration'],
+		url: 'https://data.gov.sg/datasets/d_63449f74c83eb941f87c2172f08d299c/view',
+		notes:
+			'Official Census 2020 geography table used for broad occupation-group residence concentration. Context only; not a score input.'
+	},
+	{
+		key: 'singstat_travel_time_by_occupation',
+		label: 'SingStat Travel Time to Work by Occupation',
+		tier: 'official_sg',
+		status: 'live',
+		vintage: '2020',
+		used_for: ['geography context', 'commute burden context'],
+		url: 'https://data.gov.sg/datasets/d_0888806f369c8527e969a5f6f8528d1c/view',
+		notes:
+			'Official Census 2020 travel-time table used to summarize commute burden by broad occupation group. Context only; not a score input.'
+	},
+	{
 		key: 'mom_jobs_in_demand_2025',
 		label: 'MOM Jobs in Demand 2025',
 		tier: 'official_sg',
@@ -226,6 +248,28 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 		url: 'https://data.gov.sg/datasets?resultId=d_3eaf52cdcc405a80b602d031d0bd092b&sort=updatedAt',
 		notes:
 			'Official quarterly retrenched-employees counts by broad occupational group. The raw API payload is downloaded into the repo and merged with published incidence context from the MOM labour-market snapshot.'
+	},
+	{
+		key: 'singstat_unemployment_rate_quarterly',
+		label: 'SingStat Unemployment Rate, Quarterly, Seasonally Adjusted',
+		tier: 'official_sg',
+		status: 'live',
+		vintage: '2025',
+		used_for: ['macro context', 'unemployment context'],
+		url: 'https://data.gov.sg/datasets/d_b816a930bca0eb19fdf20fcbfcdd4c39/view',
+		notes:
+			'Official quarterly unemployment series used for macro labour context. Published separately from the structural score.'
+	},
+	{
+		key: 'mom_job_vacancy_to_unemployed_ratio',
+		label: 'MOM Job Vacancy to Unemployed Person Ratio',
+		tier: 'official_sg',
+		status: 'live',
+		vintage: '2024',
+		used_for: ['macro context', 'labour tightness context'],
+		url: 'https://data.gov.sg/datasets/d_6530db8211d9538872eb7b1f5dd366d0/view',
+		notes:
+			'Official annual labour-tightness ratio used as macro context around the score. It is not treated as an occupation-level input.'
 	},
 	{
 		key: 'wsg_jobs_transformation_maps',

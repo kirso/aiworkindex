@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-03-19T10:57:48.844Z",
+  "generated_at": "2026-03-19T11:35:14.731Z",
   "summary": {
-    "valid": 17,
+    "valid": 21,
     "placeholder_error": 0,
     "missing": 0,
     "reference_only": 4
@@ -167,6 +167,58 @@
         "worker profile"
       ],
       "note": "Workbook sheets: Contents, T1, T1.1, T1.2"
+    },
+    {
+      "key": "planning_area_residence_by_occupation",
+      "file": "planning_area_residence_by_occupation.json",
+      "label": "Planning area of residence by occupation",
+      "status": "valid",
+      "exists": true,
+      "expected_type": "json",
+      "size_bytes": 16642,
+      "used_by": [
+        "geography context"
+      ],
+      "note": "Valid JSON payload."
+    },
+    {
+      "key": "travel_time_to_work_by_occupation",
+      "file": "travel_time_to_work_by_occupation.json",
+      "label": "Travel time to work by occupation",
+      "status": "valid",
+      "exists": true,
+      "expected_type": "json",
+      "size_bytes": 7646,
+      "used_by": [
+        "geography context"
+      ],
+      "note": "Valid JSON payload."
+    },
+    {
+      "key": "unemployment_rate_quarterly",
+      "file": "unemployment_rate_quarterly.json",
+      "label": "Quarterly unemployment rate",
+      "status": "valid",
+      "exists": true,
+      "expected_type": "json",
+      "size_bytes": 10531,
+      "used_by": [
+        "macro context"
+      ],
+      "note": "Valid JSON payload."
+    },
+    {
+      "key": "job_vacancy_to_unemployed_ratio",
+      "file": "job_vacancy_to_unemployed_ratio.json",
+      "label": "Job vacancy to unemployed ratio",
+      "status": "valid",
+      "exists": true,
+      "expected_type": "json",
+      "size_bytes": 2501,
+      "used_by": [
+        "macro context"
+      ],
+      "note": "Valid JSON payload."
     },
     {
       "key": "wsq_trainees_by_statement_attainment",

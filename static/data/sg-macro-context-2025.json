@@ -1,0 +1,968 @@
+{
+  "version": "V4.0",
+  "generated_at": "2026-03-19T11:33:58.449Z",
+  "description": "Official Singapore macro labour context derived from unemployment and labour-tightness series. This artifact is contextual and does not affect the structural score.",
+  "unemployment": {
+    "latest": {
+      "quarter": "2025 4Q",
+      "total_rate": 2,
+      "resident_rate": 2.9,
+      "citizen_rate": 3
+    },
+    "history": [
+      {
+        "quarter": "1992 1Q",
+        "total_rate": 1.8,
+        "resident_rate": 2.2,
+        "citizen_rate": 2.3
+      },
+      {
+        "quarter": "1992 2Q",
+        "total_rate": 1.8,
+        "resident_rate": 2.1,
+        "citizen_rate": 2.2
+      },
+      {
+        "quarter": "1992 3Q",
+        "total_rate": 2,
+        "resident_rate": 2.4,
+        "citizen_rate": 2.4
+      },
+      {
+        "quarter": "1992 4Q",
+        "total_rate": 1.6,
+        "resident_rate": 2,
+        "citizen_rate": 2
+      },
+      {
+        "quarter": "1993 1Q",
+        "total_rate": 1.5,
+        "resident_rate": 1.9,
+        "citizen_rate": 1.9
+      },
+      {
+        "quarter": "1993 2Q",
+        "total_rate": 1.8,
+        "resident_rate": 2.1,
+        "citizen_rate": 2.1
+      },
+      {
+        "quarter": "1993 3Q",
+        "total_rate": 1.8,
+        "resident_rate": 2.3,
+        "citizen_rate": 2.3
+      },
+      {
+        "quarter": "1993 4Q",
+        "total_rate": 1.6,
+        "resident_rate": 2,
+        "citizen_rate": 2.1
+      },
+      {
+        "quarter": "1994 1Q",
+        "total_rate": 1.7,
+        "resident_rate": 2.1,
+        "citizen_rate": 2.1
+      },
+      {
+        "quarter": "1994 2Q",
+        "total_rate": 1.6,
+        "resident_rate": 2,
+        "citizen_rate": 2.1
+      },
+      {
+        "quarter": "1994 3Q",
+        "total_rate": 1.8,
+        "resident_rate": 2.3,
+        "citizen_rate": 2.3
+      },
+      {
+        "quarter": "1994 4Q",
+        "total_rate": 1.8,
+        "resident_rate": 2.3,
+        "citizen_rate": 2.3
+      },
+      {
+        "quarter": "1995 1Q",
+        "total_rate": 1.7,
+        "resident_rate": 2.2,
+        "citizen_rate": 2.2
+      },
+      {
+        "quarter": "1995 2Q",
+        "total_rate": 1.9,
+        "resident_rate": 2.3,
+        "citizen_rate": 2.4
+      },
+      {
+        "quarter": "1995 3Q",
+        "total_rate": 1.6,
+        "resident_rate": 2.1,
+        "citizen_rate": 2
+      },
+      {
+        "quarter": "1995 4Q",
+        "total_rate": 1.7,
+        "resident_rate": 2.2,
+        "citizen_rate": 2.3
+      },
+      {
+        "quarter": "1996 1Q",
+        "total_rate": 1.8,
+        "resident_rate": 2.3,
+        "citizen_rate": 2.3
+      },
+      {
+        "quarter": "1996 2Q",
+        "total_rate": 1.8,
+        "resident_rate": 2.2,
+        "citizen_rate": 2.3
+      },
+      {
+        "quarter": "1996 3Q",
+        "total_rate": 1.5,
+        "resident_rate": 2,
+        "citizen_rate": 2
+      },
+      {
+        "quarter": "1996 4Q",
+        "total_rate": 1.5,
+        "resident_rate": 2,
+        "citizen_rate": 2.1
+      },
+      {
+        "quarter": "1997 1Q",
+        "total_rate": 1.4,
+        "resident_rate": 1.9,
+        "citizen_rate": 2
+      },
+      {
+        "quarter": "1997 2Q",
+        "total_rate": 1.4,
+        "resident_rate": 1.8,
+        "citizen_rate": 1.9
+      },
+      {
+        "quarter": "1997 3Q",
+        "total_rate": 1.4,
+        "resident_rate": 1.9,
+        "citizen_rate": 2
+      },
+      {
+        "quarter": "1997 4Q",
+        "total_rate": 1.5,
+        "resident_rate": 2.2,
+        "citizen_rate": 2.2
+      },
+      {
+        "quarter": "1998 1Q",
+        "total_rate": 1.7,
+        "resident_rate": 2.4,
+        "citizen_rate": 2.4
+      },
+      {
+        "quarter": "1998 2Q",
+        "total_rate": 1.9,
+        "resident_rate": 2.5,
+        "citizen_rate": 2.6
+      },
+      {
+        "quarter": "1998 3Q",
+        "total_rate": 3.3,
+        "resident_rate": 4.5,
+        "citizen_rate": 4.6
+      },
+      {
+        "quarter": "1998 4Q",
+        "total_rate": 3.4,
+        "resident_rate": 4.7,
+        "citizen_rate": 4.8
+      },
+      {
+        "quarter": "1999 1Q",
+        "total_rate": 3.1,
+        "resident_rate": 4.2,
+        "citizen_rate": 4.3
+      },
+      {
+        "quarter": "1999 2Q",
+        "total_rate": 2.7,
+        "resident_rate": 3.7,
+        "citizen_rate": 3.8
+      },
+      {
+        "quarter": "1999 3Q",
+        "total_rate": 3,
+        "resident_rate": 4,
+        "citizen_rate": 4.2
+      },
+      {
+        "quarter": "1999 4Q",
+        "total_rate": 2.4,
+        "resident_rate": 3.3,
+        "citizen_rate": 3.3
+      },
+      {
+        "quarter": "2000 1Q",
+        "total_rate": 2.8,
+        "resident_rate": 3.8,
+        "citizen_rate": 4.1
+      },
+      {
+        "quarter": "2000 2Q",
+        "total_rate": 3.4,
+        "resident_rate": 4.6,
+        "citizen_rate": 4.8
+      },
+      {
+        "quarter": "2000 3Q",
+        "total_rate": 2,
+        "resident_rate": 2.8,
+        "citizen_rate": 2.8
+      },
+      {
+        "quarter": "2000 4Q",
+        "total_rate": 2.2,
+        "resident_rate": 3.1,
+        "citizen_rate": 3.2
+      },
+      {
+        "quarter": "2001 1Q",
+        "total_rate": 1.9,
+        "resident_rate": 2.6,
+        "citizen_rate": 2.8
+      },
+      {
+        "quarter": "2001 2Q",
+        "total_rate": 2.2,
+        "resident_rate": 3,
+        "citizen_rate": 3.1
+      },
+      {
+        "quarter": "2001 3Q",
+        "total_rate": 2.9,
+        "resident_rate": 4,
+        "citizen_rate": 4.1
+      },
+      {
+        "quarter": "2001 4Q",
+        "total_rate": 3.7,
+        "resident_rate": 5.2,
+        "citizen_rate": 5.4
+      },
+      {
+        "quarter": "2002 1Q",
+        "total_rate": 3.6,
+        "resident_rate": 5,
+        "citizen_rate": 5.2
+      },
+      {
+        "quarter": "2002 2Q",
+        "total_rate": 3.4,
+        "resident_rate": 4.5,
+        "citizen_rate": 4.8
+      },
+      {
+        "quarter": "2002 3Q",
+        "total_rate": 3.6,
+        "resident_rate": 4.9,
+        "citizen_rate": 5.2
+      },
+      {
+        "quarter": "2002 4Q",
+        "total_rate": 3.7,
+        "resident_rate": 4.9,
+        "citizen_rate": 5.1
+      },
+      {
+        "quarter": "2003 1Q",
+        "total_rate": 3.7,
+        "resident_rate": 5,
+        "citizen_rate": 5.1
+      },
+      {
+        "quarter": "2003 2Q",
+        "total_rate": 3.6,
+        "resident_rate": 4.7,
+        "citizen_rate": 4.9
+      },
+      {
+        "quarter": "2003 3Q",
+        "total_rate": 4.8,
+        "resident_rate": 6.2,
+        "citizen_rate": 6.4
+      },
+      {
+        "quarter": "2003 4Q",
+        "total_rate": 3.9,
+        "resident_rate": 5.2,
+        "citizen_rate": 5.4
+      },
+      {
+        "quarter": "2004 1Q",
+        "total_rate": 3.7,
+        "resident_rate": 4.9,
+        "citizen_rate": 5.3
+      },
+      {
+        "quarter": "2004 2Q",
+        "total_rate": 3.6,
+        "resident_rate": 4.7,
+        "citizen_rate": 4.9
+      },
+      {
+        "quarter": "2004 3Q",
+        "total_rate": 3,
+        "resident_rate": 4,
+        "citizen_rate": 4.2
+      },
+      {
+        "quarter": "2004 4Q",
+        "total_rate": 3.2,
+        "resident_rate": 4.2,
+        "citizen_rate": 4.5
+      },
+      {
+        "quarter": "2005 1Q",
+        "total_rate": 3.2,
+        "resident_rate": 4.2,
+        "citizen_rate": 4.3
+      },
+      {
+        "quarter": "2005 2Q",
+        "total_rate": 3.3,
+        "resident_rate": 4.4,
+        "citizen_rate": 4.6
+      },
+      {
+        "quarter": "2005 3Q",
+        "total_rate": 3.3,
+        "resident_rate": 4.4,
+        "citizen_rate": 4.7
+      },
+      {
+        "quarter": "2005 4Q",
+        "total_rate": 2.7,
+        "resident_rate": 3.5,
+        "citizen_rate": 3.8
+      },
+      {
+        "quarter": "2006 1Q",
+        "total_rate": 2.4,
+        "resident_rate": 3.3,
+        "citizen_rate": 3.5
+      },
+      {
+        "quarter": "2006 2Q",
+        "total_rate": 2.7,
+        "resident_rate": 3.5,
+        "citizen_rate": 3.7
+      },
+      {
+        "quarter": "2006 3Q",
+        "total_rate": 2.8,
+        "resident_rate": 3.7,
+        "citizen_rate": 3.8
+      },
+      {
+        "quarter": "2006 4Q",
+        "total_rate": 2.8,
+        "resident_rate": 3.8,
+        "citizen_rate": 3.9
+      },
+      {
+        "quarter": "2007 1Q",
+        "total_rate": 2.7,
+        "resident_rate": 3.7,
+        "citizen_rate": 3.8
+      },
+      {
+        "quarter": "2007 2Q",
+        "total_rate": 2.3,
+        "resident_rate": 3.1,
+        "citizen_rate": 3.2
+      },
+      {
+        "quarter": "2007 3Q",
+        "total_rate": 1.7,
+        "resident_rate": 2.4,
+        "citizen_rate": 2.6
+      },
+      {
+        "quarter": "2007 4Q",
+        "total_rate": 1.7,
+        "resident_rate": 2.5,
+        "citizen_rate": 2.7
+      },
+      {
+        "quarter": "2008 1Q",
+        "total_rate": 1.9,
+        "resident_rate": 2.7,
+        "citizen_rate": 2.9
+      },
+      {
+        "quarter": "2008 2Q",
+        "total_rate": 2.2,
+        "resident_rate": 3,
+        "citizen_rate": 3.1
+      },
+      {
+        "quarter": "2008 3Q",
+        "total_rate": 2.3,
+        "resident_rate": 3.4,
+        "citizen_rate": 3.5
+      },
+      {
+        "quarter": "2008 4Q",
+        "total_rate": 2.7,
+        "resident_rate": 3.9,
+        "citizen_rate": 4.1
+      },
+      {
+        "quarter": "2009 1Q",
+        "total_rate": 3.2,
+        "resident_rate": 4.6,
+        "citizen_rate": 4.8
+      },
+      {
+        "quarter": "2009 2Q",
+        "total_rate": 3.2,
+        "resident_rate": 4.5,
+        "citizen_rate": 4.7
+      },
+      {
+        "quarter": "2009 3Q",
+        "total_rate": 3.3,
+        "resident_rate": 4.9,
+        "citizen_rate": 4.9
+      },
+      {
+        "quarter": "2009 4Q",
+        "total_rate": 2.3,
+        "resident_rate": 3.3,
+        "citizen_rate": 3.5
+      },
+      {
+        "quarter": "2010 1Q",
+        "total_rate": 2.2,
+        "resident_rate": 3.2,
+        "citizen_rate": 3.3
+      },
+      {
+        "quarter": "2010 2Q",
+        "total_rate": 2.2,
+        "resident_rate": 3.1,
+        "citizen_rate": 3.3
+      },
+      {
+        "quarter": "2010 3Q",
+        "total_rate": 2.1,
+        "resident_rate": 3.1,
+        "citizen_rate": 3.3
+      },
+      {
+        "quarter": "2010 4Q",
+        "total_rate": 2.2,
+        "resident_rate": 3.1,
+        "citizen_rate": 3.3
+      },
+      {
+        "quarter": "2011 1Q",
+        "total_rate": 1.9,
+        "resident_rate": 2.8,
+        "citizen_rate": 2.8
+      },
+      {
+        "quarter": "2011 2Q",
+        "total_rate": 2,
+        "resident_rate": 2.9,
+        "citizen_rate": 3
+      },
+      {
+        "quarter": "2011 3Q",
+        "total_rate": 2.1,
+        "resident_rate": 2.9,
+        "citizen_rate": 3
+      },
+      {
+        "quarter": "2011 4Q",
+        "total_rate": 2.1,
+        "resident_rate": 2.9,
+        "citizen_rate": 3.1
+      },
+      {
+        "quarter": "2012 1Q",
+        "total_rate": 2.1,
+        "resident_rate": 2.9,
+        "citizen_rate": 3.1
+      },
+      {
+        "quarter": "2012 2Q",
+        "total_rate": 1.9,
+        "resident_rate": 2.8,
+        "citizen_rate": 2.9
+      },
+      {
+        "quarter": "2012 3Q",
+        "total_rate": 1.9,
+        "resident_rate": 2.8,
+        "citizen_rate": 3
+      },
+      {
+        "quarter": "2012 4Q",
+        "total_rate": 1.9,
+        "resident_rate": 2.7,
+        "citizen_rate": 3
+      },
+      {
+        "quarter": "2013 1Q",
+        "total_rate": 1.9,
+        "resident_rate": 2.8,
+        "citizen_rate": 2.9
+      },
+      {
+        "quarter": "2013 2Q",
+        "total_rate": 2,
+        "resident_rate": 2.9,
+        "citizen_rate": 3
+      },
+      {
+        "quarter": "2013 3Q",
+        "total_rate": 1.8,
+        "resident_rate": 2.6,
+        "citizen_rate": 2.8
+      },
+      {
+        "quarter": "2013 4Q",
+        "total_rate": 1.9,
+        "resident_rate": 2.7,
+        "citizen_rate": 2.9
+      },
+      {
+        "quarter": "2014 1Q",
+        "total_rate": 2.1,
+        "resident_rate": 2.9,
+        "citizen_rate": 3
+      },
+      {
+        "quarter": "2014 2Q",
+        "total_rate": 1.9,
+        "resident_rate": 2.8,
+        "citizen_rate": 2.9
+      },
+      {
+        "quarter": "2014 3Q",
+        "total_rate": 1.9,
+        "resident_rate": 2.7,
+        "citizen_rate": 2.8
+      },
+      {
+        "quarter": "2014 4Q",
+        "total_rate": 1.9,
+        "resident_rate": 2.7,
+        "citizen_rate": 2.6
+      },
+      {
+        "quarter": "2015 1Q",
+        "total_rate": 1.8,
+        "resident_rate": 2.5,
+        "citizen_rate": 2.7
+      },
+      {
+        "quarter": "2015 2Q",
+        "total_rate": 2,
+        "resident_rate": 2.8,
+        "citizen_rate": 2.9
+      },
+      {
+        "quarter": "2015 3Q",
+        "total_rate": 1.9,
+        "resident_rate": 2.9,
+        "citizen_rate": 3.1
+      },
+      {
+        "quarter": "2015 4Q",
+        "total_rate": 1.9,
+        "resident_rate": 2.8,
+        "citizen_rate": 3
+      },
+      {
+        "quarter": "2016 1Q",
+        "total_rate": 1.9,
+        "resident_rate": 2.7,
+        "citizen_rate": 2.7
+      },
+      {
+        "quarter": "2016 2Q",
+        "total_rate": 2.1,
+        "resident_rate": 3,
+        "citizen_rate": 3.1
+      },
+      {
+        "quarter": "2016 3Q",
+        "total_rate": 2.1,
+        "resident_rate": 2.9,
+        "citizen_rate": 3.1
+      },
+      {
+        "quarter": "2016 4Q",
+        "total_rate": 2.2,
+        "resident_rate": 3.2,
+        "citizen_rate": 3.4
+      },
+      {
+        "quarter": "2017 1Q",
+        "total_rate": 2.3,
+        "resident_rate": 3.3,
+        "citizen_rate": 3.5
+      },
+      {
+        "quarter": "2017 2Q",
+        "total_rate": 2.2,
+        "resident_rate": 3.1,
+        "citizen_rate": 3.3
+      },
+      {
+        "quarter": "2017 3Q",
+        "total_rate": 2.1,
+        "resident_rate": 3.1,
+        "citizen_rate": 3.2
+      },
+      {
+        "quarter": "2017 4Q",
+        "total_rate": 2.1,
+        "resident_rate": 2.9,
+        "citizen_rate": 3
+      },
+      {
+        "quarter": "2018 1Q",
+        "total_rate": 2.1,
+        "resident_rate": 2.9,
+        "citizen_rate": 3
+      },
+      {
+        "quarter": "2018 2Q",
+        "total_rate": 2.1,
+        "resident_rate": 2.9,
+        "citizen_rate": 3
+      },
+      {
+        "quarter": "2018 3Q",
+        "total_rate": 2.1,
+        "resident_rate": 2.8,
+        "citizen_rate": 3
+      },
+      {
+        "quarter": "2018 4Q",
+        "total_rate": 2.2,
+        "resident_rate": 3,
+        "citizen_rate": 3.1
+      },
+      {
+        "quarter": "2019 1Q",
+        "total_rate": 2.2,
+        "resident_rate": 3.1,
+        "citizen_rate": 3.3
+      },
+      {
+        "quarter": "2019 2Q",
+        "total_rate": 2.3,
+        "resident_rate": 3.2,
+        "citizen_rate": 3.3
+      },
+      {
+        "quarter": "2019 3Q",
+        "total_rate": 2.2,
+        "resident_rate": 3.1,
+        "citizen_rate": 3.2
+      },
+      {
+        "quarter": "2019 4Q",
+        "total_rate": 2.2,
+        "resident_rate": 3.2,
+        "citizen_rate": 3.2
+      },
+      {
+        "quarter": "2020 1Q",
+        "total_rate": 2.5,
+        "resident_rate": 3.4,
+        "citizen_rate": 3.6
+      },
+      {
+        "quarter": "2020 2Q",
+        "total_rate": 3,
+        "resident_rate": 4.1,
+        "citizen_rate": 4.2
+      },
+      {
+        "quarter": "2020 3Q",
+        "total_rate": 3.4,
+        "resident_rate": 4.6,
+        "citizen_rate": 4.7
+      },
+      {
+        "quarter": "2020 4Q",
+        "total_rate": 3.2,
+        "resident_rate": 4.3,
+        "citizen_rate": 4.4
+      },
+      {
+        "quarter": "2021 1Q",
+        "total_rate": 2.9,
+        "resident_rate": 4,
+        "citizen_rate": 4.2
+      },
+      {
+        "quarter": "2021 2Q",
+        "total_rate": 2.7,
+        "resident_rate": 3.6,
+        "citizen_rate": 3.8
+      },
+      {
+        "quarter": "2021 3Q",
+        "total_rate": 2.6,
+        "resident_rate": 3.4,
+        "citizen_rate": 3.6
+      },
+      {
+        "quarter": "2021 4Q",
+        "total_rate": 2.4,
+        "resident_rate": 3.1,
+        "citizen_rate": 3.3
+      },
+      {
+        "quarter": "2022 1Q",
+        "total_rate": 2.3,
+        "resident_rate": 3,
+        "citizen_rate": 3.2
+      },
+      {
+        "quarter": "2022 2Q",
+        "total_rate": 2.1,
+        "resident_rate": 2.8,
+        "citizen_rate": 3
+      },
+      {
+        "quarter": "2022 3Q",
+        "total_rate": 2.1,
+        "resident_rate": 2.9,
+        "citizen_rate": 3
+      },
+      {
+        "quarter": "2022 4Q",
+        "total_rate": 2,
+        "resident_rate": 2.7,
+        "citizen_rate": 2.9
+      },
+      {
+        "quarter": "2023 1Q",
+        "total_rate": 1.8,
+        "resident_rate": 2.6,
+        "citizen_rate": 2.7
+      },
+      {
+        "quarter": "2023 2Q",
+        "total_rate": 1.9,
+        "resident_rate": 2.7,
+        "citizen_rate": 2.9
+      },
+      {
+        "quarter": "2023 3Q",
+        "total_rate": 2,
+        "resident_rate": 2.9,
+        "citizen_rate": 3
+      },
+      {
+        "quarter": "2023 4Q",
+        "total_rate": 2,
+        "resident_rate": 2.7,
+        "citizen_rate": 2.9
+      },
+      {
+        "quarter": "2024 1Q",
+        "total_rate": 2.1,
+        "resident_rate": 2.9,
+        "citizen_rate": 3.1
+      },
+      {
+        "quarter": "2024 2Q",
+        "total_rate": 1.9,
+        "resident_rate": 2.7,
+        "citizen_rate": 2.8
+      },
+      {
+        "quarter": "2024 3Q",
+        "total_rate": 1.9,
+        "resident_rate": 2.6,
+        "citizen_rate": 2.7
+      },
+      {
+        "quarter": "2024 4Q",
+        "total_rate": 1.9,
+        "resident_rate": 2.8,
+        "citizen_rate": 2.9
+      },
+      {
+        "quarter": "2025 1Q",
+        "total_rate": 2,
+        "resident_rate": 2.9,
+        "citizen_rate": 3.1
+      },
+      {
+        "quarter": "2025 2Q",
+        "total_rate": 2,
+        "resident_rate": 2.8,
+        "citizen_rate": 2.9
+      },
+      {
+        "quarter": "2025 3Q",
+        "total_rate": 2,
+        "resident_rate": 2.8,
+        "citizen_rate": 3.1
+      },
+      {
+        "quarter": "2025 4Q",
+        "total_rate": 2,
+        "resident_rate": 2.9,
+        "citizen_rate": 3
+      }
+    ],
+    "change_vs_year_ago": {
+      "total_rate_pp": 0.1,
+      "resident_rate_pp": 0.1,
+      "citizen_rate_pp": 0.1
+    }
+  },
+  "labour_tightness": {
+    "latest": {
+      "year": "2024",
+      "ratio": 1.56
+    },
+    "history": [
+      {
+        "year": "1998",
+        "ratio": 0.73
+      },
+      {
+        "year": "1999",
+        "ratio": 0.65
+      },
+      {
+        "year": "2000",
+        "ratio": 0.94
+      },
+      {
+        "year": "2001",
+        "ratio": 0.55
+      },
+      {
+        "year": "2002",
+        "ratio": 0.36
+      },
+      {
+        "year": "2003",
+        "ratio": 0.27
+      },
+      {
+        "year": "2004",
+        "ratio": 0.4
+      },
+      {
+        "year": "2005",
+        "ratio": 0.47
+      },
+      {
+        "year": "2006",
+        "ratio": 0.66
+      },
+      {
+        "year": "2007",
+        "ratio": 1.12
+      },
+      {
+        "year": "2008",
+        "ratio": 0.92
+      },
+      {
+        "year": "2009",
+        "ratio": 0.53
+      },
+      {
+        "year": "2010",
+        "ratio": 0.99
+      },
+      {
+        "year": "2011",
+        "ratio": 1.22
+      },
+      {
+        "year": "2012",
+        "ratio": 1.07
+      },
+      {
+        "year": "2013",
+        "ratio": 1.29
+      },
+      {
+        "year": "2014",
+        "ratio": 1.38
+      },
+      {
+        "year": "2015",
+        "ratio": 1.24
+      },
+      {
+        "year": "2016",
+        "ratio": 0.91
+      },
+      {
+        "year": "2017",
+        "ratio": 0.87
+      },
+      {
+        "year": "2018",
+        "ratio": 1.08
+      },
+      {
+        "year": "2019",
+        "ratio": 0.91
+      },
+      {
+        "year": "2020",
+        "ratio": 0.66
+      },
+      {
+        "year": "2021",
+        "ratio": 1.69
+      },
+      {
+        "year": "2022",
+        "ratio": 2.32
+      },
+      {
+        "year": "2023",
+        "ratio": 1.87
+      },
+      {
+        "year": "2024",
+        "ratio": 1.56
+      }
+    ],
+    "change_vs_prior_year": -0.31
+  },
+  "latest_snapshot": {
+    "quarter": "2025 4Q",
+    "resident_unemployment_rate": 2.9,
+    "total_unemployment_rate": 2,
+    "citizen_unemployment_rate": 3,
+    "job_vacancy_to_unemployed_ratio_year": "2024",
+    "job_vacancy_to_unemployed_ratio": 1.56
+  },
+  "metadata": {
+    "notes": [
+      "Unemployment rates are seasonally adjusted end-of-period series from MOM / SingStat.",
+      "Job-vacancy-to-unemployed ratio is an annual labour-tightness indicator based on quarterly averages.",
+      "These metrics are published as macro context around the score and do not act as direct occupation-level multipliers."
+    ]
+  }
+}

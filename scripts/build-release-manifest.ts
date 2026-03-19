@@ -26,6 +26,8 @@ interface ReleaseArtifactDefinition {
 		| 'context_bundle'
 		| 'labour_monitor'
 		| 'worker_profile'
+		| 'geography_context'
+		| 'macro_context'
 		| 'national_ai_context'
 		| 'transition_support'
 		| 'transition_infrastructure'
@@ -51,7 +53,7 @@ const ARTIFACTS: ReleaseArtifactDefinition[] = [
 		label: 'Singapore context pack',
 		category: 'context_bundle',
 		description:
-			'Published Singapore context bundle around the structural score: labour monitor, worker profile, industry context, sector wage anchors, and national AI context.'
+			'Published Singapore context bundle around the structural score: labour monitor, worker profile, industry context, sector wage anchors, geography context, macro labour context, and national AI context.'
 	},
 	{
 		file: 'sg-labour-monitor-2025.json',
@@ -64,6 +66,20 @@ const ARTIFACTS: ReleaseArtifactDefinition[] = [
 		label: 'Singapore worker profile',
 		category: 'worker_profile',
 		description: 'Published Labour Force 2024 worker-profile context and detailed gender anchors.'
+	},
+	{
+		file: 'sg-geography-context-2020.json',
+		label: 'Singapore geography context',
+		category: 'geography_context',
+		description:
+			'Published Census 2020 geography context covering planning-area residence concentration and travel-time patterns by broad occupation group.'
+	},
+	{
+		file: 'sg-macro-context-2025.json',
+		label: 'Singapore macro labour context',
+		category: 'macro_context',
+		description:
+			'Published macro labour context covering unemployment and labour-tightness series for Singapore.'
 	},
 	{
 		file: 'sg-ai-in-singapore-2025.json',

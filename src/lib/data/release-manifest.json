@@ -1,6 +1,6 @@
 {
   "version": "V4.0",
-  "generated_at": "2026-03-19T10:57:48.869Z",
+  "generated_at": "2026-03-19T11:35:14.754Z",
   "score_dataset_generated_at": "2026-03-19",
   "artifacts": [
     {
@@ -25,10 +25,10 @@
       "file": "sg-context-pack-2025.json",
       "label": "Singapore context pack",
       "category": "context_bundle",
-      "description": "Published Singapore context bundle around the structural score: labour monitor, worker profile, industry context, sector wage anchors, and national AI context.",
-      "bytes": 562258,
-      "sha256": "8b428662f7baf31c28f92c5ee7ae2ee54ed4a479080f25415135dee695df7ede",
-      "generated_at": "2026-03-19T10:57:47.476Z"
+      "description": "Published Singapore context bundle around the structural score: labour monitor, worker profile, industry context, sector wage anchors, geography context, macro labour context, and national AI context.",
+      "bytes": 604684,
+      "sha256": "6cc2cef23aa3e75a485797bbc2f9c23109af939aefb32e652ca1cbdd5cf8505f",
+      "generated_at": "2026-03-19T11:35:14.516Z"
     },
     {
       "file": "sg-labour-monitor-2025.json",
@@ -37,7 +37,7 @@
       "description": "Published cluster-level labour monitor used as current evidence around the score.",
       "bytes": 11328,
       "sha256": "5cea7335eae72a0901dacecd563338f83ba711e8d12257fbb7801857384abd7a",
-      "generated_at": "2026-03-19T10:57:47.476Z"
+      "generated_at": "2026-03-19T11:35:14.516Z"
     },
     {
       "file": "sg-worker-profile-2024.json",
@@ -47,6 +47,24 @@
       "bytes": 116519,
       "sha256": "723a9704e3b87db1f5779406eb0915ad41f7987717058ec8808c5ecef1fa4f36",
       "generated_at": "2026-03-19T10:57:45.424Z"
+    },
+    {
+      "file": "sg-geography-context-2020.json",
+      "label": "Singapore geography context",
+      "category": "geography_context",
+      "description": "Published Census 2020 geography context covering planning-area residence concentration and travel-time patterns by broad occupation group.",
+      "bytes": 12348,
+      "sha256": "edbfb5adef4e484b04df3f181f2fffa9f5192174a67b0db1a2aa7c82741b1ee7",
+      "generated_at": "2026-03-19T11:33:58.426Z"
+    },
+    {
+      "file": "sg-macro-context-2025.json",
+      "label": "Singapore macro labour context",
+      "category": "macro_context",
+      "description": "Published macro labour context covering unemployment and labour-tightness series for Singapore.",
+      "bytes": 20881,
+      "sha256": "0950030ff86c98edfe7ce0d3a1d74ad5857299ec44ed8c1b944d8e2d050b5281",
+      "generated_at": "2026-03-19T11:33:58.450Z"
     },
     {
       "file": "sg-ai-in-singapore-2025.json",
