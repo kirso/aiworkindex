@@ -692,6 +692,22 @@ Confidence should eventually include:
 - narrative confidence
 - role ambiguity
 
+### E. Bulletproofing Checklist
+
+The methodology will only feel bulletproof if the product is hard to catch overstating.
+
+Add these as explicit near-term tasks:
+- add checksums and generation timestamps to public data downloads
+- rename or alias legacy employment fields so estimated and proxy counts cannot be confused with official occupation counts
+- ensure every non-official occupation-level public number is visibly labeled `Est.` or `Proxy`
+- add a per-field provenance surface to the data dictionary and exports
+- add a source-and-claims matrix for high-traffic copy across homepage, methodology, reports, and data pages
+- replace equal-weight exposure blending with reliability-weighted blending when source metadata is ready
+- add a `signal_conflict` / `contested` flag where exposure, bottleneck, and Singapore demand evidence disagree materially
+- make confidence respond more strongly to sparse source coverage, crosswalk weakness, dispersion, and sensitivity
+- keep LLMs out of the canonical score; use them only for extraction, classification support, or QA
+- add a release checklist: pipeline run, validation pass, download refresh, copy audit, methodology diff
+
 ## 8.2 No-Limit Methodology
 
 If limits are removed and scraping / richer data acquisition are allowed, the methodology should evolve into a dynamic labour-market system.
@@ -846,10 +862,15 @@ Researchers, journalists, and policy users can cite the product.
 - snapshots and exports
 - changelog
 - backtests
+- source and claims matrix
+- release checklist
+- checksums and generation timestamps
+- provenance-first data dictionary
 
 ### Success Criteria
 
 - methodology can be inspected end-to-end
+- public claims can be audited back to sources and field-level evidence tiers
 
 ## 9.6 Workstream F: Growth Layer
 
@@ -928,13 +949,13 @@ Scope:
 If work starts now, the recommended order is:
 
 1. fix remaining labeling and trust issues
-2. ship `synthetic role` system
-3. ship `resolver` upgrade
-4. ship `narrative engine`
-5. improve role-page actionability
-6. add methodology appendix + data page
-7. add quarterly report
-8. start postings pipeline
+2. add checksums / provenance / claims audit
+3. improve confidence and contested-signal handling
+4. ship `synthetic role` system
+5. ship `resolver` upgrade
+6. ship `narrative engine`
+7. improve role-page actionability
+8. add quarterly report + start postings pipeline
 
 ---
 
@@ -964,4 +985,3 @@ The best version of this project is not:
 It is:
 
 > "the best public Singapore tool for understanding how AI changes jobs, how trustworthy that estimate is, and what people can do next."
-

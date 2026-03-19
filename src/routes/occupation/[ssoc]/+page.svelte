@@ -1,11 +1,6 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import {
-		riskBandLabels,
-		majorGroupByKey,
-		impactTypeLabels,
-		occupations as allOccupations
-	} from '$lib/data';
+	import { riskBandLabels, majorGroupByKey, impactTypeLabels } from '$lib/data';
 	import {
 		card,
 		riskBadge,
@@ -18,14 +13,16 @@
 		caption
 	} from '$lib/design-system';
 	import { cn } from '$lib/utils';
-	import { getPersonalizedContent } from '$lib/data/role-archetypes';
-	import { archetypeOverlayDefaults, generateWorkflowNarrative } from '$lib/data/workflow-overlay';
-	import { classifyArchetype } from '$lib/data/role-archetypes';
+	import {
+		contextToneClass,
+		formatCurrencyShort,
+		vacancySignalClass,
+		wagePremiumClass
+	} from '$lib/data/detail-display';
 	import OutlookSection from '$lib/components/ui/OutlookSection.svelte';
 	import LabourMarketCard from '$lib/components/ui/LabourMarketCard.svelte';
 	import DriverWaterfall from '$lib/components/viz/DriverWaterfall.svelte';
 	import TransitionGraph from '$lib/components/viz/TransitionGraph.svelte';
-	import { findBestTransitions } from '$lib/data/transition-capacity';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import * as Collapsible from '$lib/components/ui/collapsible/index.js';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
@@ -36,6 +33,8 @@
 
 	let { data } = $props();
 	let occ = $derived(data.occupation);
+	let structural = $derived(data.structural);
+	let context = $derived(data.context);
 
 	let isWatchlisted = $state(false);
 
@@ -67,50 +66,11 @@
 	}
 
 	let group = $derived(majorGroupByKey.get(occ.major_group));
-
-	let netRiskPercentile = $derived.by(() => {
-		const sorted = [...allOccupations].sort((a, b) => a.net_risk - b.net_risk);
-		const rank = sorted.findIndex(o => o.ssoc === occ.ssoc);
-		return Math.round((rank / (sorted.length - 1)) * 100);
-	});
-
-	let wageVsNational = $derived.by(() => {
-		const diff = occ.gross_wage_median - data.nationalMedian;
-		const pct = Math.round((Math.abs(diff) / data.nationalMedian) * 100);
-		if (pct < 3) return 'near median';
-		return diff > 0 ? `${pct}% above median` : `${pct}% below median`;
-	});
-
-	function levelLabel(v: number): string {
-		return v > 0.66 ? 'high' : v >= 0.33 ? 'moderate' : 'low';
-	}
-
-	let summaryText = $derived.by(() => {
-		const e = levelLabel(occ.exposure);
-		switch (occ.impact_type) {
-			case 'ai_leveraged':
-				return `This model suggests AI is more likely to enhance this role than replace it. ${e} exposure, but strong human bottlenecks mean AI augments rather than substitutes.`;
-			case 'at_risk':
-				return `Significant structural AI displacement pressure. ${e} exposure with few human bottlenecks to slow adoption.`;
-			case 'stable':
-				return `This model suggests AI is unlikely to significantly disrupt this role. ${e} exposure — limited overlap with core tasks.`;
-			case 'mixed':
-				return `Mixed signals — high exposure but also strong human dependencies. Outcome depends on adoption patterns.`;
-			default:
-				return '';
-		}
-	});
-
-	let personalizedContent = $derived(getPersonalizedContent(occ.ssoc, occ.title, occ.major_group));
-	let transitions = $derived(data.transitions);
-	let topTransitions = $derived(findBestTransitions(occ, allOccupations, 8));
-
-	let workflowNarrative = $derived.by(() => {
-		if (occ.workflow_overlay) return generateWorkflowNarrative(occ.workflow_overlay);
-		const archetype = classifyArchetype(occ.ssoc, occ.title, occ.major_group);
-		const overlay = archetypeOverlayDefaults[archetype];
-		return overlay ? generateWorkflowNarrative(overlay) : null;
-	});
+	let transitions = $derived(structural.transitions);
+	let topTransitions = $derived(structural.topTransitions);
+	let singaporeContext = $derived(context.singaporeContext);
+	let industryContext = $derived(context.industryContext);
+	let workerProfile = $derived(context.workerProfile);
 
 	let innerWidth = $state(1024);
 	$effect(() => {
@@ -191,7 +151,7 @@
 					acceptedAnswer: {
 						'@type': 'Answer',
 						text:
-							summaryText +
+							structural.summaryText +
 							' Net displacement risk: ' +
 							(occ.net_risk * 100).toFixed(0) +
 							'% (' +
@@ -262,10 +222,10 @@
 			<div class="flex-1 min-w-0">
 				<h1 class={titleStyle({ size: 'page' })}>{occ.title}</h1>
 				<p class={caption()}>
-					{group?.label ?? occ.major_group} · SGD {occ.gross_wage_median.toLocaleString()}/mo ({wageVsNational})
+					{group?.label ?? occ.major_group} · SGD {occ.gross_wage_median.toLocaleString()}/mo ({structural.wageVsNational})
 				</p>
 
-				<p class="mt-3 text-sm text-foreground/80 leading-relaxed">{summaryText}</p>
+				<p class="mt-3 text-sm text-foreground/80 leading-relaxed">{structural.summaryText}</p>
 
 				<div class="mt-3 flex flex-wrap items-center gap-2">
 					<span class={impactBadge({ type: occ.impact_type })}>
@@ -275,7 +235,7 @@
 						{occ.confidence.level.charAt(0).toUpperCase() + occ.confidence.level.slice(1)} Confidence
 					</span>
 					<span class="text-xs text-muted-foreground">
-						Higher risk than {netRiskPercentile}% of occupations
+						Higher risk than {structural.riskPercentile}% of occupations
 					</span>
 					<div class="ml-auto flex items-center gap-2">
 						<a
@@ -328,25 +288,25 @@
 				<div>
 					<p class="text-xs font-semibold text-risk-high mb-1">Tasks AI can handle</p>
 					<p class="text-sm text-muted-foreground leading-relaxed">
-						{personalizedContent.aiCanDo}
+						{structural.personalizedContent.aiCanDo}
 					</p>
 				</div>
 				<div>
 					<p class="text-xs font-semibold text-risk-very-low mb-1">Where humans stay essential</p>
 					<p class="text-sm text-muted-foreground leading-relaxed">
-						{personalizedContent.humanNeeded}
+						{structural.personalizedContent.humanNeeded}
 					</p>
 				</div>
-				{#if workflowNarrative}
-					<p class="text-sm text-foreground/60 leading-relaxed">{workflowNarrative}</p>
+				{#if structural.workflowNarrative}
+					<p class="text-sm text-foreground/60 leading-relaxed">{structural.workflowNarrative}</p>
 				{/if}
 			</div>
 
-			{#if personalizedContent.skills.length > 0}
+			{#if structural.personalizedContent.skills.length > 0}
 				<div class="mt-4 pt-4 border-t border-border">
 					<p class="text-xs font-semibold text-foreground mb-2">Skills to focus on</p>
 					<div class="grid gap-2 sm:grid-cols-2">
-						{#each personalizedContent.skills.slice(0, 4) as skill}
+						{#each structural.personalizedContent.skills.slice(0, 4) as skill}
 							<div class="flex gap-2">
 								<div class="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-primary"></div>
 								<div>
@@ -359,9 +319,9 @@
 				</div>
 			{/if}
 
-			{#if personalizedContent.evidence}
+			{#if structural.personalizedContent.evidence}
 				<p class="mt-3 text-xs text-muted-foreground/70 italic">
-					{personalizedContent.evidence}
+					{structural.personalizedContent.evidence}
 				</p>
 			{/if}
 		</div>
@@ -375,72 +335,165 @@
 		</section>
 	{/if}
 
+	{#if industryContext}
+		<section class="mb-8">
+			<h2 class={cn(sectionLabel(), 'mb-3')}>Singapore Industry Footprint</h2>
+			<div class={card({ padding: 'md' })}>
+				<div class="grid gap-6 sm:grid-cols-2">
+					<div>
+						<p class="text-xs font-semibold text-foreground">Largest employing industries</p>
+						<div class="mt-3 space-y-3">
+							{#each industryContext.top_industries as industry (industry.key)}
+								<div class="flex items-start justify-between gap-3">
+									<div>
+										<p class="text-sm text-foreground">{industry.label}</p>
+										<p class="mt-0.5 text-xs text-muted-foreground">
+											{(industry.share_2025 * 100).toFixed(0)}% of this job family in 2025
+										</p>
+										{#if industry.sector_gross_wage_median}
+											<p class="mt-0.5 text-xs text-muted-foreground">
+												Median gross {formatCurrencyShort(industry.sector_gross_wage_median)}
+												{#if industry.sector_wage_premium_pct !== null && industry.sector_wage_premium_pct !== undefined}
+													<span
+														class={cn(
+															'ml-1 font-medium',
+															wagePremiumClass(industry.sector_wage_premium_pct)
+														)}
+													>
+														{industry.sector_wage_premium_pct > 0 ? '+' : ''}
+														{(industry.sector_wage_premium_pct * 100).toFixed(0)}% vs all industries
+													</span>
+												{/if}
+											</p>
+										{/if}
+									</div>
+									<div class="text-right text-xs">
+										<p class="font-mono text-foreground">{industry.employment_2025.toFixed(1)}K</p>
+										{#if industry.vacancy_signal}
+											<p class={cn(vacancySignalClass(industry.vacancy_signal))}>
+												{industry.vacancy_signal === 'rising'
+													? 'Vacancies rising'
+													: industry.vacancy_signal === 'cooling'
+														? 'Vacancies cooling'
+														: 'Vacancies stable'}
+											</p>
+										{/if}
+									</div>
+								</div>
+							{/each}
+						</div>
+					</div>
+
+					<div>
+						<p class="text-xs font-semibold text-foreground">Fastest-growing industries</p>
+						<div class="mt-3 space-y-3">
+							{#each industryContext.fastest_growing_industries as industry (industry.key)}
+								<div class="flex items-start justify-between gap-3">
+									<div>
+										<p class="text-sm text-foreground">{industry.label}</p>
+										<p class="mt-0.5 text-xs text-muted-foreground">
+											5Y CAGR
+											{industry.cagr_5y !== null
+												? `${(industry.cagr_5y * 100).toFixed(1)}%`
+												: 'n/a'}
+										</p>
+										{#if industry.sector_gross_wage_median}
+											<p class="mt-0.5 text-xs text-muted-foreground">
+												Median gross {formatCurrencyShort(industry.sector_gross_wage_median)}
+												{#if industry.sector_wage_premium_pct !== null && industry.sector_wage_premium_pct !== undefined}
+													<span
+														class={cn(
+															'ml-1 font-medium',
+															wagePremiumClass(industry.sector_wage_premium_pct)
+														)}
+													>
+														{industry.sector_wage_premium_pct > 0 ? '+' : ''}
+														{(industry.sector_wage_premium_pct * 100).toFixed(0)}% vs all industries
+													</span>
+												{/if}
+											</p>
+										{/if}
+									</div>
+									<div class="text-right text-xs">
+										<p class="font-mono text-foreground">
+											{(industry.share_2025 * 100).toFixed(0)}%
+										</p>
+										{#if industry.vacancy_latest !== null}
+											<p class={cn(vacancySignalClass(industry.vacancy_signal))}>
+												{industry.vacancy_latest.toFixed(0)} vacancies
+											</p>
+										{/if}
+									</div>
+								</div>
+							{/each}
+						</div>
+					</div>
+				</div>
+				<p
+					class="mt-4 border-t border-border pt-3 text-[11px] leading-relaxed text-muted-foreground"
+				>
+					Industry footprint comes from the official Singapore industry × occupation employment
+					cross-tab. Wage anchors appear only where the published common-occupation wage tables
+					cover this occupation. Vacancy labels are industry-wide 2025 Q3 signals, shown as sector
+					context rather than occupation-level truth.
+				</p>
+			</div>
+		</section>
+	{/if}
+
 	<section class="mb-8">
 		<OutlookSection occupation={occ} />
 	</section>
 
 	<!-- ===== SINGAPORE CONTEXT ===== -->
-	{#if occ.education_label || occ.sg_context?.pwm_covered || occ.sg_context?.licensed_profession || occ.sg_context?.foreign_worker_dependency || occ.sg_context?.skillsfuture_eligible}
+	{#if singaporeContext.items.length > 0}
 		<section class="mb-8">
 			<h2 class={cn(sectionLabel(), 'mb-3')}>Singapore Context</h2>
 			<div class={card({ padding: 'md' })}>
 				<div class="grid gap-3 sm:grid-cols-2">
-					{#if occ.education_label}
+					{#each singaporeContext.items as item (item.key)}
 						<div>
-							<p class="text-xs font-semibold text-muted-foreground">Typical Education</p>
-							<p class="mt-0.5 text-sm text-foreground">{occ.education_label}</p>
+							<div class="flex items-center gap-2">
+								<p class={cn('text-xs font-semibold', contextToneClass(item.tone))}>{item.label}</p>
+								<span class="rounded-full bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">
+									{item.value}
+								</span>
+							</div>
+							<p class="mt-0.5 text-xs text-muted-foreground">{item.description}</p>
 						</div>
-					{/if}
-
-					{#if occ.sg_context?.pwm_covered}
-						<div>
-							<p class="text-xs font-semibold text-risk-high">Progressive Wage Model</p>
-							<p class="mt-0.5 text-xs text-muted-foreground">
-								Mandated wage floor — rising wages may accelerate automation incentive
-							</p>
-						</div>
-					{/if}
-
-					{#if occ.sg_context?.licensed_profession}
-						<div>
-							<p class="text-xs font-semibold text-risk-very-low">
-								Licensed Profession ({occ.sg_context.licensed_profession === 'strict'
-									? 'Strict'
-									: 'Partial'})
-							</p>
-							<p class="mt-0.5 text-xs text-muted-foreground">
-								{occ.sg_context.licensed_profession === 'strict'
-									? 'Must hold license to practice — strong regulatory moat against displacement'
-									: 'Licensing required for some activities — moderate protection'}
-							</p>
-						</div>
-					{/if}
-
-					{#if occ.sg_context?.foreign_worker_dependency}
-						<div>
-							<p class="text-xs font-semibold text-risk-moderate">
-								Foreign Worker Dependency: {occ.sg_context.foreign_worker_dependency === 'very_high'
-									? 'Very High'
-									: occ.sg_context.foreign_worker_dependency === 'high'
-										? 'High'
-										: 'Moderate'}
-							</p>
-							<p class="mt-0.5 text-xs text-muted-foreground">
-								Rising EP/S Pass thresholds may increase automation incentives in parts of this
-								sector
-							</p>
-						</div>
-					{/if}
-
-					{#if occ.sg_context?.skillsfuture_eligible}
-						<div>
-							<p class="text-xs font-semibold text-impact-leveraged">SkillsFuture Eligible</p>
-							<p class="mt-0.5 text-xs text-muted-foreground">
-								Career conversion programmes available — government-funded retraining pathway
-							</p>
-						</div>
-					{/if}
+					{/each}
 				</div>
+				<p
+					class="mt-4 border-t border-border pt-3 text-[11px] leading-relaxed text-muted-foreground"
+				>
+					{singaporeContext.note}
+				</p>
+			</div>
+		</section>
+	{/if}
+
+	{#if workerProfile.items.length > 0}
+		<section class="mb-8">
+			<h2 class={cn(sectionLabel(), 'mb-3')}>Singapore Worker Profile</h2>
+			<div class={card({ padding: 'md' })}>
+				<div class="grid gap-3 sm:grid-cols-2">
+					{#each workerProfile.items as item (item.key)}
+						<div>
+							<div class="flex items-center gap-2">
+								<p class={cn('text-xs font-semibold', contextToneClass(item.tone))}>{item.label}</p>
+								<span class="rounded-full bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">
+									{item.value}
+								</span>
+							</div>
+							<p class="mt-0.5 text-xs text-muted-foreground">{item.description}</p>
+						</div>
+					{/each}
+				</div>
+				<p
+					class="mt-4 border-t border-border pt-3 text-[11px] leading-relaxed text-muted-foreground"
+				>
+					{workerProfile.note}
+				</p>
 			</div>
 		</section>
 	{/if}

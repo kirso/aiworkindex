@@ -18,6 +18,7 @@ import * as path from 'path';
 const DATA_DIR = path.join(import.meta.dir, '..', 'data');
 const RAW_DIR = path.join(DATA_DIR, 'raw');
 const OUT_FILE = path.join(DATA_DIR, 'labour-monitor.json');
+const SRC_OUT_FILE = path.join(import.meta.dir, '..', 'src', 'lib', 'data', 'labour-monitor.json');
 
 // ===== Types =====
 type ClusterKey = 'pmet' | 'clerical_sales_service' | 'production_transport';
@@ -28,6 +29,11 @@ interface VacancySignal {
 	trend_4q_pct: number;
 	signal: 1 | 0 | -1;
 	recent_quarters: Array<{ quarter: string; rate: number }>;
+	latest_count?: number;
+	count_trend_4q_pct?: number;
+	count_signal?: 1 | 0 | -1;
+	recent_counts?: Array<{ quarter: string; count: number }>;
+	annual_counts?: Array<{ year: string; count: number }>;
 }
 
 interface HiringSignal {
@@ -60,6 +66,12 @@ const CLUSTER_CSV_NAMES: Record<ClusterKey, string> = {
 	pmet: 'professional, managers, executive and technicians',
 	clerical_sales_service: 'clerical, sales and services workers',
 	production_transport: 'production and transport operators, cleaners and labourers'
+};
+
+const CLUSTER_VACANCY_COUNT_NAMES: Record<ClusterKey, string> = {
+	pmet: 'professionals, managers, executives & technicians',
+	clerical_sales_service: 'clerical, sales & service workers',
+	production_transport: 'production & transport operators, cleaners & labourers'
 };
 
 const CLUSTER_LABELS: Record<ClusterKey, string> = {
@@ -96,6 +108,17 @@ function parseQuarter(token: string): string | null {
 	match = cleaned.match(/^(\d{4})-Q([1-4])$/);
 	if (match) return `${match[1]} Q${match[2]}`;
 	return null;
+}
+
+function parseCompactQuarter(token: string): string | null {
+	const cleaned = token.replace(/^"+|"+$/g, '').trim();
+	let match = cleaned.match(/^(\d{4})([1-4])Q$/);
+	if (match) return `${match[1]} Q${match[2]}`;
+	match = cleaned.match(/^(\d{4})Q([1-4])$/);
+	if (match) return `${match[1]} Q${match[2]}`;
+	match = cleaned.match(/^(\d{4})([1-4])$/);
+	if (match) return `${match[1]} Q${match[2]}`;
+	return parseQuarter(cleaned);
 }
 
 function quarterSortKey(q: string): number {
@@ -170,6 +193,58 @@ function parseVacancyRates(): Map<ClusterKey, Array<{ quarter: string; rate: num
 	}
 
 	// Sort each cluster by quarter descending
+	for (const [, series] of result) {
+		series.sort((a, b) => quarterSortKey(b.quarter) - quarterSortKey(a.quarter));
+	}
+
+	return result;
+}
+
+function parseVacancyCounts(): Map<ClusterKey, Array<{ quarter: string; count: number }>> {
+	const filePath = path.join(RAW_DIR, 'job_vacancies_by_industry_and_occupation_quarterly.csv');
+	if (!fs.existsSync(filePath)) {
+		console.log('  INFO: job_vacancies_by_industry_and_occupation_quarterly.csv not found');
+		return new Map();
+	}
+
+	const content = fs.readFileSync(filePath, 'utf-8');
+	const lines = content.split('\n').filter(l => l.trim());
+	if (lines.length < 2) return new Map();
+
+	const header = parseCSVRow(lines[0]);
+	const quarterColumns = header
+		.map((column, index) => {
+			if (index === 0) return null;
+			const quarter = parseCompactQuarter(column);
+			return quarter ? { index, quarter } : null;
+		})
+		.filter((value): value is { index: number; quarter: string } => value !== null)
+		.sort((a, b) => quarterSortKey(b.quarter) - quarterSortKey(a.quarter));
+
+	const result = new Map<ClusterKey, Array<{ quarter: string; count: number }>>();
+	for (const key of Object.keys(CLUSTER_VACANCY_COUNT_NAMES) as ClusterKey[]) {
+		result.set(key, []);
+	}
+
+	for (let i = 1; i < lines.length; i++) {
+		const fields = parseCSVRow(lines[i]);
+		const label = fields[0]?.toLowerCase().replace(/"/g, '').trim();
+		if (!label) continue;
+
+		for (const [key, expectedLabel] of Object.entries(CLUSTER_VACANCY_COUNT_NAMES) as Array<
+			[ClusterKey, string]
+		>) {
+			if (label !== expectedLabel) continue;
+			const series = result.get(key)!;
+			for (const { index, quarter } of quarterColumns) {
+				const rawValue = fields[index]?.replace(/"/g, '').trim();
+				if (!rawValue || rawValue.toLowerCase() === 'na' || rawValue === '-') continue;
+				const count = parseFloat(rawValue);
+				if (Number.isFinite(count)) series.push({ quarter, count });
+			}
+		}
+	}
+
 	for (const [, series] of result) {
 		series.sort((a, b) => quarterSortKey(b.quarter) - quarterSortKey(a.quarter));
 	}
@@ -277,6 +352,66 @@ function computeVacancySignal(
 	};
 }
 
+function computeVacancyCountSignal(series: Array<{ quarter: string; count: number }>): {
+	latest_count: number;
+	latest_quarter: string;
+	count_trend_4q_pct: number;
+	count_signal: 1 | 0 | -1;
+	recent_counts: Array<{ quarter: string; count: number }>;
+	annual_counts: Array<{ year: string; count: number }>;
+} | null {
+	if (series.length < 4) return null;
+
+	const latest = series[0];
+	const recent8 = series.slice(0, 8);
+	const latestQ = latest.quarter.split(' ').pop();
+	const yoyMatch = series
+		.slice(2, 8)
+		.find(point => point.quarter.includes(latestQ || '') && point.quarter !== latest.quarter);
+
+	let trend4qPct = 0;
+	if (yoyMatch && yoyMatch.count > 0) {
+		trend4qPct = (latest.count / yoyMatch.count - 1) * 100;
+	} else {
+		const fourBack = series[4];
+		if (fourBack && fourBack.count > 0) {
+			trend4qPct = (latest.count / fourBack.count - 1) * 100;
+		}
+	}
+
+	let signal: 1 | 0 | -1 = 0;
+	if (trend4qPct > 5) signal = 1;
+	else if (trend4qPct < -5) signal = -1;
+
+	const recentCounts = [...recent8].reverse();
+	const annualCounts: Array<{ year: string; count: number }> = [];
+	const yearMap = new Map<string, number[]>();
+	for (const point of series) {
+		const year = point.quarter.split(' ')[0];
+		if (!yearMap.has(year)) yearMap.set(year, []);
+		yearMap.get(year)!.push(point.count);
+	}
+	const recentYears = [...yearMap.entries()]
+		.sort((a, b) => b[0].localeCompare(a[0]))
+		.slice(0, 5)
+		.reverse();
+	for (const [year, counts] of recentYears) {
+		annualCounts.push({
+			year,
+			count: Math.round(counts.reduce((sum, count) => sum + count, 0) / counts.length)
+		});
+	}
+
+	return {
+		latest_count: latest.count,
+		latest_quarter: latest.quarter,
+		count_trend_4q_pct: Math.round(trend4qPct * 100) / 100,
+		count_signal: signal,
+		recent_counts: recentCounts,
+		annual_counts: annualCounts
+	};
+}
+
 function computeOverallSignal(
 	vacancySignal: 1 | 0 | -1,
 	hiringSignal: 1 | 0 | -1 | null,
@@ -323,6 +458,13 @@ function main() {
 	// Parse retrenchment (optional)
 	const _retrenchmentData = parseRetrenchment();
 
+	// Parse published vacancy counts by cluster
+	console.log('Parsing published vacancy counts CSV...');
+	const vacancyCountData = parseVacancyCounts();
+	for (const [key, series] of vacancyCountData) {
+		console.log(`  ${key}: ${series.length} vacancy-count quarters`);
+	}
+
 	// Build monitor for each cluster
 	const monitors: LabourClusterMonitor[] = [];
 	let dataAsOf = '';
@@ -340,6 +482,9 @@ function main() {
 			console.error(`ERROR: Could not compute vacancy signal for ${clusterKey}`);
 			process.exit(1);
 		}
+
+		const vacancyCountSeries = vacancyCountData.get(clusterKey) ?? [];
+		const vacancyCounts = computeVacancyCountSignal(vacancyCountSeries);
 
 		if (!dataAsOf) {
 			dataAsOf = vacancy.latest_quarter;
@@ -443,7 +588,15 @@ function main() {
 		monitors.push({
 			cluster_key: clusterKey,
 			cluster_label: CLUSTER_LABELS[clusterKey],
-			vacancy: { ...vacancy, annual_rates: annualRates },
+			vacancy: {
+				...vacancy,
+				annual_rates: annualRates,
+				latest_count: vacancyCounts?.latest_count,
+				count_trend_4q_pct: vacancyCounts?.count_trend_4q_pct,
+				count_signal: vacancyCounts?.count_signal,
+				recent_counts: vacancyCounts?.recent_counts,
+				annual_counts: vacancyCounts?.annual_counts
+			},
 			hiring,
 			retrenchment,
 			re_entry,
@@ -457,7 +610,9 @@ function main() {
 	// Write output
 	const output = JSON.stringify(monitors, null, 2);
 	fs.writeFileSync(OUT_FILE, output);
+	fs.writeFileSync(SRC_OUT_FILE, output);
 	console.log(`\nWrote ${OUT_FILE} (${monitors.length} clusters)`);
+	console.log(`Copied to ${SRC_OUT_FILE}`);
 
 	// Summary
 	for (const m of monitors) {

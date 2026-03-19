@@ -228,6 +228,25 @@
 							>{cluster.overall}</span
 						>
 					</div>
+					{#if cluster.vacancy_count !== null}
+						<div class="mt-1 flex items-baseline justify-between">
+							<span class="text-xs text-muted-foreground tabular-nums"
+								>{cluster.vacancy_count.toLocaleString()} vacancies</span
+							>
+							{#if cluster.vacancy_count_trend !== null}
+								<span
+									class="text-xs font-semibold tabular-nums {trendColor(
+										cluster.vacancy_count_trend
+									)}"
+								>
+									{trendArrow(cluster.vacancy_count_trend)}
+									{cluster.vacancy_count_trend > 0 ? '+' : ''}{cluster.vacancy_count_trend.toFixed(
+										1
+									)}%
+								</span>
+							{/if}
+						</div>
+					{/if}
 				</div>
 			{/each}
 		</div>

@@ -5,54 +5,211 @@
 	import * as Table from '$lib/components/ui/table/index.js';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import { SITE, DATA_VINTAGE } from '$lib/data/scoring-constants';
+	import {
+		dataSourceRegistry,
+		evidenceTierLabels,
+		employmentBasisLabels,
+		sourceRegistryStatusLabels
+	} from '$lib/data/data-contract';
 	import Seo from '$lib/components/ui/Seo.svelte';
 
-		const datasetJsonLd = `<script type="application/ld+json">${JSON.stringify({
-			'@context': 'https://schema.org',
-			'@type': 'Dataset',
-			name: 'AI Work Index — Singapore Occupation Scores',
-			description: `${DATA_VINTAGE.occupation_count} Singapore occupations scored for structural AI pressure using a 4-source exposure ensemble, human bottleneck, and Singapore labour-market signals.`,
+	const datasetJsonLd = `<script type="application/ld+json">${JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'Dataset',
+		name: 'AI Work Index — Singapore Occupation Scores',
+		description: `${DATA_VINTAGE.occupation_count} Singapore occupations scored for structural AI pressure using a 4-source exposure ensemble, human bottleneck, and Singapore labour-market signals.`,
 		url: SITE.url + '/data',
 		license: 'https://opensource.org/licenses/MIT',
 		creator: { '@type': 'Organization', name: SITE.name, url: SITE.url },
 		dateModified: DATA_VINTAGE.last_updated,
 		spatialCoverage: { '@type': 'Country', name: 'Singapore' },
-			variableMeasured: [
-				'AI exposure ensemble',
-				'Human bottleneck (theta)',
-				'Net displacement risk',
+		variableMeasured: [
+			'AI exposure ensemble',
+			'Human bottleneck (theta)',
+			'Net displacement risk',
 			'Augmentation potential',
 			'Market resilience'
 		]
 	})}<\/script>`;
 
+	const evidenceTiers = [
+		{
+			key: 'official_sg',
+			description: 'Direct Singapore government data published at the level shown on the site.'
+		},
+		{
+			key: 'derived_from_official_sg',
+			description: 'Rule-based or aggregated fields anchored to official Singapore data or published policy scope.'
+		},
+		{
+			key: 'external_proxy',
+			description: 'Non-Singapore research or external data used as an exposure input, proxy, or cross-check.'
+		},
+		{
+			key: 'synthetic',
+			description: 'Estimated role constructs or illustrative outputs that do not map one-to-one to official occupations.'
+		}
+	] as const;
+
 	const fields = [
-		{ name: 'ssoc', type: 'string', description: 'Singapore Standard Occupational Classification code (4-digit)' },
-		{ name: 'title', type: 'string', description: 'Occupation title from MOM classification' },
-		{ name: 'major_group', type: 'string', description: 'Major occupational group key (e.g., professionals, managers)' },
-		{ name: 'gross_wage_median', type: 'number', description: 'Median gross monthly wage in SGD (MOM 2024)' },
-		{ name: 'gross_wage_25th', type: 'number', description: '25th percentile gross monthly wage in SGD' },
-		{ name: 'gross_wage_75th', type: 'number', description: '75th percentile gross monthly wage in SGD' },
-			{ name: 'exposure', type: 'number', description: 'Exposure ensemble score (0-1). Equal average of matched percentile-ranked exposure sources in V4.0' },
-		{ name: 'bottleneck', type: 'number', description: 'Human bottleneck strength (0-1). Higher = stronger human advantage from judgment, creativity, interpersonal skills' },
-		{ name: 'net_risk', type: 'number', description: 'Net displacement risk (0-1). Formula: exposure × (1 - bottleneck) × market_modifier' },
-		{ name: 'risk_band', type: 'enum', description: 'Categorical risk: very_low (<5%), low (<15%), moderate (<30%), high (<50%), very_high (≥50%)' },
-		{ name: 'augmentation', type: 'number', description: 'Augmentation potential (0-1). How much AI can enhance (not replace) this role' },
-		{ name: 'impact_type', type: 'enum', description: 'ai_leveraged | at_risk | stable | mixed — based on exposure and bottleneck thresholds' },
-		{ name: 'market.market_momentum', type: 'number', description: 'Employment growth trend (0-1)' },
-		{ name: 'market.occupation_scarcity', type: 'number', description: 'Labour shortage signal (0-1). Derived from SOL and Jobs in Demand lists' },
-		{ name: 'market.market_resilience', type: 'number', description: 'Combined market buffer (0-1). Higher = stronger demand protection' },
-			{ name: 'employment_thousands', type: 'number', description: 'Backward-compatible Singapore employment estimate derived from published sub-major occupation totals. Not actual per-occupation headcount.' },
-			{ name: 'bls_proxy_employment', type: 'number', description: 'BLS-weighted employment proxy used for illustrative wage-pool analysis. Not an official Singapore headcount.' },
-		{ name: 'group_employment_thousands', type: 'number', description: 'Total employment for the MOM major occupation group this occupation belongs to (in thousands).' },
-		{ name: 'evidence.anthropic_calibrated', type: 'boolean', description: 'Whether Anthropic observed usage data is available for this occupation' },
-		{ name: 'evidence.anthropic_gap', type: 'number|null', description: 'Percentile gap: observed AI usage minus theoretical exposure. Positive = more adoption than theory predicts' },
-		{ name: 'evidence.sol_match', type: 'string|false', description: 'Shortage Occupation List match: "exact", "prefix", or false' },
-		{ name: 'evidence.jobs_in_demand_match', type: 'string|false', description: 'Jobs in Demand (MOM 2025) match: "exact", "prefix", or false' },
-		{ name: 'confidence.score', type: 'number', description: 'Overall estimate confidence (0-1). Combines crosswalk quality, market data, and source freshness' },
-		{ name: 'confidence.level', type: 'enum', description: 'high | medium | low — categorical confidence' },
-			{ name: 'stability.label', type: 'enum', description: 'stable | watch | sensitive — how much the risk band changes under the Monte Carlo stability check' }
-		];
+		{
+			name: 'ssoc',
+			type: 'string',
+			description: 'Singapore Standard Occupational Classification code (5-digit detail code).'
+		},
+		{ name: 'title', type: 'string', description: 'Occupation title from MOM classification.' },
+		{
+			name: 'major_group',
+			type: 'string',
+			description: 'Major occupational group key (for example professionals or managers).'
+		},
+		{
+			name: 'gross_wage_median',
+			type: 'number',
+			description: 'Median gross monthly wage in SGD from MOM 2024.'
+		},
+		{
+			name: 'gross_wage_25th',
+			type: 'number',
+			description: '25th percentile gross monthly wage in SGD.'
+		},
+		{
+			name: 'gross_wage_75th',
+			type: 'number',
+			description: '75th percentile gross monthly wage in SGD.'
+		},
+		{
+			name: 'employment_thousands',
+			type: 'number',
+			description:
+				'Est. Singapore employment for this occupation, derived from published Labour Force 2024 sub-major totals. Not an official occupation headcount.'
+		},
+		{
+			name: 'employment_basis',
+			type: 'enum',
+			description: `Basis label for employment_thousands. Current live basis: ${employmentBasisLabels.estimated_sg_submajor}.`
+		},
+		{
+			name: 'bls_proxy_employment',
+			type: 'number',
+			description:
+				'BLS-weighted proxy employment used for wage-pool analysis. This is not an official Singapore occupation headcount.'
+		},
+		{
+			name: 'data_basis.employment_estimate',
+			type: 'object',
+			description: 'Tier/source metadata for the Singapore employment estimate.'
+		},
+		{
+			name: 'data_basis.wage_pool_proxy',
+			type: 'object',
+			description: 'Tier/source metadata for the wage-pool proxy field.'
+		},
+		{
+			name: 'labour_monitor_key',
+			type: 'enum|null',
+			description:
+				'Cluster key linking this occupation to the separately published Singapore labour monitor dataset.'
+		},
+		{
+			name: 'exposure',
+			type: 'number',
+			description:
+				'Exposure ensemble score (0-1). Equal average of matched percentile-ranked exposure sources in V4.0.'
+		},
+		{
+			name: 'bottleneck',
+			type: 'number',
+			description:
+				'Human bottleneck strength (0-1). Higher means stronger human advantage from judgment, accountability, or interpersonal work.'
+		},
+		{
+			name: 'net_risk',
+			type: 'number',
+			description: 'Net displacement risk (0-1). Formula: exposure × (1 - bottleneck) × market_modifier.'
+		},
+		{
+			name: 'risk_band',
+			type: 'enum',
+			description:
+				'Categorical risk: very_low (<5%), low (<15%), moderate (<30%), high (<50%), very_high (≥50%).'
+		},
+		{
+			name: 'augmentation',
+			type: 'number',
+			description: 'Augmentation potential (0-1). How much AI can enhance rather than replace this role.'
+		},
+		{
+			name: 'impact_type',
+			type: 'enum',
+			description: 'ai_leveraged | at_risk | stable | mixed, based on displacement and augmentation thresholds.'
+		},
+		{
+			name: 'market.market_momentum',
+			type: 'number',
+			description: 'Broad labour-market momentum signal (0-1).'
+		},
+		{
+			name: 'market.occupation_scarcity',
+			type: 'number',
+			description: 'Labour shortage signal (0-1), derived from SOL and Jobs in Demand lists.'
+		},
+		{
+			name: 'market.market_resilience',
+			type: 'number',
+			description: 'Combined market buffer (0-1). Higher means stronger demand protection.'
+		},
+		{
+			name: 'group_employment_thousands',
+			type: 'number',
+			description: 'Official employment total for the broad Singapore occupation group (in thousands).'
+		},
+		{
+			name: 'evidence.anthropic_calibrated',
+			type: 'boolean',
+			description: 'Whether Anthropic observed-usage data is available for this occupation.'
+		},
+		{
+			name: 'evidence.anthropic_gap',
+			type: 'number|null',
+			description: 'Observed-usage percentile minus theoretical exposure percentile.'
+		},
+		{
+			name: 'evidence.sol_match',
+			type: 'string|false',
+			description: 'Shortage Occupation List match: exact, prefix, or false.'
+		},
+		{
+			name: 'evidence.jobs_in_demand_match',
+			type: 'string|false',
+			description: 'Jobs in Demand match: exact, prefix, or false.'
+		},
+		{
+			name: 'confidence.score',
+			type: 'number',
+			description: 'Overall estimate confidence (0-1), combining crosswalk quality, market data, and source freshness.'
+		},
+		{
+			name: 'confidence.level',
+			type: 'enum',
+			description: 'high | medium | low confidence.'
+		},
+		{
+			name: 'education_label',
+			type: 'string',
+			description: 'Displayed education proxy. Derived from O*NET Job Zones via the SOC crosswalk.'
+		},
+		{
+			name: 'sg_context',
+			type: 'object',
+			description: 'Singapore context flags (PWM, licensing, foreign-worker dependency, SkillsFuture support).'
+		},
+		{
+			name: 'stability.label',
+			type: 'enum',
+			description: 'stable | watch | sensitive — how much the risk band moves under the Monte Carlo stability check.'
+		}
+	];
 </script>
 
 <Seo
@@ -69,11 +226,15 @@
 	<p class="mt-2 text-sm text-muted-foreground">
 		The complete dataset behind this index is open. Download, analyze, and build on it. MIT licensed.
 	</p>
+	<p class="mt-1 text-sm text-muted-foreground">
+		The structural score dataset and the Singapore context bundle are published separately so current
+		labour evidence does not get mistaken for part of the core score.
+	</p>
 
 	<!-- Download Cards -->
 	<p class={cn(sectionLabel(), 'mt-6 mb-3')}>Downloads</p>
-	<div class="grid gap-4 sm:grid-cols-3">
-			<a href="/data/sg-ai-occupations-v4.csv" download class="no-underline">
+	<div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+		<a href="/data/sg-ai-occupations-v4.csv" download class="no-underline">
 			<div class={cn(card({ padding: 'lg', hover: true }), 'flex h-full flex-col items-start')}>
 				<div class="flex items-center gap-2">
 					<svg class="h-5 w-5 text-risk-very-low" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -83,12 +244,14 @@
 					</svg>
 					<span class="text-base font-semibold text-foreground">CSV Download</span>
 				</div>
-					<p class="mt-1 text-sm text-muted-foreground">562 occupations with flattened core fields. Best for spreadsheets and quick analysis.</p>
-					<span class="mt-2 text-xs text-primary">sg-ai-occupations-v4.csv</span>
-				</div>
-			</a>
+				<p class="mt-1 text-sm text-muted-foreground">
+					562 occupations with flattened core fields plus basis/provenance metadata. Best for spreadsheets and quick analysis.
+				</p>
+				<span class="mt-2 text-xs text-primary">sg-ai-occupations-v4.csv</span>
+			</div>
+		</a>
 
-			<a href="/data/sg-ai-occupations-v4.json" download class="no-underline">
+		<a href="/data/sg-ai-occupations-v4.json" download class="no-underline">
 			<div class={cn(card({ padding: 'lg', hover: true }), 'flex h-full flex-col items-start')}>
 				<div class="flex items-center gap-2">
 					<svg class="h-5 w-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -98,10 +261,12 @@
 					</svg>
 					<span class="text-base font-semibold text-foreground">JSON Download</span>
 				</div>
-					<p class="mt-1 text-sm text-muted-foreground">Full structured V4.0 data with nested fields, labour context, and current metadata.</p>
-					<span class="mt-2 text-xs text-primary">sg-ai-occupations-v4.json</span>
-				</div>
-			</a>
+				<p class="mt-1 text-sm text-muted-foreground">
+					Full structured V4.0 score data with nested fields and per-field basis metadata.
+				</p>
+				<span class="mt-2 text-xs text-primary">sg-ai-occupations-v4.json</span>
+			</div>
+		</a>
 
 		<a href={SITE.github} target="_blank" rel="noopener noreferrer" class="no-underline">
 			<div class={cn(card({ padding: 'lg', hover: true }), 'flex h-full flex-col items-start')}>
@@ -116,6 +281,34 @@
 				<span class="mt-2 text-xs text-primary">{SITE.github.replace('https://', '')}</span>
 			</div>
 		</a>
+
+		<div class={cn(card({ padding: 'lg' }), 'flex h-full flex-col items-start')}>
+				<div class="flex items-center gap-2">
+					<svg class="h-5 w-5 text-impact-leveraged" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+						<polyline points="7,10 12,15 17,10"/>
+						<line x1="12" y1="15" x2="12" y2="3"/>
+					</svg>
+					<span class="text-base font-semibold text-foreground">Singapore Context Pack</span>
+				</div>
+				<p class="mt-1 text-sm text-muted-foreground">
+					Context-only bundle with the labour monitor, worker profile, industry footprint, and
+					sector wage anchors around the structural score.
+				</p>
+				<div class="mt-2 flex flex-wrap items-center gap-2 text-xs">
+					<a href="/data/sg-context-pack-2025.json" download class="text-primary underline"
+						>context pack</a
+					>
+					<span class="text-muted-foreground">&middot;</span>
+					<a href="/data/sg-labour-monitor-2025.json" download class="text-primary underline"
+						>labour monitor</a
+					>
+					<span class="text-muted-foreground">&middot;</span>
+					<a href="/data/sg-worker-profile-2024.json" download class="text-primary underline"
+						>worker profile</a
+					>
+				</div>
+			</div>
 	</div>
 
 	<!-- Versioned Snapshots -->
@@ -170,24 +363,96 @@
 		<p class={cn(sectionLabel(), 'mb-3')}>Methodology Version</p>
 		<div class={card({ padding: 'lg' })}>
 			<div class="space-y-1 text-sm text-muted-foreground">
-					<p><span class="font-medium text-foreground">Version:</span> V4.0 (4-source exposure ensemble inside a 3-layer structural score)</p>
+				<p><span class="font-medium text-foreground">Version:</span> V4.0 (4-source exposure ensemble inside a 3-layer structural score)</p>
 				<p><span class="font-medium text-foreground">Data vintage:</span> 2024 wages, 2024/2025 demand signals</p>
 				<p><span class="font-medium text-foreground">Occupations:</span> 562 SSOC-coded occupations</p>
-					<p><span class="font-medium text-foreground">Sources:</span> MOM Singapore, O*NET, Felten AIOE, Pizzinelli/IMF, Anthropic observed usage, Eloundou GPT exposure, ILO occupational exposure, SOL 2026, Jobs in Demand 2025</p>
+				<p><span class="font-medium text-foreground">Separate context bundle:</span> Labour monitor, worker profile, industry context, and sector wage anchors</p>
+				<p><span class="font-medium text-foreground">Sources:</span> MOM Singapore (wages, Labour Force Section D, industry context, demand signals), O*NET, Felten AIOE, Pizzinelli/IMF, Anthropic observed usage, Eloundou GPT exposure, ILO occupational exposure, SOL 2026, Jobs in Demand 2025</p>
 			</div>
 			<a href="/methodology" class="mt-3 inline-block text-sm text-primary underline">Full methodology &rarr;</a>
+		</div>
+	</div>
+
+	<div class="mt-8">
+		<p class={cn(sectionLabel(), 'mb-3')}>Evidence Tiers</p>
+		<div class={card({ padding: 'lg' })}>
+			<div class="rounded-md border">
+				<Table.Root>
+					<Table.Header>
+						<Table.Row>
+							<Table.Head class="text-xs uppercase tracking-wider">Tier</Table.Head>
+							<Table.Head class="text-xs uppercase tracking-wider">Meaning</Table.Head>
+						</Table.Row>
+					</Table.Header>
+					<Table.Body>
+						{#each evidenceTiers as tier}
+							<Table.Row>
+								<Table.Cell class="font-medium">{evidenceTierLabels[tier.key]}</Table.Cell>
+								<Table.Cell class="text-xs text-muted-foreground">{tier.description}</Table.Cell>
+							</Table.Row>
+						{/each}
+					</Table.Body>
+				</Table.Root>
+			</div>
+			<p class="mt-3 text-xs text-muted-foreground">
+				The employment estimate and wage-pool proxy are intentionally separated. The first is an Est. Singapore allocation from official sub-major totals; the second is a BLS-weighted proxy used only for wage-pool views. Separate live worker-profile context comes from Labour Force 2024 Section D and wages-by-sex tables.
+			</p>
+			<p class="mt-2 text-xs text-muted-foreground">
+				Current labour evidence is also published separately in the Singapore context pack so the
+				structural score and the monitor can be audited independently.
+			</p>
 		</div>
 	</div>
 
 	<Alert.Root class="mt-4 border-risk-moderate-border bg-risk-moderate-subtle text-foreground/80 [&>svg]:text-risk-moderate">
 		<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
 		<Alert.Title class="text-foreground">A note on data quality</Alert.Title>
-			<Alert.Description class="text-foreground/80">
-				All scores are deterministic and reproducible.
-				The scoring pipeline uses no LLM in the loop — avoiding the circularity of using AI to score AI replaceability.
-				Every input traces to published research or an official dataset.
-			</Alert.Description>
-		</Alert.Root>
+		<Alert.Description class="text-foreground/80">
+			All scores are deterministic and reproducible. The scoring pipeline uses no LLM in the loop, and every displayed proxy or estimate now carries an explicit basis and evidence tier in the dataset.
+		</Alert.Description>
+	</Alert.Root>
+
+	<div class="mt-8">
+		<p class={cn(sectionLabel(), 'mb-3')}>Source Registry</p>
+		<div class={card({ padding: 'lg' })}>
+			<p class="mb-3 text-sm text-muted-foreground">
+				Live sources are in the current pipeline. Available sources are already in the repo or public backlog but not yet active in the live score.
+			</p>
+			<div class="rounded-md border">
+				<Table.Root>
+					<Table.Header>
+						<Table.Row>
+							<Table.Head class="text-xs uppercase tracking-wider">Source</Table.Head>
+							<Table.Head class="text-xs uppercase tracking-wider">Tier</Table.Head>
+							<Table.Head class="text-xs uppercase tracking-wider">Status</Table.Head>
+							<Table.Head class="text-xs uppercase tracking-wider">Used For</Table.Head>
+						</Table.Row>
+					</Table.Header>
+					<Table.Body>
+						{#each dataSourceRegistry as source}
+							<Table.Row>
+								<Table.Cell>
+									<div class="space-y-0.5">
+										<p class="font-medium text-foreground">{source.label}</p>
+										<p class="text-xs text-muted-foreground">{source.vintage}</p>
+									</div>
+								</Table.Cell>
+								<Table.Cell class="text-xs text-muted-foreground">
+									{evidenceTierLabels[source.tier]}
+								</Table.Cell>
+								<Table.Cell class="text-xs text-muted-foreground">
+									{sourceRegistryStatusLabels[source.status]}
+								</Table.Cell>
+								<Table.Cell class="text-xs text-muted-foreground">
+									{source.used_for.join(', ')}
+								</Table.Cell>
+							</Table.Row>
+						{/each}
+					</Table.Body>
+				</Table.Root>
+			</div>
+		</div>
+	</div>
 
 	<!-- Data Dictionary -->
 	<div class="mt-8">

@@ -120,6 +120,18 @@ function main() {
 			error(`${key}: vacancy.signal must be -1, 0, or 1`);
 		}
 
+		if (typeof m.vacancy.latest_count !== 'number') {
+			error(`${key}: vacancy.latest_count is not a number`);
+		}
+
+		if (typeof m.vacancy.count_trend_4q_pct !== 'number') {
+			error(`${key}: vacancy.count_trend_4q_pct is not a number`);
+		}
+
+		if (![-1, 0, 1].includes(m.vacancy.count_signal)) {
+			error(`${key}: vacancy.count_signal must be -1, 0, or 1`);
+		}
+
 		// Check recent_quarters ordering (should be ascending for sparkline)
 		const quarters = m.vacancy.recent_quarters;
 		if (!Array.isArray(quarters) || quarters.length === 0) {
@@ -147,6 +159,35 @@ function main() {
 				error(`${key}: all vacancy rates are zero/null`);
 			} else {
 				ok(`${key}: vacancy rates have non-zero values`);
+			}
+		}
+
+		const countQuarters = m.vacancy.recent_counts;
+		if (!Array.isArray(countQuarters) || countQuarters.length === 0) {
+			error(`${key}: vacancy.recent_counts is empty or not an array`);
+		} else {
+			ok(`${key}: ${countQuarters.length} recent vacancy-count quarters`);
+
+			let ordered = true;
+			for (let i = 1; i < countQuarters.length; i++) {
+				if (
+					quarterSortKey(countQuarters[i].quarter) <= quarterSortKey(countQuarters[i - 1].quarter)
+				) {
+					ordered = false;
+					break;
+				}
+			}
+			if (ordered) {
+				ok(`${key}: vacancy-count quarters in ascending order`);
+			} else {
+				error(`${key}: vacancy-count quarters not in ascending order`);
+			}
+
+			const allZero = countQuarters.every((q: any) => q.count === 0 || q.count === null);
+			if (allZero) {
+				error(`${key}: all vacancy counts are zero/null`);
+			} else {
+				ok(`${key}: vacancy counts have non-zero values`);
 			}
 		}
 

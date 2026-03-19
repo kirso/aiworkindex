@@ -1,0 +1,4347 @@
+{
+  "groups": {
+    "MANAGERS": {
+      "major_group": "MANAGERS",
+      "total_employment_2024": 404.9,
+      "sex_share": {
+        "male": 0.5992,
+        "female": 0.4006
+      },
+      "employment_status_share": {
+        "employers": 0.1613,
+        "employees": 0.7819,
+        "own_account_workers": 0.0563,
+        "contributing_family_workers": 0.0005,
+        "self_employed": 0.2181
+      },
+      "work_arrangement_share": {
+        "full_time": 0.9812,
+        "part_time": 0.0185
+      },
+      "age_share": {
+        "age_15_29": 0.022,
+        "age_30_49": 0.5939,
+        "age_50_59": 0.2566,
+        "age_60_plus": 0.1272
+      },
+      "qualification_share": {
+        "below_secondary": 0.0351,
+        "secondary": 0.0632,
+        "post_secondary_non_tertiary": 0.0405,
+        "diploma_professional": 0.1344,
+        "degree": 0.7268
+      }
+    },
+    "PROFESSIONALS": {
+      "major_group": "PROFESSIONALS",
+      "total_employment_2024": 619.9,
+      "sex_share": {
+        "male": 0.5025,
+        "female": 0.4975
+      },
+      "employment_status_share": {
+        "employers": 0.0115,
+        "employees": 0.9514,
+        "own_account_workers": 0.0365,
+        "contributing_family_workers": 0.0006,
+        "self_employed": 0.0486
+      },
+      "work_arrangement_share": {
+        "full_time": 0.9619,
+        "part_time": 0.0381
+      },
+      "age_share": {
+        "age_15_29": 0.163,
+        "age_30_49": 0.6157,
+        "age_50_59": 0.1581,
+        "age_60_plus": 0.0632
+      },
+      "qualification_share": {
+        "below_secondary": 0.0039,
+        "secondary": 0.0166,
+        "post_secondary_non_tertiary": 0.0208,
+        "diploma_professional": 0.1426,
+        "degree": 0.8159
+      }
+    },
+    "ASSOCIATE PROFESSIONALS AND TECHNICIANS": {
+      "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
+      "total_employment_2024": 483.1,
+      "sex_share": {
+        "male": 0.4999,
+        "female": 0.5003
+      },
+      "employment_status_share": {
+        "employers": 0.0075,
+        "employees": 0.8729,
+        "own_account_workers": 0.1188,
+        "contributing_family_workers": 0.0008,
+        "self_employed": 0.1271
+      },
+      "work_arrangement_share": {
+        "full_time": 0.9066,
+        "part_time": 0.0934
+      },
+      "age_share": {
+        "age_15_29": 0.1836,
+        "age_30_49": 0.5131,
+        "age_50_59": 0.1869,
+        "age_60_plus": 0.1161
+      },
+      "qualification_share": {
+        "below_secondary": 0.0406,
+        "secondary": 0.1244,
+        "post_secondary_non_tertiary": 0.1192,
+        "diploma_professional": 0.3471,
+        "degree": 0.3689
+      }
+    },
+    "CLERICAL SUPPORT WORKERS": {
+      "major_group": "CLERICAL SUPPORT WORKERS",
+      "total_employment_2024": 209.6,
+      "sex_share": {
+        "male": 0.229,
+        "female": 0.771
+      },
+      "employment_status_share": {
+        "employers": 0.001,
+        "employees": 0.9928,
+        "own_account_workers": 0.0019,
+        "contributing_family_workers": 0.0043,
+        "self_employed": 0.0072
+      },
+      "work_arrangement_share": {
+        "full_time": 0.8406,
+        "part_time": 0.1594
+      },
+      "age_share": {
+        "age_15_29": 0.1489,
+        "age_30_49": 0.3813,
+        "age_50_59": 0.2477,
+        "age_60_plus": 0.2223
+      },
+      "qualification_share": {
+        "below_secondary": 0.114,
+        "secondary": 0.2867,
+        "post_secondary_non_tertiary": 0.1803,
+        "diploma_professional": 0.3263,
+        "degree": 0.0921
+      }
+    },
+    "SERVICE AND SALES WORKERS": {
+      "major_group": "SERVICE AND SALES WORKERS",
+      "total_employment_2024": 241.8,
+      "sex_share": {
+        "male": 0.4222,
+        "female": 0.5778
+      },
+      "employment_status_share": {
+        "employers": 0.0215,
+        "employees": 0.9119,
+        "own_account_workers": 0.0604,
+        "contributing_family_workers": 0.0058,
+        "self_employed": 0.0877
+      },
+      "work_arrangement_share": {
+        "full_time": 0.751,
+        "part_time": 0.249
+      },
+      "age_share": {
+        "age_15_29": 0.1675,
+        "age_30_49": 0.3226,
+        "age_50_59": 0.2085,
+        "age_60_plus": 0.3015
+      },
+      "qualification_share": {
+        "below_secondary": 0.227,
+        "secondary": 0.2614,
+        "post_secondary_non_tertiary": 0.244,
+        "diploma_professional": 0.196,
+        "degree": 0.0711
+      }
+    },
+    "CRAFTSMEN AND RELATED TRADES WORKERS": {
+      "major_group": "CRAFTSMEN AND RELATED TRADES WORKERS",
+      "total_employment_2024": 54.8,
+      "sex_share": {
+        "male": 0.8485,
+        "female": 0.1515
+      },
+      "employment_status_share": {
+        "employers": 0.0255,
+        "employees": 0.8631,
+        "own_account_workers": 0.1058,
+        "contributing_family_workers": 0.0036,
+        "self_employed": 0.1349
+      },
+      "work_arrangement_share": {
+        "full_time": 0.8759,
+        "part_time": 0.1241
+      },
+      "age_share": {
+        "age_15_29": 0.0948,
+        "age_30_49": 0.2463,
+        "age_50_59": 0.2463,
+        "age_60_plus": 0.4124
+      },
+      "qualification_share": {
+        "below_secondary": 0.3558,
+        "secondary": 0.312,
+        "post_secondary_non_tertiary": 0.1788,
+        "diploma_professional": 0.1387,
+        "degree": 0.0146
+      }
+    },
+    "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": {
+      "major_group": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
+      "total_employment_2024": 128.4,
+      "sex_share": {
+        "male": 0.9097,
+        "female": 0.0903
+      },
+      "employment_status_share": {
+        "employers": 0.0023,
+        "employees": 0.5288,
+        "own_account_workers": 0.4681,
+        "contributing_family_workers": 0.0008,
+        "self_employed": 0.4712
+      },
+      "work_arrangement_share": {
+        "full_time": 0.8567,
+        "part_time": 0.1433
+      },
+      "age_share": {
+        "age_15_29": 0.0483,
+        "age_30_49": 0.2282,
+        "age_50_59": 0.2913,
+        "age_60_plus": 0.4322
+      },
+      "qualification_share": {
+        "below_secondary": 0.3621,
+        "secondary": 0.2991,
+        "post_secondary_non_tertiary": 0.1986,
+        "diploma_professional": 0.1012,
+        "degree": 0.0382
+      }
+    },
+    "CLEANERS, LABOURERS AND RELATED WORKERS": {
+      "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
+      "total_employment_2024": 165.7,
+      "sex_share": {
+        "male": 0.4412,
+        "female": 0.5588
+      },
+      "employment_status_share": {
+        "employers": 0,
+        "employees": 0.9475,
+        "own_account_workers": 0.0447,
+        "contributing_family_workers": 0.0078,
+        "self_employed": 0.0525
+      },
+      "work_arrangement_share": {
+        "full_time": 0.6162,
+        "part_time": 0.3838
+      },
+      "age_share": {
+        "age_15_29": 0.0483,
+        "age_30_49": 0.1201,
+        "age_50_59": 0.2058,
+        "age_60_plus": 0.6252
+      },
+      "qualification_share": {
+        "below_secondary": 0.5377,
+        "secondary": 0.2058,
+        "post_secondary_non_tertiary": 0.1973,
+        "diploma_professional": 0.0495,
+        "degree": 0.0097
+      }
+    }
+  },
+  "detailed_gender": {
+    "11": {
+      "prefix2": "11",
+      "label": "Legislators, Senior Officials & Chief Executives",
+      "total_employment_2024": 50.3,
+      "male_share": 0.6978,
+      "female_share": 0.3042
+    },
+    "12": {
+      "prefix2": "12",
+      "label": "Administrative & Commercial Managers",
+      "total_employment_2024": 187.6,
+      "male_share": 0.5107,
+      "female_share": 0.4893
+    },
+    "13": {
+      "prefix2": "13",
+      "label": "Production and Specialised Services Managers",
+      "total_employment_2024": 122.1,
+      "male_share": 0.6765,
+      "female_share": 0.3235
+    },
+    "14": {
+      "prefix2": "14",
+      "label": "Hospitality, Retail & Related Services Managers",
+      "total_employment_2024": 44.8,
+      "male_share": 0.6518,
+      "female_share": 0.3504
+    },
+    "21": {
+      "prefix2": "21",
+      "label": "Science & Engineering Professionals",
+      "total_employment_2024": 157.1,
+      "male_share": 0.6677,
+      "female_share": 0.3323
+    },
+    "22": {
+      "prefix2": "22",
+      "label": "Health Professionals",
+      "total_employment_2024": 58.3,
+      "male_share": 0.3122,
+      "female_share": 0.6878
+    },
+    "23": {
+      "prefix2": "23",
+      "label": "Teaching & Training Professionals",
+      "total_employment_2024": 62.3,
+      "male_share": 0.3579,
+      "female_share": 0.6421
+    },
+    "24": {
+      "prefix2": "24",
+      "label": "Business & Administration Professionals",
+      "total_employment_2024": 221.4,
+      "male_share": 0.4214,
+      "female_share": 0.5781
+    },
+    "25": {
+      "prefix2": "25",
+      "label": "Information & Communications Technology Professionals",
+      "total_employment_2024": 76.4,
+      "male_share": 0.7107,
+      "female_share": 0.2893
+    },
+    "26": {
+      "prefix2": "26",
+      "label": "Legal, Social, Religious & Cultural Professionals",
+      "total_employment_2024": 44.6,
+      "male_share": 0.4193,
+      "female_share": 0.5807
+    },
+    "31": {
+      "prefix2": "31",
+      "label": "Physical & Engineering Science Associate Professionals",
+      "total_employment_2024": 104.9,
+      "male_share": 0.7912,
+      "female_share": 0.2088
+    },
+    "32": {
+      "prefix2": "32",
+      "label": "Health Associate Professionals",
+      "total_employment_2024": 17.7,
+      "male_share": 0.3051,
+      "female_share": 0.7006
+    },
+    "33": {
+      "prefix2": "33",
+      "label": "Business & Administration Associate Professionals",
+      "total_employment_2024": 248.9,
+      "male_share": 0.4138,
+      "female_share": 0.5858
+    },
+    "34": {
+      "prefix2": "34",
+      "label": "Legal, Social, Cultural & Related Associate Professionals",
+      "total_employment_2024": 38.4,
+      "male_share": 0.5938,
+      "female_share": 0.4036
+    },
+    "35": {
+      "prefix2": "35",
+      "label": "Information & Communications Technicians",
+      "total_employment_2024": 26.2,
+      "male_share": 0.7634,
+      "female_share": 0.2405
+    },
+    "36": {
+      "prefix2": "36",
+      "label": "Teaching Associate Professionals",
+      "total_employment_2024": 45.8,
+      "male_share": 0.1507,
+      "female_share": 0.8493
+    },
+    "39": {
+      "prefix2": "39",
+      "label": "Other Associate Professionals Not Elsewhere Classified",
+      "total_employment_2024": 1.2,
+      "male_share": 0.3333,
+      "female_share": 0.6667
+    },
+    "40": {
+      "prefix2": "40",
+      "label": "Clerical Supervisors",
+      "total_employment_2024": 3.9,
+      "male_share": 0.3333,
+      "female_share": 0.6667
+    },
+    "41": {
+      "prefix2": "41",
+      "label": "General & Keyboard Clerks",
+      "total_employment_2024": 99.9,
+      "male_share": 0.1441,
+      "female_share": 0.8559
+    },
+    "42": {
+      "prefix2": "42",
+      "label": "Customer Services Officers & Clerks",
+      "total_employment_2024": 50.1,
+      "male_share": 0.2355,
+      "female_share": 0.7645
+    },
+    "43": {
+      "prefix2": "43",
+      "label": "Numerical & Material-Recording Clerks",
+      "total_employment_2024": 50.9,
+      "male_share": 0.3694,
+      "female_share": 0.6306
+    },
+    "44": {
+      "prefix2": "44",
+      "label": "Other Clerical Support Workers",
+      "total_employment_2024": 4.8,
+      "male_share": 0.375,
+      "female_share": 0.625
+    },
+    "51": {
+      "prefix2": "51",
+      "label": "Personal Service Workers",
+      "total_employment_2024": 74.9,
+      "male_share": 0.3939,
+      "female_share": 0.6061
+    },
+    "52": {
+      "prefix2": "52",
+      "label": "Sales Workers",
+      "total_employment_2024": 106.6,
+      "male_share": 0.3283,
+      "female_share": 0.6726
+    },
+    "53": {
+      "prefix2": "53",
+      "label": "Personal Care Workers",
+      "total_employment_2024": 19.6,
+      "male_share": 0.1378,
+      "female_share": 0.8622
+    },
+    "54": {
+      "prefix2": "54",
+      "label": "Protective Services Workers",
+      "total_employment_2024": 40.4,
+      "male_share": 0.8589,
+      "female_share": 0.1411
+    },
+    "59": {
+      "prefix2": "59",
+      "label": "Service Workers Not Elsewhere Classified",
+      "total_employment_2024": 0.2,
+      "male_share": 0.5,
+      "female_share": 0.5
+    },
+    "71": {
+      "prefix2": "71",
+      "label": "Building & Related Trades Workers, Excluding Electricians",
+      "total_employment_2024": 18.4,
+      "male_share": 0.9674,
+      "female_share": 0.0326
+    },
+    "72": {
+      "prefix2": "72",
+      "label": "Metal, Machinery & Related Trades Workers",
+      "total_employment_2024": 13.5,
+      "male_share": 0.9259,
+      "female_share": 0.0667
+    },
+    "73": {
+      "prefix2": "73",
+      "label": "Precision, Handicraft, Printing & Related Trades Workers",
+      "total_employment_2024": 2.5,
+      "male_share": 0.76,
+      "female_share": 0.24
+    },
+    "74": {
+      "prefix2": "74",
+      "label": "Electrical And Electronic Trades Workers",
+      "total_employment_2024": 10.9,
+      "male_share": 0.8716,
+      "female_share": 0.1193
+    },
+    "75": {
+      "prefix2": "75",
+      "label": "Food Processing, Woodworking, Garment, Leather & Other Craft & Related Trades Workers",
+      "total_employment_2024": 9.5,
+      "male_share": 0.4947,
+      "female_share": 0.5053
+    },
+    "81": {
+      "prefix2": "81",
+      "label": "Stationary Plant & Machine Operators",
+      "total_employment_2024": 9.7,
+      "male_share": 0.4845,
+      "female_share": 0.5052
+    },
+    "82": {
+      "prefix2": "82",
+      "label": "Assemblers & Quality Checkers",
+      "total_employment_2024": 6.3,
+      "male_share": 0.5238,
+      "female_share": 0.4762
+    },
+    "83": {
+      "prefix2": "83",
+      "label": "Drivers & Mobile Machinery Operators",
+      "total_employment_2024": 112.4,
+      "male_share": 0.9671,
+      "female_share": 0.0329
+    },
+    "91": {
+      "prefix2": "91",
+      "label": "Cleaners & Related Workers",
+      "total_employment_2024": 73.5,
+      "male_share": 0.4259,
+      "female_share": 0.5755
+    },
+    "92": {
+      "prefix2": "92",
+      "label": "Agricultural, Fishery & Related Labourers",
+      "total_employment_2024": 1.1,
+      "male_share": 0.9091,
+      "female_share": 0.0909
+    },
+    "93": {
+      "prefix2": "93",
+      "label": "Labourers & Related Workers",
+      "total_employment_2024": 29.9,
+      "male_share": 0.5987,
+      "female_share": 0.4013
+    },
+    "94": {
+      "prefix2": "94",
+      "label": "Food Preparation & Kitchen Assistants",
+      "total_employment_2024": 38.5,
+      "male_share": 0.2987,
+      "female_share": 0.7013
+    },
+    "96": {
+      "prefix2": "96",
+      "label": "Waste Collection, Recycling & Material Recovery Workers & Other Elementary Workers",
+      "total_employment_2024": 22.7,
+      "male_share": 0.5066,
+      "female_share": 0.4934
+    }
+  },
+  "occupation_wage_by_sex": {
+    "11201": {
+      "ssoc": "11201",
+      "occupation": "Managing director/Chief executive officer",
+      "male_gross_wage": 13871,
+      "female_gross_wage": 11322,
+      "gap_pct": -0.1838
+    },
+    "11202": {
+      "ssoc": "11202",
+      "occupation": "Company director",
+      "male_gross_wage": 10300,
+      "female_gross_wage": 12000,
+      "gap_pct": 0.165
+    },
+    "11203": {
+      "ssoc": "11203",
+      "occupation": "Chief operating officer/General Manager",
+      "male_gross_wage": 13000,
+      "female_gross_wage": 12350,
+      "gap_pct": -0.05
+    },
+    "12111": {
+      "ssoc": "12111",
+      "occupation": "Budgeting and financial accounting manager (including financial controller)",
+      "male_gross_wage": 10459,
+      "female_gross_wage": 8758,
+      "gap_pct": -0.1626
+    },
+    "12112": {
+      "ssoc": "12112",
+      "occupation": "Administration manager",
+      "male_gross_wage": 6626,
+      "female_gross_wage": 6200,
+      "gap_pct": -0.0643
+    },
+    "12113": {
+      "ssoc": "12113",
+      "occupation": "Audit manager",
+      "male_gross_wage": 10337,
+      "female_gross_wage": 9777,
+      "gap_pct": -0.0542
+    },
+    "12121": {
+      "ssoc": "12121",
+      "occupation": "Personnel/Human resource manager",
+      "male_gross_wage": 9000,
+      "female_gross_wage": 8015,
+      "gap_pct": -0.1094
+    },
+    "12122": {
+      "ssoc": "12122",
+      "occupation": "Industrial relations manager",
+      "male_gross_wage": 10226,
+      "female_gross_wage": 8248,
+      "gap_pct": -0.1934
+    },
+    "12123": {
+      "ssoc": "12123",
+      "occupation": "Training manager",
+      "male_gross_wage": 6000,
+      "female_gross_wage": 5900,
+      "gap_pct": -0.0167
+    },
+    "12131": {
+      "ssoc": "12131",
+      "occupation": "Policy manager",
+      "male_gross_wage": 12731,
+      "female_gross_wage": 11288,
+      "gap_pct": -0.1133
+    },
+    "12132": {
+      "ssoc": "12132",
+      "occupation": "Strategic planning manager",
+      "male_gross_wage": 14307,
+      "female_gross_wage": 11561,
+      "gap_pct": -0.1919
+    },
+    "12133": {
+      "ssoc": "12133",
+      "occupation": "Risk management manager",
+      "male_gross_wage": 13100,
+      "female_gross_wage": 11076,
+      "gap_pct": -0.1545
+    },
+    "12191": {
+      "ssoc": "12191",
+      "occupation": "Premises and facilities maintenance manager (excluding building security manager)",
+      "male_gross_wage": 6626,
+      "female_gross_wage": 6423,
+      "gap_pct": -0.0306
+    },
+    "12192": {
+      "ssoc": "12192",
+      "occupation": "Landscape manager",
+      "male_gross_wage": 4600,
+      "female_gross_wage": 3835,
+      "gap_pct": -0.1663
+    },
+    "12194": {
+      "ssoc": "12194",
+      "occupation": "Security manager",
+      "male_gross_wage": 6884,
+      "female_gross_wage": 5875,
+      "gap_pct": -0.1466
+    },
+    "12211": {
+      "ssoc": "12211",
+      "occupation": "Sales manager",
+      "male_gross_wage": 7351,
+      "female_gross_wage": 6771,
+      "gap_pct": -0.0789
+    },
+    "12212": {
+      "ssoc": "12212",
+      "occupation": "Business development manager",
+      "male_gross_wage": 9000,
+      "female_gross_wage": 8340,
+      "gap_pct": -0.0733
+    },
+    "12213": {
+      "ssoc": "12213",
+      "occupation": "Regional sales manager",
+      "male_gross_wage": 11927,
+      "female_gross_wage": 10023,
+      "gap_pct": -0.1596
+    },
+    "12214": {
+      "ssoc": "12214",
+      "occupation": "Merchandising/Category manager",
+      "male_gross_wage": 9672,
+      "female_gross_wage": 8000,
+      "gap_pct": -0.1729
+    },
+    "12215": {
+      "ssoc": "12215",
+      "occupation": "Online sales channel manager",
+      "male_gross_wage": 8270,
+      "female_gross_wage": 7183,
+      "gap_pct": -0.1314
+    },
+    "12221": {
+      "ssoc": "12221",
+      "occupation": "Advertising/Public relations manager",
+      "male_gross_wage": 8775,
+      "female_gross_wage": 8500,
+      "gap_pct": -0.0313
+    },
+    "12222": {
+      "ssoc": "12222",
+      "occupation": "Marketing manager",
+      "male_gross_wage": 9316,
+      "female_gross_wage": 8641,
+      "gap_pct": -0.0725
+    },
+    "12230": {
+      "ssoc": "12230",
+      "occupation": "Research and development manager",
+      "male_gross_wage": 12523,
+      "female_gross_wage": 9225,
+      "gap_pct": -0.2634
+    },
+    "12241": {
+      "ssoc": "12241",
+      "occupation": "Customer service manager",
+      "male_gross_wage": 9642,
+      "female_gross_wage": 7967,
+      "gap_pct": -0.1737
+    },
+    "12242": {
+      "ssoc": "12242",
+      "occupation": "Call centre manager",
+      "male_gross_wage": 6500,
+      "female_gross_wage": 5680,
+      "gap_pct": -0.1262
+    },
+    "13100": {
+      "ssoc": "13100",
+      "occupation": "Production manager in agriculture and fisheries",
+      "male_gross_wage": 7692,
+      "female_gross_wage": 6327,
+      "gap_pct": -0.1775
+    },
+    "13210": {
+      "ssoc": "13210",
+      "occupation": "Manufacturing manager",
+      "male_gross_wage": 8571,
+      "female_gross_wage": 8585,
+      "gap_pct": 0.0016
+    },
+    "13230": {
+      "ssoc": "13230",
+      "occupation": "Construction manager",
+      "male_gross_wage": 7500,
+      "female_gross_wage": 8000,
+      "gap_pct": 0.0667
+    },
+    "13241": {
+      "ssoc": "13241",
+      "occupation": "Supply and distribution/Logistics/Warehousing manager",
+      "male_gross_wage": 6738,
+      "female_gross_wage": 6591,
+      "gap_pct": -0.0218
+    },
+    "13242": {
+      "ssoc": "13242",
+      "occupation": "Procurement/Purchasing manager",
+      "male_gross_wage": 9519,
+      "female_gross_wage": 7600,
+      "gap_pct": -0.2016
+    },
+    "13243": {
+      "ssoc": "13243",
+      "occupation": "Transport/Technical operations manager (except port/shipping operations)",
+      "male_gross_wage": 7686,
+      "female_gross_wage": 7238,
+      "gap_pct": -0.0583
+    },
+    "13244": {
+      "ssoc": "13244",
+      "occupation": "Postal service manager",
+      "male_gross_wage": 8988,
+      "female_gross_wage": 7350,
+      "gap_pct": -0.1822
+    },
+    "13245": {
+      "ssoc": "13245",
+      "occupation": "Port/Shipping operations manager",
+      "male_gross_wage": 8888,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "13291": {
+      "ssoc": "13291",
+      "occupation": "Technical/Engineering services manager (excluding transport)",
+      "male_gross_wage": 8670,
+      "female_gross_wage": 8877,
+      "gap_pct": 0.0239
+    },
+    "13292": {
+      "ssoc": "13292",
+      "occupation": "Quality control/assurance manager",
+      "male_gross_wage": 9500,
+      "female_gross_wage": 8479,
+      "gap_pct": -0.1075
+    },
+    "13301": {
+      "ssoc": "13301",
+      "occupation": "Chief information officer/Chief technology officer/Chief security officer",
+      "male_gross_wage": 15450,
+      "female_gross_wage": 14514,
+      "gap_pct": -0.0606
+    },
+    "13302": {
+      "ssoc": "13302",
+      "occupation": "Software and applications manager",
+      "male_gross_wage": 11593,
+      "female_gross_wage": 9607,
+      "gap_pct": -0.1713
+    },
+    "13303": {
+      "ssoc": "13303",
+      "occupation": "Network, communications and infrastructure manager",
+      "male_gross_wage": 11005,
+      "female_gross_wage": 9573,
+      "gap_pct": -0.1301
+    },
+    "13304": {
+      "ssoc": "13304",
+      "occupation": "ICT service manager",
+      "male_gross_wage": 9316,
+      "female_gross_wage": 10841,
+      "gap_pct": 0.1637
+    },
+    "13410": {
+      "ssoc": "13410",
+      "occupation": "Pre-school education manager",
+      "male_gross_wage": 7213,
+      "female_gross_wage": 5300,
+      "gap_pct": -0.2652
+    },
+    "13420": {
+      "ssoc": "13420",
+      "occupation": "Health services manager",
+      "male_gross_wage": 11009,
+      "female_gross_wage": 9206,
+      "gap_pct": -0.1638
+    },
+    "13430": {
+      "ssoc": "13430",
+      "occupation": "Aged care services manager",
+      "male_gross_wage": 8470,
+      "female_gross_wage": 7355,
+      "gap_pct": -0.1316
+    },
+    "13441": {
+      "ssoc": "13441",
+      "occupation": "Social service manager",
+      "male_gross_wage": 6320,
+      "female_gross_wage": 5477,
+      "gap_pct": -0.1334
+    },
+    "13451": {
+      "ssoc": "13451",
+      "occupation": "School principal",
+      "male_gross_wage": 6531,
+      "female_gross_wage": 7065,
+      "gap_pct": 0.0818
+    },
+    "13461": {
+      "ssoc": "13461",
+      "occupation": "Financial services manager",
+      "male_gross_wage": 12500,
+      "female_gross_wage": 7375,
+      "gap_pct": -0.41
+    },
+    "13462": {
+      "ssoc": "13462",
+      "occupation": "Insurance services manager",
+      "male_gross_wage": 12696,
+      "female_gross_wage": 9442,
+      "gap_pct": -0.2563
+    },
+    "13463": {
+      "ssoc": "13463",
+      "occupation": "Financial risk manager",
+      "male_gross_wage": 14014,
+      "female_gross_wage": 12000,
+      "gap_pct": -0.1437
+    },
+    "13492": {
+      "ssoc": "13492",
+      "occupation": "Community, partnership and relations manager",
+      "male_gross_wage": 6500,
+      "female_gross_wage": 6060,
+      "gap_pct": -0.0677
+    },
+    "13493": {
+      "ssoc": "13493",
+      "occupation": "Media and broadcasting manager",
+      "male_gross_wage": 6573,
+      "female_gross_wage": 5675,
+      "gap_pct": -0.1366
+    },
+    "14110": {
+      "ssoc": "14110",
+      "occupation": "Hotel operations/Lodging services manager",
+      "male_gross_wage": 4987,
+      "female_gross_wage": 4945,
+      "gap_pct": -0.0084
+    },
+    "14121": {
+      "ssoc": "14121",
+      "occupation": "Restaurant manager",
+      "male_gross_wage": 4000,
+      "female_gross_wage": 3900,
+      "gap_pct": -0.025
+    },
+    "14122": {
+      "ssoc": "14122",
+      "occupation": "Catering manager",
+      "male_gross_wage": 4350,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "14123": {
+      "ssoc": "14123",
+      "occupation": "Food and beverage operations manager",
+      "male_gross_wage": 5500,
+      "female_gross_wage": 4543,
+      "gap_pct": -0.174
+    },
+    "14201": {
+      "ssoc": "14201",
+      "occupation": "Retail manager",
+      "male_gross_wage": 4952,
+      "female_gross_wage": 4203,
+      "gap_pct": -0.1513
+    },
+    "14202": {
+      "ssoc": "14202",
+      "occupation": "Wholesale trade manager",
+      "male_gross_wage": 11300,
+      "female_gross_wage": 8202,
+      "gap_pct": -0.2742
+    },
+    "14310": {
+      "ssoc": "14310",
+      "occupation": "Sports centre manager",
+      "male_gross_wage": 6026,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "14322": {
+      "ssoc": "14322",
+      "occupation": "Attractions manager",
+      "male_gross_wage": 4908,
+      "female_gross_wage": 7269,
+      "gap_pct": 0.4811
+    },
+    "14324": {
+      "ssoc": "14324",
+      "occupation": "Wellness centre manager (e.g. hair/beauty/slimming/spa/manicure/massage)",
+      "male_gross_wage": 5949,
+      "female_gross_wage": 5470,
+      "gap_pct": -0.0805
+    },
+    "14330": {
+      "ssoc": "14330",
+      "occupation": "Arts and cultural centre manager (including gallery and museum manager)",
+      "male_gross_wage": null,
+      "female_gross_wage": 4550,
+      "gap_pct": null
+    },
+    "14391": {
+      "ssoc": "14391",
+      "occupation": "Event manager",
+      "male_gross_wage": 5822,
+      "female_gross_wage": 6022,
+      "gap_pct": 0.0344
+    },
+    "14392": {
+      "ssoc": "14392",
+      "occupation": "Travel agency manager",
+      "male_gross_wage": 8293,
+      "female_gross_wage": 7550,
+      "gap_pct": -0.0896
+    },
+    "21130": {
+      "ssoc": "21130",
+      "occupation": "Chemist",
+      "male_gross_wage": 7048,
+      "female_gross_wage": 5684,
+      "gap_pct": -0.1935
+    },
+    "21212": {
+      "ssoc": "21212",
+      "occupation": "Operations research analyst",
+      "male_gross_wage": 6463,
+      "female_gross_wage": 6253,
+      "gap_pct": -0.0325
+    },
+    "21213": {
+      "ssoc": "21213",
+      "occupation": "Actuary",
+      "male_gross_wage": 7760,
+      "female_gross_wage": 7380,
+      "gap_pct": -0.049
+    },
+    "21221": {
+      "ssoc": "21221",
+      "occupation": "Statistician",
+      "male_gross_wage": 5113,
+      "female_gross_wage": 4500,
+      "gap_pct": -0.1199
+    },
+    "21222": {
+      "ssoc": "21222",
+      "occupation": "Data scientist",
+      "male_gross_wage": 9501,
+      "female_gross_wage": 8317,
+      "gap_pct": -0.1246
+    },
+    "21231": {
+      "ssoc": "21231",
+      "occupation": "Statistical officer/Data analyst",
+      "male_gross_wage": 9160,
+      "female_gross_wage": 7727,
+      "gap_pct": -0.1564
+    },
+    "21311": {
+      "ssoc": "21311",
+      "occupation": "Biologist",
+      "male_gross_wage": 8406,
+      "female_gross_wage": 8209,
+      "gap_pct": -0.0234
+    },
+    "21331": {
+      "ssoc": "21331",
+      "occupation": "Environmental officer (environmental protection)",
+      "male_gross_wage": 7438,
+      "female_gross_wage": 6798,
+      "gap_pct": -0.086
+    },
+    "21341": {
+      "ssoc": "21341",
+      "occupation": "Pharmacologist",
+      "male_gross_wage": 8853,
+      "female_gross_wage": 5341,
+      "gap_pct": -0.3967
+    },
+    "21342": {
+      "ssoc": "21342",
+      "occupation": "Medical laboratory scientist",
+      "male_gross_wage": 6068,
+      "female_gross_wage": 5955,
+      "gap_pct": -0.0186
+    },
+    "21343": {
+      "ssoc": "21343",
+      "occupation": "Biochemist",
+      "male_gross_wage": 6428,
+      "female_gross_wage": 5986,
+      "gap_pct": -0.0688
+    },
+    "21346": {
+      "ssoc": "21346",
+      "occupation": "Medical scientist",
+      "male_gross_wage": 5980,
+      "female_gross_wage": 5750,
+      "gap_pct": -0.0385
+    },
+    "21347": {
+      "ssoc": "21347",
+      "occupation": "Clinical research professional",
+      "male_gross_wage": null,
+      "female_gross_wage": 9660,
+      "gap_pct": null
+    },
+    "21411": {
+      "ssoc": "21411",
+      "occupation": "Manufacturing engineer",
+      "male_gross_wage": 6197,
+      "female_gross_wage": 2686,
+      "gap_pct": -0.5666
+    },
+    "21412": {
+      "ssoc": "21412",
+      "occupation": "Production engineer",
+      "male_gross_wage": 6093,
+      "female_gross_wage": 6903,
+      "gap_pct": 0.1329
+    },
+    "21413": {
+      "ssoc": "21413",
+      "occupation": "Automation engineer (including robotics engineer)",
+      "male_gross_wage": 8569,
+      "female_gross_wage": 8711,
+      "gap_pct": 0.0166
+    },
+    "21414": {
+      "ssoc": "21414",
+      "occupation": "Quality control/assurance engineer",
+      "male_gross_wage": 6325,
+      "female_gross_wage": 6280,
+      "gap_pct": -0.0071
+    },
+    "21415": {
+      "ssoc": "21415",
+      "occupation": "Process engineer",
+      "male_gross_wage": 5871,
+      "female_gross_wage": 5605,
+      "gap_pct": -0.0453
+    },
+    "21421": {
+      "ssoc": "21421",
+      "occupation": "Civil engineer",
+      "male_gross_wage": 6595,
+      "female_gross_wage": 5774,
+      "gap_pct": -0.1245
+    },
+    "21422": {
+      "ssoc": "21422",
+      "occupation": "Building construction engineer",
+      "male_gross_wage": 4795,
+      "female_gross_wage": 5098,
+      "gap_pct": 0.0632
+    },
+    "21430": {
+      "ssoc": "21430",
+      "occupation": "Environmental engineer",
+      "male_gross_wage": 5718,
+      "female_gross_wage": 5622,
+      "gap_pct": -0.0168
+    },
+    "21441": {
+      "ssoc": "21441",
+      "occupation": "Mechanical engineer",
+      "male_gross_wage": 6280,
+      "female_gross_wage": 6082,
+      "gap_pct": -0.0315
+    },
+    "21442": {
+      "ssoc": "21442",
+      "occupation": "Industrial machinery and tools engineer",
+      "male_gross_wage": 5965,
+      "female_gross_wage": 6375,
+      "gap_pct": 0.0687
+    },
+    "21443": {
+      "ssoc": "21443",
+      "occupation": "Air-conditioning/Refrigeration engineer",
+      "male_gross_wage": 6503,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "21454": {
+      "ssoc": "21454",
+      "occupation": "Food and drink technologist",
+      "male_gross_wage": 5100,
+      "female_gross_wage": 4000,
+      "gap_pct": -0.2157
+    },
+    "21471": {
+      "ssoc": "21471",
+      "occupation": "Aeronautical engineer",
+      "male_gross_wage": 6317,
+      "female_gross_wage": 4769,
+      "gap_pct": -0.2451
+    },
+    "21473": {
+      "ssoc": "21473",
+      "occupation": "Marine engineer",
+      "male_gross_wage": 4633,
+      "female_gross_wage": 4570,
+      "gap_pct": -0.0136
+    },
+    "21475": {
+      "ssoc": "21475",
+      "occupation": "Rolling stock engineer",
+      "male_gross_wage": 6790,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "21491": {
+      "ssoc": "21491",
+      "occupation": "Biomedical engineer",
+      "male_gross_wage": 5780,
+      "female_gross_wage": 4590,
+      "gap_pct": -0.2059
+    },
+    "21492": {
+      "ssoc": "21492",
+      "occupation": "Materials engineer",
+      "male_gross_wage": 8799,
+      "female_gross_wage": 8275,
+      "gap_pct": -0.0596
+    },
+    "21493": {
+      "ssoc": "21493",
+      "occupation": "Industrial safety engineer",
+      "male_gross_wage": 6586,
+      "female_gross_wage": 7112,
+      "gap_pct": 0.0799
+    },
+    "21494": {
+      "ssoc": "21494",
+      "occupation": "Quantity surveyor",
+      "male_gross_wage": 5200,
+      "female_gross_wage": 5000,
+      "gap_pct": -0.0385
+    },
+    "21496": {
+      "ssoc": "21496",
+      "occupation": "Energy engineer",
+      "male_gross_wage": 11074,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "21498": {
+      "ssoc": "21498",
+      "occupation": "Procurement engineer",
+      "male_gross_wage": 7177,
+      "female_gross_wage": 6100,
+      "gap_pct": -0.1501
+    },
+    "21511": {
+      "ssoc": "21511",
+      "occupation": "Electrical engineer",
+      "male_gross_wage": 6045,
+      "female_gross_wage": 5620,
+      "gap_pct": -0.0703
+    },
+    "21512": {
+      "ssoc": "21512",
+      "occupation": "Power generation and distribution engineer",
+      "male_gross_wage": 9433,
+      "female_gross_wage": 7691,
+      "gap_pct": -0.1847
+    },
+    "21513": {
+      "ssoc": "21513",
+      "occupation": "Lift engineer",
+      "male_gross_wage": 4693,
+      "female_gross_wage": 5359,
+      "gap_pct": 0.1419
+    },
+    "21521": {
+      "ssoc": "21521",
+      "occupation": "Electronics engineer",
+      "male_gross_wage": 8110,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "21522": {
+      "ssoc": "21522",
+      "occupation": "Computer engineer",
+      "male_gross_wage": 6198,
+      "female_gross_wage": 5811,
+      "gap_pct": -0.0624
+    },
+    "21523": {
+      "ssoc": "21523",
+      "occupation": "Semi-conductor engineer",
+      "male_gross_wage": 6858,
+      "female_gross_wage": 6171,
+      "gap_pct": -0.1002
+    },
+    "21524": {
+      "ssoc": "21524",
+      "occupation": "Audio and video equipment engineer",
+      "male_gross_wage": 4800,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "21525": {
+      "ssoc": "21525",
+      "occupation": "Instrumentation engineer",
+      "male_gross_wage": 7533,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "21526": {
+      "ssoc": "21526",
+      "occupation": "Embedded systems engineer (including port systems engineer)",
+      "male_gross_wage": 8163,
+      "female_gross_wage": 7900,
+      "gap_pct": -0.0322
+    },
+    "21531": {
+      "ssoc": "21531",
+      "occupation": "Media and broadcasting engineer",
+      "male_gross_wage": 6030,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "21532": {
+      "ssoc": "21532",
+      "occupation": "Telecommunications engineer",
+      "male_gross_wage": 6070,
+      "female_gross_wage": 6588,
+      "gap_pct": 0.0853
+    },
+    "21610": {
+      "ssoc": "21610",
+      "occupation": "Building architect",
+      "male_gross_wage": 7754,
+      "female_gross_wage": 6150,
+      "gap_pct": -0.2069
+    },
+    "21621": {
+      "ssoc": "21621",
+      "occupation": "Landscape architect",
+      "male_gross_wage": 6415,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "21631": {
+      "ssoc": "21631",
+      "occupation": "Fashion designer",
+      "male_gross_wage": 3930,
+      "female_gross_wage": 3045,
+      "gap_pct": -0.2252
+    },
+    "21632": {
+      "ssoc": "21632",
+      "occupation": "Product and industrial designer",
+      "male_gross_wage": 5907,
+      "female_gross_wage": 5224,
+      "gap_pct": -0.1156
+    },
+    "21641": {
+      "ssoc": "21641",
+      "occupation": "Urban planner",
+      "male_gross_wage": 6113,
+      "female_gross_wage": 4860,
+      "gap_pct": -0.205
+    },
+    "21651": {
+      "ssoc": "21651",
+      "occupation": "Land surveyor",
+      "male_gross_wage": 5132,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "21652": {
+      "ssoc": "21652",
+      "occupation": "Hydrographic surveyor",
+      "male_gross_wage": 5450,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "21661": {
+      "ssoc": "21661",
+      "occupation": "Graphic designer",
+      "male_gross_wage": 3900,
+      "female_gross_wage": 3700,
+      "gap_pct": -0.0513
+    },
+    "21662": {
+      "ssoc": "21662",
+      "occupation": "Multimedia (including games) designer",
+      "male_gross_wage": 5324,
+      "female_gross_wage": 5248,
+      "gap_pct": -0.0143
+    },
+    "21663": {
+      "ssoc": "21663",
+      "occupation": "Multimedia artist and animator",
+      "male_gross_wage": 5271,
+      "female_gross_wage": 4854,
+      "gap_pct": -0.0791
+    },
+    "21664": {
+      "ssoc": "21664",
+      "occupation": "Interaction designer",
+      "male_gross_wage": 8745,
+      "female_gross_wage": 7530,
+      "gap_pct": -0.1389
+    },
+    "21670": {
+      "ssoc": "21670",
+      "occupation": "Service designer",
+      "male_gross_wage": 9887,
+      "female_gross_wage": 7197,
+      "gap_pct": -0.2721
+    },
+    "21711": {
+      "ssoc": "21711",
+      "occupation": "Chief engineer/Second engineer (ship)",
+      "male_gross_wage": 8550,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "21712": {
+      "ssoc": "21712",
+      "occupation": "Marine superintendent (engineer)",
+      "male_gross_wage": 7929,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "21714": {
+      "ssoc": "21714",
+      "occupation": "Marine superintendent",
+      "male_gross_wage": 10205,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "21721": {
+      "ssoc": "21721",
+      "occupation": "Commercial airline pilot",
+      "male_gross_wage": 13989,
+      "female_gross_wage": 12179,
+      "gap_pct": -0.1294
+    },
+    "21723": {
+      "ssoc": "21723",
+      "occupation": "Flying instructor (except air force)",
+      "male_gross_wage": 20000,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "22110": {
+      "ssoc": "22110",
+      "occupation": "General practitioner/physician",
+      "male_gross_wage": 6540,
+      "female_gross_wage": 6171,
+      "gap_pct": -0.0564
+    },
+    "22124": {
+      "ssoc": "22124",
+      "occupation": "Internal medicine physician",
+      "male_gross_wage": null,
+      "female_gross_wage": 6246,
+      "gap_pct": null
+    },
+    "22126": {
+      "ssoc": "22126",
+      "occupation": "Paediatrician",
+      "male_gross_wage": 6228,
+      "female_gross_wage": 5580,
+      "gap_pct": -0.104
+    },
+    "22128": {
+      "ssoc": "22128",
+      "occupation": "Psychiatrist",
+      "male_gross_wage": null,
+      "female_gross_wage": 6686,
+      "gap_pct": null
+    },
+    "22131": {
+      "ssoc": "22131",
+      "occupation": "General surgeon",
+      "male_gross_wage": null,
+      "female_gross_wage": 5580,
+      "gap_pct": null
+    },
+    "22135": {
+      "ssoc": "22135",
+      "occupation": "Orthopaedic surgeon",
+      "male_gross_wage": 5980,
+      "female_gross_wage": 5580,
+      "gap_pct": -0.0669
+    },
+    "22138": {
+      "ssoc": "22138",
+      "occupation": "Urologist",
+      "male_gross_wage": 7064,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "22141": {
+      "ssoc": "22141",
+      "occupation": "Anaesthesiologist",
+      "male_gross_wage": 6896,
+      "female_gross_wage": 6491,
+      "gap_pct": -0.0587
+    },
+    "22142": {
+      "ssoc": "22142",
+      "occupation": "Diagnostic radiologist",
+      "male_gross_wage": 7129,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "22144": {
+      "ssoc": "22144",
+      "occupation": "Obstetrician/Gynaecologist",
+      "male_gross_wage": 5980,
+      "female_gross_wage": 5792,
+      "gap_pct": -0.0314
+    },
+    "22145": {
+      "ssoc": "22145",
+      "occupation": "Ophthalmologist",
+      "male_gross_wage": 6912,
+      "female_gross_wage": 6562,
+      "gap_pct": -0.0506
+    },
+    "22148": {
+      "ssoc": "22148",
+      "occupation": "Otorhinolaryngologist/Ear, nose, throat (ENT) specialist",
+      "male_gross_wage": 9346,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "22200": {
+      "ssoc": "22200",
+      "occupation": "Registered nurse and other nursing professional (e.g. clinical nurse, nurse educator, excluding enrolled nurse)",
+      "male_gross_wage": 5000,
+      "female_gross_wage": 5317,
+      "gap_pct": 0.0634
+    },
+    "22301": {
+      "ssoc": "22301",
+      "occupation": "Traditional Chinese medicine practitioner",
+      "male_gross_wage": 5042,
+      "female_gross_wage": 3726,
+      "gap_pct": -0.261
+    },
+    "22500": {
+      "ssoc": "22500",
+      "occupation": "Veterinarian",
+      "male_gross_wage": null,
+      "female_gross_wage": 8331,
+      "gap_pct": null
+    },
+    "22611": {
+      "ssoc": "22611",
+      "occupation": "General dental practitioner",
+      "male_gross_wage": 5518,
+      "female_gross_wage": 5097,
+      "gap_pct": -0.0763
+    },
+    "22621": {
+      "ssoc": "22621",
+      "occupation": "Pharmacist (patient care)",
+      "male_gross_wage": 5508,
+      "female_gross_wage": 5433,
+      "gap_pct": -0.0136
+    },
+    "22631": {
+      "ssoc": "22631",
+      "occupation": "Occupational health and safety professional",
+      "male_gross_wage": 4721,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "22640": {
+      "ssoc": "22640",
+      "occupation": "Physiotherapist",
+      "male_gross_wage": 4803,
+      "female_gross_wage": 4832,
+      "gap_pct": 0.006
+    },
+    "22651": {
+      "ssoc": "22651",
+      "occupation": "Dietitian",
+      "male_gross_wage": null,
+      "female_gross_wage": 4707,
+      "gap_pct": null
+    },
+    "22652": {
+      "ssoc": "22652",
+      "occupation": "Nutritionist",
+      "male_gross_wage": 6198,
+      "female_gross_wage": 4286,
+      "gap_pct": -0.3085
+    },
+    "22661": {
+      "ssoc": "22661",
+      "occupation": "Audiologist",
+      "male_gross_wage": null,
+      "female_gross_wage": 5030,
+      "gap_pct": null
+    },
+    "22662": {
+      "ssoc": "22662",
+      "occupation": "Speech therapist",
+      "male_gross_wage": null,
+      "female_gross_wage": 4735,
+      "gap_pct": null
+    },
+    "22670": {
+      "ssoc": "22670",
+      "occupation": "Optometrist",
+      "male_gross_wage": 5322,
+      "female_gross_wage": 5234,
+      "gap_pct": -0.0165
+    },
+    "22680": {
+      "ssoc": "22680",
+      "occupation": "Occupational therapist",
+      "male_gross_wage": 6127,
+      "female_gross_wage": 4800,
+      "gap_pct": -0.2166
+    },
+    "22692": {
+      "ssoc": "22692",
+      "occupation": "Podiatrist",
+      "male_gross_wage": null,
+      "female_gross_wage": 4990,
+      "gap_pct": null
+    },
+    "22693": {
+      "ssoc": "22693",
+      "occupation": "Medical diagnostic radiographer",
+      "male_gross_wage": 6300,
+      "female_gross_wage": 5461,
+      "gap_pct": -0.1332
+    },
+    "22694": {
+      "ssoc": "22694",
+      "occupation": "Radiation therapist",
+      "male_gross_wage": 6241,
+      "female_gross_wage": 5382,
+      "gap_pct": -0.1376
+    },
+    "23101": {
+      "ssoc": "23101",
+      "occupation": "University lecturer",
+      "male_gross_wage": 14480,
+      "female_gross_wage": 10759,
+      "gap_pct": -0.257
+    },
+    "23103": {
+      "ssoc": "23103",
+      "occupation": "Teaching assistant/Tutor in university",
+      "male_gross_wage": null,
+      "female_gross_wage": 5375,
+      "gap_pct": null
+    },
+    "23622": {
+      "ssoc": "23622",
+      "occupation": "Early intervention teacher for infants and children",
+      "male_gross_wage": null,
+      "female_gross_wage": 3880,
+      "gap_pct": null
+    },
+    "24111": {
+      "ssoc": "24111",
+      "occupation": "Accountant (excluding tax accountant)",
+      "male_gross_wage": 5494,
+      "female_gross_wage": 5498,
+      "gap_pct": 0.0007
+    },
+    "24112": {
+      "ssoc": "24112",
+      "occupation": "Auditor (accounting)",
+      "male_gross_wage": 5705,
+      "female_gross_wage": 5525,
+      "gap_pct": -0.0316
+    },
+    "24113": {
+      "ssoc": "24113",
+      "occupation": "Tax accountant",
+      "male_gross_wage": 10150,
+      "female_gross_wage": 9210,
+      "gap_pct": -0.0926
+    },
+    "24121": {
+      "ssoc": "24121",
+      "occupation": "Financial/Investment adviser (e.g. relationship manager)",
+      "male_gross_wage": 7837,
+      "female_gross_wage": 8150,
+      "gap_pct": 0.0399
+    },
+    "24122": {
+      "ssoc": "24122",
+      "occupation": "Business valuer",
+      "male_gross_wage": 10194,
+      "female_gross_wage": 8400,
+      "gap_pct": -0.176
+    },
+    "24131": {
+      "ssoc": "24131",
+      "occupation": "Financial analyst (e.g. equities analyst, credit analyst, investment research analyst)",
+      "male_gross_wage": 7714,
+      "female_gross_wage": 7360,
+      "gap_pct": -0.0459
+    },
+    "24132": {
+      "ssoc": "24132",
+      "occupation": "Compliance officer/Risk analyst (financial)",
+      "male_gross_wage": 7643,
+      "female_gross_wage": 7179,
+      "gap_pct": -0.0607
+    },
+    "24133": {
+      "ssoc": "24133",
+      "occupation": "Fund/Portfolio manager (including asset allocator)",
+      "male_gross_wage": 13365,
+      "female_gross_wage": 10259,
+      "gap_pct": -0.2324
+    },
+    "24134": {
+      "ssoc": "24134",
+      "occupation": "Treasury manager",
+      "male_gross_wage": 9850,
+      "female_gross_wage": 8920,
+      "gap_pct": -0.0944
+    },
+    "24135": {
+      "ssoc": "24135",
+      "occupation": "Financial product structurer",
+      "male_gross_wage": 12689,
+      "female_gross_wage": 11250,
+      "gap_pct": -0.1134
+    },
+    "24141": {
+      "ssoc": "24141",
+      "occupation": "Securities and finance dealer",
+      "male_gross_wage": 8364,
+      "female_gross_wage": 6772,
+      "gap_pct": -0.1903
+    },
+    "24142": {
+      "ssoc": "24142",
+      "occupation": "Foreign exchange dealer",
+      "male_gross_wage": 13874,
+      "female_gross_wage": 13267,
+      "gap_pct": -0.0438
+    },
+    "24151": {
+      "ssoc": "24151",
+      "occupation": "Securities and finance broker",
+      "male_gross_wage": 10000,
+      "female_gross_wage": 6200,
+      "gap_pct": -0.38
+    },
+    "24152": {
+      "ssoc": "24152",
+      "occupation": "Foreign exchange broker",
+      "male_gross_wage": 20000,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "24154": {
+      "ssoc": "24154",
+      "occupation": "Commodities and freight derivatives broker",
+      "male_gross_wage": 12868,
+      "female_gross_wage": 10677,
+      "gap_pct": -0.1703
+    },
+    "24160": {
+      "ssoc": "24160",
+      "occupation": "Insurance underwriter",
+      "male_gross_wage": 6857,
+      "female_gross_wage": 6996,
+      "gap_pct": 0.0203
+    },
+    "24211": {
+      "ssoc": "24211",
+      "occupation": "Management consultant",
+      "male_gross_wage": 12500,
+      "female_gross_wage": 9583,
+      "gap_pct": -0.2334
+    },
+    "24212": {
+      "ssoc": "24212",
+      "occupation": "Business consultant",
+      "male_gross_wage": 10433,
+      "female_gross_wage": 7014,
+      "gap_pct": -0.3277
+    },
+    "24213": {
+      "ssoc": "24213",
+      "occupation": "Business and financial project management professional",
+      "male_gross_wage": 7753,
+      "female_gross_wage": 7460,
+      "gap_pct": -0.0378
+    },
+    "24220": {
+      "ssoc": "24220",
+      "occupation": "Policy administration professional (e.g. policy analyst)",
+      "male_gross_wage": 6200,
+      "female_gross_wage": 5025,
+      "gap_pct": -0.1895
+    },
+    "24231": {
+      "ssoc": "24231",
+      "occupation": "Human resource consultant (excluding executive search consultant)",
+      "male_gross_wage": null,
+      "female_gross_wage": 8035,
+      "gap_pct": null
+    },
+    "24232": {
+      "ssoc": "24232",
+      "occupation": "Executive search consultant",
+      "male_gross_wage": 5709,
+      "female_gross_wage": 5709,
+      "gap_pct": 0
+    },
+    "24233": {
+      "ssoc": "24233",
+      "occupation": "Personnel/Human resource officer",
+      "male_gross_wage": 4100,
+      "female_gross_wage": 3996,
+      "gap_pct": -0.0254
+    },
+    "24234": {
+      "ssoc": "24234",
+      "occupation": "Industrial relations officer",
+      "male_gross_wage": 5650,
+      "female_gross_wage": 5135,
+      "gap_pct": -0.0912
+    },
+    "24240": {
+      "ssoc": "24240",
+      "occupation": "Training and staff development professional",
+      "male_gross_wage": 4562,
+      "female_gross_wage": 4451,
+      "gap_pct": -0.0243
+    },
+    "24251": {
+      "ssoc": "24251",
+      "occupation": "Intellectual property agent",
+      "male_gross_wage": null,
+      "female_gross_wage": 4300,
+      "gap_pct": null
+    },
+    "24291": {
+      "ssoc": "24291",
+      "occupation": "Research officer (non-statistical)",
+      "male_gross_wage": 5343,
+      "female_gross_wage": 5089,
+      "gap_pct": -0.0475
+    },
+    "24311": {
+      "ssoc": "24311",
+      "occupation": "Creative advertising professional",
+      "male_gross_wage": 8930,
+      "female_gross_wage": 5980,
+      "gap_pct": -0.3303
+    },
+    "24312": {
+      "ssoc": "24312",
+      "occupation": "Market research professional",
+      "male_gross_wage": 7341,
+      "female_gross_wage": 6776,
+      "gap_pct": -0.077
+    },
+    "24313": {
+      "ssoc": "24313",
+      "occupation": "Marketing strategy/planning professional",
+      "male_gross_wage": 9167,
+      "female_gross_wage": 7500,
+      "gap_pct": -0.1818
+    },
+    "24314": {
+      "ssoc": "24314",
+      "occupation": "Digital marketing professional (e.g. online, social media, e-commerce marketing professional)",
+      "male_gross_wage": 5714,
+      "female_gross_wage": 5084,
+      "gap_pct": -0.1103
+    },
+    "24315": {
+      "ssoc": "24315",
+      "occupation": "Revenue specialist",
+      "male_gross_wage": 7979,
+      "female_gross_wage": 5762,
+      "gap_pct": -0.2779
+    },
+    "24320": {
+      "ssoc": "24320",
+      "occupation": "Public relations/Corporate communications professional",
+      "male_gross_wage": 4305,
+      "female_gross_wage": 4312,
+      "gap_pct": 0.0016
+    },
+    "24331": {
+      "ssoc": "24331",
+      "occupation": "Technical sales professional",
+      "male_gross_wage": 6937,
+      "female_gross_wage": 6141,
+      "gap_pct": -0.1147
+    },
+    "24332": {
+      "ssoc": "24332",
+      "occupation": "Medical and pharmaceutical products sales professional",
+      "male_gross_wage": 8285,
+      "female_gross_wage": 6881,
+      "gap_pct": -0.1695
+    },
+    "24333": {
+      "ssoc": "24333",
+      "occupation": "ICT sales and services professional",
+      "male_gross_wage": 11053,
+      "female_gross_wage": 6188,
+      "gap_pct": -0.4402
+    },
+    "24334": {
+      "ssoc": "24334",
+      "occupation": "Sales professional (institutional sales of financial products)",
+      "male_gross_wage": 10779,
+      "female_gross_wage": 8812,
+      "gap_pct": -0.1825
+    },
+    "24352": {
+      "ssoc": "24352",
+      "occupation": "Oil and bunker trader",
+      "male_gross_wage": 17083,
+      "female_gross_wage": 12170,
+      "gap_pct": -0.2876
+    },
+    "24353": {
+      "ssoc": "24353",
+      "occupation": "Ship charterer",
+      "male_gross_wage": 13193,
+      "female_gross_wage": 11835,
+      "gap_pct": -0.1029
+    },
+    "24361": {
+      "ssoc": "24361",
+      "occupation": "Trade broker",
+      "male_gross_wage": 14003,
+      "female_gross_wage": 9414,
+      "gap_pct": -0.3277
+    },
+    "24362": {
+      "ssoc": "24362",
+      "occupation": "Ship broker (e.g. charter or sales & purchase)",
+      "male_gross_wage": 10220,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "25111": {
+      "ssoc": "25111",
+      "occupation": "Systems designer/analyst",
+      "male_gross_wage": 7001,
+      "female_gross_wage": 6884,
+      "gap_pct": -0.0167
+    },
+    "25112": {
+      "ssoc": "25112",
+      "occupation": "ICT business process consultant/Business analyst",
+      "male_gross_wage": 8833,
+      "female_gross_wage": 7900,
+      "gap_pct": -0.1056
+    },
+    "25113": {
+      "ssoc": "25113",
+      "occupation": "Enterprise/Solution architect",
+      "male_gross_wage": 13067,
+      "female_gross_wage": 8160,
+      "gap_pct": -0.3755
+    },
+    "25121": {
+      "ssoc": "25121",
+      "occupation": "Software developer",
+      "male_gross_wage": 9371,
+      "female_gross_wage": 8128,
+      "gap_pct": -0.1326
+    },
+    "25122": {
+      "ssoc": "25122",
+      "occupation": "Web and mobile applications developer",
+      "male_gross_wage": 7106,
+      "female_gross_wage": 6878,
+      "gap_pct": -0.0321
+    },
+    "25123": {
+      "ssoc": "25123",
+      "occupation": "Multimedia (including games) developer",
+      "male_gross_wage": 6784,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "25140": {
+      "ssoc": "25140",
+      "occupation": "Applications/Systems programmer",
+      "male_gross_wage": 6667,
+      "female_gross_wage": 6500,
+      "gap_pct": -0.025
+    },
+    "25151": {
+      "ssoc": "25151",
+      "occupation": "ICT quality assurance specialist",
+      "male_gross_wage": 12902,
+      "female_gross_wage": 6015,
+      "gap_pct": -0.5338
+    },
+    "25211": {
+      "ssoc": "25211",
+      "occupation": "Database administrator",
+      "male_gross_wage": 9870,
+      "female_gross_wage": 4115,
+      "gap_pct": -0.5831
+    },
+    "25212": {
+      "ssoc": "25212",
+      "occupation": "Database architect",
+      "male_gross_wage": 12349,
+      "female_gross_wage": 9000,
+      "gap_pct": -0.2712
+    },
+    "25220": {
+      "ssoc": "25220",
+      "occupation": "Network, servers and computer systems administrator",
+      "male_gross_wage": 5302,
+      "female_gross_wage": 4254,
+      "gap_pct": -0.1977
+    },
+    "25231": {
+      "ssoc": "25231",
+      "occupation": "Cloud specialist",
+      "male_gross_wage": 9733,
+      "female_gross_wage": 9327,
+      "gap_pct": -0.0417
+    },
+    "25232": {
+      "ssoc": "25232",
+      "occupation": "IT infrastructure specialist",
+      "male_gross_wage": 7908,
+      "female_gross_wage": 7717,
+      "gap_pct": -0.0242
+    },
+    "25241": {
+      "ssoc": "25241",
+      "occupation": "Cyber risk specialist",
+      "male_gross_wage": 10326,
+      "female_gross_wage": 9648,
+      "gap_pct": -0.0657
+    },
+    "25243": {
+      "ssoc": "25243",
+      "occupation": "Security operations specialist",
+      "male_gross_wage": 7400,
+      "female_gross_wage": 10100,
+      "gap_pct": 0.3649
+    },
+    "25245": {
+      "ssoc": "25245",
+      "occupation": "Cybersecurity architect",
+      "male_gross_wage": 7828,
+      "female_gross_wage": 7563,
+      "gap_pct": -0.0339
+    },
+    "25291": {
+      "ssoc": "25291",
+      "occupation": "Data centre engineer",
+      "male_gross_wage": 5112,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "26112": {
+      "ssoc": "26112",
+      "occupation": "In-house legal counsel (except judiciary, ministries and statutory boards)",
+      "male_gross_wage": 19077,
+      "female_gross_wage": 17477,
+      "gap_pct": -0.0839
+    },
+    "26212": {
+      "ssoc": "26212",
+      "occupation": "Curator",
+      "male_gross_wage": 5935,
+      "female_gross_wage": 5285,
+      "gap_pct": -0.1095
+    },
+    "26221": {
+      "ssoc": "26221",
+      "occupation": "Librarian",
+      "male_gross_wage": 6716,
+      "female_gross_wage": 6545,
+      "gap_pct": -0.0255
+    },
+    "26341": {
+      "ssoc": "26341",
+      "occupation": "Clinical psychologist",
+      "male_gross_wage": 5698,
+      "female_gross_wage": 5465,
+      "gap_pct": -0.0409
+    },
+    "26343": {
+      "ssoc": "26343",
+      "occupation": "Industrial and organisational psychologist",
+      "male_gross_wage": null,
+      "female_gross_wage": 6452,
+      "gap_pct": null
+    },
+    "26351": {
+      "ssoc": "26351",
+      "occupation": "Social worker (general)",
+      "male_gross_wage": 4410,
+      "female_gross_wage": 4400,
+      "gap_pct": -0.0023
+    },
+    "26353": {
+      "ssoc": "26353",
+      "occupation": "Medical social worker",
+      "male_gross_wage": 5025,
+      "female_gross_wage": 4852,
+      "gap_pct": -0.0344
+    },
+    "26361": {
+      "ssoc": "26361",
+      "occupation": "Minister of religion",
+      "male_gross_wage": 6459,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "26373": {
+      "ssoc": "26373",
+      "occupation": "Counsellor (family)",
+      "male_gross_wage": 3800,
+      "female_gross_wage": 4582,
+      "gap_pct": 0.2058
+    },
+    "26374": {
+      "ssoc": "26374",
+      "occupation": "School counsellor",
+      "male_gross_wage": null,
+      "female_gross_wage": 3200,
+      "gap_pct": null
+    },
+    "26412": {
+      "ssoc": "26412",
+      "occupation": "Script writer and editor",
+      "male_gross_wage": 3982,
+      "female_gross_wage": 3918,
+      "gap_pct": -0.0161
+    },
+    "26413": {
+      "ssoc": "26413",
+      "occupation": "Content writer",
+      "male_gross_wage": 5600,
+      "female_gross_wage": 5156,
+      "gap_pct": -0.0793
+    },
+    "26414": {
+      "ssoc": "26414",
+      "occupation": "Technical writer",
+      "male_gross_wage": 5938,
+      "female_gross_wage": 5786,
+      "gap_pct": -0.0256
+    },
+    "26421": {
+      "ssoc": "26421",
+      "occupation": "Journalist",
+      "male_gross_wage": 6202,
+      "female_gross_wage": 5885,
+      "gap_pct": -0.0511
+    },
+    "26422": {
+      "ssoc": "26422",
+      "occupation": "Editor (news and periodicals)",
+      "male_gross_wage": 11230,
+      "female_gross_wage": 10470,
+      "gap_pct": -0.0677
+    },
+    "26431": {
+      "ssoc": "26431",
+      "occupation": "Translator",
+      "male_gross_wage": 7166,
+      "female_gross_wage": 6217,
+      "gap_pct": -0.1324
+    },
+    "26541": {
+      "ssoc": "26541",
+      "occupation": "Producer (stage, film, television, game, commercial, video and radio)",
+      "male_gross_wage": 7028,
+      "female_gross_wage": 6728,
+      "gap_pct": -0.0427
+    },
+    "26542": {
+      "ssoc": "26542",
+      "occupation": "Director (stage, film, television, game, commercial, video and radio)",
+      "male_gross_wage": 12140,
+      "female_gross_wage": 11555,
+      "gap_pct": -0.0482
+    },
+    "26543": {
+      "ssoc": "26543",
+      "occupation": "Artistic director (stage, film, television, game and radio)",
+      "male_gross_wage": 5730,
+      "female_gross_wage": 5205,
+      "gap_pct": -0.0916
+    },
+    "26544": {
+      "ssoc": "26544",
+      "occupation": "Editor (radio, television and video)",
+      "male_gross_wage": 7000,
+      "female_gross_wage": 6660,
+      "gap_pct": -0.0486
+    },
+    "31001": {
+      "ssoc": "31001",
+      "occupation": "Assistant civil and structural engineer",
+      "male_gross_wage": 4268,
+      "female_gross_wage": 3612,
+      "gap_pct": -0.1537
+    },
+    "31002": {
+      "ssoc": "31002",
+      "occupation": "Assistant electrical engineer",
+      "male_gross_wage": 4853,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "31003": {
+      "ssoc": "31003",
+      "occupation": "Assistant electronics engineer",
+      "male_gross_wage": 4552,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "31004": {
+      "ssoc": "31004",
+      "occupation": "Assistant mechanical engineer",
+      "male_gross_wage": 3981,
+      "female_gross_wage": 4000,
+      "gap_pct": 0.0048
+    },
+    "31006": {
+      "ssoc": "31006",
+      "occupation": "Assistant manufacturing engineer",
+      "male_gross_wage": 4190,
+      "female_gross_wage": 3542,
+      "gap_pct": -0.1547
+    },
+    "31111": {
+      "ssoc": "31111",
+      "occupation": "Chemistry technician",
+      "male_gross_wage": 5180,
+      "female_gross_wage": 4181,
+      "gap_pct": -0.1929
+    },
+    "31121": {
+      "ssoc": "31121",
+      "occupation": "Civil engineering technician",
+      "male_gross_wage": 4053,
+      "female_gross_wage": 4782,
+      "gap_pct": 0.1799
+    },
+    "31122": {
+      "ssoc": "31122",
+      "occupation": "Building technician",
+      "male_gross_wage": 3631,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "31123": {
+      "ssoc": "31123",
+      "occupation": "Land surveying technician",
+      "male_gross_wage": 3296,
+      "female_gross_wage": 4867,
+      "gap_pct": 0.4766
+    },
+    "31124": {
+      "ssoc": "31124",
+      "occupation": "Resident technical officer",
+      "male_gross_wage": 3795,
+      "female_gross_wage": 3990,
+      "gap_pct": 0.0514
+    },
+    "31131": {
+      "ssoc": "31131",
+      "occupation": "Electrical engineering technician",
+      "male_gross_wage": 4309,
+      "female_gross_wage": 2895,
+      "gap_pct": -0.3282
+    },
+    "31132": {
+      "ssoc": "31132",
+      "occupation": "Lift technician",
+      "male_gross_wage": 4421,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "31141": {
+      "ssoc": "31141",
+      "occupation": "Electronics engineering technician",
+      "male_gross_wage": 4090,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "31142": {
+      "ssoc": "31142",
+      "occupation": "Semi-conductor technician",
+      "male_gross_wage": 6120,
+      "female_gross_wage": 3728,
+      "gap_pct": -0.3908
+    },
+    "31143": {
+      "ssoc": "31143",
+      "occupation": "Audio and video equipment technician",
+      "male_gross_wage": 3783,
+      "female_gross_wage": 4200,
+      "gap_pct": 0.1102
+    },
+    "31144": {
+      "ssoc": "31144",
+      "occupation": "Instrumentation technician",
+      "male_gross_wage": 3862,
+      "female_gross_wage": 2884,
+      "gap_pct": -0.2532
+    },
+    "31151": {
+      "ssoc": "31151",
+      "occupation": "Mechanical engineering technician",
+      "male_gross_wage": 3739,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "31152": {
+      "ssoc": "31152",
+      "occupation": "Air-conditioning/Refrigeration engineering technician",
+      "male_gross_wage": 4149,
+      "female_gross_wage": 4027,
+      "gap_pct": -0.0294
+    },
+    "31153": {
+      "ssoc": "31153",
+      "occupation": "Machining/Tooling technician",
+      "male_gross_wage": 3842,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "31161": {
+      "ssoc": "31161",
+      "occupation": "Chemical engineering technician",
+      "male_gross_wage": 5013,
+      "female_gross_wage": 4549,
+      "gap_pct": -0.0926
+    },
+    "31163": {
+      "ssoc": "31163",
+      "occupation": "Chemical engineering technician (petrochemicals)",
+      "male_gross_wage": 5760,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "31171": {
+      "ssoc": "31171",
+      "occupation": "Manufacturing engineering technician",
+      "male_gross_wage": 3813,
+      "female_gross_wage": 3421,
+      "gap_pct": -0.1028
+    },
+    "31172": {
+      "ssoc": "31172",
+      "occupation": "Production engineering technician",
+      "male_gross_wage": 4710,
+      "female_gross_wage": 3434,
+      "gap_pct": -0.2709
+    },
+    "31173": {
+      "ssoc": "31173",
+      "occupation": "Process engineering technician",
+      "male_gross_wage": 4654,
+      "female_gross_wage": 2606,
+      "gap_pct": -0.4401
+    },
+    "31174": {
+      "ssoc": "31174",
+      "occupation": "Automation technician",
+      "male_gross_wage": 3523,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "31175": {
+      "ssoc": "31175",
+      "occupation": "Quality assurance technician",
+      "male_gross_wage": 4431,
+      "female_gross_wage": 4100,
+      "gap_pct": -0.0747
+    },
+    "31181": {
+      "ssoc": "31181",
+      "occupation": "Mechanical draughtsman",
+      "male_gross_wage": 3700,
+      "female_gross_wage": 3900,
+      "gap_pct": 0.0541
+    },
+    "31182": {
+      "ssoc": "31182",
+      "occupation": "Electrical/Electronics draughtsman",
+      "male_gross_wage": 3700,
+      "female_gross_wage": 3191,
+      "gap_pct": -0.1376
+    },
+    "31183": {
+      "ssoc": "31183",
+      "occupation": "Civil/Structural engineering draughtsman",
+      "male_gross_wage": 2714,
+      "female_gross_wage": 3092,
+      "gap_pct": 0.1393
+    },
+    "31184": {
+      "ssoc": "31184",
+      "occupation": "Architectural draughtsman",
+      "male_gross_wage": 4500,
+      "female_gross_wage": 4000,
+      "gap_pct": -0.1111
+    },
+    "31185": {
+      "ssoc": "31185",
+      "occupation": "Marine draughtsman",
+      "male_gross_wage": 4300,
+      "female_gross_wage": 4400,
+      "gap_pct": 0.0233
+    },
+    "31211": {
+      "ssoc": "31211",
+      "occupation": "Aeronautical engineering technician",
+      "male_gross_wage": 4604,
+      "female_gross_wage": 3530,
+      "gap_pct": -0.2333
+    },
+    "31212": {
+      "ssoc": "31212",
+      "occupation": "Automotive engineering technician",
+      "male_gross_wage": 3794,
+      "female_gross_wage": 3628,
+      "gap_pct": -0.0438
+    },
+    "31213": {
+      "ssoc": "31213",
+      "occupation": "Marine surveyor (ship and nautical)",
+      "male_gross_wage": 5089,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "31214": {
+      "ssoc": "31214",
+      "occupation": "Rolling stock engineering technician",
+      "male_gross_wage": 2970,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "31412": {
+      "ssoc": "31412",
+      "occupation": "Clinical research coordinator",
+      "male_gross_wage": 4917,
+      "female_gross_wage": 4336,
+      "gap_pct": -0.1182
+    },
+    "31510": {
+      "ssoc": "31510",
+      "occupation": "Marine engineering officer (including third, fourth and fifth engineer)",
+      "male_gross_wage": 3930,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "31522": {
+      "ssoc": "31522",
+      "occupation": "Harbour pilot",
+      "male_gross_wage": 8850,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "31571": {
+      "ssoc": "31571",
+      "occupation": "Air transport service supervisor",
+      "male_gross_wage": 5101,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "31572": {
+      "ssoc": "31572",
+      "occupation": "Train service supervisor",
+      "male_gross_wage": 3319,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "31574": {
+      "ssoc": "31574",
+      "occupation": "Port/Shipping operations supervisor (including post-fixture and planner)",
+      "male_gross_wage": 3820,
+      "female_gross_wage": 4900,
+      "gap_pct": 0.2827
+    },
+    "31593": {
+      "ssoc": "31593",
+      "occupation": "Flight operations officer",
+      "male_gross_wage": 3716,
+      "female_gross_wage": 3841,
+      "gap_pct": 0.0336
+    },
+    "31594": {
+      "ssoc": "31594",
+      "occupation": "Air cargo officer",
+      "male_gross_wage": 4249,
+      "female_gross_wage": 4191,
+      "gap_pct": -0.0137
+    },
+    "31595": {
+      "ssoc": "31595",
+      "occupation": "Load control officer (aircraft)",
+      "male_gross_wage": 4228,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "31597": {
+      "ssoc": "31597",
+      "occupation": "Road transport operations officer",
+      "male_gross_wage": 4585,
+      "female_gross_wage": 4407,
+      "gap_pct": -0.0388
+    },
+    "31601": {
+      "ssoc": "31601",
+      "occupation": "Premises and facilities maintenance officer",
+      "male_gross_wage": 3975,
+      "female_gross_wage": 3734,
+      "gap_pct": -0.0606
+    },
+    "31602": {
+      "ssoc": "31602",
+      "occupation": "Landscape operations officer",
+      "male_gross_wage": 3500,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "31711": {
+      "ssoc": "31711",
+      "occupation": "Fire and safety inspector",
+      "male_gross_wage": 4000,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "31720": {
+      "ssoc": "31720",
+      "occupation": "Safety inspector (vehicles, processes and products)",
+      "male_gross_wage": 3822,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "32111": {
+      "ssoc": "32111",
+      "occupation": "Sonographer",
+      "male_gross_wage": null,
+      "female_gross_wage": 5213,
+      "gap_pct": null
+    },
+    "32112": {
+      "ssoc": "32112",
+      "occupation": "Medical X-ray technician",
+      "male_gross_wage": null,
+      "female_gross_wage": 3384,
+      "gap_pct": null
+    },
+    "32120": {
+      "ssoc": "32120",
+      "occupation": "Medical and pathology laboratory technician",
+      "male_gross_wage": 4617,
+      "female_gross_wage": 4133,
+      "gap_pct": -0.1048
+    },
+    "32130": {
+      "ssoc": "32130",
+      "occupation": "Pharmacy technician",
+      "male_gross_wage": 3405,
+      "female_gross_wage": 3200,
+      "gap_pct": -0.0602
+    },
+    "32200": {
+      "ssoc": "32200",
+      "occupation": "Enrolled/Assistant nurse (excluding registered nurse)",
+      "male_gross_wage": 4446,
+      "female_gross_wage": 4942,
+      "gap_pct": 0.1116
+    },
+    "32400": {
+      "ssoc": "32400",
+      "occupation": "Veterinary technician/assistant",
+      "male_gross_wage": null,
+      "female_gross_wage": 3531,
+      "gap_pct": null
+    },
+    "32530": {
+      "ssoc": "32530",
+      "occupation": "Community health worker",
+      "male_gross_wage": null,
+      "female_gross_wage": 3904,
+      "gap_pct": null
+    },
+    "32551": {
+      "ssoc": "32551",
+      "occupation": "Massage therapist",
+      "male_gross_wage": null,
+      "female_gross_wage": 2676,
+      "gap_pct": null
+    },
+    "32571": {
+      "ssoc": "32571",
+      "occupation": "Environmental inspector (environmental public health)",
+      "male_gross_wage": 7605,
+      "female_gross_wage": 5894,
+      "gap_pct": -0.225
+    },
+    "32572": {
+      "ssoc": "32572",
+      "occupation": "Occupational health and safety inspector",
+      "male_gross_wage": 5464,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "33121": {
+      "ssoc": "33121",
+      "occupation": "Financial markets back office administrator",
+      "male_gross_wage": 5500,
+      "female_gross_wage": 5330,
+      "gap_pct": -0.0309
+    },
+    "33131": {
+      "ssoc": "33131",
+      "occupation": "Assistant accountant",
+      "male_gross_wage": 3969,
+      "female_gross_wage": 3861,
+      "gap_pct": -0.0272
+    },
+    "33132": {
+      "ssoc": "33132",
+      "occupation": "Audit associate professional",
+      "male_gross_wage": 5050,
+      "female_gross_wage": 4969,
+      "gap_pct": -0.016
+    },
+    "33133": {
+      "ssoc": "33133",
+      "occupation": "Tax associate professional",
+      "male_gross_wage": 4411,
+      "female_gross_wage": 4285,
+      "gap_pct": -0.0286
+    },
+    "33151": {
+      "ssoc": "33151",
+      "occupation": "Appraiser/Valuer (excluding intangible asset valuer)",
+      "male_gross_wage": 6625,
+      "female_gross_wage": 4445,
+      "gap_pct": -0.3291
+    },
+    "33152": {
+      "ssoc": "33152",
+      "occupation": "Assessor",
+      "male_gross_wage": 5800,
+      "female_gross_wage": 4825,
+      "gap_pct": -0.1681
+    },
+    "33211": {
+      "ssoc": "33211",
+      "occupation": "Insurance sales agent/broker (including independent financial planner)",
+      "male_gross_wage": 6000,
+      "female_gross_wage": 5749,
+      "gap_pct": -0.0418
+    },
+    "33221": {
+      "ssoc": "33221",
+      "occupation": "Business development executive",
+      "male_gross_wage": 5357,
+      "female_gross_wage": 4723,
+      "gap_pct": -0.1183
+    },
+    "33222": {
+      "ssoc": "33222",
+      "occupation": "After sales adviser/Client account service executive",
+      "male_gross_wage": 4903,
+      "female_gross_wage": 6220,
+      "gap_pct": 0.2686
+    },
+    "33223": {
+      "ssoc": "33223",
+      "occupation": "Marketing and sales executive (food & beverage services)",
+      "male_gross_wage": 3100,
+      "female_gross_wage": 3605,
+      "gap_pct": 0.1629
+    },
+    "33224": {
+      "ssoc": "33224",
+      "occupation": "Online sales channel executive",
+      "male_gross_wage": 3490,
+      "female_gross_wage": 3503,
+      "gap_pct": 0.0037
+    },
+    "33225": {
+      "ssoc": "33225",
+      "occupation": "Merchandising/Category executive",
+      "male_gross_wage": 3650,
+      "female_gross_wage": 3100,
+      "gap_pct": -0.1507
+    },
+    "33231": {
+      "ssoc": "33231",
+      "occupation": "Buyer",
+      "male_gross_wage": 4770,
+      "female_gross_wage": 4680,
+      "gap_pct": -0.0189
+    },
+    "33232": {
+      "ssoc": "33232",
+      "occupation": "Purchasing agent",
+      "male_gross_wage": 4456,
+      "female_gross_wage": 4200,
+      "gap_pct": -0.0575
+    },
+    "33311": {
+      "ssoc": "33311",
+      "occupation": "Clearing and forwarding agent",
+      "male_gross_wage": 4171,
+      "female_gross_wage": 4000,
+      "gap_pct": -0.041
+    },
+    "33312": {
+      "ssoc": "33312",
+      "occupation": "Shipping agent/Boarding officer",
+      "male_gross_wage": 4400,
+      "female_gross_wage": 3859,
+      "gap_pct": -0.123
+    },
+    "33320": {
+      "ssoc": "33320",
+      "occupation": "Exhibition/Conference/Event planner (including wedding planner/coordinator)",
+      "male_gross_wage": 3452,
+      "female_gross_wage": 3825,
+      "gap_pct": 0.1081
+    },
+    "33330": {
+      "ssoc": "33330",
+      "occupation": "Employment agent/Labour contractor",
+      "male_gross_wage": 4508,
+      "female_gross_wage": 5153,
+      "gap_pct": 0.1431
+    },
+    "33340": {
+      "ssoc": "33340",
+      "occupation": "Real estate agent",
+      "male_gross_wage": 3662,
+      "female_gross_wage": 4347,
+      "gap_pct": 0.1871
+    },
+    "33393": {
+      "ssoc": "33393",
+      "occupation": "International market agent/representative (e.g. junket operator)",
+      "male_gross_wage": null,
+      "female_gross_wage": 10096,
+      "gap_pct": null
+    },
+    "33394": {
+      "ssoc": "33394",
+      "occupation": "Safety and security consultant",
+      "male_gross_wage": 8463,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "33461": {
+      "ssoc": "33461",
+      "occupation": "Logistics/Production planner",
+      "male_gross_wage": 3970,
+      "female_gross_wage": 4495,
+      "gap_pct": 0.1322
+    },
+    "33462": {
+      "ssoc": "33462",
+      "occupation": "Maintenance planner",
+      "male_gross_wage": 6755,
+      "female_gross_wage": 4295,
+      "gap_pct": -0.3642
+    },
+    "33491": {
+      "ssoc": "33491",
+      "occupation": "Management executive",
+      "male_gross_wage": 4000,
+      "female_gross_wage": 3867,
+      "gap_pct": -0.0332
+    },
+    "33492": {
+      "ssoc": "33492",
+      "occupation": "Operations officer (except transport operations)",
+      "male_gross_wage": 3872,
+      "female_gross_wage": 4084,
+      "gap_pct": 0.0548
+    },
+    "33493": {
+      "ssoc": "33493",
+      "occupation": "Crewing executive (ship)",
+      "male_gross_wage": 4269,
+      "female_gross_wage": 4550,
+      "gap_pct": 0.0658
+    },
+    "33611": {
+      "ssoc": "33611",
+      "occupation": "Air transport equipment project executive",
+      "male_gross_wage": 4187,
+      "female_gross_wage": 5201,
+      "gap_pct": 0.2422
+    },
+    "34110": {
+      "ssoc": "34110",
+      "occupation": "Legal associate professional (e.g. paralegal)",
+      "male_gross_wage": 4353,
+      "female_gross_wage": 4693,
+      "gap_pct": 0.0781
+    },
+    "34121": {
+      "ssoc": "34121",
+      "occupation": "Youth work associate",
+      "male_gross_wage": null,
+      "female_gross_wage": 2500,
+      "gap_pct": null
+    },
+    "34122": {
+      "ssoc": "34122",
+      "occupation": "Social work associate",
+      "male_gross_wage": 3200,
+      "female_gross_wage": 3414,
+      "gap_pct": 0.0669
+    },
+    "34123": {
+      "ssoc": "34123",
+      "occupation": "Volunteer executive",
+      "male_gross_wage": null,
+      "female_gross_wage": 3545,
+      "gap_pct": null
+    },
+    "34210": {
+      "ssoc": "34210",
+      "occupation": "Athlete/Sportsman",
+      "male_gross_wage": 3000,
+      "female_gross_wage": 2515,
+      "gap_pct": -0.1617
+    },
+    "34221": {
+      "ssoc": "34221",
+      "occupation": "Sports coach",
+      "male_gross_wage": 5010,
+      "female_gross_wage": 4707,
+      "gap_pct": -0.0605
+    },
+    "34222": {
+      "ssoc": "34222",
+      "occupation": "Martial arts instructor",
+      "male_gross_wage": 4100,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "34223": {
+      "ssoc": "34223",
+      "occupation": "Physical fitness instructor (including yoga instructor and aerobics instructor)",
+      "male_gross_wage": 2549,
+      "female_gross_wage": 2600,
+      "gap_pct": 0.02
+    },
+    "34310": {
+      "ssoc": "34310",
+      "occupation": "Photographer",
+      "male_gross_wage": 6800,
+      "female_gross_wage": 3600,
+      "gap_pct": -0.4706
+    },
+    "34321": {
+      "ssoc": "34321",
+      "occupation": "Interior designer",
+      "male_gross_wage": 4900,
+      "female_gross_wage": 4650,
+      "gap_pct": -0.051
+    },
+    "34323": {
+      "ssoc": "34323",
+      "occupation": "Visual merchandiser",
+      "male_gross_wage": 5350,
+      "female_gross_wage": 4425,
+      "gap_pct": -0.1729
+    },
+    "34331": {
+      "ssoc": "34331",
+      "occupation": "Library officer",
+      "male_gross_wage": 3029,
+      "female_gross_wage": 2926,
+      "gap_pct": -0.034
+    },
+    "34341": {
+      "ssoc": "34341",
+      "occupation": "Chef",
+      "male_gross_wage": 4000,
+      "female_gross_wage": 3217,
+      "gap_pct": -0.1957
+    },
+    "34342": {
+      "ssoc": "34342",
+      "occupation": "Kitchen operations head/supervisor",
+      "male_gross_wage": 4000,
+      "female_gross_wage": 3415,
+      "gap_pct": -0.1462
+    },
+    "34343": {
+      "ssoc": "34343",
+      "occupation": "Pastry Chef",
+      "male_gross_wage": 4500,
+      "female_gross_wage": 2572,
+      "gap_pct": -0.4284
+    },
+    "35110": {
+      "ssoc": "35110",
+      "occupation": "Computer systems operator",
+      "male_gross_wage": 5778,
+      "female_gross_wage": 4590,
+      "gap_pct": -0.2056
+    },
+    "35121": {
+      "ssoc": "35121",
+      "occupation": "IT Infrastructure technician",
+      "male_gross_wage": 4100,
+      "female_gross_wage": 4061,
+      "gap_pct": -0.0095
+    },
+    "35122": {
+      "ssoc": "35122",
+      "occupation": "IT security technician",
+      "male_gross_wage": 4427,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "35123": {
+      "ssoc": "35123",
+      "occupation": "IT support technician (including IT user helpdesk technician)",
+      "male_gross_wage": 5017,
+      "female_gross_wage": 5500,
+      "gap_pct": 0.0963
+    },
+    "35140": {
+      "ssoc": "35140",
+      "occupation": "Website administrator/Webmaster",
+      "male_gross_wage": 5345,
+      "female_gross_wage": 3871,
+      "gap_pct": -0.2758
+    },
+    "35211": {
+      "ssoc": "35211",
+      "occupation": "Media and broadcasting operations technician",
+      "male_gross_wage": 4280,
+      "female_gross_wage": 4020,
+      "gap_pct": -0.0607
+    },
+    "35212": {
+      "ssoc": "35212",
+      "occupation": "Video camera operator",
+      "male_gross_wage": 5520,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "35220": {
+      "ssoc": "35220",
+      "occupation": "Telecommunications technician",
+      "male_gross_wage": 3470,
+      "female_gross_wage": 3340,
+      "gap_pct": -0.0375
+    },
+    "36100": {
+      "ssoc": "36100",
+      "occupation": "Pre-primary education teacher",
+      "male_gross_wage": 3800,
+      "female_gross_wage": 4000,
+      "gap_pct": 0.0526
+    },
+    "36201": {
+      "ssoc": "36201",
+      "occupation": "Language instructor (extracurriculum)",
+      "male_gross_wage": null,
+      "female_gross_wage": 4328,
+      "gap_pct": null
+    },
+    "36202": {
+      "ssoc": "36202",
+      "occupation": "Art and craft instructor (extracurriculum)",
+      "male_gross_wage": 3919,
+      "female_gross_wage": 3280,
+      "gap_pct": -0.1631
+    },
+    "36203": {
+      "ssoc": "36203",
+      "occupation": "Information technology trainer (extracurriculum)",
+      "male_gross_wage": 6636,
+      "female_gross_wage": 5879,
+      "gap_pct": -0.1141
+    },
+    "36204": {
+      "ssoc": "36204",
+      "occupation": "Music instructor (extracurriculum)",
+      "male_gross_wage": 2813,
+      "female_gross_wage": 3438,
+      "gap_pct": 0.2222
+    },
+    "36910": {
+      "ssoc": "36910",
+      "occupation": "Private tutor (academic)",
+      "male_gross_wage": 4745,
+      "female_gross_wage": 4100,
+      "gap_pct": -0.1359
+    },
+    "36991": {
+      "ssoc": "36991",
+      "occupation": "Relief teacher",
+      "male_gross_wage": null,
+      "female_gross_wage": 2800,
+      "gap_pct": null
+    },
+    "39910": {
+      "ssoc": "39910",
+      "occupation": "Non-ordained religious associate professional",
+      "male_gross_wage": 3788,
+      "female_gross_wage": 3432,
+      "gap_pct": -0.094
+    },
+    "40000": {
+      "ssoc": "40000",
+      "occupation": "Office supervisor",
+      "male_gross_wage": 3730,
+      "female_gross_wage": 3753,
+      "gap_pct": 0.0062
+    },
+    "41101": {
+      "ssoc": "41101",
+      "occupation": "Office clerk (including filing and copying)",
+      "male_gross_wage": 2017,
+      "female_gross_wage": 1800,
+      "gap_pct": -0.1076
+    },
+    "41102": {
+      "ssoc": "41102",
+      "occupation": "Personnel/Human resource clerk",
+      "male_gross_wage": 2900,
+      "female_gross_wage": 2958,
+      "gap_pct": 0.02
+    },
+    "41201": {
+      "ssoc": "41201",
+      "occupation": "Secretary",
+      "male_gross_wage": 4046,
+      "female_gross_wage": 5081,
+      "gap_pct": 0.2558
+    },
+    "41310": {
+      "ssoc": "41310",
+      "occupation": "Typist and word processing operator",
+      "male_gross_wage": null,
+      "female_gross_wage": 2887,
+      "gap_pct": null
+    },
+    "41320": {
+      "ssoc": "41320",
+      "occupation": "Data entry clerk",
+      "male_gross_wage": 1900,
+      "female_gross_wage": 2000,
+      "gap_pct": 0.0526
+    },
+    "42111": {
+      "ssoc": "42111",
+      "occupation": "Bank teller",
+      "male_gross_wage": 3790,
+      "female_gross_wage": 3977,
+      "gap_pct": 0.0493
+    },
+    "42112": {
+      "ssoc": "42112",
+      "occupation": "Postal service counter clerk",
+      "male_gross_wage": null,
+      "female_gross_wage": 2181,
+      "gap_pct": null
+    },
+    "42113": {
+      "ssoc": "42113",
+      "occupation": "Money changer",
+      "male_gross_wage": 4000,
+      "female_gross_wage": 3563,
+      "gap_pct": -0.1092
+    },
+    "42141": {
+      "ssoc": "42141",
+      "occupation": "Bill collector",
+      "male_gross_wage": 3432,
+      "female_gross_wage": 4648,
+      "gap_pct": 0.3543
+    },
+    "42210": {
+      "ssoc": "42210",
+      "occupation": "Travel consultant/Reservation executive",
+      "male_gross_wage": 2710,
+      "female_gross_wage": 4072,
+      "gap_pct": 0.5026
+    },
+    "42230": {
+      "ssoc": "42230",
+      "occupation": "Telephone operator",
+      "male_gross_wage": 3148,
+      "female_gross_wage": 2444,
+      "gap_pct": -0.2236
+    },
+    "42241": {
+      "ssoc": "42241",
+      "occupation": "Receptionist (general)",
+      "male_gross_wage": 2334,
+      "female_gross_wage": 2752,
+      "gap_pct": 0.1791
+    },
+    "42242": {
+      "ssoc": "42242",
+      "occupation": "Hotel receptionist (including hotel reservation and front desk clerk)",
+      "male_gross_wage": 2800,
+      "female_gross_wage": 2638,
+      "gap_pct": -0.0579
+    },
+    "42243": {
+      "ssoc": "42243",
+      "occupation": "Medical/Dental receptionist",
+      "male_gross_wage": 2984,
+      "female_gross_wage": 2810,
+      "gap_pct": -0.0583
+    },
+    "42244": {
+      "ssoc": "42244",
+      "occupation": "Passenger services agent",
+      "male_gross_wage": 2125,
+      "female_gross_wage": 2891,
+      "gap_pct": 0.3605
+    },
+    "42245": {
+      "ssoc": "42245",
+      "occupation": "Customer service officer/clerk",
+      "male_gross_wage": 3156,
+      "female_gross_wage": 3200,
+      "gap_pct": 0.0139
+    },
+    "42246": {
+      "ssoc": "42246",
+      "occupation": "Contact centre information clerk",
+      "male_gross_wage": 3512,
+      "female_gross_wage": 3033,
+      "gap_pct": -0.1364
+    },
+    "42247": {
+      "ssoc": "42247",
+      "occupation": "Hotel executive (including hotel reservation and front desk executive)",
+      "male_gross_wage": 3298,
+      "female_gross_wage": 3055,
+      "gap_pct": -0.0737
+    },
+    "43111": {
+      "ssoc": "43111",
+      "occupation": "Bookkeeper",
+      "male_gross_wage": 4643,
+      "female_gross_wage": 2870,
+      "gap_pct": -0.3819
+    },
+    "43112": {
+      "ssoc": "43112",
+      "occupation": "Ledger and accounts clerk",
+      "male_gross_wage": 3800,
+      "female_gross_wage": 3300,
+      "gap_pct": -0.1316
+    },
+    "43113": {
+      "ssoc": "43113",
+      "occupation": "Audit clerk",
+      "male_gross_wage": 4012,
+      "female_gross_wage": 3854,
+      "gap_pct": -0.0394
+    },
+    "43114": {
+      "ssoc": "43114",
+      "occupation": "Payroll/Wages clerk",
+      "male_gross_wage": 3614,
+      "female_gross_wage": 4329,
+      "gap_pct": 0.1978
+    },
+    "43115": {
+      "ssoc": "43115",
+      "occupation": "Billing clerk",
+      "male_gross_wage": 2700,
+      "female_gross_wage": 3200,
+      "gap_pct": 0.1852
+    },
+    "43116": {
+      "ssoc": "43116",
+      "occupation": "Procurement/Purchasing clerk",
+      "male_gross_wage": 2625,
+      "female_gross_wage": 2920,
+      "gap_pct": 0.1124
+    },
+    "43121": {
+      "ssoc": "43121",
+      "occupation": "Bank operations clerk",
+      "male_gross_wage": 5230,
+      "female_gross_wage": 5113,
+      "gap_pct": -0.0224
+    },
+    "43122": {
+      "ssoc": "43122",
+      "occupation": "Insurance/Underwriting clerk",
+      "male_gross_wage": 6271,
+      "female_gross_wage": 4800,
+      "gap_pct": -0.2346
+    },
+    "43123": {
+      "ssoc": "43123",
+      "occupation": "Securities clerk",
+      "male_gross_wage": 5972,
+      "female_gross_wage": 5922,
+      "gap_pct": -0.0084
+    },
+    "43142": {
+      "ssoc": "43142",
+      "occupation": "Enumerator/Market research interviewer",
+      "male_gross_wage": 2754,
+      "female_gross_wage": 2573,
+      "gap_pct": -0.0657
+    },
+    "43151": {
+      "ssoc": "43151",
+      "occupation": "Data processing control clerk",
+      "male_gross_wage": 3554,
+      "female_gross_wage": 3413,
+      "gap_pct": -0.0397
+    },
+    "43211": {
+      "ssoc": "43211",
+      "occupation": "Stock records clerk",
+      "male_gross_wage": 2800,
+      "female_gross_wage": 2630,
+      "gap_pct": -0.0607
+    },
+    "43212": {
+      "ssoc": "43212",
+      "occupation": "Storekeeper",
+      "male_gross_wage": 2561,
+      "female_gross_wage": 2327,
+      "gap_pct": -0.0914
+    },
+    "43221": {
+      "ssoc": "43221",
+      "occupation": "Material planning clerk",
+      "male_gross_wage": 5359,
+      "female_gross_wage": 6274,
+      "gap_pct": 0.1707
+    },
+    "43222": {
+      "ssoc": "43222",
+      "occupation": "Production planning clerk",
+      "male_gross_wage": 4259,
+      "female_gross_wage": 3050,
+      "gap_pct": -0.2839
+    },
+    "43231": {
+      "ssoc": "43231",
+      "occupation": "Shipping clerk",
+      "male_gross_wage": 3214,
+      "female_gross_wage": 3394,
+      "gap_pct": 0.056
+    },
+    "43232": {
+      "ssoc": "43232",
+      "occupation": "Land transport clerk",
+      "male_gross_wage": 2898,
+      "female_gross_wage": 2937,
+      "gap_pct": 0.0135
+    },
+    "43233": {
+      "ssoc": "43233",
+      "occupation": "Air transport clerk",
+      "male_gross_wage": 3015,
+      "female_gross_wage": 3532,
+      "gap_pct": 0.1715
+    },
+    "44110": {
+      "ssoc": "44110",
+      "occupation": "Library clerk",
+      "male_gross_wage": 2416,
+      "female_gross_wage": 2426,
+      "gap_pct": 0.0041
+    },
+    "44122": {
+      "ssoc": "44122",
+      "occupation": "Postman",
+      "male_gross_wage": 3298,
+      "female_gross_wage": 2135,
+      "gap_pct": -0.3526
+    },
+    "44170": {
+      "ssoc": "44170",
+      "occupation": "Legal clerk",
+      "male_gross_wage": 3352,
+      "female_gross_wage": 4400,
+      "gap_pct": 0.3126
+    },
+    "51111": {
+      "ssoc": "51111",
+      "occupation": "Chief steward",
+      "male_gross_wage": 7250,
+      "female_gross_wage": 6275,
+      "gap_pct": -0.1345
+    },
+    "51112": {
+      "ssoc": "51112",
+      "occupation": "Cabin attendant/steward",
+      "male_gross_wage": 3497,
+      "female_gross_wage": 3890,
+      "gap_pct": 0.1124
+    },
+    "51121": {
+      "ssoc": "51121",
+      "occupation": "Rail station service assistant",
+      "male_gross_wage": 2776,
+      "female_gross_wage": 3003,
+      "gap_pct": 0.0818
+    },
+    "51131": {
+      "ssoc": "51131",
+      "occupation": "Tour guide",
+      "male_gross_wage": null,
+      "female_gross_wage": 2842,
+      "gap_pct": null
+    },
+    "51132": {
+      "ssoc": "51132",
+      "occupation": "Attractions guide",
+      "male_gross_wage": 2000,
+      "female_gross_wage": 2008,
+      "gap_pct": 0.004
+    },
+    "51201": {
+      "ssoc": "51201",
+      "occupation": "Cook (e.g. commis cook 2/3)",
+      "male_gross_wage": 2000,
+      "female_gross_wage": 2028,
+      "gap_pct": 0.014
+    },
+    "51202": {
+      "ssoc": "51202",
+      "occupation": "Senior cook (e.g. station chef, commis cook 1, station cook)",
+      "male_gross_wage": 3800,
+      "female_gross_wage": 2715,
+      "gap_pct": -0.2855
+    },
+    "51311": {
+      "ssoc": "51311",
+      "occupation": "Captain waiter/Waiter supervisor",
+      "male_gross_wage": 3000,
+      "female_gross_wage": 2744,
+      "gap_pct": -0.0853
+    },
+    "51312": {
+      "ssoc": "51312",
+      "occupation": "Waiter",
+      "male_gross_wage": 1500,
+      "female_gross_wage": 1600,
+      "gap_pct": 0.0667
+    },
+    "51321": {
+      "ssoc": "51321",
+      "occupation": "Bartender/Mixologist",
+      "male_gross_wage": 3050,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "51322": {
+      "ssoc": "51322",
+      "occupation": "Barista",
+      "male_gross_wage": 1810,
+      "female_gross_wage": 2149,
+      "gap_pct": 0.1873
+    },
+    "51411": {
+      "ssoc": "51411",
+      "occupation": "Hair stylist/Hairdresser",
+      "male_gross_wage": 4269,
+      "female_gross_wage": 3600,
+      "gap_pct": -0.1567
+    },
+    "51421": {
+      "ssoc": "51421",
+      "occupation": "Beautician",
+      "male_gross_wage": 1480,
+      "female_gross_wage": 3675,
+      "gap_pct": 1.4831
+    },
+    "51422": {
+      "ssoc": "51422",
+      "occupation": "Manicurist",
+      "male_gross_wage": 1400,
+      "female_gross_wage": 2300,
+      "gap_pct": 0.6429
+    },
+    "51491": {
+      "ssoc": "51491",
+      "occupation": "Masseur (non-medical) (including foot reflexologist)",
+      "male_gross_wage": 1600,
+      "female_gross_wage": 1600,
+      "gap_pct": 0
+    },
+    "51492": {
+      "ssoc": "51492",
+      "occupation": "Slimming consultant",
+      "male_gross_wage": null,
+      "female_gross_wage": 4104,
+      "gap_pct": null
+    },
+    "51501": {
+      "ssoc": "51501",
+      "occupation": "Housekeeper (hotels and other establishments)",
+      "male_gross_wage": 3500,
+      "female_gross_wage": 3056,
+      "gap_pct": -0.1269
+    },
+    "51502": {
+      "ssoc": "51502",
+      "occupation": "House steward",
+      "male_gross_wage": 5363,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "51503": {
+      "ssoc": "51503",
+      "occupation": "Housekeeping matron",
+      "male_gross_wage": 4270,
+      "female_gross_wage": 3450,
+      "gap_pct": -0.192
+    },
+    "51702": {
+      "ssoc": "51702",
+      "occupation": "Bookmaker/Croupier/Casino dealer and related gaming worker",
+      "male_gross_wage": 3079,
+      "female_gross_wage": 2928,
+      "gap_pct": -0.049
+    },
+    "51931": {
+      "ssoc": "51931",
+      "occupation": "Undertaker",
+      "male_gross_wage": 4040,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "51942": {
+      "ssoc": "51942",
+      "occupation": "Keeper/Trainer in zoological, bird and aquatic parks",
+      "male_gross_wage": 2980,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "51950": {
+      "ssoc": "51950",
+      "occupation": "Driving instructor/tester",
+      "male_gross_wage": 3340,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "52201": {
+      "ssoc": "52201",
+      "occupation": "Sales supervisor",
+      "male_gross_wage": 3459,
+      "female_gross_wage": 3112,
+      "gap_pct": -0.1003
+    },
+    "52202": {
+      "ssoc": "52202",
+      "occupation": "Shop sales assistant",
+      "male_gross_wage": 2370,
+      "female_gross_wage": 2355,
+      "gap_pct": -0.0063
+    },
+    "52301": {
+      "ssoc": "52301",
+      "occupation": "Cage/Count supervisor",
+      "male_gross_wage": 4538,
+      "female_gross_wage": 4447,
+      "gap_pct": -0.0201
+    },
+    "52302": {
+      "ssoc": "52302",
+      "occupation": "Cashier (general)",
+      "male_gross_wage": 1630,
+      "female_gross_wage": 2210,
+      "gap_pct": 0.3558
+    },
+    "52421": {
+      "ssoc": "52421",
+      "occupation": "Sales demonstrator",
+      "male_gross_wage": 2800,
+      "female_gross_wage": 2400,
+      "gap_pct": -0.1429
+    },
+    "52422": {
+      "ssoc": "52422",
+      "occupation": "Salesperson (door-to-door)",
+      "male_gross_wage": 4000,
+      "female_gross_wage": 3600,
+      "gap_pct": -0.1
+    },
+    "52440": {
+      "ssoc": "52440",
+      "occupation": "Telemarketer",
+      "male_gross_wage": 3745,
+      "female_gross_wage": 4100,
+      "gap_pct": 0.0948
+    },
+    "52491": {
+      "ssoc": "52491",
+      "occupation": "Petrol station attendant",
+      "male_gross_wage": 2130,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "52492": {
+      "ssoc": "52492",
+      "occupation": "Food service counter attendant",
+      "male_gross_wage": 1723,
+      "female_gross_wage": 2000,
+      "gap_pct": 0.1608
+    },
+    "53113": {
+      "ssoc": "53113",
+      "occupation": "Child/After school care centre worker",
+      "male_gross_wage": null,
+      "female_gross_wage": 2283,
+      "gap_pct": null
+    },
+    "53115": {
+      "ssoc": "53115",
+      "occupation": "Educarer",
+      "male_gross_wage": 4649,
+      "female_gross_wage": 3385,
+      "gap_pct": -0.2719
+    },
+    "53120": {
+      "ssoc": "53120",
+      "occupation": "Teacher aide",
+      "male_gross_wage": 2893,
+      "female_gross_wage": 2484,
+      "gap_pct": -0.1414
+    },
+    "53201": {
+      "ssoc": "53201",
+      "occupation": "Healthcare assistant (e.g. therapy aide/assistant)",
+      "male_gross_wage": 2386,
+      "female_gross_wage": 2450,
+      "gap_pct": 0.0268
+    },
+    "53202": {
+      "ssoc": "53202",
+      "occupation": "Nursing aide/assistant",
+      "male_gross_wage": null,
+      "female_gross_wage": 3000,
+      "gap_pct": null
+    },
+    "53203": {
+      "ssoc": "53203",
+      "occupation": "Dental aide/assistant",
+      "male_gross_wage": null,
+      "female_gross_wage": 2718,
+      "gap_pct": null
+    },
+    "54123": {
+      "ssoc": "54123",
+      "occupation": "Auxiliary police officer",
+      "male_gross_wage": 3396,
+      "female_gross_wage": 3396,
+      "gap_pct": 0
+    },
+    "54141": {
+      "ssoc": "54141",
+      "occupation": "Senior security supervisor",
+      "male_gross_wage": 3720,
+      "female_gross_wage": 3731,
+      "gap_pct": 0.003
+    },
+    "54142": {
+      "ssoc": "54142",
+      "occupation": "Security supervisor",
+      "male_gross_wage": 3249,
+      "female_gross_wage": 3182,
+      "gap_pct": -0.0206
+    },
+    "54143": {
+      "ssoc": "54143",
+      "occupation": "Senior private security officer",
+      "male_gross_wage": 3082,
+      "female_gross_wage": 3086,
+      "gap_pct": 0.0013
+    },
+    "54144": {
+      "ssoc": "54144",
+      "occupation": "Private security officer",
+      "male_gross_wage": 2748,
+      "female_gross_wage": 2738,
+      "gap_pct": -0.0036
+    },
+    "54150": {
+      "ssoc": "54150",
+      "occupation": "Lifeguard",
+      "male_gross_wage": 2800,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "54193": {
+      "ssoc": "54193",
+      "occupation": "Insurance investigator",
+      "male_gross_wage": 6198,
+      "female_gross_wage": 6000,
+      "gap_pct": -0.0319
+    },
+    "61131": {
+      "ssoc": "61131",
+      "occupation": "Landscape and plant nursery supervisor",
+      "male_gross_wage": 2500,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "61133": {
+      "ssoc": "61133",
+      "occupation": "Gardener and horticultural worker",
+      "male_gross_wage": 1800,
+      "female_gross_wage": 1750,
+      "gap_pct": -0.0278
+    },
+    "62212": {
+      "ssoc": "62212",
+      "occupation": "Aquarium fish farm worker",
+      "male_gross_wage": 3740,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "71000": {
+      "ssoc": "71000",
+      "occupation": "Supervisor/General foreman (building and related trades)",
+      "male_gross_wage": 3431,
+      "female_gross_wage": 4092,
+      "gap_pct": 0.1927
+    },
+    "71151": {
+      "ssoc": "71151",
+      "occupation": "Carpenter",
+      "male_gross_wage": 2914,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "71152": {
+      "ssoc": "71152",
+      "occupation": "Joiner",
+      "male_gross_wage": 2228,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "71220": {
+      "ssoc": "71220",
+      "occupation": "Floor/Wall tiler",
+      "male_gross_wage": 1600,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "71261": {
+      "ssoc": "71261",
+      "occupation": "Plumber",
+      "male_gross_wage": 2400,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "71262": {
+      "ssoc": "71262",
+      "occupation": "Pipe fitter",
+      "male_gross_wage": 2433,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "71271": {
+      "ssoc": "71271",
+      "occupation": "Air-conditioning/Refrigeration equipment mechanic",
+      "male_gross_wage": 3190,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "71311": {
+      "ssoc": "71311",
+      "occupation": "Building painter",
+      "male_gross_wage": 1600,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "71331": {
+      "ssoc": "71331",
+      "occupation": "Building maintenance worker",
+      "male_gross_wage": 3340,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "72000": {
+      "ssoc": "72000",
+      "occupation": "Supervisor/General foreman (metal, machinery and related trades)",
+      "male_gross_wage": 7895,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "72120": {
+      "ssoc": "72120",
+      "occupation": "Welder and flame cutter",
+      "male_gross_wage": 3110,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "72221": {
+      "ssoc": "72221",
+      "occupation": "Tool and die maker",
+      "male_gross_wage": 4017,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "72222": {
+      "ssoc": "72222",
+      "occupation": "Locksmith",
+      "male_gross_wage": 3285,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "72310": {
+      "ssoc": "72310",
+      "occupation": "Automotive mechanic",
+      "male_gross_wage": 2776,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "72391": {
+      "ssoc": "72391",
+      "occupation": "Machinery mechanic",
+      "male_gross_wage": 2982,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "72392": {
+      "ssoc": "72392",
+      "occupation": "Industrial/Office machinery mechanic",
+      "male_gross_wage": 4083,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "73000": {
+      "ssoc": "73000",
+      "occupation": "Supervisor/General foreman (precision, handicraft, printing and related trades)",
+      "male_gross_wage": 5166,
+      "female_gross_wage": 3214,
+      "gap_pct": -0.3779
+    },
+    "73111": {
+      "ssoc": "73111",
+      "occupation": "Watch and clock assembler/repairer",
+      "male_gross_wage": 4500,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "73113": {
+      "ssoc": "73113",
+      "occupation": "Medical device assembler/repairer",
+      "male_gross_wage": 3346,
+      "female_gross_wage": 3731,
+      "gap_pct": 0.1151
+    },
+    "73210": {
+      "ssoc": "73210",
+      "occupation": "Pre-press trades worker",
+      "male_gross_wage": 3585,
+      "female_gross_wage": 3524,
+      "gap_pct": -0.017
+    },
+    "74001": {
+      "ssoc": "74001",
+      "occupation": "Lift supervisor",
+      "male_gross_wage": 4797,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "74002": {
+      "ssoc": "74002",
+      "occupation": "Supervisor/General foreman (electrical and electronic trades, excluding lift)",
+      "male_gross_wage": 5147,
+      "female_gross_wage": 3451,
+      "gap_pct": -0.3295
+    },
+    "74110": {
+      "ssoc": "74110",
+      "occupation": "Electrician",
+      "male_gross_wage": 3000,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "74122": {
+      "ssoc": "74122",
+      "occupation": "Electrical lift, escalator and related equipment fitter",
+      "male_gross_wage": 3968,
+      "female_gross_wage": 5100,
+      "gap_pct": 0.2853
+    },
+    "74123": {
+      "ssoc": "74123",
+      "occupation": "Electrical household appliance repairer",
+      "male_gross_wage": 2848,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "75000": {
+      "ssoc": "75000",
+      "occupation": "Supervisor/General foreman (food processing, woodworking, garment, leather and related trades)",
+      "male_gross_wage": 3936,
+      "female_gross_wage": 3811,
+      "gap_pct": -0.0318
+    },
+    "75110": {
+      "ssoc": "75110",
+      "occupation": "Butcher, fishmonger and related food preparer",
+      "male_gross_wage": 2884,
+      "female_gross_wage": 2708,
+      "gap_pct": -0.061
+    },
+    "75121": {
+      "ssoc": "75121",
+      "occupation": "Baker",
+      "male_gross_wage": 2533,
+      "female_gross_wage": 2071,
+      "gap_pct": -0.1824
+    },
+    "75122": {
+      "ssoc": "75122",
+      "occupation": "Pastry and confectionery maker",
+      "male_gross_wage": 2253,
+      "female_gross_wage": 2523,
+      "gap_pct": 0.1198
+    },
+    "75310": {
+      "ssoc": "75310",
+      "occupation": "Tailor/Dressmaker",
+      "male_gross_wage": null,
+      "female_gross_wage": 2007,
+      "gap_pct": null
+    },
+    "75410": {
+      "ssoc": "75410",
+      "occupation": "Underwater diver",
+      "male_gross_wage": 4323,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "75440": {
+      "ssoc": "75440",
+      "occupation": "Fumigator and other pest and weed controller",
+      "male_gross_wage": 2300,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "81000": {
+      "ssoc": "81000",
+      "occupation": "Stationary plant and machine supervisor/general foreman",
+      "male_gross_wage": 5382,
+      "female_gross_wage": 3380,
+      "gap_pct": -0.372
+    },
+    "81210": {
+      "ssoc": "81210",
+      "occupation": "Metal melter, caster and rolling mill operator",
+      "male_gross_wage": 2670,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "81220": {
+      "ssoc": "81220",
+      "occupation": "Metal heat treating plant operator",
+      "male_gross_wage": 4652,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "81251": {
+      "ssoc": "81251",
+      "occupation": "Metalworking machine setter-operator",
+      "male_gross_wage": 3140,
+      "female_gross_wage": 2045,
+      "gap_pct": -0.3487
+    },
+    "81501": {
+      "ssoc": "81501",
+      "occupation": "Sewing machine operator",
+      "male_gross_wage": null,
+      "female_gross_wage": 2260,
+      "gap_pct": null
+    },
+    "81502": {
+      "ssoc": "81502",
+      "occupation": "Laundry and dry cleaning worker (machine, non-household)",
+      "male_gross_wage": 1815,
+      "female_gross_wage": 1401,
+      "gap_pct": -0.2281
+    },
+    "81602": {
+      "ssoc": "81602",
+      "occupation": "Dairy and confectionery products machine operator",
+      "male_gross_wage": 3908,
+      "female_gross_wage": 1768,
+      "gap_pct": -0.5476
+    },
+    "81830": {
+      "ssoc": "81830",
+      "occupation": "Packing/Bottling/Labelling machine operator",
+      "male_gross_wage": 2786,
+      "female_gross_wage": 1922,
+      "gap_pct": -0.3101
+    },
+    "81841": {
+      "ssoc": "81841",
+      "occupation": "Printing machine operator",
+      "male_gross_wage": 3150,
+      "female_gross_wage": 2000,
+      "gap_pct": -0.3651
+    },
+    "82000": {
+      "ssoc": "82000",
+      "occupation": "Supervisor/General foreman of assemblers and quality checkers",
+      "male_gross_wage": 5761,
+      "female_gross_wage": 5850,
+      "gap_pct": 0.0154
+    },
+    "82110": {
+      "ssoc": "82110",
+      "occupation": "Mechanical equipment/component assembler",
+      "male_gross_wage": 2856,
+      "female_gross_wage": 1600,
+      "gap_pct": -0.4398
+    },
+    "82122": {
+      "ssoc": "82122",
+      "occupation": "Electronic equipment/component assembler",
+      "male_gross_wage": null,
+      "female_gross_wage": 1988,
+      "gap_pct": null
+    },
+    "82132": {
+      "ssoc": "82132",
+      "occupation": "Mechanical products quality checker and tester",
+      "male_gross_wage": 5129,
+      "female_gross_wage": 3044,
+      "gap_pct": -0.4065
+    },
+    "83000": {
+      "ssoc": "83000",
+      "occupation": "Mobile machinery supervisor and general foreman",
+      "male_gross_wage": 3686,
+      "female_gross_wage": 2495,
+      "gap_pct": -0.3231
+    },
+    "83110": {
+      "ssoc": "83110",
+      "occupation": "Train operator",
+      "male_gross_wage": 2779,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "83211": {
+      "ssoc": "83211",
+      "occupation": "Motorcycle delivery man",
+      "male_gross_wage": 2100,
+      "female_gross_wage": 1750,
+      "gap_pct": -0.1667
+    },
+    "83212": {
+      "ssoc": "83212",
+      "occupation": "Delivery man using motorised personal mobility aids/devices",
+      "male_gross_wage": 1970,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "83222": {
+      "ssoc": "83222",
+      "occupation": "Chauffeur",
+      "male_gross_wage": 2748,
+      "female_gross_wage": 2517,
+      "gap_pct": -0.0841
+    },
+    "83223": {
+      "ssoc": "83223",
+      "occupation": "Van driver",
+      "male_gross_wage": 2150,
+      "female_gross_wage": 1826,
+      "gap_pct": -0.1507
+    },
+    "83224": {
+      "ssoc": "83224",
+      "occupation": "Ambulance driver",
+      "male_gross_wage": 2447,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "83225": {
+      "ssoc": "83225",
+      "occupation": "Parking valet",
+      "male_gross_wage": 2370,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "83311": {
+      "ssoc": "83311",
+      "occupation": "Bus driver",
+      "male_gross_wage": 3785,
+      "female_gross_wage": 3711,
+      "gap_pct": -0.0196
+    },
+    "83321": {
+      "ssoc": "83321",
+      "occupation": "Lorry driver",
+      "male_gross_wage": 2165,
+      "female_gross_wage": 1691,
+      "gap_pct": -0.2189
+    },
+    "83322": {
+      "ssoc": "83322",
+      "occupation": "Trailer-truck driver (including prime mover driver)",
+      "male_gross_wage": 2850,
+      "female_gross_wage": 3375,
+      "gap_pct": 0.1842
+    },
+    "83323": {
+      "ssoc": "83323",
+      "occupation": "Concrete mix truck driver",
+      "male_gross_wage": 2546,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "83324": {
+      "ssoc": "83324",
+      "occupation": "Waste truck driver (including hooklift trucks with roll-on containers)",
+      "male_gross_wage": 4140,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "83421": {
+      "ssoc": "83421",
+      "occupation": "Excavating/Trench digging machine operator",
+      "male_gross_wage": 2975,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "83431": {
+      "ssoc": "83431",
+      "occupation": "Crane/Hoist operator (excluding port)",
+      "male_gross_wage": 5010,
+      "female_gross_wage": 3027,
+      "gap_pct": -0.3958
+    },
+    "83432": {
+      "ssoc": "83432",
+      "occupation": "Crane operator (on-site)",
+      "male_gross_wage": 3117,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "83441": {
+      "ssoc": "83441",
+      "occupation": "Fork lift truck operator",
+      "male_gross_wage": 2550,
+      "female_gross_wage": 2054,
+      "gap_pct": -0.1945
+    },
+    "83492": {
+      "ssoc": "83492",
+      "occupation": "Airport mobile equipment operator",
+      "male_gross_wage": 3064,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "83501": {
+      "ssoc": "83501",
+      "occupation": "Port limit helmsman/steersman/engine driver/tugmaster",
+      "male_gross_wage": 2651,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "83502": {
+      "ssoc": "83502",
+      "occupation": "Deckhand (including lighterman)",
+      "male_gross_wage": 1740,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "91000": {
+      "ssoc": "91000",
+      "occupation": "Cleaning supervisor",
+      "male_gross_wage": 2250,
+      "female_gross_wage": 1800,
+      "gap_pct": -0.2
+    },
+    "91121": {
+      "ssoc": "91121",
+      "occupation": "Housekeeping/Linen room attendant",
+      "male_gross_wage": 1950,
+      "female_gross_wage": 1950,
+      "gap_pct": 0
+    },
+    "91122": {
+      "ssoc": "91122",
+      "occupation": "Hotel cleaner",
+      "male_gross_wage": 2019,
+      "female_gross_wage": 2019,
+      "gap_pct": 0
+    },
+    "91131": {
+      "ssoc": "91131",
+      "occupation": "Office, commercial and industrial establishments indoor cleaner",
+      "male_gross_wage": 1670,
+      "female_gross_wage": 1600,
+      "gap_pct": -0.0419
+    },
+    "91132": {
+      "ssoc": "91132",
+      "occupation": "Office, commercial and industrial establishments outdoor cleaner",
+      "male_gross_wage": 1975,
+      "female_gross_wage": 1863,
+      "gap_pct": -0.0567
+    },
+    "91133": {
+      "ssoc": "91133",
+      "occupation": "Office, commercial and industrial establishments multi-skilled cleaner cum machine operator",
+      "male_gross_wage": 2270,
+      "female_gross_wage": 2010,
+      "gap_pct": -0.1145
+    },
+    "91151": {
+      "ssoc": "91151",
+      "occupation": "Food and beverage establishments general cleaner",
+      "male_gross_wage": 1600,
+      "female_gross_wage": 1630,
+      "gap_pct": 0.0188
+    },
+    "91152": {
+      "ssoc": "91152",
+      "occupation": "Table-top cleaner",
+      "male_gross_wage": 1670,
+      "female_gross_wage": 1670,
+      "gap_pct": 0
+    },
+    "91153": {
+      "ssoc": "91153",
+      "occupation": "Dishwasher",
+      "male_gross_wage": 1700,
+      "female_gross_wage": 1670,
+      "gap_pct": -0.0176
+    },
+    "91161": {
+      "ssoc": "91161",
+      "occupation": "Residential and open areas general cleaner",
+      "male_gross_wage": 1800,
+      "female_gross_wage": 1740,
+      "gap_pct": -0.0333
+    },
+    "91210": {
+      "ssoc": "91210",
+      "occupation": "Hand launderer/presser (non-household)",
+      "male_gross_wage": 1500,
+      "female_gross_wage": 1600,
+      "gap_pct": 0.0667
+    },
+    "91220": {
+      "ssoc": "91220",
+      "occupation": "Motor vehicle cleaner/polisher",
+      "male_gross_wage": 1700,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "92141": {
+      "ssoc": "92141",
+      "occupation": "Tree worker/technician",
+      "male_gross_wage": 1921,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "92142": {
+      "ssoc": "92142",
+      "occupation": "Landscape worker",
+      "male_gross_wage": 1800,
+      "female_gross_wage": 1750,
+      "gap_pct": -0.0278
+    },
+    "93100": {
+      "ssoc": "93100",
+      "occupation": "Civil engineering/Building construction labourer",
+      "male_gross_wage": 1600,
+      "female_gross_wage": 1400,
+      "gap_pct": -0.125
+    },
+    "93201": {
+      "ssoc": "93201",
+      "occupation": "Hand packer",
+      "male_gross_wage": 1634,
+      "female_gross_wage": 1600,
+      "gap_pct": -0.0208
+    },
+    "93333": {
+      "ssoc": "93333",
+      "occupation": "Aircraft loader (e.g. airport baggage/cargo handler)",
+      "male_gross_wage": 3269,
+      "female_gross_wage": 2895,
+      "gap_pct": -0.1144
+    },
+    "93334": {
+      "ssoc": "93334",
+      "occupation": "Warehouse worker",
+      "male_gross_wage": 2500,
+      "female_gross_wage": 2350,
+      "gap_pct": -0.06
+    },
+    "93335": {
+      "ssoc": "93335",
+      "occupation": "Vehicle attendant",
+      "male_gross_wage": 2603,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "93336": {
+      "ssoc": "93336",
+      "occupation": "Mover",
+      "male_gross_wage": 2135,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "93337": {
+      "ssoc": "93337",
+      "occupation": "Lashing worker",
+      "male_gross_wage": 2487,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "94101": {
+      "ssoc": "94101",
+      "occupation": "Kitchen assistant",
+      "male_gross_wage": 1600,
+      "female_gross_wage": 1600,
+      "gap_pct": 0
+    },
+    "94102": {
+      "ssoc": "94102",
+      "occupation": "Food/Drink stall assistant",
+      "male_gross_wage": 1600,
+      "female_gross_wage": 1750,
+      "gap_pct": 0.0938
+    },
+    "94103": {
+      "ssoc": "94103",
+      "occupation": "Fast food preparer",
+      "male_gross_wage": 1750,
+      "female_gross_wage": 2029,
+      "gap_pct": 0.1594
+    },
+    "94104": {
+      "ssoc": "94104",
+      "occupation": "Tea server/steward (excluding bartender, barista and food/drink stall assistant)",
+      "male_gross_wage": 2656,
+      "female_gross_wage": 1670,
+      "gap_pct": -0.3712
+    },
+    "96111": {
+      "ssoc": "96111",
+      "occupation": "General waste collection, recycling and material recovery worker",
+      "male_gross_wage": 1872,
+      "female_gross_wage": 1600,
+      "gap_pct": -0.1453
+    },
+    "96112": {
+      "ssoc": "96112",
+      "occupation": "Waste recycling sorter",
+      "male_gross_wage": 2130,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "96212": {
+      "ssoc": "96212",
+      "occupation": "Bellboy/Hotel porter",
+      "male_gross_wage": 2217,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "96213": {
+      "ssoc": "96213",
+      "occupation": "Porter (except hotel)",
+      "male_gross_wage": 1710,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "96251": {
+      "ssoc": "96251",
+      "occupation": "Office/Library attendant",
+      "male_gross_wage": 2300,
+      "female_gross_wage": 2000,
+      "gap_pct": -0.1304
+    },
+    "96252": {
+      "ssoc": "96252",
+      "occupation": "Laboratory attendant",
+      "male_gross_wage": 3267,
+      "female_gross_wage": 2350,
+      "gap_pct": -0.2807
+    },
+    "96253": {
+      "ssoc": "96253",
+      "occupation": "Hospital/Clinic attendant",
+      "male_gross_wage": 2408,
+      "female_gross_wage": 2559,
+      "gap_pct": 0.0627
+    },
+    "96254": {
+      "ssoc": "96254",
+      "occupation": "Car park attendant",
+      "male_gross_wage": 3281,
+      "female_gross_wage": 1784,
+      "gap_pct": -0.4563
+    },
+    "96255": {
+      "ssoc": "96255",
+      "occupation": "Sports and recreational attendant (e.g. golf marshal, golf caddie, fun fair attendant, bowling alley attendant, swimming pool attendant)",
+      "male_gross_wage": 2570,
+      "female_gross_wage": null,
+      "gap_pct": null
+    },
+    "96256": {
+      "ssoc": "96256",
+      "occupation": "Bus attendant",
+      "male_gross_wage": 1600,
+      "female_gross_wage": 1400,
+      "gap_pct": -0.125
+    },
+    "96261": {
+      "ssoc": "96261",
+      "occupation": "Building caretaker/Watchman",
+      "male_gross_wage": 2610,
+      "female_gross_wage": 2500,
+      "gap_pct": -0.0421
+    },
+    "96262": {
+      "ssoc": "96262",
+      "occupation": "Doorman",
+      "male_gross_wage": 2629,
+      "female_gross_wage": 2486,
+      "gap_pct": -0.0544
+    },
+    "96272": {
+      "ssoc": "96272",
+      "occupation": "Concierge (hotel)",
+      "male_gross_wage": 2886,
+      "female_gross_wage": 3120,
+      "gap_pct": 0.0811
+    },
+    "96291": {
+      "ssoc": "96291",
+      "occupation": "Leaflet and newspaper distributor/deliverer",
+      "male_gross_wage": 1600,
+      "female_gross_wage": 1600,
+      "gap_pct": 0
+    },
+    "96293": {
+      "ssoc": "96293",
+      "occupation": "Odd job person",
+      "male_gross_wage": 1600,
+      "female_gross_wage": 1600,
+      "gap_pct": 0
+    }
+  },
+  "metadata": {
+    "data_as_of": "2024",
+    "notes": [
+      "Broad-group worker composition uses Labour Force in Singapore 2024 Section D tables.",
+      "Detailed gender anchors use published 2-digit occupation families from Table D8.",
+      "Occupation-level male/female gross wage medians are only available for common occupations in the wages-by-sex tables.",
+      "This artifact is contextual and does not feed into the canonical structural score."
+    ]
+  }
+}

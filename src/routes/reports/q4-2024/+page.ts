@@ -35,6 +35,8 @@ export const load: PageLoad = () => {
 			vacancy_rate: number;
 			vacancy_trend: number;
 			vacancy_signal: number;
+			vacancy_count: number | null;
+			vacancy_count_trend: number | null;
 			count: number;
 		}
 	>();
@@ -49,6 +51,8 @@ export const load: PageLoad = () => {
 				vacancy_rate: occ.labour_monitor.vacancy.latest_rate,
 				vacancy_trend: occ.labour_monitor.vacancy.trend_4q_pct,
 				vacancy_signal: occ.labour_monitor.vacancy.signal,
+				vacancy_count: occ.labour_monitor.vacancy.latest_count ?? null,
+				vacancy_count_trend: occ.labour_monitor.vacancy.count_trend_4q_pct ?? null,
 				count: 0
 			});
 		}

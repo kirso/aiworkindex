@@ -11,6 +11,17 @@
 	);
 	let trendLabel = $derived(trendDirection === 'up' ? '↑' : trendDirection === 'down' ? '↓' : '→');
 	let trendColor = $derived(directionTone(trendDirection));
+	let countTrendDirection = $derived(
+		(monitor.vacancy.count_trend_4q_pct ?? 0) > 0
+			? 'up'
+			: (monitor.vacancy.count_trend_4q_pct ?? 0) < 0
+				? 'down'
+				: 'flat'
+	);
+	let countTrendLabel = $derived(
+		countTrendDirection === 'up' ? '↑' : countTrendDirection === 'down' ? '↓' : '→'
+	);
+	let countTrendColor = $derived(directionTone(countTrendDirection));
 
 	let hiringLabel = $derived.by(() => {
 		if (!monitor.hiring) return null;
@@ -71,6 +82,17 @@
 				<p class="mt-0.5 text-xs text-muted-foreground">
 					Vacancy rate · {monitor.vacancy.latest_quarter}
 				</p>
+				{#if monitor.vacancy.latest_count !== undefined}
+					<p class="mt-1 text-xs text-muted-foreground">
+						<span class="font-medium text-foreground/85 tabular-nums"
+							>{monitor.vacancy.latest_count.toLocaleString()} vacancies</span
+						>
+						<span class="{countTrendColor} ml-1 font-semibold tabular-nums">
+							{countTrendLabel}
+							{Math.abs(monitor.vacancy.count_trend_4q_pct ?? 0).toFixed(1)}% YoY
+						</span>
+					</p>
+				{/if}
 			</div>
 			<!-- Mini sparkline -->
 			{#if sparklinePoints}

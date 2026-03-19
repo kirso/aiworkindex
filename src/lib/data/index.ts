@@ -1,5 +1,7 @@
 import occupationsData from './occupations.json';
 import majorGroupsData from './major-groups.json';
+import labourMonitorData from './labour-monitor.json';
+import type { OccupationDataBasis, EmploymentBasis } from './data-contract';
 
 // V4.0 types
 export type RiskBand = 'very_low' | 'low' | 'moderate' | 'high' | 'very_high';
@@ -51,6 +53,12 @@ export interface LabourClusterMonitor {
 		recent_quarters: Array<{ quarter: string; rate: number }>;
 		/** Annual rates for sparkline: 2022, 2023, 2024, latest */
 		annual_rates?: Array<{ year: string; rate: number }>;
+		/** Published vacancy counts for the same cluster, where available. */
+		latest_count?: number;
+		count_trend_4q_pct?: number;
+		count_signal?: 1 | 0 | -1;
+		recent_counts?: Array<{ quarter: string; count: number }>;
+		annual_counts?: Array<{ year: string; count: number }>;
 	};
 	hiring: {
 		recruitment_rate: number;
@@ -115,9 +123,12 @@ export interface Occupation {
 	gross_wage_25th: number;
 	gross_wage_75th: number;
 	employment_thousands: number;
+	employment_basis?: EmploymentBasis;
 	/** BLS-weighted proxy used for illustrative wage-pool analysis; not an official Singapore headcount. */
 	bls_proxy_employment?: number;
 	group_employment_thousands: number;
+	data_basis?: OccupationDataBasis;
+	labour_monitor_key?: LabourClusterMonitor['cluster_key'] | null;
 	// V4.0 fields
 	exposure: number;
 	bottleneck: number;
@@ -144,6 +155,10 @@ export interface Occupation {
 	sg_context?: SgContext;
 }
 
+interface RawOccupation extends Omit<Occupation, 'labour_monitor'> {
+	labour_monitor?: LabourClusterMonitor | null;
+}
+
 export interface MajorGroup {
 	code: number;
 	key: string;
@@ -151,7 +166,21 @@ export interface MajorGroup {
 	color: string;
 }
 
-export const occupations: Occupation[] = occupationsData as Occupation[];
+export const labourMonitors: LabourClusterMonitor[] = labourMonitorData as LabourClusterMonitor[];
+
+export const labourMonitorByKey = new Map<string, LabourClusterMonitor>(
+	labourMonitors.map((monitor) => [monitor.cluster_key, monitor])
+);
+
+const rawOccupations: RawOccupation[] = occupationsData as RawOccupation[];
+
+export const occupations: Occupation[] = rawOccupations.map((occupation) => ({
+	...occupation,
+	labour_monitor:
+		occupation.labour_monitor_key != null
+			? (labourMonitorByKey.get(occupation.labour_monitor_key) ?? null)
+			: (occupation.labour_monitor ?? null)
+}));
 export const majorGroups: MajorGroup[] = majorGroupsData as MajorGroup[];
 
 export const occupationsBySSoc = new Map<string, Occupation>(

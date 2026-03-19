@@ -67,7 +67,9 @@
 		Our scoring pipeline uses government survey data plus published academic and institutional
 		research. No LLM assigns a risk score — avoiding the circularity of using AI to score AI
 		replaceability. The core formula is fully deterministic: every input is an observable signal
-		from a published dataset.
+		from a published dataset. We publish the structural score separately from the Singapore context
+		bundle so users can audit the core model independently from current labour conditions and
+		support layers.
 	</p>
 
 	<!-- Validation Status -->
@@ -149,6 +151,15 @@
 					These three layers produce the structural score. Around that core score we add confidence,
 					labour evidence, synthetic-role estimates, and scenario tooling rather than hiding
 					everything inside one opaque number.
+				</p>
+				<p class="mt-2 text-sm text-muted-foreground">
+					Separate Singapore context modules now show industry footprint and worker-profile
+					composition from official Section D labour-force tables and wage-by-sex tables. The
+					industry footprint card now also shows sector wage anchors from MOM's industry wage tables
+					where the occupation is covered. The labour monitor carries both published vacancy rates
+					and published vacancy counts at cluster level. These context blocks are displayed as
+					evidence around the score, not folded into hidden multipliers, and are published in a
+					separate Singapore context bundle alongside the main score dataset.
 				</p>
 				<div class="mt-2 overflow-x-auto">
 					<table class="w-full text-left text-sm">
@@ -315,6 +326,11 @@
 					Market data is a <strong>calibrator</strong>, not an override. Employment and wages are
 					lagging and confounded. The market layer can reduce net risk by up to 35% — it never
 					amplifies risk beyond the technical signal.
+				</p>
+				<p class="mt-2 text-sm text-muted-foreground">
+					Separately, we build a Singapore industry-footprint layer from the official industry ×
+					occupation cross-tab plus industry vacancy series. That layer is shown on occupation and
+					synthetic-role pages as contextual evidence, not as a direct score multiplier.
 				</p>
 
 				<div class="mt-4 space-y-4">

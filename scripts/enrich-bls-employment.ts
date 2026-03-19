@@ -19,6 +19,7 @@ import * as XLSX from 'xlsx';
 import * as fs from 'fs';
 import * as path from 'path';
 import { ssocToSocCodes } from './crosswalk';
+import { occupationDataBasisTemplate } from '../src/lib/data/data-contract';
 
 const DATA_DIR = path.join(import.meta.dir, '..', 'data');
 const EXT_DIR = path.join(DATA_DIR, 'raw', 'external');
@@ -121,6 +122,16 @@ function main() {
 		(occ as Record<string, unknown>).bls_proxy_employment = Number(
 			(proxyEmpl.get(occ.ssoc) ?? occ.employment_thousands).toFixed(2)
 		);
+		const record = occ as Record<string, unknown>;
+		const existingBasis = (record.data_basis as Record<string, unknown> | undefined) ?? {};
+		record.employment_basis = record.employment_basis ?? 'estimated_sg_submajor';
+		record.data_basis = {
+			...existingBasis,
+			employment_estimate: existingBasis['employment_estimate'] ?? {
+				...occupationDataBasisTemplate.employment_estimate
+			},
+			wage_pool_proxy: { ...occupationDataBasisTemplate.wage_pool_proxy }
+		};
 	}
 
 	// Spot check

@@ -22,7 +22,7 @@
 				name: 'How is the AI job risk score calculated?',
 				acceptedAnswer: {
 					'@type': 'Answer',
-					text: 'Net displacement risk = exposure ensemble × (1 − human bottleneck) × market modifier. The exposure layer combines available matches from AIOE, Anthropic observed usage, Eloundou GPT exposure, and the ILO occupational exposure index. Human bottleneck comes from Pizzinelli theta and market resilience from Singapore MOM demand and wage signals.'
+					text: 'Net displacement risk = exposure ensemble × (1 − human bottleneck) × market modifier. The exposure layer combines available matches from AIOE, Anthropic observed usage, Eloundou GPT exposure, and the ILO occupational exposure index. Human bottleneck comes from Pizzinelli theta and market resilience from Singapore MOM demand, wage, and labour-market signals.'
 				}
 			},
 			{
@@ -51,8 +51,10 @@
 	<p class="mt-2 text-muted-foreground">
 		The AI Work Index scores {DATA_VINTAGE.occupation_count} occupations and {DATA_VINTAGE.role_count}
 		modern roles for structural AI displacement pressure. It uses a three-layer structural model — multi-source
-		exposure, human bottleneck, and market resilience — grounded in official Singapore government data
-		and published academic and institutional research.
+		exposure, human bottleneck, and market resilience — grounded in official Singapore government data,
+		industry context, sector wage anchors, worker-profile context, and published academic and institutional
+		research. The public downloads separate the structural score dataset from a Singapore context bundle
+		so current labour evidence can be read on its own terms.
 	</p>
 	<p class="mt-2 text-muted-foreground">
 		This is a structural score of AI pressure, not a prediction of exact job losses. No LLM is used

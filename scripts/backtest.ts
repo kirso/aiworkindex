@@ -22,6 +22,7 @@ import * as path from 'path';
 
 const DATA_DIR = path.join(import.meta.dir, '..', 'data');
 const OCCUPATIONS_FILE = path.join(DATA_DIR, 'occupations.json');
+const MONITOR_FILE = path.join(DATA_DIR, 'labour-monitor.json');
 const OUTPUT_DIR = path.join(DATA_DIR, 'backtests');
 const OUTPUT_FILE = path.join(OUTPUT_DIR, 'q3-2025-validation.json');
 
@@ -33,32 +34,34 @@ interface Occupation {
 	bottleneck: number;
 	risk_band: string;
 	impact_type: string;
-	labour_monitor: {
-		cluster_key: string;
-		cluster_label: string;
-		vacancy: {
-			latest_rate: number;
-			trend_4q_pct: number;
-			signal: number;
-		};
-		hiring: {
-			recruitment_rate: number;
-			resignation_rate: number;
-			net_pressure: number;
-			signal: number;
-		} | null;
-		retrenchment: {
-			latest_count: number;
-			trend_4q_pct: number;
-			signal: number;
-			incidence_per_1000?: number;
-		} | null;
-		re_entry?: {
-			rate_6m: number;
-			rate_12m: number;
-		};
-		overall: string;
+	labour_monitor_key: string | null;
+}
+
+interface LabourClusterMonitor {
+	cluster_key: string;
+	cluster_label: string;
+	vacancy: {
+		latest_rate: number;
+		trend_4q_pct: number;
+		signal: number;
+	};
+	hiring: {
+		recruitment_rate: number;
+		resignation_rate: number;
+		net_pressure: number;
+		signal: number;
 	} | null;
+	retrenchment: {
+		latest_count: number;
+		trend_4q_pct: number;
+		signal: number;
+		incidence_per_1000?: number;
+	} | null;
+	re_entry?: {
+		rate_6m: number;
+		rate_12m: number;
+	};
+	overall: string;
 }
 
 interface ClusterStats {
@@ -111,14 +114,16 @@ function main() {
 	console.log('=== Backtest: Risk Scores vs Labour Outcomes (Q3 2025) ===\n');
 
 	const occupations: Occupation[] = JSON.parse(fs.readFileSync(OCCUPATIONS_FILE, 'utf-8'));
+	const labourMonitors: LabourClusterMonitor[] = JSON.parse(fs.readFileSync(MONITOR_FILE, 'utf-8'));
+	const labourMonitorByKey = new Map(labourMonitors.map(monitor => [monitor.cluster_key, monitor]));
 
 	// Group by cluster
 	const clusters = new Map<string, Occupation[]>();
 	let withMonitor = 0;
 	for (const occ of occupations) {
-		if (!occ.labour_monitor) continue;
+		if (!occ.labour_monitor_key || !labourMonitorByKey.has(occ.labour_monitor_key)) continue;
 		withMonitor++;
-		const key = occ.labour_monitor.cluster_key;
+		const key = occ.labour_monitor_key;
 		const list = clusters.get(key) ?? [];
 		list.push(occ);
 		clusters.set(key, list);
@@ -130,7 +135,7 @@ function main() {
 	const clusterStats: ClusterStats[] = [];
 
 	for (const [key, occs] of clusters) {
-		const first = occs[0].labour_monitor!;
+		const first = labourMonitorByKey.get(key)!;
 		const avgRisk = occs.reduce((s, o) => s + o.net_risk, 0) / occs.length;
 		const avgExposure = occs.reduce((s, o) => s + o.exposure, 0) / occs.length;
 		const avgBottleneck = occs.reduce((s, o) => s + o.bottleneck, 0) / occs.length;

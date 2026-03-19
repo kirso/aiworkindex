@@ -15,12 +15,14 @@ export const roleCategories: RoleCategory[] = [
 	{ key: 'engineering', label: 'Engineering', description: 'Software, infrastructure, and platform roles' },
 	{ key: 'data', label: 'Data & AI', description: 'Data engineering, analytics, and ML roles' },
 	{ key: 'product', label: 'Product & Design', description: 'Product management, UX, and design roles' },
+	{ key: 'design', label: 'Design & Creative', description: 'Design, visual craft, and independent creative roles' },
 	{ key: 'marketing', label: 'Marketing & Growth', description: 'Marketing, content, and growth roles' },
 	{ key: 'sales', label: 'Sales & Business Development', description: 'Sales, partnerships, and BD roles' },
 	{ key: 'finance', label: 'Finance & Legal', description: 'Finance, accounting, compliance, and legal roles' },
 	{ key: 'people', label: 'People & HR', description: 'HR, recruiting, and people operations roles' },
 	{ key: 'operations', label: 'Operations', description: 'Operations, supply chain, and procurement roles' },
 	{ key: 'strategy', label: 'Strategy & Leadership', description: 'Strategy, consulting, and executive support roles' },
+	{ key: 'leadership', label: 'Leadership & New Ventures', description: 'Founders, executives, and emerging leadership roles' },
 	{ key: 'customer', label: 'Customer & Service', description: 'Customer success, support, and community roles' }
 ];
 

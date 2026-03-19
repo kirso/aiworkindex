@@ -52,7 +52,7 @@
 	title="Wage Pool Under Structural Pressure — SGD {(data.highRiskAnnualWages / 1e9).toFixed(1)}B"
 	description="Wage-pool analysis for Singapore occupations with high structural AI pressure. {data.highRiskCount} occupations covering about {data.highRiskEmployment.toFixed(
 		0
-	)}K workers."
+	)}K Est. workers."
 	path="/reports/wage-exposure"
 	jsonLd={[faqJsonLd]}
 />
@@ -71,7 +71,7 @@
 		<p class={cn(sectionLabel(), 'mb-2')}>Wage Exposure Analysis</p>
 		<p class={display({ size: 'xl' })}>{headlineNumber}</p>
 		<p class="mt-2 text-base text-muted-foreground">
-			annual wage pool inside high-pressure occupations
+			Est. annual wage pool inside high-pressure occupations
 		</p>
 		<div class="mt-4 flex flex-wrap gap-x-6 gap-y-1 text-sm text-muted-foreground tabular-nums">
 			<span>
@@ -81,10 +81,8 @@
 				).toFixed(0)}% of {data.totalCount})
 			</span>
 			<span>
-				<strong class="text-foreground">{data.highRiskEmployment.toFixed(0)}K</strong> workers ({(
-					(data.highRiskEmployment / data.totalEmployment) *
-					100
-				).toFixed(0)}%)
+				<strong class="text-foreground">{data.highRiskEmployment.toFixed(0)}K</strong> Est. workers
+				({((data.highRiskEmployment / data.totalEmployment) * 100).toFixed(0)}%)
 			</span>
 			<span>
 				<strong class="text-foreground"
@@ -192,9 +190,9 @@
 	<section class="mt-8">
 		<p class={cn(sectionLabel(), 'mb-2')}>Methodology</p>
 		<p class={cn(caption(), 'leading-relaxed')}>
-			Illustrative annual wage pool = median gross monthly wage &times; 12 &times; proxy employment.
-			High+ risk defined as net_risk &ge; 0.30. Source data: MOM wages {DATA_VINTAGE.wages},
-			Singapore employment totals plus BLS-weighted proxy distribution. Scoring {DATA_VINTAGE.model_version}.
+			Est. annual wage pool = median gross monthly wage &times; 12 &times; proxy employment. High+
+			risk defined as net_risk &ge; 0.30. Source data: MOM wages {DATA_VINTAGE.wages}, Singapore
+			employment totals plus BLS-weighted proxy distribution. Scoring {DATA_VINTAGE.model_version}.
 			<a href="/methodology" class="text-primary hover:underline">Full methodology</a> &middot;
 			<a href="/data" class="text-primary hover:underline">Download data</a>
 		</p>

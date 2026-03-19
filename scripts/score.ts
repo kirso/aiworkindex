@@ -39,6 +39,10 @@ import {
 	MARKET_CONSTANTS,
 	AUGMENTATION_THRESHOLDS
 } from '../src/lib/data/scoring-constants';
+import {
+	occupationDataBasisTemplate,
+	type OccupationDataBasis
+} from '../src/lib/data/data-contract';
 
 // ===== Workflow Overlay (from archetype system) =====
 function getOverlayForOccupation(ssoc: string, title: string, _majorGroup: string) {
@@ -268,7 +272,9 @@ interface ScoredOccupation {
 	gross_wage_25th: number | null;
 	gross_wage_75th: number | null;
 	employment_thousands: number | null;
+	employment_basis: 'estimated_sg_submajor';
 	group_employment_thousands: number | null;
+	data_basis: OccupationDataBasis;
 	exposure: number;
 	bottleneck: number;
 	market: MarketScores;
@@ -280,7 +286,7 @@ interface ScoredOccupation {
 	evidence: EvidenceSignals;
 	confidence: ConfidenceScores;
 	stability: StabilityScores;
-	labour_monitor: LabourClusterMonitor | null;
+	labour_monitor_key: LabourClusterMonitor['cluster_key'] | null;
 	raw: RawScores;
 	isco_codes_matched: string[];
 	match_quality: 'direct' | 'submajor_fallback' | 'major_fallback';
@@ -292,6 +298,24 @@ interface ScoredOccupation {
 		category: string;
 		isco_codes_matched: string[];
 		match_quality: 'direct' | 'submajor_fallback' | 'major_fallback';
+	};
+}
+
+function cloneOccupationDataBasis(): OccupationDataBasis {
+	return {
+		employment_estimate: { ...occupationDataBasisTemplate.employment_estimate },
+		wage_pool_proxy: { ...occupationDataBasisTemplate.wage_pool_proxy },
+		education: { ...occupationDataBasisTemplate.education },
+		sg_context: {
+			pwm_covered: { ...occupationDataBasisTemplate.sg_context.pwm_covered },
+			licensed_profession: { ...occupationDataBasisTemplate.sg_context.licensed_profession },
+			foreign_worker_dependency: {
+				...occupationDataBasisTemplate.sg_context.foreign_worker_dependency
+			},
+			skillsfuture_eligible: {
+				...occupationDataBasisTemplate.sg_context.skillsfuture_eligible
+			}
+		}
 	};
 }
 
@@ -1648,7 +1672,9 @@ function scoreOccupations(
 			gross_wage_25th: r.occ.gross_wage_25th,
 			gross_wage_75th: r.occ.gross_wage_75th,
 			employment_thousands: r.occ.estimated_employment_thousands,
+			employment_basis: 'estimated_sg_submajor',
 			group_employment_thousands: r.occ.group_employment_thousands,
+			data_basis: cloneOccupationDataBasis(),
 			exposure: round(exposure, 4),
 			bottleneck: round(bottleneck, 4),
 			market: {
@@ -1675,7 +1701,7 @@ function scoreOccupations(
 				source_freshness: sourceFreshness
 			},
 			stability,
-			labour_monitor: labourMonitor,
+			labour_monitor_key: labourMonitor?.cluster_key ?? null,
 			raw: {
 				aioe: round(r.avgAioe, 4),
 				theta: round(r.avgTheta, 4),

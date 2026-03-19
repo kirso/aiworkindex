@@ -21,7 +21,26 @@ interface Occupation {
 	gross_wage_median: number;
 	gross_wage_25th: number;
 	gross_wage_75th: number;
+	employment_thousands: number;
+	employment_basis?: string;
 	bls_proxy_employment?: number;
+	data_basis?: {
+		employment_estimate?: {
+			tier: string;
+		};
+		wage_pool_proxy?: {
+			tier: string;
+		};
+		education?: {
+			tier: string;
+		};
+	};
+	sg_context?: {
+		pwm_covered?: boolean;
+		licensed_profession?: 'strict' | 'partial' | false;
+		foreign_worker_dependency?: 'very_high' | 'high' | 'moderate' | false;
+		skillsfuture_eligible?: boolean;
+	};
 	exposure: number;
 	bottleneck: number;
 	market: {
@@ -59,7 +78,10 @@ const columns = [
 	'gross_wage_25th',
 	'gross_wage_75th',
 	'employment_thousands',
+	'employment_basis',
+	'employment_tier',
 	'bls_proxy_employment',
+	'wage_pool_proxy_tier',
 	'exposure',
 	'bottleneck',
 	'market_resilience',
@@ -76,7 +98,12 @@ const columns = [
 	'confidence_level',
 	'confidence_score',
 	'match_quality',
-	'education_label'
+	'education_label',
+	'education_tier',
+	'pwm_covered',
+	'licensed_profession',
+	'foreign_worker_dependency',
+	'skillsfuture_eligible'
 ];
 
 function escapeCSV(value: string | number): string {
@@ -95,7 +122,10 @@ const rows = occupations.map(o => [
 	o.gross_wage_25th,
 	o.gross_wage_75th,
 	o.employment_thousands,
+	o.employment_basis ?? '',
+	o.data_basis?.employment_estimate?.tier ?? '',
 	o.bls_proxy_employment ?? '',
+	o.data_basis?.wage_pool_proxy?.tier ?? '',
 	o.exposure.toFixed(4),
 	o.bottleneck.toFixed(4),
 	o.market.market_resilience.toFixed(4),
@@ -112,7 +142,12 @@ const rows = occupations.map(o => [
 	o.confidence.level,
 	o.confidence.score.toFixed(4),
 	o.match_quality,
-	o.education_label ?? ''
+	o.education_label ?? '',
+	o.data_basis?.education?.tier ?? '',
+	o.sg_context?.pwm_covered ?? false,
+	o.sg_context?.licensed_profession ?? '',
+	o.sg_context?.foreign_worker_dependency ?? '',
+	o.sg_context?.skillsfuture_eligible ?? false
 ]);
 
 const csv = [columns.join(','), ...rows.map(r => r.map(escapeCSV).join(','))].join('\n');

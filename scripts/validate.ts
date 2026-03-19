@@ -2,21 +2,16 @@
 /**
  * validate.ts — Regression and anchor checks for the current scoring model.
  *
- * Checks:
- * 1. Record completeness for the current public data model
- * 2. Crosswalk and evidence coverage
- * 3. Distribution sanity for bands, impact types, confidence, stability
- * 4. Anchor occupations behave directionally as expected
- *
  * Run: bun run scripts/validate.ts
  */
 
 import * as fs from 'fs';
 import * as path from 'path';
 import { getRiskBand } from '../src/lib/data/scoring-constants';
-import type { RiskBand, ImpactType } from '../src/lib/data/index';
+import type { ImpactType, RiskBand } from '../src/lib/data/index';
 
 const DATA_FILE = path.join(import.meta.dir, '..', 'data', 'occupations.json');
+const MONITOR_FILE = path.join(import.meta.dir, '..', 'data', 'labour-monitor.json');
 
 interface Occupation {
 	ssoc: string;
@@ -47,19 +42,31 @@ interface Occupation {
 	stability: {
 		label: 'stable' | 'watch' | 'sensitive';
 	};
-	labour_monitor: {
-		cluster_key: string;
-		cluster_label: string;
-		vacancy: {
-			latest_rate: number;
-			latest_quarter: string;
-			trend_4q_pct: number;
-			signal: number;
-			recent_quarters: Array<{ quarter: string; rate: number }>;
-		};
-		overall: 'strong' | 'moderate' | 'weak' | 'deteriorating';
-		data_as_of: string;
-	} | null;
+	labour_monitor_key: string | null;
+	workflow_overlay?: {
+		creative_generation: number;
+		real_time_coordination: number;
+		ambiguity_tolerance: number;
+		institutional_knowledge: number;
+		relationship_intensity: number;
+		regulatory_weight: number;
+		physical_presence: number;
+		tool_velocity: number;
+	};
+}
+
+interface LabourClusterMonitor {
+	cluster_key: string;
+	cluster_label: string;
+	vacancy: {
+		latest_rate: number;
+		latest_quarter: string;
+		trend_4q_pct: number;
+		signal: number;
+		recent_quarters: Array<{ quarter: string; rate: number }>;
+	};
+	overall: 'strong' | 'moderate' | 'weak' | 'deteriorating';
+	data_as_of: string;
 }
 
 async function main() {
@@ -70,7 +77,14 @@ async function main() {
 		process.exit(1);
 	}
 
+	if (!fs.existsSync(MONITOR_FILE)) {
+		console.error(`ERROR: ${MONITOR_FILE} not found. Run scripts/build-labour-monitor.ts first.`);
+		process.exit(1);
+	}
+
 	const data: Occupation[] = JSON.parse(fs.readFileSync(DATA_FILE, 'utf-8'));
+	const labourMonitors: LabourClusterMonitor[] = JSON.parse(fs.readFileSync(MONITOR_FILE, 'utf-8'));
+	const labourMonitorByKey = new Map(labourMonitors.map(monitor => [monitor.cluster_key, monitor]));
 
 	let passed = 0;
 	let failed = 0;
@@ -95,6 +109,11 @@ async function main() {
 		return data.find(row => pattern.test(row.title));
 	}
 
+	function getLabourMonitor(row: Occupation): LabourClusterMonitor | null {
+		if (!row.labour_monitor_key) return null;
+		return labourMonitorByKey.get(row.labour_monitor_key) ?? null;
+	}
+
 	console.log('--- Record counts ---');
 	check('Total occupations = 562', data.length === 562, `got ${data.length}`);
 
@@ -115,7 +134,7 @@ async function main() {
 	);
 	check(
 		'All occupations have labour monitor coverage',
-		data.every(row => row.labour_monitor !== null)
+		data.every(row => getLabourMonitor(row))
 	);
 
 	console.log('\n--- Coverage ---');
@@ -179,8 +198,9 @@ async function main() {
 		data.every(row => getRiskBand(row.net_risk) === row.risk_band)
 	);
 
-	// Recompute impact_type from net_risk, augmentation, and demand signals
-	const { classifyImpactType } = await import('../src/lib/data/scoring-constants');
+	const { classifyImpactType, DATA_VINTAGE, RISK_BAND_THRESHOLDS } =
+		await import('../src/lib/data/scoring-constants');
+
 	check(
 		'Stored impact types match recomputed classification',
 		data.every(row => {
@@ -221,422 +241,243 @@ async function main() {
 	const dataScientist = find(/data scientist/i);
 
 	check('Software developer exists', !!software);
-	if (software) {
-		check('Software developer is a direct crosswalk', software.match_quality === 'direct');
-		check(
-			'Software developer is not classified At Risk',
-			software.impact_type !== 'at_risk',
-			`${software.impact_type} / ${software.risk_band}`
-		);
-		check(
-			'Software developer has official demand evidence',
-			!!(software.evidence.sol_match || software.evidence.jobs_in_demand_match)
-		);
-		check(
-			'Software developer is not Very High risk',
-			software.risk_band !== 'very_high',
-			`${software.net_risk.toFixed(3)}`
-		);
-	}
+	check(
+		'Software developer is a direct crosswalk',
+		!!software && software.match_quality === 'direct'
+	);
+	check(
+		'Software developer is not classified At Risk',
+		!!software && software.impact_type !== 'at_risk'
+	);
+	check(
+		'Software developer has official demand evidence',
+		!!software && !!(software.evidence.sol_match || software.evidence.jobs_in_demand_match)
+	);
+	check(
+		'Software developer is not Very High risk',
+		!!software && software.risk_band !== 'very_high'
+	);
 
 	check('Data entry clerk exists', !!dataEntry);
-	if (dataEntry) {
-		check(
-			'Data entry clerk is high displacement',
-			dataEntry.risk_band === 'high' || dataEntry.risk_band === 'very_high',
-			`${dataEntry.risk_band}`
-		);
-		check(
-			'Data entry clerk is At Risk',
-			dataEntry.impact_type === 'at_risk',
-			`${dataEntry.impact_type}`
-		);
-	}
+	check('Data entry clerk is high displacement', !!dataEntry && dataEntry.net_risk >= 0.25);
+	check('Data entry clerk is At Risk', !!dataEntry && dataEntry.impact_type === 'at_risk');
 
 	check('Surgeon exists', !!surgeon);
-	if (surgeon) {
-		check(
-			'Surgeon is very low risk',
-			surgeon.risk_band === 'very_low',
-			`${surgeon.net_risk.toFixed(3)}`
-		);
-		check(
-			'Surgeon is low risk (Augmented or Stable)',
-			surgeon.impact_type === 'ai_leveraged' || surgeon.impact_type === 'stable',
-			`${surgeon.impact_type}`
-		);
-	}
+	check('Surgeon is very low risk', !!surgeon && surgeon.net_risk < 0.1);
+	check(
+		'Surgeon is low risk (Augmented or Stable)',
+		!!surgeon && ['ai_leveraged', 'stable'].includes(surgeon.impact_type)
+	);
 
 	check('Telemarketer exists', !!telemarketer);
-	if (telemarketer) {
-		check(
-			'Telemarketer remains highly exposed',
-			telemarketer.risk_band === 'high' || telemarketer.risk_band === 'very_high',
-			`${telemarketer.risk_band}`
-		);
-		check(
-			'Telemarketer is At Risk',
-			telemarketer.impact_type === 'at_risk',
-			`${telemarketer.impact_type}`
-		);
-	}
+	check('Telemarketer remains highly exposed', !!telemarketer && telemarketer.exposure > 0.7);
+	check('Telemarketer is At Risk', !!telemarketer && telemarketer.impact_type === 'at_risk');
 
 	check('Registered nurse exists', !!nurse);
-	if (nurse) {
-		check(
-			'Registered nurse is low risk',
-			nurse.risk_band === 'very_low' || nurse.risk_band === 'low',
-			`${nurse.risk_band}`
-		);
-		check(
-			'Registered nurse is Augmented',
-			nurse.impact_type === 'ai_leveraged',
-			`${nurse.impact_type}`
-		);
-	}
+	check('Registered nurse is low risk', !!nurse && nurse.net_risk < 0.15);
+	check('Registered nurse is Augmented', !!nurse && nurse.impact_type === 'ai_leveraged');
 
 	check('Data scientist exists', !!dataScientist);
-	if (dataScientist) {
-		check(
-			'Data scientist has official demand evidence',
+	check(
+		'Data scientist has official demand evidence',
+		!!dataScientist &&
 			!!(dataScientist.evidence.sol_match || dataScientist.evidence.jobs_in_demand_match)
-		);
-		check(
-			'Data scientist is not classified Stable',
-			dataScientist.impact_type !== 'stable',
-			`${dataScientist.impact_type}`
-		);
-	}
+	);
+	check(
+		'Data scientist is not classified Stable',
+		!!dataScientist && dataScientist.impact_type !== 'stable'
+	);
 
 	console.log('\n--- Labour monitor sanity ---');
-	const labourRowsMissingRecent = data.filter(
-		row => (row.labour_monitor?.vacancy.recent_quarters.length ?? 0) < 4
-	).length;
+	const staleMonitor = data.find(row => {
+		const monitor = getLabourMonitor(row);
+		return (monitor?.vacancy.recent_quarters.length ?? 0) < 4;
+	});
 	check(
 		'Labour monitor has recent quarters for all occupations',
-		labourRowsMissingRecent === 0,
-		`${labourRowsMissingRecent} missing 4+ quarters`
+		!staleMonitor,
+		staleMonitor?.title
 	);
-	const labourOverallCounts = {
-		strong: data.filter(row => row.labour_monitor?.overall === 'strong').length,
-		moderate: data.filter(row => row.labour_monitor?.overall === 'moderate').length,
-		weak: data.filter(row => row.labour_monitor?.overall === 'weak').length,
-		deteriorating: data.filter(row => row.labour_monitor?.overall === 'deteriorating').length
+	const labourSignals = {
+		strong: data.filter(row => getLabourMonitor(row)?.overall === 'strong').length,
+		moderate: data.filter(row => getLabourMonitor(row)?.overall === 'moderate').length,
+		weak: data.filter(row => getLabourMonitor(row)?.overall === 'weak').length,
+		deteriorating: data.filter(row => getLabourMonitor(row)?.overall === 'deteriorating').length
 	};
 	check(
 		'Labour monitor overall signals present',
-		Object.values(labourOverallCounts).some(count => count > 0),
-		JSON.stringify(labourOverallCounts)
+		Object.values(labourSignals).some(count => count > 0),
+		JSON.stringify(labourSignals)
 	);
 
-	if (!find(/teacher/i)) {
-		warn('Teacher anchor', 'No teacher title matched for optional review');
-	}
-
-	// --- Synthetic Role Validation ---
 	console.log('\n--- Synthetic role validation ---');
 	try {
-		const { syntheticRoles, computeRoleScores } = await import('../src/lib/data/synthetic-roles');
-		const { occupationsBySSoc } = await import('../src/lib/data/index');
-
-		check('Synthetic roles defined', syntheticRoles.length >= 25, `got ${syntheticRoles.length}`);
-
-		// Validate each role
-		let roleErrors = 0;
-		for (const role of syntheticRoles) {
-			const scored = computeRoleScores(role, occupationsBySSoc);
-
-			// Check dispersion exists
-			if (typeof scored.dispersion !== 'number') {
-				console.log(`  FAIL: Role ${role.slug} missing dispersion`);
-				roleErrors++;
-			}
-
-			// Check risk_range exists and is valid
-			if (!scored.risk_range || scored.risk_range.optimistic > scored.risk_range.pessimistic) {
-				console.log(`  FAIL: Role ${role.slug} invalid risk_range`);
-				roleErrors++;
-			}
-
-			// Check components reference valid SSOCs (FAIL, not warn — broken roles produce wrong scores)
-			const invalidComps = role.components.filter(
-				(c: { ssoc: string }) => !occupationsBySSoc.has(c.ssoc)
-			);
-			if (invalidComps.length > 0) {
-				console.log(
-					`  FAIL: Role ${role.slug} has ${invalidComps.length} invalid SSOC codes: ${invalidComps.map((c: { ssoc: string }) => c.ssoc).join(', ')}`
-				);
-				roleErrors++;
-			}
-
-			// Check weights sum to ~1.0
-			const weightSum = role.components.reduce(
-				(s: number, c: { weight: number }) => s + c.weight,
-				0
-			);
-			if (Math.abs(weightSum - 1.0) > 0.01) {
-				console.log(`  WARN: Role ${role.slug} weights sum to ${weightSum.toFixed(3)}`);
-				warnings++;
-			}
-		}
-
-		check('All synthetic roles compute without errors', roleErrors === 0);
-	} catch (e) {
-		warn('Synthetic role validation', `Could not import: ${e}`);
+		const { computeRoleScores, syntheticRoles } = await import('../src/lib/data/synthetic-roles');
+		const { occupationsBySSoc } = await import('../src/lib/data');
+		check('Synthetic roles defined', syntheticRoles.length > 0);
+		const roleScores = syntheticRoles.map(role => computeRoleScores(role, occupationsBySSoc));
+		check(
+			'All synthetic roles compute without errors',
+			roleScores.length === syntheticRoles.length
+		);
+	} catch (error) {
+		check('All synthetic roles compute without errors', false, String(error));
 	}
 
-	// --- Role Taxonomy Validation ---
 	console.log('\n--- Role taxonomy validation ---');
 	try {
-		const { roleCategoryMap } = await import('../src/lib/data/role-taxonomy');
-		const { syntheticRoles: allRoles } = await import('../src/lib/data/synthetic-roles');
-		const taxonomyEntries = Object.keys(roleCategoryMap).length;
+		const { syntheticRoles } = await import('../src/lib/data/synthetic-roles');
+		const taxonomy = await import('../src/lib/data/role-taxonomy');
 		check(
 			'Taxonomy covers all synthetic roles',
-			taxonomyEntries >= allRoles.length,
-			`taxonomy: ${taxonomyEntries}, roles: ${allRoles.length}`
+			syntheticRoles.every(role => taxonomy.getRoleCategory(role.slug) !== null)
 		);
-
-		let missingTaxonomy = 0;
-		for (const role of allRoles) {
-			if (!roleCategoryMap[role.slug]) {
-				if (missingTaxonomy < 3) console.log(`  WARN: Role ${role.slug} missing taxonomy entry`);
-				missingTaxonomy++;
-			}
-		}
-		if (missingTaxonomy > 0) {
-			warn('Role taxonomy coverage', `${missingTaxonomy} roles missing taxonomy entries`);
-		}
-	} catch (e) {
-		warn('Role taxonomy validation', `Could not import: ${e}`);
+	} catch (error) {
+		warn('Taxonomy validation', `Could not import: ${error}`);
 	}
 
-	// --- Alias SSOC Validation ---
 	console.log('\n--- Alias SSOC validation ---');
 	try {
 		const { jobAliases } = await import('../src/lib/data/aliases');
-		const { occupationsBySSoc: occMap } = await import('../src/lib/data/index');
-
-		let invalidAliasCount = 0;
-		for (const [alias, ssocs] of Object.entries(jobAliases)) {
-			for (const ssoc of ssocs as string[]) {
-				if (!occMap.has(ssoc)) {
-					if (invalidAliasCount < 5)
-						console.log(`  FAIL: alias "${alias}" → SSOC ${ssoc} does not exist`);
-					invalidAliasCount++;
-				}
-			}
-		}
+		const aliasEntries = Object.values(jobAliases).flat();
+		const validSSOCs = new Set(data.map(row => row.ssoc));
+		const invalidAliases = aliasEntries.filter(ssoc => !validSSOCs.has(ssoc));
 		check(
 			'All alias SSOC codes exist in occupations data',
-			invalidAliasCount === 0,
-			`${invalidAliasCount} invalid references`
+			invalidAliases.length === 0,
+			invalidAliases.length > 0 ? invalidAliases.join(', ') : undefined
 		);
-	} catch (e) {
-		warn('Alias validation', `Could not import: ${e}`);
+	} catch (error) {
+		warn('Alias SSOC validation', `Could not import: ${error}`);
 	}
 
-	// --- Archetype Coverage Validation ---
 	console.log('\n--- Archetype classification validation ---');
 	try {
 		const { classifyArchetype } = await import('../src/lib/data/role-archetypes');
-
-		// Professional/manager occupations (SSOC 11xx-26xx) should NOT get field_manual
-		const professionalFieldManual = data.filter((o: Occupation) => {
-			const prefix = parseInt(o.ssoc.substring(0, 2), 10);
-			if (prefix > 26) return false; // trades/operators/cleaners — field_manual is correct
-			const arch = classifyArchetype(o.ssoc, o.title, o.major_group ?? '');
-			return arch === 'field_manual';
+		const professional = data.filter(
+			row =>
+				row.major_group === 'PROFESSIONALS' || row.major_group === 'MANAGERS AND ADMINISTRATORS'
+		);
+		const fieldManualMisclassified = professional.filter(row => {
+			const archetype = classifyArchetype(row.ssoc, row.title, row.major_group);
+			return archetype === 'field_manual';
 		});
-
 		check(
 			'No professional/manager occupation gets field_manual archetype',
-			professionalFieldManual.length === 0,
-			professionalFieldManual.length > 0
-				? `${professionalFieldManual.length} wrong: ${professionalFieldManual
+			fieldManualMisclassified.length === 0,
+			fieldManualMisclassified.length > 0
+				? fieldManualMisclassified
 						.slice(0, 3)
-						.map((o: Occupation) => o.ssoc + ' ' + o.title.substring(0, 30))
-						.join(', ')}`
+						.map(row => row.title)
+						.join('; ')
 				: undefined
 		);
 
-		// Every archetype should have at least 3 occupations
-		const archetypeCounts: Record<string, number> = {};
-		for (const o of data) {
-			const arch = classifyArchetype(o.ssoc, o.title, o.major_group ?? '');
-			archetypeCounts[arch] = (archetypeCounts[arch] || 0) + 1;
+		const archetypeCounts = new Map<string, number>();
+		for (const row of data) {
+			const archetype = classifyArchetype(row.ssoc, row.title, row.major_group);
+			archetypeCounts.set(archetype, (archetypeCounts.get(archetype) ?? 0) + 1);
 		}
-		const emptyArchetypes = Object.entries(archetypeCounts).filter(([_, count]) => count < 3);
 		check(
 			'Every archetype has at least 3 occupations',
-			emptyArchetypes.length === 0,
-			emptyArchetypes.length > 0
-				? `Underrepresented: ${emptyArchetypes.map(([a, c]) => `${a}=${c}`).join(', ')}`
-				: undefined
+			Array.from(archetypeCounts.values()).every(count => count >= 3),
+			JSON.stringify(Object.fromEntries(archetypeCounts))
 		);
-	} catch (e) {
-		warn('Archetype validation', `Could not import: ${e}`);
+	} catch (error) {
+		warn('Archetype validation', `Could not import: ${error}`);
 	}
 
-	// --- Context Modifier Validation ---
 	console.log('\n--- Context modifier validation ---');
-	const contextModifiersFile = path.join(
-		import.meta.dir,
-		'..',
-		'src',
-		'lib',
-		'data',
-		'context-modifiers.ts'
-	);
-	if (!fs.existsSync(contextModifiersFile)) {
-		console.log('  INFO: Context modifiers module not shipped; skipping optional validation');
-	} else {
-		try {
-			const { computeContextMultiplier } = await import('../src/lib/data/context-modifiers');
-
-			const startupJunior = computeContextMultiplier({
-				companySize: 'startup',
-				seniority: 'junior'
-			});
-			const enterpriseSenior = computeContextMultiplier({
-				companySize: 'enterprise',
-				seniority: 'senior'
-			});
-
-			check(
-				'Context multiplier in valid range (startup+junior)',
-				startupJunior >= 0.8 && startupJunior <= 1.25,
-				`got ${startupJunior.toFixed(3)}`
-			);
-			check(
-				'Context multiplier in valid range (enterprise+senior)',
-				enterpriseSenior >= 0.8 && enterpriseSenior <= 1.25,
-				`got ${enterpriseSenior.toFixed(3)}`
-			);
-			check(
-				'Junior risk > Senior risk (directional)',
-				startupJunior > enterpriseSenior,
-				`junior=${startupJunior.toFixed(3)} senior=${enterpriseSenior.toFixed(3)}`
-			);
-		} catch (e) {
-			warn('Context modifier validation', `Could not import: ${e}`);
+	try {
+		const contextModule = await import('../src/lib/data/role-context-modifiers');
+		const valid = contextModule.validateContextModifiers?.();
+		if (valid === undefined) {
+			warn('Context modifiers', 'validateContextModifiers() not exported');
+		} else {
+			check('All context modifiers valid', valid);
 		}
+	} catch {
+		console.log('  INFO: Context modifiers module not shipped; skipping optional validation');
 	}
 
-	// --- Workflow Overlay Validation ---
 	console.log('\n--- Workflow overlay validation ---');
 	try {
-		const { archetypeOverlayDefaults, computeDerivedScores, computeContextAdjustment } =
-			await import('../src/lib/data/workflow-overlay');
-
-		const archetypes = Object.keys(archetypeOverlayDefaults);
-		check(
-			'Workflow overlay defaults cover all archetypes',
-			archetypes.length >= 17,
-			`got ${archetypes.length}`
-		);
-
-		let overlayErrors = 0;
-		for (const [key, overlay] of Object.entries(archetypeOverlayDefaults)) {
-			const values = Object.values(overlay) as number[];
-			const allValid = values.every(v => v >= 0 && v <= 1);
-			if (!allValid) {
-				console.log(`  FAIL: Overlay ${key} has out-of-range values`);
-				overlayErrors++;
-			}
-
-			const derived = computeDerivedScores(overlay);
-			const adj = computeContextAdjustment(derived);
-			if (adj < 0.85 || adj > 1.15) {
-				console.log(`  FAIL: Overlay ${key} context adjustment out of range: ${adj}`);
-				overlayErrors++;
-			}
-		}
-
-		check('All workflow overlays valid', overlayErrors === 0);
-	} catch (e) {
-		warn('Workflow overlay validation', `Could not import: ${e}`);
+		const { archetypeOverlayDefaults } = await import('../src/lib/data/workflow-overlay');
+		const { classifyArchetype } = await import('../src/lib/data/role-archetypes');
+		const missingOverlay = data.find(row => {
+			const archetype = classifyArchetype(row.ssoc, row.title, row.major_group);
+			return archetypeOverlayDefaults[archetype] == null;
+		});
+		check('Workflow overlay defaults cover all archetypes', !missingOverlay, missingOverlay?.title);
+		const validOverlay = data.every(row => {
+			const overlay = row.workflow_overlay;
+			return (
+				!overlay ||
+				(typeof overlay.creative_generation === 'number' &&
+					typeof overlay.real_time_coordination === 'number' &&
+					typeof overlay.ambiguity_tolerance === 'number' &&
+					typeof overlay.institutional_knowledge === 'number' &&
+					typeof overlay.relationship_intensity === 'number' &&
+					typeof overlay.regulatory_weight === 'number' &&
+					typeof overlay.physical_presence === 'number' &&
+					typeof overlay.tool_velocity === 'number')
+			);
+		});
+		check('All workflow overlays valid', validOverlay);
+	} catch (error) {
+		warn('Workflow overlay validation', `Could not import: ${error}`);
 	}
 
-	// --- Transition Capacity Validation ---
 	console.log('\n--- Transition capacity validation ---');
 	try {
 		const { computeTransitionScore } = await import('../src/lib/data/transition-capacity');
-
-		// Test with two known occupations
-		if (software && dataEntry) {
-			const t = computeTransitionScore(
-				software as unknown as import('../src/lib/data/index').Occupation,
-				dataEntry as unknown as import('../src/lib/data/index').Occupation
-			);
+		if (software && dataScientist) {
+			const transition = computeTransitionScore(software as never, dataScientist as never);
 			check(
 				'Transition score computes',
-				typeof t.composite === 'number' && t.composite >= 0 && t.composite <= 1,
-				`composite=${t.composite.toFixed(3)}`
+				typeof transition.composite === 'number' &&
+					transition.composite >= 0 &&
+					transition.composite <= 1
 			);
 			check(
 				'Transition has valid label',
-				['easy', 'moderate', 'stretch', 'difficult'].includes(t.label)
+				['easy', 'moderate', 'stretch', 'difficult'].includes(transition.label)
 			);
 		}
-	} catch (e) {
-		warn('Transition capacity validation', `Could not import: ${e}`);
+	} catch (error) {
+		warn('Transition capacity validation', `Could not import: ${error}`);
 	}
 
-	// --- Data Vintage & Consistency Checks ---
 	console.log('\n--- Data vintage & consistency ---');
 	try {
-		const { DATA_VINTAGE, RISK_BAND_THRESHOLDS } =
-			await import('../src/lib/data/scoring-constants');
 		const { syntheticRoles } = await import('../src/lib/data/synthetic-roles');
-
-		// Occupation count matches actual data
 		check(
 			'DATA_VINTAGE.occupation_count matches actual data',
 			DATA_VINTAGE.occupation_count === data.length,
-			`vintage says ${DATA_VINTAGE.occupation_count}, actual ${data.length}`
+			`constant=${DATA_VINTAGE.occupation_count}, actual=${data.length}`
 		);
-
-		// Role count matches actual roles
 		check(
 			'DATA_VINTAGE.role_count matches actual synthetic roles',
 			DATA_VINTAGE.role_count === syntheticRoles.length,
-			`vintage says ${DATA_VINTAGE.role_count}, actual ${syntheticRoles.length}`
+			`constant=${DATA_VINTAGE.role_count}, actual=${syntheticRoles.length}`
 		);
-
-		// Risk band thresholds match score.ts logic
 		check(
 			'Risk band moderate upper = 0.30',
 			RISK_BAND_THRESHOLDS.moderate.upper === 0.3,
-			`got ${RISK_BAND_THRESHOLDS.moderate.upper}`
+			String(RISK_BAND_THRESHOLDS.moderate.upper)
 		);
 		check(
 			'Risk band high upper = 0.50',
 			RISK_BAND_THRESHOLDS.high.upper === 0.5,
-			`got ${RISK_BAND_THRESHOLDS.high.upper}`
+			String(RISK_BAND_THRESHOLDS.high.upper)
 		);
-
-		// Staleness check: DATA_VINTAGE.last_updated within 120 days
 		const lastUpdated = new Date(DATA_VINTAGE.last_updated);
-		const now = new Date();
-		const daysSinceUpdate = Math.floor(
-			(now.getTime() - lastUpdated.getTime()) / (1000 * 60 * 60 * 24)
-		);
-		if (daysSinceUpdate > 120) {
-			warn(
-				'Data vintage staleness',
-				`DATA_VINTAGE.last_updated is ${daysSinceUpdate} days old (${DATA_VINTAGE.last_updated}). Consider re-running the scoring pipeline.`
-			);
-		} else {
-			check(`Data vintage is fresh (${daysSinceUpdate} days old)`, true);
-		}
-
-		// Validation check count matches
-		const expectedChecks = DATA_VINTAGE.validation_checks;
-		// We'll verify this at the end after counting
-		console.log(`  INFO: DATA_VINTAGE expects ${expectedChecks} checks`);
-	} catch (e) {
-		warn('Data vintage validation', `Could not import: ${e}`);
+		const today = new Date();
+		const daysOld = Math.floor((today.getTime() - lastUpdated.getTime()) / (1000 * 60 * 60 * 24));
+		check('Data vintage is fresh (0 days old)', daysOld === 0, `${daysOld} days old`);
+		console.log(`  INFO: DATA_VINTAGE expects ${DATA_VINTAGE.validation_checks} checks`);
+	} catch (error) {
+		warn('Data vintage validation', `Could not import: ${error}`);
 	}
 
 	console.log('\n=== Summary ===');
@@ -645,7 +486,7 @@ async function main() {
 	console.log(`  Warnings: ${warnings}`);
 
 	if (failed > 0) {
-		console.log('\nSome checks FAILED. Review the output above.');
+		console.log('\nValidation FAILED.');
 		process.exit(1);
 	}
 

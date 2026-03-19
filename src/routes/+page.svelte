@@ -155,7 +155,7 @@
 				<p class="font-mono text-lg font-bold text-risk-high sm:text-xl">
 					SGD {data.stats.wagePoolUnderPressureBillions.toFixed(0)}B
 				</p>
-				<p class="text-[10px] text-muted-foreground">wage pool under pressure</p>
+				<p class="text-[10px] text-muted-foreground">Est. wage pool under pressure</p>
 			</div>
 			<div class="text-center">
 				<p class="font-mono text-lg font-bold text-foreground sm:text-xl">

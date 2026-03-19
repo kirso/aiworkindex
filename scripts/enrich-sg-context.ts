@@ -16,6 +16,7 @@ import * as XLSX from 'xlsx';
 import * as fs from 'fs';
 import * as path from 'path';
 import { ssocToSocCodes } from './crosswalk';
+import { occupationDataBasisTemplate } from '../src/lib/data/data-contract';
 
 // ===== Paths =====
 const DATA_DIR = path.join(import.meta.dir, '..', 'data');
@@ -277,6 +278,7 @@ function main() {
 		// --- Singapore Context ---
 		// Don't overwrite if sg_context already exists (preserve existing fields)
 		const existing = occ.sg_context ?? {};
+		const existingBasis = occ.data_basis ?? {};
 
 		const pwmCovered = getPwmCovered(occ.ssoc);
 		const licensedProfession = getLicensedProfession(occ.ssoc);
@@ -289,6 +291,26 @@ function main() {
 			licensed_profession: licensedProfession,
 			foreign_worker_dependency: foreignWorkerDep,
 			skillsfuture_eligible: skillsfutureEligible
+		};
+		occ.data_basis = {
+			...existingBasis,
+			employment_estimate: existingBasis.employment_estimate ?? {
+				...occupationDataBasisTemplate.employment_estimate
+			},
+			wage_pool_proxy: existingBasis.wage_pool_proxy ?? {
+				...occupationDataBasisTemplate.wage_pool_proxy
+			},
+			education: { ...occupationDataBasisTemplate.education },
+			sg_context: {
+				pwm_covered: { ...occupationDataBasisTemplate.sg_context.pwm_covered },
+				licensed_profession: { ...occupationDataBasisTemplate.sg_context.licensed_profession },
+				foreign_worker_dependency: {
+					...occupationDataBasisTemplate.sg_context.foreign_worker_dependency
+				},
+				skillsfuture_eligible: {
+					...occupationDataBasisTemplate.sg_context.skillsfuture_eligible
+				}
+			}
 		};
 
 		// Count stats
