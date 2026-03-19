@@ -59,10 +59,18 @@ interface Occupation {
 		anthropic_gap: number | null;
 		sol_match: 'exact' | 'prefix' | false;
 		jobs_in_demand_match: 'exact' | 'prefix' | false;
+		exposure_agreement?: string | null;
+		exposure_source_count?: number;
+		signal_conflict?: boolean;
+		signal_conflict_reasons?: string[];
 	};
 	confidence: {
 		score: number;
 		level: string;
+		source_coverage?: number;
+		signal_agreement?: number;
+		sensitivity?: number;
+		exposure_source_count?: number;
 	};
 	match_quality: string;
 	education_label?: string;
@@ -95,8 +103,15 @@ const columns = [
 	'anthropic_gap',
 	'sol_match',
 	'jobs_in_demand_match',
+	'exposure_agreement',
+	'exposure_source_count',
+	'signal_conflict',
+	'signal_conflict_reasons',
 	'confidence_level',
 	'confidence_score',
+	'confidence_source_coverage',
+	'confidence_signal_agreement',
+	'confidence_sensitivity',
 	'match_quality',
 	'education_label',
 	'education_tier',
@@ -139,8 +154,15 @@ const rows = occupations.map(o => [
 	o.evidence.anthropic_gap ?? '',
 	o.evidence.sol_match,
 	o.evidence.jobs_in_demand_match,
+	o.evidence.exposure_agreement ?? '',
+	o.evidence.exposure_source_count ?? '',
+	o.evidence.signal_conflict ?? false,
+	(o.evidence.signal_conflict_reasons ?? []).join('|'),
 	o.confidence.level,
 	o.confidence.score.toFixed(4),
+	o.confidence.source_coverage?.toFixed(4) ?? '',
+	o.confidence.signal_agreement?.toFixed(4) ?? '',
+	o.confidence.sensitivity?.toFixed(4) ?? '',
 	o.match_quality,
 	o.education_label ?? '',
 	o.data_basis?.education?.tier ?? '',

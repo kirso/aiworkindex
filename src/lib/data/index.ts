@@ -19,6 +19,10 @@ export interface ConfidenceScores {
 	crosswalk_quality: number;
 	market_data_granularity: number;
 	source_freshness: number;
+	source_coverage?: number;
+	signal_agreement?: number;
+	sensitivity?: number;
+	exposure_source_count?: number;
 }
 
 export interface EvidenceSignals {
@@ -29,8 +33,12 @@ export interface EvidenceSignals {
 	jobs_in_demand_match: 'exact' | 'prefix' | false;
 	/** GPTs-are-GPTs (Eloundou et al. 2023) exposure percentile, if matched via SOC crosswalk */
 	gpt_exposure?: number | null;
-	/** Agreement across exposure measures: consensus_high, consensus_low, divergent, insufficient_data */
+	/** Agreement across exposure measures: consensus_high, consensus_low, aligned_mid, divergent, insufficient_data */
 	exposure_agreement?: string | null;
+	exposure_source_count?: number;
+	exposure_source_keys?: string[];
+	signal_conflict?: boolean;
+	signal_conflict_reasons?: string[];
 }
 
 export interface StabilityScores {

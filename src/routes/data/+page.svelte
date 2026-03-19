@@ -187,9 +187,41 @@
 			description: 'Jobs in Demand match: exact, prefix, or false.'
 		},
 		{
+			name: 'evidence.exposure_agreement',
+			type: 'enum',
+			description:
+				'Agreement across matched exposure sources: consensus_high, consensus_low, aligned_mid, divergent, or insufficient_data.'
+		},
+		{
+			name: 'evidence.signal_conflict',
+			type: 'boolean',
+			description:
+				'Whether the occupation has materially conflicting evidence, such as high structural pressure but strong current demand signals.'
+		},
+		{
 			name: 'confidence.score',
 			type: 'number',
 			description: 'Overall estimate confidence (0-1), combining crosswalk quality, market data, and source freshness.'
+		},
+		{
+			name: 'confidence.exposure_source_count',
+			type: 'number',
+			description: 'How many exposure sources were available for this occupation in the V4.0 ensemble.'
+		},
+		{
+			name: 'confidence.source_coverage',
+			type: 'number',
+			description: 'Coverage component of confidence (0-1), based on the number of matched exposure sources.'
+		},
+		{
+			name: 'confidence.signal_agreement',
+			type: 'number',
+			description: 'Agreement component of confidence (0-1), derived from agreement across available exposure sources.'
+		},
+		{
+			name: 'confidence.sensitivity',
+			type: 'number',
+			description: 'Sensitivity component of confidence (0-1), derived from the stability stress test.'
 		},
 		{
 			name: 'confidence.level',

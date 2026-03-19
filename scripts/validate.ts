@@ -32,12 +32,20 @@ interface Occupation {
 	confidence: {
 		score: number;
 		level: 'high' | 'medium' | 'low';
+		exposure_source_count?: number;
+		source_coverage?: number;
+		signal_agreement?: number;
+		sensitivity?: number;
 	};
 	evidence: {
 		anthropic_calibrated: boolean;
 		anthropic_gap: number | null;
 		sol_match: 'exact' | 'prefix' | false;
 		jobs_in_demand_match: 'exact' | 'prefix' | false;
+		exposure_agreement?: string | null;
+		exposure_source_count?: number;
+		signal_conflict?: boolean;
+		signal_conflict_reasons?: string[];
 	};
 	stability: {
 		label: 'stable' | 'watch' | 'sensitive';
@@ -164,6 +172,15 @@ async function main() {
 		demandFlagged >= 50,
 		`${demandFlagged} flagged`
 	);
+	check(
+		'Exposure source coverage metadata is populated',
+		data.every(
+			row =>
+				typeof row.evidence.exposure_source_count === 'number' &&
+				typeof row.confidence.exposure_source_count === 'number' &&
+				row.evidence.exposure_source_count === row.confidence.exposure_source_count
+		)
+	);
 
 	console.log('\n--- Distribution sanity ---');
 	const bandCounts: Record<RiskBand, number> = {
@@ -218,6 +235,34 @@ async function main() {
 			count => count > 0
 		).length >= 2,
 		JSON.stringify(confidenceCounts)
+	);
+	check(
+		'Confidence components stay within 0-1',
+		data.every(row => {
+			const values = [
+				row.confidence.score,
+				row.confidence.source_coverage,
+				row.confidence.signal_agreement,
+				row.confidence.sensitivity
+			].filter((value): value is number => typeof value === 'number');
+			return values.every(value => value >= 0 && value <= 1);
+		})
+	);
+	check(
+		'At least one occupation is marked as contested',
+		data.some(row => row.evidence.signal_conflict === true)
+	);
+	check(
+		'Pure exposure divergence does not trigger contested state by itself',
+		data.every(row => {
+			const reasons = row.evidence.signal_conflict_reasons ?? [];
+			if (reasons.length !== 1 || reasons[0] !== 'divergent_exposure_sources') return true;
+			return row.evidence.signal_conflict !== true;
+		})
+	);
+	check(
+		'Low confidence remains possible for sparse evidence cases',
+		data.some(row => row.confidence.level === 'low')
 	);
 	check(
 		'Stability has at least two populated tiers',

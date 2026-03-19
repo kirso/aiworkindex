@@ -37,7 +37,15 @@ import {
 	classifyImpactType,
 	RISK_BAND_THRESHOLDS,
 	MARKET_CONSTANTS,
-	AUGMENTATION_THRESHOLDS
+	AUGMENTATION_THRESHOLDS,
+	CONFIDENCE_THRESHOLDS,
+	CONFIDENCE_COMPONENT_WEIGHTS,
+	CONFIDENCE_PENALTIES,
+	SOURCE_COVERAGE_SCORES,
+	SIGNAL_AGREEMENT_SCORES,
+	SENSITIVITY_SCORES,
+	SIGNAL_CONFLICT_THRESHOLDS,
+	classifyExposureAgreement
 } from '../src/lib/data/scoring-constants';
 import {
 	occupationDataBasisTemplate,
@@ -207,6 +215,16 @@ interface EvidenceSignals {
 	anthropic_observed_pctile: number | null;
 	sol_match: 'exact' | 'prefix' | false;
 	jobs_in_demand_match: 'exact' | 'prefix' | false;
+	exposure_agreement:
+		| 'consensus_high'
+		| 'consensus_low'
+		| 'aligned_mid'
+		| 'divergent'
+		| 'insufficient_data';
+	exposure_source_count: number;
+	exposure_source_keys: string[];
+	signal_conflict: boolean;
+	signal_conflict_reasons: string[];
 }
 
 interface ConfidenceScores {
@@ -215,6 +233,10 @@ interface ConfidenceScores {
 	crosswalk_quality: number;
 	market_data_granularity: number;
 	source_freshness: number;
+	source_coverage: number;
+	signal_agreement: number;
+	sensitivity: number;
+	exposure_source_count: number;
 }
 
 interface StabilityScores {
@@ -1565,19 +1587,33 @@ function scoreOccupations(
 		// V4.0: Equal-weight average of all available exposure inputs.
 		// Per Frank et al. (2025) PNAS Nexus: ensemble outperforms any single score.
 		// Inputs: AIOE (always), Anthropic (if matched), Eloundou (if matched), ILO (if matched).
-		{
-			const inputs: number[] = [exposure]; // AIOE is always available
-			if (anthropicPctiles[i] >= 0) inputs.push(anthropicPctiles[i]);
-			if (eloundouPctiles[i] >= 0) inputs.push(eloundouPctiles[i]);
-			if (iloPctiles[i] >= 0) inputs.push(iloPctiles[i]);
-
-			exposure = Math.max(0, Math.min(1, inputs.reduce((s, v) => s + v, 0) / inputs.length));
-
-			if (inputs.length === 1) ensembleInputCounts.one++;
-			else if (inputs.length === 2) ensembleInputCounts.two++;
-			else if (inputs.length === 3) ensembleInputCounts.three++;
-			else ensembleInputCounts.four++;
+		const availableExposureInputs: Array<{
+			key: 'aioe' | 'anthropic' | 'eloundou' | 'ilo';
+			value: number;
+		}> = [{ key: 'aioe', value: exposure }];
+		if (anthropicPctiles[i] >= 0) {
+			availableExposureInputs.push({ key: 'anthropic', value: anthropicPctiles[i] });
 		}
+		if (eloundouPctiles[i] >= 0) {
+			availableExposureInputs.push({ key: 'eloundou', value: eloundouPctiles[i] });
+		}
+		if (iloPctiles[i] >= 0) {
+			availableExposureInputs.push({ key: 'ilo', value: iloPctiles[i] });
+		}
+
+		exposure = Math.max(
+			0,
+			Math.min(
+				1,
+				availableExposureInputs.reduce((sum, input) => sum + input.value, 0) /
+					availableExposureInputs.length
+			)
+		);
+
+		if (availableExposureInputs.length === 1) ensembleInputCounts.one++;
+		else if (availableExposureInputs.length === 2) ensembleInputCounts.two++;
+		else if (availableExposureInputs.length === 3) ensembleInputCounts.three++;
+		else ensembleInputCounts.four++;
 
 		const mm = groupMomentum.get(r.occ.major_group) ?? 0.5;
 		const os = occScarcity[i];
@@ -1629,13 +1665,53 @@ function scoreOccupations(
 			mktSpread
 		);
 		const labourMonitor = lookupLabourMonitor(r.occ.major_group, labourMonitors);
+		const exposureAgreement = classifyExposureAgreement(
+			availableExposureInputs.map(input => input.value)
+		);
+		const anthropicGap =
+			anthropicPctiles[i] >= 0 ? round(anthropicPctiles[i] - theoreticalExposure, 4) : null;
+		const signalConflictReasons: string[] = [];
+		const hasExactDemand = r.solMatch === 'exact' || r.demandMatch === 'exact';
+		const hasPrefixDemand = r.solMatch === 'prefix' || r.demandMatch === 'prefix';
+		if (netRiskRounded >= SIGNAL_CONFLICT_THRESHOLDS.high_risk_floor && hasExactDemand) {
+			signalConflictReasons.push('high_risk_but_exact_demand');
+		}
+		if (
+			netRiskRounded >= SIGNAL_CONFLICT_THRESHOLDS.high_risk_floor &&
+			labourMonitor &&
+			(labourMonitor.overall === 'strong' ||
+				labourMonitor.vacancy.signal === 1 ||
+				labourMonitor.hiring?.signal === 1)
+		) {
+			signalConflictReasons.push('high_risk_but_positive_labour_market');
+		}
+		if (exposureAgreement === 'divergent') {
+			signalConflictReasons.push('divergent_exposure_sources');
+		}
+		if (
+			netRiskRounded <= SIGNAL_CONFLICT_THRESHOLDS.low_risk_ceiling &&
+			anthropicGap !== null &&
+			anthropicGap >= SIGNAL_CONFLICT_THRESHOLDS.large_positive_anthropic_gap
+		) {
+			signalConflictReasons.push('low_risk_but_high_observed_usage');
+		}
+		const signalConflict =
+			signalConflictReasons.includes('high_risk_but_exact_demand') ||
+			signalConflictReasons.includes('low_risk_but_high_observed_usage') ||
+			(signalConflictReasons.includes('divergent_exposure_sources') &&
+				signalConflictReasons.length >= 2) ||
+			signalConflictReasons.filter(reason => reason !== 'divergent_exposure_sources').length >= 2;
 		const evidence: EvidenceSignals = {
 			anthropic_calibrated: r.anthropicMatch,
-			anthropic_gap:
-				anthropicPctiles[i] >= 0 ? round(anthropicPctiles[i] - theoreticalExposure, 4) : null,
+			anthropic_gap: anthropicGap,
 			anthropic_observed_pctile: anthropicPctiles[i] >= 0 ? round(anthropicPctiles[i], 4) : null,
 			sol_match: r.solMatch,
-			jobs_in_demand_match: r.demandMatch
+			jobs_in_demand_match: r.demandMatch,
+			exposure_agreement: exposureAgreement,
+			exposure_source_count: availableExposureInputs.length,
+			exposure_source_keys: availableExposureInputs.map(input => input.key),
+			signal_conflict: signalConflict,
+			signal_conflict_reasons: signalConflictReasons
 		};
 
 		// C-AIOE for backward compat
@@ -1654,14 +1730,45 @@ function scoreOccupations(
 		// Confidence should reflect uncertainty, not outcome direction.
 		// All occupations have occupation-level wage structure + group market trends,
 		// while exact official demand evidence adds more occupation-specific market granularity.
-		const hasExactDemand = r.solMatch === 'exact' || r.demandMatch === 'exact';
-		const hasPrefixDemand = r.solMatch === 'prefix' || r.demandMatch === 'prefix';
 		const marketDataGranularity = hasExactDemand ? 0.85 : hasPrefixDemand ? 0.75 : 0.65;
-		const sourceFreshness = r.anthropicMatch ? 0.85 : 0.75;
+		const sourceFreshness = availableExposureInputs.some(input => input.key === 'anthropic')
+			? 0.9
+			: availableExposureInputs.some(input => input.key === 'ilo')
+				? 0.85
+				: availableExposureInputs.some(input => input.key === 'eloundou')
+					? 0.8
+					: 0.72;
+		const sourceCoverage =
+			SOURCE_COVERAGE_SCORES[availableExposureInputs.length as keyof typeof SOURCE_COVERAGE_SCORES];
+		const signalAgreement =
+			SIGNAL_AGREEMENT_SCORES[exposureAgreement as keyof typeof SIGNAL_AGREEMENT_SCORES];
+		const sensitivity = SENSITIVITY_SCORES[stability.label as keyof typeof SENSITIVITY_SCORES];
+		const sparseSourcePenalty =
+			availableExposureInputs.length === 1
+				? r.matchQuality === 'direct'
+					? CONFIDENCE_PENALTIES.single_source_direct
+					: r.matchQuality === 'submajor_fallback'
+						? CONFIDENCE_PENALTIES.single_source_submajor_fallback
+						: CONFIDENCE_PENALTIES.single_source_major_fallback
+				: 0;
+		const contestedSignalPenalty = signalConflict ? CONFIDENCE_PENALTIES.contested_signal : 0;
 
-		const confidenceScore = (crosswalkQuality + marketDataGranularity + sourceFreshness) / 3;
+		const confidenceScore = clamp01(
+			crosswalkQuality * CONFIDENCE_COMPONENT_WEIGHTS.crosswalk_quality +
+				marketDataGranularity * CONFIDENCE_COMPONENT_WEIGHTS.market_data_granularity +
+				sourceFreshness * CONFIDENCE_COMPONENT_WEIGHTS.source_freshness +
+				sourceCoverage * CONFIDENCE_COMPONENT_WEIGHTS.source_coverage +
+				signalAgreement * CONFIDENCE_COMPONENT_WEIGHTS.signal_agreement +
+				sensitivity * CONFIDENCE_COMPONENT_WEIGHTS.sensitivity -
+				sparseSourcePenalty -
+				contestedSignalPenalty
+		);
 		const confidenceLevel: 'high' | 'medium' | 'low' =
-			confidenceScore >= 0.7 ? 'high' : confidenceScore >= 0.4 ? 'medium' : 'low';
+			confidenceScore >= CONFIDENCE_THRESHOLDS.high
+				? 'high'
+				: confidenceScore >= CONFIDENCE_THRESHOLDS.medium
+					? 'medium'
+					: 'low';
 
 		results.push({
 			ssoc: r.occ.ssoc,
@@ -1698,7 +1805,11 @@ function scoreOccupations(
 				level: confidenceLevel,
 				crosswalk_quality: round(crosswalkQuality, 4),
 				market_data_granularity: marketDataGranularity,
-				source_freshness: sourceFreshness
+				source_freshness: sourceFreshness,
+				source_coverage: sourceCoverage,
+				signal_agreement: signalAgreement,
+				sensitivity,
+				exposure_source_count: availableExposureInputs.length
 			},
 			stability,
 			labour_monitor_key: labourMonitor?.cluster_key ?? null,

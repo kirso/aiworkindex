@@ -1,6 +1,6 @@
 {
   "version": "V4.0",
-  "generated_at": "2026-03-19T09:25:15.950Z",
+  "generated_at": "2026-03-19T09:49:57.481Z",
   "score_dataset_generated_at": "2026-03-19",
   "artifacts": [
     {
@@ -8,27 +8,27 @@
       "label": "V4 structural score CSV",
       "category": "structural_score",
       "description": "Flattened structural score dataset with basis and provenance columns.",
-      "bytes": 179443,
-      "sha256": "4c54a884110dc4e9e53f4846e8daf6a684a1794d90ec65f83985e093806947af",
-      "generated_at": "2026-03-19T07:39:55.912Z"
+      "bytes": 199330,
+      "sha256": "a86b8d5710569dad9f6313f827a21c68e8cc5ed5d8c9b7e31312320180ebbfaf",
+      "generated_at": "2026-03-19T09:45:45.175Z"
     },
     {
       "file": "sg-ai-occupations-v4.json",
       "label": "V4 structural score JSON",
       "category": "structural_score",
       "description": "Nested structural score dataset with basis and provenance metadata.",
-      "bytes": 2373514,
-      "sha256": "d52fff9f57c0e2139a63d71f356aac3f35cc3c32a00d9a84b3458b275fc8f7ae",
-      "generated_at": "2026-03-19T07:39:52.085Z"
+      "bytes": 2446238,
+      "sha256": "e29c929c487c59534763f5346b5895881317de52e6a87bf388a1a4f17bfa9466",
+      "generated_at": "2026-03-19T09:49:52.187Z"
     },
     {
       "file": "sg-context-pack-2025.json",
       "label": "Singapore context pack",
       "category": "context_bundle",
       "description": "Published Singapore context bundle around the structural score: labour monitor, worker profile, industry context, sector wage anchors, and national AI context.",
-      "bytes": 556323,
-      "sha256": "97cb7db28e284b3fb56d24e29b24934c7ce755147f4097361b00ba5612b0cedd",
-      "generated_at": "2026-03-19T09:24:18.251Z"
+      "bytes": 556399,
+      "sha256": "14159b7c07a7a6cc5dd40213eb7e9d20a4e396c3af2f471c707ab22c1ff94f52",
+      "generated_at": "2026-03-19T09:25:15.954Z"
     },
     {
       "file": "sg-labour-monitor-2025.json",

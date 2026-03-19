@@ -74,8 +74,88 @@ export function classifyImpactType(
 
 export const CONFIDENCE_THRESHOLDS = {
 	high: 0.7,
-	medium: 0.4
-	// below 0.4 = low
+	medium: 0.45
+	// below 0.45 = low
+} as const;
+
+export const CONFIDENCE_COMPONENT_WEIGHTS = {
+	crosswalk_quality: 0.25,
+	market_data_granularity: 0.15,
+	source_freshness: 0.1,
+	source_coverage: 0.2,
+	signal_agreement: 0.15,
+	sensitivity: 0.15
+} as const;
+
+export const SOURCE_COVERAGE_SCORES = {
+	1: 0.1,
+	2: 0.55,
+	3: 0.82,
+	4: 1.0
+} as const;
+
+export const SIGNAL_AGREEMENT_SCORES = {
+	consensus_high: 0.95,
+	consensus_low: 0.95,
+	aligned_mid: 0.85,
+	divergent: 0.45,
+	insufficient_data: 0.25
+} as const;
+
+export const SENSITIVITY_SCORES = {
+	stable: 0.85,
+	watch: 0.65,
+	sensitive: 0.4
+} as const;
+
+export const CONFIDENCE_PENALTIES = {
+	single_source_direct: 0.05,
+	single_source_submajor_fallback: 0.08,
+	single_source_major_fallback: 0.12,
+	contested_signal: 0.04
+} as const;
+
+export const EXPOSURE_AGREEMENT_THRESHOLDS = {
+	consensus_high_floor: 0.67,
+	consensus_low_ceiling: 0.33,
+	aligned_spread_max: 0.18,
+	divergent_spread_min: 0.28
+} as const;
+
+export type ExposureAgreement =
+	| 'consensus_high'
+	| 'consensus_low'
+	| 'aligned_mid'
+	| 'divergent'
+	| 'insufficient_data';
+
+export function classifyExposureAgreement(values: number[]): ExposureAgreement {
+	if (values.length < 2) return 'insufficient_data';
+	const max = Math.max(...values);
+	const min = Math.min(...values);
+	const spread = max - min;
+	const mean = values.reduce((sum, value) => sum + value, 0) / values.length;
+
+	if (spread >= EXPOSURE_AGREEMENT_THRESHOLDS.divergent_spread_min) return 'divergent';
+	if (
+		spread <= EXPOSURE_AGREEMENT_THRESHOLDS.aligned_spread_max &&
+		mean >= EXPOSURE_AGREEMENT_THRESHOLDS.consensus_high_floor
+	) {
+		return 'consensus_high';
+	}
+	if (
+		spread <= EXPOSURE_AGREEMENT_THRESHOLDS.aligned_spread_max &&
+		mean <= EXPOSURE_AGREEMENT_THRESHOLDS.consensus_low_ceiling
+	) {
+		return 'consensus_low';
+	}
+	return 'aligned_mid';
+}
+
+export const SIGNAL_CONFLICT_THRESHOLDS = {
+	high_risk_floor: 0.25,
+	low_risk_ceiling: 0.15,
+	large_positive_anthropic_gap: 0.2
 } as const;
 
 // ============================================
@@ -145,7 +225,7 @@ export const DATA_VINTAGE = {
 	/** Synthetic role count */
 	role_count: 88,
 	/** Validation check count */
-	validation_checks: 49,
+	validation_checks: 54,
 	/** Page count */
 	page_count: 672
 } as const;
