@@ -31,7 +31,7 @@ Published as risk bands (Very Low through Very High) with visible confidence and
 
 - **BLS cross-country**: rho=-0.14, p<0.01 on 530 occupations mapped via ISCO-08→SOC crosswalk
 - **Cluster-level**: 3/4 directional checks pass against Singapore Q3 2025 labour outcomes
-- **56 structural checks**: anchor occupations, band consistency, impact type recomputation
+- **58 structural checks**: anchor occupations, band consistency, impact type recomputation, synthetic-role workflow sanity
 - Methodology page: [aiworkindex.pages.dev/methodology](https://aiworkindex.pages.dev/methodology)
 
 ## Quick Start
@@ -42,7 +42,7 @@ cd aiworkindex
 bun install
 bun run build:release-data  # Refresh all release datasets and metadata
 bun run scripts/score.ts        # Score all 562 occupations
-bun run validate                 # Run 56 structural checks
+bun run validate                 # Run 58 structural checks
 bun run dev                      # Start dev server
 bun run build                    # Build 672 prerendered pages
 ```

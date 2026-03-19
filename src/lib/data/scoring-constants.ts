@@ -8,7 +8,7 @@
  * When updating thresholds, change them HERE and they propagate
  * to methodology, appendix, data dictionary, and CLAUDE.md automatically.
  *
- * Validated by: scripts/validate.ts (56 checks)
+ * Validated by: scripts/validate.ts (58 checks)
  * Used by: score.ts, synthetic-roles.ts, validate.ts, methodology page
  */
 
@@ -292,7 +292,7 @@ export const DATA_VINTAGE = {
 	/** Synthetic role count */
 	role_count: 88,
 	/** Validation check count */
-	validation_checks: 56,
+	validation_checks: 58,
 	/** Page count */
 	page_count: 672
 } as const;

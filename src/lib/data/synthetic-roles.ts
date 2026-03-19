@@ -5,6 +5,15 @@ import {
 	classifyImpactType,
 	AUGMENTATION_THRESHOLDS
 } from './scoring-constants';
+import type { DerivedOverlayScores, WorkflowOverlay } from './workflow-overlay';
+import {
+	archetypeOverlayDefaults,
+	computeContextAdjustment,
+	computeDerivedScores,
+	generateWorkflowNarrative
+} from './workflow-overlay';
+import { classifyArchetype } from './role-archetypes';
+import { getVariantParent } from './role-taxonomy';
 
 export interface SyntheticRole {
 	slug: string;
@@ -17,6 +26,8 @@ export interface SyntheticRole {
 	}>;
 	tags: string[];
 }
+
+export type SyntheticEstimateType = 'modern_role' | 'gig' | 'founder' | 'independent';
 
 export interface ScoredRole {
 	slug: string;
@@ -32,10 +43,18 @@ export interface ScoredRole {
 	augmentation_band: AugmentationBand;
 	impact_type: ImpactType;
 	confidence: 'high' | 'medium' | 'low';
+	confidence_score: number;
 	/** Standard deviation of component net_risk scores — measures estimate spread */
 	dispersion: number;
 	/** Risk range: [optimistic, pessimistic] based on component spread */
 	risk_range: { optimistic: number; pessimistic: number };
+	base_net_risk: number;
+	context_adjustment: number;
+	estimate_type: SyntheticEstimateType;
+	variant_of: string | null;
+	workflow_overlay: WorkflowOverlay | null;
+	workflow_scores: DerivedOverlayScores | null;
+	workflow_narrative: string | null;
 	components: Array<{
 		ssoc: string;
 		weight: number;
@@ -43,6 +62,159 @@ export interface ScoredRole {
 		occupation: Occupation | null;
 	}>;
 }
+
+const roleWorkflowOverrides: Partial<Record<string, WorkflowOverlay>> = {
+	'product-manager': {
+		creative_generation: 0.62,
+		real_time_coordination: 0.82,
+		ambiguity_tolerance: 0.86,
+		institutional_knowledge: 0.72,
+		relationship_intensity: 0.8,
+		regulatory_weight: 0.15,
+		physical_presence: 0.08,
+		tool_velocity: 0.68
+	},
+	'technical-product-manager': {
+		creative_generation: 0.58,
+		real_time_coordination: 0.74,
+		ambiguity_tolerance: 0.8,
+		institutional_knowledge: 0.74,
+		relationship_intensity: 0.66,
+		regulatory_weight: 0.15,
+		physical_presence: 0.06,
+		tool_velocity: 0.82
+	},
+	'recruiter': {
+		creative_generation: 0.28,
+		real_time_coordination: 0.7,
+		ambiguity_tolerance: 0.6,
+		institutional_knowledge: 0.72,
+		relationship_intensity: 0.9,
+		regulatory_weight: 0.38,
+		physical_presence: 0.18,
+		tool_velocity: 0.48
+	},
+	'account-executive': {
+		creative_generation: 0.26,
+		real_time_coordination: 0.76,
+		ambiguity_tolerance: 0.58,
+		institutional_knowledge: 0.62,
+		relationship_intensity: 0.95,
+		regulatory_weight: 0.18,
+		physical_presence: 0.2,
+		tool_velocity: 0.52
+	},
+	'solutions-engineer': {
+		creative_generation: 0.48,
+		real_time_coordination: 0.72,
+		ambiguity_tolerance: 0.7,
+		institutional_knowledge: 0.66,
+		relationship_intensity: 0.78,
+		regulatory_weight: 0.22,
+		physical_presence: 0.12,
+		tool_velocity: 0.78
+	},
+	'growth-marketer': {
+		creative_generation: 0.5,
+		real_time_coordination: 0.46,
+		ambiguity_tolerance: 0.62,
+		institutional_knowledge: 0.46,
+		relationship_intensity: 0.55,
+		regulatory_weight: 0.12,
+		physical_presence: 0.08,
+		tool_velocity: 0.86
+	},
+	'people-partner': {
+		creative_generation: 0.32,
+		real_time_coordination: 0.7,
+		ambiguity_tolerance: 0.62,
+		institutional_knowledge: 0.76,
+		relationship_intensity: 0.88,
+		regulatory_weight: 0.45,
+		physical_presence: 0.18,
+		tool_velocity: 0.44
+	},
+	'revops-manager': {
+		creative_generation: 0.34,
+		real_time_coordination: 0.68,
+		ambiguity_tolerance: 0.6,
+		institutional_knowledge: 0.68,
+		relationship_intensity: 0.58,
+		regulatory_weight: 0.28,
+		physical_presence: 0.08,
+		tool_velocity: 0.72
+	},
+	'startup-founder': {
+		creative_generation: 0.72,
+		real_time_coordination: 0.88,
+		ambiguity_tolerance: 0.92,
+		institutional_knowledge: 0.8,
+		relationship_intensity: 0.9,
+		regulatory_weight: 0.22,
+		physical_presence: 0.15,
+		tool_velocity: 0.78
+	},
+	'delivery-rider': {
+		creative_generation: 0.04,
+		real_time_coordination: 0.52,
+		ambiguity_tolerance: 0.22,
+		institutional_knowledge: 0.26,
+		relationship_intensity: 0.18,
+		regulatory_weight: 0.3,
+		physical_presence: 0.96,
+		tool_velocity: 0.28
+	},
+	'ride-hail-driver': {
+		creative_generation: 0.05,
+		real_time_coordination: 0.56,
+		ambiguity_tolerance: 0.24,
+		institutional_knowledge: 0.3,
+		relationship_intensity: 0.42,
+		regulatory_weight: 0.34,
+		physical_presence: 0.95,
+		tool_velocity: 0.3
+	},
+	'freelance-designer': {
+		creative_generation: 0.92,
+		real_time_coordination: 0.38,
+		ambiguity_tolerance: 0.82,
+		institutional_knowledge: 0.44,
+		relationship_intensity: 0.58,
+		regulatory_weight: 0.08,
+		physical_presence: 0.1,
+		tool_velocity: 0.88
+	},
+	'content-creator': {
+		creative_generation: 0.94,
+		real_time_coordination: 0.36,
+		ambiguity_tolerance: 0.84,
+		institutional_knowledge: 0.34,
+		relationship_intensity: 0.64,
+		regulatory_weight: 0.06,
+		physical_presence: 0.08,
+		tool_velocity: 0.9
+	},
+	'e-commerce-seller': {
+		creative_generation: 0.4,
+		real_time_coordination: 0.54,
+		ambiguity_tolerance: 0.56,
+		institutional_knowledge: 0.52,
+		relationship_intensity: 0.52,
+		regulatory_weight: 0.24,
+		physical_presence: 0.16,
+		tool_velocity: 0.74
+	},
+	'virtual-assistant': {
+		creative_generation: 0.14,
+		real_time_coordination: 0.46,
+		ambiguity_tolerance: 0.32,
+		institutional_knowledge: 0.6,
+		relationship_intensity: 0.5,
+		regulatory_weight: 0.24,
+		physical_presence: 0.08,
+		tool_velocity: 0.58
+	}
+};
 
 export const syntheticRoles: SyntheticRole[] = [
 	{
@@ -1045,9 +1217,162 @@ function weightedMean(values: number[], weights: number[]): number {
 	let wSum = 0;
 	for (let i = 0; i < values.length; i++) {
 		sum += values[i]! * weights[i]!;
-		wSum += weights[i]!
+		wSum += weights[i]!;
 	}
 	return wSum > 0 ? sum / wSum : 0;
+}
+
+function clamp01(value: number): number {
+	return Math.max(0, Math.min(1, value));
+}
+
+function inferEstimateType(role: SyntheticRole): SyntheticEstimateType {
+	if (role.slug.includes('founder')) return 'founder';
+	if (role.tags.some(tag => tag === 'gig' || tag === 'platform')) return 'gig';
+	if (
+		role.slug.includes('freelance') ||
+		role.slug.includes('creator') ||
+		role.slug.includes('seller') ||
+		role.slug.includes('assistant')
+	) {
+		return 'independent';
+	}
+	return 'modern_role';
+}
+
+function resolveComponentOverlay(occupation: Occupation): WorkflowOverlay | null {
+	if (occupation.workflow_overlay) return occupation.workflow_overlay;
+	const archetype = classifyArchetype(occupation.ssoc, occupation.title, occupation.major_group);
+	return archetypeOverlayDefaults[archetype] ?? null;
+}
+
+function blendWorkflowOverlays(
+	overlays: Array<{ overlay: WorkflowOverlay; weight: number }>
+): WorkflowOverlay | null {
+	if (overlays.length === 0) return null;
+	const totalWeight = overlays.reduce((sum, item) => sum + item.weight, 0);
+	if (totalWeight <= 0) return null;
+
+	const valueFor = (dimension: keyof WorkflowOverlay) =>
+		overlays.reduce(
+			(sum, item) => sum + item.overlay[dimension] * (item.weight / totalWeight),
+			0
+		);
+
+	return {
+		creative_generation: valueFor('creative_generation'),
+		real_time_coordination: valueFor('real_time_coordination'),
+		ambiguity_tolerance: valueFor('ambiguity_tolerance'),
+		institutional_knowledge: valueFor('institutional_knowledge'),
+		relationship_intensity: valueFor('relationship_intensity'),
+		regulatory_weight: valueFor('regulatory_weight'),
+		physical_presence: valueFor('physical_presence'),
+		tool_velocity: valueFor('tool_velocity')
+	};
+}
+
+function blendWorkflowOverride(
+	base: WorkflowOverlay,
+	override: WorkflowOverlay,
+	overrideWeight: number = 0.65
+): WorkflowOverlay {
+	const valueFor = (dimension: keyof WorkflowOverlay) =>
+		base[dimension] * (1 - overrideWeight) + override[dimension] * overrideWeight;
+
+	return {
+		creative_generation: valueFor('creative_generation'),
+		real_time_coordination: valueFor('real_time_coordination'),
+		ambiguity_tolerance: valueFor('ambiguity_tolerance'),
+		institutional_knowledge: valueFor('institutional_knowledge'),
+		relationship_intensity: valueFor('relationship_intensity'),
+		regulatory_weight: valueFor('regulatory_weight'),
+		physical_presence: valueFor('physical_presence'),
+		tool_velocity: valueFor('tool_velocity')
+	};
+}
+
+function buildRoleWorkflowMeta(
+	role: SyntheticRole,
+	validComponents: Array<{
+		ssoc: string;
+		weight: number;
+		rationale: string;
+		occupation: Occupation;
+	}>
+) {
+	const componentOverlay = blendWorkflowOverlays(
+		validComponents
+			.map(component => {
+				const overlay = resolveComponentOverlay(component.occupation);
+				return overlay ? { overlay, weight: component.weight } : null;
+			})
+			.filter(
+				(item): item is { overlay: WorkflowOverlay; weight: number } => item !== null
+			)
+	);
+
+	const titleArchetype = classifyArchetype('00000', role.title, '');
+	const titleOverlay = archetypeOverlayDefaults[titleArchetype] ?? null;
+	let overlay = componentOverlay ?? titleOverlay;
+
+	const slugOverride = roleWorkflowOverrides[role.slug];
+	if (overlay && slugOverride) overlay = blendWorkflowOverride(overlay, slugOverride);
+	else if (slugOverride) overlay = slugOverride;
+
+	const derived = overlay ? computeDerivedScores(overlay) : null;
+
+	return {
+		estimateType: inferEstimateType(role),
+		variantOf: getVariantParent(role.slug),
+		overlay,
+		derived,
+		contextAdjustment: derived ? computeContextAdjustment(derived) : 1,
+		narrative: overlay ? generateWorkflowNarrative(overlay) : null
+	};
+}
+
+function computeRoleConfidenceScore(
+	validComponents: Array<{
+		ssoc: string;
+		weight: number;
+		rationale: string;
+		occupation: Occupation;
+	}>,
+	dispersion: number,
+	variantSensitivity: number,
+	primaryRiskDiff: number,
+	estimateType: SyntheticEstimateType
+): number {
+	const componentCoverage =
+		validComponents.length >= 4 ? 1 : validComponents.length === 3 ? 0.82 : validComponents.length === 2 ? 0.58 : 0.28;
+	const dispersionScore =
+		dispersion < 0.04
+			? 1
+			: dispersion < 0.08
+				? 0.78
+				: dispersion < 0.12
+					? 0.52
+					: 0.24;
+	const proximityScore =
+		primaryRiskDiff < 0.03 ? 0.92 : primaryRiskDiff < 0.07 ? 0.68 : primaryRiskDiff < 0.12 ? 0.48 : 0.28;
+
+	let score =
+		0.4 * componentCoverage +
+		0.35 * dispersionScore +
+		0.15 * (1 - variantSensitivity) +
+		0.1 * proximityScore;
+
+	if (estimateType !== 'modern_role') {
+		score = Math.min(score, 0.68);
+	}
+
+	return clamp01(score);
+}
+
+function getRoleConfidenceLabel(score: number): 'high' | 'medium' | 'low' {
+	if (score >= 0.78) return 'high';
+	if (score >= 0.45) return 'medium';
+	return 'low';
 }
 
 
@@ -1068,7 +1393,9 @@ export function computeRoleScores(
 		occupation: occupationsBySSoc.get(c.ssoc) ?? null
 	}));
 
-	const validComponents = resolvedComponents.filter((c) => c.occupation !== null);
+	const validComponents = resolvedComponents.filter(
+		(c): c is typeof c & { occupation: Occupation } => c.occupation !== null
+	);
 
 	if (validComponents.length === 0) {
 		// Fallback: return neutral scores
@@ -1086,8 +1413,16 @@ export function computeRoleScores(
 			augmentation_band: 'moderate',
 			impact_type: 'mixed',
 			confidence: 'medium',
+			confidence_score: 0.45,
 			dispersion: 0,
 			risk_range: { optimistic: 0.25, pessimistic: 0.25 },
+			base_net_risk: 0.25,
+			context_adjustment: 1,
+			estimate_type: inferEstimateType(role),
+			variant_of: getVariantParent(role.slug),
+			workflow_overlay: null,
+			workflow_scores: null,
+			workflow_narrative: null,
 			components: resolvedComponents
 		};
 	}
@@ -1101,37 +1436,50 @@ export function computeRoleScores(
 	const exposure = weightedMean(exposures, weights);
 	const bottleneck = weightedMean(bottlenecks, weights);
 	const market_resilience = weightedMean(resiliences, weights);
-	const augmentation = weightedMean(augmentations, weights);
+	const baseAugmentation = weightedMean(augmentations, weights);
 
-	const net_risk =
+	const base_net_risk =
 		exposure * (1 - bottleneck) * (1 - MARKET_CONSTANTS.max_modifier_effect * market_resilience);
+	const workflowMeta = buildRoleWorkflowMeta(role, validComponents);
+	const net_risk = clamp01(base_net_risk * workflowMeta.contextAdjustment);
+	const augmentationAdjustment = workflowMeta.derived
+		? 0.9 + 0.25 * workflowMeta.derived.augmentation_upside
+		: 1;
+	const augmentation = clamp01(baseAugmentation * augmentationAdjustment);
 	const risk_band = getRiskBand(net_risk);
 	const augmentation_band = computeAugmentationBand(augmentation);
 
 	// Inherit demand signal from components: if ANY component has SOL/JiD match, role inherits it
 	const hasDemandSignal = validComponents.some(
-		(c) => c.occupation!.evidence.sol_match || c.occupation!.evidence.jobs_in_demand_match
+		c => c.occupation.evidence.sol_match || c.occupation.evidence.jobs_in_demand_match
 	);
 	const impact_type = classifyImpactType(net_risk, augmentation, hasDemandSignal);
 
 	// Compute dispersion: stddev of component net_risk values
-	const componentRisks = validComponents.map((c) => c.occupation!.net_risk);
+	const componentRisks = validComponents.map(c => c.occupation.net_risk);
 	const meanRisk = componentRisks.reduce((s, v) => s + v, 0) / componentRisks.length;
 	const variance =
 		componentRisks.reduce((s, v) => s + (v - meanRisk) ** 2, 0) / componentRisks.length;
 	const dispersion = Math.sqrt(variance);
 
-	// Risk range based on dispersion
-	const optimistic = Math.max(0, net_risk - dispersion);
-	const pessimistic = Math.min(1, net_risk + dispersion);
+	const variantSensitivity = workflowMeta.derived?.variant_sensitivity ?? 0.5;
+	const rangePadding = Math.min(0.2, dispersion + 0.08 * variantSensitivity);
+	const optimistic = Math.max(0, net_risk - rangePadding);
+	const pessimistic = Math.min(1, net_risk + rangePadding);
 
-	// Dynamic confidence based on dispersion and component count
-	const confidence: 'high' | 'medium' | 'low' =
-		dispersion < 0.05 && validComponents.length >= 3
-			? 'medium'
-			: dispersion >= 0.15
-				? 'low'
-				: 'medium';
+	const primaryComponent =
+		[...validComponents].sort((a, b) => b.weight - a.weight)[0] ?? null;
+	const primaryRiskDiff = primaryComponent
+		? Math.abs(primaryComponent.occupation.net_risk - net_risk)
+		: 0.1;
+	const confidence_score = computeRoleConfidenceScore(
+		validComponents,
+		dispersion,
+		variantSensitivity,
+		primaryRiskDiff,
+		workflowMeta.estimateType
+	);
+	const confidence = getRoleConfidenceLabel(confidence_score);
 
 	return {
 		slug: role.slug,
@@ -1147,8 +1495,16 @@ export function computeRoleScores(
 		augmentation_band,
 		impact_type,
 		confidence,
+		confidence_score,
 		dispersion,
 		risk_range: { optimistic, pessimistic },
+		base_net_risk,
+		context_adjustment: workflowMeta.contextAdjustment,
+		estimate_type: workflowMeta.estimateType,
+		variant_of: workflowMeta.variantOf,
+		workflow_overlay: workflowMeta.overlay,
+		workflow_scores: workflowMeta.derived,
+		workflow_narrative: workflowMeta.narrative,
 		components: resolvedComponents
 	};
 }

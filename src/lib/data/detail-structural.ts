@@ -75,8 +75,9 @@ function buildOccupationWorkflowNarrative(occupation: Occupation): string | null
 	return overlay ? generateWorkflowNarrative(overlay) : null;
 }
 
-function buildRoleWorkflowNarrative(title: string): string | null {
-	const archetype = classifyArchetype('00000', title, '');
+function buildRoleWorkflowNarrative(scored: ScoredRole): string | null {
+	if (scored.workflow_narrative) return scored.workflow_narrative;
+	const archetype = classifyArchetype('00000', scored.title, '');
 	const overlay = archetypeOverlayDefaults[archetype];
 	return overlay ? generateWorkflowNarrative(overlay) : null;
 }
@@ -128,7 +129,7 @@ export function buildRoleDetailStructural(
 		riskPercentile: getRiskPercentile(scored.net_risk, allOccupations),
 		summaryText: buildImpactSummary(scored.title, scored.impact_type, scored.exposure),
 		personalizedContent,
-		workflowNarrative: buildRoleWorkflowNarrative(scored.title),
+		workflowNarrative: buildRoleWorkflowNarrative(scored),
 		transitions,
 		primaryMatch: primaryOccupation
 			? {

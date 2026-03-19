@@ -395,6 +395,26 @@ async function main() {
 			'All synthetic roles compute without errors',
 			roleScores.length === syntheticRoles.length
 		);
+		check(
+			'Synthetic roles include workflow context',
+			roleScores.every(
+				role =>
+					role.workflow_overlay !== null &&
+					role.workflow_scores !== null &&
+					role.workflow_narrative !== null
+			)
+		);
+		check(
+			'High-context synthetic roles remain conservative',
+			roleScores
+				.filter(role => role.estimate_type !== 'modern_role')
+				.every(
+					role =>
+						role.confidence !== 'high' &&
+						role.context_adjustment >= 0.85 &&
+						role.context_adjustment <= 1.15
+				)
+		);
 	} catch (error) {
 		check('All synthetic roles compute without errors', false, String(error));
 	}
