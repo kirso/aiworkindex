@@ -164,11 +164,11 @@
 					</text>
 				{/each}
 
-				<!-- Dots -->
+				<!-- Dots (clipped to plot area so edge dots don't overflow) -->
 				{#each occupations as occ (occ.ssoc)}
 					<circle
-						cx={xScale(occ.exposure)}
-						cy={yScale(occ.bottleneck)}
+						cx={xScale(Math.max(0.01, Math.min(0.99, occ.exposure)))}
+						cy={yScale(Math.max(0.01, Math.min(0.99, occ.bottleneck)))}
 						r={dotRadius}
 						fill={groupColor(occ.major_group)}
 						opacity="0.65"
@@ -224,29 +224,37 @@
 			</g>
 		</svg>
 
-		<!-- Quadrant legend (item 18) -->
-		<div class="mt-3 grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-muted-foreground sm:grid-cols-4">
-			<div>
+		<!-- Quadrant legend -->
+		<div
+			class="mt-3 grid grid-cols-2 gap-x-4 gap-y-1.5 text-xs text-muted-foreground sm:grid-cols-4"
+		>
+			<div class="flex items-center gap-1.5">
 				<span
-					class="inline-block h-2 w-2 rounded-sm"
+					class="inline-block h-3 w-3 shrink-0 rounded-sm border border-border"
 					style="background: {quadrantColors.resilient};"
-				></span> <span class="font-medium">Resilient</span> — Low exposure, high human skills
+				></span>
+				<span><span class="font-medium text-foreground">Resilient</span> Low exp, high human</span>
 			</div>
-			<div>
+			<div class="flex items-center gap-1.5">
 				<span
-					class="inline-block h-2 w-2 rounded-sm"
+					class="inline-block h-3 w-3 shrink-0 rounded-sm border border-border"
 					style="background: {quadrantColors.augmented};"
-				></span> <span class="font-medium">AI Augmented</span> — High exposure, high human skills
+				></span>
+				<span><span class="font-medium text-foreground">Augmented</span> High exp, high human</span>
 			</div>
-			<div>
+			<div class="flex items-center gap-1.5">
 				<span
-					class="inline-block h-2 w-2 rounded-sm"
+					class="inline-block h-3 w-3 shrink-0 rounded-sm border border-border"
 					style="background: {quadrantColors.unaffected};"
-				></span> <span class="font-medium">Unaffected</span> — Low exposure, low human skills
+				></span>
+				<span><span class="font-medium text-foreground">Unaffected</span> Low exp, low human</span>
 			</div>
-			<div>
-				<span class="inline-block h-2 w-2 rounded-sm" style="background: {quadrantColors.atRisk};"
-				></span> <span class="font-medium">At Risk</span> — High exposure, low human skills
+			<div class="flex items-center gap-1.5">
+				<span
+					class="inline-block h-3 w-3 shrink-0 rounded-sm border border-border"
+					style="background: {quadrantColors.atRisk};"
+				></span>
+				<span><span class="font-medium text-foreground">At Risk</span> High exp, low human</span>
 			</div>
 		</div>
 	{:else}
