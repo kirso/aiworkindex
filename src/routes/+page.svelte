@@ -138,31 +138,44 @@
 				<HeroSearch occupations={data.occupations} />
 			</div>
 		</div>
-		<!-- Stats strip -->
-		<div
-			class="flex flex-wrap items-center justify-center gap-x-5 gap-y-1 pb-3 text-xs text-muted-foreground"
-		>
-			<span
-				><strong class="font-mono text-foreground">{data.occupations.length}</strong> occupations</span
-			>
-			<span><strong class="font-mono text-foreground">{DATA_VINTAGE.role_count}</strong> roles</span
-			>
-			<span
-				><strong class="font-mono text-risk-very-high">{data.stats.highRiskCount}</strong> high+ risk</span
-			>
-			<span
-				><strong class="font-mono text-risk-high"
-					>SGD {data.stats.wagesAtRiskBillions.toFixed(0)}B</strong
-				> wages at risk</span
-			>
-			<span
-				><strong class="font-mono text-foreground">{data.stats.demandCount}</strong> in demand</span
-			>
-			<span
-				><strong class="font-mono text-foreground"
-					>SGD {(data.stats.nationalMedian / 1000).toFixed(1)}K</strong
-				> median</span
-			>
+		<!-- Key stats — designed to shock and inform -->
+		<div class="grid grid-cols-3 gap-3 pb-5 sm:grid-cols-6">
+			<div class="text-center">
+				<p class="font-mono text-lg font-bold text-foreground sm:text-xl">
+					{data.occupations.length}
+				</p>
+				<p class="text-[10px] text-muted-foreground">occupations scored</p>
+			</div>
+			<div class="text-center">
+				<p class="font-mono text-lg font-bold text-risk-very-high sm:text-xl">
+					{data.stats.highRiskPct}%
+				</p>
+				<p class="text-[10px] text-muted-foreground">face high+ AI risk</p>
+			</div>
+			<div class="text-center">
+				<p class="font-mono text-lg font-bold text-risk-high sm:text-xl">
+					SGD {data.stats.wagesAtRiskBillions.toFixed(0)}B
+				</p>
+				<p class="text-[10px] text-muted-foreground">annual wages at risk</p>
+			</div>
+			<div class="text-center">
+				<p class="font-mono text-lg font-bold text-foreground sm:text-xl">
+					{(data.stats.avgExposure * 100).toFixed(0)}%
+				</p>
+				<p class="text-[10px] text-muted-foreground">avg AI task overlap</p>
+			</div>
+			<div class="text-center">
+				<p class="font-mono text-lg font-bold text-risk-very-low sm:text-xl">
+					{data.stats.demandCount}
+				</p>
+				<p class="text-[10px] text-muted-foreground">gov't in-demand</p>
+			</div>
+			<div class="text-center">
+				<p class="font-mono text-lg font-bold text-foreground sm:text-xl">
+					SGD {(data.stats.nationalMedian / 1000).toFixed(1)}K
+				</p>
+				<p class="text-[10px] text-muted-foreground">median wage</p>
+			</div>
 		</div>
 	</div>
 </div>

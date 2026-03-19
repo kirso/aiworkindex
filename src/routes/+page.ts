@@ -24,9 +24,19 @@ export const load: PageLoad = () => {
 		highRiskOccs.reduce((s, o) => s + o.gross_wage_median * 12 * o.employment_thousands * 1000, 0) /
 		1e9;
 
+	// Fraction at high+ risk
+	const highRiskPct = Math.round((highRiskCount / occupations.length) * 100);
+
 	return {
 		occupations,
 		majorGroups,
-		stats: { highRiskCount, avgExposure, demandCount, nationalMedian, wagesAtRiskBillions }
+		stats: {
+			highRiskCount,
+			highRiskPct,
+			avgExposure,
+			demandCount,
+			nationalMedian,
+			wagesAtRiskBillions
+		}
 	};
 };
