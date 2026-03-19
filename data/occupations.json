@@ -185,7 +185,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 8
   },
   {
     "ssoc": "12221",
@@ -373,7 +374,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.25
   },
   {
     "ssoc": "13430",
@@ -561,7 +563,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 3.25
   },
   {
     "ssoc": "14330",
@@ -749,7 +752,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.6
   },
   {
     "ssoc": "14322",
@@ -937,7 +941,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 2.92
   },
   {
     "ssoc": "12113",
@@ -1125,7 +1130,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 8
   },
   {
     "ssoc": "12111",
@@ -1313,7 +1319,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 8
   },
   {
     "ssoc": "12212",
@@ -1501,7 +1508,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "bls_proxy_employment": 2
   },
   {
     "ssoc": "12242",
@@ -1689,7 +1697,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 14.34
   },
   {
     "ssoc": "14122",
@@ -1877,7 +1886,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 7.22
   },
   {
     "ssoc": "13301",
@@ -2065,7 +2075,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.95
   },
   {
     "ssoc": "11203",
@@ -2253,7 +2264,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 34.18
   },
   {
     "ssoc": "13492",
@@ -2441,7 +2453,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 12.28
   },
   {
     "ssoc": "11202",
@@ -2629,7 +2642,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 34.18
   },
   {
     "ssoc": "13230",
@@ -2817,7 +2831,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 5.07
   },
   {
     "ssoc": "12241",
@@ -3005,7 +3020,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 14.34
   },
   {
     "ssoc": "14391",
@@ -3193,7 +3209,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.99
   },
   {
     "ssoc": "13463",
@@ -3381,7 +3398,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0
   },
   {
     "ssoc": "13461",
@@ -3569,7 +3587,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0
   },
   {
     "ssoc": "14123",
@@ -3757,7 +3776,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 7.22
   },
   {
     "ssoc": "13420",
@@ -3945,7 +3965,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 5.67
   },
   {
     "ssoc": "14110",
@@ -4133,7 +4154,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.48
   },
   {
     "ssoc": "13304",
@@ -4321,7 +4343,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.95
   },
   {
     "ssoc": "12122",
@@ -4509,7 +4532,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 6.14
   },
   {
     "ssoc": "13462",
@@ -4697,7 +4721,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0
   },
   {
     "ssoc": "12192",
@@ -4885,7 +4910,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 12.28
   },
   {
     "ssoc": "11201",
@@ -5073,7 +5099,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 34.18
   },
   {
     "ssoc": "13210",
@@ -5261,7 +5288,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 5.07
   },
   {
     "ssoc": "12222",
@@ -5449,7 +5477,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "bls_proxy_employment": 0.25
   },
   {
     "ssoc": "13493",
@@ -5637,7 +5666,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 12.28
   },
   {
     "ssoc": "12214",
@@ -5825,7 +5855,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 2
   },
   {
     "ssoc": "13303",
@@ -6013,7 +6044,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.95
   },
   {
     "ssoc": "12215",
@@ -6201,7 +6233,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "bls_proxy_employment": 2
   },
   {
     "ssoc": "12121",
@@ -6389,7 +6422,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.2,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 6.14
   },
   {
     "ssoc": "12131",
@@ -6577,7 +6611,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 2.23
   },
   {
     "ssoc": "13245",
@@ -6765,7 +6800,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.99
   },
   {
     "ssoc": "13244",
@@ -6953,7 +6989,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.99
   },
   {
     "ssoc": "12191",
@@ -7141,7 +7178,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 12.28
   },
   {
     "ssoc": "13410",
@@ -7329,7 +7367,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 3.25
   },
   {
     "ssoc": "13242",
@@ -7517,7 +7556,8 @@
       "regulatory_weight": 0.55,
       "physical_presence": 0.5,
       "tool_velocity": 0.4
-    }
+    },
+    "bls_proxy_employment": 1.99
   },
   {
     "ssoc": "13100",
@@ -7705,7 +7745,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 7.7
   },
   {
     "ssoc": "13292",
@@ -7893,7 +7934,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 7.12
   },
   {
     "ssoc": "12213",
@@ -8081,7 +8123,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "bls_proxy_employment": 2
   },
   {
     "ssoc": "12230",
@@ -8269,7 +8312,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 7.7
   },
   {
     "ssoc": "14121",
@@ -8457,7 +8501,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 7.22
   },
   {
     "ssoc": "14201",
@@ -8645,7 +8690,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 23.68
   },
   {
     "ssoc": "12133",
@@ -8833,7 +8879,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 2.23
   },
   {
     "ssoc": "12211",
@@ -9021,7 +9068,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "bls_proxy_employment": 2
   },
   {
     "ssoc": "13451",
@@ -9209,7 +9257,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 2.58
   },
   {
     "ssoc": "12194",
@@ -9397,7 +9446,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 12.28
   },
   {
     "ssoc": "13441",
@@ -9585,7 +9635,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.55
   },
   {
     "ssoc": "13302",
@@ -9773,7 +9824,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.05,
       "tool_velocity": 0.95
-    }
+    },
+    "bls_proxy_employment": 1.95
   },
   {
     "ssoc": "14310",
@@ -9961,7 +10013,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.79
   },
   {
     "ssoc": "12132",
@@ -10149,7 +10202,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 2.23
   },
   {
     "ssoc": "13241",
@@ -10337,7 +10391,8 @@
       "regulatory_weight": 0.55,
       "physical_presence": 0.5,
       "tool_velocity": 0.4
-    }
+    },
+    "bls_proxy_employment": 1.99
   },
   {
     "ssoc": "13291",
@@ -10525,7 +10580,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 7.12
   },
   {
     "ssoc": "12123",
@@ -10713,7 +10769,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 6.14
   },
   {
     "ssoc": "13243",
@@ -10901,7 +10958,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.99
   },
   {
     "ssoc": "14392",
@@ -11089,7 +11147,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.99
   },
   {
     "ssoc": "14324",
@@ -11277,7 +11336,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 2.92
   },
   {
     "ssoc": "14202",
@@ -11465,7 +11525,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 23.68
   },
   {
     "ssoc": "24111",
@@ -11653,7 +11714,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 22.12
   },
   {
     "ssoc": "21213",
@@ -11841,7 +11903,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 1.02
   },
   {
     "ssoc": "21471",
@@ -12029,7 +12092,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 1.11
   },
   {
     "ssoc": "21443",
@@ -12217,7 +12281,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 4.1
   },
   {
     "ssoc": "22141",
@@ -12405,7 +12470,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "bls_proxy_employment": 1.9
   },
   {
     "ssoc": "25140",
@@ -12593,7 +12659,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.05,
       "tool_velocity": 0.95
-    }
+    },
+    "bls_proxy_employment": 0
   },
   {
     "ssoc": "26543",
@@ -12781,7 +12848,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 2.34
   },
   {
     "ssoc": "21524",
@@ -12969,7 +13037,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 1.34
   },
   {
     "ssoc": "22661",
@@ -13157,7 +13226,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "bls_proxy_employment": 2.62
   },
   {
     "ssoc": "24112",
@@ -13345,7 +13415,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 22.12
   },
   {
     "ssoc": "26411",
@@ -13533,7 +13604,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 1.9
   },
   {
     "ssoc": "21413",
@@ -13721,7 +13793,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 5.16
   },
   {
     "ssoc": "21343",
@@ -13909,7 +13982,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 1.41
   },
   {
     "ssoc": "21311",
@@ -14097,7 +14171,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 1.13
   },
   {
     "ssoc": "21491",
@@ -14285,7 +14360,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 2.22
   },
   {
     "ssoc": "21610",
@@ -14473,7 +14549,8 @@
       "regulatory_weight": 0.1,
       "physical_presence": 0.1,
       "tool_velocity": 0.85
-    }
+    },
+    "bls_proxy_employment": 1.02
   },
   {
     "ssoc": "21422",
@@ -14661,7 +14738,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 1
   },
   {
     "ssoc": "24213",
@@ -14849,7 +14927,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 15.05
   },
   {
     "ssoc": "24212",
@@ -15037,7 +15116,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 15.05
   },
   {
     "ssoc": "24122",
@@ -15225,7 +15305,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 5.85
   },
   {
     "ssoc": "22132",
@@ -15413,7 +15494,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "bls_proxy_employment": 0.18
   },
   {
     "ssoc": "26375",
@@ -15601,7 +15683,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 5.27
   },
   {
     "ssoc": "21130",
@@ -15789,7 +15872,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 0.67
   },
   {
     "ssoc": "21711",
@@ -15977,7 +16061,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 0.12
   },
   {
     "ssoc": "21421",
@@ -16165,7 +16250,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 1
   },
   {
     "ssoc": "26341",
@@ -16353,7 +16439,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 5.95
   },
   {
     "ssoc": "21347",
@@ -16541,7 +16628,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 1.41
   },
   {
     "ssoc": "25231",
@@ -16729,7 +16817,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.05,
       "tool_velocity": 0.95
-    }
+    },
+    "bls_proxy_employment": 0
   },
   {
     "ssoc": "21721",
@@ -16917,7 +17006,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 1.09
   },
   {
     "ssoc": "24154",
@@ -17105,7 +17195,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 6.18
   },
   {
     "ssoc": "24351",
@@ -17293,7 +17384,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 12.04
   },
   {
     "ssoc": "24132",
@@ -17481,7 +17573,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 5.16
   },
   {
     "ssoc": "21522",
@@ -17669,7 +17762,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 1.34
   },
   {
     "ssoc": "26413",
@@ -17857,7 +17951,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 1.9
   },
   {
     "ssoc": "26373",
@@ -18045,7 +18140,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 5.27
   },
   {
     "ssoc": "24311",
@@ -18233,7 +18329,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 3.02
   },
   {
     "ssoc": "26212",
@@ -18421,7 +18518,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 0.18
   },
   {
     "ssoc": "25241",
@@ -18609,7 +18707,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.05,
       "tool_velocity": 0.95
-    }
+    },
+    "bls_proxy_employment": 0
   },
   {
     "ssoc": "25245",
@@ -18797,7 +18896,8 @@
       "regulatory_weight": 0.1,
       "physical_presence": 0.1,
       "tool_velocity": 0.85
-    }
+    },
+    "bls_proxy_employment": 0
   },
   {
     "ssoc": "25291",
@@ -18985,7 +19085,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 0
   },
   {
     "ssoc": "21222",
@@ -19173,7 +19274,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 0.51
   },
   {
     "ssoc": "25211",
@@ -19361,7 +19463,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 0
   },
   {
     "ssoc": "25212",
@@ -19549,7 +19652,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 0
   },
   {
     "ssoc": "22122",
@@ -19737,7 +19841,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "bls_proxy_employment": 2.54
   },
   {
     "ssoc": "22142",
@@ -19925,7 +20030,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "bls_proxy_employment": 1.9
   },
   {
     "ssoc": "22651",
@@ -20113,7 +20219,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "bls_proxy_employment": 1.27
   },
   {
     "ssoc": "24314",
@@ -20301,7 +20408,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "bls_proxy_employment": 3.02
   },
   {
     "ssoc": "26542",
@@ -20489,7 +20597,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 2.34
   },
   {
     "ssoc": "23622",
@@ -20677,7 +20786,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "bls_proxy_employment": 1.36
   },
   {
     "ssoc": "26310",
@@ -20865,7 +20975,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 0.25
   },
   {
     "ssoc": "26422",
@@ -21053,7 +21164,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 0.69
   },
   {
     "ssoc": "26544",
@@ -21241,7 +21353,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 2.34
   },
   {
     "ssoc": "21511",
@@ -21429,7 +21542,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 2.02
   },
   {
     "ssoc": "21521",
@@ -21617,7 +21731,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 1.34
   },
   {
     "ssoc": "21526",
@@ -21805,7 +21920,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 1.34
   },
   {
     "ssoc": "22143",
@@ -21993,7 +22109,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "bls_proxy_employment": 1.9
   },
   {
     "ssoc": "21496",
@@ -22181,7 +22298,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 2.22
   },
   {
     "ssoc": "25113",
@@ -22369,7 +22487,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.05,
       "tool_velocity": 0.95
-    }
+    },
+    "bls_proxy_employment": 0
   },
   {
     "ssoc": "21430",
@@ -22557,7 +22676,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 0.55
   },
   {
     "ssoc": "21331",
@@ -22745,7 +22865,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 1.24
   },
   {
     "ssoc": "22632",
@@ -22933,7 +23054,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "bls_proxy_employment": 1.27
   },
   {
     "ssoc": "24232",
@@ -23121,7 +23243,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 7.07
   },
   {
     "ssoc": "21631",
@@ -23309,7 +23432,8 @@
       "regulatory_weight": 0.1,
       "physical_presence": 0.1,
       "tool_velocity": 0.85
-    }
+    },
+    "bls_proxy_employment": 0.82
   },
   {
     "ssoc": "24131",
@@ -23497,7 +23621,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 5.16
   },
   {
     "ssoc": "24135",
@@ -23685,7 +23810,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 5.16
   },
   {
     "ssoc": "24121",
@@ -23873,7 +23999,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 5.85
   },
   {
     "ssoc": "21723",
@@ -24061,7 +24188,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "bls_proxy_employment": 1.09
   },
   {
     "ssoc": "21454",
@@ -24249,7 +24377,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 2.69
   },
   {
     "ssoc": "24152",
@@ -24437,7 +24566,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 6.18
   },
   {
     "ssoc": "24142",
@@ -24625,7 +24755,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 3.54
   },
   {
     "ssoc": "24133",
@@ -24813,7 +24944,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 5.16
   },
   {
     "ssoc": "22611",
@@ -25001,7 +25133,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "bls_proxy_employment": 0.95
   },
   {
     "ssoc": "22110",
@@ -25189,7 +25322,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "bls_proxy_employment": 0.65
   },
   {
     "ssoc": "22131",
@@ -25377,7 +25511,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "bls_proxy_employment": 0.18
   },
   {
     "ssoc": "21661",
@@ -25565,7 +25700,8 @@
       "regulatory_weight": 0.1,
       "physical_presence": 0.1,
       "tool_velocity": 0.85
-    }
+    },
+    "bls_proxy_employment": 2.47
   },
   {
     "ssoc": "24231",
@@ -25753,7 +25889,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.2,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 7.07
   },
   {
     "ssoc": "21652",
@@ -25941,7 +26078,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 0.19
   },
   {
     "ssoc": "25152",
@@ -26129,7 +26267,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0
   },
   {
     "ssoc": "25112",
@@ -26317,7 +26456,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 0
   },
   {
     "ssoc": "25151",
@@ -26505,7 +26645,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.05,
       "tool_velocity": 0.95
-    }
+    },
+    "bls_proxy_employment": 0
   },
   {
     "ssoc": "24333",
@@ -26693,7 +26834,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "bls_proxy_employment": 5.72
   },
   {
     "ssoc": "26343",
@@ -26881,7 +27023,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 5.95
   },
   {
     "ssoc": "21442",
@@ -27069,7 +27212,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 4.1
   },
   {
     "ssoc": "24234",
@@ -27257,7 +27401,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 7.07
   },
   {
     "ssoc": "21493",
@@ -27445,7 +27590,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 2.22
   },
   {
     "ssoc": "26112",
@@ -27633,7 +27779,8 @@
       "regulatory_weight": 0.95,
       "physical_presence": 0.15,
       "tool_velocity": 0.3
-    }
+    },
+    "bls_proxy_employment": 6.18
   },
   {
     "ssoc": "21525",
@@ -27821,7 +27968,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 1.34
   },
   {
     "ssoc": "24160",
@@ -28009,7 +28157,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 1.78
   },
   {
     "ssoc": "24251",
@@ -28197,7 +28346,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 2.99
   },
   {
     "ssoc": "21664",
@@ -28385,7 +28535,8 @@
       "regulatory_weight": 0.1,
       "physical_presence": 0.1,
       "tool_velocity": 0.85
-    }
+    },
+    "bls_proxy_employment": 2.47
   },
   {
     "ssoc": "22124",
@@ -28573,7 +28724,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "bls_proxy_employment": 2.54
   },
   {
     "ssoc": "25232",
@@ -28761,7 +28913,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.05,
       "tool_velocity": 0.95
-    }
+    },
+    "bls_proxy_employment": 0
   },
   {
     "ssoc": "26421",
@@ -28949,7 +29102,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 0.69
   },
   {
     "ssoc": "21651",
@@ -29137,7 +29291,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 0.19
   },
   {
     "ssoc": "21621",
@@ -29325,7 +29480,8 @@
       "regulatory_weight": 0.1,
       "physical_presence": 0.1,
       "tool_velocity": 0.85
-    }
+    },
+    "bls_proxy_employment": 0.31
   },
   {
     "ssoc": "26221",
@@ -29513,7 +29669,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 1.99
   },
   {
     "ssoc": "21513",
@@ -29701,7 +29858,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 2.02
   },
   {
     "ssoc": "24211",
@@ -29889,7 +30047,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 15.05
   },
   {
     "ssoc": "21411",
@@ -30077,7 +30236,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 5.16
   },
   {
     "ssoc": "21473",
@@ -30265,7 +30425,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 1.11
   },
   {
     "ssoc": "21714",
@@ -30453,7 +30614,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 0.12
   },
   {
     "ssoc": "21712",
@@ -30641,7 +30803,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 0.12
   },
   {
     "ssoc": "24312",
@@ -30829,7 +30992,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 3.02
   },
   {
     "ssoc": "24313",
@@ -31017,7 +31181,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "bls_proxy_employment": 3.02
   },
   {
     "ssoc": "21492",
@@ -31205,7 +31370,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 2.22
   },
   {
     "ssoc": "21441",
@@ -31393,7 +31559,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 4.1
   },
   {
     "ssoc": "21531",
@@ -31581,7 +31748,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 1.08
   },
   {
     "ssoc": "24332",
@@ -31769,7 +31937,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "bls_proxy_employment": 5.72
   },
   {
     "ssoc": "22693",
@@ -31957,7 +32126,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "bls_proxy_employment": 0
   },
   {
     "ssoc": "21342",
@@ -32145,7 +32315,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 1.41
   },
   {
     "ssoc": "21346",
@@ -32333,7 +32504,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 1.41
   },
   {
     "ssoc": "26353",
@@ -32521,7 +32693,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 5.6
   },
   {
     "ssoc": "26361",
@@ -32709,7 +32882,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 2.81
   },
   {
     "ssoc": "21662",
@@ -32897,7 +33071,8 @@
       "regulatory_weight": 0.1,
       "physical_presence": 0.1,
       "tool_velocity": 0.85
-    }
+    },
+    "bls_proxy_employment": 2.47
   },
   {
     "ssoc": "25123",
@@ -33085,7 +33260,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.05,
       "tool_velocity": 0.95
-    }
+    },
+    "bls_proxy_employment": 0
   },
   {
     "ssoc": "21663",
@@ -33273,7 +33449,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 2.47
   },
   {
     "ssoc": "25220",
@@ -33461,7 +33638,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.05,
       "tool_velocity": 0.95
-    }
+    },
+    "bls_proxy_employment": 0
   },
   {
     "ssoc": "22652",
@@ -33649,7 +33827,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "bls_proxy_employment": 1.27
   },
   {
     "ssoc": "22144",
@@ -33837,7 +34016,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "bls_proxy_employment": 1.9
   },
   {
     "ssoc": "22631",
@@ -34025,7 +34205,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "bls_proxy_employment": 1.27
   },
   {
     "ssoc": "22680",
@@ -34213,7 +34394,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "bls_proxy_employment": 2.99
   },
   {
     "ssoc": "24352",
@@ -34401,7 +34583,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 12.04
   },
   {
     "ssoc": "21212",
@@ -34589,7 +34772,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 1.02
   },
   {
     "ssoc": "22145",
@@ -34777,7 +34961,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "bls_proxy_employment": 1.9
   },
   {
     "ssoc": "22670",
@@ -34965,7 +35150,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "bls_proxy_employment": 2.24
   },
   {
     "ssoc": "22135",
@@ -35153,7 +35339,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "bls_proxy_employment": 0.18
   },
   {
     "ssoc": "22148",
@@ -35341,7 +35528,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "bls_proxy_employment": 1.9
   },
   {
     "ssoc": "22126",
@@ -35529,7 +35717,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "bls_proxy_employment": 2.54
   },
   {
     "ssoc": "24233",
@@ -35717,7 +35906,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.2,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 7.07
   },
   {
     "ssoc": "22621",
@@ -35905,7 +36095,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "bls_proxy_employment": 4.69
   },
   {
     "ssoc": "21341",
@@ -36093,7 +36284,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 1.41
   },
   {
     "ssoc": "22640",
@@ -36281,7 +36473,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "bls_proxy_employment": 2.99
   },
   {
     "ssoc": "22692",
@@ -36469,7 +36662,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "bls_proxy_employment": 0
   },
   {
     "ssoc": "24220",
@@ -36657,7 +36851,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 9.76
   },
   {
     "ssoc": "21512",
@@ -36845,7 +37040,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 2.02
   },
   {
     "ssoc": "21415",
@@ -37033,7 +37229,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 5.16
   },
   {
     "ssoc": "21498",
@@ -37221,7 +37418,8 @@
       "regulatory_weight": 0.55,
       "physical_presence": 0.5,
       "tool_velocity": 0.4
-    }
+    },
+    "bls_proxy_employment": 2.22
   },
   {
     "ssoc": "26541",
@@ -37409,7 +37607,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 2.34
   },
   {
     "ssoc": "21632",
@@ -37597,7 +37796,8 @@
       "regulatory_weight": 0.1,
       "physical_presence": 0.1,
       "tool_velocity": 0.85
-    }
+    },
+    "bls_proxy_employment": 0.82
   },
   {
     "ssoc": "21412",
@@ -37785,7 +37985,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 5.16
   },
   {
     "ssoc": "22128",
@@ -37973,7 +38174,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "bls_proxy_employment": 2.54
   },
   {
     "ssoc": "24320",
@@ -38161,7 +38363,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 4.42
   },
   {
     "ssoc": "21414",
@@ -38349,7 +38552,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 5.16
   },
   {
     "ssoc": "21494",
@@ -38537,7 +38741,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 2.22
   },
   {
     "ssoc": "22694",
@@ -38725,7 +38930,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "bls_proxy_employment": 0
   },
   {
     "ssoc": "22200",
@@ -38913,7 +39119,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "bls_proxy_employment": 47.48
   },
   {
     "ssoc": "24291",
@@ -39101,7 +39308,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 8.73
   },
   {
     "ssoc": "24315",
@@ -39289,7 +39497,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 3.02
   },
   {
     "ssoc": "21475",
@@ -39477,7 +39686,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 1.11
   },
   {
     "ssoc": "24334",
@@ -39665,7 +39875,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "bls_proxy_employment": 5.72
   },
   {
     "ssoc": "26374",
@@ -39853,7 +40064,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 5.27
   },
   {
     "ssoc": "26412",
@@ -40041,7 +40253,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 1.9
   },
   {
     "ssoc": "24151",
@@ -40229,7 +40442,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 6.18
   },
   {
     "ssoc": "24141",
@@ -40417,7 +40631,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 3.54
   },
   {
     "ssoc": "25243",
@@ -40605,7 +40820,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.05,
       "tool_velocity": 0.95
-    }
+    },
+    "bls_proxy_employment": 0
   },
   {
     "ssoc": "21523",
@@ -40793,7 +41009,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 1.34
   },
   {
     "ssoc": "21670",
@@ -40981,7 +41198,8 @@
       "regulatory_weight": 0.1,
       "physical_presence": 0.1,
       "tool_velocity": 0.85
-    }
+    },
+    "bls_proxy_employment": 2.08
   },
   {
     "ssoc": "24362",
@@ -41169,7 +41387,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "bls_proxy_employment": 12.04
   },
   {
     "ssoc": "24353",
@@ -41357,7 +41576,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 12.04
   },
   {
     "ssoc": "26322",
@@ -41545,7 +41765,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 0.63
   },
   {
     "ssoc": "26351",
@@ -41733,7 +41954,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 5.6
   },
   {
     "ssoc": "25121",
@@ -41921,7 +42143,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.05,
       "tool_velocity": 0.95
-    }
+    },
+    "bls_proxy_employment": 0
   },
   {
     "ssoc": "22662",
@@ -42109,7 +42332,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "bls_proxy_employment": 2.62
   },
   {
     "ssoc": "21231",
@@ -42297,7 +42521,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 0.27
   },
   {
     "ssoc": "21221",
@@ -42485,7 +42710,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 0.51
   },
   {
     "ssoc": "25111",
@@ -42673,7 +42899,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 0
   },
   {
     "ssoc": "24113",
@@ -42861,7 +43088,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 22.12
   },
   {
     "ssoc": "23103",
@@ -43049,7 +43277,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "bls_proxy_employment": 1.44
   },
   {
     "ssoc": "24331",
@@ -43237,7 +43466,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "bls_proxy_employment": 5.72
   },
   {
     "ssoc": "26414",
@@ -43425,7 +43655,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 1.9
   },
   {
     "ssoc": "23300",
@@ -43613,7 +43844,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "bls_proxy_employment": 11.39
   },
   {
     "ssoc": "21532",
@@ -43801,7 +44033,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 1.08
   },
   {
     "ssoc": "24361",
@@ -43989,7 +44222,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 12.04
   },
   {
     "ssoc": "22301",
@@ -44177,7 +44411,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "bls_proxy_employment": 1.31
   },
   {
     "ssoc": "24240",
@@ -44365,7 +44600,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 3.92
   },
   {
     "ssoc": "26431",
@@ -44553,7 +44789,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 1.05
   },
   {
     "ssoc": "24134",
@@ -44741,7 +44978,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 5.16
   },
   {
     "ssoc": "23101",
@@ -44929,7 +45167,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "bls_proxy_employment": 1.44
   },
   {
     "ssoc": "21641",
@@ -45117,7 +45356,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 1.08
   },
   {
     "ssoc": "22138",
@@ -45305,7 +45545,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "bls_proxy_employment": 0.18
   },
   {
     "ssoc": "22500",
@@ -45493,7 +45734,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "bls_proxy_employment": 1.21
   },
   {
     "ssoc": "25122",
@@ -45681,7 +45923,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.05,
       "tool_velocity": 0.95
-    }
+    },
+    "bls_proxy_employment": 0
   },
   {
     "ssoc": "33392",
@@ -45869,7 +46112,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "bls_proxy_employment": 18.37
   },
   {
     "ssoc": "31211",
@@ -46057,7 +46301,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.03
   },
   {
     "ssoc": "33222",
@@ -46245,7 +46490,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "bls_proxy_employment": 8.67
   },
   {
     "ssoc": "31594",
@@ -46433,7 +46679,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.18
   },
   {
     "ssoc": "33611",
@@ -46621,7 +46868,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "bls_proxy_employment": 9.7
   },
   {
     "ssoc": "31571",
@@ -46809,7 +47057,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.27
   },
   {
     "ssoc": "31152",
@@ -46997,7 +47246,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.58
   },
   {
     "ssoc": "33151",
@@ -47185,7 +47435,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "bls_proxy_employment": 0
   },
   {
     "ssoc": "31184",
@@ -47373,7 +47624,8 @@
       "regulatory_weight": 0.1,
       "physical_presence": 0.1,
       "tool_velocity": 0.85
-    }
+    },
+    "bls_proxy_employment": 0.26
   },
   {
     "ssoc": "36202",
@@ -47561,7 +47813,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "bls_proxy_employment": 1.44
   },
   {
     "ssoc": "33152",
@@ -47749,7 +48002,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "bls_proxy_employment": 0
   },
   {
     "ssoc": "33131",
@@ -47937,7 +48191,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 24.07
   },
   {
     "ssoc": "31001",
@@ -48125,7 +48380,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.23
   },
   {
     "ssoc": "31002",
@@ -48313,7 +48569,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.23
   },
   {
     "ssoc": "31003",
@@ -48501,7 +48758,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.23
   },
   {
     "ssoc": "31006",
@@ -48689,7 +48947,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.23
   },
   {
     "ssoc": "31004",
@@ -48877,7 +49136,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.23
   },
   {
     "ssoc": "34210",
@@ -49065,7 +49325,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "bls_proxy_employment": 1.51
   },
   {
     "ssoc": "31143",
@@ -49253,7 +49514,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.63
   },
   {
     "ssoc": "33132",
@@ -49441,7 +49703,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "bls_proxy_employment": 24.07
   },
   {
     "ssoc": "31174",
@@ -49629,7 +49892,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.03
   },
   {
     "ssoc": "31212",
@@ -49817,7 +50081,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.03
   },
   {
     "ssoc": "31122",
@@ -50005,7 +50270,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.57
   },
   {
     "ssoc": "33221",
@@ -50193,7 +50459,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "bls_proxy_employment": 8.67
   },
   {
     "ssoc": "33231",
@@ -50381,7 +50648,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "bls_proxy_employment": 12.3
   },
   {
     "ssoc": "34341",
@@ -50569,7 +50837,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 1.55
   },
   {
     "ssoc": "31161",
@@ -50757,7 +51026,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.87
   },
   {
     "ssoc": "31163",
@@ -50945,7 +51215,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.87
   },
   {
     "ssoc": "31111",
@@ -51133,7 +51404,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.07
   },
   {
     "ssoc": "31121",
@@ -51321,7 +51593,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.57
   },
   {
     "ssoc": "31183",
@@ -51509,7 +51782,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.26
   },
   {
     "ssoc": "33311",
@@ -51697,7 +51971,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "bls_proxy_employment": 4.55
   },
   {
     "ssoc": "31412",
@@ -51885,7 +52160,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.26
   },
   {
     "ssoc": "32530",
@@ -52073,7 +52349,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 2.72
   },
   {
     "ssoc": "35110",
@@ -52261,7 +52538,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "bls_proxy_employment": 2.33
   },
   {
     "ssoc": "33493",
@@ -52449,7 +52727,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "bls_proxy_employment": 21.06
   },
   {
     "ssoc": "32143",
@@ -52637,7 +52916,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.16
   },
   {
     "ssoc": "31131",
@@ -52825,7 +53105,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.83
   },
   {
     "ssoc": "31182",
@@ -53013,7 +53294,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.26
   },
   {
     "ssoc": "31141",
@@ -53201,7 +53483,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.63
   },
   {
     "ssoc": "33330",
@@ -53389,7 +53672,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "bls_proxy_employment": 1.45
   },
   {
     "ssoc": "32200",
@@ -53577,7 +53861,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "bls_proxy_employment": 15.95
   },
   {
     "ssoc": "32571",
@@ -53765,7 +54050,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 2.72
   },
   {
     "ssoc": "33320",
@@ -53953,7 +54239,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "bls_proxy_employment": 3.67
   },
   {
     "ssoc": "33121",
@@ -54141,7 +54428,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 2.54
   },
   {
     "ssoc": "31711",
@@ -54329,7 +54617,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.25
   },
   {
     "ssoc": "31593",
@@ -54517,7 +54806,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.18
   },
   {
     "ssoc": "31522",
@@ -54705,7 +54995,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.49
   },
   {
     "ssoc": "36203",
@@ -54893,7 +55184,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "bls_proxy_employment": 1.44
   },
   {
     "ssoc": "31144",
@@ -55081,7 +55373,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.63
   },
   {
     "ssoc": "33211",
@@ -55269,7 +55562,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "bls_proxy_employment": 3.91
   },
   {
     "ssoc": "34321",
@@ -55457,7 +55751,8 @@
       "regulatory_weight": 0.1,
       "physical_presence": 0.1,
       "tool_velocity": 0.85
-    }
+    },
+    "bls_proxy_employment": 0.89
   },
   {
     "ssoc": "33393",
@@ -55645,7 +55940,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "bls_proxy_employment": 18.37
   },
   {
     "ssoc": "35121",
@@ -55833,7 +56129,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "bls_proxy_employment": 6.72
   },
   {
     "ssoc": "35122",
@@ -56021,7 +56318,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "bls_proxy_employment": 6.72
   },
   {
     "ssoc": "35123",
@@ -56209,7 +56507,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "bls_proxy_employment": 6.72
   },
   {
     "ssoc": "34342",
@@ -56397,7 +56696,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "bls_proxy_employment": 1.55
   },
   {
     "ssoc": "31123",
@@ -56585,7 +56885,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.57
   },
   {
     "ssoc": "31602",
@@ -56773,7 +57074,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 14.13
   },
   {
     "ssoc": "36201",
@@ -56961,7 +57263,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "bls_proxy_employment": 1.44
   },
   {
     "ssoc": "34110",
@@ -57149,7 +57452,8 @@
       "regulatory_weight": 0.95,
       "physical_presence": 0.15,
       "tool_velocity": 0.3
-    }
+    },
+    "bls_proxy_employment": 5.73
   },
   {
     "ssoc": "34331",
@@ -57337,7 +57641,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "bls_proxy_employment": 1.33
   },
   {
     "ssoc": "31132",
@@ -57525,7 +57830,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.83
   },
   {
     "ssoc": "31595",
@@ -57713,7 +58019,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.18
   },
   {
     "ssoc": "33461",
@@ -57901,7 +58208,8 @@
       "regulatory_weight": 0.55,
       "physical_presence": 0.5,
       "tool_velocity": 0.4
-    }
+    },
+    "bls_proxy_employment": 4.8
   },
   {
     "ssoc": "31153",
@@ -58089,7 +58397,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.58
   },
   {
     "ssoc": "33462",
@@ -58277,7 +58586,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "bls_proxy_employment": 4.8
   },
   {
     "ssoc": "33491",
@@ -58465,7 +58775,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "bls_proxy_employment": 21.06
   },
   {
     "ssoc": "31171",
@@ -58653,7 +58964,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.03
   },
   {
     "ssoc": "31185",
@@ -58841,7 +59153,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.26
   },
   {
     "ssoc": "31510",
@@ -59029,7 +59342,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.62
   },
   {
     "ssoc": "31213",
@@ -59217,7 +59531,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.03
   },
   {
     "ssoc": "33223",
@@ -59405,7 +59720,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "bls_proxy_employment": 8.67
   },
   {
     "ssoc": "34222",
@@ -59593,7 +59909,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "bls_proxy_employment": 4.67
   },
   {
     "ssoc": "32551",
@@ -59781,7 +60098,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "bls_proxy_employment": 2.76
   },
   {
     "ssoc": "31181",
@@ -59969,7 +60287,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.26
   },
   {
     "ssoc": "31151",
@@ -60157,7 +60476,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.58
   },
   {
     "ssoc": "35211",
@@ -60345,7 +60665,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "bls_proxy_employment": 0.89
   },
   {
     "ssoc": "32120",
@@ -60533,7 +60854,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0
   },
   {
     "ssoc": "32112",
@@ -60721,7 +61043,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 2.23
   },
   {
     "ssoc": "33225",
@@ -60909,7 +61232,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "bls_proxy_employment": 8.67
   },
   {
     "ssoc": "36204",
@@ -61097,7 +61421,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "bls_proxy_employment": 1.44
   },
   {
     "ssoc": "39910",
@@ -61285,7 +61610,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.35
   },
   {
     "ssoc": "32572",
@@ -61473,7 +61799,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 2.72
   },
   {
     "ssoc": "33224",
@@ -61661,7 +61988,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "bls_proxy_employment": 8.67
   },
   {
     "ssoc": "33492",
@@ -61849,7 +62177,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "bls_proxy_employment": 21.06
   },
   {
     "ssoc": "32540",
@@ -62037,7 +62366,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.67
   },
   {
     "ssoc": "32591",
@@ -62225,7 +62555,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 2.72
   },
   {
     "ssoc": "34343",
@@ -62413,7 +62744,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 1.55
   },
   {
     "ssoc": "32130",
@@ -62601,7 +62933,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.97
   },
   {
     "ssoc": "34310",
@@ -62789,7 +63122,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "bls_proxy_employment": 2.3
   },
   {
     "ssoc": "34223",
@@ -62977,7 +63311,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "bls_proxy_employment": 4.67
   },
   {
     "ssoc": "31574",
@@ -63165,7 +63500,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.27
   },
   {
     "ssoc": "31601",
@@ -63353,7 +63689,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 14.13
   },
   {
     "ssoc": "36100",
@@ -63541,7 +63878,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "bls_proxy_employment": 5.12
   },
   {
     "ssoc": "36910",
@@ -63729,7 +64067,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 2.34
   },
   {
     "ssoc": "31173",
@@ -63917,7 +64256,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.03
   },
   {
     "ssoc": "31172",
@@ -64105,7 +64445,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.03
   },
   {
     "ssoc": "33232",
@@ -64293,7 +64634,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "bls_proxy_employment": 12.3
   },
   {
     "ssoc": "31175",
@@ -64481,7 +64823,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.03
   },
   {
     "ssoc": "33340",
@@ -64669,7 +65012,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "bls_proxy_employment": 4.06
   },
   {
     "ssoc": "36991",
@@ -64857,7 +65201,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "bls_proxy_employment": 2.34
   },
   {
     "ssoc": "31124",
@@ -65045,7 +65390,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.57
   },
   {
     "ssoc": "31597",
@@ -65233,7 +65579,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.18
   },
   {
     "ssoc": "31214",
@@ -65421,7 +65768,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.03
   },
   {
     "ssoc": "33394",
@@ -65609,7 +65957,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "bls_proxy_employment": 18.37
   },
   {
     "ssoc": "31720",
@@ -65797,7 +66146,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.27
   },
   {
     "ssoc": "31142",
@@ -65985,7 +66335,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.63
   },
   {
     "ssoc": "33312",
@@ -66173,7 +66524,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "bls_proxy_employment": 4.55
   },
   {
     "ssoc": "34122",
@@ -66361,7 +66713,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "bls_proxy_employment": 3.92
   },
   {
     "ssoc": "32111",
@@ -66549,7 +66902,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 2.23
   },
   {
     "ssoc": "34221",
@@ -66737,7 +67091,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "bls_proxy_employment": 4.67
   },
   {
     "ssoc": "33133",
@@ -66925,7 +67280,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "bls_proxy_employment": 24.07
   },
   {
     "ssoc": "35220",
@@ -67113,7 +67469,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "bls_proxy_employment": 2.39
   },
   {
     "ssoc": "31596",
@@ -67301,7 +67658,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.18
   },
   {
     "ssoc": "31572",
@@ -67489,7 +67847,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.27
   },
   {
     "ssoc": "32400",
@@ -67677,7 +68036,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 2.72
   },
   {
     "ssoc": "35212",
@@ -67865,7 +68225,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "bls_proxy_employment": 0.89
   },
   {
     "ssoc": "34323",
@@ -68053,7 +68414,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "bls_proxy_employment": 0.89
   },
   {
     "ssoc": "34123",
@@ -68241,7 +68603,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "bls_proxy_employment": 3.92
   },
   {
     "ssoc": "35140",
@@ -68429,7 +68792,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "bls_proxy_employment": 4.25
   },
   {
     "ssoc": "34121",
@@ -68617,7 +68981,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "bls_proxy_employment": 3.92
   },
   {
     "ssoc": "43233",
@@ -68805,7 +69170,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.25
   },
   {
     "ssoc": "43113",
@@ -68993,7 +69359,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 11.59
   },
   {
     "ssoc": "43121",
@@ -69181,7 +69548,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 2.12
   },
   {
     "ssoc": "42111",
@@ -69369,7 +69737,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "bls_proxy_employment": 2.49
   },
   {
     "ssoc": "42141",
@@ -69557,7 +69926,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "bls_proxy_employment": 11.59
   },
   {
     "ssoc": "43115",
@@ -69745,7 +70115,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 11.59
   },
   {
     "ssoc": "43111",
@@ -69933,7 +70304,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 11.59
   },
   {
     "ssoc": "42246",
@@ -70121,7 +70493,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "bls_proxy_employment": 0.64
   },
   {
     "ssoc": "42245",
@@ -70309,7 +70682,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "bls_proxy_employment": 0.64
   },
   {
     "ssoc": "41320",
@@ -70497,7 +70871,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 0.65
   },
   {
     "ssoc": "43151",
@@ -70685,7 +71060,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "bls_proxy_employment": 0.65
   },
   {
     "ssoc": "43142",
@@ -70873,7 +71249,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.61
   },
   {
     "ssoc": "42247",
@@ -71061,7 +71438,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "bls_proxy_employment": 0.64
   },
   {
     "ssoc": "42242",
@@ -71249,7 +71627,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 0.64
   },
   {
     "ssoc": "43122",
@@ -71437,7 +71816,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 2.12
   },
   {
     "ssoc": "43232",
@@ -71625,7 +72005,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.25
   },
   {
     "ssoc": "43112",
@@ -71813,7 +72194,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 11.59
   },
   {
     "ssoc": "44170",
@@ -72001,7 +72383,8 @@
       "regulatory_weight": 0.95,
       "physical_presence": 0.15,
       "tool_velocity": 0.3
-    }
+    },
+    "bls_proxy_employment": 1.82
   },
   {
     "ssoc": "44110",
@@ -72189,7 +72572,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.56
   },
   {
     "ssoc": "43221",
@@ -72377,7 +72761,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 4.49
   },
   {
     "ssoc": "42243",
@@ -72565,7 +72950,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 0.64
   },
   {
     "ssoc": "42113",
@@ -72753,7 +73139,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "bls_proxy_employment": 2.49
   },
   {
     "ssoc": "41101",
@@ -72941,7 +73328,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "bls_proxy_employment": 19
   },
   {
     "ssoc": "40000",
@@ -73129,7 +73517,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 11.19
   },
   {
     "ssoc": "42244",
@@ -73317,7 +73706,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "bls_proxy_employment": 0.64
   },
   {
     "ssoc": "42131",
@@ -73505,7 +73895,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "bls_proxy_employment": 11.59
   },
   {
     "ssoc": "43114",
@@ -73693,7 +74084,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 11.59
   },
   {
     "ssoc": "41102",
@@ -73881,7 +74273,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.2,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 19
   },
   {
     "ssoc": "42112",
@@ -74069,7 +74462,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "bls_proxy_employment": 2.49
   },
   {
     "ssoc": "44122",
@@ -74257,7 +74651,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.61
   },
   {
     "ssoc": "43116",
@@ -74445,7 +74840,8 @@
       "regulatory_weight": 0.55,
       "physical_presence": 0.5,
       "tool_velocity": 0.4
-    }
+    },
+    "bls_proxy_employment": 11.59
   },
   {
     "ssoc": "43222",
@@ -74633,7 +75029,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 4.49
   },
   {
     "ssoc": "44191",
@@ -74821,7 +75218,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.67
   },
   {
     "ssoc": "42241",
@@ -75009,7 +75407,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 0.64
   },
   {
     "ssoc": "41201",
@@ -75197,7 +75596,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "bls_proxy_employment": 7.23
   },
   {
     "ssoc": "43123",
@@ -75385,7 +75785,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 2.12
   },
   {
     "ssoc": "43231",
@@ -75573,7 +75974,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.25
   },
   {
     "ssoc": "43141",
@@ -75761,7 +76163,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.61
   },
   {
     "ssoc": "43211",
@@ -75949,7 +76352,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 6.19
   },
   {
     "ssoc": "43212",
@@ -76137,7 +76541,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 6.19
   },
   {
     "ssoc": "42230",
@@ -76325,7 +76730,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "bls_proxy_employment": 0.94
   },
   {
     "ssoc": "42210",
@@ -76513,7 +76919,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "bls_proxy_employment": 0.28
   },
   {
     "ssoc": "41310",
@@ -76701,7 +77108,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "bls_proxy_employment": 0.05
   },
   {
     "ssoc": "51132",
@@ -76889,7 +77297,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 0
   },
   {
     "ssoc": "54123",
@@ -77077,7 +77486,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 1.77
   },
   {
     "ssoc": "51322",
@@ -77265,7 +77675,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 2.42
   },
   {
     "ssoc": "51321",
@@ -77453,7 +77864,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 2.42
   },
   {
     "ssoc": "51421",
@@ -77641,7 +78053,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 0.45
   },
   {
     "ssoc": "51702",
@@ -77829,7 +78242,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 0.11
   },
   {
     "ssoc": "51112",
@@ -78017,7 +78431,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 0.34
   },
   {
     "ssoc": "52301",
@@ -78205,7 +78620,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 27.52
   },
   {
     "ssoc": "51311",
@@ -78393,7 +78809,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 6.6
   },
   {
     "ssoc": "52302",
@@ -78581,7 +78998,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 27.52
   },
   {
     "ssoc": "51111",
@@ -78769,7 +79187,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 0.34
   },
   {
     "ssoc": "53113",
@@ -78957,7 +79376,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 8.64
   },
   {
     "ssoc": "51201",
@@ -79145,7 +79565,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 11.66
   },
   {
     "ssoc": "53203",
@@ -79333,7 +79754,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 5.2
   },
   {
     "ssoc": "51950",
@@ -79521,7 +79943,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "bls_proxy_employment": 3.23
   },
   {
     "ssoc": "53115",
@@ -79709,7 +80132,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 8.64
   },
   {
     "ssoc": "52492",
@@ -79897,7 +80321,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 1.07
   },
   {
     "ssoc": "51411",
@@ -80085,7 +80510,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 2.84
   },
   {
     "ssoc": "53201",
@@ -80273,7 +80699,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 5.2
   },
   {
     "ssoc": "51502",
@@ -80461,7 +80888,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 2.16
   },
   {
     "ssoc": "51501",
@@ -80649,7 +81077,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 2.16
   },
   {
     "ssoc": "51503",
@@ -80837,7 +81266,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 2.16
   },
   {
     "ssoc": "54193",
@@ -81025,7 +81455,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 0.73
   },
   {
     "ssoc": "51942",
@@ -81213,7 +81644,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "bls_proxy_employment": 3.42
   },
   {
     "ssoc": "54150",
@@ -81401,7 +81833,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 1.3
   },
   {
     "ssoc": "51422",
@@ -81589,7 +82022,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 0.45
   },
   {
     "ssoc": "51491",
@@ -81777,7 +82211,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 1.16
   },
   {
     "ssoc": "53202",
@@ -81965,7 +82400,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 5.2
   },
   {
     "ssoc": "52491",
@@ -82153,7 +82589,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 1.07
   },
   {
     "ssoc": "54144",
@@ -82341,7 +82778,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 11
   },
   {
     "ssoc": "51121",
@@ -82529,7 +82967,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 0.09
   },
   {
     "ssoc": "52421",
@@ -82717,7 +83156,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "bls_proxy_employment": 0.06
   },
   {
     "ssoc": "52201",
@@ -82905,7 +83345,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "bls_proxy_employment": 23.4
   },
   {
     "ssoc": "52422",
@@ -83093,7 +83534,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "bls_proxy_employment": 0.06
   },
   {
     "ssoc": "54142",
@@ -83281,7 +83723,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 11
   },
   {
     "ssoc": "51202",
@@ -83469,7 +83912,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 11.66
   },
   {
     "ssoc": "54143",
@@ -83657,7 +84101,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 11
   },
   {
     "ssoc": "54141",
@@ -83845,7 +84290,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 11
   },
   {
     "ssoc": "52202",
@@ -84033,7 +84479,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "bls_proxy_employment": 23.4
   },
   {
     "ssoc": "51492",
@@ -84221,7 +84668,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 1.16
   },
   {
     "ssoc": "53120",
@@ -84409,7 +84857,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "bls_proxy_employment": 0
   },
   {
     "ssoc": "52440",
@@ -84597,7 +85046,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 0.59
   },
   {
     "ssoc": "51131",
@@ -84785,7 +85235,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 0
   },
   {
     "ssoc": "51931",
@@ -84973,7 +85424,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 0.24
   },
   {
     "ssoc": "51312",
@@ -85161,7 +85613,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 6.6
   },
   {
     "ssoc": "62212",
@@ -85349,7 +85802,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0
   },
   {
     "ssoc": "61133",
@@ -85537,7 +85991,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 27.3
   },
   {
     "ssoc": "61131",
@@ -85725,7 +86180,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "bls_proxy_employment": 27.3
   },
   {
     "ssoc": "71271",
@@ -85913,7 +86369,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.46
   },
   {
     "ssoc": "72310",
@@ -86101,7 +86558,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 3.85
   },
   {
     "ssoc": "75121",
@@ -86289,7 +86747,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.19
   },
   {
     "ssoc": "71331",
@@ -86477,7 +86936,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0
   },
   {
     "ssoc": "71311",
@@ -86665,7 +87125,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.13
   },
   {
     "ssoc": "75110",
@@ -86853,7 +87314,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.94
   },
   {
     "ssoc": "71151",
@@ -87041,7 +87503,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 4.58
   },
   {
     "ssoc": "74121",
@@ -87229,7 +87692,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.75
   },
   {
     "ssoc": "74123",
@@ -87417,7 +87881,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.75
   },
   {
     "ssoc": "74122",
@@ -87605,7 +88070,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.75
   },
   {
     "ssoc": "74110",
@@ -87793,7 +88259,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 3.91
   },
   {
     "ssoc": "71220",
@@ -87981,7 +88448,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.14
   },
   {
     "ssoc": "75440",
@@ -88169,7 +88637,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.47
   },
   {
     "ssoc": "72392",
@@ -88357,7 +88826,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.19
   },
   {
     "ssoc": "71152",
@@ -88545,7 +89015,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 4.58
   },
   {
     "ssoc": "74001",
@@ -88733,7 +89204,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 2.95
   },
   {
     "ssoc": "72222",
@@ -88921,7 +89393,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.26
   },
   {
     "ssoc": "72391",
@@ -89109,7 +89582,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.19
   },
   {
     "ssoc": "73113",
@@ -89297,7 +89771,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.17
   },
   {
     "ssoc": "72110",
@@ -89485,7 +89960,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.26
   },
   {
     "ssoc": "75122",
@@ -89673,7 +90149,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.19
   },
   {
     "ssoc": "71261",
@@ -89861,7 +90338,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.29
   },
   {
     "ssoc": "73210",
@@ -90049,7 +90527,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.42
   },
   {
     "ssoc": "71000",
@@ -90237,7 +90716,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 4.4
   },
   {
     "ssoc": "74002",
@@ -90425,7 +90905,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 2.95
   },
   {
     "ssoc": "75000",
@@ -90613,7 +91094,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 3.34
   },
   {
     "ssoc": "72000",
@@ -90801,7 +91283,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 3.34
   },
   {
     "ssoc": "73000",
@@ -90989,7 +91472,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 3.34
   },
   {
     "ssoc": "75310",
@@ -91177,7 +91661,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.03
   },
   {
     "ssoc": "72221",
@@ -91365,7 +91850,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.26
   },
   {
     "ssoc": "75410",
@@ -91553,7 +92039,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.2
   },
   {
     "ssoc": "73111",
@@ -91741,7 +92228,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.17
   },
   {
     "ssoc": "72120",
@@ -91929,7 +92417,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 2.18
   },
   {
     "ssoc": "83492",
@@ -92117,7 +92606,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 3.18
   },
   {
     "ssoc": "83224",
@@ -92305,7 +92795,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.89
   },
   {
     "ssoc": "83311",
@@ -92493,7 +92984,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 12.86
   },
   {
     "ssoc": "83222",
@@ -92681,7 +93173,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.89
   },
   {
     "ssoc": "83323",
@@ -92869,7 +93362,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 10.42
   },
   {
     "ssoc": "83432",
@@ -93057,7 +93551,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 3.09
   },
   {
     "ssoc": "83431",
@@ -93245,7 +93740,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 3.09
   },
   {
     "ssoc": "81602",
@@ -93433,7 +93929,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.58
   },
   {
     "ssoc": "83502",
@@ -93621,7 +94118,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.28
   },
   {
     "ssoc": "83212",
@@ -93809,7 +94307,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 10.42
   },
   {
     "ssoc": "82122",
@@ -93997,7 +94496,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.09
   },
   {
     "ssoc": "83421",
@@ -94185,7 +94685,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.17
   },
   {
     "ssoc": "83441",
@@ -94373,7 +94874,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 13.19
   },
   {
     "ssoc": "83321",
@@ -94561,7 +95063,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 10.42
   },
   {
     "ssoc": "82110",
@@ -94749,7 +95252,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.26
   },
   {
     "ssoc": "82132",
@@ -94937,7 +95441,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 3.46
   },
   {
     "ssoc": "81220",
@@ -95125,7 +95630,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.1
   },
   {
     "ssoc": "81210",
@@ -95313,7 +95819,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1
   },
   {
     "ssoc": "81251",
@@ -95501,7 +96008,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.75
   },
   {
     "ssoc": "83000",
@@ -95689,7 +96197,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.08
   },
   {
     "ssoc": "83211",
@@ -95877,7 +96386,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 10.42
   },
   {
     "ssoc": "81830",
@@ -96065,7 +96575,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 2.96
   },
   {
     "ssoc": "83225",
@@ -96253,7 +96764,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.89
   },
   {
     "ssoc": "83501",
@@ -96441,7 +96953,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.28
   },
   {
     "ssoc": "81252",
@@ -96629,7 +97142,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.75
   },
   {
     "ssoc": "81841",
@@ -96817,7 +97331,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.68
   },
   {
     "ssoc": "81501",
@@ -97005,7 +97520,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.96
   },
   {
     "ssoc": "81000",
@@ -97193,7 +97709,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 5.42
   },
   {
     "ssoc": "82000",
@@ -97381,7 +97898,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 5.42
   },
   {
     "ssoc": "83322",
@@ -97569,7 +98087,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 10.42
   },
   {
     "ssoc": "83110",
@@ -97757,7 +98276,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.12
   },
   {
     "ssoc": "83223",
@@ -97945,7 +98465,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.89
   },
   {
     "ssoc": "83324",
@@ -98133,7 +98654,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 10.42
   },
   {
     "ssoc": "93333",
@@ -98321,7 +98843,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 12.83
   },
   {
     "ssoc": "96211",
@@ -98509,7 +99032,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.69
   },
   {
     "ssoc": "96212",
@@ -98697,7 +99221,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.69
   },
   {
     "ssoc": "96261",
@@ -98885,7 +99410,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 7.96
   },
   {
     "ssoc": "96256",
@@ -99073,7 +99599,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.04
   },
   {
     "ssoc": "96254",
@@ -99261,7 +99788,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.04
   },
   {
     "ssoc": "93100",
@@ -99449,7 +99977,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.18
   },
   {
     "ssoc": "91000",
@@ -99637,7 +100166,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.06
   },
   {
     "ssoc": "96272",
@@ -99825,7 +100355,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.2
   },
   {
     "ssoc": "91153",
@@ -100013,7 +100544,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 3.94
   },
   {
     "ssoc": "96262",
@@ -100201,7 +100733,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 7.96
   },
   {
     "ssoc": "94103",
@@ -100389,7 +100922,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 2.86
   },
   {
     "ssoc": "91151",
@@ -100577,7 +101111,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 3.94
   },
   {
     "ssoc": "94102",
@@ -100765,7 +101300,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 2.86
   },
   {
     "ssoc": "96111",
@@ -100953,7 +101489,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.64
   },
   {
     "ssoc": "91210",
@@ -101141,7 +101678,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.76
   },
   {
     "ssoc": "93201",
@@ -101329,7 +101867,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 7.69
   },
   {
     "ssoc": "96253",
@@ -101517,7 +102056,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.04
   },
   {
     "ssoc": "91122",
@@ -101705,7 +102245,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 8.17
   },
   {
     "ssoc": "91121",
@@ -101893,7 +102434,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 8.17
   },
   {
     "ssoc": "94101",
@@ -102081,7 +102623,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 2.86
   },
   {
     "ssoc": "96252",
@@ -102269,7 +102812,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.04
   },
   {
     "ssoc": "92142",
@@ -102457,7 +103001,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 2.62
   },
   {
     "ssoc": "96291",
@@ -102645,7 +103190,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.12
   },
   {
     "ssoc": "91220",
@@ -102833,7 +103379,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 2.54
   },
   {
     "ssoc": "93336",
@@ -103021,7 +103568,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 12.83
   },
   {
     "ssoc": "96293",
@@ -103209,7 +103757,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.12
   },
   {
     "ssoc": "91131",
@@ -103397,7 +103946,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 8.17
   },
   {
     "ssoc": "91133",
@@ -103585,7 +104135,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 8.17
   },
   {
     "ssoc": "91132",
@@ -103773,7 +104324,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 8.17
   },
   {
     "ssoc": "96251",
@@ -103961,7 +104513,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.04
   },
   {
     "ssoc": "96213",
@@ -104149,7 +104702,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.69
   },
   {
     "ssoc": "91161",
@@ -104337,7 +104891,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 7.82
   },
   {
     "ssoc": "96255",
@@ -104525,7 +105080,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 1.04
   },
   {
     "ssoc": "91152",
@@ -104713,7 +105269,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 3.94
   },
   {
     "ssoc": "94104",
@@ -104901,7 +105458,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "bls_proxy_employment": 2.86
   },
   {
     "ssoc": "92141",
@@ -105089,7 +105647,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 2.62
   },
   {
     "ssoc": "93335",
@@ -105277,7 +105836,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 12.83
   },
   {
     "ssoc": "93334",
@@ -105465,7 +106025,8 @@
       "regulatory_weight": 0.55,
       "physical_presence": 0.5,
       "tool_velocity": 0.4
-    }
+    },
+    "bls_proxy_employment": 12.83
   },
   {
     "ssoc": "96112",
@@ -105653,6 +106214,7 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "bls_proxy_employment": 0.64
   }
 ]
