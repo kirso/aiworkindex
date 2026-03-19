@@ -31,7 +31,7 @@ export interface ScoredRole {
 	augmentation: number;
 	augmentation_band: AugmentationBand;
 	impact_type: ImpactType;
-	confidence: 'medium';
+	confidence: 'high' | 'medium' | 'low';
 	/** Standard deviation of component net_risk scores — measures estimate spread */
 	dispersion: number;
 	/** Risk range: [optimistic, pessimistic] based on component spread */
@@ -1005,7 +1005,12 @@ export function computeRoleScores(
 		exposure * (1 - bottleneck) * (1 - MARKET_CONSTANTS.max_modifier_effect * market_resilience);
 	const risk_band = getRiskBand(net_risk);
 	const augmentation_band = computeAugmentationBand(augmentation);
-	const impact_type = classifyImpactType(net_risk, augmentation);
+
+	// Inherit demand signal from components: if ANY component has SOL/JiD match, role inherits it
+	const hasDemandSignal = validComponents.some(
+		(c) => c.occupation!.evidence.sol_match || c.occupation!.evidence.jobs_in_demand_match
+	);
+	const impact_type = classifyImpactType(net_risk, augmentation, hasDemandSignal);
 
 	// Compute dispersion: stddev of component net_risk values
 	const componentRisks = validComponents.map((c) => c.occupation!.net_risk);
@@ -1017,6 +1022,14 @@ export function computeRoleScores(
 	// Risk range based on dispersion
 	const optimistic = Math.max(0, net_risk - dispersion);
 	const pessimistic = Math.min(1, net_risk + dispersion);
+
+	// Dynamic confidence based on dispersion and component count
+	const confidence: 'high' | 'medium' | 'low' =
+		dispersion < 0.05 && validComponents.length >= 3
+			? 'medium'
+			: dispersion >= 0.15
+				? 'low'
+				: 'medium';
 
 	return {
 		slug: role.slug,
@@ -1031,7 +1044,7 @@ export function computeRoleScores(
 		augmentation,
 		augmentation_band,
 		impact_type,
-		confidence: 'medium',
+		confidence,
 		dispersion,
 		risk_range: { optimistic, pessimistic },
 		components: resolvedComponents
