@@ -59,8 +59,10 @@ interface Occupation {
 		anthropic_gap: number | null;
 		sol_match: 'exact' | 'prefix' | false;
 		jobs_in_demand_match: 'exact' | 'prefix' | false;
+		exposure_blend_strategy?: string;
 		exposure_agreement?: string | null;
 		exposure_source_count?: number;
+		exposure_source_weights?: Record<string, number>;
 		signal_conflict?: boolean;
 		signal_conflict_reasons?: string[];
 	};
@@ -103,8 +105,10 @@ const columns = [
 	'anthropic_gap',
 	'sol_match',
 	'jobs_in_demand_match',
+	'exposure_blend_strategy',
 	'exposure_agreement',
 	'exposure_source_count',
+	'exposure_source_weights',
 	'signal_conflict',
 	'signal_conflict_reasons',
 	'confidence_level',
@@ -154,8 +158,12 @@ const rows = occupations.map(o => [
 	o.evidence.anthropic_gap ?? '',
 	o.evidence.sol_match,
 	o.evidence.jobs_in_demand_match,
+	o.evidence.exposure_blend_strategy ?? '',
 	o.evidence.exposure_agreement ?? '',
 	o.evidence.exposure_source_count ?? '',
+	Object.entries(o.evidence.exposure_source_weights ?? {})
+		.map(([key, value]) => `${key}:${value.toFixed(4)}`)
+		.join('|'),
 	o.evidence.signal_conflict ?? false,
 	(o.evidence.signal_conflict_reasons ?? []).join('|'),
 	o.confidence.level,

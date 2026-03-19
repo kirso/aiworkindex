@@ -42,10 +42,12 @@ import {
 	CONFIDENCE_COMPONENT_WEIGHTS,
 	CONFIDENCE_PENALTIES,
 	SOURCE_COVERAGE_SCORES,
+	EXPOSURE_SOURCE_METADATA,
 	SIGNAL_AGREEMENT_SCORES,
 	SENSITIVITY_SCORES,
 	SIGNAL_CONFLICT_THRESHOLDS,
-	classifyExposureAgreement
+	classifyExposureAgreement,
+	normalizeExposureSourceWeights
 } from '../src/lib/data/scoring-constants';
 import {
 	occupationDataBasisTemplate,
@@ -215,6 +217,7 @@ interface EvidenceSignals {
 	anthropic_observed_pctile: number | null;
 	sol_match: 'exact' | 'prefix' | false;
 	jobs_in_demand_match: 'exact' | 'prefix' | false;
+	exposure_blend_strategy: 'reliability_weighted';
 	exposure_agreement:
 		| 'consensus_high'
 		| 'consensus_low'
@@ -223,6 +226,7 @@ interface EvidenceSignals {
 		| 'insufficient_data';
 	exposure_source_count: number;
 	exposure_source_keys: string[];
+	exposure_source_weights: Partial<Record<'aioe' | 'anthropic' | 'eloundou' | 'ilo', number>>;
 	signal_conflict: boolean;
 	signal_conflict_reasons: string[];
 }
@@ -1584,9 +1588,9 @@ function scoreOccupations(
 		const theoreticalExposure = exposure;
 
 		// === 4a: Multi-input ensemble exposure ===
-		// V4.0: Equal-weight average of all available exposure inputs.
-		// Per Frank et al. (2025) PNAS Nexus: ensemble outperforms any single score.
-		// Inputs: AIOE (always), Anthropic (if matched), Eloundou (if matched), ILO (if matched).
+		// V4.0: reliability-weighted blend of all available exposure inputs.
+		// Source weights are deterministic and based on recency, construct fit,
+		// coverage quality, and validation support.
 		const availableExposureInputs: Array<{
 			key: 'aioe' | 'anthropic' | 'eloundou' | 'ilo';
 			value: number;
@@ -1600,13 +1604,18 @@ function scoreOccupations(
 		if (iloPctiles[i] >= 0) {
 			availableExposureInputs.push({ key: 'ilo', value: iloPctiles[i] });
 		}
+		const exposureSourceWeights = normalizeExposureSourceWeights(
+			availableExposureInputs.map(input => input.key)
+		);
 
 		exposure = Math.max(
 			0,
 			Math.min(
 				1,
-				availableExposureInputs.reduce((sum, input) => sum + input.value, 0) /
-					availableExposureInputs.length
+				availableExposureInputs.reduce(
+					(sum, input) => sum + input.value * (exposureSourceWeights[input.key] ?? 0),
+					0
+				)
 			)
 		);
 
@@ -1707,9 +1716,13 @@ function scoreOccupations(
 			anthropic_observed_pctile: anthropicPctiles[i] >= 0 ? round(anthropicPctiles[i], 4) : null,
 			sol_match: r.solMatch,
 			jobs_in_demand_match: r.demandMatch,
+			exposure_blend_strategy: 'reliability_weighted',
 			exposure_agreement: exposureAgreement,
 			exposure_source_count: availableExposureInputs.length,
 			exposure_source_keys: availableExposureInputs.map(input => input.key),
+			exposure_source_weights: Object.fromEntries(
+				Object.entries(exposureSourceWeights).map(([key, value]) => [key, round(value ?? 0, 4)])
+			),
 			signal_conflict: signalConflict,
 			signal_conflict_reasons: signalConflictReasons
 		};
@@ -1731,13 +1744,16 @@ function scoreOccupations(
 		// All occupations have occupation-level wage structure + group market trends,
 		// while exact official demand evidence adds more occupation-specific market granularity.
 		const marketDataGranularity = hasExactDemand ? 0.85 : hasPrefixDemand ? 0.75 : 0.65;
-		const sourceFreshness = availableExposureInputs.some(input => input.key === 'anthropic')
-			? 0.9
-			: availableExposureInputs.some(input => input.key === 'ilo')
-				? 0.85
-				: availableExposureInputs.some(input => input.key === 'eloundou')
-					? 0.8
-					: 0.72;
+		const sourceFreshness = round(
+			availableExposureInputs.reduce(
+				(sum, input) =>
+					sum +
+					(EXPOSURE_SOURCE_METADATA[input.key].recency ?? 0) *
+						(exposureSourceWeights[input.key] ?? 0),
+				0
+			),
+			4
+		);
 		const sourceCoverage =
 			SOURCE_COVERAGE_SCORES[availableExposureInputs.length as keyof typeof SOURCE_COVERAGE_SCORES];
 		const signalAgreement =

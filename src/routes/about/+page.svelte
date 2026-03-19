@@ -120,7 +120,10 @@
 							Direct / Reproducible
 						</p>
 						<ul class="mt-1.5 space-y-1 text-sm text-muted-foreground">
-							<li>4-source exposure ensemble when matched (AIOE + Anthropic + Eloundou + ILO)</li>
+							<li>
+								Reliability-weighted 4-source exposure ensemble when matched (AIOE + Anthropic +
+								Eloundou + ILO)
+							</li>
 							<li>Theta complementarity scores (O*NET survey data)</li>
 							<li>Net risk formula (fully reproducible)</li>
 							<li>Official demand signals (SOL 2026, Jobs in Demand)</li>

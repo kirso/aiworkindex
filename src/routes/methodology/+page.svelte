@@ -238,11 +238,13 @@
 						exposure index are added when crosswalk coverage exists.
 					</p>
 					<p class="mt-2 rounded bg-muted px-3 py-2 font-mono text-sm text-foreground/80">
-						exposure_ensemble = mean(percentile-ranked matched exposure inputs)
+						exposure_ensemble = weighted_mean(percentile-ranked matched exposure inputs)
 					</p>
 					<p class="mt-2 text-sm text-muted-foreground">
-						Each source is percentile-ranked to a 0–1 scale before averaging. Occupations with fewer
-						matched sources are kept, but should be read with lower evidential coverage.
+						Each source is percentile-ranked to a 0–1 scale and then blended using deterministic
+						source weights based on recency, construct fit, coverage quality, and validation
+						support. Occupations with fewer matched sources are kept, but should be read with lower
+						evidential coverage.
 					</p>
 					<p class="mt-1 text-sm text-muted-foreground italic">
 						What it does NOT measure: whether exposure leads to augmentation or replacement.
@@ -854,8 +856,9 @@
 				<p class="mt-2 text-sm text-muted-foreground">
 					Frank et al. (2025) found that individual AI exposure scores are poor predictors of actual
 					unemployment, but an <strong>ensemble of multiple measures</strong> improves fit over single
-					scores. That motivates our multi-source exposure layer, but does not by itself prove that an
-					equal-weight average is optimal. We use multiple lenses:
+					scores. That motivates our multi-source exposure layer, but does not by itself prove any particular
+					weighting scheme. We therefore use a deterministic reliability-weighted blend across multiple
+					lenses:
 				</p>
 				<div class="mt-3 overflow-x-auto">
 					<table class="w-full text-left text-sm">
@@ -893,7 +896,8 @@
 									>Eloundou et al. (2023) — LLM task-level exposure via human + GPT-4 assessment</td
 								>
 								<td class="py-2"
-									>Integrated in V4.0 ensemble. Equal-weight average when matched via SOC crosswalk.</td
+									>Integrated in V4.0 ensemble with reliability weighting when matched via SOC
+									crosswalk.</td
 								>
 							</tr>
 							<tr class="border-b border-border/50">
@@ -902,7 +906,7 @@
 									>ILO (2024) — task-level AI automation potential scored across ISCO occupations</td
 								>
 								<td class="py-2"
-									>Integrated in V4.0 ensemble. Equal-weight average when matched via ISCO
+									>Integrated in V4.0 ensemble with reliability weighting when matched via ISCO
 									crosswalk.</td
 								>
 							</tr>
@@ -1516,9 +1520,9 @@
 							<span class="text-xs text-muted-foreground">March 2026</span>
 						</div>
 						<p class="mt-1 text-sm text-muted-foreground">
-							4-source exposure ensemble (AIOE + Anthropic + Eloundou + ILO). Equal average of all
-							available matched inputs. BLS convergent cross-check, industry momentum spread, and 49
-							validation checks.
+							4-source exposure ensemble (AIOE + Anthropic + Eloundou + ILO). Reliability-weighted
+							blend of all available matched inputs. BLS convergent cross-check, industry momentum
+							spread, and 56 validation checks.
 						</p>
 					</div>
 					<div class={cn(card({ variant: 'inset', padding: 'sm' }))}>

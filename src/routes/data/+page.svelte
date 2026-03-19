@@ -117,7 +117,7 @@
 			name: 'exposure',
 			type: 'number',
 			description:
-				'Exposure ensemble score (0-1). Equal average of matched percentile-ranked exposure sources in V4.0.'
+				'Exposure ensemble score (0-1). Reliability-weighted blend of matched percentile-ranked exposure sources in V4.0.'
 		},
 		{
 			name: 'bottleneck',
@@ -187,10 +187,22 @@
 			description: 'Jobs in Demand match: exact, prefix, or false.'
 		},
 		{
+			name: 'evidence.exposure_blend_strategy',
+			type: 'enum',
+			description:
+				'Current exposure blend method. V4.0 uses a deterministic reliability-weighted ensemble.'
+		},
+		{
 			name: 'evidence.exposure_agreement',
 			type: 'enum',
 			description:
 				'Agreement across matched exposure sources: consensus_high, consensus_low, aligned_mid, divergent, or insufficient_data.'
+		},
+		{
+			name: 'evidence.exposure_source_weights',
+			type: 'object',
+			description:
+				'Normalized per-source weights used inside the exposure ensemble after conditioning on which sources matched this occupation.'
 		},
 		{
 			name: 'evidence.signal_conflict',

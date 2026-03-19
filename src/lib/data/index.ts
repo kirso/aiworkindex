@@ -33,10 +33,12 @@ export interface EvidenceSignals {
 	jobs_in_demand_match: 'exact' | 'prefix' | false;
 	/** GPTs-are-GPTs (Eloundou et al. 2023) exposure percentile, if matched via SOC crosswalk */
 	gpt_exposure?: number | null;
+	exposure_blend_strategy?: 'reliability_weighted';
 	/** Agreement across exposure measures: consensus_high, consensus_low, aligned_mid, divergent, insufficient_data */
 	exposure_agreement?: string | null;
 	exposure_source_count?: number;
 	exposure_source_keys?: string[];
+	exposure_source_weights?: Partial<Record<'aioe' | 'anthropic' | 'eloundou' | 'ilo', number>>;
 	signal_conflict?: boolean;
 	signal_conflict_reasons?: string[];
 }

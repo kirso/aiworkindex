@@ -42,8 +42,10 @@ interface Occupation {
 		anthropic_gap: number | null;
 		sol_match: 'exact' | 'prefix' | false;
 		jobs_in_demand_match: 'exact' | 'prefix' | false;
+		exposure_blend_strategy?: string;
 		exposure_agreement?: string | null;
 		exposure_source_count?: number;
+		exposure_source_weights?: Record<string, number>;
 		signal_conflict?: boolean;
 		signal_conflict_reasons?: string[];
 	};
@@ -180,6 +182,19 @@ async function main() {
 				typeof row.confidence.exposure_source_count === 'number' &&
 				row.evidence.exposure_source_count === row.confidence.exposure_source_count
 		)
+	);
+	check(
+		'Exposure blend strategy is populated',
+		data.every(row => row.evidence.exposure_blend_strategy === 'reliability_weighted')
+	);
+	check(
+		'Exposure source weights sum to ~1',
+		data.every(row => {
+			const weights = Object.values(row.evidence.exposure_source_weights ?? {});
+			if (weights.length === 0) return false;
+			const total = weights.reduce((sum, value) => sum + value, 0);
+			return Math.abs(total - 1) <= 0.001;
+		})
 	);
 
 	console.log('\n--- Distribution sanity ---');

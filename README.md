@@ -17,7 +17,7 @@ V4.0: 4-source exposure ensemble scoring 562 Singapore occupations and 88 modern
 
 Three-layer deterministic scoring — no LLM in the pipeline:
 
-1. **Exposure** — 4-source ensemble: AIOE (2021), Anthropic Economic Index (2026), Eloundou GPTs-are-GPTs (2024), ILO Refined Index (2025). Equal average of available matched inputs per occupation.
+1. **Exposure** — 4-source ensemble: AIOE (2021), Anthropic Economic Index (2026), Eloundou GPTs-are-GPTs (2024), ILO Refined Index (2025). Reliability-weighted blend of available matched inputs per occupation.
 2. **Human Bottleneck** — Pizzinelli theta from O*NET Work Context (judgment, presence, coordination)
 3. **Market Resilience** — MOM employment/wage trends + SOL/JiD demand signals + Anthropic calibration
 
@@ -31,7 +31,7 @@ Published as risk bands (Very Low through Very High) with Monte Carlo confidence
 
 - **BLS cross-country**: rho=-0.14, p<0.01 on 530 occupations mapped via ISCO-08→SOC crosswalk
 - **Cluster-level**: 3/4 directional checks pass against Singapore Q3 2025 labour outcomes
-- **49 structural checks**: anchor occupations, band consistency, impact type recomputation
+- **56 structural checks**: anchor occupations, band consistency, impact type recomputation
 - Methodology page: [aiworkindex.pages.dev/methodology](https://aiworkindex.pages.dev/methodology)
 
 ## Quick Start
@@ -41,7 +41,7 @@ git clone https://github.com/kirso/aiworkindex
 cd aiworkindex
 bun install
 bun run scripts/score.ts        # Score all 562 occupations
-bun run validate                 # Run 49 structural checks
+bun run validate                 # Run 56 structural checks
 bun run dev                      # Start dev server
 bun run build                    # Build 672 prerendered pages
 ```

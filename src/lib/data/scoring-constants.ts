@@ -94,6 +94,73 @@ export const SOURCE_COVERAGE_SCORES = {
 	4: 1.0
 } as const;
 
+export const EXPOSURE_SOURCE_RELIABILITY_COMPONENT_WEIGHTS = {
+	recency: 0.3,
+	construct_fit: 0.3,
+	coverage_quality: 0.2,
+	validation_support: 0.2
+} as const;
+
+export const EXPOSURE_SOURCE_METADATA = {
+	aioe: {
+		label: 'Felten AIOE',
+		recency: 0.55,
+		construct_fit: 0.88,
+		coverage_quality: 1.0,
+		validation_support: 0.72
+	},
+	anthropic: {
+		label: 'Anthropic observed usage',
+		recency: 0.98,
+		construct_fit: 0.78,
+		coverage_quality: 0.9,
+		validation_support: 0.68
+	},
+	eloundou: {
+		label: 'Eloundou GPT exposure',
+		recency: 0.86,
+		construct_fit: 0.82,
+		coverage_quality: 0.84,
+		validation_support: 0.66
+	},
+	ilo: {
+		label: 'ILO refined occupational exposure',
+		recency: 0.94,
+		construct_fit: 0.9,
+		coverage_quality: 0.78,
+		validation_support: 0.74
+	}
+} as const;
+
+export type ExposureSourceKey = keyof typeof EXPOSURE_SOURCE_METADATA;
+
+export function getExposureSourceReliability(source: ExposureSourceKey): number {
+	const metadata = EXPOSURE_SOURCE_METADATA[source];
+	return (
+		metadata.recency * EXPOSURE_SOURCE_RELIABILITY_COMPONENT_WEIGHTS.recency +
+		metadata.construct_fit * EXPOSURE_SOURCE_RELIABILITY_COMPONENT_WEIGHTS.construct_fit +
+		metadata.coverage_quality * EXPOSURE_SOURCE_RELIABILITY_COMPONENT_WEIGHTS.coverage_quality +
+		metadata.validation_support * EXPOSURE_SOURCE_RELIABILITY_COMPONENT_WEIGHTS.validation_support
+	);
+}
+
+export function normalizeExposureSourceWeights(
+	sources: ExposureSourceKey[]
+): Partial<Record<ExposureSourceKey, number>> {
+	if (sources.length === 0) return {};
+	const reliabilities = sources.map(source => [source, getExposureSourceReliability(source)] as const);
+	const totalReliability = reliabilities.reduce((sum, [, reliability]) => sum + reliability, 0);
+	if (totalReliability <= 0) {
+		const fallbackWeight = 1 / sources.length;
+		return Object.fromEntries(sources.map(source => [source, fallbackWeight])) as Partial<
+			Record<ExposureSourceKey, number>
+		>;
+	}
+	return Object.fromEntries(
+		reliabilities.map(([source, reliability]) => [source, reliability / totalReliability])
+	) as Partial<Record<ExposureSourceKey, number>>;
+}
+
 export const SIGNAL_AGREEMENT_SCORES = {
 	consensus_high: 0.95,
 	consensus_low: 0.95,
@@ -225,7 +292,7 @@ export const DATA_VINTAGE = {
 	/** Synthetic role count */
 	role_count: 88,
 	/** Validation check count */
-	validation_checks: 54,
+	validation_checks: 56,
 	/** Page count */
 	page_count: 672
 } as const;
