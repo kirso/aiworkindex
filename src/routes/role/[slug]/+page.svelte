@@ -14,7 +14,6 @@
 	} from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import {
-		contextToneClass,
 		formatCurrencyShort,
 		vacancySignalClass,
 		wagePremiumClass
@@ -24,6 +23,7 @@
 	import * as Collapsible from '$lib/components/ui/collapsible/index.js';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import LabourMarketCard from '$lib/components/ui/LabourMarketCard.svelte';
+	import ContextItemGrid from '$lib/components/ui/ContextItemGrid.svelte';
 	import { SITE } from '$lib/data/scoring-constants';
 	import Seo from '$lib/components/ui/Seo.svelte';
 
@@ -402,159 +402,137 @@
 		</section>
 	{/if}
 
-	{#if industryContext.top_industries.length > 0}
+	{#if industryContext.top_industries.length > 0 || singaporeContext.items.length > 0 || workerProfile.items.length > 0}
 		<section class="mb-8">
-			<h2 class={cn(sectionLabel(), 'mb-3')}>Singapore Industry Anchors</h2>
+			<h2 class={cn(sectionLabel(), 'mb-3')}>Singapore Anchors</h2>
 			<div class={card({ padding: 'md' })}>
-				<div class="grid gap-6 sm:grid-cols-2">
-					<div>
-						<p class="text-xs font-semibold text-foreground">Largest industry anchors</p>
-						<div class="mt-3 space-y-3">
-							{#each industryContext.top_industries as industry (industry.key)}
-								<div class="flex items-start justify-between gap-3">
-									<div>
-										<p class="text-sm text-foreground">{industry.label}</p>
-										<p class="mt-0.5 text-xs text-muted-foreground">
-											Weighted share {(industry.share_2025 * 100).toFixed(0)}%
-										</p>
-										{#if industry.sector_gross_wage_median}
-											<p class="mt-0.5 text-xs text-muted-foreground">
-												Weighted wage anchor {formatCurrencyShort(
-													industry.sector_gross_wage_median
-												)}
-												{#if industry.sector_wage_premium_pct !== null && industry.sector_wage_premium_pct !== undefined}
-													<span
-														class={cn(
-															'ml-1 font-medium',
-															wagePremiumClass(industry.sector_wage_premium_pct)
-														)}
-													>
-														{industry.sector_wage_premium_pct > 0 ? '+' : ''}
-														{(industry.sector_wage_premium_pct * 100).toFixed(0)}%
-													</span>
-												{/if}
-											</p>
-										{/if}
-									</div>
-									<div class="text-right text-xs">
-										{#if industry.vacancy_signal}
-											<p class={cn(vacancySignalClass(industry.vacancy_signal))}>
-												{industry.vacancy_signal === 'rising'
-													? 'Vacancies rising'
-													: industry.vacancy_signal === 'cooling'
-														? 'Vacancies cooling'
-														: 'Vacancies stable'}
-											</p>
-										{/if}
+				<div class="space-y-6">
+					{#if industryContext.top_industries.length > 0}
+						<div>
+							<p class="text-xs font-semibold text-foreground">Industry anchors</p>
+							<div class="mt-3 grid gap-6 sm:grid-cols-2">
+								<div>
+									<p class="text-xs font-semibold text-foreground">Largest industry anchors</p>
+									<div class="mt-3 space-y-3">
+										{#each industryContext.top_industries as industry (industry.key)}
+											<div class="flex items-start justify-between gap-3">
+												<div>
+													<p class="text-sm text-foreground">{industry.label}</p>
+													<p class="mt-0.5 text-xs text-muted-foreground">
+														Weighted share {(industry.share_2025 * 100).toFixed(0)}%
+													</p>
+													{#if industry.sector_gross_wage_median}
+														<p class="mt-0.5 text-xs text-muted-foreground">
+															Weighted wage anchor {formatCurrencyShort(
+																industry.sector_gross_wage_median
+															)}
+															{#if industry.sector_wage_premium_pct !== null && industry.sector_wage_premium_pct !== undefined}
+																<span
+																	class={cn(
+																		'ml-1 font-medium',
+																		wagePremiumClass(industry.sector_wage_premium_pct)
+																	)}
+																>
+																	{industry.sector_wage_premium_pct > 0 ? '+' : ''}
+																	{(industry.sector_wage_premium_pct * 100).toFixed(0)}%
+																</span>
+															{/if}
+														</p>
+													{/if}
+												</div>
+												<div class="text-right text-xs">
+													{#if industry.vacancy_signal}
+														<p class={cn(vacancySignalClass(industry.vacancy_signal))}>
+															{industry.vacancy_signal === 'rising'
+																? 'Vacancies rising'
+																: industry.vacancy_signal === 'cooling'
+																	? 'Vacancies cooling'
+																	: 'Vacancies stable'}
+														</p>
+													{/if}
+												</div>
+											</div>
+										{/each}
 									</div>
 								</div>
-							{/each}
-						</div>
-					</div>
 
-					<div>
-						<p class="text-xs font-semibold text-foreground">Fastest-growing anchors</p>
-						<div class="mt-3 space-y-3">
-							{#each industryContext.fastest_growing_industries as industry (industry.key)}
-								<div class="flex items-start justify-between gap-3">
-									<div>
-										<p class="text-sm text-foreground">{industry.label}</p>
-										<p class="mt-0.5 text-xs text-muted-foreground">
-											5Y CAGR
-											{industry.cagr_5y !== null
-												? `${(industry.cagr_5y * 100).toFixed(1)}%`
-												: 'n/a'}
-										</p>
-										{#if industry.sector_gross_wage_median}
-											<p class="mt-0.5 text-xs text-muted-foreground">
-												Weighted wage anchor {formatCurrencyShort(
-													industry.sector_gross_wage_median
-												)}
-												{#if industry.sector_wage_premium_pct !== null && industry.sector_wage_premium_pct !== undefined}
-													<span
-														class={cn(
-															'ml-1 font-medium',
-															wagePremiumClass(industry.sector_wage_premium_pct)
-														)}
-													>
-														{industry.sector_wage_premium_pct > 0 ? '+' : ''}
-														{(industry.sector_wage_premium_pct * 100).toFixed(0)}%
-													</span>
-												{/if}
-											</p>
-										{/if}
-									</div>
-									<div class="text-right text-xs">
-										{#if industry.vacancy_latest !== null}
-											<p class={cn(vacancySignalClass(industry.vacancy_signal))}>
-												{industry.vacancy_latest.toFixed(0)} vacancies
-											</p>
-										{/if}
+								<div>
+									<p class="text-xs font-semibold text-foreground">Fastest-growing anchors</p>
+									<div class="mt-3 space-y-3">
+										{#each industryContext.fastest_growing_industries as industry (industry.key)}
+											<div class="flex items-start justify-between gap-3">
+												<div>
+													<p class="text-sm text-foreground">{industry.label}</p>
+													<p class="mt-0.5 text-xs text-muted-foreground">
+														5Y CAGR
+														{industry.cagr_5y !== null
+															? `${(industry.cagr_5y * 100).toFixed(1)}%`
+															: 'n/a'}
+													</p>
+													{#if industry.sector_gross_wage_median}
+														<p class="mt-0.5 text-xs text-muted-foreground">
+															Weighted wage anchor {formatCurrencyShort(
+																industry.sector_gross_wage_median
+															)}
+															{#if industry.sector_wage_premium_pct !== null && industry.sector_wage_premium_pct !== undefined}
+																<span
+																	class={cn(
+																		'ml-1 font-medium',
+																		wagePremiumClass(industry.sector_wage_premium_pct)
+																	)}
+																>
+																	{industry.sector_wage_premium_pct > 0 ? '+' : ''}
+																	{(industry.sector_wage_premium_pct * 100).toFixed(0)}%
+																</span>
+															{/if}
+														</p>
+													{/if}
+												</div>
+												<div class="text-right text-xs">
+													{#if industry.vacancy_latest !== null}
+														<p class={cn(vacancySignalClass(industry.vacancy_signal))}>
+															{industry.vacancy_latest.toFixed(0)} vacancies
+														</p>
+													{/if}
+												</div>
+											</div>
+										{/each}
 									</div>
 								</div>
-							{/each}
-						</div>
-					</div>
-				</div>
-				<p
-					class="mt-4 border-t border-border pt-3 text-[11px] leading-relaxed text-muted-foreground"
-				>
-					{industryContext.note} Wage anchors are blended from published common-occupation industry wage
-					tables when component occupations are covered. Vacancy labels use industry-wide Singapore demand
-					signals rather than synthetic-role vacancy estimates.
-				</p>
-			</div>
-		</section>
-	{/if}
-
-	{#if singaporeContext.items.length > 0}
-		<section class="mb-8">
-			<h2 class={cn(sectionLabel(), 'mb-3')}>Singapore Context Anchors</h2>
-			<div class={card({ padding: 'md' })}>
-				<div class="grid gap-3 sm:grid-cols-2">
-					{#each singaporeContext.items as item (item.key)}
-						<div>
-							<div class="flex items-center gap-2">
-								<p class={cn('text-xs font-semibold', contextToneClass(item.tone))}>{item.label}</p>
-								<span class="rounded-full bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">
-									{item.value}
-								</span>
 							</div>
-							<p class="mt-0.5 text-xs text-muted-foreground">{item.description}</p>
+							<p class="mt-4 text-[11px] leading-relaxed text-muted-foreground">
+								{industryContext.note} Wage anchors are blended from published common-occupation industry
+								wage tables when component occupations are covered. Vacancy labels use industry-wide Singapore
+								demand signals rather than synthetic-role vacancy estimates.
+							</p>
 						</div>
-					{/each}
-				</div>
-				<p
-					class="mt-4 border-t border-border pt-3 text-[11px] leading-relaxed text-muted-foreground"
-				>
-					{singaporeContext.note}
-				</p>
-			</div>
-		</section>
-	{/if}
+					{/if}
 
-	{#if workerProfile.items.length > 0}
-		<section class="mb-8">
-			<h2 class={cn(sectionLabel(), 'mb-3')}>Singapore Worker Anchors</h2>
-			<div class={card({ padding: 'md' })}>
-				<div class="grid gap-3 sm:grid-cols-2">
-					{#each workerProfile.items as item (item.key)}
-						<div>
-							<div class="flex items-center gap-2">
-								<p class={cn('text-xs font-semibold', contextToneClass(item.tone))}>{item.label}</p>
-								<span class="rounded-full bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">
-									{item.value}
-								</span>
-							</div>
-							<p class="mt-0.5 text-xs text-muted-foreground">{item.description}</p>
+					{#if singaporeContext.items.length > 0}
+						<div
+							class={cn(industryContext.top_industries.length > 0 && 'border-t border-border pt-6')}
+						>
+							<ContextItemGrid title="Policy and labour anchors" items={singaporeContext.items} />
+							<p class="mt-4 text-[11px] leading-relaxed text-muted-foreground">
+								{singaporeContext.note}
+							</p>
 						</div>
-					{/each}
+					{/if}
+
+					{#if workerProfile.items.length > 0}
+						<div
+							class={cn(
+								(industryContext.top_industries.length > 0 || singaporeContext.items.length > 0) &&
+									'border-t border-border pt-6'
+							)}
+						>
+							<ContextItemGrid title="Worker anchors" items={workerProfile.items} />
+							<p class="mt-4 text-[11px] leading-relaxed text-muted-foreground">
+								{workerProfile.note}
+							</p>
+						</div>
+					{/if}
 				</div>
-				<p
-					class="mt-4 border-t border-border pt-3 text-[11px] leading-relaxed text-muted-foreground"
-				>
-					{workerProfile.note}
-				</p>
 			</div>
 		</section>
 	{/if}
