@@ -12,8 +12,8 @@ node_modules
 .DS_Store
 Thumbs.db
 
-# Generated OG images (build artifact, ~45MB)
-static/og/*.png
+# Uncomment to exclude OG images from git (saves ~57MB)
+# static/og/*.png
 
 # Env
 .env

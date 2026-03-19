@@ -7,7 +7,7 @@
 </script>
 
 <Seo
-	title="Reports"
+	title="Singapore AI Labour Market Reports"
 	description="Quarterly reports on AI impact across Singapore occupations. Labour market trends, scoring updates, and analysis."
 	path="/reports"
 />

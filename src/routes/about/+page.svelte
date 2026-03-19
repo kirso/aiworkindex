@@ -38,7 +38,7 @@
 </script>
 
 <Seo
-	title="About"
+	title="About the AI Work Index — Singapore"
 	description="About the AI Work Index: purpose, model card, data sources, and credits. Open-source, MIT licensed."
 	path="/about"
 	jsonLd={[aboutJsonLd]}

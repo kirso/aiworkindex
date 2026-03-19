@@ -49,7 +49,7 @@
 </script>
 
 <Seo
-	title="SGD {(data.highRiskAnnualWages / 1e9).toFixed(1)}B at Risk — Wage Exposure Analysis"
+	title="Singapore Wages at AI Risk — SGD {(data.highRiskAnnualWages / 1e9).toFixed(1)}B"
 	description="How much of Singapore's wages sit in high AI displacement risk occupations? {data.highRiskCount} occupations covering {data.highRiskEmployment.toFixed(
 		0
 	)}K workers."

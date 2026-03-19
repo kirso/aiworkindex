@@ -257,7 +257,7 @@
 </script>
 
 <Seo
-	title="Compare"
+	title="Compare AI Risk Across Singapore Jobs"
 	description="Compare AI displacement risk across Singapore occupations and modern roles side by side."
 	path="/compare"
 />

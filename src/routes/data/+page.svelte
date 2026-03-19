@@ -55,7 +55,7 @@
 </script>
 
 <Seo
-	title="Data Downloads"
+	title="Download Singapore AI Occupation Risk Data"
 	description="Download the complete AI Work Index dataset. 562 occupations with exposure, bottleneck, risk, and market scores."
 	path="/data"
 	jsonLd={[datasetJsonLd]}

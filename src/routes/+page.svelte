@@ -101,7 +101,7 @@
 </script>
 
 <Seo
-	title="AI Work Index — How will AI affect your job?"
+	title="AI Work Index — How Will AI Affect Your Job in Singapore?"
 	description="Find out if AI will replace, augment, or barely affect your role in Singapore. 562 occupations scored using official data and peer-reviewed research."
 	path="/"
 	ogImage="/og/default.png"

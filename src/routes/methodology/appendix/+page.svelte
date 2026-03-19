@@ -6,7 +6,7 @@
 </script>
 
 <Seo
-	title="Implementation Appendix"
+	title="Implementation Appendix — V4.0 Scoring Rules"
 	description="Complete implementation reference for the V4.0 scoring pipeline: risk bands, impact classification, seniority modifiers, confidence, market modifier, stability, and synthetic role rules."
 	path="/methodology/appendix"
 />

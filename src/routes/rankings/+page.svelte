@@ -98,7 +98,7 @@
 </script>
 
 <Seo
-	title="Rankings"
+	title="Singapore AI Job Risk Rankings 2026"
 	description="Ranked lists of Singapore occupations by AI displacement risk, augmentation potential, wage safety, and more."
 	path="/rankings"
 />

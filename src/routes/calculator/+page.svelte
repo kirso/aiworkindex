@@ -82,7 +82,7 @@
 
 <Seo
 	path="/calculator"
-	title="AI Risk Calculator"
+	title="AI Salary Risk Calculator for Singapore Jobs"
 	description="Find out how much of your salary overlaps with AI capabilities. Use the AI Work Index structural risk scores to estimate your role's AI exposure."
 />
 

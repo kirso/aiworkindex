@@ -35,7 +35,7 @@
 </script>
 
 <Seo
-	title="Methodology"
+	title="Scoring Methodology — 4-Input AI Ensemble"
 	description="Three-layer scoring: exposure (AIOE), human bottleneck (theta), and market resilience. Net risk published as risk bands with visible confidence. No LLM in the scoring pipeline."
 	path="/methodology"
 />
