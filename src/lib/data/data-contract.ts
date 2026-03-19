@@ -195,6 +195,28 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 			'Used as an industry-level context overlay and to attach published cluster vacancy counts; not treated as occupation-level vacancy truth.'
 	},
 	{
+		key: 'mom_recruitment_resignation_rates',
+		label: 'MOM Recruitment and Resignation Rates',
+		tier: 'official_sg',
+		status: 'available',
+		vintage: '2025',
+		used_for: ['labour monitor hiring signal'],
+		url: 'https://data.gov.sg/datasets/d_fd083816f5b7ef8859d1e3f4e781186d/view',
+		notes:
+			'Official quarterly recruitment and resignation rates by industry and occupational group. The builder supports the public schema when the raw CSV or API JSON is present locally.'
+	},
+	{
+		key: 'mom_retrenchment_by_occupation_group',
+		label: 'MOM / SingStat Retrenchment by Occupation Group',
+		tier: 'official_sg',
+		status: 'available',
+		vintage: '2026',
+		used_for: ['labour monitor retrenchment signal'],
+		url: 'https://data.gov.sg/collections/retrenched-employees-by-industry-and-occupational-group-quarterly/view',
+		notes:
+			'Official quarterly retrenchment counts by broad occupational group. The builder supports the public wide-form raw schema when the file is present locally.'
+	},
+	{
 		key: 'wages_by_industry',
 		label: 'Wages by Industry',
 		tier: 'official_sg',

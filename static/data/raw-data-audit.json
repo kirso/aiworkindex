@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-03-19T09:02:10.015Z",
+  "generated_at": "2026-03-19T09:38:55.972Z",
   "summary": {
     "valid": 13,
-    "placeholder_error": 1,
-    "missing": 0,
-    "reference_only": 2
+    "placeholder_error": 0,
+    "missing": 2,
+    "reference_only": 3
   },
   "entries": [
     {
@@ -64,16 +64,42 @@
     },
     {
       "key": "recruitment_resignation_rates",
-      "file": "recruitment_resignation_rates.json",
+      "file": "recruitment_resignation_rates.csv",
       "label": "Recruitment and resignation rates",
-      "status": "placeholder_error",
+      "status": "missing",
+      "exists": false,
+      "expected_type": "csv",
+      "size_bytes": null,
+      "used_by": [
+        "labour monitor hiring signal"
+      ],
+      "note": "Expected raw file is not present locally."
+    },
+    {
+      "key": "recruitment_resignation_rates_cached_json",
+      "file": "recruitment_resignation_rates.json",
+      "label": "Recruitment and resignation cached JSON",
+      "status": "reference_only",
       "exists": true,
       "expected_type": "json",
       "size_bytes": 189,
       "used_by": [
-        "planned labour monitor hiring signal"
+        "labour monitor troubleshooting"
       ],
-      "note": "File contains API error payload: TOO_MANY_REQUESTS"
+      "note": "Reference/backstop file present locally, not currently used in the live pipeline."
+    },
+    {
+      "key": "retrenchment_by_occupation_group",
+      "file": "retrenchment_by_occupation_group.csv",
+      "label": "Retrenchment by occupation group",
+      "status": "missing",
+      "exists": false,
+      "expected_type": "csv",
+      "size_bytes": null,
+      "used_by": [
+        "labour monitor retrenchment signal"
+      ],
+      "note": "Expected raw file is not present locally."
     },
     {
       "key": "lfr2024_section_d",

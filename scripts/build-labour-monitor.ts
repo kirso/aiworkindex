@@ -41,6 +41,8 @@ interface HiringSignal {
 	resignation_rate: number;
 	net_pressure: number;
 	signal: 1 | 0 | -1;
+	quarter?: string;
+	note?: string;
 }
 
 interface RetrenchmentSignal {
@@ -49,6 +51,8 @@ interface RetrenchmentSignal {
 	trend_4q_pct: number;
 	signal: 1 | 0 | -1;
 	recent_quarters: Array<{ quarter: string; count: number }>;
+	incidence_per_1000?: number;
+	trend_direction?: 'rising' | 'stable' | 'falling';
 }
 
 interface LabourClusterMonitor {
@@ -79,6 +83,182 @@ const CLUSTER_LABELS: Record<ClusterKey, string> = {
 	clerical_sales_service: 'Clerical, Sales & Service Workers',
 	production_transport: 'Production & Transport Operators, Cleaners & Labourers'
 };
+
+const CLUSTER_RETRENCHMENT_PATTERNS: Record<ClusterKey, string[]> = {
+	pmet: [
+		'professionals managers executives technicians',
+		'professional managers executive technicians'
+	],
+	clerical_sales_service: ['clerical sales service workers', 'clerical sales services workers'],
+	production_transport: [
+		'production transport operators cleaners labourers',
+		'production and transport operators cleaners and labourers'
+	]
+};
+
+function normalizeLabel(value: string | undefined | null): string {
+	return (value ?? '')
+		.toLowerCase()
+		.replace(/"/g, '')
+		.replace(/&/g, ' and ')
+		.replace(/[^a-z0-9]+/g, ' ')
+		.replace(/\s+/g, ' ')
+		.trim();
+}
+
+function isTotalLabel(value: string | undefined | null): boolean {
+	const normalized = normalizeLabel(value);
+	return normalized === 'total' || normalized === 'all industries' || normalized === 'all industry';
+}
+
+function parseNumber(value: unknown): number | null {
+	if (typeof value === 'number' && Number.isFinite(value)) return value;
+	if (typeof value !== 'string') return null;
+	const cleaned = value.replace(/"/g, '').replace(/,/g, '').trim();
+	if (
+		!cleaned ||
+		cleaned === '-' ||
+		cleaned.toLowerCase() === 'na' ||
+		cleaned.toLowerCase() === 'null'
+	) {
+		return null;
+	}
+	const parsed = parseFloat(cleaned);
+	return Number.isFinite(parsed) ? parsed : null;
+}
+
+function getSupportedJsonRecords(parsed: unknown): Array<Record<string, unknown>> | null {
+	if (!parsed || typeof parsed !== 'object') return null;
+	if (Array.isArray(parsed)) return parsed as Array<Record<string, unknown>>;
+	const root = parsed as Record<string, unknown>;
+	if (Array.isArray(root.records)) return root.records as Array<Record<string, unknown>>;
+	if (
+		root.result &&
+		typeof root.result === 'object' &&
+		Array.isArray((root.result as Record<string, unknown>).records)
+	) {
+		return (root.result as { records: Array<Record<string, unknown>> }).records;
+	}
+	if (
+		root.data &&
+		typeof root.data === 'object' &&
+		Array.isArray((root.data as Record<string, unknown>).records)
+	) {
+		return (root.data as { records: Array<Record<string, unknown>> }).records;
+	}
+	return null;
+}
+
+function computeHiringAverages(
+	rows: Array<{ quarter: string; recruitment_rate: number; resignation_rate: number }>
+): { recruitment_4q_avg: number; resignation_4q_avg: number; latest_quarter: string } | null {
+	if (rows.length === 0) return null;
+	rows.sort((a, b) => quarterSortKey(b.quarter) - quarterSortKey(a.quarter));
+	const recent = rows.slice(0, Math.min(4, rows.length));
+	return {
+		recruitment_4q_avg: recent.reduce((sum, row) => sum + row.recruitment_rate, 0) / recent.length,
+		resignation_4q_avg: recent.reduce((sum, row) => sum + row.resignation_rate, 0) / recent.length,
+		latest_quarter: recent[0].quarter
+	};
+}
+
+function parseRecruitmentResignationRows(
+	rows: Array<Record<string, unknown>>
+): Map<
+	ClusterKey,
+	{ recruitment_4q_avg: number; resignation_4q_avg: number; latest_quarter: string }
+> | null {
+	const grouped = new Map<
+		ClusterKey,
+		Array<{ quarter: string; recruitment_rate: number; resignation_rate: number }>
+	>();
+	for (const key of Object.keys(CLUSTER_CSV_NAMES) as ClusterKey[]) grouped.set(key, []);
+
+	for (const row of rows) {
+		const quarter = parseQuarter(String(row.quarter ?? row.Quarter ?? ''));
+		if (!quarter) continue;
+		if (!isTotalLabel(String(row.industry1 ?? row.Industry1 ?? ''))) continue;
+		if (!isTotalLabel(String(row.industry2 ?? row.Industry2 ?? ''))) continue;
+
+		const occLabel = normalizeLabel(
+			String(row.occupation1 ?? row.Occupation1 ?? row.occupation ?? row.occupation_group ?? '')
+		);
+		if (!occLabel || occLabel === 'total') continue;
+
+		const recruitmentRate = parseNumber(row.recruitment_rate ?? row['Recruitment Rate']);
+		const resignationRate = parseNumber(row.resignation_rate ?? row['Resignation Rate']);
+		if (recruitmentRate == null || resignationRate == null) continue;
+
+		for (const [key, csvName] of Object.entries(CLUSTER_CSV_NAMES) as Array<[ClusterKey, string]>) {
+			if (occLabel === normalizeLabel(csvName)) {
+				grouped.get(key)!.push({
+					quarter,
+					recruitment_rate: recruitmentRate,
+					resignation_rate: resignationRate
+				});
+				break;
+			}
+		}
+	}
+
+	const result = new Map<
+		ClusterKey,
+		{ recruitment_4q_avg: number; resignation_4q_avg: number; latest_quarter: string }
+	>();
+	for (const key of Object.keys(CLUSTER_CSV_NAMES) as ClusterKey[]) {
+		const averages = computeHiringAverages(grouped.get(key) ?? []);
+		if (averages) result.set(key, averages);
+	}
+	return result.size > 0 ? result : null;
+}
+
+function parseWideRows(
+	rows: Array<Record<string, unknown>>,
+	clusterPatterns: Record<ClusterKey, string[]>
+): Map<ClusterKey, Array<{ quarter: string; count: number }>> | null {
+	const result = new Map<ClusterKey, Array<{ quarter: string; count: number }>>();
+
+	for (const [clusterKey, patterns] of Object.entries(clusterPatterns) as Array<
+		[ClusterKey, string[]]
+	>) {
+		const candidates = rows
+			.map(row => {
+				const entries = Object.entries(row);
+				const labelEntry = entries.find(([key]) => parseCompactQuarter(key) === null);
+				const label = normalizeLabel(String(labelEntry?.[1] ?? ''));
+				if (!label || !patterns.some(pattern => label.includes(pattern))) return null;
+
+				const quarterPoints = entries
+					.map(([key, value]) => {
+						const quarter = parseCompactQuarter(key);
+						const count = parseNumber(value);
+						return quarter && count != null ? { quarter, count } : null;
+					})
+					.filter((value): value is { quarter: string; count: number } => value !== null)
+					.sort((a, b) => quarterSortKey(b.quarter) - quarterSortKey(a.quarter));
+				if (quarterPoints.length === 0) return null;
+
+				const aggregateScore =
+					isTotalLabel(label) || label.startsWith('total ') || label.includes('all industries')
+						? 0
+						: 100;
+				return { score: aggregateScore + label.length, quarterPoints };
+			})
+			.filter(
+				(
+					value
+				): value is {
+					score: number;
+					quarterPoints: Array<{ quarter: string; count: number }>;
+				} => value !== null
+			)
+			.sort((a, b) => a.score - b.score);
+
+		if (candidates[0]) result.set(clusterKey, candidates[0].quarterPoints);
+	}
+
+	return result.size > 0 ? result : null;
+}
 
 function parseCSVRow(line: string): string[] {
 	const result: string[] = [];
@@ -255,53 +435,56 @@ function parseVacancyCounts(): Map<ClusterKey, Array<{ quarter: string; count: n
 // ===== Parse recruitment/resignation CSV (if available) =====
 function parseRecruitmentResignation(): Map<
 	ClusterKey,
-	{ recruitment_4q_avg: number; resignation_4q_avg: number }
+	{ recruitment_4q_avg: number; resignation_4q_avg: number; latest_quarter: string }
 > | null {
 	const filePath = path.join(RAW_DIR, 'recruitment_resignation_rates.csv');
-	if (!fs.existsSync(filePath)) {
+	try {
+		if (fs.existsSync(filePath)) {
+			const content = fs.readFileSync(filePath, 'utf-8');
+			const lines = content.split('\n').filter(l => l.trim());
+			if (lines.length >= 2) {
+				console.log('  Found recruitment/resignation CSV, parsing...');
+				const header = parseCSVRow(lines[0]);
+				const rows = lines.slice(1).map(line => {
+					const values = parseCSVRow(line);
+					return Object.fromEntries(header.map((key, index) => [key, values[index] ?? '']));
+				});
+				const parsed = parseRecruitmentResignationRows(rows);
+				if (parsed) return parsed;
+			}
+		}
+
 		const jsonFallbackPath = path.join(RAW_DIR, 'recruitment_resignation_rates.json');
 		if (fs.existsSync(jsonFallbackPath)) {
-			try {
-				const parsed = JSON.parse(fs.readFileSync(jsonFallbackPath, 'utf-8')) as Record<
-					string,
-					unknown
-				>;
-				if (
-					typeof parsed.code === 'number' &&
-					typeof parsed.name === 'string' &&
-					typeof parsed.errorMsg === 'string'
-				) {
-					console.log(
-						`  INFO: recruitment_resignation_rates.json is a saved API error payload (${parsed.name}), skipping hiring signal`
-					);
-					return null;
-				}
+			const parsed = JSON.parse(fs.readFileSync(jsonFallbackPath, 'utf-8')) as Record<
+				string,
+				unknown
+			>;
+			if (
+				typeof parsed.code === 'number' &&
+				typeof parsed.name === 'string' &&
+				typeof parsed.errorMsg === 'string'
+			) {
 				console.log(
-					'  INFO: recruitment_resignation_rates.json exists but is not yet mapped to a supported schema, skipping hiring signal'
-				);
-				return null;
-			} catch {
-				console.log(
-					'  INFO: recruitment_resignation_rates.json exists but could not be parsed, skipping hiring signal'
+					`  INFO: recruitment_resignation_rates.json is a saved API error payload (${parsed.name}), skipping hiring signal`
 				);
 				return null;
 			}
+			const records = getSupportedJsonRecords(parsed);
+			if (records) {
+				console.log('  Found recruitment/resignation JSON payload, parsing...');
+				return parseRecruitmentResignationRows(records);
+			}
+			console.log(
+				'  INFO: recruitment_resignation_rates.json exists but is not yet mapped to a supported schema, skipping hiring signal'
+			);
+			return null;
 		}
+
 		console.log('  INFO: recruitment_resignation_rates.csv not found, skipping hiring signal');
 		return null;
-	}
-
-	try {
-		const content = fs.readFileSync(filePath, 'utf-8');
-		const lines = content.split('\n').filter(l => l.trim());
-		if (lines.length < 2) return null;
-
-		// Parse and extract data (structure may vary)
-		console.log('  Found recruitment/resignation CSV, parsing...');
-		// TODO: implement when CSV format is known
-		return null;
 	} catch {
-		console.log('  WARNING: Error reading recruitment/resignation CSV');
+		console.log('  WARNING: Error reading recruitment/resignation dataset');
 		return null;
 	}
 }
@@ -309,23 +492,38 @@ function parseRecruitmentResignation(): Map<
 // ===== Parse retrenchment CSV (if available) =====
 function parseRetrenchment(): Map<ClusterKey, Array<{ quarter: string; count: number }>> | null {
 	const filePath = path.join(RAW_DIR, 'retrenchment_by_occupation_group.csv');
-	if (!fs.existsSync(filePath)) {
+	try {
+		if (fs.existsSync(filePath)) {
+			const content = fs.readFileSync(filePath, 'utf-8');
+			const lines = content.split('\n').filter(l => l.trim());
+			if (lines.length >= 2) {
+				console.log('  Found retrenchment CSV, parsing...');
+				const header = parseCSVRow(lines[0]);
+				const rows = lines.slice(1).map(line => {
+					const values = parseCSVRow(line);
+					return Object.fromEntries(header.map((key, index) => [key, values[index] ?? '']));
+				});
+				const parsed = parseWideRows(rows, CLUSTER_RETRENCHMENT_PATTERNS);
+				if (parsed) return parsed;
+			}
+		}
+
+		const jsonFallbackPath = path.join(RAW_DIR, 'retrenchment_by_occupation_group.json');
+		if (fs.existsSync(jsonFallbackPath)) {
+			const parsed = JSON.parse(fs.readFileSync(jsonFallbackPath, 'utf-8'));
+			const records = getSupportedJsonRecords(parsed);
+			if (records) {
+				console.log('  Found retrenchment JSON payload, parsing...');
+				return parseWideRows(records, CLUSTER_RETRENCHMENT_PATTERNS);
+			}
+		}
+
 		console.log(
 			'  INFO: retrenchment_by_occupation_group.csv not found, skipping retrenchment signal'
 		);
 		return null;
-	}
-
-	try {
-		const content = fs.readFileSync(filePath, 'utf-8');
-		const lines = content.split('\n').filter(l => l.trim());
-		if (lines.length < 2) return null;
-
-		console.log('  Found retrenchment CSV, parsing...');
-		// TODO: implement when CSV format is known
-		return null;
 	} catch {
-		console.log('  WARNING: Error reading retrenchment CSV');
+		console.log('  WARNING: Error reading retrenchment dataset');
 		return null;
 	}
 }
@@ -469,6 +667,42 @@ function computeOverallSignal(
 	return 'deteriorating'; // only when multiple signals agree on decline
 }
 
+function computeRetrenchmentSignal(
+	series: Array<{ quarter: string; count: number }>
+): RetrenchmentSignal | null {
+	if (series.length < 2) return null;
+
+	const latest = series[0];
+	const recent = series.slice(0, Math.min(8, series.length));
+	const latestQ = latest.quarter.split(' ').pop();
+	const yoyMatch = series
+		.slice(2, 8)
+		.find(point => point.quarter.includes(latestQ || '') && point.quarter !== latest.quarter);
+
+	let trend4qPct = 0;
+	if (yoyMatch && yoyMatch.count > 0) {
+		trend4qPct = (latest.count / yoyMatch.count - 1) * 100;
+	} else {
+		const fourBack = series[4];
+		if (fourBack && fourBack.count > 0) {
+			trend4qPct = (latest.count / fourBack.count - 1) * 100;
+		}
+	}
+
+	let signal: 1 | 0 | -1 = 0;
+	if (trend4qPct > 5) signal = -1;
+	else if (trend4qPct < -5) signal = 1;
+
+	return {
+		latest_count: latest.count,
+		latest_quarter: latest.quarter,
+		trend_4q_pct: Math.round(trend4qPct * 100) / 100,
+		signal,
+		trend_direction: trend4qPct > 5 ? 'rising' : trend4qPct < -5 ? 'falling' : 'stable',
+		recent_quarters: [...recent].reverse()
+	};
+}
+
 // ===== Main =====
 function main() {
 	console.log('=== Building Labour Monitor ===\n');
@@ -484,7 +718,7 @@ function main() {
 	const hiringData = parseRecruitmentResignation();
 
 	// Parse retrenchment (optional)
-	const _retrenchmentData = parseRetrenchment();
+	const retrenchmentData = parseRetrenchment();
 
 	// Parse published vacancy counts by cluster
 	console.log('Parsing published vacancy counts CSV...');
@@ -531,14 +765,18 @@ function main() {
 					recruitment_rate: Math.round(hd.recruitment_4q_avg * 100) / 100,
 					resignation_rate: Math.round(hd.resignation_4q_avg * 100) / 100,
 					net_pressure: Math.round(netPressure * 100) / 100,
-					signal: hiringSignal
+					signal: hiringSignal,
+					quarter: hd.latest_quarter
 				};
 			}
 		}
 
 		// Retrenchment signal (if available)
 		let retrenchment: RetrenchmentSignal | null = null;
-		// (reserved for when CSV is available)
+		const retrenchmentSeries = retrenchmentData?.get(clusterKey) ?? [];
+		if (retrenchmentSeries.length > 0) {
+			retrenchment = computeRetrenchmentSignal(retrenchmentSeries);
+		}
 
 		// Overall signal
 		const _overall = computeOverallSignal(
@@ -583,8 +821,12 @@ function main() {
 				recruitment_rate: h.recruitment_rate,
 				resignation_rate: h.resignation_rate,
 				net_pressure: Math.round(netPressure * 100) / 100,
-				signal: netPressure > 0.1 ? 1 : netPressure < -0.1 ? -1 : 0
+				signal: netPressure > 0.1 ? 1 : netPressure < -0.1 ? -1 : 0,
+				quarter: h.quarter,
+				note: h.note
 			};
+		} else if (hiring && enrichment?.hiring?.note) {
+			hiring.note = enrichment.hiring.note;
 		}
 
 		// Merge retrenchment from enrichment
@@ -593,11 +835,16 @@ function main() {
 			retrenchment = {
 				latest_count: r.latest_count,
 				latest_quarter: r.latest_quarter,
-				trend_4q_pct: 0,
+				trend_4q_pct: r.trend_4q_pct ?? 0,
 				signal: r.signal,
+				trend_direction: r.trend_direction,
 				recent_quarters: r.recent_quarters || [],
 				incidence_per_1000: r.incidence_per_1000
 			};
+		} else if (retrenchment && enrichment?.retrenchment?.incidence_per_1000 != null) {
+			retrenchment.incidence_per_1000 = enrichment.retrenchment.incidence_per_1000;
+			retrenchment.trend_direction =
+				retrenchment.trend_direction ?? enrichment.retrenchment.trend_direction;
 		}
 
 		// Re-entry data

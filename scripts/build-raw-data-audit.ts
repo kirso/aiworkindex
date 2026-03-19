@@ -76,11 +76,28 @@ const AUDIT_DEFINITIONS: AuditEntryDefinition[] = [
 	},
 	{
 		key: 'recruitment_resignation_rates',
-		file: 'recruitment_resignation_rates.json',
+		file: 'recruitment_resignation_rates.csv',
 		location: 'raw',
 		label: 'Recruitment and resignation rates',
+		expectedType: 'csv',
+		usedBy: ['labour monitor hiring signal']
+	},
+	{
+		key: 'recruitment_resignation_rates_cached_json',
+		file: 'recruitment_resignation_rates.json',
+		location: 'raw',
+		label: 'Recruitment and resignation cached JSON',
 		expectedType: 'json',
-		usedBy: ['planned labour monitor hiring signal']
+		usedBy: ['labour monitor troubleshooting'],
+		referenceOnly: true
+	},
+	{
+		key: 'retrenchment_by_occupation_group',
+		file: 'retrenchment_by_occupation_group.csv',
+		location: 'raw',
+		label: 'Retrenchment by occupation group',
+		expectedType: 'csv',
+		usedBy: ['labour monitor retrenchment signal']
 	},
 	{
 		key: 'lfr2024_section_d',
