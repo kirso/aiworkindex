@@ -19,6 +19,7 @@
 
 	let innerWidth = $state(1024);
 	let filterResult: typeof data.occupations | null = $state(null);
+	let activeInsightView = $state<'distribution' | 'wage' | 'quadrant'>('quadrant');
 	let filteredOccupations = $derived(filterResult ?? data.occupations);
 	let isFiltered = $derived(
 		filterResult !== null && filteredOccupations.length !== data.occupations.length
@@ -76,6 +77,23 @@
 			.slice(0, 5)
 	);
 	let singaporeContext = $derived(data.singaporeContext);
+	let insightViews = [
+		{
+			key: 'quadrant' as const,
+			label: 'Exposure vs Human Skills',
+			caption: 'Each dot = one occupation · four quadrants'
+		},
+		{
+			key: 'distribution' as const,
+			label: 'Score Distribution',
+			caption: 'How risk is spread across the filtered set'
+		},
+		{
+			key: 'wage' as const,
+			label: 'Risk by Wage',
+			caption: 'Median pressure by wage bracket'
+		}
+	];
 
 	const faqJsonLd = `<script type="application/ld+json">${JSON.stringify({
 		'@context': 'https://schema.org',
@@ -326,25 +344,40 @@
 					<Treemap occupations={filteredOccupations} />
 				</div>
 
-				<!-- Charts: 2-column -->
-				<div class="grid gap-4 md:grid-cols-2 mb-4">
-					<div class={card({ padding: 'sm' })}>
-						<h3 class={cn(sectionLabel(), 'mb-2 px-1')}>Score Distribution</h3>
-						<Histogram occupations={filteredOccupations} />
-					</div>
-					<div class={card({ padding: 'sm' })}>
-						<h3 class={cn(sectionLabel(), 'mb-2 px-1')}>Risk by Wage</h3>
-						<WageBracketChart occupations={filteredOccupations} />
-					</div>
-				</div>
-
-				<!-- Scatter: full width -->
 				<div class={cn(card({ padding: 'sm' }), 'mb-4')}>
-					<div class="mb-1.5 flex items-center justify-between px-1">
-						<h2 class={sectionLabel()}>Exposure vs Human Skills</h2>
-						<p class={caption()}>Each dot = one occupation · 4 quadrants</p>
+					<div class="mb-3 flex flex-col gap-3 px-1 md:flex-row md:items-center md:justify-between">
+						<div>
+							<h2 class={sectionLabel()}>
+								{insightViews.find(view => view.key === activeInsightView)?.label}
+							</h2>
+							<p class={caption()}>
+								{insightViews.find(view => view.key === activeInsightView)?.caption}
+							</p>
+						</div>
+						<div class="flex flex-wrap gap-2">
+							{#each insightViews as view (view.key)}
+								<button
+									type="button"
+									class={cn(
+										'rounded-md border px-2.5 py-1 text-xs font-medium transition-colors',
+										activeInsightView === view.key
+											? 'border-foreground bg-foreground text-background'
+											: 'border-border bg-card text-foreground hover:bg-accent'
+									)}
+									onclick={() => (activeInsightView = view.key)}
+								>
+									{view.label}
+								</button>
+							{/each}
+						</div>
 					</div>
-					<ScatterQuadrant occupations={filteredOccupations} />
+					{#if activeInsightView === 'quadrant'}
+						<ScatterQuadrant occupations={filteredOccupations} />
+					{:else if activeInsightView === 'distribution'}
+						<Histogram occupations={filteredOccupations} />
+					{:else}
+						<WageBracketChart occupations={filteredOccupations} />
+					{/if}
 				</div>
 
 				<!-- Featured: 4 cards -->
