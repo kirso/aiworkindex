@@ -1016,28 +1016,41 @@ function lookupLabourMonitor(
 	return labourMonitors.get(clusterKey) ?? null;
 }
 
+/**
+ * Monte Carlo stability scoring — 1000 correlated perturbations.
+ * Each run perturbs exposure, bottleneck, and market_resilience by
+ * a normally-distributed random amount (σ = 0.04), then recomputes net_risk.
+ * Optimistic = 10th percentile, pessimistic = 90th percentile of simulated risks.
+ */
 function buildStabilityScores(
 	exposure: number,
 	bottleneck: number,
 	marketResilience: number,
-	currentRisk: number
+	currentRisk: number,
+	marketSpread: number = 0
 ): StabilityScores {
-	const optimisticExposure = clamp01(exposure - 0.05);
-	const optimisticBottleneck = clamp01(bottleneck + 0.05);
-	const optimisticMarket = clamp01(marketResilience + 0.05);
-	const pessimisticExposure = clamp01(exposure + 0.05);
-	const pessimisticBottleneck = clamp01(bottleneck - 0.05);
-	const pessimisticMarket = clamp01(marketResilience - 0.05);
+	const N = 1000;
+	// Base sigma 0.04 + market spread contribution (high industry variance = wider intervals)
+	const sigma = 0.04 + Math.min(marketSpread * 0.5, 0.03);
+	const simulatedRisks: number[] = [];
 
-	// Must match MARKET_CONSTANTS.max_modifier_effect in src/lib/data/scoring-constants.ts
-	const optimisticRisk =
-		optimisticExposure *
-		(1 - optimisticBottleneck) *
-		(1 - MARKET_CONSTANTS.max_modifier_effect * optimisticMarket);
-	const pessimisticRisk =
-		pessimisticExposure *
-		(1 - pessimisticBottleneck) *
-		(1 - MARKET_CONSTANTS.max_modifier_effect * pessimisticMarket);
+	// Box-Muller transform for normal random numbers
+	function randn(): number {
+		const u1 = Math.random();
+		const u2 = Math.random();
+		return Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+	}
+
+	for (let i = 0; i < N; i++) {
+		const e = clamp01(exposure + sigma * randn());
+		const b = clamp01(bottleneck + sigma * randn());
+		const m = clamp01(marketResilience + sigma * randn());
+		simulatedRisks.push(e * (1 - b) * (1 - MARKET_CONSTANTS.max_modifier_effect * m));
+	}
+
+	simulatedRisks.sort((a, b) => a - b);
+	const optimisticRisk = simulatedRisks[Math.floor(N * 0.1)]!;
+	const pessimisticRisk = simulatedRisks[Math.floor(N * 0.9)]!;
 
 	const currentBand = getRiskBand(currentRisk);
 	const optimisticBand = getRiskBand(optimisticRisk);
@@ -1302,6 +1315,31 @@ function scoreOccupations(
 		groupMomentum.set(g, mm);
 	}
 
+	// ===== Industry momentum spread (V3.3) =====
+	// Load industry × occupation data to measure intra-group momentum variance.
+	// High variance = group-level momentum is a poor proxy for individual occupations.
+	const industryMomentumSpread = new Map<string, number>();
+	try {
+		const indMom = JSON.parse(
+			fs.readFileSync(path.join(DATA_DIR, 'industry-momentum.json'), 'utf-8')
+		);
+		for (const [groupKey, industries] of Object.entries(indMom)) {
+			const cagrs: number[] = [];
+			for (const [indKey, vals] of Object.entries(industries as Record<string, any>)) {
+				if (indKey === 'total' || vals.cagr_5y == null) continue;
+				cagrs.push(vals.cagr_5y);
+			}
+			if (cagrs.length >= 3) {
+				const mean = cagrs.reduce((s, v) => s + v, 0) / cagrs.length;
+				const variance = cagrs.reduce((s, v) => s + (v - mean) ** 2, 0) / cagrs.length;
+				industryMomentumSpread.set(groupKey, Math.sqrt(variance));
+			}
+		}
+		console.log(`  Industry momentum spread loaded for ${industryMomentumSpread.size} groups`);
+	} catch {
+		console.log('  Industry momentum data not available, skipping spread computation');
+	}
+
 	// ===== Occupation Scarcity =====
 	console.log('  Computing occupation scarcity...');
 
@@ -1464,11 +1502,15 @@ function scoreOccupations(
 		const netRiskRounded = round(netRisk, 4);
 		const band = getRiskBand(netRiskRounded);
 		const augmentation = exposure * bottleneck * marketResilienceAdjusted;
+		// Map major_group to industry momentum key format
+		const indKey = r.occ.major_group.replace(/ /g, '_').replace(/,/g, '');
+		const mktSpread = industryMomentumSpread.get(indKey) ?? 0;
 		const stability = buildStabilityScores(
 			exposure,
 			bottleneck,
 			marketResilienceAdjusted,
-			netRiskRounded
+			netRiskRounded,
+			mktSpread
 		);
 		const labourMonitor = lookupLabourMonitor(r.occ.major_group, labourMonitors);
 		const evidence: EvidenceSignals = {
