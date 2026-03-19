@@ -609,7 +609,8 @@
 					Every score carries a visible confidence indicator:
 				</p>
 				<p class="mt-2 rounded bg-muted px-3 py-2 font-mono text-sm text-foreground/80">
-					confidence = mean(crosswalk_quality, market_data_granularity, source_freshness)
+					confidence = weighted_sum(crosswalk, market, freshness, coverage, agreement, sensitivity)
+					− penalties
 				</p>
 				<div class="mt-3 overflow-x-auto">
 					<table class="w-full text-left text-sm">
@@ -638,26 +639,47 @@
 								>
 								<td class="py-2">0.65 - 0.85</td>
 							</tr>
-							<tr>
+							<tr class="border-b border-border/50">
 								<td class="py-2 pr-3 font-medium">Source freshness</td>
 								<td class="py-2 pr-3"
-									>Baseline reflects a mix of 2021 academic exposure data and recent Singapore
-									labour data. Anthropic observed-usage calibration raises freshness where
-									available.</td
+									>Weighted from the matched exposure sources' recency scores inside the
+									reliability-weighted ensemble.</td
 								>
-								<td class="py-2">0.75 - 0.85</td>
+								<td class="py-2">0.55 - 0.98</td>
+							</tr>
+							<tr class="border-b border-border/50">
+								<td class="py-2 pr-3 font-medium">Source coverage</td>
+								<td class="py-2 pr-3"
+									>Rewards occupations with broader matched exposure coverage across AIOE,
+									Anthropic, Eloundou, and ILO.</td
+								>
+								<td class="py-2">0.10 - 1.00</td>
+							</tr>
+							<tr class="border-b border-border/50">
+								<td class="py-2 pr-3 font-medium">Signal agreement</td>
+								<td class="py-2 pr-3"
+									>Penalizes occupations whose matched exposure sources materially disagree or where
+									only one source is available.</td
+								>
+								<td class="py-2">0.25 - 0.95</td>
+							</tr>
+							<tr>
+								<td class="py-2 pr-3 font-medium">Sensitivity</td>
+								<td class="py-2 pr-3"
+									>Derived from the Monte Carlo stability label: stable &gt; watch &gt; sensitive.</td
+								>
+								<td class="py-2">0.40 - 0.85</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 				<p class="mt-2 text-sm text-muted-foreground">
-					Published as: <strong>High</strong> (&ge;0.7) / <strong>Medium</strong> (0.4&ndash;0.7) /
-					<strong>Low</strong> (&lt;0.4).
+					Published as: <strong>High</strong> (&ge;0.7) / <strong>Medium</strong>
+					(0.45&ndash;0.7) / <strong>Low</strong> (&lt;0.45).
 				</p>
 				<p class="mt-2 text-sm text-muted-foreground italic">
-					In the current implementation, confidence varies by direct vs fallback crosswalk, exact vs
-					prefix-inferred demand evidence, and whether Anthropic observed-usage calibration is
-					available for the matched occupation.
+					In the current implementation, confidence is also reduced for one-source occupations and
+					for materially contested signal combinations.
 				</p>
 			</section>
 
@@ -998,8 +1020,10 @@
 					<li>SSOC 2020 maps to ISCO-08 unit groups via SingStat concordance</li>
 					<li>ISCO-08 maps to US SOC 2010 via BLS crosswalk</li>
 					<li>When one ISCO maps to multiple SOC codes, we average the scores</li>
-					<li>Fallback 1: 2-digit ISCO sub-major group average (confidence = 0.6)</li>
-					<li>Fallback 2: 1-digit major group average (confidence = 0.3)</li>
+					<li>
+						Fallback 1: 2-digit ISCO sub-major group average (crosswalk quality starts at 0.6)
+					</li>
+					<li>Fallback 2: 1-digit major group average (crosswalk quality starts at 0.3)</li>
 				</ol>
 				<p class="mt-2 text-sm text-muted-foreground">
 					Current coverage: {pct(directCount, occupationCount)}% direct match ({directCount}/{occupationCount}),

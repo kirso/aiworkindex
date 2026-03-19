@@ -236,8 +236,17 @@
 	<section class="mb-8">
 		<p class={sectionLabel()}>Confidence Scoring</p>
 		<p class="mt-2 rounded-md bg-muted px-3 py-2 font-mono text-sm text-foreground/80">
-			confidence = mean(crosswalk_quality, market_data_granularity, source_freshness)
+			confidence = weighted_sum(crosswalk, market, freshness, coverage, agreement, sensitivity) −
+			penalties
 		</p>
+		<ul class="mt-2 list-inside list-disc space-y-1 text-sm text-muted-foreground">
+			<li>Weights: crosswalk 0.25, market granularity 0.15, source freshness 0.10</li>
+			<li>Weights: source coverage 0.20, signal agreement 0.15, sensitivity 0.15</li>
+			<li>
+				Penalties: one-source direct = 0.05, one-source sub-major fallback = 0.08, one-source major
+				fallback = 0.12, contested signal = 0.04
+			</li>
+		</ul>
 		<div class="mt-3 overflow-x-auto">
 			<table class="w-full text-left text-sm">
 				<thead>
@@ -253,11 +262,11 @@
 					</tr>
 					<tr class="border-b border-border/50">
 						<td class="py-2 pr-3 font-medium">medium</td>
-						<td class="py-2 font-mono">0.4 – 0.7</td>
+						<td class="py-2 font-mono">0.45 – 0.7</td>
 					</tr>
 					<tr>
 						<td class="py-2 pr-3 font-medium">low</td>
-						<td class="py-2 font-mono">&lt; 0.4</td>
+						<td class="py-2 font-mono">&lt; 0.45</td>
 					</tr>
 				</tbody>
 			</table>
@@ -354,12 +363,13 @@
 
 	<!-- Validation -->
 	<section class="mb-8">
-		<p class={sectionLabel()}>Validation Checks (49 total)</p>
+		<p class={sectionLabel()}>Validation Checks (56 total)</p>
 		<ul class="mt-2 list-inside list-disc space-y-1.5 text-sm text-muted-foreground">
 			<li>Record completeness (562 occupations, all fields present)</li>
 			<li>Crosswalk coverage and evidence signals</li>
 			<li>Distribution sanity (band counts, impact type ratios)</li>
 			<li>Anchor occupation directional checks (5 occupations)</li>
+			<li>Confidence coverage, source-weight, and contested-signal checks</li>
 			<li>Labour monitor data integrity</li>
 			<li>Synthetic role SSOC validity (all components must exist)</li>
 			<li>Alias SSOC validity (all references must exist)</li>

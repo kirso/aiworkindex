@@ -9,7 +9,7 @@ V4.0: 4-source exposure ensemble scoring 562 Singapore occupations and 88 modern
 - **562 occupations** scored across 9 major groups
 - **88 synthetic roles** (product manager, data scientist, delivery rider, startup founder...)
 - **27% face high+ AI risk** (152 occupations)
-- **SGD 56B** annual wage pool inside high-pressure occupations
+- **SGD 56B** Est. annual wage pool under pressure
 - **50%** average AI task overlap across all occupations
 - **4-source exposure ensemble**: Felten AIOE + Anthropic observed usage + Eloundou GPT exposure + ILO 2025
 
@@ -58,7 +58,7 @@ bun run build                    # Build 672 prerendered pages
 | O*NET | Work Context, Job Zones, Task Statements | 2020 |
 | MOM SOL 2026 | Shortage Occupation List | Nov 2025 |
 | MOM Jobs in Demand | In-demand occupation flags | Dec 2025 |
-| US BLS | Employment projections 2024-2034 (validation) | Aug 2025 |
+| US BLS | Employment projections 2024-2034 (convergent cross-check) | Aug 2025 |
 
 ## Singapore Context
 
