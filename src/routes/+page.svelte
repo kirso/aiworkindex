@@ -358,7 +358,10 @@
 							</div>
 							<Tabs.List class="w-full md:w-auto">
 								{#each insightViews as view (view.key)}
-									<Tabs.Trigger value={view.key} class="text-xs md:min-w-32">
+									<Tabs.Trigger
+										value={view.key}
+										class="min-w-0 flex-1 text-xs sm:flex-initial sm:text-sm"
+									>
 										{view.label}
 									</Tabs.Trigger>
 								{/each}
