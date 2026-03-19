@@ -99,6 +99,13 @@ export interface OccupationScores {
 export type ImpactType = 'ai_leveraged' | 'at_risk' | 'stable' | 'mixed';
 export type AugmentationBand = 'very_low' | 'low' | 'moderate' | 'high' | 'very_high';
 
+export interface SgContext {
+	pwm_covered: boolean;
+	licensed_profession: 'strict' | 'partial' | false;
+	foreign_worker_dependency: 'very_high' | 'high' | 'moderate' | false;
+	skillsfuture_eligible: boolean;
+}
+
 export interface Occupation {
 	ssoc: string;
 	title: string;
@@ -129,6 +136,10 @@ export interface Occupation {
 	scores: OccupationScores;
 	// Optional workflow overlay (Phase 1A)
 	workflow_overlay?: import('./workflow-overlay').WorkflowOverlay;
+	// Singapore context fields
+	education_level?: number;
+	education_label?: string;
+	sg_context?: SgContext;
 }
 
 export interface MajorGroup {

@@ -108,6 +108,21 @@
 	jsonLd={[faqJsonLd]}
 />
 
+<!-- ===== NEWS BANNER ===== -->
+<div class="border-b border-risk-moderate-border bg-risk-moderate-subtle">
+	<div
+		class="mx-auto flex max-w-screen-2xl items-center justify-center gap-2 px-4 py-1.5 text-xs sm:px-6"
+	>
+		<span class="font-semibold text-risk-moderate">New</span>
+		<span class="text-foreground/70"
+			>V4.0: 4-input ensemble (AIOE + Anthropic + Eloundou + ILO) · BLS validated (rho=-0.14,
+			p&lt;0.01) ·
+			<a href="/reports" class="text-primary hover:underline">Q4 2025 full MOM data expected soon</a
+			></span
+		>
+	</div>
+</div>
+
 <!-- ===== HERO: Search + Stats ===== -->
 <div class="bg-card border-b border-border">
 	<div class="mx-auto max-w-screen-2xl px-4 sm:px-6">

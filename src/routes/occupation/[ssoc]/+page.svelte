@@ -379,6 +379,71 @@
 		<OutlookSection occupation={occ} />
 	</section>
 
+	<!-- ===== SINGAPORE CONTEXT ===== -->
+	{#if occ.education_label || occ.sg_context?.pwm_covered || occ.sg_context?.licensed_profession || occ.sg_context?.foreign_worker_dependency || occ.sg_context?.skillsfuture_eligible}
+		<section class="mb-8">
+			<h2 class={cn(sectionLabel(), 'mb-3')}>Singapore Context</h2>
+			<div class={card({ padding: 'md' })}>
+				<div class="grid gap-3 sm:grid-cols-2">
+					{#if occ.education_label}
+						<div>
+							<p class="text-xs font-semibold text-muted-foreground">Typical Education</p>
+							<p class="mt-0.5 text-sm text-foreground">{occ.education_label}</p>
+						</div>
+					{/if}
+
+					{#if occ.sg_context?.pwm_covered}
+						<div>
+							<p class="text-xs font-semibold text-risk-high">Progressive Wage Model</p>
+							<p class="mt-0.5 text-xs text-muted-foreground">
+								Mandated wage floor — rising wages may accelerate automation incentive
+							</p>
+						</div>
+					{/if}
+
+					{#if occ.sg_context?.licensed_profession}
+						<div>
+							<p class="text-xs font-semibold text-risk-very-low">
+								Licensed Profession ({occ.sg_context.licensed_profession === 'strict'
+									? 'Strict'
+									: 'Partial'})
+							</p>
+							<p class="mt-0.5 text-xs text-muted-foreground">
+								{occ.sg_context.licensed_profession === 'strict'
+									? 'Must hold license to practice — strong regulatory moat against displacement'
+									: 'Licensing required for some activities — moderate protection'}
+							</p>
+						</div>
+					{/if}
+
+					{#if occ.sg_context?.foreign_worker_dependency}
+						<div>
+							<p class="text-xs font-semibold text-risk-moderate">
+								Foreign Worker Dependency: {occ.sg_context.foreign_worker_dependency === 'very_high'
+									? 'Very High'
+									: occ.sg_context.foreign_worker_dependency === 'high'
+										? 'High'
+										: 'Moderate'}
+							</p>
+							<p class="mt-0.5 text-xs text-muted-foreground">
+								Rising EP/S Pass thresholds increase automation incentive in this sector
+							</p>
+						</div>
+					{/if}
+
+					{#if occ.sg_context?.skillsfuture_eligible}
+						<div>
+							<p class="text-xs font-semibold text-impact-leveraged">SkillsFuture Eligible</p>
+							<p class="mt-0.5 text-xs text-muted-foreground">
+								Career conversion programmes available — government-funded retraining pathway
+							</p>
+						</div>
+					{/if}
+				</div>
+			</div>
+		</section>
+	{/if}
+
 	<!-- ===== CAREER PATHS ===== -->
 	{#if transitions}
 		<section class="mb-8">
