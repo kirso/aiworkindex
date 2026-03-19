@@ -141,6 +141,22 @@ const AUDIT_DEFINITIONS: AuditEntryDefinition[] = [
 		usedBy: ['worker profile']
 	},
 	{
+		key: 'wsq_trainees_by_statement_attainment',
+		file: 'wsq_trainees_by_statement_attainment.json',
+		location: 'raw',
+		label: 'WSQ trainees by statement attainment',
+		expectedType: 'json',
+		usedBy: ['transition infrastructure']
+	},
+	{
+		key: 'jtm_overview',
+		file: 'jtm_overview.html',
+		location: 'raw',
+		label: 'Jobs Transformation Maps overview',
+		expectedType: 'txt',
+		usedBy: ['transition infrastructure']
+	},
+	{
 		key: 'occupations_list',
 		file: 'occupations_list.xlsx',
 		location: 'raw',

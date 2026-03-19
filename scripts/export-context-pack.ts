@@ -20,6 +20,7 @@ const INDUSTRY_CONTEXT_FILE = path.join(DATA_DIR, 'industry-context.json');
 const LABOUR_MONITOR_FILE = path.join(DATA_DIR, 'labour-monitor.json');
 const OCCUPATION_INDUSTRY_WAGES_FILE = path.join(DATA_DIR, 'occupation-industry-wages.json');
 const AI_IN_SINGAPORE_FILE = path.join(DATA_DIR, 'ai-in-singapore.json');
+const TRANSITION_INFRASTRUCTURE_FILE = path.join(DATA_DIR, 'transition-infrastructure.json');
 
 const CONTEXT_PACK_FILE = path.join(OUT_DIR, 'sg-context-pack-2025.json');
 const LABOUR_MONITOR_EXPORT_FILE = path.join(OUT_DIR, 'sg-labour-monitor-2025.json');
@@ -35,6 +36,7 @@ const sectorWageAnchors = readJson<Record<string, unknown>>(OCCUPATION_INDUSTRY_
 const aiInSingapore = readJson<{ sources?: unknown[] } & Record<string, unknown>>(
 	AI_IN_SINGAPORE_FILE
 );
+const transitionInfrastructure = readJson<Record<string, unknown>>(TRANSITION_INFRASTRUCTURE_FILE);
 
 const contextPack = {
 	version: DATA_VINTAGE.model_version,
@@ -56,14 +58,20 @@ const contextPack = {
 			? ((workerProfile as { broad_groups: unknown[] }).broad_groups?.length ?? 0)
 			: 0,
 		sector_wage_anchor_occupations: Object.keys(sectorWageAnchors).length,
-		national_ai_sources: Array.isArray(aiInSingapore.sources) ? aiInSingapore.sources.length : 0
+		national_ai_sources: Array.isArray(aiInSingapore.sources) ? aiInSingapore.sources.length : 0,
+		transition_programmes: Array.isArray(
+			(transitionInfrastructure as { programmes?: unknown[] }).programmes
+		)
+			? ((transitionInfrastructure as { programmes: unknown[] }).programmes?.length ?? 0)
+			: 0
 	},
 	vintage: {
 		worker_profile: '2024',
 		industry_context: '2024',
 		sector_wage_anchors: '2024',
 		labour_monitor: DATA_VINTAGE.labour_monitor,
-		national_ai_context: '2025-2026'
+		national_ai_context: '2025-2026',
+		transition_infrastructure: '2024-2026'
 	},
 	components: {
 		labour_monitor: {
@@ -91,6 +99,12 @@ const contextPack = {
 			description:
 				'Official IMDA and MOM national AI adoption, workforce, and programme context for Singapore. This is contextual evidence around the score, not an occupation-level input.',
 			data: aiInSingapore
+		},
+		transition_infrastructure: {
+			file: 'sg-transition-infrastructure-2025.json',
+			description:
+				'Official Singapore transition-infrastructure context covering Jobs Transformation Maps, major public career-transition programmes, and WSQ training-system activity.',
+			data: transitionInfrastructure
 		}
 	}
 };

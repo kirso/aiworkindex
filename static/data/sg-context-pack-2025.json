@@ -11,14 +11,16 @@
     "industry_context_groups": 0,
     "worker_profile_groups": 0,
     "sector_wage_anchor_occupations": 481,
-    "national_ai_sources": 3
+    "national_ai_sources": 3,
+    "transition_programmes": 5
   },
   "vintage": {
     "worker_profile": "2024",
     "industry_context": "2024",
     "sector_wage_anchors": "2024",
     "labour_monitor": "Q3 2025 full + Q4 2025 advance",
-    "national_ai_context": "2025-2026"
+    "national_ai_context": "2025-2026",
+    "transition_infrastructure": "2024-2026"
   },
   "components": {
     "labour_monitor": {
@@ -16462,7 +16464,7 @@
       "description": "Official IMDA and MOM national AI adoption, workforce, and programme context for Singapore. This is contextual evidence around the score, not an occupation-level input.",
       "data": {
         "version": "V4.0",
-        "generated_at": "2026-03-19T10:41:24.783Z",
+        "generated_at": "2026-03-19T10:52:00.944Z",
         "context_type": "national_ai_context",
         "description": "Official Singapore national AI adoption, workforce, and programme context from IMDA and MOM releases. This artifact supports reports and public context around the structural score.",
         "usage_guidance": {
@@ -16561,6 +16563,177 @@
             "notes": "SOI is not an AI-adoption dataset. It is included as official employer-quality and career-mobility context around workforce opportunity."
           }
         ]
+      }
+    },
+    "transition_infrastructure": {
+      "file": "sg-transition-infrastructure-2025.json",
+      "description": "Official Singapore transition-infrastructure context covering Jobs Transformation Maps, major public career-transition programmes, and WSQ training-system activity.",
+      "data": {
+        "version": "V4.0",
+        "generated_at": "2026-03-19T10:52:00.968Z",
+        "description": "Official Singapore transition infrastructure anchors used around the heuristic transition-support layer. This artifact captures published programmes, training-system activity, and Jobs Transformation Map coverage.",
+        "programmes": [
+          {
+            "key": "career_conversion_programmes",
+            "label": "Career Conversion Programmes",
+            "agency": "Workforce Singapore",
+            "url": "https://www.wsg.gov.sg/home/individuals/attachment-placement-programmes/career-conversion-programmes-for-individuals",
+            "type": "reskilling_support",
+            "scope": "Mid-career workers and employers redesigning or converting job roles."
+          },
+          {
+            "key": "skillsfuture_career_transition_programme",
+            "label": "SkillsFuture Career Transition Programme",
+            "agency": "SkillsFuture Singapore",
+            "url": "https://www.skillsfuture.gov.sg/careertransition",
+            "type": "training_support",
+            "scope": "Career-switching and upskilling support through subsidised modular training."
+          },
+          {
+            "key": "careersfinder",
+            "label": "CareersFinder",
+            "agency": "Workforce Singapore",
+            "url": "https://www.wsg.gov.sg/home/media-room/media-releases-speeches/factsheet-on-careersfinder",
+            "type": "career_navigation",
+            "scope": "Official career exploration tool using skills adjacencies and labour-market transitions."
+          },
+          {
+            "key": "skills_framework",
+            "label": "Skills Framework",
+            "agency": "SkillsFuture Singapore",
+            "url": "https://www.skillsfuture.gov.sg/skills-framework",
+            "type": "sector_framework",
+            "scope": "Published sector role, task, and skills frameworks for workforce development."
+          },
+          {
+            "key": "jobs_transformation_maps",
+            "label": "Jobs Transformation Maps",
+            "agency": "Workforce Singapore",
+            "url": "https://www.wsg.gov.sg/home/employers-industry-partners/jobs-transformation-maps",
+            "type": "sector_transition_map",
+            "scope": "Official sector job-redesign and skills-transition maps."
+          }
+        ],
+        "wsq_training": {
+          "source_file": "wsq_trainees_by_statement_attainment.json",
+          "latest_year": "2024",
+          "total_trainees_latest": 382175,
+          "historical_total": [
+            {
+              "year": "2011",
+              "count": 192249
+            },
+            {
+              "year": "2012",
+              "count": 198322
+            },
+            {
+              "year": "2013",
+              "count": 231009
+            },
+            {
+              "year": "2014",
+              "count": 267423
+            },
+            {
+              "year": "2015",
+              "count": 267655
+            },
+            {
+              "year": "2016",
+              "count": 289699
+            },
+            {
+              "year": "2017",
+              "count": 310491
+            },
+            {
+              "year": "2018",
+              "count": 327996
+            },
+            {
+              "year": "2019",
+              "count": 322843
+            },
+            {
+              "year": "2020",
+              "count": 262905
+            },
+            {
+              "year": "2021",
+              "count": 310764
+            },
+            {
+              "year": "2022",
+              "count": 288646
+            },
+            {
+              "year": "2023",
+              "count": 310221
+            },
+            {
+              "year": "2024",
+              "count": 382175
+            }
+          ],
+          "statement_attainment_breakdown": [
+            {
+              "label": "Certificate",
+              "count_2022": 166106,
+              "count_2024": null
+            },
+            {
+              "label": "Higher Certificate",
+              "count_2022": 52279,
+              "count_2024": null
+            },
+            {
+              "label": "Advanced Certificate",
+              "count_2022": 75924,
+              "count_2024": null
+            },
+            {
+              "label": "Diploma",
+              "count_2022": 46969,
+              "count_2024": null
+            },
+            {
+              "label": "Specialist Diploma",
+              "count_2022": 10094,
+              "count_2024": null
+            },
+            {
+              "label": "Graduate Certificate",
+              "count_2022": 1024,
+              "count_2024": null
+            },
+            {
+              "label": "Graduate Diploma",
+              "count_2022": 116,
+              "count_2024": null
+            }
+          ]
+        },
+        "jobs_transformation_maps": {
+          "source_file": "jtm_overview.html",
+          "launched_count": 19,
+          "sector_coverage": [
+            "Aviation",
+            "Built Environment",
+            "Environmental Services",
+            "Financial Services",
+            "Food Manufacturing",
+            "Food Services",
+            "Hotel",
+            "Information",
+            "Communications",
+            "Land Transport",
+            "Logistics",
+            "Professional Services",
+            "Retail",
+            "Wholesale Trade"
+          ]
+        }
       }
     }
   }

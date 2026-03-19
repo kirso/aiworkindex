@@ -28,6 +28,7 @@ interface ReleaseArtifactDefinition {
 		| 'worker_profile'
 		| 'national_ai_context'
 		| 'transition_support'
+		| 'transition_infrastructure'
 		| 'governance';
 	description: string;
 }
@@ -72,11 +73,18 @@ const ARTIFACTS: ReleaseArtifactDefinition[] = [
 			'Official IMDA and MOM national AI adoption, workforce, and programme context used for reports and contextual framing.'
 	},
 	{
+		file: 'sg-transition-infrastructure-2025.json',
+		label: 'Transition infrastructure layer',
+		category: 'transition_infrastructure',
+		description:
+			'Official Singapore transition-infrastructure artifact covering published programmes, WSQ training-system activity, and Jobs Transformation Maps coverage.'
+	},
+	{
 		file: 'sg-transition-support-v4.json',
 		label: 'Transition support layer',
 		category: 'transition_support',
 		description:
-			'Published heuristic transition-support artifact derived from the current transition-capacity model.'
+			'Published hybrid transition-support artifact combining the deterministic transition-capacity model with official Singapore transition-infrastructure context.'
 	},
 	{
 		file: 'claims-matrix-v4.json',

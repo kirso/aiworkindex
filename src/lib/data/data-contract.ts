@@ -217,6 +217,61 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 			'Official quarterly retrenched-employees counts by broad occupational group. The raw API payload is downloaded into the repo and merged with published incidence context from the MOM labour-market snapshot.'
 	},
 	{
+		key: 'wsg_jobs_transformation_maps',
+		label: 'Workforce Singapore Jobs Transformation Maps',
+		tier: 'official_sg',
+		status: 'live',
+		vintage: '2026',
+		used_for: ['transition infrastructure', 'transition-support context'],
+		url: 'https://www.wsg.gov.sg/home/employers-industry-partners/jobs-transformation-maps',
+		notes:
+			'Official sector job-redesign and skills-transition overview. Used as published transition-infrastructure context, not as an occupation-level score input.'
+	},
+	{
+		key: 'skillsfuture_wsq_trainees',
+		label: 'SkillsFuture WSQ Trainees by Statement Attainment',
+		tier: 'official_sg',
+		status: 'live',
+		vintage: '2024',
+		used_for: ['transition infrastructure'],
+		url: 'https://data.gov.sg/datasets?resultId=d_711ea9c032baf00470246b09499b65c9&sort=updatedAt',
+		notes:
+			'Official annual training-system activity used to anchor the scale of Singapore transition infrastructure. Not treated as occupation-level transition evidence.'
+	},
+	{
+		key: 'skillsfuture_career_transition_programme',
+		label: 'SkillsFuture Career Transition Programme',
+		tier: 'official_sg',
+		status: 'live',
+		vintage: '2026',
+		used_for: ['transition infrastructure', 'transition-support context'],
+		url: 'https://www.skillsfuture.gov.sg/careertransition',
+		notes:
+			'Official programme directory used as public transition-infrastructure context. Mappings to occupations remain broad-family anchors.'
+	},
+	{
+		key: 'wsg_career_conversion_programmes',
+		label: 'Workforce Singapore Career Conversion Programmes',
+		tier: 'official_sg',
+		status: 'live',
+		vintage: '2026',
+		used_for: ['transition infrastructure', 'transition-support context'],
+		url: 'https://www.wsg.gov.sg/home/individuals/attachment-placement-programmes/career-conversion-programmes-for-individuals',
+		notes:
+			'Official reskilling programme directory used as transition-infrastructure context, not as observed worker-mobility data.'
+	},
+	{
+		key: 'wsg_careersfinder',
+		label: 'Workforce Singapore CareersFinder',
+		tier: 'official_sg',
+		status: 'live',
+		vintage: '2025',
+		used_for: ['transition infrastructure', 'transition-support context'],
+		url: 'https://www.wsg.gov.sg/home/media-room/media-releases-speeches/factsheet-on-careersfinder',
+		notes:
+			'Official career-navigation tool reference used as transition-support context.'
+	},
+	{
 		key: 'wages_by_industry',
 		label: 'Wages by Industry',
 		tier: 'official_sg',

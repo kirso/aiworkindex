@@ -22,6 +22,12 @@ const STATIC_DATA_DIR = path.join(ROOT_DIR, 'static', 'data');
 const OUT_FILE = path.join(DATA_DIR, 'transition-support.json');
 const SRC_OUT_FILE = path.join(SRC_DATA_DIR, 'transition-support.json');
 const STATIC_OUT_FILE = path.join(STATIC_DATA_DIR, 'sg-transition-support-v4.json');
+const TRANSITION_INFRASTRUCTURE_FILE = path.join(DATA_DIR, 'transition-infrastructure.json');
+
+function readJson<T>(filePath: string): T | null {
+	if (!fs.existsSync(filePath)) return null;
+	return JSON.parse(fs.readFileSync(filePath, 'utf-8')) as T;
+}
 
 function compactTransition(transition: ReturnType<typeof findBestTransitions>[number]) {
 	return {
@@ -38,9 +44,28 @@ function compactTransition(transition: ReturnType<typeof findBestTransitions>[nu
 	};
 }
 
+const transitionInfrastructure = readJson<Record<string, unknown>>(TRANSITION_INFRASTRUCTURE_FILE);
+
+function buildOfficialProgrammeSupport(skillsfutureEligible: boolean) {
+	return {
+		support_tier: skillsfutureEligible ? 'broad_family_support' : 'general_public_support',
+		recommended_programmes: skillsfutureEligible
+			? [
+					'Career Conversion Programmes',
+					'SkillsFuture Career Transition Programme',
+					'CareersFinder'
+				]
+			: ['CareersFinder'],
+		basis: skillsfutureEligible
+			? 'Broad occupation-family match to published SkillsFuture / WSG support.'
+			: 'General public transition infrastructure is available, but no broad family match is asserted.'
+	};
+}
+
 const transitions = occupations.map(from => {
 	const candidateSet = findBestTransitions(from, occupations, 25);
 	const categorized = categorizeTransitions(candidateSet);
+	const skillsfutureEligible = from.sg_context?.skillsfuture_eligible ?? false;
 
 	return {
 		from_ssoc: from.ssoc,
@@ -48,7 +73,8 @@ const transitions = occupations.map(from => {
 		from_risk_band: from.risk_band,
 		from_net_risk: Number(from.net_risk.toFixed(4)),
 		from_wage: from.gross_wage_median,
-		skillsfuture_eligible: from.sg_context?.skillsfuture_eligible ?? false,
+		skillsfuture_eligible: skillsfutureEligible,
+		official_programme_support: buildOfficialProgrammeSupport(skillsfutureEligible),
 		top_overall: candidateSet.slice(0, 5).map(compactTransition),
 		easier_switch: categorized.easierSwitch.map(compactTransition),
 		lower_risk: categorized.lowerRisk.map(compactTransition),
@@ -61,12 +87,14 @@ const payload = {
 	version: DATA_VINTAGE.model_version,
 	generated_at: new Date().toISOString(),
 	description:
-		'Heuristic transition-support artifact derived from the AI Work Index transition-capacity model. This is decision-support guidance, not observed worker mobility data.',
+		'Hybrid transition-support artifact combining the deterministic AI Work Index transition-capacity model with official Singapore transition-infrastructure anchors.',
 	notes: [
 		'Uses the published structural score plus wage, demand, archetype, and credential-gap heuristics.',
 		'Published separately from the structural score because it is a support layer, not a measured labour-market outcome.',
+		'Official Singapore transition infrastructure is attached as programme context; occupation-level transition matching remains a heuristic until observed mobility data is available.',
 		'SkillsFuture eligibility is a broad Singapore context flag, not proof that a specific transition pathway is available.'
 	],
+	official_transition_infrastructure: transitionInfrastructure,
 	transitions
 };
 

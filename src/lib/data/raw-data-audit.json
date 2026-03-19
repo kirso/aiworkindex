@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-03-19T10:41:27.753Z",
+  "generated_at": "2026-03-19T10:52:04.356Z",
   "summary": {
-    "valid": 15,
+    "valid": 17,
     "placeholder_error": 0,
     "missing": 0,
     "reference_only": 4
@@ -167,6 +167,32 @@
         "worker profile"
       ],
       "note": "Workbook sheets: Contents, T1, T1.1, T1.2"
+    },
+    {
+      "key": "wsq_trainees_by_statement_attainment",
+      "file": "wsq_trainees_by_statement_attainment.json",
+      "label": "WSQ trainees by statement attainment",
+      "status": "valid",
+      "exists": true,
+      "expected_type": "json",
+      "size_bytes": 4908,
+      "used_by": [
+        "transition infrastructure"
+      ],
+      "note": "Valid JSON payload."
+    },
+    {
+      "key": "jtm_overview",
+      "file": "jtm_overview.html",
+      "label": "Jobs Transformation Maps overview",
+      "status": "valid",
+      "exists": true,
+      "expected_type": "txt",
+      "size_bytes": 31307,
+      "used_by": [
+        "transition infrastructure"
+      ],
+      "note": "Present locally."
     },
     {
       "key": "occupations_list",
