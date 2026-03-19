@@ -2,8 +2,7 @@
 	import { browser } from '$app/environment';
 	import Treemap from '$lib/components/viz/Treemap.svelte';
 	import Histogram from '$lib/components/viz/Histogram.svelte';
-	import WageBracketChart from '$lib/components/viz/WageBracketChart.svelte';
-	import ScatterQuadrant from '$lib/components/viz/ScatterQuadrant.svelte';
+	import DemandPressureMatrix from '$lib/components/viz/DemandPressureMatrix.svelte';
 	import HeroSearch from '$lib/components/ui/HeroSearch.svelte';
 	import FilterPanel from '$lib/components/ui/FilterPanel.svelte';
 	import OccupationCardList from '$lib/components/ui/OccupationCardList.svelte';
@@ -20,7 +19,7 @@
 
 	let innerWidth = $state(1024);
 	let filterResult: typeof data.occupations | null = $state(null);
-	let activeInsightView = $state<'distribution' | 'wage' | 'quadrant'>('quadrant');
+	let activeChartTab = $state<'treemap' | 'pressure' | 'distribution'>('treemap');
 	let filteredOccupations = $derived(filterResult ?? data.occupations);
 	let isFiltered = $derived(
 		filterResult !== null && filteredOccupations.length !== data.occupations.length
@@ -78,22 +77,11 @@
 			.slice(0, 5)
 	);
 	let singaporeContext = $derived(data.singaporeContext);
-	let insightViews = [
-		{
-			key: 'quadrant' as const,
-			label: 'Exposure vs Human Skills',
-			caption: 'Each dot = one occupation · four quadrants'
-		},
-		{
-			key: 'distribution' as const,
-			label: 'Score Distribution',
-			caption: 'How risk is spread across the filtered set'
-		},
-		{
-			key: 'wage' as const,
-			label: 'Risk by Wage',
-			caption: 'Median pressure by wage bracket'
-		}
+
+	let chartTabs = [
+		{ key: 'treemap' as const, label: 'Occupation Map' },
+		{ key: 'pressure' as const, label: 'Demand vs Pressure' },
+		{ key: 'distribution' as const, label: 'Distribution' }
 	];
 
 	const faqJsonLd = `<script type="application/ld+json">${JSON.stringify({
@@ -136,13 +124,14 @@
 		<span class="font-semibold text-risk-moderate">New</span>
 		<span class="text-foreground/70"
 			>V4.0: 4-source exposure ensemble · BLS cross-check (&rho; = -0.14, n = 530) ·
-			<a href="/reports" class="text-primary hover:underline">Q4 2025 full MOM data expected soon</a
+			<a href="/reports" class="text-primary hover:underline"
+				>latest published labour monitor: MOM Q3 2025</a
 			></span
 		>
 	</div>
 </div>
 
-<!-- ===== HERO: Search + Stats ===== -->
+<!-- ===== HERO: Search + 3 Stats + CTA Pills ===== -->
 <div class="bg-card border-b border-border">
 	<div class="mx-auto max-w-screen-2xl px-4 sm:px-6">
 		<div class="mx-auto max-w-2xl py-8 sm:py-10 text-center">
@@ -157,83 +146,81 @@
 				<HeroSearch occupations={data.occupations} />
 			</div>
 		</div>
-		<!-- Key stats -->
-		<div class="grid grid-cols-3 gap-3 pb-5 sm:grid-cols-6">
+
+		<!-- 3 key stats -->
+		<div class="grid grid-cols-3 gap-4 pb-4">
 			<div class="text-center">
-				<p class="font-mono text-lg font-bold text-foreground sm:text-xl">
-					{data.occupations.length}
-				</p>
-				<p class="text-[10px] text-muted-foreground">occupations scored</p>
-			</div>
-			<div class="text-center">
-				<p class="font-mono text-lg font-bold text-risk-very-high sm:text-xl">
+				<p class="font-mono text-xl font-bold text-risk-very-high sm:text-2xl">
 					{data.stats.highRiskPct}%
 				</p>
-				<p class="text-[10px] text-muted-foreground">in high+ pressure bands</p>
+				<p class="text-[10px] text-muted-foreground sm:text-xs">high+ pressure</p>
 			</div>
 			<div class="text-center">
-				<p class="font-mono text-lg font-bold text-risk-high sm:text-xl">
+				<p class="font-mono text-xl font-bold text-risk-high sm:text-2xl">
 					SGD {data.stats.wagePoolUnderPressureBillions.toFixed(0)}B
 				</p>
-				<p class="text-[10px] text-muted-foreground">Est. wage pool under pressure</p>
+				<p class="text-[10px] text-muted-foreground sm:text-xs">Est. wage pool under pressure</p>
 			</div>
 			<div class="text-center">
-				<p class="font-mono text-lg font-bold text-foreground sm:text-xl">
-					{(data.stats.avgExposure * 100).toFixed(0)}%
-				</p>
-				<p class="text-[10px] text-muted-foreground">avg AI task overlap</p>
-			</div>
-			<div class="text-center">
-				<p class="font-mono text-lg font-bold text-risk-very-low sm:text-xl">
+				<p class="font-mono text-xl font-bold text-risk-very-low sm:text-2xl">
 					{data.stats.demandCount}
 				</p>
-				<p class="text-[10px] text-muted-foreground">gov't in-demand</p>
-			</div>
-			<div class="text-center">
-				<p class="font-mono text-lg font-bold text-foreground sm:text-xl">
-					SGD {(data.stats.nationalMedian / 1000).toFixed(1)}K
-				</p>
-				<p class="text-[10px] text-muted-foreground">median wage</p>
+				<p class="text-[10px] text-muted-foreground sm:text-xs">gov't in-demand</p>
 			</div>
 		</div>
 
-		<div class="grid gap-3 border-t border-border/60 pb-6 pt-4 sm:grid-cols-2 xl:grid-cols-4">
-			<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
-				<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-					AI Adoption · 2024 Data
-				</p>
-				<p class="mt-1 font-mono text-lg font-bold text-foreground">
-					{singaporeContext.ai.enterprises.non_sme_ai_adoption_pct.toFixed(1)}%
-				</p>
-				<p class="text-xs text-muted-foreground">latest observed non-SME AI adoption</p>
-			</div>
-			<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
-				<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-					Workers · 2024 Data
-				</p>
-				<p class="mt-1 font-mono text-lg font-bold text-foreground">
-					{singaporeContext.ai.workforce.workers_using_ai_at_work_pct.toFixed(1)}%
-				</p>
-				<p class="text-xs text-muted-foreground">reported using AI at work</p>
-			</div>
-			<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
-				<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-					Labour Backdrop · 2025 4Q
-				</p>
-				<p class="mt-1 font-mono text-lg font-bold text-foreground">
-					{singaporeContext.macro.resident_unemployment_rate.toFixed(1)}%
-				</p>
-				<p class="text-xs text-muted-foreground">resident unemployment rate</p>
-			</div>
-			<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
-				<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-					NAIIP · 2026
-				</p>
-				<p class="mt-1 font-mono text-lg font-bold text-foreground">
-					{Math.round(singaporeContext.ai.national_programmes.naiip_workers_target / 1000)}K
-				</p>
-				<p class="text-xs text-muted-foreground">workers targeted to become AI-bilingual</p>
-			</div>
+		<!-- CTA pills -->
+		<div class="flex flex-wrap items-center justify-center gap-2 pb-4">
+			<a
+				href="/rankings/highest-risk"
+				class="rounded-full border border-border bg-background px-3 py-1.5 text-xs font-medium text-foreground hover:bg-accent hover:border-primary/30 transition-colors"
+			>
+				Highest pressure jobs →
+			</a>
+			<a
+				href="/rankings/high-exposure-in-demand"
+				class="rounded-full border border-border bg-background px-3 py-1.5 text-xs font-medium text-foreground hover:bg-accent hover:border-primary/30 transition-colors"
+			>
+				In-demand but exposed →
+			</a>
+			<a
+				href="/roles"
+				class="rounded-full border border-border bg-background px-3 py-1.5 text-xs font-medium text-foreground hover:bg-accent hover:border-primary/30 transition-colors"
+			>
+				Modern roles →
+			</a>
+		</div>
+
+		<!-- SG context thin strip -->
+		<div
+			class="flex flex-wrap items-center justify-center gap-x-6 gap-y-1 border-t border-border/60 py-3 text-[10px] text-muted-foreground sm:text-xs"
+		>
+			<span>
+				AI adoption:
+				<span class="font-mono font-medium text-foreground"
+					>{singaporeContext.ai.enterprises.non_sme_ai_adoption_pct.toFixed(0)}%</span
+				>
+				non-SME
+			</span>
+			<span>
+				<span class="font-mono font-medium text-foreground"
+					>{singaporeContext.ai.workforce.workers_using_ai_at_work_pct.toFixed(0)}%</span
+				>
+				workers use AI
+			</span>
+			<span>
+				Unemployment:
+				<span class="font-mono font-medium text-foreground"
+					>{singaporeContext.macro.resident_unemployment_rate.toFixed(1)}%</span
+				>
+			</span>
+			<span>
+				NAIIP target:
+				<span class="font-mono font-medium text-foreground"
+					>{Math.round(singaporeContext.ai.national_programmes.naiip_workers_target / 1000)}K</span
+				>
+				AI-bilingual
+			</span>
 		</div>
 	</div>
 </div>
@@ -335,155 +322,150 @@
 				</p>
 			{/if}
 
-			{#if innerWidth >= 768}
-				<!-- Treemap -->
-				<div class={cn(card({ padding: 'sm' }), 'mb-4')}>
-					<div class="mb-1.5 flex items-center justify-between px-1">
-						<h2 class={sectionLabel()}>Occupation Map</h2>
-						<p class={caption()}>Size = employment · Colour = risk</p>
-					</div>
-					<Treemap occupations={filteredOccupations} />
-				</div>
-
-				<div class={cn(card({ padding: 'sm' }), 'mb-4')}>
-					<Tabs.Root bind:value={activeInsightView} class="w-full gap-3">
-						<div class="flex flex-col gap-3 px-1 md:flex-row md:items-center md:justify-between">
-							<div>
-								<h2 class={sectionLabel()}>
-									{insightViews.find(view => view.key === activeInsightView)?.label}
-								</h2>
-								<p class={caption()}>
-									{insightViews.find(view => view.key === activeInsightView)?.caption}
-								</p>
-							</div>
-							<Tabs.List class="w-full md:w-auto">
-								{#each insightViews as view (view.key)}
-									<Tabs.Trigger
-										value={view.key}
-										class="min-w-0 flex-1 text-xs sm:flex-initial sm:text-sm"
-									>
-										{view.label}
-									</Tabs.Trigger>
-								{/each}
-							</Tabs.List>
+			<!-- Single tabbed chart panel -->
+			<div class={cn(card({ padding: 'sm' }), 'mb-4')}>
+				<Tabs.Root bind:value={activeChartTab} class="w-full gap-3">
+					<div class="flex flex-col gap-3 px-1 md:flex-row md:items-center md:justify-between">
+						<div>
+							<h2 class={sectionLabel()}>
+								{chartTabs.find(t => t.key === activeChartTab)?.label}
+							</h2>
+							<p class={caption()}>
+								{activeChartTab === 'treemap'
+									? innerWidth >= 768
+										? 'Size = employment · Colour = risk'
+										: 'Mobile fallback: grouped occupation list for quick browsing'
+									: activeChartTab === 'pressure'
+										? 'Structural risk vs demand signal · coloured by impact type'
+										: 'How risk is spread across the filtered set'}
+							</p>
 						</div>
-
-						<Tabs.Content value="quadrant">
-							<ScatterQuadrant occupations={filteredOccupations} />
-						</Tabs.Content>
-						<Tabs.Content value="distribution">
-							<Histogram occupations={filteredOccupations} />
-						</Tabs.Content>
-						<Tabs.Content value="wage">
-							<WageBracketChart occupations={filteredOccupations} />
-						</Tabs.Content>
-					</Tabs.Root>
-				</div>
-
-				<!-- Featured: 4 cards -->
-				<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-4">
-					<!-- Highest Risk -->
-					<div class={card({ padding: 'sm' })}>
-						<div class="flex items-center justify-between mb-2">
-							<h3 class={sectionLabel()}>Highest Risk</h3>
-							<a href="/rankings/highest-risk" class="text-xs text-primary hover:underline">All →</a
-							>
-						</div>
-						{#each topHighRisk as occ, i (occ.ssoc)}
-							<a
-								href="/occupation/{occ.ssoc}"
-								class="flex items-center gap-1.5 rounded-sm py-1 hover:bg-accent transition-colors text-xs"
-							>
-								<span class="font-mono font-bold text-risk-very-high w-3">{i + 1}</span>
-								<span class="flex-1 text-foreground truncate">{shortTitle(occ.title)}</span>
-								<span class="shrink-0 font-mono text-risk-very-high"
-									>{(occ.net_risk * 100).toFixed(0)}%</span
+						<Tabs.List class="w-full md:w-auto">
+							{#each chartTabs as tab (tab.key)}
+								<Tabs.Trigger
+									value={tab.key}
+									class="min-w-0 flex-1 text-xs sm:flex-initial sm:text-sm"
 								>
-							</a>
-						{/each}
+									{tab.label}
+								</Tabs.Trigger>
+							{/each}
+						</Tabs.List>
 					</div>
 
-					<!-- Most Resilient -->
-					<div class={card({ padding: 'sm' })}>
-						<div class="flex items-center justify-between mb-2">
-							<h3 class={sectionLabel()}>Most Resilient</h3>
-							<a href="/rankings/safest-high-paying" class="text-xs text-primary hover:underline"
-								>All →</a
-							>
-						</div>
-						{#each topSafest as occ, i (occ.ssoc)}
-							<a
-								href="/occupation/{occ.ssoc}"
-								class="flex items-center gap-1.5 rounded-sm py-1 hover:bg-accent transition-colors text-xs"
-							>
-								<span class="font-mono font-bold text-risk-very-low w-3">{i + 1}</span>
-								<span class="flex-1 text-foreground truncate">{shortTitle(occ.title)}</span>
-								<span class="shrink-0 font-mono text-risk-very-low"
-									>{(occ.net_risk * 100).toFixed(0)}%</span
-								>
-							</a>
-						{/each}
-					</div>
+					<Tabs.Content value="treemap">
+						{#if innerWidth >= 768}
+							<Treemap occupations={filteredOccupations} />
+						{:else}
+							<OccupationCardList occupations={filteredOccupations.slice(0, 12)} />
+						{/if}
+					</Tabs.Content>
+					<Tabs.Content value="pressure">
+						<DemandPressureMatrix occupations={filteredOccupations} />
+					</Tabs.Content>
+					<Tabs.Content value="distribution">
+						<Histogram occupations={filteredOccupations} />
+					</Tabs.Content>
+				</Tabs.Root>
+			</div>
 
-					<!-- Augmented -->
-					<div class={card({ padding: 'sm' })}>
-						<div class="flex items-center justify-between mb-2">
-							<h3 class={sectionLabel()}>Augmented</h3>
-							<a href="/rankings/ai-leveraged" class="text-xs text-primary hover:underline">All →</a
-							>
-						</div>
-						{#each topAugmented as occ, i (occ.ssoc)}
-							<a
-								href="/occupation/{occ.ssoc}"
-								class="flex items-center gap-1.5 rounded-sm py-1 hover:bg-accent transition-colors text-xs"
-							>
-								<span class="font-mono font-bold text-impact-leveraged w-3">{i + 1}</span>
-								<span class="flex-1 text-foreground truncate">{shortTitle(occ.title)}</span>
-								<span class="shrink-0 font-mono text-muted-foreground"
-									>{riskBandLabels[occ.risk_band]}</span
-								>
-							</a>
-						{/each}
+			<!-- Featured: 4 cards -->
+			<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-4">
+				<!-- Highest Risk -->
+				<div class={card({ padding: 'sm' })}>
+					<div class="flex items-center justify-between mb-2">
+						<h3 class={sectionLabel()}>Highest Risk</h3>
+						<a href="/rankings/highest-risk" class="text-xs text-primary hover:underline">All →</a>
 					</div>
-
-					<!-- In Demand -->
-					<div class={card({ padding: 'sm' })}>
-						<div class="flex items-center justify-between mb-2">
-							<h3 class={sectionLabel()}>In Demand</h3>
-							<a
-								href="/rankings/high-exposure-in-demand"
-								class="text-xs text-primary hover:underline">All →</a
-							>
-						</div>
-						{#each topInDemand as occ, i (occ.ssoc)}
-							<a
-								href="/occupation/{occ.ssoc}"
-								class="flex items-center gap-1.5 rounded-sm py-1 hover:bg-accent transition-colors text-xs"
-							>
-								<span class="font-mono font-bold text-risk-very-low w-3">{i + 1}</span>
-								<span class="flex-1 text-foreground truncate">{shortTitle(occ.title)}</span>
-								<span class="shrink-0 font-mono text-muted-foreground"
-									>SGD {(occ.gross_wage_median / 1000).toFixed(0)}K</span
-								>
-							</a>
-						{/each}
-					</div>
-				</div>
-
-				<!-- Browse pills -->
-				<div class="flex flex-wrap items-center gap-2 text-xs">
-					<span class={caption({ weight: 'medium' })}>More:</span>
-					{#each [{ href: '/rankings', label: 'All Rankings' }, { href: '/compare', label: 'Compare' }, { href: '/methodology', label: 'Methodology' }] as link}
+					{#each topHighRisk as occ, i (occ.ssoc)}
 						<a
-							href={link.href}
-							class="rounded-md border border-border bg-card px-2.5 py-1 font-medium text-foreground hover:bg-accent transition-colors"
-							>{link.label}</a
+							href="/occupation/{occ.ssoc}"
+							class="flex items-center gap-1.5 rounded-sm py-1 hover:bg-accent transition-colors text-xs"
 						>
+							<span class="font-mono font-bold text-risk-very-high w-3">{i + 1}</span>
+							<span class="flex-1 text-foreground truncate">{shortTitle(occ.title)}</span>
+							<span class="shrink-0 font-mono text-risk-very-high"
+								>{(occ.net_risk * 100).toFixed(0)}%</span
+							>
+						</a>
 					{/each}
 				</div>
-			{:else}
-				<OccupationCardList occupations={filteredOccupations} />
-			{/if}
+
+				<!-- Most Resilient -->
+				<div class={card({ padding: 'sm' })}>
+					<div class="flex items-center justify-between mb-2">
+						<h3 class={sectionLabel()}>Most Resilient</h3>
+						<a href="/rankings/safest-high-paying" class="text-xs text-primary hover:underline"
+							>All →</a
+						>
+					</div>
+					{#each topSafest as occ, i (occ.ssoc)}
+						<a
+							href="/occupation/{occ.ssoc}"
+							class="flex items-center gap-1.5 rounded-sm py-1 hover:bg-accent transition-colors text-xs"
+						>
+							<span class="font-mono font-bold text-risk-very-low w-3">{i + 1}</span>
+							<span class="flex-1 text-foreground truncate">{shortTitle(occ.title)}</span>
+							<span class="shrink-0 font-mono text-risk-very-low"
+								>{(occ.net_risk * 100).toFixed(0)}%</span
+							>
+						</a>
+					{/each}
+				</div>
+
+				<!-- Augmented -->
+				<div class={card({ padding: 'sm' })}>
+					<div class="flex items-center justify-between mb-2">
+						<h3 class={sectionLabel()}>Augmented</h3>
+						<a href="/rankings/ai-leveraged" class="text-xs text-primary hover:underline">All →</a>
+					</div>
+					{#each topAugmented as occ, i (occ.ssoc)}
+						<a
+							href="/occupation/{occ.ssoc}"
+							class="flex items-center gap-1.5 rounded-sm py-1 hover:bg-accent transition-colors text-xs"
+						>
+							<span class="font-mono font-bold text-impact-leveraged w-3">{i + 1}</span>
+							<span class="flex-1 text-foreground truncate">{shortTitle(occ.title)}</span>
+							<span class="shrink-0 font-mono text-muted-foreground"
+								>{riskBandLabels[occ.risk_band]}</span
+							>
+						</a>
+					{/each}
+				</div>
+
+				<!-- In Demand -->
+				<div class={card({ padding: 'sm' })}>
+					<div class="flex items-center justify-between mb-2">
+						<h3 class={sectionLabel()}>In Demand</h3>
+						<a href="/rankings/high-exposure-in-demand" class="text-xs text-primary hover:underline"
+							>All →</a
+						>
+					</div>
+					{#each topInDemand as occ, i (occ.ssoc)}
+						<a
+							href="/occupation/{occ.ssoc}"
+							class="flex items-center gap-1.5 rounded-sm py-1 hover:bg-accent transition-colors text-xs"
+						>
+							<span class="font-mono font-bold text-risk-very-low w-3">{i + 1}</span>
+							<span class="flex-1 text-foreground truncate">{shortTitle(occ.title)}</span>
+							<span class="shrink-0 font-mono text-muted-foreground"
+								>SGD {(occ.gross_wage_median / 1000).toFixed(0)}K</span
+							>
+						</a>
+					{/each}
+				</div>
+			</div>
+
+			<!-- Browse pills -->
+			<div class="flex flex-wrap items-center gap-2 text-xs">
+				<span class={caption({ weight: 'medium' })}>More:</span>
+				{#each [{ href: '/roles', label: 'Modern Roles' }, { href: '/rankings', label: 'All Rankings' }, { href: '/compare', label: 'Compare' }, { href: '/methodology', label: 'Methodology' }] as link}
+					<a
+						href={link.href}
+						class="rounded-md border border-border bg-card px-2.5 py-1 font-medium text-foreground hover:bg-accent transition-colors"
+						>{link.label}</a
+					>
+				{/each}
+			</div>
 		</div>
 	</div>
 </div>

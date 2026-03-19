@@ -226,13 +226,64 @@
 		</div>
 	{/if}
 
+	<!-- What you can do -->
+	{#if selectedEntry && salary > 0}
+		<div class={card({ padding: 'lg', class: 'mb-4' })}>
+			<p class={sectionLabel({ class: 'mb-3' })}>What you can do</p>
+			<div class="space-y-3 text-sm text-muted-foreground">
+				<div class="flex gap-2">
+					<span class="shrink-0 text-risk-very-low font-bold">1</span>
+					<p>
+						<span class="font-medium text-foreground">See the full picture.</span>
+						Overlap ≠ replacement. View the
+						<a
+							href={selectedEntry.isRole
+								? `/role/${selectedEntry.slug}`
+								: `/occupation/${selectedEntry.ssoc}`}
+							class="text-primary hover:underline">detailed breakdown</a
+						>
+						to understand what AI can and can't do in this role.
+					</p>
+				</div>
+				<div class="flex gap-2">
+					<span class="shrink-0 text-risk-very-low font-bold">2</span>
+					<p>
+						<span class="font-medium text-foreground">Focus on human-advantage skills.</span>
+						Judgment, coordination, stakeholder management, and physical presence are the strongest bottlenecks
+						against AI displacement.
+					</p>
+				</div>
+				<div class="flex gap-2">
+					<span class="shrink-0 text-risk-very-low font-bold">3</span>
+					<p>
+						<span class="font-medium text-foreground">Explore career paths.</span>
+						<a
+							href={selectedEntry.isRole
+								? `/role/${selectedEntry.slug}`
+								: `/occupation/${selectedEntry.ssoc}`}
+							class="text-primary hover:underline">Career transitions</a
+						>
+						show lower-risk and higher-paying options with skills you already have.
+					</p>
+				</div>
+				<div class="flex gap-2">
+					<span class="shrink-0 text-risk-very-low font-bold">4</span>
+					<p>
+						<span class="font-medium text-foreground">Use AI, don't avoid it.</span>
+						Workers who adopt AI tools see the largest productivity gains (Brynjolfsson et al., 2023).
+						The goal is to be AI-augmented, not AI-replaced.
+					</p>
+				</div>
+			</div>
+		</div>
+	{/if}
+
 	<!-- Disclaimer -->
 	<div class={card({ variant: 'inset', padding: 'md' })}>
 		<p class="text-xs text-muted-foreground">
-			<strong>Disclaimer:</strong> This calculator applies the AI Work Index structural risk score to
-			your salary. It does not predict job loss — it shows the proportion of your role's tasks that overlap
-			with current AI capabilities. Actual impact depends on employer adoption, regulatory environment,
-			and many other factors.
+			This calculator shows the proportion of your role's tasks that overlap with current AI
+			capabilities — it does not predict job loss. Actual impact depends on employer adoption,
+			regulatory environment, and many other factors.
 		</p>
 	</div>
 </div>

@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { occupations, impactTypeLabels, riskBandLabels } from '$lib/data';
+	import { dataSourceRegistry } from '$lib/data/data-contract';
+	import claimsMatrix from '$lib/data/claims-matrix.json';
 	import { pageLayout, card, sectionLabel, caption } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
@@ -21,6 +23,8 @@
 	const anthropicCoverageCount = occupations.filter(
 		occupation => occupation.evidence.anthropic_calibrated
 	).length;
+	const dataSourceCount = Object.keys(dataSourceRegistry).length;
+	const publicClaims = claimsMatrix.claims.slice(0, 10);
 
 	function pct(value: number, total: number): string {
 		return ((value / total) * 100).toFixed(1);
@@ -120,6 +124,16 @@
 
 		<!-- Tab 1: Scoring Model -->
 		<Tabs.Content value="scoring" class="mt-6">
+			<!-- TL;DR -->
+			<div class={cn(card({ padding: 'sm' }), 'mb-6 border-primary/20 bg-primary/5')}>
+				<p class="text-sm font-semibold text-foreground">TL;DR</p>
+				<p class="mt-1 text-sm text-muted-foreground">
+					Net risk = AI exposure × (1 − human bottleneck) × market modifier. Exposure uses a
+					reliability-weighted blend of up to 4 academic/institutional sources. No LLM in the
+					pipeline — every input is from published data.
+				</p>
+			</div>
+
 			<!-- Three-layer overview -->
 			<section class="mb-8">
 				<p class={sectionLabel()}>Three-Layer Structural Score</p>
@@ -742,6 +756,16 @@
 
 		<!-- Tab 2: Validation -->
 		<Tabs.Content value="validation" class="mt-6">
+			<!-- TL;DR -->
+			<div class={cn(card({ padding: 'sm' }), 'mb-6 border-primary/20 bg-primary/5')}>
+				<p class="text-sm font-semibold text-foreground">TL;DR</p>
+				<p class="mt-1 text-sm text-muted-foreground">
+					3 of 4 cluster-level directional checks pass against Q3 2025 MOM data. BLS cross-country
+					check shows weak but significant negative correlation (rho = −0.14, p &lt; 0.01). This is
+					a structural pressure score, not a job-loss prediction.
+				</p>
+			</div>
+
 			<!-- Validation -->
 			<section class="mb-8">
 				<p class={sectionLabel()}>Validation</p>
@@ -1013,6 +1037,16 @@
 
 		<!-- Tab 3: Advanced -->
 		<Tabs.Content value="advanced" class="mt-6">
+			<!-- TL;DR -->
+			<div class={cn(card({ padding: 'sm' }), 'mb-6 border-primary/20 bg-primary/5')}>
+				<p class="text-sm font-semibold text-foreground">TL;DR</p>
+				<p class="mt-1 text-sm text-muted-foreground">
+					Singapore SSOC codes map to US O*NET scores via ISCO-08 crosswalk. Monte Carlo simulation
+					generates confidence intervals. Seniority modifiers adjust outlook for entry/mid/senior
+					levels. Synthetic roles are weighted blends of official occupations.
+				</p>
+			</div>
+
 			<!-- Crosswalk -->
 			<section class="mb-8">
 				<p class={sectionLabel()}>Crosswalk: Singapore to US Scores</p>
@@ -1335,6 +1369,60 @@
 
 		<!-- Tab 4: References -->
 		<Tabs.Content value="references" class="mt-6">
+			<!-- TL;DR -->
+			<div class={cn(card({ padding: 'sm' }), 'mb-6 border-primary/20 bg-primary/5')}>
+				<p class="text-sm font-semibold text-foreground">TL;DR</p>
+				<p class="mt-1 text-sm text-muted-foreground">
+					12 academic papers + {dataSourceCount} data sources. Key influences: Felten AIOE, Pizzinelli
+					bottleneck, Anthropic observed usage, Frank et al. ensemble approach. References link to DOI
+					pages where available and official source pages otherwise.
+				</p>
+			</div>
+
+			<!-- Claims Matrix -->
+			<section class="mb-8">
+				<p class={sectionLabel()}>Claims We Make</p>
+				<p class="mt-2 text-sm text-muted-foreground">
+					Every public claim on the site is tracked with its evidence source and strength.
+				</p>
+				<div class="mt-3 space-y-2">
+					{#each publicClaims as item (item.id)}
+						<div class="flex items-center gap-3 rounded-md bg-muted/50 px-3 py-2">
+							<span
+								class="shrink-0 h-2 w-2 rounded-full {item.strength === 'high'
+									? 'bg-risk-very-low'
+									: item.strength === 'medium'
+										? 'bg-risk-moderate'
+										: item.strength === 'directional'
+											? 'bg-primary'
+											: item.strength === 'estimated'
+												? 'bg-risk-high'
+												: 'bg-muted-foreground'}"
+							></span>
+							<div class="flex-1 min-w-0">
+								<p class="text-xs text-foreground">{item.claim}</p>
+								<p class="text-[10px] text-muted-foreground">
+									{item.source_keys.join(', ')}
+								</p>
+							</div>
+							<span
+								class="text-[10px] font-medium shrink-0 {item.strength === 'high'
+									? 'text-risk-very-low'
+									: item.strength === 'medium'
+										? 'text-risk-moderate'
+										: item.strength === 'directional'
+											? 'text-primary'
+											: item.strength === 'estimated'
+												? 'text-risk-high'
+												: 'text-muted-foreground'}"
+							>
+								{item.strength}
+							</span>
+						</div>
+					{/each}
+				</div>
+			</section>
+
 			<!-- References -->
 			<section class="mb-8">
 				<p class={sectionLabel()}>Academic References</p>

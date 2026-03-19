@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import { occupationsBySSoc, riskBandLabels, impactTypeLabels } from '$lib/data';
+	import { computeRoleScores, syntheticRoles, type ScoredRole } from '$lib/data/synthetic-roles';
 	import {
 		title as titleStyle,
 		riskBadge,
@@ -16,48 +17,74 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
+	import {
+		WATCHLIST_KEY,
+		WATCHLIST_TIMESTAMP_KEY,
+		type WatchlistEntry,
+		parseStoredWatchlist,
+		serializeWatchlist
+	} from '$lib/watchlist';
 
-	const STORAGE_KEY = 'aiworkindex-watchlist';
-	const TIMESTAMP_KEY = 'aiworkindex-watchlist-saved-at';
+	type SavedItem =
+		| { kind: 'occupation'; entry: WatchlistEntry; occupation: Occupation }
+		| { kind: 'role'; entry: WatchlistEntry; role: ScoredRole };
 
-	let savedSsocs = $state<string[]>([]);
+	const scoredRolesBySlug = new Map(
+		syntheticRoles.map(role => [role.slug, computeRoleScores(role, occupationsBySSoc)])
+	);
+
+	let savedEntries = $state<WatchlistEntry[]>([]);
 	let savedTimestamp = $state<string | null>(null);
-	let savedOccupations = $derived<Occupation[]>(
-		savedSsocs
-			.map(ssoc => occupationsBySSoc.get(ssoc))
-			.filter((o): o is Occupation => o !== undefined)
+	let savedItems = $derived<SavedItem[]>(
+		savedEntries
+			.map(entry => {
+				if (entry.kind === 'occupation') {
+					const occupation = occupationsBySSoc.get(entry.id);
+					return occupation ? { kind: 'occupation' as const, entry, occupation } : null;
+				}
+				const role = scoredRolesBySlug.get(entry.id);
+				return role ? { kind: 'role' as const, entry, role } : null;
+			})
+			.filter((item): item is SavedItem => item !== null)
 	);
 
 	$effect(() => {
 		if (!browser) return;
 		try {
-			const stored = localStorage.getItem(STORAGE_KEY);
-			if (stored) savedSsocs = JSON.parse(stored);
-			savedTimestamp = localStorage.getItem(TIMESTAMP_KEY);
+			savedEntries = parseStoredWatchlist(localStorage.getItem(WATCHLIST_KEY));
+			savedTimestamp = localStorage.getItem(WATCHLIST_TIMESTAMP_KEY);
 		} catch {
-			savedSsocs = [];
+			savedEntries = [];
 		}
 	});
 
 	// Save timestamp whenever watchlist changes
 	$effect(() => {
-		if (!browser || savedSsocs.length === 0) return;
+		if (!browser) return;
+		if (savedEntries.length === 0) {
+			localStorage.removeItem(WATCHLIST_TIMESTAMP_KEY);
+			savedTimestamp = null;
+			return;
+		}
 		const now = new Date().toISOString().split('T')[0]!;
-		localStorage.setItem(TIMESTAMP_KEY, now);
+		localStorage.setItem(WATCHLIST_TIMESTAMP_KEY, now);
 		savedTimestamp = now;
 	});
 
-	function removeFromWatchlist(ssoc: string) {
-		savedSsocs = savedSsocs.filter(s => s !== ssoc);
+	function removeFromWatchlist(entry: WatchlistEntry) {
+		savedEntries = savedEntries.filter(
+			saved => !(saved.kind === entry.kind && saved.id === entry.id)
+		);
 		if (browser) {
-			localStorage.setItem(STORAGE_KEY, JSON.stringify(savedSsocs));
+			localStorage.setItem(WATCHLIST_KEY, serializeWatchlist(savedEntries));
 		}
 	}
 
 	function clearAll() {
-		savedSsocs = [];
+		savedEntries = [];
 		if (browser) {
-			localStorage.removeItem(STORAGE_KEY);
+			localStorage.removeItem(WATCHLIST_KEY);
+			localStorage.removeItem(WATCHLIST_TIMESTAMP_KEY);
 		}
 	}
 </script>
@@ -76,10 +103,11 @@
 		<div>
 			<h1 class={titleStyle({ size: 'page' })}>Your Watchlist</h1>
 			<p class="mt-2 text-sm text-muted-foreground">
-				Saved occupations are stored locally in your browser. Nothing is sent to any server.
+				Saved occupations and roles are stored locally in your browser. Nothing is sent to any
+				server.
 			</p>
 		</div>
-		{#if savedOccupations.length > 0}
+		{#if savedItems.length > 0}
 			<Button
 				variant="outline"
 				size="sm"
@@ -91,7 +119,7 @@
 		{/if}
 	</div>
 
-	{#if savedOccupations.length === 0}
+	{#if savedItems.length === 0}
 		<div class={cn(card({ padding: 'lg' }), 'mt-8 text-center')}>
 			<svg
 				class="mx-auto h-12 w-12 text-muted-foreground/30"
@@ -102,65 +130,113 @@
 			>
 				<path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
 			</svg>
-			<h2 class="mt-4 text-base font-semibold text-foreground">No saved occupations yet</h2>
+			<h2 class="mt-4 text-base font-semibold text-foreground">No saved jobs yet</h2>
 			<p class="mt-2 text-sm text-muted-foreground">
-				Browse occupations and click the bookmark icon to save them here.
+				Browse occupations or roles and click the bookmark icon to save them here.
 			</p>
 			<div class="mt-4 flex justify-center gap-3">
-				<Button href="/">Explore occupations</Button>
+				<Button href="/">Find jobs</Button>
+				<Button variant="outline" href="/roles">Browse roles</Button>
 				<Button variant="outline" href="/rankings">View rankings</Button>
 			</div>
 		</div>
 	{:else}
-		<p class={cn(sectionLabel(), 'mt-6 mb-3')}>Saved Occupations</p>
+		<p class={cn(sectionLabel(), 'mt-6 mb-3')}>Saved Jobs</p>
 		<div class="space-y-3">
-			{#each savedOccupations as occ (occ.ssoc)}
+			{#each savedItems as item (`${item.entry.kind}:${item.entry.id}`)}
 				<div class={card({ padding: 'md' })}>
 					<div class="flex items-start justify-between gap-4">
-						<a href="/occupation/{occ.ssoc}" class="flex-1">
-							<div class="flex items-center gap-2">
-								<h2 class="text-sm font-semibold text-foreground hover:text-primary">
-									{occ.title}
-								</h2>
-								<Badge variant="outline" class="text-xs tabular-nums">{occ.ssoc}</Badge>
-							</div>
-							<div class="mt-2 flex flex-wrap items-center gap-2">
-								<span class={cn(riskBadge({ band: occ.risk_band }), 'text-xs')}>
-									{riskBandLabels[occ.risk_band]} — {(occ.net_risk * 100).toFixed(0)}%
-								</span>
-								<span class={cn(impactBadge({ type: occ.impact_type }), 'text-xs')}>
-									{impactTypeLabels[occ.impact_type]}
-								</span>
-								<span class="text-xs tabular-nums text-muted-foreground">
-									SGD {occ.gross_wage_median.toLocaleString()}/mo
-								</span>
-							</div>
-							<Separator class="my-2" />
-							<div class="grid grid-cols-3 gap-3 text-xs">
-								<div>
-									<span class="text-muted-foreground">Exposure</span>
-									<span class="ml-1 font-medium tabular-nums text-foreground"
-										>{(occ.exposure * 100).toFixed(0)}%</span
-									>
+						{#if item.kind === 'occupation'}
+							<a href="/occupation/{item.occupation.ssoc}" class="flex-1">
+								<div class="flex items-center gap-2">
+									<h2 class="text-sm font-semibold text-foreground hover:text-primary">
+										{item.occupation.title}
+									</h2>
+									<Badge variant="outline" class="text-xs tabular-nums">
+										{item.occupation.ssoc}
+									</Badge>
 								</div>
-								<div>
-									<span class="text-muted-foreground">Bottleneck</span>
-									<span class="ml-1 font-medium tabular-nums text-foreground"
-										>{(occ.bottleneck * 100).toFixed(0)}%</span
-									>
+								<div class="mt-2 flex flex-wrap items-center gap-2">
+									<span class={cn(riskBadge({ band: item.occupation.risk_band }), 'text-xs')}>
+										{riskBandLabels[item.occupation.risk_band]} — {(
+											item.occupation.net_risk * 100
+										).toFixed(0)}%
+									</span>
+									<span class={cn(impactBadge({ type: item.occupation.impact_type }), 'text-xs')}>
+										{impactTypeLabels[item.occupation.impact_type]}
+									</span>
+									<span class="text-xs tabular-nums text-muted-foreground">
+										SGD {item.occupation.gross_wage_median.toLocaleString()}/mo
+									</span>
 								</div>
-								<div>
-									<span class="text-muted-foreground">Market</span>
-									<span class="ml-1 font-medium tabular-nums text-foreground"
-										>{(occ.market.market_resilience * 100).toFixed(0)}%</span
-									>
+								<Separator class="my-2" />
+								<div class="grid grid-cols-3 gap-3 text-xs">
+									<div>
+										<span class="text-muted-foreground">Exposure</span>
+										<span class="ml-1 font-medium tabular-nums text-foreground"
+											>{(item.occupation.exposure * 100).toFixed(0)}%</span
+										>
+									</div>
+									<div>
+										<span class="text-muted-foreground">Bottleneck</span>
+										<span class="ml-1 font-medium tabular-nums text-foreground"
+											>{(item.occupation.bottleneck * 100).toFixed(0)}%</span
+										>
+									</div>
+									<div>
+										<span class="text-muted-foreground">Market</span>
+										<span class="ml-1 font-medium tabular-nums text-foreground"
+											>{(item.occupation.market.market_resilience * 100).toFixed(0)}%</span
+										>
+									</div>
 								</div>
-							</div>
-						</a>
+							</a>
+						{:else}
+							<a href="/role/{item.role.slug}" class="flex-1">
+								<div class="flex items-center gap-2">
+									<h2 class="text-sm font-semibold text-foreground hover:text-primary">
+										{item.role.title}
+									</h2>
+									<Badge variant="outline" class="text-xs">Estimated role</Badge>
+								</div>
+								<div class="mt-2 flex flex-wrap items-center gap-2">
+									<span class={cn(riskBadge({ band: item.role.risk_band }), 'text-xs')}>
+										{riskBandLabels[item.role.risk_band]} — {(item.role.net_risk * 100).toFixed(0)}%
+									</span>
+									<span class={cn(impactBadge({ type: item.role.impact_type }), 'text-xs')}>
+										{impactTypeLabels[item.role.impact_type]}
+									</span>
+									<span class="text-xs text-muted-foreground">
+										{item.role.components.length} components
+									</span>
+								</div>
+								<Separator class="my-2" />
+								<div class="grid grid-cols-3 gap-3 text-xs">
+									<div>
+										<span class="text-muted-foreground">Exposure</span>
+										<span class="ml-1 font-medium tabular-nums text-foreground"
+											>{(item.role.exposure * 100).toFixed(0)}%</span
+										>
+									</div>
+									<div>
+										<span class="text-muted-foreground">Bottleneck</span>
+										<span class="ml-1 font-medium tabular-nums text-foreground"
+											>{(item.role.bottleneck * 100).toFixed(0)}%</span
+										>
+									</div>
+									<div>
+										<span class="text-muted-foreground">Market</span>
+										<span class="ml-1 font-medium tabular-nums text-foreground"
+											>{(item.role.market_resilience * 100).toFixed(0)}%</span
+										>
+									</div>
+								</div>
+							</a>
+						{/if}
 						<Button
 							variant="ghost"
 							size="icon-sm"
-							onclick={() => removeFromWatchlist(occ.ssoc)}
+							onclick={() => removeFromWatchlist(item.entry)}
 							class="shrink-0 text-muted-foreground hover:text-risk-very-high"
 							aria-label="Remove from watchlist"
 						>
@@ -182,7 +258,7 @@
 
 		<div class="mt-4 flex items-center justify-between text-xs text-muted-foreground">
 			<p>
-				{savedOccupations.length} occupation{savedOccupations.length === 1 ? '' : 's'} saved.
+				{savedItems.length} saved {savedItems.length === 1 ? 'job' : 'jobs'}.
 				{#if savedTimestamp}
 					<span class="ml-1">Last updated: {savedTimestamp}</span>
 				{/if}

@@ -15,6 +15,8 @@
 	import rawDataAudit from '$lib/data/raw-data-audit.json';
 	import Seo from '$lib/components/ui/Seo.svelte';
 
+	const dataSourceCount = Object.keys(dataSourceRegistry).length;
+
 	const datasetJsonLd = `<script type="application/ld+json">${JSON.stringify({
 		'@context': 'https://schema.org',
 		'@type': 'Dataset',
@@ -339,17 +341,22 @@
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Data' }]} />
 
 	<h1 class={titleStyle({ size: 'page' })}>Data Downloads</h1>
-	<p class="mt-2 text-sm text-muted-foreground">
-		The complete dataset behind this index is open. Download, analyze, and build on it. MIT licensed.
-	</p>
-	<p class="mt-1 text-sm text-muted-foreground">
-		The structural score dataset and the Singapore context bundle are published separately so current
-		labour evidence does not get mistaken for part of the core score.
-	</p>
+
+	<!-- TL;DR -->
+	<div class={cn(card({ padding: 'sm' }), 'mt-4 mb-4 border-primary/20 bg-primary/5')}>
+		<p class="text-sm font-semibold text-foreground">
+			{DATA_VINTAGE.occupation_count} occupations · {DATA_VINTAGE.role_count} roles · {dataSourceCount}
+			data sources · MIT licensed
+		</p>
+		<p class="mt-1 text-sm text-muted-foreground">
+			Structural scores and Singapore context are separate downloads. Each artifact has an evidence
+			tier: official SG, derived from official SG, external proxy, or synthetic.
+		</p>
+	</div>
 
 	<!-- Download Cards -->
 	<p class={cn(sectionLabel(), 'mt-6 mb-3')}>Downloads</p>
-	<div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+	<div class="grid gap-4 sm:grid-cols-3">
 		<a href="/data/sg-ai-occupations-v4.csv" download class="no-underline">
 			<div class={cn(card({ padding: 'lg', hover: true }), 'flex h-full flex-col items-start')}>
 				<div class="flex items-center gap-2">
@@ -358,12 +365,12 @@
 						<polyline points="7,10 12,15 17,10"/>
 						<line x1="12" y1="15" x2="12" y2="3"/>
 					</svg>
-					<span class="text-base font-semibold text-foreground">CSV Download</span>
+					<span class="text-base font-semibold text-foreground">CSV</span>
 				</div>
 				<p class="mt-1 text-sm text-muted-foreground">
-					562 occupations with flattened core fields plus basis/provenance metadata. Best for spreadsheets and quick analysis.
+					562 occupations, flattened fields + provenance. Best for spreadsheets.
 				</p>
-				<span class="mt-2 text-xs text-primary">sg-ai-occupations-v4.csv</span>
+				<span class="mt-auto pt-2 text-xs text-primary">sg-ai-occupations-v4.csv</span>
 			</div>
 		</a>
 
@@ -375,12 +382,12 @@
 						<polyline points="7,10 12,15 17,10"/>
 						<line x1="12" y1="15" x2="12" y2="3"/>
 					</svg>
-					<span class="text-base font-semibold text-foreground">JSON Download</span>
+					<span class="text-base font-semibold text-foreground">JSON</span>
 				</div>
 				<p class="mt-1 text-sm text-muted-foreground">
-					Full structured V4.0 score data with nested fields and per-field basis metadata.
+					Full V4.0 scores with nested fields and per-field basis metadata.
 				</p>
-				<span class="mt-2 text-xs text-primary">sg-ai-occupations-v4.json</span>
+				<span class="mt-auto pt-2 text-xs text-primary">sg-ai-occupations-v4.json</span>
 			</div>
 		</a>
 
@@ -393,55 +400,47 @@
 					</svg>
 					<span class="text-base font-semibold text-foreground">Source Code</span>
 				</div>
-				<p class="mt-1 text-sm text-muted-foreground">Full source code, scoring pipeline, and raw data. Open source on GitHub.</p>
-				<span class="mt-2 text-xs text-primary">{SITE.github.replace('https://', '')}</span>
+				<p class="mt-1 text-sm text-muted-foreground">
+					Full scoring pipeline and raw data. Open source, MIT licensed.
+				</p>
+				<span class="mt-auto pt-2 text-xs text-primary">{SITE.github.replace('https://', '')}</span>
 			</div>
 		</a>
+	</div>
 
-		<div class={cn(card({ padding: 'lg' }), 'flex h-full flex-col items-start')}>
-				<div class="flex items-center gap-2">
-					<svg class="h-5 w-5 text-impact-leveraged" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-						<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-						<polyline points="7,10 12,15 17,10"/>
-						<line x1="12" y1="15" x2="12" y2="3"/>
-					</svg>
-					<span class="text-base font-semibold text-foreground">Singapore Context Pack</span>
-				</div>
-				<p class="mt-1 text-sm text-muted-foreground">
-					Context-only bundle with the labour monitor, worker profile, industry footprint, sector
-					wage anchors, geography context, and macro labour context around the structural score,
-					plus national AI adoption context from official IMDA and MOM releases.
-				</p>
-				<div class="mt-2 flex flex-wrap items-center gap-2 text-xs">
-					<a href="/data/sg-context-pack-2025.json" download class="text-primary underline"
-						>context pack</a
-					>
-					<span class="text-muted-foreground">&middot;</span>
-					<a href="/data/sg-labour-monitor-2025.json" download class="text-primary underline"
-						>labour monitor</a
-					>
-					<span class="text-muted-foreground">&middot;</span>
-					<a href="/data/sg-worker-profile-2024.json" download class="text-primary underline"
-						>worker profile</a
-					>
-					<span class="text-muted-foreground">&middot;</span>
-					<a href="/data/sg-geography-context-2020.json" download class="text-primary underline"
-						>geography</a
-					>
-					<span class="text-muted-foreground">&middot;</span>
-					<a href="/data/sg-macro-context-2025.json" download class="text-primary underline"
-						>macro context</a
-					>
-					<span class="text-muted-foreground">&middot;</span>
-					<a href="/data/sg-ai-in-singapore-2025.json" download class="text-primary underline"
-						>AI in Singapore</a
-					>
-					<span class="text-muted-foreground">&middot;</span>
-					<a href="/data/sg-transition-support-v4.json" download class="text-primary underline"
-						>transition support</a
-					>
-				</div>
-			</div>
+	<!-- Singapore Context Pack — separate full-width card -->
+	<div class={cn(card({ padding: 'lg' }), 'mt-4')}>
+		<div class="flex items-center gap-2 mb-2">
+			<svg class="h-5 w-5 text-impact-leveraged" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+				<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+				<polyline points="7,10 12,15 17,10"/>
+				<line x1="12" y1="15" x2="12" y2="3"/>
+			</svg>
+			<span class="text-base font-semibold text-foreground">Singapore Context Pack</span>
+		</div>
+		<p class="text-sm text-muted-foreground">
+			Context-only bundle published separately from structural scores.
+		</p>
+		<div class="mt-3 grid gap-2 sm:grid-cols-3 lg:grid-cols-4">
+			{#each [
+				{ href: '/data/sg-context-pack-2025.json', label: 'Full context pack', desc: 'All context in one file' },
+				{ href: '/data/sg-labour-monitor-2025.json', label: 'Labour monitor', desc: 'Vacancy, hiring, retrenchment' },
+				{ href: '/data/sg-worker-profile-2024.json', label: 'Worker profile', desc: 'Age, education, nationality' },
+				{ href: '/data/sg-geography-context-2020.json', label: 'Geography', desc: 'Planning area concentration' },
+				{ href: '/data/sg-macro-context-2025.json', label: 'Macro context', desc: 'Unemployment, GDP, tightness' },
+				{ href: '/data/sg-ai-in-singapore-2025.json', label: 'AI in Singapore', desc: 'Adoption, NAIIP, workforce' },
+				{ href: '/data/sg-transition-support-v4.json', label: 'Transition support', desc: 'SkillsFuture, pathways' }
+			] as file}
+				<a
+					href={file.href}
+					download
+					class="rounded-md border border-border px-3 py-2 hover:bg-accent hover:border-primary/30 transition-colors block"
+				>
+					<p class="text-xs font-medium text-primary">{file.label}</p>
+					<p class="text-[10px] text-muted-foreground">{file.desc}</p>
+				</a>
+			{/each}
+		</div>
 	</div>
 
 	<!-- Versioned Snapshots -->

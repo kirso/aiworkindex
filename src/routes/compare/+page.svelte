@@ -124,7 +124,7 @@
 				augmentation: scored.augmentation,
 				augmentation_band: scored.augmentation_band,
 				impact_type: scored.impact_type,
-				confidence: 'Medium (synthetic)',
+				confidence: `${scored.confidence.charAt(0).toUpperCase() + scored.confidence.slice(1)} (${(scored.confidence_score * 100).toFixed(0)}% estimated)`,
 				wage: null
 			};
 		}
@@ -331,22 +331,27 @@
 	{/if}
 
 	{#if entities.length === 0}
-		<div class={cn(card({ padding: 'lg' }), 'text-center')}>
-			<p class="text-base font-medium text-foreground">No occupations selected</p>
-			<p class="mt-2 text-sm text-muted-foreground">
-				Search above to add occupations or modern roles to compare side by side.
+		<div class={cn(card({ padding: 'lg' }))}>
+			<p class="text-sm text-foreground/80 leading-relaxed">
+				Compare up to 3 occupations or roles side by side. See how their risk profiles, demand
+				signals, and career paths differ — useful for exploring transitions or understanding where
+				AI pressure varies across similar jobs.
 			</p>
-			<p class="mt-3 text-sm text-muted-foreground">
-				Try comparing
-				<a href="/compare?entities=occupation:25121,occupation:41320" class="text-primary underline"
-					>Software Developer vs Data Entry Clerk</a
-				>
+
+			<p class="mt-4 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+				Popular comparisons
 			</p>
-			<p class={cn(caption(), 'mt-4')}>
-				URL format: <code class="rounded bg-muted px-1 text-xs"
-					>/compare?entities=occupation:25121,role:product-manager</code
-				>
-			</p>
+			<div class="mt-2 grid gap-2 sm:grid-cols-2">
+				{#each [{ label: 'Software Developer vs Data Entry Clerk', url: '/compare?entities=occupation:25121,occupation:41320', why: 'Same AI exposure, different outcomes' }, { label: 'Product Manager vs AI Product Manager', url: '/compare?entities=role:product-manager,role:ai-product-manager', why: 'Traditional vs AI-native variant' }, { label: 'Accountant vs Data Analyst', url: '/compare?entities=role:accountant,role:data-analyst', why: 'Both data-heavy, different risk profiles' }, { label: 'Frontend Engineer vs UX Designer', url: '/compare?entities=role:frontend-engineer,role:ux-designer', why: 'Tech vs design in the same product team' }] as comp}
+					<a
+						href={comp.url}
+						class="rounded-md border border-border px-3 py-2.5 hover:bg-accent hover:border-primary/30 transition-colors block"
+					>
+						<p class="text-sm font-medium text-foreground">{comp.label}</p>
+						<p class="text-[10px] text-muted-foreground">{comp.why}</p>
+					</a>
+				{/each}
+			</div>
 		</div>
 	{:else}
 		<!-- Side-by-side columns -->

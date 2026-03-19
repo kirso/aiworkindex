@@ -14,16 +14,17 @@
 	let { children } = $props();
 
 	const navLinks = [
-		{ href: '/', label: 'Explore' },
+		{ href: '/', label: 'Find' },
+		{ href: '/roles', label: 'Roles' },
 		{ href: '/rankings', label: 'Rankings' },
 		{ href: '/compare', label: 'Compare' },
-		{ href: '/methodology', label: 'Methodology' },
-		{ href: '/about', label: 'About' }
+		{ href: '/reports', label: 'Reports' },
+		{ href: '/methodology', label: 'Methodology' }
 	];
 
 	const secondaryLinks = [
-		{ href: '/reports', label: 'Reports' },
 		{ href: '/data', label: 'Data' },
+		{ href: '/about', label: 'About' },
 		{ href: '/watchlist', label: 'Watchlist' }
 	];
 

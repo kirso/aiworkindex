@@ -48,20 +48,50 @@
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'About' }]} />
 
 	<h1 class={titleStyle({ size: 'page' })}>About This Project</h1>
-	<p class="mt-2 text-muted-foreground">
-		The AI Work Index scores {DATA_VINTAGE.occupation_count} occupations and {DATA_VINTAGE.role_count}
-		modern roles for structural AI displacement pressure. It uses a three-layer structural model — multi-source
-		exposure, human bottleneck, and market resilience — grounded in official Singapore government data,
-		industry context, sector wage anchors, worker-profile context, official transition infrastructure,
-		national AI-adoption context, and published academic and institutional research. The public downloads
-		separate the structural score dataset from the Singapore context bundle, labour monitor, and support
-		layers so each can be audited on its own terms.
-	</p>
-	<p class="mt-2 text-muted-foreground">
-		This is a structural score of AI pressure, not a prediction of exact job losses. No LLM is used
-		in the scoring pipeline. The model separates technical exposure from labour-market displacement
-		— a software developer and a data entry clerk can both score high on AI exposure yet have very
-		different outcomes.
+
+	<!-- TL;DR -->
+	<div class={cn(card({ padding: 'sm' }), 'mt-4 border-primary/20 bg-primary/5')}>
+		<p class="text-sm font-semibold text-foreground">
+			{DATA_VINTAGE.occupation_count} occupations · {DATA_VINTAGE.role_count} roles · No LLM in scoring
+			· MIT licensed
+		</p>
+		<p class="mt-1 text-sm text-muted-foreground">
+			Structural AI pressure scores for Singapore. Not a prediction of job losses — a measure of how
+			much current AI capabilities overlap with each job's tasks, adjusted for human bottlenecks and
+			local demand.
+		</p>
+	</div>
+
+	<!-- Three signal layers — visual distinction -->
+	<div class="mt-6 grid gap-3 sm:grid-cols-3">
+		<div class={cn(card({ padding: 'sm' }), 'border-l-4 border-l-risk-high')}>
+			<p class="text-xs font-semibold uppercase tracking-wider text-risk-high">Structural Score</p>
+			<p class="mt-1 text-xs text-muted-foreground">
+				Core model. Exposure × bottleneck × market modifier. Published as the primary dataset.
+			</p>
+		</div>
+		<div class={cn(card({ padding: 'sm' }), 'border-l-4 border-l-risk-moderate')}>
+			<p class="text-xs font-semibold uppercase tracking-wider text-risk-moderate">
+				Labour Monitor
+			</p>
+			<p class="mt-1 text-xs text-muted-foreground">
+				Quarterly MOM data. Vacancy rates, hiring, retrenchment. Cluster-level, not per-occupation.
+			</p>
+		</div>
+		<div class={cn(card({ padding: 'sm' }), 'border-l-4 border-l-primary')}>
+			<p class="text-xs font-semibold uppercase tracking-wider text-primary">Outlook & Support</p>
+			<p class="mt-1 text-xs text-muted-foreground">
+				Forward-looking. Seniority modifiers, transition pathways, SkillsFuture programmes.
+				Illustrative.
+			</p>
+		</div>
+	</div>
+
+	<p class="mt-4 text-muted-foreground">
+		These three layers are separated deliberately in the product and data model. The structural
+		score is published as its own dataset, the labour monitor and Singapore context ship as separate
+		artifacts, and the outlook/support layer is kept out of the core score so it stays illustrative
+		and auditable rather than pretending to be measured fact.
 	</p>
 
 	<!-- Key context boxes -->

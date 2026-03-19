@@ -1,6 +1,8 @@
 <script lang="ts">
 	import RankingTable from '$lib/components/ui/RankingTable.svelte';
+	import TheoryPracticeDumbbell from '$lib/components/viz/TheoryPracticeDumbbell.svelte';
 	import { title as titleStyle } from '$lib/design-system';
+	import { card } from '$lib/design-system';
 	import type { Occupation } from '$lib/data';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import { pageLayout } from '$lib/design-system';
@@ -47,8 +49,8 @@
 		},
 		{
 			key: 'exposure',
-			label: 'Exposure',
-			format: (occ: Occupation) => `${(occ.exposure * 100).toFixed(0)}%`,
+			label: 'AIOE Theory',
+			format: (occ: Occupation) => `${(occ.raw.aioe * 100).toFixed(0)}%`,
 			align: 'right' as const
 		},
 		{
@@ -92,6 +94,14 @@
 		exceeds usage.
 	</p>
 
+	<!-- Dumbbell chart -->
+	<section class="mt-6">
+		<div class={card({ padding: 'md' })}>
+			<TheoryPracticeDumbbell occupations={data.ranked} />
+		</div>
+	</section>
+
+	<!-- Table (detail) -->
 	<section class="mt-6">
 		<RankingTable occupations={data.ranked} {columns} highlight={highlightRow} />
 	</section>

@@ -13,21 +13,31 @@
 		caption
 	} from '$lib/design-system';
 	import { cn } from '$lib/utils';
-	import {
-		formatCurrencyShort,
-		vacancySignalClass,
-		wagePremiumClass
-	} from '$lib/data/detail-display';
-	import OutlookSection from '$lib/components/ui/OutlookSection.svelte';
+	import { vacancySignalClass } from '$lib/data/detail-display';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import * as Collapsible from '$lib/components/ui/collapsible/index.js';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
-	import LabourMarketCard from '$lib/components/ui/LabourMarketCard.svelte';
 	import ContextItemGrid from '$lib/components/ui/ContextItemGrid.svelte';
 	import { SITE } from '$lib/data/scoring-constants';
 	import Seo from '$lib/components/ui/Seo.svelte';
-
-	const WATCHLIST_KEY = 'aiworkindex-watchlist';
+	import {
+		computeOutlook,
+		scenarioPresets,
+		seniorityAdjustments,
+		outlookStatusLabels,
+		outlookStatusColors,
+		directionLabels,
+		directionColors,
+		type SeniorityLevel
+	} from '$lib/data/forecast-engine';
+	import {
+		WATCHLIST_KEY,
+		hasWatchlistEntry,
+		parseStoredWatchlist,
+		serializeWatchlist,
+		toggleWatchlistEntry
+	} from '$lib/watchlist';
+	import { getTransitionProgrammeUrl } from '$lib/data/detail-context';
 
 	let { data } = $props();
 	let scored = $derived(data.scored);
@@ -38,10 +48,8 @@
 	$effect(() => {
 		if (!browser) return;
 		try {
-			const stored = localStorage.getItem(WATCHLIST_KEY);
-			const list: string[] = stored ? JSON.parse(stored) : [];
-			const primarySsoc = scored.components[0]?.ssoc;
-			isWatchlisted = primarySsoc ? list.includes(primarySsoc) : false;
+			const entries = parseStoredWatchlist(localStorage.getItem(WATCHLIST_KEY));
+			isWatchlisted = hasWatchlistEntry(entries, { kind: 'role', id: scored.slug });
 		} catch {
 			isWatchlisted = false;
 		}
@@ -49,27 +57,44 @@
 
 	function toggleWatchlist() {
 		if (!browser) return;
-		const primarySsoc = scored.components[0]?.ssoc;
-		if (!primarySsoc) return;
 		try {
-			const stored = localStorage.getItem(WATCHLIST_KEY);
-			let list: string[] = stored ? JSON.parse(stored) : [];
-			if (list.includes(primarySsoc)) {
-				list = list.filter((s: string) => s !== primarySsoc);
-				isWatchlisted = false;
-			} else {
-				list.push(primarySsoc);
-				isWatchlisted = true;
-			}
-			localStorage.setItem(WATCHLIST_KEY, JSON.stringify(list));
+			const nextEntries = toggleWatchlistEntry(
+				parseStoredWatchlist(localStorage.getItem(WATCHLIST_KEY)),
+				{
+					kind: 'role',
+					id: scored.slug
+				}
+			);
+			isWatchlisted = hasWatchlistEntry(nextEntries, { kind: 'role', id: scored.slug });
+			localStorage.setItem(WATCHLIST_KEY, serializeWatchlist(nextEntries));
 		} catch {}
 	}
+
 	let transitions = $derived(structural.transitions);
 	let singaporeContext = $derived(context.singaporeContext);
 	let industryContext = $derived(context.industryContext);
 	let workerProfile = $derived(context.workerProfile);
 	let geographyContext = $derived(context.geographyContext);
 	let primaryOccupation = $derived(context.primaryOccupation);
+	let transitionSupport = $derived(context.transitionSupport);
+
+	// Outlook (inline, base case)
+	let selectedSeniority = $state<SeniorityLevel>('mid');
+	let baseOutlook = $derived.by(() => {
+		if (!primaryOccupation) return null;
+		return computeOutlook(primaryOccupation, {
+			...scenarioPresets.base.params,
+			seniority: selectedSeniority
+		});
+	});
+	const outlookDimensions = [
+		{ key: 'displacement_pressure', label: 'Displacement' },
+		{ key: 'augmentation_upside', label: 'Augmentation' },
+		{ key: 'demand_outlook', label: 'Demand' },
+		{ key: 'wage_pressure', label: 'Wage Pressure' }
+	] as const;
+
+	let showMoreContext = $state(false);
 
 	let roleJsonLd = $derived(
 		`<script type="application/ld+json">${JSON.stringify({
@@ -82,16 +107,8 @@
 				' official Singapore occupations',
 			occupationLocation: { '@type': 'Country', name: 'Singapore' },
 			additionalProperty: [
-				{
-					'@type': 'PropertyValue',
-					name: 'AI Net Displacement Risk',
-					value: scored.net_risk
-				},
-				{
-					'@type': 'PropertyValue',
-					name: 'Risk Band',
-					value: riskBandLabels[scored.risk_band]
-				},
+				{ '@type': 'PropertyValue', name: 'AI Net Displacement Risk', value: scored.net_risk },
+				{ '@type': 'PropertyValue', name: 'Risk Band', value: riskBandLabels[scored.risk_band] },
 				{
 					'@type': 'PropertyValue',
 					name: 'Estimate Type',
@@ -106,12 +123,7 @@
 			'@context': 'https://schema.org',
 			'@type': 'BreadcrumbList',
 			itemListElement: [
-				{
-					'@type': 'ListItem',
-					position: 1,
-					name: 'Home',
-					item: SITE.url + '/'
-				},
+				{ '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url + '/' },
 				{
 					'@type': 'ListItem',
 					position: 2,
@@ -138,25 +150,7 @@
 							(scored.net_risk * 100).toFixed(0) +
 							'% (' +
 							riskBandLabels[scored.risk_band] +
-							'). Based on ' +
-							scored.components.length +
-							' official occupations.'
-					}
-				},
-				{
-					'@type': 'Question',
-					name: 'What is the AI risk score for ' + scored.title + '?',
-					acceptedAnswer: {
-						'@type': 'Answer',
-						text:
-							scored.title +
-							' has an estimated AI displacement risk of ' +
-							(scored.net_risk * 100).toFixed(0) +
-							'%, rated ' +
-							riskBandLabels[scored.risk_band] +
-							'. This is a synthetic role estimate based on ' +
-							scored.components.length +
-							' weighted official occupations.'
+							').'
 					}
 				}
 			]
@@ -178,41 +172,17 @@
 />
 
 <main class={pageLayout({ width: 'content' })}>
-	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: scored.title }]} />
+	<PageBreadcrumb
+		items={[
+			{ label: 'Home', href: '/' },
+			{ label: 'Roles', href: '/roles' },
+			{ label: scored.title }
+		]}
+	/>
 
-	<!-- Synthetic role notice -->
-	<div
-		class="mb-4 flex items-start gap-2 rounded-md border border-risk-moderate-border bg-risk-moderate-subtle px-3 py-2"
-	>
-		<svg
-			class="mt-0.5 h-3.5 w-3.5 shrink-0 text-risk-moderate"
-			viewBox="0 0 24 24"
-			fill="none"
-			stroke="currentColor"
-			stroke-width="2"><path d="M12 9v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg
-		>
-		<div class="text-xs text-risk-moderate">
-			<p>
-				Estimated modern role — scores are a weighted blend of {scored.components.length} official occupations.
-				Confidence never exceeds Medium and drops to Low when component occupations disagree materially.
-			</p>
-			{#if structural.primaryMatch && structural.primaryMatch.riskDiff < 0.03}
-				<p class="mt-1">
-					Closely matches
-					<a
-						href="/occupation/{structural.primaryMatch.ssoc}"
-						class="font-medium text-primary hover:underline">{structural.primaryMatch.title}</a
-					>
-					({(structural.primaryMatch.risk * 100).toFixed(0)}% risk).
-				</p>
-			{/if}
-		</div>
-	</div>
-
-	<!-- ===== HERO: The Score IS the Interface ===== -->
+	<!-- ===== BLOCK 1: THE VERDICT ===== -->
 	<div class={cn(card({ padding: 'lg', accent: scored.risk_band }), 'mb-8')}>
 		<div class="flex flex-col sm:flex-row sm:items-start sm:gap-8">
-			<!-- Left: The Big Number -->
 			<div class="flex flex-col items-center sm:items-start shrink-0 mb-4 sm:mb-0">
 				<p class={display({ size: 'xl' })}>{(scored.net_risk * 100).toFixed(0)}%</p>
 				<span class={cn(riskBadge({ band: scored.risk_band }), 'mt-1')}>
@@ -227,17 +197,11 @@
 				{/if}
 			</div>
 
-			<!-- Right: Context -->
 			<div class="flex-1 min-w-0">
 				<h1 class={titleStyle({ size: 'page' })}>{scored.title}</h1>
 				<p class={caption()}>{scored.description}</p>
-
 				<p class="mt-3 text-sm text-foreground/80 leading-relaxed">{structural.summaryText}</p>
-				{#if structural.workflowNarrative}
-					<p class="mt-2 text-sm text-foreground/60 leading-relaxed">
-						{structural.workflowNarrative}
-					</p>
-				{/if}
+
 				{#if scored.dispersion > 0.08}
 					<div class="mt-3 rounded-md bg-inset p-3">
 						<p class="text-xs font-medium text-foreground">
@@ -264,9 +228,6 @@
 								>{(scored.risk_range.pessimistic * 100).toFixed(0)}%</span
 							>
 						</div>
-						<p class="mt-1 text-xs text-muted-foreground">
-							More management-focused → lower risk. More hands-on → higher risk.
-						</p>
 					</div>
 				{/if}
 
@@ -276,6 +237,11 @@
 					</span>
 					<span class={confidenceBadge({ level: scored.confidence })}>
 						{scored.confidence.charAt(0).toUpperCase() + scored.confidence.slice(1)} Confidence
+					</span>
+					<span
+						class="rounded-full bg-risk-moderate/10 px-2 py-0.5 text-[10px] font-medium text-risk-moderate"
+					>
+						Estimated · {scored.components.length} components
 					</span>
 					<span class="text-xs text-muted-foreground">
 						Higher risk than {structural.riskPercentile}% of occupations
@@ -308,260 +274,353 @@
 		</div>
 	</div>
 
-	<!-- ===== SCORE BREAKDOWN: Waterfall gets visual prominence ===== -->
+	<!-- ===== BLOCK 2: WHY THIS SCORE ===== -->
 	<section class="mb-8">
-		<h2 class={cn(sectionLabel(), 'mb-3')}>Score Breakdown</h2>
+		<h2 class={cn(sectionLabel(), 'mb-3')}>Why This Score</h2>
 		<div class={card({ padding: 'md' })}>
-			<div class="space-y-3 text-sm">
-				<div class="flex items-center justify-between">
-					<span class="text-muted-foreground">AI Task Overlap</span>
-					<span class="font-mono text-xs tabular-nums">{(scored.exposure * 100).toFixed(0)}%</span>
+			<div class="grid gap-6 lg:grid-cols-5">
+				<!-- Left: Score table (3/5) -->
+				<div class="lg:col-span-3">
+					<div class="space-y-3 text-sm">
+						<div class="flex items-center justify-between">
+							<span class="text-muted-foreground">AI Task Overlap</span>
+							<span class="font-mono text-xs tabular-nums"
+								>{(scored.exposure * 100).toFixed(0)}%</span
+							>
+						</div>
+						<div class="flex items-center justify-between">
+							<span class="text-muted-foreground">Human Advantage</span>
+							<span class="font-mono text-xs tabular-nums"
+								>{(scored.bottleneck * 100).toFixed(0)}%</span
+							>
+						</div>
+						<div class="flex items-center justify-between">
+							<span class="text-muted-foreground">SG Demand Buffer</span>
+							<span class="font-mono text-xs tabular-nums"
+								>{(scored.market_resilience * 100).toFixed(0)}%</span
+							>
+						</div>
+						<div class="flex items-center justify-between border-t border-border pt-3">
+							<span class="font-semibold text-foreground">Net Risk</span>
+							<span class="font-mono text-sm font-bold tabular-nums"
+								>{(scored.net_risk * 100).toFixed(0)}%</span
+							>
+						</div>
+					</div>
+					<p class="mt-3 text-xs text-muted-foreground">
+						Blended across {scored.components.length} occupations.
+						<a href="/methodology" class="text-primary hover:underline">How this works</a>
+					</p>
 				</div>
-				<div class="flex items-center justify-between">
-					<span class="text-muted-foreground">Human Advantage</span>
-					<span class="font-mono text-xs tabular-nums">{(scored.bottleneck * 100).toFixed(0)}%</span
-					>
-				</div>
-				<div class="flex items-center justify-between">
-					<span class="text-muted-foreground">SG Demand Buffer</span>
-					<span class="font-mono text-xs tabular-nums"
-						>{(scored.market_resilience * 100).toFixed(0)}%</span
-					>
-				</div>
-				<div class="flex items-center justify-between border-t border-border pt-3">
-					<span class="font-semibold text-foreground">Net Risk</span>
-					<span class="font-mono text-sm font-bold tabular-nums"
-						>{(scored.net_risk * 100).toFixed(0)}%</span
-					>
+
+				<!-- Right: What AI changes (2/5) -->
+				<div class="lg:col-span-2 space-y-4">
+					<div>
+						<p class="text-xs font-semibold text-risk-high mb-1">Tasks AI can handle</p>
+						<p class="text-sm text-muted-foreground leading-relaxed">
+							{structural.personalizedContent.aiCanDo}
+						</p>
+					</div>
+					<div>
+						<p class="text-xs font-semibold text-risk-very-low mb-1">Where humans stay essential</p>
+						<p class="text-sm text-muted-foreground leading-relaxed">
+							{structural.personalizedContent.humanNeeded}
+						</p>
+					</div>
+					{#if structural.personalizedContent.skills.length > 0}
+						<div class="pt-3 border-t border-border">
+							<p class="text-xs font-semibold text-foreground mb-2">Skills to focus on</p>
+							<div class="flex flex-wrap gap-1.5">
+								{#each structural.personalizedContent.skills.slice(0, 4) as skill}
+									<span
+										class="rounded-full bg-primary/10 px-2.5 py-1 text-[11px] font-medium text-primary"
+										title={skill.description}
+									>
+										{skill.label}
+									</span>
+								{/each}
+							</div>
+						</div>
+					{/if}
 				</div>
 			</div>
 		</div>
-		<p class="mt-2 text-xs text-muted-foreground">
-			Blended structural score across {scored.components.length} official occupations. Component-level
-			waterfalls are intentionally not shown here as if they were role-native evidence.
-			<a href="/methodology" class="text-primary hover:underline">How this works</a>
-		</p>
 	</section>
 
-	<!-- ===== WHAT AI CHANGES: Narrative, not grid ===== -->
-	<section class="mb-8">
-		<h2 class={cn(sectionLabel(), 'mb-3')}>What AI Changes</h2>
-		<div class={card({ padding: 'md' })}>
-			<div class="space-y-4">
-				<div>
-					<p class="text-xs font-semibold text-risk-high mb-1">Tasks AI can handle</p>
-					<p class="text-sm text-muted-foreground leading-relaxed">
-						{structural.personalizedContent.aiCanDo}
-					</p>
-				</div>
-				<div>
-					<p class="text-xs font-semibold text-risk-very-low mb-1">Where humans stay essential</p>
-					<p class="text-sm text-muted-foreground leading-relaxed">
-						{structural.personalizedContent.humanNeeded}
-					</p>
-				</div>
-			</div>
+	<!-- ===== BLOCK 3: SINGAPORE REALITY ===== -->
+	{#if primaryOccupation || industryContext.top_industries.length > 0 || singaporeContext.items.length > 0}
+		<section class="mb-8">
+			<h2 class={cn(sectionLabel(), 'mb-3')}>Singapore Reality</h2>
+			<div class={card({ padding: 'md' })}>
+				<div class="grid gap-6 lg:grid-cols-2">
+					<!-- Left: Labour market + outlook -->
+					<div class="space-y-5">
+						{#if primaryOccupation?.labour_monitor}
+							<div>
+								<div class="flex items-center gap-2 mb-2">
+									<p class="text-xs font-semibold text-foreground">Labour Market</p>
+									<span
+										class="rounded-full px-1.5 py-0.5 text-[10px] font-medium
+										{primaryOccupation.labour_monitor.overall === 'strong'
+											? 'bg-risk-very-low/10 text-risk-very-low'
+											: primaryOccupation.labour_monitor.overall === 'moderate'
+												? 'bg-risk-moderate/10 text-risk-moderate'
+												: 'bg-risk-high/10 text-risk-high'}"
+									>
+										{primaryOccupation.labour_monitor.overall === 'strong'
+											? 'Strong'
+											: primaryOccupation.labour_monitor.overall === 'moderate'
+												? 'Moderate'
+												: primaryOccupation.labour_monitor.overall === 'weak'
+													? 'Weak'
+													: 'Watch'}
+									</span>
+								</div>
+								<div class="space-y-1.5 text-sm">
+									<div class="flex items-center justify-between">
+										<span class="text-xs text-muted-foreground">Vacancy rate</span>
+										<span class="font-mono text-xs text-foreground">
+											{primaryOccupation.labour_monitor.vacancy.latest_rate}%
+											<span
+												class="ml-1 {primaryOccupation.labour_monitor.vacancy.trend_4q_pct > 0
+													? 'text-risk-very-low'
+													: primaryOccupation.labour_monitor.vacancy.trend_4q_pct < 0
+														? 'text-risk-high'
+														: 'text-muted-foreground'}"
+											>
+												{primaryOccupation.labour_monitor.vacancy.trend_4q_pct > 0
+													? '↑'
+													: primaryOccupation.labour_monitor.vacancy.trend_4q_pct < 0
+														? '↓'
+														: '→'}
+												{Math.abs(primaryOccupation.labour_monitor.vacancy.trend_4q_pct).toFixed(
+													1
+												)}%
+											</span>
+										</span>
+									</div>
+									{#if primaryOccupation.labour_monitor.hiring}
+										<div class="flex items-center justify-between">
+											<span class="text-xs text-muted-foreground">Hiring</span>
+											<span class="font-mono text-xs text-foreground">
+												{primaryOccupation.labour_monitor.hiring.recruitment_rate}% recruit · {primaryOccupation
+													.labour_monitor.hiring.resignation_rate}% resign
+											</span>
+										</div>
+									{/if}
+									{#if primaryOccupation.labour_monitor.retrenchment}
+										<div class="flex items-center justify-between">
+											<span class="text-xs text-muted-foreground">Retrenchment</span>
+											<span class="font-mono text-xs text-foreground">
+												{#if primaryOccupation.labour_monitor.retrenchment.incidence_per_1000}
+													{primaryOccupation.labour_monitor.retrenchment.incidence_per_1000}/1K
+												{:else}
+													{primaryOccupation.labour_monitor.retrenchment.latest_count.toLocaleString()}
+													in {primaryOccupation.labour_monitor.retrenchment.latest_quarter}
+												{/if}
+											</span>
+										</div>
+									{/if}
+								</div>
+								<p class="mt-2 text-[10px] text-muted-foreground/60 italic">
+									Based on {primaryOccupation.title} cluster data
+								</p>
+							</div>
+						{/if}
 
-			{#if structural.personalizedContent.skills.length > 0}
-				<div class="mt-4 pt-4 border-t border-border">
-					<p class="text-xs font-semibold text-foreground mb-2">Skills to focus on</p>
-					<div class="grid gap-2 sm:grid-cols-2">
-						{#each structural.personalizedContent.skills.slice(0, 4) as skill}
-							<div class="flex gap-2">
-								<div class="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-primary"></div>
-								<div>
-									<p class="text-xs font-medium text-foreground">{skill.label}</p>
-									<p class="text-xs text-muted-foreground">{skill.description}</p>
+						{#if baseOutlook}
+							<div>
+								<div class="flex items-center justify-between mb-2">
+									<p class="text-xs font-semibold text-foreground">12-Month Outlook</p>
+									<div class="flex items-center gap-1">
+										{#each ['junior', 'mid', 'senior'] as const as level}
+											<button
+												class="rounded-md px-1.5 py-0.5 text-[10px] font-medium transition-colors {selectedSeniority ===
+												level
+													? 'bg-primary text-primary-foreground'
+													: 'text-muted-foreground hover:text-foreground hover:bg-accent'}"
+												onclick={() => (selectedSeniority = level)}
+											>
+												{seniorityAdjustments[level].label}
+											</button>
+										{/each}
+									</div>
+								</div>
+								<span class="text-sm font-semibold {directionColors[baseOutlook.direction_12m]}">
+									{directionLabels[baseOutlook.direction_12m]}
+								</span>
+								<div class="mt-2 grid grid-cols-2 gap-2">
+									{#each outlookDimensions as dim}
+										{@const status = baseOutlook[dim.key]}
+										{@const level =
+											status === 'resilient'
+												? 0.15
+												: status === 'watch'
+													? 0.4
+													: status === 'under_pressure'
+														? 0.7
+														: 0.95}
+										{@const barColor =
+											status === 'resilient'
+												? 'bg-risk-very-low'
+												: status === 'watch'
+													? 'bg-risk-moderate'
+													: status === 'under_pressure'
+														? 'bg-risk-high'
+														: 'bg-risk-very-high'}
+										<div>
+											<div class="flex items-center justify-between mb-0.5">
+												<span class="text-[10px] text-muted-foreground">{dim.label}</span>
+												<span class="text-[10px] font-medium {outlookStatusColors[status]}">
+													{outlookStatusLabels[status]}
+												</span>
+											</div>
+											<div class="h-1 w-full rounded-full bg-muted-foreground/10">
+												<div
+													class="h-1 rounded-full transition-all duration-300 {barColor}"
+													style="width: {level * 100}%;"
+												></div>
+											</div>
+										</div>
+									{/each}
 								</div>
 							</div>
-						{/each}
+						{/if}
+					</div>
+
+					<!-- Right: Industry + policy -->
+					<div class="space-y-5">
+						{#if industryContext.top_industries.length > 0}
+							<div>
+								<p class="text-xs font-semibold text-foreground mb-2">Top Industries</p>
+								<div class="space-y-2">
+									{#each industryContext.top_industries.slice(0, 3) as industry (industry.key)}
+										<div class="flex items-center justify-between gap-2">
+											<div class="min-w-0 flex-1">
+												<p class="text-xs text-foreground truncate">{industry.label}</p>
+												<div class="mt-0.5 flex items-center gap-2">
+													<div class="h-1 flex-1 rounded-full bg-muted-foreground/10">
+														<div
+															class="h-1 rounded-full bg-primary/60"
+															style="width: {Math.min(industry.share_2025 * 100 * 2, 100)}%;"
+														></div>
+													</div>
+													<span class="text-[10px] font-mono text-muted-foreground shrink-0">
+														{(industry.share_2025 * 100).toFixed(0)}%
+													</span>
+												</div>
+											</div>
+											{#if industry.vacancy_signal}
+												<span
+													class={cn(
+														'text-[10px] shrink-0',
+														vacancySignalClass(industry.vacancy_signal)
+													)}
+												>
+													{industry.vacancy_signal === 'rising'
+														? '↑'
+														: industry.vacancy_signal === 'cooling'
+															? '↓'
+															: '→'}
+												</span>
+											{/if}
+										</div>
+									{/each}
+								</div>
+							</div>
+						{/if}
+
+						{#if singaporeContext.items.length > 0}
+							<div>
+								<p class="text-xs font-semibold text-foreground mb-2">Policy Context</p>
+								<div class="flex flex-wrap gap-1.5">
+									{#each singaporeContext.items as item (item.key)}
+										<span
+											class="rounded-full px-2 py-0.5 text-[10px] font-medium
+											{item.tone === 'protective'
+												? 'bg-risk-very-low/10 text-risk-very-low'
+												: item.tone === 'pressure'
+													? 'bg-risk-high/10 text-risk-high'
+													: item.tone === 'support'
+														? 'bg-primary/10 text-primary'
+														: 'bg-muted text-muted-foreground'}"
+											title={item.description}
+										>
+											{item.label}: {item.value}
+										</span>
+									{/each}
+								</div>
+							</div>
+						{/if}
 					</div>
 				</div>
-			{/if}
-		</div>
-	</section>
 
-	<!-- ===== MARKET CONTEXT: Labour + Outlook ===== -->
-	{#if primaryOccupation?.labour_monitor}
-		<section class="mb-8">
-			<h2 class={cn(sectionLabel(), 'mb-1')}>Closest Official Occupation Context</h2>
-			<p class="mb-3 text-xs text-muted-foreground">
-				Synthetic roles do not have role-native labour series. This panel anchors on the
-				highest-weight official occupation: {primaryOccupation.title}.
-			</p>
-			<LabourMarketCard monitor={primaryOccupation.labour_monitor} />
-		</section>
-	{/if}
-
-	{#if primaryOccupation}
-		<section class="mb-8">
-			<p class="mb-3 text-xs text-muted-foreground">
-				Scenario outlook below is anchored on {primaryOccupation.title}, not a separately validated
-				synthetic-role forecast.
-			</p>
-			<OutlookSection occupation={primaryOccupation} />
-		</section>
-	{/if}
-
-	{#if industryContext.top_industries.length > 0 || singaporeContext.items.length > 0 || workerProfile.items.length > 0 || geographyContext.items.length > 0}
-		<section class="mb-8">
-			<h2 class={cn(sectionLabel(), 'mb-3')}>Singapore Anchors</h2>
-			<div class={card({ padding: 'md' })}>
-				<div class="space-y-6">
-					{#if industryContext.top_industries.length > 0}
-						<div>
-							<p class="text-xs font-semibold text-foreground">Industry anchors</p>
-							<div class="mt-3 grid gap-6 sm:grid-cols-2">
-								<div>
-									<p class="text-xs font-semibold text-foreground">Largest industry anchors</p>
-									<div class="mt-3 space-y-3">
-										{#each industryContext.top_industries as industry (industry.key)}
-											<div class="flex items-start justify-between gap-3">
-												<div>
-													<p class="text-sm text-foreground">{industry.label}</p>
-													<p class="mt-0.5 text-xs text-muted-foreground">
-														Weighted share {(industry.share_2025 * 100).toFixed(0)}%
-													</p>
-													{#if industry.sector_gross_wage_median}
-														<p class="mt-0.5 text-xs text-muted-foreground">
-															Weighted wage anchor {formatCurrencyShort(
-																industry.sector_gross_wage_median
-															)}
-															{#if industry.sector_wage_premium_pct !== null && industry.sector_wage_premium_pct !== undefined}
-																<span
-																	class={cn(
-																		'ml-1 font-medium',
-																		wagePremiumClass(industry.sector_wage_premium_pct)
-																	)}
-																>
-																	{industry.sector_wage_premium_pct > 0 ? '+' : ''}
-																	{(industry.sector_wage_premium_pct * 100).toFixed(0)}%
-																</span>
-															{/if}
-														</p>
-													{/if}
-												</div>
-												<div class="text-right text-xs">
-													{#if industry.vacancy_signal}
-														<p class={cn(vacancySignalClass(industry.vacancy_signal))}>
-															{industry.vacancy_signal === 'rising'
-																? 'Vacancies rising'
-																: industry.vacancy_signal === 'cooling'
-																	? 'Vacancies cooling'
-																	: 'Vacancies stable'}
-														</p>
-													{/if}
-												</div>
-											</div>
-										{/each}
-									</div>
-								</div>
-
-								<div>
-									<p class="text-xs font-semibold text-foreground">Fastest-growing anchors</p>
-									<div class="mt-3 space-y-3">
-										{#each industryContext.fastest_growing_industries as industry (industry.key)}
-											<div class="flex items-start justify-between gap-3">
-												<div>
-													<p class="text-sm text-foreground">{industry.label}</p>
-													<p class="mt-0.5 text-xs text-muted-foreground">
-														5Y CAGR
-														{industry.cagr_5y !== null
-															? `${(industry.cagr_5y * 100).toFixed(1)}%`
-															: 'n/a'}
-													</p>
-													{#if industry.sector_gross_wage_median}
-														<p class="mt-0.5 text-xs text-muted-foreground">
-															Weighted wage anchor {formatCurrencyShort(
-																industry.sector_gross_wage_median
-															)}
-															{#if industry.sector_wage_premium_pct !== null && industry.sector_wage_premium_pct !== undefined}
-																<span
-																	class={cn(
-																		'ml-1 font-medium',
-																		wagePremiumClass(industry.sector_wage_premium_pct)
-																	)}
-																>
-																	{industry.sector_wage_premium_pct > 0 ? '+' : ''}
-																	{(industry.sector_wage_premium_pct * 100).toFixed(0)}%
-																</span>
-															{/if}
-														</p>
-													{/if}
-												</div>
-												<div class="text-right text-xs">
-													{#if industry.vacancy_latest !== null}
-														<p class={cn(vacancySignalClass(industry.vacancy_signal))}>
-															{industry.vacancy_latest.toFixed(0)} vacancies
-														</p>
-													{/if}
-												</div>
-											</div>
-										{/each}
-									</div>
-								</div>
+				<!-- Expandable: Worker profile + Geography -->
+				{#if workerProfile.items.length > 0 || geographyContext.items.length > 0}
+					<div class="mt-4 pt-4 border-t border-border">
+						<button
+							class="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
+							onclick={() => (showMoreContext = !showMoreContext)}
+						>
+							<svg
+								class="h-3 w-3 transition-transform {showMoreContext ? 'rotate-180' : ''}"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"><path d="m6 9 6 6 6-6" /></svg
+							>
+							{showMoreContext ? 'Less context' : 'Worker profile & geography'}
+						</button>
+						{#if showMoreContext}
+							<div class="mt-3 space-y-4">
+								{#if workerProfile.items.length > 0}
+									<ContextItemGrid title="Worker profile" items={workerProfile.items} />
+								{/if}
+								{#if geographyContext.items.length > 0}
+									<ContextItemGrid
+										title="Where this work is concentrated"
+										items={geographyContext.items}
+									/>
+								{/if}
 							</div>
-							<p class="mt-4 text-[11px] leading-relaxed text-muted-foreground">
-								{industryContext.note} Wage anchors are blended from published common-occupation industry
-								wage tables when component occupations are covered. Vacancy labels use industry-wide Singapore
-								demand signals rather than synthetic-role vacancy estimates.
-							</p>
-						</div>
-					{/if}
-
-					{#if singaporeContext.items.length > 0}
-						<div
-							class={cn(industryContext.top_industries.length > 0 && 'border-t border-border pt-6')}
-						>
-							<ContextItemGrid title="Policy and labour anchors" items={singaporeContext.items} />
-							<p class="mt-4 text-[11px] leading-relaxed text-muted-foreground">
-								{singaporeContext.note}
-							</p>
-						</div>
-					{/if}
-
-					{#if workerProfile.items.length > 0}
-						<div
-							class={cn(
-								(industryContext.top_industries.length > 0 || singaporeContext.items.length > 0) &&
-									'border-t border-border pt-6'
-							)}
-						>
-							<ContextItemGrid title="Worker anchors" items={workerProfile.items} />
-							<p class="mt-4 text-[11px] leading-relaxed text-muted-foreground">
-								{workerProfile.note}
-							</p>
-						</div>
-					{/if}
-
-					{#if geographyContext.items.length > 0}
-						<div
-							class={cn(
-								(industryContext.top_industries.length > 0 ||
-									singaporeContext.items.length > 0 ||
-									workerProfile.items.length > 0) &&
-									'border-t border-border pt-6'
-							)}
-						>
-							<ContextItemGrid
-								title="Where this work is concentrated"
-								items={geographyContext.items}
-							/>
-							<p class="mt-4 text-[11px] leading-relaxed text-muted-foreground">
-								{geographyContext.note}
-							</p>
-						</div>
-					{/if}
-				</div>
+						{/if}
+					</div>
+				{/if}
 			</div>
 		</section>
 	{/if}
 
-	<!-- ===== CAREER PATHS ===== -->
+	<!-- ===== BLOCK 4: WHAT TO DO NEXT ===== -->
 	{#if transitions}
 		<section class="mb-8">
-			<h2 class={cn(sectionLabel(), 'mb-3')}>Career Paths</h2>
+			<h2 class={cn(sectionLabel(), 'mb-3')}>What To Do Next</h2>
 			<div class={card({ padding: 'md' })}>
+				{#if transitionSupport}
+					<div class="mb-4 pb-4 border-b border-border">
+						<div class="flex flex-wrap items-center gap-2">
+							{#if transitionSupport.skillsfuture_eligible}
+								<span
+									class="rounded-full bg-risk-very-low/10 px-2.5 py-1 text-[11px] font-medium text-risk-very-low"
+								>
+									SkillsFuture eligible
+								</span>
+							{/if}
+							{#each transitionSupport.recommended_programmes as programme}
+								{@const programmeUrl = getTransitionProgrammeUrl(programme)}
+								<a
+									href={programmeUrl ?? '#'}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="rounded-full bg-primary/10 px-2.5 py-1 text-[11px] font-medium text-primary hover:bg-primary/20 transition-colors"
+								>
+									{programme} ↗
+								</a>
+							{/each}
+						</div>
+						<p class="mt-2 text-[10px] text-muted-foreground/70">{transitionSupport.basis}</p>
+					</div>
+				{/if}
+
 				<div class="grid gap-6 sm:grid-cols-2">
 					{#if transitions.easierSwitch.length > 0}
 						<div>
@@ -627,6 +686,16 @@
 							{/each}
 						</div>
 					{/if}
+				</div>
+
+				<div class="mt-4 pt-4 border-t border-border flex items-center justify-between">
+					<p class="text-xs text-muted-foreground">Compare with similar roles or occupations</p>
+					<a
+						href="/compare?entities=role:{scored.slug}"
+						class="text-xs font-medium text-primary hover:underline"
+					>
+						Compare with... →
+					</a>
 				</div>
 			</div>
 		</section>

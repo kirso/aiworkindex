@@ -21,9 +21,20 @@
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Reports' }]} />
 
 	<h1 class={titleStyle({ size: 'page' })}>Reports</h1>
-	<p class="mt-2 text-sm text-muted-foreground">
-		Quarterly analysis of AI impact trends across Singapore occupations.
-	</p>
+
+	<!-- Narrative lead -->
+	<div class={cn(card({ padding: 'md' }), 'mt-4 border-primary/20 bg-primary/5')}>
+		<p class="text-sm text-foreground leading-relaxed">
+			<span class="font-semibold">Latest published context as of March 19, 2026:</span> the freshest
+			labour-market evidence in this project is MOM Q3 2025 cluster data, the latest macro snapshot
+			is 2025 4Q unemployment, and the latest official national AI-adoption survey is IMDA's 2024
+			data. Taken together, they show a labour market that remains fairly tight ({macro.resident_unemployment_rate.toFixed(
+				1
+			)}% resident unemployment) while AI usage is already mainstream ({ai.workforce.workers_using_ai_at_work_pct.toFixed(
+				0
+			)}% of workers reported using AI at work).
+		</p>
+	</div>
 
 	<div class="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
 		<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">

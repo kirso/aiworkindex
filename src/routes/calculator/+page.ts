@@ -9,6 +9,8 @@ export const load: PageLoad = () => {
 		const scored = computeRoleScores(r, occupationsBySSoc);
 		return {
 			id: 'role:' + scored.slug,
+			slug: scored.slug,
+			ssoc: '',
 			title: scored.title,
 			net_risk: scored.net_risk,
 			risk_band: scored.risk_band,
@@ -21,6 +23,8 @@ export const load: PageLoad = () => {
 
 	const occEntries = occupations.map(o => ({
 		id: 'occ:' + o.ssoc,
+		slug: '',
+		ssoc: o.ssoc,
 		title: o.title,
 		net_risk: o.net_risk,
 		risk_band: o.risk_band,

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import RankingTable from '$lib/components/ui/RankingTable.svelte';
-	import { title as titleStyle } from '$lib/design-system';
+	import DemandPressureMatrix from '$lib/components/viz/DemandPressureMatrix.svelte';
+	import { title as titleStyle, card } from '$lib/design-system';
 	import type { Occupation } from '$lib/data';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import { pageLayout } from '$lib/design-system';
@@ -81,7 +82,15 @@
 		potential.
 	</p>
 
+	<!-- Chart -->
 	<section class="mt-6">
+		<div class={card({ padding: 'md' })}>
+			<DemandPressureMatrix occupations={data.ranked} />
+		</div>
+	</section>
+
+	<!-- Table -->
+	<section class="mt-4">
 		<RankingTable occupations={data.ranked} {columns} />
 	</section>
 
