@@ -1,5 +1,10 @@
 import type { Occupation, RiskBand, ImpactType, AugmentationBand } from './index';
-import { getRiskBand } from './scoring-constants';
+import {
+	getRiskBand,
+	MARKET_CONSTANTS,
+	classifyImpactType,
+	AUGMENTATION_THRESHOLDS
+} from './scoring-constants';
 
 export interface SyntheticRole {
 	slug: string;
@@ -944,22 +949,11 @@ function weightedMean(values: number[], weights: number[]): number {
 }
 
 
-function computeImpactType(netRisk: number, augmentation: number): ImpactType {
-	// Must match score.ts impactType logic
-	const highDisplacement = netRisk >= 0.25;
-	const highAugmentation = augmentation >= 0.12;
-
-	if (highDisplacement && !highAugmentation) return 'at_risk';
-	if (highDisplacement && highAugmentation) return 'mixed';
-	if (!highDisplacement && highAugmentation) return 'ai_leveraged';
-	return 'stable';
-}
-
 function computeAugmentationBand(augmentation: number): AugmentationBand {
-	if (augmentation >= 0.8) return 'very_high';
-	if (augmentation >= 0.6) return 'high';
-	if (augmentation >= 0.4) return 'moderate';
-	if (augmentation >= 0.2) return 'low';
+	if (augmentation >= AUGMENTATION_THRESHOLDS.very_high) return 'very_high';
+	if (augmentation >= AUGMENTATION_THRESHOLDS.high) return 'high';
+	if (augmentation >= AUGMENTATION_THRESHOLDS.moderate) return 'moderate';
+	if (augmentation >= AUGMENTATION_THRESHOLDS.low) return 'low';
 	return 'very_low';
 }
 
@@ -1007,11 +1001,11 @@ export function computeRoleScores(
 	const market_resilience = weightedMean(resiliences, weights);
 	const augmentation = weightedMean(augmentations, weights);
 
-	// net_risk = exposure * (1 - bottleneck) * (1 - 0.35 * market_resilience)
-	const net_risk = exposure * (1 - bottleneck) * (1 - 0.35 * market_resilience);
+	const net_risk =
+		exposure * (1 - bottleneck) * (1 - MARKET_CONSTANTS.max_modifier_effect * market_resilience);
 	const risk_band = getRiskBand(net_risk);
 	const augmentation_band = computeAugmentationBand(augmentation);
-	const impact_type = computeImpactType(net_risk, augmentation);
+	const impact_type = classifyImpactType(net_risk, augmentation);
 
 	// Compute dispersion: stddev of component net_risk values
 	const componentRisks = validComponents.map((c) => c.occupation!.net_risk);

@@ -14,11 +14,9 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { getRiskBand } from '../src/lib/data/scoring-constants';
+import type { RiskBand, ImpactType } from '../src/lib/data/index';
 
 const DATA_FILE = path.join(import.meta.dir, '..', 'data', 'occupations.json');
-
-type RiskBand = 'very_low' | 'low' | 'moderate' | 'high' | 'very_high';
-type ImpactType = 'at_risk' | 'ai_leveraged' | 'stable' | 'mixed';
 
 interface Occupation {
 	ssoc: string;

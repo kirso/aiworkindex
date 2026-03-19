@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Occupation, RiskBand } from '$lib/data';
+	import type { Occupation, RiskBand, ImpactType } from '$lib/data';
 	import { impactTypeColors, riskBandColors } from '$lib/data';
 	import { sectionLabel, card } from '$lib/design-system';
 	import InfoTip from '$lib/components/ui/InfoTip.svelte';
@@ -7,7 +7,6 @@
 	let { occupations }: { occupations: Occupation[] } = $props();
 
 	const bandOrder: RiskBand[] = ['very_low', 'low', 'moderate', 'high', 'very_high'];
-	type ImpactType = 'at_risk' | 'ai_leveraged' | 'stable' | 'mixed';
 	const impactOrder: ImpactType[] = ['at_risk', 'ai_leveraged', 'stable', 'mixed'];
 
 	const bandShortLabels: Record<RiskBand, string> = {

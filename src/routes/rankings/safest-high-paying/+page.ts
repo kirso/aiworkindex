@@ -1,4 +1,5 @@
 import { occupations } from '$lib/data';
+import { RANKING_THRESHOLDS } from '$lib/data/scoring-constants';
 import type { PageLoad } from './$types';
 
 export const load: PageLoad = () => {
@@ -6,7 +7,9 @@ export const load: PageLoad = () => {
 	const medianWage = allWages[Math.floor(allWages.length / 2)]!;
 
 	const ranked = occupations
-		.filter(o => o.net_risk < 0.15 && o.gross_wage_median >= medianWage)
+		.filter(
+			o => o.net_risk < RANKING_THRESHOLDS.low_risk_ceiling && o.gross_wage_median >= medianWage
+		)
 		.sort((a, b) => b.gross_wage_median - a.gross_wage_median)
 		.slice(0, 25);
 
