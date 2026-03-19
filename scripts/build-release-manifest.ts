@@ -21,7 +21,12 @@ const SRC_OUT_FILE = path.join(SRC_DATA_DIR, 'release-manifest.json');
 interface ReleaseArtifactDefinition {
 	file: string;
 	label: string;
-	category: 'structural_score' | 'context_bundle' | 'labour_monitor' | 'worker_profile';
+	category:
+		| 'structural_score'
+		| 'context_bundle'
+		| 'labour_monitor'
+		| 'worker_profile'
+		| 'national_ai_context';
 	description: string;
 }
 
@@ -43,7 +48,7 @@ const ARTIFACTS: ReleaseArtifactDefinition[] = [
 		label: 'Singapore context pack',
 		category: 'context_bundle',
 		description:
-			'Published Singapore context bundle around the structural score: labour monitor, worker profile, industry context, and sector wage anchors.'
+			'Published Singapore context bundle around the structural score: labour monitor, worker profile, industry context, sector wage anchors, and national AI context.'
 	},
 	{
 		file: 'sg-labour-monitor-2025.json',
@@ -56,6 +61,13 @@ const ARTIFACTS: ReleaseArtifactDefinition[] = [
 		label: 'Singapore worker profile',
 		category: 'worker_profile',
 		description: 'Published Labour Force 2024 worker-profile context and detailed gender anchors.'
+	},
+	{
+		file: 'sg-ai-in-singapore-2025.json',
+		label: 'AI in Singapore context',
+		category: 'national_ai_context',
+		description:
+			'Official IMDA and MOM national AI adoption, workforce, and programme context used for reports and contextual framing.'
 	}
 ];
 

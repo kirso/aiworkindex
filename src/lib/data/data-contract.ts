@@ -214,6 +214,39 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 		notes: 'Published male/female wage medians for common occupations, shown as contextual evidence only.'
 	},
 	{
+		key: 'imda_sgde_2025',
+		label: 'IMDA Singapore Digital Economy Report 2025',
+		tier: 'official_sg',
+		status: 'live',
+		vintage: '2025',
+		used_for: ['AI in Singapore context', 'reports', 'national AI adoption framing'],
+		url: 'https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches/factsheets/2024/ar-sgde-2024',
+		notes:
+			'Official Singapore national AI-adoption, worker-usage, and tech-workforce context. Used for reports and context, not occupation-level score multipliers.'
+	},
+	{
+		key: 'imda_naiip_2026',
+		label: 'IMDA National AI Impact Programme',
+		tier: 'official_sg',
+		status: 'live',
+		vintage: '2026',
+		used_for: ['AI in Singapore context', 'national programme framing'],
+		url: 'https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches/factsheets/2026/national-ai-impact-programme',
+		notes:
+			'Official Singapore programme targets for enterprise AI adoption and AI-bilingual workers.'
+	},
+	{
+		key: 'mom_soi_2025',
+		label: 'MOM Singapore Opportunity Index',
+		tier: 'official_sg',
+		status: 'live',
+		vintage: '2025',
+		used_for: ['AI in Singapore context', 'employer-quality context', 'career mobility framing'],
+		url: 'https://www.mom.gov.sg/newsroom/press-releases/2025/1014-launch-of-soi',
+		notes:
+			'Official employer-quality and career-opportunity context from MOM. Used as labour-market context, not as a structural score input.'
+	},
+	{
 		key: 'aioe_2021',
 		label: 'Felten AIOE',
 		tier: 'external_proxy',

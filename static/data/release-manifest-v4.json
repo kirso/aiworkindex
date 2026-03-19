@@ -1,6 +1,6 @@
 {
   "version": "V4.0",
-  "generated_at": "2026-03-19T08:56:39.092Z",
+  "generated_at": "2026-03-19T09:25:15.950Z",
   "score_dataset_generated_at": "2026-03-19",
   "artifacts": [
     {
@@ -25,10 +25,10 @@
       "file": "sg-context-pack-2025.json",
       "label": "Singapore context pack",
       "category": "context_bundle",
-      "description": "Published Singapore context bundle around the structural score: labour monitor, worker profile, industry context, and sector wage anchors.",
-      "bytes": 551591,
-      "sha256": "7b033df2feea37db0ef2ab788d832f8ab9d560f0b0ab943741b9102975a74350",
-      "generated_at": "2026-03-19T07:40:06.284Z"
+      "description": "Published Singapore context bundle around the structural score: labour monitor, worker profile, industry context, sector wage anchors, and national AI context.",
+      "bytes": 556323,
+      "sha256": "97cb7db28e284b3fb56d24e29b24934c7ce755147f4097361b00ba5612b0cedd",
+      "generated_at": "2026-03-19T09:24:18.251Z"
     },
     {
       "file": "sg-labour-monitor-2025.json",
@@ -37,7 +37,7 @@
       "description": "Published cluster-level labour monitor used as current evidence around the score.",
       "bytes": 10812,
       "sha256": "6417add8a128545311d31b3caab569c1f8e1edbce1a1f3509543c80c11e64f45",
-      "generated_at": "2026-03-19T07:40:06.285Z"
+      "generated_at": "2026-03-19T09:25:15.954Z"
     },
     {
       "file": "sg-worker-profile-2024.json",
@@ -47,6 +47,15 @@
       "bytes": 116519,
       "sha256": "723a9704e3b87db1f5779406eb0915ad41f7987717058ec8808c5ecef1fa4f36",
       "generated_at": "2026-03-19T07:02:00.557Z"
+    },
+    {
+      "file": "sg-ai-in-singapore-2025.json",
+      "label": "AI in Singapore context",
+      "category": "national_ai_context",
+      "description": "Official IMDA and MOM national AI adoption, workforce, and programme context used for reports and contextual framing.",
+      "bytes": 3766,
+      "sha256": "74a1a27dd61d25ba3bdf3e1bb1e780d0eec17a4596353647db78c8740d19b560",
+      "generated_at": "2026-03-19T09:24:18.246Z"
     }
   ]
 }

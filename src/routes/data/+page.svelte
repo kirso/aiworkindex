@@ -359,7 +359,7 @@
 				</div>
 				<p class="mt-1 text-sm text-muted-foreground">
 					Context-only bundle with the labour monitor, worker profile, industry footprint, and
-					sector wage anchors around the structural score.
+					sector wage anchors around the structural score, plus national AI adoption context from official IMDA and MOM releases.
 				</p>
 				<div class="mt-2 flex flex-wrap items-center gap-2 text-xs">
 					<a href="/data/sg-context-pack-2025.json" download class="text-primary underline"
@@ -372,6 +372,10 @@
 					<span class="text-muted-foreground">&middot;</span>
 					<a href="/data/sg-worker-profile-2024.json" download class="text-primary underline"
 						>worker profile</a
+					>
+					<span class="text-muted-foreground">&middot;</span>
+					<a href="/data/sg-ai-in-singapore-2025.json" download class="text-primary underline"
+						>AI in Singapore</a
 					>
 				</div>
 			</div>
@@ -432,8 +436,8 @@
 				<p><span class="font-medium text-foreground">Version:</span> V4.0 (4-source exposure ensemble inside a 3-layer structural score)</p>
 				<p><span class="font-medium text-foreground">Data vintage:</span> 2024 wages, 2024/2025 demand signals</p>
 				<p><span class="font-medium text-foreground">Occupations:</span> 562 SSOC-coded occupations</p>
-				<p><span class="font-medium text-foreground">Separate context bundle:</span> Labour monitor, worker profile, industry context, and sector wage anchors</p>
-				<p><span class="font-medium text-foreground">Sources:</span> MOM Singapore (wages, Labour Force Section D, industry context, demand signals), O*NET, Felten AIOE, Pizzinelli/IMF, Anthropic observed usage, Eloundou GPT exposure, ILO occupational exposure, SOL 2026, Jobs in Demand 2025</p>
+				<p><span class="font-medium text-foreground">Separate context bundle:</span> Labour monitor, worker profile, industry context, sector wage anchors, and national AI context</p>
+				<p><span class="font-medium text-foreground">Sources:</span> MOM Singapore (wages, Labour Force Section D, industry context, demand signals, SOI), IMDA Singapore Digital Economy Report 2025, IMDA NAIIP 2026, O*NET, Felten AIOE, Pizzinelli/IMF, Anthropic observed usage, Eloundou GPT exposure, ILO occupational exposure, SOL 2026, Jobs in Demand 2025</p>
 			</div>
 			<a href="/methodology" class="mt-3 inline-block text-sm text-primary underline">Full methodology &rarr;</a>
 		</div>
