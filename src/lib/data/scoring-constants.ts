@@ -143,7 +143,7 @@ export const DATA_VINTAGE = {
 	/** Occupation count */
 	occupation_count: 562,
 	/** Synthetic role count */
-	role_count: 80,
+	role_count: 88,
 	/** Validation check count */
 	validation_checks: 49,
 	/** Page count */

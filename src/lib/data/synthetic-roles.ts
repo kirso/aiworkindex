@@ -935,6 +935,108 @@ export const syntheticRoles: SyntheticRole[] = [
 			{ ssoc: '13301', weight: 0.3, rationale: 'CIO/CTO/CSO' }
 		],
 		tags: ['tech', 'management', 'security']
+	},
+	// --- Gig Economy & Platform Workers ---
+	{
+		slug: 'delivery-rider',
+		title: 'Delivery Rider',
+		description:
+			'Platform delivery worker (Grab, Foodpanda) — transports food and parcels via motorcycle or bicycle',
+		components: [
+			{ ssoc: '83211', weight: 0.5, rationale: 'Motorcycle delivery man' },
+			{ ssoc: '83212', weight: 0.3, rationale: 'Delivery man using motorised PMDs' },
+			{ ssoc: '33461', weight: 0.2, rationale: 'Logistics/Production planner' }
+		],
+		tags: ['gig', 'logistics', 'platform']
+	},
+	{
+		slug: 'ride-hail-driver',
+		title: 'Ride-Hail Driver',
+		description:
+			'Platform driver (Grab, Gojek, Tada) — provides passenger transport via private hire vehicle',
+		components: [
+			{ ssoc: '83223', weight: 0.6, rationale: 'Van driver (closest to private hire)' },
+			{ ssoc: '83311', weight: 0.2, rationale: 'Bus driver' },
+			{ ssoc: '83211', weight: 0.2, rationale: 'Motorcycle delivery man' }
+		],
+		tags: ['gig', 'transport', 'platform']
+	},
+	{
+		slug: 'freelance-designer',
+		title: 'Freelance Designer',
+		description: 'Independent visual/graphic designer working on contract or platform basis',
+		components: [
+			{ ssoc: '21661', weight: 0.5, rationale: 'Graphic designer' },
+			{ ssoc: '21662', weight: 0.3, rationale: 'Multimedia (including games) designer' },
+			{ ssoc: '21663', weight: 0.2, rationale: 'Multimedia artist and animator' }
+		],
+		tags: ['gig', 'creative', 'design']
+	},
+	// --- Entrepreneurial Roles ---
+	{
+		slug: 'startup-founder',
+		title: 'Startup Founder / CEO',
+		description:
+			'Founder of an early-stage company — wears multiple hats across product, sales, fundraising, and operations',
+		components: [
+			{ ssoc: '11201', weight: 0.3, rationale: 'Managing director/CEO' },
+			{ ssoc: '12222', weight: 0.2, rationale: 'Marketing manager' },
+			{ ssoc: '25112', weight: 0.2, rationale: 'ICT business process consultant' },
+			{ ssoc: '24211', weight: 0.3, rationale: 'Management consultant' }
+		],
+		tags: ['startup', 'management', 'strategy']
+	},
+	{
+		slug: 'e-commerce-seller',
+		title: 'E-Commerce Seller',
+		description:
+			'Independent online retailer (Shopee, Lazada, own site) — manages products, marketing, fulfilment',
+		components: [
+			{ ssoc: '33224', weight: 0.4, rationale: 'Online sales channel executive' },
+			{ ssoc: '24314', weight: 0.3, rationale: 'Digital marketing professional' },
+			{ ssoc: '13241', weight: 0.3, rationale: 'Supply and distribution/Logistics manager' }
+		],
+		tags: ['startup', 'sales', 'marketing']
+	},
+	// --- Emerging / Green Economy ---
+	{
+		slug: 'sustainability-manager',
+		title: 'Sustainability Manager',
+		description:
+			'Leads ESG strategy, carbon reporting, and sustainability initiatives for organizations',
+		components: [
+			{ ssoc: '24211', weight: 0.3, rationale: 'Management consultant' },
+			{ ssoc: '21311', weight: 0.3, rationale: 'Environmental engineer' },
+			{ ssoc: '12191', weight: 0.2, rationale: 'Research and development manager' },
+			{ ssoc: '12212', weight: 0.2, rationale: 'Business development manager' }
+		],
+		tags: ['management', 'strategy', 'sustainability']
+	},
+	// --- Creator Economy ---
+	{
+		slug: 'content-creator',
+		title: 'Content Creator',
+		description:
+			'Creates video, written, or multimedia content for social platforms (YouTube, TikTok, Instagram)',
+		components: [
+			{ ssoc: '26421', weight: 0.3, rationale: 'Journalist' },
+			{ ssoc: '21662', weight: 0.3, rationale: 'Multimedia designer' },
+			{ ssoc: '24314', weight: 0.2, rationale: 'Digital marketing professional' },
+			{ ssoc: '34310', weight: 0.2, rationale: 'Photographer' }
+		],
+		tags: ['creative', 'content', 'marketing']
+	},
+	{
+		slug: 'virtual-assistant',
+		title: 'Virtual Assistant',
+		description:
+			'Remote administrative and coordination support — scheduling, email, research, data entry',
+		components: [
+			{ ssoc: '41201', weight: 0.4, rationale: 'Secretary' },
+			{ ssoc: '41101', weight: 0.3, rationale: 'General office clerk' },
+			{ ssoc: '33491', weight: 0.3, rationale: 'Management executive' }
+		],
+		tags: ['gig', 'operations', 'admin']
 	}
 ];
 

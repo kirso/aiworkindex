@@ -133,7 +133,17 @@ export const roleCategoryMap: Record<string, { category: string; variant_of?: st
 	'prompt-engineer': { category: 'data' },
 	'ai-product-manager': { category: 'product', variant_of: 'product-manager' },
 	'data-architect': { category: 'data', variant_of: 'data-engineer' },
-	'it-security-manager': { category: 'engineering', variant_of: 'security-engineer' }
+	'it-security-manager': { category: 'engineering', variant_of: 'security-engineer' },
+
+	// Batch 4: Gig economy, entrepreneurial, emerging roles
+	'delivery-rider': { category: 'operations' },
+	'ride-hail-driver': { category: 'operations' },
+	'freelance-designer': { category: 'design', variant_of: 'ux-designer' },
+	'startup-founder': { category: 'leadership' },
+	'e-commerce-seller': { category: 'sales' },
+	'sustainability-manager': { category: 'leadership' },
+	'content-creator': { category: 'marketing' },
+	'virtual-assistant': { category: 'operations' }
 };
 
 /**
