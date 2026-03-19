@@ -25,7 +25,7 @@ Three-layer deterministic scoring — no LLM in the pipeline:
 net_risk = exposure × (1 − bottleneck) × market_modifier
 ```
 
-Published as risk bands (Very Low through Very High) with Monte Carlo confidence intervals (1000-run simulation).
+Published as risk bands (Very Low through Very High) with visible confidence and 1,000-run stability diagnostics.
 
 ## Validation
 
@@ -69,6 +69,8 @@ Each occupation page shows:
 - **Licensed profession** flag (53 strict + 23 partial)
 - **Foreign worker dependency** (73 very high + 33 high + 45 moderate)
 - **SkillsFuture** career conversion eligibility (154 occupations)
+- **Industry footprint + worker profile** from official Singapore labour tables
+- **Transition infrastructure** from Jobs Transformation Maps, CareersFinder, WSQ, and SkillsFuture / WSG programmes
 
 ## Data Download
 
@@ -97,7 +99,7 @@ Each occupation page shows:
 ## Limitations
 
 - **Exposure data age**: AIOE is from 2021 (pre-GPT-4). Ensemble with newer sources mitigates but doesn't eliminate.
-- **Employment granularity**: MOM publishes employment at 9 major groups, not per occupation. BLS proportional proxy helps.
+- **Employment granularity**: detailed Singapore occupation counts are not publicly released. `estimated_sg_employment_thousands` is a labeled sub-major allocation, and wage-pool analysis uses a separate labeled BLS-weighted proxy.
 - **Market modifier weights**: 0.6/0.4 momentum/scarcity split is calibrated, not empirically derived.
 - **Cluster-level labour data**: Same vacancy/hiring data for all occupations in each of 3 clusters.
 - **Synthetic role weights**: Expert-assigned SSOC blends, not validated against job posting data.

@@ -130,7 +130,8 @@
 			<p class="mt-1 text-sm text-muted-foreground">
 				Employment grew by 19,600 in Q4 2025 (+57,300 full year vs 44,500 in 2024). Unemployment
 				steady at 2.0%. Retrenchments fell to 1.5 per 1,000 (3,600 in Q4; 14,400 full year). Vacancy
-				rates by occupation group not yet available — pending full Q4 2025 report.
+				rates by occupation group were not included in the January 29, 2026 advance release and will
+				be added once MOM publishes the full Q4 2025 report.
 			</p>
 			<p class="mt-2 text-xs text-muted-foreground">
 				Source: <a
@@ -150,8 +151,8 @@
 			</div>
 			<p class="mt-1 text-sm text-muted-foreground">
 				Full quarterly report with vacancy rates by occupation group, band movers, demand shifts,
-				and scoring comparisons. Expected when Q4 2025 MOM Labour Market Report is published
-				(mid-March 2026). Scores will be re-run with new vacancy data.
+				and scoring comparisons. Scores will be re-run when MOM publishes the full Q4 2025 Labour
+				Market Report.
 			</p>
 		</div>
 	</div>

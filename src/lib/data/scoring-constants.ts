@@ -8,7 +8,7 @@
  * When updating thresholds, change them HERE and they propagate
  * to methodology, appendix, data dictionary, and CLAUDE.md automatically.
  *
- * Validated by: scripts/validate.ts (49 checks)
+ * Validated by: scripts/validate.ts (56 checks)
  * Used by: score.ts, synthetic-roles.ts, validate.ts, methodology page
  */
 

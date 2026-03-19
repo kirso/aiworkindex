@@ -52,9 +52,10 @@
 		The AI Work Index scores {DATA_VINTAGE.occupation_count} occupations and {DATA_VINTAGE.role_count}
 		modern roles for structural AI displacement pressure. It uses a three-layer structural model — multi-source
 		exposure, human bottleneck, and market resilience — grounded in official Singapore government data,
-		industry context, sector wage anchors, worker-profile context, and published academic and institutional
-		research. The public downloads separate the structural score dataset from a Singapore context bundle
-		so current labour evidence can be read on its own terms.
+		industry context, sector wage anchors, worker-profile context, official transition infrastructure,
+		national AI-adoption context, and published academic and institutional research. The public downloads
+		separate the structural score dataset from the Singapore context bundle, labour monitor, and support
+		layers so each can be audited on its own terms.
 	</p>
 	<p class="mt-2 text-muted-foreground">
 		This is a structural score of AI pressure, not a prediction of exact job losses. No LLM is used
@@ -134,7 +135,7 @@
 							Estimated / Group-Level
 						</p>
 						<ul class="mt-1.5 space-y-1 text-sm text-muted-foreground">
-							<li>Market resilience (group-level employment + wage heuristics)</li>
+							<li>Market resilience (group-level employment trends + occupation wage structure)</li>
 							<li>Crosswalk quality (US occupations mapped to SG)</li>
 							<li>Labour monitor (cluster-level, not occupation-level)</li>
 							<li>Observed-usage calibration (Anthropic usage, not universal AI adoption)</li>
@@ -147,7 +148,10 @@
 						</p>
 						<ul class="mt-1.5 space-y-1 text-sm text-muted-foreground">
 							<li>Modern role estimates (weighted SSOC blends, medium-or-low confidence)</li>
-							<li>Transition scores (heuristic feasibility estimates)</li>
+							<li>
+								Transition support (deterministic feasibility estimates + official programme
+								infrastructure)
+							</li>
 							<li>Outlook/scenario modelling (rule-based, not predictive)</li>
 							<li>Seniority modifiers (research-grounded, not validated)</li>
 						</ul>
@@ -160,7 +164,9 @@
 							<li>Occupation-level backtesting (cluster-level only: 3/4 pass)</li>
 							<li>Company-size modifiers (not yet implemented)</li>
 							<li>Causal displacement claims (directional correlation only)</li>
-							<li>Occupation-level employment data (not publicly available)</li>
+							<li>
+								Occupation-level employment counts (not publicly released; requested from agencies)
+							</li>
 						</ul>
 					</div>
 				</div>
@@ -230,7 +236,7 @@
 			</li>
 			<li>
 				<strong>Externally cross-checked</strong> — cluster-level directional checks, BLS convergent evidence,
-				and 49 internal structural checks
+				and 56 internal structural checks
 			</li>
 			<li>
 				<strong>Seniority modifiers</strong> — research-grounded experience level adjustments (Stanford

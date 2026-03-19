@@ -12,7 +12,7 @@ AI Work Index: 562 Singapore occupations and 88 modern roles scored for AI displ
 - Lint: `bun run lint`
 - Format: `bun run format`
 - Format check: `bun run format:check`
-- Validate scoring: `bun run validate` (49 structural checks)
+- Validate scoring: `bun run validate` (56 structural checks)
 - Full verify: `bun run verify` (typecheck + lint + format + validate)
 - Run scoring pipeline: `bun run scripts/score.ts`
 - Run backtesting: `bun run scripts/backtest.ts`
@@ -30,7 +30,7 @@ AI Work Index: 562 Singapore occupations and 88 modern roles scored for AI displ
 - No `any` in production code (`src/`). Scripts (`scripts/`) are relaxed.
 - Use Svelte 5 runes syntax (`$state`, `$derived`, `$effect`, `$props`). No legacy Svelte 4 stores.
 - After every change, run `bun run check && bun run lint` at minimum.
-- After scoring or data changes, run `bun run validate` to verify 49 structural checks pass.
+- After scoring or data changes, run `bun run validate` to verify 56 structural checks pass.
 - After significant changes, run `bun run build` to confirm 664 pages prerender.
 
 ## Simplicity Rules

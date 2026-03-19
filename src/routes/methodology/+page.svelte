@@ -35,8 +35,8 @@
 </script>
 
 <Seo
-	title="Scoring Methodology — 4-Input AI Ensemble"
-	description="Three-layer scoring: exposure (AIOE), human bottleneck (theta), and market resilience. Net risk published as risk bands with visible confidence. No LLM in the scoring pipeline."
+	title="Scoring Methodology — Reliability-Weighted 4-Source Ensemble"
+	description="Three-layer structural score: reliability-weighted 4-source exposure ensemble, human bottleneck (theta), and market resilience. Labour evidence, Singapore context, and transition support are published separately."
 	path="/methodology"
 />
 
@@ -59,7 +59,7 @@
 			A software developer and a data entry clerk can both score high on AI exposure, but one gets
 			augmented (MOM lists software developers as in-demand in 2025) while the other faces
 			substitution. We deliberately separate technical exposure from market translation using a
-			three-layer system.
+			three-layer structural score.
 		</p>
 	</div>
 
@@ -174,7 +174,8 @@
 							<tr class="border-b border-border/50">
 								<td class="py-2 pr-3 font-medium">Exposure</td>
 								<td class="py-2 pr-3">AI capability overlap with job abilities</td>
-								<td class="py-2">Availability-weighted equal average of matched exposure sources</td
+								<td class="py-2"
+									>Reliability-weighted blend of matched percentile-ranked exposure sources</td
 								>
 							</tr>
 							<tr class="border-b border-border/50">
@@ -411,8 +412,10 @@
 							Labour Monitor (cluster-level evidence layer)
 						</h3>
 						<p class="mt-1 text-sm text-muted-foreground">
-							We ingest official MOM/SingStat quarterly data from data.gov.sg and compute a unified
-							labour monitor for three broad occupation clusters:
+							We ingest official MOM/SingStat raw feeds from data.gov.sg and compute a unified
+							labour monitor for three broad occupation clusters. Where the published raw series is
+							annual or incomplete, we attach the latest MOM quarterly enrichment snapshot instead
+							of pretending the raw feed is finer than it is:
 						</p>
 						<ul class="mt-2 list-inside list-disc space-y-1 text-sm text-muted-foreground">
 							<li><strong>PMET</strong> — Professionals, Managers, Executives &amp; Technicians</li>
@@ -460,9 +463,10 @@
 							within 6 and 12 months).
 						</p>
 						<p class="mt-2 text-sm text-muted-foreground italic">
-							Data sources: vacancy rates (data.gov.sg + MOM Labour Market Report Q3 2025),
-							recruitment/resignation rates, retrenchment by occupation group, and re-entry into
-							employment statistics. Updated quarterly.
+							Data sources: vacancy rates and counts, recruitment/resignation rates, retrenchment by
+							occupation group, and re-entry into employment statistics from data.gov.sg/MOM, with
+							MOM Labour Market Report Q3 2025 enrichment attached where the public raw series stays
+							annual or sparse. Updated when a fresher official release is available.
 						</p>
 					</div>
 
@@ -1036,14 +1040,14 @@
 			<section class="mb-8">
 				<p class={sectionLabel()}>What This Version Shows</p>
 				<p class="mt-2 text-sm text-muted-foreground">
-					V4.0 implements the full three-layer structural score with a 4-source exposure ensemble,
-					human bottleneck (theta percentile), and market resilience (group-level employment/wage
-					trends + occupation-level wage structure). Net risk is published as risk bands with
-					visible confidence. Augmentation potential, impact type classification, and rule-based
-					outlook/scenario modelling are included. 88 estimated modern roles (AI engineer, product
-					manager, prompt engineer, startup operator, creator, gig-worker variants, etc.) are scored
-					as weighted blends of official occupations, with dispersion analysis for high-variance
-					compositions.
+					V4.0 implements the full three-layer structural score with a reliability-weighted 4-source
+					exposure ensemble, human bottleneck (theta percentile), and market resilience (group-level
+					employment/wage trends + occupation-level wage structure). Net risk is published as risk
+					bands with visible confidence. Augmentation potential, impact type classification, and
+					rule-based outlook/scenario modelling are included. 88 estimated modern roles (AI
+					engineer, product manager, prompt engineer, startup operator, creator, gig-worker
+					variants, etc.) are scored as weighted blends of official occupations, with dispersion
+					analysis for high-variance compositions.
 				</p>
 				<p class="mt-2 text-sm text-muted-foreground">
 					<strong>Seniority adjustment</strong> (V3.2+): the Outlook section now supports experience-level
@@ -1054,13 +1058,25 @@
 					Economic Index (2026) showing 14% drop in job-finding for 22-25 year olds in AI-exposed occupations.
 				</p>
 				<p class="mt-2 text-sm text-muted-foreground">
-					<strong>Labour market data</strong> updated through Q3 2025 full report + Q4 2025 advance release.
-					Vacancy rates, retrenchment, and recruitment/resignation rates by occupation cluster.
+					<strong>Labour monitor</strong> is built from official vacancy, recruitment/resignation, retrenchment,
+					and re-entry feeds, then supplemented by MOM quarterly enrichment where the published raw series
+					is annual or incomplete. It remains a cluster-level evidence layer, not a hidden scoring multiplier.
+				</p>
+				<p class="mt-2 text-sm text-muted-foreground">
+					<strong>Singapore context bundle</strong> now publishes industry footprint, worker profile,
+					sector wage anchors, national AI-adoption context, and official transition infrastructure as
+					separate artifacts around the structural score.
+				</p>
+				<p class="mt-2 text-sm text-muted-foreground">
+					<strong>Transition support</strong> is a hybrid layer: deterministic transition-capacity scoring
+					plus official Singapore programme and training-system anchors (Jobs Transformation Maps, SkillsFuture
+					/ WSG programmes, WSQ activity). It is published separately from the structural score and should
+					be read as decision support, not observed mobility data.
 				</p>
 				<p class="mt-2 text-sm text-muted-foreground">
 					<strong>Not yet implemented:</strong> Occupation-level employment data (MOM OED, not publicly
-					available), company-size modifiers (startup vs enterprise context), and job postings pipeline
-					for real-time demand signals.
+					released; requested from agencies), company-size modifiers (startup vs enterprise context),
+					and job postings pipeline for real-time demand signals.
 				</p>
 			</section>
 
@@ -1284,9 +1300,11 @@
 						adds occupation-level differentiation as a proxy.
 					</li>
 					<li>
-						<strong>Proportional employment</strong> — Per-occupation employment is sub-major-group total
-						/ count (41 groups from Labour Force 2024 Table D8), not actual per-occupation counts. Better
-						than the previous 8 major groups but still an allocation, not a measurement.
+						<strong>Estimated occupation employment</strong> —
+						<code class="rounded bg-muted px-1 text-xs">estimated_sg_employment_thousands</code>
+						is derived from published Labour Force 2024 sub-major totals, not official per-occupation
+						headcounts. Wage-pool analysis separately uses a labeled BLS-weighted proxy rather than pretending
+						this estimate is measured employment.
 					</li>
 					<li>
 						<strong>Static exposure snapshot</strong> — AIOE reflects 2021 AI capabilities.
