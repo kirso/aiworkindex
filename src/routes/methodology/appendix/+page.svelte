@@ -7,7 +7,7 @@
 
 <Seo
 	title="Implementation Appendix"
-	description="Complete implementation reference for the V3.2 scoring pipeline: risk bands, impact classification, seniority modifiers, confidence, market modifier, stability, and synthetic role rules."
+	description="Complete implementation reference for the V3.3 scoring pipeline: risk bands, impact classification, seniority modifiers, confidence, market modifier, stability, and synthetic role rules."
 	path="/methodology/appendix"
 />
 
@@ -24,7 +24,7 @@
 		Implementation Appendix
 	</h1>
 	<p class="mt-2 text-sm text-muted-foreground">
-		Complete V3.1 implementation reference. All thresholds match
+		Complete V3.3 implementation reference. All thresholds match
 		<code class="rounded bg-muted px-1 text-xs">score.ts</code>,
 		<code class="rounded bg-muted px-1 text-xs">synthetic-roles.ts</code>, and
 		<code class="rounded bg-muted px-1 text-xs">validate.ts</code>.
@@ -348,7 +348,7 @@
 
 	<!-- Validation -->
 	<section class="mb-8">
-		<p class={sectionLabel()}>Validation Checks (48 total)</p>
+		<p class={sectionLabel()}>Validation Checks (49 total)</p>
 		<ul class="mt-2 list-inside list-disc space-y-1.5 text-sm text-muted-foreground">
 			<li>Record completeness (562 occupations, all fields present)</li>
 			<li>Crosswalk coverage and evidence signals</li>

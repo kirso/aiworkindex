@@ -7,15 +7,19 @@ AI Work Index: 562 Singapore occupations and 80 modern roles scored for AI displ
 - Use **Bun**, not npm or pnpm.
 - Install: `bun install`
 - Dev server: `bun run dev`
-- Build: `bun run build` (prerendered static site, 661 pages)
+- Build: `bun run build` (prerendered static site, 664 pages)
 - Typecheck: `bun run check`
 - Lint: `bun run lint`
 - Format: `bun run format`
 - Format check: `bun run format:check`
-- Validate scoring: `bun run validate` (48 structural checks)
+- Validate scoring: `bun run validate` (49 structural checks)
 - Full verify: `bun run verify` (typecheck + lint + format + validate)
 - Run scoring pipeline: `bun run scripts/score.ts`
 - Run backtesting: `bun run scripts/backtest.ts`
+- Generate sitemap: `bun run scripts/generate-sitemap.ts`
+- Generate OG images: `bun run scripts/generate-og.ts`
+- Build industry momentum: `bun run scripts/build-industry-momentum.ts`
+- Validate BLS crosswalk: `bun run scripts/validate-bls-crosswalk.ts`
 
 ## Always Applies
 
@@ -26,8 +30,8 @@ AI Work Index: 562 Singapore occupations and 80 modern roles scored for AI displ
 - No `any` in production code (`src/`). Scripts (`scripts/`) are relaxed.
 - Use Svelte 5 runes syntax (`$state`, `$derived`, `$effect`, `$props`). No legacy Svelte 4 stores.
 - After every change, run `bun run check && bun run lint` at minimum.
-- After scoring or data changes, run `bun run validate` to verify 48 structural checks pass.
-- After significant changes, run `bun run build` to confirm 661 pages prerender.
+- After scoring or data changes, run `bun run validate` to verify 49 structural checks pass.
+- After significant changes, run `bun run build` to confirm 664 pages prerender.
 
 ## Simplicity Rules
 
@@ -55,11 +59,13 @@ AI Work Index: 562 Singapore occupations and 80 modern roles scored for AI displ
 data/raw/external/ → scripts/score.ts → data/occupations.json → src/lib/data/occupations.json
                    → scripts/build-labour-monitor.ts → data/labour-monitor.json
                    → scripts/backtest.ts → data/backtests/q3-2025-validation.json
+                   → scripts/build-industry-momentum.ts → data/industry-momentum.json
+                   → scripts/validate-bls-crosswalk.ts → BLS cross-country validation
 ```
 
 **Scoring formula:** `net_risk = exposure × (1 − bottleneck) × market_modifier`
 
-- **Exposure**: Felten AIOE (academic index) + Anthropic observed usage calibration
+- **Exposure**: Ensemble of Felten AIOE (50%) + Anthropic observed usage (50%), per Frank et al. (2025)
 - **Bottleneck**: Pizzinelli theta from O*NET work context (human coordination, physical presence)
 - **Market modifier**: Singapore employment trends, SOL 2026, Jobs in Demand 2025
 - **Crosswalk**: SSOC → ISCO-08 (first 4 digits) → US SOC 2010 → O*NET/AIOE data
@@ -90,6 +96,7 @@ data/raw/external/ → scripts/score.ts → data/occupations.json → src/lib/da
 - `src/lib/design-system.ts` — Signal design system (card, badge, typography variants)
 - `src/lib/components/viz/` — D3-powered visualizations (Treemap, Waterfall, Histogram, etc.)
 - `src/lib/components/ui/` — shadcn-style UI components (Bits UI based)
+- `src/lib/components/Seo.svelte` — unified SEO component (meta, OG, JSON-LD)
 
 ### Routes (21+ pages)
 
@@ -103,6 +110,9 @@ data/raw/external/ → scripts/score.ts → data/occupations.json → src/lib/da
 - `/methodology/appendix` — exact thresholds and formulas reference
 - `/about` — model card, data vintage, credits
 - `/reports` — quarterly analysis
+- `/calculator` — personalized salary vs AI risk calculator
+- `/reports/wage-exposure` — SGD 46B wage exposure analysis
+- `/rankings/rich-and-risky` — highest-paid at high risk
 - `/data` — downloads and data dictionary
 
 ## Scoring Thresholds (must stay consistent)
@@ -205,7 +215,8 @@ The model is a **structural pressure score, not a prediction**. Key citations:
 - Noy & Zhang (2023): AI narrows experience gap in writing
 - Dell'Acqua et al. (2023): jagged frontier — seniors better at knowing AI boundaries
 - Backtested at cluster level: 3/4 directional checks pass (Q3 2025)
+- BLS cross-country validation: SGxUS displacement correlation via `scripts/validate-bls-crosswalk.ts`
 
-**Seniority modifiers:** Outlook section supports Entry-level / Mid-career / Senior adjustments scaled by variant_sensitivity. Research-grounded, labeled as estimated.
+**Seniority modifiers:** Outlook section supports Entry-level / Mid-career / Senior adjustments scaled by variant_sensitivity. Junior base shift: +0.14 displacement / −0.12 augmentation. Research-grounded, labeled as estimated.
 
 **Do not claim** the scores predict actual job losses. Frame as structural risk.

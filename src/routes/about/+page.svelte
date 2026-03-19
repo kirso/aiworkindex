@@ -117,7 +117,7 @@
 							Exact / Validated
 						</p>
 						<ul class="mt-1.5 space-y-1 text-sm text-muted-foreground">
-							<li>AIOE exposure scores (peer-reviewed, deterministic)</li>
+							<li>Ensemble exposure (AIOE + Anthropic, equal-weight)</li>
 							<li>Theta complementarity scores (O*NET survey data)</li>
 							<li>Net risk formula (fully reproducible)</li>
 							<li>Official demand signals (SOL 2026, Jobs in Demand)</li>
@@ -132,6 +132,7 @@
 							<li>Crosswalk quality (US occupations mapped to SG)</li>
 							<li>Labour monitor (cluster-level, not occupation-level)</li>
 							<li>Anthropic calibration (Claude usage, not universal AI)</li>
+							<li>BLS cross-validation (&rho; = &minus;0.13, directional only)</li>
 						</ul>
 					</div>
 					<div>
@@ -223,7 +224,7 @@
 			</li>
 			<li>
 				<strong>Validated</strong> — cluster-level backtesting against actual labour outcomes (3/4 directional
-				checks pass), 48 structural checks
+				checks pass), 49 structural checks
 			</li>
 			<li>
 				<strong>Seniority modifiers</strong> — research-grounded experience level adjustments (Stanford
