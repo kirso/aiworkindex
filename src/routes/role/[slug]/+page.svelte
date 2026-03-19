@@ -68,6 +68,7 @@
 	let singaporeContext = $derived(context.singaporeContext);
 	let industryContext = $derived(context.industryContext);
 	let workerProfile = $derived(context.workerProfile);
+	let geographyContext = $derived(context.geographyContext);
 	let primaryOccupation = $derived(context.primaryOccupation);
 
 	let roleJsonLd = $derived(
@@ -402,7 +403,7 @@
 		</section>
 	{/if}
 
-	{#if industryContext.top_industries.length > 0 || singaporeContext.items.length > 0 || workerProfile.items.length > 0}
+	{#if industryContext.top_industries.length > 0 || singaporeContext.items.length > 0 || workerProfile.items.length > 0 || geographyContext.items.length > 0}
 		<section class="mb-8">
 			<h2 class={cn(sectionLabel(), 'mb-3')}>Singapore Anchors</h2>
 			<div class={card({ padding: 'md' })}>
@@ -529,6 +530,25 @@
 							<ContextItemGrid title="Worker anchors" items={workerProfile.items} />
 							<p class="mt-4 text-[11px] leading-relaxed text-muted-foreground">
 								{workerProfile.note}
+							</p>
+						</div>
+					{/if}
+
+					{#if geographyContext.items.length > 0}
+						<div
+							class={cn(
+								(industryContext.top_industries.length > 0 ||
+									singaporeContext.items.length > 0 ||
+									workerProfile.items.length > 0) &&
+									'border-t border-border pt-6'
+							)}
+						>
+							<ContextItemGrid
+								title="Where this work is concentrated"
+								items={geographyContext.items}
+							/>
+							<p class="mt-4 text-[11px] leading-relaxed text-muted-foreground">
+								{geographyContext.note}
 							</p>
 						</div>
 					{/if}

@@ -71,6 +71,7 @@
 	let singaporeContext = $derived(context.singaporeContext);
 	let industryContext = $derived(context.industryContext);
 	let workerProfile = $derived(context.workerProfile);
+	let geographyContext = $derived(context.geographyContext);
 
 	let innerWidth = $state(1024);
 	$effect(() => {
@@ -340,7 +341,7 @@
 	</section>
 
 	<!-- ===== SINGAPORE CONTEXT ===== -->
-	{#if industryContext || singaporeContext.items.length > 0 || workerProfile.items.length > 0}
+	{#if industryContext || singaporeContext.items.length > 0 || workerProfile.items.length > 0 || geographyContext.items.length > 0}
 		<section class="mb-8">
 			<h2 class={cn(sectionLabel(), 'mb-3')}>Singapore Context</h2>
 			<div class={card({ padding: 'md' })}>
@@ -470,6 +471,25 @@
 							<ContextItemGrid title="Worker profile" items={workerProfile.items} />
 							<p class="mt-4 text-[11px] leading-relaxed text-muted-foreground">
 								{workerProfile.note}
+							</p>
+						</div>
+					{/if}
+
+					{#if geographyContext.items.length > 0}
+						<div
+							class={cn(
+								(industryContext ||
+									singaporeContext.items.length > 0 ||
+									workerProfile.items.length > 0) &&
+									'border-t border-border pt-6'
+							)}
+						>
+							<ContextItemGrid
+								title="Where this work is concentrated"
+								items={geographyContext.items}
+							/>
+							<p class="mt-4 text-[11px] leading-relaxed text-muted-foreground">
+								{geographyContext.note}
 							</p>
 						</div>
 					{/if}

@@ -2,14 +2,17 @@ import type { Occupation } from './index';
 import type { GroupIndustryContext, BlendedIndustryContext } from './industry-context';
 import type { SingaporeContextSummary } from './singapore-context';
 import type { WorkerProfileSummary } from './worker-profile';
+import type { GeographyContextSummary } from './geography-context';
 import { getIndustryContextForOccupation, buildRoleIndustryContext } from './industry-context';
 import { getWorkerProfileForOccupation, buildRoleWorkerProfile } from './worker-profile';
 import { buildOccupationSingaporeContext, buildRoleSingaporeContext } from './singapore-context';
+import { getGeographyContextForOccupation, buildRoleGeographyContext } from './geography-context';
 
 export interface OccupationDetailContext {
 	singaporeContext: SingaporeContextSummary;
 	industryContext: GroupIndustryContext | null;
 	workerProfile: WorkerProfileSummary;
+	geographyContext: GeographyContextSummary;
 }
 
 export interface RoleDetailContext {
@@ -17,13 +20,15 @@ export interface RoleDetailContext {
 	singaporeContext: SingaporeContextSummary;
 	industryContext: BlendedIndustryContext;
 	workerProfile: WorkerProfileSummary;
+	geographyContext: GeographyContextSummary;
 }
 
 export function buildOccupationDetailContext(occupation: Occupation): OccupationDetailContext {
 	return {
 		singaporeContext: buildOccupationSingaporeContext(occupation),
 		industryContext: getIndustryContextForOccupation(occupation),
-		workerProfile: getWorkerProfileForOccupation(occupation)
+		workerProfile: getWorkerProfileForOccupation(occupation),
+		geographyContext: getGeographyContextForOccupation(occupation)
 	};
 }
 
@@ -48,6 +53,7 @@ export function buildRoleDetailContext(
 		primaryOccupation: resolvePrimaryRoleOccupation(components),
 		singaporeContext: buildRoleSingaporeContext(components),
 		industryContext: buildRoleIndustryContext(components),
-		workerProfile: buildRoleWorkerProfile(components)
+		workerProfile: buildRoleWorkerProfile(components),
+		geographyContext: buildRoleGeographyContext(components)
 	};
 }
