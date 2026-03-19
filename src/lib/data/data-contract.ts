@@ -6,7 +6,7 @@ export type EvidenceTier =
 
 export type EmploymentBasis = 'estimated_sg_submajor' | 'proxy_bls_weighted';
 
-export type SourceRegistryStatus = 'live' | 'available' | 'planned';
+export type SourceRegistryStatus = 'live' | 'available' | 'planned' | 'requested';
 
 export interface EvidenceDescriptor {
 	tier: EvidenceTier;
@@ -51,7 +51,8 @@ export const evidenceTierLabels: Record<EvidenceTier, string> = {
 export const sourceRegistryStatusLabels: Record<SourceRegistryStatus, string> = {
 	live: 'Live',
 	available: 'Available',
-	planned: 'Planned'
+	planned: 'Planned',
+	requested: 'Requested'
 };
 
 export const employmentBasisLabels: Record<EmploymentBasis, string> = {
@@ -65,7 +66,7 @@ export const occupationDataBasisTemplate: OccupationDataBasis = {
 		tier: 'derived_from_official_sg',
 		source_key: 'mom_lfr2024_table_d8',
 		note:
-			'Estimated per-occupation employment derived from published Labour Force 2024 sub-major SSOC totals.'
+			'Estimated per-occupation employment derived from published Labour Force 2024 sub-major SSOC totals. Official detailed SSOC occupation counts are not publicly published, so this remains an estimate.'
 	},
 	wage_pool_proxy: {
 		basis: 'proxy_bls_weighted',
@@ -114,6 +115,16 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 		used_for: ['median wages', 'wage quartiles'],
 		url: 'https://stats.mom.gov.sg/Pages/Occupational-Wages-Tables2024.aspx',
 		notes: 'Primary Singapore wage input at detailed occupation level.'
+	},
+	{
+		key: 'mom_detailed_ssoc_employment_request',
+		label: 'MOM / SingStat Detailed SSOC Employment Counts',
+		tier: 'official_sg',
+		status: 'requested',
+		vintage: 'pending',
+		used_for: ['official detailed occupation employment'],
+		notes:
+			'Requested from Singapore agencies because detailed 4-digit / 5-digit SSOC employment counts are not publicly released. Until granted, the live model uses published sub-major totals plus proxy logic.'
 	},
 	{
 		key: 'mom_lfr2024_table_d8',

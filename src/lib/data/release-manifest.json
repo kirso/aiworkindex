@@ -1,6 +1,6 @@
 {
   "version": "V4.0",
-  "generated_at": "2026-03-19T10:52:04.380Z",
+  "generated_at": "2026-03-19T10:57:48.869Z",
   "score_dataset_generated_at": "2026-03-19",
   "artifacts": [
     {
@@ -8,18 +8,18 @@
       "label": "V4 structural score CSV",
       "category": "structural_score",
       "description": "Flattened structural score dataset with basis and provenance columns.",
-      "bytes": 258367,
-      "sha256": "50ad82b98f6daf2f759275f908f68c961d116d0d60e6fc9f1c87af6ee5550082",
-      "generated_at": "2026-03-19T10:52:02.715Z"
+      "bytes": 258373,
+      "sha256": "d3445730276861c717a9c6e681e5913cfe358288536aebfcd5046df0b0e74a68",
+      "generated_at": "2026-03-19T10:57:47.451Z"
     },
     {
       "file": "sg-ai-occupations-v4.json",
       "label": "V4 structural score JSON",
       "category": "structural_score",
       "description": "Nested structural score dataset with basis and provenance metadata.",
-      "bytes": 2737021,
-      "sha256": "09512abba9f58f167a5d68352f24999c649ae0872c742b9bea25fba4ea727a5f",
-      "generated_at": "2026-03-19T10:52:02.628Z"
+      "bytes": 2792094,
+      "sha256": "589199414f9cd93415f3d0263452737f0f855b8bc150239a92bfb0490eb8f7aa",
+      "generated_at": "2026-03-19T10:57:47.300Z"
     },
     {
       "file": "sg-context-pack-2025.json",
@@ -27,8 +27,8 @@
       "category": "context_bundle",
       "description": "Published Singapore context bundle around the structural score: labour monitor, worker profile, industry context, sector wage anchors, and national AI context.",
       "bytes": 562258,
-      "sha256": "762aa2047cd2fd3c98e475c92d0118470cbb084b1fe724ed7ebd6511df46c332",
-      "generated_at": "2026-03-19T10:52:02.760Z"
+      "sha256": "8b428662f7baf31c28f92c5ee7ae2ee54ed4a479080f25415135dee695df7ede",
+      "generated_at": "2026-03-19T10:57:47.476Z"
     },
     {
       "file": "sg-labour-monitor-2025.json",
@@ -37,7 +37,7 @@
       "description": "Published cluster-level labour monitor used as current evidence around the score.",
       "bytes": 11328,
       "sha256": "5cea7335eae72a0901dacecd563338f83ba711e8d12257fbb7801857384abd7a",
-      "generated_at": "2026-03-19T10:52:02.760Z"
+      "generated_at": "2026-03-19T10:57:47.476Z"
     },
     {
       "file": "sg-worker-profile-2024.json",
@@ -46,7 +46,7 @@
       "description": "Published Labour Force 2024 worker-profile context and detailed gender anchors.",
       "bytes": 116519,
       "sha256": "723a9704e3b87db1f5779406eb0915ad41f7987717058ec8808c5ecef1fa4f36",
-      "generated_at": "2026-03-19T10:52:00.917Z"
+      "generated_at": "2026-03-19T10:57:45.424Z"
     },
     {
       "file": "sg-ai-in-singapore-2025.json",
@@ -54,8 +54,8 @@
       "category": "national_ai_context",
       "description": "Official IMDA and MOM national AI adoption, workforce, and programme context used for reports and contextual framing.",
       "bytes": 3766,
-      "sha256": "4719bde1e5ac473d700d9270741a4e6580100498bb362218eb11159e5b819508",
-      "generated_at": "2026-03-19T10:52:00.944Z"
+      "sha256": "ba52d12068d57fce4aee18ae3295a8de0d470a40539cf7995e61b39eb0900809",
+      "generated_at": "2026-03-19T10:57:45.448Z"
     },
     {
       "file": "sg-transition-infrastructure-2025.json",
@@ -63,8 +63,8 @@
       "category": "transition_infrastructure",
       "description": "Official Singapore transition-infrastructure artifact covering published programmes, WSQ training-system activity, and Jobs Transformation Maps coverage.",
       "bytes": 4483,
-      "sha256": "de654536f574a0ada07355bbe18d64f0d2100f05d186f144002cce03327ca59c",
-      "generated_at": "2026-03-19T10:52:00.970Z"
+      "sha256": "ee657222b0b9535e2c0c83528af31c711531588b2f6b22e5010a5dc71911dfd7",
+      "generated_at": "2026-03-19T10:57:45.469Z"
     },
     {
       "file": "sg-transition-support-v4.json",
@@ -72,8 +72,8 @@
       "category": "transition_support",
       "description": "Published hybrid transition-support artifact combining the deterministic transition-capacity model with official Singapore transition-infrastructure context.",
       "bytes": 3770006,
-      "sha256": "a29bbe26ffb91709ca08a9b7c5d0bfcb831ef5b81408929cb4f446a88c8a4717",
-      "generated_at": "2026-03-19T10:52:03.991Z"
+      "sha256": "a598b12bceaf2c695b58e11247004658e648f57668dd4fccf862d8cca4371970",
+      "generated_at": "2026-03-19T10:57:48.617Z"
     },
     {
       "file": "claims-matrix-v4.json",
@@ -81,8 +81,8 @@
       "category": "governance",
       "description": "Machine-readable registry of major public claims, evidence strength, and source keys for the current release.",
       "bytes": 7319,
-      "sha256": "d00189a0c3a1a474050d233359f4e46f859ec008d7318dcd22a229e86bafeb3f",
-      "generated_at": "2026-03-19T10:52:04.020Z"
+      "sha256": "b674e6d0cd03f8676695c76e4c64d47ba771825224a6ceb4fcf09f7377403504",
+      "generated_at": "2026-03-19T10:57:48.642Z"
     }
   ]
 }

@@ -16464,7 +16464,7 @@
       "description": "Official IMDA and MOM national AI adoption, workforce, and programme context for Singapore. This is contextual evidence around the score, not an occupation-level input.",
       "data": {
         "version": "V4.0",
-        "generated_at": "2026-03-19T10:52:00.944Z",
+        "generated_at": "2026-03-19T10:57:45.448Z",
         "context_type": "national_ai_context",
         "description": "Official Singapore national AI adoption, workforce, and programme context from IMDA and MOM releases. This artifact supports reports and public context around the structural score.",
         "usage_guidance": {
@@ -16570,7 +16570,7 @@
       "description": "Official Singapore transition-infrastructure context covering Jobs Transformation Maps, major public career-transition programmes, and WSQ training-system activity.",
       "data": {
         "version": "V4.0",
-        "generated_at": "2026-03-19T10:52:00.968Z",
+        "generated_at": "2026-03-19T10:57:45.466Z",
         "description": "Official Singapore transition infrastructure anchors used around the heuristic transition-support layer. This artifact captures published programmes, training-system activity, and Jobs Transformation Map coverage.",
         "programmes": [
           {
