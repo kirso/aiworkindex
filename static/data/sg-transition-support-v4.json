@@ -1,6 +1,6 @@
 {
   "version": "V4.0",
-  "generated_at": "2026-03-19T10:15:29.925Z",
+  "generated_at": "2026-03-19T10:41:27.503Z",
   "description": "Heuristic transition-support artifact derived from the AI Work Index transition-capacity model. This is decision-support guidance, not observed worker mobility data.",
   "notes": [
     "Uses the published structural score plus wage, demand, archetype, and credential-gap heuristics.",

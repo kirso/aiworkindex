@@ -103,9 +103,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0868,
+      "optimistic_risk": 0.0836,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1707,
+      "pessimistic_risk": 0.1697,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0224,
       "label": "watch"
@@ -254,9 +254,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0912,
+      "optimistic_risk": 0.0899,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1602,
+      "pessimistic_risk": 0.1596,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0251,
       "label": "watch"
@@ -407,9 +407,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.083,
+      "optimistic_risk": 0.0821,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1373,
+      "pessimistic_risk": 0.1368,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0396,
       "label": "stable"
@@ -560,7 +560,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0407,
+      "pessimistic_risk": 0.0396,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0121,
       "label": "stable"
@@ -705,9 +705,9 @@
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.0744,
+      "optimistic_risk": 0.0758,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1258,
+      "pessimistic_risk": 0.1251,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0491,
       "label": "stable"
@@ -858,9 +858,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0838,
+      "optimistic_risk": 0.0823,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1641,
+      "pessimistic_risk": 0.1637,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0274,
       "label": "watch"
@@ -1011,9 +1011,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0824,
+      "optimistic_risk": 0.0836,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.163,
+      "pessimistic_risk": 0.1584,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0285,
       "label": "watch"
@@ -1162,9 +1162,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1164,
+      "optimistic_risk": 0.1161,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1948,
+      "pessimistic_risk": 0.1949,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0066,
       "label": "watch"
@@ -1313,9 +1313,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.2766,
+      "optimistic_risk": 0.2764,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3687,
+      "pessimistic_risk": 0.3677,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0222,
       "label": "watch"
@@ -1466,9 +1466,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0856,
+      "optimistic_risk": 0.0864,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1397,
+      "pessimistic_risk": 0.1384,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.037,
       "label": "stable"
@@ -1621,7 +1621,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0258,
+      "pessimistic_risk": 0.0271,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0035,
       "label": "stable"
@@ -1770,9 +1770,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0017,
+      "optimistic_risk": 0.0006,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0621,
+      "pessimistic_risk": 0.061,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0185,
       "label": "watch"
@@ -1921,9 +1921,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0481,
+      "optimistic_risk": 0.0497,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1213,
+      "pessimistic_risk": 0.1195,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0343,
       "label": "watch"
@@ -2072,9 +2072,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0039,
+      "optimistic_risk": 0.0028,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0619,
+      "pessimistic_risk": 0.0616,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.019,
       "label": "watch"
@@ -2225,9 +2225,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0397,
+      "optimistic_risk": 0.0406,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0981,
+      "pessimistic_risk": 0.1036,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0194,
       "label": "watch"
@@ -2376,9 +2376,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.267,
+      "optimistic_risk": 0.2663,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3593,
+      "pessimistic_risk": 0.3598,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0124,
       "label": "watch"
@@ -2523,9 +2523,9 @@
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.073,
+      "optimistic_risk": 0.0734,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1378,
+      "pessimistic_risk": 0.1387,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0443,
       "label": "stable"
@@ -2670,9 +2670,9 @@
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.1887,
+      "optimistic_risk": 0.1889,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.2679,
+      "pessimistic_risk": 0.2657,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0724,
       "label": "stable"
@@ -2817,9 +2817,9 @@
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.1925,
+      "optimistic_risk": 0.1913,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.27,
+      "pessimistic_risk": 0.2716,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0684,
       "label": "stable"
@@ -2970,9 +2970,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0821,
+      "optimistic_risk": 0.0836,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1359,
+      "pessimistic_risk": 0.137,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0409,
       "label": "stable"
@@ -3123,9 +3123,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0938,
+      "optimistic_risk": 0.0943,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1585,
+      "pessimistic_risk": 0.158,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0246,
       "label": "watch"
@@ -3276,9 +3276,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0157,
+      "optimistic_risk": 0.0168,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0732,
+      "pessimistic_risk": 0.0736,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0054,
       "label": "watch"
@@ -3431,7 +3431,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0259,
+      "pessimistic_risk": 0.0262,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0037,
       "label": "stable"
@@ -3582,9 +3582,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1128,
+      "optimistic_risk": 0.1125,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1884,
+      "pessimistic_risk": 0.1858,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0006,
       "label": "watch"
@@ -3729,9 +3729,9 @@
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.1891,
+      "optimistic_risk": 0.1875,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.2695,
+      "pessimistic_risk": 0.2653,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0722,
       "label": "stable"
@@ -3880,9 +3880,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0487,
+      "optimistic_risk": 0.0485,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.118,
+      "pessimistic_risk": 0.1189,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0324,
       "label": "watch"
@@ -4031,9 +4031,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0015,
+      "optimistic_risk": 0.0006,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0603,
+      "pessimistic_risk": 0.0599,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0195,
       "label": "watch"
@@ -4182,9 +4182,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0452,
+      "optimistic_risk": 0.0419,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1091,
+      "pessimistic_risk": 0.107,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0249,
       "label": "watch"
@@ -4333,9 +4333,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0932,
+      "optimistic_risk": 0.0936,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1629,
+      "pessimistic_risk": 0.1617,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0227,
       "label": "watch"
@@ -4484,7 +4484,7 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0473,
+      "optimistic_risk": 0.0458,
       "optimistic_band": "very_low",
       "pessimistic_risk": 0.1177,
       "pessimistic_band": "low",
@@ -4635,9 +4635,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1163,
+      "optimistic_risk": 0.1139,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1951,
+      "pessimistic_risk": 0.1958,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0062,
       "label": "watch"
@@ -4790,7 +4790,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0251,
+      "pessimistic_risk": 0.0254,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0036,
       "label": "stable"
@@ -4939,9 +4939,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1175,
+      "optimistic_risk": 0.1183,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1997,
+      "pessimistic_risk": 0.1993,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0087,
       "label": "watch"
@@ -5092,9 +5092,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1181,
+      "optimistic_risk": 0.1174,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.189,
+      "pessimistic_risk": 0.1925,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0031,
       "label": "watch"
@@ -5245,7 +5245,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0308,
+      "pessimistic_risk": 0.031,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0099,
       "label": "stable"
@@ -5394,9 +5394,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0321,
+      "optimistic_risk": 0.0333,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1012,
+      "pessimistic_risk": 0.0992,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0158,
       "label": "watch"
@@ -5545,9 +5545,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0298,
+      "optimistic_risk": 0.0302,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0966,
+      "pessimistic_risk": 0.0926,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0131,
       "label": "watch"
@@ -5696,9 +5696,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.049,
+      "optimistic_risk": 0.0483,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1206,
+      "pessimistic_risk": 0.1213,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0338,
       "label": "watch"
@@ -5849,9 +5849,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0778,
+      "optimistic_risk": 0.0759,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1279,
+      "pessimistic_risk": 0.1258,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0483,
       "label": "stable"
@@ -6000,9 +6000,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0309,
+      "optimistic_risk": 0.0294,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0975,
+      "pessimistic_risk": 0.0987,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0133,
       "label": "watch"
@@ -6147,9 +6147,9 @@
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.0027,
+      "optimistic_risk": 0.0018,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0266,
+      "pessimistic_risk": 0.0261,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0143,
       "label": "stable"
@@ -6296,9 +6296,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0302,
+      "optimistic_risk": 0.0317,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0917,
+      "pessimistic_risk": 0.0897,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0113,
       "label": "watch"
@@ -6447,9 +6447,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1136,
+      "optimistic_risk": 0.1128,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1891,
+      "pessimistic_risk": 0.1904,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0012,
       "label": "watch"
@@ -6598,9 +6598,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0053,
+      "optimistic_risk": 0.0062,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0407,
+      "pessimistic_risk": 0.0401,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0223,
       "label": "stable"
@@ -6751,9 +6751,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0873,
+      "optimistic_risk": 0.0867,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1406,
+      "pessimistic_risk": 0.1438,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.036,
       "label": "stable"
@@ -6905,9 +6905,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1001,
+      "optimistic_risk": 0.0987,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1722,
+      "pessimistic_risk": 0.1715,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0148,
       "label": "watch"
@@ -7058,7 +7058,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0298,
+      "pessimistic_risk": 0.0295,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0095,
       "label": "stable"
@@ -7207,9 +7207,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1167,
+      "optimistic_risk": 0.1205,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2006,
+      "pessimistic_risk": 0.2025,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.01,
       "label": "watch"
@@ -7362,7 +7362,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.031,
+      "pessimistic_risk": 0.033,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0084,
       "label": "stable"
@@ -7511,9 +7511,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0484,
+      "optimistic_risk": 0.0462,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1125,
+      "pessimistic_risk": 0.1145,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0305,
       "label": "watch"
@@ -7658,9 +7658,9 @@
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.0896,
+      "optimistic_risk": 0.0909,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1478,
+      "pessimistic_risk": 0.1494,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0315,
       "label": "stable"
@@ -7813,7 +7813,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0255,
+      "pessimistic_risk": 0.0233,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0034,
       "label": "stable"
@@ -7962,9 +7962,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0367,
+      "optimistic_risk": 0.0362,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0738,
+      "pessimistic_risk": 0.0749,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0049,
       "label": "watch"
@@ -8115,7 +8115,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.03,
+      "pessimistic_risk": 0.0299,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0094,
       "label": "stable"
@@ -8264,9 +8264,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0304,
+      "optimistic_risk": 0.0342,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0974,
+      "pessimistic_risk": 0.0987,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0147,
       "label": "watch"
@@ -8413,9 +8413,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0346,
+      "optimistic_risk": 0.0337,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0921,
+      "pessimistic_risk": 0.0944,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0123,
       "label": "watch"
@@ -8566,9 +8566,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1274,
+      "optimistic_risk": 0.1275,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2064,
+      "pessimistic_risk": 0.203,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0152,
       "label": "watch"
@@ -8717,9 +8717,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.031,
+      "optimistic_risk": 0.0331,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0954,
+      "pessimistic_risk": 0.0971,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0131,
       "label": "watch"
@@ -8864,9 +8864,9 @@
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.0721,
+      "optimistic_risk": 0.0714,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1313,
+      "pessimistic_risk": 0.1326,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0489,
       "label": "stable"
@@ -9011,9 +9011,9 @@
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.0736,
+      "optimistic_risk": 0.0738,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1216,
+      "pessimistic_risk": 0.1223,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0474,
       "label": "stable"
@@ -9165,9 +9165,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0959,
+      "optimistic_risk": 0.0917,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1637,
+      "pessimistic_risk": 0.1611,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0227,
       "label": "watch"
@@ -9318,9 +9318,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.4342,
+      "optimistic_risk": 0.4341,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.5704,
+      "pessimistic_risk": 0.5742,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.003,
       "label": "watch"
@@ -9469,9 +9469,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.3779,
+      "optimistic_risk": 0.3778,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.5054,
+      "pessimistic_risk": 0.5066,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.06,
       "label": "watch"
@@ -9618,9 +9618,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.1214,
+      "optimistic_risk": 0.1203,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2055,
+      "pessimistic_risk": 0.2042,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0108,
       "label": "watch"
@@ -9771,9 +9771,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0925,
+      "optimistic_risk": 0.0962,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1781,
+      "pessimistic_risk": 0.1775,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.015,
       "label": "watch"
@@ -9922,7 +9922,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0454,
+      "pessimistic_risk": 0.0449,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0164,
       "label": "stable"
@@ -10070,9 +10070,9 @@
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.4236,
+      "optimistic_risk": 0.4246,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.5585,
+      "pessimistic_risk": 0.5549,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0123,
       "label": "watch"
@@ -10221,9 +10221,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0651,
+      "optimistic_risk": 0.0641,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1403,
+      "pessimistic_risk": 0.1424,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0475,
       "label": "stable"
@@ -10372,9 +10372,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.2016,
+      "optimistic_risk": 0.2043,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.2977,
+      "pessimistic_risk": 0.2978,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0514,
       "label": "stable"
@@ -10525,9 +10525,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0512,
+      "optimistic_risk": 0.0523,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1122,
+      "pessimistic_risk": 0.1125,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0307,
       "label": "stable"
@@ -10679,9 +10679,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.4196,
+      "optimistic_risk": 0.4205,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.5565,
+      "pessimistic_risk": 0.5546,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0136,
       "label": "watch"
@@ -10833,9 +10833,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.5232,
+      "optimistic_risk": 0.5229,
       "optimistic_band": "very_high",
-      "pessimistic_risk": 0.6781,
+      "pessimistic_risk": 0.6691,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0966,
       "label": "stable"
@@ -10986,9 +10986,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0574,
+      "optimistic_risk": 0.0591,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1256,
+      "pessimistic_risk": 0.1278,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0428,
       "label": "stable"
@@ -11137,9 +11137,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0482,
+      "optimistic_risk": 0.0488,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1176,
+      "pessimistic_risk": 0.1168,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0333,
       "label": "watch"
@@ -11290,9 +11290,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1671,
+      "optimistic_risk": 0.1632,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.2658,
+      "pessimistic_risk": 0.2688,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0655,
       "label": "stable"
@@ -11441,9 +11441,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1041,
+      "optimistic_risk": 0.1044,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1803,
+      "pessimistic_risk": 0.181,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0089,
       "label": "watch"
@@ -11594,9 +11594,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0914,
+      "optimistic_risk": 0.0924,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1598,
+      "pessimistic_risk": 0.1606,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0235,
       "label": "watch"
@@ -11748,9 +11748,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.213,
+      "optimistic_risk": 0.2125,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3163,
+      "pessimistic_risk": 0.3169,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0354,
       "label": "watch"
@@ -11901,9 +11901,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.121,
+      "optimistic_risk": 0.1219,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2183,
+      "pessimistic_risk": 0.2148,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0173,
       "label": "watch"
@@ -12054,9 +12054,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1204,
+      "optimistic_risk": 0.1184,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2082,
+      "pessimistic_risk": 0.207,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0116,
       "label": "watch"
@@ -12207,9 +12207,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1737,
+      "optimistic_risk": 0.1712,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.2664,
+      "pessimistic_risk": 0.2675,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0683,
       "label": "stable"
@@ -12360,7 +12360,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0242,
+      "pessimistic_risk": 0.0247,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0087,
       "label": "stable"
@@ -12509,9 +12509,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0194,
+      "optimistic_risk": 0.0179,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.089,
+      "pessimistic_risk": 0.0921,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0036,
       "label": "watch"
@@ -12662,9 +12662,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0975,
+      "optimistic_risk": 0.0957,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1776,
+      "pessimistic_risk": 0.179,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0152,
       "label": "watch"
@@ -12811,9 +12811,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.022,
+      "optimistic_risk": 0.0219,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0623,
+      "pessimistic_risk": 0.0643,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0078,
       "label": "watch"
@@ -12965,9 +12965,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.207,
+      "optimistic_risk": 0.2051,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3085,
+      "pessimistic_risk": 0.3049,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.044,
       "label": "watch"
@@ -13118,9 +13118,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0673,
+      "optimistic_risk": 0.0662,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1328,
+      "pessimistic_risk": 0.1296,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0471,
       "label": "stable"
@@ -13269,9 +13269,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0445,
+      "optimistic_risk": 0.045,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1088,
+      "pessimistic_risk": 0.104,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0253,
       "label": "watch"
@@ -13420,9 +13420,9 @@
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.2926,
+      "optimistic_risk": 0.2879,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3918,
+      "pessimistic_risk": 0.3929,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0376,
       "label": "watch"
@@ -13571,7 +13571,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0154,
+      "pessimistic_risk": 0.0157,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0031,
       "label": "stable"
@@ -13721,9 +13721,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.3311,
+      "optimistic_risk": 0.338,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.4491,
+      "pessimistic_risk": 0.4513,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0913,
       "label": "stable"
@@ -13872,9 +13872,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.3089,
+      "optimistic_risk": 0.3116,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.43,
+      "pessimistic_risk": 0.4225,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0681,
       "label": "stable"
@@ -14015,23 +14015,23 @@
       ]
     },
     "confidence": {
-      "score": 0.7714,
+      "score": 0.8014,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.75,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.65,
+      "sensitivity": 0.85,
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.3801,
+      "optimistic_risk": 0.3734,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.5006,
-      "pessimistic_band": "very_high",
+      "pessimistic_risk": 0.4978,
+      "pessimistic_band": "high",
       "distance_to_band_edge": 0.0612,
-      "label": "watch"
+      "label": "stable"
     },
     "labour_monitor_key": "pmet",
     "raw": {
@@ -14179,9 +14179,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.2006,
+      "optimistic_risk": 0.2066,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3051,
+      "pessimistic_risk": 0.3047,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0467,
       "label": "watch"
@@ -14333,9 +14333,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.5251,
+      "optimistic_risk": 0.5121,
       "optimistic_band": "very_high",
-      "pessimistic_risk": 0.6669,
+      "pessimistic_risk": 0.6715,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0952,
       "label": "stable"
@@ -14484,9 +14484,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0204,
+      "optimistic_risk": 0.0199,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0911,
+      "pessimistic_risk": 0.0923,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0049,
       "label": "watch"
@@ -14637,9 +14637,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.2301,
+      "optimistic_risk": 0.2333,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3523,
+      "pessimistic_risk": 0.3473,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.011,
       "label": "watch"
@@ -14790,9 +14790,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1536,
+      "optimistic_risk": 0.1524,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.2333,
+      "pessimistic_risk": 0.2387,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.042,
       "label": "stable"
@@ -14938,9 +14938,9 @@
       "exposure_source_count": 1
     },
     "stability": {
-      "optimistic_risk": 0.365,
+      "optimistic_risk": 0.3638,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.4821,
+      "pessimistic_risk": 0.4861,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0749,
       "label": "stable"
@@ -15086,9 +15086,9 @@
       "exposure_source_count": 1
     },
     "stability": {
-      "optimistic_risk": 0.3684,
+      "optimistic_risk": 0.3709,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.4895,
+      "pessimistic_risk": 0.4955,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0699,
       "label": "stable"
@@ -15235,9 +15235,9 @@
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.4498,
+      "optimistic_risk": 0.4463,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.5899,
+      "pessimistic_risk": 0.5919,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0148,
       "label": "watch"
@@ -15387,9 +15387,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.4692,
+      "optimistic_risk": 0.4668,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.5969,
+      "pessimistic_risk": 0.5989,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0332,
       "label": "watch"
@@ -15536,9 +15536,9 @@
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.5442,
+      "optimistic_risk": 0.5435,
       "optimistic_band": "very_high",
-      "pessimistic_risk": 0.6888,
+      "pessimistic_risk": 0.6893,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.1191,
       "label": "stable"
@@ -15685,9 +15685,9 @@
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.5352,
+      "optimistic_risk": 0.5291,
       "optimistic_band": "very_high",
-      "pessimistic_risk": 0.6761,
+      "pessimistic_risk": 0.6815,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.1049,
       "label": "stable"
@@ -15838,7 +15838,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0402,
+      "pessimistic_risk": 0.0413,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0152,
       "label": "stable"
@@ -15987,7 +15987,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0443,
+      "pessimistic_risk": 0.0451,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0161,
       "label": "stable"
@@ -16138,9 +16138,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.005,
+      "optimistic_risk": 0.0116,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1067,
+      "pessimistic_risk": 0.1088,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0088,
       "label": "watch"
@@ -16291,9 +16291,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.241,
+      "optimistic_risk": 0.2409,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3564,
+      "pessimistic_risk": 0.3535,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0041,
       "label": "watch"
@@ -16442,9 +16442,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0602,
+      "optimistic_risk": 0.0622,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1353,
+      "pessimistic_risk": 0.1349,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0465,
       "label": "stable"
@@ -16593,9 +16593,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0941,
+      "optimistic_risk": 0.0942,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.172,
+      "pessimistic_risk": 0.1724,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0187,
       "label": "watch"
@@ -16746,9 +16746,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.2609,
+      "optimistic_risk": 0.2683,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3859,
+      "pessimistic_risk": 0.3822,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0228,
       "label": "watch"
@@ -16895,9 +16895,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.1376,
+      "optimistic_risk": 0.1356,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.239,
+      "pessimistic_risk": 0.2354,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0364,
       "label": "watch"
@@ -17046,9 +17046,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0596,
+      "optimistic_risk": 0.0609,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1397,
+      "pessimistic_risk": 0.1376,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0488,
       "label": "stable"
@@ -17199,9 +17199,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1729,
+      "optimistic_risk": 0.1687,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.2646,
+      "pessimistic_risk": 0.2633,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0651,
       "label": "stable"
@@ -17350,9 +17350,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1856,
+      "optimistic_risk": 0.1884,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.2768,
+      "pessimistic_risk": 0.2791,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0668,
       "label": "stable"
@@ -17501,9 +17501,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1918,
+      "optimistic_risk": 0.1941,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.2849,
+      "pessimistic_risk": 0.2822,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.064,
       "label": "stable"
@@ -17652,7 +17652,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0428,
+      "pessimistic_risk": 0.0443,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0165,
       "label": "stable"
@@ -17801,9 +17801,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.092,
+      "optimistic_risk": 0.0933,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1619,
+      "pessimistic_risk": 0.1615,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0236,
       "label": "watch"
@@ -17950,9 +17950,9 @@
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.2834,
+      "optimistic_risk": 0.2806,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3929,
+      "pessimistic_risk": 0.3947,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.036,
       "label": "watch"
@@ -18103,9 +18103,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0305,
+      "optimistic_risk": 0.0328,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.113,
+      "pessimistic_risk": 0.115,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0231,
       "label": "watch"
@@ -18256,9 +18256,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0664,
+      "optimistic_risk": 0.068,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1386,
+      "pessimistic_risk": 0.136,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0485,
       "label": "stable"
@@ -18409,9 +18409,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0087,
+      "optimistic_risk": 0.0085,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0884,
+      "pessimistic_risk": 0.0897,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0014,
       "label": "watch"
@@ -18562,9 +18562,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.2164,
+      "optimistic_risk": 0.2153,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.324,
+      "pessimistic_risk": 0.3259,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0317,
       "label": "watch"
@@ -18715,9 +18715,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1027,
+      "optimistic_risk": 0.1029,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.179,
+      "pessimistic_risk": 0.18,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0101,
       "label": "watch"
@@ -18869,9 +18869,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.3815,
+      "optimistic_risk": 0.3865,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.5073,
+      "pessimistic_risk": 0.5055,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0534,
       "label": "watch"
@@ -19023,9 +19023,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.3667,
+      "optimistic_risk": 0.3649,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.4868,
+      "pessimistic_risk": 0.4909,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0739,
       "label": "stable"
@@ -19176,9 +19176,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1716,
+      "optimistic_risk": 0.173,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.2602,
+      "pessimistic_risk": 0.2632,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0659,
       "label": "stable"
@@ -19327,7 +19327,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0139,
+      "pessimistic_risk": 0.0142,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0028,
       "label": "stable"
@@ -19478,9 +19478,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1521,
+      "optimistic_risk": 0.1529,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.2351,
+      "pessimistic_risk": 0.2379,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0447,
       "label": "stable"
@@ -19630,9 +19630,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.3411,
+      "optimistic_risk": 0.3389,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.4565,
+      "pessimistic_risk": 0.4585,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0995,
       "label": "stable"
@@ -19782,9 +19782,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.3026,
+      "optimistic_risk": 0.3004,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.4151,
+      "pessimistic_risk": 0.4184,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0574,
       "label": "stable"
@@ -19936,9 +19936,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.3616,
+      "optimistic_risk": 0.3628,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.4816,
+      "pessimistic_risk": 0.4838,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0792,
       "label": "stable"
@@ -20089,7 +20089,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.012,
+      "pessimistic_risk": 0.0122,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0,
       "label": "stable"
@@ -20242,7 +20242,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0239,
+      "pessimistic_risk": 0.0242,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0086,
       "label": "stable"
@@ -20393,7 +20393,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0242,
+      "pessimistic_risk": 0.023,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0087,
       "label": "stable"
@@ -20544,9 +20544,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.2709,
+      "optimistic_risk": 0.2702,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.381,
+      "pessimistic_risk": 0.3884,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0287,
       "label": "watch"
@@ -20695,9 +20695,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1916,
+      "optimistic_risk": 0.1929,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.2938,
+      "pessimistic_risk": 0.2985,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0564,
       "label": "stable"
@@ -20848,9 +20848,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.3347,
+      "optimistic_risk": 0.3343,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.4556,
+      "pessimistic_risk": 0.4499,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0917,
       "label": "stable"
@@ -20995,9 +20995,9 @@
       "exposure_source_count": 1
     },
     "stability": {
-      "optimistic_risk": 0.3994,
+      "optimistic_risk": 0.4019,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.5346,
+      "pessimistic_risk": 0.53,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0344,
       "label": "watch"
@@ -21144,9 +21144,9 @@
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.2936,
+      "optimistic_risk": 0.2927,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.4104,
+      "pessimistic_risk": 0.4129,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0512,
       "label": "watch"
@@ -21291,9 +21291,9 @@
       "exposure_source_count": 1
     },
     "stability": {
-      "optimistic_risk": 0.3851,
+      "optimistic_risk": 0.3894,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.5162,
+      "pessimistic_risk": 0.517,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0496,
       "label": "watch"
@@ -21434,23 +21434,23 @@
       ]
     },
     "confidence": {
-      "score": 0.6528,
+      "score": 0.6828,
       "level": "medium",
       "crosswalk_quality": 0.5858,
       "market_data_granularity": 0.65,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.65,
+      "sensitivity": 0.85,
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.2017,
+      "optimistic_risk": 0.2011,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.301,
-      "pessimistic_band": "high",
+      "pessimistic_risk": 0.2999,
+      "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0491,
-      "label": "watch"
+      "label": "stable"
     },
     "labour_monitor_key": "pmet",
     "raw": {
@@ -21598,9 +21598,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0658,
+      "optimistic_risk": 0.068,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1301,
+      "pessimistic_risk": 0.1289,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0465,
       "label": "stable"
@@ -21751,9 +21751,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0954,
+      "optimistic_risk": 0.0937,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1801,
+      "pessimistic_risk": 0.1796,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0136,
       "label": "watch"
@@ -21904,9 +21904,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.2168,
+      "optimistic_risk": 0.2121,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3294,
+      "pessimistic_risk": 0.3286,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0288,
       "label": "watch"
@@ -22055,9 +22055,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1009,
+      "optimistic_risk": 0.0992,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1746,
+      "pessimistic_risk": 0.1738,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0135,
       "label": "watch"
@@ -22208,9 +22208,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.016,
+      "optimistic_risk": 0.0177,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0963,
+      "pessimistic_risk": 0.0992,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0063,
       "label": "watch"
@@ -22359,9 +22359,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1813,
+      "optimistic_risk": 0.1834,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.2727,
+      "pessimistic_risk": 0.2686,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0745,
       "label": "stable"
@@ -22511,9 +22511,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.4397,
+      "optimistic_risk": 0.4362,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.5709,
+      "pessimistic_risk": 0.5798,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0051,
       "label": "watch"
@@ -22662,9 +22662,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.5844,
+      "optimistic_risk": 0.5904,
       "optimistic_band": "very_high",
-      "pessimistic_risk": 0.7466,
+      "pessimistic_risk": 0.7437,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.1689,
       "label": "stable"
@@ -22815,9 +22815,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.2514,
+      "optimistic_risk": 0.25,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3541,
+      "pessimistic_risk": 0.3539,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0018,
       "label": "watch"
@@ -22968,7 +22968,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0442,
+      "pessimistic_risk": 0.0402,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0159,
       "label": "stable"
@@ -23116,9 +23116,9 @@
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.3099,
+      "optimistic_risk": 0.308,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.4176,
+      "pessimistic_risk": 0.4198,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0619,
       "label": "stable"
@@ -23265,9 +23265,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.1474,
+      "optimistic_risk": 0.1489,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2552,
+      "pessimistic_risk": 0.2534,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0508,
       "label": "watch"
@@ -23418,9 +23418,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.3339,
+      "optimistic_risk": 0.334,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.4551,
+      "pessimistic_risk": 0.4473,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0931,
       "label": "stable"
@@ -23571,9 +23571,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.093,
+      "optimistic_risk": 0.0887,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.165,
+      "pessimistic_risk": 0.1612,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0234,
       "label": "watch"
@@ -23724,9 +23724,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1627,
+      "optimistic_risk": 0.1654,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.2675,
+      "pessimistic_risk": 0.2671,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0643,
       "label": "stable"
@@ -23877,9 +23877,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1701,
+      "optimistic_risk": 0.1712,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.2637,
+      "pessimistic_risk": 0.2673,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0679,
       "label": "stable"
@@ -24030,9 +24030,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1152,
+      "optimistic_risk": 0.1157,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2044,
+      "pessimistic_risk": 0.2034,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0091,
       "label": "watch"
@@ -24183,9 +24183,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.062,
+      "optimistic_risk": 0.0603,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1301,
+      "pessimistic_risk": 0.1314,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0461,
       "label": "stable"
@@ -24332,9 +24332,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.1267,
+      "optimistic_risk": 0.1249,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.213,
+      "pessimistic_risk": 0.2136,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0177,
       "label": "watch"
@@ -24481,9 +24481,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0198,
+      "optimistic_risk": 0.0207,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0578,
+      "pessimistic_risk": 0.0599,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0106,
       "label": "watch"
@@ -24630,9 +24630,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0217,
+      "optimistic_risk": 0.0215,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0638,
+      "pessimistic_risk": 0.0637,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0086,
       "label": "watch"
@@ -24783,9 +24783,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.2394,
+      "optimistic_risk": 0.2374,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.364,
+      "pessimistic_risk": 0.357,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0016,
       "label": "watch"
@@ -24936,9 +24936,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.2243,
+      "optimistic_risk": 0.2282,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3405,
+      "pessimistic_risk": 0.3434,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0189,
       "label": "watch"
@@ -25087,9 +25087,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0983,
+      "optimistic_risk": 0.0988,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1725,
+      "pessimistic_risk": 0.1709,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0144,
       "label": "watch"
@@ -25240,9 +25240,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0921,
+      "optimistic_risk": 0.0942,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1743,
+      "pessimistic_risk": 0.1752,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0157,
       "label": "watch"
@@ -25393,9 +25393,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.4609,
+      "optimistic_risk": 0.4589,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.6033,
+      "pessimistic_risk": 0.601,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0285,
       "label": "watch"
@@ -25547,9 +25547,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.207,
+      "optimistic_risk": 0.2083,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3124,
+      "pessimistic_risk": 0.3138,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0397,
       "label": "watch"
@@ -25685,23 +25685,23 @@
       ]
     },
     "confidence": {
-      "score": 0.758,
+      "score": 0.728,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.85,
       "source_freshness": 0.7549,
       "source_coverage": 0.55,
       "signal_agreement": 0.45,
-      "sensitivity": 0.85,
+      "sensitivity": 0.65,
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.0065,
+      "optimistic_risk": 0.0071,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0484,
-      "pessimistic_band": "very_low",
+      "pessimistic_risk": 0.0504,
+      "pessimistic_band": "low",
       "distance_to_band_edge": 0.0226,
-      "label": "stable"
+      "label": "watch"
     },
     "labour_monitor_key": "pmet",
     "raw": {
@@ -25847,9 +25847,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.049,
+      "optimistic_risk": 0.0492,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1203,
+      "pessimistic_risk": 0.1154,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0333,
       "label": "watch"
@@ -25998,9 +25998,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0503,
+      "optimistic_risk": 0.051,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1195,
+      "pessimistic_risk": 0.1201,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0342,
       "label": "stable"
@@ -26149,9 +26149,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0188,
+      "optimistic_risk": 0.0176,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0646,
+      "pessimistic_risk": 0.0656,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0077,
       "label": "watch"
@@ -26302,9 +26302,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0042,
+      "optimistic_risk": 0.002,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0554,
+      "pessimistic_risk": 0.0579,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0196,
       "label": "watch"
@@ -26455,9 +26455,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.2613,
+      "optimistic_risk": 0.2621,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3753,
+      "pessimistic_risk": 0.3759,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0201,
       "label": "watch"
@@ -26604,9 +26604,9 @@
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.4681,
+      "optimistic_risk": 0.4645,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.6,
+      "pessimistic_risk": 0.6039,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0344,
       "label": "watch"
@@ -26757,9 +26757,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.2568,
+      "optimistic_risk": 0.2592,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3684,
+      "pessimistic_risk": 0.3622,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.011,
       "label": "watch"
@@ -26908,9 +26908,9 @@
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.4321,
+      "optimistic_risk": 0.4429,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.5732,
+      "pessimistic_risk": 0.5715,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0068,
       "label": "watch"
@@ -27061,9 +27061,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0128,
+      "optimistic_risk": 0.0099,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1017,
+      "pessimistic_risk": 0.1053,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0057,
       "label": "watch"
@@ -27212,7 +27212,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0438,
+      "pessimistic_risk": 0.0445,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0164,
       "label": "stable"
@@ -27363,9 +27363,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.01,
+      "optimistic_risk": 0.0077,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0894,
+      "pessimistic_risk": 0.0889,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0006,
       "label": "watch"
@@ -27514,7 +27514,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0213,
+      "pessimistic_risk": 0.0201,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0034,
       "label": "stable"
@@ -27663,9 +27663,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.3141,
+      "optimistic_risk": 0.308,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.4279,
+      "pessimistic_risk": 0.4215,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0678,
       "label": "stable"
@@ -27814,9 +27814,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.3987,
+      "optimistic_risk": 0.3967,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.523,
+      "pessimistic_risk": 0.5259,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0402,
       "label": "watch"
@@ -27965,7 +27965,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0446,
+      "pessimistic_risk": 0.0425,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0159,
       "label": "stable"
@@ -28116,7 +28116,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.039,
+      "pessimistic_risk": 0.0373,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0164,
       "label": "stable"
@@ -28267,7 +28267,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0235,
+      "pessimistic_risk": 0.0234,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0088,
       "label": "stable"
@@ -28416,7 +28416,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0442,
+      "pessimistic_risk": 0.0433,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0161,
       "label": "stable"
@@ -28567,7 +28567,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0421,
+      "pessimistic_risk": 0.042,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0159,
       "label": "stable"
@@ -28718,9 +28718,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.219,
+      "optimistic_risk": 0.2227,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3345,
+      "pessimistic_risk": 0.3328,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0211,
       "label": "watch"
@@ -28871,7 +28871,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0424,
+      "pessimistic_risk": 0.0421,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0101,
       "label": "stable"
@@ -29020,9 +29020,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0459,
+      "optimistic_risk": 0.0444,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1093,
+      "pessimistic_risk": 0.1069,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0263,
       "label": "watch"
@@ -29173,7 +29173,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0203,
+      "pessimistic_risk": 0.0191,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0035,
       "label": "stable"
@@ -29320,9 +29320,9 @@
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.0067,
+      "optimistic_risk": 0.0068,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0479,
+      "pessimistic_risk": 0.049,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0223,
       "label": "stable"
@@ -29474,9 +29474,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.3541,
+      "optimistic_risk": 0.3512,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.481,
+      "pessimistic_risk": 0.4824,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0849,
       "label": "stable"
@@ -29627,9 +29627,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1626,
+      "optimistic_risk": 0.163,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.2539,
+      "pessimistic_risk": 0.2474,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0553,
       "label": "stable"
@@ -29780,9 +29780,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0632,
+      "optimistic_risk": 0.0616,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1319,
+      "pessimistic_risk": 0.1328,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0476,
       "label": "stable"
@@ -29931,9 +29931,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1009,
+      "optimistic_risk": 0.0989,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1764,
+      "pessimistic_risk": 0.1755,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0121,
       "label": "watch"
@@ -30082,9 +30082,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0598,
+      "optimistic_risk": 0.0652,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1368,
+      "pessimistic_risk": 0.139,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0493,
       "label": "stable"
@@ -30235,9 +30235,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0992,
+      "optimistic_risk": 0.0991,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1773,
+      "pessimistic_risk": 0.1784,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0117,
       "label": "watch"
@@ -30388,9 +30388,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0627,
+      "optimistic_risk": 0.0616,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1318,
+      "pessimistic_risk": 0.1301,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0457,
       "label": "stable"
@@ -30541,7 +30541,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.043,
+      "pessimistic_risk": 0.0404,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0157,
       "label": "stable"
@@ -30693,9 +30693,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.2476,
+      "optimistic_risk": 0.2475,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3678,
+      "pessimistic_risk": 0.3702,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0062,
       "label": "watch"
@@ -30846,9 +30846,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0594,
+      "optimistic_risk": 0.0633,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1345,
+      "pessimistic_risk": 0.131,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0476,
       "label": "stable"
@@ -30997,9 +30997,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1044,
+      "optimistic_risk": 0.1071,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1791,
+      "pessimistic_risk": 0.1813,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0066,
       "label": "watch"
@@ -31146,9 +31146,9 @@
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.0074,
+      "optimistic_risk": 0.0082,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0487,
+      "pessimistic_risk": 0.0493,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0218,
       "label": "stable"
@@ -31295,9 +31295,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0014,
+      "optimistic_risk": 0.0006,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0569,
+      "pessimistic_risk": 0.0564,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0211,
       "label": "watch"
@@ -31446,9 +31446,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.2183,
+      "optimistic_risk": 0.2234,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.329,
+      "pessimistic_risk": 0.3322,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0255,
       "label": "watch"
@@ -31599,9 +31599,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.2344,
+      "optimistic_risk": 0.2305,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3504,
+      "pessimistic_risk": 0.3489,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0104,
       "label": "watch"
@@ -31750,7 +31750,7 @@
     "stability": {
       "optimistic_risk": 0.1219,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2058,
+      "pessimistic_risk": 0.2052,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0121,
       "label": "watch"
@@ -31903,7 +31903,7 @@
     "stability": {
       "optimistic_risk": 0.1992,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3043,
+      "pessimistic_risk": 0.3022,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0508,
       "label": "watch"
@@ -32052,9 +32052,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0189,
+      "optimistic_risk": 0.0147,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0859,
+      "pessimistic_risk": 0.085,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0016,
       "label": "watch"
@@ -32206,9 +32206,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.5218,
+      "optimistic_risk": 0.52,
       "optimistic_band": "very_high",
-      "pessimistic_risk": 0.6753,
+      "pessimistic_risk": 0.672,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0969,
       "label": "stable"
@@ -32358,9 +32358,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.3368,
+      "optimistic_risk": 0.336,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.453,
+      "pessimistic_risk": 0.455,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0976,
       "label": "stable"
@@ -32510,9 +32510,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.3051,
+      "optimistic_risk": 0.3162,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.4231,
+      "pessimistic_risk": 0.4223,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0644,
       "label": "stable"
@@ -32657,9 +32657,9 @@
       "exposure_source_count": 1
     },
     "stability": {
-      "optimistic_risk": 0.3762,
+      "optimistic_risk": 0.3784,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.5064,
+      "pessimistic_risk": 0.5004,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0624,
       "label": "watch"
@@ -32808,9 +32808,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1979,
+      "optimistic_risk": 0.2003,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.2938,
+      "pessimistic_risk": 0.2983,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0546,
       "label": "stable"
@@ -32959,9 +32959,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.289,
+      "optimistic_risk": 0.288,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3985,
+      "pessimistic_risk": 0.3965,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0413,
       "label": "watch"
@@ -33110,9 +33110,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.3174,
+      "optimistic_risk": 0.3116,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.4353,
+      "pessimistic_risk": 0.4292,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0718,
       "label": "stable"
@@ -33261,9 +33261,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.3088,
+      "optimistic_risk": 0.3106,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.4217,
+      "pessimistic_risk": 0.4251,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0668,
       "label": "stable"
@@ -33412,9 +33412,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0182,
+      "optimistic_risk": 0.0164,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1025,
+      "pessimistic_risk": 0.0994,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.008,
       "label": "watch"
@@ -33563,9 +33563,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.02,
+      "optimistic_risk": 0.021,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0722,
+      "pessimistic_risk": 0.0709,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0055,
       "label": "watch"
@@ -33713,9 +33713,9 @@
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.4148,
+      "optimistic_risk": 0.4071,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.5413,
+      "pessimistic_risk": 0.5368,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0269,
       "label": "watch"
@@ -33866,9 +33866,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0524,
+      "optimistic_risk": 0.0533,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1108,
+      "pessimistic_risk": 0.1113,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0312,
       "label": "stable"
@@ -34017,9 +34017,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.5225,
+      "optimistic_risk": 0.5248,
       "optimistic_band": "very_high",
-      "pessimistic_risk": 0.6496,
+      "pessimistic_risk": 0.6633,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0967,
       "label": "stable"
@@ -34168,9 +34168,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.5212,
+      "optimistic_risk": 0.517,
       "optimistic_band": "very_high",
-      "pessimistic_risk": 0.6693,
+      "pessimistic_risk": 0.6629,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0917,
       "label": "stable"
@@ -34317,9 +34317,9 @@
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.3083,
+      "optimistic_risk": 0.3047,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.4213,
+      "pessimistic_risk": 0.4228,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0632,
       "label": "stable"
@@ -34470,9 +34470,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.3865,
+      "optimistic_risk": 0.3825,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.5072,
+      "pessimistic_risk": 0.5052,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0543,
       "label": "watch"
@@ -34623,9 +34623,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0482,
+      "optimistic_risk": 0.0481,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1287,
+      "pessimistic_risk": 0.1247,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0374,
       "label": "watch"
@@ -34777,9 +34777,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.2119,
+      "optimistic_risk": 0.2092,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3174,
+      "pessimistic_risk": 0.3164,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0366,
       "label": "watch"
@@ -34931,9 +34931,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.51,
+      "optimistic_risk": 0.5132,
       "optimistic_band": "very_high",
-      "pessimistic_risk": 0.6527,
+      "pessimistic_risk": 0.6542,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0812,
       "label": "stable"
@@ -35084,9 +35084,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0079,
+      "optimistic_risk": 0.0075,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0686,
+      "pessimistic_risk": 0.0688,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0118,
       "label": "watch"
@@ -35237,9 +35237,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.4455,
+      "optimistic_risk": 0.4451,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.5827,
+      "pessimistic_risk": 0.5803,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0135,
       "label": "watch"
@@ -35388,9 +35388,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.3099,
+      "optimistic_risk": 0.3101,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.4239,
+      "pessimistic_risk": 0.4262,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0648,
       "label": "stable"
@@ -35541,7 +35541,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0197,
+      "pessimistic_risk": 0.0193,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0014,
       "label": "stable"
@@ -35692,9 +35692,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.3394,
+      "optimistic_risk": 0.3413,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.4644,
+      "pessimistic_risk": 0.4618,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0999,
       "label": "stable"
@@ -35845,9 +35845,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.3825,
+      "optimistic_risk": 0.3871,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.5176,
+      "pessimistic_risk": 0.5235,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0467,
       "label": "watch"
@@ -35999,9 +35999,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.3909,
+      "optimistic_risk": 0.3895,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.518,
+      "pessimistic_risk": 0.5218,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0463,
       "label": "watch"
@@ -36152,9 +36152,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0428,
+      "optimistic_risk": 0.0426,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1139,
+      "pessimistic_risk": 0.1121,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0283,
       "label": "watch"
@@ -36305,9 +36305,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.124,
+      "optimistic_risk": 0.13,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2103,
+      "pessimistic_risk": 0.2091,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0168,
       "label": "watch"
@@ -36458,7 +36458,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0217,
+      "pessimistic_risk": 0.0225,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0084,
       "label": "stable"
@@ -36612,7 +36612,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0194,
+      "pessimistic_risk": 0.019,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0005,
       "label": "stable"
@@ -36760,9 +36760,9 @@
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.4473,
+      "optimistic_risk": 0.4535,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.591,
+      "pessimistic_risk": 0.5899,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0204,
       "label": "watch"
@@ -36913,9 +36913,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.2667,
+      "optimistic_risk": 0.2721,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3838,
+      "pessimistic_risk": 0.3796,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0269,
       "label": "watch"
@@ -37064,9 +37064,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0779,
+      "optimistic_risk": 0.0747,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1391,
+      "pessimistic_risk": 0.1406,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0422,
       "label": "stable"
@@ -37217,9 +37217,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.332,
+      "optimistic_risk": 0.3299,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.4503,
+      "pessimistic_risk": 0.4535,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0901,
       "label": "stable"
@@ -37362,7 +37362,7 @@
       "exposure_source_count": 1
     },
     "stability": {
-      "optimistic_risk": 0.0691,
+      "optimistic_risk": 0.07,
       "optimistic_band": "low",
       "pessimistic_risk": 0.1277,
       "pessimistic_band": "low",
@@ -37511,9 +37511,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.1765,
+      "optimistic_risk": 0.1749,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.2645,
+      "pessimistic_risk": 0.2602,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0675,
       "label": "stable"
@@ -37660,9 +37660,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0204,
+      "optimistic_risk": 0.0209,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0593,
+      "pessimistic_risk": 0.0585,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0111,
       "label": "watch"
@@ -37813,9 +37813,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1288,
+      "optimistic_risk": 0.1285,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2078,
+      "pessimistic_risk": 0.2054,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0159,
       "label": "watch"
@@ -37964,9 +37964,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.388,
+      "optimistic_risk": 0.3904,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.5131,
+      "pessimistic_risk": 0.5114,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0488,
       "label": "watch"
@@ -38111,9 +38111,9 @@
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.0864,
+      "optimistic_risk": 0.0866,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1515,
+      "pessimistic_risk": 0.1508,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0325,
       "label": "watch"
@@ -38258,9 +38258,9 @@
       "exposure_source_count": 1
     },
     "stability": {
-      "optimistic_risk": 0.4289,
+      "optimistic_risk": 0.4282,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.564,
+      "pessimistic_risk": 0.5651,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0056,
       "label": "watch"
@@ -38409,9 +38409,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.4063,
+      "optimistic_risk": 0.4093,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.5338,
+      "pessimistic_risk": 0.5331,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.029,
       "label": "watch"
@@ -38562,9 +38562,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.4694,
+      "optimistic_risk": 0.4736,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.6133,
+      "pessimistic_risk": 0.6076,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0419,
       "label": "watch"
@@ -38711,9 +38711,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.1228,
+      "optimistic_risk": 0.1239,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1966,
+      "pessimistic_risk": 0.1997,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0101,
       "label": "watch"
@@ -38860,9 +38860,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.1231,
+      "optimistic_risk": 0.123,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.195,
+      "pessimistic_risk": 0.1956,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0083,
       "label": "watch"
@@ -39009,9 +39009,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.1208,
+      "optimistic_risk": 0.1226,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1947,
+      "pessimistic_risk": 0.1933,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0063,
       "label": "watch"
@@ -39158,9 +39158,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.1237,
+      "optimistic_risk": 0.1248,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2012,
+      "pessimistic_risk": 0.2038,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0125,
       "label": "watch"
@@ -39307,9 +39307,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.1273,
+      "optimistic_risk": 0.1257,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2069,
+      "pessimistic_risk": 0.2056,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0151,
       "label": "watch"
@@ -39460,9 +39460,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0902,
+      "optimistic_risk": 0.0928,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1622,
+      "pessimistic_risk": 0.1652,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0228,
       "label": "watch"
@@ -39613,9 +39613,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.115,
+      "optimistic_risk": 0.1151,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1873,
+      "pessimistic_risk": 0.1867,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0007,
       "label": "watch"
@@ -39766,9 +39766,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.4609,
+      "optimistic_risk": 0.4635,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.6073,
+      "pessimistic_risk": 0.6036,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0305,
       "label": "watch"
@@ -39917,9 +39917,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0766,
+      "optimistic_risk": 0.0751,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1431,
+      "pessimistic_risk": 0.1404,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0413,
       "label": "stable"
@@ -40068,9 +40068,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0785,
+      "optimistic_risk": 0.0791,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.147,
+      "pessimistic_risk": 0.1445,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0392,
       "label": "stable"
@@ -40219,9 +40219,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0868,
+      "optimistic_risk": 0.0862,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1552,
+      "pessimistic_risk": 0.1558,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0306,
       "label": "watch"
@@ -40372,9 +40372,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.3412,
+      "optimistic_risk": 0.3447,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.4629,
+      "pessimistic_risk": 0.4657,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0971,
       "label": "stable"
@@ -40525,9 +40525,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1754,
+      "optimistic_risk": 0.1711,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.2715,
+      "pessimistic_risk": 0.2642,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0695,
       "label": "stable"
@@ -40678,9 +40678,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0602,
+      "optimistic_risk": 0.0603,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1291,
+      "pessimistic_risk": 0.1309,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.044,
       "label": "stable"
@@ -40832,9 +40832,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.2586,
+      "optimistic_risk": 0.2562,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3613,
+      "pessimistic_risk": 0.3633,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.008,
       "label": "watch"
@@ -40986,9 +40986,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.2522,
+      "optimistic_risk": 0.2515,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3564,
+      "pessimistic_risk": 0.3567,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0027,
       "label": "watch"
@@ -41140,9 +41140,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.2178,
+      "optimistic_risk": 0.2188,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3207,
+      "pessimistic_risk": 0.3131,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0326,
       "label": "watch"
@@ -41291,9 +41291,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0797,
+      "optimistic_risk": 0.0811,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.146,
+      "pessimistic_risk": 0.1467,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0382,
       "label": "stable"
@@ -41438,9 +41438,9 @@
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.0884,
+      "optimistic_risk": 0.0901,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1554,
+      "pessimistic_risk": 0.1552,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0285,
       "label": "watch"
@@ -41591,9 +41591,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.6885,
+      "optimistic_risk": 0.6814,
       "optimistic_band": "very_high",
-      "pessimistic_risk": 0.8359,
+      "pessimistic_risk": 0.828,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.2272,
       "label": "stable"
@@ -41744,9 +41744,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.2219,
+      "optimistic_risk": 0.2181,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3201,
+      "pessimistic_risk": 0.317,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0341,
       "label": "watch"
@@ -41897,9 +41897,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1253,
+      "optimistic_risk": 0.1293,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2067,
+      "pessimistic_risk": 0.2079,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.016,
       "label": "watch"
@@ -42051,9 +42051,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.4097,
+      "optimistic_risk": 0.4111,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.5348,
+      "pessimistic_risk": 0.5329,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.03,
       "label": "watch"
@@ -42202,9 +42202,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.3165,
+      "optimistic_risk": 0.324,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.4374,
+      "pessimistic_risk": 0.4427,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0794,
       "label": "stable"
@@ -42355,9 +42355,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0124,
+      "optimistic_risk": 0.012,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0459,
+      "pessimistic_risk": 0.0451,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0222,
       "label": "stable"
@@ -42506,9 +42506,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1278,
+      "optimistic_risk": 0.1267,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2043,
+      "pessimistic_risk": 0.2084,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0162,
       "label": "watch"
@@ -42653,9 +42653,9 @@
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.0869,
+      "optimistic_risk": 0.0855,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1509,
+      "pessimistic_risk": 0.154,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0322,
       "label": "watch"
@@ -42806,9 +42806,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1142,
+      "optimistic_risk": 0.1113,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1883,
+      "pessimistic_risk": 0.1899,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0009,
       "label": "watch"
@@ -42960,9 +42960,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.4277,
+      "optimistic_risk": 0.4278,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.5596,
+      "pessimistic_risk": 0.5566,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0079,
       "label": "watch"
@@ -43109,9 +43109,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0172,
+      "optimistic_risk": 0.016,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0511,
+      "pessimistic_risk": 0.0516,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0172,
       "label": "watch"
@@ -43262,9 +43262,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1173,
+      "optimistic_risk": 0.1141,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1907,
+      "pessimistic_risk": 0.1876,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0009,
       "label": "watch"
@@ -43415,9 +43415,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.2387,
+      "optimistic_risk": 0.2436,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3472,
+      "pessimistic_risk": 0.3473,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0048,
       "label": "watch"
@@ -43568,9 +43568,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.527,
+      "optimistic_risk": 0.5278,
       "optimistic_band": "very_high",
-      "pessimistic_risk": 0.6734,
+      "pessimistic_risk": 0.6714,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0957,
       "label": "stable"
@@ -43717,9 +43717,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0256,
+      "optimistic_risk": 0.0245,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0633,
+      "pessimistic_risk": 0.0628,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.007,
       "label": "watch"
@@ -43862,9 +43862,9 @@
       "exposure_source_count": 1
     },
     "stability": {
-      "optimistic_risk": 0.0702,
+      "optimistic_risk": 0.0713,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1256,
+      "pessimistic_risk": 0.1303,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0484,
       "label": "stable"
@@ -44013,9 +44013,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0121,
+      "optimistic_risk": 0.0131,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0468,
+      "pessimistic_risk": 0.045,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0219,
       "label": "stable"
@@ -44160,9 +44160,9 @@
       "exposure_source_count": 1
     },
     "stability": {
-      "optimistic_risk": 0.3956,
+      "optimistic_risk": 0.3982,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.5245,
+      "pessimistic_risk": 0.5191,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0415,
       "label": "watch"
@@ -44313,9 +44313,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1152,
+      "optimistic_risk": 0.1173,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1936,
+      "pessimistic_risk": 0.1926,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0034,
       "label": "watch"
@@ -44466,9 +44466,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.613,
+      "optimistic_risk": 0.6105,
       "optimistic_band": "very_high",
-      "pessimistic_risk": 0.7535,
+      "pessimistic_risk": 0.7515,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.195,
       "label": "stable"
@@ -44620,9 +44620,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.2754,
+      "optimistic_risk": 0.2725,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3873,
+      "pessimistic_risk": 0.3853,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0316,
       "label": "watch"
@@ -44773,9 +44773,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.2465,
+      "optimistic_risk": 0.2478,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3497,
+      "pessimistic_risk": 0.3487,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0025,
       "label": "watch"
@@ -44927,9 +44927,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.355,
+      "optimistic_risk": 0.3564,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.4822,
+      "pessimistic_risk": 0.4865,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0806,
       "label": "stable"
@@ -45081,9 +45081,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.3478,
+      "optimistic_risk": 0.3528,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.4706,
+      "pessimistic_risk": 0.4734,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.091,
       "label": "stable"
@@ -45235,9 +45235,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.3396,
+      "optimistic_risk": 0.3415,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.462,
+      "pessimistic_risk": 0.4604,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0999,
       "label": "stable"
@@ -45388,9 +45388,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0614,
+      "optimistic_risk": 0.058,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.132,
+      "pessimistic_risk": 0.1335,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0458,
       "label": "stable"
@@ -45539,9 +45539,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0831,
+      "optimistic_risk": 0.0817,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1484,
+      "pessimistic_risk": 0.1458,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0367,
       "label": "stable"
@@ -45691,9 +45691,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.01,
+      "optimistic_risk": 0.0094,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0433,
+      "pessimistic_risk": 0.044,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.024,
       "label": "stable"
@@ -45838,7 +45838,7 @@
       "exposure_source_count": 1
     },
     "stability": {
-      "optimistic_risk": 0.4273,
+      "optimistic_risk": 0.4278,
       "optimistic_band": "high",
       "pessimistic_risk": 0.5659,
       "pessimistic_band": "very_high",
@@ -45991,9 +45991,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.5389,
+      "optimistic_risk": 0.5287,
       "optimistic_band": "very_high",
-      "pessimistic_risk": 0.672,
+      "pessimistic_risk": 0.6756,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.1057,
       "label": "stable"
@@ -46144,9 +46144,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.079,
+      "optimistic_risk": 0.0761,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1515,
+      "pessimistic_risk": 0.1527,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0355,
       "label": "watch"
@@ -46295,9 +46295,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1281,
+      "optimistic_risk": 0.1266,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2071,
+      "pessimistic_risk": 0.2076,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0157,
       "label": "watch"
@@ -46440,9 +46440,9 @@
       "exposure_source_count": 1
     },
     "stability": {
-      "optimistic_risk": 0.0711,
+      "optimistic_risk": 0.0708,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1315,
+      "pessimistic_risk": 0.13,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0499,
       "label": "stable"
@@ -46591,9 +46591,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.2746,
+      "optimistic_risk": 0.2748,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3855,
+      "pessimistic_risk": 0.3827,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0283,
       "label": "watch"
@@ -46744,9 +46744,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1328,
+      "optimistic_risk": 0.1335,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.21,
+      "pessimistic_risk": 0.2101,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0203,
       "label": "watch"
@@ -46895,9 +46895,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.2607,
+      "optimistic_risk": 0.2638,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.366,
+      "pessimistic_risk": 0.369,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0137,
       "label": "watch"
@@ -47046,9 +47046,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.3363,
+      "optimistic_risk": 0.3344,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.4575,
+      "pessimistic_risk": 0.4582,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0958,
       "label": "stable"
@@ -47197,9 +47197,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0798,
+      "optimistic_risk": 0.0776,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.142,
+      "pessimistic_risk": 0.1434,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.04,
       "label": "stable"
@@ -47333,23 +47333,23 @@
       "signal_conflict_reasons": []
     },
     "confidence": {
-      "score": 0.688,
+      "score": 0.658,
       "level": "medium",
       "crosswalk_quality": 0.6,
       "market_data_granularity": 0.65,
       "source_freshness": 0.7549,
       "source_coverage": 0.55,
       "signal_agreement": 0.85,
-      "sensitivity": 0.85,
+      "sensitivity": 0.65,
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.0869,
+      "optimistic_risk": 0.0877,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1479,
-      "pessimistic_band": "low",
+      "pessimistic_risk": 0.151,
+      "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0319,
-      "label": "stable"
+      "label": "watch"
     },
     "labour_monitor_key": "pmet",
     "raw": {
@@ -47495,7 +47495,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.021,
+      "pessimistic_risk": 0.0201,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0089,
       "label": "stable"
@@ -47644,9 +47644,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0769,
+      "optimistic_risk": 0.0795,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1391,
+      "pessimistic_risk": 0.1394,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0424,
       "label": "stable"
@@ -47797,9 +47797,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.3499,
+      "optimistic_risk": 0.3482,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.4759,
+      "pessimistic_risk": 0.4736,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0914,
       "label": "stable"
@@ -47950,9 +47950,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0013,
+      "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0441,
+      "pessimistic_risk": 0.0447,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.022,
       "label": "stable"
@@ -48103,7 +48103,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0094,
+      "pessimistic_risk": 0.0092,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0004,
       "label": "stable"
@@ -48248,9 +48248,9 @@
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.0853,
+      "optimistic_risk": 0.0856,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1474,
+      "pessimistic_risk": 0.1469,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0349,
       "label": "stable"
@@ -48401,9 +48401,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1373,
+      "optimistic_risk": 0.1339,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2165,
+      "pessimistic_risk": 0.2151,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0251,
       "label": "watch"
@@ -48555,9 +48555,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.2753,
+      "optimistic_risk": 0.269,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3863,
+      "pessimistic_risk": 0.3901,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0288,
       "label": "watch"
@@ -48704,9 +48704,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.1709,
+      "optimistic_risk": 0.1661,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.2678,
+      "pessimistic_risk": 0.2645,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0658,
       "label": "stable"
@@ -48857,9 +48857,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0673,
+      "optimistic_risk": 0.0657,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1274,
+      "pessimistic_risk": 0.1257,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0458,
       "label": "stable"
@@ -49010,9 +49010,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.3643,
+      "optimistic_risk": 0.3642,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.4935,
+      "pessimistic_risk": 0.4973,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0697,
       "label": "stable"
@@ -49157,9 +49157,9 @@
       "exposure_source_count": 1
     },
     "stability": {
-      "optimistic_risk": 0.4362,
+      "optimistic_risk": 0.4403,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.5791,
+      "pessimistic_risk": 0.5715,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0066,
       "label": "watch"
@@ -49302,9 +49302,9 @@
       "exposure_source_count": 1
     },
     "stability": {
-      "optimistic_risk": 0.148,
+      "optimistic_risk": 0.1473,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2319,
+      "pessimistic_risk": 0.2221,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.037,
       "label": "watch"
@@ -49455,9 +49455,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1204,
+      "optimistic_risk": 0.1199,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1988,
+      "pessimistic_risk": 0.1948,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0079,
       "label": "watch"
@@ -49608,9 +49608,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.3613,
+      "optimistic_risk": 0.3673,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.4922,
+      "pessimistic_risk": 0.4976,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0706,
       "label": "stable"
@@ -49759,9 +49759,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.3327,
+      "optimistic_risk": 0.3313,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.4547,
+      "pessimistic_risk": 0.4492,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0906,
       "label": "stable"
@@ -49910,9 +49910,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0855,
+      "optimistic_risk": 0.0871,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1519,
+      "pessimistic_risk": 0.1555,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0314,
       "label": "watch"
@@ -50061,9 +50061,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1418,
+      "optimistic_risk": 0.1379,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2231,
+      "pessimistic_risk": 0.2237,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0301,
       "label": "watch"
@@ -50214,9 +50214,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0597,
+      "optimistic_risk": 0.0584,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1296,
+      "pessimistic_risk": 0.1282,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0437,
       "label": "stable"
@@ -50354,23 +50354,23 @@
       "signal_conflict_reasons": []
     },
     "confidence": {
-      "score": 0.7657,
+      "score": 0.7957,
       "level": "high",
       "crosswalk_quality": 0.5772,
       "market_data_granularity": 0.65,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.95,
-      "sensitivity": 0.65,
+      "sensitivity": 0.85,
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1487,
-      "optimistic_band": "low",
-      "pessimistic_risk": 0.2417,
+      "optimistic_risk": 0.1503,
+      "optimistic_band": "moderate",
+      "pessimistic_risk": 0.241,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0449,
-      "label": "watch"
+      "label": "stable"
     },
     "labour_monitor_key": "pmet",
     "raw": {
@@ -50521,7 +50521,7 @@
     "stability": {
       "optimistic_risk": 0.2396,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3361,
+      "pessimistic_risk": 0.3401,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0115,
       "label": "watch"
@@ -50672,9 +50672,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0014,
+      "optimistic_risk": 0.0005,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.044,
+      "pessimistic_risk": 0.0442,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0224,
       "label": "stable"
@@ -50821,9 +50821,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0219,
+      "optimistic_risk": 0.0221,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0625,
+      "pessimistic_risk": 0.0651,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0086,
       "label": "watch"
@@ -50973,9 +50973,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0101,
+      "optimistic_risk": 0.0099,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0418,
+      "pessimistic_risk": 0.0419,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0246,
       "label": "stable"
@@ -51124,9 +51124,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0105,
+      "optimistic_risk": 0.0112,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.042,
+      "pessimistic_risk": 0.0428,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0241,
       "label": "stable"
@@ -51271,9 +51271,9 @@
       "exposure_source_count": 1
     },
     "stability": {
-      "optimistic_risk": 0.4064,
+      "optimistic_risk": 0.4046,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.5378,
+      "pessimistic_risk": 0.5333,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0297,
       "label": "watch"
@@ -51422,9 +51422,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0771,
+      "optimistic_risk": 0.0769,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1426,
+      "pessimistic_risk": 0.143,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0416,
       "label": "stable"
@@ -51573,9 +51573,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0759,
+      "optimistic_risk": 0.0741,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1379,
+      "pessimistic_risk": 0.1387,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0446,
       "label": "stable"
@@ -51726,9 +51726,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1772,
+      "optimistic_risk": 0.1779,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.279,
+      "pessimistic_risk": 0.2749,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0743,
       "label": "stable"
@@ -51877,9 +51877,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0725,
+      "optimistic_risk": 0.0766,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1385,
+      "pessimistic_risk": 0.1406,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0438,
       "label": "stable"
@@ -52030,9 +52030,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0955,
+      "optimistic_risk": 0.0939,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1814,
+      "pessimistic_risk": 0.1769,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0141,
       "label": "watch"
@@ -52177,9 +52177,9 @@
       "exposure_source_count": 1
     },
     "stability": {
-      "optimistic_risk": 0.4251,
+      "optimistic_risk": 0.4206,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.5587,
+      "pessimistic_risk": 0.5661,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0074,
       "label": "watch"
@@ -52328,9 +52328,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0839,
+      "optimistic_risk": 0.0819,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1529,
+      "pessimistic_risk": 0.1512,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0345,
       "label": "watch"
@@ -52473,9 +52473,9 @@
       "exposure_source_count": 1
     },
     "stability": {
-      "optimistic_risk": 0.0709,
+      "optimistic_risk": 0.0719,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1302,
+      "pessimistic_risk": 0.1282,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0488,
       "label": "stable"
@@ -52624,9 +52624,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0821,
+      "optimistic_risk": 0.0809,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1528,
+      "pessimistic_risk": 0.1511,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0334,
       "label": "watch"
@@ -52777,9 +52777,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.2493,
+      "optimistic_risk": 0.2491,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3521,
+      "pessimistic_risk": 0.3532,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0007,
       "label": "watch"
@@ -52928,9 +52928,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.2211,
+      "optimistic_risk": 0.222,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3154,
+      "pessimistic_risk": 0.3192,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0304,
       "label": "watch"
@@ -53081,9 +53081,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1089,
+      "optimistic_risk": 0.1092,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.181,
+      "pessimistic_risk": 0.1788,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0076,
       "label": "watch"
@@ -53234,9 +53234,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.6669,
+      "optimistic_risk": 0.6734,
       "optimistic_band": "very_high",
-      "pessimistic_risk": 0.8092,
+      "pessimistic_risk": 0.8116,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.2415,
       "label": "stable"
@@ -53387,9 +53387,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0578,
+      "optimistic_risk": 0.0577,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1112,
+      "pessimistic_risk": 0.1142,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0341,
       "label": "stable"
@@ -53540,9 +53540,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0651,
+      "optimistic_risk": 0.0608,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1243,
+      "pessimistic_risk": 0.1255,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0433,
       "label": "stable"
@@ -53693,9 +53693,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0015,
+      "optimistic_risk": 0.0004,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0427,
+      "pessimistic_risk": 0.0401,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0202,
       "label": "stable"
@@ -53846,9 +53846,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.4619,
+      "optimistic_risk": 0.4634,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.6011,
+      "pessimistic_risk": 0.6019,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0348,
       "label": "watch"
@@ -54000,9 +54000,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0827,
+      "optimistic_risk": 0.0828,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1463,
+      "pessimistic_risk": 0.1487,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0359,
       "label": "stable"
@@ -54145,9 +54145,9 @@
       "exposure_source_count": 1
     },
     "stability": {
-      "optimistic_risk": 0.0733,
+      "optimistic_risk": 0.0727,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1322,
+      "pessimistic_risk": 0.1318,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0476,
       "label": "stable"
@@ -54294,9 +54294,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.023,
+      "optimistic_risk": 0.0219,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0628,
+      "pessimistic_risk": 0.0623,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0084,
       "label": "watch"
@@ -54448,9 +54448,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1081,
+      "optimistic_risk": 0.1114,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1872,
+      "pessimistic_risk": 0.1847,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0033,
       "label": "watch"
@@ -54602,9 +54602,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.2593,
+      "optimistic_risk": 0.258,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3711,
+      "pessimistic_risk": 0.369,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0134,
       "label": "watch"
@@ -54756,9 +54756,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.268,
+      "optimistic_risk": 0.2704,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3864,
+      "pessimistic_risk": 0.3848,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.027,
       "label": "watch"
@@ -54909,9 +54909,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0542,
+      "optimistic_risk": 0.055,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1105,
+      "pessimistic_risk": 0.1122,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0319,
       "label": "stable"
@@ -55063,9 +55063,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.3615,
+      "optimistic_risk": 0.3595,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.4788,
+      "pessimistic_risk": 0.4817,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0809,
       "label": "stable"
@@ -55218,7 +55218,7 @@
     "stability": {
       "optimistic_risk": 0.0582,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1137,
+      "pessimistic_risk": 0.1141,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0362,
       "label": "stable"
@@ -55370,9 +55370,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.3297,
+      "optimistic_risk": 0.3258,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.4546,
+      "pessimistic_risk": 0.458,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0905,
       "label": "stable"
@@ -55521,9 +55521,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.6147,
+      "optimistic_risk": 0.6013,
       "optimistic_band": "very_high",
-      "pessimistic_risk": 0.7667,
+      "pessimistic_risk": 0.7714,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.1911,
       "label": "stable"
@@ -55675,9 +55675,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.6304,
+      "optimistic_risk": 0.6388,
       "optimistic_band": "very_high",
-      "pessimistic_risk": 0.7779,
+      "pessimistic_risk": 0.7829,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.2194,
       "label": "stable"
@@ -55829,9 +55829,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.3909,
+      "optimistic_risk": 0.3923,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.5275,
+      "pessimistic_risk": 0.524,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0426,
       "label": "watch"
@@ -55969,23 +55969,23 @@
       ]
     },
     "confidence": {
-      "score": 0.8197,
+      "score": 0.8497,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.65,
       "source_freshness": 0.8317,
       "source_coverage": 0.82,
       "signal_agreement": 0.85,
-      "sensitivity": 0.65,
+      "sensitivity": 0.85,
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.4959,
-      "optimistic_band": "high",
-      "pessimistic_risk": 0.6377,
+      "optimistic_risk": 0.5036,
+      "optimistic_band": "very_high",
+      "pessimistic_risk": 0.6365,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0665,
-      "label": "watch"
+      "label": "stable"
     },
     "labour_monitor_key": "clerical_sales_service",
     "raw": {
@@ -56131,9 +56131,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.6001,
+      "optimistic_risk": 0.5917,
       "optimistic_band": "very_high",
-      "pessimistic_risk": 0.7576,
+      "pessimistic_risk": 0.7523,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.1748,
       "label": "stable"
@@ -56282,9 +56282,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.5747,
+      "optimistic_risk": 0.5743,
       "optimistic_band": "very_high",
-      "pessimistic_risk": 0.7301,
+      "pessimistic_risk": 0.7248,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.1511,
       "label": "stable"
@@ -56436,9 +56436,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.3849,
+      "optimistic_risk": 0.3881,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.5228,
+      "pessimistic_risk": 0.5172,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0495,
       "label": "watch"
@@ -56590,9 +56590,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.388,
+      "optimistic_risk": 0.3845,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.5159,
+      "pessimistic_risk": 0.5142,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0514,
       "label": "watch"
@@ -56744,9 +56744,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.6659,
+      "optimistic_risk": 0.6581,
       "optimistic_band": "very_high",
-      "pessimistic_risk": 0.8192,
+      "pessimistic_risk": 0.8085,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.2445,
       "label": "stable"
@@ -56896,9 +56896,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.5949,
+      "optimistic_risk": 0.5985,
       "optimistic_band": "very_high",
-      "pessimistic_risk": 0.7431,
+      "pessimistic_risk": 0.7394,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.1751,
       "label": "stable"
@@ -57047,9 +57047,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.694,
+      "optimistic_risk": 0.6944,
       "optimistic_band": "very_high",
-      "pessimistic_risk": 0.846,
+      "pessimistic_risk": 0.8487,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.2222,
       "label": "stable"
@@ -57201,9 +57201,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.396,
+      "optimistic_risk": 0.3983,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.5328,
+      "pessimistic_risk": 0.5311,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0348,
       "label": "watch"
@@ -57355,9 +57355,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.3983,
+      "optimistic_risk": 0.3985,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.5319,
+      "pessimistic_risk": 0.531,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0354,
       "label": "watch"
@@ -57509,9 +57509,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.6257,
+      "optimistic_risk": 0.6211,
       "optimistic_band": "very_high",
-      "pessimistic_risk": 0.7649,
+      "pessimistic_risk": 0.7704,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.2067,
       "label": "stable"
@@ -57663,9 +57663,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.3149,
+      "optimistic_risk": 0.313,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.4336,
+      "pessimistic_risk": 0.4329,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0718,
       "label": "stable"
@@ -57814,9 +57814,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.5904,
+      "optimistic_risk": 0.5908,
       "optimistic_band": "very_high",
-      "pessimistic_risk": 0.7431,
+      "pessimistic_risk": 0.7488,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.1671,
       "label": "stable"
@@ -57965,9 +57965,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.4966,
+      "optimistic_risk": 0.4935,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.6367,
+      "pessimistic_risk": 0.6353,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0638,
       "label": "watch"
@@ -58119,9 +58119,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.4231,
+      "optimistic_risk": 0.4237,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.5632,
+      "pessimistic_risk": 0.5637,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0083,
       "label": "watch"
@@ -58271,9 +58271,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.25,
+      "optimistic_risk": 0.2533,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3552,
+      "pessimistic_risk": 0.3529,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0025,
       "label": "watch"
@@ -58425,9 +58425,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.4093,
+      "optimistic_risk": 0.4047,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.5404,
+      "pessimistic_risk": 0.537,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0279,
       "label": "watch"
@@ -58579,9 +58579,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.3766,
+      "optimistic_risk": 0.3779,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.4977,
+      "pessimistic_risk": 0.4979,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0629,
       "label": "stable"
@@ -58733,9 +58733,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.5627,
+      "optimistic_risk": 0.5652,
       "optimistic_band": "very_high",
-      "pessimistic_risk": 0.7183,
+      "pessimistic_risk": 0.7193,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.1463,
       "label": "stable"
@@ -58884,9 +58884,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.3449,
+      "optimistic_risk": 0.3434,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.4663,
+      "pessimistic_risk": 0.4643,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0956,
       "label": "stable"
@@ -59038,9 +59038,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.3834,
+      "optimistic_risk": 0.3824,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.518,
+      "pessimistic_risk": 0.5099,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0522,
       "label": "watch"
@@ -59189,9 +59189,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.5438,
+      "optimistic_risk": 0.5456,
       "optimistic_band": "very_high",
-      "pessimistic_risk": 0.6974,
+      "pessimistic_risk": 0.6982,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.1211,
       "label": "stable"
@@ -59340,9 +59340,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.5795,
+      "optimistic_risk": 0.5752,
       "optimistic_band": "very_high",
-      "pessimistic_risk": 0.7223,
+      "pessimistic_risk": 0.7285,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.1526,
       "label": "stable"
@@ -59494,9 +59494,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.5372,
+      "optimistic_risk": 0.5445,
       "optimistic_band": "very_high",
-      "pessimistic_risk": 0.6836,
+      "pessimistic_risk": 0.6864,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.1184,
       "label": "stable"
@@ -59648,9 +59648,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.4143,
+      "optimistic_risk": 0.4083,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.5468,
+      "pessimistic_risk": 0.5461,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0215,
       "label": "watch"
@@ -59802,9 +59802,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.5138,
+      "optimistic_risk": 0.5142,
       "optimistic_band": "very_high",
-      "pessimistic_risk": 0.6592,
+      "pessimistic_risk": 0.6593,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0939,
       "label": "stable"
@@ -59953,9 +59953,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.5834,
+      "optimistic_risk": 0.5886,
       "optimistic_band": "very_high",
-      "pessimistic_risk": 0.7353,
+      "pessimistic_risk": 0.7395,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.1643,
       "label": "stable"
@@ -60105,9 +60105,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.2611,
+      "optimistic_risk": 0.2582,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3632,
+      "pessimistic_risk": 0.3643,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0087,
       "label": "watch"
@@ -60255,9 +60255,9 @@
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.5007,
+      "optimistic_risk": 0.5055,
       "optimistic_band": "very_high",
-      "pessimistic_risk": 0.6422,
+      "pessimistic_risk": 0.6467,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.077,
       "label": "stable"
@@ -60409,9 +60409,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.3963,
+      "optimistic_risk": 0.3926,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.5272,
+      "pessimistic_risk": 0.5313,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0389,
       "label": "watch"
@@ -60562,9 +60562,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.5994,
+      "optimistic_risk": 0.5998,
       "optimistic_band": "very_high",
-      "pessimistic_risk": 0.7498,
+      "pessimistic_risk": 0.7557,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.1822,
       "label": "stable"
@@ -60716,9 +60716,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.6402,
+      "optimistic_risk": 0.6483,
       "optimistic_band": "very_high",
-      "pessimistic_risk": 0.7819,
+      "pessimistic_risk": 0.7871,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.2254,
       "label": "stable"
@@ -60870,9 +60870,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.3177,
+      "optimistic_risk": 0.3237,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.4464,
+      "pessimistic_risk": 0.4403,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0825,
       "label": "stable"
@@ -61021,9 +61021,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.6847,
+      "optimistic_risk": 0.695,
       "optimistic_band": "very_high",
-      "pessimistic_risk": 0.8445,
+      "pessimistic_risk": 0.8451,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.2224,
       "label": "stable"
@@ -61172,9 +61172,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.1362,
+      "optimistic_risk": 0.1365,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.236,
+      "pessimistic_risk": 0.2343,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.036,
       "label": "watch"
@@ -61323,9 +61323,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.1361,
+      "optimistic_risk": 0.1389,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2547,
+      "pessimistic_risk": 0.2524,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0441,
       "label": "watch"
@@ -61477,9 +61477,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.4518,
+      "optimistic_risk": 0.4531,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.5907,
+      "pessimistic_risk": 0.5951,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.0215,
       "label": "watch"
@@ -61630,9 +61630,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.2055,
+      "optimistic_risk": 0.2029,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.2928,
+      "pessimistic_risk": 0.29,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0541,
       "label": "stable"
@@ -61783,9 +61783,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.6208,
+      "optimistic_risk": 0.6222,
       "optimistic_band": "very_high",
-      "pessimistic_risk": 0.7631,
+      "pessimistic_risk": 0.7657,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.2049,
       "label": "stable"
@@ -61932,9 +61932,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.086,
+      "optimistic_risk": 0.0863,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1563,
+      "pessimistic_risk": 0.1584,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0297,
       "label": "watch"
@@ -62083,9 +62083,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0132,
+      "optimistic_risk": 0.0113,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.07,
+      "pessimistic_risk": 0.0653,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0114,
       "label": "watch"
@@ -62234,9 +62234,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0576,
+      "optimistic_risk": 0.0595,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1888,
+      "pessimistic_risk": 0.1817,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0272,
       "label": "watch"
@@ -62385,9 +62385,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0562,
+      "optimistic_risk": 0.0601,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.181,
+      "pessimistic_risk": 0.1816,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.029,
       "label": "watch"
@@ -62536,9 +62536,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0311,
+      "optimistic_risk": 0.0305,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1071,
+      "pessimistic_risk": 0.104,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0175,
       "label": "watch"
@@ -62687,9 +62687,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.173,
+      "optimistic_risk": 0.1733,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3008,
+      "pessimistic_risk": 0.306,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0607,
       "label": "watch"
@@ -62840,9 +62840,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1117,
+      "optimistic_risk": 0.1123,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1966,
+      "pessimistic_risk": 0.1965,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0026,
       "label": "watch"
@@ -62994,9 +62994,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.2594,
+      "optimistic_risk": 0.2575,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3932,
+      "pessimistic_risk": 0.3948,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0292,
       "label": "watch"
@@ -63145,9 +63145,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0882,
+      "optimistic_risk": 0.0881,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2083,
+      "pessimistic_risk": 0.2025,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0024,
       "label": "watch"
@@ -63299,9 +63299,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.263,
+      "optimistic_risk": 0.2635,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.4037,
+      "pessimistic_risk": 0.3993,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0387,
       "label": "watch"
@@ -63452,9 +63452,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1118,
+      "optimistic_risk": 0.1128,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1974,
+      "pessimistic_risk": 0.1981,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0031,
       "label": "watch"
@@ -63603,9 +63603,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0577,
+      "optimistic_risk": 0.0516,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1344,
+      "pessimistic_risk": 0.1357,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0435,
       "label": "stable"
@@ -63757,9 +63757,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0946,
+      "optimistic_risk": 0.0971,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1894,
+      "pessimistic_risk": 0.1891,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0092,
       "label": "watch"
@@ -63906,9 +63906,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.1365,
+      "optimistic_risk": 0.1368,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2368,
+      "pessimistic_risk": 0.2383,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0361,
       "label": "watch"
@@ -64057,7 +64057,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0492,
+      "pessimistic_risk": 0.0455,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.018,
       "label": "stable"
@@ -64206,9 +64206,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0524,
+      "optimistic_risk": 0.0583,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1386,
+      "pessimistic_risk": 0.1407,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0486,
       "label": "stable"
@@ -64353,9 +64353,9 @@
       "exposure_source_count": 1
     },
     "stability": {
-      "optimistic_risk": 0.2818,
+      "optimistic_risk": 0.2808,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.416,
+      "pessimistic_risk": 0.4152,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0488,
       "label": "watch"
@@ -64504,9 +64504,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0418,
+      "optimistic_risk": 0.0428,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1161,
+      "pessimistic_risk": 0.1143,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0277,
       "label": "watch"
@@ -64653,9 +64653,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.14,
+      "optimistic_risk": 0.139,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2435,
+      "pessimistic_risk": 0.2397,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0388,
       "label": "watch"
@@ -64805,9 +64805,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0266,
+      "optimistic_risk": 0.0275,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0767,
+      "pessimistic_risk": 0.0752,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0001,
       "label": "watch"
@@ -64957,7 +64957,7 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0253,
+      "optimistic_risk": 0.0248,
       "optimistic_band": "very_low",
       "pessimistic_risk": 0.0749,
       "pessimistic_band": "low",
@@ -65109,9 +65109,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0238,
+      "optimistic_risk": 0.0249,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0741,
+      "pessimistic_risk": 0.0743,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0011,
       "label": "watch"
@@ -65262,9 +65262,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.135,
+      "optimistic_risk": 0.1376,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2266,
+      "pessimistic_risk": 0.2291,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0309,
       "label": "watch"
@@ -65411,9 +65411,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0734,
+      "optimistic_risk": 0.0777,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2015,
+      "pessimistic_risk": 0.1991,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0103,
       "label": "watch"
@@ -65558,9 +65558,9 @@
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.0343,
+      "optimistic_risk": 0.0333,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1005,
+      "pessimistic_risk": 0.1033,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0161,
       "label": "watch"
@@ -65709,9 +65709,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0336,
+      "optimistic_risk": 0.0316,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1083,
+      "pessimistic_risk": 0.1096,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0204,
       "label": "watch"
@@ -65858,9 +65858,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0361,
+      "optimistic_risk": 0.0279,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1381,
+      "pessimistic_risk": 0.1424,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0352,
       "label": "watch"
@@ -66007,9 +66007,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.1363,
+      "optimistic_risk": 0.137,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2329,
+      "pessimistic_risk": 0.2395,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0347,
       "label": "watch"
@@ -66154,9 +66154,9 @@
       "exposure_source_count": 1
     },
     "stability": {
-      "optimistic_risk": 0.2745,
+      "optimistic_risk": 0.2764,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.4117,
+      "pessimistic_risk": 0.411,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0441,
       "label": "watch"
@@ -66305,9 +66305,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0363,
+      "optimistic_risk": 0.0376,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1178,
+      "pessimistic_risk": 0.1175,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0267,
       "label": "watch"
@@ -66456,9 +66456,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.073,
+      "optimistic_risk": 0.0741,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.16,
+      "pessimistic_risk": 0.1576,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0352,
       "label": "watch"
@@ -66598,23 +66598,23 @@
       ]
     },
     "confidence": {
-      "score": 0.8264,
+      "score": 0.7964,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.65,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.85,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1545,
-      "optimistic_band": "moderate",
-      "pessimistic_risk": 0.2729,
+      "optimistic_risk": 0.1463,
+      "optimistic_band": "low",
+      "pessimistic_risk": 0.2736,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0639,
-      "label": "stable"
+      "label": "watch"
     },
     "labour_monitor_key": "clerical_sales_service",
     "raw": {
@@ -66761,9 +66761,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.3048,
+      "optimistic_risk": 0.3008,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.4316,
+      "pessimistic_risk": 0.4356,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0663,
       "label": "stable"
@@ -66914,9 +66914,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1428,
+      "optimistic_risk": 0.1405,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2592,
+      "pessimistic_risk": 0.2606,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0551,
       "label": "watch"
@@ -67065,9 +67065,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0373,
+      "optimistic_risk": 0.0374,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1187,
+      "pessimistic_risk": 0.117,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0275,
       "label": "watch"
@@ -67219,9 +67219,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0936,
+      "optimistic_risk": 0.0918,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1843,
+      "pessimistic_risk": 0.1871,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0126,
       "label": "watch"
@@ -67370,9 +67370,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0406,
+      "optimistic_risk": 0.0382,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1196,
+      "pessimistic_risk": 0.1166,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0265,
       "label": "watch"
@@ -67521,9 +67521,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0398,
+      "optimistic_risk": 0.0402,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1176,
+      "pessimistic_risk": 0.1165,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0269,
       "label": "watch"
@@ -67673,9 +67673,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.3065,
+      "optimistic_risk": 0.3132,
       "optimistic_band": "high",
-      "pessimistic_risk": 0.4389,
+      "pessimistic_risk": 0.4387,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0726,
       "label": "stable"
@@ -67822,9 +67822,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0273,
+      "optimistic_risk": 0.0268,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1238,
+      "pessimistic_risk": 0.1289,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0259,
       "label": "watch"
@@ -67971,9 +67971,9 @@
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.1221,
+      "optimistic_risk": 0.1186,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2122,
+      "pessimistic_risk": 0.2094,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0152,
       "label": "watch"
@@ -68124,9 +68124,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.5949,
+      "optimistic_risk": 0.5934,
       "optimistic_band": "very_high",
-      "pessimistic_risk": 0.7388,
+      "pessimistic_risk": 0.7379,
       "pessimistic_band": "very_high",
       "distance_to_band_edge": 0.1809,
       "label": "stable"
@@ -68273,9 +68273,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0851,
+      "optimistic_risk": 0.0834,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1557,
+      "pessimistic_risk": 0.1574,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0306,
       "label": "watch"
@@ -68420,9 +68420,9 @@
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.0005,
+      "optimistic_risk": 0.0007,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0283,
+      "pessimistic_risk": 0.0278,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0129,
       "label": "stable"
@@ -68571,9 +68571,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0925,
+      "optimistic_risk": 0.0878,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2276,
+      "pessimistic_risk": 0.2224,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0082,
       "label": "watch"
@@ -68718,9 +68718,9 @@
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.0269,
+      "optimistic_risk": 0.0287,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.084,
+      "pessimistic_risk": 0.0845,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0056,
       "label": "watch"
@@ -68871,9 +68871,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.099,
+      "optimistic_risk": 0.0958,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1554,
+      "pessimistic_risk": 0.1567,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0236,
       "label": "watch"
@@ -69024,9 +69024,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0903,
+      "optimistic_risk": 0.0879,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1418,
+      "pessimistic_risk": 0.1426,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0355,
       "label": "stable"
@@ -69178,9 +69178,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0264,
+      "optimistic_risk": 0.0268,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0961,
+      "pessimistic_risk": 0.0971,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0103,
       "label": "watch"
@@ -69329,9 +69329,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0077,
+      "optimistic_risk": 0.0104,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0777,
+      "pessimistic_risk": 0.0738,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0095,
       "label": "watch"
@@ -69480,9 +69480,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.072,
+      "optimistic_risk": 0.0667,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2164,
+      "pessimistic_risk": 0.2215,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0067,
       "label": "watch"
@@ -69629,9 +69629,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0023,
+      "optimistic_risk": 0.0008,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0413,
+      "pessimistic_risk": 0.042,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0208,
       "label": "stable"
@@ -69781,9 +69781,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.2699,
+      "optimistic_risk": 0.2748,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.4485,
+      "pessimistic_risk": 0.4452,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.063,
       "label": "watch"
@@ -69932,9 +69932,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0228,
+      "optimistic_risk": 0.0257,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1736,
+      "pessimistic_risk": 0.1742,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0487,
       "label": "sensitive"
@@ -70085,7 +70085,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0303,
+      "pessimistic_risk": 0.0275,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0124,
       "label": "stable"
@@ -70239,7 +70239,7 @@
     "stability": {
       "optimistic_risk": 0.0361,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0992,
+      "pessimistic_risk": 0.0999,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0158,
       "label": "watch"
@@ -70391,9 +70391,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.032,
+      "optimistic_risk": 0.0331,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0996,
+      "pessimistic_risk": 0.1005,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0151,
       "label": "watch"
@@ -70545,9 +70545,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0344,
+      "optimistic_risk": 0.033,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0969,
+      "pessimistic_risk": 0.0977,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0142,
       "label": "watch"
@@ -70696,9 +70696,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0004,
+      "optimistic_risk": 0.001,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0291,
+      "pessimistic_risk": 0.0281,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0138,
       "label": "stable"
@@ -70849,7 +70849,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1288,
+      "pessimistic_risk": 0.1295,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0063,
       "label": "watch"
@@ -70998,7 +70998,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1246,
+      "pessimistic_risk": 0.1329,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0056,
       "label": "watch"
@@ -71147,9 +71147,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0328,
+      "optimistic_risk": 0.0347,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1078,
+      "pessimistic_risk": 0.1068,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0188,
       "label": "watch"
@@ -71300,7 +71300,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0286,
+      "pessimistic_risk": 0.0279,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0125,
       "label": "stable"
@@ -71450,7 +71450,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.073,
+      "pessimistic_risk": 0.076,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0186,
       "label": "watch"
@@ -71599,9 +71599,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0496,
+      "optimistic_risk": 0.0498,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1793,
+      "pessimistic_risk": 0.1769,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0372,
       "label": "sensitive"
@@ -71750,9 +71750,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.032,
+      "optimistic_risk": 0.0325,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1036,
+      "pessimistic_risk": 0.1047,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0167,
       "label": "watch"
@@ -71901,9 +71901,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0796,
+      "optimistic_risk": 0.0832,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2286,
+      "pessimistic_risk": 0.225,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0028,
       "label": "watch"
@@ -72052,9 +72052,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0277,
+      "optimistic_risk": 0.0308,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1546,
+      "pessimistic_risk": 0.1522,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0409,
       "label": "sensitive"
@@ -72203,9 +72203,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0696,
+      "optimistic_risk": 0.07,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2151,
+      "pessimistic_risk": 0.2188,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0087,
       "label": "watch"
@@ -72356,9 +72356,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0022,
+      "optimistic_risk": 0.0024,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0337,
+      "pessimistic_risk": 0.0331,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.016,
       "label": "stable"
@@ -72510,9 +72510,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.2836,
+      "optimistic_risk": 0.286,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.4536,
+      "pessimistic_risk": 0.4531,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0682,
       "label": "watch"
@@ -72663,7 +72663,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0541,
+      "pessimistic_risk": 0.0564,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0241,
       "label": "watch"
@@ -72813,7 +72813,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0732,
+      "pessimistic_risk": 0.0715,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0194,
       "label": "watch"
@@ -72962,9 +72962,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0634,
+      "optimistic_risk": 0.0627,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1418,
+      "pessimistic_risk": 0.1446,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0479,
       "label": "stable"
@@ -73113,9 +73113,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0599,
+      "optimistic_risk": 0.0596,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1325,
+      "pessimistic_risk": 0.1342,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0449,
       "label": "stable"
@@ -73264,9 +73264,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0617,
+      "optimistic_risk": 0.0615,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1376,
+      "pessimistic_risk": 0.1354,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0467,
       "label": "stable"
@@ -73415,9 +73415,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0012,
+      "optimistic_risk": 0.0065,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1623,
+      "pessimistic_risk": 0.1608,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0359,
       "label": "sensitive"
@@ -73566,9 +73566,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0489,
+      "optimistic_risk": 0.0445,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1783,
+      "pessimistic_risk": 0.1767,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0374,
       "label": "sensitive"
@@ -73717,9 +73717,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0017,
+      "optimistic_risk": 0.0014,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0333,
+      "pessimistic_risk": 0.035,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0171,
       "label": "stable"
@@ -73868,9 +73868,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0804,
+      "optimistic_risk": 0.0738,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2185,
+      "pessimistic_risk": 0.2217,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0002,
       "label": "watch"
@@ -74019,7 +74019,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1287,
+      "pessimistic_risk": 0.1312,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0092,
       "label": "watch"
@@ -74168,7 +74168,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0709,
+      "pessimistic_risk": 0.073,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0174,
       "label": "watch"
@@ -74317,9 +74317,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0601,
+      "optimistic_risk": 0.0609,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1584,
+      "pessimistic_risk": 0.1541,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0431,
       "label": "watch"
@@ -74470,9 +74470,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0552,
+      "optimistic_risk": 0.0514,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1744,
+      "pessimistic_risk": 0.1737,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0359,
       "label": "watch"
@@ -74621,9 +74621,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0616,
+      "optimistic_risk": 0.059,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1516,
+      "pessimistic_risk": 0.1532,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0453,
       "label": "watch"
@@ -74774,9 +74774,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0908,
+      "optimistic_risk": 0.0867,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1972,
+      "pessimistic_risk": 0.2011,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0074,
       "label": "watch"
@@ -74925,9 +74925,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0001,
+      "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0683,
+      "pessimistic_risk": 0.0688,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0179,
       "label": "watch"
@@ -75078,7 +75078,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0626,
+      "pessimistic_risk": 0.0639,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0199,
       "label": "watch"
@@ -75227,9 +75227,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0308,
+      "optimistic_risk": 0.0261,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.162,
+      "pessimistic_risk": 0.1585,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0431,
       "label": "sensitive"
@@ -75380,7 +75380,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0205,
+      "pessimistic_risk": 0.021,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0085,
       "label": "stable"
@@ -75529,9 +75529,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0965,
+      "optimistic_risk": 0.0981,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2172,
+      "pessimistic_risk": 0.2194,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0062,
       "label": "watch"
@@ -75680,9 +75680,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0607,
+      "optimistic_risk": 0.065,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.201,
+      "pessimistic_risk": 0.2063,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0182,
       "label": "watch"
@@ -75831,9 +75831,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0001,
+      "optimistic_risk": 0.0024,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0731,
+      "pessimistic_risk": 0.0712,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0132,
       "label": "watch"
@@ -75982,9 +75982,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0096,
+      "optimistic_risk": 0.0031,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1158,
+      "pessimistic_risk": 0.1176,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.011,
       "label": "watch"
@@ -76135,9 +76135,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.093,
+      "optimistic_risk": 0.0897,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2022,
+      "pessimistic_risk": 0.2104,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0031,
       "label": "watch"
@@ -76286,9 +76286,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.1283,
+      "optimistic_risk": 0.1274,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2524,
+      "pessimistic_risk": 0.2638,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0421,
       "label": "watch"
@@ -76433,9 +76433,9 @@
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.1239,
+      "optimistic_risk": 0.1203,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2411,
+      "pessimistic_risk": 0.2412,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.03,
       "label": "watch"
@@ -76584,9 +76584,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0143,
+      "optimistic_risk": 0.012,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1454,
+      "pessimistic_risk": 0.1383,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0281,
       "label": "watch"
@@ -76735,9 +76735,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0392,
+      "optimistic_risk": 0.0405,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1221,
+      "pessimistic_risk": 0.1245,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0308,
       "label": "watch"
@@ -76882,9 +76882,9 @@
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.0109,
+      "optimistic_risk": 0.0163,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1493,
+      "pessimistic_risk": 0.1418,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.03,
       "label": "watch"
@@ -77033,9 +77033,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0545,
+      "optimistic_risk": 0.0531,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1365,
+      "pessimistic_risk": 0.1356,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0446,
       "label": "stable"
@@ -77186,9 +77186,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0945,
+      "optimistic_risk": 0.0954,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2065,
+      "pessimistic_risk": 0.2012,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0002,
       "label": "watch"
@@ -77337,9 +77337,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0085,
+      "optimistic_risk": 0.0116,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1381,
+      "pessimistic_risk": 0.1333,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0226,
       "label": "watch"
@@ -77488,9 +77488,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0639,
+      "optimistic_risk": 0.0651,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1607,
+      "pessimistic_risk": 0.1616,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0404,
       "label": "watch"
@@ -77641,7 +77641,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0192,
+      "pessimistic_risk": 0.0198,
       "pessimistic_band": "very_low",
       "distance_to_band_edge": 0.0081,
       "label": "stable"
@@ -77786,9 +77786,9 @@
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.0106,
+      "optimistic_risk": 0.0104,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1513,
+      "pessimistic_risk": 0.1523,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0326,
       "label": "sensitive"
@@ -77937,9 +77937,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.2175,
+      "optimistic_risk": 0.2162,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3618,
+      "pessimistic_risk": 0.3617,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0093,
       "label": "watch"
@@ -78086,9 +78086,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0196,
+      "optimistic_risk": 0.0203,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1581,
+      "pessimistic_risk": 0.1622,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0415,
       "label": "sensitive"
@@ -78237,9 +78237,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0503,
+      "optimistic_risk": 0.0525,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1186,
+      "pessimistic_risk": 0.1193,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0347,
       "label": "stable"
@@ -78388,9 +78388,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0546,
+      "optimistic_risk": 0.0548,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1192,
+      "pessimistic_risk": 0.1224,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0357,
       "label": "stable"
@@ -78541,9 +78541,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0916,
+      "optimistic_risk": 0.0881,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2016,
+      "pessimistic_risk": 0.1987,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0066,
       "label": "watch"
@@ -78692,9 +78692,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0163,
+      "optimistic_risk": 0.0161,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0647,
+      "pessimistic_risk": 0.0626,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0117,
       "label": "watch"
@@ -78843,9 +78843,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.06,
+      "optimistic_risk": 0.059,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1557,
+      "pessimistic_risk": 0.1532,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0439,
       "label": "watch"
@@ -78996,9 +78996,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0928,
+      "optimistic_risk": 0.0947,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2084,
+      "pessimistic_risk": 0.2003,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0023,
       "label": "watch"
@@ -79149,7 +79149,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0909,
+      "pessimistic_risk": 0.09,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0103,
       "label": "watch"
@@ -79300,9 +79300,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1764,
+      "optimistic_risk": 0.1674,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3108,
+      "pessimistic_risk": 0.3029,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0629,
       "label": "watch"
@@ -79453,9 +79453,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1703,
+      "optimistic_risk": 0.1736,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3049,
+      "pessimistic_risk": 0.3067,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0631,
       "label": "watch"
@@ -79602,9 +79602,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.014,
+      "optimistic_risk": 0.0146,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1136,
+      "pessimistic_risk": 0.1138,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0143,
       "label": "watch"
@@ -79753,9 +79753,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.1525,
+      "optimistic_risk": 0.154,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.2865,
+      "pessimistic_risk": 0.2854,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.068,
       "label": "stable"
@@ -79904,9 +79904,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.1377,
+      "optimistic_risk": 0.1369,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2488,
+      "pessimistic_risk": 0.2524,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0428,
       "label": "watch"
@@ -80055,7 +80055,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0643,
+      "pessimistic_risk": 0.0623,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0247,
       "label": "watch"
@@ -80205,9 +80205,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0228,
+      "optimistic_risk": 0.0219,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0751,
+      "pessimistic_risk": 0.0738,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0036,
       "label": "watch"
@@ -80356,9 +80356,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.2486,
+      "optimistic_risk": 0.2484,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3783,
+      "pessimistic_risk": 0.378,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0131,
       "label": "watch"
@@ -80507,7 +80507,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1085,
+      "pessimistic_risk": 0.1136,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.006,
       "label": "watch"
@@ -80654,9 +80654,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0138,
+      "optimistic_risk": 0.0155,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1238,
+      "pessimistic_risk": 0.122,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.018,
       "label": "watch"
@@ -80806,9 +80806,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.087,
+      "optimistic_risk": 0.0828,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2035,
+      "pessimistic_risk": 0.2124,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0048,
       "label": "watch"
@@ -80957,7 +80957,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1184,
+      "pessimistic_risk": 0.1152,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0052,
       "label": "watch"
@@ -81106,9 +81106,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0864,
+      "optimistic_risk": 0.0829,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2175,
+      "pessimistic_risk": 0.2182,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0001,
       "label": "watch"
@@ -81257,9 +81257,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0,
+      "optimistic_risk": 0.0034,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1121,
+      "pessimistic_risk": 0.1135,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0057,
       "label": "watch"
@@ -81410,7 +81410,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1009,
+      "pessimistic_risk": 0.0972,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0039,
       "label": "watch"
@@ -81557,9 +81557,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0013,
+      "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1217,
+      "pessimistic_risk": 0.1192,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0094,
       "label": "watch"
@@ -81708,9 +81708,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.1432,
+      "optimistic_risk": 0.1425,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2673,
+      "pessimistic_risk": 0.2661,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0551,
       "label": "watch"
@@ -81861,7 +81861,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1012,
+      "pessimistic_risk": 0.0994,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0143,
       "label": "watch"
@@ -82012,7 +82012,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1002,
+      "pessimistic_risk": 0.0973,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0146,
       "label": "watch"
@@ -82162,9 +82162,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0895,
+      "optimistic_risk": 0.0837,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2139,
+      "pessimistic_risk": 0.2105,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0007,
       "label": "watch"
@@ -82313,9 +82313,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.1319,
+      "optimistic_risk": 0.1339,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2503,
+      "pessimistic_risk": 0.254,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0408,
       "label": "watch"
@@ -82466,7 +82466,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0993,
+      "pessimistic_risk": 0.0977,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0121,
       "label": "watch"
@@ -82611,9 +82611,9 @@
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.0737,
+      "optimistic_risk": 0.0784,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.1857,
+      "pessimistic_risk": 0.1827,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0196,
       "label": "watch"
@@ -82764,7 +82764,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1181,
+      "pessimistic_risk": 0.1167,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0029,
       "label": "watch"
@@ -82915,7 +82915,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0948,
+      "pessimistic_risk": 0.0892,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0114,
       "label": "watch"
@@ -83060,7 +83060,7 @@
       "exposure_source_count": 2
     },
     "stability": {
-      "optimistic_risk": 0.0792,
+      "optimistic_risk": 0.0782,
       "optimistic_band": "low",
       "pessimistic_risk": 0.1915,
       "pessimistic_band": "moderate",
@@ -83211,7 +83211,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1077,
+      "pessimistic_risk": 0.1138,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0048,
       "label": "watch"
@@ -83360,7 +83360,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1056,
+      "pessimistic_risk": 0.1081,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.007,
       "label": "watch"
@@ -83509,7 +83509,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.107,
+      "pessimistic_risk": 0.104,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0055,
       "label": "watch"
@@ -83658,9 +83658,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.1387,
+      "optimistic_risk": 0.1371,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.256,
+      "pessimistic_risk": 0.2601,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0468,
       "label": "watch"
@@ -83811,9 +83811,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.1734,
+      "optimistic_risk": 0.1755,
       "optimistic_band": "moderate",
-      "pessimistic_risk": 0.3094,
+      "pessimistic_risk": 0.3112,
       "pessimistic_band": "high",
       "distance_to_band_edge": 0.0575,
       "label": "watch"
@@ -83962,7 +83962,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1062,
+      "pessimistic_risk": 0.1027,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0086,
       "label": "watch"
@@ -84111,9 +84111,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.1435,
+      "optimistic_risk": 0.1401,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.2605,
+      "pessimistic_risk": 0.2598,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.049,
       "label": "watch"
@@ -84262,7 +84262,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1149,
+      "pessimistic_risk": 0.1135,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0054,
       "label": "watch"
@@ -84411,9 +84411,9 @@
       "exposure_source_count": 3
     },
     "stability": {
-      "optimistic_risk": 0.0922,
+      "optimistic_risk": 0.0857,
       "optimistic_band": "low",
-      "pessimistic_risk": 0.216,
+      "pessimistic_risk": 0.215,
       "pessimistic_band": "moderate",
       "distance_to_band_edge": 0.0008,
       "label": "watch"
@@ -84564,7 +84564,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0937,
+      "pessimistic_risk": 0.0956,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0123,
       "label": "watch"
@@ -84715,7 +84715,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.095,
+      "pessimistic_risk": 0.0926,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0101,
       "label": "watch"
@@ -84866,7 +84866,7 @@
     "stability": {
       "optimistic_risk": 0,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.0947,
+      "pessimistic_risk": 0.0965,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0098,
       "label": "watch"
@@ -85015,9 +85015,9 @@
       "exposure_source_count": 4
     },
     "stability": {
-      "optimistic_risk": 0.0052,
+      "optimistic_risk": 0.0035,
       "optimistic_band": "very_low",
-      "pessimistic_risk": 0.1039,
+      "pessimistic_risk": 0.1038,
       "pessimistic_band": "low",
       "distance_to_band_edge": 0.0023,
       "label": "watch"

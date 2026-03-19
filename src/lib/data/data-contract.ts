@@ -198,23 +198,23 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 		key: 'mom_recruitment_resignation_rates',
 		label: 'MOM Recruitment and Resignation Rates',
 		tier: 'official_sg',
-		status: 'available',
+		status: 'live',
 		vintage: '2025',
 		used_for: ['labour monitor hiring signal'],
-		url: 'https://data.gov.sg/datasets/d_fd083816f5b7ef8859d1e3f4e781186d/view',
+		url: 'https://data.gov.sg/collections/682/datasets/d_236436f8bdb9bbac677c4e5637c6430e/view',
 		notes:
-			'Official quarterly recruitment and resignation rates by industry and occupational group. The builder supports the public schema when the raw CSV or API JSON is present locally.'
+			'Official annual average monthly recruitment and resignation rates by industry and occupational group. The raw API payload is downloaded into the repo; the published labour monitor still prefers current-quarter MOM enrichment snapshots when available.'
 	},
 	{
 		key: 'mom_retrenchment_by_occupation_group',
 		label: 'MOM / SingStat Retrenchment by Occupation Group',
 		tier: 'official_sg',
-		status: 'available',
+		status: 'live',
 		vintage: '2026',
 		used_for: ['labour monitor retrenchment signal'],
-		url: 'https://data.gov.sg/collections/retrenched-employees-by-industry-and-occupational-group-quarterly/view',
+		url: 'https://data.gov.sg/datasets?resultId=d_3eaf52cdcc405a80b602d031d0bd092b&sort=updatedAt',
 		notes:
-			'Official quarterly retrenchment counts by broad occupational group. The builder supports the public wide-form raw schema when the file is present locally.'
+			'Official quarterly retrenched-employees counts by broad occupational group. The raw API payload is downloaded into the repo and merged with published incidence context from the MOM labour-market snapshot.'
 	},
 	{
 		key: 'wages_by_industry',

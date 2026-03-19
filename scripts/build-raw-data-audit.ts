@@ -76,28 +76,37 @@ const AUDIT_DEFINITIONS: AuditEntryDefinition[] = [
 	},
 	{
 		key: 'recruitment_resignation_rates',
-		file: 'recruitment_resignation_rates.csv',
+		file: 'recruitment_resignation_rates.json',
 		location: 'raw',
 		label: 'Recruitment and resignation rates',
-		expectedType: 'csv',
+		expectedType: 'json',
 		usedBy: ['labour monitor hiring signal']
 	},
 	{
-		key: 'recruitment_resignation_rates_cached_json',
-		file: 'recruitment_resignation_rates.json',
+		key: 'recruitment_resignation_rates_csv',
+		file: 'recruitment_resignation_rates.csv',
 		location: 'raw',
-		label: 'Recruitment and resignation cached JSON',
-		expectedType: 'json',
+		label: 'Recruitment and resignation CSV',
+		expectedType: 'csv',
 		usedBy: ['labour monitor troubleshooting'],
 		referenceOnly: true
 	},
 	{
 		key: 'retrenchment_by_occupation_group',
-		file: 'retrenchment_by_occupation_group.csv',
+		file: 'retrenchment_by_occupation_group.json',
 		location: 'raw',
 		label: 'Retrenchment by occupation group',
-		expectedType: 'csv',
+		expectedType: 'json',
 		usedBy: ['labour monitor retrenchment signal']
+	},
+	{
+		key: 'retrenchment_by_occupation_group_csv',
+		file: 'retrenchment_by_occupation_group.csv',
+		location: 'raw',
+		label: 'Retrenchment by occupation group CSV',
+		expectedType: 'csv',
+		usedBy: ['labour monitor troubleshooting'],
+		referenceOnly: true
 	},
 	{
 		key: 'lfr2024_section_d',
@@ -250,6 +259,19 @@ function parseWorkbookPreview(filePath: string): { ok: boolean; note: string } {
 function auditEntry(def: AuditEntryDefinition): AuditEntryResult {
 	const filePath = resolveFilePath(def);
 	if (!fs.existsSync(filePath)) {
+		if (def.referenceOnly) {
+			return {
+				key: def.key,
+				file: def.file,
+				label: def.label,
+				status: 'reference_only',
+				exists: false,
+				expected_type: def.expectedType,
+				size_bytes: null,
+				used_by: def.usedBy,
+				note: 'Optional reference/backstop file is not present locally.'
+			};
+		}
 		return {
 			key: def.key,
 			file: def.file,

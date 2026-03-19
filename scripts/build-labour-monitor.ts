@@ -42,6 +42,7 @@ interface HiringSignal {
 	net_pressure: number;
 	signal: 1 | 0 | -1;
 	quarter?: string;
+	frequency?: 'quarterly' | 'annual';
 	note?: string;
 }
 
@@ -150,35 +151,49 @@ function getSupportedJsonRecords(parsed: unknown): Array<Record<string, unknown>
 }
 
 function computeHiringAverages(
-	rows: Array<{ quarter: string; recruitment_rate: number; resignation_rate: number }>
-): { recruitment_4q_avg: number; resignation_4q_avg: number; latest_quarter: string } | null {
+	rows: Array<{ period: string; recruitment_rate: number; resignation_rate: number }>
+): {
+	recruitment_avg: number;
+	resignation_avg: number;
+	latest_period: string;
+	frequency: 'quarterly' | 'annual';
+} | null {
 	if (rows.length === 0) return null;
-	rows.sort((a, b) => quarterSortKey(b.quarter) - quarterSortKey(a.quarter));
+	rows.sort((a, b) => periodSortKey(b.period) - periodSortKey(a.period));
 	const recent = rows.slice(0, Math.min(4, rows.length));
 	return {
-		recruitment_4q_avg: recent.reduce((sum, row) => sum + row.recruitment_rate, 0) / recent.length,
-		resignation_4q_avg: recent.reduce((sum, row) => sum + row.resignation_rate, 0) / recent.length,
-		latest_quarter: recent[0].quarter
+		recruitment_avg: recent.reduce((sum, row) => sum + row.recruitment_rate, 0) / recent.length,
+		resignation_avg: recent.reduce((sum, row) => sum + row.resignation_rate, 0) / recent.length,
+		latest_period: recent[0].period,
+		frequency: /^\d{4}$/.test(recent[0].period) ? 'annual' : 'quarterly'
 	};
 }
 
-function parseRecruitmentResignationRows(
-	rows: Array<Record<string, unknown>>
-): Map<
+function parseRecruitmentResignationRows(rows: Array<Record<string, unknown>>): Map<
 	ClusterKey,
-	{ recruitment_4q_avg: number; resignation_4q_avg: number; latest_quarter: string }
+	{
+		recruitment_avg: number;
+		resignation_avg: number;
+		latest_period: string;
+		frequency: 'quarterly' | 'annual';
+	}
 > | null {
 	const grouped = new Map<
 		ClusterKey,
-		Array<{ quarter: string; recruitment_rate: number; resignation_rate: number }>
+		Array<{ period: string; recruitment_rate: number; resignation_rate: number }>
 	>();
 	for (const key of Object.keys(CLUSTER_CSV_NAMES) as ClusterKey[]) grouped.set(key, []);
 
 	for (const row of rows) {
-		const quarter = parseQuarter(String(row.quarter ?? row.Quarter ?? ''));
-		if (!quarter) continue;
+		const period =
+			parseQuarter(String(row.quarter ?? row.Quarter ?? '')) ??
+			parseYear(String(row.year ?? row.Year ?? ''));
+		if (!period) continue;
 		if (!isTotalLabel(String(row.industry1 ?? row.Industry1 ?? ''))) continue;
-		if (!isTotalLabel(String(row.industry2 ?? row.Industry2 ?? ''))) continue;
+		const industry2 = row.industry2 ?? row.Industry2;
+		if (industry2 != null && String(industry2).trim() !== '' && !isTotalLabel(String(industry2))) {
+			continue;
+		}
 
 		const occLabel = normalizeLabel(
 			String(row.occupation1 ?? row.Occupation1 ?? row.occupation ?? row.occupation_group ?? '')
@@ -192,7 +207,7 @@ function parseRecruitmentResignationRows(
 		for (const [key, csvName] of Object.entries(CLUSTER_CSV_NAMES) as Array<[ClusterKey, string]>) {
 			if (occLabel === normalizeLabel(csvName)) {
 				grouped.get(key)!.push({
-					quarter,
+					period,
 					recruitment_rate: recruitmentRate,
 					resignation_rate: resignationRate
 				});
@@ -203,7 +218,12 @@ function parseRecruitmentResignationRows(
 
 	const result = new Map<
 		ClusterKey,
-		{ recruitment_4q_avg: number; resignation_4q_avg: number; latest_quarter: string }
+		{
+			recruitment_avg: number;
+			resignation_avg: number;
+			latest_period: string;
+			frequency: 'quarterly' | 'annual';
+		}
 	>();
 	for (const key of Object.keys(CLUSTER_CSV_NAMES) as ClusterKey[]) {
 		const averages = computeHiringAverages(grouped.get(key) ?? []);
@@ -301,10 +321,23 @@ function parseCompactQuarter(token: string): string | null {
 	return parseQuarter(cleaned);
 }
 
+function parseYear(token: string): string | null {
+	const cleaned = token.replace(/^"+|"+$/g, '').trim();
+	return /^\d{4}$/.test(cleaned) ? cleaned : null;
+}
+
 function quarterSortKey(q: string): number {
 	const match = q.match(/^(\d{4})\s+Q([1-4])$/);
 	if (!match) return 0;
 	return parseInt(match[1]) * 10 + parseInt(match[2]);
+}
+
+function periodSortKey(period: string): number {
+	const q = quarterSortKey(period);
+	if (q > 0) return q;
+	const year = parseYear(period);
+	if (year) return parseInt(year) * 10 + 9;
+	return 0;
 }
 
 // ===== Parse vacancy rates CSV =====
@@ -435,7 +468,12 @@ function parseVacancyCounts(): Map<ClusterKey, Array<{ quarter: string; count: n
 // ===== Parse recruitment/resignation CSV (if available) =====
 function parseRecruitmentResignation(): Map<
 	ClusterKey,
-	{ recruitment_4q_avg: number; resignation_4q_avg: number; latest_quarter: string }
+	{
+		recruitment_avg: number;
+		resignation_avg: number;
+		latest_period: string;
+		frequency: 'quarterly' | 'annual';
+	}
 > | null {
 	const filePath = path.join(RAW_DIR, 'recruitment_resignation_rates.csv');
 	try {
@@ -757,16 +795,21 @@ function main() {
 		if (hiringData) {
 			const hd = hiringData.get(clusterKey);
 			if (hd) {
-				const netPressure = hd.recruitment_4q_avg - hd.resignation_4q_avg;
+				const netPressure = hd.recruitment_avg - hd.resignation_avg;
 				let hiringSignal: 1 | 0 | -1 = 0;
 				if (netPressure > 0.1) hiringSignal = 1;
 				else if (netPressure < -0.1) hiringSignal = -1;
 				hiring = {
-					recruitment_rate: Math.round(hd.recruitment_4q_avg * 100) / 100,
-					resignation_rate: Math.round(hd.resignation_4q_avg * 100) / 100,
+					recruitment_rate: Math.round(hd.recruitment_avg * 100) / 100,
+					resignation_rate: Math.round(hd.resignation_avg * 100) / 100,
 					net_pressure: Math.round(netPressure * 100) / 100,
 					signal: hiringSignal,
-					quarter: hd.latest_quarter
+					quarter: hd.latest_period,
+					frequency: hd.frequency,
+					note:
+						hd.frequency === 'annual'
+							? 'Uses latest available annual average monthly rates from the published MOM dataset.'
+							: undefined
 				};
 			}
 		}
@@ -813,8 +856,8 @@ function main() {
 			enrichment = enrichData.find((e: any) => e.cluster_key === clusterKey);
 		}
 
-		// Merge hiring from enrichment if no CSV data
-		if (!hiring && enrichment?.hiring) {
+		// Merge hiring from enrichment if raw data is absent or only annual
+		if ((!hiring || hiring.frequency === 'annual') && enrichment?.hiring) {
 			const h = enrichment.hiring;
 			const netPressure = h.recruitment_rate - h.resignation_rate;
 			hiring = {
@@ -823,6 +866,7 @@ function main() {
 				net_pressure: Math.round(netPressure * 100) / 100,
 				signal: netPressure > 0.1 ? 1 : netPressure < -0.1 ? -1 : 0,
 				quarter: h.quarter,
+				frequency: 'quarterly',
 				note: h.note
 			};
 		} else if (hiring && enrichment?.hiring?.note) {

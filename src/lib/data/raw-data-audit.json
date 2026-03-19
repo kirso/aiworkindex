@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-03-19T10:15:30.286Z",
+  "generated_at": "2026-03-19T10:41:27.753Z",
   "summary": {
-    "valid": 13,
+    "valid": 15,
     "placeholder_error": 0,
-    "missing": 2,
-    "reference_only": 3
+    "missing": 0,
+    "reference_only": 4
   },
   "entries": [
     {
@@ -64,42 +64,55 @@
     },
     {
       "key": "recruitment_resignation_rates",
-      "file": "recruitment_resignation_rates.csv",
+      "file": "recruitment_resignation_rates.json",
       "label": "Recruitment and resignation rates",
-      "status": "missing",
-      "exists": false,
-      "expected_type": "csv",
-      "size_bytes": null,
+      "status": "valid",
+      "exists": true,
+      "expected_type": "json",
+      "size_bytes": 122855,
       "used_by": [
         "labour monitor hiring signal"
       ],
-      "note": "Expected raw file is not present locally."
+      "note": "Valid JSON payload."
     },
     {
-      "key": "recruitment_resignation_rates_cached_json",
-      "file": "recruitment_resignation_rates.json",
-      "label": "Recruitment and resignation cached JSON",
+      "key": "recruitment_resignation_rates_csv",
+      "file": "recruitment_resignation_rates.csv",
+      "label": "Recruitment and resignation CSV",
       "status": "reference_only",
-      "exists": true,
-      "expected_type": "json",
-      "size_bytes": 189,
-      "used_by": [
-        "labour monitor troubleshooting"
-      ],
-      "note": "Reference/backstop file present locally, not currently used in the live pipeline."
-    },
-    {
-      "key": "retrenchment_by_occupation_group",
-      "file": "retrenchment_by_occupation_group.csv",
-      "label": "Retrenchment by occupation group",
-      "status": "missing",
       "exists": false,
       "expected_type": "csv",
       "size_bytes": null,
       "used_by": [
+        "labour monitor troubleshooting"
+      ],
+      "note": "Optional reference/backstop file is not present locally."
+    },
+    {
+      "key": "retrenchment_by_occupation_group",
+      "file": "retrenchment_by_occupation_group.json",
+      "label": "Retrenchment by occupation group",
+      "status": "valid",
+      "exists": true,
+      "expected_type": "json",
+      "size_bytes": 128816,
+      "used_by": [
         "labour monitor retrenchment signal"
       ],
-      "note": "Expected raw file is not present locally."
+      "note": "Valid JSON payload."
+    },
+    {
+      "key": "retrenchment_by_occupation_group_csv",
+      "file": "retrenchment_by_occupation_group.csv",
+      "label": "Retrenchment by occupation group CSV",
+      "status": "reference_only",
+      "exists": false,
+      "expected_type": "csv",
+      "size_bytes": null,
+      "used_by": [
+        "labour monitor troubleshooting"
+      ],
+      "note": "Optional reference/backstop file is not present locally."
     },
     {
       "key": "lfr2024_section_d",

@@ -1,6 +1,6 @@
 {
   "version": "V4.0",
-  "generated_at": "2026-03-19T10:15:30.311Z",
+  "generated_at": "2026-03-19T10:41:27.777Z",
   "score_dataset_generated_at": "2026-03-19",
   "artifacts": [
     {
@@ -9,17 +9,17 @@
       "category": "structural_score",
       "description": "Flattened structural score dataset with basis and provenance columns.",
       "bytes": 258371,
-      "sha256": "cd35d9d31da41b0178419408c050d49b34fdc18afdf44c2aabc8c35f2f6f5bdf",
-      "generated_at": "2026-03-19T10:15:28.790Z"
+      "sha256": "84a05d13c51537ae15cba57557e4597606db8631b329a3ce1c47c77047b6626b",
+      "generated_at": "2026-03-19T10:41:26.294Z"
     },
     {
       "file": "sg-ai-occupations-v4.json",
       "label": "V4 structural score JSON",
       "category": "structural_score",
       "description": "Nested structural score dataset with basis and provenance metadata.",
-      "bytes": 2737062,
-      "sha256": "b5a50204f6b6c1ec301fc3efdc40c323c67afaccf467bdb6ca7dc861fe007060",
-      "generated_at": "2026-03-19T10:15:28.727Z"
+      "bytes": 2737073,
+      "sha256": "c6933f794649a88487cb4d5f323ec520aef25e517402a2307d48f55434eacce0",
+      "generated_at": "2026-03-19T10:41:26.207Z"
     },
     {
       "file": "sg-context-pack-2025.json",
@@ -27,17 +27,17 @@
       "category": "context_bundle",
       "description": "Published Singapore context bundle around the structural score: labour monitor, worker profile, industry context, sector wage anchors, and national AI context.",
       "bytes": 556399,
-      "sha256": "38c84632207a7cd8cbc482ac50275fea5293488cbb7979945bfa72efff21bcec",
-      "generated_at": "2026-03-19T10:15:28.818Z"
+      "sha256": "1b99d5fcf97d149376171328a65007545c38ead7b2dbbcf34f9faecadb7d966f",
+      "generated_at": "2026-03-19T10:41:26.319Z"
     },
     {
       "file": "sg-labour-monitor-2025.json",
       "label": "Singapore labour monitor",
       "category": "labour_monitor",
       "description": "Published cluster-level labour monitor used as current evidence around the score.",
-      "bytes": 11232,
-      "sha256": "f705560201cbeab46a736e0a10d0cfcd1c1387d5e185747ca6db54f9f1be06ca",
-      "generated_at": "2026-03-19T10:15:28.818Z"
+      "bytes": 11328,
+      "sha256": "5cea7335eae72a0901dacecd563338f83ba711e8d12257fbb7801857384abd7a",
+      "generated_at": "2026-03-19T10:41:26.319Z"
     },
     {
       "file": "sg-worker-profile-2024.json",
@@ -46,7 +46,7 @@
       "description": "Published Labour Force 2024 worker-profile context and detailed gender anchors.",
       "bytes": 116519,
       "sha256": "723a9704e3b87db1f5779406eb0915ad41f7987717058ec8808c5ecef1fa4f36",
-      "generated_at": "2026-03-19T10:15:27.309Z"
+      "generated_at": "2026-03-19T10:41:24.759Z"
     },
     {
       "file": "sg-ai-in-singapore-2025.json",
@@ -54,8 +54,8 @@
       "category": "national_ai_context",
       "description": "Official IMDA and MOM national AI adoption, workforce, and programme context used for reports and contextual framing.",
       "bytes": 3766,
-      "sha256": "d71cad64e96690d32d0cc230e670878d90c5deb7ab775a28451459142d473d19",
-      "generated_at": "2026-03-19T10:15:27.331Z"
+      "sha256": "e9e2d7f7a490d861342d56b522a8f55d3ed54918b7a080532bbc365c6d9d2be3",
+      "generated_at": "2026-03-19T10:41:24.784Z"
     },
     {
       "file": "sg-transition-support-v4.json",
@@ -63,8 +63,8 @@
       "category": "transition_support",
       "description": "Published heuristic transition-support artifact derived from the current transition-capacity model.",
       "bytes": 3594987,
-      "sha256": "6c8f26a6ad33ceee22fe989adc7dc454c77f9f2ddd5a42e1b78401946ae71b95",
-      "generated_at": "2026-03-19T10:15:29.939Z"
+      "sha256": "60971ca731e7e4cf3086a18afd81f99db22cc9efdb7aa6ea5dc9b1c80cf65c31",
+      "generated_at": "2026-03-19T10:41:27.512Z"
     },
     {
       "file": "claims-matrix-v4.json",
@@ -72,8 +72,8 @@
       "category": "governance",
       "description": "Machine-readable registry of major public claims, evidence strength, and source keys for the current release.",
       "bytes": 7319,
-      "sha256": "a70b2cc9153214eb8d9f76934f1c5e4b1dbc93d0141af331f59c1099b4649e82",
-      "generated_at": "2026-03-19T10:15:29.963Z"
+      "sha256": "aa9464a652af068d489128da97785ea5bf0f3d2f5112b1b78955e2e8d42719f9",
+      "generated_at": "2026-03-19T10:41:27.533Z"
     }
   ]
 }

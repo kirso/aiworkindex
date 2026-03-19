@@ -129,6 +129,7 @@
       "net_pressure": 0.6,
       "signal": 1,
       "quarter": "2025 Q3",
+      "frequency": "quarterly",
       "note": "Both rates below 10-year average. Recruitment still exceeds resignation."
     },
     "retrenchment": {
@@ -302,6 +303,7 @@
       "net_pressure": 1,
       "signal": 1,
       "quarter": "2025 Q3",
+      "frequency": "quarterly",
       "note": "Higher turnover cluster. Net hiring positive."
     },
     "retrenchment": {
@@ -475,6 +477,7 @@
       "net_pressure": 0.8,
       "signal": 1,
       "quarter": "2025 Q3",
+      "frequency": "quarterly",
       "note": "Construction and manufacturing driving non-resident hiring."
     },
     "retrenchment": {
