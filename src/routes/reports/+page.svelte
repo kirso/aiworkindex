@@ -28,16 +28,16 @@
 	<div class="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
 		<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
 			<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-				AI In Singapore · 2024
+				AI Adoption · 2024 Data
 			</p>
 			<p class="mt-1 font-mono text-lg font-bold text-foreground">
 				{ai.enterprises.non_sme_ai_adoption_pct.toFixed(1)}%
 			</p>
-			<p class="text-xs text-muted-foreground">non-SMEs reported using AI</p>
+			<p class="text-xs text-muted-foreground">latest observed non-SME AI adoption</p>
 		</div>
 		<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
 			<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-				Workers · 2024
+				Workers · 2024 Data
 			</p>
 			<p class="mt-1 font-mono text-lg font-bold text-foreground">
 				{ai.workforce.workers_using_ai_at_work_pct.toFixed(1)}%
@@ -55,12 +55,12 @@
 		</div>
 		<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
 			<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-				Labour Tightness · 2024
+				NAIIP · 2026
 			</p>
 			<p class="mt-1 font-mono text-lg font-bold text-foreground">
-				{macro.job_vacancy_to_unemployed_ratio.toFixed(2)}
+				{Math.round(ai.national_programmes.naiip_workers_target / 1000)}K
 			</p>
-			<p class="text-xs text-muted-foreground">vacancies per unemployed person</p>
+			<p class="text-xs text-muted-foreground">workers targeted to become AI-bilingual</p>
 		</div>
 	</div>
 

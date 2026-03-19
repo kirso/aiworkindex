@@ -7,6 +7,7 @@
 	import HeroSearch from '$lib/components/ui/HeroSearch.svelte';
 	import FilterPanel from '$lib/components/ui/FilterPanel.svelte';
 	import OccupationCardList from '$lib/components/ui/OccupationCardList.svelte';
+	import * as Tabs from '$lib/components/ui/tabs/index.js';
 	import { card, sectionLabel, caption } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import { riskBandLabels, riskBandColors, impactTypeLabels, impactTypeColors } from '$lib/data';
@@ -199,16 +200,16 @@
 		<div class="grid gap-3 border-t border-border/60 pb-6 pt-4 sm:grid-cols-2 xl:grid-cols-4">
 			<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
 				<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-					AI In Singapore · 2024
+					AI Adoption · 2024 Data
 				</p>
 				<p class="mt-1 font-mono text-lg font-bold text-foreground">
 					{singaporeContext.ai.enterprises.non_sme_ai_adoption_pct.toFixed(1)}%
 				</p>
-				<p class="text-xs text-muted-foreground">non-SMEs reported using AI</p>
+				<p class="text-xs text-muted-foreground">latest observed non-SME AI adoption</p>
 			</div>
 			<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
 				<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-					Workers · 2024
+					Workers · 2024 Data
 				</p>
 				<p class="mt-1 font-mono text-lg font-bold text-foreground">
 					{singaporeContext.ai.workforce.workers_using_ai_at_work_pct.toFixed(1)}%
@@ -226,12 +227,12 @@
 			</div>
 			<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
 				<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-					Labour Tightness · 2024
+					NAIIP · 2026
 				</p>
 				<p class="mt-1 font-mono text-lg font-bold text-foreground">
-					{singaporeContext.macro.job_vacancy_to_unemployed_ratio.toFixed(2)}
+					{Math.round(singaporeContext.ai.national_programmes.naiip_workers_target / 1000)}K
 				</p>
-				<p class="text-xs text-muted-foreground">vacancies per unemployed person</p>
+				<p class="text-xs text-muted-foreground">workers targeted to become AI-bilingual</p>
 			</div>
 		</div>
 	</div>
@@ -345,39 +346,35 @@
 				</div>
 
 				<div class={cn(card({ padding: 'sm' }), 'mb-4')}>
-					<div class="mb-3 flex flex-col gap-3 px-1 md:flex-row md:items-center md:justify-between">
-						<div>
-							<h2 class={sectionLabel()}>
-								{insightViews.find(view => view.key === activeInsightView)?.label}
-							</h2>
-							<p class={caption()}>
-								{insightViews.find(view => view.key === activeInsightView)?.caption}
-							</p>
+					<Tabs.Root bind:value={activeInsightView} class="w-full gap-3">
+						<div class="flex flex-col gap-3 px-1 md:flex-row md:items-center md:justify-between">
+							<div>
+								<h2 class={sectionLabel()}>
+									{insightViews.find(view => view.key === activeInsightView)?.label}
+								</h2>
+								<p class={caption()}>
+									{insightViews.find(view => view.key === activeInsightView)?.caption}
+								</p>
+							</div>
+							<Tabs.List class="w-full md:w-auto">
+								{#each insightViews as view (view.key)}
+									<Tabs.Trigger value={view.key} class="text-xs md:min-w-32">
+										{view.label}
+									</Tabs.Trigger>
+								{/each}
+							</Tabs.List>
 						</div>
-						<div class="flex flex-wrap gap-2">
-							{#each insightViews as view (view.key)}
-								<button
-									type="button"
-									class={cn(
-										'rounded-md border px-2.5 py-1 text-xs font-medium transition-colors',
-										activeInsightView === view.key
-											? 'border-foreground bg-foreground text-background'
-											: 'border-border bg-card text-foreground hover:bg-accent'
-									)}
-									onclick={() => (activeInsightView = view.key)}
-								>
-									{view.label}
-								</button>
-							{/each}
-						</div>
-					</div>
-					{#if activeInsightView === 'quadrant'}
-						<ScatterQuadrant occupations={filteredOccupations} />
-					{:else if activeInsightView === 'distribution'}
-						<Histogram occupations={filteredOccupations} />
-					{:else}
-						<WageBracketChart occupations={filteredOccupations} />
-					{/if}
+
+						<Tabs.Content value="quadrant">
+							<ScatterQuadrant occupations={filteredOccupations} />
+						</Tabs.Content>
+						<Tabs.Content value="distribution">
+							<Histogram occupations={filteredOccupations} />
+						</Tabs.Content>
+						<Tabs.Content value="wage">
+							<WageBracketChart occupations={filteredOccupations} />
+						</Tabs.Content>
+					</Tabs.Root>
 				</div>
 
 				<!-- Featured: 4 cards -->
