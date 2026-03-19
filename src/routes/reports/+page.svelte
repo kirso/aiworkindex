@@ -1,9 +1,14 @@
 <script lang="ts">
+	import aiInSingapore from '$lib/data/ai-in-singapore.json';
+	import macroContext from '$lib/data/macro-context.json';
 	import { title as titleStyle, pageLayout, card, sectionLabel } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
+
+	const ai = aiInSingapore.metrics;
+	const macro = macroContext.latest_snapshot;
 </script>
 
 <Seo
@@ -20,7 +25,46 @@
 		Quarterly analysis of AI impact trends across Singapore occupations.
 	</p>
 
-	<p class={cn(sectionLabel(), 'mt-6 mb-3')}>Quarterly Updates</p>
+	<div class="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+		<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
+			<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+				AI In Singapore · 2024
+			</p>
+			<p class="mt-1 font-mono text-lg font-bold text-foreground">
+				{ai.enterprises.non_sme_ai_adoption_pct.toFixed(1)}%
+			</p>
+			<p class="text-xs text-muted-foreground">non-SMEs reported using AI</p>
+		</div>
+		<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
+			<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+				Workers · 2024
+			</p>
+			<p class="mt-1 font-mono text-lg font-bold text-foreground">
+				{ai.workforce.workers_using_ai_at_work_pct.toFixed(1)}%
+			</p>
+			<p class="text-xs text-muted-foreground">reported using AI at work</p>
+		</div>
+		<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
+			<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+				Labour Backdrop · 2025 4Q
+			</p>
+			<p class="mt-1 font-mono text-lg font-bold text-foreground">
+				{macro.resident_unemployment_rate.toFixed(1)}%
+			</p>
+			<p class="text-xs text-muted-foreground">resident unemployment rate</p>
+		</div>
+		<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
+			<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+				Labour Tightness · 2024
+			</p>
+			<p class="mt-1 font-mono text-lg font-bold text-foreground">
+				{macro.job_vacancy_to_unemployed_ratio.toFixed(2)}
+			</p>
+			<p class="text-xs text-muted-foreground">vacancies per unemployed person</p>
+		</div>
+	</div>
+
+	<p class={cn(sectionLabel(), 'mt-8 mb-3')}>Latest Briefing</p>
 	<div class="space-y-4">
 		<!-- Q3 2025 Update -->
 		<div class={cn(card({ padding: 'lg' }), 'border-2 border-primary/20')}>
@@ -61,7 +105,10 @@
 				>, MRSD, MOM
 			</p>
 		</div>
+	</div>
 
+	<p class={cn(sectionLabel(), 'mt-8 mb-3')}>Reports & Analysis</p>
+	<div class="space-y-4">
 		<!-- Wage Exposure Analysis -->
 		<a href="/reports/wage-exposure" class="block no-underline">
 			<div class={cn(card({ padding: 'lg', hover: true }), 'flex items-start justify-between')}>
