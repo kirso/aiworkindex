@@ -1,4 +1,6 @@
 import { occupations, majorGroups } from '$lib/data';
+import aiInSingapore from '$lib/data/ai-in-singapore.json';
+import macroContext from '$lib/data/macro-context.json';
 import type { PageLoad } from './$types';
 
 export const load: PageLoad = () => {
@@ -41,6 +43,10 @@ export const load: PageLoad = () => {
 			demandCount,
 			nationalMedian,
 			wagePoolUnderPressureBillions
+		},
+		singaporeContext: {
+			ai: aiInSingapore.metrics,
+			macro: macroContext.latest_snapshot
 		}
 	};
 };

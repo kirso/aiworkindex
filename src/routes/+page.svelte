@@ -75,6 +75,7 @@
 			.sort((a, b) => b.market.market_resilience - a.market.market_resilience)
 			.slice(0, 5)
 	);
+	let singaporeContext = $derived(data.singaporeContext);
 
 	const faqJsonLd = `<script type="application/ld+json">${JSON.stringify({
 		'@context': 'https://schema.org',
@@ -174,6 +175,45 @@
 					SGD {(data.stats.nationalMedian / 1000).toFixed(1)}K
 				</p>
 				<p class="text-[10px] text-muted-foreground">median wage</p>
+			</div>
+		</div>
+
+		<div class="grid gap-3 border-t border-border/60 pb-6 pt-4 sm:grid-cols-2 xl:grid-cols-4">
+			<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
+				<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+					AI In Singapore · 2024
+				</p>
+				<p class="mt-1 font-mono text-lg font-bold text-foreground">
+					{singaporeContext.ai.enterprises.non_sme_ai_adoption_pct.toFixed(1)}%
+				</p>
+				<p class="text-xs text-muted-foreground">non-SMEs reported using AI</p>
+			</div>
+			<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
+				<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+					Workers · 2024
+				</p>
+				<p class="mt-1 font-mono text-lg font-bold text-foreground">
+					{singaporeContext.ai.workforce.workers_using_ai_at_work_pct.toFixed(1)}%
+				</p>
+				<p class="text-xs text-muted-foreground">reported using AI at work</p>
+			</div>
+			<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
+				<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+					Labour Backdrop · 2025 4Q
+				</p>
+				<p class="mt-1 font-mono text-lg font-bold text-foreground">
+					{singaporeContext.macro.resident_unemployment_rate.toFixed(1)}%
+				</p>
+				<p class="text-xs text-muted-foreground">resident unemployment rate</p>
+			</div>
+			<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
+				<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+					Labour Tightness · 2024
+				</p>
+				<p class="mt-1 font-mono text-lg font-bold text-foreground">
+					{singaporeContext.macro.job_vacancy_to_unemployed_ratio.toFixed(2)}
+				</p>
+				<p class="text-xs text-muted-foreground">vacancies per unemployed person</p>
 			</div>
 		</div>
 	</div>
