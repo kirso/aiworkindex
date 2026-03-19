@@ -62,6 +62,35 @@
 			</p>
 		</div>
 
+		<!-- Wage Exposure Analysis -->
+		<a href="/reports/wage-exposure" class="block no-underline">
+			<div class={cn(card({ padding: 'lg', hover: true }), 'flex items-start justify-between')}>
+				<div>
+					<div class="flex items-center gap-2">
+						<span class="text-base font-semibold text-foreground">Wage Exposure Analysis</span>
+						<Badge
+							variant="outline"
+							class="bg-risk-high-subtle text-risk-high border-risk-high-border">Report</Badge
+						>
+					</div>
+					<p class="mt-1 text-sm text-muted-foreground">
+						SGD 46 billion in annual wages sit in high+ risk occupations. Breakdown by sector, top
+						individual wage exposure, and methodology notes.
+					</p>
+					<p class="mt-2 text-xs text-muted-foreground">Based on V3.3 scoring, March 2026</p>
+				</div>
+				<svg
+					class="ml-4 mt-1 h-5 w-5 shrink-0 text-muted-foreground"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+				>
+					<path d="M5 12h14M12 5l7 7-7 7" />
+				</svg>
+			</div>
+		</a>
+
 		<!-- Q4 2024 Report -->
 		<a href="/reports/q4-2024" class="block no-underline">
 			<div class={cn(card({ padding: 'lg', hover: true }), 'flex items-start justify-between')}>

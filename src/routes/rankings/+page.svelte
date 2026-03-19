@@ -78,6 +78,15 @@
 			count: 25
 		},
 		{
+			href: '/rankings/rich-and-risky',
+			title: 'Rich and Risky',
+			description:
+				'Highest-paid occupations (SGD 5K+/month) facing high AI displacement risk (30%+)',
+			color: 'text-risk-high',
+			accent: 'high' as const,
+			count: 25
+		},
+		{
 			href: '/rankings/quarterly-movers',
 			title: 'Quarterly Movers',
 			description: 'Occupations that changed risk bands since the last quarterly snapshot',

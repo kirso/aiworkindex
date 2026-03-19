@@ -116,7 +116,8 @@
 				How will AI affect your job?
 			</h1>
 			<p class="mt-1.5 text-sm text-muted-foreground">
-				Search any Singapore occupation or modern role
+				Search any Singapore occupation or modern role ·
+				<a href="/calculator" class="text-primary hover:underline">Try the salary calculator</a>
 			</p>
 			<div class="mt-4">
 				<HeroSearch occupations={data.occupations} />

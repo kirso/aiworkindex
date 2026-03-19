@@ -38,8 +38,11 @@
 		</svg>
 		<h2 class="mt-4 text-base font-semibold text-foreground">Coming Next Quarter</h2>
 		<p class="mt-2 text-sm text-muted-foreground">
-			Quarterly snapshot comparison requires at least two data snapshots. This page will show band
-			movers after the next scoring update.
+			V3.3 (March 2026) is the current baseline snapshot. This page will show occupations that
+			change risk bands when the next quarterly labour data arrives and scores are re-run.
+		</p>
+		<p class="mt-2 text-xs text-muted-foreground">
+			Expected: When Q4 2025 full MOM Labour Market Report is published.
 		</p>
 	</div>
 </main>
