@@ -22,6 +22,8 @@ interface Occupation {
 	risk_band: string;
 	impact_type: string;
 	confidence: { level: string };
+	stability?: { optimistic_risk: number; pessimistic_risk: number };
+	education_label?: string;
 }
 
 const RISK_COLORS: Record<string, string> = {
@@ -67,6 +69,10 @@ function buildMarkup(occ: Occupation) {
 	const riskPct = Math.round(occ.net_risk * 100);
 	const wage = `SGD ${occ.gross_wage_median.toLocaleString()}/mo`;
 	const title = occ.title.length > 45 ? occ.title.substring(0, 42) + '...' : occ.title;
+	const range = occ.stability
+		? `${Math.round(occ.stability.optimistic_risk * 100)}–${Math.round(occ.stability.pessimistic_risk * 100)}%`
+		: '';
+	const edu = occ.education_label ?? '';
 
 	return h(
 		'div',
@@ -144,11 +150,13 @@ function buildMarkup(occ: Occupation) {
 			},
 			h(
 				'div',
-				{ style: { display: 'flex', gap: '40px', fontSize: '22px', color: '#94a3b8' } },
+				{ style: { display: 'flex', gap: '30px', fontSize: '20px', color: '#94a3b8' } },
 				h('div', {}, impactLabel),
-				h('div', {}, wage)
+				h('div', {}, wage),
+				range ? h('div', {}, `Range: ${range}`) : null,
+				edu ? h('div', { style: { color: '#64748b' } }, edu) : null
 			),
-			h('div', { style: { fontSize: '18px', color: '#475569' } }, 'sg-ai-jobs.vercel.app')
+			h('div', { style: { fontSize: '18px', color: '#475569' } }, 'aiworkindex.pages.dev')
 		)
 	);
 }

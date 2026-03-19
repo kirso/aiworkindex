@@ -105,11 +105,35 @@
 			<div class="mt-4 grid gap-3 sm:grid-cols-2">
 				{#each dimensions as dim}
 					{@const status = baseOutlook[dim.key]}
+					{@const level =
+						status === 'resilient'
+							? 0.15
+							: status === 'watch'
+								? 0.4
+								: status === 'under_pressure'
+									? 0.7
+									: 0.95}
+					{@const barColor =
+						status === 'resilient'
+							? 'bg-risk-very-low'
+							: status === 'watch'
+								? 'bg-risk-moderate'
+								: status === 'under_pressure'
+									? 'bg-risk-high'
+									: 'bg-risk-very-high'}
 					<div class="rounded-lg bg-muted p-3">
-						<p class="text-xs text-muted-foreground">{dim.label}</p>
-						<p class="mt-0.5 text-sm font-semibold {outlookStatusColors[status]}">
-							{outlookStatusLabels[status]}
-						</p>
+						<div class="flex items-center justify-between">
+							<p class="text-xs text-muted-foreground">{dim.label}</p>
+							<p class="text-xs font-semibold {outlookStatusColors[status]}">
+								{outlookStatusLabels[status]}
+							</p>
+						</div>
+						<div class="mt-1.5 h-1.5 w-full rounded-full bg-muted-foreground/10">
+							<div
+								class="h-1.5 rounded-full transition-all duration-300 {barColor}"
+								style="width: {level * 100}%;"
+							></div>
+						</div>
 					</div>
 				{/each}
 			</div>

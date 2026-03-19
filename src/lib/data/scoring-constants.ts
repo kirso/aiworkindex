@@ -95,7 +95,7 @@ export const AUGMENTATION_THRESHOLDS = {
 // ============================================
 
 /**
- * Seniority modifiers — recalibrated V3.2 based on Stanford DEL (2025):
+ * Seniority modifiers — calibrated based on Stanford DEL (2025):
  * - Ages 22-25 in AI-exposed occupations: 16% relative employment decline
  * - Ages 30+ in same occupations: 6-12% growth
  * - Effects concentrated in automation-prone occupations

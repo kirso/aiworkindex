@@ -143,7 +143,14 @@
 		{/if}
 	</div>
 
-	<p class="mt-3 text-xs text-muted-foreground">
-		Cluster-level data, not occupation-specific · Source: {monitor.source || 'MRSD, MOM'}
+	<p class="mt-3 text-xs text-muted-foreground/60 italic">
+		Cluster-level data — same for all occupations in the {monitor.cluster_label} group. Per-occupation
+		labour data is not publicly available from MOM.
+		<a
+			href="https://stats.mom.gov.sg/iMAS_PdfLibrary/mrsd-Labour-Market-Report-3Q-2025.pdf"
+			target="_blank"
+			rel="noopener noreferrer"
+			class="text-primary hover:underline not-italic">Source: Labour Market Report Q3 2025</a
+		>
 	</p>
 </div>

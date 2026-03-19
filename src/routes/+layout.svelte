@@ -201,28 +201,70 @@
 						{DATA_VINTAGE.model_version} · {DATA_VINTAGE.wages} wages · {DATA_VINTAGE.labour_monitor}
 						labour data · {DATA_VINTAGE.occupation_count} occupations · {DATA_VINTAGE.role_count} roles
 					</p>
-					<p class="mt-1 text-xs text-muted-foreground/40">
-						Made by <a
+					<div class="mt-1.5 flex flex-wrap items-center gap-2 text-xs text-muted-foreground/50">
+						<span>Made by</span>
+						<a
 							href="https://www.kirillso.com"
 							target="_blank"
 							rel="noopener noreferrer"
-							class="hover:text-muted-foreground">Kirill So</a
+							class="font-medium text-muted-foreground hover:text-foreground"
+							aria-label="Kirill So's website"
 						>
-						· Built with
+							<svg
+								class="inline h-3.5 w-3.5"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								><circle cx="12" cy="12" r="10" /><path
+									d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+								/></svg
+							>
+						</a>
 						<a
-							href="https://www.anthropic.com"
+							href="https://www.linkedin.com/in/kirso/"
 							target="_blank"
 							rel="noopener noreferrer"
-							class="hover:text-muted-foreground">Claude</a
+							class="font-medium text-muted-foreground hover:text-foreground"
+							aria-label="Kirill So on LinkedIn"
 						>
-						(Anthropic) &
+							<svg class="inline h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor"
+								><path
+									d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"
+								/></svg
+							>
+						</a>
 						<a
-							href="https://openai.com"
+							href="https://x.com/kirso_"
 							target="_blank"
 							rel="noopener noreferrer"
-							class="hover:text-muted-foreground">GPT</a
-						> (OpenAI)
-					</p>
+							class="font-medium text-muted-foreground hover:text-foreground"
+							aria-label="Kirill So on X"
+						>
+							<svg class="inline h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor"
+								><path
+									d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+								/></svg
+							>
+						</a>
+						<span class="text-muted-foreground/30">·</span>
+						<span
+							>Built with
+							<a
+								href="https://www.anthropic.com"
+								target="_blank"
+								rel="noopener noreferrer"
+								class="font-medium text-muted-foreground hover:text-foreground">Claude</a
+							>
+							&
+							<a
+								href="https://openai.com"
+								target="_blank"
+								rel="noopener noreferrer"
+								class="font-medium text-muted-foreground hover:text-foreground">GPT</a
+							>
+						</span>
+					</div>
 				</div>
 				<div class="flex flex-col items-end gap-1.5">
 					<div class="flex items-center gap-3 text-xs text-muted-foreground">
@@ -237,7 +279,9 @@
 							class="hover:text-foreground">GitHub</a
 						>
 					</div>
-					<span class="text-[10px] text-muted-foreground/30">MIT Licensed · Open Source</span>
+					<span class="text-[10px] text-muted-foreground/30"
+						>MIT Licensed · Open Source · Updated {DATA_VINTAGE.last_updated}</span
+					>
 				</div>
 			</div>
 		</div>

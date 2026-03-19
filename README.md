@@ -1,94 +1,112 @@
-# Singapore AI Occupation Impact Index
+# AI Work Index — Singapore
 
-Three layers of AI impact across 562 Singapore occupations -- exposure, human bottleneck, and market resilience. Risk bands with visible confidence. Academic indices, not LLM vibes.
+V4.0: 4-input ensemble exposure model scoring 562 Singapore occupations and 88 modern roles for AI displacement risk. Validated against US BLS employment projections (rho=-0.14, p<0.01, n=530).
 
-**[Live Demo](https://sg-ai-jobs.vercel.app)** | **[Methodology](https://sg-ai-jobs.vercel.app/methodology)**
+**[Live Site](https://aiworkindex.pages.dev)** | **[Methodology](https://aiworkindex.pages.dev/methodology)** | **[Calculator](https://aiworkindex.pages.dev/calculator)** | **[Data](https://aiworkindex.pages.dev/data)**
 
-## Key Findings
+## Key Numbers
 
-- **562 occupations scored**: 53% Low/Very Low risk, 24% Moderate, 23% High/Very High
-- **Impact types**: 177 Augmented, 85 At Risk, 214 Stable, 86 Mixed
-- **Crosswalk coverage**: 92.7% direct match (521/562), 7.1% sub-major fallback, 0.2% major fallback
+- **562 occupations** scored across 9 major groups
+- **88 synthetic roles** (product manager, data scientist, delivery rider, startup founder...)
+- **27% face high+ AI risk** (152 occupations)
+- **SGD 52B** in annual wages at structural risk
+- **50%** average AI task overlap across all occupations
+- **4-input ensemble**: Felten AIOE + Anthropic observed usage + Eloundou GPT-4 + ILO 2025
 
 ## How It Works
 
-Three-layer deterministic scoring:
+Three-layer deterministic scoring — no LLM in the pipeline:
 
-1. **Exposure** -- Felten AIOE: AI capability overlap with job abilities
-2. **Human Bottleneck** -- Pizzinelli theta: judgment, presence, responsibility
-3. **Market Resilience** -- MOM employment/wage trends + occupation wage structure + SOL/JiD demand flags + Anthropic calibration
+1. **Exposure** — 4-input ensemble: AIOE (2021), Anthropic Economic Index (2026), Eloundou GPTs-are-GPTs (2024), ILO Refined Index (2025). Equal-weight average of available inputs per occupation.
+2. **Human Bottleneck** — Pizzinelli theta from O*NET Work Context (judgment, presence, coordination)
+3. **Market Resilience** — MOM employment/wage trends + SOL/JiD demand signals + Anthropic calibration
 
 ```
-net_risk = exposure x (1 - bottleneck) x market_modifier
+net_risk = exposure × (1 − bottleneck) × market_modifier
 ```
 
-Published as risk bands (Very Low through Very High) with visible confidence. No LLM in the scoring pipeline.
+Published as risk bands (Very Low through Very High) with Monte Carlo confidence intervals (1000-run simulation).
+
+## Validation
+
+- **BLS cross-country**: rho=-0.14, p<0.01 on 530 occupations mapped via ISCO-08→SOC crosswalk
+- **Cluster-level**: 3/4 directional checks pass against Singapore Q3 2025 labour outcomes
+- **49 structural checks**: anchor occupations, band consistency, impact type recomputation
+- Methodology page: [aiworkindex.pages.dev/methodology](https://aiworkindex.pages.dev/methodology)
 
 ## Quick Start
 
 ```bash
-git clone https://github.com/kirso/sg-ai-jobs
-cd sg-ai-jobs
+git clone https://github.com/kirso/aiworkindex
+cd aiworkindex
 bun install
-bun run scripts/score.ts    # Re-score all occupations
-bun run scripts/export-csv.ts  # Export CSV to static/data/
-bun run dev                  # Start dev server
+bun run scripts/score.ts        # Score all 562 occupations
+bun run validate                 # Run 49 structural checks
+bun run dev                      # Start dev server
+bun run build                    # Build 672 prerendered pages
 ```
 
 ## Data Sources
 
-| Source | What | License |
-|--------|------|---------|
-| MOM Singapore | 562 occupations, wages, employment | Public |
-| Felten AIOE (2021) | AI exposure per SOC | CC |
-| O*NET | Work context, job zones | CC-BY 4.0 |
-| Anthropic Economic Index (2026) | Observed AI usage calibration | CC |
-| MOM SOL 2026 | Shortage occupation flags | Public |
-| MOM Jobs in Demand 2025 | Demand flags | Public |
-| Stanford "Canaries" (2025) | Career-stage signals | Academic |
+| Source | What | Year |
+|--------|------|------|
+| MOM Singapore | 562 SSOC occupations, wages, employment | 2024-2025 |
+| Felten AIOE | AI exposure per SOC (academic index) | 2021 |
+| Anthropic Economic Index | Observed AI usage (HuggingFace, CC-BY) | Jan 2026 |
+| Eloundou et al. | GPT-4 task-level exposure (Science, 2024) | 2024 |
+| ILO Refined Index | ISCO-08 exposure (52K expert data points) | May 2025 |
+| O*NET | Work Context, Job Zones, Task Statements | 2020 |
+| MOM SOL 2026 | Shortage Occupation List | Nov 2025 |
+| MOM Jobs in Demand | In-demand occupation flags | Dec 2025 |
+| US BLS | Employment projections 2024-2034 (validation) | Aug 2025 |
+
+## Singapore Context
+
+Each occupation page shows:
+- **Education level** (O*NET Job Zones → Singapore labels)
+- **Progressive Wage Model** coverage (57 occupations in 9 PWM sectors)
+- **Licensed profession** flag (53 strict + 23 partial)
+- **Foreign worker dependency** (73 very high + 33 high + 45 moderate)
+- **SkillsFuture** career conversion eligibility (154 occupations)
 
 ## Data Download
 
-- [All 562 occupations (CSV)](https://sg-ai-jobs.vercel.app/data/sg-ai-occupations-2024.csv)
-- [Raw JSON](https://github.com/kirso/sg-ai-jobs/blob/main/data/occupations.json)
+- [All occupations (JSON)](https://github.com/kirso/aiworkindex/blob/main/data/occupations.json)
+- [Data page with dictionary](https://aiworkindex.pages.dev/data)
 
 ## Academic References
 
-1. Felten, Raj & Seamans (2021). "Occupational, Industry, and Geographic Exposure to Artificial Intelligence: A Novel Dataset and Its Potential Uses." *Strategic Management Journal*, 42(12), 2195-2217.
-2. Pizzinelli et al. (2023). "Labor Market Exposure to AI: Cross-country Differences and Distributional Implications." *IMF Working Paper* WP/23/216.
-3. IMF Singapore (2024). "Impact of Artificial Intelligence on the Singapore Labor Market." *IMF Selected Issues Paper* SIP/2024/040.
-4. Eloundou et al. (2023). "GPTs are GPTs: An Early Look at the Labor Market Impact Potential of Large Language Models." *arXiv:2303.10130*.
-5. Demirer et al. (2025). "Canaries in the Coal Mine: Early Signals from AI's Impact on the Labor Market." Stanford Digital Economy Lab.
-6. Ministry of Manpower, Singapore (2025). "Jobs in Demand 2025."
-7. Ministry of Manpower, Singapore (2025). "Job Vacancies 2024."
-8. Ministry of Manpower, Singapore (2025). COMPASS Shortage Occupation List (SOL). Effective January 1, 2026.
-9. Anthropic (2026). "The Anthropic Economic Index: Economic Primitives." Dataset on HuggingFace.
-
-## Adapt for Your Country
-
-The scoring pipeline uses ISCO-08 as an intermediate standard. Any country with a national occupation classification that maps to ISCO-08 can be adapted. See `scripts/crosswalk.ts` for the mapping logic.
-
-## Limitations
-
-- **Exposure does not equal displacement** -- we model this gap explicitly, but the market translation layer uses heuristics and lagging indicators.
-- **US-centric ability data** -- O*NET surveys US workers. Task composition may differ in Singapore.
-- **Group-level market granularity** -- Market momentum is major-group level. Occupation-level wage structure adds within-group differentiation but is a scarcity proxy.
-- **Static exposure snapshot** -- Felten AIOE reflects 2021 AI capabilities.
-- **Career-stage blind spot** -- v1 scores occupations as a whole, not junior vs senior.
-- **Crosswalk imprecision** -- 7.3% of occupations use fallback scores. Confidence score reflects this.
+1. Felten, Raj & Seamans (2021). *Strategic Management Journal*, 42(12). [DOI](https://doi.org/10.1002/smj.3286)
+2. Pizzinelli et al. (2023). *IMF Working Paper* WP/23/216. [IMF](https://www.imf.org/en/Publications/WP/Issues/2023/10/05/540476)
+3. Frank et al. (2025). *PNAS Nexus*. [PMC](https://pmc.ncbi.nlm.nih.gov/articles/PMC11983276/)
+4. Eloundou et al. (2024). *Science*. [arXiv](https://arxiv.org/abs/2303.10130)
+5. Demirer et al. (2025). Stanford DEL. [Paper](https://digitaleconomy.stanford.edu/publications/canaries-in-the-coal-mine/)
+6. Brynjolfsson, Li & Raymond (2023). *NBER Working Paper* 31161. [NBER](https://www.nber.org/papers/w31161)
+7. ILO (2025). *Working Paper* 140. [ILO](https://www.ilo.org/publications/generative-ai-and-jobs-refined-global-index-occupational-exposure)
 
 ## Tech Stack
 
-- SvelteKit + Svelte 5 (static site generation via adapter-static)
-- D3.js for layout computation (treemap, scales)
-- Tailwind CSS v4
+- SvelteKit 5 + Svelte 5 runes (static site, adapter-static)
+- Tailwind CSS v4 + shadcn-svelte (Bits UI)
+- D3.js for visualization layout
 - TypeScript scoring pipeline (Bun runtime)
-- Deployed on Vercel
+- Satori + Resvg for OG image generation
+- Deployed on Cloudflare Workers
 
-## Inspired By
+## Limitations
 
-[Andrej Karpathy's AI Employment Outlook Map](https://joshkale.github.io/jobs/) -- we go further by separating exposure from displacement, adding market resilience, and providing rich per-occupation detail pages with visible confidence.
+- **Exposure data age**: AIOE is from 2021 (pre-GPT-4). Ensemble with newer sources mitigates but doesn't eliminate.
+- **Employment granularity**: MOM publishes employment at 9 major groups, not per occupation. BLS proportional proxy helps.
+- **Market modifier weights**: 0.6/0.4 momentum/scarcity split is calibrated, not empirically derived.
+- **Cluster-level labour data**: Same vacancy/hiring data for all occupations in each of 3 clusters.
+- **Synthetic role weights**: Expert-assigned SSOC blends, not validated against job posting data.
 
 ## License
 
 MIT
+
+## Author
+
+[Kirill So](https://www.kirillso.com) · [LinkedIn](https://www.linkedin.com/in/kirso/) · [X](https://x.com/kirso_)
+
+Built with [Claude](https://www.anthropic.com) (Anthropic) & [GPT](https://openai.com) (OpenAI)
