@@ -26,6 +26,15 @@ export const RISK_BAND_THRESHOLDS: Record<RiskBand, { lower: number; upper: numb
 	very_high: { lower: 0.50, upper: 1.0 }
 };
 
+/** Classify a net_risk value into a risk band. Single source of truth. */
+export function getRiskBand(value: number): RiskBand {
+	if (value < RISK_BAND_THRESHOLDS.low.lower) return 'very_low';
+	if (value < RISK_BAND_THRESHOLDS.moderate.lower) return 'low';
+	if (value < RISK_BAND_THRESHOLDS.high.lower) return 'moderate';
+	if (value < RISK_BAND_THRESHOLDS.very_high.lower) return 'high';
+	return 'very_high';
+}
+
 // ============================================
 // IMPACT TYPE RULES
 // ============================================
@@ -157,6 +166,20 @@ export const MARKET_CONSTANTS = {
 	/** Jobs in Demand bonuses */
 	jid_exact_bonus: 0.10,
 	jid_prefix_bonus: 0.05
+} as const;
+
+// ============================================
+// RANKING PAGE THRESHOLDS
+// ============================================
+
+/** Thresholds used by ranking page filters — derived from model thresholds */
+export const RANKING_THRESHOLDS = {
+	/** High risk floor for ranking pages (matches risk_band 'high' lower bound) */
+	high_risk_floor: 0.30,
+	/** Low risk ceiling for "safest" rankings */
+	low_risk_ceiling: 0.15,
+	/** High income floor (SGD/month) for "high-paying" rankings */
+	high_income_sgd: 5000
 } as const;
 
 // ============================================

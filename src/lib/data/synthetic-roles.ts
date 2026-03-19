@@ -1,4 +1,5 @@
 import type { Occupation, RiskBand, ImpactType, AugmentationBand } from './index';
+import { getRiskBand } from './scoring-constants';
 
 export interface SyntheticRole {
 	slug: string;
@@ -942,13 +943,6 @@ function weightedMean(values: number[], weights: number[]): number {
 	return wSum > 0 ? sum / wSum : 0;
 }
 
-function computeRiskBand(netRisk: number): RiskBand {
-	if (netRisk < 0.05) return 'very_low';
-	if (netRisk < 0.15) return 'low';
-	if (netRisk < 0.30) return 'moderate';
-	if (netRisk < 0.50) return 'high';
-	return 'very_high';
-}
 
 function computeImpactType(netRisk: number, augmentation: number): ImpactType {
 	// Must match score.ts impactType logic
@@ -1015,7 +1009,7 @@ export function computeRoleScores(
 
 	// net_risk = exposure * (1 - bottleneck) * (1 - 0.35 * market_resilience)
 	const net_risk = exposure * (1 - bottleneck) * (1 - 0.35 * market_resilience);
-	const risk_band = computeRiskBand(net_risk);
+	const risk_band = getRiskBand(net_risk);
 	const augmentation_band = computeAugmentationBand(augmentation);
 	const impact_type = computeImpactType(net_risk, augmentation);
 

@@ -1,23 +1,24 @@
 import { occupations, majorGroups } from '$lib/data';
+import type { Occupation } from '$lib/data';
+import { RANKING_THRESHOLDS } from '$lib/data/scoring-constants';
 import type { PageLoad } from './$types';
 
+/** Annual wage bill for an occupation: monthly median x 12 months x headcount */
+function annualWageBill(o: Occupation): number {
+	return o.gross_wage_median * 12 * o.employment_thousands * 1000;
+}
+
 export const load: PageLoad = () => {
-	const highRisk = occupations.filter(o => o.net_risk >= 0.3);
+	const highRisk = occupations.filter(o => o.net_risk >= RANKING_THRESHOLDS.high_risk_floor);
 	const allOccs = occupations;
 
 	// Total employment and wages
 	const totalEmployment = allOccs.reduce((s, o) => s + o.employment_thousands, 0);
-	const totalAnnualWages = allOccs.reduce(
-		(s, o) => s + o.gross_wage_median * 12 * o.employment_thousands * 1000,
-		0
-	);
+	const totalAnnualWages = allOccs.reduce((s, o) => s + annualWageBill(o), 0);
 
 	// High risk employment and wages
 	const highRiskEmployment = highRisk.reduce((s, o) => s + o.employment_thousands, 0);
-	const highRiskAnnualWages = highRisk.reduce(
-		(s, o) => s + o.gross_wage_median * 12 * o.employment_thousands * 1000,
-		0
-	);
+	const highRiskAnnualWages = highRisk.reduce((s, o) => s + annualWageBill(o), 0);
 
 	// By major group
 	const byGroup = new Map<
@@ -27,7 +28,7 @@ export const load: PageLoad = () => {
 	for (const occ of highRisk) {
 		const g = byGroup.get(occ.major_group) ?? { employment: 0, wages: 0, count: 0, avgRisk: 0 };
 		g.employment += occ.employment_thousands;
-		g.wages += occ.gross_wage_median * 12 * occ.employment_thousands * 1000;
+		g.wages += annualWageBill(occ);
 		g.count++;
 		g.avgRisk += occ.net_risk;
 		byGroup.set(occ.major_group, g);

@@ -2,6 +2,7 @@
 	import type { TransitionScore } from '$lib/data/transition-capacity';
 	import { riskBandColors } from '$lib/data';
 	import type { RiskBand } from '$lib/data';
+	import { getRiskBand } from '$lib/data/scoring-constants';
 
 	let {
 		currentTitle,
@@ -38,14 +39,6 @@
 			return { ...t, x, y };
 		});
 	});
-
-	function riskBandFromScore(score: number): RiskBand {
-		if (score < 0.05) return 'very_low';
-		if (score < 0.15) return 'low';
-		if (score < 0.25) return 'moderate';
-		if (score < 0.35) return 'high';
-		return 'very_high';
-	}
 
 	function labelColor(label: string): string {
 		if (label === 'easy') return 'var(--color-risk-very-low)';
@@ -113,7 +106,7 @@
 
 				<!-- Target nodes -->
 				{#each positioned as node}
-					{@const _band = riskBandFromScore(node.composite)}
+					{@const _band = getRiskBand(node.composite)}
 					<a href="/occupation/{node.to_ssoc}">
 						<title>{node.to_title}</title>
 						<circle cx={node.x} cy={node.y} r={nodeRadius} fill={labelColor(node.label)} />

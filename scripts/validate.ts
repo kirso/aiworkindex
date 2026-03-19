@@ -13,6 +13,7 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
+import { getRiskBand } from '../src/lib/data/scoring-constants';
 
 const DATA_FILE = path.join(import.meta.dir, '..', 'data', 'occupations.json');
 
@@ -61,15 +62,6 @@ interface Occupation {
 		overall: 'strong' | 'moderate' | 'weak' | 'deteriorating';
 		data_as_of: string;
 	} | null;
-}
-
-// Must match score.ts riskBand thresholds exactly
-function riskBandForValue(value: number): RiskBand {
-	if (value < 0.05) return 'very_low';
-	if (value < 0.15) return 'low';
-	if (value < 0.3) return 'moderate';
-	if (value < 0.5) return 'high';
-	return 'very_high';
 }
 
 async function main() {
@@ -186,7 +178,7 @@ async function main() {
 	);
 	check(
 		'Stored risk bands match stored net_risk thresholds',
-		data.every(row => riskBandForValue(row.net_risk) === row.risk_band)
+		data.every(row => getRiskBand(row.net_risk) === row.risk_band)
 	);
 
 	// Recompute impact_type from net_risk, augmentation, and demand signals

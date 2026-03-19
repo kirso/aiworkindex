@@ -975,6 +975,7 @@ function augmentationBand(value: number): RiskBand {
 	return 'very_low';
 }
 
+// Must match RISK_BAND_THRESHOLDS in src/lib/data/scoring-constants.ts
 function riskBand(netRisk: number): RiskBand {
 	if (netRisk < 0.05) return 'very_low';
 	if (netRisk < 0.15) return 'low';
@@ -1008,6 +1009,7 @@ function impactType(
 	augmentation: number,
 	hasDemandSignal: boolean = false
 ): 'at_risk' | 'ai_leveraged' | 'stable' | 'mixed' {
+	// Must match IMPACT_TYPE_THRESHOLDS in src/lib/data/scoring-constants.ts
 	const highDisplacement = displacement >= 0.25;
 	const highAugmentation = augmentation >= 0.12; // Lowered from 0.15 — was cutting off ICT roles at 0.145
 
@@ -1057,6 +1059,7 @@ function buildStabilityScores(
 	const pessimisticBottleneck = clamp01(bottleneck - 0.05);
 	const pessimisticMarket = clamp01(marketResilience - 0.05);
 
+	// Must match MARKET_CONSTANTS.max_modifier_effect in src/lib/data/scoring-constants.ts
 	const optimisticRisk =
 		optimisticExposure * (1 - optimisticBottleneck) * (1 - 0.35 * optimisticMarket);
 	const pessimisticRisk =
@@ -1464,6 +1467,7 @@ function scoreOccupations(
 			marketResilienceAdjusted = Math.min(1.0, marketResilienceAdjusted + 0.05);
 			demandMatchCount++;
 		}
+		// Must match MARKET_CONSTANTS.max_modifier_effect in src/lib/data/scoring-constants.ts
 		const marketModifier = 1 - 0.35 * marketResilienceAdjusted;
 
 		const netRisk = exposure * (1 - bottleneck) * marketModifier;
