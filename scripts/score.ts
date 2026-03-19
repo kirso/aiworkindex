@@ -474,7 +474,67 @@ function loadJobZones(): Map<string, number> {
 	return jzMap;
 }
 
-// ===== Step 3b: Load Anthropic Economic Index (observed AI usage) =====
+// ===== Step 3b: Load Eloundou GPTs-are-GPTs exposure (GPT-4 beta rating) =====
+function loadEloundouExposure(): Map<string, number> {
+	console.log('Loading Eloundou GPTs-are-GPTs exposure...');
+	const filePath = path.join(EXT_DIR, 'eloundou_gpts_occ_level.csv');
+	if (!fs.existsSync(filePath)) {
+		console.log('  WARNING: eloundou_gpts_occ_level.csv not found, skipping');
+		return new Map();
+	}
+
+	const content = fs.readFileSync(filePath, 'utf-8');
+	const lines = content.split('\n').filter(l => l.trim());
+	const rawMap = new Map<string, number[]>();
+
+	for (let i = 1; i < lines.length; i++) {
+		const parts = lines[i].split(',');
+		if (parts.length < 4) continue;
+		const soc = parts[0].split('.')[0]; // Remove .00 suffix
+		const beta = parseFloat(parts[3]); // dv_rating_beta (GPT-4, middle estimate)
+		if (soc && !isNaN(beta)) {
+			const arr = rawMap.get(soc) ?? [];
+			arr.push(beta);
+			rawMap.set(soc, arr);
+		}
+	}
+
+	// Average multiple detailed codes per SOC
+	const result = new Map<string, number>();
+	for (const [soc, vals] of rawMap) {
+		result.set(soc, vals.reduce((s, v) => s + v, 0) / vals.length);
+	}
+
+	console.log(`  Loaded ${result.size} SOC codes`);
+	return result;
+}
+
+// ===== Step 3c: Load ILO 2025 Refined Index (ISCO-08 direct) =====
+function loadIloExposure(): Map<string, number> {
+	console.log('Loading ILO 2025 Refined Index...');
+	const filePath = path.join(EXT_DIR, 'ilo_genai_scores_isco08_2025.xlsx');
+	if (!fs.existsSync(filePath)) {
+		console.log('  WARNING: ilo_genai_scores_isco08_2025.xlsx not found, skipping');
+		return new Map();
+	}
+
+	const wb = XLSX.readFile(filePath);
+	const rows = XLSX.utils.sheet_to_json<Record<string, unknown>>(wb.Sheets[wb.SheetNames[0]]);
+	const result = new Map<string, number>();
+
+	for (const row of rows) {
+		const isco = String(row['ISCO_08'] ?? '');
+		const score = row['mean_score_2025'];
+		if (isco && typeof score === 'number' && !result.has(isco)) {
+			result.set(isco, score);
+		}
+	}
+
+	console.log(`  Loaded ${result.size} ISCO-08 codes`);
+	return result;
+}
+
+// ===== Step 3d: Load Anthropic Economic Index (observed AI usage) =====
 function loadAnthropicExposure(): Map<string, number> {
 	console.log('Loading Anthropic Economic Index...');
 	const filePath = path.join(EXT_DIR, 'anthropic_job_exposure.csv');
@@ -1085,11 +1145,13 @@ function scoreOccupations(
 	thetaMap: Map<string, number>,
 	groupMarket: Map<string, GroupMarketData>,
 	anthropicExposure: Map<string, number>,
+	eloundouExposure: Map<string, number>,
+	iloExposure: Map<string, number>,
 	solData: { exactCodes: Set<string>; prefixes: Set<string> },
 	demandData: { exactCodes: Set<string>; prefixes: Set<string> },
 	labourMonitors: Map<string, LabourClusterMonitor>
 ): ScoredOccupation[] {
-	console.log('\nScoring occupations (V3.1)...');
+	console.log('\nScoring occupations (V3.3 — 4-input ensemble)...');
 
 	// Pre-compute theta_MIN for C-AIOE formula
 	const allTheta = [...thetaMap.values()];
@@ -1153,6 +1215,8 @@ function scoreOccupations(
 		majorGroupCode: number;
 		anthropicMatch: boolean;
 		anthropicObservedExposure: number | null;
+		eloundouExposure: number | null;
+		iloExposure: number | null;
 		solMatch: 'exact' | 'prefix' | false;
 		demandMatch: 'exact' | 'prefix' | false;
 		aioeDispersion: number;
@@ -1238,6 +1302,24 @@ function scoreOccupations(
 			}
 		}
 
+		// === Eloundou GPTs-are-GPTs exposure for matched SOC codes ===
+		let eloundouExp: number | null = null;
+		if (socCodes.length > 0 && eloundouExposure.size > 0) {
+			const vals: number[] = [];
+			for (const soc of socCodes) {
+				const val = eloundouExposure.get(soc);
+				if (val !== undefined) vals.push(val);
+			}
+			if (vals.length > 0) eloundouExp = vals.reduce((a, b) => a + b, 0) / vals.length;
+		}
+
+		// === ILO 2025 exposure (direct ISCO-08 match) ===
+		let iloExp: number | null = null;
+		if (isco && iloExposure.size > 0) {
+			const val = iloExposure.get(isco);
+			if (val !== undefined) iloExp = val;
+		}
+
 		// === MOM SOL match ===
 		const solMatch = isSolMatch(occ.ssoc, solData);
 
@@ -1269,6 +1351,8 @@ function scoreOccupations(
 			majorGroupCode,
 			anthropicMatch,
 			anthropicObservedExposure,
+			eloundouExposure: eloundouExp,
+			iloExposure: iloExp,
 			solMatch,
 			demandMatch,
 			aioeDispersion,
@@ -1418,21 +1502,27 @@ function scoreOccupations(
 	// Occupation scarcity = mean of two percentile ranks
 	const occScarcity = intermediates.map((_, i) => (logSpreadRanks[i] + ratioRanks[i]) / 2);
 
-	// ===== V3.1: Anthropic exposure calibration =====
-	// Compute percentile ranks of Anthropic observed exposure for calibration
-	console.log('  Applying Anthropic exposure calibration...');
-	const anthropicValues = intermediates.map(r => r.anthropicObservedExposure);
-	const validAnthropicValues = anthropicValues.filter(v => v !== null) as number[];
-	let anthropicPctiles: number[] = [];
-	if (validAnthropicValues.length > 0) {
-		const anthropicRanksValid = percentileRanks(validAnthropicValues);
-		let aIdx = 0;
-		anthropicPctiles = anthropicValues.map(v => (v !== null ? anthropicRanksValid[aIdx++] : -1));
-	} else {
-		anthropicPctiles = intermediates.map(() => -1);
+	// ===== V3.3: Multi-input ensemble — percentile ranks for each source =====
+	console.log('  Computing ensemble exposure percentile ranks...');
+
+	function computePctileRanks(values: (number | null)[]): number[] {
+		const valid = values.filter(v => v !== null) as number[];
+		if (valid.length === 0) return values.map(() => -1);
+		const ranks = percentileRanks(valid);
+		let idx = 0;
+		return values.map(v => (v !== null ? ranks[idx++] : -1));
 	}
 
-	let anthropicCalibrationCount = 0;
+	const anthropicPctiles = computePctileRanks(intermediates.map(r => r.anthropicObservedExposure));
+	const eloundouPctiles = computePctileRanks(intermediates.map(r => r.eloundouExposure));
+	const iloPctiles = computePctileRanks(intermediates.map(r => r.iloExposure));
+
+	const anthropicCount = anthropicPctiles.filter(v => v >= 0).length;
+	const eloundouCount = eloundouPctiles.filter(v => v >= 0).length;
+	const iloCount = iloPctiles.filter(v => v >= 0).length;
+	console.log(`  Anthropic: ${anthropicCount}, Eloundou: ${eloundouCount}, ILO: ${iloCount}`);
+
+	let ensembleInputCounts = { one: 0, two: 0, three: 0, four: 0 };
 	let solMatchCount = 0;
 	let demandMatchCount = 0;
 
@@ -1446,21 +1536,22 @@ function scoreOccupations(
 		const bottleneck = thetaRanks[i];
 		const theoreticalExposure = exposure;
 
-		// === 4a: Ensemble exposure (AIOE + Anthropic) ===
-		// V3.3: Equal-weight ensemble per Frank et al. (2025) PNAS Nexus.
-		// When Anthropic observed usage data is available, blend 50/50 with AIOE.
-		// Fallback: AIOE-only when Anthropic data unavailable.
-		if (anthropicPctiles[i] >= 0) {
-			const observedPctile = anthropicPctiles[i];
-			exposure = Math.max(
-				0,
-				Math.min(
-					1,
-					ANTHROPIC_CONSTANTS.aioe_weight * exposure +
-						ANTHROPIC_CONSTANTS.anthropic_weight * observedPctile
-				)
-			);
-			anthropicCalibrationCount++;
+		// === 4a: Multi-input ensemble exposure ===
+		// V3.3: Equal-weight average of all available exposure inputs.
+		// Per Frank et al. (2025) PNAS Nexus: ensemble outperforms any single score.
+		// Inputs: AIOE (always), Anthropic (if matched), Eloundou (if matched), ILO (if matched).
+		{
+			const inputs: number[] = [exposure]; // AIOE is always available
+			if (anthropicPctiles[i] >= 0) inputs.push(anthropicPctiles[i]);
+			if (eloundouPctiles[i] >= 0) inputs.push(eloundouPctiles[i]);
+			if (iloPctiles[i] >= 0) inputs.push(iloPctiles[i]);
+
+			exposure = Math.max(0, Math.min(1, inputs.reduce((s, v) => s + v, 0) / inputs.length));
+
+			if (inputs.length === 1) ensembleInputCounts.one++;
+			else if (inputs.length === 2) ensembleInputCounts.two++;
+			else if (inputs.length === 3) ensembleInputCounts.three++;
+			else ensembleInputCounts.four++;
 		}
 
 		const mm = groupMomentum.get(r.occ.major_group) ?? 0.5;
@@ -1569,7 +1660,11 @@ function scoreOccupations(
 			risk_band: band,
 			augmentation: round(augmentation, 4),
 			augmentation_band: augmentationBand(augmentation),
-			impact_type: classifyImpactType(netRisk, augmentation, r.solMatch || r.demandMatch),
+			impact_type: classifyImpactType(
+				netRiskRounded,
+				round(augmentation, 4),
+				!!(r.solMatch || r.demandMatch)
+			),
 			evidence,
 			confidence: {
 				score: round(confidenceScore, 4),
@@ -1595,7 +1690,11 @@ function scoreOccupations(
 				theta: round(r.avgTheta, 4),
 				c_aioe: round(cAioe, 4),
 				category: impactTypeToCategory(
-					classifyImpactType(netRisk, augmentation, r.solMatch || r.demandMatch)
+					classifyImpactType(
+						netRiskRounded,
+						round(augmentation, 4),
+						!!(r.solMatch || r.demandMatch)
+					)
 				),
 				isco_codes_matched: r.iscoMatched,
 				match_quality: r.matchQuality
@@ -1605,7 +1704,9 @@ function scoreOccupations(
 		});
 	}
 
-	console.log(`  Anthropic calibration applied to ${anthropicCalibrationCount} occupations`);
+	console.log(
+		`  Ensemble inputs: 1=${ensembleInputCounts.one} 2=${ensembleInputCounts.two} 3=${ensembleInputCounts.three} 4=${ensembleInputCounts.four}`
+	);
 	console.log(`  MOM SOL match bonus applied to ${solMatchCount} occupations`);
 	console.log(`  MOM Jobs in Demand bonus applied to ${demandMatchCount} occupations`);
 
@@ -1762,8 +1863,10 @@ async function main() {
 	const groupMarket = computeGroupMarketData(emplData, incomeData);
 	const labourMonitors = loadLabourMonitor();
 
-	// Load V3.1 data sources
+	// Load ensemble exposure sources
 	const anthropicExposure = loadAnthropicExposure();
+	const eloundouExposure = loadEloundouExposure();
+	const iloExposure = loadIloExposure();
 	const solData = loadMomSol();
 	const demandData = loadJobsInDemand();
 
@@ -1774,6 +1877,8 @@ async function main() {
 		thetaMap,
 		groupMarket,
 		anthropicExposure,
+		eloundouExposure,
+		iloExposure,
 		solData,
 		demandData,
 		labourMonitors

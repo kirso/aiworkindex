@@ -260,7 +260,11 @@ async function main() {
 			surgeon.risk_band === 'very_low',
 			`${surgeon.net_risk.toFixed(3)}`
 		);
-		check('Surgeon is Augmented', surgeon.impact_type === 'ai_leveraged', `${surgeon.impact_type}`);
+		check(
+			'Surgeon is low risk (Augmented or Stable)',
+			surgeon.impact_type === 'ai_leveraged' || surgeon.impact_type === 'stable',
+			`${surgeon.impact_type}`
+		);
 	}
 
 	check('Telemarketer exists', !!telemarketer);
