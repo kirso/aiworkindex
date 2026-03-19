@@ -92,6 +92,10 @@
 				> of total wages
 			</span>
 		</div>
+		<p class="mt-2 text-xs text-muted-foreground/70 italic">
+			Employment figures are group-level estimates (MOM publishes employment at 9 major occupation
+			groups, not per occupation). Annual wages at risk = median wage × 12 × estimated employment.
+		</p>
 	</section>
 
 	<!-- Disclaimer -->

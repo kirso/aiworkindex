@@ -42,6 +42,8 @@
 		{ name: 'market.market_momentum', type: 'number', description: 'Employment growth trend (0-1)' },
 		{ name: 'market.occupation_scarcity', type: 'number', description: 'Labour shortage signal (0-1). Derived from SOL and Jobs in Demand lists' },
 		{ name: 'market.market_resilience', type: 'number', description: 'Combined market buffer (0-1). Higher = stronger demand protection' },
+		{ name: 'employment_thousands', type: 'number', description: 'Group-level estimate: MOM group employment divided equally across occupations within the group. Not actual per-occupation headcount.' },
+		{ name: 'group_employment_thousands', type: 'number', description: 'Total employment for the MOM major occupation group this occupation belongs to (in thousands).' },
 		{ name: 'evidence.anthropic_calibrated', type: 'boolean', description: 'Whether Anthropic observed usage data is available for this occupation' },
 		{ name: 'evidence.anthropic_gap', type: 'number|null', description: 'Percentile gap: observed AI usage minus theoretical exposure. Positive = more adoption than theory predicts' },
 		{ name: 'evidence.sol_match', type: 'string|false', description: 'Shortage Occupation List match: "exact", "prefix", or false' },

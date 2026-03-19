@@ -1,0 +1,872 @@
+{
+  "ALL_GROUPS": {
+    "total": {
+      "cagr_5y": 0.013472,
+      "change_2y": 0.010245,
+      "employment_2025": 2376.4
+    },
+    "manufacturing": {
+      "cagr_5y": -0.002643,
+      "change_2y": -0.008491,
+      "employment_2025": 210.2
+    },
+    "construction": {
+      "cagr_5y": 0.012835,
+      "change_2y": 0.098621,
+      "employment_2025": 103.6
+    },
+    "services": {
+      "cagr_5y": 0.015571,
+      "change_2y": 0.009087,
+      "employment_2025": 2043.2
+    },
+    "wholesale_retail_trade": {
+      "cagr_5y": 0.000953,
+      "change_2y": 0.00268,
+      "employment_2025": 336.7
+    },
+    "transportation_storage": {
+      "cagr_5y": -0.00546,
+      "change_2y": -0.024732,
+      "employment_2025": 209
+    },
+    "accommodation_food_services": {
+      "cagr_5y": 0.024946,
+      "change_2y": 0.045161,
+      "employment_2025": 145.8
+    },
+    "information_communications": {
+      "cagr_5y": 0.030409,
+      "change_2y": -0.048529,
+      "employment_2025": 129.4
+    },
+    "financial_insurance_services": {
+      "cagr_5y": 0.02507,
+      "change_2y": -0.00381,
+      "employment_2025": 235.3
+    },
+    "real_estate_services": {
+      "cagr_5y": 0.033784,
+      "change_2y": 0.027972,
+      "employment_2025": 58.8
+    },
+    "professional_services": {
+      "cagr_5y": 0.012054,
+      "change_2y": -0.036036,
+      "employment_2025": 192.6
+    },
+    "administrative_support_services": {
+      "cagr_5y": -0.000781,
+      "change_2y": 0.020767,
+      "employment_2025": 127.8
+    },
+    "public_admin_education": {
+      "cagr_5y": 0.011049,
+      "change_2y": 0.016034,
+      "employment_2025": 310.5
+    },
+    "health_social_services": {
+      "cagr_5y": 0.05495,
+      "change_2y": 0.085511,
+      "employment_2025": 182.8
+    },
+    "arts_entertainment_recreation": {
+      "cagr_5y": 0.016319,
+      "change_2y": 0.047753,
+      "employment_2025": 37.3
+    },
+    "other_community_social_personal": {
+      "cagr_5y": 0.033732,
+      "change_2y": 0.082749,
+      "employment_2025": 77.2
+    },
+    "other_industries": {
+      "cagr_5y": -0.016578,
+      "change_2y": -0.084507,
+      "employment_2025": 19.5
+    }
+  },
+  "MANAGERS": {
+    "total": {
+      "cagr_5y": 0.019532,
+      "change_2y": 0.096783,
+      "employment_2025": 405.7
+    },
+    "manufacturing": {
+      "cagr_5y": 0.020743,
+      "change_2y": 0.11413,
+      "employment_2025": 41
+    },
+    "construction": {
+      "cagr_5y": 0.02782,
+      "change_2y": 0.158416,
+      "employment_2025": 23.4
+    },
+    "services": {
+      "cagr_5y": 0.018504,
+      "change_2y": 0.091056,
+      "employment_2025": 337.9
+    },
+    "wholesale_retail_trade": {
+      "cagr_5y": 0.01035,
+      "change_2y": 0.092689,
+      "employment_2025": 83.7
+    },
+    "transportation_storage": {
+      "cagr_5y": 0.054396,
+      "change_2y": 0.122222,
+      "employment_2025": 20.2
+    },
+    "accommodation_food_services": {
+      "cagr_5y": 0.030669,
+      "change_2y": 0.103093,
+      "employment_2025": 10.7
+    },
+    "information_communications": {
+      "cagr_5y": 0.010839,
+      "change_2y": 0.042553,
+      "employment_2025": 34.3
+    },
+    "financial_insurance_services": {
+      "cagr_5y": 0.028628,
+      "change_2y": 0.031457,
+      "employment_2025": 62.3
+    },
+    "real_estate_services": {
+      "cagr_5y": 0.021965,
+      "change_2y": -0.235955,
+      "employment_2025": 6.8
+    },
+    "professional_services": {
+      "cagr_5y": -0.000928,
+      "change_2y": 0.122715,
+      "employment_2025": 43
+    },
+    "administrative_support_services": {
+      "cagr_5y": 0,
+      "change_2y": 0.008197,
+      "employment_2025": 12.3
+    },
+    "public_admin_education": {
+      "cagr_5y": 0.030286,
+      "change_2y": 0.18328,
+      "employment_2025": 36.8
+    },
+    "health_social_services": {
+      "cagr_5y": 0.023635,
+      "change_2y": 0.295918,
+      "employment_2025": 12.7
+    },
+    "arts_entertainment_recreation": {
+      "cagr_5y": 0.04095,
+      "change_2y": 0.195652,
+      "employment_2025": 5.5
+    },
+    "other_community_social_personal": {
+      "cagr_5y": 0.024638,
+      "change_2y": 0.297297,
+      "employment_2025": 9.6
+    },
+    "other_industries": {
+      "cagr_5y": 0.055118,
+      "change_2y": 0.096774,
+      "employment_2025": 3.4
+    }
+  },
+  "PROFESSIONALS": {
+    "total": {
+      "cagr_5y": 0.043691,
+      "change_2y": 0.006123,
+      "employment_2025": 624.4
+    },
+    "manufacturing": {
+      "cagr_5y": 0.027066,
+      "change_2y": 0.040998,
+      "employment_2025": 58.4
+    },
+    "construction": {
+      "cagr_5y": 0.01358,
+      "change_2y": -0.005405,
+      "employment_2025": 18.4
+    },
+    "services": {
+      "cagr_5y": 0.047131,
+      "change_2y": 0.002404,
+      "employment_2025": 542.1
+    },
+    "wholesale_retail_trade": {
+      "cagr_5y": 0.038472,
+      "change_2y": -0.005034,
+      "employment_2025": 59.3
+    },
+    "transportation_storage": {
+      "cagr_5y": 0.028648,
+      "change_2y": 0.138889,
+      "employment_2025": 20.5
+    },
+    "accommodation_food_services": {
+      "cagr_5y": 0.04564,
+      "change_2y": 0.029412,
+      "employment_2025": 3.5
+    },
+    "information_communications": {
+      "cagr_5y": 0.072233,
+      "change_2y": -0.074581,
+      "employment_2025": 60.8
+    },
+    "financial_insurance_services": {
+      "cagr_5y": 0.064995,
+      "change_2y": 0.02537,
+      "employment_2025": 97
+    },
+    "real_estate_services": {
+      "cagr_5y": -0.053111,
+      "change_2y": 0.0625,
+      "employment_2025": 5.1
+    },
+    "professional_services": {
+      "cagr_5y": 0.0336,
+      "change_2y": -0.066434,
+      "employment_2025": 80.1
+    },
+    "administrative_support_services": {
+      "cagr_5y": -0.012371,
+      "change_2y": -0.155039,
+      "employment_2025": 10.9
+    },
+    "public_admin_education": {
+      "cagr_5y": 0.027755,
+      "change_2y": -0.012456,
+      "employment_2025": 111
+    },
+    "health_social_services": {
+      "cagr_5y": 0.081101,
+      "change_2y": 0.125,
+      "employment_2025": 76.5
+    },
+    "arts_entertainment_recreation": {
+      "cagr_5y": 0.03131,
+      "change_2y": 0.142857,
+      "employment_2025": 5.6
+    },
+    "other_community_social_personal": {
+      "cagr_5y": 0.094874,
+      "change_2y": 0.082569,
+      "employment_2025": 11.8
+    },
+    "other_industries": {
+      "cagr_5y": 0.007436,
+      "change_2y": 0.057692,
+      "employment_2025": 5.5
+    }
+  },
+  "ASSOCIATE_PROFESSIONALS_AND_TECHNICIANS": {
+    "total": {
+      "cagr_5y": 0.015775,
+      "change_2y": 0.026943,
+      "employment_2025": 495.5
+    },
+    "manufacturing": {
+      "cagr_5y": 0.002757,
+      "change_2y": 0.005894,
+      "employment_2025": 51.2
+    },
+    "construction": {
+      "cagr_5y": -0.002973,
+      "change_2y": -0.014778,
+      "employment_2025": 20
+    },
+    "services": {
+      "cagr_5y": 0.018681,
+      "change_2y": 0.032306,
+      "employment_2025": 418.6
+    },
+    "wholesale_retail_trade": {
+      "cagr_5y": -0.012844,
+      "change_2y": -0.009231,
+      "employment_2025": 64.4
+    },
+    "transportation_storage": {
+      "cagr_5y": 0.009038,
+      "change_2y": -0.136709,
+      "employment_2025": 34.1
+    },
+    "accommodation_food_services": {
+      "cagr_5y": 0.027066,
+      "change_2y": -0.012987,
+      "employment_2025": 15.2
+    },
+    "information_communications": {
+      "cagr_5y": -0.006162,
+      "change_2y": -0.055085,
+      "employment_2025": 22.3
+    },
+    "financial_insurance_services": {
+      "cagr_5y": 0.012426,
+      "change_2y": 0.065957,
+      "employment_2025": 50.1
+    },
+    "real_estate_services": {
+      "cagr_5y": 0.030849,
+      "change_2y": 0.120301,
+      "employment_2025": 29.8
+    },
+    "professional_services": {
+      "cagr_5y": 0.007541,
+      "change_2y": -0.058568,
+      "employment_2025": 43.4
+    },
+    "administrative_support_services": {
+      "cagr_5y": -0.030924,
+      "change_2y": -0.051613,
+      "employment_2025": 14.7
+    },
+    "public_admin_education": {
+      "cagr_5y": 0.028711,
+      "change_2y": 0.130769,
+      "employment_2025": 73.5
+    },
+    "health_social_services": {
+      "cagr_5y": 0.113348,
+      "change_2y": 0.176322,
+      "employment_2025": 46.7
+    },
+    "arts_entertainment_recreation": {
+      "cagr_5y": 0.04564,
+      "change_2y": 0.2,
+      "employment_2025": 12
+    },
+    "other_community_social_personal": {
+      "cagr_5y": 0.011497,
+      "change_2y": 0.041322,
+      "employment_2025": 12.6
+    },
+    "other_industries": {
+      "cagr_5y": 0,
+      "change_2y": 0,
+      "employment_2025": 5.7
+    }
+  },
+  "CLERICAL_SUPPORT_WORKERS": {
+    "total": {
+      "cagr_5y": -0.013926,
+      "change_2y": -0.032724,
+      "employment_2025": 201
+    },
+    "manufacturing": {
+      "cagr_5y": -0.048138,
+      "change_2y": -0.188406,
+      "employment_2025": 16.8
+    },
+    "construction": {
+      "cagr_5y": 0.035973,
+      "change_2y": 0.290909,
+      "employment_2025": 14.2
+    },
+    "services": {
+      "cagr_5y": -0.013314,
+      "change_2y": -0.035429,
+      "employment_2025": 168.8
+    },
+    "wholesale_retail_trade": {
+      "cagr_5y": -0.02254,
+      "change_2y": -0.006154,
+      "employment_2025": 32.3
+    },
+    "transportation_storage": {
+      "cagr_5y": -0.007055,
+      "change_2y": -0.004484,
+      "employment_2025": 22.2
+    },
+    "accommodation_food_services": {
+      "cagr_5y": 0.026245,
+      "change_2y": 0.188889,
+      "employment_2025": 10.7
+    },
+    "information_communications": {
+      "cagr_5y": -0.031149,
+      "change_2y": 0,
+      "employment_2025": 7
+    },
+    "financial_insurance_services": {
+      "cagr_5y": -0.05756,
+      "change_2y": -0.222727,
+      "employment_2025": 17.1
+    },
+    "real_estate_services": {
+      "cagr_5y": -0.031739,
+      "change_2y": -0.183673,
+      "employment_2025": 4
+    },
+    "professional_services": {
+      "cagr_5y": -0.003452,
+      "change_2y": -0.022727,
+      "employment_2025": 17.2
+    },
+    "administrative_support_services": {
+      "cagr_5y": 0.004717,
+      "change_2y": 0.007812,
+      "employment_2025": 12.9
+    },
+    "public_admin_education": {
+      "cagr_5y": -0.038331,
+      "change_2y": -0.125786,
+      "employment_2025": 13.9
+    },
+    "health_social_services": {
+      "cagr_5y": 0.03131,
+      "change_2y": 0.101124,
+      "employment_2025": 19.6
+    },
+    "arts_entertainment_recreation": {
+      "cagr_5y": -0.029464,
+      "change_2y": -0.340426,
+      "employment_2025": 3.1
+    },
+    "other_community_social_personal": {
+      "cagr_5y": 0.011768,
+      "change_2y": 0.023256,
+      "employment_2025": 8.8
+    },
+    "other_industries": {
+      "cagr_5y": -0.077892,
+      "change_2y": 0,
+      "employment_2025": 1.2
+    }
+  },
+  "SERVICE_AND_SALES_WORKERS": {
+    "total": {
+      "cagr_5y": -0.004237,
+      "change_2y": -0.042264,
+      "employment_2025": 247
+    },
+    "manufacturing": {
+      "cagr_5y": 0.022182,
+      "change_2y": -0.083333,
+      "employment_2025": 7.7
+    },
+    "construction": {
+      "cagr_5y": 0,
+      "change_2y": 0.071429,
+      "employment_2025": 1.5
+    },
+    "services": {
+      "cagr_5y": -0.004896,
+      "change_2y": -0.040016,
+      "employment_2025": 237.5
+    },
+    "wholesale_retail_trade": {
+      "cagr_5y": -0.013617,
+      "change_2y": -0.016234,
+      "employment_2025": 60.6
+    },
+    "transportation_storage": {
+      "cagr_5y": -0.016462,
+      "change_2y": -0.009524,
+      "employment_2025": 10.4
+    },
+    "accommodation_food_services": {
+      "cagr_5y": 0.02332,
+      "change_2y": -0.009245,
+      "employment_2025": 64.3
+    },
+    "information_communications": {
+      "cagr_5y": 0,
+      "change_2y": -0.157895,
+      "employment_2025": 1.6
+    },
+    "financial_insurance_services": {
+      "cagr_5y": -0.084575,
+      "change_2y": -0.307692,
+      "employment_2025": 3.6
+    },
+    "real_estate_services": {
+      "cagr_5y": 0.109888,
+      "change_2y": -0.030303,
+      "employment_2025": 3.2
+    },
+    "professional_services": {
+      "cagr_5y": -0.013704,
+      "change_2y": -0.151515,
+      "employment_2025": 2.8
+    },
+    "administrative_support_services": {
+      "cagr_5y": 0.017437,
+      "change_2y": 0.050167,
+      "employment_2025": 31.4
+    },
+    "public_admin_education": {
+      "cagr_5y": -0.045549,
+      "change_2y": -0.075145,
+      "employment_2025": 16
+    },
+    "health_social_services": {
+      "cagr_5y": -0.055912,
+      "change_2y": -0.228972,
+      "employment_2025": 16.5
+    },
+    "arts_entertainment_recreation": {
+      "cagr_5y": -0.022495,
+      "change_2y": -0.023529,
+      "employment_2025": 8.3
+    },
+    "other_community_social_personal": {
+      "cagr_5y": 0.015598,
+      "change_2y": -0.035897,
+      "employment_2025": 18.8
+    },
+    "other_industries": {
+      "cagr_5y": -0.09712,
+      "change_2y": -0.571429,
+      "employment_2025": 0.3
+    }
+  },
+  "CRAFTSMEN_AND_RELATED_TRADES_WORKERS": {
+    "total": {
+      "cagr_5y": -0.037604,
+      "change_2y": -0.122449,
+      "employment_2025": 51.6
+    },
+    "manufacturing": {
+      "cagr_5y": -0.069436,
+      "change_2y": -0.201258,
+      "employment_2025": 12.7
+    },
+    "construction": {
+      "cagr_5y": -0.015372,
+      "change_2y": 0.041958,
+      "employment_2025": 14.9
+    },
+    "services": {
+      "cagr_5y": -0.025938,
+      "change_2y": -0.148551,
+      "employment_2025": 23.5
+    },
+    "wholesale_retail_trade": {
+      "cagr_5y": -0.012825,
+      "change_2y": -0.150943,
+      "employment_2025": 9
+    },
+    "transportation_storage": {
+      "cagr_5y": -0.180164,
+      "change_2y": -0.5,
+      "employment_2025": 1
+    },
+    "accommodation_food_services": {
+      "cagr_5y": 0.019245,
+      "change_2y": -0.266667,
+      "employment_2025": 1.1
+    },
+    "information_communications": {
+      "cagr_5y": 0,
+      "change_2y": -0.125,
+      "employment_2025": 0.7
+    },
+    "financial_insurance_services": {
+      "cagr_5y": -0.129449,
+      "change_2y": -0.3,
+      "employment_2025": 0.7
+    },
+    "real_estate_services": {
+      "cagr_5y": -0.11645,
+      "change_2y": -0.363636,
+      "employment_2025": 0.7
+    },
+    "professional_services": {
+      "cagr_5y": -0.041815,
+      "change_2y": -0.222222,
+      "employment_2025": 2.1
+    },
+    "administrative_support_services": {
+      "cagr_5y": -0.032327,
+      "change_2y": 0.076923,
+      "employment_2025": 2.8
+    },
+    "public_admin_education": {
+      "cagr_5y": 0.128881,
+      "change_2y": 0.571429,
+      "employment_2025": 1.1
+    },
+    "health_social_services": {
+      "cagr_5y": 0.084472,
+      "change_2y": 2,
+      "employment_2025": 0.3
+    },
+    "arts_entertainment_recreation": {
+      "cagr_5y": -0.129449,
+      "change_2y": 0,
+      "employment_2025": 0.4
+    },
+    "other_community_social_personal": {
+      "cagr_5y": 0.051547,
+      "change_2y": -0.1,
+      "employment_2025": 3.6
+    },
+    "other_industries": {
+      "cagr_5y": -0.186105,
+      "change_2y": -0.5,
+      "employment_2025": 0.5
+    }
+  },
+  "PLANT_AND_MACHINE_OPERATORS_AND_ASSEMBLERS": {
+    "total": {
+      "cagr_5y": -0.032049,
+      "change_2y": -0.023485,
+      "employment_2025": 128.9
+    },
+    "manufacturing": {
+      "cagr_5y": -0.071789,
+      "change_2y": -0.042373,
+      "employment_2025": 11.3
+    },
+    "construction": {
+      "cagr_5y": 0.037842,
+      "change_2y": 0.404762,
+      "employment_2025": 5.9
+    },
+    "services": {
+      "cagr_5y": -0.029507,
+      "change_2y": -0.036522,
+      "employment_2025": 110.8
+    },
+    "wholesale_retail_trade": {
+      "cagr_5y": -0.032988,
+      "change_2y": -0.094488,
+      "employment_2025": 11.5
+    },
+    "transportation_storage": {
+      "cagr_5y": -0.031695,
+      "change_2y": -0.034208,
+      "employment_2025": 84.7
+    },
+    "accommodation_food_services": {
+      "cagr_5y": 0.010872,
+      "change_2y": -0.173913,
+      "employment_2025": 1.9
+    },
+    "information_communications": {
+      "cagr_5y": 0.017555,
+      "change_2y": -0.25,
+      "employment_2025": 1.2
+    },
+    "financial_insurance_services": {
+      "cagr_5y": -0.081466,
+      "change_2y": 0,
+      "employment_2025": 1.7
+    },
+    "real_estate_services": {
+      "cagr_5y": 0,
+      "change_2y": 0,
+      "employment_2025": 0.4
+    },
+    "professional_services": {
+      "cagr_5y": -0.077892,
+      "change_2y": -0.391304,
+      "employment_2025": 1.4
+    },
+    "administrative_support_services": {
+      "cagr_5y": -0.012825,
+      "change_2y": 0.304348,
+      "employment_2025": 3
+    },
+    "public_admin_education": {
+      "cagr_5y": 0.148698,
+      "change_2y": 0.142857,
+      "employment_2025": 0.8
+    },
+    "health_social_services": {
+      "cagr_5y": 0,
+      "change_2y": 0.363636,
+      "employment_2025": 1.5
+    },
+    "arts_entertainment_recreation": {
+      "cagr_5y": 0.148698,
+      "change_2y": 0,
+      "employment_2025": 0.4
+    },
+    "other_community_social_personal": {
+      "cagr_5y": 0.00893,
+      "change_2y": 0.210526,
+      "employment_2025": 2.3
+    },
+    "other_industries": {
+      "cagr_5y": -0.11091,
+      "change_2y": 0,
+      "employment_2025": 1
+    }
+  },
+  "CLEANERS_LABOURERS_AND_RELATED_WORKERS": {
+    "total": {
+      "cagr_5y": 0.023242,
+      "change_2y": 0.034547,
+      "employment_2025": 167.7
+    },
+    "manufacturing": {
+      "cagr_5y": -0.003565,
+      "change_2y": -0.008929,
+      "employment_2025": 11.1
+    },
+    "construction": {
+      "cagr_5y": 0.011956,
+      "change_2y": 0.209302,
+      "employment_2025": 5.2
+    },
+    "services": {
+      "cagr_5y": 0.026558,
+      "change_2y": 0.041001,
+      "employment_2025": 149.8
+    },
+    "wholesale_retail_trade": {
+      "cagr_5y": 0.033736,
+      "change_2y": -0.048485,
+      "employment_2025": 15.7
+    },
+    "transportation_storage": {
+      "cagr_5y": 0.050982,
+      "change_2y": -0.02454,
+      "employment_2025": 15.9
+    },
+    "accommodation_food_services": {
+      "cagr_5y": 0.025242,
+      "change_2y": 0.149701,
+      "employment_2025": 38.4
+    },
+    "information_communications": {
+      "cagr_5y": 0.029034,
+      "change_2y": -0.347826,
+      "employment_2025": 1.5
+    },
+    "financial_insurance_services": {
+      "cagr_5y": -0.045058,
+      "change_2y": -0.372093,
+      "employment_2025": 2.7
+    },
+    "real_estate_services": {
+      "cagr_5y": 0.234456,
+      "change_2y": 0.194444,
+      "employment_2025": 8.6
+    },
+    "professional_services": {
+      "cagr_5y": -0.075196,
+      "change_2y": -0.378378,
+      "employment_2025": 2.3
+    },
+    "administrative_support_services": {
+      "cagr_5y": 0.005263,
+      "change_2y": 0.093484,
+      "employment_2025": 38.6
+    },
+    "public_admin_education": {
+      "cagr_5y": -0.024942,
+      "change_2y": -0.054545,
+      "employment_2025": 5.2
+    },
+    "health_social_services": {
+      "cagr_5y": 0.002212,
+      "change_2y": -0.125,
+      "employment_2025": 9.1
+    },
+    "arts_entertainment_recreation": {
+      "cagr_5y": 0.079608,
+      "change_2y": 0.047619,
+      "employment_2025": 2.2
+    },
+    "other_community_social_personal": {
+      "cagr_5y": 0.069161,
+      "change_2y": 0.397059,
+      "employment_2025": 9.5
+    },
+    "other_industries": {
+      "cagr_5y": -0.033786,
+      "change_2y": -0.407407,
+      "employment_2025": 1.6
+    }
+  },
+  "OTHER_OCCUPATION_GROUPS": {
+    "total": {
+      "cagr_5y": -0.019989,
+      "change_2y": -0.100494,
+      "employment_2025": 54.6
+    },
+    "manufacturing": {
+      "cagr_5y": null,
+      "change_2y": null,
+      "employment_2025": null
+    },
+    "construction": {
+      "cagr_5y": 0,
+      "change_2y": null,
+      "employment_2025": 0.1
+    },
+    "services": {
+      "cagr_5y": -0.020162,
+      "change_2y": -0.098333,
+      "employment_2025": 54.1
+    },
+    "wholesale_retail_trade": {
+      "cagr_5y": -0.197258,
+      "change_2y": -0.857143,
+      "employment_2025": 0.1
+    },
+    "transportation_storage": {
+      "cagr_5y": null,
+      "change_2y": null,
+      "employment_2025": null
+    },
+    "accommodation_food_services": {
+      "cagr_5y": 0,
+      "change_2y": null,
+      "employment_2025": 0.1
+    },
+    "information_communications": {
+      "cagr_5y": null,
+      "change_2y": null,
+      "employment_2025": null
+    },
+    "financial_insurance_services": {
+      "cagr_5y": null,
+      "change_2y": 0,
+      "employment_2025": 0.1
+    },
+    "real_estate_services": {
+      "cagr_5y": null,
+      "change_2y": null,
+      "employment_2025": null
+    },
+    "professional_services": {
+      "cagr_5y": null,
+      "change_2y": 1,
+      "employment_2025": 0.2
+    },
+    "administrative_support_services": {
+      "cagr_5y": -0.052239,
+      "change_2y": -0.1875,
+      "employment_2025": 1.3
+    },
+    "public_admin_education": {
+      "cagr_5y": -0.019836,
+      "change_2y": -0.084211,
+      "employment_2025": 52.2
+    },
+    "health_social_services": {
+      "cagr_5y": null,
+      "change_2y": null,
+      "employment_2025": null
+    },
+    "arts_entertainment_recreation": {
+      "cagr_5y": null,
+      "change_2y": null,
+      "employment_2025": null
+    },
+    "other_community_social_personal": {
+      "cagr_5y": null,
+      "change_2y": -0.5,
+      "employment_2025": 0.1
+    },
+    "other_industries": {
+      "cagr_5y": 0.059224,
+      "change_2y": -0.428571,
+      "employment_2025": 0.4
+    }
+  }
+}
