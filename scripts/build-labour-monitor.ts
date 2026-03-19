@@ -259,6 +259,34 @@ function parseRecruitmentResignation(): Map<
 > | null {
 	const filePath = path.join(RAW_DIR, 'recruitment_resignation_rates.csv');
 	if (!fs.existsSync(filePath)) {
+		const jsonFallbackPath = path.join(RAW_DIR, 'recruitment_resignation_rates.json');
+		if (fs.existsSync(jsonFallbackPath)) {
+			try {
+				const parsed = JSON.parse(fs.readFileSync(jsonFallbackPath, 'utf-8')) as Record<
+					string,
+					unknown
+				>;
+				if (
+					typeof parsed.code === 'number' &&
+					typeof parsed.name === 'string' &&
+					typeof parsed.errorMsg === 'string'
+				) {
+					console.log(
+						`  INFO: recruitment_resignation_rates.json is a saved API error payload (${parsed.name}), skipping hiring signal`
+					);
+					return null;
+				}
+				console.log(
+					'  INFO: recruitment_resignation_rates.json exists but is not yet mapped to a supported schema, skipping hiring signal'
+				);
+				return null;
+			} catch {
+				console.log(
+					'  INFO: recruitment_resignation_rates.json exists but could not be parsed, skipping hiring signal'
+				);
+				return null;
+			}
+		}
 		console.log('  INFO: recruitment_resignation_rates.csv not found, skipping hiring signal');
 		return null;
 	}

@@ -12,6 +12,7 @@
 		sourceRegistryStatusLabels
 	} from '$lib/data/data-contract';
 	import releaseManifest from '$lib/data/release-manifest.json';
+	import rawDataAudit from '$lib/data/raw-data-audit.json';
 	import Seo from '$lib/components/ui/Seo.svelte';
 
 	const datasetJsonLd = `<script type="application/ld+json">${JSON.stringify({
@@ -226,6 +227,41 @@
 			generated_at: string;
 		}>;
 	};
+
+	const rawAudit = rawDataAudit as {
+		generated_at: string;
+		summary: {
+			valid: number;
+			placeholder_error: number;
+			missing: number;
+			reference_only: number;
+		};
+		entries: Array<{
+			key: string;
+			file: string;
+			label: string;
+			status: 'valid' | 'placeholder_error' | 'missing' | 'reference_only';
+			exists: boolean;
+			expected_type: string;
+			size_bytes: number | null;
+			used_by: string[];
+			note: string;
+		}>;
+	};
+
+	const rawStatusLabels = {
+		valid: 'Valid',
+		placeholder_error: 'Placeholder / error payload',
+		missing: 'Missing',
+		reference_only: 'Reference only'
+	} as const;
+
+	function rawStatusClass(status: keyof typeof rawStatusLabels): string {
+		if (status === 'valid') return 'text-impact-leveraged';
+		if (status === 'placeholder_error') return 'text-risk-high';
+		if (status === 'missing') return 'text-risk-high';
+		return 'text-muted-foreground';
+	}
 
 	function formatDateTime(value: string): string {
 		return new Intl.DateTimeFormat('en-SG', {
@@ -452,6 +488,59 @@
 			</div>
 			<p class="mt-3 text-xs text-muted-foreground">
 				Checksums are published so downloaded artifacts can be verified against the current release.
+			</p>
+		</div>
+	</div>
+
+	<div class="mt-8">
+		<p class={cn(sectionLabel(), 'mb-3')}>Raw Data Health</p>
+		<div class={card({ padding: 'lg' })}>
+			<div class="space-y-1 text-sm text-muted-foreground">
+				<p>
+					<span class="font-medium text-foreground">Audit generated:</span>
+					{formatDateTime(rawAudit.generated_at)}
+				</p>
+				<p>
+					<span class="font-medium text-foreground">Summary:</span>
+					{rawAudit.summary.valid} valid, {rawAudit.summary.placeholder_error} placeholder/error,
+					{rawAudit.summary.missing} missing, {rawAudit.summary.reference_only} reference-only
+				</p>
+			</div>
+			<div class="mt-4 rounded-md border">
+				<Table.Root>
+					<Table.Header>
+						<Table.Row>
+							<Table.Head class="text-xs uppercase tracking-wider">Raw Input</Table.Head>
+							<Table.Head class="text-xs uppercase tracking-wider">Status</Table.Head>
+							<Table.Head class="text-xs uppercase tracking-wider">Used For</Table.Head>
+							<Table.Head class="text-xs uppercase tracking-wider">Notes</Table.Head>
+						</Table.Row>
+					</Table.Header>
+					<Table.Body>
+						{#each rawAudit.entries as entry}
+							<Table.Row>
+								<Table.Cell>
+									<div class="space-y-0.5">
+										<p class="font-medium text-foreground">{entry.label}</p>
+										<p class="text-xs text-muted-foreground">{entry.file}</p>
+									</div>
+								</Table.Cell>
+								<Table.Cell class={cn('text-xs font-medium', rawStatusClass(entry.status))}>
+									{rawStatusLabels[entry.status]}
+								</Table.Cell>
+								<Table.Cell class="text-xs text-muted-foreground">
+									{entry.used_by.join(', ')}
+								</Table.Cell>
+								<Table.Cell class="text-xs text-muted-foreground">
+									{entry.note}
+								</Table.Cell>
+							</Table.Row>
+						{/each}
+					</Table.Body>
+				</Table.Root>
+			</div>
+			<p class="mt-3 text-xs text-muted-foreground">
+				This audit distinguishes real local raw inputs from missing files and failed download artifacts.
 			</p>
 		</div>
 	</div>

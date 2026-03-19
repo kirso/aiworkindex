@@ -1,0 +1,225 @@
+{
+  "generated_at": "2026-03-19T09:02:10.015Z",
+  "summary": {
+    "valid": 13,
+    "placeholder_error": 1,
+    "missing": 0,
+    "reference_only": 2
+  },
+  "entries": [
+    {
+      "key": "employment_by_occupation",
+      "file": "employment_by_occupation.csv",
+      "label": "Employment by occupation group",
+      "status": "valid",
+      "exists": true,
+      "expected_type": "csv",
+      "size_bytes": 18235,
+      "used_by": [
+        "score pipeline",
+        "market momentum"
+      ],
+      "note": "Header starts with: DataSeries,2025,2024,2023,2022,2021,2020,2019,2018,2017,2016,2015,2014,2013,2012,2011,2010,2009,2008,2007,2005,2004,2003"
+    },
+    {
+      "key": "median_income_by_occupation",
+      "file": "median_income_by_occupation.csv",
+      "label": "Median income by occupation group",
+      "status": "valid",
+      "exists": true,
+      "expected_type": "csv",
+      "size_bytes": 2467,
+      "used_by": [
+        "score pipeline",
+        "market momentum"
+      ],
+      "note": "Header starts with: DataSeries,2023,2022,2021,2020,2019,2018,2017,2016,2015,2014,2013,2012,2011,2010,2009,2008,2007,2004,2003,2002,2001"
+    },
+    {
+      "key": "vacancy_rates_by_occupation_group",
+      "file": "vacancy_rates_by_occupation_group.csv",
+      "label": "Vacancy rates by occupation group",
+      "status": "valid",
+      "exists": true,
+      "expected_type": "csv",
+      "size_bytes": 854517,
+      "used_by": [
+        "labour monitor"
+      ],
+      "note": "Header starts with: quarter,industry1,industry2,occupation1,job_vacancy_rate"
+    },
+    {
+      "key": "job_vacancies_industry_occupation",
+      "file": "job_vacancies_by_industry_and_occupation_quarterly.csv",
+      "label": "Job vacancies by industry and occupation",
+      "status": "valid",
+      "exists": true,
+      "expected_type": "csv",
+      "size_bytes": 30192,
+      "used_by": [
+        "industry context",
+        "labour monitor"
+      ],
+      "note": "Header starts with: DataSeries,20253Q,20252Q,20251Q,20244Q,20243Q,20242Q,20241Q,20234Q,20233Q,20232Q,20231Q,20224Q,20223Q,20222Q,20221Q,2021"
+    },
+    {
+      "key": "recruitment_resignation_rates",
+      "file": "recruitment_resignation_rates.json",
+      "label": "Recruitment and resignation rates",
+      "status": "placeholder_error",
+      "exists": true,
+      "expected_type": "json",
+      "size_bytes": 189,
+      "used_by": [
+        "planned labour monitor hiring signal"
+      ],
+      "note": "File contains API error payload: TOO_MANY_REQUESTS"
+    },
+    {
+      "key": "lfr2024_section_d",
+      "file": "LFR2024_SectionD.xlsx",
+      "label": "Labour Force 2024 Section D",
+      "status": "valid",
+      "exists": true,
+      "expected_type": "xlsx",
+      "size_bytes": 85706,
+      "used_by": [
+        "worker profile",
+        "employment basis"
+      ],
+      "note": "Workbook sheets: Contents, D1, D2, D3, D4"
+    },
+    {
+      "key": "industry_x_occupation",
+      "file": "industry_x_occupation.csv",
+      "label": "Industry x occupation employment",
+      "status": "valid",
+      "exists": true,
+      "expected_type": "csv",
+      "size_bytes": 32101,
+      "used_by": [
+        "industry context",
+        "industry momentum"
+      ],
+      "note": "Header starts with: DataSeries,2025,2024,2023,2022,2021,2020,2019,2018,2017,2016,2015,2014,2013,2012,2011,2010,2009,2008,2007,2006,2005,2004"
+    },
+    {
+      "key": "wages_by_industry",
+      "file": "wages_by_industry.xlsx",
+      "label": "Wages by industry",
+      "status": "valid",
+      "exists": true,
+      "expected_type": "xlsx",
+      "size_bytes": 244625,
+      "used_by": [
+        "sector wage anchors"
+      ],
+      "note": "Workbook sheets: Contents, T4, T4.1, T4.2, T4.3"
+    },
+    {
+      "key": "wages_by_sex",
+      "file": "wages_by_sex.xlsx",
+      "label": "Wages by sex",
+      "status": "valid",
+      "exists": true,
+      "expected_type": "xlsx",
+      "size_bytes": 112912,
+      "used_by": [
+        "worker profile"
+      ],
+      "note": "Workbook sheets: Contents, T1, T1.1, T1.2"
+    },
+    {
+      "key": "occupations_list",
+      "file": "occupations_list.xlsx",
+      "label": "Occupation list workbook",
+      "status": "reference_only",
+      "exists": true,
+      "expected_type": "xlsx",
+      "size_bytes": 52935,
+      "used_by": [
+        "reference"
+      ],
+      "note": "Reference/backstop file present locally, not currently used in the live pipeline."
+    },
+    {
+      "key": "aioe",
+      "file": "AIOE_DataAppendix.xlsx",
+      "label": "Felten AIOE appendix",
+      "status": "valid",
+      "exists": true,
+      "expected_type": "xlsx",
+      "size_bytes": 170359,
+      "used_by": [
+        "exposure ensemble"
+      ],
+      "note": "Workbook sheets: Index, Appendix A, Appendix B, Appendix C, Appendix D"
+    },
+    {
+      "key": "anthropic_job_exposure",
+      "file": "anthropic_job_exposure.csv",
+      "label": "Anthropic job exposure",
+      "status": "valid",
+      "exists": true,
+      "expected_type": "csv",
+      "size_bytes": 37176,
+      "used_by": [
+        "exposure ensemble"
+      ],
+      "note": "Header starts with: occ_code,title,observed_exposure"
+    },
+    {
+      "key": "eloundou_exposure",
+      "file": "eloundou_gpts_occ_level.csv",
+      "label": "Eloundou occupation exposure",
+      "status": "valid",
+      "exists": true,
+      "expected_type": "csv",
+      "size_bytes": 126022,
+      "used_by": [
+        "exposure ensemble"
+      ],
+      "note": "Header starts with: O*NET-SOC Code,Title,dv_rating_alpha,dv_rating_beta,dv_rating_gamma,human_rating_alpha,human_rating_beta,human_rating_ga"
+    },
+    {
+      "key": "ilo_refined_index",
+      "file": "ilo_genai_scores_isco08_2025.xlsx",
+      "label": "ILO refined exposure index",
+      "status": "valid",
+      "exists": true,
+      "expected_type": "xlsx",
+      "size_bytes": 2598951,
+      "used_by": [
+        "exposure ensemble"
+      ],
+      "note": "Workbook sheets: Sheet1"
+    },
+    {
+      "key": "bls_projections",
+      "file": "bls_projections_2024_2034.xlsx",
+      "label": "BLS occupation projections",
+      "status": "valid",
+      "exists": true,
+      "expected_type": "xlsx",
+      "size_bytes": 407365,
+      "used_by": [
+        "proxy employment",
+        "convergent check"
+      ],
+      "note": "Workbook sheets: Index, Table 1.1, Table 1.2, Table 1.3, Table 1.4"
+    },
+    {
+      "key": "bls_cps_employment",
+      "file": "bls_cps_employment_2025.xlsx",
+      "label": "BLS CPS employment",
+      "status": "reference_only",
+      "exists": true,
+      "expected_type": "xlsx",
+      "size_bytes": 50305,
+      "used_by": [
+        "reference"
+      ],
+      "note": "Reference/backstop file present locally, not currently used in the live pipeline."
+    }
+  ]
+}
