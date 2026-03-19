@@ -543,6 +543,11 @@
 			<p class="mt-3 text-xs text-muted-foreground">
 				Checksums are published so downloaded artifacts can be verified against the current release.
 			</p>
+			<p class="mt-1 text-xs text-muted-foreground">
+				Major public claims are also published in a versioned
+				<a href="/data/claims-matrix-v4.json" download class="text-primary underline">claims matrix</a>
+				with evidence-strength labels and source keys.
+			</p>
 		</div>
 	</div>
 

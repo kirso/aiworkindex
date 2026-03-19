@@ -1,6 +1,6 @@
 {
   "version": "V4.0",
-  "generated_at": "2026-03-19T10:00:04.851Z",
+  "generated_at": "2026-03-19T10:04:15.857Z",
   "score_dataset_generated_at": "2026-03-19",
   "artifacts": [
     {
@@ -56,6 +56,15 @@
       "bytes": 3766,
       "sha256": "74a1a27dd61d25ba3bdf3e1bb1e780d0eec17a4596353647db78c8740d19b560",
       "generated_at": "2026-03-19T09:24:18.246Z"
+    },
+    {
+      "file": "claims-matrix-v4.json",
+      "label": "Public claims matrix",
+      "category": "governance",
+      "description": "Machine-readable registry of major public claims, evidence strength, and source keys for the current release.",
+      "bytes": 7319,
+      "sha256": "3adb6937064ad566cbe1ada6eb03b7707393abb624024abd8db307464a359543",
+      "generated_at": "2026-03-19T10:04:04.495Z"
     }
   ]
 }

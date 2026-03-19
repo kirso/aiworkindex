@@ -26,7 +26,8 @@ interface ReleaseArtifactDefinition {
 		| 'context_bundle'
 		| 'labour_monitor'
 		| 'worker_profile'
-		| 'national_ai_context';
+		| 'national_ai_context'
+		| 'governance';
 	description: string;
 }
 
@@ -68,6 +69,13 @@ const ARTIFACTS: ReleaseArtifactDefinition[] = [
 		category: 'national_ai_context',
 		description:
 			'Official IMDA and MOM national AI adoption, workforce, and programme context used for reports and contextual framing.'
+	},
+	{
+		file: 'claims-matrix-v4.json',
+		label: 'Public claims matrix',
+		category: 'governance',
+		description:
+			'Machine-readable registry of major public claims, evidence strength, and source keys for the current release.'
 	}
 ];
 
