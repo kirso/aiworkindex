@@ -46,7 +46,7 @@
 		name: SITE.name,
 		url: SITE.url,
 		description:
-			'How will AI affect jobs in Singapore? 562 occupations scored for AI displacement risk using official data and peer-reviewed research.',
+			'How will AI affect jobs in Singapore? 562 occupations scored for structural AI pressure using official data and published research.',
 		publisher: {
 			'@type': 'Organization',
 			name: SITE.name,

@@ -85,7 +85,7 @@
 				name: 'Will AI replace my job in Singapore?',
 				acceptedAnswer: {
 					'@type': 'Answer',
-					text: `It depends on your occupation. Of ${DATA_VINTAGE.occupation_count} Singapore occupations scored using a 4-input ensemble (AIOE, Anthropic, Eloundou, ILO), risk ranges from very low to very high displacement pressure.`
+					text: `It depends on your occupation. Of ${DATA_VINTAGE.occupation_count} Singapore occupations scored using a 4-source exposure ensemble (AIOE, Anthropic observed usage, Eloundou GPT exposure, and ILO occupational exposure), risk ranges from very low to very high structural displacement pressure.`
 				}
 			},
 			{
@@ -102,7 +102,7 @@
 
 <Seo
 	title="AI Work Index — How Will AI Affect Your Job in Singapore?"
-	description="Find out if AI will replace, augment, or barely affect your role in Singapore. 562 occupations scored using official data and peer-reviewed research."
+	description="Explore structural AI pressure on Singapore jobs. 562 occupations scored using official data and published research, with synthetic modern roles and labour-market context."
 	path="/"
 	ogImage="/og/default.png"
 	jsonLd={[faqJsonLd]}
@@ -115,8 +115,7 @@
 	>
 		<span class="font-semibold text-risk-moderate">New</span>
 		<span class="text-foreground/70"
-			>V4.0: 4-input ensemble (AIOE + Anthropic + Eloundou + ILO) · BLS validated (rho=-0.14,
-			p&lt;0.01) ·
+			>V4.0: 4-source exposure ensemble · BLS cross-check (&rho; = -0.14, n = 530) ·
 			<a href="/reports" class="text-primary hover:underline">Q4 2025 full MOM data expected soon</a
 			></span
 		>
@@ -138,7 +137,7 @@
 				<HeroSearch occupations={data.occupations} />
 			</div>
 		</div>
-		<!-- Key stats — designed to shock and inform -->
+		<!-- Key stats -->
 		<div class="grid grid-cols-3 gap-3 pb-5 sm:grid-cols-6">
 			<div class="text-center">
 				<p class="font-mono text-lg font-bold text-foreground sm:text-xl">
@@ -150,13 +149,13 @@
 				<p class="font-mono text-lg font-bold text-risk-very-high sm:text-xl">
 					{data.stats.highRiskPct}%
 				</p>
-				<p class="text-[10px] text-muted-foreground">face high+ AI risk</p>
+				<p class="text-[10px] text-muted-foreground">in high+ pressure bands</p>
 			</div>
 			<div class="text-center">
 				<p class="font-mono text-lg font-bold text-risk-high sm:text-xl">
-					SGD {data.stats.wagesAtRiskBillions.toFixed(0)}B
+					SGD {data.stats.wagePoolUnderPressureBillions.toFixed(0)}B
 				</p>
-				<p class="text-[10px] text-muted-foreground">annual wages at risk</p>
+				<p class="text-[10px] text-muted-foreground">wage pool under pressure</p>
 			</div>
 			<div class="text-center">
 				<p class="font-mono text-lg font-bold text-foreground sm:text-xl">

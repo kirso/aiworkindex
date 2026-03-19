@@ -2,6 +2,9 @@ import { occupations, majorGroups } from '$lib/data';
 import type { PageLoad } from './$types';
 
 export const load: PageLoad = () => {
+	const employmentProxy = (o: (typeof occupations)[number]) =>
+		o.bls_proxy_employment ?? o.employment_thousands;
+
 	const sortedWages = occupations
 		.map(o => o.gross_wage_median)
 		.filter(w => w > 0)
@@ -18,10 +21,11 @@ export const load: PageLoad = () => {
 		o => o.evidence.sol_match || o.evidence.jobs_in_demand_match
 	).length;
 
-	// Wage exposure (SGD billions at risk)
+	// Estimated wage pool in high-pressure occupations.
+	// Uses the BLS-weighted proxy when available to avoid the older equal-split employment estimate.
 	const highRiskOccs = occupations.filter(o => o.net_risk >= 0.3);
-	const wagesAtRiskBillions =
-		highRiskOccs.reduce((s, o) => s + o.gross_wage_median * 12 * o.employment_thousands * 1000, 0) /
+	const wagePoolUnderPressureBillions =
+		highRiskOccs.reduce((s, o) => s + o.gross_wage_median * 12 * employmentProxy(o) * 1000, 0) /
 		1e9;
 
 	// Fraction at high+ risk
@@ -36,7 +40,7 @@ export const load: PageLoad = () => {
 			avgExposure,
 			demandCount,
 			nationalMedian,
-			wagesAtRiskBillions
+			wagePoolUnderPressureBillions
 		}
 	};
 };

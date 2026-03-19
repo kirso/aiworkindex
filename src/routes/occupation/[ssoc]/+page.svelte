@@ -89,11 +89,11 @@
 		const e = levelLabel(occ.exposure);
 		switch (occ.impact_type) {
 			case 'ai_leveraged':
-				return `AI is likely to enhance this role, not replace it. ${e} exposure, but strong human bottlenecks mean AI augments rather than substitutes.`;
+				return `This model suggests AI is more likely to enhance this role than replace it. ${e} exposure, but strong human bottlenecks mean AI augments rather than substitutes.`;
 			case 'at_risk':
-				return `Significant AI displacement pressure. ${e} exposure with few human bottlenecks to slow adoption.`;
+				return `Significant structural AI displacement pressure. ${e} exposure with few human bottlenecks to slow adoption.`;
 			case 'stable':
-				return `AI is unlikely to significantly disrupt this role. ${e} exposure — limited overlap with core tasks.`;
+				return `This model suggests AI is unlikely to significantly disrupt this role. ${e} exposure — limited overlap with core tasks.`;
 			case 'mixed':
 				return `Mixed signals — high exposure but also strong human dependencies. Outcome depends on adoption patterns.`;
 			default:
@@ -426,7 +426,8 @@
 										: 'Moderate'}
 							</p>
 							<p class="mt-0.5 text-xs text-muted-foreground">
-								Rising EP/S Pass thresholds increase automation incentive in this sector
+								Rising EP/S Pass thresholds may increase automation incentives in parts of this
+								sector
 							</p>
 						</div>
 					{/if}

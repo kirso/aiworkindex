@@ -5,8 +5,10 @@
 
 	type ToggleVariants = VariantProps<typeof toggleVariants>;
 
-	interface ToggleGroupContext extends ToggleVariants {
-		spacing?: number;
+	interface ToggleGroupContext {
+		getVariant: () => ToggleVariants['variant'];
+		getSize: () => ToggleVariants['size'];
+		getSpacing: () => number | undefined;
 	}
 
 	export function setToggleGroupCtx(props: ToggleGroupContext) {
@@ -14,7 +16,7 @@
 	}
 
 	export function getToggleGroupCtx() {
-		return getContext<Required<ToggleGroupContext>>('toggleGroup');
+		return getContext<ToggleGroupContext>('toggleGroup');
 	}
 </script>
 
@@ -32,14 +34,11 @@
 		...restProps
 	}: ToggleGroupPrimitive.RootProps & ToggleVariants & { spacing?: number } = $props();
 
-	// Set context synchronously — values don't change after initial render
-	/* eslint-disable svelte/valid-compile */
 	setToggleGroupCtx({
-		variant,
-		size,
-		spacing
+		getVariant: () => variant,
+		getSize: () => size,
+		getSpacing: () => spacing
 	});
-	/* eslint-enable svelte/valid-compile */
 </script>
 
 <!--

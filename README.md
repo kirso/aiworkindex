@@ -1,6 +1,6 @@
 # AI Work Index — Singapore
 
-V4.0: 4-input ensemble exposure model scoring 562 Singapore occupations and 88 modern roles for AI displacement risk. Validated against US BLS employment projections (rho=-0.14, p<0.01, n=530).
+V4.0: 4-source exposure ensemble scoring 562 Singapore occupations and 88 modern roles for structural AI pressure. Cross-checked against US BLS employment projections (rho=-0.14, p<0.01, n=530).
 
 **[Live Site](https://aiworkindex.pages.dev)** | **[Methodology](https://aiworkindex.pages.dev/methodology)** | **[Calculator](https://aiworkindex.pages.dev/calculator)** | **[Data](https://aiworkindex.pages.dev/data)**
 
@@ -9,15 +9,15 @@ V4.0: 4-input ensemble exposure model scoring 562 Singapore occupations and 88 m
 - **562 occupations** scored across 9 major groups
 - **88 synthetic roles** (product manager, data scientist, delivery rider, startup founder...)
 - **27% face high+ AI risk** (152 occupations)
-- **SGD 52B** in annual wages at structural risk
+- **SGD 56B** annual wage pool inside high-pressure occupations
 - **50%** average AI task overlap across all occupations
-- **4-input ensemble**: Felten AIOE + Anthropic observed usage + Eloundou GPT-4 + ILO 2025
+- **4-source exposure ensemble**: Felten AIOE + Anthropic observed usage + Eloundou GPT exposure + ILO 2025
 
 ## How It Works
 
 Three-layer deterministic scoring — no LLM in the pipeline:
 
-1. **Exposure** — 4-input ensemble: AIOE (2021), Anthropic Economic Index (2026), Eloundou GPTs-are-GPTs (2024), ILO Refined Index (2025). Equal-weight average of available inputs per occupation.
+1. **Exposure** — 4-source ensemble: AIOE (2021), Anthropic Economic Index (2026), Eloundou GPTs-are-GPTs (2024), ILO Refined Index (2025). Equal average of available matched inputs per occupation.
 2. **Human Bottleneck** — Pizzinelli theta from O*NET Work Context (judgment, presence, coordination)
 3. **Market Resilience** — MOM employment/wage trends + SOL/JiD demand signals + Anthropic calibration
 

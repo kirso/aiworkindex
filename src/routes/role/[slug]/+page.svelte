@@ -16,7 +16,6 @@
 	import { blendArchetypes, classifyArchetype } from '$lib/data/role-archetypes';
 	import { archetypeOverlayDefaults, generateWorkflowNarrative } from '$lib/data/workflow-overlay';
 	import OutlookSection from '$lib/components/ui/OutlookSection.svelte';
-	import DriverWaterfall from '$lib/components/viz/DriverWaterfall.svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import * as Collapsible from '$lib/components/ui/collapsible/index.js';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
@@ -68,11 +67,11 @@
 		const e = levelLabel(scored.exposure);
 		switch (scored.impact_type) {
 			case 'ai_leveraged':
-				return `AI is likely to enhance ${scored.title}, not replace it. ${e} AI exposure, but strong human bottlenecks mean AI augments rather than substitutes.`;
+				return `This model suggests AI is more likely to enhance ${scored.title} than replace it. ${e} AI exposure, but strong human bottlenecks mean AI augments rather than substitutes.`;
 			case 'at_risk':
-				return `${scored.title} faces significant AI displacement pressure. ${e} AI exposure with few human bottlenecks.`;
+				return `${scored.title} faces significant structural AI displacement pressure. ${e} AI exposure with few human bottlenecks.`;
 			case 'stable':
-				return `AI is unlikely to significantly disrupt ${scored.title}. ${e} AI exposure — limited overlap with core tasks.`;
+				return `This model suggests AI is unlikely to significantly disrupt ${scored.title}. ${e} AI exposure — limited overlap with core tasks.`;
 			case 'mixed':
 				return `${scored.title} shows mixed AI signals — high exposure but also strong human dependencies.`;
 			default:
@@ -235,7 +234,7 @@
 		<div class="text-xs text-risk-moderate">
 			<p>
 				Estimated modern role — scores are a weighted blend of {scored.components.length} official occupations.
-				Confidence capped at Medium.
+				Confidence never exceeds Medium and drops to Low when component occupations disagree materially.
 			</p>
 			{#if data.primaryMatch && data.primaryMatch.riskDiff < 0.03}
 				<p class="mt-1">
@@ -313,7 +312,9 @@
 					<span class={impactBadge({ type: scored.impact_type })}>
 						{impactTypeLabels[scored.impact_type]}
 					</span>
-					<span class={confidenceBadge({ level: 'medium' })}>Medium Confidence</span>
+					<span class={confidenceBadge({ level: scored.confidence })}>
+						{scored.confidence.charAt(0).toUpperCase() + scored.confidence.slice(1)} Confidence
+					</span>
 					<span class="text-xs text-muted-foreground">
 						Higher risk than {data.riskPercentile}% of occupations
 					</span>
@@ -349,39 +350,33 @@
 	<section class="mb-8">
 		<h2 class={cn(sectionLabel(), 'mb-3')}>Score Breakdown</h2>
 		<div class={card({ padding: 'md' })}>
-			{#if primaryComponent?.occupation}
-				<DriverWaterfall occupation={primaryComponent.occupation} />
-			{:else}
-				<!-- Fallback: simple bar display when no primary occupation available -->
-				<div class="space-y-3 text-sm">
-					<div class="flex items-center justify-between">
-						<span class="text-muted-foreground">AI Task Overlap</span>
-						<span class="font-mono text-xs tabular-nums">{(scored.exposure * 100).toFixed(0)}%</span
-						>
-					</div>
-					<div class="flex items-center justify-between">
-						<span class="text-muted-foreground">Human Advantage</span>
-						<span class="font-mono text-xs tabular-nums"
-							>{(scored.bottleneck * 100).toFixed(0)}%</span
-						>
-					</div>
-					<div class="flex items-center justify-between">
-						<span class="text-muted-foreground">SG Demand Buffer</span>
-						<span class="font-mono text-xs tabular-nums"
-							>{(scored.market_resilience * 100).toFixed(0)}%</span
-						>
-					</div>
-					<div class="flex items-center justify-between border-t border-border pt-3">
-						<span class="font-semibold text-foreground">Net Risk</span>
-						<span class="font-mono text-sm font-bold tabular-nums"
-							>{(scored.net_risk * 100).toFixed(0)}%</span
-						>
-					</div>
+			<div class="space-y-3 text-sm">
+				<div class="flex items-center justify-between">
+					<span class="text-muted-foreground">AI Task Overlap</span>
+					<span class="font-mono text-xs tabular-nums">{(scored.exposure * 100).toFixed(0)}%</span>
 				</div>
-			{/if}
+				<div class="flex items-center justify-between">
+					<span class="text-muted-foreground">Human Advantage</span>
+					<span class="font-mono text-xs tabular-nums">{(scored.bottleneck * 100).toFixed(0)}%</span
+					>
+				</div>
+				<div class="flex items-center justify-between">
+					<span class="text-muted-foreground">SG Demand Buffer</span>
+					<span class="font-mono text-xs tabular-nums"
+						>{(scored.market_resilience * 100).toFixed(0)}%</span
+					>
+				</div>
+				<div class="flex items-center justify-between border-t border-border pt-3">
+					<span class="font-semibold text-foreground">Net Risk</span>
+					<span class="font-mono text-sm font-bold tabular-nums"
+						>{(scored.net_risk * 100).toFixed(0)}%</span
+					>
+				</div>
+			</div>
 		</div>
 		<p class="mt-2 text-xs text-muted-foreground">
-			Weighted average of {scored.components.length} official occupations.
+			Blended structural score across {scored.components.length} official occupations. Component-level
+			waterfalls are intentionally not shown here as if they were role-native evidence.
 			<a href="/methodology" class="text-primary hover:underline">How this works</a>
 		</p>
 	</section>
@@ -427,13 +422,21 @@
 	<!-- ===== MARKET CONTEXT: Labour + Outlook ===== -->
 	{#if primaryComponent?.occupation?.labour_monitor}
 		<section class="mb-8">
-			<h2 class={cn(sectionLabel(), 'mb-3')}>Market Context</h2>
+			<h2 class={cn(sectionLabel(), 'mb-1')}>Closest Official Occupation Context</h2>
+			<p class="mb-3 text-xs text-muted-foreground">
+				Synthetic roles do not have role-native labour series. This panel anchors on the
+				highest-weight official occupation: {primaryComponent.occupation.title}.
+			</p>
 			<LabourMarketCard monitor={primaryComponent.occupation.labour_monitor} />
 		</section>
 	{/if}
 
 	{#if primaryComponent?.occupation}
 		<section class="mb-8">
+			<p class="mb-3 text-xs text-muted-foreground">
+				Scenario outlook below is anchored on {primaryComponent.occupation.title}, not a separately
+				validated synthetic-role forecast.
+			</p>
 			<OutlookSection occupation={primaryComponent.occupation} />
 		</section>
 	{/if}
@@ -518,7 +521,7 @@
 		<Collapsible.Trigger
 			class="flex w-full items-center justify-between px-5 py-3 text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors"
 		>
-			Technical Details · {scored.components.length} components · medium confidence
+			Technical Details · {scored.components.length} components · {scored.confidence} confidence
 			<svg
 				class="h-3.5 w-3.5 transition-transform [[data-state=open]>&]:rotate-180"
 				viewBox="0 0 24 24"

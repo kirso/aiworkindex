@@ -2,11 +2,11 @@
 /**
  * score.ts — V4.0 scoring pipeline for Singapore AI Job Exposure Map.
  *
- * Computes 4-input ensemble exposure (AIOE + Anthropic + Eloundou + ILO),
+ * Computes 4-source exposure ensemble (AIOE + Anthropic + Eloundou + ILO),
  * Pizzinelli theta, market resilience layer, and net displacement risk
  * for each of 562 Singapore SSOC occupations.
  *
- * V4.0: 4-input ensemble exposure per Frank et al. (2025) PNAS Nexus.
+ * V4.0: 4-source exposure ensemble motivated by the broader ensemble literature.
  * V3.1 additions:
  *   - Anthropic Economic Index observed AI usage calibration
  *   - MOM Shortage Occupation List (SOL) 2026 demand bonus
@@ -1152,7 +1152,7 @@ function scoreOccupations(
 	demandData: { exactCodes: Set<string>; prefixes: Set<string> },
 	labourMonitors: Map<string, LabourClusterMonitor>
 ): ScoredOccupation[] {
-	console.log('\nScoring occupations (V4.0 — 4-input ensemble)...');
+	console.log('\nScoring occupations (V4.0 — 4-source exposure ensemble)...');
 
 	// Pre-compute theta_MIN for C-AIOE formula
 	const allTheta = [...thetaMap.values()];

@@ -14,7 +14,7 @@
 				name: 'What is the AI Work Index?',
 				acceptedAnswer: {
 					'@type': 'Answer',
-					text: `The AI Work Index scores ${DATA_VINTAGE.occupation_count} Singapore occupations and ${DATA_VINTAGE.role_count} modern roles for AI displacement risk using a three-layer model: exposure (Felten AIOE), human bottleneck (Pizzinelli theta), and market resilience (MOM data). No LLM is used in the scoring pipeline.`
+					text: `The AI Work Index scores ${DATA_VINTAGE.occupation_count} Singapore occupations and ${DATA_VINTAGE.role_count} modern roles for structural AI displacement pressure. The structural score combines a multi-source exposure layer, a human bottleneck layer, and a Singapore market-resilience layer. No LLM is used in the scoring pipeline.`
 				}
 			},
 			{
@@ -22,7 +22,7 @@
 				name: 'How is the AI job risk score calculated?',
 				acceptedAnswer: {
 					'@type': 'Answer',
-					text: 'Net displacement risk = AI exposure × (1 − human bottleneck) × market modifier. Exposure comes from the Felten AIOE academic index, bottleneck from Pizzinelli theta (O*NET work context), and market resilience from Singapore MOM employment and wage data.'
+					text: 'Net displacement risk = exposure ensemble × (1 − human bottleneck) × market modifier. The exposure layer combines available matches from AIOE, Anthropic observed usage, Eloundou GPT exposure, and the ILO occupational exposure index. Human bottleneck comes from Pizzinelli theta and market resilience from Singapore MOM demand and wage signals.'
 				}
 			},
 			{
@@ -50,8 +50,9 @@
 	<h1 class={titleStyle({ size: 'page' })}>About This Project</h1>
 	<p class="mt-2 text-muted-foreground">
 		The AI Work Index scores {DATA_VINTAGE.occupation_count} occupations and {DATA_VINTAGE.role_count}
-		modern roles for AI displacement risk. It uses a three-layer model — exposure, human bottleneck, and
-		market resilience — grounded in peer-reviewed academic indices and official Singapore government data.
+		modern roles for structural AI displacement pressure. It uses a three-layer structural model — multi-source
+		exposure, human bottleneck, and market resilience — grounded in official Singapore government data
+		and published academic and institutional research.
 	</p>
 	<p class="mt-2 text-muted-foreground">
 		This is a structural score of AI pressure, not a prediction of exact job losses. No LLM is used
@@ -88,7 +89,7 @@
 		<ul class="mt-1.5 space-y-1 text-sm text-foreground/80">
 			<li>
 				Single exposure scores are poor unemployment predictors — ensembles do better (<a
-					href="http://www.yongyeol.com/papers/frank2025ai.pdf"
+					href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11983276/"
 					target="_blank"
 					rel="noopener noreferrer"
 					class="underline">Frank et al., 2025</a
@@ -114,10 +115,10 @@
 				<div class="grid gap-3 sm:grid-cols-2">
 					<div>
 						<p class="text-xs font-semibold uppercase tracking-wider text-risk-very-low">
-							Exact / Validated
+							Direct / Reproducible
 						</p>
 						<ul class="mt-1.5 space-y-1 text-sm text-muted-foreground">
-							<li>Ensemble exposure (AIOE + Anthropic, equal-weight)</li>
+							<li>4-source exposure ensemble when matched (AIOE + Anthropic + Eloundou + ILO)</li>
 							<li>Theta complementarity scores (O*NET survey data)</li>
 							<li>Net risk formula (fully reproducible)</li>
 							<li>Official demand signals (SOL 2026, Jobs in Demand)</li>
@@ -131,8 +132,8 @@
 							<li>Market resilience (group-level employment + wage heuristics)</li>
 							<li>Crosswalk quality (US occupations mapped to SG)</li>
 							<li>Labour monitor (cluster-level, not occupation-level)</li>
-							<li>Anthropic calibration (Claude usage, not universal AI)</li>
-							<li>BLS cross-validation (&rho; = &minus;0.13, directional only)</li>
+							<li>Observed-usage calibration (Anthropic usage, not universal AI adoption)</li>
+							<li>BLS convergent check (&rho; = &minus;0.14, directional only)</li>
 						</ul>
 					</div>
 					<div>
@@ -140,7 +141,7 @@
 							Synthetic / Illustrative
 						</p>
 						<ul class="mt-1.5 space-y-1 text-sm text-muted-foreground">
-							<li>Modern role estimates (weighted SSOC blends, medium confidence)</li>
+							<li>Modern role estimates (weighted SSOC blends, medium-or-low confidence)</li>
 							<li>Transition scores (heuristic feasibility estimates)</li>
 							<li>Outlook/scenario modelling (rule-based, not predictive)</li>
 							<li>Seniority modifiers (research-grounded, not validated)</li>
@@ -211,20 +212,20 @@
 		</p>
 		<ul class="mt-1 list-inside list-disc space-y-1 text-sm text-muted-foreground">
 			<li>
-				<strong>No LLM in scoring</strong> — we use peer-reviewed academic indices (Felten AIOE, Pizzinelli
-				theta), not LLM-generated subjective ratings
+				<strong>No LLM in scoring</strong> — we use deterministic transforms of published research and
+				official data, not live model-generated ratings
 			</li>
 			<li>
 				<strong>Singapore-specific</strong> — SSOC occupational classification, MOM demand signals (SOL
 				2026, Jobs in Demand), Singapore labour market data
 			</li>
 			<li>
-				<strong>Three-layer decomposition</strong> — we separate AI exposure from human bottleneck from
-				market resilience, not a single composite score
+				<strong>Three-layer structural score</strong> — exposure ensemble, human bottleneck, and market
+				resilience are kept separate rather than hidden inside one opaque score
 			</li>
 			<li>
-				<strong>Validated</strong> — cluster-level backtesting against actual labour outcomes (3/4 directional
-				checks pass), 49 structural checks
+				<strong>Externally cross-checked</strong> — cluster-level directional checks, BLS convergent evidence,
+				and 49 internal structural checks
 			</li>
 			<li>
 				<strong>Seniority modifiers</strong> — research-grounded experience level adjustments (Stanford
@@ -265,8 +266,8 @@
 				rel="noopener noreferrer"
 				class="font-medium text-primary hover:underline">Codex</a
 			>
-			(OpenAI). Data from MOM, Felten et al. (2021), Pizzinelli et al. (2023), O*NET, Anthropic Economic
-			Index, and Stanford DEL.
+			(OpenAI). Data from MOM, O*NET, Felten et al. (2021), Pizzinelli et al. (2023), Anthropic Economic
+			Index, Eloundou et al. (2023/2024), ILO, and Stanford DEL.
 		</p>
 	</section>
 

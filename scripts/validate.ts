@@ -480,35 +480,47 @@ async function main() {
 
 	// --- Context Modifier Validation ---
 	console.log('\n--- Context modifier validation ---');
-	try {
-		const { computeContextMultiplier } = await import('../src/lib/data/context-modifiers');
+	const contextModifiersFile = path.join(
+		import.meta.dir,
+		'..',
+		'src',
+		'lib',
+		'data',
+		'context-modifiers.ts'
+	);
+	if (!fs.existsSync(contextModifiersFile)) {
+		console.log('  INFO: Context modifiers module not shipped; skipping optional validation');
+	} else {
+		try {
+			const { computeContextMultiplier } = await import('../src/lib/data/context-modifiers');
 
-		const startupJunior = computeContextMultiplier({
-			companySize: 'startup',
-			seniority: 'junior'
-		});
-		const enterpriseSenior = computeContextMultiplier({
-			companySize: 'enterprise',
-			seniority: 'senior'
-		});
+			const startupJunior = computeContextMultiplier({
+				companySize: 'startup',
+				seniority: 'junior'
+			});
+			const enterpriseSenior = computeContextMultiplier({
+				companySize: 'enterprise',
+				seniority: 'senior'
+			});
 
-		check(
-			'Context multiplier in valid range (startup+junior)',
-			startupJunior >= 0.8 && startupJunior <= 1.25,
-			`got ${startupJunior.toFixed(3)}`
-		);
-		check(
-			'Context multiplier in valid range (enterprise+senior)',
-			enterpriseSenior >= 0.8 && enterpriseSenior <= 1.25,
-			`got ${enterpriseSenior.toFixed(3)}`
-		);
-		check(
-			'Junior risk > Senior risk (directional)',
-			startupJunior > enterpriseSenior,
-			`junior=${startupJunior.toFixed(3)} senior=${enterpriseSenior.toFixed(3)}`
-		);
-	} catch (e) {
-		warn('Context modifier validation', `Could not import: ${e}`);
+			check(
+				'Context multiplier in valid range (startup+junior)',
+				startupJunior >= 0.8 && startupJunior <= 1.25,
+				`got ${startupJunior.toFixed(3)}`
+			);
+			check(
+				'Context multiplier in valid range (enterprise+senior)',
+				enterpriseSenior >= 0.8 && enterpriseSenior <= 1.25,
+				`got ${enterpriseSenior.toFixed(3)}`
+			);
+			check(
+				'Junior risk > Senior risk (directional)',
+				startupJunior > enterpriseSenior,
+				`junior=${startupJunior.toFixed(3)} senior=${enterpriseSenior.toFixed(3)}`
+			);
+		} catch (e) {
+			warn('Context modifier validation', `Could not import: ${e}`);
+		}
 	}
 
 	// --- Workflow Overlay Validation ---

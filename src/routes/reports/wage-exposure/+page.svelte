@@ -27,19 +27,19 @@
 			mainEntity: [
 				{
 					'@type': 'Question',
-					name: "How much of Singapore's wages are at risk from AI?",
+					name: "How large is the wage pool in Singapore's high-pressure occupations?",
 					acceptedAnswer: {
 						'@type': 'Answer',
-						text: `${headlineNumber} in annual wages sit in high+ AI displacement risk occupations, covering ${data.highRiskCount} of ${data.totalCount} occupations scored by the AI Work Index.`
+						text: `${headlineNumber} is the estimated annual wage pool inside occupations with high structural AI pressure in the AI Work Index. It is a wage-pool estimate, not a forecast of wages lost.`
 					}
 				},
 				{
 					'@type': 'Question',
-					name: 'Which Singapore sectors face the most AI wage risk?',
+					name: 'Which Singapore sectors contain the largest wage pools under structural AI pressure?',
 					acceptedAnswer: {
 						'@type': 'Answer',
 						text: topGroup
-							? `${topGroup.label} faces the largest wage exposure at ${formatWagesBillions(topGroup.wages)}, covering ${topGroup.count} high-risk occupations with an average net risk of ${(topGroup.avgRisk * 100).toFixed(0)}%.`
+							? `${topGroup.label} contains the largest wage pool at ${formatWagesBillions(topGroup.wages)}, covering ${topGroup.count} high-pressure occupations with an average net risk of ${(topGroup.avgRisk * 100).toFixed(0)}%.`
 							: 'See the full breakdown on the AI Work Index wage exposure report.'
 					}
 				}
@@ -49,8 +49,8 @@
 </script>
 
 <Seo
-	title="Singapore Wages at AI Risk — SGD {(data.highRiskAnnualWages / 1e9).toFixed(1)}B"
-	description="How much of Singapore's wages sit in high AI displacement risk occupations? {data.highRiskCount} occupations covering {data.highRiskEmployment.toFixed(
+	title="Wage Pool Under Structural Pressure — SGD {(data.highRiskAnnualWages / 1e9).toFixed(1)}B"
+	description="Wage-pool analysis for Singapore occupations with high structural AI pressure. {data.highRiskCount} occupations covering about {data.highRiskEmployment.toFixed(
 		0
 	)}K workers."
 	path="/reports/wage-exposure"
@@ -71,7 +71,7 @@
 		<p class={cn(sectionLabel(), 'mb-2')}>Wage Exposure Analysis</p>
 		<p class={display({ size: 'xl' })}>{headlineNumber}</p>
 		<p class="mt-2 text-base text-muted-foreground">
-			in annual wages sit in high+ risk occupations
+			annual wage pool inside high-pressure occupations
 		</p>
 		<div class="mt-4 flex flex-wrap gap-x-6 gap-y-1 text-sm text-muted-foreground tabular-nums">
 			<span>
@@ -93,17 +93,17 @@
 			</span>
 		</div>
 		<p class="mt-2 text-xs text-muted-foreground/70 italic">
-			Employment figures are group-level estimates (MOM publishes employment at 9 major occupation
-			groups, not per occupation). Annual wages at risk = median wage × 12 × estimated employment.
+			Employment figures here use a BLS-weighted proxy anchored to Singapore employment totals. This
+			is a wage-pool estimate, not a forecast of wages lost or jobs eliminated.
 		</p>
 	</section>
 
 	<!-- Disclaimer -->
 	<div class={cn(card({ variant: 'inset', padding: 'md' }), 'mt-6')}>
 		<p class="text-xs text-muted-foreground leading-relaxed">
-			These figures represent structural AI displacement pressure, not predicted job losses.
-			Employment numbers are group-level estimates. The model measures one side of the equation
-			&mdash; displacement potential without reinstatement effects.
+			These figures represent structural AI pressure, not predicted job losses. Employment counts
+			are proxy-weighted rather than official per-occupation headcounts. The model measures one side
+			of the equation &mdash; displacement potential without reinstatement effects.
 		</p>
 	</div>
 
@@ -118,7 +118,7 @@
 							<th class="px-4 py-2.5 font-medium">Group</th>
 							<th class="px-4 py-2.5 font-medium text-right">Occupations</th>
 							<th class="px-4 py-2.5 font-medium text-right">Workers (K)</th>
-							<th class="px-4 py-2.5 font-medium text-right">Annual Wages at Risk</th>
+							<th class="px-4 py-2.5 font-medium text-right">Annual Wage Pool</th>
 							<th class="px-4 py-2.5 font-medium text-right">Avg Risk</th>
 						</tr>
 					</thead>
@@ -144,7 +144,7 @@
 
 	<!-- Top 15 Individual Wage Exposure -->
 	<section class="mt-8">
-		<p class={cn(sectionLabel(), 'mb-3')}>Top 15 — Highest Individual Wage Exposure</p>
+		<p class={cn(sectionLabel(), 'mb-3')}>Top 15 — Highest Risk-Weighted Annual Wage per Worker</p>
 		<div class={card({ padding: 'none' })}>
 			<div class="overflow-x-auto">
 				<table class="w-full text-sm">
@@ -154,7 +154,7 @@
 							<th class="px-4 py-2.5 font-medium">Title</th>
 							<th class="px-4 py-2.5 font-medium text-right">Monthly Wage</th>
 							<th class="px-4 py-2.5 font-medium text-right">Risk</th>
-							<th class="px-4 py-2.5 font-medium text-right">Annual Wage at Risk</th>
+							<th class="px-4 py-2.5 font-medium text-right">Risk-Weighted Annual Wage</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -192,9 +192,9 @@
 	<section class="mt-8">
 		<p class={cn(sectionLabel(), 'mb-2')}>Methodology</p>
 		<p class={cn(caption(), 'leading-relaxed')}>
-			Annual wages at risk = median gross monthly wage &times; 12 &times; estimated employment
-			(group-level). High+ risk defined as net_risk &ge; 0.30. Source data: MOM wages {DATA_VINTAGE.wages},
-			employment 2025. Scoring {DATA_VINTAGE.model_version}.
+			Illustrative annual wage pool = median gross monthly wage &times; 12 &times; proxy employment.
+			High+ risk defined as net_risk &ge; 0.30. Source data: MOM wages {DATA_VINTAGE.wages},
+			Singapore employment totals plus BLS-weighted proxy distribution. Scoring {DATA_VINTAGE.model_version}.
 			<a href="/methodology" class="text-primary hover:underline">Full methodology</a> &middot;
 			<a href="/data" class="text-primary hover:underline">Download data</a>
 		</p>

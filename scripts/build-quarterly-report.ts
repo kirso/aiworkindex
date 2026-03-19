@@ -85,7 +85,7 @@ function main() {
 	// Save current as snapshot
 	const now = new Date();
 	const quarter = `Q${Math.ceil((now.getMonth() + 1) / 3)}`;
-	const snapshotName = `occupations-v3-${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}.json`;
+	const snapshotName = `occupations-v4-${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}.json`;
 	const snapshotPath = path.join(SNAPSHOTS_DIR, snapshotName);
 
 	if (!fs.existsSync(snapshotPath)) {

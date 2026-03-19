@@ -236,8 +236,9 @@
 	<!-- Source line -->
 	<div class="source-line mt-8">
 		<p>
-			<strong>Sources:</strong> MOM Singapore (wages, employment, vacancy, retrenchment), Felten AIOE
-			2021, Pizzinelli/IMF 2023, Anthropic Economic Index Jan 2026, SOL 2026, Jobs in Demand 2025.
+			<strong>Sources:</strong> MOM Singapore (wages, employment, vacancy, retrenchment), O*NET, Felten
+			AIOE 2021, Pizzinelli/IMF 2023, Anthropic Economic Index Jan 2026, Eloundou GPT exposure, ILO occupational
+			exposure, SOL 2026, Jobs in Demand 2025.
 		</p>
 		<p class="mt-1">
 			Scoring V4.0. All scores deterministic and reproducible.

@@ -27,7 +27,8 @@
 		Complete V4.0 implementation reference. All thresholds match
 		<code class="rounded bg-muted px-1 text-xs">score.ts</code>,
 		<code class="rounded bg-muted px-1 text-xs">synthetic-roles.ts</code>, and
-		<code class="rounded bg-muted px-1 text-xs">validate.ts</code>.
+		<code class="rounded bg-muted px-1 text-xs">validate.ts</code>. This appendix documents the
+		current implementation, including heuristic components that should not be read as causal proof.
 	</p>
 
 	<!-- Core Formula -->
@@ -148,7 +149,7 @@
 	<section class="mb-8">
 		<p class={sectionLabel()}>Augmentation Score</p>
 		<p class="mt-2 rounded-md bg-muted px-3 py-2 font-mono text-sm text-foreground/80">
-			augmentation = exposure × bottleneck × (1 + market_resilience × 0.3)
+			augmentation = exposure × bottleneck × market_resilience_adjusted
 		</p>
 		<div class="mt-3 overflow-x-auto">
 			<table class="w-full text-left text-sm">
@@ -267,7 +268,9 @@
 	<section class="mb-8">
 		<p class={sectionLabel()}>Stability Stress Test</p>
 		<p class="mt-2 text-sm text-muted-foreground">
-			Each layer is perturbed by ±5 percentile points. Net risk is recomputed for all combinations.
+			V4.0 uses a 1,000-run Monte Carlo perturbation of exposure, bottleneck, and market resilience.
+			The current implementation perturbs the three inputs independently and reports the 10th and
+			90th percentiles as optimistic and pessimistic bounds.
 		</p>
 		<div class="mt-3 overflow-x-auto">
 			<table class="w-full text-left text-sm">
@@ -339,7 +342,10 @@
 		<ul class="mt-2 list-inside list-disc space-y-1.5 text-sm text-muted-foreground">
 			<li>Scores = weighted average of 2–4 component SSOC occupation scores</li>
 			<li>All component SSOC codes validated against occupations.json at build time</li>
-			<li>Confidence capped at <strong>Medium</strong></li>
+			<li>
+				Confidence never exceeds <strong>Medium</strong>; high-dispersion blends drop to
+				<strong>Low</strong>
+			</li>
 			<li>High-dispersion roles (stddev &gt; 0.08) show risk range visualization</li>
 			<li>Low-dispersion roles (&lt; 3pp from primary) link to closest official occupation</li>
 			<li>Always labeled "Estimated modern role" in the UI</li>

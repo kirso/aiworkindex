@@ -113,8 +113,9 @@
 			to surface distinct insights.
 		</p>
 		<p class={cn(body({ tone: 'subtle' }), 'mt-3 max-w-2xl')}>
-			These rankings emerge from a three-layer scoring system — AI exposure, human bottleneck
-			strength, and Singapore market signals — applied to {data.highestRisk.length > 0
+			These rankings emerge from a three-layer structural score — a multi-source exposure layer,
+			human bottleneck strength, and Singapore market signals — applied to {data.highestRisk
+				.length > 0
 				? '562'
 				: 'all'} official occupations. Each list tells a different story about how AI is reshaping work.
 		</p>

@@ -74,8 +74,8 @@
 						>
 					</div>
 					<p class="mt-1 text-sm text-muted-foreground">
-						SGD 46 billion in annual wages sit in high+ risk occupations. Breakdown by sector, top
-						individual wage exposure, and methodology notes.
+						Annual wage-pool analysis for occupations under high structural AI pressure. Breakdown
+						by sector, risk-weighted wage exposure, and methodology notes.
 					</p>
 					<p class="mt-2 text-xs text-muted-foreground">Based on V4.0 scoring, March 2026</p>
 				</div>

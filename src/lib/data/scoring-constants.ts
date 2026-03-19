@@ -183,24 +183,6 @@ export const RANKING_THRESHOLDS = {
 } as const;
 
 // ============================================
-// ANTHROPIC CALIBRATION
-// ============================================
-
-/**
- * Ensemble exposure weights (V4.0: 4-input ensemble):
- * Equal-weight average of all available inputs per Frank et al. (2025) PNAS Nexus
- * recommendation that ensemble approaches outperform any single exposure score.
- * Inputs: AIOE (always) + Anthropic + Eloundou + ILO (when matched).
- * AIOE-only fallback used when no other sources are available.
- */
-export const ANTHROPIC_CONSTANTS = {
-	/** AIOE weight in ensemble (when Anthropic data available) */
-	aioe_weight: 0.5,
-	/** Anthropic observed usage weight in ensemble */
-	anthropic_weight: 0.5
-} as const;
-
-// ============================================
 // FORECAST ENGINE CONSTANTS
 // ============================================
 

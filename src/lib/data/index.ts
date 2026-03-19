@@ -115,6 +115,8 @@ export interface Occupation {
 	gross_wage_25th: number;
 	gross_wage_75th: number;
 	employment_thousands: number;
+	/** BLS-weighted proxy used for illustrative wage-pool analysis; not an official Singapore headcount. */
+	bls_proxy_employment?: number;
 	group_employment_thousands: number;
 	// V4.0 fields
 	exposure: number;

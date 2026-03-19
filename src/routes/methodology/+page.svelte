@@ -64,14 +64,15 @@
 	</div>
 
 	<p class="mt-4 text-muted-foreground">
-		Our scoring pipeline uses peer-reviewed academic indices and government survey data. No LLM
-		assigns a risk score — avoiding the circularity of using AI to score AI replaceability. The core
-		formula is fully deterministic: every input is an observable signal from a published dataset.
+		Our scoring pipeline uses government survey data plus published academic and institutional
+		research. No LLM assigns a risk score — avoiding the circularity of using AI to score AI
+		replaceability. The core formula is fully deterministic: every input is an observable signal
+		from a published dataset.
 	</p>
 
 	<!-- Validation Status -->
 	<div class={cn(card({ variant: 'inset', padding: 'sm' }), 'mt-4')}>
-		<p class={cn(sectionLabel(), 'mb-2')}>Validation Status</p>
+		<p class={cn(sectionLabel(), 'mb-2')}>Validation & Limits</p>
 		<div class="mt-2 grid gap-2 sm:grid-cols-2">
 			<div class="flex items-center gap-2 text-sm text-muted-foreground">
 				<span class="text-risk-very-low font-bold">&#10003;</span>
@@ -83,7 +84,7 @@
 			</div>
 			<div class="flex items-center gap-2 text-sm text-muted-foreground">
 				<span class="text-risk-very-low font-bold">&#10003;</span>
-				<span>Cluster-level backtest: 3/4 directional checks pass (Q3 2025)</span>
+				<span>Cluster-level directional check only: 3/4 checks pass (Q3 2025, n = 3 clusters)</span>
 			</div>
 			<div class="flex items-center gap-2 text-sm text-muted-foreground">
 				<span class="text-risk-moderate font-bold">~</span>
@@ -119,13 +120,14 @@
 		<Tabs.Content value="scoring" class="mt-6">
 			<!-- Three-layer overview -->
 			<section class="mb-8">
-				<p class={sectionLabel()}>Three-Layer System</p>
+				<p class={sectionLabel()}>Three-Layer Structural Score</p>
 				<div class="mt-3 space-y-4">
 					<div class={card({ padding: 'sm' })}>
 						<h3 class="text-sm font-semibold text-red-700">Layer 1: Exposure</h3>
 						<p class="mt-1 text-sm text-muted-foreground">
-							How much does this job overlap with AI capabilities? Per-occupation scoring from the
-							Felten AIOE index.
+							How much does this job overlap with current AI capabilities? The V4.0 exposure layer
+							blends available signals from AIOE, Anthropic observed usage, Eloundou GPT exposure,
+							and the ILO occupational exposure index.
 						</p>
 					</div>
 					<div class={card({ padding: 'sm' })}>
@@ -144,8 +146,9 @@
 					</div>
 				</div>
 				<p class="mt-3 text-sm text-muted-foreground">
-					These three layers produce sub-scores, a net risk band, and a visible confidence level —
-					not a single magic number.
+					These three layers produce the structural score. Around that core score we add confidence,
+					labour evidence, synthetic-role estimates, and scenario tooling rather than hiding
+					everything inside one opaque number.
 				</p>
 				<div class="mt-2 overflow-x-auto">
 					<table class="w-full text-left text-sm">
@@ -160,7 +163,8 @@
 							<tr class="border-b border-border/50">
 								<td class="py-2 pr-3 font-medium">Exposure</td>
 								<td class="py-2 pr-3">AI capability overlap with job abilities</td>
-								<td class="py-2">Felten AIOE (2021), percentile-ranked</td>
+								<td class="py-2">Availability-weighted equal average of matched exposure sources</td
+								>
 							</tr>
 							<tr class="border-b border-border/50">
 								<td class="py-2 pr-3 font-medium">Human Bottleneck</td>
@@ -189,7 +193,7 @@
 			<section class="mb-8">
 				<p class={sectionLabel()}>The Formula</p>
 				<p class="mt-2 rounded bg-muted px-3 py-2 font-mono text-sm text-foreground/80">
-					net_risk = pctile(aioe) &times; (1 - pctile(theta)) &times; market_modifier
+					net_risk = exposure_ensemble &times; (1 - bottleneck) &times; market_modifier
 				</p>
 				<p class="mt-2 text-sm text-muted-foreground">Where:</p>
 				<ul class="mt-1 list-inside list-disc space-y-0.5 text-sm text-muted-foreground">
@@ -216,17 +220,18 @@
 				<p class={sectionLabel()}>Layer 1: Exposure</p>
 
 				<div class={cn(card({ padding: 'md' }), 'mt-4')}>
-					<h3 class="font-semibold text-foreground">AIOE (AI Occupational Exposure)</h3>
+					<h3 class="font-semibold text-foreground">Exposure Ensemble</h3>
 					<p class="mt-1 text-sm text-muted-foreground">
-						From Felten, Raj &amp; Seamans (2021). Maps 10 AI application areas to 52 human
-						abilities to occupations via O*NET. Measures how much a job's required abilities overlap
-						with current AI capabilities. Available for ~774 US occupations by 6-digit SOC code.
+						V4.0 treats exposure as an ensemble layer, not a single index. AIOE is the baseline
+						source; Anthropic observed usage, Eloundou GPT exposure, and the ILO occupational
+						exposure index are added when crosswalk coverage exists.
 					</p>
 					<p class="mt-2 rounded bg-muted px-3 py-2 font-mono text-sm text-foreground/80">
-						exposure = percentile_rank(aioe) across all matched occupations
+						exposure_ensemble = mean(percentile-ranked matched exposure inputs)
 					</p>
 					<p class="mt-2 text-sm text-muted-foreground">
-						Scale: 0 (lowest percentile) to 1 (highest percentile)
+						Each source is percentile-ranked to a 0–1 scale before averaging. Occupations with fewer
+						matched sources are kept, but should be read with lower evidential coverage.
 					</p>
 					<p class="mt-1 text-sm text-muted-foreground italic">
 						What it does NOT measure: whether exposure leads to augmentation or replacement.
@@ -746,14 +751,14 @@
 
 				<div class={cn(card({ padding: 'sm' }), 'mt-3')}>
 					<h3 class="text-sm font-semibold text-foreground mb-2">
-						Cross-Country Validation (BLS Projections)
+						Cross-Country Convergent Check (BLS Projections)
 					</h3>
 					<p class="text-sm text-muted-foreground">
 						We mapped 530 of 562 Singapore SSOC occupations to US BLS 2024&ndash;2034 employment
 						projections via the ISCO-08 &rarr; SOC crosswalk. Spearman rank correlation between our
 						structural risk scores and BLS projected employment change:
-						<strong>&rho; = &minus;0.13</strong> (p &lt; 0.01, n = 530). Higher risk scores correlate
-						with projected employment decline.
+						<strong>&rho; = &minus;0.14</strong> (p &lt; 0.01, n = 530). Higher risk scores are associated
+						with weaker projected employment growth.
 					</p>
 					<div class="mt-3 overflow-x-auto">
 						<table class="w-full text-left text-sm">
@@ -796,9 +801,9 @@
 					<p class="mt-3 text-xs text-muted-foreground italic">
 						The highest-risk band is the only one with projected negative employment growth. Caveat:
 						BLS projections include non-AI factors (demographics, trade, policy). The modest
-						correlation (&rho; = &minus;0.13) is expected &mdash; our model measures AI-specific
-						structural pressure, not total employment change. The directional consistency and
-						monotonic pattern in the top risk bands support model validity. Full results in
+						correlation (&rho; = &minus;0.14) is expected &mdash; our model measures AI-specific
+						structural pressure, not total employment change. Treat this as weak convergent
+						evidence, not strong external validation. Full results in
 						<code class="rounded bg-muted px-1">data/backtests/bls-crosswalk-validation.json</code>.
 					</p>
 				</div>
@@ -813,7 +818,7 @@
 						<strong>Honest framing:</strong> Structural risk scores capture long-run pressure, not
 						short-run employment fluctuations. A single exposure measure poorly predicts actual
 						unemployment (<a
-							href="http://www.yongyeol.com/papers/frank2025ai.pdf"
+							href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11983276/"
 							target="_blank"
 							rel="noopener noreferrer"
 							class="underline">Frank et al., 2025, PNAS Nexus</a
@@ -832,8 +837,9 @@
 				<p class={sectionLabel()}>Ensemble Exposure Measures</p>
 				<p class="mt-2 text-sm text-muted-foreground">
 					Frank et al. (2025) found that individual AI exposure scores are poor predictors of actual
-					unemployment, but an <strong>ensemble of multiple measures</strong> accounts for 18% more variation.
-					We use multiple lenses:
+					unemployment, but an <strong>ensemble of multiple measures</strong> improves fit over single
+					scores. That motivates our multi-source exposure layer, but does not by itself prove that an
+					equal-weight average is optimal. We use multiple lenses:
 				</p>
 				<div class="mt-3 overflow-x-auto">
 					<table class="w-full text-left text-sm">
@@ -953,7 +959,7 @@
 
 				<p class="mt-3 text-sm text-muted-foreground">
 					This is why a single "AI exposure score" is misleading. The software developer has higher
-					exposure than many "at risk" occupations, yet their job is growing. The three-layer system
+					exposure than many "at risk" occupations, yet their job is growing. The structural score
 					captures this distinction.
 				</p>
 			</section>
@@ -986,13 +992,14 @@
 			<section class="mb-8">
 				<p class={sectionLabel()}>What This Version Shows</p>
 				<p class="mt-2 text-sm text-muted-foreground">
-					V4.0 implements the full three-layer model with 4-input ensemble exposure (AIOE +
-					Anthropic + Eloundou + ILO), human bottleneck (theta percentile), and market resilience
-					(group-level employment/wage trends + occupation-level wage structure). Net risk is
-					published as risk bands with visible confidence. Augmentation potential, impact type
-					classification, and rule-based outlook/scenario modelling are included. 80 estimated
-					modern roles (AI engineer, product manager, prompt engineer, etc.) are scored as weighted
-					blends of official occupations, with dispersion analysis for high-variance compositions.
+					V4.0 implements the full three-layer structural score with a 4-source exposure ensemble,
+					human bottleneck (theta percentile), and market resilience (group-level employment/wage
+					trends + occupation-level wage structure). Net risk is published as risk bands with
+					visible confidence. Augmentation potential, impact type classification, and rule-based
+					outlook/scenario modelling are included. 88 estimated modern roles (AI engineer, product
+					manager, prompt engineer, startup operator, creator, gig-worker variants, etc.) are scored
+					as weighted blends of official occupations, with dispersion analysis for high-variance
+					compositions.
 				</p>
 				<p class="mt-2 text-sm text-muted-foreground">
 					<strong>Seniority adjustment</strong> (V3.2+): the Outlook section now supports experience-level
@@ -1044,9 +1051,10 @@
 					<div class={card({ padding: 'sm' })}>
 						<p class="font-medium text-foreground">Confidence</p>
 						<p class="mt-1">
-							All synthetic role scores are capped at Medium confidence. They are illustrative
-							estimates, not validated against actual labour outcomes. Use the component occupation
-							pages for higher-confidence individual scores.
+							Synthetic role scores never exceed Medium confidence and drop to Low when component
+							occupations disagree materially. They are illustrative estimates, not validated
+							against actual labour outcomes. Use the component occupation pages for
+							higher-confidence individual scores.
 						</p>
 					</div>
 				</div>
@@ -1492,9 +1500,9 @@
 							<span class="text-xs text-muted-foreground">March 2026</span>
 						</div>
 						<p class="mt-1 text-sm text-muted-foreground">
-							4-input ensemble exposure (AIOE + Anthropic + Eloundou + ILO) per Frank et al. (2025)
-							PNAS Nexus recommendation. Equal-weight average of all available inputs. BLS crosswalk
-							validation. Industry momentum spread for intra-group variance. 49 validation checks.
+							4-source exposure ensemble (AIOE + Anthropic + Eloundou + ILO). Equal average of all
+							available matched inputs. BLS convergent cross-check, industry momentum spread, and 49
+							validation checks.
 						</p>
 					</div>
 					<div class={cn(card({ variant: 'inset', padding: 'sm' }))}>
