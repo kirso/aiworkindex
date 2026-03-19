@@ -427,6 +427,10 @@
 					<a href="/data/sg-ai-in-singapore-2025.json" download class="text-primary underline"
 						>AI in Singapore</a
 					>
+					<span class="text-muted-foreground">&middot;</span>
+					<a href="/data/sg-transition-support-v4.json" download class="text-primary underline"
+						>transition support</a
+					>
 				</div>
 			</div>
 	</div>

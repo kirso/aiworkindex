@@ -40,6 +40,7 @@ Published as risk bands (Very Low through Very High) with Monte Carlo confidence
 git clone https://github.com/kirso/aiworkindex
 cd aiworkindex
 bun install
+bun run build:release-data  # Refresh all release datasets and metadata
 bun run scripts/score.ts        # Score all 562 occupations
 bun run validate                 # Run 56 structural checks
 bun run dev                      # Start dev server

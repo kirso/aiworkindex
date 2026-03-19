@@ -27,6 +27,7 @@ interface ReleaseArtifactDefinition {
 		| 'labour_monitor'
 		| 'worker_profile'
 		| 'national_ai_context'
+		| 'transition_support'
 		| 'governance';
 	description: string;
 }
@@ -69,6 +70,13 @@ const ARTIFACTS: ReleaseArtifactDefinition[] = [
 		category: 'national_ai_context',
 		description:
 			'Official IMDA and MOM national AI adoption, workforce, and programme context used for reports and contextual framing.'
+	},
+	{
+		file: 'sg-transition-support-v4.json',
+		label: 'Transition support layer',
+		category: 'transition_support',
+		description:
+			'Published heuristic transition-support artifact derived from the current transition-capacity model.'
 	},
 	{
 		file: 'claims-matrix-v4.json',

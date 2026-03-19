@@ -19,6 +19,13 @@ interface Occupation {
 	match_quality: 'direct' | 'submajor_fallback' | 'major_fallback';
 	estimated_sg_employment_thousands?: number;
 	employment_thousands: number;
+	education_label?: string;
+	sg_context?: {
+		pwm_covered: boolean;
+		licensed_profession: 'strict' | 'partial' | false;
+		foreign_worker_dependency: 'very_high' | 'high' | 'moderate' | false;
+		skillsfuture_eligible: boolean;
+	};
 	exposure: number;
 	bottleneck: number;
 	net_risk: number;
@@ -137,6 +144,9 @@ async function main() {
 				typeof row.estimated_sg_employment_thousands === 'number' &&
 				typeof row.employment_thousands === 'number' &&
 				row.estimated_sg_employment_thousands === row.employment_thousands &&
+				typeof row.education_label === 'string' &&
+				typeof row.sg_context?.pwm_covered === 'boolean' &&
+				'skillsfuture_eligible' in (row.sg_context ?? {}) &&
 				typeof row.exposure === 'number' &&
 				typeof row.bottleneck === 'number' &&
 				typeof row.net_risk === 'number' &&

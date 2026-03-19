@@ -4,12 +4,14 @@ Use this checklist before publishing a new public score release.
 
 ## Pipeline
 
+- Preferred: run `bun run build:release-data`
 - Run `bun run scripts/score.ts`
 - Run `bun run scripts/enrich-bls-employment.ts`
 - Run `bun run scripts/export-json.ts`
 - Run `bun run scripts/export-csv.ts`
 - Run `bun run scripts/build-ai-in-singapore.ts`
 - Run `bun run scripts/export-context-pack.ts`
+- Run `bun run scripts/build-transition-support.ts`
 - Run `bun run scripts/build-claims-matrix.ts`
 - Run `bun run scripts/build-release-manifest.ts`
 - Run `bun run scripts/build-raw-data-audit.ts`
@@ -37,6 +39,7 @@ Use this checklist before publishing a new public score release.
 - Confirm `static/data/sg-labour-monitor-2025.json` is current
 - Confirm `static/data/sg-worker-profile-2024.json` is current
 - Confirm `static/data/sg-ai-in-singapore-2025.json` is current
+- Confirm `static/data/sg-transition-support-v4.json` is current
 - Confirm `static/data/claims-matrix-v4.json` is current
 - Confirm `static/data/release-manifest-v4.json` is current
 
