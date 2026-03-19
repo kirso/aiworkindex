@@ -30,6 +30,14 @@ import {
 	_socCodesForIscoPrefix,
 	ISCO_TO_SOC
 } from './crosswalk';
+import {
+	getRiskBand,
+	classifyImpactType,
+	RISK_BAND_THRESHOLDS,
+	MARKET_CONSTANTS,
+	AUGMENTATION_THRESHOLDS,
+	ANTHROPIC_CONSTANTS
+} from '../src/lib/data/scoring-constants';
 
 // ===== Workflow Overlay (from archetype system) =====
 function getOverlayForOccupation(ssoc: string, title: string, _majorGroup: string) {
@@ -968,60 +976,22 @@ function computeGroupMarketData(
 
 // ===== Risk Band Classification =====
 function augmentationBand(value: number): RiskBand {
-	if (value >= 0.8) return 'very_high';
-	if (value >= 0.6) return 'high';
-	if (value >= 0.4) return 'moderate';
-	if (value >= 0.2) return 'low';
+	if (value >= AUGMENTATION_THRESHOLDS.very_high) return 'very_high';
+	if (value >= AUGMENTATION_THRESHOLDS.high) return 'high';
+	if (value >= AUGMENTATION_THRESHOLDS.moderate) return 'moderate';
+	if (value >= AUGMENTATION_THRESHOLDS.low) return 'low';
 	return 'very_low';
 }
 
-// Must match RISK_BAND_THRESHOLDS in src/lib/data/scoring-constants.ts
-function riskBand(netRisk: number): RiskBand {
-	if (netRisk < 0.05) return 'very_low';
-	if (netRisk < 0.15) return 'low';
-	if (netRisk < 0.3) return 'moderate';
-	if (netRisk < 0.5) return 'high';
-	return 'very_high';
-}
-
 function riskBandBounds(band: RiskBand): { lower: number; upper: number } {
-	switch (band) {
-		case 'very_low':
-			return { lower: 0, upper: 0.05 };
-		case 'low':
-			return { lower: 0.05, upper: 0.15 };
-		case 'moderate':
-			return { lower: 0.15, upper: 0.3 };
-		case 'high':
-			return { lower: 0.3, upper: 0.5 };
-		case 'very_high':
-			return { lower: 0.5, upper: 1 };
-	}
+	return RISK_BAND_THRESHOLDS[band];
 }
 
 function clamp01(value: number): number {
 	return Math.max(0, Math.min(1, value));
 }
 
-// Impact type from displacement × augmentation 2×2 matrix
-function impactType(
-	displacement: number,
-	augmentation: number,
-	hasDemandSignal: boolean = false
-): 'at_risk' | 'ai_leveraged' | 'stable' | 'mixed' {
-	// Must match IMPACT_TYPE_THRESHOLDS in src/lib/data/scoring-constants.ts
-	const highDisplacement = displacement >= 0.25;
-	const highAugmentation = augmentation >= 0.12; // Lowered from 0.15 — was cutting off ICT roles at 0.145
-
-	// Signal conflict: high displacement BUT demand signal (SOL/JiD) → "mixed" not "at_risk"
-	// This captures roles like software developer: high exposure, moderate bottleneck, but strong demand
-	if (highDisplacement && hasDemandSignal && !highAugmentation) return 'mixed';
-
-	if (highDisplacement && !highAugmentation) return 'at_risk';
-	if (highDisplacement && highAugmentation) return 'mixed';
-	if (!highDisplacement && highAugmentation) return 'ai_leveraged';
-	return 'stable';
-}
+// Impact type — delegates to scoring-constants.ts single source of truth
 
 // Map impact_type to legacy category for backward compatibility
 function impactTypeToCategory(impact: 'at_risk' | 'ai_leveraged' | 'stable' | 'mixed'): string {
@@ -1061,13 +1031,17 @@ function buildStabilityScores(
 
 	// Must match MARKET_CONSTANTS.max_modifier_effect in src/lib/data/scoring-constants.ts
 	const optimisticRisk =
-		optimisticExposure * (1 - optimisticBottleneck) * (1 - 0.35 * optimisticMarket);
+		optimisticExposure *
+		(1 - optimisticBottleneck) *
+		(1 - MARKET_CONSTANTS.max_modifier_effect * optimisticMarket);
 	const pessimisticRisk =
-		pessimisticExposure * (1 - pessimisticBottleneck) * (1 - 0.35 * pessimisticMarket);
+		pessimisticExposure *
+		(1 - pessimisticBottleneck) *
+		(1 - MARKET_CONSTANTS.max_modifier_effect * pessimisticMarket);
 
-	const currentBand = riskBand(currentRisk);
-	const optimisticBand = riskBand(optimisticRisk);
-	const pessimisticBand = riskBand(pessimisticRisk);
+	const currentBand = getRiskBand(currentRisk);
+	const optimisticBand = getRiskBand(optimisticRisk);
+	const pessimisticBand = getRiskBand(pessimisticRisk);
 	const bounds = riskBandBounds(currentBand);
 	const distanceToBandEdge = Math.min(currentRisk - bounds.lower, bounds.upper - currentRisk);
 
@@ -1440,39 +1414,55 @@ function scoreOccupations(
 		// Fallback: AIOE-only when Anthropic data unavailable.
 		if (anthropicPctiles[i] >= 0) {
 			const observedPctile = anthropicPctiles[i];
-			exposure = Math.max(0, Math.min(1, 0.5 * exposure + 0.5 * observedPctile));
+			exposure = Math.max(
+				0,
+				Math.min(
+					1,
+					ANTHROPIC_CONSTANTS.aioe_weight * exposure +
+						ANTHROPIC_CONSTANTS.anthropic_weight * observedPctile
+				)
+			);
 			anthropicCalibrationCount++;
 		}
 
 		const mm = groupMomentum.get(r.occ.major_group) ?? 0.5;
 		const os = occScarcity[i];
-		let marketResilience = 0.6 * mm + 0.4 * os;
+		let marketResilience =
+			MARKET_CONSTANTS.momentum_weight * mm + MARKET_CONSTANTS.scarcity_weight * os;
 
 		// === 4b: MOM demand signals ===
-		// Exact match = full bonus; prefix match = half bonus (inferred, not confirmed)
-		// SOL 2026: exact +15%, prefix +8%
-		// Jobs in Demand 2025: exact +10%, prefix +5%
 		let marketResilienceAdjusted = marketResilience;
 		if (r.solMatch === 'exact') {
-			marketResilienceAdjusted = Math.min(1.0, marketResilienceAdjusted + 0.15);
+			marketResilienceAdjusted = Math.min(
+				1.0,
+				marketResilienceAdjusted + MARKET_CONSTANTS.sol_exact_bonus
+			);
 			solMatchCount++;
 		} else if (r.solMatch === 'prefix') {
-			marketResilienceAdjusted = Math.min(1.0, marketResilienceAdjusted + 0.08);
+			marketResilienceAdjusted = Math.min(
+				1.0,
+				marketResilienceAdjusted + MARKET_CONSTANTS.sol_prefix_bonus
+			);
 			solMatchCount++;
 		}
 		if (r.demandMatch === 'exact') {
-			marketResilienceAdjusted = Math.min(1.0, marketResilienceAdjusted + 0.1);
+			marketResilienceAdjusted = Math.min(
+				1.0,
+				marketResilienceAdjusted + MARKET_CONSTANTS.jid_exact_bonus
+			);
 			demandMatchCount++;
 		} else if (r.demandMatch === 'prefix') {
-			marketResilienceAdjusted = Math.min(1.0, marketResilienceAdjusted + 0.05);
+			marketResilienceAdjusted = Math.min(
+				1.0,
+				marketResilienceAdjusted + MARKET_CONSTANTS.jid_prefix_bonus
+			);
 			demandMatchCount++;
 		}
-		// Must match MARKET_CONSTANTS.max_modifier_effect in src/lib/data/scoring-constants.ts
-		const marketModifier = 1 - 0.35 * marketResilienceAdjusted;
+		const marketModifier = 1 - MARKET_CONSTANTS.max_modifier_effect * marketResilienceAdjusted;
 
 		const netRisk = exposure * (1 - bottleneck) * marketModifier;
 		const netRiskRounded = round(netRisk, 4);
-		const band = riskBand(netRiskRounded);
+		const band = getRiskBand(netRiskRounded);
 		const augmentation = exposure * bottleneck * marketResilienceAdjusted;
 		const stability = buildStabilityScores(
 			exposure,
@@ -1537,7 +1527,7 @@ function scoreOccupations(
 			risk_band: band,
 			augmentation: round(augmentation, 4),
 			augmentation_band: augmentationBand(augmentation),
-			impact_type: impactType(netRisk, augmentation, r.solMatch || r.demandMatch),
+			impact_type: classifyImpactType(netRisk, augmentation, r.solMatch || r.demandMatch),
 			evidence,
 			confidence: {
 				score: round(confidenceScore, 4),
@@ -1563,7 +1553,7 @@ function scoreOccupations(
 				theta: round(r.avgTheta, 4),
 				c_aioe: round(cAioe, 4),
 				category: impactTypeToCategory(
-					impactType(netRisk, augmentation, r.solMatch || r.demandMatch)
+					classifyImpactType(netRisk, augmentation, r.solMatch || r.demandMatch)
 				),
 				isco_codes_matched: r.iscoMatched,
 				match_quality: r.matchQuality
