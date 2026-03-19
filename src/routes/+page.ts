@@ -18,9 +18,15 @@ export const load: PageLoad = () => {
 		o => o.evidence.sol_match || o.evidence.jobs_in_demand_match
 	).length;
 
+	// Wage exposure (SGD billions at risk)
+	const highRiskOccs = occupations.filter(o => o.net_risk >= 0.3);
+	const wagesAtRiskBillions =
+		highRiskOccs.reduce((s, o) => s + o.gross_wage_median * 12 * o.employment_thousands * 1000, 0) /
+		1e9;
+
 	return {
 		occupations,
 		majorGroups,
-		stats: { highRiskCount, avgExposure, demandCount, nationalMedian }
+		stats: { highRiskCount, avgExposure, demandCount, nationalMedian, wagesAtRiskBillions }
 	};
 };

@@ -201,18 +201,43 @@
 						{DATA_VINTAGE.model_version} · {DATA_VINTAGE.wages} wages · {DATA_VINTAGE.labour_monitor}
 						labour data · {DATA_VINTAGE.occupation_count} occupations · {DATA_VINTAGE.role_count} roles
 					</p>
+					<p class="mt-1 text-xs text-muted-foreground/40">
+						Made by <a
+							href="https://www.kirillso.com"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="hover:text-muted-foreground">Kirill So</a
+						>
+						· Built with
+						<a
+							href="https://www.anthropic.com"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="hover:text-muted-foreground">Claude</a
+						>
+						(Anthropic) &
+						<a
+							href="https://openai.com"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="hover:text-muted-foreground">GPT</a
+						> (OpenAI)
+					</p>
 				</div>
-				<div class="flex items-center gap-3 text-xs text-muted-foreground">
-					<a href="/data" class="hover:text-foreground">Data</a>
-					<a href="/reports" class="hover:text-foreground">Reports</a>
-					<a href="/about" class="hover:text-foreground">About</a>
-					<a
-						href={SITE.github}
-						target="_blank"
-						rel="noopener noreferrer"
-						class="hover:text-foreground">GitHub</a
-					>
-					<span class="text-muted-foreground/40">MIT</span>
+				<div class="flex flex-col items-end gap-1.5">
+					<div class="flex items-center gap-3 text-xs text-muted-foreground">
+						<a href="/calculator" class="hover:text-foreground">Calculator</a>
+						<a href="/data" class="hover:text-foreground">Data</a>
+						<a href="/reports" class="hover:text-foreground">Reports</a>
+						<a href="/about" class="hover:text-foreground">About</a>
+						<a
+							href={SITE.github}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="hover:text-foreground">GitHub</a
+						>
+					</div>
+					<span class="text-[10px] text-muted-foreground/30">MIT Licensed · Open Source</span>
 				</div>
 			</div>
 		</div>

@@ -133,12 +133,12 @@
 			<span><strong class="font-mono text-foreground">{DATA_VINTAGE.role_count}</strong> roles</span
 			>
 			<span
-				><strong class="font-mono text-foreground">{data.stats.highRiskCount}</strong> high+ risk</span
+				><strong class="font-mono text-risk-very-high">{data.stats.highRiskCount}</strong> high+ risk</span
 			>
 			<span
-				><strong class="font-mono text-foreground"
-					>{(data.stats.avgExposure * 100).toFixed(0)}%</strong
-				> avg exposure</span
+				><strong class="font-mono text-risk-high"
+					>SGD {data.stats.wagesAtRiskBillions.toFixed(0)}B</strong
+				> wages at risk</span
 			>
 			<span
 				><strong class="font-mono text-foreground">{data.stats.demandCount}</strong> in demand</span
