@@ -202,25 +202,15 @@
 						labour data · {DATA_VINTAGE.occupation_count} occupations · {DATA_VINTAGE.role_count} roles
 					</p>
 					<div class="mt-1.5 flex flex-wrap items-center gap-2 text-xs text-muted-foreground/50">
-						<span>Made by</span>
-						<a
-							href="https://www.kirillso.com"
-							target="_blank"
-							rel="noopener noreferrer"
-							class="font-medium text-muted-foreground hover:text-foreground"
-							aria-label="Kirill So's website"
-						>
-							<svg
-								class="inline h-3.5 w-3.5"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								><circle cx="12" cy="12" r="10" /><path
-									d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
-								/></svg
+						<span
+							>Made by
+							<a
+								href="https://www.kirillso.com"
+								target="_blank"
+								rel="noopener noreferrer"
+								class="font-medium text-muted-foreground hover:text-foreground">Kirill So</a
 							>
-						</a>
+						</span>
 						<a
 							href="https://www.linkedin.com/in/kirso/"
 							target="_blank"
