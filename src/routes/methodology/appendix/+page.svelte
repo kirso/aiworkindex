@@ -349,13 +349,20 @@
 	<section class="mb-8">
 		<p class={sectionLabel()}>Synthetic Role Rules</p>
 		<ul class="mt-2 list-inside list-disc space-y-1.5 text-sm text-muted-foreground">
-			<li>Scores = weighted average of 2–4 component SSOC occupation scores</li>
+			<li>Base score = weighted blend of 2–4 component SSOC occupation scores</li>
+			<li>Workflow context adjustment is bounded to 0.85–1.15 around the blended prior</li>
 			<li>All component SSOC codes validated against occupations.json at build time</li>
 			<li>
-				Confidence never exceeds <strong>Medium</strong>; high-dispersion blends drop to
-				<strong>Low</strong>
+				Confidence depends on component coverage, dispersion, primary-match distance, and workflow
+				variant sensitivity
 			</li>
-			<li>High-dispersion roles (stddev &gt; 0.08) show risk range visualization</li>
+			<li>
+				Founder, gig, and independent-role families cannot publish <strong>High</strong> confidence
+			</li>
+			<li>
+				High-dispersion roles (stddev &gt; 0.08) show risk range visualization, widened by variant
+				sensitivity
+			</li>
 			<li>Low-dispersion roles (&lt; 3pp from primary) link to closest official occupation</li>
 			<li>Always labeled "Estimated modern role" in the UI</li>
 		</ul>
@@ -363,7 +370,7 @@
 
 	<!-- Validation -->
 	<section class="mb-8">
-		<p class={sectionLabel()}>Validation Checks (56 total)</p>
+		<p class={sectionLabel()}>Validation Checks (58 total)</p>
 		<ul class="mt-2 list-inside list-disc space-y-1.5 text-sm text-muted-foreground">
 			<li>Record completeness (562 occupations, all fields present)</li>
 			<li>Crosswalk coverage and evidence signals</li>
@@ -372,6 +379,7 @@
 			<li>Confidence coverage, source-weight, and contested-signal checks</li>
 			<li>Labour monitor data integrity</li>
 			<li>Synthetic role SSOC validity (all components must exist)</li>
+			<li>Synthetic role workflow and confidence sanity checks</li>
 			<li>Alias SSOC validity (all references must exist)</li>
 			<li>Archetype classification coverage (no professional/manager gets field_manual)</li>
 			<li>Workflow overlay completeness (17 archetypes)</li>

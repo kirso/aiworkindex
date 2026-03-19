@@ -147,7 +147,7 @@
 							Synthetic / Illustrative
 						</p>
 						<ul class="mt-1.5 space-y-1 text-sm text-muted-foreground">
-							<li>Modern role estimates (weighted SSOC blends, medium-or-low confidence)</li>
+							<li>Modern role estimates (weighted SSOC priors + workflow/context adjustment)</li>
 							<li>
 								Transition support (deterministic feasibility estimates + official programme
 								infrastructure)

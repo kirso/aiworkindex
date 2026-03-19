@@ -1046,8 +1046,8 @@
 					bands with visible confidence. Augmentation potential, impact type classification, and
 					rule-based outlook/scenario modelling are included. 88 estimated modern roles (AI
 					engineer, product manager, prompt engineer, startup operator, creator, gig-worker
-					variants, etc.) are scored as weighted blends of official occupations, with dispersion
-					analysis for high-variance compositions.
+					variants, etc.) are scored as weighted occupation priors plus workflow-aware context
+					adjustments, with dispersion analysis for high-variance compositions.
 				</p>
 				<p class="mt-2 text-sm text-muted-foreground">
 					<strong>Seniority adjustment</strong> (V3.2+): the Outlook section now supports experience-level
@@ -1064,8 +1064,8 @@
 				</p>
 				<p class="mt-2 text-sm text-muted-foreground">
 					<strong>Singapore context bundle</strong> now publishes industry footprint, worker profile,
-					sector wage anchors, national AI-adoption context, and official transition infrastructure as
-					separate artifacts around the structural score.
+					sector wage anchors, geography context, macro labour context, national AI-adoption context,
+					and official transition infrastructure as separate artifacts around the structural score.
 				</p>
 				<p class="mt-2 text-sm text-muted-foreground">
 					<strong>Transition support</strong> is a hybrid layer: deterministic transition-capacity scoring
@@ -1086,7 +1086,9 @@
 				<p class="mt-2 text-sm text-muted-foreground">
 					Modern job titles (AI Engineer, Product Manager, Prompt Engineer) don't map to a single
 					official SSOC occupation. We estimate scores by blending 2-4 official occupations with
-					weights reflecting the typical task composition of each modern role.
+					weights reflecting the typical task composition of each modern role, then applying a
+					bounded workflow-context adjustment so the result is not treated as a flat occupation
+					average.
 				</p>
 				<div class="mt-3 space-y-2 text-sm text-muted-foreground">
 					<div class={card({ padding: 'sm' })}>
@@ -1094,27 +1096,29 @@
 						<p class="mt-1">
 							Each synthetic role defines component SSOC occupations and weights (e.g., Startup CTO
 							= 40% Software Manager + 30% Solution Architect + 30% Software Developer). Scores are
-							weighted averages of component occupation scores. All component SSOC codes are
-							validated against the occupations dataset.
+							built from a weighted occupation prior plus a workflow-aware context adjustment
+							derived from coordination intensity, ambiguity, relationship depth, regulatory load,
+							and physicality. All component SSOC codes are validated against the occupations
+							dataset.
 						</p>
 					</div>
 					<div class={card({ padding: 'sm' })}>
 						<p class="font-medium text-foreground">Dispersion</p>
 						<p class="mt-1">
 							When component occupations have very different risk scores, the weighted average may
-							not represent any single reality. For roles with high dispersion (stddev > 0.08), we
-							show the full risk range and explain: "Your actual risk depends on how much you code
-							vs manage." Low-dispersion roles (where the blend barely changes the score) link to
-							their closest official occupation.
+							not represent any single reality. For roles with high dispersion (stddev &gt; 0.08),
+							we show the full risk range. That range is widened further when the workflow overlay
+							says the role is highly context-sensitive, so founder, gig, and hybrid GTM roles do
+							not get a false sense of precision.
 						</p>
 					</div>
 					<div class={card({ padding: 'sm' })}>
 						<p class="font-medium text-foreground">Confidence</p>
 						<p class="mt-1">
-							Synthetic role scores never exceed Medium confidence and drop to Low when component
-							occupations disagree materially. They are illustrative estimates, not validated
-							against actual labour outcomes. Use the component occupation pages for
-							higher-confidence individual scores.
+							Confidence is role-native, not hardcoded. It depends on component coverage, component
+							agreement, primary-match distance, and workflow variant sensitivity. Founder, gig, and
+							independent-role families are capped below High confidence even when the component
+							blend is tight. Use component occupation pages for the strongest underlying evidence.
 						</p>
 					</div>
 				</div>
