@@ -829,6 +829,66 @@
 				>.
 			</p>
 		</div>
+
+		<div class={cn(card({ padding: 'sm' }), 'mt-3')}>
+			<h3 class="text-sm font-semibold text-foreground mb-2">
+				Cross-Country Validation (BLS Projections)
+			</h3>
+			<p class="text-sm text-muted-foreground">
+				We mapped 530 of 562 Singapore SSOC occupations to US BLS 2024&ndash;2034 employment
+				projections via the ISCO-08 &rarr; SOC crosswalk. Spearman rank correlation between our
+				structural risk scores and BLS projected employment change:
+				<strong>&rho; = &minus;0.13</strong> (p &lt; 0.01, n = 530). Higher risk scores correlate with
+				projected employment decline.
+			</p>
+			<div class="mt-3 overflow-x-auto">
+				<table class="w-full text-left text-sm">
+					<thead>
+						<tr class="border-b border-border">
+							<th class="py-1.5 pr-3 font-medium text-foreground/80">Risk band</th>
+							<th class="py-1.5 pr-3 font-medium text-foreground/80">n</th>
+							<th class="py-1.5 font-medium text-foreground/80">Avg BLS change</th>
+						</tr>
+					</thead>
+					<tbody class="text-muted-foreground">
+						<tr class="border-b border-border/50">
+							<td class="py-1.5 pr-3">Very Low</td>
+							<td class="py-1.5 pr-3">87</td>
+							<td class="py-1.5 text-risk-very-low font-medium">+3.3%</td>
+						</tr>
+						<tr class="border-b border-border/50">
+							<td class="py-1.5 pr-3">Low</td>
+							<td class="py-1.5 pr-3">204</td>
+							<td class="py-1.5 text-risk-low font-medium">+3.1%</td>
+						</tr>
+						<tr class="border-b border-border/50">
+							<td class="py-1.5 pr-3">Moderate</td>
+							<td class="py-1.5 pr-3">120</td>
+							<td class="py-1.5 text-risk-moderate font-medium">+3.2%</td>
+						</tr>
+						<tr class="border-b border-border/50">
+							<td class="py-1.5 pr-3">High</td>
+							<td class="py-1.5 pr-3">76</td>
+							<td class="py-1.5 text-risk-high font-medium">+2.0%</td>
+						</tr>
+						<tr>
+							<td class="py-1.5 pr-3">Very High</td>
+							<td class="py-1.5 pr-3">43</td>
+							<td class="py-1.5 text-risk-very-high font-medium">&minus;3.0%</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="mt-3 text-xs text-muted-foreground italic">
+				The highest-risk band is the only one with projected negative employment growth. Caveat: BLS
+				projections include non-AI factors (demographics, trade, policy). The modest correlation
+				(&rho; = &minus;0.13) is expected &mdash; our model measures AI-specific structural
+				pressure, not total employment change. The directional consistency and monotonic pattern in
+				the top risk bands support model validity. Full results in
+				<code class="rounded bg-muted px-1">data/backtests/bls-crosswalk-validation.json</code>.
+			</p>
+		</div>
+
 		<div
 			class={cn(
 				card({ padding: 'sm', variant: 'default' }),
