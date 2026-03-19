@@ -11,6 +11,7 @@
 		employmentBasisLabels,
 		sourceRegistryStatusLabels
 	} from '$lib/data/data-contract';
+	import releaseManifest from '$lib/data/release-manifest.json';
 	import Seo from '$lib/components/ui/Seo.svelte';
 
 	const datasetJsonLd = `<script type="application/ld+json">${JSON.stringify({
@@ -210,6 +211,35 @@
 			description: 'stable | watch | sensitive — how much the risk band moves under the Monte Carlo stability check.'
 		}
 	];
+
+	const manifest = releaseManifest as {
+		version: string;
+		generated_at: string;
+		score_dataset_generated_at: string;
+		artifacts: Array<{
+			file: string;
+			label: string;
+			category: string;
+			description: string;
+			bytes: number;
+			sha256: string;
+			generated_at: string;
+		}>;
+	};
+
+	function formatDateTime(value: string): string {
+		return new Intl.DateTimeFormat('en-SG', {
+			dateStyle: 'medium',
+			timeStyle: 'short',
+			timeZone: 'Asia/Singapore'
+		}).format(new Date(value));
+	}
+
+	function formatBytes(value: number): string {
+		if (value < 1024) return `${value} B`;
+		if (value < 1024 * 1024) return `${(value / 1024).toFixed(1)} KB`;
+		return `${(value / (1024 * 1024)).toFixed(2)} MB`;
+	}
 </script>
 
 <Seo
@@ -370,6 +400,59 @@
 				<p><span class="font-medium text-foreground">Sources:</span> MOM Singapore (wages, Labour Force Section D, industry context, demand signals), O*NET, Felten AIOE, Pizzinelli/IMF, Anthropic observed usage, Eloundou GPT exposure, ILO occupational exposure, SOL 2026, Jobs in Demand 2025</p>
 			</div>
 			<a href="/methodology" class="mt-3 inline-block text-sm text-primary underline">Full methodology &rarr;</a>
+		</div>
+	</div>
+
+	<div class="mt-8">
+		<p class={cn(sectionLabel(), 'mb-3')}>Release Metadata</p>
+		<div class={card({ padding: 'lg' })}>
+			<div class="space-y-1 text-sm text-muted-foreground">
+				<p><span class="font-medium text-foreground">Manifest version:</span> {manifest.version}</p>
+				<p>
+					<span class="font-medium text-foreground">Manifest generated:</span>
+					{formatDateTime(manifest.generated_at)}
+				</p>
+				<p>
+					<span class="font-medium text-foreground">Score dataset vintage:</span>
+					{manifest.score_dataset_generated_at}
+				</p>
+			</div>
+			<div class="mt-4 rounded-md border">
+				<Table.Root>
+					<Table.Header>
+						<Table.Row>
+							<Table.Head class="text-xs uppercase tracking-wider">Artifact</Table.Head>
+							<Table.Head class="text-xs uppercase tracking-wider">Generated</Table.Head>
+							<Table.Head class="text-xs uppercase tracking-wider">Size</Table.Head>
+							<Table.Head class="text-xs uppercase tracking-wider">SHA-256</Table.Head>
+						</Table.Row>
+					</Table.Header>
+					<Table.Body>
+						{#each manifest.artifacts as artifact}
+							<Table.Row>
+								<Table.Cell>
+									<div class="space-y-0.5">
+										<p class="font-medium text-foreground">{artifact.label}</p>
+										<p class="text-xs text-muted-foreground">{artifact.file}</p>
+									</div>
+								</Table.Cell>
+								<Table.Cell class="text-xs text-muted-foreground">
+									{formatDateTime(artifact.generated_at)}
+								</Table.Cell>
+								<Table.Cell class="text-xs text-muted-foreground">
+									{formatBytes(artifact.bytes)}
+								</Table.Cell>
+								<Table.Cell class="font-mono text-[11px] text-muted-foreground">
+									{artifact.sha256}
+								</Table.Cell>
+							</Table.Row>
+						{/each}
+					</Table.Body>
+				</Table.Root>
+			</div>
+			<p class="mt-3 text-xs text-muted-foreground">
+				Checksums are published so downloaded artifacts can be verified against the current release.
+			</p>
 		</div>
 	</div>
 

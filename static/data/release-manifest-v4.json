@@ -1,0 +1,52 @@
+{
+  "version": "V4.0",
+  "generated_at": "2026-03-19T08:56:39.092Z",
+  "score_dataset_generated_at": "2026-03-19",
+  "artifacts": [
+    {
+      "file": "sg-ai-occupations-v4.csv",
+      "label": "V4 structural score CSV",
+      "category": "structural_score",
+      "description": "Flattened structural score dataset with basis and provenance columns.",
+      "bytes": 179443,
+      "sha256": "4c54a884110dc4e9e53f4846e8daf6a684a1794d90ec65f83985e093806947af",
+      "generated_at": "2026-03-19T07:39:55.912Z"
+    },
+    {
+      "file": "sg-ai-occupations-v4.json",
+      "label": "V4 structural score JSON",
+      "category": "structural_score",
+      "description": "Nested structural score dataset with basis and provenance metadata.",
+      "bytes": 2373514,
+      "sha256": "d52fff9f57c0e2139a63d71f356aac3f35cc3c32a00d9a84b3458b275fc8f7ae",
+      "generated_at": "2026-03-19T07:39:52.085Z"
+    },
+    {
+      "file": "sg-context-pack-2025.json",
+      "label": "Singapore context pack",
+      "category": "context_bundle",
+      "description": "Published Singapore context bundle around the structural score: labour monitor, worker profile, industry context, and sector wage anchors.",
+      "bytes": 551591,
+      "sha256": "7b033df2feea37db0ef2ab788d832f8ab9d560f0b0ab943741b9102975a74350",
+      "generated_at": "2026-03-19T07:40:06.284Z"
+    },
+    {
+      "file": "sg-labour-monitor-2025.json",
+      "label": "Singapore labour monitor",
+      "category": "labour_monitor",
+      "description": "Published cluster-level labour monitor used as current evidence around the score.",
+      "bytes": 10812,
+      "sha256": "6417add8a128545311d31b3caab569c1f8e1edbce1a1f3509543c80c11e64f45",
+      "generated_at": "2026-03-19T07:40:06.285Z"
+    },
+    {
+      "file": "sg-worker-profile-2024.json",
+      "label": "Singapore worker profile",
+      "category": "worker_profile",
+      "description": "Published Labour Force 2024 worker-profile context and detailed gender anchors.",
+      "bytes": 116519,
+      "sha256": "723a9704e3b87db1f5779406eb0915ad41f7987717058ec8808c5ecef1fa4f36",
+      "generated_at": "2026-03-19T07:02:00.557Z"
+    }
+  ]
+}
