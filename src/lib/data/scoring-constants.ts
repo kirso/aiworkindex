@@ -137,7 +137,7 @@ export const DATA_VINTAGE = {
 	/** Anthropic Economic Index date */
 	anthropic: 'January 2026',
 	/** Model version */
-	model_version: 'V3.3',
+	model_version: 'V4.0',
 	/** Last scoring run date */
 	last_updated: '2026-03-19',
 	/** Occupation count */
@@ -187,11 +187,11 @@ export const RANKING_THRESHOLDS = {
 // ============================================
 
 /**
- * Ensemble exposure weights (V3.2 → V3.3 upgrade):
- * Previously: calibration_weight 0.3 (AIOE 70% / Anthropic 30%)
- * Now: equal-weight ensemble per Frank et al. (2025) PNAS Nexus recommendation
- * that ensemble approaches outperform any single exposure score.
- * AIOE-only fallback used when Anthropic data is unavailable.
+ * Ensemble exposure weights (V4.0: 4-input ensemble):
+ * Equal-weight average of all available inputs per Frank et al. (2025) PNAS Nexus
+ * recommendation that ensemble approaches outperform any single exposure score.
+ * Inputs: AIOE (always) + Anthropic + Eloundou + ILO (when matched).
+ * AIOE-only fallback used when no other sources are available.
  */
 export const ANTHROPIC_CONSTANTS = {
 	/** AIOE weight in ensemble (when Anthropic data available) */

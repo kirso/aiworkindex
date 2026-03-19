@@ -1,17 +1,19 @@
 #!/usr/bin/env bun
 /**
- * score.ts — V3.1 scoring pipeline for Singapore AI Job Exposure Map.
+ * score.ts — V4.0 scoring pipeline for Singapore AI Job Exposure Map.
  *
- * Computes Felten AIOE, Pizzinelli theta, market resilience layer,
- * and net displacement risk for each of 562 Singapore SSOC occupations.
+ * Computes 4-input ensemble exposure (AIOE + Anthropic + Eloundou + ILO),
+ * Pizzinelli theta, market resilience layer, and net displacement risk
+ * for each of 562 Singapore SSOC occupations.
  *
+ * V4.0: 4-input ensemble exposure per Frank et al. (2025) PNAS Nexus.
  * V3.1 additions:
  *   - Anthropic Economic Index observed AI usage calibration
  *   - MOM Shortage Occupation List (SOL) 2026 demand bonus
  *   - Crosswalk dispersion penalty for confidence
  *   - Variable confidence factors based on data match quality
  *
- * V3 formula:
+ * Formula:
  *   exposure     = pctile(aioe)
  *   bottleneck   = pctile(theta)
  *   market_modifier = 1 - 0.35 * market_resilience
@@ -35,8 +37,7 @@ import {
 	classifyImpactType,
 	RISK_BAND_THRESHOLDS,
 	MARKET_CONSTANTS,
-	AUGMENTATION_THRESHOLDS,
-	ANTHROPIC_CONSTANTS
+	AUGMENTATION_THRESHOLDS
 } from '../src/lib/data/scoring-constants';
 
 // ===== Workflow Overlay (from archetype system) =====
@@ -1138,7 +1139,7 @@ function buildStabilityScores(
 	};
 }
 
-// ===== Step 7: Score all occupations (V3.1) =====
+// ===== Step 7: Score all occupations (V4.0) =====
 function scoreOccupations(
 	sgOccs: SgOccupation[],
 	aioeMap: Map<string, number>,
@@ -1151,7 +1152,7 @@ function scoreOccupations(
 	demandData: { exactCodes: Set<string>; prefixes: Set<string> },
 	labourMonitors: Map<string, LabourClusterMonitor>
 ): ScoredOccupation[] {
-	console.log('\nScoring occupations (V3.3 — 4-input ensemble)...');
+	console.log('\nScoring occupations (V4.0 — 4-input ensemble)...');
 
 	// Pre-compute theta_MIN for C-AIOE formula
 	const allTheta = [...thetaMap.values()];
@@ -1399,7 +1400,7 @@ function scoreOccupations(
 		groupMomentum.set(g, mm);
 	}
 
-	// ===== Industry momentum spread (V3.3) =====
+	// ===== Industry momentum spread (V4.0) =====
 	// Load industry × occupation data to measure intra-group momentum variance.
 	// High variance = group-level momentum is a poor proxy for individual occupations.
 	const industryMomentumSpread = new Map<string, number>();
@@ -1502,7 +1503,7 @@ function scoreOccupations(
 	// Occupation scarcity = mean of two percentile ranks
 	const occScarcity = intermediates.map((_, i) => (logSpreadRanks[i] + ratioRanks[i]) / 2);
 
-	// ===== V3.3: Multi-input ensemble — percentile ranks for each source =====
+	// ===== V4.0: Multi-input ensemble — percentile ranks for each source =====
 	console.log('  Computing ensemble exposure percentile ranks...');
 
 	function computePctileRanks(values: (number | null)[]): number[] {
@@ -1537,7 +1538,7 @@ function scoreOccupations(
 		const theoreticalExposure = exposure;
 
 		// === 4a: Multi-input ensemble exposure ===
-		// V3.3: Equal-weight average of all available exposure inputs.
+		// V4.0: Equal-weight average of all available exposure inputs.
 		// Per Frank et al. (2025) PNAS Nexus: ensemble outperforms any single score.
 		// Inputs: AIOE (always), Anthropic (if matched), Eloundou (if matched), ILO (if matched).
 		{
@@ -1848,7 +1849,7 @@ function printDistributionAnalysis(results: ScoredOccupation[]) {
 
 // ===== Main =====
 async function main() {
-	console.log('=== Singapore AI Job Exposure Scoring Pipeline (V3.1) ===\n');
+	console.log('=== Singapore AI Job Exposure Scoring Pipeline (V4.0) ===\n');
 
 	// Load all data sources
 	const aioeMap = loadAioe();

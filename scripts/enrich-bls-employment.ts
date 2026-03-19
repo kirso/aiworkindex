@@ -84,7 +84,7 @@ function main() {
 	let enriched = 0;
 	let fallback = 0;
 
-	for (const [groupKey, g] of groups) {
+	for (const [_groupKey, g] of groups) {
 		const blsTotal = g.blsEmps.reduce((s, v) => s + v, 0);
 		if (blsTotal === 0) {
 			// No BLS data for this group — keep equal split

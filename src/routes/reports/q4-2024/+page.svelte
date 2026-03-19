@@ -240,7 +240,7 @@
 			2021, Pizzinelli/IMF 2023, Anthropic Economic Index Jan 2026, SOL 2026, Jobs in Demand 2025.
 		</p>
 		<p class="mt-1">
-			Scoring V3.1. All scores deterministic and reproducible.
+			Scoring V4.0. All scores deterministic and reproducible.
 			<a href="/methodology" class="text-primary underline">Methodology</a> &middot;
 			<a href="/data" class="text-primary underline">Download data</a>
 		</p>

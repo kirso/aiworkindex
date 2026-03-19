@@ -134,7 +134,7 @@
 					</Table.Header>
 					<Table.Body>
 						<Table.Row>
-							<Table.Cell class="font-medium">V3.1 (Current)</Table.Cell>
+							<Table.Cell class="font-medium">V4.0 (Current)</Table.Cell>
 							<Table.Cell class="text-muted-foreground">March 2026</Table.Cell>
 							<Table.Cell class="text-muted-foreground">562</Table.Cell>
 							<Table.Cell>
@@ -169,7 +169,7 @@
 		<p class={cn(sectionLabel(), 'mb-3')}>Methodology Version</p>
 		<div class={card({ padding: 'lg' })}>
 			<div class="space-y-1 text-sm text-muted-foreground">
-				<p><span class="font-medium text-foreground">Version:</span> V3.1 (three-layer scoring: exposure, bottleneck, market resilience)</p>
+				<p><span class="font-medium text-foreground">Version:</span> V4.0 (4-input ensemble: AIOE + Anthropic + Eloundou + ILO)</p>
 				<p><span class="font-medium text-foreground">Data vintage:</span> 2024 wages, 2024/2025 demand signals</p>
 				<p><span class="font-medium text-foreground">Occupations:</span> 562 SSOC-coded occupations</p>
 				<p><span class="font-medium text-foreground">Sources:</span> MOM Singapore, Felten et al. AIOE, Pizzinelli/IMF, Anthropic observed usage, SOL 2026, Jobs in Demand 2025</p>

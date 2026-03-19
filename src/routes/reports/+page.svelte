@@ -77,7 +77,7 @@
 						SGD 46 billion in annual wages sit in high+ risk occupations. Breakdown by sector, top
 						individual wage exposure, and methodology notes.
 					</p>
-					<p class="mt-2 text-xs text-muted-foreground">Based on V3.3 scoring, March 2026</p>
+					<p class="mt-2 text-xs text-muted-foreground">Based on V4.0 scoring, March 2026</p>
 				</div>
 				<svg
 					class="ml-4 mt-1 h-5 w-5 shrink-0 text-muted-foreground"

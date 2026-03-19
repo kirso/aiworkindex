@@ -1,7 +1,7 @@
 import occupationsData from './occupations.json';
 import majorGroupsData from './major-groups.json';
 
-// V3.1 types
+// V4.0 types
 export type RiskBand = 'very_low' | 'low' | 'moderate' | 'high' | 'very_high';
 
 export interface MarketScores {
@@ -109,7 +109,7 @@ export interface Occupation {
 	gross_wage_75th: number;
 	employment_thousands: number;
 	group_employment_thousands: number;
-	// V3.1 fields
+	// V4.0 fields
 	exposure: number;
 	bottleneck: number;
 	market: MarketScores;

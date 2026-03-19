@@ -343,7 +343,7 @@ function main() {
 	const result = {
 		validation_date: new Date().toISOString().split('T')[0],
 		data_period: 'Q3 2025',
-		model_version: 'V3.3',
+		model_version: 'V4.0',
 		cluster_stats: clusterStats,
 		sub_major_group_stats: subMajorStats,
 		correlation_checks: checks,
@@ -360,7 +360,7 @@ function main() {
 				'Cluster-level aggregation masks within-cluster variation',
 				'Q3 2025 is a single observation — trends need multi-quarter validation',
 				'Vacancy rates reflect overall demand, not AI-specific displacement',
-				'V3.3: Ensemble exposure (AIOE 50% + Anthropic observed usage 50%) per Frank et al. (2025) recommendation'
+				'V4.0: 4-input ensemble exposure (AIOE + Anthropic + Eloundou + ILO) per Frank et al. (2025) recommendation'
 			]
 		}
 	};

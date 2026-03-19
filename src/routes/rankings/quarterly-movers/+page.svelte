@@ -38,7 +38,7 @@
 		</svg>
 		<h2 class="mt-4 text-base font-semibold text-foreground">Coming Next Quarter</h2>
 		<p class="mt-2 text-sm text-muted-foreground">
-			V3.3 (March 2026) is the current baseline snapshot. This page will show occupations that
+			V4.0 (March 2026) is the current baseline snapshot. This page will show occupations that
 			change risk bands when the next quarterly labour data arrives and scores are re-run.
 		</p>
 		<p class="mt-2 text-xs text-muted-foreground">

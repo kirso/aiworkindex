@@ -7,7 +7,7 @@
 
 <Seo
 	title="Implementation Appendix"
-	description="Complete implementation reference for the V3.3 scoring pipeline: risk bands, impact classification, seniority modifiers, confidence, market modifier, stability, and synthetic role rules."
+	description="Complete implementation reference for the V4.0 scoring pipeline: risk bands, impact classification, seniority modifiers, confidence, market modifier, stability, and synthetic role rules."
 	path="/methodology/appendix"
 />
 
@@ -24,7 +24,7 @@
 		Implementation Appendix
 	</h1>
 	<p class="mt-2 text-sm text-muted-foreground">
-		Complete V3.3 implementation reference. All thresholds match
+		Complete V4.0 implementation reference. All thresholds match
 		<code class="rounded bg-muted px-1 text-xs">score.ts</code>,
 		<code class="rounded bg-muted px-1 text-xs">synthetic-roles.ts</code>, and
 		<code class="rounded bg-muted px-1 text-xs">validate.ts</code>.

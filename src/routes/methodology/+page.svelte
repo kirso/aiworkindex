@@ -871,8 +871,17 @@
 									>Eloundou et al. (2023) — LLM task-level exposure via human + GPT-4 assessment</td
 								>
 								<td class="py-2"
-									>Pending integration. Crosscheck script ready. Shows as "Exposure consensus"
-									indicator when available.</td
+									>Integrated in V4.0 ensemble. Equal-weight average when matched via SOC crosswalk.</td
+								>
+							</tr>
+							<tr class="border-b border-border/50">
+								<td class="py-2 pr-3 font-medium">ILO AI Exposure</td>
+								<td class="py-2 pr-3"
+									>ILO (2024) — task-level AI automation potential scored across ISCO occupations</td
+								>
+								<td class="py-2"
+									>Integrated in V4.0 ensemble. Equal-weight average when matched via ISCO
+									crosswalk.</td
 								>
 							</tr>
 						</tbody>
@@ -977,16 +986,16 @@
 			<section class="mb-8">
 				<p class={sectionLabel()}>What This Version Shows</p>
 				<p class="mt-2 text-sm text-muted-foreground">
-					V3.1 implements the full three-layer model: exposure (AIOE percentile), human bottleneck
-					(theta percentile), and market resilience (group-level employment/wage trends +
-					occupation-level wage structure). Net risk is published as risk bands with visible
-					confidence. Augmentation potential, impact type classification, and rule-based
-					outlook/scenario modelling are included. 80 estimated modern roles (AI engineer, product
-					manager, prompt engineer, etc.) are scored as weighted blends of official occupations,
-					with dispersion analysis for high-variance compositions.
+					V4.0 implements the full three-layer model with 4-input ensemble exposure (AIOE +
+					Anthropic + Eloundou + ILO), human bottleneck (theta percentile), and market resilience
+					(group-level employment/wage trends + occupation-level wage structure). Net risk is
+					published as risk bands with visible confidence. Augmentation potential, impact type
+					classification, and rule-based outlook/scenario modelling are included. 80 estimated
+					modern roles (AI engineer, product manager, prompt engineer, etc.) are scored as weighted
+					blends of official occupations, with dispersion analysis for high-variance compositions.
 				</p>
 				<p class="mt-2 text-sm text-muted-foreground">
-					<strong>Seniority adjustment</strong> (V3.1): the Outlook section now supports experience-level
+					<strong>Seniority adjustment</strong> (V3.2+): the Outlook section now supports experience-level
 					modifiers (Entry-level / Mid-career / Senior). Adjustments scale with each occupation's variant
 					sensitivity — roles with high institutional knowledge (e.g., software engineering) vary more
 					by seniority than roles with low context-dependence (e.g., truck driver). Grounded in: Stanford
@@ -1479,17 +1488,26 @@
 				<div class="mt-3 space-y-3">
 					<div class={card({ padding: 'sm' })}>
 						<div class="flex items-center justify-between">
-							<span class="text-sm font-semibold text-foreground">V3.1 — Current</span>
+							<span class="text-sm font-semibold text-foreground">V4.0 — Current</span>
 							<span class="text-xs text-muted-foreground">March 2026</span>
 						</div>
 						<p class="mt-1 text-sm text-muted-foreground">
+							4-input ensemble exposure (AIOE + Anthropic + Eloundou + ILO) per Frank et al. (2025)
+							PNAS Nexus recommendation. Equal-weight average of all available inputs. BLS crosswalk
+							validation. Industry momentum spread for intra-group variance. 49 validation checks.
+						</p>
+					</div>
+					<div class={cn(card({ variant: 'inset', padding: 'sm' }))}>
+						<div class="flex items-center justify-between">
+							<span class="text-sm font-semibold text-foreground/70">V3.1</span>
+							<span class={caption()}>March 2026</span>
+						</div>
+						<p class="mt-1 text-sm text-muted-foreground">
 							Seniority modifiers (entry-level / mid-career / senior) scaled by variant sensitivity.
-							Ensemble exposure framework (GPTs-are-GPTs crosscheck ready). Cluster-level
-							backtesting (3/4 directional checks pass). Labour data updated to Q4 2025 advance
-							release. 80 synthetic roles (added AI Engineer, Prompt Engineer, AI Product Manager,
-							Data Architect, IT Security Manager). Archetype classification expanded to cover all
-							SSOC prefixes. 48 validation checks. Outlook simplified to 2 tabs with seniority
-							toggle.
+							2-input ensemble exposure (AIOE + Anthropic). Cluster-level backtesting (3/4
+							directional checks pass). Labour data updated to Q4 2025 advance release. 80 synthetic
+							roles. Archetype classification expanded to cover all SSOC prefixes. 48 validation
+							checks. Outlook simplified to 2 tabs with seniority toggle.
 						</p>
 					</div>
 					<div class={cn(card({ variant: 'inset', padding: 'sm' }))}>
