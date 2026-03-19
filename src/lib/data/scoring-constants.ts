@@ -147,7 +147,7 @@ export const DATA_VINTAGE = {
 	/** Validation check count */
 	validation_checks: 49,
 	/** Page count */
-	page_count: 661
+	page_count: 672
 } as const;
 
 // ============================================

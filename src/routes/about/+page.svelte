@@ -231,7 +231,7 @@
 				DEL, Anthropic 2026)
 			</li>
 			<li>
-				<strong>80 synthetic roles</strong> — modern job titles (AI Engineer, Prompt Engineer) scored
+				<strong>88 synthetic roles</strong> — modern job titles (AI Engineer, Prompt Engineer) scored
 				as weighted SSOC blends
 			</li>
 		</ul>

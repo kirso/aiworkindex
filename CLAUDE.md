@@ -1,6 +1,6 @@
 # CLAUDE.md — AI Work Index
 
-AI Work Index: 562 Singapore occupations and 80 modern roles scored for AI displacement risk using a deterministic three-layer model (exposure, human bottleneck, market resilience). Static site, no backend.
+AI Work Index: 562 Singapore occupations and 88 modern roles scored for AI displacement risk using a deterministic three-layer model (exposure, human bottleneck, market resilience). Static site, no backend.
 
 ## Core Commands
 
@@ -90,7 +90,7 @@ data/raw/external/ → scripts/score.ts → data/occupations.json → src/lib/da
 - `src/lib/data/forecast-engine.ts` — outlook computation with seniority modifiers
 - `src/lib/data/role-archetypes.ts` — 17 archetype-based personalized content
 - `src/lib/data/workflow-overlay.ts` — 8 workflow dimensions, narrative generation
-- `src/lib/data/synthetic-roles.ts` — 80 modern roles as weighted SSOC blends
+- `src/lib/data/synthetic-roles.ts` — 88 modern roles as weighted SSOC blends
 - `src/lib/data/aliases.ts` — 189 search aliases mapped to SSOC codes
 - `src/lib/data/transition-capacity.ts` — career transition scoring
 - `src/lib/design-system.ts` — Signal design system (card, badge, typography variants)
@@ -102,7 +102,7 @@ data/raw/external/ → scripts/score.ts → data/occupations.json → src/lib/da
 
 - `/` — homepage with search, browse pills, treemap, featured data
 - `/occupation/[ssoc]` — 562 occupation detail pages (Signal hero with big number)
-- `/role/[slug]` — 80 synthetic role pages
+- `/role/[slug]` — 88 synthetic role pages
 - `/explore` — filter, treemap, histogram, scatter
 - `/compare` — side-by-side comparison
 - `/rankings/*` — 8 ranking views

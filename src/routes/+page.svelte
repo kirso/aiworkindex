@@ -85,7 +85,7 @@
 				name: 'Will AI replace my job in Singapore?',
 				acceptedAnswer: {
 					'@type': 'Answer',
-					text: 'It depends on your occupation. Of 562 Singapore occupations scored, 48 face very high AI displacement risk while 111 face very low risk.'
+					text: `It depends on your occupation. Of ${DATA_VINTAGE.occupation_count} Singapore occupations scored using a 4-input ensemble (AIOE, Anthropic, Eloundou, ILO), risk ranges from very low to very high displacement pressure.`
 				}
 			},
 			{
