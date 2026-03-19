@@ -21,6 +21,7 @@ interface Occupation {
 	gross_wage_median: number;
 	gross_wage_25th: number;
 	gross_wage_75th: number;
+	estimated_sg_employment_thousands?: number;
 	employment_thousands: number;
 	employment_basis?: string;
 	bls_proxy_employment?: number;
@@ -87,6 +88,7 @@ const columns = [
 	'gross_wage_median',
 	'gross_wage_25th',
 	'gross_wage_75th',
+	'estimated_sg_employment_thousands',
 	'employment_thousands',
 	'employment_basis',
 	'employment_tier',
@@ -140,6 +142,7 @@ const rows = occupations.map(o => [
 	o.gross_wage_median,
 	o.gross_wage_25th,
 	o.gross_wage_75th,
+	o.estimated_sg_employment_thousands ?? o.employment_thousands,
 	o.employment_thousands,
 	o.employment_basis ?? '',
 	o.data_basis?.employment_estimate?.tier ?? '',

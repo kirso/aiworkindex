@@ -84,12 +84,18 @@
 			name: 'employment_thousands',
 			type: 'number',
 			description:
+				'Legacy compatibility alias for estimated_sg_employment_thousands. Derived from published Labour Force 2024 sub-major totals. Not an official occupation headcount.'
+		},
+		{
+			name: 'estimated_sg_employment_thousands',
+			type: 'number',
+			description:
 				'Est. Singapore employment for this occupation, derived from published Labour Force 2024 sub-major totals. Not an official occupation headcount.'
 		},
 		{
 			name: 'employment_basis',
 			type: 'enum',
-			description: `Basis label for employment_thousands. Current live basis: ${employmentBasisLabels.estimated_sg_submajor}.`
+			description: `Basis label for estimated_sg_employment_thousands. Current live basis: ${employmentBasisLabels.estimated_sg_submajor}.`
 		},
 		{
 			name: 'bls_proxy_employment',

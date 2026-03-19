@@ -1794,6 +1794,7 @@ function scoreOccupations(
 			gross_wage_median: r.occ.gross_wage_median,
 			gross_wage_25th: r.occ.gross_wage_25th,
 			gross_wage_75th: r.occ.gross_wage_75th,
+			estimated_sg_employment_thousands: r.occ.estimated_employment_thousands,
 			employment_thousands: r.occ.estimated_employment_thousands,
 			employment_basis: 'estimated_sg_submajor',
 			group_employment_thousands: r.occ.group_employment_thousands,
@@ -2099,12 +2100,14 @@ async function main() {
 		const groupEmp = subMajorEmployment[prefix2];
 		const groupCount = subMajorCounts[prefix2];
 		if (groupEmp !== undefined && groupCount) {
-			(r as any).employment_thousands = round(groupEmp / groupCount, 1);
+			const estimatedEmploymentThousands = round(groupEmp / groupCount, 1);
+			(r as any).estimated_sg_employment_thousands = estimatedEmploymentThousands;
+			(r as any).employment_thousands = estimatedEmploymentThousands;
 			updated++;
 		}
 	}
 	console.log(
-		`\nUpdated employment_thousands for ${updated}/${results.length} occupations using sub-major group data (Labour Force 2024 Table D8)`
+		`\nUpdated estimated_sg_employment_thousands / employment_thousands for ${updated}/${results.length} occupations using sub-major group data (Labour Force 2024 Table D8)`
 	);
 
 	// Distribution analysis

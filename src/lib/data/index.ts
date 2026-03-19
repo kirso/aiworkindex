@@ -132,6 +132,9 @@ export interface Occupation {
 	gross_wage_median: number;
 	gross_wage_25th: number;
 	gross_wage_75th: number;
+	/** Explicit Singapore estimate derived from published sub-major occupation totals. */
+	estimated_sg_employment_thousands?: number;
+	/** Legacy compatibility alias for the same estimated Singapore employment field. */
 	employment_thousands: number;
 	employment_basis?: EmploymentBasis;
 	/** BLS-weighted proxy used for illustrative wage-pool analysis; not an official Singapore headcount. */

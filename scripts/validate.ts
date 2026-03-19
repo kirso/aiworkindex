@@ -17,6 +17,8 @@ interface Occupation {
 	ssoc: string;
 	title: string;
 	match_quality: 'direct' | 'submajor_fallback' | 'major_fallback';
+	estimated_sg_employment_thousands?: number;
+	employment_thousands: number;
 	exposure: number;
 	bottleneck: number;
 	net_risk: number;
@@ -132,6 +134,9 @@ async function main() {
 		'All occupations have current core fields',
 		data.every(
 			row =>
+				typeof row.estimated_sg_employment_thousands === 'number' &&
+				typeof row.employment_thousands === 'number' &&
+				row.estimated_sg_employment_thousands === row.employment_thousands &&
 				typeof row.exposure === 'number' &&
 				typeof row.bottleneck === 'number' &&
 				typeof row.net_risk === 'number' &&

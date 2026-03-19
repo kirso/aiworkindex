@@ -1,6 +1,6 @@
 {
   "version": "V4.0",
-  "generated_at": "2026-03-19T09:55:28.626Z",
+  "generated_at": "2026-03-19T10:00:04.851Z",
   "score_dataset_generated_at": "2026-03-19",
   "artifacts": [
     {
@@ -8,18 +8,18 @@
       "label": "V4 structural score CSV",
       "category": "structural_score",
       "description": "Flattened structural score dataset with basis and provenance columns.",
-      "bytes": 236737,
-      "sha256": "116b41a860fb731cba864845e91532dc59c10be4b8bf124ecea07fbddb87e4bb",
-      "generated_at": "2026-03-19T09:55:26.115Z"
+      "bytes": 239018,
+      "sha256": "0db71bb23be74defccf011cdaf1535491e8b6b91cf846e00c53618d3f895d009",
+      "generated_at": "2026-03-19T10:00:01.795Z"
     },
     {
       "file": "sg-ai-occupations-v4.json",
       "label": "V4 structural score JSON",
       "category": "structural_score",
       "description": "Nested structural score dataset with basis and provenance metadata.",
-      "bytes": 2554786,
-      "sha256": "07f41190b287a9314fa27ae152e6f961577d75583ff1c4ff716732edcdb5eb0e",
-      "generated_at": "2026-03-19T09:55:10.746Z"
+      "bytes": 2580627,
+      "sha256": "5683fae27fa58d1d5b9eed5e5908936039dd0e26ade1664c5a5ed48467c7c3c3",
+      "generated_at": "2026-03-19T09:59:49.608Z"
     },
     {
       "file": "sg-context-pack-2025.json",
