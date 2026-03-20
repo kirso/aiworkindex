@@ -67,7 +67,7 @@ const claims: ClaimEntry[] = [
 		id: 'reliability_weighted_exposure_ensemble',
 		category: 'methodology',
 		claim:
-			'V4.0 uses a reliability-weighted 4-source exposure ensemble (AIOE, Anthropic, Eloundou, ILO).',
+			'V4.1 uses a reliability-weighted 4-source exposure ensemble (AIOE, Anthropic, Eloundou, ILO).',
 		strength: 'high',
 		source_keys: [
 			'aioe_2021',
@@ -101,6 +101,26 @@ const claims: ClaimEntry[] = [
 		where_used: ['/', '/about', '/methodology'],
 		notes:
 			'This is a framing claim about what the model is designed to measure and what it is not designed to predict.'
+	},
+	{
+		id: 'offset_potential_is_separate_support_layer',
+		category: 'methodology',
+		claim:
+			'Offset potential is published separately as a heuristic support layer and should not be read as a direct measure of reinstatement or realised job creation.',
+		strength: 'medium',
+		source_keys: [
+			'mom_labour_monitor_2025',
+			'mom_job_vacancy_rates',
+			'mom_sol_2026',
+			'mom_jobs_in_demand_2025',
+			'skillsfuture_transition_mapping',
+			'wsg_careersfinder',
+			'onet_task_statements'
+		],
+		evidence_artifacts: ['sg-offset-potential-v4.json', 'scripts/build-offset-potential.ts'],
+		where_used: ['/methodology', '/data', '/occupation/[ssoc]', '/role/[slug]'],
+		notes:
+			'This layer approximates offsetting forces with demand, transition support, and task context. It intentionally sits outside the core structural score because direct occupation-level reinstatement data is not available.'
 	},
 	{
 		id: 'estimated_sg_employment_not_official',

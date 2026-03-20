@@ -15,6 +15,7 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
+import { DATA_VINTAGE } from '../src/lib/data/scoring-constants';
 
 const ROOT_DIR = path.join(import.meta.dir, '..');
 const DATA_DIR = path.join(ROOT_DIR, 'data');
@@ -285,7 +286,7 @@ function main() {
 
 	const result = {
 		generated_at: new Date().toISOString(),
-		model_version: 'V4.0',
+		model_version: DATA_VINTAGE.model_version,
 		cluster_risk_order: Object.entries(clusterRisk).sort((a, b) => b[1] - a[1]),
 		metrics: {
 			vacancy_rate_yoy: {

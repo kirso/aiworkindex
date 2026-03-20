@@ -44,6 +44,8 @@ interface IndustryContextItem {
 	vacancy_quarter: string | null;
 	vacancy_trend_4q_pct: number | null;
 	vacancy_signal: VacancySignal | null;
+	vacancy_share_latest: number | null;
+	vacancy_rank_latest: number | null;
 }
 
 interface GroupIndustryContext {
@@ -260,7 +262,9 @@ function parseEmploymentByIndustry(): OutputGroups {
 			vacancy_latest: null,
 			vacancy_quarter: null,
 			vacancy_trend_4q_pct: null,
-			vacancy_signal: null
+			vacancy_signal: null,
+			vacancy_share_latest: null,
+			vacancy_rank_latest: null
 		};
 		output[currentGroup].top_industries.push(item);
 	}
@@ -289,16 +293,16 @@ function parseVacancyByIndustry(): Map<
 		.split('\n')
 		.filter(Boolean);
 	const header = parseCSVRow(lines[0]);
-	const latestIdx = header.indexOf('20253Q');
-	const yoyIdx = header.indexOf('20243Q');
-	if (latestIdx < 0 || yoyIdx < 0) {
-		throw new Error('Missing vacancy columns 20253Q / 20243Q');
+	const quarterColumns = header.slice(1).filter(Boolean);
+	const latestQuarter = quarterColumns[0] ?? null;
+	if (!latestQuarter) {
+		throw new Error('Missing vacancy quarter columns');
 	}
+	const latestIdx = header.indexOf(latestQuarter);
 
-	const vacancyByIndustry = new Map<
-		string,
+	const rawItems: Array<
 		Omit<IndustryContextItem, 'employment_2025' | 'share_2025' | 'cagr_5y' | 'change_2y'>
-	>();
+	> = [];
 	let inCommunitySection = false;
 
 	for (const line of lines.slice(1)) {
@@ -321,15 +325,52 @@ function parseVacancyByIndustry(): Map<
 		if (!normalizedKey) continue;
 
 		const latest = parseNumber(fields[latestIdx]);
-		const yoy = parseNumber(fields[yoyIdx]);
-		const trend = latest !== null && yoy !== null && yoy > 0 ? (latest - yoy) / yoy : null;
-		vacancyByIndustry.set(normalizedKey, {
+		const trailingValues = quarterColumns
+			.slice(1, 5)
+			.map(quarter => parseNumber(fields[header.indexOf(quarter)]))
+			.filter((value): value is number => value !== null);
+		const trailingAverage =
+			trailingValues.length > 0
+				? trailingValues.reduce((sum, value) => sum + value, 0) / trailingValues.length
+				: null;
+		const trend =
+			latest !== null && trailingAverage !== null && trailingAverage > 0
+				? (latest - trailingAverage) / trailingAverage
+				: null;
+		rawItems.push({
 			key: normalizedKey,
 			label: label.replace(/ And /g, ' & '),
 			vacancy_latest: latest !== null ? round(latest, 0) : null,
-			vacancy_quarter: '2025 Q3',
+			vacancy_quarter: latestQuarter
+				? `${latestQuarter.slice(0, 4)} Q${latestQuarter.slice(5, 6)}`
+				: null,
 			vacancy_trend_4q_pct: trend !== null ? round(trend, 4) : null,
-			vacancy_signal: vacancySignalFromTrend(trend)
+			vacancy_signal: vacancySignalFromTrend(trend),
+			vacancy_share_latest: null,
+			vacancy_rank_latest: null
+		});
+	}
+
+	const totalLatestVacancies = rawItems.reduce((sum, item) => sum + (item.vacancy_latest ?? 0), 0);
+	const ranked = [...rawItems]
+		.filter(item => item.vacancy_latest !== null)
+		.sort((a, b) => (b.vacancy_latest ?? 0) - (a.vacancy_latest ?? 0));
+	const vacancyByIndustry = new Map<
+		string,
+		Omit<IndustryContextItem, 'employment_2025' | 'share_2025' | 'cagr_5y' | 'change_2y'>
+	>();
+	for (const item of rawItems) {
+		const rank =
+			item.vacancy_latest !== null
+				? ranked.findIndex(candidate => candidate.key === item.key) + 1
+				: null;
+		vacancyByIndustry.set(item.key, {
+			...item,
+			vacancy_share_latest:
+				item.vacancy_latest !== null && totalLatestVacancies > 0
+					? round(item.vacancy_latest / totalLatestVacancies, 4)
+					: null,
+			vacancy_rank_latest: rank
 		});
 	}
 
@@ -350,13 +391,16 @@ function main() {
 			item.vacancy_quarter = vacancy.vacancy_quarter;
 			item.vacancy_trend_4q_pct = vacancy.vacancy_trend_4q_pct;
 			item.vacancy_signal = vacancy.vacancy_signal;
+			item.vacancy_share_latest = vacancy.vacancy_share_latest;
+			item.vacancy_rank_latest = vacancy.vacancy_rank_latest;
 		}
 	}
 
 	const output: IndustryContextOutput = {
 		metadata: {
 			employment_vintage: '2025',
-			vacancy_overlay_vintage: '2025 Q3',
+			vacancy_overlay_vintage:
+				[...vacancies.values()].find(item => item.vacancy_quarter)?.vacancy_quarter ?? 'Unknown',
 			vacancy_overlay_source_note:
 				'Industry-level vacancy overlays use the latest published detailed industry-by-occupation cross-tab, which currently lags the main cluster labour monitor.'
 		},

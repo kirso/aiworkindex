@@ -79,10 +79,10 @@
 			</p>
 		</div>
 		<div class={cn(card({ padding: 'sm' }), 'border-l-4 border-l-primary')}>
-			<p class="text-xs font-semibold uppercase tracking-wider text-primary">Outlook & Support</p>
+			<p class="text-xs font-semibold uppercase tracking-wider text-primary">Offset & Support</p>
 			<p class="mt-1 text-xs text-muted-foreground">
-				Forward-looking. Seniority modifiers, transition pathways, SkillsFuture programmes. Guidance
-				layer, not a forecast.
+				Separate support layers. Offset potential, transition pathways, SkillsFuture programmes, and
+				scenario guidance. Useful context, not a forecast.
 			</p>
 		</div>
 	</div>
@@ -90,8 +90,8 @@
 	<p class="mt-4 text-muted-foreground">
 		These three layers are separated deliberately in the product and data model. The structural
 		score is published as its own dataset, the labour monitor and Singapore context ship as separate
-		artifacts, and the outlook/support layer is kept out of the core score so it remains a guidance
-		layer and stays auditable rather than being presented as measured fact.
+		artifacts, and the offset/support layers stay out of the core score so they remain auditable
+		decision support rather than being presented as measured fact.
 	</p>
 
 	<!-- Key context boxes -->
@@ -175,6 +175,7 @@
 								Transition support (deterministic feasibility estimates + official programme
 								infrastructure)
 							</li>
+							<li>Offset potential (heuristic demand, redesign, and friction layer)</li>
 							<li>Outlook/scenario modelling (rule-based guidance, not prediction)</li>
 							<li>Seniority modifiers (research-grounded, not independently validated)</li>
 						</ul>

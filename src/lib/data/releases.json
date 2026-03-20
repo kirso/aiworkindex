@@ -1,10 +1,10 @@
 [
   {
-    "id": "structural-v4.0-2026-03-20",
+    "id": "structural-v4.1-2026-03-20",
     "type": "structural_release",
-    "label": "V4.0 structural release",
+    "label": "V4.1 structural release",
     "published_at": "2026-03-20",
-    "score_version": "V4.0",
+    "score_version": "V4.1",
     "monitor_vintage": "Q4 2025 full",
     "href": "/data",
     "notes": [
@@ -17,7 +17,7 @@
     "type": "official_update",
     "label": "MOM Labour Market Report Q4 2025",
     "published_at": "2026-03-20",
-    "score_version": "V4.0",
+    "score_version": "V4.1",
     "monitor_vintage": "Q4 2025 full",
     "href": "https://stats.mom.gov.sg/Pages/Labour-Market-Report-4Q-2025.aspx",
     "notes": [
@@ -30,7 +30,7 @@
     "type": "report_refresh",
     "label": "2026 Q1 quarterly briefing",
     "published_at": "2026-03-20",
-    "score_version": "V4.0",
+    "score_version": "V4.1",
     "monitor_vintage": "Q4 2025 full",
     "href": "/reports",
     "notes": [

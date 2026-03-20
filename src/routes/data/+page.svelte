@@ -22,7 +22,7 @@
 		'@context': 'https://schema.org',
 		'@type': 'Dataset',
 		name: 'AI Work Index — Singapore Occupation Scores',
-		description: `${DATA_VINTAGE.occupation_count} Singapore occupations scored for structural AI pressure using a 4-source exposure ensemble, human bottleneck, and Singapore labour-market signals.`,
+		description: `${DATA_VINTAGE.occupation_count} Singapore occupations scored for structural AI pressure using a 4-source exposure ensemble, human bottleneck, Singapore market context, and separately published offset/support layers.`,
 		url: SITE.url + '/data',
 		license: 'https://opensource.org/licenses/MIT',
 		creator: { '@type': 'Organization', name: SITE.name, url: SITE.url },
@@ -126,7 +126,7 @@
 			name: 'exposure',
 			type: 'number',
 			description:
-				'Exposure ensemble score (0-1). Reliability-weighted blend of matched percentile-ranked exposure sources in V4.0.'
+				'Exposure ensemble score (0-1). Reliability-weighted blend of matched percentile-ranked exposure sources in V4.1.'
 		},
 		{
 			name: 'bottleneck',
@@ -199,7 +199,7 @@
 			name: 'evidence.exposure_blend_strategy',
 			type: 'enum',
 			description:
-				'Current exposure blend method. V4.0 uses a deterministic reliability-weighted ensemble.'
+				'Current exposure blend method. V4.1 uses a deterministic reliability-weighted ensemble.'
 		},
 		{
 			name: 'evidence.exposure_agreement',
@@ -227,7 +227,7 @@
 		{
 			name: 'confidence.exposure_source_count',
 			type: 'number',
-			description: 'How many exposure sources were available for this occupation in the V4.0 ensemble.'
+			description: 'How many exposure sources were available for this occupation in the V4.1 ensemble.'
 		},
 		{
 			name: 'confidence.source_coverage',
@@ -333,7 +333,7 @@
 
 <Seo
 	title="Download Singapore AI Occupation Risk Data"
-	description="Download the current AI Work Index dataset and versioned snapshots, including the latest V4.0 structural scores and metadata."
+	description="Download the current AI Work Index dataset and versioned snapshots, including the latest V4.1 structural scores and metadata."
 	path="/data"
 	jsonLd={[datasetJsonLd]}
 />
@@ -451,7 +451,7 @@
 					<span class="text-base font-semibold text-foreground">JSON</span>
 				</div>
 				<p class="mt-1 text-sm text-muted-foreground">
-					Full V4.0 scores with nested fields and per-field basis metadata.
+					Full V4.1 scores with nested fields and per-field basis metadata.
 				</p>
 				<span class="mt-auto pt-2 text-xs text-primary">sg-ai-occupations-v4.json</span>
 			</div>
@@ -496,7 +496,8 @@
 				{ href: '/data/sg-macro-context-2025.json', label: 'Macro context', desc: 'Unemployment, GDP, tightness' },
 				{ href: '/data/sg-ai-in-singapore-2025.json', label: 'AI in Singapore', desc: 'Adoption, NAIIP, workforce' },
 				{ href: '/data/onet-enrichment.json', label: 'O*NET task + tools', desc: 'Supporting task and technology context' },
-				{ href: '/data/sg-transition-support-v4.json', label: 'Transition support', desc: 'Pathways, SkillsFuture, JTM / WSQ anchors' }
+				{ href: '/data/sg-transition-support-v4.json', label: 'Transition support', desc: 'Pathways, SkillsFuture, JTM / WSQ anchors' },
+				{ href: '/data/sg-offset-potential-v4.json', label: 'Offset potential', desc: 'Demand persistence, redesign room, switching friction' }
 			] as file}
 				<a
 					href={file.href}
@@ -527,7 +528,7 @@
 					</Table.Header>
 					<Table.Body>
 						<Table.Row>
-							<Table.Cell class="font-medium">V4.0 (Current)</Table.Cell>
+							<Table.Cell class="font-medium">V4.1 (Current)</Table.Cell>
 							<Table.Cell class="text-muted-foreground">March 2026</Table.Cell>
 							<Table.Cell class="text-muted-foreground">{DATA_VINTAGE.occupation_count}</Table.Cell>
 							<Table.Cell>
@@ -562,10 +563,10 @@
 		<p class={cn(sectionLabel(), 'mb-3')}>Methodology Version</p>
 		<div class={card({ padding: 'lg' })}>
 			<div class="space-y-1 text-sm text-muted-foreground">
-				<p><span class="font-medium text-foreground">Version:</span> V4.0 (4-source exposure ensemble inside a 3-layer structural score)</p>
+				<p><span class="font-medium text-foreground">Version:</span> V4.1 (4-source exposure ensemble inside a 3-layer structural score, with separate offset/support layers)</p>
 				<p><span class="font-medium text-foreground">Data vintage:</span> 2024 wages, 2024/2025 demand signals</p>
 				<p><span class="font-medium text-foreground">Occupations:</span> {DATA_VINTAGE.occupation_count} SSOC-coded occupations</p>
-				<p><span class="font-medium text-foreground">Separate context bundle:</span> Labour monitor, worker profile, industry context, sector wage anchors, geography context, macro labour context, and national AI context</p>
+				<p><span class="font-medium text-foreground">Separate context bundle:</span> Labour monitor, worker profile, industry context, sector wage anchors, geography context, macro labour context, national AI context, offset potential, and transition support</p>
 				<p><span class="font-medium text-foreground">Sources:</span> MOM Singapore (wages, Labour Force Section D, industry context, demand signals, SOI), IMDA Singapore Digital Economy Report 2025, IMDA NAIIP 2026, O*NET, Felten AIOE, Pizzinelli/IMF, Anthropic observed usage, Eloundou GPT exposure, ILO occupational exposure, SOL 2026, Jobs in Demand 2025</p>
 			</div>
 			<a href="/methodology" class="mt-3 inline-block text-sm text-primary underline">Full methodology &rarr;</a>

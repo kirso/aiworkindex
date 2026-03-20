@@ -124,6 +124,14 @@ const ONET_ENRICHMENT_FILE = path.join(
 	'data',
 	'onet-enrichment.json'
 );
+const OFFSET_POTENTIAL_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'offset-potential.json'
+);
 const INDUSTRY_CONTEXT_FILE = path.join(
 	import.meta.dir,
 	'..',
@@ -750,6 +758,8 @@ async function main() {
 				occupation_family_validation_rho?: number | null;
 				occupation_family_validation_family_count?: number | null;
 				occupation_family_validation_significant?: boolean | null;
+				offset_potential_generated_at?: string | null;
+				offset_potential_high_count?: number | null;
 				latest_official_labour_report: { label: string; url: string };
 			};
 			homepage_banner: { title: string; body: string };
@@ -870,7 +880,16 @@ async function main() {
 				vacancy_overlay_vintage?: string;
 				vacancy_overlay_source_note?: string;
 			};
-			groups?: Record<string, unknown>;
+			groups?: Record<
+				string,
+				{
+					top_industries?: Array<{
+						vacancy_share_latest?: number | null;
+						vacancy_rank_latest?: number | null;
+						vacancy_signal?: string | null;
+					}>;
+				}
+			>;
 		}>(INDUSTRY_CONTEXT_FILE);
 		const rawDataAudit = readJson<{
 			entries?: Array<{
@@ -892,6 +911,19 @@ async function main() {
 				technologies: Array<{ name: string; hot: boolean }>;
 			}>
 		>(ONET_ENRICHMENT_FILE);
+		const offsetPotential = readJson<{
+			entries?: Array<{
+				ssoc: string;
+				band: 'low' | 'medium' | 'high';
+				score: number;
+				components: {
+					demand_persistence: number;
+					transition_support: number;
+					reallocation_room: number;
+					mobility_friction: number;
+				};
+			}>;
+		}>(OFFSET_POTENTIAL_FILE);
 		const packageJson = readJson<{ scripts?: Record<string, string> }>(
 			path.join(import.meta.dir, '..', 'package.json')
 		);
@@ -959,6 +991,9 @@ async function main() {
 			(releaseManifest?.artifacts ?? []).some(artifact => artifact.file === 'site-status.json') &&
 				(releaseManifest?.artifacts ?? []).some(artifact => artifact.file === 'releases.json') &&
 				(releaseManifest?.artifacts ?? []).some(
+					artifact => artifact.file === 'sg-offset-potential-v4.json'
+				) &&
+				(releaseManifest?.artifacts ?? []).some(
 					artifact => artifact.file === 'backtests/calibration-diagnostics.json'
 				) &&
 				(releaseManifest?.artifacts ?? []).some(
@@ -1004,6 +1039,7 @@ async function main() {
 		check('Postings monitor artifact exists', postingsMonitor !== null);
 		check('Employer pressure artifact exists', employerSignals !== null);
 		check('Transition support artifact exists', transitionSupport !== null);
+		check('Offset potential artifact exists', offsetPotential !== null);
 		check('Industry context artifact exists', industryContext !== null);
 		check('Raw data audit artifact exists', rawDataAudit !== null);
 		check('O*NET enrichment artifact exists', onetEnrichment !== null);
@@ -1012,6 +1048,16 @@ async function main() {
 			'Industry context carries vacancy-overlay metadata',
 			typeof industryContext?.metadata?.vacancy_overlay_vintage === 'string' &&
 				typeof industryContext?.metadata?.vacancy_overlay_source_note === 'string'
+		);
+		check(
+			'Industry context carries detailed vacancy rank/share fields',
+			Object.values(industryContext?.groups ?? {}).some(group =>
+				(group.top_industries ?? []).some(
+					item =>
+						typeof item.vacancy_share_latest === 'number' &&
+						typeof item.vacancy_rank_latest === 'number'
+				)
+			)
 		);
 		check(
 			'Industry context groups remain populated',
@@ -1041,6 +1087,12 @@ async function main() {
 		check(
 			'build:release-data regenerates O*NET enrichment',
 			(packageJson?.scripts?.['build:release-data'] ?? '').includes('scripts/enrich-onet.ts')
+		);
+		check(
+			'build:release-data regenerates offset potential',
+			(packageJson?.scripts?.['build:release-data'] ?? '').includes(
+				'scripts/build-offset-potential.ts'
+			)
 		);
 		check(
 			'Claims matrix source keys resolve against the published source registry',
@@ -1073,6 +1125,51 @@ async function main() {
 				row =>
 					(row.official_programme_support.wsq_training_reference?.total_trainees_latest ?? 0) > 0
 			)
+		);
+		check(
+			'Transition infrastructure exposes latest WSQ attainment mix',
+			readJson<{
+				wsq_training?: {
+					statement_attainment_latest_year?: string;
+					statement_attainment_shares_latest?: Array<{ label: string; share: number | null }>;
+				};
+			}>(
+				path.join(import.meta.dir, '..', 'src', 'lib', 'data', 'transition-infrastructure.json')
+			)?.wsq_training?.statement_attainment_shares_latest?.some(
+				entry => typeof entry.share === 'number' && entry.share > 0
+			) === true
+		);
+		check(
+			'Offset potential covers all occupations',
+			(offsetPotential?.entries?.length ?? 0) === data.length,
+			String(offsetPotential?.entries?.length ?? 0)
+		);
+		check(
+			'Offset potential has meaningful band spread',
+			(() => {
+				const counts = (offsetPotential?.entries ?? []).reduce(
+					(acc, entry) => {
+						acc[entry.band] += 1;
+						return acc;
+					},
+					{ low: 0, medium: 0, high: 0 }
+				);
+				return counts.low > 0 && counts.medium > 0 && counts.high > 0;
+			})()
+		);
+		check(
+			'Offset potential component scores stay within 0-1',
+			(offsetPotential?.entries ?? []).every(entry =>
+				Object.values(entry.components).every(value => value >= 0 && value <= 1)
+			)
+		);
+		check(
+			'Site status mirrors offset-potential summary',
+			siteStatus?.live_monitor?.offset_potential_high_count ===
+				(offsetPotential?.entries ?? []).filter(entry => entry.band === 'high').length,
+			`${siteStatus?.live_monitor?.offset_potential_high_count} vs ${
+				(offsetPotential?.entries ?? []).filter(entry => entry.band === 'high').length
+			}`
 		);
 		check(
 			'Employer pressure includes meaningful signal coverage',

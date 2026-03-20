@@ -1,6 +1,6 @@
 {
-  "version": "V4.0",
-  "generated_at": "2026-03-20T09:38:39.112Z",
+  "version": "V4.1",
+  "generated_at": "2026-03-20T13:10:10.493Z",
   "description": "Official Singapore transition infrastructure anchors used around the heuristic transition-support layer. This artifact captures published programmes, training-system activity, and Jobs Transformation Map coverage.",
   "programmes": [
     {
@@ -48,6 +48,37 @@
     "source_file": "wsq_trainees_by_statement_attainment.json",
     "latest_year": "2024",
     "total_trainees_latest": 382175,
+    "statement_attainment_latest_year": "2022",
+    "statement_attainment_shares_latest": [
+      {
+        "label": "Certificate",
+        "share": 0.4712
+      },
+      {
+        "label": "Higher Certificate",
+        "share": 0.1483
+      },
+      {
+        "label": "Advanced Certificate",
+        "share": 0.2154
+      },
+      {
+        "label": "Diploma",
+        "share": 0.1332
+      },
+      {
+        "label": "Specialist Diploma",
+        "share": 0.0286
+      },
+      {
+        "label": "Graduate Certificate",
+        "share": 0.0029
+      },
+      {
+        "label": "Graduate Diploma",
+        "share": 0.0003
+      }
+    ],
     "historical_total": [
       {
         "year": "2011",
@@ -110,37 +141,44 @@
       {
         "label": "Certificate",
         "count_2022": 166106,
-        "count_2024": null
+        "count_2024": null,
+        "count_latest_available": 166106
       },
       {
         "label": "Higher Certificate",
         "count_2022": 52279,
-        "count_2024": null
+        "count_2024": null,
+        "count_latest_available": 52279
       },
       {
         "label": "Advanced Certificate",
         "count_2022": 75924,
-        "count_2024": null
+        "count_2024": null,
+        "count_latest_available": 75924
       },
       {
         "label": "Diploma",
         "count_2022": 46969,
-        "count_2024": null
+        "count_2024": null,
+        "count_latest_available": 46969
       },
       {
         "label": "Specialist Diploma",
         "count_2022": 10094,
-        "count_2024": null
+        "count_2024": null,
+        "count_latest_available": 10094
       },
       {
         "label": "Graduate Certificate",
         "count_2022": 1024,
-        "count_2024": null
+        "count_2024": null,
+        "count_latest_available": 1024
       },
       {
         "label": "Graduate Diploma",
         "count_2022": 116,
-        "count_2024": null
+        "count_2024": null,
+        "count_latest_available": 116
       }
     ]
   },

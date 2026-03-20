@@ -1,6 +1,6 @@
 {
   "validation_date": "2026-03-20",
-  "model_version": "V4.0",
+  "model_version": "V4.1",
   "bls_data_period": "2024-2034 projections",
   "total_occupations": 562,
   "matched_sample_size": 530,

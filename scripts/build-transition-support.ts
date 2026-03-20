@@ -114,7 +114,12 @@ function buildOfficialProgrammeSupport(skillsfutureEligible: boolean, majorGroup
 	const matchedIndustries =
 		getIndustryLabelsForOccupation(majorGroup).filter(industryHasJtmCoverage);
 	const wsqSummary = transitionInfrastructure?.wsq_training as
-		| { latest_year?: string; total_trainees_latest?: number }
+		| {
+				latest_year?: string;
+				total_trainees_latest?: number;
+				statement_attainment_latest_year?: string;
+				statement_attainment_shares_latest?: Array<{ label: string; share: number | null }>;
+		  }
 		| undefined;
 	const baseProgrammes = ['CareersFinder'];
 	const recommendedProgrammes = [...baseProgrammes];
@@ -150,6 +155,17 @@ function buildOfficialProgrammeSupport(skillsfutureEligible: boolean, majorGroup
 	if (wsqSummary?.latest_year && wsqSummary?.total_trainees_latest) {
 		basisParts.push(
 			`WSQ system scale reference: ${wsqSummary.total_trainees_latest.toLocaleString()} trainees in ${wsqSummary.latest_year}.`
+		);
+	}
+	const dominantAttainment = (wsqSummary?.statement_attainment_shares_latest ?? [])
+		.filter(
+			(entry): entry is { label: string; share: number } =>
+				typeof entry.share === 'number' && entry.share > 0
+		)
+		.sort((a, b) => b.share - a.share)[0];
+	if (dominantAttainment && wsqSummary?.statement_attainment_latest_year) {
+		basisParts.push(
+			`Latest published WSQ attainment mix (${wsqSummary.statement_attainment_latest_year}) is led by ${dominantAttainment.label.toLowerCase()} programmes.`
 		);
 	}
 

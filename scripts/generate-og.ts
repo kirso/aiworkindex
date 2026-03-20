@@ -21,17 +21,42 @@ interface Occupation {
 	net_risk: number;
 	risk_band: string;
 	impact_type: string;
+	exposure: number;
+	bottleneck: number;
 	confidence: { level: string };
 	stability?: { optimistic_risk: number; pessimistic_risk: number };
 	education_label?: string;
+	evidence: { sol_match?: string | false; jobs_in_demand_match?: string | false };
 }
 
+// ============================================
+// Design system colors — extracted from app.css
+// Keep in sync with the live site palette.
+// ============================================
+const DS = {
+	// Backgrounds
+	primaryBg: '#1a3550', // oklch(0.42 0.16 230) → ink blue dark
+	primaryBgLight: '#1e3a5f', // lighter ink blue for gradients
+	cardBg: '#f8f9fb', // oklch(0.985) off-white
+	// Text
+	foreground: '#1a2332', // oklch(0.14 0.005 240)
+	muted: '#6b7a8d', // oklch(0.48 0.01 240)
+	tertiary: '#8494a7', // oklch(0.55 0.006 240)
+	ghost: '#a3b1c1', // oklch(0.68 0.004 240)
+	// Brand
+	primary: '#2563a8', // oklch(0.42 0.16 230) as hex
+	primaryLight: '#93c5fd', // light blue for accents on dark bg
+	// Semantic
+	positive: '#34d399', // risk-very-low / demand
+	url: '#4a6580' // subtle link on dark bg
+} as const;
+
 const RISK_COLORS: Record<string, string> = {
-	very_low: '#10b981',
-	low: '#22c55e',
+	very_low: '#34d399',
+	low: '#4ade80',
 	moderate: '#f59e0b',
 	high: '#f97316',
-	very_high: '#f43f5e'
+	very_high: '#ef4444'
 };
 
 const RISK_LABELS: Record<string, string> = {
@@ -72,7 +97,9 @@ function buildMarkup(occ: Occupation) {
 	const range = occ.stability
 		? `${Math.round(occ.stability.optimistic_risk * 100)}–${Math.round(occ.stability.pessimistic_risk * 100)}%`
 		: '';
-	const edu = occ.education_label ?? '';
+	const exposurePct = Math.round(occ.exposure * 100);
+	const bottleneckPct = Math.round(occ.bottleneck * 100);
+	const hasDemand = occ.evidence.sol_match || occ.evidence.jobs_in_demand_match;
 
 	return h(
 		'div',
@@ -84,7 +111,7 @@ function buildMarkup(occ: Occupation) {
 				flexDirection: 'column',
 				justifyContent: 'space-between',
 				padding: '60px',
-				background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
+				background: `linear-gradient(135deg, ${DS.primaryBg} 0%, ${DS.primaryBgLight} 100%)`,
 				color: 'white',
 				fontFamily: 'Inter'
 			}
@@ -97,12 +124,12 @@ function buildMarkup(occ: Occupation) {
 			},
 			h(
 				'div',
-				{ style: { fontSize: '22px', color: '#94a3b8', letterSpacing: '0.1em' } },
-				'SG AI JOBS'
+				{ style: { fontSize: '22px', color: DS.primaryLight, letterSpacing: '0.1em' } },
+				'AI WORK INDEX'
 			),
 			h(
 				'div',
-				{ style: { fontSize: '18px', color: '#64748b' } },
+				{ style: { fontSize: '18px', color: DS.ghost } },
 				`Confidence: ${occ.confidence.level.charAt(0).toUpperCase() + occ.confidence.level.slice(1)}`
 			)
 		),
@@ -150,13 +177,15 @@ function buildMarkup(occ: Occupation) {
 			},
 			h(
 				'div',
-				{ style: { display: 'flex', gap: '30px', fontSize: '20px', color: '#94a3b8' } },
+				{ style: { display: 'flex', gap: '20px', fontSize: '18px', color: DS.primaryLight } },
 				h('div', {}, impactLabel),
 				h('div', {}, wage),
-				range ? h('div', {}, `Range: ${range}`) : null,
-				edu ? h('div', { style: { color: '#64748b' } }, edu) : null
+				h('div', {}, `Exposure ${exposurePct}%`),
+				h('div', {}, `Human moat ${bottleneckPct}%`),
+				hasDemand ? h('div', { style: { color: DS.positive } }, 'In demand') : null,
+				range ? h('div', { style: { color: DS.ghost } }, `${range}`) : null
 			),
-			h('div', { style: { fontSize: '18px', color: '#475569' } }, 'aiworkindex.pages.dev')
+			h('div', { style: { fontSize: '18px', color: DS.url } }, 'aiworkindex.pages.dev')
 		)
 	);
 }
@@ -188,7 +217,7 @@ function buildRoleMarkup(role: SyntheticRoleOG) {
 				flexDirection: 'column',
 				justifyContent: 'space-between',
 				padding: '60px',
-				background: 'linear-gradient(135deg, #1e1b4b 0%, #312e81 100%)',
+				background: `linear-gradient(135deg, ${DS.primaryBg} 0%, ${DS.primaryBgLight} 100%)`,
 				color: 'white',
 				fontFamily: 'Inter'
 			}
@@ -200,16 +229,16 @@ function buildRoleMarkup(role: SyntheticRoleOG) {
 			},
 			h(
 				'div',
-				{ style: { fontSize: '22px', color: '#a5b4fc', letterSpacing: '0.1em' } },
-				'SG AI JOBS'
+				{ style: { fontSize: '22px', color: DS.primaryLight, letterSpacing: '0.1em' } },
+				'AI WORK INDEX'
 			),
 			h(
 				'div',
 				{
 					style: {
 						fontSize: '16px',
-						color: '#818cf8',
-						background: '#312e81',
+						color: DS.primaryLight,
+						background: DS.primaryBg,
 						borderRadius: '8px',
 						padding: '6px 16px'
 					}
@@ -259,11 +288,11 @@ function buildRoleMarkup(role: SyntheticRoleOG) {
 			},
 			h(
 				'div',
-				{ style: { display: 'flex', gap: '40px', fontSize: '22px', color: '#a5b4fc' } },
+				{ style: { display: 'flex', gap: '40px', fontSize: '22px', color: DS.primaryLight } },
 				h('div', {}, impactLabel),
 				h('div', {}, `Based on ${role.components} official occupations`)
 			),
-			h('div', { style: { fontSize: '18px', color: '#6366f1' } }, 'sg-ai-jobs.vercel.app')
+			h('div', { style: { fontSize: '18px', color: DS.url } }, 'aiworkindex.pages.dev')
 		)
 	);
 }
@@ -387,14 +416,14 @@ async function main() {
 					flexDirection: 'column',
 					justifyContent: 'space-between',
 					padding: '60px',
-					background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
+					background: `linear-gradient(135deg, ${DS.primaryBg} 0%, ${DS.primaryBgLight} 100%)`,
 					color: 'white',
 					fontFamily: 'Inter'
 				}
 			},
 			h(
 				'div',
-				{ style: { fontSize: '22px', color: '#94a3b8', letterSpacing: '0.1em' } },
+				{ style: { fontSize: '22px', color: DS.primaryLight, letterSpacing: '0.1em' } },
 				'AI WORK INDEX'
 			),
 			h(
@@ -407,7 +436,7 @@ async function main() {
 				),
 				h(
 					'div',
-					{ style: { fontSize: '24px', color: '#94a3b8' } },
+					{ style: { fontSize: '24px', color: DS.primaryLight } },
 					`${occupations.length} occupations scored for AI displacement risk`
 				)
 			),
@@ -418,12 +447,12 @@ async function main() {
 				},
 				h(
 					'div',
-					{ style: { display: 'flex', gap: '30px', fontSize: '20px', color: '#64748b' } },
+					{ style: { display: 'flex', gap: '30px', fontSize: '20px', color: DS.ghost } },
 					h('div', {}, 'Peer-reviewed research'),
 					h('div', {}, 'Official SG data'),
 					h('div', {}, 'No LLM in scoring')
 				),
-				h('div', { style: { fontSize: '18px', color: '#475569' } }, 'aiworkindex.pages.dev')
+				h('div', { style: { fontSize: '18px', color: DS.url } }, 'aiworkindex.pages.dev')
 			)
 		);
 

@@ -35,6 +35,7 @@ const OCCUPATION_FAMILY_VALIDATION_FILE = path.join(
 	'backtests',
 	'occupation-family-validation.json'
 );
+const OFFSET_POTENTIAL_FILE = path.join(STATIC_DATA_DIR, 'sg-offset-potential-v4.json');
 
 const SITE_STATUS_OUT = path.join(STATIC_DATA_DIR, 'site-status.json');
 const SITE_STATUS_SRC_OUT = path.join(SRC_DATA_DIR, 'site-status.json');
@@ -94,6 +95,10 @@ function buildSiteStatus() {
 		spearman_rho: number;
 		p_value_below_01: boolean;
 	}>(OCCUPATION_FAMILY_VALIDATION_FILE);
+	const offsetPotential = readJson<{
+		generated_at: string;
+		entries?: Array<{ band: 'low' | 'medium' | 'high' }>;
+	}>(OFFSET_POTENTIAL_FILE);
 
 	return {
 		updated_at: new Date().toISOString(),
@@ -142,7 +147,12 @@ function buildSiteStatus() {
 				calibrationDiagnostics?.segments?.by_confidence_level?.low?.sample_size ?? null,
 			occupation_family_validation_rho: occupationFamilyValidation?.spearman_rho ?? null,
 			occupation_family_validation_family_count: occupationFamilyValidation?.family_count ?? null,
-			occupation_family_validation_significant: occupationFamilyValidation?.p_value_below_01 ?? null
+			occupation_family_validation_significant:
+				occupationFamilyValidation?.p_value_below_01 ?? null,
+			offset_potential_generated_at: offsetPotential?.generated_at ?? null,
+			offset_potential_high_count: (offsetPotential?.entries ?? []).filter(
+				entry => entry.band === 'high'
+			).length
 		},
 		homepage_banner: {
 			tag: 'Update',

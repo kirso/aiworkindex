@@ -18,7 +18,16 @@
 	} = $props();
 
 	const pct = format('.0%');
-	const x = scaleLinear().domain([0, 0.7]).range([0, 100]);
+	// Data-driven max: accommodate all values with padding, minimum 0.7
+	let xMax = $derived(
+		Math.max(
+			0.7,
+			Math.ceil(
+				items.reduce((max, item) => Math.max(max, item.old_risk, item.new_risk), 0) * 10
+			) / 10
+		)
+	);
+	let x = $derived(scaleLinear().domain([0, xMax]).range([0, 100]));
 
 	function dotColor(item: MoverItem) {
 		return item.delta > 0 ? 'var(--color-risk-high)' : 'var(--color-risk-very-low)';

@@ -1,5 +1,5 @@
 {
-  "version": "V4.0",
+  "version": "V4.1",
   "generated_at": "2026-03-20",
   "description": "Singapore context bundle for AI Work Index. Context data is published separately from the structural score dataset and includes labour, worker, industry, wage-anchor, geography, macro, and national AI context.",
   "score_dataset": {
@@ -18,7 +18,7 @@
   },
   "vintage": {
     "worker_profile": "2024",
-    "industry_context": "2025 employment, 2025 Q3 vacancy overlay",
+    "industry_context": "2025 employment, 2025 QQ vacancy overlay",
     "sector_wage_anchors": "2024",
     "geography_context": "2020",
     "macro_context": "2024-2025",
@@ -40,7 +40,7 @@
       "data": {
         "metadata": {
           "employment_vintage": "2025",
-          "vacancy_overlay_vintage": "2025 Q3",
+          "vacancy_overlay_vintage": "2025 QQ",
           "vacancy_overlay_source_note": "Industry-level vacancy overlays use the latest published detailed industry-by-occupation cross-tab, which currently lags the main cluster labour monitor."
         },
         "groups": {
@@ -56,9 +56,11 @@
                 "cagr_5y": 0.01035,
                 "change_2y": 0.092689,
                 "vacancy_latest": 5100,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": -0.0192,
-                "vacancy_signal": "stable"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": -0.1969,
+                "vacancy_signal": "cooling",
+                "vacancy_share_latest": 0.0981,
+                "vacancy_rank_latest": 5
               },
               {
                 "key": "financial_insurance_services",
@@ -68,9 +70,11 @@
                 "cagr_5y": 0.028628,
                 "change_2y": 0.031457,
                 "vacancy_latest": 5100,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": 0.275,
-                "vacancy_signal": "rising"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": -0.0769,
+                "vacancy_signal": "cooling",
+                "vacancy_share_latest": 0.0981,
+                "vacancy_rank_latest": 8
               },
               {
                 "key": "professional_services",
@@ -80,9 +84,11 @@
                 "cagr_5y": -0.000928,
                 "change_2y": 0.122715,
                 "vacancy_latest": 5500,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": 0.3415,
-                "vacancy_signal": "rising"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": 0.0046,
+                "vacancy_signal": "stable",
+                "vacancy_share_latest": 0.1058,
+                "vacancy_rank_latest": 4
               },
               {
                 "key": "public_admin_education",
@@ -94,7 +100,9 @@
                 "vacancy_latest": null,
                 "vacancy_quarter": null,
                 "vacancy_trend_4q_pct": null,
-                "vacancy_signal": null
+                "vacancy_signal": null,
+                "vacancy_share_latest": null,
+                "vacancy_rank_latest": null
               },
               {
                 "key": "information_communications",
@@ -104,9 +112,11 @@
                 "cagr_5y": 0.010839,
                 "change_2y": 0.042553,
                 "vacancy_latest": 5100,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": -0.1053,
-                "vacancy_signal": "cooling"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": -0.1429,
+                "vacancy_signal": "cooling",
+                "vacancy_share_latest": 0.0981,
+                "vacancy_rank_latest": 7
               }
             ],
             "fastest_growing_industries": [
@@ -118,9 +128,11 @@
                 "cagr_5y": 0.054396,
                 "change_2y": 0.122222,
                 "vacancy_latest": 5100,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": 0.4167,
-                "vacancy_signal": "rising"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": 0.1591,
+                "vacancy_signal": "rising",
+                "vacancy_share_latest": 0.0981,
+                "vacancy_rank_latest": 6
               },
               {
                 "key": "public_admin_education",
@@ -132,7 +144,9 @@
                 "vacancy_latest": null,
                 "vacancy_quarter": null,
                 "vacancy_trend_4q_pct": null,
-                "vacancy_signal": null
+                "vacancy_signal": null,
+                "vacancy_share_latest": null,
+                "vacancy_rank_latest": null
               },
               {
                 "key": "financial_insurance_services",
@@ -142,9 +156,11 @@
                 "cagr_5y": 0.028628,
                 "change_2y": 0.031457,
                 "vacancy_latest": 5100,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": 0.275,
-                "vacancy_signal": "rising"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": -0.0769,
+                "vacancy_signal": "cooling",
+                "vacancy_share_latest": 0.0981,
+                "vacancy_rank_latest": 8
               }
             ]
           },
@@ -162,7 +178,9 @@
                 "vacancy_latest": null,
                 "vacancy_quarter": null,
                 "vacancy_trend_4q_pct": null,
-                "vacancy_signal": null
+                "vacancy_signal": null,
+                "vacancy_share_latest": null,
+                "vacancy_rank_latest": null
               },
               {
                 "key": "financial_insurance_services",
@@ -172,9 +190,11 @@
                 "cagr_5y": 0.064995,
                 "change_2y": 0.02537,
                 "vacancy_latest": 5100,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": 0.275,
-                "vacancy_signal": "rising"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": -0.0769,
+                "vacancy_signal": "cooling",
+                "vacancy_share_latest": 0.0981,
+                "vacancy_rank_latest": 8
               },
               {
                 "key": "professional_services",
@@ -184,9 +204,11 @@
                 "cagr_5y": 0.0336,
                 "change_2y": -0.066434,
                 "vacancy_latest": 5500,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": 0.3415,
-                "vacancy_signal": "rising"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": 0.0046,
+                "vacancy_signal": "stable",
+                "vacancy_share_latest": 0.1058,
+                "vacancy_rank_latest": 4
               },
               {
                 "key": "health_social_services",
@@ -198,7 +220,9 @@
                 "vacancy_latest": null,
                 "vacancy_quarter": null,
                 "vacancy_trend_4q_pct": null,
-                "vacancy_signal": null
+                "vacancy_signal": null,
+                "vacancy_share_latest": null,
+                "vacancy_rank_latest": null
               },
               {
                 "key": "information_communications",
@@ -208,9 +232,11 @@
                 "cagr_5y": 0.072233,
                 "change_2y": -0.074581,
                 "vacancy_latest": 5100,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": -0.1053,
-                "vacancy_signal": "cooling"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": -0.1429,
+                "vacancy_signal": "cooling",
+                "vacancy_share_latest": 0.0981,
+                "vacancy_rank_latest": 7
               }
             ],
             "fastest_growing_industries": [
@@ -224,7 +250,9 @@
                 "vacancy_latest": null,
                 "vacancy_quarter": null,
                 "vacancy_trend_4q_pct": null,
-                "vacancy_signal": null
+                "vacancy_signal": null,
+                "vacancy_share_latest": null,
+                "vacancy_rank_latest": null
               },
               {
                 "key": "information_communications",
@@ -234,9 +262,11 @@
                 "cagr_5y": 0.072233,
                 "change_2y": -0.074581,
                 "vacancy_latest": 5100,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": -0.1053,
-                "vacancy_signal": "cooling"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": -0.1429,
+                "vacancy_signal": "cooling",
+                "vacancy_share_latest": 0.0981,
+                "vacancy_rank_latest": 7
               },
               {
                 "key": "financial_insurance_services",
@@ -246,9 +276,11 @@
                 "cagr_5y": 0.064995,
                 "change_2y": 0.02537,
                 "vacancy_latest": 5100,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": 0.275,
-                "vacancy_signal": "rising"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": -0.0769,
+                "vacancy_signal": "cooling",
+                "vacancy_share_latest": 0.0981,
+                "vacancy_rank_latest": 8
               }
             ]
           },
@@ -266,7 +298,9 @@
                 "vacancy_latest": null,
                 "vacancy_quarter": null,
                 "vacancy_trend_4q_pct": null,
-                "vacancy_signal": null
+                "vacancy_signal": null,
+                "vacancy_share_latest": null,
+                "vacancy_rank_latest": null
               },
               {
                 "key": "wholesale_retail_trade",
@@ -276,9 +310,11 @@
                 "cagr_5y": -0.012844,
                 "change_2y": -0.009231,
                 "vacancy_latest": 5100,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": -0.0192,
-                "vacancy_signal": "stable"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": -0.1969,
+                "vacancy_signal": "cooling",
+                "vacancy_share_latest": 0.0981,
+                "vacancy_rank_latest": 5
               },
               {
                 "key": "financial_insurance_services",
@@ -288,9 +324,11 @@
                 "cagr_5y": 0.012426,
                 "change_2y": 0.065957,
                 "vacancy_latest": 5100,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": 0.275,
-                "vacancy_signal": "rising"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": -0.0769,
+                "vacancy_signal": "cooling",
+                "vacancy_share_latest": 0.0981,
+                "vacancy_rank_latest": 8
               },
               {
                 "key": "health_social_services",
@@ -302,7 +340,9 @@
                 "vacancy_latest": null,
                 "vacancy_quarter": null,
                 "vacancy_trend_4q_pct": null,
-                "vacancy_signal": null
+                "vacancy_signal": null,
+                "vacancy_share_latest": null,
+                "vacancy_rank_latest": null
               },
               {
                 "key": "professional_services",
@@ -312,9 +352,11 @@
                 "cagr_5y": 0.007541,
                 "change_2y": -0.058568,
                 "vacancy_latest": 5500,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": 0.3415,
-                "vacancy_signal": "rising"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": 0.0046,
+                "vacancy_signal": "stable",
+                "vacancy_share_latest": 0.1058,
+                "vacancy_rank_latest": 4
               }
             ],
             "fastest_growing_industries": [
@@ -328,7 +370,9 @@
                 "vacancy_latest": null,
                 "vacancy_quarter": null,
                 "vacancy_trend_4q_pct": null,
-                "vacancy_signal": null
+                "vacancy_signal": null,
+                "vacancy_share_latest": null,
+                "vacancy_rank_latest": null
               },
               {
                 "key": "real_estate_services",
@@ -338,9 +382,11 @@
                 "cagr_5y": 0.030849,
                 "change_2y": 0.120301,
                 "vacancy_latest": 1300,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": -0.1333,
-                "vacancy_signal": "cooling"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": -0.1875,
+                "vacancy_signal": "cooling",
+                "vacancy_share_latest": 0.025,
+                "vacancy_rank_latest": 10
               },
               {
                 "key": "public_admin_education",
@@ -352,7 +398,9 @@
                 "vacancy_latest": null,
                 "vacancy_quarter": null,
                 "vacancy_trend_4q_pct": null,
-                "vacancy_signal": null
+                "vacancy_signal": null,
+                "vacancy_share_latest": null,
+                "vacancy_rank_latest": null
               }
             ]
           },
@@ -368,9 +416,11 @@
                 "cagr_5y": -0.02254,
                 "change_2y": -0.006154,
                 "vacancy_latest": 5100,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": -0.0192,
-                "vacancy_signal": "stable"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": -0.1969,
+                "vacancy_signal": "cooling",
+                "vacancy_share_latest": 0.0981,
+                "vacancy_rank_latest": 5
               },
               {
                 "key": "transportation_storage",
@@ -380,9 +430,11 @@
                 "cagr_5y": -0.007055,
                 "change_2y": -0.004484,
                 "vacancy_latest": 5100,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": 0.4167,
-                "vacancy_signal": "rising"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": 0.1591,
+                "vacancy_signal": "rising",
+                "vacancy_share_latest": 0.0981,
+                "vacancy_rank_latest": 6
               },
               {
                 "key": "health_social_services",
@@ -394,7 +446,9 @@
                 "vacancy_latest": null,
                 "vacancy_quarter": null,
                 "vacancy_trend_4q_pct": null,
-                "vacancy_signal": null
+                "vacancy_signal": null,
+                "vacancy_share_latest": null,
+                "vacancy_rank_latest": null
               },
               {
                 "key": "professional_services",
@@ -404,9 +458,11 @@
                 "cagr_5y": -0.003452,
                 "change_2y": -0.022727,
                 "vacancy_latest": 5500,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": 0.3415,
-                "vacancy_signal": "rising"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": 0.0046,
+                "vacancy_signal": "stable",
+                "vacancy_share_latest": 0.1058,
+                "vacancy_rank_latest": 4
               },
               {
                 "key": "financial_insurance_services",
@@ -416,9 +472,11 @@
                 "cagr_5y": -0.05756,
                 "change_2y": -0.222727,
                 "vacancy_latest": 5100,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": 0.275,
-                "vacancy_signal": "rising"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": -0.0769,
+                "vacancy_signal": "cooling",
+                "vacancy_share_latest": 0.0981,
+                "vacancy_rank_latest": 8
               }
             ],
             "fastest_growing_industries": [
@@ -432,7 +490,9 @@
                 "vacancy_latest": null,
                 "vacancy_quarter": null,
                 "vacancy_trend_4q_pct": null,
-                "vacancy_signal": null
+                "vacancy_signal": null,
+                "vacancy_share_latest": null,
+                "vacancy_rank_latest": null
               },
               {
                 "key": "accommodation_food_services",
@@ -442,9 +502,11 @@
                 "cagr_5y": 0.026245,
                 "change_2y": 0.188889,
                 "vacancy_latest": 6200,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": 0.1273,
-                "vacancy_signal": "rising"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": 0,
+                "vacancy_signal": "stable",
+                "vacancy_share_latest": 0.1192,
+                "vacancy_rank_latest": 3
               },
               {
                 "key": "other_community_social_personal",
@@ -456,7 +518,9 @@
                 "vacancy_latest": null,
                 "vacancy_quarter": null,
                 "vacancy_trend_4q_pct": null,
-                "vacancy_signal": null
+                "vacancy_signal": null,
+                "vacancy_share_latest": null,
+                "vacancy_rank_latest": null
               }
             ]
           },
@@ -472,9 +536,11 @@
                 "cagr_5y": 0.02332,
                 "change_2y": -0.009245,
                 "vacancy_latest": 6200,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": 0.1273,
-                "vacancy_signal": "rising"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": 0,
+                "vacancy_signal": "stable",
+                "vacancy_share_latest": 0.1192,
+                "vacancy_rank_latest": 3
               },
               {
                 "key": "wholesale_retail_trade",
@@ -484,9 +550,11 @@
                 "cagr_5y": -0.013617,
                 "change_2y": -0.016234,
                 "vacancy_latest": 5100,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": -0.0192,
-                "vacancy_signal": "stable"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": -0.1969,
+                "vacancy_signal": "cooling",
+                "vacancy_share_latest": 0.0981,
+                "vacancy_rank_latest": 5
               },
               {
                 "key": "administrative_support_services",
@@ -496,9 +564,11 @@
                 "cagr_5y": 0.017437,
                 "change_2y": 0.050167,
                 "vacancy_latest": 3300,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": -0.2826,
-                "vacancy_signal": "cooling"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": -0.3744,
+                "vacancy_signal": "cooling",
+                "vacancy_share_latest": 0.0635,
+                "vacancy_rank_latest": 9
               },
               {
                 "key": "other_community_social_personal",
@@ -510,7 +580,9 @@
                 "vacancy_latest": null,
                 "vacancy_quarter": null,
                 "vacancy_trend_4q_pct": null,
-                "vacancy_signal": null
+                "vacancy_signal": null,
+                "vacancy_share_latest": null,
+                "vacancy_rank_latest": null
               },
               {
                 "key": "health_social_services",
@@ -522,7 +594,9 @@
                 "vacancy_latest": null,
                 "vacancy_quarter": null,
                 "vacancy_trend_4q_pct": null,
-                "vacancy_signal": null
+                "vacancy_signal": null,
+                "vacancy_share_latest": null,
+                "vacancy_rank_latest": null
               }
             ],
             "fastest_growing_industries": [
@@ -534,9 +608,11 @@
                 "cagr_5y": 0.02332,
                 "change_2y": -0.009245,
                 "vacancy_latest": 6200,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": 0.1273,
-                "vacancy_signal": "rising"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": 0,
+                "vacancy_signal": "stable",
+                "vacancy_share_latest": 0.1192,
+                "vacancy_rank_latest": 3
               },
               {
                 "key": "administrative_support_services",
@@ -546,9 +622,11 @@
                 "cagr_5y": 0.017437,
                 "change_2y": 0.050167,
                 "vacancy_latest": 3300,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": -0.2826,
-                "vacancy_signal": "cooling"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": -0.3744,
+                "vacancy_signal": "cooling",
+                "vacancy_share_latest": 0.0635,
+                "vacancy_rank_latest": 9
               },
               {
                 "key": "other_community_social_personal",
@@ -560,7 +638,9 @@
                 "vacancy_latest": null,
                 "vacancy_quarter": null,
                 "vacancy_trend_4q_pct": null,
-                "vacancy_signal": null
+                "vacancy_signal": null,
+                "vacancy_share_latest": null,
+                "vacancy_rank_latest": null
               }
             ]
           },
@@ -576,9 +656,11 @@
                 "cagr_5y": -0.012825,
                 "change_2y": -0.150943,
                 "vacancy_latest": 5100,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": -0.0192,
-                "vacancy_signal": "stable"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": -0.1969,
+                "vacancy_signal": "cooling",
+                "vacancy_share_latest": 0.0981,
+                "vacancy_rank_latest": 5
               },
               {
                 "key": "other_community_social_personal",
@@ -590,7 +672,9 @@
                 "vacancy_latest": null,
                 "vacancy_quarter": null,
                 "vacancy_trend_4q_pct": null,
-                "vacancy_signal": null
+                "vacancy_signal": null,
+                "vacancy_share_latest": null,
+                "vacancy_rank_latest": null
               },
               {
                 "key": "administrative_support_services",
@@ -600,9 +684,11 @@
                 "cagr_5y": -0.032327,
                 "change_2y": 0.076923,
                 "vacancy_latest": 3300,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": -0.2826,
-                "vacancy_signal": "cooling"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": -0.3744,
+                "vacancy_signal": "cooling",
+                "vacancy_share_latest": 0.0635,
+                "vacancy_rank_latest": 9
               },
               {
                 "key": "professional_services",
@@ -612,9 +698,11 @@
                 "cagr_5y": -0.041815,
                 "change_2y": -0.222222,
                 "vacancy_latest": 5500,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": 0.3415,
-                "vacancy_signal": "rising"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": 0.0046,
+                "vacancy_signal": "stable",
+                "vacancy_share_latest": 0.1058,
+                "vacancy_rank_latest": 4
               },
               {
                 "key": "accommodation_food_services",
@@ -624,9 +712,11 @@
                 "cagr_5y": 0.019245,
                 "change_2y": -0.266667,
                 "vacancy_latest": 6200,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": 0.1273,
-                "vacancy_signal": "rising"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": 0,
+                "vacancy_signal": "stable",
+                "vacancy_share_latest": 0.1192,
+                "vacancy_rank_latest": 3
               }
             ],
             "fastest_growing_industries": [
@@ -640,7 +730,9 @@
                 "vacancy_latest": null,
                 "vacancy_quarter": null,
                 "vacancy_trend_4q_pct": null,
-                "vacancy_signal": null
+                "vacancy_signal": null,
+                "vacancy_share_latest": null,
+                "vacancy_rank_latest": null
               },
               {
                 "key": "wholesale_retail_trade",
@@ -650,9 +742,11 @@
                 "cagr_5y": -0.012825,
                 "change_2y": -0.150943,
                 "vacancy_latest": 5100,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": -0.0192,
-                "vacancy_signal": "stable"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": -0.1969,
+                "vacancy_signal": "cooling",
+                "vacancy_share_latest": 0.0981,
+                "vacancy_rank_latest": 5
               },
               {
                 "key": "administrative_support_services",
@@ -662,9 +756,11 @@
                 "cagr_5y": -0.032327,
                 "change_2y": 0.076923,
                 "vacancy_latest": 3300,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": -0.2826,
-                "vacancy_signal": "cooling"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": -0.3744,
+                "vacancy_signal": "cooling",
+                "vacancy_share_latest": 0.0635,
+                "vacancy_rank_latest": 9
               }
             ]
           },
@@ -680,9 +776,11 @@
                 "cagr_5y": -0.031695,
                 "change_2y": -0.034208,
                 "vacancy_latest": 5100,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": 0.4167,
-                "vacancy_signal": "rising"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": 0.1591,
+                "vacancy_signal": "rising",
+                "vacancy_share_latest": 0.0981,
+                "vacancy_rank_latest": 6
               },
               {
                 "key": "wholesale_retail_trade",
@@ -692,9 +790,11 @@
                 "cagr_5y": -0.032988,
                 "change_2y": -0.094488,
                 "vacancy_latest": 5100,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": -0.0192,
-                "vacancy_signal": "stable"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": -0.1969,
+                "vacancy_signal": "cooling",
+                "vacancy_share_latest": 0.0981,
+                "vacancy_rank_latest": 5
               },
               {
                 "key": "administrative_support_services",
@@ -704,9 +804,11 @@
                 "cagr_5y": -0.012825,
                 "change_2y": 0.304348,
                 "vacancy_latest": 3300,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": -0.2826,
-                "vacancy_signal": "cooling"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": -0.3744,
+                "vacancy_signal": "cooling",
+                "vacancy_share_latest": 0.0635,
+                "vacancy_rank_latest": 9
               },
               {
                 "key": "other_community_social_personal",
@@ -718,7 +820,9 @@
                 "vacancy_latest": null,
                 "vacancy_quarter": null,
                 "vacancy_trend_4q_pct": null,
-                "vacancy_signal": null
+                "vacancy_signal": null,
+                "vacancy_share_latest": null,
+                "vacancy_rank_latest": null
               },
               {
                 "key": "accommodation_food_services",
@@ -728,9 +832,11 @@
                 "cagr_5y": 0.010872,
                 "change_2y": -0.173913,
                 "vacancy_latest": 6200,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": 0.1273,
-                "vacancy_signal": "rising"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": 0,
+                "vacancy_signal": "stable",
+                "vacancy_share_latest": 0.1192,
+                "vacancy_rank_latest": 3
               }
             ],
             "fastest_growing_industries": [
@@ -742,9 +848,11 @@
                 "cagr_5y": -0.031695,
                 "change_2y": -0.034208,
                 "vacancy_latest": 5100,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": 0.4167,
-                "vacancy_signal": "rising"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": 0.1591,
+                "vacancy_signal": "rising",
+                "vacancy_share_latest": 0.0981,
+                "vacancy_rank_latest": 6
               },
               {
                 "key": "wholesale_retail_trade",
@@ -754,9 +862,11 @@
                 "cagr_5y": -0.032988,
                 "change_2y": -0.094488,
                 "vacancy_latest": 5100,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": -0.0192,
-                "vacancy_signal": "stable"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": -0.1969,
+                "vacancy_signal": "cooling",
+                "vacancy_share_latest": 0.0981,
+                "vacancy_rank_latest": 5
               }
             ]
           },
@@ -774,7 +884,9 @@
                 "vacancy_latest": null,
                 "vacancy_quarter": null,
                 "vacancy_trend_4q_pct": null,
-                "vacancy_signal": null
+                "vacancy_signal": null,
+                "vacancy_share_latest": null,
+                "vacancy_rank_latest": null
               },
               {
                 "key": "administrative_support_services",
@@ -784,9 +896,11 @@
                 "cagr_5y": 0.005263,
                 "change_2y": 0.093484,
                 "vacancy_latest": 3300,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": -0.2826,
-                "vacancy_signal": "cooling"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": -0.3744,
+                "vacancy_signal": "cooling",
+                "vacancy_share_latest": 0.0635,
+                "vacancy_rank_latest": 9
               },
               {
                 "key": "accommodation_food_services",
@@ -796,9 +910,11 @@
                 "cagr_5y": 0.025242,
                 "change_2y": 0.149701,
                 "vacancy_latest": 6200,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": 0.1273,
-                "vacancy_signal": "rising"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": 0,
+                "vacancy_signal": "stable",
+                "vacancy_share_latest": 0.1192,
+                "vacancy_rank_latest": 3
               },
               {
                 "key": "transportation_storage",
@@ -808,9 +924,11 @@
                 "cagr_5y": 0.050982,
                 "change_2y": -0.02454,
                 "vacancy_latest": 5100,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": 0.4167,
-                "vacancy_signal": "rising"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": 0.1591,
+                "vacancy_signal": "rising",
+                "vacancy_share_latest": 0.0981,
+                "vacancy_rank_latest": 6
               },
               {
                 "key": "wholesale_retail_trade",
@@ -820,9 +938,11 @@
                 "cagr_5y": 0.033736,
                 "change_2y": -0.048485,
                 "vacancy_latest": 5100,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": -0.0192,
-                "vacancy_signal": "stable"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": -0.1969,
+                "vacancy_signal": "cooling",
+                "vacancy_share_latest": 0.0981,
+                "vacancy_rank_latest": 5
               }
             ],
             "fastest_growing_industries": [
@@ -834,9 +954,11 @@
                 "cagr_5y": 0.234456,
                 "change_2y": 0.194444,
                 "vacancy_latest": 1300,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": -0.1333,
-                "vacancy_signal": "cooling"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": -0.1875,
+                "vacancy_signal": "cooling",
+                "vacancy_share_latest": 0.025,
+                "vacancy_rank_latest": 10
               },
               {
                 "key": "other_community_social_personal",
@@ -848,7 +970,9 @@
                 "vacancy_latest": null,
                 "vacancy_quarter": null,
                 "vacancy_trend_4q_pct": null,
-                "vacancy_signal": null
+                "vacancy_signal": null,
+                "vacancy_share_latest": null,
+                "vacancy_rank_latest": null
               },
               {
                 "key": "transportation_storage",
@@ -858,9 +982,11 @@
                 "cagr_5y": 0.050982,
                 "change_2y": -0.02454,
                 "vacancy_latest": 5100,
-                "vacancy_quarter": "2025 Q3",
-                "vacancy_trend_4q_pct": 0.4167,
-                "vacancy_signal": "rising"
+                "vacancy_quarter": "2025 QQ",
+                "vacancy_trend_4q_pct": 0.1591,
+                "vacancy_signal": "rising",
+                "vacancy_share_latest": 0.0981,
+                "vacancy_rank_latest": 6
               }
             ]
           }
@@ -16474,8 +16600,8 @@
       "file": "sg-geography-context-2020.json",
       "description": "Official Census 2020 geography context showing planning-area residence concentration and travel-time patterns by broad occupation group.",
       "data": {
-        "version": "V4.0",
-        "generated_at": "2026-03-20T09:38:39.040Z",
+        "version": "V4.1",
+        "generated_at": "2026-03-20T13:10:10.413Z",
         "description": "Official Singapore geography context derived from Census of Population 2020 planning-area residence and travel-time occupation tables. This artifact is contextual and does not affect the structural score.",
         "residence": {
           "overall_top_planning_areas": [
@@ -16935,8 +17061,8 @@
       "file": "sg-macro-context-2025.json",
       "description": "Official macro labour context covering unemployment and labour-tightness series for Singapore. Contextual only, not an occupation-level score input.",
       "data": {
-        "version": "V4.0",
-        "generated_at": "2026-03-20T09:38:39.065Z",
+        "version": "V4.1",
+        "generated_at": "2026-03-20T13:10:10.449Z",
         "description": "Official Singapore macro labour context derived from unemployment and labour-tightness series. This artifact is contextual and does not affect the structural score.",
         "unemployment": {
           "latest": {
@@ -17907,8 +18033,8 @@
       "file": "sg-ai-in-singapore-2025.json",
       "description": "Official IMDA and MOM national AI adoption, workforce, and programme context for Singapore. This is contextual evidence around the score, not an occupation-level input.",
       "data": {
-        "version": "V4.0",
-        "generated_at": "2026-03-20T09:38:39.090Z",
+        "version": "V4.1",
+        "generated_at": "2026-03-20T13:10:10.472Z",
         "context_type": "national_ai_context",
         "description": "Official Singapore national AI adoption, workforce, and programme context from IMDA and MOM releases. This artifact supports reports and public context around the structural score.",
         "usage_guidance": {
@@ -18013,8 +18139,8 @@
       "file": "sg-transition-infrastructure-2025.json",
       "description": "Official Singapore transition-infrastructure context covering Jobs Transformation Maps, major public career-transition programmes, and WSQ training-system activity.",
       "data": {
-        "version": "V4.0",
-        "generated_at": "2026-03-20T09:38:39.112Z",
+        "version": "V4.1",
+        "generated_at": "2026-03-20T13:10:10.493Z",
         "description": "Official Singapore transition infrastructure anchors used around the heuristic transition-support layer. This artifact captures published programmes, training-system activity, and Jobs Transformation Map coverage.",
         "programmes": [
           {
@@ -18062,6 +18188,37 @@
           "source_file": "wsq_trainees_by_statement_attainment.json",
           "latest_year": "2024",
           "total_trainees_latest": 382175,
+          "statement_attainment_latest_year": "2022",
+          "statement_attainment_shares_latest": [
+            {
+              "label": "Certificate",
+              "share": 0.4712
+            },
+            {
+              "label": "Higher Certificate",
+              "share": 0.1483
+            },
+            {
+              "label": "Advanced Certificate",
+              "share": 0.2154
+            },
+            {
+              "label": "Diploma",
+              "share": 0.1332
+            },
+            {
+              "label": "Specialist Diploma",
+              "share": 0.0286
+            },
+            {
+              "label": "Graduate Certificate",
+              "share": 0.0029
+            },
+            {
+              "label": "Graduate Diploma",
+              "share": 0.0003
+            }
+          ],
           "historical_total": [
             {
               "year": "2011",
@@ -18124,37 +18281,44 @@
             {
               "label": "Certificate",
               "count_2022": 166106,
-              "count_2024": null
+              "count_2024": null,
+              "count_latest_available": 166106
             },
             {
               "label": "Higher Certificate",
               "count_2022": 52279,
-              "count_2024": null
+              "count_2024": null,
+              "count_latest_available": 52279
             },
             {
               "label": "Advanced Certificate",
               "count_2022": 75924,
-              "count_2024": null
+              "count_2024": null,
+              "count_latest_available": 75924
             },
             {
               "label": "Diploma",
               "count_2022": 46969,
-              "count_2024": null
+              "count_2024": null,
+              "count_latest_available": 46969
             },
             {
               "label": "Specialist Diploma",
               "count_2022": 10094,
-              "count_2024": null
+              "count_2024": null,
+              "count_latest_available": 10094
             },
             {
               "label": "Graduate Certificate",
               "count_2022": 1024,
-              "count_2024": null
+              "count_2024": null,
+              "count_latest_available": 1024
             },
             {
               "label": "Graduate Diploma",
               "count_2022": 116,
-              "count_2024": null
+              "count_2024": null,
+              "count_latest_available": 116
             }
           ]
         },

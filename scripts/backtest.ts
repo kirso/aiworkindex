@@ -22,6 +22,7 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
+import { DATA_VINTAGE } from '../src/lib/data/scoring-constants';
 
 const DATA_DIR = path.join(import.meta.dir, '..', 'data');
 const OCCUPATIONS_FILE = path.join(DATA_DIR, 'occupations.json');
@@ -364,7 +365,7 @@ function main() {
 	const result = {
 		validation_date: new Date().toISOString().split('T')[0],
 		data_period: validationPeriod,
-		model_version: 'V4.0',
+		model_version: DATA_VINTAGE.model_version,
 		cluster_stats: clusterStats,
 		sub_major_group_stats: subMajorStats,
 		correlation_checks: checks,
@@ -381,7 +382,7 @@ function main() {
 				'Cluster-level aggregation masks within-cluster variation',
 				`${validationPeriod} is a single observation — trends need multi-quarter validation`,
 				'Vacancy rates reflect overall demand, not AI-specific displacement',
-				'V4.0: 4-source exposure ensemble (AIOE + Anthropic + Eloundou + ILO)'
+				`${DATA_VINTAGE.model_version}: 4-source exposure ensemble (AIOE + Anthropic + Eloundou + ILO)`
 			]
 		}
 	};

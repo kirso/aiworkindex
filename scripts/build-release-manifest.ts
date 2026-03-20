@@ -31,6 +31,7 @@ interface ReleaseArtifactDefinition {
 		| 'macro_context'
 		| 'national_ai_context'
 		| 'transition_support'
+		| 'offset_potential'
 		| 'transition_infrastructure'
 		| 'governance';
 	description: string;
@@ -109,6 +110,13 @@ const ARTIFACTS: ReleaseArtifactDefinition[] = [
 		category: 'transition_support',
 		description:
 			'Published hybrid transition-support artifact combining the deterministic transition-capacity model with official Singapore transition-infrastructure context.'
+	},
+	{
+		file: 'sg-offset-potential-v4.json',
+		label: 'Offset potential layer',
+		category: 'offset_potential',
+		description:
+			'Published heuristic support layer estimating how demand persistence, transition support, task reallocation, and switching friction could cushion structural pressure.'
 	},
 	{
 		file: 'claims-matrix-v4.json',

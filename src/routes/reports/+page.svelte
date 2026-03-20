@@ -340,7 +340,7 @@
 						Annual wage-pool analysis for occupations under high structural AI pressure. Breakdown
 						by sector, risk-weighted wage exposure, and methodology notes.
 					</p>
-					<p class="mt-2 text-xs text-muted-foreground">Based on V4.0 scoring, March 2026</p>
+					<p class="mt-2 text-xs text-muted-foreground">Based on V4.1 scoring, March 2026</p>
 				</div>
 				<svg
 					class="ml-4 mt-1 h-5 w-5 shrink-0 text-muted-foreground"

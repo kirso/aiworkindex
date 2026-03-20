@@ -18,19 +18,17 @@
 	});
 
 	const binSize = 0.05;
-	const maxRisk = 0.8;
-	const bins = Array.from({ length: Math.ceil(maxRisk / binSize) }, (_, i) => {
-		const lower = i * binSize;
-		const upper = lower + binSize;
-		return {
-			lower,
-			upper,
-			label: `${(lower * 100).toFixed(0)}%`,
-			count: 0
-		};
+	// Data-driven max: round up to nearest 0.05 above the highest score, minimum 0.8
+	let maxRisk = $derived.by(() => {
+		const dataMax = occupations.reduce((max, o) => Math.max(max, o.net_risk), 0);
+		return Math.max(0.8, Math.ceil(dataMax / binSize) * binSize);
 	});
-
 	let binData = $derived.by(() => {
+		const bins = Array.from({ length: Math.ceil(maxRisk / binSize) }, (_, i) => {
+			const lower = i * binSize;
+			const upper = lower + binSize;
+			return { lower, upper, label: `${(lower * 100).toFixed(0)}%`, count: 0 };
+		});
 		const b = bins.map(bin => ({ ...bin, count: 0 }));
 		for (const occ of occupations) {
 			const idx = Math.min(Math.floor(occ.net_risk / binSize), b.length - 1);

@@ -5,12 +5,14 @@ import type { WorkerProfileSummary } from './worker-profile';
 import type { GeographyContextSummary } from './geography-context';
 import type { PostingAggregate } from './postings-monitor';
 import type { EmployerPressureEntry } from './employer-pressure';
+import type { OffsetPotentialEntry } from './offset-potential';
 import { getIndustryContextForOccupation, buildRoleIndustryContext } from './industry-context';
 import { getWorkerProfileForOccupation, buildRoleWorkerProfile } from './worker-profile';
 import { buildOccupationSingaporeContext, buildRoleSingaporeContext } from './singapore-context';
 import { getGeographyContextForOccupation, buildRoleGeographyContext } from './geography-context';
 import { getPostingsForOccupation, buildRolePostingsFromComponents } from './postings-monitor';
 import { getEmployerPressureForOccupation, buildRoleEmployerPressure } from './employer-pressure';
+import { getOffsetPotentialForOccupation, buildRoleOffsetPotential } from './offset-potential';
 import transitionSupportData from './transition-support.json';
 import transitionInfrastructureData from './transition-infrastructure.json';
 
@@ -137,6 +139,7 @@ export interface OccupationDetailContext {
 	workerProfile: WorkerProfileSummary;
 	geographyContext: GeographyContextSummary;
 	transitionSupport: TransitionSupportInfo | null;
+	offsetPotential: OffsetPotentialEntry | null;
 	postings: PostingAggregate | null;
 	employerPressure: EmployerPressureEntry | null;
 }
@@ -148,6 +151,7 @@ export interface RoleDetailContext {
 	workerProfile: WorkerProfileSummary;
 	geographyContext: GeographyContextSummary;
 	transitionSupport: TransitionSupportInfo | null;
+	offsetPotential: OffsetPotentialEntry | null;
 	postings: PostingAggregate | null;
 	employerPressure: EmployerPressureEntry | null;
 }
@@ -159,6 +163,7 @@ export function buildOccupationDetailContext(occupation: Occupation): Occupation
 		workerProfile: getWorkerProfileForOccupation(occupation),
 		geographyContext: getGeographyContextForOccupation(occupation),
 		transitionSupport: getTransitionSupport(occupation.ssoc),
+		offsetPotential: getOffsetPotentialForOccupation(occupation.ssoc),
 		postings: getPostingsForOccupation(occupation.ssoc),
 		employerPressure: getEmployerPressureForOccupation(occupation)
 	};
@@ -189,6 +194,7 @@ export function buildRoleDetailContext(
 		workerProfile: buildRoleWorkerProfile(components),
 		geographyContext: buildRoleGeographyContext(components),
 		transitionSupport: mergeRoleTransitionSupport(components),
+		offsetPotential: buildRoleOffsetPotential(components),
 		postings: buildRolePostingsFromComponents('', components),
 		employerPressure: buildRoleEmployerPressure(components)
 	};

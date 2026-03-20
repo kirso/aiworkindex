@@ -8,7 +8,7 @@
  * When updating thresholds, change them HERE and they propagate
  * to methodology, appendix, data dictionary, and CLAUDE.md automatically.
  *
- * Validated by: scripts/validate.ts (121 checks)
+ * Validated by: scripts/validate.ts (129 checks)
  * Used by: score.ts, synthetic-roles.ts, validate.ts, methodology page
  */
 
@@ -284,7 +284,7 @@ export const DATA_VINTAGE = {
 	/** Anthropic Economic Index date */
 	anthropic: 'January 2026',
 	/** Model version */
-	model_version: 'V4.0',
+	model_version: 'V4.1',
 	/** Last scoring run date */
 	last_updated: '2026-03-20',
 	/** Occupation count */
@@ -292,7 +292,7 @@ export const DATA_VINTAGE = {
 	/** Synthetic role count */
 	role_count: 88,
 	/** Validation check count */
-	validation_checks: 121,
+	validation_checks: 129,
 	/** Page count */
 	page_count: 672
 } as const;

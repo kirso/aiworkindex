@@ -89,13 +89,30 @@ function parseWsqSummary() {
 	);
 	const latestYear = '2024';
 	const totalTrainees = totalRow ? Number(totalRow[latestYear] ?? 0) : 0;
+	const attainmentLatestYear =
+		['2024', '2023', '2022', '2021'].find(year =>
+			rows.some(
+				row =>
+					String(row.DataSeries ?? '').startsWith('    ') &&
+					String(row[year] ?? '').toLowerCase() !== 'na' &&
+					String(row[year] ?? '').trim() !== ''
+			)
+		) ?? '2022';
 	const attainmentRows = rows
 		.filter(row => String(row.DataSeries ?? '').startsWith('    '))
 		.map(row => ({
 			label: String(row.DataSeries ?? '').trim(),
 			count_2022: Number(row['2022'] ?? 0) || null,
-			count_2024: Number(row['2024'] ?? 0) || null
+			count_2024: Number(row['2024'] ?? 0) || null,
+			count_latest_available:
+				String(row[attainmentLatestYear] ?? '').toLowerCase() !== 'na'
+					? Number(row[attainmentLatestYear] ?? 0) || null
+					: null
 		}));
+	const attainmentTotalLatest = attainmentRows.reduce(
+		(sum, row) => sum + (row.count_latest_available ?? 0),
+		0
+	);
 
 	const historicalTotal = totalRow
 		? Object.keys(totalRow)
@@ -111,6 +128,17 @@ function parseWsqSummary() {
 		source_file: path.basename(WSQ_FILE),
 		latest_year: latestYear,
 		total_trainees_latest: totalTrainees,
+		statement_attainment_latest_year: attainmentLatestYear,
+		statement_attainment_shares_latest:
+			attainmentTotalLatest > 0
+				? attainmentRows.map(row => ({
+						label: row.label,
+						share:
+							row.count_latest_available !== null
+								? Number((row.count_latest_available / attainmentTotalLatest).toFixed(4))
+								: null
+					}))
+				: [],
 		historical_total: historicalTotal,
 		statement_attainment_breakdown: attainmentRows
 	};

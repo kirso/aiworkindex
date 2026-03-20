@@ -1,12 +1,12 @@
 #!/usr/bin/env bun
 /**
- * score.ts — V4.0 scoring pipeline for Singapore AI Job Exposure Map.
+ * score.ts — V4.1 scoring pipeline for Singapore AI Job Exposure Map.
  *
  * Computes 4-source exposure ensemble (AIOE + Anthropic + Eloundou + ILO),
  * Pizzinelli theta, market resilience layer, and net displacement risk
  * for each of 562 Singapore SSOC occupations.
  *
- * V4.0: 4-source exposure ensemble motivated by the broader ensemble literature.
+ * V4.1: 4-source exposure ensemble motivated by the broader ensemble literature.
  * V3.1 additions:
  *   - Anthropic Economic Index observed AI usage calibration
  *   - MOM Shortage Occupation List (SOL) 2026 demand bonus
@@ -1217,7 +1217,7 @@ function buildStabilityScores(
 	};
 }
 
-// ===== Step 7: Score all occupations (V4.0) =====
+// ===== Step 7: Score all occupations (V4.1) =====
 function scoreOccupations(
 	sgOccs: SgOccupation[],
 	aioeMap: Map<string, number>,
@@ -1230,7 +1230,7 @@ function scoreOccupations(
 	demandData: { exactCodes: Set<string>; prefixes: Set<string> },
 	labourMonitors: Map<string, LabourClusterMonitor>
 ): ScoredOccupation[] {
-	console.log('\nScoring occupations (V4.0 — 4-source exposure ensemble)...');
+	console.log('\nScoring occupations (V4.1 — 4-source exposure ensemble)...');
 
 	// Pre-compute theta_MIN for C-AIOE formula
 	const allTheta = [...thetaMap.values()];
@@ -1478,7 +1478,7 @@ function scoreOccupations(
 		groupMomentum.set(g, mm);
 	}
 
-	// ===== Industry momentum spread (V4.0) =====
+	// ===== Industry momentum spread (V4.1) =====
 	// Load industry × occupation data to measure intra-group momentum variance.
 	// High variance = group-level momentum is a poor proxy for individual occupations.
 	const industryMomentumSpread = new Map<string, number>();
@@ -1581,7 +1581,7 @@ function scoreOccupations(
 	// Occupation scarcity = mean of two percentile ranks
 	const occScarcity = intermediates.map((_, i) => (logSpreadRanks[i] + ratioRanks[i]) / 2);
 
-	// ===== V4.0: Multi-input ensemble — percentile ranks for each source =====
+	// ===== V4.1: Multi-input ensemble — percentile ranks for each source =====
 	console.log('  Computing ensemble exposure percentile ranks...');
 
 	function computePctileRanks(values: (number | null)[]): number[] {
@@ -1616,7 +1616,7 @@ function scoreOccupations(
 		const theoreticalExposure = exposure;
 
 		// === 4a: Multi-input ensemble exposure ===
-		// V4.0: reliability-weighted blend of all available exposure inputs.
+		// V4.1: reliability-weighted blend of all available exposure inputs.
 		// Source weights are deterministic and based on recency, construct fit,
 		// coverage quality, and validation support.
 		const availableExposureInputs: Array<{
@@ -2045,7 +2045,7 @@ function printDistributionAnalysis(results: ScoredOccupation[]) {
 
 // ===== Main =====
 async function main() {
-	console.log('=== Singapore AI Job Exposure Scoring Pipeline (V4.0) ===\n');
+	console.log('=== Singapore AI Job Exposure Scoring Pipeline (V4.1) ===\n');
 
 	// Load all data sources
 	const aioeMap = loadAioe();

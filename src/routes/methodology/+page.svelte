@@ -62,7 +62,7 @@
 
 <Seo
 	title="Scoring Methodology — Reliability-Weighted 4-Source Ensemble"
-	description="Three-layer structural score: reliability-weighted 4-source exposure ensemble, human bottleneck (theta), and market resilience. Labour evidence, Singapore context, and transition support are published separately."
+	description="Three-layer structural score: reliability-weighted 4-source exposure ensemble, human bottleneck (theta), and market resilience. Labour evidence, Singapore context, transition support, and offset potential are published separately."
 	path="/methodology"
 />
 
@@ -127,9 +127,10 @@
 			which have the strongest human bottlenecks and market buffers.
 		</p>
 		<p class="mt-2 text-sm text-text-secondary">
-			<strong>What it does not do:</strong> Predict actual job losses, forecast hiring trends, or account
-			for the creation of new tasks that AI enables (the "reinstatement effect" in Acemoglu &amp; Restrepo's
-			framework). The model captures displacement potential but not the offsetting force of new task creation.
+			<strong>What it does not do:</strong> Predict actual job losses or forecast hiring trends. The core
+			score still captures structural displacement pressure, not realised reinstatement. We now publish
+			a separate offset-potential layer to approximate some cushioning forces, but it should not be read
+			as a direct measure of new-task creation or job growth.
 		</p>
 	</div>
 
@@ -161,7 +162,7 @@
 					<div class={card({ padding: 'sm' })}>
 						<h3 class="text-sm font-semibold text-red-700">Layer 1: Exposure</h3>
 						<p class="mt-1 text-sm text-muted-foreground">
-							How much does this job overlap with current AI capabilities? The V4.0 exposure layer
+							How much does this job overlap with current AI capabilities? The V4.1 exposure layer
 							blends available signals from AIOE, Anthropic observed usage, Eloundou GPT exposure,
 							and the ILO occupational exposure index.
 						</p>
@@ -183,8 +184,8 @@
 				</div>
 				<p class="mt-3 text-sm text-muted-foreground">
 					These three layers produce the structural score. Around that core score we add confidence,
-					labour evidence, synthetic-role estimates, and scenario tooling rather than hiding
-					everything inside one opaque number.
+					labour evidence, synthetic-role estimates, offset potential, and scenario tooling rather
+					than hiding everything inside one opaque number.
 				</p>
 				<p class="mt-2 text-sm text-muted-foreground">
 					Separate Singapore context modules now show industry footprint and worker-profile
@@ -268,7 +269,7 @@
 				<div class={cn(card({ padding: 'md' }), 'mt-4')}>
 					<h3 class="font-semibold text-foreground">Exposure Ensemble</h3>
 					<p class="mt-1 text-sm text-muted-foreground">
-						V4.0 treats exposure as an ensemble layer, not a single index. AIOE is the baseline
+						V4.1 treats exposure as an ensemble layer, not a single index. AIOE is the baseline
 						source; Anthropic observed usage, Eloundou GPT exposure, and the ILO occupational
 						exposure index are added when crosswalk coverage exists.
 					</p>
@@ -1070,7 +1071,7 @@
 									>Eloundou et al. (2023) — LLM task-level exposure via human + GPT-4 assessment</td
 								>
 								<td class="py-2"
-									>Integrated in V4.0 ensemble with reliability weighting when matched via SOC
+									>Integrated in V4.1 ensemble with reliability weighting when matched via SOC
 									crosswalk.</td
 								>
 							</tr>
@@ -1080,7 +1081,7 @@
 									>ILO (2024) — task-level AI automation potential scored across ISCO occupations</td
 								>
 								<td class="py-2"
-									>Integrated in V4.0 ensemble with reliability weighting when matched via ISCO
+									>Integrated in V4.1 ensemble with reliability weighting when matched via ISCO
 									crosswalk.</td
 								>
 							</tr>
@@ -1199,7 +1200,7 @@
 			<section class="mb-8">
 				<p class={sectionLabel()}>What This Version Shows</p>
 				<p class="mt-2 text-sm text-muted-foreground">
-					V4.0 implements the full three-layer structural score with a reliability-weighted 4-source
+					V4.1 implements the full three-layer structural score with a reliability-weighted 4-source
 					exposure ensemble, human bottleneck (theta percentile), and market resilience (group-level
 					employment/wage trends + occupation-level wage structure). Net risk is published as risk
 					bands with visible confidence. Augmentation potential, impact type classification, and
@@ -1776,13 +1777,14 @@
 				<div class="mt-3 space-y-3">
 					<div class={card({ padding: 'sm' })}>
 						<div class="flex items-center justify-between">
-							<span class="text-sm font-semibold text-foreground">V4.0 — Current</span>
+							<span class="text-sm font-semibold text-foreground">V4.1 — Current</span>
 							<span class="text-xs text-muted-foreground">March 2026</span>
 						</div>
 						<p class="mt-1 text-sm text-muted-foreground">
 							4-source exposure ensemble (AIOE + Anthropic + Eloundou + ILO). Reliability-weighted
-							blend of all available matched inputs. BLS convergent cross-check, temporal vacancy
-							validation, industry momentum spread, and {DATA_VINTAGE.validation_checks} validation checks.
+							blend of all available matched inputs, plus separate published offset-potential and
+							transition-support layers. BLS convergent cross-check, temporal vacancy validation,
+							industry momentum spread, and {DATA_VINTAGE.validation_checks} validation checks.
 						</p>
 					</div>
 					<div class={cn(card({ variant: 'inset', padding: 'sm' }))}>

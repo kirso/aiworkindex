@@ -1,6 +1,6 @@
 {
   "validation_date": "2026-03-20",
-  "model_version": "V4.0",
+  "model_version": "V4.1",
   "bls_data_period": "2024-2034 projections",
   "family_definition": "2-digit SSOC occupation families with at least 5 occupations overall and 3 BLS-matched occupations",
   "family_count": 29,

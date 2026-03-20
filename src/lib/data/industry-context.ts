@@ -15,6 +15,8 @@ export interface IndustryContextItem {
 	vacancy_quarter: string | null;
 	vacancy_trend_4q_pct: number | null;
 	vacancy_signal: VacancySignal | null;
+	vacancy_share_latest: number | null;
+	vacancy_rank_latest: number | null;
 	sector_gross_wage_median?: number | null;
 	sector_wage_premium_pct?: number | null;
 }
@@ -105,29 +107,31 @@ function blendIndustryLists(
 	components: Array<{ weight: number; occupation: Occupation | null }>,
 	pick: (context: GroupIndustryContext) => IndustryContextItem[]
 ): IndustryContextItem[] {
+	type BlendedIndustryAccumulator = {
+		label: string;
+		shareWeight: number;
+		employment: number;
+		cagrWeight: number;
+		changeWeight: number;
+		vacancyWeight: number;
+		vacancyShareWeight: number;
+		sectorWageWeight: number;
+		cagrWeightedSum: number;
+		changeWeightedSum: number;
+		vacancyWeightedSum: number;
+		vacancyTrendWeightedSum: number;
+		vacancyShareWeightedSum: number;
+		vacancyRankWeightedSum: number;
+		vacancySignalScore: number;
+		sectorWageWeightedSum: number;
+		sectorPremiumWeightedSum: number;
+	};
+
 	const validComponents = components.filter(
 		(component): component is { weight: number; occupation: Occupation } => component.occupation !== null
 	);
 	const totalWeight = validComponents.reduce((sum, component) => sum + component.weight, 0) || 1;
-	const blended = new Map<
-		string,
-		{
-			label: string;
-			shareWeight: number;
-			employment: number;
-			cagrWeight: number;
-			changeWeight: number;
-			vacancyWeight: number;
-			sectorWageWeight: number;
-			cagrWeightedSum: number;
-			changeWeightedSum: number;
-			vacancyWeightedSum: number;
-			vacancyTrendWeightedSum: number;
-			vacancySignalScore: number;
-			sectorWageWeightedSum: number;
-			sectorPremiumWeightedSum: number;
-		}
-	>();
+	const blended = new Map<string, BlendedIndustryAccumulator>();
 
 	for (const component of validComponents) {
 		const context = getIndustryContextForOccupation(component.occupation);
@@ -143,11 +147,14 @@ function blendIndustryLists(
 					cagrWeight: 0,
 					changeWeight: 0,
 					vacancyWeight: 0,
+					vacancyShareWeight: 0,
 					sectorWageWeight: 0,
 					cagrWeightedSum: 0,
 					changeWeightedSum: 0,
 					vacancyWeightedSum: 0,
 					vacancyTrendWeightedSum: 0,
+					vacancyShareWeightedSum: 0,
+					vacancyRankWeightedSum: 0,
 					vacancySignalScore: 0,
 					sectorWageWeightedSum: 0,
 					sectorPremiumWeightedSum: 0
@@ -165,6 +172,13 @@ function blendIndustryLists(
 			if (item.vacancy_latest !== null) {
 				existing.vacancyWeight += influence;
 				existing.vacancyWeightedSum += item.vacancy_latest * influence;
+			}
+			if (item.vacancy_share_latest !== null) {
+				existing.vacancyShareWeight += influence;
+				existing.vacancyShareWeightedSum += item.vacancy_share_latest * influence;
+			}
+			if (item.vacancy_rank_latest !== null) {
+				existing.vacancyRankWeightedSum += item.vacancy_rank_latest * influence;
 			}
 			if (item.vacancy_trend_4q_pct !== null) {
 				existing.vacancyTrendWeightedSum += item.vacancy_trend_4q_pct * influence;
@@ -218,6 +232,14 @@ function blendIndustryLists(
 						? Number((value.vacancyTrendWeightedSum / value.vacancyWeight).toFixed(4))
 						: null,
 				vacancy_signal: vacancySignal,
+				vacancy_share_latest:
+					value.vacancyShareWeight > 0
+						? Number((value.vacancyShareWeightedSum / value.vacancyShareWeight).toFixed(4))
+						: null,
+				vacancy_rank_latest:
+					value.vacancyWeight > 0
+						? Number((value.vacancyRankWeightedSum / value.vacancyWeight).toFixed(1))
+						: null,
 				sector_gross_wage_median:
 					value.sectorWageWeight > 0
 						? Number((value.sectorWageWeightedSum / value.sectorWageWeight).toFixed(0))

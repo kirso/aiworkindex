@@ -1,6 +1,6 @@
 {
-  "version": "V4.0",
-  "generated_at": "2026-03-20T09:38:39.065Z",
+  "version": "V4.1",
+  "generated_at": "2026-03-20T13:10:10.449Z",
   "description": "Official Singapore macro labour context derived from unemployment and labour-tightness series. This artifact is contextual and does not affect the structural score.",
   "unemployment": {
     "latest": {

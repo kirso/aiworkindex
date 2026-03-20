@@ -89,6 +89,7 @@
 	let geographyContext = $derived(context.geographyContext);
 	let primaryOccupation = $derived(context.primaryOccupation);
 	let transitionSupport = $derived(context.transitionSupport);
+	let offsetPotential = $derived(context.offsetPotential);
 	let postings = $derived(context.postings);
 	let employerPressure = $derived(context.employerPressure);
 	let localContextItems = $derived(singaporeContext.items);
@@ -190,6 +191,13 @@
 		if (state === 'strong') return 'bg-risk-very-low/10 text-risk-very-low';
 		if (state === 'moderate') return 'bg-risk-moderate/10 text-risk-moderate';
 		return 'bg-risk-high/10 text-risk-high';
+	}
+
+	function offsetLevelLabel(value: number, inverse = false) {
+		const score = inverse ? 1 - value : value;
+		if (score >= 0.68) return 'High';
+		if (score >= 0.42) return 'Medium';
+		return 'Low';
 	}
 
 	let signalProfileItems = $derived([
@@ -635,6 +643,11 @@
 												{(industry.share_2025 * 100).toFixed(0)}%
 											</span>
 										</div>
+										{#if industry.vacancy_rank_latest !== null && industry.vacancy_rank_latest <= 5}
+											<p class="text-[10px] text-muted-foreground">
+												Top {Math.round(industry.vacancy_rank_latest)} vacancy sector
+											</p>
+										{/if}
 									</div>
 								{/each}
 							</div>
@@ -803,6 +816,78 @@
 		<section class="mb-8">
 			<h2 class={cn(sectionLabel(), 'mb-3')}>What To Do Next</h2>
 			<div class={card({ padding: 'md' })}>
+				{#if offsetPotential}
+					<div class="mb-4 border-b border-border pb-4">
+						<div class="flex flex-wrap items-center gap-2">
+							<span
+								class={pill({
+									tone:
+										offsetPotential.band === 'high'
+											? 'positive'
+											: offsetPotential.band === 'medium'
+												? 'warning'
+												: 'danger'
+								})}
+							>
+								Offset potential: {offsetPotential.band === 'high'
+									? 'High'
+									: offsetPotential.band === 'medium'
+										? 'Medium'
+										: 'Low'}
+							</span>
+							<span class="text-xs text-muted-foreground">
+								Separate from the core score. This is a blended estimate of how much demand,
+								redesign room, and transition support could cushion pressure.
+							</span>
+						</div>
+						<p class="mt-2 text-sm text-text-secondary">{offsetPotential.summary}</p>
+						<div class="mt-3 flex flex-wrap gap-2">
+							<span class={pill({ tone: 'neutral' })}>
+								Demand support: {offsetLevelLabel(offsetPotential.components.demand_persistence)}
+							</span>
+							<span class={pill({ tone: 'neutral' })}>
+								Transition support: {offsetLevelLabel(
+									offsetPotential.components.transition_support
+								)}
+							</span>
+							<span class={pill({ tone: 'neutral' })}>
+								Reallocation room: {offsetLevelLabel(offsetPotential.components.reallocation_room)}
+							</span>
+							<span class={pill({ tone: 'neutral' })}>
+								Switching friction: {offsetLevelLabel(
+									offsetPotential.components.mobility_friction,
+									true
+								)}
+							</span>
+						</div>
+						{#if offsetPotential.strengths.length > 0 || offsetPotential.cautions.length > 0}
+							<div class="mt-3 grid gap-3 sm:grid-cols-2">
+								{#if offsetPotential.strengths.length > 0}
+									<div class={cn(card({ variant: 'inset', padding: 'sm' }), 'min-w-0')}>
+										<p class="text-xs font-semibold text-impact-leveraged">What helps</p>
+										<ul class="mt-2 space-y-1 text-xs text-text-secondary">
+											{#each offsetPotential.strengths as item}
+												<li>{item}</li>
+											{/each}
+										</ul>
+									</div>
+								{/if}
+								{#if offsetPotential.cautions.length > 0}
+									<div class={cn(card({ variant: 'inset', padding: 'sm' }), 'min-w-0')}>
+										<p class="text-xs font-semibold text-risk-high">What could slow it down</p>
+										<ul class="mt-2 space-y-1 text-xs text-text-secondary">
+											{#each offsetPotential.cautions as item}
+												<li>{item}</li>
+											{/each}
+										</ul>
+									</div>
+								{/if}
+							</div>
+						{/if}
+						<p class="mt-2 text-[10px] text-text-secondary">{offsetPotential.basis}</p>
+					</div>
+				{/if}
+
 				{#if transitionSupport}
 					<div class="mb-4 pb-4 border-b border-border">
 						<div class="flex flex-wrap items-center gap-2">
