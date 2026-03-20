@@ -1,7 +1,20 @@
 <script lang="ts">
-	import type { Occupation } from '$lib/data';
+	type WaterfallSubject = {
+		exposure: number;
+		bottleneck: number;
+		net_risk: number;
+		market: {
+			market_resilience: number;
+		};
+		evidence: {
+			anthropic_calibrated: boolean;
+			anthropic_gap: number | null;
+			sol_match: 'exact' | 'prefix' | false;
+			jobs_in_demand_match: 'exact' | 'prefix' | false;
+		};
+	};
 
-	let { occupation }: { occupation: Occupation } = $props();
+	let { occupation }: { occupation: WaterfallSubject } = $props();
 
 	// Decompose net_risk into driver contributions
 	// net_risk = exposure * (1 - bottleneck) * market_modifier
@@ -130,7 +143,7 @@
 		</div>
 	{/each}
 
-	<p class="text-[10px] text-muted-foreground/70 italic mt-1">
+	<p class="text-[10px] text-text-secondary italic mt-1">
 		These factors combine multiplicatively — larger bars do not mean proportionally larger
 		contributions to the final score.
 	</p>

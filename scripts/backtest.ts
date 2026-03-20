@@ -6,7 +6,10 @@
  * retrenchment incidence, and hiring net pressure from Q3 2025 data.
  *
  * Outputs:
- *   data/backtests/q3-2025-validation.json
+ *   data/backtests/<period>-validation.json
+ *   data/backtests/current-validation.json
+ *   src/lib/data/backtests/current-validation.json
+ *   static/data/backtests/current-validation.json
  *
  * Methodology:
  *   - Group occupations by labour_monitor cluster (pmet, clerical_sales_service, production_transport)
@@ -24,7 +27,8 @@ const DATA_DIR = path.join(import.meta.dir, '..', 'data');
 const OCCUPATIONS_FILE = path.join(DATA_DIR, 'occupations.json');
 const MONITOR_FILE = path.join(DATA_DIR, 'labour-monitor.json');
 const OUTPUT_DIR = path.join(DATA_DIR, 'backtests');
-const OUTPUT_FILE = path.join(OUTPUT_DIR, 'q3-2025-validation.json');
+const SRC_OUTPUT_DIR = path.join(import.meta.dir, '..', 'src', 'lib', 'data', 'backtests');
+const STATIC_OUTPUT_DIR = path.join(import.meta.dir, '..', 'static', 'data', 'backtests');
 
 interface Occupation {
 	ssoc: string;
@@ -110,12 +114,24 @@ function spearmanCorrelation(x: number[], y: number[]): number {
 	return 1 - (6 * sumD2) / (n * (n * n - 1));
 }
 
+function formatValidationPeriod(value: string): string {
+	const match = value.match(/^(\d{4})\s+Q([1-4])$/i);
+	if (!match) return value;
+	return `Q${match[2]} ${match[1]}`;
+}
+
 function main() {
-	console.log('=== Backtest: Risk Scores vs Labour Outcomes (Q3 2025) ===\n');
+	console.log('=== Backtest: Risk Scores vs Labour Outcomes ===\n');
 
 	const occupations: Occupation[] = JSON.parse(fs.readFileSync(OCCUPATIONS_FILE, 'utf-8'));
 	const labourMonitors: LabourClusterMonitor[] = JSON.parse(fs.readFileSync(MONITOR_FILE, 'utf-8'));
 	const labourMonitorByKey = new Map(labourMonitors.map(monitor => [monitor.cluster_key, monitor]));
+	const validationPeriod = formatValidationPeriod(labourMonitors[0]?.data_as_of ?? '2025 Q4');
+	const validationSlug = validationPeriod.toLowerCase().replace(/\s+/g, '-');
+	const datedOutputFile = path.join(OUTPUT_DIR, `${validationSlug}-validation.json`);
+	const currentOutputFile = path.join(OUTPUT_DIR, 'current-validation.json');
+	const srcCurrentOutputFile = path.join(SRC_OUTPUT_DIR, 'current-validation.json');
+	const staticCurrentOutputFile = path.join(STATIC_OUTPUT_DIR, 'current-validation.json');
 
 	// Group by cluster
 	const clusters = new Map<string, Occupation[]>();
@@ -347,7 +363,7 @@ function main() {
 
 	const result = {
 		validation_date: new Date().toISOString().split('T')[0],
-		data_period: 'Q3 2025',
+		data_period: validationPeriod,
 		model_version: 'V4.0',
 		cluster_stats: clusterStats,
 		sub_major_group_stats: subMajorStats,
@@ -363,7 +379,7 @@ function main() {
 			caveats: [
 				'Only 3 labour clusters available — statistical power is very limited',
 				'Cluster-level aggregation masks within-cluster variation',
-				'Q3 2025 is a single observation — trends need multi-quarter validation',
+				`${validationPeriod} is a single observation — trends need multi-quarter validation`,
 				'Vacancy rates reflect overall demand, not AI-specific displacement',
 				'V4.0: 4-source exposure ensemble (AIOE + Anthropic + Eloundou + ILO)'
 			]
@@ -384,11 +400,18 @@ function main() {
 	);
 
 	// Write output
-	if (!fs.existsSync(OUTPUT_DIR)) {
-		fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+	const serialized = JSON.stringify(result, null, 2);
+	for (const dir of [OUTPUT_DIR, SRC_OUTPUT_DIR, STATIC_OUTPUT_DIR]) {
+		if (!fs.existsSync(dir)) {
+			fs.mkdirSync(dir, { recursive: true });
+		}
 	}
-	fs.writeFileSync(OUTPUT_FILE, JSON.stringify(result, null, 2));
-	console.log(`\nWritten to ${OUTPUT_FILE}`);
+	fs.writeFileSync(datedOutputFile, serialized);
+	fs.writeFileSync(currentOutputFile, serialized);
+	fs.writeFileSync(srcCurrentOutputFile, serialized);
+	fs.writeFileSync(staticCurrentOutputFile, serialized);
+	console.log(`\nWritten to ${datedOutputFile}`);
+	console.log(`Updated current validation artifact at ${currentOutputFile}`);
 }
 
 main();

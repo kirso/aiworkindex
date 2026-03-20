@@ -1,0 +1,464 @@
+{
+  "generated_at": "2026-03-20T09:38:46.407Z",
+  "summary": {
+    "total_signals": 11,
+    "latest_signal_date": "2025-10-06",
+    "highest_pressure_label": "high",
+    "highest_pressure_archetypes": [
+      "general_professional",
+      "operations_logistics",
+      "software_engineering"
+    ]
+  },
+  "signals": [
+    {
+      "company": "Interra Resources",
+      "sector": "Energy and resources",
+      "date": "2025-10-06",
+      "signal_type": "restructuring",
+      "description": "Announced group restructuring and operating-unit realignment.",
+      "source_url": "https://links.sgx.com/1.0.0/corporate-announcements/O28HJBC7384W27PG/",
+      "affected_archetypes": [
+        "operations_logistics",
+        "field_manual",
+        "general_professional"
+      ]
+    },
+    {
+      "company": "Ninja Van",
+      "sector": "Logistics and delivery",
+      "date": "2025-08-12",
+      "signal_type": "cost_discipline",
+      "description": "Cut 12 per cent of its Singapore workforce while streamlining headquarters functions and reallocating resources to selected growth areas.",
+      "source_url": "https://www.straitstimes.com/business/ninja-van-cuts-12-of-singapore-workforce-after-2-rounds-of-layoffs-in-2024",
+      "affected_archetypes": [
+        "operations_logistics",
+        "software_engineering",
+        "general_professional"
+      ]
+    },
+    {
+      "company": "Standard Chartered",
+      "sector": "Banking and financial services",
+      "date": "2025-06-18",
+      "signal_type": "rehire_narrowing",
+      "description": "Reportedly cut some Singapore technology and operations jobs while shifting work to India as part of cost-saving measures.",
+      "source_url": "https://www.straitstimes.com/business/standard-chartered-cuts-jobs-in-singapore-moves-them-to-india",
+      "affected_archetypes": [
+        "finance_investing",
+        "software_engineering",
+        "operations_logistics",
+        "general_clerical"
+      ]
+    },
+    {
+      "company": "Creative Technology",
+      "sector": "Electronics and consumer technology",
+      "date": "2025-03-17",
+      "signal_type": "restructuring",
+      "description": "Retrenched staff while restructuring parts of the business to adapt to evolving market conditions.",
+      "source_url": "https://www.straitstimes.com/singapore/jobs/creative-technology-cuts-workforce-continues-wave-of-tech-layoffs",
+      "affected_archetypes": [
+        "software_engineering",
+        "design_creative",
+        "general_technical",
+        "operations_logistics"
+      ]
+    },
+    {
+      "company": "DBS Group",
+      "sector": "Banking and financial services",
+      "date": "2025-02-24",
+      "signal_type": "ai_layoff",
+      "description": "Said around 4,000 contract and temporary roles could roll off over three years as AI increasingly takes on work done by humans.",
+      "source_url": "https://www.straitstimes.com/business/banking/dbs-ceo-piyush-gupta-sees-job-cuts-of-4000-temp-staff-as-ai-replaces-roles",
+      "affected_archetypes": [
+        "finance_investing",
+        "general_clerical",
+        "data_analytics",
+        "general_professional"
+      ]
+    },
+    {
+      "company": "TikTok",
+      "sector": "Technology platforms",
+      "date": "2025-02-20",
+      "signal_type": "restructuring",
+      "description": "Cut trust and safety jobs in Singapore as part of a global reorganisation intended to align operations with long-term growth plans.",
+      "source_url": "https://www.straitstimes.com/singapore/tiktok-cuts-trust-and-safety-jobs-in-singapore-as-part-of-global-layoffs",
+      "affected_archetypes": [
+        "legal_compliance",
+        "general_professional",
+        "writing_editorial"
+      ]
+    },
+    {
+      "company": "SingPost",
+      "sector": "Logistics and postal services",
+      "date": "2025-02-19",
+      "signal_type": "restructuring",
+      "description": "Announced about 45 layoffs as part of a restructuring that trims operations and pushes more functions into business units.",
+      "source_url": "https://www.straitstimes.com/singapore/jobs/singpost-to-lay-off-45-workers-as-part-of-restructuring-move-unrelated-to-whistleblowing-reports",
+      "affected_archetypes": [
+        "operations_logistics",
+        "general_clerical",
+        "general_professional"
+      ]
+    },
+    {
+      "company": "Meta",
+      "sector": "Technology platforms",
+      "date": "2025-02-14",
+      "signal_type": "restructuring",
+      "description": "Singapore staff were affected by global layoffs as the company trimmed teams during a broader reorganisation.",
+      "source_url": "https://www.straitstimes.com/business/companies-markets/meta-layoffs-hit-singapore-as-tech-giant-cuts-global-workforce",
+      "affected_archetypes": [
+        "software_engineering",
+        "sales_gtm",
+        "general_professional"
+      ]
+    },
+    {
+      "company": "Bacui Technologies International",
+      "sector": "Technology services",
+      "date": "2025-02-12",
+      "signal_type": "restructuring",
+      "description": "Announced internal restructuring of subsidiaries and operating structure.",
+      "source_url": "https://links.sgx.com/1.0.0/corporate-announcements/3GLX9DLDTUIQN3KB",
+      "affected_archetypes": [
+        "software_engineering",
+        "operations_logistics",
+        "general_professional"
+      ]
+    },
+    {
+      "company": "Carousell",
+      "sector": "Marketplace and e-commerce",
+      "date": "2024-12-06",
+      "signal_type": "cost_discipline",
+      "description": "Cut 7 per cent of total headcount in a strategic review to reallocate resources and improve long-term sustainability.",
+      "source_url": "https://www.channelnewsasia.com/singapore/carousell-layoffs-december-2024-76-roles-strategic-market-resources-4791261",
+      "affected_archetypes": [
+        "product_strategy",
+        "software_engineering",
+        "operations_logistics",
+        "general_professional"
+      ]
+    },
+    {
+      "company": "SPH Media",
+      "sector": "Media and publishing",
+      "date": "2024-11-04",
+      "signal_type": "restructuring",
+      "description": "Laid off 34 employees amid a restructuring and streamlining of its technology division.",
+      "source_url": "https://www.straitstimes.com/singapore/sph-media-lays-off-34-employees-amid-restructuring-of-technology-division",
+      "affected_archetypes": [
+        "software_engineering",
+        "writing_editorial",
+        "general_technical"
+      ]
+    }
+  ],
+  "by_archetype": {
+    "finance_investing": {
+      "pressure_score": 0.165,
+      "label": "low",
+      "signal_count": 2,
+      "sectors": [
+        "Banking and financial services"
+      ],
+      "recent_signals": [
+        "Standard Chartered: Reportedly cut some Singapore technology and operations jobs while shifting work to India as part of cost-saving measures.",
+        "DBS Group: Said around 4,000 contract and temporary roles could roll off over three years as AI increasingly takes on work done by humans."
+      ],
+      "latest_date": "2025-06-18"
+    },
+    "general_clerical": {
+      "pressure_score": 0.219,
+      "label": "moderate",
+      "signal_count": 3,
+      "sectors": [
+        "Banking and financial services",
+        "Logistics and postal services"
+      ],
+      "recent_signals": [
+        "Standard Chartered: Reportedly cut some Singapore technology and operations jobs while shifting work to India as part of cost-saving measures.",
+        "DBS Group: Said around 4,000 contract and temporary roles could roll off over three years as AI increasingly takes on work done by humans.",
+        "SingPost: Announced about 45 layoffs as part of a restructuring that trims operations and pushes more functions into business units."
+      ],
+      "latest_date": "2025-06-18"
+    },
+    "data_analytics": {
+      "pressure_score": 0.105,
+      "label": "low",
+      "signal_count": 1,
+      "sectors": [
+        "Banking and financial services"
+      ],
+      "recent_signals": [
+        "DBS Group: Said around 4,000 contract and temporary roles could roll off over three years as AI increasingly takes on work done by humans."
+      ],
+      "latest_date": "2025-02-24"
+    },
+    "general_professional": {
+      "pressure_score": 0.523,
+      "label": "high",
+      "signal_count": 8,
+      "sectors": [
+        "Banking and financial services",
+        "Energy and resources",
+        "Logistics and delivery",
+        "Logistics and postal services",
+        "Marketplace and e-commerce",
+        "Technology platforms",
+        "Technology services"
+      ],
+      "recent_signals": [
+        "Interra Resources: Announced group restructuring and operating-unit realignment.",
+        "Ninja Van: Cut 12 per cent of its Singapore workforce while streamlining headquarters functions and reallocating resources to selected growth areas.",
+        "DBS Group: Said around 4,000 contract and temporary roles could roll off over three years as AI increasingly takes on work done by humans."
+      ],
+      "latest_date": "2025-10-06"
+    },
+    "software_engineering": {
+      "pressure_score": 0.388,
+      "label": "moderate",
+      "signal_count": 7,
+      "sectors": [
+        "Banking and financial services",
+        "Electronics and consumer technology",
+        "Logistics and delivery",
+        "Marketplace and e-commerce",
+        "Media and publishing",
+        "Technology platforms",
+        "Technology services"
+      ],
+      "recent_signals": [
+        "Ninja Van: Cut 12 per cent of its Singapore workforce while streamlining headquarters functions and reallocating resources to selected growth areas.",
+        "Standard Chartered: Reportedly cut some Singapore technology and operations jobs while shifting work to India as part of cost-saving measures.",
+        "Creative Technology: Retrenched staff while restructuring parts of the business to adapt to evolving market conditions."
+      ],
+      "latest_date": "2025-08-12"
+    },
+    "sales_gtm": {
+      "pressure_score": 0.054,
+      "label": "low",
+      "signal_count": 1,
+      "sectors": [
+        "Technology platforms"
+      ],
+      "recent_signals": [
+        "Meta: Singapore staff were affected by global layoffs as the company trimmed teams during a broader reorganisation."
+      ],
+      "latest_date": "2025-02-14"
+    },
+    "operations_logistics": {
+      "pressure_score": 0.424,
+      "label": "moderate",
+      "signal_count": 7,
+      "sectors": [
+        "Banking and financial services",
+        "Electronics and consumer technology",
+        "Energy and resources",
+        "Logistics and delivery",
+        "Logistics and postal services",
+        "Marketplace and e-commerce",
+        "Technology services"
+      ],
+      "recent_signals": [
+        "Interra Resources: Announced group restructuring and operating-unit realignment.",
+        "Ninja Van: Cut 12 per cent of its Singapore workforce while streamlining headquarters functions and reallocating resources to selected growth areas.",
+        "Standard Chartered: Reportedly cut some Singapore technology and operations jobs while shifting work to India as part of cost-saving measures."
+      ],
+      "latest_date": "2025-10-06"
+    },
+    "legal_compliance": {
+      "pressure_score": 0.054,
+      "label": "low",
+      "signal_count": 1,
+      "sectors": [
+        "Technology platforms"
+      ],
+      "recent_signals": [
+        "TikTok: Cut trust and safety jobs in Singapore as part of a global reorganisation intended to align operations with long-term growth plans."
+      ],
+      "latest_date": "2025-02-20"
+    },
+    "writing_editorial": {
+      "pressure_score": 0.108,
+      "label": "low",
+      "signal_count": 2,
+      "sectors": [
+        "Media and publishing",
+        "Technology platforms"
+      ],
+      "recent_signals": [
+        "TikTok: Cut trust and safety jobs in Singapore as part of a global reorganisation intended to align operations with long-term growth plans.",
+        "SPH Media: Laid off 34 employees amid a restructuring and streamlining of its technology division."
+      ],
+      "latest_date": "2025-02-20"
+    },
+    "design_creative": {
+      "pressure_score": 0.054,
+      "label": "low",
+      "signal_count": 1,
+      "sectors": [
+        "Electronics and consumer technology"
+      ],
+      "recent_signals": [
+        "Creative Technology: Retrenched staff while restructuring parts of the business to adapt to evolving market conditions."
+      ],
+      "latest_date": "2025-03-17"
+    },
+    "general_technical": {
+      "pressure_score": 0.108,
+      "label": "low",
+      "signal_count": 2,
+      "sectors": [
+        "Electronics and consumer technology",
+        "Media and publishing"
+      ],
+      "recent_signals": [
+        "Creative Technology: Retrenched staff while restructuring parts of the business to adapt to evolving market conditions.",
+        "SPH Media: Laid off 34 employees amid a restructuring and streamlining of its technology division."
+      ],
+      "latest_date": "2025-03-17"
+    },
+    "field_manual": {
+      "pressure_score": 0.09,
+      "label": "low",
+      "signal_count": 1,
+      "sectors": [
+        "Energy and resources"
+      ],
+      "recent_signals": [
+        "Interra Resources: Announced group restructuring and operating-unit realignment."
+      ],
+      "latest_date": "2025-10-06"
+    },
+    "product_strategy": {
+      "pressure_score": 0.042,
+      "label": "low",
+      "signal_count": 1,
+      "sectors": [
+        "Marketplace and e-commerce"
+      ],
+      "recent_signals": [
+        "Carousell: Cut 7 per cent of total headcount in a strategic review to reallocate resources and improve long-term sustainability."
+      ],
+      "latest_date": "2024-12-06"
+    }
+  },
+  "by_sector": {
+    "Banking and financial services": {
+      "pressure_score": 0.165,
+      "label": "low",
+      "signal_count": 2,
+      "sectors": [
+        "Banking and financial services"
+      ],
+      "recent_signals": [
+        "Standard Chartered: Reportedly cut some Singapore technology and operations jobs while shifting work to India as part of cost-saving measures.",
+        "DBS Group: Said around 4,000 contract and temporary roles could roll off over three years as AI increasingly takes on work done by humans."
+      ],
+      "latest_date": "2025-06-18"
+    },
+    "Technology platforms": {
+      "pressure_score": 0.108,
+      "label": "low",
+      "signal_count": 2,
+      "sectors": [
+        "Technology platforms"
+      ],
+      "recent_signals": [
+        "TikTok: Cut trust and safety jobs in Singapore as part of a global reorganisation intended to align operations with long-term growth plans.",
+        "Meta: Singapore staff were affected by global layoffs as the company trimmed teams during a broader reorganisation."
+      ],
+      "latest_date": "2025-02-20"
+    },
+    "Logistics and postal services": {
+      "pressure_score": 0.054,
+      "label": "low",
+      "signal_count": 1,
+      "sectors": [
+        "Logistics and postal services"
+      ],
+      "recent_signals": [
+        "SingPost: Announced about 45 layoffs as part of a restructuring that trims operations and pushes more functions into business units."
+      ],
+      "latest_date": "2025-02-19"
+    },
+    "Electronics and consumer technology": {
+      "pressure_score": 0.054,
+      "label": "low",
+      "signal_count": 1,
+      "sectors": [
+        "Electronics and consumer technology"
+      ],
+      "recent_signals": [
+        "Creative Technology: Retrenched staff while restructuring parts of the business to adapt to evolving market conditions."
+      ],
+      "latest_date": "2025-03-17"
+    },
+    "Logistics and delivery": {
+      "pressure_score": 0.07,
+      "label": "low",
+      "signal_count": 1,
+      "sectors": [
+        "Logistics and delivery"
+      ],
+      "recent_signals": [
+        "Ninja Van: Cut 12 per cent of its Singapore workforce while streamlining headquarters functions and reallocating resources to selected growth areas."
+      ],
+      "latest_date": "2025-08-12"
+    },
+    "Energy and resources": {
+      "pressure_score": 0.09,
+      "label": "low",
+      "signal_count": 1,
+      "sectors": [
+        "Energy and resources"
+      ],
+      "recent_signals": [
+        "Interra Resources: Announced group restructuring and operating-unit realignment."
+      ],
+      "latest_date": "2025-10-06"
+    },
+    "Media and publishing": {
+      "pressure_score": 0.054,
+      "label": "low",
+      "signal_count": 1,
+      "sectors": [
+        "Media and publishing"
+      ],
+      "recent_signals": [
+        "SPH Media: Laid off 34 employees amid a restructuring and streamlining of its technology division."
+      ],
+      "latest_date": "2024-11-04"
+    },
+    "Marketplace and e-commerce": {
+      "pressure_score": 0.042,
+      "label": "low",
+      "signal_count": 1,
+      "sectors": [
+        "Marketplace and e-commerce"
+      ],
+      "recent_signals": [
+        "Carousell: Cut 7 per cent of total headcount in a strategic review to reallocate resources and improve long-term sustainability."
+      ],
+      "latest_date": "2024-12-06"
+    },
+    "Technology services": {
+      "pressure_score": 0.054,
+      "label": "low",
+      "signal_count": 1,
+      "sectors": [
+        "Technology services"
+      ],
+      "recent_signals": [
+        "Bacui Technologies International: Announced internal restructuring of subsidiaries and operating structure."
+      ],
+      "latest_date": "2025-02-12"
+    }
+  }
+}

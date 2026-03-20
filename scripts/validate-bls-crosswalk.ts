@@ -8,6 +8,8 @@
  *
  * Outputs:
  *   data/backtests/bls-crosswalk-validation.json
+ *   src/lib/data/backtests/bls-crosswalk-validation.json
+ *   static/data/backtests/bls-crosswalk-validation.json
  *
  * Run: bun run scripts/validate-bls-crosswalk.ts
  */
@@ -23,6 +25,23 @@ const BLS_FILE = path.join(DATA_DIR, 'raw', 'external', 'bls_projections_2024_20
 const OCCUPATIONS_FILE = path.join(DATA_DIR, 'occupations.json');
 const OUTPUT_DIR = path.join(DATA_DIR, 'backtests');
 const OUTPUT_FILE = path.join(OUTPUT_DIR, 'bls-crosswalk-validation.json');
+const SRC_OUTPUT_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'backtests',
+	'bls-crosswalk-validation.json'
+);
+const STATIC_OUTPUT_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'static',
+	'data',
+	'backtests',
+	'bls-crosswalk-validation.json'
+);
 
 interface Occupation {
 	ssoc: string;
@@ -339,10 +358,11 @@ function main() {
 	};
 
 	// 8. Save
-	if (!fs.existsSync(OUTPUT_DIR)) {
-		fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+	const serialized = JSON.stringify(result, null, 2);
+	for (const file of [OUTPUT_FILE, SRC_OUTPUT_FILE, STATIC_OUTPUT_FILE]) {
+		fs.mkdirSync(path.dirname(file), { recursive: true });
+		fs.writeFileSync(file, serialized);
 	}
-	fs.writeFileSync(OUTPUT_FILE, JSON.stringify(result, null, 2));
 	console.log(`Written to ${OUTPUT_FILE}`);
 }
 

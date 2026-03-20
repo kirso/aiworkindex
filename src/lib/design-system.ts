@@ -50,9 +50,16 @@ export const title = tv({
 	defaultVariants: { size: 'page' }
 });
 
-/** Section label — uppercase marker above content blocks */
+/** Section label — marker above content blocks. Normal-case by default, uppercase only for minor metadata. */
 export const sectionLabel = tv({
-	base: 'text-xs font-semibold uppercase tracking-label text-muted-foreground'
+	base: 'text-xs font-semibold text-muted-foreground',
+	variants: {
+		case: {
+			normal: '',
+			upper: 'uppercase tracking-label'
+		}
+	},
+	defaultVariants: { case: 'normal' }
 });
 
 /** Body text */
@@ -62,7 +69,7 @@ export const body = tv({
 		tone: {
 			default: 'text-foreground',
 			muted: 'text-muted-foreground',
-			subtle: 'text-foreground/70'
+			subtle: 'text-text-secondary'
 		},
 		size: {
 			lg: 'text-base',
@@ -170,7 +177,13 @@ export const card = tv({
 			default: '',
 			flat: 'shadow-none',
 			inset: 'bg-inset border-transparent shadow-none rounded-md',
-			elevated: 'shadow-md'
+			elevated: 'shadow-md',
+			/** Subtle surface — section panels inside a card. Lighter than inset, clearly not card-white. */
+			subtle: 'bg-surface-subtle border-border/50 shadow-none rounded-md',
+			/** Metric surface — subtle grouping for stat cards. Light tint + soft border. */
+			metric: 'bg-surface-metric border-border/50 shadow-none rounded-md',
+			/** Notice — contextual callout with tinted background. Pair with accent for semantic color. */
+			notice: 'shadow-none rounded-md'
 		},
 		accent: {
 			none: 'border-border',
@@ -186,6 +199,29 @@ export const card = tv({
 			primary: 'border-primary'
 		}
 	},
+	compoundVariants: [
+		{
+			variant: 'notice',
+			accent: 'moderate',
+			class: 'border-risk-moderate-border bg-risk-moderate-subtle'
+		},
+		{ variant: 'notice', accent: 'primary', class: 'border-primary/20 bg-primary/5' },
+		{
+			variant: 'notice',
+			accent: 'leveraged',
+			class: 'border-impact-leveraged-border bg-impact-leveraged-subtle'
+		},
+		{
+			variant: 'notice',
+			accent: 'very_low',
+			class: 'border-risk-very-low-border bg-risk-very-low-subtle'
+		},
+		{
+			variant: 'notice',
+			accent: 'very_high',
+			class: 'border-risk-very-high-border bg-risk-very-high-subtle'
+		}
+	],
 	defaultVariants: {
 		padding: 'md',
 		hover: false,
@@ -302,6 +338,73 @@ export const scoreBar = tv({
 });
 
 // ============================================
+// PILLS — Inline contextual indicators
+//
+// Rounded-full, smaller than badges, used for
+// demand signals, education, policy flags, skills,
+// evidence labels, programme links.
+//
+// Size: sm (metadata), md (default), lg (CTA pills)
+// Tone: semantic color or muted fallback
+// Interactive: adds hover state for clickable pills
+// ============================================
+
+export const pill = tv({
+	base: 'inline-flex items-center rounded-full font-medium',
+	variants: {
+		size: {
+			sm: 'px-1.5 py-0.5 text-[10px]',
+			md: 'px-2.5 py-1 text-[11px]',
+			lg: 'px-3 py-1.5 text-xs'
+		},
+		tone: {
+			muted: 'bg-muted text-muted-foreground',
+			primary: 'bg-primary/10 text-primary',
+			positive: 'bg-risk-very-low/10 text-risk-very-low',
+			warning: 'bg-risk-moderate/10 text-risk-moderate',
+			danger: 'bg-risk-high/10 text-risk-high',
+			neutral: 'bg-background text-muted-foreground',
+			outline: 'border border-border bg-background text-foreground'
+		},
+		interactive: {
+			true: 'transition-colors hover:opacity-80',
+			false: ''
+		}
+	},
+	defaultVariants: { size: 'md', tone: 'muted', interactive: false }
+});
+
+// ============================================
+// LAYOUT PRIMITIVES — Semantic surfaces
+// ============================================
+
+/** Subpanel — titled subsection within a card (e.g., "Labour Now", "Top Industries") */
+export const subpanel = tv({
+	base: 'rounded-lg border border-border/60 bg-card',
+	variants: {
+		padding: {
+			sm: 'p-3',
+			md: 'px-4 py-3',
+			lg: 'p-5'
+		}
+	},
+	defaultVariants: { padding: 'md' }
+});
+
+/** Utility action — quiet link-style action (Compare, Save, Share) */
+export const utilityAction = tv({
+	base: 'inline-flex items-center gap-1 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground',
+	variants: {
+		variant: {
+			link: 'hover:text-primary',
+			button:
+				'rounded-md border border-border px-2.5 py-1.5 hover:bg-accent hover:border-primary/30'
+		}
+	},
+	defaultVariants: { variant: 'link' }
+});
+
+// ============================================
 // INTERACTIVE ELEMENTS
 // ============================================
 
@@ -356,6 +459,21 @@ export const riskColorScale = d3Scale
 // Return Tailwind token classes. NEVER hardcode
 // bg-emerald-50 or similar — always use these.
 // ============================================
+
+/** Score tile — gradient + border classes keyed to risk band */
+export function scoreTileClasses(band: RiskBand): string {
+	const map: Record<RiskBand, string> = {
+		very_low:
+			'border-risk-very-low/20 bg-gradient-to-b from-risk-very-low/10 via-background to-background',
+		low: 'border-risk-low/20 bg-gradient-to-b from-risk-low/10 via-background to-background',
+		moderate:
+			'border-risk-moderate/20 bg-gradient-to-b from-risk-moderate/10 via-background to-background',
+		high: 'border-risk-high/20 bg-gradient-to-b from-risk-high/10 via-background to-background',
+		very_high:
+			'border-risk-very-high/20 bg-gradient-to-b from-risk-very-high/10 via-background to-background'
+	};
+	return map[band];
+}
 
 /** Risk band → subtle bg/text/border classes */
 export function riskTone(band: RiskBand): string {
@@ -442,5 +560,8 @@ export type ImpactBadgeVariants = VariantProps<typeof impactBadge>;
 export type ConfidenceBadgeVariants = VariantProps<typeof confidenceBadge>;
 export type BadgeVariants = VariantProps<typeof badge>;
 export type ChipVariants = VariantProps<typeof chip>;
+export type PillVariants = VariantProps<typeof pill>;
+export type SubpanelVariants = VariantProps<typeof subpanel>;
+export type UtilityActionVariants = VariantProps<typeof utilityAction>;
 export type ScoreBarVariants = VariantProps<typeof scoreBar>;
 export type FormInputVariants = VariantProps<typeof formInput>;

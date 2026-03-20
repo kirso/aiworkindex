@@ -12,6 +12,7 @@
 		sourceRegistryStatusLabels
 	} from '$lib/data/data-contract';
 	import releaseManifest from '$lib/data/release-manifest.json';
+	import { releases, siteStatus } from '$lib/data/site-status';
 	import rawDataAudit from '$lib/data/raw-data-audit.json';
 	import Seo from '$lib/components/ui/Seo.svelte';
 
@@ -343,7 +344,7 @@
 	<h1 class={titleStyle({ size: 'page' })}>Data Downloads</h1>
 
 	<!-- TL;DR -->
-	<div class={cn(card({ padding: 'sm' }), 'mt-4 mb-4 border-primary/20 bg-primary/5')}>
+	<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'primary' }), 'mt-4 mb-4')}>
 		<p class="text-sm font-semibold text-foreground">
 			{DATA_VINTAGE.occupation_count} occupations · {DATA_VINTAGE.role_count} roles · {dataSourceCount}
 			data sources · MIT licensed
@@ -352,6 +353,71 @@
 			Structural scores and Singapore context are separate downloads. Each artifact has an evidence
 			tier: official SG, derived from official SG, external proxy, or synthetic.
 		</p>
+	</div>
+
+	<div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+		<div class={cn(card({ variant: 'metric', padding: 'sm' }))}>
+			<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+				Structural release
+			</p>
+			<p class="mt-1 text-lg font-bold text-foreground">{siteStatus.structural_release.version}</p>
+			<p class="text-xs text-muted-foreground">
+				score dataset generated {siteStatus.structural_release.score_dataset_generated_at}
+			</p>
+		</div>
+		<div class={cn(card({ variant: 'metric', padding: 'sm' }))}>
+			<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+				Live monitor
+			</p>
+			<p class="mt-1 text-sm font-semibold text-foreground">
+				{siteStatus.live_monitor.labour_monitor_artifact_vintage}
+			</p>
+			<p class="text-xs text-muted-foreground">current labour context used on live pages</p>
+		</div>
+		<div class={cn(card({ variant: 'metric', padding: 'sm' }))}>
+			<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+				Latest official release
+			</p>
+			<p class="mt-1 text-sm font-semibold text-foreground">
+				{siteStatus.live_monitor.latest_official_labour_report.period}
+			</p>
+			<p class="text-xs text-muted-foreground">
+				{siteStatus.live_monitor.latest_official_labour_report.label} published {siteStatus.live_monitor.latest_official_labour_report.published_at}
+			</p>
+		</div>
+		<div class={cn(card({ variant: 'metric', padding: 'sm' }))}>
+			<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+				Quarterly briefing
+			</p>
+			<p class="mt-1 text-sm font-semibold text-foreground">2026 Q1</p>
+			<p class="text-xs text-muted-foreground">
+				{siteStatus.live_monitor.quarterly_current_snapshot ?? 'No current snapshot'}
+			</p>
+		</div>
+	</div>
+
+	<div class={cn(card({ padding: 'md' }), 'mt-4')}>
+		<p class="text-sm font-semibold text-foreground">Release history</p>
+		<div class="mt-3 space-y-3">
+			{#each releases as release (release.id)}
+				<div class="flex items-start justify-between gap-3 border-b border-border/40 pb-3 last:border-b-0 last:pb-0">
+					<div>
+						<p class="text-sm font-medium text-foreground">{release.label}</p>
+						<p class="mt-1 text-xs text-muted-foreground">
+							Published {release.published_at} · {release.score_version} · monitor {release.monitor_vintage}
+						</p>
+					</div>
+					<a
+						href={release.href}
+						class="text-xs text-primary hover:underline"
+						target={release.href.startsWith('http') ? '_blank' : undefined}
+						rel={release.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+					>
+						Open →
+					</a>
+				</div>
+			{/each}
+		</div>
 	</div>
 
 	<!-- Download Cards -->
@@ -368,7 +434,7 @@
 					<span class="text-base font-semibold text-foreground">CSV</span>
 				</div>
 				<p class="mt-1 text-sm text-muted-foreground">
-					562 occupations, flattened fields + provenance. Best for spreadsheets.
+					{DATA_VINTAGE.occupation_count} occupations, flattened fields + provenance. Best for spreadsheets.
 				</p>
 				<span class="mt-auto pt-2 text-xs text-primary">sg-ai-occupations-v4.csv</span>
 			</div>
@@ -429,7 +495,8 @@
 				{ href: '/data/sg-geography-context-2020.json', label: 'Geography', desc: 'Planning area concentration' },
 				{ href: '/data/sg-macro-context-2025.json', label: 'Macro context', desc: 'Unemployment, GDP, tightness' },
 				{ href: '/data/sg-ai-in-singapore-2025.json', label: 'AI in Singapore', desc: 'Adoption, NAIIP, workforce' },
-				{ href: '/data/sg-transition-support-v4.json', label: 'Transition support', desc: 'SkillsFuture, pathways' }
+				{ href: '/data/onet-enrichment.json', label: 'O*NET task + tools', desc: 'Supporting task and technology context' },
+				{ href: '/data/sg-transition-support-v4.json', label: 'Transition support', desc: 'Pathways, SkillsFuture, JTM / WSQ anchors' }
 			] as file}
 				<a
 					href={file.href}
@@ -462,7 +529,7 @@
 						<Table.Row>
 							<Table.Cell class="font-medium">V4.0 (Current)</Table.Cell>
 							<Table.Cell class="text-muted-foreground">March 2026</Table.Cell>
-							<Table.Cell class="text-muted-foreground">562</Table.Cell>
+							<Table.Cell class="text-muted-foreground">{DATA_VINTAGE.occupation_count}</Table.Cell>
 							<Table.Cell>
 									<a href="/data/sg-ai-occupations-v4.json" download class="text-xs text-primary underline">JSON</a>
 									<span class="mx-1 text-muted-foreground">&middot;</span>
@@ -472,13 +539,13 @@
 						<Table.Row class="opacity-50">
 							<Table.Cell class="font-medium">V2</Table.Cell>
 							<Table.Cell class="text-muted-foreground">January 2026</Table.Cell>
-							<Table.Cell class="text-muted-foreground">562</Table.Cell>
+							<Table.Cell class="text-muted-foreground">{DATA_VINTAGE.occupation_count}</Table.Cell>
 							<Table.Cell class="text-xs text-muted-foreground italic">Archived</Table.Cell>
 						</Table.Row>
 						<Table.Row class="opacity-50">
 							<Table.Cell class="font-medium">V1</Table.Cell>
 							<Table.Cell class="text-muted-foreground">December 2025</Table.Cell>
-							<Table.Cell class="text-muted-foreground">562</Table.Cell>
+							<Table.Cell class="text-muted-foreground">{DATA_VINTAGE.occupation_count}</Table.Cell>
 							<Table.Cell class="text-xs text-muted-foreground italic">Archived</Table.Cell>
 						</Table.Row>
 					</Table.Body>
@@ -497,7 +564,7 @@
 			<div class="space-y-1 text-sm text-muted-foreground">
 				<p><span class="font-medium text-foreground">Version:</span> V4.0 (4-source exposure ensemble inside a 3-layer structural score)</p>
 				<p><span class="font-medium text-foreground">Data vintage:</span> 2024 wages, 2024/2025 demand signals</p>
-				<p><span class="font-medium text-foreground">Occupations:</span> 562 SSOC-coded occupations</p>
+				<p><span class="font-medium text-foreground">Occupations:</span> {DATA_VINTAGE.occupation_count} SSOC-coded occupations</p>
 				<p><span class="font-medium text-foreground">Separate context bundle:</span> Labour monitor, worker profile, industry context, sector wage anchors, geography context, macro labour context, and national AI context</p>
 				<p><span class="font-medium text-foreground">Sources:</span> MOM Singapore (wages, Labour Force Section D, industry context, demand signals, SOI), IMDA Singapore Digital Economy Report 2025, IMDA NAIIP 2026, O*NET, Felten AIOE, Pizzinelli/IMF, Anthropic observed usage, Eloundou GPT exposure, ILO occupational exposure, SOL 2026, Jobs in Demand 2025</p>
 			</div>
@@ -647,10 +714,10 @@
 		</div>
 	</div>
 
-	<Alert.Root class="mt-4 border-risk-moderate-border bg-risk-moderate-subtle text-foreground/80 [&>svg]:text-risk-moderate">
+	<Alert.Root variant="warning" class="mt-4">
 		<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
 		<Alert.Title class="text-foreground">A note on data quality</Alert.Title>
-		<Alert.Description class="text-foreground/80">
+		<Alert.Description class="text-text-secondary">
 			All scores are deterministic and reproducible. The scoring pipeline uses no LLM in the loop, and every displayed proxy or estimate now carries an explicit basis and evidence tier in the dataset.
 		</Alert.Description>
 	</Alert.Root>
@@ -659,7 +726,9 @@
 		<p class={cn(sectionLabel(), 'mb-3')}>Source Registry</p>
 		<div class={card({ padding: 'lg' })}>
 			<p class="mb-3 text-sm text-muted-foreground">
-				Live sources are in the current pipeline. Available sources are already in the repo or public backlog but not yet active in the live score.
+				Live sources are tracked separately from the structural score. Some sources are already
+				active in the live monitor pipeline; others remain reference or backlog sources and are
+				not yet part of the published monitor.
 			</p>
 			<div class="rounded-md border">
 				<Table.Root>

@@ -1,0 +1,5703 @@
+{
+  "generated_at": "2026-03-20T09:38:46.363Z",
+  "sources": [
+    {
+      "source": "lever",
+      "label": "Lever employer boards",
+      "source_tier": "employer_career_site",
+      "posting_count": 10,
+      "latest_posted_date": "2026-03-20T05:39:49.826Z",
+      "freshness_days": 0
+    },
+    {
+      "source": "greenhouse",
+      "label": "Greenhouse employer boards",
+      "source_tier": "employer_career_site",
+      "posting_count": 54,
+      "latest_posted_date": "2026-03-20T00:13:04.000Z",
+      "freshness_days": 0
+    },
+    {
+      "source": "mycareersfuture",
+      "label": "MyCareersFuture",
+      "source_tier": "official_sg_job_portal",
+      "posting_count": 250,
+      "latest_posted_date": "2026-03-19T20:44:47.000Z",
+      "freshness_days": 0
+    },
+    {
+      "source": "ashby",
+      "label": "Ashby employer boards",
+      "source_tier": "employer_career_site",
+      "posting_count": 250,
+      "latest_posted_date": "2026-03-19T08:17:35.625Z",
+      "freshness_days": 1
+    }
+  ],
+  "summary": {
+    "total_postings": 564,
+    "source_count": 4,
+    "posting_volume_30d": 380,
+    "posting_volume_90d": 475,
+    "trend_90d": "rising",
+    "hiring_state": "active",
+    "freshness_days": 0,
+    "latest_posted_date": "2026-03-20T05:39:49.826Z",
+    "salary_min_hint": 1000,
+    "salary_max_hint": 28200,
+    "median_salary_hint": 5500,
+    "top_skills": [
+      {
+        "label": "Python",
+        "count": 107
+      },
+      {
+        "label": "Go",
+        "count": 85
+      },
+      {
+        "label": "Java",
+        "count": 79
+      },
+      {
+        "label": "AWS",
+        "count": 75
+      },
+      {
+        "label": "GCP",
+        "count": 75
+      }
+    ],
+    "top_tools": [
+      {
+        "label": "tableau",
+        "count": 11
+      },
+      {
+        "label": "power bi",
+        "count": 6
+      },
+      {
+        "label": "chatgpt",
+        "count": 5
+      },
+      {
+        "label": "salesforce",
+        "count": 3
+      },
+      {
+        "label": "copilot",
+        "count": 1
+      }
+    ],
+    "source_mix": [
+      {
+        "source": "mycareersfuture",
+        "count": 250
+      },
+      {
+        "source": "ashby",
+        "count": 250
+      },
+      {
+        "source": "greenhouse",
+        "count": 54
+      },
+      {
+        "source": "lever",
+        "count": 10
+      }
+    ]
+  },
+  "by_ssoc": {
+    "11201": {
+      "title": "Managing director/Chief executive officer",
+      "posting_volume_30d": 3,
+      "posting_volume_90d": 3,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T19:15:40.000Z",
+      "salary_min_hint": 2700,
+      "salary_max_hint": 24000,
+      "median_salary_hint": 11000,
+      "top_skills": [
+        {
+          "label": "Customer Service Skills",
+          "count": 1
+        },
+        {
+          "label": "Negotiation",
+          "count": 1
+        },
+        {
+          "label": "Talent Management",
+          "count": 1
+        },
+        {
+          "label": "Talent Acquisition",
+          "count": 1
+        },
+        {
+          "label": "Social Media",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 3
+        }
+      ]
+    },
+    "11203": {
+      "title": "Chief operating officer/General Manager",
+      "posting_volume_30d": 8,
+      "posting_volume_90d": 8,
+      "trend_90d": "rising",
+      "hiring_state": "moderate",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T19:23:02.000Z",
+      "salary_min_hint": 2100,
+      "salary_max_hint": 6800,
+      "median_salary_hint": 3500,
+      "top_skills": [
+        {
+          "label": "Construction",
+          "count": 3
+        },
+        {
+          "label": "Microsoft Office",
+          "count": 3
+        },
+        {
+          "label": "Administration",
+          "count": 3
+        },
+        {
+          "label": "Workplace Safety",
+          "count": 2
+        },
+        {
+          "label": "Compliance",
+          "count": 2
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 8
+        }
+      ]
+    },
+    "12111": {
+      "title": "Budgeting and financial accounting manager (including financial controller)",
+      "posting_volume_30d": 3,
+      "posting_volume_90d": 4,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 2,
+      "latest_posted_date": "2026-03-18T07:48:08.242Z",
+      "salary_min_hint": null,
+      "salary_max_hint": null,
+      "median_salary_hint": null,
+      "top_skills": [
+        {
+          "label": "Stakeholder Management",
+          "count": 2
+        },
+        {
+          "label": "Machine Learning",
+          "count": 1
+        },
+        {
+          "label": "AML",
+          "count": 1
+        },
+        {
+          "label": "Risk Management",
+          "count": 1
+        },
+        {
+          "label": "SQL",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 3
+        },
+        {
+          "source": "greenhouse",
+          "count": 1
+        }
+      ]
+    },
+    "12112": {
+      "title": "Administration manager",
+      "posting_volume_30d": 3,
+      "posting_volume_90d": 3,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T20:34:31.000Z",
+      "salary_min_hint": 4000,
+      "salary_max_hint": 10000,
+      "median_salary_hint": 6000,
+      "top_skills": [
+        {
+          "label": "Leadership",
+          "count": 2
+        },
+        {
+          "label": "Scheduling",
+          "count": 2
+        },
+        {
+          "label": "Cost Control",
+          "count": 2
+        },
+        {
+          "label": "Coaching",
+          "count": 1
+        },
+        {
+          "label": "Manpower Planning",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 3
+        }
+      ]
+    },
+    "12113": {
+      "title": "Audit manager",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 2,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 1,
+      "latest_posted_date": "2026-03-19T07:27:57.000Z",
+      "salary_min_hint": 4500,
+      "salary_max_hint": 5500,
+      "median_salary_hint": 5500,
+      "top_skills": [
+        {
+          "label": "Internal Audit Function Management",
+          "count": 1
+        },
+        {
+          "label": "Financial Statements Analysis",
+          "count": 1
+        },
+        {
+          "label": "Leadership",
+          "count": 1
+        },
+        {
+          "label": "International Financial Reporting Standards",
+          "count": 1
+        },
+        {
+          "label": "Professional Development",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        },
+        {
+          "source": "ashby",
+          "count": 1
+        }
+      ]
+    },
+    "12121": {
+      "title": "Personnel/Human resource manager",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 3,
+      "trend_90d": "steady",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T18:47:56.000Z",
+      "salary_min_hint": 2800,
+      "salary_max_hint": 3500,
+      "median_salary_hint": 3500,
+      "top_skills": [
+        {
+          "label": "Talent Management",
+          "count": 1
+        },
+        {
+          "label": "Microsoft Excel",
+          "count": 1
+        },
+        {
+          "label": "Invoicing",
+          "count": 1
+        },
+        {
+          "label": "Data Entry",
+          "count": 1
+        },
+        {
+          "label": "Employment Law",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 2
+        },
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "12131": {
+      "title": "Policy manager",
+      "posting_volume_30d": 0,
+      "posting_volume_90d": 0,
+      "trend_90d": "insufficient_data",
+      "hiring_state": "stale",
+      "freshness_days": 120,
+      "latest_posted_date": "2025-11-20T07:37:02.433Z",
+      "salary_min_hint": null,
+      "salary_max_hint": null,
+      "median_salary_hint": null,
+      "top_skills": [
+        {
+          "label": "Risk Management",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 1
+        }
+      ]
+    },
+    "12132": {
+      "title": "Strategic planning manager",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 1,
+      "latest_posted_date": "2026-03-19T01:01:43.000Z",
+      "salary_min_hint": 17330,
+      "salary_max_hint": 26750,
+      "median_salary_hint": 26750,
+      "top_skills": [
+        {
+          "label": "Relationship Building",
+          "count": 1
+        },
+        {
+          "label": "Cross-functional Team Leadership",
+          "count": 1
+        },
+        {
+          "label": "Acts as a representative",
+          "count": 1
+        },
+        {
+          "label": "Technology Management",
+          "count": 1
+        },
+        {
+          "label": "Telecommunication Industry",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "12211": {
+      "title": "Sales manager",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 15,
+      "latest_posted_date": "2026-03-05T07:20:07.049Z",
+      "salary_min_hint": null,
+      "salary_max_hint": null,
+      "median_salary_hint": null,
+      "top_skills": [
+        {
+          "label": "SQL",
+          "count": 1
+        },
+        {
+          "label": "Power BI",
+          "count": 1
+        },
+        {
+          "label": "Tableau",
+          "count": 1
+        },
+        {
+          "label": "Data Analysis",
+          "count": 1
+        }
+      ],
+      "top_tools": [
+        {
+          "label": "power bi",
+          "count": 1
+        },
+        {
+          "label": "tableau",
+          "count": 1
+        }
+      ],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 1
+        }
+      ]
+    },
+    "12212": {
+      "title": "Business development manager",
+      "posting_volume_30d": 4,
+      "posting_volume_90d": 5,
+      "trend_90d": "rising",
+      "hiring_state": "moderate",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T19:54:25.000Z",
+      "salary_min_hint": 3000,
+      "salary_max_hint": 20000,
+      "median_salary_hint": 15000,
+      "top_skills": [
+        {
+          "label": "Team Player",
+          "count": 2
+        },
+        {
+          "label": "Excellent Communication Skills",
+          "count": 1
+        },
+        {
+          "label": "Bank policy",
+          "count": 1
+        },
+        {
+          "label": "Structured Trade Finance",
+          "count": 1
+        },
+        {
+          "label": "Relationship Management",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 4
+        },
+        {
+          "source": "ashby",
+          "count": 1
+        }
+      ]
+    },
+    "12215": {
+      "title": "Online sales channel manager",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 2,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T17:44:50.000Z",
+      "salary_min_hint": 5000,
+      "salary_max_hint": 8000,
+      "median_salary_hint": 8000,
+      "top_skills": [
+        {
+          "label": "Customer Service Skills",
+          "count": 1
+        },
+        {
+          "label": "Charter",
+          "count": 1
+        },
+        {
+          "label": "Factory",
+          "count": 1
+        },
+        {
+          "label": "Brokerage",
+          "count": 1
+        },
+        {
+          "label": "Customerfacing",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        },
+        {
+          "source": "ashby",
+          "count": 1
+        }
+      ]
+    },
+    "12222": {
+      "title": "Marketing manager",
+      "posting_volume_30d": 2,
+      "posting_volume_90d": 2,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 7,
+      "latest_posted_date": "2026-03-13T08:13:10.610Z",
+      "salary_min_hint": null,
+      "salary_max_hint": null,
+      "median_salary_hint": null,
+      "top_skills": [],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 4
+        }
+      ]
+    },
+    "12241": {
+      "title": "Customer service manager",
+      "posting_volume_30d": 0,
+      "posting_volume_90d": 3,
+      "trend_90d": "cooling",
+      "hiring_state": "no_signal",
+      "freshness_days": 43,
+      "latest_posted_date": "2026-02-05T06:06:05.380Z",
+      "salary_min_hint": null,
+      "salary_max_hint": null,
+      "median_salary_hint": null,
+      "top_skills": [
+        {
+          "label": "Data Analysis",
+          "count": 2
+        },
+        {
+          "label": "React",
+          "count": 1
+        },
+        {
+          "label": "KYC",
+          "count": 1
+        },
+        {
+          "label": "AML",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 4
+        }
+      ]
+    },
+    "13100": {
+      "title": "Production manager in agriculture and fisheries",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T18:42:54.000Z",
+      "salary_min_hint": 7500,
+      "salary_max_hint": 9000,
+      "median_salary_hint": 9000,
+      "top_skills": [
+        {
+          "label": "Excellent Communication Skills",
+          "count": 1
+        },
+        {
+          "label": "Production Management",
+          "count": 1
+        },
+        {
+          "label": "Pharmaceutical Manufacturing",
+          "count": 1
+        },
+        {
+          "label": "Empathy",
+          "count": 1
+        },
+        {
+          "label": "Good Manufacturing Practices",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "13241": {
+      "title": "Supply and distribution/Logistics/Warehousing manager",
+      "posting_volume_30d": 2,
+      "posting_volume_90d": 2,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T18:46:31.000Z",
+      "salary_min_hint": 5000,
+      "salary_max_hint": 12500,
+      "median_salary_hint": 8500,
+      "top_skills": [
+        {
+          "label": "Supply Chain Management",
+          "count": 2
+        },
+        {
+          "label": "SAP EWM",
+          "count": 1
+        },
+        {
+          "label": "SAP MM",
+          "count": 1
+        },
+        {
+          "label": "Wellness",
+          "count": 1
+        },
+        {
+          "label": "Senior Executive Leadership",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 2
+        }
+      ]
+    },
+    "13242": {
+      "title": "Procurement/Purchasing manager",
+      "posting_volume_30d": 4,
+      "posting_volume_90d": 5,
+      "trend_90d": "rising",
+      "hiring_state": "moderate",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T19:20:57.000Z",
+      "salary_min_hint": 3000,
+      "salary_max_hint": 20000,
+      "median_salary_hint": 4000,
+      "top_skills": [
+        {
+          "label": "Purchasing",
+          "count": 3
+        },
+        {
+          "label": "Negotiation",
+          "count": 2
+        },
+        {
+          "label": "Procurement",
+          "count": 2
+        },
+        {
+          "label": "Supply Chain Management",
+          "count": 2
+        },
+        {
+          "label": "Procurement Administration",
+          "count": 2
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 3
+        },
+        {
+          "source": "ashby",
+          "count": 2
+        }
+      ]
+    },
+    "13291": {
+      "title": "Technical/Engineering services manager (excluding transport)",
+      "posting_volume_30d": 4,
+      "posting_volume_90d": 8,
+      "trend_90d": "rising",
+      "hiring_state": "moderate",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T18:28:53.000Z",
+      "salary_min_hint": 9000,
+      "salary_max_hint": 17000,
+      "median_salary_hint": 17000,
+      "top_skills": [
+        {
+          "label": "Python",
+          "count": 5
+        },
+        {
+          "label": "Kubernetes",
+          "count": 4
+        },
+        {
+          "label": "Docker",
+          "count": 4
+        },
+        {
+          "label": "Go",
+          "count": 3
+        },
+        {
+          "label": "AWS",
+          "count": 3
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 8
+        },
+        {
+          "source": "mycareersfuture",
+          "count": 2
+        },
+        {
+          "source": "greenhouse",
+          "count": 1
+        }
+      ]
+    },
+    "13292": {
+      "title": "Quality control/assurance manager",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 2,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 1,
+      "latest_posted_date": "2026-03-19T02:29:46.000Z",
+      "salary_min_hint": 7000,
+      "salary_max_hint": 11000,
+      "median_salary_hint": 11000,
+      "top_skills": [
+        {
+          "label": "Information Technology",
+          "count": 1
+        },
+        {
+          "label": "Billing Process",
+          "count": 1
+        },
+        {
+          "label": "Security Surveillance Management",
+          "count": 1
+        },
+        {
+          "label": "Project Management",
+          "count": 1
+        },
+        {
+          "label": "Project Assurance",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        },
+        {
+          "source": "ashby",
+          "count": 1
+        }
+      ]
+    },
+    "13301": {
+      "title": "Chief information officer/Chief technology officer/Chief security officer",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T19:16:07.000Z",
+      "salary_min_hint": 8000,
+      "salary_max_hint": 13000,
+      "median_salary_hint": 13000,
+      "top_skills": [
+        {
+          "label": "Customer Service Skills",
+          "count": 1
+        },
+        {
+          "label": "Negotiation",
+          "count": 1
+        },
+        {
+          "label": "Microsoft Excel",
+          "count": 1
+        },
+        {
+          "label": "Talent Acquisition",
+          "count": 1
+        },
+        {
+          "label": "Interpersonal Skills",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "13303": {
+      "title": "Network, communications and infrastructure manager",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T18:13:37.000Z",
+      "salary_min_hint": 5500,
+      "salary_max_hint": 8000,
+      "median_salary_hint": 8000,
+      "top_skills": [
+        {
+          "label": "CRM",
+          "count": 1
+        },
+        {
+          "label": "Excellent Communication Skills",
+          "count": 1
+        },
+        {
+          "label": "Sustainability",
+          "count": 1
+        },
+        {
+          "label": "Lifestyle",
+          "count": 1
+        },
+        {
+          "label": "Marketing Strategy",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        },
+        {
+          "source": "ashby",
+          "count": 1
+        }
+      ]
+    },
+    "13430": {
+      "title": "Aged care services manager",
+      "posting_volume_30d": 3,
+      "posting_volume_90d": 3,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T17:32:17.000Z",
+      "salary_min_hint": 8100,
+      "salary_max_hint": 12100,
+      "median_salary_hint": 10500,
+      "top_skills": [
+        {
+          "label": "Business Presentation Delivery",
+          "count": 1
+        },
+        {
+          "label": "Communication",
+          "count": 1
+        },
+        {
+          "label": "Maintenance",
+          "count": 1
+        },
+        {
+          "label": "Field Service",
+          "count": 1
+        },
+        {
+          "label": "Plant",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 2
+        },
+        {
+          "source": "greenhouse",
+          "count": 1
+        }
+      ]
+    },
+    "13441": {
+      "title": "Social service manager",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T17:07:42.000Z",
+      "salary_min_hint": 5000,
+      "salary_max_hint": 6200,
+      "median_salary_hint": 6200,
+      "top_skills": [
+        {
+          "label": "Service Design",
+          "count": 1
+        },
+        {
+          "label": "Teamwork",
+          "count": 1
+        },
+        {
+          "label": "Design",
+          "count": 1
+        },
+        {
+          "label": "Psychology",
+          "count": 1
+        },
+        {
+          "label": "Partner Development",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "13463": {
+      "title": "Financial risk manager",
+      "posting_volume_30d": 0,
+      "posting_volume_90d": 4,
+      "trend_90d": "cooling",
+      "hiring_state": "stale",
+      "freshness_days": 50,
+      "latest_posted_date": "2026-01-28T15:59:09.776Z",
+      "salary_min_hint": null,
+      "salary_max_hint": null,
+      "median_salary_hint": null,
+      "top_skills": [
+        {
+          "label": "Risk Management",
+          "count": 3
+        },
+        {
+          "label": "SQL",
+          "count": 3
+        },
+        {
+          "label": "Go",
+          "count": 2
+        },
+        {
+          "label": "Python",
+          "count": 2
+        },
+        {
+          "label": "Data Analysis",
+          "count": 2
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 5
+        }
+      ]
+    },
+    "14121": {
+      "title": "Restaurant manager",
+      "posting_volume_30d": 2,
+      "posting_volume_90d": 2,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T20:40:16.000Z",
+      "salary_min_hint": 4879,
+      "salary_max_hint": 12000,
+      "median_salary_hint": 9000,
+      "top_skills": [
+        {
+          "label": "Leadership",
+          "count": 2
+        },
+        {
+          "label": "Food Safety",
+          "count": 1
+        },
+        {
+          "label": "Interpersonal Skills",
+          "count": 1
+        },
+        {
+          "label": "Food Quality",
+          "count": 1
+        },
+        {
+          "label": "Hospitality Management",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 2
+        }
+      ]
+    },
+    "14123": {
+      "title": "Food and beverage operations manager",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 5,
+      "trend_90d": "cooling",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T14:40:12.000Z",
+      "salary_min_hint": 6800,
+      "salary_max_hint": 8200,
+      "median_salary_hint": 8200,
+      "top_skills": [
+        {
+          "label": "Stakeholder Management",
+          "count": 4
+        },
+        {
+          "label": "SQL",
+          "count": 3
+        },
+        {
+          "label": "Risk Management",
+          "count": 2
+        },
+        {
+          "label": "Data Analysis",
+          "count": 2
+        },
+        {
+          "label": "Digital Transformation",
+          "count": 1
+        }
+      ],
+      "top_tools": [
+        {
+          "label": "tableau",
+          "count": 1
+        }
+      ],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 4
+        },
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "14330": {
+      "title": "Arts and cultural centre manager (including gallery and museum manager)",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T18:02:40.000Z",
+      "salary_min_hint": 6000,
+      "salary_max_hint": 7000,
+      "median_salary_hint": 7000,
+      "top_skills": [
+        {
+          "label": "Risk Management",
+          "count": 2
+        },
+        {
+          "label": "Background Checks",
+          "count": 1
+        },
+        {
+          "label": "Information Security",
+          "count": 1
+        },
+        {
+          "label": "Leadership",
+          "count": 1
+        },
+        {
+          "label": "Security Operations",
+          "count": 1
+        }
+      ],
+      "top_tools": [
+        {
+          "label": "power bi",
+          "count": 1
+        },
+        {
+          "label": "tableau",
+          "count": 1
+        }
+      ],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        },
+        {
+          "source": "ashby",
+          "count": 1
+        }
+      ]
+    },
+    "21130": {
+      "title": "Chemist",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T17:33:13.000Z",
+      "salary_min_hint": 2800,
+      "salary_max_hint": 4500,
+      "median_salary_hint": 4500,
+      "top_skills": [
+        {
+          "label": "lab testing",
+          "count": 1
+        },
+        {
+          "label": "Microsoft Office",
+          "count": 1
+        },
+        {
+          "label": "Food Science & Technology",
+          "count": 1
+        },
+        {
+          "label": "Analytical Skills",
+          "count": 1
+        },
+        {
+          "label": "Chemistry",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "21212": {
+      "title": "Operations research analyst",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T17:37:51.000Z",
+      "salary_min_hint": 4000,
+      "salary_max_hint": 5000,
+      "median_salary_hint": 5000,
+      "top_skills": [
+        {
+          "label": "Settlement",
+          "count": 1
+        },
+        {
+          "label": "Dispute",
+          "count": 1
+        },
+        {
+          "label": "scientific discipline",
+          "count": 1
+        },
+        {
+          "label": "Documentation",
+          "count": 1
+        },
+        {
+          "label": "Operations Management",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "21222": {
+      "title": "Data scientist",
+      "posting_volume_30d": 3,
+      "posting_volume_90d": 3,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-20T05:39:49.826Z",
+      "salary_min_hint": null,
+      "salary_max_hint": null,
+      "median_salary_hint": null,
+      "top_skills": [
+        {
+          "label": "Machine Learning",
+          "count": 2
+        },
+        {
+          "label": "KYC",
+          "count": 1
+        },
+        {
+          "label": "SQL",
+          "count": 1
+        },
+        {
+          "label": "Python",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "lever",
+          "count": 2
+        },
+        {
+          "source": "ashby",
+          "count": 1
+        }
+      ]
+    },
+    "21414": {
+      "title": "Quality control/assurance engineer",
+      "posting_volume_30d": 2,
+      "posting_volume_90d": 2,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T19:36:22.000Z",
+      "salary_min_hint": 3000,
+      "salary_max_hint": 8500,
+      "median_salary_hint": 7500,
+      "top_skills": [
+        {
+          "label": "regulatory standards",
+          "count": 1
+        },
+        {
+          "label": "Supplier Quality Engineering",
+          "count": 1
+        },
+        {
+          "label": "Engineering Education",
+          "count": 1
+        },
+        {
+          "label": "SPC (Statistic Process Control)",
+          "count": 1
+        },
+        {
+          "label": "Supplier Quality Management",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 2
+        }
+      ]
+    },
+    "21415": {
+      "title": "Process engineer",
+      "posting_volume_30d": 3,
+      "posting_volume_90d": 3,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 1,
+      "latest_posted_date": "2026-03-19T05:59:23.000Z",
+      "salary_min_hint": 3500,
+      "salary_max_hint": 5000,
+      "median_salary_hint": 5000,
+      "top_skills": [
+        {
+          "label": "Troubleshooting",
+          "count": 2
+        },
+        {
+          "label": "Electrical",
+          "count": 2
+        },
+        {
+          "label": "Electric power generation and distribution systems",
+          "count": 1
+        },
+        {
+          "label": "Cable installations",
+          "count": 1
+        },
+        {
+          "label": "TCP/IP Protocols",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 3
+        }
+      ]
+    },
+    "21441": {
+      "title": "Mechanical engineer",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 1,
+      "latest_posted_date": "2026-03-19T01:34:36.000Z",
+      "salary_min_hint": 4000,
+      "salary_max_hint": 5500,
+      "median_salary_hint": 5500,
+      "top_skills": [
+        {
+          "label": "oil and gas",
+          "count": 1
+        },
+        {
+          "label": "Quality Assurance",
+          "count": 1
+        },
+        {
+          "label": "Natural Gas",
+          "count": 1
+        },
+        {
+          "label": "Workplace Safety",
+          "count": 1
+        },
+        {
+          "label": "Supervisory Skills",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "21475": {
+      "title": "Rolling stock engineer",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 1,
+      "latest_posted_date": "2026-03-19T01:07:08.000Z",
+      "salary_min_hint": 3400,
+      "salary_max_hint": 6800,
+      "median_salary_hint": 6800,
+      "top_skills": [
+        {
+          "label": "Maintenance",
+          "count": 1
+        },
+        {
+          "label": "Electronic Engineering",
+          "count": 1
+        },
+        {
+          "label": "Electrical",
+          "count": 1
+        },
+        {
+          "label": "Rolling Stock",
+          "count": 1
+        },
+        {
+          "label": "Reliability",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "21494": {
+      "title": "Quantity surveyor",
+      "posting_volume_30d": 2,
+      "posting_volume_90d": 2,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T18:05:37.000Z",
+      "salary_min_hint": 4000,
+      "salary_max_hint": 7100,
+      "median_salary_hint": 6500,
+      "top_skills": [
+        {
+          "label": "meeting project deadlines",
+          "count": 1
+        },
+        {
+          "label": "Architecture",
+          "count": 1
+        },
+        {
+          "label": "Quantity Surveying",
+          "count": 1
+        },
+        {
+          "label": "Problem Solving",
+          "count": 1
+        },
+        {
+          "label": "Procurement",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 2
+        }
+      ]
+    },
+    "21524": {
+      "title": "Audio and video equipment engineer",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T18:05:07.000Z",
+      "salary_min_hint": 4200,
+      "salary_max_hint": 6500,
+      "median_salary_hint": 6500,
+      "top_skills": [
+        {
+          "label": "Preventive Maintenance",
+          "count": 1
+        },
+        {
+          "label": "Troubleshooting",
+          "count": 1
+        },
+        {
+          "label": "Hardware",
+          "count": 1
+        },
+        {
+          "label": "Electrical",
+          "count": 1
+        },
+        {
+          "label": "AES",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "21526": {
+      "title": "Embedded systems engineer (including port systems engineer)",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 3,
+      "latest_posted_date": "2026-03-17T03:29:52.000Z",
+      "salary_min_hint": null,
+      "salary_max_hint": null,
+      "median_salary_hint": null,
+      "top_skills": [
+        {
+          "label": "Python",
+          "count": 1
+        },
+        {
+          "label": "Java",
+          "count": 1
+        },
+        {
+          "label": "JavaScript",
+          "count": 1
+        },
+        {
+          "label": "AWS",
+          "count": 1
+        },
+        {
+          "label": "GCP",
+          "count": 1
+        }
+      ],
+      "top_tools": [
+        {
+          "label": "tableau",
+          "count": 1
+        }
+      ],
+      "source_mix": [
+        {
+          "source": "greenhouse",
+          "count": 1
+        }
+      ]
+    },
+    "21610": {
+      "title": "Building architect",
+      "posting_volume_30d": 2,
+      "posting_volume_90d": 2,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 1,
+      "latest_posted_date": "2026-03-19T06:34:47.000Z",
+      "salary_min_hint": 3000,
+      "salary_max_hint": 6200,
+      "median_salary_hint": 6200,
+      "top_skills": [
+        {
+          "label": "Leadership",
+          "count": 1
+        },
+        {
+          "label": "Painting",
+          "count": 1
+        },
+        {
+          "label": "Construction",
+          "count": 1
+        },
+        {
+          "label": "Quality Control",
+          "count": 1
+        },
+        {
+          "label": "Architectural",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        },
+        {
+          "source": "ashby",
+          "count": 1
+        }
+      ]
+    },
+    "21662": {
+      "title": "Multimedia (including games) designer",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T19:18:46.000Z",
+      "salary_min_hint": 4000,
+      "salary_max_hint": 5500,
+      "median_salary_hint": 5500,
+      "top_skills": [
+        {
+          "label": "Design Consulting",
+          "count": 1
+        },
+        {
+          "label": "Remuneration",
+          "count": 1
+        },
+        {
+          "label": "Microsoft PowerPoint",
+          "count": 1
+        },
+        {
+          "label": "contractors workforce",
+          "count": 1
+        },
+        {
+          "label": "Working With Clients",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "21664": {
+      "title": "Interaction designer",
+      "posting_volume_30d": 3,
+      "posting_volume_90d": 3,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 18,
+      "latest_posted_date": "2026-03-01T22:23:49.184Z",
+      "salary_min_hint": null,
+      "salary_max_hint": null,
+      "median_salary_hint": null,
+      "top_skills": [
+        {
+          "label": "Figma",
+          "count": 1
+        },
+        {
+          "label": "Stakeholder Management",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 3
+        }
+      ]
+    },
+    "22200": {
+      "title": "Registered nurse and other nursing professional (e.g. clinical nurse, nurse educator, excluding enrolled nurse)",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T18:43:02.000Z",
+      "salary_min_hint": 2800,
+      "salary_max_hint": 3000,
+      "median_salary_hint": 3000,
+      "top_skills": [
+        {
+          "label": "Staff Training",
+          "count": 1
+        },
+        {
+          "label": "Gerontology",
+          "count": 1
+        },
+        {
+          "label": "Dementia Care",
+          "count": 1
+        },
+        {
+          "label": "Medication Administration",
+          "count": 1
+        },
+        {
+          "label": "client facing activities",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "22640": {
+      "title": "Physiotherapist",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T18:25:48.000Z",
+      "salary_min_hint": 3800,
+      "salary_max_hint": 5500,
+      "median_salary_hint": 5500,
+      "top_skills": [
+        {
+          "label": "Community Outreach",
+          "count": 1
+        },
+        {
+          "label": "Legislation",
+          "count": 1
+        },
+        {
+          "label": "Interpersonal Skills",
+          "count": 1
+        },
+        {
+          "label": "Treatment",
+          "count": 1
+        },
+        {
+          "label": "Healthcare",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "24112": {
+      "title": "Auditor (accounting)",
+      "posting_volume_30d": 0,
+      "posting_volume_90d": 0,
+      "trend_90d": "insufficient_data",
+      "hiring_state": "stale",
+      "freshness_days": 92,
+      "latest_posted_date": "2025-12-17T09:52:51.522Z",
+      "salary_min_hint": null,
+      "salary_max_hint": null,
+      "median_salary_hint": null,
+      "top_skills": [],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 1
+        }
+      ]
+    },
+    "24113": {
+      "title": "Tax accountant",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 1,
+      "latest_posted_date": "2026-03-19T02:17:24.000Z",
+      "salary_min_hint": 3000,
+      "salary_max_hint": 4500,
+      "median_salary_hint": 4500,
+      "top_skills": [
+        {
+          "label": "partner with Directors",
+          "count": 1
+        },
+        {
+          "label": "process maintenance",
+          "count": 1
+        },
+        {
+          "label": "Information Management",
+          "count": 1
+        },
+        {
+          "label": "Stakeholder Engagement",
+          "count": 1
+        },
+        {
+          "label": "Statutory Accounting",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "24121": {
+      "title": "Financial/Investment adviser (e.g. relationship manager)",
+      "posting_volume_30d": 5,
+      "posting_volume_90d": 5,
+      "trend_90d": "rising",
+      "hiring_state": "moderate",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T20:36:07.000Z",
+      "salary_min_hint": 4000,
+      "salary_max_hint": 22500,
+      "median_salary_hint": 13000,
+      "top_skills": [
+        {
+          "label": "Banking",
+          "count": 2
+        },
+        {
+          "label": "Private Equity",
+          "count": 2
+        },
+        {
+          "label": "Risk Management",
+          "count": 2
+        },
+        {
+          "label": "Equities",
+          "count": 2
+        },
+        {
+          "label": "Regulatory Compliance",
+          "count": 2
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 5
+        }
+      ]
+    },
+    "24131": {
+      "title": "Financial analyst (e.g. equities analyst, credit analyst, investment research analyst)",
+      "posting_volume_30d": 3,
+      "posting_volume_90d": 3,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T18:24:35.000Z",
+      "salary_min_hint": 6000,
+      "salary_max_hint": 15000,
+      "median_salary_hint": 15000,
+      "top_skills": [
+        {
+          "label": "Market Research",
+          "count": 2
+        },
+        {
+          "label": "Investment Analysis",
+          "count": 2
+        },
+        {
+          "label": "Investments",
+          "count": 2
+        },
+        {
+          "label": "Persuasive Presentations",
+          "count": 2
+        },
+        {
+          "label": "Prospect within businesses",
+          "count": 2
+        }
+      ],
+      "top_tools": [
+        {
+          "label": "tableau",
+          "count": 1
+        }
+      ],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 2
+        },
+        {
+          "source": "ashby",
+          "count": 2
+        }
+      ]
+    },
+    "24132": {
+      "title": "Compliance officer/Risk analyst (financial)",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 8,
+      "latest_posted_date": "2026-03-12T04:01:32.146Z",
+      "salary_min_hint": null,
+      "salary_max_hint": null,
+      "median_salary_hint": null,
+      "top_skills": [
+        {
+          "label": "Stakeholder Management",
+          "count": 1
+        },
+        {
+          "label": "Risk Management",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 1
+        }
+      ]
+    },
+    "24134": {
+      "title": "Treasury manager",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T19:52:27.000Z",
+      "salary_min_hint": 7000,
+      "salary_max_hint": 9000,
+      "median_salary_hint": 9000,
+      "top_skills": [
+        {
+          "label": "Treasury",
+          "count": 1
+        },
+        {
+          "label": "Derivatives",
+          "count": 1
+        },
+        {
+          "label": "Loans",
+          "count": 1
+        },
+        {
+          "label": "Internal Controls",
+          "count": 1
+        },
+        {
+          "label": "Compliance",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "24211": {
+      "title": "Management consultant",
+      "posting_volume_30d": 21,
+      "posting_volume_90d": 21,
+      "trend_90d": "rising",
+      "hiring_state": "active",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T20:24:47.000Z",
+      "salary_min_hint": 3000,
+      "salary_max_hint": 19000,
+      "median_salary_hint": 12000,
+      "top_skills": [
+        {
+          "label": "Core Banking",
+          "count": 7
+        },
+        {
+          "label": "Leadership",
+          "count": 4
+        },
+        {
+          "label": "Liaising with cross functional teams",
+          "count": 4
+        },
+        {
+          "label": "Scrum",
+          "count": 4
+        },
+        {
+          "label": "DXL",
+          "count": 4
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 19
+        },
+        {
+          "source": "greenhouse",
+          "count": 2
+        }
+      ]
+    },
+    "24231": {
+      "title": "Human resource consultant (excluding executive search consultant)",
+      "posting_volume_30d": 0,
+      "posting_volume_90d": 1,
+      "trend_90d": "cooling",
+      "hiring_state": "stale",
+      "freshness_days": 87,
+      "latest_posted_date": "2025-12-23T04:50:42.845Z",
+      "salary_min_hint": null,
+      "salary_max_hint": null,
+      "median_salary_hint": null,
+      "top_skills": [
+        {
+          "label": "Risk Management",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 1
+        }
+      ]
+    },
+    "24232": {
+      "title": "Executive search consultant",
+      "posting_volume_30d": 2,
+      "posting_volume_90d": 5,
+      "trend_90d": "steady",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T18:15:00.000Z",
+      "salary_min_hint": 1000,
+      "salary_max_hint": 1000,
+      "median_salary_hint": 1000,
+      "top_skills": [
+        {
+          "label": "Negotiation",
+          "count": 1
+        },
+        {
+          "label": "Employer Branding",
+          "count": 1
+        },
+        {
+          "label": "Sustainability",
+          "count": 1
+        },
+        {
+          "label": "Talent Acquisition",
+          "count": 1
+        },
+        {
+          "label": "Recruiting",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 4
+        },
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "24314": {
+      "title": "Digital marketing professional (e.g. online, social media, e-commerce marketing professional)",
+      "posting_volume_30d": 2,
+      "posting_volume_90d": 2,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 1,
+      "latest_posted_date": "2026-03-19T01:09:26.000Z",
+      "salary_min_hint": 2500,
+      "salary_max_hint": 3500,
+      "median_salary_hint": 3500,
+      "top_skills": [
+        {
+          "label": "SOPs",
+          "count": 1
+        },
+        {
+          "label": "Biomarkers",
+          "count": 1
+        },
+        {
+          "label": "Population Health",
+          "count": 1
+        },
+        {
+          "label": "Health",
+          "count": 1
+        },
+        {
+          "label": "Procurement",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 2
+        },
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "24331": {
+      "title": "Technical sales professional",
+      "posting_volume_30d": 3,
+      "posting_volume_90d": 4,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T19:39:52.000Z",
+      "salary_min_hint": 6000,
+      "salary_max_hint": 22000,
+      "median_salary_hint": 18000,
+      "top_skills": [
+        {
+          "label": "Azure",
+          "count": 2
+        },
+        {
+          "label": "AWS",
+          "count": 2
+        },
+        {
+          "label": "GCP",
+          "count": 2
+        },
+        {
+          "label": "Project Bidding",
+          "count": 1
+        },
+        {
+          "label": "Vacuum Pumps",
+          "count": 1
+        }
+      ],
+      "top_tools": [
+        {
+          "label": "chatgpt",
+          "count": 1
+        }
+      ],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 2
+        },
+        {
+          "source": "greenhouse",
+          "count": 1
+        },
+        {
+          "source": "ashby",
+          "count": 1
+        }
+      ]
+    },
+    "24334": {
+      "title": "Sales professional (institutional sales of financial products)",
+      "posting_volume_30d": 2,
+      "posting_volume_90d": 2,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T20:20:49.000Z",
+      "salary_min_hint": 8000,
+      "salary_max_hint": 19334,
+      "median_salary_hint": 14584,
+      "top_skills": [
+        {
+          "label": "Sales Presentations",
+          "count": 1
+        },
+        {
+          "label": "Startups",
+          "count": 1
+        },
+        {
+          "label": "Advertising Sales",
+          "count": 1
+        },
+        {
+          "label": "Digital Sales",
+          "count": 1
+        },
+        {
+          "label": "Advertising",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 2
+        }
+      ]
+    },
+    "25112": {
+      "title": "ICT business process consultant/Business analyst",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 2,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 14,
+      "latest_posted_date": "2026-03-06T09:08:56.000Z",
+      "salary_min_hint": null,
+      "salary_max_hint": null,
+      "median_salary_hint": null,
+      "top_skills": [
+        {
+          "label": "Product Management",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "greenhouse",
+          "count": 1
+        },
+        {
+          "source": "ashby",
+          "count": 1
+        }
+      ]
+    },
+    "25113": {
+      "title": "Enterprise/Solution architect",
+      "posting_volume_30d": 5,
+      "posting_volume_90d": 5,
+      "trend_90d": "rising",
+      "hiring_state": "moderate",
+      "freshness_days": 22,
+      "latest_posted_date": "2026-02-25T19:26:49.000Z",
+      "salary_min_hint": null,
+      "salary_max_hint": null,
+      "median_salary_hint": null,
+      "top_skills": [
+        {
+          "label": "Databricks",
+          "count": 5
+        },
+        {
+          "label": "Python",
+          "count": 4
+        },
+        {
+          "label": "AWS",
+          "count": 2
+        },
+        {
+          "label": "GCP",
+          "count": 2
+        },
+        {
+          "label": "Azure",
+          "count": 2
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "greenhouse",
+          "count": 5
+        }
+      ]
+    },
+    "25121": {
+      "title": "Software developer",
+      "posting_volume_30d": 26,
+      "posting_volume_90d": 39,
+      "trend_90d": "rising",
+      "hiring_state": "active",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T18:41:24.000Z",
+      "salary_min_hint": 4000,
+      "salary_max_hint": 19000,
+      "median_salary_hint": 9000,
+      "top_skills": [
+        {
+          "label": "Java",
+          "count": 44
+        },
+        {
+          "label": "AWS",
+          "count": 34
+        },
+        {
+          "label": "GCP",
+          "count": 33
+        },
+        {
+          "label": "Python",
+          "count": 29
+        },
+        {
+          "label": "Kubernetes",
+          "count": 29
+        }
+      ],
+      "top_tools": [
+        {
+          "label": "copilot",
+          "count": 1
+        },
+        {
+          "label": "claude",
+          "count": 1
+        },
+        {
+          "label": "cursor",
+          "count": 1
+        }
+      ],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 51
+        },
+        {
+          "source": "mycareersfuture",
+          "count": 10
+        },
+        {
+          "source": "greenhouse",
+          "count": 5
+        }
+      ]
+    },
+    "25211": {
+      "title": "Database administrator",
+      "posting_volume_30d": 4,
+      "posting_volume_90d": 4,
+      "trend_90d": "rising",
+      "hiring_state": "moderate",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T18:15:45.000Z",
+      "salary_min_hint": 2800,
+      "salary_max_hint": 3100,
+      "median_salary_hint": 3100,
+      "top_skills": [
+        {
+          "label": "SQL",
+          "count": 3
+        },
+        {
+          "label": "Python",
+          "count": 2
+        },
+        {
+          "label": "GCP",
+          "count": 2
+        },
+        {
+          "label": "Snowflake",
+          "count": 2
+        },
+        {
+          "label": "Databricks",
+          "count": 2
+        }
+      ],
+      "top_tools": [
+        {
+          "label": "salesforce",
+          "count": 1
+        }
+      ],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 2
+        },
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        },
+        {
+          "source": "greenhouse",
+          "count": 1
+        }
+      ]
+    },
+    "25220": {
+      "title": "Network, servers and computer systems administrator",
+      "posting_volume_30d": 14,
+      "posting_volume_90d": 24,
+      "trend_90d": "rising",
+      "hiring_state": "active",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-20T05:39:49.826Z",
+      "salary_min_hint": 6500,
+      "salary_max_hint": 16000,
+      "median_salary_hint": 11500,
+      "top_skills": [
+        {
+          "label": "Python",
+          "count": 24
+        },
+        {
+          "label": "SQL",
+          "count": 19
+        },
+        {
+          "label": "Go",
+          "count": 11
+        },
+        {
+          "label": "Databricks",
+          "count": 10
+        },
+        {
+          "label": "Machine Learning",
+          "count": 6
+        }
+      ],
+      "top_tools": [
+        {
+          "label": "tableau",
+          "count": 3
+        }
+      ],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 22
+        },
+        {
+          "source": "lever",
+          "count": 5
+        },
+        {
+          "source": "mycareersfuture",
+          "count": 2
+        },
+        {
+          "source": "greenhouse",
+          "count": 1
+        }
+      ]
+    },
+    "25231": {
+      "title": "Cloud specialist",
+      "posting_volume_30d": 4,
+      "posting_volume_90d": 6,
+      "trend_90d": "rising",
+      "hiring_state": "moderate",
+      "freshness_days": 1,
+      "latest_posted_date": "2026-03-19T02:32:15.000Z",
+      "salary_min_hint": 4500,
+      "salary_max_hint": 10000,
+      "median_salary_hint": 5000,
+      "top_skills": [
+        {
+          "label": "Kubernetes",
+          "count": 4
+        },
+        {
+          "label": "Terraform",
+          "count": 3
+        },
+        {
+          "label": "Information Technology",
+          "count": 2
+        },
+        {
+          "label": "AWS",
+          "count": 2
+        },
+        {
+          "label": "Python",
+          "count": 2
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 5
+        },
+        {
+          "source": "mycareersfuture",
+          "count": 2
+        }
+      ]
+    },
+    "25232": {
+      "title": "IT infrastructure specialist",
+      "posting_volume_30d": 8,
+      "posting_volume_90d": 9,
+      "trend_90d": "rising",
+      "hiring_state": "moderate",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T18:10:43.000Z",
+      "salary_min_hint": 4500,
+      "salary_max_hint": 8000,
+      "median_salary_hint": 6000,
+      "top_skills": [
+        {
+          "label": "GCP",
+          "count": 6
+        },
+        {
+          "label": "Python",
+          "count": 5
+        },
+        {
+          "label": "Kubernetes",
+          "count": 5
+        },
+        {
+          "label": "Databricks",
+          "count": 3
+        },
+        {
+          "label": "AWS",
+          "count": 3
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 10
+        },
+        {
+          "source": "mycareersfuture",
+          "count": 3
+        },
+        {
+          "source": "greenhouse",
+          "count": 1
+        }
+      ]
+    },
+    "25243": {
+      "title": "Security operations specialist",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 8,
+      "latest_posted_date": "2026-03-12T04:19:17.000Z",
+      "salary_min_hint": null,
+      "salary_max_hint": null,
+      "median_salary_hint": null,
+      "top_skills": [
+        {
+          "label": "Databricks",
+          "count": 1
+        },
+        {
+          "label": "Data Analysis",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "greenhouse",
+          "count": 1
+        }
+      ]
+    },
+    "25291": {
+      "title": "Data centre engineer",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T19:46:47.000Z",
+      "salary_min_hint": 3300,
+      "salary_max_hint": 3700,
+      "median_salary_hint": 3700,
+      "top_skills": [
+        {
+          "label": "Data Cabling",
+          "count": 1
+        },
+        {
+          "label": "Computer Engineering",
+          "count": 1
+        },
+        {
+          "label": "Strong Attention To Detail",
+          "count": 1
+        },
+        {
+          "label": "Information Technology",
+          "count": 1
+        },
+        {
+          "label": "Analytical Troubleshooting",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "26112": {
+      "title": "In-house legal counsel (except judiciary, ministries and statutory boards)",
+      "posting_volume_30d": 0,
+      "posting_volume_90d": 0,
+      "trend_90d": "insufficient_data",
+      "hiring_state": "stale",
+      "freshness_days": 107,
+      "latest_posted_date": "2025-12-03T00:49:32.554Z",
+      "salary_min_hint": null,
+      "salary_max_hint": null,
+      "median_salary_hint": null,
+      "top_skills": [
+        {
+          "label": "Go",
+          "count": 1
+        },
+        {
+          "label": "Stakeholder Management",
+          "count": 1
+        },
+        {
+          "label": "Risk Management",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 1
+        }
+      ]
+    },
+    "26351": {
+      "title": "Social worker (general)",
+      "posting_volume_30d": 2,
+      "posting_volume_90d": 2,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T18:45:22.000Z",
+      "salary_min_hint": 2600,
+      "salary_max_hint": 8250,
+      "median_salary_hint": 6600,
+      "top_skills": [
+        {
+          "label": "Care Planning",
+          "count": 2
+        },
+        {
+          "label": "Emergency Response",
+          "count": 2
+        },
+        {
+          "label": "Clinical Supervision",
+          "count": 1
+        },
+        {
+          "label": "Leadership",
+          "count": 1
+        },
+        {
+          "label": "Subsidies",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 2
+        }
+      ]
+    },
+    "26413": {
+      "title": "Content writer",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 1,
+      "latest_posted_date": "2026-03-19T03:23:18.000Z",
+      "salary_min_hint": 3500,
+      "salary_max_hint": 6500,
+      "median_salary_hint": 6500,
+      "top_skills": [
+        {
+          "label": "Creative Writing",
+          "count": 1
+        },
+        {
+          "label": "Editorial",
+          "count": 1
+        },
+        {
+          "label": "Culture",
+          "count": 1
+        },
+        {
+          "label": "Captions",
+          "count": 1
+        },
+        {
+          "label": "English",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "26543": {
+      "title": "Artistic director (stage, film, television, game and radio)",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T20:02:19.000Z",
+      "salary_min_hint": 18750,
+      "salary_max_hint": 22500,
+      "median_salary_hint": 22500,
+      "top_skills": [
+        {
+          "label": "Ownership",
+          "count": 1
+        },
+        {
+          "label": "Board Leadership",
+          "count": 1
+        },
+        {
+          "label": "Audit Committee",
+          "count": 1
+        },
+        {
+          "label": "Continuous Improvement Management",
+          "count": 1
+        },
+        {
+          "label": "Behavioral Interviewing",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "31001": {
+      "title": "Assistant civil and structural engineer",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T18:33:20.000Z",
+      "salary_min_hint": 2400,
+      "salary_max_hint": 2900,
+      "median_salary_hint": 2900,
+      "top_skills": [
+        {
+          "label": "Purchasing Processes",
+          "count": 1
+        },
+        {
+          "label": "business improvement projects",
+          "count": 1
+        },
+        {
+          "label": "Microsoft Office",
+          "count": 1
+        },
+        {
+          "label": "Stock Reconciliations",
+          "count": 1
+        },
+        {
+          "label": "Verbal Communication",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "31171": {
+      "title": "Manufacturing engineering technician",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 1,
+      "latest_posted_date": "2026-03-19T06:18:16.000Z",
+      "salary_min_hint": 2500,
+      "salary_max_hint": 4000,
+      "median_salary_hint": 4000,
+      "top_skills": [
+        {
+          "label": "MES",
+          "count": 1
+        },
+        {
+          "label": "Vacuum Pumps",
+          "count": 1
+        },
+        {
+          "label": "Manufacturing Processes",
+          "count": 1
+        },
+        {
+          "label": "Reliability",
+          "count": 1
+        },
+        {
+          "label": "Inventory Control",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "31213": {
+      "title": "Marine surveyor (ship and nautical)",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T19:28:46.000Z",
+      "salary_min_hint": 2800,
+      "salary_max_hint": 3500,
+      "median_salary_hint": 3500,
+      "top_skills": [
+        {
+          "label": "Microsoft Excel",
+          "count": 1
+        },
+        {
+          "label": "Customs Regulations",
+          "count": 1
+        },
+        {
+          "label": "Construction",
+          "count": 1
+        },
+        {
+          "label": "Ship Management",
+          "count": 1
+        },
+        {
+          "label": "Documentation",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "32400": {
+      "title": "Veterinary technician/assistant",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T17:18:38.000Z",
+      "salary_min_hint": 2800,
+      "salary_max_hint": 5000,
+      "median_salary_hint": 5000,
+      "top_skills": [
+        {
+          "label": "Veterinary Technology",
+          "count": 1
+        },
+        {
+          "label": "Ultrasound",
+          "count": 1
+        },
+        {
+          "label": "Veterinary Surgery",
+          "count": 1
+        },
+        {
+          "label": "Veterinary",
+          "count": 1
+        },
+        {
+          "label": "Energetic Team Player",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "33121": {
+      "title": "Financial markets back office administrator",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 1,
+      "latest_posted_date": "2026-03-19T01:40:26.000Z",
+      "salary_min_hint": 7000,
+      "salary_max_hint": 14000,
+      "median_salary_hint": 14000,
+      "top_skills": [
+        {
+          "label": "Front Office",
+          "count": 1
+        },
+        {
+          "label": "Internal Audit Function Management",
+          "count": 1
+        },
+        {
+          "label": "Credit",
+          "count": 1
+        },
+        {
+          "label": "Regional Management",
+          "count": 1
+        },
+        {
+          "label": "Sales Support",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "33211": {
+      "title": "Insurance sales agent/broker (including independent financial planner)",
+      "posting_volume_30d": 14,
+      "posting_volume_90d": 17,
+      "trend_90d": "rising",
+      "hiring_state": "active",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-20T00:13:04.000Z",
+      "salary_min_hint": 8000,
+      "salary_max_hint": 11000,
+      "median_salary_hint": 11000,
+      "top_skills": [
+        {
+          "label": "Databricks",
+          "count": 13
+        },
+        {
+          "label": "Go",
+          "count": 5
+        },
+        {
+          "label": "AWS",
+          "count": 2
+        },
+        {
+          "label": "GCP",
+          "count": 2
+        },
+        {
+          "label": "Azure",
+          "count": 2
+        }
+      ],
+      "top_tools": [
+        {
+          "label": "power bi",
+          "count": 1
+        },
+        {
+          "label": "tableau",
+          "count": 1
+        }
+      ],
+      "source_mix": [
+        {
+          "source": "greenhouse",
+          "count": 13
+        },
+        {
+          "source": "ashby",
+          "count": 3
+        },
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "33221": {
+      "title": "Business development executive",
+      "posting_volume_30d": 2,
+      "posting_volume_90d": 2,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T18:48:00.000Z",
+      "salary_min_hint": 3200,
+      "salary_max_hint": 8000,
+      "median_salary_hint": 5800,
+      "top_skills": [
+        {
+          "label": "Microsoft Office",
+          "count": 1
+        },
+        {
+          "label": "Interpersonal Skills",
+          "count": 1
+        },
+        {
+          "label": "Healthcare",
+          "count": 1
+        },
+        {
+          "label": "Data Entry",
+          "count": 1
+        },
+        {
+          "label": "Internal Controls",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 2
+        }
+      ]
+    },
+    "33222": {
+      "title": "After sales adviser/Client account service executive",
+      "posting_volume_30d": 4,
+      "posting_volume_90d": 4,
+      "trend_90d": "rising",
+      "hiring_state": "moderate",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T19:21:56.000Z",
+      "salary_min_hint": 2200,
+      "salary_max_hint": 4000,
+      "median_salary_hint": 3400,
+      "top_skills": [
+        {
+          "label": "Banking",
+          "count": 2
+        },
+        {
+          "label": "Onboarding",
+          "count": 1
+        },
+        {
+          "label": "working with IT systems",
+          "count": 1
+        },
+        {
+          "label": "Appraisals",
+          "count": 1
+        },
+        {
+          "label": "accurate filing",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 4
+        }
+      ]
+    },
+    "33223": {
+      "title": "Marketing and sales executive (food & beverage services)",
+      "posting_volume_30d": 2,
+      "posting_volume_90d": 2,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T19:54:02.000Z",
+      "salary_min_hint": 3000,
+      "salary_max_hint": 4562,
+      "median_salary_hint": 4500,
+      "top_skills": [
+        {
+          "label": "Digital Marketing",
+          "count": 2
+        },
+        {
+          "label": "Multi Tasking",
+          "count": 1
+        },
+        {
+          "label": "Canva",
+          "count": 1
+        },
+        {
+          "label": "Services Marketing",
+          "count": 1
+        },
+        {
+          "label": "event marketing programs",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 2
+        }
+      ]
+    },
+    "33461": {
+      "title": "Logistics/Production planner",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 1,
+      "latest_posted_date": "2026-03-19T01:37:11.000Z",
+      "salary_min_hint": 2800,
+      "salary_max_hint": 3700,
+      "median_salary_hint": 3700,
+      "top_skills": [
+        {
+          "label": "Property Management Systems",
+          "count": 1
+        },
+        {
+          "label": "Warehousing",
+          "count": 1
+        },
+        {
+          "label": "provide procedures",
+          "count": 1
+        },
+        {
+          "label": "Inventory Control",
+          "count": 1
+        },
+        {
+          "label": "Data Entry",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "33491": {
+      "title": "Management executive",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T18:36:47.000Z",
+      "salary_min_hint": 4200,
+      "salary_max_hint": 4800,
+      "median_salary_hint": 4800,
+      "top_skills": [
+        {
+          "label": "Internal Audit Function Management",
+          "count": 1
+        },
+        {
+          "label": "procurement reporting",
+          "count": 1
+        },
+        {
+          "label": "supplier liaison",
+          "count": 1
+        },
+        {
+          "label": "Supplier Performance",
+          "count": 1
+        },
+        {
+          "label": "Operation",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "34110": {
+      "title": "Legal associate professional (e.g. paralegal)",
+      "posting_volume_30d": 0,
+      "posting_volume_90d": 1,
+      "trend_90d": "cooling",
+      "hiring_state": "no_signal",
+      "freshness_days": 32,
+      "latest_posted_date": "2026-02-16T08:17:55.164Z",
+      "salary_min_hint": null,
+      "salary_max_hint": null,
+      "median_salary_hint": null,
+      "top_skills": [
+        {
+          "label": "Stakeholder Management",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 1
+        }
+      ]
+    },
+    "35121": {
+      "title": "IT Infrastructure technician",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T16:34:56.000Z",
+      "salary_min_hint": 4000,
+      "salary_max_hint": 5000,
+      "median_salary_hint": 5000,
+      "top_skills": [
+        {
+          "label": "Water",
+          "count": 1
+        },
+        {
+          "label": "Reserves",
+          "count": 1
+        },
+        {
+          "label": "Administrative Work",
+          "count": 1
+        },
+        {
+          "label": "Leisure",
+          "count": 1
+        },
+        {
+          "label": "Purchasing",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "35123": {
+      "title": "IT support technician (including IT user helpdesk technician)",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 15,
+      "latest_posted_date": "2026-03-04T10:22:11.189Z",
+      "salary_min_hint": null,
+      "salary_max_hint": null,
+      "median_salary_hint": null,
+      "top_skills": [
+        {
+          "label": "Go",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 1
+        }
+      ]
+    },
+    "41201": {
+      "title": "Secretary",
+      "posting_volume_30d": 6,
+      "posting_volume_90d": 8,
+      "trend_90d": "rising",
+      "hiring_state": "moderate",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T19:47:15.000Z",
+      "salary_min_hint": 2000,
+      "salary_max_hint": 5600,
+      "median_salary_hint": 4500,
+      "top_skills": [
+        {
+          "label": "Microsoft Office",
+          "count": 3
+        },
+        {
+          "label": "Administration",
+          "count": 3
+        },
+        {
+          "label": "Due Diligence",
+          "count": 2
+        },
+        {
+          "label": "Data Entry",
+          "count": 2
+        },
+        {
+          "label": "Attention to Detail",
+          "count": 2
+        }
+      ],
+      "top_tools": [
+        {
+          "label": "power bi",
+          "count": 1
+        }
+      ],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 5
+        },
+        {
+          "source": "ashby",
+          "count": 5
+        }
+      ]
+    },
+    "42245": {
+      "title": "Customer service officer/clerk",
+      "posting_volume_30d": 4,
+      "posting_volume_90d": 4,
+      "trend_90d": "rising",
+      "hiring_state": "moderate",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T19:36:42.000Z",
+      "salary_min_hint": 2200,
+      "salary_max_hint": 6000,
+      "median_salary_hint": 3200,
+      "top_skills": [
+        {
+          "label": "Customer Service",
+          "count": 2
+        },
+        {
+          "label": "Customer Service Experience",
+          "count": 2
+        },
+        {
+          "label": "Field Service",
+          "count": 1
+        },
+        {
+          "label": "Preventive Maintenance",
+          "count": 1
+        },
+        {
+          "label": "Troubleshooting",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 4
+        }
+      ]
+    },
+    "51201": {
+      "title": "Cook (e.g. commis cook 2/3)",
+      "posting_volume_30d": 2,
+      "posting_volume_90d": 2,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T18:01:19.000Z",
+      "salary_min_hint": 2500,
+      "salary_max_hint": 3500,
+      "median_salary_hint": 3200,
+      "top_skills": [
+        {
+          "label": "Recipes",
+          "count": 2
+        },
+        {
+          "label": "Ingredients",
+          "count": 2
+        },
+        {
+          "label": "Quality Control",
+          "count": 2
+        },
+        {
+          "label": "Food Safety",
+          "count": 2
+        },
+        {
+          "label": "Food Quality",
+          "count": 2
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 2
+        }
+      ]
+    },
+    "51202": {
+      "title": "Senior cook (e.g. station chef, commis cook 1, station cook)",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 1,
+      "latest_posted_date": "2026-03-19T04:12:12.000Z",
+      "salary_min_hint": 5000,
+      "salary_max_hint": 7000,
+      "median_salary_hint": 7000,
+      "top_skills": [
+        {
+          "label": "Progress Monitoring",
+          "count": 1
+        },
+        {
+          "label": "Site Inspections",
+          "count": 1
+        },
+        {
+          "label": "Hospitals",
+          "count": 1
+        },
+        {
+          "label": "Workplace Safety",
+          "count": 1
+        },
+        {
+          "label": "Infrastructure Projects",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "51491": {
+      "title": "Masseur (non-medical) (including foot reflexologist)",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T20:34:36.000Z",
+      "salary_min_hint": 3000,
+      "salary_max_hint": 5000,
+      "median_salary_hint": 5000,
+      "top_skills": [
+        {
+          "label": "Microsoft Office",
+          "count": 1
+        },
+        {
+          "label": "Quality Improvement",
+          "count": 1
+        },
+        {
+          "label": "Treatment",
+          "count": 1
+        },
+        {
+          "label": "Healthcare",
+          "count": 1
+        },
+        {
+          "label": "Administration",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "52202": {
+      "title": "Shop sales assistant",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 1,
+      "latest_posted_date": "2026-03-19T01:39:47.000Z",
+      "salary_min_hint": 2200,
+      "salary_max_hint": 3800,
+      "median_salary_hint": 3800,
+      "top_skills": [
+        {
+          "label": "Coaching",
+          "count": 1
+        },
+        {
+          "label": "Housekeeping",
+          "count": 1
+        },
+        {
+          "label": "Interpersonal Skills",
+          "count": 1
+        },
+        {
+          "label": "Inventory",
+          "count": 1
+        },
+        {
+          "label": "Arranging",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "53201": {
+      "title": "Healthcare assistant (e.g. therapy aide/assistant)",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 1,
+      "latest_posted_date": "2026-03-19T07:27:14.000Z",
+      "salary_min_hint": 2300,
+      "salary_max_hint": 3200,
+      "median_salary_hint": 3200,
+      "top_skills": [
+        {
+          "label": "Microsoft Office",
+          "count": 1
+        },
+        {
+          "label": "Microsoft Excel",
+          "count": 1
+        },
+        {
+          "label": "Coordination",
+          "count": 1
+        },
+        {
+          "label": "Classroom Management",
+          "count": 1
+        },
+        {
+          "label": "Healthcare",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "53203": {
+      "title": "Dental aide/assistant",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T19:46:05.000Z",
+      "salary_min_hint": 1800,
+      "salary_max_hint": 2800,
+      "median_salary_hint": 2800,
+      "top_skills": [
+        {
+          "label": "Patient Support",
+          "count": 1
+        },
+        {
+          "label": "Treatment",
+          "count": 1
+        },
+        {
+          "label": "Infection Control",
+          "count": 1
+        },
+        {
+          "label": "Front Desk responsibilities",
+          "count": 1
+        },
+        {
+          "label": "Dental Care",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "82000": {
+      "title": "Supervisor/General foreman of assemblers and quality checkers",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 7,
+      "latest_posted_date": "2026-03-13T02:45:48.180Z",
+      "salary_min_hint": null,
+      "salary_max_hint": null,
+      "median_salary_hint": null,
+      "top_skills": [],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 1
+        }
+      ]
+    },
+    "83211": {
+      "title": "Motorcycle delivery man",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T19:27:24.000Z",
+      "salary_min_hint": 2800,
+      "salary_max_hint": 3500,
+      "median_salary_hint": 3500,
+      "top_skills": [
+        {
+          "label": "Class 4 Driving License",
+          "count": 1
+        },
+        {
+          "label": "Licensing",
+          "count": 1
+        },
+        {
+          "label": "Cargo Handling",
+          "count": 1
+        },
+        {
+          "label": "Unloading",
+          "count": 1
+        },
+        {
+          "label": "Logistics",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "83322": {
+      "title": "Trailer-truck driver (including prime mover driver)",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T19:02:22.000Z",
+      "salary_min_hint": 4000,
+      "salary_max_hint": 6500,
+      "median_salary_hint": 6500,
+      "top_skills": [
+        {
+          "label": "Class 4 Driving License",
+          "count": 1
+        },
+        {
+          "label": "Class 3 License",
+          "count": 1
+        },
+        {
+          "label": "Housekeeping",
+          "count": 1
+        },
+        {
+          "label": "Vehicles",
+          "count": 1
+        },
+        {
+          "label": "GPS",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "91133": {
+      "title": "Office, commercial and industrial establishments multi-skilled cleaner cum machine operator",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T20:44:47.000Z",
+      "salary_min_hint": 2800,
+      "salary_max_hint": 4500,
+      "median_salary_hint": 4500,
+      "top_skills": [
+        {
+          "label": "Drainage",
+          "count": 1
+        },
+        {
+          "label": "Leadership",
+          "count": 1
+        },
+        {
+          "label": "Drilling",
+          "count": 1
+        },
+        {
+          "label": "Water",
+          "count": 1
+        },
+        {
+          "label": "Tolerance",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "94101": {
+      "title": "Kitchen assistant",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T17:33:45.000Z",
+      "salary_min_hint": 3000,
+      "salary_max_hint": 3800,
+      "median_salary_hint": 3800,
+      "top_skills": [
+        {
+          "label": "Product Knowledge",
+          "count": 1
+        },
+        {
+          "label": "Ingredients",
+          "count": 1
+        },
+        {
+          "label": "Quality Control",
+          "count": 1
+        },
+        {
+          "label": "Operational Excellence",
+          "count": 1
+        },
+        {
+          "label": "Food Safety",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    }
+  },
+  "by_role": {
+    "data-engineer": {
+      "title": "Data Engineer",
+      "posting_volume_30d": 14,
+      "posting_volume_90d": 24,
+      "trend_90d": "rising",
+      "hiring_state": "active",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-20T05:39:49.826Z",
+      "salary_min_hint": 2800,
+      "salary_max_hint": 3100,
+      "median_salary_hint": 3100,
+      "top_skills": [
+        {
+          "label": "SQL",
+          "count": 23
+        },
+        {
+          "label": "Python",
+          "count": 21
+        },
+        {
+          "label": "Databricks",
+          "count": 11
+        },
+        {
+          "label": "Go",
+          "count": 11
+        },
+        {
+          "label": "Machine Learning",
+          "count": 6
+        }
+      ],
+      "top_tools": [
+        {
+          "label": "tableau",
+          "count": 4
+        },
+        {
+          "label": "salesforce",
+          "count": 1
+        },
+        {
+          "label": "power bi",
+          "count": 1
+        }
+      ],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 22
+        },
+        {
+          "source": "lever",
+          "count": 5
+        },
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        },
+        {
+          "source": "greenhouse",
+          "count": 1
+        }
+      ]
+    },
+    "data-scientist": {
+      "title": "Data Scientist",
+      "posting_volume_30d": 3,
+      "posting_volume_90d": 3,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-20T05:39:49.826Z",
+      "salary_min_hint": null,
+      "salary_max_hint": null,
+      "median_salary_hint": null,
+      "top_skills": [
+        {
+          "label": "Machine Learning",
+          "count": 2
+        },
+        {
+          "label": "KYC",
+          "count": 1
+        },
+        {
+          "label": "SQL",
+          "count": 1
+        },
+        {
+          "label": "Python",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "lever",
+          "count": 2
+        },
+        {
+          "source": "ashby",
+          "count": 1
+        }
+      ]
+    },
+    "product-manager": {
+      "title": "Product Manager",
+      "posting_volume_30d": 35,
+      "posting_volume_90d": 57,
+      "trend_90d": "rising",
+      "hiring_state": "active",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-20T05:39:49.826Z",
+      "salary_min_hint": 2000,
+      "salary_max_hint": 24000,
+      "median_salary_hint": 9000,
+      "top_skills": [
+        {
+          "label": "SQL",
+          "count": 10
+        },
+        {
+          "label": "Product Management",
+          "count": 10
+        },
+        {
+          "label": "Go",
+          "count": 10
+        },
+        {
+          "label": "Python",
+          "count": 9
+        },
+        {
+          "label": "Data Analysis",
+          "count": 8
+        }
+      ],
+      "top_tools": [
+        {
+          "label": "tableau",
+          "count": 1
+        }
+      ],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 33
+        },
+        {
+          "source": "mycareersfuture",
+          "count": 31
+        },
+        {
+          "source": "lever",
+          "count": 1
+        },
+        {
+          "source": "greenhouse",
+          "count": 1
+        }
+      ]
+    },
+    "account-executive": {
+      "title": "Account Executive",
+      "posting_volume_30d": 17,
+      "posting_volume_90d": 20,
+      "trend_90d": "rising",
+      "hiring_state": "active",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-20T00:13:04.000Z",
+      "salary_min_hint": 3000,
+      "salary_max_hint": 20000,
+      "median_salary_hint": 15000,
+      "top_skills": [
+        {
+          "label": "Databricks",
+          "count": 13
+        },
+        {
+          "label": "Go",
+          "count": 5
+        },
+        {
+          "label": "AWS",
+          "count": 2
+        },
+        {
+          "label": "GCP",
+          "count": 2
+        },
+        {
+          "label": "Azure",
+          "count": 2
+        }
+      ],
+      "top_tools": [
+        {
+          "label": "power bi",
+          "count": 1
+        },
+        {
+          "label": "tableau",
+          "count": 1
+        }
+      ],
+      "source_mix": [
+        {
+          "source": "greenhouse",
+          "count": 13
+        },
+        {
+          "source": "mycareersfuture",
+          "count": 4
+        },
+        {
+          "source": "ashby",
+          "count": 3
+        }
+      ]
+    },
+    "compliance-officer": {
+      "title": "Compliance Officer",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 2,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T20:38:20.000Z",
+      "salary_min_hint": 4000,
+      "salary_max_hint": 8000,
+      "median_salary_hint": 8000,
+      "top_skills": [
+        {
+          "label": "Stakeholder Management",
+          "count": 2
+        },
+        {
+          "label": "Arbitration",
+          "count": 1
+        },
+        {
+          "label": "Microsoft PowerPoint",
+          "count": 1
+        },
+        {
+          "label": "Equity Operations",
+          "count": 1
+        },
+        {
+          "label": "Client Acquisition",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 2
+        },
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "project-manager": {
+      "title": "Project Manager",
+      "posting_volume_30d": 15,
+      "posting_volume_90d": 22,
+      "trend_90d": "rising",
+      "hiring_state": "active",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T20:34:31.000Z",
+      "salary_min_hint": 2700,
+      "salary_max_hint": 14000,
+      "median_salary_hint": 6000,
+      "top_skills": [
+        {
+          "label": "SQL",
+          "count": 6
+        },
+        {
+          "label": "Scheduling",
+          "count": 4
+        },
+        {
+          "label": "Stakeholder Management",
+          "count": 4
+        },
+        {
+          "label": "Leadership",
+          "count": 3
+        },
+        {
+          "label": "Operations Management",
+          "count": 3
+        }
+      ],
+      "top_tools": [
+        {
+          "label": "power bi",
+          "count": 1
+        },
+        {
+          "label": "tableau",
+          "count": 1
+        }
+      ],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 11
+        },
+        {
+          "source": "mycareersfuture",
+          "count": 10
+        },
+        {
+          "source": "greenhouse",
+          "count": 2
+        }
+      ]
+    },
+    "virtual-assistant": {
+      "title": "Virtual Assistant",
+      "posting_volume_30d": 6,
+      "posting_volume_90d": 6,
+      "trend_90d": "rising",
+      "hiring_state": "moderate",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T20:34:08.000Z",
+      "salary_min_hint": 2300,
+      "salary_max_hint": 7000,
+      "median_salary_hint": 4500,
+      "top_skills": [
+        {
+          "label": "Accounting",
+          "count": 3
+        },
+        {
+          "label": "Microsoft Office",
+          "count": 3
+        },
+        {
+          "label": "Administrative Support",
+          "count": 3
+        },
+        {
+          "label": "Team Collaboration",
+          "count": 2
+        },
+        {
+          "label": "Verbal Communication",
+          "count": 2
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 6
+        }
+      ]
+    },
+    "management-consultant": {
+      "title": "Management Consultant",
+      "posting_volume_30d": 14,
+      "posting_volume_90d": 14,
+      "trend_90d": "rising",
+      "hiring_state": "active",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T20:24:47.000Z",
+      "salary_min_hint": 3000,
+      "salary_max_hint": 19000,
+      "median_salary_hint": 10000,
+      "top_skills": [
+        {
+          "label": "Liaising with cross functional teams",
+          "count": 4
+        },
+        {
+          "label": "Scrum",
+          "count": 4
+        },
+        {
+          "label": "DXL",
+          "count": 4
+        },
+        {
+          "label": "Core Banking",
+          "count": 4
+        },
+        {
+          "label": "SDLC",
+          "count": 4
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 12
+        },
+        {
+          "source": "greenhouse",
+          "count": 2
+        }
+      ]
+    },
+    "customer-success-manager": {
+      "title": "Customer Success Manager",
+      "posting_volume_30d": 13,
+      "posting_volume_90d": 18,
+      "trend_90d": "rising",
+      "hiring_state": "active",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T20:20:49.000Z",
+      "salary_min_hint": 2200,
+      "salary_max_hint": 22000,
+      "median_salary_hint": 5000,
+      "top_skills": [
+        {
+          "label": "Marketing",
+          "count": 3
+        },
+        {
+          "label": "Customer Service",
+          "count": 3
+        },
+        {
+          "label": "Customer Service Experience",
+          "count": 3
+        },
+        {
+          "label": "B2B Sales",
+          "count": 2
+        },
+        {
+          "label": "Sales Plan",
+          "count": 2
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 12
+        },
+        {
+          "source": "ashby",
+          "count": 7
+        }
+      ]
+    },
+    "brand-manager": {
+      "title": "Brand Manager",
+      "posting_volume_30d": 9,
+      "posting_volume_90d": 9,
+      "trend_90d": "rising",
+      "hiring_state": "moderate",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T19:54:02.000Z",
+      "salary_min_hint": 1000,
+      "salary_max_hint": 8000,
+      "median_salary_hint": 4500,
+      "top_skills": [
+        {
+          "label": "Digital Marketing",
+          "count": 3
+        },
+        {
+          "label": "Business Operations",
+          "count": 2
+        },
+        {
+          "label": "Marketing Strategy",
+          "count": 2
+        },
+        {
+          "label": "Microsoft Office",
+          "count": 2
+        },
+        {
+          "label": "Social Media",
+          "count": 2
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 6
+        },
+        {
+          "source": "mycareersfuture",
+          "count": 5
+        }
+      ]
+    },
+    "investment-banker": {
+      "title": "Investment Banker",
+      "posting_volume_30d": 3,
+      "posting_volume_90d": 3,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T19:49:29.000Z",
+      "salary_min_hint": 10000,
+      "salary_max_hint": 22500,
+      "median_salary_hint": 15000,
+      "top_skills": [
+        {
+          "label": "Private Equity",
+          "count": 2
+        },
+        {
+          "label": "Risk Management",
+          "count": 2
+        },
+        {
+          "label": "Equities",
+          "count": 2
+        },
+        {
+          "label": "Business and Market Development",
+          "count": 1
+        },
+        {
+          "label": "Coordination",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 3
+        }
+      ]
+    },
+    "executive-assistant": {
+      "title": "Executive Assistant",
+      "posting_volume_30d": 5,
+      "posting_volume_90d": 6,
+      "trend_90d": "rising",
+      "hiring_state": "moderate",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T19:47:15.000Z",
+      "salary_min_hint": 2000,
+      "salary_max_hint": 5600,
+      "median_salary_hint": 4500,
+      "top_skills": [
+        {
+          "label": "Microsoft Office",
+          "count": 2
+        },
+        {
+          "label": "Due Diligence",
+          "count": 2
+        },
+        {
+          "label": "Administration",
+          "count": 2
+        },
+        {
+          "label": "Attention to Detail",
+          "count": 2
+        },
+        {
+          "label": "Able To Work Independently",
+          "count": 2
+        }
+      ],
+      "top_tools": [
+        {
+          "label": "power bi",
+          "count": 1
+        }
+      ],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 4
+        },
+        {
+          "source": "ashby",
+          "count": 3
+        }
+      ]
+    },
+    "delivery-rider": {
+      "title": "Delivery Rider",
+      "posting_volume_30d": 6,
+      "posting_volume_90d": 8,
+      "trend_90d": "rising",
+      "hiring_state": "moderate",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T19:28:46.000Z",
+      "salary_min_hint": 2800,
+      "salary_max_hint": 10000,
+      "median_salary_hint": 3600,
+      "top_skills": [
+        {
+          "label": "Java",
+          "count": 7
+        },
+        {
+          "label": "Python",
+          "count": 4
+        },
+        {
+          "label": "Kubernetes",
+          "count": 4
+        },
+        {
+          "label": "Docker",
+          "count": 4
+        },
+        {
+          "label": "Go",
+          "count": 3
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 9
+        },
+        {
+          "source": "mycareersfuture",
+          "count": 4
+        }
+      ]
+    },
+    "procurement-manager": {
+      "title": "Procurement Manager",
+      "posting_volume_30d": 4,
+      "posting_volume_90d": 5,
+      "trend_90d": "rising",
+      "hiring_state": "moderate",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T19:20:57.000Z",
+      "salary_min_hint": 3000,
+      "salary_max_hint": 20000,
+      "median_salary_hint": 4000,
+      "top_skills": [
+        {
+          "label": "Purchasing",
+          "count": 3
+        },
+        {
+          "label": "Negotiation",
+          "count": 2
+        },
+        {
+          "label": "Procurement",
+          "count": 2
+        },
+        {
+          "label": "Supply Chain Management",
+          "count": 2
+        },
+        {
+          "label": "Procurement Administration",
+          "count": 2
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 3
+        },
+        {
+          "source": "ashby",
+          "count": 2
+        }
+      ]
+    },
+    "ux-designer": {
+      "title": "UX Designer",
+      "posting_volume_30d": 9,
+      "posting_volume_90d": 9,
+      "trend_90d": "rising",
+      "hiring_state": "moderate",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T19:18:46.000Z",
+      "salary_min_hint": 3000,
+      "salary_max_hint": 9500,
+      "median_salary_hint": 5500,
+      "top_skills": [
+        {
+          "label": "Perl",
+          "count": 2
+        },
+        {
+          "label": "Hardware Architecture",
+          "count": 2
+        },
+        {
+          "label": "Programming Languages",
+          "count": 2
+        },
+        {
+          "label": "Floorplanning",
+          "count": 2
+        },
+        {
+          "label": "TCL",
+          "count": 2
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 5
+        },
+        {
+          "source": "ashby",
+          "count": 4
+        }
+      ]
+    },
+    "startup-cto": {
+      "title": "Startup CTO",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T19:16:07.000Z",
+      "salary_min_hint": 8000,
+      "salary_max_hint": 13000,
+      "median_salary_hint": 13000,
+      "top_skills": [
+        {
+          "label": "Customer Service Skills",
+          "count": 1
+        },
+        {
+          "label": "Negotiation",
+          "count": 1
+        },
+        {
+          "label": "Microsoft Excel",
+          "count": 1
+        },
+        {
+          "label": "Talent Acquisition",
+          "count": 1
+        },
+        {
+          "label": "Interpersonal Skills",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "supply-chain-analyst": {
+      "title": "Supply Chain Analyst",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T18:45:35.000Z",
+      "salary_min_hint": 5000,
+      "salary_max_hint": 6500,
+      "median_salary_hint": 6500,
+      "top_skills": [
+        {
+          "label": "Complaint Management",
+          "count": 1
+        },
+        {
+          "label": "large datasets",
+          "count": 1
+        },
+        {
+          "label": "Strong Attention To Detail",
+          "count": 1
+        },
+        {
+          "label": "Complex Problem Solving",
+          "count": 1
+        },
+        {
+          "label": "Supply Chain Services",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "product-designer": {
+      "title": "Product Designer",
+      "posting_volume_30d": 4,
+      "posting_volume_90d": 4,
+      "trend_90d": "rising",
+      "hiring_state": "moderate",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T18:42:54.000Z",
+      "salary_min_hint": 4500,
+      "salary_max_hint": 9000,
+      "median_salary_hint": 7500,
+      "top_skills": [
+        {
+          "label": "Go",
+          "count": 2
+        },
+        {
+          "label": "Product Management",
+          "count": 2
+        },
+        {
+          "label": "Risk Management",
+          "count": 2
+        },
+        {
+          "label": "Excellent Communication Skills",
+          "count": 1
+        },
+        {
+          "label": "Production Management",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 4
+        },
+        {
+          "source": "mycareersfuture",
+          "count": 3
+        }
+      ]
+    },
+    "recruiter": {
+      "title": "Recruiter",
+      "posting_volume_30d": 3,
+      "posting_volume_90d": 7,
+      "trend_90d": "steady",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T18:15:00.000Z",
+      "salary_min_hint": 1000,
+      "salary_max_hint": 6000,
+      "median_salary_hint": 4000,
+      "top_skills": [
+        {
+          "label": "Negotiation",
+          "count": 1
+        },
+        {
+          "label": "Employer Branding",
+          "count": 1
+        },
+        {
+          "label": "Sustainability",
+          "count": 1
+        },
+        {
+          "label": "Talent Acquisition",
+          "count": 1
+        },
+        {
+          "label": "Recruiting",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 5
+        },
+        {
+          "source": "mycareersfuture",
+          "count": 2
+        }
+      ]
+    },
+    "site-reliability-engineer": {
+      "title": "Site Reliability Engineer",
+      "posting_volume_30d": 3,
+      "posting_volume_90d": 3,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T18:10:43.000Z",
+      "salary_min_hint": 4500,
+      "salary_max_hint": 8000,
+      "median_salary_hint": 6000,
+      "top_skills": [
+        {
+          "label": "Civil Engineering",
+          "count": 2
+        },
+        {
+          "label": "AWS",
+          "count": 2
+        },
+        {
+          "label": "GCP",
+          "count": 2
+        },
+        {
+          "label": "Kubernetes",
+          "count": 2
+        },
+        {
+          "label": "Interacting with staff",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 3
+        },
+        {
+          "source": "ashby",
+          "count": 2
+        }
+      ]
+    },
+    "security-engineer": {
+      "title": "Security Engineer",
+      "posting_volume_30d": 4,
+      "posting_volume_90d": 5,
+      "trend_90d": "rising",
+      "hiring_state": "moderate",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T18:02:40.000Z",
+      "salary_min_hint": 6000,
+      "salary_max_hint": 7000,
+      "median_salary_hint": 7000,
+      "top_skills": [
+        {
+          "label": "GCP",
+          "count": 4
+        },
+        {
+          "label": "Python",
+          "count": 2
+        },
+        {
+          "label": "Kubernetes",
+          "count": 2
+        },
+        {
+          "label": "Background Checks",
+          "count": 1
+        },
+        {
+          "label": "Information Security",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 5
+        },
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "full-stack-developer": {
+      "title": "Full-Stack Developer",
+      "posting_volume_30d": 5,
+      "posting_volume_90d": 5,
+      "trend_90d": "rising",
+      "hiring_state": "moderate",
+      "freshness_days": 0,
+      "latest_posted_date": "2026-03-19T14:18:47.000Z",
+      "salary_min_hint": 5500,
+      "salary_max_hint": 11000,
+      "median_salary_hint": 11000,
+      "top_skills": [
+        {
+          "label": "Java",
+          "count": 4
+        },
+        {
+          "label": "AWS",
+          "count": 4
+        },
+        {
+          "label": "Azure",
+          "count": 3
+        },
+        {
+          "label": "JavaScript",
+          "count": 3
+        },
+        {
+          "label": "TypeScript",
+          "count": 3
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "greenhouse",
+          "count": 4
+        },
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "venture-capitalist": {
+      "title": "Venture Capitalist",
+      "posting_volume_30d": 3,
+      "posting_volume_90d": 6,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 1,
+      "latest_posted_date": "2026-03-19T07:27:57.000Z",
+      "salary_min_hint": 3000,
+      "salary_max_hint": 5500,
+      "median_salary_hint": 4500,
+      "top_skills": [
+        {
+          "label": "Data Analysis",
+          "count": 2
+        },
+        {
+          "label": "Internal Audit Function Management",
+          "count": 1
+        },
+        {
+          "label": "Financial Statements Analysis",
+          "count": 1
+        },
+        {
+          "label": "Leadership",
+          "count": 1
+        },
+        {
+          "label": "International Financial Reporting Standards",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 6
+        },
+        {
+          "source": "mycareersfuture",
+          "count": 2
+        }
+      ]
+    },
+    "cloud-architect": {
+      "title": "Cloud Architect",
+      "posting_volume_30d": 2,
+      "posting_volume_90d": 2,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 1,
+      "latest_posted_date": "2026-03-19T06:34:47.000Z",
+      "salary_min_hint": 3000,
+      "salary_max_hint": 6200,
+      "median_salary_hint": 6200,
+      "top_skills": [
+        {
+          "label": "Leadership",
+          "count": 1
+        },
+        {
+          "label": "Painting",
+          "count": 1
+        },
+        {
+          "label": "Construction",
+          "count": 1
+        },
+        {
+          "label": "Quality Control",
+          "count": 1
+        },
+        {
+          "label": "Architectural",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        },
+        {
+          "source": "ashby",
+          "count": 1
+        }
+      ]
+    },
+    "accountant": {
+      "title": "Accountant",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 1,
+      "latest_posted_date": "2026-03-19T02:17:24.000Z",
+      "salary_min_hint": 3000,
+      "salary_max_hint": 4500,
+      "median_salary_hint": 4500,
+      "top_skills": [
+        {
+          "label": "partner with Directors",
+          "count": 1
+        },
+        {
+          "label": "process maintenance",
+          "count": 1
+        },
+        {
+          "label": "Information Management",
+          "count": 1
+        },
+        {
+          "label": "Stakeholder Engagement",
+          "count": 1
+        },
+        {
+          "label": "Statutory Accounting",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        },
+        {
+          "source": "ashby",
+          "count": 1
+        }
+      ]
+    },
+    "insurance-underwriter": {
+      "title": "Insurance Underwriter",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 1,
+      "latest_posted_date": "2026-03-19T01:52:14.000Z",
+      "salary_min_hint": 4000,
+      "salary_max_hint": 6000,
+      "median_salary_hint": 6000,
+      "top_skills": [
+        {
+          "label": "General Administration",
+          "count": 1
+        },
+        {
+          "label": "maintaining quality documentation",
+          "count": 1
+        },
+        {
+          "label": "Payment Processing",
+          "count": 1
+        },
+        {
+          "label": "insurance advisory work",
+          "count": 1
+        },
+        {
+          "label": "Bancassurance",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "seo-specialist": {
+      "title": "SEO Specialist",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 1,
+      "latest_posted_date": "2026-03-19T01:09:26.000Z",
+      "salary_min_hint": 2500,
+      "salary_max_hint": 3500,
+      "median_salary_hint": 3500,
+      "top_skills": [
+        {
+          "label": "SOPs",
+          "count": 1
+        },
+        {
+          "label": "Biomarkers",
+          "count": 1
+        },
+        {
+          "label": "Population Health",
+          "count": 1
+        },
+        {
+          "label": "Health",
+          "count": 1
+        },
+        {
+          "label": "Procurement",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "devops-engineer": {
+      "title": "DevOps Engineer",
+      "posting_volume_30d": 9,
+      "posting_volume_90d": 16,
+      "trend_90d": "rising",
+      "hiring_state": "moderate",
+      "freshness_days": 1,
+      "latest_posted_date": "2026-03-19T01:09:00.000Z",
+      "salary_min_hint": 4000,
+      "salary_max_hint": 8000,
+      "median_salary_hint": 8000,
+      "top_skills": [
+        {
+          "label": "Kubernetes",
+          "count": 16
+        },
+        {
+          "label": "Go",
+          "count": 11
+        },
+        {
+          "label": "Python",
+          "count": 11
+        },
+        {
+          "label": "AWS",
+          "count": 10
+        },
+        {
+          "label": "GCP",
+          "count": 10
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 22
+        },
+        {
+          "source": "greenhouse",
+          "count": 4
+        },
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        }
+      ]
+    },
+    "partnerships-manager": {
+      "title": "Partnerships Manager",
+      "posting_volume_30d": 2,
+      "posting_volume_90d": 2,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 1,
+      "latest_posted_date": "2026-03-19T01:01:43.000Z",
+      "salary_min_hint": 17330,
+      "salary_max_hint": 26750,
+      "median_salary_hint": 26750,
+      "top_skills": [
+        {
+          "label": "Relationship Building",
+          "count": 1
+        },
+        {
+          "label": "Cross-functional Team Leadership",
+          "count": 1
+        },
+        {
+          "label": "Acts as a representative",
+          "count": 1
+        },
+        {
+          "label": "Technology Management",
+          "count": 1
+        },
+        {
+          "label": "Telecommunication Industry",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "mycareersfuture",
+          "count": 1
+        },
+        {
+          "source": "ashby",
+          "count": 1
+        }
+      ]
+    },
+    "platform-engineer": {
+      "title": "Platform Engineer",
+      "posting_volume_30d": 3,
+      "posting_volume_90d": 4,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 2,
+      "latest_posted_date": "2026-03-18T06:59:51.000Z",
+      "salary_min_hint": null,
+      "salary_max_hint": null,
+      "median_salary_hint": null,
+      "top_skills": [
+        {
+          "label": "Databricks",
+          "count": 3
+        },
+        {
+          "label": "Python",
+          "count": 3
+        },
+        {
+          "label": "SQL",
+          "count": 2
+        },
+        {
+          "label": "Java",
+          "count": 2
+        },
+        {
+          "label": "Snowflake",
+          "count": 2
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 5
+        },
+        {
+          "source": "greenhouse",
+          "count": 1
+        }
+      ]
+    },
+    "ai-engineer": {
+      "title": "AI Engineer",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 8,
+      "latest_posted_date": "2026-03-12T02:40:20.346Z",
+      "salary_min_hint": null,
+      "salary_max_hint": null,
+      "median_salary_hint": null,
+      "top_skills": [
+        {
+          "label": "JavaScript",
+          "count": 2
+        },
+        {
+          "label": "TypeScript",
+          "count": 2
+        },
+        {
+          "label": "Python",
+          "count": 2
+        },
+        {
+          "label": "Data Analysis",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 3
+        }
+      ]
+    },
+    "frontend-engineer": {
+      "title": "Frontend Engineer",
+      "posting_volume_30d": 2,
+      "posting_volume_90d": 2,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 10,
+      "latest_posted_date": "2026-03-10T03:01:34.175Z",
+      "salary_min_hint": null,
+      "salary_max_hint": null,
+      "median_salary_hint": null,
+      "top_skills": [
+        {
+          "label": "TypeScript",
+          "count": 5
+        },
+        {
+          "label": "React",
+          "count": 5
+        },
+        {
+          "label": "Node.js",
+          "count": 5
+        },
+        {
+          "label": "Kubernetes",
+          "count": 5
+        },
+        {
+          "label": "Docker",
+          "count": 4
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 5
+        }
+      ]
+    },
+    "solutions-engineer": {
+      "title": "Solutions Engineer",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 2,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 11,
+      "latest_posted_date": "2026-03-09T02:30:23.000Z",
+      "salary_min_hint": null,
+      "salary_max_hint": null,
+      "median_salary_hint": null,
+      "top_skills": [
+        {
+          "label": "Python",
+          "count": 1
+        },
+        {
+          "label": "Java",
+          "count": 1
+        },
+        {
+          "label": "AWS",
+          "count": 1
+        },
+        {
+          "label": "GCP",
+          "count": 1
+        },
+        {
+          "label": "Azure",
+          "count": 1
+        }
+      ],
+      "top_tools": [
+        {
+          "label": "chatgpt",
+          "count": 1
+        }
+      ],
+      "source_mix": [
+        {
+          "source": "greenhouse",
+          "count": 1
+        },
+        {
+          "source": "ashby",
+          "count": 1
+        }
+      ]
+    },
+    "business-analyst": {
+      "title": "Business Analyst",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 14,
+      "latest_posted_date": "2026-03-06T09:08:56.000Z",
+      "salary_min_hint": null,
+      "salary_max_hint": null,
+      "median_salary_hint": null,
+      "top_skills": [],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "greenhouse",
+          "count": 1
+        }
+      ]
+    },
+    "founder-associate": {
+      "title": "Founder Associate",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 25,
+      "latest_posted_date": "2026-02-23T09:34:49.542Z",
+      "salary_min_hint": null,
+      "salary_max_hint": null,
+      "median_salary_hint": null,
+      "top_skills": [
+        {
+          "label": "Go",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 1
+        }
+      ]
+    },
+    "policy-analyst": {
+      "title": "Policy Analyst",
+      "posting_volume_30d": 1,
+      "posting_volume_90d": 1,
+      "trend_90d": "rising",
+      "hiring_state": "thin",
+      "freshness_days": 28,
+      "latest_posted_date": "2026-02-20T03:18:48.195Z",
+      "salary_min_hint": null,
+      "salary_max_hint": null,
+      "median_salary_hint": null,
+      "top_skills": [
+        {
+          "label": "Go",
+          "count": 1
+        },
+        {
+          "label": "Product Management",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 1
+        }
+      ]
+    },
+    "network-engineer": {
+      "title": "Network Engineer",
+      "posting_volume_30d": 0,
+      "posting_volume_90d": 1,
+      "trend_90d": "cooling",
+      "hiring_state": "no_signal",
+      "freshness_days": 38,
+      "latest_posted_date": "2026-02-10T05:08:37.754Z",
+      "salary_min_hint": null,
+      "salary_max_hint": null,
+      "median_salary_hint": null,
+      "top_skills": [
+        {
+          "label": "AWS",
+          "count": 1
+        },
+        {
+          "label": "GCP",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 1
+        }
+      ]
+    },
+    "backend-engineer": {
+      "title": "Backend Engineer",
+      "posting_volume_30d": 0,
+      "posting_volume_90d": 4,
+      "trend_90d": "cooling",
+      "hiring_state": "stale",
+      "freshness_days": 46,
+      "latest_posted_date": "2026-02-02T08:55:53.616Z",
+      "salary_min_hint": null,
+      "salary_max_hint": null,
+      "median_salary_hint": null,
+      "top_skills": [
+        {
+          "label": "Python",
+          "count": 8
+        },
+        {
+          "label": "Java",
+          "count": 8
+        },
+        {
+          "label": "Go",
+          "count": 8
+        },
+        {
+          "label": "AWS",
+          "count": 8
+        },
+        {
+          "label": "Kubernetes",
+          "count": 8
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 8
+        }
+      ]
+    },
+    "people-partner": {
+      "title": "People Partner",
+      "posting_volume_30d": 0,
+      "posting_volume_90d": 1,
+      "trend_90d": "cooling",
+      "hiring_state": "stale",
+      "freshness_days": 87,
+      "latest_posted_date": "2025-12-23T04:50:42.845Z",
+      "salary_min_hint": null,
+      "salary_max_hint": null,
+      "median_salary_hint": null,
+      "top_skills": [
+        {
+          "label": "Risk Management",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 1
+        }
+      ]
+    },
+    "growth-marketer": {
+      "title": "Growth Marketer",
+      "posting_volume_30d": 0,
+      "posting_volume_90d": 0,
+      "trend_90d": "insufficient_data",
+      "hiring_state": "stale",
+      "freshness_days": 100,
+      "latest_posted_date": "2025-12-09T11:16:27.997Z",
+      "salary_min_hint": null,
+      "salary_max_hint": null,
+      "median_salary_hint": null,
+      "top_skills": [],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 1
+        }
+      ]
+    },
+    "mobile-engineer": {
+      "title": "Mobile Engineer",
+      "posting_volume_30d": 0,
+      "posting_volume_90d": 0,
+      "trend_90d": "insufficient_data",
+      "hiring_state": "stale",
+      "freshness_days": 156,
+      "latest_posted_date": "2025-10-15T03:53:04.120Z",
+      "salary_min_hint": null,
+      "salary_max_hint": null,
+      "median_salary_hint": null,
+      "top_skills": [
+        {
+          "label": "Go",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 1
+        }
+      ]
+    },
+    "fpa-analyst": {
+      "title": "FP&A Analyst",
+      "posting_volume_30d": 0,
+      "posting_volume_90d": 0,
+      "trend_90d": "insufficient_data",
+      "hiring_state": "stale",
+      "freshness_days": 169,
+      "latest_posted_date": "2025-10-02T04:03:37.267Z",
+      "salary_min_hint": null,
+      "salary_max_hint": null,
+      "median_salary_hint": null,
+      "top_skills": [
+        {
+          "label": "SQL",
+          "count": 1
+        }
+      ],
+      "top_tools": [],
+      "source_mix": [
+        {
+          "source": "ashby",
+          "count": 1
+        }
+      ]
+    }
+  }
+}

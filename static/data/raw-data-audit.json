@@ -1,12 +1,53 @@
 {
-  "generated_at": "2026-03-19T11:35:14.731Z",
+  "generated_at": "2026-03-20T09:38:45.889Z",
   "summary": {
-    "valid": 21,
+    "valid": 24,
     "placeholder_error": 0,
     "missing": 0,
     "reference_only": 4
   },
   "entries": [
+    {
+      "key": "postings_source_registry",
+      "file": "postings/source-registry.json",
+      "label": "Postings source registry",
+      "status": "valid",
+      "exists": true,
+      "expected_type": "json",
+      "size_bytes": 2778,
+      "used_by": [
+        "postings pipeline",
+        "ATS employer-source ingestion"
+      ],
+      "note": "Valid JSON payload."
+    },
+    {
+      "key": "employer_signals_seed",
+      "file": "employer-signals-seed.json",
+      "label": "Employer pressure seed registry",
+      "status": "valid",
+      "exists": true,
+      "expected_type": "json",
+      "size_bytes": 5587,
+      "used_by": [
+        "employer pressure pipeline"
+      ],
+      "note": "Valid JSON payload."
+    },
+    {
+      "key": "sg_occupations_complete_2024",
+      "file": "sg_occupations_complete_2024.json",
+      "label": "Singapore occupations base feed",
+      "status": "valid",
+      "exists": true,
+      "expected_type": "json",
+      "size_bytes": 243674,
+      "used_by": [
+        "score pipeline",
+        "occupation master list"
+      ],
+      "note": "Valid JSON payload."
+    },
     {
       "key": "employment_by_occupation",
       "file": "employment_by_occupation.csv",

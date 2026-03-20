@@ -1128,10 +1128,13 @@ function lookupLabourMonitor(
 }
 
 /**
- * Monte Carlo stability scoring — 1000 correlated perturbations.
+ * Monte Carlo stability scoring — 1000 deterministic perturbations.
  * Each run perturbs exposure, bottleneck, and market_resilience by
  * a normally-distributed random amount (σ = 0.04), then recomputes net_risk.
  * Optimistic = 10th percentile, pessimistic = 90th percentile of simulated risks.
+ *
+ * The RNG is seeded from the input tuple so identical source data produces
+ * identical stability bounds across rebuilds.
  */
 function buildStabilityScores(
 	exposure: number,
@@ -1145,10 +1148,35 @@ function buildStabilityScores(
 	const sigma = 0.04 + Math.min(marketSpread * 0.5, 0.03);
 	const simulatedRisks: number[] = [];
 
+	function seedFromInputs(values: number[]): number {
+		let seed = 2166136261;
+		for (const value of values) {
+			const scaled = Math.round(value * 10000);
+			seed ^= scaled;
+			seed = Math.imul(seed, 16777619);
+		}
+		return seed >>> 0;
+	}
+
+	function mulberry32(seed: number): () => number {
+		let state = seed >>> 0;
+		return () => {
+			state += 0x6d2b79f5;
+			let t = state;
+			t = Math.imul(t ^ (t >>> 15), t | 1);
+			t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+			return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+		};
+	}
+
+	const random = mulberry32(
+		seedFromInputs([exposure, bottleneck, marketResilience, currentRisk, marketSpread])
+	);
+
 	// Box-Muller transform for normal random numbers
 	function randn(): number {
-		const u1 = Math.random();
-		const u2 = Math.random();
+		const u1 = Math.max(random(), 1e-12);
+		const u2 = random();
 		return Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
 	}
 
@@ -1779,12 +1807,26 @@ function scoreOccupations(
 				sparseSourcePenalty -
 				contestedSignalPenalty
 		);
-		const confidenceLevel: 'high' | 'medium' | 'low' =
+		const baseConfidenceLevel: 'high' | 'medium' | 'low' =
 			confidenceScore >= CONFIDENCE_THRESHOLDS.high
 				? 'high'
 				: confidenceScore >= CONFIDENCE_THRESHOLDS.medium
 					? 'medium'
 					: 'low';
+
+		// Policy cap: reserve "high" confidence for the cleanest cases only.
+		// Calibration diagnostics show the broad high+medium population validates directionally,
+		// but contested or fallback cases should not read as fully high-confidence to users.
+		const canBeHighConfidence =
+			r.matchQuality === 'direct' && availableExposureInputs.length >= 3 && !signalConflict;
+
+		let confidenceLevel: 'high' | 'medium' | 'low' = baseConfidenceLevel;
+		if (!canBeHighConfidence && confidenceLevel === 'high') {
+			confidenceLevel = 'medium';
+		}
+		if (r.matchQuality === 'major_fallback') {
+			confidenceLevel = 'low';
+		}
 
 		results.push({
 			ssoc: r.occ.ssoc,

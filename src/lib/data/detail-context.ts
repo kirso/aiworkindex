@@ -3,10 +3,14 @@ import type { GroupIndustryContext, BlendedIndustryContext } from './industry-co
 import type { SingaporeContextSummary } from './singapore-context';
 import type { WorkerProfileSummary } from './worker-profile';
 import type { GeographyContextSummary } from './geography-context';
+import type { PostingAggregate } from './postings-monitor';
+import type { EmployerPressureEntry } from './employer-pressure';
 import { getIndustryContextForOccupation, buildRoleIndustryContext } from './industry-context';
 import { getWorkerProfileForOccupation, buildRoleWorkerProfile } from './worker-profile';
 import { buildOccupationSingaporeContext, buildRoleSingaporeContext } from './singapore-context';
 import { getGeographyContextForOccupation, buildRoleGeographyContext } from './geography-context';
+import { getPostingsForOccupation, buildRolePostingsFromComponents } from './postings-monitor';
+import { getEmployerPressureForOccupation, buildRoleEmployerPressure } from './employer-pressure';
 import transitionSupportData from './transition-support.json';
 import transitionInfrastructureData from './transition-infrastructure.json';
 
@@ -15,9 +19,19 @@ export interface TransitionSupportInfo {
 	support_tier: string;
 	recommended_programmes: string[];
 	basis: string;
+	jtm_sector_alignment?: string[];
+	wsq_training_reference?: {
+		latest_year: string | null;
+		total_trainees_latest: number | null;
+	} | null;
 }
 
-const supportTierOrder = ['general_public_support', 'broad_family_support'] as const;
+const supportTierOrder = [
+	'general_public_support',
+	'sector_transition_support',
+	'broad_family_support',
+	'jtm_aligned_family_support'
+] as const;
 
 const transitionSupportBySsoc = new Map<string, TransitionSupportInfo>(
 	(transitionSupportData.transitions as Array<{
@@ -27,6 +41,11 @@ const transitionSupportBySsoc = new Map<string, TransitionSupportInfo>(
 			support_tier: string;
 			recommended_programmes: string[];
 			basis: string;
+			jtm_sector_alignment?: string[];
+			wsq_training_reference?: {
+				latest_year: string | null;
+				total_trainees_latest: number | null;
+			} | null;
 		};
 	}>).map((t) => [
 		t.from_ssoc,
@@ -34,7 +53,9 @@ const transitionSupportBySsoc = new Map<string, TransitionSupportInfo>(
 			skillsfuture_eligible: t.skillsfuture_eligible,
 			support_tier: t.official_programme_support.support_tier,
 			recommended_programmes: t.official_programme_support.recommended_programmes,
-			basis: t.official_programme_support.basis
+			basis: t.official_programme_support.basis,
+			jtm_sector_alignment: t.official_programme_support.jtm_sector_alignment,
+			wsq_training_reference: t.official_programme_support.wsq_training_reference
 		}
 	])
 );
@@ -102,7 +123,11 @@ function mergeRoleTransitionSupport(
 		skillsfuture_eligible: resolved.some((component) => component.support.skillsfuture_eligible),
 		support_tier,
 		recommended_programmes: [...programmeSet],
-		basis: `Blended from ${resolved.length} component occupations; anchored on ${primary.occupation.title}.`
+		basis: `Blended from ${resolved.length} component occupations; anchored on ${primary.occupation.title}.`,
+		jtm_sector_alignment: [
+			...new Set(resolved.flatMap((component) => component.support.jtm_sector_alignment ?? []))
+		],
+		wsq_training_reference: primary.support.wsq_training_reference ?? null
 	};
 }
 
@@ -112,6 +137,8 @@ export interface OccupationDetailContext {
 	workerProfile: WorkerProfileSummary;
 	geographyContext: GeographyContextSummary;
 	transitionSupport: TransitionSupportInfo | null;
+	postings: PostingAggregate | null;
+	employerPressure: EmployerPressureEntry | null;
 }
 
 export interface RoleDetailContext {
@@ -121,6 +148,8 @@ export interface RoleDetailContext {
 	workerProfile: WorkerProfileSummary;
 	geographyContext: GeographyContextSummary;
 	transitionSupport: TransitionSupportInfo | null;
+	postings: PostingAggregate | null;
+	employerPressure: EmployerPressureEntry | null;
 }
 
 export function buildOccupationDetailContext(occupation: Occupation): OccupationDetailContext {
@@ -129,7 +158,9 @@ export function buildOccupationDetailContext(occupation: Occupation): Occupation
 		industryContext: getIndustryContextForOccupation(occupation),
 		workerProfile: getWorkerProfileForOccupation(occupation),
 		geographyContext: getGeographyContextForOccupation(occupation),
-		transitionSupport: getTransitionSupport(occupation.ssoc)
+		transitionSupport: getTransitionSupport(occupation.ssoc),
+		postings: getPostingsForOccupation(occupation.ssoc),
+		employerPressure: getEmployerPressureForOccupation(occupation)
 	};
 }
 
@@ -150,12 +181,15 @@ export function resolvePrimaryRoleOccupation(
 export function buildRoleDetailContext(
 	components: Array<{ weight: number; occupation: Occupation | null }>
 ): RoleDetailContext {
+	const primaryOccupation = resolvePrimaryRoleOccupation(components);
 	return {
-		primaryOccupation: resolvePrimaryRoleOccupation(components),
+		primaryOccupation,
 		singaporeContext: buildRoleSingaporeContext(components),
 		industryContext: buildRoleIndustryContext(components),
 		workerProfile: buildRoleWorkerProfile(components),
 		geographyContext: buildRoleGeographyContext(components),
-		transitionSupport: mergeRoleTransitionSupport(components)
+		transitionSupport: mergeRoleTransitionSupport(components),
+		postings: buildRolePostingsFromComponents('', components),
+		employerPressure: buildRoleEmployerPressure(components)
 	};
 }

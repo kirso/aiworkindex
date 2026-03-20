@@ -24,9 +24,24 @@ export interface GroupIndustryContext {
 	total_employment_2025: number;
 	top_industries: IndustryContextItem[];
 	fastest_growing_industries: IndustryContextItem[];
+	metadata?: IndustryContextMetadata;
 }
 
-const industryContext = industryContextData as Record<string, GroupIndustryContext>;
+export interface IndustryContextMetadata {
+	employment_vintage: string;
+	vacancy_overlay_vintage: string;
+	vacancy_overlay_source_note: string;
+}
+
+interface IndustryContextDataset {
+	metadata: IndustryContextMetadata;
+	groups: Record<string, GroupIndustryContext>;
+}
+
+const industryContextDataset = industryContextData as IndustryContextDataset;
+const industryContext = industryContextDataset.groups;
+
+export const industryContextMetadata = industryContextDataset.metadata;
 const occupationIndustryWages = occupationIndustryWagesData as Record<
 	string,
 	{
@@ -70,6 +85,7 @@ export function getIndustryContextForOccupation(
 	if (!context) return null;
 	return {
 		...context,
+		metadata: industryContextMetadata,
 		top_industries: withOccupationIndustryWages(context.top_industries, occupation),
 		fastest_growing_industries: withOccupationIndustryWages(
 			context.fastest_growing_industries,
@@ -82,6 +98,7 @@ export interface BlendedIndustryContext {
 	top_industries: IndustryContextItem[];
 	fastest_growing_industries: IndustryContextItem[];
 	note: string;
+	metadata: IndustryContextMetadata;
 }
 
 function blendIndustryLists(
@@ -194,7 +211,8 @@ function blendIndustryLists(
 					value.vacancyWeight > 0
 						? Number((value.vacancyWeightedSum / value.vacancyWeight).toFixed(0))
 						: null,
-				vacancy_quarter: value.vacancyWeight > 0 ? '2025 Q3' : null,
+				vacancy_quarter:
+					value.vacancyWeight > 0 ? industryContextMetadata.vacancy_overlay_vintage : null,
 				vacancy_trend_4q_pct:
 					value.vacancyWeight > 0
 						? Number((value.vacancyTrendWeightedSum / value.vacancyWeight).toFixed(4))
@@ -224,6 +242,7 @@ export function buildRoleIndustryContext(
 			(context) => context.fastest_growing_industries
 		),
 		note:
-			'Industry anchors are blended from the official occupation families used to score this synthetic role.'
+			'Industry anchors are blended from the official occupation families used to score this synthetic role.',
+		metadata: industryContextMetadata
 	};
 }

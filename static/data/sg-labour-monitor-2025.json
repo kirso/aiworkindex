@@ -4,29 +4,21 @@
     "cluster_label": "Professionals, Managers, Executives & Technicians",
     "vacancy": {
       "latest_rate": 3.1,
-      "latest_quarter": "2025 Q3",
-      "trend_4q_pct": 6.9,
-      "signal": 1,
+      "latest_quarter": "2025 Q4",
+      "trend_4q_pct": -3.13,
+      "signal": 0,
       "recent_quarters": [
         {
-          "quarter": "2023 Q2",
-          "rate": 4.2
+          "quarter": "2022",
+          "rate": 5.3
         },
         {
-          "quarter": "2023 Q3",
-          "rate": 3.7
+          "quarter": "2023",
+          "rate": 4
         },
         {
-          "quarter": "2023 Q4",
-          "rate": 3.5
-        },
-        {
-          "quarter": "2024 Q1",
-          "rate": 3.7
-        },
-        {
-          "quarter": "2024 Q2",
-          "rate": 3.6
+          "quarter": "2024",
+          "rate": 3.3
         },
         {
           "quarter": "2024 Q3",
@@ -38,6 +30,10 @@
         },
         {
           "quarter": "2025 Q3",
+          "rate": 3.1
+        },
+        {
+          "quarter": "2025 Q4",
           "rate": 3.1
         }
       ],
@@ -63,41 +59,37 @@
           "rate": 3.1
         }
       ],
-      "latest_count": 38200,
-      "count_trend_4q_pct": 7.91,
-      "count_signal": 1,
+      "latest_count": 39.6,
+      "count_trend_4q_pct": -4.35,
+      "count_signal": 0,
       "recent_counts": [
         {
           "quarter": "2023 Q4",
-          "count": 43200
-        },
-        {
-          "quarter": "2024 Q1",
-          "count": 45700
-        },
-        {
-          "quarter": "2024 Q2",
-          "count": 45300
+          "count": 43.2
         },
         {
           "quarter": "2024 Q3",
-          "count": 35400
+          "count": 35.4
         },
         {
           "quarter": "2024 Q4",
-          "count": 41400
+          "count": 41.4
         },
         {
           "quarter": "2025 Q1",
-          "count": 45300
+          "count": 45.3
         },
         {
           "quarter": "2025 Q2",
-          "count": 43100
+          "count": 43.1
         },
         {
           "quarter": "2025 Q3",
-          "count": 38200
+          "count": 38.2
+        },
+        {
+          "quarter": "2025 Q4",
+          "count": 39.6
         }
       ],
       "annual_counts": [
@@ -121,23 +113,28 @@
           "year": "2025",
           "count": 42200
         }
-      ]
+      ],
+      "qoq_delta_pp": 0,
+      "count_qoq_delta": 1.4
     },
     "hiring": {
-      "recruitment_rate": 1.8,
-      "resignation_rate": 1.2,
+      "recruitment_rate": 1.5,
+      "resignation_rate": 0.9,
       "net_pressure": 0.6,
       "signal": 1,
-      "quarter": "2025 Q3",
+      "quarter": "2025 Q4",
       "frequency": "quarterly",
-      "note": "Both rates below 10-year average. Recruitment still exceeds resignation."
+      "recruitment_delta_pp": -0.3,
+      "resignation_delta_pp": -0.3,
+      "net_pressure_delta_pp": 0,
+      "note": "Q4 hiring eased from Q3, but recruitment still exceeded resignation."
     },
     "retrenchment": {
-      "latest_count": 3030,
-      "latest_quarter": "2025 Q3",
-      "trend_4q_pct": 0,
-      "signal": 0,
-      "trend_direction": "stable",
+      "latest_count": 3150,
+      "latest_quarter": "2025 Q4",
+      "trend_4q_pct": 6.42,
+      "signal": -1,
+      "trend_direction": "rising",
       "recent_quarters": [
         {
           "quarter": "2024 Q3",
@@ -145,62 +142,61 @@
         },
         {
           "quarter": "2024 Q4",
-          "count": 2910
+          "count": 2960
         },
         {
           "quarter": "2025 Q1",
-          "count": 2650
+          "count": 2730
         },
         {
           "quarter": "2025 Q2",
-          "count": 2800
+          "count": 2880
         },
         {
           "quarter": "2025 Q3",
-          "count": 3030
+          "count": 3110
+        },
+        {
+          "quarter": "2025 Q4",
+          "count": 3150
         }
       ],
-      "incidence_per_1000": 2.6
+      "incidence_per_1000": 1.5,
+      "qoq_delta_count": 40
     },
     "re_entry": {
-      "rate_6m": 54.3,
-      "rate_12m": 73,
-      "quarter": "2025 Q3",
-      "note": "Re-entry rates declining — retrenched PMETs taking longer to find work"
+      "rate_6m": 56.4,
+      "rate_12m": 67.7,
+      "quarter": "2025 Q4",
+      "rate_6m_delta_pp": 2.1,
+      "rate_12m_delta_pp": -5.3,
+      "note": "6-month PMET re-entry improved in Q4, but 12-month re-entry softened."
     },
-    "overall": "strong",
-    "summary": "PMET vacancy rate stabilised at 3.1% in Sep 2025, up from 2.9% a year earlier. Recruitment exceeds resignation but both are below 10-year averages. Retrenchments stable at low levels.",
-    "data_as_of": "2025 Q3",
-    "source": "Labour Market Report Q3 2025, MRSD, MOM"
+    "overall": "weak",
+    "summary": "PMET vacancy rate held at 3.1% in Dec 2025 while published vacancies rose slightly quarter on quarter. Hiring cooled from Q3 but remained net positive. Retrenchments stayed low in incidence terms, even as PMET retrenchment counts edged up.",
+    "data_as_of": "2025 Q4",
+    "source": "Labour Market Report Q4 2025, MRSD, MOM"
   },
   {
     "cluster_key": "clerical_sales_service",
     "cluster_label": "Clerical, Sales & Service Workers",
     "vacancy": {
-      "latest_rate": 3.3,
-      "latest_quarter": "2025 Q3",
-      "trend_4q_pct": -5.71,
+      "latest_rate": 3.1,
+      "latest_quarter": "2025 Q4",
+      "trend_4q_pct": -11.43,
       "signal": -1,
       "recent_quarters": [
         {
-          "quarter": "2023 Q2",
-          "rate": 4.8
+          "quarter": "2022",
+          "rate": 6
         },
         {
-          "quarter": "2023 Q3",
-          "rate": 4.4
+          "quarter": "2023",
+          "rate": 4.7
         },
         {
-          "quarter": "2023 Q4",
-          "rate": 4.4
-        },
-        {
-          "quarter": "2024 Q1",
-          "rate": 4.3
-        },
-        {
-          "quarter": "2024 Q2",
-          "rate": 4.2
+          "quarter": "2024",
+          "rate": 3.9
         },
         {
           "quarter": "2024 Q3",
@@ -213,6 +209,10 @@
         {
           "quarter": "2025 Q3",
           "rate": 3.3
+        },
+        {
+          "quarter": "2025 Q4",
+          "rate": 3.1
         }
       ],
       "annual_rates": [
@@ -237,41 +237,37 @@
           "rate": 3.3
         }
       ],
-      "latest_count": 14900,
-      "count_trend_4q_pct": 0.68,
-      "count_signal": 0,
+      "latest_count": 14.3,
+      "count_trend_4q_pct": -12.8,
+      "count_signal": -1,
       "recent_counts": [
         {
           "quarter": "2023 Q4",
-          "count": 19400
-        },
-        {
-          "quarter": "2024 Q1",
-          "count": 19400
-        },
-        {
-          "quarter": "2024 Q2",
-          "count": 19100
+          "count": 19.4
         },
         {
           "quarter": "2024 Q3",
-          "count": 14800
+          "count": 14.8
         },
         {
           "quarter": "2024 Q4",
-          "count": 16400
+          "count": 16.4
         },
         {
           "quarter": "2025 Q1",
-          "count": 18700
+          "count": 18.7
         },
         {
           "quarter": "2025 Q2",
-          "count": 16700
+          "count": 16.7
         },
         {
           "quarter": "2025 Q3",
-          "count": 14900
+          "count": 14.9
+        },
+        {
+          "quarter": "2025 Q4",
+          "count": 14.3
         }
       ],
       "annual_counts": [
@@ -295,21 +291,26 @@
           "year": "2025",
           "count": 16767
         }
-      ]
+      ],
+      "qoq_delta_pp": -0.2,
+      "count_qoq_delta": -0.6
     },
     "hiring": {
-      "recruitment_rate": 2.5,
-      "resignation_rate": 1.5,
+      "recruitment_rate": 2.6,
+      "resignation_rate": 1.6,
       "net_pressure": 1,
       "signal": 1,
-      "quarter": "2025 Q3",
+      "quarter": "2025 Q4",
       "frequency": "quarterly",
-      "note": "Higher turnover cluster. Net hiring positive."
+      "recruitment_delta_pp": 0.1,
+      "resignation_delta_pp": 0.1,
+      "net_pressure_delta_pp": 0,
+      "note": "Higher-turnover cluster remained net positive, though vacancy demand eased further in Q4."
     },
     "retrenchment": {
-      "latest_count": 410,
-      "latest_quarter": "2025 Q3",
-      "trend_4q_pct": 0,
+      "latest_count": 270,
+      "latest_quarter": "2025 Q4",
+      "trend_4q_pct": 8,
       "signal": -1,
       "trend_direction": "rising",
       "recent_quarters": [
@@ -319,62 +320,61 @@
         },
         {
           "quarter": "2024 Q4",
-          "count": 240
+          "count": 250
         },
         {
           "quarter": "2025 Q1",
-          "count": 230
+          "count": 240
         },
         {
           "quarter": "2025 Q2",
-          "count": 270
+          "count": 280
         },
         {
           "quarter": "2025 Q3",
           "count": 410
+        },
+        {
+          "quarter": "2025 Q4",
+          "count": 270
         }
       ],
-      "incidence_per_1000": 0.9
+      "incidence_per_1000": 1.5,
+      "qoq_delta_count": -140
     },
     "re_entry": {
-      "rate_6m": 60.5,
-      "rate_12m": 80.1,
-      "quarter": "2025 Q3",
-      "note": "Clerical/service workers re-enter employment faster than PMETs"
+      "rate_6m": 65,
+      "rate_12m": 78.5,
+      "quarter": "2025 Q4",
+      "rate_6m_delta_pp": 4.5,
+      "rate_12m_delta_pp": -1.6,
+      "note": "6-month re-entry improved strongly in Q4, while 12-month re-entry stayed high but eased slightly."
     },
     "overall": "deteriorating",
-    "summary": "Vacancy rate easing to 3.3% as post-pandemic tightness normalises. Retrenchments ticked up in Q3 2025 but remain low. Administrative and customer service roles seeing reduced demand for outsourced positions.",
-    "data_as_of": "2025 Q3",
-    "source": "Labour Market Report Q3 2025, MRSD, MOM"
+    "summary": "Clerical, sales and service vacancies eased further in Q4 2025, but net hiring remained positive and retrenchment counts fell from the Q3 spike. Re-entry improved meaningfully at the 6-month mark.",
+    "data_as_of": "2025 Q4",
+    "source": "Labour Market Report Q4 2025, MRSD, MOM"
   },
   {
     "cluster_key": "production_transport",
     "cluster_label": "Production & Transport Operators, Cleaners & Labourers",
     "vacancy": {
-      "latest_rate": 2,
-      "latest_quarter": "2025 Q3",
-      "trend_4q_pct": 17.65,
+      "latest_rate": 2.8,
+      "latest_quarter": "2025 Q4",
+      "trend_4q_pct": 16.67,
       "signal": 1,
       "recent_quarters": [
         {
-          "quarter": "2023 Q2",
+          "quarter": "2022",
+          "rate": 4.2
+        },
+        {
+          "quarter": "2023",
           "rate": 2.7
         },
         {
-          "quarter": "2023 Q3",
+          "quarter": "2024",
           "rate": 2.3
-        },
-        {
-          "quarter": "2023 Q4",
-          "rate": 2.4
-        },
-        {
-          "quarter": "2024 Q1",
-          "rate": 2.6
-        },
-        {
-          "quarter": "2024 Q2",
-          "rate": 2.7
         },
         {
           "quarter": "2024 Q3",
@@ -387,6 +387,10 @@
         {
           "quarter": "2025 Q3",
           "rate": 2
+        },
+        {
+          "quarter": "2025 Q4",
+          "rate": 2.8
         }
       ],
       "annual_rates": [
@@ -411,41 +415,37 @@
           "rate": 2
         }
       ],
-      "latest_count": 14800,
-      "count_trend_4q_pct": 32.14,
+      "latest_count": 21.7,
+      "count_trend_4q_pct": 20.56,
       "count_signal": 1,
       "recent_counts": [
         {
           "quarter": "2023 Q4",
-          "count": 15800
-        },
-        {
-          "quarter": "2024 Q1",
-          "count": 17100
-        },
-        {
-          "quarter": "2024 Q2",
-          "count": 18200
+          "count": 15.8
         },
         {
           "quarter": "2024 Q3",
-          "count": 11200
+          "count": 11.2
         },
         {
           "quarter": "2024 Q4",
-          "count": 18000
+          "count": 18
         },
         {
           "quarter": "2025 Q1",
-          "count": 18300
+          "count": 18.3
         },
         {
           "quarter": "2025 Q2",
-          "count": 18200
+          "count": 18.2
         },
         {
           "quarter": "2025 Q3",
-          "count": 14800
+          "count": 14.8
+        },
+        {
+          "quarter": "2025 Q4",
+          "count": 21.7
         }
       ],
       "annual_counts": [
@@ -469,21 +469,26 @@
           "year": "2025",
           "count": 17100
         }
-      ]
+      ],
+      "qoq_delta_pp": 0.8,
+      "count_qoq_delta": 6.9
     },
     "hiring": {
-      "recruitment_rate": 2.1,
-      "resignation_rate": 1.3,
-      "net_pressure": 0.8,
+      "recruitment_rate": 2.4,
+      "resignation_rate": 1.5,
+      "net_pressure": 0.9,
       "signal": 1,
-      "quarter": "2025 Q3",
+      "quarter": "2025 Q4",
       "frequency": "quarterly",
-      "note": "Construction and manufacturing driving non-resident hiring."
+      "recruitment_delta_pp": 0.3,
+      "resignation_delta_pp": 0.2,
+      "net_pressure_delta_pp": 0.1,
+      "note": "Demand strengthened sharply into Q4, led by production and transport hiring."
     },
     "retrenchment": {
-      "latest_count": 130,
-      "latest_quarter": "2025 Q3",
-      "trend_4q_pct": 0,
+      "latest_count": 280,
+      "latest_quarter": "2025 Q4",
+      "trend_4q_pct": -40.43,
       "signal": 1,
       "trend_direction": "falling",
       "recent_quarters": [
@@ -493,32 +498,39 @@
         },
         {
           "quarter": "2024 Q4",
-          "count": 430
+          "count": 470
         },
         {
           "quarter": "2025 Q1",
-          "count": 550
+          "count": 630
         },
         {
           "quarter": "2025 Q2",
-          "count": 250
+          "count": 380
         },
         {
           "quarter": "2025 Q3",
-          "count": 130
+          "count": 150
+        },
+        {
+          "quarter": "2025 Q4",
+          "count": 280
         }
       ],
-      "incidence_per_1000": 0.3
+      "incidence_per_1000": 1.5,
+      "qoq_delta_count": 130
     },
     "re_entry": {
-      "rate_6m": 67.6,
-      "rate_12m": 82.6,
-      "quarter": "2025 Q3",
-      "note": "Highest re-entry rate among occupation groups"
+      "rate_6m": 64.8,
+      "rate_12m": 78.1,
+      "quarter": "2025 Q4",
+      "rate_6m_delta_pp": -2.8,
+      "rate_12m_delta_pp": -4.5,
+      "note": "Vacancy demand rose sharply in Q4, though re-entry rates eased from a very strong Q3 base."
     },
     "overall": "strong",
-    "summary": "Vacancy rate recovered to 2.0% from 1.7% trough. Retrenchments fell sharply to just 130 in Q3 2025. Construction and manufacturing hiring driving demand.",
-    "data_as_of": "2025 Q3",
-    "source": "Labour Market Report Q3 2025, MRSD, MOM"
+    "summary": "Production and transport demand strengthened sharply in Q4 2025, with vacancy rates and published vacancy counts both rising strongly. Hiring stayed net positive and retrenchments remained well below the year-ago quarter.",
+    "data_as_of": "2025 Q4",
+    "source": "Labour Market Report Q4 2025, MRSD, MOM"
   }
 ]

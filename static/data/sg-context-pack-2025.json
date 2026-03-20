@@ -1,6 +1,6 @@
 {
   "version": "V4.0",
-  "generated_at": "2026-03-19",
+  "generated_at": "2026-03-20",
   "description": "Singapore context bundle for AI Work Index. Context data is published separately from the structural score dataset and includes labour, worker, industry, wage-anchor, geography, macro, and national AI context.",
   "score_dataset": {
     "json": "sg-ai-occupations-v4.json",
@@ -18,11 +18,11 @@
   },
   "vintage": {
     "worker_profile": "2024",
-    "industry_context": "2024",
+    "industry_context": "2025 employment, 2025 Q3 vacancy overlay",
     "sector_wage_anchors": "2024",
     "geography_context": "2020",
     "macro_context": "2024-2025",
-    "labour_monitor": "Q3 2025 full + Q4 2025 advance",
+    "labour_monitor": "Q4 2025 full",
     "national_ai_context": "2025-2026",
     "transition_infrastructure": "2024-2026"
   },
@@ -38,825 +38,832 @@
     "industry_context": {
       "description": "Industry footprint and momentum context derived from official industry × occupation releases.",
       "data": {
-        "MANAGERS": {
-          "major_group": "MANAGERS",
-          "total_employment_2025": 405.7,
-          "top_industries": [
-            {
-              "key": "wholesale_retail_trade",
-              "label": "Wholesale & Retail Trade",
-              "employment_2025": 83.7,
-              "share_2025": 0.2063,
-              "cagr_5y": 0.01035,
-              "change_2y": 0.092689,
-              "vacancy_latest": 5100,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": -0.0192,
-              "vacancy_signal": "stable"
-            },
-            {
-              "key": "financial_insurance_services",
-              "label": "Financial & Insurance Services",
-              "employment_2025": 62.3,
-              "share_2025": 0.1536,
-              "cagr_5y": 0.028628,
-              "change_2y": 0.031457,
-              "vacancy_latest": 5100,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": 0.275,
-              "vacancy_signal": "rising"
-            },
-            {
-              "key": "professional_services",
-              "label": "Professional Services",
-              "employment_2025": 43,
-              "share_2025": 0.106,
-              "cagr_5y": -0.000928,
-              "change_2y": 0.122715,
-              "vacancy_latest": 5500,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": 0.3415,
-              "vacancy_signal": "rising"
-            },
-            {
-              "key": "public_admin_education",
-              "label": "Public Administration & Education Services",
-              "employment_2025": 36.8,
-              "share_2025": 0.0907,
-              "cagr_5y": 0.030286,
-              "change_2y": 0.18328,
-              "vacancy_latest": null,
-              "vacancy_quarter": null,
-              "vacancy_trend_4q_pct": null,
-              "vacancy_signal": null
-            },
-            {
-              "key": "information_communications",
-              "label": "Information & Communications",
-              "employment_2025": 34.3,
-              "share_2025": 0.0845,
-              "cagr_5y": 0.010839,
-              "change_2y": 0.042553,
-              "vacancy_latest": 5100,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": -0.1053,
-              "vacancy_signal": "cooling"
-            }
-          ],
-          "fastest_growing_industries": [
-            {
-              "key": "transportation_storage",
-              "label": "Transportation & Storage",
-              "employment_2025": 20.2,
-              "share_2025": 0.0498,
-              "cagr_5y": 0.054396,
-              "change_2y": 0.122222,
-              "vacancy_latest": 5100,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": 0.4167,
-              "vacancy_signal": "rising"
-            },
-            {
-              "key": "public_admin_education",
-              "label": "Public Administration & Education Services",
-              "employment_2025": 36.8,
-              "share_2025": 0.0907,
-              "cagr_5y": 0.030286,
-              "change_2y": 0.18328,
-              "vacancy_latest": null,
-              "vacancy_quarter": null,
-              "vacancy_trend_4q_pct": null,
-              "vacancy_signal": null
-            },
-            {
-              "key": "financial_insurance_services",
-              "label": "Financial & Insurance Services",
-              "employment_2025": 62.3,
-              "share_2025": 0.1536,
-              "cagr_5y": 0.028628,
-              "change_2y": 0.031457,
-              "vacancy_latest": 5100,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": 0.275,
-              "vacancy_signal": "rising"
-            }
-          ]
+        "metadata": {
+          "employment_vintage": "2025",
+          "vacancy_overlay_vintage": "2025 Q3",
+          "vacancy_overlay_source_note": "Industry-level vacancy overlays use the latest published detailed industry-by-occupation cross-tab, which currently lags the main cluster labour monitor."
         },
-        "PROFESSIONALS": {
-          "major_group": "PROFESSIONALS",
-          "total_employment_2025": 624.4,
-          "top_industries": [
-            {
-              "key": "public_admin_education",
-              "label": "Public Administration & Education Services",
-              "employment_2025": 111,
-              "share_2025": 0.1778,
-              "cagr_5y": 0.027755,
-              "change_2y": -0.012456,
-              "vacancy_latest": null,
-              "vacancy_quarter": null,
-              "vacancy_trend_4q_pct": null,
-              "vacancy_signal": null
-            },
-            {
-              "key": "financial_insurance_services",
-              "label": "Financial & Insurance Services",
-              "employment_2025": 97,
-              "share_2025": 0.1553,
-              "cagr_5y": 0.064995,
-              "change_2y": 0.02537,
-              "vacancy_latest": 5100,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": 0.275,
-              "vacancy_signal": "rising"
-            },
-            {
-              "key": "professional_services",
-              "label": "Professional Services",
-              "employment_2025": 80.1,
-              "share_2025": 0.1283,
-              "cagr_5y": 0.0336,
-              "change_2y": -0.066434,
-              "vacancy_latest": 5500,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": 0.3415,
-              "vacancy_signal": "rising"
-            },
-            {
-              "key": "health_social_services",
-              "label": "Health & Social Services",
-              "employment_2025": 76.5,
-              "share_2025": 0.1225,
-              "cagr_5y": 0.081101,
-              "change_2y": 0.125,
-              "vacancy_latest": null,
-              "vacancy_quarter": null,
-              "vacancy_trend_4q_pct": null,
-              "vacancy_signal": null
-            },
-            {
-              "key": "information_communications",
-              "label": "Information & Communications",
-              "employment_2025": 60.8,
-              "share_2025": 0.0974,
-              "cagr_5y": 0.072233,
-              "change_2y": -0.074581,
-              "vacancy_latest": 5100,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": -0.1053,
-              "vacancy_signal": "cooling"
-            }
-          ],
-          "fastest_growing_industries": [
-            {
-              "key": "health_social_services",
-              "label": "Health & Social Services",
-              "employment_2025": 76.5,
-              "share_2025": 0.1225,
-              "cagr_5y": 0.081101,
-              "change_2y": 0.125,
-              "vacancy_latest": null,
-              "vacancy_quarter": null,
-              "vacancy_trend_4q_pct": null,
-              "vacancy_signal": null
-            },
-            {
-              "key": "information_communications",
-              "label": "Information & Communications",
-              "employment_2025": 60.8,
-              "share_2025": 0.0974,
-              "cagr_5y": 0.072233,
-              "change_2y": -0.074581,
-              "vacancy_latest": 5100,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": -0.1053,
-              "vacancy_signal": "cooling"
-            },
-            {
-              "key": "financial_insurance_services",
-              "label": "Financial & Insurance Services",
-              "employment_2025": 97,
-              "share_2025": 0.1553,
-              "cagr_5y": 0.064995,
-              "change_2y": 0.02537,
-              "vacancy_latest": 5100,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": 0.275,
-              "vacancy_signal": "rising"
-            }
-          ]
-        },
-        "ASSOCIATE PROFESSIONALS AND TECHNICIANS": {
-          "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
-          "total_employment_2025": 495.5,
-          "top_industries": [
-            {
-              "key": "public_admin_education",
-              "label": "Public Administration & Education Services",
-              "employment_2025": 73.5,
-              "share_2025": 0.1483,
-              "cagr_5y": 0.028711,
-              "change_2y": 0.130769,
-              "vacancy_latest": null,
-              "vacancy_quarter": null,
-              "vacancy_trend_4q_pct": null,
-              "vacancy_signal": null
-            },
-            {
-              "key": "wholesale_retail_trade",
-              "label": "Wholesale & Retail Trade",
-              "employment_2025": 64.4,
-              "share_2025": 0.13,
-              "cagr_5y": -0.012844,
-              "change_2y": -0.009231,
-              "vacancy_latest": 5100,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": -0.0192,
-              "vacancy_signal": "stable"
-            },
-            {
-              "key": "financial_insurance_services",
-              "label": "Financial & Insurance Services",
-              "employment_2025": 50.1,
-              "share_2025": 0.1011,
-              "cagr_5y": 0.012426,
-              "change_2y": 0.065957,
-              "vacancy_latest": 5100,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": 0.275,
-              "vacancy_signal": "rising"
-            },
-            {
-              "key": "health_social_services",
-              "label": "Health & Social Services",
-              "employment_2025": 46.7,
-              "share_2025": 0.0942,
-              "cagr_5y": 0.113348,
-              "change_2y": 0.176322,
-              "vacancy_latest": null,
-              "vacancy_quarter": null,
-              "vacancy_trend_4q_pct": null,
-              "vacancy_signal": null
-            },
-            {
-              "key": "professional_services",
-              "label": "Professional Services",
-              "employment_2025": 43.4,
-              "share_2025": 0.0876,
-              "cagr_5y": 0.007541,
-              "change_2y": -0.058568,
-              "vacancy_latest": 5500,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": 0.3415,
-              "vacancy_signal": "rising"
-            }
-          ],
-          "fastest_growing_industries": [
-            {
-              "key": "health_social_services",
-              "label": "Health & Social Services",
-              "employment_2025": 46.7,
-              "share_2025": 0.0942,
-              "cagr_5y": 0.113348,
-              "change_2y": 0.176322,
-              "vacancy_latest": null,
-              "vacancy_quarter": null,
-              "vacancy_trend_4q_pct": null,
-              "vacancy_signal": null
-            },
-            {
-              "key": "real_estate_services",
-              "label": "Real Estate Services",
-              "employment_2025": 29.8,
-              "share_2025": 0.0601,
-              "cagr_5y": 0.030849,
-              "change_2y": 0.120301,
-              "vacancy_latest": 1300,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": -0.1333,
-              "vacancy_signal": "cooling"
-            },
-            {
-              "key": "public_admin_education",
-              "label": "Public Administration & Education Services",
-              "employment_2025": 73.5,
-              "share_2025": 0.1483,
-              "cagr_5y": 0.028711,
-              "change_2y": 0.130769,
-              "vacancy_latest": null,
-              "vacancy_quarter": null,
-              "vacancy_trend_4q_pct": null,
-              "vacancy_signal": null
-            }
-          ]
-        },
-        "CLERICAL SUPPORT WORKERS": {
-          "major_group": "CLERICAL SUPPORT WORKERS",
-          "total_employment_2025": 201,
-          "top_industries": [
-            {
-              "key": "wholesale_retail_trade",
-              "label": "Wholesale & Retail Trade",
-              "employment_2025": 32.3,
-              "share_2025": 0.1607,
-              "cagr_5y": -0.02254,
-              "change_2y": -0.006154,
-              "vacancy_latest": 5100,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": -0.0192,
-              "vacancy_signal": "stable"
-            },
-            {
-              "key": "transportation_storage",
-              "label": "Transportation & Storage",
-              "employment_2025": 22.2,
-              "share_2025": 0.1104,
-              "cagr_5y": -0.007055,
-              "change_2y": -0.004484,
-              "vacancy_latest": 5100,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": 0.4167,
-              "vacancy_signal": "rising"
-            },
-            {
-              "key": "health_social_services",
-              "label": "Health & Social Services",
-              "employment_2025": 19.6,
-              "share_2025": 0.0975,
-              "cagr_5y": 0.03131,
-              "change_2y": 0.101124,
-              "vacancy_latest": null,
-              "vacancy_quarter": null,
-              "vacancy_trend_4q_pct": null,
-              "vacancy_signal": null
-            },
-            {
-              "key": "professional_services",
-              "label": "Professional Services",
-              "employment_2025": 17.2,
-              "share_2025": 0.0856,
-              "cagr_5y": -0.003452,
-              "change_2y": -0.022727,
-              "vacancy_latest": 5500,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": 0.3415,
-              "vacancy_signal": "rising"
-            },
-            {
-              "key": "financial_insurance_services",
-              "label": "Financial & Insurance Services",
-              "employment_2025": 17.1,
-              "share_2025": 0.0851,
-              "cagr_5y": -0.05756,
-              "change_2y": -0.222727,
-              "vacancy_latest": 5100,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": 0.275,
-              "vacancy_signal": "rising"
-            }
-          ],
-          "fastest_growing_industries": [
-            {
-              "key": "health_social_services",
-              "label": "Health & Social Services",
-              "employment_2025": 19.6,
-              "share_2025": 0.0975,
-              "cagr_5y": 0.03131,
-              "change_2y": 0.101124,
-              "vacancy_latest": null,
-              "vacancy_quarter": null,
-              "vacancy_trend_4q_pct": null,
-              "vacancy_signal": null
-            },
-            {
-              "key": "accommodation_food_services",
-              "label": "Accommodation & Food Services",
-              "employment_2025": 10.7,
-              "share_2025": 0.0532,
-              "cagr_5y": 0.026245,
-              "change_2y": 0.188889,
-              "vacancy_latest": 6200,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": 0.1273,
-              "vacancy_signal": "rising"
-            },
-            {
-              "key": "other_community_social_personal",
-              "label": "Other Community, Social & Personal Services",
-              "employment_2025": 8.8,
-              "share_2025": 0.0438,
-              "cagr_5y": 0.011768,
-              "change_2y": 0.023256,
-              "vacancy_latest": null,
-              "vacancy_quarter": null,
-              "vacancy_trend_4q_pct": null,
-              "vacancy_signal": null
-            }
-          ]
-        },
-        "SERVICE AND SALES WORKERS": {
-          "major_group": "SERVICE AND SALES WORKERS",
-          "total_employment_2025": 247,
-          "top_industries": [
-            {
-              "key": "accommodation_food_services",
-              "label": "Accommodation & Food Services",
-              "employment_2025": 64.3,
-              "share_2025": 0.2603,
-              "cagr_5y": 0.02332,
-              "change_2y": -0.009245,
-              "vacancy_latest": 6200,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": 0.1273,
-              "vacancy_signal": "rising"
-            },
-            {
-              "key": "wholesale_retail_trade",
-              "label": "Wholesale & Retail Trade",
-              "employment_2025": 60.6,
-              "share_2025": 0.2453,
-              "cagr_5y": -0.013617,
-              "change_2y": -0.016234,
-              "vacancy_latest": 5100,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": -0.0192,
-              "vacancy_signal": "stable"
-            },
-            {
-              "key": "administrative_support_services",
-              "label": "Administrative & Support Services",
-              "employment_2025": 31.4,
-              "share_2025": 0.1271,
-              "cagr_5y": 0.017437,
-              "change_2y": 0.050167,
-              "vacancy_latest": 3300,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": -0.2826,
-              "vacancy_signal": "cooling"
-            },
-            {
-              "key": "other_community_social_personal",
-              "label": "Other Community, Social & Personal Services",
-              "employment_2025": 18.8,
-              "share_2025": 0.0761,
-              "cagr_5y": 0.015598,
-              "change_2y": -0.035897,
-              "vacancy_latest": null,
-              "vacancy_quarter": null,
-              "vacancy_trend_4q_pct": null,
-              "vacancy_signal": null
-            },
-            {
-              "key": "health_social_services",
-              "label": "Health & Social Services",
-              "employment_2025": 16.5,
-              "share_2025": 0.0668,
-              "cagr_5y": -0.055912,
-              "change_2y": -0.228972,
-              "vacancy_latest": null,
-              "vacancy_quarter": null,
-              "vacancy_trend_4q_pct": null,
-              "vacancy_signal": null
-            }
-          ],
-          "fastest_growing_industries": [
-            {
-              "key": "accommodation_food_services",
-              "label": "Accommodation & Food Services",
-              "employment_2025": 64.3,
-              "share_2025": 0.2603,
-              "cagr_5y": 0.02332,
-              "change_2y": -0.009245,
-              "vacancy_latest": 6200,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": 0.1273,
-              "vacancy_signal": "rising"
-            },
-            {
-              "key": "administrative_support_services",
-              "label": "Administrative & Support Services",
-              "employment_2025": 31.4,
-              "share_2025": 0.1271,
-              "cagr_5y": 0.017437,
-              "change_2y": 0.050167,
-              "vacancy_latest": 3300,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": -0.2826,
-              "vacancy_signal": "cooling"
-            },
-            {
-              "key": "other_community_social_personal",
-              "label": "Other Community, Social & Personal Services",
-              "employment_2025": 18.8,
-              "share_2025": 0.0761,
-              "cagr_5y": 0.015598,
-              "change_2y": -0.035897,
-              "vacancy_latest": null,
-              "vacancy_quarter": null,
-              "vacancy_trend_4q_pct": null,
-              "vacancy_signal": null
-            }
-          ]
-        },
-        "CRAFTSMEN AND RELATED TRADES WORKERS": {
-          "major_group": "CRAFTSMEN AND RELATED TRADES WORKERS",
-          "total_employment_2025": 51.6,
-          "top_industries": [
-            {
-              "key": "wholesale_retail_trade",
-              "label": "Wholesale & Retail Trade",
-              "employment_2025": 9,
-              "share_2025": 0.1744,
-              "cagr_5y": -0.012825,
-              "change_2y": -0.150943,
-              "vacancy_latest": 5100,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": -0.0192,
-              "vacancy_signal": "stable"
-            },
-            {
-              "key": "other_community_social_personal",
-              "label": "Other Community, Social & Personal Services",
-              "employment_2025": 3.6,
-              "share_2025": 0.0698,
-              "cagr_5y": 0.051547,
-              "change_2y": -0.1,
-              "vacancy_latest": null,
-              "vacancy_quarter": null,
-              "vacancy_trend_4q_pct": null,
-              "vacancy_signal": null
-            },
-            {
-              "key": "administrative_support_services",
-              "label": "Administrative & Support Services",
-              "employment_2025": 2.8,
-              "share_2025": 0.0543,
-              "cagr_5y": -0.032327,
-              "change_2y": 0.076923,
-              "vacancy_latest": 3300,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": -0.2826,
-              "vacancy_signal": "cooling"
-            },
-            {
-              "key": "professional_services",
-              "label": "Professional Services",
-              "employment_2025": 2.1,
-              "share_2025": 0.0407,
-              "cagr_5y": -0.041815,
-              "change_2y": -0.222222,
-              "vacancy_latest": 5500,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": 0.3415,
-              "vacancy_signal": "rising"
-            },
-            {
-              "key": "accommodation_food_services",
-              "label": "Accommodation & Food Services",
-              "employment_2025": 1.1,
-              "share_2025": 0.0213,
-              "cagr_5y": 0.019245,
-              "change_2y": -0.266667,
-              "vacancy_latest": 6200,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": 0.1273,
-              "vacancy_signal": "rising"
-            }
-          ],
-          "fastest_growing_industries": [
-            {
-              "key": "other_community_social_personal",
-              "label": "Other Community, Social & Personal Services",
-              "employment_2025": 3.6,
-              "share_2025": 0.0698,
-              "cagr_5y": 0.051547,
-              "change_2y": -0.1,
-              "vacancy_latest": null,
-              "vacancy_quarter": null,
-              "vacancy_trend_4q_pct": null,
-              "vacancy_signal": null
-            },
-            {
-              "key": "wholesale_retail_trade",
-              "label": "Wholesale & Retail Trade",
-              "employment_2025": 9,
-              "share_2025": 0.1744,
-              "cagr_5y": -0.012825,
-              "change_2y": -0.150943,
-              "vacancy_latest": 5100,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": -0.0192,
-              "vacancy_signal": "stable"
-            },
-            {
-              "key": "administrative_support_services",
-              "label": "Administrative & Support Services",
-              "employment_2025": 2.8,
-              "share_2025": 0.0543,
-              "cagr_5y": -0.032327,
-              "change_2y": 0.076923,
-              "vacancy_latest": 3300,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": -0.2826,
-              "vacancy_signal": "cooling"
-            }
-          ]
-        },
-        "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": {
-          "major_group": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
-          "total_employment_2025": 128.9,
-          "top_industries": [
-            {
-              "key": "transportation_storage",
-              "label": "Transportation & Storage",
-              "employment_2025": 84.7,
-              "share_2025": 0.6571,
-              "cagr_5y": -0.031695,
-              "change_2y": -0.034208,
-              "vacancy_latest": 5100,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": 0.4167,
-              "vacancy_signal": "rising"
-            },
-            {
-              "key": "wholesale_retail_trade",
-              "label": "Wholesale & Retail Trade",
-              "employment_2025": 11.5,
-              "share_2025": 0.0892,
-              "cagr_5y": -0.032988,
-              "change_2y": -0.094488,
-              "vacancy_latest": 5100,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": -0.0192,
-              "vacancy_signal": "stable"
-            },
-            {
-              "key": "administrative_support_services",
-              "label": "Administrative & Support Services",
-              "employment_2025": 3,
-              "share_2025": 0.0233,
-              "cagr_5y": -0.012825,
-              "change_2y": 0.304348,
-              "vacancy_latest": 3300,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": -0.2826,
-              "vacancy_signal": "cooling"
-            },
-            {
-              "key": "other_community_social_personal",
-              "label": "Other Community, Social & Personal Services",
-              "employment_2025": 2.3,
-              "share_2025": 0.0178,
-              "cagr_5y": 0.00893,
-              "change_2y": 0.210526,
-              "vacancy_latest": null,
-              "vacancy_quarter": null,
-              "vacancy_trend_4q_pct": null,
-              "vacancy_signal": null
-            },
-            {
-              "key": "accommodation_food_services",
-              "label": "Accommodation & Food Services",
-              "employment_2025": 1.9,
-              "share_2025": 0.0147,
-              "cagr_5y": 0.010872,
-              "change_2y": -0.173913,
-              "vacancy_latest": 6200,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": 0.1273,
-              "vacancy_signal": "rising"
-            }
-          ],
-          "fastest_growing_industries": [
-            {
-              "key": "transportation_storage",
-              "label": "Transportation & Storage",
-              "employment_2025": 84.7,
-              "share_2025": 0.6571,
-              "cagr_5y": -0.031695,
-              "change_2y": -0.034208,
-              "vacancy_latest": 5100,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": 0.4167,
-              "vacancy_signal": "rising"
-            },
-            {
-              "key": "wholesale_retail_trade",
-              "label": "Wholesale & Retail Trade",
-              "employment_2025": 11.5,
-              "share_2025": 0.0892,
-              "cagr_5y": -0.032988,
-              "change_2y": -0.094488,
-              "vacancy_latest": 5100,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": -0.0192,
-              "vacancy_signal": "stable"
-            }
-          ]
-        },
-        "CLEANERS, LABOURERS AND RELATED WORKERS": {
-          "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
-          "total_employment_2025": 167.7,
-          "top_industries": [
-            {
-              "key": "public_admin_education",
-              "label": "Public Administration & Education Services",
-              "employment_2025": 52.2,
-              "share_2025": 0.3113,
-              "cagr_5y": -0.019836,
-              "change_2y": -0.084211,
-              "vacancy_latest": null,
-              "vacancy_quarter": null,
-              "vacancy_trend_4q_pct": null,
-              "vacancy_signal": null
-            },
-            {
-              "key": "administrative_support_services",
-              "label": "Administrative & Support Services",
-              "employment_2025": 38.6,
-              "share_2025": 0.2302,
-              "cagr_5y": 0.005263,
-              "change_2y": 0.093484,
-              "vacancy_latest": 3300,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": -0.2826,
-              "vacancy_signal": "cooling"
-            },
-            {
-              "key": "accommodation_food_services",
-              "label": "Accommodation & Food Services",
-              "employment_2025": 38.4,
-              "share_2025": 0.229,
-              "cagr_5y": 0.025242,
-              "change_2y": 0.149701,
-              "vacancy_latest": 6200,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": 0.1273,
-              "vacancy_signal": "rising"
-            },
-            {
-              "key": "transportation_storage",
-              "label": "Transportation & Storage",
-              "employment_2025": 15.9,
-              "share_2025": 0.0948,
-              "cagr_5y": 0.050982,
-              "change_2y": -0.02454,
-              "vacancy_latest": 5100,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": 0.4167,
-              "vacancy_signal": "rising"
-            },
-            {
-              "key": "wholesale_retail_trade",
-              "label": "Wholesale & Retail Trade",
-              "employment_2025": 15.7,
-              "share_2025": 0.0936,
-              "cagr_5y": 0.033736,
-              "change_2y": -0.048485,
-              "vacancy_latest": 5100,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": -0.0192,
-              "vacancy_signal": "stable"
-            }
-          ],
-          "fastest_growing_industries": [
-            {
-              "key": "real_estate_services",
-              "label": "Real Estate Services",
-              "employment_2025": 8.6,
-              "share_2025": 0.0513,
-              "cagr_5y": 0.234456,
-              "change_2y": 0.194444,
-              "vacancy_latest": 1300,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": -0.1333,
-              "vacancy_signal": "cooling"
-            },
-            {
-              "key": "other_community_social_personal",
-              "label": "Other Community, Social & Personal Services",
-              "employment_2025": 9.5,
-              "share_2025": 0.0566,
-              "cagr_5y": 0.069161,
-              "change_2y": 0.397059,
-              "vacancy_latest": null,
-              "vacancy_quarter": null,
-              "vacancy_trend_4q_pct": null,
-              "vacancy_signal": null
-            },
-            {
-              "key": "transportation_storage",
-              "label": "Transportation & Storage",
-              "employment_2025": 15.9,
-              "share_2025": 0.0948,
-              "cagr_5y": 0.050982,
-              "change_2y": -0.02454,
-              "vacancy_latest": 5100,
-              "vacancy_quarter": "2025 Q3",
-              "vacancy_trend_4q_pct": 0.4167,
-              "vacancy_signal": "rising"
-            }
-          ]
+        "groups": {
+          "MANAGERS": {
+            "major_group": "MANAGERS",
+            "total_employment_2025": 405.7,
+            "top_industries": [
+              {
+                "key": "wholesale_retail_trade",
+                "label": "Wholesale & Retail Trade",
+                "employment_2025": 83.7,
+                "share_2025": 0.2063,
+                "cagr_5y": 0.01035,
+                "change_2y": 0.092689,
+                "vacancy_latest": 5100,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": -0.0192,
+                "vacancy_signal": "stable"
+              },
+              {
+                "key": "financial_insurance_services",
+                "label": "Financial & Insurance Services",
+                "employment_2025": 62.3,
+                "share_2025": 0.1536,
+                "cagr_5y": 0.028628,
+                "change_2y": 0.031457,
+                "vacancy_latest": 5100,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": 0.275,
+                "vacancy_signal": "rising"
+              },
+              {
+                "key": "professional_services",
+                "label": "Professional Services",
+                "employment_2025": 43,
+                "share_2025": 0.106,
+                "cagr_5y": -0.000928,
+                "change_2y": 0.122715,
+                "vacancy_latest": 5500,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": 0.3415,
+                "vacancy_signal": "rising"
+              },
+              {
+                "key": "public_admin_education",
+                "label": "Public Administration & Education Services",
+                "employment_2025": 36.8,
+                "share_2025": 0.0907,
+                "cagr_5y": 0.030286,
+                "change_2y": 0.18328,
+                "vacancy_latest": null,
+                "vacancy_quarter": null,
+                "vacancy_trend_4q_pct": null,
+                "vacancy_signal": null
+              },
+              {
+                "key": "information_communications",
+                "label": "Information & Communications",
+                "employment_2025": 34.3,
+                "share_2025": 0.0845,
+                "cagr_5y": 0.010839,
+                "change_2y": 0.042553,
+                "vacancy_latest": 5100,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": -0.1053,
+                "vacancy_signal": "cooling"
+              }
+            ],
+            "fastest_growing_industries": [
+              {
+                "key": "transportation_storage",
+                "label": "Transportation & Storage",
+                "employment_2025": 20.2,
+                "share_2025": 0.0498,
+                "cagr_5y": 0.054396,
+                "change_2y": 0.122222,
+                "vacancy_latest": 5100,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": 0.4167,
+                "vacancy_signal": "rising"
+              },
+              {
+                "key": "public_admin_education",
+                "label": "Public Administration & Education Services",
+                "employment_2025": 36.8,
+                "share_2025": 0.0907,
+                "cagr_5y": 0.030286,
+                "change_2y": 0.18328,
+                "vacancy_latest": null,
+                "vacancy_quarter": null,
+                "vacancy_trend_4q_pct": null,
+                "vacancy_signal": null
+              },
+              {
+                "key": "financial_insurance_services",
+                "label": "Financial & Insurance Services",
+                "employment_2025": 62.3,
+                "share_2025": 0.1536,
+                "cagr_5y": 0.028628,
+                "change_2y": 0.031457,
+                "vacancy_latest": 5100,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": 0.275,
+                "vacancy_signal": "rising"
+              }
+            ]
+          },
+          "PROFESSIONALS": {
+            "major_group": "PROFESSIONALS",
+            "total_employment_2025": 624.4,
+            "top_industries": [
+              {
+                "key": "public_admin_education",
+                "label": "Public Administration & Education Services",
+                "employment_2025": 111,
+                "share_2025": 0.1778,
+                "cagr_5y": 0.027755,
+                "change_2y": -0.012456,
+                "vacancy_latest": null,
+                "vacancy_quarter": null,
+                "vacancy_trend_4q_pct": null,
+                "vacancy_signal": null
+              },
+              {
+                "key": "financial_insurance_services",
+                "label": "Financial & Insurance Services",
+                "employment_2025": 97,
+                "share_2025": 0.1553,
+                "cagr_5y": 0.064995,
+                "change_2y": 0.02537,
+                "vacancy_latest": 5100,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": 0.275,
+                "vacancy_signal": "rising"
+              },
+              {
+                "key": "professional_services",
+                "label": "Professional Services",
+                "employment_2025": 80.1,
+                "share_2025": 0.1283,
+                "cagr_5y": 0.0336,
+                "change_2y": -0.066434,
+                "vacancy_latest": 5500,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": 0.3415,
+                "vacancy_signal": "rising"
+              },
+              {
+                "key": "health_social_services",
+                "label": "Health & Social Services",
+                "employment_2025": 76.5,
+                "share_2025": 0.1225,
+                "cagr_5y": 0.081101,
+                "change_2y": 0.125,
+                "vacancy_latest": null,
+                "vacancy_quarter": null,
+                "vacancy_trend_4q_pct": null,
+                "vacancy_signal": null
+              },
+              {
+                "key": "information_communications",
+                "label": "Information & Communications",
+                "employment_2025": 60.8,
+                "share_2025": 0.0974,
+                "cagr_5y": 0.072233,
+                "change_2y": -0.074581,
+                "vacancy_latest": 5100,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": -0.1053,
+                "vacancy_signal": "cooling"
+              }
+            ],
+            "fastest_growing_industries": [
+              {
+                "key": "health_social_services",
+                "label": "Health & Social Services",
+                "employment_2025": 76.5,
+                "share_2025": 0.1225,
+                "cagr_5y": 0.081101,
+                "change_2y": 0.125,
+                "vacancy_latest": null,
+                "vacancy_quarter": null,
+                "vacancy_trend_4q_pct": null,
+                "vacancy_signal": null
+              },
+              {
+                "key": "information_communications",
+                "label": "Information & Communications",
+                "employment_2025": 60.8,
+                "share_2025": 0.0974,
+                "cagr_5y": 0.072233,
+                "change_2y": -0.074581,
+                "vacancy_latest": 5100,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": -0.1053,
+                "vacancy_signal": "cooling"
+              },
+              {
+                "key": "financial_insurance_services",
+                "label": "Financial & Insurance Services",
+                "employment_2025": 97,
+                "share_2025": 0.1553,
+                "cagr_5y": 0.064995,
+                "change_2y": 0.02537,
+                "vacancy_latest": 5100,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": 0.275,
+                "vacancy_signal": "rising"
+              }
+            ]
+          },
+          "ASSOCIATE PROFESSIONALS AND TECHNICIANS": {
+            "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
+            "total_employment_2025": 495.5,
+            "top_industries": [
+              {
+                "key": "public_admin_education",
+                "label": "Public Administration & Education Services",
+                "employment_2025": 73.5,
+                "share_2025": 0.1483,
+                "cagr_5y": 0.028711,
+                "change_2y": 0.130769,
+                "vacancy_latest": null,
+                "vacancy_quarter": null,
+                "vacancy_trend_4q_pct": null,
+                "vacancy_signal": null
+              },
+              {
+                "key": "wholesale_retail_trade",
+                "label": "Wholesale & Retail Trade",
+                "employment_2025": 64.4,
+                "share_2025": 0.13,
+                "cagr_5y": -0.012844,
+                "change_2y": -0.009231,
+                "vacancy_latest": 5100,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": -0.0192,
+                "vacancy_signal": "stable"
+              },
+              {
+                "key": "financial_insurance_services",
+                "label": "Financial & Insurance Services",
+                "employment_2025": 50.1,
+                "share_2025": 0.1011,
+                "cagr_5y": 0.012426,
+                "change_2y": 0.065957,
+                "vacancy_latest": 5100,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": 0.275,
+                "vacancy_signal": "rising"
+              },
+              {
+                "key": "health_social_services",
+                "label": "Health & Social Services",
+                "employment_2025": 46.7,
+                "share_2025": 0.0942,
+                "cagr_5y": 0.113348,
+                "change_2y": 0.176322,
+                "vacancy_latest": null,
+                "vacancy_quarter": null,
+                "vacancy_trend_4q_pct": null,
+                "vacancy_signal": null
+              },
+              {
+                "key": "professional_services",
+                "label": "Professional Services",
+                "employment_2025": 43.4,
+                "share_2025": 0.0876,
+                "cagr_5y": 0.007541,
+                "change_2y": -0.058568,
+                "vacancy_latest": 5500,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": 0.3415,
+                "vacancy_signal": "rising"
+              }
+            ],
+            "fastest_growing_industries": [
+              {
+                "key": "health_social_services",
+                "label": "Health & Social Services",
+                "employment_2025": 46.7,
+                "share_2025": 0.0942,
+                "cagr_5y": 0.113348,
+                "change_2y": 0.176322,
+                "vacancy_latest": null,
+                "vacancy_quarter": null,
+                "vacancy_trend_4q_pct": null,
+                "vacancy_signal": null
+              },
+              {
+                "key": "real_estate_services",
+                "label": "Real Estate Services",
+                "employment_2025": 29.8,
+                "share_2025": 0.0601,
+                "cagr_5y": 0.030849,
+                "change_2y": 0.120301,
+                "vacancy_latest": 1300,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": -0.1333,
+                "vacancy_signal": "cooling"
+              },
+              {
+                "key": "public_admin_education",
+                "label": "Public Administration & Education Services",
+                "employment_2025": 73.5,
+                "share_2025": 0.1483,
+                "cagr_5y": 0.028711,
+                "change_2y": 0.130769,
+                "vacancy_latest": null,
+                "vacancy_quarter": null,
+                "vacancy_trend_4q_pct": null,
+                "vacancy_signal": null
+              }
+            ]
+          },
+          "CLERICAL SUPPORT WORKERS": {
+            "major_group": "CLERICAL SUPPORT WORKERS",
+            "total_employment_2025": 201,
+            "top_industries": [
+              {
+                "key": "wholesale_retail_trade",
+                "label": "Wholesale & Retail Trade",
+                "employment_2025": 32.3,
+                "share_2025": 0.1607,
+                "cagr_5y": -0.02254,
+                "change_2y": -0.006154,
+                "vacancy_latest": 5100,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": -0.0192,
+                "vacancy_signal": "stable"
+              },
+              {
+                "key": "transportation_storage",
+                "label": "Transportation & Storage",
+                "employment_2025": 22.2,
+                "share_2025": 0.1104,
+                "cagr_5y": -0.007055,
+                "change_2y": -0.004484,
+                "vacancy_latest": 5100,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": 0.4167,
+                "vacancy_signal": "rising"
+              },
+              {
+                "key": "health_social_services",
+                "label": "Health & Social Services",
+                "employment_2025": 19.6,
+                "share_2025": 0.0975,
+                "cagr_5y": 0.03131,
+                "change_2y": 0.101124,
+                "vacancy_latest": null,
+                "vacancy_quarter": null,
+                "vacancy_trend_4q_pct": null,
+                "vacancy_signal": null
+              },
+              {
+                "key": "professional_services",
+                "label": "Professional Services",
+                "employment_2025": 17.2,
+                "share_2025": 0.0856,
+                "cagr_5y": -0.003452,
+                "change_2y": -0.022727,
+                "vacancy_latest": 5500,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": 0.3415,
+                "vacancy_signal": "rising"
+              },
+              {
+                "key": "financial_insurance_services",
+                "label": "Financial & Insurance Services",
+                "employment_2025": 17.1,
+                "share_2025": 0.0851,
+                "cagr_5y": -0.05756,
+                "change_2y": -0.222727,
+                "vacancy_latest": 5100,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": 0.275,
+                "vacancy_signal": "rising"
+              }
+            ],
+            "fastest_growing_industries": [
+              {
+                "key": "health_social_services",
+                "label": "Health & Social Services",
+                "employment_2025": 19.6,
+                "share_2025": 0.0975,
+                "cagr_5y": 0.03131,
+                "change_2y": 0.101124,
+                "vacancy_latest": null,
+                "vacancy_quarter": null,
+                "vacancy_trend_4q_pct": null,
+                "vacancy_signal": null
+              },
+              {
+                "key": "accommodation_food_services",
+                "label": "Accommodation & Food Services",
+                "employment_2025": 10.7,
+                "share_2025": 0.0532,
+                "cagr_5y": 0.026245,
+                "change_2y": 0.188889,
+                "vacancy_latest": 6200,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": 0.1273,
+                "vacancy_signal": "rising"
+              },
+              {
+                "key": "other_community_social_personal",
+                "label": "Other Community, Social & Personal Services",
+                "employment_2025": 8.8,
+                "share_2025": 0.0438,
+                "cagr_5y": 0.011768,
+                "change_2y": 0.023256,
+                "vacancy_latest": null,
+                "vacancy_quarter": null,
+                "vacancy_trend_4q_pct": null,
+                "vacancy_signal": null
+              }
+            ]
+          },
+          "SERVICE AND SALES WORKERS": {
+            "major_group": "SERVICE AND SALES WORKERS",
+            "total_employment_2025": 247,
+            "top_industries": [
+              {
+                "key": "accommodation_food_services",
+                "label": "Accommodation & Food Services",
+                "employment_2025": 64.3,
+                "share_2025": 0.2603,
+                "cagr_5y": 0.02332,
+                "change_2y": -0.009245,
+                "vacancy_latest": 6200,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": 0.1273,
+                "vacancy_signal": "rising"
+              },
+              {
+                "key": "wholesale_retail_trade",
+                "label": "Wholesale & Retail Trade",
+                "employment_2025": 60.6,
+                "share_2025": 0.2453,
+                "cagr_5y": -0.013617,
+                "change_2y": -0.016234,
+                "vacancy_latest": 5100,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": -0.0192,
+                "vacancy_signal": "stable"
+              },
+              {
+                "key": "administrative_support_services",
+                "label": "Administrative & Support Services",
+                "employment_2025": 31.4,
+                "share_2025": 0.1271,
+                "cagr_5y": 0.017437,
+                "change_2y": 0.050167,
+                "vacancy_latest": 3300,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": -0.2826,
+                "vacancy_signal": "cooling"
+              },
+              {
+                "key": "other_community_social_personal",
+                "label": "Other Community, Social & Personal Services",
+                "employment_2025": 18.8,
+                "share_2025": 0.0761,
+                "cagr_5y": 0.015598,
+                "change_2y": -0.035897,
+                "vacancy_latest": null,
+                "vacancy_quarter": null,
+                "vacancy_trend_4q_pct": null,
+                "vacancy_signal": null
+              },
+              {
+                "key": "health_social_services",
+                "label": "Health & Social Services",
+                "employment_2025": 16.5,
+                "share_2025": 0.0668,
+                "cagr_5y": -0.055912,
+                "change_2y": -0.228972,
+                "vacancy_latest": null,
+                "vacancy_quarter": null,
+                "vacancy_trend_4q_pct": null,
+                "vacancy_signal": null
+              }
+            ],
+            "fastest_growing_industries": [
+              {
+                "key": "accommodation_food_services",
+                "label": "Accommodation & Food Services",
+                "employment_2025": 64.3,
+                "share_2025": 0.2603,
+                "cagr_5y": 0.02332,
+                "change_2y": -0.009245,
+                "vacancy_latest": 6200,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": 0.1273,
+                "vacancy_signal": "rising"
+              },
+              {
+                "key": "administrative_support_services",
+                "label": "Administrative & Support Services",
+                "employment_2025": 31.4,
+                "share_2025": 0.1271,
+                "cagr_5y": 0.017437,
+                "change_2y": 0.050167,
+                "vacancy_latest": 3300,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": -0.2826,
+                "vacancy_signal": "cooling"
+              },
+              {
+                "key": "other_community_social_personal",
+                "label": "Other Community, Social & Personal Services",
+                "employment_2025": 18.8,
+                "share_2025": 0.0761,
+                "cagr_5y": 0.015598,
+                "change_2y": -0.035897,
+                "vacancy_latest": null,
+                "vacancy_quarter": null,
+                "vacancy_trend_4q_pct": null,
+                "vacancy_signal": null
+              }
+            ]
+          },
+          "CRAFTSMEN AND RELATED TRADES WORKERS": {
+            "major_group": "CRAFTSMEN AND RELATED TRADES WORKERS",
+            "total_employment_2025": 51.6,
+            "top_industries": [
+              {
+                "key": "wholesale_retail_trade",
+                "label": "Wholesale & Retail Trade",
+                "employment_2025": 9,
+                "share_2025": 0.1744,
+                "cagr_5y": -0.012825,
+                "change_2y": -0.150943,
+                "vacancy_latest": 5100,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": -0.0192,
+                "vacancy_signal": "stable"
+              },
+              {
+                "key": "other_community_social_personal",
+                "label": "Other Community, Social & Personal Services",
+                "employment_2025": 3.6,
+                "share_2025": 0.0698,
+                "cagr_5y": 0.051547,
+                "change_2y": -0.1,
+                "vacancy_latest": null,
+                "vacancy_quarter": null,
+                "vacancy_trend_4q_pct": null,
+                "vacancy_signal": null
+              },
+              {
+                "key": "administrative_support_services",
+                "label": "Administrative & Support Services",
+                "employment_2025": 2.8,
+                "share_2025": 0.0543,
+                "cagr_5y": -0.032327,
+                "change_2y": 0.076923,
+                "vacancy_latest": 3300,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": -0.2826,
+                "vacancy_signal": "cooling"
+              },
+              {
+                "key": "professional_services",
+                "label": "Professional Services",
+                "employment_2025": 2.1,
+                "share_2025": 0.0407,
+                "cagr_5y": -0.041815,
+                "change_2y": -0.222222,
+                "vacancy_latest": 5500,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": 0.3415,
+                "vacancy_signal": "rising"
+              },
+              {
+                "key": "accommodation_food_services",
+                "label": "Accommodation & Food Services",
+                "employment_2025": 1.1,
+                "share_2025": 0.0213,
+                "cagr_5y": 0.019245,
+                "change_2y": -0.266667,
+                "vacancy_latest": 6200,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": 0.1273,
+                "vacancy_signal": "rising"
+              }
+            ],
+            "fastest_growing_industries": [
+              {
+                "key": "other_community_social_personal",
+                "label": "Other Community, Social & Personal Services",
+                "employment_2025": 3.6,
+                "share_2025": 0.0698,
+                "cagr_5y": 0.051547,
+                "change_2y": -0.1,
+                "vacancy_latest": null,
+                "vacancy_quarter": null,
+                "vacancy_trend_4q_pct": null,
+                "vacancy_signal": null
+              },
+              {
+                "key": "wholesale_retail_trade",
+                "label": "Wholesale & Retail Trade",
+                "employment_2025": 9,
+                "share_2025": 0.1744,
+                "cagr_5y": -0.012825,
+                "change_2y": -0.150943,
+                "vacancy_latest": 5100,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": -0.0192,
+                "vacancy_signal": "stable"
+              },
+              {
+                "key": "administrative_support_services",
+                "label": "Administrative & Support Services",
+                "employment_2025": 2.8,
+                "share_2025": 0.0543,
+                "cagr_5y": -0.032327,
+                "change_2y": 0.076923,
+                "vacancy_latest": 3300,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": -0.2826,
+                "vacancy_signal": "cooling"
+              }
+            ]
+          },
+          "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": {
+            "major_group": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
+            "total_employment_2025": 128.9,
+            "top_industries": [
+              {
+                "key": "transportation_storage",
+                "label": "Transportation & Storage",
+                "employment_2025": 84.7,
+                "share_2025": 0.6571,
+                "cagr_5y": -0.031695,
+                "change_2y": -0.034208,
+                "vacancy_latest": 5100,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": 0.4167,
+                "vacancy_signal": "rising"
+              },
+              {
+                "key": "wholesale_retail_trade",
+                "label": "Wholesale & Retail Trade",
+                "employment_2025": 11.5,
+                "share_2025": 0.0892,
+                "cagr_5y": -0.032988,
+                "change_2y": -0.094488,
+                "vacancy_latest": 5100,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": -0.0192,
+                "vacancy_signal": "stable"
+              },
+              {
+                "key": "administrative_support_services",
+                "label": "Administrative & Support Services",
+                "employment_2025": 3,
+                "share_2025": 0.0233,
+                "cagr_5y": -0.012825,
+                "change_2y": 0.304348,
+                "vacancy_latest": 3300,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": -0.2826,
+                "vacancy_signal": "cooling"
+              },
+              {
+                "key": "other_community_social_personal",
+                "label": "Other Community, Social & Personal Services",
+                "employment_2025": 2.3,
+                "share_2025": 0.0178,
+                "cagr_5y": 0.00893,
+                "change_2y": 0.210526,
+                "vacancy_latest": null,
+                "vacancy_quarter": null,
+                "vacancy_trend_4q_pct": null,
+                "vacancy_signal": null
+              },
+              {
+                "key": "accommodation_food_services",
+                "label": "Accommodation & Food Services",
+                "employment_2025": 1.9,
+                "share_2025": 0.0147,
+                "cagr_5y": 0.010872,
+                "change_2y": -0.173913,
+                "vacancy_latest": 6200,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": 0.1273,
+                "vacancy_signal": "rising"
+              }
+            ],
+            "fastest_growing_industries": [
+              {
+                "key": "transportation_storage",
+                "label": "Transportation & Storage",
+                "employment_2025": 84.7,
+                "share_2025": 0.6571,
+                "cagr_5y": -0.031695,
+                "change_2y": -0.034208,
+                "vacancy_latest": 5100,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": 0.4167,
+                "vacancy_signal": "rising"
+              },
+              {
+                "key": "wholesale_retail_trade",
+                "label": "Wholesale & Retail Trade",
+                "employment_2025": 11.5,
+                "share_2025": 0.0892,
+                "cagr_5y": -0.032988,
+                "change_2y": -0.094488,
+                "vacancy_latest": 5100,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": -0.0192,
+                "vacancy_signal": "stable"
+              }
+            ]
+          },
+          "CLEANERS, LABOURERS AND RELATED WORKERS": {
+            "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
+            "total_employment_2025": 167.7,
+            "top_industries": [
+              {
+                "key": "public_admin_education",
+                "label": "Public Administration & Education Services",
+                "employment_2025": 52.2,
+                "share_2025": 0.3113,
+                "cagr_5y": -0.019836,
+                "change_2y": -0.084211,
+                "vacancy_latest": null,
+                "vacancy_quarter": null,
+                "vacancy_trend_4q_pct": null,
+                "vacancy_signal": null
+              },
+              {
+                "key": "administrative_support_services",
+                "label": "Administrative & Support Services",
+                "employment_2025": 38.6,
+                "share_2025": 0.2302,
+                "cagr_5y": 0.005263,
+                "change_2y": 0.093484,
+                "vacancy_latest": 3300,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": -0.2826,
+                "vacancy_signal": "cooling"
+              },
+              {
+                "key": "accommodation_food_services",
+                "label": "Accommodation & Food Services",
+                "employment_2025": 38.4,
+                "share_2025": 0.229,
+                "cagr_5y": 0.025242,
+                "change_2y": 0.149701,
+                "vacancy_latest": 6200,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": 0.1273,
+                "vacancy_signal": "rising"
+              },
+              {
+                "key": "transportation_storage",
+                "label": "Transportation & Storage",
+                "employment_2025": 15.9,
+                "share_2025": 0.0948,
+                "cagr_5y": 0.050982,
+                "change_2y": -0.02454,
+                "vacancy_latest": 5100,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": 0.4167,
+                "vacancy_signal": "rising"
+              },
+              {
+                "key": "wholesale_retail_trade",
+                "label": "Wholesale & Retail Trade",
+                "employment_2025": 15.7,
+                "share_2025": 0.0936,
+                "cagr_5y": 0.033736,
+                "change_2y": -0.048485,
+                "vacancy_latest": 5100,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": -0.0192,
+                "vacancy_signal": "stable"
+              }
+            ],
+            "fastest_growing_industries": [
+              {
+                "key": "real_estate_services",
+                "label": "Real Estate Services",
+                "employment_2025": 8.6,
+                "share_2025": 0.0513,
+                "cagr_5y": 0.234456,
+                "change_2y": 0.194444,
+                "vacancy_latest": 1300,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": -0.1333,
+                "vacancy_signal": "cooling"
+              },
+              {
+                "key": "other_community_social_personal",
+                "label": "Other Community, Social & Personal Services",
+                "employment_2025": 9.5,
+                "share_2025": 0.0566,
+                "cagr_5y": 0.069161,
+                "change_2y": 0.397059,
+                "vacancy_latest": null,
+                "vacancy_quarter": null,
+                "vacancy_trend_4q_pct": null,
+                "vacancy_signal": null
+              },
+              {
+                "key": "transportation_storage",
+                "label": "Transportation & Storage",
+                "employment_2025": 15.9,
+                "share_2025": 0.0948,
+                "cagr_5y": 0.050982,
+                "change_2y": -0.02454,
+                "vacancy_latest": 5100,
+                "vacancy_quarter": "2025 Q3",
+                "vacancy_trend_4q_pct": 0.4167,
+                "vacancy_signal": "rising"
+              }
+            ]
+          }
         }
       }
     },
@@ -16468,7 +16475,7 @@
       "description": "Official Census 2020 geography context showing planning-area residence concentration and travel-time patterns by broad occupation group.",
       "data": {
         "version": "V4.0",
-        "generated_at": "2026-03-19T11:33:58.424Z",
+        "generated_at": "2026-03-20T09:38:39.040Z",
         "description": "Official Singapore geography context derived from Census of Population 2020 planning-area residence and travel-time occupation tables. This artifact is contextual and does not affect the structural score.",
         "residence": {
           "overall_top_planning_areas": [
@@ -16929,7 +16936,7 @@
       "description": "Official macro labour context covering unemployment and labour-tightness series for Singapore. Contextual only, not an occupation-level score input.",
       "data": {
         "version": "V4.0",
-        "generated_at": "2026-03-19T11:33:58.449Z",
+        "generated_at": "2026-03-20T09:38:39.065Z",
         "description": "Official Singapore macro labour context derived from unemployment and labour-tightness series. This artifact is contextual and does not affect the structural score.",
         "unemployment": {
           "latest": {
@@ -17901,7 +17908,7 @@
       "description": "Official IMDA and MOM national AI adoption, workforce, and programme context for Singapore. This is contextual evidence around the score, not an occupation-level input.",
       "data": {
         "version": "V4.0",
-        "generated_at": "2026-03-19T10:57:45.448Z",
+        "generated_at": "2026-03-20T09:38:39.090Z",
         "context_type": "national_ai_context",
         "description": "Official Singapore national AI adoption, workforce, and programme context from IMDA and MOM releases. This artifact supports reports and public context around the structural score.",
         "usage_guidance": {
@@ -18007,7 +18014,7 @@
       "description": "Official Singapore transition-infrastructure context covering Jobs Transformation Maps, major public career-transition programmes, and WSQ training-system activity.",
       "data": {
         "version": "V4.0",
-        "generated_at": "2026-03-19T10:57:45.466Z",
+        "generated_at": "2026-03-20T09:38:39.112Z",
         "description": "Official Singapore transition infrastructure anchors used around the heuristic transition-support layer. This artifact captures published programmes, training-system activity, and Jobs Transformation Map coverage.",
         "programmes": [
           {

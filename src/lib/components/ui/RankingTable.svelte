@@ -67,13 +67,13 @@
 						>
 							{occ.title}
 						</a>
-						<span class="ml-1 text-xs text-muted-foreground/50 tabular-nums">{occ.ssoc}</span>
+						<span class="ml-1 text-xs text-text-tertiary tabular-nums">{occ.ssoc}</span>
 					</Table.Cell>
 					{#each columns as col}
 						<Table.Cell
 							class="tabular-nums text-[13px] {col.align === 'right'
 								? 'text-right'
-								: ''} text-foreground/80"
+								: ''} text-text-secondary"
 						>
 							{col.format ? col.format(occ) : (occ as unknown as Record<string, unknown>)[col.key]}
 						</Table.Cell>
@@ -81,14 +81,14 @@
 					<Table.Cell>
 						<span class="inline-flex items-center gap-1.5 whitespace-nowrap">
 							<span class="inline-block h-2 w-2 rounded-full {riskDotColor[occ.risk_band]}"></span>
-							<span class="text-xs text-foreground/70">{riskBandLabels[occ.risk_band]}</span>
+							<span class="text-xs text-text-secondary">{riskBandLabels[occ.risk_band]}</span>
 						</span>
 					</Table.Cell>
 					<Table.Cell>
 						<span class="inline-flex items-center gap-1.5 whitespace-nowrap">
 							<span class="inline-block h-2 w-2 rounded-full {impactDotColor[occ.impact_type]}"
 							></span>
-							<span class="text-xs text-foreground/70">{impactTypeLabels[occ.impact_type]}</span>
+							<span class="text-xs text-text-secondary">{impactTypeLabels[occ.impact_type]}</span>
 						</span>
 					</Table.Cell>
 				</Table.Row>

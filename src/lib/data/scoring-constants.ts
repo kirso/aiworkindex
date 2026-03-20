@@ -8,7 +8,7 @@
  * When updating thresholds, change them HERE and they propagate
  * to methodology, appendix, data dictionary, and CLAUDE.md automatically.
  *
- * Validated by: scripts/validate.ts (58 checks)
+ * Validated by: scripts/validate.ts (121 checks)
  * Used by: score.ts, synthetic-roles.ts, validate.ts, methodology page
  */
 
@@ -278,7 +278,7 @@ export const DATA_VINTAGE = {
 	/** Demand signal sources */
 	demand_signals: 'SOL 2026 + Jobs in Demand 2025',
 	/** Labour market report period */
-	labour_monitor: 'Q3 2025 full + Q4 2025 advance',
+	labour_monitor: 'Q4 2025 full',
 	/** AIOE index year */
 	aioe: '2021',
 	/** Anthropic Economic Index date */
@@ -286,13 +286,13 @@ export const DATA_VINTAGE = {
 	/** Model version */
 	model_version: 'V4.0',
 	/** Last scoring run date */
-	last_updated: '2026-03-19',
+	last_updated: '2026-03-20',
 	/** Occupation count */
 	occupation_count: 562,
 	/** Synthetic role count */
 	role_count: 88,
 	/** Validation check count */
-	validation_checks: 58,
+	validation_checks: 121,
 	/** Page count */
 	page_count: 672
 } as const;

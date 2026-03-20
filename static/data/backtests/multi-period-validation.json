@@ -1,0 +1,205 @@
+{
+  "generated_at": "2026-03-20T09:38:44.467Z",
+  "model_version": "V4.0",
+  "cluster_risk_order": [
+    [
+      "clerical_sales_service",
+      0.3434
+    ],
+    [
+      "pmet",
+      0.2069
+    ],
+    [
+      "production_transport",
+      0.098
+    ]
+  ],
+  "metrics": {
+    "vacancy_rate_yoy": {
+      "summary": {
+        "period_count": 2,
+        "negative_rho_share": 1,
+        "avg_spearman_rho": -1,
+        "avg_pairwise_accuracy": 1
+      },
+      "periods": [
+        {
+          "period": "2025 Q3",
+          "values": {
+            "pmet": 0.2,
+            "clerical_sales_service": -0.2,
+            "production_transport": 0.3
+          },
+          "spearman_rho": -1,
+          "pairwise_accuracy": 1
+        },
+        {
+          "period": "2025 Q4",
+          "values": {
+            "pmet": -0.1,
+            "clerical_sales_service": -0.4,
+            "production_transport": 0.4
+          },
+          "spearman_rho": -1,
+          "pairwise_accuracy": 1
+        }
+      ]
+    },
+    "vacancy_count_yoy": {
+      "summary": {
+        "period_count": 3,
+        "negative_rho_share": 1,
+        "avg_spearman_rho": -1,
+        "avg_pairwise_accuracy": 1
+      },
+      "periods": [
+        {
+          "period": "2024 Q4",
+          "values": {
+            "pmet": -1.8,
+            "clerical_sales_service": -3,
+            "production_transport": 2.2
+          },
+          "spearman_rho": -1,
+          "pairwise_accuracy": 1
+        },
+        {
+          "period": "2025 Q3",
+          "values": {
+            "pmet": 2.8,
+            "clerical_sales_service": 0.1,
+            "production_transport": 3.6
+          },
+          "spearman_rho": -1,
+          "pairwise_accuracy": 1
+        },
+        {
+          "period": "2025 Q4",
+          "values": {
+            "pmet": -1.8,
+            "clerical_sales_service": -2.1,
+            "production_transport": 3.7
+          },
+          "spearman_rho": -1,
+          "pairwise_accuracy": 1
+        }
+      ]
+    },
+    "annual_hiring_net": {
+      "summary": {
+        "period_count": 10,
+        "negative_rho_share": 0.1,
+        "avg_spearman_rho": 0.61,
+        "avg_pairwise_accuracy": 0.3
+      },
+      "periods": [
+        {
+          "period": "2015",
+          "values": {
+            "pmet": 0.5,
+            "clerical_sales_service": 0.7000000000000002,
+            "production_transport": 0.5
+          },
+          "spearman_rho": 0.866,
+          "pairwise_accuracy": 0.333
+        },
+        {
+          "period": "2016",
+          "values": {
+            "pmet": 0.40000000000000013,
+            "clerical_sales_service": 0.3999999999999999,
+            "production_transport": 0.3999999999999999
+          },
+          "spearman_rho": 0,
+          "pairwise_accuracy": 0.667
+        },
+        {
+          "period": "2017",
+          "values": {
+            "pmet": 0.30000000000000004,
+            "clerical_sales_service": 0.5,
+            "production_transport": 0.19999999999999973
+          },
+          "spearman_rho": 1,
+          "pairwise_accuracy": 0
+        },
+        {
+          "period": "2018",
+          "values": {
+            "pmet": 0.3999999999999999,
+            "clerical_sales_service": 0.7000000000000002,
+            "production_transport": 0.2999999999999998
+          },
+          "spearman_rho": 1,
+          "pairwise_accuracy": 0
+        },
+        {
+          "period": "2019",
+          "values": {
+            "pmet": 0.5,
+            "clerical_sales_service": 0.6000000000000001,
+            "production_transport": 0.3999999999999999
+          },
+          "spearman_rho": 1,
+          "pairwise_accuracy": 0
+        },
+        {
+          "period": "2020",
+          "values": {
+            "pmet": 0.30000000000000004,
+            "clerical_sales_service": 0,
+            "production_transport": -0.2999999999999998
+          },
+          "spearman_rho": 0.5,
+          "pairwise_accuracy": 0.333
+        },
+        {
+          "period": "2021",
+          "values": {
+            "pmet": 0.3999999999999999,
+            "clerical_sales_service": 0.3999999999999999,
+            "production_transport": 0.30000000000000027
+          },
+          "spearman_rho": 0.866,
+          "pairwise_accuracy": 0.333
+        },
+        {
+          "period": "2022",
+          "values": {
+            "pmet": 0.6000000000000001,
+            "clerical_sales_service": 1,
+            "production_transport": 1.4000000000000001
+          },
+          "spearman_rho": -0.5,
+          "pairwise_accuracy": 0.667
+        },
+        {
+          "period": "2023",
+          "values": {
+            "pmet": 0.7,
+            "clerical_sales_service": 1.1999999999999997,
+            "production_transport": 0.7
+          },
+          "spearman_rho": 0.866,
+          "pairwise_accuracy": 0.333
+        },
+        {
+          "period": "2024",
+          "values": {
+            "pmet": 0.5,
+            "clerical_sales_service": 0.8999999999999999,
+            "production_transport": 0.7000000000000002
+          },
+          "spearman_rho": 0.5,
+          "pairwise_accuracy": 0.333
+        }
+      ]
+    }
+  },
+  "interpretation": {
+    "strength": "Vacancy cooling is directionally consistent with structural risk across the available year-over-year quarters.",
+    "caution": "Annual hiring pressure does not consistently rank with structural AI risk. Treat the score as a long-run pressure indicator, not a short-run demand forecaster.",
+    "scope": "These are cluster-level checks using only three labour clusters. They test rank-order robustness over time, not occupation-level predictive accuracy."
+  }
+}

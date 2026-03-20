@@ -52,6 +52,14 @@
 
 	<h1 class={titleStyle({ size: 'page' })}>Q4 2024 Quarterly Report</h1>
 	<p class="mt-2 text-sm text-muted-foreground">AI Work Index — Quarterly Snapshot</p>
+	<div
+		class="mt-4 rounded-lg border border-border/60 bg-muted/40 px-4 py-3 text-sm text-muted-foreground"
+	>
+		This is an archived report surface for <span class="font-medium text-foreground">Q4 2024</span>.
+		It is rendered with the current V4.0 methodology and source registry, so later sources and
+		labels may appear below. Read it as a historical snapshot rebuilt under the current pipeline,
+		not as a period-authentic 2024 publication.
+	</div>
 
 	<!-- Stat strip — borderless, editorial OWID style -->
 	<div class="mt-8 grid grid-cols-2 gap-x-8 gap-y-4 sm:grid-cols-4">
@@ -76,7 +84,7 @@
 			<p class="mt-0.5 text-3xl font-bold tabular-nums tracking-tight text-foreground">
 				{data.stats.inDemandCount}
 			</p>
-			<p class="text-xs text-muted-foreground/60">SOL + Jobs in Demand</p>
+			<p class="text-xs text-text-tertiary">SOL + Jobs in Demand</p>
 		</div>
 		<div>
 			<p class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
@@ -85,7 +93,7 @@
 			<p class="mt-0.5 text-3xl font-bold tabular-nums tracking-tight text-foreground">
 				{data.stats.anthropicCalibratedCount}
 			</p>
-			<p class="text-xs text-muted-foreground/60">Anthropic observed usage</p>
+			<p class="text-xs text-text-tertiary">Anthropic observed usage</p>
 		</div>
 	</div>
 
@@ -100,7 +108,7 @@
 		<div class="mt-4 space-y-2">
 			{#each data.riskDistribution as dist (dist.band)}
 				<div class="flex items-center gap-3">
-					<span class="w-20 text-xs tabular-nums text-foreground/70">{dist.label}</span>
+					<span class="w-20 text-xs tabular-nums text-text-secondary">{dist.label}</span>
 					<div class="flex-1 h-4 rounded-sm bg-muted overflow-hidden">
 						<div
 							class="h-full rounded-sm"
@@ -132,7 +140,7 @@
 					>
 						<span>
 							<span class="tabular-nums text-muted-foreground mr-1">{i + 1}.</span>
-							<span class="text-foreground/80">{occ.title}</span>
+							<span class="text-text-secondary">{occ.title}</span>
 						</span>
 						<span class="ml-2 shrink-0 tabular-nums font-semibold text-risk-very-high"
 							>{(occ.net_risk * 100).toFixed(0)}%</span
@@ -157,7 +165,7 @@
 					>
 						<span>
 							<span class="tabular-nums text-muted-foreground mr-1">{i + 1}.</span>
-							<span class="text-foreground/80">{occ.title}</span>
+							<span class="text-text-secondary">{occ.title}</span>
 						</span>
 						<span class="ml-2 shrink-0 tabular-nums font-semibold text-impact-leveraged"
 							>{(occ.augmentation * 100).toFixed(0)}%</span
@@ -183,7 +191,7 @@
 					>
 						<span>
 							<span class="tabular-nums text-muted-foreground mr-1">{i + 1}.</span>
-							<span class="text-foreground/80">{occ.title}</span>
+							<span class="text-text-secondary">{occ.title}</span>
 						</span>
 						<span
 							class="ml-2 shrink-0 tabular-nums font-semibold {gap > 0
@@ -260,7 +268,7 @@
 			exposure, SOL 2026, Jobs in Demand 2025.
 		</p>
 		<p class="mt-1">
-			Scoring V4.0. All scores deterministic and reproducible.
+			Rendered with current Scoring V4.0. All scores deterministic and reproducible.
 			<a href="/methodology" class="text-primary underline">Methodology</a> &middot;
 			<a href="/data" class="text-primary underline">Download data</a>
 		</p>

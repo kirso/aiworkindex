@@ -148,72 +148,86 @@
    ============================================ */
 
 :root {
-	--background: oklch(1 0 0); /* pure white */
-	--foreground: oklch(0.14 0.005 285); /* near-black */
-	--card: oklch(1 0 0); /* white */
-	--card-foreground: oklch(0.14 0.005 285);
-	--inset: oklch(0.975 0.002 260); /* very light gray for inset areas */
-	--inset-foreground: oklch(0.4 0.005 260);
-	--popover: oklch(1 0 0);
-	--popover-foreground: oklch(0.14 0.005 285);
+	--background: oklch(0.985 0.001 240); /* off-white with cool hint */
+	--foreground: oklch(0.14 0.005 240); /* near-black, blue-tinted */
+	--card: oklch(1 0 0); /* pure white — lifts off background */
+	--card-foreground: oklch(0.14 0.005 240);
+	--inset: oklch(0.96 0.004 240); /* clearly darker than card */
+	--inset-foreground: oklch(0.4 0.005 240);
 
-	/* Brand: deep blue-violet — the Signal accent */
-	--primary: oklch(0.45 0.2 270);
+	/* Surface roles — gentle tints between card white and inset gray */
+	--surface-subtle: oklch(0.98 0.002 240); /* section panels — light tint */
+	--surface-metric: oklch(0.975 0.003 240); /* metric cards — subtle grouping, not heavy */
+	--popover: oklch(1 0 0);
+	--popover-foreground: oklch(0.14 0.005 240);
+
+	/* Brand: ink blue — credible, analytical, doesn't compete with risk colors */
+	--primary: oklch(0.42 0.16 230);
 	--primary-foreground: oklch(0.98 0 0);
-	--secondary: oklch(0.965 0.003 260);
-	--secondary-foreground: oklch(0.25 0.01 260);
+	--secondary: oklch(0.96 0.004 240);
+	--secondary-foreground: oklch(0.25 0.01 240);
 
 	/* UI Chrome */
-	--muted: oklch(0.965 0.002 260);
-	--muted-foreground: oklch(0.5 0.01 260);
-	--accent: oklch(0.955 0.005 260);
-	--accent-foreground: oklch(0.2 0.01 260);
+	--muted: oklch(0.955 0.003 240);
+	--muted-foreground: oklch(0.48 0.01 240);
+
+	/* Text hierarchy — 3 tiers below foreground, no ad-hoc opacity */
+	--text-secondary: oklch(0.42 0.008 240); /* supporting copy, descriptions */
+	--text-tertiary: oklch(0.55 0.006 240); /* metadata, sources, timestamps */
+	--text-ghost: oklch(0.68 0.004 240); /* separators, disabled, legal fine print */
+	--accent: oklch(0.945 0.006 240);
+	--accent-foreground: oklch(0.2 0.01 240);
 	--destructive: oklch(0.55 0.22 25);
-	--border: oklch(0.92 0.003 260);
-	--input: oklch(0.92 0.003 260);
-	--ring: oklch(0.5 0.18 270);
+	--border: oklch(0.905 0.005 240); /* stronger border for card separation */
+	--input: oklch(0.905 0.005 240);
+	--ring: oklch(0.48 0.14 230);
 
 	/* Header */
 	--header-bg: oklch(1 0 0);
-	--header-text: oklch(0.14 0.005 285);
-	--header-muted: oklch(0.5 0.01 260);
-	--header-active-bg: oklch(0.955 0.005 260);
+	--header-text: oklch(0.14 0.005 240);
+	--header-muted: oklch(0.48 0.01 240);
+	--header-active-bg: oklch(0.945 0.006 240);
 
 	/* Sidebar */
-	--sidebar: oklch(0.98 0.002 260);
-	--sidebar-foreground: oklch(0.14 0.005 285);
-	--sidebar-primary: oklch(0.45 0.2 270);
+	--sidebar: oklch(0.975 0.003 240);
+	--sidebar-foreground: oklch(0.14 0.005 240);
+	--sidebar-primary: oklch(0.42 0.16 230);
 	--sidebar-primary-foreground: oklch(0.98 0 0);
-	--sidebar-accent: oklch(0.955 0.005 260);
-	--sidebar-accent-foreground: oklch(0.2 0.01 260);
-	--sidebar-border: oklch(0.92 0.003 260);
-	--sidebar-ring: oklch(0.5 0.18 270);
+	--sidebar-accent: oklch(0.945 0.006 240);
+	--sidebar-accent-foreground: oklch(0.2 0.01 240);
+	--sidebar-border: oklch(0.905 0.005 240);
+	--sidebar-ring: oklch(0.48 0.14 230);
 }
 
 .dark {
-	--background: oklch(0.12 0.005 260);
-	--foreground: oklch(0.93 0.002 260);
-	--card: oklch(0.16 0.005 260);
-	--card-foreground: oklch(0.93 0.002 260);
-	--inset: oklch(0.13 0.005 260);
-	--inset-foreground: oklch(0.65 0.005 260);
-	--popover: oklch(0.18 0.005 260);
-	--popover-foreground: oklch(0.93 0.002 260);
-	--primary: oklch(0.7 0.15 270);
-	--primary-foreground: oklch(0.12 0.005 260);
-	--secondary: oklch(0.2 0.005 260);
-	--secondary-foreground: oklch(0.85 0.002 260);
-	--muted: oklch(0.2 0.005 260);
-	--muted-foreground: oklch(0.6 0.005 260);
-	--accent: oklch(0.24 0.005 260);
-	--accent-foreground: oklch(0.93 0.002 260);
+	--background: oklch(0.12 0.005 240);
+	--foreground: oklch(0.93 0.002 240);
+	--card: oklch(0.16 0.005 240);
+	--card-foreground: oklch(0.93 0.002 240);
+	--inset: oklch(0.13 0.005 240);
+	--inset-foreground: oklch(0.65 0.005 240);
+	--surface-subtle: oklch(0.15 0.004 240);
+	--surface-metric: oklch(0.14 0.004 240);
+	--popover: oklch(0.18 0.005 240);
+	--popover-foreground: oklch(0.93 0.002 240);
+	--primary: oklch(0.65 0.12 230);
+	--primary-foreground: oklch(0.12 0.005 240);
+	--secondary: oklch(0.2 0.005 240);
+	--secondary-foreground: oklch(0.85 0.002 240);
+	--muted: oklch(0.2 0.005 240);
+	--muted-foreground: oklch(0.6 0.005 240);
+	--text-secondary: oklch(0.65 0.005 240);
+	--text-tertiary: oklch(0.5 0.004 240);
+	--text-ghost: oklch(0.38 0.003 240);
+	--accent: oklch(0.24 0.005 240);
+	--accent-foreground: oklch(0.93 0.002 240);
 	--destructive: oklch(0.6 0.18 25);
-	--border: oklch(1 0 0 / 8%);
-	--input: oklch(1 0 0 / 10%);
-	--ring: oklch(0.6 0.15 270);
-	--header-bg: oklch(0.1 0.005 260);
-	--header-text: oklch(0.93 0.002 260);
-	--header-muted: oklch(0.55 0.005 260);
+	--border: oklch(1 0 0 / 10%);
+	--input: oklch(1 0 0 / 12%);
+	--ring: oklch(0.55 0.12 230);
+	--header-bg: oklch(0.1 0.005 240);
+	--header-text: oklch(0.93 0.002 240);
+	--header-muted: oklch(0.55 0.005 240);
 	--header-active-bg: oklch(1 0 0 / 8%);
 }
 
@@ -231,6 +245,8 @@
 	--color-card-foreground: var(--card-foreground);
 	--color-inset: var(--inset);
 	--color-inset-foreground: var(--inset-foreground);
+	--color-surface-subtle: var(--surface-subtle);
+	--color-surface-metric: var(--surface-metric);
 	--color-popover: var(--popover);
 	--color-popover-foreground: var(--popover-foreground);
 	--color-primary: var(--primary);
@@ -239,6 +255,9 @@
 	--color-secondary-foreground: var(--secondary-foreground);
 	--color-muted: var(--muted);
 	--color-muted-foreground: var(--muted-foreground);
+	--color-text-secondary: var(--text-secondary);
+	--color-text-tertiary: var(--text-tertiary);
+	--color-text-ghost: var(--text-ghost);
 	--color-accent: var(--accent);
 	--color-accent-foreground: var(--accent-foreground);
 	--color-destructive: var(--destructive);

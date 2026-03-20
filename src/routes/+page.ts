@@ -1,6 +1,7 @@
 import { occupations, majorGroups } from '$lib/data';
 import aiInSingapore from '$lib/data/ai-in-singapore.json';
 import macroContext from '$lib/data/macro-context.json';
+import postingsMonitor from '$lib/data/postings-monitor.json';
 import type { PageLoad } from './$types';
 
 export const load: PageLoad = () => {
@@ -46,7 +47,8 @@ export const load: PageLoad = () => {
 		},
 		singaporeContext: {
 			ai: aiInSingapore.metrics,
-			macro: macroContext.latest_snapshot
+			macro: macroContext.latest_snapshot,
+			postings: postingsMonitor.summary
 		}
 	};
 };

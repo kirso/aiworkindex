@@ -7,11 +7,12 @@
 	import FilterPanel from '$lib/components/ui/FilterPanel.svelte';
 	import OccupationCardList from '$lib/components/ui/OccupationCardList.svelte';
 	import * as Tabs from '$lib/components/ui/tabs/index.js';
-	import { card, sectionLabel, caption } from '$lib/design-system';
+	import { card, sectionLabel, caption, pill } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import { riskBandLabels, riskBandColors, impactTypeLabels, impactTypeColors } from '$lib/data';
 	import type { RiskBand, ImpactType } from '$lib/data';
 	import { DATA_VINTAGE } from '$lib/data/scoring-constants';
+	import { siteStatus } from '$lib/data/site-status';
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import { shortTitle } from '$lib/data/display-names';
 
@@ -76,7 +77,6 @@
 			.sort((a, b) => b.market.market_resilience - a.market.market_resilience)
 			.slice(0, 5)
 	);
-	let singaporeContext = $derived(data.singaporeContext);
 
 	let chartTabs = [
 		{ key: 'treemap' as const, label: 'Occupation Map' },
@@ -110,7 +110,7 @@
 
 <Seo
 	title="AI Work Index — How Will AI Affect Your Job in Singapore?"
-	description="Explore structural AI pressure on Singapore jobs. 562 occupations scored using official data and published research, with synthetic modern roles and labour-market context."
+	description="Explore structural AI pressure on Singapore jobs. {DATA_VINTAGE.occupation_count} occupations scored using official data and published research, with synthetic modern roles and labour-market context."
 	path="/"
 	ogImage="/og/default.png"
 	jsonLd={[faqJsonLd]}
@@ -121,106 +121,79 @@
 	<div
 		class="mx-auto flex max-w-screen-2xl items-center justify-center gap-2 px-4 py-1.5 text-xs sm:px-6"
 	>
-		<span class="font-semibold text-risk-moderate">New</span>
-		<span class="text-foreground/70"
-			>V4.0: 4-source exposure ensemble · BLS cross-check (&rho; = -0.14, n = 530) ·
-			<a href="/reports" class="text-primary hover:underline"
-				>latest published labour monitor: MOM Q3 2025</a
+		<span class="font-semibold text-risk-moderate">{siteStatus.homepage_banner.tag}</span>
+		<span class="text-text-secondary"
+			>{siteStatus.homepage_banner.title}. {siteStatus.homepage_banner.body}
+			<a href={siteStatus.homepage_banner.link_href} class="text-primary hover:underline"
+				>{siteStatus.homepage_banner.link_label}</a
 			></span
 		>
 	</div>
 </div>
 
-<!-- ===== HERO: Search + 3 Stats + CTA Pills ===== -->
+<!-- ===== HERO: Search → Stats → Browse ===== -->
 <div class="bg-card border-b border-border">
 	<div class="mx-auto max-w-screen-2xl px-4 sm:px-6">
-		<div class="mx-auto max-w-2xl py-8 sm:py-10 text-center">
+		<div class="mx-auto max-w-2xl py-10 sm:py-12 text-center">
 			<h1 class="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
 				How will AI affect your job?
 			</h1>
 			<p class="mt-1.5 text-sm text-muted-foreground">
-				Search any Singapore occupation or modern role ·
-				<a href="/calculator" class="text-primary hover:underline">Try the salary calculator</a>
+				Search any Singapore occupation or modern role
 			</p>
 			<div class="mt-4">
 				<HeroSearch occupations={data.occupations} />
 			</div>
-		</div>
 
-		<!-- 3 key stats -->
-		<div class="grid grid-cols-3 gap-4 pb-4">
-			<div class="text-center">
-				<p class="font-mono text-xl font-bold text-risk-very-high sm:text-2xl">
-					{data.stats.highRiskPct}%
-				</p>
-				<p class="text-[10px] text-muted-foreground sm:text-xs">high+ pressure</p>
+			<!-- Shock stats -->
+			<div class="mt-6 grid grid-cols-3 gap-4">
+				<div>
+					<p class="font-mono text-xl font-bold text-risk-very-high sm:text-2xl">
+						{data.stats.highRiskPct}%
+					</p>
+					<p class="text-[10px] text-muted-foreground sm:text-xs">
+						of jobs face significant AI pressure
+					</p>
+				</div>
+				<div>
+					<p class="font-mono text-xl font-bold text-risk-high sm:text-2xl">
+						SGD {data.stats.wagePoolUnderPressureBillions.toFixed(0)}B
+					</p>
+					<p class="text-[10px] text-muted-foreground sm:text-xs">
+						in annual wages overlap with AI
+					</p>
+				</div>
+				<div>
+					<p class="font-mono text-xl font-bold text-risk-very-low sm:text-2xl">
+						{data.stats.demandCount}
+					</p>
+					<p class="text-[10px] text-muted-foreground sm:text-xs">
+						jobs on Singapore's shortage list
+					</p>
+				</div>
 			</div>
-			<div class="text-center">
-				<p class="font-mono text-xl font-bold text-risk-high sm:text-2xl">
-					SGD {data.stats.wagePoolUnderPressureBillions.toFixed(0)}B
-				</p>
-				<p class="text-[10px] text-muted-foreground sm:text-xs">Est. wage pool under pressure</p>
-			</div>
-			<div class="text-center">
-				<p class="font-mono text-xl font-bold text-risk-very-low sm:text-2xl">
-					{data.stats.demandCount}
-				</p>
-				<p class="text-[10px] text-muted-foreground sm:text-xs">gov't in-demand</p>
-			</div>
-		</div>
 
-		<!-- CTA pills -->
-		<div class="flex flex-wrap items-center justify-center gap-2 pb-4">
-			<a
-				href="/rankings/highest-risk"
-				class="rounded-full border border-border bg-background px-3 py-1.5 text-xs font-medium text-foreground hover:bg-accent hover:border-primary/30 transition-colors"
-			>
-				Highest pressure jobs →
-			</a>
-			<a
-				href="/rankings/high-exposure-in-demand"
-				class="rounded-full border border-border bg-background px-3 py-1.5 text-xs font-medium text-foreground hover:bg-accent hover:border-primary/30 transition-colors"
-			>
-				In-demand but exposed →
-			</a>
-			<a
-				href="/roles"
-				class="rounded-full border border-border bg-background px-3 py-1.5 text-xs font-medium text-foreground hover:bg-accent hover:border-primary/30 transition-colors"
-			>
-				Modern roles →
-			</a>
-		</div>
-
-		<!-- SG context thin strip -->
-		<div
-			class="flex flex-wrap items-center justify-center gap-x-6 gap-y-1 border-t border-border/60 py-3 text-[10px] text-muted-foreground sm:text-xs"
-		>
-			<span>
-				AI adoption:
-				<span class="font-mono font-medium text-foreground"
-					>{singaporeContext.ai.enterprises.non_sme_ai_adoption_pct.toFixed(0)}%</span
+			<!-- Browse paths -->
+			<div class="mt-4 flex flex-wrap items-center justify-center gap-2">
+				<a
+					href="/rankings/highest-risk"
+					class={pill({ size: 'lg', tone: 'outline', interactive: true })}
 				>
-				non-SME
-			</span>
-			<span>
-				<span class="font-mono font-medium text-foreground"
-					>{singaporeContext.ai.workforce.workers_using_ai_at_work_pct.toFixed(0)}%</span
+					Highest pressure jobs →
+				</a>
+				<a
+					href="/rankings/high-exposure-in-demand"
+					class={pill({ size: 'lg', tone: 'outline', interactive: true })}
 				>
-				workers use AI
-			</span>
-			<span>
-				Unemployment:
-				<span class="font-mono font-medium text-foreground"
-					>{singaporeContext.macro.resident_unemployment_rate.toFixed(1)}%</span
-				>
-			</span>
-			<span>
-				NAIIP target:
-				<span class="font-mono font-medium text-foreground"
-					>{Math.round(singaporeContext.ai.national_programmes.naiip_workers_target / 1000)}K</span
-				>
-				AI-bilingual
-			</span>
+					In-demand but exposed →
+				</a>
+				<a href="/roles" class={pill({ size: 'lg', tone: 'outline', interactive: true })}>
+					Modern roles →
+				</a>
+				<a href="/calculator" class={pill({ size: 'lg', tone: 'outline', interactive: true })}>
+					Salary calculator →
+				</a>
+			</div>
 		</div>
 	</div>
 </div>
@@ -295,7 +268,7 @@
 				<div class="mb-4">
 					<details class={cn(card({ padding: 'none' }))}>
 						<summary
-							class="flex w-full cursor-pointer items-center justify-between px-4 py-3 text-sm font-medium text-foreground/80 list-none [&::-webkit-details-marker]:hidden"
+							class="flex w-full cursor-pointer items-center justify-between px-4 py-3 text-sm font-medium text-text-secondary list-none [&::-webkit-details-marker]:hidden"
 						>
 							Filters & Search
 							<svg

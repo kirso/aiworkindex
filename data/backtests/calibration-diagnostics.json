@@ -1,0 +1,172 @@
+{
+  "validation_date": "2026-03-20",
+  "model_version": "V4.0",
+  "bls_data_period": "2024-2034 projections",
+  "total_occupations": 562,
+  "matched_sample_size": 530,
+  "segments": {
+    "by_match_quality": {
+      "direct": {
+        "sample_size": 491,
+        "share_of_matched_sample": 0.926,
+        "share_of_total_occupations": 0.874,
+        "spearman_rho": -0.16,
+        "t_statistic": -3.57,
+        "p_value_below_001": true,
+        "p_value_below_01": true,
+        "avg_net_risk": 0.205,
+        "avg_bls_change": 2.58,
+        "negative_direction": true
+      },
+      "submajor_fallback": {
+        "sample_size": 38,
+        "share_of_matched_sample": 0.072,
+        "share_of_total_occupations": 0.068,
+        "spearman_rho": -0.204,
+        "t_statistic": -1.25,
+        "p_value_below_001": false,
+        "p_value_below_01": false,
+        "avg_net_risk": 0.135,
+        "avg_bls_change": 1.47,
+        "negative_direction": true
+      },
+      "major_fallback": {
+        "sample_size": 1,
+        "share_of_matched_sample": 0.002,
+        "share_of_total_occupations": 0.002,
+        "spearman_rho": null,
+        "t_statistic": null,
+        "p_value_below_001": null,
+        "p_value_below_01": null,
+        "avg_net_risk": 0.187,
+        "avg_bls_change": 0.6,
+        "negative_direction": null
+      },
+      "all_fallback": {
+        "sample_size": 39,
+        "share_of_matched_sample": 0.074,
+        "share_of_total_occupations": 0.069,
+        "spearman_rho": -0.233,
+        "t_statistic": -1.46,
+        "p_value_below_001": false,
+        "p_value_below_01": false,
+        "avg_net_risk": 0.136,
+        "avg_bls_change": 1.45,
+        "negative_direction": true
+      }
+    },
+    "by_confidence_level": {
+      "high": {
+        "sample_size": 328,
+        "share_of_matched_sample": 0.619,
+        "share_of_total_occupations": 0.584,
+        "spearman_rho": -0.088,
+        "t_statistic": -1.6,
+        "p_value_below_001": false,
+        "p_value_below_01": false,
+        "avg_net_risk": 0.178,
+        "avg_bls_change": 3.2,
+        "negative_direction": true
+      },
+      "medium": {
+        "sample_size": 194,
+        "share_of_matched_sample": 0.366,
+        "share_of_total_occupations": 0.345,
+        "spearman_rho": -0.183,
+        "t_statistic": -2.58,
+        "p_value_below_001": false,
+        "p_value_below_01": false,
+        "avg_net_risk": 0.237,
+        "avg_bls_change": 1.27,
+        "negative_direction": true
+      },
+      "low": {
+        "sample_size": 8,
+        "share_of_matched_sample": 0.015,
+        "share_of_total_occupations": 0.014,
+        "spearman_rho": -0.784,
+        "t_statistic": -3.09,
+        "p_value_below_001": false,
+        "p_value_below_01": false,
+        "avg_net_risk": 0.172,
+        "avg_bls_change": 3.37,
+        "negative_direction": true
+      },
+      "high_or_medium": {
+        "sample_size": 522,
+        "share_of_matched_sample": 0.985,
+        "share_of_total_occupations": 0.929,
+        "spearman_rho": -0.145,
+        "t_statistic": -3.34,
+        "p_value_below_001": true,
+        "p_value_below_01": true,
+        "avg_net_risk": 0.2,
+        "avg_bls_change": 2.48,
+        "negative_direction": true
+      }
+    },
+    "by_exposure_source_count": {
+      "1": {
+        "sample_size": 14,
+        "share_of_matched_sample": 0.026,
+        "share_of_total_occupations": 0.025,
+        "spearman_rho": -0.759,
+        "t_statistic": -4.04,
+        "p_value_below_001": false,
+        "p_value_below_01": true,
+        "avg_net_risk": 0.307,
+        "avg_bls_change": 2.76,
+        "negative_direction": true
+      },
+      "2": {
+        "sample_size": 21,
+        "share_of_matched_sample": 0.04,
+        "share_of_total_occupations": 0.037,
+        "spearman_rho": -0.111,
+        "t_statistic": -0.49,
+        "p_value_below_001": false,
+        "p_value_below_01": false,
+        "avg_net_risk": 0.117,
+        "avg_bls_change": -1.31,
+        "negative_direction": true
+      },
+      "3": {
+        "sample_size": 148,
+        "share_of_matched_sample": 0.279,
+        "share_of_total_occupations": 0.263,
+        "spearman_rho": -0.255,
+        "t_statistic": -3.19,
+        "p_value_below_001": false,
+        "p_value_below_01": true,
+        "avg_net_risk": 0.204,
+        "avg_bls_change": 1.95,
+        "negative_direction": true
+      },
+      "4": {
+        "sample_size": 347,
+        "share_of_matched_sample": 0.655,
+        "share_of_total_occupations": 0.617,
+        "spearman_rho": -0.112,
+        "t_statistic": -2.09,
+        "p_value_below_001": false,
+        "p_value_below_01": false,
+        "avg_net_risk": 0.199,
+        "avg_bls_change": 2.95,
+        "negative_direction": true
+      }
+    }
+  },
+  "summary": {
+    "direct_vs_fallback_rho_gap": -0.073,
+    "high_vs_low_confidence_rho_gap": -0.696,
+    "direct_segment_significant_negative": true,
+    "high_or_medium_significant_negative": true,
+    "low_confidence_sample_small": true,
+    "interpretation": "Direct mappings should carry the most stable external validation because they dominate the matched sample. Confidence-tier diagnostics are more reliable when high and medium are read together; the low-confidence tier is intentionally small and statistically noisy. Treat these as calibration diagnostics, not Singapore outcome truth."
+  },
+  "caveats": [
+    "These diagnostics inherit the same cross-country limitations as the BLS crosswalk validation.",
+    "Small low-confidence and major-fallback samples can make segment-level correlations noisy.",
+    "This is a calibration check for confidence and mapping quality, not a separate occupation-level prediction benchmark."
+  ]
+}

@@ -50,7 +50,7 @@
 	<h1 class={titleStyle({ size: 'page' })}>About This Project</h1>
 
 	<!-- TL;DR -->
-	<div class={cn(card({ padding: 'sm' }), 'mt-4 border-primary/20 bg-primary/5')}>
+	<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'primary' }), 'mt-4')}>
 		<p class="text-sm font-semibold text-foreground">
 			{DATA_VINTAGE.occupation_count} occupations · {DATA_VINTAGE.role_count} roles · No LLM in scoring
 			· MIT licensed
@@ -81,8 +81,8 @@
 		<div class={cn(card({ padding: 'sm' }), 'border-l-4 border-l-primary')}>
 			<p class="text-xs font-semibold uppercase tracking-wider text-primary">Outlook & Support</p>
 			<p class="mt-1 text-xs text-muted-foreground">
-				Forward-looking. Seniority modifiers, transition pathways, SkillsFuture programmes.
-				Illustrative.
+				Forward-looking. Seniority modifiers, transition pathways, SkillsFuture programmes. Guidance
+				layer, not a forecast.
 			</p>
 		</div>
 	</div>
@@ -90,16 +90,14 @@
 	<p class="mt-4 text-muted-foreground">
 		These three layers are separated deliberately in the product and data model. The structural
 		score is published as its own dataset, the labour monitor and Singapore context ship as separate
-		artifacts, and the outlook/support layer is kept out of the core score so it stays illustrative
-		and auditable rather than pretending to be measured fact.
+		artifacts, and the outlook/support layer is kept out of the core score so it remains a guidance
+		layer and stays auditable rather than being presented as measured fact.
 	</p>
 
 	<!-- Key context boxes -->
-	<div
-		class={cn(card({ padding: 'sm' }), 'mt-4 border-risk-moderate-border bg-risk-moderate-subtle')}
-	>
+	<div class={card({ padding: 'sm', variant: 'notice', accent: 'moderate' })}>
 		<p class="text-sm font-medium text-foreground">This model measures one side of the equation</p>
-		<p class="mt-1 text-sm text-foreground/80">
+		<p class="mt-1 text-sm text-text-secondary">
 			In the
 			<a
 				href="https://www.aeaweb.org/articles?id=10.1257/jep.33.2.3"
@@ -112,14 +110,9 @@
 		</p>
 	</div>
 
-	<div
-		class={cn(
-			card({ padding: 'sm' }),
-			'mt-3 border-impact-leveraged-border bg-impact-leveraged-subtle'
-		)}
-	>
+	<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'leveraged' }), 'mt-3')}>
 		<p class="text-sm font-medium text-foreground">State of the science (early 2026)</p>
-		<ul class="mt-1.5 space-y-1 text-sm text-foreground/80">
+		<ul class="mt-1.5 space-y-1 text-sm text-text-secondary">
 			<li>
 				Single exposure scores are poor unemployment predictors — ensembles do better (<a
 					href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11983276/"
@@ -169,7 +162,7 @@
 							<li>Crosswalk quality (US occupations mapped to SG)</li>
 							<li>Labour monitor (cluster-level, not occupation-level)</li>
 							<li>Observed-usage calibration (Anthropic usage, not universal AI adoption)</li>
-							<li>BLS convergent check (&rho; = &minus;0.14, directional only)</li>
+							<li>BLS convergent check (&rho; = &minus;0.14, broad directional check)</li>
 						</ul>
 					</div>
 					<div>
@@ -182,18 +175,23 @@
 								Transition support (deterministic feasibility estimates + official programme
 								infrastructure)
 							</li>
-							<li>Outlook/scenario modelling (rule-based, not predictive)</li>
-							<li>Seniority modifiers (research-grounded, not validated)</li>
+							<li>Outlook/scenario modelling (rule-based guidance, not prediction)</li>
+							<li>Seniority modifiers (research-grounded, not independently validated)</li>
 						</ul>
 					</div>
 					<div>
 						<p class="text-xs font-semibold uppercase tracking-wider text-risk-very-high">
-							Not Validated
+							Still Limited
 						</p>
 						<ul class="mt-1.5 space-y-1 text-sm text-muted-foreground">
-							<li>Occupation-level backtesting (cluster-level only: 3/4 pass)</li>
-							<li>Company-size modifiers (not yet implemented)</li>
-							<li>Causal displacement claims (directional correlation only)</li>
+							<li>
+								Occupation-level backtesting is still limited; current public validation remains
+								cluster- and family-level, not occupation-level
+							</li>
+							<li>Company-size modifiers (not part of the current structural model)</li>
+							<li>
+								Causal displacement claims are out of scope (current evidence is correlational)
+							</li>
 							<li>
 								Occupation-level employment counts (not publicly released; requested from agencies)
 							</li>

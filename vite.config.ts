@@ -10,6 +10,9 @@ export default defineConfig({
 	preview: {
 		port: 4174
 	},
+	ssr: {
+		noExternal: ['svelte-sonner']
+	},
 	build: {
 		chunkSizeWarningLimit: 1100,
 		rollupOptions: {

@@ -32,9 +32,7 @@
 
 <div>
 	<div class="mx-auto max-w-3xl">
-		<h2 class="text-sm font-semibold text-foreground mb-4">
-			Singapore Labour Market · Q4 2025 (Advance)
-		</h2>
+		<h2 class="text-sm font-semibold text-foreground mb-4">Singapore Labour Market · Q4 2025</h2>
 
 		<div class="grid gap-3 sm:grid-cols-3 mb-4">
 			{#each clusters as cluster}
@@ -76,18 +74,18 @@
 		</div>
 
 		<p class="text-xs text-muted-foreground leading-relaxed">
-			Employment grew by 19,600 in Q4 2025, bringing full-year growth to 57,300 (vs 44,500 in 2024).
-			Unemployment steady at 2.0% (Dec 2025). Retrenchments fell to 1.5 per 1,000 employees (3,600
-			in Q4). Full-year retrenchments: 14,400 (6.2 per 1,000).
+			Job vacancies rose from 69,600 in Sep 2025 to 77,700 in Dec 2025, lifting the
+			vacancy-to-unemployed ratio from 1.50 to 1.58. Unemployment stayed at 2.0% in Dec 2025, and
+			retrenchments remained low at 3,690 in Q4 2025 (1.5 per 1,000 employees).
 		</p>
 		<p class="mt-1 text-xs text-muted-foreground">
 			Source: <a
-				href="https://www.mom.gov.sg/newsroom/press-releases/2026/0129-labour-market-advance-release-fourth-quarter-2025"
+				href="https://stats.mom.gov.sg/Pages/Labour-Market-Report-4Q-2025.aspx"
 				target="_blank"
 				rel="noopener noreferrer"
-				class="underline hover:text-foreground/80">Labour Market Advance Release Q4 2025</a
-			>, MOM. Vacancy data by occupation group pending full Q4 2025 report.
-			<a href="/reports" class="ml-1 underline hover:text-foreground/80">Full report →</a>
+				class="underline hover:text-text-secondary">Labour Market Report Q4 2025</a
+			>, MOM.
+			<a href="/reports" class="ml-1 underline hover:text-text-secondary">Full report →</a>
 		</p>
 	</div>
 </div>

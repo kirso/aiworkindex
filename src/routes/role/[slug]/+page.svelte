@@ -10,15 +10,21 @@
 		display,
 		title as titleStyle,
 		sectionLabel,
-		caption
+		caption,
+		pill,
+		chip,
+		scoreTileClasses
 	} from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import { vacancySignalClass } from '$lib/data/detail-display';
+	import DriverWaterfall from '$lib/components/viz/DriverWaterfall.svelte';
 	import SignalProfileGrid from '$lib/components/viz/SignalProfileGrid.svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import * as Collapsible from '$lib/components/ui/collapsible/index.js';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import ContextItemGrid from '$lib/components/ui/ContextItemGrid.svelte';
+	import PostingsSignalSummary from '$lib/components/ui/PostingsSignalSummary.svelte';
+	import { siteStatus } from '$lib/data/site-status';
 	import { SITE } from '$lib/data/scoring-constants';
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import {
@@ -39,6 +45,8 @@
 		toggleWatchlistEntry
 	} from '$lib/watchlist';
 	import { getTransitionProgrammeUrl } from '$lib/data/detail-context';
+	import { toast } from 'svelte-sonner';
+	import { buildMarketNowSummary, buildMarketDetailBullets } from '$lib/data/market-summary';
 
 	let { data } = $props();
 	let scored = $derived(data.scored);
@@ -68,6 +76,9 @@
 			);
 			isWatchlisted = hasWatchlistEntry(nextEntries, { kind: 'role', id: scored.slug });
 			localStorage.setItem(WATCHLIST_KEY, serializeWatchlist(nextEntries));
+			toast(isWatchlisted ? 'Added to watchlist' : 'Removed from watchlist', {
+				description: scored.title
+			});
 		} catch {}
 	}
 
@@ -78,6 +89,51 @@
 	let geographyContext = $derived(context.geographyContext);
 	let primaryOccupation = $derived(context.primaryOccupation);
 	let transitionSupport = $derived(context.transitionSupport);
+	let postings = $derived(context.postings);
+	let employerPressure = $derived(context.employerPressure);
+	let localContextItems = $derived(singaporeContext.items);
+	let marketNowSummary = $derived(
+		buildMarketNowSummary(primaryOccupation?.labour_monitor ?? null, postings, employerPressure)
+	);
+	let marketDetailBullets = $derived(
+		buildMarketDetailBullets(primaryOccupation?.labour_monitor ?? null, postings, employerPressure)
+	);
+	let roleWaterfallSubject = $derived.by(() => {
+		const weightedAnthropicGap = scored.components.reduce((sum, component) => {
+			const gap = component.occupation?.evidence.anthropic_gap ?? 0;
+			return sum + gap * component.weight;
+		}, 0);
+		const solMatch: false | 'prefix' = scored.components.some(
+			component => component.occupation?.evidence.sol_match
+		)
+			? 'prefix'
+			: false;
+		const jobsInDemandMatch: false | 'prefix' = scored.components.some(
+			component => component.occupation?.evidence.jobs_in_demand_match
+		)
+			? 'prefix'
+			: false;
+		return {
+			exposure: scored.exposure,
+			bottleneck: scored.bottleneck,
+			net_risk: scored.net_risk,
+			market: {
+				market_resilience: scored.market_resilience
+			},
+			evidence: {
+				anthropic_calibrated: scored.components.some(
+					component => component.occupation?.evidence.anthropic_calibrated
+				),
+				anthropic_gap: scored.components.some(
+					component => component.occupation?.evidence.anthropic_gap !== null
+				)
+					? weightedAnthropicGap
+					: null,
+				sol_match: solMatch,
+				jobs_in_demand_match: jobsInDemandMatch
+			}
+		};
+	});
 
 	// Outlook (inline, base case)
 	let selectedSeniority = $state<SeniorityLevel>('mid');
@@ -251,11 +307,9 @@
 	<!-- ===== BLOCK 1: THE VERDICT ===== -->
 	<div class={cn(card({ padding: 'lg' }), 'mb-8 overflow-hidden')}>
 		<div class="grid gap-6 lg:grid-cols-[12rem_minmax(0,1fr)] lg:items-start">
-			<div
-				class="rounded-2xl border border-risk-moderate/20 bg-gradient-to-b from-risk-moderate/10 via-background to-background p-5"
-			>
+			<div class={cn('rounded-2xl border p-5', scoreTileClasses(scored.risk_band))}>
 				<p class="text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-					Estimated pressure
+					Structural pressure
 				</p>
 				<p class={cn(display({ size: 'xl' }), 'mt-2')}>{(scored.net_risk * 100).toFixed(0)}%</p>
 				<span class={cn(riskBadge({ band: scored.risk_band }), 'mt-2 inline-flex')}>
@@ -280,7 +334,7 @@
 					<div class="min-w-0">
 						<h1 class={titleStyle({ size: 'page' })}>{scored.title}</h1>
 						<p class={caption({ weight: 'medium' })}>{scored.description}</p>
-						<p class="mt-3 max-w-3xl text-[15px] leading-relaxed text-foreground/85">
+						<p class="mt-3 max-w-3xl text-[15px] leading-relaxed text-text-secondary">
 							{structural.summaryText}
 						</p>
 					</div>
@@ -351,15 +405,12 @@
 						<span class={confidenceBadge({ level: scored.confidence })}>
 							{scored.confidence.charAt(0).toUpperCase() + scored.confidence.slice(1)} Confidence
 						</span>
-						<span
-							class="rounded-full bg-risk-moderate/10 px-2.5 py-1 text-[11px] font-medium text-risk-moderate"
-						>
-							Estimated · {scored.components.length} components
+						<span class={pill({ tone: 'muted' })}>
+							{scored.components.length}-component blend
 						</span>
 					</div>
 					<div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
 						<span>Higher risk than {structural.riskPercentile}% of occupations</span>
-						<span>Blended from {scored.components.length} official occupations</span>
 					</div>
 				</div>
 			</div>
@@ -375,36 +426,12 @@
 		<h2 class={cn(sectionLabel(), 'mb-3')}>Why This Score</h2>
 		<div class={card({ padding: 'md' })}>
 			<div class="grid gap-6 lg:grid-cols-5">
-				<!-- Left: Score table (3/5) -->
+				<!-- Left: Waterfall (3/5) -->
 				<div class="lg:col-span-3">
-					<div class="space-y-3 text-sm">
-						<div class="flex items-center justify-between">
-							<span class="text-muted-foreground">AI Task Overlap</span>
-							<span class="font-mono text-xs tabular-nums"
-								>{(scored.exposure * 100).toFixed(0)}%</span
-							>
-						</div>
-						<div class="flex items-center justify-between">
-							<span class="text-muted-foreground">Human Advantage</span>
-							<span class="font-mono text-xs tabular-nums"
-								>{(scored.bottleneck * 100).toFixed(0)}%</span
-							>
-						</div>
-						<div class="flex items-center justify-between">
-							<span class="text-muted-foreground">SG Demand Buffer</span>
-							<span class="font-mono text-xs tabular-nums"
-								>{(scored.market_resilience * 100).toFixed(0)}%</span
-							>
-						</div>
-						<div class="flex items-center justify-between border-t border-border pt-3">
-							<span class="font-semibold text-foreground">Net Risk</span>
-							<span class="font-mono text-sm font-bold tabular-nums"
-								>{(scored.net_risk * 100).toFixed(0)}%</span
-							>
-						</div>
-					</div>
+					<DriverWaterfall occupation={roleWaterfallSubject} />
 					<p class="mt-3 text-xs text-muted-foreground">
-						Blended across {scored.components.length} occupations.
+						Blended across {scored.components.length} occupations using the same score logic as an occupation
+						page.
 						<a href="/methodology" class="text-primary hover:underline">How this works</a>
 					</p>
 				</div>
@@ -428,14 +455,27 @@
 							<p class="text-xs font-semibold text-foreground mb-2">Skills to focus on</p>
 							<div class="flex flex-wrap gap-1.5">
 								{#each structural.personalizedContent.skills.slice(0, 4) as skill}
-									<span
-										class="rounded-full bg-primary/10 px-2.5 py-1 text-[11px] font-medium text-primary"
-										title={skill.description}
-									>
+									<span class={pill({ tone: 'primary' })} title={skill.description}>
 										{skill.label}
 									</span>
 								{/each}
 							</div>
+						</div>
+					{/if}
+					{#if (structural.onetEnrichment?.technologies.length ?? 0) > 0}
+						<div class="pt-3 border-t border-border">
+							<p class="text-xs font-semibold text-foreground mb-2">Common tools in similar work</p>
+							<div class="flex flex-wrap gap-1.5">
+								{#each structural.onetEnrichment?.technologies.slice(0, 4) ?? [] as technology}
+									<span class={pill({ tone: technology.hot ? 'positive' : 'muted' })}>
+										{technology.name}
+									</span>
+								{/each}
+							</div>
+							<p class="mt-2 text-[10px] text-muted-foreground">
+								{structural.onetEnrichment?.note ??
+									'Derived from matched O*NET technology-skill profiles.'}
+							</p>
 						</div>
 					{/if}
 				</div>
@@ -454,7 +494,7 @@
 					<div>
 						<p class="text-sm font-semibold text-foreground">Current Singapore signal</p>
 						<p class="text-xs text-muted-foreground">
-							Anchored on the closest official occupation for labour and industry context.
+							Labour now, industry footprint, and a directional 12-month read.
 						</p>
 					</div>
 					{#if primaryOccupation?.labour_monitor}
@@ -469,40 +509,23 @@
 					{/if}
 				</div>
 
-				<div class="grid gap-4 lg:grid-cols-2">
-					{#if primaryOccupation?.labour_monitor}
-						<div class={cn(card({ padding: 'sm', variant: 'inset' }), 'space-y-4')}>
-							<div class="flex items-start justify-between gap-3">
-								<div>
-									<p class="text-xs font-semibold text-foreground">Labour Now</p>
-									<p class="text-[11px] text-muted-foreground">
-										Anchored on {primaryOccupation.title} · {primaryOccupation.labour_monitor
-											.cluster_label}
-										cluster · MOM Q3 2025
-									</p>
-								</div>
-								<span
-									class={cn(
-										'rounded-full px-2 py-0.5 text-[10px] font-medium',
-										labourStateClass(primaryOccupation.labour_monitor.overall)
-									)}
-								>
-									{labourStateLabel(primaryOccupation.labour_monitor.overall)}
-								</span>
-							</div>
-							<div class="grid gap-3 sm:grid-cols-3">
-								<div class="rounded-md border border-border/70 bg-background/80 px-3 py-3">
+				{#if primaryOccupation?.labour_monitor || (postings && postings.hiring_state !== 'no_signal') || (employerPressure && employerPressure.signal_count > 0)}
+					<div>
+						<p class="text-sm leading-relaxed text-text-secondary">{marketNowSummary}</p>
+						<div class="mt-3 grid gap-3 sm:grid-cols-3">
+							{#if primaryOccupation?.labour_monitor}
+								<div class={card({ padding: 'sm', variant: 'metric' })}>
 									<p
 										class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground"
 									>
-										Vacancy
+										Vacancy rate
 									</p>
-									<p class="mt-2 font-mono text-lg text-foreground">
+									<p class="mt-1 font-mono text-lg text-foreground">
 										{primaryOccupation.labour_monitor.vacancy.latest_rate}%
 									</p>
 									<p
 										class={cn(
-											'mt-1 text-[11px] font-medium',
+											'text-[11px] font-medium',
 											primaryOccupation.labour_monitor.vacancy.trend_4q_pct > 0
 												? 'text-risk-very-low'
 												: primaryOccupation.labour_monitor.vacancy.trend_4q_pct < 0
@@ -515,67 +538,71 @@
 											: primaryOccupation.labour_monitor.vacancy.trend_4q_pct < 0
 												? '↓'
 												: '→'}
-										{Math.abs(primaryOccupation.labour_monitor.vacancy.trend_4q_pct).toFixed(1)}% vs
-										4Q
+										{Math.abs(primaryOccupation.labour_monitor.vacancy.trend_4q_pct).toFixed(1)}%
+										year-on-year
 									</p>
 								</div>
-								<div class="rounded-md border border-border/70 bg-background/80 px-3 py-3">
+							{/if}
+							{#if primaryOccupation?.labour_monitor?.hiring}
+								<div class={card({ padding: 'sm', variant: 'metric' })}>
 									<p
 										class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground"
 									>
-										Hiring
+										Hiring balance
 									</p>
-									{#if primaryOccupation.labour_monitor.hiring}
-										<p class="mt-2 font-mono text-base text-foreground">
-											{primaryOccupation.labour_monitor.hiring.recruitment_rate}% recruit
-										</p>
-										<p class="mt-1 text-[11px] text-muted-foreground">
-											{primaryOccupation.labour_monitor.hiring.resignation_rate}% resign
-										</p>
-									{:else}
-										<p class="mt-2 text-sm text-muted-foreground">No direct hiring series</p>
-									{/if}
+									<p class="mt-1 font-mono text-lg text-foreground">
+										{primaryOccupation.labour_monitor.hiring.recruitment_rate}%
+									</p>
+									<p class="text-[11px] text-muted-foreground">
+										recruit vs {primaryOccupation.labour_monitor.hiring.resignation_rate}% resign
+									</p>
 								</div>
-								<div class="rounded-md border border-border/70 bg-background/80 px-3 py-3">
+							{/if}
+							{#if primaryOccupation?.labour_monitor?.retrenchment?.incidence_per_1000}
+								<div class={card({ padding: 'sm', variant: 'metric' })}>
 									<p
 										class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground"
 									>
 										Retrenchment
 									</p>
-									{#if primaryOccupation.labour_monitor.retrenchment}
-										<p class="mt-2 font-mono text-base text-foreground">
-											{#if primaryOccupation.labour_monitor.retrenchment.incidence_per_1000}
-												{primaryOccupation.labour_monitor.retrenchment.incidence_per_1000}/1K
-											{:else}
-												{primaryOccupation.labour_monitor.retrenchment.latest_count.toLocaleString()}
-											{/if}
-										</p>
-										<p class="mt-1 text-[11px] text-muted-foreground">
-											{#if primaryOccupation.labour_monitor.retrenchment.incidence_per_1000}
-												{primaryOccupation.labour_monitor.retrenchment.incidence_per_1000 < 2
-													? 'Low'
-													: primaryOccupation.labour_monitor.retrenchment.incidence_per_1000 < 5
-														? 'Moderate'
-														: 'Elevated'} incidence
-											{:else}
-												{primaryOccupation.labour_monitor.retrenchment.latest_quarter}
-											{/if}
-										</p>
-									{:else}
-										<p class="mt-2 text-sm text-muted-foreground">No retrenchment series</p>
-									{/if}
+									<p class="mt-1 font-mono text-lg text-foreground">
+										{primaryOccupation.labour_monitor.retrenchment.incidence_per_1000} per 1,000
+									</p>
+									<p class="text-[11px] text-muted-foreground">
+										{primaryOccupation.labour_monitor.retrenchment.incidence_per_1000 < 2
+											? 'Low incidence'
+											: primaryOccupation.labour_monitor.retrenchment.incidence_per_1000 < 5
+												? 'Moderate incidence'
+												: 'Elevated'}
+									</p>
 								</div>
-							</div>
+							{:else if postings && postings.hiring_state !== 'no_signal'}
+								<div class={card({ padding: 'sm', variant: 'metric' })}>
+									<p
+										class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground"
+									>
+										Live postings
+									</p>
+									<p class="mt-1 font-mono text-lg text-foreground">
+										{postings.posting_volume_30d}
+									</p>
+									<p class="text-[11px] text-muted-foreground">in the last 30 days</p>
+								</div>
+							{/if}
 						</div>
-					{/if}
+						<p class="mt-2 text-[10px] text-muted-foreground">
+							{primaryOccupation?.labour_monitor?.cluster_label ?? 'Cluster'} data · {siteStatus
+								.live_monitor.labour_monitor_artifact_vintage}
+						</p>
+					</div>
+				{/if}
 
+				<div class="grid gap-5 lg:grid-cols-2">
 					{#if industryContext.top_industries.length > 0}
-						<div class={cn(card({ padding: 'sm', variant: 'inset' }), 'space-y-4')}>
+						<div class="space-y-4">
 							<div>
 								<p class="text-xs font-semibold text-foreground">Top Industries</p>
-								<p class="text-[11px] text-muted-foreground">
-									Weighted employment anchors in Singapore
-								</p>
+								<p class="text-[11px] text-muted-foreground">Where this work is concentrated</p>
 							</div>
 							<div class="space-y-3">
 								{#each industryContext.top_industries.slice(0, 3) as industry (industry.key)}
@@ -611,25 +638,26 @@
 									</div>
 								{/each}
 							</div>
+							{#if industryContext.metadata?.vacancy_overlay_vintage}
+								<p class="text-[10px] text-muted-foreground">
+									Industry vacancy overlays use the latest published detailed cross-tab ({industryContext
+										.metadata.vacancy_overlay_vintage}), which can lag the main labour monitor.
+								</p>
+							{/if}
 						</div>
 					{/if}
 
 					{#if baseOutlook}
-						<div class={cn(card({ padding: 'sm', variant: 'inset' }), 'space-y-4')}>
+						<div class="space-y-4">
 							<div class="flex items-start justify-between gap-3">
 								<div>
 									<p class="text-xs font-semibold text-foreground">12-Month Outlook</p>
-									<p class="text-[11px] text-muted-foreground">
-										Directional role read anchored on {primaryOccupation?.title}
-									</p>
+									<p class="text-[11px] text-muted-foreground">Rule-based, not a prediction</p>
 								</div>
 								<div class="flex items-center gap-1">
 									{#each ['junior', 'mid', 'senior'] as const as level}
 										<button
-											class="rounded-md px-1.5 py-0.5 text-[10px] font-medium transition-colors {selectedSeniority ===
-											level
-												? 'bg-primary text-primary-foreground'
-												: 'text-muted-foreground hover:text-foreground hover:bg-accent'}"
+											class={chip({ active: selectedSeniority === level })}
 											onclick={() => (selectedSeniority = level)}
 										>
 											{seniorityAdjustments[level].label}
@@ -679,37 +707,9 @@
 							</div>
 						</div>
 					{/if}
-
-					{#if singaporeContext.items.length > 0}
-						<div class={cn(card({ padding: 'sm', variant: 'inset' }), 'space-y-3')}>
-							<div>
-								<p class="text-xs font-semibold text-foreground">Context & Policy</p>
-								<p class="text-[11px] text-muted-foreground">
-									Institutional, education, and support signals behind the role estimate.
-								</p>
-							</div>
-							<div class="flex flex-wrap gap-1.5">
-								{#each singaporeContext.items as item (item.key)}
-									<span
-										class="rounded-full px-2 py-0.5 text-[10px] font-medium
-										{item.tone === 'protective'
-											? 'bg-risk-very-low/10 text-risk-very-low'
-											: item.tone === 'pressure'
-												? 'bg-risk-high/10 text-risk-high'
-												: item.tone === 'support'
-													? 'bg-primary/10 text-primary'
-													: 'bg-background text-muted-foreground'}"
-										title={item.description}
-									>
-										{item.label}: {item.value}
-									</span>
-								{/each}
-							</div>
-						</div>
-					{/if}
 				</div>
 
-				{#if workerProfile.items.length > 0 || geographyContext.items.length > 0}
+				{#if workerProfile.items.length > 0 || geographyContext.items.length > 0 || localContextItems.length > 0}
 					<div class="mt-4 border-t border-border pt-4">
 						<button
 							class="flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground"
@@ -722,10 +722,65 @@
 								stroke="currentColor"
 								stroke-width="2"><path d="m6 9 6 6 6-6" /></svg
 							>
-							{showMoreContext ? 'Less context' : 'Worker profile & geography'}
+							{showMoreContext
+								? 'Less local context'
+								: 'Worker profile, geography & policy context'}
 						</button>
 						{#if showMoreContext}
 							<div class="mt-3 space-y-4">
+								{#if marketDetailBullets.length > 0}
+									<div class={cn(card({ padding: 'sm', variant: 'inset' }), 'space-y-3')}>
+										<div>
+											<p class="text-xs font-semibold text-foreground">Market detail</p>
+											<p class="text-[11px] text-muted-foreground">
+												More detailed monitor context in plain English.
+											</p>
+										</div>
+										<ul class="space-y-1.5 text-sm text-muted-foreground">
+											{#each marketDetailBullets as item}
+												<li>{item}</li>
+											{/each}
+										</ul>
+										{#if postings && postings.hiring_state !== 'no_signal'}
+											<PostingsSignalSummary
+												{postings}
+												label="Hiring now"
+												contextLabel="Role-normalized postings monitor"
+											/>
+										{/if}
+									</div>
+								{/if}
+								{#if localContextItems.length > 0}
+									<div class={cn(card({ padding: 'sm', variant: 'inset' }), 'space-y-3')}>
+										<div>
+											<p class="text-xs font-semibold text-foreground">Local context & support</p>
+											<p class="text-[11px] text-muted-foreground">
+												Institutional, education, and transition-support signals behind the role
+												estimate.
+											</p>
+										</div>
+										<div class="flex flex-wrap gap-1.5">
+											{#each localContextItems as item (item.key)}
+												<span
+													class={pill({
+														size: 'sm',
+														tone:
+															item.tone === 'protective'
+																? 'positive'
+																: item.tone === 'pressure'
+																	? 'danger'
+																	: item.tone === 'support'
+																		? 'primary'
+																		: 'neutral'
+													})}
+													title={item.description}
+												>
+													{item.label}: {item.value}
+												</span>
+											{/each}
+										</div>
+									</div>
+								{/if}
 								{#if workerProfile.items.length > 0}
 									<ContextItemGrid title="Worker profile" items={workerProfile.items} />
 								{/if}
@@ -752,11 +807,7 @@
 					<div class="mb-4 pb-4 border-b border-border">
 						<div class="flex flex-wrap items-center gap-2">
 							{#if transitionSupport.skillsfuture_eligible}
-								<span
-									class="rounded-full bg-risk-very-low/10 px-2.5 py-1 text-[11px] font-medium text-risk-very-low"
-								>
-									SkillsFuture eligible
-								</span>
+								<span class={pill({ tone: 'positive' })}> SkillsFuture eligible </span>
 							{/if}
 							{#each transitionSupport.recommended_programmes as programme}
 								{@const programmeUrl = getTransitionProgrammeUrl(programme)}
@@ -764,13 +815,13 @@
 									href={programmeUrl ?? '#'}
 									target="_blank"
 									rel="noopener noreferrer"
-									class="rounded-full bg-primary/10 px-2.5 py-1 text-[11px] font-medium text-primary hover:bg-primary/20 transition-colors"
+									class={pill({ tone: 'primary', interactive: true })}
 								>
 									{programme} ↗
 								</a>
 							{/each}
 						</div>
-						<p class="mt-2 text-[10px] text-muted-foreground/70">{transitionSupport.basis}</p>
+						<p class="mt-2 text-[10px] text-text-secondary">{transitionSupport.basis}</p>
 					</div>
 				{/if}
 
@@ -783,7 +834,7 @@
 									href="/occupation/{t.to_ssoc}"
 									class="flex items-center justify-between rounded-md px-2 py-1.5 -mx-2 text-sm hover:bg-accent hover:text-primary transition-colors"
 								>
-									<span class="truncate text-foreground/80">{t.to_title}</span>
+									<span class="truncate text-text-secondary">{t.to_title}</span>
 									<span class="ml-2 shrink-0 font-mono text-xs text-muted-foreground"
 										>{(t.composite * 100).toFixed(0)}%</span
 									>
@@ -799,7 +850,7 @@
 									href="/occupation/{t.to_ssoc}"
 									class="flex items-center justify-between rounded-md px-2 py-1.5 -mx-2 text-sm hover:bg-accent hover:text-primary transition-colors"
 								>
-									<span class="truncate text-foreground/80">{t.to_title}</span>
+									<span class="truncate text-text-secondary">{t.to_title}</span>
 									<span class="ml-2 shrink-0 font-mono text-xs text-muted-foreground"
 										>{(t.composite * 100).toFixed(0)}%</span
 									>
@@ -815,7 +866,7 @@
 									href="/occupation/{t.to_ssoc}"
 									class="flex items-center justify-between rounded-md px-2 py-1.5 -mx-2 text-sm hover:bg-accent hover:text-primary transition-colors"
 								>
-									<span class="truncate text-foreground/80">{t.to_title}</span>
+									<span class="truncate text-text-secondary">{t.to_title}</span>
 									<span class="ml-2 shrink-0 font-mono text-xs text-muted-foreground"
 										>{(t.composite * 100).toFixed(0)}%</span
 									>
@@ -831,7 +882,7 @@
 									href="/occupation/{t.to_ssoc}"
 									class="flex items-center justify-between rounded-md px-2 py-1.5 -mx-2 text-sm hover:bg-accent hover:text-primary transition-colors"
 								>
-									<span class="truncate text-foreground/80">{t.to_title}</span>
+									<span class="truncate text-text-secondary">{t.to_title}</span>
 									<span class="ml-2 shrink-0 font-mono text-xs text-muted-foreground"
 										>{(t.composite * 100).toFixed(0)}%</span
 									>

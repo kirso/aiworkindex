@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { card } from '$lib/design-system';
+	import { pill } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 
 	let {
@@ -39,29 +39,24 @@
 		}
 	});
 
-	let agreementColor = $derived.by(() => {
-		if (!agreement) return 'text-muted-foreground';
+	let agreementTone = $derived.by(() => {
+		if (!agreement) return 'muted' as const;
 		switch (agreement) {
 			case 'consensus_high':
 			case 'consensus_low':
 			case 'aligned_mid':
-				return 'text-risk-very-low';
+				return 'positive' as const;
 			case 'divergent':
-				return 'text-risk-moderate';
+				return 'warning' as const;
 			case 'insufficient_data':
-				return 'text-risk-high';
+				return 'danger' as const;
 			default:
-				return 'text-muted-foreground';
+				return 'muted' as const;
 		}
 	});
 </script>
 
-<div
-	class={cn(
-		card({ padding: 'sm', variant: 'inset' }),
-		'flex flex-wrap items-center gap-x-3 gap-y-2'
-	)}
->
+<div class="flex flex-wrap items-center gap-x-3 gap-y-2 border-t border-border pt-3">
 	<span class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
 		Evidence
 	</span>
@@ -79,15 +74,12 @@
 	</div>
 	<span class="text-[10px] text-muted-foreground">{sourceCount}/4 sources</span>
 	{#if agreementLabel}
-		<span class="rounded-full bg-background px-2 py-0.5 text-[10px] font-medium {agreementColor}">
+		<span class={pill({ size: 'sm', tone: agreementTone })}>
 			{agreementLabel}
 		</span>
 	{/if}
 	{#if signalConflict}
-		<span
-			class="rounded-full bg-risk-high/10 px-2 py-0.5 text-[10px] font-medium text-risk-high"
-			title="Conflicting signals detected"
-		>
+		<span class={pill({ size: 'sm', tone: 'danger' })} title="Conflicting signals detected">
 			Contested
 		</span>
 	{/if}

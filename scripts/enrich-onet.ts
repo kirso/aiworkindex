@@ -20,7 +20,11 @@ import * as path from 'path';
 const DATA_DIR = path.join(import.meta.dir, '..', 'data');
 const ONET_DIR = path.join(DATA_DIR, 'raw', 'external', 'onet');
 const OCCUPATIONS_FILE = path.join(DATA_DIR, 'occupations.json');
-const OUT_FILE = path.join(import.meta.dir, '..', 'src', 'lib', 'data', 'onet-enrichment.json');
+const SRC_DATA_DIR = path.join(import.meta.dir, '..', 'src', 'lib', 'data');
+const STATIC_DATA_DIR = path.join(import.meta.dir, '..', 'static', 'data');
+const OUT_FILE = path.join(DATA_DIR, 'onet-enrichment.json');
+const SRC_OUT_FILE = path.join(SRC_DATA_DIR, 'onet-enrichment.json');
+const STATIC_OUT_FILE = path.join(STATIC_DATA_DIR, 'onet-enrichment.json');
 
 interface SgOccupation {
 	ssoc: string;
@@ -400,13 +404,21 @@ function main() {
 	}
 
 	// Write output
-	fs.writeFileSync(OUT_FILE, JSON.stringify(enriched, null, 2));
+	const serialized = JSON.stringify(enriched, null, 2);
+	fs.mkdirSync(DATA_DIR, { recursive: true });
+	fs.mkdirSync(SRC_DATA_DIR, { recursive: true });
+	fs.mkdirSync(STATIC_DATA_DIR, { recursive: true });
+	fs.writeFileSync(OUT_FILE, serialized);
+	fs.writeFileSync(SRC_OUT_FILE, serialized);
+	fs.writeFileSync(STATIC_OUT_FILE, serialized);
 
 	console.log(
 		`Matched: ${matched}/${sgOccs.length} (${((matched / sgOccs.length) * 100).toFixed(1)}%)`
 	);
 	console.log(`Tasks: ${totalTasks}, Technologies: ${totalTech}`);
 	console.log(`Output: ${OUT_FILE}`);
+	console.log(`Copied to ${SRC_OUT_FILE}`);
+	console.log(`Published to ${STATIC_OUT_FILE}`);
 
 	// Show some example matches for verification
 	console.log('\n--- Sample matches ---');

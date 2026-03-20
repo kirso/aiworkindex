@@ -24,6 +24,7 @@ interface ReleaseArtifactDefinition {
 	category:
 		| 'structural_score'
 		| 'context_bundle'
+		| 'task_skill_enrichment'
 		| 'labour_monitor'
 		| 'worker_profile'
 		| 'geography_context'
@@ -47,6 +48,13 @@ const ARTIFACTS: ReleaseArtifactDefinition[] = [
 		label: 'V4 structural score JSON',
 		category: 'structural_score',
 		description: 'Nested structural score dataset with basis and provenance metadata.'
+	},
+	{
+		file: 'onet-enrichment.json',
+		label: 'O*NET task and technology enrichment',
+		category: 'task_skill_enrichment',
+		description:
+			'Title-matched O*NET task and technology-skill enrichment used as supporting context for occupation and role pages.'
 	},
 	{
 		file: 'sg-context-pack-2025.json',
@@ -108,6 +116,55 @@ const ARTIFACTS: ReleaseArtifactDefinition[] = [
 		category: 'governance',
 		description:
 			'Machine-readable registry of major public claims, evidence strength, and source keys for the current release.'
+	},
+	{
+		file: 'site-status.json',
+		label: 'Public site status',
+		category: 'governance',
+		description:
+			'Canonical public status object covering current structural release, live monitor vintage, and latest official update state.'
+	},
+	{
+		file: 'releases.json',
+		label: 'Public release history',
+		category: 'governance',
+		description:
+			'Ordered release and update history spanning structural releases, quarterly briefings, and official monitor updates.'
+	},
+	{
+		file: 'backtests/current-validation.json',
+		label: 'Current cluster validation',
+		category: 'governance',
+		description:
+			'Current cluster-level directional validation artifact for the live labour-monitor vintage.'
+	},
+	{
+		file: 'backtests/bls-crosswalk-validation.json',
+		label: 'BLS crosswalk validation',
+		category: 'governance',
+		description:
+			'Cross-country convergent validation artifact comparing structural risk against US BLS projected employment change.'
+	},
+	{
+		file: 'backtests/multi-period-validation.json',
+		label: 'Multi-period temporal validation',
+		category: 'governance',
+		description:
+			'Temporal validation artifact measuring how cluster risk rankings align with vacancy and hiring patterns across multiple observed periods.'
+	},
+	{
+		file: 'backtests/calibration-diagnostics.json',
+		label: 'Calibration diagnostics',
+		category: 'governance',
+		description:
+			'Segment-level calibration diagnostic showing how direct vs fallback mappings and confidence tiers align with external BLS projected employment change.'
+	},
+	{
+		file: 'backtests/occupation-family-validation.json',
+		label: 'Occupation-family validation',
+		category: 'governance',
+		description:
+			'Family-level convergent validation aggregating occupations to 2-digit SSOC families before comparing structural risk with BLS projected employment change.'
 	}
 ];
 

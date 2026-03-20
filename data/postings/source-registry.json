@@ -1,0 +1,96 @@
+[
+  {
+    "key": "glints",
+    "employer": "Glints",
+    "source_type": "lever",
+    "active": false,
+    "board_token": "glints",
+    "careers_url": "https://glints.com/careers",
+    "region": "singapore",
+    "location_keywords": ["singapore", "singapore market", "singapore based"]
+  },
+  {
+    "key": "gotogroup",
+    "employer": "GoTo Group",
+    "source_type": "lever",
+    "board_token": "GoToGroup",
+    "careers_url": "https://www.goto.com/careers",
+    "region": "singapore",
+    "location_keywords": ["singapore", "singapore based"]
+  },
+  {
+    "key": "mistral",
+    "employer": "Mistral AI",
+    "source_type": "lever",
+    "active": false,
+    "board_token": "mistral",
+    "careers_url": "https://mistral.ai/careers",
+    "region": "singapore",
+    "location_keywords": ["singapore", "asean", "apac", "singapore based"]
+  },
+  {
+    "key": "circleslife",
+    "employer": "Circles.Life",
+    "source_type": "greenhouse",
+    "active": false,
+    "board_token": "CirclesLife",
+    "careers_url": "https://boards.greenhouse.io/embed/job_board?for=CirclesLife",
+    "region": "singapore",
+    "location_keywords": ["singapore"]
+  },
+  {
+    "key": "thoughtworks",
+    "employer": "Thoughtworks",
+    "source_type": "greenhouse",
+    "board_token": "thoughtworks",
+    "careers_url": "https://boards.greenhouse.io/embed/job_board?for=thoughtworks",
+    "region": "singapore",
+    "location_keywords": ["singapore"]
+  },
+  {
+    "key": "notion",
+    "employer": "Notion",
+    "source_type": "greenhouse",
+    "active": false,
+    "board_token": "notion",
+    "careers_url": "https://boards.greenhouse.io/embed/job_board?for=notion",
+    "region": "singapore",
+    "location_keywords": ["singapore"]
+  },
+  {
+    "key": "databricks",
+    "employer": "Databricks",
+    "source_type": "greenhouse",
+    "board_token": "Databricks",
+    "careers_url": "https://boards.greenhouse.io/embed/job_board?for=Databricks",
+    "region": "singapore",
+    "location_keywords": ["singapore", "singapore based"]
+  },
+  {
+    "key": "airwallex",
+    "employer": "Airwallex",
+    "source_type": "ashby",
+    "board_token": "airwallex",
+    "careers_url": "https://jobs.ashbyhq.com/airwallex",
+    "region": "singapore",
+    "location_keywords": ["singapore", "relocate to singapore"]
+  },
+  {
+    "key": "openai",
+    "employer": "OpenAI",
+    "source_type": "ashby",
+    "board_token": "openai",
+    "careers_url": "https://jobs.ashbyhq.com/openai",
+    "region": "singapore",
+    "location_keywords": ["singapore"]
+  },
+  {
+    "key": "confluent",
+    "employer": "Confluent",
+    "source_type": "ashby",
+    "board_token": "confluent",
+    "careers_url": "https://jobs.ashbyhq.com/confluent",
+    "region": "singapore",
+    "location_keywords": ["singapore", "singapore based"]
+  }
+]

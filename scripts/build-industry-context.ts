@@ -53,7 +53,18 @@ interface GroupIndustryContext {
 	fastest_growing_industries: IndustryContextItem[];
 }
 
-type Output = Record<string, GroupIndustryContext>;
+interface IndustryContextMetadata {
+	employment_vintage: string;
+	vacancy_overlay_vintage: string;
+	vacancy_overlay_source_note: string;
+}
+
+interface IndustryContextOutput {
+	metadata: IndustryContextMetadata;
+	groups: Record<string, GroupIndustryContext>;
+}
+
+type OutputGroups = Record<string, GroupIndustryContext>;
 
 const GROUP_LABELS: Record<string, string> = {
 	'Managers & Administrators (Including Working Proprietors)': 'MANAGERS',
@@ -190,7 +201,7 @@ function vacancySignalFromTrend(trend: number | null): VacancySignal | null {
 	return 'stable';
 }
 
-function parseEmploymentByIndustry(): Output {
+function parseEmploymentByIndustry(): OutputGroups {
 	const lines = fs
 		.readFileSync(path.join(RAW_DIR, 'industry_x_occupation.csv'), 'utf-8')
 		.split('\n')
@@ -203,7 +214,7 @@ function parseEmploymentByIndustry(): Output {
 		throw new Error('Missing required year columns in industry_x_occupation.csv');
 	}
 
-	const output: Output = {};
+	const output: OutputGroups = {};
 	let currentGroup: string | null = null;
 
 	for (const line of lines.slice(1)) {
@@ -328,10 +339,10 @@ function parseVacancyByIndustry(): Map<
 function main() {
 	console.log('=== Building Industry Context ===\n');
 
-	const output = parseEmploymentByIndustry();
+	const groups = parseEmploymentByIndustry();
 	const vacancies = parseVacancyByIndustry();
 
-	for (const group of Object.values(output)) {
+	for (const group of Object.values(groups)) {
 		for (const item of [...group.top_industries, ...group.fastest_growing_industries]) {
 			const vacancy = vacancies.get(item.key);
 			if (!vacancy) continue;
@@ -342,6 +353,16 @@ function main() {
 		}
 	}
 
+	const output: IndustryContextOutput = {
+		metadata: {
+			employment_vintage: '2025',
+			vacancy_overlay_vintage: '2025 Q3',
+			vacancy_overlay_source_note:
+				'Industry-level vacancy overlays use the latest published detailed industry-by-occupation cross-tab, which currently lags the main cluster labour monitor.'
+		},
+		groups
+	};
+
 	const json = JSON.stringify(output, null, 2);
 	fs.writeFileSync(OUT_FILE, json);
 	fs.mkdirSync(path.dirname(SRC_OUT_FILE), { recursive: true });
@@ -349,7 +370,7 @@ function main() {
 
 	console.log(`Wrote ${OUT_FILE}`);
 	console.log(`Copied to ${SRC_OUT_FILE}`);
-	console.log(`Groups: ${Object.keys(output).length}`);
+	console.log(`Groups: ${Object.keys(groups).length}`);
 }
 
 main();

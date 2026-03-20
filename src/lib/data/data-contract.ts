@@ -121,7 +121,7 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 		label: 'MOM / SingStat Detailed SSOC Employment Counts',
 		tier: 'official_sg',
 		status: 'requested',
-		vintage: 'pending',
+		vintage: 'not publicly released',
 		used_for: ['official detailed occupation employment'],
 		notes:
 			'Requested from Singapore agencies because detailed 4-digit / 5-digit SSOC employment counts are not publicly released. Until granted, the live model uses published sub-major totals plus proxy logic.'
@@ -226,6 +226,26 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 		used_for: ['industry context vacancy overlay', 'cluster vacancy counts'],
 		notes:
 			'Used as an industry-level context overlay and to attach published cluster vacancy counts; not treated as occupation-level vacancy truth.'
+	},
+	{
+		key: 'mom_job_vacancy_rates',
+		label: 'MOM Job Vacancy Rates by Occupation Group',
+		tier: 'official_sg',
+		status: 'live',
+		vintage: '2025',
+		used_for: ['labour monitor', 'vacancy validation'],
+		notes:
+			'Official vacancy-rate series used in the live labour monitor and temporal validation.'
+	},
+	{
+		key: 'mom_job_vacancy_counts',
+		label: 'MOM Job Vacancy Counts',
+		tier: 'official_sg',
+		status: 'live',
+		vintage: '2025',
+		used_for: ['labour monitor', 'vacancy validation'],
+		notes:
+			'Official vacancy-count series used in the live labour monitor and temporal validation.'
 	},
 	{
 		key: 'mom_recruitment_resignation_rates',
@@ -346,6 +366,17 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 		notes: 'Published male/female wage medians for common occupations, shown as contextual evidence only.'
 	},
 	{
+		key: 'imda_digital_economy_2025',
+		label: 'IMDA Singapore Digital Economy Report 2025',
+		tier: 'official_sg',
+		status: 'live',
+		vintage: '2025',
+		used_for: ['AI in Singapore context', 'reports', 'national AI adoption framing'],
+		url: 'https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches/factsheets/2024/ar-sgde-2024',
+		notes:
+			'Official Singapore national AI-adoption, worker-usage, and tech-workforce context. Used for reports and context, not occupation-level score multipliers.'
+	},
+	{
 		key: 'imda_sgde_2025',
 		label: 'IMDA Singapore Digital Economy Report 2025',
 		tier: 'official_sg',
@@ -427,6 +458,39 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 		used_for: ['exposure ensemble'],
 		url: 'https://www.ilo.org/publications/generative-ai-and-jobs-refined-global-index-occupational-exposure',
 		notes: 'ISCO-aligned exposure source.'
+	},
+	{
+		key: 'onet_occupation_data',
+		label: 'O*NET Occupation Data',
+		tier: 'external_proxy',
+		status: 'live',
+		vintage: '2024',
+		used_for: ['task and technology enrichment context'],
+		url: 'https://www.onetcenter.org/database.html',
+		notes:
+			'Used only for contextual task and technology enrichment on detail pages, not as a structural score input.'
+	},
+	{
+		key: 'onet_task_statements',
+		label: 'O*NET Task Statements',
+		tier: 'external_proxy',
+		status: 'live',
+		vintage: '2024',
+		used_for: ['task and technology enrichment context'],
+		url: 'https://www.onetcenter.org/database.html',
+		notes:
+			'Used only for contextual task enrichment on detail pages, not as a structural score input.'
+	},
+	{
+		key: 'onet_technology_skills',
+		label: 'O*NET Technology Skills',
+		tier: 'external_proxy',
+		status: 'live',
+		vintage: '2024',
+		used_for: ['task and technology enrichment context'],
+		url: 'https://www.onetcenter.org/database.html',
+		notes:
+			'Used only for contextual technology-skill enrichment on detail pages, not as a structural score input.'
 	},
 	{
 		key: 'onet_job_zones',

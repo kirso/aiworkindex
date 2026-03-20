@@ -14,7 +14,7 @@
 	<Tooltip.Root>
 		<Tooltip.Trigger class="ml-1 inline-flex cursor-help items-center">
 			<svg
-				class="h-3.5 w-3.5 text-muted-foreground/60 transition-colors hover:text-muted-foreground"
+				class="h-3.5 w-3.5 text-text-tertiary transition-colors hover:text-muted-foreground"
 				viewBox="0 0 24 24"
 				fill="none"
 				stroke="currentColor"

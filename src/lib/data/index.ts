@@ -61,12 +61,14 @@ export interface LabourClusterMonitor {
 		trend_4q_pct: number;
 		signal: 1 | 0 | -1;
 		recent_quarters: Array<{ quarter: string; rate: number }>;
+		qoq_delta_pp?: number;
 		/** Annual rates for sparkline: 2022, 2023, 2024, latest */
 		annual_rates?: Array<{ year: string; rate: number }>;
 		/** Published vacancy counts for the same cluster, where available. */
 		latest_count?: number;
 		count_trend_4q_pct?: number;
 		count_signal?: 1 | 0 | -1;
+		count_qoq_delta?: number;
 		recent_counts?: Array<{ quarter: string; count: number }>;
 		annual_counts?: Array<{ year: string; count: number }>;
 	};
@@ -75,6 +77,12 @@ export interface LabourClusterMonitor {
 		resignation_rate: number;
 		net_pressure: number;
 		signal: 1 | 0 | -1;
+		quarter?: string;
+		frequency?: 'quarterly' | 'annual';
+		recruitment_delta_pp?: number;
+		resignation_delta_pp?: number;
+		net_pressure_delta_pp?: number;
+		note?: string;
 	} | null;
 	retrenchment: {
 		latest_count: number;
@@ -84,12 +92,17 @@ export interface LabourClusterMonitor {
 		recent_quarters: Array<{ quarter: string; count: number }>;
 		/** Per 1,000 employees */
 		incidence_per_1000?: number;
+		qoq_delta_count?: number;
+		trend_direction?: 'rising' | 'stable' | 'falling';
 	} | null;
 	/** Re-entry rate for retrenched workers */
 	re_entry?: {
 		rate_6m: number;
 		rate_12m: number;
 		quarter: string;
+		rate_6m_delta_pp?: number;
+		rate_12m_delta_pp?: number;
+		note?: string;
 	};
 	overall: 'strong' | 'moderate' | 'weak' | 'deteriorating';
 	summary?: string;

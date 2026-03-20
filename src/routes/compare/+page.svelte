@@ -301,7 +301,7 @@
 								class="flex w-full items-center justify-between px-3 py-2 text-left text-sm hover:bg-muted"
 								onmousedown={() => addEntity({ kind: 'role', id: result.role.slug })}
 							>
-								<span class="truncate text-foreground/80">{result.role.title}</span>
+								<span class="truncate text-text-secondary">{result.role.title}</span>
 								<Badge
 									variant="outline"
 									class="ml-2 shrink-0 bg-risk-moderate-subtle text-risk-moderate border-risk-moderate-border"
@@ -315,7 +315,7 @@
 								class="flex w-full items-center justify-between px-3 py-2 text-left text-sm hover:bg-muted"
 								onmousedown={() => addEntity({ kind: 'occupation', id: result.occupation.ssoc })}
 							>
-								<span class="truncate text-foreground/80">{result.occupation.title}</span>
+								<span class="truncate text-text-secondary">{result.occupation.title}</span>
 								<div class="ml-2 flex shrink-0 items-center gap-2">
 									<span class={riskBadge({ band: result.occupation.risk_band })}>
 										{riskBandLabels[result.occupation.risk_band]}
@@ -332,7 +332,7 @@
 
 	{#if entities.length === 0}
 		<div class={cn(card({ padding: 'lg' }))}>
-			<p class="text-sm text-foreground/80 leading-relaxed">
+			<p class="text-sm text-text-secondary leading-relaxed">
 				Compare up to 3 occupations or roles side by side. See how their risk profiles, demand
 				signals, and career paths differ — useful for exploring transitions or understanding where
 				AI pressure varies across similar jobs.
@@ -354,10 +354,12 @@
 			</div>
 		</div>
 	{:else}
-		<!-- Side-by-side columns -->
+		<!-- Side-by-side columns (stack on mobile) -->
 		<div
-			class="mb-8 grid gap-4"
-			style="grid-template-columns: repeat({entities.length}, minmax(0, 1fr));"
+			class={cn(
+				'mb-8 grid gap-4',
+				entities.length <= 2 ? 'sm:grid-cols-2' : 'sm:grid-cols-2 lg:grid-cols-3'
+			)}
 		>
 			{#each entities as entity}
 				<div class={card({ padding: 'sm' })}>

@@ -122,7 +122,7 @@
 	{#if savedItems.length === 0}
 		<div class={cn(card({ padding: 'lg' }), 'mt-8 text-center')}>
 			<svg
-				class="mx-auto h-12 w-12 text-muted-foreground/30"
+				class="mx-auto h-12 w-12 text-text-ghost"
 				viewBox="0 0 24 24"
 				fill="none"
 				stroke="currentColor"

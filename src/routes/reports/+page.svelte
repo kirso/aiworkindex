@@ -1,6 +1,10 @@
 <script lang="ts">
 	import aiInSingapore from '$lib/data/ai-in-singapore.json';
+	import { employerPressure } from '$lib/data/employer-pressure';
 	import macroContext from '$lib/data/macro-context.json';
+	import { postingsMonitor } from '$lib/data/postings-monitor';
+	import { quarterlyReport } from '$lib/data/quarterly-report';
+	import { releases, siteStatus } from '$lib/data/site-status';
 	import { title as titleStyle, pageLayout, card, sectionLabel } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import { Badge } from '$lib/components/ui/badge/index.js';
@@ -8,7 +12,10 @@
 	import Seo from '$lib/components/ui/Seo.svelte';
 
 	const ai = aiInSingapore.metrics;
+	const employer = employerPressure;
 	const macro = macroContext.latest_snapshot;
+	const postings = postingsMonitor.summary;
+	const quarterly = quarterlyReport;
 </script>
 
 <Seo
@@ -23,21 +30,27 @@
 	<h1 class={titleStyle({ size: 'page' })}>Reports</h1>
 
 	<!-- Narrative lead -->
-	<div class={cn(card({ padding: 'md' }), 'mt-4 border-primary/20 bg-primary/5')}>
+	<div class={cn(card({ padding: 'md', variant: 'notice', accent: 'primary' }), 'mt-4')}>
 		<p class="text-sm text-foreground leading-relaxed">
-			<span class="font-semibold">Latest published context as of March 19, 2026:</span> the freshest
-			labour-market evidence in this project is MOM Q3 2025 cluster data, the latest macro snapshot
-			is 2025 4Q unemployment, and the latest official national AI-adoption survey is IMDA's 2024
-			data. Taken together, they show a labour market that remains fairly tight ({macro.resident_unemployment_rate.toFixed(
-				1
-			)}% resident unemployment) while AI usage is already mainstream ({ai.workforce.workers_using_ai_at_work_pct.toFixed(
-				0
-			)}% of workers reported using AI at work).
+			<span class="font-semibold"
+				>Latest published context as of {siteStatus.live_monitor.latest_official_labour_report
+					.published_at}:</span
+			>
+			the latest official labour release is {siteStatus.live_monitor.latest_official_labour_report
+				.label}, and the current site monitor now uses {siteStatus.live_monitor
+				.labour_monitor_artifact_vintage}. The latest macro snapshot is {siteStatus.live_monitor
+				.macro_vintage}
+			unemployment, and the latest official national AI-adoption survey is IMDA's {siteStatus
+				.live_monitor.ai_context_vintage}. Taken together, they show a labour market that remains
+			fairly tight ({macro.resident_unemployment_rate.toFixed(1)}% resident unemployment) while AI
+			usage is already mainstream ({ai.workforce.workers_using_ai_at_work_pct.toFixed(0)}% of
+			workers reported using AI at work).
 		</p>
+		<p class="mt-2 text-xs text-muted-foreground">{siteStatus.live_monitor.refresh_note}</p>
 	</div>
 
 	<div class="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-		<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
+		<div class={card({ padding: 'sm', variant: 'metric' })}>
 			<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
 				AI Adoption · 2024 Data
 			</p>
@@ -46,7 +59,7 @@
 			</p>
 			<p class="text-xs text-muted-foreground">latest observed non-SME AI adoption</p>
 		</div>
-		<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
+		<div class={card({ padding: 'sm', variant: 'metric' })}>
 			<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
 				Workers · 2024 Data
 			</p>
@@ -55,7 +68,7 @@
 			</p>
 			<p class="text-xs text-muted-foreground">reported using AI at work</p>
 		</div>
-		<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
+		<div class={card({ padding: 'sm', variant: 'metric' })}>
 			<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
 				Labour Backdrop · 2025 4Q
 			</p>
@@ -64,7 +77,7 @@
 			</p>
 			<p class="text-xs text-muted-foreground">resident unemployment rate</p>
 		</div>
-		<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
+		<div class={card({ padding: 'sm', variant: 'metric' })}>
 			<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
 				NAIIP · 2026
 			</p>
@@ -75,45 +88,237 @@
 		</div>
 	</div>
 
+	{#if postings.total_postings > 0}
+		<div class={cn(card({ padding: 'md' }), 'mt-6')}>
+			<div class="flex items-start justify-between gap-3">
+				<div>
+					<p class="text-sm font-semibold text-foreground">Hiring Now Monitor</p>
+					<p class="text-xs text-muted-foreground">
+						Multi-source Singapore postings signal, kept separate from the structural score.
+					</p>
+				</div>
+				<Badge variant="outline">Monitor</Badge>
+			</div>
+			<div class="mt-4 grid gap-3 sm:grid-cols-3">
+				<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
+					<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+						Postings · 30D
+					</p>
+					<p class="mt-1 font-mono text-lg font-bold text-foreground">
+						{postings.posting_volume_30d}
+					</p>
+					<p class="text-xs text-muted-foreground">live hiring volume</p>
+				</div>
+				<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
+					<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+						Top Skills
+					</p>
+					<p class="mt-1 text-sm font-medium text-foreground">
+						{postings.top_skills
+							.slice(0, 3)
+							.map(skill => skill.label)
+							.join(' · ')}
+					</p>
+					<p class="text-xs text-muted-foreground">most common visible requirements</p>
+				</div>
+				<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
+					<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+						AI / Tools
+					</p>
+					<p class="mt-1 text-sm font-medium text-foreground">
+						{postings.top_tools.length > 0
+							? postings.top_tools
+									.slice(0, 3)
+									.map(tool => tool.label)
+									.join(' · ')
+							: 'Sparse mention rate'}
+					</p>
+					<p class="text-xs text-muted-foreground">
+						monitor artifact as of {new Date(postingsMonitor.generated_at).toLocaleDateString(
+							'en-SG',
+							{ day: 'numeric', month: 'short', year: 'numeric' }
+						)}
+					</p>
+				</div>
+			</div>
+		</div>
+	{/if}
+
+	{#if employer.summary.total_signals > 0}
+		<div class={cn(card({ padding: 'md' }), 'mt-6')}>
+			<div class="flex items-start justify-between gap-3">
+				<div>
+					<p class="text-sm font-semibold text-foreground">Employer Pressure Monitor</p>
+					<p class="text-xs text-muted-foreground">
+						Curated restructuring / cost-discipline signals from official filings and credible
+						reporting, mapped to broad work archetypes.
+					</p>
+				</div>
+				<Badge variant="outline">Pressure</Badge>
+			</div>
+			<div class="mt-4 grid gap-3 sm:grid-cols-3">
+				<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
+					<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+						Curated Signals
+					</p>
+					<p class="mt-1 font-mono text-lg font-bold text-foreground">
+						{employer.summary.total_signals}
+					</p>
+					<p class="text-xs text-muted-foreground">tracked signal entries in monitor</p>
+				</div>
+				<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
+					<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+						Highest Pressure
+					</p>
+					<p class="mt-1 text-sm font-medium text-foreground">
+						{employer.summary.highest_pressure_archetypes.slice(0, 2).join(' · ')}
+					</p>
+					<p class="text-xs text-muted-foreground">
+						{employer.summary.highest_pressure_label ?? 'no pressure label'} signal tier
+					</p>
+				</div>
+				<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
+					<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+						Latest Signal
+					</p>
+					<p class="mt-1 text-sm font-medium text-foreground">
+						{employer.summary.latest_signal_date
+							? new Date(employer.summary.latest_signal_date).toLocaleDateString('en-SG', {
+									day: 'numeric',
+									month: 'short',
+									year: 'numeric'
+								})
+							: '—'}
+					</p>
+					<p class="text-xs text-muted-foreground">most recent tracked employer-pressure signal</p>
+				</div>
+			</div>
+		</div>
+	{/if}
+
+	{#if quarterly.previous_snapshot}
+		<div class={cn(card({ padding: 'md' }), 'mt-6')}>
+			<div class="flex items-start justify-between gap-3">
+				<div>
+					<p class="text-sm font-semibold text-foreground">Quarterly Movers</p>
+					<p class="text-xs text-muted-foreground">
+						Frozen snapshot deltas between {quarterly.previous_snapshot} and {quarterly.current_snapshot}.
+					</p>
+				</div>
+				<a href="/rankings/quarterly-movers" class="text-xs text-primary hover:underline"
+					>Open ranking →</a
+				>
+			</div>
+			<div class="mt-4 grid gap-3 sm:grid-cols-3">
+				<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
+					<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+						Band Movers
+					</p>
+					<p class="mt-1 font-mono text-lg font-bold text-foreground">
+						{quarterly.band_movers.length}
+					</p>
+					<p class="text-xs text-muted-foreground">occupations changed risk band</p>
+				</div>
+				<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
+					<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+						Top Risers
+					</p>
+					<p class="mt-1 text-sm font-medium text-foreground">
+						{quarterly.top_risers
+							.slice(0, 2)
+							.map(entry => entry.title)
+							.join(' · ') || 'No major risers'}
+					</p>
+					<p class="text-xs text-muted-foreground">largest increases in structural pressure</p>
+				</div>
+				<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
+					<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+						Top Fallers
+					</p>
+					<p class="mt-1 text-sm font-medium text-foreground">
+						{quarterly.top_fallers
+							.slice(0, 2)
+							.map(entry => entry.title)
+							.join(' · ') || 'No major fallers'}
+					</p>
+					<p class="text-xs text-muted-foreground">largest decreases in structural pressure</p>
+				</div>
+			</div>
+		</div>
+	{/if}
+
+	{#if quarterly.briefing}
+		<div class="mt-6 grid gap-3 lg:grid-cols-3">
+			<div class={card({ padding: 'sm', variant: 'flat' })}>
+				<p class="text-sm font-semibold text-foreground">What changed</p>
+				<ul class="mt-2 space-y-2 text-sm text-muted-foreground">
+					{#each quarterly.briefing.what_changed as item}
+						<li>{item}</li>
+					{/each}
+				</ul>
+			</div>
+			<div class={card({ padding: 'sm', variant: 'flat' })}>
+				<p class="text-sm font-semibold text-foreground">Why it matters</p>
+				<ul class="mt-2 space-y-2 text-sm text-muted-foreground">
+					{#each quarterly.briefing.why_it_matters as item}
+						<li>{item}</li>
+					{/each}
+				</ul>
+			</div>
+			<div class={card({ padding: 'sm', variant: 'flat' })}>
+				<p class="text-sm font-semibold text-foreground">What to watch</p>
+				<ul class="mt-2 space-y-2 text-sm text-muted-foreground">
+					{#each quarterly.briefing.what_to_watch as item}
+						<li>{item}</li>
+					{/each}
+				</ul>
+			</div>
+		</div>
+	{/if}
+
 	<p class={cn(sectionLabel(), 'mt-8 mb-3')}>Latest Briefing</p>
 	<div class="space-y-4">
-		<!-- Q3 2025 Update -->
 		<div class={cn(card({ padding: 'lg' }), 'border-2 border-primary/20')}>
 			<div class="flex items-center gap-2">
-				<span class="text-base font-semibold text-foreground">Q3 2025 Labour Market Update</span>
+				<span class="text-base font-semibold text-foreground">
+					{siteStatus.live_monitor.latest_official_labour_report.label}
+				</span>
 				<Badge
 					variant="outline"
-					class="bg-risk-very-low-subtle text-risk-very-low border-risk-very-low-border"
-					>Latest</Badge
+					class="bg-risk-moderate-subtle text-risk-moderate border-risk-moderate-border"
+					>New official release</Badge
 				>
 			</div>
 			<p class="mt-1 text-sm text-muted-foreground">
-				Labour market data updated to Q3 2025 from MOM Labour Market Report (December 2025). PMET
-				vacancy rates stabilised at 3.1% (up from 2.9% YoY). Retrenchments low at 1.6 per 1,000
-				employees. Recruitment/resignation rates and re-entry data now included for all occupation
-				clusters.
+				MOM has now published the full Q4 2025 labour-market report, and the live monitor already
+				runs on that full vintage for vacancy, recruitment/resignation, retrenchment, re-entry, and
+				hiring-expectation context across the site.
 			</p>
 			<div class="mt-3 grid gap-2 sm:grid-cols-3 text-xs">
 				<div class="rounded bg-muted p-2">
-					<span class="text-muted-foreground">PMET vacancy</span>
-					<span class="ml-1 font-semibold text-risk-very-low">3.1% ↑</span>
+					<span class="text-muted-foreground">Structural score</span>
+					<span class="ml-1 font-semibold text-foreground"
+						>{siteStatus.structural_release.version}</span
+					>
 				</div>
 				<div class="rounded bg-muted p-2">
-					<span class="text-muted-foreground">Clerical vacancy</span>
-					<span class="ml-1 font-semibold text-risk-very-high">3.3% ↓</span>
+					<span class="text-muted-foreground">Live monitor</span>
+					<span class="ml-1 font-semibold text-foreground">
+						{siteStatus.live_monitor.labour_monitor_artifact_vintage}
+					</span>
 				</div>
 				<div class="rounded bg-muted p-2">
-					<span class="text-muted-foreground">Production vacancy</span>
-					<span class="ml-1 font-semibold text-risk-very-low">2.0% ↑</span>
+					<span class="text-muted-foreground">Latest official labour release</span>
+					<span class="ml-1 font-semibold text-foreground">Q4 2025 full report</span>
 				</div>
 			</div>
 			<p class="mt-2 text-xs text-muted-foreground">
 				Source: <a
-					href="https://stats.mom.gov.sg/iMAS_PdfLibrary/mrsd-Labour-Market-Report-3Q-2025.pdf"
+					href={siteStatus.live_monitor.latest_official_labour_report.url}
 					target="_blank"
 					rel="noopener noreferrer"
-					class="underline">Labour Market Report Q3 2025</a
-				>, MRSD, MOM
+					class="underline">{siteStatus.live_monitor.latest_official_labour_report.label}</a
+				>, MOM
 			</p>
 		</div>
 	</div>
@@ -175,43 +380,42 @@
 			</div>
 		</a>
 
-		<!-- Q4 2025 Advance Release -->
 		<div class={card({ padding: 'lg' })}>
 			<div class="flex items-center gap-2">
-				<span class="text-base font-semibold text-foreground">Q4 2025 Advance Release</span>
+				<span class="text-base font-semibold text-foreground">Release History</span>
 				<Badge
 					variant="outline"
 					class="bg-impact-leveraged-subtle text-impact-leveraged border-impact-leveraged-border"
-					>Advance Data</Badge
+					>Governance</Badge
 				>
 			</div>
-			<p class="mt-1 text-sm text-muted-foreground">
-				Employment grew by 19,600 in Q4 2025 (+57,300 full year vs 44,500 in 2024). Unemployment
-				steady at 2.0%. Retrenchments fell to 1.5 per 1,000 (3,600 in Q4; 14,400 full year). Vacancy
-				rates by occupation group were not included in the January 29, 2026 advance release and will
-				be added once MOM publishes the full Q4 2025 report.
-			</p>
-			<p class="mt-2 text-xs text-muted-foreground">
-				Source: <a
-					href="https://www.mom.gov.sg/newsroom/press-releases/2026/0129-labour-market-advance-release-fourth-quarter-2025"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="underline">Labour Market Advance Release Q4 2025</a
-				>, MOM (29 Jan 2026)
-			</p>
-		</div>
-
-		<!-- Future full report -->
-		<div class={cn(card({ padding: 'lg' }), 'opacity-50')}>
-			<div class="flex items-center gap-2">
-				<span class="text-base font-semibold text-foreground">Q4 2025 Full Report</span>
-				<Badge variant="secondary">Upcoming</Badge>
+			<div class="mt-3 space-y-3">
+				{#each releases as release (release.id)}
+					<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
+						<div class="flex items-start justify-between gap-3">
+							<div>
+								<p class="text-sm font-semibold text-foreground">{release.label}</p>
+								<p class="mt-1 text-xs text-muted-foreground">
+									Published {release.published_at} · {release.score_version} · monitor {release.monitor_vintage}
+								</p>
+							</div>
+							<a
+								href={release.href}
+								class="text-xs text-primary hover:underline"
+								target={release.href.startsWith('http') ? '_blank' : undefined}
+								rel={release.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+							>
+								Open →
+							</a>
+						</div>
+						<ul class="mt-2 list-inside list-disc space-y-1 text-xs text-muted-foreground">
+							{#each release.notes as note}
+								<li>{note}</li>
+							{/each}
+						</ul>
+					</div>
+				{/each}
 			</div>
-			<p class="mt-1 text-sm text-muted-foreground">
-				Full quarterly report with vacancy rates by occupation group, band movers, demand shifts,
-				and scoring comparisons. Scores will be re-run when MOM publishes the full Q4 2025 Labour
-				Market Report.
-			</p>
 		</div>
 	</div>
 </main>

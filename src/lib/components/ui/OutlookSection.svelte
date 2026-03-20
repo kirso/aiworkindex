@@ -220,7 +220,7 @@
 			</div>
 
 			<div class="mt-3 rounded-lg border border-border p-3">
-				<p class="text-xs text-foreground/80">{outlook.summary}</p>
+				<p class="text-xs text-text-secondary">{outlook.summary}</p>
 			</div>
 
 			<p class="mt-3 text-xs text-muted-foreground italic">

@@ -2,7 +2,6 @@
 	import { pageLayout, card, sectionLabel, caption, display, riskBadge } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import { DATA_VINTAGE } from '$lib/data/scoring-constants';
-	import { riskBandLabels } from '$lib/data';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
 
@@ -90,7 +89,7 @@
 				> of total wages
 			</span>
 		</div>
-		<p class="mt-2 text-xs text-muted-foreground/70 italic">
+		<p class="mt-2 text-xs text-text-secondary italic">
 			Employment figures here use a BLS-weighted proxy anchored to Singapore employment totals. This
 			is a wage-pool estimate, not a forecast of wages lost or jobs eliminated.
 		</p>
@@ -110,26 +109,33 @@
 		<p class={cn(sectionLabel(), 'mb-3')}>Breakdown by Sector</p>
 		<div class={card({ padding: 'none' })}>
 			<div class="overflow-x-auto">
-				<table class="w-full text-sm">
+				<table class="w-full text-sm table-fixed">
+					<colgroup>
+						<col />
+						<col class="w-24" />
+						<col class="w-24" />
+						<col class="w-32" />
+						<col class="w-20" />
+					</colgroup>
 					<thead>
 						<tr class="border-b text-left text-xs text-muted-foreground">
-							<th class="px-4 py-2.5 font-medium">Group</th>
-							<th class="px-4 py-2.5 font-medium text-right">Occupations</th>
-							<th class="px-4 py-2.5 font-medium text-right">Workers (K)</th>
-							<th class="px-4 py-2.5 font-medium text-right">Annual Wage Pool</th>
-							<th class="px-4 py-2.5 font-medium text-right">Avg Risk</th>
+							<th class="px-3 py-2.5 font-medium">Group</th>
+							<th class="px-3 py-2.5 font-medium text-right">Occupations</th>
+							<th class="px-3 py-2.5 font-medium text-right">Workers (K)</th>
+							<th class="px-3 py-2.5 font-medium text-right">Wage Pool</th>
+							<th class="px-3 py-2.5 font-medium text-right">Avg Risk</th>
 						</tr>
 					</thead>
 					<tbody>
 						{#each data.groupBreakdown as group (group.key)}
 							<tr class="border-b border-border/50 last:border-0">
-								<td class="px-4 py-2.5 text-foreground">{group.label}</td>
-								<td class="px-4 py-2.5 text-right tabular-nums">{group.count}</td>
-								<td class="px-4 py-2.5 text-right tabular-nums">{group.employment.toFixed(1)}</td>
-								<td class="px-4 py-2.5 text-right tabular-nums font-medium"
+								<td class="px-3 py-2.5 text-foreground truncate">{group.label}</td>
+								<td class="px-3 py-2.5 text-right tabular-nums">{group.count}</td>
+								<td class="px-3 py-2.5 text-right tabular-nums">{group.employment.toFixed(1)}</td>
+								<td class="px-3 py-2.5 text-right tabular-nums font-medium"
 									>{formatWagesMillions(group.wages)}</td
 								>
-								<td class="px-4 py-2.5 text-right tabular-nums"
+								<td class="px-3 py-2.5 text-right tabular-nums"
 									>{(group.avgRisk * 100).toFixed(0)}%</td
 								>
 							</tr>
@@ -145,35 +151,41 @@
 		<p class={cn(sectionLabel(), 'mb-3')}>Top 15 — Highest Risk-Weighted Annual Wage per Worker</p>
 		<div class={card({ padding: 'none' })}>
 			<div class="overflow-x-auto">
-				<table class="w-full text-sm">
+				<table class="w-full text-sm table-fixed">
+					<colgroup>
+						<col class="w-10" />
+						<col />
+						<col class="w-28" />
+						<col class="w-24" />
+						<col class="w-36" />
+					</colgroup>
 					<thead>
 						<tr class="border-b text-left text-xs text-muted-foreground">
-							<th class="px-4 py-2.5 font-medium">#</th>
-							<th class="px-4 py-2.5 font-medium">Title</th>
-							<th class="px-4 py-2.5 font-medium text-right">Monthly Wage</th>
-							<th class="px-4 py-2.5 font-medium text-right">Risk</th>
-							<th class="px-4 py-2.5 font-medium text-right">Risk-Weighted Annual Wage</th>
+							<th class="px-3 py-2.5 font-medium">#</th>
+							<th class="px-3 py-2.5 font-medium">Title</th>
+							<th class="px-3 py-2.5 font-medium text-right">Wage</th>
+							<th class="px-3 py-2.5 font-medium text-right">Risk</th>
+							<th class="px-3 py-2.5 font-medium text-right">Annual Exposure</th>
 						</tr>
 					</thead>
 					<tbody>
 						{#each data.topIndividual as occ, i (occ.ssoc)}
 							<tr class="border-b border-border/50 last:border-0">
-								<td class="px-4 py-2.5 tabular-nums text-muted-foreground">{i + 1}</td>
-								<td class="px-4 py-2.5">
+								<td class="px-3 py-2.5 tabular-nums text-muted-foreground">{i + 1}</td>
+								<td class="px-3 py-2.5 truncate">
 									<a href="/occupation/{occ.ssoc}" class="text-foreground hover:text-primary">
 										{occ.title}
 									</a>
 								</td>
-								<td class="px-4 py-2.5 text-right tabular-nums">
+								<td class="px-3 py-2.5 text-right tabular-nums">
 									${occ.gross_wage_median.toLocaleString()}
 								</td>
-								<td class="px-4 py-2.5 text-right">
+								<td class="px-3 py-2.5 text-right">
 									<span class={riskBadge({ band: occ.risk_band })}>
-										{riskBandLabels[occ.risk_band]}
 										{(occ.net_risk * 100).toFixed(0)}%
 									</span>
 								</td>
-								<td class="px-4 py-2.5 text-right tabular-nums font-medium">
+								<td class="px-3 py-2.5 text-right tabular-nums font-medium">
 									${(occ.gross_wage_median * 12 * occ.net_risk).toLocaleString(undefined, {
 										maximumFractionDigits: 0
 									})}

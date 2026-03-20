@@ -162,7 +162,7 @@
 					>
 						<span class="text-sm">
 							<span class="mr-2 font-mono tabular-nums text-muted-foreground">{i + 1}.</span>
-							<span class="text-foreground/80">{occ.title}</span>
+							<span class="text-text-secondary">{occ.title}</span>
 						</span>
 						<span class={cn(riskBadge({ band: occ.risk_band }), 'text-xs')}>
 							{(occ.net_risk * 100).toFixed(0)}%
@@ -191,7 +191,7 @@
 					>
 						<span class="text-sm">
 							<span class="mr-2 font-mono tabular-nums text-muted-foreground">{i + 1}.</span>
-							<span class="text-foreground/80">{occ.title}</span>
+							<span class="text-text-secondary">{occ.title}</span>
 						</span>
 						<span class={cn(caption({ weight: 'medium' }), 'tabular-nums')}>
 							{(occ.augmentation * 100).toFixed(0)}% augmentation
@@ -221,7 +221,7 @@
 					>
 						<span class="text-sm">
 							<span class="mr-2 font-mono tabular-nums text-muted-foreground">{i + 1}.</span>
-							<span class="text-foreground/80">{occ.title}</span>
+							<span class="text-text-secondary">{occ.title}</span>
 						</span>
 						<span class={cn(caption({ weight: 'medium' }), 'tabular-nums')}>
 							SGD {occ.gross_wage_median.toLocaleString()}

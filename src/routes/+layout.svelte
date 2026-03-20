@@ -6,12 +6,26 @@
 	import { prefersReducedMotion } from 'svelte/motion';
 	import { pageContainer } from '$lib/design-system';
 	import { DATA_VINTAGE, SITE } from '$lib/data/scoring-constants';
+	import { siteStatus } from '$lib/data/site-status';
 	import * as Sheet from '$lib/components/ui/sheet/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import CommandMenu from '$lib/components/ui/CommandMenu.svelte';
+	import { Toaster } from '$lib/components/ui/sonner/index.js';
+	import { GA_MEASUREMENT_ID } from '$lib/analytics';
+	import { browser } from '$app/environment';
+	import { afterNavigate } from '$app/navigation';
 
 	let { children } = $props();
+
+	// Track SvelteKit client-side navigations as page views
+	afterNavigate(() => {
+		if (!browser || !window.gtag) return;
+		window.gtag('config', GA_MEASUREMENT_ID, {
+			page_path: window.location.pathname,
+			page_title: document.title
+		});
+	});
 
 	const navLinks = [
 		{ href: '/', label: 'Find' },
@@ -46,8 +60,7 @@
 		'@type': 'WebSite',
 		name: SITE.name,
 		url: SITE.url,
-		description:
-			'How will AI affect jobs in Singapore? 562 occupations scored for structural AI pressure using official data and published research.',
+		description: `How will AI affect jobs in Singapore? ${DATA_VINTAGE.occupation_count} occupations scored for structural AI pressure using official data and published research.`,
 		publisher: {
 			'@type': 'Organization',
 			name: SITE.name,
@@ -86,16 +99,27 @@
 				href="/"
 				class="flex items-center gap-2 text-header-text transition-colors hover:text-primary"
 			>
-				<svg
-					class="h-4.5 w-4.5 text-primary"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2.5"
-				>
-					<path d="M12 2L2 7l10 5 10-5-10-5z" />
-					<path d="M2 17l10 5 10-5" />
-					<path d="M2 12l10 5 10-5" />
+				<svg class="h-5 w-5" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+					<rect width="32" height="32" rx="6" class="fill-primary" />
+					<rect x="8" y="9" width="14" height="4" rx="2" fill="white" opacity="0.9" />
+					<rect
+						x="8"
+						y="15"
+						width="10"
+						height="4"
+						rx="2"
+						class="fill-risk-moderate"
+						opacity="0.85"
+					/>
+					<rect
+						x="8"
+						y="21"
+						width="6"
+						height="4"
+						rx="2"
+						class="fill-risk-very-low"
+						opacity="0.85"
+					/>
 				</svg>
 				<span class="text-sm font-bold tracking-tight">{SITE.name}</span>
 			</a>
@@ -198,11 +222,17 @@
 						Structural AI exposure scores, not employment predictions.
 						<a href="/methodology" class="text-primary hover:underline">Methodology</a>
 					</p>
-					<p class="mt-1 text-xs text-muted-foreground/60">
-						{DATA_VINTAGE.model_version} · {DATA_VINTAGE.wages} wages · {DATA_VINTAGE.labour_monitor}
-						labour data · {DATA_VINTAGE.occupation_count} occupations · {DATA_VINTAGE.role_count} roles
+					<p class="mt-1 text-xs text-text-tertiary">
+						{siteStatus.structural_release.version} structural score · {DATA_VINTAGE.wages} wages · {siteStatus
+							.live_monitor.labour_monitor_artifact_vintage}
+						live monitor · {DATA_VINTAGE.occupation_count} occupations · {DATA_VINTAGE.role_count} roles
 					</p>
-					<div class="mt-1.5 flex flex-wrap items-center gap-2 text-xs text-muted-foreground/50">
+					<p class="mt-1 text-xs text-text-tertiary">
+						Latest official labour release: {siteStatus.live_monitor.latest_official_labour_report
+							.label}
+						({siteStatus.live_monitor.latest_official_labour_report.published_at})
+					</p>
+					<div class="mt-1.5 flex flex-wrap items-center gap-2 text-xs text-text-tertiary">
 						<span
 							>Made by
 							<a
@@ -238,7 +268,7 @@
 								/></svg
 							>
 						</a>
-						<span class="text-muted-foreground/30">·</span>
+						<span class="text-text-ghost">·</span>
 						<span
 							>Built with
 							<a
@@ -270,11 +300,13 @@
 							class="hover:text-foreground">GitHub</a
 						>
 					</div>
-					<span class="text-[10px] text-muted-foreground/30"
-						>MIT Licensed · Open Source · Updated {DATA_VINTAGE.last_updated}</span
+					<span class="text-[10px] text-text-ghost"
+						>MIT Licensed · Open Source · Structural release {siteStatus.structural_release.version} ·
+						Updated {DATA_VINTAGE.last_updated}</span
 					>
 				</div>
 			</div>
 		</div>
 	</footer>
+	<Toaster />
 </div>

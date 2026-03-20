@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { pageLayout, sectionLabel, caption } from '$lib/design-system';
 	import { cn } from '$lib/utils';
+	import { DATA_VINTAGE } from '$lib/data/scoring-constants';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
 </script>
@@ -35,11 +36,12 @@
 	<section class="mt-8 mb-8">
 		<p class={sectionLabel()}>Core Formula</p>
 		<div class="mt-3 space-y-2">
-			<p class="rounded-md bg-muted px-3 py-2 font-mono text-sm text-foreground/80">
+			<p class="rounded-md bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
 				net_risk = exposure × (1 − bottleneck) × market_modifier
 			</p>
 			<p class="text-xs text-muted-foreground">
-				Where exposure and bottleneck are percentile-ranked (0–1) across all 562 occupations.
+				Where exposure and bottleneck are percentile-ranked (0–1) across all {DATA_VINTAGE.occupation_count}
+				occupations.
 			</p>
 		</div>
 	</section>
@@ -51,9 +53,9 @@
 			<table class="w-full text-left text-sm">
 				<thead>
 					<tr class="border-b border-border">
-						<th class="py-2 pr-3 font-medium text-foreground/80">Band</th>
-						<th class="py-2 pr-3 font-medium text-foreground/80">Threshold</th>
-						<th class="py-2 font-medium text-foreground/80">Meaning</th>
+						<th class="py-2 pr-3 font-medium text-text-secondary">Band</th>
+						<th class="py-2 pr-3 font-medium text-text-secondary">Threshold</th>
+						<th class="py-2 font-medium text-text-secondary">Meaning</th>
 					</tr>
 				</thead>
 				<tbody class="text-muted-foreground">
@@ -98,9 +100,9 @@
 			<table class="w-full text-left text-sm">
 				<thead>
 					<tr class="border-b border-border">
-						<th class="py-2 pr-3 font-medium text-foreground/80">Type</th>
-						<th class="py-2 pr-3 font-medium text-foreground/80">Rule</th>
-						<th class="py-2 font-medium text-foreground/80">Description</th>
+						<th class="py-2 pr-3 font-medium text-text-secondary">Type</th>
+						<th class="py-2 pr-3 font-medium text-text-secondary">Rule</th>
+						<th class="py-2 font-medium text-text-secondary">Description</th>
 					</tr>
 				</thead>
 				<tbody class="text-muted-foreground">
@@ -148,15 +150,15 @@
 	<!-- Augmentation -->
 	<section class="mb-8">
 		<p class={sectionLabel()}>Augmentation Score</p>
-		<p class="mt-2 rounded-md bg-muted px-3 py-2 font-mono text-sm text-foreground/80">
+		<p class="mt-2 rounded-md bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
 			augmentation = exposure × bottleneck × market_resilience_adjusted
 		</p>
 		<div class="mt-3 overflow-x-auto">
 			<table class="w-full text-left text-sm">
 				<thead>
 					<tr class="border-b border-border">
-						<th class="py-2 pr-3 font-medium text-foreground/80">Band</th>
-						<th class="py-2 font-medium text-foreground/80">Threshold</th>
+						<th class="py-2 pr-3 font-medium text-text-secondary">Band</th>
+						<th class="py-2 font-medium text-text-secondary">Threshold</th>
 					</tr>
 				</thead>
 				<tbody class="text-muted-foreground">
@@ -189,10 +191,10 @@
 	<section class="mb-8">
 		<p class={sectionLabel()}>Market Modifier</p>
 		<div class="mt-3 space-y-2">
-			<p class="rounded-md bg-muted px-3 py-2 font-mono text-sm text-foreground/80">
+			<p class="rounded-md bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
 				market_resilience = 0.6 × market_momentum + 0.4 × occupation_scarcity
 			</p>
-			<p class="rounded-md bg-muted px-3 py-2 font-mono text-sm text-foreground/80">
+			<p class="rounded-md bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
 				market_modifier = 1 − 0.35 × market_resilience
 			</p>
 		</div>
@@ -201,9 +203,9 @@
 			<table class="w-full text-left text-sm">
 				<thead>
 					<tr class="border-b border-border">
-						<th class="py-2 pr-3 font-medium text-foreground/80">Source</th>
-						<th class="py-2 pr-3 font-medium text-foreground/80">Match</th>
-						<th class="py-2 font-medium text-foreground/80">Bonus</th>
+						<th class="py-2 pr-3 font-medium text-text-secondary">Source</th>
+						<th class="py-2 pr-3 font-medium text-text-secondary">Match</th>
+						<th class="py-2 font-medium text-text-secondary">Bonus</th>
 					</tr>
 				</thead>
 				<tbody class="text-muted-foreground">
@@ -235,7 +237,7 @@
 	<!-- Confidence -->
 	<section class="mb-8">
 		<p class={sectionLabel()}>Confidence Scoring</p>
-		<p class="mt-2 rounded-md bg-muted px-3 py-2 font-mono text-sm text-foreground/80">
+		<p class="mt-2 rounded-md bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
 			confidence = weighted_sum(crosswalk, market, freshness, coverage, agreement, sensitivity) −
 			penalties
 		</p>
@@ -251,8 +253,8 @@
 			<table class="w-full text-left text-sm">
 				<thead>
 					<tr class="border-b border-border">
-						<th class="py-2 pr-3 font-medium text-foreground/80">Level</th>
-						<th class="py-2 font-medium text-foreground/80">Score</th>
+						<th class="py-2 pr-3 font-medium text-text-secondary">Level</th>
+						<th class="py-2 font-medium text-text-secondary">Score</th>
 					</tr>
 				</thead>
 				<tbody class="text-muted-foreground">
@@ -277,16 +279,17 @@
 	<section class="mb-8">
 		<p class={sectionLabel()}>Stability Stress Test</p>
 		<p class="mt-2 text-sm text-muted-foreground">
-			V4.0 uses a 1,000-run Monte Carlo perturbation of exposure, bottleneck, and market resilience.
-			The current implementation perturbs the three inputs independently and reports the 10th and
-			90th percentiles as optimistic and pessimistic bounds.
+			V4.0 uses a seeded 1,000-run Monte Carlo perturbation of exposure, bottleneck, and market
+			resilience. The current implementation perturbs the three inputs independently but
+			deterministically, so identical source data reproduces the same 10th/90th percentile
+			optimistic and pessimistic bounds across builds.
 		</p>
 		<div class="mt-3 overflow-x-auto">
 			<table class="w-full text-left text-sm">
 				<thead>
 					<tr class="border-b border-border">
-						<th class="py-2 pr-3 font-medium text-foreground/80">Label</th>
-						<th class="py-2 font-medium text-foreground/80">Condition</th>
+						<th class="py-2 pr-3 font-medium text-text-secondary">Label</th>
+						<th class="py-2 font-medium text-text-secondary">Condition</th>
 					</tr>
 				</thead>
 				<tbody class="text-muted-foreground">
@@ -319,9 +322,9 @@
 			<table class="w-full text-left text-sm">
 				<thead>
 					<tr class="border-b border-border">
-						<th class="py-2 pr-3 font-medium text-foreground/80">Level</th>
-						<th class="py-2 pr-3 font-medium text-foreground/80">Exposure</th>
-						<th class="py-2 font-medium text-foreground/80">Bottleneck</th>
+						<th class="py-2 pr-3 font-medium text-text-secondary">Level</th>
+						<th class="py-2 pr-3 font-medium text-text-secondary">Exposure</th>
+						<th class="py-2 font-medium text-text-secondary">Bottleneck</th>
 					</tr>
 				</thead>
 				<tbody class="text-muted-foreground">
@@ -370,9 +373,9 @@
 
 	<!-- Validation -->
 	<section class="mb-8">
-		<p class={sectionLabel()}>Validation Checks (58 total)</p>
+		<p class={sectionLabel()}>Validation Checks ({DATA_VINTAGE.validation_checks} total)</p>
 		<ul class="mt-2 list-inside list-disc space-y-1.5 text-sm text-muted-foreground">
-			<li>Record completeness (562 occupations, all fields present)</li>
+			<li>Record completeness ({DATA_VINTAGE.occupation_count} occupations, all fields present)</li>
 			<li>Crosswalk coverage and evidence signals</li>
 			<li>Distribution sanity (band counts, impact type ratios)</li>
 			<li>Anchor occupation directional checks (5 occupations)</li>

@@ -222,7 +222,7 @@
 					.replace('Service & Sales Workers', 'Service & Sales')
 					.replace('Clerical Support Workers', 'Clerical Support')}
 				<label
-					class="flex cursor-pointer items-center gap-1.5 rounded px-1 py-0.5 text-foreground/80 hover:bg-muted"
+					class="flex cursor-pointer items-center gap-1.5 rounded px-1 py-0.5 text-text-secondary hover:bg-muted"
 				>
 					<input
 						type="checkbox"

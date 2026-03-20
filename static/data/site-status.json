@@ -1,0 +1,53 @@
+{
+  "updated_at": "2026-03-20T09:38:46.433Z",
+  "structural_release": {
+    "version": "V4.0",
+    "label": "V4.0 structural release",
+    "generated_at": "2026-03-20T00:00:00.000Z",
+    "score_dataset_generated_at": "2026-03-20",
+    "release_manifest": "release-manifest-v4.json"
+  },
+  "live_monitor": {
+    "labour_monitor_artifact_vintage": "Q4 2025 full",
+    "labour_monitor_validation_vintage": "Q4 2025",
+    "labour_monitor_source_label": "MOM cluster labour monitor artifact",
+    "latest_official_labour_report": {
+      "label": "MOM Labour Market Report Q4 2025",
+      "period": "Q4 2025",
+      "published_at": "2026-03-20",
+      "url": "https://stats.mom.gov.sg/Pages/Labour-Market-Report-4Q-2025.aspx",
+      "status": "published_live"
+    },
+    "refresh_note": "The live labour monitor now uses the full MOM Labour Market Report Q4 2025, including explicit Q3-to-Q4 deltas for vacancy, hiring, retrenchment and re-entry signals.",
+    "macro_vintage": "2025 4Q",
+    "ai_context_vintage": "2024 data",
+    "postings_generated_at": "2026-03-20T09:38:46.363Z",
+    "postings_volume_30d": 380,
+    "employer_pressure_generated_at": "2026-03-20T09:38:46.407Z",
+    "employer_pressure_latest_signal_date": "2025-10-06",
+    "quarterly_report_generated_at": "2026-03-20T09:38:45.922Z",
+    "quarterly_current_snapshot": "occupations-v4-2026-03.json",
+    "quarterly_previous_snapshot": "occupations-v3-2026-03.json",
+    "cluster_validation_checks_passed": 2,
+    "cluster_validation_checks_total": 4,
+    "temporal_validation_vacancy_accuracy": 1,
+    "temporal_validation_vacancy_periods": 2,
+    "temporal_validation_hiring_accuracy": 0.3,
+    "temporal_validation_hiring_periods": 10,
+    "calibration_direct_rho": -0.16,
+    "calibration_direct_sample": 491,
+    "calibration_high_medium_rho": -0.145,
+    "calibration_high_medium_sample": 522,
+    "calibration_low_confidence_sample": 8,
+    "occupation_family_validation_rho": -0.243,
+    "occupation_family_validation_family_count": 29,
+    "occupation_family_validation_significant": false
+  },
+  "homepage_banner": {
+    "tag": "Update",
+    "title": "MOM Labour Market Report Q4 2025 is now live in the monitor",
+    "body": "Structural score remains V4.0. The live labour monitor now runs on Q4 2025 full, with explicit Q3 → Q4 deltas across the Singapore labour layer.",
+    "link_href": "/reports",
+    "link_label": "See report updates"
+  }
+}

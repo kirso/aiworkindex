@@ -30,7 +30,7 @@
 
 <div class={cn('grid gap-3', gridClass)}>
 	{#each items as item (item.label)}
-		<div class={cn(card({ padding: 'sm', variant: 'inset' }), 'min-w-0')}>
+		<div class={cn(card({ padding: 'sm', variant: 'metric' }), 'min-w-0')}>
 			<div class="flex items-center justify-between gap-3">
 				<span class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
 					{item.label}

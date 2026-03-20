@@ -89,9 +89,10 @@
 <div class={pageLayout({ width: 'content' })}>
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'AI Risk Calculator' }]} />
 
-	<h1 class={titleStyle({ size: 'page' })}>Your Salary vs AI Risk</h1>
+	<h1 class={titleStyle({ size: 'page' })}>AI Exposure Calculator</h1>
 	<p class={caption({ class: 'mt-1 mb-6' })}>
-		See how much of your monthly income overlaps with current AI capabilities.
+		Estimate how much of your role's tasks overlap with current AI capabilities, and what to do
+		about it.
 	</p>
 
 	<!-- Search + Select -->
@@ -187,9 +188,7 @@
 				<p class={display({ size: 'xl' })}>
 					SGD {riskAmount.toLocaleString()}
 				</p>
-				<p class={caption({ class: 'mt-1' })}>
-					of your monthly income overlaps with current AI capabilities
-				</p>
+				<p class={caption({ class: 'mt-1' })}>estimated monthly AI task overlap</p>
 			</div>
 
 			<div class="flex flex-wrap items-center justify-center gap-3 mb-4">

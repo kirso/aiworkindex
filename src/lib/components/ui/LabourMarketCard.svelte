@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { LabourClusterMonitor } from '$lib/data';
 	import { card, overallSignalTone, directionTone } from '$lib/design-system';
+	import { siteStatus } from '$lib/data/site-status';
 	import { cn } from '$lib/utils';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 
@@ -22,6 +23,17 @@
 		countTrendDirection === 'up' ? '↑' : countTrendDirection === 'down' ? '↓' : '→'
 	);
 	let countTrendColor = $derived(directionTone(countTrendDirection));
+	let qoqVacancyDirection = $derived(
+		(monitor.vacancy.qoq_delta_pp ?? 0) > 0
+			? 'up'
+			: (monitor.vacancy.qoq_delta_pp ?? 0) < 0
+				? 'down'
+				: 'flat'
+	);
+	let qoqVacancyLabel = $derived(
+		qoqVacancyDirection === 'up' ? '↑' : qoqVacancyDirection === 'down' ? '↓' : '→'
+	);
+	let qoqVacancyColor = $derived(directionTone(qoqVacancyDirection));
 
 	let hiringLabel = $derived.by(() => {
 		if (!monitor.hiring) return null;
@@ -82,9 +94,17 @@
 				<p class="mt-0.5 text-xs text-muted-foreground">
 					Vacancy rate · {monitor.vacancy.latest_quarter}
 				</p>
+				{#if monitor.vacancy.qoq_delta_pp !== undefined}
+					<p class="mt-1 text-xs text-muted-foreground">
+						Versus last quarter:
+						<span class="{qoqVacancyColor} font-semibold tabular-nums">
+							{qoqVacancyLabel}{Math.abs(monitor.vacancy.qoq_delta_pp).toFixed(1)} points
+						</span>
+					</p>
+				{/if}
 				{#if monitor.vacancy.latest_count !== undefined}
 					<p class="mt-1 text-xs text-muted-foreground">
-						<span class="font-medium text-foreground/85 tabular-nums"
+						<span class="font-medium text-text-secondary tabular-nums"
 							>{monitor.vacancy.latest_count.toLocaleString()} vacancies</span
 						>
 						<span class="{countTrendColor} ml-1 font-semibold tabular-nums">
@@ -97,7 +117,7 @@
 			<!-- Mini sparkline -->
 			{#if sparklinePoints}
 				<div class="shrink-0 mt-1">
-					<svg width="80" height="24" class="text-muted-foreground/50">
+					<svg width="80" height="24" class="text-text-tertiary">
 						<polyline
 							points={sparklinePoints}
 							fill="none"
@@ -108,7 +128,7 @@
 						/>
 					</svg>
 					<div
-						class="flex justify-between text-xs text-muted-foreground/40 tabular-nums"
+						class="flex justify-between text-xs text-text-ghost tabular-nums"
 						style="width: 80px;"
 					>
 						<span>{monitor.vacancy.annual_rates?.[0]?.year}</span>
@@ -128,6 +148,16 @@
 				<p class="text-xs text-muted-foreground tabular-nums">
 					{monitor.hiring?.recruitment_rate}% recruit · {monitor.hiring?.resignation_rate}% resign
 				</p>
+				{#if monitor.hiring?.recruitment_delta_pp !== undefined && monitor.hiring?.resignation_delta_pp !== undefined}
+					<p class="text-xs text-muted-foreground tabular-nums">
+						Versus last quarter: recruitment {monitor.hiring.recruitment_delta_pp > 0
+							? '+'
+							: ''}{monitor.hiring.recruitment_delta_pp.toFixed(1)} points · resignation {monitor
+							.hiring.resignation_delta_pp > 0
+							? '+'
+							: ''}{monitor.hiring.resignation_delta_pp.toFixed(1)} points
+					</p>
+				{/if}
 			{/if}
 		</div>
 
@@ -150,6 +180,14 @@
 							? 'Moderate'
 							: 'Elevated'}
 				</p>
+				{#if monitor.retrenchment.qoq_delta_count !== undefined}
+					<p class="text-xs text-muted-foreground tabular-nums">
+						Versus last quarter:
+						{monitor.retrenchment.qoq_delta_count > 0 ? '+' : ''}{monitor.retrenchment
+							.qoq_delta_count}
+						cases
+					</p>
+				{/if}
 			</div>
 		{/if}
 
@@ -161,18 +199,30 @@
 					{monitor.re_entry.rate_12m}% within 12 months
 				</p>
 				<p class="text-xs text-muted-foreground">{monitor.re_entry.rate_6m}% within 6 months</p>
+				{#if monitor.re_entry.rate_6m_delta_pp !== undefined || monitor.re_entry.rate_12m_delta_pp !== undefined}
+					<p class="text-xs text-muted-foreground tabular-nums">
+						Versus last quarter: 6m {monitor.re_entry.rate_6m_delta_pp &&
+						monitor.re_entry.rate_6m_delta_pp > 0
+							? '+'
+							: ''}{monitor.re_entry.rate_6m_delta_pp?.toFixed(1) ?? '0.0'} points · 12m
+						{monitor.re_entry.rate_12m_delta_pp && monitor.re_entry.rate_12m_delta_pp > 0
+							? '+'
+							: ''}{monitor.re_entry.rate_12m_delta_pp?.toFixed(1) ?? '0.0'} points
+					</p>
+				{/if}
 			</div>
 		{/if}
 	</div>
 
-	<p class="mt-3 text-xs text-muted-foreground/60 italic">
+	<p class="mt-3 text-xs text-text-tertiary italic">
 		Cluster-level data — same for all occupations in the {monitor.cluster_label} group. Per-occupation
 		labour data is not publicly available from MOM.
 		<a
-			href="https://stats.mom.gov.sg/iMAS_PdfLibrary/mrsd-Labour-Market-Report-3Q-2025.pdf"
+			href={siteStatus.live_monitor.latest_official_labour_report.url}
 			target="_blank"
 			rel="noopener noreferrer"
-			class="text-primary hover:underline not-italic">Source: Labour Market Report Q3 2025</a
+			class="text-primary hover:underline not-italic"
+			>Source: {siteStatus.live_monitor.labour_monitor_artifact_vintage}</a
 		>
 	</p>
 </div>

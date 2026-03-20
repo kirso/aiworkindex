@@ -1,7 +1,14 @@
 <script lang="ts">
 	import { occupations, impactTypeLabels, riskBandLabels } from '$lib/data';
+	import clusterValidation from '$lib/data/backtests/current-validation.json';
+	import blsValidation from '$lib/data/backtests/bls-crosswalk-validation.json';
+	import multiPeriodValidation from '$lib/data/backtests/multi-period-validation.json';
+	import calibrationDiagnostics from '$lib/data/backtests/calibration-diagnostics.json';
+	import occupationFamilyValidation from '$lib/data/backtests/occupation-family-validation.json';
+	import { DATA_VINTAGE } from '$lib/data/scoring-constants';
 	import { dataSourceRegistry } from '$lib/data/data-contract';
 	import claimsMatrix from '$lib/data/claims-matrix.json';
+	import { siteStatus } from '$lib/data/site-status';
 	import { pageLayout, card, sectionLabel, caption } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
@@ -25,6 +32,21 @@
 	).length;
 	const dataSourceCount = Object.keys(dataSourceRegistry).length;
 	const publicClaims = claimsMatrix.claims.slice(0, 10);
+	const clusterChecksPassed = clusterValidation.summary.checks_passed;
+	const clusterChecksTotal = clusterValidation.summary.checks_total;
+	const clusterBacktestPath = `data/backtests/${clusterValidation.data_period.toLowerCase().replace(/\s+/g, '-')}-validation.json`;
+	const clusterChecks = clusterValidation.correlation_checks;
+	const vacancyCheck = clusterChecks[0] ?? { pass: false, actual: 'N/A', note: 'Unavailable' };
+	const retrenchmentCheck = clusterChecks[1] ?? { pass: false, actual: 'N/A', note: 'Unavailable' };
+	const hiringCheck = clusterChecks[2] ?? { pass: false, actual: 'N/A', note: 'Unavailable' };
+	const accuracyCheck = clusterChecks[3] ?? { pass: false, actual: 'N/A', note: 'Unavailable' };
+	const temporalVacancySummary = multiPeriodValidation.metrics.vacancy_rate_yoy.summary;
+	const temporalVacancyCountSummary = multiPeriodValidation.metrics.vacancy_count_yoy.summary;
+	const temporalHiringSummary = multiPeriodValidation.metrics.annual_hiring_net.summary;
+	const calibrationDirect = calibrationDiagnostics.segments.by_match_quality.direct;
+	const calibrationFallback = calibrationDiagnostics.segments.by_match_quality.all_fallback;
+	const calibrationHighMedium = calibrationDiagnostics.segments.by_confidence_level.high_or_medium;
+	const calibrationLow = calibrationDiagnostics.segments.by_confidence_level.low;
 
 	function pct(value: number, total: number): string {
 		return ((value / total) * 100).toFixed(1);
@@ -50,16 +72,11 @@
 	<h1 class={titleStyle({ size: 'page' })}>Methodology</h1>
 
 	<!-- Core insight -->
-	<div
-		class={cn(
-			card({ padding: 'sm', variant: 'default' }),
-			'mt-4 border-risk-moderate-border bg-risk-moderate-subtle'
-		)}
-	>
+	<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'moderate' }), 'mt-4')}>
 		<p class="text-sm font-medium text-foreground">
 			AI exposure and job displacement are different objects.
 		</p>
-		<p class="mt-1 text-sm text-foreground/80">
+		<p class="mt-1 text-sm text-text-secondary">
 			A software developer and a data entry clerk can both score high on AI exposure, but one gets
 			augmented (MOM lists software developers as in-demand in 2025) while the other faces
 			substitution. We deliberately separate technical exposure from market translation using a
@@ -90,7 +107,10 @@
 			</div>
 			<div class="flex items-center gap-2 text-sm text-muted-foreground">
 				<span class="text-risk-very-low font-bold">&#10003;</span>
-				<span>Cluster-level directional check only: 3/4 checks pass (Q3 2025, n = 3 clusters)</span>
+				<span>
+					Cluster-level directional check only: {clusterChecksPassed}/{clusterChecksTotal} checks pass
+					({clusterValidation.data_period}, n = {clusterValidation.cluster_stats.length} clusters)
+				</span>
 			</div>
 			<div class="flex items-center gap-2 text-sm text-muted-foreground">
 				<span class="text-risk-moderate font-bold">~</span>
@@ -101,12 +121,12 @@
 
 	<!-- Honest positioning -->
 	<div class={cn(card({ variant: 'inset', padding: 'sm' }), 'mt-4')}>
-		<p class="text-sm text-foreground/80">
+		<p class="text-sm text-text-secondary">
 			<strong>What this model does:</strong> Measures structural AI displacement pressure using observable
 			inputs. It tells you which occupations face the most technical overlap with AI capabilities and
 			which have the strongest human bottlenecks and market buffers.
 		</p>
-		<p class="mt-2 text-sm text-foreground/80">
+		<p class="mt-2 text-sm text-text-secondary">
 			<strong>What it does not do:</strong> Predict actual job losses, forecast hiring trends, or account
 			for the creation of new tasks that AI enables (the "reinstatement effect" in Acemoglu &amp; Restrepo's
 			framework). The model captures displacement potential but not the offsetting force of new task creation.
@@ -125,7 +145,7 @@
 		<!-- Tab 1: Scoring Model -->
 		<Tabs.Content value="scoring" class="mt-6">
 			<!-- TL;DR -->
-			<div class={cn(card({ padding: 'sm' }), 'mb-6 border-primary/20 bg-primary/5')}>
+			<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'primary' }), 'mb-6')}>
 				<p class="text-sm font-semibold text-foreground">TL;DR</p>
 				<p class="mt-1 text-sm text-muted-foreground">
 					Net risk = AI exposure × (1 − human bottleneck) × market modifier. Exposure uses a
@@ -179,9 +199,9 @@
 					<table class="w-full text-left text-sm">
 						<thead>
 							<tr class="border-b border-border">
-								<th class="py-2 pr-3 font-medium text-foreground/80">Layer</th>
-								<th class="py-2 pr-3 font-medium text-foreground/80">Measures</th>
-								<th class="py-2 font-medium text-foreground/80">Source</th>
+								<th class="py-2 pr-3 font-medium text-text-secondary">Layer</th>
+								<th class="py-2 pr-3 font-medium text-text-secondary">Measures</th>
+								<th class="py-2 font-medium text-text-secondary">Source</th>
 							</tr>
 						</thead>
 						<tbody class="text-muted-foreground">
@@ -218,7 +238,7 @@
 			<!-- Net Risk Formula -->
 			<section class="mb-8">
 				<p class={sectionLabel()}>The Formula</p>
-				<p class="mt-2 rounded bg-muted px-3 py-2 font-mono text-sm text-foreground/80">
+				<p class="mt-2 rounded bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
 					net_risk = exposure_ensemble &times; (1 - bottleneck) &times; market_modifier
 				</p>
 				<p class="mt-2 text-sm text-muted-foreground">Where:</p>
@@ -252,7 +272,7 @@
 						source; Anthropic observed usage, Eloundou GPT exposure, and the ILO occupational
 						exposure index are added when crosswalk coverage exists.
 					</p>
-					<p class="mt-2 rounded bg-muted px-3 py-2 font-mono text-sm text-foreground/80">
+					<p class="mt-2 rounded bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
 						exposure_ensemble = weighted_mean(percentile-ranked matched exposure inputs)
 					</p>
 					<p class="mt-2 text-sm text-muted-foreground">
@@ -309,10 +329,10 @@
 							<strong>Skills</strong>: O*NET Job Zone (1-5, scaled to 0-1)
 						</li>
 					</ol>
-					<p class="mt-2 rounded bg-muted px-3 py-2 font-mono text-sm text-foreground/80">
+					<p class="mt-2 rounded bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
 						&theta; = mean(6 dimension means, each normalized to 0-1)
 					</p>
-					<p class="mt-2 rounded bg-muted px-3 py-2 font-mono text-sm text-foreground/80">
+					<p class="mt-2 rounded bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
 						bottleneck = percentile_rank(&theta;) across all matched occupations
 					</p>
 					<p class="mt-2 text-sm text-muted-foreground">
@@ -321,13 +341,8 @@
 					</p>
 				</div>
 
-				<div
-					class={cn(
-						card({ padding: 'sm', variant: 'default' }),
-						'mt-4 border-risk-moderate-border bg-risk-moderate-subtle'
-					)}
-				>
-					<p class="text-sm text-foreground/80">
+				<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'moderate' }), 'mt-4')}>
+					<p class="text-sm text-text-secondary">
 						<strong>No double-counting:</strong> We use AIOE and theta as separate, independent
 						layers. We do NOT use C-AIOE (which is <code>aioe &times; f(theta)</code>) as an input
 						to net_risk, because multiplying by <code>(1 - theta)</code> would double-count complementarity.
@@ -353,7 +368,7 @@
 				<div class="mt-4 space-y-4">
 					<div class={card({ padding: 'md' })}>
 						<h3 class="font-semibold text-foreground">Market Momentum (group-level)</h3>
-						<p class="mt-2 rounded bg-muted px-3 py-2 font-mono text-sm text-foreground/80">
+						<p class="mt-2 rounded bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
 							market_momentum = mean(pctile(group_empl_cagr), pctile(group_wage_cagr))
 						</p>
 						<p class="mt-2 text-sm text-muted-foreground">
@@ -364,7 +379,7 @@
 
 					<div class={card({ padding: 'md' })}>
 						<h3 class="font-semibold text-foreground">Occupation Scarcity (occupation-level)</h3>
-						<p class="mt-2 rounded bg-muted px-3 py-2 font-mono text-sm text-foreground/80">
+						<p class="mt-2 rounded bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
 							occupation_scarcity = mean(pctile(log(q75/q25)), pctile(wage_median / group_median))
 						</p>
 						<p class="mt-2 text-sm text-muted-foreground">
@@ -377,10 +392,10 @@
 					<div class={card({ padding: 'md' })}>
 						<h3 class="font-semibold text-foreground">Combined Market Modifier</h3>
 						<div class="mt-2 space-y-2">
-							<p class="rounded bg-muted px-3 py-2 font-mono text-sm text-foreground/80">
+							<p class="rounded bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
 								market_resilience = 0.6 &times; market_momentum + 0.4 &times; occupation_scarcity
 							</p>
-							<p class="rounded bg-muted px-3 py-2 font-mono text-sm text-foreground/80">
+							<p class="rounded bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
 								market_modifier = 1 - 0.35 &times; market_resilience
 							</p>
 						</div>
@@ -459,7 +474,7 @@
 						<p class="mt-2 text-sm text-muted-foreground">
 							The three signals are summed into an overall label:
 						</p>
-						<p class="mt-1 rounded bg-muted px-3 py-2 font-mono text-sm text-foreground/80">
+						<p class="mt-1 rounded bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
 							total = vacancy_signal + hiring_signal + retrenchment_signal<br />
 							2-3 = "strong" | 1 = "moderate" | 0 = "weak" | &lt;0 = "deteriorating"
 						</p>
@@ -479,7 +494,8 @@
 						<p class="mt-2 text-sm text-muted-foreground italic">
 							Data sources: vacancy rates and counts, recruitment/resignation rates, retrenchment by
 							occupation group, and re-entry into employment statistics from data.gov.sg/MOM, with
-							MOM Labour Market Report Q3 2025 enrichment attached where the public raw series stays
+							MOM labour-monitor enrichment attached for the live monitor artifact vintage ({siteStatus
+								.live_monitor.labour_monitor_artifact_vintage}) where the public raw series stays
 							annual or sparse. Updated when a fresher official release is available.
 						</p>
 					</div>
@@ -516,9 +532,9 @@
 					<table class="w-full text-left text-sm">
 						<thead>
 							<tr class="border-b border-border">
-								<th class="py-2 pr-3 font-medium text-foreground/80">Band</th>
-								<th class="py-2 pr-3 font-medium text-foreground/80">Range</th>
-								<th class="py-2 font-medium text-foreground/80">Meaning</th>
+								<th class="py-2 pr-3 font-medium text-text-secondary">Band</th>
+								<th class="py-2 pr-3 font-medium text-text-secondary">Range</th>
+								<th class="py-2 font-medium text-text-secondary">Meaning</th>
 							</tr>
 						</thead>
 						<tbody class="text-muted-foreground">
@@ -563,10 +579,10 @@
 					<strong>same three layers</strong>, with a different formula:
 				</p>
 				<div class="mt-2 space-y-2">
-					<p class="rounded bg-muted px-3 py-2 font-mono text-sm text-foreground/80">
+					<p class="rounded bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
 						displacement_risk = exposure &times; (1 - bottleneck) &times; market_modifier
 					</p>
-					<p class="rounded bg-muted px-3 py-2 font-mono text-sm text-foreground/80">
+					<p class="rounded bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
 						augmentation = exposure &times; bottleneck &times; market_resilience
 					</p>
 				</div>
@@ -583,9 +599,9 @@
 					<table class="w-full text-left text-sm">
 						<thead>
 							<tr class="border-b border-border">
-								<th class="py-2 pr-3 font-medium text-foreground/80"></th>
-								<th class="py-2 pr-3 font-medium text-foreground/80">Low Augmentation</th>
-								<th class="py-2 font-medium text-foreground/80">High Augmentation</th>
+								<th class="py-2 pr-3 font-medium text-text-secondary"></th>
+								<th class="py-2 pr-3 font-medium text-text-secondary">Low Augmentation</th>
+								<th class="py-2 font-medium text-text-secondary">High Augmentation</th>
 							</tr>
 						</thead>
 						<tbody class="text-muted-foreground">
@@ -626,7 +642,7 @@
 				<p class="mt-2 text-sm text-muted-foreground">
 					Every score carries a visible confidence indicator:
 				</p>
-				<p class="mt-2 rounded bg-muted px-3 py-2 font-mono text-sm text-foreground/80">
+				<p class="mt-2 rounded bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
 					confidence = weighted_sum(crosswalk, market, freshness, coverage, agreement, sensitivity)
 					− penalties
 				</p>
@@ -634,9 +650,9 @@
 					<table class="w-full text-left text-sm">
 						<thead>
 							<tr class="border-b border-border">
-								<th class="py-2 pr-3 font-medium text-foreground/80">Factor</th>
-								<th class="py-2 pr-3 font-medium text-foreground/80">How it is assigned</th>
-								<th class="py-2 font-medium text-foreground/80">Typical range</th>
+								<th class="py-2 pr-3 font-medium text-text-secondary">Factor</th>
+								<th class="py-2 pr-3 font-medium text-text-secondary">How it is assigned</th>
+								<th class="py-2 font-medium text-text-secondary">Typical range</th>
 							</tr>
 						</thead>
 						<tbody class="text-muted-foreground">
@@ -696,8 +712,9 @@
 					(0.45&ndash;0.7) / <strong>Low</strong> (&lt;0.45).
 				</p>
 				<p class="mt-2 text-sm text-muted-foreground italic">
-					In the current implementation, confidence is also reduced for one-source occupations and
-					for materially contested signal combinations.
+					In the current implementation, <strong>High</strong> confidence is reserved for direct, clean,
+					multi-source cases only. Contested occupations, sparse one-source matches, and fallback mappings
+					are capped below High even when their raw score crosses the threshold.
 				</p>
 			</section>
 
@@ -757,12 +774,13 @@
 		<!-- Tab 2: Validation -->
 		<Tabs.Content value="validation" class="mt-6">
 			<!-- TL;DR -->
-			<div class={cn(card({ padding: 'sm' }), 'mb-6 border-primary/20 bg-primary/5')}>
+			<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'primary' }), 'mb-6')}>
 				<p class="text-sm font-semibold text-foreground">TL;DR</p>
 				<p class="mt-1 text-sm text-muted-foreground">
-					3 of 4 cluster-level directional checks pass against Q3 2025 MOM data. BLS cross-country
-					check shows weak but significant negative correlation (rho = −0.14, p &lt; 0.01). This is
-					a structural pressure score, not a job-loss prediction.
+					{clusterChecksPassed} of {clusterChecksTotal} cluster-level directional checks pass against
+					{clusterValidation.data_period} MOM data. BLS cross-country check shows weak but significant
+					negative correlation (rho = {blsValidation.spearman_rho}, p &lt; 0.01). This is a
+					structural pressure score, not a job-loss prediction.
 				</p>
 			</div>
 
@@ -771,8 +789,8 @@
 				<p class={sectionLabel()}>Validation</p>
 				<p class="mt-2 text-sm text-muted-foreground">
 					We backtest structural risk scores against actual labour market outcomes at the cluster
-					level (Q3 2025 data). This tests whether higher-risk clusters show worse outcomes than
-					lower-risk ones.
+					level ({clusterValidation.data_period} data). This tests whether higher-risk clusters show worse
+					outcomes than lower-risk ones.
 				</p>
 				<div class={cn(card({ padding: 'sm' }), 'mt-3')}>
 					<h3 class="text-sm font-semibold text-foreground mb-2">
@@ -780,40 +798,60 @@
 					</h3>
 					<div class="space-y-2 text-sm text-muted-foreground">
 						<div class="flex items-center gap-2">
-							<span class="text-risk-very-low font-bold shrink-0">&#10003;</span>
 							<span
-								><strong>Risk vs vacancy trend:</strong> Higher-risk clusters have lower vacancy growth
-								(Spearman &rho; = -1.0, n=3)</span
+								class={vacancyCheck.pass
+									? 'text-risk-very-low font-bold shrink-0'
+									: 'text-risk-very-high font-bold shrink-0'}>{vacancyCheck.pass ? '✓' : '✗'}</span
+							>
+							<span
+								><strong>Risk vs vacancy trend:</strong>
+								{vacancyCheck.note}
+								({vacancyCheck.actual}, n={clusterValidation.cluster_stats.length})</span
 							>
 						</div>
 						<div class="flex items-center gap-2">
-							<span class="text-risk-very-low font-bold shrink-0">&#10003;</span>
 							<span
-								><strong>Risk vs retrenchment:</strong> Higher-risk clusters have higher retrenchment
-								incidence (&rho; = 0.5)</span
+								class={retrenchmentCheck.pass
+									? 'text-risk-very-low font-bold shrink-0'
+									: 'text-risk-very-high font-bold shrink-0'}
+								>{retrenchmentCheck.pass ? '✓' : '✗'}</span
+							>
+							<span
+								><strong>Risk vs retrenchment:</strong>
+								{retrenchmentCheck.note}
+								({retrenchmentCheck.actual})</span
 							>
 						</div>
 						<div class="flex items-center gap-2">
-							<span class="text-risk-very-high font-bold shrink-0">&#10007;</span>
 							<span
-								><strong>Risk vs hiring pressure:</strong> Hiring net pressure does not inversely track
-								risk (&rho; = 0.5)</span
+								class={hiringCheck.pass
+									? 'text-risk-very-low font-bold shrink-0'
+									: 'text-risk-very-high font-bold shrink-0'}>{hiringCheck.pass ? '✓' : '✗'}</span
+							>
+							<span
+								><strong>Risk vs hiring pressure:</strong>
+								{hiringCheck.note}
+								({hiringCheck.actual})</span
 							>
 						</div>
 						<div class="flex items-center gap-2">
-							<span class="text-risk-very-low font-bold shrink-0">&#10003;</span>
 							<span
-								><strong>Directional accuracy:</strong> 100% of pairwise cluster comparisons rank correctly
+								class={accuracyCheck.pass
+									? 'text-risk-very-low font-bold shrink-0'
+									: 'text-risk-very-high font-bold shrink-0'}>{accuracyCheck.pass ? '✓' : '✗'}</span
+							>
+							<span
+								><strong>Directional accuracy:</strong>
+								{accuracyCheck.actual}
 								on vacancy trend</span
 							>
 						</div>
 					</div>
 					<p class="mt-3 text-xs text-muted-foreground italic">
-						Only 3 labour clusters available, so statistical power is limited. This validates broad
-						direction, not precision. Cluster-level data masks within-cluster variation. Full raw
-						results in <code class="rounded bg-muted px-1"
-							>data/backtests/q3-2025-validation.json</code
-						>.
+						Only {clusterValidation.cluster_stats.length} labour clusters are available, so statistical
+						power is limited. This validates broad direction, not precision. Cluster-level data masks
+						within-cluster variation. Full raw results in
+						<code class="rounded bg-muted px-1">{clusterBacktestPath}</code>.
 					</p>
 				</div>
 
@@ -822,46 +860,65 @@
 						Cross-Country Convergent Check (BLS Projections)
 					</h3>
 					<p class="text-sm text-muted-foreground">
-						We mapped 530 of 562 Singapore SSOC occupations to US BLS 2024&ndash;2034 employment
-						projections via the ISCO-08 &rarr; SOC crosswalk. Spearman rank correlation between our
-						structural risk scores and BLS projected employment change:
-						<strong>&rho; = &minus;0.14</strong> (p &lt; 0.01, n = 530). Higher risk scores are associated
-						with weaker projected employment growth.
+						We mapped {blsValidation.sample_size} of {blsValidation.total_occupations} Singapore SSOC
+						occupations to US BLS 2024&ndash;2034 employment projections via the ISCO-08 &rarr; SOC crosswalk.
+						Spearman rank correlation between our structural risk scores and BLS projected employment
+						change:
+						<strong>&rho; = {blsValidation.spearman_rho}</strong> (p &lt; 0.01, n = {blsValidation.sample_size}).
+						Higher risk scores are associated with weaker projected employment growth.
 					</p>
 					<div class="mt-3 overflow-x-auto">
 						<table class="w-full text-left text-sm">
 							<thead>
 								<tr class="border-b border-border">
-									<th class="py-1.5 pr-3 font-medium text-foreground/80">Risk band</th>
-									<th class="py-1.5 pr-3 font-medium text-foreground/80">n</th>
-									<th class="py-1.5 font-medium text-foreground/80">Avg BLS change</th>
+									<th class="py-1.5 pr-3 font-medium text-text-secondary">Risk band</th>
+									<th class="py-1.5 pr-3 font-medium text-text-secondary">n</th>
+									<th class="py-1.5 font-medium text-text-secondary">Avg BLS change</th>
 								</tr>
 							</thead>
 							<tbody class="text-muted-foreground">
 								<tr class="border-b border-border/50">
 									<td class="py-1.5 pr-3">Very Low</td>
-									<td class="py-1.5 pr-3">87</td>
-									<td class="py-1.5 text-risk-very-low font-medium">+3.3%</td>
+									<td class="py-1.5 pr-3">{blsValidation.by_risk_band.very_low.count}</td>
+									<td class="py-1.5 text-risk-very-low font-medium"
+										>{blsValidation.by_risk_band.very_low.avg_bls_change > 0
+											? '+'
+											: ''}{blsValidation.by_risk_band.very_low.avg_bls_change}%</td
+									>
 								</tr>
 								<tr class="border-b border-border/50">
 									<td class="py-1.5 pr-3">Low</td>
-									<td class="py-1.5 pr-3">204</td>
-									<td class="py-1.5 text-risk-low font-medium">+3.1%</td>
+									<td class="py-1.5 pr-3">{blsValidation.by_risk_band.low.count}</td>
+									<td class="py-1.5 text-risk-low font-medium"
+										>{blsValidation.by_risk_band.low.avg_bls_change > 0 ? '+' : ''}{blsValidation
+											.by_risk_band.low.avg_bls_change}%</td
+									>
 								</tr>
 								<tr class="border-b border-border/50">
 									<td class="py-1.5 pr-3">Moderate</td>
-									<td class="py-1.5 pr-3">120</td>
-									<td class="py-1.5 text-risk-moderate font-medium">+3.2%</td>
+									<td class="py-1.5 pr-3">{blsValidation.by_risk_band.moderate.count}</td>
+									<td class="py-1.5 text-risk-moderate font-medium"
+										>{blsValidation.by_risk_band.moderate.avg_bls_change > 0
+											? '+'
+											: ''}{blsValidation.by_risk_band.moderate.avg_bls_change}%</td
+									>
 								</tr>
 								<tr class="border-b border-border/50">
 									<td class="py-1.5 pr-3">High</td>
-									<td class="py-1.5 pr-3">76</td>
-									<td class="py-1.5 text-risk-high font-medium">+2.0%</td>
+									<td class="py-1.5 pr-3">{blsValidation.by_risk_band.high.count}</td>
+									<td class="py-1.5 text-risk-high font-medium"
+										>{blsValidation.by_risk_band.high.avg_bls_change > 0 ? '+' : ''}{blsValidation
+											.by_risk_band.high.avg_bls_change}%</td
+									>
 								</tr>
 								<tr>
 									<td class="py-1.5 pr-3">Very High</td>
-									<td class="py-1.5 pr-3">43</td>
-									<td class="py-1.5 text-risk-very-high font-medium">&minus;3.0%</td>
+									<td class="py-1.5 pr-3">{blsValidation.by_risk_band.very_high.count}</td>
+									<td class="py-1.5 text-risk-very-high font-medium"
+										>{blsValidation.by_risk_band.very_high.avg_bls_change > 0
+											? '+'
+											: ''}{blsValidation.by_risk_band.very_high.avg_bls_change}%</td
+									>
 								</tr>
 							</tbody>
 						</table>
@@ -876,13 +933,80 @@
 					</p>
 				</div>
 
-				<div
-					class={cn(
-						card({ padding: 'sm', variant: 'default' }),
-						'mt-3 border-risk-moderate-border bg-risk-moderate-subtle'
-					)}
-				>
-					<p class="text-sm text-foreground/80">
+				<div class={cn(card({ padding: 'sm' }), 'mt-3')}>
+					<h3 class="text-sm font-semibold text-foreground mb-2">
+						Temporal Robustness Check (Singapore labour history)
+					</h3>
+					<p class="text-sm text-muted-foreground">
+						Using the fixed cluster risk ordering, we also test whether higher-risk clusters show
+						weaker vacancy movement over multiple observed periods. Vacancy rate YoY alignment is
+						<strong> {temporalVacancySummary.avg_pairwise_accuracy.toFixed(2)}</strong> across
+						{temporalVacancySummary.period_count} periods; vacancy count YoY alignment is
+						<strong> {temporalVacancyCountSummary.avg_pairwise_accuracy.toFixed(2)}</strong> across
+						{temporalVacancyCountSummary.period_count} periods. Annual hiring-net alignment is much weaker
+						at <strong>{temporalHiringSummary.avg_pairwise_accuracy.toFixed(2)}</strong> across
+						{temporalHiringSummary.period_count} years.
+					</p>
+					<p class="mt-3 text-xs text-muted-foreground italic">
+						This strengthens the claim that the score tracks long-run pressure better than short-run
+						hiring appetite. Full raw results in
+						<code class="rounded bg-muted px-1">data/backtests/multi-period-validation.json</code>.
+					</p>
+				</div>
+
+				<div class={cn(card({ padding: 'sm' }), 'mt-3')}>
+					<h3 class="text-sm font-semibold text-foreground mb-2">
+						Calibration Diagnostics (mapping quality and confidence)
+					</h3>
+					<p class="text-sm text-muted-foreground">
+						We also check whether the broadest, most trusted score population behaves as expected in
+						the external cross-check. Direct SSOC mappings cover
+						<strong> {(calibrationDirect.share_of_matched_sample * 100).toFixed(1)}%</strong> of the
+						matched BLS sample and retain a significant negative relationship (<strong
+							>&rho; = {calibrationDirect.spearman_rho}</strong
+						>, p &lt; 0.01). The combined high/medium-confidence population covers
+						<strong> {(calibrationHighMedium.share_of_matched_sample * 100).toFixed(1)}%</strong> of
+						matched occupations and shows the same negative alignment (<strong
+							>&rho; = {calibrationHighMedium.spearman_rho}</strong
+						>, p &lt; 0.01).
+					</p>
+					<p class="mt-3 text-sm text-muted-foreground">
+						Fallback mappings remain directionally negative but are much smaller (n = {calibrationFallback.sample_size},
+						&rho; = {calibrationFallback.spearman_rho}). The low-confidence tier is intentionally
+						tiny (n = {calibrationLow.sample_size}) and should be treated as noisy rather than
+						over-interpreted.
+					</p>
+					<p class="mt-3 text-xs text-muted-foreground italic">
+						This is a calibration check for mapping quality and confidence labels, not separate
+						Singapore outcome truth. Full results in
+						<code class="rounded bg-muted px-1">data/backtests/calibration-diagnostics.json</code>.
+					</p>
+				</div>
+
+				<div class={cn(card({ padding: 'sm' }), 'mt-3')}>
+					<h3 class="text-sm font-semibold text-foreground mb-2">
+						Occupation-Family Convergent Check
+					</h3>
+					<p class="text-sm text-muted-foreground">
+						To get beyond the 3 broad labour clusters without pretending we have occupation-level
+						Singapore outcome data, we also aggregate occupations into
+						<strong> {occupationFamilyValidation.family_count}</strong> 2-digit SSOC families and
+						compare average family risk with average BLS projected employment change. The result is
+						still directionally negative (<strong
+							>&rho; = {occupationFamilyValidation.spearman_rho}</strong
+						>), but weaker than the main vacancy-side checks and not significant at p &lt; 0.01.
+					</p>
+					<p class="mt-3 text-xs text-muted-foreground italic">
+						This is a more granular convergent cross-check, not Singapore realised labour truth.
+						Full raw results in
+						<code class="rounded bg-muted px-1"
+							>data/backtests/occupation-family-validation.json</code
+						>.
+					</p>
+				</div>
+
+				<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'moderate' }), 'mt-3')}>
+					<p class="text-sm text-text-secondary">
 						<strong>Honest framing:</strong> Structural risk scores capture long-run pressure, not
 						short-run employment fluctuations. A single exposure measure poorly predicts actual
 						unemployment (<a
@@ -914,9 +1038,9 @@
 					<table class="w-full text-left text-sm">
 						<thead>
 							<tr class="border-b border-border">
-								<th class="py-2 pr-3 font-medium text-foreground/80">Measure</th>
-								<th class="py-2 pr-3 font-medium text-foreground/80">Source</th>
-								<th class="py-2 font-medium text-foreground/80">Coverage</th>
+								<th class="py-2 pr-3 font-medium text-text-secondary">Measure</th>
+								<th class="py-2 pr-3 font-medium text-text-secondary">Source</th>
+								<th class="py-2 font-medium text-text-secondary">Coverage</th>
 							</tr>
 						</thead>
 						<tbody class="text-muted-foreground">
@@ -1038,12 +1162,13 @@
 		<!-- Tab 3: Advanced -->
 		<Tabs.Content value="advanced" class="mt-6">
 			<!-- TL;DR -->
-			<div class={cn(card({ padding: 'sm' }), 'mb-6 border-primary/20 bg-primary/5')}>
+			<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'primary' }), 'mb-6')}>
 				<p class="text-sm font-semibold text-foreground">TL;DR</p>
 				<p class="mt-1 text-sm text-muted-foreground">
-					Singapore SSOC codes map to US O*NET scores via ISCO-08 crosswalk. Monte Carlo simulation
-					generates confidence intervals. Seniority modifiers adjust outlook for entry/mid/senior
-					levels. Synthetic roles are weighted blends of official occupations.
+					Singapore SSOC codes map to US O*NET scores via ISCO-08 crosswalk. A seeded Monte Carlo
+					stability routine generates deterministic optimistic/pessimistic risk bounds. Seniority
+					modifiers adjust outlook for entry/mid/senior levels. Synthetic roles are weighted blends
+					of official occupations.
 				</p>
 			</div>
 
@@ -1169,10 +1294,10 @@
 					<table class="w-full text-left text-sm">
 						<thead>
 							<tr class="border-b border-border">
-								<th class="py-2 pr-3 font-medium text-foreground/80">Level</th>
-								<th class="py-2 pr-3 font-medium text-foreground/80">Exposure Adj.</th>
-								<th class="py-2 pr-3 font-medium text-foreground/80">Bottleneck Adj.</th>
-								<th class="py-2 font-medium text-foreground/80">Research Basis</th>
+								<th class="py-2 pr-3 font-medium text-text-secondary">Level</th>
+								<th class="py-2 pr-3 font-medium text-text-secondary">Exposure Adj.</th>
+								<th class="py-2 pr-3 font-medium text-text-secondary">Bottleneck Adj.</th>
+								<th class="py-2 font-medium text-text-secondary">Research Basis</th>
 							</tr>
 						</thead>
 						<tbody class="text-muted-foreground">
@@ -1225,9 +1350,9 @@
 					<table class="w-full text-left text-sm">
 						<thead>
 							<tr class="border-b border-border">
-								<th class="py-2 pr-3 font-medium text-foreground/80">Parameter</th>
-								<th class="py-2 pr-3 font-medium text-foreground/80">Value</th>
-								<th class="py-2 font-medium text-foreground/80">Details</th>
+								<th class="py-2 pr-3 font-medium text-text-secondary">Parameter</th>
+								<th class="py-2 pr-3 font-medium text-text-secondary">Value</th>
+								<th class="py-2 font-medium text-text-secondary">Details</th>
 							</tr>
 						</thead>
 						<tbody class="text-muted-foreground">
@@ -1370,7 +1495,7 @@
 		<!-- Tab 4: References -->
 		<Tabs.Content value="references" class="mt-6">
 			<!-- TL;DR -->
-			<div class={cn(card({ padding: 'sm' }), 'mb-6 border-primary/20 bg-primary/5')}>
+			<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'primary' }), 'mb-6')}>
 				<p class="text-sm font-semibold text-foreground">TL;DR</p>
 				<p class="mt-1 text-sm text-muted-foreground">
 					12 academic papers + {dataSourceCount} data sources. Key influences: Felten AIOE, Pizzinelli
@@ -1428,7 +1553,7 @@
 				<p class={sectionLabel()}>Academic References</p>
 				<ul class="mt-2 space-y-3 text-sm text-muted-foreground">
 					<li>
-						<p class="font-medium text-foreground/80">Felten, Raj &amp; Seamans (2021)</p>
+						<p class="font-medium text-text-secondary">Felten, Raj &amp; Seamans (2021)</p>
 						<p>
 							<a
 								href="https://doi.org/10.1002/smj.3286"
@@ -1441,7 +1566,7 @@
 						</p>
 					</li>
 					<li>
-						<p class="font-medium text-foreground/80">Pizzinelli et al. (2023)</p>
+						<p class="font-medium text-text-secondary">Pizzinelli et al. (2023)</p>
 						<p>
 							<a
 								href="https://www.imf.org/en/Publications/WP/Issues/2023/10/05/Labor-Market-Exposure-to-AI-Cross-country-Differences-and-Distributional-Implications-540476"
@@ -1454,7 +1579,7 @@
 						</p>
 					</li>
 					<li>
-						<p class="font-medium text-foreground/80">IMF Singapore (2024)</p>
+						<p class="font-medium text-text-secondary">IMF Singapore (2024)</p>
 						<p>
 							<a
 								href="https://www.imf.org/en/Publications/selected-issues-papers/Issues/2024/07/30/Impact-of-Artificial-Intelligence-on-the-Singapore-Labor-Market-552447"
@@ -1466,7 +1591,7 @@
 						</p>
 					</li>
 					<li>
-						<p class="font-medium text-foreground/80">Acemoglu &amp; Restrepo (2019)</p>
+						<p class="font-medium text-text-secondary">Acemoglu &amp; Restrepo (2019)</p>
 						<p>
 							<a
 								href="https://www.aeaweb.org/articles?id=10.1257/jep.33.2.3"
@@ -1479,7 +1604,7 @@
 						</p>
 					</li>
 					<li>
-						<p class="font-medium text-foreground/80">Brynjolfsson, Li &amp; Raymond (2023)</p>
+						<p class="font-medium text-text-secondary">Brynjolfsson, Li &amp; Raymond (2023)</p>
 						<p>
 							<a
 								href="https://www.nber.org/papers/w31161"
@@ -1491,7 +1616,7 @@
 						</p>
 					</li>
 					<li>
-						<p class="font-medium text-foreground/80">Eloundou et al. (2023)</p>
+						<p class="font-medium text-text-secondary">Eloundou et al. (2023)</p>
 						<p>
 							<a
 								href="https://arxiv.org/abs/2303.10130"
@@ -1504,7 +1629,7 @@
 						</p>
 					</li>
 					<li>
-						<p class="font-medium text-foreground/80">Demirer et al. (2025)</p>
+						<p class="font-medium text-text-secondary">Demirer et al. (2025)</p>
 						<p>
 							<a
 								href="https://digitaleconomy.stanford.edu/publications/canaries-in-the-coal-mine/"
@@ -1516,7 +1641,7 @@
 						</p>
 					</li>
 					<li>
-						<p class="font-medium text-foreground/80">Frank et al. (2025)</p>
+						<p class="font-medium text-text-secondary">Frank et al. (2025)</p>
 						<p>
 							<a
 								href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11983276/"
@@ -1527,7 +1652,7 @@
 						</p>
 					</li>
 					<li>
-						<p class="font-medium text-foreground/80">Ministry of Manpower, Singapore (2025)</p>
+						<p class="font-medium text-text-secondary">Ministry of Manpower, Singapore (2025)</p>
 						<p>
 							<a
 								href="https://www.mom.gov.sg/newsroom/press-releases/2025/1230-jobs-in-demand-2025"
@@ -1538,7 +1663,7 @@
 						</p>
 					</li>
 					<li>
-						<p class="font-medium text-foreground/80">Ministry of Manpower, Singapore (2025)</p>
+						<p class="font-medium text-text-secondary">Ministry of Manpower, Singapore (2025)</p>
 						<p>
 							<a
 								href="https://stats.mom.gov.sg/Pages/Job-Vacancies.aspx"
@@ -1549,7 +1674,7 @@
 						</p>
 					</li>
 					<li>
-						<p class="font-medium text-foreground/80">Ministry of Manpower, Singapore (2025)</p>
+						<p class="font-medium text-text-secondary">Ministry of Manpower, Singapore (2025)</p>
 						<p>
 							<a
 								href="https://www.mom.gov.sg/passes-and-permits/employment-pass/compass/shortage-occupation-list"
@@ -1560,7 +1685,7 @@
 						</p>
 					</li>
 					<li>
-						<p class="font-medium text-foreground/80">Anthropic (2026)</p>
+						<p class="font-medium text-text-secondary">Anthropic (2026)</p>
 						<p>
 							<a
 								href="https://www.anthropic.com/research/anthropic-economic-index-january-2026-report"
@@ -1589,7 +1714,7 @@
 				</p>
 				<div class="mt-3 space-y-2 text-sm text-muted-foreground">
 					<div class={card({ padding: 'sm' })}>
-						<p class="font-medium text-foreground/80">
+						<p class="font-medium text-text-secondary">
 							Individual AI exposure scores are poor predictors of actual unemployment
 						</p>
 						<p class="mt-1 text-xs">
@@ -1599,7 +1724,7 @@
 						</p>
 					</div>
 					<div class={card({ padding: 'sm' })}>
-						<p class="font-medium text-foreground/80">Research is "still in the first inning"</p>
+						<p class="font-medium text-text-secondary">Research is "still in the first inning"</p>
 						<p class="mt-1 text-xs">
 							Brookings/PIIE (2026) reports no consensus on how to measure AI's labour market
 							impact. BLS employment projections show only weak correlation between AI exposure and
@@ -1607,7 +1732,7 @@
 						</p>
 					</div>
 					<div class={card({ padding: 'sm' })}>
-						<p class="font-medium text-foreground/80">
+						<p class="font-medium text-text-secondary">
 							No clear aggregate displacement through 2025
 						</p>
 						<p class="mt-1 text-xs">
@@ -1616,13 +1741,14 @@
 						</p>
 					</div>
 					<div class={card({ padding: 'sm' })}>
-						<p class="font-medium text-foreground/80">
+						<p class="font-medium text-text-secondary">
 							Our approach: structural pressure model, not prediction
 						</p>
 						<p class="mt-1 text-xs">
 							We measure where AI has the most technical overlap with human tasks, adjusted for
-							human bottlenecks and market signals. Validated directionally at cluster level (3/4
-							checks pass vs Q3 2025 data), not causally at occupation level.
+							human bottlenecks and market signals. Validated directionally at cluster level ({clusterChecksPassed}/{clusterChecksTotal}
+							checks pass vs {siteStatus.live_monitor.labour_monitor_validation_vintage} data) and temporally
+							through vacancy rank-order checks, not causally at occupation level.
 						</p>
 					</div>
 				</div>
@@ -1634,7 +1760,7 @@
 				<p class="mt-2 text-sm text-muted-foreground">
 					The entire scoring pipeline is open source and deterministic:
 				</p>
-				<p class="mt-2 rounded bg-muted px-3 py-2 font-mono text-sm text-foreground/80">
+				<p class="mt-2 rounded bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
 					bun run scripts/score.ts
 				</p>
 				<p class="mt-2 text-sm text-muted-foreground">
@@ -1655,40 +1781,40 @@
 						</div>
 						<p class="mt-1 text-sm text-muted-foreground">
 							4-source exposure ensemble (AIOE + Anthropic + Eloundou + ILO). Reliability-weighted
-							blend of all available matched inputs. BLS convergent cross-check, industry momentum
-							spread, and 56 validation checks.
+							blend of all available matched inputs. BLS convergent cross-check, temporal vacancy
+							validation, industry momentum spread, and {DATA_VINTAGE.validation_checks} validation checks.
 						</p>
 					</div>
 					<div class={cn(card({ variant: 'inset', padding: 'sm' }))}>
 						<div class="flex items-center justify-between">
-							<span class="text-sm font-semibold text-foreground/70">V3.1</span>
+							<span class="text-sm font-semibold text-text-secondary">V3.1</span>
 							<span class={caption()}>March 2026</span>
 						</div>
 						<p class="mt-1 text-sm text-muted-foreground">
 							Seniority modifiers (entry-level / mid-career / senior) scaled by variant sensitivity.
 							2-input ensemble exposure (AIOE + Anthropic). Cluster-level backtesting (3/4
-							directional checks pass). Labour data updated to Q4 2025 advance release. 80 synthetic
-							roles. Archetype classification expanded to cover all SSOC prefixes. 48 validation
-							checks. Outlook simplified to 2 tabs with seniority toggle.
+							directional checks pass). Labour monitor moved to Q4 2025 full. 80 synthetic roles.
+							Archetype classification expanded to cover all SSOC prefixes. 48 validation checks.
+							Outlook simplified to 2 tabs with seniority toggle.
 						</p>
 					</div>
 					<div class={cn(card({ variant: 'inset', padding: 'sm' }))}>
 						<div class="flex items-center justify-between">
-							<span class="text-sm font-semibold text-foreground/70">V3.0</span>
+							<span class="text-sm font-semibold text-text-secondary">V3.0</span>
 							<span class={caption()}>February 2026</span>
 						</div>
 						<p class="mt-1 text-sm text-muted-foreground">
 							Three-layer scoring: exposure (AIOE), bottleneck (theta), market resilience. Produces:
 							net risk, augmentation, impact type, stability, confidence. Anthropic observed-usage
 							calibration. SOL 2026 and Jobs in Demand 2025 demand signals. Cluster-level labour
-							monitor (Q3 2025 vacancy, recruitment/resignation, retrenchment, re-entry rates).
-							Stability stress testing. 75 estimated modern roles. Rule-based outlook/scenario
-							engine with 3 presets.
+							monitor ({siteStatus.live_monitor.labour_monitor_validation_vintage} vacancy, recruitment/resignation,
+							retrenchment, re-entry rates). Stability stress testing. 75 estimated modern roles. Rule-based
+							outlook/scenario engine with 3 presets.
 						</p>
 					</div>
 					<div class={cn(card({ variant: 'inset', padding: 'sm' }))}>
 						<div class="flex items-center justify-between">
-							<span class="text-sm font-semibold text-foreground/70">V2</span>
+							<span class="text-sm font-semibold text-text-secondary">V2</span>
 							<span class={caption()}>January 2026</span>
 						</div>
 						<p class="mt-1 text-sm text-muted-foreground">
@@ -1699,7 +1825,7 @@
 					</div>
 					<div class={cn(card({ variant: 'inset', padding: 'sm' }))}>
 						<div class="flex items-center justify-between">
-							<span class="text-sm font-semibold text-foreground/70">V1</span>
+							<span class="text-sm font-semibold text-text-secondary">V1</span>
 							<span class={caption()}>December 2025</span>
 						</div>
 						<p class="mt-1 text-sm text-muted-foreground">
@@ -1715,8 +1841,8 @@
 	<div
 		class="mt-10 border-t border-border pt-4 flex items-center justify-between text-sm text-muted-foreground"
 	>
-		<a href="/" class="hover:text-foreground/80">&larr; Back to index</a>
-		<a href="/methodology/appendix" class="hover:text-foreground/80"
+		<a href="/" class="hover:text-text-secondary">&larr; Back to index</a>
+		<a href="/methodology/appendix" class="hover:text-text-secondary"
 			>Implementation appendix &rarr;</a
 		>
 	</div>

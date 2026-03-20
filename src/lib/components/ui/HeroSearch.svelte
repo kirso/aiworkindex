@@ -3,7 +3,9 @@
 	import type { Occupation } from '$lib/data';
 	import { riskBandLabels } from '$lib/data';
 	import { findAliasMatches } from '$lib/data/aliases';
+	import { DATA_VINTAGE } from '$lib/data/scoring-constants';
 	import { syntheticRoles } from '$lib/data/synthetic-roles';
+	import { trackEvent } from '$lib/analytics';
 	import type { SyntheticRole } from '$lib/data/synthetic-roles';
 	import { riskBadge, card } from '$lib/design-system';
 	import { cn } from '$lib/utils';
@@ -88,10 +90,21 @@
 
 	function navigateToResult(result: SearchResult) {
 		showDropdown = false;
+		const searchQuery = query;
 		query = '';
 		if (result.type === 'role') {
+			trackEvent('search_used', {
+				query: searchQuery,
+				selected_type: 'role',
+				selected_id: result.role.slug
+			});
 			goto(`/role/${result.role.slug}`);
 		} else {
+			trackEvent('search_used', {
+				query: searchQuery,
+				selected_type: 'occupation',
+				selected_id: result.occupation.ssoc
+			});
 			goto(`/occupation/${result.occupation.ssoc}`);
 		}
 	}
@@ -218,8 +231,8 @@
 				</p>
 				<div class="mt-3 border-t border-border/50 pt-3">
 					<p class="text-xs text-muted-foreground">
-						We cover 562 official Singapore occupations and {syntheticRoles.length} estimated modern roles.
-						If your role isn't listed, it may fall under a broader SSOC category.
+						We cover {DATA_VINTAGE.occupation_count} official Singapore occupations and {syntheticRoles.length}
+						estimated modern roles. If your role isn't listed, it may fall under a broader SSOC category.
 					</p>
 				</div>
 			</div>

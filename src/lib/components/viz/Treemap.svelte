@@ -204,7 +204,7 @@
 	{#if zoomedGroup}
 		<button
 			onclick={handleBack}
-			class="mb-2 inline-flex items-center gap-1 rounded-md bg-muted px-3 py-1.5 text-sm font-medium text-foreground/80 transition-colors hover:bg-accent"
+			class="mb-2 inline-flex items-center gap-1 rounded-md bg-muted px-3 py-1.5 text-sm font-medium text-text-secondary transition-colors hover:bg-accent"
 		>
 			<span aria-hidden="true">&larr;</span> Back to all groups
 		</button>

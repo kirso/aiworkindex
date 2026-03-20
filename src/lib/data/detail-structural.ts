@@ -1,7 +1,9 @@
 import type { Occupation, ImpactType } from './index';
+import type { BlendedOnetEnrichment, OnetEnrichmentEntry } from './onet-enrichment';
 import type { ArchetypeContent } from './role-archetypes';
 import type { ScoredRole } from './synthetic-roles';
 import { getPersonalizedContent, blendArchetypes, classifyArchetype } from './role-archetypes';
+import { getOnetEnrichmentForOccupation, buildRoleOnetEnrichment } from './onet-enrichment';
 import { findBestTransitions, categorizeTransitions, type TransitionScore } from './transition-capacity';
 import { archetypeOverlayDefaults, generateWorkflowNarrative } from './workflow-overlay';
 
@@ -10,6 +12,7 @@ export interface OccupationDetailStructural {
 	wageVsNational: string;
 	summaryText: string;
 	personalizedContent: ArchetypeContent;
+	onetEnrichment: OnetEnrichmentEntry | null;
 	workflowNarrative: string | null;
 	transitions: ReturnType<typeof categorizeTransitions>;
 	topTransitions: TransitionScore[];
@@ -26,6 +29,7 @@ export interface RoleDetailStructural {
 	riskPercentile: number;
 	summaryText: string;
 	personalizedContent: ArchetypeContent;
+	onetEnrichment: BlendedOnetEnrichment | null;
 	workflowNarrative: string | null;
 	transitions: ReturnType<typeof categorizeTransitions> | null;
 	primaryMatch: RolePrimaryMatch | null;
@@ -98,6 +102,7 @@ export function buildOccupationDetailStructural(
 			occupation.title,
 			occupation.major_group
 		),
+		onetEnrichment: getOnetEnrichmentForOccupation(occupation.ssoc),
 		workflowNarrative: buildOccupationWorkflowNarrative(occupation),
 		transitions: categorizeTransitions(allTransitions),
 		topTransitions: findBestTransitions(occupation, allOccupations, 8)
@@ -129,6 +134,7 @@ export function buildRoleDetailStructural(
 		riskPercentile: getRiskPercentile(scored.net_risk, allOccupations),
 		summaryText: buildImpactSummary(scored.title, scored.impact_type, scored.exposure),
 		personalizedContent,
+		onetEnrichment: buildRoleOnetEnrichment(scored.components),
 		workflowNarrative: buildRoleWorkflowNarrative(scored),
 		transitions,
 		primaryMatch: primaryOccupation

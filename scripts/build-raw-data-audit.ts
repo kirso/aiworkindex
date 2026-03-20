@@ -43,6 +43,30 @@ interface AuditEntryResult {
 
 const AUDIT_DEFINITIONS: AuditEntryDefinition[] = [
 	{
+		key: 'postings_source_registry',
+		file: 'postings/source-registry.json',
+		location: 'raw',
+		label: 'Postings source registry',
+		expectedType: 'json',
+		usedBy: ['postings pipeline', 'ATS employer-source ingestion']
+	},
+	{
+		key: 'employer_signals_seed',
+		file: 'employer-signals-seed.json',
+		location: 'raw',
+		label: 'Employer pressure seed registry',
+		expectedType: 'json',
+		usedBy: ['employer pressure pipeline']
+	},
+	{
+		key: 'sg_occupations_complete_2024',
+		file: 'sg_occupations_complete_2024.json',
+		location: 'raw',
+		label: 'Singapore occupations base feed',
+		expectedType: 'json',
+		usedBy: ['score pipeline', 'occupation master list']
+	},
+	{
 		key: 'employment_by_occupation',
 		file: 'employment_by_occupation.csv',
 		location: 'raw',
@@ -249,6 +273,9 @@ const AUDIT_DEFINITIONS: AuditEntryDefinition[] = [
 ];
 
 function resolveFilePath(def: AuditEntryDefinition): string {
+	if (def.file.includes(path.sep)) {
+		return path.join(ROOT_DIR, 'data', def.file);
+	}
 	return path.join(def.location === 'raw' ? RAW_DIR : EXTERNAL_DIR, def.file);
 }
 

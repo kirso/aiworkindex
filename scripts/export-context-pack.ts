@@ -54,8 +54,12 @@ const contextPack = {
 	coverage: {
 		labour_monitor_clusters: labourMonitor.length,
 		industry_context_groups:
-			industryContext && typeof industryContext === 'object'
-				? Object.keys(industryContext).length
+			industryContext &&
+			typeof industryContext === 'object' &&
+			'groups' in industryContext &&
+			industryContext.groups &&
+			typeof industryContext.groups === 'object'
+				? Object.keys(industryContext.groups as Record<string, unknown>).length
 				: 0,
 		worker_profile_groups:
 			workerProfile && typeof workerProfile === 'object' && 'groups' in workerProfile
@@ -83,7 +87,31 @@ const contextPack = {
 	},
 	vintage: {
 		worker_profile: '2024',
-		industry_context: '2024',
+		industry_context:
+			industryContext &&
+			typeof industryContext === 'object' &&
+			'metadata' in industryContext &&
+			industryContext.metadata &&
+			typeof industryContext.metadata === 'object' &&
+			'vacancy_overlay_vintage' in industryContext.metadata
+				? String(
+						(
+							industryContext.metadata as {
+								vacancy_overlay_vintage?: string;
+								employment_vintage?: string;
+							}
+						).employment_vintage ?? '2025'
+					) +
+					' employment, ' +
+					String(
+						(
+							industryContext.metadata as {
+								vacancy_overlay_vintage?: string;
+							}
+						).vacancy_overlay_vintage ?? '2025 Q3'
+					) +
+					' vacancy overlay'
+				: '2025 employment, 2025 Q3 vacancy overlay',
 		sector_wage_anchors: '2024',
 		geography_context: '2020',
 		macro_context: '2024-2025',

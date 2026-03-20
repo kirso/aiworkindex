@@ -1,6 +1,6 @@
 {
   "version": "V4.0",
-  "generated_at": "2026-03-19T10:57:48.641Z",
+  "generated_at": "2026-03-20T09:38:45.610Z",
   "strength_labels": {
     "high": "Directly supported by the current pipeline or official published data at the level shown.",
     "medium": "Supported, but with more methodological interpretation or partial coverage.",
@@ -74,6 +74,28 @@
       "notes": "Weights are deterministic and derived from documented source-reliability dimensions: recency, construct fit, coverage quality, and validation support."
     },
     {
+      "id": "onet_task_and_technology_context",
+      "category": "methodology",
+      "claim": "O*NET task and technology-skill profiles are used as supporting explanatory context on detail pages, not as direct score inputs.",
+      "strength": "medium",
+      "source_keys": [
+        "onet_occupation_data",
+        "onet_task_statements",
+        "onet_technology_skills"
+      ],
+      "evidence_artifacts": [
+        "onet-enrichment.json",
+        "scripts/enrich-onet.ts"
+      ],
+      "where_used": [
+        "/occupation/[ssoc]",
+        "/role/[slug]",
+        "/methodology",
+        "/data"
+      ],
+      "notes": "The enrichment is based on title matching and is explicitly treated as contextual support for task and tools framing rather than a determinant of the structural score."
+    },
+    {
       "id": "structural_pressure_not_prediction",
       "category": "methodology",
       "claim": "The headline score measures structural AI pressure, not a forecast of job losses.",
@@ -144,6 +166,62 @@
         "/README"
       ],
       "notes": "Useful for external consistency, but it is still US labour-market evidence rather than Singapore realised outcomes."
+    },
+    {
+      "id": "temporal_cluster_validation_vacancy",
+      "category": "validation",
+      "claim": "Across the available multi-period Singapore cluster data, higher-risk clusters consistently show weaker year-over-year vacancy movement than lower-risk clusters.",
+      "strength": "directional",
+      "source_keys": [
+        "mom_labour_monitor_2025",
+        "mom_job_vacancy_rates",
+        "mom_job_vacancy_counts"
+      ],
+      "evidence_artifacts": [
+        "data/backtests/multi-period-validation.json"
+      ],
+      "where_used": [
+        "/methodology",
+        "/about",
+        "/data"
+      ],
+      "notes": "This is a temporal rank-order check at cluster level. It strengthens the claim that the score tracks long-run pressure, but it is not an occupation-level predictive test."
+    },
+    {
+      "id": "confidence_and_mapping_are_calibrated_directionally",
+      "category": "validation",
+      "claim": "Direct mappings and the broad high/medium-confidence score population show negative external alignment with BLS employment projections, while low-confidence cases remain intentionally small and noisier.",
+      "strength": "directional",
+      "source_keys": [
+        "bls_projections_2024_2034"
+      ],
+      "evidence_artifacts": [
+        "data/backtests/calibration-diagnostics.json"
+      ],
+      "where_used": [
+        "/methodology",
+        "/about",
+        "/data"
+      ],
+      "notes": "This is a calibration diagnostic around mapping quality and confidence tiers. It improves trust framing, but it is still derived from cross-country evidence rather than Singapore occupation-level outcomes."
+    },
+    {
+      "id": "occupation_family_validation_directional",
+      "category": "validation",
+      "claim": "Aggregated 2-digit occupation families also show negative directional alignment between structural risk and BLS projected employment change.",
+      "strength": "directional",
+      "source_keys": [
+        "bls_projections_2024_2034"
+      ],
+      "evidence_artifacts": [
+        "data/backtests/occupation-family-validation.json"
+      ],
+      "where_used": [
+        "/methodology",
+        "/about",
+        "/data"
+      ],
+      "notes": "This sits between the 3 broad labour clusters and individual occupations. It is more granular than the cluster backtest, but still a cross-country convergent check rather than Singapore realised outcomes."
     },
     {
       "id": "cluster_level_labour_monitor",

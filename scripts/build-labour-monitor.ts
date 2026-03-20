@@ -29,9 +29,12 @@ interface VacancySignal {
 	trend_4q_pct: number;
 	signal: 1 | 0 | -1;
 	recent_quarters: Array<{ quarter: string; rate: number }>;
+	annual_rates?: Array<{ year: string; rate: number }>;
+	qoq_delta_pp?: number;
 	latest_count?: number;
 	count_trend_4q_pct?: number;
 	count_signal?: 1 | 0 | -1;
+	count_qoq_delta?: number;
 	recent_counts?: Array<{ quarter: string; count: number }>;
 	annual_counts?: Array<{ year: string; count: number }>;
 }
@@ -43,6 +46,9 @@ interface HiringSignal {
 	signal: 1 | 0 | -1;
 	quarter?: string;
 	frequency?: 'quarterly' | 'annual';
+	recruitment_delta_pp?: number;
+	resignation_delta_pp?: number;
+	net_pressure_delta_pp?: number;
 	note?: string;
 }
 
@@ -53,7 +59,17 @@ interface RetrenchmentSignal {
 	signal: 1 | 0 | -1;
 	recent_quarters: Array<{ quarter: string; count: number }>;
 	incidence_per_1000?: number;
+	qoq_delta_count?: number;
 	trend_direction?: 'rising' | 'stable' | 'falling';
+}
+
+interface ReEntrySignal {
+	rate_6m: number;
+	rate_12m: number;
+	quarter: string;
+	rate_6m_delta_pp?: number;
+	rate_12m_delta_pp?: number;
+	note?: string;
 }
 
 interface LabourClusterMonitor {
@@ -62,8 +78,11 @@ interface LabourClusterMonitor {
 	vacancy: VacancySignal;
 	hiring: HiringSignal | null;
 	retrenchment: RetrenchmentSignal | null;
+	re_entry?: ReEntrySignal | null;
 	overall: 'strong' | 'moderate' | 'weak' | 'deteriorating';
+	summary?: string | null;
 	data_as_of: string;
+	source?: string;
 }
 
 // ===== CSV parsing =====
@@ -848,12 +867,41 @@ function main() {
 			});
 		}
 
-		// Enrich with supplementary Q3 2025 data (from PDF)
-		const enrichmentFile = path.join(DATA_DIR, 'labour-monitor-q3-2025.json');
+		// Enrich with supplementary Q4 2025 official PDF data
+		const enrichmentFile = path.join(DATA_DIR, 'labour-monitor-q4-2025.json');
 		let enrichment: any = null;
 		if (fs.existsSync(enrichmentFile)) {
 			const enrichData = JSON.parse(fs.readFileSync(enrichmentFile, 'utf-8'));
 			enrichment = enrichData.find((e: any) => e.cluster_key === clusterKey);
+		}
+
+		// Merge vacancy/latest published cluster data from the Q4 PDF while the raw vacancy CSV lags.
+		let vacancyFinal: VacancySignal = {
+			...vacancy,
+			annual_rates: annualRates,
+			latest_count: vacancyCounts?.latest_count,
+			count_trend_4q_pct: vacancyCounts?.count_trend_4q_pct,
+			count_signal: vacancyCounts?.count_signal,
+			recent_counts: vacancyCounts?.recent_counts,
+			annual_counts: vacancyCounts?.annual_counts
+		};
+		if (enrichment?.vacancy) {
+			const q4Vacancy = enrichment.vacancy;
+			vacancyFinal = {
+				...vacancyFinal,
+				latest_rate: q4Vacancy.latest_rate ?? vacancyFinal.latest_rate,
+				latest_quarter: q4Vacancy.latest_quarter ?? vacancyFinal.latest_quarter,
+				trend_4q_pct: q4Vacancy.trend_4q_pct ?? vacancyFinal.trend_4q_pct,
+				signal: q4Vacancy.signal ?? vacancyFinal.signal,
+				qoq_delta_pp: q4Vacancy.qoq_delta_pp ?? vacancyFinal.qoq_delta_pp,
+				recent_quarters: q4Vacancy.recent_quarters ?? vacancyFinal.recent_quarters,
+				latest_count: q4Vacancy.latest_count ?? vacancyFinal.latest_count,
+				count_trend_4q_pct: q4Vacancy.count_trend_4q_pct ?? vacancyFinal.count_trend_4q_pct,
+				count_signal: q4Vacancy.count_signal ?? vacancyFinal.count_signal,
+				count_qoq_delta: q4Vacancy.count_qoq_delta ?? vacancyFinal.count_qoq_delta,
+				recent_counts: q4Vacancy.recent_counts ?? vacancyFinal.recent_counts
+			};
+			dataAsOf = q4Vacancy.latest_quarter ?? dataAsOf;
 		}
 
 		// Merge hiring from enrichment if raw data is absent or only annual
@@ -867,10 +915,16 @@ function main() {
 				signal: netPressure > 0.1 ? 1 : netPressure < -0.1 ? -1 : 0,
 				quarter: h.quarter,
 				frequency: 'quarterly',
+				recruitment_delta_pp: h.recruitment_delta_pp,
+				resignation_delta_pp: h.resignation_delta_pp,
+				net_pressure_delta_pp: h.net_pressure_delta_pp,
 				note: h.note
 			};
 		} else if (hiring && enrichment?.hiring?.note) {
 			hiring.note = enrichment.hiring.note;
+			hiring.recruitment_delta_pp = enrichment.hiring.recruitment_delta_pp;
+			hiring.resignation_delta_pp = enrichment.hiring.resignation_delta_pp;
+			hiring.net_pressure_delta_pp = enrichment.hiring.net_pressure_delta_pp;
 		}
 
 		// Merge retrenchment from enrichment
@@ -883,20 +937,22 @@ function main() {
 				signal: r.signal,
 				trend_direction: r.trend_direction,
 				recent_quarters: r.recent_quarters || [],
-				incidence_per_1000: r.incidence_per_1000
+				incidence_per_1000: r.incidence_per_1000,
+				qoq_delta_count: r.qoq_delta_count
 			};
 		} else if (retrenchment && enrichment?.retrenchment?.incidence_per_1000 != null) {
 			retrenchment.incidence_per_1000 = enrichment.retrenchment.incidence_per_1000;
 			retrenchment.trend_direction =
 				retrenchment.trend_direction ?? enrichment.retrenchment.trend_direction;
+			retrenchment.qoq_delta_count = enrichment.retrenchment.qoq_delta_count;
 		}
 
 		// Re-entry data
-		const re_entry = enrichment?.re_entry || null;
+		const re_entry: ReEntrySignal | null = enrichment?.re_entry || null;
 
 		// Recompute overall with enriched signals
 		const overallFinal = computeOverallSignal(
-			vacancy.signal,
+			vacancyFinal.signal,
 			hiring?.signal ?? null,
 			retrenchment?.signal ?? null
 		);
@@ -907,22 +963,14 @@ function main() {
 		monitors.push({
 			cluster_key: clusterKey,
 			cluster_label: CLUSTER_LABELS[clusterKey],
-			vacancy: {
-				...vacancy,
-				annual_rates: annualRates,
-				latest_count: vacancyCounts?.latest_count,
-				count_trend_4q_pct: vacancyCounts?.count_trend_4q_pct,
-				count_signal: vacancyCounts?.count_signal,
-				recent_counts: vacancyCounts?.recent_counts,
-				annual_counts: vacancyCounts?.annual_counts
-			},
+			vacancy: vacancyFinal,
 			hiring,
 			retrenchment,
 			re_entry,
 			overall: overallFinal,
 			summary,
-			data_as_of: dataAsOf,
-			source: 'Labour Market Report Q3 2025, MRSD, MOM'
+			data_as_of: enrichment?.data_as_of ?? dataAsOf,
+			source: enrichment?.source ?? 'Labour Market Report Q4 2025, MRSD, MOM'
 		});
 	}
 

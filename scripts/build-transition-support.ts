@@ -23,6 +23,7 @@ const OUT_FILE = path.join(DATA_DIR, 'transition-support.json');
 const SRC_OUT_FILE = path.join(SRC_DATA_DIR, 'transition-support.json');
 const STATIC_OUT_FILE = path.join(STATIC_DATA_DIR, 'sg-transition-support-v4.json');
 const TRANSITION_INFRASTRUCTURE_FILE = path.join(DATA_DIR, 'transition-infrastructure.json');
+const INDUSTRY_CONTEXT_FILE = path.join(DATA_DIR, 'industry-context.json');
 
 function readJson<T>(filePath: string): T | null {
 	if (!fs.existsSync(filePath)) return null;
@@ -45,20 +46,124 @@ function compactTransition(transition: ReturnType<typeof findBestTransitions>[nu
 }
 
 const transitionInfrastructure = readJson<Record<string, unknown>>(TRANSITION_INFRASTRUCTURE_FILE);
+const industryContextData = readJson<
+	| {
+			groups?: Record<string, { top_industries?: Array<{ label: string }> }>;
+	  }
+	| Record<string, { top_industries?: Array<{ label: string }> }>
+>(INDUSTRY_CONTEXT_FILE);
 
-function buildOfficialProgrammeSupport(skillsfutureEligible: boolean) {
-	return {
-		support_tier: skillsfutureEligible ? 'broad_family_support' : 'general_public_support',
-		recommended_programmes: skillsfutureEligible
-			? [
-					'Career Conversion Programmes',
-					'SkillsFuture Career Transition Programme',
-					'CareersFinder'
-				]
-			: ['CareersFinder'],
-		basis: skillsfutureEligible
+const GROUP_LABELS: Record<string, string> = {
+	'Managers & Administrators (Including Working Proprietors)': 'MANAGERS',
+	Professionals: 'PROFESSIONALS',
+	'Associate Professionals & Technicians': 'ASSOCIATE PROFESSIONALS AND TECHNICIANS',
+	'Clerical Support Workers': 'CLERICAL SUPPORT WORKERS',
+	'Service & Sales Workers': 'SERVICE AND SALES WORKERS',
+	'Craftsmen & Related Trades Workers': 'CRAFTSMEN AND RELATED TRADES WORKERS',
+	'Plant & Machine Operators & Assemblers': 'PLANT AND MACHINE OPERATORS AND ASSEMBLERS',
+	'Cleaners, Labourers & Related Workers': 'CLEANERS, LABOURERS AND RELATED WORKERS'
+};
+
+function normalizeLabel(value: string | undefined | null): string {
+	return (value ?? '')
+		.toLowerCase()
+		.replace(/&/g, ' and ')
+		.replace(/[^a-z0-9]+/g, ' ')
+		.replace(/\s+/g, ' ')
+		.trim();
+}
+
+const jtmSectorCoverage = new Set<string>(
+	(
+		transitionInfrastructure?.jobs_transformation_maps as { sector_coverage?: string[] } | undefined
+	)?.sector_coverage?.map(sector => normalizeLabel(sector)) ?? []
+);
+
+function getIndustryLabelsForOccupation(majorGroup: string): string[] {
+	const groupKey = GROUP_LABELS[majorGroup] ?? majorGroup;
+	const groups =
+		industryContextData && 'groups' in industryContextData
+			? industryContextData.groups
+			: industryContextData;
+	const context = groups?.[groupKey];
+	return (context?.top_industries ?? []).map(industry => industry.label);
+}
+
+function industryHasJtmCoverage(industryLabel: string): boolean {
+	const normalized = normalizeLabel(industryLabel);
+	const candidates = new Set<string>([normalized]);
+	if (normalized === 'financial and insurance services') candidates.add('financial services');
+	if (normalized === 'information and communications') candidates.add('information communications');
+	if (normalized === 'wholesale and retail trade') {
+		candidates.add('wholesale trade');
+		candidates.add('retail');
+	}
+	if (normalized === 'accommodation and food services') {
+		candidates.add('food services');
+		candidates.add('hotel');
+	}
+	if (normalized === 'transportation and storage') {
+		candidates.add('land transport');
+		candidates.add('logistics');
+	}
+	if (normalized === 'professional services') candidates.add('professional services');
+	return [...candidates].some(candidate => jtmSectorCoverage.has(candidate));
+}
+
+function buildOfficialProgrammeSupport(skillsfutureEligible: boolean, majorGroup: string) {
+	const matchedIndustries =
+		getIndustryLabelsForOccupation(majorGroup).filter(industryHasJtmCoverage);
+	const wsqSummary = transitionInfrastructure?.wsq_training as
+		| { latest_year?: string; total_trainees_latest?: number }
+		| undefined;
+	const baseProgrammes = ['CareersFinder'];
+	const recommendedProgrammes = [...baseProgrammes];
+
+	if (matchedIndustries.length > 0) {
+		recommendedProgrammes.push('Jobs Transformation Maps', 'Skills Framework');
+	}
+	if (skillsfutureEligible) {
+		recommendedProgrammes.unshift(
+			'Career Conversion Programmes',
+			'SkillsFuture Career Transition Programme'
+		);
+	}
+
+	const support_tier = skillsfutureEligible
+		? matchedIndustries.length > 0
+			? 'jtm_aligned_family_support'
+			: 'broad_family_support'
+		: matchedIndustries.length > 0
+			? 'sector_transition_support'
+			: 'general_public_support';
+
+	const basisParts = [
+		skillsfutureEligible
 			? 'Broad occupation-family match to published SkillsFuture / WSG support.'
 			: 'General public transition infrastructure is available, but no broad family match is asserted.'
+	];
+	if (matchedIndustries.length > 0) {
+		basisParts.push(
+			`Top industry alignment with JTM-covered sectors: ${matchedIndustries.join(', ')}.`
+		);
+	}
+	if (wsqSummary?.latest_year && wsqSummary?.total_trainees_latest) {
+		basisParts.push(
+			`WSQ system scale reference: ${wsqSummary.total_trainees_latest.toLocaleString()} trainees in ${wsqSummary.latest_year}.`
+		);
+	}
+
+	return {
+		support_tier,
+		recommended_programmes: [...new Set(recommendedProgrammes)],
+		basis: basisParts.join(' '),
+		jtm_sector_alignment: matchedIndustries,
+		wsq_training_reference: wsqSummary
+			? {
+					latest_year: wsqSummary.latest_year ?? null,
+					total_trainees_latest: wsqSummary.total_trainees_latest ?? null
+				}
+			: null
 	};
 }
 
@@ -74,7 +179,10 @@ const transitions = occupations.map(from => {
 		from_net_risk: Number(from.net_risk.toFixed(4)),
 		from_wage: from.gross_wage_median,
 		skillsfuture_eligible: skillsfutureEligible,
-		official_programme_support: buildOfficialProgrammeSupport(skillsfutureEligible),
+		official_programme_support: buildOfficialProgrammeSupport(
+			skillsfutureEligible,
+			from.major_group
+		),
 		top_overall: candidateSet.slice(0, 5).map(compactTransition),
 		easier_switch: categorized.easierSwitch.map(compactTransition),
 		lower_risk: categorized.lowerRisk.map(compactTransition),

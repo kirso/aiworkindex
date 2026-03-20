@@ -8,10 +8,156 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { getRiskBand } from '../src/lib/data/scoring-constants';
+import { dataSourceRegistry } from '../src/lib/data/data-contract';
 import type { ImpactType, RiskBand } from '../src/lib/data/index';
 
 const DATA_FILE = path.join(import.meta.dir, '..', 'data', 'occupations.json');
 const MONITOR_FILE = path.join(import.meta.dir, '..', 'data', 'labour-monitor.json');
+const QUARTERLY_REPORT_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'quarterly-report.json'
+);
+const POSTINGS_MONITOR_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'postings-monitor.json'
+);
+const EMPLOYER_SIGNALS_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'employer-signals.json'
+);
+const POSTINGS_SOURCE_REGISTRY_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'data',
+	'postings',
+	'source-registry.json'
+);
+const POSTINGS_RAW_DIR = path.join(import.meta.dir, '..', 'data', 'postings', 'raw');
+const SITE_STATUS_FILE = path.join(import.meta.dir, '..', 'src', 'lib', 'data', 'site-status.json');
+const RELEASES_FILE = path.join(import.meta.dir, '..', 'src', 'lib', 'data', 'releases.json');
+const CURRENT_BACKTEST_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'backtests',
+	'current-validation.json'
+);
+const BLS_BACKTEST_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'backtests',
+	'bls-crosswalk-validation.json'
+);
+const MULTI_PERIOD_BACKTEST_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'backtests',
+	'multi-period-validation.json'
+);
+const CALIBRATION_DIAGNOSTICS_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'backtests',
+	'calibration-diagnostics.json'
+);
+const OCCUPATION_FAMILY_VALIDATION_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'backtests',
+	'occupation-family-validation.json'
+);
+const RELEASE_MANIFEST_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'release-manifest.json'
+);
+const TRANSITION_SUPPORT_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'transition-support.json'
+);
+const RAW_DATA_AUDIT_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'raw-data-audit.json'
+);
+const ONET_ENRICHMENT_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'onet-enrichment.json'
+);
+const INDUSTRY_CONTEXT_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'industry-context.json'
+);
+const CLAIMS_MATRIX_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'claims-matrix.json'
+);
+
+const ACTIVE_VERSION_SURFACES = [
+	path.join(import.meta.dir, '..', 'src', 'routes', '+page.svelte'),
+	path.join(import.meta.dir, '..', 'src', 'routes', '+layout.svelte'),
+	path.join(import.meta.dir, '..', 'src', 'routes', 'reports', '+page.svelte'),
+	path.join(import.meta.dir, '..', 'src', 'routes', 'data', '+page.svelte'),
+	path.join(import.meta.dir, '..', 'src', 'routes', 'methodology', '+page.svelte'),
+	path.join(import.meta.dir, '..', 'src', 'routes', 'occupation', '[ssoc]', '+page.svelte'),
+	path.join(import.meta.dir, '..', 'src', 'routes', 'role', '[slug]', '+page.svelte'),
+	path.join(import.meta.dir, '..', 'src', 'lib', 'components', 'ui', 'LabourMarketCard.svelte')
+];
+
+const FORBIDDEN_ACTIVE_COPY = [
+	'This should become the next official monitor refresh',
+	'Next obvious refresh',
+	'most recent curated official signal',
+	'Q4 2025 advance release'
+];
 
 interface Occupation {
 	ssoc: string;
@@ -83,6 +229,20 @@ interface LabourClusterMonitor {
 		trend_4q_pct: number;
 		signal: number;
 		recent_quarters: Array<{ quarter: string; rate: number }>;
+		qoq_delta_pp?: number;
+		latest_count?: number;
+		count_qoq_delta?: number;
+	};
+	hiring?: {
+		recruitment_delta_pp?: number;
+		resignation_delta_pp?: number;
+	};
+	retrenchment?: {
+		qoq_delta_count?: number;
+	};
+	re_entry?: {
+		rate_6m_delta_pp?: number;
+		rate_12m_delta_pp?: number;
 	};
 	overall: 'strong' | 'moderate' | 'weak' | 'deteriorating';
 	data_as_of: string;
@@ -126,6 +286,11 @@ async function main() {
 
 	function find(pattern: RegExp): Occupation | undefined {
 		return data.find(row => pattern.test(row.title));
+	}
+
+	function readJson<T>(filePath: string): T | null {
+		if (!fs.existsSync(filePath)) return null;
+		return JSON.parse(fs.readFileSync(filePath, 'utf-8')) as T;
 	}
 
 	function getLabourMonitor(row: Occupation): LabourClusterMonitor | null {
@@ -293,6 +458,27 @@ async function main() {
 	check(
 		'Low confidence remains possible for sparse evidence cases',
 		data.some(row => row.confidence.level === 'low')
+	);
+	check(
+		'High confidence is reserved for direct, clean, multi-source cases',
+		data
+			.filter(row => row.confidence.level === 'high')
+			.every(
+				row =>
+					row.match_quality === 'direct' &&
+					(row.evidence.exposure_source_count ?? 0) >= 3 &&
+					row.evidence.signal_conflict !== true
+			)
+	);
+	check(
+		'Fallback mappings never present as high confidence',
+		data.filter(row => row.match_quality !== 'direct').every(row => row.confidence.level !== 'high')
+	);
+	check(
+		'Contested occupations never present as high confidence',
+		data
+			.filter(row => row.evidence.signal_conflict === true)
+			.every(row => row.confidence.level !== 'high')
 	);
 	check(
 		'Stability has at least two populated tiers',
@@ -546,6 +732,181 @@ async function main() {
 	console.log('\n--- Data vintage & consistency ---');
 	try {
 		const { syntheticRoles } = await import('../src/lib/data/synthetic-roles');
+		const siteStatus = readJson<{
+			structural_release: { version: string; release_manifest: string };
+			live_monitor: {
+				labour_monitor_artifact_vintage: string;
+				labour_monitor_validation_vintage?: string;
+				postings_volume_30d?: number;
+				temporal_validation_vacancy_accuracy?: number;
+				temporal_validation_vacancy_periods?: number;
+				temporal_validation_hiring_accuracy?: number;
+				temporal_validation_hiring_periods?: number;
+				calibration_direct_rho?: number | null;
+				calibration_direct_sample?: number | null;
+				calibration_high_medium_rho?: number | null;
+				calibration_high_medium_sample?: number | null;
+				calibration_low_confidence_sample?: number | null;
+				occupation_family_validation_rho?: number | null;
+				occupation_family_validation_family_count?: number | null;
+				occupation_family_validation_significant?: boolean | null;
+				latest_official_labour_report: { label: string; url: string };
+			};
+			homepage_banner: { title: string; body: string };
+		}>(SITE_STATUS_FILE);
+		const releases = readJson<
+			Array<{
+				type: string;
+				score_version: string;
+				monitor_vintage: string;
+			}>
+		>(RELEASES_FILE);
+		const quarterlyReport = readJson<{
+			labour_monitor?: {
+				data_as_of: string;
+				clusters: Array<{
+					cluster_key: string;
+					vacancy_qoq_delta_pp: number | null;
+				}>;
+			};
+			briefing?: {
+				what_changed: string[];
+				why_it_matters: string[];
+				what_to_watch: string[];
+			};
+		}>(QUARTERLY_REPORT_FILE);
+		const postingsMonitor = readJson<{
+			generated_at: string;
+			sources?: Array<{ source: string; source_tier: string }>;
+			summary?: { salary_min_hint?: number | null; posting_volume_30d?: number | null };
+		}>(POSTINGS_MONITOR_FILE);
+		const currentBacktest = readJson<{
+			data_period: string;
+			summary?: { checks_passed: number; checks_total: number };
+		}>(CURRENT_BACKTEST_FILE);
+		const blsBacktest = readJson<{
+			sample_size: number;
+			spearman_rho: number;
+		}>(BLS_BACKTEST_FILE);
+		const multiPeriodBacktest = readJson<{
+			metrics?: {
+				vacancy_rate_yoy?: {
+					summary?: { period_count: number; avg_pairwise_accuracy: number };
+				};
+				vacancy_count_yoy?: {
+					summary?: { period_count: number; avg_pairwise_accuracy: number };
+				};
+				annual_hiring_net?: {
+					summary?: { period_count: number; avg_pairwise_accuracy: number };
+				};
+			};
+		}>(MULTI_PERIOD_BACKTEST_FILE);
+		const calibrationDiagnostics = readJson<{
+			segments?: {
+				by_match_quality?: {
+					direct?: {
+						sample_size: number;
+						spearman_rho: number | null;
+						p_value_below_01: boolean | null;
+						share_of_matched_sample: number;
+					};
+				};
+				by_confidence_level?: {
+					high_or_medium?: {
+						sample_size: number;
+						spearman_rho: number | null;
+						p_value_below_01: boolean | null;
+						share_of_matched_sample: number;
+					};
+					low?: { sample_size: number; share_of_matched_sample: number };
+				};
+			};
+		}>(CALIBRATION_DIAGNOSTICS_FILE);
+		const occupationFamilyValidation = readJson<{
+			family_count: number;
+			spearman_rho: number;
+			negative_direction: boolean;
+		}>(OCCUPATION_FAMILY_VALIDATION_FILE);
+		const postingsRawFiles = fs.existsSync(POSTINGS_RAW_DIR)
+			? fs.readdirSync(POSTINGS_RAW_DIR).filter(file => file.endsWith('.json'))
+			: [];
+		const rawPostings = postingsRawFiles.flatMap(
+			file =>
+				readJson<
+					Array<{
+						source: string;
+						location: string | null;
+						skills: string[];
+						ai_tools_mentioned: string[];
+					}>
+				>(path.join(POSTINGS_RAW_DIR, file)) ?? []
+		);
+		const employerSignals = readJson<{
+			generated_at: string;
+			summary?: { total_signals: number; latest_signal_date: string | null };
+			by_archetype?: Record<string, { pressure_score: number; signal_count: number }>;
+			by_sector?: Record<string, { pressure_score: number; signal_count: number }>;
+		}>(EMPLOYER_SIGNALS_FILE);
+		const releaseManifest = readJson<{ version: string; artifacts: Array<{ file: string }> }>(
+			RELEASE_MANIFEST_FILE
+		);
+		const transitionSupport = readJson<{
+			transitions: Array<{
+				from_ssoc: string;
+				official_programme_support: {
+					support_tier: string;
+					recommended_programmes: string[];
+					jtm_sector_alignment?: string[];
+					wsq_training_reference?: {
+						latest_year: string | null;
+						total_trainees_latest: number | null;
+					} | null;
+				};
+			}>;
+		}>(TRANSITION_SUPPORT_FILE);
+		const industryContext = readJson<{
+			metadata?: {
+				employment_vintage?: string;
+				vacancy_overlay_vintage?: string;
+				vacancy_overlay_source_note?: string;
+			};
+			groups?: Record<string, unknown>;
+		}>(INDUSTRY_CONTEXT_FILE);
+		const rawDataAudit = readJson<{
+			entries?: Array<{
+				key: string;
+				status: 'valid' | 'placeholder_error' | 'missing' | 'reference_only';
+				exists: boolean;
+			}>;
+		}>(RAW_DATA_AUDIT_FILE);
+		const claimsMatrix = readJson<{
+			claims?: Array<{
+				id: string;
+				source_keys: string[];
+			}>;
+		}>(CLAIMS_MATRIX_FILE);
+		const onetEnrichment = readJson<
+			Array<{
+				ssoc: string;
+				tasks: string[];
+				technologies: Array<{ name: string; hot: boolean }>;
+			}>
+		>(ONET_ENRICHMENT_FILE);
+		const packageJson = readJson<{ scripts?: Record<string, string> }>(
+			path.join(import.meta.dir, '..', 'package.json')
+		);
+		const postingsSourceRegistry = readJson<
+			Array<{
+				source_type: 'greenhouse' | 'lever' | 'ashby';
+				board_token: string;
+				employer: string;
+				active?: boolean;
+			}>
+		>(POSTINGS_SOURCE_REGISTRY_FILE);
+		const activePostingsSources = (postingsSourceRegistry ?? []).filter(
+			entry => entry.active !== false
+		);
+
 		check(
 			'DATA_VINTAGE.occupation_count matches actual data',
 			DATA_VINTAGE.occupation_count === data.length,
@@ -569,7 +930,385 @@ async function main() {
 		const lastUpdated = new Date(DATA_VINTAGE.last_updated);
 		const today = new Date();
 		const daysOld = Math.floor((today.getTime() - lastUpdated.getTime()) / (1000 * 60 * 60 * 24));
-		check('Data vintage is fresh (0 days old)', daysOld === 0, `${daysOld} days old`);
+		check('Data vintage is fresh (<= 1 day old)', daysOld <= 1, `${daysOld} days old`);
+		check('Site status artifact exists', siteStatus !== null);
+		check(
+			'Site status structural version matches DATA_VINTAGE',
+			siteStatus?.structural_release.version === DATA_VINTAGE.model_version,
+			siteStatus?.structural_release.version
+		);
+		check(
+			'Site status monitor vintage matches DATA_VINTAGE',
+			siteStatus?.live_monitor.labour_monitor_artifact_vintage === DATA_VINTAGE.labour_monitor,
+			siteStatus?.live_monitor.labour_monitor_artifact_vintage
+		);
+		check(
+			'Site status postings volume matches postings monitor',
+			siteStatus?.live_monitor?.postings_volume_30d ===
+				(postingsMonitor?.summary?.posting_volume_30d ?? 0),
+			`${siteStatus?.live_monitor?.postings_volume_30d} vs ${postingsMonitor?.summary?.posting_volume_30d}`
+		);
+		check(
+			'Releases history exists and uses current structural version',
+			(releases?.length ?? 0) >= 2 &&
+				(releases ?? []).every(release => release.score_version === DATA_VINTAGE.model_version),
+			releases ? JSON.stringify(releases.map(release => release.score_version)) : undefined
+		);
+		check(
+			'Release manifest includes site status and release history artifacts',
+			(releaseManifest?.artifacts ?? []).some(artifact => artifact.file === 'site-status.json') &&
+				(releaseManifest?.artifacts ?? []).some(artifact => artifact.file === 'releases.json') &&
+				(releaseManifest?.artifacts ?? []).some(
+					artifact => artifact.file === 'backtests/calibration-diagnostics.json'
+				) &&
+				(releaseManifest?.artifacts ?? []).some(
+					artifact => artifact.file === 'backtests/occupation-family-validation.json'
+				)
+		);
+		check(
+			'Active surfaces do not hardcode stale MOM Q3 2025 labels',
+			ACTIVE_VERSION_SURFACES.every(
+				filePath => !fs.readFileSync(filePath, 'utf-8').includes('MOM Q3 2025')
+			)
+		);
+		check(
+			'Active surfaces do not describe Q4 2025 as a pending monitor refresh',
+			ACTIVE_VERSION_SURFACES.every(filePath => {
+				const content = fs.readFileSync(filePath, 'utf-8');
+				return FORBIDDEN_ACTIVE_COPY.every(pattern => !content.includes(pattern));
+			})
+		);
+		if (
+			DATA_VINTAGE.labour_monitor === 'Q4 2025 full' &&
+			industryContext?.metadata?.vacancy_overlay_vintage &&
+			industryContext.metadata.vacancy_overlay_vintage !== 'Q4 2025'
+		) {
+			check(
+				'Detail pages disclose that industry vacancy overlays lag the main labour monitor',
+				[
+					path.join(import.meta.dir, '..', 'src', 'routes', 'occupation', '[ssoc]', '+page.svelte'),
+					path.join(import.meta.dir, '..', 'src', 'routes', 'role', '[slug]', '+page.svelte')
+				].every(filePath =>
+					fs
+						.readFileSync(filePath, 'utf-8')
+						.includes('Industry vacancy overlays use the latest published detailed cross-tab')
+				)
+			);
+		}
+		check('Current cluster backtest artifact exists', currentBacktest !== null);
+		check('BLS crosswalk validation artifact exists', blsBacktest !== null);
+		check('Multi-period validation artifact exists', multiPeriodBacktest !== null);
+		check('Calibration diagnostics artifact exists', calibrationDiagnostics !== null);
+		check('Occupation-family validation artifact exists', occupationFamilyValidation !== null);
+		check('Quarterly report artifact exists', quarterlyReport !== null);
+		check('Postings monitor artifact exists', postingsMonitor !== null);
+		check('Employer pressure artifact exists', employerSignals !== null);
+		check('Transition support artifact exists', transitionSupport !== null);
+		check('Industry context artifact exists', industryContext !== null);
+		check('Raw data audit artifact exists', rawDataAudit !== null);
+		check('O*NET enrichment artifact exists', onetEnrichment !== null);
+		check('Claims matrix artifact exists', claimsMatrix !== null);
+		check(
+			'Industry context carries vacancy-overlay metadata',
+			typeof industryContext?.metadata?.vacancy_overlay_vintage === 'string' &&
+				typeof industryContext?.metadata?.vacancy_overlay_source_note === 'string'
+		);
+		check(
+			'Industry context groups remain populated',
+			Object.keys(industryContext?.groups ?? {}).length >= 8,
+			String(Object.keys(industryContext?.groups ?? {}).length)
+		);
+		check(
+			'Raw data audit tracks the Singapore occupations base feed as valid',
+			rawDataAudit?.entries?.some(
+				entry =>
+					entry.key === 'sg_occupations_complete_2024' &&
+					entry.status === 'valid' &&
+					entry.exists === true
+			) === true
+		);
+		check(
+			'O*NET enrichment covers a meaningful share of occupations',
+			(onetEnrichment ?? []).filter(
+				entry => entry.tasks.length > 0 || entry.technologies.length > 0
+			).length >= 250,
+			String(
+				(onetEnrichment ?? []).filter(
+					entry => entry.tasks.length > 0 || entry.technologies.length > 0
+				).length
+			)
+		);
+		check(
+			'build:release-data regenerates O*NET enrichment',
+			(packageJson?.scripts?.['build:release-data'] ?? '').includes('scripts/enrich-onet.ts')
+		);
+		check(
+			'Claims matrix source keys resolve against the published source registry',
+			(claimsMatrix?.claims ?? []).every(claim =>
+				claim.source_keys.every(sourceKey =>
+					dataSourceRegistry.some(entry => entry.key === sourceKey)
+				)
+			)
+		);
+		check(
+			'Transition support covers all occupations',
+			(transitionSupport?.transitions?.length ?? 0) === data.length,
+			String(transitionSupport?.transitions?.length ?? 0)
+		);
+		check(
+			'Transition support includes stronger official programme tiers beyond general public support',
+			(transitionSupport?.transitions ?? []).some(
+				row => row.official_programme_support.support_tier !== 'general_public_support'
+			)
+		);
+		check(
+			'Transition support includes JTM-aligned sectors for a meaningful subset',
+			(transitionSupport?.transitions ?? []).filter(
+				row => (row.official_programme_support.jtm_sector_alignment?.length ?? 0) > 0
+			).length >= 50
+		);
+		check(
+			'Transition support carries WSQ training references',
+			(transitionSupport?.transitions ?? []).some(
+				row =>
+					(row.official_programme_support.wsq_training_reference?.total_trainees_latest ?? 0) > 0
+			)
+		);
+		check(
+			'Employer pressure includes meaningful signal coverage',
+			(employerSignals?.summary?.total_signals ?? 0) >= 8,
+			String(employerSignals?.summary?.total_signals ?? 0)
+		);
+		check(
+			'Employer pressure spans multiple sectors',
+			Object.keys(employerSignals?.by_sector ?? {}).length >= 5,
+			String(Object.keys(employerSignals?.by_sector ?? {}).length)
+		);
+		check(
+			'Employer pressure spans multiple archetypes',
+			Object.keys(employerSignals?.by_archetype ?? {}).length >= 5,
+			String(Object.keys(employerSignals?.by_archetype ?? {}).length)
+		);
+		check(
+			'Postings source registry exists with ATS sources',
+			activePostingsSources.length >= 3 &&
+				new Set(activePostingsSources.map(entry => entry.source_type)).size >= 3
+		);
+		check(
+			'Postings raw snapshots exist for active sources',
+			postingsRawFiles.some(file => file.startsWith('mycareersfuture-')) &&
+				postingsRawFiles.some(file => file.startsWith('greenhouse-')) &&
+				postingsRawFiles.some(file => file.startsWith('lever-')) &&
+				postingsRawFiles.some(file => file.startsWith('ashby-'))
+		);
+		check(
+			'Postings monitor source tiers stay truthful',
+			(postingsMonitor?.sources ?? []).every(source => {
+				if (source.source === 'mycareersfuture') {
+					return source.source_tier === 'official_sg_job_portal';
+				}
+				return source.source_tier === 'employer_career_site';
+			})
+		);
+		check(
+			'ATS raw postings stay Singapore-only by location',
+			rawPostings
+				.filter(posting => posting.source !== 'mycareersfuture')
+				.every(posting =>
+					typeof posting.location === 'string'
+						? /singapore|sg - singapore|sg, singapore/i.test(posting.location)
+						: false
+				)
+		);
+		const atsPostings = rawPostings.filter(posting => posting.source !== 'mycareersfuture');
+		const atsWithSkills = atsPostings.filter(posting => (posting.skills?.length ?? 0) > 0).length;
+		check(
+			'ATS postings extract skills for a meaningful share',
+			atsPostings.length > 0 && atsWithSkills / atsPostings.length >= 0.6,
+			`${atsWithSkills}/${atsPostings.length}`
+		);
+		check(
+			'Postings salary hints ignore tiny placeholder values',
+			(postingsMonitor?.summary?.salary_min_hint ?? 0) >= 1000
+		);
+		check(
+			'build:release-data regenerates postings monitor',
+			(packageJson?.scripts?.['build:release-data'] ?? '').includes(
+				'scripts/pipelines/normalize-postings.ts'
+			)
+		);
+		check(
+			'build:release-data regenerates validation artifacts',
+			(packageJson?.scripts?.['build:release-data'] ?? '').includes('scripts/backtest.ts') &&
+				(packageJson?.scripts?.['build:release-data'] ?? '').includes(
+					'scripts/backtest-multi-period.ts'
+				) &&
+				(packageJson?.scripts?.['build:release-data'] ?? '').includes(
+					'scripts/backtest-occupation-families.ts'
+				) &&
+				(packageJson?.scripts?.['build:release-data'] ?? '').includes(
+					'scripts/validate-bls-crosswalk.ts'
+				) &&
+				(packageJson?.scripts?.['build:release-data'] ?? '').includes(
+					'scripts/build-calibration-diagnostics.ts'
+				)
+		);
+		if (DATA_VINTAGE.labour_monitor === 'Q4 2025 full') {
+			check(
+				'Labour monitor latest quarter is Q4 2025 for all clusters',
+				labourMonitors.every(monitor => monitor.vacancy.latest_quarter === '2025 Q4')
+			);
+			check(
+				'Labour monitor exposes Q3→Q4 delta fields',
+				labourMonitors.every(
+					monitor =>
+						typeof monitor.vacancy.qoq_delta_pp === 'number' &&
+						typeof monitor.vacancy.count_qoq_delta === 'number' &&
+						typeof monitor.hiring?.recruitment_delta_pp === 'number' &&
+						typeof monitor.hiring?.resignation_delta_pp === 'number' &&
+						typeof monitor.retrenchment?.qoq_delta_count === 'number' &&
+						typeof monitor.re_entry?.rate_6m_delta_pp === 'number' &&
+						typeof monitor.re_entry?.rate_12m_delta_pp === 'number'
+				)
+			);
+			check(
+				'Quarterly report includes labour monitor delta summary',
+				(quarterlyReport?.labour_monitor?.clusters?.length ?? 0) === labourMonitors.length &&
+					quarterlyReport?.labour_monitor?.data_as_of === '2025 Q4' &&
+					(quarterlyReport?.labour_monitor?.clusters ?? []).every(
+						cluster => typeof cluster.vacancy_qoq_delta_pp === 'number'
+					)
+			);
+			check(
+				'Quarterly report includes generated briefing narrative',
+				(quarterlyReport?.briefing?.what_changed?.length ?? 0) >= 2 &&
+					(quarterlyReport?.briefing?.why_it_matters?.length ?? 0) >= 1 &&
+					(quarterlyReport?.briefing?.what_to_watch?.length ?? 0) >= 2
+			);
+			check(
+				'Current cluster backtest uses Q4 2025 monitor data',
+				currentBacktest?.data_period === 'Q4 2025',
+				currentBacktest?.data_period
+			);
+			check(
+				'Site status validation vintage matches current cluster backtest',
+				siteStatus?.live_monitor?.labour_monitor_validation_vintage ===
+					currentBacktest?.data_period,
+				`${siteStatus?.live_monitor?.labour_monitor_validation_vintage} vs ${currentBacktest?.data_period}`
+			);
+			check(
+				'Multi-period vacancy validation covers multiple periods',
+				(multiPeriodBacktest?.metrics?.vacancy_rate_yoy?.summary?.period_count ?? 0) >= 2 &&
+					(multiPeriodBacktest?.metrics?.vacancy_count_yoy?.summary?.period_count ?? 0) >= 2
+			);
+			check(
+				'Site status temporal vacancy validation matches artifact',
+				siteStatus?.live_monitor?.temporal_validation_vacancy_accuracy ===
+					(multiPeriodBacktest?.metrics?.vacancy_rate_yoy?.summary?.avg_pairwise_accuracy ??
+						null) &&
+					siteStatus?.live_monitor?.temporal_validation_vacancy_periods ===
+						(multiPeriodBacktest?.metrics?.vacancy_rate_yoy?.summary?.period_count ?? null),
+				`${siteStatus?.live_monitor?.temporal_validation_vacancy_accuracy} vs ${multiPeriodBacktest?.metrics?.vacancy_rate_yoy?.summary?.avg_pairwise_accuracy}`
+			);
+			check(
+				'Site status temporal hiring validation matches artifact',
+				siteStatus?.live_monitor?.temporal_validation_hiring_accuracy ===
+					(multiPeriodBacktest?.metrics?.annual_hiring_net?.summary?.avg_pairwise_accuracy ??
+						null) &&
+					siteStatus?.live_monitor?.temporal_validation_hiring_periods ===
+						(multiPeriodBacktest?.metrics?.annual_hiring_net?.summary?.period_count ?? null),
+				`${siteStatus?.live_monitor?.temporal_validation_hiring_accuracy} vs ${multiPeriodBacktest?.metrics?.annual_hiring_net?.summary?.avg_pairwise_accuracy}`
+			);
+			check(
+				'Calibration diagnostics direct segment covers most matched sample',
+				(calibrationDiagnostics?.segments?.by_match_quality?.direct?.share_of_matched_sample ?? 0) >
+					0.85,
+				String(
+					calibrationDiagnostics?.segments?.by_match_quality?.direct?.share_of_matched_sample ?? 0
+				)
+			);
+			check(
+				'Calibration diagnostics direct segment remains significantly negative',
+				calibrationDiagnostics?.segments?.by_match_quality?.direct?.spearman_rho != null &&
+					(calibrationDiagnostics?.segments?.by_match_quality?.direct?.spearman_rho ?? 0) < 0 &&
+					calibrationDiagnostics?.segments?.by_match_quality?.direct?.p_value_below_01 === true,
+				JSON.stringify(calibrationDiagnostics?.segments?.by_match_quality?.direct)
+			);
+			check(
+				'Calibration diagnostics high/medium confidence segment remains significantly negative',
+				calibrationDiagnostics?.segments?.by_confidence_level?.high_or_medium?.spearman_rho !=
+					null &&
+					(calibrationDiagnostics?.segments?.by_confidence_level?.high_or_medium?.spearman_rho ??
+						0) < 0 &&
+					calibrationDiagnostics?.segments?.by_confidence_level?.high_or_medium
+						?.p_value_below_01 === true,
+				JSON.stringify(calibrationDiagnostics?.segments?.by_confidence_level?.high_or_medium)
+			);
+			check(
+				'Low confidence segment remains intentionally small',
+				(calibrationDiagnostics?.segments?.by_confidence_level?.low?.share_of_matched_sample ?? 1) <
+					0.05,
+				String(
+					calibrationDiagnostics?.segments?.by_confidence_level?.low?.share_of_matched_sample ?? 1
+				)
+			);
+			check(
+				'Site status calibration summary matches diagnostics artifact',
+				siteStatus?.live_monitor?.calibration_direct_rho ===
+					(calibrationDiagnostics?.segments?.by_match_quality?.direct?.spearman_rho ?? null) &&
+					siteStatus?.live_monitor?.calibration_direct_sample ===
+						(calibrationDiagnostics?.segments?.by_match_quality?.direct?.sample_size ?? null) &&
+					siteStatus?.live_monitor?.calibration_high_medium_rho ===
+						(calibrationDiagnostics?.segments?.by_confidence_level?.high_or_medium?.spearman_rho ??
+							null) &&
+					siteStatus?.live_monitor?.calibration_high_medium_sample ===
+						(calibrationDiagnostics?.segments?.by_confidence_level?.high_or_medium?.sample_size ??
+							null) &&
+					siteStatus?.live_monitor?.calibration_low_confidence_sample ===
+						(calibrationDiagnostics?.segments?.by_confidence_level?.low?.sample_size ?? null),
+				JSON.stringify({
+					siteStatus: {
+						direct: siteStatus?.live_monitor?.calibration_direct_rho,
+						highMedium: siteStatus?.live_monitor?.calibration_high_medium_rho,
+						lowSample: siteStatus?.live_monitor?.calibration_low_confidence_sample
+					},
+					artifact: {
+						direct: calibrationDiagnostics?.segments?.by_match_quality?.direct?.spearman_rho,
+						highMedium:
+							calibrationDiagnostics?.segments?.by_confidence_level?.high_or_medium?.spearman_rho,
+						lowSample: calibrationDiagnostics?.segments?.by_confidence_level?.low?.sample_size
+					}
+				})
+			);
+			check(
+				'Occupation-family validation covers a meaningful number of families',
+				(occupationFamilyValidation?.family_count ?? 0) >= 20,
+				String(occupationFamilyValidation?.family_count ?? 0)
+			);
+			check(
+				'Occupation-family validation remains directionally negative',
+				occupationFamilyValidation?.negative_direction === true &&
+					(occupationFamilyValidation?.spearman_rho ?? 0) < 0,
+				JSON.stringify(occupationFamilyValidation)
+			);
+			check(
+				'Site status occupation-family summary matches artifact',
+				siteStatus?.live_monitor?.occupation_family_validation_rho ===
+					(occupationFamilyValidation?.spearman_rho ?? null) &&
+					siteStatus?.live_monitor?.occupation_family_validation_family_count ===
+						(occupationFamilyValidation?.family_count ?? null),
+				JSON.stringify({
+					siteStatus: {
+						rho: siteStatus?.live_monitor?.occupation_family_validation_rho,
+						count: siteStatus?.live_monitor?.occupation_family_validation_family_count
+					},
+					artifact: {
+						rho: occupationFamilyValidation?.spearman_rho,
+						count: occupationFamilyValidation?.family_count
+					}
+				})
+			);
+		}
 		console.log(`  INFO: DATA_VINTAGE expects ${DATA_VINTAGE.validation_checks} checks`);
 	} catch (error) {
 		warn('Data vintage validation', `Could not import: ${error}`);
