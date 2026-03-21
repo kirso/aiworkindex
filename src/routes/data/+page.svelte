@@ -414,7 +414,7 @@
 		</p>
 	</div>
 
-	<div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
+	<div class="grid gap-3 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5">
 		<div class={cn(card({ variant: 'metric', padding: 'sm' }))}>
 			<p class={microLabel()}>
 				Structural release
@@ -492,7 +492,7 @@
 
 	<!-- Download Cards -->
 	<p class={cn(sectionLabel(), 'mt-6 mb-3')}>Downloads</p>
-	<div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+	<div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
 		<a href="/data/sg-ai-occupations-v4.csv" download class="no-underline">
 			<div class={cn(card({ padding: 'lg', hover: true }), 'flex h-full flex-col items-start')}>
 				<div class="flex items-center gap-2">

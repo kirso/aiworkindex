@@ -353,7 +353,7 @@
 
 	<!-- ===== BLOCK 1: THE VERDICT ===== -->
 	<div class={cn(card({ padding: 'lg' }), 'mb-8 overflow-hidden')}>
-		<div class="grid gap-6 lg:grid-cols-[12rem_minmax(0,1fr)] lg:items-start">
+		<div class="grid gap-6 md:grid-cols-[12rem_minmax(0,1fr)] md:items-start">
 			<div
 				class={cn('rounded-2xl border p-5', scoreTileClasses(occ.risk_band))}
 				role="figure"
@@ -444,9 +444,9 @@
 	<section class="mb-8">
 		<h2 class={cn(sectionLabel(), 'mb-3')}>Why This Score</h2>
 		<div class={card({ padding: 'md' })}>
-			<div class="grid gap-6 lg:grid-cols-5">
+			<div class="grid gap-6 md:grid-cols-5">
 				<!-- Left: Waterfall (3/5 on desktop) -->
-				<div class="lg:col-span-3">
+				<div class="md:col-span-3">
 					<DriverWaterfall occupation={occ} />
 					<p class="mt-2 text-xs text-muted-foreground">
 						Exposure × (1 − Bottleneck) × Market Modifier.
@@ -458,7 +458,7 @@
 				</div>
 
 				<!-- Right: What AI Changes (2/5 on desktop) -->
-				<div class="lg:col-span-2 space-y-4">
+				<div class="md:col-span-2 space-y-4">
 					<div>
 						<p class="text-xs font-semibold text-risk-high mb-1">Tasks AI can handle</p>
 						<p class="text-sm text-muted-foreground leading-relaxed">
@@ -599,7 +599,7 @@
 			{/if}
 
 			<!-- Row 2: Industries + Outlook (side by side — both content-rich) -->
-			<div class="grid gap-5 lg:grid-cols-2">
+			<div class="grid gap-5 md:grid-cols-2">
 				{#if industryContext}
 					<div class="space-y-3">
 						<div>

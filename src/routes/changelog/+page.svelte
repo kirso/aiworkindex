@@ -115,7 +115,7 @@
 		</p>
 	</div>
 
-	<div class="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
+	<div class="mt-6 grid gap-3 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5">
 		{#each scopeCards as item}
 			<div class={card({ padding: 'sm', variant: 'flat' })}>
 				<p class={microLabel()}>{item.label}</p>

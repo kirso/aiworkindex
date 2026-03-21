@@ -328,7 +328,7 @@
 			</div>
 
 			<!-- Featured: 4 cards -->
-			<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-4">
+			<div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-4">
 				<!-- Highest Risk -->
 				<div class={card({ padding: 'sm' })}>
 					<div class="flex items-center justify-between mb-2">

@@ -494,7 +494,7 @@
 					<p class="text-sm font-semibold text-foreground mb-3">
 						{entities[0]!.label} &rarr; {entities[1]!.label}
 					</p>
-					<div class="grid gap-4 sm:grid-cols-4">
+					<div class="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
 						<div class={cn(card({ variant: 'inset', padding: 'sm' }), 'text-center')}>
 							<p class={caption()}>Transition Score</p>
 							<p class={cn(display({ size: 'md' }), 'mt-1')}>

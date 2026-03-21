@@ -62,7 +62,7 @@
 		<p class="mt-2 text-xs text-muted-foreground">{siteStatus.live_monitor.refresh_note}</p>
 	</div>
 
-	<div class="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+	<div class="mt-6 grid gap-3 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
 		<div class={card({ padding: 'sm', variant: 'metric' })}>
 			<p class={microLabel()}>AI Adoption · 2024 Data</p>
 			<p class="mt-1 font-mono text-lg font-bold text-foreground">
@@ -235,7 +235,7 @@
 	{/if}
 
 	{#if quarterly.briefing}
-		<div class="mt-6 grid gap-3 lg:grid-cols-3">
+		<div class="mt-6 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
 			<div class={card({ padding: 'sm', variant: 'flat' })}>
 				<p class="text-sm font-semibold text-foreground">What changed</p>
 				<ul class="mt-2 space-y-2 text-sm text-muted-foreground">
@@ -398,7 +398,7 @@
 	</div>
 
 	<p class={cn(sectionLabel(), 'mt-8 mb-3')}>Governance & Release Notes</p>
-	<div class="grid gap-4 lg:grid-cols-2">
+	<div class="grid gap-4 md:grid-cols-2">
 		<a href="/changelog" class="block no-underline">
 			<div
 				class={cn(card({ padding: 'lg', hover: true }), 'flex h-full items-start justify-between')}

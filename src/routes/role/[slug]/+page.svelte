@@ -315,7 +315,7 @@
 
 	<!-- ===== BLOCK 1: THE VERDICT ===== -->
 	<div class={cn(card({ padding: 'lg' }), 'mb-8 overflow-hidden')}>
-		<div class="grid gap-6 lg:grid-cols-[12rem_minmax(0,1fr)] lg:items-start">
+		<div class="grid gap-6 md:grid-cols-[12rem_minmax(0,1fr)] md:items-start">
 			<div class={cn('rounded-2xl border p-5', scoreTileClasses(scored.risk_band))}>
 				<p class={microLabel()}>Structural pressure</p>
 				<p class={cn(display({ size: 'xl' }), 'mt-2')}>{(scored.net_risk * 100).toFixed(0)}%</p>
@@ -448,9 +448,9 @@
 	<section class="mb-8">
 		<h2 class={cn(sectionLabel(), 'mb-3')}>Why This Score</h2>
 		<div class={card({ padding: 'md' })}>
-			<div class="grid gap-6 lg:grid-cols-5">
+			<div class="grid gap-6 md:grid-cols-5">
 				<!-- Left: Waterfall (3/5) -->
-				<div class="lg:col-span-3">
+				<div class="md:col-span-3">
 					<DriverWaterfall occupation={roleWaterfallSubject} />
 					<p class="mt-3 text-xs text-muted-foreground">
 						Blended across {scored.components.length} occupations using the same score logic as an occupation
@@ -460,7 +460,7 @@
 				</div>
 
 				<!-- Right: What AI changes (2/5) -->
-				<div class="lg:col-span-2 space-y-4">
+				<div class="md:col-span-2 space-y-4">
 					<div>
 						<p class="text-xs font-semibold text-risk-high mb-1">Tasks AI can handle</p>
 						<p class="text-sm text-muted-foreground leading-relaxed">
@@ -604,7 +604,7 @@
 					</div>
 				{/if}
 
-				<div class="grid gap-5 lg:grid-cols-2">
+				<div class="grid gap-5 md:grid-cols-2">
 					{#if industryContext.top_industries.length > 0}
 						<div class="space-y-4">
 							<div>
