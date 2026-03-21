@@ -83,6 +83,7 @@
 				type="text"
 				placeholder="Search roles..."
 				bind:value={searchQuery}
+				aria-label="Search roles by title, description, or tag"
 				class={cn(formInput(), 'pl-9')}
 			/>
 		</div>
@@ -97,6 +98,8 @@
 						: 'text-muted-foreground hover:text-foreground'} rounded-l-md transition-colors"
 					onclick={() => (viewMode = 'cards')}
 					title="Card view"
+					aria-label="Card view"
+					aria-pressed={viewMode === 'cards'}
 				>
 					<svg
 						class="h-3.5 w-3.5"
@@ -115,6 +118,8 @@
 						: 'text-muted-foreground hover:text-foreground'} rounded-r-md transition-colors"
 					onclick={() => (viewMode = 'table')}
 					title="Table view"
+					aria-label="Table view"
+					aria-pressed={viewMode === 'table'}
 				>
 					<svg
 						class="h-3.5 w-3.5"
@@ -131,10 +136,11 @@
 	</div>
 
 	<!-- Category pills -->
-	<div class="mb-6 flex flex-wrap gap-1.5">
+	<div class="mb-6 flex flex-wrap gap-1.5" role="group" aria-label="Filter by category">
 		<button
 			class={chip({ active: selectedCategory === null })}
 			onclick={() => (selectedCategory = null)}
+			aria-pressed={selectedCategory === null}
 		>
 			All
 		</button>
@@ -144,6 +150,7 @@
 				<button
 					class={chip({ active: selectedCategory === cat.key })}
 					onclick={() => (selectedCategory = selectedCategory === cat.key ? null : cat.key)}
+					aria-pressed={selectedCategory === cat.key}
 				>
 					{cat.label}
 					<span class="ml-0.5 opacity-60">{count}</span>

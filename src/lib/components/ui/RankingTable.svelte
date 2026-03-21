@@ -41,10 +41,11 @@
 	<Table.Root>
 		<Table.Header>
 			<Table.Row>
-				<Table.Head class="w-10 text-xs uppercase tracking-wider">#</Table.Head>
-				<Table.Head class="text-xs uppercase tracking-wider">Occupation</Table.Head>
+				<Table.Head scope="col" class="w-10 text-xs uppercase tracking-wider">#</Table.Head>
+				<Table.Head scope="col" class="text-xs uppercase tracking-wider">Occupation</Table.Head>
 				{#each columns as col}
 					<Table.Head
+						scope="col"
 						class="text-xs uppercase tracking-wider whitespace-nowrap {col.align === 'right'
 							? 'text-right'
 							: ''}"
@@ -52,8 +53,8 @@
 						{col.label}
 					</Table.Head>
 				{/each}
-				<Table.Head class="text-xs uppercase tracking-wider">Risk</Table.Head>
-				<Table.Head class="text-xs uppercase tracking-wider">Impact</Table.Head>
+				<Table.Head scope="col" class="text-xs uppercase tracking-wider">Risk</Table.Head>
+				<Table.Head scope="col" class="text-xs uppercase tracking-wider">Impact</Table.Head>
 			</Table.Row>
 		</Table.Header>
 		<Table.Body>

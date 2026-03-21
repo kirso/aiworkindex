@@ -195,6 +195,7 @@
 					type="button"
 					class={chip({ active: isActive })}
 					onclick={() => (selectedCategory = opt.key)}
+					aria-pressed={isActive}
 				>
 					{#if bandColor && !isActive}
 						<span
