@@ -169,7 +169,7 @@ export const section = tv({
 // ============================================
 
 export const card = tv({
-	base: 'rounded-lg border bg-card shadow-sm',
+	base: 'rounded-lg border border-border/25 bg-card shadow-xs',
 	variants: {
 		padding: {
 			none: '',
@@ -178,23 +178,23 @@ export const card = tv({
 			lg: 'p-6'
 		},
 		hover: {
-			true: 'transition-shadow duration-150 ease-snappy hover:shadow-md cursor-pointer',
+			true: 'transition-shadow duration-150 ease-snappy hover:shadow-sm cursor-pointer',
 			false: ''
 		},
 		variant: {
 			default: '',
-			flat: 'shadow-none',
+			flat: 'shadow-none border-border/20',
 			inset: 'bg-inset border-transparent shadow-none rounded-md',
-			elevated: 'shadow-md',
+			elevated: 'shadow-md border-border/40',
 			/** Subtle surface — section panels inside a card. Lighter than inset, clearly not card-white. */
-			subtle: 'bg-surface-subtle border-border/50 shadow-none rounded-md',
-			/** Metric surface — subtle grouping for stat cards. Light tint + soft border. */
-			metric: 'bg-surface-metric border-border/50 shadow-none rounded-md',
+			subtle: 'bg-surface-subtle border-border/15 shadow-none rounded-md',
+			/** Metric surface — subtle grouping for stat cards. Light tint + ghost border. */
+			metric: 'bg-surface-metric border-border/15 shadow-none rounded-md',
 			/** Notice — contextual callout with tinted background. Pair with accent for semantic color. */
 			notice: 'shadow-none rounded-md'
 		},
 		accent: {
-			none: 'border-border',
+			none: '',
 			very_low: 'border-risk-very-low',
 			low: 'border-risk-low',
 			moderate: 'border-risk-moderate',
