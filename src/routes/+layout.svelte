@@ -102,7 +102,7 @@
 	</a>
 
 	<!-- Header: Signal — clean white bar, minimal chrome -->
-	<header class="sticky top-0 z-50 border-b border-border bg-header-bg/80 backdrop-blur-sm">
+	<header class="sticky top-0 z-50 border-b border-border/40 bg-header-bg/75 backdrop-blur-lg backdrop-saturate-[1.15]">
 		<div class="{pageContainer()} flex items-center justify-between h-12">
 			<a
 				href="/"
