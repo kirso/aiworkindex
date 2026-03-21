@@ -2,7 +2,7 @@
 	import type { Occupation, RiskBand, ImpactType } from '$lib/data';
 	import { riskBandLabels, impactTypeLabels } from '$lib/data';
 	import * as Table from '$lib/components/ui/table/index.js';
-	import { card } from '$lib/design-system';
+	import { card, riskColorScale } from '$lib/design-system';
 
 	interface Column {
 		key: string;
@@ -61,7 +61,14 @@
 			{#each occupations as occ, i (occ.ssoc)}
 				{@const highlightClass = highlight?.(occ)}
 				<Table.Row class={highlightClass ?? ''}>
-					<Table.Cell class="tabular-nums text-muted-foreground text-xs">{i + 1}</Table.Cell>
+					<Table.Cell class="tabular-nums text-muted-foreground text-xs relative">
+						<span
+							class="absolute left-0 top-1 bottom-1 w-[3px] rounded-full"
+							style="background-color: {riskColorScale(occ.net_risk)}"
+							aria-hidden="true"
+						></span>
+						{i + 1}
+					</Table.Cell>
 					<Table.Cell>
 						<a
 							href="/occupation/{occ.ssoc}"
