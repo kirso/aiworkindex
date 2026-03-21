@@ -411,7 +411,7 @@
 							{scored.confidence.charAt(0).toUpperCase() + scored.confidence.slice(1)} Confidence
 						</span>
 						<span class={pill({ tone: 'muted' })}>
-							{scored.components.length}-component blend
+							Estimated · {scored.components.length}-part blend
 						</span>
 					</div>
 					<div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
@@ -421,7 +421,25 @@
 			</div>
 		</div>
 
-		<div class="mt-6 border-t border-border/70 pt-5">
+		<!-- Built from: surface component occupations above the fold -->
+		<div class="mt-5 border-t border-border/70 pt-4">
+			<p class={cn(microLabel(), 'mb-2')}>Built from {scored.components.length} official occupations</p>
+			<div class="flex flex-wrap gap-x-4 gap-y-1">
+				{#each scored.components as comp}
+					{#if comp.occupation}
+						<a
+							href="/occupation/{comp.ssoc}"
+							class="text-xs text-text-secondary hover:text-primary hover:underline underline-offset-2"
+						>
+							{comp.occupation.title}
+							<span class="tabular-nums text-muted-foreground">({(comp.weight * 100).toFixed(0)}%)</span>
+						</a>
+					{/if}
+				{/each}
+			</div>
+		</div>
+
+		<div class="mt-4 border-t border-border/70 pt-5">
 			<SignalProfileGrid items={signalProfileItems} />
 		</div>
 	</div>
