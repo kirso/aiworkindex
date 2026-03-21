@@ -107,7 +107,7 @@
 			<div class="mb-1 flex items-center justify-between">
 				<span class="text-xs font-medium text-foreground">{driver.label}</span>
 				<span
-					class="flex items-center gap-1 text-xs tabular-nums {driver.direction === 'up'
+					class="flex items-center gap-1 text-xs font-mono tabular-nums {driver.direction === 'up'
 						? 'text-risk-very-high'
 						: 'text-risk-very-low'}"
 				>
@@ -155,7 +155,7 @@
 	<!-- Net result -->
 	<div class="mt-3 flex items-center justify-between border-t border-border/50 pt-3">
 		<span class="text-sm font-semibold text-foreground">Net Displacement Risk</span>
-		<span class="text-sm font-bold tabular-nums text-foreground">
+		<span class="text-sm font-bold font-mono tabular-nums text-foreground">
 			{(occupation.net_risk * 100).toFixed(0)}%
 		</span>
 	</div>

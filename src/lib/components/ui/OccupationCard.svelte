@@ -21,7 +21,7 @@
 		<span class={riskBadge({ band: occupation.risk_band })}>
 			{riskBandLabels[occupation.risk_band]}
 		</span>
-		<span class="text-xs tabular-nums text-muted-foreground">
+		<span class="text-xs font-mono tabular-nums text-muted-foreground">
 			Risk: {(occupation.net_risk * 100).toFixed(0)}%
 		</span>
 		<span class="text-xs text-muted-foreground">

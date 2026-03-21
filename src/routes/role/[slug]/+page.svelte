@@ -432,7 +432,7 @@
 							class="text-xs text-text-secondary hover:text-primary hover:underline underline-offset-2"
 						>
 							{comp.occupation.title}
-							<span class="tabular-nums text-muted-foreground">({(comp.weight * 100).toFixed(0)}%)</span>
+							<span class="font-mono tabular-nums text-muted-foreground">({(comp.weight * 100).toFixed(0)}%)</span>
 						</a>
 					{/if}
 				{/each}

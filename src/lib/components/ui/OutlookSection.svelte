@@ -177,21 +177,21 @@
 					<div>
 						<div class="flex justify-between text-xs text-muted-foreground mb-2">
 							<span>AI Adoption Speed</span>
-							<span class="tabular-nums">{adoptionSpeed.toFixed(1)}x</span>
+							<span class="font-mono tabular-nums">{adoptionSpeed.toFixed(1)}x</span>
 						</div>
 						<Slider bind:value={adoptionSpeed} min={0.3} max={2.5} step={0.1} />
 					</div>
 					<div>
 						<div class="flex justify-between text-xs text-muted-foreground mb-2">
 							<span>Employer Cost-Cutting</span>
-							<span class="tabular-nums">{(costCutting * 100).toFixed(0)}%</span>
+							<span class="font-mono tabular-nums">{(costCutting * 100).toFixed(0)}%</span>
 						</div>
 						<Slider bind:value={costCutting} min={0} max={1} step={0.05} />
 					</div>
 					<div>
 						<div class="flex justify-between text-xs text-muted-foreground mb-2">
 							<span>Macro Backdrop</span>
-							<span class="tabular-nums"
+							<span class="font-mono tabular-nums"
 								>{macroBackdrop > 0 ? '+' : ''}{macroBackdrop.toFixed(1)}</span
 							>
 						</div>
@@ -200,7 +200,7 @@
 					<div>
 						<div class="flex justify-between text-xs text-muted-foreground mb-2">
 							<span>Sector Readiness</span>
-							<span class="tabular-nums">{(sectorReadiness * 100).toFixed(0)}%</span>
+							<span class="font-mono tabular-nums">{(sectorReadiness * 100).toFixed(0)}%</span>
 						</div>
 						<Slider bind:value={sectorReadiness} min={0} max={1} step={0.05} />
 					</div>

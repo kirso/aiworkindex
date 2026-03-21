@@ -44,11 +44,11 @@
 						</Badge>
 					</div>
 					<div class="flex items-baseline gap-1.5">
-						<span class="text-lg font-bold tabular-nums text-foreground"
+						<span class="text-lg font-bold font-mono tabular-nums text-foreground"
 							>{cluster.vacancy.latest_rate}%</span
 						>
 						<span
-							class="text-xs tabular-nums {directionTone(
+							class="text-xs font-mono tabular-nums {directionTone(
 								cluster.vacancy.trend_4q_pct > 0
 									? 'up'
 									: cluster.vacancy.trend_4q_pct < 0

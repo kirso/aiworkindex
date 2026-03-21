@@ -70,7 +70,7 @@
 					x={marginLeft - 8}
 					y={centerY}
 					text-anchor="end"
-					class="fill-muted-foreground text-xs tabular-nums font-medium"
+					class="fill-muted-foreground text-xs font-mono tabular-nums font-medium"
 					dominant-baseline="central">{bracket.label}</text
 				>
 				<rect
@@ -89,7 +89,7 @@
 				<text
 					x={marginLeft + barWidth + 6}
 					y={centerY}
-					class="fill-muted-foreground text-xs tabular-nums"
+					class="fill-muted-foreground text-xs font-mono tabular-nums"
 					dominant-baseline="central"
 				>
 					{(bracket.avgRisk * 100).toFixed(0)}% ({bracket.count})

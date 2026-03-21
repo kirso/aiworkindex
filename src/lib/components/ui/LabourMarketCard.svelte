@@ -83,10 +83,10 @@
 			<div>
 				<p class="text-xs text-muted-foreground">{monitor.cluster_label}</p>
 				<div class="mt-1 flex items-baseline gap-1.5">
-					<span class="text-xl font-bold tabular-nums text-foreground"
+					<span class="text-xl font-bold font-mono tabular-nums text-foreground"
 						>{monitor.vacancy.latest_rate}%</span
 					>
-					<span class="text-sm {trendColor} font-semibold tabular-nums">
+					<span class="text-sm {trendColor} font-semibold font-mono tabular-nums">
 						{trendLabel}
 						{Math.abs(monitor.vacancy.trend_4q_pct).toFixed(1)}% YoY
 					</span>
@@ -97,17 +97,17 @@
 				{#if monitor.vacancy.qoq_delta_pp !== undefined}
 					<p class="mt-1 text-xs text-muted-foreground">
 						Versus last quarter:
-						<span class="{qoqVacancyColor} font-semibold tabular-nums">
+						<span class="{qoqVacancyColor} font-semibold font-mono tabular-nums">
 							{qoqVacancyLabel}{Math.abs(monitor.vacancy.qoq_delta_pp).toFixed(1)} points
 						</span>
 					</p>
 				{/if}
 				{#if monitor.vacancy.latest_count !== undefined}
 					<p class="mt-1 text-xs text-muted-foreground">
-						<span class="font-medium text-text-secondary tabular-nums"
+						<span class="font-medium text-text-secondary font-mono tabular-nums"
 							>{monitor.vacancy.latest_count.toLocaleString()} vacancies</span
 						>
-						<span class="{countTrendColor} ml-1 font-semibold tabular-nums">
+						<span class="{countTrendColor} ml-1 font-semibold font-mono tabular-nums">
 							{countTrendLabel}
 							{Math.abs(monitor.vacancy.count_trend_4q_pct ?? 0).toFixed(1)}% YoY
 						</span>
@@ -128,7 +128,7 @@
 						/>
 					</svg>
 					<div
-						class="flex justify-between text-xs text-text-ghost tabular-nums"
+						class="flex justify-between text-xs text-text-ghost font-mono tabular-nums"
 						style="width: 80px;"
 					>
 						<span>{monitor.vacancy.annual_rates?.[0]?.year}</span>
@@ -145,11 +145,11 @@
 			{#if hiringLabel}
 				<p class="text-xs text-muted-foreground">Hiring</p>
 				<p class="mt-1 text-sm font-medium text-foreground">{hiringLabel}</p>
-				<p class="text-xs text-muted-foreground tabular-nums">
+				<p class="text-xs text-muted-foreground font-mono tabular-nums">
 					{monitor.hiring?.recruitment_rate}% recruit · {monitor.hiring?.resignation_rate}% resign
 				</p>
 				{#if monitor.hiring?.recruitment_delta_pp !== undefined && monitor.hiring?.resignation_delta_pp !== undefined}
-					<p class="text-xs text-muted-foreground tabular-nums">
+					<p class="text-xs text-muted-foreground font-mono tabular-nums">
 						Versus last quarter: recruitment {monitor.hiring.recruitment_delta_pp > 0
 							? '+'
 							: ''}{monitor.hiring.recruitment_delta_pp.toFixed(1)} points · resignation {monitor
@@ -181,7 +181,7 @@
 							: 'Elevated'}
 				</p>
 				{#if monitor.retrenchment.qoq_delta_count !== undefined}
-					<p class="text-xs text-muted-foreground tabular-nums">
+					<p class="text-xs text-muted-foreground font-mono tabular-nums">
 						Versus last quarter:
 						{monitor.retrenchment.qoq_delta_count > 0 ? '+' : ''}{monitor.retrenchment
 							.qoq_delta_count}
@@ -200,7 +200,7 @@
 				</p>
 				<p class="text-xs text-muted-foreground">{monitor.re_entry.rate_6m}% within 6 months</p>
 				{#if monitor.re_entry.rate_6m_delta_pp !== undefined || monitor.re_entry.rate_12m_delta_pp !== undefined}
-					<p class="text-xs text-muted-foreground tabular-nums">
+					<p class="text-xs text-muted-foreground font-mono tabular-nums">
 						Versus last quarter: 6m {monitor.re_entry.rate_6m_delta_pp &&
 						monitor.re_entry.rate_6m_delta_pp > 0
 							? '+'

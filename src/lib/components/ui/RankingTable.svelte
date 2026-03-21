@@ -61,7 +61,7 @@
 			{#each occupations as occ, i (occ.ssoc)}
 				{@const highlightClass = highlight?.(occ)}
 				<Table.Row class={highlightClass ?? ''}>
-					<Table.Cell class="tabular-nums text-muted-foreground text-xs relative">
+					<Table.Cell class="font-mono tabular-nums text-muted-foreground text-xs relative">
 						<span
 							class="absolute left-0 top-1 bottom-1 w-[3px] rounded-full"
 							style="background-color: {riskColorScale(occ.net_risk)}"
@@ -76,11 +76,11 @@
 						>
 							{occ.title}
 						</a>
-						<span class="ml-1 text-xs text-text-tertiary tabular-nums">{occ.ssoc}</span>
+						<span class="ml-1 text-xs text-text-tertiary font-mono tabular-nums">{occ.ssoc}</span>
 					</Table.Cell>
 					{#each columns as col}
 						<Table.Cell
-							class="tabular-nums text-xs {col.align === 'right'
+							class="font-mono tabular-nums text-xs {col.align === 'right'
 								? 'text-right'
 								: ''} text-text-secondary"
 						>

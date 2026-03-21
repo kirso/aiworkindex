@@ -400,7 +400,7 @@
 						<div>
 							<div class="mb-1 flex items-center justify-between text-xs">
 								<span class="text-muted-foreground">Net Risk</span>
-								<span class="font-medium tabular-nums">{pct(entity.net_risk)}</span>
+								<span class="font-medium font-mono tabular-nums">{pct(entity.net_risk)}</span>
 							</div>
 							<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
 								<div
@@ -417,7 +417,7 @@
 						<div>
 							<div class="mb-1 flex items-center justify-between text-xs">
 								<span class="text-muted-foreground">Exposure</span>
-								<span class="font-medium tabular-nums">{pct(entity.exposure)}</span>
+								<span class="font-medium font-mono tabular-nums">{pct(entity.exposure)}</span>
 							</div>
 							<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
 								<div
@@ -432,7 +432,7 @@
 						<div>
 							<div class="mb-1 flex items-center justify-between text-xs">
 								<span class="text-muted-foreground">Human Bottleneck</span>
-								<span class="font-medium tabular-nums">{pct(entity.bottleneck)}</span>
+								<span class="font-medium font-mono tabular-nums">{pct(entity.bottleneck)}</span>
 							</div>
 							<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
 								<div
@@ -447,7 +447,7 @@
 						<div>
 							<div class="mb-1 flex items-center justify-between text-xs">
 								<span class="text-muted-foreground">Market Resilience</span>
-								<span class="font-medium tabular-nums">{entity.market_resilience.toFixed(2)}</span>
+								<span class="font-medium font-mono tabular-nums">{entity.market_resilience.toFixed(2)}</span>
 							</div>
 							<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
 								<div
@@ -459,7 +459,7 @@
 						<div>
 							<div class="mb-1 flex items-center justify-between text-xs">
 								<span class="text-muted-foreground">Augmentation</span>
-								<span class="font-medium tabular-nums">{pct(entity.augmentation)}</span>
+								<span class="font-medium font-mono tabular-nums">{pct(entity.augmentation)}</span>
 							</div>
 							<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
 								<div
@@ -571,7 +571,7 @@
 						<Table.Row>
 							<Table.Cell class="font-medium text-muted-foreground">{metric.label}</Table.Cell>
 							{#each entities as entity}
-								<Table.Cell class="tabular-nums">{metric.format(entity)}</Table.Cell>
+								<Table.Cell class="font-mono tabular-nums">{metric.format(entity)}</Table.Cell>
 							{/each}
 						</Table.Row>
 					{/each}

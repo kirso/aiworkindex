@@ -115,7 +115,7 @@
 						x={barCenterX}
 						y={marginTop + plotHeight + 16}
 						text-anchor="middle"
-						class="fill-muted-foreground text-xs tabular-nums">{bin.label}</text
+						class="fill-muted-foreground text-xs font-mono tabular-nums">{bin.label}</text
 					>
 				{/if}
 			{/each}

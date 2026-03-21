@@ -44,7 +44,7 @@
 				</span>
 				<span
 					class={cn(
-						'text-sm font-semibold tabular-nums text-foreground',
+						'text-sm font-semibold font-mono tabular-nums text-foreground',
 						item.valueClass ?? 'font-mono'
 					)}
 				>

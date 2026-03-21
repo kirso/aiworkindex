@@ -170,7 +170,7 @@
 						<div class="flex w-full items-center justify-between">
 							<div class="min-w-0 flex-1">
 								<span class="truncate">{occ.title}</span>
-								<span class="ml-2 text-xs text-muted-foreground tabular-nums">SSOC {occ.ssoc}</span>
+								<span class="ml-2 text-xs text-muted-foreground font-mono tabular-nums">SSOC {occ.ssoc}</span>
 							</div>
 							<span class={cn(riskBadge({ band: occ.risk_band }), 'ml-2 shrink-0 text-xs')}>
 								{riskBandLabels[occ.risk_band]}

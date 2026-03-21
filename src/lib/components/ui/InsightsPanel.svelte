@@ -92,23 +92,23 @@
 		<div class="mt-2 grid grid-cols-2 gap-2">
 			<div class={card({ padding: 'sm', variant: 'inset' })}>
 				<p class="text-xs text-muted-foreground">SG Workforce</p>
-				<p class="text-base font-bold tabular-nums text-foreground">
+				<p class="text-base font-bold font-mono tabular-nums text-foreground">
 					{(OFFICIAL_TOTAL_WORKERS_K / 1000).toFixed(2)}M
 				</p>
 			</div>
 			<div class={card({ padding: 'sm', variant: 'inset' })}>
 				<p class="text-xs text-muted-foreground">Occupations</p>
-				<p class="text-base font-bold tabular-nums text-foreground">{occupations.length}</p>
+				<p class="text-base font-bold font-mono tabular-nums text-foreground">{occupations.length}</p>
 			</div>
 			<div class={card({ padding: 'sm', variant: 'inset' })}>
 				<p class="text-xs text-muted-foreground">Median Pay (SGD)</p>
-				<p class="text-base font-bold tabular-nums text-foreground">
+				<p class="text-base font-bold font-mono tabular-nums text-foreground">
 					{medianPay.toLocaleString()}/mo
 				</p>
 			</div>
 			<div class={card({ padding: 'sm', variant: 'inset' })}>
 				<p class="text-xs text-muted-foreground">High+ Risk</p>
-				<p class="text-base font-bold tabular-nums text-risk-very-high">{highRiskCount}</p>
+				<p class="text-base font-bold font-mono tabular-nums text-risk-very-high">{highRiskCount}</p>
 			</div>
 			<div class={card({ padding: 'sm', variant: 'inset' })}>
 				<p class="text-xs text-muted-foreground">
@@ -116,7 +116,7 @@
 						text="Percentage of occupations scored with high-quality direct crosswalk data"
 					/>
 				</p>
-				<p class="text-base font-bold tabular-nums text-foreground">{highConfidenceCount}</p>
+				<p class="text-base font-bold font-mono tabular-nums text-foreground">{highConfidenceCount}</p>
 			</div>
 			<div class={card({ padding: 'sm', variant: 'inset' })}>
 				<p class="text-xs text-muted-foreground">
@@ -124,7 +124,7 @@
 						text="Occupations listed on Singapore's Shortage Occupation List or Jobs in Demand"
 					/>
 				</p>
-				<p class="text-base font-bold tabular-nums text-risk-very-low">{demandFlaggedCount}</p>
+				<p class="text-base font-bold font-mono tabular-nums text-risk-very-low">{demandFlaggedCount}</p>
 			</div>
 			<div class={card({ padding: 'sm', variant: 'inset' })}>
 				<p class="text-xs text-muted-foreground">
@@ -132,7 +132,7 @@
 						text="Occupations calibrated with Anthropic's real-world Claude usage data"
 					/>
 				</p>
-				<p class="text-base font-bold tabular-nums text-impact-leveraged">
+				<p class="text-base font-bold font-mono tabular-nums text-impact-leveraged">
 					{observedCalibratedCount}
 				</p>
 			</div>
@@ -156,7 +156,7 @@
 							]};"
 						></div>
 					</div>
-					<span class="w-6 shrink-0 text-right text-xs tabular-nums text-muted-foreground"
+					<span class="w-6 shrink-0 text-right text-xs font-mono tabular-nums text-muted-foreground"
 						>{count}</span
 					>
 				</div>
@@ -181,7 +181,7 @@
 							]};"
 						></div>
 					</div>
-					<span class="w-6 shrink-0 text-right text-xs tabular-nums text-muted-foreground"
+					<span class="w-6 shrink-0 text-right text-xs font-mono tabular-nums text-muted-foreground"
 						>{count}</span
 					>
 				</div>
@@ -203,7 +203,7 @@
 						class="text-xs leading-tight text-foreground hover:text-ring hover:underline"
 					>
 						{occ.title}
-						<span class="ml-1 tabular-nums text-muted-foreground"
+						<span class="ml-1 font-mono tabular-nums text-muted-foreground"
 							>{(occ.net_risk * 100).toFixed(0)}%</span
 						>
 					</a>
@@ -226,7 +226,7 @@
 						class="text-xs leading-tight text-foreground hover:text-ring hover:underline"
 					>
 						{occ.title}
-						<span class="ml-1 tabular-nums text-muted-foreground"
+						<span class="ml-1 font-mono tabular-nums text-muted-foreground"
 							>{(occ.net_risk * 100).toFixed(0)}%</span
 						>
 					</a>
@@ -249,7 +249,7 @@
 						class="text-xs leading-tight text-foreground hover:text-ring hover:underline"
 					>
 						{occ.title}
-						<span class="ml-1 tabular-nums text-muted-foreground"
+						<span class="ml-1 font-mono tabular-nums text-muted-foreground"
 							>{gapPoints(occ.evidence.anthropic_gap)}</span
 						>
 					</a>
