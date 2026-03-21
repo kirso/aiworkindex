@@ -149,26 +149,26 @@
 
 :root {
 	/*
-	 * Surface stack (light mode) — 5 distinct levels:
-	 *   card      1.000  — pure white, highest prominence
-	 *   background 0.970  — page canvas, clearly not white
-	 *   subtle     0.965  — section panels within cards
-	 *   metric     0.958  — stat groupings, slightly darker
-	 *   inset      0.945  — nested muted areas, clearly recessed
+	 * Surface stack (light mode):
+	 *   card       1.000  — pure white, primary content surface
+	 *   background 0.980  — page canvas, subtle cool tint
+	 *   subtle     0.975  — section panels inside cards
+	 *   metric     0.965  — stat grouping cards
+	 *   inset      0.955  — nested muted areas
 	 *
-	 * Card-to-background delta: 3% — enough to separate without borders.
-	 * Each step down is ~0.5-1.5% — perceptible but not heavy.
+	 * Cards are defined by border + shadow, not tonal shift alone.
+	 * Tinted variants (subtle, metric) darken progressively.
 	 */
-	--background: oklch(0.970 0.002 240); /* page canvas — cool gray, clearly not white */
+	--background: oklch(0.980 0.002 240); /* page canvas — subtle gray, clean */
 	--foreground: oklch(0.14 0.005 240); /* near-black, blue-tinted */
 	--card: oklch(1 0 0); /* pure white — lifts off background */
 	--card-foreground: oklch(0.14 0.005 240);
-	--inset: oklch(0.945 0.005 240); /* clearly recessed within card */
+	--inset: oklch(0.955 0.005 240); /* clearly recessed within card */
 	--inset-foreground: oklch(0.4 0.005 240);
 
-	/* Surface roles — ordered steps between card and inset */
-	--surface-subtle: oklch(0.965 0.003 240); /* section panels — one step below background */
-	--surface-metric: oklch(0.958 0.004 240); /* metric cards — clearly grouped */
+	/* Surface roles — tinted steps darker than card white */
+	--surface-subtle: oklch(0.975 0.003 240); /* section panels inside cards */
+	--surface-metric: oklch(0.965 0.004 240); /* stat grouping — visible tint */
 	--popover: oklch(1 0 0);
 	--popover-foreground: oklch(0.14 0.005 240);
 
@@ -183,10 +183,10 @@
 	--muted-foreground: oklch(0.48 0.01 240);
 
 	/* Text hierarchy — 3 tiers below foreground, no ad-hoc opacity.
-	   All pass WCAG AA (4.5:1) against both --background (0.970) and --card (1.0). */
+	   All pass WCAG AA (4.5:1) against both --background (0.980) and --card (1.0). */
 	--text-secondary: oklch(0.42 0.008 240); /* supporting copy, descriptions */
-	--text-tertiary: oklch(0.50 0.006 240); /* metadata, sources, timestamps — darkened for 4.5:1 on bg */
-	--text-ghost: oklch(0.52 0.005 240); /* fine print — darkened for AA (4.5:1) against bg 0.970 */
+	--text-tertiary: oklch(0.52 0.006 240); /* metadata, sources, timestamps */
+	--text-ghost: oklch(0.58 0.005 240); /* fine print, separators */
 	--accent: oklch(0.945 0.006 240);
 	--accent-foreground: oklch(0.2 0.01 240);
 	--destructive: oklch(0.55 0.22 25);
@@ -212,25 +212,14 @@
 }
 
 .dark {
-	/*
-	 * Surface stack (dark mode) — inverted: card is lighter than background.
-	 *   card       0.18  — lightest surface
-	 *   background 0.11  — dark canvas
-	 *   subtle     0.155 — section panels
-	 *   metric     0.145 — stat groupings
-	 *   inset      0.13  — recessed areas
-	 *
-	 * Card-to-background delta: 7% — more than light mode because dark
-	 * surfaces need stronger differentiation for the same perceived effect.
-	 */
-	--background: oklch(0.11 0.005 240);
+	--background: oklch(0.12 0.005 240);
 	--foreground: oklch(0.93 0.002 240);
-	--card: oklch(0.18 0.005 240);
+	--card: oklch(0.17 0.005 240);
 	--card-foreground: oklch(0.93 0.002 240);
 	--inset: oklch(0.13 0.005 240);
 	--inset-foreground: oklch(0.65 0.005 240);
-	--surface-subtle: oklch(0.155 0.004 240);
-	--surface-metric: oklch(0.145 0.004 240);
+	--surface-subtle: oklch(0.15 0.004 240);
+	--surface-metric: oklch(0.14 0.004 240);
 	--popover: oklch(0.18 0.005 240);
 	--popover-foreground: oklch(0.93 0.002 240);
 	--primary: oklch(0.65 0.12 230);
@@ -240,8 +229,8 @@
 	--muted: oklch(0.2 0.005 240);
 	--muted-foreground: oklch(0.6 0.005 240);
 	--text-secondary: oklch(0.65 0.005 240);
-	--text-tertiary: oklch(0.55 0.004 240); /* lightened to maintain AA against dark bg */
-	--text-ghost: oklch(0.45 0.003 240); /* lightened to maintain readability */
+	--text-tertiary: oklch(0.52 0.004 240);
+	--text-ghost: oklch(0.40 0.003 240);
 	--accent: oklch(0.24 0.005 240);
 	--accent-foreground: oklch(0.93 0.002 240);
 	--destructive: oklch(0.6 0.18 25);

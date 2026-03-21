@@ -154,23 +154,23 @@ export const section = tv({
 });
 
 // ============================================
-// CARDS — Signal Style (Precision Ledger)
+// CARDS — Signal Style
 //
-// Primary separation: tonal shift (3% bg-to-card in light, 7% in dark).
-// Secondary separation: ghost border at 40% opacity + shadow-xs.
-// 5-level surface stack: card → background → subtle → metric → inset.
+// Every card gets: rounded-md + border + bg.
+// Default cards: white bg + border + shadow-sm (clear on gray canvas).
+// Variant cards: tinted bg + border + no shadow (lighter feel).
+// Inset is borderless (lives inside a parent card).
 //
 // Usage:
-//   card()                          — standard content card (white on gray canvas)
-//   card({ hover: true })           — clickable (adds hover:shadow-sm)
-//   card({ variant: 'inset' })      — nested muted area inside a card
-//   card({ variant: 'metric' })     — stat grouping (tinted bg, ghost border)
-//   card({ padding: 'lg' })         — hero/feature sections
+//   card()                          — standard (white, border, shadow-sm)
+//   card({ hover: true })           — clickable (hover:shadow-md)
+//   card({ variant: 'metric' })     — stat grouping (tinted bg, border, no shadow)
+//   card({ variant: 'inset' })      — nested muted area (no border)
 //   card({ accent: 'very_high' })   — colored border by risk band
 // ============================================
 
 export const card = tv({
-	base: 'rounded-md border border-border/40 bg-card shadow-xs',
+	base: 'rounded-md border border-border bg-card shadow-sm',
 	variants: {
 		padding: {
 			none: '',
@@ -179,23 +179,23 @@ export const card = tv({
 			lg: 'p-6'
 		},
 		hover: {
-			true: 'transition-shadow duration-150 ease-snappy hover:shadow-sm cursor-pointer',
+			true: 'transition-shadow duration-150 ease-snappy hover:shadow-md cursor-pointer',
 			false: ''
 		},
 		variant: {
 			default: '',
-			flat: 'shadow-none border-border/30',
+			flat: 'shadow-none',
 			inset: 'bg-inset border-transparent shadow-none rounded-md',
-			elevated: 'shadow-md border-border/50',
-			/** Subtle surface — section panels inside a card. Lighter than inset, clearly not card-white. */
-			subtle: 'bg-surface-subtle border-border/25 shadow-none rounded-md',
-			/** Metric surface — subtle grouping for stat cards. Light tint + ghost border. */
-			metric: 'bg-surface-metric border-border/25 shadow-none rounded-md',
+			elevated: 'shadow-md',
+			/** Subtle surface — section panels. Full border for definition. */
+			subtle: 'bg-surface-subtle shadow-none rounded-md',
+			/** Metric surface — stat grouping cards. Full border for definition. */
+			metric: 'bg-surface-metric shadow-none rounded-md',
 			/** Notice — contextual callout with tinted background. Pair with accent for semantic color. */
 			notice: 'shadow-none rounded-md'
 		},
 		accent: {
-			none: '',
+			none: 'border-border',
 			very_low: 'border-risk-very-low',
 			low: 'border-risk-low',
 			moderate: 'border-risk-moderate',
