@@ -29,6 +29,7 @@
 
 	const navLinks = [
 		{ href: '/', label: 'Find' },
+		{ href: '/roles', label: 'Jobs' },
 		{ href: '/rankings', label: 'Rankings' },
 		{ href: '/compare', label: 'Compare' },
 		{ href: '/reports', label: 'Reports' },
@@ -36,7 +37,6 @@
 	];
 
 	const secondaryLinks = [
-		{ href: '/roles', label: 'Modern Roles' },
 		{ href: '/data', label: 'Data' },
 		{ href: '/changelog', label: 'Changelog' },
 		{ href: '/research', label: 'Research' },

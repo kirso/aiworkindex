@@ -1,5 +1,5 @@
 import { syntheticRoles, computeRoleScores, type ScoredRole } from '$lib/data/synthetic-roles';
-import { occupationsBySSoc } from '$lib/data';
+import { occupations, occupationsBySSoc } from '$lib/data';
 import { roleCategories, roleCategoryMap } from '$lib/data/role-taxonomy';
 import type { PageLoad } from './$types';
 
@@ -20,6 +20,7 @@ export const load: PageLoad = () => {
 	}
 
 	return {
+		occupations,
 		scoredRoles,
 		roleCategories,
 		byCategory: Object.fromEntries(byCategory)
