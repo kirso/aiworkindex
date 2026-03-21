@@ -7,7 +7,7 @@
  * 3. wage_preservation — target wage relative to source wage
  * 4. demand_strength — target occupation's market resilience
  * 5. risk_improvement — how much net_risk drops
- * 6. credential_gap — proxy from job zone distance
+ * 6. credential_gap — proxy from education-level distance
  */
 
 import type { Occupation } from './index';
@@ -25,6 +25,11 @@ export interface TransitionScore {
 	credential_gap: number;
 	composite: number;
 	label: 'easy' | 'moderate' | 'stretch' | 'difficult';
+	observed_transition_rate?: number | null;
+	observed_wage_delta?: number | null;
+	observed_training_duration_months?: number | null;
+	observed_source?: string | null;
+	observed_vintage?: string | null;
 }
 
 /**
@@ -90,11 +95,12 @@ function riskImprovement(fromRisk: number, toRisk: number): number {
 }
 
 /**
- * Credential gap proxy: difference in major_group_code tiers.
- * Same tier = 1.0 (no gap), adjacent = 0.6, far = 0.2.
+ * Credential gap proxy: difference in education levels when available.
+ * Same tier = 1.0, adjacent = 0.7, two steps = 0.4, otherwise = 0.2.
  */
-function credentialGap(fromGroup: number, toGroup: number): number {
-	const diff = Math.abs(fromGroup - toGroup);
+function credentialGap(fromEducation?: number, toEducation?: number): number {
+	if (fromEducation == null || toEducation == null) return 0.6;
+	const diff = Math.abs(fromEducation - toEducation);
 	if (diff === 0) return 1.0;
 	if (diff <= 1) return 0.7;
 	if (diff <= 2) return 0.4;
@@ -117,7 +123,7 @@ export function computeTransitionScore(from: Occupation, to: Occupation): Transi
 	const wage = wagePreservation(from.gross_wage_median, to.gross_wage_median);
 	const demand = demandStrength(to);
 	const risk = riskImprovement(from.net_risk, to.net_risk);
-	const cred = credentialGap(from.major_group_code, to.major_group_code);
+	const cred = credentialGap(from.education_level, to.education_level);
 
 	const composite =
 		0.20 * arch +
@@ -138,7 +144,12 @@ export function computeTransitionScore(from: Occupation, to: Occupation): Transi
 		risk_improvement: risk,
 		credential_gap: cred,
 		composite,
-		label: transitionLabel(composite)
+		label: transitionLabel(composite),
+		observed_transition_rate: null,
+		observed_wage_delta: null,
+		observed_training_duration_months: null,
+		observed_source: null,
+		observed_vintage: null
 	};
 }
 

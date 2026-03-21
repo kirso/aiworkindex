@@ -1,0 +1,81 @@
+{
+  "version": "V4.3-shadow",
+  "generated_at": "2026-03-21T02:44:37.887Z",
+  "published_baseline_version": "V4.2",
+  "shadow_readiness": {
+    "status": "ready_for_shadow_scoring",
+    "summary": "Ready for shadow scoring: task-weight coverage clears the minimum promotion gate, but no task-adjusted headline score is published yet."
+  },
+  "shadow_score_published": false,
+  "headline_promotion_ready": false,
+  "required_inputs": {
+    "anthropic_task_penetration": {
+      "file": "data/raw/external/anthropic_task_penetration.csv",
+      "present": true
+    },
+    "onet_task_statements": {
+      "file": "data/raw/external/onet/Task_Statements.txt",
+      "present": true
+    },
+    "onet_task_ratings": {
+      "file": "data/raw/external/onet/Task_Ratings.txt",
+      "present": true
+    },
+    "empirical_mobility": {
+      "file": "data/raw/external/sg_empirical_mobility.json",
+      "present": true
+    }
+  },
+  "coverage": {
+    "occupation_count": 562,
+    "direct_mapped_occupation_count": 521,
+    "task_weighted_occupation_count": 485,
+    "direct_task_weighted_occupation_count": 456,
+    "task_weighted_share": 0.863,
+    "direct_task_weighted_share": 0.8752,
+    "bootstrap_uncertainty_coverage_share": 1,
+    "median_matched_task_weight_share": 1,
+    "median_direct_matched_task_weight_share": 1,
+    "median_task_effective_coverage": 0.0817,
+    "median_task_exposure_concentration": 0.2217
+  },
+  "promotion_gates": [
+    {
+      "key": "task_weight_coverage_direct",
+      "label": "Median matched task weight share across direct-mapped occupations",
+      "threshold": 0.6,
+      "comparator": ">=",
+      "actual": 1,
+      "state": "pass",
+      "note": "This gate prevents a sparse task layer from directly changing the headline score before task matching is broadly comparable."
+    },
+    {
+      "key": "shadow_validation",
+      "label": "Experimental task-adjusted score matches or improves current validation diagnostics",
+      "threshold": "improve_or_match",
+      "actual": null,
+      "state": "pending",
+      "note": "Requires a published shadow score artifact before BLS, temporal, and occupation-family comparisons can be evaluated."
+    },
+    {
+      "key": "anchor_review",
+      "label": "No implausible anchor label flips without written rationale",
+      "threshold": "zero_unexplained_flips",
+      "actual": null,
+      "state": "pending",
+      "note": "Requires side-by-side anchor review once a shadow score exists."
+    }
+  ],
+  "blockers": [],
+  "candidate_formulas": {
+    "effective_coverage": "Σ_t w_it · exposure_t · success_t",
+    "automation_pressure": "Σ_t w_it · exposure_t · success_t · autonomy_t · (1 - bottleneck_t)",
+    "augmentation_upside": "Σ_t w_it · exposure_t · success_t · (1 - autonomy_t) · bottleneck_t",
+    "net_risk": "automation_pressure_i · (1 - λ · concentration_i) · market_modifier_i"
+  },
+  "notes": [
+    "This artifact is governance scaffolding for a future task-weighted shadow model. It does not change the published V4.2 score.",
+    "confidence remains the provenance-quality layer; uncertainty intervals remain the statistical layer.",
+    "Near-term forecast remains published separately from structural risk."
+  ]
+}

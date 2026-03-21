@@ -1,6 +1,6 @@
 {
-  "version": "V4.1",
-  "generated_at": "2026-03-20T13:10:10.413Z",
+  "version": "V4.2",
+  "generated_at": "2026-03-21T02:44:34.270Z",
   "description": "Official Singapore geography context derived from Census of Population 2020 planning-area residence and travel-time occupation tables. This artifact is contextual and does not affect the structural score.",
   "residence": {
     "overall_top_planning_areas": [

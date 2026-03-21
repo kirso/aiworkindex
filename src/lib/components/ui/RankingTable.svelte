@@ -2,6 +2,7 @@
 	import type { Occupation, RiskBand, ImpactType } from '$lib/data';
 	import { riskBandLabels, impactTypeLabels } from '$lib/data';
 	import * as Table from '$lib/components/ui/table/index.js';
+	import { card } from '$lib/design-system';
 
 	interface Column {
 		key: string;
@@ -36,7 +37,7 @@
 	};
 </script>
 
-<div class="rounded-md border">
+<div class={card({ padding: 'none' })}>
 	<Table.Root>
 		<Table.Header>
 			<Table.Row>
@@ -63,7 +64,7 @@
 					<Table.Cell>
 						<a
 							href="/occupation/{occ.ssoc}"
-							class="text-[13px] text-foreground hover:text-primary hover:underline underline-offset-2 decoration-primary/30"
+							class="text-xs text-foreground hover:text-primary hover:underline underline-offset-2 decoration-primary/30"
 						>
 							{occ.title}
 						</a>
@@ -71,7 +72,7 @@
 					</Table.Cell>
 					{#each columns as col}
 						<Table.Cell
-							class="tabular-nums text-[13px] {col.align === 'right'
+							class="tabular-nums text-xs {col.align === 'right'
 								? 'text-right'
 								: ''} text-text-secondary"
 						>

@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-03-20T13:10:16.832Z",
+  "generated_at": "2026-03-21T02:44:40.520Z",
   "summary": {
-    "valid": 24,
+    "valid": 30,
     "placeholder_error": 0,
     "missing": 0,
     "reference_only": 4
@@ -351,6 +351,88 @@
         "exposure ensemble"
       ],
       "note": "Workbook sheets: Sheet1"
+    },
+    {
+      "key": "anthropic_task_penetration",
+      "file": "anthropic_task_penetration.csv",
+      "label": "Anthropic task penetration",
+      "status": "valid",
+      "exists": true,
+      "expected_type": "csv",
+      "size_bytes": 1889822,
+      "used_by": [
+        "experimental task-primitives",
+        "V4.3 shadow model"
+      ],
+      "note": "Header starts with: task,penetration"
+    },
+    {
+      "key": "onet_occupation_data",
+      "file": "raw/external/onet/Occupation_Data.txt",
+      "label": "O*NET occupation data",
+      "status": "valid",
+      "exists": true,
+      "expected_type": "txt",
+      "size_bytes": 265794,
+      "used_by": [
+        "O*NET enrichment"
+      ],
+      "note": "Present locally."
+    },
+    {
+      "key": "onet_task_statements",
+      "file": "raw/external/onet/Task_Statements.txt",
+      "label": "O*NET task statements",
+      "status": "valid",
+      "exists": true,
+      "expected_type": "txt",
+      "size_bytes": 2759559,
+      "used_by": [
+        "O*NET enrichment",
+        "experimental task-primitives"
+      ],
+      "note": "Present locally."
+    },
+    {
+      "key": "onet_task_ratings",
+      "file": "raw/external/onet/Task_Ratings.txt",
+      "label": "O*NET task ratings",
+      "status": "valid",
+      "exists": true,
+      "expected_type": "txt",
+      "size_bytes": 11707887,
+      "used_by": [
+        "experimental task-primitives",
+        "V4.3 shadow model"
+      ],
+      "note": "Present locally."
+    },
+    {
+      "key": "onet_technology_skills",
+      "file": "raw/external/onet/Technology_Skills.txt",
+      "label": "O*NET technology skills",
+      "status": "valid",
+      "exists": true,
+      "expected_type": "txt",
+      "size_bytes": 2592962,
+      "used_by": [
+        "O*NET enrichment"
+      ],
+      "note": "Present locally."
+    },
+    {
+      "key": "sg_empirical_mobility",
+      "file": "sg_empirical_mobility.json",
+      "label": "Singapore empirical mobility transitions",
+      "status": "valid",
+      "exists": true,
+      "expected_type": "json",
+      "size_bytes": 16470,
+      "used_by": [
+        "experimental transition model",
+        "V4.3 shadow model"
+      ],
+      "note": "Valid JSON payload."
     },
     {
       "key": "bls_projections",

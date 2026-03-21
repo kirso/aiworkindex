@@ -22,9 +22,8 @@
 	let xMax = $derived(
 		Math.max(
 			0.7,
-			Math.ceil(
-				items.reduce((max, item) => Math.max(max, item.old_risk, item.new_risk), 0) * 10
-			) / 10
+			Math.ceil(items.reduce((max, item) => Math.max(max, item.old_risk, item.new_risk), 0) * 10) /
+				10
 		)
 	);
 	let x = $derived(scaleLinear().domain([0, xMax]).range([0, 100]));
@@ -39,7 +38,7 @@
 		<div class="grid gap-2 md:grid-cols-[minmax(0,220px)_1fr_72px] md:items-center">
 			<div>
 				<p class="text-sm font-medium text-foreground">{item.title}</p>
-				<p class="text-[11px] text-muted-foreground">
+				<p class="text-xs text-muted-foreground">
 					{pct(item.old_risk)} → {pct(item.new_risk)}
 				</p>
 			</div>

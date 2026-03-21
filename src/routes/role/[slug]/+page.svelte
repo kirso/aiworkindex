@@ -13,7 +13,8 @@
 		caption,
 		pill,
 		chip,
-		scoreTileClasses
+		scoreTileClasses,
+		microLabel
 	} from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import { vacancySignalClass } from '$lib/data/detail-display';
@@ -316,18 +317,14 @@
 	<div class={cn(card({ padding: 'lg' }), 'mb-8 overflow-hidden')}>
 		<div class="grid gap-6 lg:grid-cols-[12rem_minmax(0,1fr)] lg:items-start">
 			<div class={cn('rounded-2xl border p-5', scoreTileClasses(scored.risk_band))}>
-				<p class="text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-					Structural pressure
-				</p>
+				<p class={microLabel()}>Structural pressure</p>
 				<p class={cn(display({ size: 'xl' }), 'mt-2')}>{(scored.net_risk * 100).toFixed(0)}%</p>
 				<span class={cn(riskBadge({ band: scored.risk_band }), 'mt-2 inline-flex')}>
 					{riskBandLabels[scored.risk_band]} Risk
 				</span>
 				{#if scored.risk_range}
 					<div class="mt-5 border-t border-border/70 pt-3">
-						<p class="text-[10px] uppercase tracking-[0.12em] text-muted-foreground">
-							Likely range
-						</p>
+						<p class={microLabel()}>Likely range</p>
 						<p class="mt-1 font-mono text-sm text-foreground">
 							{(scored.risk_range.optimistic * 100).toFixed(0)}–{(
 								scored.risk_range.pessimistic * 100
@@ -480,7 +477,7 @@
 									</span>
 								{/each}
 							</div>
-							<p class="mt-2 text-[10px] text-muted-foreground">
+							<p class="mt-2 text-xs text-muted-foreground">
 								{structural.onetEnrichment?.note ??
 									'Derived from matched O*NET technology-skill profiles.'}
 							</p>
@@ -523,17 +520,13 @@
 						<div class="mt-3 grid gap-3 sm:grid-cols-3">
 							{#if primaryOccupation?.labour_monitor}
 								<div class={card({ padding: 'sm', variant: 'metric' })}>
-									<p
-										class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground"
-									>
-										Vacancy rate
-									</p>
+									<p class={microLabel()}>Vacancy rate</p>
 									<p class="mt-1 font-mono text-lg text-foreground">
 										{primaryOccupation.labour_monitor.vacancy.latest_rate}%
 									</p>
 									<p
 										class={cn(
-											'text-[11px] font-medium',
+											'text-xs font-medium',
 											primaryOccupation.labour_monitor.vacancy.trend_4q_pct > 0
 												? 'text-risk-very-low'
 												: primaryOccupation.labour_monitor.vacancy.trend_4q_pct < 0
@@ -553,30 +546,22 @@
 							{/if}
 							{#if primaryOccupation?.labour_monitor?.hiring}
 								<div class={card({ padding: 'sm', variant: 'metric' })}>
-									<p
-										class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground"
-									>
-										Hiring balance
-									</p>
+									<p class={microLabel()}>Hiring balance</p>
 									<p class="mt-1 font-mono text-lg text-foreground">
 										{primaryOccupation.labour_monitor.hiring.recruitment_rate}%
 									</p>
-									<p class="text-[11px] text-muted-foreground">
+									<p class="text-xs text-muted-foreground">
 										recruit vs {primaryOccupation.labour_monitor.hiring.resignation_rate}% resign
 									</p>
 								</div>
 							{/if}
 							{#if primaryOccupation?.labour_monitor?.retrenchment?.incidence_per_1000}
 								<div class={card({ padding: 'sm', variant: 'metric' })}>
-									<p
-										class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground"
-									>
-										Retrenchment
-									</p>
+									<p class={microLabel()}>Retrenchment</p>
 									<p class="mt-1 font-mono text-lg text-foreground">
 										{primaryOccupation.labour_monitor.retrenchment.incidence_per_1000} per 1,000
 									</p>
-									<p class="text-[11px] text-muted-foreground">
+									<p class="text-xs text-muted-foreground">
 										{primaryOccupation.labour_monitor.retrenchment.incidence_per_1000 < 2
 											? 'Low incidence'
 											: primaryOccupation.labour_monitor.retrenchment.incidence_per_1000 < 5
@@ -586,19 +571,15 @@
 								</div>
 							{:else if postings && postings.hiring_state !== 'no_signal'}
 								<div class={card({ padding: 'sm', variant: 'metric' })}>
-									<p
-										class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground"
-									>
-										Live postings
-									</p>
+									<p class={microLabel()}>Live postings</p>
 									<p class="mt-1 font-mono text-lg text-foreground">
 										{postings.posting_volume_30d}
 									</p>
-									<p class="text-[11px] text-muted-foreground">in the last 30 days</p>
+									<p class="text-xs text-muted-foreground">in the last 30 days</p>
 								</div>
 							{/if}
 						</div>
-						<p class="mt-2 text-[10px] text-muted-foreground">
+						<p class="mt-2 text-xs text-muted-foreground">
 							{primaryOccupation?.labour_monitor?.cluster_label ?? 'Cluster'} data · {siteStatus
 								.live_monitor.labour_monitor_artifact_vintage}
 						</p>
@@ -610,7 +591,7 @@
 						<div class="space-y-4">
 							<div>
 								<p class="text-xs font-semibold text-foreground">Top Industries</p>
-								<p class="text-[11px] text-muted-foreground">Where this work is concentrated</p>
+								<p class="text-xs text-muted-foreground">Where this work is concentrated</p>
 							</div>
 							<div class="space-y-3">
 								{#each industryContext.top_industries.slice(0, 3) as industry (industry.key)}
@@ -620,7 +601,7 @@
 											{#if industry.vacancy_signal}
 												<span
 													class={cn(
-														'text-[11px] shrink-0',
+														'text-xs shrink-0',
 														vacancySignalClass(industry.vacancy_signal)
 													)}
 												>
@@ -639,12 +620,12 @@
 													style="width: {Math.min(industry.share_2025 * 100 * 2, 100)}%;"
 												></div>
 											</div>
-											<span class="font-mono text-[11px] text-muted-foreground">
+											<span class="font-mono text-xs text-muted-foreground">
 												{(industry.share_2025 * 100).toFixed(0)}%
 											</span>
 										</div>
 										{#if industry.vacancy_rank_latest !== null && industry.vacancy_rank_latest <= 5}
-											<p class="text-[10px] text-muted-foreground">
+											<p class="text-xs text-muted-foreground">
 												Top {Math.round(industry.vacancy_rank_latest)} vacancy sector
 											</p>
 										{/if}
@@ -652,7 +633,7 @@
 								{/each}
 							</div>
 							{#if industryContext.metadata?.vacancy_overlay_vintage}
-								<p class="text-[10px] text-muted-foreground">
+								<p class="text-xs text-muted-foreground">
 									Industry vacancy overlays use the latest published detailed cross-tab ({industryContext
 										.metadata.vacancy_overlay_vintage}), which can lag the main labour monitor.
 								</p>
@@ -665,7 +646,7 @@
 							<div class="flex items-start justify-between gap-3">
 								<div>
 									<p class="text-xs font-semibold text-foreground">12-Month Outlook</p>
-									<p class="text-[11px] text-muted-foreground">Rule-based, not a prediction</p>
+									<p class="text-xs text-muted-foreground">Rule-based, not a prediction</p>
 								</div>
 								<div class="flex items-center gap-1">
 									{#each ['junior', 'mid', 'senior'] as const as level}
@@ -704,8 +685,8 @@
 													: 'bg-risk-very-high'}
 									<div>
 										<div class="mb-1 flex items-center justify-between">
-											<span class="text-[10px] text-muted-foreground">{dim.label}</span>
-											<span class="text-[10px] font-medium {outlookStatusColors[status]}">
+											<span class="text-xs text-muted-foreground">{dim.label}</span>
+											<span class="text-xs font-medium {outlookStatusColors[status]}">
 												{outlookStatusLabels[status]}
 											</span>
 										</div>
@@ -745,7 +726,7 @@
 									<div class={cn(card({ padding: 'sm', variant: 'inset' }), 'space-y-3')}>
 										<div>
 											<p class="text-xs font-semibold text-foreground">Market detail</p>
-											<p class="text-[11px] text-muted-foreground">
+											<p class="text-xs text-muted-foreground">
 												More detailed monitor context in plain English.
 											</p>
 										</div>
@@ -767,7 +748,7 @@
 									<div class={cn(card({ padding: 'sm', variant: 'inset' }), 'space-y-3')}>
 										<div>
 											<p class="text-xs font-semibold text-foreground">Local context & support</p>
-											<p class="text-[11px] text-muted-foreground">
+											<p class="text-xs text-muted-foreground">
 												Institutional, education, and transition-support signals behind the role
 												estimate.
 											</p>
@@ -884,7 +865,7 @@
 								{/if}
 							</div>
 						{/if}
-						<p class="mt-2 text-[10px] text-text-secondary">{offsetPotential.basis}</p>
+						<p class="mt-2 text-xs text-text-secondary">{offsetPotential.basis}</p>
 					</div>
 				{/if}
 
@@ -906,7 +887,7 @@
 								</a>
 							{/each}
 						</div>
-						<p class="mt-2 text-[10px] text-text-secondary">{transitionSupport.basis}</p>
+						<p class="mt-2 text-xs text-text-secondary">{transitionSupport.basis}</p>
 					</div>
 				{/if}
 

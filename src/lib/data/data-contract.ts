@@ -154,7 +154,8 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 		vintage: '2024',
 		used_for: ['industry momentum spread', 'Singapore context support', 'industry footprint'],
 		url: 'https://data.gov.sg/datasets/d_a39781396723959b5bb0db7814bdb139/view',
-		notes: 'Currently used for industry momentum context, not a direct occupation-level score input.'
+		notes:
+			'Used to build occupation-specific industry-footprint signals that now inform the employment side of market momentum where coverage exists, and also power supporting Singapore context views.'
 	},
 	{
 		key: 'mom_lfr2024_section_d',

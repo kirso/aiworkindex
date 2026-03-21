@@ -2,6 +2,8 @@ import { occupations } from '$lib/data';
 import { IMPACT_TYPE_THRESHOLDS } from '$lib/data/scoring-constants';
 import type { PageLoad } from './$types';
 
+export const csr = false;
+
 export const load: PageLoad = () => {
 	// High risk (net_risk >= displacement_threshold) but still on SOL or Jobs in Demand
 	const ranked = occupations

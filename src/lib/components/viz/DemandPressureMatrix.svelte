@@ -169,7 +169,7 @@
 						x={xScale(ql.x)}
 						y={yScale(ql.y)}
 						text-anchor="middle"
-						class="fill-muted-foreground text-[10px] font-medium"
+						class="fill-muted-foreground text-xs font-medium"
 						style="pointer-events: none;"
 					>
 						{ql.label}

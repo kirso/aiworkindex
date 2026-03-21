@@ -8,6 +8,8 @@ export type RiskBand = 'very_low' | 'low' | 'moderate' | 'high' | 'very_high';
 
 export interface MarketScores {
 	market_momentum: number;
+	industry_footprint_momentum?: number | null;
+	market_resolution?: 'group_prior' | 'industry_footprint_blend';
 	occupation_scarcity: number;
 	market_resilience: number;
 	market_modifier: number;
@@ -50,6 +52,23 @@ export interface StabilityScores {
 	pessimistic_band: RiskBand;
 	distance_to_band_edge: number;
 	label: 'stable' | 'watch' | 'sensitive';
+}
+
+export interface TaskPrimitives {
+	matched_task_weight_share: number | null;
+	task_effective_coverage: number | null;
+	task_exposure_concentration: number | null;
+	method: 'anthropic_task_penetration_v1' | null;
+}
+
+export interface UncertaintyScores {
+	exposure_p10: number;
+	exposure_p50: number;
+	exposure_p90: number;
+	net_risk_p10: number;
+	net_risk_p50: number;
+	net_risk_p90: number;
+	method: 'bootstrap_v1';
 }
 
 export interface LabourClusterMonitor {
@@ -167,6 +186,8 @@ export interface Occupation {
 	evidence: EvidenceSignals;
 	confidence: ConfidenceScores;
 	stability: StabilityScores;
+	task_primitives?: TaskPrimitives;
+	uncertainty?: UncertaintyScores;
 	labour_monitor: LabourClusterMonitor | null;
 	raw: RawScores;
 	isco_codes_matched: string[];
@@ -245,11 +266,11 @@ export const riskBandLabels: Record<RiskBand, string> = {
 };
 
 export const riskBandColors: Record<RiskBand, string> = {
-	very_low: '#4ade80',
-	low: '#86efac',
-	moderate: '#fbbf24',
-	high: '#f97316',
-	very_high: '#ef4444'
+	very_low: 'var(--color-risk-very-low)',
+	low: 'var(--color-risk-low)',
+	moderate: 'var(--color-risk-moderate)',
+	high: 'var(--color-risk-high)',
+	very_high: 'var(--color-risk-very-high)'
 };
 
 export const impactTypeLabels: Record<ImpactType, string> = {
@@ -260,10 +281,10 @@ export const impactTypeLabels: Record<ImpactType, string> = {
 };
 
 export const impactTypeColors: Record<ImpactType, string> = {
-	ai_leveraged: '#2563eb',
-	at_risk: '#ef4444',
-	stable: '#6b7280',
-	mixed: '#f59e0b'
+	ai_leveraged: 'var(--color-impact-leveraged)',
+	at_risk: 'var(--color-risk-very-high)',
+	stable: 'var(--color-text-tertiary)',
+	mixed: 'var(--color-risk-moderate)'
 };
 
 export const augmentationBandLabels: Record<AugmentationBand, string> = {

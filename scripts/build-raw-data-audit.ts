@@ -254,6 +254,54 @@ const AUDIT_DEFINITIONS: AuditEntryDefinition[] = [
 		usedBy: ['exposure ensemble']
 	},
 	{
+		key: 'anthropic_task_penetration',
+		file: 'anthropic_task_penetration.csv',
+		location: 'external',
+		label: 'Anthropic task penetration',
+		expectedType: 'csv',
+		usedBy: ['experimental task-primitives', 'V4.3 shadow model']
+	},
+	{
+		key: 'onet_occupation_data',
+		file: 'raw/external/onet/Occupation_Data.txt',
+		location: 'external',
+		label: 'O*NET occupation data',
+		expectedType: 'txt',
+		usedBy: ['O*NET enrichment']
+	},
+	{
+		key: 'onet_task_statements',
+		file: 'raw/external/onet/Task_Statements.txt',
+		location: 'external',
+		label: 'O*NET task statements',
+		expectedType: 'txt',
+		usedBy: ['O*NET enrichment', 'experimental task-primitives']
+	},
+	{
+		key: 'onet_task_ratings',
+		file: 'raw/external/onet/Task_Ratings.txt',
+		location: 'external',
+		label: 'O*NET task ratings',
+		expectedType: 'txt',
+		usedBy: ['experimental task-primitives', 'V4.3 shadow model']
+	},
+	{
+		key: 'onet_technology_skills',
+		file: 'raw/external/onet/Technology_Skills.txt',
+		location: 'external',
+		label: 'O*NET technology skills',
+		expectedType: 'txt',
+		usedBy: ['O*NET enrichment']
+	},
+	{
+		key: 'sg_empirical_mobility',
+		file: 'sg_empirical_mobility.json',
+		location: 'external',
+		label: 'Singapore empirical mobility transitions',
+		expectedType: 'json',
+		usedBy: ['experimental transition model', 'V4.3 shadow model']
+	},
+	{
 		key: 'bls_projections',
 		file: 'bls_projections_2024_2034.xlsx',
 		location: 'external',

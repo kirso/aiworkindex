@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
+	import { innerWidth as windowWidth } from 'svelte/reactivity/window';
 	import { riskBandLabels, majorGroupByKey, impactTypeLabels } from '$lib/data';
 	import {
 		card,
@@ -13,7 +14,8 @@
 		caption,
 		pill,
 		chip,
-		scoreTileClasses
+		scoreTileClasses,
+		microLabel
 	} from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import { vacancySignalClass } from '$lib/data/detail-display';
@@ -111,16 +113,7 @@
 		buildMarketDetailBullets(occ.labour_monitor, postings, employerPressure)
 	);
 
-	let innerWidth = $state(1024);
-	$effect(() => {
-		if (!browser) return;
-		innerWidth = window.innerWidth;
-		function onResize() {
-			innerWidth = window.innerWidth;
-		}
-		window.addEventListener('resize', onResize);
-		return () => window.removeEventListener('resize', onResize);
-	});
+	let viewportWidth = $derived(windowWidth.current ?? 1024);
 
 	// Demand signal helpers
 	let hasDemand = $derived(occ.evidence.sol_match || occ.evidence.jobs_in_demand_match);
@@ -130,6 +123,27 @@
 		if (occ.evidence.sol_match) return 'SOL 2026';
 		if (occ.evidence.jobs_in_demand_match) return 'Jobs in Demand';
 		return null;
+	});
+	let netRiskUncertainty = $derived(
+		`${((occ.uncertainty?.net_risk_p10 ?? occ.net_risk) * 100).toFixed(2).replace(/\.00$/, '')}–${(
+			(occ.uncertainty?.net_risk_p90 ?? occ.net_risk) * 100
+		)
+			.toFixed(2)
+			.replace(/\.00$/, '')}%`
+	);
+	let exposureUncertainty = $derived(
+		`${((occ.uncertainty?.exposure_p10 ?? occ.exposure) * 100).toFixed(0)}–${(
+			(occ.uncertainty?.exposure_p90 ?? occ.exposure) * 100
+		).toFixed(0)}%`
+	);
+	let taskEvidenceSummary = $derived.by(() => {
+		if (occ.task_primitives?.matched_task_weight_share != null) {
+			return `${(occ.task_primitives.matched_task_weight_share * 100).toFixed(0)}% weighted task match · ${((occ.task_primitives.task_effective_coverage ?? 0) * 100).toFixed(0)}% effective coverage`;
+		}
+		if (siteStatus.experimental_release?.status === 'blocked') {
+			return 'Task-weighted shadow model is blocked in this release, so no weighted task evidence is published here yet.';
+		}
+		return 'Task-weighted shadow evidence is not active for this occupation yet.';
 	});
 
 	// Outlook (inline, no tabs — base case only for Block 3)
@@ -340,22 +354,20 @@
 	<!-- ===== BLOCK 1: THE VERDICT ===== -->
 	<div class={cn(card({ padding: 'lg' }), 'mb-8 overflow-hidden')}>
 		<div class="grid gap-6 lg:grid-cols-[12rem_minmax(0,1fr)] lg:items-start">
-			<div class={cn('rounded-2xl border p-5', scoreTileClasses(occ.risk_band))}>
-				<p class="text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-					Structural pressure
+			<div
+				class={cn('rounded-2xl border p-5', scoreTileClasses(occ.risk_band))}
+				role="figure"
+				aria-label="Structural AI displacement pressure: {(occ.net_risk * 100).toFixed(
+					0
+				)}%, rated {riskBandLabels[occ.risk_band]} risk"
+			>
+				<p class={microLabel()}>Structural pressure</p>
+				<p class={cn(display({ size: 'xl' }), 'mt-2')} aria-hidden="true">
+					{(occ.net_risk * 100).toFixed(0)}%
 				</p>
-				<p class={cn(display({ size: 'xl' }), 'mt-2')}>{(occ.net_risk * 100).toFixed(0)}%</p>
 				<span class={cn(riskBadge({ band: occ.risk_band }), 'mt-2 inline-flex')}>
 					{riskBandLabels[occ.risk_band]} Risk
 				</span>
-				<div class="mt-5 border-t border-border/70 pt-3">
-					<p class="text-[10px] uppercase tracking-[0.12em] text-muted-foreground">Likely range</p>
-					<p class="mt-1 font-mono text-sm text-foreground">
-						{(occ.stability.optimistic_risk * 100).toFixed(0)}–{(
-							occ.stability.pessimistic_risk * 100
-						).toFixed(0)}%
-					</p>
-				</div>
 			</div>
 
 			<div class="min-w-0">
@@ -425,14 +437,6 @@
 
 		<div class="mt-6 border-t border-border/70 pt-5">
 			<SignalProfileGrid items={signalProfileItems} />
-			<div class="mt-3">
-				<EvidenceBar
-					sourceCount={occ.evidence.exposure_source_count ?? 0}
-					sourceKeys={occ.evidence.exposure_source_keys ?? []}
-					agreement={occ.evidence.exposure_agreement ?? null}
-					signalConflict={occ.evidence.signal_conflict ?? false}
-				/>
-			</div>
 		</div>
 	</div>
 
@@ -489,7 +493,7 @@
 									</span>
 								{/each}
 							</div>
-							<p class="mt-2 text-[10px] text-muted-foreground">
+							<p class="mt-2 text-xs text-muted-foreground">
 								Derived from matched O*NET technology-skill profiles.
 							</p>
 						</div>
@@ -531,17 +535,13 @@
 					<div class="mt-3 grid gap-3 sm:grid-cols-3">
 						{#if occ.labour_monitor}
 							<div class={card({ padding: 'sm', variant: 'metric' })}>
-								<p
-									class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground"
-								>
-									Vacancy rate
-								</p>
+								<p class={microLabel()}>Vacancy rate</p>
 								<p class="mt-1 font-mono text-lg text-foreground">
 									{occ.labour_monitor.vacancy.latest_rate}%
 								</p>
 								<p
 									class={cn(
-										'text-[11px] font-medium',
+										'text-xs font-medium',
 										occ.labour_monitor.vacancy.trend_4q_pct > 0
 											? 'text-risk-very-low'
 											: occ.labour_monitor.vacancy.trend_4q_pct < 0
@@ -560,30 +560,22 @@
 						{/if}
 						{#if occ.labour_monitor?.hiring}
 							<div class={card({ padding: 'sm', variant: 'metric' })}>
-								<p
-									class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground"
-								>
-									Hiring balance
-								</p>
+								<p class={microLabel()}>Hiring balance</p>
 								<p class="mt-1 font-mono text-lg text-foreground">
 									{occ.labour_monitor.hiring.recruitment_rate}%
 								</p>
-								<p class="text-[11px] text-muted-foreground">
+								<p class="text-xs text-muted-foreground">
 									recruit vs {occ.labour_monitor.hiring.resignation_rate}% resign
 								</p>
 							</div>
 						{/if}
 						{#if occ.labour_monitor?.retrenchment?.incidence_per_1000}
 							<div class={card({ padding: 'sm', variant: 'metric' })}>
-								<p
-									class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground"
-								>
-									Retrenchment
-								</p>
+								<p class={microLabel()}>Retrenchment</p>
 								<p class="mt-1 font-mono text-lg text-foreground">
 									{occ.labour_monitor.retrenchment.incidence_per_1000} per 1,000
 								</p>
-								<p class="text-[11px] text-muted-foreground">
+								<p class="text-xs text-muted-foreground">
 									{occ.labour_monitor.retrenchment.incidence_per_1000 < 2
 										? 'Low incidence'
 										: occ.labour_monitor.retrenchment.incidence_per_1000 < 5
@@ -593,17 +585,13 @@
 							</div>
 						{:else if postings && postings.hiring_state !== 'no_signal'}
 							<div class={card({ padding: 'sm', variant: 'metric' })}>
-								<p
-									class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground"
-								>
-									Live postings
-								</p>
+								<p class={microLabel()}>Live postings</p>
 								<p class="mt-1 font-mono text-lg text-foreground">{postings.posting_volume_30d}</p>
-								<p class="text-[11px] text-muted-foreground">in the last 30 days</p>
+								<p class="text-xs text-muted-foreground">in the last 30 days</p>
 							</div>
 						{/if}
 					</div>
-					<p class="mt-2 text-[10px] text-muted-foreground">
+					<p class="mt-2 text-xs text-muted-foreground">
 						{occ.labour_monitor?.cluster_label ?? 'Cluster'} data · {siteStatus.live_monitor
 							.labour_monitor_artifact_vintage}
 					</p>
@@ -616,7 +604,7 @@
 					<div class="space-y-3">
 						<div>
 							<p class="text-xs font-semibold text-foreground">Top Industries</p>
-							<p class="text-[11px] text-muted-foreground">Where this work is concentrated</p>
+							<p class="text-xs text-muted-foreground">Where this work is concentrated</p>
 						</div>
 						<div class="space-y-3">
 							{#each industryContext.top_industries.slice(0, 3) as industry (industry.key)}
@@ -624,11 +612,11 @@
 									<div class="flex items-start justify-between gap-3">
 										<p class="min-w-0 flex-1 text-sm text-foreground">{industry.label}</p>
 										<div class="text-right shrink-0">
-											<p class="font-mono text-[11px] text-text-secondary">
+											<p class="font-mono text-xs text-text-secondary">
 												{industry.employment_2025.toFixed(1)}K
 											</p>
 											{#if industry.vacancy_signal}
-												<p class={cn('text-[11px]', vacancySignalClass(industry.vacancy_signal))}>
+												<p class={cn('text-xs', vacancySignalClass(industry.vacancy_signal))}>
 													{industry.vacancy_signal === 'rising'
 														? '↑ hiring'
 														: industry.vacancy_signal === 'cooling'
@@ -637,7 +625,7 @@
 												</p>
 											{/if}
 											{#if industry.vacancy_rank_latest !== null && industry.vacancy_rank_latest <= 5}
-												<p class="text-[10px] text-muted-foreground">
+												<p class="text-xs text-muted-foreground">
 													Top {Math.round(industry.vacancy_rank_latest)} vacancy sector
 												</p>
 											{/if}
@@ -650,7 +638,7 @@
 												style="width: {Math.min(industry.share_2025 * 100 * 2, 100)}%;"
 											></div>
 										</div>
-										<span class="font-mono text-[11px] text-muted-foreground"
+										<span class="font-mono text-xs text-muted-foreground"
 											>{(industry.share_2025 * 100).toFixed(0)}%</span
 										>
 									</div>
@@ -658,7 +646,7 @@
 							{/each}
 						</div>
 						{#if industryContext.metadata?.vacancy_overlay_vintage}
-							<p class="text-[10px] text-muted-foreground">
+							<p class="text-xs text-muted-foreground">
 								Industry vacancy overlays use the latest published detailed cross-tab ({industryContext
 									.metadata.vacancy_overlay_vintage}), which can lag the main labour monitor.
 							</p>
@@ -670,13 +658,14 @@
 					<div class="flex items-start justify-between gap-3">
 						<div>
 							<p class="text-xs font-semibold text-foreground">12-Month Outlook</p>
-							<p class="text-[11px] text-muted-foreground">Rule-based, not a prediction</p>
+							<p class="text-xs text-muted-foreground">Rule-based, not a prediction</p>
 						</div>
-						<div class="flex items-center gap-1">
+						<div class="flex items-center gap-1" role="group" aria-label="Seniority level">
 							{#each ['junior', 'mid', 'senior'] as const as level}
 								<button
 									class={chip({ active: selectedSeniority === level })}
 									onclick={() => (selectedSeniority = level)}
+									aria-pressed={selectedSeniority === level}
 								>
 									{seniorityAdjustments[level].label}
 								</button>
@@ -688,7 +677,7 @@
 							{directionLabels[baseOutlook.direction_12m]}
 						</span>
 						{#if selectedSeniority !== 'mid'}
-							<span class="text-[10px] text-muted-foreground italic"
+							<span class="text-xs text-muted-foreground italic"
 								>{seniorityAdjustments[selectedSeniority].label} adjusted</span
 							>
 						{/if}
@@ -714,8 +703,8 @@
 											: 'bg-risk-very-high'}
 							<div>
 								<div class="flex items-center justify-between mb-1">
-									<span class="text-[10px] text-muted-foreground">{dim.label}</span>
-									<span class="text-[10px] font-medium {outlookStatusColors[status]}"
+									<span class="text-xs text-muted-foreground">{dim.label}</span>
+									<span class="text-xs font-medium {outlookStatusColors[status]}"
 										>{outlookStatusLabels[status]}</span
 									>
 								</div>
@@ -728,7 +717,7 @@
 							</div>
 						{/each}
 					</div>
-					<p class="text-[11px] text-muted-foreground">
+					<p class="text-xs text-muted-foreground">
 						<a href="/methodology" class="text-primary hover:underline">Methodology</a>
 					</p>
 				</div>
@@ -756,7 +745,7 @@
 								<div class={cn(card({ padding: 'sm', variant: 'inset' }), 'space-y-3')}>
 									<div>
 										<p class="text-xs font-semibold text-foreground">Market detail</p>
-										<p class="text-[11px] text-muted-foreground">
+										<p class="text-xs text-muted-foreground">
 											More detailed monitor context in plain English.
 										</p>
 									</div>
@@ -777,7 +766,7 @@
 								<div class={cn(card({ padding: 'sm', variant: 'inset' }), 'space-y-3')}>
 									<div>
 										<p class="text-xs font-semibold text-foreground">Local context & support</p>
-										<p class="text-[11px] text-muted-foreground">
+										<p class="text-xs text-muted-foreground">
 											Institutional, education, and transition-support signals.
 										</p>
 									</div>
@@ -986,7 +975,7 @@
 				</div>
 
 				<!-- Transition graph (desktop) -->
-				{#if innerWidth >= 768 && topTransitions.length > 0}
+				{#if viewportWidth >= 768 && topTransitions.length > 0}
 					<div class="mt-4 pt-4 border-t border-border">
 						<TransitionGraph
 							currentTitle={occ.title}
@@ -1015,9 +1004,7 @@
 		<Collapsible.Trigger
 			class="flex w-full items-center justify-between px-5 py-3 text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors"
 		>
-			Technical Details · SSOC {occ.ssoc} · {occ.confidence.level} confidence · {occ.stability
-				.label}
-			band
+			Technical Details · SSOC {occ.ssoc}
 			<svg
 				class="h-3.5 w-3.5 transition-transform [[data-state=open]>&]:rotate-180"
 				viewBox="0 0 24 24"
@@ -1068,6 +1055,24 @@
 					</p>
 				</div>
 				<div>
+					<p class="font-semibold text-foreground mb-1">Uncertainty</p>
+					<p>
+						Exposure {exposureUncertainty} · Net risk {netRiskUncertainty} · Method {occ.uncertainty
+							?.method ?? 'n/a'}
+					</p>
+				</div>
+				<div class="sm:col-span-2">
+					<p class="font-semibold text-foreground mb-1">Source Coverage</p>
+					<div class="mt-2">
+						<EvidenceBar
+							sourceCount={occ.evidence.exposure_source_count ?? 0}
+							sourceKeys={occ.evidence.exposure_source_keys ?? []}
+							agreement={occ.evidence.exposure_agreement ?? null}
+							signalConflict={occ.evidence.signal_conflict ?? false}
+						/>
+					</div>
+				</div>
+				<div>
 					<p class="font-semibold text-foreground mb-1">Confidence</p>
 					<p>
 						{(occ.confidence.score * 100).toFixed(0)}% · Crosswalk {occ.confidence.crosswalk_quality.toFixed(
@@ -1076,6 +1081,10 @@
 							2
 						)}
 					</p>
+				</div>
+				<div class="sm:col-span-2">
+					<p class="font-semibold text-foreground mb-1">Task Evidence</p>
+					<p>{taskEvidenceSummary}</p>
 				</div>
 				<div class="sm:col-span-2">
 					<p class="font-semibold text-foreground mb-1">Wage (SGD/mo)</p>

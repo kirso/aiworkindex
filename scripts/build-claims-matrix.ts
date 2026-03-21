@@ -66,8 +66,7 @@ const claims: ClaimEntry[] = [
 	{
 		id: 'reliability_weighted_exposure_ensemble',
 		category: 'methodology',
-		claim:
-			'V4.1 uses a reliability-weighted 4-source exposure ensemble (AIOE, Anthropic, Eloundou, ILO).',
+		claim: `${DATA_VINTAGE.model_version} uses a reliability-weighted 4-source exposure ensemble (AIOE, Anthropic, Eloundou, ILO).`,
 		strength: 'high',
 		source_keys: [
 			'aioe_2021',

@@ -169,13 +169,13 @@
 						>
 							{role.title}
 						</h3>
-						<span class={cn(riskBadge({ band: role.risk_band }), 'shrink-0 text-[10px]')}>
+						<span class={cn(riskBadge({ band: role.risk_band }), 'shrink-0 text-xs')}>
 							{(role.net_risk * 100).toFixed(0)}%
 						</span>
 					</div>
 					<p class="text-xs text-muted-foreground line-clamp-2 mb-2">{role.description}</p>
 					<div class="flex items-center gap-1.5">
-						<span class={cn(impactBadge({ type: role.impact_type }), 'text-[10px] px-1.5 py-0')}>
+						<span class={cn(impactBadge({ type: role.impact_type }), 'text-xs px-1.5 py-0')}>
 							{impactTypeLabels[role.impact_type]}
 						</span>
 						{#if role.estimate_type === 'gig'}
@@ -183,7 +183,7 @@
 						{:else if role.estimate_type === 'founder'}
 							<span class={pill({ size: 'sm', tone: 'muted' })}>Founder</span>
 						{/if}
-						<span class="ml-auto text-[10px] text-muted-foreground">
+						<span class="ml-auto text-xs text-muted-foreground">
 							{role.components.length} components
 						</span>
 					</div>
@@ -225,14 +225,12 @@
 									</a>
 								</td>
 								<td class="px-3 py-2 text-right">
-									<span class={cn(riskBadge({ band: role.risk_band }), 'text-[10px]')}>
+									<span class={cn(riskBadge({ band: role.risk_band }), 'text-xs')}>
 										{(role.net_risk * 100).toFixed(0)}%
 									</span>
 								</td>
 								<td class="px-3 py-2">
-									<span
-										class={cn(impactBadge({ type: role.impact_type }), 'text-[10px] px-1.5 py-0')}
-									>
+									<span class={cn(impactBadge({ type: role.impact_type }), 'text-xs px-1.5 py-0')}>
 										{impactTypeLabels[role.impact_type]}
 									</span>
 								</td>

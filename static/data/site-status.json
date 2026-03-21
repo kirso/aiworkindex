@@ -1,11 +1,23 @@
 {
-  "updated_at": "2026-03-20T13:10:17.466Z",
+  "updated_at": "2026-03-21T02:44:40.914Z",
   "structural_release": {
-    "version": "V4.1",
-    "label": "V4.1 structural release",
-    "generated_at": "2026-03-20T00:00:00.000Z",
-    "score_dataset_generated_at": "2026-03-20",
+    "version": "V4.2",
+    "label": "V4.2 structural release",
+    "generated_at": "2026-03-21T00:00:00.000Z",
+    "score_dataset_generated_at": "2026-03-21",
     "release_manifest": "release-manifest-v4.json"
+  },
+  "experimental_release": {
+    "version": "V4.3-shadow",
+    "label": "V4.3-shadow task-weighted shadow model",
+    "status": "ready_for_shadow_scoring",
+    "summary": "Ready for shadow scoring: task-weight coverage clears the minimum promotion gate, but no task-adjusted headline score is published yet.",
+    "artifact": "experimental-methodology-v43.json",
+    "shadow_score_published": false,
+    "headline_promotion_ready": false,
+    "direct_task_weighted_occupation_count": 456,
+    "median_direct_matched_task_weight_share": 1,
+    "blocker_count": 0
   },
   "live_monitor": {
     "labour_monitor_artifact_vintage": "Q4 2025 full",
@@ -21,11 +33,11 @@
     "refresh_note": "The live labour monitor now uses the full MOM Labour Market Report Q4 2025, including explicit Q3-to-Q4 deltas for vacancy, hiring, retrenchment and re-entry signals.",
     "macro_vintage": "2025 4Q",
     "ai_context_vintage": "2024 data",
-    "postings_generated_at": "2026-03-20T13:10:17.345Z",
+    "postings_generated_at": "2026-03-21T02:44:40.793Z",
     "postings_volume_30d": 380,
-    "employer_pressure_generated_at": "2026-03-20T13:10:17.386Z",
+    "employer_pressure_generated_at": "2026-03-21T02:44:40.825Z",
     "employer_pressure_latest_signal_date": "2025-10-06",
-    "quarterly_report_generated_at": "2026-03-20T13:10:16.896Z",
+    "quarterly_report_generated_at": "2026-03-21T02:44:40.547Z",
     "quarterly_current_snapshot": "occupations-v4-2026-03.json",
     "quarterly_previous_snapshot": "occupations-v3-2026-03.json",
     "cluster_validation_checks_passed": 2,
@@ -34,21 +46,21 @@
     "temporal_validation_vacancy_periods": 2,
     "temporal_validation_hiring_accuracy": 0.3,
     "temporal_validation_hiring_periods": 10,
-    "calibration_direct_rho": -0.16,
+    "calibration_direct_rho": -0.157,
     "calibration_direct_sample": 491,
-    "calibration_high_medium_rho": -0.145,
+    "calibration_high_medium_rho": -0.143,
     "calibration_high_medium_sample": 522,
     "calibration_low_confidence_sample": 8,
-    "occupation_family_validation_rho": -0.243,
+    "occupation_family_validation_rho": -0.242,
     "occupation_family_validation_family_count": 29,
     "occupation_family_validation_significant": false,
-    "offset_potential_generated_at": "2026-03-20T13:10:17.436Z",
-    "offset_potential_high_count": 23
+    "offset_potential_generated_at": "2026-03-21T02:44:40.887Z",
+    "offset_potential_high_count": 20
   },
   "homepage_banner": {
     "tag": "Update",
     "title": "MOM Labour Market Report Q4 2025 is now live in the monitor",
-    "body": "Structural score remains V4.1. The live labour monitor now runs on Q4 2025 full, with explicit Q3 → Q4 deltas across the Singapore labour layer.",
+    "body": "Structural score remains V4.2. The live labour monitor now runs on Q4 2025 full, with explicit Q3 → Q4 deltas across the Singapore labour layer.",
     "link_href": "/reports",
     "link_label": "See report updates"
   }

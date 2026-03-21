@@ -36,6 +36,10 @@ const OCCUPATION_FAMILY_VALIDATION_FILE = path.join(
 	'occupation-family-validation.json'
 );
 const OFFSET_POTENTIAL_FILE = path.join(STATIC_DATA_DIR, 'sg-offset-potential-v4.json');
+const EXPERIMENTAL_METHODOLOGY_FILE = path.join(
+	STATIC_DATA_DIR,
+	'experimental-methodology-v43.json'
+);
 
 const SITE_STATUS_OUT = path.join(STATIC_DATA_DIR, 'site-status.json');
 const SITE_STATUS_SRC_OUT = path.join(SRC_DATA_DIR, 'site-status.json');
@@ -53,6 +57,27 @@ const LATEST_OFFICIAL_LABOUR_REPORT = {
 function readJson<T>(filePath: string): T | null {
 	if (!fs.existsSync(filePath)) return null;
 	return JSON.parse(fs.readFileSync(filePath, 'utf-8')) as T;
+}
+
+function formatExperimentalReleaseNote(
+	experimentalMethodology: {
+		summary: string;
+		shadow_score_published: boolean;
+		headline_promotion_ready: boolean;
+		blocker_count?: number;
+	} | null
+) {
+	if (!experimentalMethodology) return 'Experimental shadow-model artifact is not available.';
+	if ((experimentalMethodology.blocker_count ?? 0) > 0) {
+		return `${experimentalMethodology.summary} Required local inputs remain incomplete.`;
+	}
+	if (!experimentalMethodology.shadow_score_published) {
+		return `${experimentalMethodology.summary} All required local inputs are present; headline promotion still depends on publishing the shadow score and clearing validation review.`;
+	}
+	if (!experimentalMethodology.headline_promotion_ready) {
+		return 'Shadow score is published, but promotion into the headline model is still gated by validation and anchor review.';
+	}
+	return 'Shadow score is fully ready for headline-promotion review.';
 }
 
 function buildSiteStatus() {
@@ -95,6 +120,20 @@ function buildSiteStatus() {
 		spearman_rho: number;
 		p_value_below_01: boolean;
 	}>(OCCUPATION_FAMILY_VALIDATION_FILE);
+	const experimentalMethodology = readJson<{
+		version: string;
+		shadow_readiness: {
+			status: 'blocked' | 'not_ready' | 'ready_for_shadow_scoring';
+			summary: string;
+		};
+		shadow_score_published: boolean;
+		headline_promotion_ready: boolean;
+		coverage?: {
+			direct_task_weighted_occupation_count?: number;
+			median_direct_matched_task_weight_share?: number | null;
+		};
+		blockers?: Array<{ key: string }>;
+	}>(EXPERIMENTAL_METHODOLOGY_FILE);
 	const offsetPotential = readJson<{
 		generated_at: string;
 		entries?: Array<{ band: 'low' | 'medium' | 'high' }>;
@@ -109,6 +148,22 @@ function buildSiteStatus() {
 			score_dataset_generated_at: DATA_VINTAGE.last_updated,
 			release_manifest: 'release-manifest-v4.json'
 		},
+		experimental_release: experimentalMethodology
+			? {
+					version: experimentalMethodology.version,
+					label: `${experimentalMethodology.version} task-weighted shadow model`,
+					status: experimentalMethodology.shadow_readiness.status,
+					summary: experimentalMethodology.shadow_readiness.summary,
+					artifact: 'experimental-methodology-v43.json',
+					shadow_score_published: experimentalMethodology.shadow_score_published,
+					headline_promotion_ready: experimentalMethodology.headline_promotion_ready,
+					direct_task_weighted_occupation_count:
+						experimentalMethodology.coverage?.direct_task_weighted_occupation_count ?? 0,
+					median_direct_matched_task_weight_share:
+						experimentalMethodology.coverage?.median_direct_matched_task_weight_share ?? null,
+					blocker_count: experimentalMethodology.blockers?.length ?? 0
+				}
+			: null,
 		live_monitor: {
 			labour_monitor_artifact_vintage: DATA_VINTAGE.labour_monitor,
 			labour_monitor_validation_vintage: currentBacktest?.data_period ?? 'Q4 2025',
@@ -177,6 +232,19 @@ function buildReleases(siteStatus: ReturnType<typeof buildSiteStatus>) {
 			notes: [
 				'Canonical structural score dataset and schema release.',
 				'Release manifest and claims matrix regenerated for this version.'
+			]
+		},
+		{
+			id: 'shadow-methodology-note-v43',
+			type: 'experimental_update',
+			label: 'V4.3 shadow model note',
+			published_at: DATA_VINTAGE.last_updated,
+			score_version: DATA_VINTAGE.model_version,
+			monitor_vintage: siteStatus.live_monitor.labour_monitor_artifact_vintage,
+			href: '/reports/v4-3-shadow',
+			notes: [
+				'Task-weighted shadow-model governance artifact published.',
+				formatExperimentalReleaseNote(siteStatus.experimental_release)
 			]
 		},
 		{

@@ -162,7 +162,7 @@
 					<div class={card({ padding: 'sm' })}>
 						<h3 class="text-sm font-semibold text-red-700">Layer 1: Exposure</h3>
 						<p class="mt-1 text-sm text-muted-foreground">
-							How much does this job overlap with current AI capabilities? The V4.1 exposure layer
+							How much does this job overlap with current AI capabilities? The V4.2 exposure layer
 							blends available signals from AIOE, Anthropic observed usage, Eloundou GPT exposure,
 							and the ILO occupational exposure index.
 						</p>
@@ -269,7 +269,7 @@
 				<div class={cn(card({ padding: 'md' }), 'mt-4')}>
 					<h3 class="font-semibold text-foreground">Exposure Ensemble</h3>
 					<p class="mt-1 text-sm text-muted-foreground">
-						V4.1 treats exposure as an ensemble layer, not a single index. AIOE is the baseline
+						V4.2 treats exposure as an ensemble layer, not a single index. AIOE is the baseline
 						source; Anthropic observed usage, Eloundou GPT exposure, and the ILO occupational
 						exposure index are added when crosswalk coverage exists.
 					</p>
@@ -362,19 +362,25 @@
 				</p>
 				<p class="mt-2 text-sm text-muted-foreground">
 					Separately, we build a Singapore industry-footprint layer from the official industry ×
-					occupation cross-tab plus industry vacancy series. That layer is shown on occupation and
-					synthetic-role pages as contextual evidence, not as a direct score multiplier.
+					occupation cross-tab plus industry vacancy series. When it exists, that footprint now
+					informs the employment side of market momentum directly; the same footprint is also shown
+					on occupation and synthetic-role pages as transparent supporting context.
 				</p>
 
 				<div class="mt-4 space-y-4">
 					<div class={card({ padding: 'md' })}>
-						<h3 class="font-semibold text-foreground">Market Momentum (group-level)</h3>
+						<h3 class="font-semibold text-foreground">
+							Market Momentum (group prior + industry footprint)
+						</h3>
 						<p class="mt-2 rounded bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
-							market_momentum = mean(pctile(group_empl_cagr), pctile(group_wage_cagr))
+							market_momentum = mean(blend(pctile(group_empl_cagr),
+							pctile(occupation_industry_growth)), pctile(group_wage_cagr))
 						</p>
 						<p class="mt-2 text-sm text-muted-foreground">
-							10-year employment CAGR (2015-2025) and 8-year wage CAGR (2015-2023) from MOM data,
-							per major occupation group. Percentile-ranked across the 8 major groups.
+							The baseline prior is still MOM group employment CAGR (2015-2025) plus group wage CAGR
+							(2015-2023). When an occupation has a published industry footprint, we replace most of
+							the employment-side group prior with an occupation-specific industry growth signal
+							built from the industries where that occupation actually appears.
 						</p>
 					</div>
 
@@ -401,9 +407,10 @@
 							</p>
 						</div>
 						<p class="mt-2 text-sm text-muted-foreground">
-							Group-level trends get 60% weight (direct measurement). Occupation-level wage
-							structure adds within-group differentiation at 40% weight (noisier signal). The 0.35
-							cap means the market layer can reduce net risk by up to 35%.
+							Momentum gets 60% weight and scarcity 40%. Within momentum, group-level wage growth is
+							retained as the common anchor while the employment side uses an occupation-specific
+							industry-footprint blend when available, falling back to the group prior otherwise.
+							The 0.35 cap means the market layer can reduce net risk by up to 35%.
 						</p>
 					</div>
 
@@ -631,9 +638,9 @@
 				</div>
 				<p class="mt-3 text-sm text-muted-foreground italic">
 					Impact type is classified from net_risk and augmentation thresholds: net_risk &ge; 0.25 =
-					"high displacement", augmentation &ge; 0.12 = "high augmentation". Occupations with high
-					displacement and official demand signals (SOL/JiD) are classified as "mixed" rather than
-					"at risk".
+					"high displacement", augmentation &ge; 0.12 = "high augmentation". Official demand signals
+					affect impact type indirectly through market resilience and therefore the structural
+					scores; they are not applied again as a separate classification override.
 				</p>
 			</section>
 
@@ -1071,7 +1078,7 @@
 									>Eloundou et al. (2023) — LLM task-level exposure via human + GPT-4 assessment</td
 								>
 								<td class="py-2"
-									>Integrated in V4.1 ensemble with reliability weighting when matched via SOC
+									>Integrated in V4.2 ensemble with reliability weighting when matched via SOC
 									crosswalk.</td
 								>
 							</tr>
@@ -1081,7 +1088,7 @@
 									>ILO (2024) — task-level AI automation potential scored across ISCO occupations</td
 								>
 								<td class="py-2"
-									>Integrated in V4.1 ensemble with reliability weighting when matched via ISCO
+									>Integrated in V4.2 ensemble with reliability weighting when matched via ISCO
 									crosswalk.</td
 								>
 							</tr>
@@ -1200,14 +1207,15 @@
 			<section class="mb-8">
 				<p class={sectionLabel()}>What This Version Shows</p>
 				<p class="mt-2 text-sm text-muted-foreground">
-					V4.1 implements the full three-layer structural score with a reliability-weighted 4-source
+					V4.2 implements the full three-layer structural score with a reliability-weighted 4-source
 					exposure ensemble, human bottleneck (theta percentile), and market resilience (group-level
 					employment/wage trends + occupation-level wage structure). Net risk is published as risk
-					bands with visible confidence. Augmentation potential, impact type classification, and
-					rule-based outlook/scenario modelling are included. 88 estimated modern roles (AI
-					engineer, product manager, prompt engineer, startup operator, creator, gig-worker
-					variants, etc.) are scored as weighted occupation priors plus workflow-aware context
-					adjustments, with dispersion analysis for high-variance compositions.
+					bands with visible confidence plus deterministic uncertainty intervals. Augmentation
+					potential, impact type classification, task-primitives sidecar fields, and rule-based
+					outlook/scenario modelling are included. 88 estimated modern roles (AI engineer, product
+					manager, prompt engineer, startup operator, creator, gig-worker variants, etc.) are scored
+					as weighted occupation priors plus workflow-aware context adjustments, with dispersion
+					analysis for high-variance compositions.
 				</p>
 				<p class="mt-2 text-sm text-muted-foreground">
 					<strong>Seniority adjustment</strong> (V3.2+): the Outlook section now supports experience-level
@@ -1256,10 +1264,10 @@
 						<p class="mt-1">
 							Each synthetic role defines component SSOC occupations and weights (e.g., Startup CTO
 							= 40% Software Manager + 30% Solution Architect + 30% Software Developer). Scores are
-							built from a weighted occupation prior plus a workflow-aware context adjustment
-							derived from coordination intensity, ambiguity, relationship depth, regulatory load,
-							and physicality. All component SSOC codes are validated against the occupations
-							dataset.
+							built from weighted structural primitives. Workflow context then adjusts the role's
+							net-risk estimate and uncertainty range, but the published exposure, bottleneck,
+							market resilience, and augmentation remain formula-consistent with the structural
+							model. All component SSOC codes are validated against the occupations dataset.
 						</p>
 					</div>
 					<div class={card({ padding: 'sm' })}>
@@ -1336,7 +1344,9 @@
 					"Sensitivity" refers to the occupation's variant_sensitivity score (0–1), derived from
 					institutional knowledge, relationship intensity, regulatory weight, and coordination
 					requirements. High-sensitivity roles (e.g., software engineering: 0.55) vary more by
-					seniority than low-sensitivity roles (e.g., truck driver: 0.15).
+					seniority than low-sensitivity roles (e.g., truck driver: 0.15). These outlook adjustments
+					are applied as latent percentile shifts rather than raw linear additions, so extreme tail
+					occupations are compressed instead of being moved unrealistically.
 				</p>
 			</section>
 
@@ -1527,12 +1537,12 @@
 							></span>
 							<div class="flex-1 min-w-0">
 								<p class="text-xs text-foreground">{item.claim}</p>
-								<p class="text-[10px] text-muted-foreground">
+								<p class="text-xs text-muted-foreground">
 									{item.source_keys.join(', ')}
 								</p>
 							</div>
 							<span
-								class="text-[10px] font-medium shrink-0 {item.strength === 'high'
+								class="text-xs font-medium shrink-0 {item.strength === 'high'
 									? 'text-risk-very-low'
 									: item.strength === 'medium'
 										? 'text-risk-moderate'
@@ -1777,12 +1787,13 @@
 				<div class="mt-3 space-y-3">
 					<div class={card({ padding: 'sm' })}>
 						<div class="flex items-center justify-between">
-							<span class="text-sm font-semibold text-foreground">V4.1 — Current</span>
+							<span class="text-sm font-semibold text-foreground">V4.2 — Current</span>
 							<span class="text-xs text-muted-foreground">March 2026</span>
 						</div>
 						<p class="mt-1 text-sm text-muted-foreground">
 							4-source exposure ensemble (AIOE + Anthropic + Eloundou + ILO). Reliability-weighted
-							blend of all available matched inputs, plus separate published offset-potential and
+							blend of all available matched inputs, plus explicit uncertainty intervals, task
+							primitives sidecar scaffolding, and separate published offset-potential and
 							transition-support layers. BLS convergent cross-check, temporal vacancy validation,
 							industry momentum spread, and {DATA_VINTAGE.validation_checks} validation checks.
 						</p>

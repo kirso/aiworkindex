@@ -100,6 +100,14 @@ const RELEASE_MANIFEST_FILE = path.join(
 	'data',
 	'release-manifest.json'
 );
+const EXPERIMENTAL_METHODOLOGY_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'experimental-methodology-v43.json'
+);
 const TRANSITION_SUPPORT_FILE = path.join(
 	import.meta.dir,
 	'..',
@@ -152,7 +160,9 @@ const CLAIMS_MATRIX_FILE = path.join(
 const ACTIVE_VERSION_SURFACES = [
 	path.join(import.meta.dir, '..', 'src', 'routes', '+page.svelte'),
 	path.join(import.meta.dir, '..', 'src', 'routes', '+layout.svelte'),
+	path.join(import.meta.dir, '..', 'src', 'routes', 'changelog', '+page.svelte'),
 	path.join(import.meta.dir, '..', 'src', 'routes', 'reports', '+page.svelte'),
+	path.join(import.meta.dir, '..', 'src', 'routes', 'reports', 'v4-3-shadow', '+page.svelte'),
 	path.join(import.meta.dir, '..', 'src', 'routes', 'data', '+page.svelte'),
 	path.join(import.meta.dir, '..', 'src', 'routes', 'methodology', '+page.svelte'),
 	path.join(import.meta.dir, '..', 'src', 'routes', 'occupation', '[ssoc]', '+page.svelte'),
@@ -214,6 +224,21 @@ interface Occupation {
 	};
 	stability: {
 		label: 'stable' | 'watch' | 'sensitive';
+	};
+	task_primitives: {
+		matched_task_weight_share: number | null;
+		task_effective_coverage: number | null;
+		task_exposure_concentration: number | null;
+		method: 'anthropic_task_penetration_v1' | null;
+	};
+	uncertainty: {
+		exposure_p10: number;
+		exposure_p50: number;
+		exposure_p90: number;
+		net_risk_p10: number;
+		net_risk_p50: number;
+		net_risk_p90: number;
+		method: 'bootstrap_v1';
 	};
 	labour_monitor_key: string | null;
 	workflow_overlay?: {
@@ -327,7 +352,9 @@ async function main() {
 				!!row.market &&
 				!!row.confidence &&
 				!!row.evidence &&
-				!!row.stability
+				!!row.stability &&
+				!!row.task_primitives &&
+				!!row.uncertainty
 		)
 	);
 	check(
@@ -384,6 +411,28 @@ async function main() {
 			return Math.abs(total - 1) <= 0.001;
 		})
 	);
+	check(
+		'Uncertainty intervals are ordered',
+		data.every(
+			row =>
+				row.uncertainty.exposure_p10 <= row.uncertainty.exposure_p50 &&
+				row.uncertainty.exposure_p50 <= row.uncertainty.exposure_p90 &&
+				row.uncertainty.net_risk_p10 <= row.uncertainty.net_risk_p50 &&
+				row.uncertainty.net_risk_p50 <= row.uncertainty.net_risk_p90
+		)
+	);
+	check(
+		'Task primitive fields are explicit nulls or bounded values',
+		data.every(row => {
+			const taskPrimitives = row.task_primitives;
+			const values = [
+				taskPrimitives.matched_task_weight_share,
+				taskPrimitives.task_effective_coverage,
+				taskPrimitives.task_exposure_concentration
+			];
+			return values.every(value => value === null || (value >= 0 && value <= 1));
+		})
+	);
 
 	console.log('\n--- Distribution sanity ---');
 	const bandCounts: Record<RiskBand, number> = {
@@ -423,10 +472,7 @@ async function main() {
 
 	check(
 		'Stored impact types match recomputed classification',
-		data.every(row => {
-			const hasDemand = !!(row.evidence.sol_match || row.evidence.jobs_in_demand_match);
-			return classifyImpactType(row.net_risk, row.augmentation, hasDemand) === row.impact_type;
-		})
+		data.every(row => classifyImpactType(row.net_risk, row.augmentation) === row.impact_type)
 	);
 	check(
 		'At Risk and Augmented occupations both exist',
@@ -742,6 +788,13 @@ async function main() {
 		const { syntheticRoles } = await import('../src/lib/data/synthetic-roles');
 		const siteStatus = readJson<{
 			structural_release: { version: string; release_manifest: string };
+			experimental_release: {
+				version: string;
+				status: 'blocked' | 'not_ready' | 'ready_for_shadow_scoring';
+				artifact: string;
+				headline_promotion_ready: boolean;
+				median_direct_matched_task_weight_share: number | null;
+			} | null;
 			live_monitor: {
 				labour_monitor_artifact_vintage: string;
 				labour_monitor_validation_vintage?: string;
@@ -860,6 +913,23 @@ async function main() {
 		const releaseManifest = readJson<{ version: string; artifacts: Array<{ file: string }> }>(
 			RELEASE_MANIFEST_FILE
 		);
+		const experimentalMethodology = readJson<{
+			version: string;
+			shadow_readiness: {
+				status: 'blocked' | 'not_ready' | 'ready_for_shadow_scoring';
+			};
+			headline_promotion_ready: boolean;
+			coverage?: {
+				median_direct_matched_task_weight_share?: number | null;
+			};
+			required_inputs?: {
+				onet_task_ratings?: { present: boolean };
+			};
+			promotion_gates?: Array<{
+				key: string;
+				state: 'pass' | 'fail' | 'blocked' | 'pending';
+			}>;
+		}>(EXPERIMENTAL_METHODOLOGY_FILE);
 		const transitionSupport = readJson<{
 			transitions: Array<{
 				from_ssoc: string;
@@ -872,6 +942,11 @@ async function main() {
 						total_trainees_latest: number | null;
 					} | null;
 				};
+				top_overall: Array<{
+					observed_transition_rate?: number | null;
+					observed_source?: string | null;
+					observed_vintage?: string | null;
+				}>;
 			}>;
 		}>(TRANSITION_SUPPORT_FILE);
 		const industryContext = readJson<{
@@ -969,6 +1044,32 @@ async function main() {
 			siteStatus?.structural_release.version === DATA_VINTAGE.model_version,
 			siteStatus?.structural_release.version
 		);
+		check('Experimental methodology artifact exists', experimentalMethodology !== null);
+		check(
+			'Site status includes experimental release summary',
+			siteStatus?.experimental_release?.artifact === 'experimental-methodology-v43.json',
+			siteStatus?.experimental_release?.artifact
+		);
+		check(
+			'Experimental release version is V4.3-shadow',
+			experimentalMethodology?.version === 'V4.3-shadow' &&
+				siteStatus?.experimental_release?.version === 'V4.3-shadow',
+			`${experimentalMethodology?.version} / ${siteStatus?.experimental_release?.version}`
+		);
+		check(
+			'Experimental release stays non-promoted while shadow score is unpublished',
+			experimentalMethodology?.headline_promotion_ready === false &&
+				siteStatus?.experimental_release?.headline_promotion_ready === false
+		);
+		check(
+			'Experimental release status matches task-weight availability',
+			experimentalMethodology?.required_inputs?.onet_task_ratings?.present === false
+				? experimentalMethodology.shadow_readiness.status === 'blocked'
+				: (experimentalMethodology?.coverage?.median_direct_matched_task_weight_share ?? 0) >= 0.6
+					? experimentalMethodology?.shadow_readiness.status === 'ready_for_shadow_scoring'
+					: experimentalMethodology?.shadow_readiness.status === 'not_ready',
+			experimentalMethodology?.shadow_readiness.status
+		);
 		check(
 			'Site status monitor vintage matches DATA_VINTAGE',
 			siteStatus?.live_monitor.labour_monitor_artifact_vintage === DATA_VINTAGE.labour_monitor,
@@ -987,8 +1088,17 @@ async function main() {
 			releases ? JSON.stringify(releases.map(release => release.score_version)) : undefined
 		);
 		check(
+			'Releases history includes the V4.3 shadow note',
+			(releases ?? []).some(
+				release => release.type === 'experimental_update' && release.href === '/reports/v4-3-shadow'
+			)
+		);
+		check(
 			'Release manifest includes site status and release history artifacts',
 			(releaseManifest?.artifacts ?? []).some(artifact => artifact.file === 'site-status.json') &&
+				(releaseManifest?.artifacts ?? []).some(
+					artifact => artifact.file === 'experimental-methodology-v43.json'
+				) &&
 				(releaseManifest?.artifacts ?? []).some(artifact => artifact.file === 'releases.json') &&
 				(releaseManifest?.artifacts ?? []).some(
 					artifact => artifact.file === 'sg-offset-potential-v4.json'
@@ -999,6 +1109,33 @@ async function main() {
 				(releaseManifest?.artifacts ?? []).some(
 					artifact => artifact.file === 'backtests/occupation-family-validation.json'
 				)
+		);
+		check(
+			'Experimental direct task-share summary matches occupation data when present',
+			(() => {
+				const directTaskShares = data
+					.filter(row => row.match_quality === 'direct')
+					.map(row => row.task_primitives.matched_task_weight_share)
+					.filter((value): value is number => value !== null)
+					.sort((a, b) => a - b);
+				if (directTaskShares.length === 0) {
+					return (
+						experimentalMethodology?.coverage?.median_direct_matched_task_weight_share === null
+					);
+				}
+				const midpoint = Math.floor(directTaskShares.length / 2);
+				const median =
+					directTaskShares.length % 2 === 1
+						? directTaskShares[midpoint]
+						: (directTaskShares[midpoint - 1] + directTaskShares[midpoint]) / 2;
+				return (
+					Math.abs(
+						(experimentalMethodology?.coverage?.median_direct_matched_task_weight_share ?? 0) -
+							median
+					) <= 0.0001
+				);
+			})(),
+			String(experimentalMethodology?.coverage?.median_direct_matched_task_weight_share ?? null)
 		);
 		check(
 			'Active surfaces do not hardcode stale MOM Q3 2025 labels',
@@ -1074,6 +1211,20 @@ async function main() {
 			) === true
 		);
 		check(
+			'Raw data audit tracks O*NET task ratings as valid after ingestion',
+			rawDataAudit?.entries?.some(
+				entry =>
+					entry.key === 'onet_task_ratings' && entry.status === 'valid' && entry.exists === true
+			) === true
+		);
+		check(
+			'Raw data audit tracks empirical mobility as valid after ingestion',
+			rawDataAudit?.entries?.some(
+				entry =>
+					entry.key === 'sg_empirical_mobility' && entry.status === 'valid' && entry.exists === true
+			) === true
+		);
+		check(
 			'O*NET enrichment covers a meaningful share of occupations',
 			(onetEnrichment ?? []).filter(
 				entry => entry.tasks.length > 0 || entry.technologies.length > 0
@@ -1087,6 +1238,12 @@ async function main() {
 		check(
 			'build:release-data regenerates O*NET enrichment',
 			(packageJson?.scripts?.['build:release-data'] ?? '').includes('scripts/enrich-onet.ts')
+		);
+		check(
+			'build:release-data regenerates empirical mobility',
+			(packageJson?.scripts?.['build:release-data'] ?? '').includes(
+				'scripts/build-empirical-mobility.ts'
+			)
 		);
 		check(
 			'build:release-data regenerates offset potential',
@@ -1125,6 +1282,23 @@ async function main() {
 				row =>
 					(row.official_programme_support.wsq_training_reference?.total_trainees_latest ?? 0) > 0
 			)
+		);
+		check(
+			'Transition support publishes observed mobility priors when the empirical source exists',
+			rawDataAudit?.entries?.some(
+				entry =>
+					entry.key === 'sg_empirical_mobility' && entry.status === 'valid' && entry.exists === true
+			) === true
+				? (transitionSupport?.transitions ?? []).some(row =>
+						(row.top_overall ?? []).some(
+							transition =>
+								typeof transition.observed_transition_rate === 'number' &&
+								transition.observed_transition_rate > 0 &&
+								typeof transition.observed_source === 'string' &&
+								typeof transition.observed_vintage === 'string'
+						)
+					)
+				: true
 		);
 		check(
 			'Transition infrastructure exposes latest WSQ attainment mix',

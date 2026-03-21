@@ -24,6 +24,12 @@ const SRC_OUT_FILE = path.join(SRC_DATA_DIR, 'transition-support.json');
 const STATIC_OUT_FILE = path.join(STATIC_DATA_DIR, 'sg-transition-support-v4.json');
 const TRANSITION_INFRASTRUCTURE_FILE = path.join(DATA_DIR, 'transition-infrastructure.json');
 const INDUSTRY_CONTEXT_FILE = path.join(DATA_DIR, 'industry-context.json');
+const EMPIRICAL_MOBILITY_FILE = path.join(
+	DATA_DIR,
+	'raw',
+	'external',
+	'sg_empirical_mobility.json'
+);
 
 function readJson<T>(filePath: string): T | null {
 	if (!fs.existsSync(filePath)) return null;
@@ -41,11 +47,31 @@ function compactTransition(transition: ReturnType<typeof findBestTransitions>[nu
 		wage_preservation: Number(transition.wage_preservation.toFixed(4)),
 		demand_strength: Number(transition.demand_strength.toFixed(4)),
 		risk_improvement: Number(transition.risk_improvement.toFixed(4)),
-		credential_gap: Number(transition.credential_gap.toFixed(4))
+		credential_gap: Number(transition.credential_gap.toFixed(4)),
+		observed_transition_rate: transition.observed_transition_rate ?? null,
+		observed_wage_delta: transition.observed_wage_delta ?? null,
+		observed_training_duration_months: transition.observed_training_duration_months ?? null,
+		observed_source: transition.observed_source ?? null,
+		observed_vintage: transition.observed_vintage ?? null
 	};
 }
 
+interface EmpiricalMobilityPayload {
+	source?: {
+		title?: string;
+		survey_period?: string;
+	};
+	granularity?: string;
+	observed_transition_rate_basis?: string;
+	transitions?: Array<{
+		from_major_group: string;
+		to_major_group: string;
+		covered_share: number | null;
+	}>;
+}
+
 const transitionInfrastructure = readJson<Record<string, unknown>>(TRANSITION_INFRASTRUCTURE_FILE);
+const empiricalMobility = readJson<EmpiricalMobilityPayload>(EMPIRICAL_MOBILITY_FILE);
 const industryContextData = readJson<
 	| {
 			groups?: Record<string, { top_industries?: Array<{ label: string }> }>;
@@ -73,11 +99,60 @@ function normalizeLabel(value: string | undefined | null): string {
 		.trim();
 }
 
+function empiricalMobilityKey(fromMajorGroup: string, toMajorGroup: string): string {
+	return `${normalizeLabel(fromMajorGroup)}::${normalizeLabel(toMajorGroup)}`;
+}
+
+const empiricalMobilityByGroup = new Map(
+	(empiricalMobility?.transitions ?? []).map(entry => [
+		empiricalMobilityKey(entry.from_major_group, entry.to_major_group),
+		entry
+	])
+);
+
+const empiricalSourceLabel = empiricalMobility?.source?.title
+	? `${empiricalMobility.source.title}${empiricalMobility?.granularity ? ` (${empiricalMobility.granularity})` : ''}${empiricalMobility?.observed_transition_rate_basis ? ` — ${empiricalMobility.observed_transition_rate_basis}` : ''}`
+	: null;
+
+function getObservedMobilityEvidence(fromMajorGroup: string, toMajorGroup: string) {
+	const entry = empiricalMobilityByGroup.get(empiricalMobilityKey(fromMajorGroup, toMajorGroup));
+	return {
+		observed_transition_rate: entry?.covered_share ?? null,
+		observed_wage_delta: null,
+		observed_training_duration_months: null,
+		observed_source: entry ? empiricalSourceLabel : null,
+		observed_vintage: entry ? (empiricalMobility?.source?.survey_period ?? null) : null
+	};
+}
+
 const jtmSectorCoverage = new Set<string>(
 	(
 		transitionInfrastructure?.jobs_transformation_maps as { sector_coverage?: string[] } | undefined
 	)?.sector_coverage?.map(sector => normalizeLabel(sector)) ?? []
 );
+
+const occupationsBySsoc = new Map(occupations.map(occupation => [occupation.ssoc, occupation]));
+
+function compactTransitionWithEvidence(
+	fromOccupation: (typeof occupations)[number],
+	transition: ReturnType<typeof findBestTransitions>[number]
+) {
+	const toOccupation = occupationsBySsoc.get(transition.to_ssoc);
+	const observedEvidence = toOccupation
+		? getObservedMobilityEvidence(fromOccupation.major_group, toOccupation.major_group)
+		: {
+				observed_transition_rate: null,
+				observed_wage_delta: null,
+				observed_training_duration_months: null,
+				observed_source: null,
+				observed_vintage: null
+			};
+
+	return {
+		...compactTransition(transition),
+		...observedEvidence
+	};
+}
 
 function getIndustryLabelsForOccupation(majorGroup: string): string[] {
 	const groupKey = GROUP_LABELS[majorGroup] ?? majorGroup;
@@ -187,6 +262,8 @@ const transitions = occupations.map(from => {
 	const candidateSet = findBestTransitions(from, occupations, 25);
 	const categorized = categorizeTransitions(candidateSet);
 	const skillsfutureEligible = from.sg_context?.skillsfuture_eligible ?? false;
+	const compact = (transition: ReturnType<typeof findBestTransitions>[number]) =>
+		compactTransitionWithEvidence(from, transition);
 
 	return {
 		from_ssoc: from.ssoc,
@@ -199,11 +276,11 @@ const transitions = occupations.map(from => {
 			skillsfutureEligible,
 			from.major_group
 		),
-		top_overall: candidateSet.slice(0, 5).map(compactTransition),
-		easier_switch: categorized.easierSwitch.map(compactTransition),
-		lower_risk: categorized.lowerRisk.map(compactTransition),
-		better_pay: categorized.betterPay.map(compactTransition),
-		strong_demand: categorized.strongDemand.map(compactTransition)
+		top_overall: candidateSet.slice(0, 5).map(compact),
+		easier_switch: categorized.easierSwitch.map(compact),
+		lower_risk: categorized.lowerRisk.map(compact),
+		better_pay: categorized.betterPay.map(compact),
+		strong_demand: categorized.strongDemand.map(compact)
 	};
 });
 
@@ -215,7 +292,8 @@ const payload = {
 	notes: [
 		'Uses the published structural score plus wage, demand, archetype, and credential-gap heuristics.',
 		'Published separately from the structural score because it is a support layer, not a measured labour-market outcome.',
-		'Official Singapore transition infrastructure is attached as programme context; occupation-level transition matching remains a heuristic until observed mobility data is available.',
+		'Official Singapore transition infrastructure is attached as programme context; occupation-level transition matching remains a heuristic.',
+		'When present, observed_transition_rate is attached as a broad major-group empirical prior from Singapore Census 2000 data. It is published as evidence and does not yet re-rank transition recommendations.',
 		'SkillsFuture eligibility is a broad Singapore context flag, not proof that a specific transition pathway is available.'
 	],
 	official_transition_infrastructure: transitionInfrastructure,

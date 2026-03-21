@@ -1,6 +1,6 @@
 {
-  "version": "V4.1",
-  "generated_at": "2026-03-20T13:10:16.512Z",
+  "version": "V4.2",
+  "generated_at": "2026-03-21T02:44:40.318Z",
   "strength_labels": {
     "high": "Directly supported by the current pipeline or official published data at the level shown.",
     "medium": "Supported, but with more methodological interpretation or partial coverage.",
@@ -53,7 +53,7 @@
     {
       "id": "reliability_weighted_exposure_ensemble",
       "category": "methodology",
-      "claim": "V4.1 uses a reliability-weighted 4-source exposure ensemble (AIOE, Anthropic, Eloundou, ILO).",
+      "claim": "V4.2 uses a reliability-weighted 4-source exposure ensemble (AIOE, Anthropic, Eloundou, ILO).",
       "strength": "high",
       "source_keys": [
         "aioe_2021",

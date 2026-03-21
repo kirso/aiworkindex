@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
 	import Treemap from '$lib/components/viz/Treemap.svelte';
 	import Histogram from '$lib/components/viz/Histogram.svelte';
 	import DemandPressureMatrix from '$lib/components/viz/DemandPressureMatrix.svelte';
@@ -15,26 +14,17 @@
 	import { siteStatus } from '$lib/data/site-status';
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import { shortTitle } from '$lib/data/display-names';
+	import { innerWidth as windowWidth } from 'svelte/reactivity/window';
 
 	let { data } = $props();
 
-	let innerWidth = $state(1024);
+	let viewportWidth = $derived(windowWidth.current ?? 1024);
 	let filterResult: typeof data.occupations | null = $state(null);
 	let activeChartTab = $state<'treemap' | 'pressure' | 'distribution'>('treemap');
 	let filteredOccupations = $derived(filterResult ?? data.occupations);
 	let isFiltered = $derived(
 		filterResult !== null && filteredOccupations.length !== data.occupations.length
 	);
-
-	$effect(() => {
-		if (!browser) return;
-		innerWidth = window.innerWidth;
-		function onResize() {
-			innerWidth = window.innerWidth;
-		}
-		window.addEventListener('resize', onResize);
-		return () => window.removeEventListener('resize', onResize);
-	});
 
 	function handleFilter(filtered: typeof data.occupations) {
 		filterResult = filtered;
@@ -151,7 +141,7 @@
 					<p class="font-mono text-xl font-bold text-risk-very-high sm:text-2xl">
 						{data.stats.highRiskPct}%
 					</p>
-					<p class="text-[10px] text-muted-foreground sm:text-xs">
+					<p class="text-xs text-muted-foreground sm:text-xs">
 						of jobs face significant AI pressure
 					</p>
 				</div>
@@ -159,17 +149,13 @@
 					<p class="font-mono text-xl font-bold text-risk-high sm:text-2xl">
 						SGD {data.stats.wagePoolUnderPressureBillions.toFixed(0)}B
 					</p>
-					<p class="text-[10px] text-muted-foreground sm:text-xs">
-						in annual wages overlap with AI
-					</p>
+					<p class="text-xs text-muted-foreground sm:text-xs">in annual wages overlap with AI</p>
 				</div>
 				<div>
 					<p class="font-mono text-xl font-bold text-risk-very-low sm:text-2xl">
 						{data.stats.demandCount}
 					</p>
-					<p class="text-[10px] text-muted-foreground sm:text-xs">
-						jobs on Singapore's shortage list
-					</p>
+					<p class="text-xs text-muted-foreground sm:text-xs">jobs on Singapore's shortage list</p>
 				</div>
 			</div>
 
@@ -264,7 +250,7 @@
 		<!-- Main content -->
 		<div class="min-w-0 flex-1">
 			<!-- Mobile filters -->
-			{#if innerWidth < 1024}
+			{#if viewportWidth < 1024}
 				<div class="mb-4">
 					<details class={cn(card({ padding: 'none' }))}>
 						<summary
@@ -305,7 +291,7 @@
 							</h2>
 							<p class={caption()}>
 								{activeChartTab === 'treemap'
-									? innerWidth >= 768
+									? viewportWidth >= 768
 										? 'Size = employment · Colour = risk'
 										: 'Mobile fallback: grouped occupation list for quick browsing'
 									: activeChartTab === 'pressure'
@@ -326,7 +312,7 @@
 					</div>
 
 					<Tabs.Content value="treemap">
-						{#if innerWidth >= 768}
+						{#if viewportWidth >= 768}
 							<Treemap occupations={filteredOccupations} />
 						{:else}
 							<OccupationCardList occupations={filteredOccupations.slice(0, 12)} />

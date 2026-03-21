@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { card } from '$lib/design-system';
+	import { card, microLabel } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 
 	export interface SignalProfileItem {
@@ -30,9 +30,16 @@
 
 <div class={cn('grid gap-3', gridClass)}>
 	{#each items as item (item.label)}
-		<div class={cn(card({ padding: 'sm', variant: 'metric' }), 'min-w-0')}>
+		<div
+			class={cn(card({ padding: 'sm', variant: 'metric' }), 'min-w-0')}
+			role="meter"
+			aria-label={item.label}
+			aria-valuenow={Math.round(item.barValue * 100)}
+			aria-valuemin={0}
+			aria-valuemax={100}
+		>
 			<div class="flex items-center justify-between gap-3">
-				<span class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+				<span class={microLabel()}>
 					{item.label}
 				</span>
 				<span
@@ -44,14 +51,14 @@
 					{item.value}
 				</span>
 			</div>
-			<div class="mt-2 h-1.5 w-full rounded-full bg-muted-foreground/10">
+			<div class="mt-2 h-1.5 w-full rounded-full bg-muted-foreground/10" aria-hidden="true">
 				<div
 					class={cn('h-1.5 rounded-full transition-all duration-300', item.barClass)}
 					style="width: {Math.max(Math.min(item.barValue * 100, 100), 5)}%;"
 				></div>
 			</div>
 			{#if item.note}
-				<p class="mt-2 text-[10px] text-muted-foreground">{item.note}</p>
+				<p class="mt-2 text-xs text-muted-foreground">{item.note}</p>
 			{/if}
 		</div>
 	{/each}

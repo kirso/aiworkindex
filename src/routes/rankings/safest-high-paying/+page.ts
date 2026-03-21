@@ -2,6 +2,8 @@ import { occupations } from '$lib/data';
 import { RANKING_THRESHOLDS } from '$lib/data/scoring-constants';
 import type { PageLoad } from './$types';
 
+export const csr = false;
+
 export const load: PageLoad = () => {
 	const allWages = occupations.map(o => o.gross_wage_median).sort((a, b) => a - b);
 	const medianWage = allWages[Math.floor(allWages.length / 2)]!;

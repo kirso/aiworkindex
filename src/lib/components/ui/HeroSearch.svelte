@@ -2,11 +2,11 @@
 	import { goto } from '$app/navigation';
 	import type { Occupation } from '$lib/data';
 	import { riskBandLabels } from '$lib/data';
-	import { findAliasMatches } from '$lib/data/aliases';
 	import { DATA_VINTAGE } from '$lib/data/scoring-constants';
 	import { syntheticRoles } from '$lib/data/synthetic-roles';
 	import { trackEvent } from '$lib/analytics';
 	import type { SyntheticRole } from '$lib/data/synthetic-roles';
+	import { searchOccupationsAndRoles } from '$lib/utils/search';
 	import { riskBadge, card } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import { Input } from '$lib/components/ui/input/index.js';
@@ -25,48 +25,14 @@
 	let showDropdown = $state(false);
 	let selectedIndex = $state(-1);
 
-	// Word-boundary matching for short queries
-	function titleMatches(title: string, q: string): boolean {
-		const t = title.toLowerCase();
-		if (q.length >= 4) return t.includes(q);
-		const words = t.split(/[\s/(),]+/);
-		return words.some(w => w.startsWith(q));
-	}
-
 	// Split results into grouped categories
 	let grouped = $derived.by(() => {
-		const q = query.trim().toLowerCase();
-		if (!q || q.length < 2)
-			return {
-				roles: [] as SearchResult[],
-				occupations: [] as SearchResult[],
-				flat: [] as SearchResult[]
-			};
-
-		const roles: SearchResult[] = [];
-		const occs: SearchResult[] = [];
-
-		// Synthetic role matches
-		const roleMatches = syntheticRoles.filter(r => titleMatches(r.title, q));
-		for (const role of roleMatches.slice(0, 5)) {
-			roles.push({ type: 'role', role });
-		}
-
-		// Alias matches first (highest relevance)
-		const aliasHits = findAliasMatches(q);
-		const aliasSsocs = new Set(aliasHits.flatMap(m => m.ssocs));
-		const aliasOccs = aliasSsocs.size > 0 ? occupations.filter(o => aliasSsocs.has(o.ssoc)) : [];
-
-		// Direct title matches (excluding already-found alias matches)
-		const aliasSet = new Set(aliasOccs.map(o => o.ssoc));
-		const titleOccs = occupations.filter(o => !aliasSet.has(o.ssoc) && titleMatches(o.title, q));
-
-		// Alias results first, then title matches
-		const allOccs = [...aliasOccs, ...titleOccs];
-		for (const occ of allOccs.slice(0, 8)) {
-			occs.push({ type: 'occupation', occupation: occ });
-		}
-
+		const raw = searchOccupationsAndRoles(query, occupations);
+		const roles: SearchResult[] = raw.roles.map(role => ({ type: 'role', role }));
+		const occs: SearchResult[] = raw.occupations.map(occupation => ({
+			type: 'occupation',
+			occupation
+		}));
 		const flat = [...roles, ...occs].slice(0, 12);
 		return { roles, occupations: occs, flat };
 	});

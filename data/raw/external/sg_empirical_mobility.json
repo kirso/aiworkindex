@@ -1,0 +1,481 @@
+{
+  "version": "v1",
+  "generated_at": "2026-03-21T02:44:37.437Z",
+  "source": {
+    "title": "Resident Working Persons Aged 15 Years and Over Who Changed Job During Last 2 Years by Current Occupation, Previous Occupation and Age Group (Census of Population 2000)",
+    "dataset_url": "https://data.gov.sg/datasets/d_2da44348341b7cb4e30766b361bf2611/view",
+    "dataset_id": "d_2da44348341b7cb4e30766b361bf2611",
+    "agency": "SINGSTAT (Singapore Department of Statistics)",
+    "survey_period": "Census of Population 2000",
+    "data_last_updated": "2016-03-31",
+    "page_last_updated": "2026-02-21"
+  },
+  "granularity": "major_group_current_x_previous",
+  "observed_transition_rate_basis": "covered_share",
+  "covered_groups": [
+    "Managers & Administrators (Including Working Proprietors)",
+    "Professionals",
+    "Associate Professionals & Technicians",
+    "Clerical Support Workers",
+    "Service & Sales Workers",
+    "Craftsmen & Related Trades Workers",
+    "Plant & Machine Operators & Assemblers",
+    "Cleaners, Labourers & Related Workers"
+  ],
+  "limitations": [
+    "Observed mobility is available only at broad occupation-group level, not occupation-to-occupation level.",
+    "Agricultural/Fishery workers and Workers Not Classifiable by Occupation are excluded because they are outside the published AI Work Index occupation universe.",
+    "covered_share is normalized only across the 8 in-scope occupation groups, so it is suitable as a within-universe transition prior rather than a whole-economy probability.",
+    "The source vintage is old (Census of Population 2000) and should be treated as a conservative empirical prior, not a live labour-market estimate."
+  ],
+  "transitions": [
+    {
+      "from_major_group": "Managers & Administrators (Including Working Proprietors)",
+      "to_major_group": "Managers & Administrators (Including Working Proprietors)",
+      "count": 19973,
+      "covered_group_total_from": 33164,
+      "covered_share": 0.602249
+    },
+    {
+      "from_major_group": "Managers & Administrators (Including Working Proprietors)",
+      "to_major_group": "Professionals",
+      "count": 3773,
+      "covered_group_total_from": 33164,
+      "covered_share": 0.113768
+    },
+    {
+      "from_major_group": "Managers & Administrators (Including Working Proprietors)",
+      "to_major_group": "Associate Professionals & Technicians",
+      "count": 5373,
+      "covered_group_total_from": 33164,
+      "covered_share": 0.162013
+    },
+    {
+      "from_major_group": "Managers & Administrators (Including Working Proprietors)",
+      "to_major_group": "Clerical Support Workers",
+      "count": 1014,
+      "covered_group_total_from": 33164,
+      "covered_share": 0.030575
+    },
+    {
+      "from_major_group": "Managers & Administrators (Including Working Proprietors)",
+      "to_major_group": "Service & Sales Workers",
+      "count": 1224,
+      "covered_group_total_from": 33164,
+      "covered_share": 0.036907
+    },
+    {
+      "from_major_group": "Managers & Administrators (Including Working Proprietors)",
+      "to_major_group": "Craftsmen & Related Trades Workers",
+      "count": 690,
+      "covered_group_total_from": 33164,
+      "covered_share": 0.020806
+    },
+    {
+      "from_major_group": "Managers & Administrators (Including Working Proprietors)",
+      "to_major_group": "Plant & Machine Operators & Assemblers",
+      "count": 898,
+      "covered_group_total_from": 33164,
+      "covered_share": 0.027078
+    },
+    {
+      "from_major_group": "Managers & Administrators (Including Working Proprietors)",
+      "to_major_group": "Cleaners, Labourers & Related Workers",
+      "count": 219,
+      "covered_group_total_from": 33164,
+      "covered_share": 0.006604
+    },
+    {
+      "from_major_group": "Professionals",
+      "to_major_group": "Managers & Administrators (Including Working Proprietors)",
+      "count": 5554,
+      "covered_group_total_from": 37840,
+      "covered_share": 0.146776
+    },
+    {
+      "from_major_group": "Professionals",
+      "to_major_group": "Professionals",
+      "count": 25058,
+      "covered_group_total_from": 37840,
+      "covered_share": 0.662209
+    },
+    {
+      "from_major_group": "Professionals",
+      "to_major_group": "Associate Professionals & Technicians",
+      "count": 6209,
+      "covered_group_total_from": 37840,
+      "covered_share": 0.164086
+    },
+    {
+      "from_major_group": "Professionals",
+      "to_major_group": "Clerical Support Workers",
+      "count": 627,
+      "covered_group_total_from": 37840,
+      "covered_share": 0.01657
+    },
+    {
+      "from_major_group": "Professionals",
+      "to_major_group": "Service & Sales Workers",
+      "count": 195,
+      "covered_group_total_from": 37840,
+      "covered_share": 0.005153
+    },
+    {
+      "from_major_group": "Professionals",
+      "to_major_group": "Craftsmen & Related Trades Workers",
+      "count": 69,
+      "covered_group_total_from": 37840,
+      "covered_share": 0.001823
+    },
+    {
+      "from_major_group": "Professionals",
+      "to_major_group": "Plant & Machine Operators & Assemblers",
+      "count": 75,
+      "covered_group_total_from": 37840,
+      "covered_share": 0.001982
+    },
+    {
+      "from_major_group": "Professionals",
+      "to_major_group": "Cleaners, Labourers & Related Workers",
+      "count": 53,
+      "covered_group_total_from": 37840,
+      "covered_share": 0.001401
+    },
+    {
+      "from_major_group": "Associate Professionals & Technicians",
+      "to_major_group": "Managers & Administrators (Including Working Proprietors)",
+      "count": 7677,
+      "covered_group_total_from": 62441,
+      "covered_share": 0.122948
+    },
+    {
+      "from_major_group": "Associate Professionals & Technicians",
+      "to_major_group": "Professionals",
+      "count": 6146,
+      "covered_group_total_from": 62441,
+      "covered_share": 0.098429
+    },
+    {
+      "from_major_group": "Associate Professionals & Technicians",
+      "to_major_group": "Associate Professionals & Technicians",
+      "count": 36299,
+      "covered_group_total_from": 62441,
+      "covered_share": 0.581333
+    },
+    {
+      "from_major_group": "Associate Professionals & Technicians",
+      "to_major_group": "Clerical Support Workers",
+      "count": 5366,
+      "covered_group_total_from": 62441,
+      "covered_share": 0.085937
+    },
+    {
+      "from_major_group": "Associate Professionals & Technicians",
+      "to_major_group": "Service & Sales Workers",
+      "count": 3033,
+      "covered_group_total_from": 62441,
+      "covered_share": 0.048574
+    },
+    {
+      "from_major_group": "Associate Professionals & Technicians",
+      "to_major_group": "Craftsmen & Related Trades Workers",
+      "count": 1757,
+      "covered_group_total_from": 62441,
+      "covered_share": 0.028139
+    },
+    {
+      "from_major_group": "Associate Professionals & Technicians",
+      "to_major_group": "Plant & Machine Operators & Assemblers",
+      "count": 1737,
+      "covered_group_total_from": 62441,
+      "covered_share": 0.027818
+    },
+    {
+      "from_major_group": "Associate Professionals & Technicians",
+      "to_major_group": "Cleaners, Labourers & Related Workers",
+      "count": 426,
+      "covered_group_total_from": 62441,
+      "covered_share": 0.006822
+    },
+    {
+      "from_major_group": "Clerical Support Workers",
+      "to_major_group": "Managers & Administrators (Including Working Proprietors)",
+      "count": 1768,
+      "covered_group_total_from": 51590,
+      "covered_share": 0.03427
+    },
+    {
+      "from_major_group": "Clerical Support Workers",
+      "to_major_group": "Professionals",
+      "count": 1047,
+      "covered_group_total_from": 51590,
+      "covered_share": 0.020295
+    },
+    {
+      "from_major_group": "Clerical Support Workers",
+      "to_major_group": "Associate Professionals & Technicians",
+      "count": 9021,
+      "covered_group_total_from": 51590,
+      "covered_share": 0.174859
+    },
+    {
+      "from_major_group": "Clerical Support Workers",
+      "to_major_group": "Clerical Support Workers",
+      "count": 31790,
+      "covered_group_total_from": 51590,
+      "covered_share": 0.616205
+    },
+    {
+      "from_major_group": "Clerical Support Workers",
+      "to_major_group": "Service & Sales Workers",
+      "count": 4113,
+      "covered_group_total_from": 51590,
+      "covered_share": 0.079725
+    },
+    {
+      "from_major_group": "Clerical Support Workers",
+      "to_major_group": "Craftsmen & Related Trades Workers",
+      "count": 593,
+      "covered_group_total_from": 51590,
+      "covered_share": 0.011494
+    },
+    {
+      "from_major_group": "Clerical Support Workers",
+      "to_major_group": "Plant & Machine Operators & Assemblers",
+      "count": 2174,
+      "covered_group_total_from": 51590,
+      "covered_share": 0.04214
+    },
+    {
+      "from_major_group": "Clerical Support Workers",
+      "to_major_group": "Cleaners, Labourers & Related Workers",
+      "count": 1084,
+      "covered_group_total_from": 51590,
+      "covered_share": 0.021012
+    },
+    {
+      "from_major_group": "Service & Sales Workers",
+      "to_major_group": "Managers & Administrators (Including Working Proprietors)",
+      "count": 2532,
+      "covered_group_total_from": 37832,
+      "covered_share": 0.066927
+    },
+    {
+      "from_major_group": "Service & Sales Workers",
+      "to_major_group": "Professionals",
+      "count": 240,
+      "covered_group_total_from": 37832,
+      "covered_share": 0.006344
+    },
+    {
+      "from_major_group": "Service & Sales Workers",
+      "to_major_group": "Associate Professionals & Technicians",
+      "count": 4222,
+      "covered_group_total_from": 37832,
+      "covered_share": 0.111599
+    },
+    {
+      "from_major_group": "Service & Sales Workers",
+      "to_major_group": "Clerical Support Workers",
+      "count": 4510,
+      "covered_group_total_from": 37832,
+      "covered_share": 0.119211
+    },
+    {
+      "from_major_group": "Service & Sales Workers",
+      "to_major_group": "Service & Sales Workers",
+      "count": 18988,
+      "covered_group_total_from": 37832,
+      "covered_share": 0.501903
+    },
+    {
+      "from_major_group": "Service & Sales Workers",
+      "to_major_group": "Craftsmen & Related Trades Workers",
+      "count": 1203,
+      "covered_group_total_from": 37832,
+      "covered_share": 0.031798
+    },
+    {
+      "from_major_group": "Service & Sales Workers",
+      "to_major_group": "Plant & Machine Operators & Assemblers",
+      "count": 3169,
+      "covered_group_total_from": 37832,
+      "covered_share": 0.083765
+    },
+    {
+      "from_major_group": "Service & Sales Workers",
+      "to_major_group": "Cleaners, Labourers & Related Workers",
+      "count": 2968,
+      "covered_group_total_from": 37832,
+      "covered_share": 0.078452
+    },
+    {
+      "from_major_group": "Craftsmen & Related Trades Workers",
+      "to_major_group": "Managers & Administrators (Including Working Proprietors)",
+      "count": 1384,
+      "covered_group_total_from": 22349,
+      "covered_share": 0.061927
+    },
+    {
+      "from_major_group": "Craftsmen & Related Trades Workers",
+      "to_major_group": "Professionals",
+      "count": 121,
+      "covered_group_total_from": 22349,
+      "covered_share": 0.005414
+    },
+    {
+      "from_major_group": "Craftsmen & Related Trades Workers",
+      "to_major_group": "Associate Professionals & Technicians",
+      "count": 2515,
+      "covered_group_total_from": 22349,
+      "covered_share": 0.112533
+    },
+    {
+      "from_major_group": "Craftsmen & Related Trades Workers",
+      "to_major_group": "Clerical Support Workers",
+      "count": 873,
+      "covered_group_total_from": 22349,
+      "covered_share": 0.039062
+    },
+    {
+      "from_major_group": "Craftsmen & Related Trades Workers",
+      "to_major_group": "Service & Sales Workers",
+      "count": 2143,
+      "covered_group_total_from": 22349,
+      "covered_share": 0.095888
+    },
+    {
+      "from_major_group": "Craftsmen & Related Trades Workers",
+      "to_major_group": "Craftsmen & Related Trades Workers",
+      "count": 9798,
+      "covered_group_total_from": 22349,
+      "covered_share": 0.438409
+    },
+    {
+      "from_major_group": "Craftsmen & Related Trades Workers",
+      "to_major_group": "Plant & Machine Operators & Assemblers",
+      "count": 3621,
+      "covered_group_total_from": 22349,
+      "covered_share": 0.162021
+    },
+    {
+      "from_major_group": "Craftsmen & Related Trades Workers",
+      "to_major_group": "Cleaners, Labourers & Related Workers",
+      "count": 1894,
+      "covered_group_total_from": 22349,
+      "covered_share": 0.084747
+    },
+    {
+      "from_major_group": "Plant & Machine Operators & Assemblers",
+      "to_major_group": "Managers & Administrators (Including Working Proprietors)",
+      "count": 999,
+      "covered_group_total_from": 38672,
+      "covered_share": 0.025833
+    },
+    {
+      "from_major_group": "Plant & Machine Operators & Assemblers",
+      "to_major_group": "Professionals",
+      "count": 114,
+      "covered_group_total_from": 38672,
+      "covered_share": 0.002948
+    },
+    {
+      "from_major_group": "Plant & Machine Operators & Assemblers",
+      "to_major_group": "Associate Professionals & Technicians",
+      "count": 2026,
+      "covered_group_total_from": 38672,
+      "covered_share": 0.052389
+    },
+    {
+      "from_major_group": "Plant & Machine Operators & Assemblers",
+      "to_major_group": "Clerical Support Workers",
+      "count": 2642,
+      "covered_group_total_from": 38672,
+      "covered_share": 0.068318
+    },
+    {
+      "from_major_group": "Plant & Machine Operators & Assemblers",
+      "to_major_group": "Service & Sales Workers",
+      "count": 3841,
+      "covered_group_total_from": 38672,
+      "covered_share": 0.099323
+    },
+    {
+      "from_major_group": "Plant & Machine Operators & Assemblers",
+      "to_major_group": "Craftsmen & Related Trades Workers",
+      "count": 2669,
+      "covered_group_total_from": 38672,
+      "covered_share": 0.069016
+    },
+    {
+      "from_major_group": "Plant & Machine Operators & Assemblers",
+      "to_major_group": "Plant & Machine Operators & Assemblers",
+      "count": 21813,
+      "covered_group_total_from": 38672,
+      "covered_share": 0.564052
+    },
+    {
+      "from_major_group": "Plant & Machine Operators & Assemblers",
+      "to_major_group": "Cleaners, Labourers & Related Workers",
+      "count": 4568,
+      "covered_group_total_from": 38672,
+      "covered_share": 0.118122
+    },
+    {
+      "from_major_group": "Cleaners, Labourers & Related Workers",
+      "to_major_group": "Managers & Administrators (Including Working Proprietors)",
+      "count": 324,
+      "covered_group_total_from": 19031,
+      "covered_share": 0.017025
+    },
+    {
+      "from_major_group": "Cleaners, Labourers & Related Workers",
+      "to_major_group": "Professionals",
+      "count": 26,
+      "covered_group_total_from": 19031,
+      "covered_share": 0.001366
+    },
+    {
+      "from_major_group": "Cleaners, Labourers & Related Workers",
+      "to_major_group": "Associate Professionals & Technicians",
+      "count": 364,
+      "covered_group_total_from": 19031,
+      "covered_share": 0.019127
+    },
+    {
+      "from_major_group": "Cleaners, Labourers & Related Workers",
+      "to_major_group": "Clerical Support Workers",
+      "count": 1022,
+      "covered_group_total_from": 19031,
+      "covered_share": 0.053702
+    },
+    {
+      "from_major_group": "Cleaners, Labourers & Related Workers",
+      "to_major_group": "Service & Sales Workers",
+      "count": 3367,
+      "covered_group_total_from": 19031,
+      "covered_share": 0.176922
+    },
+    {
+      "from_major_group": "Cleaners, Labourers & Related Workers",
+      "to_major_group": "Craftsmen & Related Trades Workers",
+      "count": 1386,
+      "covered_group_total_from": 19031,
+      "covered_share": 0.072829
+    },
+    {
+      "from_major_group": "Cleaners, Labourers & Related Workers",
+      "to_major_group": "Plant & Machine Operators & Assemblers",
+      "count": 2925,
+      "covered_group_total_from": 19031,
+      "covered_share": 0.153697
+    },
+    {
+      "from_major_group": "Cleaners, Labourers & Related Workers",
+      "to_major_group": "Cleaners, Labourers & Related Workers",
+      "count": 9617,
+      "covered_group_total_from": 19031,
+      "covered_share": 0.505333
+    }
+  ]
+}

@@ -1,23 +1,22 @@
 #!/usr/bin/env bun
 /**
- * score.ts — V4.1 scoring pipeline for Singapore AI Job Exposure Map.
+ * score.ts — V4.2 scoring pipeline for Singapore AI Job Exposure Map.
  *
  * Computes 4-source exposure ensemble (AIOE + Anthropic + Eloundou + ILO),
  * Pizzinelli theta, market resilience layer, and net displacement risk
  * for each of 562 Singapore SSOC occupations.
  *
- * V4.1: 4-source exposure ensemble motivated by the broader ensemble literature.
- * V3.1 additions:
- *   - Anthropic Economic Index observed AI usage calibration
- *   - MOM Shortage Occupation List (SOL) 2026 demand bonus
- *   - Crosswalk dispersion penalty for confidence
- *   - Variable confidence factors based on data match quality
+ * V4.2: reliability-weighted 4-source exposure ensemble, occupation-level
+ * industry-footprint market momentum where available, pure confidence scoring,
+ * statistical uncertainty intervals, and a task-primitives sidecar.
  *
- * Formula:
- *   exposure     = pctile(aioe)
- *   bottleneck   = pctile(theta)
- *   market_modifier = 1 - 0.35 * market_resilience
- *   net_risk     = exposure_calibrated * (1 - bottleneck) * market_modifier
+ * Canonical structural formulas:
+ *   exposure            = reliability-weighted percentile blend of available exposure sources
+ *   bottleneck          = pctile(theta)
+ *   market_resilience   = 0.6 * market_momentum + 0.4 * occupation_scarcity + capped demand bonuses
+ *   market_modifier     = 1 - 0.35 * market_resilience
+ *   net_risk            = exposure * (1 - bottleneck) * market_modifier
+ *   augmentation        = exposure * bottleneck * market_resilience
  *
  * Run: bun run scripts/score.ts
  */
@@ -38,13 +37,6 @@ import {
 	RISK_BAND_THRESHOLDS,
 	MARKET_CONSTANTS,
 	AUGMENTATION_THRESHOLDS,
-	CONFIDENCE_THRESHOLDS,
-	CONFIDENCE_COMPONENT_WEIGHTS,
-	CONFIDENCE_PENALTIES,
-	SOURCE_COVERAGE_SCORES,
-	EXPOSURE_SOURCE_METADATA,
-	SIGNAL_AGREEMENT_SCORES,
-	SENSITIVITY_SCORES,
 	SIGNAL_CONFLICT_THRESHOLDS,
 	classifyExposureAgreement,
 	normalizeExposureSourceWeights
@@ -53,6 +45,13 @@ import {
 	occupationDataBasisTemplate,
 	type OccupationDataBasis
 } from '../src/lib/data/data-contract';
+import {
+	blendEmploymentMomentum,
+	computeMarketResilience,
+	computeStructuralScores
+} from '../src/lib/data/methodology-core';
+import { computeConfidence } from '../src/lib/data/confidence-core';
+import { computeBootstrapUncertainty } from '../src/lib/data/uncertainty-core';
 
 // ===== Workflow Overlay (from archetype system) =====
 function getOverlayForOccupation(ssoc: string, title: string, _majorGroup: string) {
@@ -206,6 +205,8 @@ interface SgOccupation {
 
 interface MarketScores {
 	market_momentum: number;
+	industry_footprint_momentum?: number | null;
+	market_resolution?: 'group_prior' | 'industry_footprint_blend';
 	occupation_scarcity: number;
 	market_resilience: number;
 	market_modifier: number;
@@ -250,6 +251,23 @@ interface StabilityScores {
 	pessimistic_band: RiskBand;
 	distance_to_band_edge: number;
 	label: 'stable' | 'watch' | 'sensitive';
+}
+
+interface TaskPrimitives {
+	matched_task_weight_share: number | null;
+	task_effective_coverage: number | null;
+	task_exposure_concentration: number | null;
+	method: 'anthropic_task_penetration_v1' | null;
+}
+
+interface UncertaintyScores {
+	exposure_p10: number;
+	exposure_p50: number;
+	exposure_p90: number;
+	net_risk_p10: number;
+	net_risk_p50: number;
+	net_risk_p90: number;
+	method: 'bootstrap_v1';
 }
 
 interface LabourClusterMonitor {
@@ -312,6 +330,8 @@ interface ScoredOccupation {
 	evidence: EvidenceSignals;
 	confidence: ConfidenceScores;
 	stability: StabilityScores;
+	task_primitives: TaskPrimitives;
+	uncertainty: UncertaintyScores;
 	labour_monitor_key: LabourClusterMonitor['cluster_key'] | null;
 	raw: RawScores;
 	isco_codes_matched: string[];
@@ -844,6 +864,24 @@ interface GroupMarketData {
 	wage_cagr: number;
 }
 
+interface OccupationIndustryWage {
+	key: string;
+	label: string;
+	gross_wage_median: number | null;
+}
+
+interface OccupationIndustryProfile {
+	ssoc: string;
+	occupation: string;
+	industries: OccupationIndustryWage[];
+}
+
+interface IndustryMomentumPoint {
+	cagr_5y?: number | null;
+	change_2y?: number | null;
+	employment_2025?: number | null;
+}
+
 // (VacancyClusterSeries removed — replaced by LabourClusterMonitor from labour-monitor.json)
 
 function parseCSVValue(val: string): number | null {
@@ -911,6 +949,36 @@ function loadLabourMonitor(): Map<string, LabourClusterMonitor> {
 	}
 	console.log(`  Loaded labour monitor for ${result.size} clusters`);
 	return result;
+}
+
+function majorGroupToIndustryKey(majorGroup: string): string {
+	return majorGroup.replace(/ /g, '_').replace(/,/g, '');
+}
+
+function annualizeChange(change: number | null | undefined, years: number): number | null {
+	if (change == null || change <= -1 || years <= 0) return null;
+	return Math.pow(1 + change, 1 / years) - 1;
+}
+
+function loadIndustryMomentumData(): Record<string, Record<string, IndustryMomentumPoint>> {
+	try {
+		return JSON.parse(
+			fs.readFileSync(path.join(DATA_DIR, 'industry-momentum.json'), 'utf-8')
+		) as Record<string, Record<string, IndustryMomentumPoint>>;
+	} catch {
+		return {};
+	}
+}
+
+function loadOccupationIndustryProfiles(): Map<string, OccupationIndustryProfile> {
+	try {
+		const raw = JSON.parse(
+			fs.readFileSync(path.join(DATA_DIR, 'occupation-industry-wages.json'), 'utf-8')
+		) as Record<string, OccupationIndustryProfile>;
+		return new Map(Object.entries(raw));
+	} catch {
+		return new Map();
+	}
 }
 
 function loadEmploymentData(): Map<string, { e2015: number; e2025: number }> {
@@ -1217,7 +1285,7 @@ function buildStabilityScores(
 	};
 }
 
-// ===== Step 7: Score all occupations (V4.1) =====
+// ===== Step 7: Score all occupations (V4.2) =====
 function scoreOccupations(
 	sgOccs: SgOccupation[],
 	aioeMap: Map<string, number>,
@@ -1230,7 +1298,7 @@ function scoreOccupations(
 	demandData: { exactCodes: Set<string>; prefixes: Set<string> },
 	labourMonitors: Map<string, LabourClusterMonitor>
 ): ScoredOccupation[] {
-	console.log('\nScoring occupations (V4.1 — 4-source exposure ensemble)...');
+	console.log('\nScoring occupations (V4.2 — 4-source exposure ensemble)...');
 
 	// Pre-compute theta_MIN for C-AIOE formula
 	const allTheta = [...thetaMap.values()];
@@ -1453,7 +1521,7 @@ function scoreOccupations(
 	const aioeRanks = percentileRanks(rawAioeValues);
 	const thetaRanks = percentileRanks(rawThetaValues);
 
-	// ===== Market Momentum: group-level =====
+	// ===== Market Momentum: group prior + occupation industry footprint =====
 	console.log('  Computing market momentum...');
 	const allGroups = [...new Set(intermediates.map(r => r.occ.major_group))];
 	const groupCagrEmpl: number[] = [];
@@ -1470,38 +1538,76 @@ function scoreOccupations(
 	const emplCagrRanks = percentileRanks(groupCagrEmpl);
 	const wageCagrRanks = percentileRanks(groupCagrWage);
 
-	// Market momentum per group
-	const groupMomentum = new Map<string, number>();
-	for (const g of allGroups) {
-		const idx = groupToIdx.get(g)!;
-		const mm = (emplCagrRanks[idx] + wageCagrRanks[idx]) / 2;
-		groupMomentum.set(g, mm);
+	// Occupation-level industry footprint: use the industries where an occupation is actually observed
+	// to replace most of the employment-side group prior when that footprint exists.
+	const industryMomentumData = loadIndustryMomentumData();
+	const occupationIndustryProfiles = loadOccupationIndustryProfiles();
+	const industryMomentumSpread = new Map<string, number>();
+	const occupationIndustryMomentumRaw: (number | null)[] = [];
+	let industryFootprintCount = 0;
+
+	for (const [groupKey, industries] of Object.entries(industryMomentumData)) {
+		const cagrs: number[] = [];
+		for (const [indKey, vals] of Object.entries(industries)) {
+			if (indKey === 'total' || vals.cagr_5y == null) continue;
+			cagrs.push(vals.cagr_5y);
+		}
+		if (cagrs.length >= 3) {
+			const mean = cagrs.reduce((s, v) => s + v, 0) / cagrs.length;
+			const variance = cagrs.reduce((s, v) => s + (v - mean) ** 2, 0) / cagrs.length;
+			industryMomentumSpread.set(groupKey, Math.sqrt(variance));
+		}
+	}
+	console.log(`  Industry momentum spread loaded for ${industryMomentumSpread.size} groups`);
+
+	for (const r of intermediates) {
+		const profile = occupationIndustryProfiles.get(r.occ.ssoc);
+		const groupKey = majorGroupToIndustryKey(r.occ.major_group);
+		const groupIndustries = industryMomentumData[groupKey];
+		if (!profile || !groupIndustries) {
+			occupationIndustryMomentumRaw.push(null);
+			continue;
+		}
+
+		const matchedIndustries = profile.industries
+			.map(industry => {
+				const momentumPoint = groupIndustries[industry.key];
+				if (!momentumPoint) return null;
+				const annualizedChange2y = annualizeChange(momentumPoint.change_2y ?? null, 2);
+				const trendSignals = [momentumPoint.cagr_5y ?? null, annualizedChange2y].filter(
+					(value): value is number => value !== null
+				);
+				if (trendSignals.length === 0) return null;
+				return {
+					weight: Math.max(1, industry.gross_wage_median ?? 1),
+					signal: trendSignals.reduce((sum, value) => sum + value, 0) / trendSignals.length
+				};
+			})
+			.filter((entry): entry is { weight: number; signal: number } => entry !== null);
+
+		if (matchedIndustries.length === 0) {
+			occupationIndustryMomentumRaw.push(null);
+			continue;
+		}
+
+		industryFootprintCount++;
+		const totalWeight = matchedIndustries.reduce((sum, entry) => sum + entry.weight, 0);
+		const weightedSignal =
+			matchedIndustries.reduce((sum, entry) => sum + entry.signal * entry.weight, 0) / totalWeight;
+		occupationIndustryMomentumRaw.push(weightedSignal);
 	}
 
-	// ===== Industry momentum spread (V4.1) =====
-	// Load industry × occupation data to measure intra-group momentum variance.
-	// High variance = group-level momentum is a poor proxy for individual occupations.
-	const industryMomentumSpread = new Map<string, number>();
-	try {
-		const indMom = JSON.parse(
-			fs.readFileSync(path.join(DATA_DIR, 'industry-momentum.json'), 'utf-8')
-		);
-		for (const [groupKey, industries] of Object.entries(indMom)) {
-			const cagrs: number[] = [];
-			for (const [indKey, vals] of Object.entries(industries as Record<string, any>)) {
-				if (indKey === 'total' || vals.cagr_5y == null) continue;
-				cagrs.push(vals.cagr_5y);
-			}
-			if (cagrs.length >= 3) {
-				const mean = cagrs.reduce((s, v) => s + v, 0) / cagrs.length;
-				const variance = cagrs.reduce((s, v) => s + (v - mean) ** 2, 0) / cagrs.length;
-				industryMomentumSpread.set(groupKey, Math.sqrt(variance));
-			}
-		}
-		console.log(`  Industry momentum spread loaded for ${industryMomentumSpread.size} groups`);
-	} catch {
-		console.log('  Industry momentum data not available, skipping spread computation');
-	}
+	const validIndustryMomentum = occupationIndustryMomentumRaw.filter(
+		(value): value is number => value !== null
+	);
+	const industryMomentumRanksValid = percentileRanks(validIndustryMomentum);
+	let industryMomentumIdx = 0;
+	const occupationIndustryMomentum = occupationIndustryMomentumRaw.map(value =>
+		value !== null ? industryMomentumRanksValid[industryMomentumIdx++] : null
+	);
+	console.log(
+		`  Occupation-specific industry footprint momentum available for ${industryFootprintCount} occupations`
+	);
 
 	// ===== Occupation Scarcity =====
 	console.log('  Computing occupation scarcity...');
@@ -1581,7 +1687,7 @@ function scoreOccupations(
 	// Occupation scarcity = mean of two percentile ranks
 	const occScarcity = intermediates.map((_, i) => (logSpreadRanks[i] + ratioRanks[i]) / 2);
 
-	// ===== V4.1: Multi-input ensemble — percentile ranks for each source =====
+	// ===== V4.2: Multi-input ensemble — percentile ranks for each source =====
 	console.log('  Computing ensemble exposure percentile ranks...');
 
 	function computePctileRanks(values: (number | null)[]): number[] {
@@ -1616,7 +1722,7 @@ function scoreOccupations(
 		const theoreticalExposure = exposure;
 
 		// === 4a: Multi-input ensemble exposure ===
-		// V4.1: reliability-weighted blend of all available exposure inputs.
+		// V4.2: reliability-weighted blend of all available exposure inputs.
 		// Source weights are deterministic and based on recency, construct fit,
 		// coverage quality, and validation support.
 		const availableExposureInputs: Array<{
@@ -1652,10 +1758,20 @@ function scoreOccupations(
 		else if (availableExposureInputs.length === 3) ensembleInputCounts.three++;
 		else ensembleInputCounts.four++;
 
-		const mm = groupMomentum.get(r.occ.major_group) ?? 0.5;
+		const groupIdx = groupToIdx.get(r.occ.major_group);
+		const groupEmploymentMomentum = groupIdx !== undefined ? emplCagrRanks[groupIdx] : 0.5;
+		const groupWageMomentum = groupIdx !== undefined ? wageCagrRanks[groupIdx] : 0.5;
+		const industryFootprintMomentum = occupationIndustryMomentum[i];
+		const blendedEmploymentMomentum = blendEmploymentMomentum(
+			groupEmploymentMomentum,
+			industryFootprintMomentum
+		);
+		const mm = (blendedEmploymentMomentum + groupWageMomentum) / 2;
 		const os = occScarcity[i];
-		let marketResilience =
-			MARKET_CONSTANTS.momentum_weight * mm + MARKET_CONSTANTS.scarcity_weight * os;
+		let marketResilience = computeMarketResilience({
+			market_momentum: mm,
+			occupation_scarcity: os
+		});
 
 		// === 4b: MOM demand signals ===
 		let marketResilienceAdjusted = marketResilience;
@@ -1685,15 +1801,21 @@ function scoreOccupations(
 			);
 			demandMatchCount++;
 		}
-		const marketModifier = 1 - MARKET_CONSTANTS.max_modifier_effect * marketResilienceAdjusted;
-
-		const netRisk = exposure * (1 - bottleneck) * marketModifier;
+		const {
+			market_modifier: marketModifier,
+			net_risk: netRisk,
+			augmentation
+		} = computeStructuralScores({
+			exposure,
+			bottleneck,
+			market_resilience: marketResilienceAdjusted
+		});
 		const netRiskRounded = round(netRisk, 4);
 		const band = getRiskBand(netRiskRounded);
-		const augmentation = exposure * bottleneck * marketResilienceAdjusted;
 		// Map major_group to industry momentum key format
-		const indKey = r.occ.major_group.replace(/ /g, '_').replace(/,/g, '');
-		const mktSpread = industryMomentumSpread.get(indKey) ?? 0;
+		const indKey = majorGroupToIndustryKey(r.occ.major_group);
+		const hasIndustryFootprint = industryFootprintMomentum !== null;
+		const mktSpread = (industryMomentumSpread.get(indKey) ?? 0) * (hasIndustryFootprint ? 0.6 : 1);
 		const stability = buildStabilityScores(
 			exposure,
 			bottleneck,
@@ -1758,61 +1880,19 @@ function scoreOccupations(
 		// C-AIOE for backward compat
 		const cAioe = r.avgAioe * (1 - (r.avgTheta - thetaMin));
 
-		// === 4c: Crosswalk dispersion penalty for confidence ===
-		let crosswalkQuality =
-			r.matchQuality === 'direct' ? 1.0 : r.matchQuality === 'submajor_fallback' ? 0.6 : 0.3;
-
-		if (r.aioeDispersion > 0 || r.thetaDispersion > 0) {
-			const dispersionPenalty = Math.max(0, 1 - (r.aioeDispersion + r.thetaDispersion) * 2);
-			crosswalkQuality = crosswalkQuality * dispersionPenalty;
-		}
-
-		// === 4d: Variable confidence factors ===
-		// Confidence should reflect uncertainty, not outcome direction.
-		// All occupations have occupation-level wage structure + group market trends,
-		// while exact official demand evidence adds more occupation-specific market granularity.
-		const marketDataGranularity = hasExactDemand ? 0.85 : hasPrefixDemand ? 0.75 : 0.65;
-		const sourceFreshness = round(
-			availableExposureInputs.reduce(
-				(sum, input) =>
-					sum +
-					(EXPOSURE_SOURCE_METADATA[input.key].recency ?? 0) *
-						(exposureSourceWeights[input.key] ?? 0),
-				0
-			),
-			4
-		);
-		const sourceCoverage =
-			SOURCE_COVERAGE_SCORES[availableExposureInputs.length as keyof typeof SOURCE_COVERAGE_SCORES];
-		const signalAgreement =
-			SIGNAL_AGREEMENT_SCORES[exposureAgreement as keyof typeof SIGNAL_AGREEMENT_SCORES];
-		const sensitivity = SENSITIVITY_SCORES[stability.label as keyof typeof SENSITIVITY_SCORES];
-		const sparseSourcePenalty =
-			availableExposureInputs.length === 1
-				? r.matchQuality === 'direct'
-					? CONFIDENCE_PENALTIES.single_source_direct
-					: r.matchQuality === 'submajor_fallback'
-						? CONFIDENCE_PENALTIES.single_source_submajor_fallback
-						: CONFIDENCE_PENALTIES.single_source_major_fallback
-				: 0;
-		const contestedSignalPenalty = signalConflict ? CONFIDENCE_PENALTIES.contested_signal : 0;
-
-		const confidenceScore = clamp01(
-			crosswalkQuality * CONFIDENCE_COMPONENT_WEIGHTS.crosswalk_quality +
-				marketDataGranularity * CONFIDENCE_COMPONENT_WEIGHTS.market_data_granularity +
-				sourceFreshness * CONFIDENCE_COMPONENT_WEIGHTS.source_freshness +
-				sourceCoverage * CONFIDENCE_COMPONENT_WEIGHTS.source_coverage +
-				signalAgreement * CONFIDENCE_COMPONENT_WEIGHTS.signal_agreement +
-				sensitivity * CONFIDENCE_COMPONENT_WEIGHTS.sensitivity -
-				sparseSourcePenalty -
-				contestedSignalPenalty
-		);
-		const baseConfidenceLevel: 'high' | 'medium' | 'low' =
-			confidenceScore >= CONFIDENCE_THRESHOLDS.high
-				? 'high'
-				: confidenceScore >= CONFIDENCE_THRESHOLDS.medium
-					? 'medium'
-					: 'low';
+		const confidence = computeConfidence({
+			matchQuality: r.matchQuality,
+			aioeDispersion: r.aioeDispersion,
+			thetaDispersion: r.thetaDispersion,
+			hasExactDemand,
+			hasPrefixDemand,
+			hasIndustryFootprint,
+			exposureSourceKeys: availableExposureInputs.map(input => input.key),
+			exposureSourceWeights: exposureSourceWeights,
+			exposureAgreement,
+			stabilityLabel: stability.label,
+			signalConflict
+		});
 
 		// Policy cap: reserve "high" confidence for the cleanest cases only.
 		// Calibration diagnostics show the broad high+medium population validates directionally,
@@ -1820,13 +1900,24 @@ function scoreOccupations(
 		const canBeHighConfidence =
 			r.matchQuality === 'direct' && availableExposureInputs.length >= 3 && !signalConflict;
 
-		let confidenceLevel: 'high' | 'medium' | 'low' = baseConfidenceLevel;
+		let confidenceLevel: 'high' | 'medium' | 'low' = confidence.level;
 		if (!canBeHighConfidence && confidenceLevel === 'high') {
 			confidenceLevel = 'medium';
 		}
 		if (r.matchQuality === 'major_fallback') {
 			confidenceLevel = 'low';
 		}
+		const uncertainty = computeBootstrapUncertainty({
+			exposureInputs: availableExposureInputs.map(input => ({
+				key: input.key,
+				value: input.value
+			})),
+			exposureWeights: exposureSourceWeights,
+			bottleneck,
+			market_resilience: marketResilienceAdjusted,
+			marketSpread: mktSpread,
+			seedValues: [i, exposure, bottleneck, marketResilienceAdjusted, netRiskRounded]
+		});
 
 		results.push({
 			ssoc: r.occ.ssoc,
@@ -1845,6 +1936,9 @@ function scoreOccupations(
 			bottleneck: round(bottleneck, 4),
 			market: {
 				market_momentum: round(mm, 4),
+				industry_footprint_momentum:
+					industryFootprintMomentum !== null ? round(industryFootprintMomentum, 4) : null,
+				market_resolution: hasIndustryFootprint ? 'industry_footprint_blend' : 'group_prior',
 				occupation_scarcity: round(os, 4),
 				market_resilience: round(marketResilienceAdjusted, 4),
 				market_modifier: round(marketModifier, 4)
@@ -1853,24 +1947,27 @@ function scoreOccupations(
 			risk_band: band,
 			augmentation: round(augmentation, 4),
 			augmentation_band: augmentationBand(augmentation),
-			impact_type: classifyImpactType(
-				netRiskRounded,
-				round(augmentation, 4),
-				!!(r.solMatch || r.demandMatch)
-			),
+			impact_type: classifyImpactType(netRiskRounded, round(augmentation, 4)),
 			evidence,
 			confidence: {
-				score: round(confidenceScore, 4),
+				score: round(confidence.score, 4),
 				level: confidenceLevel,
-				crosswalk_quality: round(crosswalkQuality, 4),
-				market_data_granularity: marketDataGranularity,
-				source_freshness: sourceFreshness,
-				source_coverage: sourceCoverage,
-				signal_agreement: signalAgreement,
-				sensitivity,
-				exposure_source_count: availableExposureInputs.length
+				crosswalk_quality: round(confidence.crosswalk_quality, 4),
+				market_data_granularity: confidence.market_data_granularity,
+				source_freshness: round(confidence.source_freshness, 4),
+				source_coverage: confidence.source_coverage,
+				signal_agreement: confidence.signal_agreement,
+				sensitivity: confidence.sensitivity,
+				exposure_source_count: confidence.exposure_source_count
 			},
 			stability,
+			task_primitives: {
+				matched_task_weight_share: null,
+				task_effective_coverage: null,
+				task_exposure_concentration: null,
+				method: null
+			},
+			uncertainty,
 			labour_monitor_key: labourMonitor?.cluster_key ?? null,
 			raw: {
 				aioe: round(r.avgAioe, 4),
@@ -1886,13 +1983,7 @@ function scoreOccupations(
 				aioe: round(r.avgAioe, 4),
 				theta: round(r.avgTheta, 4),
 				c_aioe: round(cAioe, 4),
-				category: impactTypeToCategory(
-					classifyImpactType(
-						netRiskRounded,
-						round(augmentation, 4),
-						!!(r.solMatch || r.demandMatch)
-					)
-				),
+				category: impactTypeToCategory(classifyImpactType(netRiskRounded, round(augmentation, 4))),
 				isco_codes_matched: r.iscoMatched,
 				match_quality: r.matchQuality
 			},
@@ -1947,7 +2038,7 @@ function round(n: number, decimals: number): number {
 
 // ===== Distribution Analysis =====
 function printDistributionAnalysis(results: ScoredOccupation[]) {
-	console.log('\n=== V3 Risk Band Distribution ===');
+	console.log('\n=== V4.2 Risk Band Distribution ===');
 	const bands: RiskBand[] = ['very_low', 'low', 'moderate', 'high', 'very_high'];
 	const bandLabels: Record<RiskBand, string> = {
 		very_low: 'Very Low  (0.00-0.05)',
@@ -2045,7 +2136,7 @@ function printDistributionAnalysis(results: ScoredOccupation[]) {
 
 // ===== Main =====
 async function main() {
-	console.log('=== Singapore AI Job Exposure Scoring Pipeline (V4.1) ===\n');
+	console.log('=== Singapore AI Job Exposure Scoring Pipeline (V4.2) ===\n');
 
 	// Load all data sources
 	const aioeMap = loadAioe();

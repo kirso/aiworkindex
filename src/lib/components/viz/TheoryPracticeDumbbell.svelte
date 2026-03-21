@@ -71,7 +71,7 @@
 						x={xPos(tick)}
 						y={rows.length * rowHeight + 18}
 						text-anchor="middle"
-						class="fill-muted-foreground text-[10px]"
+						class="fill-muted-foreground text-xs"
 					>
 						{(tick * 100).toFixed(0)}%
 					</text>
@@ -118,7 +118,7 @@
 							x={-8}
 							y={y + 4}
 							text-anchor="end"
-							class="fill-foreground text-[11px] hover:fill-primary cursor-pointer"
+							class="fill-foreground text-xs hover:fill-primary cursor-pointer"
 						>
 							{row.occ.title.length > 28
 								? row.occ.title.slice(0, width < 640 ? 18 : 26) + '…'
@@ -131,7 +131,7 @@
 						x={maxX + 6}
 						y={y + 4}
 						class={cn(
-							'text-[10px] font-mono',
+							'text-xs font-mono',
 							row.aboveTheory ? 'fill-risk-very-high' : 'fill-risk-very-low'
 						)}
 					>

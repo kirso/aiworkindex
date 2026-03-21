@@ -8,7 +8,7 @@
  * When updating thresholds, change them HERE and they propagate
  * to methodology, appendix, data dictionary, and CLAUDE.md automatically.
  *
- * Validated by: scripts/validate.ts (129 checks)
+ * Validated by: scripts/validate.ts
  * Used by: score.ts, synthetic-roles.ts, validate.ts, methodology page
  */
 
@@ -49,21 +49,19 @@ export const IMPACT_TYPE_THRESHOLDS = {
 /**
  * Impact type classification logic:
  * - ai_leveraged: net_risk < 0.25 AND augmentation >= 0.12
- * - at_risk: net_risk >= 0.25 AND augmentation < 0.12 AND no demand signal
- * - mixed: net_risk >= 0.25 AND (augmentation >= 0.12 OR demand signal)
+ * - at_risk: net_risk >= 0.25 AND augmentation < 0.12
+ * - mixed: net_risk >= 0.25 AND augmentation >= 0.12
  * - stable: net_risk < 0.25 AND augmentation < 0.12
  */
 export function classifyImpactType(
 	displacement: number,
-	augmentation: number,
-	hasDemandSignal: boolean = false
+	augmentation: number
 ): ImpactType {
 	const highDisplacement = displacement >= IMPACT_TYPE_THRESHOLDS.displacement_threshold;
 	const highAugmentation = augmentation >= IMPACT_TYPE_THRESHOLDS.augmentation_threshold;
 
-	if (highDisplacement && hasDemandSignal && !highAugmentation) return 'mixed';
-	if (highDisplacement && !highAugmentation) return 'at_risk';
 	if (highDisplacement && highAugmentation) return 'mixed';
+	if (highDisplacement) return 'at_risk';
 	if (!highDisplacement && highAugmentation) return 'ai_leveraged';
 	return 'stable';
 }
@@ -284,15 +282,15 @@ export const DATA_VINTAGE = {
 	/** Anthropic Economic Index date */
 	anthropic: 'January 2026',
 	/** Model version */
-	model_version: 'V4.1',
+	model_version: 'V4.2',
 	/** Last scoring run date */
-	last_updated: '2026-03-20',
+	last_updated: '2026-03-21',
 	/** Occupation count */
 	occupation_count: 562,
 	/** Synthetic role count */
 	role_count: 88,
 	/** Validation check count */
-	validation_checks: 129,
+	validation_checks: 140,
 	/** Page count */
 	page_count: 672
 } as const;
@@ -305,6 +303,10 @@ export const MARKET_CONSTANTS = {
 	/** Weight of market momentum vs occupation scarcity */
 	momentum_weight: 0.6,
 	scarcity_weight: 0.4,
+	/** When occupation-level industry footprint data exists, weight it above the group employment prior. */
+	industry_footprint_employment_weight: 0.65,
+	/** Logistic calibration used for latent percentile shifts in the forecast layer. */
+	percentile_shift_calibration: 4.1097,
 	/** Maximum market modifier reduction */
 	max_modifier_effect: 0.35,
 	/** SOL demand signal bonuses */
@@ -343,6 +345,13 @@ export const VARIANT_SENSITIVITY_WEIGHTS = {
 
 /** Scenario effect scales for outlook computation */
 export const FORECAST_CONSTANTS = {
+	baseline_ai_adoption_speed: 1.0,
+	baseline_employer_cost_cutting: 0.5,
+	baseline_macro_backdrop: 0.0,
+	baseline_sector_readiness: 0.6,
+	short_run_realization_factor: 0.35,
+	capability_scalar_scale: 0.25,
+	scenario_high_confidence_threshold: 0.2,
 	scenario_confidence_threshold: 0.8,
 	adoption_effect_scale: 0.15,
 	cost_effect_scale: 0.1,

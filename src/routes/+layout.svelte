@@ -38,6 +38,7 @@
 
 	const secondaryLinks = [
 		{ href: '/data', label: 'Data' },
+		{ href: '/changelog', label: 'Changelog' },
 		{ href: '/about', label: 'About' },
 		{ href: '/watchlist', label: 'Watchlist' }
 	];
@@ -92,6 +93,14 @@
 </svelte:head>
 
 <div class="flex min-h-screen flex-col bg-background">
+	<!-- Skip navigation for keyboard/screen-reader users -->
+	<a
+		href="#main-content"
+		class="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-[60] focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-primary-foreground focus:shadow-lg"
+	>
+		Skip to content
+	</a>
+
 	<!-- Header: Signal — clean white bar, minimal chrome -->
 	<header class="sticky top-0 z-50 border-b border-border bg-header-bg/80 backdrop-blur-sm">
 		<div class="{pageContainer()} flex items-center justify-between h-12">
@@ -130,7 +139,7 @@
 					{#each navLinks as link (link.href)}
 						<a
 							href={link.href}
-							class="rounded-md px-2.5 py-1 text-[13px] font-medium transition-colors duration-100
+							class="rounded-md px-2.5 py-1 text-xs font-medium transition-colors duration-100
 								{isActive(link.href)
 								? 'bg-header-active-bg text-foreground'
 								: 'text-header-muted hover:text-foreground'}"
@@ -205,13 +214,13 @@
 		</div>
 	</header>
 
-	<div class="flex-1">
+	<main id="main-content" class="flex-1">
 		{#key currentPath}
 			<div in:fade={{ duration }}>
 				{@render children()}
 			</div>
 		{/key}
-	</div>
+	</main>
 
 	<!-- Footer -->
 	<footer class="border-t border-border">
@@ -291,6 +300,7 @@
 					<div class="flex items-center gap-3 text-xs text-muted-foreground">
 						<a href="/calculator" class="hover:text-foreground">Calculator</a>
 						<a href="/data" class="hover:text-foreground">Data</a>
+						<a href="/changelog" class="hover:text-foreground">Changelog</a>
 						<a href="/reports" class="hover:text-foreground">Reports</a>
 						<a href="/about" class="hover:text-foreground">About</a>
 						<a
@@ -300,7 +310,7 @@
 							class="hover:text-foreground">GitHub</a
 						>
 					</div>
-					<span class="text-[10px] text-text-ghost"
+					<span class="text-xs text-text-ghost"
 						>MIT Licensed · Open Source · Structural release {siteStatus.structural_release.version} ·
 						Updated {DATA_VINTAGE.last_updated}</span
 					>

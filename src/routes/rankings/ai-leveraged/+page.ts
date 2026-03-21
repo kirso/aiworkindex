@@ -1,6 +1,8 @@
 import { occupations } from '$lib/data';
 import type { PageLoad } from './$types';
 
+export const csr = false;
+
 export const load: PageLoad = () => {
 	const ranked = occupations
 		.filter(o => o.impact_type === 'ai_leveraged')

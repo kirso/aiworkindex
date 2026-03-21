@@ -1,10 +1,10 @@
 import type { Occupation, RiskBand, ImpactType, AugmentationBand } from './index';
 import {
 	getRiskBand,
-	MARKET_CONSTANTS,
 	classifyImpactType,
 	AUGMENTATION_THRESHOLDS
 } from './scoring-constants';
+import { computeStructuralScores } from './methodology-core';
 import type { DerivedOverlayScores, WorkflowOverlay } from './workflow-overlay';
 import {
 	archetypeOverlayDefaults,
@@ -1212,14 +1212,18 @@ export const syntheticRoles: SyntheticRole[] = [
 	}
 ];
 
-function weightedMean(values: number[], weights: number[]): number {
-	let sum = 0;
-	let wSum = 0;
-	for (let i = 0; i < values.length; i++) {
-		sum += values[i]! * weights[i]!;
-		wSum += weights[i]!;
-	}
-	return wSum > 0 ? sum / wSum : 0;
+
+function weightedMeanWithCoverage(
+	values: number[],
+	weights: number[],
+	totalConfiguredWeight: number,
+	fallbackValue: number = 0.5
+): number {
+	const observedWeight = weights.reduce((sum, weight) => sum + weight, 0);
+	const missingWeight = Math.max(0, totalConfiguredWeight - observedWeight);
+	const numerator = values.reduce((sum, value, index) => sum + value * weights[index]!, 0);
+	const denominator = observedWeight + missingWeight;
+	return denominator > 0 ? (numerator + fallbackValue * missingWeight) / denominator : fallbackValue;
 }
 
 function clamp01(value: number): number {
@@ -1430,30 +1434,22 @@ export function computeRoleScores(
 	const exposures = validComponents.map((c) => c.occupation!.exposure);
 	const bottlenecks = validComponents.map((c) => c.occupation!.bottleneck);
 	const resiliences = validComponents.map((c) => c.occupation!.market.market_resilience);
-	const augmentations = validComponents.map((c) => c.occupation!.augmentation);
 	const weights = validComponents.map((c) => c.weight);
+	const totalConfiguredWeight = role.components.reduce((sum, component) => sum + component.weight, 0);
 
-	const exposure = weightedMean(exposures, weights);
-	const bottleneck = weightedMean(bottlenecks, weights);
-	const market_resilience = weightedMean(resiliences, weights);
-	const baseAugmentation = weightedMean(augmentations, weights);
-
-	const base_net_risk =
-		exposure * (1 - bottleneck) * (1 - MARKET_CONSTANTS.max_modifier_effect * market_resilience);
+	const exposure = weightedMeanWithCoverage(exposures, weights, totalConfiguredWeight);
+	const bottleneck = weightedMeanWithCoverage(bottlenecks, weights, totalConfiguredWeight);
+	const market_resilience = weightedMeanWithCoverage(resiliences, weights, totalConfiguredWeight);
+	const { net_risk: base_net_risk, augmentation } = computeStructuralScores({
+		exposure,
+		bottleneck,
+		market_resilience
+	});
 	const workflowMeta = buildRoleWorkflowMeta(role, validComponents);
 	const net_risk = clamp01(base_net_risk * workflowMeta.contextAdjustment);
-	const augmentationAdjustment = workflowMeta.derived
-		? 0.9 + 0.25 * workflowMeta.derived.augmentation_upside
-		: 1;
-	const augmentation = clamp01(baseAugmentation * augmentationAdjustment);
 	const risk_band = getRiskBand(net_risk);
 	const augmentation_band = computeAugmentationBand(augmentation);
-
-	// Inherit demand signal from components: if ANY component has SOL/JiD match, role inherits it
-	const hasDemandSignal = validComponents.some(
-		c => c.occupation.evidence.sol_match || c.occupation.evidence.jobs_in_demand_match
-	);
-	const impact_type = classifyImpactType(net_risk, augmentation, hasDemandSignal);
+	const impact_type = classifyImpactType(net_risk, augmentation);
 
 	// Compute dispersion: stddev of component net_risk values
 	const componentRisks = validComponents.map(c => c.occupation.net_risk);

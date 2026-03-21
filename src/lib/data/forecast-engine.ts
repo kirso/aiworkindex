@@ -13,6 +13,7 @@ import {
 	FORECAST_CONSTANTS,
 	LABOUR_MARKET_EFFECTS
 } from './scoring-constants';
+import { applyPercentileShift, computeNetRisk, clamp01 } from './methodology-core';
 
 export type OutlookStatus = 'resilient' | 'watch' | 'under_pressure' | 'at_risk';
 export type Direction = 'improving' | 'stable' | 'worsening';
@@ -63,6 +64,17 @@ export interface OutlookResult {
 	summary: string;
 }
 
+export interface ForecastScoreSnapshot {
+	structuralRisk: number;
+	nearTermRisk: number;
+	displacementScore: number;
+	augmentationScore: number;
+	demandScore: number;
+	wageScore: number;
+	direction: Direction;
+	confidence: ConfidenceLevel;
+}
+
 export const scenarioPresets: Record<ScenarioPreset, { label: string; description: string; params: ScenarioParams }> = {
 	conservative: {
 		label: 'Conservative',
@@ -109,6 +121,35 @@ function classifyDirection(delta: number): Direction {
 	return 'stable';
 }
 
+function computeNearTermRisk(
+	structuralRisk: number,
+	scenario: ScenarioParams
+): number {
+	const adoptionScalar =
+		scenario.ai_adoption_speed / FORECAST_CONSTANTS.baseline_ai_adoption_speed;
+	const capabilityScalar =
+		1 +
+		(scenario.sector_readiness - FORECAST_CONSTANTS.baseline_sector_readiness) *
+			FORECAST_CONSTANTS.capability_scalar_scale;
+	const costScalar =
+		1 +
+		(scenario.employer_cost_cutting - FORECAST_CONSTANTS.baseline_employer_cost_cutting) *
+			FORECAST_CONSTANTS.cost_effect_scale;
+	const macroScalar =
+		1 -
+		(scenario.macro_backdrop - FORECAST_CONSTANTS.baseline_macro_backdrop) *
+			FORECAST_CONSTANTS.macro_effect_scale;
+
+	return clamp01(
+		structuralRisk *
+			FORECAST_CONSTANTS.short_run_realization_factor *
+			adoptionScalar *
+			capabilityScalar *
+			costScalar *
+			macroScalar
+	);
+}
+
 /**
  * Compute outlook for an occupation under a given scenario.
  * Incorporates real labour market data (vacancy, hiring, retrenchment, re-entry)
@@ -116,17 +157,46 @@ function classifyDirection(delta: number): Direction {
  * a repackaged version of the structural score.
  */
 export function computeOutlook(occ: Occupation, scenario: ScenarioParams): OutlookResult {
+	const scores = computeForecastScores(occ, scenario);
+
+	// Summary
+	const status = classifyStatus(scores.displacementScore);
+	const summaries: Record<OutlookStatus, string> = {
+		resilient: `${occ.title} appears resilient under this scenario. Strong human bottlenecks and/or market demand provide substantial buffer against AI displacement.`,
+		watch: `${occ.title} should be monitored. While not facing immediate pressure, shifts in AI capability or employer strategy could change the picture.`,
+		under_pressure: `${occ.title} faces growing pressure under this scenario. AI capabilities overlap significantly with core tasks, and market buffers are limited.`,
+		at_risk: `${occ.title} faces significant displacement risk under this scenario. Core tasks are highly automatable with limited offsetting demand or bottlenecks.`
+	};
+
+	return {
+		displacement_pressure: classifyStatus(scores.displacementScore),
+		augmentation_upside: classifyStatus(1 - scores.augmentationScore), // invert: high aug = resilient
+		demand_outlook: classifyStatus(scores.demandScore),
+		wage_pressure: classifyStatus(scores.wageScore),
+		direction_12m: scores.direction,
+		confidence: scores.confidence,
+		summary: summaries[status]
+	};
+}
+
+export function computeForecastScores(
+	occ: Occupation,
+	scenario: ScenarioParams
+): ForecastScoreSnapshot {
 	// Base structural scores
-	const baseDisplacement = occ.net_risk;
+	const structuralRisk = occ.net_risk;
 	const baseAugmentation = occ.augmentation;
 	const baseDemand = occ.market.market_resilience;
 	const lm = occ.labour_monitor;
+	const baselineNearTermRisk = computeNearTermRisk(occ.net_risk, scenarioPresets.base.params);
 
 	// Scenario adjustments
-	const adoptionEffect = (scenario.ai_adoption_speed - 1.0) * FORECAST_CONSTANTS.adoption_effect_scale;
-	const costEffect = scenario.employer_cost_cutting * FORECAST_CONSTANTS.cost_effect_scale;
-	const macroEffect = -scenario.macro_backdrop * FORECAST_CONSTANTS.macro_effect_scale;
-	const sectorEffect = scenario.sector_readiness * FORECAST_CONSTANTS.sector_effect_scale;
+	const macroEffect =
+		-(scenario.macro_backdrop - FORECAST_CONSTANTS.baseline_macro_backdrop) *
+		FORECAST_CONSTANTS.macro_effect_scale;
+	const sectorEffect =
+		(scenario.sector_readiness - FORECAST_CONSTANTS.baseline_sector_readiness) *
+		FORECAST_CONSTANTS.sector_effect_scale;
 
 	// --- Seniority adjustment (scales with variant_sensitivity) ---
 	let seniorityExposureAdj = 0;
@@ -175,55 +245,61 @@ export function computeOutlook(occ: Occupation, scenario: ScenarioParams): Outlo
 	}
 
 	// Displacement pressure: seniority-adjusted exposure × (1 - seniority-adjusted bottleneck)
-	const adjExposure = Math.max(0, Math.min(1, occ.exposure + seniorityExposureAdj));
-	const adjBottleneck = Math.max(0, Math.min(1, occ.bottleneck + seniorityBottleneckAdj));
-	const seniorityDisplacement = adjExposure * (1 - adjBottleneck) * occ.market.market_modifier;
-	const displacementScore = Math.max(0, Math.min(1,
-		seniorityDisplacement + adoptionEffect + costEffect + macroEffect + labourDisplacementAdj
-	));
+	const adjExposure = applyPercentileShift(occ.exposure, seniorityExposureAdj);
+	const adjBottleneck = applyPercentileShift(occ.bottleneck, seniorityBottleneckAdj);
+	const seniorityDisplacement = computeNetRisk({
+		exposure: adjExposure,
+		bottleneck: adjBottleneck,
+		market_resilience: occ.market.market_resilience
+	});
+	const nearTermRisk = computeNearTermRisk(seniorityDisplacement, scenario);
+	const baselineDisplacementScore = clamp01(baselineNearTermRisk + labourDisplacementAdj);
+	const displacementScore = clamp01(
+		nearTermRisk + labourDisplacementAdj
+	);
 
 	// Augmentation upside: higher with faster adoption if bottleneck is high
-	const augScore = Math.max(0, Math.min(1,
+	const adoptionEffect =
+		(scenario.ai_adoption_speed - FORECAST_CONSTANTS.baseline_ai_adoption_speed) *
+		FORECAST_CONSTANTS.adoption_effect_scale;
+	const augScore = clamp01(
 		baseAugmentation + (adjBottleneck > 0.5 ? adoptionEffect * 0.5 : -adoptionEffect * 0.3)
-	));
+	);
 
 	// Demand outlook: based on market resilience + macro + actual vacancy/hiring signals
-	const demandScore = Math.max(0, Math.min(1,
-		1 - baseDemand + macroEffect - sectorEffect + labourDemandAdj
-	));
+	const demandScore = clamp01(1 - baseDemand + macroEffect - sectorEffect + labourDemandAdj);
 
 	// Wage pressure: displacement erodes wages, demand supports them, re-entry rate moderates
-	const wageScore = Math.max(0, Math.min(1,
-		displacementScore * 0.6 + (1 - baseDemand) * 0.4 + labourWageAdj
-	));
+	const wageScore = clamp01(displacementScore * 0.6 + (1 - baseDemand) * 0.4 + labourWageAdj);
 
-	// 12-month direction: compare scenario-adjusted to base
-	const delta = displacementScore - baseDisplacement;
+	// 12-month direction: compare against the baseline near-term path, not the long-run structural score.
+	const delta = displacementScore - baselineDisplacementScore;
 	const direction = classifyDirection(delta);
 
 	// Confidence: lower if scenario deviates heavily from base
-	const scenarioDeviation = Math.abs(scenario.ai_adoption_speed - 1.0) +
-		Math.abs(scenario.employer_cost_cutting - 0.5) +
-		Math.abs(scenario.macro_backdrop);
-	const confidence: ConfidenceLevel = scenarioDeviation < FORECAST_CONSTANTS.scenario_confidence_threshold ? 'medium' : 'low';
-
-	// Summary
-	const status = classifyStatus(displacementScore);
-	const summaries: Record<OutlookStatus, string> = {
-		resilient: `${occ.title} appears resilient under this scenario. Strong human bottlenecks and/or market demand provide substantial buffer against AI displacement.`,
-		watch: `${occ.title} should be monitored. While not facing immediate pressure, shifts in AI capability or employer strategy could change the picture.`,
-		under_pressure: `${occ.title} faces growing pressure under this scenario. AI capabilities overlap significantly with core tasks, and market buffers are limited.`,
-		at_risk: `${occ.title} faces significant displacement risk under this scenario. Core tasks are highly automatable with limited offsetting demand or bottlenecks.`
-	};
+	const scenarioDeviation =
+		Math.abs(scenario.ai_adoption_speed - FORECAST_CONSTANTS.baseline_ai_adoption_speed) +
+		Math.abs(
+			scenario.employer_cost_cutting - FORECAST_CONSTANTS.baseline_employer_cost_cutting
+		) +
+		Math.abs(scenario.macro_backdrop - FORECAST_CONSTANTS.baseline_macro_backdrop) +
+		Math.abs(scenario.sector_readiness - FORECAST_CONSTANTS.baseline_sector_readiness);
+	const confidence: ConfidenceLevel =
+		scenarioDeviation <= FORECAST_CONSTANTS.scenario_high_confidence_threshold
+			? 'high'
+			: scenarioDeviation < FORECAST_CONSTANTS.scenario_confidence_threshold
+				? 'medium'
+				: 'low';
 
 	return {
-		displacement_pressure: classifyStatus(displacementScore),
-		augmentation_upside: classifyStatus(1 - augScore), // invert: high aug = resilient
-		demand_outlook: classifyStatus(demandScore),
-		wage_pressure: classifyStatus(wageScore),
-		direction_12m: direction,
-		confidence,
-		summary: summaries[status]
+		structuralRisk,
+		nearTermRisk,
+		displacementScore,
+		augmentationScore: augScore,
+		demandScore,
+		wageScore,
+		direction,
+		confidence
 	};
 }
 

@@ -1,6 +1,8 @@
 import { occupations, riskBandLabels, type RiskBand } from '$lib/data';
 import type { PageLoad } from './$types';
 
+export const csr = false;
+
 export const load: PageLoad = () => {
 	// --- Risk distribution: count per band ---
 	const riskDistribution: { band: RiskBand; label: string; count: number }[] = (

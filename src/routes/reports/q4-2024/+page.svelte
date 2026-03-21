@@ -56,7 +56,7 @@
 		class="mt-4 rounded-lg border border-border/60 bg-muted/40 px-4 py-3 text-sm text-muted-foreground"
 	>
 		This is an archived report surface for <span class="font-medium text-foreground">Q4 2024</span>.
-		It is rendered with the current V4.1 methodology and source registry, so later sources and
+		It is rendered with the current V4.2 methodology and source registry, so later sources and
 		labels may appear below. Read it as a historical snapshot rebuilt under the current pipeline,
 		not as a period-authentic 2024 publication.
 	</div>

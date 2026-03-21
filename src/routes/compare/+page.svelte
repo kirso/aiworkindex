@@ -348,7 +348,7 @@
 						class="rounded-md border border-border px-3 py-2.5 hover:bg-accent hover:border-primary/30 transition-colors block"
 					>
 						<p class="text-sm font-medium text-foreground">{comp.label}</p>
-						<p class="text-[10px] text-muted-foreground">{comp.why}</p>
+						<p class="text-xs text-muted-foreground">{comp.why}</p>
 					</a>
 				{/each}
 			</div>

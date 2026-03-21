@@ -1,27 +1,27 @@
 {
-  "validation_date": "2026-03-20",
+  "validation_date": "2026-03-21",
   "data_period": "Q4 2025",
-  "model_version": "V4.1",
+  "model_version": "V4.2",
   "cluster_stats": [
     {
       "cluster_key": "pmet",
       "cluster_label": "Professionals, Managers, Executives & Technicians",
       "occupation_count": 365,
-      "avg_net_risk": 0.2069,
+      "avg_net_risk": 0.2128,
       "avg_exposure": 0.5955,
       "avg_bottleneck": 0.6131,
       "risk_band_distribution": {
-        "low": 115,
-        "very_low": 67,
-        "moderate": 80,
-        "high": 76,
-        "very_high": 27
+        "low": 114,
+        "very_low": 66,
+        "moderate": 78,
+        "high": 79,
+        "very_high": 28
       },
       "impact_type_distribution": {
-        "ai_leveraged": 167,
-        "stable": 74,
-        "mixed": 86,
-        "at_risk": 38
+        "ai_leveraged": 160,
+        "stable": 78,
+        "mixed": 79,
+        "at_risk": 48
       },
       "vacancy_rate": 3.1,
       "vacancy_trend_4q_pct": -3.13,
@@ -34,18 +34,19 @@
       "cluster_key": "clerical_sales_service",
       "cluster_label": "Clerical, Sales & Service Workers",
       "occupation_count": 88,
-      "avg_net_risk": 0.3434,
+      "avg_net_risk": 0.3436,
       "avg_exposure": 0.505,
       "avg_bottleneck": 0.2461,
       "risk_band_distribution": {
-        "high": 23,
-        "very_high": 24,
-        "moderate": 14,
+        "high": 24,
+        "very_high": 23,
+        "moderate": 15,
         "low": 21,
-        "very_low": 6
+        "very_low": 5
       },
       "impact_type_distribution": {
-        "at_risk": 47,
+        "at_risk": 46,
+        "mixed": 1,
         "stable": 35,
         "ai_leveraged": 6
       },
@@ -60,7 +61,7 @@
       "cluster_key": "production_transport",
       "cluster_label": "Production & Transport Operators, Cleaners & Labourers",
       "occupation_count": 109,
-      "avg_net_risk": 0.098,
+      "avg_net_risk": 0.0981,
       "avg_exposure": 0.1876,
       "avg_bottleneck": 0.3264,
       "risk_band_distribution": {
@@ -70,9 +71,9 @@
         "moderate": 16
       },
       "impact_type_distribution": {
-        "stable": 99,
+        "stable": 100,
         "at_risk": 3,
-        "ai_leveraged": 6,
+        "ai_leveraged": 5,
         "mixed": 1
       },
       "vacancy_rate": 2.8,
@@ -88,7 +89,7 @@
       "prefix": "41",
       "label": "CLERICAL SUPPORT WORKERS",
       "count": 5,
-      "avg_net_risk": 0.6793,
+      "avg_net_risk": 0.677,
       "avg_wage": 2922,
       "avg_exposure": 0.855
     },
@@ -96,47 +97,47 @@
       "prefix": "43",
       "label": "CLERICAL SUPPORT WORKERS",
       "count": 19,
-      "avg_net_risk": 0.5536,
+      "avg_net_risk": 0.5521,
       "avg_wage": 3759,
       "avg_exposure": 0.7255
-    },
-    {
-      "prefix": "42",
-      "label": "CLERICAL SUPPORT WORKERS",
-      "count": 14,
-      "avg_net_risk": 0.467,
-      "avg_wage": 3287,
-      "avg_exposure": 0.6961
     },
     {
       "prefix": "25",
       "label": "PROFESSIONALS",
       "count": 18,
-      "avg_net_risk": 0.4567,
+      "avg_net_risk": 0.4716,
       "avg_wage": 8159,
       "avg_exposure": 0.8247
     },
     {
-      "prefix": "36",
-      "label": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
-      "count": 7,
-      "avg_net_risk": 0.4209,
-      "avg_wage": 3966,
-      "avg_exposure": 0.8052
+      "prefix": "42",
+      "label": "CLERICAL SUPPORT WORKERS",
+      "count": 14,
+      "avg_net_risk": 0.4615,
+      "avg_wage": 3287,
+      "avg_exposure": 0.6961
     },
     {
       "prefix": "33",
       "label": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "count": 28,
-      "avg_net_risk": 0.419,
+      "avg_net_risk": 0.434,
       "avg_wage": 4845,
       "avg_exposure": 0.7984
+    },
+    {
+      "prefix": "36",
+      "label": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
+      "count": 7,
+      "avg_net_risk": 0.42,
+      "avg_wage": 3966,
+      "avg_exposure": 0.8052
     },
     {
       "prefix": "35",
       "label": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "count": 8,
-      "avg_net_risk": 0.3592,
+      "avg_net_risk": 0.374,
       "avg_wage": 4590,
       "avg_exposure": 0.6428
     },
@@ -144,7 +145,7 @@
       "prefix": "52",
       "label": "SERVICE AND SALES WORKERS",
       "count": 9,
-      "avg_net_risk": 0.3555,
+      "avg_net_risk": 0.3623,
       "avg_wage": 2972,
       "avg_exposure": 0.4876
     },
@@ -152,7 +153,7 @@
       "prefix": "24",
       "label": "PROFESSIONALS",
       "count": 42,
-      "avg_net_risk": 0.3429,
+      "avg_net_risk": 0.3537,
       "avg_wage": 8625,
       "avg_exposure": 0.837
     },
@@ -160,7 +161,7 @@
       "prefix": "21",
       "label": "PROFESSIONALS",
       "count": 62,
-      "avg_net_risk": 0.2064,
+      "avg_net_risk": 0.2135,
       "avg_wage": 6868,
       "avg_exposure": 0.6164
     },
@@ -168,7 +169,7 @@
       "prefix": "26",
       "label": "PROFESSIONALS",
       "count": 24,
-      "avg_net_risk": 0.2051,
+      "avg_net_risk": 0.2095,
       "avg_wage": 6534,
       "avg_exposure": 0.6626
     },
@@ -176,7 +177,7 @@
       "prefix": "96",
       "label": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "count": 16,
-      "avg_net_risk": 0.1709,
+      "avg_net_risk": 0.171,
       "avg_wage": 2268,
       "avg_exposure": 0.2816
     },
@@ -184,7 +185,7 @@
       "prefix": "34",
       "label": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "count": 15,
-      "avg_net_risk": 0.1597,
+      "avg_net_risk": 0.1639,
       "avg_wage": 3769,
       "avg_exposure": 0.4687
     },
@@ -192,7 +193,7 @@
       "prefix": "53",
       "label": "SERVICE AND SALES WORKERS",
       "count": 6,
-      "avg_net_risk": 0.1528,
+      "avg_net_risk": 0.1583,
       "avg_wage": 2779,
       "avg_exposure": 0.2954
     },
@@ -200,7 +201,7 @@
       "prefix": "31",
       "label": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "count": 50,
-      "avg_net_risk": 0.1288,
+      "avg_net_risk": 0.1338,
       "avg_wage": 4178,
       "avg_exposure": 0.3524
     },
@@ -208,7 +209,7 @@
       "prefix": "12",
       "label": "MANAGERS",
       "count": 22,
-      "avg_net_risk": 0.1276,
+      "avg_net_risk": 0.1277,
       "avg_wage": 8602,
       "avg_exposure": 0.676
     },
@@ -216,7 +217,7 @@
       "prefix": "32",
       "label": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "count": 13,
-      "avg_net_risk": 0.1216,
+      "avg_net_risk": 0.1235,
       "avg_wage": 4124,
       "avg_exposure": 0.2931
     },
@@ -224,7 +225,7 @@
       "prefix": "81",
       "label": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
       "count": 9,
-      "avg_net_risk": 0.106,
+      "avg_net_risk": 0.1081,
       "avg_wage": 3024,
       "avg_exposure": 0.1748
     },
@@ -232,7 +233,7 @@
       "prefix": "51",
       "label": "SERVICE AND SALES WORKERS",
       "count": 23,
-      "avg_net_risk": 0.1053,
+      "avg_net_risk": 0.1069,
       "avg_wage": 3197,
       "avg_exposure": 0.2438
     },
@@ -240,7 +241,7 @@
       "prefix": "14",
       "label": "MANAGERS",
       "count": 12,
-      "avg_net_risk": 0.0928,
+      "avg_net_risk": 0.0926,
       "avg_wage": 5614,
       "avg_exposure": 0.4902
     },
@@ -248,7 +249,7 @@
       "prefix": "75",
       "label": "CRAFTSMEN AND RELATED TRADES WORKERS",
       "count": 7,
-      "avg_net_risk": 0.0924,
+      "avg_net_risk": 0.0919,
       "avg_wage": 2812,
       "avg_exposure": 0.1534
     },
@@ -256,7 +257,7 @@
       "prefix": "83",
       "label": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
       "count": 20,
-      "avg_net_risk": 0.0885,
+      "avg_net_risk": 0.0888,
       "avg_wage": 2791,
       "avg_exposure": 0.1766
     },
@@ -264,31 +265,31 @@
       "prefix": "54",
       "label": "SERVICE AND SALES WORKERS",
       "count": 7,
-      "avg_net_risk": 0.0847,
+      "avg_net_risk": 0.0869,
       "avg_wage": 3585,
       "avg_exposure": 0.1881
-    },
-    {
-      "prefix": "72",
-      "label": "CRAFTSMEN AND RELATED TRADES WORKERS",
-      "count": 8,
-      "avg_net_risk": 0.0808,
-      "avg_wage": 3893,
-      "avg_exposure": 0.1664
     },
     {
       "prefix": "13",
       "label": "MANAGERS",
       "count": 24,
-      "avg_net_risk": 0.0806,
+      "avg_net_risk": 0.0807,
       "avg_wage": 8632,
       "avg_exposure": 0.5539
+    },
+    {
+      "prefix": "72",
+      "label": "CRAFTSMEN AND RELATED TRADES WORKERS",
+      "count": 8,
+      "avg_net_risk": 0.0806,
+      "avg_wage": 3893,
+      "avg_exposure": 0.1664
     },
     {
       "prefix": "71",
       "label": "CRAFTSMEN AND RELATED TRADES WORKERS",
       "count": 8,
-      "avg_net_risk": 0.0709,
+      "avg_net_risk": 0.0696,
       "avg_wage": 2613,
       "avg_exposure": 0.1779
     },
@@ -296,7 +297,7 @@
       "prefix": "74",
       "label": "CRAFTSMEN AND RELATED TRADES WORKERS",
       "count": 6,
-      "avg_net_risk": 0.0452,
+      "avg_net_risk": 0.0449,
       "avg_wage": 3619,
       "avg_exposure": 0.2999
     },
@@ -304,7 +305,7 @@
       "prefix": "91",
       "label": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "count": 12,
-      "avg_net_risk": 0.0437,
+      "avg_net_risk": 0.0431,
       "avg_wage": 1836,
       "avg_exposure": 0.0848
     },
@@ -312,7 +313,7 @@
       "prefix": "93",
       "label": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "count": 6,
-      "avg_net_risk": 0.0405,
+      "avg_net_risk": 0.041,
       "avg_wage": 2278,
       "avg_exposure": 0.0695
     },
@@ -320,7 +321,7 @@
       "prefix": "22",
       "label": "PROFESSIONALS",
       "count": 32,
-      "avg_net_risk": 0.0227,
+      "avg_net_risk": 0.0229,
       "avg_wage": 5983,
       "avg_exposure": 0.4075
     }
@@ -365,7 +366,7 @@
       "Cluster-level aggregation masks within-cluster variation",
       "Q4 2025 is a single observation — trends need multi-quarter validation",
       "Vacancy rates reflect overall demand, not AI-specific displacement",
-      "V4.1: 4-source exposure ensemble (AIOE + Anthropic + Eloundou + ILO)"
+      "V4.2: 4-source exposure ensemble (AIOE + Anthropic + Eloundou + ILO)"
     ]
   }
 }

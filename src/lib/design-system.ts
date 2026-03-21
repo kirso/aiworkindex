@@ -93,6 +93,14 @@ export const caption = tv({
 	defaultVariants: { weight: 'normal' }
 });
 
+/**
+ * Micro-label — uppercase metadata markers above metrics.
+ * Replaces all text-[10px] patterns. Uses text-xs (12px) as the floor.
+ */
+export const microLabel = tv({
+	base: 'text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground'
+});
+
 /** Mono — tabular numbers for data alignment */
 export const mono = tv({
 	base: 'font-mono tabular-nums',

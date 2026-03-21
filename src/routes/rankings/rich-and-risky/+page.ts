@@ -2,6 +2,8 @@ import { occupations } from '$lib/data';
 import { RANKING_THRESHOLDS } from '$lib/data/scoring-constants';
 import type { PageLoad } from './$types';
 
+export const csr = false;
+
 export const load: PageLoad = () => {
 	const ranked = occupations
 		.filter(

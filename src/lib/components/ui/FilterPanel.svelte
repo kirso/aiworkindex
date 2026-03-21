@@ -200,6 +200,7 @@
 						<span
 							class="mr-1 inline-block h-2 w-2 rounded-full"
 							style="background-color: {bandColor};"
+							aria-hidden="true"
 						></span>
 					{/if}
 					{opt.label}

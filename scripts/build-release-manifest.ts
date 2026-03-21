@@ -126,6 +126,13 @@ const ARTIFACTS: ReleaseArtifactDefinition[] = [
 			'Machine-readable registry of major public claims, evidence strength, and source keys for the current release.'
 	},
 	{
+		file: 'experimental-methodology-v43.json',
+		label: 'V4.3 shadow-model readiness',
+		category: 'governance',
+		description:
+			'Governance artifact for the task-weighted shadow model, including input readiness, promotion gates, and known blockers.'
+	},
+	{
 		file: 'site-status.json',
 		label: 'Public site status',
 		category: 'governance',

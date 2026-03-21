@@ -3,6 +3,8 @@ import type { Occupation } from '$lib/data';
 import { RANKING_THRESHOLDS } from '$lib/data/scoring-constants';
 import type { PageLoad } from './$types';
 
+export const csr = false;
+
 function employmentProxy(o: Occupation): number {
 	return o.bls_proxy_employment ?? o.employment_thousands;
 }

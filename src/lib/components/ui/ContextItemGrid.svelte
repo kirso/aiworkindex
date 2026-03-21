@@ -27,7 +27,7 @@
 				<div>
 					<div class="flex items-center gap-2">
 						<p class={cn('text-xs font-semibold', contextToneClass(item.tone))}>{item.label}</p>
-						<span class="rounded-full bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">
+						<span class="rounded-full bg-muted px-1.5 py-0.5 text-xs text-muted-foreground">
 							{item.value}
 						</span>
 					</div>

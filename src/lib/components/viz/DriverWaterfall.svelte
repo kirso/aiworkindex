@@ -96,7 +96,11 @@
 	let maxValue = $derived(Math.max(...drivers.map(d => d.value), 0.1));
 </script>
 
-<div class="space-y-2.5">
+<div
+	class="space-y-2.5"
+	role="img"
+	aria-label="Score breakdown: factors driving AI displacement risk up and down"
+>
 	{#each drivers as driver}
 		{@const widthPct = (driver.value / maxValue) * maxBarWidth}
 		<div>
@@ -143,7 +147,7 @@
 		</div>
 	{/each}
 
-	<p class="text-[10px] text-text-secondary italic mt-1">
+	<p class="text-xs text-text-secondary italic mt-1">
 		These factors combine multiplicatively — larger bars do not mean proportionally larger
 		contributions to the final score.
 	</p>

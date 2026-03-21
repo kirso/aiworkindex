@@ -109,7 +109,7 @@
 							>
 								<div>
 									<p class="text-sm text-foreground">{mover.title}</p>
-									<p class="text-[11px] text-muted-foreground">
+									<p class="text-xs text-muted-foreground">
 										{mover.from_band} → {mover.to_band}
 									</p>
 								</div>

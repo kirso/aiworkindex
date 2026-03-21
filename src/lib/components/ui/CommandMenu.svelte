@@ -3,9 +3,7 @@
 	import * as Command from '$lib/components/ui/command/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { occupations, riskBandLabels } from '$lib/data';
-	import type { Occupation } from '$lib/data';
-	import { syntheticRoles } from '$lib/data/synthetic-roles';
-	import { findAliasMatches } from '$lib/data/aliases';
+	import { searchOccupationsAndRoles } from '$lib/utils/search';
 	import { riskBadge } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 
@@ -20,39 +18,7 @@
 		}
 	}
 
-	// Search: word-boundary matching for short queries, substring for longer ones
-	function titleMatches(title: string, q: string): boolean {
-		const t = title.toLowerCase();
-		if (q.length >= 4) return t.includes(q);
-		// Short queries: match word starts to avoid "cto" matching "director"
-		const words = t.split(/[\s/(),]+/);
-		return words.some(w => w.startsWith(q));
-	}
-
-	let results = $derived.by(() => {
-		const q = query.trim().toLowerCase();
-		if (!q || q.length < 2) return { roles: [], occupations: [] as Occupation[] };
-
-		// Roles
-		const roleMatches = syntheticRoles.filter(r => titleMatches(r.title, q)).slice(0, 5);
-
-		// Alias matches first (highest relevance)
-		const aliasHits = findAliasMatches(q);
-		const aliasSsocs = new Set(aliasHits.flatMap(m => m.ssocs));
-		const aliasOccs = aliasSsocs.size > 0 ? occupations.filter(o => aliasSsocs.has(o.ssoc)) : [];
-
-		// Direct title matches (excluding already-found alias matches)
-		const aliasSet = new Set(aliasOccs.map(o => o.ssoc));
-		const titleOccs = occupations.filter(o => !aliasSet.has(o.ssoc) && titleMatches(o.title, q));
-
-		// Alias results first, then title matches
-		const occMatches = [...aliasOccs, ...titleOccs];
-
-		return {
-			roles: roleMatches,
-			occupations: occMatches.slice(0, 8)
-		};
-	});
+	let results = $derived(searchOccupationsAndRoles(query, occupations));
 
 	function selectOccupation(ssoc: string) {
 		open = false;

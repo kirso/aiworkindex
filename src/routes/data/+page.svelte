@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { title as titleStyle, pageLayout, card, sectionLabel } from '$lib/design-system';
+	import { title as titleStyle, pageLayout, card, sectionLabel, microLabel } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import * as Alert from '$lib/components/ui/alert/index.js';
 	import * as Table from '$lib/components/ui/table/index.js';
@@ -11,6 +11,7 @@
 		employmentBasisLabels,
 		sourceRegistryStatusLabels
 	} from '$lib/data/data-contract';
+	import { experimentalStatusLabel } from '$lib/data/experimental-status-display';
 	import releaseManifest from '$lib/data/release-manifest.json';
 	import { releases, siteStatus } from '$lib/data/site-status';
 	import rawDataAudit from '$lib/data/raw-data-audit.json';
@@ -22,7 +23,7 @@
 		'@context': 'https://schema.org',
 		'@type': 'Dataset',
 		name: 'AI Work Index — Singapore Occupation Scores',
-		description: `${DATA_VINTAGE.occupation_count} Singapore occupations scored for structural AI pressure using a 4-source exposure ensemble, human bottleneck, Singapore market context, and separately published offset/support layers.`,
+		description: `${DATA_VINTAGE.occupation_count} Singapore occupations scored for structural AI pressure using a 4-source exposure ensemble, human bottleneck, Singapore market context, bootstrap uncertainty intervals, and separately published offset/support layers.`,
 		url: SITE.url + '/data',
 		license: 'https://opensource.org/licenses/MIT',
 		creator: { '@type': 'Organization', name: SITE.name, url: SITE.url },
@@ -126,7 +127,7 @@
 			name: 'exposure',
 			type: 'number',
 			description:
-				'Exposure ensemble score (0-1). Reliability-weighted blend of matched percentile-ranked exposure sources in V4.1.'
+				'Exposure ensemble score (0-1). Reliability-weighted blend of matched percentile-ranked exposure sources in V4.2.'
 		},
 		{
 			name: 'bottleneck',
@@ -199,7 +200,7 @@
 			name: 'evidence.exposure_blend_strategy',
 			type: 'enum',
 			description:
-				'Current exposure blend method. V4.1 uses a deterministic reliability-weighted ensemble.'
+				'Current exposure blend method. V4.2 uses a deterministic reliability-weighted ensemble.'
 		},
 		{
 			name: 'evidence.exposure_agreement',
@@ -227,7 +228,7 @@
 		{
 			name: 'confidence.exposure_source_count',
 			type: 'number',
-			description: 'How many exposure sources were available for this occupation in the V4.1 ensemble.'
+			description: 'How many exposure sources were available for this occupation in the V4.2 ensemble.'
 		},
 		{
 			name: 'confidence.source_coverage',
@@ -248,6 +249,60 @@
 			name: 'confidence.level',
 			type: 'enum',
 			description: 'high | medium | low confidence.'
+		},
+		{
+			name: 'uncertainty.exposure_p10',
+			type: 'number',
+			description: '10th-percentile bootstrap estimate for exposure.'
+		},
+		{
+			name: 'uncertainty.exposure_p50',
+			type: 'number',
+			description: 'Median bootstrap estimate for exposure.'
+		},
+		{
+			name: 'uncertainty.exposure_p90',
+			type: 'number',
+			description: '90th-percentile bootstrap estimate for exposure.'
+		},
+		{
+			name: 'uncertainty.net_risk_p10',
+			type: 'number',
+			description: '10th-percentile bootstrap estimate for net_risk.'
+		},
+		{
+			name: 'uncertainty.net_risk_p50',
+			type: 'number',
+			description: 'Median bootstrap estimate for net_risk.'
+		},
+		{
+			name: 'uncertainty.net_risk_p90',
+			type: 'number',
+			description: '90th-percentile bootstrap estimate for net_risk.'
+		},
+		{
+			name: 'task_primitives.matched_task_weight_share',
+			type: 'number|null',
+			description:
+				'Share of weighted O*NET task importance/frequency that matched the experimental Anthropic task-penetration layer.'
+		},
+		{
+			name: 'task_primitives.task_effective_coverage',
+			type: 'number|null',
+			description:
+				'Experimental task-weighted effective coverage sidecar. Null when weighted task portfolios are not available.'
+		},
+		{
+			name: 'task_primitives.task_exposure_concentration',
+			type: 'number|null',
+			description:
+				'Experimental task-weighted concentration sidecar. Higher means exposure is concentrated into fewer important tasks.'
+		},
+		{
+			name: 'task_primitives.method',
+			type: 'enum|null',
+			description:
+				'Experimental task-primitive method identifier. Null when no weighted task evidence is available for this occupation.'
 		},
 		{
 			name: 'education_label',
@@ -329,11 +384,15 @@
 		if (value < 1024 * 1024) return `${(value / 1024).toFixed(1)} KB`;
 		return `${(value / (1024 * 1024)).toFixed(2)} MB`;
 	}
+
+	function formatPct(value: number | null | undefined): string {
+		return typeof value === 'number' ? `${(value * 100).toFixed(0)}%` : 'n/a';
+	}
 </script>
 
 <Seo
 	title="Download Singapore AI Occupation Risk Data"
-	description="Download the current AI Work Index dataset and versioned snapshots, including the latest V4.1 structural scores and metadata."
+	description="Download the current AI Work Index dataset and versioned snapshots, including the latest V4.2 structural scores, uncertainty intervals, and metadata."
 	path="/data"
 	jsonLd={[datasetJsonLd]}
 />
@@ -355,9 +414,9 @@
 		</p>
 	</div>
 
-	<div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+	<div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
 		<div class={cn(card({ variant: 'metric', padding: 'sm' }))}>
-			<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+			<p class={microLabel()}>
 				Structural release
 			</p>
 			<p class="mt-1 text-lg font-bold text-foreground">{siteStatus.structural_release.version}</p>
@@ -366,7 +425,7 @@
 			</p>
 		</div>
 		<div class={cn(card({ variant: 'metric', padding: 'sm' }))}>
-			<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+			<p class={microLabel()}>
 				Live monitor
 			</p>
 			<p class="mt-1 text-sm font-semibold text-foreground">
@@ -375,7 +434,7 @@
 			<p class="text-xs text-muted-foreground">current labour context used on live pages</p>
 		</div>
 		<div class={cn(card({ variant: 'metric', padding: 'sm' }))}>
-			<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+			<p class={microLabel()}>
 				Latest official release
 			</p>
 			<p class="mt-1 text-sm font-semibold text-foreground">
@@ -386,7 +445,18 @@
 			</p>
 		</div>
 		<div class={cn(card({ variant: 'metric', padding: 'sm' }))}>
-			<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+			<p class={microLabel()}>
+				Experimental layer
+			</p>
+			<p class="mt-1 text-sm font-semibold text-foreground">
+				{experimentalStatusLabel(siteStatus.experimental_release?.status)}
+			</p>
+			<p class="text-xs text-muted-foreground">
+				median direct task-share {formatPct(siteStatus.experimental_release?.median_direct_matched_task_weight_share)}
+			</p>
+		</div>
+		<div class={cn(card({ variant: 'metric', padding: 'sm' }))}>
+			<p class={microLabel()}>
 				Quarterly briefing
 			</p>
 			<p class="mt-1 text-sm font-semibold text-foreground">2026 Q1</p>
@@ -422,7 +492,7 @@
 
 	<!-- Download Cards -->
 	<p class={cn(sectionLabel(), 'mt-6 mb-3')}>Downloads</p>
-	<div class="grid gap-4 sm:grid-cols-3">
+	<div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
 		<a href="/data/sg-ai-occupations-v4.csv" download class="no-underline">
 			<div class={cn(card({ padding: 'lg', hover: true }), 'flex h-full flex-col items-start')}>
 				<div class="flex items-center gap-2">
@@ -451,9 +521,26 @@
 					<span class="text-base font-semibold text-foreground">JSON</span>
 				</div>
 				<p class="mt-1 text-sm text-muted-foreground">
-					Full V4.1 scores with nested fields and per-field basis metadata.
+					Full V4.2 scores with nested fields, bootstrap uncertainty, and task-primitives sidecar.
 				</p>
 				<span class="mt-auto pt-2 text-xs text-primary">sg-ai-occupations-v4.json</span>
+			</div>
+		</a>
+
+		<a href="/data/experimental-methodology-v43.json" download class="no-underline">
+			<div class={cn(card({ padding: 'lg', hover: true }), 'flex h-full flex-col items-start')}>
+				<div class="flex items-center gap-2">
+					<svg class="h-5 w-5 text-risk-moderate" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+						<polyline points="7,10 12,15 17,10"/>
+						<line x1="12" y1="15" x2="12" y2="3"/>
+					</svg>
+					<span class="text-base font-semibold text-foreground">Experimental V4.3</span>
+				</div>
+				<p class="mt-1 text-sm text-muted-foreground">
+					Task-weighted shadow-model readiness, promotion gates, and current blockers. Does not change the published V4.2 score.
+				</p>
+				<span class="mt-auto pt-2 text-xs text-primary">experimental-methodology-v43.json</span>
 			</div>
 		</a>
 
@@ -505,7 +592,7 @@
 					class="rounded-md border border-border px-3 py-2 hover:bg-accent hover:border-primary/30 transition-colors block"
 				>
 					<p class="text-xs font-medium text-primary">{file.label}</p>
-					<p class="text-[10px] text-muted-foreground">{file.desc}</p>
+					<p class="text-xs text-muted-foreground">{file.desc}</p>
 				</a>
 			{/each}
 		</div>
@@ -528,7 +615,7 @@
 					</Table.Header>
 					<Table.Body>
 						<Table.Row>
-							<Table.Cell class="font-medium">V4.1 (Current)</Table.Cell>
+							<Table.Cell class="font-medium">V4.2 (Current)</Table.Cell>
 							<Table.Cell class="text-muted-foreground">March 2026</Table.Cell>
 							<Table.Cell class="text-muted-foreground">{DATA_VINTAGE.occupation_count}</Table.Cell>
 							<Table.Cell>
@@ -563,10 +650,11 @@
 		<p class={cn(sectionLabel(), 'mb-3')}>Methodology Version</p>
 		<div class={card({ padding: 'lg' })}>
 			<div class="space-y-1 text-sm text-muted-foreground">
-				<p><span class="font-medium text-foreground">Version:</span> V4.1 (4-source exposure ensemble inside a 3-layer structural score, with separate offset/support layers)</p>
+				<p><span class="font-medium text-foreground">Version:</span> V4.2 (4-source exposure ensemble inside a 3-layer structural score, with bootstrap uncertainty and separate offset/support layers)</p>
 				<p><span class="font-medium text-foreground">Data vintage:</span> 2024 wages, 2024/2025 demand signals</p>
 				<p><span class="font-medium text-foreground">Occupations:</span> {DATA_VINTAGE.occupation_count} SSOC-coded occupations</p>
 				<p><span class="font-medium text-foreground">Separate context bundle:</span> Labour monitor, worker profile, industry context, sector wage anchors, geography context, macro labour context, national AI context, offset potential, and transition support</p>
+				<p><span class="font-medium text-foreground">Experimental shadow layer:</span> V4.3 task-weighted readiness is published separately and does not affect the headline score until promotion gates are met</p>
 				<p><span class="font-medium text-foreground">Sources:</span> MOM Singapore (wages, Labour Force Section D, industry context, demand signals, SOI), IMDA Singapore Digital Economy Report 2025, IMDA NAIIP 2026, O*NET, Felten AIOE, Pizzinelli/IMF, Anthropic observed usage, Eloundou GPT exposure, ILO occupational exposure, SOL 2026, Jobs in Demand 2025</p>
 			</div>
 			<a href="/methodology" class="mt-3 inline-block text-sm text-primary underline">Full methodology &rarr;</a>
@@ -612,7 +700,7 @@
 								<Table.Cell class="text-xs text-muted-foreground">
 									{formatBytes(artifact.bytes)}
 								</Table.Cell>
-								<Table.Cell class="font-mono text-[11px] text-muted-foreground">
+								<Table.Cell class="font-mono text-xs text-muted-foreground">
 									{artifact.sha256}
 								</Table.Cell>
 							</Table.Row>

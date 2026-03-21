@@ -7,8 +7,8 @@
 </script>
 
 <Seo
-	title="Implementation Appendix — V4.1 Scoring Rules"
-	description="Complete implementation reference for the V4.1 scoring pipeline: risk bands, impact classification, seniority modifiers, confidence, market modifier, stability, synthetic role rules, and separate support layers."
+	title="Implementation Appendix — V4.2 Scoring Rules"
+	description="Complete implementation reference for the V4.2 scoring pipeline: risk bands, impact classification, seniority modifiers, confidence, market modifier, stability, synthetic role rules, and separate support layers."
 	path="/methodology/appendix"
 />
 
@@ -25,7 +25,7 @@
 		Implementation Appendix
 	</h1>
 	<p class="mt-2 text-sm text-muted-foreground">
-		Complete V4.1 implementation reference. All thresholds match
+		Complete V4.2 implementation reference. All thresholds match
 		<code class="rounded bg-muted px-1 text-xs">score.ts</code>,
 		<code class="rounded bg-muted px-1 text-xs">synthetic-roles.ts</code>, and
 		<code class="rounded bg-muted px-1 text-xs">validate.ts</code>. This appendix documents the
@@ -93,8 +93,8 @@
 	<section class="mb-8">
 		<p class={sectionLabel()}>Impact Type Classification</p>
 		<p class="mt-2 text-xs text-muted-foreground">
-			Based on displacement (net_risk) × augmentation 2×2 matrix. Demand signal override: high
-			displacement + SOL/JiD match → mixed (not at_risk).
+			Based on a pure displacement (net_risk) × augmentation 2×2 matrix. SOL / Jobs in Demand now
+			enter only through market resilience, not as a separate label override.
 		</p>
 		<div class="mt-3 overflow-x-auto">
 			<table class="w-full text-left text-sm">
@@ -119,19 +119,19 @@
 						<td class="py-2 pr-3 font-medium">at_risk</td>
 						<td class="py-2 pr-3">
 							<code class="rounded bg-muted px-1 text-xs"
-								>net_risk &ge; 0.25 AND augmentation &lt; 0.12 AND no demand signal</code
+								>net_risk &ge; 0.25 AND augmentation &lt; 0.12</code
 							>
 						</td>
-						<td class="py-2">High displacement, low augmentation, no market buffer</td>
+						<td class="py-2">High displacement, low augmentation</td>
 					</tr>
 					<tr class="border-b border-border/50">
 						<td class="py-2 pr-3 font-medium">mixed</td>
 						<td class="py-2 pr-3">
 							<code class="rounded bg-muted px-1 text-xs"
-								>net_risk &ge; 0.25 AND (augmentation &ge; 0.12 OR demand signal)</code
+								>net_risk &ge; 0.25 AND augmentation &ge; 0.12</code
 							>
 						</td>
-						<td class="py-2">High displacement but offset by augmentation or demand</td>
+						<td class="py-2">High displacement but still meaningfully augmentation-shaped</td>
 					</tr>
 					<tr>
 						<td class="py-2 pr-3 font-medium">stable</td>
@@ -151,7 +151,12 @@
 	<section class="mb-8">
 		<p class={sectionLabel()}>Augmentation Score</p>
 		<p class="mt-2 rounded-md bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
-			augmentation = exposure × bottleneck × market_resilience_adjusted
+			augmentation = exposure × bottleneck × market_resilience
+		</p>
+		<p class="mt-2 text-sm text-muted-foreground">
+			The same published <code class="rounded bg-muted px-1 text-xs">market_resilience</code> field is
+			used in both the augmentation formula and the market modifier. Demand bonuses are applied inside
+			that field before it is capped to the 0–1 range.
 		</p>
 		<div class="mt-3 overflow-x-auto">
 			<table class="w-full text-left text-sm">
@@ -198,6 +203,11 @@
 				market_modifier = 1 − 0.35 × market_resilience
 			</p>
 		</div>
+		<p class="mt-2 text-sm text-muted-foreground">
+			When occupation-level industry footprint data exists, the employment side of
+			<code class="rounded bg-muted px-1 text-xs">market_momentum</code> is blended toward that occupation-specific
+			industry growth signal instead of relying only on the major-group prior.
+		</p>
 		<p class={cn(caption({ weight: 'medium' }), 'mt-3')}>Singapore demand signal bonuses:</p>
 		<div class="mt-2 overflow-x-auto">
 			<table class="w-full text-left text-sm">
@@ -316,7 +326,8 @@
 		<p class="mt-2 text-sm text-muted-foreground">
 			Applied in the Outlook engine. Adjustments scale with the occupation's variant_sensitivity
 			(0–1), derived from institutional knowledge, relationship intensity, regulatory weight, and
-			coordination requirements.
+			coordination requirements. The shifts are applied in latent percentile space, not as raw
+			linear additions to already-ranked percentiles.
 		</p>
 		<div class="mt-3 overflow-x-auto">
 			<table class="w-full text-left text-sm">

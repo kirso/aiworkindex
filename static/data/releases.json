@@ -1,10 +1,10 @@
 [
   {
-    "id": "structural-v4.1-2026-03-20",
+    "id": "structural-v4.2-2026-03-21",
     "type": "structural_release",
-    "label": "V4.1 structural release",
-    "published_at": "2026-03-20",
-    "score_version": "V4.1",
+    "label": "V4.2 structural release",
+    "published_at": "2026-03-21",
+    "score_version": "V4.2",
     "monitor_vintage": "Q4 2025 full",
     "href": "/data",
     "notes": [
@@ -13,11 +13,24 @@
     ]
   },
   {
+    "id": "shadow-methodology-note-v43",
+    "type": "experimental_update",
+    "label": "V4.3 shadow model note",
+    "published_at": "2026-03-21",
+    "score_version": "V4.2",
+    "monitor_vintage": "Q4 2025 full",
+    "href": "/reports/v4-3-shadow",
+    "notes": [
+      "Task-weighted shadow-model governance artifact published.",
+      "Ready for shadow scoring: task-weight coverage clears the minimum promotion gate, but no task-adjusted headline score is published yet. All required local inputs are present; headline promotion still depends on publishing the shadow score and clearing validation review."
+    ]
+  },
+  {
     "id": "official-labour-report-q4-2025",
     "type": "official_update",
     "label": "MOM Labour Market Report Q4 2025",
     "published_at": "2026-03-20",
-    "score_version": "V4.1",
+    "score_version": "V4.2",
     "monitor_vintage": "Q4 2025 full",
     "href": "https://stats.mom.gov.sg/Pages/Labour-Market-Report-4Q-2025.aspx",
     "notes": [
@@ -29,8 +42,8 @@
     "id": "quarterly-briefing-2026-q1",
     "type": "report_refresh",
     "label": "2026 Q1 quarterly briefing",
-    "published_at": "2026-03-20",
-    "score_version": "V4.1",
+    "published_at": "2026-03-21",
+    "score_version": "V4.2",
     "monitor_vintage": "Q4 2025 full",
     "href": "/reports",
     "notes": [

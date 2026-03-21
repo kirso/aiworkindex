@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { pill } from '$lib/design-system';
+	import { pill, microLabel } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 
 	let {
@@ -57,9 +57,7 @@
 </script>
 
 <div class="flex flex-wrap items-center gap-x-3 gap-y-2 border-t border-border pt-3">
-	<span class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-		Evidence
-	</span>
+	<span class={microLabel()}> Evidence </span>
 	<div class="flex items-center gap-1.5" title="{sourceCount} of 4 exposure sources matched">
 		{#each allSources as source}
 			{@const active = sourceKeys.includes(source.key)}
@@ -72,7 +70,7 @@
 			></div>
 		{/each}
 	</div>
-	<span class="text-[10px] text-muted-foreground">{sourceCount}/4 sources</span>
+	<span class="text-xs text-muted-foreground">{sourceCount}/4 sources</span>
 	{#if agreementLabel}
 		<span class={pill({ size: 'sm', tone: agreementTone })}>
 			{agreementLabel}

@@ -1,11 +1,18 @@
 <script lang="ts">
 	import aiInSingapore from '$lib/data/ai-in-singapore.json';
+	import { experimentalStatusLabel } from '$lib/data/experimental-status-display';
 	import { employerPressure } from '$lib/data/employer-pressure';
 	import macroContext from '$lib/data/macro-context.json';
 	import { postingsMonitor } from '$lib/data/postings-monitor';
 	import { quarterlyReport } from '$lib/data/quarterly-report';
 	import { releases, siteStatus } from '$lib/data/site-status';
-	import { title as titleStyle, pageLayout, card, sectionLabel } from '$lib/design-system';
+	import {
+		title as titleStyle,
+		pageLayout,
+		card,
+		sectionLabel,
+		microLabel
+	} from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
@@ -16,6 +23,12 @@
 	const macro = macroContext.latest_snapshot;
 	const postings = postingsMonitor.summary;
 	const quarterly = quarterlyReport;
+	const experimentalStatusBadgeClass =
+		siteStatus.experimental_release?.status === 'ready_for_shadow_scoring'
+			? 'bg-impact-leveraged-subtle text-impact-leveraged border-impact-leveraged-border'
+			: siteStatus.experimental_release?.status === 'blocked'
+				? 'bg-risk-high-subtle text-risk-high border-risk-high-border'
+				: 'bg-risk-moderate-subtle text-risk-moderate border-risk-moderate-border';
 </script>
 
 <Seo
@@ -51,36 +64,28 @@
 
 	<div class="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
 		<div class={card({ padding: 'sm', variant: 'metric' })}>
-			<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-				AI Adoption · 2024 Data
-			</p>
+			<p class={microLabel()}>AI Adoption · 2024 Data</p>
 			<p class="mt-1 font-mono text-lg font-bold text-foreground">
 				{ai.enterprises.non_sme_ai_adoption_pct.toFixed(1)}%
 			</p>
 			<p class="text-xs text-muted-foreground">latest observed non-SME AI adoption</p>
 		</div>
 		<div class={card({ padding: 'sm', variant: 'metric' })}>
-			<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-				Workers · 2024 Data
-			</p>
+			<p class={microLabel()}>Workers · 2024 Data</p>
 			<p class="mt-1 font-mono text-lg font-bold text-foreground">
 				{ai.workforce.workers_using_ai_at_work_pct.toFixed(1)}%
 			</p>
 			<p class="text-xs text-muted-foreground">reported using AI at work</p>
 		</div>
 		<div class={card({ padding: 'sm', variant: 'metric' })}>
-			<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-				Labour Backdrop · 2025 4Q
-			</p>
+			<p class={microLabel()}>Labour Backdrop · 2025 4Q</p>
 			<p class="mt-1 font-mono text-lg font-bold text-foreground">
 				{macro.resident_unemployment_rate.toFixed(1)}%
 			</p>
 			<p class="text-xs text-muted-foreground">resident unemployment rate</p>
 		</div>
 		<div class={card({ padding: 'sm', variant: 'metric' })}>
-			<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-				NAIIP · 2026
-			</p>
+			<p class={microLabel()}>NAIIP · 2026</p>
 			<p class="mt-1 font-mono text-lg font-bold text-foreground">
 				{Math.round(ai.national_programmes.naiip_workers_target / 1000)}K
 			</p>
@@ -101,18 +106,14 @@
 			</div>
 			<div class="mt-4 grid gap-3 sm:grid-cols-3">
 				<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
-					<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-						Postings · 30D
-					</p>
+					<p class={microLabel()}>Postings · 30D</p>
 					<p class="mt-1 font-mono text-lg font-bold text-foreground">
 						{postings.posting_volume_30d}
 					</p>
 					<p class="text-xs text-muted-foreground">live hiring volume</p>
 				</div>
 				<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
-					<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-						Top Skills
-					</p>
+					<p class={microLabel()}>Top Skills</p>
 					<p class="mt-1 text-sm font-medium text-foreground">
 						{postings.top_skills
 							.slice(0, 3)
@@ -122,9 +123,7 @@
 					<p class="text-xs text-muted-foreground">most common visible requirements</p>
 				</div>
 				<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
-					<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-						AI / Tools
-					</p>
+					<p class={microLabel()}>AI / Tools</p>
 					<p class="mt-1 text-sm font-medium text-foreground">
 						{postings.top_tools.length > 0
 							? postings.top_tools
@@ -158,18 +157,14 @@
 			</div>
 			<div class="mt-4 grid gap-3 sm:grid-cols-3">
 				<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
-					<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-						Curated Signals
-					</p>
+					<p class={microLabel()}>Curated Signals</p>
 					<p class="mt-1 font-mono text-lg font-bold text-foreground">
 						{employer.summary.total_signals}
 					</p>
 					<p class="text-xs text-muted-foreground">tracked signal entries in monitor</p>
 				</div>
 				<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
-					<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-						Highest Pressure
-					</p>
+					<p class={microLabel()}>Highest Pressure</p>
 					<p class="mt-1 text-sm font-medium text-foreground">
 						{employer.summary.highest_pressure_archetypes.slice(0, 2).join(' · ')}
 					</p>
@@ -178,9 +173,7 @@
 					</p>
 				</div>
 				<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
-					<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-						Latest Signal
-					</p>
+					<p class={microLabel()}>Latest Signal</p>
 					<p class="mt-1 text-sm font-medium text-foreground">
 						{employer.summary.latest_signal_date
 							? new Date(employer.summary.latest_signal_date).toLocaleDateString('en-SG', {
@@ -211,18 +204,14 @@
 			</div>
 			<div class="mt-4 grid gap-3 sm:grid-cols-3">
 				<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
-					<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-						Band Movers
-					</p>
+					<p class={microLabel()}>Band Movers</p>
 					<p class="mt-1 font-mono text-lg font-bold text-foreground">
 						{quarterly.band_movers.length}
 					</p>
 					<p class="text-xs text-muted-foreground">occupations changed risk band</p>
 				</div>
 				<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
-					<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-						Top Risers
-					</p>
+					<p class={microLabel()}>Top Risers</p>
 					<p class="mt-1 text-sm font-medium text-foreground">
 						{quarterly.top_risers
 							.slice(0, 2)
@@ -232,9 +221,7 @@
 					<p class="text-xs text-muted-foreground">largest increases in structural pressure</p>
 				</div>
 				<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
-					<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-						Top Fallers
-					</p>
+					<p class={microLabel()}>Top Fallers</p>
 					<p class="mt-1 text-sm font-medium text-foreground">
 						{quarterly.top_fallers
 							.slice(0, 2)
@@ -325,6 +312,35 @@
 
 	<p class={cn(sectionLabel(), 'mt-8 mb-3')}>Reports & Analysis</p>
 	<div class="space-y-4">
+		<a href="/reports/v4-3-shadow" class="block no-underline">
+			<div class={cn(card({ padding: 'lg', hover: true }), 'flex items-start justify-between')}>
+				<div>
+					<div class="flex items-center gap-2">
+						<span class="text-base font-semibold text-foreground">V4.3 Shadow Model Note</span>
+						<Badge variant="outline" class={experimentalStatusBadgeClass}
+							>{experimentalStatusLabel(siteStatus.experimental_release?.status)}</Badge
+						>
+					</div>
+					<p class="mt-1 text-sm text-muted-foreground">
+						What the task-weighted shadow model would change, what is ready now, and what still
+						gates promotion beyond the published V4.2 release.
+					</p>
+					<p class="mt-2 text-xs text-muted-foreground">
+						{siteStatus.experimental_release?.summary}
+					</p>
+				</div>
+				<svg
+					class="ml-4 mt-1 h-5 w-5 shrink-0 text-muted-foreground"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+				>
+					<path d="M5 12h14M12 5l7 7-7 7" />
+				</svg>
+			</div>
+		</a>
+
 		<!-- Wage Exposure Analysis -->
 		<a href="/reports/wage-exposure" class="block no-underline">
 			<div class={cn(card({ padding: 'lg', hover: true }), 'flex items-start justify-between')}>
@@ -340,7 +356,7 @@
 						Annual wage-pool analysis for occupations under high structural AI pressure. Breakdown
 						by sector, risk-weighted wage exposure, and methodology notes.
 					</p>
-					<p class="mt-2 text-xs text-muted-foreground">Based on V4.1 scoring, March 2026</p>
+					<p class="mt-2 text-xs text-muted-foreground">Based on V4.2 scoring, March 2026</p>
 				</div>
 				<svg
 					class="ml-4 mt-1 h-5 w-5 shrink-0 text-muted-foreground"
@@ -379,24 +395,57 @@
 				</svg>
 			</div>
 		</a>
+	</div>
+
+	<p class={cn(sectionLabel(), 'mt-8 mb-3')}>Governance & Release Notes</p>
+	<div class="grid gap-4 lg:grid-cols-2">
+		<a href="/changelog" class="block no-underline">
+			<div
+				class={cn(card({ padding: 'lg', hover: true }), 'flex h-full items-start justify-between')}
+			>
+				<div>
+					<div class="flex items-center gap-2">
+						<span class="text-base font-semibold text-foreground">Changelog</span>
+						<Badge
+							variant="outline"
+							class="bg-impact-leveraged-subtle text-impact-leveraged border-impact-leveraged-border"
+							>Ledger</Badge
+						>
+					</div>
+					<p class="mt-1 text-sm text-muted-foreground">
+						Canonical release ledger for structural releases, shadow-model notes, report refreshes,
+						and official labour-monitor updates.
+					</p>
+					<p class="mt-2 text-xs text-muted-foreground">
+						{releases.length} recorded events in the current public history
+					</p>
+				</div>
+				<svg
+					class="ml-4 mt-1 h-5 w-5 shrink-0 text-muted-foreground"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+				>
+					<path d="M5 12h14M12 5l7 7-7 7" />
+				</svg>
+			</div>
+		</a>
 
 		<div class={card({ padding: 'lg' })}>
 			<div class="flex items-center gap-2">
-				<span class="text-base font-semibold text-foreground">Release History</span>
-				<Badge
-					variant="outline"
-					class="bg-impact-leveraged-subtle text-impact-leveraged border-impact-leveraged-border"
-					>Governance</Badge
+				<span class="text-base font-semibold text-foreground">Latest release activity</span>
+				<Badge variant="outline" class="bg-primary/10 text-primary border-primary/30">Current</Badge
 				>
 			</div>
 			<div class="mt-3 space-y-3">
-				{#each releases as release (release.id)}
+				{#each releases.slice(0, 3) as release (release.id)}
 					<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
 						<div class="flex items-start justify-between gap-3">
 							<div>
 								<p class="text-sm font-semibold text-foreground">{release.label}</p>
 								<p class="mt-1 text-xs text-muted-foreground">
-									Published {release.published_at} · {release.score_version} · monitor {release.monitor_vintage}
+									Published {release.published_at} · {release.score_version}
 								</p>
 							</div>
 							<a
@@ -408,11 +457,6 @@
 								Open →
 							</a>
 						</div>
-						<ul class="mt-2 list-inside list-disc space-y-1 text-xs text-muted-foreground">
-							{#each release.notes as note}
-								<li>{note}</li>
-							{/each}
-						</ul>
 					</div>
 				{/each}
 			</div>
