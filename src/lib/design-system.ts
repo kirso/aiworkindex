@@ -169,7 +169,7 @@ export const section = tv({
 // ============================================
 
 export const card = tv({
-	base: 'rounded-lg border border-border/25 bg-card shadow-xs',
+	base: 'rounded-md border border-border/25 bg-card shadow-xs',
 	variants: {
 		padding: {
 			none: '',
