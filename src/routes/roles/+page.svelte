@@ -51,9 +51,30 @@
 	let pageDescription = $derived(
 		`Browse ${totalCount} modern tech and professional roles scored for AI displacement risk. Filter by category, search by title.`
 	);
+
+	let itemListJsonLd = $derived(
+		`<script type="application/ld+json">${JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'ItemList',
+			name: 'Modern Roles Scored for AI Displacement Risk',
+			description: `${totalCount} modern tech and professional roles scored as weighted blends of official SSOC occupations`,
+			numberOfItems: totalCount,
+			itemListElement: (data.scoredRoles as ScoredRole[])
+				.sort((a, b) => b.net_risk - a.net_risk)
+				.slice(0, 10)
+				.map((role, i) => ({
+					'@type': 'ListItem',
+					position: i + 1,
+					name: role.title,
+					url: SITE.url + '/role/' + role.slug
+				}))
+		})}<\/script>`
+	);
 </script>
 
 <Seo title={pageTitle} description={pageDescription} path="/roles" />
+
+{@html itemListJsonLd}
 
 <main class={pageLayout({ width: 'content' })}>
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Modern Roles' }]} />

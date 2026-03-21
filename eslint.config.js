@@ -143,6 +143,7 @@ export default [
 			'src/lib/components/ui/Seo.svelte',
 			'src/routes/occupation/*/+page.svelte',
 			'src/routes/role/*/+page.svelte',
+			'src/routes/roles/+page.svelte',
 			'src/routes/+page.svelte',
 			'src/routes/+layout.svelte',
 			'src/routes/rankings/*/+page.svelte',
