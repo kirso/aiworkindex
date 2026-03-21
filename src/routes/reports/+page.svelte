@@ -23,12 +23,14 @@
 	const macro = macroContext.latest_snapshot;
 	const postings = postingsMonitor.summary;
 	const quarterly = quarterlyReport;
-	const experimentalStatusBadgeClass =
-		siteStatus.experimental_release?.status === 'ready_for_shadow_scoring'
-			? 'bg-impact-leveraged-subtle text-impact-leveraged border-impact-leveraged-border'
-			: siteStatus.experimental_release?.status === 'blocked'
-				? 'bg-risk-high-subtle text-risk-high border-risk-high-border'
-				: 'bg-risk-moderate-subtle text-risk-moderate border-risk-moderate-border';
+	const experimentalPositiveStates = ['ready_for_shadow_scoring', 'shadow_published', 'promoted'];
+	const experimentalStatusBadgeClass = experimentalPositiveStates.includes(
+		siteStatus.experimental_release?.status ?? ''
+	)
+		? 'bg-impact-leveraged-subtle text-impact-leveraged border-impact-leveraged-border'
+		: siteStatus.experimental_release?.status === 'blocked'
+			? 'bg-risk-high-subtle text-risk-high border-risk-high-border'
+			: 'bg-risk-moderate-subtle text-risk-moderate border-risk-moderate-border';
 </script>
 
 <Seo

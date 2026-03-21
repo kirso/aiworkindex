@@ -37,6 +37,7 @@ export interface SourceRegistryEntry {
 	status: SourceRegistryStatus;
 	vintage: string;
 	used_for: string[];
+	research_keys?: string[];
 	url?: string;
 	notes: string;
 }
@@ -417,6 +418,7 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 		status: 'live',
 		vintage: '2021',
 		used_for: ['exposure ensemble'],
+		research_keys: ['felten_raj_seamans_2021'],
 		url: 'https://www.researchgate.net/publication/352489489_Occupational_industry_and_geographic_exposure_to_artificial_intelligence_A_novel_dataset_and_its_potential_uses',
 		notes: 'Published research baseline for AI exposure.'
 	},
@@ -427,6 +429,7 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 		status: 'live',
 		vintage: '2023',
 		used_for: ['human bottleneck'],
+		research_keys: ['pizzinelli_etal_2023'],
 		url: 'https://www.imf.org/en/Publications/WP/Issues/2023/01/13/Robotizing-Tasks-The-Impact-of-Technologies-on-Labor-Demand-527513',
 		notes: 'IMF working-paper complementarity / bottleneck measure.'
 	},
@@ -437,6 +440,7 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 		status: 'live',
 		vintage: '2026-01',
 		used_for: ['exposure ensemble', 'observed usage gap'],
+		research_keys: ['anthropic_economic_index_2026'],
 		url: 'https://www.anthropic.com/research/anthropic-economic-index-january-2026-report',
 		notes: 'Observed Claude usage mapped into the exposure ensemble.'
 	},
@@ -447,6 +451,7 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 		status: 'live',
 		vintage: '2023',
 		used_for: ['exposure ensemble'],
+		research_keys: ['eloundou_etal_2023', 'openai_gpts_are_gpts_2023'],
 		url: 'https://arxiv.org/abs/2303.10130',
 		notes: 'LLM-oriented exposure source.'
 	},
@@ -457,6 +462,7 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 		status: 'live',
 		vintage: '2025',
 		used_for: ['exposure ensemble'],
+		research_keys: ['ilo_genai_exposure_2025'],
 		url: 'https://www.ilo.org/publications/generative-ai-and-jobs-refined-global-index-occupational-exposure',
 		notes: 'ISCO-aligned exposure source.'
 	},
@@ -467,6 +473,7 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 		status: 'live',
 		vintage: '2024',
 		used_for: ['task and technology enrichment context'],
+		research_keys: ['onet_database_2024'],
 		url: 'https://www.onetcenter.org/database.html',
 		notes:
 			'Used only for contextual task and technology enrichment on detail pages, not as a structural score input.'
@@ -478,6 +485,7 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 		status: 'live',
 		vintage: '2024',
 		used_for: ['task and technology enrichment context'],
+		research_keys: ['onet_database_2024'],
 		url: 'https://www.onetcenter.org/database.html',
 		notes:
 			'Used only for contextual task enrichment on detail pages, not as a structural score input.'
@@ -489,6 +497,7 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 		status: 'live',
 		vintage: '2024',
 		used_for: ['task and technology enrichment context'],
+		research_keys: ['onet_database_2024'],
 		url: 'https://www.onetcenter.org/database.html',
 		notes:
 			'Used only for contextual technology-skill enrichment on detail pages, not as a structural score input.'
@@ -500,6 +509,7 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 		status: 'live',
 		vintage: '2024',
 		used_for: ['education label proxy'],
+		research_keys: ['onet_database_2024'],
 		url: 'https://www.onetcenter.org/database.html',
 		notes: 'Used only for the displayed education proxy, not the structural score.'
 	},
@@ -510,6 +520,7 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 		status: 'live',
 		vintage: '2024-2034',
 		used_for: ['employment proxy', 'convergent cross-check'],
+		research_keys: ['bls_occupational_projections_2024_2034'],
 		url: 'https://www.bls.gov/emp/tables/occupational-projections-and-characteristics.htm',
 		notes: 'Used as a proportional proxy and convergent check, not as Singapore outcome truth.'
 	},

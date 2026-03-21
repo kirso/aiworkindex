@@ -21,6 +21,9 @@ const TASK_PENETRATION_FILE = path.join(RAW_EXTERNAL_DIR, 'anthropic_task_penetr
 const TASK_STATEMENTS_FILE = path.join(RAW_ONET_DIR, 'Task_Statements.txt');
 const TASK_RATINGS_FILE = path.join(RAW_ONET_DIR, 'Task_Ratings.txt');
 const EMPIRICAL_MOBILITY_FILE = path.join(RAW_EXTERNAL_DIR, 'sg_empirical_mobility.json');
+const SHADOW_SCORES_FILE = path.join(DATA_DIR, 'shadow-scores-v43.json');
+const SHADOW_VALIDATION_FILE = path.join(DATA_DIR, 'shadow-validation-v43.json');
+const SHADOW_ANCHOR_FILE = path.join(DATA_DIR, 'shadow-anchor-review-v43.json');
 
 interface OccupationRecord {
 	match_quality: 'direct' | 'submajor_fallback' | 'major_fallback';
@@ -35,7 +38,8 @@ interface OccupationRecord {
 	};
 }
 
-function readJson<T>(filePath: string): T {
+function readJson<T>(filePath: string): T | null {
+	if (!fs.existsSync(filePath)) return null;
 	return JSON.parse(fs.readFileSync(filePath, 'utf-8')) as T;
 }
 
@@ -69,6 +73,9 @@ function main() {
 	}
 
 	const occupations = readJson<OccupationRecord[]>(OCCUPATIONS_FILE);
+	if (!occupations) {
+		throw new Error(`Missing occupations file: ${OCCUPATIONS_FILE}`);
+	}
 	const directMapped = occupations.filter(occupation => occupation.match_quality === 'direct');
 	const taskWeighted = occupations.filter(
 		occupation => occupation.task_primitives?.matched_task_weight_share != null
@@ -96,8 +103,33 @@ function main() {
 	const onetTaskRatingsPresent = fs.existsSync(TASK_RATINGS_FILE);
 	const empiricalMobilityPresent = fs.existsSync(EMPIRICAL_MOBILITY_FILE);
 	const directMedianShare = median(directMatchedShares);
+	const shadowScores = readJson<Array<{ shadow_eligibility_status: string }>>(SHADOW_SCORES_FILE);
+	const shadowValidation = readJson<{
+		cluster_directional_accuracy: { pass: boolean; baseline: number; shadow: number };
+		bls_spearman_rho: { pass: boolean; baseline: number; shadow: number };
+		occupation_family_spearman_rho: { pass: boolean; baseline: number; shadow: number };
+	}>(SHADOW_VALIDATION_FILE);
+	const shadowAnchorReview = readJson<{
+		found_anchor_count: number;
+		required_anchor_count: number;
+		review_candidate_count: number;
+		screening_complete: boolean;
+	}>(SHADOW_ANCHOR_FILE);
+	const shadowScorePublished =
+		fs.existsSync(SHADOW_SCORES_FILE) &&
+		fs.existsSync(SHADOW_VALIDATION_FILE) &&
+		fs.existsSync(SHADOW_ANCHOR_FILE) &&
+		Array.isArray(shadowScores) &&
+		shadowScores.length > 0 &&
+		!!shadowValidation &&
+		!!shadowAnchorReview;
 
-	let shadowStatus: 'blocked' | 'not_ready' | 'ready_for_shadow_scoring' = 'blocked';
+	let shadowStatus:
+		| 'blocked'
+		| 'not_ready'
+		| 'ready_for_shadow_scoring'
+		| 'shadow_published'
+		| 'promoted' = 'blocked';
 	let statusSummary =
 		'Blocked: weighted task portfolios are not active because O*NET task ratings are missing.';
 
@@ -115,6 +147,26 @@ function main() {
 			'Ready for shadow scoring: task-weight coverage clears the minimum promotion gate, but no task-adjusted headline score is published yet.';
 	}
 
+	const validationPassCount = shadowValidation
+		? [
+				shadowValidation.cluster_directional_accuracy.pass,
+				shadowValidation.bls_spearman_rho.pass,
+				shadowValidation.occupation_family_spearman_rho.pass
+			].filter(Boolean).length
+		: 0;
+	const validationGatePass = shadowValidation ? validationPassCount === 3 : false;
+	const anchorGatePass = shadowAnchorReview
+		? shadowAnchorReview.screening_complete && shadowAnchorReview.review_candidate_count === 0
+		: false;
+	const headlinePromotionReady = shadowScorePublished && validationGatePass && anchorGatePass;
+
+	if (shadowScorePublished) {
+		shadowStatus = 'shadow_published';
+		statusSummary = headlinePromotionReady
+			? 'Shadow score is published and has cleared the current promotion gates. Headline promotion is now a release decision rather than a methodology blocker.'
+			: 'Shadow score is published. Promotion into the headline model still depends on validation and anchor-review sign-off.';
+	}
+
 	const payload = {
 		version: 'V4.3-shadow',
 		generated_at: new Date().toISOString(),
@@ -123,8 +175,15 @@ function main() {
 			status: shadowStatus,
 			summary: statusSummary
 		},
-		shadow_score_published: false,
-		headline_promotion_ready: false,
+		shadow_score_published: shadowScorePublished,
+		headline_promotion_ready: headlinePromotionReady,
+		shadow_artifacts: shadowScorePublished
+			? {
+					shadow_scores: path.relative(ROOT_DIR, SHADOW_SCORES_FILE),
+					shadow_validation: path.relative(ROOT_DIR, SHADOW_VALIDATION_FILE),
+					shadow_anchor_review: path.relative(ROOT_DIR, SHADOW_ANCHOR_FILE)
+				}
+			: null,
 		required_inputs: {
 			anthropic_task_penetration: {
 				file: path.relative(ROOT_DIR, TASK_PENETRATION_FILE),
@@ -175,17 +234,21 @@ function main() {
 				label:
 					'Experimental task-adjusted score matches or improves current validation diagnostics',
 				threshold: 'improve_or_match',
-				actual: null,
-				state: 'pending',
-				note: 'Requires a published shadow score artifact before BLS, temporal, and occupation-family comparisons can be evaluated.'
+				actual: shadowValidation ? `${validationPassCount}/3` : null,
+				state: shadowScorePublished ? (validationGatePass ? 'pass' : 'fail') : 'pending',
+				note: shadowValidation
+					? `Cluster directional accuracy ${shadowValidation.cluster_directional_accuracy.shadow} vs ${shadowValidation.cluster_directional_accuracy.baseline}; BLS rho ${shadowValidation.bls_spearman_rho.shadow} vs ${shadowValidation.bls_spearman_rho.baseline}; family rho ${shadowValidation.occupation_family_spearman_rho.shadow} vs ${shadowValidation.occupation_family_spearman_rho.baseline}.`
+					: 'Requires a published shadow score artifact before BLS, temporal, and occupation-family comparisons can be evaluated.'
 			},
 			{
 				key: 'anchor_review',
 				label: 'No implausible anchor label flips without written rationale',
 				threshold: 'zero_unexplained_flips',
-				actual: null,
-				state: 'pending',
-				note: 'Requires side-by-side anchor review once a shadow score exists.'
+				actual: shadowAnchorReview ? shadowAnchorReview.review_candidate_count : null,
+				state: shadowScorePublished ? (anchorGatePass ? 'pass' : 'pending') : 'pending',
+				note: shadowAnchorReview
+					? `${shadowAnchorReview.found_anchor_count}/${shadowAnchorReview.required_anchor_count} anchors screened; ${shadowAnchorReview.review_candidate_count} candidates still need editorial sign-off.`
+					: 'Requires side-by-side anchor review once a shadow score exists.'
 			}
 		],
 		blockers: [

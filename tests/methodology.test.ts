@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { describe, test } from 'node:test';
 import type { Occupation } from '../src/lib/data';
 import { occupations } from '../src/lib/data';
+import claimsMatrix from '../src/lib/data/claims-matrix.json';
 import {
 	applyPercentileShift,
 	blendEmploymentMomentum,
@@ -11,6 +12,7 @@ import {
 	computeNetRisk,
 	computeStructuralScores
 } from '../src/lib/data/methodology-core';
+import { dataSourceRegistry } from '../src/lib/data/data-contract';
 import { classifyImpactType } from '../src/lib/data/scoring-constants';
 import { computeForecastScores, scenarioPresets } from '../src/lib/data/forecast-engine';
 import { computeRoleScores, type SyntheticRole } from '../src/lib/data/synthetic-roles';
@@ -18,6 +20,10 @@ import { computeTransitionScore } from '../src/lib/data/transition-capacity';
 import { computeConfidence } from '../src/lib/data/confidence-core';
 import { computeTaskPrimitiveScores } from '../src/lib/data/task-primitives-core';
 import { computeBootstrapUncertainty } from '../src/lib/data/uncertainty-core';
+import researchLibrary from '../src/lib/data/research-library.json';
+import shadowComparison from '../src/lib/data/shadow-comparison-v43.json';
+import shadowScores from '../src/lib/data/shadow-scores-v43.json';
+import shadowValidation from '../src/lib/data/shadow-validation-v43.json';
 
 function makeOccupation(overrides: Partial<Occupation> = {}): Occupation {
 	return {
@@ -328,6 +334,62 @@ describe('task primitive invariants', () => {
 				method: null
 			});
 		}
+	});
+});
+
+describe('research registry invariants', () => {
+	test('research keys are unique and claims/source links resolve', () => {
+		const keys = researchLibrary.entries.map(entry => entry.key);
+		assert.equal(new Set(keys).size, keys.length);
+
+		for (const claim of claimsMatrix.claims) {
+			for (const researchKey of claim.research_keys) {
+				assert.ok(researchLibrary.entries.some(entry => entry.key === researchKey));
+			}
+		}
+
+		for (const source of dataSourceRegistry) {
+			for (const researchKey of source.research_keys ?? []) {
+				assert.ok(researchLibrary.entries.some(entry => entry.key === researchKey));
+			}
+		}
+	});
+});
+
+describe('shadow artifact invariants', () => {
+	test('shadow scores cover all occupations and publish explicit eligibility states', () => {
+		assert.equal(shadowScores.length, occupations.length);
+		assert.ok(
+			shadowScores.every(score =>
+				['task_native', 'occupation_fallback', 'insufficient_task_evidence'].includes(
+					score.shadow_eligibility_status
+				)
+			)
+		);
+		assert.ok(
+			shadowScores.filter(score => score.shadow_eligibility_status === 'task_native').length >= 450
+		);
+	});
+
+	test('shadow delta equals shadow net risk minus baseline net risk', () => {
+		for (const score of shadowScores.slice(0, 50)) {
+			assertClose(
+				score.delta_vs_v42,
+				round4(score.shadow_net_risk - score.baseline_net_risk),
+				0.00011
+			);
+		}
+	});
+
+	test('shadow validation summary matches the validation artifact', () => {
+		const passCount = [
+			shadowValidation.cluster_directional_accuracy.pass,
+			shadowValidation.bls_spearman_rho.pass,
+			shadowValidation.occupation_family_spearman_rho.pass
+		].filter(Boolean).length;
+
+		assert.equal(shadowComparison.validation_pass_count, passCount);
+		assert.equal(shadowComparison.occupation_count, occupations.length);
 	});
 });
 

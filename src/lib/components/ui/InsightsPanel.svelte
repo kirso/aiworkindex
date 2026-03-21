@@ -98,7 +98,9 @@
 			</div>
 			<div class={card({ padding: 'sm', variant: 'inset' })}>
 				<p class="text-xs text-muted-foreground">Occupations</p>
-				<p class="text-base font-bold font-mono tabular-nums text-foreground">{occupations.length}</p>
+				<p class="text-base font-bold font-mono tabular-nums text-foreground">
+					{occupations.length}
+				</p>
 			</div>
 			<div class={card({ padding: 'sm', variant: 'inset' })}>
 				<p class="text-xs text-muted-foreground">Median Pay (SGD)</p>
@@ -108,7 +110,9 @@
 			</div>
 			<div class={card({ padding: 'sm', variant: 'inset' })}>
 				<p class="text-xs text-muted-foreground">High+ Risk</p>
-				<p class="text-base font-bold font-mono tabular-nums text-risk-very-high">{highRiskCount}</p>
+				<p class="text-base font-bold font-mono tabular-nums text-risk-very-high">
+					{highRiskCount}
+				</p>
 			</div>
 			<div class={card({ padding: 'sm', variant: 'inset' })}>
 				<p class="text-xs text-muted-foreground">
@@ -116,7 +120,9 @@
 						text="Percentage of occupations scored with high-quality direct crosswalk data"
 					/>
 				</p>
-				<p class="text-base font-bold font-mono tabular-nums text-foreground">{highConfidenceCount}</p>
+				<p class="text-base font-bold font-mono tabular-nums text-foreground">
+					{highConfidenceCount}
+				</p>
 			</div>
 			<div class={card({ padding: 'sm', variant: 'inset' })}>
 				<p class="text-xs text-muted-foreground">
@@ -124,7 +130,9 @@
 						text="Occupations listed on Singapore's Shortage Occupation List or Jobs in Demand"
 					/>
 				</p>
-				<p class="text-base font-bold font-mono tabular-nums text-risk-very-low">{demandFlaggedCount}</p>
+				<p class="text-base font-bold font-mono tabular-nums text-risk-very-low">
+					{demandFlaggedCount}
+				</p>
 			</div>
 			<div class={card({ padding: 'sm', variant: 'inset' })}>
 				<p class="text-xs text-muted-foreground">

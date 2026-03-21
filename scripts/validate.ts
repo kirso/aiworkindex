@@ -156,6 +156,46 @@ const CLAIMS_MATRIX_FILE = path.join(
 	'data',
 	'claims-matrix.json'
 );
+const RESEARCH_LIBRARY_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'research-library.json'
+);
+const SHADOW_SCORES_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'shadow-scores-v43.json'
+);
+const SHADOW_COMPARISON_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'shadow-comparison-v43.json'
+);
+const SHADOW_VALIDATION_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'shadow-validation-v43.json'
+);
+const SHADOW_ANCHOR_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'shadow-anchor-review-v43.json'
+);
 
 const ACTIVE_VERSION_SURFACES = [
 	path.join(import.meta.dir, '..', 'src', 'routes', '+page.svelte'),
@@ -790,7 +830,12 @@ async function main() {
 			structural_release: { version: string; release_manifest: string };
 			experimental_release: {
 				version: string;
-				status: 'blocked' | 'not_ready' | 'ready_for_shadow_scoring';
+				status:
+					| 'blocked'
+					| 'not_ready'
+					| 'ready_for_shadow_scoring'
+					| 'shadow_published'
+					| 'promoted';
 				artifact: string;
 				headline_promotion_ready: boolean;
 				median_direct_matched_task_weight_share: number | null;
@@ -819,9 +864,13 @@ async function main() {
 		}>(SITE_STATUS_FILE);
 		const releases = readJson<
 			Array<{
+				id: string;
 				type: string;
+				version_label?: string;
 				score_version: string;
 				monitor_vintage: string;
+				display_date?: string | null;
+				published_at?: string | null;
 			}>
 		>(RELEASES_FILE);
 		const quarterlyReport = readJson<{
@@ -916,9 +965,20 @@ async function main() {
 		const experimentalMethodology = readJson<{
 			version: string;
 			shadow_readiness: {
-				status: 'blocked' | 'not_ready' | 'ready_for_shadow_scoring';
+				status:
+					| 'blocked'
+					| 'not_ready'
+					| 'ready_for_shadow_scoring'
+					| 'shadow_published'
+					| 'promoted';
 			};
+			shadow_score_published: boolean;
 			headline_promotion_ready: boolean;
+			shadow_artifacts?: {
+				shadow_scores: string;
+				shadow_validation: string;
+				shadow_anchor_review: string;
+			} | null;
 			coverage?: {
 				median_direct_matched_task_weight_share?: number | null;
 			};
@@ -928,8 +988,38 @@ async function main() {
 			promotion_gates?: Array<{
 				key: string;
 				state: 'pass' | 'fail' | 'blocked' | 'pending';
+				actual: string | number | null;
 			}>;
 		}>(EXPERIMENTAL_METHODOLOGY_FILE);
+		const researchLibrary = readJson<{
+			entries?: Array<{ key: string; source_keys: string[]; claim_ids: string[] }>;
+		}>(RESEARCH_LIBRARY_FILE);
+		const shadowScores = readJson<
+			Array<{
+				ssoc: string;
+				shadow_net_risk: number;
+				baseline_net_risk: number;
+				shadow_eligibility_status: string;
+				delta_vs_v42: number;
+			}>
+		>(SHADOW_SCORES_FILE);
+		const shadowComparison = readJson<{
+			occupation_count: number;
+			task_native_count: number;
+			validation_pass_count: number;
+			validation_total: number;
+			anchor_review_summary?: { found_anchor_count: number; review_candidate_count: number };
+		}>(SHADOW_COMPARISON_FILE);
+		const shadowValidation = readJson<{
+			cluster_directional_accuracy: { pass: boolean };
+			bls_spearman_rho: { pass: boolean };
+			occupation_family_spearman_rho: { pass: boolean };
+		}>(SHADOW_VALIDATION_FILE);
+		const shadowAnchorReview = readJson<{
+			required_anchor_count: number;
+			found_anchor_count: number;
+			review_candidate_count: number;
+		}>(SHADOW_ANCHOR_FILE);
 		const transitionSupport = readJson<{
 			transitions: Array<{
 				from_ssoc: string;
@@ -977,6 +1067,7 @@ async function main() {
 			claims?: Array<{
 				id: string;
 				source_keys: string[];
+				research_keys: string[];
 			}>;
 		}>(CLAIMS_MATRIX_FILE);
 		const onetEnrichment = readJson<
@@ -1057,18 +1148,37 @@ async function main() {
 			`${experimentalMethodology?.version} / ${siteStatus?.experimental_release?.version}`
 		);
 		check(
-			'Experimental release stays non-promoted while shadow score is unpublished',
-			experimentalMethodology?.headline_promotion_ready === false &&
-				siteStatus?.experimental_release?.headline_promotion_ready === false
+			'Experimental release shadow publication state matches site status',
+			experimentalMethodology?.shadow_score_published ===
+				(siteStatus?.experimental_release?.status === 'shadow_published' ||
+					siteStatus?.experimental_release?.status === 'promoted')
 		);
 		check(
-			'Experimental release status matches task-weight availability',
-			experimentalMethodology?.required_inputs?.onet_task_ratings?.present === false
-				? experimentalMethodology.shadow_readiness.status === 'blocked'
-				: (experimentalMethodology?.coverage?.median_direct_matched_task_weight_share ?? 0) >= 0.6
-					? experimentalMethodology?.shadow_readiness.status === 'ready_for_shadow_scoring'
-					: experimentalMethodology?.shadow_readiness.status === 'not_ready',
+			'Experimental release status matches published shadow state and task-weight availability',
+			experimentalMethodology?.shadow_score_published === true
+				? experimentalMethodology?.shadow_readiness.status === 'shadow_published'
+				: experimentalMethodology?.required_inputs?.onet_task_ratings?.present === false
+					? experimentalMethodology.shadow_readiness.status === 'blocked'
+					: (experimentalMethodology?.coverage?.median_direct_matched_task_weight_share ?? 0) >= 0.6
+						? experimentalMethodology?.shadow_readiness.status === 'ready_for_shadow_scoring'
+						: experimentalMethodology?.shadow_readiness.status === 'not_ready',
 			experimentalMethodology?.shadow_readiness.status
+		);
+		check(
+			'Experimental release promotion-ready flag matches site status',
+			experimentalMethodology?.headline_promotion_ready ===
+				siteStatus?.experimental_release?.headline_promotion_ready
+		);
+		check(
+			'Experimental methodology publishes shadow artifact paths when shadow score exists',
+			experimentalMethodology?.shadow_score_published === true
+				? experimentalMethodology?.shadow_artifacts?.shadow_scores ===
+						'data/shadow-scores-v43.json' &&
+						experimentalMethodology?.shadow_artifacts?.shadow_validation ===
+							'data/shadow-validation-v43.json' &&
+						experimentalMethodology?.shadow_artifacts?.shadow_anchor_review ===
+							'data/shadow-anchor-review-v43.json'
+				: experimentalMethodology?.shadow_artifacts === null
 		);
 		check(
 			'Site status monitor vintage matches DATA_VINTAGE',
@@ -1082,24 +1192,50 @@ async function main() {
 			`${siteStatus?.live_monitor?.postings_volume_30d} vs ${postingsMonitor?.summary?.posting_volume_30d}`
 		);
 		check(
-			'Releases history exists and uses current structural version',
-			(releases?.length ?? 0) >= 2 &&
-				(releases ?? []).every(release => release.score_version === DATA_VINTAGE.model_version),
-			releases ? JSON.stringify(releases.map(release => release.score_version)) : undefined
+			'Releases history exists and preserves full structural lineage',
+			(releases?.length ?? 0) >= 8 &&
+				['V4.2', 'V4.0', 'V3.3', 'V3.2', 'V3.1', 'V3.0', 'V2', 'V1'].every(versionLabel =>
+					(releases ?? []).some(release => release.version_label === versionLabel)
+				),
+			releases
+				? JSON.stringify(releases.map(release => release.version_label ?? release.type))
+				: undefined
 		);
 		check(
-			'Releases history includes the V4.3 shadow note',
+			'Releases history keeps exact dates or explicit display dates for historical entries',
+			(releases ?? []).every(release => !!release.display_date || !!release.published_at)
+		);
+		check(
+			'Releases history includes the V4.3 shadow publication',
 			(releases ?? []).some(
-				release => release.type === 'experimental_update' && release.href === '/reports/v4-3-shadow'
+				release =>
+					release.type === 'experimental_update' &&
+					release.href === '/reports/v4-3-shadow' &&
+					release.label === 'V4.3 shadow score published'
 			)
 		);
 		check(
-			'Release manifest includes site status and release history artifacts',
+			'Release manifest includes governance, research, and shadow artifacts',
 			(releaseManifest?.artifacts ?? []).some(artifact => artifact.file === 'site-status.json') &&
 				(releaseManifest?.artifacts ?? []).some(
 					artifact => artifact.file === 'experimental-methodology-v43.json'
 				) &&
 				(releaseManifest?.artifacts ?? []).some(artifact => artifact.file === 'releases.json') &&
+				(releaseManifest?.artifacts ?? []).some(
+					artifact => artifact.file === 'research-library.json'
+				) &&
+				(releaseManifest?.artifacts ?? []).some(
+					artifact => artifact.file === 'shadow-scores-v43.json'
+				) &&
+				(releaseManifest?.artifacts ?? []).some(
+					artifact => artifact.file === 'shadow-comparison-v43.json'
+				) &&
+				(releaseManifest?.artifacts ?? []).some(
+					artifact => artifact.file === 'shadow-validation-v43.json'
+				) &&
+				(releaseManifest?.artifacts ?? []).some(
+					artifact => artifact.file === 'shadow-anchor-review-v43.json'
+				) &&
 				(releaseManifest?.artifacts ?? []).some(
 					artifact => artifact.file === 'sg-offset-potential-v4.json'
 				) &&
@@ -1136,6 +1272,80 @@ async function main() {
 				);
 			})(),
 			String(experimentalMethodology?.coverage?.median_direct_matched_task_weight_share ?? null)
+		);
+		check(
+			'Research library artifact exists',
+			(researchLibrary?.entries?.length ?? 0) >= 10,
+			String(researchLibrary?.entries?.length ?? 0)
+		);
+		check(
+			'Claims matrix research keys resolve against the research library',
+			(claimsMatrix?.claims ?? []).every(claim =>
+				(claim.research_keys ?? []).every(researchKey =>
+					(researchLibrary?.entries ?? []).some(entry => entry.key === researchKey)
+				)
+			)
+		);
+		check(
+			'Source registry research keys resolve against the research library',
+			dataSourceRegistry.every(entry =>
+				(entry.research_keys ?? []).every(researchKey =>
+					(researchLibrary?.entries ?? []).some(researchEntry => researchEntry.key === researchKey)
+				)
+			)
+		);
+		check(
+			'Research library references current claims and source keys cleanly',
+			(researchLibrary?.entries ?? []).every(
+				entry =>
+					entry.source_keys.every(sourceKey =>
+						dataSourceRegistry.some(sourceEntry => sourceEntry.key === sourceKey)
+					) &&
+					entry.claim_ids.every(claimId =>
+						(claimsMatrix?.claims ?? []).some(claim => claim.id === claimId)
+					)
+			)
+		);
+		check(
+			'Shadow score artifacts exist and cover every occupation',
+			(shadowScores?.length ?? 0) === data.length &&
+				shadowComparison?.occupation_count === data.length,
+			`${shadowScores?.length ?? 0} / ${shadowComparison?.occupation_count ?? 0}`
+		);
+		check(
+			'Shadow scores include meaningful task-native coverage',
+			(shadowScores ?? []).filter(row => row.shadow_eligibility_status === 'task_native').length >=
+				450,
+			String(
+				(shadowScores ?? []).filter(row => row.shadow_eligibility_status === 'task_native').length
+			)
+		);
+		check(
+			'Shadow validation and anchor-review artifacts exist',
+			shadowValidation !== null && shadowAnchorReview !== null
+		);
+		check(
+			'Shadow comparison validation counts match the validation artifact',
+			(shadowComparison?.validation_pass_count ?? -1) ===
+				[
+					shadowValidation?.cluster_directional_accuracy.pass,
+					shadowValidation?.bls_spearman_rho.pass,
+					shadowValidation?.occupation_family_spearman_rho.pass
+				].filter(Boolean).length
+		);
+		check(
+			'Shadow anchor review covers the required anchor set',
+			shadowAnchorReview?.found_anchor_count === shadowAnchorReview?.required_anchor_count,
+			`${shadowAnchorReview?.found_anchor_count ?? 0}/${shadowAnchorReview?.required_anchor_count ?? 0}`
+		);
+		check(
+			'build:release-data regenerates shadow and research artifacts',
+			(packageJson?.scripts?.['build:release-data'] ?? '').includes(
+				'scripts/build-shadow-scores-v43.ts'
+			) &&
+				(packageJson?.scripts?.['build:release-data'] ?? '').includes(
+					'scripts/build-research-library.ts'
+				)
 		);
 		check(
 			'Active surfaces do not hardcode stale MOM Q3 2025 labels',

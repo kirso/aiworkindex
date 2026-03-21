@@ -33,7 +33,9 @@ interface ReleaseArtifactDefinition {
 		| 'transition_support'
 		| 'offset_potential'
 		| 'transition_infrastructure'
-		| 'governance';
+		| 'governance'
+		| 'research_memory'
+		| 'shadow_model';
 	description: string;
 }
 
@@ -131,6 +133,41 @@ const ARTIFACTS: ReleaseArtifactDefinition[] = [
 		category: 'governance',
 		description:
 			'Governance artifact for the task-weighted shadow model, including input readiness, promotion gates, and known blockers.'
+	},
+	{
+		file: 'shadow-scores-v43.json',
+		label: 'V4.3 shadow scores',
+		category: 'shadow_model',
+		description:
+			'Per-occupation task-adjusted shadow scores published alongside the live V4.2 baseline for comparison and promotion review.'
+	},
+	{
+		file: 'shadow-comparison-v43.json',
+		label: 'V4.3 shadow comparison summary',
+		category: 'shadow_model',
+		description:
+			'Summary of task-native eligibility, score deltas, band flips, and anchor-review counts versus the live V4.2 baseline.'
+	},
+	{
+		file: 'shadow-validation-v43.json',
+		label: 'V4.3 shadow validation comparison',
+		category: 'shadow_model',
+		description:
+			'Comparison of the published shadow scores against the live validation benchmarks used for headline promotion review.'
+	},
+	{
+		file: 'shadow-anchor-review-v43.json',
+		label: 'V4.3 shadow anchor review',
+		category: 'shadow_model',
+		description:
+			'Side-by-side anchor occupation screen used to flag large label shifts before any headline promotion decision.'
+	},
+	{
+		file: 'research-library.json',
+		label: 'Research library',
+		category: 'research_memory',
+		description:
+			'Machine-readable registry of the academic papers, reports, and datasets cited by the methodology, validation, and V5 roadmap.'
 	},
 	{
 		file: 'site-status.json',

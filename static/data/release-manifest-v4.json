@@ -1,6 +1,6 @@
 {
   "version": "V4.2",
-  "generated_at": "2026-03-21T02:44:40.934Z",
+  "generated_at": "2026-03-21T05:13:38.863Z",
   "score_dataset_generated_at": "2026-03-21",
   "artifacts": [
     {
@@ -116,36 +116,81 @@
       "label": "Public claims matrix",
       "category": "governance",
       "description": "Machine-readable registry of major public claims, evidence strength, and source keys for the current release.",
-      "bytes": 11602,
-      "sha256": "29c7d0d4685e42965d52b865f1ececbc7aa1a357c96b8244c15fe2438b6d24e5",
-      "generated_at": "2026-03-21T02:44:40.319Z"
+      "bytes": 12787,
+      "sha256": "2bb38e742696db46c8ae1433924ca504208f4fbe4d5a3719084828ccba8e6339",
+      "generated_at": "2026-03-21T05:11:26.318Z"
     },
     {
       "file": "experimental-methodology-v43.json",
       "label": "V4.3 shadow-model readiness",
       "category": "governance",
       "description": "Governance artifact for the task-weighted shadow model, including input readiness, promotion gates, and known blockers.",
-      "bytes": 3231,
-      "sha256": "5507131b96dbef06b05fa3579159aa18b8a2d87a0ad7f40603766002fa6cba39",
-      "generated_at": "2026-03-21T02:44:37.899Z"
+      "bytes": 3389,
+      "sha256": "7d76024bde35ff6c4df7141f0e04861817107b94ba488fc2e5731d523a7fc5b6",
+      "generated_at": "2026-03-21T05:13:30.054Z"
+    },
+    {
+      "file": "shadow-scores-v43.json",
+      "label": "V4.3 shadow scores",
+      "category": "shadow_model",
+      "description": "Per-occupation task-adjusted shadow scores published alongside the live V4.2 baseline for comparison and promotion review.",
+      "bytes": 399134,
+      "sha256": "606e4dde008b05672bd63c076ee70ffda8f3ff8a3dfe600e6145cb2fc4870ee9",
+      "generated_at": "2026-03-21T05:11:49.094Z"
+    },
+    {
+      "file": "shadow-comparison-v43.json",
+      "label": "V4.3 shadow comparison summary",
+      "category": "shadow_model",
+      "description": "Summary of task-native eligibility, score deltas, band flips, and anchor-review counts versus the live V4.2 baseline.",
+      "bytes": 41771,
+      "sha256": "084149590721bbb16aba029ab184a15502989a9375b72c3a24884ede4e874e80",
+      "generated_at": "2026-03-21T05:11:49.095Z"
+    },
+    {
+      "file": "shadow-validation-v43.json",
+      "label": "V4.3 shadow validation comparison",
+      "category": "shadow_model",
+      "description": "Comparison of the published shadow scores against the live validation benchmarks used for headline promotion review.",
+      "bytes": 1730,
+      "sha256": "2196c5d83b402281538506fd6eeda6de0cc92af73ad420a50ea5a17f39f260b4",
+      "generated_at": "2026-03-21T05:11:49.094Z"
+    },
+    {
+      "file": "shadow-anchor-review-v43.json",
+      "label": "V4.3 shadow anchor review",
+      "category": "shadow_model",
+      "description": "Side-by-side anchor occupation screen used to flag large label shifts before any headline promotion decision.",
+      "bytes": 4388,
+      "sha256": "e71042d158e48c8fc2db8a4b00c13fceb839c5d310a2a527ded22500b2d54504",
+      "generated_at": "2026-03-21T05:11:49.095Z"
+    },
+    {
+      "file": "research-library.json",
+      "label": "Research library",
+      "category": "research_memory",
+      "description": "Machine-readable registry of the academic papers, reports, and datasets cited by the methodology, validation, and V5 roadmap.",
+      "bytes": 21962,
+      "sha256": "5a849cd71d6383fbbf0f23ab755ef0868b4ddce3fa0a8caf4eb317085e1e2945",
+      "generated_at": "2026-03-21T05:11:54.868Z"
     },
     {
       "file": "site-status.json",
       "label": "Public site status",
       "category": "governance",
       "description": "Canonical public status object covering current structural release, live monitor vintage, and latest official update state.",
-      "bytes": 3095,
-      "sha256": "1dff176940cd837aecc3a2fa7f25c0f3d08d64c8c432fd1e03974c4dd94c3689",
-      "generated_at": "2026-03-21T02:44:40.915Z"
+      "bytes": 3067,
+      "sha256": "3e77afd7f8e0c1689a46405fa71a4595d52d6a040944e82926b5803ff851ea5b",
+      "generated_at": "2026-03-21T05:13:38.868Z"
     },
     {
       "file": "releases.json",
       "label": "Public release history",
       "category": "governance",
       "description": "Ordered release and update history spanning structural releases, quarterly briefings, and official monitor updates.",
-      "bytes": 1926,
-      "sha256": "6584ddf2939b28474e240dc231c562edd89891ae0c444faaafff71efb30d7c56",
-      "generated_at": "2026-03-21T02:44:40.915Z"
+      "bytes": 5924,
+      "sha256": "ce6ef861187c9c0e7f0a385eff3e2000a79072b2cd1d0e37faaed8fb61d081b2",
+      "generated_at": "2026-03-21T05:13:38.869Z"
     },
     {
       "file": "backtests/current-validation.json",

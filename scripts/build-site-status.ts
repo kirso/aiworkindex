@@ -54,6 +54,113 @@ const LATEST_OFFICIAL_LABOUR_REPORT = {
 	status: 'published_live' as const
 };
 
+const STRUCTURAL_VERSION_HISTORY = [
+	{
+		id: 'structural-v42-2026-03-21',
+		version_label: 'V4.2',
+		label: 'V4.2 structural release',
+		published_at: '2026-03-21',
+		display_date: '21 Mar 2026',
+		availability: 'current_download',
+		href: '/data',
+		notes: [
+			'Shared methodology core, bootstrap uncertainty, forecast separation, and governance hardening.',
+			'This is the live headline structural release.'
+		]
+	},
+	{
+		id: 'structural-v40-2026-03-19',
+		version_label: 'V4.0',
+		label: 'V4.0 four-source ensemble milestone',
+		published_at: '2026-03-19',
+		display_date: '19 Mar 2026',
+		availability: 'history_only',
+		href: '/methodology',
+		notes: [
+			'Expanded exposure into the four-source ensemble: AIOE, Anthropic, Eloundou, and ILO.',
+			'Preceded the later V4.2 methodology hardening pass.'
+		]
+	},
+	{
+		id: 'structural-v33-2026-03-19',
+		version_label: 'V3.3',
+		label: 'V3.3 ensemble exposure iteration',
+		published_at: '2026-03-19',
+		display_date: '19 Mar 2026',
+		availability: 'history_only',
+		href: '/methodology',
+		notes: [
+			'Introduced the first ensemble-style exposure blend before the final four-source V4 lineage.',
+			'Tracked here for version continuity; no separate frozen public snapshot is retained.'
+		]
+	},
+	{
+		id: 'structural-v32-2026-03-19',
+		version_label: 'V3.2',
+		label: 'V3.2 confidence-interval milestone',
+		published_at: '2026-03-19',
+		display_date: '19 Mar 2026',
+		availability: 'history_only',
+		href: '/methodology',
+		notes: [
+			'Surfaced confidence intervals and recalibrated seniority adjustments.',
+			'Tracked as a methodology milestone, not a retained standalone download.'
+		]
+	},
+	{
+		id: 'structural-v31-2026-03-16',
+		version_label: 'V3.1',
+		label: 'V3.1 observed-exposure and demand-signal milestone',
+		published_at: '2026-03-16',
+		display_date: '16 Mar 2026',
+		availability: 'history_only',
+		href: '/methodology',
+		notes: [
+			'Added Anthropic observed usage and stronger Singapore demand/context layers.',
+			'Version tracked from git history; no separate retained public snapshot.'
+		]
+	},
+	{
+		id: 'structural-v30-2026-03-16',
+		version_label: 'V3.0',
+		label: 'V3.0 three-layer structural score',
+		published_at: '2026-03-16',
+		display_date: '16 Mar 2026',
+		availability: 'historical_snapshot',
+		href: '/data/sg-ai-occupations-v3.json',
+		notes: [
+			'First full three-layer structural score: exposure, bottleneck, and market modifier.',
+			'Historical public JSON snapshot is still retained.'
+		]
+	},
+	{
+		id: 'structural-v2-2026-01',
+		version_label: 'V2',
+		label: 'V2 Singapore occupation scorer',
+		published_at: null,
+		display_date: 'Jan 2026',
+		availability: 'history_only',
+		href: '/methodology',
+		notes: [
+			'Second-generation methodology before the V3 structural formula rewrite.',
+			'Tracked for lineage continuity; no retained standalone public snapshot.'
+		]
+	},
+	{
+		id: 'structural-v1-2025-12',
+		version_label: 'V1',
+		label: 'V1 public alpha',
+		published_at: null,
+		display_date: 'Dec 2025',
+		availability: 'history_only',
+		href: '/methodology',
+		notes: [
+			'First public alpha of the Singapore occupation AI-impact project.',
+			'Tracked for release lineage only.'
+		]
+	}
+] as const;
+
 function readJson<T>(filePath: string): T | null {
 	if (!fs.existsSync(filePath)) return null;
 	return JSON.parse(fs.readFileSync(filePath, 'utf-8')) as T;
@@ -123,7 +230,12 @@ function buildSiteStatus() {
 	const experimentalMethodology = readJson<{
 		version: string;
 		shadow_readiness: {
-			status: 'blocked' | 'not_ready' | 'ready_for_shadow_scoring';
+			status:
+				| 'blocked'
+				| 'not_ready'
+				| 'ready_for_shadow_scoring'
+				| 'shadow_published'
+				| 'promoted';
 			summary: string;
 		};
 		shadow_score_published: boolean;
@@ -221,29 +333,34 @@ function buildSiteStatus() {
 
 function buildReleases(siteStatus: ReturnType<typeof buildSiteStatus>) {
 	return [
-		{
-			id: `structural-${DATA_VINTAGE.model_version.toLowerCase()}-${DATA_VINTAGE.last_updated}`,
+		...STRUCTURAL_VERSION_HISTORY.map(entry => ({
+			id: entry.id,
 			type: 'structural_release',
-			label: `${DATA_VINTAGE.model_version} structural release`,
-			published_at: DATA_VINTAGE.last_updated,
-			score_version: DATA_VINTAGE.model_version,
+			label: entry.label,
+			version_label: entry.version_label,
+			published_at: entry.published_at,
+			display_date: entry.display_date,
+			score_version:
+				entry.version_label === DATA_VINTAGE.model_version
+					? DATA_VINTAGE.model_version
+					: entry.version_label,
 			monitor_vintage: siteStatus.live_monitor.labour_monitor_artifact_vintage,
-			href: '/data',
-			notes: [
-				'Canonical structural score dataset and schema release.',
-				'Release manifest and claims matrix regenerated for this version.'
-			]
-		},
+			href: entry.href,
+			availability: entry.availability,
+			notes: entry.notes
+		})),
 		{
-			id: 'shadow-methodology-note-v43',
+			id: 'shadow-score-v43-published',
 			type: 'experimental_update',
-			label: 'V4.3 shadow model note',
+			label: 'V4.3 shadow score published',
 			published_at: DATA_VINTAGE.last_updated,
+			display_date: '21 Mar 2026',
 			score_version: DATA_VINTAGE.model_version,
 			monitor_vintage: siteStatus.live_monitor.labour_monitor_artifact_vintage,
 			href: '/reports/v4-3-shadow',
+			availability: 'current_download',
 			notes: [
-				'Task-weighted shadow-model governance artifact published.',
+				'Task-weighted shadow scores, validation comparison, and anchor-review artifacts published.',
 				formatExperimentalReleaseNote(siteStatus.experimental_release)
 			]
 		},
@@ -252,9 +369,11 @@ function buildReleases(siteStatus: ReturnType<typeof buildSiteStatus>) {
 			type: 'official_update',
 			label: siteStatus.live_monitor.latest_official_labour_report.label,
 			published_at: siteStatus.live_monitor.latest_official_labour_report.published_at,
+			display_date: '20 Mar 2026',
 			score_version: DATA_VINTAGE.model_version,
 			monitor_vintage: siteStatus.live_monitor.labour_monitor_artifact_vintage,
 			href: siteStatus.live_monitor.latest_official_labour_report.url,
+			availability: 'current_download',
 			notes: [
 				'Fresh official labour report published by MOM.',
 				'Live labour monitor refreshed to the Q4 2025 full vintage.'
@@ -265,9 +384,11 @@ function buildReleases(siteStatus: ReturnType<typeof buildSiteStatus>) {
 			type: 'report_refresh',
 			label: '2026 Q1 quarterly briefing',
 			published_at: DATA_VINTAGE.last_updated,
+			display_date: '21 Mar 2026',
 			score_version: DATA_VINTAGE.model_version,
 			monitor_vintage: siteStatus.live_monitor.labour_monitor_artifact_vintage,
 			href: '/reports',
+			availability: 'current_download',
 			notes: [
 				'Quarterly movers and briefing context refreshed from frozen snapshots.',
 				'Uses the live monitor artifact vintage current at the time of publication.'

@@ -35,6 +35,7 @@ interface ClaimEntry {
 	claim: string;
 	strength: ClaimStrength;
 	source_keys: string[];
+	research_keys: string[];
 	evidence_artifacts?: string[];
 	where_used: string[];
 	notes: string;
@@ -47,6 +48,7 @@ const claims: ClaimEntry[] = [
 		claim: 'The core structural score covers 562 Singapore SSOC occupations.',
 		strength: 'high',
 		source_keys: ['mom_ows_2024'],
+		research_keys: [],
 		evidence_artifacts: ['sg-ai-occupations-v4.json'],
 		where_used: ['/', '/about', '/data', '/methodology', '/README'],
 		notes: 'Backed by the published MOM occupation table and the current frozen score dataset.'
@@ -58,6 +60,11 @@ const claims: ClaimEntry[] = [
 			'The canonical structural score is deterministic and does not use an LLM in the scoring loop.',
 		strength: 'high',
 		source_keys: ['aioe_2021', 'pizzinelli_theta_2023', 'anthropic_economic_index_2026'],
+		research_keys: [
+			'felten_raj_seamans_2021',
+			'pizzinelli_etal_2023',
+			'anthropic_economic_index_2026'
+		],
 		evidence_artifacts: ['scripts/score.ts', 'sg-ai-occupations-v4.json'],
 		where_used: ['/about', '/methodology', '/README'],
 		notes:
@@ -74,6 +81,12 @@ const claims: ClaimEntry[] = [
 			'eloundou_gpt_exposure_2023',
 			'ilo_genai_2025'
 		],
+		research_keys: [
+			'felten_raj_seamans_2021',
+			'anthropic_economic_index_2026',
+			'eloundou_etal_2023',
+			'ilo_genai_exposure_2025'
+		],
 		evidence_artifacts: ['scripts/score.ts', 'sg-ai-occupations-v4.json'],
 		where_used: ['/about', '/data', '/methodology', '/README'],
 		notes:
@@ -86,6 +99,7 @@ const claims: ClaimEntry[] = [
 			'O*NET task and technology-skill profiles are used as supporting explanatory context on detail pages, not as direct score inputs.',
 		strength: 'medium',
 		source_keys: ['onet_occupation_data', 'onet_task_statements', 'onet_technology_skills'],
+		research_keys: ['onet_database_2024'],
 		evidence_artifacts: ['onet-enrichment.json', 'scripts/enrich-onet.ts'],
 		where_used: ['/occupation/[ssoc]', '/role/[slug]', '/methodology', '/data'],
 		notes:
@@ -97,6 +111,7 @@ const claims: ClaimEntry[] = [
 		claim: 'The headline score measures structural AI pressure, not a forecast of job losses.',
 		strength: 'high',
 		source_keys: ['aioe_2021', 'pizzinelli_theta_2023', 'mom_labour_monitor_2025'],
+		research_keys: ['felten_raj_seamans_2018', 'felten_raj_seamans_2021', 'pizzinelli_etal_2023'],
 		where_used: ['/', '/about', '/methodology'],
 		notes:
 			'This is a framing claim about what the model is designed to measure and what it is not designed to predict.'
@@ -116,6 +131,7 @@ const claims: ClaimEntry[] = [
 			'wsg_careersfinder',
 			'onet_task_statements'
 		],
+		research_keys: ['onet_database_2024', 'imf_occupational_mobility_2024'],
 		evidence_artifacts: ['sg-offset-potential-v4.json', 'scripts/build-offset-potential.ts'],
 		where_used: ['/methodology', '/data', '/occupation/[ssoc]', '/role/[slug]'],
 		notes:
@@ -128,6 +144,7 @@ const claims: ClaimEntry[] = [
 			'estimated_sg_employment_thousands is an estimated Singapore occupation headcount, not an official detailed occupation count.',
 		strength: 'estimated',
 		source_keys: ['mom_lfr2024_table_d8'],
+		research_keys: [],
 		evidence_artifacts: ['sg-ai-occupations-v4.json', 'sg-ai-occupations-v4.csv'],
 		where_used: ['/data', '/reports/wage-exposure'],
 		notes:
@@ -140,6 +157,7 @@ const claims: ClaimEntry[] = [
 			'The wage-pool headline uses a BLS-weighted proxy employment field rather than official Singapore occupation headcounts.',
 		strength: 'estimated',
 		source_keys: ['mom_lfr2024_table_d8', 'bls_projections_2024_2034'],
+		research_keys: ['bls_occupational_projections_2024_2034'],
 		evidence_artifacts: ['sg-ai-occupations-v4.json'],
 		where_used: ['/', '/reports/wage-exposure'],
 		notes:
@@ -152,6 +170,7 @@ const claims: ClaimEntry[] = [
 			'The BLS occupation comparison is a convergent cross-check and should be interpreted directionally, not as Singapore outcome truth.',
 		strength: 'directional',
 		source_keys: ['bls_projections_2024_2034'],
+		research_keys: ['bls_occupational_projections_2024_2034'],
 		evidence_artifacts: ['data/backtests/bls-crosswalk-validation.json'],
 		where_used: ['/', '/about', '/methodology', '/README'],
 		notes:
@@ -164,6 +183,7 @@ const claims: ClaimEntry[] = [
 			'Across the available multi-period Singapore cluster data, higher-risk clusters consistently show weaker year-over-year vacancy movement than lower-risk clusters.',
 		strength: 'directional',
 		source_keys: ['mom_labour_monitor_2025', 'mom_job_vacancy_rates', 'mom_job_vacancy_counts'],
+		research_keys: [],
 		evidence_artifacts: ['data/backtests/multi-period-validation.json'],
 		where_used: ['/methodology', '/about', '/data'],
 		notes:
@@ -176,6 +196,7 @@ const claims: ClaimEntry[] = [
 			'Direct mappings and the broad high/medium-confidence score population show negative external alignment with BLS employment projections, while low-confidence cases remain intentionally small and noisier.',
 		strength: 'directional',
 		source_keys: ['bls_projections_2024_2034'],
+		research_keys: ['bls_occupational_projections_2024_2034'],
 		evidence_artifacts: ['data/backtests/calibration-diagnostics.json'],
 		where_used: ['/methodology', '/about', '/data'],
 		notes:
@@ -188,6 +209,7 @@ const claims: ClaimEntry[] = [
 			'Aggregated 2-digit occupation families also show negative directional alignment between structural risk and BLS projected employment change.',
 		strength: 'directional',
 		source_keys: ['bls_projections_2024_2034'],
+		research_keys: ['bls_occupational_projections_2024_2034'],
 		evidence_artifacts: ['data/backtests/occupation-family-validation.json'],
 		where_used: ['/methodology', '/about', '/data'],
 		notes:
@@ -204,6 +226,7 @@ const claims: ClaimEntry[] = [
 			'mom_recruitment_resignation_rates',
 			'mom_retrenchment_by_occupation_group'
 		],
+		research_keys: [],
 		evidence_artifacts: ['sg-labour-monitor-2025.json', 'sg-context-pack-2025.json'],
 		where_used: ['/data', '/methodology', '/occupation/[ssoc]', '/role/[slug]'],
 		notes:
@@ -215,6 +238,7 @@ const claims: ClaimEntry[] = [
 		claim: 'Modern roles are estimated synthetic constructs rather than official occupations.',
 		strength: 'synthetic',
 		source_keys: ['mom_ows_2024', 'aioe_2021', 'pizzinelli_theta_2023'],
+		research_keys: ['felten_raj_seamans_2021', 'pizzinelli_etal_2023'],
 		evidence_artifacts: ['src/lib/data/synthetic-roles.ts'],
 		where_used: ['/about', '/methodology', '/role/[slug]'],
 		notes:
@@ -227,6 +251,7 @@ const claims: ClaimEntry[] = [
 			'National AI adoption and programme statistics from IMDA and MOM are contextual evidence around the score, not occupation-level multipliers inside it.',
 		strength: 'high',
 		source_keys: ['imda_digital_economy_2025', 'imda_naiip_2026', 'mom_soi_2025'],
+		research_keys: [],
 		evidence_artifacts: ['sg-ai-in-singapore-2025.json', 'sg-context-pack-2025.json'],
 		where_used: ['/data', '/about', '/methodology'],
 		notes:

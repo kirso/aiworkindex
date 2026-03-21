@@ -1,13 +1,18 @@
 {
   "version": "V4.3-shadow",
-  "generated_at": "2026-03-21T02:44:37.887Z",
+  "generated_at": "2026-03-21T05:13:30.053Z",
   "published_baseline_version": "V4.2",
   "shadow_readiness": {
-    "status": "ready_for_shadow_scoring",
-    "summary": "Ready for shadow scoring: task-weight coverage clears the minimum promotion gate, but no task-adjusted headline score is published yet."
+    "status": "shadow_published",
+    "summary": "Shadow score is published. Promotion into the headline model still depends on validation and anchor-review sign-off."
   },
-  "shadow_score_published": false,
+  "shadow_score_published": true,
   "headline_promotion_ready": false,
+  "shadow_artifacts": {
+    "shadow_scores": "data/shadow-scores-v43.json",
+    "shadow_validation": "data/shadow-validation-v43.json",
+    "shadow_anchor_review": "data/shadow-anchor-review-v43.json"
+  },
   "required_inputs": {
     "anthropic_task_penetration": {
       "file": "data/raw/external/anthropic_task_penetration.csv",
@@ -53,17 +58,17 @@
       "key": "shadow_validation",
       "label": "Experimental task-adjusted score matches or improves current validation diagnostics",
       "threshold": "improve_or_match",
-      "actual": null,
-      "state": "pending",
-      "note": "Requires a published shadow score artifact before BLS, temporal, and occupation-family comparisons can be evaluated."
+      "actual": "1/3",
+      "state": "fail",
+      "note": "Cluster directional accuracy 0.3333 vs 1; BLS rho -0.0574 vs -0.1437; family rho -0.4283 vs -0.242."
     },
     {
       "key": "anchor_review",
       "label": "No implausible anchor label flips without written rationale",
       "threshold": "zero_unexplained_flips",
-      "actual": null,
+      "actual": 6,
       "state": "pending",
-      "note": "Requires side-by-side anchor review once a shadow score exists."
+      "note": "8/8 anchors screened; 6 candidates still need editorial sign-off."
     }
   ],
   "blockers": [],

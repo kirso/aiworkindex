@@ -13,11 +13,13 @@
 	} from '$lib/data/data-contract';
 	import { experimentalStatusLabel } from '$lib/data/experimental-status-display';
 	import releaseManifest from '$lib/data/release-manifest.json';
+	import researchLibrary from '$lib/data/research-library.json';
 	import { releases, siteStatus } from '$lib/data/site-status';
 	import rawDataAudit from '$lib/data/raw-data-audit.json';
 	import Seo from '$lib/components/ui/Seo.svelte';
 
-	const dataSourceCount = Object.keys(dataSourceRegistry).length;
+	const dataSourceCount = dataSourceRegistry.length;
+	const structuralReleases = releases.filter(release => release.type === 'structural_release');
 
 	const datasetJsonLd = `<script type="application/ld+json">${JSON.stringify({
 		'@context': 'https://schema.org',
@@ -388,6 +390,12 @@
 	function formatPct(value: number | null | undefined): string {
 		return typeof value === 'number' ? `${(value * 100).toFixed(0)}%` : 'n/a';
 	}
+
+	function formatReleaseDate(release: { display_date?: string | null; published_at?: string | null }): string {
+		if (release.display_date) return release.display_date;
+		if (release.published_at) return formatDateTime(release.published_at);
+		return 'Date not retained';
+	}
 </script>
 
 <Seo
@@ -474,7 +482,7 @@
 					<div>
 						<p class="text-sm font-medium text-foreground">{release.label}</p>
 						<p class="mt-1 text-xs text-muted-foreground">
-							Published {release.published_at} · {release.score_version} · monitor {release.monitor_vintage}
+							Published {formatReleaseDate(release)} · {release.score_version} · monitor {release.monitor_vintage}
 						</p>
 					</div>
 					<a
@@ -538,9 +546,42 @@
 					<span class="text-base font-semibold text-foreground">Experimental V4.3</span>
 				</div>
 				<p class="mt-1 text-sm text-muted-foreground">
-					Task-weighted shadow-model readiness, promotion gates, and current blockers. Does not change the published V4.2 score.
+					Task-weighted shadow-model status, promotion gates, and the current headline-promotion state.
 				</p>
 				<span class="mt-auto pt-2 text-xs text-primary">experimental-methodology-v43.json</span>
+			</div>
+		</a>
+
+		<a href="/data/shadow-scores-v43.json" download class="no-underline">
+			<div class={cn(card({ padding: 'lg', hover: true }), 'flex h-full flex-col items-start')}>
+				<div class="flex items-center gap-2">
+					<svg class="h-5 w-5 text-impact-leveraged" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+						<polyline points="7,10 12,15 17,10"/>
+						<line x1="12" y1="15" x2="12" y2="3"/>
+					</svg>
+					<span class="text-base font-semibold text-foreground">V4.3 Shadow Scores</span>
+				</div>
+				<p class="mt-1 text-sm text-muted-foreground">
+					Task-adjusted comparison scores published alongside the live baseline for validation and promotion review.
+				</p>
+				<span class="mt-auto pt-2 text-xs text-primary">shadow-scores-v43.json</span>
+			</div>
+		</a>
+
+		<a href="/data/research-library.json" download class="no-underline">
+			<div class={cn(card({ padding: 'lg', hover: true }), 'flex h-full flex-col items-start')}>
+				<div class="flex items-center gap-2">
+					<svg class="h-5 w-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+						<path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+					</svg>
+					<span class="text-base font-semibold text-foreground">Research Library</span>
+				</div>
+				<p class="mt-1 text-sm text-muted-foreground">
+					Canonical citation registry linking the live methodology, validation layer, and V5 roadmap to source papers and reports.
+				</p>
+				<span class="mt-auto pt-2 text-xs text-primary">research-library.json</span>
 			</div>
 		</a>
 
@@ -614,28 +655,30 @@
 						</Table.Row>
 					</Table.Header>
 					<Table.Body>
-						<Table.Row>
-							<Table.Cell class="font-medium">V4.2 (Current)</Table.Cell>
-							<Table.Cell class="text-muted-foreground">March 2026</Table.Cell>
-							<Table.Cell class="text-muted-foreground">{DATA_VINTAGE.occupation_count}</Table.Cell>
-							<Table.Cell>
-									<a href="/data/sg-ai-occupations-v4.json" download class="text-xs text-primary underline">JSON</a>
-									<span class="mx-1 text-muted-foreground">&middot;</span>
-									<a href="/data/sg-ai-occupations-v4.csv" download class="text-xs text-primary underline">CSV</a>
+						{#each structuralReleases as release}
+							<Table.Row class={release.availability === 'history_only' ? 'opacity-70' : ''}>
+								<Table.Cell class="font-medium">
+									{release.version_label}{release.version_label === DATA_VINTAGE.model_version
+										? ' (Current)'
+										: ''}
+								</Table.Cell>
+								<Table.Cell class="text-muted-foreground">{formatReleaseDate(release)}</Table.Cell>
+								<Table.Cell class="text-muted-foreground">{DATA_VINTAGE.occupation_count}</Table.Cell>
+								<Table.Cell>
+									{#if release.version_label === DATA_VINTAGE.model_version}
+										<a href="/data/sg-ai-occupations-v4.json" download class="text-xs text-primary underline">JSON</a>
+										<span class="mx-1 text-muted-foreground">&middot;</span>
+										<a href="/data/sg-ai-occupations-v4.csv" download class="text-xs text-primary underline">CSV</a>
+									{:else if release.version_label === 'V3.0'}
+										<a href="/data/sg-ai-occupations-v3.json" download class="text-xs text-primary underline">JSON</a>
+									{:else}
+										<span class="text-xs text-muted-foreground italic">
+											{release.availability === 'history_only' ? 'History only' : 'Archived'}
+										</span>
+									{/if}
 								</Table.Cell>
 							</Table.Row>
-						<Table.Row class="opacity-50">
-							<Table.Cell class="font-medium">V2</Table.Cell>
-							<Table.Cell class="text-muted-foreground">January 2026</Table.Cell>
-							<Table.Cell class="text-muted-foreground">{DATA_VINTAGE.occupation_count}</Table.Cell>
-							<Table.Cell class="text-xs text-muted-foreground italic">Archived</Table.Cell>
-						</Table.Row>
-						<Table.Row class="opacity-50">
-							<Table.Cell class="font-medium">V1</Table.Cell>
-							<Table.Cell class="text-muted-foreground">December 2025</Table.Cell>
-							<Table.Cell class="text-muted-foreground">{DATA_VINTAGE.occupation_count}</Table.Cell>
-							<Table.Cell class="text-xs text-muted-foreground italic">Archived</Table.Cell>
-						</Table.Row>
+						{/each}
 					</Table.Body>
 				</Table.Root>
 			</div>
@@ -654,10 +697,14 @@
 				<p><span class="font-medium text-foreground">Data vintage:</span> 2024 wages, 2024/2025 demand signals</p>
 				<p><span class="font-medium text-foreground">Occupations:</span> {DATA_VINTAGE.occupation_count} SSOC-coded occupations</p>
 				<p><span class="font-medium text-foreground">Separate context bundle:</span> Labour monitor, worker profile, industry context, sector wage anchors, geography context, macro labour context, national AI context, offset potential, and transition support</p>
-				<p><span class="font-medium text-foreground">Experimental shadow layer:</span> V4.3 task-weighted readiness is published separately and does not affect the headline score until promotion gates are met</p>
+				<p><span class="font-medium text-foreground">Experimental shadow layer:</span> {experimentalStatusLabel(siteStatus.experimental_release.status)}. V4.3 shadow scores are published separately and do not affect the headline score until promotion is explicitly approved.</p>
+				<p><span class="font-medium text-foreground">Research memory:</span> {researchLibrary.entry_count} canonical research entries are published in the research library and linked to claims/source registry records.</p>
 				<p><span class="font-medium text-foreground">Sources:</span> MOM Singapore (wages, Labour Force Section D, industry context, demand signals, SOI), IMDA Singapore Digital Economy Report 2025, IMDA NAIIP 2026, O*NET, Felten AIOE, Pizzinelli/IMF, Anthropic observed usage, Eloundou GPT exposure, ILO occupational exposure, SOL 2026, Jobs in Demand 2025</p>
 			</div>
-			<a href="/methodology" class="mt-3 inline-block text-sm text-primary underline">Full methodology &rarr;</a>
+			<div class="mt-3 flex flex-wrap gap-4 text-sm">
+				<a href="/methodology" class="text-primary underline">Full methodology &rarr;</a>
+				<a href="/research" class="text-primary underline">Research library &rarr;</a>
+			</div>
 		</div>
 	</div>
 
@@ -714,7 +761,9 @@
 			<p class="mt-1 text-xs text-muted-foreground">
 				Major public claims are also published in a versioned
 				<a href="/data/claims-matrix-v4.json" download class="text-primary underline">claims matrix</a>
-				with evidence-strength labels and source keys.
+				with evidence-strength labels, source keys, and research links. The citation layer is also
+				published as
+				<a href="/data/research-library.json" download class="text-primary underline">research-library.json</a>.
 			</p>
 		</div>
 	</div>

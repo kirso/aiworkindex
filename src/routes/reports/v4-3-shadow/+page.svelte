@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { experimentalStatusLabel } from '$lib/data/experimental-status-display';
 	import experimentalMethodology from '$lib/data/experimental-methodology-v43.json';
+	import shadowComparison from '$lib/data/shadow-comparison-v43.json';
+	import shadowValidation from '$lib/data/shadow-validation-v43.json';
 	import { siteStatus } from '$lib/data/site-status';
 	import {
 		title as titleStyle,
@@ -22,6 +24,8 @@
 	const coverage = experimentalMethodology.coverage;
 	const promotionGates = experimentalMethodology.promotion_gates;
 	const blockers = experimentalMethodology.blockers ?? [];
+	const validationPassCount = shadowComparison.validation_pass_count ?? 0;
+	const validationTotal = shadowComparison.validation_total ?? 0;
 	const headlineHoldItems = [
 		...(!experimentalMethodology.shadow_score_published
 			? ['A task-adjusted shadow score artifact is not published yet.']
@@ -42,18 +46,21 @@
 		'Bootstrap uncertainty intervals are published on occupations today.',
 		'Structural risk and near-term risk are separated in the forecast layer.',
 		'Task-primitives fields now publish weighted evidence where normalized O*NET task matches exist; sparse occupations remain explicit null.',
-		'The release and governance surfaces now expose shadow-model readiness instead of hiding it.'
+		'The release and governance surfaces now expose shadow-model readiness instead of hiding it.',
+		`${shadowComparison.task_native_count} occupations now have published task-native shadow scores for comparison against the live baseline.`
 	];
 	const remainingInputGaps =
 		blockers.length > 0
 			? blockers.map((blocker: { note: string }) => blocker.note)
 			: ['All required local shadow-model inputs are now present.'];
-	const experimentalStatusBadgeClass =
-		siteStatus.experimental_release?.status === 'ready_for_shadow_scoring'
-			? 'bg-impact-leveraged-subtle text-impact-leveraged border-impact-leveraged-border'
-			: siteStatus.experimental_release?.status === 'blocked'
-				? 'bg-risk-high-subtle text-risk-high border-risk-high-border'
-				: 'bg-risk-moderate-subtle text-risk-moderate border-risk-moderate-border';
+	const experimentalPositiveStates = ['ready_for_shadow_scoring', 'shadow_published', 'promoted'];
+	const experimentalStatusBadgeClass = experimentalPositiveStates.includes(
+		siteStatus.experimental_release?.status ?? ''
+	)
+		? 'bg-impact-leveraged-subtle text-impact-leveraged border-impact-leveraged-border'
+		: siteStatus.experimental_release?.status === 'blocked'
+			? 'bg-risk-high-subtle text-risk-high border-risk-high-border'
+			: 'bg-risk-moderate-subtle text-risk-moderate border-risk-moderate-border';
 
 	function formatPct(value: number | null | undefined, digits = 0): string {
 		return typeof value === 'number' ? `${(value * 100).toFixed(digits)}%` : 'n/a';
@@ -64,7 +71,13 @@
 	}
 
 	function stateClass(state: string): string {
-		if (state === 'pass' || state === 'passed' || state === 'ready_for_shadow_scoring') {
+		if (
+			state === 'pass' ||
+			state === 'passed' ||
+			state === 'ready_for_shadow_scoring' ||
+			state === 'shadow_published' ||
+			state === 'promoted'
+		) {
 			return 'text-impact-leveraged';
 		}
 		if (state === 'blocked') return 'text-risk-high';
@@ -102,8 +115,9 @@
 			This page explains release impact and readiness. It does not replace the formula spec on
 			<a href="/methodology" class="text-primary hover:underline">Methodology</a>, the threshold
 			detail on <a href="/methodology/appendix" class="text-primary hover:underline">Appendix</a>,
-			or the schema/download contract on
-			<a href="/data" class="text-primary hover:underline">Data</a>.
+			the schema/download contract on
+			<a href="/data" class="text-primary hover:underline">Data</a>, or the citation layer on
+			<a href="/research" class="text-primary hover:underline">Research</a>.
 		</p>
 	</div>
 
@@ -130,12 +144,56 @@
 			<p class="text-xs text-muted-foreground">currently eligible for shadow-score coverage</p>
 		</div>
 		<div class={card({ padding: 'sm', variant: 'metric' })}>
-			<p class={microLabel()}>Bootstrap coverage</p>
+			<p class={microLabel()}>Validation comparison</p>
 			<p class="mt-1 text-lg font-bold text-foreground">
-				{formatPct(coverage.bootstrap_uncertainty_coverage_share)}
+				{validationPassCount}/{validationTotal}
 			</p>
-			<p class="text-xs text-muted-foreground">already live in the published dataset</p>
+			<p class="text-xs text-muted-foreground">current match-or-improve gates passing</p>
 		</div>
+	</div>
+
+	<div class={cn(card({ padding: 'md' }), 'mt-6')}>
+		<p class="text-sm font-semibold text-foreground">Published shadow artifacts</p>
+		<p class="mt-1 text-sm text-muted-foreground">
+			The shadow layer is now auditable as data, not just as a readiness note.
+		</p>
+		<div class="mt-3 grid gap-3 md:grid-cols-3">
+			<a
+				href="/data/shadow-scores-v43.json"
+				download
+				class="rounded-lg border border-border/60 bg-background/70 px-3 py-3 no-underline transition-colors hover:border-primary/30 hover:bg-accent/40"
+			>
+				<p class="text-sm font-medium text-foreground">Shadow scores</p>
+				<p class="mt-1 text-xs text-muted-foreground">
+					Per-occupation task-adjusted scores and fallback status.
+				</p>
+			</a>
+			<a
+				href="/data/shadow-comparison-v43.json"
+				download
+				class="rounded-lg border border-border/60 bg-background/70 px-3 py-3 no-underline transition-colors hover:border-primary/30 hover:bg-accent/40"
+			>
+				<p class="text-sm font-medium text-foreground">Comparison summary</p>
+				<p class="mt-1 text-xs text-muted-foreground">
+					Score deltas, band flips, and anchor-review counts versus V4.2.
+				</p>
+			</a>
+			<a
+				href="/data/shadow-validation-v43.json"
+				download
+				class="rounded-lg border border-border/60 bg-background/70 px-3 py-3 no-underline transition-colors hover:border-primary/30 hover:bg-accent/40"
+			>
+				<p class="text-sm font-medium text-foreground">Validation comparison</p>
+				<p class="mt-1 text-xs text-muted-foreground">
+					BLS, family, and cluster comparisons against the live baseline.
+				</p>
+			</a>
+		</div>
+		<p class="mt-3 text-xs text-muted-foreground">
+			Current shadow validation deltas: cluster {shadowValidation.cluster_directional_accuracy
+				.delta}, BLS {shadowValidation.bls_spearman_rho.delta}, family {shadowValidation
+				.occupation_family_spearman_rho.delta}.
+		</p>
 	</div>
 
 	<p class={cn(sectionLabel(), 'mt-8 mb-3')}>What Changes Already Affect Users</p>

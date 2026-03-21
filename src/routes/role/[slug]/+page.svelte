@@ -423,7 +423,9 @@
 
 		<!-- Built from: surface component occupations above the fold -->
 		<div class="mt-5 border-t border-border/70 pt-4">
-			<p class={cn(microLabel(), 'mb-2')}>Built from {scored.components.length} official occupations</p>
+			<p class={cn(microLabel(), 'mb-2')}>
+				Built from {scored.components.length} official occupations
+			</p>
 			<div class="flex flex-wrap gap-x-4 gap-y-1">
 				{#each scored.components as comp}
 					{#if comp.occupation}
@@ -432,7 +434,9 @@
 							class="text-xs text-text-secondary hover:text-primary hover:underline underline-offset-2"
 						>
 							{comp.occupation.title}
-							<span class="font-mono tabular-nums text-muted-foreground">({(comp.weight * 100).toFixed(0)}%)</span>
+							<span class="font-mono tabular-nums text-muted-foreground"
+								>({(comp.weight * 100).toFixed(0)}%)</span
+							>
 						</a>
 					{/if}
 				{/each}

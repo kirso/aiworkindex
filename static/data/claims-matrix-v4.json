@@ -1,6 +1,6 @@
 {
   "version": "V4.2",
-  "generated_at": "2026-03-21T02:44:40.318Z",
+  "generated_at": "2026-03-21T05:11:26.317Z",
   "strength_labels": {
     "high": "Directly supported by the current pipeline or official published data at the level shown.",
     "medium": "Supported, but with more methodological interpretation or partial coverage.",
@@ -17,6 +17,7 @@
       "source_keys": [
         "mom_ows_2024"
       ],
+      "research_keys": [],
       "evidence_artifacts": [
         "sg-ai-occupations-v4.json"
       ],
@@ -37,6 +38,11 @@
       "source_keys": [
         "aioe_2021",
         "pizzinelli_theta_2023",
+        "anthropic_economic_index_2026"
+      ],
+      "research_keys": [
+        "felten_raj_seamans_2021",
+        "pizzinelli_etal_2023",
         "anthropic_economic_index_2026"
       ],
       "evidence_artifacts": [
@@ -61,6 +67,12 @@
         "eloundou_gpt_exposure_2023",
         "ilo_genai_2025"
       ],
+      "research_keys": [
+        "felten_raj_seamans_2021",
+        "anthropic_economic_index_2026",
+        "eloundou_etal_2023",
+        "ilo_genai_exposure_2025"
+      ],
       "evidence_artifacts": [
         "scripts/score.ts",
         "sg-ai-occupations-v4.json"
@@ -82,6 +94,9 @@
         "onet_occupation_data",
         "onet_task_statements",
         "onet_technology_skills"
+      ],
+      "research_keys": [
+        "onet_database_2024"
       ],
       "evidence_artifacts": [
         "onet-enrichment.json",
@@ -105,6 +120,11 @@
         "pizzinelli_theta_2023",
         "mom_labour_monitor_2025"
       ],
+      "research_keys": [
+        "felten_raj_seamans_2018",
+        "felten_raj_seamans_2021",
+        "pizzinelli_etal_2023"
+      ],
       "where_used": [
         "/",
         "/about",
@@ -126,6 +146,10 @@
         "wsg_careersfinder",
         "onet_task_statements"
       ],
+      "research_keys": [
+        "onet_database_2024",
+        "imf_occupational_mobility_2024"
+      ],
       "evidence_artifacts": [
         "sg-offset-potential-v4.json",
         "scripts/build-offset-potential.ts"
@@ -146,6 +170,7 @@
       "source_keys": [
         "mom_lfr2024_table_d8"
       ],
+      "research_keys": [],
       "evidence_artifacts": [
         "sg-ai-occupations-v4.json",
         "sg-ai-occupations-v4.csv"
@@ -165,6 +190,9 @@
         "mom_lfr2024_table_d8",
         "bls_projections_2024_2034"
       ],
+      "research_keys": [
+        "bls_occupational_projections_2024_2034"
+      ],
       "evidence_artifacts": [
         "sg-ai-occupations-v4.json"
       ],
@@ -181,6 +209,9 @@
       "strength": "directional",
       "source_keys": [
         "bls_projections_2024_2034"
+      ],
+      "research_keys": [
+        "bls_occupational_projections_2024_2034"
       ],
       "evidence_artifacts": [
         "data/backtests/bls-crosswalk-validation.json"
@@ -203,6 +234,7 @@
         "mom_job_vacancy_rates",
         "mom_job_vacancy_counts"
       ],
+      "research_keys": [],
       "evidence_artifacts": [
         "data/backtests/multi-period-validation.json"
       ],
@@ -221,6 +253,9 @@
       "source_keys": [
         "bls_projections_2024_2034"
       ],
+      "research_keys": [
+        "bls_occupational_projections_2024_2034"
+      ],
       "evidence_artifacts": [
         "data/backtests/calibration-diagnostics.json"
       ],
@@ -238,6 +273,9 @@
       "strength": "directional",
       "source_keys": [
         "bls_projections_2024_2034"
+      ],
+      "research_keys": [
+        "bls_occupational_projections_2024_2034"
       ],
       "evidence_artifacts": [
         "data/backtests/occupation-family-validation.json"
@@ -259,6 +297,7 @@
         "mom_recruitment_resignation_rates",
         "mom_retrenchment_by_occupation_group"
       ],
+      "research_keys": [],
       "evidence_artifacts": [
         "sg-labour-monitor-2025.json",
         "sg-context-pack-2025.json"
@@ -281,6 +320,10 @@
         "aioe_2021",
         "pizzinelli_theta_2023"
       ],
+      "research_keys": [
+        "felten_raj_seamans_2021",
+        "pizzinelli_etal_2023"
+      ],
       "evidence_artifacts": [
         "src/lib/data/synthetic-roles.ts"
       ],
@@ -301,6 +344,7 @@
         "imda_naiip_2026",
         "mom_soi_2025"
       ],
+      "research_keys": [],
       "evidence_artifacts": [
         "sg-ai-in-singapore-2025.json",
         "sg-context-pack-2025.json"

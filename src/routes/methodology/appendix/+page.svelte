@@ -289,7 +289,7 @@
 	<section class="mb-8">
 		<p class={sectionLabel()}>Stability Stress Test</p>
 		<p class="mt-2 text-sm text-muted-foreground">
-			V4.1 uses a seeded 1,000-run Monte Carlo perturbation of exposure, bottleneck, and market
+			V4.2 uses a seeded 1,000-run Monte Carlo perturbation of exposure, bottleneck, and market
 			resilience. The current implementation perturbs the three inputs independently but
 			deterministically, so identical source data reproduces the same 10th/90th percentile
 			optimistic and pessimistic bounds across builds.

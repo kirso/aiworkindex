@@ -447,7 +447,9 @@
 						<div>
 							<div class="mb-1 flex items-center justify-between text-xs">
 								<span class="text-muted-foreground">Market Resilience</span>
-								<span class="font-medium font-mono tabular-nums">{entity.market_resilience.toFixed(2)}</span>
+								<span class="font-medium font-mono tabular-nums"
+									>{entity.market_resilience.toFixed(2)}</span
+								>
 							</div>
 							<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
 								<div

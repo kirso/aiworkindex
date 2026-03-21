@@ -39,6 +39,7 @@
 	const secondaryLinks = [
 		{ href: '/data', label: 'Data' },
 		{ href: '/changelog', label: 'Changelog' },
+		{ href: '/research', label: 'Research' },
 		{ href: '/about', label: 'About' },
 		{ href: '/watchlist', label: 'Watchlist' }
 	];
@@ -102,7 +103,9 @@
 	</a>
 
 	<!-- Header: Signal — clean white bar, minimal chrome -->
-	<header class="sticky top-0 z-50 border-b border-border/40 bg-header-bg/75 backdrop-blur-lg backdrop-saturate-[1.15]">
+	<header
+		class="sticky top-0 z-50 border-b border-border/40 bg-header-bg/75 backdrop-blur-lg backdrop-saturate-[1.15]"
+	>
 		<div class="{pageContainer()} flex items-center justify-between h-12">
 			<a
 				href="/"
@@ -301,6 +304,7 @@
 						<a href="/calculator" class="hover:text-foreground">Calculator</a>
 						<a href="/data" class="hover:text-foreground">Data</a>
 						<a href="/changelog" class="hover:text-foreground">Changelog</a>
+						<a href="/research" class="hover:text-foreground">Research</a>
 						<a href="/reports" class="hover:text-foreground">Reports</a>
 						<a href="/about" class="hover:text-foreground">About</a>
 						<a

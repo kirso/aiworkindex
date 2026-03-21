@@ -159,7 +159,7 @@
 	 * Cards are defined by border + shadow, not tonal shift alone.
 	 * Tinted variants (subtle, metric) darken progressively.
 	 */
-	--background: oklch(0.980 0.002 240); /* page canvas — subtle gray, clean */
+	--background: oklch(0.98 0.002 240); /* page canvas — subtle gray, clean */
 	--foreground: oklch(0.14 0.005 240); /* near-black, blue-tinted */
 	--card: oklch(1 0 0); /* pure white — lifts off background */
 	--card-foreground: oklch(0.14 0.005 240);
@@ -230,7 +230,7 @@
 	--muted-foreground: oklch(0.6 0.005 240);
 	--text-secondary: oklch(0.65 0.005 240);
 	--text-tertiary: oklch(0.52 0.004 240);
-	--text-ghost: oklch(0.40 0.003 240);
+	--text-ghost: oklch(0.4 0.003 240);
 	--accent: oklch(0.24 0.005 240);
 	--accent-foreground: oklch(0.93 0.002 240);
 	--destructive: oklch(0.6 0.18 25);

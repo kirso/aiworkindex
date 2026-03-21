@@ -5,10 +5,10 @@
 	import multiPeriodValidation from '$lib/data/backtests/multi-period-validation.json';
 	import calibrationDiagnostics from '$lib/data/backtests/calibration-diagnostics.json';
 	import occupationFamilyValidation from '$lib/data/backtests/occupation-family-validation.json';
-	import { DATA_VINTAGE } from '$lib/data/scoring-constants';
 	import { dataSourceRegistry } from '$lib/data/data-contract';
 	import claimsMatrix from '$lib/data/claims-matrix.json';
-	import { siteStatus } from '$lib/data/site-status';
+	import researchLibrary from '$lib/data/research-library.json';
+	import { releases, siteStatus } from '$lib/data/site-status';
 	import { pageLayout, card, sectionLabel, caption } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
@@ -30,8 +30,13 @@
 	const anthropicCoverageCount = occupations.filter(
 		occupation => occupation.evidence.anthropic_calibrated
 	).length;
-	const dataSourceCount = Object.keys(dataSourceRegistry).length;
+	const dataSourceCount = dataSourceRegistry.length;
 	const publicClaims = claimsMatrix.claims.slice(0, 10);
+	const researchEntries = researchLibrary.entries;
+	const activeCoreResearch = researchEntries.filter(entry => entry.role === 'active_core');
+	const validationResearch = researchEntries.filter(entry => entry.role === 'validation');
+	const candidateResearch = researchEntries.filter(entry => entry.role === 'candidate_v5');
+	const structuralHistory = releases.filter(release => release.type === 'structural_release');
 	const clusterChecksPassed = clusterValidation.summary.checks_passed;
 	const clusterChecksTotal = clusterValidation.summary.checks_total;
 	const clusterBacktestPath = `data/backtests/${clusterValidation.data_period.toLowerCase().replace(/\s+/g, '-')}-validation.json`;
@@ -1509,9 +1514,10 @@
 			<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'primary' }), 'mb-6')}>
 				<p class="text-sm font-semibold text-foreground">TL;DR</p>
 				<p class="mt-1 text-sm text-muted-foreground">
-					12 academic papers + {dataSourceCount} data sources. Key influences: Felten AIOE, Pizzinelli
-					bottleneck, Anthropic observed usage, Frank et al. ensemble approach. References link to DOI
-					pages where available and official source pages otherwise.
+					{researchLibrary.entry_count} research entries + {dataSourceCount} data sources. The live model
+					is grounded in Felten AIOE, Pizzinelli complementarity, Anthropic observed usage, Eloundou GPT
+					exposure, and ILO occupational exposure. Candidate V5 sources are tracked separately so future
+					upgrades can be cited from the same registry.
 				</p>
 			</div>
 
@@ -1561,159 +1567,60 @@
 
 			<!-- References -->
 			<section class="mb-8">
-				<p class={sectionLabel()}>Academic References</p>
-				<ul class="mt-2 space-y-3 text-sm text-muted-foreground">
-					<li>
-						<p class="font-medium text-text-secondary">Felten, Raj &amp; Seamans (2021)</p>
-						<p>
-							<a
-								href="https://doi.org/10.1002/smj.3286"
-								target="_blank"
-								rel="noopener noreferrer"
-								class="underline"
-								>"Occupational, Industry, and Geographic Exposure to Artificial Intelligence: A
-								Novel Dataset and Its Potential Uses."</a
-							> <em>Strategic Management Journal</em>, 42(12), 2195-2217.
-						</p>
-					</li>
-					<li>
-						<p class="font-medium text-text-secondary">Pizzinelli et al. (2023)</p>
-						<p>
-							<a
-								href="https://www.imf.org/en/Publications/WP/Issues/2023/10/05/Labor-Market-Exposure-to-AI-Cross-country-Differences-and-Distributional-Implications-540476"
-								target="_blank"
-								rel="noopener noreferrer"
-								class="underline"
-								>"Labor Market Exposure to AI: Cross-country Differences and Distributional
-								Implications."</a
-							> <em>IMF Working Paper</em> WP/23/216.
-						</p>
-					</li>
-					<li>
-						<p class="font-medium text-text-secondary">IMF Singapore (2024)</p>
-						<p>
-							<a
-								href="https://www.imf.org/en/Publications/selected-issues-papers/Issues/2024/07/30/Impact-of-Artificial-Intelligence-on-the-Singapore-Labor-Market-552447"
-								target="_blank"
-								rel="noopener noreferrer"
-								class="underline"
-								>"Impact of Artificial Intelligence on the Singapore Labor Market."</a
-							> <em>IMF Selected Issues Paper</em> SIP/2024/040.
-						</p>
-					</li>
-					<li>
-						<p class="font-medium text-text-secondary">Acemoglu &amp; Restrepo (2019)</p>
-						<p>
-							<a
-								href="https://www.aeaweb.org/articles?id=10.1257/jep.33.2.3"
-								target="_blank"
-								rel="noopener noreferrer"
-								class="underline"
-								>"Automation and New Tasks: How Technology Displaces and Reinstates Labor."</a
-							> <em>Journal of Economic Perspectives</em>, 33(2), 3-30.
-							Displacement-vs-reinstatement framework referenced in our limitations.
-						</p>
-					</li>
-					<li>
-						<p class="font-medium text-text-secondary">Brynjolfsson, Li &amp; Raymond (2023)</p>
-						<p>
-							<a
-								href="https://www.nber.org/papers/w31161"
-								target="_blank"
-								rel="noopener noreferrer"
-								class="underline">"Generative AI at Work."</a
-							> <em>NBER Working Paper</em> 31161. Largest AI productivity gains among junior workers;
-							narrows experience gap.
-						</p>
-					</li>
-					<li>
-						<p class="font-medium text-text-secondary">Eloundou et al. (2023)</p>
-						<p>
-							<a
-								href="https://arxiv.org/abs/2303.10130"
-								target="_blank"
-								rel="noopener noreferrer"
-								class="underline"
-								>"GPTs are GPTs: An Early Look at the Labor Market Impact Potential of Large
-								Language Models."</a
-							> <em>arXiv:2303.10130</em>. Published in <em>Science</em> (2024).
-						</p>
-					</li>
-					<li>
-						<p class="font-medium text-text-secondary">Demirer et al. (2025)</p>
-						<p>
-							<a
-								href="https://digitaleconomy.stanford.edu/publications/canaries-in-the-coal-mine/"
-								target="_blank"
-								rel="noopener noreferrer"
-								class="underline"
-								>"Canaries in the Coal Mine: Early Signals from AI's Impact on the Labor Market."</a
-							> <em>Stanford Digital Economy Lab</em>.
-						</p>
-					</li>
-					<li>
-						<p class="font-medium text-text-secondary">Frank et al. (2025)</p>
-						<p>
-							<a
-								href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11983276/"
-								target="_blank"
-								rel="noopener noreferrer"
-								class="underline">"AI Exposure Predicts Unemployment Risk."</a
-							> <em>PNAS Nexus</em>. Ensemble of exposure measures outperforms any single score.
-						</p>
-					</li>
-					<li>
-						<p class="font-medium text-text-secondary">Ministry of Manpower, Singapore (2025)</p>
-						<p>
-							<a
-								href="https://www.mom.gov.sg/newsroom/press-releases/2025/1230-jobs-in-demand-2025"
-								target="_blank"
-								rel="noopener noreferrer"
-								class="underline">"Jobs in Demand 2025."</a
-							> Released December 30, 2025.
-						</p>
-					</li>
-					<li>
-						<p class="font-medium text-text-secondary">Ministry of Manpower, Singapore (2025)</p>
-						<p>
-							<a
-								href="https://stats.mom.gov.sg/Pages/Job-Vacancies.aspx"
-								target="_blank"
-								rel="noopener noreferrer"
-								class="underline">"Job Vacancies 2024."</a
-							> Released March 28, 2025.
-						</p>
-					</li>
-					<li>
-						<p class="font-medium text-text-secondary">Ministry of Manpower, Singapore (2025)</p>
-						<p>
-							<a
-								href="https://www.mom.gov.sg/passes-and-permits/employment-pass/compass/shortage-occupation-list"
-								target="_blank"
-								rel="noopener noreferrer"
-								class="underline">COMPASS Shortage Occupation List (SOL).</a
-							> Released November 2025, effective January 1, 2026.
-						</p>
-					</li>
-					<li>
-						<p class="font-medium text-text-secondary">Anthropic (2026)</p>
-						<p>
-							<a
-								href="https://www.anthropic.com/research/anthropic-economic-index-january-2026-report"
-								target="_blank"
-								rel="noopener noreferrer"
-								class="underline">"The Anthropic Economic Index: Economic Primitives."</a
-							>
-							January 15, 2026.
-							<a
-								href="https://huggingface.co/datasets/Anthropic/EconomicIndex"
-								target="_blank"
-								rel="noopener noreferrer"
-								class="underline">Dataset on HuggingFace</a
-							>.
-						</p>
-					</li>
-				</ul>
+				<p class={sectionLabel()}>Research Registry</p>
+				<p class="mt-2 text-sm text-muted-foreground">
+					The methodology now reads from the same canonical research registry as the reports, data
+					page, and V5 roadmap. Use <a href="/research" class="text-primary hover:underline"
+						>/research</a
+					>
+					for the full source library and repo notes.
+				</p>
+				<div class="mt-4 space-y-6">
+					<div>
+						<p class="text-sm font-semibold text-foreground">Active core</p>
+						<div class="mt-3 grid gap-3 lg:grid-cols-2">
+							{#each activeCoreResearch as entry (entry.key)}
+								<div class={card({ padding: 'sm' })}>
+									<p class="text-sm font-medium text-foreground">{entry.title}</p>
+									<p class="mt-1 text-xs text-muted-foreground">
+										{entry.authors.join(', ')} · {entry.publisher} · {entry.published_at}
+									</p>
+									<p class="mt-2 text-sm text-muted-foreground">{entry.summary}</p>
+									<a
+										href={entry.url}
+										target="_blank"
+										rel="noopener noreferrer"
+										class="mt-2 inline-block text-xs text-primary hover:underline"
+									>
+										Open source →
+									</a>
+								</div>
+							{/each}
+						</div>
+					</div>
+					<div>
+						<p class="text-sm font-semibold text-foreground">Validation and roadmap references</p>
+						<div class="mt-3 grid gap-3 lg:grid-cols-2">
+							{#each [...validationResearch, ...candidateResearch.slice(0, 6)] as entry (entry.key)}
+								<div class={card({ padding: 'sm', variant: 'inset' })}>
+									<p class="text-sm font-medium text-foreground">{entry.title}</p>
+									<p class="mt-1 text-xs text-muted-foreground">
+										{entry.publisher} · {entry.published_at}
+									</p>
+									<p class="mt-2 text-sm text-muted-foreground">{entry.repo_notes}</p>
+									<a
+										href={entry.url}
+										target="_blank"
+										rel="noopener noreferrer"
+										class="mt-2 inline-block text-xs text-primary hover:underline"
+									>
+										Open source →
+									</a>
+								</div>
+							{/each}
+						</div>
+					</div>
+				</div>
 			</section>
 
 			<!-- State of the Science -->
@@ -1785,67 +1692,24 @@
 			<section class="mb-8">
 				<p class={sectionLabel()}>Version History</p>
 				<div class="mt-3 space-y-3">
-					<div class={card({ padding: 'sm' })}>
-						<div class="flex items-center justify-between">
-							<span class="text-sm font-semibold text-foreground">V4.2 — Current</span>
-							<span class="text-xs text-muted-foreground">March 2026</span>
+					{#each structuralHistory as release, index (release.id)}
+						<div class={cn(card({ variant: index === 0 ? 'default' : 'inset', padding: 'sm' }))}>
+							<div class="flex items-center justify-between">
+								<span
+									class={cn(
+										'text-sm font-semibold',
+										index === 0 ? 'text-foreground' : 'text-text-secondary'
+									)}
+								>
+									{release.version_label}{index === 0 ? ' — Current' : ''}
+								</span>
+								<span class={index === 0 ? 'text-xs text-muted-foreground' : caption()}
+									>{release.display_date}</span
+								>
+							</div>
+							<p class="mt-1 text-sm text-muted-foreground">{release.notes.join(' ')}</p>
 						</div>
-						<p class="mt-1 text-sm text-muted-foreground">
-							4-source exposure ensemble (AIOE + Anthropic + Eloundou + ILO). Reliability-weighted
-							blend of all available matched inputs, plus explicit uncertainty intervals, task
-							primitives sidecar scaffolding, and separate published offset-potential and
-							transition-support layers. BLS convergent cross-check, temporal vacancy validation,
-							industry momentum spread, and {DATA_VINTAGE.validation_checks} validation checks.
-						</p>
-					</div>
-					<div class={cn(card({ variant: 'inset', padding: 'sm' }))}>
-						<div class="flex items-center justify-between">
-							<span class="text-sm font-semibold text-text-secondary">V3.1</span>
-							<span class={caption()}>March 2026</span>
-						</div>
-						<p class="mt-1 text-sm text-muted-foreground">
-							Seniority modifiers (entry-level / mid-career / senior) scaled by variant sensitivity.
-							2-input ensemble exposure (AIOE + Anthropic). Cluster-level backtesting (3/4
-							directional checks pass). Labour monitor moved to Q4 2025 full. 80 synthetic roles.
-							Archetype classification expanded to cover all SSOC prefixes. 48 validation checks.
-							Outlook simplified to 2 tabs with seniority toggle.
-						</p>
-					</div>
-					<div class={cn(card({ variant: 'inset', padding: 'sm' }))}>
-						<div class="flex items-center justify-between">
-							<span class="text-sm font-semibold text-text-secondary">V3.0</span>
-							<span class={caption()}>February 2026</span>
-						</div>
-						<p class="mt-1 text-sm text-muted-foreground">
-							Three-layer scoring: exposure (AIOE), bottleneck (theta), market resilience. Produces:
-							net risk, augmentation, impact type, stability, confidence. Anthropic observed-usage
-							calibration. SOL 2026 and Jobs in Demand 2025 demand signals. Cluster-level labour
-							monitor ({siteStatus.live_monitor.labour_monitor_validation_vintage} vacancy, recruitment/resignation,
-							retrenchment, re-entry rates). Stability stress testing. 75 estimated modern roles. Rule-based
-							outlook/scenario engine with 3 presets.
-						</p>
-					</div>
-					<div class={cn(card({ variant: 'inset', padding: 'sm' }))}>
-						<div class="flex items-center justify-between">
-							<span class="text-sm font-semibold text-text-secondary">V2</span>
-							<span class={caption()}>January 2026</span>
-						</div>
-						<p class="mt-1 text-sm text-muted-foreground">
-							Added market resilience layer (employment trends + wage scarcity). Introduced risk
-							bands and confidence scoring. Replaced single-score output with multi-layer evidence
-							display.
-						</p>
-					</div>
-					<div class={cn(card({ variant: 'inset', padding: 'sm' }))}>
-						<div class="flex items-center justify-between">
-							<span class="text-sm font-semibold text-text-secondary">V1</span>
-							<span class={caption()}>December 2025</span>
-						</div>
-						<p class="mt-1 text-sm text-muted-foreground">
-							Initial release. Two-layer model: AIOE exposure + Pizzinelli theta complementarity.
-							562 SSOC occupations via ISCO crosswalk.
-						</p>
-					</div>
+					{/each}
 				</div>
 			</section>
 		</Tabs.Content>

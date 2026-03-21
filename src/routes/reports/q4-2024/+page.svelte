@@ -268,7 +268,8 @@
 			exposure, SOL 2026, Jobs in Demand 2025.
 		</p>
 		<p class="mt-1">
-			Rendered with current Scoring V4.1. All scores deterministic and reproducible.
+			Rendered with the current V4.2 structural baseline. All scores remain deterministic and
+			reproducible.
 			<a href="/methodology" class="text-primary underline">Methodology</a> &middot;
 			<a href="/data" class="text-primary underline">Download data</a>
 		</p>

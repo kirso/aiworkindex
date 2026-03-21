@@ -3,7 +3,7 @@ import majorGroupsData from './major-groups.json';
 import labourMonitorData from './labour-monitor.json';
 import type { OccupationDataBasis, EmploymentBasis } from './data-contract';
 
-// V4.1 types
+// Current structural-release types
 export type RiskBand = 'very_low' | 'low' | 'moderate' | 'high' | 'very_high';
 
 export interface MarketScores {
@@ -174,7 +174,7 @@ export interface Occupation {
 	group_employment_thousands: number;
 	data_basis?: OccupationDataBasis;
 	labour_monitor_key?: LabourClusterMonitor['cluster_key'] | null;
-	// V4.1 fields
+	// Current structural-release fields
 	exposure: number;
 	bottleneck: number;
 	market: MarketScores;

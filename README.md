@@ -1,6 +1,6 @@
 # AI Work Index — Singapore
 
-V4.0: 4-source exposure ensemble scoring 562 Singapore occupations and 88 modern roles for structural AI pressure. Cross-checked against US BLS employment projections (rho=-0.14, p<0.01, n=530).
+V4.2 is the live structural baseline: a deterministic 4-source exposure ensemble scoring 562 Singapore occupations and 88 modern roles for structural AI pressure. V4.3 shadow artifacts are published separately for task-weighted comparison and promotion review.
 
 **[Live Site](https://aiworkindex.pages.dev)** | **[Methodology](https://aiworkindex.pages.dev/methodology)** | **[Calculator](https://aiworkindex.pages.dev/calculator)** | **[Data](https://aiworkindex.pages.dev/data)**
 
@@ -29,9 +29,9 @@ Published as risk bands (Very Low through Very High) with visible confidence and
 
 ## Validation
 
-- **BLS cross-country**: rho=-0.14, p<0.01 on 530 occupations mapped via ISCO-08→SOC crosswalk
-- **Cluster-level**: 3/4 directional checks pass against Singapore Q3 2025 labour outcomes
-- **58 structural checks**: anchor occupations, band consistency, impact type recomputation, synthetic-role workflow sanity
+- **BLS cross-country**: live convergent cross-check against US BLS projections
+- **Cluster-level**: directional check against Singapore labour-monitor clusters
+- **Release pipeline**: validated end to end with published artifacts, checksums, claims matrix, and shadow-model governance outputs
 - Methodology page: [aiworkindex.pages.dev/methodology](https://aiworkindex.pages.dev/methodology)
 
 ## Quick Start
@@ -42,7 +42,7 @@ cd aiworkindex
 bun install
 bun run build:release-data  # Refresh all release datasets and metadata
 bun run scripts/score.ts        # Score all 562 occupations
-bun run validate                 # Run 58 structural checks
+bun run validate                 # Run release and data-contract validation
 bun run dev                      # Start dev server
 bun run build                    # Build 672 prerendered pages
 ```
@@ -77,15 +77,11 @@ Each occupation page shows:
 - [All occupations (JSON)](https://github.com/kirso/aiworkindex/blob/main/data/occupations.json)
 - [Data page with dictionary](https://aiworkindex.pages.dev/data)
 
-## Academic References
+## Research Library
 
-1. Felten, Raj & Seamans (2021). *Strategic Management Journal*, 42(12). [DOI](https://doi.org/10.1002/smj.3286)
-2. Pizzinelli et al. (2023). *IMF Working Paper* WP/23/216. [IMF](https://www.imf.org/en/Publications/WP/Issues/2023/10/05/540476)
-3. Frank et al. (2025). *PNAS Nexus*. [PMC](https://pmc.ncbi.nlm.nih.gov/articles/PMC11983276/)
-4. Eloundou et al. (2024). *Science*. [arXiv](https://arxiv.org/abs/2303.10130)
-5. Demirer et al. (2025). Stanford DEL. [Paper](https://digitaleconomy.stanford.edu/publications/canaries-in-the-coal-mine/)
-6. Brynjolfsson, Li & Raymond (2023). *NBER Working Paper* 31161. [NBER](https://www.nber.org/papers/w31161)
-7. ILO (2025). *Working Paper* 140. [ILO](https://www.ilo.org/publications/generative-ai-and-jobs-refined-global-index-occupational-exposure)
+- Public registry: [aiworkindex.pages.dev/research](https://aiworkindex.pages.dev/research)
+- Machine-readable artifact: `static/data/research-library.json`
+- Live methodology references are now generated from the same canonical research registry used by reports and release governance.
 
 ## Tech Stack
 

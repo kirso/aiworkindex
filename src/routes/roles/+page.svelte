@@ -265,7 +265,9 @@
 								<td class="px-3 py-2 text-xs text-muted-foreground">
 									{riskBandLabels[role.risk_band]}
 								</td>
-								<td class="px-3 py-2 text-right text-xs font-mono tabular-nums text-muted-foreground">
+								<td
+									class="px-3 py-2 text-right text-xs font-mono tabular-nums text-muted-foreground"
+								>
 									{role.components.length}
 								</td>
 							</tr>

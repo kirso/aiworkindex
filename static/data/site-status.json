@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-03-21T02:44:40.914Z",
+  "updated_at": "2026-03-21T05:13:38.867Z",
   "structural_release": {
     "version": "V4.2",
     "label": "V4.2 structural release",
@@ -10,10 +10,10 @@
   "experimental_release": {
     "version": "V4.3-shadow",
     "label": "V4.3-shadow task-weighted shadow model",
-    "status": "ready_for_shadow_scoring",
-    "summary": "Ready for shadow scoring: task-weight coverage clears the minimum promotion gate, but no task-adjusted headline score is published yet.",
+    "status": "shadow_published",
+    "summary": "Shadow score is published. Promotion into the headline model still depends on validation and anchor-review sign-off.",
     "artifact": "experimental-methodology-v43.json",
-    "shadow_score_published": false,
+    "shadow_score_published": true,
     "headline_promotion_ready": false,
     "direct_task_weighted_occupation_count": 456,
     "median_direct_matched_task_weight_share": 1,

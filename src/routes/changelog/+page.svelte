@@ -50,6 +50,11 @@
 			label: 'Reports',
 			description: 'Narrative analysis and release impact notes.',
 			href: '/reports'
+		},
+		{
+			label: 'Research',
+			description: 'Canonical source library and repo-written research notes.',
+			href: '/research'
 		}
 	];
 
@@ -74,13 +79,15 @@
 		}
 	};
 
+	const experimentalPositiveStates = ['ready_for_shadow_scoring', 'shadow_published', 'promoted'];
 	const blockers = (experimentalMethodology.blockers ?? []) as ExperimentalBlocker[];
-	const experimentalStatusBadgeClass =
-		siteStatus.experimental_release.status === 'ready_for_shadow_scoring'
-			? 'bg-impact-leveraged-subtle text-impact-leveraged border-impact-leveraged-border'
-			: siteStatus.experimental_release.status === 'blocked'
-				? 'bg-risk-high-subtle text-risk-high border-risk-high-border'
-				: 'bg-risk-moderate-subtle text-risk-moderate border-risk-moderate-border';
+	const experimentalStatusBadgeClass = experimentalPositiveStates.includes(
+		siteStatus.experimental_release.status
+	)
+		? 'bg-impact-leveraged-subtle text-impact-leveraged border-impact-leveraged-border'
+		: siteStatus.experimental_release.status === 'blocked'
+			? 'bg-risk-high-subtle text-risk-high border-risk-high-border'
+			: 'bg-risk-moderate-subtle text-risk-moderate border-risk-moderate-border';
 
 	function formatDate(value: string): string {
 		return new Intl.DateTimeFormat('en-SG', {
@@ -89,6 +96,15 @@
 			year: 'numeric',
 			timeZone: 'Asia/Singapore'
 		}).format(new Date(value));
+	}
+
+	function releaseDateLabel(release: {
+		display_date?: string | null;
+		published_at?: string | null;
+	}): string {
+		if (release.display_date) return release.display_date;
+		if (release.published_at) return formatDate(release.published_at);
+		return 'Date not retained';
 	}
 
 	function getReleaseMeta(type: string): { label: string; className: string } {
@@ -115,7 +131,7 @@
 		</p>
 	</div>
 
-	<div class="mt-6 grid gap-3 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5">
+	<div class="mt-6 grid gap-3 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6">
 		{#each scopeCards as item}
 			<div class={card({ padding: 'sm', variant: 'flat' })}>
 				<p class={microLabel()}>{item.label}</p>
@@ -182,8 +198,8 @@
 			>
 				<p class="text-sm font-medium text-impact-leveraged">No local input blockers remain</p>
 				<p class="mt-1 text-xs text-muted-foreground">
-					Shadow scoring is ready at the input layer. Remaining gates are validation and anchor
-					review, not missing files.
+					Shadow artifacts are published. Remaining questions are validation and anchor-review
+					sign-off, not missing files.
 				</p>
 			</div>
 		{/if}
@@ -202,7 +218,7 @@
 							>
 						</div>
 						<p class="mt-1 text-xs text-muted-foreground">
-							Published {formatDate(release.published_at)} · score {release.score_version} · monitor
+							Published {releaseDateLabel(release)} · score {release.score_version} · monitor
 							{release.monitor_vintage}
 						</p>
 					</div>
