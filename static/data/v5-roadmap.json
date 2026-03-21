@@ -1,0 +1,167 @@
+{
+  "version": "V5-roadmap",
+  "generated_at": "2026-03-21T16:09:31.003Z",
+  "current_live_version": "V5",
+  "prerequisite_release": "V4.3",
+  "status": "promoted_live",
+  "summary": "V5 is now the live structural release. The retained V4.3 baseline, sidecars, and promotion-comparison artifacts remain published for auditability while the next work shifts to V5.x calibration.",
+  "v43_handoff": {
+    "experimental_status": "promoted",
+    "experimental_summary": "The V4.3 shadow model was first promoted into the live structural release and is now retained as the immediate pre-V5 baseline. The shadow artifacts remain published for auditability against the earlier V4.2 baseline.",
+    "headline_promotion_ready": true,
+    "task_native_count": 485,
+    "band_flip_count": 111,
+    "impact_flip_count": 47,
+    "validation_result": "2/3"
+  },
+  "release_thesis": "V5 should be the first release that upgrades the science beyond exposure alone: augmentation heterogeneity, empirical mobility, richer uncertainty, and a clearer realized-risk forecast.",
+  "formula_family": {
+    "effective_coverage": "Σ_t w_it · exposure_t · success_t",
+    "automation_pressure": "Σ_t w_it · exposure_t · success_t · autonomy_t · (1 - bottleneck_t)",
+    "augmentation_upside": "Σ_t w_it · exposure_t · success_t · (1 - autonomy_t) · bottleneck_t",
+    "realized_risk_proxy": "structural_risk_i · adoption_t · capability_t · κ_short"
+  },
+  "sidecar_status": {
+    "augmentation_heterogeneity": {
+      "status": "pilot_sidecar",
+      "artifact": "v5-augmentation-heterogeneity.json"
+    },
+    "empirical_mobility": {
+      "status": "enriched_sidecar",
+      "artifact": "v5-empirical-mobility.json"
+    },
+    "posterior_uncertainty": {
+      "status": "pilot_sidecar",
+      "artifact": "v5-posterior-uncertainty.json"
+    },
+    "realized_risk_forecast": {
+      "status": "pilot_sidecar",
+      "artifact": "v5-realized-risk.json"
+    }
+  },
+  "experimental_model_status": {
+    "status": "promoted_live",
+    "model_artifact": "v5-experimental-model.json",
+    "validation_artifact": "v5-experimental-validation.json",
+    "structural_validation_result": "2/2",
+    "realized_validation_result": "3/4",
+    "comparison_baseline_version": "V4.3",
+    "transition_band_flip_count": 135,
+    "impact_flip_count": 242
+  },
+  "workstreams": [
+    {
+      "key": "augmentation_heterogeneity",
+      "label": "Augmentation heterogeneity",
+      "goal": "Replace one universal augmentation rule with workflow-sensitive priors informed by empirical productivity studies.",
+      "research": [
+        {
+          "key": "brynjolfsson_li_raymond_2023",
+          "title": "Generative AI at Work",
+          "url": "https://www.nber.org/papers/w31161",
+          "year": 2023
+        },
+        {
+          "key": "dellacqua_etal_2025",
+          "title": "Navigating the Jagged Technological Frontier",
+          "url": "https://www.nber.org/papers/w33641",
+          "year": 2025
+        },
+        {
+          "key": "dillon_etal_2025",
+          "title": "AI, Productivity, and Work Quality",
+          "url": "https://www.nber.org/papers/w33795",
+          "year": 2025
+        }
+      ],
+      "deliverables": [
+        "Role/archetype-level augmentation priors",
+        "Updated task-to-augmentation mapping",
+        "Validation note on which occupations move most"
+      ]
+    },
+    {
+      "key": "empirical_mobility",
+      "label": "Empirical mobility transitions",
+      "goal": "Move transition support from broad heuristic rankings toward observed occupational pathways and wage/training tradeoffs.",
+      "research": [
+        {
+          "key": "imf_occupational_mobility_2024",
+          "title": "Exposure to Artificial Intelligence and Occupational Mobility: A Cross-country Analysis",
+          "url": "https://www.imf.org/en/publications/wp/issues/2024/06/07/exposure-to-artificial-intelligence-and-occupational-mobility-a-cross-country-analysis-549989",
+          "year": 2024
+        }
+      ],
+      "deliverables": [
+        "Occupation-to-occupation transition prior",
+        "Observed wage delta and training duration fields",
+        "Transition ranking override when empirical evidence exists"
+      ]
+    },
+    {
+      "key": "posterior_uncertainty",
+      "label": "Posterior uncertainty",
+      "goal": "Upgrade bootstrap intervals into a latent measurement model across the exposure sources and propagate uncertainty through the final score.",
+      "research": [
+        {
+          "key": "coyle_poquiz_2025",
+          "title": "Making AI Count: The Next Measurement Frontier",
+          "url": "https://www.nber.org/papers/w34330",
+          "year": 2025
+        },
+        {
+          "key": "anthropic_economic_index_2026",
+          "title": "Anthropic Economic Index: New building blocks for understanding AI use",
+          "url": "https://www.anthropic.com/economic-futures/",
+          "year": 2026
+        }
+      ],
+      "deliverables": [
+        "Latent exposure posterior",
+        "80/95% intervals on exposure and net risk",
+        "Separation of statistical uncertainty from provenance confidence"
+      ]
+    },
+    {
+      "key": "realized_risk_forecast",
+      "label": "Realized-risk forecast",
+      "goal": "Calibrate short-run realized effects separately from structural overlap using adoption and capability evidence.",
+      "research": [
+        {
+          "key": "bick_blandin_deming_2025",
+          "title": "The Rapid Adoption of Generative AI",
+          "url": "https://www.nber.org/papers/w32966",
+          "year": 2025
+        },
+        {
+          "key": "humlum_vestergaard_2025",
+          "title": "Large Language Models, Small Labor Market Effects",
+          "url": "https://www.nber.org/papers/w33777",
+          "year": 2025
+        },
+        {
+          "key": "metr_time_horizons_2026",
+          "title": "Task-Completion Time Horizons of Frontier AI Models",
+          "url": "https://metr.org/time-horizons/",
+          "year": 2026
+        },
+        {
+          "key": "anthropic_labor_market_impacts_2026",
+          "title": "Labor market impacts of AI: A new measure and early evidence",
+          "url": "https://www.anthropic.com/research/labor-market-impacts",
+          "year": 2026
+        }
+      ],
+      "deliverables": [
+        "Adoption and capability scalars grounded in literature",
+        "Realized-risk proxy distinct from structural and near-term risk",
+        "Validation family for short-run labour signals"
+      ]
+    }
+  ],
+  "promotion_gates": [
+    "Retain the V4.3 baseline snapshot and the V5 promotion-comparison artifacts so future iterations stay auditable.",
+    "Validation families must map cleanly to the construct they are testing: structural, transition, augmentation, or realized risk.",
+    "Future V5.x changes should promote only after they beat the retained V5 baseline on the relevant validation family."
+  ]
+}

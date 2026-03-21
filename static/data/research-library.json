@@ -1,6 +1,6 @@
 {
-  "version": "V4.2",
-  "generated_at": "2026-03-21T05:16:05.191Z",
+  "version": "V5",
+  "generated_at": "2026-03-21T16:09:26.129Z",
   "entry_count": 19,
   "domain_counts": {
     "exposure": 7,
@@ -16,9 +16,9 @@
     "context": 1
   },
   "role_counts": {
-    "active_core": 6,
+    "active_core": 15,
     "validation": 1,
-    "candidate_v5": 11,
+    "candidate_v5": 2,
     "supporting_context": 1
   },
   "entries": [
@@ -54,7 +54,7 @@
       ],
       "summary": "Adds observed AI-usage evidence to the exposure stack and motivates the repo's task-primitives sidecar.",
       "limitations": "Observed Claude usage is not a full labour-market census and is still a platform-specific measure.",
-      "repo_notes": "Active live source in the V4.2 ensemble and a major input to the future task-native direction."
+      "repo_notes": "Active live source in the audited exposure ensemble and a major input to the future task-native direction."
     },
     {
       "key": "anthropic_labor_market_impacts_2026",
@@ -73,8 +73,8 @@
         "validation",
         "forecast"
       ],
-      "role": "candidate_v5",
-      "status": "candidate",
+      "role": "active_core",
+      "status": "active",
       "used_for": [
         "observed exposure framing",
         "task-native shadow model",
@@ -129,8 +129,8 @@
         "productivity",
         "augmentation"
       ],
-      "role": "candidate_v5",
-      "status": "candidate",
+      "role": "active_core",
+      "status": "active",
       "used_for": [
         "augmentation calibration priors",
         "work-quality tradeoff framing"
@@ -161,8 +161,8 @@
         "validation",
         "measurement"
       ],
-      "role": "candidate_v5",
-      "status": "candidate",
+      "role": "active_core",
+      "status": "active",
       "used_for": [
         "task concentration buffer",
         "task-native demand interpretation"
@@ -219,8 +219,8 @@
         "forecast",
         "validation"
       ],
-      "role": "candidate_v5",
-      "status": "candidate",
+      "role": "active_core",
+      "status": "active",
       "used_for": [
         "near-term realised-risk shrinkage"
       ],
@@ -276,8 +276,8 @@
         "productivity",
         "augmentation"
       ],
-      "role": "candidate_v5",
-      "status": "candidate",
+      "role": "active_core",
+      "status": "active",
       "used_for": [
         "augmentation heterogeneity",
         "workflow calibration"
@@ -306,8 +306,8 @@
         "forecast",
         "measurement"
       ],
-      "role": "candidate_v5",
-      "status": "candidate",
+      "role": "active_core",
+      "status": "active",
       "used_for": [
         "near-term adoption calibration"
       ],
@@ -331,8 +331,8 @@
       "domains": [
         "mobility"
       ],
-      "role": "candidate_v5",
-      "status": "candidate",
+      "role": "active_core",
+      "status": "active",
       "used_for": [
         "future empirical transition model"
       ],
@@ -431,8 +431,8 @@
         "productivity",
         "augmentation"
       ],
-      "role": "candidate_v5",
-      "status": "candidate",
+      "role": "active_core",
+      "status": "active",
       "used_for": [
         "augmentation calibration priors"
       ],
@@ -460,8 +460,8 @@
         "exposure",
         "tasks"
       ],
-      "role": "candidate_v5",
-      "status": "candidate",
+      "role": "active_core",
+      "status": "active",
       "used_for": [
         "LLM-specific task exposure framing",
         "candidate V5 task-native design"

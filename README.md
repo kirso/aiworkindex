@@ -1,6 +1,6 @@
 # AI Work Index — Singapore
 
-V4.2 is the live structural baseline: a deterministic 4-source exposure ensemble scoring 562 Singapore occupations and 88 modern roles for structural AI pressure. V4.3 shadow artifacts are published separately for task-weighted comparison and promotion review.
+V4.3 is the live structural baseline: a deterministic 3-layer score that keeps the audited 4-source exposure ensemble and upgrades exposure with weighted task evidence where coverage is strong. The full V4.2 baseline and V4.3 shadow artifacts remain published for auditability, and the first V5 sidecar artifacts are published separately for augmentation heterogeneity, empirical mobility, posterior uncertainty, and realized-risk forecasting.
 
 **[Live Site](https://aiworkindex.pages.dev)** | **[Methodology](https://aiworkindex.pages.dev/methodology)** | **[Calculator](https://aiworkindex.pages.dev/calculator)** | **[Data](https://aiworkindex.pages.dev/data)**
 
@@ -17,7 +17,7 @@ V4.2 is the live structural baseline: a deterministic 4-source exposure ensemble
 
 Three-layer deterministic scoring — no LLM in the pipeline:
 
-1. **Exposure** — 4-source ensemble: AIOE (2021), Anthropic Economic Index (2026), Eloundou GPTs-are-GPTs (2024), ILO Refined Index (2025). Reliability-weighted blend of available matched inputs per occupation.
+1. **Exposure** — audited 4-source ensemble: AIOE (2021), Anthropic Economic Index (2026), Eloundou GPTs-are-GPTs (2024), ILO Refined Index (2025), with a V4.3 task-aware upgrade where weighted task evidence is strong.
 2. **Human Bottleneck** — Pizzinelli theta from O*NET Work Context (judgment, presence, coordination)
 3. **Market Resilience** — MOM employment/wage trends + SOL/JiD demand signals + Anthropic calibration
 
@@ -25,7 +25,7 @@ Three-layer deterministic scoring — no LLM in the pipeline:
 net_risk = exposure × (1 − bottleneck) × market_modifier
 ```
 
-Published as risk bands (Very Low through Very High) with visible confidence and 1,000-run stability diagnostics.
+Published as risk bands (Very Low through Very High) with visible confidence, retained V4.2 baselines, and task-adjusted bootstrap/stability diagnostics.
 
 ## Validation
 

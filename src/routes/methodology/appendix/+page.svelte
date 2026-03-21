@@ -7,8 +7,8 @@
 </script>
 
 <Seo
-	title="Implementation Appendix — V4.2 Scoring Rules"
-	description="Complete implementation reference for the V4.2 scoring pipeline: risk bands, impact classification, seniority modifiers, confidence, market modifier, stability, synthetic role rules, and separate support layers."
+	title={`Implementation Appendix — ${DATA_VINTAGE.model_version} Scoring Rules`}
+	description={`Complete implementation reference for the ${DATA_VINTAGE.model_version} scoring pipeline: risk bands, impact classification, seniority modifiers, confidence, market modifier, stability, synthetic role rules, and separate support layers.`}
 	path="/methodology/appendix"
 />
 
@@ -25,7 +25,7 @@
 		Implementation Appendix
 	</h1>
 	<p class="mt-2 text-sm text-muted-foreground">
-		Complete V4.2 implementation reference. All thresholds match
+		Complete {DATA_VINTAGE.model_version} implementation reference. All thresholds match
 		<code class="rounded bg-muted px-1 text-xs">score.ts</code>,
 		<code class="rounded bg-muted px-1 text-xs">synthetic-roles.ts</code>, and
 		<code class="rounded bg-muted px-1 text-xs">validate.ts</code>. This appendix documents the
@@ -289,10 +289,10 @@
 	<section class="mb-8">
 		<p class={sectionLabel()}>Stability Stress Test</p>
 		<p class="mt-2 text-sm text-muted-foreground">
-			V4.2 uses a seeded 1,000-run Monte Carlo perturbation of exposure, bottleneck, and market
-			resilience. The current implementation perturbs the three inputs independently but
-			deterministically, so identical source data reproduces the same 10th/90th percentile
-			optimistic and pessimistic bounds across builds.
+			{DATA_VINTAGE.model_version} uses a seeded 1,000-run Monte Carlo perturbation of exposure, bottleneck,
+			and market resilience. The current implementation perturbs the three inputs independently but deterministically,
+			so identical source data reproduces the same 10th/90th percentile optimistic and pessimistic bounds
+			across builds.
 		</p>
 		<div class="mt-3 overflow-x-auto">
 			<table class="w-full text-left text-sm">

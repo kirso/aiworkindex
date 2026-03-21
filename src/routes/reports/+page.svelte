@@ -23,6 +23,8 @@
 	const macro = macroContext.latest_snapshot;
 	const postings = postingsMonitor.summary;
 	const quarterly = quarterlyReport;
+	const isPromoted = siteStatus.experimental_release?.status === 'promoted';
+	const isV5Live = siteStatus.structural_release.version === 'V5';
 	const experimentalPositiveStates = ['ready_for_shadow_scoring', 'shadow_published', 'promoted'];
 	const experimentalStatusBadgeClass = experimentalPositiveStates.includes(
 		siteStatus.experimental_release?.status ?? ''
@@ -324,8 +326,16 @@
 						>
 					</div>
 					<p class="mt-1 text-sm text-muted-foreground">
-						What the task-weighted shadow model would change, what is ready now, and what still
-						gates promotion beyond the published V4.2 release.
+						{#if isV5Live}
+							How the V4.3 shadow model first became live and why it remains published as the
+							immediate pre-V5 baseline.
+						{:else if isPromoted}
+							How the task-weighted shadow model was promoted into the live release, what changed,
+							and what remains published for auditability.
+						{:else}
+							What the task-weighted shadow model would change, what is now promotion-ready, and why
+							V4.2 remains the published baseline until a release decision is made.
+						{/if}
 					</p>
 					<p class="mt-2 text-xs text-muted-foreground">
 						{siteStatus.experimental_release?.summary}
@@ -343,6 +353,92 @@
 			</div>
 		</a>
 
+		<a href="/reports/v5-roadmap" class="block no-underline">
+			<div class={cn(card({ padding: 'lg', hover: true }), 'flex items-start justify-between')}>
+				<div>
+					<div class="flex items-center gap-2">
+						<span class="text-base font-semibold text-foreground">V5 Roadmap</span>
+						<Badge variant="outline" class="bg-primary/10 text-primary border-primary/30"
+							>{isV5Live ? 'Next horizon' : 'Next'}</Badge
+						>
+					</div>
+					<p class="mt-1 text-sm text-muted-foreground">
+						{#if isV5Live}
+							The next V5.x scientific program: stronger realized-risk calibration, richer mobility
+							quality effects, posterior uncertainty refinement, and future promotion discipline.
+						{:else}
+							The next scientific release program after V4.3: augmentation heterogeneity, empirical
+							mobility, posterior uncertainty, and realized-risk forecasting.
+						{/if}
+					</p>
+					<p class="mt-2 text-xs text-muted-foreground">
+						{#if isV5Live}
+							Planning surface for the post-promotion V5.x program.
+						{:else}
+							Planning surface for the V5 program. Sidecars are published and the first integrated
+							experimental model is now available separately.
+						{/if}
+					</p>
+				</div>
+				<svg
+					class="ml-4 mt-1 h-5 w-5 shrink-0 text-muted-foreground"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+				>
+					<path d="M5 12h14M12 5l7 7-7 7" />
+				</svg>
+			</div>
+		</a>
+
+		{#if siteStatus.v5_program?.experimental_model_published}
+			<a href="/reports/v5-experimental" class="block no-underline">
+				<div class={cn(card({ padding: 'lg', hover: true }), 'flex items-start justify-between')}>
+					<div>
+						<div class="flex items-center gap-2">
+							<span class="text-base font-semibold text-foreground"
+								>{isV5Live ? 'V5 Model Note' : 'V5 Experimental Model'}</span
+							>
+							<Badge variant="outline" class="bg-primary/10 text-primary border-primary/30"
+								>{isV5Live ? 'Live' : 'Experimental'}</Badge
+							>
+						</div>
+						<p class="mt-1 text-sm text-muted-foreground">
+							{#if isV5Live}
+								The live V5 model combines posterior uncertainty, task-mode exposure, concentration
+								friction, heterogeneous augmentation, empirical mobility, and published short-run
+								layers in one auditable release.
+							{:else}
+								The first integrated V5 candidate now combines posterior uncertainty, augmentation
+								heterogeneity, empirical mobility, and realized-risk calibration into one auditable
+								model output.
+							{/if}
+						</p>
+						<p class="mt-2 text-xs text-muted-foreground">
+							Current validation snapshot: structural
+							{siteStatus.v5_program?.structural_validation_result}, realized
+							{siteStatus.v5_program?.realized_validation_result}.
+							{#if isV5Live}
+								The retained V4.3 baseline and promotion-comparison artifacts remain published.
+							{:else}
+								This remains separate from the live V4.3 score.
+							{/if}
+						</p>
+					</div>
+					<svg
+						class="ml-4 mt-1 h-5 w-5 shrink-0 text-muted-foreground"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+					>
+						<path d="M5 12h14M12 5l7 7-7 7" />
+					</svg>
+				</div>
+			</a>
+		{/if}
+
 		<!-- Wage Exposure Analysis -->
 		<a href="/reports/wage-exposure" class="block no-underline">
 			<div class={cn(card({ padding: 'lg', hover: true }), 'flex items-start justify-between')}>
@@ -358,7 +454,9 @@
 						Annual wage-pool analysis for occupations under high structural AI pressure. Breakdown
 						by sector, risk-weighted wage exposure, and methodology notes.
 					</p>
-					<p class="mt-2 text-xs text-muted-foreground">Based on V4.2 scoring, March 2026</p>
+					<p class="mt-2 text-xs text-muted-foreground">
+						Based on {siteStatus.structural_release.version} scoring, March 2026
+					</p>
 				</div>
 				<svg
 					class="ml-4 mt-1 h-5 w-5 shrink-0 text-muted-foreground"

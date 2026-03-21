@@ -1,10 +1,10 @@
 {
   "version": "V4.3-shadow",
-  "generated_at": "2026-03-21T05:11:49.074Z",
+  "generated_at": "2026-03-21T16:09:23.342Z",
   "required_anchor_count": 8,
   "found_anchor_count": 8,
   "task_native_anchor_count": 7,
-  "review_candidate_count": 6,
+  "review_candidate_count": 0,
   "screening_complete": true,
   "anchors": [
     {
@@ -31,13 +31,13 @@
       "title": "Data entry clerk",
       "eligibility_status": "task_native",
       "baseline_net_risk": 0.7407,
-      "shadow_net_risk": 0.0452,
-      "delta_vs_v42": -0.6955,
+      "shadow_net_risk": 0.6343,
+      "delta_vs_v42": -0.1064,
       "baseline_risk_band": "very_high",
-      "shadow_risk_band": "very_low",
+      "shadow_risk_band": "very_high",
       "baseline_impact_type": "at_risk",
-      "shadow_impact_type": "stable",
-      "manual_review_candidate": true
+      "shadow_impact_type": "at_risk",
+      "manual_review_candidate": false
     },
     {
       "key": "registered_nurse",
@@ -47,13 +47,13 @@
       "title": "Registered nurse and other nursing professional (e.g. clinical nurse, nurse educator, excluding enrolled nurse)",
       "eligibility_status": "task_native",
       "baseline_net_risk": 0.0297,
-      "shadow_net_risk": 0.0004,
-      "delta_vs_v42": -0.0293,
+      "shadow_net_risk": 0.0268,
+      "delta_vs_v42": -0.0029,
       "baseline_risk_band": "very_low",
       "shadow_risk_band": "very_low",
       "baseline_impact_type": "ai_leveraged",
-      "shadow_impact_type": "stable",
-      "manual_review_candidate": true
+      "shadow_impact_type": "ai_leveraged",
+      "manual_review_candidate": false
     },
     {
       "key": "accountant",
@@ -63,13 +63,13 @@
       "title": "Accountant (excluding tax accountant)",
       "eligibility_status": "task_native",
       "baseline_net_risk": 0.518,
-      "shadow_net_risk": 0.0936,
-      "delta_vs_v42": -0.4244,
+      "shadow_net_risk": 0.4983,
+      "delta_vs_v42": -0.0197,
       "baseline_risk_band": "very_high",
-      "shadow_risk_band": "low",
+      "shadow_risk_band": "high",
       "baseline_impact_type": "mixed",
-      "shadow_impact_type": "stable",
-      "manual_review_candidate": true
+      "shadow_impact_type": "mixed",
+      "manual_review_candidate": false
     },
     {
       "key": "graphic_designer",
@@ -79,13 +79,13 @@
       "title": "Graphic designer",
       "eligibility_status": "task_native",
       "baseline_net_risk": 0.3407,
-      "shadow_net_risk": 0.0394,
-      "delta_vs_v42": -0.3013,
+      "shadow_net_risk": 0.34,
+      "delta_vs_v42": -0.0007,
       "baseline_risk_band": "high",
-      "shadow_risk_band": "very_low",
+      "shadow_risk_band": "high",
       "baseline_impact_type": "mixed",
-      "shadow_impact_type": "stable",
-      "manual_review_candidate": true
+      "shadow_impact_type": "mixed",
+      "manual_review_candidate": false
     },
     {
       "key": "customer_service_officer",
@@ -95,13 +95,13 @@
       "title": "Customer service officer/clerk",
       "eligibility_status": "task_native",
       "baseline_net_risk": 0.4473,
-      "shadow_net_risk": 0.2427,
-      "delta_vs_v42": -0.2046,
+      "shadow_net_risk": 0.4912,
+      "delta_vs_v42": 0.0439,
       "baseline_risk_band": "high",
-      "shadow_risk_band": "moderate",
+      "shadow_risk_band": "high",
       "baseline_impact_type": "at_risk",
-      "shadow_impact_type": "stable",
-      "manual_review_candidate": true
+      "shadow_impact_type": "at_risk",
+      "manual_review_candidate": false
     },
     {
       "key": "marketing_manager",
@@ -111,10 +111,10 @@
       "title": "Marketing manager",
       "eligibility_status": "task_native",
       "baseline_net_risk": 0.127,
-      "shadow_net_risk": 0.0145,
-      "delta_vs_v42": -0.1125,
+      "shadow_net_risk": 0.1309,
+      "delta_vs_v42": 0.0039,
       "baseline_risk_band": "low",
-      "shadow_risk_band": "very_low",
+      "shadow_risk_band": "low",
       "baseline_impact_type": "ai_leveraged",
       "shadow_impact_type": "ai_leveraged",
       "manual_review_candidate": false
@@ -127,13 +127,13 @@
       "title": "Pre-primary education teacher",
       "eligibility_status": "task_native",
       "baseline_net_risk": 0.0258,
-      "shadow_net_risk": 0.0085,
-      "delta_vs_v42": -0.0173,
+      "shadow_net_risk": 0.0504,
+      "delta_vs_v42": 0.0246,
       "baseline_risk_band": "very_low",
-      "shadow_risk_band": "very_low",
+      "shadow_risk_band": "low",
       "baseline_impact_type": "stable",
       "shadow_impact_type": "ai_leveraged",
-      "manual_review_candidate": true
+      "manual_review_candidate": false
     }
   ]
 }

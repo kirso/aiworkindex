@@ -1,0 +1,91 @@
+{
+  "version": "V5-sidecars",
+  "generated_at": "2026-03-21T16:09:29.650Z",
+  "live_version": "V5",
+  "live_release_date": "2026-03-21",
+  "status": "pilot_sidecars_published",
+  "summary": "V5 sidecar workstreams are now published as audit artifacts without changing the live V4.3 headline score.",
+  "sidecars": {
+    "augmentation_heterogeneity": {
+      "status": "pilot_sidecar",
+      "artifact": "v5-augmentation-heterogeneity.json",
+      "coverage_count": 562,
+      "median_delta_vs_live": -0.0133,
+      "top_positive_shift": [
+        {
+          "ssoc": "52422",
+          "title": "Salesperson (door-to-door)",
+          "delta_vs_live": 0.0163
+        },
+        {
+          "ssoc": "44170",
+          "title": "Legal clerk",
+          "delta_vs_live": 0.0139
+        },
+        {
+          "ssoc": "52440",
+          "title": "Telemarketer",
+          "delta_vs_live": 0.0135
+        },
+        {
+          "ssoc": "34110",
+          "title": "Legal associate professional (e.g. paralegal)",
+          "delta_vs_live": 0.013
+        },
+        {
+          "ssoc": "52421",
+          "title": "Sales demonstrator",
+          "delta_vs_live": 0.013
+        }
+      ],
+      "top_negative_shift": [
+        {
+          "ssoc": "12221",
+          "title": "Advertising/Public relations manager",
+          "delta_vs_live": -0.0761
+        },
+        {
+          "ssoc": "11201",
+          "title": "Managing director/Chief executive officer",
+          "delta_vs_live": -0.0696
+        },
+        {
+          "ssoc": "13301",
+          "title": "Chief information officer/Chief technology officer/Chief security officer",
+          "delta_vs_live": -0.0677
+        },
+        {
+          "ssoc": "11202",
+          "title": "Company director",
+          "delta_vs_live": -0.0655
+        },
+        {
+          "ssoc": "13302",
+          "title": "Software and applications manager",
+          "delta_vs_live": -0.0652
+        }
+      ]
+    },
+    "empirical_mobility": {
+      "status": "enriched_sidecar",
+      "artifact": "v5-empirical-mobility.json",
+      "coverage_count": 562,
+      "observed_enriched_count": 496,
+      "median_empirical_mobility_score": 0.5661
+    },
+    "posterior_uncertainty": {
+      "status": "pilot_sidecar",
+      "artifact": "v5-posterior-uncertainty.json",
+      "coverage_count": 562,
+      "median_live_interval_width_80": 0.3261,
+      "task_adjusted_count": 0
+    },
+    "realized_risk_forecast": {
+      "status": "pilot_sidecar",
+      "artifact": "v5-realized-risk.json",
+      "coverage_count": 562,
+      "median_realization_scalar": 0.2686,
+      "high_realized_risk_count": 0
+    }
+  }
+}

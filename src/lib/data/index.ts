@@ -41,6 +41,7 @@ export interface EvidenceSignals {
 	exposure_source_count?: number;
 	exposure_source_keys?: string[];
 	exposure_source_weights?: Partial<Record<'aioe' | 'anthropic' | 'eloundou' | 'ilo', number>>;
+	exposure_source_pctiles?: Partial<Record<'aioe' | 'anthropic' | 'eloundou' | 'ilo', number>>;
 	signal_conflict?: boolean;
 	signal_conflict_reasons?: string[];
 }
@@ -68,7 +69,36 @@ export interface UncertaintyScores {
 	net_risk_p10: number;
 	net_risk_p50: number;
 	net_risk_p90: number;
-	method: 'bootstrap_v1';
+	method: 'bootstrap_v1' | 'bootstrap_v1_task_adjusted' | 'latent_source_measurement_v1';
+}
+
+export type OccupationScoringBasis =
+	| 'task_aware_exposure_v43'
+	| 'ensemble_fallback_v42'
+	| 'posterior_task_aware_v5'
+	| 'posterior_ensemble_fallback_v5';
+
+export interface BaselineV42Scores {
+	structural_model_version: 'V4.2';
+	exposure: number;
+	net_risk: number;
+	risk_band: RiskBand;
+	augmentation: number;
+	augmentation_band: AugmentationBand;
+	impact_type: ImpactType;
+	uncertainty?: UncertaintyScores;
+}
+
+export interface BaselineV43Scores {
+	structural_model_version: 'V4.3';
+	exposure: number;
+	net_risk: number;
+	risk_band: RiskBand;
+	augmentation: number;
+	augmentation_band: AugmentationBand;
+	impact_type: ImpactType;
+	uncertainty?: UncertaintyScores;
+	scoring_basis?: 'task_aware_exposure_v43' | 'ensemble_fallback_v42';
 }
 
 export interface LabourClusterMonitor {
@@ -183,6 +213,31 @@ export interface Occupation {
 	augmentation: number;
 	augmentation_band: AugmentationBand;
 	impact_type: ImpactType;
+	structural_model_version?: 'V4.2' | 'V4.3' | 'V5';
+	scoring_basis?: OccupationScoringBasis;
+	baseline_v42?: BaselineV42Scores;
+	baseline_v43?: BaselineV43Scores;
+	structural_risk?: number;
+	structural_risk_band?: RiskBand;
+	transition_adjusted_risk?: number;
+	transition_adjusted_band?: RiskBand;
+	transition_adjusted_impact_type?: ImpactType;
+	realized_risk_proxy?: number;
+	adaptation_capacity?: number;
+	adaptation_buffer?: number;
+	demand_fragility?: number;
+	reallocation_capacity?: number;
+	profile?: string;
+	best_transition?: {
+		to_ssoc: string;
+		to_title: string;
+		composite: number;
+		observed_transition_rate: number | null;
+		destination_quality: number;
+		wage_preservation: number;
+		training_ease: number;
+		empirical_priority: number;
+	} | null;
 	evidence: EvidenceSignals;
 	confidence: ConfidenceScores;
 	stability: StabilityScores;

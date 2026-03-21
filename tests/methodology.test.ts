@@ -20,10 +20,19 @@ import { computeTransitionScore } from '../src/lib/data/transition-capacity';
 import { computeConfidence } from '../src/lib/data/confidence-core';
 import { computeTaskPrimitiveScores } from '../src/lib/data/task-primitives-core';
 import { computeBootstrapUncertainty } from '../src/lib/data/uncertainty-core';
+import { computeTaskModeSummary, inferTaskModeSignals } from '../src/lib/data/v5-task-mode-core';
 import researchLibrary from '../src/lib/data/research-library.json';
+import shadowAnchorReview from '../src/lib/data/shadow-anchor-review-v43.json';
 import shadowComparison from '../src/lib/data/shadow-comparison-v43.json';
 import shadowScores from '../src/lib/data/shadow-scores-v43.json';
 import shadowValidation from '../src/lib/data/shadow-validation-v43.json';
+import v5Augmentation from '../src/lib/data/v5-augmentation-heterogeneity.json';
+import v5Mobility from '../src/lib/data/v5-empirical-mobility.json';
+import v5Posterior from '../src/lib/data/v5-posterior-uncertainty.json';
+import v5RealizedRisk from '../src/lib/data/v5-realized-risk.json';
+import v5Sidecars from '../src/lib/data/v5-sidecars.json';
+import v5ExperimentalModel from '../src/lib/data/v5-experimental-model.json';
+import v5ExperimentalValidation from '../src/lib/data/v5-experimental-validation.json';
 
 function makeOccupation(overrides: Partial<Occupation> = {}): Occupation {
 	return {
@@ -140,28 +149,52 @@ describe('methodology formulas', () => {
 
 	test('stored occupation scores reproduce the canonical formulas', () => {
 		for (const occupation of occupations.slice(0, 50)) {
+			if (occupation.structural_model_version === 'V5') {
+				assert.equal(occupation.structural_risk, occupation.net_risk);
+				assert.ok((occupation.transition_adjusted_risk ?? 1) <= occupation.net_risk);
+				assert.ok(
+					(occupation.realized_risk_proxy ?? 1) <= (occupation.transition_adjusted_risk ?? 1)
+				);
+			} else {
+				assert.ok(
+					Math.abs(
+						round4(
+							computeNetRisk({
+								exposure: occupation.exposure,
+								bottleneck: occupation.bottleneck,
+								market_resilience: occupation.market.market_resilience
+							})
+						) - occupation.net_risk
+					) <= 0.00011
+				);
+				assert.ok(
+					Math.abs(
+						round4(
+							computeAugmentation({
+								exposure: occupation.exposure,
+								bottleneck: occupation.bottleneck,
+								market_resilience: occupation.market.market_resilience
+							})
+						) - occupation.augmentation
+					) <= 0.00011
+				);
+			}
+		}
+	});
+
+	test('live occupations carry V5 scoring metadata and retained baselines', () => {
+		for (const occupation of occupations.slice(0, 50)) {
+			assert.equal(occupation.structural_model_version, 'V5');
 			assert.ok(
-				Math.abs(
-					round4(
-						computeNetRisk({
-							exposure: occupation.exposure,
-							bottleneck: occupation.bottleneck,
-							market_resilience: occupation.market.market_resilience
-						})
-					) - occupation.net_risk
-				) <= 0.00011
+				occupation.scoring_basis === 'posterior_task_aware_v5' ||
+					occupation.scoring_basis === 'posterior_ensemble_fallback_v5'
 			);
-			assert.ok(
-				Math.abs(
-					round4(
-						computeAugmentation({
-							exposure: occupation.exposure,
-							bottleneck: occupation.bottleneck,
-							market_resilience: occupation.market.market_resilience
-						})
-					) - occupation.augmentation
-				) <= 0.00011
-			);
+			assert.equal(occupation.baseline_v43?.structural_model_version, 'V4.3');
+			assert.ok(typeof occupation.baseline_v43?.net_risk === 'number');
+			assert.equal(occupation.baseline_v42?.structural_model_version, 'V4.2');
+			assert.ok(typeof occupation.baseline_v42?.net_risk === 'number');
+			assert.ok(typeof occupation.transition_adjusted_risk === 'number');
+			assert.ok(typeof occupation.realized_risk_proxy === 'number');
 		}
 	});
 
@@ -282,6 +315,11 @@ describe('uncertainty invariants', () => {
 	test('published occupations expose ordered uncertainty intervals', () => {
 		for (const occupation of occupations.slice(0, 25)) {
 			if (!occupation.uncertainty) continue;
+			assert.ok(
+				occupation.uncertainty.method === 'bootstrap_v1' ||
+					occupation.uncertainty.method === 'bootstrap_v1_task_adjusted' ||
+					occupation.uncertainty.method === 'latent_source_measurement_v1'
+			);
 			assert.ok(occupation.uncertainty.exposure_p10 <= occupation.uncertainty.exposure_p50);
 			assert.ok(occupation.uncertainty.exposure_p50 <= occupation.uncertainty.exposure_p90);
 			assert.ok(occupation.uncertainty.net_risk_p10 <= occupation.uncertainty.net_risk_p50);
@@ -334,6 +372,53 @@ describe('task primitive invariants', () => {
 				method: null
 			});
 		}
+	});
+});
+
+describe('v5 task-mode invariants', () => {
+	test('task-mode proxies distinguish delegable and human-led work', () => {
+		const delegable = inferTaskModeSignals('Enter invoice data and update payment records.');
+		const humanLed = inferTaskModeSignals('Teach students and counsel families on learning plans.');
+
+		assert.ok(delegable.autonomy_proxy > humanLed.autonomy_proxy);
+		assert.ok(delegable.success_proxy > humanLed.success_proxy);
+		assert.ok(delegable.bottleneck_proxy < humanLed.bottleneck_proxy);
+	});
+
+	test('task-mode summary preserves shares and bounded fragility outputs', () => {
+		const summary = computeTaskModeSummary([
+			{
+				task: 'Enter customer details into records systems.',
+				weight: 0.55,
+				penetration: 0.8
+			},
+			{
+				task: 'Analyze performance trends and recommend process changes.',
+				weight: 0.3,
+				penetration: 0.6
+			},
+			{
+				task: 'Coordinate with clients and guide teams on service issues.',
+				weight: 0.15,
+				penetration: 0.3
+			}
+		]);
+
+		assert.equal(summary.method, 'task_mode_proxy_v5a');
+		assert.ok(summary.task_mode_shares !== null);
+		assertClose(
+			(summary.task_mode_shares?.delegable ?? 0) +
+				(summary.task_mode_shares?.copilot ?? 0) +
+				(summary.task_mode_shares?.human_led ?? 0),
+			1,
+			1e-6
+		);
+		assert.ok((summary.task_mode_effective_coverage ?? -1) >= 0);
+		assert.ok((summary.task_mode_effective_coverage ?? 2) <= 1);
+		assert.ok((summary.demand_fragility ?? -1) >= 0);
+		assert.ok((summary.demand_fragility ?? 2) <= 1);
+		assert.ok((summary.reallocation_capacity ?? -1) >= 0);
+		assert.ok((summary.reallocation_capacity ?? 2) <= 1);
 	});
 });
 
@@ -390,6 +475,8 @@ describe('shadow artifact invariants', () => {
 
 		assert.equal(shadowComparison.validation_pass_count, passCount);
 		assert.equal(shadowComparison.occupation_count, occupations.length);
+		assert.ok(shadowComparison.validation_pass_count >= 2);
+		assert.equal(shadowAnchorReview.review_candidate_count, 0);
 	});
 });
 
@@ -512,5 +599,193 @@ describe('transition capacity invariants', () => {
 
 		assert.equal(computeTransitionScore(from, toNear).credential_gap, 1);
 		assert.equal(computeTransitionScore(from, toFar).credential_gap, 0.2);
+	});
+});
+
+describe('v5 sidecar invariants', () => {
+	test('summary artifact publishes all four workstreams', () => {
+		assert.equal(v5Sidecars.status, 'pilot_sidecars_published');
+		assert.equal(Object.keys(v5Sidecars.sidecars).length, 4);
+	});
+
+	test('augmentation and mobility sidecars cover all occupations with bounded scores', () => {
+		assert.equal(v5Augmentation.entries.length, occupations.length);
+		assert.equal(v5Mobility.entries.length, occupations.length);
+		assert.ok(
+			v5Augmentation.entries.every(
+				entry =>
+					entry.workflow_augmentation_readiness >= 0 &&
+					entry.workflow_augmentation_readiness <= 1 &&
+					entry.heterogeneous_augmentation_proxy >= 0 &&
+					entry.heterogeneous_augmentation_proxy <= 1
+			)
+		);
+		assert.ok(v5Mobility.entries.some(entry => entry.status === 'observed_enriched'));
+		assert.ok(
+			v5Mobility.entries.every(
+				entry =>
+					entry.observed_transition_coverage >= 0 &&
+					entry.observed_transition_coverage <= 1 &&
+					entry.empirical_mobility_score >= 0 &&
+					entry.empirical_mobility_score <= 1
+			)
+		);
+	});
+
+	test('posterior uncertainty and realized-risk sidecars remain ordered and conservative', () => {
+		assert.equal(v5Posterior.entries.length, occupations.length);
+		assert.equal(v5RealizedRisk.entries.length, occupations.length);
+		assert.ok(
+			v5Posterior.entries.every(
+				entry =>
+					entry.prior_precision > 0 &&
+					entry.posterior_variance > 0 &&
+					entry.posterior_stdev > 0 &&
+					entry.observation_precision >= 0 &&
+					entry.exposure_p025 <= entry.exposure_p10 &&
+					entry.exposure_p10 <= entry.exposure_p50 &&
+					entry.exposure_p50 <= entry.exposure_p90 &&
+					entry.exposure_p90 <= entry.exposure_p975 &&
+					entry.net_risk_p025 <= entry.net_risk_p10 &&
+					entry.net_risk_p10 <= entry.net_risk_p50 &&
+					entry.net_risk_p50 <= entry.net_risk_p90 &&
+					entry.net_risk_p90 <= entry.net_risk_p975
+			)
+		);
+		assert.ok(
+			v5RealizedRisk.entries.every(
+				entry =>
+					entry.base_realized_risk_proxy <= entry.base_near_term_risk &&
+					entry.base_near_term_risk <= entry.structural_risk &&
+					entry.realization_scalar >= 0 &&
+					entry.realization_scalar <= 1 &&
+					typeof entry.archetype === 'string' &&
+					entry.short_run_cap_score >= 0 &&
+					entry.short_run_cap_score <= 1 &&
+					entry.employer_pressure_score >= 0 &&
+					entry.employer_pressure_score <= 1 &&
+					entry.labour_softness_score >= 0 &&
+					entry.labour_softness_score <= 1 &&
+					(entry.postings_support_score === null ||
+						(entry.postings_support_score >= 0 && entry.postings_support_score <= 1)) &&
+					entry.postings_resistance_score >= 0 &&
+					entry.postings_resistance_score <= 1 &&
+					entry.transition_friction_score >= 0 &&
+					entry.transition_friction_score <= 1 &&
+					entry.offset_buffer_score >= 0 &&
+					entry.offset_buffer_score <= 1 &&
+					entry.signal_alignment_score >= 0 &&
+					entry.signal_alignment_score <= 1
+			)
+		);
+	});
+
+	test('mobility and posterior sidecars expose bounded upgraded components', () => {
+		assert.ok(
+			v5Mobility.entries.every(
+				entry =>
+					entry.destination_quality_score >= 0 &&
+					entry.destination_quality_score <= 1 &&
+					entry.wage_preservation_score >= 0 &&
+					entry.wage_preservation_score <= 1 &&
+					entry.training_ease_score >= 0 &&
+					entry.training_ease_score <= 1 &&
+					(entry.observed_signal_strength === null ||
+						(entry.observed_signal_strength >= 0 && entry.observed_signal_strength <= 1)) &&
+					(entry.best_transition === null ||
+						(entry.best_transition.destination_quality >= 0 &&
+							entry.best_transition.destination_quality <= 1 &&
+							entry.best_transition.wage_preservation >= 0 &&
+							entry.best_transition.wage_preservation <= 1 &&
+							entry.best_transition.training_ease >= 0 &&
+							entry.best_transition.training_ease <= 1))
+			)
+		);
+	});
+});
+
+describe('v5 experimental model invariants', () => {
+	test('experimental model covers all occupations and preserves ordered risk layers', () => {
+		assert.equal(v5ExperimentalModel.entries.length, occupations.length);
+		assert.ok(
+			v5ExperimentalModel.entries.every(
+				entry =>
+					entry.v5_structural_exposure_p10 <= entry.v5_structural_exposure &&
+					entry.v5_structural_exposure <= entry.v5_structural_exposure_p90 &&
+					entry.task_mode_blend_weight >= 0 &&
+					entry.task_mode_blend_weight <= 0.45 &&
+					(entry.task_mode_matched_task_weight_share === null ||
+						(entry.task_mode_matched_task_weight_share >= 0 &&
+							entry.task_mode_matched_task_weight_share <= 1)) &&
+					(entry.task_mode_delegable_share === null ||
+						Math.abs(
+							(entry.task_mode_delegable_share ?? 0) +
+								(entry.task_mode_copilot_share ?? 0) +
+								(entry.task_mode_human_led_share ?? 0) -
+								1
+						) <= 0.0002) &&
+					entry.v5_structural_risk_p10 <= entry.v5_structural_risk &&
+					entry.v5_structural_risk <= entry.v5_structural_risk_p90 &&
+					entry.v5_realized_risk_proxy <= entry.v5_transition_adjusted_risk &&
+					entry.v5_transition_adjusted_risk <= entry.v5_structural_risk &&
+					entry.v5_effective_augmentation >= 0 &&
+					entry.v5_effective_augmentation <= 1 &&
+					entry.v5_heterogeneous_augmentation >= 0 &&
+					entry.v5_heterogeneous_augmentation <= 1 &&
+					entry.v5_empirical_mobility >= 0 &&
+					entry.v5_empirical_mobility <= 1 &&
+					entry.v5_adaptation_capacity >= 0 &&
+					entry.v5_adaptation_capacity <= 1 &&
+					entry.v5_adaptation_buffer >= 0 &&
+					entry.v5_adaptation_buffer <= 1 &&
+					entry.v5_demand_fragility >= 0 &&
+					entry.v5_demand_fragility <= 1 &&
+					entry.v5_reallocation_capacity >= 0 &&
+					entry.v5_reallocation_capacity <= 1 &&
+					entry.v5_concentration_adjustment >= 1
+			)
+		);
+	});
+
+	test('experimental validation summary matches the model artifact', () => {
+		assert.equal(v5ExperimentalValidation.status, 'promoted_live');
+		assert.equal(v5ExperimentalValidation.comparison_baseline_version, 'V4.3');
+		assert.equal(
+			v5ExperimentalValidation.summary.occupation_count,
+			v5ExperimentalModel.entries.length
+		);
+		assert.equal(
+			v5ExperimentalValidation.summary.transition_band_flip_count,
+			v5ExperimentalModel.entries.filter(
+				entry => entry.live_risk_band !== entry.v5_transition_adjusted_band
+			).length
+		);
+		assert.equal(
+			v5ExperimentalValidation.summary.impact_flip_count,
+			v5ExperimentalModel.entries.filter(entry => entry.live_impact_type !== entry.v5_impact_type)
+				.length
+		);
+		assert.equal(
+			v5ExperimentalValidation.summary.task_mode_blended_count,
+			v5ExperimentalModel.entries.filter(entry => entry.task_mode_blend_weight > 0).length
+		);
+		assert.ok(
+			typeof v5ExperimentalValidation.structural_validation.bls_spearman_rho.experimental ===
+				'number'
+		);
+		assert.ok(
+			typeof v5ExperimentalValidation.realized_validation.vacancy_trend_rho.experimental ===
+				'number'
+		);
+		assert.equal(
+			v5ExperimentalValidation.summary.realized_pass_count,
+			[
+				v5ExperimentalValidation.realized_validation.vacancy_trend_rho.pass,
+				v5ExperimentalValidation.realized_validation.hiring_net_pressure_rho.pass,
+				v5ExperimentalValidation.realized_validation.retrenchment_incidence_rho.pass,
+				v5ExperimentalValidation.realized_validation.employer_pressure_rho.pass,
+				v5ExperimentalValidation.realized_validation.postings_support_rho.pass
+			].filter(pass => pass === true).length
+		);
 	});
 });

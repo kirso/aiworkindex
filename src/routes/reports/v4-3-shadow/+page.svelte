@@ -24,6 +24,7 @@
 	const coverage = experimentalMethodology.coverage;
 	const promotionGates = experimentalMethodology.promotion_gates;
 	const blockers = experimentalMethodology.blockers ?? [];
+	const isPromoted = siteStatus.experimental_release.status === 'promoted';
 	const validationPassCount = shadowComparison.validation_pass_count ?? 0;
 	const validationTotal = shadowComparison.validation_total ?? 0;
 	const headlineHoldItems = [
@@ -42,6 +43,14 @@
 				]
 			: [])
 	];
+	const headlineHoldDisplayItems =
+		headlineHoldItems.length > 0
+			? headlineHoldItems
+			: isPromoted
+				? ['The V4.3 shadow model has already been promoted into the live structural release.']
+				: [
+						'No methodology blockers remain. The published shadow model has cleared the current promotion gates, so moving it into the live headline score is now a release decision.'
+					];
 	const shippedNow = [
 		'Bootstrap uncertainty intervals are published on occupations today.',
 		'Structural risk and near-term risk are separated in the forecast layer.',
@@ -87,7 +96,9 @@
 
 <Seo
 	title="V4.3 Shadow Model Note"
-	description="What the V4.3 task-weighted shadow model would change, what is ready now, and what still gates promotion beyond the published V4.2 release."
+	description={isPromoted
+		? 'How the V4.3 shadow model was promoted into the live release, what changed, and how the audit trail against V4.2 remains published.'
+		: 'What the V4.3 task-weighted shadow model would change, what is now promotion-ready, and why V4.2 remains the published baseline until a release decision is made.'}
 	path="/reports/v4-3-shadow"
 />
 
@@ -123,11 +134,15 @@
 
 	<div class="mt-6 grid gap-3 md:grid-cols-4">
 		<div class={card({ padding: 'sm', variant: 'metric' })}>
-			<p class={microLabel()}>Published baseline</p>
+			<p class={microLabel()}>{isPromoted ? 'Comparison baseline' : 'Published baseline'}</p>
 			<p class="mt-1 text-lg font-bold text-foreground">
 				{experimentalMethodology.published_baseline_version}
 			</p>
-			<p class="text-xs text-muted-foreground">current live structural score</p>
+			<p class="text-xs text-muted-foreground">
+				{isPromoted
+					? 'pre-promotion live release used for comparison'
+					: 'current live structural score'}
+			</p>
 		</div>
 		<div class={card({ padding: 'sm', variant: 'metric' })}>
 			<p class={microLabel()}>Required inputs ready</p>
@@ -137,11 +152,13 @@
 			<p class="text-xs text-muted-foreground">present locally for shadow scoring</p>
 		</div>
 		<div class={card({ padding: 'sm', variant: 'metric' })}>
-			<p class={microLabel()}>Direct task-weighted occupations</p>
+			<p class={microLabel()}>Published task-native occupations</p>
 			<p class="mt-1 text-lg font-bold text-foreground">
-				{coverage.direct_task_weighted_occupation_count}
+				{shadowComparison.task_native_count}
 			</p>
-			<p class="text-xs text-muted-foreground">currently eligible for shadow-score coverage</p>
+			<p class="text-xs text-muted-foreground">
+				occupations currently scored with the task-native shadow model
+			</p>
 		</div>
 		<div class={card({ padding: 'sm', variant: 'metric' })}>
 			<p class={microLabel()}>Validation comparison</p>
@@ -199,7 +216,9 @@
 	<p class={cn(sectionLabel(), 'mt-8 mb-3')}>What Changes Already Affect Users</p>
 	<div class="grid gap-3 md:grid-cols-2">
 		<div class={card({ padding: 'md' })}>
-			<p class="text-sm font-semibold text-foreground">Already live in V4.2</p>
+			<p class="text-sm font-semibold text-foreground">
+				{isPromoted ? 'Now live in V4.3' : 'Already live in V4.2'}
+			</p>
 			<ul class="mt-3 space-y-2 text-sm text-muted-foreground">
 				{#each shippedNow as item}
 					<li>{item}</li>
@@ -208,10 +227,12 @@
 		</div>
 		<div class={card({ padding: 'md' })}>
 			<p class="text-sm font-semibold text-foreground">
-				What still does not affect the headline score
+				{isPromoted
+					? 'What the audit trail still preserves'
+					: 'What still does not affect the headline score'}
 			</p>
 			<ul class="mt-3 space-y-2 text-sm text-muted-foreground">
-				{#each headlineHoldItems as item}
+				{#each headlineHoldDisplayItems as item}
 					<li>{item}</li>
 				{/each}
 			</ul>
@@ -325,11 +346,19 @@
 
 	<div class="mt-8 grid gap-3 md:grid-cols-2">
 		<div class={card({ padding: 'md' })}>
-			<p class="text-sm font-semibold text-foreground">If V4.3 is eventually promoted</p>
+			<p class="text-sm font-semibold text-foreground">
+				{isPromoted ? 'What V4.3 Proved' : 'If V4.3 is eventually promoted'}
+			</p>
 			<p class="mt-2 text-sm text-muted-foreground">
-				The intended direction is a task-weighted shadow model with effective coverage,
-				automation-pressure, augmentation-upside, and concentration-aware net risk. Those candidate
-				formulas are published as governance scaffolding, not live scoring rules.
+				{#if isPromoted}
+					V4.3 proved that task evidence works best as a disciplined exposure upgrade, not as a full
+					wholesale rewrite of the structural formula. The candidate task-native formulas remain
+					published as research scaffolding for V5, not as live rules.
+				{:else}
+					The intended direction is a task-weighted shadow model with effective coverage,
+					automation-pressure, augmentation-upside, and concentration-aware net risk. Those
+					candidate formulas are published as governance scaffolding, not live scoring rules.
+				{/if}
 			</p>
 			<div class="mt-3 space-y-2 rounded-lg border border-border/60 bg-background/70 px-3 py-3">
 				<p class="font-mono text-xs text-muted-foreground">
@@ -341,18 +370,40 @@
 			</div>
 		</div>
 		<div class={card({ padding: 'md' })}>
-			<p class="text-sm font-semibold text-foreground">What Must Happen Next</p>
+			<p class="text-sm font-semibold text-foreground">
+				{isPromoted ? 'What Must Happen Next' : 'What Must Happen Next'}
+			</p>
 			<ul class="mt-3 space-y-2 text-sm text-muted-foreground">
-				<li>Publish the task-adjusted shadow score artifact and rerun validation diagnostics.</li>
-				<li>Review anchor occupations and document any surprising label flips before promotion.</li>
-				<li>
-					Keep the current score published until the shadow model matches or improves current
-					validation.
-				</li>
-				<li>
-					Treat the empirical mobility prior as supporting evidence until a higher-granularity
-					Singapore transition dataset exists.
-				</li>
+				{#if isPromoted}
+					<li>
+						Keep the full V4.2 vs V4.3 comparison published so the promotion remains auditable.
+					</li>
+					<li>
+						Start V5 as sidecar workstreams: augmentation heterogeneity, empirical mobility,
+						posterior uncertainty, and realized-risk forecasting.
+					</li>
+					<li>
+						Do not absorb multiple new constructs into the live score without separate sidecar
+						validation first.
+					</li>
+					<li>
+						Treat the current empirical mobility prior as supporting evidence until a
+						higher-granularity Singapore transition dataset exists.
+					</li>
+				{:else}
+					<li>Review the published shadow artifact against the current validation misses.</li>
+					<li>
+						Review anchor occupations and document any surprising label flips before promotion.
+					</li>
+					<li>
+						Keep the current score published until the shadow model matches or improves current
+						validation.
+					</li>
+					<li>
+						Treat the empirical mobility prior as supporting evidence until a higher-granularity
+						Singapore transition dataset exists.
+					</li>
+				{/if}
 			</ul>
 		</div>
 	</div>

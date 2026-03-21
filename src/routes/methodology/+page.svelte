@@ -9,6 +9,7 @@
 	import claimsMatrix from '$lib/data/claims-matrix.json';
 	import researchLibrary from '$lib/data/research-library.json';
 	import { releases, siteStatus } from '$lib/data/site-status';
+	import { DATA_VINTAGE } from '$lib/data/scoring-constants';
 	import { pageLayout, card, sectionLabel, caption } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
@@ -35,7 +36,7 @@
 	const researchEntries = researchLibrary.entries;
 	const activeCoreResearch = researchEntries.filter(entry => entry.role === 'active_core');
 	const validationResearch = researchEntries.filter(entry => entry.role === 'validation');
-	const candidateResearch = researchEntries.filter(entry => entry.role === 'candidate_v5');
+	const nextHorizonResearch = researchEntries.filter(entry => entry.role === 'candidate_v5');
 	const structuralHistory = releases.filter(release => release.type === 'structural_release');
 	const clusterChecksPassed = clusterValidation.summary.checks_passed;
 	const clusterChecksTotal = clusterValidation.summary.checks_total;
@@ -67,7 +68,7 @@
 
 <Seo
 	title="Scoring Methodology — Reliability-Weighted 4-Source Ensemble"
-	description="Three-layer structural score: reliability-weighted 4-source exposure ensemble, human bottleneck (theta), and market resilience. Labour evidence, Singapore context, transition support, and offset potential are published separately."
+	description="Live V5 structural score: latent-source posterior exposure, task-mode adjustment, human bottleneck, market resilience, and separately published transition-adjusted and realized-risk layers."
 	path="/methodology"
 />
 
@@ -154,9 +155,9 @@
 			<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'primary' }), 'mb-6')}>
 				<p class="text-sm font-semibold text-foreground">TL;DR</p>
 				<p class="mt-1 text-sm text-muted-foreground">
-					Net risk = AI exposure × (1 − human bottleneck) × market modifier. Exposure uses a
-					reliability-weighted blend of up to 4 academic/institutional sources. No LLM in the
-					pipeline — every input is from published data.
+					Net risk = AI exposure × (1 − human bottleneck) × market modifier. In live V5, exposure
+					comes from an audited 4-source stack, then passes through a latent posterior and task-mode
+					upgrade where the evidence is strong. No LLM assigns scores in the pipeline.
 				</p>
 			</div>
 
@@ -167,9 +168,9 @@
 					<div class={card({ padding: 'sm' })}>
 						<h3 class="text-sm font-semibold text-red-700">Layer 1: Exposure</h3>
 						<p class="mt-1 text-sm text-muted-foreground">
-							How much does this job overlap with current AI capabilities? The V4.2 exposure layer
-							blends available signals from AIOE, Anthropic observed usage, Eloundou GPT exposure,
-							and the ILO occupational exposure index.
+							How much does this job overlap with current AI capabilities? The live {DATA_VINTAGE.model_version}
+							exposure layer keeps the audited 4-source ensemble, then upgrades exposure with weighted
+							task evidence where coverage is strong.
 						</p>
 					</div>
 					<div class={card({ padding: 'sm' })}>
@@ -274,9 +275,10 @@
 				<div class={cn(card({ padding: 'md' }), 'mt-4')}>
 					<h3 class="font-semibold text-foreground">Exposure Ensemble</h3>
 					<p class="mt-1 text-sm text-muted-foreground">
-						V4.2 treats exposure as an ensemble layer, not a single index. AIOE is the baseline
-						source; Anthropic observed usage, Eloundou GPT exposure, and the ILO occupational
-						exposure index are added when crosswalk coverage exists.
+						{DATA_VINTAGE.model_version} treats exposure as an ensemble layer, not a single index. AIOE
+						is the baseline source; Anthropic observed usage, Eloundou GPT exposure, and the ILO occupational
+						exposure index are added when crosswalk coverage exists. In the live release, weighted task
+						evidence can then upgrade that ensemble for occupations that clear the coverage gate.
 					</p>
 					<p class="mt-2 rounded bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
 						exposure_ensemble = weighted_mean(percentile-ranked matched exposure inputs)
@@ -1083,7 +1085,7 @@
 									>Eloundou et al. (2023) — LLM task-level exposure via human + GPT-4 assessment</td
 								>
 								<td class="py-2"
-									>Integrated in V4.2 ensemble with reliability weighting when matched via SOC
+									>Integrated in the live ensemble with reliability weighting when matched via SOC
 									crosswalk.</td
 								>
 							</tr>
@@ -1093,7 +1095,7 @@
 									>ILO (2024) — task-level AI automation potential scored across ISCO occupations</td
 								>
 								<td class="py-2"
-									>Integrated in V4.2 ensemble with reliability weighting when matched via ISCO
+									>Integrated in the live ensemble with reliability weighting when matched via ISCO
 									crosswalk.</td
 								>
 							</tr>
@@ -1212,15 +1214,17 @@
 			<section class="mb-8">
 				<p class={sectionLabel()}>What This Version Shows</p>
 				<p class="mt-2 text-sm text-muted-foreground">
-					V4.2 implements the full three-layer structural score with a reliability-weighted 4-source
-					exposure ensemble, human bottleneck (theta percentile), and market resilience (group-level
-					employment/wage trends + occupation-level wage structure). Net risk is published as risk
-					bands with visible confidence plus deterministic uncertainty intervals. Augmentation
-					potential, impact type classification, task-primitives sidecar fields, and rule-based
-					outlook/scenario modelling are included. 88 estimated modern roles (AI engineer, product
-					manager, prompt engineer, startup operator, creator, gig-worker variants, etc.) are scored
-					as weighted occupation priors plus workflow-aware context adjustments, with dispersion
-					analysis for high-variance compositions.
+					{DATA_VINTAGE.model_version} implements the live structural score with a 4-source exposure stack,
+					latent posterior exposure calibration, task-mode adjustments where weighted task evidence is
+					strong, human bottleneck (theta percentile), and market resilience (group-level employment/wage
+					trends + occupation-level wage structure). Net risk remains the published structural headline.
+					Transition-adjusted risk and realized-risk proxy are published separately so short-run labour
+					effects do not overwrite the structural score. Augmentation potential now reflects V5 heterogeneous
+					augmentation priors rather than only the earlier structural proxy. Task-primitives sidecar fields,
+					uncertainty intervals, and scenario tooling remain published around the score. 88 estimated
+					modern roles (AI engineer, product manager, prompt engineer, startup operator, creator, gig-worker
+					variants, etc.) are scored as weighted occupation priors plus workflow-aware context adjustments,
+					with dispersion analysis for high-variance compositions.
 				</p>
 				<p class="mt-2 text-sm text-muted-foreground">
 					<strong>Seniority adjustment</strong> (V3.2+): the Outlook section now supports experience-level
@@ -1515,9 +1519,9 @@
 				<p class="text-sm font-semibold text-foreground">TL;DR</p>
 				<p class="mt-1 text-sm text-muted-foreground">
 					{researchLibrary.entry_count} research entries + {dataSourceCount} data sources. The live model
-					is grounded in Felten AIOE, Pizzinelli complementarity, Anthropic observed usage, Eloundou GPT
-					exposure, and ILO occupational exposure. Candidate V5 sources are tracked separately so future
-					upgrades can be cited from the same registry.
+					now absorbs the core V5 stack: Felten AIOE, Pizzinelli complementarity, Anthropic observed usage
+					and labour-market work, Eloundou GPT exposure, ILO occupational exposure, task-mode weighting,
+					concentration effects, mobility priors, and latent-source uncertainty.
 				</p>
 			</div>
 
@@ -1599,9 +1603,11 @@
 						</div>
 					</div>
 					<div>
-						<p class="text-sm font-semibold text-foreground">Validation and roadmap references</p>
+						<p class="text-sm font-semibold text-foreground">
+							Validation and next-horizon references
+						</p>
 						<div class="mt-3 grid gap-3 lg:grid-cols-2">
-							{#each [...validationResearch, ...candidateResearch.slice(0, 6)] as entry (entry.key)}
+							{#each [...validationResearch, ...nextHorizonResearch.slice(0, 6)] as entry (entry.key)}
 								<div class={card({ padding: 'sm', variant: 'inset' })}>
 									<p class="text-sm font-medium text-foreground">{entry.title}</p>
 									<p class="mt-1 text-xs text-muted-foreground">

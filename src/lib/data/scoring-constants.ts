@@ -282,7 +282,7 @@ export const DATA_VINTAGE = {
 	/** Anthropic Economic Index date */
 	anthropic: 'January 2026',
 	/** Model version */
-	model_version: 'V4.2',
+	model_version: 'V5',
 	/** Last scoring run date */
 	last_updated: '2026-03-21',
 	/** Occupation count */
@@ -290,7 +290,7 @@ export const DATA_VINTAGE = {
 	/** Synthetic role count */
 	role_count: 88,
 	/** Validation check count */
-	validation_checks: 140,
+	validation_checks: 167,
 	/** Page count */
 	page_count: 672
 } as const;

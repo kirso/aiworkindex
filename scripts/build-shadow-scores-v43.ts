@@ -7,6 +7,7 @@ import * as XLSX from 'xlsx';
 import { ssocToSocCodes } from './crosswalk';
 import { classifyImpactType, getRiskBand } from '../src/lib/data/scoring-constants';
 import {
+	computeRawTaskSignal,
 	computeShadowModelScores,
 	type ShadowEligibilityStatus
 } from '../src/lib/data/shadow-model-core';
@@ -112,6 +113,9 @@ interface ShadowScoreRow {
 	shadow_success_proxy: number;
 	shadow_autonomy_proxy: number | null;
 	shadow_reallocation_buffer: number | null;
+	shadow_raw_task_signal: number | null;
+	shadow_calibrated_task_exposure: number | null;
+	shadow_exposure_used: number;
 }
 
 type MetricComparison = {
@@ -172,6 +176,23 @@ function median(values: number[]): number | null {
 	const middle = Math.floor(sorted.length / 2);
 	if (sorted.length % 2 === 1) return sorted[middle] ?? null;
 	return ((sorted[middle - 1] ?? 0) + (sorted[middle] ?? 0)) / 2;
+}
+
+function quantileMap(values: number[], targets: number[]): number[] {
+	if (values.length === 0) return [];
+	const sortedValues = values
+		.map((value, index) => ({ value, index }))
+		.sort((a, b) => a.value - b.value);
+	const sortedTargets = [...targets].sort((a, b) => a - b);
+	const mapped = new Array<number>(values.length);
+
+	for (let i = 0; i < sortedValues.length; i++) {
+		const probability = sortedValues.length === 1 ? 0.5 : i / (sortedValues.length - 1);
+		const targetIndex = Math.round(probability * (sortedTargets.length - 1));
+		mapped[sortedValues[i]!.index] = sortedTargets[targetIndex] ?? sortedTargets[0] ?? 0;
+	}
+
+	return mapped;
 }
 
 function rankBandIndex(band: RiskBand): number {
@@ -400,10 +421,13 @@ function buildAnchorReview(shadowScores: ShadowScoreRow[]) {
 		}
 
 		const bandShift = bandShiftMagnitude(row.baseline_risk_band, row.shadow_risk_band);
+		const impactRegimeConcern =
+			row.baseline_impact_type !== row.shadow_impact_type &&
+			(['at_risk', 'mixed'].includes(row.baseline_impact_type) ||
+				['at_risk', 'mixed'].includes(row.shadow_impact_type) ||
+				Math.abs(row.delta_vs_v42) >= 0.05);
 		const reviewCandidate =
-			bandShift >= 2 ||
-			Math.abs(row.delta_vs_v42) >= 0.15 ||
-			row.baseline_impact_type !== row.shadow_impact_type;
+			bandShift >= 2 || Math.abs(row.delta_vs_v42) >= 0.15 || impactRegimeConcern;
 
 		return {
 			key: anchor.key,
@@ -449,17 +473,45 @@ function main() {
 	const blsValidation = readJson<{ spearman_rho: number }>(BLS_VALIDATION_FILE);
 	const familyValidation = readJson<{ spearman_rho: number }>(FAMILY_VALIDATION_FILE);
 	const socPctChange = readSocPctChange();
+	const directExposureDistribution = occupations
+		.filter(occupation => occupation.match_quality === 'direct')
+		.map(occupation => occupation.exposure);
+	const taskEligibleOccupations = occupations.filter(
+		occupation =>
+			(occupation.task_primitives?.matched_task_weight_share ?? 0) >= 0.6 &&
+			occupation.task_primitives?.task_effective_coverage !== null &&
+			occupation.task_primitives?.task_effective_coverage !== undefined
+	);
+	const calibratedTaskExposureBySsoc = new Map<string, number>();
+
+	if (taskEligibleOccupations.length > 0) {
+		const rawTaskSignals = taskEligibleOccupations.map(occupation =>
+			computeRawTaskSignal(
+				occupation.task_primitives?.task_effective_coverage ?? 0,
+				occupation.workflow_overlay
+			)
+		);
+		const calibratedTaskExposures = quantileMap(rawTaskSignals, directExposureDistribution);
+		for (let i = 0; i < taskEligibleOccupations.length; i++) {
+			calibratedTaskExposureBySsoc.set(
+				taskEligibleOccupations[i]!.ssoc,
+				calibratedTaskExposures[i] ?? 0
+			);
+		}
+	}
 
 	const shadowScores: ShadowScoreRow[] = occupations.map(occupation => {
 		const shadow = computeShadowModelScores({
 			match_quality: occupation.match_quality,
+			baseline_exposure: occupation.exposure,
 			baseline_net_risk: occupation.net_risk,
 			baseline_augmentation: occupation.augmentation,
 			bottleneck: occupation.bottleneck,
-			market_modifier: occupation.market.market_modifier,
+			market_resilience: occupation.market.market_resilience,
 			task_matched_weight_share: occupation.task_primitives?.matched_task_weight_share ?? null,
 			task_effective_coverage: occupation.task_primitives?.task_effective_coverage ?? null,
 			task_exposure_concentration: occupation.task_primitives?.task_exposure_concentration ?? null,
+			calibrated_task_exposure: calibratedTaskExposureBySsoc.get(occupation.ssoc) ?? null,
 			workflow_overlay: occupation.workflow_overlay
 		});
 
@@ -484,14 +536,19 @@ function main() {
 			shadow_eligibility_status: shadow.eligibility_status,
 			shadow_method:
 				shadow.eligibility_status === 'task_native'
-					? 'task_native_proxy_v43'
+					? 'task_aware_exposure_v43'
 					: shadow.eligibility_status === 'occupation_fallback'
 						? 'occupation_baseline_fallback_v42'
 						: 'insufficient_task_evidence_v42_fallback',
 			shadow_success_proxy: round(shadow.success_proxy),
 			shadow_autonomy_proxy: shadow.autonomy_proxy === null ? null : round(shadow.autonomy_proxy),
 			shadow_reallocation_buffer:
-				shadow.reallocation_buffer === null ? null : round(shadow.reallocation_buffer)
+				shadow.reallocation_buffer === null ? null : round(shadow.reallocation_buffer),
+			shadow_raw_task_signal:
+				shadow.raw_task_signal === null ? null : round(shadow.raw_task_signal),
+			shadow_calibrated_task_exposure:
+				shadow.calibrated_task_exposure === null ? null : round(shadow.calibrated_task_exposure),
+			shadow_exposure_used: round(shadow.shadow_exposure)
 		};
 	});
 

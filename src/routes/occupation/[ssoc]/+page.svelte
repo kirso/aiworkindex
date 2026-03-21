@@ -52,6 +52,7 @@
 	import { trackEvent } from '$lib/analytics';
 	import { getTransitionProgrammeUrl } from '$lib/data/detail-context';
 	import { buildMarketNowSummary, buildMarketDetailBullets } from '$lib/data/market-summary';
+	import { scoringBasisDescription, scoringBasisLabel } from '$lib/data/scoring-basis-display';
 
 	let { data } = $props();
 	let occ = $derived(data.occupation);
@@ -144,6 +145,18 @@
 			return 'Task-weighted shadow model is blocked in this release, so no weighted task evidence is published here yet.';
 		}
 		return 'Task-weighted shadow evidence is not active for this occupation yet.';
+	});
+	let scoringBasisSummary = $derived(scoringBasisLabel(occ.scoring_basis));
+	let scoringBasisDetail = $derived(scoringBasisDescription(occ.scoring_basis));
+	let priorLiveBaseline = $derived(occ.baseline_v43 ?? occ.baseline_v42 ?? null);
+	let priorBaselineDeltaSummary = $derived.by(() => {
+		if (!priorLiveBaseline) return null;
+		const delta = occ.net_risk - priorLiveBaseline.net_risk;
+		const baselineLabel = priorLiveBaseline.structural_model_version;
+		if (Math.abs(delta) < 0.0001)
+			return `No material change versus retained ${baselineLabel} baseline.`;
+		const direction = delta > 0 ? '+' : '';
+		return `${direction}${(delta * 100).toFixed(1)}pp versus retained ${baselineLabel} baseline.`;
 	});
 
 	// Outlook (inline, no tabs — base case only for Block 3)
@@ -428,6 +441,9 @@
 					<div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
 						{#if occ.education_label}
 							<span>{occ.education_label}</span>
+						{/if}
+						{#if occ.scoring_basis}
+							<span>{scoringBasisSummary}</span>
 						{/if}
 						<span>Higher risk than {structural.riskPercentile}% of occupations</span>
 					</div>
@@ -1060,6 +1076,13 @@
 						Exposure {exposureUncertainty} · Net risk {netRiskUncertainty} · Method {occ.uncertainty
 							?.method ?? 'n/a'}
 					</p>
+				</div>
+				<div>
+					<p class="font-semibold text-foreground mb-1">Scoring Basis</p>
+					<p>{scoringBasisSummary}. {scoringBasisDetail}</p>
+					{#if priorBaselineDeltaSummary}
+						<p class="mt-1">{priorBaselineDeltaSummary}</p>
+					{/if}
 				</div>
 				<div class="sm:col-span-2">
 					<p class="font-semibold text-foreground mb-1">Source Coverage</p>

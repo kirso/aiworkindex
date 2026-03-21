@@ -81,6 +81,7 @@
 
 	const experimentalPositiveStates = ['ready_for_shadow_scoring', 'shadow_published', 'promoted'];
 	const blockers = (experimentalMethodology.blockers ?? []) as ExperimentalBlocker[];
+	const isPromoted = siteStatus.experimental_release.status === 'promoted';
 	const experimentalStatusBadgeClass = experimentalPositiveStates.includes(
 		siteStatus.experimental_release.status
 	)
@@ -198,8 +199,14 @@
 			>
 				<p class="text-sm font-medium text-impact-leveraged">No local input blockers remain</p>
 				<p class="mt-1 text-xs text-muted-foreground">
-					Shadow artifacts are published. Remaining questions are validation and anchor-review
-					sign-off, not missing files.
+					{#if isPromoted}
+						Shadow artifacts remain published and the promoted live release can still be audited
+						against the retained V4.3 and V4.2 baselines.
+					{:else}
+						Shadow artifacts are published and the current promotion gates are clear. Moving the
+						shadow model into the headline score is now a release decision, not a missing-data or
+						validation blocker.
+					{/if}
 				</p>
 			</div>
 		{/if}
@@ -244,13 +251,12 @@
 		<p class="text-sm font-semibold text-foreground">Use This With</p>
 		<div class="mt-3 grid gap-3 md:grid-cols-3">
 			<a
-				href="/reports/v4-3-shadow"
+				href="/reports/v5-experimental"
 				class="rounded-lg border border-border/60 bg-background/70 px-3 py-3 no-underline transition-colors hover:border-primary/30 hover:bg-accent/40"
 			>
-				<p class="text-sm font-medium text-foreground">V4.3 shadow note</p>
+				<p class="text-sm font-medium text-foreground">V5 model note</p>
 				<p class="mt-1 text-xs text-muted-foreground">
-					Release-impact narrative for the task-weighted shadow model and what users should infer
-					today.
+					Final promotion comparison for the live V5 release and the retained V4.3 baseline.
 				</p>
 			</a>
 			<a

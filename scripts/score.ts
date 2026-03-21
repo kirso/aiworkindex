@@ -1873,6 +1873,16 @@ function scoreOccupations(
 			exposure_source_weights: Object.fromEntries(
 				Object.entries(exposureSourceWeights).map(([key, value]) => [key, round(value ?? 0, 4)])
 			),
+			exposure_source_pctiles: Object.fromEntries(
+				[
+					['aioe', theoreticalExposure],
+					['anthropic', anthropicPctiles[i]],
+					['eloundou', eloundouPctiles[i]],
+					['ilo', iloPctiles[i]]
+				]
+					.filter(([, value]) => value >= 0)
+					.map(([key, value]) => [key, round(value, 4)])
+			),
 			signal_conflict: signalConflict,
 			signal_conflict_reasons: signalConflictReasons
 		};

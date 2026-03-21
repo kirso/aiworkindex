@@ -20,12 +20,13 @@
 
 	const dataSourceCount = dataSourceRegistry.length;
 	const structuralReleases = releases.filter(release => release.type === 'structural_release');
+	const currentVersionTag = DATA_VINTAGE.model_version.toLowerCase().replaceAll('.', '');
 
 	const datasetJsonLd = `<script type="application/ld+json">${JSON.stringify({
 		'@context': 'https://schema.org',
 		'@type': 'Dataset',
 		name: 'AI Work Index — Singapore Occupation Scores',
-		description: `${DATA_VINTAGE.occupation_count} Singapore occupations scored for structural AI pressure using a 4-source exposure ensemble, human bottleneck, Singapore market context, bootstrap uncertainty intervals, and separately published offset/support layers.`,
+		description: `${DATA_VINTAGE.occupation_count} Singapore occupations scored for structural AI pressure using the live ${DATA_VINTAGE.model_version} release: audited 4-source exposure, latent posterior calibration, task-mode evidence where available, human bottleneck, Singapore market context, and separately published transition-adjusted and realized-risk layers.`,
 		url: SITE.url + '/data',
 		license: 'https://opensource.org/licenses/MIT',
 		creator: { '@type': 'Organization', name: SITE.name, url: SITE.url },
@@ -129,7 +130,7 @@
 			name: 'exposure',
 			type: 'number',
 			description:
-				'Exposure ensemble score (0-1). Reliability-weighted blend of matched percentile-ranked exposure sources in V4.2.'
+				'Live exposure score (0-1). V5 uses a latent-source posterior over the audited 4-source exposure stack, then applies task-mode blending where weighted task evidence is strong; fallback occupations retain the posterior ensemble.'
 		},
 		{
 			name: 'bottleneck',
@@ -151,7 +152,8 @@
 		{
 			name: 'augmentation',
 			type: 'number',
-			description: 'Augmentation potential (0-1). How much AI can enhance rather than replace this role.'
+			description:
+				'Live V5 augmentation potential (0-1). This uses heterogeneous augmentation priors layered on top of the structural bottleneck, rather than only the earlier structural proxy.'
 		},
 		{
 			name: 'impact_type',
@@ -202,7 +204,7 @@
 			name: 'evidence.exposure_blend_strategy',
 			type: 'enum',
 			description:
-				'Current exposure blend method. V4.2 uses a deterministic reliability-weighted ensemble.'
+				'Current exposure provenance marker. The audited 4-source stack remains the evidence base even where V5 applies latent posterior calibration and task-mode blending.'
 		},
 		{
 			name: 'evidence.exposure_agreement',
@@ -215,6 +217,12 @@
 			type: 'object',
 			description:
 				'Normalized per-source weights used inside the exposure ensemble after conditioning on which sources matched this occupation.'
+		},
+		{
+			name: 'evidence.exposure_source_pctiles',
+			type: 'object',
+			description:
+				'Persisted per-source exposure percentiles for the matched AIOE, Anthropic, Eloundou, and ILO inputs. Used by the published V5 posterior-uncertainty sidecar.'
 		},
 		{
 			name: 'evidence.signal_conflict',
@@ -230,7 +238,8 @@
 		{
 			name: 'confidence.exposure_source_count',
 			type: 'number',
-			description: 'How many exposure sources were available for this occupation in the V4.2 ensemble.'
+			description:
+				'How many exposure sources were available in the audited 4-source exposure stack before any posterior/task-mode calibration.'
 		},
 		{
 			name: 'confidence.source_coverage',
@@ -255,32 +264,32 @@
 		{
 			name: 'uncertainty.exposure_p10',
 			type: 'number',
-			description: '10th-percentile bootstrap estimate for exposure.'
+			description: '10th-percentile interval estimate for exposure.'
 		},
 		{
 			name: 'uncertainty.exposure_p50',
 			type: 'number',
-			description: 'Median bootstrap estimate for exposure.'
+			description: 'Median interval estimate for exposure.'
 		},
 		{
 			name: 'uncertainty.exposure_p90',
 			type: 'number',
-			description: '90th-percentile bootstrap estimate for exposure.'
+			description: '90th-percentile interval estimate for exposure.'
 		},
 		{
 			name: 'uncertainty.net_risk_p10',
 			type: 'number',
-			description: '10th-percentile bootstrap estimate for net_risk.'
+			description: '10th-percentile interval estimate for net_risk.'
 		},
 		{
 			name: 'uncertainty.net_risk_p50',
 			type: 'number',
-			description: 'Median bootstrap estimate for net_risk.'
+			description: 'Median interval estimate for net_risk.'
 		},
 		{
 			name: 'uncertainty.net_risk_p90',
 			type: 'number',
-			description: '90th-percentile bootstrap estimate for net_risk.'
+			description: '90th-percentile interval estimate for net_risk.'
 		},
 		{
 			name: 'task_primitives.matched_task_weight_share',
@@ -305,6 +314,56 @@
 			type: 'enum|null',
 			description:
 				'Experimental task-primitive method identifier. Null when no weighted task evidence is available for this occupation.'
+		},
+		{
+			name: 'structural_model_version',
+			type: 'enum',
+			description: 'Live structural model version used for the headline occupation score.'
+		},
+		{
+			name: 'scoring_basis',
+			type: 'enum',
+			description:
+				'posterior_task_aware_v5 when latent posterior exposure is upgraded with task-mode evidence; posterior_ensemble_fallback_v5 when the occupation stays on the posterior ensemble without task-mode uplift.'
+		},
+		{
+			name: 'baseline_v43',
+			type: 'object',
+			description:
+				'Retained V4.3 baseline snapshot for auditability against the promoted V5 live score.'
+		},
+		{
+			name: 'baseline_v42',
+			type: 'object',
+			description:
+				'Retained V4.2 historical snapshot preserved underneath the V4.3 baseline for longer-run auditability.'
+		},
+		{
+			name: 'structural_risk',
+			type: 'number',
+			description: 'Live V5 structural risk field, matching the headline net_risk.'
+		},
+		{
+			name: 'transition_adjusted_risk',
+			type: 'number',
+			description:
+				'Published adaptation-adjusted structural risk. This incorporates transition capacity and augmentation buffers without overwriting the headline structural score.'
+		},
+		{
+			name: 'realized_risk_proxy',
+			type: 'number',
+			description:
+				'Published short-run realized-risk proxy. This is conservative and remains separate from the headline structural score.'
+		},
+		{
+			name: 'adaptation_capacity',
+			type: 'number',
+			description: 'Bounded V5 adaptation-capacity composite built from augmentation and mobility sidecars.'
+		},
+		{
+			name: 'demand_fragility',
+			type: 'number',
+			description: 'Concentration-aware fragility measure derived from task-mode and task-concentration evidence.'
 		},
 		{
 			name: 'education_label',
@@ -400,7 +459,7 @@
 
 <Seo
 	title="Download Singapore AI Occupation Risk Data"
-	description="Download the current AI Work Index dataset and versioned snapshots, including the latest V4.2 structural scores, uncertainty intervals, and metadata."
+	description={`Download the current AI Work Index dataset and versioned snapshots, including the live ${DATA_VINTAGE.model_version} structural scores, uncertainty intervals, and metadata.`}
 	path="/data"
 	jsonLd={[datasetJsonLd]}
 />
@@ -454,7 +513,7 @@
 		</div>
 		<div class={cn(card({ variant: 'metric', padding: 'sm' }))}>
 			<p class={microLabel()}>
-				Experimental layer
+				Retained shadow trail
 			</p>
 			<p class="mt-1 text-sm font-semibold text-foreground">
 				{experimentalStatusLabel(siteStatus.experimental_release?.status)}
@@ -501,7 +560,7 @@
 	<!-- Download Cards -->
 	<p class={cn(sectionLabel(), 'mt-6 mb-3')}>Downloads</p>
 	<div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-		<a href="/data/sg-ai-occupations-v4.csv" download class="no-underline">
+		<a href={'/data/sg-ai-occupations-' + currentVersionTag + '.csv'} download class="no-underline">
 			<div class={cn(card({ padding: 'lg', hover: true }), 'flex h-full flex-col items-start')}>
 				<div class="flex items-center gap-2">
 					<svg class="h-5 w-5 text-risk-very-low" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -514,11 +573,13 @@
 				<p class="mt-1 text-sm text-muted-foreground">
 					{DATA_VINTAGE.occupation_count} occupations, flattened fields + provenance. Best for spreadsheets.
 				</p>
-				<span class="mt-auto pt-2 text-xs text-primary">sg-ai-occupations-v4.csv</span>
+				<span class="mt-auto pt-2 text-xs text-primary"
+					>{'sg-ai-occupations-' + currentVersionTag + '.csv'}</span
+				>
 			</div>
 		</a>
 
-		<a href="/data/sg-ai-occupations-v4.json" download class="no-underline">
+		<a href={'/data/sg-ai-occupations-' + currentVersionTag + '.json'} download class="no-underline">
 			<div class={cn(card({ padding: 'lg', hover: true }), 'flex h-full flex-col items-start')}>
 				<div class="flex items-center gap-2">
 					<svg class="h-5 w-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -529,9 +590,11 @@
 					<span class="text-base font-semibold text-foreground">JSON</span>
 				</div>
 				<p class="mt-1 text-sm text-muted-foreground">
-					Full V4.2 scores with nested fields, bootstrap uncertainty, and task-primitives sidecar.
+					Full {DATA_VINTAGE.model_version} scores with nested fields, scoring-basis metadata, latent uncertainty intervals, and the retained V4.3 baseline snapshot.
 				</p>
-				<span class="mt-auto pt-2 text-xs text-primary">sg-ai-occupations-v4.json</span>
+				<span class="mt-auto pt-2 text-xs text-primary"
+					>{'sg-ai-occupations-' + currentVersionTag + '.json'}</span
+				>
 			</div>
 		</a>
 
@@ -543,10 +606,11 @@
 						<polyline points="7,10 12,15 17,10"/>
 						<line x1="12" y1="15" x2="12" y2="3"/>
 					</svg>
-					<span class="text-base font-semibold text-foreground">Experimental V4.3</span>
+					<span class="text-base font-semibold text-foreground">V4.3 Promotion Trail</span>
 				</div>
 				<p class="mt-1 text-sm text-muted-foreground">
-					Task-weighted shadow-model status, promotion gates, and the current headline-promotion state.
+					Shadow-governance status, promotion history, and the retained audit trail behind the live
+					V5 release.
 				</p>
 				<span class="mt-auto pt-2 text-xs text-primary">experimental-methodology-v43.json</span>
 			</div>
@@ -582,6 +646,79 @@
 					Canonical citation registry linking the live methodology, validation layer, and V5 roadmap to source papers and reports.
 				</p>
 				<span class="mt-auto pt-2 text-xs text-primary">research-library.json</span>
+			</div>
+		</a>
+
+		<a href="/data/v5-roadmap.json" download class="no-underline">
+			<div class={cn(card({ padding: 'lg', hover: true }), 'flex h-full flex-col items-start')}>
+				<div class="flex items-center gap-2">
+					<svg class="h-5 w-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path d="M3 3h18v18H3z"/>
+						<path d="M7 12h10"/>
+						<path d="M12 7v10"/>
+					</svg>
+					<span class="text-base font-semibold text-foreground">V5 Roadmap</span>
+				</div>
+				<p class="mt-1 text-sm text-muted-foreground">
+					Post-promotion V5.x roadmap for stronger realized-risk calibration, richer mobility quality
+					effects, posterior uncertainty refinement, and future release discipline.
+				</p>
+				<span class="mt-auto pt-2 text-xs text-primary">v5-roadmap.json</span>
+			</div>
+		</a>
+
+		<a href="/data/v5-sidecars.json" download class="no-underline">
+			<div class={cn(card({ padding: 'lg', hover: true }), 'flex h-full flex-col items-start')}>
+				<div class="flex items-center gap-2">
+					<svg class="h-5 w-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path d="M4 6h16"/>
+						<path d="M4 12h16"/>
+						<path d="M4 18h16"/>
+					</svg>
+					<span class="text-base font-semibold text-foreground">V5 Sidecars</span>
+				</div>
+				<p class="mt-1 text-sm text-muted-foreground">
+					Published V5 workstream summary covering augmentation heterogeneity, empirical mobility,
+					posterior uncertainty, and realized-risk forecasting sidecars.
+				</p>
+				<span class="mt-auto pt-2 text-xs text-primary">v5-sidecars.json</span>
+			</div>
+		</a>
+
+		<a href="/data/v5-experimental-model.json" download class="no-underline">
+			<div class={cn(card({ padding: 'lg', hover: true }), 'flex h-full flex-col items-start')}>
+				<div class="flex items-center gap-2">
+					<svg class="h-5 w-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path d="M12 3v18"/>
+						<path d="M3 12h18"/>
+						<path d="m5 5 14 14"/>
+					</svg>
+					<span class="text-base font-semibold text-foreground">V5 Model Note</span>
+				</div>
+				<p class="mt-1 text-sm text-muted-foreground">
+					Final promotion-comparison artifact for the live V5 model, retaining the pre-promotion V4.3
+					baseline and the published adjunct layers.
+				</p>
+				<span class="mt-auto pt-2 text-xs text-primary">v5-experimental-model.json</span>
+			</div>
+		</a>
+
+		<a href="/data/v5-experimental-validation.json" download class="no-underline">
+			<div class={cn(card({ padding: 'lg', hover: true }), 'flex h-full flex-col items-start')}>
+				<div class="flex items-center gap-2">
+					<svg class="h-5 w-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path d="M4 19h16"/>
+						<path d="M7 15V9"/>
+						<path d="M12 15V5"/>
+						<path d="M17 15v-3"/>
+					</svg>
+					<span class="text-base font-semibold text-foreground">V5 Validation Comparison</span>
+				</div>
+				<p class="mt-1 text-sm text-muted-foreground">
+					Comparison and validation summary for the live V5 model versus the retained V4.3 baseline
+					across structural and realized-risk checks.
+				</p>
+				<span class="mt-auto pt-2 text-xs text-primary">v5-experimental-validation.json</span>
 			</div>
 		</a>
 
@@ -666,9 +803,21 @@
 								<Table.Cell class="text-muted-foreground">{DATA_VINTAGE.occupation_count}</Table.Cell>
 								<Table.Cell>
 									{#if release.version_label === DATA_VINTAGE.model_version}
-										<a href="/data/sg-ai-occupations-v4.json" download class="text-xs text-primary underline">JSON</a>
+										<a
+											href={'/data/sg-ai-occupations-' + currentVersionTag + '.json'}
+											download
+											class="text-xs text-primary underline">JSON</a
+										>
 										<span class="mx-1 text-muted-foreground">&middot;</span>
-										<a href="/data/sg-ai-occupations-v4.csv" download class="text-xs text-primary underline">CSV</a>
+										<a
+											href={'/data/sg-ai-occupations-' + currentVersionTag + '.csv'}
+											download
+											class="text-xs text-primary underline">CSV</a
+										>
+									{:else if release.version_label === 'V4.2'}
+										<a href="/data/sg-ai-occupations-v42.json" download class="text-xs text-primary underline">JSON</a>
+										<span class="mx-1 text-muted-foreground">&middot;</span>
+										<a href="/data/sg-ai-occupations-v42.csv" download class="text-xs text-primary underline">CSV</a>
 									{:else if release.version_label === 'V3.0'}
 										<a href="/data/sg-ai-occupations-v3.json" download class="text-xs text-primary underline">JSON</a>
 									{:else}
@@ -693,11 +842,11 @@
 		<p class={cn(sectionLabel(), 'mb-3')}>Methodology Version</p>
 		<div class={card({ padding: 'lg' })}>
 			<div class="space-y-1 text-sm text-muted-foreground">
-				<p><span class="font-medium text-foreground">Version:</span> V4.2 (4-source exposure ensemble inside a 3-layer structural score, with bootstrap uncertainty and separate offset/support layers)</p>
+				<p><span class="font-medium text-foreground">Version:</span> V5 (latent posterior exposure over the audited 4-source stack, task-mode blending where evidence is strong, concentration-aware fragility, heterogeneous augmentation, and separately published transition-adjusted / realized-risk layers)</p>
 				<p><span class="font-medium text-foreground">Data vintage:</span> 2024 wages, 2024/2025 demand signals</p>
 				<p><span class="font-medium text-foreground">Occupations:</span> {DATA_VINTAGE.occupation_count} SSOC-coded occupations</p>
 				<p><span class="font-medium text-foreground">Separate context bundle:</span> Labour monitor, worker profile, industry context, sector wage anchors, geography context, macro labour context, national AI context, offset potential, and transition support</p>
-				<p><span class="font-medium text-foreground">Experimental shadow layer:</span> {experimentalStatusLabel(siteStatus.experimental_release.status)}. V4.3 shadow scores are published separately and do not affect the headline score until promotion is explicitly approved.</p>
+				<p><span class="font-medium text-foreground">Retained baseline trail:</span> {experimentalStatusLabel(siteStatus.experimental_release.status)}. The full V4.3 shadow and promotion comparison remain published so the live V5 release can still be audited against the retained V4.3 and V4.2 baselines.</p>
 				<p><span class="font-medium text-foreground">Research memory:</span> {researchLibrary.entry_count} canonical research entries are published in the research library and linked to claims/source registry records.</p>
 				<p><span class="font-medium text-foreground">Sources:</span> MOM Singapore (wages, Labour Force Section D, industry context, demand signals, SOI), IMDA Singapore Digital Economy Report 2025, IMDA NAIIP 2026, O*NET, Felten AIOE, Pizzinelli/IMF, Anthropic observed usage, Eloundou GPT exposure, ILO occupational exposure, SOL 2026, Jobs in Demand 2025</p>
 			</div>

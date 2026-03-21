@@ -22,9 +22,9 @@
 			description: 'Used to cross-check the live score rather than to generate it.'
 		},
 		candidate_v5: {
-			label: 'Candidate V5',
+			label: 'Next horizon',
 			description:
-				'Research shaping the next model tier: task-native scoring, empirical mobility, forecast calibration, and stronger uncertainty.'
+				'Research not yet absorbed into the live model and reserved for future V5.x calibration work.'
 		},
 		supporting_context: {
 			label: 'Supporting context',
@@ -35,11 +35,13 @@
 
 	const roleOrder = ['active_core', 'validation', 'candidate_v5', 'supporting_context'] as const;
 
-	const groupedEntries = roleOrder.map(role => ({
-		role,
-		meta: roleMeta[role],
-		entries: researchLibrary.entries.filter(entry => entry.role === role)
-	}));
+	const groupedEntries = roleOrder
+		.map(role => ({
+			role,
+			meta: roleMeta[role],
+			entries: researchLibrary.entries.filter(entry => entry.role === role)
+		}))
+		.filter(group => group.entries.length > 0);
 </script>
 
 <Seo
@@ -79,11 +81,11 @@
 			<p class="text-xs text-muted-foreground">used directly by the live model</p>
 		</div>
 		<div class={card({ padding: 'sm', variant: 'metric' })}>
-			<p class={microLabel()}>Candidate V5</p>
+			<p class={microLabel()}>Next horizon</p>
 			<p class="mt-1 text-lg font-bold text-foreground">
 				{researchLibrary.role_counts.candidate_v5}
 			</p>
-			<p class="text-xs text-muted-foreground">driving the next model tier</p>
+			<p class="text-xs text-muted-foreground">not yet absorbed into the live model</p>
 		</div>
 		<div class={card({ padding: 'sm', variant: 'metric' })}>
 			<p class={microLabel()}>JSON artifact</p>

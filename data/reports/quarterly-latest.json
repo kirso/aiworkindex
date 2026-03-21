@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-03-21T02:44:40.547Z",
+  "generated_at": "2026-03-21T16:09:26.399Z",
   "current_snapshot": "occupations-v4-2026-03.json",
   "previous_snapshot": "occupations-v3-2026-03.json",
   "total_occupations": 562,
   "band_distribution": {
-    "low": 190,
-    "very_low": 106,
-    "moderate": 109,
-    "high": 106,
-    "very_high": 51
+    "low": 201,
+    "very_low": 87,
+    "moderate": 136,
+    "high": 91,
+    "very_high": 47
   },
   "band_movers": [
     {
@@ -16,77 +16,126 @@
       "title": "Administration manager",
       "from_band": "moderate",
       "to_band": "low",
-      "risk_delta": -0.031
+      "risk_delta": -0.0725
     },
     {
       "ssoc": "12113",
       "title": "Audit manager",
       "from_band": "moderate",
       "to_band": "low",
-      "risk_delta": -0.028700000000000003
+      "risk_delta": -0.0407
     },
     {
       "ssoc": "12111",
       "title": "Budgeting and financial accounting manager (including financial controller)",
       "from_band": "moderate",
       "to_band": "low",
-      "risk_delta": -0.0286
-    },
-    {
-      "ssoc": "12241",
-      "title": "Customer service manager",
-      "from_band": "moderate",
-      "to_band": "high",
-      "risk_delta": 0.021799999999999986
+      "risk_delta": -0.026099999999999998
     },
     {
       "ssoc": "13420",
       "title": "Health services manager",
       "from_band": "moderate",
       "to_band": "low",
-      "risk_delta": -0.03559999999999999
+      "risk_delta": -0.04229999999999999
+    },
+    {
+      "ssoc": "12214",
+      "title": "Merchandising/Category manager",
+      "from_band": "moderate",
+      "to_band": "low",
+      "risk_delta": -0.032799999999999996
+    },
+    {
+      "ssoc": "12215",
+      "title": "Online sales channel manager",
+      "from_band": "moderate",
+      "to_band": "low",
+      "risk_delta": -0.0431
+    },
+    {
+      "ssoc": "12121",
+      "title": "Personnel/Human resource manager",
+      "from_band": "moderate",
+      "to_band": "low",
+      "risk_delta": -0.06279999999999998
+    },
+    {
+      "ssoc": "13244",
+      "title": "Postal service manager",
+      "from_band": "low",
+      "to_band": "very_low",
+      "risk_delta": -0.0191
+    },
+    {
+      "ssoc": "12213",
+      "title": "Regional sales manager",
+      "from_band": "moderate",
+      "to_band": "low",
+      "risk_delta": -0.040699999999999986
+    },
+    {
+      "ssoc": "12211",
+      "title": "Sales manager",
+      "from_band": "moderate",
+      "to_band": "low",
+      "risk_delta": -0.044300000000000006
+    },
+    {
+      "ssoc": "13291",
+      "title": "Technical/Engineering services manager (excluding transport)",
+      "from_band": "low",
+      "to_band": "very_low",
+      "risk_delta": -0.020200000000000003
+    },
+    {
+      "ssoc": "24111",
+      "title": "Accountant (excluding tax accountant)",
+      "from_band": "very_high",
+      "to_band": "high",
+      "risk_delta": -0.04099999999999998
     },
     {
       "ssoc": "25140",
       "title": "Applications/Systems programmer",
       "from_band": "high",
       "to_band": "very_high",
-      "risk_delta": 0.04419999999999996
+      "risk_delta": 0.06349999999999995
     },
     {
       "ssoc": "24112",
       "title": "Auditor (accounting)",
       "from_band": "very_high",
       "to_band": "high",
-      "risk_delta": -0.022599999999999953
-    },
-    {
-      "ssoc": "21491",
-      "title": "Biomedical engineer",
-      "from_band": "moderate",
-      "to_band": "low",
-      "risk_delta": -0.013200000000000017
-    },
-    {
-      "ssoc": "21610",
-      "title": "Building architect",
-      "from_band": "moderate",
-      "to_band": "low",
-      "risk_delta": -0.037699999999999984
+      "risk_delta": -0.041499999999999926
     },
     {
       "ssoc": "21422",
       "title": "Building construction engineer",
       "from_band": "high",
       "to_band": "moderate",
-      "risk_delta": -0.04189999999999999
+      "risk_delta": -0.0844
+    },
+    {
+      "ssoc": "26375",
+      "title": "Career coach (counselling)",
+      "from_band": "low",
+      "to_band": "very_low",
+      "risk_delta": -0.034199999999999994
+    },
+    {
+      "ssoc": "21130",
+      "title": "Chemist",
+      "from_band": "low",
+      "to_band": "moderate",
+      "risk_delta": 0.022400000000000003
     },
     {
       "ssoc": "21421",
       "title": "Civil engineer",
       "from_band": "high",
       "to_band": "moderate",
-      "risk_delta": -0.03839999999999999
+      "risk_delta": -0.09009999999999999
     },
     {
       "ssoc": "25231",
@@ -96,46 +145,53 @@
       "risk_delta": 0.09310000000000002
     },
     {
-      "ssoc": "24311",
-      "title": "Creative advertising professional",
-      "from_band": "moderate",
-      "to_band": "high",
-      "risk_delta": 0.027600000000000013
+      "ssoc": "26373",
+      "title": "Counsellor (family)",
+      "from_band": "low",
+      "to_band": "very_low",
+      "risk_delta": -0.0345
     },
     {
-      "ssoc": "24314",
-      "title": "Digital marketing professional (e.g. online, social media, e-commerce marketing professional)",
-      "from_band": "moderate",
-      "to_band": "high",
-      "risk_delta": 0.0252
+      "ssoc": "22651",
+      "title": "Dietitian",
+      "from_band": "low",
+      "to_band": "very_low",
+      "risk_delta": -0.016100000000000003
     },
     {
       "ssoc": "22632",
       "title": "Environmental officer (public health)",
       "from_band": "low",
       "to_band": "very_low",
-      "risk_delta": -0.012300000000000005
+      "risk_delta": -0.0213
     },
     {
       "ssoc": "21631",
       "title": "Fashion designer",
       "from_band": "moderate",
       "to_band": "low",
-      "risk_delta": -0.013600000000000001
+      "risk_delta": -0.016699999999999993
+    },
+    {
+      "ssoc": "21454",
+      "title": "Food and drink technologist",
+      "from_band": "moderate",
+      "to_band": "low",
+      "risk_delta": -0.07809999999999997
+    },
+    {
+      "ssoc": "24142",
+      "title": "Foreign exchange dealer",
+      "from_band": "high",
+      "to_band": "moderate",
+      "risk_delta": -0.16960000000000003
     },
     {
       "ssoc": "21661",
       "title": "Graphic designer",
       "from_band": "moderate",
       "to_band": "high",
-      "risk_delta": 0.041600000000000026
-    },
-    {
-      "ssoc": "21664",
-      "title": "Interaction designer",
-      "from_band": "moderate",
-      "to_band": "high",
-      "risk_delta": 0.035599999999999965
+      "risk_delta": 0.04090000000000005
     },
     {
       "ssoc": "25232",
@@ -145,11 +201,18 @@
       "risk_delta": 0.10189999999999999
     },
     {
+      "ssoc": "21714",
+      "title": "Marine superintendent",
+      "from_band": "very_low",
+      "to_band": "low",
+      "risk_delta": 0.009899999999999999
+    },
+    {
       "ssoc": "24312",
       "title": "Market research professional",
       "from_band": "moderate",
       "to_band": "high",
-      "risk_delta": 0.02350000000000002
+      "risk_delta": 0.023900000000000032
     },
     {
       "ssoc": "26353",
@@ -163,42 +226,84 @@
       "title": "Minister of religion",
       "from_band": "low",
       "to_band": "very_low",
-      "risk_delta": -0.0226
-    },
-    {
-      "ssoc": "21662",
-      "title": "Multimedia (including games) designer",
-      "from_band": "moderate",
-      "to_band": "high",
-      "risk_delta": 0.04249999999999998
+      "risk_delta": -0.012499999999999997
     },
     {
       "ssoc": "21663",
       "title": "Multimedia artist and animator",
       "from_band": "moderate",
       "to_band": "high",
-      "risk_delta": 0.039400000000000046
+      "risk_delta": 0.05500000000000005
     },
     {
       "ssoc": "25220",
       "title": "Network, servers and computer systems administrator",
       "from_band": "high",
       "to_band": "very_high",
-      "risk_delta": 0.12279999999999996
+      "risk_delta": 0.14079999999999998
+    },
+    {
+      "ssoc": "22652",
+      "title": "Nutritionist",
+      "from_band": "low",
+      "to_band": "very_low",
+      "risk_delta": -0.013600000000000001
+    },
+    {
+      "ssoc": "22631",
+      "title": "Occupational health and safety professional",
+      "from_band": "low",
+      "to_band": "very_low",
+      "risk_delta": -0.026299999999999997
+    },
+    {
+      "ssoc": "24352",
+      "title": "Oil and bunker trader",
+      "from_band": "high",
+      "to_band": "moderate",
+      "risk_delta": -0.0907
+    },
+    {
+      "ssoc": "21512",
+      "title": "Power generation and distribution engineer",
+      "from_band": "moderate",
+      "to_band": "low",
+      "risk_delta": -0.0655
     },
     {
       "ssoc": "21498",
       "title": "Procurement engineer",
       "from_band": "moderate",
       "to_band": "low",
-      "risk_delta": -0.008300000000000002
+      "risk_delta": -0.007599999999999996
     },
     {
       "ssoc": "21632",
       "title": "Product and industrial designer",
       "from_band": "moderate",
       "to_band": "low",
-      "risk_delta": -0.008099999999999996
+      "risk_delta": -0.0286
+    },
+    {
+      "ssoc": "21494",
+      "title": "Quantity surveyor",
+      "from_band": "moderate",
+      "to_band": "low",
+      "risk_delta": -0.0348
+    },
+    {
+      "ssoc": "24141",
+      "title": "Securities and finance dealer",
+      "from_band": "high",
+      "to_band": "moderate",
+      "risk_delta": -0.1693
+    },
+    {
+      "ssoc": "24353",
+      "title": "Ship charterer",
+      "from_band": "high",
+      "to_band": "moderate",
+      "risk_delta": -0.09339999999999998
     },
     {
       "ssoc": "26351",
@@ -212,84 +317,126 @@
       "title": "Technical writer",
       "from_band": "high",
       "to_band": "very_high",
-      "risk_delta": 0.09910000000000002
+      "risk_delta": 0.10570000000000007
     },
     {
       "ssoc": "23300",
       "title": "Technical/Vocational/Commercial education institute teacher and trainer",
       "from_band": "low",
       "to_band": "very_low",
-      "risk_delta": -0.0162
+      "risk_delta": -0.012399999999999994
     },
     {
       "ssoc": "21532",
       "title": "Telecommunications engineer",
       "from_band": "high",
       "to_band": "very_high",
-      "risk_delta": 0.05049999999999999
+      "risk_delta": 0.04259999999999997
     },
     {
       "ssoc": "24134",
       "title": "Treasury manager",
       "from_band": "very_high",
       "to_band": "high",
-      "risk_delta": -0.03179999999999994
+      "risk_delta": -0.08459999999999995
+    },
+    {
+      "ssoc": "21641",
+      "title": "Urban planner",
+      "from_band": "moderate",
+      "to_band": "low",
+      "risk_delta": -0.07419999999999999
+    },
+    {
+      "ssoc": "33392",
+      "title": "Advertising salesman",
+      "from_band": "high",
+      "to_band": "moderate",
+      "risk_delta": -0.01940000000000003
     },
     {
       "ssoc": "34210",
       "title": "Athlete/Sportsman",
       "from_band": "moderate",
       "to_band": "low",
-      "risk_delta": -0.028499999999999998
+      "risk_delta": -0.06449999999999999
     },
     {
       "ssoc": "31143",
       "title": "Audio and video equipment technician",
       "from_band": "low",
       "to_band": "moderate",
-      "risk_delta": 0.03920000000000001
+      "risk_delta": 0.03360000000000002
     },
     {
-      "ssoc": "32530",
-      "title": "Community health worker",
+      "ssoc": "31212",
+      "title": "Automotive engineering technician",
       "from_band": "low",
       "to_band": "moderate",
-      "risk_delta": 0.020000000000000018
+      "risk_delta": 0.0358
     },
     {
-      "ssoc": "31141",
-      "title": "Electronics engineering technician",
-      "from_band": "low",
+      "ssoc": "31161",
+      "title": "Chemical engineering technician",
+      "from_band": "high",
       "to_band": "moderate",
-      "risk_delta": 0.0401
+      "risk_delta": -0.07769999999999999
     },
     {
-      "ssoc": "33330",
-      "title": "Employment agent/Labour contractor",
-      "from_band": "very_high",
+      "ssoc": "31163",
+      "title": "Chemical engineering technician (petrochemicals)",
+      "from_band": "high",
+      "to_band": "moderate",
+      "risk_delta": -0.0739
+    },
+    {
+      "ssoc": "31111",
+      "title": "Chemistry technician",
+      "from_band": "moderate",
       "to_band": "high",
-      "risk_delta": -0.17110000000000003
+      "risk_delta": 0.055300000000000016
+    },
+    {
+      "ssoc": "35110",
+      "title": "Computer systems operator",
+      "from_band": "high",
+      "to_band": "very_high",
+      "risk_delta": 0.10769999999999996
+    },
+    {
+      "ssoc": "33493",
+      "title": "Crewing executive (ship)",
+      "from_band": "high",
+      "to_band": "moderate",
+      "risk_delta": -0.08310000000000001
     },
     {
       "ssoc": "32571",
       "title": "Environmental inspector (environmental public health)",
       "from_band": "low",
       "to_band": "moderate",
-      "risk_delta": 0.02880000000000002
+      "risk_delta": 0.065
     },
     {
-      "ssoc": "31144",
-      "title": "Instrumentation technician",
-      "from_band": "low",
+      "ssoc": "33320",
+      "title": "Exhibition/Conference/Event planner (including wedding planner/coordinator)",
+      "from_band": "high",
       "to_band": "moderate",
-      "risk_delta": 0.03449999999999999
+      "risk_delta": -0.033499999999999974
     },
     {
-      "ssoc": "34321",
-      "title": "Interior designer",
+      "ssoc": "33121",
+      "title": "Financial markets back office administrator",
+      "from_band": "very_high",
+      "to_band": "high",
+      "risk_delta": -0.12769999999999998
+    },
+    {
+      "ssoc": "33393",
+      "title": "International market agent/representative (e.g. junket operator)",
       "from_band": "moderate",
       "to_band": "high",
-      "risk_delta": 0.0928
+      "risk_delta": 0.01849999999999996
     },
     {
       "ssoc": "35121",
@@ -299,13 +446,6 @@
       "risk_delta": 0.14540000000000003
     },
     {
-      "ssoc": "35122",
-      "title": "IT security technician",
-      "from_band": "moderate",
-      "to_band": "high",
-      "risk_delta": 0.12279999999999996
-    },
-    {
       "ssoc": "35123",
       "title": "IT support technician (including IT user helpdesk technician)",
       "from_band": "moderate",
@@ -313,25 +453,25 @@
       "risk_delta": 0.13380000000000003
     },
     {
-      "ssoc": "33462",
-      "title": "Maintenance planner",
-      "from_band": "moderate",
-      "to_band": "high",
-      "risk_delta": 0.032999999999999974
+      "ssoc": "31123",
+      "title": "Land surveying technician",
+      "from_band": "low",
+      "to_band": "moderate",
+      "risk_delta": 0.024899999999999978
+    },
+    {
+      "ssoc": "31595",
+      "title": "Load control officer (aircraft)",
+      "from_band": "low",
+      "to_band": "moderate",
+      "risk_delta": 0.0698
     },
     {
       "ssoc": "35211",
       "title": "Media and broadcasting operations technician",
       "from_band": "moderate",
       "to_band": "high",
-      "risk_delta": 0.08199999999999996
-    },
-    {
-      "ssoc": "32572",
-      "title": "Occupational health and safety inspector",
-      "from_band": "low",
-      "to_band": "moderate",
-      "risk_delta": 0.02990000000000001
+      "risk_delta": 0.1261
     },
     {
       "ssoc": "32591",
@@ -341,39 +481,46 @@
       "risk_delta": 0.040200000000000014
     },
     {
-      "ssoc": "33340",
-      "title": "Real estate agent",
-      "from_band": "moderate",
+      "ssoc": "31574",
+      "title": "Port/Shipping operations supervisor (including post-fixture and planner)",
+      "from_band": "very_low",
       "to_band": "low",
-      "risk_delta": -0.017499999999999988
+      "risk_delta": 0.028100000000000007
     },
     {
-      "ssoc": "33394",
-      "title": "Safety and security consultant",
-      "from_band": "moderate",
-      "to_band": "high",
-      "risk_delta": 0.01050000000000001
+      "ssoc": "36100",
+      "title": "Pre-primary education teacher",
+      "from_band": "very_low",
+      "to_band": "low",
+      "risk_delta": 0.008899999999999998
     },
     {
-      "ssoc": "32400",
-      "title": "Veterinary technician/assistant",
+      "ssoc": "31175",
+      "title": "Quality assurance technician",
       "from_band": "low",
       "to_band": "moderate",
-      "risk_delta": 0.0116
+      "risk_delta": 0.0696
+    },
+    {
+      "ssoc": "31124",
+      "title": "Resident technical officer",
+      "from_band": "low",
+      "to_band": "moderate",
+      "risk_delta": 0.027600000000000013
+    },
+    {
+      "ssoc": "35220",
+      "title": "Telecommunications technician",
+      "from_band": "low",
+      "to_band": "moderate",
+      "risk_delta": 0.1005
     },
     {
       "ssoc": "35212",
       "title": "Video camera operator",
       "from_band": "moderate",
       "to_band": "high",
-      "risk_delta": 0.0791
-    },
-    {
-      "ssoc": "34323",
-      "title": "Visual merchandiser",
-      "from_band": "moderate",
-      "to_band": "high",
-      "risk_delta": 0.09179999999999999
+      "risk_delta": 0.10969999999999996
     },
     {
       "ssoc": "35140",
@@ -387,21 +534,42 @@
       "title": "Air transport clerk",
       "from_band": "moderate",
       "to_band": "high",
-      "risk_delta": 0.09089999999999998
+      "risk_delta": 0.132
     },
     {
       "ssoc": "43232",
       "title": "Land transport clerk",
       "from_band": "moderate",
       "to_band": "high",
-      "risk_delta": 0.09189999999999998
+      "risk_delta": 0.13169999999999998
     },
     {
-      "ssoc": "43221",
-      "title": "Material planning clerk",
-      "from_band": "moderate",
+      "ssoc": "43112",
+      "title": "Ledger and accounts clerk",
+      "from_band": "very_high",
       "to_band": "high",
-      "risk_delta": 0.07319999999999999
+      "risk_delta": -0.10450000000000004
+    },
+    {
+      "ssoc": "44170",
+      "title": "Legal clerk",
+      "from_band": "very_high",
+      "to_band": "high",
+      "risk_delta": -0.017600000000000005
+    },
+    {
+      "ssoc": "43114",
+      "title": "Payroll/Wages clerk",
+      "from_band": "very_high",
+      "to_band": "high",
+      "risk_delta": -0.09280000000000005
+    },
+    {
+      "ssoc": "41102",
+      "title": "Personnel/Human resource clerk",
+      "from_band": "very_high",
+      "to_band": "high",
+      "risk_delta": -0.17919999999999997
     },
     {
       "ssoc": "44122",
@@ -411,25 +579,11 @@
       "risk_delta": 0.136
     },
     {
-      "ssoc": "43222",
-      "title": "Production planning clerk",
-      "from_band": "moderate",
-      "to_band": "high",
-      "risk_delta": 0.07309999999999997
-    },
-    {
       "ssoc": "44191",
       "title": "Proofreading clerk",
       "from_band": "high",
       "to_band": "very_high",
-      "risk_delta": 0.19109999999999994
-    },
-    {
-      "ssoc": "43231",
-      "title": "Shipping clerk",
-      "from_band": "moderate",
-      "to_band": "high",
-      "risk_delta": 0.09239999999999998
+      "risk_delta": 0.20650000000000002
     },
     {
       "ssoc": "43211",
@@ -446,53 +600,74 @@
       "risk_delta": 0.0926
     },
     {
+      "ssoc": "54123",
+      "title": "Auxiliary police officer",
+      "from_band": "very_low",
+      "to_band": "low",
+      "risk_delta": 0.0284
+    },
+    {
       "ssoc": "51702",
       "title": "Bookmaker/Croupier/Casino dealer and related gaming worker",
       "from_band": "high",
       "to_band": "moderate",
-      "risk_delta": -0.06440000000000001
+      "risk_delta": -0.10120000000000001
+    },
+    {
+      "ssoc": "51112",
+      "title": "Cabin attendant/steward",
+      "from_band": "moderate",
+      "to_band": "low",
+      "risk_delta": -0.031700000000000006
     },
     {
       "ssoc": "52301",
       "title": "Cage/Count supervisor",
       "from_band": "moderate",
       "to_band": "high",
-      "risk_delta": 0.05299999999999999
-    },
-    {
-      "ssoc": "51311",
-      "title": "Captain waiter/Waiter supervisor",
-      "from_band": "low",
-      "to_band": "moderate",
-      "risk_delta": 0.02919999999999999
+      "risk_delta": 0.1356
     },
     {
       "ssoc": "52302",
       "title": "Cashier (general)",
       "from_band": "moderate",
       "to_band": "high",
-      "risk_delta": 0.06489999999999996
+      "risk_delta": 0.08699999999999997
     },
     {
-      "ssoc": "51502",
-      "title": "House steward",
+      "ssoc": "51950",
+      "title": "Driving instructor/tester",
       "from_band": "very_low",
       "to_band": "low",
-      "risk_delta": 0.007600000000000003
+      "risk_delta": 0.08660000000000001
+    },
+    {
+      "ssoc": "51501",
+      "title": "Housekeeper (hotels and other establishments)",
+      "from_band": "very_low",
+      "to_band": "low",
+      "risk_delta": 0.015300000000000001
+    },
+    {
+      "ssoc": "51942",
+      "title": "Keeper/Trainer in zoological, bird and aquatic parks",
+      "from_band": "low",
+      "to_band": "moderate",
+      "risk_delta": 0.0892
     },
     {
       "ssoc": "52421",
       "title": "Sales demonstrator",
       "from_band": "low",
       "to_band": "moderate",
-      "risk_delta": 0.1526
+      "risk_delta": 0.20799999999999996
     },
     {
       "ssoc": "52422",
       "title": "Salesperson (door-to-door)",
       "from_band": "low",
-      "to_band": "moderate",
-      "risk_delta": 0.1457
+      "to_band": "high",
+      "risk_delta": 0.2861
     },
     {
       "ssoc": "51312",
@@ -506,7 +681,7 @@
       "title": "Aquarium fish farm worker",
       "from_band": "very_low",
       "to_band": "low",
-      "risk_delta": 0.0426
+      "risk_delta": 0.059800000000000006
     },
     {
       "ssoc": "61133",
@@ -520,35 +695,42 @@
       "title": "Landscape and plant nursery supervisor",
       "from_band": "moderate",
       "to_band": "low",
-      "risk_delta": -0.040900000000000006
+      "risk_delta": -0.04680000000000001
     },
     {
       "ssoc": "71271",
       "title": "Air-conditioning/Refrigeration equipment mechanic",
       "from_band": "very_low",
       "to_band": "low",
-      "risk_delta": 0.011999999999999997
+      "risk_delta": 0.033800000000000004
     },
     {
-      "ssoc": "75121",
-      "title": "Baker",
-      "from_band": "moderate",
+      "ssoc": "72310",
+      "title": "Automotive mechanic",
+      "from_band": "very_low",
       "to_band": "low",
-      "risk_delta": -0.017199999999999993
+      "risk_delta": 0.015
+    },
+    {
+      "ssoc": "71311",
+      "title": "Building painter",
+      "from_band": "high",
+      "to_band": "moderate",
+      "risk_delta": -0.0867
     },
     {
       "ssoc": "71220",
       "title": "Floor/Wall tiler",
       "from_band": "very_low",
       "to_band": "low",
-      "risk_delta": 0.008599999999999997
+      "risk_delta": 0.048100000000000004
     },
     {
-      "ssoc": "75122",
-      "title": "Pastry and confectionery maker",
-      "from_band": "moderate",
-      "to_band": "low",
-      "risk_delta": -0.01680000000000001
+      "ssoc": "75440",
+      "title": "Fumigator and other pest and weed controller",
+      "from_band": "low",
+      "to_band": "moderate",
+      "risk_delta": 0.154
     },
     {
       "ssoc": "73210",
@@ -558,146 +740,307 @@
       "risk_delta": 0.08129999999999998
     },
     {
-      "ssoc": "73111",
-      "title": "Watch and clock assembler/repairer",
-      "from_band": "moderate",
+      "ssoc": "75310",
+      "title": "Tailor/Dressmaker",
+      "from_band": "low",
+      "to_band": "moderate",
+      "risk_delta": 0.06760000000000001
+    },
+    {
+      "ssoc": "83492",
+      "title": "Airport mobile equipment operator",
+      "from_band": "very_low",
       "to_band": "low",
-      "risk_delta": -0.038000000000000006
+      "risk_delta": 0.027800000000000002
+    },
+    {
+      "ssoc": "83432",
+      "title": "Crane operator (on-site)",
+      "from_band": "very_low",
+      "to_band": "low",
+      "risk_delta": 0.0242
+    },
+    {
+      "ssoc": "83431",
+      "title": "Crane/Hoist operator (excluding port)",
+      "from_band": "very_low",
+      "to_band": "low",
+      "risk_delta": 0.0222
+    },
+    {
+      "ssoc": "81602",
+      "title": "Dairy and confectionery products machine operator",
+      "from_band": "low",
+      "to_band": "moderate",
+      "risk_delta": 0.06069999999999999
     },
     {
       "ssoc": "83212",
       "title": "Delivery man using motorised personal mobility aids/devices",
       "from_band": "low",
       "to_band": "moderate",
-      "risk_delta": 0.056599999999999984
+      "risk_delta": 0.15349999999999997
+    },
+    {
+      "ssoc": "82122",
+      "title": "Electronic equipment/component assembler",
+      "from_band": "low",
+      "to_band": "moderate",
+      "risk_delta": 0.1198
+    },
+    {
+      "ssoc": "83421",
+      "title": "Excavating/Trench digging machine operator",
+      "from_band": "very_low",
+      "to_band": "low",
+      "risk_delta": 0.015900000000000004
     },
     {
       "ssoc": "83441",
       "title": "Fork lift truck operator",
       "from_band": "very_low",
       "to_band": "low",
-      "risk_delta": 0.0324
+      "risk_delta": 0.0644
     },
     {
       "ssoc": "82110",
       "title": "Mechanical equipment/component assembler",
       "from_band": "low",
       "to_band": "moderate",
-      "risk_delta": 0.06
+      "risk_delta": 0.051699999999999996
     },
     {
       "ssoc": "82132",
       "title": "Mechanical products quality checker and tester",
       "from_band": "low",
-      "to_band": "moderate",
-      "risk_delta": 0.0398
+      "to_band": "high",
+      "risk_delta": 0.1741
     },
     {
       "ssoc": "83000",
       "title": "Mobile machinery supervisor and general foreman",
       "from_band": "very_low",
       "to_band": "low",
-      "risk_delta": 0.0516
+      "risk_delta": 0.07719999999999999
     },
     {
       "ssoc": "83211",
       "title": "Motorcycle delivery man",
       "from_band": "low",
       "to_band": "moderate",
-      "risk_delta": 0.05310000000000001
+      "risk_delta": 0.05529999999999999
+    },
+    {
+      "ssoc": "81252",
+      "title": "Precision grinding machine setter-operator",
+      "from_band": "low",
+      "to_band": "moderate",
+      "risk_delta": 0.10279999999999999
+    },
+    {
+      "ssoc": "83110",
+      "title": "Train operator",
+      "from_band": "very_low",
+      "to_band": "low",
+      "risk_delta": 0.0249
+    },
+    {
+      "ssoc": "83324",
+      "title": "Waste truck driver (including hooklift trucks with roll-on containers)",
+      "from_band": "low",
+      "to_band": "moderate",
+      "risk_delta": 0.05360000000000001
     },
     {
       "ssoc": "96211",
       "title": "Bell captain",
       "from_band": "low",
       "to_band": "moderate",
-      "risk_delta": 0.09740000000000001
+      "risk_delta": 0.08080000000000001
     },
     {
       "ssoc": "96212",
       "title": "Bellboy/Hotel porter",
       "from_band": "low",
       "to_band": "moderate",
-      "risk_delta": 0.0973
+      "risk_delta": 0.1345
     },
     {
-      "ssoc": "94103",
-      "title": "Fast food preparer",
-      "from_band": "moderate",
+      "ssoc": "93100",
+      "title": "Civil engineering/Building construction labourer",
+      "from_band": "very_low",
       "to_band": "low",
-      "risk_delta": -0.02059999999999998
+      "risk_delta": 0.0505
     },
     {
-      "ssoc": "94102",
-      "title": "Food/Drink stall assistant",
-      "from_band": "moderate",
+      "ssoc": "91153",
+      "title": "Dishwasher",
+      "from_band": "very_low",
       "to_band": "low",
-      "risk_delta": -0.02099999999999999
+      "risk_delta": 0.0643
+    },
+    {
+      "ssoc": "91151",
+      "title": "Food and beverage establishments general cleaner",
+      "from_band": "very_low",
+      "to_band": "low",
+      "risk_delta": 0.061700000000000005
     },
     {
       "ssoc": "96111",
       "title": "General waste collection, recycling and material recovery worker",
       "from_band": "very_low",
       "to_band": "low",
-      "risk_delta": 0.008899999999999998
+      "risk_delta": 0.0476
+    },
+    {
+      "ssoc": "91210",
+      "title": "Hand launderer/presser (non-household)",
+      "from_band": "very_low",
+      "to_band": "low",
+      "risk_delta": 0.0563
     },
     {
       "ssoc": "93201",
       "title": "Hand packer",
       "from_band": "very_low",
       "to_band": "low",
-      "risk_delta": 0.0242
+      "risk_delta": 0.0743
+    },
+    {
+      "ssoc": "91122",
+      "title": "Hotel cleaner",
+      "from_band": "very_low",
+      "to_band": "low",
+      "risk_delta": 0.04820000000000001
+    },
+    {
+      "ssoc": "91121",
+      "title": "Housekeeping/Linen room attendant",
+      "from_band": "very_low",
+      "to_band": "low",
+      "risk_delta": 0.04819999999999999
+    },
+    {
+      "ssoc": "92142",
+      "title": "Landscape worker",
+      "from_band": "very_low",
+      "to_band": "low",
+      "risk_delta": 0.04359999999999999
     },
     {
       "ssoc": "91220",
       "title": "Motor vehicle cleaner/polisher",
       "from_band": "very_low",
       "to_band": "low",
-      "risk_delta": 0.009099999999999997
+      "risk_delta": 0.06939999999999999
+    },
+    {
+      "ssoc": "93336",
+      "title": "Mover",
+      "from_band": "very_low",
+      "to_band": "low",
+      "risk_delta": 0.061700000000000005
+    },
+    {
+      "ssoc": "96293",
+      "title": "Odd job person",
+      "from_band": "low",
+      "to_band": "moderate",
+      "risk_delta": 0.15810000000000002
+    },
+    {
+      "ssoc": "91131",
+      "title": "Office, commercial and industrial establishments indoor cleaner",
+      "from_band": "very_low",
+      "to_band": "low",
+      "risk_delta": 0.0894
+    },
+    {
+      "ssoc": "91133",
+      "title": "Office, commercial and industrial establishments multi-skilled cleaner cum machine operator",
+      "from_band": "very_low",
+      "to_band": "low",
+      "risk_delta": 0.07850000000000001
+    },
+    {
+      "ssoc": "91132",
+      "title": "Office, commercial and industrial establishments outdoor cleaner",
+      "from_band": "very_low",
+      "to_band": "low",
+      "risk_delta": 0.08430000000000001
     },
     {
       "ssoc": "96213",
       "title": "Porter (except hotel)",
       "from_band": "low",
       "to_band": "moderate",
-      "risk_delta": 0.0996
+      "risk_delta": 0.13770000000000002
     },
     {
-      "ssoc": "94104",
-      "title": "Tea server/steward (excluding bartender, barista and food/drink stall assistant)",
-      "from_band": "moderate",
+      "ssoc": "91161",
+      "title": "Residential and open areas general cleaner",
+      "from_band": "very_low",
       "to_band": "low",
-      "risk_delta": -0.019799999999999984
+      "risk_delta": 0.1071
+    },
+    {
+      "ssoc": "91152",
+      "title": "Table-top cleaner",
+      "from_band": "very_low",
+      "to_band": "low",
+      "risk_delta": 0.0693
+    },
+    {
+      "ssoc": "92141",
+      "title": "Tree worker/technician",
+      "from_band": "very_low",
+      "to_band": "low",
+      "risk_delta": 0.048100000000000004
+    },
+    {
+      "ssoc": "93335",
+      "title": "Vehicle attendant",
+      "from_band": "very_low",
+      "to_band": "low",
+      "risk_delta": 0.0656
     },
     {
       "ssoc": "96112",
       "title": "Waste recycling sorter",
       "from_band": "very_low",
       "to_band": "low",
-      "risk_delta": 0.009500000000000001
+      "risk_delta": 0.0791
     }
   ],
   "top_risers": [
     {
+      "ssoc": "52422",
+      "title": "Salesperson (door-to-door)",
+      "old_risk": 0.0637,
+      "new_risk": 0.3498,
+      "delta": 0.2861
+    },
+    {
+      "ssoc": "52421",
+      "title": "Sales demonstrator",
+      "old_risk": 0.0664,
+      "new_risk": 0.2744,
+      "delta": 0.20799999999999996
+    },
+    {
       "ssoc": "44191",
       "title": "Proofreading clerk",
       "old_risk": 0.3859,
-      "new_risk": 0.577,
-      "delta": 0.19109999999999994
+      "new_risk": 0.5924,
+      "delta": 0.20650000000000002
     },
     {
-      "ssoc": "41320",
-      "title": "Data entry clerk",
-      "old_risk": 0.5517,
-      "new_risk": 0.7407,
-      "delta": 0.18900000000000006
-    },
-    {
-      "ssoc": "44110",
-      "title": "Library clerk",
-      "old_risk": 0.3209,
-      "new_risk": 0.4926,
-      "delta": 0.17169999999999996
+      "ssoc": "82132",
+      "title": "Mechanical products quality checker and tester",
+      "old_risk": 0.1449,
+      "new_risk": 0.319,
+      "delta": 0.1741
     },
     {
       "ssoc": "35140",
@@ -707,25 +1050,25 @@
       "delta": 0.1602
     },
     {
-      "ssoc": "52421",
-      "title": "Sales demonstrator",
-      "old_risk": 0.0664,
-      "new_risk": 0.219,
-      "delta": 0.1526
+      "ssoc": "96293",
+      "title": "Odd job person",
+      "old_risk": 0.0639,
+      "new_risk": 0.222,
+      "delta": 0.15810000000000002
     },
     {
-      "ssoc": "43151",
-      "title": "Data processing control clerk",
-      "old_risk": 0.5273,
-      "new_risk": 0.6746,
-      "delta": 0.1473
+      "ssoc": "75440",
+      "title": "Fumigator and other pest and weed controller",
+      "old_risk": 0.0564,
+      "new_risk": 0.2104,
+      "delta": 0.154
     },
     {
-      "ssoc": "52422",
-      "title": "Salesperson (door-to-door)",
-      "old_risk": 0.0637,
-      "new_risk": 0.2094,
-      "delta": 0.1457
+      "ssoc": "83212",
+      "title": "Delivery man using motorised personal mobility aids/devices",
+      "old_risk": 0.1033,
+      "new_risk": 0.2568,
+      "delta": 0.15349999999999997
     },
     {
       "ssoc": "35121",
@@ -735,90 +1078,83 @@
       "delta": 0.14540000000000003
     },
     {
-      "ssoc": "42111",
-      "title": "Bank teller",
-      "old_risk": 0.3206,
-      "new_risk": 0.4597,
-      "delta": 0.1391
-    },
-    {
-      "ssoc": "42112",
-      "title": "Postal service counter clerk",
-      "old_risk": 0.3354,
-      "new_risk": 0.4728,
-      "delta": 0.13740000000000002
+      "ssoc": "25220",
+      "title": "Network, servers and computer systems administrator",
+      "old_risk": 0.3965,
+      "new_risk": 0.5373,
+      "delta": 0.14079999999999998
     }
   ],
   "top_fallers": [
     {
-      "ssoc": "33330",
-      "title": "Employment agent/Labour contractor",
-      "old_risk": 0.6632,
-      "new_risk": 0.4921,
-      "delta": -0.17110000000000003
-    },
-    {
-      "ssoc": "53120",
-      "title": "Teacher aide",
-      "old_risk": 0.2382,
-      "new_risk": 0.1714,
-      "delta": -0.0668
-    },
-    {
-      "ssoc": "51702",
-      "title": "Bookmaker/Croupier/Casino dealer and related gaming worker",
-      "old_risk": 0.3037,
-      "new_risk": 0.2393,
-      "delta": -0.06440000000000001
-    },
-    {
-      "ssoc": "24141",
-      "title": "Securities and finance dealer",
-      "old_risk": 0.4253,
-      "new_risk": 0.371,
-      "delta": -0.054300000000000015
+      "ssoc": "41102",
+      "title": "Personnel/Human resource clerk",
+      "old_risk": 0.6252,
+      "new_risk": 0.446,
+      "delta": -0.17919999999999997
     },
     {
       "ssoc": "24142",
       "title": "Foreign exchange dealer",
       "old_risk": 0.4172,
-      "new_risk": 0.364,
-      "delta": -0.053200000000000025
+      "new_risk": 0.2476,
+      "delta": -0.16960000000000003
     },
     {
-      "ssoc": "61133",
-      "title": "Gardener and horticultural worker",
-      "old_risk": 0.1715,
-      "new_risk": 0.1264,
-      "delta": -0.0451
+      "ssoc": "24141",
+      "title": "Securities and finance dealer",
+      "old_risk": 0.4253,
+      "new_risk": 0.256,
+      "delta": -0.1693
     },
     {
-      "ssoc": "21422",
-      "title": "Building construction engineer",
-      "old_risk": 0.3184,
-      "new_risk": 0.2765,
-      "delta": -0.04189999999999999
+      "ssoc": "36910",
+      "title": "Private tutor (academic)",
+      "old_risk": 0.4703,
+      "new_risk": 0.3316,
+      "delta": -0.1387
     },
     {
-      "ssoc": "33133",
-      "title": "Tax associate professional",
-      "old_risk": 0.5818,
-      "new_risk": 0.5403,
-      "delta": -0.04149999999999998
-    },
-    {
-      "ssoc": "61131",
-      "title": "Landscape and plant nursery supervisor",
-      "old_risk": 0.1554,
-      "new_risk": 0.1145,
-      "delta": -0.040900000000000006
+      "ssoc": "33330",
+      "title": "Employment agent/Labour contractor",
+      "old_risk": 0.6632,
+      "new_risk": 0.5282,
+      "delta": -0.135
     },
     {
       "ssoc": "34110",
       "title": "Legal associate professional (e.g. paralegal)",
       "old_risk": 0.6691,
-      "new_risk": 0.6286,
-      "delta": -0.04049999999999998
+      "new_risk": 0.5351,
+      "delta": -0.134
+    },
+    {
+      "ssoc": "33121",
+      "title": "Financial markets back office administrator",
+      "old_risk": 0.6,
+      "new_risk": 0.4723,
+      "delta": -0.12769999999999998
+    },
+    {
+      "ssoc": "24220",
+      "title": "Policy administration professional (e.g. policy analyst)",
+      "old_risk": 0.4518,
+      "new_risk": 0.3465,
+      "delta": -0.1053
+    },
+    {
+      "ssoc": "43112",
+      "title": "Ledger and accounts clerk",
+      "old_risk": 0.5964,
+      "new_risk": 0.4919,
+      "delta": -0.10450000000000004
+    },
+    {
+      "ssoc": "51702",
+      "title": "Bookmaker/Croupier/Casino dealer and related gaming worker",
+      "old_risk": 0.3037,
+      "new_risk": 0.2025,
+      "delta": -0.10120000000000001
     }
   ],
   "demand_changes": {
@@ -896,15 +1232,15 @@
     ]
   },
   "summary": {
-    "band_mover_count": 95,
+    "band_mover_count": 143,
     "positive_drift_count": 10,
     "negative_drift_count": 10
   },
   "briefing": {
     "what_changed": [
-      "95 occupations changed risk band between occupations-v3-2026-03.json and occupations-v4-2026-03.json.",
+      "143 occupations changed risk band between occupations-v3-2026-03.json and occupations-v4-2026-03.json.",
       "Production & Transport Operators, Cleaners & Labourers saw the strongest vacancy pickup while Clerical, Sales & Service Workers saw the sharpest vacancy cooling in the live labour monitor.",
-      "Top structural riser: Proofreading clerk. Top structural faller: Employment agent/Labour contractor."
+      "Top structural riser: Salesperson (door-to-door). Top structural faller: Personnel/Human resource clerk."
     ],
     "why_it_matters": [
       "Clerical, Sales & Service Workers now reads as deteriorating, which means structural pressure is landing on a weaker live labour backdrop for that family of work.",

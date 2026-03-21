@@ -16,6 +16,10 @@ const ROOT_DIR = path.join(import.meta.dir, '..');
 const STATIC_DATA_DIR = path.join(ROOT_DIR, 'static', 'data');
 const SRC_DATA_DIR = path.join(ROOT_DIR, 'src', 'lib', 'data');
 const OUT_FILE = path.join(STATIC_DATA_DIR, 'release-manifest-v4.json');
+const VERSIONED_OUT_FILE = path.join(
+	STATIC_DATA_DIR,
+	`release-manifest-${DATA_VINTAGE.model_version.toLowerCase().replaceAll('.', '')}.json`
+);
 const SRC_OUT_FILE = path.join(SRC_DATA_DIR, 'release-manifest.json');
 
 interface ReleaseArtifactDefinition {
@@ -35,22 +39,63 @@ interface ReleaseArtifactDefinition {
 		| 'transition_infrastructure'
 		| 'governance'
 		| 'research_memory'
-		| 'shadow_model';
+		| 'shadow_model'
+		| 'v5_sidecar'
+		| 'v5_experimental_model'
+		| 'roadmap';
 	description: string;
 }
 
 const ARTIFACTS: ReleaseArtifactDefinition[] = [
 	{
 		file: 'sg-ai-occupations-v4.csv',
-		label: 'V4 structural score CSV',
+		label: `${DATA_VINTAGE.model_version} structural score CSV`,
 		category: 'structural_score',
 		description: 'Flattened structural score dataset with basis and provenance columns.'
 	},
 	{
 		file: 'sg-ai-occupations-v4.json',
-		label: 'V4 structural score JSON',
+		label: `${DATA_VINTAGE.model_version} structural score JSON`,
 		category: 'structural_score',
 		description: 'Nested structural score dataset with basis and provenance metadata.'
+	},
+	{
+		file: 'sg-ai-occupations-v43.csv',
+		label: 'V4.3 structural score CSV snapshot',
+		category: 'structural_score',
+		description: 'Versioned CSV snapshot for the retained V4.3 structural release.'
+	},
+	{
+		file: 'sg-ai-occupations-v43.json',
+		label: 'V4.3 structural score JSON snapshot',
+		category: 'structural_score',
+		description: 'Versioned JSON snapshot for the retained V4.3 structural release.'
+	},
+	{
+		file: 'sg-ai-occupations-v5.csv',
+		label: 'V5 structural score CSV snapshot',
+		category: 'structural_score',
+		description:
+			'Versioned CSV snapshot for the promoted V5 live structural release with transition-adjusted and realized-risk adjunct fields.'
+	},
+	{
+		file: 'sg-ai-occupations-v5.json',
+		label: 'V5 structural score JSON snapshot',
+		category: 'structural_score',
+		description:
+			'Versioned JSON snapshot for the promoted V5 live structural release with transition-adjusted and realized-risk adjunct fields.'
+	},
+	{
+		file: 'sg-ai-occupations-v42.csv',
+		label: 'V4.2 structural score CSV snapshot',
+		category: 'structural_score',
+		description: 'Historical CSV snapshot for the retained V4.2 pre-promotion baseline.'
+	},
+	{
+		file: 'sg-ai-occupations-v42.json',
+		label: 'V4.2 structural score JSON snapshot',
+		category: 'structural_score',
+		description: 'Historical JSON snapshot for the retained V4.2 pre-promotion baseline.'
 	},
 	{
 		file: 'onet-enrichment.json',
@@ -132,28 +177,28 @@ const ARTIFACTS: ReleaseArtifactDefinition[] = [
 		label: 'V4.3 shadow-model readiness',
 		category: 'governance',
 		description:
-			'Governance artifact for the task-weighted shadow model, including input readiness, promotion gates, and known blockers.'
+			'Governance artifact for the V4.3 shadow model, including readiness, promotion gates, and promoted/live state.'
 	},
 	{
 		file: 'shadow-scores-v43.json',
 		label: 'V4.3 shadow scores',
 		category: 'shadow_model',
 		description:
-			'Per-occupation task-adjusted shadow scores published alongside the live V4.2 baseline for comparison and promotion review.'
+			'Per-occupation task-adjusted shadow scores retained for comparison against the earlier V4.2 baseline.'
 	},
 	{
 		file: 'shadow-comparison-v43.json',
 		label: 'V4.3 shadow comparison summary',
 		category: 'shadow_model',
 		description:
-			'Summary of task-native eligibility, score deltas, band flips, and anchor-review counts versus the live V4.2 baseline.'
+			'Summary of task-native eligibility, score deltas, band flips, and anchor-review counts versus the earlier live V4.2 baseline.'
 	},
 	{
 		file: 'shadow-validation-v43.json',
 		label: 'V4.3 shadow validation comparison',
 		category: 'shadow_model',
 		description:
-			'Comparison of the published shadow scores against the live validation benchmarks used for headline promotion review.'
+			'Comparison of the published shadow scores against the validation benchmarks from the pre-promotion V4.2 live release.'
 	},
 	{
 		file: 'shadow-anchor-review-v43.json',
@@ -168,6 +213,62 @@ const ARTIFACTS: ReleaseArtifactDefinition[] = [
 		category: 'research_memory',
 		description:
 			'Machine-readable registry of the academic papers, reports, and datasets cited by the methodology, validation, and V5 roadmap.'
+	},
+	{
+		file: 'v5-roadmap.json',
+		label: 'V5 roadmap',
+		category: 'roadmap',
+		description:
+			'Machine-readable post-promotion roadmap for what comes after the live V5 structural release.'
+	},
+	{
+		file: 'v5-sidecars.json',
+		label: 'V5 sidecar summary',
+		category: 'v5_sidecar',
+		description:
+			'Summary artifact for the published V5 workstreams: augmentation heterogeneity, empirical mobility, posterior uncertainty, and realized-risk forecasting.'
+	},
+	{
+		file: 'v5-augmentation-heterogeneity.json',
+		label: 'V5 augmentation heterogeneity sidecar',
+		category: 'v5_sidecar',
+		description:
+			'Pilot sidecar estimating workflow-sensitive augmentation readiness and heterogeneous augmentation potential without changing the live score.'
+	},
+	{
+		file: 'v5-empirical-mobility.json',
+		label: 'V5 empirical mobility sidecar',
+		category: 'v5_sidecar',
+		description:
+			'Observed-mobility-enriched transition sidecar built on top of the published transition-support layer.'
+	},
+	{
+		file: 'v5-posterior-uncertainty.json',
+		label: 'V5 posterior uncertainty sidecar',
+		category: 'v5_sidecar',
+		description:
+			'Latent source-measurement sidecar over persisted exposure-source percentiles with task-aware structural alignment.'
+	},
+	{
+		file: 'v5-realized-risk.json',
+		label: 'V5 realized-risk sidecar',
+		category: 'v5_sidecar',
+		description:
+			'Offset-buffered realized-risk proxy sidecar derived from the live forecast engine and published offset-potential layer.'
+	},
+	{
+		file: 'v5-experimental-model.json',
+		label: 'V5 experimental model',
+		category: 'v5_experimental_model',
+		description:
+			'Promotion-comparison artifact for V5, retaining the integrated model outputs against the retained V4.3 baseline.'
+	},
+	{
+		file: 'v5-experimental-validation.json',
+		label: 'V5 experimental validation',
+		category: 'v5_experimental_model',
+		description:
+			'Validation and comparison artifact for the promoted V5 model versus the retained V4.3 baseline.'
 	},
 	{
 		file: 'site-status.json',
@@ -251,6 +352,7 @@ const manifest = {
 fs.mkdirSync(STATIC_DATA_DIR, { recursive: true });
 fs.mkdirSync(SRC_DATA_DIR, { recursive: true });
 fs.writeFileSync(OUT_FILE, JSON.stringify(manifest, null, 2), 'utf-8');
+fs.writeFileSync(VERSIONED_OUT_FILE, JSON.stringify(manifest, null, 2), 'utf-8');
 fs.writeFileSync(SRC_OUT_FILE, JSON.stringify(manifest, null, 2), 'utf-8');
 
 console.log(`Built release manifest at ${OUT_FILE}`);

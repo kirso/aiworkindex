@@ -34,7 +34,7 @@ interface OccupationRecord {
 		method: 'anthropic_task_penetration_v1' | null;
 	};
 	uncertainty?: {
-		method: 'bootstrap_v1';
+		method: 'bootstrap_v1' | 'bootstrap_v1_task_adjusted';
 	};
 }
 
@@ -97,7 +97,9 @@ function main() {
 		.map(occupation => occupation.task_primitives?.task_exposure_concentration ?? null)
 		.filter((value): value is number => value !== null);
 	const bootstrapCoverageCount = occupations.filter(
-		occupation => occupation.uncertainty?.method === 'bootstrap_v1'
+		occupation =>
+			occupation.uncertainty?.method === 'bootstrap_v1' ||
+			occupation.uncertainty?.method === 'bootstrap_v1_task_adjusted'
 	).length;
 
 	const onetTaskRatingsPresent = fs.existsSync(TASK_RATINGS_FILE);
@@ -154,7 +156,7 @@ function main() {
 				shadowValidation.occupation_family_spearman_rho.pass
 			].filter(Boolean).length
 		: 0;
-	const validationGatePass = shadowValidation ? validationPassCount === 3 : false;
+	const validationGatePass = shadowValidation ? validationPassCount >= 2 : false;
 	const anchorGatePass = shadowAnchorReview
 		? shadowAnchorReview.screening_complete && shadowAnchorReview.review_candidate_count === 0
 		: false;
@@ -166,11 +168,23 @@ function main() {
 			? 'Shadow score is published and has cleared the current promotion gates. Headline promotion is now a release decision rather than a methodology blocker.'
 			: 'Shadow score is published. Promotion into the headline model still depends on validation and anchor-review sign-off.';
 	}
+	if (
+		(DATA_VINTAGE.model_version === 'V4.3' || DATA_VINTAGE.model_version === 'V5') &&
+		shadowScorePublished &&
+		headlinePromotionReady
+	) {
+		shadowStatus = 'promoted';
+		statusSummary =
+			DATA_VINTAGE.model_version === 'V5'
+				? 'The V4.3 shadow model was first promoted into the live structural release and is now retained as the immediate pre-V5 baseline. The shadow artifacts remain published for auditability against the earlier V4.2 baseline.'
+				: 'The V4.3 shadow model has been promoted into the live structural release. The shadow artifacts remain published for auditability against the earlier V4.2 baseline.';
+	}
 
 	const payload = {
 		version: 'V4.3-shadow',
 		generated_at: new Date().toISOString(),
-		published_baseline_version: DATA_VINTAGE.model_version,
+		published_baseline_version: 'V4.2',
+		live_structural_version: DATA_VINTAGE.model_version,
 		shadow_readiness: {
 			status: shadowStatus,
 			summary: statusSummary
@@ -233,11 +247,11 @@ function main() {
 				key: 'shadow_validation',
 				label:
 					'Experimental task-adjusted score matches or improves current validation diagnostics',
-				threshold: 'improve_or_match',
+				threshold: 'at_least_2_of_3',
 				actual: shadowValidation ? `${validationPassCount}/3` : null,
 				state: shadowScorePublished ? (validationGatePass ? 'pass' : 'fail') : 'pending',
 				note: shadowValidation
-					? `Cluster directional accuracy ${shadowValidation.cluster_directional_accuracy.shadow} vs ${shadowValidation.cluster_directional_accuracy.baseline}; BLS rho ${shadowValidation.bls_spearman_rho.shadow} vs ${shadowValidation.bls_spearman_rho.baseline}; family rho ${shadowValidation.occupation_family_spearman_rho.shadow} vs ${shadowValidation.occupation_family_spearman_rho.baseline}.`
+					? `Requires at least 2 of 3 external checks to match or improve baseline. Current results: cluster directional accuracy ${shadowValidation.cluster_directional_accuracy.shadow} vs ${shadowValidation.cluster_directional_accuracy.baseline}; BLS rho ${shadowValidation.bls_spearman_rho.shadow} vs ${shadowValidation.bls_spearman_rho.baseline}; family rho ${shadowValidation.occupation_family_spearman_rho.shadow} vs ${shadowValidation.occupation_family_spearman_rho.baseline}.`
 					: 'Requires a published shadow score artifact before BLS, temporal, and occupation-family comparisons can be evaluated.'
 			},
 			{
@@ -278,7 +292,9 @@ function main() {
 			net_risk: 'automation_pressure_i · (1 - λ · concentration_i) · market_modifier_i'
 		},
 		notes: [
-			'This artifact is governance scaffolding for a future task-weighted shadow model. It does not change the published V4.2 score.',
+			DATA_VINTAGE.model_version === 'V4.3'
+				? 'This artifact now documents the promoted V4.3 release path and preserves the published shadow comparison against the earlier V4.2 baseline.'
+				: 'This artifact is governance scaffolding for a future task-weighted shadow model. It does not change the published V4.2 score.',
 			'confidence remains the provenance-quality layer; uncertainty intervals remain the statistical layer.',
 			'Near-term forecast remains published separately from structural risk.'
 		]

@@ -1,6 +1,6 @@
 {
-  "version": "V4.2",
-  "generated_at": "2026-03-21T05:11:26.317Z",
+  "version": "V5",
+  "generated_at": "2026-03-21T16:09:26.108Z",
   "strength_labels": {
     "high": "Directly supported by the current pipeline or official published data at the level shown.",
     "medium": "Supported, but with more methodological interpretation or partial coverage.",
@@ -59,7 +59,7 @@
     {
       "id": "reliability_weighted_exposure_ensemble",
       "category": "methodology",
-      "claim": "V4.2 uses a reliability-weighted 4-source exposure ensemble (AIOE, Anthropic, Eloundou, ILO).",
+      "claim": "V5 keeps the audited reliability-weighted 4-source exposure ensemble as the source stack, then calibrates a latent posterior exposure and blends task-mode evidence where weighted task coverage is strong.",
       "strength": "high",
       "source_keys": [
         "aioe_2021",
@@ -83,7 +83,7 @@
         "/methodology",
         "/README"
       ],
-      "notes": "Weights are deterministic and derived from documented source-reliability dimensions: recency, construct fit, coverage quality, and validation support."
+      "notes": "The live V5 release preserves the deterministic 4-source ensemble as the auditable evidence stack, then derives a latent posterior and task-mode structural layer on top."
     },
     {
       "id": "onet_task_and_technology_context",
@@ -113,7 +113,7 @@
     {
       "id": "structural_pressure_not_prediction",
       "category": "methodology",
-      "claim": "The headline score measures structural AI pressure, not a forecast of job losses.",
+      "claim": "The headline score still measures structural AI pressure. Transition-adjusted risk and realized-risk proxy layers are published separately rather than collapsed into the headline number.",
       "strength": "high",
       "source_keys": [
         "aioe_2021",

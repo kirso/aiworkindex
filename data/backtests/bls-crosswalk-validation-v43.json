@@ -1,0 +1,73 @@
+{
+  "validation_date": "2026-03-21",
+  "bls_data_period": "2024-2034 projections",
+  "model_version": "V5",
+  "sample_size": 530,
+  "total_occupations": 562,
+  "match_rate": 0.943,
+  "spearman_rho": -0.1905,
+  "t_statistic": -4.46,
+  "p_value_below_001": true,
+  "p_value_below_01": true,
+  "direction": "negative",
+  "interpretation": "Spearman rho = -0.1905 indicates a negative correlation between our structural risk scores and BLS projected employment change. Higher risk scores are associated with lower (or negative) projected employment growth. The very_high risk band is the only band with projected negative employment growth (-3.4%). The top three risk bands show monotonically decreasing BLS projected growth. The modest correlation is expected: BLS projections include non-AI factors (demographics, trade, policy), while our model measures AI-specific structural pressure.",
+  "by_risk_band": {
+    "very_low": {
+      "count": 83,
+      "avg_bls_change": 3.6,
+      "avg_net_risk": 0.023,
+      "occupations": [
+        "Arts and cultural centre manager (including gallery and museum manager)",
+        "Chief information officer/Chief technology officer/Chief security officer",
+        "Chief operating officer/General Manager"
+      ]
+    },
+    "low": {
+      "count": 198,
+      "avg_bls_change": 3.4,
+      "avg_net_risk": 0.104,
+      "occupations": [
+        "Administration manager",
+        "Advertising/Public relations manager",
+        "Aged care services manager"
+      ]
+    },
+    "moderate": {
+      "count": 131,
+      "avg_bls_change": 2.6,
+      "avg_net_risk": 0.214,
+      "occupations": [
+        "Business development manager",
+        "Customer service manager",
+        "Industrial relations manager"
+      ]
+    },
+    "high": {
+      "count": 78,
+      "avg_bls_change": 1.9,
+      "avg_net_risk": 0.395,
+      "occupations": [
+        "Call centre manager",
+        "Accountant (excluding tax accountant)",
+        "Actuary"
+      ]
+    },
+    "very_high": {
+      "count": 40,
+      "avg_bls_change": -3.4,
+      "avg_net_risk": 0.619,
+      "occupations": [
+        "Author",
+        "Content writer",
+        "Data scientist"
+      ]
+    }
+  },
+  "caveats": [
+    "BLS projections cover 2024-2034 and include non-AI factors (demographics, trade, immigration, policy)",
+    "Crosswalk introduces noise: SSOC → ISCO-08 → SOC 2010, with many-to-many mappings averaged",
+    "US employment projections may not reflect Singapore-specific market conditions",
+    "A modest correlation (|rho| ~ 0.13) is expected — our model measures AI-specific structural pressure, not total employment change",
+    "The directional consistency and monotonic band pattern support model validity as a structural pressure indicator"
+  ]
+}

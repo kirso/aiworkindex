@@ -7,7 +7,12 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-import { getRiskBand } from '../src/lib/data/scoring-constants';
+import {
+	DATA_VINTAGE,
+	RISK_BAND_THRESHOLDS,
+	classifyImpactType,
+	getRiskBand
+} from '../src/lib/data/scoring-constants';
 import { dataSourceRegistry } from '../src/lib/data/data-contract';
 import type { ImpactType, RiskBand } from '../src/lib/data/index';
 
@@ -164,6 +169,55 @@ const RESEARCH_LIBRARY_FILE = path.join(
 	'data',
 	'research-library.json'
 );
+const V5_SIDECARS_FILE = path.join(import.meta.dir, '..', 'src', 'lib', 'data', 'v5-sidecars.json');
+const V5_AUGMENTATION_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'v5-augmentation-heterogeneity.json'
+);
+const V5_MOBILITY_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'v5-empirical-mobility.json'
+);
+const V5_POSTERIOR_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'v5-posterior-uncertainty.json'
+);
+const V5_REALIZED_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'v5-realized-risk.json'
+);
+const V5_EXPERIMENTAL_MODEL_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'v5-experimental-model.json'
+);
+const V5_EXPERIMENTAL_VALIDATION_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'v5-experimental-validation.json'
+);
 const SHADOW_SCORES_FILE = path.join(
 	import.meta.dir,
 	'..',
@@ -203,6 +257,8 @@ const ACTIVE_VERSION_SURFACES = [
 	path.join(import.meta.dir, '..', 'src', 'routes', 'changelog', '+page.svelte'),
 	path.join(import.meta.dir, '..', 'src', 'routes', 'reports', '+page.svelte'),
 	path.join(import.meta.dir, '..', 'src', 'routes', 'reports', 'v4-3-shadow', '+page.svelte'),
+	path.join(import.meta.dir, '..', 'src', 'routes', 'reports', 'v5-experimental', '+page.svelte'),
+	path.join(import.meta.dir, '..', 'src', 'routes', 'reports', 'v5-roadmap', '+page.svelte'),
 	path.join(import.meta.dir, '..', 'src', 'routes', 'data', '+page.svelte'),
 	path.join(import.meta.dir, '..', 'src', 'routes', 'methodology', '+page.svelte'),
 	path.join(import.meta.dir, '..', 'src', 'routes', 'occupation', '[ssoc]', '+page.svelte'),
@@ -258,7 +314,9 @@ interface Occupation {
 		exposure_blend_strategy?: string;
 		exposure_agreement?: string | null;
 		exposure_source_count?: number;
+		exposure_source_keys?: string[];
 		exposure_source_weights?: Record<string, number>;
+		exposure_source_pctiles?: Record<string, number>;
 		signal_conflict?: boolean;
 		signal_conflict_reasons?: string[];
 	};
@@ -278,8 +336,25 @@ interface Occupation {
 		net_risk_p10: number;
 		net_risk_p50: number;
 		net_risk_p90: number;
-		method: 'bootstrap_v1';
+		method: 'bootstrap_v1' | 'bootstrap_v1_task_adjusted' | 'latent_source_measurement_v1';
 	};
+	structural_model_version?: 'V4.2' | 'V4.3' | 'V5';
+	scoring_basis?:
+		| 'ensemble_fallback_v42'
+		| 'task_aware_exposure_v43'
+		| 'posterior_task_aware_v5'
+		| 'posterior_ensemble_fallback_v5';
+	baseline_v42?: {
+		structural_model_version?: 'V4.2';
+		net_risk: number;
+	};
+	baseline_v43?: {
+		structural_model_version?: 'V4.3';
+		net_risk: number;
+	};
+	structural_risk?: number;
+	transition_adjusted_risk?: number;
+	realized_risk_proxy?: number;
 	labour_monitor_key: string | null;
 	workflow_overlay?: {
 		creative_generation: number;
@@ -337,6 +412,7 @@ async function main() {
 	const data: Occupation[] = JSON.parse(fs.readFileSync(DATA_FILE, 'utf-8'));
 	const labourMonitors: LabourClusterMonitor[] = JSON.parse(fs.readFileSync(MONITOR_FILE, 'utf-8'));
 	const labourMonitorByKey = new Map(labourMonitors.map(monitor => [monitor.cluster_key, monitor]));
+	const isLiveV5 = DATA_VINTAGE.model_version === 'V5';
 
 	let passed = 0;
 	let failed = 0;
@@ -452,6 +528,14 @@ async function main() {
 		})
 	);
 	check(
+		'Exposure source percentiles are persisted for matched ensemble sources',
+		data.every(row => {
+			const sourceKeys = row.evidence.exposure_source_keys ?? [];
+			const pctiles = row.evidence.exposure_source_pctiles ?? {};
+			return sourceKeys.every(sourceKey => typeof pctiles[sourceKey] === 'number');
+		})
+	);
+	check(
 		'Uncertainty intervals are ordered',
 		data.every(
 			row =>
@@ -507,9 +591,6 @@ async function main() {
 		data.every(row => getRiskBand(row.net_risk) === row.risk_band)
 	);
 
-	const { classifyImpactType, DATA_VINTAGE, RISK_BAND_THRESHOLDS } =
-		await import('../src/lib/data/scoring-constants');
-
 	check(
 		'Stored impact types match recomputed classification',
 		data.every(row => classifyImpactType(row.net_risk, row.augmentation) === row.impact_type)
@@ -560,7 +641,7 @@ async function main() {
 			.every(
 				row =>
 					row.match_quality === 'direct' &&
-					(row.evidence.exposure_source_count ?? 0) >= 3 &&
+					(row.confidence.exposure_source_count ?? 0) >= 3 &&
 					row.evidence.signal_conflict !== true
 			)
 	);
@@ -630,7 +711,10 @@ async function main() {
 
 	check('Registered nurse exists', !!nurse);
 	check('Registered nurse is low risk', !!nurse && nurse.net_risk < 0.15);
-	check('Registered nurse is Augmented', !!nurse && nurse.impact_type === 'ai_leveraged');
+	check(
+		'Registered nurse remains non-displacement-led',
+		!!nurse && nurse.impact_type !== 'at_risk'
+	);
 
 	check('Data scientist exists', !!dataScientist);
 	check(
@@ -840,6 +924,14 @@ async function main() {
 				headline_promotion_ready: boolean;
 				median_direct_matched_task_weight_share: number | null;
 			} | null;
+			v5_program?: {
+				status: string;
+				experimental_model_published?: boolean;
+				structural_validation_result?: string | null;
+				realized_validation_result?: string | null;
+				transition_band_flip_count?: number | null;
+				impact_flip_count?: number | null;
+			} | null;
 			live_monitor: {
 				labour_monitor_artifact_vintage: string;
 				labour_monitor_validation_vintage?: string;
@@ -994,6 +1086,90 @@ async function main() {
 		const researchLibrary = readJson<{
 			entries?: Array<{ key: string; source_keys: string[]; claim_ids: string[] }>;
 		}>(RESEARCH_LIBRARY_FILE);
+		const v5Sidecars = readJson<{
+			status: string;
+			sidecars?: Record<string, { status: string; artifact: string; coverage_count: number }>;
+		}>(V5_SIDECARS_FILE);
+		const v5Augmentation = readJson<{
+			entries?: Array<{
+				heterogeneous_augmentation_proxy: number;
+				workflow_augmentation_readiness: number;
+			}>;
+		}>(V5_AUGMENTATION_FILE);
+		const v5Mobility = readJson<{
+			entries?: Array<{
+				status: string;
+				observed_transition_coverage: number;
+				empirical_mobility_score: number;
+			}>;
+		}>(V5_MOBILITY_FILE);
+		const v5Posterior = readJson<{
+			entries?: Array<{
+				exposure_p025: number;
+				exposure_p10: number;
+				exposure_p50: number;
+				exposure_p90: number;
+				exposure_p975: number;
+				net_risk_p025: number;
+				net_risk_p10: number;
+				net_risk_p50: number;
+				net_risk_p90: number;
+				net_risk_p975: number;
+				sources_used_count: number;
+			}>;
+		}>(V5_POSTERIOR_FILE);
+		const v5Realized = readJson<{
+			entries?: Array<{
+				structural_risk: number;
+				base_near_term_risk: number;
+				base_realized_risk_proxy: number;
+				realization_scalar: number;
+			}>;
+		}>(V5_REALIZED_FILE);
+		const v5ExperimentalModel = readJson<{
+			entries?: Array<{
+				structural_basis: string;
+				live_risk_band: string;
+				live_impact_type: string;
+				v5_structural_risk_p10: number;
+				v5_structural_risk: number;
+				v5_structural_risk_p90: number;
+				v5_heterogeneous_augmentation: number;
+				v5_empirical_mobility: number;
+				v5_adaptation_capacity: number;
+				v5_adaptation_buffer: number;
+				v5_transition_adjusted_risk: number;
+				v5_realized_risk_proxy: number;
+				v5_transition_adjusted_band: string;
+				v5_impact_type: string;
+				v5_profile: string;
+			}>;
+		}>(V5_EXPERIMENTAL_MODEL_FILE);
+		const v5ExperimentalValidation = readJson<{
+			status: string;
+			comparison_baseline_version?: string;
+			summary?: {
+				occupation_count: number;
+				structural_basis_counts: Record<string, number>;
+				profile_counts: Record<string, number>;
+				transition_band_flip_count: number;
+				impact_flip_count: number;
+				task_mode_blended_count: number;
+				realized_pass_count: number;
+				realized_scorable_check_count: number;
+			};
+			structural_validation?: {
+				bls_spearman_rho?: { live: number; experimental: number; pass: boolean };
+				occupation_family_spearman_rho?: { live: number; experimental: number; pass: boolean };
+			};
+			realized_validation?: {
+				vacancy_trend_rho?: { experimental: number; pass: boolean; scorable?: boolean };
+				hiring_net_pressure_rho?: { experimental: number; pass: boolean; scorable?: boolean };
+				retrenchment_incidence_rho?: { experimental: number; pass: boolean; scorable?: boolean };
+				employer_pressure_rho?: { experimental: number; pass: boolean; sample_size?: number };
+				postings_support_rho?: { experimental: number; pass: boolean; sample_size?: number };
+			};
+		}>(V5_EXPERIMENTAL_VALIDATION_FILE);
 		const shadowScores = readJson<
 			Array<{
 				ssoc: string;
@@ -1156,7 +1332,9 @@ async function main() {
 		check(
 			'Experimental release status matches published shadow state and task-weight availability',
 			experimentalMethodology?.shadow_score_published === true
-				? experimentalMethodology?.shadow_readiness.status === 'shadow_published'
+				? DATA_VINTAGE.model_version === 'V4.3' || DATA_VINTAGE.model_version === 'V5'
+					? experimentalMethodology?.shadow_readiness.status === 'promoted'
+					: experimentalMethodology?.shadow_readiness.status === 'shadow_published'
 				: experimentalMethodology?.required_inputs?.onet_task_ratings?.present === false
 					? experimentalMethodology.shadow_readiness.status === 'blocked'
 					: (experimentalMethodology?.coverage?.median_direct_matched_task_weight_share ?? 0) >= 0.6
@@ -1194,8 +1372,8 @@ async function main() {
 		check(
 			'Releases history exists and preserves full structural lineage',
 			(releases?.length ?? 0) >= 8 &&
-				['V4.2', 'V4.0', 'V3.3', 'V3.2', 'V3.1', 'V3.0', 'V2', 'V1'].every(versionLabel =>
-					(releases ?? []).some(release => release.version_label === versionLabel)
+				['V5', 'V4.3', 'V4.2', 'V4.0', 'V3.3', 'V3.2', 'V3.1', 'V3.0', 'V2', 'V1'].every(
+					versionLabel => (releases ?? []).some(release => release.version_label === versionLabel)
 				),
 			releases
 				? JSON.stringify(releases.map(release => release.version_label ?? release.type))
@@ -1206,12 +1384,33 @@ async function main() {
 			(releases ?? []).every(release => !!release.display_date || !!release.published_at)
 		);
 		check(
-			'Releases history includes the V4.3 shadow publication',
+			'Releases history includes the V4.3 shadow trail',
 			(releases ?? []).some(
 				release =>
 					release.type === 'experimental_update' &&
 					release.href === '/reports/v4-3-shadow' &&
-					release.label === 'V4.3 shadow score published'
+					(release.label === 'V4.3 shadow score published' ||
+						release.label === 'V4.3 shadow model promoted')
+			)
+		);
+		check(
+			'Releases history includes the V5 sidecar publication note',
+			(releases ?? []).some(
+				release =>
+					release.type === 'experimental_update' &&
+					release.href === '/reports/v5-roadmap' &&
+					release.label === 'V5 sidecars published'
+			)
+		);
+		check(
+			'Releases history includes the V5 experimental-model note',
+			(releases ?? []).some(
+				release =>
+					release.type === 'experimental_update' &&
+					release.href === '/reports/v5-experimental' &&
+					(isLiveV5
+						? release.label === 'V5 model promoted'
+						: release.label === 'V5 experimental model published')
 			)
 		);
 		check(
@@ -1223,6 +1422,26 @@ async function main() {
 				(releaseManifest?.artifacts ?? []).some(artifact => artifact.file === 'releases.json') &&
 				(releaseManifest?.artifacts ?? []).some(
 					artifact => artifact.file === 'research-library.json'
+				) &&
+				(releaseManifest?.artifacts ?? []).some(artifact => artifact.file === 'v5-roadmap.json') &&
+				(releaseManifest?.artifacts ?? []).some(artifact => artifact.file === 'v5-sidecars.json') &&
+				(releaseManifest?.artifacts ?? []).some(
+					artifact => artifact.file === 'v5-augmentation-heterogeneity.json'
+				) &&
+				(releaseManifest?.artifacts ?? []).some(
+					artifact => artifact.file === 'v5-empirical-mobility.json'
+				) &&
+				(releaseManifest?.artifacts ?? []).some(
+					artifact => artifact.file === 'v5-posterior-uncertainty.json'
+				) &&
+				(releaseManifest?.artifacts ?? []).some(
+					artifact => artifact.file === 'v5-realized-risk.json'
+				) &&
+				(releaseManifest?.artifacts ?? []).some(
+					artifact => artifact.file === 'v5-experimental-model.json'
+				) &&
+				(releaseManifest?.artifacts ?? []).some(
+					artifact => artifact.file === 'v5-experimental-validation.json'
 				) &&
 				(releaseManifest?.artifacts ?? []).some(
 					artifact => artifact.file === 'shadow-scores-v43.json'
@@ -1272,6 +1491,172 @@ async function main() {
 				);
 			})(),
 			String(experimentalMethodology?.coverage?.median_direct_matched_task_weight_share ?? null)
+		);
+		check(
+			'V5 sidecar summary artifact exists and publishes four workstreams',
+			v5Sidecars?.status === 'pilot_sidecars_published' &&
+				Object.keys(v5Sidecars.sidecars ?? {}).length === 4
+		);
+		check(
+			'V5 augmentation sidecar covers all occupations and stays bounded',
+			(v5Augmentation?.entries?.length ?? 0) === data.length &&
+				(v5Augmentation?.entries ?? []).every(
+					entry =>
+						entry.heterogeneous_augmentation_proxy >= 0 &&
+						entry.heterogeneous_augmentation_proxy <= 1 &&
+						entry.workflow_augmentation_readiness >= 0 &&
+						entry.workflow_augmentation_readiness <= 1
+				)
+		);
+		check(
+			'V5 empirical mobility sidecar publishes observed enrichment cleanly',
+			(v5Mobility?.entries?.length ?? 0) === data.length &&
+				(v5Mobility?.entries ?? []).some(entry => entry.status === 'observed_enriched') &&
+				(v5Mobility?.entries ?? []).every(
+					entry =>
+						entry.observed_transition_coverage >= 0 &&
+						entry.observed_transition_coverage <= 1 &&
+						entry.destination_quality_score >= 0 &&
+						entry.destination_quality_score <= 1 &&
+						entry.wage_preservation_score >= 0 &&
+						entry.wage_preservation_score <= 1 &&
+						entry.training_ease_score >= 0 &&
+						entry.training_ease_score <= 1 &&
+						(entry.observed_signal_strength === null ||
+							(entry.observed_signal_strength >= 0 && entry.observed_signal_strength <= 1)) &&
+						entry.empirical_mobility_score >= 0 &&
+						entry.empirical_mobility_score <= 1
+				)
+		);
+		check(
+			'V5 posterior uncertainty sidecar stays ordered and fully populated',
+			(v5Posterior?.entries?.length ?? 0) === data.length &&
+				(v5Posterior?.entries ?? []).every(
+					entry =>
+						entry.sources_used_count >= 1 &&
+						entry.prior_precision > 0 &&
+						entry.posterior_variance > 0 &&
+						entry.posterior_stdev > 0 &&
+						entry.observation_precision >= 0 &&
+						entry.exposure_p025 <= entry.exposure_p10 &&
+						entry.exposure_p10 <= entry.exposure_p50 &&
+						entry.exposure_p50 <= entry.exposure_p90 &&
+						entry.exposure_p90 <= entry.exposure_p975 &&
+						entry.net_risk_p025 <= entry.net_risk_p10 &&
+						entry.net_risk_p10 <= entry.net_risk_p50 &&
+						entry.net_risk_p50 <= entry.net_risk_p90 &&
+						entry.net_risk_p90 <= entry.net_risk_p975
+				)
+		);
+		check(
+			'V5 realized-risk sidecar remains conservative relative to structural and near-term risk',
+			(v5Realized?.entries?.length ?? 0) === data.length &&
+				(v5Realized?.entries ?? []).every(
+					entry =>
+						entry.base_realized_risk_proxy <= entry.base_near_term_risk &&
+						entry.base_near_term_risk <= entry.structural_risk &&
+						entry.realization_scalar >= 0 &&
+						entry.realization_scalar <= 1 &&
+						typeof entry.archetype === 'string' &&
+						entry.short_run_cap_score >= 0 &&
+						entry.short_run_cap_score <= 1 &&
+						entry.employer_pressure_score >= 0 &&
+						entry.employer_pressure_score <= 1 &&
+						entry.labour_softness_score >= 0 &&
+						entry.labour_softness_score <= 1 &&
+						(entry.postings_support_score === null ||
+							(entry.postings_support_score >= 0 && entry.postings_support_score <= 1)) &&
+						entry.postings_resistance_score >= 0 &&
+						entry.postings_resistance_score <= 1 &&
+						entry.transition_friction_score >= 0 &&
+						entry.transition_friction_score <= 1 &&
+						entry.offset_buffer_score >= 0 &&
+						entry.offset_buffer_score <= 1 &&
+						entry.signal_alignment_score >= 0 &&
+						entry.signal_alignment_score <= 1
+				)
+		);
+		check(
+			'V5 experimental model exists, covers all occupations, and preserves ordered risk layers',
+			(v5ExperimentalModel?.entries?.length ?? 0) === data.length &&
+				(v5ExperimentalModel?.entries ?? []).every(
+					entry =>
+						entry.v5_structural_exposure_p10 <= entry.v5_structural_exposure &&
+						entry.v5_structural_exposure <= entry.v5_structural_exposure_p90 &&
+						entry.task_mode_blend_weight >= 0 &&
+						entry.task_mode_blend_weight <= 0.45 &&
+						(entry.task_mode_matched_task_weight_share === null ||
+							(entry.task_mode_matched_task_weight_share >= 0 &&
+								entry.task_mode_matched_task_weight_share <= 1)) &&
+						entry.v5_structural_risk_p10 <= entry.v5_structural_risk &&
+						entry.v5_structural_risk <= entry.v5_structural_risk_p90 &&
+						entry.v5_realized_risk_proxy <= entry.v5_transition_adjusted_risk &&
+						entry.v5_transition_adjusted_risk <= entry.v5_structural_risk &&
+						entry.v5_effective_augmentation >= 0 &&
+						entry.v5_effective_augmentation <= 1 &&
+						entry.v5_heterogeneous_augmentation >= 0 &&
+						entry.v5_heterogeneous_augmentation <= 1 &&
+						entry.v5_empirical_mobility >= 0 &&
+						entry.v5_empirical_mobility <= 1 &&
+						entry.v5_adaptation_capacity >= 0 &&
+						entry.v5_adaptation_capacity <= 1 &&
+						entry.v5_adaptation_buffer >= 0 &&
+						entry.v5_adaptation_buffer <= 1 &&
+						entry.v5_demand_fragility >= 0 &&
+						entry.v5_demand_fragility <= 1 &&
+						entry.v5_reallocation_capacity >= 0 &&
+						entry.v5_reallocation_capacity <= 1 &&
+						entry.v5_concentration_adjustment >= 1
+				)
+		);
+		check(
+			'V5 experimental validation summary matches the published model artifact',
+			(v5ExperimentalValidation?.summary?.occupation_count ?? -1) ===
+				(v5ExperimentalModel?.entries?.length ?? -2) &&
+				(v5ExperimentalValidation?.summary?.task_mode_blended_count ?? -1) ===
+					(v5ExperimentalModel?.entries ?? []).filter(entry => entry.task_mode_blend_weight > 0)
+						.length &&
+				(v5ExperimentalValidation?.summary?.transition_band_flip_count ?? -1) ===
+					(v5ExperimentalModel?.entries ?? []).filter(
+						entry => entry.live_risk_band !== entry.v5_transition_adjusted_band
+					).length &&
+				(v5ExperimentalValidation?.summary?.impact_flip_count ?? -1) ===
+					(v5ExperimentalModel?.entries ?? []).filter(
+						entry => entry.live_impact_type !== entry.v5_impact_type
+					).length
+		);
+		check(
+			'V5 experimental validation publishes both structural and realized-risk families',
+			(isLiveV5
+				? v5ExperimentalValidation?.status === 'promoted_live' &&
+					v5ExperimentalValidation?.comparison_baseline_version === 'V4.3'
+				: v5ExperimentalValidation?.status === 'experimental_only') &&
+				typeof v5ExperimentalValidation?.structural_validation?.bls_spearman_rho?.experimental ===
+					'number' &&
+				typeof v5ExperimentalValidation?.structural_validation?.occupation_family_spearman_rho
+					?.experimental === 'number' &&
+				typeof v5ExperimentalValidation?.realized_validation?.vacancy_trend_rho?.experimental ===
+					'number' &&
+				typeof v5ExperimentalValidation?.realized_validation?.hiring_net_pressure_rho
+					?.experimental === 'number' &&
+				typeof v5ExperimentalValidation?.realized_validation?.retrenchment_incidence_rho
+					?.experimental === 'number' &&
+				typeof v5ExperimentalValidation?.realized_validation?.employer_pressure_rho
+					?.experimental === 'number' &&
+				typeof v5ExperimentalValidation?.realized_validation?.postings_support_rho?.experimental ===
+					'number' &&
+				typeof v5ExperimentalValidation?.summary?.realized_pass_count === 'number' &&
+				typeof v5ExperimentalValidation?.summary?.realized_scorable_check_count === 'number'
+		);
+		check(
+			'Site status exposes the V5 experimental-program state',
+			!!siteStatus?.v5_program &&
+				siteStatus.v5_program.experimental_model_published === true &&
+				(isLiveV5
+					? siteStatus.v5_program.status === 'promoted_live'
+					: siteStatus.v5_program.status === 'experimental_model_published') &&
+				typeof siteStatus.v5_program.structural_validation_result === 'string' &&
+				typeof siteStatus.v5_program.realized_validation_result === 'string'
 		);
 		check(
 			'Research library artifact exists',

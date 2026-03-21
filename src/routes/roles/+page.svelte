@@ -212,8 +212,8 @@
 	<div class="mb-6">
 		<h1 class={titleStyle({ size: 'page' })}>All Jobs & Roles</h1>
 		<p class={cn(caption(), 'mt-1')}>
-			{occCount} official occupations and {roleCount} modern roles, all scored for AI displacement
-			risk. Search by title or SSOC code, filter by type, sort any column.
+			{occCount} official occupations and {roleCount} modern roles, all scored for AI displacement risk.
+			Search by title or SSOC code, filter by type, sort any column.
 		</p>
 	</div>
 
@@ -252,7 +252,13 @@
 					aria-label="Table view"
 					aria-pressed={viewMode === 'table'}
 				>
-					<svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<svg
+						class="h-3.5 w-3.5"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+					>
 						<path d="M3 6h18M3 12h18M3 18h18" />
 					</svg>
 				</button>
@@ -265,7 +271,13 @@
 					aria-label="Card view"
 					aria-pressed={viewMode === 'cards'}
 				>
-					<svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<svg
+						class="h-3.5 w-3.5"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+					>
 						<rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" />
 						<rect x="3" y="14" width="7" height="7" /><rect x="14" y="14" width="7" height="7" />
 					</svg>
@@ -382,9 +394,7 @@
 							<tr
 								class="border-b border-border/50 last:border-0 hover:bg-accent/50 transition-colors"
 							>
-								<td
-									class="px-3 py-2 font-mono tabular-nums text-muted-foreground text-xs relative"
-								>
+								<td class="px-3 py-2 font-mono tabular-nums text-muted-foreground text-xs relative">
 									<span
 										class="absolute left-0 top-1 bottom-1 w-[3px] rounded-full"
 										style="background-color: {riskColorScale(item.net_risk)}"
@@ -410,24 +420,16 @@
 										>
 									{/if}
 								</td>
-								<td
-									class="px-3 py-2 text-right font-mono tabular-nums text-xs text-text-secondary"
-								>
+								<td class="px-3 py-2 text-right font-mono tabular-nums text-xs text-text-secondary">
 									{(item.net_risk * 100).toFixed(0)}%
 								</td>
-								<td
-									class="px-3 py-2 text-right font-mono tabular-nums text-xs text-text-secondary"
-								>
+								<td class="px-3 py-2 text-right font-mono tabular-nums text-xs text-text-secondary">
 									{(item.exposure * 100).toFixed(0)}%
 								</td>
-								<td
-									class="px-3 py-2 text-right font-mono tabular-nums text-xs text-text-secondary"
-								>
+								<td class="px-3 py-2 text-right font-mono tabular-nums text-xs text-text-secondary">
 									{(item.bottleneck * 100).toFixed(0)}%
 								</td>
-								<td
-									class="px-3 py-2 text-right font-mono tabular-nums text-xs text-text-secondary"
-								>
+								<td class="px-3 py-2 text-right font-mono tabular-nums text-xs text-text-secondary">
 									{item.wage ? `SGD ${item.wage.toLocaleString()}` : '—'}
 								</td>
 								<td class="px-3 py-2">
@@ -436,15 +438,12 @@
 											class="inline-block h-2 w-2 rounded-full"
 											style="background-color: {riskColorScale(item.net_risk)}"
 										></span>
-										<span class="text-xs text-text-secondary"
-											>{riskBandLabels[item.risk_band]}</span
+										<span class="text-xs text-text-secondary">{riskBandLabels[item.risk_band]}</span
 										>
 									</span>
 								</td>
 								<td class="px-3 py-2">
-									<span
-										class={cn(impactBadge({ type: item.impact_type }), 'text-xs px-1.5 py-0')}
-									>
+									<span class={cn(impactBadge({ type: item.impact_type }), 'text-xs px-1.5 py-0')}>
 										{impactTypeLabels[item.impact_type]}
 									</span>
 								</td>

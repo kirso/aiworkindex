@@ -1,5 +1,5 @@
 {
-  "version": "V4.2",
+  "version": "V5",
   "generated_at": "2026-03-21",
   "description": "Singapore context bundle for AI Work Index. Context data is published separately from the structural score dataset and includes labour, worker, industry, wage-anchor, geography, macro, and national AI context.",
   "score_dataset": {
@@ -16600,8 +16600,8 @@
       "file": "sg-geography-context-2020.json",
       "description": "Official Census 2020 geography context showing planning-area residence concentration and travel-time patterns by broad occupation group.",
       "data": {
-        "version": "V4.2",
-        "generated_at": "2026-03-21T02:44:34.270Z",
+        "version": "V5",
+        "generated_at": "2026-03-21T16:09:17.046Z",
         "description": "Official Singapore geography context derived from Census of Population 2020 planning-area residence and travel-time occupation tables. This artifact is contextual and does not affect the structural score.",
         "residence": {
           "overall_top_planning_areas": [
@@ -17061,8 +17061,8 @@
       "file": "sg-macro-context-2025.json",
       "description": "Official macro labour context covering unemployment and labour-tightness series for Singapore. Contextual only, not an occupation-level score input.",
       "data": {
-        "version": "V4.2",
-        "generated_at": "2026-03-21T02:44:34.293Z",
+        "version": "V5",
+        "generated_at": "2026-03-21T16:09:17.068Z",
         "description": "Official Singapore macro labour context derived from unemployment and labour-tightness series. This artifact is contextual and does not affect the structural score.",
         "unemployment": {
           "latest": {
@@ -18033,8 +18033,8 @@
       "file": "sg-ai-in-singapore-2025.json",
       "description": "Official IMDA and MOM national AI adoption, workforce, and programme context for Singapore. This is contextual evidence around the score, not an occupation-level input.",
       "data": {
-        "version": "V4.2",
-        "generated_at": "2026-03-21T02:44:34.312Z",
+        "version": "V5",
+        "generated_at": "2026-03-21T16:09:17.088Z",
         "context_type": "national_ai_context",
         "description": "Official Singapore national AI adoption, workforce, and programme context from IMDA and MOM releases. This artifact supports reports and public context around the structural score.",
         "usage_guidance": {
@@ -18139,8 +18139,8 @@
       "file": "sg-transition-infrastructure-2025.json",
       "description": "Official Singapore transition-infrastructure context covering Jobs Transformation Maps, major public career-transition programmes, and WSQ training-system activity.",
       "data": {
-        "version": "V4.2",
-        "generated_at": "2026-03-21T02:44:34.331Z",
+        "version": "V5",
+        "generated_at": "2026-03-21T16:09:17.110Z",
         "description": "Official Singapore transition infrastructure anchors used around the heuristic transition-support layer. This artifact captures published programmes, training-system activity, and Jobs Transformation Map coverage.",
         "programmes": [
           {

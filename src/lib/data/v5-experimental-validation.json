@@ -1,0 +1,258 @@
+{
+  "version": "V5-experimental-validation",
+  "generated_at": "2026-03-21T16:09:30.937Z",
+  "live_version": "V5",
+  "comparison_baseline_version": "V4.3",
+  "status": "promoted_live",
+  "summary": {
+    "occupation_count": 562,
+    "structural_basis_counts": {
+      "posterior_task_aware": 485,
+      "posterior_ensemble_fallback": 77
+    },
+    "profile_counts": {
+      "shielded": 257,
+      "leveraged": 23,
+      "retooling": 126,
+      "balanced": 156
+    },
+    "task_mode_method_count": 485,
+    "task_mode_blended_count": 485,
+    "observed_enriched_mobility_count": 496,
+    "realized_pass_count": 3,
+    "realized_scorable_check_count": 4,
+    "structural_band_flip_count": 119,
+    "transition_band_flip_count": 135,
+    "impact_flip_count": 242,
+    "mean_delta_vs_live_structural": -0.0031,
+    "mean_delta_vs_live_transition": -0.0192,
+    "median_realized_risk_proxy": 0.0295,
+    "median_adaptation_capacity": 0.3998,
+    "median_demand_fragility": 0.0111,
+    "median_reallocation_capacity": 0.7607
+  },
+  "top_changes": {
+    "structural_risers": [
+      {
+        "ssoc": "43212",
+        "title": "Storekeeper",
+        "value": 0.1625
+      },
+      {
+        "ssoc": "43211",
+        "title": "Stock records clerk",
+        "value": 0.1562
+      },
+      {
+        "ssoc": "75310",
+        "title": "Tailor/Dressmaker",
+        "value": 0.1077
+      },
+      {
+        "ssoc": "81252",
+        "title": "Precision grinding machine setter-operator",
+        "value": 0.0995
+      },
+      {
+        "ssoc": "51942",
+        "title": "Keeper/Trainer in zoological, bird and aquatic parks",
+        "value": 0.0987
+      }
+    ],
+    "structural_fallers": [
+      {
+        "ssoc": "52440",
+        "title": "Telemarketer",
+        "value": -0.1573
+      },
+      {
+        "ssoc": "33311",
+        "title": "Clearing and forwarding agent",
+        "value": -0.1214
+      },
+      {
+        "ssoc": "33312",
+        "title": "Shipping agent/Boarding officer",
+        "value": -0.1196
+      },
+      {
+        "ssoc": "73210",
+        "title": "Pre-press trades worker",
+        "value": -0.1187
+      },
+      {
+        "ssoc": "43142",
+        "title": "Enumerator/Market research interviewer",
+        "value": -0.1174
+      }
+    ],
+    "transition_risers": [
+      {
+        "ssoc": "43212",
+        "title": "Storekeeper",
+        "value": 0.1369
+      },
+      {
+        "ssoc": "43211",
+        "title": "Stock records clerk",
+        "value": 0.1317
+      },
+      {
+        "ssoc": "75310",
+        "title": "Tailor/Dressmaker",
+        "value": 0.0952
+      },
+      {
+        "ssoc": "81252",
+        "title": "Precision grinding machine setter-operator",
+        "value": 0.0835
+      },
+      {
+        "ssoc": "81830",
+        "title": "Packing/Bottling/Labelling machine operator",
+        "value": 0.0821
+      }
+    ],
+    "transition_fallers": [
+      {
+        "ssoc": "52440",
+        "title": "Telemarketer",
+        "value": -0.197
+      },
+      {
+        "ssoc": "33311",
+        "title": "Clearing and forwarding agent",
+        "value": -0.1824
+      },
+      {
+        "ssoc": "33312",
+        "title": "Shipping agent/Boarding officer",
+        "value": -0.1801
+      },
+      {
+        "ssoc": "43142",
+        "title": "Enumerator/Market research interviewer",
+        "value": -0.174
+      },
+      {
+        "ssoc": "43141",
+        "title": "Statistical clerk",
+        "value": -0.1662
+      }
+    ],
+    "highest_realized_risk": [
+      {
+        "ssoc": "41101",
+        "title": "Office clerk (including filing and copying)",
+        "value": 0.2436
+      },
+      {
+        "ssoc": "43123",
+        "title": "Securities clerk",
+        "value": 0.2419
+      },
+      {
+        "ssoc": "43142",
+        "title": "Enumerator/Market research interviewer",
+        "value": 0.2391
+      },
+      {
+        "ssoc": "43141",
+        "title": "Statistical clerk",
+        "value": 0.2383
+      },
+      {
+        "ssoc": "44122",
+        "title": "Postman",
+        "value": 0.231
+      }
+    ]
+  },
+  "structural_validation": {
+    "bls_spearman_rho": {
+      "live": -0.1905,
+      "experimental": -0.2455,
+      "delta": -0.055,
+      "pass": true
+    },
+    "transition_bls_spearman_rho": {
+      "live": -0.1905,
+      "experimental": -0.2483,
+      "delta": -0.0578,
+      "pass": true
+    },
+    "occupation_family_spearman_rho": {
+      "live": -0.328,
+      "experimental": -0.5286,
+      "delta": -0.2006,
+      "pass": true
+    },
+    "transition_family_spearman_rho": {
+      "live": -0.328,
+      "experimental": -0.5286,
+      "delta": -0.2006,
+      "pass": true
+    }
+  },
+  "realized_validation": {
+    "cluster_rows": [
+      {
+        "cluster_key": "pmet",
+        "avg_realized_risk": 0.0446,
+        "vacancy_trend_4q_pct": -3.13,
+        "hiring_net_pressure": 0.6,
+        "retrenchment_incidence": 1.5
+      },
+      {
+        "cluster_key": "clerical_sales_service",
+        "avg_realized_risk": 0.1046,
+        "vacancy_trend_4q_pct": -11.43,
+        "hiring_net_pressure": 1,
+        "retrenchment_incidence": 1.5
+      },
+      {
+        "cluster_key": "production_transport",
+        "avg_realized_risk": 0.0146,
+        "vacancy_trend_4q_pct": 16.67,
+        "hiring_net_pressure": 0.9,
+        "retrenchment_incidence": 1.5
+      }
+    ],
+    "vacancy_trend_rho": {
+      "experimental": -1,
+      "expected_direction": "negative",
+      "scorable": true,
+      "pass": true
+    },
+    "hiring_net_pressure_rho": {
+      "experimental": 0.5,
+      "expected_direction": "negative",
+      "scorable": true,
+      "pass": false
+    },
+    "retrenchment_incidence_rho": {
+      "experimental": 0,
+      "expected_direction": "positive",
+      "scorable": false,
+      "pass": null
+    },
+    "employer_pressure_rho": {
+      "sample_size": 432,
+      "experimental": 0.4762,
+      "expected_direction": "positive",
+      "scorable": true,
+      "pass": true
+    },
+    "postings_support_rho": {
+      "sample_size": 93,
+      "experimental": -0.0896,
+      "expected_direction": "negative",
+      "scorable": true,
+      "pass": true
+    }
+  },
+  "readiness": {
+    "status": "promoted_live",
+    "summary": "V5 is now the live structural release. This artifact preserves the final comparison against the retained V4.3 baseline and keeps the transition-adjusted and realized-risk layers auditable."
+  }
+}
