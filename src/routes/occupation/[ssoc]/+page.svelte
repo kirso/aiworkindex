@@ -520,8 +520,9 @@
 
 	<!-- ===== BLOCK 3: SINGAPORE NOW ===== -->
 	<section class="mb-8">
-		<h2 class={cn(sectionLabel(), 'mb-1')}>Singapore Now</h2>
-		<p class="text-xs text-muted-foreground mb-3">Current local conditions — separate from the structural score.</p>
+		<h2 class={cn(sectionLabel(), 'mb-3')}>Singapore Now</h2>
+		<div class={card({ padding: 'md' })}>
+		<p class="text-xs text-muted-foreground mb-4">Current local conditions — separate from the structural score.</p>
 
 		<!-- Labour metrics row -->
 		{#if occ.labour_monitor}
@@ -608,6 +609,7 @@
 					</div>
 				{/each}
 			</div>
+		</div>
 		</div>
 	</section>
 
