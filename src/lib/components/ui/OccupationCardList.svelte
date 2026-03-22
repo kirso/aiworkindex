@@ -5,7 +5,8 @@
 	import { card } from '$lib/design-system';
 	import OccupationCard from './OccupationCard.svelte';
 
-	let { occupations }: { occupations: Occupation[] } = $props();
+	let { occupations, expandFirst = 0 }: { occupations: Occupation[]; expandFirst?: number } =
+		$props();
 
 	let grouped = $derived.by(() => {
 		const map = new Map<string, Occupation[]>();
@@ -23,6 +24,14 @@
 	});
 
 	let expandedGroups = new SvelteSet<string>();
+
+	$effect(() => {
+		if (expandFirst > 0 && expandedGroups.size === 0) {
+			for (const g of grouped.slice(0, expandFirst)) {
+				expandedGroups.add(g.group.key);
+			}
+		}
+	});
 
 	function toggleGroup(key: string) {
 		if (expandedGroups.has(key)) {

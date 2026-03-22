@@ -325,7 +325,8 @@
 						{#if viewportWidth >= 768}
 							<Treemap occupations={filteredOccupations} />
 						{:else}
-							<OccupationCardList occupations={filteredOccupations.slice(0, 12)} />
+							<OccupationCardList occupations={filteredOccupations.slice(0, 20)} expandFirst={2} />
+							<a href="/explore" class="mt-2 block text-center text-xs font-medium text-primary hover:underline">View all {filteredOccupations.length} occupations →</a>
 						{/if}
 					</Tabs.Content>
 					<Tabs.Content value="pressure">

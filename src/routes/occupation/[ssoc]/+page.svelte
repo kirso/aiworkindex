@@ -643,8 +643,7 @@
 						{/each}
 					</div>
 				{/if}
-
-				</div>
+			</div>
 		</div>
 	</section>
 
@@ -670,10 +669,6 @@
 								: offsetPotential.band === 'medium'
 									? 'Medium'
 									: 'Low'}
-						</span>
-						<span class="text-xs text-muted-foreground">
-							This is a support-layer estimate of how demand, redesign room, and transition support
-							could cushion pressure.
 						</span>
 					</div>
 					<p class="mt-2 text-sm text-text-secondary">{offsetPotential.summary}</p>
@@ -727,10 +722,30 @@
 					</div>
 					<div class="grid gap-2 sm:grid-cols-3">
 						{#each allUniqueTransitions.slice(0, 3) as t}
-							<a href="/occupation/{t.to_ssoc}" class={cn(card({ padding: 'sm', variant: 'inset' }), 'block hover:bg-accent transition-colors')}>
+							<a
+								href="/occupation/{t.to_ssoc}"
+								class={cn(
+									card({ padding: 'sm', variant: 'inset' }),
+									'block hover:bg-accent transition-colors'
+								)}
+							>
 								<p class="text-sm font-medium text-foreground truncate">{t.to_title}</p>
 								<div class="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
-									<span class={t.risk_improvement < 0 ? 'text-risk-very-low' : t.risk_improvement > 0 ? 'text-risk-high' : ''}>{t.risk_improvement > 0 ? '+' : ''}{(t.risk_improvement * 100).toFixed(0)}pp risk</span>
+									<span
+										class={t.risk_improvement > 0
+											? 'text-risk-very-low'
+											: t.risk_improvement < 0
+												? 'text-risk-high'
+												: ''}
+									>
+										{#if t.risk_improvement > 0}
+											-{(t.risk_improvement * 100).toFixed(0)}pp risk
+										{:else if t.risk_improvement < 0}
+											+{(Math.abs(t.risk_improvement) * 100).toFixed(0)}pp risk
+										{:else}
+											No risk change
+										{/if}
+									</span>
 									<span>·</span>
 									<span>{t.label}</span>
 								</div>
@@ -739,10 +754,18 @@
 					</div>
 					{#if allUniqueTransitions.length > 3}
 						<details class="mt-2">
-							<summary class="cursor-pointer text-xs font-medium text-primary hover:underline">See {allUniqueTransitions.length - 3} more</summary>
+							<summary class="cursor-pointer text-xs font-medium text-primary hover:underline"
+								>See {allUniqueTransitions.length - 3} more</summary
+							>
 							<div class="mt-2 grid gap-2 sm:grid-cols-3">
 								{#each allUniqueTransitions.slice(3) as t}
-									<a href="/occupation/{t.to_ssoc}" class={cn(card({ padding: 'sm', variant: 'inset' }), 'block hover:bg-accent transition-colors')}>
+									<a
+										href="/occupation/{t.to_ssoc}"
+										class={cn(
+											card({ padding: 'sm', variant: 'inset' }),
+											'block hover:bg-accent transition-colors'
+										)}
+									>
 										<p class="text-sm font-medium text-foreground truncate">{t.to_title}</p>
 										<div class="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
 											<span>{(t.composite * 100).toFixed(0)}%</span>

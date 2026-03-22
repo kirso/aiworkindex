@@ -148,15 +148,15 @@
 
 	let roleMarketHeadline = $derived.by(() => {
 		if (postings?.hiring_state === 'active') {
-			return 'Observed role-adjacent hiring is active. Read this as a blended signal from postings and component occupations, not a role-native labour-market statistic.';
+			return 'Hiring is active in closely related work. Treat it as directional market context rather than a role-specific labour statistic.';
 		}
 		if (postings?.hiring_state === 'moderate') {
-			return 'Observed hiring exists, but it is not broad enough to read as a strong market signal on its own. This block is blended from postings and component occupations.';
+			return 'There is some hiring in closely related work, but not enough to treat it as a strong standalone market signal.';
 		}
 		if (employerPressure?.label === 'high' || employerPressure?.label === 'critical') {
-			return 'Employer-side pressure is elevated for the archetypes behind this role. Treat this as a blended early warning, not a direct role-specific forecast.';
+			return 'Employer demand is elevated for closely related work. Use it as directional context, not a role-specific forecast.';
 		}
-		return 'This is a blended Singapore anchor built from component occupations and postings, not a role-native labour-market measurement.';
+		return 'Use these signals as directional context from closely related occupations and recent postings.';
 	});
 
 	function pressureBarClass(v: number) {
@@ -572,19 +572,18 @@
 					{/if}
 
 					<div class={card({ padding: 'sm' })}>
-						<p class={cn(microLabel(), 'mb-2')}>How to read this block</p>
+						<p class={cn(microLabel(), 'mb-2')}>Context note</p>
 						<ul class="space-y-2 text-xs leading-relaxed text-muted-foreground">
 							<li>
-								These signals are blended from component occupations and postings, not measured
-								directly for the synthetic role.
+								These signals come from closely related occupations and recent postings, so they are
+								best used as directional context.
 							</li>
 							<li>
-								We intentionally hide the previous 12-month outlook here because it inherited a
-								primary occupation forecast and looked more specific than the data allowed.
+								Short-term conditions can move faster than this blended view, especially for newer
+								or narrower roles.
 							</li>
 							<li>
-								Use this block as a local anchor, then inspect the component occupations above for
-								official labour-market context.
+								For official labour-market detail, inspect the occupation matches listed above.
 							</li>
 						</ul>
 					</div>
@@ -616,10 +615,6 @@
 									? 'Medium'
 									: 'Low'}
 						</span>
-						<span class="text-xs text-muted-foreground">
-							This is a blended support-layer estimate of how demand, redesign room, and transition
-							support could cushion pressure.
-						</span>
 					</div>
 					<p class="mt-2 text-sm text-text-secondary">{offsetPotential.summary}</p>
 					<div class="mt-3 flex flex-wrap gap-2">
@@ -639,7 +634,6 @@
 							)}
 						</span>
 					</div>
-					<p class="mt-2 text-xs text-text-secondary">{offsetPotential.basis}</p>
 				</div>
 			{/if}
 
@@ -662,16 +656,17 @@
 							</a>
 						{/each}
 					</div>
-					<p class="mt-2 text-xs text-text-secondary">{transitionSupport.basis}</p>
 				</div>
 			{/if}
 
 			<div class={card({ padding: 'sm', variant: 'inset' })}>
-				<p class="text-xs text-foreground">Use component occupations to inspect adjacent pathways:</p>
+				<p class="text-xs text-foreground">Related occupations</p>
 				<div class="mt-2 flex flex-wrap gap-1.5">
 					{#each scored.components as comp}
 						{#if comp.occupation}
-							<a href="/occupation/{comp.ssoc}" class={pill({ tone: 'primary', interactive: true })}>{comp.occupation.title} →</a>
+							<a href="/occupation/{comp.ssoc}" class={pill({ tone: 'primary', interactive: true })}
+								>{comp.occupation.title} →</a
+							>
 						{/if}
 					{/each}
 				</div>
