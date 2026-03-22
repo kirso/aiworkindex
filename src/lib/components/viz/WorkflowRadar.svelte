@@ -34,9 +34,11 @@
 		'tool_velocity'
 	];
 
-	let cx = $derived(size / 2);
-	let cy = $derived(size / 2);
-	let r = $derived(size / 2 - 30);
+	const pad = 50; // padding for labels outside the radar
+	let vbSize = $derived(size + pad * 2);
+	let cx = $derived(vbSize / 2);
+	let cy = $derived(vbSize / 2);
+	let r = $derived(size / 2 - 10);
 
 	function polarToXY(angle: number, radius: number): [number, number] {
 		const rad = (angle - 90) * (Math.PI / 180);
@@ -53,7 +55,7 @@
 				value,
 				angle,
 				xy: polarToXY(angle, r * value),
-				labelXY: polarToXY(angle, r + 16)
+				labelXY: polarToXY(angle, r + 22)
 			};
 		})
 	);
@@ -62,7 +64,7 @@
 </script>
 
 <div class="flex flex-col items-center gap-2">
-	<svg viewBox="0 0 {size} {size}" class="w-full" style:max-width="{size}px" role="img" aria-label="Workflow dimensions radar chart">
+	<svg viewBox="0 0 {vbSize} {vbSize}" class="w-full" style:max-width="{vbSize}px" role="img" aria-label="Workflow dimensions radar chart">
 		<!-- Grid rings -->
 		{#each [0.25, 0.5, 0.75, 1.0] as ring}
 			<circle cx={cx} cy={cy} r={r * ring} fill="none" stroke="currentColor" class="text-border" stroke-width="0.5" />
@@ -89,7 +91,7 @@
 				y={point.labelXY[1]}
 				text-anchor={point.labelXY[0] < cx - 5 ? 'end' : point.labelXY[0] > cx + 5 ? 'start' : 'middle'}
 				dominant-baseline={point.labelXY[1] < cy - 5 ? 'auto' : point.labelXY[1] > cy + 5 ? 'hanging' : 'middle'}
-				class="fill-muted-foreground text-[9px]"
+				class="fill-muted-foreground text-[11px]"
 			>
 				{point.label}
 			</text>
