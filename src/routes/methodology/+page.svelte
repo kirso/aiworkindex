@@ -72,7 +72,7 @@
 	path="/methodology"
 />
 
-<main class={pageLayout({ width: 'prose' })}>
+<main class={pageLayout({ width: 'content' })}>
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Methodology' }]} />
 
 	<h1 class={titleStyle({ size: 'page' })}>Methodology</h1>

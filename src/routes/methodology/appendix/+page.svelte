@@ -12,7 +12,7 @@
 	path="/methodology/appendix"
 />
 
-<main class={pageLayout({ width: 'prose' })}>
+<main class={pageLayout({ width: 'content' })}>
 	<PageBreadcrumb
 		items={[
 			{ label: 'Home', href: '/' },

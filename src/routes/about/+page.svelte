@@ -44,7 +44,7 @@
 	jsonLd={[aboutJsonLd]}
 />
 
-<main class={pageLayout({ width: 'prose' })}>
+<main class={pageLayout({ width: 'content' })}>
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'About' }]} />
 
 	<h1 class={titleStyle({ size: 'page' })}>About This Project</h1>
