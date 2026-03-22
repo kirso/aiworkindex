@@ -90,15 +90,6 @@
 		</p>
 	</div>
 
-	<p class="mt-4 text-muted-foreground">
-		Our scoring pipeline uses government survey data plus published academic and institutional
-		research. No LLM assigns a risk score — avoiding the circularity of using AI to score AI
-		replaceability. The core formula is fully deterministic: every input is an observable signal
-		from a published dataset. We publish the structural score separately from the Singapore context
-		bundle so users can audit the core model independently from current labour conditions and
-		support layers.
-	</p>
-
 	<!-- Validation Status -->
 	<div class={cn(card({ variant: 'inset', padding: 'sm' }), 'mt-4')}>
 		<p class={cn(sectionLabel(), 'mb-2')}>Validation & Limits</p>

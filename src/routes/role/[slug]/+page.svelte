@@ -48,7 +48,7 @@
 	} from '$lib/watchlist';
 	import { getTransitionProgrammeUrl } from '$lib/data/detail-context';
 	import { toast } from 'svelte-sonner';
-	import { buildMarketNowSummary, buildMarketDetailBullets } from '$lib/data/market-summary';
+	import { buildMarketDetailBullets } from '$lib/data/market-summary';
 
 	let { data } = $props();
 	let scored = $derived(data.scored);
@@ -95,9 +95,6 @@
 	let postings = $derived(context.postings);
 	let employerPressure = $derived(context.employerPressure);
 	let localContextItems = $derived(singaporeContext.items);
-	let marketNowSummary = $derived(
-		buildMarketNowSummary(primaryOccupation?.labour_monitor ?? null, postings, employerPressure)
-	);
 	let marketDetailBullets = $derived(
 		buildMarketDetailBullets(primaryOccupation?.labour_monitor ?? null, postings, employerPressure)
 	);
@@ -154,7 +151,7 @@
 		{ key: 'wage_pressure', label: 'Wage Pressure' }
 	] as const;
 
-	let showMoreContext = $state(false);
+	let showMoreTransitions = $state(false);
 
 	function pressureBarClass(v: number) {
 		return v >= 0.5
@@ -215,11 +212,11 @@
 			barValue: scored.market_resilience,
 			barClass: marketBarClass(scored.market_resilience)
 		},
-			{
-				label: 'Evidence Quality',
-				value: `${(scored.confidence_score * 100).toFixed(0)}%`,
-				barValue: scored.confidence_score,
-				barClass: confidenceBarClass(scored.confidence)
+		{
+			label: 'Evidence Quality',
+			value: `${(scored.confidence_score * 100).toFixed(0)}%`,
+			barValue: scored.confidence_score,
+			barClass: confidenceBarClass(scored.confidence)
 		},
 		{
 			label: 'Human Moat',
@@ -403,21 +400,19 @@
 					</div>
 				{/if}
 
-				<div class="mt-4 flex flex-col gap-3">
-					<div class="flex flex-wrap items-center gap-2">
-						<span class={impactBadge({ type: scored.impact_type })}>
-							{impactTypeLabels[scored.impact_type]}
-						</span>
-							<span class={confidenceBadge({ level: scored.confidence })}>
-								{scored.confidence.charAt(0).toUpperCase() + scored.confidence.slice(1)} evidence quality
-							</span>
-						<span class={pill({ tone: 'muted' })}>
-							Estimated · {scored.components.length}-part blend
-						</span>
-					</div>
-					<div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
-						<span>Higher risk than {structural.riskPercentile}% of occupations</span>
-					</div>
+				<div class="mt-4 flex flex-wrap items-center gap-2">
+					<span class={riskBadge({ band: scored.risk_band })}>
+						{riskBandLabels[scored.risk_band]} Risk
+					</span>
+					<span class={impactBadge({ type: scored.impact_type })}>
+						{impactTypeLabels[scored.impact_type]}
+					</span>
+					<span class={confidenceBadge({ level: scored.confidence })}>
+						{scored.confidence.charAt(0).toUpperCase() + scored.confidence.slice(1)} Evidence Quality
+					</span>
+					<span class={pill({ tone: 'muted' })}>
+						Estimated · {scored.components.length}-part blend
+					</span>
 				</div>
 			</div>
 		</div>
@@ -490,22 +485,6 @@
 							</div>
 						</div>
 					{/if}
-					{#if (structural.onetEnrichment?.technologies.length ?? 0) > 0}
-						<div class="pt-3 border-t border-border">
-							<p class="text-xs font-semibold text-foreground mb-2">Common tools in similar work</p>
-							<div class="flex flex-wrap gap-1.5">
-								{#each structural.onetEnrichment?.technologies.slice(0, 4) ?? [] as technology}
-									<span class={pill({ tone: technology.hot ? 'positive' : 'muted' })}>
-										{technology.name}
-									</span>
-								{/each}
-							</div>
-							<p class="mt-2 text-xs text-muted-foreground">
-								{structural.onetEnrichment?.note ??
-									'Derived from matched O*NET technology-skill profiles.'}
-							</p>
-						</div>
-					{/if}
 				</div>
 			</div>
 
@@ -513,32 +492,18 @@
 			{#if scored.workflow_overlay}
 				<div class="mt-5 border-t border-border pt-5">
 					<p class="text-xs font-semibold text-foreground mb-3">What this role involves</p>
-					<div class="grid gap-4 sm:grid-cols-[minmax(0,1fr)_12rem]">
-						<div class="grid grid-cols-2 gap-x-4 gap-y-2">
-							{#each Object.entries(scored.workflow_overlay as unknown as Record<string, number>) as [key, value]}
-								{@const label = ({ creative_generation: 'Creative work', real_time_coordination: 'Real-time coordination', ambiguity_tolerance: 'Ambiguity tolerance', institutional_knowledge: 'Institutional knowledge', relationship_intensity: 'Relationship intensity', regulatory_weight: 'Regulatory weight', physical_presence: 'Physical presence', tool_velocity: 'Tool velocity' })[key] ?? key}
-								<div class="flex items-center gap-2">
-									<span class="text-xs text-muted-foreground w-28 shrink-0 truncate" title={label}>{label}</span>
-									<div class="h-1.5 flex-1 rounded-full bg-muted overflow-hidden">
-										<div class="h-full rounded-full bg-foreground/40" style="width: {(value as number) * 100}%"></div>
-									</div>
-									<span class="font-mono text-[10px] text-muted-foreground w-6 text-right">{((value as number) * 100).toFixed(0)}</span>
-								</div>
-							{/each}
-						</div>
-						<div class="hidden sm:block">
-							<WorkflowRadar dimensions={scored.workflow_overlay} size={160} />
-						</div>
+					<div class="mx-auto max-w-xs">
+						<WorkflowRadar dimensions={scored.workflow_overlay} size={280} />
 					</div>
 				</div>
 			{/if}
 		</div>
 	</section>
 
-	<!-- ===== BLOCK 3: SINGAPORE REALITY ===== -->
-	{#if primaryOccupation || industryContext.top_industries.length > 0 || singaporeContext.items.length > 0}
+	<!-- ===== BLOCK 3: SINGAPORE NOW ===== -->
+	{#if primaryOccupation}
 		<section class="mb-8">
-			<h2 class={cn(sectionLabel(), 'mb-3')}>Singapore Reality</h2>
+			<h2 class={cn(sectionLabel(), 'mb-3')}>Singapore Now</h2>
 			<div class={cn(card({ padding: 'md' }), 'space-y-4')}>
 				<div
 					class="flex flex-col gap-2 border-b border-border pb-4 sm:flex-row sm:items-start sm:justify-between"
@@ -546,7 +511,7 @@
 					<div>
 						<p class="text-sm font-semibold text-foreground">Current Singapore signal</p>
 						<p class="text-xs text-muted-foreground">
-							Labour now, industry footprint, and a directional 12-month read.
+							Structural score reflects long-run pressure; these are current local conditions.
 						</p>
 					</div>
 					{#if primaryOccupation?.labour_monitor}
@@ -563,8 +528,7 @@
 
 				{#if primaryOccupation?.labour_monitor || (postings && postings.hiring_state !== 'no_signal') || (employerPressure && employerPressure.signal_count > 0)}
 					<div>
-						<p class="text-sm leading-relaxed text-text-secondary">{marketNowSummary}</p>
-						<div class="mt-3 grid gap-3 sm:grid-cols-3">
+						<div class="grid gap-3 sm:grid-cols-3">
 							{#if primaryOccupation?.labour_monitor}
 								<div class={card({ padding: 'sm', variant: 'metric' })}>
 									<p class={microLabel()}>Vacancy rate</p>
@@ -749,100 +713,14 @@
 						</div>
 					{/if}
 				</div>
-
-				{#if workerProfile.items.length > 0 || geographyContext.items.length > 0 || localContextItems.length > 0}
-					<div class="mt-4 border-t border-border pt-4">
-						<button
-							class="flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground"
-							onclick={() => (showMoreContext = !showMoreContext)}
-						>
-							<svg
-								class="h-3 w-3 transition-transform {showMoreContext ? 'rotate-180' : ''}"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"><path d="m6 9 6 6 6-6" /></svg
-							>
-							{showMoreContext
-								? 'Less local context'
-								: 'Worker profile, geography & policy context'}
-						</button>
-						{#if showMoreContext}
-							<div class="mt-3 space-y-4">
-								{#if marketDetailBullets.length > 0}
-									<div class={cn(card({ padding: 'sm', variant: 'inset' }), 'space-y-3')}>
-										<div>
-											<p class="text-xs font-semibold text-foreground">Market detail</p>
-											<p class="text-xs text-muted-foreground">
-												More detailed monitor context in plain English.
-											</p>
-										</div>
-										<ul class="space-y-1.5 text-sm text-muted-foreground">
-											{#each marketDetailBullets as item}
-												<li>{item}</li>
-											{/each}
-										</ul>
-										{#if postings && postings.hiring_state !== 'no_signal'}
-											<PostingsSignalSummary
-												{postings}
-												label="Hiring now"
-												contextLabel="Role-normalized postings monitor"
-											/>
-										{/if}
-									</div>
-								{/if}
-								{#if localContextItems.length > 0}
-									<div class={cn(card({ padding: 'sm', variant: 'inset' }), 'space-y-3')}>
-										<div>
-											<p class="text-xs font-semibold text-foreground">Local context & support</p>
-											<p class="text-xs text-muted-foreground">
-												Institutional, education, and transition-support signals behind the role
-												estimate.
-											</p>
-										</div>
-										<div class="flex flex-wrap gap-1.5">
-											{#each localContextItems as item (item.key)}
-												<span
-													class={pill({
-														size: 'sm',
-														tone:
-															item.tone === 'protective'
-																? 'positive'
-																: item.tone === 'pressure'
-																	? 'danger'
-																	: item.tone === 'support'
-																		? 'primary'
-																		: 'neutral'
-													})}
-													title={item.description}
-												>
-													{item.label}: {item.value}
-												</span>
-											{/each}
-										</div>
-									</div>
-								{/if}
-								{#if workerProfile.items.length > 0}
-									<ContextItemGrid title="Worker profile" items={workerProfile.items} />
-								{/if}
-								{#if geographyContext.items.length > 0}
-									<ContextItemGrid
-										title="Where this work is concentrated"
-										items={geographyContext.items}
-									/>
-								{/if}
-							</div>
-						{/if}
-					</div>
-				{/if}
 			</div>
 		</section>
 	{/if}
 
-	<!-- ===== BLOCK 4: WHAT TO DO NEXT ===== -->
+	<!-- ===== BLOCK 4: WHAT YOU CAN DO ===== -->
 	{#if transitions}
 		<section class="mb-8">
-			<h2 class={cn(sectionLabel(), 'mb-3')}>What To Do Next</h2>
+			<h2 class={cn(sectionLabel(), 'mb-3')}>What You Can Do</h2>
 			<div class={card({ padding: 'md' })}>
 				{#if offsetPotential}
 					<div class="mb-4 border-b border-border pb-4">
@@ -888,30 +766,6 @@
 								)}
 							</span>
 						</div>
-						{#if offsetPotential.strengths.length > 0 || offsetPotential.cautions.length > 0}
-							<div class="mt-3 grid gap-3 sm:grid-cols-2">
-								{#if offsetPotential.strengths.length > 0}
-									<div class={cn(card({ variant: 'inset', padding: 'sm' }), 'min-w-0')}>
-										<p class="text-xs font-semibold text-impact-leveraged">What helps</p>
-										<ul class="mt-2 space-y-1 text-xs text-text-secondary">
-											{#each offsetPotential.strengths as item}
-												<li>{item}</li>
-											{/each}
-										</ul>
-									</div>
-								{/if}
-								{#if offsetPotential.cautions.length > 0}
-									<div class={cn(card({ variant: 'inset', padding: 'sm' }), 'min-w-0')}>
-										<p class="text-xs font-semibold text-risk-high">What could slow it down</p>
-										<ul class="mt-2 space-y-1 text-xs text-text-secondary">
-											{#each offsetPotential.cautions as item}
-												<li>{item}</li>
-											{/each}
-										</ul>
-									</div>
-								{/if}
-							</div>
-						{/if}
 						<p class="mt-2 text-xs text-text-secondary">{offsetPotential.basis}</p>
 					</div>
 				{/if}
@@ -938,11 +792,15 @@
 					</div>
 				{/if}
 
+				<p class="mb-3 text-xs text-muted-foreground">
+					Transitions based on primary component occupation, not directly observed for this role.
+				</p>
+
 				<div class="grid gap-6 sm:grid-cols-2">
 					{#if transitions.easierSwitch.length > 0}
 						<div>
 							<p class="text-xs font-semibold text-impact-leveraged mb-2">Easier Switch</p>
-							{#each transitions.easierSwitch as t (t.to_ssoc)}
+							{#each transitions.easierSwitch.slice(0, showMoreTransitions ? transitions.easierSwitch.length : 3) as t (t.to_ssoc)}
 								<a
 									href="/occupation/{t.to_ssoc}"
 									class="flex items-center justify-between rounded-md px-2 py-1.5 -mx-2 text-sm hover:bg-accent hover:text-primary transition-colors"
@@ -958,7 +816,7 @@
 					{#if transitions.lowerRisk.length > 0}
 						<div>
 							<p class="text-xs font-semibold text-risk-very-low mb-2">Lower Risk</p>
-							{#each transitions.lowerRisk as t (t.to_ssoc)}
+							{#each transitions.lowerRisk.slice(0, showMoreTransitions ? transitions.lowerRisk.length : 3) as t (t.to_ssoc)}
 								<a
 									href="/occupation/{t.to_ssoc}"
 									class="flex items-center justify-between rounded-md px-2 py-1.5 -mx-2 text-sm hover:bg-accent hover:text-primary transition-colors"
@@ -974,7 +832,7 @@
 					{#if transitions.betterPay.length > 0}
 						<div>
 							<p class="text-xs font-semibold text-risk-moderate mb-2">Better Pay</p>
-							{#each transitions.betterPay as t (t.to_ssoc)}
+							{#each transitions.betterPay.slice(0, showMoreTransitions ? transitions.betterPay.length : 3) as t (t.to_ssoc)}
 								<a
 									href="/occupation/{t.to_ssoc}"
 									class="flex items-center justify-between rounded-md px-2 py-1.5 -mx-2 text-sm hover:bg-accent hover:text-primary transition-colors"
@@ -990,7 +848,7 @@
 					{#if transitions.strongDemand.length > 0}
 						<div>
 							<p class="text-xs font-semibold text-chart-5 mb-2">Strong Demand</p>
-							{#each transitions.strongDemand as t (t.to_ssoc)}
+							{#each transitions.strongDemand.slice(0, showMoreTransitions ? transitions.strongDemand.length : 3) as t (t.to_ssoc)}
 								<a
 									href="/occupation/{t.to_ssoc}"
 									class="flex items-center justify-between rounded-md px-2 py-1.5 -mx-2 text-sm hover:bg-accent hover:text-primary transition-colors"
@@ -1005,6 +863,23 @@
 					{/if}
 				</div>
 
+				{#if !showMoreTransitions && (transitions.easierSwitch.length > 3 || transitions.lowerRisk.length > 3 || transitions.betterPay.length > 3 || transitions.strongDemand.length > 3)}
+					<button
+						class="mt-3 text-xs font-medium text-primary hover:underline"
+						onclick={() => (showMoreTransitions = true)}
+					>
+						See more transitions
+					</button>
+				{/if}
+				{#if showMoreTransitions}
+					<button
+						class="mt-3 text-xs font-medium text-primary hover:underline"
+						onclick={() => (showMoreTransitions = false)}
+					>
+						Show fewer
+					</button>
+				{/if}
+
 				<div class="mt-4 pt-4 border-t border-border flex items-center justify-between">
 					<p class="text-xs text-muted-foreground">Compare with similar roles or occupations</p>
 					<a
@@ -1018,12 +893,12 @@
 		</section>
 	{/if}
 
-	<!-- ===== TECHNICAL DETAILS ===== -->
+	<!-- ===== TECHNICAL DETAILS (collapsed) ===== -->
 	<Collapsible.Root class={cn(card({ padding: 'none' }), 'mb-8')}>
 		<Collapsible.Trigger
 			class="flex w-full items-center justify-between px-5 py-3 text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors"
 		>
-			Technical Details · {scored.components.length} components · {scored.confidence} confidence
+			Technical Details · {scored.components.length} components · {scored.confidence} evidence quality
 			<svg
 				class="h-3.5 w-3.5 transition-transform [[data-state=open]>&]:rotate-180"
 				viewBox="0 0 24 24"
@@ -1075,6 +950,119 @@
 						)}
 					</p>
 				</div>
+
+				<!-- Percentile (moved from Block 1) -->
+				<div>
+					<p class="font-semibold text-foreground mb-1">Percentile Rank</p>
+					<p>Higher risk than {structural.riskPercentile}% of occupations</p>
+				</div>
+
+				<!-- O*NET tools (moved from Block 2) -->
+				{#if (structural.onetEnrichment?.technologies.length ?? 0) > 0}
+					<div>
+						<p class="font-semibold text-foreground mb-1">Common tools in similar work</p>
+						<div class="flex flex-wrap gap-1.5">
+							{#each structural.onetEnrichment?.technologies.slice(0, 4) ?? [] as technology}
+								<span class={pill({ tone: technology.hot ? 'positive' : 'muted' })}>
+									{technology.name}
+								</span>
+							{/each}
+						</div>
+						<p class="mt-1 text-xs text-muted-foreground">
+							{structural.onetEnrichment?.note ??
+								'Derived from matched O*NET technology-skill profiles.'}
+						</p>
+					</div>
+				{/if}
+
+				<!-- What helps / What slows (moved from Block 4) -->
+				{#if offsetPotential && (offsetPotential.strengths.length > 0 || offsetPotential.cautions.length > 0)}
+					<div>
+						{#if offsetPotential.strengths.length > 0}
+							<p class="font-semibold text-impact-leveraged mb-1">What helps</p>
+							<ul class="space-y-1">
+								{#each offsetPotential.strengths as item}
+									<li>{item}</li>
+								{/each}
+							</ul>
+						{/if}
+					</div>
+					<div>
+						{#if offsetPotential.cautions.length > 0}
+							<p class="font-semibold text-risk-high mb-1">What could slow it down</p>
+							<ul class="space-y-1">
+								{#each offsetPotential.cautions as item}
+									<li>{item}</li>
+								{/each}
+							</ul>
+						{/if}
+					</div>
+				{/if}
+
+				<!-- Worker profile (moved from Block 3) -->
+				{#if workerProfile.items.length > 0}
+					<div class="sm:col-span-2">
+						<ContextItemGrid title="Worker profile" items={workerProfile.items} />
+					</div>
+				{/if}
+
+				<!-- Geography context (moved from Block 3) -->
+				{#if geographyContext.items.length > 0}
+					<div class="sm:col-span-2">
+						<ContextItemGrid
+							title="Where this work is concentrated"
+							items={geographyContext.items}
+						/>
+					</div>
+				{/if}
+
+				<!-- Local context items (moved from Block 3) -->
+				{#if localContextItems.length > 0}
+					<div class="sm:col-span-2">
+						<p class="font-semibold text-foreground mb-1">Local context & support</p>
+						<div class="flex flex-wrap gap-1.5">
+							{#each localContextItems as item (item.key)}
+								<span
+									class={pill({
+										size: 'sm',
+										tone:
+											item.tone === 'protective'
+												? 'positive'
+												: item.tone === 'pressure'
+													? 'danger'
+													: item.tone === 'support'
+														? 'primary'
+														: 'neutral'
+									})}
+									title={item.description}
+								>
+									{item.label}: {item.value}
+								</span>
+							{/each}
+						</div>
+					</div>
+				{/if}
+
+				<!-- Market detail bullets (moved from Block 3) -->
+				{#if marketDetailBullets.length > 0}
+					<div class="sm:col-span-2">
+						<p class="font-semibold text-foreground mb-1">Market detail</p>
+						<ul class="space-y-1">
+							{#each marketDetailBullets as item}
+								<li>{item}</li>
+							{/each}
+						</ul>
+						{#if postings && postings.hiring_state !== 'no_signal'}
+							<div class="mt-2">
+								<PostingsSignalSummary
+									{postings}
+									label="Hiring now"
+									contextLabel="Role-normalized postings monitor"
+								/>
+							</div>
+						{/if}
+					</div>
+				{/if}
 			</div>
 		</Collapsible.Content>
 	</Collapsible.Root>

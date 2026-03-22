@@ -100,61 +100,73 @@
 
 	{#each groupedEntries as group}
 		<section class="mt-8">
-			<p class={sectionLabel()}>{group.meta.label}</p>
-			<p class="mt-2 text-sm text-muted-foreground">{group.meta.description}</p>
-			<div class="mt-4 grid gap-4 lg:grid-cols-2">
-				{#each group.entries as entry (entry.key)}
-					<article class={card({ padding: 'md' })}>
-						<div class="flex flex-wrap items-center gap-2">
-							<p class="text-sm font-semibold text-foreground">{entry.title}</p>
-							<span
-								class="rounded-full border border-border/60 bg-muted/70 px-2 py-0.5 text-[11px] uppercase tracking-wide text-muted-foreground"
-							>
-								{entry.type.replaceAll('_', ' ')}
-							</span>
-							<span
-								class="rounded-full border border-border/60 bg-background/80 px-2 py-0.5 text-[11px] uppercase tracking-wide text-muted-foreground"
-							>
-								{entry.year}
-							</span>
-						</div>
-						<p class="mt-1 text-xs text-muted-foreground">
-							{entry.authors.join(', ')} · {entry.publisher}
-						</p>
-						<p class="mt-3 text-sm text-muted-foreground">{entry.summary}</p>
-						<p class="mt-2 text-xs text-muted-foreground">
-							<span class="font-medium text-foreground">Limitations:</span>
-							{entry.limitations}
-						</p>
-						<p class="mt-2 text-xs text-muted-foreground">
-							<span class="font-medium text-foreground">Repo use:</span>
-							{entry.repo_notes}
-						</p>
-						<div class="mt-3 flex flex-wrap gap-2 text-[11px] text-muted-foreground">
-							{#each entry.domains as domain}
-								<span class="rounded-full bg-accent/40 px-2 py-0.5">{domain}</span>
-							{/each}
-						</div>
-						<div class="mt-3 text-xs text-muted-foreground">
-							<span class="font-medium text-foreground">Used for:</span>
-							{entry.used_for.join(' · ')}
-						</div>
-						<div class="mt-3 flex items-center gap-3 text-xs">
-							<a
-								href={entry.url}
-								target="_blank"
-								rel="noopener noreferrer"
-								class="text-primary hover:underline"
-							>
-								Open source →
-							</a>
-							{#if entry.doi}
-								<span class="text-muted-foreground">DOI {entry.doi}</span>
-							{/if}
-						</div>
-					</article>
-				{/each}
-			</div>
+			<details open={group.role === 'active_core'}>
+				<summary class="cursor-pointer">
+					<span class={sectionLabel()}>{group.meta.label}</span>
+					<span class="ml-2 text-xs text-muted-foreground">({group.entries.length} entries)</span>
+				</summary>
+				<p class="mt-2 text-sm text-muted-foreground">{group.meta.description}</p>
+				<div class="mt-4 grid gap-4 lg:grid-cols-2">
+					{#each group.entries as entry (entry.key)}
+						<article class={card({ padding: 'md' })}>
+							<div class="flex flex-wrap items-center gap-2">
+								<p class="text-sm font-semibold text-foreground">{entry.title}</p>
+								<span
+									class="rounded-full border border-border/60 bg-muted/70 px-2 py-0.5 text-[11px] uppercase tracking-wide text-muted-foreground"
+								>
+									{entry.type.replaceAll('_', ' ')}
+								</span>
+								<span
+									class="rounded-full border border-border/60 bg-background/80 px-2 py-0.5 text-[11px] uppercase tracking-wide text-muted-foreground"
+								>
+									{entry.year}
+								</span>
+							</div>
+							<p class="mt-1 text-xs text-muted-foreground">
+								{entry.authors.join(', ')} · {entry.publisher}
+							</p>
+							<p class="mt-3 text-sm text-muted-foreground">{entry.summary}</p>
+							<details class="mt-2">
+								<summary class="cursor-pointer text-xs font-medium text-muted-foreground hover:text-foreground">
+									Limitations, repo use, and domains
+								</summary>
+								<div class="mt-1 space-y-1">
+									<p class="text-xs text-muted-foreground">
+										<span class="font-medium text-foreground">Limitations:</span>
+										{entry.limitations}
+									</p>
+									<p class="text-xs text-muted-foreground">
+										<span class="font-medium text-foreground">Repo use:</span>
+										{entry.repo_notes}
+									</p>
+									<div class="flex flex-wrap gap-2 text-[11px] text-muted-foreground">
+										{#each entry.domains as domain}
+											<span class="rounded-full bg-accent/40 px-2 py-0.5">{domain}</span>
+										{/each}
+									</div>
+								</div>
+							</details>
+							<div class="mt-3 text-xs text-muted-foreground">
+								<span class="font-medium text-foreground">Used for:</span>
+								{entry.used_for.join(' · ')}
+							</div>
+							<div class="mt-3 flex items-center gap-3 text-xs">
+								<a
+									href={entry.url}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="text-primary hover:underline"
+								>
+									Open source →
+								</a>
+								{#if entry.doi}
+									<span class="text-muted-foreground">DOI {entry.doi}</span>
+								{/if}
+							</div>
+						</article>
+					{/each}
+				</div>
+			</details>
 		</section>
 	{/each}
 </main>

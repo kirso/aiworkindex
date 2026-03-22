@@ -351,6 +351,26 @@
 			</div>
 		</div>
 	{:else}
+		{#if entities.length === 1}
+			<div class={cn(card({ variant: 'notice', accent: 'primary', padding: 'md' }), 'mb-6')}>
+				<p class="text-sm text-muted-foreground">
+					Add another occupation or role to compare.
+				</p>
+			</div>
+		{:else if entities.length === 2}
+			{@const e1 = entities[0]!}
+			{@const e2 = entities[1]!}
+			{@const e1Pct = (e1.net_risk * 100).toFixed(0)}
+			{@const e2Pct = (e2.net_risk * 100).toFixed(0)}
+			{@const higherLabel = e1.net_risk >= e2.net_risk ? 'higher' : 'lower'}
+			{@const demandComparison = e1.market_resilience > e2.market_resilience ? 'but has stronger' : e1.market_resilience < e2.market_resilience ? 'and has weaker' : 'and has similar'}
+			<div class={cn(card({ variant: 'notice', accent: 'primary', padding: 'md' }), 'mb-6')}>
+				<p class="text-sm text-foreground">
+					{e1.label} faces {higherLabel} AI pressure ({e1Pct}% vs {e2Pct}%) {demandComparison} market demand.
+				</p>
+			</div>
+		{/if}
+
 		<!-- Side-by-side columns (stack on mobile) -->
 		<div
 			class={cn(

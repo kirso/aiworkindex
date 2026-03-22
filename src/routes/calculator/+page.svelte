@@ -194,9 +194,16 @@
 
 			<div class="mb-4 text-center">
 				<p class={display({ size: 'xl' })}>
-					SGD {riskAmount.toLocaleString()}
+					{(seniorityAdjustedRisk * 100).toFixed(0)}%
 				</p>
-				<p class={caption({ class: 'mt-1' })}>estimated monthly AI task overlap</p>
+				<p class={caption({ class: 'mt-1' })}>of tasks overlap with current AI capabilities</p>
+				<p class="mt-2 text-xs text-muted-foreground/80 italic">
+					This measures task overlap with current AI capabilities, not predicted income change.
+				</p>
+				<p class="mt-3 text-base font-mono font-semibold text-muted-foreground">
+					SGD {riskAmount.toLocaleString()}/mo
+				</p>
+				<p class={caption()}>salary equivalent of overlapping tasks</p>
 			</div>
 
 			<div class="flex flex-wrap items-center justify-center gap-3 mb-4">

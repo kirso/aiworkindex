@@ -62,7 +62,7 @@
 </script>
 
 <div class="flex flex-col items-center gap-2">
-	<svg viewBox="0 0 {size} {size}" class="w-full max-w-[{size}px]" role="img" aria-label="Workflow dimensions radar chart">
+	<svg viewBox="0 0 {size} {size}" class="w-full" style:max-width="{size}px" role="img" aria-label="Workflow dimensions radar chart">
 		<!-- Grid rings -->
 		{#each [0.25, 0.5, 0.75, 1.0] as ring}
 			<circle cx={cx} cy={cy} r={r * ring} fill="none" stroke="currentColor" class="text-border" stroke-width="0.5" />

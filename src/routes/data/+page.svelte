@@ -382,6 +382,77 @@
 		}
 	];
 
+	const fieldCategories = [
+		{
+			label: 'Identity & classification',
+			fields: fields.filter((f) =>
+				['ssoc', 'title', 'major_group', 'education_label'].includes(f.name)
+			)
+		},
+		{
+			label: 'Wages & employment',
+			fields: fields.filter((f) =>
+				[
+					'gross_wage_median',
+					'gross_wage_25th',
+					'gross_wage_75th',
+					'employment_thousands',
+					'estimated_sg_employment_thousands',
+					'employment_basis',
+					'bls_proxy_employment',
+					'group_employment_thousands',
+					'data_basis.employment_estimate',
+					'data_basis.wage_pool_proxy',
+					'labour_monitor_key'
+				].includes(f.name)
+			)
+		},
+		{
+			label: 'Core scoring',
+			fields: fields.filter((f) =>
+				[
+					'exposure',
+					'bottleneck',
+					'net_risk',
+					'risk_band',
+					'augmentation',
+					'impact_type',
+					'structural_risk',
+					'transition_adjusted_risk',
+					'realized_risk_proxy',
+					'adaptation_capacity',
+					'demand_fragility',
+					'structural_model_version',
+					'scoring_basis'
+				].includes(f.name)
+			)
+		},
+		{
+			label: 'Market signals',
+			fields: fields.filter((f) => f.name.startsWith('market.'))
+		},
+		{
+			label: 'Evidence & provenance',
+			fields: fields.filter((f) => f.name.startsWith('evidence.'))
+		},
+		{
+			label: 'Confidence & uncertainty',
+			fields: fields.filter(
+				(f) => f.name.startsWith('confidence.') || f.name.startsWith('uncertainty.')
+			)
+		},
+		{
+			label: 'Task primitives',
+			fields: fields.filter((f) => f.name.startsWith('task_primitives.'))
+		},
+		{
+			label: 'Baselines & context',
+			fields: fields.filter((f) =>
+				['baseline_v43', 'baseline_v42', 'sg_context', 'stability.label'].includes(f.name)
+			)
+		}
+	];
+
 	const manifest = releaseManifest as {
 		version: string;
 		generated_at: string;
@@ -536,7 +607,7 @@
 	<div class={cn(card({ padding: 'md' }), 'mt-4')}>
 		<p class="text-sm font-semibold text-foreground">Release history</p>
 		<div class="mt-3 space-y-3">
-			{#each releases as release (release.id)}
+			{#each releases.slice(0, 3) as release (release.id)}
 				<div class="flex items-start justify-between gap-3 border-b border-border/40 pb-3 last:border-b-0 last:pb-0">
 					<div>
 						<p class="text-sm font-medium text-foreground">{release.label}</p>
@@ -554,6 +625,33 @@
 					</a>
 				</div>
 			{/each}
+			{#if releases.length > 3}
+				<details>
+					<summary class="cursor-pointer text-xs font-medium text-primary hover:underline">
+						View {releases.length - 3} older releases
+					</summary>
+					<div class="mt-3 space-y-3">
+						{#each releases.slice(3) as release (release.id)}
+							<div class="flex items-start justify-between gap-3 border-b border-border/40 pb-3 last:border-b-0 last:pb-0">
+								<div>
+									<p class="text-sm font-medium text-foreground">{release.label}</p>
+									<p class="mt-1 text-xs text-muted-foreground">
+										Published {formatReleaseDate(release)} · {release.score_version} · monitor {release.monitor_vintage}
+									</p>
+								</div>
+								<a
+									href={release.href}
+									class="text-xs text-primary hover:underline"
+									target={release.href.startsWith('http') ? '_blank' : undefined}
+									rel={release.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+								>
+									Open →
+								</a>
+							</div>
+						{/each}
+					</div>
+				</details>
+			{/if}
 		</div>
 	</div>
 
@@ -858,116 +956,124 @@
 	</div>
 
 	<div class="mt-8">
-		<p class={cn(sectionLabel(), 'mb-3')}>Release Metadata</p>
-		<div class={card({ padding: 'lg' })}>
-			<div class="space-y-1 text-sm text-muted-foreground">
-				<p><span class="font-medium text-foreground">Manifest version:</span> {manifest.version}</p>
-				<p>
-					<span class="font-medium text-foreground">Manifest generated:</span>
-					{formatDateTime(manifest.generated_at)}
-				</p>
-				<p>
-					<span class="font-medium text-foreground">Score dataset vintage:</span>
-					{manifest.score_dataset_generated_at}
-				</p>
-			</div>
-			<div class="mt-4 rounded-md border">
-				<Table.Root>
-					<Table.Header>
-						<Table.Row>
-							<Table.Head class="text-xs uppercase tracking-wider">Artifact</Table.Head>
-							<Table.Head class="text-xs uppercase tracking-wider">Generated</Table.Head>
-							<Table.Head class="text-xs uppercase tracking-wider">Size</Table.Head>
-							<Table.Head class="text-xs uppercase tracking-wider">SHA-256</Table.Head>
-						</Table.Row>
-					</Table.Header>
-					<Table.Body>
-						{#each manifest.artifacts as artifact}
+		<details>
+			<summary class={cn(sectionLabel(), 'mb-3 cursor-pointer hover:text-primary')}>
+				Release Metadata ({manifest.artifacts.length} artifacts)
+			</summary>
+			<div class={card({ padding: 'lg' })}>
+				<div class="space-y-1 text-sm text-muted-foreground">
+					<p><span class="font-medium text-foreground">Manifest version:</span> {manifest.version}</p>
+					<p>
+						<span class="font-medium text-foreground">Manifest generated:</span>
+						{formatDateTime(manifest.generated_at)}
+					</p>
+					<p>
+						<span class="font-medium text-foreground">Score dataset vintage:</span>
+						{manifest.score_dataset_generated_at}
+					</p>
+				</div>
+				<div class="mt-4 rounded-md border">
+					<Table.Root>
+						<Table.Header>
 							<Table.Row>
-								<Table.Cell>
-									<div class="space-y-0.5">
-										<p class="font-medium text-foreground">{artifact.label}</p>
-										<p class="text-xs text-muted-foreground">{artifact.file}</p>
-									</div>
-								</Table.Cell>
-								<Table.Cell class="text-xs text-muted-foreground">
-									{formatDateTime(artifact.generated_at)}
-								</Table.Cell>
-								<Table.Cell class="text-xs text-muted-foreground">
-									{formatBytes(artifact.bytes)}
-								</Table.Cell>
-								<Table.Cell class="font-mono text-xs text-muted-foreground">
-									{artifact.sha256}
-								</Table.Cell>
+								<Table.Head class="text-xs uppercase tracking-wider">Artifact</Table.Head>
+								<Table.Head class="text-xs uppercase tracking-wider">Generated</Table.Head>
+								<Table.Head class="text-xs uppercase tracking-wider">Size</Table.Head>
+								<Table.Head class="text-xs uppercase tracking-wider">SHA-256</Table.Head>
 							</Table.Row>
-						{/each}
-					</Table.Body>
-				</Table.Root>
+						</Table.Header>
+						<Table.Body>
+							{#each manifest.artifacts as artifact}
+								<Table.Row>
+									<Table.Cell>
+										<div class="space-y-0.5">
+											<p class="font-medium text-foreground">{artifact.label}</p>
+											<p class="text-xs text-muted-foreground">{artifact.file}</p>
+										</div>
+									</Table.Cell>
+									<Table.Cell class="text-xs text-muted-foreground">
+										{formatDateTime(artifact.generated_at)}
+									</Table.Cell>
+									<Table.Cell class="text-xs text-muted-foreground">
+										{formatBytes(artifact.bytes)}
+									</Table.Cell>
+									<Table.Cell class="font-mono text-xs text-muted-foreground">
+										{artifact.sha256}
+									</Table.Cell>
+								</Table.Row>
+							{/each}
+						</Table.Body>
+					</Table.Root>
+				</div>
+				<p class="mt-3 text-xs text-muted-foreground">
+					Checksums are published so downloaded artifacts can be verified against the current release.
+				</p>
+				<p class="mt-1 text-xs text-muted-foreground">
+					Major public claims are also published in a versioned
+					<a href="/data/claims-matrix-v4.json" download class="text-primary underline">claims matrix</a>
+					with evidence-strength labels, source keys, and research links. The citation layer is also
+					published as
+					<a href="/data/research-library.json" download class="text-primary underline">research-library.json</a>.
+				</p>
 			</div>
-			<p class="mt-3 text-xs text-muted-foreground">
-				Checksums are published so downloaded artifacts can be verified against the current release.
-			</p>
-			<p class="mt-1 text-xs text-muted-foreground">
-				Major public claims are also published in a versioned
-				<a href="/data/claims-matrix-v4.json" download class="text-primary underline">claims matrix</a>
-				with evidence-strength labels, source keys, and research links. The citation layer is also
-				published as
-				<a href="/data/research-library.json" download class="text-primary underline">research-library.json</a>.
-			</p>
-		</div>
+		</details>
 	</div>
 
 	<div class="mt-8">
-		<p class={cn(sectionLabel(), 'mb-3')}>Raw Data Health</p>
-		<div class={card({ padding: 'lg' })}>
-			<div class="space-y-1 text-sm text-muted-foreground">
-				<p>
-					<span class="font-medium text-foreground">Audit generated:</span>
-					{formatDateTime(rawAudit.generated_at)}
-				</p>
-				<p>
-					<span class="font-medium text-foreground">Summary:</span>
-					{rawAudit.summary.valid} valid, {rawAudit.summary.placeholder_error} placeholder/error,
-					{rawAudit.summary.missing} missing, {rawAudit.summary.reference_only} reference-only
-				</p>
-			</div>
-			<div class="mt-4 rounded-md border">
-				<Table.Root>
-					<Table.Header>
-						<Table.Row>
-							<Table.Head class="text-xs uppercase tracking-wider">Raw Input</Table.Head>
-							<Table.Head class="text-xs uppercase tracking-wider">Status</Table.Head>
-							<Table.Head class="text-xs uppercase tracking-wider">Used For</Table.Head>
-							<Table.Head class="text-xs uppercase tracking-wider">Notes</Table.Head>
-						</Table.Row>
-					</Table.Header>
-					<Table.Body>
-						{#each rawAudit.entries as entry}
+		<details>
+			<summary class={cn(sectionLabel(), 'mb-3 cursor-pointer hover:text-primary')}>
+				Raw Data Health ({rawAudit.summary.valid} valid, {rawAudit.summary.placeholder_error + rawAudit.summary.missing} issues)
+			</summary>
+			<div class={card({ padding: 'lg' })}>
+				<div class="space-y-1 text-sm text-muted-foreground">
+					<p>
+						<span class="font-medium text-foreground">Audit generated:</span>
+						{formatDateTime(rawAudit.generated_at)}
+					</p>
+					<p>
+						<span class="font-medium text-foreground">Summary:</span>
+						{rawAudit.summary.valid} valid, {rawAudit.summary.placeholder_error} placeholder/error,
+						{rawAudit.summary.missing} missing, {rawAudit.summary.reference_only} reference-only
+					</p>
+				</div>
+				<div class="mt-4 rounded-md border">
+					<Table.Root>
+						<Table.Header>
 							<Table.Row>
-								<Table.Cell>
-									<div class="space-y-0.5">
-										<p class="font-medium text-foreground">{entry.label}</p>
-										<p class="text-xs text-muted-foreground">{entry.file}</p>
-									</div>
-								</Table.Cell>
-								<Table.Cell class={cn('text-xs font-medium', rawStatusClass(entry.status))}>
-									{rawStatusLabels[entry.status]}
-								</Table.Cell>
-								<Table.Cell class="text-xs text-muted-foreground">
-									{entry.used_by.join(', ')}
-								</Table.Cell>
-								<Table.Cell class="text-xs text-muted-foreground">
-									{entry.note}
-								</Table.Cell>
+								<Table.Head class="text-xs uppercase tracking-wider">Raw Input</Table.Head>
+								<Table.Head class="text-xs uppercase tracking-wider">Status</Table.Head>
+								<Table.Head class="text-xs uppercase tracking-wider">Used For</Table.Head>
+								<Table.Head class="text-xs uppercase tracking-wider">Notes</Table.Head>
 							</Table.Row>
-						{/each}
-					</Table.Body>
-				</Table.Root>
+						</Table.Header>
+						<Table.Body>
+							{#each rawAudit.entries as entry}
+								<Table.Row>
+									<Table.Cell>
+										<div class="space-y-0.5">
+											<p class="font-medium text-foreground">{entry.label}</p>
+											<p class="text-xs text-muted-foreground">{entry.file}</p>
+										</div>
+									</Table.Cell>
+									<Table.Cell class={cn('text-xs font-medium', rawStatusClass(entry.status))}>
+										{rawStatusLabels[entry.status]}
+									</Table.Cell>
+									<Table.Cell class="text-xs text-muted-foreground">
+										{entry.used_by.join(', ')}
+									</Table.Cell>
+									<Table.Cell class="text-xs text-muted-foreground">
+										{entry.note}
+									</Table.Cell>
+								</Table.Row>
+							{/each}
+						</Table.Body>
+					</Table.Root>
+				</div>
+				<p class="mt-3 text-xs text-muted-foreground">
+					This audit distinguishes real local raw inputs from missing files and failed download artifacts.
+				</p>
 			</div>
-			<p class="mt-3 text-xs text-muted-foreground">
-				This audit distinguishes real local raw inputs from missing files and failed download artifacts.
-			</p>
-		</div>
+		</details>
 	</div>
 
 	<div class="mt-8">
@@ -1010,73 +1116,91 @@
 	</Alert.Root>
 
 	<div class="mt-8">
-		<p class={cn(sectionLabel(), 'mb-3')}>Source Registry</p>
-		<div class={card({ padding: 'lg' })}>
-			<p class="mb-3 text-sm text-muted-foreground">
-				Live sources are tracked separately from the structural score. Some sources are already
-				active in the live monitor pipeline; others remain reference or backlog sources and are
-				not yet part of the published monitor.
-			</p>
-			<div class="rounded-md border">
-				<Table.Root>
-					<Table.Header>
-						<Table.Row>
-							<Table.Head class="text-xs uppercase tracking-wider">Source</Table.Head>
-							<Table.Head class="text-xs uppercase tracking-wider">Tier</Table.Head>
-							<Table.Head class="text-xs uppercase tracking-wider">Status</Table.Head>
-							<Table.Head class="text-xs uppercase tracking-wider">Used For</Table.Head>
-						</Table.Row>
-					</Table.Header>
-					<Table.Body>
-						{#each dataSourceRegistry as source}
+		<details>
+			<summary class={cn(sectionLabel(), 'mb-3 cursor-pointer hover:text-primary')}>
+				Source Registry ({dataSourceCount} sources)
+			</summary>
+			<div class={card({ padding: 'lg' })}>
+				<p class="mb-3 text-sm text-muted-foreground">
+					Live sources are tracked separately from the structural score. Some sources are already
+					active in the live monitor pipeline; others remain reference or backlog sources and are
+					not yet part of the published monitor.
+				</p>
+				<div class="rounded-md border">
+					<Table.Root>
+						<Table.Header>
 							<Table.Row>
-								<Table.Cell>
-									<div class="space-y-0.5">
-										<p class="font-medium text-foreground">{source.label}</p>
-										<p class="text-xs text-muted-foreground">{source.vintage}</p>
-									</div>
-								</Table.Cell>
-								<Table.Cell class="text-xs text-muted-foreground">
-									{evidenceTierLabels[source.tier]}
-								</Table.Cell>
-								<Table.Cell class="text-xs text-muted-foreground">
-									{sourceRegistryStatusLabels[source.status]}
-								</Table.Cell>
-								<Table.Cell class="text-xs text-muted-foreground">
-									{source.used_for.join(', ')}
-								</Table.Cell>
+								<Table.Head class="text-xs uppercase tracking-wider">Source</Table.Head>
+								<Table.Head class="text-xs uppercase tracking-wider">Tier</Table.Head>
+								<Table.Head class="text-xs uppercase tracking-wider">Status</Table.Head>
+								<Table.Head class="text-xs uppercase tracking-wider">Used For</Table.Head>
 							</Table.Row>
-						{/each}
-					</Table.Body>
-				</Table.Root>
+						</Table.Header>
+						<Table.Body>
+							{#each dataSourceRegistry as source}
+								<Table.Row>
+									<Table.Cell>
+										<div class="space-y-0.5">
+											<p class="font-medium text-foreground">{source.label}</p>
+											<p class="text-xs text-muted-foreground">{source.vintage}</p>
+										</div>
+									</Table.Cell>
+									<Table.Cell class="text-xs text-muted-foreground">
+										{evidenceTierLabels[source.tier]}
+									</Table.Cell>
+									<Table.Cell class="text-xs text-muted-foreground">
+										{sourceRegistryStatusLabels[source.status]}
+									</Table.Cell>
+									<Table.Cell class="text-xs text-muted-foreground">
+										{source.used_for.join(', ')}
+									</Table.Cell>
+								</Table.Row>
+							{/each}
+						</Table.Body>
+					</Table.Root>
+				</div>
 			</div>
-		</div>
+		</details>
 	</div>
 
 	<!-- Data Dictionary -->
 	<div class="mt-8">
 		<p class={cn(sectionLabel(), 'mb-3')}>Data Dictionary</p>
 		<div class={card({ padding: 'lg' })}>
-			<p class="text-sm text-muted-foreground mb-3">Key fields in the dataset. See the <a href="/methodology" class="text-primary underline">methodology page</a> for derivation details.</p>
-			<div class="rounded-md border">
-				<Table.Root>
-					<Table.Header>
-						<Table.Row>
-							<Table.Head class="text-xs uppercase tracking-wider">Field</Table.Head>
-							<Table.Head class="text-xs uppercase tracking-wider">Type</Table.Head>
-							<Table.Head class="text-xs uppercase tracking-wider">Description</Table.Head>
-						</Table.Row>
-					</Table.Header>
-					<Table.Body>
-						{#each fields as field}
-							<Table.Row>
-								<Table.Cell class="font-mono text-xs">{field.name}</Table.Cell>
-								<Table.Cell class="text-xs text-muted-foreground">{field.type}</Table.Cell>
-								<Table.Cell class="text-xs text-muted-foreground">{field.description}</Table.Cell>
-							</Table.Row>
-						{/each}
-					</Table.Body>
-				</Table.Root>
+			<p class="text-sm text-muted-foreground mb-3">
+				{fields.length} fields across {fieldCategories.length} categories. See the <a href="/methodology" class="text-primary underline">methodology page</a> for derivation details.
+			</p>
+			<div class="space-y-2">
+				{#each fieldCategories as category}
+					{#if category.fields.length > 0}
+						<details>
+							<summary class="cursor-pointer rounded-md border border-border px-3 py-2 text-sm font-medium text-foreground hover:bg-accent">
+								{category.label}
+								<span class="ml-1 text-xs text-muted-foreground">({category.fields.length} fields)</span>
+							</summary>
+							<div class="mt-1 rounded-md border">
+								<Table.Root>
+									<Table.Header>
+										<Table.Row>
+											<Table.Head class="text-xs uppercase tracking-wider">Field</Table.Head>
+											<Table.Head class="text-xs uppercase tracking-wider">Type</Table.Head>
+											<Table.Head class="text-xs uppercase tracking-wider">Description</Table.Head>
+										</Table.Row>
+									</Table.Header>
+									<Table.Body>
+										{#each category.fields as field}
+											<Table.Row>
+												<Table.Cell class="font-mono text-xs">{field.name}</Table.Cell>
+												<Table.Cell class="text-xs text-muted-foreground">{field.type}</Table.Cell>
+												<Table.Cell class="text-xs text-muted-foreground">{field.description}</Table.Cell>
+											</Table.Row>
+										{/each}
+									</Table.Body>
+								</Table.Root>
+							</div>
+						</details>
+					{/if}
+				{/each}
 			</div>
 		</div>
 	</div>

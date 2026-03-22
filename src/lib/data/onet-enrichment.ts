@@ -20,7 +20,9 @@ const onetEnrichment = onetEnrichmentData as OnetEnrichmentEntry[];
 const onetBySsoc = new Map(onetEnrichment.map((entry) => [entry.ssoc, entry]));
 
 export function getOnetEnrichmentForOccupation(ssoc: string): OnetEnrichmentEntry | null {
-	return onetBySsoc.get(ssoc) ?? null;
+	const entry = onetBySsoc.get(ssoc) ?? null;
+	if (entry && entry.match_score < 0.5) return null;
+	return entry;
 }
 
 export interface BlendedOnetEnrichment {

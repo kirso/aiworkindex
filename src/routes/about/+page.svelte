@@ -87,13 +87,6 @@
 		</div>
 	</div>
 
-	<p class="mt-4 text-muted-foreground">
-		These three layers are separated deliberately in the product and data model. The structural
-		score is published as its own dataset, the labour monitor and Singapore context ship as separate
-		artifacts, and the offset/support layers stay out of the core score so they remain auditable
-		decision support rather than being presented as measured fact.
-	</p>
-
 	<!-- Key context boxes -->
 	<div class={card({ padding: 'sm', variant: 'notice', accent: 'moderate' })}>
 		<p class="text-sm font-medium text-foreground">This model measures one side of the equation</p>
@@ -105,33 +98,37 @@
 				rel="noopener noreferrer"
 				class="underline">Acemoglu &amp; Restrepo (2019)</a
 			>
-			framework, AI's net impact = displacement − reinstatement. We measure displacement only. Scores
+			framework, AI's net impact = displacement - reinstatement. We measure displacement only. Scores
 			likely overstate net risk for occupations where AI creates new work.
 		</p>
 	</div>
 
-	<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'leveraged' }), 'mt-3')}>
-		<p class="text-sm font-medium text-foreground">State of the science (early 2026)</p>
-		<ul class="mt-1.5 space-y-1 text-sm text-text-secondary">
-			<li>
-				Single exposure scores are poor unemployment predictors — ensembles do better (<a
-					href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11983276/"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="underline">Frank et al., 2025</a
-				>)
-			</li>
-			<li>
-				No consensus on measurement — "<a
-					href="https://www.brookings.edu/articles/research-on-ai-and-the-labor-market-is-still-in-the-first-inning/"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="underline">still in the first inning</a
-				>" (Brookings/PIIE, 2026)
-			</li>
-			<li>Entry-level workers face earliest pressure (Stanford DEL, 2025; Anthropic, 2026)</li>
-		</ul>
-	</div>
+	<details class="mt-3">
+		<summary class="cursor-pointer text-sm font-medium text-foreground hover:text-primary">
+			State of the science (early 2026)
+		</summary>
+		<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'leveraged' }), 'mt-2')}>
+			<ul class="space-y-1 text-sm text-text-secondary">
+				<li>
+					Single exposure scores are poor unemployment predictors — ensembles do better (<a
+						href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11983276/"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="underline">Frank et al., 2025</a
+					>)
+				</li>
+				<li>
+					No consensus on measurement — "<a
+						href="https://www.brookings.edu/articles/research-on-ai-and-the-labor-market-is-still-in-the-first-inning/"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="underline">still in the first inning</a
+					>" (Brookings/PIIE, 2026)
+				</li>
+				<li>Entry-level workers face earliest pressure (Stanford DEL, 2025; Anthropic, 2026)</li>
+			</ul>
+		</div>
+	</details>
 
 	<!-- Model Card — the good part, keeping it -->
 	<section class="mb-8 mt-8">
@@ -205,27 +202,31 @@
 
 	<!-- Data Vintage -->
 	<section class="mb-8 mt-8">
-		<p class={sectionLabel()}>Data Vintage</p>
-		<div class="mt-3 grid gap-2 sm:grid-cols-2">
-			<div class={card({ padding: 'sm', variant: 'flat' })}>
-				<p class={caption({ weight: 'medium' })}>Wages</p>
-				<p class="text-sm text-foreground">{DATA_VINTAGE.wages} MOM data</p>
+		<details>
+			<summary class={sectionLabel()}>
+				<span class="cursor-pointer hover:text-primary">Data Vintage</span>
+			</summary>
+			<div class="mt-3 grid gap-2 sm:grid-cols-2">
+				<div class={card({ padding: 'sm', variant: 'flat' })}>
+					<p class={caption({ weight: 'medium' })}>Wages</p>
+					<p class="text-sm text-foreground">{DATA_VINTAGE.wages} MOM data</p>
+				</div>
+				<div class={card({ padding: 'sm', variant: 'flat' })}>
+					<p class={caption({ weight: 'medium' })}>Demand Signals</p>
+					<p class="text-sm text-foreground">{DATA_VINTAGE.demand_signals}</p>
+				</div>
+				<div class={card({ padding: 'sm', variant: 'flat' })}>
+					<p class={caption({ weight: 'medium' })}>Labour Market</p>
+					<p class="text-sm text-foreground">{DATA_VINTAGE.labour_monitor}</p>
+				</div>
+				<div class={card({ padding: 'sm', variant: 'flat' })}>
+					<p class={caption({ weight: 'medium' })}>Model Version</p>
+					<p class="text-sm text-foreground">
+						{DATA_VINTAGE.model_version} · {DATA_VINTAGE.validation_checks} checks
+					</p>
+				</div>
 			</div>
-			<div class={card({ padding: 'sm', variant: 'flat' })}>
-				<p class={caption({ weight: 'medium' })}>Demand Signals</p>
-				<p class="text-sm text-foreground">{DATA_VINTAGE.demand_signals}</p>
-			</div>
-			<div class={card({ padding: 'sm', variant: 'flat' })}>
-				<p class={caption({ weight: 'medium' })}>Labour Market</p>
-				<p class="text-sm text-foreground">{DATA_VINTAGE.labour_monitor}</p>
-			</div>
-			<div class={card({ padding: 'sm', variant: 'flat' })}>
-				<p class={caption({ weight: 'medium' })}>Model Version</p>
-				<p class="text-sm text-foreground">
-					{DATA_VINTAGE.model_version} · {DATA_VINTAGE.validation_checks} checks
-				</p>
-			</div>
-		</div>
+		</details>
 	</section>
 
 	<!-- Inspiration & What We Do Differently -->

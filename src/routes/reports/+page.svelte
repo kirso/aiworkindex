@@ -46,275 +46,17 @@
 
 	<h1 class={titleStyle({ size: 'page' })}>Reports</h1>
 
-	<!-- Narrative lead -->
-	<div class={cn(card({ padding: 'md', variant: 'notice', accent: 'primary' }), 'mt-4')}>
-		<p class="text-sm text-foreground leading-relaxed">
-			<span class="font-semibold"
-				>Latest published context as of {siteStatus.live_monitor.latest_official_labour_report
-					.published_at}:</span
-			>
-			the latest official labour release is {siteStatus.live_monitor.latest_official_labour_report
-				.label}, and the current site monitor now uses {siteStatus.live_monitor
-				.labour_monitor_artifact_vintage}. The latest macro snapshot is {siteStatus.live_monitor
-				.macro_vintage}
-			unemployment, and the latest official national AI-adoption survey is IMDA's {siteStatus
-				.live_monitor.ai_context_vintage}. Taken together, they show a labour market that remains
-			fairly tight ({macro.resident_unemployment_rate.toFixed(1)}% resident unemployment) while AI
-			usage is already mainstream ({ai.workforce.workers_using_ai_at_work_pct.toFixed(0)}% of
-			workers reported using AI at work).
+	<!-- Narrative lead — compact summary -->
+	<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'primary' }), 'mt-4')}>
+		<p class="text-sm text-foreground">
+			<span class="font-semibold">Latest context:</span>
+			{macro.resident_unemployment_rate.toFixed(1)}% resident unemployment ·
+			{ai.workforce.workers_using_ai_at_work_pct.toFixed(0)}% of workers using AI at work ·
+			{siteStatus.live_monitor.labour_monitor_artifact_vintage} labour monitor
 		</p>
-		<p class="mt-2 text-xs text-muted-foreground">{siteStatus.live_monitor.refresh_note}</p>
 	</div>
 
-	<div class="mt-6 grid gap-3 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-		<div class={card({ padding: 'sm', variant: 'metric' })}>
-			<p class={microLabel()}>AI Adoption · 2024 Data</p>
-			<p class="mt-1 font-mono text-lg font-bold text-foreground">
-				{ai.enterprises.non_sme_ai_adoption_pct.toFixed(1)}%
-			</p>
-			<p class="text-xs text-muted-foreground">latest observed non-SME AI adoption</p>
-		</div>
-		<div class={card({ padding: 'sm', variant: 'metric' })}>
-			<p class={microLabel()}>Workers · 2024 Data</p>
-			<p class="mt-1 font-mono text-lg font-bold text-foreground">
-				{ai.workforce.workers_using_ai_at_work_pct.toFixed(1)}%
-			</p>
-			<p class="text-xs text-muted-foreground">reported using AI at work</p>
-		</div>
-		<div class={card({ padding: 'sm', variant: 'metric' })}>
-			<p class={microLabel()}>Labour Backdrop · 2025 4Q</p>
-			<p class="mt-1 font-mono text-lg font-bold text-foreground">
-				{macro.resident_unemployment_rate.toFixed(1)}%
-			</p>
-			<p class="text-xs text-muted-foreground">resident unemployment rate</p>
-		</div>
-		<div class={card({ padding: 'sm', variant: 'metric' })}>
-			<p class={microLabel()}>NAIIP · 2026</p>
-			<p class="mt-1 font-mono text-lg font-bold text-foreground">
-				{Math.round(ai.national_programmes.naiip_workers_target / 1000)}K
-			</p>
-			<p class="text-xs text-muted-foreground">workers targeted to become AI-bilingual</p>
-		</div>
-	</div>
-
-	{#if postings.total_postings > 0}
-		<div class={cn(card({ padding: 'md' }), 'mt-6')}>
-			<div class="flex items-start justify-between gap-3">
-				<div>
-					<p class="text-sm font-semibold text-foreground">Hiring Now Monitor</p>
-					<p class="text-xs text-muted-foreground">
-						Multi-source Singapore postings signal, kept separate from the structural score.
-					</p>
-				</div>
-				<Badge variant="outline">Monitor</Badge>
-			</div>
-			<div class="mt-4 grid gap-3 sm:grid-cols-3">
-				<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
-					<p class={microLabel()}>Postings · 30D</p>
-					<p class="mt-1 font-mono text-lg font-bold text-foreground">
-						{postings.posting_volume_30d}
-					</p>
-					<p class="text-xs text-muted-foreground">live hiring volume</p>
-				</div>
-				<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
-					<p class={microLabel()}>Top Skills</p>
-					<p class="mt-1 text-sm font-medium text-foreground">
-						{postings.top_skills
-							.slice(0, 3)
-							.map(skill => skill.label)
-							.join(' · ')}
-					</p>
-					<p class="text-xs text-muted-foreground">most common visible requirements</p>
-				</div>
-				<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
-					<p class={microLabel()}>AI / Tools</p>
-					<p class="mt-1 text-sm font-medium text-foreground">
-						{postings.top_tools.length > 0
-							? postings.top_tools
-									.slice(0, 3)
-									.map(tool => tool.label)
-									.join(' · ')
-							: 'Sparse mention rate'}
-					</p>
-					<p class="text-xs text-muted-foreground">
-						monitor artifact as of {new Date(postingsMonitor.generated_at).toLocaleDateString(
-							'en-SG',
-							{ day: 'numeric', month: 'short', year: 'numeric' }
-						)}
-					</p>
-				</div>
-			</div>
-		</div>
-	{/if}
-
-	{#if employer.summary.total_signals > 0}
-		<div class={cn(card({ padding: 'md' }), 'mt-6')}>
-			<div class="flex items-start justify-between gap-3">
-				<div>
-					<p class="text-sm font-semibold text-foreground">Employer Pressure Monitor</p>
-					<p class="text-xs text-muted-foreground">
-						Curated restructuring / cost-discipline signals from official filings and credible
-						reporting, mapped to broad work archetypes.
-					</p>
-				</div>
-				<Badge variant="outline">Pressure</Badge>
-			</div>
-			<div class="mt-4 grid gap-3 sm:grid-cols-3">
-				<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
-					<p class={microLabel()}>Curated Signals</p>
-					<p class="mt-1 font-mono text-lg font-bold text-foreground">
-						{employer.summary.total_signals}
-					</p>
-					<p class="text-xs text-muted-foreground">tracked signal entries in monitor</p>
-				</div>
-				<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
-					<p class={microLabel()}>Highest Pressure</p>
-					<p class="mt-1 text-sm font-medium text-foreground">
-						{employer.summary.highest_pressure_archetypes.slice(0, 2).join(' · ')}
-					</p>
-					<p class="text-xs text-muted-foreground">
-						{employer.summary.highest_pressure_label ?? 'no pressure label'} signal tier
-					</p>
-				</div>
-				<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
-					<p class={microLabel()}>Latest Signal</p>
-					<p class="mt-1 text-sm font-medium text-foreground">
-						{employer.summary.latest_signal_date
-							? new Date(employer.summary.latest_signal_date).toLocaleDateString('en-SG', {
-									day: 'numeric',
-									month: 'short',
-									year: 'numeric'
-								})
-							: '—'}
-					</p>
-					<p class="text-xs text-muted-foreground">most recent tracked employer-pressure signal</p>
-				</div>
-			</div>
-		</div>
-	{/if}
-
-	{#if quarterly.previous_snapshot}
-		<div class={cn(card({ padding: 'md' }), 'mt-6')}>
-			<div class="flex items-start justify-between gap-3">
-				<div>
-					<p class="text-sm font-semibold text-foreground">Quarterly Movers</p>
-					<p class="text-xs text-muted-foreground">
-						Frozen snapshot deltas between {quarterly.previous_snapshot} and {quarterly.current_snapshot}.
-					</p>
-				</div>
-				<a href="/rankings/quarterly-movers" class="text-xs text-primary hover:underline"
-					>Open ranking →</a
-				>
-			</div>
-			<div class="mt-4 grid gap-3 sm:grid-cols-3">
-				<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
-					<p class={microLabel()}>Band Movers</p>
-					<p class="mt-1 font-mono text-lg font-bold text-foreground">
-						{quarterly.band_movers.length}
-					</p>
-					<p class="text-xs text-muted-foreground">occupations changed risk band</p>
-				</div>
-				<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
-					<p class={microLabel()}>Top Risers</p>
-					<p class="mt-1 text-sm font-medium text-foreground">
-						{quarterly.top_risers
-							.slice(0, 2)
-							.map(entry => entry.title)
-							.join(' · ') || 'No major risers'}
-					</p>
-					<p class="text-xs text-muted-foreground">largest increases in structural pressure</p>
-				</div>
-				<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
-					<p class={microLabel()}>Top Fallers</p>
-					<p class="mt-1 text-sm font-medium text-foreground">
-						{quarterly.top_fallers
-							.slice(0, 2)
-							.map(entry => entry.title)
-							.join(' · ') || 'No major fallers'}
-					</p>
-					<p class="text-xs text-muted-foreground">largest decreases in structural pressure</p>
-				</div>
-			</div>
-		</div>
-	{/if}
-
-	{#if quarterly.briefing}
-		<div class="mt-6 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
-			<div class={card({ padding: 'sm', variant: 'flat' })}>
-				<p class="text-sm font-semibold text-foreground">What changed</p>
-				<ul class="mt-2 space-y-2 text-sm text-muted-foreground">
-					{#each quarterly.briefing.what_changed as item}
-						<li>{item}</li>
-					{/each}
-				</ul>
-			</div>
-			<div class={card({ padding: 'sm', variant: 'flat' })}>
-				<p class="text-sm font-semibold text-foreground">Why it matters</p>
-				<ul class="mt-2 space-y-2 text-sm text-muted-foreground">
-					{#each quarterly.briefing.why_it_matters as item}
-						<li>{item}</li>
-					{/each}
-				</ul>
-			</div>
-			<div class={card({ padding: 'sm', variant: 'flat' })}>
-				<p class="text-sm font-semibold text-foreground">What to watch</p>
-				<ul class="mt-2 space-y-2 text-sm text-muted-foreground">
-					{#each quarterly.briefing.what_to_watch as item}
-						<li>{item}</li>
-					{/each}
-				</ul>
-			</div>
-		</div>
-	{/if}
-
-	<p class={cn(sectionLabel(), 'mt-8 mb-3')}>Latest Briefing</p>
-	<div class="space-y-4">
-		<div class={cn(card({ padding: 'lg' }), 'border-2 border-primary/20')}>
-			<div class="flex items-center gap-2">
-				<span class="text-base font-semibold text-foreground">
-					{siteStatus.live_monitor.latest_official_labour_report.label}
-				</span>
-				<Badge
-					variant="outline"
-					class="bg-risk-moderate-subtle text-risk-moderate border-risk-moderate-border"
-					>New official release</Badge
-				>
-			</div>
-			<p class="mt-1 text-sm text-muted-foreground">
-				MOM has now published the full Q4 2025 labour-market report, and the live monitor already
-				runs on that full vintage for vacancy, recruitment/resignation, retrenchment, re-entry, and
-				hiring-expectation context across the site.
-			</p>
-			<div class="mt-3 grid gap-2 sm:grid-cols-3 text-xs">
-				<div class="rounded bg-muted p-2">
-					<span class="text-muted-foreground">Structural score</span>
-					<span class="ml-1 font-semibold text-foreground"
-						>{siteStatus.structural_release.version}</span
-					>
-				</div>
-				<div class="rounded bg-muted p-2">
-					<span class="text-muted-foreground">Live monitor</span>
-					<span class="ml-1 font-semibold text-foreground">
-						{siteStatus.live_monitor.labour_monitor_artifact_vintage}
-					</span>
-				</div>
-				<div class="rounded bg-muted p-2">
-					<span class="text-muted-foreground">Latest official labour release</span>
-					<span class="ml-1 font-semibold text-foreground">Q4 2025 full report</span>
-				</div>
-			</div>
-			<p class="mt-2 text-xs text-muted-foreground">
-				Source: <a
-					href={siteStatus.live_monitor.latest_official_labour_report.url}
-					target="_blank"
-					rel="noopener noreferrer"
-					class="underline">{siteStatus.live_monitor.latest_official_labour_report.label}</a
-				>, MOM
-			</p>
-		</div>
-	</div>
-
-	<p class={cn(sectionLabel(), 'mt-8 mb-3')}>Reports & Analysis</p>
+	<p class={cn(sectionLabel(), 'mt-6 mb-3')}>Published Reports</p>
 	<div class="space-y-4">
 		<a href="/reports/v4-3-shadow" class="block no-underline">
 			<div class={cn(card({ padding: 'lg', hover: true }), 'flex items-start justify-between')}>
@@ -562,4 +304,185 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- Current Snapshot — live monitor metrics -->
+	<p class={cn(sectionLabel(), 'mt-8 mb-3')}>Current Snapshot</p>
+	<p class="mb-3 text-sm text-muted-foreground">
+		Live monitor metrics and signals, kept separate from the structural score.
+	</p>
+
+	<div class="grid gap-3 sm:grid-cols-2 md:grid-cols-4">
+		<div class={card({ padding: 'sm', variant: 'metric' })}>
+			<p class={microLabel()}>AI Adoption · 2024</p>
+			<p class="mt-1 font-mono text-lg font-bold text-foreground">
+				{ai.enterprises.non_sme_ai_adoption_pct.toFixed(1)}%
+			</p>
+			<p class="text-xs text-muted-foreground">non-SME AI adoption</p>
+		</div>
+		<div class={card({ padding: 'sm', variant: 'metric' })}>
+			<p class={microLabel()}>Workers · 2024</p>
+			<p class="mt-1 font-mono text-lg font-bold text-foreground">
+				{ai.workforce.workers_using_ai_at_work_pct.toFixed(1)}%
+			</p>
+			<p class="text-xs text-muted-foreground">using AI at work</p>
+		</div>
+		<div class={card({ padding: 'sm', variant: 'metric' })}>
+			<p class={microLabel()}>Unemployment · 2025 4Q</p>
+			<p class="mt-1 font-mono text-lg font-bold text-foreground">
+				{macro.resident_unemployment_rate.toFixed(1)}%
+			</p>
+			<p class="text-xs text-muted-foreground">resident unemployment</p>
+		</div>
+		<div class={card({ padding: 'sm', variant: 'metric' })}>
+			<p class={microLabel()}>NAIIP · 2026</p>
+			<p class="mt-1 font-mono text-lg font-bold text-foreground">
+				{Math.round(ai.national_programmes.naiip_workers_target / 1000)}K
+			</p>
+			<p class="text-xs text-muted-foreground">AI-bilingual target</p>
+		</div>
+	</div>
+
+	{#if postings.total_postings > 0}
+		<details class="mt-4">
+			<summary class="cursor-pointer text-sm font-medium text-foreground hover:text-primary">
+				Hiring Now Monitor ({postings.posting_volume_30d} postings, 30D)
+			</summary>
+			<div class={cn(card({ padding: 'md' }), 'mt-2')}>
+				<div class="grid gap-3 sm:grid-cols-3">
+					<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
+						<p class={microLabel()}>Top Skills</p>
+						<p class="mt-1 text-sm font-medium text-foreground">
+							{postings.top_skills
+								.slice(0, 3)
+								.map(skill => skill.label)
+								.join(' · ')}
+						</p>
+					</div>
+					<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
+						<p class={microLabel()}>AI / Tools</p>
+						<p class="mt-1 text-sm font-medium text-foreground">
+							{postings.top_tools.length > 0
+								? postings.top_tools
+										.slice(0, 3)
+										.map(tool => tool.label)
+										.join(' · ')
+								: 'Sparse mention rate'}
+						</p>
+					</div>
+					<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
+						<p class={microLabel()}>As of</p>
+						<p class="mt-1 text-sm font-medium text-foreground">
+							{new Date(postingsMonitor.generated_at).toLocaleDateString('en-SG', {
+								day: 'numeric',
+								month: 'short',
+								year: 'numeric'
+							})}
+						</p>
+					</div>
+				</div>
+			</div>
+		</details>
+	{/if}
+
+	{#if employer.summary.total_signals > 0}
+		<details class="mt-4">
+			<summary class="cursor-pointer text-sm font-medium text-foreground hover:text-primary">
+				Employer Pressure Monitor ({employer.summary.total_signals} signals)
+			</summary>
+			<div class={cn(card({ padding: 'md' }), 'mt-2')}>
+				<div class="grid gap-3 sm:grid-cols-3">
+					<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
+						<p class={microLabel()}>Highest Pressure</p>
+						<p class="mt-1 text-sm font-medium text-foreground">
+							{employer.summary.highest_pressure_archetypes.slice(0, 2).join(' · ')}
+						</p>
+						<p class="text-xs text-muted-foreground">
+							{employer.summary.highest_pressure_label ?? 'no pressure label'} signal tier
+						</p>
+					</div>
+					<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
+						<p class={microLabel()}>Latest Signal</p>
+						<p class="mt-1 text-sm font-medium text-foreground">
+							{employer.summary.latest_signal_date
+								? new Date(employer.summary.latest_signal_date).toLocaleDateString('en-SG', {
+										day: 'numeric',
+										month: 'short',
+										year: 'numeric'
+									})
+								: '--'}
+						</p>
+					</div>
+				</div>
+			</div>
+		</details>
+	{/if}
+
+	{#if quarterly.previous_snapshot}
+		<details class="mt-4">
+			<summary class="cursor-pointer text-sm font-medium text-foreground hover:text-primary">
+				Quarterly Movers ({quarterly.band_movers.length} band changes, {quarterly.previous_snapshot} to {quarterly.current_snapshot})
+			</summary>
+			<div class={cn(card({ padding: 'md' }), 'mt-2')}>
+				<div class="grid gap-3 sm:grid-cols-3">
+					<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
+						<p class={microLabel()}>Top Risers</p>
+						<p class="mt-1 text-sm font-medium text-foreground">
+							{quarterly.top_risers
+								.slice(0, 2)
+								.map(entry => entry.title)
+								.join(' · ') || 'No major risers'}
+						</p>
+					</div>
+					<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
+						<p class={microLabel()}>Top Fallers</p>
+						<p class="mt-1 text-sm font-medium text-foreground">
+							{quarterly.top_fallers
+								.slice(0, 2)
+								.map(entry => entry.title)
+								.join(' · ') || 'No major fallers'}
+						</p>
+					</div>
+				</div>
+				<div class="mt-3">
+					<a href="/rankings/quarterly-movers" class="text-xs text-primary hover:underline"
+						>Open full ranking →</a
+					>
+				</div>
+			</div>
+		</details>
+	{/if}
+
+	{#if quarterly.briefing}
+		<details class="mt-4">
+			<summary class="cursor-pointer text-sm font-medium text-foreground hover:text-primary">
+				Quarterly Briefing
+			</summary>
+			<div class="mt-2 grid gap-3 md:grid-cols-3">
+				<div class={card({ padding: 'sm', variant: 'flat' })}>
+					<p class="text-sm font-semibold text-foreground">What changed</p>
+					<ul class="mt-2 space-y-2 text-sm text-muted-foreground">
+						{#each quarterly.briefing.what_changed as item}
+							<li>{item}</li>
+						{/each}
+					</ul>
+				</div>
+				<div class={card({ padding: 'sm', variant: 'flat' })}>
+					<p class="text-sm font-semibold text-foreground">Why it matters</p>
+					<ul class="mt-2 space-y-2 text-sm text-muted-foreground">
+						{#each quarterly.briefing.why_it_matters as item}
+							<li>{item}</li>
+						{/each}
+					</ul>
+				</div>
+				<div class={card({ padding: 'sm', variant: 'flat' })}>
+					<p class="text-sm font-semibold text-foreground">What to watch</p>
+					<ul class="mt-2 space-y-2 text-sm text-muted-foreground">
+						{#each quarterly.briefing.what_to_watch as item}
+							<li>{item}</li>
+						{/each}
+					</ul>
+				</div>
+			</div>
+		</details>
+	{/if}
 </main>

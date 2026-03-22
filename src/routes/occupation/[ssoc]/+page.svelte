@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import { innerWidth as windowWidth } from 'svelte/reactivity/window';
 	import { riskBandLabels, majorGroupByKey, impactTypeLabels } from '$lib/data';
 	import {
 		card,
@@ -21,14 +20,12 @@
 	import { vacancySignalClass } from '$lib/data/detail-display';
 	import DriverWaterfall from '$lib/components/viz/DriverWaterfall.svelte';
 	import WorkflowRadar from '$lib/components/viz/WorkflowRadar.svelte';
-	import TransitionGraph from '$lib/components/viz/TransitionGraph.svelte';
 	import EvidenceBar from '$lib/components/viz/EvidenceBar.svelte';
 	import SignalProfileGrid from '$lib/components/viz/SignalProfileGrid.svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import * as Collapsible from '$lib/components/ui/collapsible/index.js';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import ContextItemGrid from '$lib/components/ui/ContextItemGrid.svelte';
-	import PostingsSignalSummary from '$lib/components/ui/PostingsSignalSummary.svelte';
 	import { siteStatus } from '$lib/data/site-status';
 	import { SITE } from '$lib/data/scoring-constants';
 	import Seo from '$lib/components/ui/Seo.svelte';
@@ -98,7 +95,7 @@
 
 	let group = $derived(majorGroupByKey.get(occ.major_group));
 	let transitions = $derived(structural.transitions);
-	let topTransitions = $derived(structural.topTransitions);
+	let _topTransitions = $derived(structural.topTransitions);
 	let singaporeContext = $derived(context.singaporeContext);
 	let industryContext = $derived(context.industryContext);
 	let workerProfile = $derived(context.workerProfile);
@@ -108,14 +105,12 @@
 	let postings = $derived(context.postings);
 	let employerPressure = $derived(context.employerPressure);
 	let localContextItems = $derived(singaporeContext.items);
-	let marketNowSummary = $derived(
+	let _marketNowSummary = $derived(
 		buildMarketNowSummary(occ.labour_monitor, postings, employerPressure)
 	);
 	let marketDetailBullets = $derived(
 		buildMarketDetailBullets(occ.labour_monitor, postings, employerPressure)
 	);
-
-	let viewportWidth = $derived(windowWidth.current ?? 1024);
 
 	// Demand signal helpers
 	let hasDemand = $derived(occ.evidence.sol_match || occ.evidence.jobs_in_demand_match);
@@ -175,6 +170,25 @@
 
 	// Singapore context expandable state
 	let showMoreContext = $state(false);
+
+	let allUniqueTransitions = $derived.by(() => {
+		if (!transitions) return [];
+		const all = [
+			...transitions.easierSwitch,
+			...transitions.lowerRisk,
+			...transitions.betterPay,
+			...transitions.strongDemand
+		];
+		const seen = new Set<string>();
+		const unique: typeof all = [];
+		for (const t of all.sort((a, b) => b.composite - a.composite)) {
+			if (!seen.has(t.to_ssoc)) {
+				seen.add(t.to_ssoc);
+				unique.push(t);
+			}
+		}
+		return unique;
+	});
 
 	function pressureBarClass(v: number) {
 		return v >= 0.5
@@ -425,29 +439,21 @@
 					</div>
 				</div>
 
-				<div class="mt-4 space-y-2">
-					<div class="flex flex-wrap items-center gap-2">
-						<span class={impactBadge({ type: occ.impact_type })}>
-							{impactTypeLabels[occ.impact_type]}
+				<div class="mt-4 flex flex-wrap items-center gap-2">
+					<span class={riskBadge({ band: occ.risk_band })}>
+						{riskBandLabels[occ.risk_band]} Risk
+					</span>
+					<span class={impactBadge({ type: occ.impact_type })}>
+						{impactTypeLabels[occ.impact_type]}
+					</span>
+					<span class={confidenceBadge({ level: occ.confidence.level })}>
+						{occ.confidence.level.charAt(0).toUpperCase() + occ.confidence.level.slice(1)} Evidence Quality
+					</span>
+					{#if hasDemand}
+						<span class={pill({ tone: 'positive' })}>
+							In demand ({demandLabel})
 						</span>
-							<span class={confidenceBadge({ level: occ.confidence.level })}>
-								{occ.confidence.level.charAt(0).toUpperCase() + occ.confidence.level.slice(1)} evidence quality
-							</span>
-						{#if hasDemand}
-							<span class={pill({ tone: 'positive' })}>
-								In demand ({demandLabel})
-							</span>
-						{/if}
-					</div>
-					<div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
-						{#if occ.education_label}
-							<span>{occ.education_label}</span>
-						{/if}
-						{#if occ.scoring_basis}
-							<span>{scoringBasisSummary}</span>
-						{/if}
-						<span>Higher risk than {structural.riskPercentile}% of occupations</span>
-					</div>
+					{/if}
 				</div>
 			</div>
 		</div>
@@ -500,21 +506,6 @@
 							</div>
 						</div>
 					{/if}
-					{#if (structural.onetEnrichment?.technologies.length ?? 0) > 0}
-						<div class="pt-3 border-t border-border">
-							<p class="text-xs font-semibold text-foreground mb-2">Common tools in similar work</p>
-							<div class="flex flex-wrap gap-1.5">
-								{#each structural.onetEnrichment?.technologies.slice(0, 4) ?? [] as technology}
-									<span class={pill({ tone: technology.hot ? 'positive' : 'muted' })}>
-										{technology.name}
-									</span>
-								{/each}
-							</div>
-							<p class="mt-2 text-xs text-muted-foreground">
-								Derived from matched O*NET technology-skill profiles.
-							</p>
-						</div>
-					{/if}
 				</div>
 			</div>
 
@@ -522,31 +513,17 @@
 			{#if occ.workflow_overlay}
 				<div class="mt-5 border-t border-border pt-5">
 					<p class="text-xs font-semibold text-foreground mb-3">What this role involves</p>
-					<div class="grid gap-4 sm:grid-cols-[minmax(0,1fr)_12rem]">
-						<div class="grid grid-cols-2 gap-x-4 gap-y-2">
-							{#each Object.entries(occ.workflow_overlay as unknown as Record<string, number>) as [key, value]}
-								{@const label = ({ creative_generation: 'Creative work', real_time_coordination: 'Real-time coordination', ambiguity_tolerance: 'Ambiguity tolerance', institutional_knowledge: 'Institutional knowledge', relationship_intensity: 'Relationship intensity', regulatory_weight: 'Regulatory weight', physical_presence: 'Physical presence', tool_velocity: 'Tool velocity' })[key] ?? key}
-								<div class="flex items-center gap-2">
-									<span class="text-xs text-muted-foreground w-28 shrink-0 truncate" title={label}>{label}</span>
-									<div class="h-1.5 flex-1 rounded-full bg-muted overflow-hidden">
-										<div class="h-full rounded-full bg-foreground/40" style="width: {(value as number) * 100}%"></div>
-									</div>
-									<span class="font-mono text-[10px] text-muted-foreground w-6 text-right">{((value as number) * 100).toFixed(0)}</span>
-								</div>
-							{/each}
-						</div>
-						<div class="hidden sm:block">
-							<WorkflowRadar dimensions={occ.workflow_overlay} size={160} />
-						</div>
+					<div class="mx-auto max-w-xs">
+						<WorkflowRadar dimensions={occ.workflow_overlay} size={280} />
 					</div>
 				</div>
 			{/if}
 		</div>
 	</section>
 
-	<!-- ===== BLOCK 3: SINGAPORE REALITY ===== -->
+	<!-- ===== BLOCK 3: SINGAPORE NOW ===== -->
 	<section class="mb-8">
-		<h2 class={cn(sectionLabel(), 'mb-3')}>Singapore Reality</h2>
+		<h2 class={cn(sectionLabel(), 'mb-3')}>Singapore Now</h2>
 		<div class={cn(card({ padding: 'md' }), 'space-y-4')}>
 			<div
 				class="flex flex-col gap-2 border-b border-border pb-4 sm:flex-row sm:items-start sm:justify-between"
@@ -554,7 +531,7 @@
 				<div>
 					<p class="text-sm font-semibold text-foreground">Current Singapore signal</p>
 					<p class="text-xs text-muted-foreground">
-						Labour now, industry footprint, and a directional 12-month read.
+						Structural score reflects long-run pressure; these are current local conditions.
 					</p>
 				</div>
 				{#if occ.labour_monitor}
@@ -570,10 +547,9 @@
 			</div>
 
 			{#if occ.labour_monitor || (postings && postings.hiring_state !== 'no_signal') || (employerPressure && employerPressure.signal_count > 0)}
-				<!-- Market narrative + key stats -->
+				<!-- Key stats -->
 				<div>
-					<p class="text-sm leading-relaxed text-text-secondary">{marketNowSummary}</p>
-					<div class="mt-3 grid gap-3 sm:grid-cols-3">
+					<div class="grid gap-3 sm:grid-cols-3">
 						{#if occ.labour_monitor}
 							<div class={card({ padding: 'sm', variant: 'metric' })}>
 								<p class={microLabel()}>Vacancy rate</p>
@@ -801,10 +777,7 @@
 										{/each}
 									</ul>
 									{#if postings && postings.hiring_state !== 'no_signal'}
-										<PostingsSignalSummary
-											{postings}
-											contextLabel="Multi-source Singapore postings monitor"
-										/>
+										<p class="text-xs text-muted-foreground mt-2">{postings.posting_volume_30d} live postings in last 30 days</p>
 									{/if}
 								</div>
 							{/if}
@@ -1020,15 +993,19 @@
 					{/if}
 				</div>
 
-				<!-- Transition graph (desktop) -->
-				{#if viewportWidth >= 768 && topTransitions.length > 0}
-					<div class="mt-4 pt-4 border-t border-border">
-						<TransitionGraph
-							currentTitle={occ.title}
-							currentRiskBand={occ.risk_band}
-							transitions={topTransitions}
-						/>
-					</div>
+				<!-- See more transitions expander -->
+				{#if allUniqueTransitions.length > 3}
+					<details class="mt-3">
+						<summary class="cursor-pointer text-xs font-medium text-primary hover:underline">See all {allUniqueTransitions.length} transitions</summary>
+						<div class="mt-2 grid gap-2 sm:grid-cols-2">
+							{#each allUniqueTransitions.slice(3) as t}
+								<a href="/occupation/{t.to_ssoc}" class="block rounded-md border border-border p-2 text-xs hover:bg-accent transition-colors">
+									<span class="font-medium text-foreground">{t.to_title}</span>
+									<span class="ml-1 text-muted-foreground">{(t.composite * 100).toFixed(0)}%</span>
+								</a>
+							{/each}
+						</div>
+					</details>
 				{/if}
 
 				<!-- Compare CTA -->
