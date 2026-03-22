@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { riskBandColors, type RiskBand } from '$lib/data';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
+	import Seo from '$lib/components/ui/Seo.svelte';
 	import { title as titleStyle } from '$lib/design-system';
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import { pageLayout } from '$lib/design-system';
@@ -32,15 +33,11 @@
 	}
 </script>
 
-<svelte:head>
-	<title>Q4 2024 Quarterly Report — AI Work Index</title>
-	<meta
-		name="description"
-		content="AI Work Index quarterly snapshot for Q4 2024. Risk distribution, top movers, and labour market highlights."
-	/>
-	<meta property="og:title" content="Q4 2024 Quarterly Report — AI Work Index" />
-	<meta property="og:description" content="AI Work Index quarterly snapshot for Q4 2024." />
-</svelte:head>
+<Seo
+	title="Q4 2024 Quarterly Report — AI Work Index"
+	description="AI Work Index quarterly snapshot for Q4 2024. Risk distribution, top movers, and labour market highlights."
+	path="/reports/q4-2024"
+/>
 
 <main class={pageLayout({ width: 'content' })}>
 	<PageBreadcrumb

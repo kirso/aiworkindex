@@ -48,7 +48,7 @@ export function buildRoleOnetEnrichment(
 				weight: number;
 				occupation: Occupation;
 				enrichment: OnetEnrichmentEntry;
-			} => component.enrichment !== null
+			} => component.enrichment !== null && component.enrichment.match_score >= 0.5
 		);
 
 	if (resolved.length === 0) return null;

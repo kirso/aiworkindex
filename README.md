@@ -1,6 +1,6 @@
 # AI Work Index — Singapore
 
-V4.3 is the live structural baseline: a deterministic 3-layer score that keeps the audited 4-source exposure ensemble and upgrades exposure with weighted task evidence where coverage is strong. The full V4.2 baseline and V4.3 shadow artifacts remain published for auditability, and the first V5 sidecar artifacts are published separately for augmentation heterogeneity, empirical mobility, posterior uncertainty, and realized-risk forecasting.
+V5 is the live structural score: a deterministic 3-layer model with latent-source posterior exposure, task-mode adjustment, human bottleneck, and market resilience. Prior V4.2 baselines and V4.3 shadow artifacts remain published for auditability. V5 adds transition-adjusted risk, realized-risk layers, and calibrated uncertainty diagnostics.
 
 **[Live Site](https://aiworkindex.pages.dev)** | **[Methodology](https://aiworkindex.pages.dev/methodology)** | **[Calculator](https://aiworkindex.pages.dev/calculator)** | **[Data](https://aiworkindex.pages.dev/data)**
 
@@ -17,7 +17,7 @@ V4.3 is the live structural baseline: a deterministic 3-layer score that keeps t
 
 Three-layer deterministic scoring — no LLM in the pipeline:
 
-1. **Exposure** — audited 4-source ensemble: AIOE (2021), Anthropic Economic Index (2026), Eloundou GPTs-are-GPTs (2024), ILO Refined Index (2025), with a V4.3 task-aware upgrade where weighted task evidence is strong.
+1. **Exposure** — reliability-weighted 4-source ensemble: AIOE (2021), Anthropic Economic Index (2026), Eloundou GPTs-are-GPTs (2024), ILO Refined Index (2025), blended using latent-source posterior in V5.
 2. **Human Bottleneck** — Pizzinelli theta from O*NET Work Context (judgment, presence, coordination)
 3. **Market Resilience** — MOM employment/wage trends + SOL/JiD demand signals + Anthropic calibration
 

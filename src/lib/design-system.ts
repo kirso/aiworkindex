@@ -15,7 +15,7 @@
 
 import { tv, type VariantProps } from 'tailwind-variants';
 import * as d3Scale from 'd3-scale';
-import type { RiskBand, ImpactType } from './data';
+import type { RiskBand } from './data';
 
 // ============================================
 // TYPOGRAPHY
@@ -129,15 +129,6 @@ export const pageLayout = tv({
 		}
 	},
 	defaultVariants: { width: 'content' }
-});
-
-/** @deprecated Use pageLayout */
-export const pageContainer = tv({
-	base: 'mx-auto max-w-screen-2xl px-5 sm:px-6'
-});
-/** @deprecated Use pageLayout */
-export const contentContainer = tv({
-	base: 'mx-auto max-w-3xl px-5 sm:px-6 py-6'
 });
 
 /** Section spacing */
@@ -260,19 +251,6 @@ export const riskBadge = tv({
 	}
 });
 
-export const riskBadgeSubtle = tv({
-	base: 'inline-flex items-center rounded-md border px-2 py-0.5 text-xs font-semibold',
-	variants: {
-		band: {
-			very_low: 'bg-risk-very-low-subtle text-risk-very-low border-risk-very-low-border',
-			low: 'bg-risk-low-subtle text-risk-low border-risk-low-border',
-			moderate: 'bg-risk-moderate-subtle text-risk-moderate border-risk-moderate-border',
-			high: 'bg-risk-high-subtle text-risk-high border-risk-high-border',
-			very_high: 'bg-risk-very-high-subtle text-risk-very-high border-risk-very-high-border'
-		}
-	}
-});
-
 export const impactBadge = tv({
 	base: 'inline-flex items-center rounded-md px-2 py-0.5 text-xs font-semibold',
 	variants: {
@@ -281,19 +259,6 @@ export const impactBadge = tv({
 			at_risk: 'bg-impact-at-risk text-white',
 			stable: 'bg-impact-stable text-white',
 			mixed: 'bg-impact-mixed text-white'
-		}
-	}
-});
-
-export const impactBadgeSubtle = tv({
-	base: 'inline-flex items-center rounded-md border px-2 py-0.5 text-xs font-semibold',
-	variants: {
-		type: {
-			ai_leveraged:
-				'bg-impact-leveraged-subtle text-impact-leveraged border-impact-leveraged-border',
-			at_risk: 'bg-impact-at-risk-subtle text-impact-at-risk border-impact-at-risk-border',
-			stable: 'bg-impact-stable-subtle text-impact-stable border-impact-stable-border',
-			mixed: 'bg-impact-mixed-subtle text-impact-mixed border-impact-mixed-border'
 		}
 	}
 });
@@ -322,28 +287,6 @@ export const badge = tv({
 		}
 	},
 	defaultVariants: { variant: 'default' }
-});
-
-// ============================================
-// SCORE BARS — Thinner, more precise
-// ============================================
-
-export const scoreBar = tv({
-	slots: {
-		container: 'h-1.5 w-full overflow-hidden rounded-full bg-inset',
-		fill: 'h-full rounded-full transition-all duration-200 ease-snappy'
-	},
-	variants: {
-		color: {
-			risk: { fill: 'bg-risk-high' },
-			safe: { fill: 'bg-risk-very-low' },
-			neutral: { fill: 'bg-primary/40' },
-			exposure: { fill: 'bg-risk-high' },
-			bottleneck: { fill: 'bg-risk-very-low' },
-			market: { fill: 'bg-impact-leveraged' }
-		}
-	},
-	defaultVariants: { color: 'neutral' }
 });
 
 // ============================================
@@ -387,32 +330,6 @@ export const pill = tv({
 // LAYOUT PRIMITIVES — Semantic surfaces
 // ============================================
 
-/** Subpanel — titled subsection within a card (e.g., "Labour Now", "Top Industries") */
-export const subpanel = tv({
-	base: 'rounded-lg border border-border/60 bg-card',
-	variants: {
-		padding: {
-			sm: 'p-3',
-			md: 'px-4 py-3',
-			lg: 'p-5'
-		}
-	},
-	defaultVariants: { padding: 'md' }
-});
-
-/** Utility action — quiet link-style action (Compare, Save, Share) */
-export const utilityAction = tv({
-	base: 'inline-flex items-center gap-1 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground',
-	variants: {
-		variant: {
-			link: 'hover:text-primary',
-			button:
-				'rounded-md border border-border px-2.5 py-1.5 hover:bg-accent hover:border-primary/30'
-		}
-	},
-	defaultVariants: { variant: 'link' }
-});
-
 // ============================================
 // INTERACTIVE ELEMENTS
 // ============================================
@@ -426,17 +343,6 @@ export const chip = tv({
 		}
 	},
 	defaultVariants: { active: false }
-});
-
-export const evidenceItem = tv({
-	base: 'flex items-start gap-2',
-	variants: {
-		signal: {
-			positive: '',
-			negative: '',
-			neutral: ''
-		}
-	}
 });
 
 export const formInput = tv({
@@ -484,47 +390,6 @@ export function scoreTileClasses(band: RiskBand): string {
 	return map[band];
 }
 
-/** Risk band → subtle bg/text/border classes */
-export function riskTone(band: RiskBand): string {
-	const map: Record<RiskBand, string> = {
-		very_low: 'bg-risk-very-low-subtle text-risk-very-low border-risk-very-low-border',
-		low: 'bg-risk-low-subtle text-risk-low border-risk-low-border',
-		moderate: 'bg-risk-moderate-subtle text-risk-moderate border-risk-moderate-border',
-		high: 'bg-risk-high-subtle text-risk-high border-risk-high-border',
-		very_high: 'bg-risk-very-high-subtle text-risk-very-high border-risk-very-high-border'
-	};
-	return map[band];
-}
-
-/** Impact type → subtle bg/text/border classes */
-export function impactTone(type: ImpactType): string {
-	const map: Record<ImpactType, string> = {
-		ai_leveraged: 'bg-impact-leveraged-subtle text-impact-leveraged border-impact-leveraged-border',
-		at_risk: 'bg-impact-at-risk-subtle text-impact-at-risk border-impact-at-risk-border',
-		stable: 'bg-impact-stable-subtle text-impact-stable border-impact-stable-border',
-		mixed: 'bg-impact-mixed-subtle text-impact-mixed border-impact-mixed-border'
-	};
-	return map[type];
-}
-
-/** Demand match → subtle tone */
-export function demandMatchTone(match: 'exact' | 'prefix' | false): string {
-	if (match === 'exact')
-		return 'bg-risk-very-low-subtle text-risk-very-low border-risk-very-low-border';
-	if (match === 'prefix')
-		return 'bg-risk-moderate-subtle text-risk-moderate border-risk-moderate-border';
-	return 'bg-secondary text-muted-foreground border-border';
-}
-
-/** Stability → subtle tone */
-export function stabilityTone(label: string): string {
-	if (label === 'stable')
-		return 'bg-risk-very-low-subtle border-risk-very-low-border text-risk-very-low';
-	if (label === 'watch')
-		return 'bg-risk-moderate-subtle border-risk-moderate-border text-risk-moderate';
-	return 'bg-risk-very-high-subtle border-risk-very-high-border text-risk-very-high';
-}
-
 /** Overall signal → subtle tone */
 export function overallSignalTone(overall: string): string {
 	if (overall === 'strong')
@@ -534,20 +399,6 @@ export function overallSignalTone(overall: string): string {
 	if (overall === 'weak')
 		return 'bg-risk-moderate-subtle text-risk-moderate border-risk-moderate-border';
 	return 'bg-risk-very-high-subtle text-risk-very-high border-risk-very-high-border';
-}
-
-/** Vacancy trend → subtle tone */
-export function vacancySignalTone(trend: number): string {
-	if (trend > 0) return 'bg-risk-very-low-subtle text-risk-very-low border-risk-very-low-border';
-	if (trend < 0) return 'bg-risk-very-high-subtle text-risk-very-high border-risk-very-high-border';
-	return 'bg-impact-leveraged-subtle text-impact-leveraged border-impact-leveraged-border';
-}
-
-/** Confidence → oklch color string (for inline styles) */
-export function confidenceColor(level: string): string {
-	if (level === 'high') return 'oklch(0.60 0.16 155)';
-	if (level === 'medium') return 'oklch(0.70 0.16 75)';
-	return 'oklch(0.55 0.22 25)';
 }
 
 /** Direction → text color class */
@@ -570,7 +421,4 @@ export type ConfidenceBadgeVariants = VariantProps<typeof confidenceBadge>;
 export type BadgeVariants = VariantProps<typeof badge>;
 export type ChipVariants = VariantProps<typeof chip>;
 export type PillVariants = VariantProps<typeof pill>;
-export type SubpanelVariants = VariantProps<typeof subpanel>;
-export type UtilityActionVariants = VariantProps<typeof utilityAction>;
-export type ScoreBarVariants = VariantProps<typeof scoreBar>;
 export type FormInputVariants = VariantProps<typeof formInput>;

@@ -42,16 +42,17 @@ export function classifyArchetype(ssoc: string, title: string, _majorGroup: stri
 	if (t.includes('journalist') || t.includes('editor') || t.includes('writer') || t.includes('reporter')) return 'writing_editorial';
 	if (t.includes('teacher') || t.includes('lecturer') || t.includes('instructor') || t.includes('trainer')) return 'teaching_learning';
 	if (/\bcto\b/.test(t) || /\bcio\b/.test(t) || t.includes('chief technology') || t.includes('chief information') || t.includes('engineering manager') || t.includes('software manager') || t.includes('ict manager')) return 'software_engineering';
-	if (t.includes('software') || t.includes('developer') || t.includes('programmer') || t.includes('web ') || t.includes('devops') || t.includes('sre') || t.includes('platform engineer')) return 'software_engineering';
+	if (t.includes('software') || t.includes('developer') || t.includes('programmer') || t.includes('web ') || t.includes('devops') || t.includes('sre') || t.includes('platform engineer') || t.includes('frontend') || t.includes('backend') || t.includes('fullstack') || t.includes('full-stack') || t.includes('full stack') || t.includes('mobile engineer') || t.includes('qa engineer') || t.includes('ml engineer') || t.includes('ai engineer') || t.includes('security engineer') || t.includes('network engineer') || t.includes('database admin') || t.includes('site reliability')) return 'software_engineering';
 	if ((t.includes('data') || t.includes('statistician') || t.includes('analyst')) && !t.includes('financial')) return 'data_analytics';
 	if (t.includes('product manager') || t.includes('product director') || t.includes('product lead')) return 'product_strategy';
-	if (t.includes('marketing') || t.includes('sales') || t.includes('business development')) return 'sales_gtm';
-	if (t.includes('accountant') || t.includes('auditor') || t.includes('financial') || t.includes('fund') || t.includes('investment')) return 'finance_investing';
-	if (t.includes('human resource') || t.includes('personnel') || t.includes('recruiter')) return 'people_recruiting';
+	if (t.includes('marketing') || t.includes('sales') || t.includes('business development') || t.includes('growth') || t.includes('seo ') || t.includes('seo-') || t.includes('social media') || t.includes('content strateg') || t.includes('content creat') || t.includes('brand ') || t.includes('community manager') || t.includes('account executive')) return 'sales_gtm';
+	if (t.includes('accountant') || t.includes('auditor') || t.includes('financial') || t.includes('fund') || t.includes('investment') || t.includes('quant') || t.includes('private equity') || t.includes('venture capital') || t.includes('insurance') || t.includes('underwriter') || t.includes('finance manager')) return 'finance_investing';
+	if (t.includes('human resource') || t.includes('personnel') || t.includes('recruiter') || t.includes('hr ') || t.includes('hr-') || t.includes('talent acquisition') || t.includes('people partner') || t.includes('people ops')) return 'people_recruiting';
 	if (t.includes('nurse') || t.includes('doctor') || t.includes('surgeon') || t.includes('physician') || t.includes('therapist') || t.includes('dentist') || t.includes('pharmacist')) return 'healthcare_clinical';
 	if ((t.includes('designer') || t.includes('architect')) && !t.includes('solution') && !t.includes('enterprise')) return 'design_creative';
 	if (t.includes('lawyer') || t.includes('legal') || t.includes('compliance')) return 'legal_compliance';
-	if (t.includes('logistics') || t.includes('supply chain') || t.includes('warehouse') || t.includes('procurement')) return 'operations_logistics';
+	if (t.includes('logistics') || t.includes('supply chain') || t.includes('warehouse') || t.includes('procurement') || t.includes('operations manager') || t.includes('office manager') || t.includes('executive assistant') || t.includes('event manager') || t.includes('revops')) return 'operations_logistics';
+	if (t.includes('founder') || t.includes('ceo') || t.includes('chief of staff') || t.includes('managing director') || t.includes('general manager') || t.includes('partnerships') || t.includes('customer success') || t.includes('scrum master') || t.includes('solutions engineer')) return 'product_strategy';
 	if (t.includes('waiter') || t.includes('cook') || t.includes('chef') || t.includes('barista') || t.includes('receptionist')) return 'service_hospitality';
 
 	// SSOC prefix fallback — prefix3 checks first (more specific)
@@ -278,8 +279,13 @@ export function blendArchetypes(
 	roleTitle: string,
 	components: Array<{ ssoc: string; title: string; majorGroup: string; weight: number }>
 ): ArchetypeContent {
-	// Primary archetype comes from the role title itself
-	const primaryArchetype = classifyArchetype('00000', roleTitle, '');
+	// Primary archetype: use the highest-weight component's SSOC for prefix fallback,
+	// not a dummy '00000' that defeats all prefix-based classification
+	const primarySsoc =
+		components.length > 0
+			? components.reduce((a, b) => (a.weight > b.weight ? a : b)).ssoc
+			: '00000';
+	const primaryArchetype = classifyArchetype(primarySsoc, roleTitle, '');
 	const primaryContent = archetypeContentMap[primaryArchetype];
 
 	if (components.length === 0) return primaryContent;

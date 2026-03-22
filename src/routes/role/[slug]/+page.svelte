@@ -19,6 +19,7 @@
 	import { cn } from '$lib/utils';
 	import { vacancySignalClass } from '$lib/data/detail-display';
 	import DriverWaterfall from '$lib/components/viz/DriverWaterfall.svelte';
+	import WorkflowRadar from '$lib/components/viz/WorkflowRadar.svelte';
 	import SignalProfileGrid from '$lib/components/viz/SignalProfileGrid.svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import * as Collapsible from '$lib/components/ui/collapsible/index.js';
@@ -214,11 +215,11 @@
 			barValue: scored.market_resilience,
 			barClass: marketBarClass(scored.market_resilience)
 		},
-		{
-			label: 'Confidence',
-			value: `${(scored.confidence_score * 100).toFixed(0)}%`,
-			barValue: scored.confidence_score,
-			barClass: confidenceBarClass(scored.confidence)
+			{
+				label: 'Evidence Quality',
+				value: `${(scored.confidence_score * 100).toFixed(0)}%`,
+				barValue: scored.confidence_score,
+				barClass: confidenceBarClass(scored.confidence)
 		},
 		{
 			label: 'Human Moat',
@@ -407,9 +408,9 @@
 						<span class={impactBadge({ type: scored.impact_type })}>
 							{impactTypeLabels[scored.impact_type]}
 						</span>
-						<span class={confidenceBadge({ level: scored.confidence })}>
-							{scored.confidence.charAt(0).toUpperCase() + scored.confidence.slice(1)} Confidence
-						</span>
+							<span class={confidenceBadge({ level: scored.confidence })}>
+								{scored.confidence.charAt(0).toUpperCase() + scored.confidence.slice(1)} evidence quality
+							</span>
 						<span class={pill({ tone: 'muted' })}>
 							Estimated · {scored.components.length}-part blend
 						</span>
@@ -507,6 +508,30 @@
 					{/if}
 				</div>
 			</div>
+
+			<!-- Workflow dimensions -->
+			{#if scored.workflow_overlay}
+				<div class="mt-5 border-t border-border pt-5">
+					<p class="text-xs font-semibold text-foreground mb-3">What this role involves</p>
+					<div class="grid gap-4 sm:grid-cols-[minmax(0,1fr)_12rem]">
+						<div class="grid grid-cols-2 gap-x-4 gap-y-2">
+							{#each Object.entries(scored.workflow_overlay as unknown as Record<string, number>) as [key, value]}
+								{@const label = ({ creative_generation: 'Creative work', real_time_coordination: 'Real-time coordination', ambiguity_tolerance: 'Ambiguity tolerance', institutional_knowledge: 'Institutional knowledge', relationship_intensity: 'Relationship intensity', regulatory_weight: 'Regulatory weight', physical_presence: 'Physical presence', tool_velocity: 'Tool velocity' })[key] ?? key}
+								<div class="flex items-center gap-2">
+									<span class="text-xs text-muted-foreground w-28 shrink-0 truncate" title={label}>{label}</span>
+									<div class="h-1.5 flex-1 rounded-full bg-muted overflow-hidden">
+										<div class="h-full rounded-full bg-foreground/40" style="width: {(value as number) * 100}%"></div>
+									</div>
+									<span class="font-mono text-[10px] text-muted-foreground w-6 text-right">{((value as number) * 100).toFixed(0)}</span>
+								</div>
+							{/each}
+						</div>
+						<div class="hidden sm:block">
+							<WorkflowRadar dimensions={scored.workflow_overlay} size={160} />
+						</div>
+					</div>
+				</div>
+			{/if}
 		</div>
 	</section>
 

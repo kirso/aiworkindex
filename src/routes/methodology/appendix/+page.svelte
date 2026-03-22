@@ -322,7 +322,7 @@
 
 	<!-- Seniority Modifiers -->
 	<section class="mb-8">
-		<p class={sectionLabel()}>Seniority Modifiers (V3.2)</p>
+		<p class={sectionLabel()}>Seniority Modifiers ({DATA_VINTAGE.model_version})</p>
 		<p class="mt-2 text-sm text-muted-foreground">
 			Applied in the Outlook engine. Adjustments scale with the occupation's variant_sensitivity
 			(0–1), derived from institutional knowledge, relationship intensity, regulatory weight, and

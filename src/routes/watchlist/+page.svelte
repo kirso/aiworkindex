@@ -263,7 +263,6 @@
 					<span class="ml-1">Last updated: {savedTimestamp}</span>
 				{/if}
 			</p>
-			<p class="text-xs italic">Quarterly delta: no prior snapshot data available yet</p>
 		</div>
 	{/if}
 </main>

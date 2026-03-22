@@ -262,8 +262,7 @@ const ACTIVE_VERSION_SURFACES = [
 	path.join(import.meta.dir, '..', 'src', 'routes', 'data', '+page.svelte'),
 	path.join(import.meta.dir, '..', 'src', 'routes', 'methodology', '+page.svelte'),
 	path.join(import.meta.dir, '..', 'src', 'routes', 'occupation', '[ssoc]', '+page.svelte'),
-	path.join(import.meta.dir, '..', 'src', 'routes', 'role', '[slug]', '+page.svelte'),
-	path.join(import.meta.dir, '..', 'src', 'lib', 'components', 'ui', 'LabourMarketCard.svelte')
+	path.join(import.meta.dir, '..', 'src', 'routes', 'role', '[slug]', '+page.svelte')
 ];
 
 const FORBIDDEN_ACTIVE_COPY = [

@@ -19,8 +19,8 @@
 	let tooltipY = $state(0);
 	let tooltipVisible = $state(false);
 
-	let plotWidth = $derived(width - margin.left - margin.right);
-	let plotHeight = $derived(height - margin.top - margin.bottom);
+	let plotWidth = $derived(Math.max(0, width - margin.left - margin.right));
+	let plotHeight = $derived(Math.max(0, height - margin.top - margin.bottom));
 	let xDomainMax = $derived.by(() => {
 		const maxRisk = occupations.reduce((max, occupation) => Math.max(max, occupation.net_risk), 0);
 		return Math.max(0.7, Math.ceil(maxRisk * 10) / 10);
@@ -43,7 +43,7 @@
 		const observer = new ResizeObserver(entries => {
 			for (const entry of entries) {
 				const rect = entry.contentRect;
-				width = rect.width;
+				width = Math.max(100, rect.width);
 				height = Math.max(350, Math.min(rect.width * 0.55, 500));
 			}
 		});

@@ -1,6 +1,8 @@
-import { redirect } from '@sveltejs/kit';
+import { occupations } from '$lib/data';
 import type { PageLoad } from './$types';
 
 export const load: PageLoad = () => {
-	redirect(301, '/');
+	return {
+		occupations
+	};
 };

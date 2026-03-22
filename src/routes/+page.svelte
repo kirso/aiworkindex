@@ -111,13 +111,12 @@
 	<div
 		class="mx-auto flex max-w-screen-2xl items-center justify-center gap-2 px-4 py-1.5 text-xs sm:px-6"
 	>
-		<span class="font-semibold text-risk-moderate">{siteStatus.homepage_banner.tag}</span>
-		<span class="text-text-secondary"
-			>{siteStatus.homepage_banner.title}. {siteStatus.homepage_banner.body}
-			<a href={siteStatus.homepage_banner.link_href} class="text-primary hover:underline"
+		<span class="text-text-secondary">
+			{siteStatus.homepage_banner.summary}
+			<a href={siteStatus.homepage_banner.link_href} class="ml-1 text-primary hover:underline"
 				>{siteStatus.homepage_banner.link_label}</a
-			></span
-		>
+			>
+		</span>
 	</div>
 </div>
 
@@ -176,12 +175,15 @@
 				<a href="/roles" class={pill({ size: 'lg', tone: 'outline', interactive: true })}>
 					Modern roles →
 				</a>
-				<a href="/calculator" class={pill({ size: 'lg', tone: 'outline', interactive: true })}>
-					Salary calculator →
-				</a>
+					<a href="/calculator" class={pill({ size: 'lg', tone: 'outline', interactive: true })}>
+						Salary calculator →
+					</a>
+					<a href="/explore" class={pill({ size: 'lg', tone: 'outline', interactive: true })}>
+						View all occupations →
+					</a>
+				</div>
 			</div>
 		</div>
-	</div>
 </div>
 
 <!-- ===== MAIN: Sidebar + Content ===== -->

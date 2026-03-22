@@ -25,7 +25,6 @@
 	let wageMin = $state(0);
 	let wageMax = $state(30000);
 	let selectedCategory = $state('all');
-	let _mobileOpen = $state(false);
 	let initialized = $state(false);
 
 	// Wage bounds

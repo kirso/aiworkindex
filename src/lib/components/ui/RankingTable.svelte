@@ -38,6 +38,7 @@
 </script>
 
 <div class={card({ padding: 'none' })}>
+	<div class="overflow-x-auto">
 	<Table.Root>
 		<Table.Header>
 			<Table.Row>
@@ -104,4 +105,5 @@
 			{/each}
 		</Table.Body>
 	</Table.Root>
+	</div>
 </div>

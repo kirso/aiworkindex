@@ -20,6 +20,7 @@
 	import { cn } from '$lib/utils';
 	import { vacancySignalClass } from '$lib/data/detail-display';
 	import DriverWaterfall from '$lib/components/viz/DriverWaterfall.svelte';
+	import WorkflowRadar from '$lib/components/viz/WorkflowRadar.svelte';
 	import TransitionGraph from '$lib/components/viz/TransitionGraph.svelte';
 	import EvidenceBar from '$lib/components/viz/EvidenceBar.svelte';
 	import SignalProfileGrid from '$lib/components/viz/SignalProfileGrid.svelte';
@@ -230,11 +231,11 @@
 			barValue: occ.market.market_resilience,
 			barClass: marketBarClass(occ.market.market_resilience)
 		},
-		{
-			label: 'Confidence',
-			value: `${(occ.confidence.score * 100).toFixed(0)}%`,
-			barValue: occ.confidence.score,
-			barClass: confidenceBarClass(occ.confidence.score)
+			{
+				label: 'Evidence Quality',
+				value: `${(occ.confidence.score * 100).toFixed(0)}%`,
+				barValue: occ.confidence.score,
+				barClass: confidenceBarClass(occ.confidence.score)
 		},
 		{
 			label: 'Human Moat',
@@ -272,11 +273,11 @@
 					name: 'Impact Type',
 					value: impactTypeLabels[occ.impact_type]
 				},
-				{
-					'@type': 'PropertyValue',
-					name: 'Estimate Confidence',
-					value: occ.confidence.level
-				}
+					{
+						'@type': 'PropertyValue',
+						name: 'Evidence Quality',
+						value: occ.confidence.level
+					}
 			]
 		})}<\/script>`
 	);
@@ -375,7 +376,7 @@
 				)}%, rated {riskBandLabels[occ.risk_band]} risk"
 			>
 				<p class={microLabel()}>Structural pressure</p>
-				<p class={cn(display({ size: 'xl' }), 'mt-2')} aria-hidden="true">
+				<p class={cn(display({ size: 'xl' }), 'mt-2')}>
 					{(occ.net_risk * 100).toFixed(0)}%
 				</p>
 				<span class={cn(riskBadge({ band: occ.risk_band }), 'mt-2 inline-flex')}>
@@ -388,7 +389,7 @@
 					<div class="min-w-0">
 						<h1 class={titleStyle({ size: 'page' })}>{occ.title}</h1>
 						<p class={caption({ weight: 'medium' })}>
-							{group?.label ?? occ.major_group} · SGD {occ.gross_wage_median.toLocaleString()}/mo ({structural.wageVsNational})
+							{group?.label ?? occ.major_group} · SGD {occ.gross_wage_median.toLocaleString()}/mo ({structural.wageVsNational}){#if occ.estimated_sg_employment_thousands} · ~{occ.estimated_sg_employment_thousands >= 1 ? occ.estimated_sg_employment_thousands.toFixed(1) + 'K' : Math.round(occ.estimated_sg_employment_thousands * 1000).toLocaleString()} workers in SG{/if}
 						</p>
 						<p class="mt-3 max-w-3xl text-[15px] leading-relaxed text-text-secondary">
 							{structural.summaryText}
@@ -429,9 +430,9 @@
 						<span class={impactBadge({ type: occ.impact_type })}>
 							{impactTypeLabels[occ.impact_type]}
 						</span>
-						<span class={confidenceBadge({ level: occ.confidence.level })}>
-							{occ.confidence.level.charAt(0).toUpperCase() + occ.confidence.level.slice(1)} Confidence
-						</span>
+							<span class={confidenceBadge({ level: occ.confidence.level })}>
+								{occ.confidence.level.charAt(0).toUpperCase() + occ.confidence.level.slice(1)} evidence quality
+							</span>
 						{#if hasDemand}
 							<span class={pill({ tone: 'positive' })}>
 								In demand ({demandLabel})
@@ -516,6 +517,30 @@
 					{/if}
 				</div>
 			</div>
+
+			<!-- Workflow dimensions -->
+			{#if occ.workflow_overlay}
+				<div class="mt-5 border-t border-border pt-5">
+					<p class="text-xs font-semibold text-foreground mb-3">What this role involves</p>
+					<div class="grid gap-4 sm:grid-cols-[minmax(0,1fr)_12rem]">
+						<div class="grid grid-cols-2 gap-x-4 gap-y-2">
+							{#each Object.entries(occ.workflow_overlay as unknown as Record<string, number>) as [key, value]}
+								{@const label = ({ creative_generation: 'Creative work', real_time_coordination: 'Real-time coordination', ambiguity_tolerance: 'Ambiguity tolerance', institutional_knowledge: 'Institutional knowledge', relationship_intensity: 'Relationship intensity', regulatory_weight: 'Regulatory weight', physical_presence: 'Physical presence', tool_velocity: 'Tool velocity' })[key] ?? key}
+								<div class="flex items-center gap-2">
+									<span class="text-xs text-muted-foreground w-28 shrink-0 truncate" title={label}>{label}</span>
+									<div class="h-1.5 flex-1 rounded-full bg-muted overflow-hidden">
+										<div class="h-full rounded-full bg-foreground/40" style="width: {(value as number) * 100}%"></div>
+									</div>
+									<span class="font-mono text-[10px] text-muted-foreground w-6 text-right">{((value as number) * 100).toFixed(0)}</span>
+								</div>
+							{/each}
+						</div>
+						<div class="hidden sm:block">
+							<WorkflowRadar dimensions={occ.workflow_overlay} size={160} />
+						</div>
+					</div>
+				</div>
+			{/if}
 		</div>
 	</section>
 
@@ -607,6 +632,11 @@
 							</div>
 						{/if}
 					</div>
+					{#if occ.labour_monitor?.re_entry?.rate_12m}
+						<p class="mt-2 text-sm text-text-secondary">
+							If retrenched, <span class="font-semibold text-foreground">{occ.labour_monitor.re_entry.rate_12m}%</span> find work within 12 months{#if occ.labour_monitor.re_entry.rate_12m_delta_pp} <span class={cn('text-xs', occ.labour_monitor.re_entry.rate_12m_delta_pp > 0 ? 'text-risk-very-low' : occ.labour_monitor.re_entry.rate_12m_delta_pp < 0 ? 'text-risk-high' : 'text-muted-foreground')}>({occ.labour_monitor.re_entry.rate_12m_delta_pp > 0 ? '+' : ''}{occ.labour_monitor.re_entry.rate_12m_delta_pp.toFixed(1)}pp)</span>{/if}
+						</p>
+					{/if}
 					<p class="mt-2 text-xs text-muted-foreground">
 						{occ.labour_monitor?.cluster_label ?? 'Cluster'} data · {siteStatus.live_monitor
 							.labour_monitor_artifact_vintage}
@@ -1071,7 +1101,7 @@
 					</p>
 				</div>
 				<div>
-					<p class="font-semibold text-foreground mb-1">Uncertainty</p>
+						<p class="font-semibold text-foreground mb-1">Sensitivity Band</p>
 					<p>
 						Exposure {exposureUncertainty} · Net risk {netRiskUncertainty} · Method {occ.uncertainty
 							?.method ?? 'n/a'}
@@ -1084,6 +1114,16 @@
 						<p class="mt-1">{priorBaselineDeltaSummary}</p>
 					{/if}
 				</div>
+				{#if occ.evidence?.signal_conflict_reasons?.length}
+				<div class="sm:col-span-2">
+					<p class="font-semibold text-foreground mb-1">Signal Conflicts</p>
+					<div class="flex flex-wrap gap-1.5">
+						{#each occ.evidence.signal_conflict_reasons as reason}
+							<span class={cn(pill({ size: 'sm' }), 'bg-risk-moderate/10 text-risk-moderate')}>{reason.replaceAll('_', ' ')}</span>
+						{/each}
+					</div>
+				</div>
+				{/if}
 				<div class="sm:col-span-2">
 					<p class="font-semibold text-foreground mb-1">Source Coverage</p>
 					<div class="mt-2">
@@ -1095,8 +1135,29 @@
 						/>
 					</div>
 				</div>
+				{#if occ.evidence?.exposure_source_pctiles}
+				<div class="sm:col-span-2">
+					<p class="font-semibold text-foreground mb-1">Exposure by Source</p>
+					<div class="flex flex-wrap gap-3 mt-1">
+						{#each Object.entries(occ.evidence.exposure_source_pctiles) as [source, pctile]}
+							<div class="flex items-center gap-2">
+								<span class="text-xs font-medium uppercase tracking-wider text-muted-foreground w-16">{source}</span>
+								<div class="h-2 w-24 rounded-full bg-muted overflow-hidden">
+									<div class="h-full rounded-full bg-foreground/60" style="width: {(pctile ?? 0) * 100}%"></div>
+								</div>
+								<span class="font-mono text-xs text-text-secondary">{((pctile ?? 0) * 100).toFixed(0)}%</span>
+							</div>
+						{/each}
+					</div>
+					{#if occ.evidence?.exposure_source_weights}
+						<p class="mt-1 text-xs text-muted-foreground">
+							Weights: {Object.entries(occ.evidence.exposure_source_weights).map(([k, v]) => `${k} ${((v ?? 0) * 100).toFixed(0)}%`).join(' · ')}
+						</p>
+					{/if}
+				</div>
+			{/if}
 				<div>
-					<p class="font-semibold text-foreground mb-1">Confidence</p>
+						<p class="font-semibold text-foreground mb-1">Evidence Quality</p>
 					<p>
 						{(occ.confidence.score * 100).toFixed(0)}% · Crosswalk {occ.confidence.crosswalk_quality.toFixed(
 							2

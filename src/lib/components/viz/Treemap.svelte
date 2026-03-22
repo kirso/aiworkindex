@@ -134,7 +134,7 @@
 		const observer = new ResizeObserver(entries => {
 			for (const entry of entries) {
 				const rect = entry.contentRect;
-				width = rect.width;
+				width = Math.max(100, rect.width);
 				const viewportH = typeof window !== 'undefined' ? window.innerHeight : 800;
 				height = Math.max(500, Math.min(rect.width * 0.7, viewportH * 0.75, 900));
 			}
@@ -170,11 +170,11 @@
 	}
 
 	function cellWidth(d: any): number {
-		return (d.x1 ?? 0) - (d.x0 ?? 0);
+		return Math.max(0, (d.x1 ?? 0) - (d.x0 ?? 0));
 	}
 
 	function cellHeight(d: any): number {
-		return (d.y1 ?? 0) - (d.y0 ?? 0);
+		return Math.max(0, (d.y1 ?? 0) - (d.y0 ?? 0));
 	}
 
 	function shouldShowLabel(d: any): boolean {

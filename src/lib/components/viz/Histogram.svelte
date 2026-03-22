@@ -11,7 +11,7 @@
 	$effect(() => {
 		if (!browser || !containerEl) return;
 		const observer = new ResizeObserver(entries => {
-			chartWidth = entries[0]!.contentRect.width;
+			chartWidth = Math.max(100, entries[0]!.contentRect.width);
 		});
 		observer.observe(containerEl);
 		return () => observer.disconnect();
@@ -43,7 +43,7 @@
 	const marginLeft = 40;
 	const marginBottom = 40;
 	const marginTop = 10;
-	let plotWidth = $derived(chartWidth - marginLeft);
+	let plotWidth = $derived(Math.max(0, chartWidth - marginLeft));
 	const plotHeight = chartHeight - marginBottom - marginTop;
 
 	// Round Y-axis ticks (item 10)

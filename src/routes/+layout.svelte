@@ -4,7 +4,6 @@
 	import { page } from '$app/stores';
 	import { fade } from 'svelte/transition';
 	import { prefersReducedMotion } from 'svelte/motion';
-	import { pageContainer } from '$lib/design-system';
 	import { DATA_VINTAGE, SITE } from '$lib/data/scoring-constants';
 	import { siteStatus } from '$lib/data/site-status';
 	import * as Sheet from '$lib/components/ui/sheet/index.js';
@@ -32,6 +31,7 @@
 		{ href: '/roles', label: 'Jobs' },
 		{ href: '/rankings', label: 'Rankings' },
 		{ href: '/compare', label: 'Compare' },
+		{ href: '/calculator', label: 'Calculator' },
 		{ href: '/reports', label: 'Reports' },
 		{ href: '/methodology', label: 'Methodology' }
 	];
@@ -106,7 +106,7 @@
 	<header
 		class="sticky top-0 z-50 border-b border-border/40 bg-header-bg/75 backdrop-blur-lg backdrop-saturate-[1.15]"
 	>
-		<div class="{pageContainer()} flex items-center justify-between h-12">
+		<div class="mx-auto max-w-screen-2xl px-5 sm:px-6 flex items-center justify-between h-12">
 			<a
 				href="/"
 				class="flex items-center gap-2 text-header-text transition-colors hover:text-primary"
@@ -227,7 +227,7 @@
 
 	<!-- Footer -->
 	<footer class="border-t border-border">
-		<div class="{pageContainer()} py-5">
+		<div class="mx-auto max-w-screen-2xl px-5 sm:px-6 py-5">
 			<div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
 				<div>
 					<p class="text-xs text-muted-foreground">

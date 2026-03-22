@@ -67,6 +67,16 @@ export function classifyImpactType(
 }
 
 // ============================================
+// RANKING CRITERIA
+// ============================================
+
+/** Named thresholds for ranking page filters */
+export const RANKING_CRITERIA = {
+	/** Minimum exposure for "high-exposure-in-demand" ranking */
+	high_exposure: 0.5
+} as const;
+
+// ============================================
 // CONFIDENCE LEVELS
 // ============================================
 

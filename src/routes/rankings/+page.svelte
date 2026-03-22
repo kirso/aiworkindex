@@ -10,6 +10,7 @@
 	} from '$lib/design-system';
 	import { pageLayout } from '$lib/design-system';
 	import { cn } from '$lib/utils';
+	import { DATA_VINTAGE } from '$lib/data/scoring-constants';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
 
@@ -114,10 +115,7 @@
 		</p>
 		<p class={cn(body({ tone: 'subtle' }), 'mt-3 max-w-2xl')}>
 			These rankings emerge from a three-layer structural score — a multi-source exposure layer,
-			human bottleneck strength, and Singapore market signals — applied to {data.highestRisk
-				.length > 0
-				? '562'
-				: 'all'} official occupations. Each list tells a different story about how AI is reshaping work.
+			human bottleneck strength, and Singapore market signals — applied to {DATA_VINTAGE.occupation_count} official occupations. Each list tells a different story about how AI is reshaping work.
 		</p>
 	</div>
 

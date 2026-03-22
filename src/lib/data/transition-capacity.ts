@@ -114,6 +114,11 @@ function transitionLabel(composite: number): TransitionScore['label'] {
 	return 'difficult';
 }
 
+export function isPlausibleTransition(from: Occupation, to: Occupation): boolean {
+	if (from.ssoc.substring(0, 2) === to.ssoc.substring(0, 2)) return true;
+	return archetypeSimilarity(from, to) >= 0.5;
+}
+
 /**
  * Compute the transition score from one occupation to another.
  */

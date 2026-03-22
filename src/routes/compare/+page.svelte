@@ -10,8 +10,8 @@
 		occupationsBySSoc
 	} from '$lib/data';
 	import type { Occupation } from '$lib/data';
-	import { syntheticRoles } from '$lib/data/synthetic-roles';
-	import { computeTransitionScore } from '$lib/data/transition-capacity';
+	import { searchOccupationsAndRoles } from '$lib/utils/search';
+	import { computeTransitionScore, isPlausibleTransition } from '$lib/data/transition-capacity';
 	import {
 		title as titleStyle,
 		card,
@@ -105,7 +105,7 @@
 				augmentation: occ.augmentation,
 				augmentation_band: occ.augmentation_band,
 				impact_type: occ.impact_type,
-				confidence: `${occ.confidence.level.charAt(0).toUpperCase() + occ.confidence.level.slice(1)} (${(occ.confidence.score * 100).toFixed(0)}%)`,
+					confidence: `${occ.confidence.level.charAt(0).toUpperCase() + occ.confidence.level.slice(1)} (${(occ.confidence.score * 100).toFixed(0)}%)`,
 				wage: occ.gross_wage_median
 			};
 		} else {
@@ -124,7 +124,7 @@
 				augmentation: scored.augmentation,
 				augmentation_band: scored.augmentation_band,
 				impact_type: scored.impact_type,
-				confidence: `${scored.confidence.charAt(0).toUpperCase() + scored.confidence.slice(1)} (${(scored.confidence_score * 100).toFixed(0)}% estimated)`,
+					confidence: `${scored.confidence.charAt(0).toUpperCase() + scored.confidence.slice(1)} (${(scored.confidence_score * 100).toFixed(0)}%)`,
 				wage: null
 			};
 		}
@@ -140,6 +140,7 @@
 		const fromOcc = occupationsBySSoc.get(from.ref.id);
 		const toOcc = occupationsBySSoc.get(to.ref.id);
 		if (!fromOcc || !toOcc) return null;
+		if (!isPlausibleTransition(fromOcc, toOcc)) return null;
 
 		const transition = computeTransitionScore(fromOcc, toOcc);
 		const riskDelta = to.net_risk - from.net_risk;
@@ -154,22 +155,18 @@
 
 	let searchResults = $derived.by(() => {
 		if (!searchQuery.trim() || searchQuery.trim().length < 2) return [] as SearchResult[];
-		const q = searchQuery.trim().toLowerCase();
 		const existingIds = new Set(entities.map(e => `${e.ref.kind}:${e.ref.id}`));
 
-		const items: SearchResult[] = [];
+		const { roles, occupations: occs } = searchOccupationsAndRoles(searchQuery, data.allOccupations, 3, 8);
 
-		// Synthetic roles
-		for (const role of syntheticRoles) {
-			if (role.title.toLowerCase().includes(q) && !existingIds.has(`role:${role.slug}`)) {
+		const items: SearchResult[] = [];
+		for (const role of roles) {
+			if (!existingIds.has(`role:${role.slug}`)) {
 				items.push({ type: 'role', role: { slug: role.slug, title: role.title } });
 			}
-			if (items.length >= 3) break;
 		}
-
-		// Occupations
-		for (const occ of data.allOccupations) {
-			if (occ.title.toLowerCase().includes(q) && !existingIds.has(`occupation:${occ.ssoc}`)) {
+		for (const occ of occs) {
+			if (!existingIds.has(`occupation:${occ.ssoc}`)) {
 				items.push({ type: 'occupation', occupation: occ });
 			}
 			if (items.length >= 10) break;
@@ -217,9 +214,9 @@
 
 	function barColor(value: number, invert = false): string {
 		const v = invert ? 1 - value : value;
-		if (v > 0.66) return '#ef4444';
-		if (v > 0.33) return '#f59e0b';
-		return '#22c55e';
+		if (v > 0.66) return 'var(--color-risk-very-high)';
+		if (v > 0.33) return 'var(--color-risk-moderate)';
+		return 'var(--color-risk-very-low)';
 	}
 
 	const metrics: { key: string; label: string; format: (e: CompareEntity) => string }[] = [
@@ -252,7 +249,7 @@
 			label: 'Median Wage',
 			format: e => (e.wage ? `SGD ${e.wage.toLocaleString()}` : 'N/A (synthetic)')
 		},
-		{ key: 'confidence', label: 'Confidence', format: e => e.confidence }
+		{ key: 'confidence', label: 'Evidence Quality', format: e => e.confidence }
 	];
 </script>
 
@@ -491,11 +488,15 @@
 		<!-- Journey: Current → Target (when exactly 2 occupation entities) -->
 		{#if journeyData}
 			<div class="mb-8">
-				<p class={cn(sectionLabel(), 'mb-3')}>Career Transition</p>
+				<p class={cn(sectionLabel(), 'mb-3')}>
+				Transition Proxy
+				<span class={cn('ml-2 inline-block rounded-full bg-muted px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-muted-foreground')}>Similarity-based</span>
+			</p>
 				<div class={card({ padding: 'md' })}>
-					<p class="text-sm font-semibold text-foreground mb-3">
+					<p class="text-sm font-semibold text-foreground mb-1">
 						{entities[0]!.label} &rarr; {entities[1]!.label}
 					</p>
+					<p class="text-xs text-muted-foreground mb-3">Based on occupational similarity, not observed transitions.</p>
 					<div class="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
 						<div class={cn(card({ variant: 'inset', padding: 'sm' }), 'text-center')}>
 							<p class={caption()}>Transition Score</p>

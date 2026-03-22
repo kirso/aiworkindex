@@ -115,6 +115,14 @@ function classifyStatus(score: number): OutlookStatus {
 	return 'at_risk';
 }
 
+/** Augmentation uses its own thresholds (actual range: 0.002–0.257) */
+function classifyAugmentationStatus(score: number): OutlookStatus {
+	if (score >= 0.15) return 'resilient';
+	if (score >= 0.10) return 'watch';
+	if (score >= 0.05) return 'under_pressure';
+	return 'at_risk';
+}
+
 function classifyDirection(delta: number): Direction {
 	if (delta < -0.03) return 'improving';
 	if (delta > 0.03) return 'worsening';
@@ -170,7 +178,7 @@ export function computeOutlook(occ: Occupation, scenario: ScenarioParams): Outlo
 
 	return {
 		displacement_pressure: classifyStatus(scores.displacementScore),
-		augmentation_upside: classifyStatus(1 - scores.augmentationScore), // invert: high aug = resilient
+		augmentation_upside: classifyAugmentationStatus(scores.augmentationScore),
 		demand_outlook: classifyStatus(scores.demandScore),
 		wage_pressure: classifyStatus(scores.wageScore),
 		direction_12m: scores.direction,

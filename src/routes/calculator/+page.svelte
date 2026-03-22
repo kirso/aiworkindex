@@ -16,6 +16,8 @@
 	import { riskBandLabels, impactTypeLabels } from '$lib/data';
 	import type { RiskBand, ImpactType } from '$lib/data';
 	import { SENIORITY_MODIFIERS } from '$lib/data/scoring-constants';
+	import { titleMatches } from '$lib/utils/search';
+	import { findAliasMatches } from '$lib/data/aliases';
 
 	let { data } = $props();
 
@@ -34,13 +36,18 @@
 		senior: 'Senior'
 	};
 
-	let filteredEntries = $derived(
-		searchQuery.length < 2
-			? []
-			: data.entries
-					.filter(e => e.title.toLowerCase().includes(searchQuery.toLowerCase()))
-					.slice(0, 8)
-	);
+	let filteredEntries = $derived.by(() => {
+		const q = searchQuery.trim();
+		if (q.length < 2) return [];
+		// Alias matches first (occupation SSOCs that match aliases)
+		const aliasHits = findAliasMatches(q);
+		const aliasSsocs = new Set(aliasHits.flatMap(m => m.ssocs));
+		const aliasEntries = aliasSsocs.size > 0 ? data.entries.filter(e => aliasSsocs.has(e.ssoc)) : [];
+		// Title matches (excluding alias hits)
+		const aliasIds = new Set(aliasEntries.map(e => e.id));
+		const titleEntries = data.entries.filter(e => !aliasIds.has(e.id) && titleMatches(e.title, q.toLowerCase()));
+		return [...aliasEntries, ...titleEntries].slice(0, 8);
+	});
 
 	let seniorityAdjustedRisk = $derived.by(() => {
 		if (!selectedEntry) return 0;
@@ -50,7 +57,8 @@
 			0,
 			Math.min(1, selectedEntry.bottleneck + mod.bottleneck_adj)
 		);
-		return Math.max(0, Math.min(1, adjustedExposure * (1 - adjustedBottleneck)));
+		const marketModifier = 1 - 0.35 * (selectedEntry.market_resilience ?? 0);
+		return Math.max(0, Math.min(1, adjustedExposure * (1 - adjustedBottleneck) * marketModifier));
 	});
 
 	let riskAmount = $derived(Math.round(salary * seniorityAdjustedRisk));

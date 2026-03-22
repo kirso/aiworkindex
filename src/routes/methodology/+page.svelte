@@ -1444,13 +1444,13 @@
 							</tr>
 							<tr class="border-b border-border/50">
 								<td class="py-2 pr-3 font-medium">Confidence: medium</td>
-								<td class="py-2 pr-3">0.4 &ndash; 0.7</td>
-								<td class="py-2">Confidence score between 0.4 and 0.7 published as "Medium"</td>
+								<td class="py-2 pr-3">0.45 &ndash; 0.7</td>
+								<td class="py-2">Confidence score between 0.45 and 0.7 published as "Medium"</td>
 							</tr>
 							<tr class="border-b border-border/50">
 								<td class="py-2 pr-3 font-medium">Confidence: low</td>
-								<td class="py-2 pr-3">&lt; 0.4</td>
-								<td class="py-2">Confidence score below 0.4 published as "Low"</td>
+								<td class="py-2 pr-3">&lt; 0.45</td>
+								<td class="py-2">Confidence score below 0.45 published as "Low"</td>
 							</tr>
 							<tr>
 								<td class="py-2 pr-3 font-medium">Market modifier cap</td>
