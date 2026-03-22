@@ -115,7 +115,8 @@
 		</p>
 		<p class={cn(body({ tone: 'subtle' }), 'mt-3 max-w-2xl')}>
 			These rankings emerge from a three-layer structural score — a multi-source exposure layer,
-			human bottleneck strength, and Singapore market signals — applied to {DATA_VINTAGE.occupation_count} official occupations. Each list tells a different story about how AI is reshaping work.
+			human bottleneck strength, and Singapore market signals — applied to {DATA_VINTAGE.occupation_count}
+			official occupations. Each list tells a different story about how AI is reshaping work.
 		</p>
 	</div>
 

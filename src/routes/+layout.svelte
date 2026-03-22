@@ -240,12 +240,23 @@
 					<a href="/data" class="hover:text-foreground">Data</a>
 					<a href="/about" class="hover:text-foreground">About</a>
 					<a href="/changelog" class="hover:text-foreground">Changelog</a>
-					<a href={SITE.github} target="_blank" rel="noopener noreferrer" class="hover:text-foreground">GitHub</a>
+					<a
+						href={SITE.github}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="hover:text-foreground">GitHub</a
+					>
 				</div>
 			</div>
 			<p class="mt-2 text-xs text-text-ghost">
-				{siteStatus.structural_release.version} · {DATA_VINTAGE.occupation_count} occupations · {DATA_VINTAGE.role_count} roles · MIT Licensed ·
-				<a href="https://www.kirillso.com" target="_blank" rel="noopener noreferrer" class="hover:text-muted-foreground">Kirill So</a>
+				{siteStatus.structural_release.version} · {DATA_VINTAGE.occupation_count} occupations · {DATA_VINTAGE.role_count}
+				roles · MIT Licensed ·
+				<a
+					href="https://www.kirillso.com"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="hover:text-muted-foreground">Kirill So</a
+				>
 			</p>
 		</div>
 	</footer>

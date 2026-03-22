@@ -24,8 +24,8 @@
 		<span class="text-xs font-mono tabular-nums text-muted-foreground">
 			Risk: {(occupation.net_risk * 100).toFixed(0)}%
 		</span>
-			<span class="text-xs text-muted-foreground">
-				Evidence quality: {occupation.confidence.level}
-			</span>
+		<span class="text-xs text-muted-foreground">
+			Evidence quality: {occupation.confidence.level}
+		</span>
 	</div>
 </a>

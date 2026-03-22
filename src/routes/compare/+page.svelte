@@ -105,7 +105,7 @@
 				augmentation: occ.augmentation,
 				augmentation_band: occ.augmentation_band,
 				impact_type: occ.impact_type,
-					confidence: `${occ.confidence.level.charAt(0).toUpperCase() + occ.confidence.level.slice(1)} (${(occ.confidence.score * 100).toFixed(0)}%)`,
+				confidence: `${occ.confidence.level.charAt(0).toUpperCase() + occ.confidence.level.slice(1)} (${(occ.confidence.score * 100).toFixed(0)}%)`,
 				wage: occ.gross_wage_median
 			};
 		} else {
@@ -124,7 +124,7 @@
 				augmentation: scored.augmentation,
 				augmentation_band: scored.augmentation_band,
 				impact_type: scored.impact_type,
-					confidence: `${scored.confidence.charAt(0).toUpperCase() + scored.confidence.slice(1)} (${(scored.confidence_score * 100).toFixed(0)}%)`,
+				confidence: `${scored.confidence.charAt(0).toUpperCase() + scored.confidence.slice(1)} (${(scored.confidence_score * 100).toFixed(0)}%)`,
 				wage: null
 			};
 		}
@@ -157,7 +157,12 @@
 		if (!searchQuery.trim() || searchQuery.trim().length < 2) return [] as SearchResult[];
 		const existingIds = new Set(entities.map(e => `${e.ref.kind}:${e.ref.id}`));
 
-		const { roles, occupations: occs } = searchOccupationsAndRoles(searchQuery, data.allOccupations, 3, 8);
+		const { roles, occupations: occs } = searchOccupationsAndRoles(
+			searchQuery,
+			data.allOccupations,
+			3,
+			8
+		);
 
 		const items: SearchResult[] = [];
 		for (const role of roles) {
@@ -353,9 +358,7 @@
 	{:else}
 		{#if entities.length === 1}
 			<div class={cn(card({ variant: 'notice', accent: 'primary', padding: 'md' }), 'mb-6')}>
-				<p class="text-sm text-muted-foreground">
-					Add another occupation or role to compare.
-				</p>
+				<p class="text-sm text-muted-foreground">Add another occupation or role to compare.</p>
 			</div>
 		{:else if entities.length === 2}
 			{@const e1 = entities[0]!}
@@ -363,10 +366,16 @@
 			{@const e1Pct = (e1.net_risk * 100).toFixed(0)}
 			{@const e2Pct = (e2.net_risk * 100).toFixed(0)}
 			{@const higherLabel = e1.net_risk >= e2.net_risk ? 'higher' : 'lower'}
-			{@const demandComparison = e1.market_resilience > e2.market_resilience ? 'but has stronger' : e1.market_resilience < e2.market_resilience ? 'and has weaker' : 'and has similar'}
+			{@const demandComparison =
+				e1.market_resilience > e2.market_resilience
+					? 'but has stronger'
+					: e1.market_resilience < e2.market_resilience
+						? 'and has weaker'
+						: 'and has similar'}
 			<div class={cn(card({ variant: 'notice', accent: 'primary', padding: 'md' }), 'mb-6')}>
 				<p class="text-sm text-foreground">
-					{e1.label} faces {higherLabel} AI pressure ({e1Pct}% vs {e2Pct}%) {demandComparison} market demand.
+					{e1.label} faces {higherLabel} AI pressure ({e1Pct}% vs {e2Pct}%) {demandComparison} market
+					demand.
 				</p>
 			</div>
 		{/if}
@@ -509,14 +518,20 @@
 		{#if journeyData}
 			<div class="mb-8">
 				<p class={cn(sectionLabel(), 'mb-3')}>
-				Transition Proxy
-				<span class={cn('ml-2 inline-block rounded-full bg-muted px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-muted-foreground')}>Similarity-based</span>
-			</p>
+					Transition Proxy
+					<span
+						class={cn(
+							'ml-2 inline-block rounded-full bg-muted px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-muted-foreground'
+						)}>Similarity-based</span
+					>
+				</p>
 				<div class={card({ padding: 'md' })}>
 					<p class="text-sm font-semibold text-foreground mb-1">
 						{entities[0]!.label} &rarr; {entities[1]!.label}
 					</p>
-					<p class="text-xs text-muted-foreground mb-3">Based on occupational similarity, not observed transitions.</p>
+					<p class="text-xs text-muted-foreground mb-3">
+						Based on occupational similarity, not observed transitions.
+					</p>
 					<div class="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
 						<div class={cn(card({ variant: 'inset', padding: 'sm' }), 'text-center')}>
 							<p class={caption()}>Transition Score</p>

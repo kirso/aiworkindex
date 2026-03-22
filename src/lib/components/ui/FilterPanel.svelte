@@ -13,10 +13,12 @@
 
 	let {
 		occupations,
-		onfilter
+		onfilter,
+		showTextSearch = true
 	}: {
 		occupations: Occupation[];
 		onfilter: (filtered: Occupation[]) => void;
+		showTextSearch?: boolean;
 	} = $props();
 
 	// Filter state
@@ -166,22 +168,24 @@
 
 <div class="space-y-4">
 	<!-- Filter by name -->
-	<div>
-		<Label for="occ-search" class="mb-1 text-xs">Filter by name</Label>
-		<Input
-			id="occ-search"
-			type="text"
-			placeholder="Filter occupations..."
-			bind:value={search}
-			aria-label="Search occupations by title"
-		/>
-		{#if showDidYouMean}
-			<p class="mt-1.5 text-xs text-muted-foreground">
-				Matched via alias: {aliasMatches.map(m => `"${m.alias}"`).join(', ')}
-				<span class="text-muted-foreground">({filtered.length} results)</span>
-			</p>
-		{/if}
-	</div>
+	{#if showTextSearch}
+		<div>
+			<Label for="occ-search" class="mb-1 text-xs">Filter by name</Label>
+			<Input
+				id="occ-search"
+				type="text"
+				placeholder="Filter occupations..."
+				bind:value={search}
+				aria-label="Search occupations by title"
+			/>
+			{#if showDidYouMean}
+				<p class="mt-1.5 text-xs text-muted-foreground">
+					Matched via alias: {aliasMatches.map(m => `"${m.alias}"`).join(', ')}
+					<span class="text-muted-foreground">({filtered.length} results)</span>
+				</p>
+			{/if}
+		</div>
+	{/if}
 
 	<!-- Risk band chips -->
 	<div>

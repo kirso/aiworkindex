@@ -168,7 +168,7 @@ export function findBestTransitions(
 	limit: number = 5
 ): TransitionScore[] {
 	return allOccupations
-		.filter((o) => o.ssoc !== from.ssoc)
+		.filter((o) => o.ssoc !== from.ssoc && isPlausibleTransition(from, o))
 		.map((to) => computeTransitionScore(from, to))
 		.sort((a, b) => b.composite - a.composite)
 		.slice(0, limit);

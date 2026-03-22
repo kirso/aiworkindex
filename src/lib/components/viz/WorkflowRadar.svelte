@@ -73,17 +73,40 @@
 	>
 		<!-- Grid rings -->
 		{#each [0.25, 0.5, 0.75, 1.0] as ring}
-			<circle cx={cx} cy={cy} r={r * ring} fill="none" stroke="currentColor" class="text-border" stroke-width="0.5" />
+			<circle
+				{cx}
+				{cy}
+				r={r * ring}
+				fill="none"
+				stroke="currentColor"
+				class="text-border"
+				stroke-width="0.5"
+			/>
 		{/each}
 
 		<!-- Axis lines -->
 		{#each points as point}
 			{@const [x, y] = polarToXY(point.angle, r)}
-			<line x1={cx} y1={cy} x2={x} y2={y} stroke="currentColor" class="text-border" stroke-width="0.5" />
+			<line
+				x1={cx}
+				y1={cy}
+				x2={x}
+				y2={y}
+				stroke="currentColor"
+				class="text-border"
+				stroke-width="0.5"
+			/>
 		{/each}
 
 		<!-- Filled polygon -->
-		<polygon points={polygonPoints} fill="currentColor" class="text-foreground/10" stroke="currentColor" stroke-width="1.5" class:text-foreground={true} />
+		<polygon
+			points={polygonPoints}
+			fill="currentColor"
+			class="text-foreground/10"
+			stroke="currentColor"
+			stroke-width="1.5"
+			class:text-foreground={true}
+		/>
 
 		<!-- Data points -->
 		{#each points as point}
@@ -95,8 +118,16 @@
 			<text
 				x={point.labelXY[0]}
 				y={point.labelXY[1]}
-				text-anchor={point.labelXY[0] < cx - 5 ? 'end' : point.labelXY[0] > cx + 5 ? 'start' : 'middle'}
-				dominant-baseline={point.labelXY[1] < cy - 5 ? 'auto' : point.labelXY[1] > cy + 5 ? 'hanging' : 'middle'}
+				text-anchor={point.labelXY[0] < cx - 5
+					? 'end'
+					: point.labelXY[0] > cx + 5
+						? 'start'
+						: 'middle'}
+				dominant-baseline={point.labelXY[1] < cy - 5
+					? 'auto'
+					: point.labelXY[1] > cy + 5
+						? 'hanging'
+						: 'middle'}
 				class="fill-muted-foreground text-[11px]"
 			>
 				{point.label}

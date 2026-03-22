@@ -127,7 +127,9 @@
 							</p>
 							<p class="mt-3 text-sm text-muted-foreground">{entry.summary}</p>
 							<details class="mt-2">
-								<summary class="cursor-pointer text-xs font-medium text-muted-foreground hover:text-foreground">
+								<summary
+									class="cursor-pointer text-xs font-medium text-muted-foreground hover:text-foreground"
+								>
 									Limitations, repo use, and domains
 								</summary>
 								<div class="mt-1 space-y-1">

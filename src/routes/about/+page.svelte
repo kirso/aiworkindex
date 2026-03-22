@@ -265,8 +265,8 @@
 				resilience are kept separate rather than hidden inside one opaque score
 			</li>
 			<li>
-				<strong>Externally cross-checked</strong> — cluster-level directional checks, BLS convergent evidence,
-				and {DATA_VINTAGE.validation_checks} internal structural checks
+				<strong>Externally cross-checked</strong> — cluster-level directional checks, BLS convergent
+				evidence, and {DATA_VINTAGE.validation_checks} internal structural checks
 			</li>
 			<li>
 				<strong>Seniority modifiers</strong> — research-grounded experience level adjustments (Stanford

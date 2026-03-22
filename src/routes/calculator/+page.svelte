@@ -42,10 +42,13 @@
 		// Alias matches first (occupation SSOCs that match aliases)
 		const aliasHits = findAliasMatches(q);
 		const aliasSsocs = new Set(aliasHits.flatMap(m => m.ssocs));
-		const aliasEntries = aliasSsocs.size > 0 ? data.entries.filter(e => aliasSsocs.has(e.ssoc)) : [];
+		const aliasEntries =
+			aliasSsocs.size > 0 ? data.entries.filter(e => aliasSsocs.has(e.ssoc)) : [];
 		// Title matches (excluding alias hits)
 		const aliasIds = new Set(aliasEntries.map(e => e.id));
-		const titleEntries = data.entries.filter(e => !aliasIds.has(e.id) && titleMatches(e.title, q.toLowerCase()));
+		const titleEntries = data.entries.filter(
+			e => !aliasIds.has(e.id) && titleMatches(e.title, q.toLowerCase())
+		);
 		return [...aliasEntries, ...titleEntries].slice(0, 8);
 	});
 

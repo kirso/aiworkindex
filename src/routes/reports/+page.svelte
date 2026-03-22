@@ -420,7 +420,8 @@
 	{#if quarterly.previous_snapshot}
 		<details class="mt-4">
 			<summary class="cursor-pointer text-sm font-medium text-foreground hover:text-primary">
-				Quarterly Movers ({quarterly.band_movers.length} band changes, {quarterly.previous_snapshot} to {quarterly.current_snapshot})
+				Quarterly Movers ({quarterly.band_movers.length} band changes, {quarterly.previous_snapshot} to
+				{quarterly.current_snapshot})
 			</summary>
 			<div class={cn(card({ padding: 'md' }), 'mt-2')}>
 				<div class="grid gap-3 sm:grid-cols-3">

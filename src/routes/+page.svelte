@@ -175,15 +175,15 @@
 				<a href="/roles" class={pill({ size: 'lg', tone: 'outline', interactive: true })}>
 					Modern roles →
 				</a>
-					<a href="/calculator" class={pill({ size: 'lg', tone: 'outline', interactive: true })}>
-						Salary calculator →
-					</a>
-					<a href="/explore" class={pill({ size: 'lg', tone: 'outline', interactive: true })}>
-						View all occupations →
-					</a>
-				</div>
+				<a href="/calculator" class={pill({ size: 'lg', tone: 'outline', interactive: true })}>
+					Salary calculator →
+				</a>
+				<a href="/explore" class={pill({ size: 'lg', tone: 'outline', interactive: true })}>
+					View all occupations →
+				</a>
 			</div>
 		</div>
+	</div>
 </div>
 
 <!-- ===== MAIN: Sidebar + Content ===== -->
@@ -197,7 +197,11 @@
 					'sticky top-14 max-h-[calc(100vh-4.5rem)] overflow-y-auto'
 				)}
 			>
-				<FilterPanel occupations={data.occupations} onfilter={handleFilter} />
+				<FilterPanel
+					occupations={data.occupations}
+					onfilter={handleFilter}
+					showTextSearch={false}
+				/>
 
 				<!-- Risk distribution -->
 				<div class="mt-3 border-t border-border pt-3">
@@ -268,7 +272,11 @@
 							>
 						</summary>
 						<div class="border-t border-border/50 p-4">
-							<FilterPanel occupations={data.occupations} onfilter={handleFilter} />
+							<FilterPanel
+								occupations={data.occupations}
+								onfilter={handleFilter}
+								showTextSearch={false}
+							/>
 						</div>
 					</details>
 				</div>

@@ -12,7 +12,6 @@
 		sectionLabel,
 		caption,
 		pill,
-		chip,
 		scoreTileClasses,
 		microLabel
 	} from '$lib/design-system';
@@ -32,11 +31,8 @@
 	import {
 		computeOutlook,
 		scenarioPresets,
-		seniorityAdjustments,
 		outlookStatusLabels,
 		outlookStatusColors,
-		directionLabels,
-		directionColors,
 		type SeniorityLevel
 	} from '$lib/data/forecast-engine';
 	import {
@@ -207,19 +203,6 @@
 
 	function moatBarClass(v: number) {
 		return v >= 0.6 ? 'bg-risk-very-low' : v >= 0.3 ? 'bg-risk-moderate' : 'bg-risk-high';
-	}
-
-	function labourStateLabel(state: string | null | undefined) {
-		if (state === 'strong') return 'Strong';
-		if (state === 'moderate') return 'Moderate';
-		if (state === 'weak') return 'Weak';
-		return 'Watch';
-	}
-
-	function labourStateClass(state: string | null | undefined) {
-		if (state === 'strong') return 'bg-risk-very-low/10 text-risk-very-low';
-		if (state === 'moderate') return 'bg-risk-moderate/10 text-risk-moderate';
-		return 'bg-risk-high/10 text-risk-high';
 	}
 
 	function offsetLevelLabel(value: number, inverse = false) {
@@ -400,7 +383,11 @@
 					<div class="min-w-0">
 						<h1 class={titleStyle({ size: 'page' })}>{occ.title}</h1>
 						<p class={caption({ weight: 'medium' })}>
-							{group?.label ?? occ.major_group} · SGD {occ.gross_wage_median.toLocaleString()}/mo ({structural.wageVsNational}){#if occ.estimated_sg_employment_thousands} · ~{occ.estimated_sg_employment_thousands >= 1 ? occ.estimated_sg_employment_thousands.toFixed(1) + 'K' : Math.round(occ.estimated_sg_employment_thousands * 1000).toLocaleString()} workers in SG{/if}
+							{group?.label ?? occ.major_group} · SGD {occ.gross_wage_median.toLocaleString()}/mo ({structural.wageVsNational}){#if occ.estimated_sg_employment_thousands}
+								· ~{occ.estimated_sg_employment_thousands >= 1
+									? occ.estimated_sg_employment_thousands.toFixed(1) + 'K'
+									: Math.round(occ.estimated_sg_employment_thousands * 1000).toLocaleString()} workers
+								in SG{/if}
 						</p>
 						<p class="mt-3 max-w-3xl text-[15px] leading-relaxed text-text-secondary">
 							{structural.summaryText}
@@ -522,94 +509,152 @@
 	<section class="mb-8">
 		<h2 class={cn(sectionLabel(), 'mb-3')}>Singapore Now</h2>
 		<div class={card({ padding: 'md' })}>
-		<p class="text-xs text-muted-foreground mb-4">Current local conditions — separate from the structural score.</p>
+			<p class="text-xs text-muted-foreground mb-4">
+				Current local conditions — separate from the structural score.
+			</p>
 
-		<!-- Labour metrics row -->
-		{#if occ.labour_monitor}
-			<div class="grid gap-3 sm:grid-cols-4 mb-4">
-				<div class={card({ padding: 'sm', variant: 'metric' })}>
-					<p class={microLabel()}>Vacancy</p>
-					<p class="mt-1 font-mono text-lg text-foreground">{occ.labour_monitor.vacancy.latest_rate}%</p>
-					<p class={cn('text-xs font-medium', occ.labour_monitor.vacancy.trend_4q_pct > 0 ? 'text-risk-very-low' : occ.labour_monitor.vacancy.trend_4q_pct < 0 ? 'text-risk-high' : 'text-muted-foreground')}>
-						{occ.labour_monitor.vacancy.trend_4q_pct > 0 ? '↑' : occ.labour_monitor.vacancy.trend_4q_pct < 0 ? '↓' : '→'} {Math.abs(occ.labour_monitor.vacancy.trend_4q_pct).toFixed(1)}% YoY
-					</p>
+			<!-- Labour metrics row -->
+			{#if occ.labour_monitor}
+				<div class="grid gap-3 sm:grid-cols-4 mb-4">
+					<div class={card({ padding: 'sm', variant: 'metric' })}>
+						<p class={microLabel()}>Vacancy</p>
+						<p class="mt-1 font-mono text-lg text-foreground">
+							{occ.labour_monitor.vacancy.latest_rate}%
+						</p>
+						<p
+							class={cn(
+								'text-xs font-medium',
+								occ.labour_monitor.vacancy.trend_4q_pct > 0
+									? 'text-risk-very-low'
+									: occ.labour_monitor.vacancy.trend_4q_pct < 0
+										? 'text-risk-high'
+										: 'text-muted-foreground'
+							)}
+						>
+							{occ.labour_monitor.vacancy.trend_4q_pct > 0
+								? '↑'
+								: occ.labour_monitor.vacancy.trend_4q_pct < 0
+									? '↓'
+									: '→'}
+							{Math.abs(occ.labour_monitor.vacancy.trend_4q_pct).toFixed(1)}% YoY
+						</p>
+					</div>
+					{#if occ.labour_monitor.hiring}
+						<div class={card({ padding: 'sm', variant: 'metric' })}>
+							<p class={microLabel()}>Hiring</p>
+							<p class="mt-1 font-mono text-lg text-foreground">
+								{occ.labour_monitor.hiring.recruitment_rate}%
+							</p>
+							<p class="text-xs text-muted-foreground">
+								vs {occ.labour_monitor.hiring.resignation_rate}% resign
+							</p>
+						</div>
+					{/if}
+					{#if occ.labour_monitor.retrenchment?.incidence_per_1000}
+						<div class={card({ padding: 'sm', variant: 'metric' })}>
+							<p class={microLabel()}>Retrenchment</p>
+							<p class="mt-1 font-mono text-lg text-foreground">
+								{occ.labour_monitor.retrenchment.incidence_per_1000}
+							</p>
+							<p class="text-xs text-muted-foreground">
+								per 1,000 · {occ.labour_monitor.retrenchment.incidence_per_1000 < 2
+									? 'low'
+									: occ.labour_monitor.retrenchment.incidence_per_1000 < 5
+										? 'moderate'
+										: 'elevated'}
+							</p>
+						</div>
+					{:else if postings && postings.hiring_state !== 'no_signal'}
+						<div class={card({ padding: 'sm', variant: 'metric' })}>
+							<p class={microLabel()}>Postings</p>
+							<p class="mt-1 font-mono text-lg text-foreground">{postings.posting_volume_30d}</p>
+							<p class="text-xs text-muted-foreground">last 30 days</p>
+						</div>
+					{/if}
+					{#if occ.labour_monitor.re_entry?.rate_12m}
+						<div class={card({ padding: 'sm', variant: 'metric' })}>
+							<p class={microLabel()}>Re-entry</p>
+							<p class="mt-1 font-mono text-lg text-foreground">
+								{occ.labour_monitor.re_entry.rate_12m}%
+							</p>
+							<p class="text-xs text-muted-foreground">
+								find work in 12mo{#if occ.labour_monitor.re_entry.rate_12m_delta_pp}
+									· <span
+										class={occ.labour_monitor.re_entry.rate_12m_delta_pp > 0
+											? 'text-risk-very-low'
+											: 'text-risk-high'}
+										>{occ.labour_monitor.re_entry.rate_12m_delta_pp > 0
+											? '+'
+											: ''}{occ.labour_monitor.re_entry.rate_12m_delta_pp.toFixed(1)}pp</span
+									>{/if}
+							</p>
+						</div>
+					{/if}
 				</div>
-				{#if occ.labour_monitor.hiring}
-					<div class={card({ padding: 'sm', variant: 'metric' })}>
-						<p class={microLabel()}>Hiring</p>
-						<p class="mt-1 font-mono text-lg text-foreground">{occ.labour_monitor.hiring.recruitment_rate}%</p>
-						<p class="text-xs text-muted-foreground">vs {occ.labour_monitor.hiring.resignation_rate}% resign</p>
-					</div>
-				{/if}
-				{#if occ.labour_monitor.retrenchment?.incidence_per_1000}
-					<div class={card({ padding: 'sm', variant: 'metric' })}>
-						<p class={microLabel()}>Retrenchment</p>
-						<p class="mt-1 font-mono text-lg text-foreground">{occ.labour_monitor.retrenchment.incidence_per_1000}</p>
-						<p class="text-xs text-muted-foreground">per 1,000 · {occ.labour_monitor.retrenchment.incidence_per_1000 < 2 ? 'low' : occ.labour_monitor.retrenchment.incidence_per_1000 < 5 ? 'moderate' : 'elevated'}</p>
-					</div>
-				{:else if postings && postings.hiring_state !== 'no_signal'}
-					<div class={card({ padding: 'sm', variant: 'metric' })}>
-						<p class={microLabel()}>Postings</p>
-						<p class="mt-1 font-mono text-lg text-foreground">{postings.posting_volume_30d}</p>
-						<p class="text-xs text-muted-foreground">last 30 days</p>
-					</div>
-				{/if}
-				{#if occ.labour_monitor.re_entry?.rate_12m}
-					<div class={card({ padding: 'sm', variant: 'metric' })}>
-						<p class={microLabel()}>Re-entry</p>
-						<p class="mt-1 font-mono text-lg text-foreground">{occ.labour_monitor.re_entry.rate_12m}%</p>
-						<p class="text-xs text-muted-foreground">find work in 12mo{#if occ.labour_monitor.re_entry.rate_12m_delta_pp} · <span class={occ.labour_monitor.re_entry.rate_12m_delta_pp > 0 ? 'text-risk-very-low' : 'text-risk-high'}>{occ.labour_monitor.re_entry.rate_12m_delta_pp > 0 ? '+' : ''}{occ.labour_monitor.re_entry.rate_12m_delta_pp.toFixed(1)}pp</span>{/if}</p>
-					</div>
-				{/if}
-			</div>
-			<p class="text-xs text-muted-foreground mb-4">{occ.labour_monitor.cluster_label} · {siteStatus.live_monitor.labour_monitor_artifact_vintage}</p>
-		{/if}
+				<p class="text-xs text-muted-foreground mb-4">
+					{occ.labour_monitor.cluster_label} · {siteStatus.live_monitor
+						.labour_monitor_artifact_vintage}
+				</p>
+			{/if}
 
-		<!-- Industries + Outlook side by side -->
-		<div class="grid gap-4 md:grid-cols-2">
-			{#if industryContext}
-				<div class={card({ padding: 'sm' })}>
-					<p class={cn(microLabel(), 'mb-2')}>Top Industries</p>
-					{#each industryContext.top_industries.slice(0, 3) as industry (industry.key)}
-						<div class="flex items-center justify-between py-1.5 border-b border-border/50 last:border-0">
-							<span class="text-sm text-foreground truncate mr-2">{industry.label}</span>
-							<div class="flex items-center gap-2 shrink-0">
-								{#if industry.vacancy_signal && industry.vacancy_signal !== 'stable'}
-									<span class={cn('text-xs', vacancySignalClass(industry.vacancy_signal))}>
-										{industry.vacancy_signal === 'rising' ? '↑' : '↓'}
-									</span>
-								{/if}
-								<span class="font-mono text-xs text-muted-foreground">{(industry.share_2025 * 100).toFixed(0)}%</span>
+			<!-- Industries + Outlook side by side -->
+			<div class="grid gap-4 md:grid-cols-2">
+				{#if industryContext}
+					<div class={card({ padding: 'sm' })}>
+						<p class={cn(microLabel(), 'mb-2')}>Top Industries</p>
+						{#each industryContext.top_industries.slice(0, 3) as industry (industry.key)}
+							<div
+								class="flex items-center justify-between py-1.5 border-b border-border/50 last:border-0"
+							>
+								<span class="text-sm text-foreground truncate mr-2">{industry.label}</span>
+								<div class="flex items-center gap-2 shrink-0">
+									{#if industry.vacancy_signal && industry.vacancy_signal !== 'stable'}
+										<span class={cn('text-xs', vacancySignalClass(industry.vacancy_signal))}>
+											{industry.vacancy_signal === 'rising' ? '↑' : '↓'}
+										</span>
+									{/if}
+									<span class="font-mono text-xs text-muted-foreground"
+										>{(industry.share_2025 * 100).toFixed(0)}%</span
+									>
+								</div>
 							</div>
+						{/each}
+					</div>
+				{/if}
+
+				<div class={card({ padding: 'sm' })}>
+					<div class="flex items-center justify-between mb-2">
+						<p class={microLabel()}>12-Month Outlook</p>
+						<div class="flex items-center gap-0.5" role="group" aria-label="Seniority level">
+							{#each ['junior', 'mid', 'senior'] as const as level}
+								<button
+									class={cn(
+										'rounded px-1.5 py-0.5 text-[10px] font-medium transition-colors',
+										selectedSeniority === level
+											? 'bg-foreground text-background'
+											: 'text-muted-foreground hover:text-foreground'
+									)}
+									onclick={() => (selectedSeniority = level)}
+									aria-pressed={selectedSeniority === level}
+								>
+									{level === 'junior' ? 'Jr' : level === 'mid' ? 'Mid' : 'Sr'}
+								</button>
+							{/each}
+						</div>
+					</div>
+					{#each outlookDimensions as dim}
+						{@const status = baseOutlook[dim.key]}
+						<div
+							class="flex items-center justify-between py-1.5 border-b border-border/50 last:border-0"
+						>
+							<span class="text-xs text-muted-foreground">{dim.label}</span>
+							<span class="text-xs font-medium {outlookStatusColors[status]}"
+								>{outlookStatusLabels[status]}</span
+							>
 						</div>
 					{/each}
 				</div>
-			{/if}
-
-			<div class={card({ padding: 'sm' })}>
-				<div class="flex items-center justify-between mb-2">
-					<p class={microLabel()}>12-Month Outlook</p>
-					<div class="flex items-center gap-0.5" role="group" aria-label="Seniority level">
-						{#each ['junior', 'mid', 'senior'] as const as level}
-							<button
-								class={cn('rounded px-1.5 py-0.5 text-[10px] font-medium transition-colors', selectedSeniority === level ? 'bg-foreground text-background' : 'text-muted-foreground hover:text-foreground')}
-								onclick={() => (selectedSeniority = level)}
-								aria-pressed={selectedSeniority === level}
-							>
-								{level === 'junior' ? 'Jr' : level === 'mid' ? 'Mid' : 'Sr'}
-							</button>
-						{/each}
-					</div>
-				</div>
-				{#each outlookDimensions as dim}
-					{@const status = baseOutlook[dim.key]}
-					<div class="flex items-center justify-between py-1.5 border-b border-border/50 last:border-0">
-						<span class="text-xs text-muted-foreground">{dim.label}</span>
-						<span class="text-xs font-medium {outlookStatusColors[status]}">{outlookStatusLabels[status]}</span>
-					</div>
-				{/each}
 			</div>
-		</div>
 		</div>
 	</section>
 
@@ -699,11 +744,21 @@
 								<div class="min-w-0 flex-1">
 									<span class="truncate text-text-secondary block">{t.to_title}</span>
 									<span class="text-xs text-muted-foreground">
-										{t.label === 'easy' ? 'Easy' : t.label === 'moderate' ? 'Moderate' : t.label === 'stretch' ? 'Stretch' : 'Difficult'} transition
+										{t.label === 'easy'
+											? 'Easy'
+											: t.label === 'moderate'
+												? 'Moderate'
+												: t.label === 'stretch'
+													? 'Stretch'
+													: 'Difficult'} transition
 										{#if t.risk_improvement > 0}
-											· <span class="text-risk-very-low">-{(t.risk_improvement * 100).toFixed(0)}pp risk</span>
+											· <span class="text-risk-very-low"
+												>-{(t.risk_improvement * 100).toFixed(0)}pp risk</span
+											>
 										{:else if t.risk_improvement < 0}
-											· <span class="text-risk-high">+{(Math.abs(t.risk_improvement) * 100).toFixed(0)}pp risk</span>
+											· <span class="text-risk-high"
+												>+{(Math.abs(t.risk_improvement) * 100).toFixed(0)}pp risk</span
+											>
 										{/if}
 									</span>
 								</div>
@@ -895,7 +950,9 @@
 						<p class="font-semibold text-foreground mb-1">Signal Conflicts</p>
 						<div class="flex flex-wrap gap-1.5">
 							{#each occ.evidence.signal_conflict_reasons as reason}
-								<span class={cn(pill({ size: 'sm' }), 'bg-risk-moderate/10 text-risk-moderate')}>{reason.replaceAll('_', ' ')}</span>
+								<span class={cn(pill({ size: 'sm' }), 'bg-risk-moderate/10 text-risk-moderate')}
+									>{reason.replaceAll('_', ' ')}</span
+								>
 							{/each}
 						</div>
 					</div>
@@ -917,17 +974,27 @@
 						<div class="flex flex-wrap gap-3 mt-1">
 							{#each Object.entries(occ.evidence.exposure_source_pctiles) as [source, pctile]}
 								<div class="flex items-center gap-2">
-									<span class="text-xs font-medium uppercase tracking-wider text-muted-foreground w-16">{source}</span>
+									<span
+										class="text-xs font-medium uppercase tracking-wider text-muted-foreground w-16"
+										>{source}</span
+									>
 									<div class="h-2 w-24 rounded-full bg-muted overflow-hidden">
-										<div class="h-full rounded-full bg-foreground/60" style="width: {(pctile ?? 0) * 100}%"></div>
+										<div
+											class="h-full rounded-full bg-foreground/60"
+											style="width: {(pctile ?? 0) * 100}%"
+										></div>
 									</div>
-									<span class="font-mono text-xs text-text-secondary">{((pctile ?? 0) * 100).toFixed(0)}%</span>
+									<span class="font-mono text-xs text-text-secondary"
+										>{((pctile ?? 0) * 100).toFixed(0)}%</span
+									>
 								</div>
 							{/each}
 						</div>
 						{#if occ.evidence?.exposure_source_weights}
 							<p class="mt-1 text-xs text-muted-foreground">
-								Weights: {Object.entries(occ.evidence.exposure_source_weights).map(([k, v]) => `${k} ${((v ?? 0) * 100).toFixed(0)}%`).join(' · ')}
+								Weights: {Object.entries(occ.evidence.exposure_source_weights)
+									.map(([k, v]) => `${k} ${((v ?? 0) * 100).toFixed(0)}%`)
+									.join(' · ')}
 							</p>
 						{/if}
 					</div>

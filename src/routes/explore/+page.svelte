@@ -50,9 +50,8 @@
 	<div class="mb-6">
 		<h1 class={titleStyle({ size: 'page' })}>Browse Occupations</h1>
 		<p class={cn(caption(), 'mt-1')}>
-			All {DATA_VINTAGE.occupation_count} official Singapore occupations in one place. Filter by
-			risk band, occupation group, and wage range, then open any occupation for the full evidence
-			breakdown.
+			All {DATA_VINTAGE.occupation_count} official Singapore occupations in one place. Filter by risk
+			band, occupation group, and wage range, then open any occupation for the full evidence breakdown.
 		</p>
 	</div>
 
@@ -61,12 +60,12 @@
 			<FilterPanel occupations={data.occupations} onfilter={handleFilter} />
 		</aside>
 
-			<section>
-				<div class="mb-4">
-					<p class="text-sm text-muted-foreground">
-						Showing {sortedOccupations.length} of {data.occupations.length} occupations
-					</p>
-				</div>
+		<section>
+			<div class="mb-4">
+				<p class="text-sm text-muted-foreground">
+					Showing {sortedOccupations.length} of {data.occupations.length} occupations
+				</p>
+			</div>
 
 			<div class="space-y-2">
 				{#each sortedOccupations as occupation (occupation.ssoc)}
