@@ -24,17 +24,8 @@
 	import * as Collapsible from '$lib/components/ui/collapsible/index.js';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import ContextItemGrid from '$lib/components/ui/ContextItemGrid.svelte';
-	import PostingsSignalSummary from '$lib/components/ui/PostingsSignalSummary.svelte';
-	import { siteStatus } from '$lib/data/site-status';
 	import { SITE } from '$lib/data/scoring-constants';
 	import Seo from '$lib/components/ui/Seo.svelte';
-	import {
-		computeOutlook,
-		scenarioPresets,
-		outlookStatusLabels,
-		outlookStatusColors,
-		type SeniorityLevel
-	} from '$lib/data/forecast-engine';
 	import {
 		WATCHLIST_KEY,
 		hasWatchlistEntry,
@@ -80,7 +71,6 @@
 		} catch {}
 	}
 
-	let transitions = $derived(structural.transitions);
 	let singaporeContext = $derived(context.singaporeContext);
 	let industryContext = $derived(context.industryContext);
 	let workerProfile = $derived(context.workerProfile);
@@ -131,23 +121,43 @@
 		};
 	});
 
-	// Outlook (inline, base case)
-	let selectedSeniority = $state<SeniorityLevel>('mid');
-	let baseOutlook = $derived.by(() => {
-		if (!primaryOccupation) return null;
-		return computeOutlook(primaryOccupation, {
-			...scenarioPresets.base.params,
-			seniority: selectedSeniority
-		});
-	});
-	const outlookDimensions = [
-		{ key: 'displacement_pressure', label: 'Displacement' },
-		{ key: 'augmentation_upside', label: 'Augmentation' },
-		{ key: 'demand_outlook', label: 'Demand' },
-		{ key: 'wage_pressure', label: 'Wage Pressure' }
-	] as const;
+	const workflowDimensionLabels = {
+		creative_generation: 'Creative generation',
+		real_time_coordination: 'Real-time coordination',
+		ambiguity_tolerance: 'Ambiguity tolerance',
+		institutional_knowledge: 'Institutional knowledge',
+		relationship_intensity: 'Relationship intensity',
+		regulatory_weight: 'Regulatory weight',
+		physical_presence: 'Physical presence',
+		tool_velocity: 'Tool velocity'
+	} as const;
 
-	let showMoreTransitions = $state(false);
+	let _workflowItems = $derived.by(() => {
+		const overlay = scored.workflow_overlay;
+		if (!overlay) return [];
+		return (
+			Object.entries(workflowDimensionLabels) as Array<
+				[keyof typeof workflowDimensionLabels, string]
+			>
+		).map(([key, label]) => ({
+			key,
+			label,
+			value: overlay[key]
+		}));
+	});
+
+	let roleMarketHeadline = $derived.by(() => {
+		if (postings?.hiring_state === 'active') {
+			return 'Observed role-adjacent hiring is active. Read this as a blended signal from postings and component occupations, not a role-native labour-market statistic.';
+		}
+		if (postings?.hiring_state === 'moderate') {
+			return 'Observed hiring exists, but it is not broad enough to read as a strong market signal on its own. This block is blended from postings and component occupations.';
+		}
+		if (employerPressure?.label === 'high' || employerPressure?.label === 'critical') {
+			return 'Employer-side pressure is elevated for the archetypes behind this role. Treat this as a blended early warning, not a direct role-specific forecast.';
+		}
+		return 'This is a blended Singapore anchor built from component occupations and postings, not a role-native labour-market measurement.';
+	});
 
 	function pressureBarClass(v: number) {
 		return v >= 0.5
@@ -209,6 +219,23 @@
 			barClass: moatBarClass(scored.bottleneck)
 		}
 	]);
+
+	async function shareCurrentPage() {
+		if (!browser) return;
+		const url = window.location.href;
+		try {
+			if (navigator.share) {
+				await navigator.share({
+					title: `${scored.title} — ${SITE.name}`,
+					text: `Estimated AI displacement risk for ${scored.title}: ${(scored.net_risk * 100).toFixed(0)}%`,
+					url
+				});
+				return;
+			}
+			await navigator.clipboard.writeText(url);
+			toast('Link copied', { description: scored.title });
+		} catch {}
+	}
 
 	let roleJsonLd = $derived(
 		`<script type="application/ld+json">${JSON.stringify({
@@ -351,6 +378,9 @@
 							</svg>
 							{isWatchlisted ? 'Saved' : 'Save'}
 						</Button>
+						<Button variant="outline" size="sm" class="h-8 text-xs" onclick={shareCurrentPage}>
+							Share
+						</Button>
 					</div>
 				</div>
 
@@ -471,7 +501,6 @@
 				</div>
 			</div>
 
-			<!-- Workflow dimensions -->
 			{#if scored.workflow_overlay}
 				<div class="mt-5 border-t border-border pt-5">
 					<p class="text-xs font-semibold text-foreground mb-3">What this role involves</p>
@@ -484,57 +513,39 @@
 	</section>
 
 	<!-- ===== BLOCK 3: SINGAPORE NOW ===== -->
-	{#if primaryOccupation}
-		{@const lm = primaryOccupation.labour_monitor}
+	{#if postings || employerPressure || industryContext.top_industries.length > 0 || localContextItems.length > 0}
 		<section class="mb-8">
 			<h2 class={cn(sectionLabel(), 'mb-3')}>Singapore Now</h2>
 			<div class={card({ padding: 'md' })}>
-				<p class="text-xs text-muted-foreground mb-4">
-					Current local conditions — separate from the structural score.
-				</p>
+				<p class="text-sm leading-relaxed text-text-secondary mb-4">{roleMarketHeadline}</p>
 
-				{#if lm}
-					<div class="grid gap-3 sm:grid-cols-3 mb-4">
+				<div class="grid gap-3 sm:grid-cols-3 mb-4">
+					{#if postings}
 						<div class={card({ padding: 'sm', variant: 'metric' })}>
-							<p class={microLabel()}>Vacancy</p>
-							<p class="mt-1 font-mono text-lg text-foreground">{lm.vacancy.latest_rate}%</p>
-							<p
-								class={cn(
-									'text-xs font-medium',
-									lm.vacancy.trend_4q_pct > 0
-										? 'text-risk-very-low'
-										: lm.vacancy.trend_4q_pct < 0
-											? 'text-risk-high'
-											: 'text-muted-foreground'
-								)}
-							>
-								{lm.vacancy.trend_4q_pct > 0 ? '↑' : lm.vacancy.trend_4q_pct < 0 ? '↓' : '→'}
-								{Math.abs(lm.vacancy.trend_4q_pct).toFixed(1)}% YoY
+							<p class={microLabel()}>Observed hiring</p>
+							<p class="mt-1 font-mono text-lg text-foreground">{postings.posting_volume_30d}</p>
+							<p class="text-xs text-muted-foreground">
+								30-day postings · {postings.hiring_state}
 							</p>
 						</div>
-						{#if lm.hiring}
-							<div class={card({ padding: 'sm', variant: 'metric' })}>
-								<p class={microLabel()}>Hiring</p>
-								<p class="mt-1 font-mono text-lg text-foreground">{lm.hiring.recruitment_rate}%</p>
-								<p class="text-xs text-muted-foreground">vs {lm.hiring.resignation_rate}% resign</p>
-							</div>
-						{/if}
-						{#if lm.retrenchment?.incidence_per_1000}
-							<div class={card({ padding: 'sm', variant: 'metric' })}>
-								<p class={microLabel()}>Retrenchment</p>
-								<p class="mt-1 font-mono text-lg text-foreground">
-									{lm.retrenchment.incidence_per_1000}
-								</p>
-								<p class="text-xs text-muted-foreground">
-									per 1,000 · {lm.retrenchment.incidence_per_1000 < 2 ? 'low' : 'moderate'}
-								</p>
-							</div>
-						{/if}
-					</div>
-					<p class="text-xs text-muted-foreground mb-4">
-						{lm.cluster_label} · {siteStatus.live_monitor.labour_monitor_artifact_vintage}
-					</p>
-				{/if}
+					{/if}
+					{#if employerPressure}
+						<div class={card({ padding: 'sm', variant: 'metric' })}>
+							<p class={microLabel()}>Employer pressure</p>
+							<p class="mt-1 font-mono text-lg text-foreground">{employerPressure.label}</p>
+							<p class="text-xs text-muted-foreground">
+								{employerPressure.signal_count} recent signals
+							</p>
+						</div>
+					{/if}
+					{#if localContextItems.length > 0}
+						<div class={card({ padding: 'sm', variant: 'metric' })}>
+							<p class={microLabel()}>Local support</p>
+							<p class="mt-1 font-mono text-lg text-foreground">{localContextItems.length}</p>
+							<p class="text-xs text-muted-foreground">blended context anchors</p>
+						</div>
+					{/if}
+				</div>
 
 				<div class="grid gap-4 md:grid-cols-2">
 					{#if industryContext.top_industries.length > 0}
@@ -560,220 +571,121 @@
 						</div>
 					{/if}
 
-					{#if baseOutlook}
-						<div class={card({ padding: 'sm' })}>
-							<div class="flex items-center justify-between mb-2">
-								<p class={microLabel()}>12-Month Outlook</p>
-								<div class="flex items-center gap-0.5" role="group" aria-label="Seniority level">
-									{#each ['junior', 'mid', 'senior'] as const as level}
-										<button
-											class={cn(
-												'rounded px-1.5 py-0.5 text-[10px] font-medium transition-colors',
-												selectedSeniority === level
-													? 'bg-foreground text-background'
-													: 'text-muted-foreground hover:text-foreground'
-											)}
-											onclick={() => (selectedSeniority = level)}
-											aria-pressed={selectedSeniority === level}
-										>
-											{level === 'junior' ? 'Jr' : level === 'mid' ? 'Mid' : 'Sr'}
-										</button>
-									{/each}
-								</div>
-							</div>
-							{#each outlookDimensions as dim}
-								{@const status = baseOutlook[dim.key]}
-								<div
-									class="flex items-center justify-between py-1.5 border-b border-border/50 last:border-0"
-								>
-									<span class="text-xs text-muted-foreground">{dim.label}</span>
-									<span class="text-xs font-medium {outlookStatusColors[status]}"
-										>{outlookStatusLabels[status]}</span
-									>
-								</div>
-							{/each}
-						</div>
-					{/if}
+					<div class={card({ padding: 'sm' })}>
+						<p class={cn(microLabel(), 'mb-2')}>How to read this block</p>
+						<ul class="space-y-2 text-xs leading-relaxed text-muted-foreground">
+							<li>
+								These signals are blended from component occupations and postings, not measured
+								directly for the synthetic role.
+							</li>
+							<li>
+								We intentionally hide the previous 12-month outlook here because it inherited a
+								primary occupation forecast and looked more specific than the data allowed.
+							</li>
+							<li>
+								Use this block as a local anchor, then inspect the component occupations above for
+								official labour-market context.
+							</li>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</section>
 	{/if}
 
 	<!-- ===== BLOCK 4: WHAT YOU CAN DO ===== -->
-	{#if transitions}
-		<section class="mb-8">
-			<h2 class={cn(sectionLabel(), 'mb-3')}>What You Can Do</h2>
-			<div class={card({ padding: 'md' })}>
-				{#if offsetPotential}
-					<div class="mb-4 border-b border-border pb-4">
-						<div class="flex flex-wrap items-center gap-2">
-							<span
-								class={pill({
-									tone:
-										offsetPotential.band === 'high'
-											? 'positive'
-											: offsetPotential.band === 'medium'
-												? 'warning'
-												: 'danger'
-								})}
+	<section class="mb-8">
+		<h2 class={cn(sectionLabel(), 'mb-3')}>What You Can Do</h2>
+		<div class={card({ padding: 'md' })}>
+			{#if offsetPotential}
+				<div class="mb-4 border-b border-border pb-4">
+					<div class="flex flex-wrap items-center gap-2">
+						<span
+							class={pill({
+								tone:
+									offsetPotential.band === 'high'
+										? 'positive'
+										: offsetPotential.band === 'medium'
+											? 'warning'
+											: 'danger'
+							})}
+						>
+							Offset potential: {offsetPotential.band === 'high'
+								? 'High'
+								: offsetPotential.band === 'medium'
+									? 'Medium'
+									: 'Low'}
+						</span>
+						<span class="text-xs text-muted-foreground">
+							This is a blended support-layer estimate of how demand, redesign room, and transition
+							support could cushion pressure.
+						</span>
+					</div>
+					<p class="mt-2 text-sm text-text-secondary">{offsetPotential.summary}</p>
+					<div class="mt-3 flex flex-wrap gap-2">
+						<span class={pill({ tone: 'neutral' })}>
+							Demand support: {offsetLevelLabel(offsetPotential.components.demand_persistence)}
+						</span>
+						<span class={pill({ tone: 'neutral' })}>
+							Transition support: {offsetLevelLabel(offsetPotential.components.transition_support)}
+						</span>
+						<span class={pill({ tone: 'neutral' })}>
+							Reallocation room: {offsetLevelLabel(offsetPotential.components.reallocation_room)}
+						</span>
+						<span class={pill({ tone: 'neutral' })}>
+							Switching friction: {offsetLevelLabel(
+								offsetPotential.components.mobility_friction,
+								true
+							)}
+						</span>
+					</div>
+					<p class="mt-2 text-xs text-text-secondary">{offsetPotential.basis}</p>
+				</div>
+			{/if}
+
+			{#if transitionSupport}
+				<div class="mb-4 border-b border-border pb-4">
+					<p class="text-xs font-semibold text-foreground mb-2">Published transition support</p>
+					<div class="flex flex-wrap items-center gap-2">
+						{#if transitionSupport.skillsfuture_eligible}
+							<span class={pill({ tone: 'positive' })}>SkillsFuture eligible</span>
+						{/if}
+						{#each transitionSupport.recommended_programmes as programme}
+							{@const programmeUrl = getTransitionProgrammeUrl(programme)}
+							<a
+								href={programmeUrl ?? '#'}
+								target="_blank"
+								rel="noopener noreferrer"
+								class={pill({ tone: 'primary', interactive: true })}
 							>
-								Offset potential: {offsetPotential.band === 'high'
-									? 'High'
-									: offsetPotential.band === 'medium'
-										? 'Medium'
-										: 'Low'}
-							</span>
-							<span class="text-xs text-muted-foreground">
-								Separate from the core score. This is a blended estimate of how much demand,
-								redesign room, and transition support could cushion pressure.
-							</span>
-						</div>
-						<p class="mt-2 text-sm text-text-secondary">{offsetPotential.summary}</p>
-						<div class="mt-3 flex flex-wrap gap-2">
-							<span class={pill({ tone: 'neutral' })}>
-								Demand support: {offsetLevelLabel(offsetPotential.components.demand_persistence)}
-							</span>
-							<span class={pill({ tone: 'neutral' })}>
-								Transition support: {offsetLevelLabel(
-									offsetPotential.components.transition_support
-								)}
-							</span>
-							<span class={pill({ tone: 'neutral' })}>
-								Reallocation room: {offsetLevelLabel(offsetPotential.components.reallocation_room)}
-							</span>
-							<span class={pill({ tone: 'neutral' })}>
-								Switching friction: {offsetLevelLabel(
-									offsetPotential.components.mobility_friction,
-									true
-								)}
-							</span>
-						</div>
-						<p class="mt-2 text-xs text-text-secondary">{offsetPotential.basis}</p>
+								{programme} ↗
+							</a>
+						{/each}
 					</div>
-				{/if}
+					<p class="mt-2 text-xs text-text-secondary">{transitionSupport.basis}</p>
+				</div>
+			{/if}
 
-				{#if transitionSupport}
-					<div class="mb-4 pb-4 border-b border-border">
-						<div class="flex flex-wrap items-center gap-2">
-							{#if transitionSupport.skillsfuture_eligible}
-								<span class={pill({ tone: 'positive' })}> SkillsFuture eligible </span>
-							{/if}
-							{#each transitionSupport.recommended_programmes as programme}
-								{@const programmeUrl = getTransitionProgrammeUrl(programme)}
-								<a
-									href={programmeUrl ?? '#'}
-									target="_blank"
-									rel="noopener noreferrer"
-									class={pill({ tone: 'primary', interactive: true })}
-								>
-									{programme} ↗
-								</a>
-							{/each}
-						</div>
-						<p class="mt-2 text-xs text-text-secondary">{transitionSupport.basis}</p>
-					</div>
-				{/if}
-
-				<p class="mb-3 text-xs text-muted-foreground">
-					Transitions based on primary component occupation, not directly observed for this role.
+			<div class={card({ padding: 'sm', variant: 'inset' })}>
+				<p class="text-xs font-semibold text-foreground">Why there are no transition cards here</p>
+				<p class="mt-2 text-sm leading-relaxed text-text-secondary">
+					Role-level pathways are not directly observed in the current dataset. We removed the
+					previous inherited transition cards because they were anchored on a primary occupation and
+					looked more precise than the evidence allowed.
 				</p>
-
-				<div class="grid gap-6 sm:grid-cols-2">
-					{#if transitions.easierSwitch.length > 0}
-						<div>
-							<p class="text-xs font-semibold text-impact-leveraged mb-2">Easier Switch</p>
-							{#each transitions.easierSwitch.slice(0, showMoreTransitions ? transitions.easierSwitch.length : 3) as t (t.to_ssoc)}
-								<a
-									href="/occupation/{t.to_ssoc}"
-									class="flex items-center justify-between rounded-md px-2 py-1.5 -mx-2 text-sm hover:bg-accent hover:text-primary transition-colors"
-								>
-									<span class="truncate text-text-secondary">{t.to_title}</span>
-									<span class="ml-2 shrink-0 font-mono text-xs text-muted-foreground"
-										>{(t.composite * 100).toFixed(0)}%</span
-									>
-								</a>
-							{/each}
-						</div>
-					{/if}
-					{#if transitions.lowerRisk.length > 0}
-						<div>
-							<p class="text-xs font-semibold text-risk-very-low mb-2">Lower Risk</p>
-							{#each transitions.lowerRisk.slice(0, showMoreTransitions ? transitions.lowerRisk.length : 3) as t (t.to_ssoc)}
-								<a
-									href="/occupation/{t.to_ssoc}"
-									class="flex items-center justify-between rounded-md px-2 py-1.5 -mx-2 text-sm hover:bg-accent hover:text-primary transition-colors"
-								>
-									<span class="truncate text-text-secondary">{t.to_title}</span>
-									<span class="ml-2 shrink-0 font-mono text-xs text-muted-foreground"
-										>{(t.composite * 100).toFixed(0)}%</span
-									>
-								</a>
-							{/each}
-						</div>
-					{/if}
-					{#if transitions.betterPay.length > 0}
-						<div>
-							<p class="text-xs font-semibold text-risk-moderate mb-2">Better Pay</p>
-							{#each transitions.betterPay.slice(0, showMoreTransitions ? transitions.betterPay.length : 3) as t (t.to_ssoc)}
-								<a
-									href="/occupation/{t.to_ssoc}"
-									class="flex items-center justify-between rounded-md px-2 py-1.5 -mx-2 text-sm hover:bg-accent hover:text-primary transition-colors"
-								>
-									<span class="truncate text-text-secondary">{t.to_title}</span>
-									<span class="ml-2 shrink-0 font-mono text-xs text-muted-foreground"
-										>{(t.composite * 100).toFixed(0)}%</span
-									>
-								</a>
-							{/each}
-						</div>
-					{/if}
-					{#if transitions.strongDemand.length > 0}
-						<div>
-							<p class="text-xs font-semibold text-chart-5 mb-2">Strong Demand</p>
-							{#each transitions.strongDemand.slice(0, showMoreTransitions ? transitions.strongDemand.length : 3) as t (t.to_ssoc)}
-								<a
-									href="/occupation/{t.to_ssoc}"
-									class="flex items-center justify-between rounded-md px-2 py-1.5 -mx-2 text-sm hover:bg-accent hover:text-primary transition-colors"
-								>
-									<span class="truncate text-text-secondary">{t.to_title}</span>
-									<span class="ml-2 shrink-0 font-mono text-xs text-muted-foreground"
-										>{(t.composite * 100).toFixed(0)}%</span
-									>
-								</a>
-							{/each}
-						</div>
-					{/if}
-				</div>
-
-				{#if !showMoreTransitions && (transitions.easierSwitch.length > 3 || transitions.lowerRisk.length > 3 || transitions.betterPay.length > 3 || transitions.strongDemand.length > 3)}
-					<button
-						class="mt-3 text-xs font-medium text-primary hover:underline"
-						onclick={() => (showMoreTransitions = true)}
-					>
-						See more transitions
-					</button>
-				{/if}
-				{#if showMoreTransitions}
-					<button
-						class="mt-3 text-xs font-medium text-primary hover:underline"
-						onclick={() => (showMoreTransitions = false)}
-					>
-						Show fewer
-					</button>
-				{/if}
-
-				<div class="mt-4 pt-4 border-t border-border flex items-center justify-between">
-					<p class="text-xs text-muted-foreground">Compare with similar roles or occupations</p>
-					<a
-						href="/compare?entities=role:{scored.slug}"
-						class="text-xs font-medium text-primary hover:underline"
-					>
-						Compare with... →
-					</a>
-				</div>
 			</div>
-		</section>
-	{/if}
+
+			<div class="mt-4 pt-4 border-t border-border flex items-center justify-between">
+				<p class="text-xs text-muted-foreground">Compare with similar roles or occupations</p>
+				<a
+					href="/compare?entities=role:{scored.slug}"
+					class="text-xs font-medium text-primary hover:underline"
+				>
+					Compare with... →
+				</a>
+			</div>
+		</div>
+	</section>
 
 	<!-- ===== TECHNICAL DETAILS (collapsed) ===== -->
 	<Collapsible.Root class={cn(card({ padding: 'none' }), 'mb-8')}>
@@ -852,7 +764,7 @@
 						</div>
 						<p class="mt-1 text-xs text-muted-foreground">
 							{structural.onetEnrichment?.note ??
-								'Derived from matched O*NET technology-skill profiles.'}
+								'Proxy enrichment from matched O*NET technology profiles, not direct role-native evidence.'}
 						</p>
 					</div>
 				{/if}
@@ -929,20 +841,15 @@
 				{#if marketDetailBullets.length > 0}
 					<div class="sm:col-span-2">
 						<p class="font-semibold text-foreground mb-1">Market detail</p>
+						<p class="mb-2">
+							Industry vacancy overlays use the latest published detailed cross-tab, which can lag
+							the main labour monitor.
+						</p>
 						<ul class="space-y-1">
 							{#each marketDetailBullets as item}
 								<li>{item}</li>
 							{/each}
 						</ul>
-						{#if postings && postings.hiring_state !== 'no_signal'}
-							<div class="mt-2">
-								<PostingsSignalSummary
-									{postings}
-									label="Hiring now"
-									contextLabel="Role-normalized postings monitor"
-								/>
-							</div>
-						{/if}
 					</div>
 				{/if}
 			</div>
