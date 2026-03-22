@@ -41,6 +41,7 @@
 	let scored = $derived(data.scored);
 	let structural = $derived(data.structural);
 	let context = $derived(data.context);
+	let decision = $derived(structural.decision);
 
 	let isWatchlisted = $state(false);
 	$effect(() => {
@@ -173,6 +174,14 @@
 		return v >= 0.6 ? 'bg-risk-very-low' : v >= 0.35 ? 'bg-risk-moderate' : 'bg-risk-high';
 	}
 
+	function adaptationBarClass(v: number) {
+		return v >= 0.55 ? 'bg-risk-very-low' : v >= 0.35 ? 'bg-risk-moderate' : 'bg-risk-high';
+	}
+
+	function realizedBarClass(v: number) {
+		return v >= 0.1 ? 'bg-risk-very-high' : v >= 0.05 ? 'bg-risk-moderate' : 'bg-risk-very-low';
+	}
+
 	function confidenceBarClass(level: string) {
 		return level === 'high'
 			? 'bg-risk-very-low'
@@ -192,33 +201,107 @@
 		return 'Low';
 	}
 
-	let signalProfileItems = $derived([
-		{
-			label: 'Pressure',
-			value: `${(scored.net_risk * 100).toFixed(0)}%`,
-			barValue: scored.net_risk,
-			barClass: pressureBarClass(scored.net_risk)
-		},
-		{
-			label: 'Market',
-			value: `${(scored.market_resilience * 100).toFixed(0)}%`,
-			barValue: scored.market_resilience,
-			barClass: marketBarClass(scored.market_resilience)
-		},
-		{
-			label: 'Evidence Quality',
-			value: `${(scored.confidence_score * 100).toFixed(0)}%`,
-			barValue: scored.confidence_score,
-			barClass: confidenceBarClass(scored.confidence)
-		},
-		{
-			label: 'Human Moat',
-			value: scored.bottleneck >= 0.6 ? 'High' : scored.bottleneck >= 0.3 ? 'Medium' : 'Low',
-			valueClass: 'font-sans text-sm font-semibold text-foreground',
-			barValue: scored.bottleneck,
-			barClass: moatBarClass(scored.bottleneck)
+	function adaptationTone() {
+		if (!decision) return 'muted';
+		return decision.adaptationLabel === 'strong'
+			? 'positive'
+			: decision.adaptationLabel === 'moderate'
+				? 'warning'
+				: 'danger';
+	}
+
+	function realizedTone() {
+		if (!decision) return 'muted';
+		return decision.realizedLabel === 'contained'
+			? 'positive'
+			: decision.realizedLabel === 'watch'
+				? 'warning'
+				: 'danger';
+	}
+
+	function pathwayTone() {
+		return decision?.bestTransition?.evidence_status === 'observed_enriched' ? 'positive' : 'muted';
+	}
+
+	function formatPercent(value: number, digits = 0) {
+		return `${(value * 100).toFixed(digits)}%`;
+	}
+
+	let decisionHeroSummary = $derived.by(() => {
+		if (!decision) return '';
+		const realizedSentence =
+			decision.realizedLabel === 'contained'
+				? 'Near-term realized pressure is still contained in the blended read.'
+				: decision.realizedLabel === 'watch'
+					? 'Near-term realized pressure is worth watching in the blended read.'
+					: 'Near-term realized pressure is elevated in the blended read.';
+		return `${formatPercent(decision.transitionAdjustedRisk)} blended transition-adjusted pressure after current buffers. ${realizedSentence}`;
+	});
+
+	let signalProfileItems = $derived.by(() => {
+		if (!decision) {
+			return [
+				{
+					label: 'Pressure',
+					value: formatPercent(scored.net_risk),
+					barValue: scored.net_risk,
+					barClass: pressureBarClass(scored.net_risk)
+				},
+				{
+					label: 'Market',
+					value: formatPercent(scored.market_resilience),
+					barValue: scored.market_resilience,
+					barClass: marketBarClass(scored.market_resilience)
+				},
+				{
+					label: 'Evidence Quality',
+					value: `${(scored.confidence_score * 100).toFixed(0)}%`,
+					barValue: scored.confidence_score,
+					barClass: confidenceBarClass(scored.confidence)
+				},
+				{
+					label: 'Human Moat',
+					value: scored.bottleneck >= 0.6 ? 'High' : scored.bottleneck >= 0.3 ? 'Medium' : 'Low',
+					valueClass: 'font-sans text-sm font-semibold text-foreground',
+					barValue: scored.bottleneck,
+					barClass: moatBarClass(scored.bottleneck)
+				}
+			];
 		}
-	]);
+
+		return [
+			{
+				label: 'Adaptation room',
+				value: decision.adaptationLabel.charAt(0).toUpperCase() + decision.adaptationLabel.slice(1),
+				valueClass: 'font-sans text-sm font-semibold text-foreground',
+				barValue: decision.adaptationCapacity,
+				barClass: adaptationBarClass(decision.adaptationCapacity),
+				note: `Blended transition-adjusted pressure ${formatPercent(
+					decision.transitionAdjustedRisk
+				)}`
+			},
+			{
+				label: 'Market',
+				value: `${(scored.market_resilience * 100).toFixed(0)}%`,
+				barValue: scored.market_resilience,
+				barClass: marketBarClass(scored.market_resilience)
+			},
+			{
+				label: '12m realized',
+				value: formatPercent(decision.realizedRiskProxy),
+				barValue: decision.realizedRiskProxy,
+				barClass: realizedBarClass(decision.realizedRiskProxy),
+				note: 'Blended short-run proxy from the component occupations'
+			},
+			{
+				label: 'Evidence Quality',
+				value: `${(scored.confidence_score * 100).toFixed(0)}%`,
+				barValue: scored.confidence_score,
+				barClass: confidenceBarClass(scored.confidence),
+				note: 'Role estimate from weighted occupation components'
+			}
+		];
+	});
 
 	async function shareCurrentPage() {
 		if (!browser) return;
@@ -350,6 +433,45 @@
 						<p class="mt-3 max-w-3xl text-[15px] leading-relaxed text-text-secondary">
 							{structural.summaryText}
 						</p>
+						{#if decision}
+							<div class="mt-4 max-w-3xl border-t border-border/70 pt-3">
+								<div class="flex flex-wrap items-center gap-2">
+									<span class={microLabel()}>Blended read</span>
+									<span class={pill({ tone: adaptationTone() })}>
+										Adaptation room: {decision.adaptationLabel}
+									</span>
+									<span class={pill({ tone: 'neutral' })}>
+										Transition-adjusted: {formatPercent(decision.transitionAdjustedRisk)}
+									</span>
+									<span class={pill({ tone: realizedTone() })}>
+										12m signal: {formatPercent(decision.realizedRiskProxy)}
+									</span>
+									{#if decision.bestTransition}
+										<a
+											href="/occupation/{decision.bestTransition.to_ssoc}"
+											class={pill({ tone: pathwayTone(), interactive: true })}
+										>
+											Best route: {decision.bestTransition.to_title} →
+										</a>
+									{/if}
+								</div>
+								<p class="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+									{decisionHeroSummary}
+								</p>
+								{#if primaryOccupation}
+									<p class="mt-2 text-xs text-muted-foreground">
+										Seniority-specific outlook is still calibrated on official occupations. Use
+										<a
+											href="/occupation/{primaryOccupation.ssoc}"
+											class="text-foreground underline decoration-border underline-offset-4 hover:text-primary"
+										>
+											{primaryOccupation.title}
+										</a>
+										for the junior, mid, and senior view.
+									</p>
+								{/if}
+							</div>
+						{/if}
 					</div>
 
 					<div class="flex items-center gap-2 shrink-0">
@@ -596,6 +718,35 @@
 	<section class="mb-8">
 		<h2 class={cn(sectionLabel(), 'mb-3')}>What You Can Do</h2>
 		<div class={card({ padding: 'md' })}>
+			{#if decision}
+				<div class="mb-4 border-b border-border pb-4">
+					<div class="flex flex-wrap items-center gap-2">
+						<p class="text-xs font-semibold text-foreground">Blended adaptation snapshot</p>
+						<span class={pill({ size: 'sm', tone: adaptationTone() })}>
+							Adaptation room: {decision.adaptationLabel}
+						</span>
+						<span class={pill({ size: 'sm', tone: 'neutral' })}>
+							Transition-adjusted: {formatPercent(decision.transitionAdjustedRisk)}
+						</span>
+						<span class={pill({ size: 'sm', tone: realizedTone() })}>
+							12m realized pressure: {decision.realizedLabel}
+						</span>
+					</div>
+					<p class="mt-2 text-sm leading-relaxed text-text-secondary">{decision.summaryText}</p>
+					{#if primaryOccupation}
+						<p class="mt-2 text-xs text-muted-foreground">
+							Use the anchor occupation page for seniority tabs and official labour-market outlook:
+							<a
+								href="/occupation/{primaryOccupation.ssoc}"
+								class="text-foreground underline decoration-border underline-offset-4 hover:text-primary"
+							>
+								{primaryOccupation.title}
+							</a>
+						</p>
+					{/if}
+				</div>
+			{/if}
+
 			{#if offsetPotential}
 				<div class="mb-4 border-b border-border pb-4">
 					<div class="flex flex-wrap items-center gap-2">
@@ -656,6 +807,60 @@
 							</a>
 						{/each}
 					</div>
+				</div>
+			{/if}
+
+			{#if decision?.bestTransition}
+				<div class="mb-4 border-b border-border pb-4">
+					<div class="flex items-center gap-2 mb-3">
+						<p class="text-xs font-semibold text-foreground">Best adjacent pathway</p>
+						<span class={pill({ size: 'sm', tone: pathwayTone() })}>
+							{decision.bestTransition.evidence_status === 'observed_enriched'
+								? 'Observed-enriched'
+								: 'Model-led'}
+						</span>
+					</div>
+					<a
+						href="/occupation/{decision.bestTransition.to_ssoc}"
+						class={cn(card({ padding: 'md', variant: 'metric', hover: true }), 'block')}
+					>
+						<div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+							<div class="min-w-0">
+								<p class="text-sm font-semibold text-foreground">
+									{decision.bestTransition.to_title}
+								</p>
+								<p class="mt-1 text-sm text-text-secondary">
+									Blended from the underlying occupations' strongest adjacent routes.
+								</p>
+							</div>
+							<div class="shrink-0 text-left sm:text-right">
+								<p class={microLabel()}>Blended transition-adjusted pressure</p>
+								<p class="mt-1 font-mono text-lg font-semibold text-foreground">
+									{formatPercent(decision.transitionAdjustedRisk)}
+								</p>
+							</div>
+						</div>
+						<div class="mt-3 flex flex-wrap gap-2">
+							{#if decision.bestTransition.observed_transition_rate != null}
+								<span class={pill({ tone: 'positive' })}>
+									Observed transition rate {formatPercent(
+										decision.bestTransition.observed_transition_rate,
+										1
+									)}
+								</span>
+							{/if}
+							{#if decision.bestTransition.wage_preservation != null}
+								<span class={pill({ tone: 'neutral' })}>
+									Wage preservation {formatPercent(decision.bestTransition.wage_preservation)}
+								</span>
+							{/if}
+							{#if decision.bestTransition.training_ease != null}
+								<span class={pill({ tone: 'neutral' })}>
+									Training ease {formatPercent(decision.bestTransition.training_ease)}
+								</span>
+							{/if}
+						</div>
+					</a>
 				</div>
 			{/if}
 

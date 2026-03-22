@@ -29,6 +29,12 @@
 	import { SITE } from '$lib/data/scoring-constants';
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import {
+		computeOutlook,
+		scenarioPresets,
+		seniorityAdjustments,
+		type SeniorityLevel
+	} from '$lib/data/forecast-engine';
+	import {
 		WATCHLIST_KEY,
 		hasWatchlistEntry,
 		parseStoredWatchlist,
@@ -45,6 +51,7 @@
 	let occ = $derived(data.occupation);
 	let structural = $derived(data.structural);
 	let context = $derived(data.context);
+	let decision = $derived(structural.decision);
 
 	let isWatchlisted = $state(false);
 
@@ -84,6 +91,11 @@
 
 	let group = $derived(majorGroupByKey.get(occ.major_group));
 	let allUniqueTransitions = $derived(structural.topTransitions ?? []);
+	let _fallbackTransitions = $derived.by(() =>
+		allUniqueTransitions.filter(
+			transition => transition.to_ssoc !== decision.bestTransition?.to_ssoc
+		)
+	);
 	let singaporeContext = $derived(context.singaporeContext);
 	let industryContext = $derived(context.industryContext);
 	let workerProfile = $derived(context.workerProfile);
@@ -96,6 +108,23 @@
 	let marketDetailBullets = $derived(
 		buildMarketDetailBullets(occ.labour_monitor, postings, employerPressure)
 	);
+	let selectedSeniority = $state<SeniorityLevel>('mid');
+	let _baseOutlook = $derived.by(() =>
+		computeOutlook(occ, { ...scenarioPresets.base.params, seniority: selectedSeniority })
+	);
+
+	const _seniorityLevels: SeniorityLevel[] = ['junior', 'mid', 'senior'];
+	const _seniorityTabLabels: Record<SeniorityLevel, string> = {
+		junior: 'Junior',
+		mid: 'Mid',
+		senior: 'Senior'
+	};
+	const _outlookDimensions = [
+		{ key: 'displacement_pressure', label: 'Displacement' },
+		{ key: 'augmentation_upside', label: 'Augmentation' },
+		{ key: 'demand_outlook', label: 'Demand' },
+		{ key: 'wage_pressure', label: 'Wage pressure' }
+	] as const;
 
 	// Demand signal helpers
 	let hasDemand = $derived(occ.evidence.sol_match || occ.evidence.jobs_in_demand_match);
@@ -190,25 +219,23 @@
 	});
 
 	function pressureBarClass(v: number) {
-		return v >= 0.5
-			? 'bg-risk-very-high'
-			: v >= 0.3
-				? 'bg-risk-high'
-				: v >= 0.15
-					? 'bg-risk-moderate'
-					: 'bg-risk-very-low';
+		return v >= 0.5 ? 'bg-risk-very-high' : v >= 0.3 ? 'bg-risk-high' : v >= 0.15 ? 'bg-risk-moderate' : 'bg-risk-very-low';
 	}
 
 	function marketBarClass(v: number) {
 		return v >= 0.6 ? 'bg-risk-very-low' : v >= 0.35 ? 'bg-risk-moderate' : 'bg-risk-high';
 	}
 
-	function confidenceBarClass(v: number) {
-		return v >= 0.7 ? 'bg-risk-very-low' : v >= 0.4 ? 'bg-risk-moderate' : 'bg-risk-high';
+	function _adaptationBarClass(v: number) {
+		return v >= 0.55 ? 'bg-risk-very-low' : v >= 0.35 ? 'bg-risk-moderate' : 'bg-risk-high';
 	}
 
-	function moatBarClass(v: number) {
-		return v >= 0.6 ? 'bg-risk-very-low' : v >= 0.3 ? 'bg-risk-moderate' : 'bg-risk-high';
+	function _realizedBarClass(v: number) {
+		return v >= 0.1 ? 'bg-risk-very-high' : v >= 0.05 ? 'bg-risk-moderate' : 'bg-risk-very-low';
+	}
+
+	function confidenceBarClass(v: number) {
+		return v >= 0.7 ? 'bg-risk-very-low' : v >= 0.4 ? 'bg-risk-moderate' : 'bg-risk-high';
 	}
 
 	function offsetLevelLabel(value: number, inverse = false) {
@@ -217,6 +244,46 @@
 		if (score >= 0.42) return 'Medium';
 		return 'Low';
 	}
+
+	function _adaptationTone() {
+		return decision.adaptationLabel === 'strong'
+			? 'positive'
+			: decision.adaptationLabel === 'moderate'
+				? 'warning'
+				: 'danger';
+	}
+
+	function _realizedTone() {
+		return decision.realizedLabel === 'contained'
+			? 'positive'
+			: decision.realizedLabel === 'watch'
+				? 'warning'
+				: 'danger';
+	}
+
+	function _pathwayTone() {
+		return decision.bestTransition?.evidence_status === 'observed_enriched' ? 'positive' : 'muted';
+	}
+
+	function formatPercent(value: number, digits = 0) {
+		return `${(value * 100).toFixed(digits)}%`;
+	}
+
+	let _decisionHeroSummary = $derived.by(() => {
+		const realizedSentence =
+			decision.realizedLabel === 'contained'
+				? 'Near-term realized pressure is still contained.'
+				: decision.realizedLabel === 'watch'
+					? 'Near-term realized pressure is worth watching.'
+					: 'Near-term realized pressure is elevated.';
+		return `${formatPercent(decision.transitionAdjustedRisk)} transition-adjusted pressure after current buffers. ${realizedSentence}`;
+	});
+
+	let _seniorityOutlookNote = $derived.by(() =>
+		selectedSeniority === 'mid'
+			? 'Mid-career is the neutral baseline for the base-case outlook.'
+			: `${seniorityAdjustments[selectedSeniority].label} modifier applied to the base-case outlook.`
+	);
 
 	let signalProfileItems = $derived([
 		{
@@ -232,17 +299,10 @@
 			barClass: marketBarClass(occ.market.market_resilience)
 		},
 		{
-			label: 'Evidence Quality',
+			label: 'Evidence',
 			value: `${(occ.confidence.score * 100).toFixed(0)}%`,
 			barValue: occ.confidence.score,
 			barClass: confidenceBarClass(occ.confidence.score)
-		},
-		{
-			label: 'Human Moat',
-			value: occ.bottleneck >= 0.6 ? 'High' : occ.bottleneck >= 0.3 ? 'Medium' : 'Low',
-			valueClass: 'font-sans text-sm font-semibold text-foreground',
-			barValue: occ.bottleneck,
-			barClass: moatBarClass(occ.bottleneck)
 		}
 	]);
 
@@ -449,15 +509,12 @@
 					</div>
 				</div>
 
-				<div class="mt-4 flex flex-wrap items-center gap-2">
-					<span class={riskBadge({ band: occ.risk_band })}>
-						{riskBandLabels[occ.risk_band]} Risk
-					</span>
+				<div class="mt-3 flex flex-wrap items-center gap-2">
 					<span class={impactBadge({ type: occ.impact_type })}>
 						{impactTypeLabels[occ.impact_type]}
 					</span>
 					<span class={confidenceBadge({ level: occ.confidence.level })}>
-						{occ.confidence.level.charAt(0).toUpperCase() + occ.confidence.level.slice(1)} Evidence Quality
+						{occ.confidence.level.charAt(0).toUpperCase() + occ.confidence.level.slice(1)} Evidence
 					</span>
 					{#if hasDemand}
 						<span class={pill({ tone: 'positive' })}>
@@ -643,6 +700,24 @@
 						{/each}
 					</div>
 				{/if}
+
+				<div class={card({ padding: 'sm' })}>
+					<p class={cn(microLabel(), 'mb-2')}>How this changes by career stage</p>
+					<div class="space-y-1.5 text-xs">
+						<div class="flex items-center justify-between">
+							<span class="text-muted-foreground">Junior / Entry-level</span>
+							<span class="font-medium text-risk-high">Higher substitution exposure</span>
+						</div>
+						<div class="flex items-center justify-between">
+							<span class="text-muted-foreground">Mid-career</span>
+							<span class="font-medium text-foreground">Baseline role profile</span>
+						</div>
+						<div class="flex items-center justify-between">
+							<span class="text-muted-foreground">Senior / Lead</span>
+							<span class="font-medium text-risk-very-low">More insulated by coordination & judgment</span>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -718,33 +793,15 @@
 				<div class="mb-4 border-b border-border pb-4">
 					<div class="flex items-center gap-2 mb-3">
 						<p class="text-xs font-semibold text-foreground">Adjacent pathways to investigate</p>
-						<span class={pill({ size: 'sm', tone: 'muted' })}>Similarity-based proxy</span>
+						<span class={pill({ size: 'sm', tone: 'muted' })}>Similarity-based</span>
 					</div>
 					<div class="grid gap-2 sm:grid-cols-3">
 						{#each allUniqueTransitions.slice(0, 3) as t}
-							<a
-								href="/occupation/{t.to_ssoc}"
-								class={cn(
-									card({ padding: 'sm', variant: 'inset' }),
-									'block hover:bg-accent transition-colors'
-								)}
-							>
+							<a href="/occupation/{t.to_ssoc}" class={cn(card({ padding: 'sm', variant: 'inset' }), 'block hover:bg-accent transition-colors')}>
 								<p class="text-sm font-medium text-foreground truncate">{t.to_title}</p>
 								<div class="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
-									<span
-										class={t.risk_improvement > 0
-											? 'text-risk-very-low'
-											: t.risk_improvement < 0
-												? 'text-risk-high'
-												: ''}
-									>
-										{#if t.risk_improvement > 0}
-											-{(t.risk_improvement * 100).toFixed(0)}pp risk
-										{:else if t.risk_improvement < 0}
-											+{(Math.abs(t.risk_improvement) * 100).toFixed(0)}pp risk
-										{:else}
-											No risk change
-										{/if}
+									<span class={t.risk_improvement > 0 ? 'text-risk-very-low' : t.risk_improvement < 0 ? 'text-risk-high' : ''}>
+										{#if t.risk_improvement > 0}-{(t.risk_improvement * 100).toFixed(0)}pp risk{:else if t.risk_improvement < 0}+{(Math.abs(t.risk_improvement) * 100).toFixed(0)}pp risk{:else}No risk change{/if}
 									</span>
 									<span>·</span>
 									<span>{t.label}</span>
@@ -754,18 +811,10 @@
 					</div>
 					{#if allUniqueTransitions.length > 3}
 						<details class="mt-2">
-							<summary class="cursor-pointer text-xs font-medium text-primary hover:underline"
-								>See {allUniqueTransitions.length - 3} more</summary
-							>
+							<summary class="cursor-pointer text-xs font-medium text-primary hover:underline">See {allUniqueTransitions.length - 3} more</summary>
 							<div class="mt-2 grid gap-2 sm:grid-cols-3">
 								{#each allUniqueTransitions.slice(3) as t}
-									<a
-										href="/occupation/{t.to_ssoc}"
-										class={cn(
-											card({ padding: 'sm', variant: 'inset' }),
-											'block hover:bg-accent transition-colors'
-										)}
-									>
+									<a href="/occupation/{t.to_ssoc}" class={cn(card({ padding: 'sm', variant: 'inset' }), 'block hover:bg-accent transition-colors')}>
 										<p class="text-sm font-medium text-foreground truncate">{t.to_title}</p>
 										<div class="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
 											<span>{(t.composite * 100).toFixed(0)}%</span>
