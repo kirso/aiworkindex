@@ -667,12 +667,14 @@
 			{/if}
 
 			<div class={card({ padding: 'sm', variant: 'inset' })}>
-				<p class="text-xs font-semibold text-foreground">Why there are no transition cards here</p>
-				<p class="mt-2 text-sm leading-relaxed text-text-secondary">
-					Role-level pathways are not directly observed in the current dataset. We removed the
-					previous inherited transition cards because they were anchored on a primary occupation and
-					looked more precise than the evidence allowed.
-				</p>
+				<p class="text-xs text-foreground">Use component occupations to inspect adjacent pathways:</p>
+				<div class="mt-2 flex flex-wrap gap-1.5">
+					{#each scored.components as comp}
+						{#if comp.occupation}
+							<a href="/occupation/{comp.ssoc}" class={pill({ tone: 'primary', interactive: true })}>{comp.occupation.title} →</a>
+						{/if}
+					{/each}
+				</div>
 			</div>
 
 			<div class="mt-4 pt-4 border-t border-border flex items-center justify-between">

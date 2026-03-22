@@ -83,6 +83,7 @@
 	}
 
 	let group = $derived(majorGroupByKey.get(occ.major_group));
+	let allUniqueTransitions = $derived(structural.topTransitions ?? []);
 	let singaporeContext = $derived(context.singaporeContext);
 	let industryContext = $derived(context.industryContext);
 	let workerProfile = $derived(context.workerProfile);
@@ -643,21 +644,7 @@
 					</div>
 				{/if}
 
-				<div class={card({ padding: 'sm' })}>
-					<p class={cn(microLabel(), 'mb-2')}>How to read this block</p>
-					<ul class="space-y-2 text-xs leading-relaxed text-muted-foreground">
-						<li>These are current Singapore labour indicators, not a 12-month forecast.</li>
-						<li>
-							Vacancy, hiring, retrenchment, and re-entry come from the live labour monitor
-							artifact.
-						</li>
-						<li>
-							We intentionally removed the previous outlook widget here because its base-case labels
-							were too static to support a trustworthy forecast read.
-						</li>
-					</ul>
 				</div>
-			</div>
 		</div>
 	</section>
 
@@ -732,16 +719,45 @@
 				</div>
 			{/if}
 
-			<div class={card({ padding: 'sm', variant: 'inset' })}>
-				<p class="text-xs font-semibold text-foreground">Why there are no transition cards here</p>
-				<p class="mt-2 text-sm leading-relaxed text-text-secondary">
-					We removed occupation-to-occupation pathway cards from the default page because they are
-					still similarity-based proxies, not observed mobility data. Compare remains the place for
-					explicit side-by-side pathway inspection.
-				</p>
-			</div>
+			{#if allUniqueTransitions.length > 0}
+				<div class="mb-4 border-b border-border pb-4">
+					<div class="flex items-center gap-2 mb-3">
+						<p class="text-xs font-semibold text-foreground">Adjacent pathways to investigate</p>
+						<span class={pill({ size: 'sm', tone: 'muted' })}>Similarity-based proxy</span>
+					</div>
+					<div class="grid gap-2 sm:grid-cols-3">
+						{#each allUniqueTransitions.slice(0, 3) as t}
+							<a href="/occupation/{t.to_ssoc}" class={cn(card({ padding: 'sm', variant: 'inset' }), 'block hover:bg-accent transition-colors')}>
+								<p class="text-sm font-medium text-foreground truncate">{t.to_title}</p>
+								<div class="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
+									<span class={t.risk_improvement < 0 ? 'text-risk-very-low' : t.risk_improvement > 0 ? 'text-risk-high' : ''}>{t.risk_improvement > 0 ? '+' : ''}{(t.risk_improvement * 100).toFixed(0)}pp risk</span>
+									<span>·</span>
+									<span>{t.label}</span>
+								</div>
+							</a>
+						{/each}
+					</div>
+					{#if allUniqueTransitions.length > 3}
+						<details class="mt-2">
+							<summary class="cursor-pointer text-xs font-medium text-primary hover:underline">See {allUniqueTransitions.length - 3} more</summary>
+							<div class="mt-2 grid gap-2 sm:grid-cols-3">
+								{#each allUniqueTransitions.slice(3) as t}
+									<a href="/occupation/{t.to_ssoc}" class={cn(card({ padding: 'sm', variant: 'inset' }), 'block hover:bg-accent transition-colors')}>
+										<p class="text-sm font-medium text-foreground truncate">{t.to_title}</p>
+										<div class="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
+											<span>{(t.composite * 100).toFixed(0)}%</span>
+											<span>·</span>
+											<span>{t.label}</span>
+										</div>
+									</a>
+								{/each}
+							</div>
+						</details>
+					{/if}
+				</div>
+			{/if}
 
-			<div class="mt-4 pt-4 border-t border-border flex items-center justify-between">
+			<div class="flex items-center justify-between">
 				<p class="text-xs text-muted-foreground">See how this compares to similar occupations</p>
 				<a
 					href="/compare?entities=occupation:{occ.ssoc}"
