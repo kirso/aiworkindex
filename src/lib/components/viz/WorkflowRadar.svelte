@@ -8,7 +8,7 @@
 		size?: number;
 	}
 
-	let { dimensions, size = 200 }: Props = $props();
+	let { dimensions, size = 280 }: Props = $props();
 
 	let dims = $derived(dimensions as unknown as Record<string, number>);
 
@@ -34,11 +34,10 @@
 		'tool_velocity'
 	];
 
-	const pad = 50; // padding for labels outside the radar
-	let vbSize = $derived(size + pad * 2);
-	let cx = $derived(vbSize / 2);
-	let cy = $derived(vbSize / 2);
-	let r = $derived(size / 2 - 10);
+	// Radar circle is 40% of the viewBox — leaves generous room for labels
+	let cx = $derived(size / 2);
+	let cy = $derived(size / 2);
+	let r = $derived(size * 0.3);
 
 	function polarToXY(angle: number, radius: number): [number, number] {
 		const rad = (angle - 90) * (Math.PI / 180);
@@ -55,7 +54,7 @@
 				value,
 				angle,
 				xy: polarToXY(angle, r * value),
-				labelXY: polarToXY(angle, r + 22)
+				labelXY: polarToXY(angle, r + 18)
 			};
 		})
 	);
@@ -64,7 +63,14 @@
 </script>
 
 <div class="flex flex-col items-center gap-2">
-	<svg viewBox="0 0 {vbSize} {vbSize}" class="w-full" style:max-width="{vbSize}px" role="img" aria-label="Workflow dimensions radar chart">
+	<svg
+		viewBox="0 0 {size} {size}"
+		class="w-full"
+		style:max-width="{size}px"
+		style:overflow="visible"
+		role="img"
+		aria-label="Workflow dimensions radar chart"
+	>
 		<!-- Grid rings -->
 		{#each [0.25, 0.5, 0.75, 1.0] as ring}
 			<circle cx={cx} cy={cy} r={r * ring} fill="none" stroke="currentColor" class="text-border" stroke-width="0.5" />
