@@ -5,7 +5,7 @@
 		card,
 		riskBadge,
 		impactBadge,
-		confidenceBadge,
+		
 		pageLayout,
 		display,
 		title as titleStyle,
@@ -20,7 +20,7 @@
 	import DriverWaterfall from '$lib/components/viz/DriverWaterfall.svelte';
 	import WorkflowRadar from '$lib/components/viz/WorkflowRadar.svelte';
 	import EvidenceBar from '$lib/components/viz/EvidenceBar.svelte';
-	import SignalProfileGrid from '$lib/components/viz/SignalProfileGrid.svelte';
+	import _SignalProfileGrid from '$lib/components/viz/SignalProfileGrid.svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import * as Collapsible from '$lib/components/ui/collapsible/index.js';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
@@ -238,7 +238,7 @@
 		return v >= 0.7 ? 'bg-risk-very-low' : v >= 0.4 ? 'bg-risk-moderate' : 'bg-risk-high';
 	}
 
-	function offsetLevelLabel(value: number, inverse = false) {
+	function _offsetLevelLabel(value: number, inverse = false) {
 		const score = inverse ? 1 - value : value;
 		if (score >= 0.68) return 'High';
 		if (score >= 0.42) return 'Medium';
@@ -285,7 +285,7 @@
 			: `${seniorityAdjustments[selectedSeniority].label} modifier applied to the base-case outlook.`
 	);
 
-	let signalProfileItems = $derived([
+	let _signalProfileItems = $derived([
 		{
 			label: 'Pressure',
 			value: `${(occ.net_risk * 100).toFixed(0)}%`,
@@ -466,11 +466,7 @@
 					<div class="min-w-0">
 						<h1 class={titleStyle({ size: 'page' })}>{occ.title}</h1>
 						<p class={caption({ weight: 'medium' })}>
-							{group?.label ?? occ.major_group} · SGD {occ.gross_wage_median.toLocaleString()}/mo ({structural.wageVsNational}){#if occ.estimated_sg_employment_thousands}
-								· ~{occ.estimated_sg_employment_thousands >= 1
-									? occ.estimated_sg_employment_thousands.toFixed(1) + 'K'
-									: Math.round(occ.estimated_sg_employment_thousands * 1000).toLocaleString()} workers
-								in SG{/if}
+							{group?.label ?? occ.major_group} · SGD {occ.gross_wage_median.toLocaleString()}/mo{#if occ.gross_wage_25th > 0 && occ.gross_wage_75th > 0} ({occ.gross_wage_25th.toLocaleString()}–{occ.gross_wage_75th.toLocaleString()}){/if}{#if occ.estimated_sg_employment_thousands} · ~{occ.estimated_sg_employment_thousands >= 1 ? occ.estimated_sg_employment_thousands.toFixed(1) + 'K' : Math.round(occ.estimated_sg_employment_thousands * 1000).toLocaleString()} workers in SG{/if}
 						</p>
 						<p class="mt-3 max-w-3xl text-[15px] leading-relaxed text-text-secondary">
 							{structural.summaryText}
@@ -513,20 +509,29 @@
 					<span class={impactBadge({ type: occ.impact_type })}>
 						{impactTypeLabels[occ.impact_type]}
 					</span>
-					<span class={confidenceBadge({ level: occ.confidence.level })}>
-						{occ.confidence.level.charAt(0).toUpperCase() + occ.confidence.level.slice(1)} Evidence
-					</span>
 					{#if hasDemand}
 						<span class={pill({ tone: 'positive' })}>
 							In demand ({demandLabel})
 						</span>
 					{/if}
 				</div>
-			</div>
-		</div>
 
-		<div class="mt-6 border-t border-border/70 pt-5">
-			<SignalProfileGrid items={signalProfileItems} />
+				<!-- Buffer line + conditional trust cue -->
+				<p class="mt-3 text-xs text-muted-foreground">
+					{#if decision.adaptationCapacity >= 0.55}
+						Current buffers materially reduce the raw score.
+					{:else if decision.adaptationCapacity >= 0.35}
+						Current buffers soften the raw score somewhat.
+					{:else}
+						Limited buffers available against the structural pressure.
+					{/if}
+					{#if occ.confidence.level === 'low'}
+						<span class="ml-1 text-risk-moderate">Thin evidence — treat with caution.</span>
+					{:else if occ.evidence.signal_conflict}
+						<span class="ml-1 text-risk-moderate">Mixed signals across sources.</span>
+					{/if}
+				</p>
+			</div>
 		</div>
 	</div>
 
@@ -727,44 +732,9 @@
 		<h2 class={cn(sectionLabel(), 'mb-3')}>What You Can Do</h2>
 		<div class={card({ padding: 'md' })}>
 			{#if offsetPotential}
-				<div class="mb-4 border-b border-border pb-4">
-					<div class="flex flex-wrap items-center gap-2">
-						<span
-							class={pill({
-								tone:
-									offsetPotential.band === 'high'
-										? 'positive'
-										: offsetPotential.band === 'medium'
-											? 'warning'
-											: 'danger'
-							})}
-						>
-							Offset potential: {offsetPotential.band === 'high'
-								? 'High'
-								: offsetPotential.band === 'medium'
-									? 'Medium'
-									: 'Low'}
-						</span>
-					</div>
-					<p class="mt-2 text-sm text-text-secondary">{offsetPotential.summary}</p>
-					<div class="mt-3 flex flex-wrap gap-2">
-						<span class={pill({ tone: 'neutral' })}>
-							Demand support: {offsetLevelLabel(offsetPotential.components.demand_persistence)}
-						</span>
-						<span class={pill({ tone: 'neutral' })}>
-							Transition support: {offsetLevelLabel(offsetPotential.components.transition_support)}
-						</span>
-						<span class={pill({ tone: 'neutral' })}>
-							Reallocation room: {offsetLevelLabel(offsetPotential.components.reallocation_room)}
-						</span>
-						<span class={pill({ tone: 'neutral' })}>
-							Switching friction: {offsetLevelLabel(
-								offsetPotential.components.mobility_friction,
-								true
-							)}
-						</span>
-					</div>
-				</div>
+				<p class="mb-4 pb-4 border-b border-border text-sm text-text-secondary">
+					{offsetPotential.summary}{#if offsetPotential.components.mobility_friction > 0.5} Adjacent routes exist, but switching friction is still high.{/if}
+				</p>
 			{/if}
 
 			{#if transitionSupport}
