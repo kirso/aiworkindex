@@ -264,7 +264,7 @@
 	path="/compare"
 />
 
-<main class={pageLayout({ width: 'feature' })}>
+<main class={pageLayout({ width: 'content' })}>
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Compare' }]} />
 
 	<div class="mb-6 flex flex-wrap items-start justify-between gap-3">
