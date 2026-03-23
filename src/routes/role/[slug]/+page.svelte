@@ -5,11 +5,9 @@
 		card,
 		riskBadge,
 		impactBadge,
-		confidenceBadge,
 		pageLayout,
 		display,
 		title as titleStyle,
-		sectionLabel,
 		caption,
 		pill,
 		scoreTileClasses,
@@ -19,7 +17,6 @@
 	import { vacancySignalClass } from '$lib/data/detail-display';
 	import DriverWaterfall from '$lib/components/viz/DriverWaterfall.svelte';
 	import WorkflowRadar from '$lib/components/viz/WorkflowRadar.svelte';
-	import SignalProfileGrid from '$lib/components/viz/SignalProfileGrid.svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import * as Collapsible from '$lib/components/ui/collapsible/index.js';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
@@ -160,7 +157,7 @@
 		return 'Use these signals as directional context from closely related occupations and recent postings.';
 	});
 
-	function pressureBarClass(v: number) {
+	function _pressureBarClass(v: number) {
 		return v >= 0.5
 			? 'bg-risk-very-high'
 			: v >= 0.3
@@ -170,19 +167,19 @@
 					: 'bg-risk-very-low';
 	}
 
-	function marketBarClass(v: number) {
+	function _marketBarClass(v: number) {
 		return v >= 0.6 ? 'bg-risk-very-low' : v >= 0.35 ? 'bg-risk-moderate' : 'bg-risk-high';
 	}
 
-	function adaptationBarClass(v: number) {
+	function _adaptationBarClass(v: number) {
 		return v >= 0.55 ? 'bg-risk-very-low' : v >= 0.35 ? 'bg-risk-moderate' : 'bg-risk-high';
 	}
 
-	function realizedBarClass(v: number) {
+	function _realizedBarClass(v: number) {
 		return v >= 0.1 ? 'bg-risk-very-high' : v >= 0.05 ? 'bg-risk-moderate' : 'bg-risk-very-low';
 	}
 
-	function confidenceBarClass(level: string) {
+	function _confidenceBarClass(level: string) {
 		return level === 'high'
 			? 'bg-risk-very-low'
 			: level === 'medium'
@@ -190,117 +187,33 @@
 				: 'bg-risk-high';
 	}
 
-	function moatBarClass(v: number) {
+	function _moatBarClass(v: number) {
 		return v >= 0.6 ? 'bg-risk-very-low' : v >= 0.3 ? 'bg-risk-moderate' : 'bg-risk-high';
 	}
 
-	function offsetLevelLabel(value: number, inverse = false) {
+	function _offsetLevelLabel(value: number, inverse = false) {
 		const score = inverse ? 1 - value : value;
 		if (score >= 0.68) return 'High';
 		if (score >= 0.42) return 'Medium';
 		return 'Low';
 	}
 
-	function adaptationTone() {
-		if (!decision) return 'muted';
-		return decision.adaptationLabel === 'strong'
-			? 'positive'
-			: decision.adaptationLabel === 'moderate'
-				? 'warning'
-				: 'danger';
-	}
-
-	function realizedTone() {
-		if (!decision) return 'muted';
-		return decision.realizedLabel === 'contained'
-			? 'positive'
-			: decision.realizedLabel === 'watch'
-				? 'warning'
-				: 'danger';
-	}
-
-	function pathwayTone() {
-		return decision?.bestTransition?.evidence_status === 'observed_enriched' ? 'positive' : 'muted';
-	}
-
-	function formatPercent(value: number, digits = 0) {
+	function _formatPercent(value: number, digits = 0) {
 		return `${(value * 100).toFixed(digits)}%`;
 	}
 
-	let decisionHeroSummary = $derived.by(() => {
-		if (!decision) return '';
-		const realizedSentence =
-			decision.realizedLabel === 'contained'
-				? 'Near-term realized pressure is still contained in the blended read.'
-				: decision.realizedLabel === 'watch'
-					? 'Near-term realized pressure is worth watching in the blended read.'
-					: 'Near-term realized pressure is elevated in the blended read.';
-		return `${formatPercent(decision.transitionAdjustedRisk)} blended transition-adjusted pressure after current buffers. ${realizedSentence}`;
-	});
-
-	let signalProfileItems = $derived.by(() => {
-		if (!decision) {
-			return [
-				{
-					label: 'Pressure',
-					value: formatPercent(scored.net_risk),
-					barValue: scored.net_risk,
-					barClass: pressureBarClass(scored.net_risk)
-				},
-				{
-					label: 'Market',
-					value: formatPercent(scored.market_resilience),
-					barValue: scored.market_resilience,
-					barClass: marketBarClass(scored.market_resilience)
-				},
-				{
-					label: 'Evidence Quality',
-					value: `${(scored.confidence_score * 100).toFixed(0)}%`,
-					barValue: scored.confidence_score,
-					barClass: confidenceBarClass(scored.confidence)
-				},
-				{
-					label: 'Human Moat',
-					value: scored.bottleneck >= 0.6 ? 'High' : scored.bottleneck >= 0.3 ? 'Medium' : 'Low',
-					valueClass: 'font-sans text-sm font-semibold text-foreground',
-					barValue: scored.bottleneck,
-					barClass: moatBarClass(scored.bottleneck)
-				}
-			];
-		}
-
-		return [
-			{
-				label: 'Adaptation room',
-				value: decision.adaptationLabel.charAt(0).toUpperCase() + decision.adaptationLabel.slice(1),
-				valueClass: 'font-sans text-sm font-semibold text-foreground',
-				barValue: decision.adaptationCapacity,
-				barClass: adaptationBarClass(decision.adaptationCapacity),
-				note: `Blended transition-adjusted pressure ${formatPercent(
-					decision.transitionAdjustedRisk
-				)}`
-			},
-			{
-				label: 'Market',
-				value: `${(scored.market_resilience * 100).toFixed(0)}%`,
-				barValue: scored.market_resilience,
-				barClass: marketBarClass(scored.market_resilience)
-			},
-			{
-				label: '12m realized',
-				value: formatPercent(decision.realizedRiskProxy),
-				barValue: decision.realizedRiskProxy,
-				barClass: realizedBarClass(decision.realizedRiskProxy),
-				note: 'Blended short-run proxy from the component occupations'
-			},
-			{
-				label: 'Evidence Quality',
-				value: `${(scored.confidence_score * 100).toFixed(0)}%`,
-				barValue: scored.confidence_score,
-				barClass: confidenceBarClass(scored.confidence),
-				note: 'Role estimate from weighted occupation components'
-			}
-		];
+	// Demand signal helpers (blended from components)
+	let hasDemand = $derived(
+		scored.components.some((c) => c.occupation?.evidence.sol_match) ||
+			scored.components.some((c) => c.occupation?.evidence.jobs_in_demand_match)
+	);
+	let demandLabel = $derived.by(() => {
+		const hasSol = scored.components.some((c) => c.occupation?.evidence.sol_match);
+		const hasJid = scored.components.some((c) => c.occupation?.evidence.jobs_in_demand_match);
+		if (hasSol && hasJid) return 'SOL 2026 + Jobs in Demand';
+		if (hasSol) return 'SOL 2026';
+		if (hasJid) return 'Jobs in Demand';
+		return null;
 	});
 
 	async function shareCurrentPage() {
@@ -433,45 +346,6 @@
 						<p class="mt-3 max-w-3xl text-[15px] leading-relaxed text-text-secondary">
 							{structural.summaryText}
 						</p>
-						{#if decision}
-							<div class="mt-4 max-w-3xl border-t border-border/70 pt-3">
-								<div class="flex flex-wrap items-center gap-2">
-									<span class={microLabel()}>Blended read</span>
-									<span class={pill({ tone: adaptationTone() })}>
-										Adaptation room: {decision.adaptationLabel}
-									</span>
-									<span class={pill({ tone: 'neutral' })}>
-										Transition-adjusted: {formatPercent(decision.transitionAdjustedRisk)}
-									</span>
-									<span class={pill({ tone: realizedTone() })}>
-										12m signal: {formatPercent(decision.realizedRiskProxy)}
-									</span>
-									{#if decision.bestTransition}
-										<a
-											href="/occupation/{decision.bestTransition.to_ssoc}"
-											class={pill({ tone: pathwayTone(), interactive: true })}
-										>
-											Best route: {decision.bestTransition.to_title} →
-										</a>
-									{/if}
-								</div>
-								<p class="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-									{decisionHeroSummary}
-								</p>
-								{#if primaryOccupation}
-									<p class="mt-2 text-xs text-muted-foreground">
-										Seniority-specific outlook is still calibrated on official occupations. Use
-										<a
-											href="/occupation/{primaryOccupation.ssoc}"
-											class="text-foreground underline decoration-border underline-offset-4 hover:text-primary"
-										>
-											{primaryOccupation.title}
-										</a>
-										for the junior, mid, and senior view.
-									</p>
-								{/if}
-							</div>
-						{/if}
 					</div>
 
 					<div class="flex items-center gap-2 shrink-0">
@@ -535,20 +409,30 @@
 					</div>
 				{/if}
 
-				<div class="mt-4 flex flex-wrap items-center gap-2">
-					<span class={riskBadge({ band: scored.risk_band })}>
-						{riskBandLabels[scored.risk_band]} Risk
-					</span>
+				<div class="mt-3 flex flex-wrap items-center gap-2">
 					<span class={impactBadge({ type: scored.impact_type })}>
 						{impactTypeLabels[scored.impact_type]}
 					</span>
-					<span class={confidenceBadge({ level: scored.confidence })}>
-						{scored.confidence.charAt(0).toUpperCase() + scored.confidence.slice(1)} Evidence Quality
-					</span>
-					<span class={pill({ tone: 'muted' })}>
-						Estimated · {scored.components.length}-part blend
-					</span>
+					{#if hasDemand}
+						<span class={pill({ tone: 'positive' })}>
+							In demand ({demandLabel})
+						</span>
+					{/if}
 				</div>
+
+				<!-- Buffer line + conditional trust cue -->
+				<p class="mt-3 text-xs text-muted-foreground">
+					{#if decision && decision.adaptationCapacity >= 0.55}
+						Current buffers materially reduce the raw score.
+					{:else if decision && decision.adaptationCapacity >= 0.35}
+						Current buffers soften the raw score somewhat.
+					{:else}
+						Limited buffers available against the structural pressure.
+					{/if}
+					{#if scored.confidence === 'low'}
+						<span class="ml-1 text-risk-moderate">Thin evidence — treat with caution.</span>
+					{/if}
+				</p>
 			</div>
 		</div>
 
@@ -573,28 +457,27 @@
 				{/each}
 			</div>
 		</div>
-
-		<div class="mt-4 border-t border-border/70 pt-5">
-			<SignalProfileGrid items={signalProfileItems} />
-		</div>
 	</div>
 
 	<!-- ===== BLOCK 2: WHY THIS SCORE ===== -->
 	<section class="mb-8">
-		<h2 class={cn(sectionLabel(), 'mb-3')}>Why This Score</h2>
+		<h2 class="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
+			<span class="h-4 w-1 rounded-full bg-primary"></span>
+			Why This Score
+		</h2>
 		<div class={card({ padding: 'md' })}>
 			<div class="grid gap-6 md:grid-cols-5">
 				<!-- Left: Waterfall (3/5) -->
 				<div class="md:col-span-3">
 					<DriverWaterfall occupation={roleWaterfallSubject} />
-					<p class="mt-3 text-xs text-muted-foreground">
+					<p class="mt-2 text-xs text-muted-foreground">
 						Blended across {scored.components.length} occupations using the same score logic as an occupation
 						page.
 						<a href="/methodology" class="text-primary hover:underline">How this works</a>
 					</p>
 				</div>
 
-				<!-- Right: What AI changes (2/5) -->
+				<!-- Right: Task split (2/5) -->
 				<div class="md:col-span-2 space-y-4">
 					<div>
 						<p class="text-xs font-semibold text-risk-high mb-1">Tasks AI can handle</p>
@@ -623,11 +506,15 @@
 				</div>
 			</div>
 
+			<!-- Radar: full-width row below waterfall + tasks -->
 			{#if scored.workflow_overlay}
-				<div class="mt-5 border-t border-border pt-5">
-					<p class="text-xs font-semibold text-foreground mb-3">What this role involves</p>
-					<div class="mx-auto max-w-xs">
-						<WorkflowRadar dimensions={scored.workflow_overlay} size={280} />
+				<div class="mt-5 pt-5 border-t border-border grid gap-4 md:grid-cols-[1fr_auto]  items-center">
+					<div>
+						<p class="text-xs font-semibold text-foreground">Role profile</p>
+						<p class="mt-1 text-xs text-muted-foreground">How this role's work is distributed across 8 dimensions.</p>
+					</div>
+					<div class="w-56">
+						<WorkflowRadar dimensions={scored.workflow_overlay} size={220} />
 					</div>
 				</div>
 			{/if}
@@ -637,7 +524,10 @@
 	<!-- ===== BLOCK 3: SINGAPORE NOW ===== -->
 	{#if postings || employerPressure || industryContext.top_industries.length > 0 || localContextItems.length > 0}
 		<section class="mb-8">
-			<h2 class={cn(sectionLabel(), 'mb-3')}>Singapore Now</h2>
+			<h2 class="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
+				<span class="h-4 w-1 rounded-full bg-impact-leveraged"></span>
+				Singapore Now
+			</h2>
 			<div class={card({ padding: 'md' })}>
 				<p class="text-sm leading-relaxed text-text-secondary mb-4">{roleMarketHeadline}</p>
 
@@ -694,20 +584,21 @@
 					{/if}
 
 					<div class={card({ padding: 'sm' })}>
-						<p class={cn(microLabel(), 'mb-2')}>Context note</p>
-						<ul class="space-y-2 text-xs leading-relaxed text-muted-foreground">
-							<li>
-								These signals come from closely related occupations and recent postings, so they are
-								best used as directional context.
-							</li>
-							<li>
-								Short-term conditions can move faster than this blended view, especially for newer
-								or narrower roles.
-							</li>
-							<li>
-								For official labour-market detail, inspect the occupation matches listed above.
-							</li>
-						</ul>
+						<p class={cn(microLabel(), 'mb-2')}>How this changes by career stage</p>
+						<div class="space-y-1.5 text-xs">
+							<div class="flex items-center justify-between">
+								<span class="text-muted-foreground">Junior / Entry-level</span>
+								<span class="font-medium text-risk-high">Higher substitution exposure</span>
+							</div>
+							<div class="flex items-center justify-between">
+								<span class="text-muted-foreground">Mid-career</span>
+								<span class="font-medium text-foreground">Baseline role profile</span>
+							</div>
+							<div class="flex items-center justify-between">
+								<span class="text-muted-foreground">Senior / Lead</span>
+								<span class="font-medium text-risk-very-low">More insulated by coordination & judgment</span>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -716,76 +607,15 @@
 
 	<!-- ===== BLOCK 4: WHAT YOU CAN DO ===== -->
 	<section class="mb-8">
-		<h2 class={cn(sectionLabel(), 'mb-3')}>What You Can Do</h2>
+		<h2 class="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
+			<span class="h-4 w-1 rounded-full bg-risk-very-low"></span>
+			What You Can Do
+		</h2>
 		<div class={card({ padding: 'md' })}>
-			{#if decision}
-				<div class="mb-4 border-b border-border pb-4">
-					<div class="flex flex-wrap items-center gap-2">
-						<p class="text-xs font-semibold text-foreground">Blended adaptation snapshot</p>
-						<span class={pill({ size: 'sm', tone: adaptationTone() })}>
-							Adaptation room: {decision.adaptationLabel}
-						</span>
-						<span class={pill({ size: 'sm', tone: 'neutral' })}>
-							Transition-adjusted: {formatPercent(decision.transitionAdjustedRisk)}
-						</span>
-						<span class={pill({ size: 'sm', tone: realizedTone() })}>
-							12m realized pressure: {decision.realizedLabel}
-						</span>
-					</div>
-					<p class="mt-2 text-sm leading-relaxed text-text-secondary">{decision.summaryText}</p>
-					{#if primaryOccupation}
-						<p class="mt-2 text-xs text-muted-foreground">
-							Use the anchor occupation page for seniority tabs and official labour-market outlook:
-							<a
-								href="/occupation/{primaryOccupation.ssoc}"
-								class="text-foreground underline decoration-border underline-offset-4 hover:text-primary"
-							>
-								{primaryOccupation.title}
-							</a>
-						</p>
-					{/if}
-				</div>
-			{/if}
-
 			{#if offsetPotential}
-				<div class="mb-4 border-b border-border pb-4">
-					<div class="flex flex-wrap items-center gap-2">
-						<span
-							class={pill({
-								tone:
-									offsetPotential.band === 'high'
-										? 'positive'
-										: offsetPotential.band === 'medium'
-											? 'warning'
-											: 'danger'
-							})}
-						>
-							Offset potential: {offsetPotential.band === 'high'
-								? 'High'
-								: offsetPotential.band === 'medium'
-									? 'Medium'
-									: 'Low'}
-						</span>
-					</div>
-					<p class="mt-2 text-sm text-text-secondary">{offsetPotential.summary}</p>
-					<div class="mt-3 flex flex-wrap gap-2">
-						<span class={pill({ tone: 'neutral' })}>
-							Demand support: {offsetLevelLabel(offsetPotential.components.demand_persistence)}
-						</span>
-						<span class={pill({ tone: 'neutral' })}>
-							Transition support: {offsetLevelLabel(offsetPotential.components.transition_support)}
-						</span>
-						<span class={pill({ tone: 'neutral' })}>
-							Reallocation room: {offsetLevelLabel(offsetPotential.components.reallocation_room)}
-						</span>
-						<span class={pill({ tone: 'neutral' })}>
-							Switching friction: {offsetLevelLabel(
-								offsetPotential.components.mobility_friction,
-								true
-							)}
-						</span>
-					</div>
-				</div>
+				<p class="mb-4 pb-4 border-b border-border text-sm text-text-secondary">
+					{offsetPotential.summary}{#if offsetPotential.components.mobility_friction > 0.5} Adjacent routes exist, but switching friction is still high.{/if}
+				</p>
 			{/if}
 
 			{#if transitionSupport}
@@ -810,68 +640,24 @@
 				</div>
 			{/if}
 
-			{#if decision?.bestTransition}
-				<div class="mb-4 border-b border-border pb-4">
-					<div class="flex items-center gap-2 mb-3">
-						<p class="text-xs font-semibold text-foreground">Best adjacent pathway</p>
-						<span class={pill({ size: 'sm', tone: pathwayTone() })}>
-							{decision.bestTransition.evidence_status === 'observed_enriched'
-								? 'Observed-enriched'
-								: 'Model-led'}
-						</span>
-					</div>
-					<a
-						href="/occupation/{decision.bestTransition.to_ssoc}"
-						class={cn(card({ padding: 'md', variant: 'metric', hover: true }), 'block')}
-					>
-						<div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-							<div class="min-w-0">
-								<p class="text-sm font-semibold text-foreground">
-									{decision.bestTransition.to_title}
-								</p>
-								<p class="mt-1 text-sm text-text-secondary">
-									Blended from the underlying occupations' strongest adjacent routes.
-								</p>
-							</div>
-							<div class="shrink-0 text-left sm:text-right">
-								<p class={microLabel()}>Blended transition-adjusted pressure</p>
-								<p class="mt-1 font-mono text-lg font-semibold text-foreground">
-									{formatPercent(decision.transitionAdjustedRisk)}
-								</p>
-							</div>
-						</div>
-						<div class="mt-3 flex flex-wrap gap-2">
-							{#if decision.bestTransition.observed_transition_rate != null}
-								<span class={pill({ tone: 'positive' })}>
-									Observed transition rate {formatPercent(
-										decision.bestTransition.observed_transition_rate,
-										1
-									)}
-								</span>
-							{/if}
-							{#if decision.bestTransition.wage_preservation != null}
-								<span class={pill({ tone: 'neutral' })}>
-									Wage preservation {formatPercent(decision.bestTransition.wage_preservation)}
-								</span>
-							{/if}
-							{#if decision.bestTransition.training_ease != null}
-								<span class={pill({ tone: 'neutral' })}>
-									Training ease {formatPercent(decision.bestTransition.training_ease)}
-								</span>
-							{/if}
-						</div>
-					</a>
+			<div class="mb-4 border-b border-border pb-4">
+				<div class="flex items-center gap-2 mb-3">
+					<p class="text-xs font-semibold text-foreground">Component occupation pathways</p>
+					<span class={pill({ size: 'sm', tone: 'muted' })}>
+						Explore each occupation for seniority and labour-market detail
+					</span>
 				</div>
-			{/if}
-
-			<div class={card({ padding: 'sm', variant: 'inset' })}>
-				<p class="text-xs text-foreground">Related occupations</p>
-				<div class="mt-2 flex flex-wrap gap-1.5">
+				<div class="grid gap-2 sm:grid-cols-3">
 					{#each scored.components as comp}
 						{#if comp.occupation}
-							<a href="/occupation/{comp.ssoc}" class={pill({ tone: 'primary', interactive: true })}
-								>{comp.occupation.title} →</a
-							>
+							<a href="/occupation/{comp.ssoc}" class={cn(card({ padding: 'sm', variant: 'inset' }), 'block hover:bg-accent hover:shadow-sm transition-all group')}>
+								<p class="text-sm font-medium text-foreground truncate">{comp.occupation.title} <span class="opacity-0 group-hover:opacity-100 transition-opacity text-primary">&#8594;</span></p>
+								<div class="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
+									<span class="font-mono tabular-nums">{(comp.weight * 100).toFixed(0)}% weight</span>
+									<span>·</span>
+									<span>{(comp.occupation.net_risk * 100).toFixed(0)}% risk</span>
+								</div>
+							</a>
 						{/if}
 					{/each}
 				</div>

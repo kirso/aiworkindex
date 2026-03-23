@@ -554,7 +554,7 @@
 					</p>
 				</div>
 
-				<!-- Right: Task split + radar (2/5 on desktop) -->
+				<!-- Right: Task split (2/5 on desktop) -->
 				<div class="md:col-span-2 space-y-4">
 					<div>
 						<p class="text-xs font-semibold text-risk-high mb-1">Tasks AI can handle</p>
@@ -580,14 +580,21 @@
 							</div>
 						</div>
 					{/if}
-					{#if occ.workflow_overlay}
-						<div class="pt-3 border-t border-border">
-							<p class="text-xs font-semibold text-foreground mb-2">Role profile</p>
-							<WorkflowRadar dimensions={occ.workflow_overlay} size={220} />
-						</div>
-					{/if}
 				</div>
 			</div>
+
+			<!-- Radar: full-width row below waterfall + tasks -->
+			{#if occ.workflow_overlay}
+				<div class="mt-5 pt-5 border-t border-border grid gap-4 md:grid-cols-[1fr_auto]  items-center">
+					<div>
+						<p class="text-xs font-semibold text-foreground">Role profile</p>
+						<p class="mt-1 text-xs text-muted-foreground">How this occupation's work is distributed across 8 dimensions.</p>
+					</div>
+					<div class="w-56">
+						<WorkflowRadar dimensions={occ.workflow_overlay} size={220} />
+					</div>
+				</div>
+			{/if}
 		</div>
 	</section>
 
