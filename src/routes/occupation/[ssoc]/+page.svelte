@@ -9,7 +9,6 @@
 		pageLayout,
 		display,
 		title as titleStyle,
-		sectionLabel,
 		caption,
 		pill,
 		scoreTileClasses,
@@ -537,7 +536,10 @@
 
 	<!-- ===== BLOCK 2: WHY THIS SCORE ===== -->
 	<section class="mb-8">
-		<h2 class={cn(sectionLabel(), 'mb-3')}>Why This Score</h2>
+		<h2 class="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
+			<span class="h-4 w-1 rounded-full bg-primary"></span>
+			Why This Score
+		</h2>
 		<div class={card({ padding: 'md' })}>
 			<div class="grid gap-6 md:grid-cols-5">
 				<!-- Left: Waterfall (3/5 on desktop) -->
@@ -552,7 +554,7 @@
 					</p>
 				</div>
 
-				<!-- Right: What AI Changes (2/5 on desktop) -->
+				<!-- Right: Task split + radar (2/5 on desktop) -->
 				<div class="md:col-span-2 space-y-4">
 					<div>
 						<p class="text-xs font-semibold text-risk-high mb-1">Tasks AI can handle</p>
@@ -578,30 +580,30 @@
 							</div>
 						</div>
 					{/if}
+					{#if occ.workflow_overlay}
+						<div class="pt-3 border-t border-border">
+							<p class="text-xs font-semibold text-foreground mb-2">Role profile</p>
+							<WorkflowRadar dimensions={occ.workflow_overlay} size={220} />
+						</div>
+					{/if}
 				</div>
 			</div>
-
-			{#if occ.workflow_overlay}
-				<div class="mt-5 border-t border-border pt-5">
-					<p class="text-xs font-semibold text-foreground mb-3">What this role involves</p>
-					<div class="mx-auto max-w-xs">
-						<WorkflowRadar dimensions={occ.workflow_overlay} size={280} />
-					</div>
-				</div>
-			{/if}
 		</div>
 	</section>
 
 	<!-- ===== BLOCK 3: SINGAPORE NOW ===== -->
 	<section class="mb-8">
-		<h2 class={cn(sectionLabel(), 'mb-3')}>Singapore Now</h2>
+		<h2 class="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
+			<span class="h-4 w-1 rounded-full bg-impact-leveraged"></span>
+			Singapore Now
+		</h2>
 		<div class={card({ padding: 'md' })}>
 			<p class="text-sm leading-relaxed text-text-secondary mb-4">{marketHeadline}</p>
 
 			<!-- Labour metrics row -->
 			{#if occ.labour_monitor}
 				<div class="grid gap-3 sm:grid-cols-4 mb-4">
-					<div class={card({ padding: 'sm', variant: 'metric' })}>
+					<div class={cn(card({ padding: 'sm', variant: 'metric' }), 'border-t-2', occ.labour_monitor.vacancy.trend_4q_pct > 0 ? 'border-t-risk-very-low' : occ.labour_monitor.vacancy.trend_4q_pct < 0 ? 'border-t-risk-high' : 'border-t-border')}>
 						<p class={microLabel()}>Vacancy</p>
 						<p class="mt-1 font-mono text-lg text-foreground">
 							{occ.labour_monitor.vacancy.latest_rate}%
@@ -729,7 +731,10 @@
 
 	<!-- ===== BLOCK 4: WHAT YOU CAN DO ===== -->
 	<section class="mb-8">
-		<h2 class={cn(sectionLabel(), 'mb-3')}>What You Can Do</h2>
+		<h2 class="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
+			<span class="h-4 w-1 rounded-full bg-risk-very-low"></span>
+			What You Can Do
+		</h2>
 		<div class={card({ padding: 'md' })}>
 			{#if offsetPotential}
 				<p class="mb-4 pb-4 border-b border-border text-sm text-text-secondary">
@@ -767,8 +772,8 @@
 					</div>
 					<div class="grid gap-2 sm:grid-cols-3">
 						{#each allUniqueTransitions.slice(0, 3) as t}
-							<a href="/occupation/{t.to_ssoc}" class={cn(card({ padding: 'sm', variant: 'inset' }), 'block hover:bg-accent transition-colors')}>
-								<p class="text-sm font-medium text-foreground truncate">{t.to_title}</p>
+							<a href="/occupation/{t.to_ssoc}" class={cn(card({ padding: 'sm', variant: 'inset' }), 'block hover:bg-accent hover:shadow-sm transition-all group')}>
+								<p class="text-sm font-medium text-foreground truncate">{t.to_title} <span class="opacity-0 group-hover:opacity-100 transition-opacity text-primary">→</span></p>
 								<div class="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
 									<span class={t.risk_improvement > 0 ? 'text-risk-very-low' : t.risk_improvement < 0 ? 'text-risk-high' : ''}>
 										{#if t.risk_improvement > 0}-{(t.risk_improvement * 100).toFixed(0)}pp risk{:else if t.risk_improvement < 0}+{(Math.abs(t.risk_improvement) * 100).toFixed(0)}pp risk{:else}No risk change{/if}
@@ -784,8 +789,8 @@
 							<summary class="cursor-pointer text-xs font-medium text-primary hover:underline">See {allUniqueTransitions.length - 3} more</summary>
 							<div class="mt-2 grid gap-2 sm:grid-cols-3">
 								{#each allUniqueTransitions.slice(3) as t}
-									<a href="/occupation/{t.to_ssoc}" class={cn(card({ padding: 'sm', variant: 'inset' }), 'block hover:bg-accent transition-colors')}>
-										<p class="text-sm font-medium text-foreground truncate">{t.to_title}</p>
+									<a href="/occupation/{t.to_ssoc}" class={cn(card({ padding: 'sm', variant: 'inset' }), 'block hover:bg-accent hover:shadow-sm transition-all group')}>
+										<p class="text-sm font-medium text-foreground truncate">{t.to_title} <span class="opacity-0 group-hover:opacity-100 transition-opacity text-primary">→</span></p>
 										<div class="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
 											<span>{(t.composite * 100).toFixed(0)}%</span>
 											<span>·</span>
