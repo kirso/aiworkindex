@@ -506,16 +506,13 @@
 				</div>
 			</div>
 
-			<!-- Radar: full-width row below waterfall + tasks -->
+			<!-- Workflow radar: visible, compact -->
 			{#if scored.workflow_overlay}
-				<div class="mt-5 pt-5 border-t border-border grid gap-4 md:grid-cols-[1fr_auto]  items-center">
-					<div>
-						<p class="text-xs font-semibold text-foreground">Role profile</p>
-						<p class="mt-1 text-xs text-muted-foreground">How this role's work is distributed across 8 dimensions.</p>
+				<div class="mt-5 pt-5 border-t border-border flex flex-col sm:flex-row items-center gap-4">
+					<div class="shrink-0">
+						<WorkflowRadar dimensions={scored.workflow_overlay} size={180} />
 					</div>
-					<div class="w-56">
-						<WorkflowRadar dimensions={scored.workflow_overlay} size={220} />
-					</div>
+					<p class="text-xs text-muted-foreground text-center sm:text-left">Blended role profile across component occupations. Higher values = stronger human advantage.</p>
 				</div>
 			{/if}
 		</div>

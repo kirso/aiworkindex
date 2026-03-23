@@ -583,16 +583,13 @@
 				</div>
 			</div>
 
-			<!-- Radar: full-width row below waterfall + tasks -->
+			<!-- Workflow radar: visible, compact, balanced with waterfall -->
 			{#if occ.workflow_overlay}
-				<div class="mt-5 pt-5 border-t border-border grid gap-4 md:grid-cols-[1fr_auto]  items-center">
-					<div>
-						<p class="text-xs font-semibold text-foreground">Role profile</p>
-						<p class="mt-1 text-xs text-muted-foreground">How this occupation's work is distributed across 8 dimensions.</p>
+				<div class="mt-5 pt-5 border-t border-border flex flex-col sm:flex-row items-center gap-4">
+					<div class="shrink-0">
+						<WorkflowRadar dimensions={occ.workflow_overlay} size={180} />
 					</div>
-					<div class="w-56">
-						<WorkflowRadar dimensions={occ.workflow_overlay} size={220} />
-					</div>
+					<p class="text-xs text-muted-foreground text-center sm:text-left">How this occupation's work is distributed. Higher values = stronger human advantage in that dimension.</p>
 				</div>
 			{/if}
 		</div>
@@ -837,89 +834,52 @@
 				stroke-width="2"><path d="m6 9 6 6 6-6" /></svg
 			>
 		</Collapsible.Trigger>
-		<Collapsible.Content class="border-t border-border px-5 py-4">
-			<div class="grid gap-4 sm:grid-cols-2 text-xs text-muted-foreground">
-				<!-- Percentile rank, scoring basis, education (moved from Block 1) -->
-				<div class="sm:col-span-2">
+		<Collapsible.Content class="border-t border-border px-5 py-4 text-xs text-muted-foreground space-y-3">
+			<!-- Group 1: Classification & scoring -->
+			<div class="grid gap-3 sm:grid-cols-2">
+				<div>
 					<p class="font-semibold text-foreground mb-1">Classification</p>
-					<div class="flex flex-wrap items-center gap-x-4 gap-y-1">
-						<span>Higher risk than {structural.riskPercentile}% of occupations</span>
-						{#if occ.scoring_basis}
-							<span>{scoringBasisSummary}</span>
-						{/if}
-						{#if occ.education_label}
-							<span>{occ.education_label}</span>
-						{/if}
-					</div>
+					<p>Higher risk than {structural.riskPercentile}% of occupations{#if occ.scoring_basis} · {scoringBasisSummary}{/if}{#if occ.education_label} · {occ.education_label}{/if}</p>
 				</div>
 				<div>
-					<p class="font-semibold text-foreground mb-1">Evidence</p>
-					<p>Crosswalk: {occ.match_quality} · SSOC {occ.ssoc}</p>
-					{#if occ.evidence.sol_match}
-						<p class="text-risk-very-low">SOL 2026: {occ.evidence.sol_match} match</p>
-					{/if}
-					{#if occ.evidence.jobs_in_demand_match}
-						<p class="text-risk-very-low">
-							Jobs in Demand: {occ.evidence.jobs_in_demand_match} match
-						</p>
-					{/if}
-					{#if occ.evidence.anthropic_calibrated}
-						<p>
-							Anthropic: {occ.evidence.anthropic_gap !== null
-								? (occ.evidence.anthropic_gap > 0 ? '+' : '') +
-									Math.round(occ.evidence.anthropic_gap * 100) +
-									'pp vs theory'
-								: 'calibrated'}
-						</p>
-					{/if}
-				</div>
-				<div>
-					<p class="font-semibold text-foreground mb-1">Raw Scores</p>
-					<p class="font-mono">
-						AIOE {occ.raw.aioe.toFixed(3)} · θ {occ.raw.theta.toFixed(3)} · C-AIOE {occ.raw.c_aioe.toFixed(
-							3
-						)}
-					</p>
+					<p class="font-semibold text-foreground mb-1">Raw scores</p>
+					<p class="font-mono">AIOE {occ.raw.aioe.toFixed(3)} · θ {occ.raw.theta.toFixed(3)} · C-AIOE {occ.raw.c_aioe.toFixed(3)}</p>
 				</div>
 				<div>
 					<p class="font-semibold text-foreground mb-1">Stability</p>
-					<p>
-						{occ.stability.label} · Optimistic {(occ.stability.optimistic_risk * 100).toFixed(0)}% ({riskBandLabels[
-							occ.stability.optimistic_band
-						]}) · Pessimistic {(occ.stability.pessimistic_risk * 100).toFixed(0)}% ({riskBandLabels[
-							occ.stability.pessimistic_band
-						]})
-					</p>
+					<p>{occ.stability.label} · Optimistic {(occ.stability.optimistic_risk * 100).toFixed(0)}% · Pessimistic {(occ.stability.pessimistic_risk * 100).toFixed(0)}%</p>
 				</div>
 				<div>
-					<p class="font-semibold text-foreground mb-1">Sensitivity Band</p>
-					<p>
-						Exposure {exposureUncertainty} · Net risk {netRiskUncertainty} · Method {occ.uncertainty
-							?.method ?? 'n/a'}
-					</p>
+					<p class="font-semibold text-foreground mb-1">Sensitivity band</p>
+					<p>Exposure {exposureUncertainty} · Net risk {netRiskUncertainty}</p>
 				</div>
-				<div>
-					<p class="font-semibold text-foreground mb-1">Scoring Basis</p>
-					<p>{scoringBasisSummary}. {scoringBasisDetail}</p>
-					{#if priorBaselineDeltaSummary}
-						<p class="mt-1">{priorBaselineDeltaSummary}</p>
-					{/if}
-				</div>
-				{#if occ.evidence?.signal_conflict_reasons?.length}
-					<div class="sm:col-span-2">
-						<p class="font-semibold text-foreground mb-1">Signal Conflicts</p>
-						<div class="flex flex-wrap gap-1.5">
-							{#each occ.evidence.signal_conflict_reasons as reason}
-								<span class={cn(pill({ size: 'sm' }), 'bg-risk-moderate/10 text-risk-moderate')}
-									>{reason.replaceAll('_', ' ')}</span
-								>
-							{/each}
-						</div>
-					</div>
-				{/if}
 				<div class="sm:col-span-2">
-					<p class="font-semibold text-foreground mb-1">Source Coverage</p>
-					<div class="mt-2">
+					<p class="font-semibold text-foreground mb-1">Scoring basis</p>
+					<p>{scoringBasisSummary}. {scoringBasisDetail}{#if priorBaselineDeltaSummary} {priorBaselineDeltaSummary}{/if}</p>
+				</div>
+				<div class="sm:col-span-2">
+					<p class="font-semibold text-foreground mb-1">Wage range (SGD/mo)</p>
+					<p class="font-mono">25th {occ.gross_wage_25th.toLocaleString()} · Median {occ.gross_wage_median.toLocaleString()} · 75th {occ.gross_wage_75th.toLocaleString()}</p>
+				</div>
+			</div>
+
+			<!-- Group 2: Evidence & sources -->
+			<details class="pt-3 border-t border-border">
+				<summary class="cursor-pointer text-xs font-semibold text-foreground hover:text-primary">Evidence & sources</summary>
+				<div class="mt-3 grid gap-3 sm:grid-cols-2">
+					<div>
+						<p class="font-medium text-foreground mb-1">Crosswalk</p>
+						<p>{occ.match_quality} · SSOC {occ.ssoc}</p>
+						{#if occ.evidence.sol_match}<p class="text-risk-very-low">SOL 2026: {occ.evidence.sol_match} match</p>{/if}
+						{#if occ.evidence.jobs_in_demand_match}<p class="text-risk-very-low">Jobs in Demand: {occ.evidence.jobs_in_demand_match} match</p>{/if}
+						{#if occ.evidence.anthropic_calibrated}<p>Anthropic: {occ.evidence.anthropic_gap !== null ? (occ.evidence.anthropic_gap > 0 ? '+' : '') + Math.round(occ.evidence.anthropic_gap * 100) + 'pp vs theory' : 'calibrated'}</p>{/if}
+					</div>
+					<div>
+						<p class="font-medium text-foreground mb-1">Evidence quality</p>
+						<p>{(occ.confidence.score * 100).toFixed(0)}% · Crosswalk {occ.confidence.crosswalk_quality.toFixed(2)} · Market {occ.confidence.market_data_granularity.toFixed(2)} · Fresh {occ.confidence.source_freshness.toFixed(2)}</p>
+						<p class="mt-1">{taskEvidenceSummary}</p>
+					</div>
+					<div class="sm:col-span-2">
 						<EvidenceBar
 							sourceCount={occ.evidence.exposure_source_count ?? 0}
 							sourceKeys={occ.evidence.exposure_source_keys ?? []}
@@ -927,162 +887,97 @@
 							signalConflict={occ.evidence.signal_conflict ?? false}
 						/>
 					</div>
-				</div>
-				{#if occ.evidence?.exposure_source_pctiles}
-					<div class="sm:col-span-2">
-						<p class="font-semibold text-foreground mb-1">Exposure by Source</p>
-						<div class="flex flex-wrap gap-3 mt-1">
-							{#each Object.entries(occ.evidence.exposure_source_pctiles) as [source, pctile]}
-								<div class="flex items-center gap-2">
-									<span
-										class="text-xs font-medium uppercase tracking-wider text-muted-foreground w-16"
-										>{source}</span
-									>
-									<div class="h-2 w-24 rounded-full bg-muted overflow-hidden">
-										<div
-											class="h-full rounded-full bg-foreground/60"
-											style="width: {(pctile ?? 0) * 100}%"
-										></div>
+					{#if occ.evidence?.exposure_source_pctiles}
+						<div class="sm:col-span-2">
+							<p class="font-medium text-foreground mb-1">Exposure by source</p>
+							<div class="flex flex-wrap gap-3 mt-1">
+								{#each Object.entries(occ.evidence.exposure_source_pctiles) as [source, pctile]}
+									<div class="flex items-center gap-2">
+										<span class="font-medium uppercase tracking-wider w-16">{source}</span>
+										<div class="h-2 w-24 rounded-full bg-muted overflow-hidden">
+											<div class="h-full rounded-full bg-foreground/60" style="width: {(pctile ?? 0) * 100}%"></div>
+										</div>
+										<span class="font-mono">{((pctile ?? 0) * 100).toFixed(0)}%</span>
 									</div>
-									<span class="font-mono text-xs text-text-secondary"
-										>{((pctile ?? 0) * 100).toFixed(0)}%</span
-									>
-								</div>
-							{/each}
+								{/each}
+							</div>
+							{#if occ.evidence?.exposure_source_weights}
+								<p class="mt-1">Weights: {Object.entries(occ.evidence.exposure_source_weights).map(([k, v]) => `${k} ${((v ?? 0) * 100).toFixed(0)}%`).join(' · ')}</p>
+							{/if}
 						</div>
-						{#if occ.evidence?.exposure_source_weights}
-							<p class="mt-1 text-xs text-muted-foreground">
-								Weights: {Object.entries(occ.evidence.exposure_source_weights)
-									.map(([k, v]) => `${k} ${((v ?? 0) * 100).toFixed(0)}%`)
-									.join(' · ')}
-							</p>
-						{/if}
-					</div>
-				{/if}
-				<div>
-					<p class="font-semibold text-foreground mb-1">Evidence Quality</p>
-					<p>
-						{(occ.confidence.score * 100).toFixed(0)}% · Crosswalk {occ.confidence.crosswalk_quality.toFixed(
-							2
-						)} · Market {occ.confidence.market_data_granularity.toFixed(2)} · Fresh {occ.confidence.source_freshness.toFixed(
-							2
-						)}
-					</p>
-				</div>
-				<div class="sm:col-span-2">
-					<p class="font-semibold text-foreground mb-1">Task Evidence</p>
-					<p>{taskEvidenceSummary}</p>
-				</div>
-				<div class="sm:col-span-2">
-					<p class="font-semibold text-foreground mb-1">Wage (SGD/mo)</p>
-					<p class="font-mono">
-						25th {occ.gross_wage_25th.toLocaleString()} · Median {occ.gross_wage_median.toLocaleString()}
-						· 75th {occ.gross_wage_75th.toLocaleString()}
-					</p>
-				</div>
-
-				<!-- O*NET tools (moved from Block 2) -->
-				{#if (structural.onetEnrichment?.technologies.length ?? 0) > 0}
-					<div class="sm:col-span-2">
-						<p class="font-semibold text-foreground mb-1">Common Tools (O*NET)</p>
-						<div class="flex flex-wrap gap-1.5">
-							{#each structural.onetEnrichment?.technologies.slice(0, 4) ?? [] as technology}
-								<span class={pill({ tone: technology.hot ? 'positive' : 'muted' })}>
-									{technology.name}
-								</span>
-							{/each}
+					{/if}
+					{#if occ.evidence?.signal_conflict_reasons?.length}
+						<div class="sm:col-span-2">
+							<p class="font-medium text-foreground mb-1">Signal conflicts</p>
+							<div class="flex flex-wrap gap-1.5">
+								{#each occ.evidence.signal_conflict_reasons as reason}
+									<span class={cn(pill({ size: 'sm' }), 'bg-risk-moderate/10 text-risk-moderate')}>{reason.replaceAll('_', ' ')}</span>
+								{/each}
+							</div>
 						</div>
-						<p class="mt-1">
-							Proxy enrichment from matched O*NET technology profiles, not direct Singapore
-							occupation evidence.
-						</p>
-					</div>
-				{/if}
+					{/if}
+				</div>
+			</details>
 
-				<!-- Worker profile, geography context (moved from Block 3) -->
-				{#if workerProfile.items.length > 0 || geographyContext.items.length > 0 || localContextItems.length > 0}
-					<div class="sm:col-span-2 space-y-4 pt-2 border-t border-border">
-						<p class="font-semibold text-foreground">Worker Profile & Local Context</p>
-						<p>
-							Industry vacancy overlays use the latest published detailed cross-tab, which can lag
-							the main labour monitor.
-						</p>
-						{#if marketDetailBullets.length > 0}
+			<!-- Group 3: O*NET + offset factors -->
+			{#if (structural.onetEnrichment?.technologies.length ?? 0) > 0 || (offsetPotential && (offsetPotential.strengths.length > 0 || offsetPotential.cautions.length > 0))}
+				<details class="pt-3 border-t border-border">
+					<summary class="cursor-pointer text-xs font-semibold text-foreground hover:text-primary">Tools & offset factors</summary>
+					<div class="mt-3 space-y-3">
+						{#if (structural.onetEnrichment?.technologies.length ?? 0) > 0}
 							<div>
-								<p class="font-semibold text-foreground mb-1">Market Detail</p>
-								<ul class="space-y-1 text-xs text-muted-foreground">
-									{#each marketDetailBullets as item}
-										<li>{item}</li>
+								<p class="font-medium text-foreground mb-1">Common tools (O*NET proxy)</p>
+								<div class="flex flex-wrap gap-1.5">
+									{#each structural.onetEnrichment?.technologies.slice(0, 6) ?? [] as technology}
+										<span class={pill({ tone: technology.hot ? 'positive' : 'muted' })}>{technology.name}</span>
 									{/each}
-								</ul>
+								</div>
 							</div>
 						{/if}
+						{#if offsetPotential && (offsetPotential.strengths.length > 0 || offsetPotential.cautions.length > 0)}
+							<div class="grid gap-3 sm:grid-cols-2">
+								{#if offsetPotential.strengths.length > 0}
+									<div class={cn(card({ variant: 'inset', padding: 'sm' }), 'min-w-0')}>
+										<p class="font-semibold text-impact-leveraged">What helps</p>
+										<ul class="mt-1 space-y-0.5">{#each offsetPotential.strengths as item}<li>{item}</li>{/each}</ul>
+									</div>
+								{/if}
+								{#if offsetPotential.cautions.length > 0}
+									<div class={cn(card({ variant: 'inset', padding: 'sm' }), 'min-w-0')}>
+										<p class="font-semibold text-risk-high">What could slow it down</p>
+										<ul class="mt-1 space-y-0.5">{#each offsetPotential.cautions as item}<li>{item}</li>{/each}</ul>
+									</div>
+								{/if}
+							</div>
+						{/if}
+					</div>
+				</details>
+			{/if}
+
+			<!-- Group 4: Worker profile & local context -->
+			{#if workerProfile.items.length > 0 || geographyContext.items.length > 0 || localContextItems.length > 0 || marketDetailBullets.length > 0}
+				<details class="pt-3 border-t border-border">
+					<summary class="cursor-pointer text-xs font-semibold text-foreground hover:text-primary">Worker profile & local context</summary>
+					<div class="mt-3 space-y-4">
+						{#if marketDetailBullets.length > 0}
+							<ul class="space-y-1">{#each marketDetailBullets as item}<li>{item}</li>{/each}</ul>
+						{/if}
 						{#if localContextItems.length > 0}
-							<div>
-								<p class="font-semibold text-foreground mb-1">Local Context & Support</p>
-								<div class="flex flex-wrap gap-1.5">
-									{#each localContextItems as item (item.key)}
-										<span
-											class={pill({
-												size: 'sm',
-												tone:
-													item.tone === 'protective'
-														? 'positive'
-														: item.tone === 'pressure'
-															? 'danger'
-															: item.tone === 'support'
-																? 'primary'
-																: 'neutral'
-											})}
-											title={item.description}
-										>
-											{item.label}: {item.value}
-										</span>
-									{/each}
-								</div>
+							<div class="flex flex-wrap gap-1.5">
+								{#each localContextItems as item (item.key)}
+									<span class={pill({ size: 'sm', tone: item.tone === 'protective' ? 'positive' : item.tone === 'pressure' ? 'danger' : item.tone === 'support' ? 'primary' : 'neutral' })} title={item.description}>{item.label}: {item.value}</span>
+								{/each}
 							</div>
 						{/if}
 						{#if workerProfile.items.length > 0}
 							<ContextItemGrid title="Worker profile" items={workerProfile.items} />
 						{/if}
 						{#if geographyContext.items.length > 0}
-							<ContextItemGrid
-								title="Where this work is concentrated"
-								items={geographyContext.items}
-							/>
+							<ContextItemGrid title="Where this work is concentrated" items={geographyContext.items} />
 						{/if}
 					</div>
-				{/if}
-
-				<!-- What helps / What slows (moved from Block 4) -->
-				{#if offsetPotential && (offsetPotential.strengths.length > 0 || offsetPotential.cautions.length > 0)}
-					<div class="sm:col-span-2 pt-2 border-t border-border">
-						<p class="font-semibold text-foreground mb-2">Offset Factors</p>
-						<div class="grid gap-3 sm:grid-cols-2">
-							{#if offsetPotential.strengths.length > 0}
-								<div class={cn(card({ variant: 'inset', padding: 'sm' }), 'min-w-0')}>
-									<p class="text-xs font-semibold text-impact-leveraged">What helps</p>
-									<ul class="mt-2 space-y-1 text-xs text-text-secondary">
-										{#each offsetPotential.strengths as item}
-											<li>{item}</li>
-										{/each}
-									</ul>
-								</div>
-							{/if}
-							{#if offsetPotential.cautions.length > 0}
-								<div class={cn(card({ variant: 'inset', padding: 'sm' }), 'min-w-0')}>
-									<p class="text-xs font-semibold text-risk-high">What could slow it down</p>
-									<ul class="mt-2 space-y-1 text-xs text-text-secondary">
-										{#each offsetPotential.cautions as item}
-											<li>{item}</li>
-										{/each}
-									</ul>
-								</div>
-							{/if}
-						</div>
-					</div>
-				{/if}
-			</div>
+				</details>
+			{/if}
 		</Collapsible.Content>
 	</Collapsible.Root>
 </main>
