@@ -506,13 +506,12 @@
 				</div>
 			</div>
 
-			<!-- Workflow radar: visible, compact -->
 			{#if scored.workflow_overlay}
-				<div class="mt-5 pt-5 border-t border-border flex flex-col sm:flex-row items-center gap-4">
-					<div class="shrink-0">
-						<WorkflowRadar dimensions={scored.workflow_overlay} size={180} />
+				<div class="mt-5 pt-5 border-t border-border">
+					<p class="text-xs font-semibold text-foreground mb-2">Role profile</p>
+					<div class="flex justify-center">
+						<WorkflowRadar dimensions={scored.workflow_overlay} size={240} />
 					</div>
-					<p class="text-xs text-muted-foreground text-center sm:text-left">Blended role profile across component occupations. Higher values = stronger human advantage.</p>
 				</div>
 			{/if}
 		</div>

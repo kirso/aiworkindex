@@ -583,13 +583,12 @@
 				</div>
 			</div>
 
-			<!-- Workflow radar: visible, compact, balanced with waterfall -->
 			{#if occ.workflow_overlay}
-				<div class="mt-5 pt-5 border-t border-border flex flex-col sm:flex-row items-center gap-4">
-					<div class="shrink-0">
-						<WorkflowRadar dimensions={occ.workflow_overlay} size={180} />
+				<div class="mt-5 pt-5 border-t border-border">
+					<p class="text-xs font-semibold text-foreground mb-2">Role profile</p>
+					<div class="flex justify-center">
+						<WorkflowRadar dimensions={occ.workflow_overlay} size={240} />
 					</div>
-					<p class="text-xs text-muted-foreground text-center sm:text-left">How this occupation's work is distributed. Higher values = stronger human advantage in that dimension.</p>
 				</div>
 			{/if}
 		</div>
