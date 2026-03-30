@@ -141,6 +141,14 @@ const AUDIT_DEFINITIONS: AuditEntryDefinition[] = [
 		usedBy: ['worker profile', 'employment basis']
 	},
 	{
+		key: 'lfr2025_section_d',
+		file: 'LFR2025_SectionD.xlsx',
+		location: 'raw',
+		label: 'Labour Force 2025 Section D',
+		expectedType: 'xlsx',
+		usedBy: ['worker profile', 'employment basis', 'delta validation']
+	},
+	{
 		key: 'industry_x_occupation',
 		file: 'industry_x_occupation.csv',
 		location: 'raw',

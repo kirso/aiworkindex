@@ -1,70 +1,70 @@
 {
   "version": "V5",
-  "generated_at": "2026-03-21T16:09:31.238Z",
-  "score_dataset_generated_at": "2026-03-21",
+  "generated_at": "2026-03-30T03:25:44.586Z",
+  "score_dataset_generated_at": "2026-03-30",
   "artifacts": [
     {
-      "file": "sg-ai-occupations-v4.csv",
+      "file": "sg-ai-occupations-v5.csv",
       "label": "V5 structural score CSV",
       "category": "structural_score",
       "description": "Flattened structural score dataset with basis and provenance columns.",
-      "bytes": 361195,
-      "sha256": "f88ffe5cf67ebf6165865ff5c532fdad939408a8ddbad8f3b6d2ed8c24d60ced",
-      "generated_at": "2026-03-21T16:09:31.081Z"
+      "bytes": 376694,
+      "sha256": "41d9f2678bd959bfbbd6d6cfd0aafb9c4a63ba601ae339413270fab7c089411a",
+      "generated_at": "2026-03-30T03:13:56.494Z"
     },
     {
-      "file": "sg-ai-occupations-v4.json",
+      "file": "sg-ai-occupations-v5.json",
       "label": "V5 structural score JSON",
       "category": "structural_score",
       "description": "Nested structural score dataset with basis and provenance metadata.",
-      "bytes": 4223552,
-      "sha256": "0cd2872762d6f20bedbfecce260538a4e2249dc32cae97c5fba74befafa6450b",
-      "generated_at": "2026-03-21T16:09:28.409Z"
+      "bytes": 4324271,
+      "sha256": "2d9716694eecb86dc1ec3cbb1a508061a3b592b305af7ffe4b71b2f3a1a73621",
+      "generated_at": "2026-03-30T03:14:32.510Z"
     },
     {
       "file": "sg-ai-occupations-v43.csv",
       "label": "V4.3 structural score CSV snapshot",
       "category": "structural_score",
       "description": "Versioned CSV snapshot for the retained V4.3 structural release.",
-      "bytes": 304964,
-      "sha256": "62bd609179764e0e8f3f73c6ba14ff3ec1d98048162cb012b3c58a52b8528ac1",
-      "generated_at": "2026-03-21T16:09:31.134Z"
+      "bytes": 363559,
+      "sha256": "a2cf27e379fb9cd9afdb84868a51d12bcc6e0aaa5648776af612dca9073a86a9",
+      "generated_at": "2026-03-30T03:13:56.479Z"
     },
     {
       "file": "sg-ai-occupations-v43.json",
       "label": "V4.3 structural score JSON snapshot",
       "category": "structural_score",
       "description": "Versioned JSON snapshot for the retained V4.3 structural release.",
-      "bytes": 3508000,
-      "sha256": "4c85dbfd06d1a2b2bd188d1d6704334849ec082c770b1b2b93bfe0de5ba32794",
-      "generated_at": "2026-03-21T16:09:28.394Z"
+      "bytes": 4223552,
+      "sha256": "0cd2872762d6f20bedbfecce260538a4e2249dc32cae97c5fba74befafa6450b",
+      "generated_at": "2026-03-30T03:14:32.501Z"
     },
     {
       "file": "sg-ai-occupations-v5.csv",
       "label": "V5 structural score CSV snapshot",
       "category": "structural_score",
       "description": "Versioned CSV snapshot for the promoted V5 live structural release with transition-adjusted and realized-risk adjunct fields.",
-      "bytes": 361195,
-      "sha256": "f88ffe5cf67ebf6165865ff5c532fdad939408a8ddbad8f3b6d2ed8c24d60ced",
-      "generated_at": "2026-03-21T16:09:31.146Z"
+      "bytes": 376694,
+      "sha256": "41d9f2678bd959bfbbd6d6cfd0aafb9c4a63ba601ae339413270fab7c089411a",
+      "generated_at": "2026-03-30T03:13:56.494Z"
     },
     {
       "file": "sg-ai-occupations-v5.json",
       "label": "V5 structural score JSON snapshot",
       "category": "structural_score",
       "description": "Versioned JSON snapshot for the promoted V5 live structural release with transition-adjusted and realized-risk adjunct fields.",
-      "bytes": 4223552,
-      "sha256": "0cd2872762d6f20bedbfecce260538a4e2249dc32cae97c5fba74befafa6450b",
-      "generated_at": "2026-03-21T16:09:28.424Z"
+      "bytes": 4324271,
+      "sha256": "2d9716694eecb86dc1ec3cbb1a508061a3b592b305af7ffe4b71b2f3a1a73621",
+      "generated_at": "2026-03-30T03:14:32.510Z"
     },
     {
       "file": "sg-ai-occupations-v42.csv",
       "label": "V4.2 structural score CSV snapshot",
       "category": "structural_score",
       "description": "Historical CSV snapshot for the retained V4.2 pre-promotion baseline.",
-      "bytes": 272117,
-      "sha256": "14d9e9ff9ccddc6113a1132a0a49eb879d0197bcd1fc2b9f680338a9d9376b82",
-      "generated_at": "2026-03-21T16:09:31.102Z"
+      "bytes": 274481,
+      "sha256": "8faad00e56e86503d75762fbde041145d1108552ec7fc5a4ef48867d369b45cf",
+      "generated_at": "2026-03-30T03:13:56.467Z"
     },
     {
       "file": "sg-ai-occupations-v42.json",
@@ -73,7 +73,7 @@
       "description": "Historical JSON snapshot for the retained V4.2 pre-promotion baseline.",
       "bytes": 3166563,
       "sha256": "63029c9709c7b841a694107798d4396428108963120b2f8b75d72b5093b28269",
-      "generated_at": "2026-03-21T16:09:23.457Z"
+      "generated_at": "2026-03-30T03:14:32.497Z"
     },
     {
       "file": "onet-enrichment.json",
@@ -82,16 +82,16 @@
       "description": "Title-matched O*NET task and technology-skill enrichment used as supporting context for occupation and role pages.",
       "bytes": 1395424,
       "sha256": "71520e8aaf3374c4d9eed00fc4fc4d9a6e1b7f3188a777ab238237bff0ea775d",
-      "generated_at": "2026-03-21T16:09:21.210Z"
+      "generated_at": "2026-03-28T02:17:54.592Z"
     },
     {
       "file": "sg-context-pack-2025.json",
       "label": "Singapore context pack",
       "category": "context_bundle",
       "description": "Published Singapore context bundle around the structural score: labour monitor, worker profile, industry context, sector wage anchors, geography context, macro labour context, and national AI context.",
-      "bytes": 613522,
-      "sha256": "eb7a088c2e2975a91236d372dcf03a595767fb84ecd923ec1c7fda9bf5d1add8",
-      "generated_at": "2026-03-21T16:09:31.187Z"
+      "bytes": 669079,
+      "sha256": "bae7e9691aa24f356867cd96187d8812f5f053254e82ac095aa8170d908d2fe7",
+      "generated_at": "2026-03-30T03:25:44.594Z"
     },
     {
       "file": "sg-labour-monitor-2025.json",
@@ -100,16 +100,25 @@
       "description": "Published cluster-level labour monitor used as current evidence around the score.",
       "bytes": 12073,
       "sha256": "ef7db69736057366ef2ca678d5b7ea2bda1b4e856764b83e18870c97245ac295",
-      "generated_at": "2026-03-21T16:09:31.187Z"
+      "generated_at": "2026-03-30T03:25:44.594Z"
     },
     {
-      "file": "sg-worker-profile-2024.json",
+      "file": "sg-worker-profile-2025.json",
       "label": "Singapore worker profile",
       "category": "worker_profile",
-      "description": "Published Labour Force 2024 worker-profile context and detailed gender anchors.",
-      "bytes": 116519,
-      "sha256": "723a9704e3b87db1f5779406eb0915ad41f7987717058ec8808c5ecef1fa4f36",
-      "generated_at": "2026-03-21T16:09:16.808Z"
+      "description": "Published Labour Force 2025 worker-profile context and detailed gender anchors.",
+      "bytes": 117281,
+      "sha256": "50dac9fb85e2b7decb34cbf8420d47dc250927da13e654fca9a24647467c0301",
+      "generated_at": "2026-03-28T02:19:13.125Z"
+    },
+    {
+      "file": "sg-lfr-deltas-2025.json",
+      "label": "Singapore Section D deltas",
+      "category": "lfr_context",
+      "description": "Published 2024 to 2025 Labour Force Section D family, cluster, and industry-mix deltas used for validation and contextual reporting.",
+      "bytes": 44667,
+      "sha256": "9642f9b7f5c7a0064389c9643f56b28c9326cde85dda5c5178ec358a4034c70c",
+      "generated_at": "2026-03-30T03:25:44.594Z"
     },
     {
       "file": "sg-geography-context-2020.json",
@@ -166,13 +175,22 @@
       "generated_at": "2026-03-21T16:09:26.814Z"
     },
     {
-      "file": "claims-matrix-v4.json",
+      "file": "claims-matrix-v5.json",
       "label": "Public claims matrix",
       "category": "governance",
       "description": "Machine-readable registry of major public claims, evidence strength, and source keys for the current release.",
       "bytes": 13019,
-      "sha256": "a824779006673f7fa074aaed6ab126d008e51de7e5bee726dc4436e1d14dcab4",
-      "generated_at": "2026-03-21T16:09:26.109Z"
+      "sha256": "9dbc63cc17de4fb1b9122b8cd4cc29f79733d18a8674272460d621cb1346ac6c",
+      "generated_at": "2026-03-30T03:09:37.588Z"
+    },
+    {
+      "file": "public-field-source-map.json",
+      "label": "Public field source map",
+      "category": "provenance",
+      "description": "Machine-readable field-level provenance map for the main public datasets, including source keys, vintages, and transformation notes.",
+      "bytes": 8180,
+      "sha256": "267cfe978aec29e6d0fcbf485abac73c7deb9894c0b9c94bea65ac319fe32a20",
+      "generated_at": "2026-03-30T03:25:44.586Z"
     },
     {
       "file": "experimental-methodology-v43.json",
@@ -287,18 +305,18 @@
       "label": "V5 experimental model",
       "category": "v5_experimental_model",
       "description": "Promotion-comparison artifact for V5, retaining the integrated model outputs against the retained V4.3 baseline.",
-      "bytes": 1759107,
-      "sha256": "26dd57f12c75dc93050d7672e8d88276bc8a45ac8d9450a6932c00e43f4b020c",
-      "generated_at": "2026-03-21T16:09:30.960Z"
+      "bytes": 1761300,
+      "sha256": "f9650206e530317104a23cbdb31bef8cc1d49eb01fb3ffff1036f2a634a968a9",
+      "generated_at": "2026-03-28T02:16:40.772Z"
     },
     {
       "file": "v5-experimental-validation.json",
       "label": "V5 experimental validation",
       "category": "v5_experimental_model",
       "description": "Validation and comparison artifact for the promoted V5 model versus the retained V4.3 baseline.",
-      "bytes": 6388,
-      "sha256": "48a6ffb9b554cbece8c7cba3dc2f950e153624cae7606df0835755d8ec5b0c85",
-      "generated_at": "2026-03-21T16:09:30.961Z"
+      "bytes": 6372,
+      "sha256": "2b54982164b63144d58cf1c47de9a6cd5ccaffc3c8ee3fb905aaf12217c05784",
+      "generated_at": "2026-03-28T02:16:40.773Z"
     },
     {
       "file": "site-status.json",
@@ -306,8 +324,8 @@
       "category": "governance",
       "description": "Canonical public status object covering current structural release, live monitor vintage, and latest official update state.",
       "bytes": 3748,
-      "sha256": "d9d017c41be0a96d304b373ac7cdfdbd31fe82140627a6337fa00378299df6a6",
-      "generated_at": "2026-03-21T16:09:31.217Z"
+      "sha256": "fe97d0038b25ab14648ea8f963df82cd2c10cbc91d11f29d395e90931a0220d8",
+      "generated_at": "2026-03-30T03:09:46.353Z"
     },
     {
       "file": "releases.json",
@@ -315,8 +333,8 @@
       "category": "governance",
       "description": "Ordered release and update history spanning structural releases, quarterly briefings, and official monitor updates.",
       "bytes": 8652,
-      "sha256": "f1186e2af5379c9e5832ea7dcf872be8e1987617f3bc07a6f20357ef32b39b05",
-      "generated_at": "2026-03-21T16:09:31.217Z"
+      "sha256": "89451ad86e829c075ec4d1c65edf9373372c53cd5c240da774e3753407cd28c3",
+      "generated_at": "2026-03-30T03:09:46.353Z"
     },
     {
       "file": "backtests/current-validation.json",

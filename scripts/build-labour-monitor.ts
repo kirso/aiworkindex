@@ -72,6 +72,25 @@ interface ReEntrySignal {
 	note?: string;
 }
 
+interface FieldProvenance {
+	source_key: string;
+	source_type: 'official_raw_feed' | 'official_report_table' | 'derived_official';
+	vintage: string;
+	reference: string;
+	transform?: string;
+	note?: string;
+}
+
+interface LabourMonitorProvenance {
+	method: 'raw_only' | 'raw_plus_report_enrichment';
+	report?: {
+		label: string;
+		published_at: string;
+		url: string;
+	};
+	fields: Record<string, FieldProvenance>;
+}
+
 interface LabourClusterMonitor {
 	cluster_key: ClusterKey;
 	cluster_label: string;
@@ -83,6 +102,7 @@ interface LabourClusterMonitor {
 	summary?: string | null;
 	data_as_of: string;
 	source?: string;
+	provenance?: LabourMonitorProvenance;
 }
 
 // ===== CSV parsing =====
@@ -103,6 +123,12 @@ const CLUSTER_LABELS: Record<ClusterKey, string> = {
 	clerical_sales_service: 'Clerical, Sales & Service Workers',
 	production_transport: 'Production & Transport Operators, Cleaners & Labourers'
 };
+
+const LATEST_LABOUR_REPORT = {
+	label: 'MOM Labour Market Report Q4 2025',
+	published_at: '2026-03-20',
+	url: 'https://stats.mom.gov.sg/Pages/Labour-Market-Report-4Q-2025.aspx'
+} as const;
 
 const CLUSTER_RETRENCHMENT_PATTERNS: Record<ClusterKey, string[]> = {
 	pmet: [
@@ -297,6 +323,196 @@ function parseWideRows(
 	}
 
 	return result.size > 0 ? result : null;
+}
+
+function buildMonitorProvenance(options: {
+	usedVacancyEnrichment: boolean;
+	usedHiringEnrichment: boolean;
+	usedRetrenchmentEnrichment: boolean;
+	usedReEntryEnrichment: boolean;
+}): LabourMonitorProvenance {
+	const method =
+		options.usedVacancyEnrichment ||
+		options.usedHiringEnrichment ||
+		options.usedRetrenchmentEnrichment ||
+		options.usedReEntryEnrichment
+			? 'raw_plus_report_enrichment'
+			: 'raw_only';
+
+	const fields: Record<string, FieldProvenance> = {
+		'vacancy.annual_rates': {
+			source_key: 'mom_job_vacancy_rates',
+			source_type: 'derived_official',
+			vintage: '2021-2025',
+			reference: 'data/raw/vacancy_rates_by_occupation_group.csv',
+			transform: 'Annualized from published vacancy-rate series by occupation group.'
+		},
+		'vacancy.recent_quarters': {
+			source_key: options.usedVacancyEnrichment
+				? 'mom_labour_market_report_q4_2025'
+				: 'mom_job_vacancy_rates',
+			source_type: options.usedVacancyEnrichment ? 'official_report_table' : 'official_raw_feed',
+			vintage: 'Q4 2025',
+			reference: options.usedVacancyEnrichment
+				? 'MOM Labour Market Report Q4 2025 vacancy tables / dashboard'
+				: 'data/raw/vacancy_rates_by_occupation_group.csv',
+			note: options.usedVacancyEnrichment
+				? 'Latest quarter appended from the published Q4 2025 report because the raw vacancy-rate feed lags.'
+				: undefined
+		},
+		'vacancy.latest_rate': {
+			source_key: options.usedVacancyEnrichment
+				? 'mom_labour_market_report_q4_2025'
+				: 'mom_job_vacancy_rates',
+			source_type: options.usedVacancyEnrichment ? 'official_report_table' : 'official_raw_feed',
+			vintage: 'Q4 2025',
+			reference: options.usedVacancyEnrichment
+				? 'MOM Labour Market Report Q4 2025 vacancy table'
+				: 'data/raw/vacancy_rates_by_occupation_group.csv'
+		},
+		'vacancy.qoq_delta_pp': {
+			source_key: options.usedVacancyEnrichment
+				? 'mom_labour_market_report_q4_2025'
+				: 'mom_job_vacancy_rates',
+			source_type: options.usedVacancyEnrichment ? 'official_report_table' : 'derived_official',
+			vintage: 'Q4 2025',
+			reference: options.usedVacancyEnrichment
+				? 'MOM Labour Market Report Q4 2025 quarter-on-quarter vacancy comparison'
+				: 'data/raw/vacancy_rates_by_occupation_group.csv',
+			transform: options.usedVacancyEnrichment
+				? undefined
+				: 'Computed from the latest two published quarters in the raw vacancy-rate feed.'
+		},
+		'vacancy.latest_count': {
+			source_key: options.usedVacancyEnrichment
+				? 'mom_labour_market_report_q4_2025'
+				: 'job_vacancies_industry_occupation',
+			source_type: options.usedVacancyEnrichment ? 'official_report_table' : 'official_raw_feed',
+			vintage: 'Q4 2025',
+			reference: options.usedVacancyEnrichment
+				? 'MOM Labour Market Report Q4 2025 published vacancy-count table'
+				: 'data/raw/job_vacancies_by_industry_and_occupation_quarterly.csv'
+		},
+		'vacancy.count_qoq_delta': {
+			source_key: options.usedVacancyEnrichment
+				? 'mom_labour_market_report_q4_2025'
+				: 'job_vacancies_industry_occupation',
+			source_type: options.usedVacancyEnrichment ? 'official_report_table' : 'derived_official',
+			vintage: 'Q4 2025',
+			reference: options.usedVacancyEnrichment
+				? 'MOM Labour Market Report Q4 2025 published vacancy-count quarter comparison'
+				: 'data/raw/job_vacancies_by_industry_and_occupation_quarterly.csv',
+			transform: options.usedVacancyEnrichment
+				? undefined
+				: 'Computed from the latest two published quarters in the raw vacancy-count feed.'
+		},
+		'hiring.recruitment_rate': {
+			source_key: options.usedHiringEnrichment
+				? 'mom_labour_market_report_q4_2025'
+				: 'mom_recruitment_resignation_rates',
+			source_type: options.usedHiringEnrichment ? 'official_report_table' : 'official_raw_feed',
+			vintage: options.usedHiringEnrichment ? 'Q4 2025' : 'latest published series',
+			reference: options.usedHiringEnrichment
+				? 'MOM Labour Market Report Q4 2025 recruitment/resignation table'
+				: 'data/raw/recruitment_resignation_rates.json',
+			note: options.usedHiringEnrichment
+				? 'Quarterly report values override the annualized raw dataset for the live Q4 2025 view.'
+				: 'Raw dataset remains annualized where a quarterly breakdown is not available.'
+		},
+		'hiring.resignation_rate': {
+			source_key: options.usedHiringEnrichment
+				? 'mom_labour_market_report_q4_2025'
+				: 'mom_recruitment_resignation_rates',
+			source_type: options.usedHiringEnrichment ? 'official_report_table' : 'official_raw_feed',
+			vintage: options.usedHiringEnrichment ? 'Q4 2025' : 'latest published series',
+			reference: options.usedHiringEnrichment
+				? 'MOM Labour Market Report Q4 2025 recruitment/resignation table'
+				: 'data/raw/recruitment_resignation_rates.json'
+		},
+		'hiring.net_pressure': {
+			source_key: options.usedHiringEnrichment
+				? 'mom_labour_market_report_q4_2025'
+				: 'mom_recruitment_resignation_rates',
+			source_type: 'derived_official',
+			vintage: options.usedHiringEnrichment ? 'Q4 2025' : 'latest published series',
+			reference: options.usedHiringEnrichment
+				? 'MOM Labour Market Report Q4 2025 recruitment/resignation table'
+				: 'data/raw/recruitment_resignation_rates.json',
+			transform: 'Computed as recruitment_rate minus resignation_rate.'
+		},
+		'retrenchment.latest_count': {
+			source_key: options.usedRetrenchmentEnrichment
+				? 'mom_labour_market_report_q4_2025'
+				: 'mom_retrenchment_by_occupation_group',
+			source_type: options.usedRetrenchmentEnrichment
+				? 'official_report_table'
+				: 'official_raw_feed',
+			vintage: 'Q4 2025',
+			reference: options.usedRetrenchmentEnrichment
+				? 'MOM Labour Market Report Q4 2025 retrenchment table'
+				: 'data/raw/retrenchment_by_occupation_group.json'
+		},
+		'retrenchment.qoq_delta_count': {
+			source_key: options.usedRetrenchmentEnrichment
+				? 'mom_labour_market_report_q4_2025'
+				: 'mom_retrenchment_by_occupation_group',
+			source_type: options.usedRetrenchmentEnrichment ? 'official_report_table' : 'derived_official',
+			vintage: 'Q4 2025',
+			reference: options.usedRetrenchmentEnrichment
+				? 'MOM Labour Market Report Q4 2025 retrenchment quarter comparison'
+				: 'data/raw/retrenchment_by_occupation_group.json',
+			transform: options.usedRetrenchmentEnrichment
+				? undefined
+				: 'Computed from the latest two published retrenchment quarters.'
+		},
+		'retrenchment.incidence_per_1000': {
+			source_key: 'mom_labour_market_report_q4_2025',
+			source_type: 'official_report_table',
+			vintage: 'Q4 2025',
+			reference: 'MOM Labour Market Report Q4 2025 retrenchment incidence table'
+		},
+		're_entry.rate_6m': {
+			source_key: options.usedReEntryEnrichment
+				? 'mom_labour_market_report_q4_2025'
+				: 'mom_labour_monitor_2025',
+			source_type: options.usedReEntryEnrichment ? 'official_report_table' : 'official_raw_feed',
+			vintage: 'Q4 2025',
+			reference: options.usedReEntryEnrichment
+				? 'MOM Labour Market Report Q4 2025 re-entry table'
+				: 'MOM labour monitor source feed'
+		},
+		're_entry.rate_12m': {
+			source_key: options.usedReEntryEnrichment
+				? 'mom_labour_market_report_q4_2025'
+				: 'mom_labour_monitor_2025',
+			source_type: options.usedReEntryEnrichment ? 'official_report_table' : 'official_raw_feed',
+			vintage: 'Q4 2025',
+			reference: options.usedReEntryEnrichment
+				? 'MOM Labour Market Report Q4 2025 re-entry table'
+				: 'MOM labour monitor source feed'
+		},
+		'overall': {
+			source_key: 'ai_work_index_labour_monitor_rules',
+			source_type: 'derived_official',
+			vintage: 'Q4 2025',
+			reference: 'scripts/build-labour-monitor.ts',
+			transform:
+				'Deterministic sum of vacancy, hiring, and retrenchment signals into strong / moderate / weak / deteriorating.'
+		},
+		'summary': {
+			source_key: 'mom_labour_market_report_q4_2025',
+			source_type: 'official_report_table',
+			vintage: 'Q4 2025',
+			reference: 'Curated narrative summary derived from the published MOM Labour Market Report Q4 2025.',
+			note: 'Narrative compression of the official figures; not a separate statistical input.'
+		}
+	};
+
+	return {
+		method,
+		report: method === 'raw_plus_report_enrichment' ? LATEST_LABOUR_REPORT : undefined,
+		fields
+	};
 }
 
 function parseCSVRow(line: string): string[] {
@@ -903,8 +1119,10 @@ function main() {
 			};
 			dataAsOf = q4Vacancy.latest_quarter ?? dataAsOf;
 		}
+		const usedVacancyEnrichment = Boolean(enrichment?.vacancy);
 
 		// Merge hiring from enrichment if raw data is absent or only annual
+		const usedHiringEnrichment = Boolean((!hiring || hiring.frequency === 'annual') && enrichment?.hiring);
 		if ((!hiring || hiring.frequency === 'annual') && enrichment?.hiring) {
 			const h = enrichment.hiring;
 			const netPressure = h.recruitment_rate - h.resignation_rate;
@@ -928,6 +1146,10 @@ function main() {
 		}
 
 		// Merge retrenchment from enrichment
+		const usedRetrenchmentEnrichment = Boolean(
+			(!retrenchment && enrichment?.retrenchment) ||
+				(retrenchment && enrichment?.retrenchment?.incidence_per_1000 != null)
+		);
 		if (!retrenchment && enrichment?.retrenchment) {
 			const r = enrichment.retrenchment;
 			retrenchment = {
@@ -949,6 +1171,7 @@ function main() {
 
 		// Re-entry data
 		const re_entry: ReEntrySignal | null = enrichment?.re_entry || null;
+		const usedReEntryEnrichment = Boolean(enrichment?.re_entry);
 
 		// Recompute overall with enriched signals
 		const overallFinal = computeOverallSignal(
@@ -970,7 +1193,13 @@ function main() {
 			overall: overallFinal,
 			summary,
 			data_as_of: enrichment?.data_as_of ?? dataAsOf,
-			source: enrichment?.source ?? 'Labour Market Report Q4 2025, MRSD, MOM'
+			source: enrichment?.source ?? 'Labour Market Report Q4 2025, MRSD, MOM',
+			provenance: buildMonitorProvenance({
+				usedVacancyEnrichment,
+				usedHiringEnrichment,
+				usedRetrenchmentEnrichment,
+				usedReEntryEnrichment
+			})
 		});
 	}
 

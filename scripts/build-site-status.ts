@@ -434,25 +434,25 @@ function buildSiteStatus() {
 					: DATA_VINTAGE.model_version === 'V4.3' && v5ExperimentalValidation
 						? 'V4.3 is live and the V5 experimental model is now published'
 						: 'MOM Labour Market Report Q4 2025 is now live in the monitor',
-			body:
-				DATA_VINTAGE.model_version === 'V5' && v5ExperimentalValidation
-					? `Live V5 now uses posterior task-aware exposure, concentration-aware structural risk, and heterogeneous augmentation. Transition-adjusted and realized-risk layers are published separately, with ${v5StructuralPasses}/2 structural checks and ${v5RealizedPasses}/${v5RealizedScorableChecks} scorable short-run checks retained in the audit trail.`
-					: DATA_VINTAGE.model_version === 'V4.3' && v5ExperimentalValidation
-						? `Task-adjusted exposure is now live in the structural score. The V5 candidate currently clears ${v5StructuralPasses}/2 structural checks and ${v5RealizedPasses}/${v5RealizedScorableChecks} scorable short-run checks while remaining experimental only.`
-						: DATA_VINTAGE.model_version === 'V4.3'
-							? `Structural score is now ${DATA_VINTAGE.model_version}, with task-adjusted exposure live where weighted task evidence is strong. The labour monitor continues to run on ${DATA_VINTAGE.labour_monitor}, with explicit Q3 → Q4 deltas across the Singapore labour layer.`
-							: `Structural score remains ${DATA_VINTAGE.model_version}. The live labour monitor now runs on ${DATA_VINTAGE.labour_monitor}, with explicit Q3 → Q4 deltas across the Singapore labour layer.`,
+				body:
+					DATA_VINTAGE.model_version === 'V5' && v5ExperimentalValidation
+						? `V5 is live. Transition-adjusted and realized-risk layers are now published separately.`
+						: DATA_VINTAGE.model_version === 'V4.3' && v5ExperimentalValidation
+							? `Task-adjusted exposure is now live in the structural score. The V5 candidate currently clears ${v5StructuralPasses}/2 structural checks and ${v5RealizedPasses}/${v5RealizedScorableChecks} scorable short-run checks while remaining experimental only.`
+							: DATA_VINTAGE.model_version === 'V4.3'
+								? `Structural score is now ${DATA_VINTAGE.model_version}, with task-adjusted exposure live where weighted task evidence is strong. The labour monitor continues to run on ${DATA_VINTAGE.labour_monitor}, with explicit Q3 → Q4 deltas across the Singapore labour layer.`
+								: `Structural score remains ${DATA_VINTAGE.model_version}. The live labour monitor now runs on ${DATA_VINTAGE.labour_monitor}, with explicit Q3 → Q4 deltas across the Singapore labour layer.`,
 			link_href:
 				(DATA_VINTAGE.model_version === 'V5' || DATA_VINTAGE.model_version === 'V4.3') &&
 				v5ExperimentalValidation
 					? '/reports/v5-experimental'
 					: '/reports',
-			link_label:
-				DATA_VINTAGE.model_version === 'V5' && v5ExperimentalValidation
-					? 'Review V5 model note'
-					: DATA_VINTAGE.model_version === 'V4.3' && v5ExperimentalValidation
-						? 'Review V5 experimental'
-						: 'See report updates'
+				link_label:
+					DATA_VINTAGE.model_version === 'V5' && v5ExperimentalValidation
+						? 'V5 note'
+						: DATA_VINTAGE.model_version === 'V4.3' && v5ExperimentalValidation
+							? 'Review V5 experimental'
+							: 'See report updates'
 		}
 	};
 }

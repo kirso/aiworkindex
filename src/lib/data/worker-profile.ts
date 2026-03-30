@@ -21,7 +21,7 @@ export interface WorkerProfileItem {
 
 export interface GroupWorkerProfile {
 	major_group: MajorGroupKey;
-	total_employment_2024: number;
+	total_employment: number;
 	sex_share: {
 		male: number;
 		female: number;
@@ -50,12 +50,17 @@ export interface GroupWorkerProfile {
 		diploma_professional: number;
 		degree: number;
 	};
+	marital_status_share: {
+		single: number;
+		married: number;
+		widowed_divorced: number;
+	};
 }
 
 export interface DetailedGenderAnchor {
 	prefix2: string;
 	label: string;
-	total_employment_2024: number;
+	total_employment: number;
 	male_share: number;
 	female_share: number;
 }
@@ -156,7 +161,7 @@ function buildWorkArrangementItem(profile: GroupWorkerProfile): WorkerProfileIte
 		label: 'Work arrangement',
 		value:
 			profile.work_arrangement_share.part_time >= 0.2 ? 'Part-time meaningful' : 'Mostly full-time',
-		description: `${formatPct(profile.work_arrangement_share.part_time)} part-time and ${formatPct(profile.work_arrangement_share.full_time)} full-time in 2024.`,
+		description: `${formatPct(profile.work_arrangement_share.part_time)} part-time and ${formatPct(profile.work_arrangement_share.full_time)} full-time in 2025.`,
 		tone: 'neutral'
 	};
 }
@@ -232,7 +237,7 @@ export function getWorkerProfileForOccupation(occupation: Occupation): WorkerPro
 	return {
 		items,
 		note:
-			'Worker profile uses official Singapore Labour Force 2024 tables. Gender mix uses the published detailed occupation family when available; other composition fields are broad occupation-group anchors. Wage-by-sex appears only for occupations covered in the common-occupation wage tables.'
+			'Worker profile uses official Singapore Labour Force 2025 tables. Gender mix uses the published detailed occupation family when available; other composition fields are broad occupation-group anchors. Wage-by-sex appears only for occupations covered in the common-occupation wage tables.'
 	};
 }
 
@@ -270,7 +275,7 @@ export function buildRoleWorkerProfile(
 	const primaryComponent = validComponents[0]!;
 	const blendedProfile: GroupWorkerProfile = {
 		major_group: primaryComponent.occupation.major_group as MajorGroupKey,
-		total_employment_2024: 0,
+		total_employment: 0,
 		sex_share: {
 			male: blendShares(validComponents, (profile) => profile.sex_share.male),
 			female: blendShares(validComponents, (profile) => profile.sex_share.female)
@@ -316,6 +321,14 @@ export function buildRoleWorkerProfile(
 				(profile) => profile.qualification_share.diploma_professional
 			),
 			degree: blendShares(validComponents, (profile) => profile.qualification_share.degree)
+		},
+		marital_status_share: {
+			single: blendShares(validComponents, (profile) => profile.marital_status_share.single),
+			married: blendShares(validComponents, (profile) => profile.marital_status_share.married),
+			widowed_divorced: blendShares(
+				validComponents,
+				(profile) => profile.marital_status_share.widowed_divorced
+			)
 		}
 	};
 

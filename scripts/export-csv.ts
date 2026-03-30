@@ -26,6 +26,10 @@ interface Occupation {
 	estimated_sg_employment_thousands?: number;
 	employment_thousands: number;
 	employment_basis?: string;
+	employment_family_code?: string | null;
+	employment_family_total_thousands?: number | null;
+	employment_weight_within_family?: number | null;
+	employment_estimate_method?: 'bls_wage_blend' | 'bls_only' | 'wage_only' | 'equal_fallback' | null;
 	bls_proxy_employment?: number;
 	data_basis?: {
 		employment_estimate?: {
@@ -118,6 +122,10 @@ const columns = [
 	'estimated_sg_employment_thousands',
 	'employment_thousands',
 	'employment_basis',
+	'employment_family_code',
+	'employment_family_total_thousands',
+	'employment_weight_within_family',
+	'employment_estimate_method',
 	'employment_tier',
 	'bls_proxy_employment',
 	'wage_pool_proxy_tier',
@@ -200,6 +208,10 @@ function buildCsv(occupations: Occupation[]): string {
 		o.estimated_sg_employment_thousands ?? o.employment_thousands,
 		o.employment_thousands,
 		o.employment_basis ?? '',
+		o.employment_family_code ?? '',
+		o.employment_family_total_thousands ?? '',
+		o.employment_weight_within_family?.toFixed(6) ?? '',
+		o.employment_estimate_method ?? '',
 		o.data_basis?.employment_estimate?.tier ?? '',
 		o.bls_proxy_employment ?? '',
 		o.data_basis?.wage_pool_proxy?.tier ?? '',

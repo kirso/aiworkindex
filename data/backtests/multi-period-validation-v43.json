@@ -1,18 +1,18 @@
 {
-  "generated_at": "2026-03-21T16:09:23.590Z",
+  "generated_at": "2026-03-21T16:09:28.518Z",
   "model_version": "V5",
   "cluster_risk_order": [
     [
       "clerical_sales_service",
-      0.3319
+      0.3389
     ],
     [
       "pmet",
-      0.2033
+      0.1969
     ],
     [
       "production_transport",
-      0.1254
+      0.1417
     ]
   ],
   "metrics": {

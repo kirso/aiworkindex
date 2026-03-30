@@ -1,10 +1,10 @@
 {
-  "updated_at": "2026-03-21T16:09:31.217Z",
+  "updated_at": "2026-03-30T03:29:12.902Z",
   "structural_release": {
     "version": "V5",
     "label": "V5 structural release",
-    "generated_at": "2026-03-21T00:00:00.000Z",
-    "score_dataset_generated_at": "2026-03-21",
+    "generated_at": "2026-03-30T00:00:00.000Z",
+    "score_dataset_generated_at": "2026-03-30",
     "release_manifest": "release-manifest-v5.json"
   },
   "experimental_release": {
@@ -26,8 +26,8 @@
     "experimental_model_published": true,
     "structural_validation_result": "2/2",
     "realized_validation_result": "3/4",
-    "transition_band_flip_count": 135,
-    "impact_flip_count": 242
+    "transition_band_flip_count": 127,
+    "impact_flip_count": 241
   },
   "live_monitor": {
     "labour_monitor_artifact_vintage": "Q4 2025 full",
@@ -47,9 +47,9 @@
     "postings_volume_30d": 380,
     "employer_pressure_generated_at": "2026-03-21T16:09:26.758Z",
     "employer_pressure_latest_signal_date": "2025-10-06",
-    "quarterly_report_generated_at": "2026-03-21T16:09:26.399Z",
-    "quarterly_current_snapshot": "occupations-v4-2026-03.json",
-    "quarterly_previous_snapshot": "occupations-v3-2026-03.json",
+    "quarterly_report_generated_at": "2026-03-30T03:09:37.589Z",
+    "quarterly_current_snapshot": "occupations-v5-2026-03.json",
+    "quarterly_previous_snapshot": "occupations-v4-2026-03.json",
     "cluster_validation_checks_passed": 2,
     "cluster_validation_checks_total": 4,
     "temporal_validation_vacancy_accuracy": 1,
@@ -68,11 +68,10 @@
     "offset_potential_high_count": 20
   },
   "homepage_banner": {
-    "summary": "V5 is live with a stronger structural score and separate short-run audit layers.",
     "tag": "Live now",
     "title": "V5 is live with richer structural science and published short-run layers",
-    "body": "Live V5 now uses posterior task-aware exposure, concentration-aware structural risk, and heterogeneous augmentation. Transition-adjusted and realized-risk layers are published separately, with 2/2 structural checks and 3/4 scorable short-run checks retained in the audit trail.",
+    "body": "V5 is live. Transition-adjusted and realized-risk layers are now published separately.",
     "link_href": "/reports/v5-experimental",
-    "link_label": "Review V5 model note"
+    "link_label": "V5 note"
   }
 }

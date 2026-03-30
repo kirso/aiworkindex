@@ -294,7 +294,7 @@ export const DATA_VINTAGE = {
 	/** Model version */
 	model_version: 'V5',
 	/** Last scoring run date */
-	last_updated: '2026-03-21',
+	last_updated: '2026-03-30',
 	/** Occupation count */
 	occupation_count: 562,
 	/** Synthetic role count */

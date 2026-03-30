@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-03-21T16:09:26.369Z",
+  "generated_at": "2026-03-28T02:16:31.896Z",
   "summary": {
-    "valid": 30,
+    "valid": 31,
     "placeholder_error": 0,
     "missing": 0,
     "reference_only": 4
@@ -166,6 +166,21 @@
       "used_by": [
         "worker profile",
         "employment basis"
+      ],
+      "note": "Workbook sheets: Contents, D1, D2, D3, D4"
+    },
+    {
+      "key": "lfr2025_section_d",
+      "file": "LFR2025_SectionD.xlsx",
+      "label": "Labour Force 2025 Section D",
+      "status": "valid",
+      "exists": true,
+      "expected_type": "xlsx",
+      "size_bytes": 86467,
+      "used_by": [
+        "worker profile",
+        "employment basis",
+        "delta validation"
       ],
       "note": "Workbook sheets: Contents, D1, D2, D3, D4"
     },

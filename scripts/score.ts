@@ -184,6 +184,7 @@ const DATA_DIR = path.join(import.meta.dir, '..', 'data');
 const RAW_DIR = path.join(DATA_DIR, 'raw');
 const EXT_DIR = path.join(RAW_DIR, 'external');
 const INT_DIR = path.join(DATA_DIR, 'intermediate');
+const LFR_SECTION_D_SIGNALS_FILE = path.join(DATA_DIR, 'lfr-section-d-signals.json');
 const OUT_FILE = path.join(DATA_DIR, 'occupations.json');
 const SRC_OUT_FILE = path.join(import.meta.dir, '..', 'src', 'lib', 'data', 'occupations.json');
 
@@ -315,8 +316,13 @@ interface ScoredOccupation {
 	gross_wage_median: number | null;
 	gross_wage_25th: number | null;
 	gross_wage_75th: number | null;
+	estimated_sg_employment_thousands?: number | null;
 	employment_thousands: number | null;
-	employment_basis: 'estimated_sg_submajor';
+	employment_basis: 'estimated_sg_submajor_weighted_2025';
+	employment_family_code?: string | null;
+	employment_family_total_thousands?: number | null;
+	employment_weight_within_family?: number | null;
+	employment_estimate_method?: 'bls_wage_blend' | 'bls_only' | 'wage_only' | 'equal_fallback' | null;
 	group_employment_thousands: number | null;
 	data_basis: OccupationDataBasis;
 	exposure: number;
@@ -347,6 +353,18 @@ interface ScoredOccupation {
 	};
 }
 
+interface LfrSectionDFamilyEmployment {
+	code: string;
+	label: string;
+	total_2025: number;
+	delta_k: number;
+	delta_pct: number | null;
+}
+
+interface LfrSectionDSignals {
+	family_employment: Record<string, LfrSectionDFamilyEmployment>;
+}
+
 function cloneOccupationDataBasis(): OccupationDataBasis {
 	return {
 		employment_estimate: { ...occupationDataBasisTemplate.employment_estimate },
@@ -363,6 +381,110 @@ function cloneOccupationDataBasis(): OccupationDataBasis {
 			}
 		}
 	};
+}
+
+function loadLfrSectionDSignals(): LfrSectionDSignals {
+	return JSON.parse(fs.readFileSync(LFR_SECTION_D_SIGNALS_FILE, 'utf-8')) as LfrSectionDSignals;
+}
+
+function allocateWeightedFamilyEmployment(results: ScoredOccupation[], signals: LfrSectionDSignals) {
+	const byFamily = new Map<string, ScoredOccupation[]>();
+	for (const occupation of results) {
+		const familyCode = occupation.ssoc.slice(0, 2);
+		if (!byFamily.has(familyCode)) byFamily.set(familyCode, []);
+		byFamily.get(familyCode)?.push(occupation);
+	}
+
+	let updated = 0;
+	for (const [familyCode, occupations] of byFamily.entries()) {
+		const family = signals.family_employment[familyCode];
+		const fallbackTotal = round(
+			occupations.reduce(
+				(sum, occupation) => sum + (occupation.estimated_sg_employment_thousands ?? 0),
+				0
+			),
+			1
+		);
+		const total =
+			family && Number.isFinite(family.total_2025) ? family.total_2025 : fallbackTotal;
+		if (!(total > 0)) continue;
+		const blsValues = occupations.map((occupation) =>
+			occupation.bls_proxy_employment && occupation.bls_proxy_employment > 0
+				? occupation.bls_proxy_employment
+				: null
+		);
+		const wageValues = occupations.map((occupation) =>
+			occupation.gross_wage_median && occupation.gross_wage_median > 0
+				? Math.sqrt(occupation.gross_wage_median)
+				: null
+		);
+		const blsSum = blsValues.reduce((sum, value) => sum + (value ?? 0), 0);
+		const wageSum = wageValues.reduce((sum, value) => sum + (value ?? 0), 0);
+		const rounded: number[] = [];
+		const rawWeights: number[] = [];
+		const methods: Array<'bls_wage_blend' | 'bls_only' | 'wage_only' | 'equal_fallback'> = [];
+
+		const fallbackToEqualOnly = !family;
+		for (let index = 0; index < occupations.length; index++) {
+			const blsShare = blsSum > 0 && blsValues[index] !== null ? (blsValues[index] ?? 0) / blsSum : null;
+			const wageShare = wageSum > 0 && wageValues[index] !== null ? (wageValues[index] ?? 0) / wageSum : null;
+			let weight = 0;
+			let method: 'bls_wage_blend' | 'bls_only' | 'wage_only' | 'equal_fallback' = 'equal_fallback';
+			if (fallbackToEqualOnly) {
+				weight = 1 / occupations.length;
+			} else if (blsShare !== null && wageShare !== null) {
+				weight = 0.7 * blsShare + 0.3 * wageShare;
+				method = 'bls_wage_blend';
+			} else if (blsShare !== null) {
+				weight = blsShare;
+				method = 'bls_only';
+			} else if (wageShare !== null) {
+				weight = wageShare;
+				method = 'wage_only';
+			} else {
+				weight = 1 / occupations.length;
+			}
+			rawWeights.push(weight);
+			methods.push(method);
+		}
+
+		const normalizedWeightSum = rawWeights.reduce((sum, value) => sum + value, 0) || 1;
+		const normalizedWeights = rawWeights.map((weight) => weight / normalizedWeightSum);
+		let roundedSum = 0;
+		let maxWeightIndex = 0;
+		for (let index = 0; index < occupations.length; index++) {
+			const estimate = round(total * normalizedWeights[index], 1);
+			rounded.push(estimate);
+			roundedSum += estimate;
+			if (normalizedWeights[index] > normalizedWeights[maxWeightIndex]) maxWeightIndex = index;
+		}
+		const residual = round(total - roundedSum, 1);
+		if (Math.abs(residual) >= 0.1) {
+			rounded[maxWeightIndex] = round(rounded[maxWeightIndex] + residual, 1);
+		}
+
+		for (let index = 0; index < occupations.length; index++) {
+			const occupation = occupations[index];
+			const estimate = rounded[index];
+			occupation.estimated_sg_employment_thousands = estimate;
+			occupation.employment_thousands = estimate;
+			occupation.employment_basis = 'estimated_sg_submajor_weighted_2025';
+			occupation.employment_family_code = familyCode;
+			occupation.employment_family_total_thousands = total;
+			occupation.employment_weight_within_family = round(normalizedWeights[index], 6);
+			occupation.employment_estimate_method = methods[index];
+			occupation.data_basis.employment_estimate.basis = 'estimated_sg_submajor_weighted_2025';
+			occupation.data_basis.employment_estimate.source_key = family
+				? 'mom_lfr2025_table_d8'
+				: 'mom_employment_by_occupation_group';
+			occupation.data_basis.employment_estimate.note = family
+				? 'Estimated per-occupation employment derived from published Labour Force 2025 2-digit occupation-family totals, weighted within family by BLS proxy employment and Singapore wage data.'
+				: 'Estimated per-occupation employment for an uncovered occupation family, preserved from the broad occupation-group prior because no published 2025 D8 family total exists for this code.';
+			updated++;
+		}
+	}
+
+	return updated;
 }
 
 // ===== Major group code mapping =====
@@ -1939,7 +2061,11 @@ function scoreOccupations(
 			gross_wage_75th: r.occ.gross_wage_75th,
 			estimated_sg_employment_thousands: r.occ.estimated_employment_thousands,
 			employment_thousands: r.occ.estimated_employment_thousands,
-			employment_basis: 'estimated_sg_submajor',
+			employment_basis: 'estimated_sg_submajor_weighted_2025',
+			employment_family_code: r.occ.ssoc.slice(0, 2),
+			employment_family_total_thousands: null,
+			employment_weight_within_family: null,
+			employment_estimate_method: null,
 			group_employment_thousands: r.occ.group_employment_thousands,
 			data_basis: cloneOccupationDataBasis(),
 			exposure: round(exposure, 4),
@@ -2167,6 +2293,7 @@ async function main() {
 	const iloExposure = loadIloExposure();
 	const solData = loadMomSol();
 	const demandData = loadJobsInDemand();
+	const lfrSectionDSignals = loadLfrSectionDSignals();
 
 	// Score all occupations
 	const results = scoreOccupations(
@@ -2182,75 +2309,9 @@ async function main() {
 		labourMonitors
 	);
 
-	// Apply sub-major group employment data (2-digit SSOC, from Labour Force 2024 Table D8)
-	// This replaces the uniform major-group allocation with real sub-major employment
-	const subMajorEmployment: Record<string, number> = {
-		'11': 50.3,
-		'12': 187.6,
-		'13': 122.1,
-		'14': 44.8,
-		'21': 157.1,
-		'22': 58.3,
-		'23': 62.3,
-		'24': 221.4,
-		'25': 76.4,
-		'26': 44.6,
-		'31': 104.9,
-		'32': 17.7,
-		'33': 248.9,
-		'34': 38.4,
-		'35': 26.2,
-		'36': 45.8,
-		'39': 1.2,
-		'40': 3.9,
-		'41': 99.9,
-		'42': 50.1,
-		'43': 50.9,
-		'44': 4.8,
-		'51': 74.9,
-		'52': 106.6,
-		'53': 19.6,
-		'54': 40.4,
-		'59': 0.2,
-		'61': 2.7,
-		'62': 2.7,
-		'71': 18.4,
-		'72': 13.5,
-		'73': 2.5,
-		'74': 10.9,
-		'75': 9.5,
-		'81': 9.7,
-		'82': 6.3,
-		'83': 112.4,
-		'91': 73.5,
-		'92': 1.1,
-		'93': 29.9,
-		'94': 38.5,
-		'96': 22.7
-	};
-
-	// Count occupations per sub-major group
-	const subMajorCounts: Record<string, number> = {};
-	for (const r of results) {
-		const prefix2 = r.ssoc.substring(0, 2);
-		subMajorCounts[prefix2] = (subMajorCounts[prefix2] || 0) + 1;
-	}
-
-	// Allocate employment proportionally within each sub-major group
-	let updated = 0;
-	for (const r of results) {
-		const prefix2 = r.ssoc.substring(0, 2);
-		const groupEmp = subMajorEmployment[prefix2];
-		const groupCount = subMajorCounts[prefix2];
-		if (groupEmp !== undefined && groupCount) {
-			const estimatedEmploymentThousands = round(groupEmp / groupCount, 1);
-			(r as any).estimated_sg_employment_thousands = estimatedEmploymentThousands;
-			(r as any).employment_thousands = estimatedEmploymentThousands;
-			updated++;
-		}
-	}
+	const updated = allocateWeightedFamilyEmployment(results, lfrSectionDSignals);
 	console.log(
-		`\nUpdated estimated_sg_employment_thousands / employment_thousands for ${updated}/${results.length} occupations using sub-major group data (Labour Force 2024 Table D8)`
+		`\nUpdated estimated_sg_employment_thousands / employment_thousands for ${updated}/${results.length} occupations using weighted 2025 Section D family allocation`
 	);
 
 	// Distribution analysis

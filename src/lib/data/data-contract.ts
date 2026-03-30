@@ -4,7 +4,10 @@ export type EvidenceTier =
 	| 'external_proxy'
 	| 'synthetic';
 
-export type EmploymentBasis = 'estimated_sg_submajor' | 'proxy_bls_weighted';
+export type EmploymentBasis =
+	| 'estimated_sg_submajor'
+	| 'estimated_sg_submajor_weighted_2025'
+	| 'proxy_bls_weighted';
 
 export type SourceRegistryStatus = 'live' | 'available' | 'planned' | 'requested';
 
@@ -58,16 +61,17 @@ export const sourceRegistryStatusLabels: Record<SourceRegistryStatus, string> = 
 
 export const employmentBasisLabels: Record<EmploymentBasis, string> = {
 	estimated_sg_submajor: 'Est. SG sub-major allocation',
+	estimated_sg_submajor_weighted_2025: 'Est. SG sub-major weighted allocation (2025)',
 	proxy_bls_weighted: 'BLS-weighted proxy'
 };
 
 export const occupationDataBasisTemplate: OccupationDataBasis = {
 	employment_estimate: {
-		basis: 'estimated_sg_submajor',
+		basis: 'estimated_sg_submajor_weighted_2025',
 		tier: 'derived_from_official_sg',
-		source_key: 'mom_lfr2024_table_d8',
+		source_key: 'mom_lfr2025_table_d8',
 		note:
-			'Estimated per-occupation employment derived from published Labour Force 2024 sub-major SSOC totals. Official detailed SSOC occupation counts are not publicly published, so this remains an estimate.'
+			'Estimated per-occupation employment derived from published Labour Force 2025 2-digit occupation-family totals, weighted within each family by BLS proxy employment and Singapore wage information. Official detailed SSOC occupation counts are not publicly published, so this remains an estimate.'
 	},
 	wage_pool_proxy: {
 		basis: 'proxy_bls_weighted',
@@ -138,6 +142,17 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 		notes: 'Published sub-major SSOC employment totals used to form occupation-level estimates.'
 	},
 	{
+		key: 'mom_lfr2025_table_d8',
+		label: 'MOM Labour Force 2025 Table D8',
+		tier: 'official_sg',
+		status: 'live',
+		vintage: '2025',
+		used_for: ['sub-major employment totals', 'estimated occupation employment basis', 'family delta validation'],
+		url: 'https://stats.mom.gov.sg/Pages/Labour-Force-In-Singapore-2025.aspx',
+		notes:
+			'Published 2-digit occupation-family employment totals used to weight and validate the 2025 occupation employment estimator.'
+	},
+	{
 		key: 'mom_employment_by_occupation_group',
 		label: 'MOM Employment by Occupation Group',
 		tier: 'official_sg',
@@ -168,6 +183,24 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 		url: 'https://stats.mom.gov.sg/Pages/Labour-Force-In-Singapore-2024.aspx',
 		notes:
 			'Broad occupation-group worker composition and 2-digit occupation-family gender anchors used as Singapore context, not as score multipliers.'
+	},
+	{
+		key: 'mom_lfr2025_section_d',
+		label: 'MOM Labour Force 2025 Section D',
+		tier: 'official_sg',
+		status: 'live',
+		vintage: '2025',
+		used_for: [
+			'worker profile context',
+			'detailed gender anchors',
+			'family delta context',
+			'industry workforce context',
+			'industry occupation mix context',
+			'experimental demand fragility overlay'
+		],
+		url: 'https://stats.mom.gov.sg/Pages/Labour-Force-In-Singapore-2025.aspx',
+		notes:
+			'Broad occupation-group composition, detailed family totals, cluster cross-tabs, and industry workforce profiles used for context, validation, and experimental overlays rather than direct structural score multipliers.'
 	},
 	{
 		key: 'singstat_planning_area_residence_by_occupation',

@@ -36,6 +36,7 @@ const OCCUPATIONS_FILE = path.join(DATA_DIR, 'occupations.json');
 const OCCUPATIONS_V43_FILE = path.join(DATA_DIR, 'occupations-v43.json');
 const OCCUPATIONS_V5_FILE = path.join(DATA_DIR, 'occupations-v5.json');
 const SRC_OCCUPATIONS_FILE = path.join(SRC_DATA_DIR, 'occupations.json');
+const STATIC_OCCUPATIONS_V5_FILE = path.join(STATIC_DATA_DIR, 'sg-ai-occupations-v5.json');
 
 const V5_MODEL_FILE = path.join(DATA_DIR, 'v5-experimental-model.json');
 const V5_VALIDATION_FILE = path.join(DATA_DIR, 'v5-experimental-validation.json');
@@ -376,18 +377,26 @@ function main() {
 	const occupations = readJson<OccupationRecord[]>(OCCUPATIONS_FILE);
 	const v5Model = readJson<{ entries: V5Entry[] }>(V5_MODEL_FILE);
 	const labourMonitors = readJson<LabourMonitorRow[]>(LABOUR_MONITOR_FILE);
+	const preservedV5 =
+		fs.existsSync(OCCUPATIONS_V5_FILE)
+			? readJson<OccupationRecord[]>(OCCUPATIONS_V5_FILE)
+			: fs.existsSync(STATIC_OCCUPATIONS_V5_FILE)
+				? readJson<OccupationRecord[]>(STATIC_OCCUPATIONS_V5_FILE)
+				: [];
 
 	writeJson(OCCUPATIONS_V43_FILE, occupations);
 	snapshotBacktests();
 
 	const v5BySsoc = new Map(v5Model.entries.map(row => [row.ssoc, row]));
 	const labourMonitorByKey = new Map(labourMonitors.map(row => [row.cluster_key, row]));
+	const preservedV5BySsoc = new Map(preservedV5.map(row => [row.ssoc, row]));
 
 	const promoted = occupations.map(occupation => {
 		const entry = v5BySsoc.get(occupation.ssoc);
 		if (!entry) {
 			throw new Error(`Missing V5 entry for ${occupation.ssoc}`);
 		}
+		const preserved = preservedV5BySsoc.get(occupation.ssoc);
 
 		const uncertainty = deriveV5Uncertainty(entry);
 		const stability = deriveStability(entry.v5_structural_risk, uncertainty);
@@ -415,17 +424,38 @@ function main() {
 			...occupation,
 			structural_model_version: 'V5',
 			scoring_basis: scoringBasis,
-			baseline_v43: {
-				structural_model_version: 'V4.3',
-				exposure: occupation.exposure,
-				net_risk: occupation.net_risk,
-				risk_band: occupation.risk_band,
-				augmentation: occupation.augmentation,
-				augmentation_band: occupation.augmentation_band,
-				impact_type: occupation.impact_type,
-				uncertainty: occupation.uncertainty,
-				scoring_basis: occupation.scoring_basis
-			},
+			baseline_v42:
+				occupation.baseline_v42 ??
+				preserved?.baseline_v42 ??
+				(occupation.structural_model_version === 'V4.2' || preserved == null
+					? {
+							structural_model_version: 'V4.2',
+							exposure: occupation.exposure,
+							net_risk: occupation.net_risk,
+							risk_band: occupation.risk_band,
+							augmentation: occupation.augmentation,
+							augmentation_band: occupation.augmentation_band,
+							impact_type: occupation.impact_type,
+							uncertainty: occupation.uncertainty
+						}
+					: undefined),
+			baseline_v43:
+				occupation.baseline_v43 ??
+				preserved?.baseline_v43 ??
+				(occupation.structural_model_version === 'V4.3'
+					? {
+							structural_model_version: 'V4.3',
+							exposure: occupation.exposure,
+							net_risk: occupation.net_risk,
+							risk_band: occupation.risk_band,
+							augmentation: occupation.augmentation,
+							augmentation_band: occupation.augmentation_band,
+							impact_type: occupation.impact_type,
+							uncertainty: occupation.uncertainty,
+							scoring_basis: occupation.scoring_basis
+						}
+					: undefined),
+			task_primitives: occupation.task_primitives ?? preserved?.task_primitives ?? null,
 			exposure: round(entry.v5_structural_exposure),
 			net_risk: round(entry.v5_structural_risk),
 			risk_band: entry.v5_structural_band,

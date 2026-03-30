@@ -47,6 +47,7 @@ const V5_MOBILITY_FILE = path.join(DATA_DIR, 'v5-empirical-mobility.json');
 const V5_POSTERIOR_FILE = path.join(DATA_DIR, 'v5-posterior-uncertainty.json');
 const V5_REALIZED_FILE = path.join(DATA_DIR, 'v5-realized-risk.json');
 const EMPLOYER_SIGNALS_FILE = path.join(DATA_DIR, 'employer-signals.json');
+const LFR_SECTION_D_SIGNALS_FILE = path.join(DATA_DIR, 'lfr-section-d-signals.json');
 
 const MODEL_FILE = path.join(DATA_DIR, 'v5-experimental-model.json');
 const VALIDATION_FILE = path.join(DATA_DIR, 'v5-experimental-validation.json');
@@ -175,6 +176,17 @@ interface EmployerSignalsData {
 	>;
 }
 
+interface LfrSectionDSignals {
+	family_employment: Record<
+		string,
+		{
+			code: string;
+			label: string;
+			delta_pct: number | null;
+		}
+	>;
+}
+
 interface V5ExperimentalEntry {
 	ssoc: string;
 	title: string;
@@ -236,6 +248,20 @@ interface V5ExperimentalEntry {
 
 function readJson<T>(filePath: string): T {
 	return JSON.parse(fs.readFileSync(filePath, 'utf-8')) as T;
+}
+
+function buildFamilyDeltaPressure(signals: LfrSectionDSignals): Map<string, number> {
+	const rows = Object.values(signals.family_employment)
+		.filter((row) => row.delta_pct !== null)
+		.sort((a, b) => (a.delta_pct ?? 0) - (b.delta_pct ?? 0));
+	const result = new Map<string, number>();
+	if (rows.length === 0) return result;
+	const denominator = rows.length - 1 || 1;
+	rows.forEach((row, index) => {
+		const percentileRank = index / denominator;
+		result.set(row.code, round(1 - percentileRank));
+	});
+	return result;
 }
 
 function writeJson(filePath: string, payload: unknown): void {
@@ -713,6 +739,7 @@ function main() {
 	const liveBlsValidation = readJson<{ spearman_rho: number }>(comparisonBlsFile);
 	const liveFamilyValidation = readJson<{ spearman_rho: number }>(comparisonFamilyFile);
 	const employerSignals = readJson<EmployerSignalsData>(EMPLOYER_SIGNALS_FILE);
+	const lfrSectionDSignals = readJson<LfrSectionDSignals>(LFR_SECTION_D_SIGNALS_FILE);
 	const enrichment = readJson<OnetEnrichmentEntry[]>(ENRICHMENT_FILE);
 	const augmentation = readJson<{ method: string; entries: AugmentationEntry[] }>(
 		V5_AUGMENTATION_FILE
@@ -730,6 +757,7 @@ function main() {
 	const realizedBySsoc = new Map(realized.entries.map(entry => [entry.ssoc, entry]));
 	const onetSocBySsoc = new Map(enrichment.map(entry => [entry.ssoc, entry.onet_soc]));
 	const taskModeSummaryBySsoc = new Map<string, TaskModeSummary>();
+	const familyDeltaPressureByCode = buildFamilyDeltaPressure(lfrSectionDSignals);
 
 	for (const occupation of occupations) {
 		const onetSoc = onetSocBySsoc.get(occupation.ssoc) ?? null;
@@ -827,6 +855,11 @@ function main() {
 				occupation.task_primitives?.matched_task_weight_share ??
 				null
 		);
+		const familyDeltaPressure = familyDeltaPressureByCode.get(occupation.ssoc.slice(0, 2)) ?? null;
+		const blendedDemandFragility =
+			taskModeSummary?.demand_fragility !== null && taskModeSummary?.demand_fragility !== undefined
+				? clamp01(0.8 * taskModeSummary.demand_fragility + 0.2 * (familyDeltaPressure ?? 0.5))
+				: familyDeltaPressure;
 
 		const scores = computeV5ExperimentalScores({
 			live_scoring_basis: occupation.scoring_basis,
@@ -846,7 +879,7 @@ function main() {
 			task_mode_effective_coverage: taskModeSummary?.task_mode_effective_coverage ?? null,
 			task_mode_automation_pressure: taskModeSummary?.task_mode_automation_pressure ?? null,
 			task_mode_augmentation_upside: taskModeSummary?.task_mode_augmentation_upside ?? null,
-			demand_fragility: taskModeSummary?.demand_fragility ?? null,
+			demand_fragility: blendedDemandFragility ?? null,
 			reallocation_capacity: taskModeSummary?.reallocation_capacity ?? null,
 			task_mode_blend_weight: taskModeBlendWeight
 		});

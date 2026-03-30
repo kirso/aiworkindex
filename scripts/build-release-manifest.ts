@@ -15,10 +15,11 @@ import { DATA_VINTAGE } from '../src/lib/data/scoring-constants';
 const ROOT_DIR = path.join(import.meta.dir, '..');
 const STATIC_DATA_DIR = path.join(ROOT_DIR, 'static', 'data');
 const SRC_DATA_DIR = path.join(ROOT_DIR, 'src', 'lib', 'data');
-const OUT_FILE = path.join(STATIC_DATA_DIR, 'release-manifest-v4.json');
+const VERSION_TAG = DATA_VINTAGE.model_version.toLowerCase().replaceAll('.', '');
+const OUT_FILE = path.join(STATIC_DATA_DIR, `release-manifest-${VERSION_TAG}.json`);
 const VERSIONED_OUT_FILE = path.join(
 	STATIC_DATA_DIR,
-	`release-manifest-${DATA_VINTAGE.model_version.toLowerCase().replaceAll('.', '')}.json`
+	`release-manifest-${VERSION_TAG}.json`
 );
 const SRC_OUT_FILE = path.join(SRC_DATA_DIR, 'release-manifest.json');
 
@@ -31,13 +32,15 @@ interface ReleaseArtifactDefinition {
 		| 'task_skill_enrichment'
 		| 'labour_monitor'
 		| 'worker_profile'
+		| 'lfr_context'
 		| 'geography_context'
 		| 'macro_context'
 		| 'national_ai_context'
 		| 'transition_support'
 		| 'offset_potential'
 		| 'transition_infrastructure'
-		| 'governance'
+	| 'governance'
+		| 'provenance'
 		| 'research_memory'
 		| 'shadow_model'
 		| 'v5_sidecar'
@@ -48,13 +51,13 @@ interface ReleaseArtifactDefinition {
 
 const ARTIFACTS: ReleaseArtifactDefinition[] = [
 	{
-		file: 'sg-ai-occupations-v4.csv',
+		file: `sg-ai-occupations-${VERSION_TAG}.csv`,
 		label: `${DATA_VINTAGE.model_version} structural score CSV`,
 		category: 'structural_score',
 		description: 'Flattened structural score dataset with basis and provenance columns.'
 	},
 	{
-		file: 'sg-ai-occupations-v4.json',
+		file: `sg-ai-occupations-${VERSION_TAG}.json`,
 		label: `${DATA_VINTAGE.model_version} structural score JSON`,
 		category: 'structural_score',
 		description: 'Nested structural score dataset with basis and provenance metadata.'
@@ -118,10 +121,17 @@ const ARTIFACTS: ReleaseArtifactDefinition[] = [
 		description: 'Published cluster-level labour monitor used as current evidence around the score.'
 	},
 	{
-		file: 'sg-worker-profile-2024.json',
+		file: 'sg-worker-profile-2025.json',
 		label: 'Singapore worker profile',
 		category: 'worker_profile',
-		description: 'Published Labour Force 2024 worker-profile context and detailed gender anchors.'
+		description: 'Published Labour Force 2025 worker-profile context and detailed gender anchors.'
+	},
+	{
+		file: 'sg-lfr-deltas-2025.json',
+		label: 'Singapore Section D deltas',
+		category: 'lfr_context',
+		description:
+			'Published 2024 to 2025 Labour Force Section D family, cluster, and industry-mix deltas used for validation and contextual reporting.'
 	},
 	{
 		file: 'sg-geography-context-2020.json',
@@ -166,11 +176,18 @@ const ARTIFACTS: ReleaseArtifactDefinition[] = [
 			'Published heuristic support layer estimating how demand persistence, transition support, task reallocation, and switching friction could cushion structural pressure.'
 	},
 	{
-		file: 'claims-matrix-v4.json',
+		file: `claims-matrix-${VERSION_TAG}.json`,
 		label: 'Public claims matrix',
 		category: 'governance',
 		description:
 			'Machine-readable registry of major public claims, evidence strength, and source keys for the current release.'
+	},
+	{
+		file: 'public-field-source-map.json',
+		label: 'Public field source map',
+		category: 'provenance',
+		description:
+			'Machine-readable field-level provenance map for the main public datasets, including source keys, vintages, and transformation notes.'
 	},
 	{
 		file: 'experimental-methodology-v43.json',

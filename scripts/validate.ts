@@ -278,6 +278,10 @@ interface Occupation {
 	match_quality: 'direct' | 'submajor_fallback' | 'major_fallback';
 	estimated_sg_employment_thousands?: number;
 	employment_thousands: number;
+	employment_family_code?: string | null;
+	employment_family_total_thousands?: number | null;
+	employment_weight_within_family?: number | null;
+	employment_estimate_method?: 'bls_wage_blend' | 'bls_only' | 'wage_only' | 'equal_fallback' | null;
 	education_label?: string;
 	sg_context?: {
 		pwm_covered: boolean;
@@ -457,6 +461,10 @@ async function main() {
 				typeof row.estimated_sg_employment_thousands === 'number' &&
 				typeof row.employment_thousands === 'number' &&
 				row.estimated_sg_employment_thousands === row.employment_thousands &&
+				typeof row.employment_family_code === 'string' &&
+				typeof row.employment_family_total_thousands === 'number' &&
+				typeof row.employment_weight_within_family === 'number' &&
+				typeof row.employment_estimate_method === 'string' &&
 				typeof row.education_label === 'string' &&
 				typeof row.sg_context?.pwm_covered === 'boolean' &&
 				'skillsfuture_eligible' in (row.sg_context ?? {}) &&

@@ -15,6 +15,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
+import { DATA_VINTAGE } from '../src/lib/data/scoring-constants';
+
 const DATA_DIR = path.join(import.meta.dir, '..', 'data');
 const SNAPSHOTS_DIR = path.join(DATA_DIR, 'snapshots');
 const CURRENT_FILE = path.join(DATA_DIR, 'occupations.json');
@@ -138,6 +140,10 @@ interface LabourMonitorCluster {
 	};
 }
 
+function versionTag(version: string): string {
+	return version.toLowerCase().replaceAll('.', '');
+}
+
 function main() {
 	console.log('=== Quarterly Report Builder ===\n');
 
@@ -162,7 +168,7 @@ function main() {
 	// Save current as snapshot
 	const now = new Date();
 	const quarter = `Q${Math.ceil((now.getMonth() + 1) / 3)}`;
-	const snapshotName = `occupations-v4-${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}.json`;
+	const snapshotName = `occupations-${versionTag(DATA_VINTAGE.model_version)}-${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}.json`;
 	const snapshotPath = path.join(SNAPSHOTS_DIR, snapshotName);
 
 	if (!fs.existsSync(snapshotPath)) {

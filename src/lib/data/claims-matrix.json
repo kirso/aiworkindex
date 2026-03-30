@@ -1,6 +1,6 @@
 {
   "version": "V5",
-  "generated_at": "2026-03-21T16:09:26.108Z",
+  "generated_at": "2026-03-30T03:09:37.586Z",
   "strength_labels": {
     "high": "Directly supported by the current pipeline or official published data at the level shown.",
     "medium": "Supported, but with more methodological interpretation or partial coverage.",
@@ -19,7 +19,7 @@
       ],
       "research_keys": [],
       "evidence_artifacts": [
-        "sg-ai-occupations-v4.json"
+        "sg-ai-occupations-v5.json"
       ],
       "where_used": [
         "/",
@@ -47,7 +47,7 @@
       ],
       "evidence_artifacts": [
         "scripts/score.ts",
-        "sg-ai-occupations-v4.json"
+        "sg-ai-occupations-v5.json"
       ],
       "where_used": [
         "/about",
@@ -75,7 +75,7 @@
       ],
       "evidence_artifacts": [
         "scripts/score.ts",
-        "sg-ai-occupations-v4.json"
+        "sg-ai-occupations-v5.json"
       ],
       "where_used": [
         "/about",
@@ -172,8 +172,8 @@
       ],
       "research_keys": [],
       "evidence_artifacts": [
-        "sg-ai-occupations-v4.json",
-        "sg-ai-occupations-v4.csv"
+        "sg-ai-occupations-v5.json",
+        "sg-ai-occupations-v5.csv"
       ],
       "where_used": [
         "/data",
@@ -194,7 +194,7 @@
         "bls_occupational_projections_2024_2034"
       ],
       "evidence_artifacts": [
-        "sg-ai-occupations-v4.json"
+        "sg-ai-occupations-v5.json"
       ],
       "where_used": [
         "/",

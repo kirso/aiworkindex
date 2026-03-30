@@ -233,7 +233,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6261
-    }
+    },
+    "employment_family_code": "12",
+    "employment_family_total_thousands": 188.7,
+    "employment_weight_within_family": 0.039497,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "12221",
@@ -467,7 +471,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5563
-    }
+    },
+    "employment_family_code": "12",
+    "employment_family_total_thousands": 188.7,
+    "employment_weight_within_family": 0.045598,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "13430",
@@ -703,7 +711,11 @@
       "wage_preservation": 1,
       "training_ease": 0.8,
       "empirical_priority": 0.6772
-    }
+    },
+    "employment_family_code": "13",
+    "employment_family_total_thousands": 121.7,
+    "employment_weight_within_family": 0.039806,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "14330",
@@ -936,7 +948,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5823
-    }
+    },
+    "employment_family_code": "14",
+    "employment_family_total_thousands": 42.7,
+    "employment_weight_within_family": 0.075538,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "14322",
@@ -1164,7 +1180,11 @@
       "wage_preservation": 0.9096,
       "training_ease": 0,
       "empirical_priority": 0.5335
-    }
+    },
+    "employment_family_code": "14",
+    "employment_family_total_thousands": 42.7,
+    "employment_weight_within_family": 0.088142,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "12113",
@@ -1400,7 +1420,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6338
-    }
+    },
+    "employment_family_code": "12",
+    "employment_family_total_thousands": 188.7,
+    "employment_weight_within_family": 0.049518,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "12111",
@@ -1636,7 +1660,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5476
-    }
+    },
+    "employment_family_code": "12",
+    "employment_family_total_thousands": 188.7,
+    "employment_weight_within_family": 0.047407,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "12212",
@@ -1870,7 +1898,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5766
-    }
+    },
+    "employment_family_code": "12",
+    "employment_family_total_thousands": 188.7,
+    "employment_weight_within_family": 0.046011,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "12242",
@@ -2103,7 +2135,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6518
-    }
+    },
+    "employment_family_code": "12",
+    "employment_family_total_thousands": 188.7,
+    "employment_weight_within_family": 0.038176,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "14122",
@@ -2339,7 +2375,11 @@
       "wage_preservation": 1,
       "training_ease": 0.6,
       "empirical_priority": 0.6392
-    }
+    },
+    "employment_family_code": "14",
+    "employment_family_total_thousands": 42.7,
+    "employment_weight_within_family": 0.076749,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "13301",
@@ -2575,7 +2615,11 @@
       "wage_preservation": 0.7064,
       "training_ease": 0,
       "empirical_priority": 0.5114
-    }
+    },
+    "employment_family_code": "13",
+    "employment_family_total_thousands": 121.7,
+    "employment_weight_within_family": 0.05582,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "11203",
@@ -2809,7 +2853,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5762
-    }
+    },
+    "employment_family_code": "11",
+    "employment_family_total_thousands": 52.6,
+    "employment_weight_within_family": 0.340298,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "13492",
@@ -3043,7 +3091,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.592
-    }
+    },
+    "employment_family_code": "13",
+    "employment_family_total_thousands": 121.7,
+    "employment_weight_within_family": 0.035726,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "11202",
@@ -3277,7 +3329,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5775
-    }
+    },
+    "employment_family_code": "11",
+    "employment_family_total_thousands": 52.6,
+    "employment_weight_within_family": 0.316083,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "13230",
@@ -3513,7 +3569,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5336
-    }
+    },
+    "employment_family_code": "13",
+    "employment_family_total_thousands": 121.7,
+    "employment_weight_within_family": 0.039396,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "12241",
@@ -3744,7 +3804,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.635
-    }
+    },
+    "employment_family_code": "12",
+    "employment_family_total_thousands": 188.7,
+    "employment_weight_within_family": 0.04548,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "14391",
@@ -3972,7 +4036,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5458
-    }
+    },
+    "employment_family_code": "14",
+    "employment_family_total_thousands": 42.7,
+    "employment_weight_within_family": 0.086454,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "13463",
@@ -4200,7 +4268,11 @@
       "wage_preservation": 0.9533,
       "training_ease": 0.3,
       "empirical_priority": 0.5371
-    }
+    },
+    "employment_family_code": "13",
+    "employment_family_total_thousands": 121.7,
+    "employment_weight_within_family": 0.051374,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "13461",
@@ -4428,7 +4500,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5662
-    }
+    },
+    "employment_family_code": "13",
+    "employment_family_total_thousands": 121.7,
+    "employment_weight_within_family": 0.042271,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "14123",
@@ -4664,7 +4740,11 @@
       "wage_preservation": 0.9402,
       "training_ease": 0.6,
       "empirical_priority": 0.6199
-    }
+    },
+    "employment_family_code": "14",
+    "employment_family_total_thousands": 42.7,
+    "employment_weight_within_family": 0.081419,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "13420",
@@ -4900,7 +4980,11 @@
       "wage_preservation": 1,
       "training_ease": 0.6,
       "empirical_priority": 0.6301
-    }
+    },
+    "employment_family_code": "13",
+    "employment_family_total_thousands": 121.7,
+    "employment_weight_within_family": 0.044825,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "14110",
@@ -5136,7 +5220,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.4955
-    }
+    },
+    "employment_family_code": "14",
+    "employment_family_total_thousands": 42.7,
+    "employment_weight_within_family": 0.078948,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "13304",
@@ -5372,7 +5460,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5938
-    }
+    },
+    "employment_family_code": "13",
+    "employment_family_total_thousands": 121.7,
+    "employment_weight_within_family": 0.044053,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "12122",
@@ -5608,7 +5700,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5841
-    }
+    },
+    "employment_family_code": "12",
+    "employment_family_total_thousands": 188.7,
+    "employment_weight_within_family": 0.047337,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "13462",
@@ -5836,7 +5932,11 @@
       "wage_preservation": 0.9401,
       "training_ease": 0.6,
       "empirical_priority": 0.6339
-    }
+    },
+    "employment_family_code": "13",
+    "employment_family_total_thousands": 121.7,
+    "employment_weight_within_family": 0.046231,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "12192",
@@ -6070,7 +6170,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5753
-    }
+    },
+    "employment_family_code": "12",
+    "employment_family_total_thousands": 188.7,
+    "employment_weight_within_family": 0.032405,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "11201",
@@ -6304,7 +6408,11 @@
       "wage_preservation": 0.9808,
       "training_ease": 0,
       "empirical_priority": 0.5618
-    }
+    },
+    "employment_family_code": "11",
+    "employment_family_total_thousands": 52.6,
+    "employment_weight_within_family": 0.343619,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "13210",
@@ -6538,7 +6646,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5329
-    }
+    },
+    "employment_family_code": "13",
+    "employment_family_total_thousands": 121.7,
+    "employment_weight_within_family": 0.041837,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "12222",
@@ -6772,7 +6884,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5362
-    }
+    },
+    "employment_family_code": "12",
+    "employment_family_total_thousands": 188.7,
+    "employment_weight_within_family": 0.046465,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "13493",
@@ -7006,7 +7122,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5927
-    }
+    },
+    "employment_family_code": "13",
+    "employment_family_total_thousands": 121.7,
+    "employment_weight_within_family": 0.035033,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "12214",
@@ -7240,7 +7360,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5606
-    }
+    },
+    "employment_family_code": "12",
+    "employment_family_total_thousands": 188.7,
+    "employment_weight_within_family": 0.046215,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "13303",
@@ -7476,7 +7600,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5923
-    }
+    },
+    "employment_family_code": "13",
+    "employment_family_total_thousands": 121.7,
+    "employment_weight_within_family": 0.046854,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "12215",
@@ -7710,7 +7838,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5736
-    }
+    },
+    "employment_family_code": "12",
+    "employment_family_total_thousands": 188.7,
+    "employment_weight_within_family": 0.04312,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "12121",
@@ -7946,7 +8078,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.4975
-    }
+    },
+    "employment_family_code": "12",
+    "employment_family_total_thousands": 188.7,
+    "employment_weight_within_family": 0.044741,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "12131",
@@ -8180,7 +8316,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5857
-    }
+    },
+    "employment_family_code": "12",
+    "employment_family_total_thousands": 188.7,
+    "employment_weight_within_family": 0.054253,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "13245",
@@ -8414,7 +8554,11 @@
       "wage_preservation": 0.9623,
       "training_ease": 0,
       "empirical_priority": 0.5545
-    }
+    },
+    "employment_family_code": "13",
+    "employment_family_total_thousands": 121.7,
+    "employment_weight_within_family": 0.042138,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "13244",
@@ -8648,7 +8792,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5641
-    }
+    },
+    "employment_family_code": "13",
+    "employment_family_total_thousands": 121.7,
+    "employment_weight_within_family": 0.040191,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "12191",
@@ -8882,7 +9030,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5702
-    }
+    },
+    "employment_family_code": "12",
+    "employment_family_total_thousands": 188.7,
+    "employment_weight_within_family": 0.03997,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "13410",
@@ -9118,7 +9270,11 @@
       "wage_preservation": 1,
       "training_ease": 0.8,
       "empirical_priority": 0.6853
-    }
+    },
+    "employment_family_code": "13",
+    "employment_family_total_thousands": 121.7,
+    "employment_weight_within_family": 0.035237,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "13242",
@@ -9352,7 +9508,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5586
-    }
+    },
+    "employment_family_code": "13",
+    "employment_family_total_thousands": 121.7,
+    "employment_weight_within_family": 0.041336,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "13100",
@@ -9580,7 +9740,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5011
-    }
+    },
+    "employment_family_code": "13",
+    "employment_family_total_thousands": 121.7,
+    "employment_weight_within_family": 0.037619,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "13292",
@@ -9811,7 +9975,11 @@
       "wage_preservation": 0.9543,
       "training_ease": 0,
       "empirical_priority": 0.5458
-    }
+    },
+    "employment_family_code": "13",
+    "employment_family_total_thousands": 121.7,
+    "employment_weight_within_family": 0.043108,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "12213",
@@ -10045,7 +10213,11 @@
       "wage_preservation": 0.9905,
       "training_ease": 0,
       "empirical_priority": 0.5174
-    }
+    },
+    "employment_family_code": "12",
+    "employment_family_total_thousands": 188.7,
+    "employment_weight_within_family": 0.051829,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "12230",
@@ -10278,7 +10450,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5293
-    }
+    },
+    "employment_family_code": "12",
+    "employment_family_total_thousands": 188.7,
+    "employment_weight_within_family": 0.051583,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "14121",
@@ -10514,7 +10690,11 @@
       "wage_preservation": 1,
       "training_ease": 0.6,
       "empirical_priority": 0.642
-    }
+    },
+    "employment_family_code": "14",
+    "employment_family_total_thousands": 42.7,
+    "employment_weight_within_family": 0.070826,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "14201",
@@ -10751,7 +10931,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5605
-    }
+    },
+    "employment_family_code": "14",
+    "employment_family_total_thousands": 42.7,
+    "employment_weight_within_family": 0.075122,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "12133",
@@ -10985,7 +11169,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5847
-    }
+    },
+    "employment_family_code": "12",
+    "employment_family_total_thousands": 188.7,
+    "employment_weight_within_family": 0.054012,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "12211",
@@ -11219,7 +11407,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5747
-    }
+    },
+    "employment_family_code": "12",
+    "employment_family_total_thousands": 188.7,
+    "employment_weight_within_family": 0.04149,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "13451",
@@ -11455,7 +11647,11 @@
       "wage_preservation": 1,
       "training_ease": 0.6,
       "empirical_priority": 0.6362
-    }
+    },
+    "employment_family_code": "13",
+    "employment_family_total_thousands": 121.7,
+    "employment_weight_within_family": 0.037719,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "12194",
@@ -11689,7 +11885,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.563
-    }
+    },
+    "employment_family_code": "12",
+    "employment_family_total_thousands": 188.7,
+    "employment_weight_within_family": 0.040537,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "13441",
@@ -11917,7 +12117,11 @@
       "wage_preservation": 1,
       "training_ease": 0.6,
       "empirical_priority": 0.6366
-    }
+    },
+    "employment_family_code": "13",
+    "employment_family_total_thousands": 121.7,
+    "employment_weight_within_family": 0.033947,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "13302",
@@ -12153,7 +12357,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5862
-    }
+    },
+    "employment_family_code": "13",
+    "employment_family_total_thousands": 121.7,
+    "employment_weight_within_family": 0.046917,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "14310",
@@ -12387,7 +12595,11 @@
       "wage_preservation": 0.9295,
       "training_ease": 0.3,
       "empirical_priority": 0.5556
-    }
+    },
+    "employment_family_code": "14",
+    "employment_family_total_thousands": 42.7,
+    "employment_weight_within_family": 0.07835,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "12132",
@@ -12621,7 +12833,11 @@
       "wage_preservation": 0.9235,
       "training_ease": 0,
       "empirical_priority": 0.5645
-    }
+    },
+    "employment_family_code": "12",
+    "employment_family_total_thousands": 188.7,
+    "employment_weight_within_family": 0.056205,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "13241",
@@ -12855,7 +13071,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5725
-    }
+    },
+    "employment_family_code": "13",
+    "employment_family_total_thousands": 121.7,
+    "employment_weight_within_family": 0.036851,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "13291",
@@ -13086,7 +13306,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5605
-    }
+    },
+    "employment_family_code": "13",
+    "employment_family_total_thousands": 121.7,
+    "employment_weight_within_family": 0.042112,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "12123",
@@ -13322,7 +13546,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5901
-    }
+    },
+    "employment_family_code": "12",
+    "employment_family_total_thousands": 188.7,
+    "employment_weight_within_family": 0.03815,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "13243",
@@ -13556,7 +13784,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5717
-    }
+    },
+    "employment_family_code": "13",
+    "employment_family_total_thousands": 121.7,
+    "employment_weight_within_family": 0.0396,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "14392",
@@ -13784,7 +14016,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5509
-    }
+    },
+    "employment_family_code": "14",
+    "employment_family_total_thousands": 42.7,
+    "employment_weight_within_family": 0.098712,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "14324",
@@ -14012,7 +14248,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.551
-    }
+    },
+    "employment_family_code": "14",
+    "employment_family_total_thousands": 42.7,
+    "employment_weight_within_family": 0.084064,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "14202",
@@ -14249,7 +14489,11 @@
       "wage_preservation": 0.8725,
       "training_ease": 0.3,
       "empirical_priority": 0.5082
-    }
+    },
+    "employment_family_code": "14",
+    "employment_family_total_thousands": 42.7,
+    "employment_weight_within_family": 0.105677,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24111",
@@ -14485,7 +14729,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6232
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.019361,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21213",
@@ -14718,7 +14966,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6829
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.01715,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21471",
@@ -14949,7 +15201,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5894
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.015325,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21443",
@@ -15185,7 +15441,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.581
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.015893,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "22141",
@@ -15416,7 +15676,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.591
-    }
+    },
+    "employment_family_code": "22",
+    "employment_family_total_thousands": 61.6,
+    "employment_weight_within_family": 0.033249,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "25140",
@@ -15647,7 +15911,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6468
-    }
+    },
+    "employment_family_code": "25",
+    "employment_family_total_thousands": 82.3,
+    "employment_weight_within_family": 0.050013,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "26543",
@@ -15881,7 +16149,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5942
-    }
+    },
+    "employment_family_code": "26",
+    "employment_family_total_thousands": 43.4,
+    "employment_weight_within_family": 0.039011,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21524",
@@ -16115,7 +16387,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6035
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.013707,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "22661",
@@ -16351,7 +16627,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5792
-    }
+    },
+    "employment_family_code": "22",
+    "employment_family_total_thousands": 61.6,
+    "employment_weight_within_family": 0.028362,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24112",
@@ -16588,7 +16868,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6203
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.019497,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "26411",
@@ -16825,7 +17109,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6317
-    }
+    },
+    "employment_family_code": "26",
+    "employment_family_total_thousands": 43.4,
+    "employment_weight_within_family": 0.033269,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21413",
@@ -17061,7 +17349,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5783
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.018264,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21343",
@@ -17294,7 +17586,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6149
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.015599,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21311",
@@ -17530,7 +17826,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6514
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.018012,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21491",
@@ -17764,7 +18064,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6116
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.01441,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21610",
@@ -18000,7 +18304,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5715
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.01625,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21422",
@@ -18236,7 +18544,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5989
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.013655,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24213",
@@ -18472,7 +18784,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6192
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.022903,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24212",
@@ -18708,7 +19024,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6137
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.024302,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24122",
@@ -18944,7 +19264,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5827
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.025728,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "22132",
@@ -19177,7 +19501,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5895
-    }
+    },
+    "employment_family_code": "22",
+    "employment_family_total_thousands": 61.6,
+    "employment_weight_within_family": 0.032197,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "26375",
@@ -19410,7 +19738,11 @@
       "wage_preservation": 0.9853,
       "training_ease": 0,
       "empirical_priority": 0.5743
-    }
+    },
+    "employment_family_code": "26",
+    "employment_family_total_thousands": 43.4,
+    "employment_weight_within_family": 0.034952,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21130",
@@ -19644,7 +19976,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6378
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.015714,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21711",
@@ -19875,7 +20211,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6192
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.017998,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21421",
@@ -20111,7 +20451,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5964
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.01589,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "26341",
@@ -20347,7 +20691,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6302
-    }
+    },
+    "employment_family_code": "26",
+    "employment_family_total_thousands": 43.4,
+    "employment_weight_within_family": 0.038993,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21347",
@@ -20580,7 +20928,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5599
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.018687,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "25231",
@@ -20812,7 +21164,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.613
-    }
+    },
+    "employment_family_code": "25",
+    "employment_family_total_thousands": 82.3,
+    "employment_weight_within_family": 0.060726,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21721",
@@ -21043,7 +21399,11 @@
       "wage_preservation": 0.8953,
       "training_ease": 0,
       "empirical_priority": 0.5338
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.023218,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24154",
@@ -21277,7 +21637,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6096
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.028604,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24351",
@@ -21510,7 +21874,11 @@
       "wage_preservation": 0.931,
       "training_ease": 0,
       "empirical_priority": 0.6073
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.033029,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24132",
@@ -21747,7 +22115,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6221
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.022455,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21522",
@@ -21983,7 +22355,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6099
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.015344,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "26413",
@@ -22220,7 +22596,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6348
-    }
+    },
+    "employment_family_code": "26",
+    "employment_family_total_thousands": 43.4,
+    "employment_weight_within_family": 0.038114,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "26373",
@@ -22453,7 +22833,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5856
-    }
+    },
+    "employment_family_code": "26",
+    "employment_family_total_thousands": 43.4,
+    "employment_weight_within_family": 0.034693,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24311",
@@ -22689,7 +23073,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5846
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.021985,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "26212",
@@ -22925,7 +23313,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6182
-    }
+    },
+    "employment_family_code": "26",
+    "employment_family_total_thousands": 43.4,
+    "employment_weight_within_family": 0.039346,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "25241",
@@ -23153,7 +23545,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.633
-    }
+    },
+    "employment_family_code": "25",
+    "employment_family_total_thousands": 82.3,
+    "employment_weight_within_family": 0.062253,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "25245",
@@ -23381,7 +23777,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5464
-    }
+    },
+    "employment_family_code": "25",
+    "employment_family_total_thousands": 82.3,
+    "employment_weight_within_family": 0.054878,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "25291",
@@ -23611,7 +24011,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6122
-    }
+    },
+    "employment_family_code": "25",
+    "employment_family_total_thousands": 82.3,
+    "employment_weight_within_family": 0.043259,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21222",
@@ -23845,7 +24249,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6979
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.018746,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "25211",
@@ -24075,7 +24483,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6191
-    }
+    },
+    "employment_family_code": "25",
+    "employment_family_total_thousands": 82.3,
+    "employment_weight_within_family": 0.050841,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "25212",
@@ -24305,7 +24717,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6065
-    }
+    },
+    "employment_family_code": "25",
+    "employment_family_total_thousands": 82.3,
+    "employment_weight_within_family": 0.065512,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "22122",
@@ -24539,7 +24955,11 @@
       "wage_preservation": 0.9687,
       "training_ease": 0,
       "empirical_priority": 0.5411
-    }
+    },
+    "employment_family_code": "22",
+    "employment_family_total_thousands": 61.6,
+    "employment_weight_within_family": 0.038576,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "22142",
@@ -24770,7 +25190,11 @@
       "wage_preservation": 0.9698,
       "training_ease": 0,
       "empirical_priority": 0.5841
-    }
+    },
+    "employment_family_code": "22",
+    "employment_family_total_thousands": 61.6,
+    "employment_weight_within_family": 0.033993,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "22651",
@@ -25006,7 +25430,11 @@
       "wage_preservation": 0.9949,
       "training_ease": 0,
       "empirical_priority": 0.5844
-    }
+    },
+    "employment_family_code": "22",
+    "employment_family_total_thousands": 61.6,
+    "employment_weight_within_family": 0.027846,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24314",
@@ -25242,7 +25670,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6003
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.01901,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "26542",
@@ -25476,7 +25908,11 @@
       "wage_preservation": 0.9002,
       "training_ease": 0,
       "empirical_priority": 0.5257
-    }
+    },
+    "employment_family_code": "26",
+    "employment_family_total_thousands": 43.4,
+    "employment_weight_within_family": 0.057618,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "23622",
@@ -25709,7 +26145,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.605
-    }
+    },
+    "employment_family_code": "23",
+    "employment_family_total_thousands": 66.7,
+    "employment_weight_within_family": 0.201147,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "26310",
@@ -25945,7 +26385,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6499
-    }
+    },
+    "employment_family_code": "26",
+    "employment_family_total_thousands": 43.4,
+    "employment_weight_within_family": 0.041016,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "26422",
@@ -26176,7 +26620,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5585
-    }
+    },
+    "employment_family_code": "26",
+    "employment_family_total_thousands": 43.4,
+    "employment_weight_within_family": 0.054666,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "26544",
@@ -26410,7 +26858,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5952
-    }
+    },
+    "employment_family_code": "26",
+    "employment_family_total_thousands": 43.4,
+    "employment_weight_within_family": 0.043723,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21511",
@@ -26646,7 +27098,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6055
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.015266,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21521",
@@ -26880,7 +27336,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5983
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.017474,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21526",
@@ -27116,7 +27576,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6052
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.017721,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "22143",
@@ -27347,7 +27811,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5914
-    }
+    },
+    "employment_family_code": "22",
+    "employment_family_total_thousands": 61.6,
+    "employment_weight_within_family": 0.032908,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21496",
@@ -27581,7 +28049,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5674
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.021969,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "25113",
@@ -27811,7 +28283,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6145
-    }
+    },
+    "employment_family_code": "25",
+    "employment_family_total_thousands": 82.3,
+    "employment_weight_within_family": 0.068341,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21430",
@@ -28047,7 +28523,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6289
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.014893,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21331",
@@ -28283,7 +28763,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.629
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.016735,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "22632",
@@ -28519,7 +29003,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5489
-    }
+    },
+    "employment_family_code": "22",
+    "employment_family_total_thousands": 61.6,
+    "employment_weight_within_family": 0.037967,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24232",
@@ -28755,7 +29243,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6454
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.019729,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21631",
@@ -28991,7 +29483,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5838
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.01166,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24131",
@@ -29228,7 +29724,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.623
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.022613,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24135",
@@ -29465,7 +29965,11 @@
       "wage_preservation": 0.9788,
       "training_ease": 0,
       "empirical_priority": 0.6093
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.028984,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24121",
@@ -29701,7 +30205,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5881
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.023355,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21723",
@@ -29932,7 +30440,11 @@
       "wage_preservation": 0.6495,
       "training_ease": 0.3,
       "empirical_priority": 0.4843
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.027872,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21454",
@@ -30168,7 +30680,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5832
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.012865,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24152",
@@ -30402,7 +30918,11 @@
       "wage_preservation": 0.6877,
       "training_ease": 0,
       "empirical_priority": 0.5212
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.036696,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24142",
@@ -30635,7 +31155,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5802
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.030432,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24133",
@@ -30872,7 +31396,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6186
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.028675,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "22611",
@@ -31106,7 +31634,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5696
-    }
+    },
+    "employment_family_code": "22",
+    "employment_family_total_thousands": 61.6,
+    "employment_weight_within_family": 0.029161,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "22110",
@@ -31342,7 +31874,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5648
-    }
+    },
+    "employment_family_code": "22",
+    "employment_family_total_thousands": 61.6,
+    "employment_weight_within_family": 0.032301,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "22131",
@@ -31575,7 +32111,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5895
-    }
+    },
+    "employment_family_code": "22",
+    "employment_family_total_thousands": 61.6,
+    "employment_weight_within_family": 0.030316,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21661",
@@ -31811,7 +32351,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6039
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.012093,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24231",
@@ -32045,7 +32589,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5221
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.024495,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21652",
@@ -32281,7 +32829,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6121
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.01455,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "25152",
@@ -32508,7 +33060,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5649
-    }
+    },
+    "employment_family_code": "25",
+    "employment_family_total_thousands": 82.3,
+    "employment_weight_within_family": 0.068829,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "25112",
@@ -32738,7 +33294,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5922
-    }
+    },
+    "employment_family_code": "25",
+    "employment_family_total_thousands": 82.3,
+    "employment_weight_within_family": 0.057192,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "25151",
@@ -32965,7 +33525,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6427
-    }
+    },
+    "employment_family_code": "25",
+    "employment_family_total_thousands": 82.3,
+    "employment_weight_within_family": 0.054314,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24333",
@@ -33202,7 +33766,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6012
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.023979,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "26343",
@@ -33438,7 +34006,11 @@
       "wage_preservation": 0.9897,
       "training_ease": 0.3,
       "empirical_priority": 0.632
-    }
+    },
+    "employment_family_code": "26",
+    "employment_family_total_thousands": 43.4,
+    "employment_weight_within_family": 0.043076,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21442",
@@ -33674,7 +34246,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5832
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.015266,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24234",
@@ -33908,7 +34484,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6343
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.018995,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21493",
@@ -34142,7 +34722,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6077
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.016014,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "26112",
@@ -34378,7 +34962,11 @@
       "wage_preservation": 0.6856,
       "training_ease": 0.3,
       "empirical_priority": 0.4851
-    }
+    },
+    "employment_family_code": "26",
+    "employment_family_total_thousands": 43.4,
+    "employment_weight_within_family": 0.070518,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21525",
@@ -34612,7 +35200,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6019
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.016425,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24160",
@@ -34846,7 +35438,11 @@
       "wage_preservation": 0.9494,
       "training_ease": 0.3,
       "empirical_priority": 0.6334
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.021833,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24251",
@@ -35079,7 +35675,11 @@
       "wage_preservation": 1,
       "training_ease": 0.6,
       "empirical_priority": 0.7547
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.017446,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21664",
@@ -35315,7 +35915,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5715
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.017499,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "22124",
@@ -35549,7 +36153,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5943
-    }
+    },
+    "employment_family_code": "22",
+    "employment_family_total_thousands": 61.6,
+    "employment_weight_within_family": 0.032444,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "25232",
@@ -35780,7 +36388,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6229
-    }
+    },
+    "employment_family_code": "25",
+    "employment_family_total_thousands": 82.3,
+    "employment_weight_within_family": 0.05507,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "26421",
@@ -36011,7 +36623,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6277
-    }
+    },
+    "employment_family_code": "26",
+    "employment_family_total_thousands": 43.4,
+    "employment_weight_within_family": 0.040745,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21651",
@@ -36247,7 +36863,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6123
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.013936,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21621",
@@ -36483,7 +37103,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5715
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.01545,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "26221",
@@ -36719,7 +37343,11 @@
       "wage_preservation": 0.9967,
       "training_ease": 0.3,
       "empirical_priority": 0.6305
-    }
+    },
+    "employment_family_code": "26",
+    "employment_family_total_thousands": 43.4,
+    "employment_weight_within_family": 0.042925,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21513",
@@ -36955,7 +37583,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6062
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.013714,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24211",
@@ -37191,7 +37823,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6137
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.027135,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21411",
@@ -37427,7 +38063,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6051
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.013351,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21473",
@@ -37658,7 +38298,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5873
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.013371,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21714",
@@ -37889,7 +38533,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.574
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.019311,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21712",
@@ -38120,7 +38768,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6192
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.017225,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24312",
@@ -38356,7 +39008,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5936
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.021847,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24313",
@@ -38592,7 +39248,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5773
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.023442,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21492",
@@ -38826,7 +39486,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6077
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.018323,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21441",
@@ -39062,7 +39726,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.585
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.015525,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21531",
@@ -39298,7 +39966,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6442
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.015329,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24332",
@@ -39535,7 +40207,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.602
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.022247,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "22693",
@@ -39765,7 +40441,11 @@
       "wage_preservation": 0.9848,
       "training_ease": 0,
       "empirical_priority": 0.5857
-    }
+    },
+    "employment_family_code": "22",
+    "employment_family_total_thousands": 61.6,
+    "employment_weight_within_family": 0.030683,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21342",
@@ -39998,7 +40678,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6122
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.01524,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21346",
@@ -40231,7 +40915,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6122
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.015052,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "26353",
@@ -40464,7 +41152,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6225
-    }
+    },
+    "employment_family_code": "26",
+    "employment_family_total_thousands": 43.4,
+    "employment_weight_within_family": 0.036878,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "26361",
@@ -40700,7 +41392,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6197
-    }
+    },
+    "employment_family_code": "26",
+    "employment_family_total_thousands": 43.4,
+    "employment_weight_within_family": 0.042854,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21662",
@@ -40936,7 +41632,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.597
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.014374,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "25123",
@@ -41166,7 +41866,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.646
-    }
+    },
+    "employment_family_code": "25",
+    "employment_family_total_thousands": 82.3,
+    "employment_weight_within_family": 0.049358,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21663",
@@ -41402,7 +42106,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6151
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.013936,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "25220",
@@ -41634,7 +42342,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6477
-    }
+    },
+    "employment_family_code": "25",
+    "employment_family_total_thousands": 82.3,
+    "employment_weight_within_family": 0.042821,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "22652",
@@ -41870,7 +42582,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5813
-    }
+    },
+    "employment_family_code": "22",
+    "employment_family_total_thousands": 61.6,
+    "employment_weight_within_family": 0.027775,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "22144",
@@ -42101,7 +42817,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5915
-    }
+    },
+    "employment_family_code": "22",
+    "employment_family_total_thousands": 61.6,
+    "employment_weight_within_family": 0.031344,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "22631",
@@ -42337,7 +43057,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5975
-    }
+    },
+    "employment_family_code": "22",
+    "employment_family_total_thousands": 61.6,
+    "employment_weight_within_family": 0.028697,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "22680",
@@ -42568,7 +43292,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5696
-    }
+    },
+    "employment_family_code": "22",
+    "employment_family_total_thousands": 61.6,
+    "employment_weight_within_family": 0.028504,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24352",
@@ -42799,7 +43527,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6073
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.031869,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21212",
@@ -43032,7 +43764,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.687
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.015708,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "22145",
@@ -43263,7 +43999,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5878
-    }
+    },
+    "employment_family_code": "22",
+    "employment_family_total_thousands": 61.6,
+    "employment_weight_within_family": 0.033476,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "22670",
@@ -43497,7 +44237,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5696
-    }
+    },
+    "employment_family_code": "22",
+    "employment_family_total_thousands": 61.6,
+    "employment_weight_within_family": 0.02938,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "22135",
@@ -43730,7 +44474,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5896
-    }
+    },
+    "employment_family_code": "22",
+    "employment_family_total_thousands": 61.6,
+    "employment_weight_within_family": 0.031003,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "22148",
@@ -43961,7 +44709,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5913
-    }
+    },
+    "employment_family_code": "22",
+    "employment_family_total_thousands": 61.6,
+    "employment_weight_within_family": 0.03303,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "22126",
@@ -44195,7 +44947,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5942
-    }
+    },
+    "employment_family_code": "22",
+    "employment_family_total_thousands": 61.6,
+    "employment_weight_within_family": 0.030878,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24233",
@@ -44429,7 +45185,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6039
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.016514,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "22621",
@@ -44663,7 +45423,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5696
-    }
+    },
+    "employment_family_code": "22",
+    "employment_family_total_thousands": 61.6,
+    "employment_weight_within_family": 0.030004,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21341",
@@ -44896,7 +45660,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6131
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.01614,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "22640",
@@ -45130,7 +45898,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5696
-    }
+    },
+    "employment_family_code": "22",
+    "employment_family_total_thousands": 61.6,
+    "employment_weight_within_family": 0.028158,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "22692",
@@ -45360,7 +46132,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.599
-    }
+    },
+    "employment_family_code": "22",
+    "employment_family_total_thousands": 61.6,
+    "employment_weight_within_family": 0.028851,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24220",
@@ -45597,7 +46373,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5871
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.018791,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21512",
@@ -45833,7 +46613,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5857
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.018833,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21415",
@@ -46069,7 +46853,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6062
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.015052,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21498",
@@ -46303,7 +47091,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.4812
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.01589,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "26541",
@@ -46537,7 +47329,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5938
-    }
+    },
+    "employment_family_code": "26",
+    "employment_family_total_thousands": 43.4,
+    "employment_weight_within_family": 0.043172,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21632",
@@ -46773,7 +47569,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5715
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.014893,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21412",
@@ -47009,7 +47809,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6059
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.015582,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "22128",
@@ -47243,7 +48047,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5942
-    }
+    },
+    "employment_family_code": "22",
+    "employment_family_total_thousands": 61.6,
+    "employment_weight_within_family": 0.033677,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24320",
@@ -47480,7 +48288,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5897
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.017133,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21414",
@@ -47716,7 +48528,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6051
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.015656,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21494",
@@ -47950,7 +48766,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6077
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.013978,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "22694",
@@ -48180,7 +49000,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5992
-    }
+    },
+    "employment_family_code": "22",
+    "employment_family_total_thousands": 61.6,
+    "employment_weight_within_family": 0.030448,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "22200",
@@ -48411,7 +49235,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6016
-    }
+    },
+    "employment_family_code": "22",
+    "employment_family_total_thousands": 61.6,
+    "employment_weight_within_family": 0.029478,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24291",
@@ -48644,7 +49472,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6465
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.018829,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24315",
@@ -48878,7 +49710,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5899
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.020868,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21475",
@@ -49109,7 +49945,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5887
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.016246,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24334",
@@ -49346,7 +50186,11 @@
       "wage_preservation": 0.88,
       "training_ease": 0,
       "empirical_priority": 0.5716
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.025561,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "26374",
@@ -49579,7 +50423,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5877
-    }
+    },
+    "employment_family_code": "26",
+    "employment_family_total_thousands": 43.4,
+    "employment_weight_within_family": 0.031107,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "26412",
@@ -49816,7 +50664,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6319
-    }
+    },
+    "employment_family_code": "26",
+    "employment_family_total_thousands": 43.4,
+    "employment_weight_within_family": 0.033039,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24151",
@@ -50050,7 +50902,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6125
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.024085,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24141",
@@ -50283,7 +51139,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6079
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.023203,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "25243",
@@ -50510,7 +51370,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6326
-    }
+    },
+    "employment_family_code": "25",
+    "employment_family_total_thousands": 82.3,
+    "employment_weight_within_family": 0.054434,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21523",
@@ -50746,7 +51610,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6066
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.016011,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21670",
@@ -50979,7 +51847,11 @@
       "wage_preservation": 0.9212,
       "training_ease": 0,
       "empirical_priority": 0.552
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.018231,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24362",
@@ -51212,7 +52084,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5806
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.024772,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24353",
@@ -51443,7 +52319,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6073
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.029076,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "26322",
@@ -51677,7 +52557,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6197
-    }
+    },
+    "employment_family_code": "26",
+    "employment_family_total_thousands": 43.4,
+    "employment_weight_within_family": 0.042734,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "26351",
@@ -51910,7 +52794,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6229
-    }
+    },
+    "employment_family_code": "26",
+    "employment_family_total_thousands": 43.4,
+    "employment_weight_within_family": 0.034912,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "25121",
@@ -52141,7 +53029,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6462
-    }
+    },
+    "employment_family_code": "25",
+    "employment_family_total_thousands": 82.3,
+    "employment_weight_within_family": 0.058483,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "22662",
@@ -52377,7 +53269,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5803
-    }
+    },
+    "employment_family_code": "22",
+    "employment_family_total_thousands": 61.6,
+    "employment_weight_within_family": 0.028011,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21231",
@@ -52610,7 +53506,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6485
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.018016,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21221",
@@ -52843,7 +53743,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6991
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.01354,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "25111",
@@ -53073,7 +53977,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5926
-    }
+    },
+    "employment_family_code": "25",
+    "employment_family_total_thousands": 82.3,
+    "employment_weight_within_family": 0.051775,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24113",
@@ -53309,7 +54217,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5909
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.025751,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "23103",
@@ -53545,7 +54457,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5961
-    }
+    },
+    "employment_family_code": "23",
+    "employment_family_total_thousands": 66.7,
+    "employment_weight_within_family": 0.241639,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24331",
@@ -53782,7 +54698,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6033
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.021611,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "26414",
@@ -54019,7 +54939,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6336
-    }
+    },
+    "employment_family_code": "26",
+    "employment_family_total_thousands": 43.4,
+    "employment_weight_within_family": 0.040374,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "23300",
@@ -54255,7 +55179,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5972
-    }
+    },
+    "employment_family_code": "23",
+    "employment_family_total_thousands": 66.7,
+    "employment_weight_within_family": 0.195589,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21532",
@@ -54491,7 +55419,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.645
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.015466,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24361",
@@ -54724,7 +55656,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5874
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.030339,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "22301",
@@ -54958,7 +55894,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.55
-    }
+    },
+    "employment_family_code": "22",
+    "employment_family_total_thousands": 61.6,
+    "employment_weight_within_family": 0.026578,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24240",
@@ -55194,7 +56134,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6671
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.017497,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "26431",
@@ -55430,7 +56374,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6652
-    }
+    },
+    "employment_family_code": "26",
+    "employment_family_total_thousands": 43.4,
+    "employment_weight_within_family": 0.042265,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "24134",
@@ -55667,7 +56615,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6098
-    }
+    },
+    "employment_family_code": "24",
+    "employment_family_total_thousands": 216.1,
+    "employment_weight_within_family": 0.025323,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "23101",
@@ -55903,7 +56855,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5883
-    }
+    },
+    "employment_family_code": "23",
+    "employment_family_total_thousands": 66.7,
+    "employment_weight_within_family": 0.361625,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "21641",
@@ -56139,7 +57095,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5817
-    }
+    },
+    "employment_family_code": "21",
+    "employment_family_total_thousands": 154.5,
+    "employment_weight_within_family": 0.014459,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "22138",
@@ -56372,7 +57332,11 @@
       "wage_preservation": 0.9354,
       "training_ease": 0,
       "empirical_priority": 0.5658
-    }
+    },
+    "employment_family_code": "22",
+    "employment_family_total_thousands": 61.6,
+    "employment_weight_within_family": 0.033291,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "22500",
@@ -56609,7 +57573,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5486
-    }
+    },
+    "employment_family_code": "22",
+    "employment_family_total_thousands": 61.6,
+    "employment_weight_within_family": 0.037416,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "25122",
@@ -56840,7 +57808,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6499
-    }
+    },
+    "employment_family_code": "25",
+    "employment_family_total_thousands": 82.3,
+    "employment_weight_within_family": 0.051901,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "33392",
@@ -57076,7 +58048,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5212
-    }
+    },
+    "employment_family_code": "33",
+    "employment_family_total_thousands": 258.9,
+    "employment_weight_within_family": 0.038379,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31211",
@@ -57310,7 +58286,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5731
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.020808,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "33222",
@@ -57546,7 +58526,11 @@
       "wage_preservation": 0.8897,
       "training_ease": 0,
       "empirical_priority": 0.5354
-    }
+    },
+    "employment_family_code": "33",
+    "employment_family_total_thousands": 258.9,
+    "employment_weight_within_family": 0.038796,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31594",
@@ -57771,7 +58755,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5502
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.020147,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "33611",
@@ -58002,7 +58990,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5376
-    }
+    },
+    "employment_family_code": "33",
+    "employment_family_total_thousands": 258.9,
+    "employment_weight_within_family": 0.034927,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31571",
@@ -58233,7 +59225,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5797
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.023161,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31152",
@@ -58469,7 +59465,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5435
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.020003,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "33151",
@@ -58702,7 +59702,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5745
-    }
+    },
+    "employment_family_code": "33",
+    "employment_family_total_thousands": 258.9,
+    "employment_weight_within_family": 0.037608,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31184",
@@ -58930,7 +59934,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.4802
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.019988,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "36202",
@@ -59157,7 +60165,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5882
-    }
+    },
+    "employment_family_code": "36",
+    "employment_family_total_thousands": 51.2,
+    "employment_weight_within_family": 0.131377,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "33152",
@@ -59390,7 +60402,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5787
-    }
+    },
+    "employment_family_code": "33",
+    "employment_family_total_thousands": 258.9,
+    "employment_weight_within_family": 0.036957,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "33131",
@@ -59626,7 +60642,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6037
-    }
+    },
+    "employment_family_code": "33",
+    "employment_family_total_thousands": 258.9,
+    "employment_weight_within_family": 0.032256,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31001",
@@ -59857,7 +60877,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.564
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.019928,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31002",
@@ -60088,7 +61112,11 @@
       "wage_preservation": 0.9509,
       "training_ease": 0,
       "empirical_priority": 0.5545
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.021694,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31003",
@@ -60319,7 +61347,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5592
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.021155,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31006",
@@ -60550,7 +61582,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.564
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.019667,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31004",
@@ -60781,7 +61817,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5659
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.019617,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "34210",
@@ -61017,7 +62057,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5817
-    }
+    },
+    "employment_family_code": "34",
+    "employment_family_total_thousands": 38.8,
+    "employment_weight_within_family": 0.056377,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31143",
@@ -61253,7 +62297,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5711
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.019335,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "33132",
@@ -61489,7 +62537,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5873
-    }
+    },
+    "employment_family_code": "33",
+    "employment_family_total_thousands": 258.9,
+    "employment_weight_within_family": 0.036776,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31174",
@@ -61723,7 +62775,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5578
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.018255,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31212",
@@ -61957,7 +63013,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5804
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.019106,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31122",
@@ -62191,7 +63251,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5894
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.01871,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "33221",
@@ -62427,7 +63491,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5717
-    }
+    },
+    "employment_family_code": "33",
+    "employment_family_total_thousands": 258.9,
+    "employment_weight_within_family": 0.036593,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "33231",
@@ -62664,7 +63732,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5376
-    }
+    },
+    "employment_family_code": "33",
+    "employment_family_total_thousands": 258.9,
+    "employment_weight_within_family": 0.035456,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "34341",
@@ -62900,7 +63972,11 @@
       "wage_preservation": 0.7881,
       "training_ease": 0,
       "empirical_priority": 0.5034
-    }
+    },
+    "employment_family_code": "34",
+    "employment_family_total_thousands": 38.8,
+    "employment_weight_within_family": 0.067851,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31161",
@@ -63136,7 +64212,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5596
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.021814,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31163",
@@ -63372,7 +64452,11 @@
       "wage_preservation": 0.9676,
       "training_ease": 0,
       "empirical_priority": 0.5299
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.023546,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31111",
@@ -63609,7 +64693,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5582
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.021457,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31121",
@@ -63843,7 +64931,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5894
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.020407,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31183",
@@ -64071,7 +65163,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5588
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.016504,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "33311",
@@ -64307,7 +65403,11 @@
       "wage_preservation": 1,
       "training_ease": 0.6,
       "empirical_priority": 0.7348
-    }
+    },
+    "employment_family_code": "33",
+    "employment_family_total_thousands": 258.9,
+    "employment_weight_within_family": 0.032922,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31412",
@@ -64543,7 +65643,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5971
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.020852,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "32530",
@@ -64780,7 +65884,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5414
-    }
+    },
+    "employment_family_code": "32",
+    "employment_family_total_thousands": 17.1,
+    "employment_weight_within_family": 0.067458,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "35110",
@@ -65017,7 +66125,11 @@
       "wage_preservation": 0.9025,
       "training_ease": 0.3,
       "empirical_priority": 0.6
-    }
+    },
+    "employment_family_code": "35",
+    "employment_family_total_thousands": 22.4,
+    "employment_weight_within_family": 0.136256,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "33493",
@@ -65248,7 +66360,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5962
-    }
+    },
+    "employment_family_code": "33",
+    "employment_family_total_thousands": 258.9,
+    "employment_weight_within_family": 0.034238,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "32143",
@@ -65484,7 +66600,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.601
-    }
+    },
+    "employment_family_code": "32",
+    "employment_family_total_thousands": 17.1,
+    "employment_weight_within_family": 0.066682,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31131",
@@ -65718,7 +66838,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5588
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.020228,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31182",
@@ -65946,7 +67070,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.56
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.018437,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31141",
@@ -66182,7 +67310,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5705
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.019833,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "33330",
@@ -66419,7 +67551,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6543
-    }
+    },
+    "employment_family_code": "33",
+    "employment_family_total_thousands": 258.9,
+    "employment_weight_within_family": 0.0348,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "32200",
@@ -66650,7 +67786,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5308
-    }
+    },
+    "employment_family_code": "32",
+    "employment_family_total_thousands": 17.1,
+    "employment_weight_within_family": 0.084804,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "32571",
@@ -66886,7 +68026,11 @@
       "wage_preservation": 0.7328,
       "training_ease": 0,
       "empirical_priority": 0.5071
-    }
+    },
+    "employment_family_code": "32",
+    "employment_family_total_thousands": 17.1,
+    "employment_weight_within_family": 0.103984,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "33320",
@@ -67122,7 +68266,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5981
-    }
+    },
+    "employment_family_code": "33",
+    "employment_family_total_thousands": 258.9,
+    "employment_weight_within_family": 0.031648,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "33121",
@@ -67358,7 +68506,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5874
-    }
+    },
+    "employment_family_code": "33",
+    "employment_family_total_thousands": 258.9,
+    "employment_weight_within_family": 0.037909,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31711",
@@ -67589,7 +68741,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5236
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.019187,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31593",
@@ -67814,7 +68970,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5545
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.019106,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31522",
@@ -68048,7 +69208,11 @@
       "wage_preservation": 0.6286,
       "training_ease": 0.3,
       "empirical_priority": 0.4903
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.029214,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "36203",
@@ -68275,7 +69439,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5871
-    }
+    },
+    "employment_family_code": "36",
+    "employment_family_total_thousands": 51.2,
+    "employment_weight_within_family": 0.178897,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31144",
@@ -68511,7 +69679,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5662
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.018718,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "33211",
@@ -68747,7 +69919,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6369
-    }
+    },
+    "employment_family_code": "33",
+    "employment_family_total_thousands": 258.9,
+    "employment_weight_within_family": 0.039344,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "34321",
@@ -68984,7 +70160,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.4775
-    }
+    },
+    "employment_family_code": "34",
+    "employment_family_total_thousands": 38.8,
+    "employment_weight_within_family": 0.074968,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "33393",
@@ -69220,7 +70400,11 @@
       "wage_preservation": 0.8728,
       "training_ease": 0,
       "empirical_priority": 0.568
-    }
+    },
+    "employment_family_code": "33",
+    "employment_family_total_thousands": 258.9,
+    "employment_weight_within_family": 0.05052,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "35121",
@@ -69457,7 +70641,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5942
-    }
+    },
+    "employment_family_code": "35",
+    "employment_family_total_thousands": 22.4,
+    "employment_weight_within_family": 0.118453,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "35122",
@@ -69693,7 +70881,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5856
-    }
+    },
+    "employment_family_code": "35",
+    "employment_family_total_thousands": 22.4,
+    "employment_weight_within_family": 0.124675,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "35123",
@@ -69930,7 +71122,11 @@
       "wage_preservation": 0.8823,
       "training_ease": 0,
       "empirical_priority": 0.5622
-    }
+    },
+    "employment_family_code": "35",
+    "employment_family_total_thousands": 22.4,
+    "employment_weight_within_family": 0.132732,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "34342",
@@ -70166,7 +71362,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6013
-    }
+    },
+    "employment_family_code": "34",
+    "employment_family_total_thousands": 38.8,
+    "employment_weight_within_family": 0.068718,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31123",
@@ -70400,7 +71600,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5935
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.018125,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31602",
@@ -70634,7 +71838,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5571
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.017924,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "36201",
@@ -70861,7 +72069,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5974
-    }
+    },
+    "employment_family_code": "36",
+    "employment_family_total_thousands": 51.2,
+    "employment_weight_within_family": 0.150472,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "34110",
@@ -71097,7 +72309,11 @@
       "wage_preservation": 1,
       "training_ease": 0.6,
       "empirical_priority": 0.5799
-    }
+    },
+    "employment_family_code": "34",
+    "employment_family_total_thousands": 38.8,
+    "employment_weight_within_family": 0.073819,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "34331",
@@ -71333,7 +72549,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6013
-    }
+    },
+    "employment_family_code": "34",
+    "employment_family_total_thousands": 38.8,
+    "employment_weight_within_family": 0.059252,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31132",
@@ -71567,7 +72787,11 @@
       "wage_preservation": 0.9682,
       "training_ease": 0,
       "empirical_priority": 0.5583
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.020558,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31595",
@@ -71792,7 +73016,11 @@
       "wage_preservation": 0.9934,
       "training_ease": 0,
       "empirical_priority": 0.5574
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.020214,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "33461",
@@ -72025,7 +73253,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5196
-    }
+    },
+    "employment_family_code": "33",
+    "employment_family_total_thousands": 258.9,
+    "employment_weight_within_family": 0.033864,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31153",
@@ -72261,7 +73493,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5633
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.018756,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "33462",
@@ -72492,7 +73728,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5419
-    }
+    },
+    "employment_family_code": "33",
+    "employment_family_total_thousands": 258.9,
+    "employment_weight_within_family": 0.041851,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "33491",
@@ -72725,7 +73965,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6142
-    }
+    },
+    "employment_family_code": "33",
+    "employment_family_total_thousands": 258.9,
+    "employment_weight_within_family": 0.032372,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31171",
@@ -72959,7 +74203,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5598
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.019035,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31185",
@@ -73187,7 +74435,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5388
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.020619,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31510",
@@ -73418,7 +74670,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5282
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.02008,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31213",
@@ -73652,7 +74908,11 @@
       "wage_preservation": 0.8805,
       "training_ease": 0,
       "empirical_priority": 0.5335
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.022174,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "33223",
@@ -73888,7 +75148,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5702
-    }
+    },
+    "employment_family_code": "33",
+    "employment_family_total_thousands": 258.9,
+    "employment_weight_within_family": 0.030616,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "34222",
@@ -74124,7 +75388,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5191
-    }
+    },
+    "employment_family_code": "34",
+    "employment_family_total_thousands": 38.8,
+    "employment_weight_within_family": 0.07002,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "32551",
@@ -74358,7 +75626,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5414
-    }
+    },
+    "employment_family_code": "32",
+    "employment_family_total_thousands": 17.1,
+    "employment_weight_within_family": 0.062809,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31181",
@@ -74586,7 +75858,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5578
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.019161,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31151",
@@ -74822,7 +76098,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5699
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.01903,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "35211",
@@ -75059,7 +76339,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6045
-    }
+    },
+    "employment_family_code": "35",
+    "employment_family_total_thousands": 22.4,
+    "employment_weight_within_family": 0.119217,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "32120",
@@ -75292,7 +76576,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6278
-    }
+    },
+    "employment_family_code": "32",
+    "employment_family_total_thousands": 17.1,
+    "employment_weight_within_family": 0.079226,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "32112",
@@ -75528,7 +76816,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5829
-    }
+    },
+    "employment_family_code": "32",
+    "employment_family_total_thousands": 17.1,
+    "employment_weight_within_family": 0.072052,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "33225",
@@ -75764,7 +77056,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5708
-    }
+    },
+    "employment_family_code": "33",
+    "employment_family_total_thousands": 258.9,
+    "employment_weight_within_family": 0.029261,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "36204",
@@ -75991,7 +77287,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5901
-    }
+    },
+    "employment_family_code": "36",
+    "employment_family_total_thousands": 51.2,
+    "employment_weight_within_family": 0.125263,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "39910",
@@ -76216,7 +77516,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.4715
-    }
+    },
+    "employment_family_code": "39",
+    "employment_family_total_thousands": 1.8,
+    "employment_weight_within_family": 1,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "32572",
@@ -76453,7 +77757,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5708
-    }
+    },
+    "employment_family_code": "32",
+    "employment_family_total_thousands": 17.1,
+    "employment_weight_within_family": 0.089015,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "33224",
@@ -76689,7 +77997,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5702
-    }
+    },
+    "employment_family_code": "33",
+    "employment_family_total_thousands": 258.9,
+    "employment_weight_within_family": 0.030616,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "33492",
@@ -76922,7 +78234,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6104
-    }
+    },
+    "employment_family_code": "33",
+    "employment_family_total_thousands": 258.9,
+    "employment_weight_within_family": 0.032607,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "32540",
@@ -77156,7 +78472,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5414
-    }
+    },
+    "employment_family_code": "32",
+    "employment_family_total_thousands": 17.1,
+    "employment_weight_within_family": 0.079935,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "32591",
@@ -77390,7 +78710,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5497
-    }
+    },
+    "employment_family_code": "32",
+    "employment_family_total_thousands": 17.1,
+    "employment_weight_within_family": 0.065819,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "34343",
@@ -77626,7 +78950,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5588
-    }
+    },
+    "employment_family_code": "34",
+    "employment_family_total_thousands": 38.8,
+    "employment_weight_within_family": 0.060233,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "32130",
@@ -77862,7 +79190,11 @@
       "wage_preservation": 0.9358,
       "training_ease": 0.3,
       "empirical_priority": 0.5885
-    }
+    },
+    "employment_family_code": "32",
+    "employment_family_total_thousands": 17.1,
+    "employment_weight_within_family": 0.068931,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "34310",
@@ -78099,7 +79431,11 @@
       "wage_preservation": 0.9563,
       "training_ease": 0.3,
       "empirical_priority": 0.6081
-    }
+    },
+    "employment_family_code": "34",
+    "employment_family_total_thousands": 38.8,
+    "employment_weight_within_family": 0.078246,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "34223",
@@ -78335,7 +79671,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5571
-    }
+    },
+    "employment_family_code": "34",
+    "employment_family_total_thousands": 38.8,
+    "employment_weight_within_family": 0.05522,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31574",
@@ -78566,7 +79906,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5607
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.019237,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31601",
@@ -78800,7 +80144,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5228
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.01935,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "36100",
@@ -79033,7 +80381,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5298
-    }
+    },
+    "employment_family_code": "36",
+    "employment_family_total_thousands": 51.2,
+    "employment_weight_within_family": 0.144641,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "36910",
@@ -79260,7 +80612,11 @@
       "wage_preservation": 0.9819,
       "training_ease": 0.3,
       "empirical_priority": 0.5828
-    }
+    },
+    "employment_family_code": "36",
+    "employment_family_total_thousands": 51.2,
+    "employment_weight_within_family": 0.149093,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31173",
@@ -79494,7 +80850,11 @@
       "wage_preservation": 0.9818,
       "training_ease": 0,
       "empirical_priority": 0.554
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.020761,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31172",
@@ -79728,7 +81088,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5529
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.020572,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "33232",
@@ -79965,7 +81329,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5592
-    }
+    },
+    "employment_family_code": "33",
+    "employment_family_total_thousands": 258.9,
+    "employment_weight_within_family": 0.033729,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31175",
@@ -80199,7 +81567,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5704
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.020364,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "33340",
@@ -80435,7 +81807,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5981
-    }
+    },
+    "employment_family_code": "33",
+    "employment_family_total_thousands": 258.9,
+    "employment_weight_within_family": 0.031901,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "36991",
@@ -80662,7 +82038,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6049
-    }
+    },
+    "employment_family_code": "36",
+    "employment_family_total_thousands": 51.2,
+    "employment_weight_within_family": 0.120257,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31124",
@@ -80896,7 +82276,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5943
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.019161,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31597",
@@ -81121,7 +82505,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5443
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.020868,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31214",
@@ -81355,7 +82743,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5738
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.01694,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "33394",
@@ -81589,7 +82981,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5866
-    }
+    },
+    "employment_family_code": "33",
+    "employment_family_total_thousands": 258.9,
+    "employment_weight_within_family": 0.047198,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31720",
@@ -81820,7 +83216,11 @@
       "wage_preservation": 0.9612,
       "training_ease": 0,
       "empirical_priority": 0.5624
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.01957,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31142",
@@ -82056,7 +83456,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5388
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.020763,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "33312",
@@ -82292,7 +83696,11 @@
       "wage_preservation": 1,
       "training_ease": 0.6,
       "empirical_priority": 0.7343
-    }
+    },
+    "employment_family_code": "33",
+    "employment_family_total_thousands": 258.9,
+    "employment_weight_within_family": 0.032918,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "34122",
@@ -82528,7 +83936,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5817
-    }
+    },
+    "employment_family_code": "34",
+    "employment_family_total_thousands": 38.8,
+    "employment_weight_within_family": 0.063556,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "32111",
@@ -82764,7 +84176,11 @@
       "wage_preservation": 0.8231,
       "training_ease": 0.3,
       "empirical_priority": 0.5408
-    }
+    },
+    "employment_family_code": "32",
+    "employment_family_total_thousands": 17.1,
+    "employment_weight_within_family": 0.087326,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "34221",
@@ -83000,7 +84416,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5817
-    }
+    },
+    "employment_family_code": "34",
+    "employment_family_total_thousands": 38.8,
+    "employment_weight_within_family": 0.076515,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "33133",
@@ -83236,7 +84656,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5832
-    }
+    },
+    "employment_family_code": "33",
+    "employment_family_total_thousands": 258.9,
+    "employment_weight_within_family": 0.033935,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "35220",
@@ -83472,7 +84896,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5308
-    }
+    },
+    "employment_family_code": "35",
+    "employment_family_total_thousands": 22.4,
+    "employment_weight_within_family": 0.108201,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31596",
@@ -83697,7 +85125,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5541
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.018085,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "31572",
@@ -83928,7 +85360,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5584
-    }
+    },
+    "employment_family_code": "31",
+    "employment_family_total_thousands": 105.4,
+    "employment_weight_within_family": 0.01778,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "32400",
@@ -84165,7 +85601,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5415
-    }
+    },
+    "employment_family_code": "32",
+    "employment_family_total_thousands": 17.1,
+    "employment_weight_within_family": 0.07196,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "35212",
@@ -84402,7 +85842,11 @@
       "wage_preservation": 0.901,
       "training_ease": 0.3,
       "empirical_priority": 0.5764
-    }
+    },
+    "employment_family_code": "35",
+    "employment_family_total_thousands": 22.4,
+    "employment_weight_within_family": 0.136369,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "34323",
@@ -84639,7 +86083,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6141
-    }
+    },
+    "employment_family_code": "34",
+    "employment_family_total_thousands": 38.8,
+    "employment_weight_within_family": 0.075255,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "34123",
@@ -84875,7 +86323,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5817
-    }
+    },
+    "employment_family_code": "34",
+    "employment_family_total_thousands": 38.8,
+    "employment_weight_within_family": 0.065292,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "35140",
@@ -85112,7 +86564,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5649
-    }
+    },
+    "employment_family_code": "35",
+    "employment_family_total_thousands": 22.4,
+    "employment_weight_within_family": 0.124097,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "34121",
@@ -85348,7 +86804,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5817
-    }
+    },
+    "employment_family_code": "34",
+    "employment_family_total_thousands": 38.8,
+    "employment_weight_within_family": 0.054676,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "43233",
@@ -85585,7 +87045,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6247
-    }
+    },
+    "employment_family_code": "43",
+    "employment_family_total_thousands": 46.5,
+    "employment_weight_within_family": 0.048691,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "43113",
@@ -85818,7 +87282,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6043
-    }
+    },
+    "employment_family_code": "43",
+    "employment_family_total_thousands": 46.5,
+    "employment_weight_within_family": 0.053919,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "43121",
@@ -86055,7 +87523,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6393
-    }
+    },
+    "employment_family_code": "43",
+    "employment_family_total_thousands": 46.5,
+    "employment_weight_within_family": 0.062159,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "42111",
@@ -86292,7 +87764,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6012
-    }
+    },
+    "employment_family_code": "42",
+    "employment_family_total_thousands": 48,
+    "employment_weight_within_family": 0.078943,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "42141",
@@ -86525,7 +88001,11 @@
       "wage_preservation": 0.9175,
       "training_ease": 0.3,
       "empirical_priority": 0.6168
-    }
+    },
+    "employment_family_code": "42",
+    "employment_family_total_thousands": 48,
+    "employment_weight_within_family": 0.080148,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "43115",
@@ -86758,7 +88238,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.606
-    }
+    },
+    "employment_family_code": "43",
+    "employment_family_total_thousands": 46.5,
+    "employment_weight_within_family": 0.048226,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "43111",
@@ -86991,7 +88475,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6034
-    }
+    },
+    "employment_family_code": "43",
+    "employment_family_total_thousands": 46.5,
+    "employment_weight_within_family": 0.048998,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "42246",
@@ -87228,7 +88716,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5864
-    }
+    },
+    "employment_family_code": "42",
+    "employment_family_total_thousands": 48,
+    "employment_weight_within_family": 0.070364,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "42245",
@@ -87465,7 +88957,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5876
-    }
+    },
+    "employment_family_code": "42",
+    "employment_family_total_thousands": 48,
+    "employment_weight_within_family": 0.070809,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "41320",
@@ -87702,7 +89198,11 @@
       "wage_preservation": 1,
       "training_ease": 0.6,
       "empirical_priority": 0.5919
-    }
+    },
+    "employment_family_code": "41",
+    "employment_family_total_thousands": 97.2,
+    "employment_weight_within_family": 0.168365,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "43151",
@@ -87936,7 +89436,11 @@
       "wage_preservation": 1,
       "training_ease": 0.6,
       "empirical_priority": 0.5919
-    }
+    },
+    "employment_family_code": "43",
+    "employment_family_total_thousands": 46.5,
+    "employment_weight_within_family": 0.051097,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "43142",
@@ -88169,7 +89673,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6526
-    }
+    },
+    "employment_family_code": "43",
+    "employment_family_total_thousands": 46.5,
+    "employment_weight_within_family": 0.045016,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "42247",
@@ -88406,7 +89914,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5819
-    }
+    },
+    "employment_family_code": "42",
+    "employment_family_total_thousands": 48,
+    "employment_weight_within_family": 0.07052,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "42242",
@@ -88643,7 +90155,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5729
-    }
+    },
+    "employment_family_code": "42",
+    "employment_family_total_thousands": 48,
+    "employment_weight_within_family": 0.064987,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "43122",
@@ -88880,7 +90396,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6426
-    }
+    },
+    "employment_family_code": "43",
+    "employment_family_total_thousands": 46.5,
+    "employment_weight_within_family": 0.061523,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "43232",
@@ -89117,7 +90637,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6224
-    }
+    },
+    "employment_family_code": "43",
+    "employment_family_total_thousands": 46.5,
+    "employment_weight_within_family": 0.046717,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "43112",
@@ -89350,7 +90874,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5786
-    }
+    },
+    "employment_family_code": "43",
+    "employment_family_total_thousands": 46.5,
+    "employment_weight_within_family": 0.050058,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "44170",
@@ -89583,7 +91111,11 @@
       "wage_preservation": 1,
       "training_ease": 0.6,
       "empirical_priority": 0.5573
-    }
+    },
+    "employment_family_code": "44",
+    "employment_family_total_thousands": 5.8,
+    "employment_weight_within_family": 0.274867,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "44110",
@@ -89820,7 +91352,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5998
-    }
+    },
+    "employment_family_code": "44",
+    "employment_family_total_thousands": 5.8,
+    "employment_weight_within_family": 0.20767,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "43221",
@@ -90054,7 +91590,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5721
-    }
+    },
+    "employment_family_code": "43",
+    "employment_family_total_thousands": 46.5,
+    "employment_weight_within_family": 0.066571,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "42243",
@@ -90291,7 +91831,11 @@
       "wage_preservation": 0.9694,
       "training_ease": 0,
       "empirical_priority": 0.5569
-    }
+    },
+    "employment_family_code": "42",
+    "employment_family_total_thousands": 48,
+    "employment_weight_within_family": 0.066458,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "42113",
@@ -90528,7 +92072,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6012
-    }
+    },
+    "employment_family_code": "42",
+    "employment_family_total_thousands": 48,
+    "employment_weight_within_family": 0.076773,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "41101",
@@ -90765,7 +92313,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.618
-    }
+    },
+    "employment_family_code": "41",
+    "employment_family_total_thousands": 97.2,
+    "employment_weight_within_family": 0.160698,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "40000",
@@ -90998,7 +92550,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5148
-    }
+    },
+    "employment_family_code": "40",
+    "employment_family_total_thousands": 3.4,
+    "employment_weight_within_family": 1,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "42244",
@@ -91235,7 +92791,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5863
-    }
+    },
+    "employment_family_code": "42",
+    "employment_family_total_thousands": 48,
+    "employment_weight_within_family": 0.063556,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "42131",
@@ -91468,7 +93028,11 @@
       "wage_preservation": 0.7223,
       "training_ease": 0.3,
       "empirical_priority": 0.5771
-    }
+    },
+    "employment_family_code": "42",
+    "employment_family_total_thousands": 48,
+    "employment_weight_within_family": 0.090336,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "43114",
@@ -91701,7 +93265,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5645
-    }
+    },
+    "employment_family_code": "43",
+    "employment_family_total_thousands": 46.5,
+    "employment_weight_within_family": 0.056507,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "41102",
@@ -91938,7 +93506,11 @@
       "wage_preservation": 1,
       "training_ease": 0.6,
       "empirical_priority": 0.6441
-    }
+    },
+    "employment_family_code": "41",
+    "employment_family_total_thousands": 97.2,
+    "employment_weight_within_family": 0.204479,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "42112",
@@ -92175,7 +93747,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6012
-    }
+    },
+    "employment_family_code": "42",
+    "employment_family_total_thousands": 48,
+    "employment_weight_within_family": 0.061316,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "44122",
@@ -92412,7 +93988,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6042
-    }
+    },
+    "employment_family_code": "44",
+    "employment_family_total_thousands": 5.8,
+    "employment_weight_within_family": 0.219327,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "43116",
@@ -92645,7 +94225,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6314
-    }
+    },
+    "employment_family_code": "43",
+    "employment_family_total_thousands": 46.5,
+    "employment_weight_within_family": 0.046241,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "43222",
@@ -92879,7 +94463,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5834
-    }
+    },
+    "employment_family_code": "43",
+    "employment_family_total_thousands": 46.5,
+    "employment_weight_within_family": 0.051521,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "44191",
@@ -93110,7 +94698,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6016
-    }
+    },
+    "employment_family_code": "44",
+    "employment_family_total_thousands": 5.8,
+    "employment_weight_within_family": 0.298135,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "42241",
@@ -93347,7 +94939,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5731
-    }
+    },
+    "employment_family_code": "42",
+    "employment_family_total_thousands": 48,
+    "employment_weight_within_family": 0.065433,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "41201",
@@ -93583,7 +95179,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6152
-    }
+    },
+    "employment_family_code": "41",
+    "employment_family_total_thousands": 97.2,
+    "employment_weight_within_family": 0.267139,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "43123",
@@ -93820,7 +95420,11 @@
       "wage_preservation": 0.9891,
       "training_ease": 0.3,
       "empirical_priority": 0.6469
-    }
+    },
+    "employment_family_code": "43",
+    "employment_family_total_thousands": 46.5,
+    "employment_weight_within_family": 0.066937,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "43231",
@@ -94057,7 +95661,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6039
-    }
+    },
+    "employment_family_code": "43",
+    "employment_family_total_thousands": 46.5,
+    "employment_weight_within_family": 0.049908,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "43141",
@@ -94290,7 +95898,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.6029
-    }
+    },
+    "employment_family_code": "43",
+    "employment_family_total_thousands": 46.5,
+    "employment_weight_within_family": 0.057462,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "43211",
@@ -94524,7 +96136,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6039
-    }
+    },
+    "employment_family_code": "43",
+    "employment_family_total_thousands": 46.5,
+    "employment_weight_within_family": 0.045141,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "43212",
@@ -94758,7 +96374,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6039
-    }
+    },
+    "employment_family_code": "43",
+    "employment_family_total_thousands": 46.5,
+    "employment_weight_within_family": 0.043309,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "42230",
@@ -94995,7 +96615,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5757
-    }
+    },
+    "employment_family_code": "42",
+    "employment_family_total_thousands": 48,
+    "employment_weight_within_family": 0.062973,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "42210",
@@ -95232,7 +96856,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5311
-    }
+    },
+    "employment_family_code": "42",
+    "employment_family_total_thousands": 48,
+    "employment_weight_within_family": 0.077385,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "41310",
@@ -95468,7 +97096,11 @@
       "wage_preservation": 0.969,
       "training_ease": 0.6,
       "empirical_priority": 0.662
-    }
+    },
+    "employment_family_code": "41",
+    "employment_family_total_thousands": 97.2,
+    "employment_weight_within_family": 0.199319,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "51132",
@@ -95699,7 +97331,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.567
-    }
+    },
+    "employment_family_code": "51",
+    "employment_family_total_thousands": 73.2,
+    "employment_weight_within_family": 0.034927,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "54123",
@@ -95933,7 +97569,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5349
-    }
+    },
+    "employment_family_code": "54",
+    "employment_family_total_thousands": 46.2,
+    "employment_weight_within_family": 0.140364,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "51322",
@@ -96167,7 +97807,11 @@
       "wage_preservation": 1,
       "training_ease": 0.6,
       "empirical_priority": 0.6378
-    }
+    },
+    "employment_family_code": "51",
+    "employment_family_total_thousands": 73.2,
+    "employment_weight_within_family": 0.035481,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "51321",
@@ -96401,7 +98045,11 @@
       "wage_preservation": 1,
       "training_ease": 0.6,
       "empirical_priority": 0.6371
-    }
+    },
+    "employment_family_code": "51",
+    "employment_family_total_thousands": 73.2,
+    "employment_weight_within_family": 0.042605,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "51421",
@@ -96635,7 +98283,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5389
-    }
+    },
+    "employment_family_code": "51",
+    "employment_family_total_thousands": 73.2,
+    "employment_weight_within_family": 0.046204,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "51702",
@@ -96868,7 +98520,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5986
-    }
+    },
+    "employment_family_code": "51",
+    "employment_family_total_thousands": 73.2,
+    "employment_weight_within_family": 0.042712,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "51112",
@@ -97105,7 +98761,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5615
-    }
+    },
+    "employment_family_code": "51",
+    "employment_family_total_thousands": 73.2,
+    "employment_weight_within_family": 0.047698,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "52301",
@@ -97342,7 +99002,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5933
-    }
+    },
+    "employment_family_code": "52",
+    "employment_family_total_thousands": 109.4,
+    "employment_weight_within_family": 0.137993,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "51311",
@@ -97576,7 +99240,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5895
-    }
+    },
+    "employment_family_code": "51",
+    "employment_family_total_thousands": 73.2,
+    "employment_weight_within_family": 0.041598,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "52302",
@@ -97813,7 +99481,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5956
-    }
+    },
+    "employment_family_code": "52",
+    "employment_family_total_thousands": 109.4,
+    "employment_weight_within_family": 0.095575,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "51111",
@@ -98050,7 +99722,11 @@
       "wage_preservation": 0.7673,
       "training_ease": 0,
       "empirical_priority": 0.4767
-    }
+    },
+    "employment_family_code": "51",
+    "employment_family_total_thousands": 73.2,
+    "employment_weight_within_family": 0.064827,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "53113",
@@ -98284,7 +99960,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5542
-    }
+    },
+    "employment_family_code": "53",
+    "employment_family_total_thousands": 17.2,
+    "employment_weight_within_family": 0.162978,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "51201",
@@ -98520,7 +100200,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5895
-    }
+    },
+    "employment_family_code": "51",
+    "employment_family_total_thousands": 73.2,
+    "employment_weight_within_family": 0.035171,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "53203",
@@ -98751,7 +100435,11 @@
       "wage_preservation": 0.9807,
       "training_ease": 0.3,
       "empirical_priority": 0.5854
-    }
+    },
+    "employment_family_code": "53",
+    "employment_family_total_thousands": 17.2,
+    "employment_weight_within_family": 0.164571,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "51950",
@@ -98982,7 +100670,11 @@
       "wage_preservation": 0.8387,
       "training_ease": 0.6,
       "empirical_priority": 0.591
-    }
+    },
+    "employment_family_code": "51",
+    "employment_family_total_thousands": 73.2,
+    "employment_weight_within_family": 0.045149,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "53115",
@@ -99216,7 +100908,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5535
-    }
+    },
+    "employment_family_code": "53",
+    "employment_family_total_thousands": 17.2,
+    "employment_weight_within_family": 0.184431,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "52492",
@@ -99443,7 +101139,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5868
-    }
+    },
+    "employment_family_code": "52",
+    "employment_family_total_thousands": 109.4,
+    "employment_weight_within_family": 0.090743,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "51411",
@@ -99677,7 +101377,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5441
-    }
+    },
+    "employment_family_code": "51",
+    "employment_family_total_thousands": 73.2,
+    "employment_weight_within_family": 0.047864,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "53201",
@@ -99910,7 +101614,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6039
-    }
+    },
+    "employment_family_code": "53",
+    "employment_family_total_thousands": 17.2,
+    "employment_weight_within_family": 0.15619,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "51502",
@@ -100144,7 +101852,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5125
-    }
+    },
+    "employment_family_code": "51",
+    "employment_family_total_thousands": 73.2,
+    "employment_weight_within_family": 0.056787,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "51501",
@@ -100378,7 +102090,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5699
-    }
+    },
+    "employment_family_code": "51",
+    "employment_family_total_thousands": 73.2,
+    "employment_weight_within_family": 0.044407,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "51503",
@@ -100612,7 +102328,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5631
-    }
+    },
+    "employment_family_code": "51",
+    "employment_family_total_thousands": 73.2,
+    "employment_weight_within_family": 0.046145,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "54193",
@@ -100849,7 +102569,11 @@
       "wage_preservation": 0.6073,
       "training_ease": 0,
       "empirical_priority": 0.4627
-    }
+    },
+    "employment_family_code": "54",
+    "employment_family_total_thousands": 46.2,
+    "employment_weight_within_family": 0.188506,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "51942",
@@ -101082,7 +102806,11 @@
       "wage_preservation": 1,
       "training_ease": 0.6,
       "empirical_priority": 0.6442
-    }
+    },
+    "employment_family_code": "51",
+    "employment_family_total_thousands": 73.2,
+    "employment_weight_within_family": 0.041348,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "54150",
@@ -101310,7 +103038,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5349
-    }
+    },
+    "employment_family_code": "54",
+    "employment_family_total_thousands": 46.2,
+    "employment_weight_within_family": 0.127225,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "51422",
@@ -101544,7 +103276,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5733
-    }
+    },
+    "employment_family_code": "51",
+    "employment_family_total_thousands": 73.2,
+    "employment_weight_within_family": 0.03579,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "51491",
@@ -101775,7 +103511,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5717
-    }
+    },
+    "employment_family_code": "51",
+    "employment_family_total_thousands": 73.2,
+    "employment_weight_within_family": 0.03124,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "53202",
@@ -102006,7 +103746,11 @@
       "wage_preservation": 0.8827,
       "training_ease": 0.3,
       "empirical_priority": 0.5545
-    }
+    },
+    "employment_family_code": "53",
+    "employment_family_total_thousands": 17.2,
+    "employment_weight_within_family": 0.173473,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "52491",
@@ -102233,7 +103977,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5845
-    }
+    },
+    "employment_family_code": "52",
+    "employment_family_total_thousands": 109.4,
+    "employment_weight_within_family": 0.095885,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "54144",
@@ -102467,7 +104215,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5643
-    }
+    },
+    "employment_family_code": "54",
+    "employment_family_total_thousands": 46.2,
+    "employment_weight_within_family": 0.126264,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "51121",
@@ -102701,7 +104453,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5856
-    }
+    },
+    "employment_family_code": "51",
+    "employment_family_total_thousands": 73.2,
+    "employment_weight_within_family": 0.0414,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "52421",
@@ -102938,7 +104694,11 @@
       "wage_preservation": 1,
       "training_ease": 0.8,
       "empirical_priority": 0.6447
-    }
+    },
+    "employment_family_code": "52",
+    "employment_family_total_thousands": 109.4,
+    "employment_weight_within_family": 0.104062,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "52201",
@@ -103172,7 +104932,11 @@
       "wage_preservation": 1,
       "training_ease": 0.6,
       "empirical_priority": 0.6197
-    }
+    },
+    "employment_family_code": "52",
+    "employment_family_total_thousands": 109.4,
+    "employment_weight_within_family": 0.116937,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "52422",
@@ -103409,7 +105173,11 @@
       "wage_preservation": 1,
       "training_ease": 0.8,
       "empirical_priority": 0.6597
-    }
+    },
+    "employment_family_code": "52",
+    "employment_family_total_thousands": 109.4,
+    "employment_weight_within_family": 0.127216,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "54142",
@@ -103643,7 +105411,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5646
-    }
+    },
+    "employment_family_code": "54",
+    "employment_family_total_thousands": 46.2,
+    "employment_weight_within_family": 0.137017,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "51202",
@@ -103879,7 +105651,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5891
-    }
+    },
+    "employment_family_code": "51",
+    "employment_family_total_thousands": 73.2,
+    "employment_weight_within_family": 0.045706,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "54143",
@@ -104113,7 +105889,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5645
-    }
+    },
+    "employment_family_code": "54",
+    "employment_family_total_thousands": 46.2,
+    "employment_weight_within_family": 0.133717,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "54141",
@@ -104347,7 +106127,11 @@
       "wage_preservation": 0.8699,
       "training_ease": 0,
       "empirical_priority": 0.5277
-    }
+    },
+    "employment_family_code": "54",
+    "employment_family_total_thousands": 46.2,
+    "employment_weight_within_family": 0.146907,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "52202",
@@ -104581,7 +106365,11 @@
       "wage_preservation": 1,
       "training_ease": 0.6,
       "empirical_priority": 0.6279
-    }
+    },
+    "employment_family_code": "52",
+    "employment_family_total_thousands": 109.4,
+    "employment_weight_within_family": 0.100089,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "51492",
@@ -104812,7 +106600,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5283
-    }
+    },
+    "employment_family_code": "51",
+    "employment_family_total_thousands": 73.2,
+    "employment_weight_within_family": 0.049892,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "53120",
@@ -105042,7 +106834,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5738
-    }
+    },
+    "employment_family_code": "53",
+    "employment_family_total_thousands": 17.2,
+    "employment_weight_within_family": 0.158358,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "52440",
@@ -105278,7 +107074,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6188
-    }
+    },
+    "employment_family_code": "52",
+    "employment_family_total_thousands": 109.4,
+    "employment_weight_within_family": 0.1315,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "51131",
@@ -105509,7 +107309,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.535
-    }
+    },
+    "employment_family_code": "51",
+    "employment_family_total_thousands": 73.2,
+    "employment_weight_within_family": 0.04192,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "51931",
@@ -105737,7 +107541,11 @@
       "wage_preservation": 0.9865,
       "training_ease": 0,
       "empirical_priority": 0.5161
-    }
+    },
+    "employment_family_code": "51",
+    "employment_family_total_thousands": 73.2,
+    "employment_weight_within_family": 0.050233,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "51312",
@@ -105971,7 +107779,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5924
-    }
+    },
+    "employment_family_code": "51",
+    "employment_family_total_thousands": 73.2,
+    "employment_weight_within_family": 0.030896,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "62212",
@@ -106199,7 +108011,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5233
-    }
+    },
+    "employment_family_code": "62",
+    "employment_family_total_thousands": 18.2,
+    "employment_weight_within_family": 1,
+    "employment_estimate_method": "equal_fallback"
   },
   {
     "ssoc": "61133",
@@ -106435,7 +108251,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5011
-    }
+    },
+    "employment_family_code": "61",
+    "employment_family_total_thousands": 36.4,
+    "employment_weight_within_family": 0.5,
+    "employment_estimate_method": "equal_fallback"
   },
   {
     "ssoc": "61131",
@@ -106671,7 +108491,11 @@
       "wage_preservation": 1,
       "training_ease": 0.6,
       "empirical_priority": 0.5801
-    }
+    },
+    "employment_family_code": "61",
+    "employment_family_total_thousands": 36.4,
+    "employment_weight_within_family": 0.5,
+    "employment_estimate_method": "equal_fallback"
   },
   {
     "ssoc": "71271",
@@ -106908,7 +108732,11 @@
       "wage_preservation": 0.8894,
       "training_ease": 0,
       "empirical_priority": 0.4604
-    }
+    },
+    "employment_family_code": "71",
+    "employment_family_total_thousands": 19.9,
+    "employment_weight_within_family": 0.141029,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "72310",
@@ -107142,7 +108970,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5014
-    }
+    },
+    "employment_family_code": "72",
+    "employment_family_total_thousands": 10.8,
+    "employment_weight_within_family": 0.107114,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "75121",
@@ -107376,7 +109208,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5237
-    }
+    },
+    "employment_family_code": "75",
+    "employment_family_total_thousands": 10.1,
+    "employment_weight_within_family": 0.127689,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "71331",
@@ -107607,7 +109443,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.4836
-    }
+    },
+    "employment_family_code": "71",
+    "employment_family_total_thousands": 19.9,
+    "employment_weight_within_family": 0.14064,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "71311",
@@ -107840,7 +109680,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5398
-    }
+    },
+    "employment_family_code": "71",
+    "employment_family_total_thousands": 19.9,
+    "employment_weight_within_family": 0.098755,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "75110",
@@ -108074,7 +109918,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.4942
-    }
+    },
+    "employment_family_code": "75",
+    "employment_family_total_thousands": 10.1,
+    "employment_weight_within_family": 0.143006,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "71151",
@@ -108308,7 +110156,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.4871
-    }
+    },
+    "employment_family_code": "71",
+    "employment_family_total_thousands": 19.9,
+    "employment_weight_within_family": 0.132999,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "74121",
@@ -108545,7 +110397,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5274
-    }
+    },
+    "employment_family_code": "74",
+    "employment_family_total_thousands": 7.2,
+    "employment_weight_within_family": 0.131279,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "74123",
@@ -108782,7 +110638,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5246
-    }
+    },
+    "employment_family_code": "74",
+    "employment_family_total_thousands": 7.2,
+    "employment_weight_within_family": 0.148023,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "74122",
@@ -109019,7 +110879,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.4921
-    }
+    },
+    "employment_family_code": "74",
+    "employment_family_total_thousands": 7.2,
+    "employment_weight_within_family": 0.179391,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "74110",
@@ -109253,7 +111117,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.4953
-    }
+    },
+    "employment_family_code": "74",
+    "employment_family_total_thousands": 7.2,
+    "employment_weight_within_family": 0.153301,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "71220",
@@ -109487,7 +111355,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5574
-    }
+    },
+    "employment_family_code": "71",
+    "employment_family_total_thousands": 19.9,
+    "employment_weight_within_family": 0.098755,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "75440",
@@ -109720,7 +111592,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5767
-    }
+    },
+    "employment_family_code": "75",
+    "employment_family_total_thousands": 10.1,
+    "employment_weight_within_family": 0.130263,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "72392",
@@ -109953,7 +111829,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.536
-    }
+    },
+    "employment_family_code": "72",
+    "employment_family_total_thousands": 10.8,
+    "employment_weight_within_family": 0.128771,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "71152",
@@ -110187,7 +112067,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5257
-    }
+    },
+    "employment_family_code": "71",
+    "employment_family_total_thousands": 19.9,
+    "employment_weight_within_family": 0.121227,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "74001",
@@ -110418,7 +112302,11 @@
       "wage_preservation": 0.9965,
       "training_ease": 0,
       "empirical_priority": 0.5299
-    }
+    },
+    "employment_family_code": "74",
+    "employment_family_total_thousands": 7.2,
+    "employment_weight_within_family": 0.194175,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "72222",
@@ -110652,7 +112540,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5191
-    }
+    },
+    "employment_family_code": "72",
+    "employment_family_total_thousands": 10.8,
+    "employment_weight_within_family": 0.116521,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "72391",
@@ -110885,7 +112777,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5208
-    }
+    },
+    "employment_family_code": "72",
+    "employment_family_total_thousands": 10.8,
+    "employment_weight_within_family": 0.109669,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "73113",
@@ -111119,7 +113015,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5413
-    }
+    },
+    "employment_family_code": "73",
+    "employment_family_total_thousands": 3.5,
+    "employment_weight_within_family": 0.237502,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "72110",
@@ -111353,7 +113253,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.4752
-    }
+    },
+    "employment_family_code": "72",
+    "employment_family_total_thousands": 10.8,
+    "employment_weight_within_family": 0.118264,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "75122",
@@ -111587,7 +113491,11 @@
       "wage_preservation": 0.9159,
       "training_ease": 0,
       "empirical_priority": 0.5006
-    }
+    },
+    "employment_family_code": "75",
+    "employment_family_total_thousands": 10.1,
+    "employment_weight_within_family": 0.133425,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "71261",
@@ -111823,7 +113731,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.4836
-    }
+    },
+    "employment_family_code": "71",
+    "employment_family_total_thousands": 19.9,
+    "employment_weight_within_family": 0.12095,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "73210",
@@ -112060,7 +113972,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5164
-    }
+    },
+    "employment_family_code": "73",
+    "employment_family_total_thousands": 3.5,
+    "employment_weight_within_family": 0.232787,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "71000",
@@ -112293,7 +114209,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.4762
-    }
+    },
+    "employment_family_code": "71",
+    "employment_family_total_thousands": 19.9,
+    "employment_weight_within_family": 0.145643,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "74002",
@@ -112524,7 +114444,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5308
-    }
+    },
+    "employment_family_code": "74",
+    "employment_family_total_thousands": 7.2,
+    "employment_weight_within_family": 0.193831,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "75000",
@@ -112757,7 +114681,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.4268
-    }
+    },
+    "employment_family_code": "75",
+    "employment_family_total_thousands": 10.1,
+    "employment_weight_within_family": 0.168775,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "72000",
@@ -112990,7 +114918,11 @@
       "wage_preservation": 0.7488,
       "training_ease": 0,
       "empirical_priority": 0.3582
-    }
+    },
+    "employment_family_code": "72",
+    "employment_family_total_thousands": 10.8,
+    "employment_weight_within_family": 0.178534,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "73000",
@@ -113223,7 +115155,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.4254
-    }
+    },
+    "employment_family_code": "73",
+    "employment_family_total_thousands": 3.5,
+    "employment_weight_within_family": 0.268281,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "75310",
@@ -113457,7 +115393,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.4371
-    }
+    },
+    "employment_family_code": "75",
+    "employment_family_total_thousands": 10.1,
+    "employment_weight_within_family": 0.124412,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "72221",
@@ -113691,7 +115631,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5417
-    }
+    },
+    "employment_family_code": "72",
+    "employment_family_total_thousands": 10.8,
+    "employment_weight_within_family": 0.128851,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "75410",
@@ -113925,7 +115869,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.4707
-    }
+    },
+    "employment_family_code": "75",
+    "employment_family_total_thousands": 10.1,
+    "employment_weight_within_family": 0.172429,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "73111",
@@ -114159,7 +116107,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5414
-    }
+    },
+    "employment_family_code": "73",
+    "employment_family_total_thousands": 3.5,
+    "employment_weight_within_family": 0.261429,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "72120",
@@ -114390,7 +116342,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.4903
-    }
+    },
+    "employment_family_code": "72",
+    "employment_family_total_thousands": 10.8,
+    "employment_weight_within_family": 0.112276,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "83492",
@@ -114621,7 +116577,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.617
-    }
+    },
+    "employment_family_code": "83",
+    "employment_family_total_thousands": 116.9,
+    "employment_weight_within_family": 0.052974,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "83224",
@@ -114855,7 +116815,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6046
-    }
+    },
+    "employment_family_code": "83",
+    "employment_family_total_thousands": 116.9,
+    "employment_weight_within_family": 0.046618,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "83311",
@@ -115091,7 +117055,11 @@
       "wage_preservation": 0.8191,
       "training_ease": 0.3,
       "empirical_priority": 0.5629
-    }
+    },
+    "employment_family_code": "83",
+    "employment_family_total_thousands": 116.9,
+    "employment_weight_within_family": 0.058692,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "83222",
@@ -115325,7 +117293,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6046
-    }
+    },
+    "employment_family_code": "83",
+    "employment_family_total_thousands": 116.9,
+    "employment_weight_within_family": 0.049984,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "83323",
@@ -115561,7 +117533,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6102
-    }
+    },
+    "employment_family_code": "83",
+    "employment_family_total_thousands": 116.9,
+    "employment_weight_within_family": 0.049278,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "83432",
@@ -115795,7 +117771,11 @@
       "wage_preservation": 0.9939,
       "training_ease": 0.3,
       "empirical_priority": 0.615
-    }
+    },
+    "employment_family_code": "83",
+    "employment_family_total_thousands": 116.9,
+    "employment_weight_within_family": 0.053283,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "83431",
@@ -116029,7 +118009,11 @@
       "wage_preservation": 0.6222,
       "training_ease": 0.3,
       "empirical_priority": 0.5264
-    }
+    },
+    "employment_family_code": "83",
+    "employment_family_total_thousands": 116.9,
+    "employment_weight_within_family": 0.067343,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "81602",
@@ -116263,7 +118247,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5433
-    }
+    },
+    "employment_family_code": "81",
+    "employment_family_total_thousands": 8.3,
+    "employment_weight_within_family": 0.103227,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "83502",
@@ -116497,7 +118485,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5969
-    }
+    },
+    "employment_family_code": "83",
+    "employment_family_total_thousands": 116.9,
+    "employment_weight_within_family": 0.03981,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "83212",
@@ -116733,7 +118725,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6284
-    }
+    },
+    "employment_family_code": "83",
+    "employment_family_total_thousands": 116.9,
+    "employment_weight_within_family": 0.042521,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "82122",
@@ -116969,7 +118965,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5512
-    }
+    },
+    "employment_family_code": "82",
+    "employment_family_total_thousands": 3.7,
+    "employment_weight_within_family": 0.193132,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "83421",
@@ -117203,7 +119203,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5995
-    }
+    },
+    "employment_family_code": "83",
+    "employment_family_total_thousands": 116.9,
+    "employment_weight_within_family": 0.05312,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "83441",
@@ -117437,7 +119441,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6225
-    }
+    },
+    "employment_family_code": "83",
+    "employment_family_total_thousands": 116.9,
+    "employment_weight_within_family": 0.047719,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "83321",
@@ -117673,7 +119681,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6115
-    }
+    },
+    "employment_family_code": "83",
+    "employment_family_total_thousands": 116.9,
+    "employment_weight_within_family": 0.044345,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "82110",
@@ -117906,7 +119918,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5441
-    }
+    },
+    "employment_family_code": "82",
+    "employment_family_total_thousands": 3.7,
+    "employment_weight_within_family": 0.196314,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "82132",
@@ -118136,7 +120152,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5645
-    }
+    },
+    "employment_family_code": "82",
+    "employment_family_total_thousands": 3.7,
+    "employment_weight_within_family": 0.283757,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "81220",
@@ -118370,7 +120390,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5324
-    }
+    },
+    "employment_family_code": "81",
+    "employment_family_total_thousands": 8.3,
+    "employment_weight_within_family": 0.139344,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "81210",
@@ -118604,7 +120628,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5493
-    }
+    },
+    "employment_family_code": "81",
+    "employment_family_total_thousands": 8.3,
+    "employment_weight_within_family": 0.105586,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "81251",
@@ -118832,7 +120860,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5633
-    }
+    },
+    "employment_family_code": "81",
+    "employment_family_total_thousands": 8.3,
+    "employment_weight_within_family": 0.108279,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "83000",
@@ -119065,7 +121097,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6074
-    }
+    },
+    "employment_family_code": "83",
+    "employment_family_total_thousands": 116.9,
+    "employment_weight_within_family": 0.047928,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "83211",
@@ -119301,7 +121337,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6124
-    }
+    },
+    "employment_family_code": "83",
+    "employment_family_total_thousands": 116.9,
+    "employment_weight_within_family": 0.043526,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "81830",
@@ -119535,7 +121575,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5371
-    }
+    },
+    "employment_family_code": "81",
+    "employment_family_total_thousands": 8.3,
+    "employment_weight_within_family": 0.093644,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "83225",
@@ -119769,7 +121813,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6068
-    }
+    },
+    "employment_family_code": "83",
+    "employment_family_total_thousands": 116.9,
+    "employment_weight_within_family": 0.046481,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "83501",
@@ -120003,7 +122051,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5969
-    }
+    },
+    "employment_family_code": "83",
+    "employment_family_total_thousands": 116.9,
+    "employment_weight_within_family": 0.049434,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "81252",
@@ -120233,7 +122285,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5587
-    }
+    },
+    "employment_family_code": "81",
+    "employment_family_total_thousands": 8.3,
+    "employment_weight_within_family": 0.116056,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "81841",
@@ -120464,7 +122520,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6093
-    }
+    },
+    "employment_family_code": "81",
+    "employment_family_total_thousands": 8.3,
+    "employment_weight_within_family": 0.096455,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "81501",
@@ -120695,7 +122755,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5861
-    }
+    },
+    "employment_family_code": "81",
+    "employment_family_total_thousands": 8.3,
+    "employment_weight_within_family": 0.097273,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "81000",
@@ -120928,7 +122992,11 @@
       "wage_preservation": 0.9887,
       "training_ease": 0,
       "empirical_priority": 0.5271
-    }
+    },
+    "employment_family_code": "81",
+    "employment_family_total_thousands": 8.3,
+    "employment_weight_within_family": 0.140136,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "82000",
@@ -121161,7 +123229,11 @@
       "wage_preservation": 0.8622,
       "training_ease": 0,
       "empirical_priority": 0.4714
-    }
+    },
+    "employment_family_code": "82",
+    "employment_family_total_thousands": 3.7,
+    "employment_weight_within_family": 0.326797,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "83322",
@@ -121397,7 +123469,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6117
-    }
+    },
+    "employment_family_code": "83",
+    "employment_family_total_thousands": 116.9,
+    "employment_weight_within_family": 0.051039,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "83110",
@@ -121631,7 +123707,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5969
-    }
+    },
+    "employment_family_code": "83",
+    "employment_family_total_thousands": 116.9,
+    "employment_weight_within_family": 0.050266,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "83223",
@@ -121865,7 +123945,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.605
-    }
+    },
+    "employment_family_code": "83",
+    "employment_family_total_thousands": 116.9,
+    "employment_weight_within_family": 0.044232,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "83324",
@@ -122101,7 +124185,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5447
-    }
+    },
+    "employment_family_code": "83",
+    "employment_family_total_thousands": 116.9,
+    "employment_weight_within_family": 0.061407,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "93333",
@@ -122335,7 +124423,11 @@
       "wage_preservation": 0.8147,
       "training_ease": 0,
       "empirical_priority": 0.5286
-    }
+    },
+    "employment_family_code": "93",
+    "employment_family_total_thousands": 28.3,
+    "employment_weight_within_family": 0.199687,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "96211",
@@ -122571,7 +124663,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6098
-    }
+    },
+    "employment_family_code": "96",
+    "employment_family_total_thousands": 21.3,
+    "employment_weight_within_family": 0.065107,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "96212",
@@ -122808,7 +124904,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6182
-    }
+    },
+    "employment_family_code": "96",
+    "employment_family_total_thousands": 21.3,
+    "employment_weight_within_family": 0.062757,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "96261",
@@ -123039,7 +125139,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6045
-    }
+    },
+    "employment_family_code": "96",
+    "employment_family_total_thousands": 21.3,
+    "employment_weight_within_family": 0.066919,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "96256",
@@ -123272,7 +125376,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6294
-    }
+    },
+    "employment_family_code": "96",
+    "employment_family_total_thousands": 21.3,
+    "employment_weight_within_family": 0.049449,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "96254",
@@ -123505,7 +125613,11 @@
       "wage_preservation": 0.8202,
       "training_ease": 0.3,
       "empirical_priority": 0.5828
-    }
+    },
+    "employment_family_code": "96",
+    "employment_family_total_thousands": 21.3,
+    "employment_weight_within_family": 0.07389,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "93100",
@@ -123736,7 +125848,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5346
-    }
+    },
+    "employment_family_code": "93",
+    "employment_family_total_thousands": 28.3,
+    "employment_weight_within_family": 0.13863,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "91000",
@@ -123970,7 +126086,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5828
-    }
+    },
+    "employment_family_code": "91",
+    "employment_family_total_thousands": 81.5,
+    "employment_weight_within_family": 0.091587,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "96272",
@@ -124203,7 +126323,11 @@
       "wage_preservation": 1,
       "training_ease": 0.6,
       "empirical_priority": 0.6751
-    }
+    },
+    "employment_family_code": "96",
+    "employment_family_total_thousands": 21.3,
+    "employment_weight_within_family": 0.07241,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "91153",
@@ -124434,7 +126558,11 @@
       "wage_preservation": 0.9917,
       "training_ease": 0,
       "empirical_priority": 0.568
-    }
+    },
+    "employment_family_code": "91",
+    "employment_family_total_thousands": 81.5,
+    "employment_weight_within_family": 0.079948,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "96262",
@@ -124665,7 +126793,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6045
-    }
+    },
+    "employment_family_code": "96",
+    "employment_family_total_thousands": 21.3,
+    "employment_weight_within_family": 0.066526,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "94103",
@@ -124898,7 +127030,11 @@
       "wage_preservation": 0.8835,
       "training_ease": 0,
       "empirical_priority": 0.5436
-    }
+    },
+    "employment_family_code": "94",
+    "employment_family_total_thousands": 35.5,
+    "employment_weight_within_family": 0.260858,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "91151",
@@ -125129,7 +127265,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.57
-    }
+    },
+    "employment_family_code": "91",
+    "employment_family_total_thousands": 81.5,
+    "employment_weight_within_family": 0.077929,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "94102",
@@ -125362,7 +127502,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5797
-    }
+    },
+    "employment_family_code": "94",
+    "employment_family_total_thousands": 35.5,
+    "employment_weight_within_family": 0.245192,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "96111",
@@ -125596,7 +127740,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5821
-    }
+    },
+    "employment_family_code": "96",
+    "employment_family_total_thousands": 21.3,
+    "employment_weight_within_family": 0.055285,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "91210",
@@ -125830,7 +127978,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5903
-    }
+    },
+    "employment_family_code": "91",
+    "employment_family_total_thousands": 81.5,
+    "employment_weight_within_family": 0.077929,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "93201",
@@ -126061,7 +128213,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5383
-    }
+    },
+    "employment_family_code": "93",
+    "employment_family_total_thousands": 28.3,
+    "employment_weight_within_family": 0.140849,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "96253",
@@ -126295,7 +128451,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6398
-    }
+    },
+    "employment_family_code": "96",
+    "employment_family_total_thousands": 21.3,
+    "employment_weight_within_family": 0.065534,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "91122",
@@ -126529,7 +128689,11 @@
       "wage_preservation": 0.9658,
       "training_ease": 0,
       "empirical_priority": 0.5647
-    }
+    },
+    "employment_family_code": "91",
+    "employment_family_total_thousands": 81.5,
+    "employment_weight_within_family": 0.08754,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "91121",
@@ -126763,7 +128927,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5714
-    }
+    },
+    "employment_family_code": "91",
+    "employment_family_total_thousands": 81.5,
+    "employment_weight_within_family": 0.086031,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "94101",
@@ -126997,7 +129165,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5788
-    }
+    },
+    "employment_family_code": "94",
+    "employment_family_total_thousands": 35.5,
+    "employment_weight_within_family": 0.242331,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "96252",
@@ -127230,7 +129402,11 @@
       "wage_preservation": 0.9672,
       "training_ease": 0.3,
       "empirical_priority": 0.6193
-    }
+    },
+    "employment_family_code": "96",
+    "employment_family_total_thousands": 21.3,
+    "employment_weight_within_family": 0.068045,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "92142",
@@ -127464,7 +129640,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5713
-    }
+    },
+    "employment_family_code": "92",
+    "employment_family_total_thousands": 1,
+    "employment_weight_within_family": 0.491868,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "96291",
@@ -127692,7 +129872,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5689
-    }
+    },
+    "employment_family_code": "96",
+    "employment_family_total_thousands": 21.3,
+    "employment_weight_within_family": 0.052863,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "91220",
@@ -127926,7 +130110,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.5944
-    }
+    },
+    "employment_family_code": "91",
+    "employment_family_total_thousands": 81.5,
+    "employment_weight_within_family": 0.080327,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "93336",
@@ -128160,7 +130348,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5818
-    }
+    },
+    "employment_family_code": "93",
+    "employment_family_total_thousands": 28.3,
+    "employment_weight_within_family": 0.166021,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "96293",
@@ -128388,7 +130580,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.61
-    }
+    },
+    "employment_family_code": "96",
+    "employment_family_total_thousands": 21.3,
+    "employment_weight_within_family": 0.052863,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "91131",
@@ -128619,7 +130815,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5832
-    }
+    },
+    "employment_family_code": "91",
+    "employment_family_total_thousands": 81.5,
+    "employment_weight_within_family": 0.078921,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "91133",
@@ -128850,7 +131050,11 @@
       "wage_preservation": 0.9736,
       "training_ease": 0.3,
       "empirical_priority": 0.59
-    }
+    },
+    "employment_family_code": "91",
+    "employment_family_total_thousands": 81.5,
+    "employment_weight_within_family": 0.092822,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "91132",
@@ -129081,7 +131285,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5823
-    }
+    },
+    "employment_family_code": "91",
+    "employment_family_total_thousands": 81.5,
+    "employment_weight_within_family": 0.085854,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "96251",
@@ -129314,7 +131522,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.6308
-    }
+    },
+    "employment_family_code": "96",
+    "employment_family_total_thousands": 21.3,
+    "employment_weight_within_family": 0.060821,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "96213",
@@ -129551,7 +131763,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5898
-    }
+    },
+    "employment_family_code": "96",
+    "employment_family_total_thousands": 21.3,
+    "employment_weight_within_family": 0.054682,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "91161",
@@ -129782,7 +131998,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5547
-    }
+    },
+    "employment_family_code": "91",
+    "employment_family_total_thousands": 81.5,
+    "employment_weight_within_family": 0.0815,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "96255",
@@ -130016,7 +132236,11 @@
       "wage_preservation": 0.8604,
       "training_ease": 0.3,
       "empirical_priority": 0.6042
-    }
+    },
+    "employment_family_code": "96",
+    "employment_family_total_thousands": 21.3,
+    "employment_weight_within_family": 0.072144,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "91152",
@@ -130247,7 +132471,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5641
-    }
+    },
+    "employment_family_code": "91",
+    "employment_family_total_thousands": 81.5,
+    "employment_weight_within_family": 0.079615,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "94104",
@@ -130480,7 +132708,11 @@
       "wage_preservation": 1,
       "training_ease": 0.3,
       "empirical_priority": 0.4994
-    }
+    },
+    "employment_family_code": "94",
+    "employment_family_total_thousands": 35.5,
+    "employment_weight_within_family": 0.251619,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "92141",
@@ -130714,7 +132946,11 @@
       "wage_preservation": 0.937,
       "training_ease": 0,
       "empirical_priority": 0.5545
-    }
+    },
+    "employment_family_code": "92",
+    "employment_family_total_thousands": 1,
+    "employment_weight_within_family": 0.508132,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "93335",
@@ -130948,7 +133184,11 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5825
-    }
+    },
+    "employment_family_code": "93",
+    "employment_family_total_thousands": 28.3,
+    "employment_weight_within_family": 0.180237,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "93334",
@@ -131182,7 +133422,11 @@
       "wage_preservation": 1,
       "training_ease": 0.6,
       "empirical_priority": 0.5883
-    }
+    },
+    "employment_family_code": "93",
+    "employment_family_total_thousands": 28.3,
+    "employment_weight_within_family": 0.174576,
+    "employment_estimate_method": "wage_only"
   },
   {
     "ssoc": "96112",
@@ -131416,6 +133660,10 @@
       "wage_preservation": 1,
       "training_ease": 0,
       "empirical_priority": 0.5454
-    }
+    },
+    "employment_family_code": "96",
+    "employment_family_total_thousands": 21.3,
+    "employment_weight_within_family": 0.060706,
+    "employment_estimate_method": "wage_only"
   }
 ]

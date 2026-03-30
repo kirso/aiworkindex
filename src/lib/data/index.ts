@@ -157,6 +157,25 @@ export interface LabourClusterMonitor {
 	summary?: string;
 	data_as_of: string;
 	source?: string;
+	provenance?: {
+		method: 'raw_only' | 'raw_plus_report_enrichment';
+		report?: {
+			label: string;
+			published_at: string;
+			url: string;
+		};
+		fields: Record<
+			string,
+			{
+				source_key: string;
+				source_type: 'official_raw_feed' | 'official_report_table' | 'derived_official';
+				vintage: string;
+				reference: string;
+				transform?: string;
+				note?: string;
+			}
+		>;
+	};
 }
 
 export interface RawScores {
@@ -194,11 +213,15 @@ export interface Occupation {
 	gross_wage_median: number;
 	gross_wage_25th: number;
 	gross_wage_75th: number;
-	/** Explicit Singapore estimate derived from published sub-major occupation totals. */
+	/** Explicit Singapore estimate derived from published 2-digit occupation-family totals. */
 	estimated_sg_employment_thousands?: number;
 	/** Legacy compatibility alias for the same estimated Singapore employment field. */
 	employment_thousands: number;
 	employment_basis?: EmploymentBasis;
+	employment_family_code?: string | null;
+	employment_family_total_thousands?: number | null;
+	employment_weight_within_family?: number | null;
+	employment_estimate_method?: 'bls_wage_blend' | 'bls_only' | 'wage_only' | 'equal_fallback' | null;
 	/** BLS-weighted proxy used for illustrative wage-pool analysis; not an official Singapore headcount. */
 	bls_proxy_employment?: number;
 	group_employment_thousands: number;

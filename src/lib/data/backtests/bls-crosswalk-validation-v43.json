@@ -5,16 +5,16 @@
   "sample_size": 530,
   "total_occupations": 562,
   "match_rate": 0.943,
-  "spearman_rho": -0.1905,
-  "t_statistic": -4.46,
+  "spearman_rho": -0.2267,
+  "t_statistic": -5.35,
   "p_value_below_001": true,
   "p_value_below_01": true,
   "direction": "negative",
-  "interpretation": "Spearman rho = -0.1905 indicates a negative correlation between our structural risk scores and BLS projected employment change. Higher risk scores are associated with lower (or negative) projected employment growth. The very_high risk band is the only band with projected negative employment growth (-3.4%). The top three risk bands show monotonically decreasing BLS projected growth. The modest correlation is expected: BLS projections include non-AI factors (demographics, trade, policy), while our model measures AI-specific structural pressure.",
+  "interpretation": "Spearman rho = -0.2267 indicates a negative correlation between our structural risk scores and BLS projected employment change. Higher risk scores are associated with lower (or negative) projected employment growth. The very_high risk band is the only band with projected negative employment growth (-5.7%). The top three risk bands show monotonically decreasing BLS projected growth. The modest correlation is expected: BLS projections include non-AI factors (demographics, trade, policy), while our model measures AI-specific structural pressure.",
   "by_risk_band": {
     "very_low": {
-      "count": 83,
-      "avg_bls_change": 3.6,
+      "count": 74,
+      "avg_bls_change": 3.7,
       "avg_net_risk": 0.023,
       "occupations": [
         "Arts and cultural centre manager (including gallery and museum manager)",
@@ -23,9 +23,9 @@
       ]
     },
     "low": {
-      "count": 198,
-      "avg_bls_change": 3.4,
-      "avg_net_risk": 0.104,
+      "count": 179,
+      "avg_bls_change": 3.9,
+      "avg_net_risk": 0.108,
       "occupations": [
         "Administration manager",
         "Advertising/Public relations manager",
@@ -33,33 +33,33 @@
       ]
     },
     "moderate": {
-      "count": 131,
-      "avg_bls_change": 2.6,
-      "avg_net_risk": 0.214,
+      "count": 160,
+      "avg_bls_change": 2.3,
+      "avg_net_risk": 0.208,
       "occupations": [
+        "Attractions manager",
         "Business development manager",
-        "Customer service manager",
-        "Industrial relations manager"
+        "Call centre manager"
       ]
     },
     "high": {
-      "count": 78,
-      "avg_bls_change": 1.9,
-      "avg_net_risk": 0.395,
+      "count": 85,
+      "avg_bls_change": 2,
+      "avg_net_risk": 0.392,
       "occupations": [
-        "Call centre manager",
         "Accountant (excluding tax accountant)",
-        "Actuary"
+        "Actuary",
+        "Auditor (accounting)"
       ]
     },
     "very_high": {
-      "count": 40,
-      "avg_bls_change": -3.4,
-      "avg_net_risk": 0.619,
+      "count": 32,
+      "avg_bls_change": -5.7,
+      "avg_net_risk": 0.601,
       "occupations": [
         "Author",
         "Content writer",
-        "Data scientist"
+        "Intellectual property agent"
       ]
     }
   },

@@ -91,18 +91,38 @@
 			name: 'employment_thousands',
 			type: 'number',
 			description:
-				'Legacy compatibility alias for estimated_sg_employment_thousands. Derived from published Labour Force 2024 sub-major totals. Not an official occupation headcount.'
+				'Legacy compatibility alias for estimated_sg_employment_thousands. Derived from published Labour Force 2025 2-digit occupation-family totals and weighted within each family. Not an official occupation headcount.'
 		},
 		{
 			name: 'estimated_sg_employment_thousands',
 			type: 'number',
 			description:
-				'Est. Singapore employment for this occupation, derived from published Labour Force 2024 sub-major totals. Not an official occupation headcount.'
+				'Est. Singapore employment for this occupation, derived from published Labour Force 2025 2-digit occupation-family totals and weighted within each family using BLS proxy employment plus Singapore wage information. Not an official occupation headcount.'
 		},
 		{
 			name: 'employment_basis',
 			type: 'enum',
-			description: `Basis label for estimated_sg_employment_thousands. Current live basis: ${employmentBasisLabels.estimated_sg_submajor}.`
+			description: `Basis label for estimated_sg_employment_thousands. Current live basis: ${employmentBasisLabels.estimated_sg_submajor_weighted_2025}.`
+		},
+		{
+			name: 'employment_family_code',
+			type: 'string',
+			description: '2-digit Labour Force occupation-family code used as the official anchor for the employment estimate.'
+		},
+		{
+			name: 'employment_family_total_thousands',
+			type: 'number',
+			description: 'Official Labour Force 2025 total for the 2-digit occupation family that this occupation belongs to.'
+		},
+		{
+			name: 'employment_weight_within_family',
+			type: 'number',
+			description: 'Normalized weight used to allocate the family total down to this occupation.'
+		},
+		{
+			name: 'employment_estimate_method',
+			type: 'enum',
+			description: 'Allocation method used within the family: bls_wage_blend, bls_only, wage_only, or equal_fallback.'
 		},
 		{
 			name: 'bls_proxy_employment',
@@ -854,13 +874,14 @@
 			{#each [
 				{ href: '/data/sg-context-pack-2025.json', label: 'Full context pack', desc: 'All context in one file' },
 				{ href: '/data/sg-labour-monitor-2025.json', label: 'Labour monitor', desc: 'Vacancy, hiring, retrenchment' },
-				{ href: '/data/sg-worker-profile-2024.json', label: 'Worker profile', desc: 'Age, education, nationality' },
+				{ href: '/data/sg-worker-profile-2025.json', label: 'Worker profile', desc: 'Age, education, nationality' },
 				{ href: '/data/sg-geography-context-2020.json', label: 'Geography', desc: 'Planning area concentration' },
 				{ href: '/data/sg-macro-context-2025.json', label: 'Macro context', desc: 'Unemployment, GDP, tightness' },
 				{ href: '/data/sg-ai-in-singapore-2025.json', label: 'AI in Singapore', desc: 'Adoption, NAIIP, workforce' },
 				{ href: '/data/onet-enrichment.json', label: 'O*NET task + tools', desc: 'Supporting task and technology context' },
 				{ href: '/data/sg-transition-support-v4.json', label: 'Transition support', desc: 'Pathways, SkillsFuture, JTM / WSQ anchors' },
-				{ href: '/data/sg-offset-potential-v4.json', label: 'Offset potential', desc: 'Demand persistence, redesign room, switching friction' }
+				{ href: '/data/sg-offset-potential-v4.json', label: 'Offset potential', desc: 'Demand persistence, redesign room, switching friction' },
+				{ href: '/data/public-field-source-map.json', label: 'Field source map', desc: 'Field-level provenance and transformations' }
 			] as file}
 				<a
 					href={file.href}
@@ -1010,7 +1031,7 @@
 				</p>
 				<p class="mt-1 text-xs text-muted-foreground">
 					Major public claims are also published in a versioned
-					<a href="/data/claims-matrix-v4.json" download class="text-primary underline">claims matrix</a>
+					<a href={'/data/claims-matrix-' + currentVersionTag + '.json'} download class="text-primary underline">claims matrix</a>
 					with evidence-strength labels, source keys, and research links. The citation layer is also
 					published as
 					<a href="/data/research-library.json" download class="text-primary underline">research-library.json</a>.
@@ -1098,7 +1119,7 @@
 				</Table.Root>
 			</div>
 			<p class="mt-3 text-xs text-muted-foreground">
-				The employment estimate and wage-pool proxy are intentionally separated. The first is an Est. Singapore allocation from official sub-major totals; the second is a BLS-weighted proxy used only for wage-pool views. Separate live worker-profile context comes from Labour Force 2024 Section D and wages-by-sex tables.
+				The employment estimate and wage-pool proxy are intentionally separated. The first is an Est. Singapore allocation from official Labour Force 2025 2-digit occupation-family totals, weighted within each family; the second is a BLS-weighted proxy used only for wage-pool views. Separate live worker-profile context comes from Labour Force 2025 Section D and wages-by-sex tables.
 			</p>
 			<p class="mt-2 text-xs text-muted-foreground">
 				Current labour evidence is also published separately in the Singapore context pack so the

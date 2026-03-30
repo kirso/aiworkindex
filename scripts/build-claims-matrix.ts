@@ -18,7 +18,8 @@ const SRC_DATA_DIR = path.join(ROOT_DIR, 'src', 'lib', 'data');
 const STATIC_DATA_DIR = path.join(ROOT_DIR, 'static', 'data');
 const OUT_FILE = path.join(DATA_DIR, 'claims-matrix.json');
 const SRC_OUT_FILE = path.join(SRC_DATA_DIR, 'claims-matrix.json');
-const STATIC_OUT_FILE = path.join(STATIC_DATA_DIR, 'claims-matrix-v4.json');
+const VERSION_TAG = DATA_VINTAGE.model_version.toLowerCase().replaceAll('.', '');
+const STATIC_OUT_FILE = path.join(STATIC_DATA_DIR, `claims-matrix-${VERSION_TAG}.json`);
 
 type ClaimStrength = 'high' | 'medium' | 'directional' | 'estimated' | 'synthetic';
 
@@ -49,7 +50,7 @@ const claims: ClaimEntry[] = [
 		strength: 'high',
 		source_keys: ['mom_ows_2024'],
 		research_keys: [],
-		evidence_artifacts: ['sg-ai-occupations-v4.json'],
+		evidence_artifacts: [`sg-ai-occupations-${VERSION_TAG}.json`],
 		where_used: ['/', '/about', '/data', '/methodology', '/README'],
 		notes: 'Backed by the published MOM occupation table and the current frozen score dataset.'
 	},
@@ -65,7 +66,7 @@ const claims: ClaimEntry[] = [
 			'pizzinelli_etal_2023',
 			'anthropic_economic_index_2026'
 		],
-		evidence_artifacts: ['scripts/score.ts', 'sg-ai-occupations-v4.json'],
+		evidence_artifacts: ['scripts/score.ts', `sg-ai-occupations-${VERSION_TAG}.json`],
 		where_used: ['/about', '/methodology', '/README'],
 		notes:
 			'The scorer is a reproducible Bun pipeline with fixed constants and published source inputs.'
@@ -92,7 +93,7 @@ const claims: ClaimEntry[] = [
 			'eloundou_etal_2023',
 			'ilo_genai_exposure_2025'
 		],
-		evidence_artifacts: ['scripts/score.ts', 'sg-ai-occupations-v4.json'],
+		evidence_artifacts: ['scripts/score.ts', `sg-ai-occupations-${VERSION_TAG}.json`],
 		where_used: ['/about', '/data', '/methodology', '/README'],
 		notes:
 			DATA_VINTAGE.model_version === 'V5'
@@ -157,7 +158,10 @@ const claims: ClaimEntry[] = [
 		strength: 'estimated',
 		source_keys: ['mom_lfr2024_table_d8'],
 		research_keys: [],
-		evidence_artifacts: ['sg-ai-occupations-v4.json', 'sg-ai-occupations-v4.csv'],
+		evidence_artifacts: [
+			`sg-ai-occupations-${VERSION_TAG}.json`,
+			`sg-ai-occupations-${VERSION_TAG}.csv`
+		],
 		where_used: ['/data', '/reports/wage-exposure'],
 		notes:
 			'The field is derived from published sub-major totals and should always be read as an estimate until official 4- or 5-digit occupation counts are obtained.'
@@ -170,7 +174,7 @@ const claims: ClaimEntry[] = [
 		strength: 'estimated',
 		source_keys: ['mom_lfr2024_table_d8', 'bls_projections_2024_2034'],
 		research_keys: ['bls_occupational_projections_2024_2034'],
-		evidence_artifacts: ['sg-ai-occupations-v4.json'],
+		evidence_artifacts: [`sg-ai-occupations-${VERSION_TAG}.json`],
 		where_used: ['/', '/reports/wage-exposure'],
 		notes:
 			'This is an external proportional proxy used for wage-pool analysis, not a direct Singapore employment observation.'

@@ -25,18 +25,19 @@ function versionTag(version: string): string {
 }
 
 fs.mkdirSync(OUT_DIR, { recursive: true });
-fs.copyFileSync(IN_FILE, OUT_FILE);
-fs.copyFileSync(
-	IN_FILE,
-	path.join(OUT_DIR, `sg-ai-occupations-${versionTag(DATA_VINTAGE.model_version)}.json`)
+const liveJson = fs.readFileSync(IN_FILE);
+fs.writeFileSync(OUT_FILE, liveJson);
+fs.writeFileSync(
+	path.join(OUT_DIR, `sg-ai-occupations-${versionTag(DATA_VINTAGE.model_version)}.json`),
+	liveJson
 );
 
 for (const entry of fs.readdirSync(DATA_DIR)) {
 	const match = entry.match(/^occupations-(v\d+(?:\.\d+)?)\.json$/i);
 	if (!match) continue;
-	fs.copyFileSync(
-		path.join(DATA_DIR, entry),
-		path.join(OUT_DIR, `sg-ai-occupations-${match[1]!.toLowerCase().replaceAll('.', '')}.json`)
+	fs.writeFileSync(
+		path.join(OUT_DIR, `sg-ai-occupations-${match[1]!.toLowerCase().replaceAll('.', '')}.json`),
+		fs.readFileSync(path.join(DATA_DIR, entry))
 	);
 }
 

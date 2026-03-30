@@ -23,9 +23,15 @@ const GEOGRAPHY_CONTEXT_FILE = path.join(DATA_DIR, 'geography-context.json');
 const MACRO_CONTEXT_FILE = path.join(DATA_DIR, 'macro-context.json');
 const AI_IN_SINGAPORE_FILE = path.join(DATA_DIR, 'ai-in-singapore.json');
 const TRANSITION_INFRASTRUCTURE_FILE = path.join(DATA_DIR, 'transition-infrastructure.json');
+const LFR_SECTION_D_SIGNALS_FILE = path.join(DATA_DIR, 'lfr-section-d-signals.json');
 
 const CONTEXT_PACK_FILE = path.join(OUT_DIR, 'sg-context-pack-2025.json');
 const LABOUR_MONITOR_EXPORT_FILE = path.join(OUT_DIR, 'sg-labour-monitor-2025.json');
+const LFR_DELTAS_EXPORT_FILE = path.join(OUT_DIR, 'sg-lfr-deltas-2025.json');
+
+function versionTag(version: string): string {
+	return version.toLowerCase().replaceAll('.', '');
+}
 
 function readJson<T>(filePath: string): T {
 	return JSON.parse(fs.readFileSync(filePath, 'utf-8')) as T;
@@ -41,6 +47,7 @@ const aiInSingapore = readJson<{ sources?: unknown[] } & Record<string, unknown>
 	AI_IN_SINGAPORE_FILE
 );
 const transitionInfrastructure = readJson<Record<string, unknown>>(TRANSITION_INFRASTRUCTURE_FILE);
+const lfrSectionDSignals = readJson<Record<string, unknown>>(LFR_SECTION_D_SIGNALS_FILE);
 
 const contextPack = {
 	version: DATA_VINTAGE.model_version,
@@ -48,8 +55,8 @@ const contextPack = {
 	description:
 		'Singapore context bundle for AI Work Index. Context data is published separately from the structural score dataset and includes labour, worker, industry, wage-anchor, geography, macro, and national AI context.',
 	score_dataset: {
-		json: 'sg-ai-occupations-v4.json',
-		csv: 'sg-ai-occupations-v4.csv'
+		json: `sg-ai-occupations-${versionTag(DATA_VINTAGE.model_version)}.json`,
+		csv: `sg-ai-occupations-${versionTag(DATA_VINTAGE.model_version)}.csv`
 	},
 	coverage: {
 		labour_monitor_clusters: labourMonitor.length,
@@ -83,10 +90,18 @@ const contextPack = {
 			(transitionInfrastructure as { programmes?: unknown[] }).programmes
 		)
 			? ((transitionInfrastructure as { programmes: unknown[] }).programmes?.length ?? 0)
-			: 0
+			: 0,
+		lfr_occupation_families:
+			lfrSectionDSignals &&
+			typeof lfrSectionDSignals === 'object' &&
+			'family_employment' in lfrSectionDSignals &&
+			lfrSectionDSignals.family_employment &&
+			typeof lfrSectionDSignals.family_employment === 'object'
+				? Object.keys(lfrSectionDSignals.family_employment as Record<string, unknown>).length
+				: 0
 	},
 	vintage: {
-		worker_profile: '2024',
+		worker_profile: '2025',
 		industry_context:
 			industryContext &&
 			typeof industryContext === 'object' &&
@@ -117,7 +132,8 @@ const contextPack = {
 		macro_context: '2024-2025',
 		labour_monitor: DATA_VINTAGE.labour_monitor,
 		national_ai_context: '2025-2026',
-		transition_infrastructure: '2024-2026'
+		transition_infrastructure: '2024-2026',
+		lfr_section_d: '2024-2025'
 	},
 	components: {
 		labour_monitor: {
@@ -126,9 +142,21 @@ const contextPack = {
 				'Published cluster-level vacancy, hiring, retrenchment, and re-entry signals from official Singapore labour-market releases.'
 		},
 		worker_profile: {
-			file: 'sg-worker-profile-2024.json',
+			file: 'sg-worker-profile-2025.json',
 			description:
-				'Broad occupation-group worker composition and detailed gender anchors from Labour Force 2024 Section D and wages-by-sex tables.'
+				'Broad occupation-group worker composition and detailed gender anchors from Labour Force 2025 Section D and wages-by-sex tables.'
+		},
+		lfr_section_d: {
+			file: 'sg-lfr-deltas-2025.json',
+			description:
+				'Published 2024 to 2025 Labour Force Section D family, cluster, and industry-mix deltas used for validation and contextual reporting.',
+			data: {
+				family_employment: (lfrSectionDSignals as { family_employment?: unknown }).family_employment ?? {},
+				cluster_characteristics:
+					(lfrSectionDSignals as { cluster_characteristics?: unknown }).cluster_characteristics ?? {},
+				cluster_industry_mix:
+					(lfrSectionDSignals as { cluster_industry_mix?: unknown }).cluster_industry_mix ?? {}
+			}
 		},
 		industry_context: {
 			description:
@@ -170,6 +198,23 @@ const contextPack = {
 fs.mkdirSync(OUT_DIR, { recursive: true });
 fs.writeFileSync(CONTEXT_PACK_FILE, JSON.stringify(contextPack, null, 2), 'utf-8');
 fs.writeFileSync(LABOUR_MONITOR_EXPORT_FILE, JSON.stringify(labourMonitor, null, 2), 'utf-8');
+fs.writeFileSync(
+	LFR_DELTAS_EXPORT_FILE,
+	JSON.stringify(
+		{
+			data_as_of: '2025',
+			family_employment: (lfrSectionDSignals as { family_employment?: unknown }).family_employment ?? {},
+			cluster_characteristics:
+				(lfrSectionDSignals as { cluster_characteristics?: unknown }).cluster_characteristics ?? {},
+			cluster_industry_mix:
+				(lfrSectionDSignals as { cluster_industry_mix?: unknown }).cluster_industry_mix ?? {}
+		},
+		null,
+		2
+	),
+	'utf-8'
+);
 
 console.log(`Exported Singapore context pack to ${CONTEXT_PACK_FILE}`);
 console.log(`Exported labour monitor to ${LABOUR_MONITOR_EXPORT_FILE}`);
+console.log(`Exported Section D deltas to ${LFR_DELTAS_EXPORT_FILE}`);

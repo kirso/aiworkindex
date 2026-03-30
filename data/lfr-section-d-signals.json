@@ -1,0 +1,4151 @@
+{
+  "metadata": {
+    "data_as_of": "2025",
+    "source_files": [
+      "LFR2024_SectionD.xlsx",
+      "LFR2025_SectionD.xlsx"
+    ],
+    "notes": [
+      "D8 provides official 2-digit occupation-family totals, not detailed 4-digit or 5-digit SSOC occupation headcounts.",
+      "D1 is intentionally excluded because broad occupation history is already handled by the published employment-by-occupation-group series.",
+      "D2 and D13 to D17 add industry-composition and workforce-context cross-tabs; these are normalized for context and future methodology work, not treated as detailed occupation headcounts.",
+      "D9 to D12 are published for validation, reporting, and experimental overlays; they are not direct structural-score multipliers."
+    ]
+  },
+  "family_employment": {
+    "11": {
+      "code": "11",
+      "label": "Legislators, Senior Officials & Chief Executives",
+      "total": 52.6,
+      "male": 38.1,
+      "female": 14.5,
+      "male_share": 0.7243,
+      "female_share": 0.2757,
+      "total_2024": 50.3,
+      "total_2025": 52.6,
+      "male_2024": 35.1,
+      "male_2025": 38.1,
+      "female_2024": 15.3,
+      "female_2025": 14.5,
+      "delta_k": 2.3,
+      "delta_pct": 0.0457
+    },
+    "12": {
+      "code": "12",
+      "label": "Administrative & Commercial Managers",
+      "total": 188.7,
+      "male": 94.8,
+      "female": 93.9,
+      "male_share": 0.5024,
+      "female_share": 0.4976,
+      "total_2024": 187.6,
+      "total_2025": 188.7,
+      "male_2024": 95.8,
+      "male_2025": 94.8,
+      "female_2024": 91.8,
+      "female_2025": 93.9,
+      "delta_k": 1.1,
+      "delta_pct": 0.0059
+    },
+    "13": {
+      "code": "13",
+      "label": "Production & Specialised Services Managers",
+      "total": 121.7,
+      "male": 85.5,
+      "female": 36.2,
+      "male_share": 0.7025,
+      "female_share": 0.2975,
+      "total_2024": 122.1,
+      "total_2025": 121.7,
+      "male_2024": 82.6,
+      "male_2025": 85.5,
+      "female_2024": 39.5,
+      "female_2025": 36.2,
+      "delta_k": -0.4,
+      "delta_pct": -0.0033
+    },
+    "14": {
+      "code": "14",
+      "label": "Hospitality, Retail & Related Services Managers",
+      "total": 42.7,
+      "male": 26.5,
+      "female": 16.1,
+      "male_share": 0.6206,
+      "female_share": 0.377,
+      "total_2024": 44.8,
+      "total_2025": 42.7,
+      "male_2024": 29.2,
+      "male_2025": 26.5,
+      "female_2024": 15.7,
+      "female_2025": 16.1,
+      "delta_k": -2.1,
+      "delta_pct": -0.0469
+    },
+    "21": {
+      "code": "21",
+      "label": "Science & Engineering Professionals",
+      "total": 154.5,
+      "male": 106.9,
+      "female": 47.6,
+      "male_share": 0.6919,
+      "female_share": 0.3081,
+      "total_2024": 157.1,
+      "total_2025": 154.5,
+      "male_2024": 104.9,
+      "male_2025": 106.9,
+      "female_2024": 52.2,
+      "female_2025": 47.6,
+      "delta_k": -2.6,
+      "delta_pct": -0.0165
+    },
+    "22": {
+      "code": "22",
+      "label": "Health Professionals",
+      "total": 61.6,
+      "male": 20.7,
+      "female": 40.8,
+      "male_share": 0.336,
+      "female_share": 0.6623,
+      "total_2024": 58.3,
+      "total_2025": 61.6,
+      "male_2024": 18.2,
+      "male_2025": 20.7,
+      "female_2024": 40.1,
+      "female_2025": 40.8,
+      "delta_k": 3.3,
+      "delta_pct": 0.0566
+    },
+    "23": {
+      "code": "23",
+      "label": "Teaching & Training Professionals",
+      "total": 66.7,
+      "male": 22.4,
+      "female": 44.3,
+      "male_share": 0.3358,
+      "female_share": 0.6642,
+      "total_2024": 62.3,
+      "total_2025": 66.7,
+      "male_2024": 22.3,
+      "male_2025": 22.4,
+      "female_2024": 40,
+      "female_2025": 44.3,
+      "delta_k": 4.4,
+      "delta_pct": 0.0706
+    },
+    "24": {
+      "code": "24",
+      "label": "Business & Administration Professionals",
+      "total": 216.1,
+      "male": 89,
+      "female": 127.1,
+      "male_share": 0.4118,
+      "female_share": 0.5882,
+      "total_2024": 221.4,
+      "total_2025": 216.1,
+      "male_2024": 93.3,
+      "male_2025": 89,
+      "female_2024": 128,
+      "female_2025": 127.1,
+      "delta_k": -5.3,
+      "delta_pct": -0.0239
+    },
+    "25": {
+      "code": "25",
+      "label": "Information & Communications Technology Professionals",
+      "total": 82.3,
+      "male": 57.6,
+      "female": 24.7,
+      "male_share": 0.6999,
+      "female_share": 0.3001,
+      "total_2024": 76.4,
+      "total_2025": 82.3,
+      "male_2024": 54.3,
+      "male_2025": 57.6,
+      "female_2024": 22.1,
+      "female_2025": 24.7,
+      "delta_k": 5.9,
+      "delta_pct": 0.0772
+    },
+    "26": {
+      "code": "26",
+      "label": "Legal, Social, Religious & Cultural Professionals",
+      "total": 43.4,
+      "male": 16.5,
+      "female": 26.9,
+      "male_share": 0.3802,
+      "female_share": 0.6198,
+      "total_2024": 44.6,
+      "total_2025": 43.4,
+      "male_2024": 18.7,
+      "male_2025": 16.5,
+      "female_2024": 25.9,
+      "female_2025": 26.9,
+      "delta_k": -1.2,
+      "delta_pct": -0.0269
+    },
+    "31": {
+      "code": "31",
+      "label": "Physical & Engineering Science Associate Professionals",
+      "total": 105.4,
+      "male": 82.4,
+      "female": 23,
+      "male_share": 0.7818,
+      "female_share": 0.2182,
+      "total_2024": 104.9,
+      "total_2025": 105.4,
+      "male_2024": 83,
+      "male_2025": 82.4,
+      "female_2024": 21.9,
+      "female_2025": 23,
+      "delta_k": 0.5,
+      "delta_pct": 0.0048
+    },
+    "32": {
+      "code": "32",
+      "label": "Health Associate Professionals",
+      "total": 17.1,
+      "male": 5.7,
+      "female": 11.4,
+      "male_share": 0.3333,
+      "female_share": 0.6667,
+      "total_2024": 17.7,
+      "total_2025": 17.1,
+      "male_2024": 5.4,
+      "male_2025": 5.7,
+      "female_2024": 12.4,
+      "female_2025": 11.4,
+      "delta_k": -0.6,
+      "delta_pct": -0.0339
+    },
+    "33": {
+      "code": "33",
+      "label": "Business & Administration Associate Professionals",
+      "total": 258.9,
+      "male": 101.5,
+      "female": 157.4,
+      "male_share": 0.392,
+      "female_share": 0.608,
+      "total_2024": 248.9,
+      "total_2025": 258.9,
+      "male_2024": 103,
+      "male_2025": 101.5,
+      "female_2024": 145.8,
+      "female_2025": 157.4,
+      "delta_k": 10,
+      "delta_pct": 0.0402
+    },
+    "34": {
+      "code": "34",
+      "label": "Legal, Social, Cultural & Related Associate Professionals",
+      "total": 38.8,
+      "male": 22.3,
+      "female": 16.5,
+      "male_share": 0.5747,
+      "female_share": 0.4253,
+      "total_2024": 38.4,
+      "total_2025": 38.8,
+      "male_2024": 22.8,
+      "male_2025": 22.3,
+      "female_2024": 15.5,
+      "female_2025": 16.5,
+      "delta_k": 0.4,
+      "delta_pct": 0.0104
+    },
+    "35": {
+      "code": "35",
+      "label": "Information & Communications Technicians",
+      "total": 22.4,
+      "male": 16.6,
+      "female": 5.8,
+      "male_share": 0.7411,
+      "female_share": 0.2589,
+      "total_2024": 26.2,
+      "total_2025": 22.4,
+      "male_2024": 20,
+      "male_2025": 16.6,
+      "female_2024": 6.3,
+      "female_2025": 5.8,
+      "delta_k": -3.8,
+      "delta_pct": -0.145
+    },
+    "36": {
+      "code": "36",
+      "label": "Teaching Associate Professionals",
+      "total": 51.2,
+      "male": 8.4,
+      "female": 42.8,
+      "male_share": 0.1641,
+      "female_share": 0.8359,
+      "total_2024": 45.8,
+      "total_2025": 51.2,
+      "male_2024": 6.9,
+      "male_2025": 8.4,
+      "female_2024": 38.9,
+      "female_2025": 42.8,
+      "delta_k": 5.4,
+      "delta_pct": 0.1179
+    },
+    "39": {
+      "code": "39",
+      "label": "Other Associate Professionals Not Elsewhere Classified",
+      "total": 1.8,
+      "male": 0.9,
+      "female": 0.8,
+      "male_share": 0.5,
+      "female_share": 0.4444,
+      "total_2024": 1.2,
+      "total_2025": 1.8,
+      "male_2024": 0.4,
+      "male_2025": 0.9,
+      "female_2024": 0.8,
+      "female_2025": 0.8,
+      "delta_k": 0.6,
+      "delta_pct": 0.5
+    },
+    "40": {
+      "code": "40",
+      "label": "Clerical Supervisors",
+      "total": 3.4,
+      "male": 1.5,
+      "female": 1.9,
+      "male_share": 0.4412,
+      "female_share": 0.5588,
+      "total_2024": 3.9,
+      "total_2025": 3.4,
+      "male_2024": 1.3,
+      "male_2025": 1.5,
+      "female_2024": 2.6,
+      "female_2025": 1.9,
+      "delta_k": -0.5,
+      "delta_pct": -0.1282
+    },
+    "41": {
+      "code": "41",
+      "label": "General & Keyboard Clerks",
+      "total": 97.2,
+      "male": 19.1,
+      "female": 78.1,
+      "male_share": 0.1965,
+      "female_share": 0.8035,
+      "total_2024": 99.9,
+      "total_2025": 97.2,
+      "male_2024": 14.4,
+      "male_2025": 19.1,
+      "female_2024": 85.5,
+      "female_2025": 78.1,
+      "delta_k": -2.7,
+      "delta_pct": -0.027
+    },
+    "42": {
+      "code": "42",
+      "label": "Customer Services Officers & Clerks",
+      "total": 48,
+      "male": 11.7,
+      "female": 36.3,
+      "male_share": 0.2438,
+      "female_share": 0.7563,
+      "total_2024": 50.1,
+      "total_2025": 48,
+      "male_2024": 11.8,
+      "male_2025": 11.7,
+      "female_2024": 38.3,
+      "female_2025": 36.3,
+      "delta_k": -2.1,
+      "delta_pct": -0.0419
+    },
+    "43": {
+      "code": "43",
+      "label": "Numerical & Material-Recording Clerks",
+      "total": 46.5,
+      "male": 17.3,
+      "female": 29.2,
+      "male_share": 0.372,
+      "female_share": 0.628,
+      "total_2024": 50.9,
+      "total_2025": 46.5,
+      "male_2024": 18.8,
+      "male_2025": 17.3,
+      "female_2024": 32.1,
+      "female_2025": 29.2,
+      "delta_k": -4.4,
+      "delta_pct": -0.0864
+    },
+    "44": {
+      "code": "44",
+      "label": "Other Clerical Support Workers",
+      "total": 5.8,
+      "male": 1.7,
+      "female": 4.1,
+      "male_share": 0.2931,
+      "female_share": 0.7069,
+      "total_2024": 4.8,
+      "total_2025": 5.8,
+      "male_2024": 1.8,
+      "male_2025": 1.7,
+      "female_2024": 3,
+      "female_2025": 4.1,
+      "delta_k": 1,
+      "delta_pct": 0.2083
+    },
+    "51": {
+      "code": "51",
+      "label": "Personal Service Workers",
+      "total": 73.2,
+      "male": 27.5,
+      "female": 45.7,
+      "male_share": 0.3757,
+      "female_share": 0.6243,
+      "total_2024": 74.9,
+      "total_2025": 73.2,
+      "male_2024": 29.5,
+      "male_2025": 27.5,
+      "female_2024": 45.4,
+      "female_2025": 45.7,
+      "delta_k": -1.7,
+      "delta_pct": -0.0227
+    },
+    "52": {
+      "code": "52",
+      "label": "Sales Workers",
+      "total": 109.4,
+      "male": 42.3,
+      "female": 67.2,
+      "male_share": 0.3867,
+      "female_share": 0.6143,
+      "total_2024": 106.6,
+      "total_2025": 109.4,
+      "male_2024": 35,
+      "male_2025": 42.3,
+      "female_2024": 71.7,
+      "female_2025": 67.2,
+      "delta_k": 2.8,
+      "delta_pct": 0.0263
+    },
+    "53": {
+      "code": "53",
+      "label": "Personal Care Workers",
+      "total": 17.2,
+      "male": 2.6,
+      "female": 14.6,
+      "male_share": 0.1512,
+      "female_share": 0.8488,
+      "total_2024": 19.6,
+      "total_2025": 17.2,
+      "male_2024": 2.7,
+      "male_2025": 2.6,
+      "female_2024": 16.9,
+      "female_2025": 14.6,
+      "delta_k": -2.4,
+      "delta_pct": -0.1224
+    },
+    "54": {
+      "code": "54",
+      "label": "Protective Services Workers",
+      "total": 46.2,
+      "male": 37.1,
+      "female": 9.2,
+      "male_share": 0.803,
+      "female_share": 0.1991,
+      "total_2024": 40.4,
+      "total_2025": 46.2,
+      "male_2024": 34.7,
+      "male_2025": 37.1,
+      "female_2024": 5.7,
+      "female_2025": 9.2,
+      "delta_k": 5.8,
+      "delta_pct": 0.1436
+    },
+    "59": {
+      "code": "59",
+      "label": "Services Workers Not Elsewhere Classified",
+      "total": 1,
+      "male": 0.3,
+      "female": 0.6,
+      "male_share": 0.3,
+      "female_share": 0.6,
+      "total_2024": 0.2,
+      "total_2025": 1,
+      "male_2024": 0.1,
+      "male_2025": 0.3,
+      "female_2024": 0.1,
+      "female_2025": 0.6,
+      "delta_k": 0.8,
+      "delta_pct": 4
+    },
+    "71": {
+      "code": "71",
+      "label": "Building & Related Trades Workers (Excluding Electricians)",
+      "total": 19.9,
+      "male": 18.8,
+      "female": 1.2,
+      "male_share": 0.9447,
+      "female_share": 0.0603,
+      "total_2024": 18.4,
+      "total_2025": 19.9,
+      "male_2024": 17.8,
+      "male_2025": 18.8,
+      "female_2024": 0.6,
+      "female_2025": 1.2,
+      "delta_k": 1.5,
+      "delta_pct": 0.0815
+    },
+    "72": {
+      "code": "72",
+      "label": "Metal, Machinery & Related Trades Workers",
+      "total": 10.8,
+      "male": 9.9,
+      "female": 0.9,
+      "male_share": 0.9167,
+      "female_share": 0.0833,
+      "total_2024": 13.5,
+      "total_2025": 10.8,
+      "male_2024": 12.5,
+      "male_2025": 9.9,
+      "female_2024": 0.9,
+      "female_2025": 0.9,
+      "delta_k": -2.7,
+      "delta_pct": -0.2
+    },
+    "73": {
+      "code": "73",
+      "label": "Precision, Handicraft, Printing & Related Trades Workers",
+      "total": 3.5,
+      "male": 2.3,
+      "female": 1.2,
+      "male_share": 0.6571,
+      "female_share": 0.3429,
+      "total_2024": 2.5,
+      "total_2025": 3.5,
+      "male_2024": 1.9,
+      "male_2025": 2.3,
+      "female_2024": 0.6,
+      "female_2025": 1.2,
+      "delta_k": 1,
+      "delta_pct": 0.4
+    },
+    "74": {
+      "code": "74",
+      "label": "Electrical & Electronic Trades Workers",
+      "total": 7.2,
+      "male": 6.9,
+      "female": 0.3,
+      "male_share": 0.9583,
+      "female_share": 0.0417,
+      "total_2024": 10.9,
+      "total_2025": 7.2,
+      "male_2024": 9.5,
+      "male_2025": 6.9,
+      "female_2024": 1.3,
+      "female_2025": 0.3,
+      "delta_k": -3.7,
+      "delta_pct": -0.3394
+    },
+    "75": {
+      "code": "75",
+      "label": "Food Processing, Woodworking, Garment, Leather & Other Craft & Related Trades Workers",
+      "total": 10.1,
+      "male": 5.4,
+      "female": 4.8,
+      "male_share": 0.5347,
+      "female_share": 0.4752,
+      "total_2024": 9.5,
+      "total_2025": 10.1,
+      "male_2024": 4.7,
+      "male_2025": 5.4,
+      "female_2024": 4.8,
+      "female_2025": 4.8,
+      "delta_k": 0.6,
+      "delta_pct": 0.0632
+    },
+    "81": {
+      "code": "81",
+      "label": "Stationary Plant & Machine Operators",
+      "total": 8.3,
+      "male": 3.9,
+      "female": 4.4,
+      "male_share": 0.4699,
+      "female_share": 0.5301,
+      "total_2024": 9.7,
+      "total_2025": 8.3,
+      "male_2024": 4.7,
+      "male_2025": 3.9,
+      "female_2024": 4.9,
+      "female_2025": 4.4,
+      "delta_k": -1.4,
+      "delta_pct": -0.1443
+    },
+    "82": {
+      "code": "82",
+      "label": "Assemblers & Quality Checkers",
+      "total": 3.7,
+      "male": 1.4,
+      "female": 2.3,
+      "male_share": 0.3784,
+      "female_share": 0.6216,
+      "total_2024": 6.3,
+      "total_2025": 3.7,
+      "male_2024": 3.3,
+      "male_2025": 1.4,
+      "female_2024": 3,
+      "female_2025": 2.3,
+      "delta_k": -2.6,
+      "delta_pct": -0.4127
+    },
+    "83": {
+      "code": "83",
+      "label": "Drivers & Mobile Machinery Operators",
+      "total": 116.9,
+      "male": 111.6,
+      "female": 5.3,
+      "male_share": 0.9547,
+      "female_share": 0.0453,
+      "total_2024": 112.4,
+      "total_2025": 116.9,
+      "male_2024": 108.7,
+      "male_2025": 111.6,
+      "female_2024": 3.7,
+      "female_2025": 5.3,
+      "delta_k": 4.5,
+      "delta_pct": 0.04
+    },
+    "91": {
+      "code": "91",
+      "label": "Cleaners & Related Workers",
+      "total": 81.5,
+      "male": 35.5,
+      "female": 46.1,
+      "male_share": 0.4356,
+      "female_share": 0.5656,
+      "total_2024": 73.5,
+      "total_2025": 81.5,
+      "male_2024": 31.3,
+      "male_2025": 35.5,
+      "female_2024": 42.3,
+      "female_2025": 46.1,
+      "delta_k": 8,
+      "delta_pct": 0.1088
+    },
+    "92": {
+      "code": "92",
+      "label": "Agricultural, Fishery & Related Labourers",
+      "total": 1,
+      "male": 0.8,
+      "female": 0.2,
+      "male_share": 0.8,
+      "female_share": 0.2,
+      "total_2024": 1.1,
+      "total_2025": 1,
+      "male_2024": 1,
+      "male_2025": 0.8,
+      "female_2024": 0.1,
+      "female_2025": 0.2,
+      "delta_k": -0.1,
+      "delta_pct": -0.0909
+    },
+    "93": {
+      "code": "93",
+      "label": "Labourers & Related Workers",
+      "total": 28.3,
+      "male": 16.4,
+      "female": 11.9,
+      "male_share": 0.5795,
+      "female_share": 0.4205,
+      "total_2024": 29.9,
+      "total_2025": 28.3,
+      "male_2024": 17.9,
+      "male_2025": 16.4,
+      "female_2024": 12,
+      "female_2025": 11.9,
+      "delta_k": -1.6,
+      "delta_pct": -0.0535
+    },
+    "94": {
+      "code": "94",
+      "label": "Food Preparation & Kitchen Assistants",
+      "total": 35.5,
+      "male": 11.2,
+      "female": 24.3,
+      "male_share": 0.3155,
+      "female_share": 0.6845,
+      "total_2024": 38.5,
+      "total_2025": 35.5,
+      "male_2024": 11.5,
+      "male_2025": 11.2,
+      "female_2024": 27,
+      "female_2025": 24.3,
+      "delta_k": -3,
+      "delta_pct": -0.0779
+    },
+    "96": {
+      "code": "96",
+      "label": "Waste Collection, Recycling & Material Recovery Workers & Other Elementary Workers",
+      "total": 21.3,
+      "male": 10.1,
+      "female": 11.2,
+      "male_share": 0.4742,
+      "female_share": 0.5258,
+      "total_2024": 22.7,
+      "total_2025": 21.3,
+      "male_2024": 11.5,
+      "male_2025": 10.1,
+      "female_2024": 11.2,
+      "female_2025": 11.2,
+      "delta_k": -1.4,
+      "delta_pct": -0.0617
+    }
+  },
+  "group_profile": {
+    "2024": {
+      "MANAGERS": {
+        "major_group": "MANAGERS",
+        "total_employment": 404.9,
+        "sex_share": {
+          "male": 0.5992,
+          "female": 0.4006
+        },
+        "employment_status_share": {
+          "employers": 0.1613,
+          "employees": 0.7819,
+          "own_account_workers": 0.0563,
+          "contributing_family_workers": 0.0005,
+          "self_employed": 0.2181
+        },
+        "work_arrangement_share": {
+          "full_time": 0.9812,
+          "part_time": 0.0185
+        },
+        "age_share": {
+          "age_15_29": 0.022,
+          "age_30_49": 0.5939,
+          "age_50_59": 0.2566,
+          "age_60_plus": 0.1272
+        },
+        "qualification_share": {
+          "below_secondary": 0.0351,
+          "secondary": 0.0632,
+          "post_secondary_non_tertiary": 0.0405,
+          "diploma_professional": 0.1344,
+          "degree": 0.7268
+        },
+        "marital_status_share": {
+          "single": 0.1447,
+          "married": 0.799,
+          "widowed_divorced": 0.0561
+        }
+      },
+      "PROFESSIONALS": {
+        "major_group": "PROFESSIONALS",
+        "total_employment": 619.9,
+        "sex_share": {
+          "male": 0.5025,
+          "female": 0.4975
+        },
+        "employment_status_share": {
+          "employers": 0.0115,
+          "employees": 0.9514,
+          "own_account_workers": 0.0365,
+          "contributing_family_workers": 0.0006,
+          "self_employed": 0.0486
+        },
+        "work_arrangement_share": {
+          "full_time": 0.9619,
+          "part_time": 0.0381
+        },
+        "age_share": {
+          "age_15_29": 0.163,
+          "age_30_49": 0.6157,
+          "age_50_59": 0.1581,
+          "age_60_plus": 0.0632
+        },
+        "qualification_share": {
+          "below_secondary": 0.0039,
+          "secondary": 0.0166,
+          "post_secondary_non_tertiary": 0.0208,
+          "diploma_professional": 0.1426,
+          "degree": 0.8159
+        },
+        "marital_status_share": {
+          "single": 0.3157,
+          "married": 0.6496,
+          "widowed_divorced": 0.0347
+        }
+      },
+      "ASSOCIATE PROFESSIONALS AND TECHNICIANS": {
+        "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
+        "total_employment": 483.1,
+        "sex_share": {
+          "male": 0.4999,
+          "female": 0.5003
+        },
+        "employment_status_share": {
+          "employers": 0.0075,
+          "employees": 0.8729,
+          "own_account_workers": 0.1188,
+          "contributing_family_workers": 0.0008,
+          "self_employed": 0.1271
+        },
+        "work_arrangement_share": {
+          "full_time": 0.9066,
+          "part_time": 0.0934
+        },
+        "age_share": {
+          "age_15_29": 0.1836,
+          "age_30_49": 0.5131,
+          "age_50_59": 0.1869,
+          "age_60_plus": 0.1161
+        },
+        "qualification_share": {
+          "below_secondary": 0.0406,
+          "secondary": 0.1244,
+          "post_secondary_non_tertiary": 0.1192,
+          "diploma_professional": 0.3471,
+          "degree": 0.3689
+        },
+        "marital_status_share": {
+          "single": 0.3167,
+          "married": 0.6253,
+          "widowed_divorced": 0.058
+        }
+      },
+      "CLERICAL SUPPORT WORKERS": {
+        "major_group": "CLERICAL SUPPORT WORKERS",
+        "total_employment": 209.6,
+        "sex_share": {
+          "male": 0.229,
+          "female": 0.771
+        },
+        "employment_status_share": {
+          "employers": 0.001,
+          "employees": 0.9928,
+          "own_account_workers": 0.0019,
+          "contributing_family_workers": 0.0043,
+          "self_employed": 0.0072
+        },
+        "work_arrangement_share": {
+          "full_time": 0.8406,
+          "part_time": 0.1594
+        },
+        "age_share": {
+          "age_15_29": 0.1489,
+          "age_30_49": 0.3813,
+          "age_50_59": 0.2477,
+          "age_60_plus": 0.2223
+        },
+        "qualification_share": {
+          "below_secondary": 0.114,
+          "secondary": 0.2867,
+          "post_secondary_non_tertiary": 0.1803,
+          "diploma_professional": 0.3263,
+          "degree": 0.0921
+        },
+        "marital_status_share": {
+          "single": 0.2691,
+          "married": 0.6326,
+          "widowed_divorced": 0.0983
+        }
+      },
+      "SERVICE AND SALES WORKERS": {
+        "major_group": "SERVICE AND SALES WORKERS",
+        "total_employment": 241.8,
+        "sex_share": {
+          "male": 0.4222,
+          "female": 0.5778
+        },
+        "employment_status_share": {
+          "employers": 0.0215,
+          "employees": 0.9119,
+          "own_account_workers": 0.0604,
+          "contributing_family_workers": 0.0058,
+          "self_employed": 0.0877
+        },
+        "work_arrangement_share": {
+          "full_time": 0.751,
+          "part_time": 0.249
+        },
+        "age_share": {
+          "age_15_29": 0.1675,
+          "age_30_49": 0.3226,
+          "age_50_59": 0.2085,
+          "age_60_plus": 0.3015
+        },
+        "qualification_share": {
+          "below_secondary": 0.227,
+          "secondary": 0.2614,
+          "post_secondary_non_tertiary": 0.244,
+          "diploma_professional": 0.196,
+          "degree": 0.0711
+        },
+        "marital_status_share": {
+          "single": 0.2581,
+          "married": 0.6365,
+          "widowed_divorced": 0.1055
+        }
+      },
+      "CRAFTSMEN AND RELATED TRADES WORKERS": {
+        "major_group": "CRAFTSMEN AND RELATED TRADES WORKERS",
+        "total_employment": 54.8,
+        "sex_share": {
+          "male": 0.8485,
+          "female": 0.1515
+        },
+        "employment_status_share": {
+          "employers": 0.0255,
+          "employees": 0.8631,
+          "own_account_workers": 0.1058,
+          "contributing_family_workers": 0.0036,
+          "self_employed": 0.1349
+        },
+        "work_arrangement_share": {
+          "full_time": 0.8759,
+          "part_time": 0.1241
+        },
+        "age_share": {
+          "age_15_29": 0.0948,
+          "age_30_49": 0.2463,
+          "age_50_59": 0.2463,
+          "age_60_plus": 0.4124
+        },
+        "qualification_share": {
+          "below_secondary": 0.3558,
+          "secondary": 0.312,
+          "post_secondary_non_tertiary": 0.1788,
+          "diploma_professional": 0.1387,
+          "degree": 0.0146
+        },
+        "marital_status_share": {
+          "single": 0.1807,
+          "married": 0.7464,
+          "widowed_divorced": 0.0712
+        }
+      },
+      "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": {
+        "major_group": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
+        "total_employment": 128.4,
+        "sex_share": {
+          "male": 0.9097,
+          "female": 0.0903
+        },
+        "employment_status_share": {
+          "employers": 0.0023,
+          "employees": 0.5288,
+          "own_account_workers": 0.4681,
+          "contributing_family_workers": 0.0008,
+          "self_employed": 0.4712
+        },
+        "work_arrangement_share": {
+          "full_time": 0.8567,
+          "part_time": 0.1433
+        },
+        "age_share": {
+          "age_15_29": 0.0483,
+          "age_30_49": 0.2282,
+          "age_50_59": 0.2913,
+          "age_60_plus": 0.4322
+        },
+        "qualification_share": {
+          "below_secondary": 0.3621,
+          "secondary": 0.2991,
+          "post_secondary_non_tertiary": 0.1986,
+          "diploma_professional": 0.1012,
+          "degree": 0.0382
+        },
+        "marital_status_share": {
+          "single": 0.1199,
+          "married": 0.7741,
+          "widowed_divorced": 0.1059
+        }
+      },
+      "CLEANERS, LABOURERS AND RELATED WORKERS": {
+        "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
+        "total_employment": 165.7,
+        "sex_share": {
+          "male": 0.4412,
+          "female": 0.5588
+        },
+        "employment_status_share": {
+          "employers": 0,
+          "employees": 0.9475,
+          "own_account_workers": 0.0447,
+          "contributing_family_workers": 0.0078,
+          "self_employed": 0.0525
+        },
+        "work_arrangement_share": {
+          "full_time": 0.6162,
+          "part_time": 0.3838
+        },
+        "age_share": {
+          "age_15_29": 0.0483,
+          "age_30_49": 0.1201,
+          "age_50_59": 0.2058,
+          "age_60_plus": 0.6252
+        },
+        "qualification_share": {
+          "below_secondary": 0.5377,
+          "secondary": 0.2058,
+          "post_secondary_non_tertiary": 0.1973,
+          "diploma_professional": 0.0495,
+          "degree": 0.0097
+        },
+        "marital_status_share": {
+          "single": 0.1617,
+          "married": 0.6542,
+          "widowed_divorced": 0.1847
+        }
+      }
+    },
+    "2025": {
+      "MANAGERS": {
+        "major_group": "MANAGERS",
+        "total_employment": 405.7,
+        "sex_share": {
+          "male": 0.6036,
+          "female": 0.3964
+        },
+        "employment_status_share": {
+          "employers": 0.1491,
+          "employees": 0.792,
+          "own_account_workers": 0.0574,
+          "contributing_family_workers": 0.0017,
+          "self_employed": 0.2082
+        },
+        "work_arrangement_share": {
+          "full_time": 0.9726,
+          "part_time": 0.0276
+        },
+        "age_share": {
+          "age_15_29": 0.0241,
+          "age_30_49": 0.5756,
+          "age_50_59": 0.2682,
+          "age_60_plus": 0.1326
+        },
+        "qualification_share": {
+          "below_secondary": 0.035,
+          "secondary": 0.0564,
+          "post_secondary_non_tertiary": 0.0387,
+          "diploma_professional": 0.1388,
+          "degree": 0.7313
+        },
+        "marital_status_share": {
+          "single": 0.1479,
+          "married": 0.7994,
+          "widowed_divorced": 0.053
+        }
+      },
+      "PROFESSIONALS": {
+        "major_group": "PROFESSIONALS",
+        "total_employment": 624.4,
+        "sex_share": {
+          "male": 0.5014,
+          "female": 0.4986
+        },
+        "employment_status_share": {
+          "employers": 0.0133,
+          "employees": 0.9563,
+          "own_account_workers": 0.0295,
+          "contributing_family_workers": 0.001,
+          "self_employed": 0.0438
+        },
+        "work_arrangement_share": {
+          "full_time": 0.9648,
+          "part_time": 0.0352
+        },
+        "age_share": {
+          "age_15_29": 0.1414,
+          "age_30_49": 0.6237,
+          "age_50_59": 0.1664,
+          "age_60_plus": 0.0689
+        },
+        "qualification_share": {
+          "below_secondary": 0.0045,
+          "secondary": 0.0181,
+          "post_secondary_non_tertiary": 0.0207,
+          "diploma_professional": 0.1493,
+          "degree": 0.8077
+        },
+        "marital_status_share": {
+          "single": 0.3009,
+          "married": 0.6683,
+          "widowed_divorced": 0.0307
+        }
+      },
+      "ASSOCIATE PROFESSIONALS AND TECHNICIANS": {
+        "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
+        "total_employment": 495.5,
+        "sex_share": {
+          "male": 0.4797,
+          "female": 0.5203
+        },
+        "employment_status_share": {
+          "employers": 0.0054,
+          "employees": 0.8692,
+          "own_account_workers": 0.1245,
+          "contributing_family_workers": 0.0008,
+          "self_employed": 0.1307
+        },
+        "work_arrangement_share": {
+          "full_time": 0.913,
+          "part_time": 0.0868
+        },
+        "age_share": {
+          "age_15_29": 0.1686,
+          "age_30_49": 0.5204,
+          "age_50_59": 0.1943,
+          "age_60_plus": 0.1167
+        },
+        "qualification_share": {
+          "below_secondary": 0.044,
+          "secondary": 0.1189,
+          "post_secondary_non_tertiary": 0.1169,
+          "diploma_professional": 0.3504,
+          "degree": 0.3699
+        },
+        "marital_status_share": {
+          "single": 0.3207,
+          "married": 0.626,
+          "widowed_divorced": 0.0533
+        }
+      },
+      "CLERICAL SUPPORT WORKERS": {
+        "major_group": "CLERICAL SUPPORT WORKERS",
+        "total_employment": 201,
+        "sex_share": {
+          "male": 0.2557,
+          "female": 0.7443
+        },
+        "employment_status_share": {
+          "employers": 0,
+          "employees": 0.9945,
+          "own_account_workers": 0.0005,
+          "contributing_family_workers": 0.005,
+          "self_employed": 0.0055
+        },
+        "work_arrangement_share": {
+          "full_time": 0.8662,
+          "part_time": 0.1338
+        },
+        "age_share": {
+          "age_15_29": 0.1557,
+          "age_30_49": 0.3537,
+          "age_50_59": 0.2269,
+          "age_60_plus": 0.2637
+        },
+        "qualification_share": {
+          "below_secondary": 0.1413,
+          "secondary": 0.2881,
+          "post_secondary_non_tertiary": 0.1866,
+          "diploma_professional": 0.2841,
+          "degree": 0.0995
+        },
+        "marital_status_share": {
+          "single": 0.2667,
+          "married": 0.6358,
+          "widowed_divorced": 0.0975
+        }
+      },
+      "SERVICE AND SALES WORKERS": {
+        "major_group": "SERVICE AND SALES WORKERS",
+        "total_employment": 247,
+        "sex_share": {
+          "male": 0.4445,
+          "female": 0.5559
+        },
+        "employment_status_share": {
+          "employers": 0.0211,
+          "employees": 0.9109,
+          "own_account_workers": 0.0567,
+          "contributing_family_workers": 0.0113,
+          "self_employed": 0.0891
+        },
+        "work_arrangement_share": {
+          "full_time": 0.7587,
+          "part_time": 0.2417
+        },
+        "age_share": {
+          "age_15_29": 0.1713,
+          "age_30_49": 0.3162,
+          "age_50_59": 0.2239,
+          "age_60_plus": 0.2887
+        },
+        "qualification_share": {
+          "below_secondary": 0.2251,
+          "secondary": 0.2571,
+          "post_secondary_non_tertiary": 0.251,
+          "diploma_professional": 0.187,
+          "degree": 0.0798
+        },
+        "marital_status_share": {
+          "single": 0.2753,
+          "married": 0.6243,
+          "widowed_divorced": 0.1004
+        }
+      },
+      "CRAFTSMEN AND RELATED TRADES WORKERS": {
+        "major_group": "CRAFTSMEN AND RELATED TRADES WORKERS",
+        "total_employment": 51.6,
+        "sex_share": {
+          "male": 0.8391,
+          "female": 0.1609
+        },
+        "employment_status_share": {
+          "employers": 0.0543,
+          "employees": 0.8547,
+          "own_account_workers": 0.0872,
+          "contributing_family_workers": 0.0058,
+          "self_employed": 0.1473
+        },
+        "work_arrangement_share": {
+          "full_time": 0.874,
+          "part_time": 0.126
+        },
+        "age_share": {
+          "age_15_29": 0.0717,
+          "age_30_49": 0.2539,
+          "age_50_59": 0.2287,
+          "age_60_plus": 0.4438
+        },
+        "qualification_share": {
+          "below_secondary": 0.3779,
+          "secondary": 0.2733,
+          "post_secondary_non_tertiary": 0.1977,
+          "diploma_professional": 0.1279,
+          "degree": 0.0252
+        },
+        "marital_status_share": {
+          "single": 0.1453,
+          "married": 0.7868,
+          "widowed_divorced": 0.0678
+        }
+      },
+      "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": {
+        "major_group": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
+        "total_employment": 128.9,
+        "sex_share": {
+          "male": 0.9077,
+          "female": 0.0931
+        },
+        "employment_status_share": {
+          "employers": 0.0023,
+          "employees": 0.4888,
+          "own_account_workers": 0.5074,
+          "contributing_family_workers": 0.0016,
+          "self_employed": 0.5113
+        },
+        "work_arrangement_share": {
+          "full_time": 0.8883,
+          "part_time": 0.1117
+        },
+        "age_share": {
+          "age_15_29": 0.0388,
+          "age_30_49": 0.266,
+          "age_50_59": 0.2839,
+          "age_60_plus": 0.4111
+        },
+        "qualification_share": {
+          "below_secondary": 0.3476,
+          "secondary": 0.2762,
+          "post_secondary_non_tertiary": 0.2079,
+          "diploma_professional": 0.128,
+          "degree": 0.0403
+        },
+        "marital_status_share": {
+          "single": 0.1226,
+          "married": 0.7789,
+          "widowed_divorced": 0.0985
+        }
+      },
+      "CLEANERS, LABOURERS AND RELATED WORKERS": {
+        "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
+        "total_employment": 167.7,
+        "sex_share": {
+          "male": 0.4413,
+          "female": 0.5587
+        },
+        "employment_status_share": {
+          "employers": 0,
+          "employees": 0.9577,
+          "own_account_workers": 0.0358,
+          "contributing_family_workers": 0.0066,
+          "self_employed": 0.0424
+        },
+        "work_arrangement_share": {
+          "full_time": 0.6702,
+          "part_time": 0.3298
+        },
+        "age_share": {
+          "age_15_29": 0.052,
+          "age_30_49": 0.1383,
+          "age_50_59": 0.1854,
+          "age_60_plus": 0.6237
+        },
+        "qualification_share": {
+          "below_secondary": 0.5647,
+          "secondary": 0.1843,
+          "post_secondary_non_tertiary": 0.1819,
+          "diploma_professional": 0.0578,
+          "degree": 0.0119
+        },
+        "marital_status_share": {
+          "single": 0.1688,
+          "married": 0.6458,
+          "widowed_divorced": 0.1855
+        }
+      }
+    }
+  },
+  "cluster_characteristics": {
+    "pmet": [
+      {
+        "label": "15 - 24",
+        "metric_group": "age",
+        "total_2024": 42.5,
+        "total_2025": 38.4,
+        "male_2024": 13.9,
+        "male_2025": 10.6,
+        "female_2024": 28.7,
+        "female_2025": 27.8,
+        "delta_k": -4.1,
+        "delta_pct": -0.0965
+      },
+      {
+        "label": "25 - 29",
+        "metric_group": "age",
+        "total_2024": 156.3,
+        "total_2025": 143,
+        "male_2024": 71.7,
+        "male_2025": 63.4,
+        "female_2024": 84.6,
+        "female_2025": 79.7,
+        "delta_k": -13.3,
+        "delta_pct": -0.0851
+      },
+      {
+        "label": "30 - 39",
+        "metric_group": "age",
+        "total_2024": 447.2,
+        "total_2025": 458.2,
+        "male_2024": 221,
+        "male_2025": 230.5,
+        "female_2024": 226.2,
+        "female_2025": 227.7,
+        "delta_k": 11,
+        "delta_pct": 0.0246
+      },
+      {
+        "label": "40 - 49",
+        "metric_group": "age",
+        "total_2024": 422.9,
+        "total_2025": 422.4,
+        "male_2024": 226.4,
+        "male_2025": 220,
+        "female_2024": 196.5,
+        "female_2025": 202.5,
+        "delta_k": -0.5,
+        "delta_pct": -0.0012
+      },
+      {
+        "label": "50 - 59",
+        "metric_group": "age",
+        "total_2024": 292.3,
+        "total_2025": 309,
+        "male_2024": 169.6,
+        "male_2025": 170.6,
+        "female_2024": 122.7,
+        "female_2025": 138.3,
+        "delta_k": 16.7,
+        "delta_pct": 0.0571
+      },
+      {
+        "label": "60 & Over",
+        "metric_group": "age",
+        "total_2024": 146.8,
+        "total_2025": 154.5,
+        "male_2024": 93.1,
+        "male_2025": 100.6,
+        "female_2024": 53.6,
+        "female_2025": 53.9,
+        "delta_k": 7.7,
+        "delta_pct": 0.0525
+      },
+      {
+        "label": "60 - 69",
+        "metric_group": "age",
+        "total_2024": 120.4,
+        "total_2025": 129,
+        "male_2024": 75.4,
+        "male_2025": 82.3,
+        "female_2024": 45,
+        "female_2025": 46.7,
+        "delta_k": 8.6,
+        "delta_pct": 0.0714
+      },
+      {
+        "label": "70 & Over",
+        "metric_group": "age",
+        "total_2024": 26.4,
+        "total_2025": 25.5,
+        "male_2024": 17.7,
+        "male_2025": 18.3,
+        "female_2024": 8.7,
+        "female_2025": 7.2,
+        "delta_k": -0.9,
+        "delta_pct": -0.0341
+      },
+      {
+        "label": "Below Secondary",
+        "metric_group": "qualification",
+        "total_2024": 36.2,
+        "total_2025": 38.7,
+        "male_2024": 25,
+        "male_2025": 25,
+        "female_2024": 11.2,
+        "female_2025": 13.7,
+        "delta_k": 2.5,
+        "delta_pct": 0.0691
+      },
+      {
+        "label": "Secondary",
+        "metric_group": "qualification",
+        "total_2024": 96.1,
+        "total_2025": 93.1,
+        "male_2024": 56.1,
+        "male_2025": 55.5,
+        "female_2024": 40,
+        "female_2025": 37.6,
+        "delta_k": -3,
+        "delta_pct": -0.0312
+      },
+      {
+        "label": "Post-Secondary (Non-Tertiary)",
+        "metric_group": "qualification",
+        "total_2024": 86.9,
+        "total_2025": 86.5,
+        "male_2024": 54,
+        "male_2025": 51.5,
+        "female_2024": 33,
+        "female_2025": 35,
+        "delta_k": -0.4,
+        "delta_pct": -0.0046
+      },
+      {
+        "label": "Diploma & Professional Qualification",
+        "metric_group": "qualification",
+        "total_2024": 310.5,
+        "total_2025": 323,
+        "male_2024": 166.7,
+        "male_2025": 167.6,
+        "female_2024": 143.8,
+        "female_2025": 155.4,
+        "delta_k": 12.5,
+        "delta_pct": 0.0403
+      },
+      {
+        "label": "Degree",
+        "metric_group": "qualification",
+        "total_2024": 978.3,
+        "total_2025": 984.3,
+        "male_2024": 493.9,
+        "male_2025": 496.1,
+        "female_2024": 484.4,
+        "female_2025": 488.1,
+        "delta_k": 6,
+        "delta_pct": 0.0061
+      },
+      {
+        "label": "Employers",
+        "metric_group": "employment_status",
+        "total_2024": 76.1,
+        "total_2025": 71.4,
+        "male_2024": 54.4,
+        "male_2025": 50.2,
+        "female_2024": 21.7,
+        "female_2025": 21.3,
+        "delta_k": -4.7,
+        "delta_pct": -0.0618
+      },
+      {
+        "label": "Employees",
+        "metric_group": "employment_status",
+        "total_2024": 1328.1,
+        "total_2025": 1349.1,
+        "male_2024": 684.6,
+        "male_2025": 688.1,
+        "female_2024": 643.5,
+        "female_2025": 661,
+        "delta_k": 21,
+        "delta_pct": 0.0158
+      },
+      {
+        "label": "Own Account Workers",
+        "metric_group": "employment_status",
+        "total_2024": 102.8,
+        "total_2025": 103.4,
+        "male_2024": 56.1,
+        "male_2025": 56.6,
+        "female_2024": 46.7,
+        "female_2025": 46.8,
+        "delta_k": 0.6,
+        "delta_pct": 0.0058
+      },
+      {
+        "label": "Contributing Family Workers",
+        "metric_group": "employment_status",
+        "total_2024": 1,
+        "total_2025": 1.7,
+        "male_2024": 0.6,
+        "male_2025": 0.7,
+        "female_2024": 0.4,
+        "female_2025": 0.9,
+        "delta_k": 0.7,
+        "delta_pct": 0.7
+      },
+      {
+        "label": "Full-Time",
+        "metric_group": "nature_of_employment",
+        "total_2024": 1431.7,
+        "total_2025": 1449.5,
+        "male_2024": 766.3,
+        "male_2025": 767.3,
+        "female_2024": 665.4,
+        "female_2025": 682.2,
+        "delta_k": 17.8,
+        "delta_pct": 0.0124
+      },
+      {
+        "label": "Part-Time",
+        "metric_group": "nature_of_employment",
+        "total_2024": 76.3,
+        "total_2025": 76.1,
+        "male_2024": 29.4,
+        "male_2025": 28.4,
+        "female_2024": 46.9,
+        "female_2025": 47.8,
+        "delta_k": -0.2,
+        "delta_pct": -0.0026
+      }
+    ],
+    "clerical_sales_service": [
+      {
+        "label": "15 - 24",
+        "metric_group": "age",
+        "total_2024": 38.6,
+        "total_2025": 42.6,
+        "male_2024": 14.5,
+        "male_2025": 15.9,
+        "female_2024": 24.1,
+        "female_2025": 26.7,
+        "delta_k": 4,
+        "delta_pct": 0.1036
+      },
+      {
+        "label": "25 - 29",
+        "metric_group": "age",
+        "total_2024": 33,
+        "total_2025": 31.1,
+        "male_2024": 14.6,
+        "male_2025": 14.4,
+        "female_2024": 18.4,
+        "female_2025": 16.7,
+        "delta_k": -1.9,
+        "delta_pct": -0.0576
+      },
+      {
+        "label": "30 - 39",
+        "metric_group": "age",
+        "total_2024": 74.6,
+        "total_2025": 71.6,
+        "male_2024": 27,
+        "male_2025": 27.6,
+        "female_2024": 47.6,
+        "female_2025": 44,
+        "delta_k": -3,
+        "delta_pct": -0.0402
+      },
+      {
+        "label": "40 - 49",
+        "metric_group": "age",
+        "total_2024": 83.3,
+        "total_2025": 77.5,
+        "male_2024": 21,
+        "male_2025": 24.1,
+        "female_2024": 62.3,
+        "female_2025": 53.4,
+        "delta_k": -5.8,
+        "delta_pct": -0.0696
+      },
+      {
+        "label": "50 - 59",
+        "metric_group": "age",
+        "total_2024": 102.3,
+        "total_2025": 100.9,
+        "male_2024": 26.7,
+        "male_2025": 30.1,
+        "female_2024": 75.6,
+        "female_2025": 70.8,
+        "delta_k": -1.4,
+        "delta_pct": -0.0137
+      },
+      {
+        "label": "60 & Over",
+        "metric_group": "age",
+        "total_2024": 119.5,
+        "total_2025": 124.3,
+        "male_2024": 46.3,
+        "male_2025": 49.1,
+        "female_2024": 73.3,
+        "female_2025": 75.3,
+        "delta_k": 4.8,
+        "delta_pct": 0.0402
+      },
+      {
+        "label": "60 - 69",
+        "metric_group": "age",
+        "total_2024": 89,
+        "total_2025": 91.7,
+        "male_2024": 32,
+        "male_2025": 33.2,
+        "female_2024": 57,
+        "female_2025": 58.4,
+        "delta_k": 2.7,
+        "delta_pct": 0.0303
+      },
+      {
+        "label": "70 & Over",
+        "metric_group": "age",
+        "total_2024": 30.5,
+        "total_2025": 32.7,
+        "male_2024": 14.3,
+        "male_2025": 15.8,
+        "female_2024": 16.3,
+        "female_2025": 16.8,
+        "delta_k": 2.2,
+        "delta_pct": 0.0721
+      },
+      {
+        "label": "Below Secondary",
+        "metric_group": "qualification",
+        "total_2024": 78.8,
+        "total_2025": 84,
+        "male_2024": 26.4,
+        "male_2025": 29.8,
+        "female_2024": 52.5,
+        "female_2025": 54.2,
+        "delta_k": 5.2,
+        "delta_pct": 0.066
+      },
+      {
+        "label": "Secondary",
+        "metric_group": "qualification",
+        "total_2024": 123.3,
+        "total_2025": 121.5,
+        "male_2024": 36.6,
+        "male_2025": 39.2,
+        "female_2024": 86.8,
+        "female_2025": 82.3,
+        "delta_k": -1.8,
+        "delta_pct": -0.0146
+      },
+      {
+        "label": "Post-Secondary (Non-Tertiary)",
+        "metric_group": "qualification",
+        "total_2024": 96.8,
+        "total_2025": 99.5,
+        "male_2024": 38.7,
+        "male_2025": 40.2,
+        "female_2024": 58,
+        "female_2025": 59.3,
+        "delta_k": 2.7,
+        "delta_pct": 0.0279
+      },
+      {
+        "label": "Diploma & Professional Qualification",
+        "metric_group": "qualification",
+        "total_2024": 115.8,
+        "total_2025": 103.3,
+        "male_2024": 38.4,
+        "male_2025": 39.3,
+        "female_2024": 77.4,
+        "female_2025": 64,
+        "delta_k": -12.5,
+        "delta_pct": -0.1079
+      },
+      {
+        "label": "Degree",
+        "metric_group": "qualification",
+        "total_2024": 36.6,
+        "total_2025": 39.7,
+        "male_2024": 10,
+        "male_2025": 12.6,
+        "female_2024": 26.6,
+        "female_2025": 27.1,
+        "delta_k": 3.1,
+        "delta_pct": 0.0847
+      },
+      {
+        "label": "Employers",
+        "metric_group": "employment_status",
+        "total_2024": 5.3,
+        "total_2025": 5.2,
+        "male_2024": 2.8,
+        "male_2025": 2.8,
+        "female_2024": 2.5,
+        "female_2025": 2.4,
+        "delta_k": -0.1,
+        "delta_pct": -0.0189
+      },
+      {
+        "label": "Employees",
+        "metric_group": "employment_status",
+        "total_2024": 428.6,
+        "total_2025": 424.9,
+        "male_2024": 139.4,
+        "male_2025": 150.6,
+        "female_2024": 289.2,
+        "female_2025": 274.3,
+        "delta_k": -3.7,
+        "delta_pct": -0.0086
+      },
+      {
+        "label": "Own Account Workers",
+        "metric_group": "employment_status",
+        "total_2024": 15,
+        "total_2025": 14.1,
+        "male_2024": 7.1,
+        "male_2025": 6.5,
+        "female_2024": 7.9,
+        "female_2025": 7.6,
+        "delta_k": -0.9,
+        "delta_pct": -0.06
+      },
+      {
+        "label": "Contributing Family Workers",
+        "metric_group": "employment_status",
+        "total_2024": 2.4,
+        "total_2025": 3.8,
+        "male_2024": 0.7,
+        "male_2025": 1.2,
+        "female_2024": 1.7,
+        "female_2025": 2.6,
+        "delta_k": 1.4,
+        "delta_pct": 0.5833
+      },
+      {
+        "label": "Full-Time",
+        "metric_group": "nature_of_employment",
+        "total_2024": 357.8,
+        "total_2025": 361.5,
+        "male_2024": 125.7,
+        "male_2025": 136.7,
+        "female_2024": 232.1,
+        "female_2025": 224.8,
+        "delta_k": 3.7,
+        "delta_pct": 0.0103
+      },
+      {
+        "label": "Part-Time",
+        "metric_group": "nature_of_employment",
+        "total_2024": 93.5,
+        "total_2025": 86.5,
+        "male_2024": 24.4,
+        "male_2025": 24.4,
+        "female_2024": 69.2,
+        "female_2025": 62.1,
+        "delta_k": -7,
+        "delta_pct": -0.0749
+      }
+    ],
+    "production_transport": [
+      {
+        "label": "15 - 24",
+        "metric_group": "age",
+        "total_2024": 50.4,
+        "total_2025": 45.8,
+        "male_2024": 47.2,
+        "male_2025": 43.1,
+        "female_2024": 3.2,
+        "female_2025": 2.6,
+        "delta_k": -4.6,
+        "delta_pct": -0.0913
+      },
+      {
+        "label": "25 - 29",
+        "metric_group": "age",
+        "total_2024": 14.4,
+        "total_2025": 13.8,
+        "male_2024": 12.8,
+        "male_2025": 12.1,
+        "female_2024": 1.5,
+        "female_2025": 1.8,
+        "delta_k": -0.6,
+        "delta_pct": -0.0417
+      },
+      {
+        "label": "30 - 39",
+        "metric_group": "age",
+        "total_2024": 30,
+        "total_2025": 31.8,
+        "male_2024": 24.2,
+        "male_2025": 25.6,
+        "female_2024": 5.8,
+        "female_2025": 6.2,
+        "delta_k": 1.8,
+        "delta_pct": 0.06
+      },
+      {
+        "label": "40 - 49",
+        "metric_group": "age",
+        "total_2024": 41.4,
+        "total_2025": 47.5,
+        "male_2024": 30.2,
+        "male_2025": 34.4,
+        "female_2024": 11.2,
+        "female_2025": 13.1,
+        "delta_k": 6.1,
+        "delta_pct": 0.1473
+      },
+      {
+        "label": "50 - 59",
+        "metric_group": "age",
+        "total_2024": 86.2,
+        "total_2025": 81.7,
+        "male_2024": 59.5,
+        "male_2025": 56.7,
+        "female_2024": 26.7,
+        "female_2025": 25.1,
+        "delta_k": -4.5,
+        "delta_pct": -0.0522
+      },
+      {
+        "label": "60 & Over",
+        "metric_group": "age",
+        "total_2024": 183.9,
+        "total_2025": 182.2,
+        "male_2024": 118.2,
+        "male_2025": 114.7,
+        "female_2024": 65.6,
+        "female_2025": 67.6,
+        "delta_k": -1.7,
+        "delta_pct": -0.0092
+      },
+      {
+        "label": "60 - 69",
+        "metric_group": "age",
+        "total_2024": 127.1,
+        "total_2025": 120.1,
+        "male_2024": 84.3,
+        "male_2025": 79.1,
+        "female_2024": 42.8,
+        "female_2025": 41.1,
+        "delta_k": -7,
+        "delta_pct": -0.0551
+      },
+      {
+        "label": "70 & Over",
+        "metric_group": "age",
+        "total_2024": 56.8,
+        "total_2025": 62.1,
+        "male_2024": 33.9,
+        "male_2025": 35.6,
+        "female_2024": 22.9,
+        "female_2025": 26.5,
+        "delta_k": 5.3,
+        "delta_pct": 0.0933
+      },
+      {
+        "label": "Below Secondary",
+        "metric_group": "qualification",
+        "total_2024": 156.7,
+        "total_2025": 160.4,
+        "male_2024": 98.8,
+        "male_2025": 98.8,
+        "female_2024": 57.8,
+        "female_2025": 61.5,
+        "delta_k": 3.7,
+        "delta_pct": 0.0236
+      },
+      {
+        "label": "Secondary",
+        "metric_group": "qualification",
+        "total_2024": 94.7,
+        "total_2025": 85.9,
+        "male_2024": 70.7,
+        "male_2025": 63.4,
+        "female_2024": 23.9,
+        "female_2025": 22.6,
+        "delta_k": -8.8,
+        "delta_pct": -0.0929
+      },
+      {
+        "label": "Post-Secondary (Non-Tertiary)",
+        "metric_group": "qualification",
+        "total_2024": 86.2,
+        "total_2025": 86,
+        "male_2024": 63.5,
+        "male_2025": 64.7,
+        "female_2024": 22.8,
+        "female_2025": 21.3,
+        "delta_k": -0.2,
+        "delta_pct": -0.0023
+      },
+      {
+        "label": "Diploma & Professional Qualification",
+        "metric_group": "qualification",
+        "total_2024": 56,
+        "total_2025": 56.8,
+        "male_2024": 48.6,
+        "male_2025": 49.1,
+        "female_2024": 7.4,
+        "female_2025": 7.7,
+        "delta_k": 0.8,
+        "delta_pct": 0.0143
+      },
+      {
+        "label": "Degree",
+        "metric_group": "qualification",
+        "total_2024": 12.7,
+        "total_2025": 13.8,
+        "male_2024": 10.6,
+        "male_2025": 10.5,
+        "female_2024": 2.1,
+        "female_2025": 3.3,
+        "delta_k": 1.1,
+        "delta_pct": 0.0866
+      },
+      {
+        "label": "Employers",
+        "metric_group": "employment_status",
+        "total_2024": 1.8,
+        "total_2025": 3.2,
+        "male_2024": 1.6,
+        "male_2025": 2.8,
+        "female_2024": 0.3,
+        "female_2025": 0.4,
+        "delta_k": 1.4,
+        "delta_pct": 0.7778
+      },
+      {
+        "label": "Employees",
+        "metric_group": "employment_status",
+        "total_2024": 329.3,
+        "total_2025": 322.2,
+        "male_2024": 221.6,
+        "male_2025": 212.9,
+        "female_2024": 107.7,
+        "female_2025": 109.4,
+        "delta_k": -7.1,
+        "delta_pct": -0.0216
+      },
+      {
+        "label": "Own Account Workers",
+        "metric_group": "employment_status",
+        "total_2024": 73.5,
+        "total_2025": 75.9,
+        "male_2024": 68.6,
+        "male_2025": 70.2,
+        "female_2024": 5,
+        "female_2025": 5.7,
+        "delta_k": 2.4,
+        "delta_pct": 0.0327
+      },
+      {
+        "label": "Contributing Family Workers",
+        "metric_group": "employment_status",
+        "total_2024": 1.6,
+        "total_2025": 1.5,
+        "male_2024": 0.5,
+        "male_2025": 0.7,
+        "female_2024": 1.1,
+        "female_2025": 0.9,
+        "delta_k": -0.1,
+        "delta_pct": -0.0625
+      },
+      {
+        "label": "Full-Time",
+        "metric_group": "nature_of_employment",
+        "total_2024": 317.3,
+        "total_2025": 326.3,
+        "male_2024": 249.5,
+        "male_2025": 250.6,
+        "female_2024": 67.8,
+        "female_2025": 75.7,
+        "delta_k": 9,
+        "delta_pct": 0.0284
+      },
+      {
+        "label": "Part-Time",
+        "metric_group": "nature_of_employment",
+        "total_2024": 89,
+        "total_2025": 76.6,
+        "male_2024": 42.7,
+        "male_2025": 35.9,
+        "female_2024": 46.3,
+        "female_2025": 40.7,
+        "delta_k": -12.4,
+        "delta_pct": -0.1393
+      }
+    ]
+  },
+  "cluster_industry_mix": {
+    "pmet": [
+      {
+        "label": "C Manufacturing",
+        "total_2024": 147.9,
+        "total_2025": 150.6,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "F Construction",
+        "total_2024": 62.7,
+        "total_2025": 61.7,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "G-U Services",
+        "total_2024": 1281.5,
+        "total_2025": 1298.7,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "G Wholesale & Retail Trade",
+        "total_2024": 204.1,
+        "total_2025": 207.4,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "H Transportation & Storage",
+        "total_2024": 70.8,
+        "total_2025": 74.8,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "I Accommodation & Food Services",
+        "total_2024": 31.7,
+        "total_2025": 29.5,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "J Information & Communications",
+        "total_2024": 124.9,
+        "total_2025": 117.4,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "K Financial & Insurance Services",
+        "total_2024": 206.4,
+        "total_2025": 209.4,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "L Real Estate Services",
+        "total_2024": 40,
+        "total_2025": 41.8,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "M Professional Services",
+        "total_2024": 169.8,
+        "total_2025": 166.5,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "N Administrative & Support Services",
+        "total_2024": 41.9,
+        "total_2025": 37.9,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "O,P Public Administration & Education",
+        "total_2024": 212.3,
+        "total_2025": 221.2,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "Q Health & Social Services",
+        "total_2024": 126,
+        "total_2025": 135.8,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "R Arts, Entertainment & Recreation",
+        "total_2024": 22.8,
+        "total_2025": 23.1,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "S-U Other Community, Social & Personal Services",
+        "total_2024": 30.9,
+        "total_2025": 34,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "A, B, D, E Others",
+        "total_2024": 15.8,
+        "total_2025": 14.6,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      }
+    ],
+    "clerical_sales_service": [
+      {
+        "label": "C Manufacturing",
+        "total_2024": 25.7,
+        "total_2025": 24.5,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "F Construction",
+        "total_2024": 14.2,
+        "total_2025": 15.7,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "G-U Services",
+        "total_2024": 409.6,
+        "total_2025": 406.4,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "G Wholesale & Retail Trade",
+        "total_2024": 94.1,
+        "total_2025": 93,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "H Transportation & Storage",
+        "total_2024": 30.1,
+        "total_2025": 32.6,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "I Accommodation & Food Services",
+        "total_2024": 73,
+        "total_2025": 75,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "J Information & Communications",
+        "total_2024": 9,
+        "total_2025": 8.7,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "K Financial & Insurance Services",
+        "total_2024": 26.3,
+        "total_2025": 20.6,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "L Real Estate Services",
+        "total_2024": 9.1,
+        "total_2025": 7.3,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "M Professional Services",
+        "total_2024": 18.8,
+        "total_2025": 20,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "N Administrative & Support Services",
+        "total_2024": 39.8,
+        "total_2025": 44.3,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "O,P Public Administration & Education",
+        "total_2024": 31.5,
+        "total_2025": 29.9,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "Q Health & Social Services",
+        "total_2024": 37.7,
+        "total_2025": 36.1,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "R Arts, Entertainment & Recreation",
+        "total_2024": 12.6,
+        "total_2025": 11.3,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "S-U Other Community, Social & Personal Services",
+        "total_2024": 27.5,
+        "total_2025": 27.6,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "A, B, D, E Others",
+        "total_2024": 1.9,
+        "total_2025": 1.5,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      }
+    ],
+    "production_transport": [
+      {
+        "label": "C Manufacturing",
+        "total_2024": 38.7,
+        "total_2025": 35.1,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "F Construction",
+        "total_2024": 26,
+        "total_2025": 26.2,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "G-U Services",
+        "total_2024": 337.1,
+        "total_2025": 338.1,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "G Wholesale & Retail Trade",
+        "total_2024": 37.8,
+        "total_2025": 36.3,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "H Transportation & Storage",
+        "total_2024": 97,
+        "total_2025": 101.6,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "I Accommodation & Food Services",
+        "total_2024": 42.8,
+        "total_2025": 41.4,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "J Information & Communications",
+        "total_2024": 5.3,
+        "total_2025": 3.3,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "K Financial & Insurance Services",
+        "total_2024": 6.6,
+        "total_2025": 5.3,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "L Real Estate Services",
+        "total_2024": 7.2,
+        "total_2025": 9.8,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "M Professional Services",
+        "total_2024": 8.5,
+        "total_2025": 6.1,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "N Administrative & Support Services",
+        "total_2024": 42.3,
+        "total_2025": 45.6,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "O,P Public Administration & Education",
+        "total_2024": 61.9,
+        "total_2025": 59.4,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "Q Health & Social Services",
+        "total_2024": 10.8,
+        "total_2025": 10.8,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "R Arts, Entertainment & Recreation",
+        "total_2024": 2.4,
+        "total_2025": 2.9,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "S-U Other Community, Social & Personal Services",
+        "total_2024": 14.5,
+        "total_2025": 15.6,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      },
+      {
+        "label": "A, B, D, E Others",
+        "total_2024": 4.5,
+        "total_2025": 3.5,
+        "share_2024": null,
+        "share_2025": null,
+        "share_delta_pp": null
+      }
+    ]
+  },
+  "industry_occupation_mix": {
+    "2024": {
+      "C Manufacturing": {
+        "industry": "C Manufacturing",
+        "total_employment": 212.2,
+        "sex_share": {
+          "male": 0.623,
+          "female": 0.377
+        },
+        "major_group_share": {
+          "MANAGERS": 0.1946,
+          "PROFESSIONALS": 0.2611,
+          "ASSOCIATE PROFESSIONALS AND TECHNICIANS": 0.2413,
+          "CLERICAL SUPPORT WORKERS": 0.0886,
+          "SERVICE AND SALES WORKERS": 0.032,
+          "CRAFTSMEN AND RELATED TRADES WORKERS": 0.0688,
+          "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": 0.0636,
+          "CLEANERS, LABOURERS AND RELATED WORKERS": 0.0495
+        }
+      },
+      "F Construction": {
+        "industry": "F Construction",
+        "total_employment": 102.9,
+        "sex_share": {
+          "male": 0.7065,
+          "female": 0.2925
+        },
+        "major_group_share": {
+          "MANAGERS": 0.2264,
+          "PROFESSIONALS": 0.1613,
+          "ASSOCIATE PROFESSIONALS AND TECHNICIANS": 0.2216,
+          "CLERICAL SUPPORT WORKERS": 0.1244,
+          "SERVICE AND SALES WORKERS": 0.0136,
+          "CRAFTSMEN AND RELATED TRADES WORKERS": 0.139,
+          "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": 0.0534,
+          "CLEANERS, LABOURERS AND RELATED WORKERS": 0.0593
+        }
+      },
+      "G-U Services": {
+        "industry": "G-U Services",
+        "total_employment": 2028.2,
+        "sex_share": {
+          "male": 0.5016,
+          "female": 0.4984
+        },
+        "major_group_share": {
+          "MANAGERS": 0.1658,
+          "PROFESSIONALS": 0.2674,
+          "ASSOCIATE PROFESSIONALS AND TECHNICIANS": 0.1986,
+          "CLERICAL SUPPORT WORKERS": 0.0871,
+          "SERVICE AND SALES WORKERS": 0.1149,
+          "CRAFTSMEN AND RELATED TRADES WORKERS": 0.0124,
+          "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": 0.0532,
+          "CLEANERS, LABOURERS AND RELATED WORKERS": 0.0724
+        }
+      },
+      "G Wholesale & Retail Trade": {
+        "industry": "G Wholesale & Retail Trade",
+        "total_employment": 336,
+        "sex_share": {
+          "male": 0.4833,
+          "female": 0.5167
+        },
+        "major_group_share": {
+          "MANAGERS": 0.2467,
+          "PROFESSIONALS": 0.1726,
+          "ASSOCIATE PROFESSIONALS AND TECHNICIANS": 0.1881,
+          "CLERICAL SUPPORT WORKERS": 0.1095,
+          "SERVICE AND SALES WORKERS": 0.1708,
+          "CRAFTSMEN AND RELATED TRADES WORKERS": 0.0247,
+          "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": 0.0396,
+          "CLEANERS, LABOURERS AND RELATED WORKERS": 0.0467
+        }
+      },
+      "H Transportation & Storage": {
+        "industry": "H Transportation & Storage",
+        "total_employment": 197.9,
+        "sex_share": {
+          "male": 0.7665,
+          "female": 0.2335
+        },
+        "major_group_share": {
+          "MANAGERS": 0.0975,
+          "PROFESSIONALS": 0.092,
+          "ASSOCIATE PROFESSIONALS AND TECHNICIANS": 0.1683,
+          "CLERICAL SUPPORT WORKERS": 0.1061,
+          "SERVICE AND SALES WORKERS": 0.046,
+          "CRAFTSMEN AND RELATED TRADES WORKERS": 0.0106,
+          "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": 0.3987,
+          "CLEANERS, LABOURERS AND RELATED WORKERS": 0.0803
+        }
+      },
+      "I Accommodation & Food Services": {
+        "industry": "I Accommodation & Food Services",
+        "total_employment": 147.5,
+        "sex_share": {
+          "male": 0.4244,
+          "female": 0.5749
+        },
+        "major_group_share": {
+          "MANAGERS": 0.0841,
+          "PROFESSIONALS": 0.0258,
+          "ASSOCIATE PROFESSIONALS AND TECHNICIANS": 0.1051,
+          "CLERICAL SUPPORT WORKERS": 0.0624,
+          "SERVICE AND SALES WORKERS": 0.4325,
+          "CRAFTSMEN AND RELATED TRADES WORKERS": 0.0081,
+          "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": 0.0142,
+          "CLEANERS, LABOURERS AND RELATED WORKERS": 0.2671
+        }
+      },
+      "J Information & Communications": {
+        "industry": "J Information & Communications",
+        "total_employment": 139.1,
+        "sex_share": {
+          "male": 0.5715,
+          "female": 0.4285
+        },
+        "major_group_share": {
+          "MANAGERS": 0.2653,
+          "PROFESSIONALS": 0.4687,
+          "ASSOCIATE PROFESSIONALS AND TECHNICIANS": 0.1639,
+          "CLERICAL SUPPORT WORKERS": 0.0546,
+          "SERVICE AND SALES WORKERS": 0.0101,
+          "CRAFTSMEN AND RELATED TRADES WORKERS": 0.0079,
+          "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": 0.0137,
+          "CLEANERS, LABOURERS AND RELATED WORKERS": 0.0173
+        }
+      },
+      "K Financial & Insurance Services": {
+        "industry": "K Financial & Insurance Services",
+        "total_employment": 239.4,
+        "sex_share": {
+          "male": 0.472,
+          "female": 0.5276
+        },
+        "major_group_share": {
+          "MANAGERS": 0.2586,
+          "PROFESSIONALS": 0.4165,
+          "ASSOCIATE PROFESSIONALS AND TECHNICIANS": 0.1871,
+          "CLERICAL SUPPORT WORKERS": 0.0961,
+          "SERVICE AND SALES WORKERS": 0.0138,
+          "CRAFTSMEN AND RELATED TRADES WORKERS": 0.0046,
+          "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": 0.0075,
+          "CLEANERS, LABOURERS AND RELATED WORKERS": 0.0159
+        }
+      },
+      "L Real Estate Services": {
+        "industry": "L Real Estate Services",
+        "total_employment": 56.3,
+        "sex_share": {
+          "male": 0.5062,
+          "female": 0.4938
+        },
+        "major_group_share": {
+          "MANAGERS": 0.1261,
+          "PROFESSIONALS": 0.0977,
+          "ASSOCIATE PROFESSIONALS AND TECHNICIANS": 0.4867,
+          "CLERICAL SUPPORT WORKERS": 0.0977,
+          "SERVICE AND SALES WORKERS": 0.0639,
+          "CRAFTSMEN AND RELATED TRADES WORKERS": 0.0266,
+          "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": 0.0089,
+          "CLEANERS, LABOURERS AND RELATED WORKERS": 0.0906
+        }
+      },
+      "M Professional Services": {
+        "industry": "M Professional Services",
+        "total_employment": 197.1,
+        "sex_share": {
+          "male": 0.5129,
+          "female": 0.4871
+        },
+        "major_group_share": {
+          "MANAGERS": 0.2182,
+          "PROFESSIONALS": 0.4236,
+          "ASSOCIATE PROFESSIONALS AND TECHNICIANS": 0.2202,
+          "CLERICAL SUPPORT WORKERS": 0.0817,
+          "SERVICE AND SALES WORKERS": 0.0137,
+          "CRAFTSMEN AND RELATED TRADES WORKERS": 0.0137,
+          "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": 0.0107,
+          "CLEANERS, LABOURERS AND RELATED WORKERS": 0.0178
+        }
+      },
+      "N Administrative & Support Services": {
+        "industry": "N Administrative & Support Services",
+        "total_employment": 124,
+        "sex_share": {
+          "male": 0.5806,
+          "female": 0.4194
+        },
+        "major_group_share": {
+          "MANAGERS": 0.1048,
+          "PROFESSIONALS": 0.104,
+          "ASSOCIATE PROFESSIONALS AND TECHNICIANS": 0.129,
+          "CLERICAL SUPPORT WORKERS": 0.0935,
+          "SERVICE AND SALES WORKERS": 0.2266,
+          "CRAFTSMEN AND RELATED TRADES WORKERS": 0.0161,
+          "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": 0.0266,
+          "CLEANERS, LABOURERS AND RELATED WORKERS": 0.2895
+        }
+      },
+      "O,P Public Administration & Education": {
+        "industry": "O,P Public Administration & Education",
+        "total_employment": 305.7,
+        "sex_share": {
+          "male": 0.524,
+          "female": 0.476
+        },
+        "major_group_share": {
+          "MANAGERS": 0.1119,
+          "PROFESSIONALS": 0.3546,
+          "ASSOCIATE PROFESSIONALS AND TECHNICIANS": 0.228,
+          "CLERICAL SUPPORT WORKERS": 0.051,
+          "SERVICE AND SALES WORKERS": 0.052,
+          "CRAFTSMEN AND RELATED TRADES WORKERS": 0.0043,
+          "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": 0.0013,
+          "CLEANERS, LABOURERS AND RELATED WORKERS": 0.0183
+        }
+      },
+      "Q Health & Social Services": {
+        "industry": "Q Health & Social Services",
+        "total_employment": 174.5,
+        "sex_share": {
+          "male": 0.2223,
+          "female": 0.7777
+        },
+        "major_group_share": {
+          "MANAGERS": 0.0734,
+          "PROFESSIONALS": 0.4,
+          "ASSOCIATE PROFESSIONALS AND TECHNICIANS": 0.2487,
+          "CLERICAL SUPPORT WORKERS": 0.1095,
+          "SERVICE AND SALES WORKERS": 0.1066,
+          "CRAFTSMEN AND RELATED TRADES WORKERS": 0.0023,
+          "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": 0.0074,
+          "CLEANERS, LABOURERS AND RELATED WORKERS": 0.0516
+        }
+      },
+      "R Arts, Entertainment & Recreation": {
+        "industry": "R Arts, Entertainment & Recreation",
+        "total_employment": 37.8,
+        "sex_share": {
+          "male": 0.4868,
+          "female": 0.5132
+        },
+        "major_group_share": {
+          "MANAGERS": 0.1402,
+          "PROFESSIONALS": 0.1825,
+          "ASSOCIATE PROFESSIONALS AND TECHNICIANS": 0.2831,
+          "CLERICAL SUPPORT WORKERS": 0.0952,
+          "SERVICE AND SALES WORKERS": 0.2381,
+          "CRAFTSMEN AND RELATED TRADES WORKERS": 0.0106,
+          "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": 0.0053,
+          "CLEANERS, LABOURERS AND RELATED WORKERS": 0.0423
+        }
+      },
+      "S-U Other Community, Social & Personal Services": {
+        "industry": "S-U Other Community, Social & Personal Services",
+        "total_employment": 73,
+        "sex_share": {
+          "male": 0.3973,
+          "female": 0.6014
+        },
+        "major_group_share": {
+          "MANAGERS": 0.1041,
+          "PROFESSIONALS": 0.1425,
+          "ASSOCIATE PROFESSIONALS AND TECHNICIANS": 0.1767,
+          "CLERICAL SUPPORT WORKERS": 0.1027,
+          "SERVICE AND SALES WORKERS": 0.274,
+          "CRAFTSMEN AND RELATED TRADES WORKERS": 0.0425,
+          "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": 0.0315,
+          "CLEANERS, LABOURERS AND RELATED WORKERS": 0.1247
+        }
+      },
+      "A, B, D, E Others": {
+        "industry": "A, B, D, E Others",
+        "total_employment": 22.2,
+        "sex_share": {
+          "male": 0.7027,
+          "female": 0.2973
+        },
+        "major_group_share": {
+          "MANAGERS": 0.1847,
+          "PROFESSIONALS": 0.2523,
+          "ASSOCIATE PROFESSIONALS AND TECHNICIANS": 0.2793,
+          "CLERICAL SUPPORT WORKERS": 0.0631,
+          "SERVICE AND SALES WORKERS": 0.0225,
+          "CRAFTSMEN AND RELATED TRADES WORKERS": 0.0315,
+          "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": 0.0586,
+          "CLEANERS, LABOURERS AND RELATED WORKERS": 0.0946
+        }
+      }
+    },
+    "2025": {
+      "C Manufacturing": {
+        "industry": "C Manufacturing",
+        "total_employment": 210.2,
+        "sex_share": {
+          "male": 0.6166,
+          "female": 0.3834
+        },
+        "major_group_share": {
+          "MANAGERS": 0.1951,
+          "PROFESSIONALS": 0.2778,
+          "ASSOCIATE PROFESSIONALS AND TECHNICIANS": 0.2436,
+          "CLERICAL SUPPORT WORKERS": 0.0799,
+          "SERVICE AND SALES WORKERS": 0.0366,
+          "CRAFTSMEN AND RELATED TRADES WORKERS": 0.0604,
+          "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": 0.0538,
+          "CLEANERS, LABOURERS AND RELATED WORKERS": 0.0528
+        }
+      },
+      "F Construction": {
+        "industry": "F Construction",
+        "total_employment": 103.6,
+        "sex_share": {
+          "male": 0.6651,
+          "female": 0.334
+        },
+        "major_group_share": {
+          "MANAGERS": 0.2259,
+          "PROFESSIONALS": 0.1776,
+          "ASSOCIATE PROFESSIONALS AND TECHNICIANS": 0.1931,
+          "CLERICAL SUPPORT WORKERS": 0.1371,
+          "SERVICE AND SALES WORKERS": 0.0145,
+          "CRAFTSMEN AND RELATED TRADES WORKERS": 0.1438,
+          "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": 0.0569,
+          "CLEANERS, LABOURERS AND RELATED WORKERS": 0.0502
+        }
+      },
+      "G-U Services": {
+        "industry": "G-U Services",
+        "total_employment": 2043.2,
+        "sex_share": {
+          "male": 0.5046,
+          "female": 0.4954
+        },
+        "major_group_share": {
+          "MANAGERS": 0.1654,
+          "PROFESSIONALS": 0.2653,
+          "ASSOCIATE PROFESSIONALS AND TECHNICIANS": 0.2049,
+          "CLERICAL SUPPORT WORKERS": 0.0826,
+          "SERVICE AND SALES WORKERS": 0.1162,
+          "CRAFTSMEN AND RELATED TRADES WORKERS": 0.0115,
+          "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": 0.0542,
+          "CLEANERS, LABOURERS AND RELATED WORKERS": 0.0733
+        }
+      },
+      "G Wholesale & Retail Trade": {
+        "industry": "G Wholesale & Retail Trade",
+        "total_employment": 336.7,
+        "sex_share": {
+          "male": 0.507,
+          "female": 0.4927
+        },
+        "major_group_share": {
+          "MANAGERS": 0.2486,
+          "PROFESSIONALS": 0.1761,
+          "ASSOCIATE PROFESSIONALS AND TECHNICIANS": 0.1913,
+          "CLERICAL SUPPORT WORKERS": 0.0959,
+          "SERVICE AND SALES WORKERS": 0.18,
+          "CRAFTSMEN AND RELATED TRADES WORKERS": 0.0267,
+          "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": 0.0342,
+          "CLEANERS, LABOURERS AND RELATED WORKERS": 0.0466
+        }
+      },
+      "H Transportation & Storage": {
+        "industry": "H Transportation & Storage",
+        "total_employment": 209,
+        "sex_share": {
+          "male": 0.7474,
+          "female": 0.2526
+        },
+        "major_group_share": {
+          "MANAGERS": 0.0967,
+          "PROFESSIONALS": 0.0981,
+          "ASSOCIATE PROFESSIONALS AND TECHNICIANS": 0.1632,
+          "CLERICAL SUPPORT WORKERS": 0.1062,
+          "SERVICE AND SALES WORKERS": 0.0498,
+          "CRAFTSMEN AND RELATED TRADES WORKERS": 0.0048,
+          "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": 0.4053,
+          "CLEANERS, LABOURERS AND RELATED WORKERS": 0.0761
+        }
+      },
+      "I Accommodation & Food Services": {
+        "industry": "I Accommodation & Food Services",
+        "total_employment": 145.8,
+        "sex_share": {
+          "male": 0.4362,
+          "female": 0.5638
+        },
+        "major_group_share": {
+          "MANAGERS": 0.0734,
+          "PROFESSIONALS": 0.024,
+          "ASSOCIATE PROFESSIONALS AND TECHNICIANS": 0.1043,
+          "CLERICAL SUPPORT WORKERS": 0.0734,
+          "SERVICE AND SALES WORKERS": 0.441,
+          "CRAFTSMEN AND RELATED TRADES WORKERS": 0.0075,
+          "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": 0.013,
+          "CLEANERS, LABOURERS AND RELATED WORKERS": 0.2634
+        }
+      },
+      "J Information & Communications": {
+        "industry": "J Information & Communications",
+        "total_employment": 129.4,
+        "sex_share": {
+          "male": 0.5796,
+          "female": 0.4204
+        },
+        "major_group_share": {
+          "MANAGERS": 0.2651,
+          "PROFESSIONALS": 0.4699,
+          "ASSOCIATE PROFESSIONALS AND TECHNICIANS": 0.1723,
+          "CLERICAL SUPPORT WORKERS": 0.0541,
+          "SERVICE AND SALES WORKERS": 0.0124,
+          "CRAFTSMEN AND RELATED TRADES WORKERS": 0.0054,
+          "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": 0.0093,
+          "CLEANERS, LABOURERS AND RELATED WORKERS": 0.0116
+        }
+      },
+      "K Financial & Insurance Services": {
+        "industry": "K Financial & Insurance Services",
+        "total_employment": 235.3,
+        "sex_share": {
+          "male": 0.4747,
+          "female": 0.5253
+        },
+        "major_group_share": {
+          "MANAGERS": 0.2648,
+          "PROFESSIONALS": 0.4122,
+          "ASSOCIATE PROFESSIONALS AND TECHNICIANS": 0.2129,
+          "CLERICAL SUPPORT WORKERS": 0.0727,
+          "SERVICE AND SALES WORKERS": 0.0153,
+          "CRAFTSMEN AND RELATED TRADES WORKERS": 0.003,
+          "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": 0.0072,
+          "CLEANERS, LABOURERS AND RELATED WORKERS": 0.0115
+        }
+      },
+      "L Real Estate Services": {
+        "industry": "L Real Estate Services",
+        "total_employment": 58.8,
+        "sex_share": {
+          "male": 0.4796,
+          "female": 0.5204
+        },
+        "major_group_share": {
+          "MANAGERS": 0.1156,
+          "PROFESSIONALS": 0.0867,
+          "ASSOCIATE PROFESSIONALS AND TECHNICIANS": 0.5068,
+          "CLERICAL SUPPORT WORKERS": 0.068,
+          "SERVICE AND SALES WORKERS": 0.0544,
+          "CRAFTSMEN AND RELATED TRADES WORKERS": 0.0119,
+          "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": 0.0068,
+          "CLEANERS, LABOURERS AND RELATED WORKERS": 0.1463
+        }
+      },
+      "M Professional Services": {
+        "industry": "M Professional Services",
+        "total_employment": 192.6,
+        "sex_share": {
+          "male": 0.5026,
+          "female": 0.4974
+        },
+        "major_group_share": {
+          "MANAGERS": 0.2233,
+          "PROFESSIONALS": 0.4159,
+          "ASSOCIATE PROFESSIONALS AND TECHNICIANS": 0.2253,
+          "CLERICAL SUPPORT WORKERS": 0.0893,
+          "SERVICE AND SALES WORKERS": 0.0145,
+          "CRAFTSMEN AND RELATED TRADES WORKERS": 0.0109,
+          "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": 0.0073,
+          "CLEANERS, LABOURERS AND RELATED WORKERS": 0.0119
+        }
+      },
+      "N Administrative & Support Services": {
+        "industry": "N Administrative & Support Services",
+        "total_employment": 127.8,
+        "sex_share": {
+          "male": 0.5571,
+          "female": 0.4429
+        },
+        "major_group_share": {
+          "MANAGERS": 0.0962,
+          "PROFESSIONALS": 0.0853,
+          "ASSOCIATE PROFESSIONALS AND TECHNICIANS": 0.115,
+          "CLERICAL SUPPORT WORKERS": 0.1009,
+          "SERVICE AND SALES WORKERS": 0.2457,
+          "CRAFTSMEN AND RELATED TRADES WORKERS": 0.0219,
+          "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": 0.0235,
+          "CLEANERS, LABOURERS AND RELATED WORKERS": 0.302
+        }
+      },
+      "O,P Public Administration & Education": {
+        "industry": "O,P Public Administration & Education",
+        "total_employment": 310.5,
+        "sex_share": {
+          "male": 0.5295,
+          "female": 0.4705
+        },
+        "major_group_share": {
+          "MANAGERS": 0.1185,
+          "PROFESSIONALS": 0.3575,
+          "ASSOCIATE PROFESSIONALS AND TECHNICIANS": 0.2367,
+          "CLERICAL SUPPORT WORKERS": 0.0448,
+          "SERVICE AND SALES WORKERS": 0.0515,
+          "CRAFTSMEN AND RELATED TRADES WORKERS": 0.0035,
+          "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": 0.0026,
+          "CLEANERS, LABOURERS AND RELATED WORKERS": 0.0167
+        }
+      },
+      "Q Health & Social Services": {
+        "industry": "Q Health & Social Services",
+        "total_employment": 182.8,
+        "sex_share": {
+          "male": 0.2265,
+          "female": 0.7735
+        },
+        "major_group_share": {
+          "MANAGERS": 0.0695,
+          "PROFESSIONALS": 0.4185,
+          "ASSOCIATE PROFESSIONALS AND TECHNICIANS": 0.2555,
+          "CLERICAL SUPPORT WORKERS": 0.1072,
+          "SERVICE AND SALES WORKERS": 0.0903,
+          "CRAFTSMEN AND RELATED TRADES WORKERS": 0.0016,
+          "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": 0.0082,
+          "CLEANERS, LABOURERS AND RELATED WORKERS": 0.0498
+        }
+      },
+      "R Arts, Entertainment & Recreation": {
+        "industry": "R Arts, Entertainment & Recreation",
+        "total_employment": 37.3,
+        "sex_share": {
+          "male": 0.5067,
+          "female": 0.4933
+        },
+        "major_group_share": {
+          "MANAGERS": 0.1475,
+          "PROFESSIONALS": 0.1501,
+          "ASSOCIATE PROFESSIONALS AND TECHNICIANS": 0.3217,
+          "CLERICAL SUPPORT WORKERS": 0.0831,
+          "SERVICE AND SALES WORKERS": 0.2225,
+          "CRAFTSMEN AND RELATED TRADES WORKERS": 0.0107,
+          "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": 0.0107,
+          "CLEANERS, LABOURERS AND RELATED WORKERS": 0.059
+        }
+      },
+      "S-U Other Community, Social & Personal Services": {
+        "industry": "S-U Other Community, Social & Personal Services",
+        "total_employment": 77.2,
+        "sex_share": {
+          "male": 0.4249,
+          "female": 0.5751
+        },
+        "major_group_share": {
+          "MANAGERS": 0.1244,
+          "PROFESSIONALS": 0.1528,
+          "ASSOCIATE PROFESSIONALS AND TECHNICIANS": 0.1632,
+          "CLERICAL SUPPORT WORKERS": 0.114,
+          "SERVICE AND SALES WORKERS": 0.2435,
+          "CRAFTSMEN AND RELATED TRADES WORKERS": 0.0466,
+          "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": 0.0298,
+          "CLEANERS, LABOURERS AND RELATED WORKERS": 0.1231
+        }
+      },
+      "A, B, D, E Others": {
+        "industry": "A, B, D, E Others",
+        "total_employment": 19.5,
+        "sex_share": {
+          "male": 0.7128,
+          "female": 0.2872
+        },
+        "major_group_share": {
+          "MANAGERS": 0.1744,
+          "PROFESSIONALS": 0.2821,
+          "ASSOCIATE PROFESSIONALS AND TECHNICIANS": 0.2923,
+          "CLERICAL SUPPORT WORKERS": 0.0615,
+          "SERVICE AND SALES WORKERS": 0.0154,
+          "CRAFTSMEN AND RELATED TRADES WORKERS": 0.0256,
+          "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": 0.0513,
+          "CLEANERS, LABOURERS AND RELATED WORKERS": 0.0821
+        }
+      }
+    }
+  },
+  "industry_profile": {
+    "2024": {
+      "C Manufacturing": {
+        "industry": "C Manufacturing",
+        "total_employment": 212.2,
+        "sex_share": {
+          "male": 5.8341,
+          "female": 5.3139
+        },
+        "employment_status_share": {
+          "employers": 0.0339,
+          "employees": 0.9453,
+          "own_account_workers": 0.0193,
+          "contributing_family_workers": 0.0014,
+          "self_employed": 0.0546
+        },
+        "work_arrangement_share": {
+          "full_time": 9.9279,
+          "part_time": 1.2196
+        },
+        "age_share": {
+          "age_15_29": 0.0334,
+          "age_30_49": 0.172,
+          "age_50_59": 0.0984,
+          "age_60_plus": 0.0735
+        },
+        "qualification_share": {
+          "below_secondary": 0.058,
+          "secondary": 0.0617,
+          "post_secondary_non_tertiary": 0.0339,
+          "diploma_professional": 0.073,
+          "degree": 0.1503
+        },
+        "marital_status_share": {
+          "single": 0.0754,
+          "married": 0.2663,
+          "widowed_divorced": 0.0349
+        }
+      },
+      "F Construction": {
+        "industry": "F Construction",
+        "total_employment": 102.9,
+        "sex_share": {
+          "male": 1.2847,
+          "female": 0.7775
+        },
+        "employment_status_share": {
+          "employers": 0.0962,
+          "employees": 0.8455,
+          "own_account_workers": 0.0544,
+          "contributing_family_workers": 0.0029,
+          "self_employed": 0.1535
+        },
+        "work_arrangement_share": {
+          "full_time": 1.9281,
+          "part_time": 0.1341
+        },
+        "age_share": {
+          "age_15_29": 0.0233,
+          "age_30_49": 0.1418,
+          "age_50_59": 0.0729,
+          "age_60_plus": 0.0544
+        },
+        "qualification_share": {
+          "below_secondary": 0.0418,
+          "secondary": 0.0622,
+          "post_secondary_non_tertiary": 0.0272,
+          "diploma_professional": 0.0777,
+          "degree": 0.0836
+        },
+        "marital_status_share": {
+          "single": 0.0534,
+          "married": 0.2128,
+          "widowed_divorced": 0.0262
+        }
+      },
+      "G-U Services": {
+        "industry": "G-U Services",
+        "total_employment": 2028.2,
+        "sex_share": {
+          "male": 0.0358,
+          "female": 0.0148
+        },
+        "employment_status_share": {
+          "employers": 0.0323,
+          "employees": 0.8761,
+          "own_account_workers": 0.0895,
+          "contributing_family_workers": 0.0021,
+          "self_employed": 0.1239
+        },
+        "work_arrangement_share": {
+          "full_time": 0.0457,
+          "part_time": 0.0051
+        },
+        "age_share": {
+          "age_15_29": 0.0741,
+          "age_30_49": 0.2443,
+          "age_50_59": 0.0962,
+          "age_60_plus": 0.084
+        },
+        "qualification_share": {
+          "below_secondary": 0.0513,
+          "secondary": 0.0643,
+          "post_secondary_non_tertiary": 0.0508,
+          "diploma_professional": 0.1002,
+          "degree": 0.2317
+        },
+        "marital_status_share": {
+          "single": 0.14,
+          "married": 0.3119,
+          "widowed_divorced": 0.0465
+        }
+      },
+      "G Wholesale & Retail Trade": {
+        "industry": "G Wholesale & Retail Trade",
+        "total_employment": 336,
+        "sex_share": {
+          "male": 3.0277,
+          "female": 3.0086
+        },
+        "employment_status_share": {
+          "employers": 0.0571,
+          "employees": 0.8899,
+          "own_account_workers": 0.0494,
+          "contributing_family_workers": 0.0036,
+          "self_employed": 0.1101
+        },
+        "work_arrangement_share": {
+          "full_time": 5.3408,
+          "part_time": 0.6955
+        },
+        "age_share": {
+          "age_15_29": 0.0563,
+          "age_30_49": 0.2432,
+          "age_50_59": 0.1158,
+          "age_60_plus": 0.1015
+        },
+        "qualification_share": {
+          "below_secondary": 0.0753,
+          "secondary": 0.0994,
+          "post_secondary_non_tertiary": 0.0583,
+          "diploma_professional": 0.1024,
+          "degree": 0.181
+        },
+        "marital_status_share": {
+          "single": 0.1193,
+          "married": 0.344,
+          "widowed_divorced": 0.0533
+        }
+      },
+      "H Transportation & Storage": {
+        "industry": "H Transportation & Storage",
+        "total_employment": 197.9,
+        "sex_share": {
+          "male": 0.8206,
+          "female": 0.8772
+        },
+        "employment_status_share": {
+          "employers": 0.0167,
+          "employees": 0.6675,
+          "own_account_workers": 0.3148,
+          "contributing_family_workers": 0.001,
+          "self_employed": 0.3325
+        },
+        "work_arrangement_share": {
+          "full_time": 1.5099,
+          "part_time": 0.188
+        },
+        "age_share": {
+          "age_15_29": 0.0313,
+          "age_30_49": 0.1035,
+          "age_50_59": 0.0545,
+          "age_60_plus": 0.0444
+        },
+        "qualification_share": {
+          "below_secondary": 0.0253,
+          "secondary": 0.048,
+          "post_secondary_non_tertiary": 0.0318,
+          "diploma_professional": 0.0627,
+          "degree": 0.0662
+        },
+        "marital_status_share": {
+          "single": 0.0581,
+          "married": 0.1486,
+          "widowed_divorced": 0.0268
+        }
+      },
+      "I Accommodation & Food Services": {
+        "industry": "I Accommodation & Food Services",
+        "total_employment": 147.5,
+        "sex_share": {
+          "male": 1.0285,
+          "female": 0.3132
+        },
+        "employment_status_share": {
+          "employers": 0.0556,
+          "employees": 0.8868,
+          "own_account_workers": 0.0454,
+          "contributing_family_workers": 0.0115,
+          "self_employed": 0.1125
+        },
+        "work_arrangement_share": {
+          "full_time": 1.1898,
+          "part_time": 0.1519
+        },
+        "age_share": {
+          "age_15_29": 0.0766,
+          "age_30_49": 0.1777,
+          "age_50_59": 0.1316,
+          "age_60_plus": 0.1892
+        },
+        "qualification_share": {
+          "below_secondary": 0.1763,
+          "secondary": 0.1329,
+          "post_secondary_non_tertiary": 0.1098,
+          "diploma_professional": 0.0854,
+          "degree": 0.0712
+        },
+        "marital_status_share": {
+          "single": 0.1173,
+          "married": 0.3769,
+          "widowed_divorced": 0.0807
+        }
+      },
+      "J Information & Communications": {
+        "industry": "J Information & Communications",
+        "total_employment": 139.1,
+        "sex_share": {
+          "male": 0.45,
+          "female": 0.6096
+        },
+        "employment_status_share": {
+          "employers": 0.0223,
+          "employees": 0.913,
+          "own_account_workers": 0.0647,
+          "contributing_family_workers": 0.0007,
+          "self_employed": 0.0877
+        },
+        "work_arrangement_share": {
+          "full_time": 0.729,
+          "part_time": 0.3314
+        },
+        "age_share": {
+          "age_15_29": 0.0991,
+          "age_30_49": 0.2459,
+          "age_50_59": 0.0625,
+          "age_60_plus": 0.0209
+        },
+        "qualification_share": {
+          "below_secondary": 0.0108,
+          "secondary": 0.0194,
+          "post_secondary_non_tertiary": 0.018,
+          "diploma_professional": 0.0805,
+          "degree": 0.2998
+        },
+        "marital_status_share": {
+          "single": 0.1596,
+          "married": 0.2423,
+          "widowed_divorced": 0.0259
+        }
+      },
+      "K Financial & Insurance Services": {
+        "industry": "K Financial & Insurance Services",
+        "total_employment": 239.4,
+        "sex_share": {
+          "male": 0.3321,
+          "female": 0.249
+        },
+        "employment_status_share": {
+          "employers": 0.0125,
+          "employees": 0.8981,
+          "own_account_workers": 0.0894,
+          "contributing_family_workers": 0,
+          "self_employed": 0.1019
+        },
+        "work_arrangement_share": {
+          "full_time": 0.5518,
+          "part_time": 0.0292
+        },
+        "age_share": {
+          "age_15_29": 0.0756,
+          "age_30_49": 0.3145,
+          "age_50_59": 0.0944,
+          "age_60_plus": 0.043
+        },
+        "qualification_share": {
+          "below_secondary": 0.015,
+          "secondary": 0.0401,
+          "post_secondary_non_tertiary": 0.0309,
+          "diploma_professional": 0.1007,
+          "degree": 0.3409
+        },
+        "marital_status_share": {
+          "single": 0.165,
+          "married": 0.3283,
+          "widowed_divorced": 0.0343
+        }
+      },
+      "L Real Estate Services": {
+        "industry": "L Real Estate Services",
+        "total_employment": 56.3,
+        "sex_share": {
+          "male": 2.0071,
+          "female": 2.2433
+        },
+        "employment_status_share": {
+          "employers": 0.0107,
+          "employees": 0.659,
+          "own_account_workers": 0.325,
+          "contributing_family_workers": 0.0053,
+          "self_employed": 0.341
+        },
+        "work_arrangement_share": {
+          "full_time": 4.1208,
+          "part_time": 0.1297
+        },
+        "age_share": {
+          "age_15_29": 0.0479,
+          "age_30_49": 0.2309,
+          "age_50_59": 0.1048,
+          "age_60_plus": 0.1137
+        },
+        "qualification_share": {
+          "below_secondary": 0.0604,
+          "secondary": 0.0764,
+          "post_secondary_non_tertiary": 0.0515,
+          "diploma_professional": 0.1208,
+          "degree": 0.1865
+        },
+        "marital_status_share": {
+          "single": 0.1226,
+          "married": 0.3055,
+          "widowed_divorced": 0.0657
+        }
+      },
+      "M Professional Services": {
+        "industry": "M Professional Services",
+        "total_employment": 197.1,
+        "sex_share": {
+          "male": 0.1446,
+          "female": 0.141
+        },
+        "employment_status_share": {
+          "employers": 0.0594,
+          "employees": 0.8757,
+          "own_account_workers": 0.0634,
+          "contributing_family_workers": 0.0015,
+          "self_employed": 0.1243
+        },
+        "work_arrangement_share": {
+          "full_time": 0.2481,
+          "part_time": 0.0375
+        },
+        "age_share": {
+          "age_15_29": 0.0984,
+          "age_30_49": 0.269,
+          "age_50_59": 0.0726,
+          "age_60_plus": 0.0471
+        },
+        "qualification_share": {
+          "below_secondary": 0.0167,
+          "secondary": 0.0411,
+          "post_secondary_non_tertiary": 0.0284,
+          "diploma_professional": 0.0974,
+          "degree": 0.3029
+        },
+        "marital_status_share": {
+          "single": 0.1766,
+          "married": 0.275,
+          "widowed_divorced": 0.0355
+        }
+      },
+      "N Administrative & Support Services": {
+        "industry": "N Administrative & Support Services",
+        "total_employment": 124,
+        "sex_share": {
+          "male": 0.8153,
+          "female": 0.7742
+        },
+        "employment_status_share": {
+          "employers": 0.0363,
+          "employees": 0.9202,
+          "own_account_workers": 0.0427,
+          "contributing_family_workers": 0.0008,
+          "self_employed": 0.0798
+        },
+        "work_arrangement_share": {
+          "full_time": 1.4766,
+          "part_time": 0.1129
+        },
+        "age_share": {
+          "age_15_29": 0.0347,
+          "age_30_49": 0.1427,
+          "age_50_59": 0.0863,
+          "age_60_plus": 0.1548
+        },
+        "qualification_share": {
+          "below_secondary": 0.1081,
+          "secondary": 0.054,
+          "post_secondary_non_tertiary": 0.075,
+          "diploma_professional": 0.0879,
+          "degree": 0.0944
+        },
+        "marital_status_share": {
+          "single": 0.0895,
+          "married": 0.2589,
+          "widowed_divorced": 0.071
+        }
+      },
+      "O,P Public Administration & Education": {
+        "industry": "O,P Public Administration & Education",
+        "total_employment": 305.7,
+        "sex_share": {
+          "male": 0.2355,
+          "female": 0.1701
+        },
+        "employment_status_share": {
+          "employers": 0.0092,
+          "employees": 0.9369,
+          "own_account_workers": 0.0536,
+          "contributing_family_workers": 0.0007,
+          "self_employed": 0.0635
+        },
+        "work_arrangement_share": {
+          "full_time": 0.3255,
+          "part_time": 0.0798
+        },
+        "age_share": {
+          "age_15_29": 0.0641,
+          "age_30_49": 0.2627,
+          "age_50_59": 0.0906,
+          "age_60_plus": 0.0576
+        },
+        "qualification_share": {
+          "below_secondary": 0.0131,
+          "secondary": 0.0268,
+          "post_secondary_non_tertiary": 0.0291,
+          "diploma_professional": 0.0877,
+          "degree": 0.3189
+        },
+        "marital_status_share": {
+          "single": 0.1433,
+          "married": 0.3016,
+          "widowed_divorced": 0.0311
+        }
+      },
+      "Q Health & Social Services": {
+        "industry": "Q Health & Social Services",
+        "total_employment": 174.5,
+        "sex_share": {
+          "male": 0.9181,
+          "female": 0.8338
+        },
+        "employment_status_share": {
+          "employers": 0.0172,
+          "employees": 0.9622,
+          "own_account_workers": 0.0206,
+          "contributing_family_workers": 0,
+          "self_employed": 0.0378
+        },
+        "work_arrangement_share": {
+          "full_time": 1.5885,
+          "part_time": 0.1633
+        },
+        "age_share": {
+          "age_15_29": 0.1547,
+          "age_30_49": 0.3811,
+          "age_50_59": 0.1301,
+          "age_60_plus": 0.1112
+        },
+        "qualification_share": {
+          "below_secondary": 0.0424,
+          "secondary": 0.0917,
+          "post_secondary_non_tertiary": 0.094,
+          "diploma_professional": 0.1851,
+          "degree": 0.3645
+        },
+        "marital_status_share": {
+          "single": 0.2355,
+          "married": 0.4808,
+          "widowed_divorced": 0.0613
+        }
+      },
+      "R Arts, Entertainment & Recreation": {
+        "industry": "R Arts, Entertainment & Recreation",
+        "total_employment": 37.8,
+        "sex_share": {
+          "male": 1.0265,
+          "female": 3.5899
+        },
+        "employment_status_share": {
+          "employers": 0.0344,
+          "employees": 0.9074,
+          "own_account_workers": 0.0582,
+          "contributing_family_workers": 0,
+          "self_employed": 0.0926
+        },
+        "work_arrangement_share": {
+          "full_time": 4.1667,
+          "part_time": 0.4524
+        },
+        "age_share": {
+          "age_15_29": 0.1084,
+          "age_30_49": 0.2407,
+          "age_50_59": 0.0953,
+          "age_60_plus": 0.0687
+        },
+        "qualification_share": {
+          "below_secondary": 0.0344,
+          "secondary": 0.0873,
+          "post_secondary_non_tertiary": 0.0635,
+          "diploma_professional": 0.1243,
+          "degree": 0.2037
+        },
+        "marital_status_share": {
+          "single": 0.1852,
+          "married": 0.2804,
+          "widowed_divorced": 0.0476
+        }
+      },
+      "S-U Other Community, Social & Personal Services": {
+        "industry": "S-U Other Community, Social & Personal Services",
+        "total_employment": 73,
+        "sex_share": {
+          "male": 0.2521,
+          "female": 0.2658
+        },
+        "employment_status_share": {
+          "employers": 0.0658,
+          "employees": 0.8315,
+          "own_account_workers": 0.1,
+          "contributing_family_workers": 0.0027,
+          "self_employed": 0.1685
+        },
+        "work_arrangement_share": {
+          "full_time": 0.4301,
+          "part_time": 0.089
+        },
+        "age_share": {
+          "age_15_29": 0.063,
+          "age_30_49": 0.2452,
+          "age_50_59": 0.1356,
+          "age_60_plus": 0.1589
+        },
+        "qualification_share": {
+          "below_secondary": 0.1356,
+          "secondary": 0.1233,
+          "post_secondary_non_tertiary": 0.0781,
+          "diploma_professional": 0.1082,
+          "degree": 0.1562
+        },
+        "marital_status_share": {
+          "single": 0.1164,
+          "married": 0.4041,
+          "widowed_divorced": 0.0808
+        }
+      },
+      "A, B, D, E Others": {
+        "industry": "A, B, D, E Others",
+        "total_employment": 22.2,
+        "sex_share": {
+          "male": 1.3063,
+          "female": 1.9775
+        },
+        "employment_status_share": {
+          "employers": 0.0315,
+          "employees": 0.9595,
+          "own_account_workers": 0.009,
+          "contributing_family_workers": 0.0045,
+          "self_employed": 0.045
+        },
+        "work_arrangement_share": {
+          "full_time": 2.5766,
+          "part_time": 0.7117
+        },
+        "age_share": {
+          "age_15_29": 0.036,
+          "age_30_49": 0.1485,
+          "age_50_59": 0.063,
+          "age_60_plus": 0.054
+        },
+        "qualification_share": {
+          "below_secondary": 0.036,
+          "secondary": 0.0315,
+          "post_secondary_non_tertiary": 0.0315,
+          "diploma_professional": 0.0766,
+          "degree": 0.1171
+        },
+        "marital_status_share": {
+          "single": 0.0721,
+          "married": 0.1937,
+          "widowed_divorced": 0.0315
+        }
+      }
+    },
+    "2025": {
+      "C Manufacturing": {
+        "industry": "C Manufacturing",
+        "total_employment": 210.2,
+        "sex_share": {
+          "male": 5.9148,
+          "female": 5.3906
+        },
+        "employment_status_share": {
+          "employers": 0.0333,
+          "employees": 0.9448,
+          "own_account_workers": 0.0186,
+          "contributing_family_workers": 0.0033,
+          "self_employed": 0.0552
+        },
+        "work_arrangement_share": {
+          "full_time": 10.1675,
+          "part_time": 1.1384
+        },
+        "age_share": {
+          "age_15_29": 0.0267,
+          "age_30_49": 0.1731,
+          "age_50_59": 0.1037,
+          "age_60_plus": 0.08
+        },
+        "qualification_share": {
+          "below_secondary": 0.0614,
+          "secondary": 0.0557,
+          "post_secondary_non_tertiary": 0.0419,
+          "diploma_professional": 0.0766,
+          "degree": 0.1475
+        },
+        "marital_status_share": {
+          "single": 0.0785,
+          "married": 0.2617,
+          "widowed_divorced": 0.0433
+        }
+      },
+      "F Construction": {
+        "industry": "F Construction",
+        "total_employment": 103.6,
+        "sex_share": {
+          "male": 1.251,
+          "female": 0.778
+        },
+        "employment_status_share": {
+          "employers": 0.0975,
+          "employees": 0.861,
+          "own_account_workers": 0.0386,
+          "contributing_family_workers": 0.0029,
+          "self_employed": 0.139
+        },
+        "work_arrangement_share": {
+          "full_time": 1.9102,
+          "part_time": 0.1178
+        },
+        "age_share": {
+          "age_15_29": 0.0271,
+          "age_30_49": 0.1583,
+          "age_50_59": 0.0801,
+          "age_60_plus": 0.0676
+        },
+        "qualification_share": {
+          "below_secondary": 0.0541,
+          "secondary": 0.0579,
+          "post_secondary_non_tertiary": 0.0328,
+          "diploma_professional": 0.0801,
+          "degree": 0.11
+        },
+        "marital_status_share": {
+          "single": 0.0627,
+          "married": 0.2394,
+          "widowed_divorced": 0.0328
+        }
+      },
+      "G-U Services": {
+        "industry": "G-U Services",
+        "total_employment": 2043.2,
+        "sex_share": {
+          "male": 0.0337,
+          "female": 0.0169
+        },
+        "employment_status_share": {
+          "employers": 0.0306,
+          "employees": 0.8758,
+          "own_account_workers": 0.0907,
+          "contributing_family_workers": 0.0029,
+          "self_employed": 0.1242
+        },
+        "work_arrangement_share": {
+          "full_time": 0.0459,
+          "part_time": 0.0048
+        },
+        "age_share": {
+          "age_15_29": 0.0716,
+          "age_30_49": 0.2402,
+          "age_50_59": 0.0995,
+          "age_60_plus": 0.0843
+        },
+        "qualification_share": {
+          "below_secondary": 0.0541,
+          "secondary": 0.0608,
+          "post_secondary_non_tertiary": 0.0505,
+          "diploma_professional": 0.0987,
+          "degree": 0.2314
+        },
+        "marital_status_share": {
+          "single": 0.1375,
+          "married": 0.312,
+          "widowed_divorced": 0.046
+        }
+      },
+      "G Wholesale & Retail Trade": {
+        "industry": "G Wholesale & Retail Trade",
+        "total_employment": 336.7,
+        "sex_share": {
+          "male": 3.0618,
+          "female": 3.0065
+        },
+        "employment_status_share": {
+          "employers": 0.0582,
+          "employees": 0.8919,
+          "own_account_workers": 0.0428,
+          "contributing_family_workers": 0.0071,
+          "self_employed": 0.1081
+        },
+        "work_arrangement_share": {
+          "full_time": 5.4253,
+          "part_time": 0.643
+        },
+        "age_share": {
+          "age_15_29": 0.0544,
+          "age_30_49": 0.2289,
+          "age_50_59": 0.1135,
+          "age_60_plus": 0.0963
+        },
+        "qualification_share": {
+          "below_secondary": 0.0686,
+          "secondary": 0.0909,
+          "post_secondary_non_tertiary": 0.0555,
+          "diploma_professional": 0.1019,
+          "degree": 0.1761
+        },
+        "marital_status_share": {
+          "single": 0.1158,
+          "married": 0.3291,
+          "widowed_divorced": 0.0481
+        }
+      },
+      "H Transportation & Storage": {
+        "industry": "H Transportation & Storage",
+        "total_employment": 209,
+        "sex_share": {
+          "male": 0.8167,
+          "female": 0.7938
+        },
+        "employment_status_share": {
+          "employers": 0.012,
+          "employees": 0.6584,
+          "own_account_workers": 0.3287,
+          "contributing_family_workers": 0.001,
+          "self_employed": 0.3417
+        },
+        "work_arrangement_share": {
+          "full_time": 1.4354,
+          "part_time": 0.1756
+        },
+        "age_share": {
+          "age_15_29": 0.0301,
+          "age_30_49": 0.1206,
+          "age_50_59": 0.056,
+          "age_60_plus": 0.0459
+        },
+        "qualification_share": {
+          "below_secondary": 0.0311,
+          "secondary": 0.0507,
+          "post_secondary_non_tertiary": 0.034,
+          "diploma_professional": 0.0608,
+          "degree": 0.0761
+        },
+        "marital_status_share": {
+          "single": 0.067,
+          "married": 0.1579,
+          "widowed_divorced": 0.0278
+        }
+      },
+      "I Accommodation & Food Services": {
+        "industry": "I Accommodation & Food Services",
+        "total_employment": 145.8,
+        "sex_share": {
+          "male": 1.0713,
+          "female": 0.3621
+        },
+        "employment_status_share": {
+          "employers": 0.0473,
+          "employees": 0.8827,
+          "own_account_workers": 0.0549,
+          "contributing_family_workers": 0.0151,
+          "self_employed": 0.1173
+        },
+        "work_arrangement_share": {
+          "full_time": 1.2984,
+          "part_time": 0.1351
+        },
+        "age_share": {
+          "age_15_29": 0.0768,
+          "age_30_49": 0.1715,
+          "age_50_59": 0.1255,
+          "age_60_plus": 0.1893
+        },
+        "qualification_share": {
+          "below_secondary": 0.1893,
+          "secondary": 0.1269,
+          "post_secondary_non_tertiary": 0.1008,
+          "diploma_professional": 0.0768,
+          "degree": 0.0693
+        },
+        "marital_status_share": {
+          "single": 0.1207,
+          "married": 0.3573,
+          "widowed_divorced": 0.0857
+        }
+      },
+      "J Information & Communications": {
+        "industry": "J Information & Communications",
+        "total_employment": 129.4,
+        "sex_share": {
+          "male": 0.4915,
+          "female": 0.6352
+        },
+        "employment_status_share": {
+          "employers": 0.034,
+          "employees": 0.9104,
+          "own_account_workers": 0.0541,
+          "contributing_family_workers": 0.0015,
+          "self_employed": 0.0896
+        },
+        "work_arrangement_share": {
+          "full_time": 0.8261,
+          "part_time": 0.3006
+        },
+        "age_share": {
+          "age_15_29": 0.0889,
+          "age_30_49": 0.2488,
+          "age_50_59": 0.0588,
+          "age_60_plus": 0.0248
+        },
+        "qualification_share": {
+          "below_secondary": 0.0116,
+          "secondary": 0.0216,
+          "post_secondary_non_tertiary": 0.0201,
+          "diploma_professional": 0.085,
+          "degree": 0.2821
+        },
+        "marital_status_share": {
+          "single": 0.1499,
+          "married": 0.2457,
+          "widowed_divorced": 0.0247
+        }
+      },
+      "K Financial & Insurance Services": {
+        "industry": "K Financial & Insurance Services",
+        "total_employment": 235.3,
+        "sex_share": {
+          "male": 0.3187,
+          "female": 0.2312
+        },
+        "employment_status_share": {
+          "employers": 0.0132,
+          "employees": 0.8942,
+          "own_account_workers": 0.0922,
+          "contributing_family_workers": 0.0004,
+          "self_employed": 0.1058
+        },
+        "work_arrangement_share": {
+          "full_time": 0.5232,
+          "part_time": 0.0268
+        },
+        "age_share": {
+          "age_15_29": 0.0726,
+          "age_30_49": 0.311,
+          "age_50_59": 0.0981,
+          "age_60_plus": 0.0429
+        },
+        "qualification_share": {
+          "below_secondary": 0.0178,
+          "secondary": 0.0357,
+          "post_secondary_non_tertiary": 0.031,
+          "diploma_professional": 0.0909,
+          "degree": 0.3502
+        },
+        "marital_status_share": {
+          "single": 0.1577,
+          "married": 0.3311,
+          "widowed_divorced": 0.0365
+        }
+      },
+      "L Real Estate Services": {
+        "industry": "L Real Estate Services",
+        "total_employment": 58.8,
+        "sex_share": {
+          "male": 1.8997,
+          "female": 2.102
+        },
+        "employment_status_share": {
+          "employers": 0.0187,
+          "employees": 0.6548,
+          "own_account_workers": 0.3248,
+          "contributing_family_workers": 0.0017,
+          "self_employed": 0.3452
+        },
+        "work_arrangement_share": {
+          "full_time": 3.8741,
+          "part_time": 0.1293
+        },
+        "age_share": {
+          "age_15_29": 0.0357,
+          "age_30_49": 0.2227,
+          "age_50_59": 0.1224,
+          "age_60_plus": 0.1377
+        },
+        "qualification_share": {
+          "below_secondary": 0.0935,
+          "secondary": 0.0629,
+          "post_secondary_non_tertiary": 0.0561,
+          "diploma_professional": 0.1054,
+          "degree": 0.2007
+        },
+        "marital_status_share": {
+          "single": 0.1088,
+          "married": 0.3469,
+          "widowed_divorced": 0.0646
+        }
+      },
+      "M Professional Services": {
+        "industry": "M Professional Services",
+        "total_employment": 192.6,
+        "sex_share": {
+          "male": 0.1464,
+          "female": 0.1589
+        },
+        "employment_status_share": {
+          "employers": 0.0498,
+          "employees": 0.878,
+          "own_account_workers": 0.0706,
+          "contributing_family_workers": 0.0016,
+          "self_employed": 0.122
+        },
+        "work_arrangement_share": {
+          "full_time": 0.2622,
+          "part_time": 0.0431
+        },
+        "age_share": {
+          "age_15_29": 0.0987,
+          "age_30_49": 0.2627,
+          "age_50_59": 0.0862,
+          "age_60_plus": 0.0503
+        },
+        "qualification_share": {
+          "below_secondary": 0.0166,
+          "secondary": 0.0379,
+          "post_secondary_non_tertiary": 0.0265,
+          "diploma_professional": 0.1163,
+          "degree": 0.3001
+        },
+        "marital_status_share": {
+          "single": 0.1786,
+          "married": 0.2887,
+          "widowed_divorced": 0.0301
+        }
+      },
+      "N Administrative & Support Services": {
+        "industry": "N Administrative & Support Services",
+        "total_employment": 127.8,
+        "sex_share": {
+          "male": 0.7574,
+          "female": 0.7496
+        },
+        "employment_status_share": {
+          "employers": 0.0305,
+          "employees": 0.9382,
+          "own_account_workers": 0.0305,
+          "contributing_family_workers": 0.0008,
+          "self_employed": 0.0618
+        },
+        "work_arrangement_share": {
+          "full_time": 1.4124,
+          "part_time": 0.0947
+        },
+        "age_share": {
+          "age_15_29": 0.0555,
+          "age_30_49": 0.1346,
+          "age_50_59": 0.0869,
+          "age_60_plus": 0.1659
+        },
+        "qualification_share": {
+          "below_secondary": 0.1275,
+          "secondary": 0.0657,
+          "post_secondary_non_tertiary": 0.0853,
+          "diploma_professional": 0.0728,
+          "degree": 0.0915
+        },
+        "marital_status_share": {
+          "single": 0.1056,
+          "married": 0.2621,
+          "widowed_divorced": 0.0751
+        }
+      },
+      "O,P Public Administration & Education": {
+        "industry": "O,P Public Administration & Education",
+        "total_employment": 310.5,
+        "sex_share": {
+          "male": 0.2293,
+          "female": 0.1823
+        },
+        "employment_status_share": {
+          "employers": 0.009,
+          "employees": 0.9327,
+          "own_account_workers": 0.0583,
+          "contributing_family_workers": 0,
+          "self_employed": 0.0673
+        },
+        "work_arrangement_share": {
+          "full_time": 0.3411,
+          "part_time": 0.0705
+        },
+        "age_share": {
+          "age_15_29": 0.0596,
+          "age_30_49": 0.2553,
+          "age_50_59": 0.105,
+          "age_60_plus": 0.0509
+        },
+        "qualification_share": {
+          "below_secondary": 0.0116,
+          "secondary": 0.0258,
+          "post_secondary_non_tertiary": 0.028,
+          "diploma_professional": 0.0795,
+          "degree": 0.3256
+        },
+        "marital_status_share": {
+          "single": 0.1404,
+          "married": 0.294,
+          "widowed_divorced": 0.0364
+        }
+      },
+      "Q Health & Social Services": {
+        "industry": "Q Health & Social Services",
+        "total_employment": 182.8,
+        "sex_share": {
+          "male": 0.8993,
+          "female": 0.7992
+        },
+        "employment_status_share": {
+          "employers": 0.0181,
+          "employees": 0.9672,
+          "own_account_workers": 0.0142,
+          "contributing_family_workers": 0,
+          "self_employed": 0.0323
+        },
+        "work_arrangement_share": {
+          "full_time": 1.5454,
+          "part_time": 0.1532
+        },
+        "age_share": {
+          "age_15_29": 0.1515,
+          "age_30_49": 0.3878,
+          "age_50_59": 0.1313,
+          "age_60_plus": 0.1029
+        },
+        "qualification_share": {
+          "below_secondary": 0.0432,
+          "secondary": 0.0804,
+          "post_secondary_non_tertiary": 0.0897,
+          "diploma_professional": 0.1915,
+          "degree": 0.3693
+        },
+        "marital_status_share": {
+          "single": 0.2281,
+          "married": 0.4907,
+          "widowed_divorced": 0.0547
+        }
+      },
+      "R Arts, Entertainment & Recreation": {
+        "industry": "R Arts, Entertainment & Recreation",
+        "total_employment": 37.3,
+        "sex_share": {
+          "male": 1.1099,
+          "female": 3.7909
+        },
+        "employment_status_share": {
+          "employers": 0.0134,
+          "employees": 0.9223,
+          "own_account_workers": 0.067,
+          "contributing_family_workers": 0,
+          "self_employed": 0.0804
+        },
+        "work_arrangement_share": {
+          "full_time": 4.4665,
+          "part_time": 0.4343
+        },
+        "age_share": {
+          "age_15_29": 0.0805,
+          "age_30_49": 0.2521,
+          "age_50_59": 0.0911,
+          "age_60_plus": 0.0724
+        },
+        "qualification_share": {
+          "below_secondary": 0.0402,
+          "secondary": 0.0751,
+          "post_secondary_non_tertiary": 0.067,
+          "diploma_professional": 0.1233,
+          "degree": 0.1877
+        },
+        "marital_status_share": {
+          "single": 0.1609,
+          "married": 0.2869,
+          "widowed_divorced": 0.0483
+        }
+      },
+      "S-U Other Community, Social & Personal Services": {
+        "industry": "S-U Other Community, Social & Personal Services",
+        "total_employment": 77.2,
+        "sex_share": {
+          "male": 0.2448,
+          "female": 0.2383
+        },
+        "employment_status_share": {
+          "employers": 0.0622,
+          "employees": 0.8601,
+          "own_account_workers": 0.0725,
+          "contributing_family_workers": 0.0052,
+          "self_employed": 0.1399
+        },
+        "work_arrangement_share": {
+          "full_time": 0.4003,
+          "part_time": 0.0842
+        },
+        "age_share": {
+          "age_15_29": 0.0583,
+          "age_30_49": 0.2254,
+          "age_50_59": 0.1218,
+          "age_60_plus": 0.171
+        },
+        "qualification_share": {
+          "below_secondary": 0.1244,
+          "secondary": 0.1101,
+          "post_secondary_non_tertiary": 0.0764,
+          "diploma_professional": 0.1127,
+          "degree": 0.1516
+        },
+        "marital_status_share": {
+          "single": 0.1075,
+          "married": 0.3977,
+          "widowed_divorced": 0.0712
+        }
+      },
+      "A, B, D, E Others": {
+        "industry": "A, B, D, E Others",
+        "total_employment": 19.5,
+        "sex_share": {
+          "male": 1.6821,
+          "female": 2.2769
+        },
+        "employment_status_share": {
+          "employers": 0.0154,
+          "employees": 0.9744,
+          "own_account_workers": 0.0103,
+          "contributing_family_workers": 0,
+          "self_employed": 0.0257
+        },
+        "work_arrangement_share": {
+          "full_time": 3.2205,
+          "part_time": 0.7385
+        },
+        "age_share": {
+          "age_15_29": 0.0256,
+          "age_30_49": 0.1796,
+          "age_50_59": 0.0462,
+          "age_60_plus": 0.0359
+        },
+        "qualification_share": {
+          "below_secondary": 0.0154,
+          "secondary": 0.0256,
+          "post_secondary_non_tertiary": 0.0154,
+          "diploma_professional": 0.0513,
+          "degree": 0.1846
+        },
+        "marital_status_share": {
+          "single": 0.0821,
+          "married": 0.1897,
+          "widowed_divorced": 0.0205
+        }
+      }
+    }
+  }
+}

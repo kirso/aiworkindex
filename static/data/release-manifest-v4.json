@@ -1,6 +1,6 @@
 {
   "version": "V5",
-  "generated_at": "2026-03-21T16:09:31.238Z",
+  "generated_at": "2026-03-28T02:19:13.182Z",
   "score_dataset_generated_at": "2026-03-21",
   "artifacts": [
     {
@@ -8,9 +8,9 @@
       "label": "V5 structural score CSV",
       "category": "structural_score",
       "description": "Flattened structural score dataset with basis and provenance columns.",
-      "bytes": 361195,
-      "sha256": "f88ffe5cf67ebf6165865ff5c532fdad939408a8ddbad8f3b6d2ed8c24d60ced",
-      "generated_at": "2026-03-21T16:09:31.081Z"
+      "bytes": 275991,
+      "sha256": "dacb10e36dfb6bca89e842874eb48b528347046711ef056f84afd3aa9e5fc695",
+      "generated_at": "2026-03-28T02:17:54.337Z"
     },
     {
       "file": "sg-ai-occupations-v4.json",
@@ -26,9 +26,9 @@
       "label": "V4.3 structural score CSV snapshot",
       "category": "structural_score",
       "description": "Versioned CSV snapshot for the retained V4.3 structural release.",
-      "bytes": 304964,
-      "sha256": "62bd609179764e0e8f3f73c6ba14ff3ec1d98048162cb012b3c58a52b8528ac1",
-      "generated_at": "2026-03-21T16:09:31.134Z"
+      "bytes": 307328,
+      "sha256": "32beb7dc4f29294134be94986f6552ec211bf41ad29c68cea4ed7143d37a40aa",
+      "generated_at": "2026-03-28T02:17:54.357Z"
     },
     {
       "file": "sg-ai-occupations-v43.json",
@@ -44,9 +44,9 @@
       "label": "V5 structural score CSV snapshot",
       "category": "structural_score",
       "description": "Versioned CSV snapshot for the promoted V5 live structural release with transition-adjusted and realized-risk adjunct fields.",
-      "bytes": 361195,
-      "sha256": "f88ffe5cf67ebf6165865ff5c532fdad939408a8ddbad8f3b6d2ed8c24d60ced",
-      "generated_at": "2026-03-21T16:09:31.146Z"
+      "bytes": 363559,
+      "sha256": "a2cf27e379fb9cd9afdb84868a51d12bcc6e0aaa5648776af612dca9073a86a9",
+      "generated_at": "2026-03-28T02:17:54.370Z"
     },
     {
       "file": "sg-ai-occupations-v5.json",
@@ -62,9 +62,9 @@
       "label": "V4.2 structural score CSV snapshot",
       "category": "structural_score",
       "description": "Historical CSV snapshot for the retained V4.2 pre-promotion baseline.",
-      "bytes": 272117,
-      "sha256": "14d9e9ff9ccddc6113a1132a0a49eb879d0197bcd1fc2b9f680338a9d9376b82",
-      "generated_at": "2026-03-21T16:09:31.102Z"
+      "bytes": 274481,
+      "sha256": "8faad00e56e86503d75762fbde041145d1108552ec7fc5a4ef48867d369b45cf",
+      "generated_at": "2026-03-28T02:17:54.347Z"
     },
     {
       "file": "sg-ai-occupations-v42.json",
@@ -82,16 +82,16 @@
       "description": "Title-matched O*NET task and technology-skill enrichment used as supporting context for occupation and role pages.",
       "bytes": 1395424,
       "sha256": "71520e8aaf3374c4d9eed00fc4fc4d9a6e1b7f3188a777ab238237bff0ea775d",
-      "generated_at": "2026-03-21T16:09:21.210Z"
+      "generated_at": "2026-03-28T02:17:54.592Z"
     },
     {
       "file": "sg-context-pack-2025.json",
       "label": "Singapore context pack",
       "category": "context_bundle",
       "description": "Published Singapore context bundle around the structural score: labour monitor, worker profile, industry context, sector wage anchors, geography context, macro labour context, and national AI context.",
-      "bytes": 613522,
-      "sha256": "eb7a088c2e2975a91236d372dcf03a595767fb84ecd923ec1c7fda9bf5d1add8",
-      "generated_at": "2026-03-21T16:09:31.187Z"
+      "bytes": 669079,
+      "sha256": "4893845531b10fbf20bbd05936daa06b2b6f248535d3ac9223d14c64b1052759",
+      "generated_at": "2026-03-28T02:19:13.161Z"
     },
     {
       "file": "sg-labour-monitor-2025.json",
@@ -100,16 +100,25 @@
       "description": "Published cluster-level labour monitor used as current evidence around the score.",
       "bytes": 12073,
       "sha256": "ef7db69736057366ef2ca678d5b7ea2bda1b4e856764b83e18870c97245ac295",
-      "generated_at": "2026-03-21T16:09:31.187Z"
+      "generated_at": "2026-03-28T02:19:13.161Z"
     },
     {
-      "file": "sg-worker-profile-2024.json",
+      "file": "sg-worker-profile-2025.json",
       "label": "Singapore worker profile",
       "category": "worker_profile",
-      "description": "Published Labour Force 2024 worker-profile context and detailed gender anchors.",
-      "bytes": 116519,
-      "sha256": "723a9704e3b87db1f5779406eb0915ad41f7987717058ec8808c5ecef1fa4f36",
-      "generated_at": "2026-03-21T16:09:16.808Z"
+      "description": "Published Labour Force 2025 worker-profile context and detailed gender anchors.",
+      "bytes": 117281,
+      "sha256": "50dac9fb85e2b7decb34cbf8420d47dc250927da13e654fca9a24647467c0301",
+      "generated_at": "2026-03-28T02:19:13.125Z"
+    },
+    {
+      "file": "sg-lfr-deltas-2025.json",
+      "label": "Singapore Section D deltas",
+      "category": "lfr_context",
+      "description": "Published 2024 to 2025 Labour Force Section D family, cluster, and industry-mix deltas used for validation and contextual reporting.",
+      "bytes": 44667,
+      "sha256": "9642f9b7f5c7a0064389c9643f56b28c9326cde85dda5c5178ec358a4034c70c",
+      "generated_at": "2026-03-28T02:19:13.162Z"
     },
     {
       "file": "sg-geography-context-2020.json",
@@ -287,18 +296,18 @@
       "label": "V5 experimental model",
       "category": "v5_experimental_model",
       "description": "Promotion-comparison artifact for V5, retaining the integrated model outputs against the retained V4.3 baseline.",
-      "bytes": 1759107,
-      "sha256": "26dd57f12c75dc93050d7672e8d88276bc8a45ac8d9450a6932c00e43f4b020c",
-      "generated_at": "2026-03-21T16:09:30.960Z"
+      "bytes": 1761300,
+      "sha256": "f9650206e530317104a23cbdb31bef8cc1d49eb01fb3ffff1036f2a634a968a9",
+      "generated_at": "2026-03-28T02:16:40.772Z"
     },
     {
       "file": "v5-experimental-validation.json",
       "label": "V5 experimental validation",
       "category": "v5_experimental_model",
       "description": "Validation and comparison artifact for the promoted V5 model versus the retained V4.3 baseline.",
-      "bytes": 6388,
-      "sha256": "48a6ffb9b554cbece8c7cba3dc2f950e153624cae7606df0835755d8ec5b0c85",
-      "generated_at": "2026-03-21T16:09:30.961Z"
+      "bytes": 6372,
+      "sha256": "2b54982164b63144d58cf1c47de9a6cd5ccaffc3c8ee3fb905aaf12217c05784",
+      "generated_at": "2026-03-28T02:16:40.773Z"
     },
     {
       "file": "site-status.json",
