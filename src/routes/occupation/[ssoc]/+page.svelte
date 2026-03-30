@@ -5,14 +5,17 @@
 		card,
 		riskBadge,
 		impactBadge,
-		
 		pageLayout,
 		display,
 		title as titleStyle,
+		sectionLabel,
+		body,
 		caption,
+		mono,
 		pill,
 		scoreTileClasses,
-		microLabel
+		microLabel,
+		section
 	} from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import { vacancySignalClass } from '$lib/data/detail-display';
@@ -442,7 +445,7 @@
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: occ.title }]} />
 
 	<!-- ===== BLOCK 1: THE VERDICT ===== -->
-	<div class={cn(card({ padding: 'lg' }), 'mb-8 overflow-hidden')}>
+	<div class={cn(card({ padding: 'lg' }), section({ spacing: 'loose' }), 'overflow-hidden')}>
 		<div class="grid gap-6 md:grid-cols-[12rem_minmax(0,1fr)] md:items-start">
 			<div
 				class={cn('rounded-2xl border p-5', scoreTileClasses(occ.risk_band))}
@@ -464,10 +467,33 @@
 				<div class="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
 					<div class="min-w-0">
 						<h1 class={titleStyle({ size: 'page' })}>{occ.title}</h1>
-						<p class={caption({ weight: 'medium' })}>
-							{group?.label ?? occ.major_group} · SGD {occ.gross_wage_median.toLocaleString()}/mo{#if occ.gross_wage_25th > 0 && occ.gross_wage_75th > 0} ({occ.gross_wage_25th.toLocaleString()}–{occ.gross_wage_75th.toLocaleString()}){/if}{#if occ.estimated_sg_employment_thousands} · ~{occ.estimated_sg_employment_thousands >= 1 ? occ.estimated_sg_employment_thousands.toFixed(1) + 'K' : Math.round(occ.estimated_sg_employment_thousands * 1000).toLocaleString()} workers in SG{/if}
-						</p>
-						<p class="mt-3 max-w-3xl text-[15px] leading-relaxed text-text-secondary">
+						<div class="mt-1.5 flex flex-wrap items-center gap-2">
+							<span class={impactBadge({ type: occ.impact_type })}>
+								{impactTypeLabels[occ.impact_type]}
+							</span>
+							<span class={pill({ tone: 'muted' })}>
+								{group?.label ?? occ.major_group}
+							</span>
+							{#if hasDemand}
+								<span class={pill({ tone: 'positive' })}>
+									In demand ({demandLabel})
+								</span>
+							{/if}
+						</div>
+						<div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1">
+							<span class={cn(mono({ size: 'md' }), 'text-muted-foreground')}>
+								SGD {occ.gross_wage_median.toLocaleString()}/mo
+								{#if occ.gross_wage_25th > 0 && occ.gross_wage_75th > 0}
+									<span class="opacity-60">({occ.gross_wage_25th.toLocaleString()}–{occ.gross_wage_75th.toLocaleString()})</span>
+								{/if}
+							</span>
+							{#if occ.estimated_sg_employment_thousands}
+								<span class={caption()}>
+									~{occ.estimated_sg_employment_thousands >= 1 ? occ.estimated_sg_employment_thousands.toFixed(1) + 'K' : Math.round(occ.estimated_sg_employment_thousands * 1000).toLocaleString()} workers in SG
+								</span>
+							{/if}
+						</div>
+						<p class={cn(body({ size: 'lg', tone: 'subtle' }), 'mt-3 max-w-3xl')}>
 							{structural.summaryText}
 						</p>
 					</div>
@@ -504,19 +530,8 @@
 					</div>
 				</div>
 
-				<div class="mt-3 flex flex-wrap items-center gap-2">
-					<span class={impactBadge({ type: occ.impact_type })}>
-						{impactTypeLabels[occ.impact_type]}
-					</span>
-					{#if hasDemand}
-						<span class={pill({ tone: 'positive' })}>
-							In demand ({demandLabel})
-						</span>
-					{/if}
-				</div>
-
 				<!-- Buffer line + conditional trust cue -->
-				<p class="mt-3 text-xs text-muted-foreground">
+				<p class={cn(caption(), 'mt-3')}>
 					{#if decision.adaptationCapacity >= 0.55}
 						Current buffers materially reduce the raw score.
 					{:else if decision.adaptationCapacity >= 0.35}
@@ -535,8 +550,8 @@
 	</div>
 
 	<!-- ===== BLOCK 2: WHY THIS SCORE ===== -->
-	<section class="mb-8">
-		<h2 class="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
+	<section class={section({ spacing: 'loose' })}>
+		<h2 class={cn(titleStyle({ size: 'subsection' }), 'mb-3 flex items-center gap-2')}>
 			<span class="h-4 w-1 rounded-full bg-primary"></span>
 			Why This Score
 		</h2>
@@ -545,7 +560,7 @@
 				<!-- Left: Waterfall (3/5 on desktop) -->
 				<div class="md:col-span-3">
 					<DriverWaterfall occupation={occ} />
-					<p class="mt-2 text-xs text-muted-foreground">
+					<p class={cn(caption(), 'mt-2')}>
 						Exposure × (1 − Bottleneck) × Market Modifier.
 						{#if occ.stability.label !== 'stable'}
 							<span class="text-risk-moderate">Band stability: {occ.stability.label}.</span>
@@ -557,20 +572,20 @@
 				<!-- Right: Task split (2/5 on desktop) -->
 				<div class="md:col-span-2 space-y-4">
 					<div>
-						<p class="text-xs font-semibold text-risk-high mb-1">Tasks AI can handle</p>
-						<p class="text-sm text-muted-foreground leading-relaxed">
+						<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-risk-high')}>Tasks AI can handle</p>
+						<p class={body({ tone: 'muted' })}>
 							{structural.personalizedContent.aiCanDo}
 						</p>
 					</div>
 					<div>
-						<p class="text-xs font-semibold text-risk-very-low mb-1">Where humans stay essential</p>
-						<p class="text-sm text-muted-foreground leading-relaxed">
+						<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-risk-very-low')}>Where humans stay essential</p>
+						<p class={body({ tone: 'muted' })}>
 							{structural.personalizedContent.humanNeeded}
 						</p>
 					</div>
 					{#if structural.personalizedContent.skills.length > 0}
 						<div class="pt-3 border-t border-border">
-							<p class="text-xs font-semibold text-foreground mb-2">Skills to focus on</p>
+							<p class={cn(caption({ weight: 'semibold' }), 'mb-2 text-foreground')}>Skills to focus on</p>
 							<div class="flex flex-wrap gap-1.5">
 								{#each structural.personalizedContent.skills.slice(0, 4) as skill}
 									<span class={pill({ tone: 'primary' })} title={skill.description}>
@@ -585,7 +600,7 @@
 
 			{#if occ.workflow_overlay}
 				<div class="mt-5 pt-5 border-t border-border">
-					<p class="text-xs font-semibold text-foreground mb-2">Role profile</p>
+					<p class={cn(caption({ weight: 'semibold' }), 'mb-2 text-foreground')}>Role profile</p>
 					<div class="flex justify-center">
 						<WorkflowRadar dimensions={occ.workflow_overlay} size={240} />
 					</div>
@@ -595,30 +610,30 @@
 	</section>
 
 	<!-- ===== BLOCK 3: SINGAPORE NOW ===== -->
-	<section class="mb-8">
-		<h2 class="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
+	<section class={section({ spacing: 'loose' })}>
+		<h2 class={cn(titleStyle({ size: 'subsection' }), 'mb-3 flex items-center gap-2')}>
 			<span class="h-4 w-1 rounded-full bg-impact-leveraged"></span>
 			Singapore Now
 		</h2>
 		<div class={card({ padding: 'md' })}>
-			<p class="text-sm leading-relaxed text-text-secondary mb-4">{marketHeadline}</p>
+			<p class={cn(body({ tone: 'subtle' }), 'mb-4')}>{marketHeadline}</p>
 
 			<!-- Labour metrics row -->
 			{#if occ.labour_monitor}
 				<div class="grid gap-3 sm:grid-cols-4 mb-4">
-					<div class={cn(card({ padding: 'sm', variant: 'metric' }), 'border-t-2', occ.labour_monitor.vacancy.trend_4q_pct > 0 ? 'border-t-risk-very-low' : occ.labour_monitor.vacancy.trend_4q_pct < 0 ? 'border-t-risk-high' : 'border-t-border')}>
+					<div class={card({ padding: 'sm', variant: 'metric' })}>
 						<p class={microLabel()}>Vacancy</p>
-						<p class="mt-1 font-mono text-lg text-foreground">
+						<p class={cn(mono({ size: 'lg' }), 'mt-1 text-foreground')}>
 							{occ.labour_monitor.vacancy.latest_rate}%
 						</p>
 						<p
 							class={cn(
-								'text-xs font-medium',
+								caption({ weight: 'medium' }),
 								occ.labour_monitor.vacancy.trend_4q_pct > 0
 									? 'text-risk-very-low'
 									: occ.labour_monitor.vacancy.trend_4q_pct < 0
 										? 'text-risk-high'
-										: 'text-muted-foreground'
+										: ''
 							)}
 						>
 							{occ.labour_monitor.vacancy.trend_4q_pct > 0
@@ -632,10 +647,10 @@
 					{#if occ.labour_monitor.hiring}
 						<div class={card({ padding: 'sm', variant: 'metric' })}>
 							<p class={microLabel()}>Hiring</p>
-							<p class="mt-1 font-mono text-lg text-foreground">
+							<p class={cn(mono({ size: 'lg' }), 'mt-1 text-foreground')}>
 								{occ.labour_monitor.hiring.recruitment_rate}%
 							</p>
-							<p class="text-xs text-muted-foreground">
+							<p class={caption()}>
 								vs {occ.labour_monitor.hiring.resignation_rate}% resign
 							</p>
 						</div>
@@ -643,10 +658,10 @@
 					{#if occ.labour_monitor.retrenchment?.incidence_per_1000}
 						<div class={card({ padding: 'sm', variant: 'metric' })}>
 							<p class={microLabel()}>Retrenchment</p>
-							<p class="mt-1 font-mono text-lg text-foreground">
+							<p class={cn(mono({ size: 'lg' }), 'mt-1 text-foreground')}>
 								{occ.labour_monitor.retrenchment.incidence_per_1000}
 							</p>
-							<p class="text-xs text-muted-foreground">
+							<p class={caption()}>
 								per 1,000 · {occ.labour_monitor.retrenchment.incidence_per_1000 < 2
 									? 'low'
 									: occ.labour_monitor.retrenchment.incidence_per_1000 < 5
@@ -657,17 +672,17 @@
 					{:else if postings && postings.hiring_state !== 'no_signal'}
 						<div class={card({ padding: 'sm', variant: 'metric' })}>
 							<p class={microLabel()}>Postings</p>
-							<p class="mt-1 font-mono text-lg text-foreground">{postings.posting_volume_30d}</p>
-							<p class="text-xs text-muted-foreground">last 30 days</p>
+							<p class={cn(mono({ size: 'lg' }), 'mt-1 text-foreground')}>{postings.posting_volume_30d}</p>
+							<p class={caption()}>last 30 days</p>
 						</div>
 					{/if}
 					{#if occ.labour_monitor.re_entry?.rate_12m}
 						<div class={card({ padding: 'sm', variant: 'metric' })}>
 							<p class={microLabel()}>Re-entry</p>
-							<p class="mt-1 font-mono text-lg text-foreground">
+							<p class={cn(mono({ size: 'lg' }), 'mt-1 text-foreground')}>
 								{occ.labour_monitor.re_entry.rate_12m}%
 							</p>
-							<p class="text-xs text-muted-foreground">
+							<p class={caption()}>
 								find work in 12mo{#if occ.labour_monitor.re_entry.rate_12m_delta_pp}
 									· <span
 										class={occ.labour_monitor.re_entry.rate_12m_delta_pp > 0
@@ -681,7 +696,7 @@
 						</div>
 					{/if}
 				</div>
-				<p class="text-xs text-muted-foreground mb-4">
+				<p class={cn(caption(), 'mb-4')}>
 					{occ.labour_monitor.cluster_label} · {siteStatus.live_monitor
 						.labour_monitor_artifact_vintage}
 				</p>
@@ -695,36 +710,40 @@
 							<div
 								class="flex items-center justify-between py-1.5 border-b border-border/50 last:border-0"
 							>
-								<span class="text-sm text-foreground truncate mr-2">{industry.label}</span>
+								<span class={body()}>{industry.label}</span>
 								<div class="flex items-center gap-2 shrink-0">
 									{#if industry.vacancy_signal && industry.vacancy_signal !== 'stable'}
-										<span class={cn('text-xs', vacancySignalClass(industry.vacancy_signal))}>
+										<span class={cn(caption(), vacancySignalClass(industry.vacancy_signal))}>
 											{industry.vacancy_signal === 'rising' ? '↑' : '↓'}
 										</span>
 									{/if}
-									<span class="font-mono text-xs text-muted-foreground"
+									<span class={cn(mono({ size: 'sm' }), 'text-muted-foreground')}
 										>{(industry.share_2025 * 100).toFixed(0)}%</span
 									>
 								</div>
 							</div>
 						{/each}
+						<p class={cn(caption(), 'mt-3')}>
+							Industry vacancy overlays use the latest published detailed cross-tab, which can lag
+							the main labour monitor.
+						</p>
 					</div>
 				{/if}
 
 				<div class={card({ padding: 'sm' })}>
-					<p class={cn(microLabel(), 'mb-2')}>How this changes by career stage</p>
-					<div class="space-y-1.5 text-xs">
-						<div class="flex items-center justify-between">
-							<span class="text-muted-foreground">Junior / Entry-level</span>
-							<span class="font-medium text-risk-high">Higher substitution exposure</span>
+					<p class={cn(microLabel(), 'mb-3')}>How this changes by career stage</p>
+					<div class="space-y-2">
+						<div class={cn(card({ padding: 'sm', variant: 'inset' }), 'flex items-center justify-between')}>
+							<span class={caption()}>Junior / Entry-level</span>
+							<span class={caption({ weight: 'medium' })}><span class="text-risk-high">Higher substitution exposure</span></span>
 						</div>
-						<div class="flex items-center justify-between">
-							<span class="text-muted-foreground">Mid-career</span>
-							<span class="font-medium text-foreground">Baseline role profile</span>
+						<div class={cn(card({ padding: 'sm', variant: 'inset' }), 'flex items-center justify-between')}>
+							<span class={caption()}>Mid-career</span>
+							<span class={cn(caption({ weight: 'medium' }), 'text-foreground')}>Baseline role profile</span>
 						</div>
-						<div class="flex items-center justify-between">
-							<span class="text-muted-foreground">Senior / Lead</span>
-							<span class="font-medium text-risk-very-low">More insulated by coordination & judgment</span>
+						<div class={cn(card({ padding: 'sm', variant: 'inset' }), 'flex items-center justify-between')}>
+							<span class={caption()}>Senior / Lead</span>
+							<span class={caption({ weight: 'medium' })}><span class="text-risk-very-low">More insulated</span></span>
 						</div>
 					</div>
 				</div>
@@ -733,21 +752,21 @@
 	</section>
 
 	<!-- ===== BLOCK 4: WHAT YOU CAN DO ===== -->
-	<section class="mb-8">
-		<h2 class="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
+	<section class={section({ spacing: 'loose' })}>
+		<h2 class={cn(titleStyle({ size: 'subsection' }), 'mb-3 flex items-center gap-2')}>
 			<span class="h-4 w-1 rounded-full bg-risk-very-low"></span>
 			What You Can Do
 		</h2>
 		<div class={card({ padding: 'md' })}>
 			{#if offsetPotential}
-				<p class="mb-4 pb-4 border-b border-border text-sm text-text-secondary">
+				<p class={cn(body({ tone: 'subtle' }), 'mb-4 pb-4 border-b border-border')}>
 					{offsetPotential.summary}{#if offsetPotential.components.mobility_friction > 0.5} Adjacent routes exist, but switching friction is still high.{/if}
 				</p>
 			{/if}
 
 			{#if transitionSupport}
 				<div class="mb-4 border-b border-border pb-4">
-					<p class="text-xs font-semibold text-foreground mb-2">Published transition support</p>
+					<p class={cn(caption({ weight: 'semibold' }), 'mb-2 text-foreground')}>Published transition support</p>
 					<div class="flex flex-wrap items-center gap-2">
 						{#if transitionSupport.skillsfuture_eligible}
 							<span class={pill({ tone: 'positive' })}>SkillsFuture eligible</span>
@@ -770,14 +789,14 @@
 			{#if allUniqueTransitions.length > 0}
 				<div class="mb-4 border-b border-border pb-4">
 					<div class="flex items-center gap-2 mb-3">
-						<p class="text-xs font-semibold text-foreground">Adjacent pathways to investigate</p>
+						<p class={cn(caption({ weight: 'semibold' }), 'text-foreground')}>Adjacent pathways to investigate</p>
 						<span class={pill({ size: 'sm', tone: 'muted' })}>Similarity-based</span>
 					</div>
 					<div class="grid gap-2 sm:grid-cols-3">
 						{#each allUniqueTransitions.slice(0, 3) as t}
 							<a href="/occupation/{t.to_ssoc}" class={cn(card({ padding: 'sm', variant: 'inset' }), 'block hover:bg-accent hover:shadow-sm transition-all group')}>
-								<p class="text-sm font-medium text-foreground truncate">{t.to_title} <span class="opacity-0 group-hover:opacity-100 transition-opacity text-primary">→</span></p>
-								<div class="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
+								<p class={cn(body(), 'font-medium text-foreground truncate')}>{t.to_title} <span class="opacity-0 group-hover:opacity-100 transition-opacity text-primary">→</span></p>
+								<div class={cn(caption(), 'mt-1 flex items-center gap-2')}>
 									<span class={t.risk_improvement > 0 ? 'text-risk-very-low' : t.risk_improvement < 0 ? 'text-risk-high' : ''}>
 										{#if t.risk_improvement > 0}-{(t.risk_improvement * 100).toFixed(0)}pp risk{:else if t.risk_improvement < 0}+{(Math.abs(t.risk_improvement) * 100).toFixed(0)}pp risk{:else}No risk change{/if}
 									</span>
@@ -789,12 +808,12 @@
 					</div>
 					{#if allUniqueTransitions.length > 3}
 						<details class="mt-2">
-							<summary class="cursor-pointer text-xs font-medium text-primary hover:underline">See {allUniqueTransitions.length - 3} more</summary>
+							<summary class={cn(caption({ weight: 'medium' }), 'cursor-pointer text-primary hover:underline')}>See {allUniqueTransitions.length - 3} more</summary>
 							<div class="mt-2 grid gap-2 sm:grid-cols-3">
 								{#each allUniqueTransitions.slice(3) as t}
 									<a href="/occupation/{t.to_ssoc}" class={cn(card({ padding: 'sm', variant: 'inset' }), 'block hover:bg-accent hover:shadow-sm transition-all group')}>
-										<p class="text-sm font-medium text-foreground truncate">{t.to_title} <span class="opacity-0 group-hover:opacity-100 transition-opacity text-primary">→</span></p>
-										<div class="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
+										<p class={cn(body(), 'font-medium text-foreground truncate')}>{t.to_title} <span class="opacity-0 group-hover:opacity-100 transition-opacity text-primary">→</span></p>
+										<div class={cn(caption(), 'mt-1 flex items-center gap-2')}>
 											<span>{(t.composite * 100).toFixed(0)}%</span>
 											<span>·</span>
 											<span>{t.label}</span>
@@ -808,10 +827,10 @@
 			{/if}
 
 			<div class="flex items-center justify-between">
-				<p class="text-xs text-muted-foreground">See how this compares to similar occupations</p>
+				<p class={caption()}>See how this compares to similar occupations</p>
 				<a
 					href="/compare?entities=occupation:{occ.ssoc}"
-					class="text-xs font-medium text-primary hover:underline"
+					class={cn(caption({ weight: 'medium' }), 'text-primary hover:underline')}
 				>
 					Compare with... →
 				</a>
@@ -820,9 +839,9 @@
 	</section>
 
 	<!-- ===== TECHNICAL DETAILS (collapsible) ===== -->
-	<Collapsible.Root class={cn(card({ padding: 'none' }), 'mb-8')}>
+	<Collapsible.Root class={cn(card({ padding: 'none' }), section({ spacing: 'loose' }))}>
 		<Collapsible.Trigger
-			class="flex w-full items-center justify-between px-5 py-3 text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors"
+			class={cn(sectionLabel(), 'flex w-full items-center justify-between px-5 py-3 hover:text-foreground transition-colors')}
 		>
 			Technical Details · SSOC {occ.ssoc}
 			<svg
@@ -837,28 +856,28 @@
 			<!-- Group 1: Classification & scoring -->
 			<div class="grid gap-3 sm:grid-cols-2">
 				<div>
-					<p class="font-semibold text-foreground mb-1">Classification</p>
+					<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>Classification</p>
 					<p>Higher risk than {structural.riskPercentile}% of occupations{#if occ.scoring_basis} · {scoringBasisSummary}{/if}{#if occ.education_label} · {occ.education_label}{/if}</p>
 				</div>
 				<div>
-					<p class="font-semibold text-foreground mb-1">Raw scores</p>
-					<p class="font-mono">AIOE {occ.raw.aioe.toFixed(3)} · θ {occ.raw.theta.toFixed(3)} · C-AIOE {occ.raw.c_aioe.toFixed(3)}</p>
+					<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>Raw scores</p>
+					<p class={mono({ size: 'sm' })}>AIOE {occ.raw.aioe.toFixed(3)} · θ {occ.raw.theta.toFixed(3)} · C-AIOE {occ.raw.c_aioe.toFixed(3)}</p>
 				</div>
 				<div>
-					<p class="font-semibold text-foreground mb-1">Stability</p>
+					<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>Stability</p>
 					<p>{occ.stability.label} · Optimistic {(occ.stability.optimistic_risk * 100).toFixed(0)}% · Pessimistic {(occ.stability.pessimistic_risk * 100).toFixed(0)}%</p>
 				</div>
 				<div>
-					<p class="font-semibold text-foreground mb-1">Sensitivity band</p>
+					<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>Sensitivity band</p>
 					<p>Exposure {exposureUncertainty} · Net risk {netRiskUncertainty}</p>
 				</div>
 				<div class="sm:col-span-2">
-					<p class="font-semibold text-foreground mb-1">Scoring basis</p>
+					<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>Scoring basis</p>
 					<p>{scoringBasisSummary}. {scoringBasisDetail}{#if priorBaselineDeltaSummary} {priorBaselineDeltaSummary}{/if}</p>
 				</div>
 				<div class="sm:col-span-2">
-					<p class="font-semibold text-foreground mb-1">Wage range (SGD/mo)</p>
-					<p class="font-mono">25th {occ.gross_wage_25th.toLocaleString()} · Median {occ.gross_wage_median.toLocaleString()} · 75th {occ.gross_wage_75th.toLocaleString()}</p>
+					<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>Wage range (SGD/mo)</p>
+					<p class={mono({ size: 'sm' })}>25th {occ.gross_wage_25th.toLocaleString()} · Median {occ.gross_wage_median.toLocaleString()} · 75th {occ.gross_wage_75th.toLocaleString()}</p>
 				</div>
 			</div>
 
@@ -867,14 +886,14 @@
 				<summary class="cursor-pointer text-xs font-semibold text-foreground hover:text-primary">Evidence & sources</summary>
 				<div class="mt-3 grid gap-3 sm:grid-cols-2">
 					<div>
-						<p class="font-medium text-foreground mb-1">Crosswalk</p>
+						<p class={cn(caption({ weight: 'medium' }), 'mb-1 text-foreground')}>Crosswalk</p>
 						<p>{occ.match_quality} · SSOC {occ.ssoc}</p>
 						{#if occ.evidence.sol_match}<p class="text-risk-very-low">SOL 2026: {occ.evidence.sol_match} match</p>{/if}
 						{#if occ.evidence.jobs_in_demand_match}<p class="text-risk-very-low">Jobs in Demand: {occ.evidence.jobs_in_demand_match} match</p>{/if}
 						{#if occ.evidence.anthropic_calibrated}<p>Anthropic: {occ.evidence.anthropic_gap !== null ? (occ.evidence.anthropic_gap > 0 ? '+' : '') + Math.round(occ.evidence.anthropic_gap * 100) + 'pp vs theory' : 'calibrated'}</p>{/if}
 					</div>
 					<div>
-						<p class="font-medium text-foreground mb-1">Evidence quality</p>
+						<p class={cn(caption({ weight: 'medium' }), 'mb-1 text-foreground')}>Evidence quality</p>
 						<p>{(occ.confidence.score * 100).toFixed(0)}% · Crosswalk {occ.confidence.crosswalk_quality.toFixed(2)} · Market {occ.confidence.market_data_granularity.toFixed(2)} · Fresh {occ.confidence.source_freshness.toFixed(2)}</p>
 						<p class="mt-1">{taskEvidenceSummary}</p>
 					</div>
@@ -888,15 +907,15 @@
 					</div>
 					{#if occ.evidence?.exposure_source_pctiles}
 						<div class="sm:col-span-2">
-							<p class="font-medium text-foreground mb-1">Exposure by source</p>
+							<p class={cn(caption({ weight: 'medium' }), 'mb-1 text-foreground')}>Exposure by source</p>
 							<div class="flex flex-wrap gap-3 mt-1">
 								{#each Object.entries(occ.evidence.exposure_source_pctiles) as [source, pctile]}
 									<div class="flex items-center gap-2">
-										<span class="font-medium uppercase tracking-wider w-16">{source}</span>
+										<span class={cn(microLabel(), 'w-16')}>{source}</span>
 										<div class="h-2 w-24 rounded-full bg-muted overflow-hidden">
 											<div class="h-full rounded-full bg-foreground/60" style="width: {(pctile ?? 0) * 100}%"></div>
 										</div>
-										<span class="font-mono">{((pctile ?? 0) * 100).toFixed(0)}%</span>
+										<span class={mono({ size: 'sm' })}>{((pctile ?? 0) * 100).toFixed(0)}%</span>
 									</div>
 								{/each}
 							</div>
@@ -907,10 +926,10 @@
 					{/if}
 					{#if occ.evidence?.signal_conflict_reasons?.length}
 						<div class="sm:col-span-2">
-							<p class="font-medium text-foreground mb-1">Signal conflicts</p>
+							<p class={cn(caption({ weight: 'medium' }), 'mb-1 text-foreground')}>Signal conflicts</p>
 							<div class="flex flex-wrap gap-1.5">
 								{#each occ.evidence.signal_conflict_reasons as reason}
-									<span class={cn(pill({ size: 'sm' }), 'bg-risk-moderate/10 text-risk-moderate')}>{reason.replaceAll('_', ' ')}</span>
+									<span class={pill({ size: 'sm', tone: 'warning' })}>{reason.replaceAll('_', ' ')}</span>
 								{/each}
 							</div>
 						</div>
@@ -925,7 +944,7 @@
 					<div class="mt-3 space-y-3">
 						{#if (structural.onetEnrichment?.technologies.length ?? 0) > 0}
 							<div>
-								<p class="font-medium text-foreground mb-1">Common tools (O*NET proxy)</p>
+								<p class={cn(caption({ weight: 'medium' }), 'mb-1 text-foreground')}>Common tools (O*NET proxy)</p>
 								<div class="flex flex-wrap gap-1.5">
 									{#each structural.onetEnrichment?.technologies.slice(0, 6) ?? [] as technology}
 										<span class={pill({ tone: technology.hot ? 'positive' : 'muted' })}>{technology.name}</span>
@@ -937,13 +956,13 @@
 							<div class="grid gap-3 sm:grid-cols-2">
 								{#if offsetPotential.strengths.length > 0}
 									<div class={cn(card({ variant: 'inset', padding: 'sm' }), 'min-w-0')}>
-										<p class="font-semibold text-impact-leveraged">What helps</p>
+										<p class={cn(caption({ weight: 'semibold' }), 'text-impact-leveraged')}>What helps</p>
 										<ul class="mt-1 space-y-0.5">{#each offsetPotential.strengths as item}<li>{item}</li>{/each}</ul>
 									</div>
 								{/if}
 								{#if offsetPotential.cautions.length > 0}
 									<div class={cn(card({ variant: 'inset', padding: 'sm' }), 'min-w-0')}>
-										<p class="font-semibold text-risk-high">What could slow it down</p>
+										<p class={cn(caption({ weight: 'semibold' }), 'text-risk-high')}>What could slow it down</p>
 										<ul class="mt-1 space-y-0.5">{#each offsetPotential.cautions as item}<li>{item}</li>{/each}</ul>
 									</div>
 								{/if}

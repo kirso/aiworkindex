@@ -64,23 +64,23 @@
 
 	<!-- Three signal layers — visual distinction -->
 	<div class="mt-6 grid gap-3 sm:grid-cols-3">
-		<div class={cn(card({ padding: 'sm' }), 'border-l-4 border-l-risk-high')}>
-			<p class="text-xs font-semibold uppercase tracking-wider text-risk-high">Structural Score</p>
-			<p class="mt-1 text-xs text-muted-foreground">
+		<div class={card({ padding: 'sm', accent: 'high' })}>
+			<p class={cn(sectionLabel({ case: 'upper' }), 'text-risk-high')}>Structural Score</p>
+			<p class={cn(caption(), 'mt-1')}>
 				Core model. Exposure × bottleneck × market modifier. Published as the primary dataset.
 			</p>
 		</div>
-		<div class={cn(card({ padding: 'sm' }), 'border-l-4 border-l-risk-moderate')}>
-			<p class="text-xs font-semibold uppercase tracking-wider text-risk-moderate">
+		<div class={card({ padding: 'sm', accent: 'moderate' })}>
+			<p class={cn(sectionLabel({ case: 'upper' }), 'text-risk-moderate')}>
 				Labour Monitor
 			</p>
-			<p class="mt-1 text-xs text-muted-foreground">
+			<p class={cn(caption(), 'mt-1')}>
 				Quarterly MOM data. Vacancy rates, hiring, retrenchment. Cluster-level, not per-occupation.
 			</p>
 		</div>
-		<div class={cn(card({ padding: 'sm' }), 'border-l-4 border-l-primary')}>
-			<p class="text-xs font-semibold uppercase tracking-wider text-primary">Offset & Support</p>
-			<p class="mt-1 text-xs text-muted-foreground">
+		<div class={card({ padding: 'sm', accent: 'primary' })}>
+			<p class={cn(sectionLabel({ case: 'upper' }), 'text-primary')}>Offset & Support</p>
+			<p class={cn(caption(), 'mt-1')}>
 				Separate support layers. Offset potential, transition pathways, SkillsFuture programmes, and
 				scenario guidance. Useful context, not a forecast.
 			</p>
@@ -88,7 +88,7 @@
 	</div>
 
 	<!-- Key context boxes -->
-	<div class={card({ padding: 'sm', variant: 'notice', accent: 'moderate' })}>
+	<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'moderate' }), 'mt-6')}>
 		<p class="text-sm font-medium text-foreground">This model measures one side of the equation</p>
 		<p class="mt-1 text-sm text-text-secondary">
 			In the
