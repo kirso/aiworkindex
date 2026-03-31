@@ -170,6 +170,17 @@
 		const direction = delta > 0 ? '+' : '';
 		return `${direction}${(delta * 100).toFixed(1)}pp versus retained ${baselineLabel} baseline.`;
 	});
+	const confidenceCapLabels = {
+		insufficient_source_count: 'capped for sparse source coverage',
+		fallback_mapping: 'capped for fallback mapping',
+		major_fallback_mapping: 'capped for broad fallback mapping',
+		signal_conflict: 'capped for conflicting signals'
+	} as const;
+	let confidenceDetail = $derived.by(() => {
+		const capReason = occ.confidence.policy_cap_reason;
+		if (!capReason) return null;
+		return confidenceCapLabels[capReason];
+	});
 
 	const workflowDimensionLabels = {
 		creative_generation: 'Creative generation',
@@ -601,6 +612,11 @@
 			{#if occ.workflow_overlay}
 				<div class="mt-5 pt-5 border-t border-border">
 					<p class={cn(caption({ weight: 'semibold' }), 'mb-2 text-foreground')}>Role profile</p>
+					<p class={cn(caption(), 'mb-3')}>
+						Heuristic workflow context from shared occupation archetypes. This profile helps interpret
+						the score; it is not a direct occupation-level measurement and is not part of the core net-risk
+						formula.
+					</p>
 					<div class="flex justify-center">
 						<WorkflowRadar dimensions={occ.workflow_overlay} size={240} />
 					</div>
@@ -895,6 +911,9 @@
 					<div>
 						<p class={cn(caption({ weight: 'medium' }), 'mb-1 text-foreground')}>Evidence quality</p>
 						<p>{(occ.confidence.score * 100).toFixed(0)}% · Crosswalk {occ.confidence.crosswalk_quality.toFixed(2)} · Market {occ.confidence.market_data_granularity.toFixed(2)} · Fresh {occ.confidence.source_freshness.toFixed(2)}</p>
+						{#if confidenceDetail}
+							<p class="mt-1">Threshold {occ.confidence.threshold_level ?? occ.confidence.level} · Published {occ.confidence.level} · {confidenceDetail}</p>
+						{/if}
 						<p class="mt-1">{taskEvidenceSummary}</p>
 					</div>
 					<div class="sm:col-span-2">

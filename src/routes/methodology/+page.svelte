@@ -131,6 +131,19 @@
 		</p>
 	</div>
 
+	<div class={cn(card({ variant: 'inset', padding: 'sm' }), 'mt-4')}>
+		<p class={cn(sectionLabel(), 'mb-2')}>How To Read This</p>
+		<p class="text-sm text-text-secondary">
+			This site has two layers. The <strong>core score</strong> is the authoritative ranking layer: exposure,
+			bottleneck, market modifier, net risk, and uncertainty. The <strong>interpretive layer</strong>
+			helps explain how work is performed in practice, including role-profile and workflow context.
+		</p>
+		<p class="mt-2 text-sm text-text-secondary">
+			Interpretive fields are heuristic and should be read as context, not as direct occupation-level
+			measurement. They help explain the score, but they do not replace the core formula.
+		</p>
+	</div>
+
 	<!-- Tabbed content -->
 	<Tabs.Root value="scoring" class="mt-8">
 		<Tabs.List class="w-full">

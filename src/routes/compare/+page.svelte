@@ -92,6 +92,7 @@
 		if (ref.kind === 'occupation') {
 			const occ = occupationsBySSoc.get(ref.id);
 			if (!occ) return null;
+			const confidenceSuffix = occ.confidence.policy_cap_reason ? ' · capped' : '';
 			return {
 				ref,
 				label: occ.title,
@@ -105,7 +106,7 @@
 				augmentation: occ.augmentation,
 				augmentation_band: occ.augmentation_band,
 				impact_type: occ.impact_type,
-				confidence: `${occ.confidence.level.charAt(0).toUpperCase() + occ.confidence.level.slice(1)} (${(occ.confidence.score * 100).toFixed(0)}%)`,
+				confidence: `${occ.confidence.level.charAt(0).toUpperCase() + occ.confidence.level.slice(1)} (${(occ.confidence.score * 100).toFixed(0)}%)${confidenceSuffix}`,
 				wage: occ.gross_wage_median
 			};
 		} else {

@@ -175,9 +175,6 @@
 				<a href="/roles" class={pill({ size: 'lg', tone: 'outline', interactive: true })}>
 					Modern roles →
 				</a>
-				<a href="/calculator" class={pill({ size: 'lg', tone: 'outline', interactive: true })}>
-					Salary calculator →
-				</a>
 				<a href="/explore" class={pill({ size: 'lg', tone: 'outline', interactive: true })}>
 					View all occupations →
 				</a>

@@ -304,6 +304,13 @@ interface Occupation {
 	confidence: {
 		score: number;
 		level: 'high' | 'medium' | 'low';
+		threshold_level?: 'high' | 'medium' | 'low';
+		policy_cap_reason?:
+			| 'insufficient_source_count'
+			| 'fallback_mapping'
+			| 'major_fallback_mapping'
+			| 'signal_conflict'
+			| null;
 		exposure_source_count?: number;
 		source_coverage?: number;
 		signal_agreement?: number;
@@ -626,6 +633,25 @@ async function main() {
 		})
 	);
 	check(
+		'Confidence threshold metadata is populated',
+		data.every(
+			row =>
+				row.confidence.threshold_level === 'high' ||
+				row.confidence.threshold_level === 'medium' ||
+				row.confidence.threshold_level === 'low'
+		)
+	);
+	check(
+		'Confidence caps are explicitly explained when level differs from threshold',
+		data.every(row => {
+			const thresholdLevel = row.confidence.threshold_level ?? row.confidence.level;
+			if (row.confidence.level === thresholdLevel) {
+				return row.confidence.policy_cap_reason == null;
+			}
+			return typeof row.confidence.policy_cap_reason === 'string';
+		})
+	);
+	check(
 		'At least one occupation is marked as contested',
 		data.some(row => row.evidence.signal_conflict === true)
 	);
@@ -890,6 +916,18 @@ async function main() {
 			);
 		});
 		check('All workflow overlays valid', validOverlay);
+		check(
+			'Regulated archetypes do not publish implausibly low regulatory weight',
+			data.every(row => {
+				const overlay = row.workflow_overlay;
+				if (!overlay) return true;
+				const archetype = classifyArchetype(row.ssoc, row.title, row.major_group);
+				if (['finance_investing', 'legal_compliance', 'healthcare_clinical'].includes(archetype)) {
+					return overlay.regulatory_weight >= 0.4;
+				}
+				return true;
+			})
+		);
 	} catch (error) {
 		warn('Workflow overlay validation', `Could not import: ${error}`);
 	}

@@ -87,6 +87,11 @@
 				</tbody>
 			</table>
 		</div>
+		<p class="mt-2 text-sm text-muted-foreground">
+			These thresholds determine <code class="rounded bg-muted px-1 text-xs">confidence.threshold_level</code>.
+			The published <code class="rounded bg-muted px-1 text-xs">confidence.level</code> may be capped below that
+			raw threshold for fallback mappings, sparse-source cases, or contested signals.
+		</p>
 	</section>
 
 	<!-- Impact Type Classification -->

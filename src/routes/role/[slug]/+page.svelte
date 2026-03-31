@@ -509,6 +509,11 @@
 			{#if scored.workflow_overlay}
 				<div class="mt-5 pt-5 border-t border-border">
 					<p class="text-xs font-semibold text-foreground mb-2">Role profile</p>
+					<p class="text-xs text-muted-foreground mb-3">
+						Heuristic workflow context blended from related occupations. This profile helps interpret
+						the score; it is not a direct role-level measurement and is not part of the core net-risk
+						formula.
+					</p>
 					<div class="flex justify-center">
 						<WorkflowRadar dimensions={scored.workflow_overlay} size={240} />
 					</div>

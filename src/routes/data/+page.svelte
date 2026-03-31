@@ -279,7 +279,20 @@
 		{
 			name: 'confidence.level',
 			type: 'enum',
-			description: 'high | medium | low confidence.'
+			description:
+				'Final published confidence label. This may be capped below the raw threshold result for fallback, sparse-source, or contested cases.'
+		},
+		{
+			name: 'confidence.threshold_level',
+			type: 'enum',
+			description:
+				'Raw threshold label implied by confidence.score before any publication policy cap is applied.'
+		},
+		{
+			name: 'confidence.policy_cap_reason',
+			type: 'enum|null',
+			description:
+				'If present, explains why the published label is more conservative than the raw threshold: insufficient_source_count, fallback_mapping, major_fallback_mapping, or signal_conflict.'
 		},
 		{
 			name: 'uncertainty.exposure_p10',

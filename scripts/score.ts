@@ -52,132 +52,7 @@ import {
 } from '../src/lib/data/methodology-core';
 import { computeConfidence } from '../src/lib/data/confidence-core';
 import { computeBootstrapUncertainty } from '../src/lib/data/uncertainty-core';
-
-// ===== Workflow Overlay (from archetype system) =====
-function getOverlayForOccupation(ssoc: string, title: string, _majorGroup: string) {
-	// Inline archetype classification matching role-archetypes.ts logic
-	const t = title.toLowerCase();
-	const prefix2 = ssoc.substring(0, 2);
-
-	let archetype = 'general_professional';
-	if (
-		t.includes('journalist') ||
-		t.includes('editor') ||
-		t.includes('writer') ||
-		t.includes('reporter')
-	)
-		archetype = 'writing_editorial';
-	else if (
-		t.includes('teacher') ||
-		t.includes('lecturer') ||
-		t.includes('instructor') ||
-		t.includes('trainer')
-	)
-		archetype = 'teaching_learning';
-	else if (
-		t.includes('software') ||
-		t.includes('developer') ||
-		t.includes('programmer') ||
-		t.includes('web ')
-	)
-		archetype = 'software_engineering';
-	else if (
-		(t.includes('data') || t.includes('statistician') || t.includes('analyst')) &&
-		!t.includes('financial')
-	)
-		archetype = 'data_analytics';
-	else if (t.includes('product manager') || t.includes('product director'))
-		archetype = 'product_strategy';
-	else if (t.includes('marketing') || t.includes('sales') || t.includes('business development'))
-		archetype = 'sales_gtm';
-	else if (
-		t.includes('accountant') ||
-		t.includes('auditor') ||
-		t.includes('financial') ||
-		t.includes('fund') ||
-		t.includes('investment')
-	)
-		archetype = 'finance_investing';
-	else if (t.includes('human resource') || t.includes('personnel') || t.includes('recruiter'))
-		archetype = 'people_recruiting';
-	else if (
-		t.includes('nurse') ||
-		t.includes('doctor') ||
-		t.includes('surgeon') ||
-		t.includes('physician') ||
-		t.includes('therapist') ||
-		t.includes('dentist') ||
-		t.includes('pharmacist')
-	)
-		archetype = 'healthcare_clinical';
-	else if (
-		(t.includes('designer') || t.includes('architect')) &&
-		!t.includes('solution') &&
-		!t.includes('enterprise')
-	)
-		archetype = 'design_creative';
-	else if (t.includes('lawyer') || t.includes('legal') || t.includes('compliance'))
-		archetype = 'legal_compliance';
-	else if (
-		t.includes('logistics') ||
-		t.includes('supply chain') ||
-		t.includes('warehouse') ||
-		t.includes('procurement')
-	)
-		archetype = 'operations_logistics';
-	else if (
-		t.includes('waiter') ||
-		t.includes('cook') ||
-		t.includes('chef') ||
-		t.includes('barista') ||
-		t.includes('receptionist')
-	)
-		archetype = 'service_hospitality';
-	else if (prefix2 === '25') archetype = 'software_engineering';
-	else if (prefix2 === '22') archetype = 'healthcare_clinical';
-	else if (prefix2 === '23') archetype = 'teaching_learning';
-	else if (prefix2 === '26') archetype = 'writing_editorial';
-	else if (prefix2 === '21') archetype = 'data_analytics';
-	else if (prefix2 === '33' || prefix2 === '34' || prefix2 === '35')
-		archetype = 'general_technical';
-	else if (prefix2 === '41' || prefix2 === '42') archetype = 'general_clerical';
-	else if (prefix2 === '51' || prefix2 === '52' || prefix2 === '54')
-		archetype = 'service_hospitality';
-
-	// Archetype overlay defaults (matching workflow-overlay.ts)
-	const defaults: Record<string, [number, number, number, number, number, number, number, number]> =
-		{
-			writing_editorial: [0.85, 0.3, 0.75, 0.5, 0.6, 0.25, 0.1, 0.8],
-			teaching_learning: [0.55, 0.85, 0.65, 0.6, 0.8, 0.45, 0.75, 0.4],
-			software_engineering: [0.7, 0.45, 0.7, 0.55, 0.4, 0.15, 0.05, 0.95],
-			data_analytics: [0.5, 0.3, 0.65, 0.5, 0.45, 0.2, 0.05, 0.8],
-			product_strategy: [0.65, 0.7, 0.8, 0.65, 0.75, 0.15, 0.1, 0.6],
-			sales_gtm: [0.35, 0.75, 0.6, 0.55, 0.9, 0.2, 0.3, 0.55],
-			finance_investing: [0.3, 0.4, 0.55, 0.6, 0.65, 0.8, 0.1, 0.5],
-			people_recruiting: [0.3, 0.65, 0.6, 0.7, 0.85, 0.4, 0.2, 0.5],
-			healthcare_clinical: [0.2, 0.8, 0.7, 0.65, 0.85, 0.9, 0.95, 0.35],
-			design_creative: [0.9, 0.4, 0.8, 0.4, 0.55, 0.1, 0.1, 0.85],
-			operations_logistics: [0.2, 0.7, 0.4, 0.65, 0.6, 0.55, 0.5, 0.4],
-			legal_compliance: [0.4, 0.35, 0.75, 0.8, 0.65, 0.95, 0.15, 0.3],
-			field_manual: [0.1, 0.5, 0.3, 0.45, 0.25, 0.4, 0.95, 0.2],
-			service_hospitality: [0.15, 0.8, 0.45, 0.4, 0.85, 0.25, 0.9, 0.25],
-			general_professional: [0.45, 0.5, 0.55, 0.55, 0.55, 0.35, 0.15, 0.5],
-			general_technical: [0.3, 0.45, 0.4, 0.5, 0.35, 0.3, 0.4, 0.45],
-			general_clerical: [0.1, 0.35, 0.25, 0.55, 0.4, 0.3, 0.2, 0.4]
-		};
-
-	const d = defaults[archetype] ?? defaults['general_professional'];
-	return {
-		creative_generation: d[0],
-		real_time_coordination: d[1],
-		ambiguity_tolerance: d[2],
-		institutional_knowledge: d[3],
-		relationship_intensity: d[4],
-		regulatory_weight: d[5],
-		physical_presence: d[6],
-		tool_velocity: d[7]
-	};
-}
+import { getWorkflowOverlayForOccupation } from '../src/lib/data/occupation-classification';
 
 // ===== Configuration =====
 const DATA_DIR = path.join(import.meta.dir, '..', 'data');
@@ -236,6 +111,13 @@ interface EvidenceSignals {
 interface ConfidenceScores {
 	score: number;
 	level: 'high' | 'medium' | 'low';
+	threshold_level: 'high' | 'medium' | 'low';
+	policy_cap_reason:
+		| 'insufficient_source_count'
+		| 'fallback_mapping'
+		| 'major_fallback_mapping'
+		| 'signal_conflict'
+		| null;
 	crosswalk_quality: number;
 	market_data_granularity: number;
 	source_freshness: number;
@@ -2032,12 +1914,25 @@ function scoreOccupations(
 		const canBeHighConfidence =
 			r.matchQuality === 'direct' && availableExposureInputs.length >= 3 && !signalConflict;
 
-		let confidenceLevel: 'high' | 'medium' | 'low' = confidence.level;
-		if (!canBeHighConfidence && confidenceLevel === 'high') {
-			confidenceLevel = 'medium';
-		}
+		const thresholdLevel = confidence.level;
+		let confidenceLevel: 'high' | 'medium' | 'low' = thresholdLevel;
+		let policyCapReason:
+			| 'insufficient_source_count'
+			| 'fallback_mapping'
+			| 'major_fallback_mapping'
+			| 'signal_conflict'
+			| null = null;
 		if (r.matchQuality === 'major_fallback') {
 			confidenceLevel = 'low';
+			policyCapReason = thresholdLevel === 'low' ? null : 'major_fallback_mapping';
+		} else if (thresholdLevel === 'high' && !canBeHighConfidence) {
+			confidenceLevel = 'medium';
+			policyCapReason =
+				r.matchQuality !== 'direct'
+					? 'fallback_mapping'
+					: signalConflict
+						? 'signal_conflict'
+						: 'insufficient_source_count';
 		}
 		const uncertainty = computeBootstrapUncertainty({
 			exposureInputs: availableExposureInputs.map(input => ({
@@ -2063,9 +1958,9 @@ function scoreOccupations(
 			employment_thousands: r.occ.estimated_employment_thousands,
 			employment_basis: 'estimated_sg_submajor_weighted_2025',
 			employment_family_code: r.occ.ssoc.slice(0, 2),
-			employment_family_total_thousands: null,
-			employment_weight_within_family: null,
-			employment_estimate_method: null,
+			employment_family_total_thousands: r.occ.employment_family_total_thousands ?? null,
+			employment_weight_within_family: r.occ.employment_weight_within_family ?? null,
+			employment_estimate_method: r.occ.employment_estimate_method ?? null,
 			group_employment_thousands: r.occ.group_employment_thousands,
 			data_basis: cloneOccupationDataBasis(),
 			exposure: round(exposure, 4),
@@ -2088,6 +1983,8 @@ function scoreOccupations(
 			confidence: {
 				score: round(confidence.score, 4),
 				level: confidenceLevel,
+				threshold_level: thresholdLevel,
+				policy_cap_reason: policyCapReason,
 				crosswalk_quality: round(confidence.crosswalk_quality, 4),
 				market_data_granularity: confidence.market_data_granularity,
 				source_freshness: round(confidence.source_freshness, 4),
@@ -2124,7 +2021,11 @@ function scoreOccupations(
 				match_quality: r.matchQuality
 			},
 			// Workflow overlay computed from archetype defaults at build time
-			workflow_overlay: getOverlayForOccupation(r.occ.ssoc, r.occ.title, r.occ.major_group)
+			workflow_overlay: getWorkflowOverlayForOccupation(
+				r.occ.ssoc,
+				r.occ.title,
+				r.occ.major_group
+			)
 		});
 	}
 

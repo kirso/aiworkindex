@@ -18,6 +18,13 @@ export interface MarketScores {
 export interface ConfidenceScores {
 	score: number;
 	level: 'high' | 'medium' | 'low';
+	threshold_level?: 'high' | 'medium' | 'low';
+	policy_cap_reason?:
+		| 'insufficient_source_count'
+		| 'fallback_mapping'
+		| 'major_fallback_mapping'
+		| 'signal_conflict'
+		| null;
 	crosswalk_quality: number;
 	market_data_granularity: number;
 	source_freshness: number;

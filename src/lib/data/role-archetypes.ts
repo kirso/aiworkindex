@@ -6,24 +6,12 @@
  * NOT just the major group.
  */
 
-export type Archetype =
-	| 'writing_editorial'
-	| 'teaching_learning'
-	| 'software_engineering'
-	| 'data_analytics'
-	| 'product_strategy'
-	| 'sales_gtm'
-	| 'finance_investing'
-	| 'people_recruiting'
-	| 'healthcare_clinical'
-	| 'design_creative'
-	| 'operations_logistics'
-	| 'legal_compliance'
-	| 'field_manual'
-	| 'service_hospitality'
-	| 'general_professional'
-	| 'general_technical'
-	| 'general_clerical';
+import {
+	classifyOccupationArchetype,
+	type Archetype
+} from './occupation-classification';
+
+export type { Archetype } from './occupation-classification';
 
 export interface ArchetypeContent {
 	aiCanDo: string;
@@ -33,60 +21,8 @@ export interface ArchetypeContent {
 	evidence?: string;
 }
 
-export function classifyArchetype(ssoc: string, title: string, _majorGroup: string): Archetype {
-	const t = title.toLowerCase();
-	const prefix2 = ssoc.substring(0, 2);
-	const prefix3 = ssoc.substring(0, 3);
-
-	// Title-based (highest priority)
-	if (t.includes('journalist') || t.includes('editor') || t.includes('writer') || t.includes('reporter')) return 'writing_editorial';
-	if (t.includes('teacher') || t.includes('lecturer') || t.includes('instructor') || t.includes('trainer')) return 'teaching_learning';
-	if (/\bcto\b/.test(t) || /\bcio\b/.test(t) || t.includes('chief technology') || t.includes('chief information') || t.includes('engineering manager') || t.includes('software manager') || t.includes('ict manager')) return 'software_engineering';
-	if (t.includes('software') || t.includes('developer') || t.includes('programmer') || t.includes('web ') || t.includes('devops') || t.includes('sre') || t.includes('platform engineer') || t.includes('frontend') || t.includes('backend') || t.includes('fullstack') || t.includes('full-stack') || t.includes('full stack') || t.includes('mobile engineer') || t.includes('qa engineer') || t.includes('ml engineer') || t.includes('ai engineer') || t.includes('security engineer') || t.includes('network engineer') || t.includes('database admin') || t.includes('site reliability')) return 'software_engineering';
-	if ((t.includes('data') || t.includes('statistician') || t.includes('analyst')) && !t.includes('financial')) return 'data_analytics';
-	if (t.includes('product manager') || t.includes('product director') || t.includes('product lead')) return 'product_strategy';
-	if (t.includes('marketing') || t.includes('sales') || t.includes('business development') || t.includes('growth') || t.includes('seo ') || t.includes('seo-') || t.includes('social media') || t.includes('content strateg') || t.includes('content creat') || t.includes('brand ') || t.includes('community manager') || t.includes('account executive')) return 'sales_gtm';
-	if (t.includes('accountant') || t.includes('auditor') || t.includes('financial') || t.includes('fund') || t.includes('investment') || t.includes('quant') || t.includes('private equity') || t.includes('venture capital') || t.includes('insurance') || t.includes('underwriter') || t.includes('finance manager')) return 'finance_investing';
-	if (t.includes('human resource') || t.includes('personnel') || t.includes('recruiter') || t.includes('hr ') || t.includes('hr-') || t.includes('talent acquisition') || t.includes('people partner') || t.includes('people ops')) return 'people_recruiting';
-	if (t.includes('nurse') || t.includes('doctor') || t.includes('surgeon') || t.includes('physician') || t.includes('therapist') || t.includes('dentist') || t.includes('pharmacist')) return 'healthcare_clinical';
-	if ((t.includes('designer') || t.includes('architect')) && !t.includes('solution') && !t.includes('enterprise')) return 'design_creative';
-	if (t.includes('lawyer') || t.includes('legal') || t.includes('compliance')) return 'legal_compliance';
-	if (t.includes('logistics') || t.includes('supply chain') || t.includes('warehouse') || t.includes('procurement') || t.includes('operations manager') || t.includes('office manager') || t.includes('executive assistant') || t.includes('event manager') || t.includes('revops')) return 'operations_logistics';
-	if (t.includes('founder') || t.includes('ceo') || t.includes('chief of staff') || t.includes('managing director') || t.includes('general manager') || t.includes('partnerships') || t.includes('customer success') || t.includes('scrum master') || t.includes('solutions engineer')) return 'product_strategy';
-	if (t.includes('waiter') || t.includes('cook') || t.includes('chef') || t.includes('barista') || t.includes('receptionist')) return 'service_hospitality';
-
-	// SSOC prefix fallback — prefix3 checks first (more specific)
-	if (prefix3 === '133') return 'software_engineering'; // ICT managers (CTO, CIO, etc)
-	if (prefix3 === '134') return 'teaching_learning'; // Education/social service managers
-	if (prefix3 === '122' || prefix3 === '121') return 'product_strategy'; // Business services/admin managers
-
-	// prefix2 checks — professionals and managers
-	if (prefix2 === '25') return 'software_engineering'; // ICT professionals
-	if (prefix2 === '22') return 'healthcare_clinical'; // Health professionals
-	if (prefix2 === '23') return 'teaching_learning'; // Teaching professionals
-	if (prefix2 === '24') return 'general_professional'; // Business/admin professionals
-	if (prefix2 === '26') return 'writing_editorial'; // Legal, social, cultural professionals
-	if (prefix2 === '21') return 'data_analytics'; // Science/engineering professionals
-	if (prefix2 === '11') return 'product_strategy'; // Senior executives (CEOs, directors)
-	if (prefix2 === '12') return 'general_professional'; // Administrative/commercial managers
-	if (prefix2 === '13') return 'operations_logistics'; // Production/service managers
-	if (prefix2 === '14') return 'service_hospitality'; // Hospitality/retail/service managers
-
-	// prefix2 checks — technicians and associate professionals
-	if (prefix2 === '31') return 'general_technical'; // Science/engineering technicians
-	if (prefix2 === '32') return 'healthcare_clinical'; // Health associate professionals
-	if (prefix2 === '33' || prefix2 === '34' || prefix2 === '35') return 'general_technical'; // Technicians
-	if (prefix2 === '36') return 'general_technical'; // Other associate professionals (e.g. tutors)
-	if (prefix2 === '39') return 'general_professional'; // Associate professionals n.e.c.
-
-	// prefix2 checks — clerical and service
-	if (prefix2 === '40') return 'general_clerical'; // Office supervisors
-	if (prefix2 === '41' || prefix2 === '42') return 'general_clerical'; // Clerical
-	if (prefix2 === '43' || prefix2 === '44') return 'general_clerical'; // Numerical/other clerks
-	if (prefix2 === '51' || prefix2 === '52' || prefix2 === '54') return 'service_hospitality'; // Service/sales
-	if (prefix2 === '53') return 'service_hospitality'; // Personal care workers
-
-	return 'field_manual'; // Default for trades (71-74), operators (81-83), agricultural (61), labourers (91-96)
+export function classifyArchetype(ssoc: string, title: string, majorGroup: string): Archetype {
+	return classifyOccupationArchetype(ssoc, title, majorGroup);
 }
 
 const archetypeContentMap: Record<Archetype, ArchetypeContent> = {
@@ -319,4 +255,3 @@ export function blendArchetypes(
 		skills: [...primaryContent.skills, ...bonusSkills]
 	};
 }
-
