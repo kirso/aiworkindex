@@ -185,7 +185,7 @@ function buildMarkup(occ: Occupation) {
 				hasDemand ? h('div', { style: { color: DS.positive } }, 'In demand') : null,
 				range ? h('div', { style: { color: DS.ghost } }, `${range}`) : null
 			),
-			h('div', { style: { fontSize: '18px', color: DS.url } }, 'aiworkindex.pages.dev')
+			h('div', { style: { fontSize: '18px', color: DS.url } }, 'aiworkindex.com')
 		)
 	);
 }
@@ -292,7 +292,7 @@ function buildRoleMarkup(role: SyntheticRoleOG) {
 				h('div', {}, impactLabel),
 				h('div', {}, `Based on ${role.components} official occupations`)
 			),
-			h('div', { style: { fontSize: '18px', color: DS.url } }, 'aiworkindex.pages.dev')
+			h('div', { style: { fontSize: '18px', color: DS.url } }, 'aiworkindex.com')
 		)
 	);
 }
@@ -452,7 +452,7 @@ async function main() {
 					h('div', {}, 'Official SG data'),
 					h('div', {}, 'No LLM in scoring')
 				),
-				h('div', { style: { fontSize: '18px', color: DS.url } }, 'aiworkindex.pages.dev')
+				h('div', { style: { fontSize: '18px', color: DS.url } }, 'aiworkindex.com')
 			)
 		);
 

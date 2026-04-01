@@ -270,7 +270,7 @@ export const SITE = {
 	name: 'AI Work Index',
 	shortName: 'AIWorkIndex',
 	description: 'AI Work Index — How will AI affect your job in Singapore?',
-	url: 'https://aiworkindex.pages.dev',
+	url: 'https://aiworkindex.com',
 	github: 'https://github.com/kirso/aiworkindex',
 	author: 'Kirill So',
 	authorUrl: 'https://www.linkedin.com/in/kirso/'

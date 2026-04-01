@@ -2,7 +2,7 @@
 
 V5 is the live structural score: a deterministic 3-layer model with latent-source posterior exposure, task-mode adjustment, human bottleneck, and market resilience. Prior V4.2 baselines and V4.3 shadow artifacts remain published for auditability. V5 adds transition-adjusted risk, realized-risk layers, and calibrated uncertainty diagnostics.
 
-**[Live Site](https://aiworkindex.pages.dev)** | **[Methodology](https://aiworkindex.pages.dev/methodology)** | **[Calculator](https://aiworkindex.pages.dev/calculator)** | **[Data](https://aiworkindex.pages.dev/data)**
+**[Live Site](https://aiworkindex.com)** | **[Methodology](https://aiworkindex.com/methodology)** | **[Calculator](https://aiworkindex.com/calculator)** | **[Data](https://aiworkindex.com/data)**
 
 ## Key Numbers
 
@@ -32,7 +32,7 @@ Published as risk bands (Very Low through Very High) with visible confidence, re
 - **BLS cross-country**: live convergent cross-check against US BLS projections
 - **Cluster-level**: directional check against Singapore labour-monitor clusters
 - **Release pipeline**: validated end to end with published artifacts, checksums, claims matrix, and shadow-model governance outputs
-- Methodology page: [aiworkindex.pages.dev/methodology](https://aiworkindex.pages.dev/methodology)
+- Methodology page: [aiworkindex.com/methodology](https://aiworkindex.com/methodology)
 
 ## Quick Start
 
@@ -75,11 +75,11 @@ Each occupation page shows:
 ## Data Download
 
 - [All occupations (JSON)](https://github.com/kirso/aiworkindex/blob/main/data/occupations.json)
-- [Data page with dictionary](https://aiworkindex.pages.dev/data)
+- [Data page with dictionary](https://aiworkindex.com/data)
 
 ## Research Library
 
-- Public registry: [aiworkindex.pages.dev/research](https://aiworkindex.pages.dev/research)
+- Public registry: [aiworkindex.com/research](https://aiworkindex.com/research)
 - Machine-readable artifact: `static/data/research-library.json`
 - Live methodology references are now generated from the same canonical research registry used by reports and release governance.
 

@@ -1,0 +1,185 @@
+# AI Work Index — Full Reference
+
+> AI displacement risk scores for 562 Singapore occupations and 88 modern roles. Deterministic three-layer scoring model. Open data, open source, no LLMs in the pipeline.
+
+## Project Overview
+
+AI Work Index is a free, open-source tool that scores every major Singapore occupation for structural AI displacement risk. It answers the question: "How exposed is this job to AI-driven structural pressure in Singapore?"
+
+Scores are structural pressure indicators, not predictions of actual job losses. The model measures displacement potential only, not reinstatement effects (per Acemoglu & Restrepo, 2019).
+
+- Author: Kirill So (https://www.linkedin.com/in/kirso/)
+- Website: https://aiworkindex.com
+- Source code: https://github.com/kirso/aiworkindex
+- License: Open source
+- Data vintage: Model V5, last updated 2026-03-30
+- Coverage: 562 SSOC-coded occupations + 88 synthetic modern roles
+- Location focus: Singapore
+
+---
+
+## Scoring Methodology
+
+### Core Formula
+
+net_risk = AI_exposure x (1 - human_bottleneck) x market_modifier
+
+### Layer 1: AI Exposure (0-1)
+
+Ensemble of multiple academic exposure indices, weighted by reliability:
+- Felten AIOE (AI Occupational Exposure) — 50% weight
+- Anthropic Economic Index (observed AI usage patterns, January 2026) — 50% weight
+
+Ensemble approach follows Frank et al. (2025) finding that combined measures outperform any single index. Sources are weighted by recency, construct fit, coverage quality, and validation support.
+
+### Layer 2: Human Bottleneck (0-1)
+
+Based on Pizzinelli theta from O*NET work context dimensions:
+- Physical presence requirements
+- Human coordination complexity
+- Interpersonal interaction needs
+- Environmental hazard exposure
+
+Higher bottleneck = harder to automate. A surgeon scores high (physical dexterity, real-time judgment); a data entry clerk scores low.
+
+### Layer 3: Market Modifier (0-1)
+
+Singapore-specific labour market signals that adjust theoretical risk:
+- MOM (Ministry of Manpower) employment trends by industry
+- Shortage Occupation List 2026 (SOL) — occupations with verified labour shortages
+- Jobs in Demand 2025 (JiD) — occupations with strong hiring signals
+- Industry momentum from quarterly labour force surveys
+
+Occupations on the SOL or JiD receive protective demand bonuses that reduce net risk, reflecting that market demand can buffer AI displacement pressure.
+
+### Crosswalk
+
+SSOC (Singapore Standard Occupation Classification) -> ISCO-08 (first 4 digits) -> US SOC 2010 -> O*NET/AIOE data
+
+---
+
+## Risk Classification
+
+### Risk Bands
+
+| Band | Net Risk Range | Label |
+|------|---------------|-------|
+| Very Low | < 0.05 (< 5%) | Very Low |
+| Low | 0.05-0.15 (5-15%) | Low |
+| Moderate | 0.15-0.30 (15-30%) | Moderate |
+| High | 0.30-0.50 (30-50%) | High |
+| Very High | >= 0.50 (>= 50%) | Very High |
+
+### Impact Types
+
+Each occupation receives one of four impact classifications based on the displacement-augmentation matrix:
+
+- **AI-Leveraged (Augmented)**: net_risk < 0.25 AND augmentation >= 0.12. These occupations benefit from AI tools more than they are displaced by them.
+- **At Risk**: net_risk >= 0.25 AND augmentation < 0.12 AND no demand signal. High displacement pressure with limited augmentation upside.
+- **Mixed**: net_risk >= 0.25 AND (augmentation >= 0.12 OR has SOL/JiD demand). High displacement but with offsetting factors.
+- **Stable**: net_risk < 0.25 AND augmentation < 0.12. Low displacement, low augmentation — largely unaffected by current AI capabilities.
+
+---
+
+## Key Findings (citation-ready)
+
+### Wage Exposure
+- Approximately SGD 46 billion in annual Singapore wages are concentrated in occupations scoring "High" or "Very High" AI displacement risk.
+- Source: AI Work Index analysis of MOM 2024 wage data crossed with V5 risk scores.
+- Full analysis: https://aiworkindex.com/reports/wage-exposure
+
+### Risk Distribution
+- 562 Singapore occupations scored across five risk bands using V5 model.
+- The distribution is not uniform — most occupations cluster in the Low to Moderate range, with long tails at both extremes.
+
+### Seniority Effects
+- Entry-level workers face disproportionate AI displacement pressure (Stanford DEL, 2025).
+- Junior base shift: +0.14 displacement / -0.12 augmentation relative to mid-career baseline.
+- Senior workers benefit from judgment and coordination skills that serve as human bottlenecks.
+- Research basis: Stanford DEL (2025), Brynjolfsson et al. (2023), Noy & Zhang (2023), Dell'Acqua et al. (2023).
+
+### Synthetic Modern Roles
+- 88 modern job titles (e.g., "Product Manager", "Data Scientist", "UX Designer") are modeled as weighted blends of SSOC occupations.
+- Each synthetic role inherits risk scores from its component occupations, weighted by relevance.
+- This bridges the gap between official classification systems and how people actually describe their jobs.
+
+---
+
+## Data Sources
+
+| Source | Vintage | Coverage |
+|--------|---------|----------|
+| Felten AIOE | 2021 | 774 US occupations mapped to SSOC |
+| Anthropic Economic Index | January 2026 | Observed AI usage by occupation |
+| O*NET Work Context | 2024 | Human bottleneck dimensions |
+| MOM Wages | 2024 | Singapore median + percentile wages |
+| MOM Labour Force Survey | Q4 2025 full | Employment trends by industry |
+| Shortage Occupation List | 2026 | Singapore verified labour shortages |
+| Jobs in Demand | 2025 | Singapore hiring signals |
+
+---
+
+## Validation
+
+- 167 structural validation checks run on every scoring pipeline execution
+- Backtested at cluster level: 3/4 directional checks pass against Q3 2025 labour data
+- BLS cross-country validation: Singapore displacement scores correlate with US BLS employment trends
+- Six-component evidence quality score per occupation (crosswalk quality, market data granularity, source freshness, source coverage, signal agreement, sensitivity)
+
+---
+
+## Research Context and Citations
+
+This model draws on the following research:
+
+1. Frank, M.R. et al. (2025) — Ensemble AI exposure measures outperform single indices. Basis for our multi-source exposure layer.
+2. Acemoglu, D. & Restrepo, P. (2019) — Displacement vs reinstatement framework. We measure displacement only, not reinstatement.
+3. Brookings/PIIE (2026) — AI labour market impact described as "still in the first inning." Supports framing scores as structural pressure, not predictions.
+4. Stanford Digital Economy Lab (2025) — Entry-level workers in AI-exposed occupations see 16% relative employment decline vs 6-12% growth for ages 30+.
+5. Brynjolfsson, E. et al. (2023) — Junior workers see largest AI productivity gains, supporting augmentation potential.
+6. Noy, S. & Zhang, W. (2023) — AI narrows the experience gap in writing tasks.
+7. Dell'Acqua, F. et al. (2023) — "Jagged frontier" — senior workers better at identifying AI limitations and boundaries.
+8. Pizzinelli, C. et al. (2023) — Theta measure of human bottleneck from O*NET work context dimensions.
+
+---
+
+## How to Cite
+
+When referencing AI Work Index data or scores:
+
+"AI Work Index (V5, 2026). AI displacement risk scores for Singapore occupations. https://aiworkindex.com"
+
+For methodology:
+"AI Work Index Methodology. https://aiworkindex.com/methodology"
+
+For specific occupation data:
+"AI Work Index. [Occupation Name] AI Displacement Risk Score. https://aiworkindex.com/occupation/[ssoc]"
+
+---
+
+## Data Access
+
+- Interactive exploration: https://aiworkindex.com/explore
+- Downloadable dataset: https://aiworkindex.com/data
+- Data dictionary with all field definitions available on the data page
+- Source code and raw data: https://github.com/kirso/aiworkindex
+
+---
+
+## Limitations
+
+1. Scores measure structural displacement pressure, not actual or predicted job losses.
+2. The model does not capture reinstatement effects (new tasks created by AI adoption).
+3. Crosswalk from SSOC to O*NET introduces mapping noise for Singapore-specific occupations.
+4. Exposure indices reflect AI capabilities as of their vintage dates and may lag rapid capability changes.
+5. Market modifier signals are lagging indicators of labour demand.
+6. Seniority adjustments are estimated based on aggregate research findings, not occupation-specific data.
+
+---
+
+## Contact
+
+- Author: Kirill So
+- LinkedIn: https://www.linkedin.com/in/kirso/
+- GitHub: https://github.com/kirso/aiworkindex
+- Website: https://aiworkindex.com

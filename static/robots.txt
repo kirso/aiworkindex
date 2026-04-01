@@ -18,4 +18,9 @@ Allow: /
 User-agent: Amazonbot
 Allow: /
 
-Sitemap: https://aiworkindex.pages.dev/sitemap.xml
+Sitemap: https://aiworkindex.com/sitemap.xml
+
+# LLM context files
+# See https://llmstxt.org for the specification
+# llms.txt: concise overview for AI assistants
+# llms-full.txt: full methodology and citation-ready data
