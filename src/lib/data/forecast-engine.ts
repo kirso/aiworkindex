@@ -14,6 +14,7 @@ import {
 	LABOUR_MARKET_EFFECTS
 } from './scoring-constants';
 import { applyPercentileShift, computeNetRisk, clamp01 } from './methodology-core';
+import { MARKET_CONSTANTS } from './scoring-constants';
 
 export type OutlookStatus = 'resilient' | 'watch' | 'under_pressure' | 'at_risk';
 export type Direction = 'improving' | 'stable' | 'worsening';
@@ -255,10 +256,15 @@ export function computeForecastScores(
 	// Displacement pressure: seniority-adjusted exposure × (1 - seniority-adjusted bottleneck)
 	const adjExposure = applyPercentileShift(occ.exposure, seniorityExposureAdj);
 	const adjBottleneck = applyPercentileShift(occ.bottleneck, seniorityBottleneckAdj);
+	const hasDoubleExactDemand =
+		occ.evidence.sol_match === 'exact' && occ.evidence.jobs_in_demand_match === 'exact';
 	const seniorityDisplacement = computeNetRisk({
 		exposure: adjExposure,
 		bottleneck: adjBottleneck,
-		market_resilience: occ.market.market_resilience
+		market_resilience: occ.market.market_resilience,
+		max_modifier_effect: hasDoubleExactDemand
+			? MARKET_CONSTANTS.double_exact_max_modifier
+			: undefined
 	});
 	const nearTermRisk = computeNearTermRisk(seniorityDisplacement, scenario);
 	const baselineDisplacementScore = clamp01(baselineNearTermRisk + labourDisplacementAdj);

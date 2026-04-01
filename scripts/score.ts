@@ -1213,7 +1213,8 @@ function buildStabilityScores(
 	bottleneck: number,
 	marketResilience: number,
 	currentRisk: number,
-	marketSpread: number = 0
+	marketSpread: number = 0,
+	maxModifierEffect: number = MARKET_CONSTANTS.max_modifier_effect
 ): StabilityScores {
 	const N = 1000;
 	// Base sigma 0.04 + market spread contribution (high industry variance = wider intervals)
@@ -1256,7 +1257,7 @@ function buildStabilityScores(
 		const e = clamp01(exposure + sigma * randn());
 		const b = clamp01(bottleneck + sigma * randn());
 		const m = clamp01(marketResilience + sigma * randn());
-		simulatedRisks.push(e * (1 - b) * (1 - MARKET_CONSTANTS.max_modifier_effect * m));
+		simulatedRisks.push(e * (1 - b) * (1 - maxModifierEffect * m));
 	}
 
 	simulatedRisks.sort((a, b) => a - b);
@@ -1805,6 +1806,21 @@ function scoreOccupations(
 			);
 			demandMatchCount++;
 		}
+
+		// Double-signal bonus: when both SOL exact and JiD exact fire,
+		// apply additional resilience and use increased max modifier cap
+		const hasDoubleExactDemand = r.solMatch === 'exact' && r.demandMatch === 'exact';
+		if (hasDoubleExactDemand) {
+			marketResilienceAdjusted = Math.min(
+				1.0,
+				marketResilienceAdjusted + MARKET_CONSTANTS.double_exact_bonus
+			);
+		}
+
+		const effectiveMaxModifier = hasDoubleExactDemand
+			? MARKET_CONSTANTS.double_exact_max_modifier
+			: MARKET_CONSTANTS.max_modifier_effect;
+
 		const {
 			market_modifier: marketModifier,
 			net_risk: netRisk,
@@ -1812,7 +1828,8 @@ function scoreOccupations(
 		} = computeStructuralScores({
 			exposure,
 			bottleneck,
-			market_resilience: marketResilienceAdjusted
+			market_resilience: marketResilienceAdjusted,
+			max_modifier_effect: effectiveMaxModifier
 		});
 		const netRiskRounded = round(netRisk, 4);
 		const band = getRiskBand(netRiskRounded);
@@ -1825,7 +1842,8 @@ function scoreOccupations(
 			bottleneck,
 			marketResilienceAdjusted,
 			netRiskRounded,
-			mktSpread
+			mktSpread,
+			effectiveMaxModifier
 		);
 		const labourMonitor = lookupLabourMonitor(r.occ.major_group, labourMonitors);
 		const exposureAgreement = classifyExposureAgreement(
@@ -1943,7 +1961,8 @@ function scoreOccupations(
 			bottleneck,
 			market_resilience: marketResilienceAdjusted,
 			marketSpread: mktSpread,
-			seedValues: [i, exposure, bottleneck, marketResilienceAdjusted, netRiskRounded]
+			seedValues: [i, exposure, bottleneck, marketResilienceAdjusted, netRiskRounded],
+			max_modifier_effect: hasDoubleExactDemand ? effectiveMaxModifier : undefined
 		});
 
 		results.push({

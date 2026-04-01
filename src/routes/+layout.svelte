@@ -68,7 +68,8 @@
 			name: SITE.name,
 			url: SITE.url,
 			areaServed: { '@type': 'Country', name: 'Singapore' },
-			description: 'Open-source AI job impact scoring for Singapore occupations'
+			description: 'Open-source AI job impact scoring for Singapore occupations',
+			sameAs: [SITE.github, SITE.authorUrl]
 		},
 		potentialAction: {
 			'@type': 'SearchAction',

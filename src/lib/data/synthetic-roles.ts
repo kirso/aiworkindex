@@ -1508,3 +1508,13 @@ export function computeRoleScores(
 export const syntheticRolesBySlug = new Map<string, SyntheticRole>(
 	syntheticRoles.map((r) => [r.slug, r])
 );
+
+/** Reverse index: SSOC → list of synthetic roles that use this occupation as a component */
+export const rolesBySsoc = new Map<string, Array<{ slug: string; title: string; weight: number }>>();
+for (const role of syntheticRoles) {
+	for (const comp of role.components) {
+		const list = rolesBySsoc.get(comp.ssoc) ?? [];
+		list.push({ slug: role.slug, title: role.title, weight: comp.weight });
+		rolesBySsoc.set(comp.ssoc, list);
+	}
+}

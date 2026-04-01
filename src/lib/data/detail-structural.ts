@@ -1,4 +1,4 @@
-import type { Occupation, ImpactType } from './index';
+import type { Occupation } from './index';
 import type { BlendedOnetEnrichment, OnetEnrichmentEntry } from './onet-enrichment';
 import type { ArchetypeContent } from './role-archetypes';
 import type { ScoredRole } from './synthetic-roles';
@@ -6,6 +6,11 @@ import { getPersonalizedContent, blendArchetypes, classifyArchetype } from './ro
 import { getOnetEnrichmentForOccupation, buildRoleOnetEnrichment } from './onet-enrichment';
 import { findBestTransitions, categorizeTransitions, type TransitionScore } from './transition-capacity';
 import { archetypeOverlayDefaults, generateWorkflowNarrative } from './workflow-overlay';
+import majorGroupsData from './major-groups.json';
+
+const groupLabelMap = new Map<string, string>(
+	majorGroupsData.map((g) => [g.key, g.label])
+);
 
 export interface DecisionPathway {
 	to_ssoc: string;
@@ -32,6 +37,24 @@ export interface DecisionSummary {
 	summaryText: string;
 }
 
+export interface RelatedOccupation {
+	ssoc: string;
+	title: string;
+	net_risk: number;
+	risk_band: string;
+	gross_wage_median: number;
+}
+
+export interface GroupComparison {
+	groupName: string;
+	groupTotal: number;
+	riskRankInGroup: number;
+	groupMedianRisk: number;
+	groupMedianWage: number;
+	wageVsGroup: string;
+	riskVsGroup: string;
+}
+
 export interface OccupationDetailStructural {
 	riskPercentile: number;
 	wageVsNational: string;
@@ -42,6 +65,8 @@ export interface OccupationDetailStructural {
 	workflowNarrative: string | null;
 	transitions: ReturnType<typeof categorizeTransitions>;
 	topTransitions: TransitionScore[];
+	groupComparison: GroupComparison;
+	relatedOccupations: RelatedOccupation[];
 }
 
 export interface RolePrimaryMatch {
@@ -62,28 +87,58 @@ export interface RoleDetailStructural {
 	primaryMatch: RolePrimaryMatch | null;
 }
 
-function describeExposureLevel(value: number): 'low' | 'moderate' | 'high' {
-	return value > 0.66 ? 'high' : value >= 0.33 ? 'moderate' : 'low';
+function formatOrdinal(n: number): string {
+	const suffixes = ['th', 'st', 'nd', 'rd'] as const;
+	const v = n % 100;
+	return n + (suffixes[(v - 20) % 10] ?? suffixes[v] ?? 'th');
 }
 
-function buildImpactSummary(title: string, impactType: ImpactType, exposure: number): string {
-	const level = describeExposureLevel(exposure);
+function buildImpactSummary(
+	occupation: Occupation,
+	allOccupations: Occupation[]
+): string {
+	const { title, impact_type, exposure, bottleneck, net_risk } = occupation;
+	const exposurePct = Math.round(exposure * 100);
+	const bottleneckPct = Math.round(bottleneck * 100);
+	const percentile = getRiskPercentile(net_risk, allOccupations);
 
-	switch (impactType) {
+	switch (impact_type) {
 		case 'ai_leveraged':
-			return `This model suggests AI is more likely to enhance ${title} than replace it. ${level} exposure, but strong human bottlenecks mean AI augments rather than substitutes.`;
+			return `${title} has ${exposurePct}% AI task overlap but ${bottleneckPct}% human bottleneck protection — lower risk than ${100 - percentile}% of Singapore occupations. AI is more likely to enhance this role than replace it.`;
 		case 'at_risk':
-			return `${title} faces significant structural AI displacement pressure. ${level} exposure with few human bottlenecks to slow adoption.`;
+			return `${title} has ${exposurePct}% AI task overlap with only ${bottleneckPct}% human bottleneck protection — higher risk than ${percentile}% of Singapore occupations. Structural displacement pressure is significant.`;
 		case 'stable':
-			return `This model suggests AI is unlikely to significantly disrupt ${title}. ${level} exposure with limited overlap across core tasks.`;
+			return `${title} has ${exposurePct}% AI task overlap and ${bottleneckPct}% human bottleneck protection — lower risk than ${100 - percentile}% of Singapore occupations. Current AI capabilities have limited overlap with core tasks.`;
 		case 'mixed':
-			return `${title} shows mixed AI signals: high exposure, but also strong human dependencies and organizational friction.`;
+			return `${title} has ${exposurePct}% AI task overlap but ${bottleneckPct}% human bottleneck protection — at the ${formatOrdinal(percentile)} percentile across ${allOccupations.length} occupations. High exposure meets organizational friction, creating offsetting forces.`;
+	}
+}
+
+function buildRoleImpactSummary(scored: ScoredRole, allOccupations: Occupation[]): string {
+	const riskPct = Math.round(scored.net_risk * 100);
+	const exposurePct = Math.round(scored.exposure * 100);
+	const bottleneckPct = Math.round(scored.bottleneck * 100);
+	const percentile = getRiskPercentile(scored.net_risk, allOccupations);
+	const componentCount = scored.components.filter((c) => c.occupation !== null).length;
+
+	switch (scored.impact_type) {
+		case 'ai_leveraged':
+			return `${scored.title} scores an estimated ${riskPct}% displacement risk — lower risk than ${100 - percentile}% of occupations. Blended from ${componentCount} official occupations, it combines ${exposurePct}% AI task overlap with ${bottleneckPct}% human bottleneck protection, suggesting AI is more likely to augment than replace this role.`;
+		case 'at_risk':
+			return `${scored.title} scores an estimated ${riskPct}% displacement risk — higher risk than ${percentile}% of occupations. Blended from ${componentCount} official occupations, ${exposurePct}% AI task overlap and only ${bottleneckPct}% human bottleneck protection create significant structural pressure.`;
+		case 'stable':
+			return `${scored.title} scores an estimated ${riskPct}% displacement risk — lower risk than ${100 - percentile}% of occupations. Blended from ${componentCount} official occupations, ${exposurePct}% AI task overlap and ${bottleneckPct}% bottleneck protection suggest limited disruption from current AI capabilities.`;
+		case 'mixed':
+			return `${scored.title} scores an estimated ${riskPct}% displacement risk — at the ${formatOrdinal(percentile)} percentile. Blended from ${componentCount} official occupations, it combines ${exposurePct}% AI task overlap with ${bottleneckPct}% human bottleneck protection, creating offsetting displacement and augmentation forces.`;
 	}
 }
 
 function getNationalMedianWage(allOccupations: Occupation[]): number {
 	const allWages = allOccupations.map((occupation) => occupation.gross_wage_median).sort((a, b) => a - b);
-	return allWages[Math.floor(allWages.length / 2)]!;
+	const mid = Math.floor(allWages.length / 2);
+	return allWages.length % 2 !== 0
+		? allWages[mid]!
+		: ((allWages[mid - 1] ?? 0) + (allWages[mid] ?? 0)) / 2;
 }
 
 function describeWageVsNational(wage: number, nationalMedian: number): string {
@@ -372,6 +427,63 @@ function buildRoleDecisionSummary(scored: ScoredRole): DecisionSummary | null {
 	};
 }
 
+function buildGroupComparison(occupation: Occupation, allOccupations: Occupation[]): GroupComparison {
+	const groupOccupations = allOccupations.filter((o) => o.major_group === occupation.major_group);
+	const groupTotal = groupOccupations.length;
+	const riskRankInGroup = groupOccupations.filter((o) => o.net_risk > occupation.net_risk).length + 1;
+
+	const sortedRisks = groupOccupations.map((o) => o.net_risk).sort((a, b) => a - b);
+	const mid = Math.floor(sortedRisks.length / 2);
+	const groupMedianRisk = sortedRisks.length % 2 !== 0
+		? sortedRisks[mid] ?? 0
+		: ((sortedRisks[mid - 1] ?? 0) + (sortedRisks[mid] ?? 0)) / 2;
+
+	const sortedWages = groupOccupations.map((o) => o.gross_wage_median).sort((a, b) => a - b);
+	const wMid = Math.floor(sortedWages.length / 2);
+	const groupMedianWage = sortedWages.length % 2 !== 0
+		? sortedWages[wMid] ?? 0
+		: ((sortedWages[wMid - 1] ?? 0) + (sortedWages[wMid] ?? 0)) / 2;
+
+	const wageDiff = occupation.gross_wage_median - groupMedianWage;
+	const wagePct = groupMedianWage > 0 ? Math.round((Math.abs(wageDiff) / groupMedianWage) * 100) : 0;
+	const wageVsGroup = wagePct < 3 ? 'near group median' : wageDiff > 0 ? `${wagePct}% above group median` : `${wagePct}% below group median`;
+
+	const riskDiff = occupation.net_risk - groupMedianRisk;
+	const riskPp = Math.round(Math.abs(riskDiff) * 100);
+	const riskVsGroup = riskPp < 2 ? 'near group median' : riskDiff > 0 ? `${riskPp}pp above group median` : `${riskPp}pp below group median`;
+
+	const groupLabel = groupLabelMap.get(occupation.major_group) ?? occupation.major_group;
+	return { groupName: groupLabel, groupTotal, riskRankInGroup, groupMedianRisk, groupMedianWage, wageVsGroup, riskVsGroup };
+}
+
+function findRelatedOccupations(occupation: Occupation, allOccupations: Occupation[]): RelatedOccupation[] {
+	const group = allOccupations
+		.filter((o) => o.major_group === occupation.major_group && o.ssoc !== occupation.ssoc);
+	if (group.length === 0) return [];
+
+	// 2 similar risk (closest net_risk), 1 contrasting (furthest net_risk)
+	const byProximity = [...group].sort(
+		(a, b) => Math.abs(a.net_risk - occupation.net_risk) - Math.abs(b.net_risk - occupation.net_risk)
+	);
+	const similar = byProximity.slice(0, 2);
+
+	const byContrast = [...group].sort(
+		(a, b) => Math.abs(b.net_risk - occupation.net_risk) - Math.abs(a.net_risk - occupation.net_risk)
+	);
+	const contrasting = byContrast.find((o) => !similar.some((s) => s.ssoc === o.ssoc));
+
+	const result = [...similar];
+	if (contrasting) result.push(contrasting);
+
+	return result.map((o) => ({
+		ssoc: o.ssoc,
+		title: o.title,
+		net_risk: o.net_risk,
+		risk_band: o.risk_band,
+		gross_wage_median: o.gross_wage_median
+	}));
+}
+
 export function buildOccupationDetailStructural(
 	occupation: Occupation,
 	allOccupations: Occupation[]
@@ -382,17 +494,24 @@ export function buildOccupationDetailStructural(
 	return {
 		riskPercentile: getRiskPercentile(occupation.net_risk, allOccupations),
 		wageVsNational: describeWageVsNational(occupation.gross_wage_median, nationalMedian),
-		summaryText: buildImpactSummary(occupation.title, occupation.impact_type, occupation.exposure),
+		summaryText: buildImpactSummary(occupation, allOccupations),
 		decision: buildOccupationDecisionSummary(occupation, allTransitions),
 		personalizedContent: getPersonalizedContent(
 			occupation.ssoc,
 			occupation.title,
-			occupation.major_group
+			occupation.major_group,
+			{
+				exposure: occupation.exposure,
+				bottleneck: occupation.bottleneck,
+				exposureSources: occupation.evidence.exposure_source_keys
+			}
 		),
 		onetEnrichment: getOnetEnrichmentForOccupation(occupation.ssoc),
 		workflowNarrative: buildOccupationWorkflowNarrative(occupation),
 		transitions: categorizeTransitions(allTransitions),
-		topTransitions: findBestTransitions(occupation, allOccupations, 8)
+		topTransitions: findBestTransitions(occupation, allOccupations, 8),
+		groupComparison: buildGroupComparison(occupation, allOccupations),
+		relatedOccupations: findRelatedOccupations(occupation, allOccupations)
 	};
 }
 
@@ -419,7 +538,7 @@ export function buildRoleDetailStructural(
 
 	return {
 		riskPercentile: getRiskPercentile(scored.net_risk, allOccupations),
-		summaryText: buildImpactSummary(scored.title, scored.impact_type, scored.exposure),
+		summaryText: buildRoleImpactSummary(scored, allOccupations),
 		decision: buildRoleDecisionSummary(scored),
 		personalizedContent,
 		onetEnrichment: buildRoleOnetEnrichment(scored.components),

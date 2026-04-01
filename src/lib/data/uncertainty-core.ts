@@ -13,6 +13,8 @@ export interface UncertaintyInputs {
 	marketSpread?: number;
 	sampleCount?: number;
 	seedValues?: number[];
+	/** Override max_modifier_effect for double-signal demand occupations */
+	max_modifier_effect?: number;
 }
 
 export interface UncertaintyResult {
@@ -72,7 +74,8 @@ export function computeBootstrapUncertainty({
 	market_resilience,
 	marketSpread = 0,
 	sampleCount = 5000,
-	seedValues = []
+	seedValues = [],
+	max_modifier_effect
 }: UncertaintyInputs): UncertaintyResult {
 	const validExposureInputs = exposureInputs.filter(
 		(input) => Number.isFinite(input.value) && Number.isFinite(exposureWeights[input.key] ?? 0)
@@ -124,7 +127,8 @@ export function computeBootstrapUncertainty({
 			computeNetRisk({
 				exposure,
 				bottleneck: bottleneckDraw,
-				market_resilience: marketDraw
+				market_resilience: marketDraw,
+				max_modifier_effect
 			})
 		);
 	}

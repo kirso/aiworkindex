@@ -4,6 +4,8 @@ export interface StructuralScoreInputs {
 	exposure: number;
 	bottleneck: number;
 	market_resilience: number;
+	/** Override the default max_modifier_effect (e.g. for double-signal demand occupations) */
+	max_modifier_effect?: number;
 }
 
 export interface MarketResilienceInputs {
@@ -15,8 +17,11 @@ export function clamp01(value: number): number {
 	return Math.max(0, Math.min(1, value));
 }
 
-export function computeMarketModifier(marketResilience: number): number {
-	return 1 - MARKET_CONSTANTS.max_modifier_effect * marketResilience;
+export function computeMarketModifier(
+	marketResilience: number,
+	maxModifierEffect?: number
+): number {
+	return 1 - (maxModifierEffect ?? MARKET_CONSTANTS.max_modifier_effect) * marketResilience;
 }
 
 export function computeMarketResilience({
@@ -57,9 +62,10 @@ export function applyPercentileShift(percentile: number, delta: number): number 
 export function computeNetRisk({
 	exposure,
 	bottleneck,
-	market_resilience
+	market_resilience,
+	max_modifier_effect
 }: StructuralScoreInputs): number {
-	return exposure * (1 - bottleneck) * computeMarketModifier(market_resilience);
+	return exposure * (1 - bottleneck) * computeMarketModifier(market_resilience, max_modifier_effect);
 }
 
 export function computeAugmentation({
@@ -76,7 +82,7 @@ export function computeStructuralScores(inputs: StructuralScoreInputs): {
 	augmentation: number;
 } {
 	return {
-		market_modifier: computeMarketModifier(inputs.market_resilience),
+		market_modifier: computeMarketModifier(inputs.market_resilience, inputs.max_modifier_effect),
 		net_risk: computeNetRisk(inputs),
 		augmentation: computeAugmentation(inputs)
 	};

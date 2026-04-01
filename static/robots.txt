@@ -18,6 +18,18 @@ Allow: /
 User-agent: Amazonbot
 Allow: /
 
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
 Sitemap: https://aiworkindex.com/sitemap.xml
 
 # LLM context files

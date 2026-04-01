@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { pageLayout, card, sectionLabel, caption, display, riskBadge } from '$lib/design-system';
 	import { cn } from '$lib/utils';
-	import { DATA_VINTAGE } from '$lib/data/scoring-constants';
+	import { DATA_VINTAGE, SITE } from '$lib/data/scoring-constants';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
 
@@ -18,6 +18,20 @@
 		if (wages >= 1e9) return `SGD ${(wages / 1e9).toFixed(1)}B`;
 		return `SGD ${(wages / 1e6).toFixed(0)}M`;
 	}
+
+	let articleJsonLd = $derived(
+		`<script type="application/ld+json">${JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'Article',
+			headline: `SGD ${(data.highRiskAnnualWages / 1e9).toFixed(1)} Billion in Singapore Wages Face High AI Structural Pressure`,
+			author: { '@type': 'Person', name: SITE.author, url: SITE.authorUrl },
+			publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+			datePublished: '2026-03-01',
+			dateModified: DATA_VINTAGE.last_updated,
+			description: `Wage-pool analysis for ${data.highRiskCount} Singapore occupations with high structural AI pressure.`,
+			mainEntityOfPage: { '@type': 'WebPage', '@id': SITE.url + '/reports/wage-exposure' }
+		})}<\/script>`
+	);
 
 	let faqJsonLd = $derived(
 		`<script type="application/ld+json">${JSON.stringify({
@@ -53,7 +67,8 @@
 		0
 	)}K Est. workers."
 	path="/reports/wage-exposure"
-	jsonLd={[faqJsonLd]}
+	type="article"
+	jsonLd={[articleJsonLd, faqJsonLd]}
 />
 
 <main class={pageLayout({ width: 'content' })}>

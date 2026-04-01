@@ -324,7 +324,11 @@ export const MARKET_CONSTANTS = {
 	sol_prefix_bonus: 0.08,
 	/** Jobs in Demand bonuses */
 	jid_exact_bonus: 0.10,
-	jid_prefix_bonus: 0.05
+	jid_prefix_bonus: 0.05,
+	/** Additional bonus when BOTH SOL exact AND JiD exact match — strong double demand signal */
+	double_exact_bonus: 0.10,
+	/** Increased max modifier effect for double-signal occupations (from 0.35 to 0.45) */
+	double_exact_max_modifier: 0.45
 } as const;
 
 // ============================================

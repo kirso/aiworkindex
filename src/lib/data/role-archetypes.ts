@@ -201,9 +201,43 @@ const archetypeContentMap: Record<Archetype, ArchetypeContent> = {
 	}
 };
 
-export function getPersonalizedContent(ssoc: string, title: string, majorGroup: string): ArchetypeContent {
+export interface OccupationContext {
+	exposure: number;
+	bottleneck: number;
+	exposureSources?: string[];
+}
+
+export function getPersonalizedContent(
+	ssoc: string,
+	title: string,
+	majorGroup: string,
+	context?: OccupationContext
+): ArchetypeContent {
 	const archetype = classifyArchetype(ssoc, title, majorGroup);
-	return archetypeContentMap[archetype];
+	const base = archetypeContentMap[archetype];
+
+	if (!context) return base;
+
+	const exposurePct = Math.round(context.exposure * 100);
+	const bottleneckPct = Math.round(context.bottleneck * 100);
+
+	const sourceLabels: Record<string, string> = {
+		aioe: 'Felten AIOE',
+		anthropic: 'Anthropic Economic Index',
+		eloundou: 'Eloundou GPT exposure',
+		ilo: 'ILO occupational exposure'
+	};
+	const formatter = new Intl.ListFormat('en', { style: 'long', type: 'conjunction' });
+	const sourceList = context.exposureSources?.length
+		? ` (based on ${formatter.format(context.exposureSources.map((k) => sourceLabels[k] ?? k))})`
+		: '';
+
+	return {
+		aiCanDo: `With ${exposurePct}% AI task overlap${sourceList}, the ${title} tasks most exposed include: ${base.aiCanDo.charAt(0).toLowerCase()}${base.aiCanDo.slice(1)}`,
+		humanNeeded: `At ${bottleneckPct}% human bottleneck protection, the tasks that remain hardest to automate for ${title} include: ${base.humanNeeded.charAt(0).toLowerCase()}${base.humanNeeded.slice(1)}`,
+		skills: base.skills,
+		evidence: base.evidence
+	};
 }
 
 /**

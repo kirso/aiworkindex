@@ -24,6 +24,9 @@ async function main() {
 	);
 
 	const { syntheticRoles } = await import('../src/lib/data/synthetic-roles');
+	const majorGroups: Array<{ key: string }> = JSON.parse(
+		fs.readFileSync(path.join(import.meta.dir, '..', 'src', 'lib', 'data', 'major-groups.json'), 'utf-8')
+	);
 
 	const staticPages: Array<{ path: string; priority: string; changefreq: string }> = [
 		{ path: '/', priority: '1.0', changefreq: 'weekly' },
@@ -45,7 +48,8 @@ async function main() {
 		{ path: '/rankings/quarterly-movers', priority: '0.7', changefreq: 'monthly' },
 		{ path: '/compare', priority: '0.6', changefreq: 'monthly' },
 		{ path: '/rankings/rich-and-risky', priority: '0.7', changefreq: 'monthly' },
-		{ path: '/calculator', priority: '0.7', changefreq: 'monthly' }
+		{ path: '/calculator', priority: '0.7', changefreq: 'monthly' },
+		{ path: '/groups', priority: '0.7', changefreq: 'monthly' }
 	];
 
 	let urls = '';
@@ -60,6 +64,12 @@ async function main() {
 		urls += `  <url><loc>${base}/occupation/${occ.ssoc}</loc><lastmod>${lastmod}</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>\n`;
 	}
 
+	// Group hub pages
+	for (const g of majorGroups) {
+		const slug = g.key.toLowerCase().replace(/[,&]/g, '').replace(/\s+/g, '-');
+		urls += `  <url><loc>${base}/group/${slug}</loc><lastmod>${lastmod}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>\n`;
+	}
+
 	// Role pages
 	for (const role of syntheticRoles) {
 		urls += `  <url><loc>${base}/role/${role.slug}</loc><lastmod>${lastmod}</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>\n`;
@@ -69,7 +79,7 @@ async function main() {
 
 	fs.writeFileSync(OUT_FILE, sitemap);
 
-	const totalUrls = staticPages.length + occupations.length + syntheticRoles.length;
+	const totalUrls = staticPages.length + occupations.length + syntheticRoles.length + majorGroups.length;
 	console.log(`Sitemap generated: ${totalUrls} URLs`);
 	console.log(`Domain: ${base}`);
 	console.log(`Output: ${OUT_FILE}`);
