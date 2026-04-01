@@ -32,6 +32,7 @@
 		"build:v5-experimental": "bun run scripts/build-v5-experimental.ts",
 		"build:lfr-section-d": "bun run scripts/build-lfr-section-d.ts",
 		"build:family-delta-validation": "bun run scripts/build-family-delta-validation.ts",
+		"export:csv": "bun run scripts/export-csv.ts",
 		"export:json": "bun run scripts/export-json.ts",
 		"export:context": "bun run scripts/build-ai-in-singapore.ts && bun run scripts/export-context-pack.ts",
 		"export:claims": "bun run scripts/build-claims-matrix.ts",
@@ -41,7 +42,10 @@
 		"export:manifest": "bun run scripts/build-release-manifest.ts",
 		"export:site-status": "bun run scripts/build-site-status.ts",
 		"export:raw-audit": "bun run scripts/build-raw-data-audit.ts",
-		"verify": "bun run check && bun run lint && bun run format:check && bun run validate"
+		"build:llms": "bun run scripts/build-llms.ts",
+		"release:generate": "bun run export:json && bun run export:csv && bun run export:claims && bun run export:source-map && bun run export:context && bun run scripts/build-quarterly-report.ts && bun run export:site-status && bun run export:manifest && bun run build:llms",
+		"release:check": "bun run scripts/release-check.ts",
+		"verify": "bun run check && bun run lint && bun run format:check && bun run validate && bun run release:check"
 	},
 	"devDependencies": {
 		"@eslint/js": "^10.0.1",

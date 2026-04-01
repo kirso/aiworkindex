@@ -1,6 +1,6 @@
 {
-  "version": "V5",
-  "generated_at": "2026-03-30T03:09:37.586Z",
+  "version": "V6",
+  "generated_at": "2026-04-01T13:22:54.679Z",
   "strength_labels": {
     "high": "Directly supported by the current pipeline or official published data at the level shown.",
     "medium": "Supported, but with more methodological interpretation or partial coverage.",
@@ -19,7 +19,7 @@
       ],
       "research_keys": [],
       "evidence_artifacts": [
-        "sg-ai-occupations-v5.json"
+        "sg-ai-occupations-v6.json"
       ],
       "where_used": [
         "/",
@@ -47,7 +47,7 @@
       ],
       "evidence_artifacts": [
         "scripts/score.ts",
-        "sg-ai-occupations-v5.json"
+        "sg-ai-occupations-v6.json"
       ],
       "where_used": [
         "/about",
@@ -59,7 +59,7 @@
     {
       "id": "reliability_weighted_exposure_ensemble",
       "category": "methodology",
-      "claim": "V5 keeps the audited reliability-weighted 4-source exposure ensemble as the source stack, then calibrates a latent posterior exposure and blends task-mode evidence where weighted task coverage is strong.",
+      "claim": "V6 uses a deterministic reliability-weighted 4-source exposure ensemble (AIOE, Anthropic, Eloundou, ILO) as the live exposure layer.",
       "strength": "high",
       "source_keys": [
         "aioe_2021",
@@ -75,7 +75,7 @@
       ],
       "evidence_artifacts": [
         "scripts/score.ts",
-        "sg-ai-occupations-v5.json"
+        "sg-ai-occupations-v6.json"
       ],
       "where_used": [
         "/about",
@@ -83,7 +83,7 @@
         "/methodology",
         "/README"
       ],
-      "notes": "The live V5 release preserves the deterministic 4-source ensemble as the auditable evidence stack, then derives a latent posterior and task-mode structural layer on top."
+      "notes": "Weights are deterministic and derived from documented source-reliability dimensions: recency, construct fit, coverage quality, and validation support."
     },
     {
       "id": "onet_task_and_technology_context",
@@ -113,7 +113,7 @@
     {
       "id": "structural_pressure_not_prediction",
       "category": "methodology",
-      "claim": "The headline score still measures structural AI pressure. Transition-adjusted risk and realized-risk proxy layers are published separately rather than collapsed into the headline number.",
+      "claim": "The headline score measures structural AI pressure, not a forecast of job losses.",
       "strength": "high",
       "source_keys": [
         "aioe_2021",
@@ -172,8 +172,8 @@
       ],
       "research_keys": [],
       "evidence_artifacts": [
-        "sg-ai-occupations-v5.json",
-        "sg-ai-occupations-v5.csv"
+        "sg-ai-occupations-v6.json",
+        "sg-ai-occupations-v6.csv"
       ],
       "where_used": [
         "/data",
@@ -194,7 +194,7 @@
         "bls_occupational_projections_2024_2034"
       ],
       "evidence_artifacts": [
-        "sg-ai-occupations-v5.json"
+        "sg-ai-occupations-v6.json"
       ],
       "where_used": [
         "/",

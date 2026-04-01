@@ -61,17 +61,31 @@ const LATEST_OFFICIAL_LABOUR_REPORT = {
 
 const STRUCTURAL_VERSION_HISTORY = [
 	{
+		id: 'structural-v6-2026-04-01',
+		version_label: 'V6',
+		label: 'V6 structural release',
+		published_at: '2026-04-01',
+		display_date: '1 Apr 2026',
+		availability: 'current_download',
+		href: '/data',
+		notes: [
+			'Promotes the live V6 two-axis structural release: deterministic 4-source exposure ensemble, human bottleneck, displacement pressure, and explicit demand resilience.',
+			'The canonical public export now matches the live app dataset and release-governance artifacts.',
+			'V5 remains retained as the immediate previous live baseline for auditability.'
+		]
+	},
+	{
 		id: 'structural-v5-2026-03-21',
 		version_label: 'V5',
 		label: 'V5 structural release',
 		published_at: '2026-03-21',
 		display_date: '21 Mar 2026',
-		availability: 'current_download',
-		href: '/data',
+		availability: 'historical_snapshot',
+		href: '/data/sg-ai-occupations-v5.json',
 		notes: [
 			'Promotes the V5 structural model: latent-source posterior exposure, task-mode blending, concentration-driven fragility, and heterogeneous augmentation.',
 			'Transition-adjusted and realized-risk layers are now published alongside the live structural score instead of being collapsed into the headline number.',
-			'V4.3 remains retained as a historical downloadable snapshot for auditability.'
+			'Retained as the immediate pre-V6 live baseline for auditability.'
 		]
 	},
 	{
@@ -216,11 +230,15 @@ function formatExperimentalReleaseNote(
 	}
 	if (
 		experimentalMethodology.headline_promotion_ready &&
-		(DATA_VINTAGE.model_version === 'V4.3' || DATA_VINTAGE.model_version === 'V5')
+		(DATA_VINTAGE.model_version === 'V4.3' ||
+			DATA_VINTAGE.model_version === 'V5' ||
+			DATA_VINTAGE.model_version === 'V6')
 	) {
-		return DATA_VINTAGE.model_version === 'V5'
-			? 'The former V4.3 shadow model remains published as the retained pre-V5 live baseline and promotion trail.'
-			: 'The former V4.3 shadow model is now promoted into the live structural release. Shadow artifacts remain published for auditability.';
+		return DATA_VINTAGE.model_version === 'V6'
+			? 'The former V4.3 shadow model remains published as part of the retained audit trail beneath the later V5 and V6 live releases.'
+			: DATA_VINTAGE.model_version === 'V5'
+				? 'The former V4.3 shadow model remains published as the retained pre-V5 live baseline and promotion trail.'
+				: 'The former V4.3 shadow model is now promoted into the live structural release. Shadow artifacts remain published for auditability.';
 	}
 	if (!experimentalMethodology.headline_promotion_ready) {
 		return 'Shadow score is published, but promotion into the headline model is still gated by validation and anchor review.';
@@ -359,13 +377,17 @@ function buildSiteStatus() {
 					status:
 						DATA_VINTAGE.model_version === 'V5'
 							? 'promoted_live'
-							: v5ExperimentalValidation
-								? 'experimental_model_published'
-								: v5Sidecars.status,
+							: DATA_VINTAGE.model_version === 'V6'
+								? 'archived_live_release'
+								: v5ExperimentalValidation
+									? 'experimental_model_published'
+									: v5Sidecars.status,
 					summary: v5ExperimentalValidation
 						? DATA_VINTAGE.model_version === 'V5'
 							? 'V5 is now the live structural release. The retained V4.3 baseline and promotion-comparison artifacts remain published for auditability.'
-							: 'The first integrated V5 experimental model is now published on top of the audited sidecars. It remains separate from the live V4.3 headline score.'
+							: DATA_VINTAGE.model_version === 'V6'
+								? 'The former live V5 model is now archived as the immediate pre-V6 baseline, with its published sidecars and comparison artifacts retained for auditability.'
+								: 'The first integrated V5 experimental model is now published on top of the audited sidecars. It remains separate from the live V4.3 headline score.'
 						: v5Sidecars.summary,
 					workstream_count: Object.keys(v5Sidecars.sidecars ?? {}).length,
 					experimental_model_published: !!v5ExperimentalValidation,
@@ -425,17 +447,23 @@ function buildSiteStatus() {
 		},
 		homepage_banner: {
 			tag:
-				DATA_VINTAGE.model_version === 'V5' || DATA_VINTAGE.model_version === 'V4.3'
+				DATA_VINTAGE.model_version === 'V6' ||
+				DATA_VINTAGE.model_version === 'V5' ||
+				DATA_VINTAGE.model_version === 'V4.3'
 					? 'Live now'
 					: 'Update',
 			title:
-				DATA_VINTAGE.model_version === 'V5' && v5ExperimentalValidation
-					? 'V5 is live with richer structural science and published short-run layers'
-					: DATA_VINTAGE.model_version === 'V4.3' && v5ExperimentalValidation
-						? 'V4.3 is live and the V5 experimental model is now published'
-						: 'MOM Labour Market Report Q4 2025 is now live in the monitor',
-				body:
-					DATA_VINTAGE.model_version === 'V5' && v5ExperimentalValidation
+				DATA_VINTAGE.model_version === 'V6'
+					? 'V6 is live across the app, downloads, and release surfaces'
+					: DATA_VINTAGE.model_version === 'V5' && v5ExperimentalValidation
+						? 'V5 is live with richer structural science and published short-run layers'
+						: DATA_VINTAGE.model_version === 'V4.3' && v5ExperimentalValidation
+							? 'V4.3 is live and the V5 experimental model is now published'
+							: 'MOM Labour Market Report Q4 2025 is now live in the monitor',
+			body:
+				DATA_VINTAGE.model_version === 'V6'
+					? 'V6 is now the live structural release. The canonical app dataset, downloadable files, methodology artifacts, and report surfaces are aligned to the same release contract.'
+					: DATA_VINTAGE.model_version === 'V5' && v5ExperimentalValidation
 						? `V5 is live. Transition-adjusted and realized-risk layers are now published separately.`
 						: DATA_VINTAGE.model_version === 'V4.3' && v5ExperimentalValidation
 							? `Task-adjusted exposure is now live in the structural score. The V5 candidate currently clears ${v5StructuralPasses}/2 structural checks and ${v5RealizedPasses}/${v5RealizedScorableChecks} scorable short-run checks while remaining experimental only.`
@@ -447,8 +475,10 @@ function buildSiteStatus() {
 				v5ExperimentalValidation
 					? '/reports/v5-experimental'
 					: '/reports',
-				link_label:
-					DATA_VINTAGE.model_version === 'V5' && v5ExperimentalValidation
+			link_label:
+				DATA_VINTAGE.model_version === 'V6'
+					? 'Review release surfaces'
+					: DATA_VINTAGE.model_version === 'V5' && v5ExperimentalValidation
 						? 'V5 note'
 						: DATA_VINTAGE.model_version === 'V4.3' && v5ExperimentalValidation
 							? 'Review V5 experimental'
@@ -496,7 +526,7 @@ function buildReleases(siteStatus: ReturnType<typeof buildSiteStatus>) {
 					? 'Task-weighted shadow evidence is now reflected in the live structural release, while the full shadow comparison remains published.'
 					: DATA_VINTAGE.model_version === 'V5'
 						? 'V4.3 remains retained as the immediate pre-V5 live baseline, while the full shadow comparison stays published for auditability.'
-						: 'Task-weighted shadow scores, validation comparison, and anchor-review artifacts published.',
+						: 'V4.3 remains published as part of the retained audit trail beneath the later V5 and V6 live releases.',
 				formatExperimentalReleaseNote(siteStatus.experimental_release)
 			]
 		},
@@ -538,7 +568,9 @@ function buildReleases(siteStatus: ReturnType<typeof buildSiteStatus>) {
 									notes: [
 										DATA_VINTAGE.model_version === 'V5'
 											? 'The V5 structural release is now live, while the transition-adjusted and realized-risk layers remain published as auditable adjunct fields.'
-											: 'Combines posterior uncertainty, augmentation heterogeneity, empirical mobility, and realized-risk calibration into one auditable candidate.',
+											: DATA_VINTAGE.model_version === 'V6'
+												? 'The former live V5 model is retained as the immediate pre-V6 baseline together with its validation and adjunct artifacts.'
+												: 'Combines posterior uncertainty, augmentation heterogeneity, empirical mobility, and realized-risk calibration into one auditable candidate.',
 										`Current validation snapshot: structural ${siteStatus.v5_program.structural_validation_result}, realized ${siteStatus.v5_program.realized_validation_result}.`
 									]
 								}

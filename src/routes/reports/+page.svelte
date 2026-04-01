@@ -69,8 +69,8 @@
 					</div>
 					<p class="mt-1 text-sm text-muted-foreground">
 						{#if isV6Live}
-							How the V4.3 shadow model first became live and why it remains published as the
-							immediate pre-V6 baseline.
+							How the V4.3 shadow model first became live and why it remains published inside the
+							retained V4.3 → V5 → V6 audit trail.
 						{:else if isPromoted}
 							How the task-weighted shadow model was promoted into the live release, what changed,
 							and what remains published for auditability.
@@ -106,8 +106,8 @@
 					</div>
 					<p class="mt-1 text-sm text-muted-foreground">
 						{#if isV6Live}
-							Archived roadmap for the V5 research program that preceded the current V6
-							two-axis release.
+							Archived roadmap for the V5 research program that preceded the current V6 two-axis
+							release.
 						{:else}
 							The next scientific release program after V4.3: augmentation heterogeneity, empirical
 							mobility, posterior uncertainty, and realized-risk forecasting.
@@ -149,7 +149,7 @@
 						<p class="mt-1 text-sm text-muted-foreground">
 							{#if isV6Live}
 								Archived promotion note for the former live V5 model, preserved so the V6 release
-								can still be compared against its immediate predecessor and adjunct layers.
+								can still be compared against its immediate predecessor and retained adjunct layers.
 							{:else}
 								The first integrated V5 candidate now combines posterior uncertainty, augmentation
 								heterogeneity, empirical mobility, and realized-risk calibration into one auditable

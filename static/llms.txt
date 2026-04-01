@@ -1,63 +1,54 @@
 # AI Work Index
 
-> AI displacement risk scores for 562 Singapore occupations and 88 modern roles, using a deterministic three-layer model (exposure, human bottleneck, market resilience). Open data, no LLMs in the pipeline.
+> Structural AI pressure scores for 562 Singapore occupations and 88 modern roles. Current public release: V6. Deterministic scoring, open data, no LLM in the scoring loop.
 
 ## About
 
-AI Work Index is a free, open-source tool that scores every major Singapore occupation for structural AI displacement risk. The model combines academic exposure indices (Felten AIOE, Anthropic Economic Index) with O*NET human-bottleneck data and Singapore-specific labour market signals (MOM wages, Shortage Occupation List, Jobs in Demand). Scores are structural pressure indicators, not predictions of actual job losses.
+AI Work Index is a free, open-source project that scores Singapore occupations for structural AI pressure. The current V6 release separates technical overlap from Singapore demand resilience instead of collapsing everything into a single market modifier.
 
 - Author: Kirill So
-- Data vintage: V5, last updated 2026-03-30
+- Data vintage: V6, last updated 2026-04-01
 - Coverage: 562 SSOC occupations + 88 synthetic modern roles
 - Location focus: Singapore
 
-## Scoring Formula
+## Core Formula
 
 headline_risk = displacement_pressure x (1 - demand_resilience)
 
-- Displacement pressure: exposure x (1 - bottleneck)
-- Demand resilience: min(1.0, base_resilience x 0.45 + demand_signal_bonus)
-- Exposure: Ensemble of Felten AIOE + Anthropic observed usage, reliability-weighted
-- Bottleneck: Pizzinelli theta from O*NET work context (coordination, physical presence)
-- Demand signals: SOL 2026 (exact: +0.15), Jobs in Demand 2025 (exact: +0.12)
+- displacement_pressure = exposure x (1 - bottleneck)
+- demand_resilience = min(1.0, base_resilience x 0.45 + demand_signal_bonus)
+- demand_signal_bonus = SOL exact 0.15, SOL prefix 0.08, JiD exact 0.12, JiD prefix 0.06
+- augmentation = exposure x bottleneck x market.market_resilience
 
-## Key Pages
+## Interpretation
 
-- https://aiworkindex.com/ — Homepage with search and interactive treemap
-- https://aiworkindex.com/methodology — Full scoring methodology explanation
-- https://aiworkindex.com/methodology/appendix — Exact thresholds and formulas
-- https://aiworkindex.com/data — Downloadable dataset and data dictionary
-- https://aiworkindex.com/rankings/highest-risk — Occupations most exposed to AI
-- https://aiworkindex.com/rankings/ai-leveraged — Occupations most augmented by AI
-- https://aiworkindex.com/rankings/safest-high-paying — High-paying, low-risk occupations
-- https://aiworkindex.com/rankings/rich-and-risky — High-paying, high-risk occupations
-- https://aiworkindex.com/reports/wage-exposure — SGD 46B wage exposure analysis
-- https://aiworkindex.com/explore — Filter and visualize all occupations
-- https://aiworkindex.com/compare — Side-by-side occupation comparison
-- https://aiworkindex.com/calculator — Personalized salary vs AI risk calculator
-- https://aiworkindex.com/about — Model card, data vintage, credits
+- Scores measure structural pressure, not predicted job losses.
+- Impact types are determined only by headline risk and augmentation thresholds.
+- Current release contract is the downloadable V6 dataset and the live app dataset; they should match exactly.
 
 ## Risk Bands
 
-| Band | Net Risk Range | Example |
-|------|---------------|---------|
-| Very Low | < 5% | Surgeons, Physiotherapists |
-| Low | 5-15% | Civil Engineers, Dentists |
-| Moderate | 15-30% | Marketing Managers, Journalists |
-| High | 30-50% | Bookkeepers, Insurance Agents |
-| Very High | >= 50% | Data Entry Clerks, Telemarketers |
+| Band | Net Risk Range |
+|------|----------------|
+| Very Low | < 0.05 |
+| Low | 0.05-0.15 |
+| Moderate | 0.15-0.30 |
+| High | 0.30-0.50 |
+| Very High | >= 0.50 |
 
-## Key Research Citations
+Examples: Arts and cultural centre manager (including gallery and museum manager) is in the very-low band; Author is in the very-high band.
 
-- Frank et al. (2025): ensemble exposure measures outperform single indices
-- Acemoglu & Restrepo (2019): displacement vs reinstatement framework
-- Stanford DEL (2025): entry-level workers face disproportionate displacement
-- Brynjolfsson et al. (2023): junior workers see biggest AI productivity gains
-- Brookings/PIIE (2026): AI labour impact "still in the first inning"
+## Key Pages
+
+- https://aiworkindex.com/
+- https://aiworkindex.com/methodology
+- https://aiworkindex.com/data
+- https://aiworkindex.com/reports
+- https://aiworkindex.com/about
+- https://aiworkindex.com/explore
 
 ## Extended Version
 
-For full methodology details, data sources, and citation-ready findings, see:
 https://aiworkindex.com/llms-full.txt
 
 ## Source Code

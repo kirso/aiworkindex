@@ -82,7 +82,7 @@ const entries: SourceMapEntry[] = [
 		source_tier: 'external_proxy',
 		vintage: '2021-2026',
 		transformation:
-			'V5 uses a latent posterior over the audited 4-source exposure stack, with task-mode blending where weighted task evidence is strong.',
+			'V6 uses a deterministic reliability-weighted 4-source exposure ensemble over the matched AIOE, Anthropic, Eloundou, and ILO inputs.',
 		caveat: 'Exposure is not an official Singapore government measure.'
 	},
 	{
@@ -117,7 +117,8 @@ const entries: SourceMapEntry[] = [
 		source_keys: ['mom_sol_2026'],
 		source_tier: 'official_sg',
 		vintage: '2026',
-		transformation: 'Rule-based exact or prefix SSOC match against the MOM Shortage Occupation List.'
+		transformation:
+			'Rule-based exact or prefix SSOC match against the MOM Shortage Occupation List.'
 	},
 	{
 		field_path: 'evidence.jobs_in_demand_match',
@@ -129,6 +130,48 @@ const entries: SourceMapEntry[] = [
 		transformation: 'Rule-based exact or prefix SSOC match against the MOM Jobs in Demand list.'
 	},
 	{
+		field_path: 'displacement_pressure',
+		dataset: `sg-ai-occupations-${versionTag}.json`,
+		label: 'Displacement pressure',
+		source_keys: [
+			'aioe_2021',
+			'anthropic_economic_index_2026',
+			'eloundou_gpt_exposure_2023',
+			'ilo_genai_2025',
+			'pizzinelli_theta_2023'
+		],
+		source_tier: 'synthetic',
+		vintage: '2021-2026',
+		transformation: 'Deterministic formula field derived from exposure × (1 − bottleneck).',
+		caveat: 'Derived field published for interpretability, not a direct source observation.'
+	},
+	{
+		field_path: 'demand_signal_bonus',
+		dataset: `sg-ai-occupations-${versionTag}.json`,
+		label: 'Demand signal bonus',
+		source_keys: ['mom_sol_2026', 'mom_jobs_in_demand_2025'],
+		source_tier: 'derived_from_official_sg',
+		vintage: '2025-2026',
+		transformation:
+			'Deterministic additive bonus from exact or prefix SSOC matches against the official SOL and Jobs in Demand lists.'
+	},
+	{
+		field_path: 'demand_resilience',
+		dataset: `sg-ai-occupations-${versionTag}.json`,
+		label: 'Demand resilience',
+		source_keys: [
+			'mom_employment_by_occupation_group',
+			'mom_industry_x_occupation',
+			'mom_jobs_in_demand_2025',
+			'mom_sol_2026',
+			'mom_ows_2024'
+		],
+		source_tier: 'derived_from_official_sg',
+		vintage: '2024-2026',
+		transformation:
+			'Deterministic V6 formula field computed as min(1, base_resilience × 0.45 + demand_signal_bonus).'
+	},
+	{
 		field_path: 'task_primitives.*',
 		dataset: `sg-ai-occupations-${versionTag}.json`,
 		label: 'Task primitive sidecar fields',
@@ -136,32 +179,7 @@ const entries: SourceMapEntry[] = [
 		source_tier: 'external_proxy',
 		vintage: '2026',
 		transformation:
-			'Weighted task-penetration summaries over matched task evidence. Null where weighted task evidence is insufficient.'
-	},
-	{
-		field_path: 'transition_adjusted_risk',
-		dataset: `sg-ai-occupations-${versionTag}.json`,
-		label: 'Transition-adjusted risk',
-		source_keys: [
-			'mom_labour_monitor_2025',
-			'skillsfuture_transition_mapping',
-			'wsg_careersfinder',
-			'imf_occupational_mobility_2024'
-		],
-		source_tier: 'derived_from_official_sg',
-		vintage: '2024-2026',
-		transformation:
-			'Published separately from the structural score. Combines structural pressure with transition-capacity and observed-mobility support layers.'
-	},
-	{
-		field_path: 'realized_risk_proxy',
-		dataset: `sg-ai-occupations-${versionTag}.json`,
-		label: 'Realized-risk proxy',
-		source_keys: ['mom_labour_monitor_2025', 'mom_jobs_in_demand_2025', 'mom_sol_2026'],
-		source_tier: 'derived_from_official_sg',
-		vintage: '2025-2026',
-		transformation:
-			'Offset-buffered short-run risk proxy published separately from the structural headline score.'
+			'Explicit placeholder fields for future weighted task evidence. In the live V6 dataset they remain null for every occupation.'
 	},
 	{
 		field_path: 'labour-monitor.provenance.fields.*',

@@ -1,10 +1,10 @@
 {
-  "version": "V5",
-  "generated_at": "2026-03-30",
+  "version": "V6",
+  "generated_at": "2026-04-01",
   "description": "Singapore context bundle for AI Work Index. Context data is published separately from the structural score dataset and includes labour, worker, industry, wage-anchor, geography, macro, and national AI context.",
   "score_dataset": {
-    "json": "sg-ai-occupations-v5.json",
-    "csv": "sg-ai-occupations-v5.csv"
+    "json": "sg-ai-occupations-v6.json",
+    "csv": "sg-ai-occupations-v6.csv"
   },
   "coverage": {
     "labour_monitor_clusters": 3,
@@ -19807,8 +19807,8 @@
       "file": "sg-ai-in-singapore-2025.json",
       "description": "Official IMDA and MOM national AI adoption, workforce, and programme context for Singapore. This is contextual evidence around the score, not an occupation-level input.",
       "data": {
-        "version": "V5",
-        "generated_at": "2026-03-21T16:09:17.088Z",
+        "version": "V6",
+        "generated_at": "2026-04-01T13:22:54.809Z",
         "context_type": "national_ai_context",
         "description": "Official Singapore national AI adoption, workforce, and programme context from IMDA and MOM releases. This artifact supports reports and public context around the structural score.",
         "usage_guidance": {

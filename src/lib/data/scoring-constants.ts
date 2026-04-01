@@ -294,7 +294,7 @@ export const DATA_VINTAGE = {
 	/** Model version */
 	model_version: 'V6',
 	/** Last scoring run date */
-	last_updated: '2026-03-30',
+	last_updated: '2026-04-01',
 	/** Occupation count */
 	occupation_count: 562,
 	/** Synthetic role count */
@@ -323,8 +323,8 @@ export const MARKET_CONSTANTS = {
 	sol_exact_bonus: 0.15,
 	sol_prefix_bonus: 0.08,
 	/** Jobs in Demand bonuses */
-	jid_exact_bonus: 0.10,
-	jid_prefix_bonus: 0.05,
+	jid_exact_bonus: 0.12,
+	jid_prefix_bonus: 0.06,
 	/** Additional bonus when BOTH SOL exact AND JiD exact match — strong double demand signal */
 	double_exact_bonus: 0.10,
 	/** Increased max modifier effect for double-signal occupations (from 0.35 to 0.45) */

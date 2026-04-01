@@ -1,17 +1,17 @@
 {
-  "updated_at": "2026-03-30T03:29:12.902Z",
+  "updated_at": "2026-04-01T13:22:54.953Z",
   "structural_release": {
     "version": "V6",
     "label": "V6 structural release",
-    "generated_at": "2026-03-30T00:00:00.000Z",
-    "score_dataset_generated_at": "2026-03-30",
-    "release_manifest": "release-manifest-v5.json"
+    "generated_at": "2026-04-01T00:00:00.000Z",
+    "score_dataset_generated_at": "2026-04-01",
+    "release_manifest": "release-manifest-v6.json"
   },
   "experimental_release": {
     "version": "V4.3-shadow",
     "label": "V4.3-shadow task-weighted shadow model",
     "status": "promoted",
-    "summary": "The V4.3 shadow model was first promoted into the live structural release and is now retained as the immediate pre-V6 baseline. The shadow artifacts remain published for auditability against the earlier V4.2 baseline.",
+    "summary": "The V4.3 shadow model was first promoted into the live structural release and is now retained as the immediate pre-V5 baseline. The shadow artifacts remain published for auditability against the earlier V4.2 baseline.",
     "artifact": "experimental-methodology-v43.json",
     "shadow_score_published": true,
     "headline_promotion_ready": true,
@@ -20,8 +20,8 @@
     "blocker_count": 0
   },
   "v5_program": {
-    "status": "promoted_live",
-    "summary": "V5 was the prior live structural release. Its retained V4.3 baseline and promotion-comparison artifacts remain published for auditability under V6.",
+    "status": "archived_live_release",
+    "summary": "The former live V5 model is now archived as the immediate pre-V6 baseline, with its published sidecars and comparison artifacts retained for auditability.",
     "workstream_count": 4,
     "experimental_model_published": true,
     "structural_validation_result": "2/2",
@@ -47,9 +47,9 @@
     "postings_volume_30d": 380,
     "employer_pressure_generated_at": "2026-03-21T16:09:26.758Z",
     "employer_pressure_latest_signal_date": "2025-10-06",
-    "quarterly_report_generated_at": "2026-03-30T03:09:37.589Z",
-    "quarterly_current_snapshot": "occupations-v6-2026-03.json",
-    "quarterly_previous_snapshot": "occupations-v4-2026-03.json",
+    "quarterly_report_generated_at": "2026-04-01T13:22:54.886Z",
+    "quarterly_current_snapshot": "occupations-v6-2026-04.json",
+    "quarterly_previous_snapshot": "occupations-v5-2026-03.json",
     "cluster_validation_checks_passed": 2,
     "cluster_validation_checks_total": 4,
     "temporal_validation_vacancy_accuracy": 1,
@@ -68,10 +68,10 @@
     "offset_potential_high_count": 20
   },
   "homepage_banner": {
-    "tag": "V6 live",
-    "title": "V6 two-axis scoring: demand resilience now counteracts displacement pressure",
-    "body": "V6 introduces an independent demand resilience axis. Verified market demand (SOL, JiD) can now substantially offset structural AI pressure.",
-    "link_href": "/methodology",
-    "link_label": "V6 methodology"
+    "tag": "Live now",
+    "title": "V6 is live across the app, downloads, and release surfaces",
+    "body": "V6 is now the live structural release. The canonical app dataset, downloadable files, methodology artifacts, and report surfaces are aligned to the same release contract.",
+    "link_href": "/reports",
+    "link_label": "Review release surfaces"
   }
 }

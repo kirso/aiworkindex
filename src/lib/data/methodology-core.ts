@@ -82,6 +82,7 @@ export function computeNetRisk({
 	market_resilience,
 	max_modifier_effect
 }: StructuralScoreInputs): number {
+	// Legacy pre-V6 structural helper retained for historical codepaths and tests.
 	return exposure * (1 - bottleneck) * computeMarketModifier(market_resilience, max_modifier_effect);
 }
 

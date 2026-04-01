@@ -75,11 +75,13 @@ const claims: ClaimEntry[] = [
 		id: 'reliability_weighted_exposure_ensemble',
 		category: 'methodology',
 		claim:
-			DATA_VINTAGE.model_version === 'V5'
-				? 'V5 keeps the audited reliability-weighted 4-source exposure ensemble as the source stack, then calibrates a latent posterior exposure and blends task-mode evidence where weighted task coverage is strong.'
-				: DATA_VINTAGE.model_version === 'V4.3'
-					? 'V4.3 keeps the audited reliability-weighted 4-source exposure ensemble (AIOE, Anthropic, Eloundou, ILO) as the baseline exposure stack, then applies a task-aware exposure upgrade where weighted task evidence is strong.'
-					: `${DATA_VINTAGE.model_version} uses a reliability-weighted 4-source exposure ensemble (AIOE, Anthropic, Eloundou, ILO).`,
+			DATA_VINTAGE.model_version === 'V6'
+				? 'V6 uses a deterministic reliability-weighted 4-source exposure ensemble (AIOE, Anthropic, Eloundou, ILO) as the live exposure layer.'
+				: DATA_VINTAGE.model_version === 'V5'
+					? 'V5 keeps the audited reliability-weighted 4-source exposure ensemble as the source stack, then calibrates a latent posterior exposure and blends task-mode evidence where weighted task coverage is strong.'
+					: DATA_VINTAGE.model_version === 'V4.3'
+						? 'V4.3 keeps the audited reliability-weighted 4-source exposure ensemble (AIOE, Anthropic, Eloundou, ILO) as the baseline exposure stack, then applies a task-aware exposure upgrade where weighted task evidence is strong.'
+						: `${DATA_VINTAGE.model_version} uses a reliability-weighted 4-source exposure ensemble (AIOE, Anthropic, Eloundou, ILO).`,
 		strength: 'high',
 		source_keys: [
 			'aioe_2021',
@@ -96,11 +98,13 @@ const claims: ClaimEntry[] = [
 		evidence_artifacts: ['scripts/score.ts', `sg-ai-occupations-${VERSION_TAG}.json`],
 		where_used: ['/about', '/data', '/methodology', '/README'],
 		notes:
-			DATA_VINTAGE.model_version === 'V5'
-				? 'The live V5 release preserves the deterministic 4-source ensemble as the auditable evidence stack, then derives a latent posterior and task-mode structural layer on top.'
-				: DATA_VINTAGE.model_version === 'V4.3'
-					? 'The live release still preserves the deterministic 4-source ensemble as the audited base layer. Task evidence only upgrades exposure for occupations that clear the weighted-coverage gate.'
-					: 'Weights are deterministic and derived from documented source-reliability dimensions: recency, construct fit, coverage quality, and validation support.'
+			DATA_VINTAGE.model_version === 'V6'
+				? 'Weights are deterministic and derived from documented source-reliability dimensions: recency, construct fit, coverage quality, and validation support.'
+				: DATA_VINTAGE.model_version === 'V5'
+					? 'The live V5 release preserves the deterministic 4-source ensemble as the auditable evidence stack, then derives a latent posterior and task-mode structural layer on top.'
+					: DATA_VINTAGE.model_version === 'V4.3'
+						? 'The live release still preserves the deterministic 4-source ensemble as the audited base layer. Task evidence only upgrades exposure for occupations that clear the weighted-coverage gate.'
+						: 'Weights are deterministic and derived from documented source-reliability dimensions: recency, construct fit, coverage quality, and validation support.'
 	},
 	{
 		id: 'onet_task_and_technology_context',
@@ -118,10 +122,7 @@ const claims: ClaimEntry[] = [
 	{
 		id: 'structural_pressure_not_prediction',
 		category: 'methodology',
-		claim:
-			DATA_VINTAGE.model_version === 'V5'
-				? 'The headline score still measures structural AI pressure. Transition-adjusted risk and realized-risk proxy layers are published separately rather than collapsed into the headline number.'
-				: 'The headline score measures structural AI pressure, not a forecast of job losses.',
+		claim: 'The headline score measures structural AI pressure, not a forecast of job losses.',
 		strength: 'high',
 		source_keys: ['aioe_2021', 'pizzinelli_theta_2023', 'mom_labour_monitor_2025'],
 		research_keys: ['felten_raj_seamans_2018', 'felten_raj_seamans_2021', 'pizzinelli_etal_2023'],

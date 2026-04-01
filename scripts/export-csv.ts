@@ -14,7 +14,6 @@ import { DATA_VINTAGE } from '../src/lib/data/scoring-constants';
 const DATA_DIR = path.join(import.meta.dir, '..', 'data');
 const OUT_DIR = path.join(import.meta.dir, '..', 'static', 'data');
 const IN_FILE = path.join(DATA_DIR, 'occupations.json');
-const OUT_FILE = path.join(OUT_DIR, 'sg-ai-occupations-v4.csv');
 
 interface Occupation {
 	ssoc: string;
@@ -29,7 +28,12 @@ interface Occupation {
 	employment_family_code?: string | null;
 	employment_family_total_thousands?: number | null;
 	employment_weight_within_family?: number | null;
-	employment_estimate_method?: 'bls_wage_blend' | 'bls_only' | 'wage_only' | 'equal_fallback' | null;
+	employment_estimate_method?:
+		| 'bls_wage_blend'
+		| 'bls_only'
+		| 'wage_only'
+		| 'equal_fallback'
+		| null;
 	bls_proxy_employment?: number;
 	data_basis?: {
 		employment_estimate?: {
@@ -280,12 +284,11 @@ fs.mkdirSync(OUT_DIR, { recursive: true });
 
 const liveOccupations: Occupation[] = JSON.parse(fs.readFileSync(IN_FILE, 'utf-8'));
 const liveCsv = buildCsv(liveOccupations);
-fs.writeFileSync(OUT_FILE, liveCsv, 'utf-8');
-fs.writeFileSync(
-	path.join(OUT_DIR, `sg-ai-occupations-${versionTag(DATA_VINTAGE.model_version)}.csv`),
-	liveCsv,
-	'utf-8'
+const liveOutFile = path.join(
+	OUT_DIR,
+	`sg-ai-occupations-${versionTag(DATA_VINTAGE.model_version)}.csv`
 );
+fs.writeFileSync(liveOutFile, liveCsv, 'utf-8');
 
 for (const entry of fs.readdirSync(DATA_DIR)) {
 	const match = entry.match(/^occupations-(v\d+(?:\.\d+)?)\.json$/i);
@@ -300,4 +303,4 @@ for (const entry of fs.readdirSync(DATA_DIR)) {
 	);
 }
 
-console.log(`Exported ${liveOccupations.length} occupations to ${OUT_FILE}`);
+console.log(`Exported ${liveOccupations.length} occupations to ${liveOutFile}`);

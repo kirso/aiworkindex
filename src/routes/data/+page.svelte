@@ -26,7 +26,7 @@
 		'@context': 'https://schema.org',
 		'@type': 'Dataset',
 		name: 'AI Work Index — Singapore Occupation Scores',
-		description: `${DATA_VINTAGE.occupation_count} Singapore occupations scored for structural AI pressure using the live ${DATA_VINTAGE.model_version} release: audited 4-source exposure, latent posterior calibration, task-mode evidence where available, human bottleneck, Singapore market context, and separately published transition-adjusted and realized-risk layers.`,
+		description: `${DATA_VINTAGE.occupation_count} Singapore occupations scored for structural AI pressure using the live ${DATA_VINTAGE.model_version} release: deterministic 4-source exposure ensemble, human bottleneck, displacement pressure, demand resilience, and Singapore market context.`,
 		url: SITE.url + '/data',
 		license: 'https://opensource.org/licenses/MIT',
 		creator: { '@type': 'Organization', name: SITE.name, url: SITE.url },
@@ -150,13 +150,31 @@
 			name: 'exposure',
 			type: 'number',
 			description:
-				'Live exposure score (0-1). V6 keeps the latent-source posterior over the audited 4-source exposure stack and applies task-mode blending where weighted task evidence is strong; fallback occupations retain the posterior ensemble.'
+				'Live exposure score (0-1). V6 uses a deterministic audited 4-source exposure ensemble.'
 		},
 		{
 			name: 'bottleneck',
 			type: 'number',
 			description:
 				'Human bottleneck strength (0-1). Higher means stronger human advantage from judgment, accountability, or interpersonal work.'
+		},
+		{
+			name: 'displacement_pressure',
+			type: 'number',
+			description:
+				'Intermediate structural pressure field (0-1). Formula: exposure × (1 - bottleneck).'
+		},
+		{
+			name: 'demand_signal_bonus',
+			type: 'number',
+			description:
+				'Additive demand bonus from exact or prefix matches against SOL and Jobs in Demand.'
+		},
+		{
+			name: 'demand_resilience',
+			type: 'number',
+			description:
+				'Published V6 demand-resilience field (0-1). Formula: min(1, base_resilience × 0.45 + demand_signal_bonus).'
 		},
 		{
 			name: 'net_risk',
@@ -174,7 +192,7 @@
 			name: 'augmentation',
 			type: 'number',
 			description:
-				'Live V6 augmentation potential (0-1). This uses heterogeneous augmentation priors layered on top of the structural bottleneck, rather than only the earlier structural proxy.'
+				'Live V6 augmentation potential (0-1). Formula: exposure × bottleneck × market.market_resilience.'
 		},
 		{
 			name: 'impact_type',
@@ -185,6 +203,16 @@
 			name: 'market.market_momentum',
 			type: 'number',
 			description: 'Broad labour-market momentum signal (0-1).'
+		},
+		{
+			name: 'market.industry_footprint_momentum',
+			type: 'number|null',
+			description: 'Industry-footprint employment momentum when occupation-specific industry context is available.'
+		},
+		{
+			name: 'market.market_resolution',
+			type: 'enum',
+			description: 'How market resilience was resolved for the occupation, for example broad-only or industry-footprint blend.'
 		},
 		{
 			name: 'market.occupation_scarcity',
@@ -212,6 +240,11 @@
 			description: 'Observed-usage percentile minus theoretical exposure percentile.'
 		},
 		{
+			name: 'evidence.anthropic_observed_pctile',
+			type: 'number|null',
+			description: 'Observed Anthropic usage percentile when a direct Anthropic match exists.'
+		},
+		{
 			name: 'evidence.sol_match',
 			type: 'string|false',
 			description: 'Shortage Occupation List match: exact, prefix, or false.'
@@ -225,7 +258,7 @@
 			name: 'evidence.exposure_blend_strategy',
 			type: 'enum',
 			description:
-				'Current exposure provenance marker. The audited 4-source stack remains the evidence base even where V6 applies latent posterior calibration and task-mode blending.'
+				'Current exposure provenance marker for the deterministic audited 4-source stack.'
 		},
 		{
 			name: 'evidence.exposure_agreement',
@@ -240,16 +273,26 @@
 				'Normalized per-source weights used inside the exposure ensemble after conditioning on which sources matched this occupation.'
 		},
 		{
+			name: 'evidence.exposure_source_keys',
+			type: 'string[]',
+			description: 'List of matched exposure sources used by the audited ensemble.'
+		},
+		{
 			name: 'evidence.exposure_source_pctiles',
 			type: 'object',
 			description:
-				'Persisted per-source exposure percentiles for the matched AIOE, Anthropic, Eloundou, and ILO inputs. Used by the published posterior-uncertainty sidecar.'
+				'Persisted per-source exposure percentiles for the matched AIOE, Anthropic, Eloundou, and ILO inputs.'
 		},
 		{
 			name: 'evidence.signal_conflict',
 			type: 'boolean',
 			description:
 				'Whether the occupation has materially conflicting evidence, such as high structural pressure but strong current demand signals.'
+		},
+		{
+			name: 'evidence.signal_conflict_reasons',
+			type: 'string[]',
+			description: 'Explicit reasons why the occupation is flagged as having conflicting evidence.'
 		},
 		{
 			name: 'confidence.score',
@@ -260,7 +303,7 @@
 			name: 'confidence.exposure_source_count',
 			type: 'number',
 			description:
-				'How many exposure sources were available in the audited 4-source exposure stack before any posterior/task-mode calibration.'
+				'How many exposure sources were available in the audited 4-source exposure stack.'
 		},
 		{
 			name: 'confidence.source_coverage',
@@ -350,56 +393,6 @@
 				'Experimental task-primitive method identifier. Null when no weighted task evidence is available for this occupation.'
 		},
 		{
-			name: 'structural_model_version',
-			type: 'enum',
-			description: 'Live structural model version used for the headline occupation score.'
-		},
-		{
-			name: 'scoring_basis',
-			type: 'enum',
-			description:
-				'posterior_task_aware_v5 when latent posterior exposure is upgraded with task-mode evidence; posterior_ensemble_fallback_v5 when the occupation stays on the posterior ensemble without task-mode uplift.'
-		},
-		{
-			name: 'baseline_v43',
-			type: 'object',
-			description:
-				'Retained V4.3 baseline snapshot for auditability against the later promoted live releases.'
-		},
-		{
-			name: 'baseline_v42',
-			type: 'object',
-			description:
-				'Retained V4.2 historical snapshot preserved underneath the V4.3 baseline for longer-run auditability.'
-		},
-		{
-			name: 'structural_risk',
-			type: 'number',
-			description: 'Live V6 structural risk field, matching the headline net_risk.'
-		},
-		{
-			name: 'transition_adjusted_risk',
-			type: 'number',
-			description:
-				'Published adaptation-adjusted structural risk. This incorporates transition capacity and augmentation buffers without overwriting the headline structural score.'
-		},
-		{
-			name: 'realized_risk_proxy',
-			type: 'number',
-			description:
-				'Published short-run realized-risk proxy. This is conservative and remains separate from the headline structural score.'
-		},
-		{
-			name: 'adaptation_capacity',
-			type: 'number',
-			description: 'Bounded adaptation-capacity composite built from augmentation and mobility sidecars.'
-		},
-		{
-			name: 'demand_fragility',
-			type: 'number',
-			description: 'Concentration-aware fragility measure derived from task-mode and task-concentration evidence.'
-		},
-		{
 			name: 'education_label',
 			type: 'string',
 			description: 'Displayed education proxy. Derived from O*NET Job Zones via the SOC crosswalk.'
@@ -447,17 +440,13 @@
 				[
 					'exposure',
 					'bottleneck',
+					'displacement_pressure',
+					'demand_signal_bonus',
+					'demand_resilience',
 					'net_risk',
 					'risk_band',
 					'augmentation',
-					'impact_type',
-					'structural_risk',
-					'transition_adjusted_risk',
-					'realized_risk_proxy',
-					'adaptation_capacity',
-					'demand_fragility',
-					'structural_model_version',
-					'scoring_basis'
+					'impact_type'
 				].includes(f.name)
 			)
 		},
@@ -480,10 +469,21 @@
 			fields: fields.filter((f) => f.name.startsWith('task_primitives.'))
 		},
 		{
-			label: 'Baselines & context',
+			label: 'Context & stability',
 			fields: fields.filter((f) =>
-				['baseline_v43', 'baseline_v42', 'sg_context', 'stability.label'].includes(f.name)
+				['sg_context', 'stability.label'].includes(f.name)
 			)
+		},
+		{
+			label: 'Workflow overlay',
+			fields: [
+				{
+					name: 'workflow_overlay.*',
+					type: 'object',
+					description:
+						'Heuristic workflow dimensions used by role and scenario tooling. These provide interpretive context rather than direct live-score inputs.'
+				}
+			]
 		}
 	];
 
@@ -976,8 +976,8 @@
 		<p class={cn(sectionLabel(), 'mb-3')}>Methodology Version</p>
 		<div class={card({ padding: 'lg' })}>
 			<div class="space-y-1 text-sm text-muted-foreground">
-				<p><span class="font-medium text-foreground">Version:</span> V6 (headline risk = displacement pressure × (1 − demand resilience), with latent posterior exposure over the audited 4-source stack, task-mode blending where evidence is strong, and separately published transition-adjusted / realized-risk layers)</p>
-				<p><span class="font-medium text-foreground">Data vintage:</span> 2024 wages, 2024/2025 demand signals</p>
+				<p><span class="font-medium text-foreground">Version:</span> V6 (headline risk = displacement pressure × (1 − demand resilience), using a deterministic audited 4-source exposure ensemble, human bottleneck, and Singapore demand resilience)</p>
+				<p><span class="font-medium text-foreground">Data vintage:</span> 2024 wages, 2025 labour context, 2025/2026 demand signals</p>
 				<p><span class="font-medium text-foreground">Occupations:</span> {DATA_VINTAGE.occupation_count} SSOC-coded occupations</p>
 				<p><span class="font-medium text-foreground">Separate context bundle:</span> Labour monitor, worker profile, industry context, sector wage anchors, geography context, macro labour context, national AI context, offset potential, and transition support</p>
 				<p><span class="font-medium text-foreground">Retained baseline trail:</span> {experimentalStatusLabel(siteStatus.experimental_release.status)}. The full V4.3 shadow and V5 promotion comparison remain published so the live V6 release can still be audited against the retained V4.3 and V4.2 baselines.</p>

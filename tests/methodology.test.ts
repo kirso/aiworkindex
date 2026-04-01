@@ -10,7 +10,8 @@ import {
 	computeMarketResilience,
 	computeMarketModifier,
 	computeNetRisk,
-	computeStructuralScores
+	computeStructuralScores,
+	computeV6StructuralScores
 } from '../src/lib/data/methodology-core';
 import { dataSourceRegistry } from '../src/lib/data/data-contract';
 import { classifyImpactType } from '../src/lib/data/scoring-constants';
@@ -53,7 +54,10 @@ function makeOccupation(overrides: Partial<Occupation> = {}): Occupation {
 			market_resilience: 0.5,
 			market_modifier: computeMarketModifier(0.5)
 		},
-		net_risk: computeNetRisk({ exposure: 0.6, bottleneck: 0.4, market_resilience: 0.5 }),
+		displacement_pressure: 0.36,
+		demand_signal_bonus: 0,
+		demand_resilience: 0.225,
+		net_risk: 0.279,
 		risk_band: 'moderate',
 		augmentation: computeAugmentation({ exposure: 0.6, bottleneck: 0.4, market_resilience: 0.5 }),
 		augmentation_band: 'moderate',
@@ -147,54 +151,47 @@ describe('methodology formulas', () => {
 		assertClose(blendEmploymentMomentum(0.3, 0.7), 0.56, 1e-10);
 	});
 
-	test('stored occupation scores reproduce the canonical formulas', () => {
-		for (const occupation of occupations.slice(0, 50)) {
-			if (occupation.structural_model_version === 'V5') {
-				assert.equal(occupation.structural_risk, occupation.net_risk);
-				assert.ok((occupation.transition_adjusted_risk ?? 1) <= occupation.net_risk);
-				assert.ok(
-					(occupation.realized_risk_proxy ?? 1) <= (occupation.transition_adjusted_risk ?? 1)
-				);
-			} else {
-				assert.ok(
-					Math.abs(
-						round4(
-							computeNetRisk({
-								exposure: occupation.exposure,
-								bottleneck: occupation.bottleneck,
-								market_resilience: occupation.market.market_resilience
-							})
-						) - occupation.net_risk
-					) <= 0.00011
-				);
-				assert.ok(
-					Math.abs(
-						round4(
-							computeAugmentation({
-								exposure: occupation.exposure,
-								bottleneck: occupation.bottleneck,
-								market_resilience: occupation.market.market_resilience
-							})
-						) - occupation.augmentation
-					) <= 0.00011
-				);
-			}
+	test('stored live occupations reproduce the V6 formulas', () => {
+		for (const occupation of occupations) {
+			const scores = computeV6StructuralScores({
+				exposure: occupation.exposure,
+				bottleneck: occupation.bottleneck,
+				base_resilience: occupation.market.market_resilience,
+				sol_match: occupation.evidence.sol_match,
+				jid_match: occupation.evidence.jobs_in_demand_match
+			});
+
+			assert.ok(
+				Math.abs(
+					round4(scores.displacement_pressure) - (occupation.displacement_pressure ?? Number.NaN)
+				) <= 0.00011
+			);
+			assert.ok(
+				Math.abs(round4(scores.demand_resilience) - (occupation.demand_resilience ?? Number.NaN)) <=
+					0.00011
+			);
+			assert.ok(Math.abs(round4(scores.headline_risk) - occupation.net_risk) <= 0.00011);
+			assert.ok(Math.abs(round4(scores.augmentation) - occupation.augmentation) <= 0.00011);
 		}
 	});
 
-	test('live occupations carry V5 scoring metadata and retained baselines', () => {
+	test('live occupations expose the current V6 public contract', () => {
 		for (const occupation of occupations.slice(0, 50)) {
-			assert.equal(occupation.structural_model_version, 'V5');
-			assert.ok(
-				occupation.scoring_basis === 'posterior_task_aware_v5' ||
-					occupation.scoring_basis === 'posterior_ensemble_fallback_v5'
-			);
-			assert.equal(occupation.baseline_v43?.structural_model_version, 'V4.3');
-			assert.ok(typeof occupation.baseline_v43?.net_risk === 'number');
-			assert.equal(occupation.baseline_v42?.structural_model_version, 'V4.2');
-			assert.ok(typeof occupation.baseline_v42?.net_risk === 'number');
-			assert.ok(typeof occupation.transition_adjusted_risk === 'number');
-			assert.ok(typeof occupation.realized_risk_proxy === 'number');
+			assert.equal('structural_model_version' in occupation, false);
+			assert.equal('scoring_basis' in occupation, false);
+			assert.equal('baseline_v43' in occupation, false);
+			assert.equal('baseline_v42' in occupation, false);
+			assert.equal('transition_adjusted_risk' in occupation, false);
+			assert.equal('realized_risk_proxy' in occupation, false);
+			assert.equal(typeof occupation.displacement_pressure, 'number');
+			assert.equal(typeof occupation.demand_signal_bonus, 'number');
+			assert.equal(typeof occupation.demand_resilience, 'number');
+			assert.deepEqual(occupation.task_primitives, {
+				matched_task_weight_share: null,
+				task_effective_coverage: null,
+				task_exposure_concentration: null,
+				method: null
+			});
 		}
 	});
 
@@ -205,29 +202,49 @@ describe('methodology formulas', () => {
 		assert.equal(classifyImpactType(0.1, 0.2), 'ai_leveraged');
 	});
 
-	test('net risk is monotone in exposure and inverse monotone in bottleneck/resilience', () => {
-		const lowExposure = computeNetRisk({ exposure: 0.4, bottleneck: 0.3, market_resilience: 0.4 });
-		const highExposure = computeNetRisk({ exposure: 0.6, bottleneck: 0.3, market_resilience: 0.4 });
-		const lowBottleneck = computeNetRisk({
+	test('headline risk is monotone in exposure and inverse monotone in bottleneck/resilience', () => {
+		const lowExposure = computeV6StructuralScores({
+			exposure: 0.4,
+			bottleneck: 0.3,
+			base_resilience: 0.4,
+			sol_match: false,
+			jid_match: false
+		}).headline_risk;
+		const highExposure = computeV6StructuralScores({
+			exposure: 0.6,
+			bottleneck: 0.3,
+			base_resilience: 0.4,
+			sol_match: false,
+			jid_match: false
+		}).headline_risk;
+		const lowBottleneck = computeV6StructuralScores({
 			exposure: 0.6,
 			bottleneck: 0.2,
-			market_resilience: 0.4
-		});
-		const highBottleneck = computeNetRisk({
+			base_resilience: 0.4,
+			sol_match: false,
+			jid_match: false
+		}).headline_risk;
+		const highBottleneck = computeV6StructuralScores({
 			exposure: 0.6,
 			bottleneck: 0.5,
-			market_resilience: 0.4
-		});
-		const lowResilience = computeNetRisk({
+			base_resilience: 0.4,
+			sol_match: false,
+			jid_match: false
+		}).headline_risk;
+		const lowResilience = computeV6StructuralScores({
 			exposure: 0.6,
 			bottleneck: 0.3,
-			market_resilience: 0.2
-		});
-		const highResilience = computeNetRisk({
+			base_resilience: 0.2,
+			sol_match: false,
+			jid_match: false
+		}).headline_risk;
+		const highResilience = computeV6StructuralScores({
 			exposure: 0.6,
 			bottleneck: 0.3,
-			market_resilience: 0.8
-		});
+			base_resilience: 0.8,
+			sol_match: false,
+			jid_match: false
+		}).headline_risk;
 
 		assert.ok(highExposure > lowExposure);
 		assert.ok(highBottleneck < lowBottleneck);
@@ -346,23 +363,14 @@ describe('task primitive invariants', () => {
 		);
 	});
 
-	test('published occupations expose weighted task primitives when evidence exists and explicit nulls otherwise', () => {
+	test('published live occupations expose explicit null task primitives until weighted evidence returns', () => {
 		const weighted = occupations.filter(
 			occupation => occupation.task_primitives?.method === 'anthropic_task_penetration_v1'
 		);
 		const sparse = occupations.filter(occupation => occupation.task_primitives?.method === null);
 
-		assert.ok(weighted.length >= 450);
-		assert.ok(sparse.length > 0);
-
-		for (const occupation of weighted.slice(0, 25)) {
-			assert.ok((occupation.task_primitives?.matched_task_weight_share ?? -1) >= 0);
-			assert.ok((occupation.task_primitives?.matched_task_weight_share ?? 2) <= 1);
-			assert.ok((occupation.task_primitives?.task_effective_coverage ?? -1) >= 0);
-			assert.ok((occupation.task_primitives?.task_effective_coverage ?? 2) <= 1);
-			assert.ok((occupation.task_primitives?.task_exposure_concentration ?? -1) >= 0);
-			assert.ok((occupation.task_primitives?.task_exposure_concentration ?? 2) <= 1);
-		}
+		assert.equal(weighted.length, 0);
+		assert.equal(sparse.length, occupations.length);
 
 		for (const occupation of sparse.slice(0, 10)) {
 			assert.deepEqual(occupation.task_primitives, {

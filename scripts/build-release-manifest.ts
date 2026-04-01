@@ -17,10 +17,7 @@ const STATIC_DATA_DIR = path.join(ROOT_DIR, 'static', 'data');
 const SRC_DATA_DIR = path.join(ROOT_DIR, 'src', 'lib', 'data');
 const VERSION_TAG = DATA_VINTAGE.model_version.toLowerCase().replaceAll('.', '');
 const OUT_FILE = path.join(STATIC_DATA_DIR, `release-manifest-${VERSION_TAG}.json`);
-const VERSIONED_OUT_FILE = path.join(
-	STATIC_DATA_DIR,
-	`release-manifest-${VERSION_TAG}.json`
-);
+const VERSIONED_OUT_FILE = path.join(STATIC_DATA_DIR, `release-manifest-${VERSION_TAG}.json`);
 const SRC_OUT_FILE = path.join(SRC_DATA_DIR, 'release-manifest.json');
 
 interface ReleaseArtifactDefinition {
@@ -39,7 +36,7 @@ interface ReleaseArtifactDefinition {
 		| 'transition_support'
 		| 'offset_potential'
 		| 'transition_infrastructure'
-	| 'governance'
+		| 'governance'
 		| 'provenance'
 		| 'research_memory'
 		| 'shadow_model'
@@ -54,13 +51,13 @@ const ARTIFACTS: ReleaseArtifactDefinition[] = [
 		file: `sg-ai-occupations-${VERSION_TAG}.csv`,
 		label: `${DATA_VINTAGE.model_version} structural score CSV`,
 		category: 'structural_score',
-		description: 'Flattened structural score dataset with basis and provenance columns.'
+		description: 'Flattened CSV export of the canonical live structural dataset.'
 	},
 	{
 		file: `sg-ai-occupations-${VERSION_TAG}.json`,
 		label: `${DATA_VINTAGE.model_version} structural score JSON`,
 		category: 'structural_score',
-		description: 'Nested structural score dataset with basis and provenance metadata.'
+		description: 'Canonical live structural score JSON export matching the app dataset exactly.'
 	},
 	{
 		file: 'sg-ai-occupations-v43.csv',
@@ -286,6 +283,27 @@ const ARTIFACTS: ReleaseArtifactDefinition[] = [
 		category: 'v5_experimental_model',
 		description:
 			'Validation and comparison artifact for the promoted V5 model versus the retained V4.3 baseline.'
+	},
+	{
+		file: 'quarterly-report.json',
+		label: 'Quarterly report',
+		category: 'governance',
+		description:
+			'Quarterly snapshot and drift summary for the current structural release versus the retained prior snapshot.'
+	},
+	{
+		file: '../llms.txt',
+		label: 'LLMs summary',
+		category: 'governance',
+		description:
+			'Current AI-facing summary file for retrieval, citation, and answer-engine consumption.'
+	},
+	{
+		file: '../llms-full.txt',
+		label: 'LLMs full reference',
+		category: 'governance',
+		description:
+			'Expanded AI-facing reference file with current methodology, caveats, and citation guidance.'
 	},
 	{
 		file: 'site-status.json',
