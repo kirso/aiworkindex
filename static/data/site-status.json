@@ -1,7 +1,7 @@
 {
   "updated_at": "2026-03-30T03:29:12.902Z",
   "structural_release": {
-    "version": "V5",
+    "version": "V6",
     "label": "V5 structural release",
     "generated_at": "2026-03-30T00:00:00.000Z",
     "score_dataset_generated_at": "2026-03-30",
@@ -68,10 +68,10 @@
     "offset_potential_high_count": 20
   },
   "homepage_banner": {
-    "tag": "Live now",
-    "title": "V5 is live with richer structural science and published short-run layers",
-    "body": "V5 is live. Transition-adjusted and realized-risk layers are now published separately.",
-    "link_href": "/reports/v5-experimental",
-    "link_label": "V5 note"
+    "tag": "V6 live",
+    "title": "V6 two-axis scoring: demand resilience now counteracts displacement pressure",
+    "body": "V6 replaces the capped market modifier with an independent demand resilience axis. Verified market demand (SOL, JiD) can now substantially offset structural AI pressure.",
+    "link_href": "/methodology",
+    "link_label": "V6 methodology"
   }
 }
