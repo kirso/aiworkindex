@@ -13,11 +13,13 @@ AI Work Index is a free, open-source tool that scores every major Singapore occu
 
 ## Scoring Formula
 
-net_risk = AI_exposure x (1 - human_bottleneck) x market_modifier
+headline_risk = displacement_pressure x (1 - demand_resilience)
 
-- Exposure: Ensemble of Felten AIOE (50%) + Anthropic observed usage (50%)
+- Displacement pressure: exposure x (1 - bottleneck)
+- Demand resilience: min(1.0, base_resilience x 0.45 + demand_signal_bonus)
+- Exposure: Ensemble of Felten AIOE + Anthropic observed usage, reliability-weighted
 - Bottleneck: Pizzinelli theta from O*NET work context (coordination, physical presence)
-- Market modifier: Singapore employment trends, SOL 2026, Jobs in Demand 2025
+- Demand signals: SOL 2026 (exact: +0.15), Jobs in Demand 2025 (exact: +0.12)
 
 ## Key Pages
 

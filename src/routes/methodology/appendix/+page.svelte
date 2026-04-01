@@ -37,7 +37,7 @@
 		<p class={sectionLabel()}>Core Formula</p>
 		<div class="mt-3 space-y-2">
 			<p class="rounded-md bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
-				net_risk = exposure × (1 − bottleneck) × market_modifier
+				headline_risk = displacement_pressure × (1 − demand_resilience)
 			</p>
 			<p class="text-xs text-muted-foreground">
 				Where exposure and bottleneck are percentile-ranked (0–1) across all {DATA_VINTAGE.occupation_count}
@@ -205,7 +205,7 @@
 				market_resilience = 0.6 × market_momentum + 0.4 × occupation_scarcity
 			</p>
 			<p class="rounded-md bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
-				market_modifier = 1 − 0.35 × market_resilience
+				demand_resilience = min(1.0, base_resilience × 0.45 + demand_signal_bonus)
 			</p>
 		</div>
 		<p class="mt-2 text-sm text-muted-foreground">

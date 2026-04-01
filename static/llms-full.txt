@@ -22,7 +22,11 @@ Scores are structural pressure indicators, not predictions of actual job losses.
 
 ### Core Formula
 
-net_risk = AI_exposure x (1 - human_bottleneck) x market_modifier
+headline_risk = displacement_pressure x (1 - demand_resilience)
+
+Where:
+  displacement_pressure = exposure x (1 - bottleneck)
+  demand_resilience = min(1.0, base_resilience x 0.45 + demand_signal_bonus)
 
 ### Layer 1: AI Exposure (0-1)
 
@@ -42,15 +46,15 @@ Based on Pizzinelli theta from O*NET work context dimensions:
 
 Higher bottleneck = harder to automate. A surgeon scores high (physical dexterity, real-time judgment); a data entry clerk scores low.
 
-### Layer 3: Market Modifier (0-1)
+### Layer 3: Demand Resilience (0-1)
 
-Singapore-specific labour market signals that adjust theoretical risk:
-- MOM (Ministry of Manpower) employment trends by industry
-- Shortage Occupation List 2026 (SOL) — occupations with verified labour shortages
-- Jobs in Demand 2025 (JiD) — occupations with strong hiring signals
+Singapore-specific demand signals that counteract structural displacement pressure as an independent multiplicative factor (not capped):
+- Base resilience: MOM employment trends by industry + occupation scarcity
+- Shortage Occupation List 2026 (SOL) — exact match: +0.15, prefix: +0.08
+- Jobs in Demand 2025 (JiD) — exact match: +0.12, prefix: +0.06
 - Industry momentum from quarterly labour force surveys
 
-Occupations on the SOL or JiD receive protective demand bonuses that reduce net risk, reflecting that market demand can buffer AI displacement pressure.
+Demand resilience = min(1.0, base_resilience x 0.45 + demand_signal_bonus). Verified market demand can substantially offset structural displacement pressure — a key improvement over the V5 model where demand was capped at 35-45% reduction.
 
 ### Crosswalk
 

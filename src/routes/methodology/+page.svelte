@@ -256,7 +256,7 @@
 				<ul class="mt-1 list-inside list-disc space-y-0.5 text-sm text-muted-foreground">
 					<li>
 						<code class="rounded bg-muted px-1 text-xs"
-							>market_modifier = 1 - 0.35 &times; market_resilience</code
+							>demand_resilience = min(1.0, base_resilience &times; 0.45 + demand_signal_bonus)</code
 						>
 					</li>
 					<li>
@@ -414,7 +414,7 @@
 								market_resilience = 0.6 &times; market_momentum + 0.4 &times; occupation_scarcity
 							</p>
 							<p class="rounded bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
-								market_modifier = 1 - 0.35 &times; market_resilience
+								demand_resilience = min(1.0, base_resilience &times; 0.45 + demand_signal_bonus)
 							</p>
 						</div>
 						<p class="mt-2 text-sm text-muted-foreground">
@@ -1461,7 +1461,7 @@
 								<td class="py-2 pr-3">0.35</td>
 								<td class="py-2"
 									><code class="rounded bg-muted px-1 text-xs"
-										>market_modifier = 1 - 0.35 &times; market_resilience</code
+										>demand_resilience = min(1.0, base_resilience &times; 0.45 + demand_signal_bonus)</code
 									></td
 								>
 							</tr>

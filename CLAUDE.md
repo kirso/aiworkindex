@@ -63,11 +63,13 @@ data/raw/external/ → scripts/score.ts → data/occupations.json → src/lib/da
                    → scripts/validate-bls-crosswalk.ts → BLS cross-country validation
 ```
 
-**Scoring formula:** `net_risk = exposure × (1 − bottleneck) × market_modifier`
+**Scoring formula (V6):** `headline_risk = displacement_pressure × (1 − demand_resilience)`
 
-- **Exposure**: Ensemble of Felten AIOE (50%) + Anthropic observed usage (50%), per Frank et al. (2025)
+- **Displacement pressure**: `exposure × (1 − bottleneck)` — structural task automation potential
+- **Demand resilience**: `min(1.0, base_resilience × 0.45 + demand_signal_bonus)` — market counterforce
+- **Exposure**: Ensemble of Felten AIOE + Anthropic observed usage, reliability-weighted per Frank et al. (2025)
 - **Bottleneck**: Pizzinelli theta from O*NET work context (human coordination, physical presence)
-- **Market modifier**: Singapore employment trends, SOL 2026, Jobs in Demand 2025
+- **Demand signals**: SOL 2026 (exact: +0.15, prefix: +0.08), JiD 2025 (exact: +0.12, prefix: +0.06)
 - **Crosswalk**: SSOC → ISCO-08 (first 4 digits) → US SOC 2010 → O*NET/AIOE data
 
 ### Single Source of Truth
