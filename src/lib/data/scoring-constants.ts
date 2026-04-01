@@ -331,6 +331,14 @@ export const MARKET_CONSTANTS = {
 	double_exact_max_modifier: 0.45
 } as const;
 
+export const DEMAND_RESILIENCE_CONSTANTS = {
+	base_weight: 0.45,
+	sol_exact: 0.15,
+	sol_prefix: 0.08,
+	jid_exact: 0.12,
+	jid_prefix: 0.06
+} as const;
+
 // ============================================
 // RANKING PAGE THRESHOLDS
 // ============================================

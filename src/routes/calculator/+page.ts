@@ -17,6 +17,7 @@ export const load: PageLoad = () => {
 			impact_type: scored.impact_type,
 			exposure: scored.exposure,
 			bottleneck: scored.bottleneck,
+			demand_resilience: scored.demand_resilience,
 			market_resilience: scored.market_resilience,
 			isRole: true
 		};
@@ -32,6 +33,7 @@ export const load: PageLoad = () => {
 		impact_type: o.impact_type,
 		exposure: o.exposure,
 		bottleneck: o.bottleneck,
+		demand_resilience: o.demand_resilience,
 		market_resilience: o.market.market_resilience,
 		gross_wage_median: o.gross_wage_median,
 		isRole: false

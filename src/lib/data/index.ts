@@ -237,13 +237,16 @@ export interface Occupation {
 	// Current structural-release fields
 	exposure: number;
 	bottleneck: number;
+	displacement_pressure?: number;
+	demand_resilience?: number;
+	demand_signal_bonus?: number;
 	market: MarketScores;
 	net_risk: number;
 	risk_band: RiskBand;
 	augmentation: number;
 	augmentation_band: AugmentationBand;
 	impact_type: ImpactType;
-	structural_model_version?: 'V4.2' | 'V4.3' | 'V5';
+	structural_model_version?: 'V4.2' | 'V4.3' | 'V5' | 'V6';
 	scoring_basis?: OccupationScoringBasis;
 	baseline_v42?: BaselineV42Scores;
 	baseline_v43?: BaselineV43Scores;

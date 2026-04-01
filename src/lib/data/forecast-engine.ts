@@ -13,8 +13,12 @@ import {
 	FORECAST_CONSTANTS,
 	LABOUR_MARKET_EFFECTS
 } from './scoring-constants';
-import { applyPercentileShift, computeNetRisk, clamp01 } from './methodology-core';
-import { MARKET_CONSTANTS } from './scoring-constants';
+import {
+	applyPercentileShift,
+	computeDisplacementPressure,
+	computeHeadlineRisk,
+	clamp01
+} from './methodology-core';
 
 export type OutlookStatus = 'resilient' | 'watch' | 'under_pressure' | 'at_risk';
 export type Direction = 'improving' | 'stable' | 'worsening';
@@ -196,6 +200,7 @@ export function computeForecastScores(
 	const structuralRisk = occ.net_risk;
 	const baseAugmentation = occ.augmentation;
 	const baseDemand = occ.market.market_resilience;
+	const demandResilience = occ.demand_resilience ?? clamp01(baseDemand * 0.45 + (occ.demand_signal_bonus ?? 0));
 	const lm = occ.labour_monitor;
 	const baselineNearTermRisk = computeNearTermRisk(occ.net_risk, scenarioPresets.base.params);
 
@@ -256,15 +261,13 @@ export function computeForecastScores(
 	// Displacement pressure: seniority-adjusted exposure × (1 - seniority-adjusted bottleneck)
 	const adjExposure = applyPercentileShift(occ.exposure, seniorityExposureAdj);
 	const adjBottleneck = applyPercentileShift(occ.bottleneck, seniorityBottleneckAdj);
-	const hasDoubleExactDemand =
-		occ.evidence.sol_match === 'exact' && occ.evidence.jobs_in_demand_match === 'exact';
-	const seniorityDisplacement = computeNetRisk({
+	const seniorityDisplacementPressure = computeDisplacementPressure({
 		exposure: adjExposure,
-		bottleneck: adjBottleneck,
-		market_resilience: occ.market.market_resilience,
-		max_modifier_effect: hasDoubleExactDemand
-			? MARKET_CONSTANTS.double_exact_max_modifier
-			: undefined
+		bottleneck: adjBottleneck
+	});
+	const seniorityDisplacement = computeHeadlineRisk({
+		displacement_pressure: seniorityDisplacementPressure,
+		demand_resilience: demandResilience
 	});
 	const nearTermRisk = computeNearTermRisk(seniorityDisplacement, scenario);
 	const baselineDisplacementScore = clamp01(baselineNearTermRisk + labourDisplacementAdj);

@@ -1,4 +1,4 @@
-import { MARKET_CONSTANTS } from './scoring-constants';
+import { DEMAND_RESILIENCE_CONSTANTS, MARKET_CONSTANTS } from './scoring-constants';
 
 export interface StructuralScoreInputs {
 	exposure: number;
@@ -11,6 +11,23 @@ export interface StructuralScoreInputs {
 export interface MarketResilienceInputs {
 	market_momentum: number;
 	occupation_scarcity: number;
+}
+
+export interface DemandSignalInputs {
+	sol_match: 'exact' | 'prefix' | false;
+	jid_match: 'exact' | 'prefix' | false;
+}
+
+export interface DemandResilienceInputs {
+	base_resilience: number;
+	demand_signal_bonus: number;
+	base_weight?: number;
+}
+
+export interface V6StructuralScoreInputs extends DemandSignalInputs {
+	exposure: number;
+	bottleneck: number;
+	base_resilience: number;
 }
 
 export function clamp01(value: number): number {
@@ -74,6 +91,74 @@ export function computeAugmentation({
 	market_resilience
 }: StructuralScoreInputs): number {
 	return exposure * bottleneck * market_resilience;
+}
+
+export function computeDisplacementPressure({
+	exposure,
+	bottleneck
+}: Pick<V6StructuralScoreInputs, 'exposure' | 'bottleneck'>): number {
+	return exposure * (1 - bottleneck);
+}
+
+export function computeDemandSignalBonus({
+	sol_match,
+	jid_match
+}: DemandSignalInputs): number {
+	let bonus = 0;
+
+	if (sol_match === 'exact') bonus += DEMAND_RESILIENCE_CONSTANTS.sol_exact;
+	else if (sol_match === 'prefix') bonus += DEMAND_RESILIENCE_CONSTANTS.sol_prefix;
+
+	if (jid_match === 'exact') bonus += DEMAND_RESILIENCE_CONSTANTS.jid_exact;
+	else if (jid_match === 'prefix') bonus += DEMAND_RESILIENCE_CONSTANTS.jid_prefix;
+
+	return bonus;
+}
+
+export function computeDemandResilience({
+	base_resilience,
+	demand_signal_bonus,
+	base_weight = DEMAND_RESILIENCE_CONSTANTS.base_weight
+}: DemandResilienceInputs): number {
+	return clamp01(base_resilience * base_weight + demand_signal_bonus);
+}
+
+export function computeHeadlineRisk({
+	displacement_pressure,
+	demand_resilience
+}: {
+	displacement_pressure: number;
+	demand_resilience: number;
+}): number {
+	return displacement_pressure * (1 - demand_resilience);
+}
+
+export function computeV6StructuralScores(inputs: V6StructuralScoreInputs): {
+	displacement_pressure: number;
+	demand_resilience: number;
+	headline_risk: number;
+	augmentation: number;
+} {
+	const displacement_pressure = computeDisplacementPressure(inputs);
+	const demand_signal_bonus = computeDemandSignalBonus(inputs);
+	const demand_resilience = computeDemandResilience({
+		base_resilience: inputs.base_resilience,
+		demand_signal_bonus
+	});
+
+	return {
+		displacement_pressure,
+		demand_resilience,
+		headline_risk: computeHeadlineRisk({
+			displacement_pressure,
+			demand_resilience
+		}),
+		augmentation: computeAugmentation({
+			exposure: inputs.exposure,
+			bottleneck: inputs.bottleneck,
+			market_resilience: inputs.base_resilience
+		})
+	};
 }
 
 export function computeStructuralScores(inputs: StructuralScoreInputs): {

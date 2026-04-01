@@ -4,7 +4,11 @@ import {
 	classifyImpactType,
 	AUGMENTATION_THRESHOLDS
 } from './scoring-constants';
-import { computeStructuralScores } from './methodology-core';
+import {
+	computeDemandResilience,
+	computeHeadlineRisk,
+	computeV6StructuralScores
+} from './methodology-core';
 import type { DerivedOverlayScores, WorkflowOverlay } from './workflow-overlay';
 import {
 	archetypeOverlayDefaults,
@@ -36,6 +40,10 @@ export interface ScoredRole {
 	tags: string[];
 	exposure: number;
 	bottleneck: number;
+	base_resilience: number;
+	demand_signal_bonus: number;
+	demand_resilience: number;
+	displacement_pressure: number;
 	market_resilience: number;
 	net_risk: number;
 	risk_band: RiskBand;
@@ -1410,17 +1418,30 @@ export function computeRoleScores(
 			tags: role.tags,
 			exposure: 0.5,
 			bottleneck: 0.5,
+			base_resilience: 0.5,
+			demand_signal_bonus: 0.1,
+			demand_resilience: computeDemandResilience({
+				base_resilience: 0.5,
+				demand_signal_bonus: 0.1
+			}),
+			displacement_pressure: 0.25,
 			market_resilience: 0.5,
-			net_risk: 0.25,
+			net_risk: computeHeadlineRisk({
+				displacement_pressure: 0.25,
+				demand_resilience: computeDemandResilience({
+					base_resilience: 0.5,
+					demand_signal_bonus: 0.1
+				})
+			}),
 			risk_band: 'moderate',
-			augmentation: 0.5,
+			augmentation: 0.125,
 			augmentation_band: 'moderate',
 			impact_type: 'mixed',
 			confidence: 'medium',
 			confidence_score: 0.45,
 			dispersion: 0,
-			risk_range: { optimistic: 0.25, pessimistic: 0.25 },
-			base_net_risk: 0.25,
+			risk_range: { optimistic: 0.1775, pessimistic: 0.1775 },
+			base_net_risk: 0.1775,
 			context_adjustment: 1,
 			estimate_type: inferEstimateType(role),
 			variant_of: getVariantParent(role.slug),
@@ -1433,20 +1454,42 @@ export function computeRoleScores(
 
 	const exposures = validComponents.map((c) => c.occupation!.exposure);
 	const bottlenecks = validComponents.map((c) => c.occupation!.bottleneck);
-	const resiliences = validComponents.map((c) => c.occupation!.market.market_resilience);
+	const baseResiliencies = validComponents.map((c) => c.occupation!.market.market_resilience);
+	const demandSignalBonuses = validComponents.map((c) => c.occupation!.demand_signal_bonus ?? 0);
 	const weights = validComponents.map((c) => c.weight);
 	const totalConfiguredWeight = role.components.reduce((sum, component) => sum + component.weight, 0);
 
 	const exposure = weightedMeanWithCoverage(exposures, weights, totalConfiguredWeight);
 	const bottleneck = weightedMeanWithCoverage(bottlenecks, weights, totalConfiguredWeight);
-	const market_resilience = weightedMeanWithCoverage(resiliences, weights, totalConfiguredWeight);
-	const { net_risk: base_net_risk, augmentation } = computeStructuralScores({
+	const base_resilience = weightedMeanWithCoverage(baseResiliencies, weights, totalConfiguredWeight);
+	const demand_signal_bonus = weightedMeanWithCoverage(
+		demandSignalBonuses,
+		weights,
+		totalConfiguredWeight,
+		0
+	);
+	const {
+		displacement_pressure,
+		headline_risk: base_net_risk,
+		augmentation
+	} = computeV6StructuralScores({
 		exposure,
 		bottleneck,
-		market_resilience
+		base_resilience,
+		sol_match: false,
+		jid_match: false
+	});
+	const demand_resilience_weighted = computeDemandResilience({
+		base_resilience,
+		demand_signal_bonus
 	});
 	const workflowMeta = buildRoleWorkflowMeta(role, validComponents);
-	const net_risk = clamp01(base_net_risk * workflowMeta.contextAdjustment);
+	const net_risk = clamp01(
+		computeHeadlineRisk({
+			displacement_pressure,
+			demand_resilience: demand_resilience_weighted
+		}) * workflowMeta.contextAdjustment
+	);
 	const risk_band = getRiskBand(net_risk);
 	const augmentation_band = computeAugmentationBand(augmentation);
 	const impact_type = classifyImpactType(net_risk, augmentation);
@@ -1484,7 +1527,11 @@ export function computeRoleScores(
 		tags: role.tags,
 		exposure,
 		bottleneck,
-		market_resilience,
+		base_resilience,
+		demand_signal_bonus,
+		demand_resilience: demand_resilience_weighted,
+		displacement_pressure,
+		market_resilience: base_resilience,
 		net_risk,
 		risk_band,
 		augmentation,

@@ -1,22 +1,23 @@
 #!/usr/bin/env bun
 /**
- * score.ts — V4.2 scoring pipeline for Singapore AI Job Exposure Map.
+ * score.ts — V6 scoring pipeline for Singapore AI Job Exposure Map.
  *
  * Computes 4-source exposure ensemble (AIOE + Anthropic + Eloundou + ILO),
  * Pizzinelli theta, market resilience layer, and net displacement risk
  * for each of 562 Singapore SSOC occupations.
  *
- * V4.2: reliability-weighted 4-source exposure ensemble, occupation-level
+ * V6: reliability-weighted 4-source exposure ensemble, occupation-level
  * industry-footprint market momentum where available, pure confidence scoring,
  * statistical uncertainty intervals, and a task-primitives sidecar.
  *
  * Canonical structural formulas:
  *   exposure            = reliability-weighted percentile blend of available exposure sources
  *   bottleneck          = pctile(theta)
- *   market_resilience   = 0.6 * market_momentum + 0.4 * occupation_scarcity + capped demand bonuses
- *   market_modifier     = 1 - 0.35 * market_resilience
- *   net_risk            = exposure * (1 - bottleneck) * market_modifier
- *   augmentation        = exposure * bottleneck * market_resilience
+ *   base_resilience     = 0.6 * market_momentum + 0.4 * occupation_scarcity
+ *   demand_resilience   = min(1, base_resilience * 0.45 + demand_signal_bonus)
+ *   displacement_pressure = exposure * (1 - bottleneck)
+ *   headline_risk       = displacement_pressure * (1 - demand_resilience)
+ *   augmentation        = exposure * bottleneck * base_resilience
  *
  * Run: bun run scripts/score.ts
  */
@@ -35,7 +36,6 @@ import {
 	getRiskBand,
 	classifyImpactType,
 	RISK_BAND_THRESHOLDS,
-	MARKET_CONSTANTS,
 	AUGMENTATION_THRESHOLDS,
 	SIGNAL_CONFLICT_THRESHOLDS,
 	classifyExposureAgreement,
@@ -47,8 +47,12 @@ import {
 } from '../src/lib/data/data-contract';
 import {
 	blendEmploymentMomentum,
+	clamp01,
+	computeDemandResilience,
+	computeDemandSignalBonus,
+	computeDisplacementPressure,
 	computeMarketResilience,
-	computeStructuralScores
+	computeV6StructuralScores
 } from '../src/lib/data/methodology-core';
 import { computeConfidence } from '../src/lib/data/confidence-core';
 import { computeBootstrapUncertainty } from '../src/lib/data/uncertainty-core';
@@ -209,6 +213,9 @@ interface ScoredOccupation {
 	data_basis: OccupationDataBasis;
 	exposure: number;
 	bottleneck: number;
+	displacement_pressure: number;
+	demand_resilience: number;
+	demand_signal_bonus: number;
 	market: MarketScores;
 	net_risk: number;
 	risk_band: RiskBand;
@@ -1201,8 +1208,8 @@ function lookupLabourMonitor(
 
 /**
  * Monte Carlo stability scoring — 1000 deterministic perturbations.
- * Each run perturbs exposure, bottleneck, and market_resilience by
- * a normally-distributed random amount (σ = 0.04), then recomputes net_risk.
+ * Each run perturbs exposure, bottleneck, and base_resilience by
+ * a normally-distributed random amount (σ = 0.04), then recomputes headline risk.
  * Optimistic = 10th percentile, pessimistic = 90th percentile of simulated risks.
  *
  * The RNG is seeded from the input tuple so identical source data produces
@@ -1211,10 +1218,10 @@ function lookupLabourMonitor(
 function buildStabilityScores(
 	exposure: number,
 	bottleneck: number,
-	marketResilience: number,
+	baseResilience: number,
+	demandSignalBonus: number,
 	currentRisk: number,
-	marketSpread: number = 0,
-	maxModifierEffect: number = MARKET_CONSTANTS.max_modifier_effect
+	marketSpread: number = 0
 ): StabilityScores {
 	const N = 1000;
 	// Base sigma 0.04 + market spread contribution (high industry variance = wider intervals)
@@ -1243,7 +1250,14 @@ function buildStabilityScores(
 	}
 
 	const random = mulberry32(
-		seedFromInputs([exposure, bottleneck, marketResilience, currentRisk, marketSpread])
+		seedFromInputs([
+			exposure,
+			bottleneck,
+			baseResilience,
+			demandSignalBonus,
+			currentRisk,
+			marketSpread
+		])
 	);
 
 	// Box-Muller transform for normal random numbers
@@ -1256,8 +1270,16 @@ function buildStabilityScores(
 	for (let i = 0; i < N; i++) {
 		const e = clamp01(exposure + sigma * randn());
 		const b = clamp01(bottleneck + sigma * randn());
-		const m = clamp01(marketResilience + sigma * randn());
-		simulatedRisks.push(e * (1 - b) * (1 - maxModifierEffect * m));
+		const baseResilienceDraw = clamp01(baseResilience + sigma * randn());
+		const demandResilienceDraw = computeDemandResilience({
+			base_resilience: baseResilienceDraw,
+			demand_signal_bonus: demandSignalBonus
+		});
+		const displacement = computeDisplacementPressure({
+			exposure: e,
+			bottleneck: b
+		});
+		simulatedRisks.push(displacement * (1 - demandResilienceDraw));
 	}
 
 	simulatedRisks.sort((a, b) => a - b);
@@ -1290,7 +1312,7 @@ function buildStabilityScores(
 	};
 }
 
-// ===== Step 7: Score all occupations (V4.2) =====
+// ===== Step 7: Score all occupations (V6) =====
 function scoreOccupations(
 	sgOccs: SgOccupation[],
 	aioeMap: Map<string, number>,
@@ -1303,7 +1325,7 @@ function scoreOccupations(
 	demandData: { exactCodes: Set<string>; prefixes: Set<string> },
 	labourMonitors: Map<string, LabourClusterMonitor>
 ): ScoredOccupation[] {
-	console.log('\nScoring occupations (V4.2 — 4-source exposure ensemble)...');
+	console.log('\nScoring occupations (V6 — 4-source exposure ensemble)...');
 
 	// Pre-compute theta_MIN for C-AIOE formula
 	const allTheta = [...thetaMap.values()];
@@ -1692,7 +1714,7 @@ function scoreOccupations(
 	// Occupation scarcity = mean of two percentile ranks
 	const occScarcity = intermediates.map((_, i) => (logSpreadRanks[i] + ratioRanks[i]) / 2);
 
-	// ===== V4.2: Multi-input ensemble — percentile ranks for each source =====
+	// ===== V6: Multi-input ensemble — percentile ranks for each source =====
 	console.log('  Computing ensemble exposure percentile ranks...');
 
 	function computePctileRanks(values: (number | null)[]): number[] {
@@ -1727,7 +1749,7 @@ function scoreOccupations(
 		const theoreticalExposure = exposure;
 
 		// === 4a: Multi-input ensemble exposure ===
-		// V4.2: reliability-weighted blend of all available exposure inputs.
+		// V6: reliability-weighted blend of all available exposure inputs.
 		// Source weights are deterministic and based on recency, construct fit,
 		// coverage quality, and validation support.
 		const availableExposureInputs: Array<{
@@ -1773,64 +1795,32 @@ function scoreOccupations(
 		);
 		const mm = (blendedEmploymentMomentum + groupWageMomentum) / 2;
 		const os = occScarcity[i];
-		let marketResilience = computeMarketResilience({
+		const baseResilience = computeMarketResilience({
 			market_momentum: mm,
 			occupation_scarcity: os
 		});
 
 		// === 4b: MOM demand signals ===
-		let marketResilienceAdjusted = marketResilience;
-		if (r.solMatch === 'exact') {
-			marketResilienceAdjusted = Math.min(
-				1.0,
-				marketResilienceAdjusted + MARKET_CONSTANTS.sol_exact_bonus
-			);
-			solMatchCount++;
-		} else if (r.solMatch === 'prefix') {
-			marketResilienceAdjusted = Math.min(
-				1.0,
-				marketResilienceAdjusted + MARKET_CONSTANTS.sol_prefix_bonus
-			);
-			solMatchCount++;
-		}
-		if (r.demandMatch === 'exact') {
-			marketResilienceAdjusted = Math.min(
-				1.0,
-				marketResilienceAdjusted + MARKET_CONSTANTS.jid_exact_bonus
-			);
-			demandMatchCount++;
-		} else if (r.demandMatch === 'prefix') {
-			marketResilienceAdjusted = Math.min(
-				1.0,
-				marketResilienceAdjusted + MARKET_CONSTANTS.jid_prefix_bonus
-			);
-			demandMatchCount++;
-		}
+		if (r.solMatch) solMatchCount++;
+		if (r.demandMatch) demandMatchCount++;
 
-		// Double-signal bonus: when both SOL exact and JiD exact fire,
-		// apply additional resilience and use increased max modifier cap
-		const hasDoubleExactDemand = r.solMatch === 'exact' && r.demandMatch === 'exact';
-		if (hasDoubleExactDemand) {
-			marketResilienceAdjusted = Math.min(
-				1.0,
-				marketResilienceAdjusted + MARKET_CONSTANTS.double_exact_bonus
-			);
-		}
-
-		const effectiveMaxModifier = hasDoubleExactDemand
-			? MARKET_CONSTANTS.double_exact_max_modifier
-			: MARKET_CONSTANTS.max_modifier_effect;
-
+		const demandSignalBonus = computeDemandSignalBonus({
+			sol_match: r.solMatch,
+			jid_match: r.demandMatch
+		});
 		const {
-			market_modifier: marketModifier,
-			net_risk: netRisk,
+			displacement_pressure: displacementPressure,
+			demand_resilience: demandResilience,
+			headline_risk: netRisk,
 			augmentation
-		} = computeStructuralScores({
+		} = computeV6StructuralScores({
 			exposure,
 			bottleneck,
-			market_resilience: marketResilienceAdjusted,
-			max_modifier_effect: effectiveMaxModifier
+			base_resilience: baseResilience,
+			sol_match: r.solMatch,
+			jid_match: r.demandMatch
 		});
+		const marketModifier = 1 - demandResilience;
 		const netRiskRounded = round(netRisk, 4);
 		const band = getRiskBand(netRiskRounded);
 		// Map major_group to industry momentum key format
@@ -1840,10 +1830,10 @@ function scoreOccupations(
 		const stability = buildStabilityScores(
 			exposure,
 			bottleneck,
-			marketResilienceAdjusted,
+			baseResilience,
+			demandSignalBonus,
 			netRiskRounded,
-			mktSpread,
-			effectiveMaxModifier
+			mktSpread
 		);
 		const labourMonitor = lookupLabourMonitor(r.occ.major_group, labourMonitors);
 		const exposureAgreement = classifyExposureAgreement(
@@ -1959,10 +1949,10 @@ function scoreOccupations(
 			})),
 			exposureWeights: exposureSourceWeights,
 			bottleneck,
-			market_resilience: marketResilienceAdjusted,
+			base_resilience: baseResilience,
+			demand_signal_bonus: demandSignalBonus,
 			marketSpread: mktSpread,
-			seedValues: [i, exposure, bottleneck, marketResilienceAdjusted, netRiskRounded],
-			max_modifier_effect: hasDoubleExactDemand ? effectiveMaxModifier : undefined
+			seedValues: [i, exposure, bottleneck, baseResilience, demandSignalBonus, netRiskRounded]
 		});
 
 		results.push({
@@ -1984,13 +1974,16 @@ function scoreOccupations(
 			data_basis: cloneOccupationDataBasis(),
 			exposure: round(exposure, 4),
 			bottleneck: round(bottleneck, 4),
+			displacement_pressure: round(displacementPressure, 4),
+			demand_resilience: round(demandResilience, 4),
+			demand_signal_bonus: round(demandSignalBonus, 4),
 			market: {
 				market_momentum: round(mm, 4),
 				industry_footprint_momentum:
 					industryFootprintMomentum !== null ? round(industryFootprintMomentum, 4) : null,
 				market_resolution: hasIndustryFootprint ? 'industry_footprint_blend' : 'group_prior',
 				occupation_scarcity: round(os, 4),
-				market_resilience: round(marketResilienceAdjusted, 4),
+				market_resilience: round(baseResilience, 4),
 				market_modifier: round(marketModifier, 4)
 			},
 			net_risk: netRiskRounded,
@@ -2094,7 +2087,7 @@ function round(n: number, decimals: number): number {
 
 // ===== Distribution Analysis =====
 function printDistributionAnalysis(results: ScoredOccupation[]) {
-	console.log('\n=== V4.2 Risk Band Distribution ===');
+	console.log('\n=== V6 Risk Band Distribution ===');
 	const bands: RiskBand[] = ['very_low', 'low', 'moderate', 'high', 'very_high'];
 	const bandLabels: Record<RiskBand, string> = {
 		very_low: 'Very Low  (0.00-0.05)',
@@ -2192,7 +2185,7 @@ function printDistributionAnalysis(results: ScoredOccupation[]) {
 
 // ===== Main =====
 async function main() {
-	console.log('=== Singapore AI Job Exposure Scoring Pipeline (V4.2) ===\n');
+	console.log('=== Singapore AI Job Exposure Scoring Pipeline (V6) ===\n');
 
 	// Load all data sources
 	const aioeMap = loadAioe();

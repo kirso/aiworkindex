@@ -60,8 +60,15 @@
 			0,
 			Math.min(1, selectedEntry.bottleneck + mod.bottleneck_adj)
 		);
-		const marketModifier = 1 - 0.35 * (selectedEntry.market_resilience ?? 0);
-		return Math.max(0, Math.min(1, adjustedExposure * (1 - adjustedBottleneck) * marketModifier));
+		return Math.max(
+			0,
+			Math.min(
+				1,
+				adjustedExposure *
+					(1 - adjustedBottleneck) *
+					(1 - (selectedEntry.demand_resilience ?? 0))
+			)
+		);
 	});
 
 	let riskAmount = $derived(Math.round(salary * seniorityAdjustedRisk));

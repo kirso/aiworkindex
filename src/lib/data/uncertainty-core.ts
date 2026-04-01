@@ -1,4 +1,9 @@
-import { clamp01, computeNetRisk } from './methodology-core';
+import {
+	clamp01,
+	computeDisplacementPressure,
+	computeHeadlineRisk,
+	computeDemandResilience
+} from './methodology-core';
 
 export interface ExposureBootstrapInput {
 	key: string;
@@ -9,12 +14,12 @@ export interface UncertaintyInputs {
 	exposureInputs: ExposureBootstrapInput[];
 	exposureWeights: Record<string, number>;
 	bottleneck: number;
-	market_resilience: number;
+	base_resilience?: number;
+	market_resilience?: number;
+	demand_signal_bonus?: number;
 	marketSpread?: number;
 	sampleCount?: number;
 	seedValues?: number[];
-	/** Override max_modifier_effect for double-signal demand occupations */
-	max_modifier_effect?: number;
 }
 
 export interface UncertaintyResult {
@@ -71,12 +76,14 @@ export function computeBootstrapUncertainty({
 	exposureInputs,
 	exposureWeights,
 	bottleneck,
+	base_resilience,
 	market_resilience,
+	demand_signal_bonus = 0,
 	marketSpread = 0,
 	sampleCount = 5000,
-	seedValues = [],
-	max_modifier_effect
+	seedValues = []
 }: UncertaintyInputs): UncertaintyResult {
+	const baseResilience = base_resilience ?? market_resilience ?? 0.5;
 	const validExposureInputs = exposureInputs.filter(
 		(input) => Number.isFinite(input.value) && Number.isFinite(exposureWeights[input.key] ?? 0)
 	);
@@ -88,7 +95,8 @@ export function computeBootstrapUncertainty({
 			...seedValues,
 			validExposureInputs.length,
 			bottleneck,
-			market_resilience,
+			baseResilience,
+			demand_signal_bonus,
 			marketSpread
 		])
 	);
@@ -121,14 +129,20 @@ export function computeBootstrapUncertainty({
 	for (let i = 0; i < sampleCount; i++) {
 		const exposure = drawExposure();
 		const bottleneckDraw = clamp01(bottleneck + sigma * randn(random));
-		const marketDraw = clamp01(market_resilience + sigma * randn(random));
+		const baseResilienceDraw = clamp01(baseResilience + sigma * randn(random));
+		const displacementPressure = computeDisplacementPressure({
+			exposure,
+			bottleneck: bottleneckDraw
+		});
+		const demandResilienceDraw = computeDemandResilience({
+			base_resilience: baseResilienceDraw,
+			demand_signal_bonus
+		});
 		exposureDraws.push(exposure);
 		netRiskDraws.push(
-			computeNetRisk({
-				exposure,
-				bottleneck: bottleneckDraw,
-				market_resilience: marketDraw,
-				max_modifier_effect
+			computeHeadlineRisk({
+				displacement_pressure: displacementPressure,
+				demand_resilience: demandResilienceDraw
 			})
 		);
 	}
