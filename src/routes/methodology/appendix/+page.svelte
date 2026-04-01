@@ -8,7 +8,7 @@
 
 <Seo
 	title={`Implementation Appendix — ${DATA_VINTAGE.model_version} Scoring Rules`}
-	description={`Complete implementation reference for the ${DATA_VINTAGE.model_version} scoring pipeline: risk bands, impact classification, seniority modifiers, confidence, market modifier, stability, synthetic role rules, and separate support layers.`}
+	description={`Complete implementation reference for the ${DATA_VINTAGE.model_version} scoring pipeline: risk bands, impact classification, seniority modifiers, confidence, demand resilience, stability, synthetic role rules, and separate support layers.`}
 	path="/methodology/appendix"
 />
 
@@ -97,10 +97,10 @@
 	<!-- Impact Type Classification -->
 	<section class="mb-8">
 		<p class={sectionLabel()}>Impact Type Classification</p>
-		<p class="mt-2 text-xs text-muted-foreground">
-			Based on a pure displacement (net_risk) × augmentation 2×2 matrix. SOL / Jobs in Demand now
-			enter only through market resilience, not as a separate label override.
-		</p>
+	<p class="mt-2 text-xs text-muted-foreground">
+		Based on a pure headline-risk × augmentation 2×2 matrix. SOL / Jobs in Demand now
+		enter only through demand resilience, not as a separate label override.
+	</p>
 		<div class="mt-3 overflow-x-auto">
 			<table class="w-full text-left text-sm">
 				<thead>
@@ -160,8 +160,8 @@
 		</p>
 		<p class="mt-2 text-sm text-muted-foreground">
 			The same published <code class="rounded bg-muted px-1 text-xs">market_resilience</code> field is
-			used in both the augmentation formula and the market modifier. Demand bonuses are applied inside
-			that field before it is capped to the 0–1 range.
+			used as the base resilience input for both augmentation and demand resilience. Demand bonuses are
+			applied inside the resilience path before the final result is capped to the 0–1 range.
 		</p>
 		<div class="mt-3 overflow-x-auto">
 			<table class="w-full text-left text-sm">
@@ -199,7 +199,7 @@
 
 	<!-- Market Modifier -->
 	<section class="mb-8">
-		<p class={sectionLabel()}>Market Modifier</p>
+		<p class={sectionLabel()}>Demand Resilience</p>
 		<div class="mt-3 space-y-2">
 			<p class="rounded-md bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
 				market_resilience = 0.6 × market_momentum + 0.4 × occupation_scarcity

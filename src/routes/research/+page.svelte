@@ -24,7 +24,7 @@
 		candidate_v5: {
 			label: 'Next horizon',
 			description:
-				'Research not yet absorbed into the live model and reserved for future V5.x calibration work.'
+				'Research not yet absorbed into the live model and reserved for future post-V6 calibration work.'
 		},
 		supporting_context: {
 			label: 'Supporting context',
@@ -46,7 +46,7 @@
 
 <Seo
 	title="Research Library"
-	description="Canonical in-repo library of the papers, reports, and datasets behind the live methodology, validation layer, and V5 roadmap."
+	description="Canonical in-repo library of the papers, reports, and datasets behind the live methodology, validation layer, and next-horizon roadmap."
 	path="/research"
 />
 

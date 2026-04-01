@@ -150,7 +150,7 @@
 			name: 'exposure',
 			type: 'number',
 			description:
-				'Live exposure score (0-1). V5 uses a latent-source posterior over the audited 4-source exposure stack, then applies task-mode blending where weighted task evidence is strong; fallback occupations retain the posterior ensemble.'
+				'Live exposure score (0-1). V6 keeps the latent-source posterior over the audited 4-source exposure stack and applies task-mode blending where weighted task evidence is strong; fallback occupations retain the posterior ensemble.'
 		},
 		{
 			name: 'bottleneck',
@@ -161,7 +161,8 @@
 		{
 			name: 'net_risk',
 			type: 'number',
-			description: 'Net displacement risk (0-1). Formula: exposure × (1 - bottleneck) × market_modifier.'
+			description:
+				'Headline displacement risk (0-1). Formula: headline_risk = displacement_pressure × (1 - demand_resilience), where displacement_pressure = exposure × (1 - bottleneck).'
 		},
 		{
 			name: 'risk_band',
@@ -173,7 +174,7 @@
 			name: 'augmentation',
 			type: 'number',
 			description:
-				'Live V5 augmentation potential (0-1). This uses heterogeneous augmentation priors layered on top of the structural bottleneck, rather than only the earlier structural proxy.'
+				'Live V6 augmentation potential (0-1). This uses heterogeneous augmentation priors layered on top of the structural bottleneck, rather than only the earlier structural proxy.'
 		},
 		{
 			name: 'impact_type',
@@ -224,7 +225,7 @@
 			name: 'evidence.exposure_blend_strategy',
 			type: 'enum',
 			description:
-				'Current exposure provenance marker. The audited 4-source stack remains the evidence base even where V5 applies latent posterior calibration and task-mode blending.'
+				'Current exposure provenance marker. The audited 4-source stack remains the evidence base even where V6 applies latent posterior calibration and task-mode blending.'
 		},
 		{
 			name: 'evidence.exposure_agreement',
@@ -242,7 +243,7 @@
 			name: 'evidence.exposure_source_pctiles',
 			type: 'object',
 			description:
-				'Persisted per-source exposure percentiles for the matched AIOE, Anthropic, Eloundou, and ILO inputs. Used by the published V5 posterior-uncertainty sidecar.'
+				'Persisted per-source exposure percentiles for the matched AIOE, Anthropic, Eloundou, and ILO inputs. Used by the published posterior-uncertainty sidecar.'
 		},
 		{
 			name: 'evidence.signal_conflict',
@@ -363,7 +364,7 @@
 			name: 'baseline_v43',
 			type: 'object',
 			description:
-				'Retained V4.3 baseline snapshot for auditability against the promoted V5 live score.'
+				'Retained V4.3 baseline snapshot for auditability against the later promoted live releases.'
 		},
 		{
 			name: 'baseline_v42',
@@ -374,7 +375,7 @@
 		{
 			name: 'structural_risk',
 			type: 'number',
-			description: 'Live V5 structural risk field, matching the headline net_risk.'
+			description: 'Live V6 structural risk field, matching the headline net_risk.'
 		},
 		{
 			name: 'transition_adjusted_risk',
@@ -391,7 +392,7 @@
 		{
 			name: 'adaptation_capacity',
 			type: 'number',
-			description: 'Bounded V5 adaptation-capacity composite built from augmentation and mobility sidecars.'
+			description: 'Bounded adaptation-capacity composite built from augmentation and mobility sidecars.'
 		},
 		{
 			name: 'demand_fragility',
@@ -741,7 +742,7 @@
 				</div>
 				<p class="mt-1 text-sm text-muted-foreground">
 					Shadow-governance status, promotion history, and the retained audit trail behind the live
-					V5 release.
+					V6 release.
 				</p>
 				<span class="mt-auto pt-2 text-xs text-primary">experimental-methodology-v43.json</span>
 			</div>
@@ -774,7 +775,7 @@
 					<span class="text-base font-semibold text-foreground">Research Library</span>
 				</div>
 				<p class="mt-1 text-sm text-muted-foreground">
-					Canonical citation registry linking the live methodology, validation layer, and V5 roadmap to source papers and reports.
+					Canonical citation registry linking the live methodology, validation layer, and archived V5 roadmap to source papers and reports.
 				</p>
 				<span class="mt-auto pt-2 text-xs text-primary">research-library.json</span>
 			</div>
@@ -791,8 +792,8 @@
 					<span class="text-base font-semibold text-foreground">V5 Roadmap</span>
 				</div>
 				<p class="mt-1 text-sm text-muted-foreground">
-					Post-promotion V5.x roadmap for stronger realized-risk calibration, richer mobility quality
-					effects, posterior uncertainty refinement, and future release discipline.
+					Archived roadmap for the V5 research program that preceded the current V6 two-axis
+					structural release.
 				</p>
 				<span class="mt-auto pt-2 text-xs text-primary">v5-roadmap.json</span>
 			</div>
@@ -810,7 +811,8 @@
 				</div>
 				<p class="mt-1 text-sm text-muted-foreground">
 					Published V5 workstream summary covering augmentation heterogeneity, empirical mobility,
-					posterior uncertainty, and realized-risk forecasting sidecars.
+					posterior uncertainty, and realized-risk forecasting sidecars that fed the later V6
+					release.
 				</p>
 				<span class="mt-auto pt-2 text-xs text-primary">v5-sidecars.json</span>
 			</div>
@@ -827,8 +829,8 @@
 					<span class="text-base font-semibold text-foreground">V5 Model Note</span>
 				</div>
 				<p class="mt-1 text-sm text-muted-foreground">
-					Final promotion-comparison artifact for the live V5 model, retaining the pre-promotion V4.3
-					baseline and the published adjunct layers.
+					Final promotion-comparison artifact for the former live V5 model, retaining the
+					pre-promotion V4.3 baseline and the published adjunct layers.
 				</p>
 				<span class="mt-auto pt-2 text-xs text-primary">v5-experimental-model.json</span>
 			</div>
@@ -846,7 +848,7 @@
 					<span class="text-base font-semibold text-foreground">V5 Validation Comparison</span>
 				</div>
 				<p class="mt-1 text-sm text-muted-foreground">
-					Comparison and validation summary for the live V5 model versus the retained V4.3 baseline
+					Comparison and validation summary for the former live V5 model versus the retained V4.3 baseline
 					across structural and realized-risk checks.
 				</p>
 				<span class="mt-auto pt-2 text-xs text-primary">v5-experimental-validation.json</span>
@@ -974,11 +976,11 @@
 		<p class={cn(sectionLabel(), 'mb-3')}>Methodology Version</p>
 		<div class={card({ padding: 'lg' })}>
 			<div class="space-y-1 text-sm text-muted-foreground">
-				<p><span class="font-medium text-foreground">Version:</span> V5 (latent posterior exposure over the audited 4-source stack, task-mode blending where evidence is strong, concentration-aware fragility, heterogeneous augmentation, and separately published transition-adjusted / realized-risk layers)</p>
+				<p><span class="font-medium text-foreground">Version:</span> V6 (headline risk = displacement pressure × (1 − demand resilience), with latent posterior exposure over the audited 4-source stack, task-mode blending where evidence is strong, and separately published transition-adjusted / realized-risk layers)</p>
 				<p><span class="font-medium text-foreground">Data vintage:</span> 2024 wages, 2024/2025 demand signals</p>
 				<p><span class="font-medium text-foreground">Occupations:</span> {DATA_VINTAGE.occupation_count} SSOC-coded occupations</p>
 				<p><span class="font-medium text-foreground">Separate context bundle:</span> Labour monitor, worker profile, industry context, sector wage anchors, geography context, macro labour context, national AI context, offset potential, and transition support</p>
-				<p><span class="font-medium text-foreground">Retained baseline trail:</span> {experimentalStatusLabel(siteStatus.experimental_release.status)}. The full V4.3 shadow and promotion comparison remain published so the live V5 release can still be audited against the retained V4.3 and V4.2 baselines.</p>
+				<p><span class="font-medium text-foreground">Retained baseline trail:</span> {experimentalStatusLabel(siteStatus.experimental_release.status)}. The full V4.3 shadow and V5 promotion comparison remain published so the live V6 release can still be audited against the retained V4.3 and V4.2 baselines.</p>
 				<p><span class="font-medium text-foreground">Research memory:</span> {researchLibrary.entry_count} canonical research entries are published in the research library and linked to claims/source registry records.</p>
 				<p><span class="font-medium text-foreground">Sources:</span> MOM Singapore (wages, Labour Force Section D, industry context, demand signals, SOI), IMDA Singapore Digital Economy Report 2025, IMDA NAIIP 2026, O*NET, Felten AIOE, Pizzinelli/IMF, Anthropic observed usage, Eloundou GPT exposure, ILO occupational exposure, SOL 2026, Jobs in Demand 2025</p>
 			</div>

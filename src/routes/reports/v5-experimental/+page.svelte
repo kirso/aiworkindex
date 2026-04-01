@@ -25,7 +25,7 @@
 <Seo
 	title={isLiveV5 ? 'V5 Model Note' : 'V5 Experimental Model'}
 	description={isLiveV5
-		? 'Audit note for the live V5 structural release, preserving the final comparison against the retained V4.3 baseline and the published transition-adjusted and realized-risk layers.'
+		? 'Audit note for the former live V5 structural release, preserving the final comparison against the retained V4.3 baseline and the published transition-adjusted and realized-risk layers.'
 		: 'Integrated V5 experimental candidate combining posterior exposure, task-mode proxies, concentration-driven fragility, augmentation heterogeneity, empirical mobility, and archetype-capped realized-risk calibration.'}
 	path="/reports/v5-experimental"
 />
@@ -49,8 +49,8 @@
 		</p>
 		<p class="mt-1 text-sm text-muted-foreground">
 			{#if isLiveV5}
-				This page now preserves the final V5 promotion comparison. The planning rationale and
-				next-step calibration work stay on the
+				This page now preserves the final V5 promotion comparison after the V6 rollout. The planning
+				rationale and next-step calibration work stay on the
 			{:else}
 				This report is results-oriented: it shows what the integrated V5 candidate currently does.
 				The planning rationale and workstream framing stay on the
@@ -63,11 +63,11 @@
 		<div class={card({ padding: 'sm', variant: 'metric' })}>
 			<p class={microLabel()}>Status</p>
 			<p class="mt-1 text-lg font-bold text-foreground">
-				{isLiveV5 ? 'Live now' : 'Experimental only'}
+				{isLiveV5 ? 'Archived live note' : 'Experimental only'}
 			</p>
 			<p class="text-xs text-muted-foreground">
 				{isLiveV5
-					? 'published in occupations with retained V4.3 comparison'
+					? 'published as the retained V5 promotion artifact with V4.3 comparison'
 					: 'not live in occupations'}
 			</p>
 		</div>
@@ -155,8 +155,8 @@
 				</div>
 				<p class="mt-2 text-sm text-muted-foreground">
 					{#if isLiveV5}
-						The live V5 release remains auditable because the retained V4.3 baseline, sidecars, and
-						promotion-comparison artifacts are still published separately.
+						The former live V5 release remains auditable because the retained V4.3 baseline,
+						sidecars, and promotion-comparison artifacts are still published separately.
 					{:else}
 						This candidate is auditable because the sidecars remain published separately. Any future
 						promotion still needs an explicit release decision.

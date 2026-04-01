@@ -2,7 +2,7 @@
   "updated_at": "2026-03-30T03:29:12.902Z",
   "structural_release": {
     "version": "V6",
-    "label": "V5 structural release",
+    "label": "V6 structural release",
     "generated_at": "2026-03-30T00:00:00.000Z",
     "score_dataset_generated_at": "2026-03-30",
     "release_manifest": "release-manifest-v5.json"
@@ -11,7 +11,7 @@
     "version": "V4.3-shadow",
     "label": "V4.3-shadow task-weighted shadow model",
     "status": "promoted",
-    "summary": "The V4.3 shadow model was first promoted into the live structural release and is now retained as the immediate pre-V5 baseline. The shadow artifacts remain published for auditability against the earlier V4.2 baseline.",
+    "summary": "The V4.3 shadow model was first promoted into the live structural release and is now retained as the immediate pre-V6 baseline. The shadow artifacts remain published for auditability against the earlier V4.2 baseline.",
     "artifact": "experimental-methodology-v43.json",
     "shadow_score_published": true,
     "headline_promotion_ready": true,
@@ -21,7 +21,7 @@
   },
   "v5_program": {
     "status": "promoted_live",
-    "summary": "V5 is now the live structural release. The retained V4.3 baseline and promotion-comparison artifacts remain published for auditability.",
+    "summary": "V5 was the prior live structural release. Its retained V4.3 baseline and promotion-comparison artifacts remain published for auditability under V6.",
     "workstream_count": 4,
     "experimental_model_published": true,
     "structural_validation_result": "2/2",
@@ -48,7 +48,7 @@
     "employer_pressure_generated_at": "2026-03-21T16:09:26.758Z",
     "employer_pressure_latest_signal_date": "2025-10-06",
     "quarterly_report_generated_at": "2026-03-30T03:09:37.589Z",
-    "quarterly_current_snapshot": "occupations-v5-2026-03.json",
+    "quarterly_current_snapshot": "occupations-v6-2026-03.json",
     "quarterly_previous_snapshot": "occupations-v4-2026-03.json",
     "cluster_validation_checks_passed": 2,
     "cluster_validation_checks_total": 4,
@@ -70,7 +70,7 @@
   "homepage_banner": {
     "tag": "V6 live",
     "title": "V6 two-axis scoring: demand resilience now counteracts displacement pressure",
-    "body": "V6 replaces the capped market modifier with an independent demand resilience axis. Verified market demand (SOL, JiD) can now substantially offset structural AI pressure.",
+    "body": "V6 introduces an independent demand resilience axis. Verified market demand (SOL, JiD) can now substantially offset structural AI pressure.",
     "link_href": "/methodology",
     "link_label": "V6 methodology"
   }

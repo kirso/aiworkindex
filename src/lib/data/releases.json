@@ -2,16 +2,16 @@
   {
     "id": "structural-v5-2026-03-21",
     "type": "structural_release",
-    "label": "V5 structural release",
-    "version_label": "V5",
+    "label": "V6 structural release",
+    "version_label": "V6",
     "published_at": "2026-03-21",
     "display_date": "21 Mar 2026",
-    "score_version": "V5",
+    "score_version": "V6",
     "monitor_vintage": "Q4 2025 full",
     "href": "/data",
     "availability": "current_download",
     "notes": [
-      "Promotes the V5 structural model: latent-source posterior exposure, task-mode blending, concentration-driven fragility, and heterogeneous augmentation.",
+      "Promotes the V6 structural model: headline risk now combines displacement pressure with an independent demand resilience axis.",
       "Transition-adjusted and realized-risk layers are now published alongside the live structural score instead of being collapsed into the headline number.",
       "V4.3 remains retained as a historical downloadable snapshot for auditability."
     ]
@@ -30,7 +30,7 @@
     "notes": [
       "Promotes the task-aware exposure upgrade from the published V4.3 shadow model into the live structural score.",
       "Bootstrap uncertainty tracks the promoted task-aware exposure layer where weighted task evidence exists.",
-      "Retained as the immediate pre-V5 live baseline for auditability."
+      "Retained as the immediate pre-V6 live baseline for auditability."
     ]
   },
   {
@@ -167,13 +167,13 @@
     "label": "V4.3 shadow model promoted",
     "published_at": "2026-03-30",
     "display_date": "21 Mar 2026",
-    "score_version": "V5",
+    "score_version": "V6",
     "monitor_vintage": "Q4 2025 full",
     "href": "/reports/v4-3-shadow",
     "availability": "current_download",
     "notes": [
-      "V4.3 remains retained as the immediate pre-V5 live baseline, while the full shadow comparison stays published for auditability.",
-      "The former V4.3 shadow model remains published as the retained pre-V5 live baseline and promotion trail."
+      "V4.3 remains retained as the immediate pre-V6 live baseline, while the full shadow comparison stays published for auditability.",
+      "The former V4.3 shadow model remains published as the retained pre-V6 live baseline and promotion trail."
     ]
   },
   {
@@ -187,7 +187,7 @@
     "href": "/reports/v5-roadmap",
     "availability": "current_download",
     "notes": [
-      "V5 is now the live structural release. The retained V4.3 baseline and promotion-comparison artifacts remain published for auditability.",
+      "V5 is now an archived research program. The retained V4.3 baseline and promotion-comparison artifacts remain published for auditability under V6.",
       "Each V5 workstream now ships as an auditable sidecar artifact before any future headline-score change."
     ]
   },
@@ -202,7 +202,7 @@
     "href": "/reports/v5-experimental",
     "availability": "current_download",
     "notes": [
-      "The V5 structural release is now live, while the transition-adjusted and realized-risk layers remain published as auditable adjunct fields.",
+      "The former V5 structural release remains published as an auditable promotion artifact after the V6 rollout.",
       "Current validation snapshot: structural 2/2, realized 3/4."
     ]
   },
@@ -212,7 +212,7 @@
     "label": "MOM Labour Market Report Q4 2025",
     "published_at": "2026-03-20",
     "display_date": "20 Mar 2026",
-    "score_version": "V5",
+    "score_version": "V6",
     "monitor_vintage": "Q4 2025 full",
     "href": "https://stats.mom.gov.sg/Pages/Labour-Market-Report-4Q-2025.aspx",
     "availability": "current_download",
@@ -227,7 +227,7 @@
     "label": "2026 Q1 quarterly briefing",
     "published_at": "2026-03-30",
     "display_date": "21 Mar 2026",
-    "score_version": "V5",
+    "score_version": "V6",
     "monitor_vintage": "Q4 2025 full",
     "href": "/reports",
     "availability": "current_download",

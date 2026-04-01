@@ -22,7 +22,7 @@
 				name: 'How is the AI job risk score calculated?',
 				acceptedAnswer: {
 					'@type': 'Answer',
-					text: 'Net displacement risk = exposure ensemble × (1 − human bottleneck) × market modifier. The exposure layer combines available matches from AIOE, Anthropic observed usage, Eloundou GPT exposure, and the ILO occupational exposure index. Human bottleneck comes from Pizzinelli theta and market resilience from Singapore MOM demand, wage, and labour-market signals.'
+					text: 'Headline risk = displacement pressure × (1 − demand resilience), where displacement pressure = exposure ensemble × (1 − human bottleneck). The exposure layer combines available matches from AIOE, Anthropic observed usage, Eloundou GPT exposure, and the ILO occupational exposure index. Human bottleneck comes from Pizzinelli theta, while demand resilience comes from Singapore MOM demand, wage, and labour-market signals.'
 				}
 			},
 			{
@@ -67,7 +67,7 @@
 		<div class={card({ padding: 'sm', accent: 'high' })}>
 			<p class={cn(sectionLabel({ case: 'upper' }), 'text-risk-high')}>Structural Score</p>
 			<p class={cn(caption(), 'mt-1')}>
-				Core model. Exposure × bottleneck × market modifier. Published as the primary dataset.
+				Core model. Displacement pressure × demand resilience. Published as the primary dataset.
 			</p>
 		</div>
 		<div class={card({ padding: 'sm', accent: 'moderate' })}>

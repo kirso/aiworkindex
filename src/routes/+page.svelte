@@ -91,7 +91,7 @@
 				name: 'How is the Singapore AI job risk score calculated?',
 				acceptedAnswer: {
 					'@type': 'Answer',
-					text: 'Net displacement risk = AI exposure × (1 − human bottleneck) × market modifier. No LLM is used in the scoring pipeline.'
+					text: 'Headline risk = displacement pressure × (1 − demand resilience), where displacement pressure = AI exposure × (1 − human bottleneck). No LLM is used in the scoring pipeline.'
 				}
 			}
 		]

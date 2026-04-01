@@ -19,7 +19,7 @@
 
 <Seo
 	title="V5 Roadmap"
-	description="Next-horizon scientific upgrades after the live V5 release: stronger realized-risk calibration, mobility quality effects, posterior uncertainty refinement, and future V5.x promotion discipline."
+	description="Archived roadmap for the V5 research program that preceded the current V6 two-axis release."
 	path="/reports/v5-roadmap"
 />
 
@@ -37,18 +37,18 @@
 	<div class={cn(card({ padding: 'md', variant: 'notice', accent: 'primary' }), 'mt-4')}>
 		<p class="text-sm font-semibold text-foreground">{v5Roadmap.summary}</p>
 		<p class="mt-1 text-sm text-muted-foreground">
-			V5 is now live. This roadmap tracks the next V5.x calibration work rather than another
-			promotion exercise.
+			V5 is no longer the live model. This page is preserved as the archived roadmap for the V5
+			research program that fed into the later V6 release.
 		</p>
 	</div>
 
 	{#if v5Roadmap.experimental_model_status}
 		<div class={cn(card({ padding: 'md', variant: 'notice', accent: 'primary' }), 'mt-4')}>
 			<p class="text-sm font-semibold text-foreground">
-				V5 is live and the full comparison trail is preserved.
+				The V5 comparison trail is preserved.
 			</p>
 			<p class="mt-1 text-sm text-muted-foreground">
-				The roadmap no longer stops at sidecars. A combined experimental model is now available with
+				The roadmap no longer stops at sidecars. A combined experimental model remains available with
 				structural validation
 				{v5Roadmap.experimental_model_status.structural_validation_result}
 				and realized-risk validation
@@ -67,7 +67,7 @@
 		<div class={card({ padding: 'sm', variant: 'metric' })}>
 			<p class={microLabel()}>Current live</p>
 			<p class="mt-1 text-lg font-bold text-foreground">{v5Roadmap.current_live_version}</p>
-			<p class="text-xs text-muted-foreground">promoted structural baseline</p>
+			<p class="text-xs text-muted-foreground">the live version when this roadmap was authored</p>
 		</div>
 		<div class={card({ padding: 'sm', variant: 'metric' })}>
 			<p class={microLabel()}>Retained V4.3 baseline</p>
@@ -82,7 +82,7 @@
 				{v5Roadmap.v43_handoff.task_native_count}
 			</p>
 			<p class="text-xs text-muted-foreground">
-				occupations carried into the retained pre-V5 baseline
+				occupations carried into the retained pre-V6 baseline
 			</p>
 		</div>
 		<div class={card({ padding: 'sm', variant: 'metric' })}>
@@ -143,8 +143,9 @@
 					<div>
 						<p class="text-sm font-semibold text-foreground">V5 Model Note</p>
 						<p class="mt-1 text-sm text-muted-foreground">
-							The integrated V5 model is now live. This note preserves the final promotion
-							comparison against the retained V4.3 baseline and the published V5 adjunct layers.
+							The integrated V5 model is no longer live. This note preserves the final promotion
+							comparison against the retained V4.3 baseline and the published V5 adjunct layers
+							for auditability under V6.
 						</p>
 					</div>
 					<a href="/reports/v5-experimental" class="text-xs text-primary hover:underline">

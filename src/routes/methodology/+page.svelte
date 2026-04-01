@@ -68,7 +68,7 @@
 
 <Seo
 	title="Scoring Methodology — Reliability-Weighted 4-Source Ensemble"
-	description="Live V5 structural score: latent-source posterior exposure, task-mode adjustment, human bottleneck, market resilience, and separately published transition-adjusted and realized-risk layers."
+	description="Live V6 structural score: latent-source posterior exposure, task-mode adjustment, human bottleneck, demand resilience, and separately published transition-adjusted and realized-risk layers."
 	path="/methodology"
 />
 
@@ -86,7 +86,7 @@
 			A software developer and a data entry clerk can both score high on AI exposure, but one gets
 			augmented (MOM lists software developers as in-demand in 2025) while the other faces
 			substitution. We deliberately separate technical exposure from market translation using a
-			three-layer structural score.
+			V6 two-axis structural score.
 		</p>
 	</div>
 
@@ -121,7 +121,7 @@
 		<p class="text-sm text-text-secondary">
 			<strong>What this model does:</strong> Measures structural AI displacement pressure using observable
 			inputs. It tells you which occupations face the most technical overlap with AI capabilities and
-			which have the strongest human bottlenecks and market buffers.
+			which have the strongest human bottlenecks and demand buffers.
 		</p>
 		<p class="mt-2 text-sm text-text-secondary">
 			<strong>What it does not do:</strong> Predict actual job losses or forecast hiring trends. The core
@@ -134,9 +134,10 @@
 	<div class={cn(card({ variant: 'inset', padding: 'sm' }), 'mt-4')}>
 		<p class={cn(sectionLabel(), 'mb-2')}>How To Read This</p>
 		<p class="text-sm text-text-secondary">
-			This site has two layers. The <strong>core score</strong> is the authoritative ranking layer: exposure,
-			bottleneck, market modifier, net risk, and uncertainty. The <strong>interpretive layer</strong>
-			helps explain how work is performed in practice, including role-profile and workflow context.
+			This site has two layers. The <strong>core score</strong> is the authoritative ranking layer:
+			exposure, bottleneck, displacement pressure, demand resilience, headline risk, and uncertainty.
+			The <strong>interpretive layer</strong> helps explain how work is performed in practice,
+			including role-profile and workflow context.
 		</p>
 		<p class="mt-2 text-sm text-text-secondary">
 			Interpretive fields are heuristic and should be read as context, not as direct occupation-level
@@ -159,15 +160,16 @@
 			<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'primary' }), 'mb-6')}>
 				<p class="text-sm font-semibold text-foreground">TL;DR</p>
 				<p class="mt-1 text-sm text-muted-foreground">
-					Net risk = AI exposure × (1 − human bottleneck) × market modifier. In live V5, exposure
-					comes from an audited 4-source stack, then passes through a latent posterior and task-mode
-					upgrade where the evidence is strong. No LLM assigns scores in the pipeline.
+					Headline risk = displacement pressure × (1 − demand resilience), where displacement pressure
+					= AI exposure × (1 − human bottleneck). In live V6, exposure comes from an audited
+					4-source stack, then passes through a latent posterior and task-mode upgrade where the
+					evidence is strong. No LLM assigns scores in the pipeline.
 				</p>
 			</div>
 
-			<!-- Three-layer overview -->
+			<!-- V6 overview -->
 			<section class="mb-8">
-				<p class={sectionLabel()}>Three-Layer Structural Score</p>
+				<p class={sectionLabel()}>V6 Two-Axis Structural Score</p>
 				<div class="mt-3 space-y-4">
 					<div class={card({ padding: 'sm' })}>
 						<h3 class="text-sm font-semibold text-red-700">Layer 1: Exposure</h3>
@@ -185,17 +187,18 @@
 						</p>
 					</div>
 					<div class={card({ padding: 'sm' })}>
-						<h3 class="text-sm font-semibold text-impact-leveraged">Layer 3: Market Resilience</h3>
+						<h3 class="text-sm font-semibold text-impact-leveraged">Axis 2: Demand Resilience</h3>
 						<p class="mt-1 text-sm text-muted-foreground">
-							Is Singapore's labor market for this occupation growing or shrinking? Group-level
-							employment and wage trends plus occupation-level wage scarcity proxies.
+							How strongly does Singapore demand counteract structural AI pressure for this
+							occupation? Built from base resilience plus direct demand-signal bonuses.
 						</p>
 					</div>
 				</div>
 				<p class="mt-3 text-sm text-muted-foreground">
-					These three layers produce the structural score. Around that core score we add confidence,
-					labour evidence, synthetic-role estimates, offset potential, and scenario tooling rather
-					than hiding everything inside one opaque number.
+					Exposure and bottleneck first form <strong>displacement pressure</strong>. Demand
+					resilience then acts as an independent counterforce. Around that core score we add
+					confidence, labour evidence, synthetic-role estimates, offset potential, and scenario
+					tooling rather than hiding everything inside one opaque number.
 				</p>
 				<p class="mt-2 text-sm text-muted-foreground">
 					Separate Singapore context modules now show industry footprint and worker-profile
@@ -230,12 +233,12 @@
 								<td class="py-2">Pizzinelli theta from O*NET (2023), percentile-ranked</td>
 							</tr>
 							<tr class="border-b border-border/50">
-								<td class="py-2 pr-3 font-medium">Market Resilience</td>
-								<td class="py-2 pr-3">Employment momentum + occupation wage scarcity</td>
-								<td class="py-2">MOM employment/wage trends + occupation wage structure</td>
+								<td class="py-2 pr-3 font-medium">Demand Resilience</td>
+								<td class="py-2 pr-3">Base resilience plus occupation-level demand bonuses</td>
+								<td class="py-2">MOM employment/wage trends + scarcity + SOL / JiD</td>
 							</tr>
 							<tr>
-								<td class="py-2 pr-3 font-medium">Net Displacement Risk</td>
+								<td class="py-2 pr-3 font-medium">Headline Risk</td>
 								<td class="py-2 pr-3"
 									>Published as risk bands (Very Low to Very High) with confidence</td
 								>
@@ -250,10 +253,15 @@
 			<section class="mb-8">
 				<p class={sectionLabel()}>The Formula</p>
 				<p class="mt-2 rounded bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
-					net_risk = exposure_ensemble &times; (1 - bottleneck) &times; market_modifier
+					headline_risk = displacement_pressure &times; (1 - demand_resilience)
 				</p>
 				<p class="mt-2 text-sm text-muted-foreground">Where:</p>
 				<ul class="mt-1 list-inside list-disc space-y-0.5 text-sm text-muted-foreground">
+					<li>
+						<code class="rounded bg-muted px-1 text-xs"
+							>displacement_pressure = exposure &times; (1 - bottleneck)</code
+						>
+					</li>
 					<li>
 						<code class="rounded bg-muted px-1 text-xs"
 							>demand_resilience = min(1.0, base_resilience &times; 0.45 + demand_signal_bonus)</code
@@ -261,14 +269,14 @@
 					</li>
 					<li>
 						<code class="rounded bg-muted px-1 text-xs"
-							>market_resilience = 0.6 &times; market_momentum + 0.4 &times; occupation_scarcity</code
+							>base_resilience = 0.6 &times; market_momentum + 0.4 &times; occupation_scarcity</code
 						>
 					</li>
 				</ul>
 				<p class="mt-2 text-sm text-muted-foreground italic">
-					The market modifier only dampens risk (it is always &le; 1.0). Weak markets don't amplify
-					risk beyond the technical signal — they simply provide less buffer. Maximum reduction:
-					35%.
+					Demand resilience is its own axis, not a compressed multiplier. Weak demand provides less
+					buffer; strong verified demand can offset much more of the structural pressure than the old
+					buffering rule allowed.
 				</p>
 			</section>
 
@@ -365,11 +373,12 @@
 
 			<!-- Layer 3 details -->
 			<section class="mb-8">
-				<p class={sectionLabel()}>Layer 3: Market Resilience</p>
+				<p class={sectionLabel()}>Axis 2: Demand Resilience</p>
 				<p class="mt-2 text-sm text-muted-foreground">
-					Market data is a <strong>calibrator</strong>, not an override. Employment and wages are
-					lagging and confounded. The market layer can reduce net risk by up to 35% — it never
-					amplifies risk beyond the technical signal.
+					Market data is a <strong>counterforce</strong>, not an override. Employment and wages are
+					lagging and confounded, so the base resilience layer stays conservative. Verified demand
+					signals then add explicit occupation-level cushioning on top of that base instead of being
+					compressed into the old single dampener.
 				</p>
 				<p class="mt-2 text-sm text-muted-foreground">
 					Separately, we build a Singapore industry-footprint layer from the official industry ×
@@ -408,10 +417,10 @@
 					</div>
 
 					<div class={card({ padding: 'md' })}>
-						<h3 class="font-semibold text-foreground">Combined Market Modifier</h3>
+						<h3 class="font-semibold text-foreground">Base Resilience and Demand Resilience</h3>
 						<div class="mt-2 space-y-2">
 							<p class="rounded bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
-								market_resilience = 0.6 &times; market_momentum + 0.4 &times; occupation_scarcity
+								base_resilience = 0.6 &times; market_momentum + 0.4 &times; occupation_scarcity
 							</p>
 							<p class="rounded bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
 								demand_resilience = min(1.0, base_resilience &times; 0.45 + demand_signal_bonus)
@@ -421,7 +430,8 @@
 							Momentum gets 60% weight and scarcity 40%. Within momentum, group-level wage growth is
 							retained as the common anchor while the employment side uses an occupation-specific
 							industry-footprint blend when available, falling back to the group prior otherwise.
-							The 0.35 cap means the market layer can reduce net risk by up to 35%.
+							V6 then converts that base resilience into demand resilience by retaining 45% of the
+							base signal and adding verified occupation-level demand bonuses.
 						</p>
 					</div>
 
@@ -439,19 +449,20 @@
 								(released Nov 2025, effective Jan 2026). 36 occupations across semiconductors,
 								healthcare, ICT, green economy, maritime, agritech, financial services. Matched to
 								62 SSOC codes.
-								<strong>+15% market resilience bonus.</strong>
+								<strong>Demand resilience bonus: +0.15 exact, +0.08 prefix.</strong>
 							</li>
 							<li>
 								<strong>Jobs in Demand 2025</strong>: Broader resident demand list (released Dec 30,
 								2025). Covers PMET and non-PMET roles: software developers, nurses, waiters,
 								drivers, security officers, auditors. Matched to 29 SSOC codes.
-								<strong>+10% market resilience bonus.</strong>
+								<strong>Demand resilience bonus: +0.12 exact, +0.06 prefix.</strong>
 							</li>
 						</ul>
 						<p class="mt-2 text-sm text-muted-foreground italic">
 							Where both signals match (e.g., software developer appears on both SOL and Jobs in
-							Demand), bonuses stack (capped at 1.0). SOL is EP/COMPASS-focused (PMET bias); Jobs in
-							Demand offsets this by covering non-PMET roles.
+							Demand), bonuses stack and are capped only at the final 1.0 demand-resilience ceiling.
+							SOL is EP/COMPASS-focused (PMET bias); Jobs in Demand offsets this by covering non-PMET
+							roles.
 						</p>
 					</div>
 
@@ -595,14 +606,14 @@
 				<p class="mt-2 text-sm text-muted-foreground">
 					A single displacement risk number misses half the story. We compute augmentation potential
 					from the
-					<strong>same three layers</strong>, with a different formula:
+					<strong>same core ingredients</strong>, with a different formula:
 				</p>
 				<div class="mt-2 space-y-2">
 					<p class="rounded bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
-						displacement_risk = exposure &times; (1 - bottleneck) &times; market_modifier
+						displacement_pressure = exposure &times; (1 - bottleneck)
 					</p>
 					<p class="rounded bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
-						augmentation = exposure &times; bottleneck &times; market_resilience
+						augmentation = exposure &times; bottleneck &times; base_resilience
 					</p>
 				</div>
 				<p class="mt-2 text-sm text-muted-foreground">
@@ -648,9 +659,9 @@
 					</table>
 				</div>
 				<p class="mt-3 text-sm text-muted-foreground italic">
-					Impact type is classified from net_risk and augmentation thresholds: net_risk &ge; 0.25 =
-					"high displacement", augmentation &ge; 0.12 = "high augmentation". Official demand signals
-					affect impact type indirectly through market resilience and therefore the structural
+					Impact type is classified from headline risk and augmentation thresholds: net_risk &ge;
+					0.25 = "high displacement", augmentation &ge; 0.12 = "high augmentation". Official demand
+					signals affect impact type indirectly through demand resilience and therefore the structural
 					scores; they are not applied again as a separate classification override.
 				</p>
 			</section>
@@ -1126,12 +1137,18 @@
 						<p class="text-sm font-semibold text-foreground">Software Developer</p>
 						<ul class="mt-2 space-y-1 text-xs text-muted-foreground">
 							{#if softwareDeveloper}
-								<li>Exposure: pctile(aioe) = {softwareDeveloper.exposure.toFixed(2)}</li>
+								<li>Exposure: {softwareDeveloper.exposure.toFixed(2)}</li>
 								<li>Bottleneck: pctile(theta) = {softwareDeveloper.bottleneck.toFixed(2)}</li>
-								<li>Market resilience: {softwareDeveloper.market.market_resilience.toFixed(2)}</li>
-								<li>Market modifier: {softwareDeveloper.market.market_modifier.toFixed(2)}</li>
 								<li>
-									Net risk: <strong class="text-risk-very-low"
+									Displacement pressure: {softwareDeveloper.displacement_pressure?.toFixed(2) ??
+										'N/A'}
+								</li>
+								<li>Base resilience: {softwareDeveloper.market.market_resilience.toFixed(2)}</li>
+								<li>
+									Demand resilience: {softwareDeveloper.demand_resilience?.toFixed(2) ?? 'N/A'}
+								</li>
+								<li>
+									Headline risk: <strong class="text-risk-very-low"
 										>{softwareDeveloper.net_risk.toFixed(2)} ({riskBandLabels[
 											softwareDeveloper.risk_band
 										]})</strong
@@ -1149,12 +1166,18 @@
 						<p class="text-sm font-semibold text-foreground">Data Entry Clerk</p>
 						<ul class="mt-2 space-y-1 text-xs text-muted-foreground">
 							{#if dataEntryClerk}
-								<li>Exposure: pctile(aioe) = {dataEntryClerk.exposure.toFixed(2)}</li>
+								<li>Exposure: {dataEntryClerk.exposure.toFixed(2)}</li>
 								<li>Bottleneck: pctile(theta) = {dataEntryClerk.bottleneck.toFixed(2)}</li>
-								<li>Market resilience: {dataEntryClerk.market.market_resilience.toFixed(2)}</li>
-								<li>Market modifier: {dataEntryClerk.market.market_modifier.toFixed(2)}</li>
 								<li>
-									Net risk: <strong class="text-red-600"
+									Displacement pressure: {dataEntryClerk.displacement_pressure?.toFixed(2) ??
+										'N/A'}
+								</li>
+								<li>Base resilience: {dataEntryClerk.market.market_resilience.toFixed(2)}</li>
+								<li>
+									Demand resilience: {dataEntryClerk.demand_resilience?.toFixed(2) ?? 'N/A'}
+								</li>
+								<li>
+									Headline risk: <strong class="text-red-600"
 										>{dataEntryClerk.net_risk.toFixed(2)} ({riskBandLabels[
 											dataEntryClerk.risk_band
 										]})</strong
@@ -1172,8 +1195,8 @@
 
 				<p class="mt-3 text-sm text-muted-foreground">
 					This is why a single "AI exposure score" is misleading. The software developer has higher
-					exposure than many "at risk" occupations, yet their job is growing. The structural score
-					captures this distinction.
+					exposure than many "at risk" occupations, yet strong demand resilience offsets much more of
+					that structural pressure. The V6 score captures this distinction directly.
 				</p>
 			</section>
 		</Tabs.Content>
@@ -1223,7 +1246,7 @@
 					strong, human bottleneck (theta percentile), and market resilience (group-level employment/wage
 					trends + occupation-level wage structure). Net risk remains the published structural headline.
 					Transition-adjusted risk and realized-risk proxy are published separately so short-run labour
-					effects do not overwrite the structural score. Augmentation potential now reflects V5 heterogeneous
+					effects do not overwrite the structural score. Augmentation potential now reflects heterogeneous
 					augmentation priors rather than only the earlier structural proxy. Task-primitives sidecar fields,
 					uncertainty intervals, and scenario tooling remain published around the score. 88 estimated
 					modern roles (AI engineer, product manager, prompt engineer, startup operator, creator, gig-worker
@@ -1457,8 +1480,8 @@
 								<td class="py-2">Confidence score below 0.45 published as "Low"</td>
 							</tr>
 							<tr>
-								<td class="py-2 pr-3 font-medium">Market modifier cap</td>
-								<td class="py-2 pr-3">0.35</td>
+								<td class="py-2 pr-3 font-medium">Demand resilience weighting</td>
+								<td class="py-2 pr-3">0.45</td>
 								<td class="py-2"
 									><code class="rounded bg-muted px-1 text-xs"
 										>demand_resilience = min(1.0, base_resilience &times; 0.45 + demand_signal_bonus)</code
@@ -1522,10 +1545,11 @@
 			<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'primary' }), 'mb-6')}>
 				<p class="text-sm font-semibold text-foreground">TL;DR</p>
 				<p class="mt-1 text-sm text-muted-foreground">
-					{researchLibrary.entry_count} research entries + {dataSourceCount} data sources. The live model
-					now absorbs the core V5 stack: Felten AIOE, Pizzinelli complementarity, Anthropic observed usage
-					and labour-market work, Eloundou GPT exposure, ILO occupational exposure, task-mode weighting,
-					concentration effects, mobility priors, and latent-source uncertainty.
+					{researchLibrary.entry_count} research entries + {dataSourceCount} data sources. The live V6
+					model now absorbs the prior upgrade stack plus the new two-axis demand-resilience formulation:
+					Felten AIOE, Pizzinelli complementarity, Anthropic observed usage and labour-market work,
+					Eloundou GPT exposure, ILO occupational exposure, task-mode weighting, concentration
+					effects, mobility priors, and latent-source uncertainty.
 				</p>
 			</div>
 
@@ -1578,7 +1602,7 @@
 				<p class={sectionLabel()}>Research Registry</p>
 				<p class="mt-2 text-sm text-muted-foreground">
 					The methodology now reads from the same canonical research registry as the reports, data
-					page, and V5 roadmap. Use <a href="/research" class="text-primary hover:underline"
+					page, and archived roadmap pages. Use <a href="/research" class="text-primary hover:underline"
 						>/research</a
 					>
 					for the full source library and repo notes.

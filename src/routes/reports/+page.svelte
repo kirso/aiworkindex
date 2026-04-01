@@ -24,7 +24,7 @@
 	const postings = postingsMonitor.summary;
 	const quarterly = quarterlyReport;
 	const isPromoted = siteStatus.experimental_release?.status === 'promoted';
-	const isV5Live = siteStatus.structural_release.version === 'V5';
+	const isV6Live = siteStatus.structural_release.version === 'V6';
 	const experimentalPositiveStates = ['ready_for_shadow_scoring', 'shadow_published', 'promoted'];
 	const experimentalStatusBadgeClass = experimentalPositiveStates.includes(
 		siteStatus.experimental_release?.status ?? ''
@@ -68,9 +68,9 @@
 						>
 					</div>
 					<p class="mt-1 text-sm text-muted-foreground">
-						{#if isV5Live}
+						{#if isV6Live}
 							How the V4.3 shadow model first became live and why it remains published as the
-							immediate pre-V5 baseline.
+							immediate pre-V6 baseline.
 						{:else if isPromoted}
 							How the task-weighted shadow model was promoted into the live release, what changed,
 							and what remains published for auditability.
@@ -101,21 +101,21 @@
 					<div class="flex items-center gap-2">
 						<span class="text-base font-semibold text-foreground">V5 Roadmap</span>
 						<Badge variant="outline" class="bg-primary/10 text-primary border-primary/30"
-							>{isV5Live ? 'Next horizon' : 'Next'}</Badge
+							>{isV6Live ? 'Archive' : 'Next'}</Badge
 						>
 					</div>
 					<p class="mt-1 text-sm text-muted-foreground">
-						{#if isV5Live}
-							The next V5.x scientific program: stronger realized-risk calibration, richer mobility
-							quality effects, posterior uncertainty refinement, and future promotion discipline.
+						{#if isV6Live}
+							Archived roadmap for the V5 research program that preceded the current V6
+							two-axis release.
 						{:else}
 							The next scientific release program after V4.3: augmentation heterogeneity, empirical
 							mobility, posterior uncertainty, and realized-risk forecasting.
 						{/if}
 					</p>
 					<p class="mt-2 text-xs text-muted-foreground">
-						{#if isV5Live}
-							Planning surface for the post-promotion V5.x program.
+						{#if isV6Live}
+							Preserved for auditability alongside the published sidecars and promotion trail.
 						{:else}
 							Planning surface for the V5 program. Sidecars are published and the first integrated
 							experimental model is now available separately.
@@ -140,17 +140,16 @@
 					<div>
 						<div class="flex items-center gap-2">
 							<span class="text-base font-semibold text-foreground"
-								>{isV5Live ? 'V5 Model Note' : 'V5 Experimental Model'}</span
+								>{isV6Live ? 'V5 Model Note' : 'V5 Experimental Model'}</span
 							>
 							<Badge variant="outline" class="bg-primary/10 text-primary border-primary/30"
-								>{isV5Live ? 'Live' : 'Experimental'}</Badge
+								>{isV6Live ? 'Archived live note' : 'Experimental'}</Badge
 							>
 						</div>
 						<p class="mt-1 text-sm text-muted-foreground">
-							{#if isV5Live}
-								The live V5 model combines posterior uncertainty, task-mode exposure, concentration
-								friction, heterogeneous augmentation, empirical mobility, and published short-run
-								layers in one auditable release.
+							{#if isV6Live}
+								Archived promotion note for the former live V5 model, preserved so the V6 release
+								can still be compared against its immediate predecessor and adjunct layers.
 							{:else}
 								The first integrated V5 candidate now combines posterior uncertainty, augmentation
 								heterogeneity, empirical mobility, and realized-risk calibration into one auditable
@@ -161,7 +160,7 @@
 							Current validation snapshot: structural
 							{siteStatus.v5_program?.structural_validation_result}, realized
 							{siteStatus.v5_program?.realized_validation_result}.
-							{#if isV5Live}
+							{#if isV6Live}
 								The retained V4.3 baseline and promotion-comparison artifacts remain published.
 							{:else}
 								This remains separate from the live V4.3 score.
