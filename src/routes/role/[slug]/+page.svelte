@@ -261,9 +261,10 @@
 			'@type': 'BreadcrumbList',
 			itemListElement: [
 				{ '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url + '/' },
+				{ '@type': 'ListItem', position: 2, name: 'Roles', item: SITE.url + '/roles' },
 				{
 					'@type': 'ListItem',
-					position: 2,
+					position: 3,
 					name: scored.title,
 					item: SITE.url + '/role/' + scored.slug
 				}
@@ -288,6 +289,49 @@
 							'% (' +
 							riskBandLabels[scored.risk_band] +
 							').'
+					}
+				},
+				{
+					'@type': 'Question',
+					name: 'What is the AI risk score for ' + scored.title + '?',
+					acceptedAnswer: {
+						'@type': 'Answer',
+						text:
+							scored.title +
+							' has an estimated AI displacement risk of ' +
+							(scored.net_risk * 100).toFixed(0) +
+							'%, rated ' +
+							riskBandLabels[scored.risk_band] +
+							'. AI task overlap: ' +
+							(scored.exposure * 100).toFixed(0) +
+							'%. Human advantage: ' +
+							(scored.bottleneck * 100).toFixed(0) +
+							'%. This is a synthetic estimate blending ' +
+							scored.components.length +
+							' official Singapore occupations.'
+					}
+				},
+				{
+					'@type': 'Question',
+					name: 'What occupations make up the ' + scored.title + ' estimate?',
+					acceptedAnswer: {
+						'@type': 'Answer',
+						text:
+							scored.title +
+							' is estimated from ' +
+							scored.components.length +
+							' official Singapore occupations: ' +
+							scored.components
+								.slice(0, 5)
+								.map(
+									(c) =>
+										(c.occupation?.title ?? c.ssoc) +
+										' (' +
+										(c.weight * 100).toFixed(0) +
+										'%)'
+								)
+								.join(', ') +
+							'.'
 					}
 				}
 			]

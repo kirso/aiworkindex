@@ -31,7 +31,7 @@
 		license: 'https://opensource.org/licenses/MIT',
 		creator: { '@type': 'Organization', name: SITE.name, url: SITE.url },
 		dateModified: DATA_VINTAGE.last_updated,
-		spatialCoverage: { '@type': 'Country', name: 'Singapore' },
+		spatialCoverage: { '@type': 'Place', name: 'Singapore' },
 		variableMeasured: [
 			'AI exposure ensemble',
 			'Human bottleneck (theta)',

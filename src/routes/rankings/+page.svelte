@@ -10,7 +10,7 @@
 	} from '$lib/design-system';
 	import { pageLayout } from '$lib/design-system';
 	import { cn } from '$lib/utils';
-	import { DATA_VINTAGE } from '$lib/data/scoring-constants';
+	import { DATA_VINTAGE, SITE } from '$lib/data/scoring-constants';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
 
@@ -96,12 +96,32 @@
 			count: null
 		}
 	];
+
+	const collectionJsonLd = `<script type="application/ld+json">${JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'CollectionPage',
+		name: 'Singapore AI Job Risk Rankings 2026',
+		description:
+			'Curated ranking views into Singapore AI occupation landscape — displacement risk, augmentation, wage safety, transitions, and more.',
+		url: SITE.url + '/rankings',
+		mainEntity: {
+			'@type': 'ItemList',
+			numberOfItems: rankingPages.length,
+			itemListElement: rankingPages.map((page, i) => ({
+				'@type': 'ListItem',
+				position: i + 1,
+				name: page.title,
+				url: SITE.url + page.href
+			}))
+		}
+	})}<\/script>`;
 </script>
 
 <Seo
 	title="Singapore AI Job Risk Rankings 2026"
 	description="Ranked lists of Singapore occupations by AI displacement risk, augmentation potential, wage safety, and more."
 	path="/rankings"
+	jsonLd={[collectionJsonLd]}
 />
 
 <main class={pageLayout({ width: 'content' })}>

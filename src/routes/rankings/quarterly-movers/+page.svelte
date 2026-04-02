@@ -4,16 +4,58 @@
 	import QuarterlyMoversDumbbell from '$lib/components/viz/QuarterlyMoversDumbbell.svelte';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import { pageLayout } from '$lib/design-system';
+	import { SITE } from '$lib/data/scoring-constants';
 	import Seo from '$lib/components/ui/Seo.svelte';
 
 	let { data } = $props();
 	let report = $derived(data.report);
+
+	let itemListJsonLd = $derived(
+		`<script type="application/ld+json">${JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'ItemList',
+			name: 'Quarterly AI Risk Movers in Singapore',
+			description:
+				'Singapore occupations with the largest structural risk changes in the latest quarterly snapshot',
+			numberOfItems: data.risers.length + data.fallers.length,
+			itemListElement: [...data.risers, ...data.fallers].slice(0, 10).map((entry, i) => ({
+				'@type': 'ListItem',
+				position: i + 1,
+				name: entry.occupation?.title ?? entry.ssoc,
+				url: SITE.url + '/occupation/' + entry.ssoc
+			}))
+		})}<\/script>`
+	);
+
+	const faqJsonLd = `<script type="application/ld+json">${JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'FAQPage',
+		mainEntity: [
+			{
+				'@type': 'Question',
+				name: 'Why do AI risk scores change between quarters?',
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text: 'Scores shift when underlying data sources update — new demand signal lists, revised exposure indices, or changes to the scoring methodology between model versions.'
+				}
+			},
+			{
+				'@type': 'Question',
+				name: 'What does a band change mean for my occupation?',
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text: 'A band change (e.g., Moderate to High) means the occupation crossed a structural threshold. It reflects a meaningful shift in the balance between AI exposure, human bottlenecks, and market demand.'
+				}
+			}
+		]
+	})}<\/script>`;
 </script>
 
 <Seo
-	title="Quarterly Movers"
+	title="Quarterly AI Risk Movers — Singapore Occupation Score Changes (2026)"
 	description="Frozen snapshot-to-snapshot changes in Singapore occupation risk scores, band movers, and demand shifts."
 	path="/rankings/quarterly-movers"
+	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
 
 <main class={pageLayout({ width: 'content' })}>

@@ -26,6 +26,29 @@
 		})}<\/script>`
 	);
 
+	const faqJsonLd = `<script type="application/ld+json">${JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'FAQPage',
+		mainEntity: [
+			{
+				'@type': 'Question',
+				name: 'Are there high AI risk jobs that Singapore still needs?',
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text: 'Yes. Some occupations face high structural displacement pressure but still appear on official demand lists, creating a paradox where automation risk coexists with active hiring demand.'
+				}
+			},
+			{
+				'@type': 'Question',
+				name: 'Should I worry about AI if my job is in demand?',
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text: 'Demand signals provide a buffer but not immunity. These occupations may see role transformation rather than elimination — the work changes even as demand persists.'
+				}
+			}
+		]
+	})}<\/script>`;
+
 	const columns = [
 		{
 			key: 'net_risk',
@@ -61,10 +84,10 @@
 </script>
 
 <Seo
-	title="High Risk but In-Demand"
+	title="High AI Risk but In-Demand Jobs in Singapore (2026)"
 	description="Occupations with high AI displacement risk that still appear on Singapore's official demand lists."
 	path="/rankings/high-risk-in-demand"
-	jsonLd={[itemListJsonLd]}
+	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
 
 <main class={pageLayout({ width: 'content' })}>

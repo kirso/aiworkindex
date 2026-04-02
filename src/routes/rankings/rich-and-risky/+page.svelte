@@ -40,13 +40,36 @@
 			}))
 		})}<\/script>`
 	);
+
+	const faqJsonLd = `<script type="application/ld+json">${JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'FAQPage',
+		mainEntity: [
+			{
+				'@type': 'Question',
+				name: 'Which high-paying Singapore jobs are most at risk from AI?',
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text: 'Several occupations earning above SGD 5,000/month face high structural AI displacement pressure (30%+). These roles combine high AI task overlap with relatively low human bottlenecks, despite strong wages.'
+				}
+			},
+			{
+				'@type': 'Question',
+				name: 'Does a high salary protect against AI displacement?',
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text: 'Not necessarily. High wages reflect current market value, but structural AI pressure depends on task composition and human bottlenecks, not salary. Some well-paid roles have high automation potential.'
+				}
+			}
+		]
+	})}<\/script>`;
 </script>
 
 <Seo
 	title="Highest-Paid Jobs at Risk of AI Displacement in Singapore (2026)"
 	description="Top 25 high-paying occupations (SGD 5,000+/month) facing high AI displacement risk (30%+). These well-paid professionals earn above SGD 5,000/month but face significant structural AI pressure."
 	path="/rankings/rich-and-risky"
-	jsonLd={[itemListJsonLd]}
+	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
 
 <main class={pageLayout({ width: 'content' })}>

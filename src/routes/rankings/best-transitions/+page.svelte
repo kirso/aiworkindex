@@ -24,13 +24,36 @@
 			}))
 		})}<\/script>`
 	);
+
+	const faqJsonLd = `<script type="application/ld+json">${JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'FAQPage',
+		mainEntity: [
+			{
+				'@type': 'Question',
+				name: 'What career transitions reduce AI displacement risk?',
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text: 'The best transitions move workers from high-risk roles to adjacent occupations with lower AI exposure while leveraging similar skills. Transition feasibility is scored by skill overlap and risk reduction.'
+				}
+			},
+			{
+				'@type': 'Question',
+				name: 'How are career transition scores calculated?',
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text: 'Transition scores combine skill similarity between occupations with the net risk reduction achieved by moving. Higher scores mean more feasible moves with larger risk improvements.'
+				}
+			}
+		]
+	})}<\/script>`;
 </script>
 
 <Seo
-	title="Best Transitions"
+	title="Best Career Transitions From High-Risk AI Jobs in Singapore (2026)"
 	description="High-risk occupations with the highest transition scores to lower-risk alternatives."
 	path="/rankings/best-transitions"
-	jsonLd={[itemListJsonLd]}
+	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
 
 <main class={pageLayout({ width: 'content' })}>

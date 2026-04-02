@@ -26,6 +26,29 @@
 		})}<\/script>`
 	);
 
+	const faqJsonLd = `<script type="application/ld+json">${JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'FAQPage',
+		mainEntity: [
+			{
+				'@type': 'Question',
+				name: 'What are AI-augmented jobs?',
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text: 'AI-augmented occupations have high AI exposure but also strong human bottlenecks — coordination, physical presence, or judgment — that make full automation unlikely. AI enhances these roles rather than replacing them.'
+				}
+			},
+			{
+				'@type': 'Question',
+				name: 'Which Singapore jobs benefit most from AI?',
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text: 'Roles in engineering, medicine, and legal services often top this list, where AI handles routine analysis while humans handle judgment, relationships, and novel problems.'
+				}
+			}
+		]
+	})}<\/script>`;
+
 	const columns = [
 		{
 			key: 'augmentation',
@@ -55,10 +78,10 @@
 </script>
 
 <Seo
-	title="Augmented Occupations"
+	title="25 AI-Augmented Jobs in Singapore — High Exposure, Strong Moats (2026)"
 	description="Singapore occupations where AI augments rather than replaces — high exposure but strong human bottlenecks create augmentation potential."
 	path="/rankings/ai-leveraged"
-	jsonLd={[itemListJsonLd]}
+	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
 
 <main class={pageLayout({ width: 'content' })}>

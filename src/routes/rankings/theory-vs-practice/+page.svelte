@@ -28,6 +28,29 @@
 		})}<\/script>`
 	);
 
+	const faqJsonLd = `<script type="application/ld+json">${JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'FAQPage',
+		mainEntity: [
+			{
+				'@type': 'Question',
+				name: 'Where does AI theory diverge from actual usage?',
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text: "Academic AI exposure indices measure theoretical task automation potential, while Anthropic's observed usage data shows what people actually use AI for. The biggest gaps reveal where adoption lags or leads predictions."
+				}
+			},
+			{
+				'@type': 'Question',
+				name: 'Why do some jobs have high theoretical AI exposure but low real usage?',
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text: 'Regulatory barriers, trust requirements, or workflow integration costs can slow adoption even when tasks are technically automatable. Conversely, some low-exposure roles adopt AI tools faster than predicted.'
+				}
+			}
+		]
+	})}<\/script>`;
+
 	const columns = [
 		{
 			key: 'gap',
@@ -68,10 +91,10 @@
 </script>
 
 <Seo
-	title="Theory vs Practice"
+	title="AI Theory vs Practice — Where Real Usage Diverges in Singapore (2026)"
 	description="Where does observed AI usage diverge most from theoretical exposure? The biggest gaps between Anthropic's real-world data and academic AI exposure indices."
 	path="/rankings/theory-vs-practice"
-	jsonLd={[itemListJsonLd]}
+	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
 
 <main class={pageLayout({ width: 'content' })}>

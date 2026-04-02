@@ -27,6 +27,29 @@
 		})}<\/script>`
 	);
 
+	const faqJsonLd = `<script type="application/ld+json">${JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'FAQPage',
+		mainEntity: [
+			{
+				'@type': 'Question',
+				name: 'Can a job be high AI exposure but still in demand?',
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text: "Yes. Some occupations have significant AI task overlap but remain on Singapore's official Shortage Occupation List or Jobs in Demand list, suggesting market demand outpaces automation pressure."
+				}
+			},
+			{
+				'@type': 'Question',
+				name: 'Why are some AI-exposed jobs still hiring?',
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text: "Demand signals like shortage lists reflect current labor market needs. An occupation can have high theoretical AI exposure while still experiencing talent shortages in Singapore's economy."
+				}
+			}
+		]
+	})}<\/script>`;
+
 	const columns = [
 		{
 			key: 'exposure',
@@ -60,10 +83,10 @@
 </script>
 
 <Seo
-	title="High Exposure + In Demand"
+	title="High AI Exposure but In-Demand Jobs in Singapore (2026)"
 	description="Singapore occupations with high AI exposure that remain on shortage or in-demand lists — paradox roles where demand persists despite AI overlap."
 	path="/rankings/high-exposure-in-demand"
-	jsonLd={[itemListJsonLd]}
+	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
 
 <main class={pageLayout({ width: 'content' })}>

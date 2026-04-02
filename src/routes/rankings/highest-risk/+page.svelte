@@ -51,13 +51,36 @@
 			}))
 		})}<\/script>`
 	);
+
+	const faqJsonLd = `<script type="application/ld+json">${JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'FAQPage',
+		mainEntity: [
+			{
+				'@type': 'Question',
+				name: 'Which Singapore jobs are most at risk of AI replacement?',
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text: 'Data entry clerks, telemarketers, and bookkeepers face the highest structural pressure, with net displacement risk above 50%. These roles have high AI task overlap and low human bottlenecks.'
+				}
+			},
+			{
+				'@type': 'Question',
+				name: 'How is the AI displacement risk ranking calculated?',
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text: 'Each occupation is scored using headline risk = displacement pressure × (1 − demand resilience). This ranking sorts all 562 occupations by net risk, showing the top 25.'
+				}
+			}
+		]
+	})}<\/script>`;
 </script>
 
 <Seo
 	title="25 Highest Risk Jobs in Singapore for AI Displacement (2026)"
 	description="Which Singapore jobs face the most AI displacement pressure? Top 25 occupations ranked by net risk score. Data entry clerks, telemarketers, and bookkeepers top the list."
 	path="/rankings/highest-risk"
-	jsonLd={[itemListJsonLd]}
+	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
 
 <main class={pageLayout({ width: 'content' })}>

@@ -40,9 +40,8 @@
 	title={`Browse Occupations — AI Risk | ${SITE.name}`}
 	description={`Browse all ${DATA_VINTAGE.occupation_count} official Singapore occupations scored for structural AI pressure. Filter by risk band, occupation group, and wage range.`}
 	path="/explore"
+	jsonLd={[itemListJsonLd]}
 />
-
-{@html itemListJsonLd}
 
 <main class={pageLayout({ width: 'content' })}>
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Browse Occupations' }]} />

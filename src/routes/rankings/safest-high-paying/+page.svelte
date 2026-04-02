@@ -26,6 +26,29 @@
 		})}<\/script>`
 	);
 
+	const faqJsonLd = `<script type="application/ld+json">${JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'FAQPage',
+		mainEntity: [
+			{
+				'@type': 'Question',
+				name: 'What are the safest high-paying jobs from AI in Singapore?',
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text: 'Occupations with low AI displacement risk and above-median wages combine structural safety with strong earnings. These typically involve high coordination, physical presence, or regulatory complexity.'
+				}
+			},
+			{
+				'@type': 'Question',
+				name: 'Can you earn well in jobs with low AI risk?',
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text: 'Yes. Many occupations in healthcare, engineering, and senior management have both low displacement pressure and wages well above the national median.'
+				}
+			}
+		]
+	})}<\/script>`;
+
 	const columns = [
 		{
 			key: 'wage',
@@ -55,10 +78,10 @@
 </script>
 
 <Seo
-	title="Safest High-Paying Jobs"
+	title="Safest High-Paying Jobs in Singapore — Low AI Risk (2026)"
 	description="Low AI displacement risk + above-median wages. The 25 safest well-paying occupations in Singapore."
 	path="/rankings/safest-high-paying"
-	jsonLd={[itemListJsonLd]}
+	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
 
 <main class={pageLayout({ width: 'content' })}>
