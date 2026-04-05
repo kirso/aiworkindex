@@ -16,6 +16,7 @@ interface Occupation {
 
 async function main() {
 	const { SITE, DATA_VINTAGE } = await import('../src/lib/data/scoring-constants');
+	const { getCountryOccupationRows } = await import('../src/lib/data/country-pages');
 	const lastmod = DATA_VINTAGE.last_updated;
 	const base = SITE.url;
 
@@ -31,6 +32,11 @@ async function main() {
 	const staticPages: Array<{ path: string; priority: string; changefreq: string }> = [
 		{ path: '/', priority: '1.0', changefreq: 'weekly' },
 		{ path: '/methodology', priority: '0.8', changefreq: 'monthly' },
+		{ path: '/global', priority: '0.8', changefreq: 'monthly' },
+		{ path: '/sg', priority: '0.7', changefreq: 'monthly' },
+		{ path: '/us', priority: '0.7', changefreq: 'monthly' },
+		{ path: '/uk', priority: '0.6', changefreq: 'monthly' },
+		{ path: '/ca', priority: '0.6', changefreq: 'monthly' },
 		{ path: '/methodology/appendix', priority: '0.7', changefreq: 'monthly' },
 		{ path: '/about', priority: '0.8', changefreq: 'monthly' },
 		{ path: '/data', priority: '0.8', changefreq: 'monthly' },
@@ -64,6 +70,13 @@ async function main() {
 		urls += `  <url><loc>${base}/occupation/${occ.ssoc}</loc><lastmod>${lastmod}</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>\n`;
 	}
 
+	// Country occupation pages
+	for (const country of ['sg', 'us'] as const) {
+		for (const row of getCountryOccupationRows(country)) {
+			urls += `  <url><loc>${base}/${country}/occupation/${row.localCode}</loc><lastmod>${lastmod}</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>\n`;
+		}
+	}
+
 	// Group hub pages
 	for (const g of majorGroups) {
 		const slug = g.key.toLowerCase().replace(/[,&]/g, '').replace(/\s+/g, '-');
@@ -79,7 +92,10 @@ async function main() {
 
 	fs.writeFileSync(OUT_FILE, sitemap);
 
-	const totalUrls = staticPages.length + occupations.length + syntheticRoles.length + majorGroups.length;
+	const countryOccupationCount =
+		getCountryOccupationRows('sg').length + getCountryOccupationRows('us').length;
+	const totalUrls =
+		staticPages.length + occupations.length + syntheticRoles.length + majorGroups.length + countryOccupationCount;
 	console.log(`Sitemap generated: ${totalUrls} URLs`);
 	console.log(`Domain: ${base}`);
 	console.log(`Output: ${OUT_FILE}`);

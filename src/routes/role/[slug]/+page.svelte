@@ -241,8 +241,8 @@
 			description:
 				'Estimated modern role — weighted blend of ' +
 				scored.components.length +
-				' official Singapore occupations',
-			occupationLocation: { '@type': 'Country', name: 'Singapore' },
+				' official occupations in the current live reference market',
+			occupationLocation: { '@type': 'Country', name: 'Current live reference market' },
 			additionalProperty: [
 				{ '@type': 'PropertyValue', name: 'AI Net Displacement Risk', value: scored.net_risk },
 				{ '@type': 'PropertyValue', name: 'Risk Band', value: riskBandLabels[scored.risk_band] },
@@ -279,7 +279,7 @@
 			mainEntity: [
 				{
 					'@type': 'Question',
-					name: 'Will AI replace ' + scored.title + ' in Singapore?',
+					name: 'Will AI replace ' + scored.title + '?',
 					acceptedAnswer: {
 						'@type': 'Answer',
 						text:
@@ -308,7 +308,7 @@
 							(scored.bottleneck * 100).toFixed(0) +
 							'%. This is a synthetic estimate blending ' +
 							scored.components.length +
-							' official Singapore occupations.'
+							' official occupations in the current live reference market.'
 					}
 				},
 				{
@@ -320,7 +320,7 @@
 							scored.title +
 							' is estimated from ' +
 							scored.components.length +
-							' official Singapore occupations: ' +
+							' official occupations in the current live reference market: ' +
 							scored.components
 								.slice(0, 5)
 								.map(
@@ -340,7 +340,7 @@
 
 	let pageTitle = $derived(`${scored.title} — AI Risk Estimate | AI Work Index`);
 	let pageDescription = $derived(
-		`${scored.title}: Estimated AI risk ${(scored.net_risk * 100).toFixed(0)}%, rated ${riskBandLabels[scored.risk_band]}. Based on ${scored.components.length} official occupations.`
+		`${scored.title}: Estimated AI risk ${(scored.net_risk * 100).toFixed(0)}%, rated ${riskBandLabels[scored.risk_band]}. Based on ${scored.components.length} official occupations in the current live reference market.`
 	);
 </script>
 
@@ -483,13 +483,13 @@
 		<!-- Built from: surface component occupations above the fold -->
 		<div class="mt-5 border-t border-border/70 pt-4">
 			<p class={cn(microLabel(), 'mb-2')}>
-				Built from {scored.components.length} official occupations
+				Built from {scored.components.length} official occupations in the current live reference market
 			</p>
 			<div class="flex flex-wrap gap-x-4 gap-y-1">
 				{#each scored.components as comp}
 					{#if comp.occupation}
 						<a
-							href="/occupation/{comp.ssoc}"
+							href="/sg/occupation/{comp.ssoc}"
 							class="text-xs text-text-secondary hover:text-primary hover:underline underline-offset-2"
 						>
 							{comp.occupation.title}
@@ -695,7 +695,7 @@
 				<div class="grid gap-2 sm:grid-cols-3">
 					{#each scored.components as comp}
 						{#if comp.occupation}
-							<a href="/occupation/{comp.ssoc}" class={cn(card({ padding: 'sm', variant: 'inset' }), 'block hover:bg-accent hover:shadow-sm transition-all group')}>
+							<a href="/sg/occupation/{comp.ssoc}" class={cn(card({ padding: 'sm', variant: 'inset' }), 'block hover:bg-accent hover:shadow-sm transition-all group')}>
 								<p class="text-sm font-medium text-foreground truncate">{comp.occupation.title} <span class="opacity-0 group-hover:opacity-100 transition-opacity text-primary">&#8594;</span></p>
 								<div class="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
 									<span class="font-mono tabular-nums">{(comp.weight * 100).toFixed(0)}% weight</span>
@@ -741,7 +741,7 @@
 					{#each scored.components as comp}
 						<div class="flex items-center justify-between py-0.5">
 							{#if comp.occupation}
-								<a href="/occupation/{comp.ssoc}" class="hover:text-primary"
+								<a href="/sg/occupation/{comp.ssoc}" class="hover:text-primary"
 									>{comp.occupation.title} (SSOC {comp.ssoc})</a
 								>
 							{:else}

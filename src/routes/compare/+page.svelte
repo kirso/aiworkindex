@@ -97,7 +97,7 @@
 				ref,
 				label: occ.title,
 				sublabel: `SSOC ${occ.ssoc}`,
-				href: `/occupation/${occ.ssoc}`,
+				href: `/sg/occupation/${occ.ssoc}`,
 				net_risk: occ.net_risk,
 				risk_band: occ.risk_band,
 				exposure: occ.exposure,
@@ -253,15 +253,15 @@
 		{
 			key: 'wage',
 			label: 'Median Wage',
-			format: e => (e.wage ? `SGD ${e.wage.toLocaleString()}` : 'N/A (synthetic)')
+			format: e => (e.wage ? `Local currency ${e.wage.toLocaleString()}` : 'N/A (synthetic)')
 		},
 		{ key: 'confidence', label: 'Evidence Quality', format: e => e.confidence }
 	];
 </script>
 
 <Seo
-	title="Compare AI Risk Across Singapore Jobs"
-	description="Compare AI displacement risk across Singapore occupations and modern roles side by side."
+	title="Compare AI Risk Across Occupations | AI Work Index"
+	description="Compare AI displacement risk across occupations and modern roles side by side. Start from the global structural baseline, then compare country layers as they are added."
 	path="/compare"
 />
 
@@ -272,7 +272,7 @@
 		<div>
 			<h1 class={titleStyle({ size: 'page' })}>Compare</h1>
 			<p class="mt-1 text-sm text-muted-foreground">
-				Side-by-side comparison of occupations and modern roles (up to 3)
+				Side-by-side comparison of occupations and modern roles (up to 3). Use the global baseline to compare structural pressure, then open country layers to see local demand resilience.
 			</p>
 		</div>
 		{#if entities.length > 0}
@@ -338,7 +338,7 @@
 			<p class="text-sm text-text-secondary leading-relaxed">
 				Compare up to 3 occupations or roles side by side. See how their risk profiles, demand
 				signals, and career paths differ — useful for exploring transitions or understanding where
-				AI pressure varies across similar jobs.
+				AI pressure varies across similar jobs and across future country layers.
 			</p>
 
 			<p class="mt-4 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
@@ -506,7 +506,7 @@
 						<div class="mt-4 border-t border-border/50 pt-3">
 							<div class="flex items-center justify-between text-xs">
 								<span class="text-muted-foreground">Median Wage</span>
-								<span class="font-semibold text-foreground">SGD {entity.wage.toLocaleString()}</span
+								<span class="font-semibold text-foreground">Local currency {entity.wage.toLocaleString()}</span
 								>
 							</div>
 						</div>
@@ -579,7 +579,7 @@
 											: 'text-foreground'
 								)}
 							>
-								{journeyData.wageDelta > 0 ? '+' : ''}SGD {journeyData.wageDelta.toLocaleString()}
+								{journeyData.wageDelta > 0 ? '+' : ''}Local currency {journeyData.wageDelta.toLocaleString()}
 							</p>
 						</div>
 						<div class={cn(card({ variant: 'inset', padding: 'sm' }), 'text-center')}>

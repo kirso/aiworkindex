@@ -103,7 +103,7 @@
         "scripts/enrich-onet.ts"
       ],
       "where_used": [
-        "/occupation/[ssoc]",
+        "/sg/occupation/[ssoc]",
         "/role/[slug]",
         "/methodology",
         "/data"
@@ -157,7 +157,7 @@
       "where_used": [
         "/methodology",
         "/data",
-        "/occupation/[ssoc]",
+        "/sg/occupation/[ssoc]",
         "/role/[slug]"
       ],
       "notes": "This layer approximates offsetting forces with demand, transition support, and task context. It intentionally sits outside the core structural score because direct occupation-level reinstatement data is not available."
@@ -305,7 +305,7 @@
       "where_used": [
         "/data",
         "/methodology",
-        "/occupation/[ssoc]",
+        "/sg/occupation/[ssoc]",
         "/role/[slug]"
       ],
       "notes": "It is intentionally published separately so current evidence is not mistaken for part of the core structural score."

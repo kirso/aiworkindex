@@ -145,17 +145,17 @@
 	let searchResultCount = $derived(searchFilteredRoles.length + searchFilteredOccupations.length);
 
 	// --- SEO ---
-	let pageTitle = $derived(`All Jobs & Roles \u2014 AI Risk | ${SITE.name}`);
+	let pageTitle = $derived(`All Jobs & Roles \u2014 Structural AI Risk | ${SITE.name}`);
 	let pageDescription = $derived(
-		`Browse ${occCount} official occupations and ${roleCount} modern roles scored for AI displacement risk. Search, filter, and sort by risk, exposure, or wage.`
+		`Browse ${occCount} official occupations and ${roleCount} modern roles scored for AI displacement risk. Search, filter, and sort by risk, exposure, or wage in the current live reference market, or open the global baseline first.`
 	);
 
 	let itemListJsonLd = $derived(
 		`<script type="application/ld+json">${JSON.stringify({
 			'@context': 'https://schema.org',
 			'@type': 'ItemList',
-			name: 'Singapore Jobs & Roles Scored for AI Displacement Risk',
-			description: `${totalCount} occupations and modern roles scored for structural AI pressure`,
+			name: 'AI Work Index Jobs & Roles',
+			description: `${totalCount} occupations and modern roles scored for structural AI pressure in the current live reference market`,
 			numberOfItems: totalCount,
 			itemListElement: [
 				...(data.scoredRoles as ScoredRole[]).slice(0, 5).map((r, i) => ({
@@ -168,7 +168,7 @@
 					'@type': 'ListItem',
 					position: i + 6,
 					name: o.title,
-					url: SITE.url + `/occupation/${o.ssoc}`
+					url: SITE.url + `/sg/occupation/${o.ssoc}`
 				}))
 			]
 		})}<\/script>`
@@ -185,7 +185,7 @@
 	<div class="mb-6">
 		<h1 class={titleStyle({ size: 'page' })}>All Jobs & Roles</h1>
 		<p class={cn(caption(), 'mt-1')}>
-			{occCount} official occupations and {roleCount} modern roles, all scored for AI displacement risk.
+			{occCount} official occupations and {roleCount} modern roles, all scored for AI displacement risk. Open the global baseline first, then drill into the current live reference market.
 		</p>
 	</div>
 
@@ -228,7 +228,7 @@
 			<div>
 				<h2 class={titleStyle({ size: 'section' })}>Modern Roles</h2>
 				<p class={cn(body({ tone: 'muted', size: 'sm' }), 'mt-0.5')}>
-					{roleCount} estimated roles scored as weighted blends of official Singapore occupations
+					{roleCount} estimated roles scored as weighted blends of official occupations
 				</p>
 			</div>
 			{#if isSearching}
@@ -308,7 +308,7 @@
 			<div>
 				<h2 class={titleStyle({ size: 'section' })}>Official Occupations</h2>
 				<p class={cn(body({ tone: 'muted', size: 'sm' }), 'mt-0.5')}>
-					{occCount} occupations from the Singapore Standard Occupational Classification (SSOC)
+					{occCount} occupations from the current live occupation set, with SSOC as the Singapore reference classification
 				</p>
 			</div>
 			<div class="flex items-center gap-2">
@@ -451,7 +451,7 @@
 									</td>
 									<td class="px-3 py-2">
 										<a
-											href="/occupation/{occ.ssoc}"
+											href="/sg/occupation/{occ.ssoc}"
 											class="text-xs text-foreground hover:text-primary hover:underline underline-offset-2 decoration-primary/30 font-medium"
 										>
 											{occ.title}
@@ -509,7 +509,7 @@
 			<div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
 				{#each filteredOccupations as occ (occ.ssoc)}
 					<a
-						href="/occupation/{occ.ssoc}"
+						href="/sg/occupation/{occ.ssoc}"
 						class={cn(card({ padding: 'sm', hover: true }), 'group block')}
 					>
 						<div class="flex items-start justify-between gap-2 mb-1.5">

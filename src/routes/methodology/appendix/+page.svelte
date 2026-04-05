@@ -29,7 +29,9 @@
 		<code class="rounded bg-muted px-1 text-xs">score.ts</code>,
 		<code class="rounded bg-muted px-1 text-xs">synthetic-roles.ts</code>, and
 		<code class="rounded bg-muted px-1 text-xs">validate.ts</code>. This appendix documents the
-		current implementation, including heuristic components that should not be read as causal proof.
+		current Singapore reference implementation, including heuristic components that should not be
+		read as causal proof. The country-agnostic structural contract is defined on the main
+		methodology page.
 	</p>
 
 	<!-- Core Formula -->

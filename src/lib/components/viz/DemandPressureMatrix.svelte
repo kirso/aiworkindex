@@ -79,7 +79,7 @@
 	}
 
 	function handleClick(occ: Occupation) {
-		goto('/occupation/' + occ.ssoc);
+		goto('/sg/occupation/' + occ.ssoc);
 	}
 
 	const quadrantLabels = [

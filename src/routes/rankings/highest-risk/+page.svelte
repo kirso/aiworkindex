@@ -40,14 +40,14 @@
 		`<script type="application/ld+json">${JSON.stringify({
 			'@context': 'https://schema.org',
 			'@type': 'ItemList',
-			name: 'Singapore Occupations with Highest AI Displacement Risk',
-			description: 'Top 25 Singapore occupations ranked by AI net displacement risk score',
+			name: 'Occupations with Highest AI Displacement Risk',
+			description: 'Top 25 occupations ranked by AI net displacement risk score in the current live reference market',
 			numberOfItems: data.ranked.length,
 			itemListElement: data.ranked.slice(0, 10).map((occ: Occupation, i: number) => ({
 				'@type': 'ListItem',
 				position: i + 1,
 				name: occ.title,
-				url: SITE.url + '/occupation/' + occ.ssoc
+				url: SITE.url + '/sg/occupation/' + occ.ssoc
 			}))
 		})}<\/script>`
 	);
@@ -58,7 +58,7 @@
 		mainEntity: [
 			{
 				'@type': 'Question',
-				name: 'Which Singapore jobs are most at risk of AI replacement?',
+				name: 'Which occupations are most at risk of AI replacement?',
 				acceptedAnswer: {
 					'@type': 'Answer',
 					text: 'Data entry clerks, telemarketers, and bookkeepers face the highest structural pressure, with net displacement risk above 50%. These roles have high AI task overlap and low human bottlenecks.'
@@ -77,8 +77,8 @@
 </script>
 
 <Seo
-	title="25 Highest Risk Jobs in Singapore for AI Displacement (2026)"
-	description="Which Singapore jobs face the most AI displacement pressure? Top 25 occupations ranked by net risk score. Data entry clerks, telemarketers, and bookkeepers top the list."
+		title="25 Highest Risk Jobs for AI Displacement"
+		description="Which jobs face the most AI displacement pressure in the current live reference market? Top 25 occupations ranked by net risk score."
 	path="/rankings/highest-risk"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
@@ -95,7 +95,7 @@
 	<h1 class={titleStyle({ size: 'page' })}>Highest Risk Occupations</h1>
 	<p class="mt-2 text-sm text-muted-foreground">
 		Top 25 occupations by net displacement risk. These roles have high AI exposure, weak human
-		bottlenecks, and limited market buffers.
+		bottlenecks, and limited market buffers in the current live market.
 	</p>
 
 	<section class="mt-6">

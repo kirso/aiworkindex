@@ -1,4 +1,7 @@
 export type EvidenceTier =
+	| 'official_local'
+	| 'derived_from_official_local'
+	| 'cross_country_research'
 	| 'official_sg'
 	| 'derived_from_official_sg'
 	| 'external_proxy'
@@ -46,6 +49,9 @@ export interface SourceRegistryEntry {
 }
 
 export const evidenceTierLabels: Record<EvidenceTier, string> = {
+	official_local: 'Official local',
+	derived_from_official_local: 'Derived from official local',
+	cross_country_research: 'Cross-country research',
 	official_sg: 'Official SG',
 	derived_from_official_sg: 'Derived from official SG',
 	external_proxy: 'External proxy',
@@ -223,6 +229,28 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 		url: 'https://data.gov.sg/datasets/d_0888806f369c8527e969a5f6f8528d1c/view',
 		notes:
 			'Official Census 2020 travel-time table used to summarize commute burden by broad occupation group. Context only; not a score input.'
+	},
+	{
+		key: 'bls_occupational_projections_2024_2034',
+		label: 'US BLS Occupational Projections 2024-2034',
+		tier: 'official_local',
+		status: 'live',
+		vintage: '2024-2034',
+		used_for: ['US demand resilience', 'US employment outlook', 'US wage context'],
+		url: 'https://www.bls.gov/emp/tables/occupational-projections-and-characteristics.htm',
+		notes:
+			'Primary US country-layer demand source used to derive the local outlook, openings, and wage context for the US index.'
+	},
+	{
+		key: 'bls_cps_employment_2025',
+		label: 'US BLS CPS Employment 2025',
+		tier: 'official_local',
+		status: 'live',
+		vintage: '2025',
+		used_for: ['US current employment context', 'US calibration'],
+		url: 'https://www.bls.gov/cps/',
+		notes:
+			'Supplementary US employment context used for calibration and for validating the projections-derived demand layer.'
 	},
 	{
 		key: 'mom_jobs_in_demand_2025',

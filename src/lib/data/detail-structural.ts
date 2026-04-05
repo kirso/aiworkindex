@@ -104,11 +104,11 @@ function buildImpactSummary(
 
 	switch (impact_type) {
 		case 'ai_leveraged':
-			return `${title} has ${exposurePct}% AI task overlap but ${bottleneckPct}% human bottleneck protection — lower risk than ${100 - percentile}% of Singapore occupations. AI is more likely to enhance this role than replace it.`;
+			return `${title} has ${exposurePct}% AI task overlap but ${bottleneckPct}% human bottleneck protection — lower risk than ${100 - percentile}% of occupations in the live market. AI is more likely to enhance this role than replace it.`;
 		case 'at_risk':
-			return `${title} has ${exposurePct}% AI task overlap with only ${bottleneckPct}% human bottleneck protection — higher risk than ${percentile}% of Singapore occupations. Structural displacement pressure is significant.`;
+			return `${title} has ${exposurePct}% AI task overlap with only ${bottleneckPct}% human bottleneck protection — higher risk than ${percentile}% of occupations in the live market. Structural displacement pressure is significant.`;
 		case 'stable':
-			return `${title} has ${exposurePct}% AI task overlap and ${bottleneckPct}% human bottleneck protection — lower risk than ${100 - percentile}% of Singapore occupations. Current AI capabilities have limited overlap with core tasks.`;
+			return `${title} has ${exposurePct}% AI task overlap and ${bottleneckPct}% human bottleneck protection — lower risk than ${100 - percentile}% of occupations in the live market. Current AI capabilities have limited overlap with core tasks.`;
 		case 'mixed':
 			return `${title} has ${exposurePct}% AI task overlap but ${bottleneckPct}% human bottleneck protection — at the ${formatOrdinal(percentile)} percentile across ${allOccupations.length} occupations. High exposure meets organizational friction, creating offsetting forces.`;
 	}

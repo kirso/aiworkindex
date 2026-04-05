@@ -11,6 +11,8 @@
 	import { riskBandLabels, riskBandColors, impactTypeLabels, impactTypeColors } from '$lib/data';
 	import type { RiskBand, ImpactType } from '$lib/data';
 	import { DATA_VINTAGE } from '$lib/data/scoring-constants';
+	import { countryConfigs } from '$lib/data/country-config';
+	import { globalMethodology } from '$lib/data/global-methodology';
 	import { siteStatus } from '$lib/data/site-status';
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import { shortTitle } from '$lib/data/display-names';
@@ -25,6 +27,43 @@
 	let isFiltered = $derived(
 		filterResult !== null && filteredOccupations.length !== data.occupations.length
 	);
+	const countryEntryCards = [
+		{
+			code: 'global',
+			title: countryConfigs.global.displayName,
+			href: '/global',
+			status: 'research',
+			description: globalMethodology.summary
+		},
+		{
+			code: 'sg',
+			title: countryConfigs.sg.displayName,
+			href: '/sg',
+			status: countryConfigs.sg.status,
+			description: 'Live reference implementation with official labour-market context and wages.'
+		},
+		{
+			code: 'us',
+			title: countryConfigs.us.displayName,
+			href: '/us',
+			status: countryConfigs.us.status,
+			description: 'Ready country layer built on public US occupational and wage data.'
+		},
+		{
+			code: 'uk',
+			title: countryConfigs.uk.displayName,
+			href: '/uk',
+			status: countryConfigs.uk.status,
+			description: 'Research preview for the UK structural baseline plus local demand evidence.'
+		},
+		{
+			code: 'ca',
+			title: countryConfigs.ca.displayName,
+			href: '/ca',
+			status: countryConfigs.ca.status,
+			description: 'Research preview for Canada with the same global contract.'
+		}
+	] as const;
 
 	function handleFilter(filtered: typeof data.occupations) {
 		filterResult = filtered;
@@ -80,18 +119,18 @@
 		mainEntity: [
 			{
 				'@type': 'Question',
-				name: 'Will AI replace my job in Singapore?',
+				name: 'What does the AI Work Index measure?',
 				acceptedAnswer: {
 					'@type': 'Answer',
-					text: `It depends on your occupation. Of ${DATA_VINTAGE.occupation_count} Singapore occupations scored using a 4-source exposure ensemble (AIOE, Anthropic observed usage, Eloundou GPT exposure, and ILO occupational exposure), risk ranges from very low to very high structural displacement pressure.`
+					text: `It measures structural AI pressure on occupations. The current live reference market covers ${DATA_VINTAGE.occupation_count} occupations scored using a 4-source exposure ensemble (AIOE, Anthropic observed usage, Eloundou GPT exposure, and ILO occupational exposure), with country-specific demand context layered on top where available.`
 				}
 			},
 			{
 				'@type': 'Question',
-				name: 'How is the Singapore AI job risk score calculated?',
+				name: 'How is the score calculated?',
 				acceptedAnswer: {
 					'@type': 'Answer',
-					text: 'Headline risk = displacement pressure × (1 − demand resilience), where displacement pressure = AI exposure × (1 − human bottleneck). No LLM is used in the scoring pipeline.'
+					text: 'Headline risk = displacement pressure × (1 − demand resilience), where displacement pressure = AI exposure × (1 − human bottleneck). The global structural layer stays separate from local labour-market context, and no LLM is used in the scoring pipeline.'
 				}
 			}
 		]
@@ -99,8 +138,8 @@
 </script>
 
 <Seo
-	title="AI Work Index — How Will AI Affect Your Job in Singapore?"
-	description="Explore structural AI pressure on Singapore jobs. {DATA_VINTAGE.occupation_count} occupations scored using official data and published research, with synthetic modern roles and labour-market context."
+	title="AI Work Index — Global AI Work Methodology"
+	description="Start with the global AI Work Index methodology, then drill into country layers. Structural AI pressure is comparable across countries; labour-market context is local."
 	path="/"
 	ogImage="/og/default.png"
 	jsonLd={[faqJsonLd]}
@@ -125,59 +164,82 @@
 	<div class="mx-auto max-w-screen-2xl px-4 sm:px-6">
 		<div class="mx-auto max-w-2xl py-10 sm:py-12 text-center">
 			<h1 class="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-				How will AI affect your job?
+				Global AI work index for occupations and countries
 			</h1>
 			<p class="mt-1.5 text-sm text-muted-foreground">
-				Search any Singapore occupation or modern role
+				Start with the global structural baseline, then move into Singapore, the United States, the
+				United Kingdom, or Canada.
 			</p>
-			<div class="mt-4">
-				<HeroSearch occupations={data.occupations} />
+
+			<div class="mt-6 grid gap-3 text-left sm:grid-cols-2 lg:grid-cols-3">
+				{#each countryEntryCards as country}
+					<a
+						href={country.href}
+						class={cn(
+							card({ padding: 'sm', hover: true }),
+							country.code === 'global' ? 'ring-1 ring-primary/25' : ''
+						)}
+					>
+						<div class="flex items-center justify-between gap-3">
+							<div>
+								<p class="text-xs uppercase tracking-wider text-muted-foreground">
+									{country.code === 'global' ? 'Start here' : 'Country layer'}
+								</p>
+								<h2 class="mt-1 text-sm font-semibold text-foreground">{country.title}</h2>
+							</div>
+							<span class="rounded-full bg-muted px-2 py-0.5 text-[11px] uppercase tracking-wide text-muted-foreground">
+								{country.status}
+							</span>
+						</div>
+						<p class="mt-2 text-sm text-muted-foreground">{country.description}</p>
+					</a>
+				{/each}
 			</div>
 
-			<!-- Shock stats -->
+			<div class="mt-6">
+				<HeroSearch occupations={data.occupations} />
+				<p class="mt-2 text-xs text-muted-foreground">
+					Search the current live reference market. For comparable structural analysis
+					across countries, open the global baseline first.
+				</p>
+			</div>
+
+			<div class="mt-6 flex flex-wrap items-center justify-center gap-2">
+				<a href="/global" class={pill({ size: 'lg', tone: 'outline', interactive: true })}>
+					Global baseline →
+				</a>
+				<a href="/compare" class={pill({ size: 'lg', tone: 'outline', interactive: true })}>
+					Compare countries →
+				</a>
+				<a href="/rankings" class={pill({ size: 'lg', tone: 'outline', interactive: true })}>
+					Rankings →
+				</a>
+				<a href="/methodology" class={pill({ size: 'lg', tone: 'outline', interactive: true })}>
+					Methodology →
+				</a>
+			</div>
+
 			<div class="mt-6 grid grid-cols-3 gap-4">
 				<div>
 					<p class="font-mono text-xl font-bold text-risk-very-high sm:text-2xl">
 						{data.stats.highRiskPct}%
 					</p>
 					<p class="text-xs text-muted-foreground sm:text-xs">
-						of jobs face significant AI pressure
+						of occupations in the live market face significant AI pressure
 					</p>
 				</div>
 				<div>
 					<p class="font-mono text-xl font-bold text-risk-high sm:text-2xl">
-						SGD {data.stats.wagePoolUnderPressureBillions.toFixed(0)}B
+						{countryConfigs.sg.currency} {data.stats.wagePoolUnderPressureBillions.toFixed(0)}B
 					</p>
-					<p class="text-xs text-muted-foreground sm:text-xs">in annual wages overlap with AI</p>
+					<p class="text-xs text-muted-foreground sm:text-xs">annual wages overlap with AI in the live market</p>
 				</div>
 				<div>
 					<p class="font-mono text-xl font-bold text-risk-very-low sm:text-2xl">
 						{data.stats.demandCount}
 					</p>
-					<p class="text-xs text-muted-foreground sm:text-xs">jobs on Singapore's shortage list</p>
+					<p class="text-xs text-muted-foreground sm:text-xs">occupations with current local demand support</p>
 				</div>
-			</div>
-
-			<!-- Browse paths -->
-			<div class="mt-4 flex flex-wrap items-center justify-center gap-2">
-				<a
-					href="/rankings/highest-risk"
-					class={pill({ size: 'lg', tone: 'outline', interactive: true })}
-				>
-					Highest pressure jobs →
-				</a>
-				<a
-					href="/rankings/high-exposure-in-demand"
-					class={pill({ size: 'lg', tone: 'outline', interactive: true })}
-				>
-					In-demand but exposed →
-				</a>
-				<a href="/roles" class={pill({ size: 'lg', tone: 'outline', interactive: true })}>
-					Modern roles →
-				</a>
-				<a href="/explore" class={pill({ size: 'lg', tone: 'outline', interactive: true })}>
-					View all occupations →
-				</a>
 			</div>
 		</div>
 	</div>
@@ -344,10 +406,7 @@
 						<a href="/rankings/highest-risk" class="text-xs text-primary hover:underline">All →</a>
 					</div>
 					{#each topHighRisk as occ, i (occ.ssoc)}
-						<a
-							href="/occupation/{occ.ssoc}"
-							class="flex items-center gap-1.5 rounded-sm py-1 hover:bg-accent transition-colors text-xs"
-						>
+						<a href="/sg/occupation/{occ.ssoc}" class="flex items-center gap-1.5 rounded-sm py-1 hover:bg-accent transition-colors text-xs">
 							<span class="font-mono font-bold text-risk-very-high w-3">{i + 1}</span>
 							<span class="flex-1 text-foreground truncate">{shortTitle(occ.title)}</span>
 							<span class="shrink-0 font-mono text-risk-very-high"
@@ -366,10 +425,7 @@
 						>
 					</div>
 					{#each topSafest as occ, i (occ.ssoc)}
-						<a
-							href="/occupation/{occ.ssoc}"
-							class="flex items-center gap-1.5 rounded-sm py-1 hover:bg-accent transition-colors text-xs"
-						>
+						<a href="/sg/occupation/{occ.ssoc}" class="flex items-center gap-1.5 rounded-sm py-1 hover:bg-accent transition-colors text-xs">
 							<span class="font-mono font-bold text-risk-very-low w-3">{i + 1}</span>
 							<span class="flex-1 text-foreground truncate">{shortTitle(occ.title)}</span>
 							<span class="shrink-0 font-mono text-risk-very-low"
@@ -386,10 +442,7 @@
 						<a href="/rankings/ai-leveraged" class="text-xs text-primary hover:underline">All →</a>
 					</div>
 					{#each topAugmented as occ, i (occ.ssoc)}
-						<a
-							href="/occupation/{occ.ssoc}"
-							class="flex items-center gap-1.5 rounded-sm py-1 hover:bg-accent transition-colors text-xs"
-						>
+						<a href="/sg/occupation/{occ.ssoc}" class="flex items-center gap-1.5 rounded-sm py-1 hover:bg-accent transition-colors text-xs">
 							<span class="font-mono font-bold text-impact-leveraged w-3">{i + 1}</span>
 							<span class="flex-1 text-foreground truncate">{shortTitle(occ.title)}</span>
 							<span class="shrink-0 font-mono text-muted-foreground"
@@ -408,10 +461,7 @@
 						>
 					</div>
 					{#each topInDemand as occ, i (occ.ssoc)}
-						<a
-							href="/occupation/{occ.ssoc}"
-							class="flex items-center gap-1.5 rounded-sm py-1 hover:bg-accent transition-colors text-xs"
-						>
+						<a href="/sg/occupation/{occ.ssoc}" class="flex items-center gap-1.5 rounded-sm py-1 hover:bg-accent transition-colors text-xs">
 							<span class="font-mono font-bold text-risk-very-low w-3">{i + 1}</span>
 							<span class="flex-1 text-foreground truncate">{shortTitle(occ.title)}</span>
 							<span class="shrink-0 font-mono text-muted-foreground"

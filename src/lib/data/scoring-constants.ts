@@ -269,7 +269,7 @@ export const SENIORITY_MODIFIERS = {
 export const SITE = {
 	name: 'AI Work Index',
 	shortName: 'AIWorkIndex',
-	description: 'AI Work Index — How will AI affect your job in Singapore?',
+	description: 'AI Work Index — global structural AI exposure and occupation risk methodology',
 	url: 'https://aiworkindex.com',
 	github: 'https://github.com/kirso/aiworkindex',
 	author: 'Kirill So',

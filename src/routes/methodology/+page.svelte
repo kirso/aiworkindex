@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { occupations, impactTypeLabels, riskBandLabels } from '$lib/data';
+	import { countryConfigs } from '$lib/data/country-config';
+	import { globalMethodology } from '$lib/data/global-methodology';
 	import clusterValidation from '$lib/data/backtests/current-validation.json';
 	import blsValidation from '$lib/data/backtests/bls-crosswalk-validation.json';
 	import multiPeriodValidation from '$lib/data/backtests/multi-period-validation.json';
@@ -67,8 +69,8 @@
 </script>
 
 <Seo
-	title="Scoring Methodology — Reliability-Weighted 4-Source Ensemble"
-	description="Live V6 structural score: deterministic 4-source exposure ensemble, human bottleneck, displacement pressure, demand resilience, and published Singapore context layers."
+	title="Scoring Methodology — Global Structural Baseline"
+	description="Global structural methodology for AI Work Index: deterministic exposure and bottleneck baseline, plus country-specific demand and policy layers. Singapore is the current live reference implementation."
 	path="/methodology"
 />
 
@@ -84,10 +86,27 @@
 		</p>
 		<p class="mt-1 text-sm text-text-secondary">
 			A software developer and a data entry clerk can both score high on AI exposure, but one gets
-			augmented (MOM lists software developers as in-demand in 2025) while the other faces
-			substitution. We deliberately separate technical exposure from market translation using a V6
-			two-axis structural score.
+			augmented while the other faces substitution. We deliberately separate the global structural
+			effect from the local labour-market effect so the model stays comparable across countries.
 		</p>
+	</div>
+
+	<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'primary' }), 'mt-4')}>
+		<p class="text-sm font-semibold text-foreground">Global contract</p>
+		<p class="mt-1 text-sm text-muted-foreground">
+			{globalMethodology.summary} The shared spine is ISCO-08; country layers add wages, demand
+			resilience, policy context, and confidence.
+		</p>
+		<div class="mt-3 grid gap-3 sm:grid-cols-2">
+			<div>
+				<p class="text-xs uppercase tracking-wide text-muted-foreground">Shared formula</p>
+				<p class="mt-1 font-mono text-sm text-text-secondary">{globalMethodology.structuralFormula}</p>
+			</div>
+			<div>
+				<p class="text-xs uppercase tracking-wide text-muted-foreground">Country headline</p>
+				<p class="mt-1 font-mono text-sm text-text-secondary">{globalMethodology.localFormula}</p>
+			</div>
+		</div>
 	</div>
 
 	<!-- Validation Status -->
@@ -134,10 +153,10 @@
 	<div class={cn(card({ variant: 'inset', padding: 'sm' }), 'mt-4')}>
 		<p class={cn(sectionLabel(), 'mb-2')}>How To Read This</p>
 		<p class="text-sm text-text-secondary">
-			This site has two layers. The <strong>core score</strong> is the authoritative ranking layer:
-			exposure, bottleneck, displacement pressure, demand resilience, headline risk, and
-			uncertainty. The <strong>interpretive layer</strong> helps explain how work is performed in practice,
-			including role-profile and workflow context.
+			This site has two layers. The <strong>global structural layer</strong> is the comparable
+			research spine: exposure, bottleneck, and displacement pressure. The <strong>country layer</strong>
+			adds wages, labour demand, policy context, and local confidence so headline risk remains
+			defensible in each market.
 		</p>
 		<p class="mt-2 text-sm text-text-secondary">
 			Interpretive fields are heuristic and should be read as context, not as direct
@@ -145,6 +164,43 @@
 			formula.
 		</p>
 	</div>
+
+	<section class="mb-8 mt-8">
+		<p class={sectionLabel()}>Global Legitimation Rules</p>
+		<div class="mt-3 grid gap-3 md:grid-cols-2">
+			{#each globalMethodology.principles as item}
+				<div class={card({ padding: 'sm' })}>
+					<p class="text-sm font-semibold text-foreground">{item.title}</p>
+					<p class="mt-1 text-sm text-muted-foreground">{item.description}</p>
+				</div>
+			{/each}
+		</div>
+	</section>
+
+	<section class="mb-8">
+		<p class={sectionLabel()}>Country Launch Bar</p>
+		<div class="mt-3 grid gap-3 md:grid-cols-2">
+			{#each globalMethodology.countryReadiness as country}
+				<div class={card({ padding: 'sm' })}>
+					<div class="flex items-center justify-between gap-3">
+						<p class="text-sm font-semibold text-foreground">{country.title}</p>
+						<span class="rounded-full bg-muted px-2 py-0.5 text-[11px] uppercase tracking-wide text-muted-foreground">
+							{country.readiness}
+						</span>
+					</div>
+					<p class="mt-1 text-xs text-muted-foreground">
+						{country.primary_sources.join(' · ')}
+					</p>
+					<p class="mt-2 text-sm text-muted-foreground">{country.method_notes[0]}</p>
+				</div>
+			{/each}
+		</div>
+		<p class="mt-2 text-xs text-muted-foreground">
+			{countryConfigs.sg.displayName} is the live reference implementation. Other countries should
+			not move out of the research bar until mapping coverage, validation, and limitations are
+			published.
+		</p>
+	</section>
 
 	<!-- Tabbed content -->
 	<Tabs.Root value="scoring" class="mt-8">
@@ -164,7 +220,7 @@
 					Headline risk = displacement pressure × (1 − demand resilience), where displacement
 					pressure = AI exposure × (1 − human bottleneck). In live V6, exposure comes from a
 					deterministic audited 4-source stack and demand resilience is applied as a separate
-					Singapore demand buffer. No LLM assigns scores in the pipeline.
+					country demand buffer. No LLM assigns scores in the pipeline.
 				</p>
 			</div>
 
@@ -189,7 +245,7 @@
 					<div class={card({ padding: 'sm' })}>
 						<h3 class="text-sm font-semibold text-impact-leveraged">Axis 2: Demand Resilience</h3>
 						<p class="mt-1 text-sm text-muted-foreground">
-							How strongly does Singapore demand counteract structural AI pressure for this
+							How strongly does the current country demand counteract structural AI pressure for this
 							occupation? Built from base resilience plus direct demand-signal bonuses.
 						</p>
 					</div>
@@ -201,13 +257,13 @@
 					tooling rather than hiding everything inside one opaque number.
 				</p>
 				<p class="mt-2 text-sm text-muted-foreground">
-					Separate Singapore context modules now show industry footprint and worker-profile
-					composition from official Section D labour-force tables and wage-by-sex tables. The
-					industry footprint card now also shows sector wage anchors from MOM's industry wage tables
-					where the occupation is covered. The labour monitor carries both published vacancy rates
-					and published vacancy counts at cluster level. These context blocks are displayed as
-					evidence around the score, not folded into hidden multipliers, and are published in a
-					separate Singapore context bundle alongside the main score dataset.
+					Separate country context modules now show industry footprint and worker-profile
+					composition from official labour-force tables and wage tables. The industry footprint card
+					now also shows sector wage anchors where the occupation is covered. The labour monitor
+					carries both published vacancy rates and published vacancy counts at cluster level. These
+					context blocks are displayed as evidence around the score, not folded into hidden
+					multipliers, and are published in separate country context bundles alongside the main score
+					dataset.
 				</p>
 				<div class="mt-2 overflow-x-auto">
 					<table class="w-full text-left text-sm">

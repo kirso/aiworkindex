@@ -1,0 +1,69 @@
+{
+  "source": "Ministry of Manpower, Singapore",
+  "title": "Jobs in Demand 2025",
+  "released": "2025-12-30",
+  "url": "https://stats.mom.gov.sg/Pages/Infographic-Jobs-in-Demand-2025.aspx",
+  "note": "Covers broader resident demand including non-PMET roles, complementing the SOL which is EP/COMPASS-focused",
+  "occupations": [
+    {
+      "title": "Waiter",
+      "category": "non_pmet",
+      "ssoc_matches": ["51310"]
+    },
+    {
+      "title": "Shop sales assistant",
+      "category": "non_pmet",
+      "ssoc_matches": ["52230"]
+    },
+    {
+      "title": "Construction labourer",
+      "category": "non_pmet",
+      "ssoc_matches": ["96030"]
+    },
+    {
+      "title": "Security officer",
+      "category": "non_pmet",
+      "ssoc_matches": ["54143", "54144"]
+    },
+    {
+      "title": "Driver",
+      "category": "non_pmet",
+      "ssoc_matches": ["83210", "83220", "83230"]
+    },
+    {
+      "title": "Auditor",
+      "category": "pmet",
+      "ssoc_matches": ["24112"]
+    },
+    {
+      "title": "Financial/investment adviser",
+      "category": "pmet",
+      "ssoc_matches": ["24130"]
+    },
+    {
+      "title": "Software developer",
+      "category": "pmet",
+      "ssoc_matches": ["25121"]
+    },
+    {
+      "title": "Data scientist",
+      "category": "pmet",
+      "ssoc_matches": ["25220"]
+    },
+    {
+      "title": "Nurse",
+      "category": "pmet",
+      "ssoc_matches": ["22310"]
+    },
+    {
+      "title": "Strategic planning manager",
+      "category": "manager",
+      "ssoc_matches": ["12190"]
+    },
+    {
+      "title": "Business development manager",
+      "category": "manager",
+      "ssoc_matches": ["12221"]
+    }
+  ]
+}

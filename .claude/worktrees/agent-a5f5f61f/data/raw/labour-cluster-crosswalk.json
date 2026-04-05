@@ -1,0 +1,19 @@
+{
+  "clusters": [
+    {
+      "key": "pmet",
+      "label": "Professionals, Managers, Executives & Technicians",
+      "ssoc_major_groups": ["MANAGERS", "PROFESSIONALS", "ASSOCIATE PROFESSIONALS AND TECHNICIANS"]
+    },
+    {
+      "key": "clerical_sales_service",
+      "label": "Clerical, Sales & Service Workers",
+      "ssoc_major_groups": ["CLERICAL SUPPORT WORKERS", "SERVICE AND SALES WORKERS"]
+    },
+    {
+      "key": "production_transport",
+      "label": "Production & Transport Operators, Cleaners & Labourers",
+      "ssoc_major_groups": ["CRAFTSMEN AND RELATED TRADES WORKERS", "PLANT AND MACHINE OPERATORS AND ASSEMBLERS", "CLEANERS, LABOURERS AND RELATED WORKERS", "AGRICULTURAL AND FISHERY WORKERS"]
+    }
+  ]
+}

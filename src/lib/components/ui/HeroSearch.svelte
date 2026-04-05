@@ -71,7 +71,7 @@
 				selected_type: 'occupation',
 				selected_id: result.occupation.ssoc
 			});
-			goto(`/occupation/${result.occupation.ssoc}`);
+			goto(`/sg/occupation/${result.occupation.ssoc}`);
 		}
 	}
 
@@ -171,7 +171,7 @@
 								<div class="min-w-0 flex-1">
 									<p class="truncate font-medium text-foreground">{occ.title}</p>
 									<p class="mt-0.5 text-xs text-muted-foreground">
-										SSOC {occ.ssoc} &middot; SGD {occ.gross_wage_median.toLocaleString()} median
+										SSOC {occ.ssoc} &middot; median wage {occ.gross_wage_median.toLocaleString()} in the live market
 									</p>
 								</div>
 								<span class={cn(riskBadge({ band: occ.risk_band }), 'ml-3 shrink-0')}>
@@ -190,15 +190,16 @@
 					>".
 				</p>
 				<p class="mt-2 text-sm text-muted-foreground">
-					Try a different job title, or browse our <a
-						href="/rankings"
-						class="text-primary underline">rankings</a
-					> to explore all occupations.
+					Try a different job title, open <a href="/global" class="text-primary underline">the
+						global baseline</a>, or browse our <a href="/rankings" class="text-primary underline"
+						>rankings</a
+					>.
 				</p>
 				<div class="mt-3 border-t border-border/50 pt-3">
 					<p class="text-xs text-muted-foreground">
-						We cover {DATA_VINTAGE.occupation_count} official Singapore occupations and {syntheticRoles.length}
-						estimated modern roles. If your role isn't listed, it may fall under a broader SSOC category.
+						We cover {DATA_VINTAGE.occupation_count} official occupations and {syntheticRoles.length}
+						estimated modern roles. Open the global baseline for the comparable structural layer;
+						the live market search is the current country view.
 					</p>
 				</div>
 			</div>

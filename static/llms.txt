@@ -1,15 +1,15 @@
 # AI Work Index
 
-> Structural AI pressure scores for 562 Singapore occupations and 88 modern roles. Current public release: V6. Deterministic scoring, open data, no LLM in the scoring loop.
+> Global AI work methodology with a canonical structural baseline and country-specific labour-market layers. The live reference market is Singapore; the architecture is designed to extend to the US, UK, Canada, and beyond. Deterministic scoring, open data, no LLM in the scoring loop.
 
 ## About
 
-AI Work Index is a free, open-source project that scores Singapore occupations for structural AI pressure. The current V6 release separates technical overlap from Singapore demand resilience instead of collapsing everything into a single market modifier.
+AI Work Index is a free, open-source project that scores occupations for structural AI pressure. The current V6 release separates the global structural effect from each country's local demand layer.
 
 - Author: Kirill So
 - Data vintage: V6, last updated 2026-04-01
-- Coverage: 562 SSOC occupations + 88 synthetic modern roles
-- Location focus: Singapore
+- Coverage: 562 SSOC occupations + 88 synthetic modern roles in the live Singapore reference market
+- Global spine: ISCO-08
 
 ## Core Formula
 
@@ -17,13 +17,12 @@ headline_risk = displacement_pressure x (1 - demand_resilience)
 
 - displacement_pressure = exposure x (1 - bottleneck)
 - demand_resilience = min(1.0, base_resilience x 0.45 + demand_signal_bonus)
-- demand_signal_bonus = SOL exact 0.15, SOL prefix 0.08, JiD exact 0.12, JiD prefix 0.06
 - augmentation = exposure x bottleneck x market.market_resilience
 
 ## Interpretation
 
 - Scores measure structural pressure, not predicted job losses.
-- Impact types are determined only by headline risk and augmentation thresholds.
+- The global layer stays comparable across countries; local demand and policy layers are separate.
 - Current release contract is the downloadable V6 dataset and the live app dataset; they should match exactly.
 
 ## Risk Bands
@@ -36,11 +35,10 @@ headline_risk = displacement_pressure x (1 - demand_resilience)
 | High | 0.30-0.50 |
 | Very High | >= 0.50 |
 
-Examples: Arts and cultural centre manager (including gallery and museum manager) is in the very-low band; Author is in the very-high band.
-
 ## Key Pages
 
 - https://aiworkindex.com/
+- https://aiworkindex.com/global
 - https://aiworkindex.com/methodology
 - https://aiworkindex.com/data
 - https://aiworkindex.com/reports

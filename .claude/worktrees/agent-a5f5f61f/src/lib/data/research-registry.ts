@@ -1,0 +1,488 @@
+export type ResearchType = 'paper' | 'report' | 'dataset' | 'working_paper' | 'article';
+
+export type ResearchDomain =
+	| 'exposure'
+	| 'tasks'
+	| 'complementarity'
+	| 'validation'
+	| 'mobility'
+	| 'forecast'
+	| 'uncertainty'
+	| 'productivity'
+	| 'augmentation'
+	| 'measurement'
+	| 'context';
+
+export type ResearchRole = 'active_core' | 'validation' | 'candidate_v5' | 'supporting_context';
+
+export type ResearchStatus = 'active' | 'supporting' | 'candidate';
+
+export interface ResearchEntry {
+	key: string;
+	title: string;
+	authors: string[];
+	year: number;
+	published_at: string;
+	publisher: string;
+	url: string;
+	doi?: string;
+	type: ResearchType;
+	domains: ResearchDomain[];
+	role: ResearchRole;
+	status: ResearchStatus;
+	used_for: string[];
+	source_keys: string[];
+	claim_ids: string[];
+	summary: string;
+	limitations: string;
+	repo_notes: string;
+	local_artifact_path?: string;
+}
+
+export const researchRegistry: ResearchEntry[] = [
+	{
+		key: 'felten_raj_seamans_2018',
+		title: 'A Method to Link Advances in Artificial Intelligence to Occupational Abilities',
+		authors: ['Edward Felten', 'Manav Raj', 'Robert Seamans'],
+		year: 2018,
+		published_at: '2018',
+		publisher: 'AEA Papers and Proceedings',
+		url: 'https://www.aeaweb.org/articles?id=10.1257%2Fpandp.20181021',
+		doi: '10.1257/pandp.20181021',
+		type: 'paper',
+		domains: ['exposure', 'tasks'],
+		role: 'active_core',
+		status: 'active',
+		used_for: ['task-to-occupation exposure framing', 'methodology background'],
+		source_keys: [],
+		claim_ids: ['structural_pressure_not_prediction'],
+		summary:
+			'Introduces the task-ability linkage approach that underpins modern AI-exposure measurement.',
+		limitations:
+			'Provides the conceptual bridge from AI capabilities to work content, but not current observed usage or Singapore-specific outcomes.',
+		repo_notes:
+			'Referenced as the foundational exposure framework behind later AIOE-style occupation measures.'
+	},
+	{
+		key: 'felten_raj_seamans_2021',
+		title: 'Occupational, industry, and geographic exposure to artificial intelligence: A novel dataset and its potential uses',
+		authors: ['Edward Felten', 'Manav Raj', 'Robert Seamans'],
+		year: 2021,
+		published_at: '2021',
+		publisher: 'Strategic Management Journal',
+		url: 'https://collaborate.princeton.edu/en/publications/occupational-industry-and-geographic-exposure-to-artificial-intel/',
+		type: 'paper',
+		domains: ['exposure'],
+		role: 'active_core',
+		status: 'active',
+		used_for: ['AIOE exposure source', 'occupation-level exposure baseline'],
+		source_keys: ['aioe_2021'],
+		claim_ids: [
+			'deterministic_no_llm_core',
+			'reliability_weighted_exposure_ensemble',
+			'structural_pressure_not_prediction'
+		],
+		summary:
+			'Provides the published AIOE occupation exposure dataset used as a baseline source in the ensemble.',
+		limitations:
+			'Measures theoretical exposure rather than realised AI use or job outcomes.',
+		repo_notes:
+			'Tied directly to the live AIOE source key and still used in the canonical exposure ensemble.'
+	},
+	{
+		key: 'openai_gpts_are_gpts_2023',
+		title: 'GPTs are GPTs: An Early Look at the Labor Market Impact Potential of Large Language Models',
+		authors: ['Tyna Eloundou', 'Sam Manning', 'Pamela Mishkin', 'Daniel Rock'],
+		year: 2023,
+		published_at: '2023-03-17',
+		publisher: 'OpenAI',
+		url: 'https://openai.com/index/gpts-are-gpts/',
+		type: 'article',
+		domains: ['exposure', 'tasks'],
+		role: 'active_core',
+		status: 'active',
+		used_for: ['LLM-specific task exposure framing', 'candidate V5 task-native design'],
+		source_keys: [],
+		claim_ids: [],
+		summary:
+			'Frames LLM exposure around task feasibility and time-saving potential rather than broad automation narratives.',
+		limitations:
+			'The paper is early and US-oriented, and it does not by itself provide Singapore labour-market calibration.',
+		repo_notes:
+			"Used as a reference for the repo's future task-native model direction, not as a direct live source key."
+	},
+	{
+		key: 'pizzinelli_etal_2023',
+		title: 'Labor Market Exposure to AI: Cross-country Differences and Distributional Implications',
+		authors: ['Carolina Pizzinelli', 'et al.'],
+		year: 2023,
+		published_at: '2023-10-04',
+		publisher: 'IMF Working Paper',
+		url: 'https://www.imf.org/en/Publications/WP/Issues/2023/10/04/Labor-Market-Exposure-to-AI-Cross-country-Differences-and-Distributional-Implications-539656',
+		type: 'working_paper',
+		domains: ['complementarity', 'exposure'],
+		role: 'active_core',
+		status: 'active',
+		used_for: ['human bottleneck layer', 'complementarity framing'],
+		source_keys: ['pizzinelli_theta_2023'],
+		claim_ids: ['deterministic_no_llm_core', 'structural_pressure_not_prediction'],
+		summary:
+			'Provides the complementarity framework that the repo operationalises as the human bottleneck layer.',
+		limitations:
+			'Designed as a broad labour-exposure framing rather than a Singapore occupation-level calibrated outcome model.',
+		repo_notes:
+			'Directly tied to the theta-based bottleneck implementation in the current scorer.'
+	},
+	{
+		key: 'anthropic_economic_index_2026',
+		title: 'Anthropic Economic Index: New building blocks for understanding AI use',
+		authors: ['Anthropic'],
+		year: 2026,
+		published_at: '2026-01-15',
+		publisher: 'Anthropic',
+		url: 'https://www.anthropic.com/economic-futures/',
+		type: 'report',
+		domains: ['exposure', 'tasks', 'measurement'],
+		role: 'active_core',
+		status: 'active',
+		used_for: ['observed occupation exposure source', 'usage gap framing', 'task evidence design'],
+		source_keys: ['anthropic_economic_index_2026'],
+		claim_ids: ['deterministic_no_llm_core', 'reliability_weighted_exposure_ensemble'],
+		summary:
+			"Adds observed AI-usage evidence to the exposure stack and motivates the repo's task-primitives sidecar.",
+		limitations:
+			'Observed Claude usage is not a full labour-market census and is still a platform-specific measure.',
+		repo_notes:
+			'Active live source in the audited exposure ensemble and a major input to the future task-native direction.'
+	},
+	{
+		key: 'anthropic_labor_market_impacts_2026',
+		title: 'Labor market impacts of AI: A new measure and early evidence',
+		authors: ['Maxim Massenkoff', 'Peter McCrory'],
+		year: 2026,
+		published_at: '2026-03-05',
+		publisher: 'Anthropic',
+		url: 'https://www.anthropic.com/research/labor-market-impacts',
+		type: 'report',
+		domains: ['tasks', 'validation', 'forecast'],
+		role: 'active_core',
+		status: 'active',
+		used_for: ['observed exposure framing', 'task-native shadow model', 'near-term impact interpretation'],
+		source_keys: [],
+		claim_ids: [],
+		summary:
+			'Separates theoretical capability from observed exposure and emphasizes that early labour effects remain limited.',
+		limitations:
+			'Uses US outcome data and a platform-linked usage measure, so it still needs Singapore-specific interpretation.',
+		repo_notes:
+			'Primary candidate reference for promoting the shadow model beyond readiness-only governance.'
+	},
+	{
+		key: 'eloundou_etal_2023',
+		title: 'GPTs are GPTs: An Early Look at the Labor Market Impact Potential of Large Language Models',
+		authors: ['Tyna Eloundou', 'Sam Manning', 'Pamela Mishkin', 'Daniel Rock'],
+		year: 2023,
+		published_at: '2023-03',
+		publisher: 'arXiv / OpenAI',
+		url: 'https://arxiv.org/abs/2303.10130',
+		type: 'paper',
+		domains: ['exposure'],
+		role: 'active_core',
+		status: 'active',
+		used_for: ['LLM exposure source'],
+		source_keys: ['eloundou_gpt_exposure_2023'],
+		claim_ids: ['reliability_weighted_exposure_ensemble'],
+		summary:
+			'Provides the GPT-oriented exposure source used as one leg of the live exposure ensemble.',
+		limitations:
+			'Like other exposure indices, it measures capability overlap rather than realised displacement.',
+		repo_notes:
+			'Kept in the live ensemble because it adds an LLM-specific construct not covered by AIOE alone.'
+	},
+	{
+		key: 'ilo_genai_exposure_2025',
+		title: 'Generative AI and Jobs: A Refined Global Index of Occupational Exposure',
+		authors: ['ILO'],
+		year: 2025,
+		published_at: '2025',
+		publisher: 'International Labour Organization',
+		url: 'https://www.ilo.org/publications/generative-ai-and-jobs-refined-global-index-occupational-exposure',
+		type: 'report',
+		domains: ['exposure'],
+		role: 'active_core',
+		status: 'active',
+		used_for: ['ISCO-aligned exposure source'],
+		source_keys: ['ilo_genai_2025'],
+		claim_ids: ['reliability_weighted_exposure_ensemble'],
+		summary:
+			'Adds a recent global occupational exposure measure aligned to international occupation codes.',
+		limitations:
+			'Still a global exposure measure rather than a Singapore outcome model.',
+		repo_notes:
+			'Included because its ISCO alignment improves crosswalk robustness for the ensemble.'
+	},
+	{
+		key: 'onet_database_2024',
+		title: 'O*NET Database 29.1',
+		authors: ['O*NET Resource Center'],
+		year: 2024,
+		published_at: '2024',
+		publisher: 'O*NET / U.S. Department of Labor',
+		url: 'https://www.onetcenter.org/database.html',
+		type: 'dataset',
+		domains: ['tasks', 'context', 'measurement'],
+		role: 'supporting_context',
+		status: 'supporting',
+		used_for: ['task context', 'technology-skill context', 'job-zone education proxy', 'task-primitives matching'],
+		source_keys: [
+			'onet_occupation_data',
+			'onet_task_statements',
+			'onet_technology_skills',
+			'onet_job_zones'
+		],
+		claim_ids: ['onet_task_and_technology_context'],
+		summary:
+			'Provides the task statements, technology skills, and job-zone context used for explanation and task matching.',
+		limitations:
+			'O*NET is US-based and enters the Singapore product mainly as explanatory or crosswalk context.',
+		repo_notes:
+			'Not a direct structural-score input, but essential for the supporting task layer and future task-native scoring.'
+	},
+	{
+		key: 'bls_occupational_projections_2024_2034',
+		title: 'US BLS Employment Projections 2024-2034',
+		authors: ['U.S. Bureau of Labor Statistics'],
+		year: 2024,
+		published_at: '2024',
+		publisher: 'U.S. Bureau of Labor Statistics',
+		url: 'https://www.bls.gov/emp/tables/occupational-projections-and-characteristics.htm',
+		type: 'dataset',
+		domains: ['validation', 'measurement'],
+		role: 'validation',
+		status: 'active',
+		used_for: ['cross-country convergent validation', 'employment proxy wage-pool basis'],
+		source_keys: ['bls_projections_2024_2034'],
+		claim_ids: [
+			'bls_proxy_for_wage_pool',
+			'bls_cross_check_directional_only',
+			'confidence_and_mapping_are_calibrated_directionally',
+			'occupation_family_validation_directional'
+		],
+		summary:
+			'Provides the external benchmark used for convergent validation and for the BLS-weighted proxy employment field.',
+		limitations:
+			'This is US evidence and should not be interpreted as Singapore occupation outcome truth.',
+		repo_notes:
+			'Lives in the repo as both a validation benchmark and a clearly labeled external proxy.'
+	},
+	{
+		key: 'brynjolfsson_li_raymond_2023',
+		title: 'Generative AI at Work',
+		authors: ['Erik Brynjolfsson', 'Danielle Li', 'Lindsey Raymond'],
+		year: 2023,
+		published_at: '2023-04',
+		publisher: 'NBER',
+		url: 'https://www.nber.org/papers/w31161',
+		doi: '10.3386/w31161',
+		type: 'working_paper',
+		domains: ['productivity', 'augmentation'],
+		role: 'active_core',
+		status: 'active',
+		used_for: ['augmentation calibration priors'],
+		source_keys: [],
+		claim_ids: [],
+		summary:
+			'Shows large heterogeneous productivity effects from AI assistance in a specific workflow, supporting separate augmentation modelling.',
+		limitations:
+			'The effect size is workflow-specific and should not be generalized into a universal augmentation constant.',
+		repo_notes:
+			'Candidate reference for replacing a single structural augmentation heuristic with workflow-aware priors.'
+	},
+	{
+		key: 'dellacqua_etal_2025',
+		title: 'Navigating the Jagged Technological Frontier',
+		authors: ["Fabrizio Dell'Acqua", 'et al.'],
+		year: 2025,
+		published_at: '2025',
+		publisher: 'NBER',
+		url: 'https://www.nber.org/papers/w33641',
+		doi: '10.3386/w33641',
+		type: 'working_paper',
+		domains: ['productivity', 'augmentation'],
+		role: 'active_core',
+		status: 'active',
+		used_for: ['augmentation heterogeneity', 'workflow calibration'],
+		source_keys: [],
+		claim_ids: [],
+		summary:
+			'Highlights that AI gains are jagged across tasks and expertise levels rather than smooth across a whole occupation.',
+		limitations:
+			'Provides strong augmentation evidence but still within constrained experimental settings.',
+		repo_notes:
+			'Supports the repo direction of modelling augmentation as its own construct rather than as a mirror image of automation.'
+	},
+	{
+		key: 'dillon_etal_2025',
+		title: 'AI, Productivity, and Work Quality',
+		authors: ['Erica Dillon', 'et al.'],
+		year: 2025,
+		published_at: '2025',
+		publisher: 'NBER',
+		url: 'https://www.nber.org/papers/w33795',
+		doi: '10.3386/w33795',
+		type: 'working_paper',
+		domains: ['productivity', 'augmentation'],
+		role: 'active_core',
+		status: 'active',
+		used_for: ['augmentation calibration priors', 'work-quality tradeoff framing'],
+		source_keys: [],
+		claim_ids: [],
+		summary:
+			'Adds evidence that AI can change both output quantity and work quality, reinforcing the need for occupation-specific augmentation priors.',
+		limitations:
+			'Experimental and workflow-specific evidence still needs careful translation into occupation-level scoring.',
+		repo_notes:
+			'Useful as a V5.1 calibration reference rather than as a direct V4.x score ingredient.'
+	},
+	{
+		key: 'hampole_etal_2025',
+		title: 'Artificial Intelligence and the Labor Market',
+		authors: [
+			'Menaka Hampole',
+			'Dimitris Papanikolaou',
+			'Lawrence D.W. Schmidt',
+			'Bryan Seegmiller'
+		],
+		year: 2025,
+		published_at: '2025-02',
+		publisher: 'NBER',
+		url: 'https://www.nber.org/papers/w33509',
+		doi: '10.3386/w33509',
+		type: 'working_paper',
+		domains: ['tasks', 'validation', 'measurement'],
+		role: 'active_core',
+		status: 'active',
+		used_for: ['task concentration buffer', 'task-native demand interpretation'],
+		source_keys: [],
+		claim_ids: [],
+		summary:
+			'Shows that mean exposure and concentration of exposure in a few tasks can have different labour-demand implications.',
+		limitations:
+			"The repo uses a simplified shadow-model concentration buffer rather than the paper's full firm-task empirical setting.",
+		repo_notes:
+			'Primary scientific justification for publishing task exposure concentration as its own field and using it in the shadow model.'
+	},
+	{
+		key: 'imf_occupational_mobility_2024',
+		title: 'Exposure to Artificial Intelligence and Occupational Mobility: A Cross-country Analysis',
+		authors: ['IMF staff'],
+		year: 2024,
+		published_at: '2024-06-07',
+		publisher: 'IMF Working Paper',
+		url: 'https://www.imf.org/en/publications/wp/issues/2024/06/07/exposure-to-artificial-intelligence-and-occupational-mobility-a-cross-country-analysis-549989',
+		type: 'working_paper',
+		domains: ['mobility'],
+		role: 'active_core',
+		status: 'active',
+		used_for: ['future empirical transition model'],
+		source_keys: [],
+		claim_ids: [],
+		summary:
+			'Suggests that mobility responses to AI pressure follow structured pathways rather than generic occupational distance rules.',
+		limitations:
+			'Cross-country evidence informs the transition design, but the repo still needs a Singapore-specific mobility dataset.',
+		repo_notes:
+			'Guides the schema for observed transition priors and future ranking logic in the transition layer.'
+	},
+	{
+		key: 'bick_blandin_deming_2025',
+		title: 'The Rapid Adoption of Generative AI',
+		authors: ['Alexander Bick', 'Adam Blandin', 'David J. Deming'],
+		year: 2025,
+		published_at: '2024-09',
+		publisher: 'NBER',
+		url: 'https://www.nber.org/papers/w32966',
+		doi: '10.3386/w32966',
+		type: 'working_paper',
+		domains: ['forecast', 'measurement'],
+		role: 'active_core',
+		status: 'active',
+		used_for: ['near-term adoption calibration'],
+		source_keys: [],
+		claim_ids: [],
+		summary:
+			'Documents that workplace generative-AI adoption is fast, supporting a separate adoption layer in forecast models.',
+		limitations:
+			'Adoption speed alone does not identify realised labour displacement or productivity effects.',
+		repo_notes:
+			'Used to justify separating structural pressure from near-term realised-risk proxies.'
+	},
+	{
+		key: 'humlum_vestergaard_2025',
+		title: 'Large Language Models, Small Labor Market Effects',
+		authors: ['Anders Humlum', 'Emilie Vestergaard'],
+		year: 2025,
+		published_at: '2025-05',
+		publisher: 'NBER',
+		url: 'https://www.nber.org/papers/w33777',
+		doi: '10.3386/w33777',
+		type: 'working_paper',
+		domains: ['forecast', 'validation'],
+		role: 'active_core',
+		status: 'active',
+		used_for: ['near-term realised-risk shrinkage'],
+		source_keys: [],
+		claim_ids: [],
+		summary:
+			'Finds small early labour-market effects from chatbot adoption despite meaningful task restructuring, supporting conservative near-term risk shrinkage.',
+		limitations:
+			'The study is Denmark-specific and examines early effects; longer-run displacement remains unresolved.',
+		repo_notes:
+			"Supports the repo's choice to keep structural risk separate from near-term or realised-risk interpretations."
+	},
+	{
+		key: 'metr_time_horizons_2026',
+		title: 'Task-Completion Time Horizons of Frontier AI Models',
+		authors: ['METR'],
+		year: 2026,
+		published_at: '2026-03-03',
+		publisher: 'METR',
+		url: 'https://metr.org/time-horizons/',
+		type: 'report',
+		domains: ['forecast', 'measurement'],
+		role: 'candidate_v5',
+		status: 'candidate',
+		used_for: ['capability-horizon calibration'],
+		source_keys: [],
+		claim_ids: [],
+		summary:
+			'Tracks the current task-duration horizons of frontier models and offers a capability input for scenario calibration.',
+		limitations:
+			'The benchmark is model-centric and software-task heavy, so it is not a direct occupation impact measure.',
+		repo_notes:
+			'Useful for the forecast layer, not for the core structural score.'
+	},
+	{
+		key: 'coyle_poquiz_2025',
+		title: 'Making AI Count: The Next Measurement Frontier',
+		authors: ['Diane Coyle', 'John Lourenze S. Poquiz'],
+		year: 2025,
+		published_at: '2025-10',
+		publisher: 'NBER',
+		url: 'https://www.nber.org/papers/w34330',
+		doi: '10.3386/w34330',
+		type: 'working_paper',
+		domains: ['measurement', 'uncertainty'],
+		role: 'candidate_v5',
+		status: 'candidate',
+		used_for: ['measurement philosophy', 'future uncertainty design'],
+		source_keys: [],
+		claim_ids: [],
+		summary:
+			'Argues that AI measurement should become more granular, task-based, and outcome-focused than current official statistics.',
+		limitations:
+			'This is a measurement agenda rather than an occupation-scoring formula.',
+		repo_notes:
+			"Best reference for the repo's longer-run shift from heuristic confidence toward richer uncertainty and task-native measurement."
+	}
+];

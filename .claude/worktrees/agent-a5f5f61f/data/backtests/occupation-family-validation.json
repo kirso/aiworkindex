@@ -1,0 +1,202 @@
+{
+  "validation_date": "2026-03-21",
+  "model_version": "V5",
+  "bls_data_period": "2024-2034 projections",
+  "family_definition": "2-digit SSOC occupation families with at least 5 occupations overall and 3 BLS-matched occupations",
+  "family_count": 29,
+  "spearman_rho": -0.455,
+  "t_statistic": -2.65,
+  "p_value_below_001": false,
+  "p_value_below_01": false,
+  "negative_direction": true,
+  "interpretation": "Aggregating to occupation families gives a more granular convergent check than the 3 labour clusters without pretending to have official occupation-level outcome data. Higher-risk families should show weaker projected employment change on average.",
+  "top_high_risk_families": [
+    {
+      "prefix": "41",
+      "label": "CLERICAL SUPPORT WORKERS",
+      "occupation_count": 5,
+      "matched_occupation_count": 5,
+      "avg_net_risk": 0.5768,
+      "avg_bls_change": -9.38,
+      "direct_share": 1
+    },
+    {
+      "prefix": "43",
+      "label": "CLERICAL SUPPORT WORKERS",
+      "occupation_count": 19,
+      "matched_occupation_count": 19,
+      "avg_net_risk": 0.5135,
+      "avg_bls_change": -5.55,
+      "direct_share": 1
+    },
+    {
+      "prefix": "42",
+      "label": "CLERICAL SUPPORT WORKERS",
+      "occupation_count": 14,
+      "matched_occupation_count": 14,
+      "avg_net_risk": 0.4453,
+      "avg_bls_change": -2.61,
+      "direct_share": 1
+    },
+    {
+      "prefix": "52",
+      "label": "SERVICE AND SALES WORKERS",
+      "occupation_count": 9,
+      "matched_occupation_count": 9,
+      "avg_net_risk": 0.3768,
+      "avg_bls_change": -4.56,
+      "direct_share": 0.778
+    },
+    {
+      "prefix": "33",
+      "label": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
+      "occupation_count": 28,
+      "matched_occupation_count": 26,
+      "avg_net_risk": 0.3607,
+      "avg_bls_change": 2.52,
+      "direct_share": 1
+    },
+    {
+      "prefix": "35",
+      "label": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
+      "occupation_count": 8,
+      "matched_occupation_count": 8,
+      "avg_net_risk": 0.3604,
+      "avg_bls_change": 0.39,
+      "direct_share": 0.5
+    },
+    {
+      "prefix": "36",
+      "label": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
+      "occupation_count": 7,
+      "matched_occupation_count": 7,
+      "avg_net_risk": 0.3493,
+      "avg_bls_change": 1.84,
+      "direct_share": 1
+    },
+    {
+      "prefix": "24",
+      "label": "PROFESSIONALS",
+      "occupation_count": 42,
+      "matched_occupation_count": 42,
+      "avg_net_risk": 0.3014,
+      "avg_bls_change": 4,
+      "direct_share": 1
+    },
+    {
+      "prefix": "96",
+      "label": "CLEANERS, LABOURERS AND RELATED WORKERS",
+      "occupation_count": 16,
+      "matched_occupation_count": 16,
+      "avg_net_risk": 0.1986,
+      "avg_bls_change": 3.22,
+      "direct_share": 0.875
+    },
+    {
+      "prefix": "26",
+      "label": "PROFESSIONALS",
+      "occupation_count": 24,
+      "matched_occupation_count": 24,
+      "avg_net_risk": 0.1976,
+      "avg_bls_change": 2.9,
+      "direct_share": 0.958
+    }
+  ],
+  "top_low_growth_families": [
+    {
+      "prefix": "41",
+      "label": "CLERICAL SUPPORT WORKERS",
+      "occupation_count": 5,
+      "matched_occupation_count": 5,
+      "avg_net_risk": 0.5768,
+      "avg_bls_change": -9.38,
+      "direct_share": 1
+    },
+    {
+      "prefix": "43",
+      "label": "CLERICAL SUPPORT WORKERS",
+      "occupation_count": 19,
+      "matched_occupation_count": 19,
+      "avg_net_risk": 0.5135,
+      "avg_bls_change": -5.55,
+      "direct_share": 1
+    },
+    {
+      "prefix": "52",
+      "label": "SERVICE AND SALES WORKERS",
+      "occupation_count": 9,
+      "matched_occupation_count": 9,
+      "avg_net_risk": 0.3768,
+      "avg_bls_change": -4.56,
+      "direct_share": 0.778
+    },
+    {
+      "prefix": "81",
+      "label": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
+      "occupation_count": 9,
+      "matched_occupation_count": 9,
+      "avg_net_risk": 0.1839,
+      "avg_bls_change": -4.41,
+      "direct_share": 1
+    },
+    {
+      "prefix": "42",
+      "label": "CLERICAL SUPPORT WORKERS",
+      "occupation_count": 14,
+      "matched_occupation_count": 14,
+      "avg_net_risk": 0.4453,
+      "avg_bls_change": -2.61,
+      "direct_share": 1
+    },
+    {
+      "prefix": "72",
+      "label": "CRAFTSMEN AND RELATED TRADES WORKERS",
+      "occupation_count": 8,
+      "matched_occupation_count": 8,
+      "avg_net_risk": 0.1202,
+      "avg_bls_change": -1.44,
+      "direct_share": 1
+    },
+    {
+      "prefix": "93",
+      "label": "CLEANERS, LABOURERS AND RELATED WORKERS",
+      "occupation_count": 6,
+      "matched_occupation_count": 6,
+      "avg_net_risk": 0.112,
+      "avg_bls_change": -0.18,
+      "direct_share": 1
+    },
+    {
+      "prefix": "35",
+      "label": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
+      "occupation_count": 8,
+      "matched_occupation_count": 8,
+      "avg_net_risk": 0.3604,
+      "avg_bls_change": 0.39,
+      "direct_share": 0.5
+    },
+    {
+      "prefix": "74",
+      "label": "CRAFTSMEN AND RELATED TRADES WORKERS",
+      "occupation_count": 6,
+      "matched_occupation_count": 6,
+      "avg_net_risk": 0.0621,
+      "avg_bls_change": 0.52,
+      "direct_share": 1
+    },
+    {
+      "prefix": "54",
+      "label": "SERVICE AND SALES WORKERS",
+      "occupation_count": 7,
+      "matched_occupation_count": 7,
+      "avg_net_risk": 0.1259,
+      "avg_bls_change": 0.7,
+      "direct_share": 1
+    }
+  ],
+  "caveats": [
+    "This remains a cross-country convergent check built on the BLS crosswalk rather than Singapore realised family-level outcomes.",
+    "Two-digit SSOC families are broader than individual occupations and can still mask substantial within-family variation.",
+    "Family labels are structural group labels, not official outcome categories."
+  ]
+}

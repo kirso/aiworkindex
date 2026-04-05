@@ -25,13 +25,13 @@
 	const datasetJsonLd = `<script type="application/ld+json">${JSON.stringify({
 		'@context': 'https://schema.org',
 		'@type': 'Dataset',
-		name: 'AI Work Index — Singapore Occupation Scores',
-		description: `${DATA_VINTAGE.occupation_count} Singapore occupations scored for structural AI pressure using the live ${DATA_VINTAGE.model_version} release: deterministic 4-source exposure ensemble, human bottleneck, displacement pressure, demand resilience, and Singapore market context.`,
+		name: 'AI Work Index — Structural Scores and Reference Market Data',
+		description: `${DATA_VINTAGE.occupation_count} occupations scored for structural AI pressure using the live ${DATA_VINTAGE.model_version} release: deterministic 4-source exposure ensemble, human bottleneck, displacement pressure, demand resilience, and live reference-market context.`,
 		url: SITE.url + '/data',
 		license: 'https://opensource.org/licenses/MIT',
 		creator: { '@type': 'Organization', name: SITE.name, url: SITE.url },
 		dateModified: DATA_VINTAGE.last_updated,
-		spatialCoverage: { '@type': 'Place', name: 'Singapore' },
+		spatialCoverage: { '@type': 'Place', name: 'Singapore live reference market' },
 		variableMeasured: [
 			'AI exposure ensemble',
 			'Human bottleneck (theta)',
@@ -43,16 +43,20 @@
 
 	const evidenceTiers = [
 		{
-			key: 'official_sg',
-			description: 'Direct Singapore government data published at the level shown on the site.'
+			key: 'official_local',
+			description: 'Direct local government or official-statistics data published at the level shown on the site.'
 		},
 		{
-			key: 'derived_from_official_sg',
-			description: 'Rule-based or aggregated fields anchored to official Singapore data or published policy scope.'
+			key: 'derived_from_official_local',
+			description: 'Rule-based or aggregated fields anchored to official local data or published policy scope.'
+		},
+		{
+			key: 'cross_country_research',
+			description: 'Peer-reviewed or multi-country research inputs used for the structural baseline or calibration.'
 		},
 		{
 			key: 'external_proxy',
-			description: 'Non-Singapore research or external data used as an exposure input, proxy, or cross-check.'
+			description: 'Non-local research or external data used as an exposure input, proxy, or cross-check.'
 		},
 		{
 			key: 'synthetic',
@@ -563,8 +567,8 @@
 </script>
 
 <Seo
-	title="Download Singapore AI Occupation Risk Data"
-	description={`Download the current AI Work Index dataset and versioned snapshots, including the live ${DATA_VINTAGE.model_version} structural scores, uncertainty intervals, and metadata.`}
+	title="Download AI Work Index Data"
+	description={`Download the current AI Work Index dataset and versioned snapshots, including the live ${DATA_VINTAGE.model_version} structural scores, uncertainty intervals, and metadata. The global baseline is separate from country-specific reference-market data.`}
 	path="/data"
 	jsonLd={[datasetJsonLd]}
 />
@@ -573,6 +577,10 @@
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Data' }]} />
 
 	<h1 class={titleStyle({ size: 'page' })}>Data Downloads</h1>
+	<p class="mt-2 text-sm text-muted-foreground">
+		The global structural baseline and the country-specific reference-market bundles are published
+		separately so each layer can be validated on its own.
+	</p>
 
 	<!-- TL;DR -->
 	<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'primary' }), 'mt-4 mb-4')}>
@@ -581,8 +589,8 @@
 			data sources · MIT licensed
 		</p>
 		<p class="mt-1 text-sm text-muted-foreground">
-			Structural scores and Singapore context are separate downloads. Each artifact has an evidence
-			tier: official SG, derived from official SG, external proxy, or synthetic.
+			Structural scores and local context are separate downloads. Each artifact has an evidence
+			tier: official local, derived from official local, cross-country research, or synthetic.
 		</p>
 	</div>
 
@@ -880,10 +888,11 @@
 				<polyline points="7,10 12,15 17,10"/>
 				<line x1="12" y1="15" x2="12" y2="3"/>
 			</svg>
-			<span class="text-base font-semibold text-foreground">Singapore Context Pack</span>
+			<span class="text-base font-semibold text-foreground">Reference Market Context Pack</span>
 		</div>
 		<p class="text-sm text-muted-foreground">
-			Context-only bundle published separately from structural scores.
+			Context-only bundle published separately from structural scores. Singapore remains the live
+			reference market for these artifacts.
 		</p>
 		<div class="mt-3 grid gap-2 sm:grid-cols-3 lg:grid-cols-4">
 			{#each [
@@ -976,13 +985,13 @@
 		<p class={cn(sectionLabel(), 'mb-3')}>Methodology Version</p>
 		<div class={card({ padding: 'lg' })}>
 			<div class="space-y-1 text-sm text-muted-foreground">
-				<p><span class="font-medium text-foreground">Version:</span> V6 (headline risk = displacement pressure × (1 − demand resilience), using a deterministic audited 4-source exposure ensemble, human bottleneck, and Singapore demand resilience)</p>
+				<p><span class="font-medium text-foreground">Version:</span> V6 (headline risk = displacement pressure × (1 − demand resilience), using a deterministic audited 4-source exposure ensemble, human bottleneck, and local demand resilience)</p>
 				<p><span class="font-medium text-foreground">Data vintage:</span> 2024 wages, 2025 labour context, 2025/2026 demand signals</p>
-				<p><span class="font-medium text-foreground">Occupations:</span> {DATA_VINTAGE.occupation_count} SSOC-coded occupations</p>
+				<p><span class="font-medium text-foreground">Occupations:</span> {DATA_VINTAGE.occupation_count} occupations, currently sourced from SSOC-coded Singapore reference data</p>
 				<p><span class="font-medium text-foreground">Separate context bundle:</span> Labour monitor, worker profile, industry context, sector wage anchors, geography context, macro labour context, national AI context, offset potential, and transition support</p>
 				<p><span class="font-medium text-foreground">Retained baseline trail:</span> {experimentalStatusLabel(siteStatus.experimental_release.status)}. The full V4.3 shadow and V5 promotion comparison remain published so the live V6 release can still be audited against the retained V4.3 and V4.2 baselines.</p>
 				<p><span class="font-medium text-foreground">Research memory:</span> {researchLibrary.entry_count} canonical research entries are published in the research library and linked to claims/source registry records.</p>
-				<p><span class="font-medium text-foreground">Sources:</span> MOM Singapore (wages, Labour Force Section D, industry context, demand signals, SOI), IMDA Singapore Digital Economy Report 2025, IMDA NAIIP 2026, O*NET, Felten AIOE, Pizzinelli/IMF, Anthropic observed usage, Eloundou GPT exposure, ILO occupational exposure, SOL 2026, Jobs in Demand 2025</p>
+				<p><span class="font-medium text-foreground">Sources:</span> Singapore reference-market official statistics and policy data (wages, labour-force context, industry context, demand signals), IMDA Singapore Digital Economy Report 2025, IMDA NAIIP 2026, O*NET, Felten AIOE, Pizzinelli/IMF, Anthropic observed usage, Eloundou GPT exposure, ILO occupational exposure, SOL 2026, Jobs in Demand 2025</p>
 			</div>
 			<div class="mt-3 flex flex-wrap gap-4 text-sm">
 				<a href="/methodology" class="text-primary underline">Full methodology &rarr;</a>

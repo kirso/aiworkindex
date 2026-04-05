@@ -8,7 +8,7 @@
 </script>
 
 <a
-	href="/occupation/{occupation.ssoc}"
+	href="/sg/occupation/{occupation.ssoc}"
 	class={cn(card({ padding: 'sm', hover: true }), 'flex items-center justify-between')}
 >
 	<div class="min-w-0 flex-1">

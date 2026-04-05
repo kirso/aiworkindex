@@ -15,15 +15,15 @@
 		`<script type="application/ld+json">${JSON.stringify({
 			'@context': 'https://schema.org',
 			'@type': 'ItemList',
-			name: 'Theory vs Practice: AI Exposure Gaps in Singapore',
+			name: 'Theory vs Practice: AI Exposure Gaps',
 			description:
-				'Top 25 Singapore occupations ranked by the gap between theoretical AI exposure and observed real-world AI usage',
+				'Top 25 occupations ranked by the gap between theoretical AI exposure and observed real-world AI usage in the current live reference market',
 			numberOfItems: data.ranked.length,
 			itemListElement: data.ranked.slice(0, 10).map((occ: Occupation, i: number) => ({
 				'@type': 'ListItem',
 				position: i + 1,
 				name: occ.title,
-				url: SITE.url + '/occupation/' + occ.ssoc
+				url: SITE.url + '/sg/occupation/' + occ.ssoc
 			}))
 		})}<\/script>`
 	);
@@ -91,8 +91,8 @@
 </script>
 
 <Seo
-	title="AI Theory vs Practice — Where Real Usage Diverges in Singapore (2026)"
-	description="Where does observed AI usage diverge most from theoretical exposure? The biggest gaps between Anthropic's real-world data and academic AI exposure indices."
+	title="AI Theory vs Practice — Where Real Usage Diverges"
+	description="Where does observed AI usage diverge most from theoretical exposure? The biggest gaps between Anthropic's real-world data and academic AI exposure indices in the current live reference market."
 	path="/rankings/theory-vs-practice"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />

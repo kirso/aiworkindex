@@ -13,15 +13,15 @@
 		`<script type="application/ld+json">${JSON.stringify({
 			'@context': 'https://schema.org',
 			'@type': 'ItemList',
-			name: 'Safest High-Paying Jobs in Singapore',
+			name: 'Safest High-Paying Jobs',
 			description:
-				'Top 25 Singapore occupations with low AI displacement risk and above-median wages',
+				'Top 25 occupations with low AI displacement risk and above-median wages in the current live reference market',
 			numberOfItems: data.ranked.length,
 			itemListElement: data.ranked.slice(0, 10).map((occ: Occupation, i: number) => ({
 				'@type': 'ListItem',
 				position: i + 1,
 				name: occ.title,
-				url: SITE.url + '/occupation/' + occ.ssoc
+				url: SITE.url + '/sg/occupation/' + occ.ssoc
 			}))
 		})}<\/script>`
 	);
@@ -32,7 +32,7 @@
 		mainEntity: [
 			{
 				'@type': 'Question',
-				name: 'What are the safest high-paying jobs from AI in Singapore?',
+				name: 'What are the safest high-paying jobs from AI?',
 				acceptedAnswer: {
 					'@type': 'Answer',
 					text: 'Occupations with low AI displacement risk and above-median wages combine structural safety with strong earnings. These typically involve high coordination, physical presence, or regulatory complexity.'
@@ -78,8 +78,8 @@
 </script>
 
 <Seo
-	title="Safest High-Paying Jobs in Singapore — Low AI Risk (2026)"
-	description="Low AI displacement risk + above-median wages. The 25 safest well-paying occupations in Singapore."
+	title="Safest High-Paying Jobs — Low AI Risk"
+	description="Low AI displacement risk + above-median wages. The 25 safest well-paying occupations in the current live reference market."
 	path="/rankings/safest-high-paying"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
@@ -95,7 +95,7 @@
 
 	<h1 class={titleStyle({ size: 'page' })}>Safest High-Paying Jobs</h1>
 	<p class="mt-2 text-sm text-muted-foreground">
-		The sweet spot: low displacement risk (&lt;15%) with above-median wages (&ge; SGD {data.medianWage.toLocaleString()}/month).
+		The sweet spot: low displacement risk (&lt;15%) with above-median wages in the live market.
 		Sorted by median wage.
 	</p>
 
@@ -104,7 +104,7 @@
 	</section>
 
 	<p class="mt-4 text-xs text-muted-foreground">
-		Filtered: net_risk &lt; 0.15 AND gross_wage_median &ge; national median (SGD {data.medianWage.toLocaleString()}).
+		Filtered: net_risk &lt; 0.15 and gross_wage_median above the current market median.
 		<a href="/methodology" class="text-primary underline">Learn more</a>
 	</p>
 <div class="mt-4 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">

@@ -1,0 +1,420 @@
+/*
+ * AI Work Index — "Signal" Design System
+ *
+ * The score IS the interface. Data-first, everything else supports it.
+ * Built on Tailwind CSS v4 with proper @theme configuration.
+ *
+ * === DESIGN PRINCIPLES ===
+ * 1. Numbers are heroes — large, monospace, prominent
+ * 2. Cards: border + shadow-sm on white, consistent everywhere via card()
+ * 3. Full saturation risk colors — traffic-light clear
+ * 4. Pure white canvas — clean, no warmth, no tint
+ * 5. Tight density — tool-like, not editorial
+ * 6. Every data display has a source line
+ *
+ * === ARCHITECTURE (Tailwind v4) ===
+ * @theme        → static tokens (risk colors, fonts, shadows, radius)
+ *                 Generates CSS vars AND utility classes automatically.
+ * :root / .dark → mode-switchable tokens (bg, fg, card, border)
+ * @theme inline → bridges mode-switchable tokens to Tailwind utilities
+ *
+ * === CARD SYSTEM ===
+ * ONE card function: card() from design-system.ts
+ * Base: rounded-lg + border + shadow-sm (always both border AND shadow)
+ * Variants:
+ *   card()                     — standard content card
+ *   card({ hover: true })      — clickable (adds hover:shadow-md)
+ *   card({ variant: 'inset' }) — nested muted area (no border, no shadow)
+ *   card({ variant: 'flat' })  — border only, no shadow
+ *   card({ padding: 'sm' })    — compact (p-3)
+ *   card({ padding: 'md' })    — standard (px-5 py-4)
+ *   card({ padding: 'lg' })    — feature/hero (p-6)
+ * NEVER write raw `rounded-lg border border-border bg-card` — use card().
+ *
+ * === COLOR RULES ===
+ * NEVER use hardcoded Tailwind colors (bg-emerald-50, text-amber-700).
+ * Use semantic tokens: bg-risk-very-low-subtle, text-impact-leveraged, etc.
+ * Use helpers: riskTone(), impactTone(), overallSignalTone(), directionTone()
+ *
+ * === TYPOGRAPHY ===
+ * display() — hero numbers (font-mono, 3xl-6xl)
+ * title()   — headings (font-sans, bold, page/section/subsection)
+ * body()    — prose (font-sans, sm/md/lg, default/muted/subtle)
+ * caption() — metadata (font-sans, xs)
+ * mono()    — tabular data (font-mono)
+ * Floor: text-xs (12px). No text-[10px] or text-[11px].
+ */
+
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================
+   @theme — STATIC DESIGN TOKENS
+   These generate both CSS variables AND utility classes.
+   Use @theme for tokens that don't change between light/dark.
+   ============================================ */
+
+@theme {
+	/* --- Typography --- */
+	--font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+	--font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', monospace;
+
+	/* --- Custom tracking --- */
+	--tracking-display: -0.03em;
+	--tracking-heading: -0.02em;
+	--tracking-label: 0.06em;
+
+	/* --- Custom leading --- */
+	--leading-display: 1.1;
+	--leading-heading: 1.2;
+
+	/* --- Radius (tighter than default — tool-like) --- */
+	--radius-xs: 0.125rem;
+	--radius-sm: 0.25rem;
+	--radius-md: 0.375rem;
+	--radius-lg: 0.5rem;
+	--radius-xl: 0.75rem;
+
+	/* --- Risk Spectrum: Full saturation, diagnostic ---
+	     Each risk level has 3 tokens: solid, subtle bg, border.
+	     Solid colors used for badges/bars.
+	     Subtle/border for tinted backgrounds. */
+
+	/* Very Low — emerald (darkened for WCAG AA text contrast on white) */
+	--color-risk-very-low: oklch(0.48 0.14 155);
+	--color-risk-very-low-subtle: oklch(0.97 0.02 155);
+	--color-risk-very-low-border: oklch(0.88 0.06 155);
+
+	/* Low — green (darkened for WCAG AA text contrast) */
+	--color-risk-low: oklch(0.47 0.12 145);
+	--color-risk-low-subtle: oklch(0.97 0.018 145);
+	--color-risk-low-border: oklch(0.88 0.05 145);
+
+	/* Moderate — amber (darkened for WCAG AA text contrast on white) */
+	--color-risk-moderate: oklch(0.55 0.14 75);
+	--color-risk-moderate-subtle: oklch(0.97 0.02 75);
+	--color-risk-moderate-border: oklch(0.9 0.06 75);
+
+	/* High — orange (darkened for AA text contrast on white and tinted bg) */
+	--color-risk-high: oklch(0.5 0.16 40);
+	--color-risk-high-subtle: oklch(0.97 0.02 40);
+	--color-risk-high-border: oklch(0.9 0.05 40);
+
+	/* Very High — red */
+	--color-risk-very-high: oklch(0.55 0.22 25);
+	--color-risk-very-high-subtle: oklch(0.97 0.02 25);
+	--color-risk-very-high-border: oklch(0.9 0.05 25);
+
+	/* --- Impact Types (3-step each) --- */
+	--color-impact-leveraged: oklch(0.5 0.18 255);
+	--color-impact-leveraged-subtle: oklch(0.97 0.015 255);
+	--color-impact-leveraged-border: oklch(0.9 0.04 255);
+
+	--color-impact-at-risk: oklch(0.55 0.2 25);
+	--color-impact-at-risk-subtle: oklch(0.97 0.02 25);
+	--color-impact-at-risk-border: oklch(0.9 0.05 25);
+
+	--color-impact-stable: oklch(0.55 0.01 260);
+	--color-impact-stable-subtle: oklch(0.97 0.003 260);
+	--color-impact-stable-border: oklch(0.92 0.005 260);
+
+	--color-impact-mixed: oklch(0.48 0.11 75); /* darkened for AA on tinted bg */
+	--color-impact-mixed-subtle: oklch(0.97 0.02 75);
+	--color-impact-mixed-border: oklch(0.9 0.05 75);
+
+	/* --- Chart Colors (5-color, high contrast) --- */
+	--color-chart-1: oklch(0.5 0.18 255);
+	--color-chart-2: oklch(0.6 0.16 155);
+	--color-chart-3: oklch(0.7 0.16 75);
+	--color-chart-4: oklch(0.55 0.22 25);
+	--color-chart-5: oklch(0.5 0.1 300);
+
+	/* --- Shadows: Clean, not colored ---
+	     Signal style uses sharp, functional shadows. */
+	--shadow-xs: 0 1px 2px rgb(0 0 0 / 0.04);
+	--shadow-sm: 0 1px 3px rgb(0 0 0 / 0.06), 0 1px 2px rgb(0 0 0 / 0.04);
+	--shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+	--shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+
+	/* --- Easing --- */
+	--ease-snappy: cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* ============================================
+   MODE-SWITCHABLE TOKENS
+   These change between light/dark mode.
+   Defined in :root and .dark, bridged via @theme inline.
+   ============================================ */
+
+:root {
+	/*
+	 * Surface stack (light mode):
+	 *   card       1.000  — pure white, primary content surface
+	 *   background 0.980  — page canvas, subtle cool tint
+	 *   subtle     0.975  — section panels inside cards
+	 *   metric     0.965  — stat grouping cards
+	 *   inset      0.955  — nested muted areas
+	 *
+	 * Cards are defined by border + shadow, not tonal shift alone.
+	 * Tinted variants (subtle, metric) darken progressively.
+	 */
+	--background: oklch(0.98 0.002 240); /* page canvas — subtle gray, clean */
+	--foreground: oklch(0.14 0.005 240); /* near-black, blue-tinted */
+	--card: oklch(1 0 0); /* pure white — lifts off background */
+	--card-foreground: oklch(0.14 0.005 240);
+	--inset: oklch(0.955 0.005 240); /* clearly recessed within card */
+	--inset-foreground: oklch(0.4 0.005 240);
+
+	/* Surface roles — tinted steps darker than card white */
+	--surface-subtle: oklch(0.975 0.003 240); /* section panels inside cards */
+	--surface-metric: oklch(0.965 0.004 240); /* stat grouping — visible tint */
+	--popover: oklch(1 0 0);
+	--popover-foreground: oklch(0.14 0.005 240);
+
+	/* Brand: ink blue — credible, analytical, doesn't compete with risk colors */
+	--primary: oklch(0.42 0.16 230);
+	--primary-foreground: oklch(0.98 0 0);
+	--secondary: oklch(0.96 0.004 240);
+	--secondary-foreground: oklch(0.25 0.01 240);
+
+	/* UI Chrome */
+	--muted: oklch(0.955 0.003 240);
+	--muted-foreground: oklch(0.48 0.01 240);
+
+	/* Text hierarchy — 3 tiers below foreground, no ad-hoc opacity.
+	   All pass WCAG AA (4.5:1) against both --background (0.980) and --card (1.0). */
+	--text-secondary: oklch(0.42 0.008 240); /* supporting copy, descriptions */
+	--text-tertiary: oklch(0.52 0.006 240); /* metadata, sources, timestamps */
+	--text-ghost: oklch(0.58 0.005 240); /* fine print, separators */
+	--accent: oklch(0.945 0.006 240);
+	--accent-foreground: oklch(0.2 0.01 240);
+	--destructive: oklch(0.55 0.22 25);
+	--border: oklch(0.91 0.005 240); /* structural border — use at reduced opacity for ghost effect */
+	--input: oklch(0.905 0.005 240);
+	--ring: oklch(0.48 0.14 230);
+
+	/* Header */
+	--header-bg: oklch(1 0 0);
+	--header-text: oklch(0.14 0.005 240);
+	--header-muted: oklch(0.48 0.01 240);
+	--header-active-bg: oklch(0.945 0.006 240);
+
+	/* Sidebar */
+	--sidebar: oklch(0.975 0.003 240);
+	--sidebar-foreground: oklch(0.14 0.005 240);
+	--sidebar-primary: oklch(0.42 0.16 230);
+	--sidebar-primary-foreground: oklch(0.98 0 0);
+	--sidebar-accent: oklch(0.945 0.006 240);
+	--sidebar-accent-foreground: oklch(0.2 0.01 240);
+	--sidebar-border: oklch(0.905 0.005 240);
+	--sidebar-ring: oklch(0.48 0.14 230);
+}
+
+.dark {
+	--background: oklch(0.12 0.005 240);
+	--foreground: oklch(0.93 0.002 240);
+	--card: oklch(0.17 0.005 240);
+	--card-foreground: oklch(0.93 0.002 240);
+	--inset: oklch(0.13 0.005 240);
+	--inset-foreground: oklch(0.65 0.005 240);
+	--surface-subtle: oklch(0.15 0.004 240);
+	--surface-metric: oklch(0.14 0.004 240);
+	--popover: oklch(0.18 0.005 240);
+	--popover-foreground: oklch(0.93 0.002 240);
+	--primary: oklch(0.65 0.12 230);
+	--primary-foreground: oklch(0.12 0.005 240);
+	--secondary: oklch(0.2 0.005 240);
+	--secondary-foreground: oklch(0.85 0.002 240);
+	--muted: oklch(0.2 0.005 240);
+	--muted-foreground: oklch(0.6 0.005 240);
+	--text-secondary: oklch(0.65 0.005 240);
+	--text-tertiary: oklch(0.52 0.004 240);
+	--text-ghost: oklch(0.4 0.003 240);
+	--accent: oklch(0.24 0.005 240);
+	--accent-foreground: oklch(0.93 0.002 240);
+	--destructive: oklch(0.6 0.18 25);
+	--border: oklch(1 0 0 / 10%);
+	--input: oklch(1 0 0 / 12%);
+	--ring: oklch(0.55 0.12 230);
+	--header-bg: oklch(0.1 0.005 240);
+	--header-text: oklch(0.93 0.002 240);
+	--header-muted: oklch(0.55 0.005 240);
+	--header-active-bg: oklch(1 0 0 / 8%);
+}
+
+/* ============================================
+   @theme inline — BRIDGE mode-switchable tokens
+   Maps CSS vars → Tailwind utility classes.
+   Uses `inline` so utilities reference the variable,
+   enabling runtime dark/light switching.
+   ============================================ */
+
+@theme inline {
+	--color-background: var(--background);
+	--color-foreground: var(--foreground);
+	--color-card: var(--card);
+	--color-card-foreground: var(--card-foreground);
+	--color-inset: var(--inset);
+	--color-inset-foreground: var(--inset-foreground);
+	--color-surface-subtle: var(--surface-subtle);
+	--color-surface-metric: var(--surface-metric);
+	--color-popover: var(--popover);
+	--color-popover-foreground: var(--popover-foreground);
+	--color-primary: var(--primary);
+	--color-primary-foreground: var(--primary-foreground);
+	--color-secondary: var(--secondary);
+	--color-secondary-foreground: var(--secondary-foreground);
+	--color-muted: var(--muted);
+	--color-muted-foreground: var(--muted-foreground);
+	--color-text-secondary: var(--text-secondary);
+	--color-text-tertiary: var(--text-tertiary);
+	--color-text-ghost: var(--text-ghost);
+	--color-accent: var(--accent);
+	--color-accent-foreground: var(--accent-foreground);
+	--color-destructive: var(--destructive);
+	--color-border: var(--border);
+	--color-input: var(--input);
+	--color-ring: var(--ring);
+	--color-header-bg: var(--header-bg);
+	--color-header-text: var(--header-text);
+	--color-header-muted: var(--header-muted);
+	--color-header-active-bg: var(--header-active-bg);
+	--color-sidebar: var(--sidebar);
+	--color-sidebar-foreground: var(--sidebar-foreground);
+	--color-sidebar-primary: var(--sidebar-primary);
+	--color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+	--color-sidebar-accent: var(--sidebar-accent);
+	--color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+	--color-sidebar-border: var(--sidebar-border);
+	--color-sidebar-ring: var(--sidebar-ring);
+}
+
+/* ============================================
+   BASE LAYER — Signal Foundation
+   ============================================ */
+
+@layer base {
+	* {
+		@apply border-border outline-ring/50;
+	}
+
+	body {
+		@apply bg-background text-foreground font-sans;
+		font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+		font-variant-numeric: tabular-nums lining-nums;
+	}
+
+	/* Headings: sans-serif, tight tracking */
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		letter-spacing: -0.02em;
+		line-height: 1.2;
+		text-wrap: balance;
+	}
+
+	/* Links: accent color, subtle underline offset */
+	a {
+		text-decoration-color: var(--primary);
+		text-underline-offset: 2px;
+	}
+}
+
+/* ============================================
+   SIGNAL CARD SYSTEM
+   Cards: white surface + border + shadow.
+   Uniform borders, no heavy left-accent stripes.
+   ============================================ */
+
+/* ============================================
+   DATA DISPLAY ELEMENTS
+   ============================================ */
+
+/* Stat display — large monospace numbers */
+.stat-display {
+	font-family: var(--font-mono);
+	font-variant-numeric: tabular-nums;
+	font-feature-settings: 'tnum' 1;
+	letter-spacing: -0.03em;
+}
+
+/* Source attribution (data journalism convention) */
+.source-line {
+	font-size: 0.6875rem;
+	line-height: 1.4;
+	color: var(--muted-foreground);
+	border-top: 1px solid var(--border);
+	padding-top: 0.5rem;
+	margin-top: 0.75rem;
+}
+
+/* Leader dots — label····value alignment */
+.leader-dots {
+	display: flex;
+	align-items: baseline;
+	gap: 0.25rem;
+}
+.leader-dots::after {
+	content: '';
+	flex: 1;
+	border-bottom: 1px dotted var(--border);
+	margin-bottom: 0.2em;
+}
+
+/* ============================================
+   INTERACTIVE ELEMENTS
+   ============================================ */
+
+.chip-active {
+	animation: chip-pop 0.15s var(--ease-snappy);
+}
+@keyframes chip-pop {
+	0% {
+		transform: scale(0.95);
+	}
+	50% {
+		transform: scale(1.05);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+.scatter-dot {
+	transition:
+		opacity 0.15s ease,
+		transform 0.15s ease;
+	transform-origin: center;
+	transform-box: fill-box;
+}
+.scatter-dot:hover {
+	transform: scale(1.5);
+	opacity: 1 !important;
+}
+
+/* ============================================
+   MOTION
+   ============================================ */
+
+@media (prefers-reduced-motion: no-preference) {
+	html {
+		scroll-behavior: smooth;
+	}
+}
+@media (prefers-reduced-motion: reduce) {
+	.chip-active {
+		animation: none;
+	}
+	.scatter-dot {
+		transition: none;
+	}
+}
+
+html {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}

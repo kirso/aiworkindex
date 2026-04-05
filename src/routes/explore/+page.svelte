@@ -23,22 +23,22 @@
 		`<script type="application/ld+json">${JSON.stringify({
 			'@context': 'https://schema.org',
 			'@type': 'ItemList',
-			name: 'Singapore Occupations',
-			description: `${DATA_VINTAGE.occupation_count} official Singapore occupations scored for structural AI pressure`,
+			name: 'Occupations',
+			description: `${DATA_VINTAGE.occupation_count} occupations scored for structural AI pressure in the current live reference market`,
 			numberOfItems: sortedOccupations.length,
 			itemListElement: sortedOccupations.slice(0, 10).map((item, index) => ({
 				'@type': 'ListItem',
 				position: index + 1,
 				name: item.title,
-				url: SITE.url + `/occupation/${item.ssoc}`
+				url: SITE.url + `/sg/occupation/${item.ssoc}`
 			}))
 		})}<\/script>`
 	);
 </script>
 
 <Seo
-	title={`Browse Occupations — AI Risk | ${SITE.name}`}
-	description={`Browse all ${DATA_VINTAGE.occupation_count} official Singapore occupations scored for structural AI pressure. Filter by risk band, occupation group, and wage range.`}
+	title={`Browse Occupations — Structural AI Risk | ${SITE.name}`}
+	description={`Browse all ${DATA_VINTAGE.occupation_count} occupations scored for structural AI pressure in the current live reference market. Open the global baseline first if you want the comparable cross-country layer.`}
 	path="/explore"
 	jsonLd={[itemListJsonLd]}
 />
@@ -49,8 +49,9 @@
 	<div class="mb-6">
 		<h1 class={titleStyle({ size: 'page' })}>Browse Occupations</h1>
 		<p class={cn(caption(), 'mt-1')}>
-			All {DATA_VINTAGE.occupation_count} official Singapore occupations in one place. Filter by risk
-			band, occupation group, and wage range, then open any occupation for the full evidence breakdown.
+			All {DATA_VINTAGE.occupation_count} occupations in one place. Open the global baseline for
+			comparable structural analysis, then drill into the live reference market. Filter by risk band,
+			occupation group, and wage range, then open any occupation for the full evidence breakdown.
 		</p>
 	</div>
 

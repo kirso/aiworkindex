@@ -550,6 +550,18 @@ export const ISCO_TO_SOC: Record<string, string[]> = {
 	'9629': ['53-7199'] // Elementary workers nec
 };
 
+export const SOC_TO_ISCO: Record<string, string[]> = Object.entries(ISCO_TO_SOC).reduce(
+	(acc, [isco, socs]) => {
+		for (const soc of socs) {
+			const bucket = acc[soc] ?? [];
+			if (!bucket.includes(isco)) bucket.push(isco);
+			acc[soc] = bucket;
+		}
+		return acc;
+	},
+	{} as Record<string, string[]>
+);
+
 /**
  * Convert a 5-digit SSOC code to a 4-digit ISCO-08 unit group.
  * SSOC is based on ISCO-08: first 4 digits of SSOC = ISCO-08 unit group.
@@ -565,6 +577,21 @@ export function ssocToIsco(ssoc: string): string {
  */
 export function iscoToSoc(isco: string): string[] {
 	return ISCO_TO_SOC[isco] || [];
+}
+
+/**
+ * Return all ISCO-08 unit groups that map to a SOC 2010 code.
+ */
+export function socToIscoCodes(soc: string): string[] {
+	return SOC_TO_ISCO[soc] || [];
+}
+
+/**
+ * Return the best ISCO-08 unit group for a SOC 2010 code.
+ * If multiple candidates exist, the first published crosswalk entry wins.
+ */
+export function socToIsco(soc: string): string | null {
+	return SOC_TO_ISCO[soc]?.[0] ?? null;
 }
 
 /**

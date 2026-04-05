@@ -133,7 +133,7 @@
 			<div class="mt-3 space-y-1">
 				{#each data.highestRisk as occ, i (occ.ssoc)}
 					<a
-						href="/occupation/{occ.ssoc}"
+						href="/sg/occupation/{occ.ssoc}"
 						class="flex items-baseline justify-between py-1 text-xs hover:text-primary"
 					>
 						<span>
@@ -158,7 +158,7 @@
 			<div class="mt-3 space-y-1">
 				{#each data.aiLeveraged as occ, i (occ.ssoc)}
 					<a
-						href="/occupation/{occ.ssoc}"
+						href="/sg/occupation/{occ.ssoc}"
 						class="flex items-baseline justify-between py-1 text-xs hover:text-primary"
 					>
 						<span>
@@ -184,7 +184,7 @@
 				{#each data.theoryVsPractice as occ, i (occ.ssoc)}
 					{@const gap = occ.evidence.anthropic_gap ?? 0}
 					<a
-						href="/occupation/{occ.ssoc}"
+						href="/sg/occupation/{occ.ssoc}"
 						class="flex items-baseline justify-between py-1 text-xs hover:text-primary"
 					>
 						<span>

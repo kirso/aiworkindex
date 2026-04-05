@@ -20,7 +20,7 @@
 		{
 			href: '/rankings/highest-risk',
 			title: 'Highest Risk',
-			description: 'Top 25 occupations by net displacement risk score',
+			description: 'Top 25 occupations by net displacement risk score in the current live reference market',
 			color: 'text-risk-very-high',
 			accent: 'very_high' as const,
 			count: 25
@@ -82,7 +82,7 @@
 			href: '/rankings/rich-and-risky',
 			title: 'Rich and Risky',
 			description:
-				'Highest-paid occupations (SGD 5K+/month) facing high AI displacement risk (30%+)',
+				'Highest-paid occupations in the live market facing high AI displacement risk (30%+)',
 			color: 'text-risk-high',
 			accent: 'high' as const,
 			count: 25
@@ -100,9 +100,9 @@
 	const collectionJsonLd = `<script type="application/ld+json">${JSON.stringify({
 		'@context': 'https://schema.org',
 		'@type': 'CollectionPage',
-		name: 'Singapore AI Job Risk Rankings 2026',
+		name: 'AI Work Index Rankings',
 		description:
-			'Curated ranking views into Singapore AI occupation landscape — displacement risk, augmentation, wage safety, transitions, and more.',
+			'Curated ranking views into the current live reference market — displacement risk, augmentation, wage safety, transitions, and more.',
 		url: SITE.url + '/rankings',
 		mainEntity: {
 			'@type': 'ItemList',
@@ -118,8 +118,8 @@
 </script>
 
 <Seo
-	title="Singapore AI Job Risk Rankings 2026"
-	description="Ranked lists of Singapore occupations by AI displacement risk, augmentation potential, wage safety, and more."
+	title="AI Work Index Rankings"
+	description="Ranked lists of occupations by AI displacement risk, augmentation potential, wage safety, and more in the current live reference market."
 	path="/rankings"
 	jsonLd={[collectionJsonLd]}
 />
@@ -130,12 +130,12 @@
 	<div class="mb-8">
 		<h1 class={titleStyle({ size: 'page' })}>Rankings</h1>
 		<p class={cn(body({ tone: 'muted' }), 'mt-2')}>
-			Curated views into Singapore's AI occupation landscape. Each list slices the data differently
-			to surface distinct insights.
+			Curated views into the current live reference market. Each list slices the data differently to
+			surface distinct insights while the global baseline remains the comparable spine.
 		</p>
 		<p class={cn(body({ tone: 'subtle' }), 'mt-3 max-w-2xl')}>
 			These rankings emerge from a three-layer structural score — a multi-source exposure layer,
-			human bottleneck strength, and Singapore market signals — applied to {DATA_VINTAGE.occupation_count}
+			human bottleneck strength, and local market signals — applied to {DATA_VINTAGE.occupation_count}
 			official occupations. Each list tells a different story about how AI is reshaping work.
 		</p>
 	</div>
@@ -176,7 +176,7 @@
 			<div class="space-y-1.5">
 				{#each data.highestRisk as occ, i (occ.ssoc)}
 					<a
-						href="/occupation/{occ.ssoc}"
+						href="/sg/occupation/{occ.ssoc}"
 						class="flex items-center justify-between rounded-md px-2 py-1.5 hover:bg-muted"
 					>
 						<span class="text-sm">
@@ -205,7 +205,7 @@
 			<div class="space-y-1.5">
 				{#each data.aiLeveraged as occ, i (occ.ssoc)}
 					<a
-						href="/occupation/{occ.ssoc}"
+						href="/sg/occupation/{occ.ssoc}"
 						class="flex items-center justify-between rounded-md px-2 py-1.5 hover:bg-muted"
 					>
 						<span class="text-sm">
@@ -235,7 +235,7 @@
 			<div class="space-y-1.5">
 				{#each data.safest as occ, i (occ.ssoc)}
 					<a
-						href="/occupation/{occ.ssoc}"
+						href="/sg/occupation/{occ.ssoc}"
 						class="flex items-center justify-between rounded-md px-2 py-1.5 hover:bg-muted"
 					>
 						<span class="text-sm">

@@ -600,7 +600,7 @@ Full transparency — this page earns academic/policy backlinks.
 
 ## 10. Open Source Strategy
 
-### Repository: `github.com/[user]/sg-ai-jobs`
+### Repository: `github.com/kirso/aiworkindex`
 
 **License:** MIT
 

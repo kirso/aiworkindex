@@ -21,8 +21,8 @@
 		`<script type="application/ld+json">${JSON.stringify({
 			'@context': 'https://schema.org',
 			'@type': 'CollectionPage',
-			name: 'Singapore Occupation Groups — AI Displacement Risk',
-			description: `Browse ${DATA_VINTAGE.occupation_count} Singapore occupations organised by {groups.length} major occupation groups, each scored for AI displacement risk.`,
+			name: 'Occupation Groups — AI Work Index',
+			description: `Browse ${DATA_VINTAGE.occupation_count} occupations organised by {groups.length} major occupation groups, each scored for structural AI pressure in the current live reference market.`,
 			url: SITE.url + '/groups',
 			mainEntity: {
 				'@type': 'ItemList',
@@ -39,8 +39,8 @@
 </script>
 
 <Seo
-	title="Occupation Groups — AI Risk by Category | {SITE.name}"
-	description="Browse {DATA_VINTAGE.occupation_count} Singapore occupations across {groups.length} major groups. Compare average AI displacement risk, median wages, and high-risk counts by occupation category."
+	title="Occupation Groups — Structural AI Risk | {SITE.name}"
+	description="Browse {DATA_VINTAGE.occupation_count} occupations across {groups.length} major groups. Compare average AI displacement risk, median wages, and high-risk counts in the current live reference market."
 	path="/groups"
 	jsonLd={[collectionJsonLd]}
 />
@@ -51,8 +51,8 @@
 	<header class="mb-8">
 		<h1 class={titleStyle({ size: 'page' })}>Occupation Groups</h1>
 		<p class={cn(body({ size: 'lg', tone: 'subtle' }), 'mt-2 max-w-3xl')}>
-			{DATA_VINTAGE.occupation_count} Singapore occupations organised into {groups.length} major groups. Each group shows
-			aggregate AI displacement risk based on the {DATA_VINTAGE.model_version} scoring model. Updated {DATA_VINTAGE.last_updated}.
+			{DATA_VINTAGE.occupation_count} occupations organised into {groups.length} major groups. Each group shows
+			aggregate AI displacement risk based on the {DATA_VINTAGE.model_version} scoring model, with the current live reference market as the implementation view. Updated {DATA_VINTAGE.last_updated}.
 		</p>
 	</header>
 

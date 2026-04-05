@@ -1,0 +1,65 @@
+# AI Work Index
+
+> AI displacement risk scores for 562 Singapore occupations and 88 modern roles, using a deterministic three-layer model (exposure, human bottleneck, market resilience). Open data, no LLMs in the pipeline.
+
+## About
+
+AI Work Index is a free, open-source tool that scores every major Singapore occupation for structural AI displacement risk. The model combines academic exposure indices (Felten AIOE, Anthropic Economic Index) with O*NET human-bottleneck data and Singapore-specific labour market signals (MOM wages, Shortage Occupation List, Jobs in Demand). Scores are structural pressure indicators, not predictions of actual job losses.
+
+- Author: Kirill So
+- Data vintage: V5, last updated 2026-03-30
+- Coverage: 562 SSOC occupations + 88 synthetic modern roles
+- Location focus: Singapore
+
+## Scoring Formula
+
+headline_risk = displacement_pressure x (1 - demand_resilience)
+
+- Displacement pressure: exposure x (1 - bottleneck)
+- Demand resilience: min(1.0, base_resilience x 0.45 + demand_signal_bonus)
+- Exposure: Ensemble of Felten AIOE + Anthropic observed usage, reliability-weighted
+- Bottleneck: Pizzinelli theta from O*NET work context (coordination, physical presence)
+- Demand signals: SOL 2026 (exact: +0.15), Jobs in Demand 2025 (exact: +0.12)
+
+## Key Pages
+
+- https://aiworkindex.com/ — Homepage with search and interactive treemap
+- https://aiworkindex.com/methodology — Full scoring methodology explanation
+- https://aiworkindex.com/methodology/appendix — Exact thresholds and formulas
+- https://aiworkindex.com/data — Downloadable dataset and data dictionary
+- https://aiworkindex.com/rankings/highest-risk — Occupations most exposed to AI
+- https://aiworkindex.com/rankings/ai-leveraged — Occupations most augmented by AI
+- https://aiworkindex.com/rankings/safest-high-paying — High-paying, low-risk occupations
+- https://aiworkindex.com/rankings/rich-and-risky — High-paying, high-risk occupations
+- https://aiworkindex.com/reports/wage-exposure — SGD 46B wage exposure analysis
+- https://aiworkindex.com/explore — Filter and visualize all occupations
+- https://aiworkindex.com/compare — Side-by-side occupation comparison
+- https://aiworkindex.com/calculator — Personalized salary vs AI risk calculator
+- https://aiworkindex.com/about — Model card, data vintage, credits
+
+## Risk Bands
+
+| Band | Net Risk Range | Example |
+|------|---------------|---------|
+| Very Low | < 5% | Surgeons, Physiotherapists |
+| Low | 5-15% | Civil Engineers, Dentists |
+| Moderate | 15-30% | Marketing Managers, Journalists |
+| High | 30-50% | Bookkeepers, Insurance Agents |
+| Very High | >= 50% | Data Entry Clerks, Telemarketers |
+
+## Key Research Citations
+
+- Frank et al. (2025): ensemble exposure measures outperform single indices
+- Acemoglu & Restrepo (2019): displacement vs reinstatement framework
+- Stanford DEL (2025): entry-level workers face disproportionate displacement
+- Brynjolfsson et al. (2023): junior workers see biggest AI productivity gains
+- Brookings/PIIE (2026): AI labour impact "still in the first inning"
+
+## Extended Version
+
+For full methodology details, data sources, and citation-ready findings, see:
+https://aiworkindex.com/llms-full.txt
+
+## Source Code
+
+https://github.com/kirso/aiworkindex

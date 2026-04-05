@@ -13,15 +13,15 @@
 		`<script type="application/ld+json">${JSON.stringify({
 			'@context': 'https://schema.org',
 			'@type': 'ItemList',
-			name: 'High-Risk but In-Demand Occupations in Singapore',
+			name: 'High-Risk but In-Demand Occupations',
 			description:
-				'Singapore occupations with high AI displacement risk that still appear on official demand lists',
+				'Occupations with high AI displacement risk that still appear on official demand lists in the current live reference market',
 			numberOfItems: data.ranked.length,
 			itemListElement: data.ranked.slice(0, 10).map((occ: Occupation, i: number) => ({
 				'@type': 'ListItem',
 				position: i + 1,
 				name: occ.title,
-				url: SITE.url + '/occupation/' + occ.ssoc
+				url: SITE.url + '/sg/occupation/' + occ.ssoc
 			}))
 		})}<\/script>`
 	);
@@ -32,7 +32,7 @@
 		mainEntity: [
 			{
 				'@type': 'Question',
-				name: 'Are there high AI risk jobs that Singapore still needs?',
+				name: 'Are there high AI risk jobs that still get hired?',
 				acceptedAnswer: {
 					'@type': 'Answer',
 					text: 'Yes. Some occupations face high structural displacement pressure but still appear on official demand lists, creating a paradox where automation risk coexists with active hiring demand.'
@@ -84,8 +84,8 @@
 </script>
 
 <Seo
-	title="High AI Risk but In-Demand Jobs in Singapore (2026)"
-	description="Occupations with high AI displacement risk that still appear on Singapore's official demand lists."
+	title="High AI Risk but In-Demand Jobs"
+	description="Occupations with high AI displacement risk that still appear on official demand lists in the current live reference market."
 	path="/rankings/high-risk-in-demand"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
@@ -102,7 +102,7 @@
 	<h1 class={titleStyle({ size: 'page' })}>High Risk but In-Demand</h1>
 	<p class="mt-2 text-sm text-muted-foreground">
 		These occupations score High or Very High on AI displacement risk (net_risk &ge; 25%), yet still
-		appear on Singapore's Shortage Occupation List or Jobs in Demand list. This tension suggests
+		appear on official demand lists in the current live reference market. This tension suggests
 		employers still need these workers today, even as AI capabilities grow.
 	</p>
 

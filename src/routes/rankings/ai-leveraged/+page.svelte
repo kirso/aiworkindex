@@ -13,15 +13,15 @@
 		`<script type="application/ld+json">${JSON.stringify({
 			'@context': 'https://schema.org',
 			'@type': 'ItemList',
-			name: 'AI-Augmented Occupations in Singapore',
+			name: 'AI-Augmented Occupations',
 			description:
-				'Top 25 Singapore occupations where AI augments rather than replaces workers, ranked by augmentation potential',
+				'Top 25 occupations where AI augments rather than replaces workers, ranked by augmentation potential in the current live reference market',
 			numberOfItems: data.ranked.length,
 			itemListElement: data.ranked.slice(0, 10).map((occ: Occupation, i: number) => ({
 				'@type': 'ListItem',
 				position: i + 1,
 				name: occ.title,
-				url: SITE.url + '/occupation/' + occ.ssoc
+				url: SITE.url + '/sg/occupation/' + occ.ssoc
 			}))
 		})}<\/script>`
 	);
@@ -40,7 +40,7 @@
 			},
 			{
 				'@type': 'Question',
-				name: 'Which Singapore jobs benefit most from AI?',
+				name: 'Which jobs benefit most from AI?',
 				acceptedAnswer: {
 					'@type': 'Answer',
 					text: 'Roles in engineering, medicine, and legal services often top this list, where AI handles routine analysis while humans handle judgment, relationships, and novel problems.'
@@ -78,8 +78,8 @@
 </script>
 
 <Seo
-	title="25 AI-Augmented Jobs in Singapore — High Exposure, Strong Moats (2026)"
-	description="Singapore occupations where AI augments rather than replaces — high exposure but strong human bottlenecks create augmentation potential."
+	title="25 AI-Augmented Jobs — High Exposure, Strong Moats"
+	description="Occupations where AI augments rather than replaces — high exposure but strong human bottlenecks create augmentation potential in the current live reference market."
 	path="/rankings/ai-leveraged"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />

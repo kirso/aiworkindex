@@ -162,7 +162,7 @@
 	}
 
 	function handleClickOcc(occ: Occupation) {
-		goto('/occupation/' + occ.ssoc);
+		goto('/sg/occupation/' + occ.ssoc);
 	}
 
 	function handleBack() {
@@ -225,7 +225,7 @@
 					{height}
 					class="block"
 					role="img"
-					aria-label="Treemap showing 9 major occupation groups in Singapore, sized by total employment. Click a group to zoom in."
+					aria-label="Treemap showing major occupation groups in the current live reference market, sized by total employment. Click a group to zoom in."
 				>
 					{#each overviewNodes as node (node.data.name)}
 						{@const nw = cellWidth(node)}
@@ -305,7 +305,7 @@
 							tabindex="0"
 							aria-label="{occ.title}: Net Risk {(occ.net_risk * 100).toFixed(0)}%, {riskBandLabels[
 								occ.risk_band
-							]}, median wage SGD {occ.gross_wage_median.toLocaleString()}"
+							]}, median wage SGD {occ.gross_wage_median.toLocaleString()} in the live market"
 							onmousemove={e => handleMouseMoveOcc(e, occ)}
 							onmouseleave={handleMouseLeave}
 							onclick={() => handleClickOcc(occ)}

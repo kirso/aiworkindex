@@ -9,22 +9,22 @@
 		'@context': 'https://schema.org',
 		'@type': 'FAQPage',
 		mainEntity: [
-			{
-				'@type': 'Question',
-				name: 'What is the AI Work Index?',
-				acceptedAnswer: {
-					'@type': 'Answer',
-					text: `The AI Work Index scores ${DATA_VINTAGE.occupation_count} Singapore occupations and ${DATA_VINTAGE.role_count} modern roles for structural AI displacement pressure. The structural score combines a multi-source exposure layer, a human bottleneck layer, and a Singapore market-resilience layer. No LLM is used in the scoring pipeline.`
-				}
-			},
+				{
+					'@type': 'Question',
+					name: 'What is the AI Work Index?',
+					acceptedAnswer: {
+						'@type': 'Answer',
+						text: `The AI Work Index scores ${DATA_VINTAGE.occupation_count} occupations and ${DATA_VINTAGE.role_count} modern roles for structural AI displacement pressure. The structural score combines a multi-source exposure layer, a human bottleneck layer, and a local market-resilience layer. The product is global-first, with Singapore as the current live reference implementation. No LLM is used in the scoring pipeline.`
+					}
+				},
 			{
 				'@type': 'Question',
 				name: 'How is the AI job risk score calculated?',
 				acceptedAnswer: {
 					'@type': 'Answer',
-					text: 'Headline risk = displacement pressure × (1 − demand resilience), where displacement pressure = exposure ensemble × (1 − human bottleneck). The exposure layer combines available matches from AIOE, Anthropic observed usage, Eloundou GPT exposure, and the ILO occupational exposure index. Human bottleneck comes from Pizzinelli theta, while demand resilience comes from Singapore MOM demand, wage, and labour-market signals.'
-				}
-			},
+					text: 'Headline risk = displacement pressure × (1 − demand resilience), where displacement pressure = exposure ensemble × (1 − human bottleneck). The exposure layer combines available matches from AIOE, Anthropic observed usage, Eloundou GPT exposure, and the ILO occupational exposure index. Human bottleneck comes from Pizzinelli theta, while demand resilience comes from country-specific demand, wage, and labour-market signals.'
+					}
+				},
 			{
 				'@type': 'Question',
 				name: 'Is the AI Work Index open source?',
@@ -38,8 +38,8 @@
 </script>
 
 <Seo
-	title="About the AI Work Index — Singapore"
-	description="About the AI Work Index: purpose, model card, data sources, and credits. Open-source, MIT licensed."
+	title="About the AI Work Index — Global Methodology"
+	description="About the AI Work Index: purpose, model card, data sources, and credits. Open-source, MIT licensed, with a global-first methodology and Singapore as one live implementation."
 	path="/about"
 	jsonLd={[aboutJsonLd]}
 />
@@ -50,15 +50,15 @@
 	<h1 class={titleStyle({ size: 'page' })}>About This Project</h1>
 
 	<!-- TL;DR -->
-	<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'primary' }), 'mt-4')}>
-		<p class="text-sm font-semibold text-foreground">
-			{DATA_VINTAGE.occupation_count} occupations · {DATA_VINTAGE.role_count} roles · No LLM in scoring
-			· MIT licensed
-		</p>
+<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'primary' }), 'mt-4')}>
+	<p class="text-sm font-semibold text-foreground">
+		{DATA_VINTAGE.occupation_count} occupations · {DATA_VINTAGE.role_count} roles · No LLM in scoring
+			· MIT licensed · global-first methodology
+	</p>
 		<p class="mt-1 text-sm text-muted-foreground">
-			Structural AI pressure scores for Singapore. Not a prediction of job losses — a measure of how
-			much current AI capabilities overlap with each job's tasks, adjusted for human bottlenecks and
-			local demand.
+			Structural AI pressure scores with a global baseline and country-specific demand layers. Not a
+			prediction of job losses — a measure of how much current AI capabilities overlap with each
+			job's tasks, adjusted for human bottlenecks and local demand.
 		</p>
 	</div>
 
@@ -75,7 +75,7 @@
 				Labour Monitor
 			</p>
 			<p class={cn(caption(), 'mt-1')}>
-				Quarterly MOM data. Vacancy rates, hiring, retrenchment. Cluster-level, not per-occupation.
+				Quarterly live-market data. Vacancy rates, hiring, retrenchment. Cluster-level, not per-occupation.
 			</p>
 		</div>
 		<div class={card({ padding: 'sm', accent: 'primary' })}>
@@ -257,8 +257,8 @@
 				official data, not live model-generated ratings
 			</li>
 			<li>
-				<strong>Singapore-specific</strong> — SSOC occupational classification, MOM demand signals (SOL
-				2026, Jobs in Demand), Singapore labour market data
+				<strong>Live reference market</strong> — current Singapore implementation, with country-specific
+				demand signals and labour-market data
 			</li>
 			<li>
 				<strong>Three-layer structural score</strong> — exposure ensemble, human bottleneck, and market

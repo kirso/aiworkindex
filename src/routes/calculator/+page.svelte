@@ -100,18 +100,18 @@
 
 <Seo
 	path="/calculator"
-	title="AI Salary Risk Calculator for Singapore Jobs"
-	description="Find out how much of your salary overlaps with AI capabilities. Use the AI Work Index structural risk scores to estimate your role's AI exposure."
+	title="AI Exposure Calculator | AI Work Index"
+	description="Find out how much of your salary overlaps with AI capabilities. Use the AI Work Index structural risk scores to estimate your role's AI exposure in the current live reference market."
 />
 
 <div class={pageLayout({ width: 'content' })}>
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'AI Risk Calculator' }]} />
 
 	<h1 class={titleStyle({ size: 'page' })}>AI Exposure Calculator</h1>
-	<p class={caption({ class: 'mt-1 mb-6' })}>
+		<p class={caption({ class: 'mt-1 mb-6' })}>
 		Estimate how much of your role's tasks overlap with current AI capabilities, and what to do
-		about it.
-	</p>
+		about it. The current calculator uses the live reference market data.
+		</p>
 
 	<!-- Search + Select -->
 	<div class={card({ padding: 'lg', class: 'mb-4' })}>
@@ -160,7 +160,7 @@
 	<div class={card({ padding: 'lg', class: 'mb-4' })}>
 		<p class={sectionLabel({ class: 'mb-2' })}>2. Enter your monthly salary</p>
 		<div class="flex items-center gap-2">
-			<span class="text-sm font-medium text-muted-foreground">SGD</span>
+			<span class="text-sm font-medium text-muted-foreground">Local currency</span>
 			<input
 				type="number"
 				class={formInput({ size: 'lg', class: 'max-w-xs' })}
@@ -172,7 +172,7 @@
 		</div>
 		{#if selectedEntry && !selectedEntry.isRole && salary > 0}
 			<p class={caption({ class: 'mt-1' })}>
-				Pre-filled with median gross wage for this occupation. Feel free to adjust.
+				Pre-filled with the median gross wage for this occupation in the live market. Feel free to adjust.
 			</p>
 		{/if}
 	</div>
@@ -211,7 +211,7 @@
 					This measures task overlap with current AI capabilities, not predicted income change.
 				</p>
 				<p class="mt-3 text-base font-mono font-semibold text-muted-foreground">
-					SGD {riskAmount.toLocaleString()}/mo
+				{selectedEntry && 'gross_wage_median' in selectedEntry ? 'SGD' : 'Local'} {riskAmount.toLocaleString()}/mo
 				</p>
 				<p class={caption()}>salary equivalent of overlapping tasks</p>
 			</div>
@@ -263,7 +263,7 @@
 						<a
 							href={selectedEntry.isRole
 								? `/role/${selectedEntry.slug}`
-								: `/occupation/${selectedEntry.ssoc}`}
+								: `/sg/occupation/${selectedEntry.ssoc}`}
 							class="text-primary hover:underline">detailed breakdown</a
 						>
 						to understand what AI can and can't do in this role.
@@ -284,7 +284,7 @@
 						<a
 							href={selectedEntry.isRole
 								? `/role/${selectedEntry.slug}`
-								: `/occupation/${selectedEntry.ssoc}`}
+								: `/sg/occupation/${selectedEntry.ssoc}`}
 							class="text-primary hover:underline">Career transitions</a
 						>
 						show lower-risk and higher-paying options with skills you already have.

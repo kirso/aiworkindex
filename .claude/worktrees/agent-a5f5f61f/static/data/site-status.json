@@ -1,0 +1,77 @@
+{
+  "updated_at": "2026-03-30T03:29:12.902Z",
+  "structural_release": {
+    "version": "V6",
+    "label": "V6 structural release",
+    "generated_at": "2026-03-30T00:00:00.000Z",
+    "score_dataset_generated_at": "2026-03-30",
+    "release_manifest": "release-manifest-v5.json"
+  },
+  "experimental_release": {
+    "version": "V4.3-shadow",
+    "label": "V4.3-shadow task-weighted shadow model",
+    "status": "promoted",
+    "summary": "The V4.3 shadow model was first promoted into the live structural release and is now retained as the immediate pre-V6 baseline. The shadow artifacts remain published for auditability against the earlier V4.2 baseline.",
+    "artifact": "experimental-methodology-v43.json",
+    "shadow_score_published": true,
+    "headline_promotion_ready": true,
+    "direct_task_weighted_occupation_count": 456,
+    "median_direct_matched_task_weight_share": 1,
+    "blocker_count": 0
+  },
+  "v5_program": {
+    "status": "promoted_live",
+    "summary": "V5 was the prior live structural release. Its retained V4.3 baseline and promotion-comparison artifacts remain published for auditability under V6.",
+    "workstream_count": 4,
+    "experimental_model_published": true,
+    "structural_validation_result": "2/2",
+    "realized_validation_result": "3/4",
+    "transition_band_flip_count": 127,
+    "impact_flip_count": 241
+  },
+  "live_monitor": {
+    "labour_monitor_artifact_vintage": "Q4 2025 full",
+    "labour_monitor_validation_vintage": "Q4 2025",
+    "labour_monitor_source_label": "MOM cluster labour monitor artifact",
+    "latest_official_labour_report": {
+      "label": "MOM Labour Market Report Q4 2025",
+      "period": "Q4 2025",
+      "published_at": "2026-03-20",
+      "url": "https://stats.mom.gov.sg/Pages/Labour-Market-Report-4Q-2025.aspx",
+      "status": "published_live"
+    },
+    "refresh_note": "The live labour monitor now uses the full MOM Labour Market Report Q4 2025, including explicit Q3-to-Q4 deltas for vacancy, hiring, retrenchment and re-entry signals.",
+    "macro_vintage": "2025 4Q",
+    "ai_context_vintage": "2024 data",
+    "postings_generated_at": "2026-03-21T16:09:26.724Z",
+    "postings_volume_30d": 380,
+    "employer_pressure_generated_at": "2026-03-21T16:09:26.758Z",
+    "employer_pressure_latest_signal_date": "2025-10-06",
+    "quarterly_report_generated_at": "2026-03-30T03:09:37.589Z",
+    "quarterly_current_snapshot": "occupations-v6-2026-03.json",
+    "quarterly_previous_snapshot": "occupations-v4-2026-03.json",
+    "cluster_validation_checks_passed": 2,
+    "cluster_validation_checks_total": 4,
+    "temporal_validation_vacancy_accuracy": 1,
+    "temporal_validation_vacancy_periods": 2,
+    "temporal_validation_hiring_accuracy": 0.3,
+    "temporal_validation_hiring_periods": 10,
+    "calibration_direct_rho": -0.251,
+    "calibration_direct_sample": 491,
+    "calibration_high_medium_rho": -0.229,
+    "calibration_high_medium_sample": 521,
+    "calibration_low_confidence_sample": 9,
+    "occupation_family_validation_rho": -0.455,
+    "occupation_family_validation_family_count": 29,
+    "occupation_family_validation_significant": false,
+    "offset_potential_generated_at": "2026-03-21T16:09:26.813Z",
+    "offset_potential_high_count": 20
+  },
+  "homepage_banner": {
+    "tag": "V6 live",
+    "title": "V6 two-axis scoring: demand resilience now counteracts displacement pressure",
+    "body": "V6 introduces an independent demand resilience axis. Verified market demand (SOL, JiD) can now substantially offset structural AI pressure.",
+    "link_href": "/methodology",
+    "link_label": "V6 methodology"
+  }
+}

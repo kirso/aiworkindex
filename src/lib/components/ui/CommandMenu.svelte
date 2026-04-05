@@ -23,7 +23,7 @@
 	function selectOccupation(ssoc: string) {
 		open = false;
 		query = '';
-		goto(`/occupation/${ssoc}`);
+		goto(`/sg/occupation/${ssoc}`);
 	}
 
 	function selectRole(slug: string) {
@@ -81,7 +81,7 @@
 		<!-- Quick navigation (always visible when no query) -->
 		{#if !query.trim()}
 			<Command.Group heading="Go to">
-				<Command.Item onSelect={() => selectPage('/')}>
+				<Command.Item onSelect={() => selectPage('/global')}>
 					<svg
 						class="mr-2 h-4 w-4"
 						viewBox="0 0 24 24"
@@ -89,7 +89,33 @@
 						stroke="currentColor"
 						stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg
 					>
+					Global baseline
+				</Command.Item>
+				<Command.Item onSelect={() => selectPage('/')}>
+					<svg
+						class="mr-2 h-4 w-4"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle
+							cx="9"
+							cy="7"
+							r="4"
+						/><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg
+					>
 					Home
+				</Command.Item>
+				<Command.Item onSelect={() => selectPage('/compare')}>
+					<svg
+						class="mr-2 h-4 w-4"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						><circle cx="12" cy="12" r="9" /><path d="M3 12h18" /><path d="M12 3a15 15 0 0 1 0 18" /><path d="M12 3a15 15 0 0 0 0 18" /></svg
+					>
+					Compare countries
 				</Command.Item>
 				<Command.Item onSelect={() => selectPage('/roles')}>
 					<svg
@@ -105,6 +131,63 @@
 						/><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg
 					>
 					Browse Jobs & Roles
+				</Command.Item>
+				<Command.Item onSelect={() => selectPage('/methodology')}>
+					<svg
+						class="mr-2 h-4 w-4"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" /><path
+							d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"
+						/></svg
+					>
+					Methodology
+				</Command.Item>
+				<Command.Item onSelect={() => selectPage('/sg')}>
+					<svg
+						class="mr-2 h-4 w-4"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						><circle cx="12" cy="12" r="9" /><path d="M12 3a15 15 0 0 1 0 18" /><path d="M3 12h18" /></svg
+					>
+					Singapore hub
+				</Command.Item>
+				<Command.Item onSelect={() => selectPage('/us')}>
+					<svg
+						class="mr-2 h-4 w-4"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						><path d="M3 6h18" /><path d="M3 12h18" /><path d="M3 18h18" /></svg
+					>
+					United States hub
+				</Command.Item>
+				<Command.Item onSelect={() => selectPage('/uk')}>
+					<svg
+						class="mr-2 h-4 w-4"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						><path d="M4 12h16" /><path d="M12 4v16" /><circle cx="12" cy="12" r="8" /></svg
+					>
+					United Kingdom hub
+				</Command.Item>
+				<Command.Item onSelect={() => selectPage('/ca')}>
+					<svg
+						class="mr-2 h-4 w-4"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						><path d="M12 2l3 6 6 .9-4.5 4.4 1 6.3L12 16.9 6.5 19.6l1-6.3L3 8.9 9 8z" /></svg
+					>
+					Canada hub
 				</Command.Item>
 				<Command.Item onSelect={() => selectPage('/compare')}>
 					<svg
@@ -162,19 +245,6 @@
 						stroke-width="2"><path d="M12 20V10M18 20V4M6 20v-4" /></svg
 					>
 					Rankings
-				</Command.Item>
-				<Command.Item onSelect={() => selectPage('/methodology')}>
-					<svg
-						class="mr-2 h-4 w-4"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" /><path
-							d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"
-						/></svg
-					>
-					Methodology
 				</Command.Item>
 				<Command.Item onSelect={() => selectPage('/reports')}>
 					<svg

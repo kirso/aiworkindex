@@ -14,15 +14,15 @@
 		`<script type="application/ld+json">${JSON.stringify({
 			'@context': 'https://schema.org',
 			'@type': 'ItemList',
-			name: 'High AI Exposure but In-Demand Occupations in Singapore',
+			name: 'High AI Exposure but In-Demand Occupations',
 			description:
-				'Singapore occupations with high AI exposure that remain on shortage or in-demand lists',
+				'Occupations with high AI exposure that remain on shortage or in-demand lists in the current live reference market',
 			numberOfItems: data.ranked.length,
 			itemListElement: data.ranked.slice(0, 10).map((occ: Occupation, i: number) => ({
 				'@type': 'ListItem',
 				position: i + 1,
 				name: occ.title,
-				url: SITE.url + '/occupation/' + occ.ssoc
+				url: SITE.url + '/sg/occupation/' + occ.ssoc
 			}))
 		})}<\/script>`
 	);
@@ -36,7 +36,7 @@
 				name: 'Can a job be high AI exposure but still in demand?',
 				acceptedAnswer: {
 					'@type': 'Answer',
-					text: "Yes. Some occupations have significant AI task overlap but remain on Singapore's official Shortage Occupation List or Jobs in Demand list, suggesting market demand outpaces automation pressure."
+					text: 'Yes. Some occupations have significant AI task overlap but remain on the Shortage Occupation List or Jobs in Demand list, suggesting market demand outpaces automation pressure.'
 				}
 			},
 			{
@@ -44,7 +44,7 @@
 				name: 'Why are some AI-exposed jobs still hiring?',
 				acceptedAnswer: {
 					'@type': 'Answer',
-					text: "Demand signals like shortage lists reflect current labor market needs. An occupation can have high theoretical AI exposure while still experiencing talent shortages in Singapore's economy."
+					text: 'Demand signals like shortage lists reflect current labor market needs. An occupation can have high theoretical AI exposure while still experiencing talent shortages in the live market.'
 				}
 			}
 		]
@@ -83,8 +83,8 @@
 </script>
 
 <Seo
-	title="High AI Exposure but In-Demand Jobs in Singapore (2026)"
-	description="Singapore occupations with high AI exposure that remain on shortage or in-demand lists — paradox roles where demand persists despite AI overlap."
+	title="High AI Exposure but In-Demand Jobs"
+	description="Occupations with high AI exposure that remain on shortage or in-demand lists in the current live reference market — paradox roles where demand persists despite AI overlap."
 	path="/rankings/high-exposure-in-demand"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
@@ -100,7 +100,7 @@
 
 	<h1 class={titleStyle({ size: 'page' })}>High Exposure + In Demand</h1>
 	<p class="mt-2 text-sm text-muted-foreground">
-		Paradox roles: significant AI task overlap (&gt;50% exposure) yet still listed on Singapore's
+		Paradox roles: significant AI task overlap (&gt;50% exposure) yet still listed on the
 		Shortage Occupation List (SOL) or Jobs in Demand (JiD). Demand persists despite automation
 		potential.
 	</p>

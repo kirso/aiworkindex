@@ -27,7 +27,7 @@
 				{riskBandLabels[occupation.risk_band]}
 			</span>
 			<span class="text-xs text-muted-foreground"
-				>SGD {occupation.gross_wage_median.toLocaleString()}/mo</span
+				>SGD {occupation.gross_wage_median.toLocaleString()}/mo in the live market</span
 			>
 		</div>
 		<p class="mt-1.5 text-xs text-muted-foreground">

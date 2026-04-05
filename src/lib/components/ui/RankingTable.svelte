@@ -72,7 +72,7 @@
 						</Table.Cell>
 						<Table.Cell>
 							<a
-								href="/occupation/{occ.ssoc}"
+								href="/sg/occupation/{occ.ssoc}"
 								class="text-xs text-foreground hover:text-primary hover:underline underline-offset-2 decoration-primary/30"
 							>
 								{occ.title}

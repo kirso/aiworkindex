@@ -1,0 +1,38 @@
+# Allow all crawlers
+User-agent: *
+Disallow:
+
+# Explicitly allow AI crawlers for AEO/GEO
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+Sitemap: https://aiworkindex.com/sitemap.xml
+
+# LLM context files
+# See https://llmstxt.org for the specification
+# llms.txt: concise overview for AI assistants
+# llms-full.txt: full methodology and citation-ready data

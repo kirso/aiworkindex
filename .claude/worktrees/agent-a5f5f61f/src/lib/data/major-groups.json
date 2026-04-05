@@ -1,0 +1,56 @@
+[
+  {
+    "code": 1,
+    "key": "MANAGERS",
+    "label": "Managers",
+    "color": "#4e79a7"
+  },
+  {
+    "code": 2,
+    "key": "PROFESSIONALS",
+    "label": "Professionals",
+    "color": "#f28e2b"
+  },
+  {
+    "code": 3,
+    "key": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
+    "label": "Associate Professionals & Technicians",
+    "color": "#e15759"
+  },
+  {
+    "code": 4,
+    "key": "CLERICAL SUPPORT WORKERS",
+    "label": "Clerical Support Workers",
+    "color": "#76b7b2"
+  },
+  {
+    "code": 5,
+    "key": "SERVICE AND SALES WORKERS",
+    "label": "Service & Sales Workers",
+    "color": "#59a14f"
+  },
+  {
+    "code": 6,
+    "key": "AGRICULTURAL AND FISHERY WORKERS",
+    "label": "Agricultural & Fishery Workers",
+    "color": "#edc948"
+  },
+  {
+    "code": 7,
+    "key": "CRAFTSMEN AND RELATED TRADES WORKERS",
+    "label": "Craftsmen & Related Trades Workers",
+    "color": "#b07aa1"
+  },
+  {
+    "code": 8,
+    "key": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
+    "label": "Plant & Machine Operators & Assemblers",
+    "color": "#ff9da7"
+  },
+  {
+    "code": 9,
+    "key": "CLEANERS, LABOURERS AND RELATED WORKERS",
+    "label": "Cleaners, Labourers & Related Workers",
+    "color": "#9c755f"
+  }
+]

@@ -14,15 +14,15 @@
 		`<script type="application/ld+json">${JSON.stringify({
 			'@context': 'https://schema.org',
 			'@type': 'ItemList',
-			name: 'Quarterly AI Risk Movers in Singapore',
+			name: 'Quarterly AI Risk Movers',
 			description:
-				'Singapore occupations with the largest structural risk changes in the latest quarterly snapshot',
+				'Occupations with the largest structural risk changes in the latest quarterly snapshot for the current live reference market',
 			numberOfItems: data.risers.length + data.fallers.length,
 			itemListElement: [...data.risers, ...data.fallers].slice(0, 10).map((entry, i) => ({
 				'@type': 'ListItem',
 				position: i + 1,
 				name: entry.occupation?.title ?? entry.ssoc,
-				url: SITE.url + '/occupation/' + entry.ssoc
+				url: SITE.url + '/sg/occupation/' + entry.ssoc
 			}))
 		})}<\/script>`
 	);
@@ -52,8 +52,8 @@
 </script>
 
 <Seo
-	title="Quarterly AI Risk Movers — Singapore Occupation Score Changes (2026)"
-	description="Frozen snapshot-to-snapshot changes in Singapore occupation risk scores, band movers, and demand shifts."
+	title="Quarterly AI Risk Movers"
+	description="Frozen snapshot-to-snapshot changes in occupation risk scores, band movers, and demand shifts in the current live reference market."
 	path="/rankings/quarterly-movers"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
@@ -146,7 +146,7 @@
 					{#if report.band_movers.length > 0}
 						{#each report.band_movers.slice(0, 12) as mover}
 							<a
-								href={`/occupation/${mover.ssoc}`}
+								href={`/sg/occupation/${mover.ssoc}`}
 								class="flex items-center justify-between rounded-md px-2 py-2 hover:bg-muted"
 							>
 								<div>

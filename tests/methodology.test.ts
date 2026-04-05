@@ -22,6 +22,15 @@ import { computeConfidence } from '../src/lib/data/confidence-core';
 import { computeTaskPrimitiveScores } from '../src/lib/data/task-primitives-core';
 import { computeBootstrapUncertainty } from '../src/lib/data/uncertainty-core';
 import { computeTaskModeSummary, inferTaskModeSignals } from '../src/lib/data/v5-task-mode-core';
+import { countryConfigs, supportedCountryCodes } from '../src/lib/data/country-config';
+import { globalMethodology } from '../src/lib/data/global-methodology';
+import {
+	getCountryOccupationEntries,
+	getCountryOccupationRow,
+	getCountryOccupationRows
+} from '../src/lib/data/country-pages';
+import { globalOccupations } from '../src/lib/data/global-occupations';
+import { usOccupations } from '../src/lib/data/countries/us/occupations';
 import researchLibrary from '../src/lib/data/research-library.json';
 import shadowAnchorReview from '../src/lib/data/shadow-anchor-review-v43.json';
 import shadowComparison from '../src/lib/data/shadow-comparison-v43.json';
@@ -795,5 +804,66 @@ describe('v5 experimental model invariants', () => {
 				v5ExperimentalValidation.realized_validation.postings_support_rho.pass
 			].filter(pass => pass === true).length
 		);
+	});
+});
+
+describe('global expansion invariants', () => {
+	test('country registry exposes the expected launch set', () => {
+		assert.deepEqual(supportedCountryCodes, ['global', 'sg', 'us', 'uk', 'ca']);
+		assert.equal(countryConfigs.global.canonicalSystem, 'ISCO-08');
+		assert.equal(countryConfigs.sg.status, 'live');
+		assert.equal(countryConfigs.us.status, 'ready');
+		assert.equal(countryConfigs.us.currency, 'USD');
+		assert.equal(countryConfigs.uk.status, 'research');
+		assert.equal(countryConfigs.uk.classificationSystem, 'SOC 2020');
+		assert.equal(countryConfigs.ca.status, 'research');
+		assert.equal(countryConfigs.ca.methodologyLabel, 'Canada country layer');
+	});
+
+	test('global methodology separates structural and country layers', () => {
+		assert.match(globalMethodology.structuralFormula, /exposure/);
+		assert.match(globalMethodology.structuralFormula, /bottleneck/);
+		assert.match(globalMethodology.localFormula, /country_demand_resilience/);
+		assert.ok(globalMethodology.principles.length >= 4);
+		assert.ok(globalMethodology.validationLadder.length >= 4);
+		assert.ok(globalMethodology.countryReadiness.some(entry => entry.code === 'sg'));
+		assert.ok(globalMethodology.countryReadiness.some(entry => entry.code === 'us'));
+		assert.ok(globalMethodology.countryReadiness.some(entry => entry.code === 'uk'));
+		assert.ok(globalMethodology.countryReadiness.some(entry => entry.code === 'ca'));
+		assert.equal(
+			globalMethodology.countryReadiness.find(entry => entry.code === 'uk')?.readiness,
+			'research'
+		);
+	});
+
+	test('global and US datasets are generated from the shared methodology contract', () => {
+		assert.ok(globalOccupations.length >= 250);
+		assert.ok(globalOccupations.every(row => row.structuralPressure >= 0 && row.structuralPressure <= 1));
+		assert.ok(usOccupations.length >= 700);
+		assert.ok(usOccupations.some(row => row.mappingMethod === 'crosswalk_exact'));
+		assert.ok(usOccupations.some(row => row.mappingMethod === 'major_group_fallback'));
+		assert.ok(usOccupations.every(row => row.countryCode === 'us'));
+		assert.ok(usOccupations.every(row => row.wage.currency === 'USD'));
+		assert.ok(usOccupations.every(row => row.headlineRisk >= 0 && row.headlineRisk <= 1));
+	});
+
+	test('country occupation page helpers expose live SG and US pages', () => {
+		const sgRows = getCountryOccupationRows('sg');
+		const usRows = getCountryOccupationRows('us');
+
+		assert.ok(sgRows.length >= 500);
+		assert.ok(usRows.length >= 700);
+		assert.ok(getCountryOccupationEntries().some(entry => entry.country === 'sg'));
+		assert.ok(getCountryOccupationEntries().some(entry => entry.country === 'us'));
+
+		const sgSoftware = getCountryOccupationRow('sg', '25121');
+		const usSoftware = getCountryOccupationRow('us', '15-1252');
+
+		assert.ok(sgSoftware);
+		assert.ok(usSoftware);
+		assert.equal(sgSoftware?.currency, 'SGD');
+		assert.equal(usSoftware?.currency, 'USD');
+		assert.ok((sgSoftware?.headlineRisk ?? 0) >= 0 && (sgSoftware?.headlineRisk ?? 1) <= 1);
+		assert.ok((usSoftware?.headlineRisk ?? 0) >= 0 && (usSoftware?.headlineRisk ?? 1) <= 1);
 	});
 });

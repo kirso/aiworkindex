@@ -27,9 +27,10 @@
 	});
 
 	const navLinks = [
+		{ href: '/global', label: 'Global' },
+		{ href: '/compare', label: 'Compare' },
 		{ href: '/', label: 'Find' },
 		{ href: '/roles', label: 'Browse' },
-		{ href: '/compare', label: 'Compare' },
 		{ href: '/calculator', label: 'Calculator' },
 		{ href: '/methodology', label: 'Methodology' }
 	];
@@ -62,13 +63,12 @@
 		'@type': 'WebSite',
 		name: SITE.name,
 		url: SITE.url,
-		description: `How will AI affect jobs in Singapore? ${DATA_VINTAGE.occupation_count} occupations scored for structural AI pressure using official data and published research.`,
+		description: `Global AI work index with a canonical structural baseline and country-specific labour-market layers. ${DATA_VINTAGE.occupation_count} occupations scored using official data and published research.`,
 		publisher: {
 			'@type': 'Organization',
 			name: SITE.name,
 			url: SITE.url,
-			areaServed: { '@type': 'Country', name: 'Singapore' },
-			description: 'Open-source AI job impact scoring for Singapore occupations',
+			description: 'Open-source AI job impact scoring with a global structural baseline and country-specific labour-market layers',
 			sameAs: [SITE.github, SITE.authorUrl]
 		},
 		potentialAction: {
@@ -89,8 +89,6 @@
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="robots" content="index, follow" />
 	<meta name="author" content="Kirill So" />
-	<meta name="geo.region" content="SG" />
-	<meta name="geo.placename" content="Singapore" />
 	{@html layoutJsonLd}
 </svelte:head>
 
@@ -236,6 +234,7 @@
 				</p>
 				<div class="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
 					<a href="/rankings" class="hover:text-foreground">Rankings</a>
+					<a href="/global" class="hover:text-foreground">Global</a>
 					<a href="/reports" class="hover:text-foreground">Reports</a>
 					<a href="/research" class="hover:text-foreground">Research</a>
 					<a href="/data" class="hover:text-foreground">Data</a>

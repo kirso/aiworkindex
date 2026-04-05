@@ -23,12 +23,12 @@
 		`<script type="application/ld+json">${JSON.stringify({
 			'@context': 'https://schema.org',
 			'@type': 'Article',
-			headline: `SGD ${(data.highRiskAnnualWages / 1e9).toFixed(1)} Billion in Singapore Wages Face High AI Structural Pressure`,
+			headline: `SGD ${(data.highRiskAnnualWages / 1e9).toFixed(1)} Billion in Live-Market Wages Face High AI Structural Pressure`,
 			author: { '@type': 'Person', name: SITE.author, url: SITE.authorUrl },
 			publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
 			datePublished: '2026-03-01',
 			dateModified: DATA_VINTAGE.last_updated,
-			description: `Wage-pool analysis for ${data.highRiskCount} Singapore occupations with high structural AI pressure.`,
+			description: `Wage-pool analysis for ${data.highRiskCount} occupations with high structural AI pressure in the current live reference market.`,
 			mainEntityOfPage: { '@type': 'WebPage', '@id': SITE.url + '/reports/wage-exposure' }
 		})}<\/script>`
 	);
@@ -40,7 +40,7 @@
 			mainEntity: [
 				{
 					'@type': 'Question',
-					name: "How large is the wage pool in Singapore's high-pressure occupations?",
+					name: "How large is the wage pool in the high-pressure occupations?",
 					acceptedAnswer: {
 						'@type': 'Answer',
 						text: `${headlineNumber} is the estimated annual wage pool inside occupations with high structural AI pressure in the AI Work Index. It is a wage-pool estimate, not a forecast of wages lost.`
@@ -48,7 +48,7 @@
 				},
 				{
 					'@type': 'Question',
-					name: 'Which Singapore sectors contain the largest wage pools under structural AI pressure?',
+					name: 'Which sectors contain the largest wage pools under structural AI pressure?',
 					acceptedAnswer: {
 						'@type': 'Answer',
 						text: topGroup
@@ -63,7 +63,7 @@
 
 <Seo
 	title="Wage Pool Under Structural Pressure — SGD {(data.highRiskAnnualWages / 1e9).toFixed(1)}B"
-	description="Wage-pool analysis for Singapore occupations with high structural AI pressure. {data.highRiskCount} occupations covering about {data.highRiskEmployment.toFixed(
+	description="Wage-pool analysis for occupations with high structural AI pressure in the current live reference market. {data.highRiskCount} occupations covering about {data.highRiskEmployment.toFixed(
 		0
 	)}K Est. workers."
 	path="/reports/wage-exposure"
@@ -105,8 +105,8 @@
 			</span>
 		</div>
 		<p class="mt-2 text-xs text-text-secondary italic">
-			Employment figures here use a BLS-weighted proxy anchored to Singapore employment totals. This
-			is a wage-pool estimate, not a forecast of wages lost or jobs eliminated.
+		Employment figures here use a BLS-weighted proxy anchored to Singapore employment totals. This
+		is a wage-pool estimate, not a forecast of wages lost or jobs eliminated.
 		</p>
 	</section>
 
@@ -188,7 +188,7 @@
 							<tr class="border-b border-border/50 last:border-0">
 								<td class="px-3 py-2.5 tabular-nums text-muted-foreground">{i + 1}</td>
 								<td class="px-3 py-2.5 truncate">
-									<a href="/occupation/{occ.ssoc}" class="text-foreground hover:text-primary">
+									<a href="/sg/occupation/{occ.ssoc}" class="text-foreground hover:text-primary">
 										{occ.title}
 									</a>
 								</td>

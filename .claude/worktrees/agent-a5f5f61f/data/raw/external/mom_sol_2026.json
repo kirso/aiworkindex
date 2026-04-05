@@ -1,0 +1,260 @@
+{
+  "source": "MOM COMPASS C5 Shortage Occupation List (SOL)",
+  "effective_date": "2026-01-01",
+  "released": "2025-11",
+  "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility/compass-c5-skills-bonus-shortage-occupation-list-sol",
+  "occupations": [
+    {
+      "sn": 1,
+      "shortage_occupation": "Alternative protein food application scientist",
+      "sector": "Agritech",
+      "ssoc_matches": ["21340"],
+      "match_notes": "Mapped to food/biological scientists"
+    },
+    {
+      "sn": 2,
+      "shortage_occupation": "Novel food biotechnologist",
+      "sector": "Agritech",
+      "ssoc_matches": ["21454"],
+      "match_notes": "Food and drink technologist"
+    },
+    {
+      "sn": 3,
+      "shortage_occupation": "Financial/Investment adviser (ultra-high/high net worth)",
+      "sector": "Financial services",
+      "ssoc_matches": ["24121"],
+      "match_notes": "Financial/Investment adviser (e.g. relationship manager)"
+    },
+    {
+      "sn": 4,
+      "shortage_occupation": "Relationship manager (ultra-high/high net worth)",
+      "sector": "Financial services",
+      "ssoc_matches": ["24121"],
+      "match_notes": "Financial/Investment adviser (e.g. relationship manager)"
+    },
+    {
+      "sn": 5,
+      "shortage_occupation": "Wealth planner (ultra-high/high net worth)",
+      "sector": "Financial services",
+      "ssoc_matches": ["24121"],
+      "match_notes": "Financial/Investment adviser (e.g. relationship manager)"
+    },
+    {
+      "sn": 6,
+      "shortage_occupation": "Carbon programme manager",
+      "sector": "Green economy",
+      "ssoc_matches": ["12134"],
+      "match_notes": "Policy and planning manager / sustainability manager"
+    },
+    {
+      "sn": 7,
+      "shortage_occupation": "Carbon project originator",
+      "sector": "Green economy",
+      "ssoc_matches": ["21430"],
+      "match_notes": "Environmental engineer"
+    },
+    {
+      "sn": 8,
+      "shortage_occupation": "Carbon project manager",
+      "sector": "Green economy",
+      "ssoc_matches": ["12134"],
+      "match_notes": "Policy and planning manager / sustainability manager"
+    },
+    {
+      "sn": 9,
+      "shortage_occupation": "Carbon rating analyst",
+      "sector": "Green economy",
+      "ssoc_matches": ["24130"],
+      "match_notes": "Financial analyst"
+    },
+    {
+      "sn": 10,
+      "shortage_occupation": "Carbon standards & methodology developer",
+      "sector": "Green economy",
+      "ssoc_matches": ["21430"],
+      "match_notes": "Environmental engineer"
+    },
+    {
+      "sn": 11,
+      "shortage_occupation": "Carbon auditor",
+      "sector": "Green economy",
+      "ssoc_matches": ["24110"],
+      "match_notes": "Accountant / auditor"
+    },
+    {
+      "sn": 12,
+      "shortage_occupation": "Carbon verification & audit specialist",
+      "sector": "Green economy",
+      "ssoc_matches": ["24110"],
+      "match_notes": "Accountant / auditor"
+    },
+    {
+      "sn": 13,
+      "shortage_occupation": "Carbon trader",
+      "sector": "Green economy",
+      "ssoc_matches": ["24150"],
+      "match_notes": "Securities/commodity broker/dealer"
+    },
+    {
+      "sn": 14,
+      "shortage_occupation": "Clinical psychologist",
+      "sector": "Healthcare",
+      "ssoc_matches": ["26341"],
+      "match_notes": "Clinical psychologist"
+    },
+    {
+      "sn": 15,
+      "shortage_occupation": "Diagnostic radiographer",
+      "sector": "Healthcare",
+      "ssoc_matches": ["22693"],
+      "match_notes": "Medical diagnostic radiographer"
+    },
+    {
+      "sn": 16,
+      "shortage_occupation": "Occupational therapist",
+      "sector": "Healthcare",
+      "ssoc_matches": ["22680"],
+      "match_notes": "Occupational therapist"
+    },
+    {
+      "sn": 17,
+      "shortage_occupation": "Physiotherapist",
+      "sector": "Healthcare",
+      "ssoc_matches": ["22640"],
+      "match_notes": "Physiotherapist"
+    },
+    {
+      "sn": 18,
+      "shortage_occupation": "Podiatrist",
+      "sector": "Healthcare",
+      "ssoc_matches": ["22692"],
+      "match_notes": "Podiatrist"
+    },
+    {
+      "sn": 19,
+      "shortage_occupation": "Medical social worker",
+      "sector": "Healthcare",
+      "ssoc_matches": ["26353"],
+      "match_notes": "Medical social worker"
+    },
+    {
+      "sn": 20,
+      "shortage_occupation": "Registered nurse",
+      "sector": "Healthcare",
+      "ssoc_matches": ["22200"],
+      "match_notes": "Registered nurse and other nursing professional"
+    },
+    {
+      "sn": 21,
+      "shortage_occupation": "AI engineer",
+      "sector": "Infocomm technology",
+      "ssoc_matches": ["25121", "25190"],
+      "match_notes": "Software developer, Software/applications developers nec"
+    },
+    {
+      "sn": 22,
+      "shortage_occupation": "AI researcher/scientist",
+      "sector": "Infocomm technology",
+      "ssoc_matches": ["21222", "25140"],
+      "match_notes": "Data scientist, Applications/Systems programmer"
+    },
+    {
+      "sn": 23,
+      "shortage_occupation": "Analyst programmer",
+      "sector": "Infocomm technology",
+      "ssoc_matches": ["25140"],
+      "match_notes": "Applications/Systems programmer"
+    },
+    {
+      "sn": 24,
+      "shortage_occupation": "Cloud architect/engineer",
+      "sector": "Infocomm technology",
+      "ssoc_matches": ["25231"],
+      "match_notes": "Cloud specialist"
+    },
+    {
+      "sn": 25,
+      "shortage_occupation": "Cybersecurity architect/engineer",
+      "sector": "Infocomm technology",
+      "ssoc_matches": ["25241", "25245"],
+      "match_notes": "Cyber risk specialist, Cybersecurity architect"
+    },
+    {
+      "sn": 26,
+      "shortage_occupation": "Data scientist",
+      "sector": "Infocomm technology",
+      "ssoc_matches": ["21222"],
+      "match_notes": "Data scientist"
+    },
+    {
+      "sn": 27,
+      "shortage_occupation": "Digital forensics specialist",
+      "sector": "Infocomm technology",
+      "ssoc_matches": ["25241", "25242"],
+      "match_notes": "Cyber risk specialist, ICT security specialist"
+    },
+    {
+      "sn": 28,
+      "shortage_occupation": "Penetration testing specialist",
+      "sector": "Infocomm technology",
+      "ssoc_matches": ["25241", "25245"],
+      "match_notes": "Cyber risk specialist, Cybersecurity architect"
+    },
+    {
+      "sn": 29,
+      "shortage_occupation": "Software developer",
+      "sector": "Infocomm technology",
+      "ssoc_matches": ["25121"],
+      "match_notes": "Software developer"
+    },
+    {
+      "sn": 30,
+      "shortage_occupation": "Software and applications manager",
+      "sector": "Infocomm technology",
+      "ssoc_matches": ["13302"],
+      "match_notes": "Software and applications manager"
+    },
+    {
+      "sn": 31,
+      "shortage_occupation": "Web/mobile applications developer",
+      "sector": "Infocomm technology",
+      "ssoc_matches": ["25122"],
+      "match_notes": "Web and mobile applications developer"
+    },
+    {
+      "sn": 32,
+      "shortage_occupation": "Marine superintendent",
+      "sector": "Maritime",
+      "ssoc_matches": ["21714"],
+      "match_notes": "Marine superintendent"
+    },
+    {
+      "sn": 33,
+      "shortage_occupation": "Marine technical superintendent",
+      "sector": "Maritime",
+      "ssoc_matches": ["21712"],
+      "match_notes": "Marine superintendent (engineer)"
+    },
+    {
+      "sn": 34,
+      "shortage_occupation": "Semiconductor engineer",
+      "sector": "Semiconductor",
+      "ssoc_matches": ["21521"],
+      "match_notes": "Electronics engineer"
+    },
+    {
+      "sn": 35,
+      "shortage_occupation": "Instrumentation engineer",
+      "sector": "Semiconductor",
+      "ssoc_matches": ["21525"],
+      "match_notes": "Instrumentation engineer"
+    },
+    {
+      "sn": 36,
+      "shortage_occupation": "Process engineer",
+      "sector": "Semiconductor",
+      "ssoc_matches": ["21415"],
+      "match_notes": "Process engineer"
+    }
+  ]
+}

@@ -359,7 +359,7 @@
 				percentile25: occ.gross_wage_25th,
 				percentile75: occ.gross_wage_75th
 			},
-			occupationLocation: { '@type': 'Country', name: 'Singapore' },
+			occupationLocation: { '@type': 'Country', name: 'Singapore live reference market' },
 			additionalProperty: [
 				{ '@type': 'PropertyValue', name: 'AI Net Displacement Risk', value: occ.net_risk },
 				{
@@ -402,7 +402,7 @@
 					'@type': 'ListItem',
 					position: 3,
 					name: occ.title,
-					item: SITE.url + '/occupation/' + occ.ssoc
+					item: SITE.url + '/sg/occupation/' + occ.ssoc
 				}
 			]
 		})}<\/script>`
@@ -415,7 +415,7 @@
 			mainEntity: [
 				{
 					'@type': 'Question',
-					name: 'Will AI replace ' + occ.title + ' in Singapore?',
+					name: 'Will AI replace ' + occ.title + '?',
 					acceptedAnswer: {
 						'@type': 'Answer',
 						text:
@@ -444,7 +444,7 @@
 							(occ.exposure * 100).toFixed(0) +
 							'%. Human advantage: ' +
 							(occ.bottleneck * 100).toFixed(0) +
-							'%. Singapore demand buffer: ' +
+							'%. Local demand buffer: ' +
 							(occ.market.market_resilience * 100).toFixed(0) +
 							'%.'
 					}
@@ -468,14 +468,14 @@
 				},
 				{
 					'@type': 'Question',
-					name: 'How does ' + occ.title + ' salary compare in Singapore?',
+					name: 'How does ' + occ.title + ' salary compare in the live market?',
 					acceptedAnswer: {
 						'@type': 'Answer',
 						text:
 							occ.title +
 							' earns a median gross wage of SGD ' +
 							occ.gross_wage_median.toLocaleString() +
-							'/month in Singapore' +
+							'/month in the live market' +
 							(occ.gross_wage_25th > 0 && occ.gross_wage_75th > 0
 								? ' (25th-75th percentile: SGD ' +
 									occ.gross_wage_25th.toLocaleString() +
@@ -498,14 +498,14 @@
 
 	let pageTitle = $derived(`${occ.title} — AI Risk | ${SITE.name}`);
 	let pageDescription = $derived(
-		`${occ.title} (SSOC ${occ.ssoc}): AI displacement risk ${(occ.net_risk * 100).toFixed(0)}%, rated ${riskBandLabels[occ.risk_band]}. Median wage SGD ${occ.gross_wage_median.toLocaleString()}.`
+		`${occ.title} (SSOC ${occ.ssoc}): AI displacement risk ${(occ.net_risk * 100).toFixed(0)}%, rated ${riskBandLabels[occ.risk_band]}. Median wage SGD ${occ.gross_wage_median.toLocaleString()} in the live Singapore reference market.`
 	);
 </script>
 
 <Seo
 	title={pageTitle}
 	description={pageDescription}
-	path="/occupation/{occ.ssoc}"
+	path="/sg/occupation/{occ.ssoc}"
 	ogImage="/og/{occ.ssoc}.png"
 	jsonLd={[occJsonLd, breadcrumbJsonLd, faqJsonLd]}
 />
@@ -623,9 +623,9 @@
 						<p class={cn(caption({ weight: 'medium' }), 'text-amber-700 dark:text-amber-400')}>
 							Mixed signal: This occupation scores {riskBandLabels[occ.risk_band].toLowerCase()} structural risk but is currently
 							{#if occ.evidence.sol_match === 'exact' && occ.evidence.jobs_in_demand_match === 'exact'}
-								on both Singapore's Shortage Occupation List and Jobs in Demand — indicating strong active demand despite AI exposure.
+								on both the Shortage Occupation List and Jobs in Demand — indicating strong active demand despite AI exposure.
 							{:else if occ.evidence.sol_match}
-								on Singapore's Shortage Occupation List — indicating labour shortage despite AI exposure.
+								on the Shortage Occupation List — indicating labour shortage despite AI exposure.
 							{:else if occ.evidence.jobs_in_demand_match}
 								flagged as Jobs in Demand — indicating positive hiring signals despite AI exposure.
 							{:else}
@@ -939,7 +939,7 @@
 					<div class="grid gap-2 sm:grid-cols-3">
 						{#each allUniqueTransitions.slice(0, 3) as t}
 							<a
-								href="/occupation/{t.to_ssoc}"
+								href="/sg/occupation/{t.to_ssoc}"
 								class={cn(
 									card({ padding: 'sm', variant: 'inset' }),
 									'block hover:bg-accent hover:shadow-sm transition-all group'
@@ -980,7 +980,7 @@
 							<div class="mt-2 grid gap-2 sm:grid-cols-3">
 								{#each allUniqueTransitions.slice(3) as t}
 									<a
-										href="/occupation/{t.to_ssoc}"
+										href="/sg/occupation/{t.to_ssoc}"
 										class={cn(
 											card({ padding: 'sm', variant: 'inset' }),
 											'block hover:bg-accent hover:shadow-sm transition-all group'
@@ -1014,7 +1014,7 @@
 					<div class="grid gap-2 sm:grid-cols-3">
 						{#each structural.relatedOccupations as rel}
 							<a
-								href="/occupation/{rel.ssoc}"
+								href="/sg/occupation/{rel.ssoc}"
 								class={cn(
 									card({ padding: 'sm', variant: 'inset' }),
 									'block hover:bg-accent hover:shadow-sm transition-all group'

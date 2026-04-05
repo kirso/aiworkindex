@@ -1,17 +1,17 @@
 # AI Work Index — Full Reference
 
-> Structural AI pressure scores for 562 Singapore occupations and 88 modern roles. Current public release: V6. Deterministic scoring, open data, no LLM in the scoring loop.
+> Global AI work methodology with a canonical structural baseline and country-specific labour-market layers. The live reference market is Singapore; the architecture is built to expand to the US, UK, Canada, and other countries. Deterministic scoring, open data, no LLM in the scoring loop.
 
 ## Project Overview
 
-AI Work Index is a Singapore-focused occupation scoring project. The live V6 release measures structural AI pressure, not realised job loss and not a hiring forecast.
+AI Work Index is a structural AI pressure project. The live V6 release measures structural pressure, not realised job loss and not a hiring forecast.
 
 - Author: Kirill So (https://www.linkedin.com/in/kirso/)
 - Website: https://aiworkindex.com
 - Source code: https://github.com/kirso/aiworkindex
 - Data vintage: V6, last updated 2026-04-01
-- Coverage: 562 SSOC occupations + 88 synthetic modern roles
-- Location focus: Singapore
+- Coverage: 562 SSOC occupations + 88 synthetic modern roles in the live Singapore reference market
+- Global spine: ISCO-08
 
 ## Scoring Methodology
 
@@ -38,10 +38,10 @@ Human bottleneck is based on Pizzinelli theta and captures judgment, presence, c
 
 ### Layer 3: Demand Resilience
 
-Demand resilience is a separate Singapore demand buffer built from:
+Demand resilience is a local market buffer built from:
 - Base resilience from market momentum and occupation scarcity
-- Shortage Occupation List bonuses
-- Jobs in Demand bonuses
+- Country-specific demand signals
+- Country-specific policy context
 
 It is not an occupation-level outcome measure. It reduces structural pressure but does not convert the score into a realised labour-market forecast.
 
@@ -69,9 +69,9 @@ Demand signals influence impact types only indirectly through demand_resilience 
 
 ## What The Data Supports
 
-- The live V6 dataset supports structural rankings across 562 occupations.
+- The live V6 dataset supports structural rankings across occupations.
 - It supports downloadable public JSON and CSV exports.
-- It supports directional validation and current Singapore context layers published separately from the core score.
+- It supports directional validation and current Singapore reference-market context layers published separately from the core score.
 - It does not support claims about occupation-level realised job loss.
 
 ## Current Public Artifacts
@@ -79,12 +79,13 @@ Demand signals influence impact types only indirectly through demand_resilience 
 - Dataset: https://aiworkindex.com/data/sg-ai-occupations-v6.json
 - Data dictionary: https://aiworkindex.com/data
 - Methodology: https://aiworkindex.com/methodology
+- Global methodology: https://aiworkindex.com/global
 - Reports: https://aiworkindex.com/reports
 - Research library: https://aiworkindex.com/research
 
 ## How to Cite
 
-"AI Work Index (V6, 2026). Structural AI pressure scores for Singapore occupations. https://aiworkindex.com"
+"AI Work Index (V6, 2026). Structural AI pressure scores for occupations. https://aiworkindex.com"
 
 ## Limitations
 

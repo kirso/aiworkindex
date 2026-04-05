@@ -2,7 +2,9 @@
 
 V5 is the live structural score: a deterministic 3-layer model with latent-source posterior exposure, task-mode adjustment, human bottleneck, and market resilience. Prior V4.2 baselines and V4.3 shadow artifacts remain published for auditability. V5 adds transition-adjusted risk, realized-risk layers, and calibrated uncertainty diagnostics.
 
-**[Live Site](https://aiworkindex.com)** | **[Methodology](https://aiworkindex.com/methodology)** | **[Calculator](https://aiworkindex.com/calculator)** | **[Data](https://aiworkindex.com/data)**
+**[Live Site](https://aiworkindex.com)** | **[Global Methodology](https://aiworkindex.com/global)** | **[Methodology](https://aiworkindex.com/methodology)** | **[Calculator](https://aiworkindex.com/calculator)** | **[Data](https://aiworkindex.com/data)**
+
+Current live market: Singapore. The shared structural baseline is designed to transfer across countries; country layers add local demand, wages, policy, and confidence.
 
 ## Key Numbers
 
@@ -20,6 +22,8 @@ Three-layer deterministic scoring — no LLM in the pipeline:
 1. **Exposure** — reliability-weighted 4-source ensemble: AIOE (2021), Anthropic Economic Index (2026), Eloundou GPTs-are-GPTs (2024), ILO Refined Index (2025), blended using latent-source posterior in V5.
 2. **Human Bottleneck** — Pizzinelli theta from O*NET Work Context (judgment, presence, coordination)
 3. **Market Resilience** — MOM employment/wage trends + SOL/JiD demand signals + Anthropic calibration
+
+The same structural spine is intended to power future country adapters. Singapore remains the reference implementation, while `/global` defines the comparable baseline for new markets.
 
 ```
 net_risk = exposure × (1 − bottleneck) × market_modifier

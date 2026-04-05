@@ -1,0 +1,359 @@
+{
+  "generated_at": "2026-03-30T03:09:37.589Z",
+  "current_snapshot": "occupations-v5-2026-03.json",
+  "previous_snapshot": "occupations-v4-2026-03.json",
+  "total_occupations": 562,
+  "band_distribution": {
+    "low": 190,
+    "very_low": 106,
+    "moderate": 109,
+    "high": 106,
+    "very_high": 51
+  },
+  "band_movers": [
+    {
+      "ssoc": "25140",
+      "title": "Applications/Systems programmer",
+      "from_band": "high",
+      "to_band": "very_high",
+      "risk_delta": 0.014599999999999946
+    },
+    {
+      "ssoc": "24311",
+      "title": "Creative advertising professional",
+      "from_band": "moderate",
+      "to_band": "high",
+      "risk_delta": 0.013000000000000012
+    },
+    {
+      "ssoc": "24314",
+      "title": "Digital marketing professional (e.g. online, social media, e-commerce marketing professional)",
+      "from_band": "moderate",
+      "to_band": "high",
+      "risk_delta": 0.010199999999999987
+    },
+    {
+      "ssoc": "24312",
+      "title": "Market research professional",
+      "from_band": "moderate",
+      "to_band": "high",
+      "risk_delta": 0.008500000000000008
+    },
+    {
+      "ssoc": "22631",
+      "title": "Occupational health and safety professional",
+      "from_band": "very_low",
+      "to_band": "low",
+      "risk_delta": 0.0020999999999999977
+    },
+    {
+      "ssoc": "21494",
+      "title": "Quantity surveyor",
+      "from_band": "low",
+      "to_band": "moderate",
+      "risk_delta": 0.0067000000000000115
+    },
+    {
+      "ssoc": "33320",
+      "title": "Exhibition/Conference/Event planner (including wedding planner/coordinator)",
+      "from_band": "moderate",
+      "to_band": "high",
+      "risk_delta": 0.010799999999999976
+    },
+    {
+      "ssoc": "32400",
+      "title": "Veterinary technician/assistant",
+      "from_band": "low",
+      "to_band": "moderate",
+      "risk_delta": 0.007599999999999996
+    },
+    {
+      "ssoc": "42230",
+      "title": "Telephone operator",
+      "from_band": "very_high",
+      "to_band": "high",
+      "risk_delta": -0.032399999999999984
+    },
+    {
+      "ssoc": "51311",
+      "title": "Captain waiter/Waiter supervisor",
+      "from_band": "low",
+      "to_band": "moderate",
+      "risk_delta": 0.00269999999999998
+    },
+    {
+      "ssoc": "51502",
+      "title": "House steward",
+      "from_band": "very_low",
+      "to_band": "low",
+      "risk_delta": 0.00030000000000000165
+    },
+    {
+      "ssoc": "83211",
+      "title": "Motorcycle delivery man",
+      "from_band": "low",
+      "to_band": "moderate",
+      "risk_delta": 0.0023000000000000242
+    },
+    {
+      "ssoc": "94102",
+      "title": "Food/Drink stall assistant",
+      "from_band": "moderate",
+      "to_band": "low",
+      "risk_delta": -0.0032000000000000084
+    },
+    {
+      "ssoc": "94101",
+      "title": "Kitchen assistant",
+      "from_band": "low",
+      "to_band": "moderate",
+      "risk_delta": 0.0029000000000000137
+    },
+    {
+      "ssoc": "94104",
+      "title": "Tea server/steward (excluding bartender, barista and food/drink stall assistant)",
+      "from_band": "moderate",
+      "to_band": "low",
+      "risk_delta": -0.001899999999999985
+    }
+  ],
+  "top_risers": [
+    {
+      "ssoc": "33312",
+      "title": "Shipping agent/Boarding officer",
+      "old_risk": 0.7585,
+      "new_risk": 0.8015,
+      "delta": 0.04300000000000004
+    },
+    {
+      "ssoc": "33311",
+      "title": "Clearing and forwarding agent",
+      "old_risk": 0.7728,
+      "new_risk": 0.8092,
+      "delta": 0.03639999999999999
+    },
+    {
+      "ssoc": "24251",
+      "title": "Intellectual property agent",
+      "old_risk": 0.6689,
+      "new_risk": 0.7049,
+      "delta": 0.03599999999999992
+    },
+    {
+      "ssoc": "21221",
+      "title": "Statistician",
+      "old_risk": 0.5917,
+      "new_risk": 0.6245,
+      "delta": 0.03280000000000005
+    },
+    {
+      "ssoc": "33132",
+      "title": "Audit associate professional",
+      "old_risk": 0.5305,
+      "new_risk": 0.5584,
+      "delta": 0.027900000000000036
+    },
+    {
+      "ssoc": "33493",
+      "title": "Crewing executive (ship)",
+      "old_risk": 0.3794,
+      "new_risk": 0.4031,
+      "delta": 0.0237
+    },
+    {
+      "ssoc": "21532",
+      "title": "Telecommunications engineer",
+      "old_risk": 0.5135,
+      "new_risk": 0.5365,
+      "delta": 0.02300000000000002
+    },
+    {
+      "ssoc": "24160",
+      "title": "Insurance underwriter",
+      "old_risk": 0.5051,
+      "new_risk": 0.528,
+      "delta": 0.02290000000000003
+    },
+    {
+      "ssoc": "25123",
+      "title": "Multimedia (including games) developer",
+      "old_risk": 0.5344,
+      "new_risk": 0.5573,
+      "delta": 0.02290000000000003
+    },
+    {
+      "ssoc": "34110",
+      "title": "Legal associate professional (e.g. paralegal)",
+      "old_risk": 0.6057,
+      "new_risk": 0.6286,
+      "delta": 0.02290000000000003
+    }
+  ],
+  "top_fallers": [
+    {
+      "ssoc": "42230",
+      "title": "Telephone operator",
+      "old_risk": 0.5215,
+      "new_risk": 0.4891,
+      "delta": -0.032399999999999984
+    },
+    {
+      "ssoc": "42247",
+      "title": "Hotel executive (including hotel reservation and front desk executive)",
+      "old_risk": 0.4652,
+      "new_risk": 0.4368,
+      "delta": -0.02839999999999998
+    },
+    {
+      "ssoc": "43142",
+      "title": "Enumerator/Market research interviewer",
+      "old_risk": 0.7778,
+      "new_risk": 0.764,
+      "delta": -0.013800000000000034
+    },
+    {
+      "ssoc": "43116",
+      "title": "Procurement/Purchasing clerk",
+      "old_risk": 0.6643,
+      "new_risk": 0.6529,
+      "delta": -0.011399999999999966
+    },
+    {
+      "ssoc": "96272",
+      "title": "Concierge (hotel)",
+      "old_risk": 0.3131,
+      "new_risk": 0.3034,
+      "delta": -0.009699999999999986
+    },
+    {
+      "ssoc": "71311",
+      "title": "Building painter",
+      "old_risk": 0.363,
+      "new_risk": 0.3536,
+      "delta": -0.009399999999999964
+    },
+    {
+      "ssoc": "44122",
+      "title": "Postman",
+      "old_risk": 0.5939,
+      "new_risk": 0.5868,
+      "delta": -0.007099999999999995
+    },
+    {
+      "ssoc": "42242",
+      "title": "Hotel receptionist (including hotel reservation and front desk clerk)",
+      "old_risk": 0.4646,
+      "new_risk": 0.4584,
+      "delta": -0.006200000000000039
+    },
+    {
+      "ssoc": "42112",
+      "title": "Postal service counter clerk",
+      "old_risk": 0.4785,
+      "new_risk": 0.4728,
+      "delta": -0.005699999999999983
+    },
+    {
+      "ssoc": "42244",
+      "title": "Passenger services agent",
+      "old_risk": 0.4478,
+      "new_risk": 0.4422,
+      "delta": -0.005599999999999994
+    }
+  ],
+  "demand_changes": {
+    "new_sol": [],
+    "removed_sol": [],
+    "new_jid": [],
+    "removed_jid": []
+  },
+  "labour_monitor": {
+    "data_as_of": "2025 Q4",
+    "source": "Labour Market Report Q4 2025, MRSD, MOM",
+    "strongest_vacancy_pickup": "Production & Transport Operators, Cleaners & Labourers",
+    "sharpest_vacancy_cooling": "Clerical, Sales & Service Workers",
+    "clusters": [
+      {
+        "cluster_key": "pmet",
+        "cluster_label": "Professionals, Managers, Executives & Technicians",
+        "overall": "weak",
+        "summary": "PMET vacancy rate held at 3.1% in Dec 2025 while published vacancies rose slightly quarter on quarter. Hiring cooled from Q3 but remained net positive. Retrenchments stayed low in incidence terms, even as PMET retrenchment counts edged up.",
+        "vacancy_rate": 3.1,
+        "vacancy_qoq_delta_pp": 0,
+        "vacancy_count": 39.6,
+        "vacancy_count_qoq_delta": 1.4,
+        "recruitment_rate": 1.5,
+        "recruitment_delta_pp": -0.3,
+        "resignation_rate": 0.9,
+        "resignation_delta_pp": -0.3,
+        "retrenchment_count": 3150,
+        "retrenchment_qoq_delta_count": 40,
+        "reentry_6m": 56.4,
+        "reentry_6m_delta_pp": 2.1,
+        "reentry_12m": 67.7,
+        "reentry_12m_delta_pp": -5.3
+      },
+      {
+        "cluster_key": "clerical_sales_service",
+        "cluster_label": "Clerical, Sales & Service Workers",
+        "overall": "deteriorating",
+        "summary": "Clerical, sales and service vacancies eased further in Q4 2025, but net hiring remained positive and retrenchment counts fell from the Q3 spike. Re-entry improved meaningfully at the 6-month mark.",
+        "vacancy_rate": 3.1,
+        "vacancy_qoq_delta_pp": -0.2,
+        "vacancy_count": 14.3,
+        "vacancy_count_qoq_delta": -0.6,
+        "recruitment_rate": 2.6,
+        "recruitment_delta_pp": 0.1,
+        "resignation_rate": 1.6,
+        "resignation_delta_pp": 0.1,
+        "retrenchment_count": 270,
+        "retrenchment_qoq_delta_count": -140,
+        "reentry_6m": 65,
+        "reentry_6m_delta_pp": 4.5,
+        "reentry_12m": 78.5,
+        "reentry_12m_delta_pp": -1.6
+      },
+      {
+        "cluster_key": "production_transport",
+        "cluster_label": "Production & Transport Operators, Cleaners & Labourers",
+        "overall": "strong",
+        "summary": "Production and transport demand strengthened sharply in Q4 2025, with vacancy rates and published vacancy counts both rising strongly. Hiring stayed net positive and retrenchments remained well below the year-ago quarter.",
+        "vacancy_rate": 2.8,
+        "vacancy_qoq_delta_pp": 0.8,
+        "vacancy_count": 21.7,
+        "vacancy_count_qoq_delta": 6.9,
+        "recruitment_rate": 2.4,
+        "recruitment_delta_pp": 0.3,
+        "resignation_rate": 1.5,
+        "resignation_delta_pp": 0.2,
+        "retrenchment_count": 280,
+        "retrenchment_qoq_delta_count": 130,
+        "reentry_6m": 64.8,
+        "reentry_6m_delta_pp": -2.8,
+        "reentry_12m": 78.1,
+        "reentry_12m_delta_pp": -4.5
+      }
+    ]
+  },
+  "summary": {
+    "band_mover_count": 15,
+    "positive_drift_count": 10,
+    "negative_drift_count": 10
+  },
+  "briefing": {
+    "what_changed": [
+      "15 occupations changed risk band between occupations-v4-2026-03.json and occupations-v5-2026-03.json.",
+      "Production & Transport Operators, Cleaners & Labourers saw the strongest vacancy pickup while Clerical, Sales & Service Workers saw the sharpest vacancy cooling in the live labour monitor.",
+      "Top structural riser: Shipping agent/Boarding officer. Top structural faller: Telephone operator."
+    ],
+    "why_it_matters": [
+      "Clerical, Sales & Service Workers now reads as deteriorating, which means structural pressure is landing on a weaker live labour backdrop for that family of work.",
+      "Production & Transport Operators, Cleaners & Labourers still reads as strong, so not every high-exposure occupation faces the same near-term labour conditions."
+    ],
+    "what_to_watch": [
+      "Watch whether rising retrenchment counts persist into the next quarter rather than treating one quarter as a trend.",
+      "Watch whether official demand lists change meaningfully in the next release cycle.",
+      "Read snapshot movers together with the live monitor, not as standalone proof of labour-market deterioration."
+    ]
+  }
+}

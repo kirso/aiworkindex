@@ -42,7 +42,7 @@ export default [
 	// JavaScript files
 	{
 		...js.configs.recommended,
-		name: 'sg-ai-jobs/javascript',
+		name: 'ai-work-index/javascript',
 		files: ['**/*.js', '**/*.mjs'],
 		languageOptions: {
 			...js.configs.recommended.languageOptions,
@@ -60,7 +60,7 @@ export default [
 	},
 	// TypeScript files
 	{
-		name: 'sg-ai-jobs/typescript',
+		name: 'ai-work-index/typescript',
 		files: ['**/*.ts'],
 		languageOptions: {
 			parser: tsParser,
@@ -100,7 +100,7 @@ export default [
 	},
 	// Svelte files
 	{
-		name: 'sg-ai-jobs/svelte',
+		name: 'ai-work-index/svelte',
 		files: ['**/*.svelte'],
 		languageOptions: {
 			parser: svelteParser,
@@ -138,7 +138,7 @@ export default [
 	},
 	// Occupation/role pages use @html for JSON-LD schema — allow it
 	{
-		name: 'sg-ai-jobs/schema-html-exceptions',
+		name: 'ai-work-index/schema-html-exceptions',
 		files: [
 			'src/lib/components/ui/Seo.svelte',
 			'src/routes/occupation/*/+page.svelte',
@@ -158,7 +158,7 @@ export default [
 	},
 	// Scripts — relaxed rules
 	{
-		name: 'sg-ai-jobs/scripts',
+		name: 'ai-work-index/scripts',
 		files: ['scripts/**/*.ts'],
 		rules: {
 			'no-console': 'off',

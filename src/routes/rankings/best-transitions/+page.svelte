@@ -12,15 +12,15 @@
 		`<script type="application/ld+json">${JSON.stringify({
 			'@context': 'https://schema.org',
 			'@type': 'ItemList',
-			name: 'Best AI Career Transitions in Singapore',
+			name: 'Best AI Career Transitions',
 			description:
-				'Top high-risk Singapore occupations with the most feasible transition paths to lower-risk alternatives',
+				'Top high-risk occupations with the most feasible transition paths to lower-risk alternatives in the current live reference market',
 			numberOfItems: data.transitions.length,
 			itemListElement: data.transitions.slice(0, 10).map((t, i: number) => ({
 				'@type': 'ListItem',
 				position: i + 1,
 				name: t.from.title,
-				url: SITE.url + '/occupation/' + t.from.ssoc
+				url: SITE.url + '/sg/occupation/' + t.from.ssoc
 			}))
 		})}<\/script>`
 	);
@@ -50,8 +50,8 @@
 </script>
 
 <Seo
-	title="Best Career Transitions From High-Risk AI Jobs in Singapore (2026)"
-	description="High-risk occupations with the highest transition scores to lower-risk alternatives."
+	title="Best Career Transitions From High-Risk AI Jobs"
+	description="High-risk occupations with the highest transition scores to lower-risk alternatives in the current live reference market."
 	path="/rankings/best-transitions"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
@@ -78,7 +78,7 @@
 				<div class="flex items-center justify-between">
 					<div>
 						<a
-							href="/occupation/{from.ssoc}"
+							href="/sg/occupation/{from.ssoc}"
 							class="text-sm font-semibold text-foreground hover:text-primary"
 						>
 							{from.title}
@@ -93,7 +93,7 @@
 					<div class="mt-3 grid gap-2 sm:grid-cols-3">
 						{#each targets as t (t.to_ssoc)}
 							<a
-								href="/occupation/{t.to_ssoc}"
+								href="/sg/occupation/{t.to_ssoc}"
 								class="flex items-center justify-between rounded-lg border border-border/50 px-3 py-2 text-sm hover:bg-muted"
 							>
 								<div class="min-w-0 flex-1">
