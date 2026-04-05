@@ -5,16 +5,41 @@
 	import { prefersReducedMotion } from 'svelte/motion';
 	import * as d3Hierarchy from 'd3-hierarchy';
 	import type { HierarchyRectangularNode } from 'd3-hierarchy';
-	import type { Occupation } from '$lib/data';
 	import { majorGroupByKey, riskBandLabels } from '$lib/data';
 	import { riskColorScale } from '$lib/design-system';
 	import Tooltip from './Tooltip.svelte';
+
+	type TreemapRow = {
+		title: string;
+		major_group?: string;
+		groupKey?: string;
+		groupLabel?: string;
+		net_risk?: number;
+		risk_band?: 'very_low' | 'low' | 'moderate' | 'high' | 'very_high';
+		structuralPressure?: number;
+		gross_wage_median?: number;
+		employment_thousands?: number;
+		group_employment_thousands?: number;
+		linkHref?: string | null;
+		ssoc?: string;
+		localCode?: string;
+		canonicalCode?: string;
+		valueKind?: 'wage' | 'weight';
+	};
 
 	// Treemap nodes get x0/y0/x1/y1 added at runtime by d3 treemap layout.
 	// We also attach custom data properties (count, avgRisk, occupation) to hierarchy node data.
 	// Use type assertions when accessing these properties on the nodes.
 
-	let { occupations }: { occupations: Occupation[] } = $props();
+	let {
+		occupations,
+		surfaceLabel = 'current live reference market',
+		valueLabel = 'median wage'
+	}: {
+		occupations: TreemapRow[];
+		surfaceLabel?: string;
+		valueLabel?: string;
+	} = $props();
 
 	let containerEl: HTMLDivElement | undefined = $state();
 	let width = $state(800);
@@ -24,7 +49,7 @@
 	let zoomedGroup: string | null = $state(null);
 
 	// Tooltip state
-	let tooltipOccupation: Occupation | null = $state(null);
+	let tooltipOccupation: TreemapRow | null = $state(null);
 	let tooltipX = $state(0);
 	let tooltipY = $state(0);
 	let tooltipVisible = $state(false);
@@ -33,11 +58,11 @@
 
 	// Group occupations by major_group
 	let groupedOccupations = $derived.by(() => {
-		const groups = new Map<string, Occupation[]>();
+		const groups = new Map<string, TreemapRow[]>();
 		for (const o of occupations) {
-			const list = groups.get(o.major_group) ?? [];
+			const list = groups.get(groupKey(o)) ?? [];
 			list.push(o);
-			groups.set(o.major_group, list);
+			groups.set(groupKey(o), list);
 		}
 		return groups;
 	});
@@ -46,7 +71,7 @@
 	let groupAvgRisk = $derived.by(() => {
 		const avgs = new Map<string, number>();
 		for (const [key, occs] of groupedOccupations) {
-			const sum = occs.reduce((s, o) => s + o.net_risk, 0);
+			const sum = occs.reduce((s, o) => s + riskValue(o), 0);
 			avgs.set(key, sum / occs.length);
 		}
 		return avgs;
@@ -101,7 +126,7 @@
 			name: zoomedGroup,
 			children: occs.map(o => ({
 				name: o.title,
-				value: Math.max(o.gross_wage_median, 1),
+				value: Math.max(detailValue(o), 1),
 				occupation: o
 			}))
 		};
@@ -145,7 +170,7 @@
 		return () => observer.disconnect();
 	});
 
-	function handleMouseMoveOcc(e: MouseEvent, occ: Occupation) {
+	function handleMouseMoveOcc(e: MouseEvent, occ: TreemapRow) {
 		tooltipOccupation = occ;
 		tooltipX = e.clientX;
 		tooltipY = e.clientY;
@@ -161,8 +186,9 @@
 		zoomedGroup = groupKey;
 	}
 
-	function handleClickOcc(occ: Occupation) {
-		goto('/sg/occupation/' + occ.ssoc);
+	function handleClickOcc(occ: TreemapRow) {
+		const href = occ.linkHref ?? (occ.ssoc ? `/sg/occupation/${occ.ssoc}` : null);
+		if (href) goto(href);
 	}
 
 	function handleBack() {
@@ -194,7 +220,20 @@
 
 	function groupLabel(key: string): string {
 		const g = majorGroupByKey.get(key);
-		return g?.label ?? key;
+		const groupRows = groupedOccupations.get(key);
+		return groupRows?.[0]?.groupLabel ?? g?.label ?? key;
+	}
+
+	function groupKey(occ: TreemapRow): string {
+		return occ.groupKey ?? occ.major_group ?? occ.canonicalCode?.slice(0, 1) ?? occ.localCode?.slice(0, 2) ?? 'other';
+	}
+
+	function riskValue(occ: TreemapRow): number {
+		return occ.net_risk ?? occ.structuralPressure ?? 0;
+	}
+
+	function detailValue(occ: TreemapRow): number {
+		return occ.gross_wage_median ?? occ.employment_thousands ?? 1;
 	}
 
 	let fadeDuration = $derived(prefersReducedMotion.current ? 0 : 200);
@@ -213,7 +252,7 @@
 			Click a cell to view details.
 		</p>
 	{:else}
-		<p class="mb-2 text-sm text-muted-foreground">Click a group to explore its occupations.</p>
+			<p class="mb-2 text-sm text-muted-foreground">Click a group to explore its occupations.</p>
 	{/if}
 
 	{#if browser}
@@ -225,7 +264,7 @@
 					{height}
 					class="block"
 					role="img"
-					aria-label="Treemap showing major occupation groups in the current live reference market, sized by total employment. Click a group to zoom in."
+					aria-label="Treemap showing major occupation groups in {surfaceLabel}, sized by total employment. Click a group to zoom in."
 				>
 					{#each overviewNodes as node (node.data.name)}
 						{@const nw = cellWidth(node)}
@@ -286,31 +325,35 @@
 					role="img"
 					aria-label="Treemap showing occupations in {groupLabel(
 						zoomedGroup
-					)}, sized by median wage and shaded by net AI displacement risk"
+					)}, sized by {valueLabel} and shaded by net AI displacement risk"
 				>
 					{#each zoomedLeaves as leaf (leaf.data.occupation?.ssoc ?? leaf.data.name)}
-						{@const occ = leaf.data.occupation as Occupation}
+						{@const occ = leaf.data.occupation as TreemapRow}
 						{@const lw = cellWidth(leaf)}
 						{@const lh = cellHeight(leaf)}
+						{@const href = occ.linkHref ?? (occ.ssoc ? `/sg/occupation/${occ.ssoc}` : null)}
+						<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 						<rect
 							x={leaf.x0}
 							y={leaf.y0}
 							width={lw}
 							height={lh}
-							fill={riskColorScale(occ.net_risk)}
+							fill={riskColorScale(riskValue(occ))}
 							opacity="0.85"
 							rx="1"
-							class="cursor-pointer transition-opacity duration-150 hover:opacity-100"
-							role="button"
-							tabindex="0"
-							aria-label="{occ.title}: Net Risk {(occ.net_risk * 100).toFixed(0)}%, {riskBandLabels[
-								occ.risk_band
-							]}, median wage SGD {occ.gross_wage_median.toLocaleString()} in the live market"
+							class={href
+								? 'cursor-pointer transition-opacity duration-150 hover:opacity-100'
+								: 'transition-opacity duration-150 hover:opacity-100'}
+							role={href ? 'button' : undefined}
+							tabindex={href ? 0 : undefined}
+							aria-label="{occ.title}: Net Risk {(riskValue(occ) * 100).toFixed(0)}%, {riskBandLabels[
+								occ.risk_band ?? 'moderate'
+							]}, {valueLabel} {detailValue(occ).toLocaleString()} in {surfaceLabel}"
 							onmousemove={e => handleMouseMoveOcc(e, occ)}
 							onmouseleave={handleMouseLeave}
 							onclick={() => handleClickOcc(occ)}
 							onkeydown={e => {
-								if (e.key === 'Enter') handleClickOcc(occ);
+								if (href && e.key === 'Enter') handleClickOcc(occ);
 							}}
 						>
 							<!-- No <title> — our custom Tooltip handles hover display -->
@@ -337,8 +380,8 @@
 				Showing {zoomedLeaves.length} occupations in {groupLabel(zoomedGroup)}. Use keyboard Tab to
 				navigate between cells and Enter to view details.
 			{:else}
-				Treemap showing {overviewNodes.length} major occupation groups. Use Tab to navigate and Enter
-				to zoom into a group.
+				Treemap showing {overviewNodes.length} major occupation groups in {surfaceLabel}. Use Tab to
+				navigate and Enter to zoom into a group.
 			{/if}
 		</div>
 	{:else}

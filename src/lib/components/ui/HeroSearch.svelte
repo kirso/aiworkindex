@@ -11,15 +11,28 @@
 	import { cn } from '$lib/utils';
 	import { Input } from '$lib/components/ui/input/index.js';
 
+	type SearchOccupation = Occupation & {
+		linkHref?: string | null;
+		localCode?: string;
+		canonicalCode?: string;
+		valueKind?: 'wage' | 'weight';
+	};
+
 	let {
-		occupations
+		occupations,
+		occupationHrefPrefix = '/sg',
+		marketLabel = 'selected market',
+		occupationValueLabel = 'median wage'
 	}: {
-		occupations: Occupation[];
+		occupations: SearchOccupation[];
+		occupationHrefPrefix?: string;
+		marketLabel?: string;
+		occupationValueLabel?: string;
 	} = $props();
 
 	type SearchResult =
 		| { type: 'role'; role: SyntheticRole }
-		| { type: 'occupation'; occupation: Occupation };
+		| { type: 'occupation'; occupation: SearchOccupation };
 
 	let query = $state('');
 	let showDropdown = $state(false);
@@ -66,12 +79,25 @@
 			});
 			goto(`/role/${result.role.slug}`);
 		} else {
+			const code =
+				result.occupation.ssoc ??
+				result.occupation.localCode ??
+				result.occupation.canonicalCode ??
+				null;
 			trackEvent('search_used', {
 				query: searchQuery,
 				selected_type: 'occupation',
-				selected_id: result.occupation.ssoc
+				selected_id: code ?? 'unknown'
 			});
-			goto(`/sg/occupation/${result.occupation.ssoc}`);
+
+			const target =
+				result.occupation.linkHref ??
+				(occupationHrefPrefix === '/global'
+					? '/global'
+					: code
+						? `${occupationHrefPrefix}/occupation/${code}`
+						: occupationHrefPrefix || '/global');
+			goto(target);
 		}
 	}
 
@@ -146,7 +172,7 @@
 					{/each}
 				{/if}
 
-				<!-- Official Occupations group -->
+				<!-- Selected surface occupations -->
 				{#if grouped.occupations.length > 0}
 					<div
 						class="border-b border-border/50 px-4 py-1.5 {grouped.roles.length > 0
@@ -154,7 +180,7 @@
 							: ''}"
 					>
 						<span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
-							>Official Occupations</span
+							>Selected Occupations</span
 						>
 					</div>
 					{#each grouped.occupations as result, i}
@@ -171,7 +197,14 @@
 								<div class="min-w-0 flex-1">
 									<p class="truncate font-medium text-foreground">{occ.title}</p>
 									<p class="mt-0.5 text-xs text-muted-foreground">
-										SSOC {occ.ssoc} &middot; median wage {occ.gross_wage_median.toLocaleString()} in the live market
+										{#if occ.ssoc}
+											SSOC {occ.ssoc}
+										{:else if occ.localCode}
+											Code {occ.localCode}
+										{:else if occ.canonicalCode}
+											ISCO {occ.canonicalCode}
+										{/if}
+										&middot; {occupationValueLabel} {occ.gross_wage_median.toLocaleString()} in {marketLabel}
 									</p>
 								</div>
 								<span class={cn(riskBadge({ band: occ.risk_band }), 'ml-3 shrink-0')}>
@@ -198,8 +231,8 @@
 				<div class="mt-3 border-t border-border/50 pt-3">
 					<p class="text-xs text-muted-foreground">
 						We cover {DATA_VINTAGE.occupation_count} official occupations and {syntheticRoles.length}
-						estimated modern roles. Open the global baseline for the comparable structural layer;
-						the live market search is the current country view.
+							estimated modern roles. Open the global baseline for the comparable structural layer;
+							the search results follow the selected surface view.
 					</p>
 				</div>
 			</div>

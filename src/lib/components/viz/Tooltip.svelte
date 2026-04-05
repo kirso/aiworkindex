@@ -1,7 +1,18 @@
 <script lang="ts">
-	import type { Occupation } from '$lib/data';
 	import { riskBandLabels, impactTypeLabels } from '$lib/data';
 	import { riskBadge } from '$lib/design-system';
+	import { formatWorkerCount } from '$lib/data/home-surface';
+
+	type TooltipRow = {
+		title: string;
+		risk_band?: 'very_low' | 'low' | 'moderate' | 'high' | 'very_high';
+		gross_wage_median?: number;
+		valueKind?: 'wage' | 'weight';
+		currency?: string | null;
+		impact_type?: 'ai_leveraged' | 'at_risk' | 'stable' | 'mixed';
+		linkHref?: string | null;
+		ssoc?: string;
+	};
 
 	let {
 		occupation = null,
@@ -9,7 +20,7 @@
 		y = 0,
 		visible = false
 	}: {
-		occupation: Occupation | null;
+		occupation: TooltipRow | null;
 		x: number;
 		y: number;
 		visible: boolean;
@@ -23,15 +34,22 @@
 	>
 		<p class="text-sm font-semibold leading-snug text-foreground">{occupation.title}</p>
 		<div class="mt-1.5 flex items-center gap-1.5">
-			<span class={riskBadge({ band: occupation.risk_band })}>
-				{riskBandLabels[occupation.risk_band]}
+			<span class={riskBadge({ band: occupation.risk_band ?? 'moderate' })}>
+				{riskBandLabels[occupation.risk_band ?? 'moderate']}
 			</span>
-			<span class="text-xs text-muted-foreground"
-				>SGD {occupation.gross_wage_median.toLocaleString()}/mo in the live market</span
-			>
+			<span class="text-xs text-muted-foreground">
+				{#if occupation.valueKind === 'weight'}
+					Workers represented {formatWorkerCount(occupation.gross_wage_median ?? 0)}
+				{:else}
+					{occupation.currency ?? 'SGD'} {occupation.gross_wage_median?.toLocaleString()}/mo
+				{/if}
+			</span>
 		</div>
 		<p class="mt-1.5 text-xs text-muted-foreground">
-			{impactTypeLabels[occupation.impact_type]} · Click for details
+			{occupation.impact_type ? impactTypeLabels[occupation.impact_type] : 'Structural record'}
+			{#if occupation.linkHref || occupation.ssoc}
+				· Click for details
+			{/if}
 		</p>
 	</div>
 {/if}

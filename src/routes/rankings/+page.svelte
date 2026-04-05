@@ -11,6 +11,7 @@
 	import { pageLayout } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import { DATA_VINTAGE, SITE } from '$lib/data/scoring-constants';
+	import { countryConfigs } from '$lib/data/country-config';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
 
@@ -240,13 +241,13 @@
 					>
 						<span class="text-sm">
 							<span class="mr-2 font-mono tabular-nums text-muted-foreground">{i + 1}.</span>
-							<span class="text-text-secondary">{occ.title}</span>
-						</span>
-						<span class={cn(caption({ weight: 'medium' }), 'tabular-nums')}>
-							SGD {occ.gross_wage_median.toLocaleString()}
-						</span>
-					</a>
-				{/each}
+						<span class="text-text-secondary">{occ.title}</span>
+					</span>
+					<span class={cn(caption({ weight: 'medium' }), 'tabular-nums')}>
+						{countryConfigs.sg.currency ?? 'SGD'} {occ.gross_wage_median.toLocaleString()}
+					</span>
+				</a>
+			{/each}
 			</div>
 		</div>
 	</div>

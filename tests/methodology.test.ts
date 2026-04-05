@@ -29,6 +29,11 @@ import {
 	getCountryOccupationRow,
 	getCountryOccupationRows
 } from '../src/lib/data/country-pages';
+import {
+	getHomeSurface,
+	homeSurfaceChoices,
+	resolveHomeSurfaceCode
+} from '../src/lib/data/home-surface';
 import { globalOccupations } from '../src/lib/data/global-occupations';
 import { usOccupations } from '../src/lib/data/countries/us/occupations';
 import researchLibrary from '../src/lib/data/research-library.json';
@@ -826,6 +831,12 @@ describe('global expansion invariants', () => {
 		assert.match(globalMethodology.localFormula, /country_demand_resilience/);
 		assert.ok(globalMethodology.principles.length >= 4);
 		assert.ok(globalMethodology.validationLadder.length >= 4);
+		assert.ok(globalMethodology.publicationGates.length >= 4);
+		assert.equal(globalMethodology.publicationRules.minimumMappingCoverage, 0.8);
+		assert.equal(globalMethodology.publicationRules.maximumFallbackShare, 0.2);
+		assert.equal(globalMethodology.publicationRules.minimumConfidenceLevel, 'medium');
+		assert.equal(globalMethodology.publicationRules.requireOfficialLocalDemandSource, true);
+		assert.ok(globalMethodology.publicationGates.some(entry => entry.key === 'regulatory_overlay'));
 		assert.ok(globalMethodology.countryReadiness.some(entry => entry.code === 'sg'));
 		assert.ok(globalMethodology.countryReadiness.some(entry => entry.code === 'us'));
 		assert.ok(globalMethodology.countryReadiness.some(entry => entry.code === 'uk'));
@@ -865,5 +876,38 @@ describe('global expansion invariants', () => {
 		assert.equal(usSoftware?.currency, 'USD');
 		assert.ok((sgSoftware?.headlineRisk ?? 0) >= 0 && (sgSoftware?.headlineRisk ?? 1) <= 1);
 		assert.ok((usSoftware?.headlineRisk ?? 0) >= 0 && (usSoftware?.headlineRisk ?? 1) <= 1);
+	});
+
+	test('homepage surface contract defaults to global and exposes country views', () => {
+		assert.equal(resolveHomeSurfaceCode(null), 'global');
+		assert.deepEqual(
+			homeSurfaceChoices.map(choice => choice.code),
+			['global', 'sg', 'us']
+		);
+
+		const globalSurface = getHomeSurface('global');
+		const sgSurface = getHomeSurface('sg');
+		const usSurface = getHomeSurface('us');
+
+		assert.equal(globalSurface.drilldownHref, '/global');
+		assert.equal(globalSurface.metrics[0]?.label, 'Jobs under pressure');
+		assert.equal(globalSurface.metrics[1]?.label, 'Occupations at risk');
+		assert.equal(globalSurface.metrics[2]?.label, 'Workers represented');
+		assert.equal(globalSurface.occupations[0]?.valueKind, 'weight');
+		assert.equal(globalSurface.occupations[0]?.linkHref, null);
+
+		assert.equal(sgSurface.drilldownHref, '/sg');
+		assert.equal(sgSurface.metrics[0]?.label, 'Jobs under pressure');
+		assert.equal(sgSurface.metrics[1]?.label, 'Wages at risk');
+		assert.equal(sgSurface.metrics[2]?.label, 'Occupations at risk');
+		assert.equal(sgSurface.occupations[0]?.currency, 'SGD');
+		assert.ok(sgSurface.occupations[0]?.linkHref?.startsWith('/sg/occupation/'));
+
+		assert.equal(usSurface.drilldownHref, '/us');
+		assert.equal(usSurface.metrics[0]?.label, 'Jobs under pressure');
+		assert.equal(usSurface.metrics[1]?.label, 'Wages at risk');
+		assert.equal(usSurface.metrics[2]?.label, 'Occupations at risk');
+		assert.equal(usSurface.occupations[0]?.currency, 'USD');
+		assert.ok(usSurface.occupations[0]?.linkHref?.startsWith('/us/occupation/'));
 	});
 });

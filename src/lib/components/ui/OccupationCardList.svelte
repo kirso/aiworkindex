@@ -75,7 +75,7 @@
 
 			{#if expandedGroups.has(group.key)}
 				<div class="space-y-1 px-3 pb-3">
-					{#each groupOccs as occ (occ.ssoc)}
+					{#each groupOccs as occ (occ.ssoc ?? (occ as any).localCode ?? (occ as any).canonicalCode ?? occ.title)}
 						<OccupationCard occupation={occ} />
 					{/each}
 				</div>

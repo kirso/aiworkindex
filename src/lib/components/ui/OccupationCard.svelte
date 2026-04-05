@@ -1,31 +1,47 @@
 <script lang="ts">
-	import type { Occupation } from '$lib/data';
 	import { riskBandLabels } from '$lib/data';
 	import { riskBadge, card } from '$lib/design-system';
 	import { cn } from '$lib/utils';
+	import { formatWorkerCount } from '$lib/data/home-surface';
 
-	let { occupation }: { occupation: Occupation } = $props();
+	type CardRow = {
+		title: string;
+		ssoc?: string;
+		linkHref?: string | null;
+		gross_wage_median?: number;
+		currency?: string | null;
+		valueKind?: 'wage' | 'weight';
+		risk_band?: 'very_low' | 'low' | 'moderate' | 'high' | 'very_high';
+		net_risk?: number;
+		confidence?: { level: 'high' | 'medium' | 'low' };
+	};
+
+	let { occupation }: { occupation: CardRow } = $props();
 </script>
 
 <a
-	href="/sg/occupation/{occupation.ssoc}"
+	href={occupation.linkHref ?? (occupation.ssoc ? `/sg/occupation/${occupation.ssoc}` : '/global')}
 	class={cn(card({ padding: 'sm', hover: true }), 'flex items-center justify-between')}
 >
 	<div class="min-w-0 flex-1">
 		<p class="truncate text-sm font-medium text-foreground">{occupation.title}</p>
 		<p class="mt-0.5 text-xs text-muted-foreground">
-			Median: SGD {occupation.gross_wage_median.toLocaleString()}
+			{#if occupation.valueKind === 'weight'}
+				Workers represented: {formatWorkerCount(occupation.gross_wage_median ?? 0)}
+			{:else}
+				Median: {occupation.currency ?? 'SGD'} {occupation.gross_wage_median?.toLocaleString()}
+			{/if}
 		</p>
 	</div>
 	<div class="ml-3 flex flex-col items-end gap-1">
-		<span class={riskBadge({ band: occupation.risk_band })}>
-			{riskBandLabels[occupation.risk_band]}
+		<span class={riskBadge({ band: occupation.risk_band ?? 'moderate' })}>
+			{riskBandLabels[occupation.risk_band ?? 'moderate']}
 		</span>
 		<span class="text-xs font-mono tabular-nums text-muted-foreground">
-			Risk: {(occupation.net_risk * 100).toFixed(0)}%
+			Risk: {((occupation.net_risk ?? 0) * 100).toFixed(0)}%
 		</span>
 		<span class="text-xs text-muted-foreground">
-			Evidence quality: {occupation.confidence.level}
+			Evidence quality: {occupation.confidence?.level ?? 'n/a'}
 		</span>
 	</div>
 </a>

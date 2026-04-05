@@ -3,6 +3,7 @@
 	import * as Command from '$lib/components/ui/command/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { occupations, riskBandLabels } from '$lib/data';
+	import { countryConfigs } from '$lib/data/country-config';
 	import { searchOccupationsAndRoles } from '$lib/utils/search';
 	import { riskBadge } from '$lib/design-system';
 	import { cn } from '$lib/utils';
@@ -19,6 +20,9 @@
 	}
 
 	let results = $derived(searchOccupationsAndRoles(query, occupations));
+
+	const countryMenuOrder = ['global', 'sg', 'us', 'uk', 'ca'] as const;
+	const countryMenuLinks = countryMenuOrder.map(code => countryConfigs[code]);
 
 	function selectOccupation(ssoc: string) {
 		open = false;
@@ -145,50 +149,24 @@
 					>
 					Methodology
 				</Command.Item>
-				<Command.Item onSelect={() => selectPage('/sg')}>
-					<svg
-						class="mr-2 h-4 w-4"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						><circle cx="12" cy="12" r="9" /><path d="M12 3a15 15 0 0 1 0 18" /><path d="M3 12h18" /></svg
-					>
-					Singapore hub
-				</Command.Item>
-				<Command.Item onSelect={() => selectPage('/us')}>
-					<svg
-						class="mr-2 h-4 w-4"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						><path d="M3 6h18" /><path d="M3 12h18" /><path d="M3 18h18" /></svg
-					>
-					United States hub
-				</Command.Item>
-				<Command.Item onSelect={() => selectPage('/uk')}>
-					<svg
-						class="mr-2 h-4 w-4"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						><path d="M4 12h16" /><path d="M12 4v16" /><circle cx="12" cy="12" r="8" /></svg
-					>
-					United Kingdom hub
-				</Command.Item>
-				<Command.Item onSelect={() => selectPage('/ca')}>
-					<svg
-						class="mr-2 h-4 w-4"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						><path d="M12 2l3 6 6 .9-4.5 4.4 1 6.3L12 16.9 6.5 19.6l1-6.3L3 8.9 9 8z" /></svg
-					>
-					Canada hub
-				</Command.Item>
+				{#each countryMenuLinks as country (country.code)}
+					{#if country.code !== 'global'}
+						<Command.Item onSelect={() => selectPage(country.routePrefix)}>
+							<svg
+								class="mr-2 h-4 w-4"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+							>
+								<circle cx="12" cy="12" r="9" />
+								<path d="M12 3a15 15 0 0 1 0 18" />
+								<path d="M3 12h18" />
+							</svg>
+							{country.displayName}
+						</Command.Item>
+					{/if}
+				{/each}
 				<Command.Item onSelect={() => selectPage('/compare')}>
 					<svg
 						class="mr-2 h-4 w-4"
@@ -319,9 +297,9 @@
 			</Command.Group>
 		{/if}
 
-		<!-- Official Occupations -->
+		<!-- Country occupations -->
 		{#if results.occupations.length > 0}
-			<Command.Group heading="Official Occupations">
+			<Command.Group heading="Country Occupations">
 				{#each results.occupations as occ (occ.ssoc)}
 					<Command.Item value="occ-{occ.ssoc}" onSelect={() => selectOccupation(occ.ssoc)}>
 						<div class="flex w-full items-center justify-between">

@@ -101,7 +101,7 @@
 <Seo
 	path="/calculator"
 	title="AI Exposure Calculator | AI Work Index"
-	description="Find out how much of your salary overlaps with AI capabilities. Use the AI Work Index structural risk scores to estimate your role's AI exposure in the current live reference market."
+	description="Find out how much of your salary overlaps with AI capabilities. Use the AI Work Index structural risk scores to estimate your role's AI exposure in the current selected market."
 />
 
 <div class={pageLayout({ width: 'content' })}>
@@ -211,7 +211,9 @@
 					This measures task overlap with current AI capabilities, not predicted income change.
 				</p>
 				<p class="mt-3 text-base font-mono font-semibold text-muted-foreground">
-				{selectedEntry && 'gross_wage_median' in selectedEntry ? 'SGD' : 'Local'} {riskAmount.toLocaleString()}/mo
+					{selectedEntry && 'currency' in selectedEntry && selectedEntry.currency
+						? selectedEntry.currency
+						: 'Local'} {riskAmount.toLocaleString()}/mo
 				</p>
 				<p class={caption()}>salary equivalent of overlapping tasks</p>
 			</div>
@@ -228,7 +230,11 @@
 			<div class={card({ variant: 'inset', padding: 'md', class: 'space-y-2' })}>
 				<div class="flex items-center justify-between text-sm">
 					<span class="text-muted-foreground">Annual overlap</span>
-					<span class="font-mono font-semibold">SGD {annualAtRisk.toLocaleString()}</span>
+					<span class="font-mono font-semibold">
+						{selectedEntry && 'currency' in selectedEntry && selectedEntry.currency
+							? selectedEntry.currency
+							: 'Local'} {annualAtRisk.toLocaleString()}
+					</span>
 				</div>
 				<div class="flex items-center justify-between text-sm">
 					<span class="text-muted-foreground">Base risk score</span>

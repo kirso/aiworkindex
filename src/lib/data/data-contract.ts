@@ -52,8 +52,8 @@ export const evidenceTierLabels: Record<EvidenceTier, string> = {
 	official_local: 'Official local',
 	derived_from_official_local: 'Derived from official local',
 	cross_country_research: 'Cross-country research',
-	official_sg: 'Official SG',
-	derived_from_official_sg: 'Derived from official SG',
+	official_sg: 'Official local',
+	derived_from_official_sg: 'Derived from official local',
 	external_proxy: 'External proxy',
 	synthetic: 'Synthetic'
 };
@@ -66,8 +66,8 @@ export const sourceRegistryStatusLabels: Record<SourceRegistryStatus, string> = 
 };
 
 export const employmentBasisLabels: Record<EmploymentBasis, string> = {
-	estimated_sg_submajor: 'Est. SG sub-major allocation',
-	estimated_sg_submajor_weighted_2025: 'Est. SG sub-major weighted allocation (2025)',
+	estimated_sg_submajor: 'Est. local sub-major allocation',
+	estimated_sg_submajor_weighted_2025: 'Est. local sub-major weighted allocation (2025)',
 	proxy_bls_weighted: 'BLS-weighted proxy'
 };
 
@@ -77,41 +77,41 @@ export const occupationDataBasisTemplate: OccupationDataBasis = {
 		tier: 'derived_from_official_sg',
 		source_key: 'mom_lfr2025_table_d8',
 		note:
-			'Estimated per-occupation employment derived from published Labour Force 2025 2-digit occupation-family totals, weighted within each family by BLS proxy employment and Singapore wage information. Official detailed SSOC occupation counts are not publicly published, so this remains an estimate.'
+			'Estimated per-occupation employment derived from published Labour Force 2025 2-digit occupation-family totals, weighted within each family by proxy employment and local wage information. Official detailed occupation counts are not publicly published, so this remains an estimate.'
 	},
 	wage_pool_proxy: {
 		basis: 'proxy_bls_weighted',
 		tier: 'external_proxy',
 		source_key: 'bls_projections_2024_2034',
 		note:
-			'Singapore group totals reweighted by matched US BLS detailed occupation shares for wage-pool analysis.'
+			'Group totals reweighted by matched US BLS detailed occupation shares for wage-pool analysis.'
 	},
 	education: {
 		tier: 'external_proxy',
 		source_key: 'onet_job_zones',
-		note: 'Education label derived from O*NET Job Zones through the SSOC to SOC crosswalk.'
+		note: 'Education label derived from O*NET Job Zones through the country crosswalk to ISCO-08.'
 	},
 	sg_context: {
 		pwm_covered: {
 			tier: 'derived_from_official_sg',
 			source_key: 'sg_policy_pwm_mapping',
-			note: 'Rule-based SSOC mapping to published Progressive Wage Model sectors.'
+			note: 'Rule-based mapping to published local wage-floor coverage.'
 		},
 		licensed_profession: {
 			tier: 'derived_from_official_sg',
 			source_key: 'sg_policy_licensing_mapping',
-			note: 'Rule-based SSOC mapping to published Singapore professional licensing regimes.'
+			note: 'Rule-based mapping to published local professional licensing regimes.'
 		},
 		foreign_worker_dependency: {
 			tier: 'derived_from_official_sg',
 			source_key: 'sg_labour_foreign_worker_mapping',
 			note:
-				'Major-group heuristic anchored to published Singapore labour-force structure and manpower policy.'
+				'Major-group heuristic anchored to published local labour-force structure and manpower policy.'
 		},
 		skillsfuture_eligible: {
 			tier: 'derived_from_official_sg',
 			source_key: 'skillsfuture_transition_mapping',
-			note: 'Major-group mapping to published SkillsFuture / career transition programme coverage.'
+			note: 'Major-group mapping to published local transition-program coverage.'
 		}
 	}
 };
@@ -587,39 +587,39 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 	},
 	{
 		key: 'sg_policy_pwm_mapping',
-		label: 'Progressive Wage Model mapping',
+		label: 'Local wage-floor mapping',
 		tier: 'derived_from_official_sg',
 		status: 'live',
 		vintage: '2026',
-		used_for: ['Singapore context'],
+		used_for: ['local context'],
 		url: 'https://www.mom.gov.sg/employment-practices/progressive-wage-model',
-		notes: 'Rule-based SSOC mapping to published PWM-covered sectors.'
+		notes: 'Rule-based mapping to published local wage-floor coverage.'
 	},
 	{
 		key: 'sg_policy_licensing_mapping',
-		label: 'Singapore licensing mapping',
+		label: 'Local licensing mapping',
 		tier: 'derived_from_official_sg',
 		status: 'live',
 		vintage: '2026',
-		used_for: ['Singapore context'],
-		notes: 'Rule-based SSOC mapping to major professional licensing regimes.'
+		used_for: ['local context'],
+		notes: 'Rule-based mapping to major professional licensing regimes.'
 	},
 	{
 		key: 'sg_labour_foreign_worker_mapping',
-		label: 'Foreign-worker dependency mapping',
+		label: 'Labour-dependency mapping',
 		tier: 'derived_from_official_sg',
 		status: 'live',
 		vintage: '2026',
-		used_for: ['Singapore context'],
-		notes: 'Major-group heuristic based on published Singapore labour-force and manpower structure.'
+		used_for: ['local context'],
+		notes: 'Major-group heuristic based on published local labour-force and manpower structure.'
 	},
 	{
 		key: 'skillsfuture_transition_mapping',
-		label: 'SkillsFuture transition mapping',
+		label: 'Transition-program mapping',
 		tier: 'derived_from_official_sg',
 		status: 'live',
 		vintage: '2026',
-		used_for: ['Singapore context'],
+		used_for: ['local context'],
 		url: 'https://www.skillsfuture.gov.sg/careertransition',
 		notes: 'Major-group mapping to published transition-program coverage.'
 	}

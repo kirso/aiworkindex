@@ -14,6 +14,7 @@
 	import { GA_MEASUREMENT_ID } from '$lib/analytics';
 	import { browser } from '$app/environment';
 	import { afterNavigate } from '$app/navigation';
+	import { countryConfigs } from '$lib/data/country-config';
 
 	let { children } = $props();
 
@@ -43,6 +44,12 @@
 		{ href: '/about', label: 'About' },
 		{ href: '/changelog', label: 'Changelog' },
 		{ href: '/watchlist', label: 'Watchlist' }
+	];
+
+	const countryLinks = [
+		{ href: '/', label: 'Global index' },
+		{ href: '/sg', label: countryConfigs.sg.name },
+		{ href: '/us', label: countryConfigs.us.name }
 	];
 
 	let currentPath = $derived($page.url.pathname);
@@ -150,6 +157,19 @@
 						</a>
 					{/each}
 				</nav>
+				<div class="ml-2 hidden items-center gap-1 rounded-full border border-header-active-bg bg-header-active-bg/20 p-0.5 lg:flex">
+					{#each countryLinks as country (country.href)}
+						<a
+							href={country.href}
+							class="rounded-full px-2.5 py-1 text-[11px] font-medium transition-colors duration-100
+								{isActive(country.href)
+								? 'bg-header-active-bg text-foreground'
+								: 'text-header-muted hover:text-foreground'}"
+						>
+							{country.label}
+						</a>
+					{/each}
+				</div>
 				<CommandMenu />
 			</div>
 
@@ -199,6 +219,24 @@
 								</a>
 							{/each}
 						</nav>
+						<div class="mt-3 rounded-md border border-border bg-muted/30 p-2">
+							<p class="px-1 pb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+								Countries
+							</p>
+							<div class="flex flex-wrap gap-1.5">
+								{#each countryLinks as country (country.href)}
+									<a
+										href={country.href}
+										class="rounded-full border border-border px-2.5 py-1 text-xs font-medium transition-colors duration-100
+											{isActive(country.href)
+											? 'bg-accent text-foreground'
+											: 'bg-background text-muted-foreground hover:bg-accent hover:text-foreground'}"
+									>
+										{country.label}
+									</a>
+								{/each}
+							</div>
+						</div>
 						<Separator class="my-2" />
 						<nav class="flex flex-col gap-0.5">
 							{#each secondaryLinks as link (link.href)}

@@ -79,17 +79,17 @@
 		{
 			name: 'gross_wage_median',
 			type: 'number',
-			description: 'Median gross monthly wage in SGD from MOM 2024.'
+			description: 'Median gross monthly wage in local currency from MOM 2024.'
 		},
 		{
 			name: 'gross_wage_25th',
 			type: 'number',
-			description: '25th percentile gross monthly wage in SGD.'
+			description: '25th percentile gross monthly wage in local currency.'
 		},
 		{
 			name: 'gross_wage_75th',
 			type: 'number',
-			description: '75th percentile gross monthly wage in SGD.'
+			description: '75th percentile gross monthly wage in local currency.'
 		},
 		{
 			name: 'employment_thousands',
@@ -399,12 +399,12 @@
 		{
 			name: 'education_label',
 			type: 'string',
-			description: 'Displayed education proxy. Derived from O*NET Job Zones via the SOC crosswalk.'
+			description: 'Displayed education proxy. Derived from O*NET Job Zones via the country crosswalk.'
 		},
 		{
 			name: 'sg_context',
 			type: 'object',
-			description: 'Singapore context flags (PWM, licensing, foreign-worker dependency, SkillsFuture support).'
+			description: 'Local context flags (policy coverage, licensing, labour dependency, transition support).'
 		},
 		{
 			name: 'stability.label',
@@ -987,11 +987,11 @@
 			<div class="space-y-1 text-sm text-muted-foreground">
 				<p><span class="font-medium text-foreground">Version:</span> V6 (headline risk = displacement pressure × (1 − demand resilience), using a deterministic audited 4-source exposure ensemble, human bottleneck, and local demand resilience)</p>
 				<p><span class="font-medium text-foreground">Data vintage:</span> 2024 wages, 2025 labour context, 2025/2026 demand signals</p>
-				<p><span class="font-medium text-foreground">Occupations:</span> {DATA_VINTAGE.occupation_count} occupations, currently sourced from SSOC-coded Singapore reference data</p>
+				<p><span class="font-medium text-foreground">Occupations:</span> {DATA_VINTAGE.occupation_count} occupations, currently sourced from the live reference-market data</p>
 				<p><span class="font-medium text-foreground">Separate context bundle:</span> Labour monitor, worker profile, industry context, sector wage anchors, geography context, macro labour context, national AI context, offset potential, and transition support</p>
 				<p><span class="font-medium text-foreground">Retained baseline trail:</span> {experimentalStatusLabel(siteStatus.experimental_release.status)}. The full V4.3 shadow and V5 promotion comparison remain published so the live V6 release can still be audited against the retained V4.3 and V4.2 baselines.</p>
 				<p><span class="font-medium text-foreground">Research memory:</span> {researchLibrary.entry_count} canonical research entries are published in the research library and linked to claims/source registry records.</p>
-				<p><span class="font-medium text-foreground">Sources:</span> Singapore reference-market official statistics and policy data (wages, labour-force context, industry context, demand signals), IMDA Singapore Digital Economy Report 2025, IMDA NAIIP 2026, O*NET, Felten AIOE, Pizzinelli/IMF, Anthropic observed usage, Eloundou GPT exposure, ILO occupational exposure, SOL 2026, Jobs in Demand 2025</p>
+				<p><span class="font-medium text-foreground">Sources:</span> Live reference-market official statistics and policy data (wages, labour-force context, industry context, demand signals), IMDA Singapore Digital Economy Report 2025, IMDA NAIIP 2026, O*NET, Felten AIOE, Pizzinelli/IMF, Anthropic observed usage, Eloundou GPT exposure, ILO occupational exposure, SOL 2026, Jobs in Demand 2025</p>
 			</div>
 			<div class="mt-3 flex flex-wrap gap-4 text-sm">
 				<a href="/methodology" class="text-primary underline">Full methodology &rarr;</a>
@@ -1143,10 +1143,10 @@
 				</Table.Root>
 			</div>
 			<p class="mt-3 text-xs text-muted-foreground">
-				The employment estimate and wage-pool proxy are intentionally separated. The first is an Est. Singapore allocation from official Labour Force 2025 2-digit occupation-family totals, weighted within each family; the second is a BLS-weighted proxy used only for wage-pool views. Separate live worker-profile context comes from Labour Force 2025 Section D and wages-by-sex tables.
+				The employment estimate and wage-pool proxy are intentionally separated. The first is an estimated local allocation from official Labour Force 2025 2-digit occupation-family totals, weighted within each family; the second is a BLS-weighted proxy used only for wage-pool views. Separate live worker-profile context comes from Labour Force 2025 Section D and wages-by-sex tables.
 			</p>
 			<p class="mt-2 text-xs text-muted-foreground">
-				Current labour evidence is also published separately in the Singapore context pack so the
+				Current labour evidence is also published separately in the reference-market context pack so the
 				structural score and the monitor can be audited independently.
 			</p>
 		</div>

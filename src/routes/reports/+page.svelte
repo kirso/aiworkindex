@@ -6,6 +6,7 @@
 	import { postingsMonitor } from '$lib/data/postings-monitor';
 	import { quarterlyReport } from '$lib/data/quarterly-report';
 	import { releases, siteStatus } from '$lib/data/site-status';
+	import { DATA_VINTAGE } from '$lib/data/scoring-constants';
 	import {
 		title as titleStyle,
 		pageLayout,
@@ -52,7 +53,8 @@
 			<span class="font-semibold">Latest context:</span>
 			{macro.resident_unemployment_rate.toFixed(1)}% resident unemployment ·
 			{ai.workforce.workers_using_ai_at_work_pct.toFixed(0)}% of workers using AI at work ·
-			{siteStatus.live_monitor.labour_monitor_artifact_vintage} labour monitor
+			{siteStatus.live_monitor.labour_monitor_artifact_vintage} labour monitor · updated
+			{DATA_VINTAGE.last_updated}
 		</p>
 	</div>
 
@@ -196,7 +198,7 @@
 						by sector, risk-weighted wage exposure, and methodology notes.
 					</p>
 					<p class="mt-2 text-xs text-muted-foreground">
-						Based on {siteStatus.structural_release.version} scoring, March 2026
+						Based on {siteStatus.structural_release.version} scoring, updated {DATA_VINTAGE.last_updated}
 					</p>
 				</div>
 				<svg
@@ -223,7 +225,9 @@
 						market resilience. Key findings on paradox roles, highest-risk occupations, and theory
 						vs practice gaps.
 					</p>
-					<p class="mt-2 text-xs text-muted-foreground">Published March 2026</p>
+					<p class="mt-2 text-xs text-muted-foreground">
+						Archived snapshot rebuilt under the current V6 pipeline, updated {DATA_VINTAGE.last_updated}
+					</p>
 				</div>
 				<svg
 					class="ml-4 mt-1 h-5 w-5 shrink-0 text-muted-foreground"

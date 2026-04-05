@@ -2,31 +2,33 @@
 	import { pageLayout, card, sectionLabel, caption, display, riskBadge } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import { DATA_VINTAGE, SITE } from '$lib/data/scoring-constants';
+	import { countryConfigs } from '$lib/data/country-config';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
 
 	let { data } = $props();
+	const sgCurrency = countryConfigs.sg.currency ?? 'SGD';
 
-	let headlineNumber = $derived(`SGD ${(data.highRiskAnnualWages / 1e9).toFixed(1)} Billion`);
+	let headlineNumber = $derived(`${sgCurrency} ${(data.highRiskAnnualWages / 1e9).toFixed(1)} Billion`);
 	let topGroup = $derived(data.groupBreakdown[0]);
 
 	function formatWagesBillions(wages: number): string {
-		return `SGD ${(wages / 1e9).toFixed(1)}B`;
+		return `${sgCurrency} ${(wages / 1e9).toFixed(1)}B`;
 	}
 
 	function formatWagesMillions(wages: number): string {
-		if (wages >= 1e9) return `SGD ${(wages / 1e9).toFixed(1)}B`;
-		return `SGD ${(wages / 1e6).toFixed(0)}M`;
+		if (wages >= 1e9) return `${sgCurrency} ${(wages / 1e9).toFixed(1)}B`;
+		return `${sgCurrency} ${(wages / 1e6).toFixed(0)}M`;
 	}
 
 	let articleJsonLd = $derived(
 		`<script type="application/ld+json">${JSON.stringify({
 			'@context': 'https://schema.org',
 			'@type': 'Article',
-			headline: `SGD ${(data.highRiskAnnualWages / 1e9).toFixed(1)} Billion in Live-Market Wages Face High AI Structural Pressure`,
+			headline: `${sgCurrency} ${(data.highRiskAnnualWages / 1e9).toFixed(1)} Billion in Live-Market Wages Face High AI Structural Pressure`,
 			author: { '@type': 'Person', name: SITE.author, url: SITE.authorUrl },
 			publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
-			datePublished: '2026-03-01',
+			datePublished: DATA_VINTAGE.last_updated,
 			dateModified: DATA_VINTAGE.last_updated,
 			description: `Wage-pool analysis for ${data.highRiskCount} occupations with high structural AI pressure in the current live reference market.`,
 			mainEntityOfPage: { '@type': 'WebPage', '@id': SITE.url + '/reports/wage-exposure' }
@@ -62,7 +64,7 @@
 </script>
 
 <Seo
-	title="Wage Pool Under Structural Pressure — SGD {(data.highRiskAnnualWages / 1e9).toFixed(1)}B"
+	title="Wage Pool Under Structural Pressure — {sgCurrency} {(data.highRiskAnnualWages / 1e9).toFixed(1)}B"
 	description="Wage-pool analysis for occupations with high structural AI pressure in the current live reference market. {data.highRiskCount} occupations covering about {data.highRiskEmployment.toFixed(
 		0
 	)}K Est. workers."
@@ -104,10 +106,10 @@
 				> of total wages
 			</span>
 		</div>
-		<p class="mt-2 text-xs text-text-secondary italic">
-		Employment figures here use a BLS-weighted proxy anchored to Singapore employment totals. This
+	<p class="mt-2 text-xs text-text-secondary italic">
+		Employment figures here use a BLS-weighted proxy anchored to local employment totals. This
 		is a wage-pool estimate, not a forecast of wages lost or jobs eliminated.
-		</p>
+	</p>
 	</section>
 
 	<!-- Disclaimer -->
@@ -193,7 +195,7 @@
 									</a>
 								</td>
 								<td class="px-3 py-2.5 text-right tabular-nums">
-									${occ.gross_wage_median.toLocaleString()}
+									{sgCurrency} {occ.gross_wage_median.toLocaleString()}
 								</td>
 								<td class="px-3 py-2.5 text-right">
 									<span class={riskBadge({ band: occ.risk_band })}>
@@ -201,7 +203,7 @@
 									</span>
 								</td>
 								<td class="px-3 py-2.5 text-right tabular-nums font-medium">
-									${(occ.gross_wage_median * 12 * occ.net_risk).toLocaleString(undefined, {
+									{sgCurrency} {(occ.gross_wage_median * 12 * occ.net_risk).toLocaleString(undefined, {
 										maximumFractionDigits: 0
 									})}
 								</td>
@@ -218,8 +220,8 @@
 		<p class={cn(sectionLabel(), 'mb-2')}>Methodology</p>
 		<p class={cn(caption(), 'leading-relaxed')}>
 			Est. annual wage pool = median gross monthly wage &times; 12 &times; proxy employment. High+
-			risk defined as net_risk &ge; 0.30. Source data: MOM wages {DATA_VINTAGE.wages}, Singapore
-			employment totals plus BLS-weighted proxy distribution. Scoring {DATA_VINTAGE.model_version}.
+			risk defined as net_risk &ge; 0.30. Source data: official local wages {DATA_VINTAGE.wages},
+			local employment totals plus BLS-weighted proxy distribution. Scoring {DATA_VINTAGE.model_version}.
 			<a href="/methodology" class="text-primary hover:underline">Full methodology</a> &middot;
 			<a href="/data" class="text-primary hover:underline">Download data</a>
 		</p>

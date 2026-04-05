@@ -2,12 +2,14 @@
 	import RankingTable from '$lib/components/ui/RankingTable.svelte';
 	import { title as titleStyle } from '$lib/design-system';
 	import type { Occupation } from '$lib/data';
+	import { countryConfigs } from '$lib/data/country-config';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import { pageLayout } from '$lib/design-system';
 	import { SITE } from '$lib/data/scoring-constants';
 	import Seo from '$lib/components/ui/Seo.svelte';
 
 	let { data } = $props();
+	const currency = countryConfigs.sg.currency ?? 'SGD';
 
 	let itemListJsonLd = $derived(
 		`<script type="application/ld+json">${JSON.stringify({
@@ -77,7 +79,7 @@
 		{
 			key: 'wage',
 			label: 'Median Wage',
-			format: (occ: Occupation) => `SGD ${occ.gross_wage_median.toLocaleString()}`,
+			format: (occ: Occupation) => `${currency} ${occ.gross_wage_median.toLocaleString()}`,
 			align: 'right' as const
 		}
 	];

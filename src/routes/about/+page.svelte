@@ -14,7 +14,7 @@
 					name: 'What is the AI Work Index?',
 					acceptedAnswer: {
 						'@type': 'Answer',
-						text: `The AI Work Index scores ${DATA_VINTAGE.occupation_count} occupations and ${DATA_VINTAGE.role_count} modern roles for structural AI displacement pressure. The structural score combines a multi-source exposure layer, a human bottleneck layer, and a local market-resilience layer. The product is global-first, with Singapore as the current live reference implementation. No LLM is used in the scoring pipeline.`
+						text: `The AI Work Index scores ${DATA_VINTAGE.occupation_count} occupations and ${DATA_VINTAGE.role_count} modern roles for structural AI displacement pressure. The structural score combines a multi-source exposure layer, a human bottleneck layer, and a local market-resilience layer. The product is global-first, with Singapore as the live reference market and the United States as the first ready country layer. No LLM is used in the scoring pipeline.`
 					}
 				},
 			{
@@ -39,7 +39,7 @@
 
 <Seo
 	title="About the AI Work Index — Global Methodology"
-	description="About the AI Work Index: purpose, model card, data sources, and credits. Open-source, MIT licensed, with a global-first methodology and Singapore as one live implementation."
+	description="About the AI Work Index: purpose, model card, data sources, and credits. Open-source, MIT licensed, with a global-first methodology and live Singapore and United States reference markets."
 	path="/about"
 	jsonLd={[aboutJsonLd]}
 />
@@ -156,7 +156,7 @@
 						</p>
 						<ul class="mt-1.5 space-y-1 text-sm text-muted-foreground">
 							<li>Market resilience (group-level employment trends + occupation wage structure)</li>
-							<li>Crosswalk quality (US occupations mapped to SG)</li>
+							<li>Crosswalk quality (national occupations mapped to ISCO-08)</li>
 							<li>Labour monitor (cluster-level, not occupation-level)</li>
 							<li>Observed-usage calibration (Anthropic usage, not universal AI adoption)</li>
 							<li>BLS convergent check (&rho; = &minus;0.14, broad directional check)</li>
@@ -240,7 +240,7 @@
 				rel="noopener noreferrer"
 				class="font-medium text-primary hover:underline">Andrej Karpathy's AI Job Exposure Map</a
 			>
-			(March 2026) and
+			(2026) and
 			<a
 				href="https://joshkale.github.io/jobs/"
 				target="_blank"
@@ -257,8 +257,9 @@
 				official data, not live model-generated ratings
 			</li>
 			<li>
-				<strong>Live reference market</strong> — current Singapore implementation, with country-specific
-				demand signals and labour-market data
+				<strong>Live reference markets</strong> — Singapore is live, the United States layer is ready,
+				and country-specific demand signals and labour-market data stay separate from the structural
+				score
 			</li>
 			<li>
 				<strong>Three-layer structural score</strong> — exposure ensemble, human bottleneck, and market
@@ -274,7 +275,7 @@
 			</li>
 			<li>
 				<strong>88 synthetic roles</strong> — modern job titles (AI Engineer, Prompt Engineer) scored
-				as weighted SSOC blends
+				as weighted occupation blends
 			</li>
 		</ul>
 	</section>
@@ -307,7 +308,7 @@
 				rel="noopener noreferrer"
 				class="font-medium text-primary hover:underline">Codex</a
 			>
-			(OpenAI). Data from MOM, O*NET, Felten et al. (2021), Pizzinelli et al. (2023), Anthropic Economic
+			(OpenAI). Data from MOM, BLS, O*NET, Felten et al. (2021), Pizzinelli et al. (2023), Anthropic Economic
 			Index, Eloundou et al. (2023/2024), ILO, and Stanford DEL.
 		</p>
 	</section>

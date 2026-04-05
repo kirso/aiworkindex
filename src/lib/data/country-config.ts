@@ -7,6 +7,7 @@ export interface CountryConfig {
 	routePrefix: string;
 	locale: string;
 	currency: string | null;
+	wagePeriod: 'monthly' | 'annual' | null;
 	classificationSystem: string;
 	canonicalSystem: string;
 	methodologyLabel: string;
@@ -23,6 +24,7 @@ export const countryConfigs: Record<CountryCode, CountryConfig> = {
 		routePrefix: '/global',
 		locale: 'en',
 		currency: null,
+		wagePeriod: null,
 		classificationSystem: 'ISCO-08',
 		canonicalSystem: 'ISCO-08',
 		methodologyLabel: 'Global structural baseline',
@@ -38,6 +40,7 @@ export const countryConfigs: Record<CountryCode, CountryConfig> = {
 		routePrefix: '/sg',
 		locale: 'en-SG',
 		currency: 'SGD',
+		wagePeriod: 'monthly',
 		classificationSystem: 'SSOC 2020',
 		canonicalSystem: 'ISCO-08',
 		methodologyLabel: 'Singapore country layer',
@@ -53,6 +56,7 @@ export const countryConfigs: Record<CountryCode, CountryConfig> = {
 		routePrefix: '/us',
 		locale: 'en-US',
 		currency: 'USD',
+		wagePeriod: 'annual',
 		classificationSystem: 'SOC',
 		canonicalSystem: 'ISCO-08',
 		methodologyLabel: 'United States country layer',
@@ -68,6 +72,7 @@ export const countryConfigs: Record<CountryCode, CountryConfig> = {
 		routePrefix: '/uk',
 		locale: 'en-GB',
 		currency: 'GBP',
+		wagePeriod: 'annual',
 		classificationSystem: 'SOC 2020',
 		canonicalSystem: 'ISCO-08',
 		methodologyLabel: 'United Kingdom country layer',
@@ -83,6 +88,7 @@ export const countryConfigs: Record<CountryCode, CountryConfig> = {
 		routePrefix: '/ca',
 		locale: 'en-CA',
 		currency: 'CAD',
+		wagePeriod: 'annual',
 		classificationSystem: 'NOC 2021',
 		canonicalSystem: 'ISCO-08',
 		methodologyLabel: 'Canada country layer',

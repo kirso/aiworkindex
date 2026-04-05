@@ -14,25 +14,35 @@
 	let {
 		occupations,
 		onfilter,
-		showTextSearch = true
+		showTextSearch = true,
+		valueLabel = 'Wage Range',
+		valuePrefix = 'SGD',
+		valueMin = 0,
+		valueMax = 30000,
+		valueStep = 500
 	}: {
 		occupations: Occupation[];
 		onfilter: (filtered: Occupation[]) => void;
 		showTextSearch?: boolean;
+		valueLabel?: string;
+		valuePrefix?: string | null;
+		valueMin?: number;
+		valueMax?: number;
+		valueStep?: number;
 	} = $props();
 
 	// Filter state
 	let search = $state('');
 	let selectedGroups = new SvelteSet<string>();
 	let wageMin = $state(0);
-	let wageMax = $state(30000);
+	let wageMax = $state(0);
 	let selectedCategory = $state('all');
 	let initialized = $state(false);
 
-	// Wage bounds
-	const WAGE_FLOOR = 0;
-	const WAGE_CEIL = 30000;
-	const WAGE_STEP = 500;
+	$effect(() => {
+		wageMin = valueMin;
+		wageMax = valueMax;
+	});
 
 	const riskBandOptions: { key: string; label: string }[] = [
 		{ key: 'all', label: 'All' },
@@ -98,7 +108,7 @@
 			result = result.filter(o => selectedGroups.has(o.major_group));
 		}
 
-		if (wageMin > WAGE_FLOOR || wageMax < WAGE_CEIL) {
+		if (wageMin > valueMin || wageMax < valueMax) {
 			result = result.filter(o => o.gross_wage_median >= wageMin && o.gross_wage_median <= wageMax);
 		}
 
@@ -129,8 +139,8 @@
 		const params = new URLSearchParams();
 		if (search.trim()) params.set('q', search.trim());
 		if (selectedGroups.size > 0) params.set('groups', Array.from(selectedGroups).join(','));
-		if (wageMin > WAGE_FLOOR) params.set('wmin', String(wageMin));
-		if (wageMax < WAGE_CEIL) params.set('wmax', String(wageMax));
+		if (wageMin > valueMin) params.set('wmin', String(wageMin));
+		if (wageMax < valueMax) params.set('wmax', String(wageMax));
 		if (selectedCategory !== 'all') params.set('cat', selectedCategory);
 
 		const qs = params.toString();
@@ -152,16 +162,16 @@
 	function clearFilters() {
 		search = '';
 		selectedGroups.clear();
-		wageMin = WAGE_FLOOR;
-		wageMax = WAGE_CEIL;
+		wageMin = valueMin;
+		wageMax = valueMax;
 		selectedCategory = 'all';
 	}
 
 	let hasActiveFilters = $derived(
 		search.trim() !== '' ||
 			selectedGroups.size > 0 ||
-			wageMin > WAGE_FLOOR ||
-			wageMax < WAGE_CEIL ||
+			wageMin > valueMin ||
+			wageMax < valueMax ||
 			selectedCategory !== 'all'
 	);
 </script>
@@ -248,16 +258,21 @@
 	<!-- Wage range -->
 	<div>
 		<span class="mb-1.5 block text-xs font-medium text-muted-foreground">
-			Wage Range: SGD {wageMin.toLocaleString()} &ndash; SGD {wageMax.toLocaleString()}
+			{valueLabel}:
+			{#if valuePrefix}
+				{valuePrefix} {wageMin.toLocaleString()} &ndash; {valuePrefix} {wageMax.toLocaleString()}
+			{:else}
+				{wageMin.toLocaleString()} &ndash; {wageMax.toLocaleString()}
+			{/if}
 		</span>
 		<div class="space-y-3">
 			<div class="flex items-center gap-2">
 				<span class="w-7 text-xs text-muted-foreground">Min</span>
 				<Slider
 					bind:value={wageMin}
-					min={WAGE_FLOOR}
-					max={WAGE_CEIL}
-					step={WAGE_STEP}
+					min={valueMin}
+					max={valueMax}
+					step={valueStep}
 					class="flex-1"
 				/>
 			</div>
@@ -265,9 +280,9 @@
 				<span class="w-7 text-xs text-muted-foreground">Max</span>
 				<Slider
 					bind:value={wageMax}
-					min={WAGE_FLOOR}
-					max={WAGE_CEIL}
-					step={WAGE_STEP}
+					min={valueMin}
+					max={valueMax}
+					step={valueStep}
 					class="flex-1"
 				/>
 			</div>

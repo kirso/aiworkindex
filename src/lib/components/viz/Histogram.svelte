@@ -1,9 +1,20 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import type { Occupation } from '$lib/data';
 	import { riskColorScale } from '$lib/design-system';
 
-	let { occupations }: { occupations: Occupation[] } = $props();
+	type HistogramRow = {
+		title: string;
+		net_risk?: number;
+		structuralPressure?: number;
+	};
+
+	let {
+		occupations,
+		scoreLabel = 'Risk score'
+	}: {
+		occupations: HistogramRow[];
+		scoreLabel?: string;
+	} = $props();
 
 	let containerEl: HTMLDivElement | undefined = $state();
 	let chartWidth = $state(600);
@@ -20,7 +31,7 @@
 	const binSize = 0.05;
 	// Data-driven max: round up to nearest 0.05 above the highest score, minimum 0.8
 	let maxRisk = $derived.by(() => {
-		const dataMax = occupations.reduce((max, o) => Math.max(max, o.net_risk), 0);
+		const dataMax = occupations.reduce((max, o) => Math.max(max, riskValue(o)), 0);
 		return Math.max(0.8, Math.ceil(dataMax / binSize) * binSize);
 	});
 	let binData = $derived.by(() => {
@@ -29,13 +40,13 @@
 			const upper = lower + binSize;
 			return { lower, upper, label: `${(lower * 100).toFixed(0)}%`, count: 0 };
 		});
-		const b = bins.map(bin => ({ ...bin, count: 0 }));
-		for (const occ of occupations) {
-			const idx = Math.min(Math.floor(occ.net_risk / binSize), b.length - 1);
-			if (idx >= 0 && idx < b.length) b[idx]!.count++;
-		}
-		return b;
-	});
+			const b = bins.map(bin => ({ ...bin, count: 0 }));
+			for (const occ of occupations) {
+				const idx = Math.min(Math.floor(riskValue(occ) / binSize), b.length - 1);
+				if (idx >= 0 && idx < b.length) b[idx]!.count++;
+			}
+			return b;
+		});
 
 	let maxCount = $derived(Math.max(...binData.map(b => b.count), 1));
 
@@ -58,6 +69,10 @@
 		const candidates = [0, 25, 50, 75, 100, 125, 150, 175, 200];
 		return candidates.filter(t => t <= max * 1.05);
 	});
+
+	function riskValue(occ: HistogramRow): number {
+		return occ.net_risk ?? occ.structuralPressure ?? 0;
+	}
 </script>
 
 <div bind:this={containerEl}>
@@ -66,7 +81,7 @@
 			viewBox="0 0 {chartWidth} {chartHeight}"
 			class="block w-full"
 			role="img"
-			aria-label="Histogram of net displacement risk across {occupations.length} occupations"
+			aria-label="Histogram of {scoreLabel.toLowerCase()} across {occupations.length} occupations"
 		>
 			<!-- Y axis -->
 			<line
@@ -143,12 +158,14 @@
 			{/each}
 
 			<!-- Axis label -->
-			<text
-				x={marginLeft + plotWidth / 2}
-				y={chartHeight - 6}
-				text-anchor="middle"
-				class="fill-muted-foreground text-xs">Risk Score</text
-			>
-		</svg>
-	{/if}
-</div>
+				<text
+					x={marginLeft + plotWidth / 2}
+					y={chartHeight - 6}
+					text-anchor="middle"
+					class="fill-muted-foreground text-xs"
+				>
+					{scoreLabel}
+				</text>
+			</svg>
+		{/if}
+	</div>

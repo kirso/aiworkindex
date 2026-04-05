@@ -4,6 +4,19 @@ export interface MethodologyNote {
 	description: string;
 }
 
+export interface PublicationRule {
+	minimumMappingCoverage: number;
+	maximumFallbackShare: number;
+	minimumConfidenceLevel: 'low' | 'medium' | 'high';
+	requireOfficialLocalDemandSource: boolean;
+}
+
+export interface PublicationGate {
+	key: string;
+	title: string;
+	description: string;
+}
+
 export interface CountryLaunchProfile {
 	code: 'sg' | 'us' | 'uk' | 'ca';
 	title: string;
@@ -15,9 +28,41 @@ export interface CountryLaunchProfile {
 export const globalMethodology = {
 	title: 'Global structural methodology',
 	summary:
-		'AI Work Index separates the global structural effect of AI on work from the local labor-market effect of that work in each country.',
+		'AI Work Index separates the global structural effect of AI on work from the local labor-market effect of that work in each country. Country headline risk only publishes when local evidence is sufficiently strong; otherwise the page stays on the structural baseline.',
 	structuralFormula: 'structural_pressure = exposure × (1 - bottleneck)',
 	localFormula: 'headline_risk = structural_pressure × (1 - country_demand_resilience)',
+	publicationRules: {
+		minimumMappingCoverage: 0.8,
+		maximumFallbackShare: 0.2,
+		minimumConfidenceLevel: 'medium',
+		requireOfficialLocalDemandSource: true
+	} satisfies PublicationRule,
+	publicationGates: [
+		{
+			key: 'global_baseline',
+			title: 'Global structural baseline',
+			description:
+				'The ISCO-08 structural layer can publish whenever the exposure and bottleneck inputs are available.'
+		},
+		{
+			key: 'country_headline',
+			title: 'Country headline risk',
+			description:
+				'Publish headline risk only when mapping coverage is at least 80%, fallback share is no more than 20%, and the country layer reaches medium confidence or better.'
+		},
+		{
+			key: 'provisional_surface',
+			title: 'Provisional markets',
+			description:
+				'If the country layer is proxy-heavy or weakly mapped, show structural pressure only and label the surface provisional.'
+		},
+		{
+			key: 'regulatory_overlay',
+			title: 'Regulatory overlay',
+			description:
+				'Licensing, audits, compliance rules, and public-sector constraints stay visible as context, not hidden score inputs.'
+		}
+	] satisfies PublicationGate[],
 	principles: [
 		{
 			key: 'canonical-spine',
@@ -42,6 +87,12 @@ export const globalMethodology = {
 			title: 'Publish uncertainty',
 			description:
 				'Coverage, mapping fidelity, temporal stability, and source agreement are first-class outputs, not hidden implementation details.'
+		},
+		{
+			key: 'regulatory-overlay',
+			title: 'Treat regulation as context',
+			description:
+				'Licensing, compliance, and public-sector constraints are shown as an overlay, not silently baked into the structural score.'
 		}
 	] satisfies MethodologyNote[],
 	validationLadder: [

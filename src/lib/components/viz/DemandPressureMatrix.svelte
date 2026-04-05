@@ -2,11 +2,46 @@
 	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
 	import * as d3Scale from 'd3-scale';
-	import type { Occupation } from '$lib/data';
 	import { impactTypeColors } from '$lib/data';
 	import Tooltip from './Tooltip.svelte';
 
-	let { occupations }: { occupations: Occupation[] } = $props();
+	type MatrixRow = {
+		title: string;
+		net_risk?: number;
+		structuralPressure?: number;
+		demandStrength?: number;
+		market?: { market_resilience: number };
+		evidence?: {
+			sol_match?: 'exact' | 'prefix' | false;
+			jobs_in_demand_match?: 'exact' | 'prefix' | false;
+		};
+		impact_type?: keyof typeof impactTypeColors;
+		risk_band?: 'very_low' | 'low' | 'moderate' | 'high' | 'very_high';
+		linkHref?: string | null;
+		ssoc?: string;
+		localCode?: string;
+	};
+
+	type QuadrantLabel = { label: string; x: number; y: number };
+
+	let {
+		occupations,
+		surfaceLabel = 'selected surface',
+		xAxisLabel = 'Structural AI Pressure',
+		yAxisLabel = 'Demand Signal Strength',
+		quadrantLabels = [
+			{ label: 'Low risk, high demand', x: 0.1, y: 0.85 },
+			{ label: 'Low risk, low demand', x: 0.1, y: 0.15 },
+			{ label: 'High risk, high demand', x: 0.55, y: 0.85 },
+			{ label: 'High risk, low demand', x: 0.55, y: 0.15 }
+		] as QuadrantLabel[]
+	}: {
+		occupations: MatrixRow[];
+		surfaceLabel?: string;
+		xAxisLabel?: string;
+		yAxisLabel?: string;
+		quadrantLabels?: QuadrantLabel[];
+	} = $props();
 
 	let containerEl: HTMLDivElement | undefined = $state();
 	let width = $state(800);
@@ -14,7 +49,7 @@
 
 	const margin = { top: 30, right: 30, bottom: 50, left: 55 };
 
-	let tooltipOccupation: Occupation | null = $state(null);
+	let tooltipOccupation: MatrixRow | null = $state(null);
 	let tooltipX = $state(0);
 	let tooltipY = $state(0);
 	let tooltipVisible = $state(false);
@@ -22,7 +57,7 @@
 	let plotWidth = $derived(Math.max(0, width - margin.left - margin.right));
 	let plotHeight = $derived(Math.max(0, height - margin.top - margin.bottom));
 	let xDomainMax = $derived.by(() => {
-		const maxRisk = occupations.reduce((max, occupation) => Math.max(max, occupation.net_risk), 0);
+		const maxRisk = occupations.reduce((max, occupation) => Math.max(max, riskValue(occupation)), 0);
 		return Math.max(0.7, Math.ceil(maxRisk * 10) / 10);
 	});
 	let xTicks = $derived.by(() => {
@@ -51,22 +86,23 @@
 		return () => observer.disconnect();
 	});
 
-	function demandStrength(occ: Occupation): number {
+	function demandStrength(occ: MatrixRow): number {
+		if (typeof occ.demandStrength === 'number') return occ.demandStrength;
 		// Base: market_resilience (0.12–0.92, good spread)
-		let s = occ.market.market_resilience * 0.7;
+		let s = (occ.market?.market_resilience ?? 0) * 0.7;
 		// SOL/JiD boost on top
-		if (occ.evidence.sol_match === 'exact') s += 0.2;
-		else if (occ.evidence.sol_match === 'prefix') s += 0.12;
-		if (occ.evidence.jobs_in_demand_match === 'exact') s += 0.15;
-		else if (occ.evidence.jobs_in_demand_match === 'prefix') s += 0.08;
+		if (occ.evidence?.sol_match === 'exact') s += 0.2;
+		else if (occ.evidence?.sol_match === 'prefix') s += 0.12;
+		if (occ.evidence?.jobs_in_demand_match === 'exact') s += 0.15;
+		else if (occ.evidence?.jobs_in_demand_match === 'prefix') s += 0.08;
 		return Math.min(s, 1);
 	}
 
-	function dotColor(occ: Occupation): string {
-		return impactTypeColors[occ.impact_type] ?? '#999';
+	function dotColor(occ: MatrixRow): string {
+		return occ.impact_type ? impactTypeColors[occ.impact_type] ?? '#999' : '#999';
 	}
 
-	function handleMouseMove(e: MouseEvent, occ: Occupation) {
+	function handleMouseMove(e: MouseEvent, occ: MatrixRow) {
 		tooltipOccupation = occ;
 		tooltipX = e.clientX;
 		tooltipY = e.clientY;
@@ -78,16 +114,14 @@
 		tooltipOccupation = null;
 	}
 
-	function handleClick(occ: Occupation) {
-		goto('/sg/occupation/' + occ.ssoc);
+	function handleClick(occ: MatrixRow) {
+		const href = occ.linkHref ?? (occ.ssoc ? `/sg/occupation/${occ.ssoc}` : null);
+		if (href) goto(href);
 	}
 
-	const quadrantLabels = [
-		{ label: 'Low risk, high demand', x: 0.1, y: 0.85 },
-		{ label: 'Low risk, low demand', x: 0.1, y: 0.15 },
-		{ label: 'High risk, high demand', x: 0.55, y: 0.85 },
-		{ label: 'High risk, low demand', x: 0.55, y: 0.15 }
-	];
+	function riskValue(occ: MatrixRow): number {
+		return occ.net_risk ?? occ.structuralPressure ?? 0;
+	}
 
 	const quadrantColors = {
 		safe: 'var(--color-risk-very-low-subtle)',
@@ -104,7 +138,7 @@
 			{height}
 			class="block"
 			role="img"
-			aria-label="Demand vs Pressure matrix for {occupations.length} occupations"
+			aria-label="{surfaceLabel} demand vs pressure matrix for {occupations.length} occupations"
 		>
 			<g transform="translate({margin.left},{margin.top})">
 				<!-- Quadrant fills -->
@@ -177,22 +211,24 @@
 				{/each}
 
 				<!-- Dots -->
-				{#each occupations as occ (occ.ssoc)}
+				{#each occupations as occ (occ.ssoc ?? occ.localCode ?? occ.title)}
 					{@const ds = demandStrength(occ)}
+					{@const href = occ.linkHref ?? (occ.ssoc ? `/sg/occupation/${occ.ssoc}` : null)}
+					<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 					<circle
-						cx={xScale(Math.max(0, Math.min(xDomainMax, occ.net_risk)))}
+						cx={xScale(Math.max(0, Math.min(xDomainMax, riskValue(occ))))}
 						cy={yScale(Math.max(0, Math.min(1, ds)))}
 						r={dotRadius}
 						fill={dotColor(occ)}
 						opacity="0.65"
-						class="cursor-pointer"
-						role="button"
-						tabindex="0"
+						class={href ? 'cursor-pointer' : ''}
+						role={href ? 'button' : undefined}
+						tabindex={href ? 0 : undefined}
 						onmousemove={e => handleMouseMove(e, occ)}
 						onmouseleave={handleMouseLeave}
 						onclick={() => handleClick(occ)}
 						onkeydown={e => {
-							if (e.key === 'Enter' || e.key === ' ') {
+							if (href && (e.key === 'Enter' || e.key === ' ')) {
 								e.preventDefault();
 								handleClick(occ);
 							}
@@ -218,7 +254,7 @@
 					text-anchor="middle"
 					class="fill-muted-foreground text-xs font-medium"
 				>
-					Structural AI Pressure
+					{xAxisLabel}
 				</text>
 
 				<!-- Y axis -->
@@ -235,7 +271,7 @@
 					transform="rotate(-90)"
 					class="fill-muted-foreground text-xs font-medium"
 				>
-					Demand Signal Strength
+					{yAxisLabel}
 				</text>
 			</g>
 		</svg>

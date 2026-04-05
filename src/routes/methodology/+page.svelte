@@ -70,7 +70,7 @@
 
 <Seo
 	title="Scoring Methodology — Global Structural Baseline"
-	description="Global structural methodology for AI Work Index: deterministic exposure and bottleneck baseline, plus country-specific demand and policy layers. Singapore is the current live reference implementation."
+	description="Global structural methodology for AI Work Index: deterministic exposure and bottleneck baseline, plus country-specific demand and policy layers. Singapore is the current live reference implementation and the United States layer is ready."
 	path="/methodology"
 />
 
@@ -143,10 +143,10 @@
 			which have the strongest human bottlenecks and demand buffers.
 		</p>
 		<p class="mt-2 text-sm text-text-secondary">
-			<strong>What it does not do:</strong> Predict actual job losses or forecast hiring trends. The core
-			score still captures structural displacement pressure, not realised reinstatement. We now publish
-			a separate offset-potential layer to approximate some cushioning forces, but it should not be read
-			as a direct measure of new-task creation or job growth.
+			<strong>What it does not do:</strong> Predict actual job losses, forecast hiring trends, or make a
+			legal/compliance opinion. The core score still captures structural displacement pressure, not
+			realised reinstatement. Policy, licensing, and public-sector constraints are published as a
+			separate context overlay, not silently folded into the score.
 		</p>
 	</div>
 
@@ -163,6 +163,29 @@
 			occupation-level measurement. They help explain the score, but they do not replace the core
 			formula.
 		</p>
+	</div>
+
+	<div class={cn(card({ variant: 'notice', padding: 'sm', accent: 'moderate' }), 'mt-4')}>
+		<p class="text-sm font-semibold text-foreground">Publication gates</p>
+		<div class="mt-3 grid gap-3 md:grid-cols-2">
+			<div>
+				<p class="text-xs uppercase tracking-wide text-muted-foreground">Mapping threshold</p>
+				<p class="mt-1 text-sm text-text-secondary">
+					Publish country headline risk only when mapping coverage is at least
+					{Math.round(globalMethodology.publicationRules.minimumMappingCoverage * 100)}% and fallback
+					share is no more than {Math.round(globalMethodology.publicationRules.maximumFallbackShare *
+						100)}%.
+				</p>
+			</div>
+			<div>
+				<p class="text-xs uppercase tracking-wide text-muted-foreground">Evidence threshold</p>
+				<p class="mt-1 text-sm text-text-secondary">
+					Local headline risk needs at least
+					{globalMethodology.publicationRules.minimumConfidenceLevel} confidence and an official local
+					demand source. Otherwise the surface stays provisional.
+				</p>
+			</div>
+		</div>
 	</div>
 
 	<section class="mb-8 mt-8">
@@ -196,9 +219,9 @@
 			{/each}
 		</div>
 		<p class="mt-2 text-xs text-muted-foreground">
-			{countryConfigs.sg.displayName} is the live reference implementation. Other countries should
-			not move out of the research bar until mapping coverage, validation, and limitations are
-			published.
+			{countryConfigs.sg.displayName} is the live reference implementation. The United States layer
+			is ready; other countries should not move out of the research bar until mapping coverage,
+			validation, limitations, and local demand evidence are published.
 		</p>
 	</section>
 

@@ -166,7 +166,7 @@ function aggregateGlobalIndex(occupations: SourceOccupation[]): GlobalOccupation
 				sourceOccupationCodes: [...new Set(group.sourceOccupationCodes)].sort(),
 				confidence,
 				confidenceLevel: confidence.level,
-				dataVintage: 'Singapore structural release v6'
+				dataVintage: 'Global structural baseline v6'
 			};
 		});
 }
