@@ -15,7 +15,7 @@
 	import { DATA_VINTAGE } from '$lib/data/scoring-constants';
 	import { siteStatus } from '$lib/data/site-status';
 	import { shortTitle } from '$lib/data/display-names';
-	import { formatWorkerCount, type HomeSurfaceItem } from '$lib/data/home-surface';
+	import { formatCompactCount, type HomeSurfaceItem } from '$lib/data/home-surface';
 	import { innerWidth as windowWidth } from 'svelte/reactivity/window';
 
 	let { data } = $props();
@@ -56,14 +56,14 @@
 	);
 	let topFocus = $derived(
 		(data.surface.code === 'global'
-			? [...filteredOccupations].sort((a, b) => b.employment_thousands - a.employment_thousands)
+			? [...filteredOccupations].sort((a, b) => b.surfaceFootprint - a.surfaceFootprint)
 			: [...filteredOccupations].sort((a, b) => b.market.market_resilience - a.market.market_resilience)
 		).slice(0, 5)
 	);
-	let focusCardTitle = $derived(data.surface.code === 'global' ? 'Largest Occupations' : 'Strongest Demand');
+	let focusCardTitle = $derived(data.surface.code === 'global' ? 'Most mapped occupations' : 'Strongest Demand');
 	let focusCardHref = $derived(
 		data.surface.code === 'global'
-			? '/explore'
+			? '/global'
 			: data.surface.code === 'sg'
 				? '/rankings/high-exposure-in-demand'
 				: data.surface.config.routePrefix
@@ -85,7 +85,7 @@
 
 	function formatFocusValue(occ: HomeSurfaceItem): string {
 		if (data.surface.code === 'global') {
-			return `${formatWorkerCount(occ.gross_wage_median ?? 0)} workers`;
+			return `${formatCompactCount(occ.surfaceFootprint)} mapped occupations`;
 		}
 		return `${(occ.market.market_resilience * 100).toFixed(0)}%`;
 	}
@@ -219,7 +219,7 @@
 					occupations={surfaceOccupations as unknown as Occupation[]}
 					onfilter={handleFilter}
 					showTextSearch={false}
-					valueLabel={data.surface.code === 'global' ? 'Workforce range' : 'Wage range'}
+					valueLabel={data.surface.code === 'global' ? 'Mapped occupations' : 'Wage range'}
 					valuePrefix={data.surface.code === 'global' ? null : data.surface.config.currency}
 					valueMin={surfaceValueScale.min}
 					valueMax={surfaceValueScale.max}
@@ -298,7 +298,7 @@
 								onfilter={handleFilter}
 								showTextSearch={false}
 								valueLabel={data.surface.code === 'global'
-									? 'Workforce range'
+									? 'Mapped occupations'
 									: 'Wage range'}
 								valuePrefix={data.surface.code === 'global' ? null : data.surface.config.currency}
 								valueMin={surfaceValueScale.min}

@@ -9,7 +9,7 @@ export interface GlobalOccupationRecord {
 	structuralBand: RiskBand;
 	exposure: number;
 	bottleneck: number;
-	employmentThousandWeight: number;
+	structuralFootprint: number;
 	sourceOccupationCount: number;
 	sourceOccupationCodes: string[];
 	confidence: ConfidenceResult;

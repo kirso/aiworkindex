@@ -24,7 +24,7 @@
 		ssoc?: string;
 		localCode?: string;
 		canonicalCode?: string;
-		valueKind?: 'wage' | 'weight';
+		valueKind?: 'wage' | 'count';
 	};
 
 	// Treemap nodes get x0/y0/x1/y1 added at runtime by d3 treemap layout.
@@ -77,13 +77,13 @@
 		return avgs;
 	});
 
-	// Compute total employment per group (for sizing in overview mode)
-	let groupEmployment = $derived.by(() => {
-		const emp = new Map<string, number>();
+	// Compute total structural footprint per group (for sizing in overview mode)
+	let groupFootprint = $derived.by(() => {
+		const footprint = new Map<string, number>();
 		for (const [key, occs] of groupedOccupations) {
-			emp.set(key, occs[0]?.group_employment_thousands ?? occs.length);
+			footprint.set(key, occs[0]?.group_employment_thousands ?? occs.length);
 		}
-		return emp;
+		return footprint;
 	});
 
 	// OVERVIEW MODE: hierarchy of just groups (depth 1 = groups as leaves)
@@ -92,7 +92,7 @@
 			name: 'root',
 			children: Array.from(groupedOccupations.entries()).map(([groupKey, occs]) => ({
 				name: groupKey,
-				value: groupEmployment.get(groupKey) ?? 1,
+				value: groupFootprint.get(groupKey) ?? 1,
 				count: occs.length,
 				avgRisk: groupAvgRisk.get(groupKey) ?? 0
 			}))
@@ -264,7 +264,7 @@
 					{height}
 					class="block"
 					role="img"
-					aria-label="Treemap showing major occupation groups in {surfaceLabel}, sized by total employment. Click a group to zoom in."
+					aria-label="Treemap showing major occupation groups in {surfaceLabel}, sized by {valueLabel}. Click a group to zoom in."
 				>
 					{#each overviewNodes as node (node.data.name)}
 						{@const nw = cellWidth(node)}

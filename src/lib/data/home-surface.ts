@@ -6,7 +6,7 @@ import type { GlobalOccupationRecord, CountryOccupationRecord } from './country-
 
 export type HomeSurfaceCode = 'global' | 'sg' | 'us';
 
-export type HomeSurfaceValueKind = 'wage' | 'weight';
+export type HomeSurfaceValueKind = 'wage' | 'count';
 
 export interface HomeSurfaceMetric {
 	label: string;
@@ -35,6 +35,7 @@ export interface HomeSurfaceItem {
 	gross_wage_25th: number | null;
 	gross_wage_75th: number | null;
 	currency: string | null;
+	surfaceFootprint: number;
 	employment_thousands: number;
 	group_employment_thousands: number;
 	exposure: number;
@@ -141,16 +142,16 @@ function formatBillions(value: number): string {
 	return value.toFixed(0);
 }
 
-export function formatWorkerCount(valueInThousands: number): string {
-	const workers = valueInThousands * 1000;
-	if (workers >= 1_000_000_000) return `${(workers / 1_000_000_000).toFixed(1)}B`;
-	if (workers >= 1_000_000) return `${(workers / 1_000_000).toFixed(workers >= 10_000_000 ? 0 : 1)}M`;
-	if (workers >= 1_000) return `${(workers / 1_000).toFixed(workers >= 100_000 ? 0 : 1)}k`;
-	return Math.round(workers).toLocaleString();
+export function formatCompactCount(value: number): string {
+	const count = Math.max(0, value);
+	if (count >= 1_000_000_000) return `${(count / 1_000_000_000).toFixed(1)}B`;
+	if (count >= 1_000_000) return `${(count / 1_000_000).toFixed(count >= 10_000_000 ? 0 : 1)}M`;
+	if (count >= 1_000) return `${(count / 1_000).toFixed(count >= 100_000 ? 0 : 1)}k`;
+	return Math.round(count).toLocaleString();
 }
 
 function valueKindLabel(kind: HomeSurfaceValueKind): string {
-	return kind === 'weight' ? 'workers represented' : 'median wage';
+	return kind === 'count' ? 'mapped occupations' : 'median wage';
 }
 
 function deriveImpactType(structuralPressure: number, bottleneck: number): ImpactType {
@@ -173,17 +174,18 @@ function mapGlobalItem(record: GlobalOccupationRecord): HomeSurfaceItem {
 		surfaceLabel: countryConfigs.global.displayName,
 		title: record.canonicalTitle,
 		displayCode: record.canonicalCode,
-		linkHref: null,
+		linkHref: '/global',
 		groupKey: String(majorGroupCode),
 		groupLabel: groupMeta.label,
 		major_group: groupMeta.label,
 		major_group_code: majorGroupCode,
-		gross_wage_median: record.employmentThousandWeight,
+		gross_wage_median: record.structuralFootprint,
 		gross_wage_25th: null,
 		gross_wage_75th: null,
 		currency: null,
-		employment_thousands: record.employmentThousandWeight,
-		group_employment_thousands: record.employmentThousandWeight,
+		surfaceFootprint: record.structuralFootprint,
+		employment_thousands: record.structuralFootprint,
+		group_employment_thousands: record.structuralFootprint,
 		exposure: record.exposure,
 		bottleneck: record.bottleneck,
 		structuralPressure: record.structuralPressure,
@@ -203,8 +205,9 @@ function mapGlobalItem(record: GlobalOccupationRecord): HomeSurfaceItem {
 			sol_match: false,
 			jobs_in_demand_match: false
 		},
-		valueKind: 'weight',
-		canonicalCode: record.canonicalCode
+		valueKind: 'count',
+		canonicalCode: record.canonicalCode,
+		ssoc: record.canonicalCode
 	};
 }
 
@@ -229,6 +232,7 @@ function mapSingaporeItem(occupation: (typeof occupations)[number]): HomeSurface
 		gross_wage_25th: occupation.gross_wage_25th,
 		gross_wage_75th: occupation.gross_wage_75th,
 		currency: countryConfigs.sg.currency ?? 'SGD',
+		surfaceFootprint: occupation.employment_thousands,
 		employment_thousands: occupation.employment_thousands,
 		group_employment_thousands: occupation.group_employment_thousands,
 		exposure: occupation.exposure,
@@ -273,6 +277,7 @@ function mapUnitedStatesItem(occupation: CountryOccupationRecord): HomeSurfaceIt
 		gross_wage_25th: occupation.wage.p25 ?? null,
 		gross_wage_75th: occupation.wage.p75 ?? null,
 		currency: occupation.wage.currency,
+		surfaceFootprint: occupation.employment.current ?? 0,
 		employment_thousands: occupation.employment.current ?? 0,
 		group_employment_thousands: occupation.employment.current ?? 0,
 		exposure: occupation.structuralPressure,
@@ -296,14 +301,15 @@ function mapUnitedStatesItem(occupation: CountryOccupationRecord): HomeSurfaceIt
 		},
 		valueKind: 'wage',
 		canonicalCode: occupation.canonicalCode,
-		localCode: occupation.localCode
+		localCode: occupation.localCode,
+		ssoc: occupation.localCode
 	};
 }
 
-function aggregateGroupEmployment(items: HomeSurfaceItem[]): HomeSurfaceItem[] {
+function aggregateGroupFootprint(items: HomeSurfaceItem[]): HomeSurfaceItem[] {
 	const totals = new Map<string, number>();
 	for (const item of items) {
-		totals.set(item.groupKey, (totals.get(item.groupKey) ?? 0) + item.employment_thousands);
+		totals.set(item.groupKey, (totals.get(item.groupKey) ?? 0) + item.surfaceFootprint);
 	}
 	return items.map(item => ({
 		...item,
@@ -316,12 +322,12 @@ function buildGlobalMetrics(items: HomeSurfaceItem[]): HomeSurfaceMetric[] {
 	const highPressure = items.filter(
 		item => item.risk_band === 'high' || item.risk_band === 'very_high'
 	).length;
-	const totalEmploymentWeight = items.reduce((sum, item) => sum + item.employment_thousands, 0);
+	const mappedOccupations = items.reduce((sum, item) => sum + item.surfaceFootprint, 0);
 	return [
 		{
 			label: 'Jobs under pressure',
 			value: formatPercent(total > 0 ? highPressure / total : 0),
-			note: 'Share of jobs under pressure'
+			note: 'Share of mapped occupations under pressure'
 		},
 		{
 			label: 'Occupations at risk',
@@ -329,9 +335,9 @@ function buildGlobalMetrics(items: HomeSurfaceItem[]): HomeSurfaceMetric[] {
 			note: 'High-pressure occupations'
 		},
 		{
-			label: 'Workers represented',
-			value: `${(totalEmploymentWeight / 1000).toFixed(1)}M`,
-			note: 'Approximate workforce covered'
+			label: 'Mapped occupations',
+			value: formatCompactCount(mappedOccupations),
+			note: 'Official occupations mapped into the global spine'
 		}
 	];
 }
@@ -356,12 +362,12 @@ function buildCountryMetrics(
 		{
 			label: 'Jobs under pressure',
 			value: formatPercent(total > 0 ? highPressure / total : 0),
-			note: 'Share of jobs under pressure'
+			note: 'Share of mapped occupations under pressure'
 		},
 		{
 			label: 'Wages at risk',
 			value: `${currency} ${formatBillions(wageAtRisk)}`,
-			note: 'Annual pay in those jobs'
+			note: 'Estimated annual pay in high-pressure occupations'
 		},
 		{
 			label: 'Occupations at risk',
@@ -380,7 +386,7 @@ export function resolveHomeSurfaceCode(value: string | null | undefined): HomeSu
 
 export function getHomeSurface(code: HomeSurfaceCode): HomeSurface {
 	if (code === 'sg') {
-		const items = aggregateGroupEmployment(occupations.map(mapSingaporeItem));
+		const items = aggregateGroupFootprint(occupations.map(mapSingaporeItem));
 		return {
 			code,
 			config: countryConfigs.sg,
@@ -402,7 +408,7 @@ export function getHomeSurface(code: HomeSurfaceCode): HomeSurface {
 	}
 
 	if (code === 'us') {
-		const items = aggregateGroupEmployment(usOccupations.map(mapUnitedStatesItem));
+		const items = aggregateGroupFootprint(usOccupations.map(mapUnitedStatesItem));
 		return {
 			code,
 			config: countryConfigs.us,
@@ -423,7 +429,7 @@ export function getHomeSurface(code: HomeSurfaceCode): HomeSurface {
 		};
 	}
 
-	const items = aggregateGroupEmployment(globalOccupations.map(mapGlobalItem));
+	const items = aggregateGroupFootprint(globalOccupations.map(mapGlobalItem));
 	return {
 		code: 'global',
 		config: countryConfigs.global,
@@ -433,9 +439,9 @@ export function getHomeSurface(code: HomeSurfaceCode): HomeSurface {
 		summary: 'Country-agnostic structural baseline.',
 		drilldownLabel: 'Open global methodology',
 		drilldownHref: countryConfigs.global.routePrefix,
-		valueLabel: valueKindLabel('weight'),
+		valueLabel: valueKindLabel('count'),
 		chartNotes: {
-			treemap: 'Size = workers represented · Colour = structural pressure',
+			treemap: 'Size = mapped occupations · Colour = structural pressure',
 			matrix: 'Structural pressure vs bottleneck protection',
 			histogram: 'Structural pressure distribution'
 		},

@@ -892,9 +892,9 @@ describe('global expansion invariants', () => {
 		assert.equal(globalSurface.drilldownHref, '/global');
 		assert.equal(globalSurface.metrics[0]?.label, 'Jobs under pressure');
 		assert.equal(globalSurface.metrics[1]?.label, 'Occupations at risk');
-		assert.equal(globalSurface.metrics[2]?.label, 'Workers represented');
-		assert.equal(globalSurface.occupations[0]?.valueKind, 'weight');
-		assert.equal(globalSurface.occupations[0]?.linkHref, null);
+		assert.equal(globalSurface.metrics[2]?.label, 'Mapped occupations');
+		assert.equal(globalSurface.occupations[0]?.valueKind, 'count');
+		assert.equal(globalSurface.occupations[0]?.linkHref, '/global');
 
 		assert.equal(sgSurface.drilldownHref, '/sg');
 		assert.equal(sgSurface.metrics[0]?.label, 'Jobs under pressure');

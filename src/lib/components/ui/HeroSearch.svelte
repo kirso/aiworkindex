@@ -10,12 +10,13 @@
 	import { riskBadge, card } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import { Input } from '$lib/components/ui/input/index.js';
+	import { formatCompactCount } from '$lib/data/home-surface';
 
 	type SearchOccupation = Occupation & {
 		linkHref?: string | null;
 		localCode?: string;
 		canonicalCode?: string;
-		valueKind?: 'wage' | 'weight';
+		valueKind?: 'wage' | 'count';
 	};
 
 	let {
@@ -29,6 +30,8 @@
 		marketLabel?: string;
 		occupationValueLabel?: string;
 	} = $props();
+
+	let countSurface = $derived(occupationValueLabel === 'mapped occupations');
 
 	type SearchResult =
 		| { type: 'role'; role: SyntheticRole }
@@ -197,14 +200,21 @@
 								<div class="min-w-0 flex-1">
 									<p class="truncate font-medium text-foreground">{occ.title}</p>
 									<p class="mt-0.5 text-xs text-muted-foreground">
-										{#if occ.ssoc}
-											SSOC {occ.ssoc}
+										{#if occupationHrefPrefix === '/global' && occ.canonicalCode}
+											ISCO {occ.canonicalCode}
 										{:else if occ.localCode}
 											Code {occ.localCode}
+										{:else if occ.ssoc}
+											SSOC {occ.ssoc}
 										{:else if occ.canonicalCode}
 											ISCO {occ.canonicalCode}
 										{/if}
-										&middot; {occupationValueLabel} {occ.gross_wage_median.toLocaleString()} in {marketLabel}
+										&middot;
+										{#if countSurface}
+											{formatCompactCount(occ.gross_wage_median ?? 0)} mapped occupations
+										{:else}
+											{occupationValueLabel} {occ.gross_wage_median.toLocaleString()} in {marketLabel}
+										{/if}
 									</p>
 								</div>
 								<span class={cn(riskBadge({ band: occ.risk_band }), 'ml-3 shrink-0')}>

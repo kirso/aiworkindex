@@ -1,15 +1,31 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
 	import * as Command from '$lib/components/ui/command/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
-	import { occupations, riskBandLabels } from '$lib/data';
+	import { riskBandLabels } from '$lib/data';
 	import { countryConfigs } from '$lib/data/country-config';
 	import { searchOccupationsAndRoles } from '$lib/utils/search';
 	import { riskBadge } from '$lib/design-system';
 	import { cn } from '$lib/utils';
+	import { getHomeSurface, resolveHomeSurfaceCode } from '$lib/data/home-surface';
+	import type { Occupation } from '$lib/data';
 
 	let open = $state(false);
 	let query = $state('');
+
+	type SearchOccupation = Occupation & {
+		linkHref?: string | null;
+		localCode?: string;
+		canonicalCode?: string;
+		ssoc?: string;
+		valueKind?: 'wage' | 'count';
+	};
+
+	type SearchResults = {
+		roles: ReturnType<typeof searchOccupationsAndRoles>['roles'];
+		occupations: SearchOccupation[];
+	};
 
 	// Keyboard shortcut
 	function handleKeydown(e: KeyboardEvent) {
@@ -19,15 +35,29 @@
 		}
 	}
 
-	let results = $derived(searchOccupationsAndRoles(query, occupations));
+	let activeSurfaceCode = $derived.by(() => {
+		const pathname = $page.url.pathname;
+		if (pathname.startsWith('/sg')) return 'sg';
+		if (pathname.startsWith('/us')) return 'us';
+		if (pathname.startsWith('/global')) return 'global';
+		return resolveHomeSurfaceCode($page.url.searchParams.get('surface'));
+	});
 
-	const countryMenuOrder = ['global', 'sg', 'us', 'uk', 'ca'] as const;
-	const countryMenuLinks = countryMenuOrder.map(code => countryConfigs[code]);
+	let activeSurfaceOccupations = $derived.by(
+		() => getHomeSurface(activeSurfaceCode).occupations as unknown as SearchOccupation[]
+	);
+
+	let results = $derived(searchOccupationsAndRoles(query, activeSurfaceOccupations) as SearchResults);
+
+	const marketMenuOrder = ['sg', 'us'] as const;
+	const marketMenuLinks = marketMenuOrder.map(code => countryConfigs[code]);
 
 	function selectOccupation(ssoc: string) {
 		open = false;
 		query = '';
-		goto(`/sg/occupation/${ssoc}`);
+		const occupation = activeSurfaceOccupations.find(result => result.ssoc === ssoc);
+		const href = occupation?.linkHref ?? null;
+		goto(href ?? '/');
 	}
 
 	function selectRole(slug: string) {
@@ -85,16 +115,6 @@
 		<!-- Quick navigation (always visible when no query) -->
 		{#if !query.trim()}
 			<Command.Group heading="Go to">
-				<Command.Item onSelect={() => selectPage('/global')}>
-					<svg
-						class="mr-2 h-4 w-4"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg
-					>
-					Global baseline
-				</Command.Item>
 				<Command.Item onSelect={() => selectPage('/')}>
 					<svg
 						class="mr-2 h-4 w-4"
@@ -108,7 +128,7 @@
 							r="4"
 						/><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg
 					>
-					Home
+					Find
 				</Command.Item>
 				<Command.Item onSelect={() => selectPage('/compare')}>
 					<svg
@@ -119,22 +139,7 @@
 						stroke-width="2"
 						><circle cx="12" cy="12" r="9" /><path d="M3 12h18" /><path d="M12 3a15 15 0 0 1 0 18" /><path d="M12 3a15 15 0 0 0 0 18" /></svg
 					>
-					Compare countries
-				</Command.Item>
-				<Command.Item onSelect={() => selectPage('/roles')}>
-					<svg
-						class="mr-2 h-4 w-4"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle
-							cx="9"
-							cy="7"
-							r="4"
-						/><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg
-					>
-					Browse Jobs & Roles
+					Compare
 				</Command.Item>
 				<Command.Item onSelect={() => selectPage('/methodology')}>
 					<svg
@@ -149,39 +154,41 @@
 					>
 					Methodology
 				</Command.Item>
-				{#each countryMenuLinks as country (country.code)}
-					{#if country.code !== 'global'}
-						<Command.Item onSelect={() => selectPage(country.routePrefix)}>
-							<svg
-								class="mr-2 h-4 w-4"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-							>
-								<circle cx="12" cy="12" r="9" />
-								<path d="M12 3a15 15 0 0 1 0 18" />
-								<path d="M3 12h18" />
-							</svg>
-							{country.displayName}
-						</Command.Item>
-					{/if}
-				{/each}
-				<Command.Item onSelect={() => selectPage('/compare')}>
+				<Command.Item onSelect={() => selectPage('/global')}>
 					<svg
 						class="mr-2 h-4 w-4"
 						viewBox="0 0 24 24"
 						fill="none"
 						stroke="currentColor"
 						stroke-width="2"
-						><rect x="3" y="3" width="18" height="18" rx="2" /><line
-							x1="12"
-							y1="3"
-							x2="12"
-							y2="21"
-						/></svg
+						><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg
 					>
-					Compare
+					Structural baseline
+				</Command.Item>
+				<Command.Item onSelect={() => selectPage('/explore')}>
+					<svg
+						class="mr-2 h-4 w-4"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"><path d="M3 6h18" /><path d="M3 12h18" /><path d="M3 18h18" /></svg
+					>
+					Browse occupations
+				</Command.Item>
+				<Command.Item onSelect={() => selectPage('/roles')}>
+					<svg
+						class="mr-2 h-4 w-4"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle
+							cx="9"
+							cy="7"
+							r="4"
+						/><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg
+					>
+					Modern roles
 				</Command.Item>
 				<Command.Item onSelect={() => selectPage('/calculator')}>
 					<svg
@@ -204,16 +211,28 @@
 					>
 					Calculator
 				</Command.Item>
-				<Command.Item onSelect={() => selectPage('/explore')}>
-					<svg
-						class="mr-2 h-4 w-4"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"><path d="M3 6h18" /><path d="M3 12h18" /><path d="M3 18h18" /></svg
-					>
-					Explore All Occupations
-				</Command.Item>
+			</Command.Group>
+
+			<Command.Group heading="Markets">
+				{#each marketMenuLinks as market (market.code)}
+					<Command.Item onSelect={() => selectPage(market.routePrefix)}>
+						<svg
+							class="mr-2 h-4 w-4"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+						>
+							<circle cx="12" cy="12" r="9" />
+							<path d="M12 3a15 15 0 0 1 0 18" />
+							<path d="M3 12h18" />
+						</svg>
+						{market.name}
+					</Command.Item>
+				{/each}
+			</Command.Group>
+
+			<Command.Group heading="More">
 				<Command.Item onSelect={() => selectPage('/rankings')}>
 					<svg
 						class="mr-2 h-4 w-4"
@@ -297,17 +316,25 @@
 			</Command.Group>
 		{/if}
 
-		<!-- Country occupations -->
+		<!-- Occupations -->
 		{#if results.occupations.length > 0}
-			<Command.Group heading="Country Occupations">
+			<Command.Group heading="Occupations">
 				{#each results.occupations as occ (occ.ssoc)}
 					<Command.Item value="occ-{occ.ssoc}" onSelect={() => selectOccupation(occ.ssoc)}>
 						<div class="flex w-full items-center justify-between">
 							<div class="min-w-0 flex-1">
 								<span class="truncate">{occ.title}</span>
-								<span class="ml-2 text-xs text-muted-foreground font-mono tabular-nums"
-									>SSOC {occ.ssoc}</span
-								>
+								<span class="ml-2 text-xs font-mono tabular-nums text-muted-foreground">
+									{#if activeSurfaceCode === 'global' && occ.canonicalCode}
+										ISCO {occ.canonicalCode}
+									{:else if activeSurfaceCode === 'us' && occ.localCode}
+										Code {occ.localCode}
+									{:else if occ.ssoc}
+										SSOC {occ.ssoc}
+									{:else if occ.canonicalCode}
+										ISCO {occ.canonicalCode}
+									{/if}
+								</span>
 							</div>
 							<span class={cn(riskBadge({ band: occ.risk_band }), 'ml-2 shrink-0 text-xs')}>
 								{riskBandLabels[occ.risk_band]}

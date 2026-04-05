@@ -1,9 +1,10 @@
 #!/usr/bin/env bun
 /**
- * build-global-index.ts — Canonical ISCO-08 baseline aggregated from the live Singapore release.
+ * build-global-index.ts — Canonical ISCO-08 baseline aggregated from the live reference market.
  *
  * This produces a country-agnostic structural baseline from the current Singapore
- * occupation dataset so country layers can reuse the same comparable spine.
+ * occupation dataset using equal-weight structural aggregation so country layers can
+ * reuse the same comparable spine without inheriting local employment totals.
  *
  * Run: bun run scripts/build-global-index.ts
  */
@@ -39,12 +40,11 @@ type SourceOccupation = {
 	};
 };
 
-	type Aggregate = {
+type Aggregate = {
 	isco: string;
 	titleWeights: Map<string, number>;
 	sourceOccupationCodes: string[];
 	sourceOccupationCount: number;
-	totalWeight: number;
 	exposure: Array<{ value: number; weight: number }>;
 	bottleneck: Array<{ value: number; weight: number }>;
 	structuralPressure: Array<{ value: number; weight: number }>;
@@ -74,18 +74,11 @@ function aggregateGlobalIndex(occupations: SourceOccupation[]): GlobalOccupation
 
 	for (const occupation of occupations) {
 		const isco = occupation.isco_codes_matched?.[0] ?? occupation.ssoc.slice(0, 4);
-		const weight = Number(
-			occupation.employment_thousands ??
-				occupation.estimated_sg_employment_thousands ??
-				1
-		);
-		const effectiveWeight = Number.isFinite(weight) && weight > 0 ? weight : 1;
 		const aggregate = groups.get(isco) ?? {
 			isco,
 			titleWeights: new Map<string, number>(),
 			sourceOccupationCodes: [],
 			sourceOccupationCount: 0,
-			totalWeight: 0,
 			exposure: [],
 			bottleneck: [],
 			structuralPressure: [],
@@ -94,16 +87,15 @@ function aggregateGlobalIndex(occupations: SourceOccupation[]): GlobalOccupation
 
 		aggregate.titleWeights.set(
 			occupation.title,
-			(aggregate.titleWeights.get(occupation.title) ?? 0) + effectiveWeight
+			(aggregate.titleWeights.get(occupation.title) ?? 0) + 1
 		);
 		aggregate.sourceOccupationCodes.push(occupation.ssoc);
 		aggregate.sourceOccupationCount += 1;
-		aggregate.totalWeight += effectiveWeight;
-		aggregate.exposure.push({ value: occupation.exposure, weight: effectiveWeight });
-		aggregate.bottleneck.push({ value: occupation.bottleneck, weight: effectiveWeight });
+		aggregate.exposure.push({ value: occupation.exposure, weight: 1 });
+		aggregate.bottleneck.push({ value: occupation.bottleneck, weight: 1 });
 		aggregate.structuralPressure.push({
 			value: occupation.displacement_pressure,
-			weight: effectiveWeight
+			weight: 1
 		});
 		aggregate.confidence.push({
 			score: occupation.confidence.score,
@@ -113,7 +105,7 @@ function aggregateGlobalIndex(occupations: SourceOccupation[]): GlobalOccupation
 			source_coverage: occupation.confidence.source_coverage,
 			signal_agreement: occupation.confidence.signal_agreement,
 			sensitivity: occupation.confidence.sensitivity,
-			weight: effectiveWeight
+			weight: 1
 		});
 
 		groups.set(isco, aggregate);
@@ -161,12 +153,12 @@ function aggregateGlobalIndex(occupations: SourceOccupation[]): GlobalOccupation
 				structuralBand: getRiskBand(structuralPressure),
 				exposure,
 				bottleneck,
-				employmentThousandWeight: group.totalWeight,
+				structuralFootprint: group.sourceOccupationCount,
 				sourceOccupationCount: group.sourceOccupationCount,
 				sourceOccupationCodes: [...new Set(group.sourceOccupationCodes)].sort(),
 				confidence,
 				confidenceLevel: confidence.level,
-				dataVintage: 'Global structural baseline v6'
+				dataVintage: 'Global structural baseline v7'
 			};
 		});
 }
@@ -185,9 +177,9 @@ async function main() {
 		fs.writeFileSync(filepath, JSON.stringify(globalIndex, null, 2));
 	}
 
-	const mappedWeight = globalIndex.reduce((sum, row) => sum + row.employmentThousandWeight, 0);
+	const mappedFootprint = globalIndex.reduce((sum, row) => sum + row.structuralFootprint, 0);
 	console.log(
-		`Global ISCO baseline written: ${globalIndex.length} groups, ${mappedWeight.toFixed(1)} weighted employment`
+		`Global ISCO baseline written: ${globalIndex.length} groups, ${mappedFootprint} mapped occupations`
 	);
 }
 

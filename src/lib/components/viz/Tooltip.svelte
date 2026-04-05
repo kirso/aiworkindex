@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { riskBandLabels, impactTypeLabels } from '$lib/data';
 	import { riskBadge } from '$lib/design-system';
-	import { formatWorkerCount } from '$lib/data/home-surface';
+	import { formatCompactCount } from '$lib/data/home-surface';
 
 	type TooltipRow = {
 		title: string;
 		risk_band?: 'very_low' | 'low' | 'moderate' | 'high' | 'very_high';
 		gross_wage_median?: number;
-		valueKind?: 'wage' | 'weight';
+		valueKind?: 'wage' | 'count';
 		currency?: string | null;
 		impact_type?: 'ai_leveraged' | 'at_risk' | 'stable' | 'mixed';
 		linkHref?: string | null;
@@ -38,8 +38,8 @@
 				{riskBandLabels[occupation.risk_band ?? 'moderate']}
 			</span>
 			<span class="text-xs text-muted-foreground">
-				{#if occupation.valueKind === 'weight'}
-					Workers represented {formatWorkerCount(occupation.gross_wage_median ?? 0)}
+				{#if occupation.valueKind === 'count'}
+					{formatCompactCount(occupation.gross_wage_median ?? 0)} mapped occupations
 				{:else}
 					{occupation.currency ?? 'SGD'} {occupation.gross_wage_median?.toLocaleString()}/mo
 				{/if}

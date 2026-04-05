@@ -2,7 +2,7 @@
 	import { riskBandLabels } from '$lib/data';
 	import { riskBadge, card } from '$lib/design-system';
 	import { cn } from '$lib/utils';
-	import { formatWorkerCount } from '$lib/data/home-surface';
+	import { formatCompactCount } from '$lib/data/home-surface';
 
 	type CardRow = {
 		title: string;
@@ -10,7 +10,7 @@
 		linkHref?: string | null;
 		gross_wage_median?: number;
 		currency?: string | null;
-		valueKind?: 'wage' | 'weight';
+		valueKind?: 'wage' | 'count';
 		risk_band?: 'very_low' | 'low' | 'moderate' | 'high' | 'very_high';
 		net_risk?: number;
 		confidence?: { level: 'high' | 'medium' | 'low' };
@@ -26,8 +26,8 @@
 	<div class="min-w-0 flex-1">
 		<p class="truncate text-sm font-medium text-foreground">{occupation.title}</p>
 		<p class="mt-0.5 text-xs text-muted-foreground">
-			{#if occupation.valueKind === 'weight'}
-				Workers represented: {formatWorkerCount(occupation.gross_wage_median ?? 0)}
+			{#if occupation.valueKind === 'count'}
+				{formatCompactCount(occupation.gross_wage_median ?? 0)} mapped occupations
 			{:else}
 				Median: {occupation.currency ?? 'SGD'} {occupation.gross_wage_median?.toLocaleString()}
 			{/if}

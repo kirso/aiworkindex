@@ -28,15 +28,15 @@
 	});
 
 	const navLinks = [
-		{ href: '/global', label: 'Global' },
-		{ href: '/compare', label: 'Compare' },
 		{ href: '/', label: 'Find' },
-		{ href: '/roles', label: 'Browse' },
-		{ href: '/calculator', label: 'Calculator' },
+		{ href: '/compare', label: 'Compare' },
 		{ href: '/methodology', label: 'Methodology' }
 	];
 
 	const secondaryLinks = [
+		{ href: '/explore', label: 'Browse' },
+		{ href: '/roles', label: 'Roles' },
+		{ href: '/calculator', label: 'Calculator' },
 		{ href: '/rankings', label: 'Rankings' },
 		{ href: '/reports', label: 'Reports' },
 		{ href: '/research', label: 'Research' },
@@ -46,8 +46,7 @@
 		{ href: '/watchlist', label: 'Watchlist' }
 	];
 
-	const countryLinks = [
-		{ href: '/', label: 'Global index' },
+	const marketLinks = [
 		{ href: '/sg', label: countryConfigs.sg.name },
 		{ href: '/us', label: countryConfigs.us.name }
 	];
@@ -158,15 +157,15 @@
 					{/each}
 				</nav>
 				<div class="ml-2 hidden items-center gap-1 rounded-full border border-header-active-bg bg-header-active-bg/20 p-0.5 lg:flex">
-					{#each countryLinks as country (country.href)}
+					{#each marketLinks as market (market.href)}
 						<a
-							href={country.href}
+							href={market.href}
 							class="rounded-full px-2.5 py-1 text-[11px] font-medium transition-colors duration-100
-								{isActive(country.href)
+								{isActive(market.href)
 								? 'bg-header-active-bg text-foreground'
 								: 'text-header-muted hover:text-foreground'}"
 						>
-							{country.label}
+							{market.label}
 						</a>
 					{/each}
 				</div>
@@ -221,18 +220,18 @@
 						</nav>
 						<div class="mt-3 rounded-md border border-border bg-muted/30 p-2">
 							<p class="px-1 pb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-								Countries
+								Markets
 							</p>
 							<div class="flex flex-wrap gap-1.5">
-								{#each countryLinks as country (country.href)}
-									<a
-										href={country.href}
-										class="rounded-full border border-border px-2.5 py-1 text-xs font-medium transition-colors duration-100
-											{isActive(country.href)
+							{#each marketLinks as market (market.href)}
+								<a
+									href={market.href}
+									class="rounded-full border border-border px-2.5 py-1 text-xs font-medium transition-colors duration-100
+											{isActive(market.href)
 											? 'bg-accent text-foreground'
 											: 'bg-background text-muted-foreground hover:bg-accent hover:text-foreground'}"
 									>
-										{country.label}
+										{market.label}
 									</a>
 								{/each}
 							</div>
@@ -272,7 +271,7 @@
 				</p>
 				<div class="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
 					<a href="/rankings" class="hover:text-foreground">Rankings</a>
-					<a href="/global" class="hover:text-foreground">Global</a>
+					<a href="/" class="hover:text-foreground">Find</a>
 					<a href="/reports" class="hover:text-foreground">Reports</a>
 					<a href="/research" class="hover:text-foreground">Research</a>
 					<a href="/data" class="hover:text-foreground">Data</a>
