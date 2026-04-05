@@ -187,7 +187,7 @@
 	}
 
 	function handleClickOcc(occ: TreemapRow) {
-		const href = occ.linkHref ?? (occ.ssoc ? `/sg/occupation/${occ.ssoc}` : null);
+		const href = occ.linkHref ?? (occ.ssoc ? `/occupation/${occ.ssoc}` : null);
 		if (href) goto(href);
 	}
 
@@ -331,7 +331,7 @@
 						{@const occ = leaf.data.occupation as TreemapRow}
 						{@const lw = cellWidth(leaf)}
 						{@const lh = cellHeight(leaf)}
-						{@const href = occ.linkHref ?? (occ.ssoc ? `/sg/occupation/${occ.ssoc}` : null)}
+						{@const href = occ.linkHref ?? (occ.ssoc ? `/occupation/${occ.ssoc}` : null)}
 						<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 						<rect
 							x={leaf.x0}

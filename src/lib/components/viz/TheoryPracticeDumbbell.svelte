@@ -113,7 +113,7 @@
 					/>
 
 					<!-- Label -->
-					<a href="/sg/occupation/{row.occ.ssoc}">
+					<a href="/occupation/{row.occ.ssoc}">
 						<text
 							x={-8}
 							y={y + 4}

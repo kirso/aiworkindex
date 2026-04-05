@@ -45,11 +45,11 @@
 				{/if}
 			</span>
 		</div>
-		<p class="mt-1.5 text-xs text-muted-foreground">
-			{occupation.impact_type ? impactTypeLabels[occupation.impact_type] : 'Structural record'}
-			{#if occupation.linkHref || occupation.ssoc}
-				· Click for details
-			{/if}
-		</p>
+	<p class="mt-1.5 text-xs text-muted-foreground">
+		{occupation.impact_type ? impactTypeLabels[occupation.impact_type] : 'Structural record'}
+		{#if occupation.linkHref || occupation.ssoc}
+			· Click for details
+		{/if}
+	</p>
 	</div>
 {/if}

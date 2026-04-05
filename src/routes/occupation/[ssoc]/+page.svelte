@@ -505,7 +505,7 @@
 <Seo
 	title={pageTitle}
 	description={pageDescription}
-	path="/sg/occupation/{occ.ssoc}"
+	path="/occupation/{occ.ssoc}"
 	ogImage="/og/{occ.ssoc}.png"
 	jsonLd={[occJsonLd, breadcrumbJsonLd, faqJsonLd]}
 />
@@ -939,7 +939,7 @@
 					<div class="grid gap-2 sm:grid-cols-3">
 						{#each allUniqueTransitions.slice(0, 3) as t}
 							<a
-								href="/sg/occupation/{t.to_ssoc}"
+								href="/occupation/{t.to_ssoc}"
 								class={cn(
 									card({ padding: 'sm', variant: 'inset' }),
 									'block hover:bg-accent hover:shadow-sm transition-all group'
@@ -980,7 +980,7 @@
 							<div class="mt-2 grid gap-2 sm:grid-cols-3">
 								{#each allUniqueTransitions.slice(3) as t}
 									<a
-										href="/sg/occupation/{t.to_ssoc}"
+										href="/occupation/{t.to_ssoc}"
 										class={cn(
 											card({ padding: 'sm', variant: 'inset' }),
 											'block hover:bg-accent hover:shadow-sm transition-all group'
@@ -1014,7 +1014,7 @@
 					<div class="grid gap-2 sm:grid-cols-3">
 						{#each structural.relatedOccupations as rel}
 							<a
-								href="/sg/occupation/{rel.ssoc}"
+								href="/occupation/{rel.ssoc}"
 								class={cn(
 									card({ padding: 'sm', variant: 'inset' }),
 									'block hover:bg-accent hover:shadow-sm transition-all group'

@@ -107,7 +107,7 @@
 				<!-- Target nodes -->
 				{#each positioned as node}
 					{@const _band = getRiskBand(node.composite)}
-					<a href="/sg/occupation/{node.to_ssoc}">
+					<a href="/occupation/{node.to_ssoc}">
 						<title>{node.to_title}</title>
 						<circle cx={node.x} cy={node.y} r={nodeRadius} fill={labelColor(node.label)} />
 						<text x={node.x + 14} y={node.y - 4} class="fill-foreground text-xs font-medium">
@@ -138,7 +138,7 @@
 		<div class="sm:hidden space-y-2">
 			{#each transitions as t (t.to_ssoc)}
 				<a
-					href="/sg/occupation/{t.to_ssoc}"
+					href="/occupation/{t.to_ssoc}"
 					class="flex items-center justify-between rounded-lg border border-border/50 px-3 py-2 hover:bg-muted"
 				>
 					<div class="min-w-0 flex-1">

@@ -115,7 +115,7 @@
 	}
 
 	function handleClick(occ: MatrixRow) {
-		const href = occ.linkHref ?? (occ.ssoc ? `/sg/occupation/${occ.ssoc}` : null);
+		const href = occ.linkHref ?? (occ.ssoc ? `/occupation/${occ.ssoc}` : null);
 		if (href) goto(href);
 	}
 
@@ -213,7 +213,7 @@
 				<!-- Dots -->
 				{#each occupations as occ (occ.ssoc ?? occ.localCode ?? occ.title)}
 					{@const ds = demandStrength(occ)}
-					{@const href = occ.linkHref ?? (occ.ssoc ? `/sg/occupation/${occ.ssoc}` : null)}
+					{@const href = occ.linkHref ?? (occ.ssoc ? `/occupation/${occ.ssoc}` : null)}
 					<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 					<circle
 						cx={xScale(Math.max(0, Math.min(xDomainMax, riskValue(occ))))}

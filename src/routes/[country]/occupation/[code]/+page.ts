@@ -1,4 +1,4 @@
-import { error } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
 import { countryConfigs, type CountryCode } from '$lib/data/country-config';
 import { globalMethodology } from '$lib/data/global-methodology';
 import {
@@ -16,6 +16,10 @@ export const load: PageLoad = ({ params }) => {
 		throw error(404, 'Country occupation pages are only available for Singapore and the United States');
 	}
 
+	if (supportedCountry === 'sg') {
+		throw redirect(308, `/occupation/${params.code}`);
+	}
+
 	const config = countryConfigs[supportedCountry];
 	const occupation = getCountryOccupationRow(supportedCountry as SupportedCountryPageCode, params.code);
 
@@ -31,5 +35,5 @@ export const load: PageLoad = ({ params }) => {
 };
 
 export function entries() {
-	return getCountryOccupationEntries();
+	return getCountryOccupationEntries().filter(entry => entry.country === 'us');
 }

@@ -20,7 +20,7 @@
 </script>
 
 <a
-	href={occupation.linkHref ?? (occupation.ssoc ? `/sg/occupation/${occupation.ssoc}` : '/global')}
+	href={occupation.linkHref ?? (occupation.ssoc ? `/occupation/${occupation.ssoc}` : '/global')}
 	class={cn(card({ padding: 'sm', hover: true }), 'flex items-center justify-between')}
 >
 	<div class="min-w-0 flex-1">

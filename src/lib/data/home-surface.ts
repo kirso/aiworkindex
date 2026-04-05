@@ -223,7 +223,7 @@ function mapSingaporeItem(occupation: (typeof occupations)[number]): HomeSurface
 		surfaceLabel: countryConfigs.sg.displayName,
 		title: occupation.title,
 		displayCode: occupation.ssoc,
-		linkHref: `/sg/occupation/${occupation.ssoc}`,
+		linkHref: `/occupation/${occupation.ssoc}`,
 		groupKey: occupation.major_group,
 		groupLabel: groupMeta.label,
 		major_group: occupation.major_group,

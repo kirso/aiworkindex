@@ -901,7 +901,7 @@ describe('global expansion invariants', () => {
 		assert.equal(sgSurface.metrics[1]?.label, 'Wages at risk');
 		assert.equal(sgSurface.metrics[2]?.label, 'Occupations at risk');
 		assert.equal(sgSurface.occupations[0]?.currency, 'SGD');
-		assert.ok(sgSurface.occupations[0]?.linkHref?.startsWith('/sg/occupation/'));
+		assert.ok(sgSurface.occupations[0]?.linkHref?.startsWith('/occupation/'));
 
 		assert.equal(usSurface.drilldownHref, '/us');
 		assert.equal(usSurface.metrics[0]?.label, 'Jobs under pressure');
