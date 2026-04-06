@@ -4,7 +4,6 @@ import Seo from '$lib/components/ui/Seo.svelte';
 import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 import { riskBandLabels } from '$lib/data';
 import { pageLayout, card, sectionLabel } from '$lib/design-system';
-import { globalMethodology } from '$lib/data/global-methodology';
 import { buildUnitedStatesOccupationAlternates } from '$lib/data/occupation-alternates';
 import { getUnitedStatesRolesForCanonicalCode } from '$lib/data/countries/us/roles';
 import { cn } from '$lib/utils';
@@ -77,9 +76,6 @@ import OccupationSupportBundle from '$lib/components/ui/OccupationSupportBundle.
 			]}
 			summary={`${data.country.displayName} tracks this occupation on the shared structural baseline and then layers on local demand resilience, wages, and confidence. The comparison spine stays fixed across countries.`}
 			meta={[
-				`Median wage: ${
-					data.occupation.wage != null ? `${data.occupation.currency} ${data.occupation.wage.toLocaleString()}` : 'not published'
-				}`,
 				data.occupation.employment && data.occupation.employment.current != null
 					? `${data.occupation.employment.current.toLocaleString()} current${data.occupation.employment.projected != null ? ` · ${data.occupation.employment.projected.toLocaleString()} projected` : ''}`
 					: 'Employment series available',
@@ -93,54 +89,6 @@ import OccupationSupportBundle from '$lib/components/ui/OccupationSupportBundle.
 			{/snippet}
 		</OccupationHero>
 	</div>
-
-	<section class="mt-8">
-		<p class={sectionLabel()}>Country layer</p>
-		<div class="mt-3 grid gap-3 lg:grid-cols-2">
-			<div class={card({ padding: 'sm' })}>
-				<p class="text-sm font-semibold text-foreground">Wage context</p>
-				<p class="mt-1 text-sm text-muted-foreground">
-					Median wage:
-					{#if data.occupation.wage != null}
-						{data.occupation.currency} {data.occupation.wage.toLocaleString()}
-					{:else}
-						not published
-					{/if}
-				</p>
-			</div>
-			<div class={card({ padding: 'sm' })}>
-				<p class="text-sm font-semibold text-foreground">Mapping quality</p>
-				<p class="mt-1 text-sm text-muted-foreground">
-					{data.occupation.mappingMethod ?? 'n/a'}
-					{#if data.occupation.employment}
-						· employment series present
-					{/if}
-				</p>
-			</div>
-		</div>
-	</section>
-
-	<section class="mt-8">
-		<p class={sectionLabel()}>Evidence</p>
-		<div class="mt-3 grid gap-3 lg:grid-cols-2">
-			<div class={card({ padding: 'sm' })}>
-				<p class="text-sm font-semibold text-foreground">Method contract</p>
-				<p class="mt-1 text-sm text-muted-foreground">
-					{globalMethodology.structuralFormula} and {globalMethodology.localFormula}
-				</p>
-			</div>
-			<div class={card({ padding: 'sm' })}>
-				<p class="text-sm font-semibold text-foreground">Source vintage</p>
-				<p class="mt-1 text-sm text-muted-foreground">
-					{data.country.status === 'live'
-						? 'Live reference market'
-						: data.country.status === 'ready'
-							? 'Ready for launch'
-							: 'Research only'}
-				</p>
-			</div>
-		</div>
-	</section>
 
 	{#if data.country.code === 'us' && data.occupation.support}
 		<OccupationSupportBundle support={data.occupation.support} />
@@ -174,38 +122,6 @@ import OccupationSupportBundle from '$lib/components/ui/OccupationSupportBundle.
 					</div>
 				</div>
 			{/if}
-		</section>
-	{/if}
-
-	{#if data.occupation.employment}
-		<section class="mt-8">
-			<p class={sectionLabel()}>Employment outlook</p>
-			<div class={cn(card({ padding: 'sm' }), 'mt-3')}>
-				<p class="text-sm text-muted-foreground">
-					{#if data.occupation.employment.current != null}
-						Current employment: {data.occupation.employment.current.toLocaleString()}
-					{/if}
-					{#if data.occupation.employment.projected != null}
-						{data.occupation.employment.current != null ? ' · ' : ''}
-						Projected employment: {data.occupation.employment.projected.toLocaleString()}
-					{/if}
-					{#if data.occupation.employment.openings != null}
-						{data.occupation.employment.current != null ||
-						data.occupation.employment.projected != null
-							? ' · '
-							: ''}
-						Openings: {data.occupation.employment.openings.toLocaleString()}
-					{/if}
-					{#if data.occupation.employment.projectedChangePct != null}
-						{data.occupation.employment.current != null ||
-						data.occupation.employment.projected != null ||
-						data.occupation.employment.openings != null
-							? ' · '
-							: ''}
-						Projected change: {data.occupation.employment.projectedChangePct.toFixed(1)}%
-					{/if}
-				</p>
-			</div>
 		</section>
 	{/if}
 
