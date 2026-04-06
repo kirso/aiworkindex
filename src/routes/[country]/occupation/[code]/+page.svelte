@@ -4,17 +4,27 @@
 	import { pageLayout, card, sectionLabel, title as titleStyle } from '$lib/design-system';
 	import { globalMethodology } from '$lib/data/global-methodology';
 	import { buildCountryModuleStatuses } from '$lib/data/country-modules';
+	import { buildUnitedStatesOccupationAlternates } from '$lib/data/occupation-alternates';
 	import { cn } from '$lib/utils';
 
 	let { data } = $props();
 
 	const moduleStates = $derived(buildCountryModuleStatuses(data.country));
+	const alternates = $derived(
+		data.country.code === 'us'
+			? buildUnitedStatesOccupationAlternates(
+					data.occupation.localCode,
+					data.occupation.canonicalCode
+				)
+			: []
+	);
 </script>
 
 <Seo
 	title={`${data.occupation.localTitle} — ${data.country.displayName}`}
 	description={`${data.occupation.localTitle} in ${data.country.name}: structural pressure ${(data.occupation.structuralPressure * 100).toFixed(1)}%, headline risk ${(data.occupation.headlineRisk * 100).toFixed(1)}%, confidence ${data.occupation.confidenceLevel}.`}
 	path={`${data.country.routePrefix}/occupation/${data.occupation.localCode}`.replace('//', '/')}
+	alternates={alternates}
 />
 
 <main class={pageLayout({ width: 'content' })}>

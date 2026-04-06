@@ -77,10 +77,11 @@ async function main() {
 	}
 
 	// Country occupation pages
-	for (const country of ['sg', 'us'] as const) {
-		for (const row of getCountryOccupationRows(country)) {
-			urls += `  <url><loc>${base}/${country}/occupation/${row.localCode}</loc><lastmod>${lastmod}</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>\n`;
-		}
+	for (const row of getCountryOccupationRows('sg')) {
+		urls += `  <url><loc>${base}/occupation/${row.localCode}</loc><lastmod>${lastmod}</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>\n`;
+	}
+	for (const row of getCountryOccupationRows('us')) {
+		urls += `  <url><loc>${base}/us/occupation/${row.localCode}</loc><lastmod>${lastmod}</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>\n`;
 	}
 
 	// Group hub pages

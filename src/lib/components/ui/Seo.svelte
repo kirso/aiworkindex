@@ -9,6 +9,7 @@
 		type?: 'website' | 'article';
 		jsonLd?: string[];
 		noindex?: boolean;
+		alternates?: Array<{ hreflang: string; href: string }>;
 	}
 
 	let {
@@ -18,7 +19,8 @@
 		ogImage,
 		type = 'website',
 		jsonLd = [],
-		noindex = false
+		noindex = false,
+		alternates = []
 	}: Props = $props();
 
 	let fullTitle = $derived(title.includes(SITE.name) ? title : `${title} | ${SITE.name}`);
@@ -39,6 +41,9 @@
 	<meta name="twitter:title" content={fullTitle} />
 	<meta name="twitter:description" content={description} />
 	<meta name="twitter:image" content={fullOgImage} />
+	{#each alternates as alternate}
+		<link rel="alternate" hreflang={alternate.hreflang} href={alternate.href} />
+	{/each}
 	{#if noindex}<meta name="robots" content="noindex, nofollow" />{/if}
 	{#each jsonLd as ld}
 		{@html ld}

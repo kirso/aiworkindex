@@ -48,6 +48,7 @@
 	import { getTransitionProgrammeUrl } from '$lib/data/detail-context';
 	import { buildMarketDetailBullets } from '$lib/data/market-summary';
 	import { scoringBasisDescription, scoringBasisLabel } from '$lib/data/scoring-basis-display';
+	import { buildSingaporeOccupationAlternates } from '$lib/data/occupation-alternates';
 	import { rolesBySsoc } from '$lib/data/synthetic-roles';
 
 	let { data } = $props();
@@ -500,6 +501,9 @@
 	let pageDescription = $derived(
 		`${occ.title} (SSOC ${occ.ssoc}): AI displacement risk ${(occ.net_risk * 100).toFixed(0)}%, rated ${riskBandLabels[occ.risk_band]}. Median wage SGD ${occ.gross_wage_median.toLocaleString()} in the live Singapore reference market.`
 	);
+	const alternates = $derived(
+		buildSingaporeOccupationAlternates(occ.ssoc, occ.isco_codes_matched?.[0] ?? null)
+	);
 </script>
 
 <Seo
@@ -507,6 +511,7 @@
 	description={pageDescription}
 	path="/occupation/{occ.ssoc}"
 	ogImage="/og/{occ.ssoc}.png"
+	alternates={alternates}
 	jsonLd={[occJsonLd, breadcrumbJsonLd, faqJsonLd]}
 />
 

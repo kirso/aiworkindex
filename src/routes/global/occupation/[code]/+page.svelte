@@ -4,16 +4,19 @@
 	import { pageLayout, card, sectionLabel, title as titleStyle } from '$lib/design-system';
 	import { buildCountryModuleStatuses } from '$lib/data/country-modules';
 	import { countryConfigs } from '$lib/data/country-config';
+	import { buildGlobalOccupationAlternates } from '$lib/data/occupation-alternates';
 
 	let { data } = $props();
 
 	const moduleStates = buildCountryModuleStatuses(countryConfigs.global);
+	const alternates = $derived(buildGlobalOccupationAlternates(data.occupation.canonicalCode));
 </script>
 
 <Seo
 	title={`${data.occupation.canonicalTitle} — Global structural baseline`}
 	description={`${data.occupation.canonicalTitle}: structural pressure ${(data.occupation.structuralPressure * 100).toFixed(1)}%, exposure ${(data.occupation.exposure * 100).toFixed(1)}%, bottleneck ${(data.occupation.bottleneck * 100).toFixed(1)}%, confidence ${data.occupation.confidenceLevel}.`}
 	path={`/global/occupation/${data.occupation.canonicalCode}`.replace('//', '/')}
+	alternates={alternates}
 />
 
 <main class={pageLayout({ width: 'content' })}>

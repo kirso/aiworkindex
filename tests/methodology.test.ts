@@ -1,4 +1,6 @@
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
 import { describe, test } from 'node:test';
 import type { Occupation } from '../src/lib/data';
 import { occupations } from '../src/lib/data';
@@ -929,5 +931,13 @@ describe('global expansion invariants', () => {
 		assert.equal(usSurface.metrics[2]?.label, 'Occupations at risk');
 		assert.equal(usSurface.occupations[0]?.currency, 'USD');
 		assert.ok(usSurface.occupations[0]?.linkHref?.startsWith('/us/occupation/'));
+	});
+
+	test('sitemap only publishes canonical occupation URLs', () => {
+		const sitemap = fs.readFileSync(path.join(process.cwd(), 'static', 'sitemap.xml'), 'utf-8');
+		assert.equal(sitemap.includes('/sg/occupation/'), false);
+		assert.equal(sitemap.includes('/occupation/'), true);
+		assert.equal(sitemap.includes('/us/occupation/'), true);
+		assert.equal(sitemap.includes('/global/occupation/'), true);
 	});
 });
