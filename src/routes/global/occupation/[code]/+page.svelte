@@ -1,25 +1,35 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import { riskBandLabels } from '$lib/data';
-	import {
-		pageLayout,
-		card,
-		sectionLabel,
-		title as titleStyle,
-		display,
-		riskBadge,
-		pill,
-		caption,
-		mono,
-		scoreTileClasses
-	} from '$lib/design-system';
+	import { pageLayout, card, sectionLabel } from '$lib/design-system';
 	import { globalMethodology } from '$lib/data/global-methodology';
 	import { buildGlobalOccupationAlternates } from '$lib/data/occupation-alternates';
 	import { cn } from '$lib/utils';
+	import { Button } from '$lib/components/ui/button/index.js';
+	import { toast } from 'svelte-sonner';
+	import OccupationHero from '$lib/components/ui/OccupationHero.svelte';
 
 	let { data } = $props();
 	const alternates = $derived(buildGlobalOccupationAlternates(data.occupation.canonicalCode));
+
+	async function shareCurrentPage() {
+		if (!browser) return;
+		const url = window.location.href;
+		try {
+			if (navigator.share) {
+				await navigator.share({
+					title: `${data.occupation.canonicalTitle} — Global structural baseline`,
+					text: `${data.occupation.canonicalTitle}: structural pressure ${(data.occupation.structuralPressure * 100).toFixed(0)}%`,
+					url
+				});
+				return;
+			}
+			await navigator.clipboard.writeText(url);
+			toast('Link copied', { description: data.occupation.canonicalTitle });
+		} catch {}
+	}
 </script>
 
 <Seo
@@ -38,49 +48,31 @@
 		]}
 	/>
 
-	<div class={cn(card({ padding: 'lg' }), 'mt-6 overflow-hidden')}>
-		<div class="grid gap-6 md:grid-cols-[12rem_minmax(0,1fr)] md:items-start">
-			<div
-				class={cn('rounded-2xl border p-5', scoreTileClasses(data.occupation.structuralBand))}
-				role="figure"
-				aria-label={`Structural pressure ${(data.occupation.structuralPressure * 100).toFixed(0)}%, rated ${riskBandLabels[data.occupation.structuralBand]}`}
-			>
-				<p class="text-xs uppercase tracking-wide text-muted-foreground">Structural pressure</p>
-				<p class={cn(display({ size: 'xl' }), 'mt-2')}>
-					{(data.occupation.structuralPressure * 100).toFixed(0)}%
-				</p>
-				<span class={cn(riskBadge({ band: data.occupation.structuralBand }), 'mt-2 inline-flex')}>
-					{riskBandLabels[data.occupation.structuralBand]} Risk
-				</span>
-			</div>
-
-			<div class="min-w-0">
-				<div class="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
-					<div class="min-w-0">
-						<h1 class={titleStyle({ size: 'page' })}>{data.occupation.canonicalTitle}</h1>
-						<div class="mt-1.5 flex flex-wrap items-center gap-2">
-							<span class={pill({ tone: 'muted' })}>Global structural baseline</span>
-							<span class={pill({ tone: 'muted' })}>ISCO {data.occupation.canonicalCode}</span>
-							<span class={pill({ tone: 'muted' })}>
-								Mapped from {data.occupation.sourceOccupationCount} occupations
-							</span>
-						</div>
-						<p class="mt-3 max-w-3xl text-[15px] leading-relaxed text-text-secondary">
-							This page shows the shared structural baseline only. It is comparable across countries
-							because it uses the canonical ISCO-08 spine and excludes country-specific wages,
-							demand offsets, and policy effects.
-						</p>
-						<div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1">
-							<span class={cn(mono({ size: 'md' }), 'text-muted-foreground')}>
-								Exposure: {(data.occupation.exposure * 100).toFixed(1)}%
-							</span>
-							<span class={caption()}>Bottleneck: {(data.occupation.bottleneck * 100).toFixed(1)}%</span>
-							<span class={caption()}>Confidence {data.occupation.confidenceLevel}</span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+	<div class={cn(card({ padding: 'lg' }), 'mt-6')}>
+		<OccupationHero
+			scoreLabel="Structural pressure"
+			scoreValue={`${(data.occupation.structuralPressure * 100).toFixed(0)}%`}
+			scoreBand={data.occupation.structuralBand}
+			scoreBandLabel={riskBandLabels[data.occupation.structuralBand]}
+			title={data.occupation.canonicalTitle}
+			pills={[
+				{ label: 'Global structural baseline', tone: 'muted' },
+				{ label: `ISCO ${data.occupation.canonicalCode}`, tone: 'outline' },
+				{ label: `Mapped from ${data.occupation.sourceOccupationCount} occupations`, tone: 'neutral' }
+			]}
+			summary="This page shows the shared structural baseline only. It is comparable across countries because it uses the canonical ISCO-08 spine and excludes country-specific wages, demand offsets, and policy effects."
+			meta={[
+				`Exposure: ${(data.occupation.exposure * 100).toFixed(1)}%`,
+				`Bottleneck: ${(data.occupation.bottleneck * 100).toFixed(1)}%`,
+				`Confidence ${data.occupation.confidenceLevel}`
+			]}
+		>
+			{#snippet actions()}
+				<Button variant="outline" size="sm" class="h-8 text-xs" onclick={shareCurrentPage}>
+					Share
+				</Button>
+			{/snippet}
+		</OccupationHero>
 	</div>
 
 	<section class="mt-8">

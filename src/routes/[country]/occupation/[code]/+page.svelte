@@ -1,22 +1,15 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import { riskBandLabels } from '$lib/data';
-	import {
-		pageLayout,
-		card,
-		sectionLabel,
-		title as titleStyle,
-		display,
-		riskBadge,
-		pill,
-		caption,
-		mono,
-		scoreTileClasses
-	} from '$lib/design-system';
+	import { pageLayout, card, sectionLabel } from '$lib/design-system';
 	import { globalMethodology } from '$lib/data/global-methodology';
 	import { buildUnitedStatesOccupationAlternates } from '$lib/data/occupation-alternates';
 	import { cn } from '$lib/utils';
+	import { Button } from '$lib/components/ui/button/index.js';
+	import { toast } from 'svelte-sonner';
+	import OccupationHero from '$lib/components/ui/OccupationHero.svelte';
 
 	let { data } = $props();
 	const alternates = $derived(
@@ -27,6 +20,23 @@
 				)
 			: []
 	);
+
+	async function shareCurrentPage() {
+		if (!browser) return;
+		const url = window.location.href;
+		try {
+			if (navigator.share) {
+				await navigator.share({
+					title: `${data.occupation.localTitle} — ${data.country.displayName}`,
+					text: `${data.occupation.localTitle}: headline risk ${(data.occupation.headlineRisk * 100).toFixed(0)}%`,
+					url
+				});
+				return;
+			}
+			await navigator.clipboard.writeText(url);
+			toast('Link copied', { description: data.occupation.localTitle });
+		} catch {}
+	}
 </script>
 
 <Seo
@@ -45,66 +55,35 @@
 			]}
 		/>
 
-	<div class={cn(card({ padding: 'lg' }), 'mt-6 overflow-hidden')}>
-		<div class="grid gap-6 md:grid-cols-[12rem_minmax(0,1fr)] md:items-start">
-			<div
-				class={cn('rounded-2xl border p-5', scoreTileClasses(data.occupation.riskBand))}
-				role="figure"
-				aria-label={`Headline risk ${(data.occupation.headlineRisk * 100).toFixed(0)}%, rated ${riskBandLabels[data.occupation.riskBand]}`}
-			>
-				<p class="text-xs uppercase tracking-wide text-muted-foreground">Headline risk</p>
-				<p class={cn(display({ size: 'xl' }), 'mt-2')}>
-					{(data.occupation.headlineRisk * 100).toFixed(0)}%
-				</p>
-				<span class={cn(riskBadge({ band: data.occupation.riskBand }), 'mt-2 inline-flex')}>
-					{riskBandLabels[data.occupation.riskBand]} Risk
-				</span>
-			</div>
-
-			<div class="min-w-0">
-				<div class="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
-					<div class="min-w-0">
-						<h1 class={titleStyle({ size: 'page' })}>{data.occupation.localTitle}</h1>
-						<div class="mt-1.5 flex flex-wrap items-center gap-2">
-							<span class={pill({ tone: 'muted' })}>{data.country.displayName}</span>
-							{#if data.occupation.canonicalCode}
-								<span class={pill({ tone: 'muted' })}>ISCO {data.occupation.canonicalCode}</span>
-							{/if}
-							{#if data.occupation.mappingMethod}
-								<span class={pill({ tone: 'muted' })}>{data.occupation.mappingMethod}</span>
-							{/if}
-						</div>
-						<p class="mt-3 max-w-3xl text-[15px] leading-relaxed text-text-secondary">
-							{data.country.displayName} tracks this occupation on the shared structural baseline and
-							then layers on local demand resilience, wages, and confidence. The comparison spine
-							stays fixed across countries.
-						</p>
-						<div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1">
-							<span class={cn(mono({ size: 'md' }), 'text-muted-foreground')}>
-								Median wage:
-								{#if data.occupation.wage != null}
-									{data.occupation.currency} {data.occupation.wage.toLocaleString()}
-								{:else}
-									not published
-								{/if}
-							</span>
-							{#if data.occupation.employment}
-								<span class={caption()}>
-									{#if data.occupation.employment.current != null}
-										{data.occupation.employment.current.toLocaleString()} current
-									{/if}
-									{#if data.occupation.employment.projected != null}
-										{data.occupation.employment.current != null ? ' · ' : ''}
-										{data.occupation.employment.projected.toLocaleString()} projected
-									{/if}
-								</span>
-							{/if}
-							<span class={caption()}>Confidence {data.occupation.confidenceLevel}</span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+	<div class={cn(card({ padding: 'lg' }), 'mt-6')}>
+		<OccupationHero
+			scoreLabel="Headline risk"
+			scoreValue={`${(data.occupation.headlineRisk * 100).toFixed(0)}%`}
+			scoreBand={data.occupation.riskBand}
+			scoreBandLabel={riskBandLabels[data.occupation.riskBand]}
+			title={data.occupation.localTitle}
+			pills={[
+				{ label: data.country.displayName, tone: 'muted' },
+				{ label: `ISCO ${data.occupation.canonicalCode}`, tone: 'outline' },
+				{ label: data.occupation.mappingMethod ?? 'country layer', tone: 'neutral' }
+			]}
+			summary={`${data.country.displayName} tracks this occupation on the shared structural baseline and then layers on local demand resilience, wages, and confidence. The comparison spine stays fixed across countries.`}
+			meta={[
+				`Median wage: ${
+					data.occupation.wage != null ? `${data.occupation.currency} ${data.occupation.wage.toLocaleString()}` : 'not published'
+				}`,
+				data.occupation.employment && data.occupation.employment.current != null
+					? `${data.occupation.employment.current.toLocaleString()} current${data.occupation.employment.projected != null ? ` · ${data.occupation.employment.projected.toLocaleString()} projected` : ''}`
+					: 'Employment series available',
+				`Confidence ${data.occupation.confidenceLevel}`
+			]}
+		>
+			{#snippet actions()}
+				<Button variant="outline" size="sm" class="h-8 text-xs" onclick={shareCurrentPage}>
+					Share
+				</Button>
+			{/snippet}
+		</OccupationHero>
 	</div>
 
 	<section class="mt-8">

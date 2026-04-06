@@ -3,22 +3,19 @@
 	import { riskBandLabels, majorGroupByKey, impactTypeLabels } from '$lib/data';
 	import {
 		card,
-		riskBadge,
-		impactBadge,
 		pageLayout,
-		display,
 		title as titleStyle,
 		sectionLabel,
 		body,
 		caption,
 		mono,
 		pill,
-		scoreTileClasses,
 		microLabel,
 		section
 	} from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import { vacancySignalClass } from '$lib/data/detail-display';
+	import OccupationHero from '$lib/components/ui/OccupationHero.svelte';
 	import DriverWaterfall from '$lib/components/viz/DriverWaterfall.svelte';
 	import WorkflowRadar from '$lib/components/viz/WorkflowRadar.svelte';
 	import EvidenceBar from '$lib/components/viz/EvidenceBar.svelte';
@@ -519,132 +516,102 @@
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: group?.label ?? occ.major_group, href: '/group/' + groupSlug }, { label: occ.title }]} />
 
 	<!-- ===== BLOCK 1: THE VERDICT ===== -->
-	<div class={cn(card({ padding: 'lg' }), section({ spacing: 'loose' }), 'overflow-hidden')}>
-		<div class="grid gap-6 md:grid-cols-[12rem_minmax(0,1fr)] md:items-start">
-			<div
-				class={cn('rounded-2xl border p-5', scoreTileClasses(occ.risk_band))}
-				role="figure"
-				aria-label="Structural AI displacement pressure: {(occ.net_risk * 100).toFixed(
-					0
-				)}%, rated {riskBandLabels[occ.risk_band]} risk"
-			>
-				<p class={microLabel()}>Structural pressure</p>
-				<p class={cn(display({ size: 'xl' }), 'mt-2')}>
-					{(occ.net_risk * 100).toFixed(0)}%
-				</p>
-				<span class={cn(riskBadge({ band: occ.risk_band }), 'mt-2 inline-flex')}>
-					{riskBandLabels[occ.risk_band]} Risk
-				</span>
-			</div>
+	<div class={cn(card({ padding: 'lg' }), section({ spacing: 'loose' }))}>
+		<OccupationHero
+			scoreLabel="Structural pressure"
+			scoreValue={`${(occ.net_risk * 100).toFixed(0)}%`}
+			scoreBand={occ.risk_band}
+			scoreBandLabel={riskBandLabels[occ.risk_band]}
+			title={occ.title}
+			pills={[
+				{
+					label: impactTypeLabels[occ.impact_type],
+					tone:
+						occ.impact_type === 'at_risk'
+							? 'danger'
+							: occ.impact_type === 'stable'
+								? 'neutral'
+								: occ.impact_type === 'mixed'
+									? 'warning'
+									: 'positive'
+				},
+				{ label: group?.label ?? occ.major_group, tone: 'muted' },
+				{ label: hasDemand ? `In demand (${demandLabel})` : 'Demand signals mixed', tone: hasDemand ? 'positive' : 'neutral' }
+			]}
+			summary={structural.summaryText}
+			meta={[
+				`SGD ${occ.gross_wage_median.toLocaleString()}/mo${occ.gross_wage_25th > 0 && occ.gross_wage_75th > 0 ? ` (${occ.gross_wage_25th.toLocaleString()}–${occ.gross_wage_75th.toLocaleString()})` : ''}`,
+				occ.estimated_sg_employment_thousands
+					? `~${occ.estimated_sg_employment_thousands >= 1
+						? occ.estimated_sg_employment_thousands.toFixed(1) + 'K'
+						: Math.round(occ.estimated_sg_employment_thousands * 1000).toLocaleString()} workers in SG`
+					: 'Employment context not published',
+				`Updated ${DATA_VINTAGE.last_updated}`
+			]}
+		>
+			{#snippet actions()}
+				<Button
+					variant="outline"
+					size="sm"
+					class="h-8 text-xs"
+					href="/compare?entities=occupation:{occ.ssoc}"
+				>
+					Compare
+				</Button>
+				<Button
+					variant={isWatchlisted ? 'default' : 'outline'}
+					size="sm"
+					class="h-8 gap-1.5 text-xs"
+					onclick={toggleWatchlist}
+				>
+					<svg
+						class="h-3.5 w-3.5"
+						viewBox="0 0 24 24"
+						fill={isWatchlisted ? 'currentColor' : 'none'}
+						stroke="currentColor"
+						stroke-width="2"
+					>
+						<path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+					</svg>
+					{isWatchlisted ? 'Saved' : 'Save'}
+				</Button>
+				<Button variant="outline" size="sm" class="h-8 text-xs" onclick={shareCurrentPage}>
+					Share
+		</Button>
+			{/snippet}
+		</OccupationHero>
 
-			<div class="min-w-0">
-				<div class="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
-					<div class="min-w-0">
-						<h1 class={titleStyle({ size: 'page' })}>{occ.title}</h1>
-						<div class="mt-1.5 flex flex-wrap items-center gap-2">
-							<span class={impactBadge({ type: occ.impact_type })}>
-								{impactTypeLabels[occ.impact_type]}
-							</span>
-							<span class={pill({ tone: 'muted' })}>
-								{group?.label ?? occ.major_group}
-							</span>
-							{#if hasDemand}
-								<span class={pill({ tone: 'positive' })}>
-									In demand ({demandLabel})
-								</span>
-							{/if}
-						</div>
-						<div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1">
-							<span class={cn(mono({ size: 'md' }), 'text-muted-foreground')}>
-								SGD {occ.gross_wage_median.toLocaleString()}/mo
-								{#if occ.gross_wage_25th > 0 && occ.gross_wage_75th > 0}
-									<span class="opacity-60"
-										>({occ.gross_wage_25th.toLocaleString()}–{occ.gross_wage_75th.toLocaleString()})</span
-									>
-								{/if}
-							</span>
-							{#if occ.estimated_sg_employment_thousands}
-								<span class={caption()}>
-									~{occ.estimated_sg_employment_thousands >= 1
-										? occ.estimated_sg_employment_thousands.toFixed(1) + 'K'
-										: Math.round(occ.estimated_sg_employment_thousands * 1000).toLocaleString()} workers
-									in SG
-								</span>
-							{/if}
-							<span class={caption()}>
-								Updated {DATA_VINTAGE.last_updated}
-							</span>
-						</div>
-					</div>
-
-					<div class="flex items-center gap-2 shrink-0">
-						<Button
-							variant="outline"
-							size="sm"
-							class="h-8 text-xs"
-							href="/compare?entities=occupation:{occ.ssoc}"
-						>
-							Compare
-						</Button>
-						<Button
-							variant={isWatchlisted ? 'default' : 'outline'}
-							size="sm"
-							class="h-8 gap-1.5 text-xs"
-							onclick={toggleWatchlist}
-						>
-							<svg
-								class="h-3.5 w-3.5"
-								viewBox="0 0 24 24"
-								fill={isWatchlisted ? 'currentColor' : 'none'}
-								stroke="currentColor"
-								stroke-width="2"
-							>
-								<path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
-							</svg>
-							{isWatchlisted ? 'Saved' : 'Save'}
-						</Button>
-						<Button variant="outline" size="sm" class="h-8 text-xs" onclick={shareCurrentPage}>
-							Share
-						</Button>
-					</div>
-				</div>
-
-				<p class={cn(body({ size: 'lg', tone: 'subtle' }), 'mt-3 max-w-3xl')}>
-					{structural.summaryText}
-				</p>
-				<div class="mt-2 flex flex-wrap items-center gap-2">
-					<span class={pill({ tone: 'muted' })} title="Wage compared to group median">
-						Wage: {structural.groupComparison.wageVsGroup}
-					</span>
-					<span class={pill({ tone: 'muted' })} title="Risk compared to group median">
-						Risk: {structural.groupComparison.riskVsGroup}
-					</span>
-					<a href="/group/{groupSlug}" class={cn(pill({ tone: 'muted' }), 'hover:bg-accent transition-colors')}>
-						#{structural.groupComparison.riskRankInGroup} of {structural.groupComparison.groupTotal} in {group?.label ?? 'group'} →
-					</a>
-				</div>
-				{#if occ.evidence.signal_conflict && occ.evidence.signal_conflict_reasons?.some(r => r.includes('demand'))}
-					<div class="mt-3 max-w-3xl rounded-md border border-amber-500/30 bg-amber-500/5 px-3 py-2">
-						<p class={cn(caption({ weight: 'medium' }), 'text-amber-700 dark:text-amber-400')}>
-							Mixed signal: This occupation scores {riskBandLabels[occ.risk_band].toLowerCase()} structural risk but is currently
-							{#if occ.evidence.sol_match === 'exact' && occ.evidence.jobs_in_demand_match === 'exact'}
-								on both the Shortage Occupation List and Jobs in Demand — indicating strong active demand despite AI exposure.
-							{:else if occ.evidence.sol_match}
-								on the Shortage Occupation List — indicating labour shortage despite AI exposure.
-							{:else if occ.evidence.jobs_in_demand_match}
-								flagged as Jobs in Demand — indicating positive hiring signals despite AI exposure.
-							{:else}
-								showing positive labour market signals despite AI exposure.
-							{/if}
-						</p>
-					</div>
-				{/if}
-
-				{#if occ.confidence.level === 'low'}
-					<p class={cn(caption(), 'mt-3 text-risk-moderate')}>Thin evidence — treat with caution.</p>
-				{/if}
-			</div>
+		<div class="mt-2 flex flex-wrap items-center gap-2">
+			<span class={pill({ tone: 'muted' })} title="Wage compared to group median">
+				Wage: {structural.groupComparison.wageVsGroup}
+			</span>
+			<span class={pill({ tone: 'muted' })} title="Risk compared to group median">
+				Risk: {structural.groupComparison.riskVsGroup}
+			</span>
+			<a href="/group/{groupSlug}" class={cn(pill({ tone: 'muted' }), 'hover:bg-accent transition-colors')}>
+				#{structural.groupComparison.riskRankInGroup} of {structural.groupComparison.groupTotal} in {group?.label ?? 'group'} →
+			</a>
 		</div>
+		{#if occ.evidence.signal_conflict && occ.evidence.signal_conflict_reasons?.some(r => r.includes('demand'))}
+			<div class="mt-3 max-w-3xl rounded-md border border-amber-500/30 bg-amber-500/5 px-3 py-2">
+				<p class={cn(caption({ weight: 'medium' }), 'text-amber-700 dark:text-amber-400')}>
+					Mixed signal: This occupation scores {riskBandLabels[occ.risk_band].toLowerCase()} structural risk but is currently
+					{#if occ.evidence.sol_match === 'exact' && occ.evidence.jobs_in_demand_match === 'exact'}
+						on both the Shortage Occupation List and Jobs in Demand — indicating strong active demand despite AI exposure.
+					{:else if occ.evidence.sol_match}
+						on the Shortage Occupation List — indicating labour shortage despite AI exposure.
+					{:else if occ.evidence.jobs_in_demand_match}
+						flagged as Jobs in Demand — indicating positive hiring signals despite AI exposure.
+					{:else}
+						showing positive labour market signals despite AI exposure.
+					{/if}
+				</p>
+			</div>
+		{/if}
+
+		{#if occ.confidence.level === 'low'}
+			<p class={cn(caption(), 'mt-3 text-risk-moderate')}>Thin evidence — treat with caution.</p>
+		{/if}
 	</div>
 
 	<!-- ===== BLOCK 2: WHY THIS SCORE ===== -->
