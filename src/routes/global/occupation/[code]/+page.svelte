@@ -1,14 +1,14 @@
 <script lang="ts">
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
+	import ScoreMetricGrid from '$lib/components/ui/ScoreMetricGrid.svelte';
+	import EvidenceModuleGrid from '$lib/components/ui/EvidenceModuleGrid.svelte';
 	import { pageLayout, card, sectionLabel, title as titleStyle } from '$lib/design-system';
-	import { buildCountryModuleStatuses } from '$lib/data/country-modules';
 	import { countryConfigs } from '$lib/data/country-config';
+	import { globalMethodology } from '$lib/data/global-methodology';
 	import { buildGlobalOccupationAlternates } from '$lib/data/occupation-alternates';
 
 	let { data } = $props();
-
-	const moduleStates = buildCountryModuleStatuses(countryConfigs.global);
 	const alternates = $derived(buildGlobalOccupationAlternates(data.occupation.canonicalCode));
 </script>
 
@@ -42,28 +42,27 @@
 		</p>
 	</section>
 
-	<section class="mt-6 grid gap-3 md:grid-cols-4">
+	<ScoreMetricGrid
+		class="mt-6"
+		metrics={[
+			{
+				label: 'Structural pressure',
+				value: `${(data.occupation.structuralPressure * 100).toFixed(1)}%`
+			},
+			{ label: 'Exposure', value: `${(data.occupation.exposure * 100).toFixed(1)}%` },
+			{ label: 'Bottleneck', value: `${(data.occupation.bottleneck * 100).toFixed(1)}%` },
+			{ label: 'Confidence', value: data.occupation.confidenceLevel }
+		]}
+	/>
+
+	<section class="mt-8">
+		<p class={sectionLabel()}>Why this score</p>
 		<div class={card({ padding: 'sm' })}>
-			<p class="text-xs uppercase tracking-wide text-muted-foreground">Structural pressure</p>
-			<p class="mt-1 text-2xl font-semibold text-foreground">
-				{(data.occupation.structuralPressure * 100).toFixed(1)}%
+			<p class="text-sm text-muted-foreground">
+				{globalMethodology.structuralFormula}. The global page stops at the shared structural
+				baseline so it stays comparable across countries and does not imply local wages, demand
+				offsets, or policy effects.
 			</p>
-		</div>
-		<div class={card({ padding: 'sm' })}>
-			<p class="text-xs uppercase tracking-wide text-muted-foreground">Exposure</p>
-			<p class="mt-1 text-2xl font-semibold text-foreground">
-				{(data.occupation.exposure * 100).toFixed(1)}%
-			</p>
-		</div>
-		<div class={card({ padding: 'sm' })}>
-			<p class="text-xs uppercase tracking-wide text-muted-foreground">Bottleneck</p>
-			<p class="mt-1 text-2xl font-semibold text-foreground">
-				{(data.occupation.bottleneck * 100).toFixed(1)}%
-			</p>
-		</div>
-		<div class={card({ padding: 'sm' })}>
-			<p class="text-xs uppercase tracking-wide text-muted-foreground">Confidence</p>
-			<p class="mt-1 text-2xl font-semibold text-foreground">{data.occupation.confidenceLevel}</p>
 		</div>
 	</section>
 
@@ -88,14 +87,7 @@
 
 	<section class="mt-8">
 		<p class={sectionLabel()}>Evidence layers</p>
-		<div class="mt-3 grid gap-3 md:grid-cols-2">
-			{#each moduleStates.filter((module) => module.available) as module}
-				<div class={card({ padding: 'sm' })}>
-					<p class="text-sm font-semibold text-foreground">{module.title}</p>
-					<p class="mt-1 text-sm text-muted-foreground">{module.publishedDescription}</p>
-				</div>
-			{/each}
-		</div>
+		<EvidenceModuleGrid class="mt-3" country={countryConfigs.global} />
 	</section>
 
 	<section class="mt-8">

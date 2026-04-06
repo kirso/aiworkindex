@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import { riskBandLabels, majorGroupByKey, impactTypeLabels } from '$lib/data';
+	import { countryConfigs } from '$lib/data/country-config';
 	import {
 		card,
 		riskBadge,
@@ -19,6 +20,7 @@
 	} from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import { vacancySignalClass } from '$lib/data/detail-display';
+	import EvidenceModuleGrid from '$lib/components/ui/EvidenceModuleGrid.svelte';
 	import DriverWaterfall from '$lib/components/viz/DriverWaterfall.svelte';
 	import WorkflowRadar from '$lib/components/viz/WorkflowRadar.svelte';
 	import EvidenceBar from '$lib/components/viz/EvidenceBar.svelte';
@@ -646,6 +648,14 @@
 			</div>
 		</div>
 	</div>
+
+	<section class={section({ spacing: 'loose' })}>
+		<h2 class={cn(titleStyle({ size: 'subsection' }), 'mb-3 flex items-center gap-2')}>
+			<span class="h-4 w-1 rounded-full bg-primary"></span>
+			Evidence Layers
+		</h2>
+		<EvidenceModuleGrid country={countryConfigs.sg} />
+	</section>
 
 	<!-- ===== BLOCK 2: WHY THIS SCORE ===== -->
 	<section class={section({ spacing: 'loose' })}>

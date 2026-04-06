@@ -1,15 +1,14 @@
 <script lang="ts">
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
+	import ScoreMetricGrid from '$lib/components/ui/ScoreMetricGrid.svelte';
+	import EvidenceModuleGrid from '$lib/components/ui/EvidenceModuleGrid.svelte';
 	import { pageLayout, card, sectionLabel, title as titleStyle } from '$lib/design-system';
 	import { globalMethodology } from '$lib/data/global-methodology';
-	import { buildCountryModuleStatuses } from '$lib/data/country-modules';
 	import { buildUnitedStatesOccupationAlternates } from '$lib/data/occupation-alternates';
 	import { cn } from '$lib/utils';
 
 	let { data } = $props();
-
-	const moduleStates = $derived(buildCountryModuleStatuses(data.country));
 	const alternates = $derived(
 		data.country.code === 'us'
 			? buildUnitedStatesOccupationAlternates(
@@ -28,13 +27,13 @@
 />
 
 <main class={pageLayout({ width: 'content' })}>
-	<PageBreadcrumb
-		items={[
-			{ label: 'Home', href: '/' },
-			{ label: data.country.name, href: data.country.routePrefix },
-			{ label: data.occupation.localTitle }
-		]}
-	/>
+		<PageBreadcrumb
+			items={[
+				{ label: 'Home', href: '/' },
+				{ label: data.country.name, href: data.country.routePrefix },
+				{ label: data.occupation.localTitle }
+			]}
+		/>
 
 	<section class="max-w-3xl">
 		<p class={sectionLabel()}>Occupation Index</p>
@@ -52,30 +51,36 @@
 		</p>
 	</section>
 
-	<section class="mt-6 grid gap-3 md:grid-cols-4">
+	<ScoreMetricGrid
+		class="mt-6"
+		metrics={[
+			{
+				label: 'Structural pressure',
+				value: `${(data.occupation.structuralPressure * 100).toFixed(1)}%`
+			},
+			{
+				label: 'Headline risk',
+				value: `${(data.occupation.headlineRisk * 100).toFixed(1)}%`
+			},
+			{
+				label: 'Demand resilience',
+				value:
+					data.occupation.demandResilience != null
+						? `${(data.occupation.demandResilience * 100).toFixed(1)}%`
+						: 'n/a'
+			},
+			{ label: 'Confidence', value: data.occupation.confidenceLevel }
+		]}
+	/>
+
+	<section class="mt-8">
+		<p class={sectionLabel()}>Why this score</p>
 		<div class={card({ padding: 'sm' })}>
-			<p class="text-xs uppercase tracking-wide text-muted-foreground">Structural pressure</p>
-			<p class="mt-1 text-2xl font-semibold text-foreground">
-				{(data.occupation.structuralPressure * 100).toFixed(1)}%
+			<p class="text-sm text-muted-foreground">
+				{globalMethodology.structuralFormula}. Country headline risk adds the local demand layer
+				only when that market has official local evidence; otherwise the page stays on the
+				structural baseline.
 			</p>
-		</div>
-		<div class={card({ padding: 'sm' })}>
-			<p class="text-xs uppercase tracking-wide text-muted-foreground">Headline risk</p>
-			<p class="mt-1 text-2xl font-semibold text-foreground">
-				{(data.occupation.headlineRisk * 100).toFixed(1)}%
-			</p>
-		</div>
-		<div class={card({ padding: 'sm' })}>
-			<p class="text-xs uppercase tracking-wide text-muted-foreground">Demand resilience</p>
-			<p class="mt-1 text-2xl font-semibold text-foreground">
-				{data.occupation.demandResilience != null
-					? `${(data.occupation.demandResilience * 100).toFixed(1)}%`
-					: 'n/a'}
-			</p>
-		</div>
-		<div class={card({ padding: 'sm' })}>
-			<p class="text-xs uppercase tracking-wide text-muted-foreground">Confidence</p>
-			<p class="mt-1 text-2xl font-semibold text-foreground">{data.occupation.confidenceLevel}</p>
 		</div>
 	</section>
 
@@ -107,23 +112,7 @@
 
 	<section class="mt-8">
 		<p class={sectionLabel()}>Evidence layers</p>
-		<div class="mt-3 grid gap-3 md:grid-cols-2">
-			{#each moduleStates as module}
-				<div class={card({ padding: 'sm', variant: module.available ? 'default' : 'notice', accent: module.available ? 'primary' : 'moderate' })}>
-					<div class="flex items-start justify-between gap-3">
-						<div>
-							<p class="text-sm font-semibold text-foreground">{module.title}</p>
-							<p class="mt-1 text-sm text-muted-foreground">
-								{module.available ? module.publishedDescription : module.unavailableDescription}
-							</p>
-						</div>
-						<span class="rounded-full bg-muted px-2 py-0.5 text-[11px] uppercase tracking-wide text-muted-foreground">
-							{module.available ? 'Published' : 'Hidden'}
-						</span>
-					</div>
-				</div>
-			{/each}
-		</div>
+		<EvidenceModuleGrid class="mt-3" country={data.country} />
 	</section>
 
 	<section class="mt-8">
