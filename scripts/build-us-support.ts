@@ -88,6 +88,7 @@ type UnitedStatesSupportEntry = {
   topWorkContext: SupportWorkContext[];
   ageProfile: SupportAgeProfile;
   note: string;
+  sourceVintage: string;
 };
 
 function ensureDir(filepath: string): void {
@@ -512,8 +513,8 @@ function buildSupportEntries(): UnitedStatesSupportEntry[] {
       topWorkContext,
       ageProfile,
       note: `Built from O*NET occupation descriptions, task statements, technology skills, work context, Job Zones, Anthropic task penetration, and BLS CPS occupation age tables.`,
-      sourceVintage: DATA_VINTAGE.model_version
-    } satisfies UnitedStatesSupportEntry & { sourceVintage: string };
+      sourceVintage: 'O*NET 30.2 / CPS 2025 / Anthropic task penetration'
+    };
   });
 }
 
