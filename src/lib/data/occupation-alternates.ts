@@ -29,7 +29,7 @@ export function findSingaporeEquivalent(canonicalCode: string | null): string | 
 	return occupation?.ssoc ?? null;
 }
 
-function findUnitedStatesEquivalent(canonicalCode: string | null): string | null {
+export function findUnitedStatesEquivalent(canonicalCode: string | null): string | null {
 	if (!canonicalCode) return null;
 	const occupation = usOccupations.find(row => row.canonicalCode === canonicalCode);
 	return occupation?.localCode ?? null;

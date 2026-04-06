@@ -337,7 +337,7 @@
 				<p class="text-sm font-semibold text-foreground">Narrative and skills</p>
 				{#if support.skillsProfile.topSkills.length > 0}
 					<div class="mt-3 flex flex-wrap gap-2">
-						{#each support.skillsProfile.topSkills as skill (skill)}
+						{#each support.skillsProfile.topSkills as skill, index (`skill-${index}`)}
 							<span class="rounded-full bg-muted px-2.5 py-1 text-xs text-foreground">{skill}</span>
 						{/each}
 					</div>
@@ -399,7 +399,7 @@
 				<p class="text-sm font-semibold text-foreground">Tasks and tools</p>
 				{#if support.topTasks.length > 0}
 					<ul class="mt-2 space-y-2 text-sm text-muted-foreground">
-						{#each support.topTasks as task, index (`${task.task}-${index}`)}
+							{#each support.topTasks as task, index (`task-list-${index}`)}
 							<li>
 								<span class="font-medium text-foreground">{index + 1}.</span>
 								{task.task}
@@ -414,7 +414,7 @@
 				{/if}
 				{#if support.topTechnologies.length > 0}
 					<div class="mt-4 flex flex-wrap gap-2">
-						{#each support.topTechnologies as technology (technology.name)}
+						{#each support.topTechnologies as technology, index (`tech-list-${index}`)}
 							<span class={cn('rounded-full bg-muted px-2.5 py-1 text-xs text-foreground')}>
 								{technology.name}
 								{#if technology.hot}
@@ -429,7 +429,7 @@
 				{/if}
 				{#if support.skillsProfile.topSkills.length > 0}
 					<div class="mt-4 flex flex-wrap gap-2">
-						{#each support.skillsProfile.topSkills as skill (skill)}
+						{#each support.skillsProfile.topSkills as skill, index (`skill-list-${index}`)}
 							<span class="rounded-full border border-border/60 px-2.5 py-1 text-xs text-foreground">
 								{skill}
 							</span>
@@ -442,7 +442,7 @@
 				<p class="text-sm font-semibold text-foreground">Work context</p>
 				{#if support.topWorkContext.length > 0}
 					<ul class="mt-2 space-y-2 text-sm text-muted-foreground">
-						{#each support.topWorkContext as item, index (`${item.label}-${index}`)}
+						{#each support.topWorkContext as item, index (`work-context-${index}`)}
 							<li>{item.label}: {item.value.toFixed(1)}/5</li>
 						{/each}
 					</ul>
