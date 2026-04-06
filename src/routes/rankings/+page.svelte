@@ -177,7 +177,7 @@
 			<div class="space-y-1.5">
 				{#each data.highestRisk as occ, i (occ.ssoc)}
 					<a
-						href="/sg/occupation/{occ.ssoc}"
+						href="/occupation/{occ.ssoc}"
 						class="flex items-center justify-between rounded-md px-2 py-1.5 hover:bg-muted"
 					>
 						<span class="text-sm">
@@ -206,7 +206,7 @@
 			<div class="space-y-1.5">
 				{#each data.aiLeveraged as occ, i (occ.ssoc)}
 					<a
-						href="/sg/occupation/{occ.ssoc}"
+						href="/occupation/{occ.ssoc}"
 						class="flex items-center justify-between rounded-md px-2 py-1.5 hover:bg-muted"
 					>
 						<span class="text-sm">
@@ -236,7 +236,7 @@
 			<div class="space-y-1.5">
 				{#each data.safest as occ, i (occ.ssoc)}
 					<a
-						href="/sg/occupation/{occ.ssoc}"
+						href="/occupation/{occ.ssoc}"
 						class="flex items-center justify-between rounded-md px-2 py-1.5 hover:bg-muted"
 					>
 						<span class="text-sm">

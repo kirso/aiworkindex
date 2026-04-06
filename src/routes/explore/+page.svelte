@@ -30,7 +30,7 @@
 				'@type': 'ListItem',
 				position: index + 1,
 				name: item.title,
-				url: SITE.url + `/sg/occupation/${item.ssoc}`
+				url: SITE.url + `/occupation/${item.ssoc}`
 			}))
 		})}<\/script>`
 	);

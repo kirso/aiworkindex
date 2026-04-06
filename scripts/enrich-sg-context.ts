@@ -12,7 +12,6 @@
  * Run: bun run scripts/enrich-sg-context.ts
  */
 
-import * as XLSX from 'xlsx';
 import * as fs from 'fs';
 import * as path from 'path';
 import { ssocToSocCodes } from './crosswalk';
@@ -76,30 +75,43 @@ const SKILLSFUTURE_GROUPS = new Set([
 	'CRAFTSMEN AND RELATED TRADES WORKERS'
 ]);
 
+function parseTsv(filePath: string): Record<string, string>[] {
+	const content = fs.readFileSync(filePath, 'utf-8');
+	const lines = content.split(/\r?\n/).filter(line => line.trim().length > 0);
+	if (lines.length === 0) return [];
+	const headers = lines[0]!.split('\t').map(header => header.trim());
+	return lines.slice(1).map(line => {
+		const values = line.split('\t');
+		const row: Record<string, string> = {};
+		headers.forEach((header, index) => {
+			row[header] = (values[index] ?? '').trim();
+		});
+		return row;
+	});
+}
+
 // ===== Load Job Zones from O*NET =====
 function loadJobZones(): {
 	exact: Map<string, number>;
 	broadGroup: Map<string, number>;
 	minorGroup: Map<string, number>;
 } {
-	const filePath = path.join(RAW_DIR, 'Job_Zones.xlsx');
+	const filePath = path.join(RAW_DIR, 'Job_Zones.txt');
 	if (!fs.existsSync(filePath)) {
-		console.error(`ERROR: Job_Zones.xlsx not found at ${filePath}`);
+		console.error(`ERROR: Job_Zones.txt not found at ${filePath}`);
 		process.exit(1);
 	}
 
-	const wb = XLSX.readFile(filePath);
-	const ws = wb.Sheets[wb.SheetNames[0]];
-	const rows = XLSX.utils.sheet_to_json<{ 'O*NET-SOC Code': string; 'Job Zone': number }>(ws);
+	const rows = parseTsv(filePath);
 
 	// Map 6-digit SOC code (without .XX suffix) to Job Zone
 	// When multiple O*NET detail codes share a 6-digit SOC, average the zones
 	const socZones = new Map<string, number[]>();
 
 	for (const row of rows) {
-		const fullCode = row['O*NET-SOC Code'];
-		const zone = row['Job Zone'];
-		if (!fullCode || !zone) continue;
+		const fullCode = row['O*NET-SOC Code'] ?? '';
+		const zone = Number(row['Job Zone']);
+		if (!fullCode || !Number.isFinite(zone)) continue;
 
 		// Strip .XX suffix: "11-1011.00" → "11-1011"
 		const soc6 = fullCode.split('.')[0];

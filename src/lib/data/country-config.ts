@@ -1,5 +1,21 @@
 export type CountryCode = 'global' | 'sg' | 'us' | 'uk' | 'ca';
 
+export interface CountryCapabilities {
+	occupationDetail: boolean;
+	structuralProfile: boolean;
+	wageContext: boolean;
+	employmentContext: boolean;
+	demandSignals: boolean;
+	transitionCapacity: boolean;
+	workerProfile: boolean;
+	skillsContext: boolean;
+	narrativeContext: boolean;
+	adoptionContext: boolean;
+	offsetSupport: boolean;
+	policyContext: boolean;
+	regulatoryOverlay: boolean;
+}
+
 export interface CountryConfig {
 	code: CountryCode;
 	name: string;
@@ -14,6 +30,7 @@ export interface CountryConfig {
 	seoTitle: string;
 	seoDescription: string;
 	status: 'live' | 'ready' | 'planned' | 'research';
+	capabilities: CountryCapabilities;
 }
 
 export const countryConfigs: Record<CountryCode, CountryConfig> = {
@@ -30,8 +47,23 @@ export const countryConfigs: Record<CountryCode, CountryConfig> = {
 		methodologyLabel: 'Global structural baseline',
 		seoTitle: 'Global AI Work Index Methodology',
 		seoDescription:
-			'Global structural methodology for AI Work Index: a comparable exposure and bottleneck baseline that country layers can enrich with local demand data.',
-		status: 'research'
+			'Global structural methodology for AI Work Index: a comparable exposure and bottleneck baseline calibrated with observed adoption and task evidence, which country layers can enrich with local demand, wages, and support data.',
+		status: 'research',
+		capabilities: {
+			occupationDetail: true,
+			structuralProfile: true,
+			wageContext: false,
+			employmentContext: true,
+			demandSignals: false,
+			transitionCapacity: false,
+			workerProfile: false,
+			skillsContext: true,
+			narrativeContext: false,
+			adoptionContext: true,
+			offsetSupport: false,
+			policyContext: false,
+			regulatoryOverlay: false
+		}
 	},
 	sg: {
 		code: 'sg',
@@ -46,8 +78,23 @@ export const countryConfigs: Record<CountryCode, CountryConfig> = {
 		methodologyLabel: 'Singapore country layer',
 		seoTitle: 'Singapore AI Work Index',
 		seoDescription:
-			'Singapore occupation risk index with official labour-market context, demand signals, wages, and transition infrastructure.',
-		status: 'live'
+			'Singapore occupation risk index with official labour-market context, demand signals, wages, worker profile, and transition infrastructure.',
+		status: 'live',
+		capabilities: {
+			occupationDetail: true,
+			structuralProfile: true,
+			wageContext: true,
+			employmentContext: true,
+			demandSignals: true,
+			transitionCapacity: true,
+			workerProfile: true,
+			skillsContext: true,
+			narrativeContext: false,
+			adoptionContext: true,
+			offsetSupport: true,
+			policyContext: true,
+			regulatoryOverlay: true
+		}
 	},
 	us: {
 		code: 'us',
@@ -62,8 +109,23 @@ export const countryConfigs: Record<CountryCode, CountryConfig> = {
 		methodologyLabel: 'United States country layer',
 		seoTitle: 'United States AI Work Index',
 		seoDescription:
-			'United States occupation risk index built on the shared structural baseline with local wages, projections, and labour-demand evidence.',
-		status: 'ready'
+			'United States occupation risk index built on the shared structural baseline with local wages, projections, requirements, skills, and labour-demand evidence.',
+		status: 'ready',
+		capabilities: {
+			occupationDetail: true,
+			structuralProfile: true,
+			wageContext: true,
+			employmentContext: true,
+			demandSignals: true,
+			transitionCapacity: false,
+			workerProfile: false,
+			skillsContext: true,
+			narrativeContext: true,
+			adoptionContext: true,
+			offsetSupport: false,
+			policyContext: false,
+			regulatoryOverlay: false
+		}
 	},
 	uk: {
 		code: 'uk',
@@ -79,7 +141,22 @@ export const countryConfigs: Record<CountryCode, CountryConfig> = {
 		seoTitle: 'United Kingdom AI Work Index',
 		seoDescription:
 			'United Kingdom occupation risk index built on the shared structural baseline with local labour demand, wages, and policy context.',
-		status: 'research'
+		status: 'research',
+		capabilities: {
+			occupationDetail: false,
+			structuralProfile: false,
+			wageContext: false,
+			employmentContext: false,
+			demandSignals: false,
+			transitionCapacity: false,
+			workerProfile: false,
+			skillsContext: false,
+			narrativeContext: false,
+			adoptionContext: false,
+			offsetSupport: false,
+			policyContext: false,
+			regulatoryOverlay: false
+		}
 	},
 	ca: {
 		code: 'ca',
@@ -95,7 +172,22 @@ export const countryConfigs: Record<CountryCode, CountryConfig> = {
 		seoTitle: 'Canada AI Work Index',
 		seoDescription:
 			'Canada occupation risk index built on the shared structural baseline with local vacancy, wage, and outlook evidence.',
-		status: 'research'
+		status: 'research',
+		capabilities: {
+			occupationDetail: false,
+			structuralProfile: false,
+			wageContext: false,
+			employmentContext: false,
+			demandSignals: false,
+			transitionCapacity: false,
+			workerProfile: false,
+			skillsContext: false,
+			narrativeContext: false,
+			adoptionContext: false,
+			offsetSupport: false,
+			policyContext: false,
+			regulatoryOverlay: false
+		}
 	}
 };
 

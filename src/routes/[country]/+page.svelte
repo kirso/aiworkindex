@@ -3,8 +3,11 @@
 	import { cn } from '$lib/utils';
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
+	import { buildCountryModuleStatuses } from '$lib/data/country-modules';
 
 	let { data } = $props();
+
+	const moduleStates = $derived(buildCountryModuleStatuses(data.country));
 </script>
 
 <Seo
@@ -22,10 +25,11 @@
 		<p class="mt-4 text-base text-muted-foreground">
 			{#if data.country.status === 'live'}
 				This is the current live Singapore reference market. The page keeps the comparable
-				structural baseline in view while showing the country-specific labour layer.
+				structural baseline in view while showing Singapore-specific demand, wage, and policy
+				context.
 			{:else if data.country.code === 'us'}
-				The United States layer is generated from the shared ISCO-08 baseline plus BLS
-				occupational projections and wage data.
+				The United States layer is generated from the shared ISCO-08 baseline plus BLS wages,
+				projections, requirements, skills, demographics, and occupation narrative sources.
 			{:else}
 				This country is registered in the global methodology, but its local dataset is still
 				research-only and not yet published as a full country index.
@@ -75,6 +79,27 @@
 			</div>
 		</section>
 	{/if}
+
+	<section class="mt-8">
+		<p class={sectionLabel()}>Evidence layers</p>
+		<div class="mt-3 grid gap-3 md:grid-cols-2">
+			{#each moduleStates as module}
+				<div class={card({ padding: 'sm', variant: module.available ? 'default' : 'notice', accent: module.available ? 'primary' : 'moderate' })}>
+					<div class="flex items-start justify-between gap-3">
+						<div>
+							<p class="text-sm font-semibold text-foreground">{module.title}</p>
+							<p class="mt-1 text-sm text-muted-foreground">
+								{module.available ? module.publishedDescription : module.unavailableDescription}
+							</p>
+						</div>
+						<span class="rounded-full bg-muted px-2 py-0.5 text-[11px] uppercase tracking-wide text-muted-foreground">
+							{module.available ? 'Published' : 'Hidden'}
+						</span>
+					</div>
+				</div>
+			{/each}
+		</div>
+	</section>
 
 	<section class="mt-8">
 		<p class={sectionLabel()}>Methodology</p>

@@ -70,7 +70,7 @@
 
 <Seo
 	title="Scoring Methodology — Global Structural Baseline"
-	description="Global structural methodology for AI Work Index: deterministic exposure and bottleneck baseline, plus country-specific demand and policy layers. Singapore is the current live reference implementation and the United States layer is ready."
+	description="Global structural methodology for AI Work Index: deterministic exposure and bottleneck baseline, plus country-specific demand, wage, skills, worker-profile, policy, and transition layers. Singapore is the current live reference implementation, the United States layer is ready, and UK/Canada remain research-only."
 	path="/methodology"
 />
 
@@ -95,7 +95,9 @@
 		<p class="text-sm font-semibold text-foreground">Global contract</p>
 		<p class="mt-1 text-sm text-muted-foreground">
 			{globalMethodology.summary} The shared spine is ISCO-08; country layers add wages, demand
-			resilience, policy context, and confidence.
+			resilience, worker profile, transition capacity, regulatory overlays, and confidence where
+			evidence exists. Observed adoption and skills/task context remain part of the structural
+			validation layer.
 		</p>
 		<div class="mt-3 grid gap-3 sm:grid-cols-2">
 			<div>
@@ -140,7 +142,8 @@
 		<p class="text-sm text-text-secondary">
 			<strong>What this model does:</strong> Measures structural AI displacement pressure using observable
 			inputs. It tells you which occupations face the most technical overlap with AI capabilities and
-			which have the strongest human bottlenecks and demand buffers.
+			which have the strongest human bottlenecks and demand buffers. Observed usage, O*NET skill
+			context, and cross-country research help calibrate the structural layer.
 		</p>
 		<p class="mt-2 text-sm text-text-secondary">
 			<strong>What it does not do:</strong> Predict actual job losses, forecast hiring trends, or make a
@@ -155,8 +158,8 @@
 		<p class="text-sm text-text-secondary">
 			This site has two layers. The <strong>global structural layer</strong> is the comparable
 			research spine: exposure, bottleneck, and displacement pressure. The <strong>country layer</strong>
-			adds wages, labour demand, policy context, and local confidence so headline risk remains
-			defensible in each market.
+			adds wages, labour demand, worker profile, transition capacity, regulatory overlays, and local
+			confidence so headline risk remains defensible in each market.
 		</p>
 		<p class="mt-2 text-sm text-text-secondary">
 			Interpretive fields are heuristic and should be read as context, not as direct
@@ -220,7 +223,8 @@
 		</div>
 		<p class="mt-2 text-xs text-muted-foreground">
 			{countryConfigs.sg.displayName} is the live reference implementation. The United States layer
-			is ready; other countries should not move out of the research bar until mapping coverage,
+			is ready and is now backed by BLS wage, requirements, demographics, skills, and narrative
+			sources; other countries should not move out of the research bar until mapping coverage,
 			validation, limitations, and local demand evidence are published.
 		</p>
 	</section>

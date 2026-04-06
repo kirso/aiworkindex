@@ -132,10 +132,18 @@ export const globalMethodology = {
 			code: 'us',
 			title: 'United States',
 			readiness: 'ready',
-			primary_sources: ['BLS OEWS', 'BLS employment projections', 'O*NET'],
+			primary_sources: [
+				'BLS OEWS',
+				'BLS ORS',
+				'BLS CPS demographics',
+				'BLS Skills Data',
+				'BLS OOH',
+				'BLS employment projections',
+				'O*NET'
+			],
 			method_notes: [
-				'Strong structural compatibility and deep public labour data.',
-				'The country layer now resolves detailed BLS occupations onto the shared ISCO-08 spine.'
+				'Strong structural compatibility and deep public labor data across wages, requirements, skills, demographics, and narrative context.',
+				'The country layer resolves detailed BLS occupations onto the shared ISCO-08 spine and can publish a richer evidence stack than most markets.'
 			]
 		},
 		{

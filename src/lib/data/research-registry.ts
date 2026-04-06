@@ -178,6 +178,28 @@ export const researchRegistry: ResearchEntry[] = [
 			'Primary candidate reference for promoting the shadow model beyond readiness-only governance.'
 	},
 	{
+		key: 'anthropic_work_transforming_2025',
+		title: 'How AI is transforming work at Anthropic',
+		authors: ['Anthropic'],
+		year: 2025,
+		published_at: '2025-12-02',
+		publisher: 'Anthropic',
+		url: 'https://www.anthropic.com/research/how-ai-is-transforming-work-at-anthropic',
+		type: 'report',
+		domains: ['tasks', 'productivity', 'augmentation', 'context'],
+		role: 'supporting_context',
+		status: 'supporting',
+		used_for: ['software-work case study', 'observed adoption context', 'learning and iteration framing'],
+		source_keys: [],
+		claim_ids: [],
+		summary:
+			'Shows how AI changes engineering and research workflows inside Anthropic, adding a concrete adoption case study.',
+		limitations:
+			'Internal workplace evidence is highly specific to Anthropic and should not be generalized into a country labour market without adjustment.',
+		repo_notes:
+			'Useful as a contextual adoption case study and a reminder that augmentation can change task mix, learning speed, and workflow design.'
+	},
+	{
 		key: 'eloundou_etal_2023',
 		title: 'GPTs are GPTs: An Early Look at the Labor Market Impact Potential of Large Language Models',
 		authors: ['Tyna Eloundou', 'Sam Manning', 'Pamela Mishkin', 'Daniel Rock'],
@@ -223,10 +245,10 @@ export const researchRegistry: ResearchEntry[] = [
 	},
 	{
 		key: 'onet_database_2024',
-		title: 'O*NET Database 29.1',
+		title: 'O*NET Database 30.2',
 		authors: ['O*NET Resource Center'],
-		year: 2024,
-		published_at: '2024',
+		year: 2026,
+		published_at: '2026',
 		publisher: 'O*NET / U.S. Department of Labor',
 		url: 'https://www.onetcenter.org/database.html',
 		type: 'dataset',
@@ -247,6 +269,116 @@ export const researchRegistry: ResearchEntry[] = [
 			'O*NET is US-based and enters the Singapore product mainly as explanatory or crosswalk context.',
 		repo_notes:
 			'Not a direct structural-score input, but essential for the supporting task layer and future task-native scoring.'
+	},
+	{
+		key: 'bls_oews_2025',
+		title: 'Occupational Employment and Wage Statistics (OEWS)',
+		authors: ['U.S. Bureau of Labor Statistics'],
+		year: 2025,
+		published_at: '2025',
+		publisher: 'U.S. Bureau of Labor Statistics',
+		url: 'https://www.bls.gov/oes/',
+		type: 'dataset',
+		domains: ['measurement', 'context', 'validation'],
+		role: 'supporting_context',
+		status: 'supporting',
+		used_for: ['US wage context', 'US wage calibration', 'occupation-level earnings narratives'],
+		source_keys: ['bls_oews_2025'],
+		claim_ids: [],
+		summary:
+			'Official occupation-level wage and employment statistics for the United States.',
+		limitations:
+			'OEWS is US-specific and must not be interpreted as a global wage distribution.',
+		repo_notes:
+			'Best public source for the US wage layer and the richest local wage context currently available.'
+	},
+	{
+		key: 'bls_ors_2025',
+		title: 'Occupational Requirements Survey (ORS)',
+		authors: ['U.S. Bureau of Labor Statistics'],
+		year: 2025,
+		published_at: '2025',
+		publisher: 'U.S. Bureau of Labor Statistics',
+		url: 'https://www.bls.gov/ors/about-overview.htm',
+		type: 'dataset',
+		domains: ['measurement', 'context', 'validation'],
+		role: 'supporting_context',
+		status: 'supporting',
+		used_for: ['US bottleneck context', 'physical and cognitive demand overlay', 'transition friction calibration'],
+		source_keys: ['bls_ors_2025'],
+		claim_ids: [],
+		summary:
+			'Official occupation requirements survey covering the physical, cognitive, and preparation demands of work.',
+		limitations:
+			'ORS is not a labour-market outcome series; it is a requirements survey used for bottleneck and friction context.',
+		repo_notes:
+			'The best current official analogue for transition friction and human-bottleneck validation in the US layer.'
+	},
+	{
+		key: 'bls_cps_demographics_2025',
+		title: 'CPS Demographics by Occupation',
+		authors: ['U.S. Bureau of Labor Statistics'],
+		year: 2025,
+		published_at: '2025',
+		publisher: 'U.S. Bureau of Labor Statistics',
+		url: 'https://www.bls.gov/cps/cpsoccind.htm',
+		type: 'dataset',
+		domains: ['measurement', 'context', 'validation'],
+		role: 'supporting_context',
+		status: 'supporting',
+		used_for: ['US worker profile', 'demographic transition context', 'equity analysis'],
+		source_keys: ['bls_cps_demographics_2025'],
+		claim_ids: [],
+		summary:
+			'Occupation-linked demographic and labor-force context drawn from the Current Population Survey.',
+		limitations:
+			'Occupation/industry classification changes reduce perfect longitudinal comparability.',
+		repo_notes:
+			'Useful for showing who is exposed and for planning transition context, not for changing the structural pressure score.'
+	},
+	{
+		key: 'bls_skills_data_2025',
+		title: 'BLS Skills Data',
+		authors: ['U.S. Bureau of Labor Statistics'],
+		year: 2025,
+		published_at: '2025',
+		publisher: 'U.S. Bureau of Labor Statistics',
+		url: 'https://www.bls.gov/emp/data/skills-data.htm',
+		type: 'dataset',
+		domains: ['tasks', 'measurement', 'context'],
+		role: 'supporting_context',
+		status: 'supporting',
+		used_for: ['US skills context', 'task explanation', 'occupation comparison'],
+		source_keys: ['bls_skills_data_2025'],
+		claim_ids: [],
+		summary:
+			'Official 17-skill summary for occupations, built on O*NET inputs and BLS projections occupations.',
+		limitations:
+			'It is a summarized skills view, not a direct task-by-task automation score.',
+		repo_notes:
+			'Best public structured skill overlay for the US country layer.'
+	},
+	{
+		key: 'bls_ooh_2025',
+		title: 'Occupational Outlook Handbook / Occupation Finder',
+		authors: ['U.S. Bureau of Labor Statistics'],
+		year: 2025,
+		published_at: '2025',
+		publisher: 'U.S. Bureau of Labor Statistics',
+		url: 'https://www.bls.gov/ooh/occupation-finder.htm',
+		type: 'report',
+		domains: ['context', 'forecast'],
+		role: 'supporting_context',
+		status: 'supporting',
+		used_for: ['US narrative context', 'occupation descriptions', 'work environment copy'],
+		source_keys: ['bls_ooh_2025'],
+		claim_ids: [],
+		summary:
+			'Official occupation profiles used for narrative, education, and work-environment context.',
+		limitations:
+			'Designed for career guidance rather than AI-risk scoring.',
+		repo_notes:
+			'Adds the human-readable occupation narrative layer for the US market.'
 	},
 	{
 		key: 'bls_occupational_projections_2024_2034',

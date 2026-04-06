@@ -168,7 +168,7 @@
 					'@type': 'ListItem',
 					position: i + 6,
 					name: o.title,
-					url: SITE.url + `/sg/occupation/${o.ssoc}`
+					url: SITE.url + `/occupation/${o.ssoc}`
 				}))
 			]
 		})}<\/script>`
@@ -451,7 +451,7 @@
 									</td>
 									<td class="px-3 py-2">
 										<a
-											href="/sg/occupation/{occ.ssoc}"
+											href="/occupation/{occ.ssoc}"
 											class="text-xs text-foreground hover:text-primary hover:underline underline-offset-2 decoration-primary/30 font-medium"
 										>
 											{occ.title}
@@ -509,7 +509,7 @@
 			<div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
 				{#each filteredOccupations as occ (occ.ssoc)}
 					<a
-						href="/sg/occupation/{occ.ssoc}"
+						href="/occupation/{occ.ssoc}"
 						class={cn(card({ padding: 'sm', hover: true }), 'group block')}
 					>
 						<div class="flex items-start justify-between gap-2 mb-1.5">

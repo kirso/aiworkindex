@@ -14,7 +14,7 @@ const OUT_FILE = path.join(DATA_DIR, 'public-field-source-map.json');
 const SRC_OUT_FILE = path.join(SRC_DATA_DIR, 'public-field-source-map.json');
 const STATIC_OUT_FILE = path.join(STATIC_DATA_DIR, 'public-field-source-map.json');
 
-type SourceTier = 'official_sg' | 'derived_from_official_sg' | 'external_proxy' | 'synthetic';
+type SourceTier = 'official_local' | 'derived_from_official_local' | 'cross_country_research' | 'external_proxy' | 'synthetic';
 
 interface SourceMapEntry {
 	field_path: string;
@@ -35,7 +35,7 @@ const entries: SourceMapEntry[] = [
 		dataset: `sg-ai-occupations-${versionTag}.json`,
 		label: 'Median wage',
 		source_keys: ['mom_ows_2024'],
-		source_tier: 'official_sg',
+		source_tier: 'official_local',
 		vintage: '2024',
 		transformation: 'Directly copied from the published MOM occupational wage table.'
 	},
@@ -44,7 +44,7 @@ const entries: SourceMapEntry[] = [
 		dataset: `sg-ai-occupations-${versionTag}.json`,
 		label: 'Estimated Singapore employment',
 		source_keys: ['mom_lfr2025_table_d8', 'bls_projections_2024_2034'],
-		source_tier: 'derived_from_official_sg',
+		source_tier: 'derived_from_official_local',
 		vintage: '2025',
 		transformation:
 			'Official Labour Force 2025 family totals are allocated to detailed occupations using normalized within-family weights derived from BLS employment and Singapore wage information.',
@@ -55,7 +55,7 @@ const entries: SourceMapEntry[] = [
 		dataset: `sg-ai-occupations-${versionTag}.json`,
 		label: 'Employment family code',
 		source_keys: ['mom_lfr2025_table_d8'],
-		source_tier: 'official_sg',
+		source_tier: 'official_local',
 		vintage: '2025',
 		transformation: 'Direct 2-digit family anchor from Labour Force 2025 Table D8.'
 	},
@@ -64,7 +64,7 @@ const entries: SourceMapEntry[] = [
 		dataset: `sg-ai-occupations-${versionTag}.json`,
 		label: 'Within-family employment weight',
 		source_keys: ['mom_lfr2025_table_d8', 'bls_projections_2024_2034', 'mom_ows_2024'],
-		source_tier: 'derived_from_official_sg',
+		source_tier: 'derived_from_official_local',
 		vintage: '2025',
 		transformation:
 			'Normalized allocation weight within each Labour Force occupation family. Uses BLS and wage evidence when available, then fallback rules.'
@@ -79,20 +79,20 @@ const entries: SourceMapEntry[] = [
 			'eloundou_gpt_exposure_2023',
 			'ilo_genai_2025'
 		],
-		source_tier: 'external_proxy',
+		source_tier: 'cross_country_research',
 		vintage: '2021-2026',
 		transformation:
 			'V6 uses a deterministic reliability-weighted 4-source exposure ensemble over the matched AIOE, Anthropic, Eloundou, and ILO inputs.',
-		caveat: 'Exposure is not an official Singapore government measure.'
+		caveat: 'Exposure is not an official Singapore government measure; it is a research-backed structural layer.'
 	},
 	{
 		field_path: 'bottleneck',
 		dataset: `sg-ai-occupations-${versionTag}.json`,
 		label: 'Human bottleneck',
 		source_keys: ['pizzinelli_theta_2023'],
-		source_tier: 'external_proxy',
+		source_tier: 'cross_country_research',
 		vintage: '2023',
-		transformation: 'Mapped through the SSOC→ISCO→SOC crosswalk and percentile-normalized.'
+		transformation: 'Mapped through the SSOC→ISCO→SOC crosswalk and percentile-normalized as a cross-country complementarity measure.'
 	},
 	{
 		field_path: 'market.market_resilience',
@@ -105,7 +105,7 @@ const entries: SourceMapEntry[] = [
 			'mom_sol_2026',
 			'mom_ows_2024'
 		],
-		source_tier: 'derived_from_official_sg',
+		source_tier: 'derived_from_official_local',
 		vintage: '2024-2026',
 		transformation:
 			'Combines group employment momentum, industry-footprint momentum where available, official demand flags, and wage-structure context.'
@@ -115,7 +115,7 @@ const entries: SourceMapEntry[] = [
 		dataset: `sg-ai-occupations-${versionTag}.json`,
 		label: 'SOL demand evidence',
 		source_keys: ['mom_sol_2026'],
-		source_tier: 'official_sg',
+		source_tier: 'official_local',
 		vintage: '2026',
 		transformation:
 			'Rule-based exact or prefix SSOC match against the MOM Shortage Occupation List.'
@@ -125,7 +125,7 @@ const entries: SourceMapEntry[] = [
 		dataset: `sg-ai-occupations-${versionTag}.json`,
 		label: 'Jobs in Demand evidence',
 		source_keys: ['mom_jobs_in_demand_2025'],
-		source_tier: 'official_sg',
+		source_tier: 'official_local',
 		vintage: '2025',
 		transformation: 'Rule-based exact or prefix SSOC match against the MOM Jobs in Demand list.'
 	},
@@ -150,7 +150,7 @@ const entries: SourceMapEntry[] = [
 		dataset: `sg-ai-occupations-${versionTag}.json`,
 		label: 'Demand signal bonus',
 		source_keys: ['mom_sol_2026', 'mom_jobs_in_demand_2025'],
-		source_tier: 'derived_from_official_sg',
+		source_tier: 'derived_from_official_local',
 		vintage: '2025-2026',
 		transformation:
 			'Deterministic additive bonus from exact or prefix SSOC matches against the official SOL and Jobs in Demand lists.'
@@ -166,7 +166,7 @@ const entries: SourceMapEntry[] = [
 			'mom_sol_2026',
 			'mom_ows_2024'
 		],
-		source_tier: 'derived_from_official_sg',
+		source_tier: 'derived_from_official_local',
 		vintage: '2024-2026',
 		transformation:
 			'Deterministic V6 formula field computed as min(1, base_resilience × 0.45 + demand_signal_bonus).'
@@ -186,7 +186,7 @@ const entries: SourceMapEntry[] = [
 		dataset: 'sg-labour-monitor-2025.json',
 		label: 'Labour monitor field provenance',
 		source_keys: ['mom_labour_monitor_2025', 'mom_labour_market_report_q4_2025'],
-		source_tier: 'derived_from_official_sg',
+		source_tier: 'derived_from_official_local',
 		vintage: 'Q4 2025',
 		transformation:
 			'Each published monitor field carries its direct origin: raw feed, report table, or deterministic derived rule.'
@@ -196,7 +196,7 @@ const entries: SourceMapEntry[] = [
 		dataset: 'sg-labour-monitor-2025.json',
 		label: 'Latest cluster vacancy rate',
 		source_keys: ['mom_job_vacancy_rates', 'mom_labour_market_report_q4_2025'],
-		source_tier: 'derived_from_official_sg',
+		source_tier: 'derived_from_official_local',
 		vintage: 'Q4 2025',
 		transformation:
 			'Uses the latest official raw vacancy-rate feed, with Q4 2025 report enrichment attached where the feed lags.'
@@ -206,7 +206,7 @@ const entries: SourceMapEntry[] = [
 		dataset: 'sg-labour-monitor-2025.json',
 		label: 'Net hiring pressure',
 		source_keys: ['mom_recruitment_resignation_rates', 'mom_labour_market_report_q4_2025'],
-		source_tier: 'derived_from_official_sg',
+		source_tier: 'derived_from_official_local',
 		vintage: 'Q4 2025',
 		transformation: 'Computed as recruitment rate minus resignation rate.'
 	},
@@ -215,7 +215,7 @@ const entries: SourceMapEntry[] = [
 		dataset: 'sg-labour-monitor-2025.json',
 		label: 'Retrenchment incidence',
 		source_keys: ['mom_labour_market_report_q4_2025'],
-		source_tier: 'official_sg',
+		source_tier: 'official_local',
 		vintage: 'Q4 2025',
 		transformation: 'Directly taken from the published MOM Q4 2025 labour-market report.'
 	},
@@ -224,7 +224,7 @@ const entries: SourceMapEntry[] = [
 		dataset: 'sg-labour-monitor-2025.json',
 		label: '6-month re-entry rate',
 		source_keys: ['mom_labour_market_report_q4_2025'],
-		source_tier: 'official_sg',
+		source_tier: 'official_local',
 		vintage: 'Q4 2025',
 		transformation: 'Directly taken from the published MOM Q4 2025 labour-market report.'
 	}
@@ -234,7 +234,7 @@ const sourceMap = {
 	version: DATA_VINTAGE.model_version,
 	generated_at: new Date().toISOString(),
 	description:
-		'Machine-readable field-level source map for the main public AI Work Index artifacts. Use this to inspect where headline fields come from, what vintage they use, and whether they are direct official values, derived Singapore values, or external proxies.',
+		'Machine-readable field-level source map for the main public AI Work Index artifacts. Use this to inspect where headline fields come from, what vintage they use, and whether they are direct official values, derived local values, cross-country research inputs, or external proxies.',
 	entries
 };
 

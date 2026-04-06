@@ -34,7 +34,11 @@ import {
 	homeSurfaceChoices,
 	resolveHomeSurfaceCode
 } from '../src/lib/data/home-surface';
-import { globalOccupations } from '../src/lib/data/global-occupations';
+import {
+	getGlobalOccupationEntries,
+	getGlobalOccupationRow,
+	globalOccupations
+} from '../src/lib/data/global-occupations';
 import { usOccupations } from '../src/lib/data/countries/us/occupations';
 import researchLibrary from '../src/lib/data/research-library.json';
 import shadowAnchorReview from '../src/lib/data/shadow-anchor-review-v43.json';
@@ -200,12 +204,18 @@ describe('methodology formulas', () => {
 			assert.equal(typeof occupation.displacement_pressure, 'number');
 			assert.equal(typeof occupation.demand_signal_bonus, 'number');
 			assert.equal(typeof occupation.demand_resilience, 'number');
-			assert.deepEqual(occupation.task_primitives, {
-				matched_task_weight_share: null,
-				task_effective_coverage: null,
-				task_exposure_concentration: null,
-				method: null
-			});
+			if (occupation.task_primitives?.method === 'anthropic_task_penetration_v1') {
+				assert.equal(typeof occupation.task_primitives.matched_task_weight_share, 'number');
+				assert.equal(typeof occupation.task_primitives.task_effective_coverage, 'number');
+				assert.equal(typeof occupation.task_primitives.task_exposure_concentration, 'number');
+			} else {
+				assert.deepEqual(occupation.task_primitives, {
+					matched_task_weight_share: null,
+					task_effective_coverage: null,
+					task_exposure_concentration: null,
+					method: null
+				});
+			}
 		}
 	});
 
@@ -377,14 +387,22 @@ describe('task primitive invariants', () => {
 		);
 	});
 
-	test('published live occupations expose explicit null task primitives until weighted evidence returns', () => {
+	test('published live occupations expose weighted and sparse task primitives where evidence exists', () => {
 		const weighted = occupations.filter(
 			occupation => occupation.task_primitives?.method === 'anthropic_task_penetration_v1'
 		);
 		const sparse = occupations.filter(occupation => occupation.task_primitives?.method === null);
 
-		assert.equal(weighted.length, 0);
-		assert.equal(sparse.length, occupations.length);
+		assert.ok(weighted.length > 0);
+		assert.ok(sparse.length > 0);
+		assert.equal(weighted.length + sparse.length, occupations.length);
+
+		for (const occupation of weighted.slice(0, 10)) {
+			assert.equal(occupation.task_primitives?.method, 'anthropic_task_penetration_v1');
+			assert.equal(typeof occupation.task_primitives?.matched_task_weight_share, 'number');
+			assert.equal(typeof occupation.task_primitives?.task_effective_coverage, 'number');
+			assert.equal(typeof occupation.task_primitives?.task_exposure_concentration, 'number');
+		}
 
 		for (const occupation of sparse.slice(0, 10)) {
 			assert.deepEqual(occupation.task_primitives, {
@@ -770,8 +788,8 @@ describe('v5 experimental model invariants', () => {
 	});
 
 	test('experimental validation summary matches the model artifact', () => {
-		assert.equal(v5ExperimentalValidation.status, 'promoted_live');
-		assert.equal(v5ExperimentalValidation.comparison_baseline_version, 'V4.3');
+		assert.equal(v5ExperimentalValidation.status, 'experimental_only');
+		assert.equal(v5ExperimentalValidation.comparison_baseline_version, 'V6');
 		assert.equal(
 			v5ExperimentalValidation.summary.occupation_count,
 			v5ExperimentalModel.entries.length
@@ -850,6 +868,8 @@ describe('global expansion invariants', () => {
 	test('global and US datasets are generated from the shared methodology contract', () => {
 		assert.ok(globalOccupations.length >= 250);
 		assert.ok(globalOccupations.every(row => row.structuralPressure >= 0 && row.structuralPressure <= 1));
+		assert.ok(getGlobalOccupationEntries().length >= 250);
+		assert.ok(getGlobalOccupationRow('1120'));
 		assert.ok(usOccupations.length >= 700);
 		assert.ok(usOccupations.some(row => row.mappingMethod === 'crosswalk_exact'));
 		assert.ok(usOccupations.some(row => row.mappingMethod === 'major_group_fallback'));
@@ -894,7 +914,7 @@ describe('global expansion invariants', () => {
 		assert.equal(globalSurface.metrics[1]?.label, 'Occupations at risk');
 		assert.equal(globalSurface.metrics[2]?.label, 'Mapped occupations');
 		assert.equal(globalSurface.occupations[0]?.valueKind, 'count');
-		assert.equal(globalSurface.occupations[0]?.linkHref, '/global');
+		assert.ok(globalSurface.occupations[0]?.linkHref?.startsWith('/global/occupation/'));
 
 		assert.equal(sgSurface.drilldownHref, '/sg');
 		assert.equal(sgSurface.metrics[0]?.label, 'Jobs under pressure');

@@ -269,7 +269,7 @@
 						<a
 							href={selectedEntry.isRole
 								? `/role/${selectedEntry.slug}`
-								: `/sg/occupation/${selectedEntry.ssoc}`}
+								: `/occupation/${selectedEntry.ssoc}`}
 							class="text-primary hover:underline">detailed breakdown</a
 						>
 						to understand what AI can and can't do in this role.
@@ -290,7 +290,7 @@
 						<a
 							href={selectedEntry.isRole
 								? `/role/${selectedEntry.slug}`
-								: `/sg/occupation/${selectedEntry.ssoc}`}
+								: `/occupation/${selectedEntry.ssoc}`}
 							class="text-primary hover:underline">Career transitions</a
 						>
 						show lower-risk and higher-paying options with skills you already have.

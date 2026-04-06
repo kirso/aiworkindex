@@ -97,6 +97,10 @@
 				result.occupation.linkHref ??
 				(occupationHrefPrefix === '/global'
 					? '/global'
+					: occupationHrefPrefix.endsWith('/occupation')
+						? code
+							? `${occupationHrefPrefix}/${code}`
+							: occupationHrefPrefix
 					: code
 						? `${occupationHrefPrefix}/occupation/${code}`
 						: occupationHrefPrefix || '/global');

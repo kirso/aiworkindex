@@ -20,7 +20,7 @@
 				'@type': 'ListItem',
 				position: i + 1,
 				name: t.from.title,
-				url: SITE.url + '/sg/occupation/' + t.from.ssoc
+				url: SITE.url + '/occupation/' + t.from.ssoc
 			}))
 		})}<\/script>`
 	);
@@ -78,7 +78,7 @@
 				<div class="flex items-center justify-between">
 					<div>
 						<a
-							href="/sg/occupation/{from.ssoc}"
+							href="/occupation/{from.ssoc}"
 							class="text-sm font-semibold text-foreground hover:text-primary"
 						>
 							{from.title}
@@ -93,7 +93,7 @@
 					<div class="mt-3 grid gap-2 sm:grid-cols-3">
 						{#each targets as t (t.to_ssoc)}
 							<a
-								href="/sg/occupation/{t.to_ssoc}"
+								href="/occupation/{t.to_ssoc}"
 								class="flex items-center justify-between rounded-lg border border-border/50 px-3 py-2 text-sm hover:bg-muted"
 							>
 								<div class="min-w-0 flex-1">

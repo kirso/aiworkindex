@@ -145,7 +145,7 @@
 				<HeroSearch
 					occupations={surfaceOccupations as unknown as Occupation[]}
 					occupationHrefPrefix={data.surface.code === 'global'
-						? '/global'
+						? '/global/occupation'
 						: data.surface.config.routePrefix}
 					marketLabel={data.surface.config.displayName}
 					occupationValueLabel={data.surface.valueLabel}

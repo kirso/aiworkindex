@@ -530,18 +530,22 @@ function loadWorkContext(): Map<string, Map<string, number>> {
 // ===== Step 3: Load Job Zones =====
 function loadJobZones(): Map<string, number> {
 	console.log('Loading O*NET Job Zones...');
-	const wb = XLSX.readFile(path.join(EXT_DIR, 'Job_Zones.xlsx'));
-	const ws = wb.Sheets[wb.SheetNames[0]];
-	const data = XLSX.utils.sheet_to_json<{
-		'O*NET-SOC Code': string;
-		'Job Zone': number;
-	}>(ws);
+	const filePath = path.join(EXT_DIR, 'Job_Zones.txt');
+	const content = fs.readFileSync(filePath, 'utf-8');
+	const lines = content.split(/\r?\n/).filter(line => line.trim().length > 0);
+	const headers = lines[0]!.split('\t').map(header => header.trim());
 
 	const jzMap = new Map<string, number>();
-	for (const row of data) {
-		const socFull = row['O*NET-SOC Code'];
-		const jz = row['Job Zone'];
-		if (!socFull || typeof jz !== 'number') continue;
+	for (const line of lines.slice(1)) {
+		const values = line.split('\t');
+		const row: Record<string, string> = {};
+		headers.forEach((header, index) => {
+			row[header] = (values[index] ?? '').trim();
+		});
+
+		const socFull = row['O*NET-SOC Code'] ?? '';
+		const jz = Number(row['Job Zone']);
+		if (!socFull || !Number.isFinite(jz)) continue;
 
 		const soc = socFull.split('.')[0];
 		if (!jzMap.has(soc)) {

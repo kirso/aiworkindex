@@ -174,7 +174,7 @@ function mapGlobalItem(record: GlobalOccupationRecord): HomeSurfaceItem {
 		surfaceLabel: countryConfigs.global.displayName,
 		title: record.canonicalTitle,
 		displayCode: record.canonicalCode,
-		linkHref: '/global',
+		linkHref: `/global/occupation/${record.canonicalCode}`,
 		groupKey: String(majorGroupCode),
 		groupLabel: groupMeta.label,
 		major_group: groupMeta.label,

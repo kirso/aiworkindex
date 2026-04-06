@@ -190,7 +190,7 @@
 							<tr class="border-b border-border/50 last:border-0">
 								<td class="px-3 py-2.5 tabular-nums text-muted-foreground">{i + 1}</td>
 								<td class="px-3 py-2.5 truncate">
-									<a href="/sg/occupation/{occ.ssoc}" class="text-foreground hover:text-primary">
+									<a href="/occupation/{occ.ssoc}" class="text-foreground hover:text-primary">
 										{occ.title}
 									</a>
 								</td>

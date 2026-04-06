@@ -22,7 +22,7 @@
 			This page defines the scientific contract for making AI Work Index global. The global
 			structural layer is the primary product spine; Singapore is the current live reference
 			market, the United States layer is ready, and the same math transfers across countries
-			without changing.
+			without changing. Global occupation detail pages now live under this contract.
 		</p>
 	</div>
 
@@ -112,8 +112,9 @@
 			</p>
 			<p class="mt-1 text-sm text-muted-foreground">
 				Singapore remains the published production market while the global layer and new country
-				adapters are brought up under the same contract. The United States layer is now ready;
-				United Kingdom and Canada remain in research until their local datasets are published.
+				adapters are brought up under the same contract. The United States layer is ready, global
+				occupation detail pages are published, and United Kingdom and Canada remain in research
+				until their local datasets are published.
 			</p>
 			<div class="mt-3 flex flex-wrap gap-2 text-sm">
 				<a href="/methodology" class="text-primary hover:underline">Full methodology</a>

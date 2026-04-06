@@ -1,25 +1,25 @@
 {
-  "version": "V5",
-  "generated_at": "2026-03-21T16:09:26.129Z",
-  "entry_count": 19,
+  "version": "V6",
+  "generated_at": "2026-04-06T09:56:10.700Z",
+  "entry_count": 25,
   "domain_counts": {
     "exposure": 7,
-    "tasks": 6,
+    "tasks": 8,
     "complementarity": 1,
-    "validation": 4,
+    "validation": 7,
     "mobility": 1,
-    "forecast": 4,
+    "forecast": 5,
     "uncertainty": 1,
-    "productivity": 3,
-    "augmentation": 3,
-    "measurement": 7,
-    "context": 1
+    "productivity": 4,
+    "augmentation": 4,
+    "measurement": 11,
+    "context": 7
   },
   "role_counts": {
     "active_core": 15,
     "validation": 1,
     "candidate_v5": 2,
-    "supporting_context": 1
+    "supporting_context": 7
   },
   "entries": [
     {
@@ -85,6 +85,43 @@
       "summary": "Separates theoretical capability from observed exposure and emphasizes that early labour effects remain limited.",
       "limitations": "Uses US outcome data and a platform-linked usage measure, so it still needs Singapore-specific interpretation.",
       "repo_notes": "Primary candidate reference for promoting the shadow model beyond readiness-only governance."
+    },
+    {
+      "key": "onet_database_2024",
+      "title": "O*NET Database 30.2",
+      "authors": [
+        "O*NET Resource Center"
+      ],
+      "year": 2026,
+      "published_at": "2026",
+      "publisher": "O*NET / U.S. Department of Labor",
+      "url": "https://www.onetcenter.org/database.html",
+      "type": "dataset",
+      "domains": [
+        "tasks",
+        "context",
+        "measurement"
+      ],
+      "role": "supporting_context",
+      "status": "supporting",
+      "used_for": [
+        "task context",
+        "technology-skill context",
+        "job-zone education proxy",
+        "task-primitives matching"
+      ],
+      "source_keys": [
+        "onet_occupation_data",
+        "onet_task_statements",
+        "onet_technology_skills",
+        "onet_job_zones"
+      ],
+      "claim_ids": [
+        "onet_task_and_technology_context"
+      ],
+      "summary": "Provides the task statements, technology skills, and job-zone context used for explanation and task matching.",
+      "limitations": "O*NET is US-based and enters the Singapore product mainly as explanatory or crosswalk context.",
+      "repo_notes": "Not a direct structural-score input, but essential for the supporting task layer and future task-native scoring."
     },
     {
       "key": "metr_time_horizons_2026",
@@ -174,6 +211,68 @@
       "repo_notes": "Primary scientific justification for publishing task exposure concentration as its own field and using it in the shadow model."
     },
     {
+      "key": "bls_skills_data_2025",
+      "title": "BLS Skills Data",
+      "authors": [
+        "U.S. Bureau of Labor Statistics"
+      ],
+      "year": 2025,
+      "published_at": "2025",
+      "publisher": "U.S. Bureau of Labor Statistics",
+      "url": "https://www.bls.gov/emp/data/skills-data.htm",
+      "type": "dataset",
+      "domains": [
+        "tasks",
+        "measurement",
+        "context"
+      ],
+      "role": "supporting_context",
+      "status": "supporting",
+      "used_for": [
+        "US skills context",
+        "task explanation",
+        "occupation comparison"
+      ],
+      "source_keys": [
+        "bls_skills_data_2025"
+      ],
+      "claim_ids": [],
+      "summary": "Official 17-skill summary for occupations, built on O*NET inputs and BLS projections occupations.",
+      "limitations": "It is a summarized skills view, not a direct task-by-task automation score.",
+      "repo_notes": "Best public structured skill overlay for the US country layer."
+    },
+    {
+      "key": "bls_cps_demographics_2025",
+      "title": "CPS Demographics by Occupation",
+      "authors": [
+        "U.S. Bureau of Labor Statistics"
+      ],
+      "year": 2025,
+      "published_at": "2025",
+      "publisher": "U.S. Bureau of Labor Statistics",
+      "url": "https://www.bls.gov/cps/cpsoccind.htm",
+      "type": "dataset",
+      "domains": [
+        "measurement",
+        "context",
+        "validation"
+      ],
+      "role": "supporting_context",
+      "status": "supporting",
+      "used_for": [
+        "US worker profile",
+        "demographic transition context",
+        "equity analysis"
+      ],
+      "source_keys": [
+        "bls_cps_demographics_2025"
+      ],
+      "claim_ids": [],
+      "summary": "Occupation-linked demographic and labor-force context drawn from the Current Population Survey.",
+      "limitations": "Occupation/industry classification changes reduce perfect longitudinal comparability.",
+      "repo_notes": "Useful for showing who is exposed and for planning transition context, not for changing the structural pressure score."
+    },
+    {
       "key": "ilo_genai_exposure_2025",
       "title": "Generative AI and Jobs: A Refined Global Index of Occupational Exposure",
       "authors": [
@@ -201,6 +300,36 @@
       "summary": "Adds a recent global occupational exposure measure aligned to international occupation codes.",
       "limitations": "Still a global exposure measure rather than a Singapore outcome model.",
       "repo_notes": "Included because its ISCO alignment improves crosswalk robustness for the ensemble."
+    },
+    {
+      "key": "anthropic_work_transforming_2025",
+      "title": "How AI is transforming work at Anthropic",
+      "authors": [
+        "Anthropic"
+      ],
+      "year": 2025,
+      "published_at": "2025-12-02",
+      "publisher": "Anthropic",
+      "url": "https://www.anthropic.com/research/how-ai-is-transforming-work-at-anthropic",
+      "type": "report",
+      "domains": [
+        "tasks",
+        "productivity",
+        "augmentation",
+        "context"
+      ],
+      "role": "supporting_context",
+      "status": "supporting",
+      "used_for": [
+        "software-work case study",
+        "observed adoption context",
+        "learning and iteration framing"
+      ],
+      "source_keys": [],
+      "claim_ids": [],
+      "summary": "Shows how AI changes engineering and research workflows inside Anthropic, adding a concrete adoption case study.",
+      "limitations": "Internal workplace evidence is highly specific to Anthropic and should not be generalized into a country labour market without adjustment.",
+      "repo_notes": "Useful as a contextual adoption case study and a reminder that augmentation can change task mix, learning speed, and workflow design."
     },
     {
       "key": "humlum_vestergaard_2025",
@@ -289,6 +418,98 @@
       "repo_notes": "Supports the repo direction of modelling augmentation as its own construct rather than as a mirror image of automation."
     },
     {
+      "key": "bls_oews_2025",
+      "title": "Occupational Employment and Wage Statistics (OEWS)",
+      "authors": [
+        "U.S. Bureau of Labor Statistics"
+      ],
+      "year": 2025,
+      "published_at": "2025",
+      "publisher": "U.S. Bureau of Labor Statistics",
+      "url": "https://www.bls.gov/oes/",
+      "type": "dataset",
+      "domains": [
+        "measurement",
+        "context",
+        "validation"
+      ],
+      "role": "supporting_context",
+      "status": "supporting",
+      "used_for": [
+        "US wage context",
+        "US wage calibration",
+        "occupation-level earnings narratives"
+      ],
+      "source_keys": [
+        "bls_oews_2025"
+      ],
+      "claim_ids": [],
+      "summary": "Official occupation-level wage and employment statistics for the United States.",
+      "limitations": "OEWS is US-specific and must not be interpreted as a global wage distribution.",
+      "repo_notes": "Best public source for the US wage layer and the richest local wage context currently available."
+    },
+    {
+      "key": "bls_ooh_2025",
+      "title": "Occupational Outlook Handbook / Occupation Finder",
+      "authors": [
+        "U.S. Bureau of Labor Statistics"
+      ],
+      "year": 2025,
+      "published_at": "2025",
+      "publisher": "U.S. Bureau of Labor Statistics",
+      "url": "https://www.bls.gov/ooh/occupation-finder.htm",
+      "type": "report",
+      "domains": [
+        "context",
+        "forecast"
+      ],
+      "role": "supporting_context",
+      "status": "supporting",
+      "used_for": [
+        "US narrative context",
+        "occupation descriptions",
+        "work environment copy"
+      ],
+      "source_keys": [
+        "bls_ooh_2025"
+      ],
+      "claim_ids": [],
+      "summary": "Official occupation profiles used for narrative, education, and work-environment context.",
+      "limitations": "Designed for career guidance rather than AI-risk scoring.",
+      "repo_notes": "Adds the human-readable occupation narrative layer for the US market."
+    },
+    {
+      "key": "bls_ors_2025",
+      "title": "Occupational Requirements Survey (ORS)",
+      "authors": [
+        "U.S. Bureau of Labor Statistics"
+      ],
+      "year": 2025,
+      "published_at": "2025",
+      "publisher": "U.S. Bureau of Labor Statistics",
+      "url": "https://www.bls.gov/ors/about-overview.htm",
+      "type": "dataset",
+      "domains": [
+        "measurement",
+        "context",
+        "validation"
+      ],
+      "role": "supporting_context",
+      "status": "supporting",
+      "used_for": [
+        "US bottleneck context",
+        "physical and cognitive demand overlay",
+        "transition friction calibration"
+      ],
+      "source_keys": [
+        "bls_ors_2025"
+      ],
+      "claim_ids": [],
+      "summary": "Official occupation requirements survey covering the physical, cognitive, and preparation demands of work.",
+      "limitations": "ORS is not a labour-market outcome series; it is a requirements survey used for bottleneck and friction context.",
+      "repo_notes": "The best current official analogue for transition friction and human-bottleneck validation in the US layer."
+    },
+    {
       "key": "bick_blandin_deming_2025",
       "title": "The Rapid Adoption of Generative AI",
       "authors": [
@@ -341,43 +562,6 @@
       "summary": "Suggests that mobility responses to AI pressure follow structured pathways rather than generic occupational distance rules.",
       "limitations": "Cross-country evidence informs the transition design, but the repo still needs a Singapore-specific mobility dataset.",
       "repo_notes": "Guides the schema for observed transition priors and future ranking logic in the transition layer."
-    },
-    {
-      "key": "onet_database_2024",
-      "title": "O*NET Database 29.1",
-      "authors": [
-        "O*NET Resource Center"
-      ],
-      "year": 2024,
-      "published_at": "2024",
-      "publisher": "O*NET / U.S. Department of Labor",
-      "url": "https://www.onetcenter.org/database.html",
-      "type": "dataset",
-      "domains": [
-        "tasks",
-        "context",
-        "measurement"
-      ],
-      "role": "supporting_context",
-      "status": "supporting",
-      "used_for": [
-        "task context",
-        "technology-skill context",
-        "job-zone education proxy",
-        "task-primitives matching"
-      ],
-      "source_keys": [
-        "onet_occupation_data",
-        "onet_task_statements",
-        "onet_technology_skills",
-        "onet_job_zones"
-      ],
-      "claim_ids": [
-        "onet_task_and_technology_context"
-      ],
-      "summary": "Provides the task statements, technology skills, and job-zone context used for explanation and task matching.",
-      "limitations": "O*NET is US-based and enters the Singapore product mainly as explanatory or crosswalk context.",
-      "repo_notes": "Not a direct structural-score input, but essential for the supporting task layer and future task-native scoring."
     },
     {
       "key": "bls_occupational_projections_2024_2034",

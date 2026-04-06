@@ -489,7 +489,7 @@
 				{#each scored.components as comp}
 					{#if comp.occupation}
 						<a
-							href="/sg/occupation/{comp.ssoc}"
+							href="/occupation/{comp.ssoc}"
 							class="text-xs text-text-secondary hover:text-primary hover:underline underline-offset-2"
 						>
 							{comp.occupation.title}
@@ -695,7 +695,7 @@
 				<div class="grid gap-2 sm:grid-cols-3">
 					{#each scored.components as comp}
 						{#if comp.occupation}
-							<a href="/sg/occupation/{comp.ssoc}" class={cn(card({ padding: 'sm', variant: 'inset' }), 'block hover:bg-accent hover:shadow-sm transition-all group')}>
+							<a href="/occupation/{comp.ssoc}" class={cn(card({ padding: 'sm', variant: 'inset' }), 'block hover:bg-accent hover:shadow-sm transition-all group')}>
 								<p class="text-sm font-medium text-foreground truncate">{comp.occupation.title} <span class="opacity-0 group-hover:opacity-100 transition-opacity text-primary">&#8594;</span></p>
 								<div class="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
 									<span class="font-mono tabular-nums">{(comp.weight * 100).toFixed(0)}% weight</span>
@@ -741,7 +741,7 @@
 					{#each scored.components as comp}
 						<div class="flex items-center justify-between py-0.5">
 							{#if comp.occupation}
-								<a href="/sg/occupation/{comp.ssoc}" class="hover:text-primary"
+								<a href="/occupation/{comp.ssoc}" class="hover:text-primary"
 									>{comp.occupation.title} (SSOC {comp.ssoc})</a
 								>
 							{:else}

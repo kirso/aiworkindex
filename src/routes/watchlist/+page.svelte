@@ -147,7 +147,7 @@
 				<div class={card({ padding: 'md' })}>
 					<div class="flex items-start justify-between gap-4">
 						{#if item.kind === 'occupation'}
-							<a href="/sg/occupation/{item.occupation.ssoc}" class="flex-1">
+							<a href="/occupation/{item.occupation.ssoc}" class="flex-1">
 								<div class="flex items-center gap-2">
 									<h2 class="text-sm font-semibold text-foreground hover:text-primary">
 										{item.occupation.title}

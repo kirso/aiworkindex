@@ -1,196 +1,195 @@
 {
   "version": "V5-experimental-validation",
-  "generated_at": "2026-03-28T02:16:40.758Z",
-  "live_version": "V5",
-  "comparison_baseline_version": "V4.3",
-  "status": "promoted_live",
+  "generated_at": "2026-04-06T09:35:15.780Z",
+  "live_version": "V6",
+  "comparison_baseline_version": "V6",
+  "status": "experimental_only",
   "summary": {
     "occupation_count": 562,
     "structural_basis_counts": {
-      "posterior_task_aware": 485,
-      "posterior_ensemble_fallback": 77
+      "posterior_ensemble_fallback": 562
     },
     "profile_counts": {
-      "shielded": 248,
-      "leveraged": 23,
-      "retooling": 128,
-      "balanced": 163
+      "shielded": 232,
+      "leveraged": 18,
+      "balanced": 181,
+      "retooling": 131
     },
-    "task_mode_method_count": 485,
-    "task_mode_blended_count": 485,
+    "task_mode_method_count": 492,
+    "task_mode_blended_count": 492,
     "observed_enriched_mobility_count": 496,
     "realized_pass_count": 3,
     "realized_scorable_check_count": 4,
-    "structural_band_flip_count": 123,
-    "transition_band_flip_count": 127,
-    "impact_flip_count": 241,
-    "mean_delta_vs_live_structural": 0.0023,
-    "mean_delta_vs_live_transition": -0.014,
-    "median_realized_risk_proxy": 0.031,
-    "median_adaptation_capacity": 0.3952,
-    "median_demand_fragility": 0.1216,
-    "median_reallocation_capacity": 0.7607
+    "structural_band_flip_count": 190,
+    "transition_band_flip_count": 196,
+    "impact_flip_count": 246,
+    "mean_delta_vs_live_structural": 0.0157,
+    "mean_delta_vs_live_transition": -0.0005,
+    "median_realized_risk_proxy": 0.0313,
+    "median_adaptation_capacity": 0.3934,
+    "median_demand_fragility": 0.1185,
+    "median_reallocation_capacity": 0.7613
   },
   "top_changes": {
     "structural_risers": [
       {
         "ssoc": "43212",
         "title": "Storekeeper",
-        "value": 0.213
+        "value": 0.2249
       },
       {
         "ssoc": "43211",
         "title": "Stock records clerk",
-        "value": 0.2047
-      },
-      {
-        "ssoc": "75310",
-        "title": "Tailor/Dressmaker",
-        "value": 0.1099
+        "value": 0.2185
       },
       {
         "ssoc": "81252",
         "title": "Precision grinding machine setter-operator",
-        "value": 0.108
+        "value": 0.205
       },
       {
-        "ssoc": "51942",
-        "title": "Keeper/Trainer in zoological, bird and aquatic parks",
-        "value": 0.1037
+        "ssoc": "52422",
+        "title": "Salesperson (door-to-door)",
+        "value": 0.1937
+      },
+      {
+        "ssoc": "31175",
+        "title": "Quality assurance technician",
+        "value": 0.1849
       }
     ],
     "structural_fallers": [
       {
-        "ssoc": "52440",
-        "title": "Telemarketer",
-        "value": -0.1514
+        "ssoc": "41102",
+        "title": "Personnel/Human resource clerk",
+        "value": -0.1796
       },
       {
-        "ssoc": "73210",
-        "title": "Pre-press trades worker",
-        "value": -0.1164
+        "ssoc": "43112",
+        "title": "Ledger and accounts clerk",
+        "value": -0.1775
       },
       {
-        "ssoc": "33311",
-        "title": "Clearing and forwarding agent",
-        "value": -0.115
+        "ssoc": "33493",
+        "title": "Crewing executive (ship)",
+        "value": -0.1635
       },
       {
-        "ssoc": "33312",
-        "title": "Shipping agent/Boarding officer",
-        "value": -0.1132
+        "ssoc": "33121",
+        "title": "Financial markets back office administrator",
+        "value": -0.1606
       },
       {
-        "ssoc": "21231",
-        "title": "Statistical officer/Data analyst",
-        "value": -0.1011
+        "ssoc": "43114",
+        "title": "Payroll/Wages clerk",
+        "value": -0.1513
       }
     ],
     "transition_risers": [
       {
         "ssoc": "43212",
         "title": "Storekeeper",
-        "value": 0.186
+        "value": 0.1974
       },
       {
         "ssoc": "43211",
         "title": "Stock records clerk",
-        "value": 0.1789
-      },
-      {
-        "ssoc": "75310",
-        "title": "Tailor/Dressmaker",
-        "value": 0.0974
+        "value": 0.1922
       },
       {
         "ssoc": "81252",
         "title": "Precision grinding machine setter-operator",
-        "value": 0.0918
+        "value": 0.1884
       },
       {
-        "ssoc": "81830",
-        "title": "Packing/Bottling/Labelling machine operator",
-        "value": 0.0895
+        "ssoc": "91131",
+        "title": "Office, commercial and industrial establishments indoor cleaner",
+        "value": 0.1645
+      },
+      {
+        "ssoc": "52422",
+        "title": "Salesperson (door-to-door)",
+        "value": 0.1639
       }
     ],
     "transition_fallers": [
       {
-        "ssoc": "52440",
-        "title": "Telemarketer",
-        "value": -0.1913
+        "ssoc": "41102",
+        "title": "Personnel/Human resource clerk",
+        "value": -0.2114
       },
       {
-        "ssoc": "33311",
-        "title": "Clearing and forwarding agent",
-        "value": -0.1762
+        "ssoc": "43112",
+        "title": "Ledger and accounts clerk",
+        "value": -0.2057
       },
       {
-        "ssoc": "33312",
-        "title": "Shipping agent/Boarding officer",
-        "value": -0.174
+        "ssoc": "33121",
+        "title": "Financial markets back office administrator",
+        "value": -0.185
       },
       {
-        "ssoc": "43142",
-        "title": "Enumerator/Market research interviewer",
-        "value": -0.1571
+        "ssoc": "33493",
+        "title": "Crewing executive (ship)",
+        "value": -0.1832
       },
       {
-        "ssoc": "43141",
-        "title": "Statistical clerk",
-        "value": -0.15
+        "ssoc": "43114",
+        "title": "Payroll/Wages clerk",
+        "value": -0.1792
       }
     ],
     "highest_realized_risk": [
       {
         "ssoc": "43111",
         "title": "Bookkeeper",
-        "value": 0.3042
+        "value": 0.3101
       },
       {
         "ssoc": "42131",
         "title": "Pawnbroker",
-        "value": 0.2938
-      },
-      {
-        "ssoc": "43123",
-        "title": "Securities clerk",
-        "value": 0.2571
+        "value": 0.2996
       },
       {
         "ssoc": "41101",
         "title": "Office clerk (including filing and copying)",
-        "value": 0.2552
+        "value": 0.2562
       },
       {
-        "ssoc": "43142",
-        "title": "Enumerator/Market research interviewer",
-        "value": 0.2546
+        "ssoc": "43123",
+        "title": "Securities clerk",
+        "value": 0.2536
+      },
+      {
+        "ssoc": "43115",
+        "title": "Billing clerk",
+        "value": 0.2442
       }
     ]
   },
   "structural_validation": {
     "bls_spearman_rho": {
-      "live": -0.1905,
-      "experimental": -0.2452,
-      "delta": -0.0547,
+      "live": -0.2267,
+      "experimental": -0.2127,
+      "delta": 0.014,
       "pass": true
     },
     "transition_bls_spearman_rho": {
-      "live": -0.1905,
-      "experimental": -0.2478,
-      "delta": -0.0573,
+      "live": -0.2267,
+      "experimental": -0.2151,
+      "delta": 0.0116,
       "pass": true
     },
     "occupation_family_spearman_rho": {
-      "live": -0.328,
-      "experimental": -0.5192,
-      "delta": -0.1912,
+      "live": -0.455,
+      "experimental": -0.468,
+      "delta": -0.013,
       "pass": true
     },
     "transition_family_spearman_rho": {
-      "live": -0.328,
-      "experimental": -0.5192,
-      "delta": -0.1912,
+      "live": -0.455,
+      "experimental": -0.4892,
+      "delta": -0.0342,
       "pass": true
     }
   },
@@ -198,21 +197,21 @@
     "cluster_rows": [
       {
         "cluster_key": "pmet",
-        "avg_realized_risk": 0.0469,
+        "avg_realized_risk": 0.0471,
         "vacancy_trend_4q_pct": -3.13,
         "hiring_net_pressure": 0.6,
         "retrenchment_incidence": 1.5
       },
       {
         "cluster_key": "clerical_sales_service",
-        "avg_realized_risk": 0.1128,
+        "avg_realized_risk": 0.1139,
         "vacancy_trend_4q_pct": -11.43,
         "hiring_net_pressure": 1,
         "retrenchment_incidence": 1.5
       },
       {
         "cluster_key": "production_transport",
-        "avg_realized_risk": 0.0155,
+        "avg_realized_risk": 0.0148,
         "vacancy_trend_4q_pct": 16.67,
         "hiring_net_pressure": 0.9,
         "retrenchment_incidence": 1.5
@@ -237,22 +236,22 @@
       "pass": null
     },
     "employer_pressure_rho": {
-      "sample_size": 436,
-      "experimental": 0.4715,
+      "sample_size": 435,
+      "experimental": 0.4389,
       "expected_direction": "positive",
       "scorable": true,
       "pass": true
     },
     "postings_support_rho": {
       "sample_size": 93,
-      "experimental": -0.0839,
+      "experimental": -0.174,
       "expected_direction": "negative",
       "scorable": true,
       "pass": true
     }
   },
   "readiness": {
-    "status": "promoted_live",
-    "summary": "V5 is now the live structural release. This artifact preserves the final comparison against the retained V4.3 baseline and keeps the transition-adjusted and realized-risk layers auditable."
+    "status": "experimental_only",
+    "summary": "V5 is a published experimental candidate that now adds task-mode proxies, concentration-driven fragility, source-calibrated latent exposure, hybrid mobility, and archetype-capped realized-risk calibration on top of the existing sidecars. It remains separate from the live V4.3 headline score until its validation family is explicitly promoted."
   }
 }

@@ -402,7 +402,7 @@
 					'@type': 'ListItem',
 					position: 3,
 					name: occ.title,
-					item: SITE.url + '/sg/occupation/' + occ.ssoc
+					item: SITE.url + '/occupation/' + occ.ssoc
 				}
 			]
 		})}<\/script>`

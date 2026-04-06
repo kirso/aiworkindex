@@ -24,7 +24,7 @@
 				'@type': 'ListItem',
 				position: i + 1,
 				name: occ.title,
-				url: SITE.url + '/sg/occupation/' + occ.ssoc
+				url: SITE.url + '/occupation/' + occ.ssoc
 			}))
 		})}<\/script>`
 	);

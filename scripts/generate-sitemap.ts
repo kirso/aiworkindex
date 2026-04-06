@@ -17,6 +17,7 @@ interface Occupation {
 async function main() {
 	const { SITE, DATA_VINTAGE } = await import('../src/lib/data/scoring-constants');
 	const { getCountryOccupationRows } = await import('../src/lib/data/country-pages');
+	const { getGlobalOccupationEntries } = await import('../src/lib/data/global-occupations');
 	const lastmod = DATA_VINTAGE.last_updated;
 	const base = SITE.url;
 
@@ -70,6 +71,11 @@ async function main() {
 		urls += `  <url><loc>${base}/occupation/${occ.ssoc}</loc><lastmod>${lastmod}</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>\n`;
 	}
 
+	// Global occupation pages
+	for (const occ of getGlobalOccupationEntries()) {
+		urls += `  <url><loc>${base}/global/occupation/${occ.code}</loc><lastmod>${lastmod}</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>\n`;
+	}
+
 	// Country occupation pages
 	for (const country of ['sg', 'us'] as const) {
 		for (const row of getCountryOccupationRows(country)) {
@@ -94,8 +100,14 @@ async function main() {
 
 	const countryOccupationCount =
 		getCountryOccupationRows('sg').length + getCountryOccupationRows('us').length;
+	const globalOccupationCount = getGlobalOccupationEntries().length;
 	const totalUrls =
-		staticPages.length + occupations.length + syntheticRoles.length + majorGroups.length + countryOccupationCount;
+		staticPages.length +
+		occupations.length +
+		syntheticRoles.length +
+		majorGroups.length +
+		countryOccupationCount +
+		globalOccupationCount;
 	console.log(`Sitemap generated: ${totalUrls} URLs`);
 	console.log(`Domain: ${base}`);
 	console.log(`Output: ${OUT_FILE}`);

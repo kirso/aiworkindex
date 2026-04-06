@@ -253,6 +253,61 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 			'Supplementary US employment context used for calibration and for validating the projections-derived demand layer.'
 	},
 	{
+		key: 'bls_oews_2025',
+		label: 'US BLS OEWS',
+		tier: 'official_local',
+		status: 'available',
+		vintage: '2025',
+		used_for: ['US wage context', 'US wage distribution', 'occupational pay calibration'],
+		url: 'https://www.bls.gov/oes/',
+		notes:
+			'Occupation-level wage and employment series used for the US country layer when wage context is rendered.'
+	},
+	{
+		key: 'bls_ors_2025',
+		label: 'US BLS Occupational Requirements Survey',
+		tier: 'official_local',
+		status: 'available',
+		vintage: '2025',
+		used_for: ['US transition capacity', 'US work-context friction', 'US bottleneck calibration'],
+		url: 'https://www.bls.gov/ors/about-overview.htm',
+		notes:
+			'Official requirements survey covering physical demands, cognitive demands, and vocational prep. Best available US analogue for bottleneck and transition-friction context.'
+	},
+	{
+		key: 'bls_cps_demographics_2025',
+		label: 'US BLS CPS Demographics by Occupation',
+		tier: 'official_local',
+		status: 'available',
+		vintage: '2025',
+		used_for: ['US worker profile', 'US demographic context', 'equity and transition framing'],
+		url: 'https://www.bls.gov/cps/cpsoccind.htm',
+		notes:
+			'Demographic occupation tables from CPS used to explain who is exposed and where transition needs may differ.'
+	},
+	{
+		key: 'bls_skills_data_2025',
+		label: 'US BLS Skills Data',
+		tier: 'official_local',
+		status: 'available',
+		vintage: '2025',
+		used_for: ['US skills context', 'US task and skill explanation'],
+		url: 'https://www.bls.gov/emp/data/skills-data.htm',
+		notes:
+			'Official 17-skill summary built on O*NET and used as a structured skill overlay for the US country layer.'
+	},
+	{
+		key: 'bls_ooh_2025',
+		label: 'US Occupational Outlook Handbook',
+		tier: 'official_local',
+		status: 'available',
+		vintage: '2025',
+		used_for: ['US narrative context', 'career guidance', 'work-environment copy'],
+		url: 'https://www.bls.gov/ooh/occupation-finder.htm',
+		notes:
+			'Occupation profiles used for work-environment and route-to-job narrative on the US occupation pages.'
+	},
+	{
 		key: 'mom_jobs_in_demand_2025',
 		label: 'MOM Jobs in Demand 2025',
 		tier: 'official_sg',
@@ -532,7 +587,7 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 		label: 'O*NET Occupation Data',
 		tier: 'external_proxy',
 		status: 'live',
-		vintage: '2024',
+		vintage: '2026',
 		used_for: ['task and technology enrichment context'],
 		research_keys: ['onet_database_2024'],
 		url: 'https://www.onetcenter.org/database.html',
@@ -544,7 +599,7 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 		label: 'O*NET Task Statements',
 		tier: 'external_proxy',
 		status: 'live',
-		vintage: '2024',
+		vintage: '2026',
 		used_for: ['task and technology enrichment context'],
 		research_keys: ['onet_database_2024'],
 		url: 'https://www.onetcenter.org/database.html',
@@ -556,7 +611,7 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 		label: 'O*NET Technology Skills',
 		tier: 'external_proxy',
 		status: 'live',
-		vintage: '2024',
+		vintage: '2026',
 		used_for: ['task and technology enrichment context'],
 		research_keys: ['onet_database_2024'],
 		url: 'https://www.onetcenter.org/database.html',
@@ -568,7 +623,7 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 		label: 'O*NET Job Zones',
 		tier: 'external_proxy',
 		status: 'live',
-		vintage: '2024',
+		vintage: '2026',
 		used_for: ['education label proxy'],
 		research_keys: ['onet_database_2024'],
 		url: 'https://www.onetcenter.org/database.html',

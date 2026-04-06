@@ -157,7 +157,7 @@
 		<div class="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
 			{#each highestRisk as occ}
 				<a
-					href="/sg/occupation/{occ.ssoc}"
+					href="/occupation/{occ.ssoc}"
 					class={cn(card({ padding: 'sm', variant: 'inset' }), 'block hover:bg-accent hover:shadow-sm transition-all group')}
 				>
 					<p class={cn(body(), 'font-medium text-foreground truncate')}>
@@ -179,7 +179,7 @@
 		<div class="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
 			{#each lowestRisk as occ}
 				<a
-					href="/sg/occupation/{occ.ssoc}"
+					href="/occupation/{occ.ssoc}"
 					class={cn(card({ padding: 'sm', variant: 'inset' }), 'block hover:bg-accent hover:shadow-sm transition-all group')}
 				>
 					<p class={cn(body(), 'font-medium text-foreground truncate')}>
@@ -202,7 +202,7 @@
 			<div class="divide-y divide-border">
 				{#each occs as occ}
 					<a
-						href="/sg/occupation/{occ.ssoc}"
+						href="/occupation/{occ.ssoc}"
 						class="flex items-center justify-between py-2 px-1 hover:bg-accent rounded transition-colors"
 					>
 						<span class={cn(body(), 'truncate pr-4')}>{occ.title}</span>

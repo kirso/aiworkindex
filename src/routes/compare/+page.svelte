@@ -97,7 +97,7 @@
 				ref,
 				label: occ.title,
 				sublabel: `SSOC ${occ.ssoc}`,
-				href: `/sg/occupation/${occ.ssoc}`,
+				href: `/occupation/${occ.ssoc}`,
 				net_risk: occ.net_risk,
 				risk_band: occ.risk_band,
 				exposure: occ.exposure,

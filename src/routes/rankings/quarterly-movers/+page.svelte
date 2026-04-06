@@ -22,7 +22,7 @@
 				'@type': 'ListItem',
 				position: i + 1,
 				name: entry.occupation?.title ?? entry.ssoc,
-				url: SITE.url + '/sg/occupation/' + entry.ssoc
+				url: SITE.url + '/occupation/' + entry.ssoc
 			}))
 		})}<\/script>`
 	);
@@ -146,7 +146,7 @@
 					{#if report.band_movers.length > 0}
 						{#each report.band_movers.slice(0, 12) as mover}
 							<a
-								href={`/sg/occupation/${mover.ssoc}`}
+								href={`/occupation/${mover.ssoc}`}
 								class="flex items-center justify-between rounded-md px-2 py-2 hover:bg-muted"
 							>
 								<div>
