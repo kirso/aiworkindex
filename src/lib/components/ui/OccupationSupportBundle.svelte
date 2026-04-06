@@ -197,7 +197,7 @@
 				<p class="text-sm font-semibold text-foreground">Tasks and tools</p>
 				{#if support.topTasks.length > 0}
 					<ul class="mt-2 space-y-2 text-sm text-muted-foreground">
-						{#each support.topTasks as task, index (task.task)}
+						{#each support.topTasks as task, index (`${task.task}-${index}`)}
 							<li>
 								<span class="font-medium text-foreground">{index + 1}.</span>
 								{task.task}
@@ -228,7 +228,7 @@
 				<p class="text-sm font-semibold text-foreground">Work context</p>
 				{#if support.topWorkContext.length > 0}
 					<ul class="mt-2 space-y-2 text-sm text-muted-foreground">
-						{#each support.topWorkContext as item (item.label)}
+						{#each support.topWorkContext as item, index (`${item.label}-${index}`)}
 							<li>{item.label}: {item.value.toFixed(1)}/5</li>
 						{/each}
 					</ul>
