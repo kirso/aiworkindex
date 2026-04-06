@@ -31,6 +31,7 @@
 		toggleWatchlistEntry
 	} from '$lib/watchlist';
 	import { getTransitionProgrammeUrl } from '$lib/data/detail-context';
+	import { buildRoleAlternates } from '$lib/data/occupation-alternates';
 	import { toast } from 'svelte-sonner';
 	import { buildMarketDetailBullets } from '$lib/data/market-summary';
 
@@ -349,6 +350,7 @@
 	description={pageDescription}
 	path="/role/{scored.slug}"
 	ogImage="/og/role-{scored.slug}.png"
+	alternates={buildRoleAlternates(scored.slug)}
 	jsonLd={[roleJsonLd, breadcrumbJsonLd, faqJsonLd]}
 />
 

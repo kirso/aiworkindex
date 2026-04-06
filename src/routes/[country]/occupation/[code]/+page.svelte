@@ -1,17 +1,18 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import Seo from '$lib/components/ui/Seo.svelte';
-	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
-	import { riskBandLabels } from '$lib/data';
-	import { pageLayout, card, sectionLabel } from '$lib/design-system';
+import Seo from '$lib/components/ui/Seo.svelte';
+import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
+import { riskBandLabels } from '$lib/data';
+import { pageLayout, card, sectionLabel } from '$lib/design-system';
 import { globalMethodology } from '$lib/data/global-methodology';
-import { buildUnitedStatesOccupationAlternates, findSingaporeEquivalent } from '$lib/data/occupation-alternates';
+import { buildUnitedStatesOccupationAlternates } from '$lib/data/occupation-alternates';
+import { getUnitedStatesRolesForCanonicalCode } from '$lib/data/countries/us/roles';
 import { cn } from '$lib/utils';
 import { Button } from '$lib/components/ui/button/index.js';
+import { pill } from '$lib/design-system';
 import { toast } from 'svelte-sonner';
 import OccupationHero from '$lib/components/ui/OccupationHero.svelte';
 import OccupationSupportBundle from '$lib/components/ui/OccupationSupportBundle.svelte';
-import { rolesBySsoc } from '$lib/data/synthetic-roles';
 
 	let { data } = $props();
 	const alternates = $derived(
@@ -24,9 +25,8 @@ import { rolesBySsoc } from '$lib/data/synthetic-roles';
 	);
 	const relatedRoles = $derived.by(() => {
 		if (data.country.code !== 'us') return [];
-		const sgEquivalent = findSingaporeEquivalent(data.occupation.canonicalCode);
-		if (!sgEquivalent) return [];
-		return rolesBySsoc.get(sgEquivalent) ?? [];
+		if (!data.occupation.canonicalCode) return [];
+		return getUnitedStatesRolesForCanonicalCode(data.occupation.canonicalCode);
 	});
 
 	async function shareCurrentPage() {
@@ -146,22 +146,34 @@ import { rolesBySsoc } from '$lib/data/synthetic-roles';
 		<OccupationSupportBundle support={data.occupation.support} />
 	{/if}
 
-	{#if data.country.code === 'us' && relatedRoles.length > 0}
+	{#if data.country.code === 'us'}
 		<section class="mt-8">
 			<p class={sectionLabel()}>Related roles</p>
-			<div class="mt-3 grid gap-3 md:grid-cols-2">
-				{#each relatedRoles as role (role.slug)}
-					<a href={`/us/role/${role.slug}`} class="block">
-						<div class={card({ padding: 'sm' })}>
-							<p class="text-sm font-semibold text-foreground">{role.title}</p>
-							<p class="mt-1 text-sm text-muted-foreground">
-								Estimated modern role using the same synthetic blend, with the United States layer
-								open instead of the Singapore reference market.
-							</p>
-						</div>
-					</a>
-				{/each}
-			</div>
+			{#if relatedRoles.length > 0}
+				<div class="mt-3 grid gap-3 md:grid-cols-2">
+					{#each relatedRoles as role (role.slug)}
+						<a href={`/us/role/${role.slug}`} class="block">
+							<div class={card({ padding: 'sm' })}>
+								<p class="text-sm font-semibold text-foreground">{role.title}</p>
+								<p class="mt-1 text-sm text-muted-foreground">
+									Estimated modern role using the same synthetic blend, with the United States layer
+									open instead of the Singapore reference market.
+								</p>
+							</div>
+						</a>
+					{/each}
+				</div>
+			{:else}
+				<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'moderate' }), 'mt-3')}>
+					<p class="text-sm text-muted-foreground">
+						No direct US role match is available yet for this occupation. Browse the full role index
+						for adjacent synthetic roles and their US views.
+					</p>
+					<div class="mt-3">
+						<a href="/roles" class={pill({ tone: 'outline', interactive: true })}>Browse roles</a>
+					</div>
+				</div>
+			{/if}
 		</section>
 	{/if}
 

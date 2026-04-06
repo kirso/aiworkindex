@@ -8,6 +8,7 @@
 	import WorkflowRadar from '$lib/components/viz/WorkflowRadar.svelte';
 	import SignalProfileGrid, { type SignalProfileItem } from '$lib/components/viz/SignalProfileGrid.svelte';
 	import { riskBandLabels } from '$lib/data';
+	import { buildUnitedStatesRoleAlternates } from '$lib/data/occupation-alternates';
 	import { pageLayout, card, sectionLabel, pill } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import { Button } from '$lib/components/ui/button/index.js';
@@ -86,6 +87,7 @@
 	title={`${data.scored.title} — United States AI Work Index`}
 	description={`${data.scored.title}: headline risk ${(data.scored.net_risk * 100).toFixed(1)}%, structural pressure ${(data.scored.displacement_pressure * 100).toFixed(1)}%, confidence ${data.scored.confidence}.`}
 	path={`/us/role/${data.scored.slug}`.replace('//', '/')}
+	alternates={buildUnitedStatesRoleAlternates(data.scored.slug)}
 />
 
 <main class={pageLayout({ width: 'content' })}>

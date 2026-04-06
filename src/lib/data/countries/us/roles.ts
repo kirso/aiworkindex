@@ -31,6 +31,13 @@ export interface UnitedStatesRoleView {
 	primarySupport: UnitedStatesOccupationSupport | null;
 }
 
+export interface UnitedStatesRoleReference {
+	slug: string;
+	title: string;
+	weight: number;
+	componentCount: number;
+}
+
 function buildCountryOccupation(
 	sourceCode: string,
 	localCode: string,
@@ -175,6 +182,32 @@ function buildRenderedComponents(role: SyntheticRole) {
 			support: usSource ? getUnitedStatesSupport(usSource.localCode) : null
 		};
 	});
+}
+
+function getComponentCanonicalCode(component: SyntheticRole['components'][number]): string | null {
+	const sgSource = singaporeOccupations.find(row => row.ssoc === component.ssoc) ?? null;
+	return sgSource?.isco_codes_matched?.[0] ?? null;
+}
+
+export function getUnitedStatesRolesForCanonicalCode(canonicalCode: string): UnitedStatesRoleReference[] {
+	if (!canonicalCode) return [];
+
+	return syntheticRoles
+		.map(role => {
+			const matchingWeights = role.components
+				.filter(component => getComponentCanonicalCode(component) === canonicalCode)
+				.map(component => component.weight);
+			if (matchingWeights.length === 0) return null;
+
+			return {
+				slug: role.slug,
+				title: role.title,
+				weight: Math.max(...matchingWeights),
+				componentCount: matchingWeights.length
+			} satisfies UnitedStatesRoleReference;
+		})
+		.filter((role): role is UnitedStatesRoleReference => role !== null)
+		.sort((a, b) => b.weight - a.weight || b.componentCount - a.componentCount || a.title.localeCompare(b.title));
 }
 
 function findPrimaryOccupation(role: SyntheticRole) {
