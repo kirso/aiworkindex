@@ -309,7 +309,7 @@
 				<p class="text-sm font-semibold text-foreground">Requirements and friction</p>
 				{#if support.requirementProfile.length > 0}
 					<div class="mt-3 flex flex-wrap gap-2">
-						{#each support.requirementProfile as item (item.label + item.value)}
+						{#each support.requirementProfile as item, index (`${item.label}:${item.value}:${index}`)}
 							<span
 								class={cn(
 									'rounded-full border px-2.5 py-1 text-xs font-medium',
