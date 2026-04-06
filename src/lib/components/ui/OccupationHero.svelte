@@ -51,7 +51,13 @@
 		</div>
 
 		<div class="min-w-0">
-			<div class="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
+			<div class="flex flex-col gap-4">
+				{#if actions}
+					<div class="flex shrink-0 items-center justify-end gap-2">
+						{@render actions()}
+					</div>
+				{/if}
+
 				<div class="min-w-0">
 					<h1 class={cn(titleStyle({ size: 'page' }), 'xl:whitespace-nowrap xl:leading-[0.95]')}>
 						{title}
@@ -72,12 +78,6 @@
 						</div>
 					{/if}
 				</div>
-
-				{#if actions}
-					<div class="flex shrink-0 items-center gap-2">
-						{@render actions()}
-					</div>
-				{/if}
 			</div>
 		</div>
 	</div>
