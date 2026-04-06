@@ -1,12 +1,22 @@
 <script lang="ts">
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
-	import ScoreMetricGrid from '$lib/components/ui/ScoreMetricGrid.svelte';
-	import EvidenceModuleGrid from '$lib/components/ui/EvidenceModuleGrid.svelte';
-	import { pageLayout, card, sectionLabel, title as titleStyle } from '$lib/design-system';
-	import { countryConfigs } from '$lib/data/country-config';
+	import { riskBandLabels } from '$lib/data';
+	import {
+		pageLayout,
+		card,
+		sectionLabel,
+		title as titleStyle,
+		display,
+		riskBadge,
+		pill,
+		caption,
+		mono,
+		scoreTileClasses
+	} from '$lib/design-system';
 	import { globalMethodology } from '$lib/data/global-methodology';
 	import { buildGlobalOccupationAlternates } from '$lib/data/occupation-alternates';
+	import { cn } from '$lib/utils';
 
 	let { data } = $props();
 	const alternates = $derived(buildGlobalOccupationAlternates(data.occupation.canonicalCode));
@@ -28,43 +38,50 @@
 		]}
 	/>
 
-	<section class="max-w-3xl">
-		<p class={sectionLabel()}>Global occupation profile</p>
-		<h1 class={titleStyle({ size: 'page' })}>{data.occupation.canonicalTitle}</h1>
-		<p class="mt-4 text-base text-muted-foreground">
-			This page shows the shared structural baseline only. It is comparable across countries
-			because it uses the canonical ISCO-08 spine and excludes country-specific wages, demand
-			offsets, and policy effects.
-		</p>
-		<p class="mt-2 text-xs uppercase tracking-wide text-muted-foreground">
-			ISCO-08 code {data.occupation.canonicalCode} · mapped from {data.occupation.sourceOccupationCount}
-			official occupations
-		</p>
-	</section>
+	<div class={cn(card({ padding: 'lg' }), 'mt-6 overflow-hidden')}>
+		<div class="grid gap-6 md:grid-cols-[12rem_minmax(0,1fr)] md:items-start">
+			<div
+				class={cn('rounded-2xl border p-5', scoreTileClasses(data.occupation.structuralBand))}
+				role="figure"
+				aria-label={`Structural pressure ${(data.occupation.structuralPressure * 100).toFixed(0)}%, rated ${riskBandLabels[data.occupation.structuralBand]}`}
+			>
+				<p class="text-xs uppercase tracking-wide text-muted-foreground">Structural pressure</p>
+				<p class={cn(display({ size: 'xl' }), 'mt-2')}>
+					{(data.occupation.structuralPressure * 100).toFixed(0)}%
+				</p>
+				<span class={cn(riskBadge({ band: data.occupation.structuralBand }), 'mt-2 inline-flex')}>
+					{riskBandLabels[data.occupation.structuralBand]} Risk
+				</span>
+			</div>
 
-	<ScoreMetricGrid
-		class="mt-6"
-		metrics={[
-			{
-				label: 'Structural pressure',
-				value: `${(data.occupation.structuralPressure * 100).toFixed(1)}%`
-			},
-			{ label: 'Exposure', value: `${(data.occupation.exposure * 100).toFixed(1)}%` },
-			{ label: 'Bottleneck', value: `${(data.occupation.bottleneck * 100).toFixed(1)}%` },
-			{ label: 'Confidence', value: data.occupation.confidenceLevel }
-		]}
-	/>
-
-	<section class="mt-8">
-		<p class={sectionLabel()}>Why this score</p>
-		<div class={card({ padding: 'sm' })}>
-			<p class="text-sm text-muted-foreground">
-				{globalMethodology.structuralFormula}. The global page stops at the shared structural
-				baseline so it stays comparable across countries and does not imply local wages, demand
-				offsets, or policy effects.
-			</p>
+			<div class="min-w-0">
+				<div class="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
+					<div class="min-w-0">
+						<h1 class={titleStyle({ size: 'page' })}>{data.occupation.canonicalTitle}</h1>
+						<div class="mt-1.5 flex flex-wrap items-center gap-2">
+							<span class={pill({ tone: 'muted' })}>Global structural baseline</span>
+							<span class={pill({ tone: 'muted' })}>ISCO {data.occupation.canonicalCode}</span>
+							<span class={pill({ tone: 'muted' })}>
+								Mapped from {data.occupation.sourceOccupationCount} occupations
+							</span>
+						</div>
+						<p class="mt-3 max-w-3xl text-[15px] leading-relaxed text-text-secondary">
+							This page shows the shared structural baseline only. It is comparable across countries
+							because it uses the canonical ISCO-08 spine and excludes country-specific wages,
+							demand offsets, and policy effects.
+						</p>
+						<div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1">
+							<span class={cn(mono({ size: 'md' }), 'text-muted-foreground')}>
+								Exposure: {(data.occupation.exposure * 100).toFixed(1)}%
+							</span>
+							<span class={caption()}>Bottleneck: {(data.occupation.bottleneck * 100).toFixed(1)}%</span>
+							<span class={caption()}>Confidence {data.occupation.confidenceLevel}</span>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-	</section>
+	</div>
 
 	<section class="mt-8">
 		<p class={sectionLabel()}>Structural footprint</p>
@@ -83,11 +100,6 @@
 				</p>
 			</div>
 		</div>
-	</section>
-
-	<section class="mt-8">
-		<p class={sectionLabel()}>Evidence layers</p>
-		<EvidenceModuleGrid class="mt-3" country={countryConfigs.global} />
 	</section>
 
 	<section class="mt-8">

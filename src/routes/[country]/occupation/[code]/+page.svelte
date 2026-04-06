@@ -1,9 +1,19 @@
 <script lang="ts">
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
-	import ScoreMetricGrid from '$lib/components/ui/ScoreMetricGrid.svelte';
-	import EvidenceModuleGrid from '$lib/components/ui/EvidenceModuleGrid.svelte';
-	import { pageLayout, card, sectionLabel, title as titleStyle } from '$lib/design-system';
+	import { riskBandLabels } from '$lib/data';
+	import {
+		pageLayout,
+		card,
+		sectionLabel,
+		title as titleStyle,
+		display,
+		riskBadge,
+		pill,
+		caption,
+		mono,
+		scoreTileClasses
+	} from '$lib/design-system';
 	import { globalMethodology } from '$lib/data/global-methodology';
 	import { buildUnitedStatesOccupationAlternates } from '$lib/data/occupation-alternates';
 	import { cn } from '$lib/utils';
@@ -35,54 +45,67 @@
 			]}
 		/>
 
-	<section class="max-w-3xl">
-		<p class={sectionLabel()}>Occupation Index</p>
-		<h1 class={titleStyle({ size: 'page' })}>{data.occupation.localTitle}</h1>
-		<p class="mt-3 text-base text-muted-foreground">
-			{data.country.displayName} tracks this occupation on the shared structural baseline and then
-			layers on local demand resilience, wages, and confidence. The comparison spine stays fixed
-			across countries.
-		</p>
-		<p class="mt-2 text-xs uppercase tracking-wide text-muted-foreground">
-			{data.country.classificationSystem} · code {data.occupation.localCode}
-			{#if data.occupation.canonicalCode}
-				· canonical {data.occupation.canonicalCode}
-			{/if}
-		</p>
-	</section>
+	<div class={cn(card({ padding: 'lg' }), 'mt-6 overflow-hidden')}>
+		<div class="grid gap-6 md:grid-cols-[12rem_minmax(0,1fr)] md:items-start">
+			<div
+				class={cn('rounded-2xl border p-5', scoreTileClasses(data.occupation.riskBand))}
+				role="figure"
+				aria-label={`Headline risk ${(data.occupation.headlineRisk * 100).toFixed(0)}%, rated ${riskBandLabels[data.occupation.riskBand]}`}
+			>
+				<p class="text-xs uppercase tracking-wide text-muted-foreground">Headline risk</p>
+				<p class={cn(display({ size: 'xl' }), 'mt-2')}>
+					{(data.occupation.headlineRisk * 100).toFixed(0)}%
+				</p>
+				<span class={cn(riskBadge({ band: data.occupation.riskBand }), 'mt-2 inline-flex')}>
+					{riskBandLabels[data.occupation.riskBand]} Risk
+				</span>
+			</div>
 
-	<ScoreMetricGrid
-		class="mt-6"
-		metrics={[
-			{
-				label: 'Structural pressure',
-				value: `${(data.occupation.structuralPressure * 100).toFixed(1)}%`
-			},
-			{
-				label: 'Headline risk',
-				value: `${(data.occupation.headlineRisk * 100).toFixed(1)}%`
-			},
-			{
-				label: 'Demand resilience',
-				value:
-					data.occupation.demandResilience != null
-						? `${(data.occupation.demandResilience * 100).toFixed(1)}%`
-						: 'n/a'
-			},
-			{ label: 'Confidence', value: data.occupation.confidenceLevel }
-		]}
-	/>
-
-	<section class="mt-8">
-		<p class={sectionLabel()}>Why this score</p>
-		<div class={card({ padding: 'sm' })}>
-			<p class="text-sm text-muted-foreground">
-				{globalMethodology.structuralFormula}. Country headline risk adds the local demand layer
-				only when that market has official local evidence; otherwise the page stays on the
-				structural baseline.
-			</p>
+			<div class="min-w-0">
+				<div class="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
+					<div class="min-w-0">
+						<h1 class={titleStyle({ size: 'page' })}>{data.occupation.localTitle}</h1>
+						<div class="mt-1.5 flex flex-wrap items-center gap-2">
+							<span class={pill({ tone: 'muted' })}>{data.country.displayName}</span>
+							{#if data.occupation.canonicalCode}
+								<span class={pill({ tone: 'muted' })}>ISCO {data.occupation.canonicalCode}</span>
+							{/if}
+							{#if data.occupation.mappingMethod}
+								<span class={pill({ tone: 'muted' })}>{data.occupation.mappingMethod}</span>
+							{/if}
+						</div>
+						<p class="mt-3 max-w-3xl text-[15px] leading-relaxed text-text-secondary">
+							{data.country.displayName} tracks this occupation on the shared structural baseline and
+							then layers on local demand resilience, wages, and confidence. The comparison spine
+							stays fixed across countries.
+						</p>
+						<div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1">
+							<span class={cn(mono({ size: 'md' }), 'text-muted-foreground')}>
+								Median wage:
+								{#if data.occupation.wage != null}
+									{data.occupation.currency} {data.occupation.wage.toLocaleString()}
+								{:else}
+									not published
+								{/if}
+							</span>
+							{#if data.occupation.employment}
+								<span class={caption()}>
+									{#if data.occupation.employment.current != null}
+										{data.occupation.employment.current.toLocaleString()} current
+									{/if}
+									{#if data.occupation.employment.projected != null}
+										{data.occupation.employment.current != null ? ' · ' : ''}
+										{data.occupation.employment.projected.toLocaleString()} projected
+									{/if}
+								</span>
+							{/if}
+							<span class={caption()}>Confidence {data.occupation.confidenceLevel}</span>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-	</section>
+	</div>
 
 	<section class="mt-8">
 		<p class={sectionLabel()}>Country layer</p>
@@ -108,11 +131,6 @@
 				</p>
 			</div>
 		</div>
-	</section>
-
-	<section class="mt-8">
-		<p class={sectionLabel()}>Evidence layers</p>
-		<EvidenceModuleGrid class="mt-3" country={data.country} />
 	</section>
 
 	<section class="mt-8">
