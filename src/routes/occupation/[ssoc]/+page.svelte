@@ -25,6 +25,7 @@
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import ContextItemGrid from '$lib/components/ui/ContextItemGrid.svelte';
 	import { siteStatus } from '$lib/data/site-status';
+	import { countryConfigs } from '$lib/data/country-config';
 	import { SITE, DATA_VINTAGE } from '$lib/data/scoring-constants';
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import {
@@ -393,8 +394,8 @@
 				{
 					'@type': 'ListItem',
 					position: 2,
-					name: group?.label ?? occ.major_group,
-					item: SITE.url + '/group/' + groupSlug
+					name: countryConfigs.sg.displayName,
+					item: SITE.url + '/sg'
 				},
 				{
 					'@type': 'ListItem',
@@ -513,7 +514,7 @@
 />
 
 <div class={pageLayout({ width: 'content' })}>
-	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: group?.label ?? occ.major_group, href: '/group/' + groupSlug }, { label: occ.title }]} />
+	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: countryConfigs.sg.displayName, href: '/sg' }, { label: occ.title }]} />
 
 	<!-- ===== BLOCK 1: THE VERDICT ===== -->
 	<div class={cn(card({ padding: 'lg' }), section({ spacing: 'loose' }))}>

@@ -57,7 +57,7 @@ import OccupationSupportBundle from '$lib/components/ui/OccupationSupportBundle.
 		<PageBreadcrumb
 			items={[
 				{ label: 'Home', href: '/' },
-				{ label: data.country.name, href: data.country.routePrefix },
+				{ label: data.country.displayName, href: data.country.routePrefix },
 				{ label: data.occupation.localTitle }
 			]}
 		/>

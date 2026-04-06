@@ -17,7 +17,7 @@
 />
 
 <main class={pageLayout({ width: 'content' })}>
-	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: data.country.name }]} />
+	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: data.country.displayName }]} />
 
 	<section class="max-w-3xl">
 		<p class={sectionLabel()}>Country Index</p>
