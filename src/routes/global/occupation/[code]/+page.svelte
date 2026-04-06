@@ -39,7 +39,7 @@
 	alternates={alternates}
 />
 
-<main class={pageLayout({ width: 'content' })}>
+<div class={pageLayout({ width: 'content' })}>
 	<PageBreadcrumb
 		items={[
 			{ label: 'Home', href: '/' },
@@ -119,4 +119,4 @@
 			</p>
 		</div>
 	</section>
-</main>
+</div>

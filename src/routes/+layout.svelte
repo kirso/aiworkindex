@@ -2,8 +2,6 @@
 	import '../app.css';
 	import favicon from '$lib/assets/favicon.svg';
 	import { page } from '$app/stores';
-	import { fade } from 'svelte/transition';
-	import { prefersReducedMotion } from 'svelte/motion';
 	import { DATA_VINTAGE, SITE } from '$lib/data/scoring-constants';
 	import { siteStatus } from '$lib/data/site-status';
 	import * as Sheet from '$lib/components/ui/sheet/index.js';
@@ -52,7 +50,6 @@
 	];
 
 	let currentPath = $derived($page.url.pathname);
-	let duration = $derived(prefersReducedMotion.current ? 0 : 150);
 	let mobileMenuOpen = $state(false);
 
 	function isActive(href: string): boolean {
@@ -255,7 +252,7 @@
 
 	<main id="main-content" class="flex-1">
 		{#key currentPath}
-			<div in:fade={{ duration }}>
+			<div>
 				{@render children()}
 			</div>
 		{/key}

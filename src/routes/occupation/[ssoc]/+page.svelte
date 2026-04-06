@@ -512,7 +512,7 @@
 	jsonLd={[occJsonLd, breadcrumbJsonLd, faqJsonLd]}
 />
 
-<main class={pageLayout({ width: 'content' })}>
+<div class={pageLayout({ width: 'content' })}>
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: group?.label ?? occ.major_group, href: '/group/' + groupSlug }, { label: occ.title }]} />
 
 	<!-- ===== BLOCK 1: THE VERDICT ===== -->
@@ -1298,4 +1298,4 @@
 			{/if}
 		</Collapsible.Content>
 	</Collapsible.Root>
-</main>
+</div>

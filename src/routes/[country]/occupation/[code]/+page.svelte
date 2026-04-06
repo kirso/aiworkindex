@@ -54,7 +54,7 @@ import OccupationSupportBundle from '$lib/components/ui/OccupationSupportBundle.
 	alternates={alternates}
 />
 
-<main class={pageLayout({ width: 'content' })}>
+<div class={pageLayout({ width: 'content' })}>
 		<PageBreadcrumb
 			items={[
 				{ label: 'Home', href: '/' },
@@ -219,4 +219,4 @@ import OccupationSupportBundle from '$lib/components/ui/OccupationSupportBundle.
 			</p>
 		</div>
 	</section>
-</main>
+</div>
