@@ -5,12 +5,13 @@
 	import { riskBandLabels } from '$lib/data';
 	import { pageLayout, card, sectionLabel } from '$lib/design-system';
 import { globalMethodology } from '$lib/data/global-methodology';
-import { buildUnitedStatesOccupationAlternates } from '$lib/data/occupation-alternates';
+import { buildUnitedStatesOccupationAlternates, findSingaporeEquivalent } from '$lib/data/occupation-alternates';
 import { cn } from '$lib/utils';
 import { Button } from '$lib/components/ui/button/index.js';
 import { toast } from 'svelte-sonner';
 import OccupationHero from '$lib/components/ui/OccupationHero.svelte';
 import OccupationSupportBundle from '$lib/components/ui/OccupationSupportBundle.svelte';
+import { rolesBySsoc } from '$lib/data/synthetic-roles';
 
 	let { data } = $props();
 	const alternates = $derived(
@@ -21,6 +22,12 @@ import OccupationSupportBundle from '$lib/components/ui/OccupationSupportBundle.
 				)
 			: []
 	);
+	const relatedRoles = $derived.by(() => {
+		if (data.country.code !== 'us') return [];
+		const sgEquivalent = findSingaporeEquivalent(data.occupation.canonicalCode);
+		if (!sgEquivalent) return [];
+		return rolesBySsoc.get(sgEquivalent) ?? [];
+	});
 
 	async function shareCurrentPage() {
 		if (!browser) return;
@@ -137,6 +144,25 @@ import OccupationSupportBundle from '$lib/components/ui/OccupationSupportBundle.
 
 	{#if data.country.code === 'us' && data.occupation.support}
 		<OccupationSupportBundle support={data.occupation.support} />
+	{/if}
+
+	{#if data.country.code === 'us' && relatedRoles.length > 0}
+		<section class="mt-8">
+			<p class={sectionLabel()}>Related roles</p>
+			<div class="mt-3 grid gap-3 md:grid-cols-2">
+				{#each relatedRoles as role (role.slug)}
+					<a href={`/us/role/${role.slug}`} class="block">
+						<div class={card({ padding: 'sm' })}>
+							<p class="text-sm font-semibold text-foreground">{role.title}</p>
+							<p class="mt-1 text-sm text-muted-foreground">
+								Estimated modern role using the same synthetic blend, with the United States layer
+								open instead of the Singapore reference market.
+							</p>
+						</div>
+					</a>
+				{/each}
+			</div>
+		</section>
 	{/if}
 
 	{#if data.occupation.employment}

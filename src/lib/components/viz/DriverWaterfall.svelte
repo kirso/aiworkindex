@@ -56,7 +56,7 @@
 			value: occ.market.market_resilience,
 			direction: 'down',
 			color: 'var(--color-impact-leveraged)',
-			description: `${(occ.market.market_resilience * 100).toFixed(0)}% demand buffer from SG labour market`
+			description: `${(occ.market.market_resilience * 100).toFixed(0)}% demand buffer from the local labour market`
 		});
 
 		// Anthropic observed usage: can push either way

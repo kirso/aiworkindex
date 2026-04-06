@@ -23,7 +23,7 @@ function uniqueByHref(alternates: SeoAlternateLink[]): SeoAlternateLink[] {
 	return unique;
 }
 
-function findSingaporeEquivalent(canonicalCode: string | null): string | null {
+export function findSingaporeEquivalent(canonicalCode: string | null): string | null {
 	if (!canonicalCode) return null;
 	const occupation = occupations.find(row => row.isco_codes_matched?.includes(canonicalCode));
 	return occupation?.ssoc ?? null;
