@@ -170,7 +170,7 @@ const ARTIFACTS: ReleaseArtifactDefinition[] = [
 		label: 'United States evidence support bundle',
 		category: 'context_bundle',
 		description:
-			'Published United States evidence-support bundle combining O*NET descriptions, task primitives, technology skills, work context, Job Zones, Anthropic task penetration, and CPS age profile context.'
+			'Published United States evidence-support bundle combining O*NET occupation descriptions, task primitives, technology skills, work context, Job Zones, BLS OEWS wages, BLS employment projections, BLS ORS requirements, BLS OOH narrative, BLS skills data, Anthropic task penetration, and CPS age profile context.'
 	},
 	{
 		file: 'sg-offset-potential-v4.json',

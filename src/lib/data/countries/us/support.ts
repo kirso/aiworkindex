@@ -25,6 +25,65 @@ export interface UnitedStatesSupportWorkContext {
   value: number;
 }
 
+export interface UnitedStatesSupportWageProfile {
+  employment: number | null;
+  jobsPer1000: number | null;
+  meanAnnual: number | null;
+  medianAnnual: number | null;
+  medianHourly: number | null;
+  p10Annual: number | null;
+  p25Annual: number | null;
+  p75Annual: number | null;
+  p90Annual: number | null;
+  p10Hourly: number | null;
+  p25Hourly: number | null;
+  p75Hourly: number | null;
+  p90Hourly: number | null;
+}
+
+export interface UnitedStatesSupportDemandProfile {
+  employment2024: number | null;
+  employment2034: number | null;
+  projectedChange: number | null;
+  projectedChangePct: number | null;
+  openings2024_2034: number | null;
+  medianWage2024: number | null;
+  education: string | null;
+  workExperience: string | null;
+  onTheJobTraining: string | null;
+  outlook: string | null;
+  relatedOOHContent: string | null;
+}
+
+export interface UnitedStatesSupportRequirement {
+  label: string;
+  value: string;
+  detail: string | null;
+  tone: 'support' | 'neutral' | 'pressure' | 'protective';
+}
+
+export interface UnitedStatesSupportNarrativeProfile {
+  description: string | null;
+  whatTheyDo: string | null;
+  workEnvironment: string | null;
+  howToBecomeOne: string | null;
+  pay: string | null;
+  outlook: string | null;
+  similarOccupations: string[];
+  entryLevelEducation: string | null;
+  workExperience: string | null;
+  onTheJobTraining: string | null;
+  medianPayAnnual: string | null;
+  medianPayHourly: string | null;
+  numberOfJobs: string | null;
+  employmentOutlook: string | null;
+  employmentOpenings: string | null;
+}
+
+export interface UnitedStatesSupportSkillsProfile {
+  topSkills: string[];
+}
+
 export interface UnitedStatesSupportAgeProfile {
   totalEmployment: number | null;
   medianAge: number | null;
@@ -41,6 +100,11 @@ export interface UnitedStatesOccupationSupport {
   jobZone: number | null;
   jobZoneLabel: string | null;
   jobZoneSummary: string | null;
+  wageProfile: UnitedStatesSupportWageProfile;
+  demandProfile: UnitedStatesSupportDemandProfile;
+  requirementProfile: UnitedStatesSupportRequirement[];
+  narrativeProfile: UnitedStatesSupportNarrativeProfile;
+  skillsProfile: UnitedStatesSupportSkillsProfile;
   taskPrimitives: UnitedStatesSupportTaskPrimitive;
   topTasks: UnitedStatesSupportTask[];
   topTechnologies: UnitedStatesSupportTechnology[];
@@ -67,4 +131,3 @@ export const usSupportByCode = supportByCode;
 export function getUnitedStatesSupport(localCode: string): UnitedStatesOccupationSupport | null {
   return supportByCode.get(localCode) ?? null;
 }
-

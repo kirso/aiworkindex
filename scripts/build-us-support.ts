@@ -27,10 +27,15 @@ const DATA_DIR = path.join(ROOT_DIR, 'data');
 const SRC_DATA_DIR = path.join(ROOT_DIR, 'src', 'lib', 'data');
 const STATIC_DATA_DIR = path.join(ROOT_DIR, 'static', 'data');
 const ONET_DIR = path.join(DATA_DIR, 'raw', 'external', 'onet');
+const US_RAW_DIR = path.join(DATA_DIR, 'raw', 'external', 'us');
 
 const US_OCCUPATIONS_FILE = path.join(DATA_DIR, 'countries', 'us', 'occupations.json');
 const ANTHROPIC_TASKS_FILE = path.join(DATA_DIR, 'raw', 'external', 'anthropic_task_penetration.csv');
 const CPS_FILE = path.join(DATA_DIR, 'raw', 'external', 'bls_cps_employment_2025.xlsx');
+const OEWS_FILE = path.join(US_RAW_DIR, 'oesm24nat', 'oesm24nat', 'national_M2024_dl.xlsx');
+const ORS_FILE = path.join(US_RAW_DIR, 'ors-complete-dataset.xlsx');
+const OOH_FILE = path.join(US_RAW_DIR, 'ooh-xml-compilation.xml');
+const SKILLS_FILE = path.join(US_RAW_DIR, 'skills.xlsx');
 
 const OUT_FILE = path.join(DATA_DIR, 'countries', 'us', 'support.json');
 const SRC_OUT_FILE = path.join(SRC_DATA_DIR, 'countries', 'us', 'support.json');
@@ -55,14 +60,73 @@ type SupportTechnology = {
 };
 
 type SupportWorkContext = {
-  label: string;
-  value: number;
+	label: string;
+	value: number;
+};
+
+type SupportWageProfile = {
+	employment: number | null;
+	jobsPer1000: number | null;
+	meanAnnual: number | null;
+	medianAnnual: number | null;
+	medianHourly: number | null;
+	p10Annual: number | null;
+	p25Annual: number | null;
+	p75Annual: number | null;
+	p90Annual: number | null;
+	p10Hourly: number | null;
+	p25Hourly: number | null;
+	p75Hourly: number | null;
+	p90Hourly: number | null;
+};
+
+type SupportDemandProfile = {
+	employment2024: number | null;
+	employment2034: number | null;
+	projectedChange: number | null;
+	projectedChangePct: number | null;
+	openings2024_2034: number | null;
+	medianWage2024: number | null;
+	education: string | null;
+	workExperience: string | null;
+	onTheJobTraining: string | null;
+	outlook: string | null;
+	relatedOOHContent: string | null;
+};
+
+type SupportRequirement = {
+	label: string;
+	value: string;
+	detail: string | null;
+	tone: 'support' | 'neutral' | 'pressure' | 'protective';
+};
+
+type SupportNarrativeProfile = {
+	description: string | null;
+	whatTheyDo: string | null;
+	workEnvironment: string | null;
+	howToBecomeOne: string | null;
+	pay: string | null;
+	outlook: string | null;
+	similarOccupations: string[];
+	entryLevelEducation: string | null;
+	workExperience: string | null;
+	onTheJobTraining: string | null;
+	medianPayAnnual: string | null;
+	medianPayHourly: string | null;
+	numberOfJobs: string | null;
+	employmentOutlook: string | null;
+	employmentOpenings: string | null;
+};
+
+type SupportSkillsProfile = {
+	topSkills: string[];
 };
 
 type SupportAgeProfile = {
-  totalEmployment: number | null;
-  medianAge: number | null;
-  under25Share: number | null;
+	totalEmployment: number | null;
+	medianAge: number | null;
+	under25Share: number | null;
   primeAgeShare: number | null;
   olderShare: number | null;
   matchScore: number | null;
@@ -76,16 +140,21 @@ type SupportTaskPrimitives = {
 };
 
 type UnitedStatesSupportEntry = {
-  localCode: string;
-  localTitle: string;
-  occupationDescription: string | null;
-  jobZone: number | null;
-  jobZoneLabel: string | null;
-  jobZoneSummary: string | null;
-  taskPrimitives: SupportTaskPrimitives;
-  topTasks: SupportTask[];
-  topTechnologies: SupportTechnology[];
-  topWorkContext: SupportWorkContext[];
+	localCode: string;
+	localTitle: string;
+	occupationDescription: string | null;
+	jobZone: number | null;
+	jobZoneLabel: string | null;
+	jobZoneSummary: string | null;
+	wageProfile: SupportWageProfile;
+	demandProfile: SupportDemandProfile;
+	requirementProfile: SupportRequirement[];
+	narrativeProfile: SupportNarrativeProfile;
+	skillsProfile: SupportSkillsProfile;
+	taskPrimitives: SupportTaskPrimitives;
+	topTasks: SupportTask[];
+	topTechnologies: SupportTechnology[];
+	topWorkContext: SupportWorkContext[];
   ageProfile: SupportAgeProfile;
   note: string;
   sourceVintage: string;
@@ -304,8 +373,8 @@ function parseTechnologySkills(): Map<string, SupportTechnology[]> {
 }
 
 function parseWorkContext(): Map<string, SupportWorkContext[]> {
-  const rows = parseTsv(path.join(ONET_DIR, 'Work_Context.txt'));
-  const byBaseSoc = new Map<string, SupportWorkContext[]>();
+	const rows = parseTsv(path.join(ONET_DIR, 'Work_Context.txt'));
+	const byBaseSoc = new Map<string, SupportWorkContext[]>();
 
   for (const row of rows) {
     const socFull = row['O*NET-SOC Code'] ?? '';
@@ -319,12 +388,290 @@ function parseWorkContext(): Map<string, SupportWorkContext[]> {
     byBaseSoc.set(baseSoc, list);
   }
 
-  return byBaseSoc;
+	return byBaseSoc;
+}
+
+function normalizeSocCode(value: string): string {
+	return String(value ?? '')
+		.trim()
+		.replace(/\.[0-9]+$/, '')
+		.replace(/[^0-9]/g, '');
+}
+
+function socMajorGroupKey(value: string): string {
+	const normalized = normalizeSocCode(value);
+	if (normalized.length < 2) return normalized;
+	return `${normalized.slice(0, 2)}0000`;
+}
+
+function parseNumericValue(value: unknown): number | null {
+	if (value === null || value === undefined || value === '') return null;
+	if (typeof value === 'number') return Number.isFinite(value) ? value : null;
+	const text = String(value)
+		.replace(/[$,%]/g, '')
+		.replace(/[,]/g, '')
+		.trim();
+	if (!text || text === '#' || text === '—') return null;
+	if (text.startsWith('<')) {
+		const threshold = Number(text.slice(1));
+		return Number.isFinite(threshold) ? threshold / 2 : null;
+	}
+	if (text.startsWith('>')) {
+		const threshold = Number(text.slice(1));
+		return Number.isFinite(threshold) ? threshold : null;
+	}
+	const parsed = Number(text);
+	return Number.isFinite(parsed) ? parsed : null;
+}
+
+function cleanText(value: string | null | undefined): string | null {
+	const text = String(value ?? '')
+		.replace(/\s+/g, ' ')
+		.replace(/\u00a0/g, ' ')
+		.trim();
+	if (!text || text === '—' || text === '-' || /^n\/a$/i.test(text) || /^na$/i.test(text)) {
+		return null;
+	}
+	return text;
+}
+
+function stripHtml(value: string | null | undefined): string | null {
+	if (!value) return null;
+	const text = value
+		.replace(/<!\[CDATA\[/g, ' ')
+		.replace(/\]\]>/g, ' ')
+		.replace(/<[^>]+>/g, ' ')
+		.replace(/&nbsp;/g, ' ')
+		.replace(/&amp;/g, '&')
+		.replace(/&quot;/g, '"')
+		.replace(/&#39;/g, "'")
+		.replace(/\s+/g, ' ')
+		.trim();
+	return text.length > 0 ? text : null;
+}
+
+function extractXmlTag(block: string, tag: string): string | null {
+	const match = block.match(new RegExp(`<${tag}(?:\\s+[^>]*)?>([\\s\\S]*?)<\\/${tag}>`, 'i'));
+	return match ? stripHtml(match[1] ?? null) : null;
+}
+
+function extractSummaryText(block: string, tag: string): string | null {
+	const match = block.match(new RegExp(`<${tag}(?:\\s+[^>]*)?>([\\s\\S]*?)<\\/${tag}>`, 'i'));
+	if (!match) return null;
+	const inner = match[1] ?? '';
+	const paragraph = inner.match(/<p[^>]*>([\s\S]*?)<\/p>/i)?.[1] ?? inner;
+	return stripHtml(paragraph);
+}
+
+function extractXmlTagValue(block: string, tag: string): string | null {
+	const pattern = new RegExp(`<${tag}[^>]*>([\\s\\S]*?)<\\/${tag}>`, 'i');
+	const match = block.match(pattern);
+	if (!match) return null;
+	const inner = match[1] ?? '';
+	const valueMatch = inner.match(/<value[^>]*>([\s\S]*?)<\/value>/i);
+	return stripHtml(valueMatch ? valueMatch[1] : inner);
+}
+
+function parseOewsWageProfiles(): Map<string, SupportWageProfile> {
+	const workbook = XLSX.readFile(OEWS_FILE, { raw: true });
+	const sheet = workbook.Sheets[workbook.SheetNames[0] ?? ''];
+	const rows = XLSX.utils.sheet_to_json<Record<string, unknown>>(sheet, { defval: '' });
+	const profiles = new Map<string, SupportWageProfile>();
+
+	for (const row of rows) {
+		if (String(row.AREA_TITLE ?? '') !== 'U.S.') continue;
+		if (String(row.O_GROUP ?? '').toLowerCase() !== 'detailed') continue;
+		const code = normalizeSocCode(String(row.OCC_CODE ?? ''));
+		if (!code) continue;
+		profiles.set(code, {
+			employment: parseNumericValue(row.TOT_EMP),
+			jobsPer1000: parseNumericValue(row.JOBS_1000),
+			meanAnnual: parseNumericValue(row.A_MEAN),
+			medianAnnual: parseNumericValue(row.A_MEDIAN),
+			medianHourly: parseNumericValue(row.H_MEDIAN),
+			p10Annual: parseNumericValue(row.A_PCT10),
+			p25Annual: parseNumericValue(row.A_PCT25),
+			p75Annual: parseNumericValue(row.A_PCT75),
+			p90Annual: parseNumericValue(row.A_PCT90),
+			p10Hourly: parseNumericValue(row.H_PCT10),
+			p25Hourly: parseNumericValue(row.H_PCT25),
+			p75Hourly: parseNumericValue(row.H_PCT75),
+			p90Hourly: parseNumericValue(row.H_PCT90)
+		});
+	}
+
+	return profiles;
+}
+
+function parseSkillsProfiles(): Map<string, SupportDemandProfile & SupportSkillsProfile> {
+	const workbook = XLSX.readFile(SKILLS_FILE, { raw: true });
+	const sheet = workbook.Sheets['Table 6.2'];
+	const rows = XLSX.utils.sheet_to_json<unknown[]>(sheet, { header: 1, defval: '' });
+	const profiles = new Map<string, SupportDemandProfile & SupportSkillsProfile>();
+
+	for (const row of rows.slice(2)) {
+		const title = cleanText(String(row[0] ?? ''));
+		const code = normalizeSocCode(String(row[1] ?? ''));
+		if (!title || !code) continue;
+		const skills = [cleanText(String(row[10] ?? '')), cleanText(String(row[11] ?? '')), cleanText(String(row[12] ?? ''))]
+			.filter((entry): entry is string => Boolean(entry) && entry !== '—');
+		const relatedOOHContent = cleanText(String(row[13] ?? ''));
+		profiles.set(code, {
+			employment2024: parseNumericValue(row[2]),
+			employment2034: parseNumericValue(row[3]),
+			projectedChange: parseNumericValue(row[4]),
+			projectedChangePct: parseNumericValue(row[5]),
+			openings2024_2034: parseNumericValue(row[7]),
+			medianWage2024: parseNumericValue(row[8]),
+			education: cleanText(String(row[9] ?? '')),
+			workExperience: null,
+			onTheJobTraining: null,
+			outlook: null,
+			relatedOOHContent: relatedOOHContent && relatedOOHContent !== 'OOH Content' ? relatedOOHContent : null,
+			topSkills: skills
+		});
+	}
+
+	return profiles;
+}
+
+function parseOohProfiles(): Map<string, SupportNarrativeProfile> {
+	const xml = fs.readFileSync(OOH_FILE, 'utf-8');
+	const profiles = new Map<string, SupportNarrativeProfile>();
+
+	for (const match of xml.matchAll(/<soc_code type="text">([\s\S]*?)<\/soc_code>/g)) {
+		const code = cleanText(match[1] ?? null);
+		if (!code) continue;
+		if (profiles.has(code)) continue;
+		const index = match.index ?? -1;
+		if (index < 0) continue;
+		const start = xml.lastIndexOf('<occupation>', index);
+		const end = xml.indexOf('</occupation>', index);
+		if (start < 0 || end < 0) continue;
+		const block = xml.slice(start, end + '</occupation>'.length);
+		const description = cleanText(extractXmlTag(block, 'description'));
+		const whatTheyDo = cleanText(extractSummaryText(block, 'summary_what_they_do'));
+		const workEnvironment = cleanText(extractSummaryText(block, 'summary_work_environment'));
+		const howToBecomeOne = cleanText(extractSummaryText(block, 'summary_how_to_become_one'));
+		const pay = cleanText(extractSummaryText(block, 'summary_pay'));
+		const outlook = cleanText(extractSummaryText(block, 'summary_outlook'));
+		const entryLevelEducation = cleanText(extractXmlTagValue(block, 'qf_entry_level_education'));
+		const workExperience = cleanText(extractXmlTagValue(block, 'qf_work_experience'));
+		const onTheJobTraining = cleanText(extractXmlTagValue(block, 'qf_on_the_job_training'));
+		const medianPayAnnual = cleanText(extractXmlTagValue(block, 'qf_median_pay_annual'));
+		const medianPayHourly = cleanText(extractXmlTagValue(block, 'qf_median_pay_hourly'));
+		const numberOfJobs = cleanText(extractXmlTagValue(block, 'qf_number_of_jobs'));
+		const employmentOutlook = cleanText(extractXmlTagValue(block, 'qf_employment_outlook'));
+		const employmentOpenings = cleanText(extractXmlTagValue(block, 'qf_employment_openings'));
+		const similarSection = block.match(/<similar_occupations>([\s\S]*?)<\/similar_occupations>/i)?.[1] ?? '';
+		const similarOccupations = [...similarSection.matchAll(/<title[^>]*>([\s\S]*?)<\/title>/gi)]
+			.map(match => stripHtml(match[1] ?? null))
+			.filter((entry): entry is string => Boolean(entry));
+
+		profiles.set(code, {
+			description,
+			whatTheyDo,
+			workEnvironment,
+			howToBecomeOne,
+			pay,
+			outlook,
+			similarOccupations,
+			entryLevelEducation,
+			workExperience,
+			onTheJobTraining,
+			medianPayAnnual,
+			medianPayHourly,
+			numberOfJobs,
+			employmentOutlook,
+			employmentOpenings
+		});
+	}
+
+	return profiles;
+}
+
+function parseOrsRequirementProfiles(): Map<string, Array<{ occupation: string; items: SupportRequirement[] }>> {
+	const workbook = XLSX.readFile(ORS_FILE, { raw: true });
+	const sheet = workbook.Sheets[workbook.SheetNames.find(name => name.includes('dataset')) ?? workbook.SheetNames[0] ?? ''];
+	const rows = XLSX.utils.sheet_to_json<Record<string, unknown>>(sheet, { defval: '' });
+	const profiles = new Map<string, Array<{ occupation: string; items: SupportRequirement[] }>>();
+	const priority = [
+		'telework',
+		'education',
+		'training',
+		'experience',
+		'credentials',
+		'work schedule variability',
+		'work pace',
+		'control of workload',
+		'people skills',
+		'verbal interactions',
+		'work review',
+		'sitting',
+		'standing',
+		'lifting or carrying',
+		'strength',
+		'outdoors',
+		'noise intensity',
+		'driving',
+		'crowds'
+	];
+
+	function toneFor(category: string, estimate: string): SupportRequirement['tone'] {
+		const text = `${category} ${estimate}`.toLowerCase();
+		if (text.includes('telework')) return 'protective';
+		if (text.includes('education') || text.includes('training') || text.includes('experience')) return 'pressure';
+		if (text.includes('credentials')) return 'pressure';
+		if (text.includes('work pace') || text.includes('control of workload') || text.includes('work review')) return 'pressure';
+		if (text.includes('people skills') || text.includes('verbal interactions')) return 'support';
+		return 'neutral';
+	}
+
+	for (const row of rows) {
+		const occupation = cleanText(String(row.OCCUPATION ?? '')) ?? '';
+		const code = socMajorGroupKey(String(row['2018 SOC CODE'] ?? ''));
+		const category = cleanText(String(row.CATEGORY ?? '')) ?? '';
+		const requirement = cleanText(String(row.REQUIREMENT ?? '')) ?? '';
+		const estimateText = cleanText(String(row['ESTIMATE TEXT'] ?? '')) ?? '';
+		const estimateRaw = cleanText(String(row.ESTIMATE ?? '')) ?? '';
+		if (!code || !category || !estimateText) continue;
+		const normalized = `${category} ${requirement}`.toLowerCase();
+		if (!priority.some(token => normalized.includes(token))) continue;
+		const buckets = profiles.get(code) ?? [];
+		let bucket = buckets.find(entry => entry.occupation === occupation);
+		if (!bucket) {
+			bucket = { occupation, items: [] };
+			buckets.push(bucket);
+			profiles.set(code, buckets);
+		}
+		const label = category;
+		if (bucket.items.some(entry => entry.label === label && entry.value === estimateText)) continue;
+		bucket.items.push({
+			label,
+			value: estimateRaw ? `${estimateRaw}${estimateRaw.endsWith('%') ? '' : '%'}` : estimateText,
+			detail: occupation ? `${occupation}${requirement ? ` · ${requirement}` : ''} · ${estimateText}` : `${requirement || estimateText}`,
+			tone: toneFor(category, estimateText)
+		});
+	}
+
+	for (const [code, buckets] of profiles) {
+		for (const bucket of buckets) {
+			bucket.items.sort((left, right) => {
+				const leftIndex = priority.findIndex(token => `${left.label} ${left.detail ?? ''}`.toLowerCase().includes(token));
+				const rightIndex = priority.findIndex(token => `${right.label} ${right.detail ?? ''}`.toLowerCase().includes(token));
+				return (leftIndex === -1 ? priority.length : leftIndex) - (rightIndex === -1 ? priority.length : rightIndex);
+			});
+			bucket.items = bucket.items.slice(0, 8);
+		}
+		profiles.set(code, buckets);
+	}
+
+	return profiles;
 }
 
 function parseCpsAgeProfiles(): Array<{
-  title: string;
-  total: number;
+	title: string;
+	total: number;
   medianAge: number;
   under25Share: number;
   primeAgeShare: number;
@@ -396,21 +743,27 @@ function jobZoneSummary(zone: number | null): string | null {
 }
 
 function buildSupportEntries(): UnitedStatesSupportEntry[] {
-  const occupations = readJson<UnitedStatesOccupation[]>(US_OCCUPATIONS_FILE);
-  const occupationDataBySoc = parseOccupationData();
-  const jobZones = parseJobZones();
-  const taskStatements = parseTaskStatements();
-  const taskRatings = parseTaskRatings();
-  const penetrationByTask = parseAnthropicTaskPenetration(ANTHROPIC_TASKS_FILE);
-  const technologiesBySoc = parseTechnologySkills();
-  const workContextBySoc = parseWorkContext();
-  const cpsProfiles = parseCpsAgeProfiles();
+	const occupations = readJson<UnitedStatesOccupation[]>(US_OCCUPATIONS_FILE);
+	const occupationDataBySoc = parseOccupationData();
+	const jobZones = parseJobZones();
+	const taskStatements = parseTaskStatements();
+	const taskRatings = parseTaskRatings();
+	const penetrationByTask = parseAnthropicTaskPenetration(ANTHROPIC_TASKS_FILE);
+	const technologiesBySoc = parseTechnologySkills();
+	const workContextBySoc = parseWorkContext();
+	const oewsProfiles = parseOewsWageProfiles();
+	const projectionProfiles = parseSkillsProfiles();
+	const oohProfiles = parseOohProfiles();
+	const orsProfiles = parseOrsRequirementProfiles();
+	const cpsProfiles = parseCpsAgeProfiles();
 
-  return occupations.map(occupation => {
-    const soc = occupation.localCode;
-    const occupationData = occupationDataBySoc.get(soc) ?? null;
-    const jobZone = jobZones.get(soc)?.zone ?? null;
-    const taskRows = taskStatements.get(soc) ?? [];
+	return occupations.map(occupation => {
+		const soc = occupation.localCode;
+		const socKey = normalizeSocCode(soc);
+		const canonicalSoc = socMajorGroupKey(socKey);
+		const occupationData = occupationDataBySoc.get(soc) ?? null;
+		const jobZone = jobZones.get(soc)?.zone ?? null;
+		const taskRows = taskStatements.get(soc) ?? [];
     const weightedTasks = taskRows
       .map(taskRow => {
         const rating = taskRatings.get(`${soc}::${taskRow.taskId}`);
@@ -466,15 +819,75 @@ function buildSupportEntries(): UnitedStatesSupportEntry[] {
       .slice(0, 6)
       .map(({ score: _score, ...technology }) => technology);
 
-    const topWorkContext = [...(workContextBySoc.get(soc) ?? [])]
-      .sort((a, b) => b.value - a.value || a.label.localeCompare(b.label))
-      .slice(0, 6);
+		const topWorkContext = [...(workContextBySoc.get(soc) ?? [])]
+			.sort((a, b) => b.value - a.value || a.label.localeCompare(b.label))
+			.slice(0, 6);
 
-    const cpsMatch = cpsProfiles
-      .map(profile => ({
-        profile,
-        score: titleSimilarity(occupation.localTitle, profile.title)
-      }))
+		const wageProfile = oewsProfiles.get(socKey) ?? {
+			employment: null,
+			jobsPer1000: null,
+			meanAnnual: null,
+			medianAnnual: null,
+			medianHourly: null,
+			p10Annual: null,
+			p25Annual: null,
+			p75Annual: null,
+			p90Annual: null,
+			p10Hourly: null,
+			p25Hourly: null,
+			p75Hourly: null,
+			p90Hourly: null
+		};
+
+		const projectionProfile = projectionProfiles.get(socKey) ?? {
+			employment2024: null,
+			employment2034: null,
+			projectedChange: null,
+			projectedChangePct: null,
+			openings2024_2034: null,
+			medianWage2024: null,
+			education: null,
+			workExperience: null,
+			onTheJobTraining: null,
+			outlook: null,
+			relatedOOHContent: null,
+			topSkills: []
+		};
+
+		const narrativeProfile = oohProfiles.get(soc) ?? oohProfiles.get(socKey) ?? oohProfiles.get(canonicalSoc) ?? {
+			description: occupationData?.description ?? null,
+			whatTheyDo: null,
+			workEnvironment: null,
+			howToBecomeOne: null,
+			pay: null,
+			outlook: null,
+			similarOccupations: [],
+			entryLevelEducation: null,
+			workExperience: null,
+			onTheJobTraining: null,
+			medianPayAnnual: null,
+			medianPayHourly: null,
+			numberOfJobs: null,
+			employmentOutlook: null,
+			employmentOpenings: null
+		};
+
+		const orsBuckets = orsProfiles.get(canonicalSoc) ?? orsProfiles.get(socKey) ?? orsProfiles.get(soc) ?? [];
+		const requirementProfile =
+			orsBuckets
+				.slice()
+				.sort((left, right) => titleSimilarity(occupation.localTitle, right.occupation) - titleSimilarity(occupation.localTitle, left.occupation))[0]
+				?.items ?? [];
+
+		const skillsProfile = {
+			topSkills: projectionProfile.topSkills ?? []
+		};
+
+		const cpsMatch = cpsProfiles
+			.map(profile => ({
+				profile,
+				score: titleSimilarity(occupation.localTitle, profile.title)
+			}))
       .sort((a, b) => b.score - a.score || b.profile.total - a.profile.total)[0];
 
     const ageProfile = cpsMatch && cpsMatch.score >= 1
@@ -495,39 +908,57 @@ function buildSupportEntries(): UnitedStatesSupportEntry[] {
           matchScore: null
         };
 
-    return {
-      localCode: occupation.localCode,
-      localTitle: occupation.localTitle,
-      occupationDescription: occupationData?.description ?? null,
-      jobZone,
-      jobZoneLabel: jobZoneLabel(jobZone),
-      jobZoneSummary: jobZoneSummary(jobZone),
-      taskPrimitives: taskPrimitives ?? {
-        matched_task_weight_share: null,
-        task_effective_coverage: null,
-        task_exposure_concentration: null,
-        method: null
+		return {
+			localCode: occupation.localCode,
+			localTitle: occupation.localTitle,
+			occupationDescription: occupationData?.description ?? null,
+			jobZone,
+			jobZoneLabel: jobZoneLabel(jobZone),
+			jobZoneSummary: jobZoneSummary(jobZone),
+			wageProfile,
+			demandProfile: {
+				employment2024: projectionProfile.employment2024,
+				employment2034: projectionProfile.employment2034,
+				projectedChange: projectionProfile.projectedChange,
+				projectedChangePct: projectionProfile.projectedChangePct,
+				openings2024_2034: projectionProfile.openings2024_2034,
+				medianWage2024: projectionProfile.medianWage2024,
+				education: projectionProfile.education ?? narrativeProfile.entryLevelEducation,
+				workExperience: projectionProfile.workExperience ?? narrativeProfile.workExperience,
+				onTheJobTraining: projectionProfile.onTheJobTraining ?? narrativeProfile.onTheJobTraining,
+				outlook: projectionProfile.outlook ?? narrativeProfile.outlook,
+				relatedOOHContent: projectionProfile.relatedOOHContent
+			},
+			requirementProfile,
+			narrativeProfile,
+			skillsProfile,
+			taskPrimitives: taskPrimitives ?? {
+				matched_task_weight_share: null,
+				task_effective_coverage: null,
+				task_exposure_concentration: null,
+				method: null
       },
       topTasks,
       topTechnologies,
-      topWorkContext,
-      ageProfile,
-      note: `Built from O*NET occupation descriptions, task statements, technology skills, work context, Job Zones, Anthropic task penetration, and BLS CPS occupation age tables.`,
-      sourceVintage: 'O*NET 30.2 / CPS 2025 / Anthropic task penetration'
-    };
-  });
+			topWorkContext,
+			ageProfile,
+			note:
+				'Built from O*NET occupation descriptions, task statements, technology skills, work context, Job Zones, Anthropic task penetration, BLS OEWS wages, BLS projection tables, BLS ORS requirements, BLS OOH narrative content, BLS skills data, and BLS CPS occupation age tables.',
+			sourceVintage: 'O*NET 30.2 / OEWS 2024 / ORS 2025 / OOH 2025-08-28 / Projections 2024-34 / CPS 2025 / Anthropic task penetration'
+		};
+	});
 }
 
 function main() {
-  const entries = buildSupportEntries();
-  const payload = {
-    generated_at: new Date().toISOString(),
-    version: DATA_VINTAGE.model_version,
-    source_vintage: 'O*NET 30.2 / CPS 2025 / Anthropic task penetration',
-    note:
-      'US evidence-support bundle built from the checked-in public raw corpus. This is context, not a direct labor-market outcome.',
-    entries
-  };
+	const entries = buildSupportEntries();
+	const payload = {
+		generated_at: new Date().toISOString(),
+		version: DATA_VINTAGE.model_version,
+		source_vintage: 'O*NET 30.2 / OEWS 2024 / ORS 2025 / OOH 2025-08-28 / Projections 2024-34 / CPS 2025 / Anthropic task penetration',
+		note:
+			'US evidence-support bundle built from the checked-in public raw corpus. This is context, not a direct labor-market outcome.',
+		entries
+	};
 
   writeJson(OUT_FILE, payload);
   writeJson(SRC_OUT_FILE, payload);

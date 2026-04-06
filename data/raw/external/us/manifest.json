@@ -1,0 +1,30 @@
+{
+  "downloaded_at": "2026-04-06T14:13:05.216Z",
+  "source": "official_bls",
+  "files": [
+    {
+      "label": "ors-complete-dataset.xlsx",
+      "url": "https://www.bls.gov/web/ors/ors-complete-dataset.xlsx",
+      "path": "data/raw/external/us/ors-complete-dataset.xlsx",
+      "size_bytes": 6880047
+    },
+    {
+      "label": "ooh-xml-compilation.xml",
+      "url": "https://www.bls.gov/ooh/xml-compilation.xml",
+      "path": "data/raw/external/us/ooh-xml-compilation.xml",
+      "size_bytes": 13815226
+    },
+    {
+      "label": "occupation.xlsx",
+      "url": "https://www.bls.gov/emp/ind-occ-matrix/occupation.xlsx",
+      "path": "data/raw/external/us/occupation.xlsx",
+      "size_bytes": 407365
+    },
+    {
+      "label": "skills.xlsx",
+      "url": "https://www.bls.gov/emp/skills/skills.xlsx",
+      "path": "data/raw/external/us/skills.xlsx",
+      "size_bytes": 206605
+    }
+  ]
+}
