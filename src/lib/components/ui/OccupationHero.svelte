@@ -53,7 +53,9 @@
 		<div class="min-w-0">
 			<div class="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
 				<div class="min-w-0">
-					<h1 class={titleStyle({ size: 'page' })}>{title}</h1>
+					<h1 class={cn(titleStyle({ size: 'page' }), 'xl:whitespace-nowrap xl:leading-[0.95]')}>
+						{title}
+					</h1>
 					{#if pills.length > 0}
 						<div class="mt-1.5 flex flex-wrap items-center gap-2">
 							{#each pills as item (item.label)}
