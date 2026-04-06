@@ -166,6 +166,13 @@ const ARTIFACTS: ReleaseArtifactDefinition[] = [
 			'Published hybrid transition-support artifact combining the deterministic transition-capacity model with official Singapore transition-infrastructure context.'
 	},
 	{
+		file: 'countries/us/support.json',
+		label: 'United States evidence support bundle',
+		category: 'context_bundle',
+		description:
+			'Published United States evidence-support bundle combining O*NET descriptions, task primitives, technology skills, work context, Job Zones, Anthropic task penetration, and CPS age profile context.'
+	},
+	{
 		file: 'sg-offset-potential-v4.json',
 		label: 'Offset potential layer',
 		category: 'offset_potential',

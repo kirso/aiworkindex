@@ -383,16 +383,9 @@
 			</div>
 
 			<div class="min-w-0">
-				<div class="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
-					<div class="min-w-0">
-						<h1 class={titleStyle({ size: 'page' })}>{scored.title}</h1>
-						<p class={caption({ weight: 'medium' })}>{scored.description}</p>
-						<p class="mt-3 max-w-3xl text-[15px] leading-relaxed text-text-secondary">
-							{structural.summaryText}
-						</p>
-					</div>
-
-					<div class="flex items-center gap-2 shrink-0">
+				<div class="flex items-start justify-between gap-4">
+					<h1 class={cn(titleStyle({ size: 'page' }), 'min-w-0')}>{scored.title}</h1>
+					<div class="flex shrink-0 items-center gap-2">
 						<Button
 							variant="outline"
 							size="sm"
@@ -423,6 +416,10 @@
 						</Button>
 					</div>
 				</div>
+				<p class={caption({ weight: 'medium' })}>{scored.description}</p>
+				<p class="mt-3 max-w-3xl text-[15px] leading-relaxed text-text-secondary">
+					{structural.summaryText}
+				</p>
 
 				{#if scored.dispersion > 0.08}
 					<div class={cn(card({ padding: 'sm', variant: 'inset' }), 'mt-4')}>

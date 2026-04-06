@@ -134,6 +134,134 @@
 		</div>
 	</section>
 
+	{#if data.country.code === 'us' && data.occupation.support}
+		<section class="mt-8">
+			<p class={sectionLabel()}>Occupation profile</p>
+			<div class="mt-3 grid gap-3 lg:grid-cols-2">
+				<div class={card({ padding: 'sm' })}>
+					<p class="text-sm font-semibold text-foreground">Description</p>
+					<p class="mt-1 text-sm text-muted-foreground">
+						{data.occupation.support.occupationDescription ?? 'No O*NET description published.'}
+					</p>
+				</div>
+				<div class={card({ padding: 'sm' })}>
+					<p class="text-sm font-semibold text-foreground">Preparation profile</p>
+					<p class="mt-1 text-sm text-muted-foreground">
+						{#if data.occupation.support.jobZoneLabel}
+							Job Zone {data.occupation.support.jobZone} · {data.occupation.support.jobZoneLabel}
+						{:else}
+							No job zone published.
+						{/if}
+					</p>
+					{#if data.occupation.support.jobZoneSummary}
+						<p class="mt-2 text-sm text-muted-foreground">
+							{data.occupation.support.jobZoneSummary}
+						</p>
+					{/if}
+				</div>
+			</div>
+		</section>
+
+		<section class="mt-8">
+			<p class={sectionLabel()}>Tasks and tools</p>
+			<div class="mt-3 grid gap-3 lg:grid-cols-2">
+				<div class={card({ padding: 'sm' })}>
+					<p class="text-sm font-semibold text-foreground">Task coverage</p>
+					<p class="mt-1 text-sm text-muted-foreground">
+						{#if data.occupation.support.taskPrimitives.matched_task_weight_share != null}
+							Matched task weight share: {(data.occupation.support.taskPrimitives.matched_task_weight_share * 100).toFixed(0)}%
+							· Effective coverage: {(data.occupation.support.taskPrimitives.task_effective_coverage! * 100).toFixed(0)}%
+						{:else}
+							Task primitive coverage is not published for this occupation.
+						{/if}
+					</p>
+					{#if data.occupation.support.taskPrimitives.task_exposure_concentration != null}
+						<p class="mt-2 text-sm text-muted-foreground">
+							Concentration: {(data.occupation.support.taskPrimitives.task_exposure_concentration * 100).toFixed(0)}%
+						</p>
+					{/if}
+				</div>
+				<div class={card({ padding: 'sm' })}>
+					<p class="text-sm font-semibold text-foreground">Top technologies</p>
+					{#if data.occupation.support.topTechnologies.length > 0}
+						<div class="mt-2 flex flex-wrap gap-2">
+							{#each data.occupation.support.topTechnologies as technology (technology.name)}
+								<span class="rounded-full bg-muted px-2.5 py-1 text-xs text-foreground">
+									{technology.name}
+									{#if technology.hot}
+										· hot
+									{/if}
+									{#if technology.inDemand}
+										· in demand
+									{/if}
+								</span>
+							{/each}
+						</div>
+					{:else}
+						<p class="mt-1 text-sm text-muted-foreground">No technology context published.</p>
+					{/if}
+				</div>
+			</div>
+			<div class="mt-3 grid gap-3 lg:grid-cols-2">
+				<div class={card({ padding: 'sm' })}>
+					<p class="text-sm font-semibold text-foreground">Top tasks</p>
+					{#if data.occupation.support.topTasks.length > 0}
+						<ul class="mt-2 space-y-2 text-sm text-muted-foreground">
+							{#each data.occupation.support.topTasks as task, index (task.task)}
+								<li>
+									<span class="font-medium text-foreground">{index + 1}.</span>
+									{task.task}
+								</li>
+							{/each}
+						</ul>
+					{:else}
+						<p class="mt-1 text-sm text-muted-foreground">No task context published.</p>
+					{/if}
+				</div>
+				<div class={card({ padding: 'sm' })}>
+					<p class="text-sm font-semibold text-foreground">Work context</p>
+					{#if data.occupation.support.topWorkContext.length > 0}
+						<ul class="mt-2 space-y-2 text-sm text-muted-foreground">
+							{#each data.occupation.support.topWorkContext as item (item.label)}
+								<li>{item.label}: {item.value.toFixed(1)}/5</li>
+							{/each}
+						</ul>
+					{:else}
+						<p class="mt-1 text-sm text-muted-foreground">No work-context data published.</p>
+					{/if}
+				</div>
+			</div>
+		</section>
+
+		<section class="mt-8">
+			<p class={sectionLabel()}>Worker profile</p>
+			<div class="mt-3 grid gap-3 lg:grid-cols-2">
+				<div class={card({ padding: 'sm' })}>
+					<p class="text-sm font-semibold text-foreground">Age profile</p>
+					<p class="mt-1 text-sm text-muted-foreground">
+						{#if data.occupation.support.ageProfile.medianAge != null}
+							Median age: {data.occupation.support.ageProfile.medianAge.toFixed(1)}
+						{:else}
+							No CPS age profile published.
+						{/if}
+					</p>
+					{#if data.occupation.support.ageProfile.totalEmployment != null}
+						<p class="mt-2 text-sm text-muted-foreground">
+							Total employed: {data.occupation.support.ageProfile.totalEmployment.toLocaleString()}K
+							· Under 25: {(data.occupation.support.ageProfile.under25Share! * 100).toFixed(0)}%
+							· 25 to 54: {(data.occupation.support.ageProfile.primeAgeShare! * 100).toFixed(0)}%
+							· 55+: {(data.occupation.support.ageProfile.olderShare! * 100).toFixed(0)}%
+						</p>
+					{/if}
+				</div>
+				<div class={card({ padding: 'sm' })}>
+					<p class="text-sm font-semibold text-foreground">Support note</p>
+					<p class="mt-1 text-sm text-muted-foreground">{data.occupation.support.note}</p>
+				</div>
+			</div>
+		</section>
+	{/if}
+
 	{#if data.occupation.employment}
 		<section class="mt-8">
 			<p class={sectionLabel()}>Employment outlook</p>

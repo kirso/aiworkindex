@@ -1,6 +1,6 @@
 {
   "version": "V6",
-  "generated_at": "2026-04-06T09:57:41.761Z",
+  "generated_at": "2026-04-06T11:39:02.319Z",
   "score_dataset_generated_at": "2026-04-01",
   "artifacts": [
     {
@@ -164,6 +164,15 @@
       "bytes": 7811601,
       "sha256": "453715030dc32b23af33d20b498181b606d3b56dedaf1e477540fdc941e96000",
       "generated_at": "2026-03-21T16:09:26.085Z"
+    },
+    {
+      "file": "countries/us/support.json",
+      "label": "United States evidence support bundle",
+      "category": "context_bundle",
+      "description": "Published United States evidence-support bundle combining O*NET descriptions, task primitives, technology skills, work context, Job Zones, Anthropic task penetration, and CPS age profile context.",
+      "bytes": 2219594,
+      "sha256": "1932a3ba521cbc6bdf4a9178eb9cac12d1b7b9d804f9c714465d4bfadb24e37c",
+      "generated_at": "2026-04-06T11:38:41.929Z"
     },
     {
       "file": "sg-offset-potential-v4.json",

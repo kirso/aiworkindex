@@ -51,34 +51,31 @@
 		</div>
 
 		<div class="min-w-0">
-			<div class="flex flex-col gap-4">
+			<div class="flex items-start justify-between gap-4">
+				<h1 class={cn(titleStyle({ size: 'page' }), 'min-w-0 xl:whitespace-nowrap xl:leading-[0.95]')}>
+					{title}
+				</h1>
 				{#if actions}
-					<div class="flex shrink-0 items-center justify-end gap-2">
+					<div class="flex shrink-0 items-center gap-2">
 						{@render actions()}
 					</div>
 				{/if}
-
-				<div class="min-w-0">
-					<h1 class={cn(titleStyle({ size: 'page' }), 'xl:whitespace-nowrap xl:leading-[0.95]')}>
-						{title}
-					</h1>
-					{#if pills.length > 0}
-						<div class="mt-1.5 flex flex-wrap items-center gap-2">
-							{#each pills as item (item.label)}
-								<span class={pill({ tone: item.tone ?? 'muted' })}>{item.label}</span>
-							{/each}
-						</div>
-					{/if}
-					<p class={cn(body({ size: 'lg', tone: 'subtle' }), 'mt-3 max-w-3xl')}>{summary}</p>
-					{#if meta.length > 0}
-						<div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1">
-							{#each meta as line (line)}
-								<span class={caption()}>{line}</span>
-							{/each}
-						</div>
-					{/if}
-				</div>
 			</div>
+			{#if pills.length > 0}
+				<div class="mt-1.5 flex flex-wrap items-center gap-2">
+					{#each pills as item (item.label)}
+						<span class={pill({ tone: item.tone ?? 'muted' })}>{item.label}</span>
+					{/each}
+				</div>
+			{/if}
+			<p class={cn(body({ size: 'lg', tone: 'subtle' }), 'mt-3 max-w-3xl')}>{summary}</p>
+			{#if meta.length > 0}
+				<div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1">
+					{#each meta as line (line)}
+						<span class={caption()}>{line}</span>
+					{/each}
+				</div>
+			{/if}
 		</div>
 	</div>
 </div>

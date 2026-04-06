@@ -1,6 +1,7 @@
 import { occupations } from './index';
 import { countryConfigs, type CountryCode } from './country-config';
 import { usOccupations } from './countries/us/occupations';
+import { usSupportByCode, type UnitedStatesOccupationSupport } from './countries/us/support';
 import type { RiskBand } from './index';
 
 export type SupportedCountryPageCode = Exclude<CountryCode, 'global' | 'uk' | 'ca'>;
@@ -26,6 +27,7 @@ export interface CountryOccupationPageRow {
 		openings: number | null;
 		projectedChangePct: number | null;
 	};
+	support?: UnitedStatesOccupationSupport | null;
 	sourceOccupations?: string[];
 }
 
@@ -73,6 +75,7 @@ function buildUnitedStatesRows(): CountryOccupationPageRow[] {
 		currency: occupation.wage.currency,
 		mappingMethod: occupation.mappingMethod,
 		employment: occupation.employment,
+		support: usSupportByCode.get(occupation.localCode) ?? null,
 		sourceOccupations: occupation.sourceOccupations
 	}));
 }
