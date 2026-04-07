@@ -81,7 +81,7 @@
 		<div class={card({ padding: 'sm', accent: 'primary' })}>
 			<p class={cn(sectionLabel({ case: 'upper' }), 'text-primary')}>Offset & Support</p>
 			<p class={cn(caption(), 'mt-1')}>
-				Separate support layers. Offset potential, transition pathways, SkillsFuture programmes, and
+				Separate support layers. Offset potential, transition pathways, official skills programmes (e.g. SkillsFuture for Singapore), and
 				scenario guidance. Useful context, not a forecast.
 			</p>
 		</div>

@@ -192,7 +192,7 @@
 	</div>
 
 	<section class="mb-8 mt-8">
-		<p class={sectionLabel()}>Global Legitimation Rules</p>
+		<p class={sectionLabel()}>Design Principles</p>
 		<div class="mt-3 grid gap-3 md:grid-cols-2">
 			{#each globalMethodology.principles as item}
 				<div class={card({ padding: 'sm' })}>
@@ -204,7 +204,7 @@
 	</section>
 
 	<section class="mb-8">
-		<p class={sectionLabel()}>Country Launch Bar</p>
+		<p class={sectionLabel()}>Country Readiness</p>
 		<div class="mt-3 grid gap-3 md:grid-cols-2">
 			{#each globalMethodology.countryReadiness as country}
 				<div class={card({ padding: 'sm' })}>
@@ -318,7 +318,7 @@
 							<tr class="border-b border-border/50">
 								<td class="py-2 pr-3 font-medium">Demand Resilience</td>
 								<td class="py-2 pr-3">Base resilience plus occupation-level demand bonuses</td>
-								<td class="py-2">MOM employment/wage trends + scarcity + SOL / JiD</td>
+								<td class="py-2">Country employment/wage trends (e.g. MOM for Singapore) + scarcity + SOL / JiD</td>
 							</tr>
 							<tr>
 								<td class="py-2 pr-3 font-medium">Headline Risk</td>
@@ -1298,7 +1298,7 @@
 
 			<!-- Crosswalk -->
 			<section class="mb-8">
-				<p class={sectionLabel()}>Crosswalk: Singapore to US Scores</p>
+				<p class={sectionLabel()}>Crosswalk: National Codes to ISCO-08</p>
 				<p class="mt-2 text-sm text-muted-foreground">
 					AIOE and theta scores originate from US O*NET data. We map Singapore's SSOC occupations to
 					these scores via:

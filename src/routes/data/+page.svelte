@@ -68,9 +68,9 @@
 		{
 			name: 'ssoc',
 			type: 'string',
-			description: 'Singapore Standard Occupational Classification code (5-digit detail code).'
+			description: '[Singapore] Singapore Standard Occupational Classification code (5-digit detail code).'
 		},
-		{ name: 'title', type: 'string', description: 'Occupation title from MOM classification.' },
+		{ name: 'title', type: 'string', description: 'Occupation title from the national classification (MOM for Singapore).' },
 		{
 			name: 'major_group',
 			type: 'string',
@@ -79,7 +79,7 @@
 		{
 			name: 'gross_wage_median',
 			type: 'number',
-			description: 'Median gross monthly wage in local currency from MOM 2024.'
+			description: 'Median gross monthly wage in local currency from MOM 2024 (Singapore).'
 		},
 		{
 			name: 'gross_wage_25th',
@@ -101,7 +101,7 @@
 			name: 'estimated_sg_employment_thousands',
 			type: 'number',
 			description:
-				'Est. Singapore employment for this occupation, derived from published Labour Force 2025 2-digit occupation-family totals and weighted within each family using BLS proxy employment plus Singapore wage information. Not an official occupation headcount.'
+				'[Singapore only] Est. Singapore employment for this occupation, derived from published Labour Force 2025 2-digit occupation-family totals and weighted within each family using BLS proxy employment plus Singapore wage information. Not an official occupation headcount.'
 		},
 		{
 			name: 'employment_basis',
@@ -628,7 +628,7 @@
 		</div>
 		<div class={cn(card({ variant: 'metric', padding: 'sm' }))}>
 			<p class={microLabel()}>
-				Retained shadow trail
+				Legacy model comparison
 			</p>
 			<p class="mt-1 text-sm font-semibold text-foreground">
 				{experimentalStatusLabel(siteStatus.experimental_release?.status)}
@@ -748,7 +748,7 @@
 						<polyline points="7,10 12,15 17,10"/>
 						<line x1="12" y1="15" x2="12" y2="3"/>
 					</svg>
-					<span class="text-base font-semibold text-foreground">V4.3 Promotion Trail</span>
+					<span class="text-base font-semibold text-foreground">V4.3 Audit Trail</span>
 				</div>
 				<p class="mt-1 text-sm text-muted-foreground">
 					Shadow-governance status, promotion history, and the retained audit trail behind the live
@@ -766,7 +766,7 @@
 						<polyline points="7,10 12,15 17,10"/>
 						<line x1="12" y1="15" x2="12" y2="3"/>
 					</svg>
-					<span class="text-base font-semibold text-foreground">V4.3 Shadow Scores</span>
+					<span class="text-base font-semibold text-foreground">V4.3 Comparison Scores</span>
 				</div>
 				<p class="mt-1 text-sm text-muted-foreground">
 					Task-adjusted comparison scores published alongside the live baseline for validation and promotion review.
@@ -817,7 +817,7 @@
 						<path d="M4 12h16"/>
 						<path d="M4 18h16"/>
 					</svg>
-					<span class="text-base font-semibold text-foreground">V5 Sidecars</span>
+					<span class="text-base font-semibold text-foreground">V5 Supplementary Data</span>
 				</div>
 				<p class="mt-1 text-sm text-muted-foreground">
 					Published V5 workstream summary covering augmentation heterogeneity, empirical mobility,

@@ -207,9 +207,6 @@
 					{(seniorityAdjustedRisk * 100).toFixed(0)}%
 				</p>
 				<p class={caption({ class: 'mt-1' })}>of tasks overlap with current AI capabilities</p>
-				<p class="mt-2 text-xs text-muted-foreground/80 italic">
-					This measures task overlap with current AI capabilities, not predicted income change.
-				</p>
 				<p class="mt-3 text-base font-mono font-semibold text-muted-foreground">
 					{selectedEntry && 'currency' in selectedEntry && selectedEntry.currency
 						? selectedEntry.currency
