@@ -1,3 +1,4 @@
+import { browser } from '$app/environment';
 import type { PageLoad } from './$types';
 import {
 	getHomeSurface,
@@ -6,7 +7,8 @@ import {
 } from '$lib/data/home-surface';
 
 export const load: PageLoad = ({ url }) => {
-	const selectedSurface = resolveHomeSurfaceCode(url.searchParams.get('surface'));
+	const surfaceParam = browser ? url.searchParams.get('surface') : null;
+	const selectedSurface = resolveHomeSurfaceCode(surfaceParam);
 	const surface = getHomeSurface(selectedSurface);
 
 	return {
