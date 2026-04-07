@@ -9,75 +9,89 @@
 	import { countryConfigs } from '$lib/data/country-config';
 	import { globalMethodology } from '$lib/data/global-methodology';
 	import { riskBandLabels } from '$lib/data';
-	import { pageLayout, card, section, title as titleStyle, body, caption, mono, microLabel } from '$lib/design-system';
+	import {
+		pageLayout,
+		card,
+		section,
+		sectionLabel,
+		title as titleStyle,
+		body,
+		caption,
+		mono
+	} from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import { toast } from 'svelte-sonner';
-	import { buildGlobalOccupationAlternates, findSingaporeEquivalent, findUnitedStatesEquivalent } from '$lib/data/occupation-alternates';
+	import {
+		buildGlobalOccupationAlternates,
+		findSingaporeEquivalent,
+		findUnitedStatesEquivalent
+	} from '$lib/data/occupation-alternates';
 
 	let { data } = $props();
 	const alternates = $derived(buildGlobalOccupationAlternates(data.occupation.canonicalCode));
 	const sgEquivalent = $derived(findSingaporeEquivalent(data.occupation.canonicalCode));
 	const usEquivalent = $derived(findUnitedStatesEquivalent(data.occupation.canonicalCode));
 
+	const clamp01 = (v: number) => Math.max(0, Math.min(1, v));
+	const pressureBarClass = (v: number) =>
+		v >= 0.5 ? 'bg-risk-very-high' : v >= 0.3 ? 'bg-risk-high' : v >= 0.15 ? 'bg-risk-moderate' : 'bg-risk-very-low';
+	const confidenceBarClass = (v: number) =>
+		v >= 0.7 ? 'bg-risk-very-low' : v >= 0.4 ? 'bg-risk-moderate' : 'bg-risk-high';
+
 	const structuralSignals = $derived<SignalProfileItem[]>([
 		{
 			label: 'Exposure',
 			value: `${(data.occupation.exposure * 100).toFixed(0)}%`,
-			barValue: data.occupation.exposure,
-			barClass: 'bg-risk-high',
-			note: 'Observed task exposure and research evidence across the shared spine'
+			barValue: clamp01(data.occupation.exposure),
+			barClass: pressureBarClass(data.occupation.exposure),
+			note: 'Weighted AI task overlap from the shared ISCO-08 spine'
 		},
 		{
 			label: 'Bottleneck',
 			value: `${(data.occupation.bottleneck * 100).toFixed(0)}%`,
-			barValue: 1 - data.occupation.bottleneck,
-			barClass: 'bg-impact-leveraged',
-			note: 'Higher values mean more human friction protects the occupation'
+			barValue: clamp01(data.occupation.bottleneck),
+			barClass: confidenceBarClass(data.occupation.bottleneck),
+			note: 'Human coordination and physical presence protection'
 		},
 		{
 			label: 'Structural pressure',
 			value: `${(data.occupation.structuralPressure * 100).toFixed(0)}%`,
-			barValue: data.occupation.structuralPressure,
-			barClass: 'bg-impact-leveraged',
-			note: 'Shared ISCO-08 structural score'
+			barValue: clamp01(data.occupation.structuralPressure),
+			barClass: pressureBarClass(data.occupation.structuralPressure),
+			note: 'exposure × (1 − bottleneck)'
 		}
 	]);
 
 	const confidenceSignals = $derived<SignalProfileItem[]>([
 		{
 			label: 'Crosswalk quality',
-			value: `${(data.occupation.confidence.crosswalk_quality * 100).toFixed(0)}%`,
-			barValue: data.occupation.confidence.crosswalk_quality,
-			barClass: 'bg-impact-leveraged',
-			note: 'Mapping fidelity from source occupations into the canonical spine'
+			value: `${(((data.occupation.confidence.crosswalk_quality ?? 0)) * 100).toFixed(0)}%`,
+			barValue: clamp01(data.occupation.confidence.crosswalk_quality ?? 0),
+			barClass: confidenceBarClass(data.occupation.confidence.crosswalk_quality ?? 0)
 		},
 		{
 			label: 'Source coverage',
-			value: `${(data.occupation.confidence.source_coverage * 100).toFixed(0)}%`,
-			barValue: data.occupation.confidence.source_coverage,
-			barClass: 'bg-impact-leveraged',
-			note: 'How many exposure sources are present'
+			value: `${((data.occupation.confidence.source_coverage ?? 0) * 100).toFixed(0)}%`,
+			barValue: clamp01(data.occupation.confidence.source_coverage ?? 0),
+			barClass: confidenceBarClass(data.occupation.confidence.source_coverage ?? 0)
 		},
 		{
 			label: 'Signal agreement',
-			value: `${(data.occupation.confidence.signal_agreement * 100).toFixed(0)}%`,
-			barValue: data.occupation.confidence.signal_agreement,
-			barClass: 'bg-risk-moderate',
-			note: 'Cross-source agreement between exposure estimates'
+			value: `${((data.occupation.confidence.signal_agreement ?? 0) * 100).toFixed(0)}%`,
+			barValue: clamp01(data.occupation.confidence.signal_agreement ?? 0),
+			barClass: confidenceBarClass(data.occupation.confidence.signal_agreement ?? 0)
 		},
 		{
 			label: 'Source freshness',
-			value: `${(data.occupation.confidence.source_freshness * 100).toFixed(0)}%`,
-			barValue: data.occupation.confidence.source_freshness,
-			barClass: 'bg-risk-moderate',
-			note: 'How recent the exposure sources are'
+			value: `${((data.occupation.confidence.source_freshness ?? 0) * 100).toFixed(0)}%`,
+			barValue: clamp01(data.occupation.confidence.source_freshness ?? 0),
+			barClass: confidenceBarClass(data.occupation.confidence.source_freshness ?? 0)
 		},
 		{
 			label: 'Sensitivity',
-			value: `${(data.occupation.confidence.sensitivity * 100).toFixed(0)}%`,
-			barValue: data.occupation.confidence.sensitivity,
-			barClass: 'bg-risk-moderate',
-			note: 'How much the score moves under perturbation'
+			value: `${((data.occupation.confidence.sensitivity ?? 0) * 100).toFixed(0)}%`,
+			barValue: clamp01(data.occupation.confidence.sensitivity ?? 0),
+			barClass: confidenceBarClass(data.occupation.confidence.sensitivity ?? 0)
 		}
 	]);
 
@@ -115,7 +129,8 @@
 		]}
 	/>
 
-	<div class={cn(card({ padding: 'lg' }), 'mt-6')}>
+	<!-- ===== BLOCK 1: THE VERDICT ===== -->
+	<div class={cn(card({ padding: 'lg' }), section({ spacing: 'loose' }))}>
 		<OccupationHero
 			scoreLabel="Structural pressure"
 			scoreValue={`${(data.occupation.structuralPressure * 100).toFixed(0)}%`}
@@ -142,35 +157,34 @@
 		</OccupationHero>
 	</div>
 
-	<section class={cn(section({ spacing: 'loose' }), 'mt-8')}>
-		<div class="flex items-center gap-2">
+	<!-- ===== BLOCK 2: WHY THIS SCORE ===== -->
+	<section class={section({ spacing: 'loose' })}>
+		<h2 class={cn(titleStyle({ size: 'subsection' }), 'mb-3 flex items-center gap-2')}>
 			<span class="h-4 w-1 rounded-full bg-primary"></span>
-			<h2 class={titleStyle({ size: 'subsection' })}>Why This Score</h2>
-		</div>
-		<div class="mt-3 grid gap-6 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
-			<div class={card({ padding: 'sm' })}>
-				<SignalProfileGrid items={structuralSignals} columns={3} />
-				<p class={cn(body({ size: 'sm', tone: 'subtle' }), 'mt-4')}>
-					structural_pressure = exposure × (1 − bottleneck)
-				</p>
-				<p class={cn(caption(), 'mt-1')}>
-					Comparable exposure and bottleneck are blended on the canonical spine; local labour-market
-					context is intentionally excluded here.
-				</p>
-			</div>
-			<div class="space-y-3">
-				<div class={card({ padding: 'sm' })}>
-					<p class={microLabel()}>Footprint</p>
-					<p class="mt-1 text-2xl font-semibold text-foreground">
-						{data.occupation.structuralFootprint.toLocaleString()} mapped occupations
+			Why This Score
+		</h2>
+		<div class={card({ padding: 'md' })}>
+			<SignalProfileGrid items={structuralSignals} columns={3} />
+			<p class={cn(caption(), 'mt-4')}>
+				structural_pressure = exposure × (1 − bottleneck).
+				Comparable exposure and bottleneck are blended on the canonical spine; local labour-market
+				context is intentionally excluded here.
+				<a href="/methodology" class="text-primary hover:underline">How this works</a>
+			</p>
+			<div class="mt-4 pt-4 border-t border-border grid gap-4 sm:grid-cols-2">
+				<div>
+					<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>Structural footprint</p>
+					<p class={body({ tone: 'muted' })}>
+						{data.occupation.structuralFootprint.toLocaleString()} source occupations roll up into this
+						canonical occupation.
 					</p>
-					<p class={cn(caption(), 'mt-2')}>
+					<p class={cn(mono({ size: 'sm' }), 'mt-2 text-muted-foreground')}>
 						{data.occupation.sourceOccupationCodes.join(' · ')}
 					</p>
 				</div>
-				<div class={card({ padding: 'sm' })}>
-					<p class={microLabel()}>Comparable spine</p>
-					<p class={cn(body({ size: 'sm', tone: 'subtle' }), 'mt-1')}>
+				<div>
+					<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>Comparable spine</p>
+					<p class={body({ tone: 'muted' })}>
 						The canonical ISCO-08 occupation keeps the score comparable across countries while the
 						local layers remain separate.
 					</p>
@@ -179,29 +193,25 @@
 		</div>
 	</section>
 
-	<section class={cn(section({ spacing: 'loose' }), 'mt-8')}>
-		<div class="flex items-center gap-2">
+	<!-- ===== BLOCK 3: EVIDENCE QUALITY ===== -->
+	<section class={section({ spacing: 'loose' })}>
+		<h2 class={cn(titleStyle({ size: 'subsection' }), 'mb-3 flex items-center gap-2')}>
 			<span class="h-4 w-1 rounded-full bg-impact-leveraged"></span>
-			<h2 class={titleStyle({ size: 'subsection' })}>Evidence Quality</h2>
-		</div>
-		<div class="mt-3 grid gap-6 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
-			<div class={card({ padding: 'sm' })}>
-				<SignalProfileGrid items={confidenceSignals} columns={3} />
-			</div>
-			<div class="space-y-3">
-				<div class={card({ padding: 'sm' })}>
-					<p class={microLabel()}>Exposure sources</p>
-					<p class="mt-1 text-2xl font-semibold text-foreground">
-						{data.occupation.confidence.exposure_source_count} source families
-					</p>
-					<p class={cn(caption(), 'mt-2')}>
-						Publish the score only when source coverage, crosswalk quality, and signal agreement are
-						all sufficiently strong.
+			Evidence Quality
+		</h2>
+		<div class={card({ padding: 'md' })}>
+			<SignalProfileGrid items={confidenceSignals} columns={3} />
+			<div class="mt-4 pt-4 border-t border-border grid gap-4 sm:grid-cols-2">
+				<div>
+					<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>Exposure sources</p>
+					<p class={body({ tone: 'muted' })}>
+						{data.occupation.confidence.exposure_source_count} source families contribute to the
+						exposure estimate for this occupation.
 					</p>
 				</div>
-				<div class={card({ padding: 'sm' })}>
-					<p class={microLabel()}>Confidence level</p>
-					<p class={cn(body({ size: 'sm', tone: 'subtle' }), 'mt-1')}>
+				<div>
+					<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>Confidence level</p>
+					<p class={body({ tone: 'muted' })}>
 						{data.occupation.confidenceLevel === 'high'
 							? 'The global structural record is currently stable and well covered.'
 							: data.occupation.confidenceLevel === 'medium'
@@ -213,91 +223,93 @@
 		</div>
 	</section>
 
-	<section class={cn(section({ spacing: 'loose' }), 'mt-8')}>
-		<div class="flex items-center gap-2">
-			<span class="h-4 w-1 rounded-full bg-risk-very-low"></span>
-			<h2 class={titleStyle({ size: 'subsection' })}>Country Views</h2>
-		</div>
-		<div class="mt-3 grid gap-3 md:grid-cols-2">
-			{#if sgEquivalent}
-				<a href={`/occupation/${sgEquivalent}`} class="block">
-					<div class={card({ padding: 'sm' })}>
-						<p class="text-sm font-semibold text-foreground">Singapore view</p>
-						<p class={cn(body({ size: 'sm', tone: 'subtle' }), 'mt-1')}>
-							Open the live reference market view for this occupation.
-						</p>
-						<p class={cn(caption(), 'mt-2')}>
-							Equivalent code: <span class={mono({ size: 'sm' })}>{sgEquivalent}</span>
-						</p>
-					</div>
-				</a>
-			{/if}
-			{#if usEquivalent}
-				<a href={`/us/occupation/${usEquivalent}`} class="block">
-					<div class={card({ padding: 'sm' })}>
-						<p class="text-sm font-semibold text-foreground">United States view</p>
-						<p class={cn(body({ size: 'sm', tone: 'subtle' }), 'mt-1')}>
-							Open the US occupation layer built from BLS, O*NET, and supporting public sources.
-						</p>
-						<p class={cn(caption(), 'mt-2')}>
-							Equivalent code: <span class={mono({ size: 'sm' })}>{usEquivalent}</span>
-						</p>
-					</div>
-				</a>
-			{/if}
-		</div>
-		<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'primary' }), 'mt-3')}>
-			<p class={cn(body({ size: 'sm', tone: 'subtle' }))}>
-				Source occupation codes: <span class={mono({ size: 'sm' })}>{data.occupation.sourceOccupationCodes.join(' · ')}</span>
-			</p>
-		</div>
-	</section>
-
-	<section class={cn(section({ spacing: 'loose' }), 'mt-8')}>
-		<Collapsible.Root class={cn(card({ padding: 'none' }), section({ spacing: 'loose' }))}>
-			<Collapsible.Trigger
-				class={cn(
-					'flex w-full items-center justify-between px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:text-foreground',
-					microLabel()
-				)}
-			>
-				Technical Details · Global baseline
-				<svg
-					class="h-3.5 w-3.5 transition-transform [[data-state=open]>&]:rotate-180"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-				>
-					<path d="m6 9 6 6 6-6"></path>
-				</svg>
-			</Collapsible.Trigger>
-			<Collapsible.Content class="border-t border-border px-5 py-4 space-y-4">
-				<div class="grid gap-3 lg:grid-cols-2">
-					<div class={card({ padding: 'sm' })}>
-						<p class={microLabel()}>Method contract</p>
-						<p class={cn(body({ size: 'sm', tone: 'subtle' }), 'mt-1')}>{globalMethodology.structuralFormula}</p>
-						<p class={cn(body({ size: 'sm', tone: 'subtle' }), 'mt-2')}>{globalMethodology.localFormula}</p>
-					</div>
-					<div class={card({ padding: 'sm' })}>
-						<p class={microLabel()}>Source vintage</p>
-						<p class={cn(body({ size: 'sm', tone: 'subtle' }), 'mt-1')}>
-							{data.occupation.dataVintage}
-						</p>
-						<p class={cn(caption(), 'mt-2')}>
-							Global structural baseline; local demand and wage layers are intentionally excluded here.
-						</p>
-					</div>
+	<!-- ===== BLOCK 4: COUNTRY VIEWS ===== -->
+	{#if sgEquivalent || usEquivalent}
+		<section class={section({ spacing: 'loose' })}>
+			<h2 class={cn(titleStyle({ size: 'subsection' }), 'mb-3 flex items-center gap-2')}>
+				<span class="h-4 w-1 rounded-full bg-risk-very-low"></span>
+				Country Views
+			</h2>
+			<div class={card({ padding: 'md' })}>
+				<div class="grid gap-4 sm:grid-cols-2">
+					{#if sgEquivalent}
+						<a
+							href={`/occupation/${sgEquivalent}`}
+							class={cn(
+								card({ padding: 'sm', variant: 'inset' }),
+								'block hover:bg-accent hover:shadow-sm transition-all group'
+							)}
+						>
+							<p class={cn(body(), 'font-medium text-foreground')}>
+								Singapore view
+								<span class="opacity-0 group-hover:opacity-100 transition-opacity text-primary">→</span>
+							</p>
+							<p class={cn(caption(), 'mt-1')}>
+								Open the live reference market view with wages, labour monitor, and transition pathways.
+							</p>
+							<p class={cn(mono({ size: 'sm' }), 'mt-2 text-muted-foreground')}>SSOC {sgEquivalent}</p>
+						</a>
+					{/if}
+					{#if usEquivalent}
+						<a
+							href={`/us/occupation/${usEquivalent}`}
+							class={cn(
+								card({ padding: 'sm', variant: 'inset' }),
+								'block hover:bg-accent hover:shadow-sm transition-all group'
+							)}
+						>
+							<p class={cn(body(), 'font-medium text-foreground')}>
+								United States view
+								<span class="opacity-0 group-hover:opacity-100 transition-opacity text-primary">→</span>
+							</p>
+							<p class={cn(caption(), 'mt-1')}>
+								US occupation layer with BLS wages, O*NET tasks, and employment projections.
+							</p>
+							<p class={cn(mono({ size: 'sm' }), 'mt-2 text-muted-foreground')}>SOC {usEquivalent}</p>
+						</a>
+					{/if}
 				</div>
+			</div>
+		</section>
+	{/if}
 
-				<div class={card({ padding: 'sm', variant: 'notice', accent: 'moderate' })}>
-					<p class="text-sm font-semibold text-foreground">What is not shown</p>
-					<p class={cn(body({ size: 'sm', tone: 'subtle' }), 'mt-1')}>
-						This global page does not publish wages, labour monitor context, policy overlays, or local
-						demand offsets. Those belong in country pages only.
-					</p>
+	<!-- ===== TECHNICAL DETAILS (collapsible) ===== -->
+	<Collapsible.Root class={cn(card({ padding: 'none' }), section({ spacing: 'loose' }))}>
+		<Collapsible.Trigger
+			class={cn(
+				sectionLabel(),
+				'flex w-full items-center justify-between px-5 py-3 hover:text-foreground transition-colors'
+			)}
+		>
+			Technical Details · ISCO {data.occupation.canonicalCode}
+			<svg
+				class="h-3.5 w-3.5 transition-transform [[data-state=open]>&]:rotate-180"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"><path d="m6 9 6 6 6-6" /></svg>
+		</Collapsible.Trigger>
+		<Collapsible.Content
+			class="border-t border-border px-5 py-4 text-xs text-muted-foreground space-y-3"
+		>
+			<div class="grid gap-3 sm:grid-cols-2">
+				<div>
+					<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>Method contract</p>
+					<p>{globalMethodology.structuralFormula}</p>
+					<p class="mt-1">{globalMethodology.localFormula}</p>
 				</div>
-			</Collapsible.Content>
-		</Collapsible.Root>
-	</section>
+				<div>
+					<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>Source vintage</p>
+					<p>{data.occupation.dataVintage}</p>
+				</div>
+			</div>
+			<div class="pt-3 border-t border-border">
+				<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>What is not shown</p>
+				<p>
+					This global page does not publish wages, labour monitor context, policy overlays, or local
+					demand offsets. Those belong in country pages only.
+				</p>
+			</div>
+		</Collapsible.Content>
+	</Collapsible.Root>
 </div>

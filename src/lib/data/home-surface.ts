@@ -421,7 +421,7 @@ export function getHomeSurface(code: HomeSurfaceCode): HomeSurface {
 			valueLabel: 'median wage',
 			chartNotes: {
 				treemap: 'Size = median wage · Colour = headline risk',
-				matrix: 'Headline risk vs demand resilience',
+				matrix: 'Structural pressure vs demand resilience',
 				histogram: 'Headline risk distribution'
 			},
 			metrics: buildCountryMetrics(items, countryConfigs.us.currency ?? 'USD', countryConfigs.us.wagePeriod ?? 'annual'),

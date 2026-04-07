@@ -17,7 +17,7 @@
 	} = $props();
 
 	let containerEl: HTMLDivElement | undefined = $state();
-	let chartWidth = $state(600);
+	let chartWidth = $state(0);
 
 	$effect(() => {
 		if (!browser || !containerEl) return;
@@ -75,8 +75,8 @@
 	}
 </script>
 
-<div bind:this={containerEl}>
-	{#if browser}
+<div bind:this={containerEl} class="overflow-hidden">
+	{#if browser && chartWidth > 0}
 		<svg
 			viewBox="0 0 {chartWidth} {chartHeight}"
 			class="block w-full"

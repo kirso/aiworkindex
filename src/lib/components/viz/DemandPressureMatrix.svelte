@@ -27,6 +27,7 @@
 	let {
 		occupations,
 		surfaceLabel = 'selected surface',
+		xAccessor = 'net_risk',
 		xAxisLabel = 'Structural AI Pressure',
 		yAxisLabel = 'Demand Signal Strength',
 		quadrantLabels = [
@@ -38,14 +39,15 @@
 	}: {
 		occupations: MatrixRow[];
 		surfaceLabel?: string;
+		xAccessor?: 'net_risk' | 'structuralPressure';
 		xAxisLabel?: string;
 		yAxisLabel?: string;
 		quadrantLabels?: QuadrantLabel[];
 	} = $props();
 
 	let containerEl: HTMLDivElement | undefined = $state();
-	let width = $state(800);
-	let height = $state(500);
+	let width = $state(0);
+	let height = $state(0);
 
 	const margin = { top: 30, right: 30, bottom: 50, left: 55 };
 
@@ -120,6 +122,7 @@
 	}
 
 	function riskValue(occ: MatrixRow): number {
+		if (xAccessor === 'structuralPressure') return occ.structuralPressure ?? 0;
 		return occ.net_risk ?? occ.structuralPressure ?? 0;
 	}
 
@@ -131,8 +134,8 @@
 	} as const;
 </script>
 
-<div bind:this={containerEl} class="relative w-full">
-	{#if browser}
+<div bind:this={containerEl} class="relative w-full overflow-hidden">
+	{#if browser && width > 0}
 		<svg
 			{width}
 			{height}

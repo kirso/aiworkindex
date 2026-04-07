@@ -42,8 +42,8 @@
 	} = $props();
 
 	let containerEl: HTMLDivElement | undefined = $state();
-	let width = $state(800);
-	let height = $state(600);
+	let width = $state(0);
+	let height = $state(0);
 
 	// Zoom state: null = overview of all groups, string = zoomed into a group
 	let zoomedGroup: string | null = $state(null);
@@ -239,7 +239,7 @@
 	let fadeDuration = $derived(prefersReducedMotion.current ? 0 : 200);
 </script>
 
-<div bind:this={containerEl} class="relative w-full">
+<div bind:this={containerEl} class="relative w-full overflow-hidden">
 	{#if zoomedGroup}
 		<button
 			onclick={handleBack}
@@ -255,7 +255,7 @@
 			<p class="mb-2 text-sm text-muted-foreground">Click a group to explore its occupations.</p>
 	{/if}
 
-	{#if browser}
+	{#if browser && width > 0}
 		{#if !zoomedGroup}
 			<!-- OVERVIEW: Major group rectangles -->
 			<div in:fade={{ duration: fadeDuration }}>
@@ -385,7 +385,7 @@
 			{/if}
 		</div>
 	{:else}
-		<div class="flex h-96 items-center justify-center bg-muted text-muted-foreground">
+		<div class="flex h-96 items-center justify-center text-muted-foreground">
 			Loading visualization...
 		</div>
 	{/if}

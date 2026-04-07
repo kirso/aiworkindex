@@ -367,7 +367,8 @@
 						<DemandPressureMatrix
 							occupations={filteredOccupations as unknown as Occupation[]}
 							surfaceLabel={data.surface.config.displayName}
-							xAxisLabel={data.surface.code === 'global' ? 'Structural pressure' : 'Headline risk'}
+							xAccessor={data.surface.code === 'sg' ? 'net_risk' : 'structuralPressure'}
+							xAxisLabel={data.surface.code === 'sg' ? 'Headline risk' : 'Structural pressure'}
 							yAxisLabel={data.surface.code === 'global'
 								? 'Human bottleneck protection'
 								: 'Demand resilience'}
@@ -379,7 +380,14 @@
 											{ label: 'High pressure, high bottleneck', x: 0.55, y: 0.85 },
 											{ label: 'High pressure, low bottleneck', x: 0.55, y: 0.15 }
 										]
-									: undefined
+									: data.surface.code === 'us'
+										? [
+												{ label: 'Low pressure, high demand', x: 0.1, y: 0.85 },
+												{ label: 'Low pressure, low demand', x: 0.1, y: 0.15 },
+												{ label: 'High pressure, high demand', x: 0.55, y: 0.85 },
+												{ label: 'High pressure, low demand', x: 0.55, y: 0.15 }
+											]
+										: undefined
 							}
 						/>
 					</Tabs.Content>

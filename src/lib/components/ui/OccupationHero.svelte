@@ -52,7 +52,7 @@
 
 		<div class="min-w-0">
 			<div class="flex items-start justify-between gap-4">
-				<h1 class={cn(titleStyle({ size: 'page' }), 'min-w-0 xl:whitespace-nowrap xl:leading-[0.95]')}>
+				<h1 class={cn(titleStyle({ size: 'page' }), 'min-w-0')}>
 					{title}
 				</h1>
 				{#if actions}
