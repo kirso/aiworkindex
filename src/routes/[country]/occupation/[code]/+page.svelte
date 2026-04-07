@@ -7,7 +7,6 @@
 	import * as Collapsible from '$lib/components/ui/collapsible/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { riskBandLabels } from '$lib/data';
-	import { globalMethodology } from '$lib/data/global-methodology';
 	import { buildUnitedStatesOccupationAlternates } from '$lib/data/occupation-alternates';
 	import { getUnitedStatesRolesForCanonicalCode } from '$lib/data/countries/us/roles';
 	import {
@@ -59,6 +58,38 @@
 	const formatWageShort = (value: number | null) =>
 		value == null ? '—' : `$${Math.round(value / 1000)}K`;
 
+	function filterRequirements(items: NonNullable<typeof support>['requirementProfile']) {
+		return items
+			.filter((item) => {
+				const numVal = parseFloat(item.value.replace(/[<>%]/g, ''));
+				return !isNaN(numVal) && numVal >= 5; // hide near-zero
+			})
+			.map((item) => {
+				const numVal = parseFloat(item.value.replace(/[<>%]/g, ''));
+				// For complementary pairs, keep only the meaningful side
+				if (numVal > 95) return null; // skip the ">99.5%" side
+				// Differentiate credential types using detail field
+				let label = item.label;
+				if (item.label === 'Credentials' && item.detail) {
+					if (
+						item.detail.toLowerCase().includes('license') ||
+						item.detail.toLowerCase().includes('certification')
+					)
+						label = 'License required';
+					else if (item.detail.toLowerCase().includes('apprentice')) label = 'Apprenticeship';
+					else if (
+						item.detail.toLowerCase().includes('educational') ||
+						item.detail.toLowerCase().includes('certificate')
+					)
+						label = 'Certificate';
+				}
+				// Fix tone: high credentialing is protective
+				const tone = numVal > 50 ? 'protective' : item.tone;
+				return { ...item, label, tone };
+			})
+			.filter((item): item is NonNullable<typeof item> => item !== null);
+	}
+
 	const supportSignals = $derived<SignalProfileItem[]>(
 		support
 			? [
@@ -67,14 +98,14 @@
 						value: formatPct(support.taskPrimitives.matched_task_weight_share),
 						barValue: clamp01(support.taskPrimitives.matched_task_weight_share ?? 0),
 						barClass: signalBarClass(clamp01(support.taskPrimitives.matched_task_weight_share ?? 0)),
-						note: 'Weighted task overlap from O*NET'
+						note: 'Share of job tasks that overlap with current AI capabilities'
 					},
 					{
 						label: 'Wage',
 						value: formatWageShort(support.wageProfile.medianAnnual),
 						barValue: support.wageProfile.medianAnnual != null ? clamp01(support.wageProfile.medianAnnual / 200000) : 0,
 						barClass: signalBarClass(support.wageProfile.medianAnnual != null ? clamp01(support.wageProfile.medianAnnual / 200000) : 0),
-						note: 'Median annual from BLS OEWS'
+						note: 'Median annual wage'
 					},
 					{
 						label: 'Demand',
@@ -91,14 +122,14 @@
 								? 0
 								: clamp01((support.demandProfile.projectedChangePct + 20) / 40)
 						),
-						note: 'BLS employment projections'
+						note: 'Projected employment change over 10 years'
 					},
 					{
-						label: 'Prep',
+						label: 'Preparation',
 						value: support.jobZone != null ? `Zone ${support.jobZone}` : '—',
 						barValue: support.jobZone != null ? clamp01(support.jobZone / 5) : 0,
 						barClass: signalBarClass(support.jobZone != null ? clamp01(support.jobZone / 5) : 0),
-						note: 'O*NET job zone level'
+						note: 'Typical preparation needed for this occupation'
 					}
 				]
 			: []
@@ -225,9 +256,7 @@
 							</p>
 						</div>
 						<div>
-							<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>Method contract</p>
-							<p class={caption()}>{globalMethodology.structuralFormula}</p>
-							<p class={caption()}>{globalMethodology.localFormula}</p>
+							<p class={caption()}>Scores combine AI task overlap, human advantages, and local demand. <a href="/methodology" class="text-primary hover:underline">How it works</a></p>
 						</div>
 					</div>
 				</div>
@@ -261,13 +290,13 @@
 						</p>
 					</div>
 					<div class={card({ padding: 'sm', variant: 'metric' })}>
-						<p class={microLabel()}>Projected Change</p>
+						<p class={microLabel()}>Projected Change (2024–34)</p>
 						<p class={cn(mono({ size: 'lg' }), 'mt-1 text-foreground')}>
 							{support.demandProfile.projectedChangePct != null ? `${support.demandProfile.projectedChangePct.toFixed(1)}%` : '—'}
 						</p>
 					</div>
 					<div class={card({ padding: 'sm', variant: 'metric' })}>
-						<p class={microLabel()}>Openings</p>
+						<p class={microLabel()}>Openings (2024–34)</p>
 						<p class={cn(mono({ size: 'lg' }), 'mt-1 text-foreground')}>
 							{support.demandProfile.openings2024_2034 != null ? `${support.demandProfile.openings2024_2034.toFixed(1)}K` : '—'}
 						</p>
@@ -279,11 +308,11 @@
 						<p class={cn(caption({ weight: 'semibold' }), 'mb-2 text-foreground')}>Wage distribution</p>
 						<div class="flex flex-wrap gap-x-4 gap-y-1">
 							{#each [
-								{ label: 'p10', value: support.wageProfile.p10Annual },
-								{ label: 'p25', value: support.wageProfile.p25Annual },
-								{ label: 'median', value: support.wageProfile.medianAnnual },
-								{ label: 'p75', value: support.wageProfile.p75Annual },
-								{ label: 'p90', value: support.wageProfile.p90Annual }
+								{ label: 'Bottom 10%', value: support.wageProfile.p10Annual },
+								{ label: '25th pctl', value: support.wageProfile.p25Annual },
+								{ label: 'Median', value: support.wageProfile.medianAnnual },
+								{ label: '75th pctl', value: support.wageProfile.p75Annual },
+								{ label: 'Top 10%', value: support.wageProfile.p90Annual }
 							] as item}
 								<span class={caption()}>
 									{item.label}: {formatCurrency(item.value, 'USD')}
@@ -344,7 +373,7 @@
 											</span>
 											{#if task.penetration != null}
 												<span class={cn(caption(), 'shrink-0')}>
-													AI {(task.penetration * 100).toFixed(0)}%
+													AI use: {(task.penetration * 100).toFixed(0)}%
 												</span>
 											{/if}
 										</li>
@@ -370,7 +399,7 @@
 							<div class="pt-3 border-t border-border">
 								<p class={cn(caption({ weight: 'semibold' }), 'mb-2 text-foreground')}>Requirements</p>
 								<div class="flex flex-wrap gap-1.5">
-									{#each support.requirementProfile as item, index (`req-${index}`)}
+									{#each filterRequirements(support.requirementProfile) as item (item.label + item.value)}
 										<span
 											class={cn(
 												'rounded-full border px-2.5 py-1 text-xs font-medium',
@@ -454,7 +483,7 @@
 									<span class="opacity-0 group-hover:opacity-100 transition-opacity text-primary">→</span>
 								</p>
 								<p class={cn(caption(), 'mt-1')}>
-									Synthetic role using the United States layer.
+									Estimated modern role scored with US data
 								</p>
 							</a>
 						{/each}

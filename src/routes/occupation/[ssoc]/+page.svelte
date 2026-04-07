@@ -537,7 +537,7 @@
 									: 'positive'
 				},
 				{ label: group?.label ?? occ.major_group, tone: 'muted' },
-				{ label: hasDemand ? `In demand (${demandLabel})` : 'Demand signals mixed', tone: hasDemand ? 'positive' : 'neutral' }
+				{ label: hasDemand ? `In demand (${demandLabel})` : 'No shortage listing', tone: hasDemand ? 'positive' : 'neutral' }
 			]}
 			summary={structural.summaryText}
 			meta={[
@@ -627,9 +627,9 @@
 				<div class="md:col-span-3">
 					<DriverWaterfall occupation={occ} />
 					<p class={cn(caption(), 'mt-2')}>
-						Exposure × (1 − Bottleneck) × Market Modifier.
+						AI task overlap, minus human advantages, adjusted for local demand.
 						{#if occ.stability.label !== 'stable'}
-							<span class="text-risk-moderate">Band stability: {occ.stability.label}.</span>
+							<span class="text-risk-moderate">Score stability: {occ.stability.label}.</span>
 						{/if}
 						<a href="/methodology" class="text-primary hover:underline">How this works</a>
 					</p>
@@ -673,8 +673,7 @@
 						</p>
 					{/if}
 					<p class={cn(caption(), 'pt-2 text-muted-foreground')}>
-						AI exposure based on Felten AIOE (2023) & Anthropic Economic Index (2026). Human
-						bottleneck from O*NET work context (Pizzinelli et al., 2023). <a
+						Sources: Felten, Anthropic, O*NET, and Pizzinelli et al. <a
 							href="/methodology"
 							class="text-primary hover:underline">Full methodology</a
 						>.
@@ -686,9 +685,8 @@
 				<div class="mt-5 pt-5 border-t border-border">
 					<p class={cn(caption({ weight: 'semibold' }), 'mb-2 text-foreground')}>Role profile</p>
 					<p class={cn(caption(), 'mb-3')}>
-						Heuristic workflow context from shared occupation archetypes. This profile helps
-						interpret the score; it is not a direct occupation-level measurement and is not part of
-						the core net-risk formula.
+						How this role's work breaks down across key dimensions. This is a general profile,
+						not an individual measurement.
 					</p>
 					<div class="flex justify-center">
 						<WorkflowRadar dimensions={occ.workflow_overlay} size={240} />
@@ -788,8 +786,7 @@
 					{/if}
 				</div>
 				<p class={cn(caption(), 'mb-4')}>
-					{occ.labour_monitor.cluster_label} · {siteStatus.live_monitor
-						.labour_monitor_artifact_vintage}
+					{occ.labour_monitor.cluster_label} · {occ.labour_monitor.data_as_of}
 				</p>
 			{/if}
 
@@ -832,7 +829,7 @@
 						>
 							<span class={caption()}>Junior / Entry-level</span>
 							<span class={caption({ weight: 'medium' })}
-								><span class="text-risk-high">Higher substitution exposure</span></span
+								><span class="text-risk-high">Higher AI displacement risk</span></span
 							>
 						</div>
 						<div
@@ -843,7 +840,7 @@
 						>
 							<span class={caption()}>Mid-career</span>
 							<span class={cn(caption({ weight: 'medium' }), 'text-foreground')}
-								>Baseline role profile</span
+								>Standard risk profile</span
 							>
 						</div>
 						<div
@@ -854,7 +851,7 @@
 						>
 							<span class={caption()}>Senior / Lead</span>
 							<span class={caption({ weight: 'medium' })}
-								><span class="text-risk-very-low">More insulated</span></span
+								><span class="text-risk-very-low">More protected by experience</span></span
 							>
 						</div>
 					</div>
@@ -1048,7 +1045,7 @@
 				'flex w-full items-center justify-between px-5 py-3 hover:text-foreground transition-colors'
 			)}
 		>
-			Technical Details · SSOC {occ.ssoc}
+			Technical Details
 			<svg
 				class="h-3.5 w-3.5 transition-transform [[data-state=open]>&]:rotate-180"
 				viewBox="0 0 24 24"
