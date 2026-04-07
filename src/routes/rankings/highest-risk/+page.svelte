@@ -31,8 +31,8 @@
 </script>
 
 <Seo
-	title="25 Highest Risk Jobs for AI Displacement"
-	description="Which jobs face the most AI displacement pressure in Singapore? Top 25 occupations ranked by net risk score."
+	title="Jobs AI Will Replace: 25 Highest Risk Occupations"
+	description="Which jobs will AI replace first? Top 25 occupations ranked by displacement risk from 562 scored in Singapore."
 	path="/rankings/highest-risk"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />

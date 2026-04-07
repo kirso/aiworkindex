@@ -483,6 +483,9 @@
 				{#each [
 					{ href: '/roles', label: 'Modern Roles' },
 					{ href: '/rankings', label: 'All Rankings' },
+					{ href: '/ai-proof-jobs', label: 'AI-Proof Jobs' },
+					{ href: '/ai-job-loss', label: 'AI Job Loss' },
+					{ href: '/will-ai-take-my-job', label: 'Will AI Take My Job?' },
 					{ href: '/compare', label: 'Compare' },
 					{ href: '/methodology', label: 'Methodology' }
 				] as link}

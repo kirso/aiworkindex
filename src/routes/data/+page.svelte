@@ -154,7 +154,7 @@
 			name: 'exposure',
 			type: 'number',
 			description:
-				'Live exposure score (0-1). V6 uses a deterministic audited 4-source exposure ensemble.'
+				'Live exposure score (0-1). V7 uses a 4-source exposure ensemble with task-concentration amplification.'
 		},
 		{
 			name: 'bottleneck',
@@ -178,7 +178,7 @@
 			name: 'demand_resilience',
 			type: 'number',
 			description:
-				'Published V6 demand-resilience field (0-1). Formula: min(1, base_resilience × 0.45 + demand_signal_bonus).'
+				'Published V7 demand-resilience field (0-1). Formula: min(1, base_resilience × 0.45 + demand_signal_bonus + 0.10 × demand_persistence).'
 		},
 		{
 			name: 'net_risk',
@@ -196,7 +196,7 @@
 			name: 'augmentation',
 			type: 'number',
 			description:
-				'Live V6 augmentation potential (0-1). Formula: exposure × bottleneck × market.market_resilience.'
+				'Live V7 augmentation potential (0-1). Formula: exposure × bottleneck × market.market_resilience.'
 		},
 		{
 			name: 'impact_type',
@@ -752,7 +752,7 @@
 				</div>
 				<p class="mt-1 text-sm text-muted-foreground">
 					Shadow-governance status, promotion history, and the retained audit trail behind the live
-					V6 release.
+					V7 release.
 				</p>
 				<span class="mt-auto pt-2 text-xs text-primary">experimental-methodology-v43.json</span>
 			</div>
@@ -802,7 +802,7 @@
 					<span class="text-base font-semibold text-foreground">V5 Roadmap</span>
 				</div>
 				<p class="mt-1 text-sm text-muted-foreground">
-					Archived roadmap for the V5 research program that preceded the current V6 two-axis
+					Archived roadmap for the V5 research program that preceded the current V7 two-axis
 					structural release.
 				</p>
 				<span class="mt-auto pt-2 text-xs text-primary">v5-roadmap.json</span>
@@ -821,7 +821,7 @@
 				</div>
 				<p class="mt-1 text-sm text-muted-foreground">
 					Published V5 workstream summary covering augmentation heterogeneity, empirical mobility,
-					posterior uncertainty, and realized-risk forecasting sidecars that fed the later V6
+					posterior uncertainty, and realized-risk forecasting sidecars that fed the later V7
 					release.
 				</p>
 				<span class="mt-auto pt-2 text-xs text-primary">v5-sidecars.json</span>
@@ -987,16 +987,17 @@
 		<p class={cn(sectionLabel(), 'mb-3')}>Methodology Version</p>
 		<div class={card({ padding: 'lg' })}>
 			<div class="space-y-1 text-sm text-muted-foreground">
-				<p><span class="font-medium text-foreground">Version:</span> V6 (headline risk = displacement pressure × (1 − demand resilience), using a deterministic audited 4-source exposure ensemble, human bottleneck, and local demand resilience)</p>
+				<p><span class="font-medium text-foreground">Version:</span> V7 (headline risk = displacement pressure × (1 − demand resilience), with V7 task-concentration-weighted exposure and demand-persistence proxy)</p>
 				<p><span class="font-medium text-foreground">Data vintage:</span> 2024 wages, 2025 labour context, 2025/2026 demand signals</p>
 				<p><span class="font-medium text-foreground">Occupations:</span> {DATA_VINTAGE.occupation_count} occupations, currently sourced from Singapore (primary) and United States data</p>
 				<p><span class="font-medium text-foreground">Separate context bundle:</span> Labour monitor, worker profile, industry context, sector wage anchors, geography context, macro labour context, national AI context, offset potential, transition support, and US wage / requirements / skills / narrative layers</p>
-				<p><span class="font-medium text-foreground">Retained baseline trail:</span> {experimentalStatusLabel(siteStatus.experimental_release.status)}. The full V4.3 shadow and V5 promotion comparison remain published so the live V6 release can still be audited against the retained V4.3 and V4.2 baselines.</p>
+				<p><span class="font-medium text-foreground">Retained baseline trail:</span> {experimentalStatusLabel(siteStatus.experimental_release.status)}. The full V4.3 shadow and V5 promotion comparison remain published so the live V7 release can still be audited against the retained V4.3 and V4.2 baselines.</p>
 				<p><span class="font-medium text-foreground">Research memory:</span> {researchLibrary.entry_count} canonical research entries are published in the research library and linked to claims/source registry records.</p>
 				<p><span class="font-medium text-foreground">Sources:</span> Live reference-market official statistics and policy data (wages, labour-force context, industry context, demand signals), BLS OEWS, ORS, CPS demographics, Skills Data, OOH, IMDA Singapore Digital Economy Report 2025, IMDA NAIIP 2026, O*NET, Felten AIOE, Pizzinelli/IMF, Anthropic observed usage, Anthropic labor-market impacts, Eloundou GPT exposure, ILO occupational exposure, SOL 2026, Jobs in Demand 2025</p>
 			</div>
 			<div class="mt-3 flex flex-wrap gap-4 text-sm">
 				<a href="/methodology" class="text-primary underline">Full methodology &rarr;</a>
+				<a href="/reports/v7-release" class="text-primary underline">V7 release note &rarr;</a>
 				<a href="/research" class="text-primary underline">Research library &rarr;</a>
 			</div>
 		</div>

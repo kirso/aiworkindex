@@ -1,23 +1,26 @@
 #!/usr/bin/env bun
 /**
- * score.ts — V6 scoring pipeline for Singapore AI Job Exposure Map.
+ * score.ts — V7 scoring pipeline for AI Work Index.
  *
  * Computes 4-source exposure ensemble (AIOE + Anthropic + Eloundou + ILO),
  * Pizzinelli theta, market resilience layer, and net displacement risk
  * for each of 562 Singapore SSOC occupations.
  *
- * V6: reliability-weighted 4-source exposure ensemble, occupation-level
- * industry-footprint market momentum where available, pure confidence scoring,
- * statistical uncertainty intervals, and a task-primitives sidecar.
+ * V7 adds:
+ *   - Task-concentration-weighted exposure (Hampole et al. 2025)
+ *   - Demand-persistence proxy (addresses Imas price-elasticity critique)
  *
  * Canonical structural formulas:
  *   exposure            = reliability-weighted percentile blend of available exposure sources
+ *   task_signal         = task_exposure_concentration * task_effective_coverage
+ *   exposure_v7         = clamp01(exposure * (1 + 0.20 * task_signal))
  *   bottleneck          = pctile(theta)
  *   base_resilience     = 0.6 * market_momentum + 0.4 * occupation_scarcity
- *   demand_resilience   = min(1, base_resilience * 0.45 + demand_signal_bonus)
- *   displacement_pressure = exposure * (1 - bottleneck)
+ *   demand_persistence  = 0.4*mm_rank + 0.3*vacancy_rank + 0.2*scarcity_rank + 0.1*bonus_rank
+ *   demand_resilience   = min(1, base_resilience * 0.45 + demand_signal_bonus + 0.10 * demand_persistence)
+ *   displacement_pressure = exposure_v7 * (1 - bottleneck)
  *   headline_risk       = displacement_pressure * (1 - demand_resilience)
- *   augmentation        = exposure * bottleneck * base_resilience
+ *   augmentation        = exposure_v7 * bottleneck * base_resilience
  *
  * Run: bun run scripts/score.ts
  */
@@ -52,10 +55,14 @@ import {
 	computeDemandSignalBonus,
 	computeDisplacementPressure,
 	computeMarketResilience,
-	computeV6StructuralScores
+	computeV6StructuralScores,
+	computeV7StructuralScores,
+	computeTaskSignal,
+	computeDemandPersistence
 } from '../src/lib/data/methodology-core';
 import { computeConfidence } from '../src/lib/data/confidence-core';
-import { computeBootstrapUncertainty } from '../src/lib/data/uncertainty-core';
+import { computeBootstrapUncertainty, computeBootstrapUncertaintyV7 } from '../src/lib/data/uncertainty-core';
+import { V7_CONSTANTS } from '../src/lib/data/scoring-constants';
 import { getWorkflowOverlayForOccupation } from '../src/lib/data/occupation-classification';
 
 // ===== Configuration =====
@@ -1742,6 +1749,56 @@ function scoreOccupations(
 	let solMatchCount = 0;
 	let demandMatchCount = 0;
 
+	// ===== V7: Load pre-computed task primitives for task-concentration exposure =====
+	console.log('  Loading task primitives for V7 task-concentration signal...');
+	const taskPrimitivesMap = new Map<string, { task_effective_coverage: number | null; task_exposure_concentration: number | null }>();
+	try {
+		const taskPrimitivesPath = path.join(DATA_DIR, 'occupations.json');
+		if (fs.existsSync(taskPrimitivesPath)) {
+			const existingData = JSON.parse(fs.readFileSync(taskPrimitivesPath, 'utf-8')) as Array<{ ssoc: string; task_primitives?: { task_effective_coverage: number | null; task_exposure_concentration: number | null; method: string | null } }>;
+			for (const entry of existingData) {
+				if (entry.task_primitives?.method) {
+					taskPrimitivesMap.set(entry.ssoc, {
+						task_effective_coverage: entry.task_primitives.task_effective_coverage,
+						task_exposure_concentration: entry.task_primitives.task_exposure_concentration
+					});
+				}
+			}
+			console.log(`    Loaded task primitives for ${taskPrimitivesMap.size} occupations`);
+		}
+	} catch {
+		console.log('    No pre-existing task primitives found — task_signal will be 0 for all occupations');
+	}
+
+	// ===== V7: Precompute demand-persistence rank arrays =====
+	console.log('  Computing V7 demand-persistence ranks...');
+
+	// Market momentum values (already computed in the loop above, recompute for ranking)
+	const mmValues = intermediates.map((r, idx) => {
+		const gIdx = groupToIdx.get(r.occ.major_group);
+		const groupEmpl = gIdx !== undefined ? emplCagrRanks[gIdx] : 0.5;
+		const groupWage = gIdx !== undefined ? wageCagrRanks[gIdx] : 0.5;
+		const indMom = occupationIndustryMomentum[idx] ?? null;
+		return (blendEmploymentMomentum(groupEmpl ?? 0.5, indMom) + (groupWage ?? 0.5)) / 2;
+	});
+	const mmRanks = percentileRanks(mmValues);
+
+	// Vacancy trend: map labour monitor signal to [0,1] — 1=strong, 0.5=neutral, 0=declining
+	const vacancyTrendValues = intermediates.map(r => {
+		const monitor = lookupLabourMonitor(r.occ.major_group, labourMonitors);
+		return monitor ? (monitor.vacancy.signal + 1) / 2 : 0.5;
+	});
+	const vacancyRanks = percentileRanks(vacancyTrendValues);
+
+	// Occupation scarcity ranks (already have occScarcity array)
+	const scarcityRanks = percentileRanks(occScarcity);
+
+	// Demand signal bonus: compute all, then rank
+	const allDemandBonuses = intermediates.map(r =>
+		computeDemandSignalBonus({ sol_match: r.solMatch, jid_match: r.demandMatch })
+	);
+	const demandBonusRanks = percentileRanks(allDemandBonuses);
+
 	// ===== Assemble final results =====
 	console.log('  Assembling final results...');
 	const results: ScoredOccupation[] = [];
@@ -1812,18 +1869,31 @@ function scoreOccupations(
 			sol_match: r.solMatch,
 			jid_match: r.demandMatch
 		});
-		const {
-			displacement_pressure: displacementPressure,
-			demand_resilience: demandResilience,
-			headline_risk: netRisk,
-			augmentation
-		} = computeV6StructuralScores({
+
+		// V7: task-concentration + demand-persistence
+		const taskPrim = taskPrimitivesMap.get(r.occ.ssoc);
+		const v7Result = computeV7StructuralScores({
 			exposure,
 			bottleneck,
 			base_resilience: baseResilience,
 			sol_match: r.solMatch,
-			jid_match: r.demandMatch
+			jid_match: r.demandMatch,
+			task_signal_inputs: {
+				task_effective_coverage: taskPrim?.task_effective_coverage ?? null,
+				task_exposure_concentration: taskPrim?.task_exposure_concentration ?? null
+			},
+			demand_persistence_inputs: {
+				market_momentum_rank: mmRanks[i],
+				vacancy_trend_rank: vacancyRanks[i],
+				scarcity_rank: scarcityRanks[i],
+				demand_signal_bonus_rank: demandBonusRanks[i]
+			}
 		});
+
+		const displacementPressure = v7Result.displacement_pressure;
+		const demandResilience = v7Result.demand_resilience;
+		const netRisk = v7Result.headline_risk;
+		const augmentation = v7Result.augmentation;
 		const marketModifier = 1 - demandResilience;
 		const netRiskRounded = round(netRisk, 4);
 		const band = getRiskBand(netRiskRounded);
@@ -1946,7 +2016,7 @@ function scoreOccupations(
 						? 'signal_conflict'
 						: 'insufficient_source_count';
 		}
-		const uncertainty = computeBootstrapUncertainty({
+		const uncertainty = computeBootstrapUncertaintyV7({
 			exposureInputs: availableExposureInputs.map(input => ({
 				key: input.key,
 				value: input.value
@@ -1956,7 +2026,12 @@ function scoreOccupations(
 			base_resilience: baseResilience,
 			demand_signal_bonus: demandSignalBonus,
 			marketSpread: mktSpread,
-			seedValues: [i, exposure, bottleneck, baseResilience, demandSignalBonus, netRiskRounded]
+			seedValues: [i, exposure, bottleneck, baseResilience, demandSignalBonus, netRiskRounded],
+			task_effective_coverage: taskPrim?.task_effective_coverage ?? null,
+			task_exposure_concentration: taskPrim?.task_exposure_concentration ?? null,
+			demand_persistence: v7Result.demand_persistence,
+			task_concentration_lambda: V7_CONSTANTS.TASK_CONCENTRATION_LAMBDA,
+			demand_persist_lambda: V7_CONSTANTS.DEMAND_PERSIST_LAMBDA
 		});
 
 		results.push({
@@ -2009,12 +2084,21 @@ function scoreOccupations(
 				sensitivity: confidence.sensitivity,
 				exposure_source_count: confidence.exposure_source_count
 			},
+			structural_model_version: 'V7',
 			stability,
 			task_primitives: {
 				matched_task_weight_share: null,
 				task_effective_coverage: null,
 				task_exposure_concentration: null,
 				method: null
+			},
+			// V7 fields
+			task_signal: round(v7Result.task_signal, 4),
+			demand_persistence: round(v7Result.demand_persistence, 4),
+			exposure_v7: round(v7Result.exposure_v7, 4),
+			baseline_v6: {
+				net_risk: round(v7Result.baseline_v6.headline_risk, 4),
+				exposure: round(v7Result.baseline_v6.exposure, 4)
 			},
 			uncertainty,
 			labour_monitor_key: labourMonitor?.cluster_key ?? null,

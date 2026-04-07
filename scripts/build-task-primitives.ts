@@ -177,7 +177,7 @@ function nullTaskPrimitives() {
 	} as const;
 }
 
-function main() {
+async function main() {
 	if (!fs.existsSync(OCCUPATIONS_FILE)) {
 		throw new Error(`Missing occupations file: ${OCCUPATIONS_FILE}`);
 	}
@@ -253,15 +253,38 @@ function main() {
 		};
 	});
 
-	writeJson(OCCUPATIONS_FILE, updated);
-	writeJson(SRC_OCCUPATIONS_FILE, updated);
+	// Post-processing: compute classification_uncertainty from uncertainty p10/p90
+	const { getRiskBand } = await import('../src/lib/data/scoring-constants');
 
-	const covered = updated.filter(
+	const final = updated.map(occupation => {
+		const unc = occupation.uncertainty as {
+			net_risk_p10?: number;
+			net_risk_p90?: number;
+		} | undefined;
+		const crossesBoundary =
+			unc?.net_risk_p10 != null &&
+			unc?.net_risk_p90 != null &&
+			getRiskBand(unc.net_risk_p10) !== getRiskBand(unc.net_risk_p90);
+
+		return {
+			...occupation,
+			classification_uncertainty: crossesBoundary ? 'crosses_boundary' : null
+		};
+	});
+
+	writeJson(OCCUPATIONS_FILE, final);
+	writeJson(SRC_OCCUPATIONS_FILE, final);
+
+	const covered = final.filter(
 		occupation => occupation.task_primitives?.matched_task_weight_share != null
 	).length;
+	const crossBoundaryCount = final.filter(
+		occupation => occupation.classification_uncertainty === 'crosses_boundary'
+	).length;
 	console.log(
-		`Built task_primitives for ${covered}/${updated.length} occupations from exact normalized-task matches.`
+		`Built task_primitives for ${covered}/${final.length} occupations from exact normalized-task matches.`
 	);
+	console.log(`  ${crossBoundaryCount} occupations cross risk-band boundaries (classification uncertain).`);
 }
 
-main();
+main().catch(console.error);

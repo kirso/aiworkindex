@@ -25,7 +25,7 @@
 	const postings = postingsMonitor.summary;
 	const quarterly = quarterlyReport;
 	const isPromoted = siteStatus.experimental_release?.status === 'promoted';
-	const isV6Live = siteStatus.structural_release.version === 'V6';
+	const isV6Live = siteStatus.structural_release.version === 'V6' || siteStatus.structural_release.version === 'V7';
 	const experimentalPositiveStates = ['ready_for_shadow_scoring', 'shadow_published', 'promoted'];
 	const experimentalStatusBadgeClass = experimentalPositiveStates.includes(
 		siteStatus.experimental_release?.status ?? ''
@@ -60,6 +60,38 @@
 
 	<p class={cn(sectionLabel(), 'mt-6 mb-3')}>Published Reports</p>
 	<div class="space-y-4">
+		<a href="/reports/v7-release" class="block no-underline">
+			<div class={cn(card({ padding: 'lg', hover: true }), 'flex items-start justify-between')}>
+				<div>
+					<div class="flex items-center gap-2">
+						<span class="text-base font-semibold text-foreground">V7 Release Note</span>
+						<Badge variant="outline" class="bg-impact-leveraged-subtle text-impact-leveraged border-impact-leveraged-border">Current</Badge>
+					</div>
+					<p class="mt-1 text-sm text-muted-foreground">
+						V7 adds task-concentration-weighted exposure (Hampole et al.) and a demand-persistence
+						proxy to the structural formula. Stability: median delta 0.008, Spearman 0.9995.
+					</p>
+				</div>
+				<svg class="ml-4 mt-1 h-5 w-5 shrink-0 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+			</div>
+		</a>
+
+		<a href="/reports/v6-release" class="block no-underline">
+			<div class={cn(card({ padding: 'lg', hover: true }), 'flex items-start justify-between')}>
+				<div>
+					<div class="flex items-center gap-2">
+						<span class="text-base font-semibold text-foreground">V6 Release Note</span>
+						<Badge variant="outline" class="bg-primary/10 text-primary border-primary/30">Archive</Badge>
+					</div>
+					<p class="mt-1 text-sm text-muted-foreground">
+						V6 introduced the two-axis structural formula with 4-source exposure ensemble,
+						human bottleneck, and explicit demand resilience. Superseded by V7.
+					</p>
+				</div>
+				<svg class="ml-4 mt-1 h-5 w-5 shrink-0 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+			</div>
+		</a>
+
 		<a href="/reports/v4-3-shadow" class="block no-underline">
 			<div class={cn(card({ padding: 'lg', hover: true }), 'flex items-start justify-between')}>
 				<div>
@@ -72,7 +104,7 @@
 					<p class="mt-1 text-sm text-muted-foreground">
 						{#if isV6Live}
 							How the V4.3 shadow model first became live and why it remains published inside the
-							retained V4.3 → V5 → V6 audit trail.
+							retained V4.3 → V5 → V6 → V7 audit trail.
 						{:else if isPromoted}
 							How the task-weighted shadow model was promoted into the live release, what changed,
 							and what remains published for auditability.
@@ -108,7 +140,7 @@
 					</div>
 					<p class="mt-1 text-sm text-muted-foreground">
 						{#if isV6Live}
-							Archived roadmap for the V5 research program that preceded the current V6 two-axis
+							Archived roadmap for the V5 research program that preceded the current V7 two-axis
 							release.
 						{:else}
 							The next scientific release program after V4.3: augmentation heterogeneity, empirical
@@ -150,7 +182,7 @@
 						</div>
 						<p class="mt-1 text-sm text-muted-foreground">
 							{#if isV6Live}
-								Archived promotion note for the former live V5 model, preserved so the V6 release
+								Archived promotion note for the former live V5 model, preserved so the V7 release
 								can still be compared against its immediate predecessor and retained adjunct layers.
 							{:else}
 								The first integrated V5 candidate now combines posterior uncertainty, augmentation
@@ -226,7 +258,7 @@
 						vs practice gaps.
 					</p>
 					<p class="mt-2 text-xs text-muted-foreground">
-						Archived snapshot rebuilt under the current V6 pipeline, updated {DATA_VINTAGE.last_updated}
+						Archived snapshot rebuilt under the current V7 pipeline, updated {DATA_VINTAGE.last_updated}
 					</p>
 				</div>
 				<svg

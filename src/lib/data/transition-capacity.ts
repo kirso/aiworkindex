@@ -119,10 +119,19 @@ export function isPlausibleTransition(from: Occupation, to: Occupation): boolean
 	return archetypeSimilarity(from, to) >= 0.5;
 }
 
+/** Weight for empirical transition evidence when available */
+const EMPIRICAL_BOOST_WEIGHT = 0.15;
+
 /**
  * Compute the transition score from one occupation to another.
+ * When an observed transition rate is provided, it contributes an empirical
+ * boost that proportionally reduces the weight of modeled components.
  */
-export function computeTransitionScore(from: Occupation, to: Occupation): TransitionScore {
+export function computeTransitionScore(
+	from: Occupation,
+	to: Occupation,
+	observedRate?: number | null
+): TransitionScore {
 	const arch = archetypeSimilarity(from, to);
 	const skill = skillOverlap(from.ssoc, to.ssoc);
 	const wage = wagePreservation(from.gross_wage_median, to.gross_wage_median);
@@ -130,13 +139,19 @@ export function computeTransitionScore(from: Occupation, to: Occupation): Transi
 	const risk = riskImprovement(from.net_risk, to.net_risk);
 	const cred = credentialGap(from.education_level, to.education_level);
 
-	const composite =
+	const baseComposite =
 		0.20 * arch +
 		0.20 * skill +
 		0.15 * wage +
 		0.20 * demand +
 		0.15 * risk +
 		0.10 * cred;
+
+	// When empirical transition data exists, blend it in
+	const hasEmpirical = observedRate != null && observedRate > 0;
+	const composite = hasEmpirical
+		? baseComposite * (1 - EMPIRICAL_BOOST_WEIGHT) + observedRate * EMPIRICAL_BOOST_WEIGHT
+		: baseComposite;
 
 	return {
 		from_ssoc: from.ssoc,
@@ -150,7 +165,7 @@ export function computeTransitionScore(from: Occupation, to: Occupation): Transi
 		credential_gap: cred,
 		composite,
 		label: transitionLabel(composite),
-		observed_transition_rate: null,
+		observed_transition_rate: observedRate ?? null,
 		observed_wage_delta: null,
 		observed_training_duration_months: null,
 		observed_source: null,
@@ -161,15 +176,17 @@ export function computeTransitionScore(from: Occupation, to: Occupation): Transi
 /**
  * Find the best transition targets for a given occupation.
  * Filters out the source occupation and returns sorted by composite score.
+ * When getObservedRate is provided, empirical transition evidence is blended into ranking.
  */
 export function findBestTransitions(
 	from: Occupation,
 	allOccupations: Occupation[],
-	limit: number = 5
+	limit: number = 5,
+	getObservedRate?: (to: Occupation) => number | null
 ): TransitionScore[] {
 	return allOccupations
 		.filter((o) => o.ssoc !== from.ssoc && isPlausibleTransition(from, o))
-		.map((to) => computeTransitionScore(from, to))
+		.map((to) => computeTransitionScore(from, to, getObservedRate?.(to)))
 		.sort((a, b) => b.composite - a.composite)
 		.slice(0, limit);
 }

@@ -24,7 +24,7 @@
 		candidate_v5: {
 			label: 'Next horizon',
 			description:
-				'Research not yet absorbed into the live model and reserved for future post-V6 calibration work.'
+				'Research not yet absorbed into the live model and reserved for future post-V7 calibration work.'
 		},
 		supporting_context: {
 			label: 'Supporting context',

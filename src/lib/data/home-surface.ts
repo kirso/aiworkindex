@@ -327,17 +327,17 @@ function buildGlobalMetrics(items: HomeSurfaceItem[]): HomeSurfaceMetric[] {
 		{
 			label: 'Jobs under pressure',
 			value: formatPercent(total > 0 ? highPressure / total : 0),
-			note: 'Share of mapped occupations under pressure'
+			note: 'of occupations score high or very high risk'
 		},
 		{
 			label: 'Occupations at risk',
 			value: highPressure.toLocaleString(),
-			note: 'High-pressure occupations'
+			note: 'with net displacement risk above 30%'
 		},
 		{
 			label: 'Mapped occupations',
 			value: formatCompactCount(mappedOccupations),
-			note: 'Official occupations mapped into the global spine'
+			note: 'scored across the global structural baseline'
 		}
 	];
 }
@@ -362,17 +362,17 @@ function buildCountryMetrics(
 		{
 			label: 'Jobs under pressure',
 			value: formatPercent(total > 0 ? highPressure / total : 0),
-			note: 'Share of mapped occupations under pressure'
+			note: 'of occupations score high or very high risk'
 		},
 		{
 			label: 'Wages at risk',
 			value: `${currency} ${formatBillions(wageAtRisk)}`,
-			note: 'Estimated annual pay in high-pressure occupations'
+			note: 'annual pay pool in high-pressure occupations'
 		},
 		{
 			label: 'Occupations at risk',
 			value: highPressure.toLocaleString(),
-			note: 'High-pressure occupations'
+			note: 'with net displacement risk above 30%'
 		}
 	];
 }

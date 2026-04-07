@@ -259,7 +259,10 @@ function buildOfficialProgrammeSupport(skillsfutureEligible: boolean, majorGroup
 }
 
 const transitions = occupations.map(from => {
-	const candidateSet = findBestTransitions(from, occupations, 25);
+	const candidateSet = findBestTransitions(from, occupations, 25, (toOcc) => {
+		const evidence = getObservedMobilityEvidence(from.major_group, toOcc.major_group);
+		return evidence.observed_transition_rate;
+	});
 	const categorized = categorizeTransitions(candidateSet);
 	const skillsfutureEligible = from.sg_context?.skillsfuture_eligible ?? false;
 	const compact = (transition: ReturnType<typeof findBestTransitions>[number]) =>
@@ -293,7 +296,7 @@ const payload = {
 		'Uses the published structural score plus wage, demand, archetype, and credential-gap heuristics.',
 		'Published separately from the structural score because it is a support layer, not a measured labour-market outcome.',
 		'Official Singapore transition infrastructure is attached as programme context; occupation-level transition matching remains a heuristic.',
-		'When present, observed_transition_rate is attached as a broad major-group empirical prior from Singapore Census 2000 data. It is published as evidence and does not yet re-rank transition recommendations.',
+		'When present, observed_transition_rate from Singapore Census 2000 data contributes 15% weight to the transition composite score, influencing ranking.',
 		'SkillsFuture eligibility is a broad Singapore context flag, not proof that a specific transition pathway is available.'
 	],
 	official_transition_infrastructure: transitionInfrastructure,

@@ -1,6 +1,6 @@
 # CLAUDE.md — AI Work Index
 
-AI Work Index: 562 Singapore occupations and 88 modern roles scored for AI displacement risk using a deterministic V6 two-axis model (displacement pressure and demand resilience). Static site, no backend.
+AI Work Index: 562 Singapore occupations and 88 modern roles scored for AI displacement risk using a deterministic V7 two-axis model (displacement pressure and demand resilience). Static site, no backend.
 
 ## Core Commands
 
@@ -63,11 +63,15 @@ data/raw/external/ → scripts/score.ts → data/occupations.json → src/lib/da
                    → scripts/validate-bls-crosswalk.ts → BLS cross-country validation
 ```
 
-**Scoring formula (V6):** `headline_risk = displacement_pressure × (1 − demand_resilience)`
+**Scoring formula (V7):** `headline_risk = displacement_pressure × (1 − demand_resilience)`
 
-- **Displacement pressure**: `exposure × (1 − bottleneck)` — structural task automation potential
-- **Demand resilience**: `min(1.0, base_resilience × 0.45 + demand_signal_bonus)` — market counterforce
-- **Exposure**: Ensemble of Felten AIOE + Anthropic observed usage, reliability-weighted per Frank et al. (2025)
+V7 adds two formula changes over V6:
+- **Task-concentration exposure** (Hampole et al. 2025): `task_signal = task_concentration × task_coverage`, `exposure_v7 = exposure × (1 + 0.20 × task_signal)` — concentrated task exposure amplifies risk
+- **Demand persistence proxy** (addresses Imas price-elasticity critique): `demand_persistence = 0.4 × momentum_rank + 0.3 × vacancy_rank + 0.2 × scarcity_rank + 0.1 × demand_bonus_rank`
+
+- **Displacement pressure**: `exposure_v7 × (1 − bottleneck)` — task-concentration-weighted structural automation potential
+- **Demand resilience**: `min(1.0, base_resilience × 0.45 + demand_signal_bonus + 0.10 × demand_persistence)` — market counterforce with persistence proxy
+- **Exposure**: Ensemble of Felten AIOE + Anthropic observed usage + Eloundou GPT + ILO GenAI, reliability-weighted per Frank et al. (2025)
 - **Bottleneck**: Pizzinelli theta from O*NET work context (human coordination, physical presence)
 - **Demand signals**: SOL 2026 (exact: +0.15, prefix: +0.08), JiD 2025 (exact: +0.12, prefix: +0.06)
 - **Crosswalk**: SSOC → ISCO-08 (first 4 digits) → US SOC 2010 → O*NET/AIOE data
@@ -210,7 +214,9 @@ Current data: Q3 2025 full report + Q4 2025 advance release. When full Q4 2025 d
 
 The model is a **structural pressure score, not a prediction**. Key citations:
 - Frank et al. (2025): ensemble exposure > single measures
-- Brookings/PIIE (2026): "still in the first inning"
+- Hampole et al. (2025): concentrated task exposure predicts higher displacement risk (V7 task-concentration signal)
+- Imas (2026): price elasticity as missing variable — V7 addresses with demand-persistence proxy
+- Brookings/PIIE (2026): "still in the first inning" + career pathway erosion framework
 - Acemoglu & Restrepo (2019): we measure displacement only, not reinstatement
 - Stanford DEL (2025) + Anthropic (2026): entry-level faces disproportionate displacement
 - Brynjolfsson et al. (2023): junior workers see biggest AI productivity gains

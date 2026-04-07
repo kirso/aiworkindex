@@ -77,7 +77,7 @@ function buildCountryOccupation(
 		augmentation: globalRow ? globalRow.exposure * globalRow.bottleneck * demandResilience : 0,
 		augmentation_band: 'moderate',
 		impact_type: headlineRisk >= 0.3 ? 'at_risk' : headlineRisk >= 0.15 ? 'mixed' : 'stable',
-		structural_model_version: 'V6',
+		structural_model_version: 'V7',
 		scoring_basis: 'posterior_ensemble_fallback_v5',
 		confidence: {
 			score: confidence.score,

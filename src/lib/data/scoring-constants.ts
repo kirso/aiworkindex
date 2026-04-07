@@ -292,9 +292,9 @@ export const DATA_VINTAGE = {
 	/** Anthropic Economic Index date */
 	anthropic: 'January 2026',
 	/** Model version */
-	model_version: 'V6',
+	model_version: 'V7',
 	/** Last scoring run date */
-	last_updated: '2026-04-01',
+	last_updated: '2026-04-07',
 	/** Occupation count */
 	occupation_count: 562,
 	/** Synthetic role count */
@@ -337,6 +337,29 @@ export const DEMAND_RESILIENCE_CONSTANTS = {
 	sol_prefix: 0.08,
 	jid_exact: 0.12,
 	jid_prefix: 0.06
+} as const;
+
+// ============================================
+// V7 MODEL CONSTANTS
+// ============================================
+
+/**
+ * V7 introduces two formula changes:
+ * 1. Task-concentration-weighted exposure (Hampole et al. 2025)
+ * 2. Demand-persistence proxy (addresses Imas price-elasticity critique)
+ */
+export const V7_CONSTANTS = {
+	/** Amplifier for concentrated task exposure. task_signal * lambda → max exposure boost. */
+	TASK_CONCENTRATION_LAMBDA: 0.20,
+	/** Additive demand persistence contribution to demand_resilience. */
+	DEMAND_PERSIST_LAMBDA: 0.10,
+	/** Component weights for the demand-persistence composite. */
+	DEMAND_PERSISTENCE_WEIGHTS: {
+		market_momentum: 0.4,
+		vacancy_trend: 0.3,
+		scarcity: 0.2,
+		demand_signal_bonus: 0.1
+	}
 } as const;
 
 // ============================================

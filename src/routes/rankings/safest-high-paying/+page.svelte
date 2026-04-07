@@ -31,8 +31,8 @@
 </script>
 
 <Seo
-	title="Safest High-Paying Jobs — Low AI Risk"
-	description="Low AI displacement risk + above-median wages. The 25 safest well-paying occupations in Singapore."
+	title="AI Safe Jobs: 25 Highest-Paying Low-Risk Careers"
+	description="Which high-paying jobs are safe from AI? 25 occupations with low displacement risk and above-median wages in Singapore."
 	path="/rankings/safest-high-paying"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />

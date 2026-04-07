@@ -1705,7 +1705,7 @@ async function main() {
 				siteStatus.v5_program.experimental_model_published === true &&
 				(isLiveV5
 					? siteStatus.v5_program.status === 'promoted_live'
-					: DATA_VINTAGE.model_version === 'V6'
+					: DATA_VINTAGE.model_version === 'V6' || DATA_VINTAGE.model_version === 'V7'
 						? siteStatus.v5_program.status === 'archived_live_release'
 						: siteStatus.v5_program.status === 'experimental_model_published') &&
 				typeof siteStatus.v5_program.structural_validation_result === 'string' &&

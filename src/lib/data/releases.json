@@ -1,5 +1,23 @@
 [
   {
+    "id": "structural-v7-2026-04-07",
+    "type": "structural_release",
+    "label": "V7 structural release",
+    "version_label": "V7",
+    "published_at": "2026-04-07",
+    "display_date": "7 Apr 2026",
+    "score_version": "V7",
+    "monitor_vintage": "Q4 2025 full",
+    "href": "/data",
+    "availability": "current_download",
+    "notes": [
+      "V7 adds task-concentration-weighted exposure (Hampole et al. 2025) and a demand-persistence proxy (addressing Imas price-elasticity critique) to the structural formula.",
+      "Task exposure concentration from 492 occupations now amplifies the headline risk for roles where AI penetration is concentrated in a few high-weight tasks.",
+      "A ranked demand-persistence composite from market momentum, vacancy trends, scarcity, and demand signals provides an additional demand-side counterforce.",
+      "V6 baseline scores are preserved in every occupation record for comparison."
+    ]
+  },
+  {
     "id": "structural-v6-2026-04-01",
     "type": "structural_release",
     "label": "V6 structural release",
@@ -8,12 +26,12 @@
     "display_date": "1 Apr 2026",
     "score_version": "V6",
     "monitor_vintage": "Q4 2025 full",
-    "href": "/data",
-    "availability": "current_download",
+    "href": "/data/sg-ai-occupations-v6.json",
+    "availability": "historical_snapshot",
     "notes": [
       "Promotes the live V6 two-axis structural release: deterministic 4-source exposure ensemble, human bottleneck, displacement pressure, and explicit demand resilience.",
       "The canonical public export now matches the live app dataset and release-governance artifacts.",
-      "V5 remains retained as the immediate previous live baseline for auditability."
+      "Retained as the immediate pre-V7 baseline for auditability."
     ]
   },
   {

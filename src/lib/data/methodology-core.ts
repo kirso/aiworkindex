@@ -1,4 +1,4 @@
-import { DEMAND_RESILIENCE_CONSTANTS, MARKET_CONSTANTS } from './scoring-constants';
+import { DEMAND_RESILIENCE_CONSTANTS, MARKET_CONSTANTS, V7_CONSTANTS } from './scoring-constants';
 
 export interface StructuralScoreInputs {
 	exposure: number;
@@ -159,6 +159,118 @@ export function computeV6StructuralScores(inputs: V6StructuralScoreInputs): {
 			bottleneck: inputs.bottleneck,
 			market_resilience: inputs.base_resilience
 		})
+	};
+}
+
+// ============================================
+// V7 — Task-Concentration Exposure + Demand Persistence
+// ============================================
+
+export interface V7TaskSignalInputs {
+	task_effective_coverage: number | null;
+	task_exposure_concentration: number | null;
+}
+
+export interface V7DemandPersistenceInputs {
+	market_momentum_rank: number;
+	vacancy_trend_rank: number;
+	scarcity_rank: number;
+	demand_signal_bonus_rank: number;
+}
+
+export interface V7StructuralScoreInputs extends V6StructuralScoreInputs {
+	task_signal_inputs: V7TaskSignalInputs;
+	demand_persistence_inputs: V7DemandPersistenceInputs;
+}
+
+/** Compute task-concentration signal. Returns 0 when task data is unavailable. */
+export function computeTaskSignal(inputs: V7TaskSignalInputs): number {
+	if (inputs.task_effective_coverage === null || inputs.task_exposure_concentration === null) {
+		return 0;
+	}
+	return clamp01(inputs.task_exposure_concentration * inputs.task_effective_coverage);
+}
+
+/** Amplify exposure by task-concentration signal. */
+export function computeExposureV7(
+	exposure: number,
+	taskSignal: number,
+	lambda: number = V7_CONSTANTS.TASK_CONCENTRATION_LAMBDA
+): number {
+	return clamp01(exposure * (1 + lambda * taskSignal));
+}
+
+/** Compute demand-persistence composite from ranked inputs. */
+export function computeDemandPersistence(
+	inputs: V7DemandPersistenceInputs,
+	weights: typeof V7_CONSTANTS.DEMAND_PERSISTENCE_WEIGHTS = V7_CONSTANTS.DEMAND_PERSISTENCE_WEIGHTS
+): number {
+	return clamp01(
+		weights.market_momentum * inputs.market_momentum_rank +
+			weights.vacancy_trend * inputs.vacancy_trend_rank +
+			weights.scarcity * inputs.scarcity_rank +
+			weights.demand_signal_bonus * inputs.demand_signal_bonus_rank
+	);
+}
+
+/** V7 demand resilience: base + demand signals + persistence proxy. */
+export function computeDemandResilienceV7({
+	base_resilience,
+	demand_signal_bonus,
+	demand_persistence,
+	base_weight = DEMAND_RESILIENCE_CONSTANTS.base_weight,
+	persist_lambda = V7_CONSTANTS.DEMAND_PERSIST_LAMBDA
+}: DemandResilienceInputs & {
+	demand_persistence: number;
+	persist_lambda?: number;
+}): number {
+	return clamp01(
+		base_resilience * base_weight + demand_signal_bonus + persist_lambda * demand_persistence
+	);
+}
+
+/** Compute V7 structural scores. Preserves V6 baseline for comparison. */
+export function computeV7StructuralScores(inputs: V7StructuralScoreInputs): {
+	task_signal: number;
+	exposure_v7: number;
+	demand_persistence: number;
+	displacement_pressure: number;
+	demand_resilience: number;
+	headline_risk: number;
+	augmentation: number;
+	baseline_v6: { headline_risk: number; exposure: number };
+} {
+	const taskSignal = computeTaskSignal(inputs.task_signal_inputs);
+	const exposureV7 = computeExposureV7(inputs.exposure, taskSignal);
+
+	const demandSignalBonus = computeDemandSignalBonus(inputs);
+	const demandPersistence = computeDemandPersistence(inputs.demand_persistence_inputs);
+	const demandResilience = computeDemandResilienceV7({
+		base_resilience: inputs.base_resilience,
+		demand_signal_bonus: demandSignalBonus,
+		demand_persistence: demandPersistence
+	});
+
+	const displacementPressure = computeDisplacementPressure({
+		exposure: exposureV7,
+		bottleneck: inputs.bottleneck
+	});
+
+	const v6 = computeV6StructuralScores(inputs);
+
+	return {
+		task_signal: taskSignal,
+		exposure_v7: exposureV7,
+		demand_persistence: demandPersistence,
+		displacement_pressure: displacementPressure,
+		demand_resilience: demandResilience,
+		headline_risk: computeHeadlineRisk({ displacement_pressure: displacementPressure, demand_resilience: demandResilience }),
+		augmentation: computeAugmentation({
+			exposure: exposureV7,
+			bottleneck: inputs.bottleneck,
+			market_resilience: inputs.base_resilience
+		}),
+		baseline_v6: { headline_risk: v6.headline_risk, exposure: inputs.exposure }
 	};
 }
 

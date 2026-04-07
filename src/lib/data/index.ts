@@ -246,7 +246,7 @@ export interface Occupation {
 	augmentation: number;
 	augmentation_band: AugmentationBand;
 	impact_type: ImpactType;
-	structural_model_version?: 'V4.2' | 'V4.3' | 'V5' | 'V6';
+	structural_model_version?: 'V4.2' | 'V4.3' | 'V5' | 'V6' | 'V7';
 	scoring_basis?: OccupationScoringBasis;
 	baseline_v42?: BaselineV42Scores;
 	baseline_v43?: BaselineV43Scores;
@@ -276,6 +276,15 @@ export interface Occupation {
 	stability: StabilityScores;
 	task_primitives?: TaskPrimitives;
 	uncertainty?: UncertaintyScores;
+	classification_uncertainty?: 'crosses_boundary' | null;
+	/** V7: task-concentration signal used to amplify exposure */
+	task_signal?: number;
+	/** V7: demand-persistence composite proxy */
+	demand_persistence?: number;
+	/** V7: task-concentration-amplified exposure */
+	exposure_v7?: number;
+	/** V6 baseline scores for comparison after V7 upgrade */
+	baseline_v6?: { net_risk: number; exposure: number };
 	labour_monitor: LabourClusterMonitor | null;
 	raw: RawScores;
 	isco_codes_matched: string[];

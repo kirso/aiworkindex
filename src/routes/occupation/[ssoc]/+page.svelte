@@ -26,7 +26,7 @@
 	import ContextItemGrid from '$lib/components/ui/ContextItemGrid.svelte';
 	import { siteStatus } from '$lib/data/site-status';
 	import { countryConfigs } from '$lib/data/country-config';
-	import { SITE, DATA_VINTAGE } from '$lib/data/scoring-constants';
+	import { SITE, DATA_VINTAGE, getRiskBand } from '$lib/data/scoring-constants';
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import {
 		computeOutlook,
@@ -54,6 +54,12 @@
 	let structural = $derived(data.structural);
 	let context = $derived(data.context);
 	let decision = $derived(structural.decision);
+	let crossesBoundary = $derived(
+		occ.uncertainty &&
+		occ.uncertainty.net_risk_p10 !== undefined &&
+		occ.uncertainty.net_risk_p90 !== undefined &&
+		getRiskBand(occ.uncertainty.net_risk_p10) !== getRiskBand(occ.uncertainty.net_risk_p90)
+	);
 
 	let isWatchlisted = $state(false);
 
@@ -349,6 +355,7 @@
 			'@context': 'https://schema.org',
 			'@type': 'Occupation',
 			name: occ.title,
+			dateModified: DATA_VINTAGE.last_updated,
 			occupationalCategory: occ.major_group,
 			estimatedSalary: {
 				'@type': 'MonetaryAmountDistribution',
@@ -359,6 +366,9 @@
 				percentile75: occ.gross_wage_75th
 			},
 			occupationLocation: { '@type': 'Country', name: 'Singapore live reference market' },
+			...(occ.isco_codes_matched?.length
+				? { sameAs: SITE.url + '/global/occupation/' + occ.isco_codes_matched[0] }
+				: {}),
 			additionalProperty: [
 				{ '@type': 'PropertyValue', name: 'AI Net Displacement Risk', value: occ.net_risk },
 				{
@@ -407,97 +417,91 @@
 		})}<\/script>`
 	);
 
+	let riskPct = $derived((occ.net_risk * 100).toFixed(0));
+
+	let faqItems = $derived([
+		{
+			question: 'Will AI replace ' + occ.title + '?',
+			answer:
+				structural.summaryText +
+				' Net displacement risk: ' +
+				riskPct +
+				'% (' +
+				riskBandLabels[occ.risk_band] +
+				'). Median wage: SGD ' +
+				occ.gross_wage_median.toLocaleString() +
+				'/month.'
+		},
+		{
+			question: 'What is the AI risk score for ' + occ.title + '?',
+			answer:
+				occ.title +
+				' has an AI displacement risk of ' +
+				riskPct +
+				'%, rated ' +
+				riskBandLabels[occ.risk_band] +
+				'. AI task overlap: ' +
+				(occ.exposure * 100).toFixed(0) +
+				'%. Human advantage: ' +
+				(occ.bottleneck * 100).toFixed(0) +
+				'%. Local demand buffer: ' +
+				(occ.market.market_resilience * 100).toFixed(0) +
+				'%.'
+		},
+		{
+			question: 'What career transitions are available for ' + occ.title + '?',
+			answer: structural.decision.bestTransition
+				? occ.title +
+					' has modeled transition pathways to related occupations. The strongest adjacent pathway is ' +
+					structural.decision.bestTransition.to_title +
+					(structural.decision.bestTransition.evidence_status === 'observed_enriched'
+						? ', supported by observed mobility evidence.'
+						: ', based on skill and wage similarity (model-estimated).') +
+					' Transition scoring accounts for wage preservation, training ease, and destination quality.'
+				: occ.title +
+					' does not have a clearly dominant transition pathway in the current model. Career mobility options should be explored through industry-specific training and reskilling programmes.'
+		},
+		{
+			question: 'How does ' + occ.title + ' salary compare in the live market?',
+			answer:
+				occ.title +
+				' earns a median gross wage of SGD ' +
+				occ.gross_wage_median.toLocaleString() +
+				'/month in the live market' +
+				(occ.gross_wage_25th > 0 && occ.gross_wage_75th > 0
+					? ' (25th-75th percentile: SGD ' +
+						occ.gross_wage_25th.toLocaleString() +
+						'-' +
+						occ.gross_wage_75th.toLocaleString() +
+						')'
+					: '') +
+				'. This is ' +
+				structural.wageVsNational +
+				' across all ' + DATA_VINTAGE.occupation_count + ' scored occupations, and ' +
+				structural.groupComparison.wageVsGroup +
+				' within ' +
+				structural.groupComparison.groupName +
+				' occupations.'
+		}
+	]);
+
 	let faqJsonLd = $derived(
 		`<script type="application/ld+json">${JSON.stringify({
 			'@context': 'https://schema.org',
 			'@type': 'FAQPage',
-			mainEntity: [
-				{
-					'@type': 'Question',
-					name: 'Will AI replace ' + occ.title + '?',
-					acceptedAnswer: {
-						'@type': 'Answer',
-						text:
-							structural.summaryText +
-							' Net displacement risk: ' +
-							(occ.net_risk * 100).toFixed(0) +
-							'% (' +
-							riskBandLabels[occ.risk_band] +
-							'). Median wage: SGD ' +
-							occ.gross_wage_median.toLocaleString() +
-							'/month.'
-					}
-				},
-				{
-					'@type': 'Question',
-					name: 'What is the AI risk score for ' + occ.title + '?',
-					acceptedAnswer: {
-						'@type': 'Answer',
-						text:
-							occ.title +
-							' has an AI displacement risk of ' +
-							(occ.net_risk * 100).toFixed(0) +
-							'%, rated ' +
-							riskBandLabels[occ.risk_band] +
-							'. AI task overlap: ' +
-							(occ.exposure * 100).toFixed(0) +
-							'%. Human advantage: ' +
-							(occ.bottleneck * 100).toFixed(0) +
-							'%. Local demand buffer: ' +
-							(occ.market.market_resilience * 100).toFixed(0) +
-							'%.'
-					}
-				},
-				{
-					'@type': 'Question',
-					name: 'What career transitions are available for ' + occ.title + '?',
-					acceptedAnswer: {
-						'@type': 'Answer',
-						text: structural.decision.bestTransition
-							? occ.title +
-								' has modeled transition pathways to related occupations. The strongest adjacent pathway is ' +
-								structural.decision.bestTransition.to_title +
-								(structural.decision.bestTransition.evidence_status === 'observed_enriched'
-									? ', supported by observed mobility evidence.'
-									: ', based on skill and wage similarity (model-estimated).') +
-								' Transition scoring accounts for wage preservation, training ease, and destination quality.'
-							: occ.title +
-								' does not have a clearly dominant transition pathway in the current model. Career mobility options should be explored through industry-specific training and reskilling programmes.'
-					}
-				},
-				{
-					'@type': 'Question',
-					name: 'How does ' + occ.title + ' salary compare in the live market?',
-					acceptedAnswer: {
-						'@type': 'Answer',
-						text:
-							occ.title +
-							' earns a median gross wage of SGD ' +
-							occ.gross_wage_median.toLocaleString() +
-							'/month in the live market' +
-							(occ.gross_wage_25th > 0 && occ.gross_wage_75th > 0
-								? ' (25th-75th percentile: SGD ' +
-									occ.gross_wage_25th.toLocaleString() +
-									'-' +
-									occ.gross_wage_75th.toLocaleString() +
-									')'
-								: '') +
-							'. This is ' +
-							structural.wageVsNational +
-							' across all ' + DATA_VINTAGE.occupation_count + ' scored occupations, and ' +
-							structural.groupComparison.wageVsGroup +
-							' within ' +
-							structural.groupComparison.groupName +
-							' occupations.'
-					}
-				}
-			]
+			mainEntity: faqItems.map((item) => ({
+				'@type': 'Question',
+				name: item.question,
+				acceptedAnswer: { '@type': 'Answer', text: item.answer }
+			}))
 		})}<\/script>`
 	);
 
-	let pageTitle = $derived(`${occ.title} — AI Risk | ${SITE.name}`);
+	let pageTitle = $derived(
+		`Will AI Replace ${occ.title}? ${riskPct}% Risk | ${SITE.name}`
+	);
 	let pageDescription = $derived(
-		`${occ.title} (SSOC ${occ.ssoc}): AI displacement risk ${(occ.net_risk * 100).toFixed(0)}%, rated ${riskBandLabels[occ.risk_band]}. Median wage SGD ${occ.gross_wage_median.toLocaleString()} in the live Singapore reference market.`
+		`${occ.title} (SSOC ${occ.ssoc}): AI displacement risk ${riskPct}%, rated ${riskBandLabels[occ.risk_band]}. Median wage SGD ${occ.gross_wage_median.toLocaleString()} in the live Singapore reference market.`
 	);
 	const alternates = $derived(
 		buildSingaporeOccupationAlternates(occ.ssoc, occ.isco_codes_matched?.[0] ?? null)
@@ -537,7 +541,8 @@
 									: 'positive'
 				},
 				{ label: group?.label ?? occ.major_group, tone: 'muted' },
-				{ label: hasDemand ? `In demand (${demandLabel})` : 'No shortage listing', tone: hasDemand ? 'positive' : 'neutral' }
+				{ label: hasDemand ? `In demand (${demandLabel})` : 'No shortage listing', tone: hasDemand ? 'positive' : 'neutral' },
+				...(crossesBoundary ? [{ label: 'Classification uncertain', tone: 'warning' as const }] : [])
 			]}
 			summary={structural.summaryText}
 			meta={[
@@ -673,7 +678,8 @@
 						</p>
 					{/if}
 					<p class={cn(caption(), 'pt-2 text-muted-foreground')}>
-						Sources: Felten, Anthropic, O*NET, and Pizzinelli et al. <a
+						Sources: {#if occ.evidence.exposure_source_keys?.length}{occ.evidence.exposure_source_keys.map(k => ({ aioe: 'Felten AIOE (2021)', anthropic: 'Anthropic Economic Index (2026)', eloundou: 'Eloundou GPT Exposure (2023)', ilo: 'ILO GenAI (2025)' }[k] ?? k)).join(', ')}{:else}Felten AIOE, Anthropic{/if}, Pizzinelli et al. bottleneck model.
+						<a
 							href="/methodology"
 							class="text-primary hover:underline">Full methodology</a
 						>.
@@ -1296,4 +1302,19 @@
 			{/if}
 		</Collapsible.Content>
 	</Collapsible.Root>
+
+	<!-- ===== FAQ (visible HTML matching JSON-LD) ===== -->
+	<section class="mt-8">
+		<h2 class={sectionLabel()}>Frequently asked questions</h2>
+		<div class="mt-3 space-y-1">
+			{#each faqItems as item}
+				<details class={cn(card({ padding: 'md' }), 'group')}>
+					<summary class="cursor-pointer text-sm font-semibold text-foreground select-none">
+						{item.question}
+					</summary>
+					<p class="mt-2 text-sm leading-relaxed text-text-secondary">{item.answer}</p>
+				</details>
+			{/each}
+		</div>
+	</section>
 </div>

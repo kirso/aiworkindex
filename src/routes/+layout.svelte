@@ -72,6 +72,15 @@
 			name: SITE.name,
 			url: SITE.url,
 			description: 'Open-source AI displacement risk scoring for occupations and modern roles',
+			foundingDate: '2024',
+			knowsAbout: [
+				'AI displacement risk',
+				'occupational exposure to artificial intelligence',
+				'labor economics',
+				'workforce automation',
+				'career transition planning'
+			],
+			areaServed: { '@type': 'Country', name: 'Singapore' },
 			sameAs: [SITE.github, SITE.authorUrl]
 		},
 		potentialAction: {

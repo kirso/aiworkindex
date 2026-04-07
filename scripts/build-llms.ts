@@ -52,10 +52,14 @@ AI Work Index is a free, open-source project that scores Singapore occupations f
 
 headline_risk = displacement_pressure x (1 - demand_resilience)
 
-- displacement_pressure = exposure x (1 - bottleneck)
-- demand_resilience = min(1.0, base_resilience x ${DEMAND_RESILIENCE_CONSTANTS.base_weight.toFixed(2)} + demand_signal_bonus)
+V7: task_signal = task_concentration x task_coverage (Hampole et al.)
+V7: exposure_v7 = exposure x (1 + 0.20 x task_signal)
+V7: demand_persistence = ranked composite of momentum, vacancy, scarcity, demand signals
+
+- displacement_pressure = exposure_v7 x (1 - bottleneck)
+- demand_resilience = min(1.0, base_resilience x ${DEMAND_RESILIENCE_CONSTANTS.base_weight.toFixed(2)} + demand_signal_bonus + 0.10 x demand_persistence)
 - demand_signal_bonus = SOL exact ${DEMAND_RESILIENCE_CONSTANTS.sol_exact.toFixed(2)}, SOL prefix ${DEMAND_RESILIENCE_CONSTANTS.sol_prefix.toFixed(2)}, JiD exact ${DEMAND_RESILIENCE_CONSTANTS.jid_exact.toFixed(2)}, JiD prefix ${DEMAND_RESILIENCE_CONSTANTS.jid_prefix.toFixed(2)}
-- augmentation = exposure x bottleneck x market.market_resilience
+- augmentation = exposure_v7 x bottleneck x market.market_resilience
 
 ## Interpretation
 
@@ -93,6 +97,27 @@ https://aiworkindex.com/llms-full.txt
 https://github.com/kirso/aiworkindex
 `;
 
+// Build occupation tables for llms-full.txt
+const sorted = [...occupations].sort((a, b) => b.net_risk - a.net_risk);
+const highestRisk = sorted.slice(0, 50);
+const lowestRisk = sorted.slice(-50).reverse();
+
+function occRow(o: Occupation) {
+	return `| ${o.title} | ${(o.net_risk * 100).toFixed(0)}% | ${o.risk_band.replace('_', ' ')} | ${o.impact_type.replace('_', ' ')} |`;
+}
+
+const riskBandLabel: Record<string, string> = {
+	very_high: 'Very High',
+	high: 'High',
+	moderate: 'Moderate',
+	low: 'Low',
+	very_low: 'Very Low'
+};
+
+function faqEntry(o: Occupation) {
+	return `Q: Will AI replace ${o.title}?\nA: ${o.title} has an AI displacement risk of ${(o.net_risk * 100).toFixed(0)}%, rated ${riskBandLabel[o.risk_band] ?? o.risk_band}. This is a structural pressure score, not a prediction of job loss.\n`;
+}
+
 const llmsFull = `# AI Work Index — Full Reference
 
 > Structural AI pressure scores for ${DATA_VINTAGE.occupation_count} Singapore occupations and ${DATA_VINTAGE.role_count} modern roles. Current public release: ${version}. Deterministic scoring, open data, no LLM in the scoring loop.
@@ -114,10 +139,15 @@ AI Work Index is a Singapore-focused occupation scoring project. The live ${vers
 
 headline_risk = displacement_pressure x (1 - demand_resilience)
 
+V7 additions:
+  task_signal = task_exposure_concentration x task_effective_coverage (Hampole et al. 2025)
+  exposure_v7 = exposure x (1 + 0.20 x task_signal)
+  demand_persistence = ranked composite of market momentum, vacancy trends, scarcity, demand signals
+
 Where:
-  displacement_pressure = exposure x (1 - bottleneck)
-  demand_resilience = min(1.0, base_resilience x ${DEMAND_RESILIENCE_CONSTANTS.base_weight.toFixed(2)} + demand_signal_bonus)
-  augmentation = exposure x bottleneck x market.market_resilience
+  displacement_pressure = exposure_v7 x (1 - bottleneck)
+  demand_resilience = min(1.0, base_resilience x ${DEMAND_RESILIENCE_CONSTANTS.base_weight.toFixed(2)} + demand_signal_bonus + 0.10 x demand_persistence)
+  augmentation = exposure_v7 x bottleneck x market.market_resilience
 
 ### Layer 1: Exposure
 
@@ -187,6 +217,23 @@ Demand signals influence impact types only indirectly through demand_resilience 
 2. Crosswalks between SSOC, ISCO, SOC, and O*NET introduce mapping noise.
 3. Exposure inputs reflect published source vintages and can lag capability changes.
 4. Labour-monitor and context layers are supportive evidence, not hidden scoring overrides.
+
+## Top 50 Highest-Risk Occupations
+
+| Occupation | Risk | Band | Impact |
+|------------|------|------|--------|
+${highestRisk.map(occRow).join('\n')}
+
+## Top 50 Lowest-Risk Occupations
+
+| Occupation | Risk | Band | Impact |
+|------------|------|------|--------|
+${lowestRisk.map(occRow).join('\n')}
+
+## Common Questions
+
+${highestRisk.slice(0, 20).map(faqEntry).join('\n')}
+${lowestRisk.slice(0, 10).map(faqEntry).join('\n')}
 
 ## Contact
 

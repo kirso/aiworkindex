@@ -245,15 +245,15 @@
 				<p class="text-sm font-semibold text-foreground">TL;DR</p>
 				<p class="mt-1 text-sm text-muted-foreground">
 					Headline risk = displacement pressure × (1 − demand resilience), where displacement
-					pressure = AI exposure × (1 − human bottleneck). In live V6, exposure comes from a
-					deterministic audited 4-source stack and demand resilience is applied as a separate
-					country demand buffer. No LLM assigns scores in the pipeline.
+					pressure = AI exposure × (1 − human bottleneck). In V7, exposure is amplified by
+					task-concentration (Hampole et al.) and demand resilience includes a persistence proxy.
+					No LLM assigns scores in the pipeline.
 				</p>
 			</div>
 
-			<!-- V6 overview -->
+			<!-- V7 overview -->
 			<section class="mb-8">
-				<p class={sectionLabel()}>V6 Two-Axis Structural Score</p>
+				<p class={sectionLabel()}>V7 Two-Axis Structural Score</p>
 				<div class="mt-3 space-y-4">
 					<div class={card({ padding: 'sm' })}>
 						<h3 class="text-sm font-semibold text-red-700">Layer 1: Exposure</h3>
@@ -512,9 +512,9 @@
 						<p class="mt-2 text-sm text-muted-foreground">
 							Momentum gets 60% weight and scarcity 40%. Within momentum, group-level wage growth is
 							retained as the common anchor while the employment side uses an occupation-specific
-							industry-footprint blend when available, falling back to the group prior otherwise. V6
-							then converts that base resilience into demand resilience by retaining 45% of the base
-							signal and adding verified occupation-level demand bonuses.
+							industry-footprint blend when available, falling back to the group prior otherwise. V7
+							then converts base resilience into demand resilience by retaining 45% of the base
+							signal, adding verified occupation-level demand bonuses, and a demand-persistence proxy.
 						</p>
 					</div>
 
@@ -1278,7 +1278,7 @@
 				<p class="mt-3 text-sm text-muted-foreground">
 					This is why a single "AI exposure score" is misleading. The software developer has higher
 					exposure than many "at risk" occupations, yet strong demand resilience offsets much more
-					of that structural pressure. The V6 score captures this distinction directly.
+					of that structural pressure. The V7 score captures this distinction directly, with additional task-concentration and demand-persistence signals.
 				</p>
 			</section>
 		</Tabs.Content>
@@ -1624,8 +1624,8 @@
 			<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'primary' }), 'mb-6')}>
 				<p class="text-sm font-semibold text-foreground">TL;DR</p>
 				<p class="mt-1 text-sm text-muted-foreground">
-					{researchLibrary.entry_count} research entries + {dataSourceCount} data sources. The live V6
-					model uses a deterministic two-axis formulation built on the audited 4-source exposure stack:
+					{researchLibrary.entry_count} research entries + {dataSourceCount} data sources. The live V7
+					model uses a deterministic two-axis formulation built on the audited 4-source exposure stack, with V7 task-concentration and demand-persistence additions:
 					Felten AIOE, Pizzinelli complementarity, Anthropic observed usage and labour-market work, Eloundou
 					GPT exposure, ILO occupational exposure, and Singapore demand evidence.
 				</p>
@@ -1820,7 +1820,14 @@
 									>{release.display_date}</span
 								>
 							</div>
-							<p class="mt-1 text-sm text-muted-foreground">{release.notes.join(' ')}</p>
+							<p class="mt-1 text-sm text-muted-foreground">
+								{release.notes.join(' ')}
+								{#if release.version_label === 'V7'}
+									<a href="/reports/v7-release" class="ml-1 text-primary hover:underline">Release note</a>
+								{:else if release.version_label === 'V6'}
+									<a href="/reports/v6-release" class="ml-1 text-primary hover:underline">Release note</a>
+								{/if}
+							</p>
 						</div>
 					{/each}
 				</div>

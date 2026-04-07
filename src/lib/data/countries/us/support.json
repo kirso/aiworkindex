@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-04-06T14:24:16.450Z",
-  "version": "V6",
+  "version": "V7",
   "source_vintage": "O*NET 30.2 / OEWS 2024 / ORS 2025 / OOH 2025-08-28 / Projections 2024-34 / CPS 2025 / Anthropic task penetration",
   "note": "US evidence-support bundle built from the checked-in public raw corpus. This is context, not a direct labor-market outcome.",
   "entries": [

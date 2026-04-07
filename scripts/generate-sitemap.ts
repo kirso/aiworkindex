@@ -44,6 +44,8 @@ async function main() {
 		{ path: '/reports', priority: '0.8', changefreq: 'monthly' },
 		{ path: '/reports/q4-2024', priority: '0.6', changefreq: 'yearly' },
 		{ path: '/reports/wage-exposure', priority: '0.7', changefreq: 'monthly' },
+		{ path: '/reports/v7-release', priority: '0.7', changefreq: 'monthly' },
+		{ path: '/reports/v6-release', priority: '0.6', changefreq: 'yearly' },
 		{ path: '/rankings', priority: '0.7', changefreq: 'monthly' },
 		{ path: '/rankings/highest-risk', priority: '0.7', changefreq: 'monthly' },
 		{ path: '/rankings/ai-leveraged', priority: '0.7', changefreq: 'monthly' },
@@ -56,6 +58,9 @@ async function main() {
 		{ path: '/compare', priority: '0.6', changefreq: 'monthly' },
 		{ path: '/rankings/rich-and-risky', priority: '0.7', changefreq: 'monthly' },
 		{ path: '/calculator', priority: '0.7', changefreq: 'monthly' },
+		{ path: '/will-ai-take-my-job', priority: '0.8', changefreq: 'monthly' },
+		{ path: '/ai-proof-jobs', priority: '0.8', changefreq: 'monthly' },
+		{ path: '/ai-job-loss', priority: '0.8', changefreq: 'monthly' },
 		{ path: '/groups', priority: '0.7', changefreq: 'monthly' }
 	];
 

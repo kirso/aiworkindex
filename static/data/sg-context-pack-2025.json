@@ -1,5 +1,5 @@
 {
-  "version": "V6",
+  "version": "V7",
   "generated_at": "2026-04-01",
   "description": "Singapore context bundle for AI Work Index. Context data is published separately from the structural score dataset and includes labour, worker, industry, wage-anchor, geography, macro, and national AI context.",
   "score_dataset": {

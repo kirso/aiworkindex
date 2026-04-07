@@ -1,10 +1,10 @@
 {
   "updated_at": "2026-04-01T13:22:54.953Z",
   "structural_release": {
-    "version": "V6",
-    "label": "V6 structural release",
-    "generated_at": "2026-04-01T00:00:00.000Z",
-    "score_dataset_generated_at": "2026-04-01",
+    "version": "V7",
+    "label": "V7 structural release — task-concentration exposure + demand persistence",
+    "generated_at": "2026-04-07T00:00:00.000Z",
+    "score_dataset_generated_at": "2026-04-07",
     "release_manifest": "release-manifest-v6.json"
   },
   "experimental_release": {
@@ -69,9 +69,9 @@
   },
   "homepage_banner": {
     "tag": "Live now",
-    "title": "V6 scoring is now available",
-    "body": "V6 scoring is now applied to all occupations, downloads, and reports.",
+    "title": "V7 is live — task-concentration exposure + demand persistence",
+    "body": "V7 adds task-concentration-weighted exposure (Hampole et al.) and a demand-persistence proxy to the structural formula. All scores, downloads, and methodology surfaces are updated.",
     "link_href": "/reports",
-    "link_label": "See what changed"
+    "link_label": "Review release surfaces"
   }
 }

@@ -19,7 +19,7 @@
 
 <Seo
 	title="V5 Roadmap"
-	description="Archived roadmap for the V5 research program that preceded the current V6 two-axis release."
+	description="Archived roadmap for the V5 research program that preceded the current V7 two-axis release."
 	path="/reports/v5-roadmap"
 />
 

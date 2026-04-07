@@ -319,6 +319,7 @@
 		<div class="flex items-center gap-3">
 			<a href="/methodology" class="hover:text-foreground">Methodology</a>
 			<a href="/methodology/appendix" class="hover:text-foreground">Appendix</a>
+			<a href="/reports/v7-release" class="hover:text-foreground">V7 Release</a>
 			<a href="/data" class="hover:text-foreground">Data</a>
 		</div>
 	</div>

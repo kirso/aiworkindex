@@ -8,6 +8,7 @@
 		pageLayout,
 		display,
 		title as titleStyle,
+		sectionLabel,
 		caption,
 		pill,
 		scoreTileClasses,
@@ -273,75 +274,73 @@
 		})}<\/script>`
 	);
 
+	let riskPct = $derived((scored.net_risk * 100).toFixed(0));
+
+	let faqItems = $derived([
+		{
+			question: 'Will AI replace ' + scored.title + '?',
+			answer:
+				structural.summaryText +
+				' Estimated displacement risk: ' +
+				riskPct +
+				'% (' +
+				riskBandLabels[scored.risk_band] +
+				').'
+		},
+		{
+			question: 'What is the AI risk score for ' + scored.title + '?',
+			answer:
+				scored.title +
+				' has an estimated AI displacement risk of ' +
+				riskPct +
+				'%, rated ' +
+				riskBandLabels[scored.risk_band] +
+				'. AI task overlap: ' +
+				(scored.exposure * 100).toFixed(0) +
+				'%. Human advantage: ' +
+				(scored.bottleneck * 100).toFixed(0) +
+				'%. This is a synthetic estimate blending ' +
+				scored.components.length +
+				' official occupations in Singapore.'
+		},
+		{
+			question: 'What occupations make up the ' + scored.title + ' estimate?',
+			answer:
+				scored.title +
+				' is estimated from ' +
+				scored.components.length +
+				' official occupations in Singapore: ' +
+				scored.components
+					.slice(0, 5)
+					.map(
+						(c) =>
+							(c.occupation?.title ?? c.ssoc) +
+							' (' +
+							(c.weight * 100).toFixed(0) +
+							'%)'
+					)
+					.join(', ') +
+				'.'
+		}
+	]);
+
 	let faqJsonLd = $derived(
 		`<script type="application/ld+json">${JSON.stringify({
 			'@context': 'https://schema.org',
 			'@type': 'FAQPage',
-			mainEntity: [
-				{
-					'@type': 'Question',
-					name: 'Will AI replace ' + scored.title + '?',
-					acceptedAnswer: {
-						'@type': 'Answer',
-						text:
-							structural.summaryText +
-							' Estimated displacement risk: ' +
-							(scored.net_risk * 100).toFixed(0) +
-							'% (' +
-							riskBandLabels[scored.risk_band] +
-							').'
-					}
-				},
-				{
-					'@type': 'Question',
-					name: 'What is the AI risk score for ' + scored.title + '?',
-					acceptedAnswer: {
-						'@type': 'Answer',
-						text:
-							scored.title +
-							' has an estimated AI displacement risk of ' +
-							(scored.net_risk * 100).toFixed(0) +
-							'%, rated ' +
-							riskBandLabels[scored.risk_band] +
-							'. AI task overlap: ' +
-							(scored.exposure * 100).toFixed(0) +
-							'%. Human advantage: ' +
-							(scored.bottleneck * 100).toFixed(0) +
-							'%. This is a synthetic estimate blending ' +
-							scored.components.length +
-							' official occupations in Singapore.'
-					}
-				},
-				{
-					'@type': 'Question',
-					name: 'What occupations make up the ' + scored.title + ' estimate?',
-					acceptedAnswer: {
-						'@type': 'Answer',
-						text:
-							scored.title +
-							' is estimated from ' +
-							scored.components.length +
-							' official occupations in Singapore: ' +
-							scored.components
-								.slice(0, 5)
-								.map(
-									(c) =>
-										(c.occupation?.title ?? c.ssoc) +
-										' (' +
-										(c.weight * 100).toFixed(0) +
-										'%)'
-								)
-								.join(', ') +
-							'.'
-					}
-				}
-			]
+			mainEntity: faqItems.map((item) => ({
+				'@type': 'Question',
+				name: item.question,
+				acceptedAnswer: { '@type': 'Answer', text: item.answer }
+			}))
 		})}<\/script>`
 	);
 
-	let pageTitle = $derived(`${scored.title} — AI Risk Estimate | AI Work Index`);
+	let pageTitle = $derived(
+		`Will AI Replace ${scored.title}? ${riskPct}% Risk | AI Work Index`
+	);
 	let pageDescription = $derived(
-		`${scored.title}: Estimated AI risk ${(scored.net_risk * 100).toFixed(0)}%, rated ${riskBandLabels[scored.risk_band]}. Based on ${scored.components.length} official occupations in Singapore.`
+		`${scored.title}: Estimated AI risk ${riskPct}%, rated ${riskBandLabels[scored.risk_band]}. Based on ${scored.components.length} official occupations in Singapore.`
 	);
 </script>
 
@@ -887,4 +886,19 @@
 			</div>
 		</Collapsible.Content>
 	</Collapsible.Root>
+
+	<!-- ===== FAQ (visible HTML matching JSON-LD) ===== -->
+	<section class="mt-8">
+		<h2 class={sectionLabel()}>Frequently asked questions</h2>
+		<div class="mt-3 space-y-1">
+			{#each faqItems as item}
+				<details class={cn(card({ padding: 'md' }), 'group')}>
+					<summary class="cursor-pointer text-sm font-semibold text-foreground select-none">
+						{item.question}
+					</summary>
+					<p class="mt-2 text-sm leading-relaxed text-text-secondary">{item.answer}</p>
+				</details>
+			{/each}
+		</div>
+	</section>
 </main>

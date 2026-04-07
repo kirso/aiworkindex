@@ -39,15 +39,15 @@
 	let filteredEntries = $derived.by(() => {
 		const q = searchQuery.trim();
 		if (q.length < 2) return [];
-		// Alias matches first (occupation SSOCs that match aliases)
 		const aliasHits = findAliasMatches(q);
 		const aliasSsocs = new Set(aliasHits.flatMap(m => m.ssocs));
 		const aliasEntries =
-			aliasSsocs.size > 0 ? data.entries.filter(e => aliasSsocs.has(e.ssoc)) : [];
-		// Title matches (excluding alias hits)
-		const aliasIds = new Set(aliasEntries.map(e => e.id));
+			aliasSsocs.size > 0
+				? data.entries.filter((e: Entry) => aliasSsocs.has(e.ssoc))
+				: [];
+		const aliasIds = new Set(aliasEntries.map((e: Entry) => e.id));
 		const titleEntries = data.entries.filter(
-			e => !aliasIds.has(e.id) && titleMatches(e.title, q.toLowerCase())
+			(e: Entry) => !aliasIds.has(e.id) && titleMatches(e.title, q.toLowerCase())
 		);
 		return [...aliasEntries, ...titleEntries].slice(0, 8);
 	});
@@ -91,7 +91,6 @@
 	}
 
 	function handleSearchBlur() {
-		// Delay to allow click on dropdown item
 		setTimeout(() => {
 			showDropdown = false;
 		}, 200);
@@ -99,19 +98,21 @@
 </script>
 
 <Seo
-	path="/calculator"
-	title="AI Exposure Calculator | AI Work Index"
-	description="Find out how much of your salary overlaps with AI capabilities. Use the AI Work Index structural risk scores to estimate your role's AI exposure in the current selected market."
+	path="/will-ai-take-my-job"
+	title="Will AI Take My Job? Free AI Risk Calculator | AI Work Index"
+	description="Find out if AI will take your job. Search 562 occupations and 88 modern roles scored for AI displacement risk. Free calculator with seniority adjustments."
 />
 
 <div class={pageLayout({ width: 'content' })}>
-	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'AI Risk Calculator' }]} />
+	<PageBreadcrumb
+		items={[{ label: 'Home', href: '/' }, { label: 'Will AI Take My Job?' }]}
+	/>
 
-	<h1 class={titleStyle({ size: 'page' })}>AI Exposure Calculator</h1>
-		<p class={caption({ class: 'mt-1 mb-6' })}>
-		Estimate how much of your role's tasks overlap with current AI capabilities, and what to do
-		about it. The current calculator uses Singapore occupation data.
-		</p>
+	<h1 class={titleStyle({ size: 'page' })}>Will AI Take My Job?</h1>
+	<p class={caption({ class: 'mt-1 mb-6' })}>
+		Search for your occupation or role to see how much of your work overlaps with current AI
+		capabilities. Based on a 4-source exposure ensemble scoring 562 Singapore occupations.
+	</p>
 
 	<!-- Search + Select -->
 	<div class={card({ padding: 'lg', class: 'mb-4' })}>
@@ -262,14 +263,14 @@
 					<span class="shrink-0 text-risk-very-low font-bold">1</span>
 					<p>
 						<span class="font-medium text-foreground">See the full picture.</span>
-						Overlap ≠ replacement. View the
+						Overlap does not mean replacement. View the
 						<a
 							href={selectedEntry.isRole
 								? `/role/${selectedEntry.slug}`
 								: `/occupation/${selectedEntry.ssoc}`}
 							class="text-primary hover:underline">detailed breakdown</a
 						>
-						to understand what AI can and can't do in this role.
+						to understand what AI can and cannot do in this role.
 					</p>
 				</div>
 				<div class="flex gap-2">
@@ -311,7 +312,6 @@
 			This calculator shows the proportion of your role's tasks that overlap with current AI
 			capabilities — it does not predict job loss. Actual impact depends on employer adoption,
 			regulatory environment, and many other factors.
-			Also available at <a href="/will-ai-take-my-job" class="text-primary hover:underline">Will AI Take My Job?</a>
 		</p>
 	</div>
 </div>

@@ -1,5 +1,5 @@
 {
-  "version": "V6",
+  "version": "V7",
   "generated_at": "2026-04-06T09:57:41.762Z",
   "description": "Machine-readable field-level source map for the main public AI Work Index artifacts. Use this to inspect where headline fields come from, what vintage they use, and whether they are direct official values, derived local values, cross-country research inputs, or external proxies.",
   "entries": [
@@ -155,7 +155,7 @@
       ],
       "source_tier": "derived_from_official_local",
       "vintage": "2024-2026",
-      "transformation": "Deterministic V6 formula field computed as min(1, base_resilience × 0.45 + demand_signal_bonus)."
+      "transformation": "Deterministic V7 formula field computed as min(1, base_resilience × 0.45 + demand_signal_bonus)."
     },
     {
       "field_path": "task_primitives.*",
