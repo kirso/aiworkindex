@@ -106,8 +106,8 @@
 	</section>
 
 	<p class="mt-4 text-xs text-muted-foreground">
-		Augmented = exposure &gt; 0.6 AND bottleneck &gt; 0.6. Augmentation = exposure &times;
-		bottleneck &times; market_resilience.
+		Augmented = net_risk &lt; 0.25 AND augmentation &ge; 0.12. Augmentation = exposure &times;
+		bottleneck &times; base_resilience.
 		<a href="/methodology" class="text-primary underline">Learn more</a>
 	</p>
 <div class="mt-4 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">

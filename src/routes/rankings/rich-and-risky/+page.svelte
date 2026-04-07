@@ -94,8 +94,8 @@
 	</section>
 
 	<p class="mt-4 text-xs text-muted-foreground">
-		Net Risk = Exposure &times; (1 &minus; Bottleneck) &times; Market Modifier. Wages are gross
-		monthly median from the live reference market.
+		headline_risk = displacement_pressure &times; (1 &minus; demand_resilience). Wages are gross
+		monthly median (Singapore).
 		<a href="/methodology" class="text-primary underline">Learn more</a>
 	</p>
 <div class="mt-4 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">

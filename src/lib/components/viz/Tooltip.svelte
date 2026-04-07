@@ -39,9 +39,10 @@
 			</span>
 			<span class="text-xs text-muted-foreground">
 				{#if occupation.valueKind === 'count'}
-					{formatCompactCount(occupation.gross_wage_median ?? 0)} mapped occupations
+					{formatCompactCount(occupation.gross_wage_median ?? 0)} source occupations
 				{:else}
-					{occupation.currency ?? 'SGD'} {occupation.gross_wage_median?.toLocaleString()}/mo
+					{@const cur = occupation.currency ?? 'USD'}
+					{cur} {occupation.gross_wage_median?.toLocaleString()}{cur === 'SGD' ? '/mo' : '/yr'}
 				{/if}
 			</span>
 		</div>

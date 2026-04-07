@@ -3,13 +3,18 @@
 	import { onMount } from 'svelte';
 	import { SvelteSet } from 'svelte/reactivity';
 	import type { Occupation, RiskBand } from '$lib/data';
-	import { majorGroups, riskBandLabels, riskBandColors } from '$lib/data';
+	import { riskBandLabels, riskBandColors } from '$lib/data';
 	import { findAliasMatches } from '$lib/data/aliases';
 	import { chip } from '$lib/design-system';
 	import { Slider } from '$lib/components/ui/slider/index.js';
 	import { Input } from '$lib/components/ui/input/index.js';
 	import { Label } from '$lib/components/ui/label/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
+
+	type FilterableOccupation = Occupation & {
+		groupKey?: string;
+		groupLabel?: string;
+	};
 
 	let {
 		occupations,
@@ -21,8 +26,8 @@
 		valueMax = 30000,
 		valueStep = 500
 	}: {
-		occupations: Occupation[];
-		onfilter: (filtered: Occupation[]) => void;
+		occupations: FilterableOccupation[];
+		onfilter: (filtered: FilterableOccupation[]) => void;
 		showTextSearch?: boolean;
 		valueLabel?: string;
 		valuePrefix?: string | null;
@@ -30,6 +35,20 @@
 		valueMax?: number;
 		valueStep?: number;
 	} = $props();
+
+	// Derive group options from the actual data (works for any surface)
+	let dataGroups = $derived.by(() => {
+		const seen = new Map<string, string>();
+		for (const o of occupations) {
+			const key = o.groupKey ?? o.major_group;
+			if (!seen.has(key)) {
+				seen.set(key, o.groupLabel ?? o.major_group);
+			}
+		}
+		return Array.from(seen.entries())
+			.map(([key, label]) => ({ key, label }))
+			.sort((a, b) => a.label.localeCompare(b.label));
+	});
 
 	// Filter state
 	let search = $state('');
@@ -96,16 +115,17 @@
 			if (directMatches.length > 0) {
 				result = directMatches;
 			} else if (aliasMatches.length > 0) {
-				// Fall back to alias matches
+				// Fall back to alias matches (SSOC-based, works for SG surface)
 				const aliasSSocs = new Set(aliasMatches.flatMap(m => m.ssocs));
-				result = result.filter(o => aliasSSocs.has(o.ssoc));
+				const aliasResults = result.filter(o => o.ssoc != null && aliasSSocs.has(o.ssoc));
+				result = aliasResults.length > 0 ? aliasResults : directMatches;
 			} else {
 				result = directMatches; // empty
 			}
 		}
 
 		if (selectedGroups.size > 0) {
-			result = result.filter(o => selectedGroups.has(o.major_group));
+			result = result.filter(o => selectedGroups.has(o.groupKey ?? o.major_group));
 		}
 
 		if (wageMin > valueMin || wageMax < valueMax) {
@@ -227,7 +247,7 @@
 	<div>
 		<span class="mb-1.5 block text-xs font-medium text-muted-foreground">Occupation Group</span>
 		<div class="space-y-0.5">
-			{#each majorGroups as group (group.key)}
+			{#each dataGroups as group (group.key)}
 				{@const shortLabel = group.label
 					.replace('Associate Professionals & Technicians', 'Assoc. Professionals')
 					.replace('Plant & Machine Operators & Assemblers', 'Plant & Machine Ops')
@@ -235,7 +255,8 @@
 					.replace('Craftsmen & Related Trades Workers', 'Craftsmen & Trades')
 					.replace('Agricultural & Fishery Workers', 'Agriculture & Fishery')
 					.replace('Service & Sales Workers', 'Service & Sales')
-					.replace('Clerical Support Workers', 'Clerical Support')}
+					.replace('Clerical Support Workers', 'Clerical Support')
+					.replace(' Occupations', '')}
 				<label
 					class="flex cursor-pointer items-center gap-1.5 rounded px-1 py-0.5 text-text-secondary hover:bg-muted"
 				>
@@ -245,10 +266,6 @@
 						onchange={() => toggleGroup(group.key)}
 						class="h-3 w-3 shrink-0 rounded border-border"
 					/>
-					<span
-						class="inline-block h-2 w-2 shrink-0 rounded-full"
-						style="background-color: {group.color};"
-					></span>
 					<span class="text-xs leading-tight">{shortLabel}</span>
 				</label>
 			{/each}

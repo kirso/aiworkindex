@@ -105,7 +105,7 @@
 	</section>
 
 	<p class="mt-4 text-xs text-muted-foreground">
-		Net Risk = Exposure &times; (1 &minus; Bottleneck) &times; Market Modifier.
+		headline_risk = displacement_pressure &times; (1 &minus; demand_resilience).
 		<a href="/methodology" class="text-primary underline">Learn more</a>
 	</p>
 <div class="mt-4 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
