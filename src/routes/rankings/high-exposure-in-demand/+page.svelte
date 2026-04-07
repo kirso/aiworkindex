@@ -18,7 +18,7 @@
 			'@type': 'ItemList',
 			name: 'High AI Exposure but In-Demand Occupations',
 			description:
-				'Occupations with high AI exposure that remain on shortage or in-demand lists in the current live reference market',
+				'Occupations with high AI exposure that remain on shortage or in-demand lists in Singapore',
 			numberOfItems: data.ranked.length,
 			itemListElement: data.ranked.slice(0, 10).map((occ: Occupation, i: number) => ({
 				'@type': 'ListItem',
@@ -46,7 +46,7 @@
 				name: 'Why are some AI-exposed jobs still hiring?',
 				acceptedAnswer: {
 					'@type': 'Answer',
-					text: 'Demand signals like shortage lists reflect current labor market needs. An occupation can have high theoretical AI exposure while still experiencing talent shortages in the live market.'
+					text: 'Demand signals like shortage lists reflect current labor market needs. An occupation can have high theoretical AI exposure while still experiencing talent shortages in Singapore.'
 				}
 			}
 		]
@@ -86,7 +86,7 @@
 
 <Seo
 	title="High AI Exposure but In-Demand Jobs"
-	description="Occupations with high AI exposure that remain on shortage or in-demand lists in the current live reference market — paradox roles where demand persists despite AI overlap."
+	description="Occupations with high AI exposure that remain on shortage or in-demand lists in Singapore — paradox roles where demand persists despite AI overlap."
 	path="/rankings/high-exposure-in-demand"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />

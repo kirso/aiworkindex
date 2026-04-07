@@ -14,7 +14,7 @@
 					name: 'What is the AI Work Index?',
 					acceptedAnswer: {
 						'@type': 'Answer',
-						text: `The AI Work Index scores ${DATA_VINTAGE.occupation_count} occupations and ${DATA_VINTAGE.role_count} modern roles for structural AI displacement pressure. The structural score combines a multi-source exposure layer, a human bottleneck layer, and a local market-resilience layer. The product is global-first, with Singapore as the live reference market and the United States as the first ready country layer. No LLM is used in the scoring pipeline.`
+						text: `The AI Work Index scores ${DATA_VINTAGE.occupation_count} occupations and ${DATA_VINTAGE.role_count} modern roles for structural AI displacement pressure. The structural score combines a multi-source exposure layer, a human bottleneck layer, and a local market-resilience layer. The product is global-first, with Singapore as the first fully scored country and the United States as the next country layer. No LLM is used in the scoring pipeline.`
 					}
 				},
 			{
@@ -39,7 +39,7 @@
 
 <Seo
 	title="About the AI Work Index — Global Methodology"
-	description="About the AI Work Index: purpose, model card, data sources, and credits. Open-source, MIT licensed, with a global-first methodology and live Singapore and United States reference markets."
+	description="About the AI Work Index: purpose, model card, data sources, and credits. Open-source, MIT licensed. Singapore is fully scored, the United States is next."
 	path="/about"
 	jsonLd={[aboutJsonLd]}
 />
@@ -75,7 +75,7 @@
 				Labour Monitor
 			</p>
 			<p class={cn(caption(), 'mt-1')}>
-				Quarterly live-market data. Vacancy rates, hiring, retrenchment. Cluster-level, not per-occupation.
+				Quarterly live-market data (Singapore). Vacancy rates, hiring, retrenchment. Cluster-level, not per-occupation.
 			</p>
 		</div>
 		<div class={card({ padding: 'sm', accent: 'primary' })}>
@@ -209,7 +209,7 @@
 			<div class="mt-3 grid gap-2 sm:grid-cols-2">
 				<div class={card({ padding: 'sm', variant: 'flat' })}>
 					<p class={caption({ weight: 'medium' })}>Wages</p>
-					<p class="text-sm text-foreground">{DATA_VINTAGE.wages} MOM data</p>
+					<p class="text-sm text-foreground">{DATA_VINTAGE.wages} MOM data (Singapore)</p>
 				</div>
 				<div class={card({ padding: 'sm', variant: 'flat' })}>
 					<p class={caption({ weight: 'medium' })}>Demand Signals</p>
@@ -257,9 +257,8 @@
 				official data, not live model-generated ratings
 			</li>
 			<li>
-				<strong>Live reference markets</strong> — Singapore is live, the United States layer is ready,
-				and country-specific demand signals and labour-market data stay separate from the structural
-				score
+				<strong>Singapore is fully scored. The United States is next.</strong> Country-specific demand
+				signals and labour-market data stay separate from the structural score
 			</li>
 			<li>
 				<strong>Three-layer structural score</strong> — exposure ensemble, human bottleneck, and market

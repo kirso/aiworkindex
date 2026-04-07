@@ -69,9 +69,9 @@
   },
   "homepage_banner": {
     "tag": "Live now",
-    "title": "V6 is live across the app, downloads, and release surfaces",
-    "body": "V6 is now the live structural release. The canonical app dataset, downloadable files, methodology artifacts, and report surfaces are aligned to the same release contract.",
+    "title": "V6 scoring is now available",
+    "body": "V6 scoring is now applied to all occupations, downloads, and reports.",
     "link_href": "/reports",
-    "link_label": "Review release surfaces"
+    "link_label": "See what changed"
   }
 }

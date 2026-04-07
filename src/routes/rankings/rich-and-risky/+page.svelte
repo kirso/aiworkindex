@@ -32,7 +32,7 @@
 			'@type': 'ItemList',
 			name: 'Highest-Paid Jobs at Risk of AI Displacement',
 			description:
-				`Top 25 high-paying occupations facing high AI displacement risk (net risk 30%+, median wage ${currency} 5,000+) in the current live reference market`,
+				`Top 25 high-paying occupations facing high AI displacement risk (net risk 30%+, median wage ${currency} 5,000+) in Singapore`,
 			numberOfItems: data.ranked.length,
 			itemListElement: data.ranked.slice(0, 10).map((occ: Occupation, i: number) => ({
 				'@type': 'ListItem',
@@ -69,7 +69,7 @@
 
 <Seo
 	title="Highest-Paid Jobs at Risk of AI Displacement"
-	description={`Top 25 high-paying occupations (${currency} 5,000+/month) facing high AI displacement risk (30%+) in the current live reference market. These well-paid professionals earn above ${currency} 5,000/month but face significant structural AI pressure.`}
+	description={`Top 25 high-paying occupations (${currency} 5,000+/month) facing high AI displacement risk (30%+) in Singapore. These well-paid professionals earn above ${currency} 5,000/month but face significant structural AI pressure.`}
 	path="/rankings/rich-and-risky"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
@@ -86,7 +86,7 @@
 	<h1 class={titleStyle({ size: 'page' })}>Highest-Paid Jobs at Risk</h1>
 	<p class="mt-2 text-sm text-muted-foreground">
 		High-paying occupations with net risk &ge; 30% and median wage &ge; {currency} 5,000/month. Where high
-		salaries meet high AI exposure in the current live market.
+		salaries meet high AI exposure in Singapore.
 	</p>
 
 	<section class="mt-6">

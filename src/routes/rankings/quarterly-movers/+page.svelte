@@ -16,7 +16,7 @@
 			'@type': 'ItemList',
 			name: 'Quarterly AI Risk Movers',
 			description:
-				'Occupations with the largest structural risk changes in the latest quarterly snapshot for the current live reference market',
+				'Occupations with the largest structural risk changes in the latest quarterly snapshot for Singapore',
 			numberOfItems: data.risers.length + data.fallers.length,
 			itemListElement: [...data.risers, ...data.fallers].slice(0, 10).map((entry, i) => ({
 				'@type': 'ListItem',
@@ -53,7 +53,7 @@
 
 <Seo
 	title="Quarterly AI Risk Movers"
-	description="Frozen snapshot-to-snapshot changes in occupation risk scores, band movers, and demand shifts in the current live reference market."
+	description="Frozen snapshot-to-snapshot changes in occupation risk scores, band movers, and demand shifts in Singapore."
 	path="/rankings/quarterly-movers"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />

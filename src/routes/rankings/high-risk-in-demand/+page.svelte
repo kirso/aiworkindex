@@ -17,7 +17,7 @@
 			'@type': 'ItemList',
 			name: 'High-Risk but In-Demand Occupations',
 			description:
-				'Occupations with high AI displacement risk that still appear on official demand lists in the current live reference market',
+				'Occupations with high AI displacement risk that still appear on official demand lists in Singapore',
 			numberOfItems: data.ranked.length,
 			itemListElement: data.ranked.slice(0, 10).map((occ: Occupation, i: number) => ({
 				'@type': 'ListItem',
@@ -87,7 +87,7 @@
 
 <Seo
 	title="High AI Risk but In-Demand Jobs"
-	description="Occupations with high AI displacement risk that still appear on official demand lists in the current live reference market."
+	description="Occupations with high AI displacement risk that still appear on official demand lists in Singapore."
 	path="/rankings/high-risk-in-demand"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
@@ -104,7 +104,7 @@
 	<h1 class={titleStyle({ size: 'page' })}>High Risk but In-Demand</h1>
 	<p class="mt-2 text-sm text-muted-foreground">
 		These occupations score High or Very High on AI displacement risk (net_risk &ge; 25%), yet still
-		appear on official demand lists in the current live reference market. This tension suggests
+		appear on official demand lists in Singapore. This tension suggests
 		employers still need these workers today, even as AI capabilities grow.
 	</p>
 

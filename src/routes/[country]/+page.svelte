@@ -24,9 +24,8 @@
 		<h1 class={titleStyle({ size: 'page' })}>{data.country.displayName}</h1>
 		<p class="mt-4 text-base text-muted-foreground">
 			{#if data.country.status === 'live'}
-				This is the current live Singapore reference market. The page keeps the comparable
-				structural baseline in view while showing Singapore-specific demand, wage, and policy
-				context.
+				Singapore is the first fully published country, with local demand signals, wages,
+				and policy context.
 			{:else if data.country.code === 'us'}
 				The United States layer is generated from the shared ISCO-08 baseline plus BLS wages,
 				projections, requirements, skills, demographics, and occupation narrative sources.

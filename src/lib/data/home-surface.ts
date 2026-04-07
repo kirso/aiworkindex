@@ -86,19 +86,19 @@ const surfaceChoices: HomeSurfaceChoice[] = [
 	{
 		code: 'global',
 		label: 'Global',
-		description: 'Canonical structural baseline on ISCO-08.',
+		description: 'Comparable scores across all countries.',
 		status: 'global'
 	},
 	{
 		code: 'sg',
 		label: 'Singapore',
-		description: 'Live reference market with official local context.',
+		description: 'Singapore wages, demand signals, and policy data.',
 		status: 'live'
 	},
 	{
 		code: 'us',
 		label: 'United States',
-		description: 'Ready country layer using public US labour data.',
+		description: 'US wages, employment projections, and BLS data.',
 		status: 'ready'
 	}
 ];
@@ -390,10 +390,10 @@ export function getHomeSurface(code: HomeSurfaceCode): HomeSurface {
 		return {
 			code,
 			config: countryConfigs.sg,
-			title: 'Singapore live reference market',
+			title: 'Singapore',
 			description:
-				'Official local wage, demand, and policy context layered onto the shared structural baseline.',
-			summary: 'Live reference market with official local context and wages.',
+				'Local wages, demand signals, and policy context for Singapore occupations.',
+			summary: 'Singapore occupations with local wages and demand data.',
 			drilldownLabel: 'Open Singapore hub',
 			drilldownHref: countryConfigs.sg.routePrefix,
 			valueLabel: 'median wage',
@@ -412,10 +412,10 @@ export function getHomeSurface(code: HomeSurfaceCode): HomeSurface {
 		return {
 			code,
 			config: countryConfigs.us,
-			title: 'United States country layer',
+			title: 'United States',
 			description:
-				'BLS wages and projections mapped onto the shared structural baseline through the country adapter.',
-			summary: 'Ready country layer using public US occupational and wage data.',
+				'BLS wages and employment projections for US occupations.',
+			summary: 'US occupations with BLS wages and employment projections.',
 			drilldownLabel: 'Open United States hub',
 			drilldownHref: countryConfigs.us.routePrefix,
 			valueLabel: 'median wage',
@@ -435,8 +435,8 @@ export function getHomeSurface(code: HomeSurfaceCode): HomeSurface {
 		config: countryConfigs.global,
 		title: 'Global structural index',
 		description:
-			'Canonical ISCO-08 baseline showing structural AI pressure, human bottlenecks, and source coverage.',
-		summary: 'Country-agnostic structural baseline.',
+			'Comparable AI pressure scores across all occupations, before country-specific data.',
+		summary: 'Comparable global scores without country-specific data.',
 		drilldownLabel: 'Open global methodology',
 		drilldownHref: countryConfigs.global.routePrefix,
 		valueLabel: valueKindLabel('count'),

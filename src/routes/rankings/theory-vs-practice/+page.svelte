@@ -17,7 +17,7 @@
 			'@type': 'ItemList',
 			name: 'Theory vs Practice: AI Exposure Gaps',
 			description:
-				'Top 25 occupations ranked by the gap between theoretical AI exposure and observed real-world AI usage in the current live reference market',
+				'Top 25 occupations ranked by the gap between theoretical AI exposure and observed real-world AI usage in Singapore',
 			numberOfItems: data.ranked.length,
 			itemListElement: data.ranked.slice(0, 10).map((occ: Occupation, i: number) => ({
 				'@type': 'ListItem',
@@ -92,7 +92,7 @@
 
 <Seo
 	title="AI Theory vs Practice — Where Real Usage Diverges"
-	description="Where does observed AI usage diverge most from theoretical exposure? The biggest gaps between Anthropic's real-world data and academic AI exposure indices in the current live reference market."
+	description="Where does observed AI usage diverge most from theoretical exposure? The biggest gaps between Anthropic's real-world data and academic AI exposure indices in Singapore."
 	path="/rankings/theory-vs-practice"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />

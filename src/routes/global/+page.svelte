@@ -20,8 +20,8 @@
 		<h1 class={titleStyle({ size: 'page' })}>One structural baseline, many country layers</h1>
 		<p class="mt-4 text-base text-muted-foreground">
 			This page defines the scientific contract for making AI Work Index global. The global
-			structural layer is the primary product spine; Singapore is the current live reference
-			market, the United States layer is ready, and the same math transfers across countries
+			structural layer is the primary product spine; Singapore is the first fully published
+			country, the United States layer is ready, and the same math transfers across countries
 			without changing. Global occupation detail pages now live under this contract.
 		</p>
 	</div>
@@ -108,13 +108,12 @@
 		<p class={sectionLabel()}>Current status</p>
 		<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'moderate' }), 'mt-3')}>
 			<p class="text-sm font-semibold text-foreground">
-				{countryConfigs.sg.displayName} is the current live reference implementation.
+				{countryConfigs.sg.displayName} is the first fully published country.
 			</p>
 			<p class="mt-1 text-sm text-muted-foreground">
-				Singapore remains the published production market while the global layer and new country
-				adapters are brought up under the same contract. The United States layer is ready, global
-				occupation detail pages are published, and United Kingdom and Canada remain in research
-				until their local datasets are published.
+				Singapore is fully published while additional countries are being added.
+				The United States layer is ready, global occupation detail pages are published,
+				and United Kingdom and Canada remain in research until their local datasets are published.
 			</p>
 			<div class="mt-3 flex flex-wrap gap-2 text-sm">
 				<a href="/methodology" class="text-primary hover:underline">Full methodology</a>

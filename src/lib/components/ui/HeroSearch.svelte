@@ -21,7 +21,7 @@
 
 	let {
 		occupations,
-		occupationHrefPrefix = '/sg',
+		occupationHrefPrefix = '',
 		marketLabel = 'selected market',
 		occupationValueLabel = 'median wage'
 	}: {

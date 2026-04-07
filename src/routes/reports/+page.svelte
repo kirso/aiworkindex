@@ -38,7 +38,7 @@
 
 <Seo
 	title="AI Work Index Reports"
-	description="Quarterly reports on AI impact across the current live reference market, plus global methodology notes, labour-market trends, scoring updates, and analysis."
+	description="Quarterly reports on AI impact across Singapore, plus global methodology notes, labour-market trends, scoring updates, and analysis."
 	path="/reports"
 />
 
@@ -375,7 +375,7 @@
 					<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
 						<p class={microLabel()}>As of</p>
 						<p class="mt-1 text-sm font-medium text-foreground">
-							{new Date(postingsMonitor.generated_at).toLocaleDateString('en-SG', {
+							{new Date(postingsMonitor.generated_at).toLocaleDateString('en', {
 								day: 'numeric',
 								month: 'short',
 								year: 'numeric'
@@ -407,7 +407,7 @@
 						<p class={microLabel()}>Latest Signal</p>
 						<p class="mt-1 text-sm font-medium text-foreground">
 							{employer.summary.latest_signal_date
-								? new Date(employer.summary.latest_signal_date).toLocaleDateString('en-SG', {
+								? new Date(employer.summary.latest_signal_date).toLocaleDateString('en', {
 										day: 'numeric',
 										month: 'short',
 										year: 'numeric'

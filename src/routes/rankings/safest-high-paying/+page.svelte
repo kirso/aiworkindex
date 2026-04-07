@@ -17,7 +17,7 @@
 			'@type': 'ItemList',
 			name: 'Safest High-Paying Jobs',
 			description:
-				'Top 25 occupations with low AI displacement risk and above-median wages in the current live reference market',
+				'Top 25 occupations with low AI displacement risk and above-median wages in Singapore',
 			numberOfItems: data.ranked.length,
 			itemListElement: data.ranked.slice(0, 10).map((occ: Occupation, i: number) => ({
 				'@type': 'ListItem',
@@ -81,7 +81,7 @@
 
 <Seo
 	title="Safest High-Paying Jobs — Low AI Risk"
-	description="Low AI displacement risk + above-median wages. The 25 safest well-paying occupations in the current live reference market."
+	description="Low AI displacement risk + above-median wages. The 25 safest well-paying occupations in Singapore."
 	path="/rankings/safest-high-paying"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
@@ -97,7 +97,7 @@
 
 	<h1 class={titleStyle({ size: 'page' })}>Safest High-Paying Jobs</h1>
 	<p class="mt-2 text-sm text-muted-foreground">
-		The sweet spot: low displacement risk (&lt;15%) with above-median wages in the live market.
+		The sweet spot: low displacement risk (&lt;15%) with above-median wages in Singapore.
 		Sorted by median wage.
 	</p>
 

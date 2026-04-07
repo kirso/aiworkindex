@@ -242,8 +242,8 @@
 			description:
 				'Estimated modern role — weighted blend of ' +
 				scored.components.length +
-				' official occupations in the current live reference market',
-			occupationLocation: { '@type': 'Country', name: 'Current live reference market' },
+				' official occupations in Singapore',
+			occupationLocation: { '@type': 'Country', name: 'Singapore' },
 			additionalProperty: [
 				{ '@type': 'PropertyValue', name: 'AI Net Displacement Risk', value: scored.net_risk },
 				{ '@type': 'PropertyValue', name: 'Risk Band', value: riskBandLabels[scored.risk_band] },
@@ -309,7 +309,7 @@
 							(scored.bottleneck * 100).toFixed(0) +
 							'%. This is a synthetic estimate blending ' +
 							scored.components.length +
-							' official occupations in the current live reference market.'
+							' official occupations in Singapore.'
 					}
 				},
 				{
@@ -321,7 +321,7 @@
 							scored.title +
 							' is estimated from ' +
 							scored.components.length +
-							' official occupations in the current live reference market: ' +
+							' official occupations in Singapore: ' +
 							scored.components
 								.slice(0, 5)
 								.map(
@@ -341,7 +341,7 @@
 
 	let pageTitle = $derived(`${scored.title} — AI Risk Estimate | AI Work Index`);
 	let pageDescription = $derived(
-		`${scored.title}: Estimated AI risk ${(scored.net_risk * 100).toFixed(0)}%, rated ${riskBandLabels[scored.risk_band]}. Based on ${scored.components.length} official occupations in the current live reference market.`
+		`${scored.title}: Estimated AI risk ${(scored.net_risk * 100).toFixed(0)}%, rated ${riskBandLabels[scored.risk_band]}. Based on ${scored.components.length} official occupations in Singapore.`
 	);
 </script>
 
@@ -482,7 +482,7 @@
 		<!-- Built from: surface component occupations above the fold -->
 		<div class="mt-5 border-t border-border/70 pt-4">
 			<p class={cn(microLabel(), 'mb-2')}>
-				Built from {scored.components.length} official occupations in the current live reference market
+				Built from {scored.components.length} official occupations in Singapore
 			</p>
 			<div class="flex flex-wrap gap-x-4 gap-y-1">
 				{#each scored.components as comp}

@@ -33,7 +33,7 @@
 
 	let {
 		occupations,
-		surfaceLabel = 'current live reference market',
+		surfaceLabel = 'selected view',
 		valueLabel = 'median wage'
 	}: {
 		occupations: TreemapRow[];

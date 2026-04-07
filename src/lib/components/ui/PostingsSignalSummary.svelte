@@ -10,11 +10,15 @@
 	let {
 		postings,
 		label = 'Hiring now',
-		contextLabel = null
+		contextLabel = null,
+		currency = 'SGD',
+		locale = 'en'
 	}: {
 		postings: PostingAggregate;
 		label?: string;
 		contextLabel?: string | null;
+		currency?: string;
+		locale?: string;
 	} = $props();
 
 	function hiringTone(state: PostingHiringState): 'positive' | 'warning' | 'danger' | 'neutral' {
@@ -59,7 +63,7 @@
 			<p class="text-xs font-semibold text-foreground">{label}</p>
 			<p class="text-xs text-muted-foreground">
 				{contextLabel ?? 'Live postings monitor'}{#if postings.latest_posted_date}
-					· latest {new Date(postings.latest_posted_date).toLocaleDateString('en-SG', {
+					· latest {new Date(postings.latest_posted_date).toLocaleDateString(locale, {
 						day: 'numeric',
 						month: 'short',
 						year: 'numeric'
@@ -98,7 +102,7 @@
 			<p class={microLabel()}>Salary</p>
 			{#if postings.median_salary_hint}
 				<p class="mt-1.5 font-mono text-base text-foreground">
-					SGD {Math.round(postings.median_salary_hint).toLocaleString()}
+					{currency} {Math.round(postings.median_salary_hint).toLocaleString()}
 				</p>
 				<p class="mt-0.5 text-xs text-muted-foreground">median visible salary</p>
 			{:else}

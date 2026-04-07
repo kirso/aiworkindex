@@ -37,7 +37,7 @@ export const countryConfigs: Record<CountryCode, CountryConfig> = {
 	global: {
 		code: 'global',
 		name: 'Global',
-		displayName: 'Global Structural Index',
+		displayName: 'Global',
 		routePrefix: '/global',
 		locale: 'en',
 		currency: null,
@@ -47,7 +47,7 @@ export const countryConfigs: Record<CountryCode, CountryConfig> = {
 		methodologyLabel: 'Global structural baseline',
 		seoTitle: 'Global AI Work Index Methodology',
 		seoDescription:
-			'Global structural methodology for AI Work Index: a comparable exposure and bottleneck baseline calibrated with observed adoption and task evidence, which country layers can enrich with local demand, wages, and support data.',
+			'Global AI Work Index methodology: comparable exposure and bottleneck scores calibrated with observed adoption and task evidence. Countries add local demand, wages, and support data.',
 		status: 'research',
 		capabilities: {
 			occupationDetail: true,

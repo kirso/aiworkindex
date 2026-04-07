@@ -20,7 +20,7 @@
 </script>
 
 <a
-	href={occupation.linkHref ?? (occupation.ssoc ? `/occupation/${occupation.ssoc}` : '/global')}
+	href={occupation.linkHref ?? (occupation.ssoc ? `/occupation/${occupation.ssoc}` : '#')}
 	class={cn(card({ padding: 'sm', hover: true }), 'flex items-center justify-between')}
 >
 	<div class="min-w-0 flex-1">
@@ -29,7 +29,7 @@
 			{#if occupation.valueKind === 'count'}
 				{formatCompactCount(occupation.gross_wage_median ?? 0)} mapped occupations
 			{:else}
-				Median: {occupation.currency ?? 'SGD'} {occupation.gross_wage_median?.toLocaleString()}
+				Median: {occupation.currency ?? 'USD'} {occupation.gross_wage_median?.toLocaleString()}
 			{/if}
 		</p>
 	</div>

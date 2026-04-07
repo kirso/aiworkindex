@@ -16,6 +16,7 @@
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import { SITE, DATA_VINTAGE } from '$lib/data/scoring-constants';
+	import { countryConfigs } from '$lib/data/country-config';
 
 	let { data } = $props();
 	let group = $derived(data.group);
@@ -28,7 +29,7 @@
 
 	let pageTitle = $derived(`${group.label} — AI Risk by Occupation Group | ${SITE.name}`);
 	let pageDescription = $derived(
-		`AI displacement risk for ${stats.count} ${group.label} occupations in the current live reference market. Average risk: ${Math.round(stats.avgRisk * 100)}%. Median wage: SGD ${Math.round(stats.medianWage).toLocaleString()}/month.`
+		`AI displacement risk for ${stats.count} ${group.label} occupations in Singapore. Average risk: ${Math.round(stats.avgRisk * 100)}%. Median wage: ${countryConfigs.sg.currency ?? 'SGD'} ${Math.round(stats.medianWage).toLocaleString()}/month.`
 	);
 
 	let breadcrumbJsonLd = $derived(
@@ -68,7 +69,7 @@
 					name: `How will AI affect ${group.label} jobs?`,
 					acceptedAnswer: {
 						'@type': 'Answer',
-						text: `There are ${stats.count} ${group.label} occupations scored in the current live reference market. The average AI displacement risk is ${Math.round(stats.avgRisk * 100)}%, with ${stats.bandCounts.very_high + stats.bandCounts.high} occupations at High or Very High risk and ${stats.bandCounts.very_low + stats.bandCounts.low} at Low or Very Low risk. Median gross wage: SGD ${Math.round(stats.medianWage).toLocaleString()}/month.`
+						text: `There are ${stats.count} ${group.label} occupations scored in Singapore. The average AI displacement risk is ${Math.round(stats.avgRisk * 100)}%, with ${stats.bandCounts.very_high + stats.bandCounts.high} occupations at High or Very High risk and ${stats.bandCounts.very_low + stats.bandCounts.low} at Low or Very Low risk. Median gross wage: ${countryConfigs.sg.currency ?? 'SGD'} ${Math.round(stats.medianWage).toLocaleString()}/month.`
 					}
 				},
 				{
@@ -122,7 +123,7 @@
 			</div>
 			<div class={card({ padding: 'md' })}>
 				<p class={caption()}>Median Wage</p>
-				<p class={mono({ size: 'lg' })}>SGD {Math.round(stats.medianWage).toLocaleString()}</p>
+				<p class={mono({ size: 'lg' })}>{countryConfigs.sg.currency ?? 'SGD'} {Math.round(stats.medianWage).toLocaleString()}</p>
 			</div>
 			<div class={card({ padding: 'md' })}>
 				<p class={caption()}>High/Very High Risk</p>
@@ -166,7 +167,7 @@
 					</p>
 					<div class={cn(caption(), 'mt-1 flex items-center gap-2')}>
 						<span class={riskBadge({ band: occ.risk_band })}>{Math.round(occ.net_risk * 100)}%</span>
-						<span>SGD {occ.gross_wage_median.toLocaleString()}/mo</span>
+						<span>{countryConfigs.sg.currency ?? 'SGD'} {occ.gross_wage_median.toLocaleString()}/mo</span>
 					</div>
 				</a>
 			{/each}
@@ -188,7 +189,7 @@
 					</p>
 					<div class={cn(caption(), 'mt-1 flex items-center gap-2')}>
 						<span class={riskBadge({ band: occ.risk_band })}>{Math.round(occ.net_risk * 100)}%</span>
-						<span>SGD {occ.gross_wage_median.toLocaleString()}/mo</span>
+						<span>{countryConfigs.sg.currency ?? 'SGD'} {occ.gross_wage_median.toLocaleString()}/mo</span>
 					</div>
 				</a>
 			{/each}
@@ -207,7 +208,7 @@
 					>
 						<span class={cn(body(), 'truncate pr-4')}>{occ.title}</span>
 						<div class="flex items-center gap-3 shrink-0">
-							<span class={mono({ size: 'sm' })}>SGD {occ.gross_wage_median.toLocaleString()}</span>
+							<span class={mono({ size: 'sm' })}>{countryConfigs.sg.currency ?? 'SGD'} {occ.gross_wage_median.toLocaleString()}</span>
 							<span class={cn(riskBadge({ band: occ.risk_band }), 'text-xs')}>
 								{Math.round(occ.net_risk * 100)}%
 							</span>

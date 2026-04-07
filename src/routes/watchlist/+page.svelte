@@ -24,6 +24,7 @@
 		parseStoredWatchlist,
 		serializeWatchlist
 	} from '$lib/watchlist';
+	import { countryConfigs } from '$lib/data/country-config';
 
 	type SavedItem =
 		| { kind: 'occupation'; entry: WatchlistEntry; occupation: Occupation }
@@ -166,7 +167,7 @@
 										{impactTypeLabels[item.occupation.impact_type]}
 									</span>
 									<span class="text-xs tabular-nums text-muted-foreground">
-										SGD {item.occupation.gross_wage_median.toLocaleString()}/mo
+										{countryConfigs.sg.currency ?? 'SGD'} {item.occupation.gross_wage_median.toLocaleString()}/mo
 									</span>
 								</div>
 								<Separator class="my-2" />

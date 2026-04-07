@@ -21,7 +21,7 @@
 		onfilter,
 		showTextSearch = true,
 		valueLabel = 'Wage Range',
-		valuePrefix = 'SGD',
+		valuePrefix = null,
 		valueMin = 0,
 		valueMax = 30000,
 		valueStep = 500

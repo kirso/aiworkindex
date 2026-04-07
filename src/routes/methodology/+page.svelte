@@ -70,7 +70,7 @@
 
 <Seo
 	title="Scoring Methodology — Global Structural Baseline"
-	description="Global structural methodology for AI Work Index: deterministic exposure and bottleneck baseline, plus country-specific demand, wage, skills, worker-profile, policy, and transition layers. Singapore is the current live reference implementation, the United States layer is ready, and UK/Canada remain research-only."
+	description="Deterministic global methodology for scoring AI displacement pressure, with country-specific demand, wage, and policy layers. Singapore is fully scored, the United States is ready, and UK/Canada remain research-only."
 	path="/methodology"
 />
 
@@ -222,10 +222,10 @@
 			{/each}
 		</div>
 		<p class="mt-2 text-xs text-muted-foreground">
-			{countryConfigs.sg.displayName} is the live reference implementation. The United States layer
-			is ready and is now backed by BLS wage, requirements, demographics, skills, and narrative
-			sources; other countries should not move out of the research bar until mapping coverage,
-			validation, limitations, and local demand evidence are published.
+			{countryConfigs.sg.displayName} was the first country scored and remains the deepest dataset. The United States layer
+			is ready, backed by BLS wages, requirements, demographics, skills, and narrative
+			sources. Other countries remain research-only until mapping coverage,
+			validation, and local demand evidence are published.
 		</p>
 	</section>
 

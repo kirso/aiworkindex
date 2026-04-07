@@ -66,12 +66,12 @@
 		'@type': 'WebSite',
 		name: SITE.name,
 		url: SITE.url,
-		description: `Global AI work index with a canonical structural baseline and country-specific labour-market layers. ${DATA_VINTAGE.occupation_count} occupations scored using official data and published research.`,
+		description: `${DATA_VINTAGE.occupation_count} occupations scored for AI displacement risk using official data and published research.`,
 		publisher: {
 			'@type': 'Organization',
 			name: SITE.name,
 			url: SITE.url,
-			description: 'Open-source AI job impact scoring with a global structural baseline and country-specific labour-market layers',
+			description: 'Open-source AI displacement risk scoring for occupations and modern roles',
 			sameAs: [SITE.github, SITE.authorUrl]
 		},
 		potentialAction: {
@@ -263,7 +263,7 @@
 		<div class="mx-auto max-w-screen-2xl px-5 sm:px-6 py-4">
 			<div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
 				<p class="text-xs text-muted-foreground">
-					Structural AI exposure scores, not predictions.
+					AI displacement risk scores, not predictions.
 					<a href="/methodology" class="text-primary hover:underline">Methodology</a>
 				</p>
 				<div class="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">

@@ -43,7 +43,7 @@
 			'@context': 'https://schema.org',
 			'@type': 'ItemList',
 			name: 'Occupations with Highest AI Displacement Risk',
-			description: 'Top 25 occupations ranked by AI net displacement risk score in the current live reference market',
+			description: 'Top 25 occupations ranked by AI net displacement risk score in Singapore',
 			numberOfItems: data.ranked.length,
 			itemListElement: data.ranked.slice(0, 10).map((occ: Occupation, i: number) => ({
 				'@type': 'ListItem',
@@ -80,7 +80,7 @@
 
 <Seo
 		title="25 Highest Risk Jobs for AI Displacement"
-		description="Which jobs face the most AI displacement pressure in the current live reference market? Top 25 occupations ranked by net risk score."
+		description="Which jobs face the most AI displacement pressure in Singapore? Top 25 occupations ranked by net risk score."
 	path="/rankings/highest-risk"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
@@ -97,7 +97,7 @@
 	<h1 class={titleStyle({ size: 'page' })}>Highest Risk Occupations</h1>
 	<p class="mt-2 text-sm text-muted-foreground">
 		Top 25 occupations by net displacement risk. These roles have high AI exposure, weak human
-		bottlenecks, and limited market buffers in the current live market.
+		bottlenecks, and limited market buffers in Singapore.
 	</p>
 
 	<section class="mt-6">

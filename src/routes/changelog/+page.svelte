@@ -91,11 +91,11 @@
 			: 'bg-risk-moderate-subtle text-risk-moderate border-risk-moderate-border';
 
 	function formatDate(value: string): string {
-		return new Intl.DateTimeFormat('en-SG', {
+		return new Intl.DateTimeFormat('en', {
 			day: 'numeric',
 			month: 'short',
 			year: 'numeric',
-			timeZone: 'Asia/Singapore'
+			timeZone: 'UTC'
 		}).format(new Date(value));
 	}
 

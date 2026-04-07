@@ -92,8 +92,8 @@
 </script>
 
 <Seo
-	title="AI Work Index — Global baseline and country layers"
-	description="Explore the global structural baseline, then switch into Singapore or the United States for local labour-market context."
+	title="AI Work Index — How will AI affect your job?"
+	description="See which occupations face the most AI pressure. Filter by country for local wages and demand data."
 	path="/"
 	ogImage="/og/default.png"
 	jsonLd={[
@@ -139,7 +139,7 @@
 				How will AI affect your job?
 			</h1>
 			<p class="mt-1.5 text-sm text-muted-foreground">
-				Search any occupation or modern role
+				Search any job title or occupation
 			</p>
 			<div class="mt-4">
 				<HeroSearch
@@ -175,7 +175,7 @@
 					href="/rankings/high-exposure-in-demand"
 					class={pill({ size: 'lg', tone: 'outline', interactive: true })}
 				>
-					In-demand but exposed →
+					In demand, high AI pressure →
 				</a>
 				<a href="/roles" class={pill({ size: 'lg', tone: 'outline', interactive: true })}>
 					Modern roles →
@@ -190,7 +190,7 @@
 
 <div class="mx-auto max-w-screen-2xl px-4 py-4 sm:px-6">
 	<div class="mb-4 flex flex-wrap items-center gap-2">
-		<span class={caption({ weight: 'medium' })}>Data surface:</span>
+		<span class={caption({ weight: 'medium' })}>View:</span>
 		{#each data.surfaceChoices as choice (choice.code)}
 			<a
 				href={surfaceHref(choice.code)}
@@ -443,7 +443,7 @@
 
 				<div class={card({ padding: 'sm' })}>
 					<div class="mb-2 flex items-center justify-between">
-						<h3 class={sectionLabel()}>Augmented</h3>
+						<h3 class={sectionLabel()}>AI-Augmented</h3>
 						<a href="/rankings/ai-leveraged" class="text-xs text-primary hover:underline">All →</a>
 					</div>
 					{#each topAugmented as occ, i (occ.displayCode)}
@@ -496,8 +496,7 @@
 			</div>
 
 			<p class="mt-4 text-xs text-muted-foreground">
-				Homepage default surface: {data.surface.config.displayName} · Structural release {DATA_VINTAGE.model_version}
-				· {surfaceOccupations.length.toLocaleString()} records · MIT licensed
+				{data.surface.config.displayName} · {DATA_VINTAGE.model_version} · {surfaceOccupations.length.toLocaleString()} occupations
 			</p>
 		</div>
 	</div>

@@ -22,7 +22,7 @@
 			'@context': 'https://schema.org',
 			'@type': 'CollectionPage',
 			name: 'Occupation Groups — AI Work Index',
-			description: `Browse ${DATA_VINTAGE.occupation_count} occupations organised by {groups.length} major occupation groups, each scored for structural AI pressure in the current live reference market.`,
+			description: `Browse ${DATA_VINTAGE.occupation_count} occupations organised by {groups.length} major occupation groups, each scored for structural AI pressure in Singapore.`,
 			url: SITE.url + '/groups',
 			mainEntity: {
 				'@type': 'ItemList',
@@ -40,7 +40,7 @@
 
 <Seo
 	title="Occupation Groups — Structural AI Risk | {SITE.name}"
-	description="Browse {DATA_VINTAGE.occupation_count} occupations across {groups.length} major groups. Compare average AI displacement risk, median wages, and high-risk counts in the current live reference market."
+	description="Browse {DATA_VINTAGE.occupation_count} occupations across {groups.length} major groups. Compare average AI displacement risk, median wages, and high-risk counts in Singapore."
 	path="/groups"
 	jsonLd={[collectionJsonLd]}
 />
@@ -52,7 +52,7 @@
 		<h1 class={titleStyle({ size: 'page' })}>Occupation Groups</h1>
 		<p class={cn(body({ size: 'lg', tone: 'subtle' }), 'mt-2 max-w-3xl')}>
 			{DATA_VINTAGE.occupation_count} occupations organised into {groups.length} major groups. Each group shows
-			aggregate AI displacement risk based on the {DATA_VINTAGE.model_version} scoring model, with the current live reference market as the implementation view. Updated {DATA_VINTAGE.last_updated}.
+			aggregate AI displacement risk based on the {DATA_VINTAGE.model_version} scoring model, with Singapore as the implementation view. Updated {DATA_VINTAGE.last_updated}.
 		</p>
 	</header>
 

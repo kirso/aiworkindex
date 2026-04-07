@@ -15,10 +15,14 @@ export function vacancySignalClass(signal: VacancySignal | null): string {
 	return 'text-muted-foreground';
 }
 
-export function formatCurrencyShort(value: number): string {
-	return new Intl.NumberFormat('en-SG', {
+export function formatCurrencyShort(
+	value: number,
+	currency: string = 'SGD',
+	locale: string = 'en-SG'
+): string {
+	return new Intl.NumberFormat(locale, {
 		style: 'currency',
-		currency: 'SGD',
+		currency,
 		maximumFractionDigits: 0
 	}).format(value);
 }

@@ -31,7 +31,7 @@
 		license: 'https://opensource.org/licenses/MIT',
 		creator: { '@type': 'Organization', name: SITE.name, url: SITE.url },
 		dateModified: DATA_VINTAGE.last_updated,
-		spatialCoverage: { '@type': 'Place', name: 'Global structural baseline and country-specific reference markets' },
+		spatialCoverage: { '@type': 'Place', name: 'Singapore (fully scored), United States (ready), global baseline' },
 		variableMeasured: [
 			'AI exposure ensemble',
 			'Human bottleneck (theta)',
@@ -893,9 +893,8 @@
 			<span class="text-base font-semibold text-foreground">Country Context Bundles</span>
 		</div>
 		<p class="text-sm text-muted-foreground">
-			Context-only bundles are published separately from structural scores. Singapore remains the
-			live reference market, while the US layer now carries its own public wage and demand
-			context.
+			Context-only bundles are published separately from structural scores. Singapore is fully
+			scored, while the US layer now carries its own public wage and demand context.
 		</p>
 		<div class="mt-3 grid gap-2 sm:grid-cols-3 lg:grid-cols-4">
 			{#each [
@@ -990,7 +989,7 @@
 			<div class="space-y-1 text-sm text-muted-foreground">
 				<p><span class="font-medium text-foreground">Version:</span> V6 (headline risk = displacement pressure × (1 − demand resilience), using a deterministic audited 4-source exposure ensemble, human bottleneck, and local demand resilience)</p>
 				<p><span class="font-medium text-foreground">Data vintage:</span> 2024 wages, 2025 labour context, 2025/2026 demand signals</p>
-				<p><span class="font-medium text-foreground">Occupations:</span> {DATA_VINTAGE.occupation_count} occupations, currently sourced from the live reference-market data</p>
+				<p><span class="font-medium text-foreground">Occupations:</span> {DATA_VINTAGE.occupation_count} occupations, currently sourced from Singapore (primary) and United States data</p>
 				<p><span class="font-medium text-foreground">Separate context bundle:</span> Labour monitor, worker profile, industry context, sector wage anchors, geography context, macro labour context, national AI context, offset potential, transition support, and US wage / requirements / skills / narrative layers</p>
 				<p><span class="font-medium text-foreground">Retained baseline trail:</span> {experimentalStatusLabel(siteStatus.experimental_release.status)}. The full V4.3 shadow and V5 promotion comparison remain published so the live V6 release can still be audited against the retained V4.3 and V4.2 baselines.</p>
 				<p><span class="font-medium text-foreground">Research memory:</span> {researchLibrary.entry_count} canonical research entries are published in the research library and linked to claims/source registry records.</p>

@@ -147,7 +147,7 @@
 	// --- SEO ---
 	let pageTitle = $derived(`All Jobs & Roles \u2014 Structural AI Risk | ${SITE.name}`);
 	let pageDescription = $derived(
-		`Browse ${occCount} official occupations and ${roleCount} modern roles scored for AI displacement risk. Search, filter, and sort by risk, exposure, or wage in the current live reference market, or open the global baseline first.`
+		`Browse ${occCount} official occupations and ${roleCount} modern roles scored for AI displacement risk. Search, filter, and sort by risk, exposure, or wage in Singapore.`
 	);
 
 	let itemListJsonLd = $derived(
@@ -155,7 +155,7 @@
 			'@context': 'https://schema.org',
 			'@type': 'ItemList',
 			name: 'AI Work Index Jobs & Roles',
-			description: `${totalCount} occupations and modern roles scored for structural AI pressure in the current live reference market`,
+			description: `${totalCount} occupations and modern roles scored for structural AI pressure in Singapore`,
 			numberOfItems: totalCount,
 			itemListElement: [
 				...(data.scoredRoles as ScoredRole[]).slice(0, 5).map((r, i) => ({
@@ -185,7 +185,7 @@
 	<div class="mb-6">
 		<h1 class={titleStyle({ size: 'page' })}>All Jobs & Roles</h1>
 		<p class={cn(caption(), 'mt-1')}>
-			{occCount} official occupations and {roleCount} modern roles, all scored for AI displacement risk. Open the global baseline first, then drill into the current live reference market.
+			{occCount} official occupations and {roleCount} modern roles, all scored for AI displacement risk.
 		</p>
 	</div>
 
@@ -308,7 +308,7 @@
 			<div>
 				<h2 class={titleStyle({ size: 'section' })}>Official Occupations</h2>
 				<p class={cn(body({ tone: 'muted', size: 'sm' }), 'mt-0.5')}>
-					{occCount} occupations from the current live occupation set, with SSOC as the Singapore reference classification
+					{occCount} occupations from the Singapore occupation set, with SSOC as the reference classification
 				</p>
 			</div>
 			<div class="flex items-center gap-2">

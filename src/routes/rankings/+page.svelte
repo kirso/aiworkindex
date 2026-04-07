@@ -10,7 +10,7 @@
 	} from '$lib/design-system';
 	import { pageLayout } from '$lib/design-system';
 	import { cn } from '$lib/utils';
-	import { DATA_VINTAGE, SITE } from '$lib/data/scoring-constants';
+	import { SITE } from '$lib/data/scoring-constants';
 	import { countryConfigs } from '$lib/data/country-config';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
@@ -21,7 +21,7 @@
 		{
 			href: '/rankings/highest-risk',
 			title: 'Highest Risk',
-			description: 'Top 25 occupations by net displacement risk score in the current live reference market',
+			description: 'Top 25 occupations by net displacement risk score in Singapore',
 			color: 'text-risk-very-high',
 			accent: 'very_high' as const,
 			count: 25
@@ -83,7 +83,7 @@
 			href: '/rankings/rich-and-risky',
 			title: 'Rich and Risky',
 			description:
-				'Highest-paid occupations in the live market facing high AI displacement risk (30%+)',
+				'Highest-paid occupations in Singapore facing high AI displacement risk (30%+)',
 			color: 'text-risk-high',
 			accent: 'high' as const,
 			count: 25
@@ -103,7 +103,7 @@
 		'@type': 'CollectionPage',
 		name: 'AI Work Index Rankings',
 		description:
-			'Curated ranking views into the current live reference market — displacement risk, augmentation, wage safety, transitions, and more.',
+			'Curated ranking views into Singapore — displacement risk, augmentation, wage safety, transitions, and more.',
 		url: SITE.url + '/rankings',
 		mainEntity: {
 			'@type': 'ItemList',
@@ -120,7 +120,7 @@
 
 <Seo
 	title="AI Work Index Rankings"
-	description="Ranked lists of occupations by AI displacement risk, augmentation potential, wage safety, and more in the current live reference market."
+	description="Ranked lists of occupations by AI displacement risk, augmentation potential, wage safety, and more in Singapore."
 	path="/rankings"
 	jsonLd={[collectionJsonLd]}
 />
@@ -131,13 +131,8 @@
 	<div class="mb-8">
 		<h1 class={titleStyle({ size: 'page' })}>Rankings</h1>
 		<p class={cn(body({ tone: 'muted' }), 'mt-2')}>
-			Curated views into the current live reference market. Each list slices the data differently to
+			Curated views into Singapore. Each list slices the data differently to
 			surface distinct insights while the global baseline remains the comparable spine.
-		</p>
-		<p class={cn(body({ tone: 'subtle' }), 'mt-3 max-w-2xl')}>
-			These rankings emerge from a three-layer structural score — a multi-source exposure layer,
-			human bottleneck strength, and local market signals — applied to {DATA_VINTAGE.occupation_count}
-			official occupations. Each list tells a different story about how AI is reshaping work.
 		</p>
 	</div>
 

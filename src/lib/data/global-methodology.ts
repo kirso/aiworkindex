@@ -172,7 +172,7 @@ export const globalMethodology = {
 			readiness: 'live',
 			primary_sources: ['MOM wages', 'MOM labour force tables', 'SOL / Jobs in Demand'],
 			method_notes: [
-				'Current live reference implementation.',
+				'First fully scored country.',
 				'Keeps the same structural math while exposing Singapore-specific demand and policy context.'
 			]
 		}

@@ -245,7 +245,7 @@
 								<span class="opacity-0 group-hover:opacity-100 transition-opacity text-primary">→</span>
 							</p>
 							<p class={cn(caption(), 'mt-1')}>
-								Open the live reference market view with wages, labour monitor, and transition pathways.
+								Open the Singapore view with wages, labour monitor, and transition pathways.
 							</p>
 							<p class={cn(mono({ size: 'sm' }), 'mt-2 text-muted-foreground')}>SSOC {sgEquivalent}</p>
 						</a>

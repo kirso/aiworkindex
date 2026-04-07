@@ -17,7 +17,7 @@
 			'@type': 'ItemList',
 			name: 'AI-Augmented Occupations',
 			description:
-				'Top 25 occupations where AI augments rather than replaces workers, ranked by augmentation potential in the current live reference market',
+				'Top 25 occupations where AI augments rather than replaces workers, ranked by augmentation potential in Singapore',
 			numberOfItems: data.ranked.length,
 			itemListElement: data.ranked.slice(0, 10).map((occ: Occupation, i: number) => ({
 				'@type': 'ListItem',
@@ -81,7 +81,7 @@
 
 <Seo
 	title="25 AI-Augmented Jobs — High Exposure, Strong Moats"
-	description="Occupations where AI augments rather than replaces — high exposure but strong human bottlenecks create augmentation potential in the current live reference market."
+	description="Occupations where AI augments rather than replaces — high exposure but strong human bottlenecks create augmentation potential in Singapore."
 	path="/rankings/ai-leveraged"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />

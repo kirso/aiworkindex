@@ -14,7 +14,7 @@
 			'@type': 'ItemList',
 			name: 'Best AI Career Transitions',
 			description:
-				'Top high-risk occupations with the most feasible transition paths to lower-risk alternatives in the current live reference market',
+				'Top high-risk occupations with the most feasible transition paths to lower-risk alternatives in Singapore',
 			numberOfItems: data.transitions.length,
 			itemListElement: data.transitions.slice(0, 10).map((t, i: number) => ({
 				'@type': 'ListItem',
@@ -51,7 +51,7 @@
 
 	<Seo
 		title="Best Career Transitions From High-Risk AI Jobs"
-		description="High-risk occupations with the highest transition scores to lower-risk alternatives in the current live reference market."
+		description="High-risk occupations with the highest transition scores to lower-risk alternatives in Singapore."
 		path="/rankings/best-transitions"
 		jsonLd={[itemListJsonLd, faqJsonLd]}
 	/>
