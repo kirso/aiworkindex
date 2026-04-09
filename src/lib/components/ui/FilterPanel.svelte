@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
 	import { SvelteSet } from 'svelte/reactivity';
 	import type { Occupation, RiskBand } from '$lib/data';
@@ -154,7 +153,7 @@
 
 	// Sync filters to URL — only after initialization to prevent flash
 	$effect(() => {
-		if (!browser || !initialized) return;
+		if (!initialized) return;
 
 		const params = new URLSearchParams();
 		if (search.trim()) params.set('q', search.trim());

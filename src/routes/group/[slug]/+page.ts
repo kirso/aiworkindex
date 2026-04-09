@@ -15,12 +15,12 @@ function toSlug(key: string): string {
 	return key.toLowerCase().replace(/[,&]/g, '').replace(/\s+/g, '-');
 }
 
-const groups: MajorGroupInfo[] = majorGroupsData.map((g) => ({
+const groups: MajorGroupInfo[] = majorGroupsData.map(g => ({
 	...g,
 	slug: toSlug(g.key)
 }));
 
-const groupBySlug = new Map(groups.map((g) => [g.slug, g]));
+const groupBySlug = new Map(groups.map(g => [g.slug, g]));
 
 export const load: PageLoad = ({ params }) => {
 	const group = groupBySlug.get(params.slug);
@@ -29,11 +29,11 @@ export const load: PageLoad = ({ params }) => {
 	}
 
 	const groupOccupations = occupations
-		.filter((o) => o.major_group === group.key)
+		.filter(o => o.major_group === group.key)
 		.sort((a, b) => b.net_risk - a.net_risk);
 
-	const sortedRisks = groupOccupations.map((o) => o.net_risk).sort((a, b) => a - b);
-	const sortedWages = groupOccupations.map((o) => o.gross_wage_median).sort((a, b) => a - b);
+	const sortedRisks = groupOccupations.map(o => o.net_risk).sort((a, b) => a - b);
+	const sortedWages = groupOccupations.map(o => o.gross_wage_median).sort((a, b) => a - b);
 	const rMid = Math.floor(sortedRisks.length / 2);
 	const wMid = Math.floor(sortedWages.length / 2);
 	const medianRisk =
@@ -68,5 +68,5 @@ export const load: PageLoad = ({ params }) => {
 };
 
 export function entries() {
-	return groups.map((g) => ({ slug: g.slug }));
+	return groups.map(g => ({ slug: g.slug }));
 }

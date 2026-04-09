@@ -77,7 +77,7 @@
 					name: `What are the highest AI risk ${group.label.toLowerCase()} occupations?`,
 					acceptedAnswer: {
 						'@type': 'Answer',
-						text: `The highest-risk ${group.label} occupations are: ${highestRisk.map((o) => `${o.title} (${Math.round(o.net_risk * 100)}%)`).join(', ')}.`
+						text: `The highest-risk ${group.label} occupations are: ${highestRisk.map(o => `${o.title} (${Math.round(o.net_risk * 100)}%)`).join(', ')}.`
 					}
 				}
 			]
@@ -104,8 +104,8 @@
 	<header class="mb-8">
 		<h1 class={titleStyle({ size: 'page' })}>{group.label}</h1>
 		<p class={cn(body({ size: 'lg', tone: 'subtle' }), 'mt-2 max-w-3xl')}>
-			AI displacement risk overview for {stats.count} occupations in the {group.label} group.
-			Average risk: {Math.round(stats.avgRisk * 100)}%. Updated {DATA_VINTAGE.last_updated}.
+			AI displacement risk overview for {stats.count} occupations in the {group.label} group. Average
+			risk: {Math.round(stats.avgRisk * 100)}%. Updated {DATA_VINTAGE.last_updated}.
 		</p>
 	</header>
 
@@ -123,7 +123,10 @@
 			</div>
 			<div class={card({ padding: 'md' })}>
 				<p class={caption()}>Median Wage</p>
-				<p class={mono({ size: 'lg' })}>{countryConfigs.sg.currency ?? 'SGD'} {Math.round(stats.medianWage).toLocaleString()}</p>
+				<p class={mono({ size: 'lg' })}>
+					{countryConfigs.sg.currency ?? 'SGD'}
+					{Math.round(stats.medianWage).toLocaleString()}
+				</p>
 			</div>
 			<div class={card({ padding: 'md' })}>
 				<p class={caption()}>High/Very High Risk</p>
@@ -137,11 +140,13 @@
 		<h2 class={sectionLabel()}>Risk Distribution</h2>
 		<div class={card({ padding: 'md' })}>
 			<div class="space-y-2">
-				{#each (['very_high', 'high', 'moderate', 'low', 'very_low'] as const) as band}
+				{#each ['very_high', 'high', 'moderate', 'low', 'very_low'] as const as band}
 					{@const count = stats.bandCounts[band]}
 					{@const pct = stats.count > 0 ? Math.round((count / stats.count) * 100) : 0}
 					<div class="flex items-center gap-3">
-						<span class={cn(riskBadge({ band }), 'w-24 justify-center text-xs')}>{riskBandLabels[band]}</span>
+						<span class={cn(riskBadge({ band }), 'w-24 justify-center text-xs')}
+							>{riskBandLabels[band]}</span
+						>
 						<div class="flex-1 h-5 rounded bg-muted overflow-hidden">
 							<div class="h-full rounded bg-current opacity-30" style="width: {pct}%"></div>
 						</div>
@@ -159,15 +164,22 @@
 			{#each highestRisk as occ}
 				<a
 					href="/occupation/{occ.ssoc}"
-					class={cn(card({ padding: 'sm', variant: 'inset' }), 'block hover:bg-accent hover:shadow-sm transition-all group')}
+					class={cn(
+						card({ padding: 'sm', variant: 'inset' }),
+						'block hover:bg-accent hover:shadow-sm transition-all group'
+					)}
 				>
 					<p class={cn(body(), 'font-medium text-foreground truncate')}>
 						{occ.title}
 						<span class="opacity-0 group-hover:opacity-100 transition-opacity text-primary">→</span>
 					</p>
 					<div class={cn(caption(), 'mt-1 flex items-center gap-2')}>
-						<span class={riskBadge({ band: occ.risk_band })}>{Math.round(occ.net_risk * 100)}%</span>
-						<span>{countryConfigs.sg.currency ?? 'SGD'} {occ.gross_wage_median.toLocaleString()}/mo</span>
+						<span class={riskBadge({ band: occ.risk_band })}>{Math.round(occ.net_risk * 100)}%</span
+						>
+						<span
+							>{countryConfigs.sg.currency ?? 'SGD'}
+							{occ.gross_wage_median.toLocaleString()}/mo</span
+						>
 					</div>
 				</a>
 			{/each}
@@ -181,15 +193,22 @@
 			{#each lowestRisk as occ}
 				<a
 					href="/occupation/{occ.ssoc}"
-					class={cn(card({ padding: 'sm', variant: 'inset' }), 'block hover:bg-accent hover:shadow-sm transition-all group')}
+					class={cn(
+						card({ padding: 'sm', variant: 'inset' }),
+						'block hover:bg-accent hover:shadow-sm transition-all group'
+					)}
 				>
 					<p class={cn(body(), 'font-medium text-foreground truncate')}>
 						{occ.title}
 						<span class="opacity-0 group-hover:opacity-100 transition-opacity text-primary">→</span>
 					</p>
 					<div class={cn(caption(), 'mt-1 flex items-center gap-2')}>
-						<span class={riskBadge({ band: occ.risk_band })}>{Math.round(occ.net_risk * 100)}%</span>
-						<span>{countryConfigs.sg.currency ?? 'SGD'} {occ.gross_wage_median.toLocaleString()}/mo</span>
+						<span class={riskBadge({ band: occ.risk_band })}>{Math.round(occ.net_risk * 100)}%</span
+						>
+						<span
+							>{countryConfigs.sg.currency ?? 'SGD'}
+							{occ.gross_wage_median.toLocaleString()}/mo</span
+						>
 					</div>
 				</a>
 			{/each}
@@ -208,7 +227,10 @@
 					>
 						<span class={cn(body(), 'truncate pr-4')}>{occ.title}</span>
 						<div class="flex items-center gap-3 shrink-0">
-							<span class={mono({ size: 'sm' })}>{countryConfigs.sg.currency ?? 'SGD'} {occ.gross_wage_median.toLocaleString()}</span>
+							<span class={mono({ size: 'sm' })}
+								>{countryConfigs.sg.currency ?? 'SGD'}
+								{occ.gross_wage_median.toLocaleString()}</span
+							>
 							<span class={cn(riskBadge({ band: occ.risk_band }), 'text-xs')}>
 								{Math.round(occ.net_risk * 100)}%
 							</span>
@@ -223,8 +245,11 @@
 	<section class={section()}>
 		<h2 class={sectionLabel()}>Other Occupation Groups</h2>
 		<div class="flex flex-wrap gap-2">
-			{#each allGroups.filter((g) => g.slug !== group.slug) as g}
-				<a href="/group/{g.slug}" class={cn(pill({ tone: 'muted' }), 'hover:bg-accent transition-colors')}>
+			{#each allGroups.filter(g => g.slug !== group.slug) as g}
+				<a
+					href="/group/{g.slug}"
+					class={cn(pill({ tone: 'muted' }), 'hover:bg-accent transition-colors')}
+				>
 					{g.label}
 				</a>
 			{/each}

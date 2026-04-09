@@ -151,9 +151,11 @@ const contextPack = {
 			description:
 				'Published 2024 to 2025 Labour Force Section D family, cluster, and industry-mix deltas used for validation and contextual reporting.',
 			data: {
-				family_employment: (lfrSectionDSignals as { family_employment?: unknown }).family_employment ?? {},
+				family_employment:
+					(lfrSectionDSignals as { family_employment?: unknown }).family_employment ?? {},
 				cluster_characteristics:
-					(lfrSectionDSignals as { cluster_characteristics?: unknown }).cluster_characteristics ?? {},
+					(lfrSectionDSignals as { cluster_characteristics?: unknown }).cluster_characteristics ??
+					{},
 				cluster_industry_mix:
 					(lfrSectionDSignals as { cluster_industry_mix?: unknown }).cluster_industry_mix ?? {}
 			}
@@ -203,7 +205,8 @@ fs.writeFileSync(
 	JSON.stringify(
 		{
 			data_as_of: '2025',
-			family_employment: (lfrSectionDSignals as { family_employment?: unknown }).family_employment ?? {},
+			family_employment:
+				(lfrSectionDSignals as { family_employment?: unknown }).family_employment ?? {},
 			cluster_characteristics:
 				(lfrSectionDSignals as { cluster_characteristics?: unknown }).cluster_characteristics ?? {},
 			cluster_industry_mix:

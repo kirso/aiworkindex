@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '../app.css';
 	import favicon from '$lib/assets/favicon.svg';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { DATA_VINTAGE, SITE } from '$lib/data/scoring-constants';
 	import { siteStatus } from '$lib/data/site-status';
 	import * as Sheet from '$lib/components/ui/sheet/index.js';
@@ -10,15 +10,15 @@
 	import CommandMenu from '$lib/components/ui/CommandMenu.svelte';
 	import { Toaster } from '$lib/components/ui/sonner/index.js';
 	import { GA_MEASUREMENT_ID } from '$lib/analytics';
-	import { browser } from '$app/environment';
 	import { afterNavigate } from '$app/navigation';
 	import { countryConfigs } from '$lib/data/country-config';
 
 	let { children } = $props();
 
-	// Track SvelteKit client-side navigations as page views
+	// Close mobile menu + track page view on every client-side navigation
 	afterNavigate(() => {
-		if (!browser || !window.gtag) return;
+		mobileMenuOpen = false;
+		if (!window.gtag) return;
 		window.gtag('config', GA_MEASUREMENT_ID, {
 			page_path: window.location.pathname,
 			page_title: document.title
@@ -49,17 +49,12 @@
 		{ href: '/us', label: countryConfigs.us.name }
 	];
 
-	let currentPath = $derived($page.url.pathname);
+	let currentPath = $derived(page.url.pathname);
 	let mobileMenuOpen = $state(false);
 
 	function isActive(href: string): boolean {
-		return $page.url.pathname === href || (href !== '/' && $page.url.pathname.startsWith(href));
+		return page.url.pathname === href || (href !== '/' && page.url.pathname.startsWith(href));
 	}
-
-	$effect(() => {
-		currentPath;
-		mobileMenuOpen = false;
-	});
 
 	const layoutJsonLd = `<script type="application/ld+json">${JSON.stringify({
 		'@context': 'https://schema.org',
@@ -162,7 +157,9 @@
 						</a>
 					{/each}
 				</nav>
-				<div class="ml-2 hidden items-center gap-1 rounded-full border border-header-active-bg bg-header-active-bg/20 p-0.5 lg:flex">
+				<div
+					class="ml-2 hidden items-center gap-1 rounded-full border border-header-active-bg bg-header-active-bg/20 p-0.5 lg:flex"
+				>
 					{#each marketLinks as market (market.href)}
 						<a
 							href={market.href}
@@ -225,14 +222,16 @@
 							{/each}
 						</nav>
 						<div class="mt-3 rounded-md border border-border bg-muted/30 p-2">
-							<p class="px-1 pb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+							<p
+								class="px-1 pb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+							>
 								Markets
 							</p>
 							<div class="flex flex-wrap gap-1.5">
-							{#each marketLinks as market (market.href)}
-								<a
-									href={market.href}
-									class="rounded-full border border-border px-2.5 py-1 text-xs font-medium transition-colors duration-100
+								{#each marketLinks as market (market.href)}
+									<a
+										href={market.href}
+										class="rounded-full border border-border px-2.5 py-1 text-xs font-medium transition-colors duration-100
 											{isActive(market.href)
 											? 'bg-accent text-foreground'
 											: 'bg-background text-muted-foreground hover:bg-accent hover:text-foreground'}"
@@ -260,11 +259,7 @@
 	</header>
 
 	<main id="main-content" class="flex-1">
-		{#key currentPath}
-			<div>
-				{@render children()}
-			</div>
-		{/key}
+		{@render children()}
 	</main>
 
 	<!-- Footer -->

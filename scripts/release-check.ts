@@ -95,7 +95,7 @@ assert(
 	!sourceMap.entries.some(entry =>
 		['transition_adjusted_risk', 'realized_risk_proxy'].includes(entry.field_path)
 	),
-	'public field source map still advertises non-live V6 fields'
+	'public field source map still advertises deprecated V5 experimental fields'
 );
 
 assert(manifest.version === DATA_VINTAGE.model_version, 'release manifest version drift');
@@ -130,8 +130,8 @@ assert(
 );
 assert(
 	quarterlyReport.previous_snapshot === null ||
-		quarterlyReport.previous_snapshot.startsWith('occupations-v5-'),
-	'quarterly report previous snapshot should point at the retained V5 baseline for the current V6 release'
+		quarterlyReport.previous_snapshot.startsWith('occupations-v6-'),
+	'quarterly report previous snapshot should point at the retained V6 baseline for the current V7 release'
 );
 
 for (const [name, contents] of [
@@ -141,7 +141,7 @@ for (const [name, contents] of [
 	assert(
 		contents.includes(`Data vintage: ${DATA_VINTAGE.model_version}`) ||
 			contents.includes(`Current public release: ${DATA_VINTAGE.model_version}`),
-		`${name} missing current V6 vintage`
+		`${name} missing current ${DATA_VINTAGE.model_version} vintage`
 	);
 	assert(!contents.includes('V5'), `${name} still contains stale V5 references`);
 	assert(

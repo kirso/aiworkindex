@@ -109,14 +109,14 @@
 <!-- ===== NEWS BANNER ===== -->
 <div class="border-b border-risk-moderate-border bg-risk-moderate-subtle">
 	<div
-			class="mx-auto flex max-w-screen-2xl items-center justify-center gap-2 px-4 py-1.5 text-xs sm:px-6"
-		>
-			<span class="text-text-secondary">
-				{siteStatus.homepage_banner.body}
-				<a href={siteStatus.homepage_banner.link_href} class="ml-1 text-primary hover:underline"
-					>{siteStatus.homepage_banner.link_label}</a
-				>
-			</span>
+		class="mx-auto flex max-w-screen-2xl items-center justify-center gap-2 px-4 py-1.5 text-xs sm:px-6"
+	>
+		<span class="text-text-secondary">
+			{siteStatus.homepage_banner.body}
+			<a href={siteStatus.homepage_banner.link_href} class="ml-1 text-primary hover:underline"
+				>{siteStatus.homepage_banner.link_label}</a
+			>
+		</span>
 	</div>
 </div>
 
@@ -323,7 +323,11 @@
 							<Treemap occupations={filteredOccupations} />
 						{:else}
 							<OccupationCardList occupations={filteredOccupations.slice(0, 20)} expandFirst={2} />
-							<a href="/explore" class="mt-2 block text-center text-xs font-medium text-primary hover:underline">View all {filteredOccupations.length} occupations →</a>
+							<a
+								href="/explore"
+								class="mt-2 block text-center text-xs font-medium text-primary hover:underline"
+								>View all {filteredOccupations.length} occupations →</a
+							>
 						{/if}
 					</Tabs.Content>
 					<Tabs.Content value="pressure">

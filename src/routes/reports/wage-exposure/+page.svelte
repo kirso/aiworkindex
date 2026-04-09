@@ -9,7 +9,9 @@
 	let { data } = $props();
 	const sgCurrency = countryConfigs.sg.currency ?? 'SGD';
 
-	let headlineNumber = $derived(`${sgCurrency} ${(data.highRiskAnnualWages / 1e9).toFixed(1)} Billion`);
+	let headlineNumber = $derived(
+		`${sgCurrency} ${(data.highRiskAnnualWages / 1e9).toFixed(1)} Billion`
+	);
 	let topGroup = $derived(data.groupBreakdown[0]);
 
 	function formatWagesBillions(wages: number): string {
@@ -42,7 +44,7 @@
 			mainEntity: [
 				{
 					'@type': 'Question',
-					name: "How large is the wage pool in the high-pressure occupations?",
+					name: 'How large is the wage pool in the high-pressure occupations?',
 					acceptedAnswer: {
 						'@type': 'Answer',
 						text: `${headlineNumber} is the estimated annual wage pool inside occupations with high structural AI pressure in the AI Work Index. It is a wage-pool estimate, not a forecast of wages lost.`
@@ -64,7 +66,9 @@
 </script>
 
 <Seo
-	title="Wage Pool Under Structural Pressure — {sgCurrency} {(data.highRiskAnnualWages / 1e9).toFixed(1)}B"
+	title="Wage Pool Under Structural Pressure — {sgCurrency} {(
+		data.highRiskAnnualWages / 1e9
+	).toFixed(1)}B"
 	description="Wage-pool analysis for occupations with high structural AI pressure in Singapore. {data.highRiskCount} occupations covering about {data.highRiskEmployment.toFixed(
 		0
 	)}K Est. workers."
@@ -106,10 +110,10 @@
 				> of total wages
 			</span>
 		</div>
-	<p class="mt-2 text-xs text-text-secondary italic">
-		Employment figures here use a BLS-weighted proxy anchored to local employment totals. This
-		is a wage-pool estimate, not a forecast of wages lost or jobs eliminated.
-	</p>
+		<p class="mt-2 text-xs text-text-secondary italic">
+			Employment figures here use a BLS-weighted proxy anchored to local employment totals. This is
+			a wage-pool estimate, not a forecast of wages lost or jobs eliminated.
+		</p>
 	</section>
 
 	<!-- Disclaimer -->
@@ -195,7 +199,8 @@
 									</a>
 								</td>
 								<td class="px-3 py-2.5 text-right tabular-nums">
-									{sgCurrency} {occ.gross_wage_median.toLocaleString()}
+									{sgCurrency}
+									{occ.gross_wage_median.toLocaleString()}
 								</td>
 								<td class="px-3 py-2.5 text-right">
 									<span class={riskBadge({ band: occ.risk_band })}>
@@ -203,7 +208,8 @@
 									</span>
 								</td>
 								<td class="px-3 py-2.5 text-right tabular-nums font-medium">
-									{sgCurrency} {(occ.gross_wage_median * 12 * occ.net_risk).toLocaleString(undefined, {
+									{sgCurrency}
+									{(occ.gross_wage_median * 12 * occ.net_risk).toLocaleString(undefined, {
 										maximumFractionDigits: 0
 									})}
 								</td>

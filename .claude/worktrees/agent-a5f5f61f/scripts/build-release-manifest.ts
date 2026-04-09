@@ -17,10 +17,7 @@ const STATIC_DATA_DIR = path.join(ROOT_DIR, 'static', 'data');
 const SRC_DATA_DIR = path.join(ROOT_DIR, 'src', 'lib', 'data');
 const VERSION_TAG = DATA_VINTAGE.model_version.toLowerCase().replaceAll('.', '');
 const OUT_FILE = path.join(STATIC_DATA_DIR, `release-manifest-${VERSION_TAG}.json`);
-const VERSIONED_OUT_FILE = path.join(
-	STATIC_DATA_DIR,
-	`release-manifest-${VERSION_TAG}.json`
-);
+const VERSIONED_OUT_FILE = path.join(STATIC_DATA_DIR, `release-manifest-${VERSION_TAG}.json`);
 const SRC_OUT_FILE = path.join(SRC_DATA_DIR, 'release-manifest.json');
 
 interface ReleaseArtifactDefinition {
@@ -39,7 +36,7 @@ interface ReleaseArtifactDefinition {
 		| 'transition_support'
 		| 'offset_potential'
 		| 'transition_infrastructure'
-	| 'governance'
+		| 'governance'
 		| 'provenance'
 		| 'research_memory'
 		| 'shadow_model'

@@ -88,19 +88,20 @@
 			</table>
 		</div>
 		<p class="mt-2 text-sm text-muted-foreground">
-			These thresholds determine <code class="rounded bg-muted px-1 text-xs">confidence.threshold_level</code>.
-			The published <code class="rounded bg-muted px-1 text-xs">confidence.level</code> may be capped below that
-			raw threshold for fallback mappings, sparse-source cases, or contested signals.
+			These thresholds determine <code class="rounded bg-muted px-1 text-xs"
+				>confidence.threshold_level</code
+			>. The published <code class="rounded bg-muted px-1 text-xs">confidence.level</code> may be capped
+			below that raw threshold for fallback mappings, sparse-source cases, or contested signals.
 		</p>
 	</section>
 
 	<!-- Impact Type Classification -->
 	<section class="mb-8">
 		<p class={sectionLabel()}>Impact Type Classification</p>
-	<p class="mt-2 text-xs text-muted-foreground">
-		Based on a pure headline-risk × augmentation 2×2 matrix. SOL / Jobs in Demand now
-		enter only through demand resilience, not as a separate label override.
-	</p>
+		<p class="mt-2 text-xs text-muted-foreground">
+			Based on a pure headline-risk × augmentation 2×2 matrix. SOL / Jobs in Demand now enter only
+			through demand resilience, not as a separate label override.
+		</p>
 		<div class="mt-3 overflow-x-auto">
 			<table class="w-full text-left text-sm">
 				<thead>

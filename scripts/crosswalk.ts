@@ -605,6 +605,66 @@ export function ssocToSocCodes(ssoc: string): string[] {
 /**
  * For fallback: get 2-digit ISCO sub-major group from a 4-digit ISCO code.
  */
+/**
+ * SOC 2010 → SOC 2018 bridge table.
+ * The ISCO_TO_SOC crosswalk produces SOC 2010 codes (per ILO documentation).
+ * O*NET, Anthropic, and Eloundou source files use SOC 2018 codes.
+ * This bridge maps the 28 SOC 2010 codes that were renumbered in SOC 2018.
+ * Source: BLS Standard Occupational Classification 2010–2018 crosswalk.
+ */
+export const SOC_2010_TO_2018: Record<string, string[]> = {
+	// Management
+	'11-2031': ['11-2032'], // Public Relations Managers
+	'11-3011': ['11-3012'], // Administrative Services Managers
+	'11-9039': ['11-9032'], // Education Administrators, All Other → Education and Childcare Administrators, All Other
+	// Computer and Mathematical
+	'15-1111': ['15-1221'], // Computer and Information Research Scientists
+	'15-1121': ['15-1211'], // Computer Systems Analysts
+	'15-1122': ['15-1212'], // Information Security Analysts
+	'15-1131': ['15-1251'], // Computer Programmers
+	'15-1132': ['15-1252'], // Software Developers, Applications → Software Developers (merged with 15-1133)
+	'15-1133': ['15-1252'], // Software Developers, Systems Software → Software Developers (merged into 15-1252)
+	'15-1134': ['15-1254'], // Web Developers
+	'15-1141': ['15-1242'], // Database Administrators
+	'15-1142': ['15-1244'], // Network and Computer Systems Administrators
+	'15-1143': ['15-1241'], // Computer Network Architects
+	'15-1199': ['15-1299'], // Computer Occupations, All Other
+	// Education
+	'25-3099': ['25-3098'], // Teachers and Instructors, All Other
+	'25-9041': ['25-9042', '25-9043', '25-9044'], // Teacher Assistants (split into Preschool / Non-postsecondary / Postsecondary)
+	// Media
+	'27-3022': ['27-3023'], // Reporters and Correspondents → News Analysts, Reporters, and Journalists
+	// Healthcare
+	'29-1199': ['29-1299'], // Health Diagnosing and Treating Practitioners, All Other
+	'29-2021': ['29-1292'], // Dental Hygienists (reclassified from technologists to practitioners)
+	'29-2041': ['29-2042', '29-2043'], // Emergency Medical Technicians and Paramedics (split into EMTs + Paramedics)
+	// Food Service
+	'35-3021': ['35-3023'], // Combined Food Preparation → Fast Food and Counter Workers
+	// Mining and Construction
+	'47-5042': ['47-5044'], // Mine Cutting and Channeling Machine Operators
+	// Production
+	'51-2091': ['51-2051'], // Fiberglass Laminators and Fabricators
+	'51-9121': ['51-9124'], // Coating, Painting, and Spraying Machine Setters, Operators, and Tenders
+	'51-9199': ['51-9198'], // Production Workers, All Other
+	// Transportation
+	'53-3041': ['53-3053'] // Taxi Drivers and Chauffeurs → Shuttle Drivers and Chauffeurs
+};
+
+/**
+ * Given a list of SOC 2010 codes, return expanded list including SOC 2018 equivalents.
+ * Preserves original codes and appends bridged codes (deduplicated).
+ */
+export function expandSocCodes(soc2010Codes: string[]): string[] {
+	const expanded = new Set(soc2010Codes);
+	for (const code of soc2010Codes) {
+		const bridged = SOC_2010_TO_2018[code];
+		if (bridged) {
+			for (const c of bridged) expanded.add(c);
+		}
+	}
+	return [...expanded];
+}
+
 export function iscoSubMajorGroup(isco: string): string {
 	return isco.substring(0, 2);
 }

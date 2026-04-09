@@ -2,7 +2,9 @@
 	import { card, sectionLabel } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import SignalProfileGrid from '$lib/components/viz/SignalProfileGrid.svelte';
-	import ContextItemGrid, { type ContextItemGridItem } from '$lib/components/ui/ContextItemGrid.svelte';
+	import ContextItemGrid, {
+		type ContextItemGridItem
+	} from '$lib/components/ui/ContextItemGrid.svelte';
 	import type {
 		UnitedStatesOccupationSupport,
 		UnitedStatesSupportRequirement
@@ -49,21 +51,32 @@
 				? `${(value / 1000).toFixed(value >= 10000 ? 0 : 1)}M`
 				: `${currencyFormatter.format(value)}K`;
 
-	function averageTopWorkContextValue(items: UnitedStatesOccupationSupport['topWorkContext']): number {
+	function averageTopWorkContextValue(
+		items: UnitedStatesOccupationSupport['topWorkContext']
+	): number {
 		if (items.length === 0) return 0;
 		return items.reduce((sum: number, item) => sum + item.value, 0) / items.length;
 	}
 
 	function countHotTechnologies(items: UnitedStatesOccupationSupport['topTechnologies']): number {
-		return items.filter((entry: UnitedStatesOccupationSupport['topTechnologies'][number]) => entry.hot).length;
+		return items.filter(
+			(entry: UnitedStatesOccupationSupport['topTechnologies'][number]) => entry.hot
+		).length;
 	}
 
-	function countInDemandTechnologies(items: UnitedStatesOccupationSupport['topTechnologies']): number {
-		return items.filter((entry: UnitedStatesOccupationSupport['topTechnologies'][number]) => entry.inDemand).length;
+	function countInDemandTechnologies(
+		items: UnitedStatesOccupationSupport['topTechnologies']
+	): number {
+		return items.filter(
+			(entry: UnitedStatesOccupationSupport['topTechnologies'][number]) => entry.inDemand
+		).length;
 	}
 
 	function topRequirementSummary(items: UnitedStatesSupportRequirement[]): string {
-		return items.slice(0, 3).map(item => `${item.label}: ${item.value}`).join(' · ');
+		return items
+			.slice(0, 3)
+			.map(item => `${item.label}: ${item.value}`)
+			.join(' · ');
 	}
 
 	const demandChangeValue = $derived(
@@ -83,8 +96,15 @@
 		{
 			label: 'Wage context',
 			value: formatCurrency(support.wageProfile.medianAnnual, 'USD'),
-			barValue: support.wageProfile.medianAnnual != null ? clamp01(support.wageProfile.medianAnnual / 200000) : 0,
-			barClass: signalBarClass(support.wageProfile.medianAnnual != null ? clamp01(support.wageProfile.medianAnnual / 200000) : 0),
+			barValue:
+				support.wageProfile.medianAnnual != null
+					? clamp01(support.wageProfile.medianAnnual / 200000)
+					: 0,
+			barClass: signalBarClass(
+				support.wageProfile.medianAnnual != null
+					? clamp01(support.wageProfile.medianAnnual / 200000)
+					: 0
+			),
 			note: 'Median annual wage from BLS OEWS'
 		},
 		{
@@ -92,7 +112,7 @@
 			value:
 				support.demandProfile.projectedChangePct != null
 					? `${support.demandProfile.projectedChangePct.toFixed(0)}%`
-					: support.demandProfile.outlook ?? '—',
+					: (support.demandProfile.outlook ?? '—'),
 			barValue: demandChangeValue,
 			barClass: signalBarClass(demandChangeValue),
 			note: 'Employment projections and openings from BLS'
@@ -102,7 +122,7 @@
 			value:
 				support.jobZone != null
 					? `Job Zone ${support.jobZone}`
-					: support.demandProfile.education ?? '—',
+					: (support.demandProfile.education ?? '—'),
 			barValue: support.jobZone != null ? support.jobZone / 5 : 0,
 			barClass: signalBarClass(support.jobZone != null ? support.jobZone / 5 : 0),
 			note: 'Preparation and entry requirements from O*NET and BLS'
@@ -137,7 +157,7 @@
 			description:
 				support.demandProfile.projectedChangePct != null
 					? `${support.demandProfile.projectedChangePct.toFixed(1)}% projected change`
-					: support.demandProfile.outlook ?? 'No projection summary published.',
+					: (support.demandProfile.outlook ?? 'No projection summary published.'),
 			tone: support.demandProfile.openings2024_2034 != null ? 'support' : 'neutral'
 		},
 		{
@@ -155,19 +175,27 @@
 	let supportSourceFamilies = $derived([
 		{ key: 'onet-desc', label: 'Occupation Data', active: Boolean(support.occupationDescription) },
 		{ key: 'onet-job-zone', label: 'Job Zones', active: support.jobZone != null },
-		{ key: 'onet-tasks', label: 'Task Ratings', active: support.taskPrimitives.matched_task_weight_share != null },
+		{
+			key: 'onet-tasks',
+			label: 'Task Ratings',
+			active: support.taskPrimitives.matched_task_weight_share != null
+		},
 		{ key: 'onet-tech', label: 'Tech Skills', active: support.topTechnologies.length > 0 },
 		{ key: 'onet-context', label: 'Work Context', active: support.topWorkContext.length > 0 },
 		{ key: 'oews', label: 'OEWS Wages', active: support.wageProfile.medianAnnual != null },
-		{ key: 'projection', label: 'Projections', active: support.demandProfile.employment2024 != null },
+		{
+			key: 'projection',
+			label: 'Projections',
+			active: support.demandProfile.employment2024 != null
+		},
 		{ key: 'ors', label: 'ORS Requirements', active: support.requirementProfile.length > 0 },
 		{
 			key: 'ooh',
 			label: 'OOH Narrative',
 			active: Boolean(
 				support.narrativeProfile.description ||
-					support.narrativeProfile.whatTheyDo ||
-					support.narrativeProfile.workEnvironment
+				support.narrativeProfile.whatTheyDo ||
+				support.narrativeProfile.workEnvironment
 			)
 		},
 		{ key: 'skills', label: 'BLS Skills', active: support.skillsProfile.topSkills.length > 0 },
@@ -230,8 +258,11 @@
 				<p class="text-sm font-semibold text-foreground">Task primitives</p>
 				<p class="mt-1 text-sm text-muted-foreground">
 					{#if support.taskPrimitives.matched_task_weight_share != null}
-						Matched task weight share: {(support.taskPrimitives.matched_task_weight_share * 100).toFixed(0)}%
-						· Effective coverage: {(support.taskPrimitives.task_effective_coverage! * 100).toFixed(0)}%
+						Matched task weight share: {(
+							support.taskPrimitives.matched_task_weight_share * 100
+						).toFixed(0)}% · Effective coverage: {(
+							support.taskPrimitives.task_effective_coverage! * 100
+						).toFixed(0)}%
 					{:else}
 						Task primitive coverage is not published for this occupation.
 					{/if}
@@ -280,11 +311,15 @@
 				<div class="mt-3 grid gap-3 sm:grid-cols-2">
 					<div>
 						<p class="text-xs uppercase tracking-[0.18em] text-muted-foreground">2024 employment</p>
-						<p class="mt-1 text-2xl font-semibold text-foreground">{formatK(support.demandProfile.employment2024)}</p>
+						<p class="mt-1 text-2xl font-semibold text-foreground">
+							{formatK(support.demandProfile.employment2024)}
+						</p>
 					</div>
 					<div>
 						<p class="text-xs uppercase tracking-[0.18em] text-muted-foreground">2034 employment</p>
-						<p class="mt-1 text-2xl font-semibold text-foreground">{formatK(support.demandProfile.employment2034)}</p>
+						<p class="mt-1 text-2xl font-semibold text-foreground">
+							{formatK(support.demandProfile.employment2034)}
+						</p>
 					</div>
 				</div>
 				<div class="mt-4 grid gap-2 text-sm text-muted-foreground sm:grid-cols-2">
@@ -293,13 +328,20 @@
 					<p>Education: {support.demandProfile.education ?? '—'}</p>
 					<p>Work experience: {support.demandProfile.workExperience ?? '—'}</p>
 					<p>On-the-job training: {support.demandProfile.onTheJobTraining ?? '—'}</p>
-					<p>Median wage in projections: {formatCurrency(support.demandProfile.medianWage2024, 'USD')}</p>
+					<p>
+						Median wage in projections: {formatCurrency(
+							support.demandProfile.medianWage2024,
+							'USD'
+						)}
+					</p>
 				</div>
 				{#if support.demandProfile.outlook}
 					<p class="mt-4 text-sm text-muted-foreground">{support.demandProfile.outlook}</p>
 				{/if}
 				{#if support.demandProfile.relatedOOHContent}
-					<p class="mt-2 text-xs text-muted-foreground">{support.demandProfile.relatedOOHContent}</p>
+					<p class="mt-2 text-xs text-muted-foreground">
+						{support.demandProfile.relatedOOHContent}
+					</p>
 				{/if}
 			</div>
 		</div>
@@ -327,7 +369,9 @@
 							</span>
 						{/each}
 					</div>
-					<p class="mt-3 text-sm text-muted-foreground">{topRequirementSummary(support.requirementProfile)}</p>
+					<p class="mt-3 text-sm text-muted-foreground">
+						{topRequirementSummary(support.requirementProfile)}
+					</p>
 				{:else}
 					<p class="mt-1 text-sm text-muted-foreground">No ORS requirement data published.</p>
 				{/if}
@@ -388,7 +432,9 @@
 				{/if}
 				{#if support.narrativeProfile.similarOccupations.length > 0}
 					<p class="mt-3 text-xs text-muted-foreground">
-						Similar occupations: {support.narrativeProfile.similarOccupations.slice(0, 4).join(' · ')}
+						Similar occupations: {support.narrativeProfile.similarOccupations
+							.slice(0, 4)
+							.join(' · ')}
 					</p>
 				{/if}
 			</div>
@@ -399,12 +445,14 @@
 				<p class="text-sm font-semibold text-foreground">Tasks and tools</p>
 				{#if support.topTasks.length > 0}
 					<ul class="mt-2 space-y-2 text-sm text-muted-foreground">
-							{#each support.topTasks as task, index (`task-list-${index}`)}
+						{#each support.topTasks as task, index (`task-list-${index}`)}
 							<li>
 								<span class="font-medium text-foreground">{index + 1}.</span>
 								{task.task}
 								{#if task.penetration != null}
-									<span class="text-xs text-muted-foreground"> · AI use {(task.penetration * 100).toFixed(0)}%</span>
+									<span class="text-xs text-muted-foreground">
+										· AI use {(task.penetration * 100).toFixed(0)}%</span
+									>
 								{/if}
 							</li>
 						{/each}
@@ -430,7 +478,9 @@
 				{#if support.skillsProfile.topSkills.length > 0}
 					<div class="mt-4 flex flex-wrap gap-2">
 						{#each support.skillsProfile.topSkills as skill, index (`skill-list-${index}`)}
-							<span class="rounded-full border border-border/60 px-2.5 py-1 text-xs text-foreground">
+							<span
+								class="rounded-full border border-border/60 px-2.5 py-1 text-xs text-foreground"
+							>
 								{skill}
 							</span>
 						{/each}
@@ -453,7 +503,9 @@
 								{support.topTechnologies.length}/6
 							</p>
 							<p class="mt-1 text-xs text-muted-foreground">
-								{countHotTechnologies(support.topTechnologies)} hot · {countInDemandTechnologies(support.topTechnologies)} in demand
+								{countHotTechnologies(support.topTechnologies)} hot · {countInDemandTechnologies(
+									support.topTechnologies
+								)} in demand
 							</p>
 						</div>
 						<div class="rounded-2xl bg-muted/50 p-3">
@@ -461,7 +513,9 @@
 							<p class="mt-1 text-xl font-semibold text-foreground">
 								{averageTopWorkContextValue(support.topWorkContext).toFixed(1)}/5
 							</p>
-							<p class="mt-1 text-xs text-muted-foreground">Average of the strongest work-context signals.</p>
+							<p class="mt-1 text-xs text-muted-foreground">
+								Average of the strongest work-context signals.
+							</p>
 						</div>
 					</div>
 				{:else}
@@ -478,9 +532,9 @@
 				{#if support.ageProfile.totalEmployment != null}
 					<p class="mt-2 text-sm text-muted-foreground">
 						Total employed: {formatEmploymentCount(support.ageProfile.totalEmployment)}
-						· Under 25: {(support.ageProfile.under25Share! * 100).toFixed(0)}%
-						· 25 to 54: {(support.ageProfile.primeAgeShare! * 100).toFixed(0)}%
-						· 55+: {(support.ageProfile.olderShare! * 100).toFixed(0)}%
+						· Under 25: {(support.ageProfile.under25Share! * 100).toFixed(0)}% · 25 to 54: {(
+							support.ageProfile.primeAgeShare! * 100
+						).toFixed(0)}% · 55+: {(support.ageProfile.olderShare! * 100).toFixed(0)}%
 					</p>
 				{/if}
 			</div>

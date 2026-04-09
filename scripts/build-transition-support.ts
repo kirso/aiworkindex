@@ -259,7 +259,7 @@ function buildOfficialProgrammeSupport(skillsfutureEligible: boolean, majorGroup
 }
 
 const transitions = occupations.map(from => {
-	const candidateSet = findBestTransitions(from, occupations, 25, (toOcc) => {
+	const candidateSet = findBestTransitions(from, occupations, 25, toOcc => {
 		const evidence = getObservedMobilityEvidence(from.major_group, toOcc.major_group);
 		return evidence.observed_transition_rate;
 	});

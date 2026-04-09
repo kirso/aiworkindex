@@ -12,6 +12,7 @@ export interface HomeSurfaceMetric {
 	label: string;
 	value: string;
 	note: string;
+	tooltip?: string;
 }
 
 export interface HomeSurfaceChoice {
@@ -327,17 +328,20 @@ function buildGlobalMetrics(items: HomeSurfaceItem[]): HomeSurfaceMetric[] {
 		{
 			label: 'Jobs under pressure',
 			value: formatPercent(total > 0 ? highPressure / total : 0),
-			note: 'of occupations score high or very high risk'
+			note: '',
+			tooltip: 'Share of occupations scoring in the high (30\u201350%) or very high (50%+) net displacement risk band.'
 		},
 		{
 			label: 'Occupations at risk',
 			value: highPressure.toLocaleString(),
-			note: 'with net displacement risk above 30%'
+			note: '',
+			tooltip: 'Occupations with net displacement risk above the 30% threshold \u2014 high AI task overlap and limited human bottleneck protection.'
 		},
 		{
-			label: 'Mapped occupations',
+			label: 'Occupations scored',
 			value: formatCompactCount(mappedOccupations),
-			note: 'scored across the global structural baseline'
+			note: '',
+			tooltip: 'Total occupations scored across the shared structural baseline using the 4-source AI exposure ensemble.'
 		}
 	];
 }
@@ -362,17 +366,20 @@ function buildCountryMetrics(
 		{
 			label: 'Jobs under pressure',
 			value: formatPercent(total > 0 ? highPressure / total : 0),
-			note: 'of occupations score high or very high risk'
+			note: '',
+			tooltip: 'Share of occupations scoring in the high (30\u201350%) or very high (50%+) net displacement risk band.'
 		},
 		{
 			label: 'Wages at risk',
 			value: `${currency} ${formatBillions(wageAtRisk)}`,
-			note: 'annual pay pool in high-pressure occupations'
+			note: '',
+			tooltip: 'Total annual wage bill across occupations scoring high or very high displacement risk, based on median wages and employment estimates.'
 		},
 		{
 			label: 'Occupations at risk',
 			value: highPressure.toLocaleString(),
-			note: 'with net displacement risk above 30%'
+			note: '',
+			tooltip: 'Occupations with net displacement risk above the 30% threshold \u2014 high AI task overlap and limited human bottleneck protection.'
 		}
 	];
 }

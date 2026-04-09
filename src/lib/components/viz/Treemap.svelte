@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import { goto } from '$app/navigation';
+	import { goto, preloadData } from '$app/navigation';
 	import { fade } from 'svelte/transition';
 	import { prefersReducedMotion } from 'svelte/motion';
 	import * as d3Hierarchy from 'd3-hierarchy';
@@ -154,7 +154,7 @@
 
 	// ResizeObserver
 	$effect(() => {
-		if (!browser || !containerEl) return;
+		if (!containerEl) return;
 
 		const observer = new ResizeObserver(entries => {
 			for (const entry of entries) {
@@ -169,6 +169,11 @@
 
 		return () => observer.disconnect();
 	});
+
+	function handleMouseEnterOcc(occ: TreemapRow) {
+		const href = occ.linkHref ?? (occ.ssoc ? `/occupation/${occ.ssoc}` : null);
+		if (href) preloadData(href);
+	}
 
 	function handleMouseMoveOcc(e: MouseEvent, occ: TreemapRow) {
 		tooltipOccupation = occ;
@@ -225,7 +230,13 @@
 	}
 
 	function groupKey(occ: TreemapRow): string {
-		return occ.groupKey ?? occ.major_group ?? occ.canonicalCode?.slice(0, 1) ?? occ.localCode?.slice(0, 2) ?? 'other';
+		return (
+			occ.groupKey ??
+			occ.major_group ??
+			occ.canonicalCode?.slice(0, 1) ??
+			occ.localCode?.slice(0, 2) ??
+			'other'
+		);
 	}
 
 	function riskValue(occ: TreemapRow): number {
@@ -252,7 +263,7 @@
 			Click a cell to view details.
 		</p>
 	{:else}
-			<p class="mb-2 text-sm text-muted-foreground">Click a group to explore its occupations.</p>
+		<p class="mb-2 text-sm text-muted-foreground">Click a group to explore its occupations.</p>
 	{/if}
 
 	{#if browser && width > 0}
@@ -346,9 +357,12 @@
 								: 'transition-opacity duration-150 hover:opacity-100'}
 							role={href ? 'button' : undefined}
 							tabindex={href ? 0 : undefined}
-							aria-label="{occ.title}: Net Risk {(riskValue(occ) * 100).toFixed(0)}%, {riskBandLabels[
-								occ.risk_band ?? 'moderate'
-							]}, {valueLabel} {detailValue(occ).toLocaleString()} in {surfaceLabel}"
+							aria-label="{occ.title}: Net Risk {(riskValue(occ) * 100).toFixed(
+								0
+							)}%, {riskBandLabels[occ.risk_band ?? 'moderate']}, {valueLabel} {detailValue(
+								occ
+							).toLocaleString()} in {surfaceLabel}"
+							onmouseenter={() => handleMouseEnterOcc(occ)}
 							onmousemove={e => handleMouseMoveOcc(e, occ)}
 							onmouseleave={handleMouseLeave}
 							onclick={() => handleClickOcc(occ)}

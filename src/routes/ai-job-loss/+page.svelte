@@ -13,22 +13,54 @@
 	const currency = countryConfigs.sg.currency ?? 'SGD';
 
 	const columns = [
-		{ key: 'net_risk', label: 'Net Risk', format: (occ: Occupation) => `${(occ.net_risk * 100).toFixed(1)}%`, align: 'right' as const },
-		{ key: 'exposure', label: 'Exposure', format: (occ: Occupation) => `${(occ.exposure * 100).toFixed(0)}%`, align: 'right' as const },
-		{ key: 'bottleneck', label: 'Bottleneck', format: (occ: Occupation) => `${(occ.bottleneck * 100).toFixed(0)}%`, align: 'right' as const },
-		{ key: 'wage', label: 'Median Wage', format: (occ: Occupation) => `${currency} ${occ.gross_wage_median.toLocaleString()}`, align: 'right' as const }
+		{
+			key: 'net_risk',
+			label: 'Net Risk',
+			format: (occ: Occupation) => `${(occ.net_risk * 100).toFixed(1)}%`,
+			align: 'right' as const
+		},
+		{
+			key: 'exposure',
+			label: 'Exposure',
+			format: (occ: Occupation) => `${(occ.exposure * 100).toFixed(0)}%`,
+			align: 'right' as const
+		},
+		{
+			key: 'bottleneck',
+			label: 'Bottleneck',
+			format: (occ: Occupation) => `${(occ.bottleneck * 100).toFixed(0)}%`,
+			align: 'right' as const
+		},
+		{
+			key: 'wage',
+			label: 'Median Wage',
+			format: (occ: Occupation) => `${currency} ${occ.gross_wage_median.toLocaleString()}`,
+			align: 'right' as const
+		}
 	];
 
-	let itemListJsonLd = $derived(buildItemListJsonLd(
-		'Jobs Most at Risk from AI',
-		`Top 50 occupations with highest AI displacement pressure in Singapore`,
-		data.ranked
-	));
+	let itemListJsonLd = $derived(
+		buildItemListJsonLd(
+			'Jobs Most at Risk from AI',
+			`Top 50 occupations with highest AI displacement pressure in Singapore`,
+			data.ranked
+		)
+	);
 
 	let faqItems = $derived([
-		{ question: 'Which jobs will AI replace first?', answer: `Of ${DATA_VINTAGE.occupation_count} scored occupations, ${data.totalVeryHighRisk} have very high displacement risk (above 50%). These are roles with high AI task overlap and low human bottleneck protection, such as data entry, telemarketing, and routine bookkeeping.` },
-		{ question: 'How many jobs are at risk from AI?', answer: `${data.totalHighRisk} occupations in Singapore score above 30% displacement risk (high or very high band). This does not mean these jobs will disappear — it measures structural pressure from AI task overlap.` },
-		{ question: 'Is AI replacing jobs right now?', answer: 'AI is automating specific tasks within jobs, not eliminating entire occupations overnight. The highest-risk occupations have 50-70% task overlap with current AI capabilities, but actual displacement depends on employer adoption speed, cost-benefit decisions, and regulatory environment.' }
+		{
+			question: 'Which jobs will AI replace first?',
+			answer: `Of ${DATA_VINTAGE.occupation_count} scored occupations, ${data.totalVeryHighRisk} have very high displacement risk (above 50%). These are roles with high AI task overlap and low human bottleneck protection, such as data entry, telemarketing, and routine bookkeeping.`
+		},
+		{
+			question: 'How many jobs are at risk from AI?',
+			answer: `${data.totalHighRisk} occupations in Singapore score above 30% displacement risk (high or very high band). This does not mean these jobs will disappear — it measures structural pressure from AI task overlap.`
+		},
+		{
+			question: 'Is AI replacing jobs right now?',
+			answer:
+				'AI is automating specific tasks within jobs, not eliminating entire occupations overnight. The highest-risk occupations have 50-70% task overlap with current AI capabilities, but actual displacement depends on employer adoption speed, cost-benefit decisions, and regulatory environment.'
+		}
 	]);
 
 	let faqJsonLd = $derived(buildFaqJsonLd(faqItems));
@@ -48,8 +80,8 @@
 	<p class="mt-2 max-w-2xl text-sm text-muted-foreground">
 		Of {DATA_VINTAGE.occupation_count} scored occupations in Singapore,
 		{data.totalVeryHighRisk} have very high displacement risk (above 50%) and
-		{data.totalHighRisk} score above 30%. These scores measure structural pressure from AI task
-		overlap — not predictions of immediate job losses.
+		{data.totalHighRisk} score above 30%. These scores measure structural pressure from AI task overlap
+		— not predictions of immediate job losses.
 	</p>
 
 	<section class="mt-6">

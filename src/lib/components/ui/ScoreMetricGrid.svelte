@@ -19,7 +19,11 @@
 <div
 	class={cn(
 		'grid gap-3',
-		metrics.length >= 4 ? 'md:grid-cols-4' : metrics.length === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2',
+		metrics.length >= 4
+			? 'md:grid-cols-4'
+			: metrics.length === 3
+				? 'md:grid-cols-3'
+				: 'md:grid-cols-2',
 		className
 	)}
 >

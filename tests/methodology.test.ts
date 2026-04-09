@@ -869,7 +869,9 @@ describe('global expansion invariants', () => {
 
 	test('global and US datasets are generated from the shared methodology contract', () => {
 		assert.ok(globalOccupations.length >= 250);
-		assert.ok(globalOccupations.every(row => row.structuralPressure >= 0 && row.structuralPressure <= 1));
+		assert.ok(
+			globalOccupations.every(row => row.structuralPressure >= 0 && row.structuralPressure <= 1)
+		);
 		assert.ok(getGlobalOccupationEntries().length >= 250);
 		assert.ok(getGlobalOccupationRow('1120'));
 		assert.ok(usOccupations.length >= 700);

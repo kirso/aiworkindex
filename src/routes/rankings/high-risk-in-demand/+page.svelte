@@ -12,26 +12,57 @@
 	const currency = countryConfigs.sg.currency ?? 'SGD';
 
 	const columns = [
-		{ key: 'net_risk', label: 'Net Risk', format: (occ: Occupation) => `${(occ.net_risk * 100).toFixed(1)}%`, align: 'right' as const },
-		{ key: 'demand', label: 'Demand Signal', format: (occ: Occupation) => {
-			const signals = [];
-			if (occ.evidence.sol_match) signals.push(`SOL ${occ.evidence.sol_match}`);
-			if (occ.evidence.jobs_in_demand_match) signals.push(`JiD ${occ.evidence.jobs_in_demand_match}`);
-			return signals.join(', ');
-		}, align: 'left' as const },
-		{ key: 'exposure', label: 'Exposure', format: (occ: Occupation) => `${(occ.exposure * 100).toFixed(0)}%`, align: 'right' as const },
-		{ key: 'wage', label: 'Median Wage', format: (occ: Occupation) => `${currency} ${occ.gross_wage_median.toLocaleString()}`, align: 'right' as const }
+		{
+			key: 'net_risk',
+			label: 'Net Risk',
+			format: (occ: Occupation) => `${(occ.net_risk * 100).toFixed(1)}%`,
+			align: 'right' as const
+		},
+		{
+			key: 'demand',
+			label: 'Demand Signal',
+			format: (occ: Occupation) => {
+				const signals = [];
+				if (occ.evidence.sol_match) signals.push(`SOL ${occ.evidence.sol_match}`);
+				if (occ.evidence.jobs_in_demand_match)
+					signals.push(`JiD ${occ.evidence.jobs_in_demand_match}`);
+				return signals.join(', ');
+			},
+			align: 'left' as const
+		},
+		{
+			key: 'exposure',
+			label: 'Exposure',
+			format: (occ: Occupation) => `${(occ.exposure * 100).toFixed(0)}%`,
+			align: 'right' as const
+		},
+		{
+			key: 'wage',
+			label: 'Median Wage',
+			format: (occ: Occupation) => `${currency} ${occ.gross_wage_median.toLocaleString()}`,
+			align: 'right' as const
+		}
 	];
 
-	let itemListJsonLd = $derived(buildItemListJsonLd(
-		'High-Risk but In-Demand Occupations',
-		'Occupations with high AI displacement risk that still appear on official demand lists in Singapore',
-		data.ranked
-	));
+	let itemListJsonLd = $derived(
+		buildItemListJsonLd(
+			'High-Risk but In-Demand Occupations',
+			'Occupations with high AI displacement risk that still appear on official demand lists in Singapore',
+			data.ranked
+		)
+	);
 
 	const faqJsonLd = buildFaqJsonLd([
-		{ question: 'Are there high AI risk jobs that still get hired?', answer: 'Yes. Some occupations face high structural displacement pressure but still appear on official demand lists, creating a paradox where automation risk coexists with active hiring demand.' },
-		{ question: 'Should I worry about AI if my job is in demand?', answer: 'Demand signals provide a buffer but not immunity. These occupations may see role transformation rather than elimination — the work changes even as demand persists.' }
+		{
+			question: 'Are there high AI risk jobs that still get hired?',
+			answer:
+				'Yes. Some occupations face high structural displacement pressure but still appear on official demand lists, creating a paradox where automation risk coexists with active hiring demand.'
+		},
+		{
+			question: 'Should I worry about AI if my job is in demand?',
+			answer:
+				'Demand signals provide a buffer but not immunity. These occupations may see role transformation rather than elimination — the work changes even as demand persists.'
+		}
 	]);
 </script>
 
@@ -43,11 +74,18 @@
 />
 
 <main class={pageLayout({ width: 'content' })}>
-	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Rankings', href: '/rankings' }, { label: 'High Risk but In-Demand' }]} />
+	<PageBreadcrumb
+		items={[
+			{ label: 'Home', href: '/' },
+			{ label: 'Rankings', href: '/rankings' },
+			{ label: 'High Risk but In-Demand' }
+		]}
+	/>
 
 	<h1 class={titleStyle({ size: 'page' })}>High Risk but In-Demand</h1>
 	<p class="mt-2 text-sm text-muted-foreground">
-		High or Very High displacement risk (net_risk &ge; 25%), yet still on official demand lists in Singapore.
+		High or Very High displacement risk (net_risk &ge; 25%), yet still on official demand lists in
+		Singapore.
 	</p>
 
 	{#if data.ranked.length === 0}

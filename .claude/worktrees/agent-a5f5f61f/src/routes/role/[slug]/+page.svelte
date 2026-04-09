@@ -204,12 +204,12 @@
 
 	// Demand signal helpers (blended from components)
 	let hasDemand = $derived(
-		scored.components.some((c) => c.occupation?.evidence.sol_match) ||
-			scored.components.some((c) => c.occupation?.evidence.jobs_in_demand_match)
+		scored.components.some(c => c.occupation?.evidence.sol_match) ||
+			scored.components.some(c => c.occupation?.evidence.jobs_in_demand_match)
 	);
 	let demandLabel = $derived.by(() => {
-		const hasSol = scored.components.some((c) => c.occupation?.evidence.sol_match);
-		const hasJid = scored.components.some((c) => c.occupation?.evidence.jobs_in_demand_match);
+		const hasSol = scored.components.some(c => c.occupation?.evidence.sol_match);
+		const hasJid = scored.components.some(c => c.occupation?.evidence.jobs_in_demand_match);
 		if (hasSol && hasJid) return 'SOL 2026 + Jobs in Demand';
 		if (hasSol) return 'SOL 2026';
 		if (hasJid) return 'Jobs in Demand';
@@ -510,9 +510,9 @@
 				<div class="mt-5 pt-5 border-t border-border">
 					<p class="text-xs font-semibold text-foreground mb-2">Role profile</p>
 					<p class="text-xs text-muted-foreground mb-3">
-						Heuristic workflow context blended from related occupations. This profile helps interpret
-						the score; it is not a direct role-level measurement and is not part of the core net-risk
-						formula.
+						Heuristic workflow context blended from related occupations. This profile helps
+						interpret the score; it is not a direct role-level measurement and is not part of the
+						core net-risk formula.
 					</p>
 					<div class="flex justify-center">
 						<WorkflowRadar dimensions={scored.workflow_overlay} size={240} />
@@ -597,7 +597,9 @@
 							</div>
 							<div class="flex items-center justify-between">
 								<span class="text-muted-foreground">Senior / Lead</span>
-								<span class="font-medium text-risk-very-low">More insulated by coordination & judgment</span>
+								<span class="font-medium text-risk-very-low"
+									>More insulated by coordination & judgment</span
+								>
 							</div>
 						</div>
 					</div>
@@ -615,7 +617,8 @@
 		<div class={card({ padding: 'md' })}>
 			{#if offsetPotential}
 				<p class="mb-4 pb-4 border-b border-border text-sm text-text-secondary">
-					{offsetPotential.summary}{#if offsetPotential.components.mobility_friction > 0.5} Adjacent routes exist, but switching friction is still high.{/if}
+					{offsetPotential.summary}{#if offsetPotential.components.mobility_friction > 0.5}
+						Adjacent routes exist, but switching friction is still high.{/if}
 				</p>
 			{/if}
 
@@ -651,10 +654,23 @@
 				<div class="grid gap-2 sm:grid-cols-3">
 					{#each scored.components as comp}
 						{#if comp.occupation}
-							<a href="/occupation/{comp.ssoc}" class={cn(card({ padding: 'sm', variant: 'inset' }), 'block hover:bg-accent hover:shadow-sm transition-all group')}>
-								<p class="text-sm font-medium text-foreground truncate">{comp.occupation.title} <span class="opacity-0 group-hover:opacity-100 transition-opacity text-primary">&#8594;</span></p>
+							<a
+								href="/occupation/{comp.ssoc}"
+								class={cn(
+									card({ padding: 'sm', variant: 'inset' }),
+									'block hover:bg-accent hover:shadow-sm transition-all group'
+								)}
+							>
+								<p class="text-sm font-medium text-foreground truncate">
+									{comp.occupation.title}
+									<span class="opacity-0 group-hover:opacity-100 transition-opacity text-primary"
+										>&#8594;</span
+									>
+								</p>
 								<div class="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
-									<span class="font-mono tabular-nums">{(comp.weight * 100).toFixed(0)}% weight</span>
+									<span class="font-mono tabular-nums"
+										>{(comp.weight * 100).toFixed(0)}% weight</span
+									>
 									<span>·</span>
 									<span>{(comp.occupation.net_risk * 100).toFixed(0)}% risk</span>
 								</div>

@@ -252,7 +252,7 @@ function readJson<T>(filePath: string): T {
 
 function buildFamilyDeltaPressure(signals: LfrSectionDSignals): Map<string, number> {
 	const rows = Object.values(signals.family_employment)
-		.filter((row) => row.delta_pct !== null)
+		.filter(row => row.delta_pct !== null)
 		.sort((a, b) => (a.delta_pct ?? 0) - (b.delta_pct ?? 0));
 	const result = new Map<string, number>();
 	if (rows.length === 0) return result;

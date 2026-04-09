@@ -13,4 +13,3 @@ export const load: PageLoad = ({ params }) => {
 export function entries() {
 	return syntheticRoles.map(role => ({ slug: role.slug }));
 }
-

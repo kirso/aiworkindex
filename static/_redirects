@@ -1,0 +1,2 @@
+# SG occupation aliases — redirect to canonical /occupation/ paths at the edge
+/sg/occupation/* /occupation/:splat 308

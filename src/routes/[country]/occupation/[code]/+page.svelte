@@ -3,7 +3,9 @@
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import OccupationHero from '$lib/components/ui/OccupationHero.svelte';
-	import SignalProfileGrid, { type SignalProfileItem } from '$lib/components/viz/SignalProfileGrid.svelte';
+	import SignalProfileGrid, {
+		type SignalProfileItem
+	} from '$lib/components/viz/SignalProfileGrid.svelte';
 	import * as Collapsible from '$lib/components/ui/collapsible/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { riskBandLabels } from '$lib/data';
@@ -60,11 +62,11 @@
 
 	function filterRequirements(items: NonNullable<typeof support>['requirementProfile']) {
 		return items
-			.filter((item) => {
+			.filter(item => {
 				const numVal = parseFloat(item.value.replace(/[<>%]/g, ''));
 				return !isNaN(numVal) && numVal >= 5; // hide near-zero
 			})
-			.map((item) => {
+			.map(item => {
 				const numVal = parseFloat(item.value.replace(/[<>%]/g, ''));
 				// For complementary pairs, keep only the meaningful side
 				if (numVal > 95) return null; // skip the ">99.5%" side
@@ -97,14 +99,23 @@
 						label: 'Tasks',
 						value: formatPct(support.taskPrimitives.matched_task_weight_share),
 						barValue: clamp01(support.taskPrimitives.matched_task_weight_share ?? 0),
-						barClass: signalBarClass(clamp01(support.taskPrimitives.matched_task_weight_share ?? 0)),
+						barClass: signalBarClass(
+							clamp01(support.taskPrimitives.matched_task_weight_share ?? 0)
+						),
 						note: 'Share of job tasks that overlap with current AI capabilities'
 					},
 					{
 						label: 'Wage',
 						value: formatWageShort(support.wageProfile.medianAnnual),
-						barValue: support.wageProfile.medianAnnual != null ? clamp01(support.wageProfile.medianAnnual / 200000) : 0,
-						barClass: signalBarClass(support.wageProfile.medianAnnual != null ? clamp01(support.wageProfile.medianAnnual / 200000) : 0),
+						barValue:
+							support.wageProfile.medianAnnual != null
+								? clamp01(support.wageProfile.medianAnnual / 200000)
+								: 0,
+						barClass: signalBarClass(
+							support.wageProfile.medianAnnual != null
+								? clamp01(support.wageProfile.medianAnnual / 200000)
+								: 0
+						),
 						note: 'Median annual wage'
 					},
 					{
@@ -138,24 +149,40 @@
 	const supportSourceFamilies = $derived(
 		support
 			? [
-					{ key: 'onet-desc', label: 'Occupation Data', active: Boolean(support.occupationDescription) },
+					{
+						key: 'onet-desc',
+						label: 'Occupation Data',
+						active: Boolean(support.occupationDescription)
+					},
 					{ key: 'onet-job-zone', label: 'Job Zones', active: support.jobZone != null },
-					{ key: 'onet-tasks', label: 'Task Ratings', active: support.taskPrimitives.matched_task_weight_share != null },
+					{
+						key: 'onet-tasks',
+						label: 'Task Ratings',
+						active: support.taskPrimitives.matched_task_weight_share != null
+					},
 					{ key: 'onet-tech', label: 'Tech Skills', active: support.topTechnologies.length > 0 },
 					{ key: 'onet-context', label: 'Work Context', active: support.topWorkContext.length > 0 },
 					{ key: 'oews', label: 'OEWS Wages', active: support.wageProfile.medianAnnual != null },
-					{ key: 'projection', label: 'Projections', active: support.demandProfile.employment2024 != null },
+					{
+						key: 'projection',
+						label: 'Projections',
+						active: support.demandProfile.employment2024 != null
+					},
 					{ key: 'ors', label: 'ORS Requirements', active: support.requirementProfile.length > 0 },
 					{
 						key: 'ooh',
 						label: 'OOH Narrative',
 						active: Boolean(
 							support.narrativeProfile.description ||
-								support.narrativeProfile.whatTheyDo ||
-								support.narrativeProfile.workEnvironment
+							support.narrativeProfile.whatTheyDo ||
+							support.narrativeProfile.workEnvironment
 						)
 					},
-					{ key: 'skills', label: 'BLS Skills', active: support.skillsProfile.topSkills.length > 0 },
+					{
+						key: 'skills',
+						label: 'BLS Skills',
+						active: support.skillsProfile.topSkills.length > 0
+					},
 					{ key: 'cps-age', label: 'CPS Age Table', active: support.ageProfile.medianAge != null }
 				]
 			: []
@@ -184,7 +211,7 @@
 	title={`${data.occupation.localTitle} — ${data.country.displayName}`}
 	description={`${data.occupation.localTitle} in ${data.country.name}: structural pressure ${(data.occupation.structuralPressure * 100).toFixed(1)}%, headline risk ${(data.occupation.headlineRisk * 100).toFixed(1)}%, confidence ${data.occupation.confidenceLevel}.`}
 	path={`${data.country.routePrefix}/occupation/${data.occupation.localCode}`.replace('//', '/')}
-	alternates={alternates}
+	{alternates}
 />
 
 <div class={pageLayout({ width: 'content' })}>
@@ -245,18 +272,27 @@
 					</div>
 					<div class="md:col-span-2 space-y-3">
 						<div>
-							<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>Task evidence</p>
+							<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>
+								Task evidence
+							</p>
 							<p class={body({ tone: 'muted' })}>
 								{#if support.taskPrimitives.matched_task_weight_share != null}
-									{(support.taskPrimitives.matched_task_weight_share * 100).toFixed(0)}% weighted task
-									match · {((support.taskPrimitives.task_effective_coverage ?? 0) * 100).toFixed(0)}% effective coverage
+									{(support.taskPrimitives.matched_task_weight_share * 100).toFixed(0)}% weighted
+									task match · {(
+										(support.taskPrimitives.task_effective_coverage ?? 0) * 100
+									).toFixed(0)}% effective coverage
 								{:else}
 									Task primitive coverage is not published for this occupation.
 								{/if}
 							</p>
 						</div>
 						<div>
-							<p class={caption()}>Scores combine AI task overlap, human advantages, and local demand. <a href="/methodology" class="text-primary hover:underline">How it works</a></p>
+							<p class={caption()}>
+								Scores combine AI task overlap, human advantages, and local demand. <a
+									href="/methodology"
+									class="text-primary hover:underline">How it works</a
+								>
+							</p>
 						</div>
 					</div>
 				</div>
@@ -286,34 +322,36 @@
 					<div class={card({ padding: 'sm', variant: 'metric' })}>
 						<p class={microLabel()}>Employment 2024</p>
 						<p class={cn(mono({ size: 'lg' }), 'mt-1 text-foreground')}>
-							{support.demandProfile.employment2024 != null ? `${support.demandProfile.employment2024.toFixed(1)}K` : '—'}
+							{support.demandProfile.employment2024 != null
+								? `${support.demandProfile.employment2024.toFixed(1)}K`
+								: '—'}
 						</p>
 					</div>
 					<div class={card({ padding: 'sm', variant: 'metric' })}>
 						<p class={microLabel()}>Projected Change (2024–34)</p>
 						<p class={cn(mono({ size: 'lg' }), 'mt-1 text-foreground')}>
-							{support.demandProfile.projectedChangePct != null ? `${support.demandProfile.projectedChangePct.toFixed(1)}%` : '—'}
+							{support.demandProfile.projectedChangePct != null
+								? `${support.demandProfile.projectedChangePct.toFixed(1)}%`
+								: '—'}
 						</p>
 					</div>
 					<div class={card({ padding: 'sm', variant: 'metric' })}>
 						<p class={microLabel()}>Openings (2024–34)</p>
 						<p class={cn(mono({ size: 'lg' }), 'mt-1 text-foreground')}>
-							{support.demandProfile.openings2024_2034 != null ? `${support.demandProfile.openings2024_2034.toFixed(1)}K` : '—'}
+							{support.demandProfile.openings2024_2034 != null
+								? `${support.demandProfile.openings2024_2034.toFixed(1)}K`
+								: '—'}
 						</p>
 					</div>
 				</div>
 
 				<div class="grid gap-4 md:grid-cols-2">
 					<div>
-						<p class={cn(caption({ weight: 'semibold' }), 'mb-2 text-foreground')}>Wage distribution</p>
+						<p class={cn(caption({ weight: 'semibold' }), 'mb-2 text-foreground')}>
+							Wage distribution
+						</p>
 						<div class="flex flex-wrap gap-x-4 gap-y-1">
-							{#each [
-								{ label: 'Bottom 10%', value: support.wageProfile.p10Annual },
-								{ label: '25th pctl', value: support.wageProfile.p25Annual },
-								{ label: 'Median', value: support.wageProfile.medianAnnual },
-								{ label: '75th pctl', value: support.wageProfile.p75Annual },
-								{ label: 'Top 10%', value: support.wageProfile.p90Annual }
-							] as item}
+							{#each [{ label: 'Bottom 10%', value: support.wageProfile.p10Annual }, { label: '25th pctl', value: support.wageProfile.p25Annual }, { label: 'Median', value: support.wageProfile.medianAnnual }, { label: '75th pctl', value: support.wageProfile.p75Annual }, { label: 'Top 10%', value: support.wageProfile.p90Annual }] as item}
 								<span class={caption()}>
 									{item.label}: {formatCurrency(item.value, 'USD')}
 								</span>
@@ -329,13 +367,18 @@
 						{/if}
 					</div>
 					<div>
-						<p class={cn(caption({ weight: 'semibold' }), 'mb-2 text-foreground')}>Demand outlook</p>
+						<p class={cn(caption({ weight: 'semibold' }), 'mb-2 text-foreground')}>
+							Demand outlook
+						</p>
 						<p class={body({ tone: 'muted' })}>
-							{support.demandProfile.outlook ?? 'Projections published, but no prose outlook available.'}
+							{support.demandProfile.outlook ??
+								'Projections published, but no prose outlook available.'}
 						</p>
 						<div class="mt-2 flex flex-wrap gap-x-4 gap-y-1">
 							<span class={caption()}>Education: {support.demandProfile.education ?? '—'}</span>
-							<span class={caption()}>Experience: {support.demandProfile.workExperience ?? '—'}</span>
+							<span class={caption()}
+								>Experience: {support.demandProfile.workExperience ?? '—'}</span
+							>
 						</div>
 					</div>
 				</div>
@@ -384,10 +427,20 @@
 
 						{#if support.topTechnologies.length > 0}
 							<div class="pt-3 border-t border-border">
-								<p class={cn(caption({ weight: 'semibold' }), 'mb-2 text-foreground')}>Technologies</p>
+								<p class={cn(caption({ weight: 'semibold' }), 'mb-2 text-foreground')}>
+									Technologies
+								</p>
 								<div class="flex flex-wrap gap-1.5">
 									{#each support.topTechnologies.slice(0, 8) as technology, index (`tech-${index}`)}
-										<span class={pill({ tone: technology.hot ? 'positive' : technology.inDemand ? 'warning' : 'muted' })}>
+										<span
+											class={pill({
+												tone: technology.hot
+													? 'positive'
+													: technology.inDemand
+														? 'warning'
+														: 'muted'
+											})}
+										>
 											{technology.name}
 										</span>
 									{/each}
@@ -397,7 +450,9 @@
 
 						{#if support.requirementProfile.length > 0}
 							<div class="pt-3 border-t border-border">
-								<p class={cn(caption({ weight: 'semibold' }), 'mb-2 text-foreground')}>Requirements</p>
+								<p class={cn(caption({ weight: 'semibold' }), 'mb-2 text-foreground')}>
+									Requirements
+								</p>
 								<div class="flex flex-wrap gap-1.5">
 									{#each filterRequirements(support.requirementProfile) as item (item.label + item.value)}
 										<span
@@ -424,12 +479,16 @@
 					<div class="md:col-span-2 space-y-4">
 						{#if support.topWorkContext.length > 0}
 							<div>
-								<p class={cn(caption({ weight: 'semibold' }), 'mb-2 text-foreground')}>Work context</p>
+								<p class={cn(caption({ weight: 'semibold' }), 'mb-2 text-foreground')}>
+									Work context
+								</p>
 								<div class="space-y-1.5">
 									{#each support.topWorkContext.slice(0, 6) as contextItem, index (`ctx-${index}`)}
 										<div class="flex items-center justify-between gap-3 text-sm">
 											<span class="text-muted-foreground">{contextItem.label}</span>
-											<span class={cn(mono({ size: 'sm' }), 'text-foreground')}>{contextItem.value.toFixed(1)}/5</span>
+											<span class={cn(mono({ size: 'sm' }), 'text-foreground')}
+												>{contextItem.value.toFixed(1)}/5</span
+											>
 										</div>
 									{/each}
 								</div>
@@ -438,7 +497,9 @@
 
 						{#if support.ageProfile.medianAge != null}
 							<div class="pt-3 border-t border-border">
-								<p class={cn(caption({ weight: 'semibold' }), 'mb-2 text-foreground')}>Worker profile</p>
+								<p class={cn(caption({ weight: 'semibold' }), 'mb-2 text-foreground')}>
+									Worker profile
+								</p>
 								<p class={body({ tone: 'muted' })}>
 									Median age {support.ageProfile.medianAge.toFixed(1)}
 									{#if support.ageProfile.totalEmployment != null}
@@ -447,9 +508,9 @@
 								</p>
 								{#if support.ageProfile.under25Share != null}
 									<p class={cn(caption(), 'mt-1')}>
-										Under 25: {((support.ageProfile.under25Share ?? 0) * 100).toFixed(0)}%
-										· 25–54: {((support.ageProfile.primeAgeShare ?? 0) * 100).toFixed(0)}%
-										· 55+: {((support.ageProfile.olderShare ?? 0) * 100).toFixed(0)}%
+										Under 25: {((support.ageProfile.under25Share ?? 0) * 100).toFixed(0)}% · 25–54: {(
+											(support.ageProfile.primeAgeShare ?? 0) * 100
+										).toFixed(0)}% · 55+: {((support.ageProfile.olderShare ?? 0) * 100).toFixed(0)}%
 									</p>
 								{/if}
 							</div>
@@ -480,11 +541,11 @@
 							>
 								<p class={cn(body(), 'font-medium text-foreground')}>
 									{role.title}
-									<span class="opacity-0 group-hover:opacity-100 transition-opacity text-primary">→</span>
+									<span class="opacity-0 group-hover:opacity-100 transition-opacity text-primary"
+										>→</span
+									>
 								</p>
-								<p class={cn(caption(), 'mt-1')}>
-									Estimated modern role scored with US data
-								</p>
+								<p class={cn(caption(), 'mt-1')}>Estimated modern role scored with US data</p>
 							</a>
 						{/each}
 					</div>
@@ -516,7 +577,8 @@
 				viewBox="0 0 24 24"
 				fill="none"
 				stroke="currentColor"
-				stroke-width="2"><path d="m6 9 6 6 6-6" /></svg>
+				stroke-width="2"><path d="m6 9 6 6 6-6" /></svg
+			>
 		</Collapsible.Trigger>
 		<Collapsible.Content
 			class="border-t border-border px-5 py-4 text-xs text-muted-foreground space-y-3"
@@ -582,11 +644,13 @@
 			{/if}
 
 			<div class="pt-3 border-t border-border">
-				<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>Published limitations</p>
+				<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>
+					Published limitations
+				</p>
 				<p>
-					This page shows the local country layer, not realised individual job outcomes. The
-					global structural baseline is shared across countries; only the local demand and wage
-					layer changes here.
+					This page shows the local country layer, not realised individual job outcomes. The global
+					structural baseline is shared across countries; only the local demand and wage layer
+					changes here.
 				</p>
 				{#if support?.note}
 					<p class="mt-1">{support.note}</p>

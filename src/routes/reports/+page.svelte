@@ -25,7 +25,9 @@
 	const postings = postingsMonitor.summary;
 	const quarterly = quarterlyReport;
 	const isPromoted = siteStatus.experimental_release?.status === 'promoted';
-	const isV6Live = siteStatus.structural_release.version === 'V6' || siteStatus.structural_release.version === 'V7';
+	const isV6Live =
+		siteStatus.structural_release.version === 'V6' ||
+		siteStatus.structural_release.version === 'V7';
 	const experimentalPositiveStates = ['ready_for_shadow_scoring', 'shadow_published', 'promoted'];
 	const experimentalStatusBadgeClass = experimentalPositiveStates.includes(
 		siteStatus.experimental_release?.status ?? ''
@@ -65,14 +67,24 @@
 				<div>
 					<div class="flex items-center gap-2">
 						<span class="text-base font-semibold text-foreground">V7 Release Note</span>
-						<Badge variant="outline" class="bg-impact-leveraged-subtle text-impact-leveraged border-impact-leveraged-border">Current</Badge>
+						<Badge
+							variant="outline"
+							class="bg-impact-leveraged-subtle text-impact-leveraged border-impact-leveraged-border"
+							>Current</Badge
+						>
 					</div>
 					<p class="mt-1 text-sm text-muted-foreground">
 						V7 adds task-concentration-weighted exposure (Hampole et al.) and a demand-persistence
 						proxy to the structural formula. Stability: median delta 0.008, Spearman 0.9995.
 					</p>
 				</div>
-				<svg class="ml-4 mt-1 h-5 w-5 shrink-0 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+				<svg
+					class="ml-4 mt-1 h-5 w-5 shrink-0 text-muted-foreground"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg
+				>
 			</div>
 		</a>
 
@@ -81,14 +93,22 @@
 				<div>
 					<div class="flex items-center gap-2">
 						<span class="text-base font-semibold text-foreground">V6 Release Note</span>
-						<Badge variant="outline" class="bg-primary/10 text-primary border-primary/30">Archive</Badge>
+						<Badge variant="outline" class="bg-primary/10 text-primary border-primary/30"
+							>Archive</Badge
+						>
 					</div>
 					<p class="mt-1 text-sm text-muted-foreground">
-						V6 introduced the two-axis structural formula with 4-source exposure ensemble,
-						human bottleneck, and explicit demand resilience. Superseded by V7.
+						V6 introduced the two-axis structural formula with 4-source exposure ensemble, human
+						bottleneck, and explicit demand resilience. Superseded by V7.
 					</p>
 				</div>
-				<svg class="ml-4 mt-1 h-5 w-5 shrink-0 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+				<svg
+					class="ml-4 mt-1 h-5 w-5 shrink-0 text-muted-foreground"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg
+				>
 			</div>
 		</a>
 

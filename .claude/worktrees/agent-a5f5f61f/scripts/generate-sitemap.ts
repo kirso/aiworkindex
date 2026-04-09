@@ -25,7 +25,10 @@ async function main() {
 
 	const { syntheticRoles } = await import('../src/lib/data/synthetic-roles');
 	const majorGroups: Array<{ key: string }> = JSON.parse(
-		fs.readFileSync(path.join(import.meta.dir, '..', 'src', 'lib', 'data', 'major-groups.json'), 'utf-8')
+		fs.readFileSync(
+			path.join(import.meta.dir, '..', 'src', 'lib', 'data', 'major-groups.json'),
+			'utf-8'
+		)
 	);
 
 	const staticPages: Array<{ path: string; priority: string; changefreq: string }> = [
@@ -79,7 +82,8 @@ async function main() {
 
 	fs.writeFileSync(OUT_FILE, sitemap);
 
-	const totalUrls = staticPages.length + occupations.length + syntheticRoles.length + majorGroups.length;
+	const totalUrls =
+		staticPages.length + occupations.length + syntheticRoles.length + majorGroups.length;
 	console.log(`Sitemap generated: ${totalUrls} URLs`);
 	console.log(`Domain: ${base}`);
 	console.log(`Output: ${OUT_FILE}`);

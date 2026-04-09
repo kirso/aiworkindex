@@ -64,9 +64,7 @@
 			0,
 			Math.min(
 				1,
-				adjustedExposure *
-					(1 - adjustedBottleneck) *
-					(1 - (selectedEntry.demand_resilience ?? 0))
+				adjustedExposure * (1 - adjustedBottleneck) * (1 - (selectedEntry.demand_resilience ?? 0))
 			)
 		);
 	});
@@ -108,10 +106,10 @@
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'AI Risk Calculator' }]} />
 
 	<h1 class={titleStyle({ size: 'page' })}>AI Exposure Calculator</h1>
-		<p class={caption({ class: 'mt-1 mb-6' })}>
+	<p class={caption({ class: 'mt-1 mb-6' })}>
 		Estimate how much of your role's tasks overlap with current AI capabilities, and what to do
 		about it. The current calculator uses Singapore occupation data.
-		</p>
+	</p>
 
 	<!-- Search + Select -->
 	<div class={card({ padding: 'lg', class: 'mb-4' })}>
@@ -210,7 +208,8 @@
 				<p class="mt-3 text-base font-mono font-semibold text-muted-foreground">
 					{selectedEntry && 'currency' in selectedEntry && selectedEntry.currency
 						? selectedEntry.currency
-						: 'Local'} {riskAmount.toLocaleString()}/mo
+						: 'Local'}
+					{riskAmount.toLocaleString()}/mo
 				</p>
 				<p class={caption()}>salary equivalent of overlapping tasks</p>
 			</div>
@@ -230,7 +229,8 @@
 					<span class="font-mono font-semibold">
 						{selectedEntry && 'currency' in selectedEntry && selectedEntry.currency
 							? selectedEntry.currency
-							: 'Local'} {annualAtRisk.toLocaleString()}
+							: 'Local'}
+						{annualAtRisk.toLocaleString()}
 					</span>
 				</div>
 				<div class="flex items-center justify-between text-sm">
@@ -310,8 +310,10 @@
 		<p class="text-xs text-muted-foreground">
 			This calculator shows the proportion of your role's tasks that overlap with current AI
 			capabilities — it does not predict job loss. Actual impact depends on employer adoption,
-			regulatory environment, and many other factors.
-			Also available at <a href="/will-ai-take-my-job" class="text-primary hover:underline">Will AI Take My Job?</a>
+			regulatory environment, and many other factors. Also available at <a
+				href="/will-ai-take-my-job"
+				class="text-primary hover:underline">Will AI Take My Job?</a
+			>
 		</p>
 	</div>
 </div>

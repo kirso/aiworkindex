@@ -51,8 +51,9 @@
 	<header class="mb-8">
 		<h1 class={titleStyle({ size: 'page' })}>Occupation Groups</h1>
 		<p class={cn(body({ size: 'lg', tone: 'subtle' }), 'mt-2 max-w-3xl')}>
-			{DATA_VINTAGE.occupation_count} occupations organised into {groups.length} major groups. Each group shows
-			aggregate AI displacement risk based on the {DATA_VINTAGE.model_version} scoring model, with Singapore as the implementation view. Updated {DATA_VINTAGE.last_updated}.
+			{DATA_VINTAGE.occupation_count} occupations organised into {groups.length} major groups. Each group
+			shows aggregate AI displacement risk based on the {DATA_VINTAGE.model_version} scoring model, with
+			Singapore as the implementation view. Updated {DATA_VINTAGE.last_updated}.
 		</p>
 	</header>
 
@@ -62,16 +63,19 @@
 			{#each groups as g}
 				<a
 					href="/group/{g.slug}"
-					class={cn(card({ padding: 'md' }), 'block hover:bg-accent hover:shadow-sm transition-all group')}
+					class={cn(
+						card({ padding: 'md' }),
+						'block hover:bg-accent hover:shadow-sm transition-all group'
+					)}
 				>
 					<div class="flex items-start justify-between gap-2">
 						<h3 class={cn(body({ size: 'lg' }), 'font-semibold text-foreground')}>
 							{g.label}
-							<span class="opacity-0 group-hover:opacity-100 transition-opacity text-primary">→</span>
+							<span class="opacity-0 group-hover:opacity-100 transition-opacity text-primary"
+								>→</span
+							>
 						</h3>
-						<span
-							class="shrink-0 h-3 w-3 rounded-full mt-1.5"
-							style="background-color: {g.color}"
+						<span class="shrink-0 h-3 w-3 rounded-full mt-1.5" style="background-color: {g.color}"
 						></span>
 					</div>
 					<div class="mt-3 grid grid-cols-2 gap-3">

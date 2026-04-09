@@ -3,7 +3,9 @@
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import OccupationHero from '$lib/components/ui/OccupationHero.svelte';
-	import SignalProfileGrid, { type SignalProfileItem } from '$lib/components/viz/SignalProfileGrid.svelte';
+	import SignalProfileGrid, {
+		type SignalProfileItem
+	} from '$lib/components/viz/SignalProfileGrid.svelte';
 	import * as Collapsible from '$lib/components/ui/collapsible/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { countryConfigs } from '$lib/data/country-config';
@@ -34,7 +36,13 @@
 
 	const clamp01 = (v: number) => Math.max(0, Math.min(1, v));
 	const pressureBarClass = (v: number) =>
-		v >= 0.5 ? 'bg-risk-very-high' : v >= 0.3 ? 'bg-risk-high' : v >= 0.15 ? 'bg-risk-moderate' : 'bg-risk-very-low';
+		v >= 0.5
+			? 'bg-risk-very-high'
+			: v >= 0.3
+				? 'bg-risk-high'
+				: v >= 0.15
+					? 'bg-risk-moderate'
+					: 'bg-risk-very-low';
 	const confidenceBarClass = (v: number) =>
 		v >= 0.7 ? 'bg-risk-very-low' : v >= 0.4 ? 'bg-risk-moderate' : 'bg-risk-high';
 
@@ -65,7 +73,7 @@
 	const confidenceSignals = $derived<SignalProfileItem[]>([
 		{
 			label: 'Mapping quality',
-			value: `${(((data.occupation.confidence.crosswalk_quality ?? 0)) * 100).toFixed(0)}%`,
+			value: `${((data.occupation.confidence.crosswalk_quality ?? 0) * 100).toFixed(0)}%`,
 			barValue: clamp01(data.occupation.confidence.crosswalk_quality ?? 0),
 			barClass: confidenceBarClass(data.occupation.confidence.crosswalk_quality ?? 0)
 		},
@@ -117,7 +125,7 @@
 	title={`${data.occupation.canonicalTitle} — Global structural baseline`}
 	description={`${data.occupation.canonicalTitle}: structural pressure ${(data.occupation.structuralPressure * 100).toFixed(1)}%, exposure ${(data.occupation.exposure * 100).toFixed(1)}%, bottleneck ${(data.occupation.bottleneck * 100).toFixed(1)}%, confidence ${data.occupation.confidenceLevel}.`}
 	path={`/global/occupation/${data.occupation.canonicalCode}`.replace('//', '/')}
-	alternates={alternates}
+	{alternates}
 />
 
 <div class={pageLayout({ width: 'content' })}>
@@ -140,7 +148,10 @@
 			pills={[
 				{ label: countryConfigs.global.displayName, tone: 'muted' },
 				{ label: `ISCO ${data.occupation.canonicalCode}`, tone: 'outline' },
-				{ label: `Based on ${data.occupation.sourceOccupationCount} national classifications`, tone: 'neutral' }
+				{
+					label: `Based on ${data.occupation.sourceOccupationCount} national classifications`,
+					tone: 'neutral'
+				}
 			]}
 			summary="How much of this occupation's work could be affected by AI, based on task analysis across countries. Country pages add local wages and demand data."
 			meta={[
@@ -204,7 +215,9 @@
 						>
 							<p class={cn(body(), 'font-medium text-foreground')}>
 								Singapore view
-								<span class="opacity-0 group-hover:opacity-100 transition-opacity text-primary">→</span>
+								<span class="opacity-0 group-hover:opacity-100 transition-opacity text-primary"
+									>→</span
+								>
 							</p>
 							<p class={cn(caption(), 'mt-1')}>
 								See Singapore wages, job market data, and career transition options.
@@ -221,7 +234,9 @@
 						>
 							<p class={cn(body(), 'font-medium text-foreground')}>
 								United States view
-								<span class="opacity-0 group-hover:opacity-100 transition-opacity text-primary">→</span>
+								<span class="opacity-0 group-hover:opacity-100 transition-opacity text-primary"
+									>→</span
+								>
 							</p>
 							<p class={cn(caption(), 'mt-1')}>
 								See US wages, skills data, and employment projections.
@@ -247,7 +262,8 @@
 				viewBox="0 0 24 24"
 				fill="none"
 				stroke="currentColor"
-				stroke-width="2"><path d="m6 9 6 6 6-6" /></svg>
+				stroke-width="2"><path d="m6 9 6 6 6-6" /></svg
+			>
 		</Collapsible.Trigger>
 		<Collapsible.Content
 			class="border-t border-border px-5 py-4 text-xs text-muted-foreground space-y-3"
@@ -257,14 +273,18 @@
 				<SignalProfileGrid items={confidenceSignals} columns={3} />
 				<div class="mt-3 grid gap-3 sm:grid-cols-2">
 					<div>
-						<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>Exposure sources</p>
+						<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>
+							Exposure sources
+						</p>
 						<p>
-							{data.occupation.confidence.exposure_source_count} source families contribute to the
-							exposure estimate for this occupation.
+							{data.occupation.confidence.exposure_source_count} source families contribute to the exposure
+							estimate for this occupation.
 						</p>
 					</div>
 					<div>
-						<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>Confidence level</p>
+						<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>
+							Confidence level
+						</p>
 						<p>
 							{data.occupation.confidenceLevel === 'high'
 								? 'The global structural record is currently stable and well covered.'

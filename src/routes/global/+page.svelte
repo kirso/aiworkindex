@@ -42,7 +42,9 @@
 				<article class={card({ padding: 'sm' })}>
 					<div class="flex items-center justify-between gap-3">
 						<p class="text-sm font-semibold text-foreground">{country.title}</p>
-						<span class="rounded-full bg-muted px-2 py-0.5 text-[11px] uppercase tracking-wide text-muted-foreground">
+						<span
+							class="rounded-full bg-muted px-2 py-0.5 text-[11px] uppercase tracking-wide text-muted-foreground"
+						>
 							{country.readiness}
 						</span>
 					</div>

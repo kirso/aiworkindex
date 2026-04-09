@@ -7,38 +7,75 @@
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import { buildItemListJsonLd, buildFaqJsonLd } from '$lib/data/ranking-jsonld';
+	import { DATA_VINTAGE } from '$lib/data/scoring-constants';
 
 	let { data } = $props();
 	const currency = countryConfigs.sg.currency ?? 'SGD';
 
 	const columns = [
-		{ key: 'net_risk', label: 'Net Risk', format: (occ: Occupation) => `${(occ.net_risk * 100).toFixed(1)}%`, align: 'right' as const },
-		{ key: 'exposure', label: 'Exposure', format: (occ: Occupation) => `${(occ.exposure * 100).toFixed(0)}%`, align: 'right' as const },
-		{ key: 'bottleneck', label: 'Bottleneck', format: (occ: Occupation) => `${(occ.bottleneck * 100).toFixed(0)}%`, align: 'right' as const },
-		{ key: 'wage', label: 'Median Wage', format: (occ: Occupation) => `${currency} ${occ.gross_wage_median.toLocaleString()}`, align: 'right' as const }
+		{
+			key: 'net_risk',
+			label: 'Net Risk',
+			format: (occ: Occupation) => `${(occ.net_risk * 100).toFixed(1)}%`,
+			align: 'right' as const
+		},
+		{
+			key: 'exposure',
+			label: 'Exposure',
+			format: (occ: Occupation) => `${(occ.exposure * 100).toFixed(0)}%`,
+			align: 'right' as const
+		},
+		{
+			key: 'bottleneck',
+			label: 'Bottleneck',
+			format: (occ: Occupation) => `${(occ.bottleneck * 100).toFixed(0)}%`,
+			align: 'right' as const
+		},
+		{
+			key: 'wage',
+			label: 'Median Wage',
+			format: (occ: Occupation) => `${currency} ${occ.gross_wage_median.toLocaleString()}`,
+			align: 'right' as const
+		}
 	];
 
-	let itemListJsonLd = $derived(buildItemListJsonLd(
-		'Occupations with Highest AI Displacement Risk',
-		'Top 25 occupations ranked by AI net displacement risk score in Singapore',
-		data.ranked
-	));
+	let itemListJsonLd = $derived(
+		buildItemListJsonLd(
+			'Occupations with Highest AI Displacement Risk',
+			'Top 25 occupations ranked by AI net displacement risk score in Singapore',
+			data.ranked
+		)
+	);
 
 	const faqJsonLd = buildFaqJsonLd([
-		{ question: 'Which occupations are most at risk of AI replacement?', answer: 'Data entry clerks, telemarketers, and bookkeepers face the highest structural pressure, with net displacement risk above 50%. These roles have high AI task overlap and low human bottlenecks.' },
-		{ question: 'How is the AI displacement risk ranking calculated?', answer: 'Each occupation is scored using headline risk = displacement pressure × (1 − demand resilience). This ranking sorts all 562 occupations by net risk, showing the top 25.' }
+		{
+			question: 'Which occupations are most at risk of AI replacement?',
+			answer:
+				'Data entry clerks, telemarketers, and bookkeepers face the highest structural pressure, with net displacement risk above 50%. These roles have high AI task overlap and low human bottlenecks.'
+		},
+		{
+			question: 'How is the AI displacement risk ranking calculated?',
+			answer:
+				'Each occupation is scored using headline risk = displacement pressure × (1 − demand resilience). This ranking sorts all ${DATA_VINTAGE.occupation_count} occupations by net risk, showing the top 25.'
+		}
 	]);
 </script>
 
 <Seo
 	title="Jobs AI Will Replace: 25 Highest Risk Occupations"
-	description="Which jobs will AI replace first? Top 25 occupations ranked by displacement risk from 562 scored in Singapore."
+	description="Which jobs will AI replace first? Top 25 occupations ranked by displacement risk from {DATA_VINTAGE.occupation_count} scored in Singapore."
 	path="/rankings/highest-risk"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
 
 <main class={pageLayout({ width: 'content' })}>
-	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Rankings', href: '/rankings' }, { label: 'Highest Risk' }]} />
+	<PageBreadcrumb
+		items={[
+			{ label: 'Home', href: '/' },
+			{ label: 'Rankings', href: '/rankings' },
+			{ label: 'Highest Risk' }
+		]}
+	/>
 
 	<h1 class={titleStyle({ size: 'page' })}>Highest Risk Occupations</h1>
 	<p class="mt-2 text-sm text-muted-foreground">

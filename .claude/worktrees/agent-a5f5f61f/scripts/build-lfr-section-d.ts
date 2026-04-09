@@ -404,7 +404,9 @@ function parseGroupProfiles(workbook: XLSX.WorkBook): Record<MajorGroupKey, Grou
 		for (const [majorGroup, profile] of Object.entries(groups) as Array<
 			[MajorGroupKey, GroupProfile]
 		>) {
-			profile.qualification_share[bucket] = round(values[majorGroup] / (profile.total_employment || 1));
+			profile.qualification_share[bucket] = round(
+				values[majorGroup] / (profile.total_employment || 1)
+			);
 		}
 	}
 
@@ -420,7 +422,9 @@ function parseGroupProfiles(workbook: XLSX.WorkBook): Record<MajorGroupKey, Grou
 		for (const [majorGroup, profile] of Object.entries(groups) as Array<
 			[MajorGroupKey, GroupProfile]
 		>) {
-			profile.marital_status_share[bucket] = round(values[majorGroup] / (profile.total_employment || 1));
+			profile.marital_status_share[bucket] = round(
+				values[majorGroup] / (profile.total_employment || 1)
+			);
 		}
 	}
 
@@ -447,7 +451,9 @@ function getIndustryRows(
 	return entries;
 }
 
-function parseIndustryOccupationMix(workbook: XLSX.WorkBook): Record<string, IndustryOccupationMix> {
+function parseIndustryOccupationMix(
+	workbook: XLSX.WorkBook
+): Record<string, IndustryOccupationMix> {
 	const rows = readRows(workbook, 'D2');
 	const totalBlock = getIndustryRows(rows, 8, ['Male', 'Female']);
 	const maleBlock = getIndustryRows(rows, 25, ['Female']);
@@ -474,7 +480,10 @@ function parseIndustryOccupationMix(workbook: XLSX.WorkBook): Record<string, Ind
 		totalBlock.map(({ rowIndex, label }) => {
 			const total = parseNumber(rows[rowIndex]?.[2]) ?? 0;
 			const majorGroupShare = Object.fromEntries(
-				groupColumns.map(({ key, column }) => [key, round((parseNumber(rows[rowIndex]?.[column]) ?? 0) / (total || 1))])
+				groupColumns.map(({ key, column }) => [
+					key,
+					round((parseNumber(rows[rowIndex]?.[column]) ?? 0) / (total || 1))
+				])
 			) as Record<MajorGroupKey, number>;
 			const male = maleByIndustry.get(label) ?? 0;
 			const female = femaleByIndustry.get(label) ?? 0;
@@ -520,10 +529,18 @@ function parseIndustryProfiles(workbook: XLSX.WorkBook): Record<string, Industry
 		const female = parseNumber(d14[d14Row]?.[3]) ?? 0;
 		profile.sex_share.male = round(male / total);
 		profile.sex_share.female = round(female / total);
-		profile.employment_status_share.employers = round((parseNumber(d13[rowIndex]?.[3]) ?? 0) / total);
-		profile.employment_status_share.employees = round((parseNumber(d13[rowIndex]?.[4]) ?? 0) / total);
-		profile.employment_status_share.own_account_workers = round((parseNumber(d13[rowIndex]?.[5]) ?? 0) / total);
-		profile.employment_status_share.contributing_family_workers = round((parseNumber(d13[rowIndex]?.[6]) ?? 0) / total);
+		profile.employment_status_share.employers = round(
+			(parseNumber(d13[rowIndex]?.[3]) ?? 0) / total
+		);
+		profile.employment_status_share.employees = round(
+			(parseNumber(d13[rowIndex]?.[4]) ?? 0) / total
+		);
+		profile.employment_status_share.own_account_workers = round(
+			(parseNumber(d13[rowIndex]?.[5]) ?? 0) / total
+		);
+		profile.employment_status_share.contributing_family_workers = round(
+			(parseNumber(d13[rowIndex]?.[6]) ?? 0) / total
+		);
 		profile.employment_status_share.self_employed = round(
 			profile.employment_status_share.employers +
 				profile.employment_status_share.own_account_workers +
@@ -625,14 +642,17 @@ function mergeD8Series(
 	return Object.fromEntries(
 		Object.keys({ ...snapshots2024, ...snapshots2025 })
 			.sort()
-			.map((code) => {
+			.map(code => {
 				const prior = snapshots2024[code];
 				const current = snapshots2025[code];
 				if (!prior || !current) {
-					throw new Error(`Missing family snapshot for code ${code} in one of the Section D vintages.`);
+					throw new Error(
+						`Missing family snapshot for code ${code} in one of the Section D vintages.`
+					);
 				}
 				const delta_k = round(current.total - prior.total, 1);
-				const delta_pct = prior.total > 0 ? round((current.total - prior.total) / prior.total, 4) : null;
+				const delta_pct =
+					prior.total > 0 ? round((current.total - prior.total) / prior.total, 4) : null;
 				return [
 					code,
 					{
@@ -670,7 +690,22 @@ function parseD9ClusterRows(workbook: XLSX.WorkBook) {
 		{ start: 25, end: 30, metric_group: 'employment_status' as const },
 		{ start: 31, end: 34, metric_group: 'nature_of_employment' as const }
 	];
-	const result: Record<ClusterKey, Array<Omit<ClusterCharacteristicRow, 'total_2024' | 'total_2025' | 'male_2024' | 'male_2025' | 'female_2024' | 'female_2025' | 'delta_k' | 'delta_pct'>>> = {
+	const result: Record<
+		ClusterKey,
+		Array<
+			Omit<
+				ClusterCharacteristicRow,
+				| 'total_2024'
+				| 'total_2025'
+				| 'male_2024'
+				| 'male_2025'
+				| 'female_2024'
+				| 'female_2025'
+				| 'delta_k'
+				| 'delta_pct'
+			>
+		>
+	> = {
 		pmet: [],
 		clerical_sales_service: [],
 		production_transport: []
@@ -688,7 +723,10 @@ function parseD9ClusterRows(workbook: XLSX.WorkBook) {
 		}
 	}
 
-	const values: Record<ClusterKey, Record<string, { total: number; male: number; female: number }>> = {
+	const values: Record<
+		ClusterKey,
+		Record<string, { total: number; male: number; female: number }>
+	> = {
 		pmet: {},
 		clerical_sales_service: {},
 		production_transport: {}
@@ -726,14 +764,33 @@ function mergeD9Series(
 			const priorRow = prior[key][label];
 			const currentRow = current[key][label];
 			if (!priorRow || !currentRow) continue;
-			const metricGroup =
-				['15 - 24', '25 - 29', '30 - 39', '40 - 49', '50 - 59', '60 & Over', '60 - 69', '70 & Over'].includes(label)
-					? 'age'
-					: ['Below Secondary', 'Secondary', 'Post-Secondary (Non-Tertiary)', 'Diploma & Professional Qualification', 'Degree'].includes(label)
-						? 'qualification'
-						: ['Employers', 'Employees', 'Own Account Workers', 'Contributing Family Workers'].includes(label)
-							? 'employment_status'
-							: 'nature_of_employment';
+			const metricGroup = [
+				'15 - 24',
+				'25 - 29',
+				'30 - 39',
+				'40 - 49',
+				'50 - 59',
+				'60 & Over',
+				'60 - 69',
+				'70 & Over'
+			].includes(label)
+				? 'age'
+				: [
+							'Below Secondary',
+							'Secondary',
+							'Post-Secondary (Non-Tertiary)',
+							'Diploma & Professional Qualification',
+							'Degree'
+					  ].includes(label)
+					? 'qualification'
+					: [
+								'Employers',
+								'Employees',
+								'Own Account Workers',
+								'Contributing Family Workers'
+						  ].includes(label)
+						? 'employment_status'
+						: 'nature_of_employment';
 			result[key].push({
 				label,
 				metric_group: metricGroup,
@@ -744,14 +801,18 @@ function mergeD9Series(
 				female_2024: priorRow.female,
 				female_2025: currentRow.female,
 				delta_k: round(currentRow.total - priorRow.total, 1),
-				delta_pct: priorRow.total > 0 ? round((currentRow.total - priorRow.total) / priorRow.total, 4) : null
+				delta_pct:
+					priorRow.total > 0 ? round((currentRow.total - priorRow.total) / priorRow.total, 4) : null
 			});
 		}
 	}
 	return result;
 }
 
-function parseIndustryMix(workbook: XLSX.WorkBook, sheetName: 'D10' | 'D11' | 'D12'): Record<string, number> {
+function parseIndustryMix(
+	workbook: XLSX.WorkBook,
+	sheetName: 'D10' | 'D11' | 'D12'
+): Record<string, number> {
 	const rows = readRows(workbook, sheetName);
 	const totals = new Map<string, number>();
 	const grandTotal = parseNumber(rows[7]?.[1]) ?? 0;
@@ -765,9 +826,7 @@ function parseIndustryMix(workbook: XLSX.WorkBook, sheetName: 'D10' | 'D11' | 'D
 	if (grandTotal <= 0) {
 		throw new Error(`Grand total missing for ${sheetName}.`);
 	}
-	return Object.fromEntries(
-		[...totals.entries()].map(([label, total]) => [label, total])
-	);
+	return Object.fromEntries([...totals.entries()].map(([label, total]) => [label, total]));
 }
 
 function mergeIndustrySeries(
@@ -780,8 +839,8 @@ function mergeIndustrySeries(
 	const priorTotal = prior.Total;
 	const currentTotal = current.Total;
 	return Object.keys(current)
-		.filter((label) => label !== 'Total')
-		.map((label) => {
+		.filter(label => label !== 'Total')
+		.map(label => {
 			const total2024 = prior[label] ?? 0;
 			const total2025 = current[label] ?? 0;
 			const share2024 = priorTotal > 0 ? round(total2024 / priorTotal, 4) : null;
@@ -803,7 +862,7 @@ function buildDeltaArtifact(signals: SectionDSignals) {
 		data_as_of: signals.metadata.data_as_of,
 		family_employment: Object.values(signals.family_employment)
 			.sort((a, b) => Math.abs(b.delta_k) - Math.abs(a.delta_k))
-			.map((row) => ({
+			.map(row => ({
 				code: row.code,
 				label: row.label,
 				total_2024: row.total_2024,
@@ -832,7 +891,10 @@ function main() {
 				'D9 to D12 are published for validation, reporting, and experimental overlays; they are not direct structural-score multipliers.'
 			]
 		},
-		family_employment: mergeD8Series(parseD8Snapshots(workbook2024), parseD8Snapshots(workbook2025)),
+		family_employment: mergeD8Series(
+			parseD8Snapshots(workbook2024),
+			parseD8Snapshots(workbook2025)
+		),
 		group_profile: {
 			'2024': parseGroupProfiles(workbook2024),
 			'2025': parseGroupProfiles(workbook2025)

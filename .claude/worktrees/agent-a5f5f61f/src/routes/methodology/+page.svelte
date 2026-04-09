@@ -85,8 +85,8 @@
 		<p class="mt-1 text-sm text-text-secondary">
 			A software developer and a data entry clerk can both score high on AI exposure, but one gets
 			augmented (MOM lists software developers as in-demand in 2025) while the other faces
-			substitution. We deliberately separate technical exposure from market translation using a
-			V6 two-axis structural score.
+			substitution. We deliberately separate technical exposure from market translation using a V6
+			two-axis structural score.
 		</p>
 	</div>
 
@@ -135,13 +135,14 @@
 		<p class={cn(sectionLabel(), 'mb-2')}>How To Read This</p>
 		<p class="text-sm text-text-secondary">
 			This site has two layers. The <strong>core score</strong> is the authoritative ranking layer:
-			exposure, bottleneck, displacement pressure, demand resilience, headline risk, and uncertainty.
-			The <strong>interpretive layer</strong> helps explain how work is performed in practice,
+			exposure, bottleneck, displacement pressure, demand resilience, headline risk, and
+			uncertainty. The <strong>interpretive layer</strong> helps explain how work is performed in practice,
 			including role-profile and workflow context.
 		</p>
 		<p class="mt-2 text-sm text-text-secondary">
-			Interpretive fields are heuristic and should be read as context, not as direct occupation-level
-			measurement. They help explain the score, but they do not replace the core formula.
+			Interpretive fields are heuristic and should be read as context, not as direct
+			occupation-level measurement. They help explain the score, but they do not replace the core
+			formula.
 		</p>
 	</div>
 
@@ -160,10 +161,10 @@
 			<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'primary' }), 'mb-6')}>
 				<p class="text-sm font-semibold text-foreground">TL;DR</p>
 				<p class="mt-1 text-sm text-muted-foreground">
-					Headline risk = displacement pressure × (1 − demand resilience), where displacement pressure
-					= AI exposure × (1 − human bottleneck). In live V6, exposure comes from an audited
-					4-source stack, then passes through a latent posterior and task-mode upgrade where the
-					evidence is strong. No LLM assigns scores in the pipeline.
+					Headline risk = displacement pressure × (1 − demand resilience), where displacement
+					pressure = AI exposure × (1 − human bottleneck). In live V6, exposure comes from an
+					audited 4-source stack, then passes through a latent posterior and task-mode upgrade where
+					the evidence is strong. No LLM assigns scores in the pipeline.
 				</p>
 			</div>
 
@@ -275,8 +276,8 @@
 				</ul>
 				<p class="mt-2 text-sm text-muted-foreground italic">
 					Demand resilience is its own axis, not a compressed multiplier. Weak demand provides less
-					buffer; strong verified demand can offset much more of the structural pressure than the old
-					buffering rule allowed.
+					buffer; strong verified demand can offset much more of the structural pressure than the
+					old buffering rule allowed.
 				</p>
 			</section>
 
@@ -429,9 +430,9 @@
 						<p class="mt-2 text-sm text-muted-foreground">
 							Momentum gets 60% weight and scarcity 40%. Within momentum, group-level wage growth is
 							retained as the common anchor while the employment side uses an occupation-specific
-							industry-footprint blend when available, falling back to the group prior otherwise.
-							V6 then converts that base resilience into demand resilience by retaining 45% of the
-							base signal and adding verified occupation-level demand bonuses.
+							industry-footprint blend when available, falling back to the group prior otherwise. V6
+							then converts that base resilience into demand resilience by retaining 45% of the base
+							signal and adding verified occupation-level demand bonuses.
 						</p>
 					</div>
 
@@ -461,8 +462,8 @@
 						<p class="mt-2 text-sm text-muted-foreground italic">
 							Where both signals match (e.g., software developer appears on both SOL and Jobs in
 							Demand), bonuses stack and are capped only at the final 1.0 demand-resilience ceiling.
-							SOL is EP/COMPASS-focused (PMET bias); Jobs in Demand offsets this by covering non-PMET
-							roles.
+							SOL is EP/COMPASS-focused (PMET bias); Jobs in Demand offsets this by covering
+							non-PMET roles.
 						</p>
 					</div>
 
@@ -661,8 +662,8 @@
 				<p class="mt-3 text-sm text-muted-foreground italic">
 					Impact type is classified from headline risk and augmentation thresholds: net_risk &ge;
 					0.25 = "high displacement", augmentation &ge; 0.12 = "high augmentation". Official demand
-					signals affect impact type indirectly through demand resilience and therefore the structural
-					scores; they are not applied again as a separate classification override.
+					signals affect impact type indirectly through demand resilience and therefore the
+					structural scores; they are not applied again as a separate classification override.
 				</p>
 			</section>
 
@@ -1169,8 +1170,7 @@
 								<li>Exposure: {dataEntryClerk.exposure.toFixed(2)}</li>
 								<li>Bottleneck: pctile(theta) = {dataEntryClerk.bottleneck.toFixed(2)}</li>
 								<li>
-									Displacement pressure: {dataEntryClerk.displacement_pressure?.toFixed(2) ??
-										'N/A'}
+									Displacement pressure: {dataEntryClerk.displacement_pressure?.toFixed(2) ?? 'N/A'}
 								</li>
 								<li>Base resilience: {dataEntryClerk.market.market_resilience.toFixed(2)}</li>
 								<li>
@@ -1195,8 +1195,8 @@
 
 				<p class="mt-3 text-sm text-muted-foreground">
 					This is why a single "AI exposure score" is misleading. The software developer has higher
-					exposure than many "at risk" occupations, yet strong demand resilience offsets much more of
-					that structural pressure. The V6 score captures this distinction directly.
+					exposure than many "at risk" occupations, yet strong demand resilience offsets much more
+					of that structural pressure. The V6 score captures this distinction directly.
 				</p>
 			</section>
 		</Tabs.Content>
@@ -1484,7 +1484,8 @@
 								<td class="py-2 pr-3">0.45</td>
 								<td class="py-2"
 									><code class="rounded bg-muted px-1 text-xs"
-										>demand_resilience = min(1.0, base_resilience &times; 0.45 + demand_signal_bonus)</code
+										>demand_resilience = min(1.0, base_resilience &times; 0.45 +
+										demand_signal_bonus)</code
 									></td
 								>
 							</tr>
@@ -1547,9 +1548,9 @@
 				<p class="mt-1 text-sm text-muted-foreground">
 					{researchLibrary.entry_count} research entries + {dataSourceCount} data sources. The live V6
 					model now absorbs the prior upgrade stack plus the new two-axis demand-resilience formulation:
-					Felten AIOE, Pizzinelli complementarity, Anthropic observed usage and labour-market work,
-					Eloundou GPT exposure, ILO occupational exposure, task-mode weighting, concentration
-					effects, mobility priors, and latent-source uncertainty.
+					Felten AIOE, Pizzinelli complementarity, Anthropic observed usage and labour-market work, Eloundou
+					GPT exposure, ILO occupational exposure, task-mode weighting, concentration effects, mobility
+					priors, and latent-source uncertainty.
 				</p>
 			</div>
 
@@ -1602,8 +1603,9 @@
 				<p class={sectionLabel()}>Research Registry</p>
 				<p class="mt-2 text-sm text-muted-foreground">
 					The methodology now reads from the same canonical research registry as the reports, data
-					page, and archived roadmap pages. Use <a href="/research" class="text-primary hover:underline"
-						>/research</a
+					page, and archived roadmap pages. Use <a
+						href="/research"
+						class="text-primary hover:underline">/research</a
 					>
 					for the full source library and repo notes.
 				</p>

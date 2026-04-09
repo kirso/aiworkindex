@@ -13,26 +13,55 @@
 	const currency = countryConfigs.sg.currency ?? 'SGD';
 
 	const columns = [
-		{ key: 'exposure', label: 'Exposure', format: (occ: Occupation) => `${(occ.exposure * 100).toFixed(0)}%`, align: 'right' as const },
-		{ key: 'net_risk', label: 'Net Risk', format: (occ: Occupation) => `${(occ.net_risk * 100).toFixed(1)}%`, align: 'right' as const },
-		{ key: 'demand', label: 'Demand Signal', format: (occ: Occupation) => {
-			const signals: string[] = [];
-			if (occ.evidence.sol_match) signals.push('SOL');
-			if (occ.evidence.jobs_in_demand_match) signals.push('JiD');
-			return signals.join(' + ');
-		} },
-		{ key: 'wage', label: 'Median Wage', format: (occ: Occupation) => `${currency} ${occ.gross_wage_median.toLocaleString()}`, align: 'right' as const }
+		{
+			key: 'exposure',
+			label: 'Exposure',
+			format: (occ: Occupation) => `${(occ.exposure * 100).toFixed(0)}%`,
+			align: 'right' as const
+		},
+		{
+			key: 'net_risk',
+			label: 'Net Risk',
+			format: (occ: Occupation) => `${(occ.net_risk * 100).toFixed(1)}%`,
+			align: 'right' as const
+		},
+		{
+			key: 'demand',
+			label: 'Demand Signal',
+			format: (occ: Occupation) => {
+				const signals: string[] = [];
+				if (occ.evidence.sol_match) signals.push('SOL');
+				if (occ.evidence.jobs_in_demand_match) signals.push('JiD');
+				return signals.join(' + ');
+			}
+		},
+		{
+			key: 'wage',
+			label: 'Median Wage',
+			format: (occ: Occupation) => `${currency} ${occ.gross_wage_median.toLocaleString()}`,
+			align: 'right' as const
+		}
 	];
 
-	let itemListJsonLd = $derived(buildItemListJsonLd(
-		'High AI Exposure but In-Demand Occupations',
-		'Occupations with high AI exposure that remain on shortage or in-demand lists in Singapore',
-		data.ranked
-	));
+	let itemListJsonLd = $derived(
+		buildItemListJsonLd(
+			'High AI Exposure but In-Demand Occupations',
+			'Occupations with high AI exposure that remain on shortage or in-demand lists in Singapore',
+			data.ranked
+		)
+	);
 
 	const faqJsonLd = buildFaqJsonLd([
-		{ question: 'Can a job be high AI exposure but still in demand?', answer: 'Yes. Some occupations have significant AI task overlap but remain on the Shortage Occupation List or Jobs in Demand list, suggesting market demand outpaces automation pressure.' },
-		{ question: 'Why are some AI-exposed jobs still hiring?', answer: 'Demand signals like shortage lists reflect current labor market needs. An occupation can have high theoretical AI exposure while still experiencing talent shortages in Singapore.' }
+		{
+			question: 'Can a job be high AI exposure but still in demand?',
+			answer:
+				'Yes. Some occupations have significant AI task overlap but remain on the Shortage Occupation List or Jobs in Demand list, suggesting market demand outpaces automation pressure.'
+		},
+		{
+			question: 'Why are some AI-exposed jobs still hiring?',
+			answer:
+				'Demand signals like shortage lists reflect current labor market needs. An occupation can have high theoretical AI exposure while still experiencing talent shortages in Singapore.'
+		}
 	]);
 </script>
 
@@ -44,7 +73,13 @@
 />
 
 <main class={pageLayout({ width: 'content' })}>
-	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Rankings', href: '/rankings' }, { label: 'High Exposure + In Demand' }]} />
+	<PageBreadcrumb
+		items={[
+			{ label: 'Home', href: '/' },
+			{ label: 'Rankings', href: '/rankings' },
+			{ label: 'High Exposure + In Demand' }
+		]}
+	/>
 
 	<h1 class={titleStyle({ size: 'page' })}>High Exposure + In Demand</h1>
 	<p class="mt-2 text-sm text-muted-foreground">

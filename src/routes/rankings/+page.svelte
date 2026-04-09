@@ -82,8 +82,7 @@
 		{
 			href: '/rankings/rich-and-risky',
 			title: 'Rich and Risky',
-			description:
-				'Highest-paid occupations in Singapore facing high AI displacement risk (30%+)',
+			description: 'Highest-paid occupations in Singapore facing high AI displacement risk (30%+)',
 			color: 'text-risk-high',
 			accent: 'high' as const,
 			count: 25
@@ -131,8 +130,8 @@
 	<div class="mb-8">
 		<h1 class={titleStyle({ size: 'page' })}>Rankings</h1>
 		<p class={cn(body({ tone: 'muted' }), 'mt-2')}>
-			Curated views into Singapore. Each list slices the data differently to
-			surface distinct insights while the global baseline remains the comparable spine.
+			Curated views into Singapore. Each list slices the data differently to surface distinct
+			insights while the global baseline remains the comparable spine.
 		</p>
 	</div>
 
@@ -236,13 +235,14 @@
 					>
 						<span class="text-sm">
 							<span class="mr-2 font-mono tabular-nums text-muted-foreground">{i + 1}.</span>
-						<span class="text-text-secondary">{occ.title}</span>
-					</span>
-					<span class={cn(caption({ weight: 'medium' }), 'tabular-nums')}>
-						{countryConfigs.sg.currency ?? 'SGD'} {occ.gross_wage_median.toLocaleString()}
-					</span>
-				</a>
-			{/each}
+							<span class="text-text-secondary">{occ.title}</span>
+						</span>
+						<span class={cn(caption({ weight: 'medium' }), 'tabular-nums')}>
+							{countryConfigs.sg.currency ?? 'SGD'}
+							{occ.gross_wage_median.toLocaleString()}
+						</span>
+					</a>
+				{/each}
 			</div>
 		</div>
 	</div>

@@ -64,9 +64,7 @@
 			0,
 			Math.min(
 				1,
-				adjustedExposure *
-					(1 - adjustedBottleneck) *
-					(1 - (selectedEntry.demand_resilience ?? 0))
+				adjustedExposure * (1 - adjustedBottleneck) * (1 - (selectedEntry.demand_resilience ?? 0))
 			)
 		);
 	});

@@ -20,7 +20,7 @@
 	let chartWidth = $state(0);
 
 	$effect(() => {
-		if (!browser || !containerEl) return;
+		if (!containerEl) return;
 		const observer = new ResizeObserver(entries => {
 			chartWidth = Math.max(100, entries[0]!.contentRect.width);
 		});
@@ -40,13 +40,13 @@
 			const upper = lower + binSize;
 			return { lower, upper, label: `${(lower * 100).toFixed(0)}%`, count: 0 };
 		});
-			const b = bins.map(bin => ({ ...bin, count: 0 }));
-			for (const occ of occupations) {
-				const idx = Math.min(Math.floor(riskValue(occ) / binSize), b.length - 1);
-				if (idx >= 0 && idx < b.length) b[idx]!.count++;
-			}
-			return b;
-		});
+		const b = bins.map(bin => ({ ...bin, count: 0 }));
+		for (const occ of occupations) {
+			const idx = Math.min(Math.floor(riskValue(occ) / binSize), b.length - 1);
+			if (idx >= 0 && idx < b.length) b[idx]!.count++;
+		}
+		return b;
+	});
 
 	let maxCount = $derived(Math.max(...binData.map(b => b.count), 1));
 
@@ -158,14 +158,14 @@
 			{/each}
 
 			<!-- Axis label -->
-				<text
-					x={marginLeft + plotWidth / 2}
-					y={chartHeight - 6}
-					text-anchor="middle"
-					class="fill-muted-foreground text-xs"
-				>
-					{scoreLabel}
-				</text>
-			</svg>
-		{/if}
-	</div>
+			<text
+				x={marginLeft + plotWidth / 2}
+				y={chartHeight - 6}
+				text-anchor="middle"
+				class="fill-muted-foreground text-xs"
+			>
+				{scoreLabel}
+			</text>
+		</svg>
+	{/if}
+</div>

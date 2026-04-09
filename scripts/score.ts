@@ -32,6 +32,7 @@ import {
 	ssocToIsco,
 	iscoToSoc,
 	iscoSubMajorGroup,
+	expandSocCodes,
 	_socCodesForIscoPrefix,
 	ISCO_TO_SOC
 } from './crosswalk';
@@ -55,13 +56,10 @@ import {
 	computeDemandSignalBonus,
 	computeDisplacementPressure,
 	computeMarketResilience,
-	computeV6StructuralScores,
-	computeV7StructuralScores,
-	computeTaskSignal,
-	computeDemandPersistence
+	computeV7StructuralScores
 } from '../src/lib/data/methodology-core';
 import { computeConfidence } from '../src/lib/data/confidence-core';
-import { computeBootstrapUncertainty, computeBootstrapUncertaintyV7 } from '../src/lib/data/uncertainty-core';
+import { computeBootstrapUncertaintyV7 } from '../src/lib/data/uncertainty-core';
 import { V7_CONSTANTS } from '../src/lib/data/scoring-constants';
 import { getWorkflowOverlayForOccupation } from '../src/lib/data/occupation-classification';
 
@@ -215,7 +213,12 @@ interface ScoredOccupation {
 	employment_family_code?: string | null;
 	employment_family_total_thousands?: number | null;
 	employment_weight_within_family?: number | null;
-	employment_estimate_method?: 'bls_wage_blend' | 'bls_only' | 'wage_only' | 'equal_fallback' | null;
+	employment_estimate_method?:
+		| 'bls_wage_blend'
+		| 'bls_only'
+		| 'wage_only'
+		| 'equal_fallback'
+		| null;
 	group_employment_thousands: number | null;
 	data_basis: OccupationDataBasis;
 	exposure: number;
@@ -283,7 +286,10 @@ function loadLfrSectionDSignals(): LfrSectionDSignals {
 	return JSON.parse(fs.readFileSync(LFR_SECTION_D_SIGNALS_FILE, 'utf-8')) as LfrSectionDSignals;
 }
 
-function allocateWeightedFamilyEmployment(results: ScoredOccupation[], signals: LfrSectionDSignals) {
+function allocateWeightedFamilyEmployment(
+	results: ScoredOccupation[],
+	signals: LfrSectionDSignals
+) {
 	const byFamily = new Map<string, ScoredOccupation[]>();
 	for (const occupation of results) {
 		const familyCode = occupation.ssoc.slice(0, 2);
@@ -301,15 +307,14 @@ function allocateWeightedFamilyEmployment(results: ScoredOccupation[], signals: 
 			),
 			1
 		);
-		const total =
-			family && Number.isFinite(family.total_2025) ? family.total_2025 : fallbackTotal;
+		const total = family && Number.isFinite(family.total_2025) ? family.total_2025 : fallbackTotal;
 		if (!(total > 0)) continue;
-		const blsValues = occupations.map((occupation) =>
+		const blsValues = occupations.map(occupation =>
 			occupation.bls_proxy_employment && occupation.bls_proxy_employment > 0
 				? occupation.bls_proxy_employment
 				: null
 		);
-		const wageValues = occupations.map((occupation) =>
+		const wageValues = occupations.map(occupation =>
 			occupation.gross_wage_median && occupation.gross_wage_median > 0
 				? Math.sqrt(occupation.gross_wage_median)
 				: null
@@ -322,8 +327,10 @@ function allocateWeightedFamilyEmployment(results: ScoredOccupation[], signals: 
 
 		const fallbackToEqualOnly = !family;
 		for (let index = 0; index < occupations.length; index++) {
-			const blsShare = blsSum > 0 && blsValues[index] !== null ? (blsValues[index] ?? 0) / blsSum : null;
-			const wageShare = wageSum > 0 && wageValues[index] !== null ? (wageValues[index] ?? 0) / wageSum : null;
+			const blsShare =
+				blsSum > 0 && blsValues[index] !== null ? (blsValues[index] ?? 0) / blsSum : null;
+			const wageShare =
+				wageSum > 0 && wageValues[index] !== null ? (wageValues[index] ?? 0) / wageSum : null;
 			let weight = 0;
 			let method: 'bls_wage_blend' | 'bls_only' | 'wage_only' | 'equal_fallback' = 'equal_fallback';
 			if (fallbackToEqualOnly) {
@@ -345,7 +352,7 @@ function allocateWeightedFamilyEmployment(results: ScoredOccupation[], signals: 
 		}
 
 		const normalizedWeightSum = rawWeights.reduce((sum, value) => sum + value, 0) || 1;
-		const normalizedWeights = rawWeights.map((weight) => weight / normalizedWeightSum);
+		const normalizedWeights = rawWeights.map(weight => weight / normalizedWeightSum);
 		let roundedSum = 0;
 		let maxWeightIndex = 0;
 		for (let index = 0; index < occupations.length; index++) {
@@ -1361,7 +1368,11 @@ function scoreOccupations(
 
 	for (const [isco, socCodes] of Object.entries(ISCO_TO_SOC)) {
 		const prefix = iscoSubMajorGroup(isco);
-		const { avgAioe, avgTheta } = averageScoresForSocCodes(socCodes, aioeMap, thetaMap);
+		const { avgAioe, avgTheta } = averageScoresForSocCodes(
+			expandSocCodes(socCodes),
+			aioeMap,
+			thetaMap
+		);
 		if (avgAioe !== null) {
 			if (!subMajorAioe.has(prefix)) subMajorAioe.set(prefix, []);
 			subMajorAioe.get(prefix)!.push(avgAioe);
@@ -1413,14 +1424,17 @@ function scoreOccupations(
 	for (const occ of sgOccs) {
 		const isco = ssocToIsco(occ.ssoc);
 		const socCodes = iscoToSoc(isco);
+		// Expand SOC 2010 codes to include SOC 2018 equivalents (bridge table)
+		// so lookups match across all source datasets
+		const expandedSocCodes = expandSocCodes(socCodes);
 
 		let avgAioe: number | null = null;
 		let avgTheta: number | null = null;
 		let matchQuality: 'direct' | 'submajor_fallback' | 'major_fallback' = 'direct';
 		let iscoMatched: string[] = [isco];
 
-		if (socCodes.length > 0) {
-			const scores = averageScoresForSocCodes(socCodes, aioeMap, thetaMap);
+		if (expandedSocCodes.length > 0) {
+			const scores = averageScoresForSocCodes(expandedSocCodes, aioeMap, thetaMap);
 			avgAioe = scores.avgAioe;
 			avgTheta = scores.avgTheta;
 		}
@@ -1751,11 +1765,21 @@ function scoreOccupations(
 
 	// ===== V7: Load pre-computed task primitives for task-concentration exposure =====
 	console.log('  Loading task primitives for V7 task-concentration signal...');
-	const taskPrimitivesMap = new Map<string, { task_effective_coverage: number | null; task_exposure_concentration: number | null }>();
+	const taskPrimitivesMap = new Map<
+		string,
+		{ task_effective_coverage: number | null; task_exposure_concentration: number | null }
+	>();
 	try {
 		const taskPrimitivesPath = path.join(DATA_DIR, 'occupations.json');
 		if (fs.existsSync(taskPrimitivesPath)) {
-			const existingData = JSON.parse(fs.readFileSync(taskPrimitivesPath, 'utf-8')) as Array<{ ssoc: string; task_primitives?: { task_effective_coverage: number | null; task_exposure_concentration: number | null; method: string | null } }>;
+			const existingData = JSON.parse(fs.readFileSync(taskPrimitivesPath, 'utf-8')) as Array<{
+				ssoc: string;
+				task_primitives?: {
+					task_effective_coverage: number | null;
+					task_exposure_concentration: number | null;
+					method: string | null;
+				};
+			}>;
 			for (const entry of existingData) {
 				if (entry.task_primitives?.method) {
 					taskPrimitivesMap.set(entry.ssoc, {
@@ -1767,7 +1791,9 @@ function scoreOccupations(
 			console.log(`    Loaded task primitives for ${taskPrimitivesMap.size} occupations`);
 		}
 	} catch {
-		console.log('    No pre-existing task primitives found — task_signal will be 0 for all occupations');
+		console.log(
+			'    No pre-existing task primitives found — task_signal will be 0 for all occupations'
+		);
 	}
 
 	// ===== V7: Precompute demand-persistence rank arrays =====
@@ -2121,11 +2147,7 @@ function scoreOccupations(
 				match_quality: r.matchQuality
 			},
 			// Workflow overlay computed from archetype defaults at build time
-			workflow_overlay: getWorkflowOverlayForOccupation(
-				r.occ.ssoc,
-				r.occ.title,
-				r.occ.major_group
-			)
+			workflow_overlay: getWorkflowOverlayForOccupation(r.occ.ssoc, r.occ.title, r.occ.major_group)
 		});
 	}
 

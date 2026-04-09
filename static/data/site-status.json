@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-04-01T13:22:54.953Z",
+  "updated_at": "2026-04-09T03:47:26.193Z",
   "structural_release": {
     "version": "V7",
-    "label": "V7 structural release — task-concentration exposure + demand persistence",
-    "generated_at": "2026-04-07T00:00:00.000Z",
-    "score_dataset_generated_at": "2026-04-07",
-    "release_manifest": "release-manifest-v6.json"
+    "label": "V7 structural release",
+    "generated_at": "2026-04-09T00:00:00.000Z",
+    "score_dataset_generated_at": "2026-04-09",
+    "release_manifest": "release-manifest-v7.json"
   },
   "experimental_release": {
     "version": "V4.3-shadow",
@@ -26,8 +26,8 @@
     "experimental_model_published": true,
     "structural_validation_result": "2/2",
     "realized_validation_result": "3/4",
-    "transition_band_flip_count": 127,
-    "impact_flip_count": 241
+    "transition_band_flip_count": 196,
+    "impact_flip_count": 246
   },
   "live_monitor": {
     "labour_monitor_artifact_vintage": "Q4 2025 full",
@@ -47,9 +47,9 @@
     "postings_volume_30d": 380,
     "employer_pressure_generated_at": "2026-03-21T16:09:26.758Z",
     "employer_pressure_latest_signal_date": "2025-10-06",
-    "quarterly_report_generated_at": "2026-04-01T13:22:54.886Z",
-    "quarterly_current_snapshot": "occupations-v6-2026-04.json",
-    "quarterly_previous_snapshot": "occupations-v5-2026-03.json",
+    "quarterly_report_generated_at": "2026-04-09T03:44:04.773Z",
+    "quarterly_current_snapshot": "occupations-v7-2026-04.json",
+    "quarterly_previous_snapshot": "occupations-v6-2026-04.json",
     "cluster_validation_checks_passed": 2,
     "cluster_validation_checks_total": 4,
     "temporal_validation_vacancy_accuracy": 1,
@@ -68,10 +68,10 @@
     "offset_potential_high_count": 20
   },
   "homepage_banner": {
-    "tag": "Live now",
-    "title": "V7 is live — task-concentration exposure + demand persistence",
-    "body": "V7 adds task-concentration-weighted exposure (Hampole et al.) and a demand-persistence proxy to the structural formula. All scores, downloads, and methodology surfaces are updated.",
+    "tag": "Update",
+    "title": "MOM Labour Market Report Q4 2025 is now live in the monitor",
+    "body": "Structural score remains V7. The live labour monitor now runs on Q4 2025 full, with explicit Q3 → Q4 deltas across the Singapore labour layer.",
     "link_href": "/reports",
-    "link_label": "Review release surfaces"
+    "link_label": "See report updates"
   }
 }

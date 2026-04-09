@@ -12,21 +12,51 @@
 	const currency = countryConfigs.sg.currency ?? 'SGD';
 
 	const columns = [
-		{ key: 'augmentation', label: 'Augmentation', format: (occ: Occupation) => `${(occ.augmentation * 100).toFixed(1)}%`, align: 'right' as const },
-		{ key: 'exposure', label: 'Exposure', format: (occ: Occupation) => `${(occ.exposure * 100).toFixed(0)}%`, align: 'right' as const },
-		{ key: 'bottleneck', label: 'Bottleneck', format: (occ: Occupation) => `${(occ.bottleneck * 100).toFixed(0)}%`, align: 'right' as const },
-		{ key: 'wage', label: 'Median Wage', format: (occ: Occupation) => `${currency} ${occ.gross_wage_median.toLocaleString()}`, align: 'right' as const }
+		{
+			key: 'augmentation',
+			label: 'Augmentation',
+			format: (occ: Occupation) => `${(occ.augmentation * 100).toFixed(1)}%`,
+			align: 'right' as const
+		},
+		{
+			key: 'exposure',
+			label: 'Exposure',
+			format: (occ: Occupation) => `${(occ.exposure * 100).toFixed(0)}%`,
+			align: 'right' as const
+		},
+		{
+			key: 'bottleneck',
+			label: 'Bottleneck',
+			format: (occ: Occupation) => `${(occ.bottleneck * 100).toFixed(0)}%`,
+			align: 'right' as const
+		},
+		{
+			key: 'wage',
+			label: 'Median Wage',
+			format: (occ: Occupation) => `${currency} ${occ.gross_wage_median.toLocaleString()}`,
+			align: 'right' as const
+		}
 	];
 
-	let itemListJsonLd = $derived(buildItemListJsonLd(
-		'AI-Augmented Occupations',
-		'Top 25 occupations where AI augments rather than replaces workers, ranked by augmentation potential in Singapore',
-		data.ranked
-	));
+	let itemListJsonLd = $derived(
+		buildItemListJsonLd(
+			'AI-Augmented Occupations',
+			'Top 25 occupations where AI augments rather than replaces workers, ranked by augmentation potential in Singapore',
+			data.ranked
+		)
+	);
 
 	const faqJsonLd = buildFaqJsonLd([
-		{ question: 'Which jobs benefit most from AI augmentation?', answer: 'Occupations with high AI exposure but strong human bottlenecks — judgment, creativity, and interpersonal skills mean AI augments rather than replaces. These roles score net_risk < 0.25 with augmentation >= 0.12.' },
-		{ question: 'What is augmentation in the AI Work Index?', answer: 'Augmentation measures the productive overlap between AI capabilities and human strengths. High augmentation means AI tools can boost productivity in the role without displacing the worker.' }
+		{
+			question: 'Which jobs benefit most from AI augmentation?',
+			answer:
+				'Occupations with high AI exposure but strong human bottlenecks — judgment, creativity, and interpersonal skills mean AI augments rather than replaces. These roles score net_risk < 0.25 with augmentation >= 0.12.'
+		},
+		{
+			question: 'What is augmentation in the AI Work Index?',
+			answer:
+				'Augmentation measures the productive overlap between AI capabilities and human strengths. High augmentation means AI tools can boost productivity in the role without displacing the worker.'
+		}
 	]);
 </script>
 
@@ -38,11 +68,18 @@
 />
 
 <main class={pageLayout({ width: 'content' })}>
-	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Rankings', href: '/rankings' }, { label: 'Augmented' }]} />
+	<PageBreadcrumb
+		items={[
+			{ label: 'Home', href: '/' },
+			{ label: 'Rankings', href: '/rankings' },
+			{ label: 'Augmented' }
+		]}
+	/>
 
 	<h1 class={titleStyle({ size: 'page' })}>AI-Augmented Occupations</h1>
 	<p class="mt-2 text-sm text-muted-foreground">
-		High AI exposure but strong human bottlenecks — AI augments rather than replaces. Singapore occupations ranked by augmentation potential.
+		High AI exposure but strong human bottlenecks — AI augments rather than replaces. Singapore
+		occupations ranked by augmentation potential.
 	</p>
 
 	<section class="mt-6">

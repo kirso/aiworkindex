@@ -44,12 +44,10 @@
 
 	{#if v5Roadmap.experimental_model_status}
 		<div class={cn(card({ padding: 'md', variant: 'notice', accent: 'primary' }), 'mt-4')}>
-			<p class="text-sm font-semibold text-foreground">
-				The V5 comparison trail is preserved.
-			</p>
+			<p class="text-sm font-semibold text-foreground">The V5 comparison trail is preserved.</p>
 			<p class="mt-1 text-sm text-muted-foreground">
-				The roadmap no longer stops at sidecars. A combined experimental model remains available with
-				structural validation
+				The roadmap no longer stops at sidecars. A combined experimental model remains available
+				with structural validation
 				{v5Roadmap.experimental_model_status.structural_validation_result}
 				and realized-risk validation
 				{v5Roadmap.experimental_model_status.realized_validation_result}.
@@ -144,8 +142,8 @@
 						<p class="text-sm font-semibold text-foreground">V5 Model Note</p>
 						<p class="mt-1 text-sm text-muted-foreground">
 							The integrated V5 model is no longer live. This note preserves the final promotion
-							comparison against the retained V4.3 baseline and the published V5 adjunct layers
-							for auditability under V6.
+							comparison against the retained V4.3 baseline and the published V5 adjunct layers for
+							auditability under V6.
 						</p>
 					</div>
 					<a href="/reports/v5-experimental" class="text-xs text-primary hover:underline">

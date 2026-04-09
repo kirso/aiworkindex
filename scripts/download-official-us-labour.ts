@@ -98,9 +98,7 @@ async function main() {
 	);
 
 	console.log('Downloading ORS complete dataset...');
-	files.push(
-		await downloadFile(ORS_XLSX_URL, path.join(RAW_DIR, 'ors-complete-dataset.xlsx'))
-	);
+	files.push(await downloadFile(ORS_XLSX_URL, path.join(RAW_DIR, 'ors-complete-dataset.xlsx')));
 
 	console.log('Downloading OOH XML compilation...');
 	files.push(await downloadFile(OOH_XML_URL, path.join(RAW_DIR, 'ooh-xml-compilation.xml')));

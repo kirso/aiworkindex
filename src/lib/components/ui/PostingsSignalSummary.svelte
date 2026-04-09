@@ -102,7 +102,8 @@
 			<p class={microLabel()}>Salary</p>
 			{#if postings.median_salary_hint}
 				<p class="mt-1.5 font-mono text-base text-foreground">
-					{currency} {Math.round(postings.median_salary_hint).toLocaleString()}
+					{currency}
+					{Math.round(postings.median_salary_hint).toLocaleString()}
 				</p>
 				<p class="mt-0.5 text-xs text-muted-foreground">median visible salary</p>
 			{:else}

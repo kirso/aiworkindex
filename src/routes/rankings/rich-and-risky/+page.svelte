@@ -12,21 +12,50 @@
 	const currency = countryConfigs.sg.currency ?? 'SGD';
 
 	const columns = [
-		{ key: 'wage', label: 'Median Wage', format: (occ: Occupation) => `${currency} ${occ.gross_wage_median.toLocaleString()}`, align: 'right' as const },
-		{ key: 'net_risk', label: 'Net Risk', format: (occ: Occupation) => `${(occ.net_risk * 100).toFixed(1)}%`, align: 'right' as const },
-		{ key: 'exposure', label: 'Exposure', format: (occ: Occupation) => `${(occ.exposure * 100).toFixed(0)}%`, align: 'right' as const },
-		{ key: 'bottleneck', label: 'Bottleneck', format: (occ: Occupation) => `${(occ.bottleneck * 100).toFixed(0)}%`, align: 'right' as const }
+		{
+			key: 'wage',
+			label: 'Median Wage',
+			format: (occ: Occupation) => `${currency} ${occ.gross_wage_median.toLocaleString()}`,
+			align: 'right' as const
+		},
+		{
+			key: 'net_risk',
+			label: 'Net Risk',
+			format: (occ: Occupation) => `${(occ.net_risk * 100).toFixed(1)}%`,
+			align: 'right' as const
+		},
+		{
+			key: 'exposure',
+			label: 'Exposure',
+			format: (occ: Occupation) => `${(occ.exposure * 100).toFixed(0)}%`,
+			align: 'right' as const
+		},
+		{
+			key: 'bottleneck',
+			label: 'Bottleneck',
+			format: (occ: Occupation) => `${(occ.bottleneck * 100).toFixed(0)}%`,
+			align: 'right' as const
+		}
 	];
 
-	let itemListJsonLd = $derived(buildItemListJsonLd(
-		'Highest-Paid Jobs at Risk of AI Displacement',
-		`Top 25 high-paying occupations facing high AI displacement risk (net risk 30%+, median wage ${currency} 5,000+) in Singapore`,
-		data.ranked
-	));
+	let itemListJsonLd = $derived(
+		buildItemListJsonLd(
+			'Highest-Paid Jobs at Risk of AI Displacement',
+			`Top 25 high-paying occupations facing high AI displacement risk (net risk 30%+, median wage ${currency} 5,000+) in Singapore`,
+			data.ranked
+		)
+	);
 
 	const faqJsonLd = buildFaqJsonLd([
-		{ question: 'Which high-paying jobs are most at risk from AI?', answer: `Occupations earning ${currency} 5,000+ per month with net displacement risk above 30%. These professionals face significant structural pressure despite high compensation.` },
-		{ question: 'Does high pay protect against AI displacement?', answer: 'Not directly. High wages often correlate with knowledge-intensive roles that have significant AI task overlap. Wage level reflects current market value, not future automation resistance.' }
+		{
+			question: 'Which high-paying jobs are most at risk from AI?',
+			answer: `Occupations earning ${currency} 5,000+ per month with net displacement risk above 30%. These professionals face significant structural pressure despite high compensation.`
+		},
+		{
+			question: 'Does high pay protect against AI displacement?',
+			answer:
+				'Not directly. High wages often correlate with knowledge-intensive roles that have significant AI task overlap. Wage level reflects current market value, not future automation resistance.'
+		}
 	]);
 </script>
 
@@ -38,7 +67,13 @@
 />
 
 <main class={pageLayout({ width: 'content' })}>
-	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Rankings', href: '/rankings' }, { label: 'Highest-Paid at Risk' }]} />
+	<PageBreadcrumb
+		items={[
+			{ label: 'Home', href: '/' },
+			{ label: 'Rankings', href: '/rankings' },
+			{ label: 'Highest-Paid at Risk' }
+		]}
+	/>
 
 	<h1 class={titleStyle({ size: 'page' })}>Highest-Paid Jobs at Risk</h1>
 	<p class="mt-2 text-sm text-muted-foreground">
@@ -50,7 +85,8 @@
 	</section>
 
 	<p class="mt-4 text-xs text-muted-foreground">
-		headline_risk = displacement_pressure &times; (1 &minus; demand_resilience). Wages are gross monthly median (Singapore).
+		headline_risk = displacement_pressure &times; (1 &minus; demand_resilience). Wages are gross
+		monthly median (Singapore).
 		<a href="/methodology" class="text-primary underline">Learn more</a>
 	</p>
 	<RankingNavPills />

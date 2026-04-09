@@ -509,7 +509,7 @@ export function buildOccupationDetailStructural(
 		onetEnrichment: getOnetEnrichmentForOccupation(occupation.ssoc),
 		workflowNarrative: buildOccupationWorkflowNarrative(occupation),
 		transitions: categorizeTransitions(allTransitions),
-		topTransitions: findBestTransitions(occupation, allOccupations, 8),
+		topTransitions: allTransitions.slice(0, 8),
 		groupComparison: buildGroupComparison(occupation, allOccupations),
 		relatedOccupations: findRelatedOccupations(occupation, allOccupations)
 	};

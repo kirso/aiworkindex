@@ -7,7 +7,7 @@
 AI Work Index is a free, open-source project that scores Singapore occupations for structural AI pressure. The current V7 release separates technical overlap from Singapore demand resilience instead of collapsing everything into a single market modifier.
 
 - Author: Kirill So
-- Data vintage: V7, last updated 2026-04-07
+- Data vintage: V7, last updated 2026-04-09
 - Coverage: 562 SSOC occupations + 88 synthetic modern roles
 - Location focus: Singapore
 

@@ -377,12 +377,11 @@ function main() {
 	const occupations = readJson<OccupationRecord[]>(OCCUPATIONS_FILE);
 	const v5Model = readJson<{ entries: V5Entry[] }>(V5_MODEL_FILE);
 	const labourMonitors = readJson<LabourMonitorRow[]>(LABOUR_MONITOR_FILE);
-	const preservedV5 =
-		fs.existsSync(OCCUPATIONS_V5_FILE)
-			? readJson<OccupationRecord[]>(OCCUPATIONS_V5_FILE)
-			: fs.existsSync(STATIC_OCCUPATIONS_V5_FILE)
-				? readJson<OccupationRecord[]>(STATIC_OCCUPATIONS_V5_FILE)
-				: [];
+	const preservedV5 = fs.existsSync(OCCUPATIONS_V5_FILE)
+		? readJson<OccupationRecord[]>(OCCUPATIONS_V5_FILE)
+		: fs.existsSync(STATIC_OCCUPATIONS_V5_FILE)
+			? readJson<OccupationRecord[]>(STATIC_OCCUPATIONS_V5_FILE)
+			: [];
 
 	writeJson(OCCUPATIONS_V43_FILE, occupations);
 	snapshotBacktests();

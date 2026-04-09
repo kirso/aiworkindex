@@ -1,0 +1,28 @@
+# SvelteKit immutable assets — fingerprinted filenames, cache forever
+/_app/immutable/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# HTML pages — always revalidate from edge (Cloudflare serves from cache, browser checks freshness)
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# JSON data downloads — cache 1 hour, revalidate
+/data/*.json
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+# CSV data downloads — cache 1 hour, revalidate
+/data/*.csv
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+# LLM context files — cache 1 hour
+/llms.txt
+  Cache-Control: public, max-age=3600
+/llms-full.txt
+  Cache-Control: public, max-age=3600
+
+# Security headers — all pages
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()

@@ -50,12 +50,12 @@
 	})}<\/script>`;
 </script>
 
-	<Seo
-		title="Best Career Transitions From High-Risk AI Jobs"
-		description="High-risk occupations with the highest transition scores to lower-risk alternatives in Singapore."
-		path="/rankings/best-transitions"
-		jsonLd={[itemListJsonLd, faqJsonLd]}
-	/>
+<Seo
+	title="Best Career Transitions From High-Risk AI Jobs"
+	description="High-risk occupations with the highest transition scores to lower-risk alternatives in Singapore."
+	path="/rankings/best-transitions"
+	jsonLd={[itemListJsonLd, faqJsonLd]}
+/>
 
 <main class={pageLayout({ width: 'content' })}>
 	<PageBreadcrumb

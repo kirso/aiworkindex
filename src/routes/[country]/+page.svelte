@@ -24,8 +24,8 @@
 		<h1 class={titleStyle({ size: 'page' })}>{data.country.displayName}</h1>
 		<p class="mt-4 text-base text-muted-foreground">
 			{#if data.country.status === 'live'}
-				Singapore is the first fully published country, with local demand signals, wages,
-				and policy context.
+				Singapore is the first fully published country, with local demand signals, wages, and policy
+				context.
 			{:else if data.country.code === 'us'}
 				The United States layer is generated from the shared ISCO-08 baseline plus BLS wages,
 				projections, requirements, skills, demographics, and occupation narrative sources.
@@ -43,11 +43,15 @@
 		</div>
 		<div class={card({ padding: 'sm' })}>
 			<p class="text-xs uppercase tracking-wide text-muted-foreground">High risk</p>
-			<p class="mt-1 text-2xl font-semibold text-foreground">{data.stats.highRisk.toLocaleString()}</p>
+			<p class="mt-1 text-2xl font-semibold text-foreground">
+				{data.stats.highRisk.toLocaleString()}
+			</p>
 		</div>
 		<div class={card({ padding: 'sm' })}>
 			<p class="text-xs uppercase tracking-wide text-muted-foreground">Median risk</p>
-			<p class="mt-1 text-2xl font-semibold text-foreground">{(data.stats.medianRisk * 100).toFixed(1)}%</p>
+			<p class="mt-1 text-2xl font-semibold text-foreground">
+				{(data.stats.medianRisk * 100).toFixed(1)}%
+			</p>
 		</div>
 		<div class={card({ padding: 'sm' })}>
 			<p class="text-xs uppercase tracking-wide text-muted-foreground">Status</p>
@@ -60,8 +64,8 @@
 			<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'primary' }))}>
 				<p class="text-sm font-semibold text-foreground">Mapping quality</p>
 				<p class="mt-1 text-sm text-muted-foreground">
-					Crosswalk exact: {data.stats.crosswalkExact} · Title match: {data.stats.titleMatch} ·
-					Fallback: {data.stats.fallback}
+					Crosswalk exact: {data.stats.crosswalkExact} · Title match: {data.stats.titleMatch} · Fallback:
+					{data.stats.fallback}
 				</p>
 			</div>
 		</section>
@@ -83,7 +87,13 @@
 		<p class={sectionLabel()}>Evidence layers</p>
 		<div class="mt-3 grid gap-3 md:grid-cols-2">
 			{#each moduleStates as module}
-				<div class={card({ padding: 'sm', variant: module.available ? 'default' : 'notice', accent: module.available ? 'primary' : 'moderate' })}>
+				<div
+					class={card({
+						padding: 'sm',
+						variant: module.available ? 'default' : 'notice',
+						accent: module.available ? 'primary' : 'moderate'
+					})}
+				>
 					<div class="flex items-start justify-between gap-3">
 						<div>
 							<p class="text-sm font-semibold text-foreground">{module.title}</p>
@@ -91,7 +101,9 @@
 								{module.available ? module.publishedDescription : module.unavailableDescription}
 							</p>
 						</div>
-						<span class="rounded-full bg-muted px-2 py-0.5 text-[11px] uppercase tracking-wide text-muted-foreground">
+						<span
+							class="rounded-full bg-muted px-2 py-0.5 text-[11px] uppercase tracking-wide text-muted-foreground"
+						>
 							{module.available ? 'Published' : 'Hidden'}
 						</span>
 					</div>
@@ -121,18 +133,22 @@
 				{#each data.rows as row}
 					<a href={`${data.country.routePrefix}/occupation/${row.code}`} class="block">
 						<div class={card({ padding: 'sm' })}>
-						<div class="flex items-start justify-between gap-4">
-							<div>
-								<p class="text-sm font-semibold text-foreground">{row.title}</p>
-								<p class="mt-1 text-xs text-muted-foreground">{row.code}</p>
+							<div class="flex items-start justify-between gap-4">
+								<div>
+									<p class="text-sm font-semibold text-foreground">{row.title}</p>
+									<p class="mt-1 text-xs text-muted-foreground">{row.code}</p>
+								</div>
+								<div class="text-right">
+									<p class="text-sm font-semibold text-foreground">
+										{(row.risk * 100).toFixed(1)}%
+									</p>
+									<p class="text-xs text-muted-foreground">
+										{row.wage != null
+											? `${data.country.currency} ${row.wage.toLocaleString()}`
+											: 'No wage field'}
+									</p>
+								</div>
 							</div>
-							<div class="text-right">
-								<p class="text-sm font-semibold text-foreground">{(row.risk * 100).toFixed(1)}%</p>
-								<p class="text-xs text-muted-foreground">
-									{row.wage != null ? `${data.country.currency} ${row.wage.toLocaleString()}` : 'No wage field'}
-								</p>
-							</div>
-						</div>
 						</div>
 					</a>
 				{/each}

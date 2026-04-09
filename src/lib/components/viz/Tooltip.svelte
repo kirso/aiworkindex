@@ -42,15 +42,16 @@
 					{formatCompactCount(occupation.gross_wage_median ?? 0)} source occupations
 				{:else}
 					{@const cur = occupation.currency ?? 'USD'}
-					{cur} {occupation.gross_wage_median?.toLocaleString()}{cur === 'SGD' ? '/mo' : '/yr'}
+					{cur}
+					{occupation.gross_wage_median?.toLocaleString()}{cur === 'SGD' ? '/mo' : '/yr'}
 				{/if}
 			</span>
 		</div>
-	<p class="mt-1.5 text-xs text-muted-foreground">
-		{occupation.impact_type ? impactTypeLabels[occupation.impact_type] : 'Structural record'}
-		{#if occupation.linkHref || occupation.ssoc}
-			· Click for details
-		{/if}
-	</p>
+		<p class="mt-1.5 text-xs text-muted-foreground">
+			{occupation.impact_type ? impactTypeLabels[occupation.impact_type] : 'Structural record'}
+			{#if occupation.linkHref || occupation.ssoc}
+				· Click for details
+			{/if}
+		</p>
 	</div>
 {/if}

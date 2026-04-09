@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import * as Command from '$lib/components/ui/command/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { riskBandLabels } from '$lib/data';
@@ -36,18 +36,20 @@
 	}
 
 	let activeSurfaceCode = $derived.by(() => {
-		const pathname = $page.url.pathname;
+		const pathname = page.url.pathname;
 		if (pathname.startsWith('/sg')) return 'sg';
 		if (pathname.startsWith('/us')) return 'us';
 		if (pathname.startsWith('/global')) return 'global';
-		return resolveHomeSurfaceCode($page.url.searchParams.get('surface'));
+		return resolveHomeSurfaceCode(page.url.searchParams.get('surface'));
 	});
 
 	let activeSurfaceOccupations = $derived.by(
 		() => getHomeSurface(activeSurfaceCode).occupations as unknown as SearchOccupation[]
 	);
 
-	let results = $derived(searchOccupationsAndRoles(query, activeSurfaceOccupations) as SearchResults);
+	let results = $derived(
+		searchOccupationsAndRoles(query, activeSurfaceOccupations) as SearchResults
+	);
 
 	const marketMenuOrder = ['sg', 'us'] as const;
 	const marketMenuLinks = marketMenuOrder.map(code => countryConfigs[code]);
@@ -137,7 +139,9 @@
 						fill="none"
 						stroke="currentColor"
 						stroke-width="2"
-						><circle cx="12" cy="12" r="9" /><path d="M3 12h18" /><path d="M12 3a15 15 0 0 1 0 18" /><path d="M12 3a15 15 0 0 0 0 18" /></svg
+						><circle cx="12" cy="12" r="9" /><path d="M3 12h18" /><path
+							d="M12 3a15 15 0 0 1 0 18"
+						/><path d="M12 3a15 15 0 0 0 0 18" /></svg
 					>
 					Compare
 				</Command.Item>
@@ -160,8 +164,7 @@
 						viewBox="0 0 24 24"
 						fill="none"
 						stroke="currentColor"
-						stroke-width="2"
-						><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg
+						stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg
 					>
 					Structural baseline
 				</Command.Item>

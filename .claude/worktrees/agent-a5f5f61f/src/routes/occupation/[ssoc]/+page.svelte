@@ -485,7 +485,9 @@
 								: '') +
 							'. This is ' +
 							structural.wageVsNational +
-							' across all ' + DATA_VINTAGE.occupation_count + ' scored occupations, and ' +
+							' across all ' +
+							DATA_VINTAGE.occupation_count +
+							' scored occupations, and ' +
 							structural.groupComparison.wageVsGroup +
 							' within ' +
 							structural.groupComparison.groupName +
@@ -511,7 +513,13 @@
 />
 
 <main class={pageLayout({ width: 'content' })}>
-	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: group?.label ?? occ.major_group, href: '/group/' + groupSlug }, { label: occ.title }]} />
+	<PageBreadcrumb
+		items={[
+			{ label: 'Home', href: '/' },
+			{ label: group?.label ?? occ.major_group, href: '/group/' + groupSlug },
+			{ label: occ.title }
+		]}
+	/>
 
 	<!-- ===== BLOCK 1: THE VERDICT ===== -->
 	<div class={cn(card({ padding: 'lg' }), section({ spacing: 'loose' }), 'overflow-hidden')}>
@@ -614,18 +622,27 @@
 					<span class={pill({ tone: 'muted' })} title="Risk compared to group median">
 						Risk: {structural.groupComparison.riskVsGroup}
 					</span>
-					<a href="/group/{groupSlug}" class={cn(pill({ tone: 'muted' }), 'hover:bg-accent transition-colors')}>
-						#{structural.groupComparison.riskRankInGroup} of {structural.groupComparison.groupTotal} in {group?.label ?? 'group'} →
+					<a
+						href="/group/{groupSlug}"
+						class={cn(pill({ tone: 'muted' }), 'hover:bg-accent transition-colors')}
+					>
+						#{structural.groupComparison.riskRankInGroup} of {structural.groupComparison.groupTotal} in
+						{group?.label ?? 'group'} →
 					</a>
 				</div>
-				{#if occ.evidence.signal_conflict && occ.evidence.signal_conflict_reasons?.some(r => r.includes('demand'))}
-					<div class="mt-3 max-w-3xl rounded-md border border-amber-500/30 bg-amber-500/5 px-3 py-2">
+				{#if occ.evidence.signal_conflict && occ.evidence.signal_conflict_reasons?.some( r => r.includes('demand') )}
+					<div
+						class="mt-3 max-w-3xl rounded-md border border-amber-500/30 bg-amber-500/5 px-3 py-2"
+					>
 						<p class={cn(caption({ weight: 'medium' }), 'text-amber-700 dark:text-amber-400')}>
-							Mixed signal: This occupation scores {riskBandLabels[occ.risk_band].toLowerCase()} structural risk but is currently
+							Mixed signal: This occupation scores {riskBandLabels[occ.risk_band].toLowerCase()} structural
+							risk but is currently
 							{#if occ.evidence.sol_match === 'exact' && occ.evidence.jobs_in_demand_match === 'exact'}
-								on both Singapore's Shortage Occupation List and Jobs in Demand — indicating strong active demand despite AI exposure.
+								on both Singapore's Shortage Occupation List and Jobs in Demand — indicating strong
+								active demand despite AI exposure.
 							{:else if occ.evidence.sol_match}
-								on Singapore's Shortage Occupation List — indicating labour shortage despite AI exposure.
+								on Singapore's Shortage Occupation List — indicating labour shortage despite AI
+								exposure.
 							{:else if occ.evidence.jobs_in_demand_match}
 								flagged as Jobs in Demand — indicating positive hiring signals despite AI exposure.
 							{:else}
@@ -636,7 +653,9 @@
 				{/if}
 
 				{#if occ.confidence.level === 'low'}
-					<p class={cn(caption(), 'mt-3 text-risk-moderate')}>Thin evidence — treat with caution.</p>
+					<p class={cn(caption(), 'mt-3 text-risk-moderate')}>
+						Thin evidence — treat with caution.
+					</p>
 				{/if}
 			</div>
 		</div>

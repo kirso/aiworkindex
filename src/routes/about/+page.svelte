@@ -9,22 +9,22 @@
 		'@context': 'https://schema.org',
 		'@type': 'FAQPage',
 		mainEntity: [
-				{
-					'@type': 'Question',
-					name: 'What is the AI Work Index?',
-					acceptedAnswer: {
-						'@type': 'Answer',
-						text: `The AI Work Index scores ${DATA_VINTAGE.occupation_count} occupations and ${DATA_VINTAGE.role_count} modern roles for structural AI displacement pressure. The structural score combines a multi-source exposure layer, a human bottleneck layer, and a local market-resilience layer. The product is global-first, with Singapore as the first fully scored country and the United States as the next country layer. No LLM is used in the scoring pipeline.`
-					}
-				},
+			{
+				'@type': 'Question',
+				name: 'What is the AI Work Index?',
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text: `The AI Work Index scores ${DATA_VINTAGE.occupation_count} occupations and ${DATA_VINTAGE.role_count} modern roles for structural AI displacement pressure. The structural score combines a multi-source exposure layer, a human bottleneck layer, and a local market-resilience layer. The product is global-first, with Singapore as the first fully scored country and the United States as the next country layer. No LLM is used in the scoring pipeline.`
+				}
+			},
 			{
 				'@type': 'Question',
 				name: 'How is the AI job risk score calculated?',
 				acceptedAnswer: {
 					'@type': 'Answer',
 					text: 'Headline risk = displacement pressure × (1 − demand resilience), where displacement pressure = exposure ensemble × (1 − human bottleneck). The exposure layer combines available matches from AIOE, Anthropic observed usage, Eloundou GPT exposure, and the ILO occupational exposure index. Human bottleneck comes from Pizzinelli theta, while demand resilience comes from country-specific demand, wage, and labour-market signals.'
-					}
-				},
+				}
+			},
 			{
 				'@type': 'Question',
 				name: 'Is the AI Work Index open source?',
@@ -50,11 +50,11 @@
 	<h1 class={titleStyle({ size: 'page' })}>About This Project</h1>
 
 	<!-- TL;DR -->
-<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'primary' }), 'mt-4')}>
-	<p class="text-sm font-semibold text-foreground">
-		{DATA_VINTAGE.occupation_count} occupations · {DATA_VINTAGE.role_count} roles · No LLM in scoring
+	<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'primary' }), 'mt-4')}>
+		<p class="text-sm font-semibold text-foreground">
+			{DATA_VINTAGE.occupation_count} occupations · {DATA_VINTAGE.role_count} roles · No LLM in scoring
 			· MIT licensed · global-first methodology
-	</p>
+		</p>
 		<p class="mt-1 text-sm text-muted-foreground">
 			Structural AI pressure scores with a global baseline and country-specific demand layers. Not a
 			prediction of job losses — a measure of how much current AI capabilities overlap with each
@@ -71,18 +71,17 @@
 			</p>
 		</div>
 		<div class={card({ padding: 'sm', accent: 'moderate' })}>
-			<p class={cn(sectionLabel({ case: 'upper' }), 'text-risk-moderate')}>
-				Labour Monitor
-			</p>
+			<p class={cn(sectionLabel({ case: 'upper' }), 'text-risk-moderate')}>Labour Monitor</p>
 			<p class={cn(caption(), 'mt-1')}>
-				Quarterly live-market data (Singapore). Vacancy rates, hiring, retrenchment. Cluster-level, not per-occupation.
+				Quarterly live-market data (Singapore). Vacancy rates, hiring, retrenchment. Cluster-level,
+				not per-occupation.
 			</p>
 		</div>
 		<div class={card({ padding: 'sm', accent: 'primary' })}>
 			<p class={cn(sectionLabel({ case: 'upper' }), 'text-primary')}>Offset & Support</p>
 			<p class={cn(caption(), 'mt-1')}>
-				Separate support layers. Offset potential, transition pathways, official skills programmes (e.g. SkillsFuture for Singapore), and
-				scenario guidance. Useful context, not a forecast.
+				Separate support layers. Offset potential, transition pathways, official skills programmes
+				(e.g. SkillsFuture for Singapore), and scenario guidance. Useful context, not a forecast.
 			</p>
 		</div>
 	</div>

@@ -50,7 +50,6 @@
 	);
 
 	$effect(() => {
-		if (!browser) return;
 		try {
 			savedEntries = parseStoredWatchlist(localStorage.getItem(WATCHLIST_KEY));
 			savedTimestamp = localStorage.getItem(WATCHLIST_TIMESTAMP_KEY);
@@ -61,7 +60,6 @@
 
 	// Save timestamp whenever watchlist changes
 	$effect(() => {
-		if (!browser) return;
 		if (savedEntries.length === 0) {
 			localStorage.removeItem(WATCHLIST_TIMESTAMP_KEY);
 			savedTimestamp = null;
@@ -167,7 +165,8 @@
 										{impactTypeLabels[item.occupation.impact_type]}
 									</span>
 									<span class="text-xs tabular-nums text-muted-foreground">
-										{countryConfigs.sg.currency ?? 'SGD'} {item.occupation.gross_wage_median.toLocaleString()}/mo
+										{countryConfigs.sg.currency ?? 'SGD'}
+										{item.occupation.gross_wage_median.toLocaleString()}/mo
 									</span>
 								</div>
 								<Separator class="my-2" />

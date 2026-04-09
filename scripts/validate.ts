@@ -1380,7 +1380,8 @@ async function main() {
 			experimentalMethodology?.shadow_score_published === true
 				? DATA_VINTAGE.model_version === 'V4.3' ||
 					DATA_VINTAGE.model_version === 'V5' ||
-					DATA_VINTAGE.model_version === 'V6'
+					DATA_VINTAGE.model_version === 'V6' ||
+					DATA_VINTAGE.model_version === 'V7'
 					? experimentalMethodology?.shadow_readiness.status === 'promoted'
 					: experimentalMethodology?.shadow_readiness.status === 'shadow_published'
 				: experimentalMethodology?.required_inputs?.onet_task_ratings?.present === false

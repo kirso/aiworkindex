@@ -71,9 +71,7 @@
 			</p>
 		</div>
 		<div class={card({ padding: 'sm', accent: 'moderate' })}>
-			<p class={cn(sectionLabel({ case: 'upper' }), 'text-risk-moderate')}>
-				Labour Monitor
-			</p>
+			<p class={cn(sectionLabel({ case: 'upper' }), 'text-risk-moderate')}>Labour Monitor</p>
 			<p class={cn(caption(), 'mt-1')}>
 				Quarterly MOM data. Vacancy rates, hiring, retrenchment. Cluster-level, not per-occupation.
 			</p>

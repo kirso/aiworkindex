@@ -27,7 +27,10 @@ async function main() {
 
 	const { syntheticRoles } = await import('../src/lib/data/synthetic-roles');
 	const majorGroups: Array<{ key: string }> = JSON.parse(
-		fs.readFileSync(path.join(import.meta.dir, '..', 'src', 'lib', 'data', 'major-groups.json'), 'utf-8')
+		fs.readFileSync(
+			path.join(import.meta.dir, '..', 'src', 'lib', 'data', 'major-groups.json'),
+			'utf-8'
+		)
 	);
 
 	const staticPages: Array<{ path: string; priority: string; changefreq: string }> = [
@@ -36,8 +39,6 @@ async function main() {
 		{ path: '/global', priority: '0.8', changefreq: 'monthly' },
 		{ path: '/sg', priority: '0.7', changefreq: 'monthly' },
 		{ path: '/us', priority: '0.7', changefreq: 'monthly' },
-		{ path: '/uk', priority: '0.6', changefreq: 'monthly' },
-		{ path: '/ca', priority: '0.6', changefreq: 'monthly' },
 		{ path: '/methodology/appendix', priority: '0.7', changefreq: 'monthly' },
 		{ path: '/about', priority: '0.8', changefreq: 'monthly' },
 		{ path: '/data', priority: '0.8', changefreq: 'monthly' },

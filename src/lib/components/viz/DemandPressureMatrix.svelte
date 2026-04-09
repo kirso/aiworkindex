@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import { goto } from '$app/navigation';
+	import { goto, preloadData } from '$app/navigation';
 	import * as d3Scale from 'd3-scale';
 	import { impactTypeColors } from '$lib/data';
 	import Tooltip from './Tooltip.svelte';
@@ -59,7 +59,10 @@
 	let plotWidth = $derived(Math.max(0, width - margin.left - margin.right));
 	let plotHeight = $derived(Math.max(0, height - margin.top - margin.bottom));
 	let xDomainMax = $derived.by(() => {
-		const maxRisk = occupations.reduce((max, occupation) => Math.max(max, riskValue(occupation)), 0);
+		const maxRisk = occupations.reduce(
+			(max, occupation) => Math.max(max, riskValue(occupation)),
+			0
+		);
 		return Math.max(0.7, Math.ceil(maxRisk * 10) / 10);
 	});
 	let xTicks = $derived.by(() => {
@@ -76,7 +79,7 @@
 	const crosshairY = 0.4;
 
 	$effect(() => {
-		if (!browser || !containerEl) return;
+		if (!containerEl) return;
 		const observer = new ResizeObserver(entries => {
 			for (const entry of entries) {
 				const rect = entry.contentRect;
@@ -101,7 +104,12 @@
 	}
 
 	function dotColor(occ: MatrixRow): string {
-		return occ.impact_type ? impactTypeColors[occ.impact_type] ?? '#999' : '#999';
+		return occ.impact_type ? (impactTypeColors[occ.impact_type] ?? '#999') : '#999';
+	}
+
+	function handleMouseEnter(occ: MatrixRow) {
+		const href = occ.linkHref ?? (occ.ssoc ? `/occupation/${occ.ssoc}` : null);
+		if (href) preloadData(href);
 	}
 
 	function handleMouseMove(e: MouseEvent, occ: MatrixRow) {
@@ -227,6 +235,7 @@
 						class={href ? 'cursor-pointer' : ''}
 						role={href ? 'button' : undefined}
 						tabindex={href ? 0 : undefined}
+						onmouseenter={() => handleMouseEnter(occ)}
 						onmousemove={e => handleMouseMove(e, occ)}
 						onmouseleave={handleMouseLeave}
 						onclick={() => handleClick(occ)}

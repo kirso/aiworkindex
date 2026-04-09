@@ -7,6 +7,7 @@
 	import FilterPanel from '$lib/components/ui/FilterPanel.svelte';
 	import OccupationCardList from '$lib/components/ui/OccupationCardList.svelte';
 	import * as Tabs from '$lib/components/ui/tabs/index.js';
+	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
 	import { card, sectionLabel, caption, pill } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import { riskBandLabels, riskBandColors, impactTypeLabels, impactTypeColors } from '$lib/data';
@@ -57,10 +58,14 @@
 	let topFocus = $derived(
 		(data.surface.code === 'global'
 			? [...filteredOccupations].sort((a, b) => b.surfaceFootprint - a.surfaceFootprint)
-			: [...filteredOccupations].sort((a, b) => b.market.market_resilience - a.market.market_resilience)
+			: [...filteredOccupations].sort(
+					(a, b) => b.market.market_resilience - a.market.market_resilience
+				)
 		).slice(0, 5)
 	);
-	let focusCardTitle = $derived(data.surface.code === 'global' ? 'Most mapped occupations' : 'Strongest Demand');
+	let focusCardTitle = $derived(
+		data.surface.code === 'global' ? 'Most mapped occupations' : 'Strongest Demand'
+	);
 	let focusCardHref = $derived(
 		data.surface.code === 'global'
 			? '/global'
@@ -119,10 +124,13 @@
 				}
 			]
 		})}<\/script>`
-	]}/>
+	]}
+/>
 
 <div class="border-b border-risk-moderate-border bg-risk-moderate-subtle">
-	<div class="mx-auto flex max-w-screen-2xl items-center justify-center gap-2 px-4 py-1.5 text-xs sm:px-6">
+	<div
+		class="mx-auto flex max-w-screen-2xl items-center justify-center gap-2 px-4 py-1.5 text-xs sm:px-6"
+	>
 		<span class="text-text-secondary">
 			{siteStatus.homepage_banner.body}
 			<a href={siteStatus.homepage_banner.link_href} class="ml-1 text-primary hover:underline">
@@ -138,9 +146,7 @@
 			<h1 class="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
 				How will AI affect your job?
 			</h1>
-			<p class="mt-1.5 text-sm text-muted-foreground">
-				Search any job title or occupation
-			</p>
+			<p class="mt-1.5 text-sm text-muted-foreground">Search any job title or occupation</p>
 			<div class="mt-4">
 				<HeroSearch
 					occupations={surfaceOccupations as unknown as Occupation[]}
@@ -152,17 +158,41 @@
 				/>
 			</div>
 
-			<div class="mt-6 grid grid-cols-3 gap-4">
-				{#each data.surface.metrics as metric}
-					<div>
-						<p class="font-mono text-xl font-bold text-foreground sm:text-2xl">
-							{metric.value}
-						</p>
-						<p class="text-xs text-muted-foreground sm:text-xs">{metric.label}</p>
-						<p class="mt-1 text-xs text-muted-foreground">{metric.note}</p>
-					</div>
-				{/each}
-			</div>
+			<Tooltip.Provider delayDuration={150}>
+				<div class="mt-6 grid grid-cols-3 gap-4 text-center">
+					{#each data.surface.metrics as metric}
+						<div>
+							<p class="font-mono text-xl font-bold text-foreground sm:text-2xl">
+								{metric.value}
+							</p>
+							<p class="inline-flex items-center gap-1 text-xs text-muted-foreground">
+								{metric.label}
+								{#if metric.tooltip}
+									<Tooltip.Root>
+										<Tooltip.Trigger>
+											<svg
+												class="h-3 w-3 text-text-ghost transition-colors hover:text-foreground"
+												viewBox="0 0 16 16"
+												fill="currentColor"
+											>
+												<path
+													d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
+												/>
+												<path
+													d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"
+												/>
+											</svg>
+										</Tooltip.Trigger>
+										<Tooltip.Content sideOffset={6} class="max-w-xs">
+											{metric.tooltip}
+										</Tooltip.Content>
+									</Tooltip.Root>
+								{/if}
+							</p>
+						</div>
+					{/each}
+				</div>
+			</Tooltip.Provider>
 
 			<div class="mt-4 flex flex-wrap items-center justify-center gap-2">
 				<a
@@ -297,9 +327,7 @@
 								occupations={surfaceOccupations as unknown as Occupation[]}
 								onfilter={handleFilter}
 								showTextSearch={false}
-								valueLabel={data.surface.code === 'global'
-									? 'Mapped occupations'
-									: 'Wage range'}
+								valueLabel={data.surface.code === 'global' ? 'Mapped occupations' : 'Wage range'}
 								valuePrefix={data.surface.code === 'global' ? null : data.surface.config.currency}
 								valueMin={surfaceValueScale.min}
 								valueMax={surfaceValueScale.max}
@@ -336,7 +364,10 @@
 						</div>
 						<Tabs.List class="w-full md:w-auto">
 							{#each chartTabs as tab (tab.key)}
-								<Tabs.Trigger value={tab.key} class="min-w-0 flex-1 text-xs sm:flex-initial sm:text-sm">
+								<Tabs.Trigger
+									value={tab.key}
+									class="min-w-0 flex-1 text-xs sm:flex-initial sm:text-sm"
+								>
 									{tab.label}
 								</Tabs.Trigger>
 							{/each}
@@ -372,23 +403,21 @@
 							yAxisLabel={data.surface.code === 'global'
 								? 'Human bottleneck protection'
 								: 'Demand resilience'}
-							quadrantLabels={
-								data.surface.code === 'global'
+							quadrantLabels={data.surface.code === 'global'
+								? [
+										{ label: 'Low pressure, high bottleneck', x: 0.1, y: 0.85 },
+										{ label: 'Low pressure, low bottleneck', x: 0.1, y: 0.15 },
+										{ label: 'High pressure, high bottleneck', x: 0.55, y: 0.85 },
+										{ label: 'High pressure, low bottleneck', x: 0.55, y: 0.15 }
+									]
+								: data.surface.code === 'us'
 									? [
-											{ label: 'Low pressure, high bottleneck', x: 0.1, y: 0.85 },
-											{ label: 'Low pressure, low bottleneck', x: 0.1, y: 0.15 },
-											{ label: 'High pressure, high bottleneck', x: 0.55, y: 0.85 },
-											{ label: 'High pressure, low bottleneck', x: 0.55, y: 0.15 }
+											{ label: 'Low pressure, high demand', x: 0.1, y: 0.85 },
+											{ label: 'Low pressure, low demand', x: 0.1, y: 0.15 },
+											{ label: 'High pressure, high demand', x: 0.55, y: 0.85 },
+											{ label: 'High pressure, low demand', x: 0.55, y: 0.15 }
 										]
-									: data.surface.code === 'us'
-										? [
-												{ label: 'Low pressure, high demand', x: 0.1, y: 0.85 },
-												{ label: 'Low pressure, low demand', x: 0.1, y: 0.15 },
-												{ label: 'High pressure, high demand', x: 0.55, y: 0.85 },
-												{ label: 'High pressure, low demand', x: 0.55, y: 0.15 }
-											]
-										: undefined
-							}
+									: undefined}
 						/>
 					</Tabs.Content>
 					<Tabs.Content value="distribution">
@@ -453,7 +482,9 @@
 						>
 							<span class="w-3 font-mono font-bold text-impact-leveraged">{i + 1}</span>
 							<span class="flex-1 truncate text-foreground">{shortTitle(occ.title)}</span>
-							<span class="shrink-0 font-mono text-muted-foreground">{riskBandLabels[occ.risk_band]}</span>
+							<span class="shrink-0 font-mono text-muted-foreground"
+								>{riskBandLabels[occ.risk_band]}</span
+							>
 						</a>
 					{/each}
 				</div>
@@ -461,9 +492,7 @@
 				<div class={card({ padding: 'sm' })}>
 					<div class="mb-2 flex items-center justify-between">
 						<h3 class={sectionLabel()}>{focusCardTitle}</h3>
-						<a href={focusCardHref} class="text-xs text-primary hover:underline">
-							All →
-						</a>
+						<a href={focusCardHref} class="text-xs text-primary hover:underline"> All → </a>
 					</div>
 					{#each topFocus as occ, i (occ.displayCode)}
 						<a
@@ -480,15 +509,7 @@
 
 			<div class="flex flex-wrap items-center gap-2 text-xs">
 				<span class={caption({ weight: 'medium' })}>More:</span>
-				{#each [
-					{ href: '/roles', label: 'Modern Roles' },
-					{ href: '/rankings', label: 'All Rankings' },
-					{ href: '/ai-proof-jobs', label: 'AI-Proof Jobs' },
-					{ href: '/ai-job-loss', label: 'AI Job Loss' },
-					{ href: '/will-ai-take-my-job', label: 'Will AI Take My Job?' },
-					{ href: '/compare', label: 'Compare' },
-					{ href: '/methodology', label: 'Methodology' }
-				] as link}
+				{#each [{ href: '/roles', label: 'Modern Roles' }, { href: '/rankings', label: 'All Rankings' }, { href: '/ai-proof-jobs', label: 'AI-Proof Jobs' }, { href: '/ai-job-loss', label: 'AI Job Loss' }, { href: '/will-ai-take-my-job', label: 'Will AI Take My Job?' }, { href: '/compare', label: 'Compare' }, { href: '/methodology', label: 'Methodology' }] as link}
 					<a
 						href={link.href}
 						class="rounded-md border border-border bg-card px-2.5 py-1 font-medium text-foreground transition-colors hover:bg-accent"
@@ -499,7 +520,8 @@
 			</div>
 
 			<p class="mt-4 text-xs text-muted-foreground">
-				{data.surface.config.displayName} · {DATA_VINTAGE.model_version} · {surfaceOccupations.length.toLocaleString()} occupations
+				{data.surface.config.displayName} · {DATA_VINTAGE.model_version} · {surfaceOccupations.length.toLocaleString()}
+				occupations
 			</p>
 		</div>
 	</div>

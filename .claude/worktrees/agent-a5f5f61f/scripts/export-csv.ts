@@ -29,7 +29,12 @@ interface Occupation {
 	employment_family_code?: string | null;
 	employment_family_total_thousands?: number | null;
 	employment_weight_within_family?: number | null;
-	employment_estimate_method?: 'bls_wage_blend' | 'bls_only' | 'wage_only' | 'equal_fallback' | null;
+	employment_estimate_method?:
+		| 'bls_wage_blend'
+		| 'bls_only'
+		| 'wage_only'
+		| 'equal_fallback'
+		| null;
 	bls_proxy_employment?: number;
 	data_basis?: {
 		employment_estimate?: {

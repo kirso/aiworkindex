@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Seo from '$lib/components/ui/Seo.svelte';
+	import { DATA_VINTAGE } from '$lib/data/scoring-constants';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import {
 		card,
@@ -42,9 +43,7 @@
 		const aliasHits = findAliasMatches(q);
 		const aliasSsocs = new Set(aliasHits.flatMap(m => m.ssocs));
 		const aliasEntries =
-			aliasSsocs.size > 0
-				? data.entries.filter((e: Entry) => aliasSsocs.has(e.ssoc))
-				: [];
+			aliasSsocs.size > 0 ? data.entries.filter((e: Entry) => aliasSsocs.has(e.ssoc)) : [];
 		const aliasIds = new Set(aliasEntries.map((e: Entry) => e.id));
 		const titleEntries = data.entries.filter(
 			(e: Entry) => !aliasIds.has(e.id) && titleMatches(e.title, q.toLowerCase())
@@ -64,9 +63,7 @@
 			0,
 			Math.min(
 				1,
-				adjustedExposure *
-					(1 - adjustedBottleneck) *
-					(1 - (selectedEntry.demand_resilience ?? 0))
+				adjustedExposure * (1 - adjustedBottleneck) * (1 - (selectedEntry.demand_resilience ?? 0))
 			)
 		);
 	});
@@ -100,18 +97,17 @@
 <Seo
 	path="/will-ai-take-my-job"
 	title="Will AI Take My Job? Free AI Risk Calculator | AI Work Index"
-	description="Find out if AI will take your job. Search 562 occupations and 88 modern roles scored for AI displacement risk. Free calculator with seniority adjustments."
+	description="Find out if AI will take your job. Search {DATA_VINTAGE.occupation_count} occupations and {DATA_VINTAGE.role_count} modern roles scored for AI displacement risk. Free calculator with seniority adjustments."
 />
 
 <div class={pageLayout({ width: 'content' })}>
-	<PageBreadcrumb
-		items={[{ label: 'Home', href: '/' }, { label: 'Will AI Take My Job?' }]}
-	/>
+	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Will AI Take My Job?' }]} />
 
 	<h1 class={titleStyle({ size: 'page' })}>Will AI Take My Job?</h1>
 	<p class={caption({ class: 'mt-1 mb-6' })}>
 		Search for your occupation or role to see how much of your work overlaps with current AI
-		capabilities. Based on a 4-source exposure ensemble scoring 562 Singapore occupations.
+		capabilities. Based on a 4-source exposure ensemble scoring {DATA_VINTAGE.occupation_count} Singapore
+		occupations.
 	</p>
 
 	<!-- Search + Select -->
@@ -211,7 +207,8 @@
 				<p class="mt-3 text-base font-mono font-semibold text-muted-foreground">
 					{selectedEntry && 'currency' in selectedEntry && selectedEntry.currency
 						? selectedEntry.currency
-						: 'Local'} {riskAmount.toLocaleString()}/mo
+						: 'Local'}
+					{riskAmount.toLocaleString()}/mo
 				</p>
 				<p class={caption()}>salary equivalent of overlapping tasks</p>
 			</div>
@@ -231,7 +228,8 @@
 					<span class="font-mono font-semibold">
 						{selectedEntry && 'currency' in selectedEntry && selectedEntry.currency
 							? selectedEntry.currency
-							: 'Local'} {annualAtRisk.toLocaleString()}
+							: 'Local'}
+						{annualAtRisk.toLocaleString()}
 					</span>
 				</div>
 				<div class="flex items-center justify-between text-sm">

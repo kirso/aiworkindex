@@ -12,7 +12,11 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { getRiskBand } from '../src/lib/data/scoring-constants';
-import { confidenceLevelFromScore, type GlobalOccupationRecord, weightedMean } from '../src/lib/data/country-index';
+import {
+	confidenceLevelFromScore,
+	type GlobalOccupationRecord,
+	weightedMean
+} from '../src/lib/data/country-index';
 
 const ROOT_DIR = path.join(import.meta.dir, '..');
 const DATA_DIR = path.join(ROOT_DIR, 'data');
@@ -48,25 +52,28 @@ type Aggregate = {
 	exposure: Array<{ value: number; weight: number }>;
 	bottleneck: Array<{ value: number; weight: number }>;
 	structuralPressure: Array<{ value: number; weight: number }>;
-		confidence: Array<{
-			score: number;
-			crosswalk_quality: number;
-			market_data_granularity: number;
-			source_freshness: number;
-			source_coverage: number;
-			signal_agreement: number;
-			sensitivity: number;
-			weight: number;
-		}>;
-	};
+	confidence: Array<{
+		score: number;
+		crosswalk_quality: number;
+		market_data_granularity: number;
+		source_freshness: number;
+		source_coverage: number;
+		signal_agreement: number;
+		sensitivity: number;
+		weight: number;
+	}>;
+};
 
 function ensureDir(filepath: string): void {
 	fs.mkdirSync(path.dirname(filepath), { recursive: true });
 }
 
 function representativeTitle(titleWeights: Map<string, number>): string {
-	return [...titleWeights.entries()]
-		.sort((a, b) => b[1] - a[1] || a[0].length - b[0].length || a[0].localeCompare(b[0]))[0]?.[0] ?? 'Unknown occupation';
+	return (
+		[...titleWeights.entries()].sort(
+			(a, b) => b[1] - a[1] || a[0].length - b[0].length || a[0].localeCompare(b[0])
+		)[0]?.[0] ?? 'Unknown occupation'
+	);
 }
 
 function aggregateGlobalIndex(occupations: SourceOccupation[]): GlobalOccupationRecord[] {

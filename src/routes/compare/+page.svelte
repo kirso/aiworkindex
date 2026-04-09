@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
 	import { browser } from '$app/environment';
 	import {
@@ -61,8 +61,8 @@
 	let entities = $derived.by((): CompareEntity[] => {
 		if (!browser) return [];
 
-		const entitiesParam = $page.url.searchParams.get('entities');
-		const legacyParam = $page.url.searchParams.get('jobs');
+		const entitiesParam = page.url.searchParams.get('entities');
+		const legacyParam = page.url.searchParams.get('jobs');
 
 		const refs: CompareEntityRef[] = [];
 
@@ -272,7 +272,8 @@
 		<div>
 			<h1 class={titleStyle({ size: 'page' })}>Compare</h1>
 			<p class="mt-1 text-sm text-muted-foreground">
-				Side-by-side comparison of occupations and modern roles (up to 3). Use the global baseline to compare structural pressure, then open country layers to see local demand resilience.
+				Side-by-side comparison of occupations and modern roles (up to 3). Use the global baseline
+				to compare structural pressure, then open country layers to see local demand resilience.
 			</p>
 		</div>
 		{#if entities.length > 0}
@@ -506,7 +507,8 @@
 						<div class="mt-4 border-t border-border/50 pt-3">
 							<div class="flex items-center justify-between text-xs">
 								<span class="text-muted-foreground">Median Wage</span>
-								<span class="font-semibold text-foreground">Local currency {entity.wage.toLocaleString()}</span
+								<span class="font-semibold text-foreground"
+									>Local currency {entity.wage.toLocaleString()}</span
 								>
 							</div>
 						</div>

@@ -106,8 +106,8 @@
 					</div>
 					<p class="mt-1 text-sm text-muted-foreground">
 						{#if isV6Live}
-							Archived roadmap for the V5 research program that preceded the current V6
-							two-axis release.
+							Archived roadmap for the V5 research program that preceded the current V6 two-axis
+							release.
 						{:else}
 							The next scientific release program after V4.3: augmentation heterogeneity, empirical
 							mobility, posterior uncertainty, and realized-risk forecasting.

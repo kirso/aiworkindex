@@ -117,7 +117,8 @@ const entries: SourceMapEntry[] = [
 		source_keys: ['mom_sol_2026'],
 		source_tier: 'official_sg',
 		vintage: '2026',
-		transformation: 'Rule-based exact or prefix SSOC match against the MOM Shortage Occupation List.'
+		transformation:
+			'Rule-based exact or prefix SSOC match against the MOM Shortage Occupation List.'
 	},
 	{
 		field_path: 'evidence.jobs_in_demand_match',

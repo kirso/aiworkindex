@@ -15,7 +15,7 @@
 	let plotWidth = $derived(width - marginLeft - marginRight);
 
 	$effect(() => {
-		if (!browser || !containerEl) return;
+		if (!containerEl) return;
 		const observer = new ResizeObserver(entries => {
 			for (const entry of entries) {
 				width = entry.contentRect.width;

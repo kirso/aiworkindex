@@ -15,7 +15,11 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as XLSX from 'xlsx';
 import { computeConfidence } from '../src/lib/data/confidence-core';
-import { confidenceLevelFromScore, percentileRanks, type CountryOccupationRecord } from '../src/lib/data/country-index';
+import {
+	confidenceLevelFromScore,
+	percentileRanks,
+	type CountryOccupationRecord
+} from '../src/lib/data/country-index';
 import { clamp01 } from '../src/lib/data/methodology-core';
 import { getRiskBand } from '../src/lib/data/scoring-constants';
 import { socToIsco, socToIscoCodes } from './crosswalk';
@@ -127,7 +131,7 @@ function titleSimilarity(leftTitle: string, rightTitle: string): number {
 	}
 
 	if (matches === 0) return 0;
-	return matches + matches / Math.max(right.size, 1) * 0.2;
+	return matches + (matches / Math.max(right.size, 1)) * 0.2;
 }
 
 function pickBestGlobalRecord(
@@ -157,7 +161,9 @@ function pickBestGlobalRecord(
 	return { record: best, score: bestScore };
 }
 
-function buildSocToIscoPrefixMap(mappedRows: Array<{ localCode: string; canonicalCode: string }>): Map<string, string> {
+function _buildSocToIscoPrefixMap(
+	mappedRows: Array<{ localCode: string; canonicalCode: string }>
+): Map<string, string> {
 	const counts = new Map<string, Map<string, number>>();
 	for (const row of mappedRows) {
 		const socPrefix = row.localCode.slice(0, 2);
@@ -227,7 +233,8 @@ function buildCountryIndex(
 			const socPrefix = row.localCode.slice(0, 2);
 			const prefixCandidates = allCandidatesByPrefix.get(socPrefix) ?? globalIndex;
 			resolved = pickBestGlobalRecord(row.localTitle, prefixCandidates);
-			mappingMethod = resolved.score >= 1.05 || exactSocMatch ? 'title_match' : 'major_group_fallback';
+			mappingMethod =
+				resolved.score >= 1.05 || exactSocMatch ? 'title_match' : 'major_group_fallback';
 		}
 
 		return {
@@ -256,11 +263,15 @@ function buildCountryIndex(
 		.map((row, index) => {
 			const growth = growthPercentiles[index] ?? 0.5;
 			const openings = openingsPercentiles[index] ?? 0.5;
-			const wagePercentile = wagePercentiles[index] ?? 0.5;
+			const _wagePercentile = wagePercentiles[index] ?? 0.5;
 			const demandResilience = clamp01(0.6 * growth + 0.4 * openings);
 			const headlineRisk = clamp01(row.structuralPressure * (1 - demandResilience));
 			const localConfidence = clamp01(
-				row.mappingMethod === 'crosswalk_exact' ? 1 : row.mappingMethod === 'title_match' ? 0.82 : 0.62
+				row.mappingMethod === 'crosswalk_exact'
+					? 1
+					: row.mappingMethod === 'title_match'
+						? 0.82
+						: 0.62
 			);
 			const globalConfidence = row.globalConfidence;
 			const combinedConfidenceScore = clamp01(
@@ -289,7 +300,11 @@ function buildCountryIndex(
 							? 'aligned_mid'
 							: 'consensus_low',
 				stabilityLabel:
-					globalConfidence.score >= 0.75 ? 'stable' : globalConfidence.score >= 0.6 ? 'watch' : 'sensitive',
+					globalConfidence.score >= 0.75
+						? 'stable'
+						: globalConfidence.score >= 0.6
+							? 'watch'
+							: 'sensitive',
 				signalConflict: false
 			}) satisfies CountryOccupationRecord['confidence'];
 
@@ -347,7 +362,9 @@ async function main() {
 
 	const matched = countryIndex.filter(entry => entry.mappingMethod === 'crosswalk_exact').length;
 	const titled = countryIndex.filter(entry => entry.mappingMethod === 'title_match').length;
-	const fallback = countryIndex.filter(entry => entry.mappingMethod === 'major_group_fallback').length;
+	const fallback = countryIndex.filter(
+		entry => entry.mappingMethod === 'major_group_fallback'
+	).length;
 
 	console.log(
 		`US country index written: ${countryIndex.length} occupations (${matched} crosswalk, ${titled} title match, ${fallback} fallback)`

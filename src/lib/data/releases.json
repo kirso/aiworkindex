@@ -1,23 +1,5 @@
 [
   {
-    "id": "structural-v7-2026-04-07",
-    "type": "structural_release",
-    "label": "V7 structural release",
-    "version_label": "V7",
-    "published_at": "2026-04-07",
-    "display_date": "7 Apr 2026",
-    "score_version": "V7",
-    "monitor_vintage": "Q4 2025 full",
-    "href": "/data",
-    "availability": "current_download",
-    "notes": [
-      "V7 adds task-concentration-weighted exposure (Hampole et al. 2025) and a demand-persistence proxy (addressing Imas price-elasticity critique) to the structural formula.",
-      "Task exposure concentration from 492 occupations now amplifies the headline risk for roles where AI penetration is concentrated in a few high-weight tasks.",
-      "A ranked demand-persistence composite from market momentum, vacancy trends, scarcity, and demand signals provides an additional demand-side counterforce.",
-      "V6 baseline scores are preserved in every occupation record for comparison."
-    ]
-  },
-  {
     "id": "structural-v6-2026-04-01",
     "type": "structural_release",
     "label": "V6 structural release",
@@ -26,12 +8,12 @@
     "display_date": "1 Apr 2026",
     "score_version": "V6",
     "monitor_vintage": "Q4 2025 full",
-    "href": "/data/sg-ai-occupations-v6.json",
-    "availability": "historical_snapshot",
+    "href": "/data",
+    "availability": "current_download",
     "notes": [
       "Promotes the live V6 two-axis structural release: deterministic 4-source exposure ensemble, human bottleneck, displacement pressure, and explicit demand resilience.",
       "The canonical public export now matches the live app dataset and release-governance artifacts.",
-      "Retained as the immediate pre-V7 baseline for auditability."
+      "V5 remains retained as the immediate previous live baseline for auditability."
     ]
   },
   {
@@ -200,24 +182,24 @@
     "id": "shadow-score-v43-published",
     "type": "experimental_update",
     "label": "V4.3 shadow score published",
-    "published_at": "2026-04-01",
+    "published_at": "2026-04-09",
     "display_date": "21 Mar 2026",
-    "score_version": "V6",
+    "score_version": "V7",
     "monitor_vintage": "Q4 2025 full",
     "href": "/reports/v4-3-shadow",
     "availability": "current_download",
     "notes": [
       "V4.3 remains published as part of the retained audit trail beneath the later V5 and V6 live releases.",
-      "The former V4.3 shadow model remains published as part of the retained audit trail beneath the later V5 and V6 live releases."
+      "Shadow score is fully ready for headline-promotion review."
     ]
   },
   {
     "id": "v5-sidecars-published",
     "type": "experimental_update",
     "label": "V5 sidecars published",
-    "published_at": "2026-04-01",
+    "published_at": "2026-04-09",
     "display_date": "21 Mar 2026",
-    "score_version": "V6",
+    "score_version": "V7",
     "monitor_vintage": "Q4 2025 full",
     "href": "/reports/v5-roadmap",
     "availability": "current_download",
@@ -230,14 +212,14 @@
     "id": "v5-experimental-model-published",
     "type": "experimental_update",
     "label": "V5 experimental model published",
-    "published_at": "2026-04-01",
+    "published_at": "2026-04-09",
     "display_date": "21 Mar 2026",
-    "score_version": "V6",
+    "score_version": "V7",
     "monitor_vintage": "Q4 2025 full",
     "href": "/reports/v5-experimental",
     "availability": "current_download",
     "notes": [
-      "The former live V5 model is retained as the immediate pre-V6 baseline together with its validation and adjunct artifacts.",
+      "Combines posterior uncertainty, augmentation heterogeneity, empirical mobility, and realized-risk calibration into one auditable candidate.",
       "Current validation snapshot: structural 2/2, realized 3/4."
     ]
   },
@@ -247,7 +229,7 @@
     "label": "MOM Labour Market Report Q4 2025",
     "published_at": "2026-03-20",
     "display_date": "20 Mar 2026",
-    "score_version": "V6",
+    "score_version": "V7",
     "monitor_vintage": "Q4 2025 full",
     "href": "https://stats.mom.gov.sg/Pages/Labour-Market-Report-4Q-2025.aspx",
     "availability": "current_download",
@@ -260,9 +242,9 @@
     "id": "quarterly-briefing-2026-q1",
     "type": "report_refresh",
     "label": "2026 Q1 quarterly briefing",
-    "published_at": "2026-04-01",
+    "published_at": "2026-04-09",
     "display_date": "21 Mar 2026",
-    "score_version": "V6",
+    "score_version": "V7",
     "monitor_vintage": "Q4 2025 full",
     "href": "/reports",
     "availability": "current_download",

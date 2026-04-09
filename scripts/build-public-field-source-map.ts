@@ -14,7 +14,12 @@ const OUT_FILE = path.join(DATA_DIR, 'public-field-source-map.json');
 const SRC_OUT_FILE = path.join(SRC_DATA_DIR, 'public-field-source-map.json');
 const STATIC_OUT_FILE = path.join(STATIC_DATA_DIR, 'public-field-source-map.json');
 
-type SourceTier = 'official_local' | 'derived_from_official_local' | 'cross_country_research' | 'external_proxy' | 'synthetic';
+type SourceTier =
+	| 'official_local'
+	| 'derived_from_official_local'
+	| 'cross_country_research'
+	| 'external_proxy'
+	| 'synthetic';
 
 interface SourceMapEntry {
 	field_path: string;
@@ -83,7 +88,8 @@ const entries: SourceMapEntry[] = [
 		vintage: '2021-2026',
 		transformation:
 			'V6 uses a deterministic reliability-weighted 4-source exposure ensemble over the matched AIOE, Anthropic, Eloundou, and ILO inputs.',
-		caveat: 'Exposure is not an official Singapore government measure; it is a research-backed structural layer.'
+		caveat:
+			'Exposure is not an official Singapore government measure; it is a research-backed structural layer.'
 	},
 	{
 		field_path: 'bottleneck',
@@ -92,7 +98,8 @@ const entries: SourceMapEntry[] = [
 		source_keys: ['pizzinelli_theta_2023'],
 		source_tier: 'cross_country_research',
 		vintage: '2023',
-		transformation: 'Mapped through the SSOC→ISCO→SOC crosswalk and percentile-normalized as a cross-country complementarity measure.'
+		transformation:
+			'Mapped through the SSOC→ISCO→SOC crosswalk and percentile-normalized as a cross-country complementarity measure.'
 	},
 	{
 		field_path: 'market.market_resilience',

@@ -377,7 +377,7 @@ function buildSiteStatus() {
 					status:
 						DATA_VINTAGE.model_version === 'V5'
 							? 'promoted_live'
-							: DATA_VINTAGE.model_version === 'V6'
+							: DATA_VINTAGE.model_version === 'V6' || DATA_VINTAGE.model_version === 'V7'
 								? 'archived_live_release'
 								: v5ExperimentalValidation
 									? 'experimental_model_published'
@@ -385,7 +385,7 @@ function buildSiteStatus() {
 					summary: v5ExperimentalValidation
 						? DATA_VINTAGE.model_version === 'V5'
 							? 'V5 is now the live structural release. The retained V4.3 baseline and promotion-comparison artifacts remain published for auditability.'
-							: DATA_VINTAGE.model_version === 'V6'
+							: DATA_VINTAGE.model_version === 'V6' || DATA_VINTAGE.model_version === 'V7'
 								? 'The former live V5 model is now archived as the immediate pre-V6 baseline, with its published sidecars and comparison artifacts retained for auditability.'
 								: 'The first integrated V5 experimental model is now published on top of the audited sidecars. It remains separate from the live V4.3 headline score.'
 						: v5Sidecars.summary,

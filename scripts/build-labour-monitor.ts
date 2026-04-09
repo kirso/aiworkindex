@@ -456,7 +456,9 @@ function buildMonitorProvenance(options: {
 			source_key: options.usedRetrenchmentEnrichment
 				? 'mom_labour_market_report_q4_2025'
 				: 'mom_retrenchment_by_occupation_group',
-			source_type: options.usedRetrenchmentEnrichment ? 'official_report_table' : 'derived_official',
+			source_type: options.usedRetrenchmentEnrichment
+				? 'official_report_table'
+				: 'derived_official',
 			vintage: 'Q4 2025',
 			reference: options.usedRetrenchmentEnrichment
 				? 'MOM Labour Market Report Q4 2025 retrenchment quarter comparison'
@@ -491,7 +493,7 @@ function buildMonitorProvenance(options: {
 				? 'MOM Labour Market Report Q4 2025 re-entry table'
 				: 'MOM labour monitor source feed'
 		},
-		'overall': {
+		overall: {
 			source_key: 'ai_work_index_labour_monitor_rules',
 			source_type: 'derived_official',
 			vintage: 'Q4 2025',
@@ -499,11 +501,12 @@ function buildMonitorProvenance(options: {
 			transform:
 				'Deterministic sum of vacancy, hiring, and retrenchment signals into strong / moderate / weak / deteriorating.'
 		},
-		'summary': {
+		summary: {
 			source_key: 'mom_labour_market_report_q4_2025',
 			source_type: 'official_report_table',
 			vintage: 'Q4 2025',
-			reference: 'Curated narrative summary derived from the published MOM Labour Market Report Q4 2025.',
+			reference:
+				'Curated narrative summary derived from the published MOM Labour Market Report Q4 2025.',
 			note: 'Narrative compression of the official figures; not a separate statistical input.'
 		}
 	};
@@ -1122,7 +1125,9 @@ function main() {
 		const usedVacancyEnrichment = Boolean(enrichment?.vacancy);
 
 		// Merge hiring from enrichment if raw data is absent or only annual
-		const usedHiringEnrichment = Boolean((!hiring || hiring.frequency === 'annual') && enrichment?.hiring);
+		const usedHiringEnrichment = Boolean(
+			(!hiring || hiring.frequency === 'annual') && enrichment?.hiring
+		);
 		if ((!hiring || hiring.frequency === 'annual') && enrichment?.hiring) {
 			const h = enrichment.hiring;
 			const netPressure = h.recruitment_rate - h.resignation_rate;
@@ -1148,7 +1153,7 @@ function main() {
 		// Merge retrenchment from enrichment
 		const usedRetrenchmentEnrichment = Boolean(
 			(!retrenchment && enrichment?.retrenchment) ||
-				(retrenchment && enrichment?.retrenchment?.incidence_per_1000 != null)
+			(retrenchment && enrichment?.retrenchment?.incidence_per_1000 != null)
 		);
 		if (!retrenchment && enrichment?.retrenchment) {
 			const r = enrichment.retrenchment;

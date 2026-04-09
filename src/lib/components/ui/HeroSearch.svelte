@@ -101,9 +101,9 @@
 						? code
 							? `${occupationHrefPrefix}/${code}`
 							: occupationHrefPrefix
-					: code
-						? `${occupationHrefPrefix}/occupation/${code}`
-						: occupationHrefPrefix || '/global');
+						: code
+							? `${occupationHrefPrefix}/occupation/${code}`
+							: occupationHrefPrefix || '/global');
 			goto(target);
 		}
 	}
@@ -217,7 +217,8 @@
 										{#if countSurface}
 											{formatCompactCount(occ.gross_wage_median ?? 0)} mapped occupations
 										{:else}
-											{occupationValueLabel} {occ.gross_wage_median.toLocaleString()} in {marketLabel}
+											{occupationValueLabel}
+											{occ.gross_wage_median.toLocaleString()} in {marketLabel}
 										{/if}
 									</p>
 								</div>
@@ -237,16 +238,15 @@
 					>".
 				</p>
 				<p class="mt-2 text-sm text-muted-foreground">
-					Try a different job title, open <a href="/global" class="text-primary underline">the
-						global baseline</a>, or browse our <a href="/rankings" class="text-primary underline"
-						>rankings</a
-					>.
+					Try a different job title, open <a href="/global" class="text-primary underline"
+						>the global baseline</a
+					>, or browse our <a href="/rankings" class="text-primary underline">rankings</a>.
 				</p>
 				<div class="mt-3 border-t border-border/50 pt-3">
 					<p class="text-xs text-muted-foreground">
 						We cover {DATA_VINTAGE.occupation_count} official occupations and {syntheticRoles.length}
-							estimated modern roles. Open the global baseline for the comparable structural layer;
-							the search results follow the selected surface view.
+						estimated modern roles. Open the global baseline for the comparable structural layer; the
+						search results follow the selected surface view.
 					</p>
 				</div>
 			</div>

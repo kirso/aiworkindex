@@ -49,8 +49,8 @@
 	<div class="mb-6">
 		<h1 class={titleStyle({ size: 'page' })}>Browse Occupations</h1>
 		<p class={cn(caption(), 'mt-1')}>
-			All {DATA_VINTAGE.occupation_count} occupations in one place. Filter by risk band,
-			occupation group, and wage range, then open any occupation for the full evidence breakdown.
+			All {DATA_VINTAGE.occupation_count} occupations in one place. Filter by risk band, occupation group,
+			and wage range, then open any occupation for the full evidence breakdown.
 		</p>
 	</div>
 

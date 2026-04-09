@@ -6,7 +6,9 @@
 	import OccupationSupportBundle from '$lib/components/ui/OccupationSupportBundle.svelte';
 	import DriverWaterfall from '$lib/components/viz/DriverWaterfall.svelte';
 	import WorkflowRadar from '$lib/components/viz/WorkflowRadar.svelte';
-	import SignalProfileGrid, { type SignalProfileItem } from '$lib/components/viz/SignalProfileGrid.svelte';
+	import SignalProfileGrid, {
+		type SignalProfileItem
+	} from '$lib/components/viz/SignalProfileGrid.svelte';
 	import { riskBandLabels } from '$lib/data';
 	import { buildUnitedStatesRoleAlternates } from '$lib/data/occupation-alternates';
 	import { pageLayout, card, sectionLabel, pill } from '$lib/design-system';
@@ -109,7 +111,10 @@
 			title={data.scored.title}
 			pills={[
 				{ label: 'United States role view', tone: 'muted' },
-				{ label: `Synthetic blend · ${data.scored.components.length} occupations`, tone: 'outline' },
+				{
+					label: `Synthetic blend · ${data.scored.components.length} occupations`,
+					tone: 'outline'
+				},
 				{ label: `ISCO ${data.primaryOccupation?.canonicalCode ?? '—'}`, tone: 'neutral' }
 			]}
 			summary="This page reuses the same role shell as Singapore, but the component occupations are mapped onto the United States layer so the score, context, and support bundle reflect US public evidence."
@@ -145,8 +150,8 @@
 					<div class={card({ padding: 'sm' })}>
 						<p class="text-sm font-semibold text-foreground">Workflow profile</p>
 						<p class="mt-1 text-xs text-muted-foreground">
-							Heuristic workflow context blended from the role mix. This explains the score; it is not
-							used as a direct local-market forecast.
+							Heuristic workflow context blended from the role mix. This explains the score; it is
+							not used as a direct local-market forecast.
 						</p>
 						<div class="mt-3 flex justify-center">
 							<WorkflowRadar dimensions={data.scored.workflow_overlay} size={240} />

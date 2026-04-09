@@ -13,7 +13,10 @@ export const load: PageLoad = ({ params }) => {
 	const supportedCountry = country === 'sg' || country === 'us' ? country : null;
 
 	if (!supportedCountry) {
-		throw error(404, 'Country occupation pages are only available for Singapore and the United States');
+		throw error(
+			404,
+			'Country occupation pages are only available for Singapore and the United States'
+		);
 	}
 
 	if (supportedCountry === 'sg') {
@@ -21,7 +24,10 @@ export const load: PageLoad = ({ params }) => {
 	}
 
 	const config = countryConfigs[supportedCountry];
-	const occupation = getCountryOccupationRow(supportedCountry as SupportedCountryPageCode, params.code);
+	const occupation = getCountryOccupationRow(
+		supportedCountry as SupportedCountryPageCode,
+		params.code
+	);
 
 	if (!occupation) {
 		throw error(404, 'Occupation not found');

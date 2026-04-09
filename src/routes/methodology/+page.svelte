@@ -11,7 +11,7 @@
 	import claimsMatrix from '$lib/data/claims-matrix.json';
 	import researchLibrary from '$lib/data/research-library.json';
 	import { releases, siteStatus } from '$lib/data/site-status';
-	import { DATA_VINTAGE } from '$lib/data/scoring-constants';
+	import { DATA_VINTAGE, SITE } from '$lib/data/scoring-constants';
 	import { pageLayout, card, sectionLabel, caption } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
@@ -66,12 +66,31 @@
 
 	const softwareDeveloper = findOccupation(/software developer/i);
 	const dataEntryClerk = findOccupation(/data entry clerk/i);
+
+	const methodologyJsonLd = `<script type="application/ld+json">${JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'TechArticle',
+		headline: `${DATA_VINTAGE.model_version} Scoring Methodology — AI Work Index`,
+		description: `Deterministic ${DATA_VINTAGE.model_version} methodology for scoring AI displacement pressure across ${DATA_VINTAGE.occupation_count} occupations using a 4-source exposure ensemble.`,
+		url: `${SITE.url}/methodology`,
+		dateModified: DATA_VINTAGE.last_updated,
+		author: { '@type': 'Person', name: SITE.author, url: SITE.authorUrl },
+		publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+		about: {
+			'@type': 'Dataset',
+			name: `AI Work Index ${DATA_VINTAGE.model_version}`,
+			description: `Structural AI displacement risk scores for ${DATA_VINTAGE.occupation_count} Singapore occupations`,
+			variableMeasured: ['exposure', 'bottleneck', 'net_risk', 'augmentation', 'demand_resilience']
+		},
+		proficiencyLevel: 'Expert'
+	})}<\/script>`;
 </script>
 
 <Seo
 	title="Scoring Methodology — Global Structural Baseline"
-	description="Deterministic global methodology for scoring AI displacement pressure, with country-specific demand, wage, and policy layers. Singapore is fully scored, the United States is ready, and UK/Canada remain research-only."
+	description="Deterministic {DATA_VINTAGE.model_version} methodology for scoring AI displacement pressure across {DATA_VINTAGE.occupation_count} occupations. 4-source exposure ensemble, human bottleneck layer, and demand resilience."
 	path="/methodology"
+	jsonLd={[methodologyJsonLd]}
 />
 
 <main class={pageLayout({ width: 'content' })}>
@@ -94,15 +113,16 @@
 	<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'primary' }), 'mt-4')}>
 		<p class="text-sm font-semibold text-foreground">Global contract</p>
 		<p class="mt-1 text-sm text-muted-foreground">
-			{globalMethodology.summary} The shared spine is ISCO-08; country layers add wages, demand
-			resilience, worker profile, transition capacity, regulatory overlays, and confidence where
-			evidence exists. Observed adoption and skills/task context remain part of the structural
-			validation layer.
+			{globalMethodology.summary} The shared spine is ISCO-08; country layers add wages, demand resilience,
+			worker profile, transition capacity, regulatory overlays, and confidence where evidence exists.
+			Observed adoption and skills/task context remain part of the structural validation layer.
 		</p>
 		<div class="mt-3 grid gap-3 sm:grid-cols-2">
 			<div>
 				<p class="text-xs uppercase tracking-wide text-muted-foreground">Shared formula</p>
-				<p class="mt-1 font-mono text-sm text-text-secondary">{globalMethodology.structuralFormula}</p>
+				<p class="mt-1 font-mono text-sm text-text-secondary">
+					{globalMethodology.structuralFormula}
+				</p>
 			</div>
 			<div>
 				<p class="text-xs uppercase tracking-wide text-muted-foreground">Country headline</p>
@@ -142,14 +162,14 @@
 		<p class="text-sm text-text-secondary">
 			<strong>What this model does:</strong> Measures structural AI displacement pressure using observable
 			inputs. It tells you which occupations face the most technical overlap with AI capabilities and
-			which have the strongest human bottlenecks and demand buffers. Observed usage, O*NET skill
-			context, and cross-country research help calibrate the structural layer.
+			which have the strongest human bottlenecks and demand buffers. Observed usage, O*NET skill context,
+			and cross-country research help calibrate the structural layer.
 		</p>
 		<p class="mt-2 text-sm text-text-secondary">
-			<strong>What it does not do:</strong> Predict actual job losses, forecast hiring trends, or make a
-			legal/compliance opinion. The core score still captures structural displacement pressure, not
-			realised reinstatement. Policy, licensing, and public-sector constraints are published as a
-			separate context overlay, not silently folded into the score.
+			<strong>What it does not do:</strong> Predict actual job losses, forecast hiring trends, or make
+			a legal/compliance opinion. The core score still captures structural displacement pressure, not
+			realised reinstatement. Policy, licensing, and public-sector constraints are published as a separate
+			context overlay, not silently folded into the score.
 		</p>
 	</div>
 
@@ -157,9 +177,10 @@
 		<p class={cn(sectionLabel(), 'mb-2')}>How To Read This</p>
 		<p class="text-sm text-text-secondary">
 			This site has two layers. The <strong>global structural layer</strong> is the comparable
-			research spine: exposure, bottleneck, and displacement pressure. The <strong>country layer</strong>
-			adds wages, labour demand, worker profile, transition capacity, regulatory overlays, and local
-			confidence so headline risk remains defensible in each market.
+			research spine: exposure, bottleneck, and displacement pressure. The
+			<strong>country layer</strong>
+			adds wages, labour demand, worker profile, transition capacity, regulatory overlays, and local confidence
+			so headline risk remains defensible in each market.
 		</p>
 		<p class="mt-2 text-sm text-text-secondary">
 			Interpretive fields are heuristic and should be read as context, not as direct
@@ -175,9 +196,10 @@
 				<p class="text-xs uppercase tracking-wide text-muted-foreground">Mapping threshold</p>
 				<p class="mt-1 text-sm text-text-secondary">
 					Publish country headline risk only when mapping coverage is at least
-					{Math.round(globalMethodology.publicationRules.minimumMappingCoverage * 100)}% and fallback
-					share is no more than {Math.round(globalMethodology.publicationRules.maximumFallbackShare *
-						100)}%.
+					{Math.round(globalMethodology.publicationRules.minimumMappingCoverage * 100)}% and
+					fallback share is no more than {Math.round(
+						globalMethodology.publicationRules.maximumFallbackShare * 100
+					)}%.
 				</p>
 			</div>
 			<div>
@@ -210,7 +232,9 @@
 				<div class={card({ padding: 'sm' })}>
 					<div class="flex items-center justify-between gap-3">
 						<p class="text-sm font-semibold text-foreground">{country.title}</p>
-						<span class="rounded-full bg-muted px-2 py-0.5 text-[11px] uppercase tracking-wide text-muted-foreground">
+						<span
+							class="rounded-full bg-muted px-2 py-0.5 text-[11px] uppercase tracking-wide text-muted-foreground"
+						>
 							{country.readiness}
 						</span>
 					</div>
@@ -222,10 +246,10 @@
 			{/each}
 		</div>
 		<p class="mt-2 text-xs text-muted-foreground">
-			{countryConfigs.sg.displayName} was the first country scored and remains the deepest dataset. The United States layer
-			is ready, backed by BLS wages, requirements, demographics, skills, and narrative
-			sources. Other countries remain research-only until mapping coverage,
-			validation, and local demand evidence are published.
+			{countryConfigs.sg.displayName} was the first country scored and remains the deepest dataset. The
+			United States layer is ready, backed by BLS wages, requirements, demographics, skills, and narrative
+			sources. Other countries remain research-only until mapping coverage, validation, and local demand
+			evidence are published.
 		</p>
 	</section>
 
@@ -246,8 +270,8 @@
 				<p class="mt-1 text-sm text-muted-foreground">
 					Headline risk = displacement pressure × (1 − demand resilience), where displacement
 					pressure = AI exposure × (1 − human bottleneck). In V7, exposure is amplified by
-					task-concentration (Hampole et al.) and demand resilience includes a persistence proxy.
-					No LLM assigns scores in the pipeline.
+					task-concentration (Hampole et al.) and demand resilience includes a persistence proxy. No
+					LLM assigns scores in the pipeline.
 				</p>
 			</div>
 
@@ -272,8 +296,8 @@
 					<div class={card({ padding: 'sm' })}>
 						<h3 class="text-sm font-semibold text-impact-leveraged">Axis 2: Demand Resilience</h3>
 						<p class="mt-1 text-sm text-muted-foreground">
-							How strongly does the current country demand counteract structural AI pressure for this
-							occupation? Built from base resilience plus direct demand-signal bonuses.
+							How strongly does the current country demand counteract structural AI pressure for
+							this occupation? Built from base resilience plus direct demand-signal bonuses.
 						</p>
 					</div>
 				</div>
@@ -289,8 +313,8 @@
 					now also shows sector wage anchors where the occupation is covered. The labour monitor
 					carries both published vacancy rates and published vacancy counts at cluster level. These
 					context blocks are displayed as evidence around the score, not folded into hidden
-					multipliers, and are published in separate country context bundles alongside the main score
-					dataset.
+					multipliers, and are published in separate country context bundles alongside the main
+					score dataset.
 				</p>
 				<div class="mt-2 overflow-x-auto">
 					<table class="w-full text-left text-sm">
@@ -318,7 +342,9 @@
 							<tr class="border-b border-border/50">
 								<td class="py-2 pr-3 font-medium">Demand Resilience</td>
 								<td class="py-2 pr-3">Base resilience plus occupation-level demand bonuses</td>
-								<td class="py-2">Country employment/wage trends (e.g. MOM for Singapore) + scarcity + SOL / JiD</td>
+								<td class="py-2"
+									>Country employment/wage trends (e.g. MOM for Singapore) + scarcity + SOL / JiD</td
+								>
 							</tr>
 							<tr>
 								<td class="py-2 pr-3 font-medium">Headline Risk</td>
@@ -495,7 +521,7 @@
 						<p class="mt-2 text-sm text-muted-foreground">
 							Two wage-structure signals: (1) log wage spread (winsorized at 1st/99th percentile) as
 							a scarcity proxy, and (2) within-group wage position (above group median = relative
-							specialization). Both percentile-ranked across all 562 occupations.
+							specialization). Both percentile-ranked across all {DATA_VINTAGE.occupation_count} occupations.
 						</p>
 					</div>
 
@@ -514,7 +540,8 @@
 							retained as the common anchor while the employment side uses an occupation-specific
 							industry-footprint blend when available, falling back to the group prior otherwise. V7
 							then converts base resilience into demand resilience by retaining 45% of the base
-							signal, adding verified occupation-level demand bonuses, and a demand-persistence proxy.
+							signal, adding verified occupation-level demand bonuses, and a demand-persistence
+							proxy.
 						</p>
 					</div>
 
@@ -1164,7 +1191,8 @@
 									applications</td
 								>
 								<td class="py-2"
-									>Primary exposure score. Covers all 562 occupations via SOC crosswalk.</td
+									>Primary exposure score. Covers all {DATA_VINTAGE.occupation_count} occupations via
+									SOC crosswalk.</td
 								>
 							</tr>
 							<tr class="border-b border-border/50">
@@ -1278,7 +1306,8 @@
 				<p class="mt-3 text-sm text-muted-foreground">
 					This is why a single "AI exposure score" is misleading. The software developer has higher
 					exposure than many "at risk" occupations, yet strong demand resilience offsets much more
-					of that structural pressure. The V7 score captures this distinction directly, with additional task-concentration and demand-persistence signals.
+					of that structural pressure. The V7 score captures this distinction directly, with
+					additional task-concentration and demand-persistence signals.
 				</p>
 			</section>
 		</Tabs.Content>
@@ -1611,8 +1640,8 @@
 						ladder (~16% effective weight).
 					</li>
 					<li>
-						<strong>Cluster-level labour monitor</strong> — Only available for three broad clusters, not
-						all 562 occupations.
+						<strong>Cluster-level labour monitor</strong> — Only available for three broad clusters,
+						not all {DATA_VINTAGE.occupation_count} occupations.
 					</li>
 				</ul>
 			</section>
@@ -1625,9 +1654,10 @@
 				<p class="text-sm font-semibold text-foreground">TL;DR</p>
 				<p class="mt-1 text-sm text-muted-foreground">
 					{researchLibrary.entry_count} research entries + {dataSourceCount} data sources. The live V7
-					model uses a deterministic two-axis formulation built on the audited 4-source exposure stack, with V7 task-concentration and demand-persistence additions:
-					Felten AIOE, Pizzinelli complementarity, Anthropic observed usage and labour-market work, Eloundou
-					GPT exposure, ILO occupational exposure, and Singapore demand evidence.
+					model uses a deterministic two-axis formulation built on the audited 4-source exposure stack,
+					with V7 task-concentration and demand-persistence additions: Felten AIOE, Pizzinelli complementarity,
+					Anthropic observed usage and labour-market work, Eloundou GPT exposure, ILO occupational exposure,
+					and Singapore demand evidence.
 				</p>
 			</div>
 
@@ -1823,9 +1853,13 @@
 							<p class="mt-1 text-sm text-muted-foreground">
 								{release.notes.join(' ')}
 								{#if release.version_label === 'V7'}
-									<a href="/reports/v7-release" class="ml-1 text-primary hover:underline">Release note</a>
+									<a href="/reports/v7-release" class="ml-1 text-primary hover:underline"
+										>Release note</a
+									>
 								{:else if release.version_label === 'V6'}
-									<a href="/reports/v6-release" class="ml-1 text-primary hover:underline">Release note</a>
+									<a href="/reports/v6-release" class="ml-1 text-primary hover:underline"
+										>Release note</a
+									>
 								{/if}
 							</p>
 						</div>

@@ -1,9 +1,8 @@
 <script lang="ts">
-	import { pageLayout, card, sectionLabel, title as titleStyle, caption } from '$lib/design-system';
+	import { pageLayout, card, sectionLabel, title as titleStyle } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
-	import { DATA_VINTAGE } from '$lib/data/scoring-constants';
 </script>
 
 <Seo
@@ -48,10 +47,21 @@
 				</div>
 				<p>Key changes from V5:</p>
 				<ul class="list-disc pl-5 space-y-1">
-					<li>Deterministic 4-source exposure ensemble (Felten AIOE, Anthropic, Eloundou, ILO) with reliability weighting per Frank et al. (2025)</li>
-					<li>Explicit demand resilience as a separate axis rather than collapsed into a market modifier</li>
-					<li>Occupation-level industry-footprint momentum where available, falling back to group prior</li>
-					<li>Pure confidence scoring with policy caps for fallback mappings and contested signals</li>
+					<li>
+						Deterministic 4-source exposure ensemble (Felten AIOE, Anthropic, Eloundou, ILO) with
+						reliability weighting per Frank et al. (2025)
+					</li>
+					<li>
+						Explicit demand resilience as a separate axis rather than collapsed into a market
+						modifier
+					</li>
+					<li>
+						Occupation-level industry-footprint momentum where available, falling back to group
+						prior
+					</li>
+					<li>
+						Pure confidence scoring with policy caps for fallback mappings and contested signals
+					</li>
 					<li>Statistical uncertainty intervals via 5,000-sample Monte Carlo bootstrap</li>
 					<li>Task-primitives sidecar (computed but not used in headline score)</li>
 				</ul>
@@ -73,9 +83,10 @@
 			<p class="mt-3 text-sm text-muted-foreground">
 				V7 builds on V6 by wiring task-concentration data (previously a sidecar) into the headline
 				exposure formula and adding a demand-persistence proxy to demand resilience. V6 scores are
-				preserved as <code class="text-xs">baseline_v6</code> in every occupation record.
-				See the <a href="/reports/v7-release" class="text-primary hover:underline">V7 release note</a>
-				and <a href="/data" class="text-primary hover:underline">data downloads</a> for the archived V6 dataset.
+				preserved as <code class="text-xs">baseline_v6</code> in every occupation record. See the
+				<a href="/reports/v7-release" class="text-primary hover:underline">V7 release note</a>
+				and <a href="/data" class="text-primary hover:underline">data downloads</a> for the archived V6
+				dataset.
 			</p>
 		</div>
 	</section>

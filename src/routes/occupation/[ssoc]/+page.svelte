@@ -56,15 +56,14 @@
 	let decision = $derived(structural.decision);
 	let crossesBoundary = $derived(
 		occ.uncertainty &&
-		occ.uncertainty.net_risk_p10 !== undefined &&
-		occ.uncertainty.net_risk_p90 !== undefined &&
-		getRiskBand(occ.uncertainty.net_risk_p10) !== getRiskBand(occ.uncertainty.net_risk_p90)
+			occ.uncertainty.net_risk_p10 !== undefined &&
+			occ.uncertainty.net_risk_p90 !== undefined &&
+			getRiskBand(occ.uncertainty.net_risk_p10) !== getRiskBand(occ.uncertainty.net_risk_p90)
 	);
 
 	let isWatchlisted = $state(false);
 
 	$effect(() => {
-		if (!browser) return;
 		try {
 			const entries = parseStoredWatchlist(localStorage.getItem(WATCHLIST_KEY));
 			isWatchlisted = hasWatchlistEntry(entries, { kind: 'occupation', id: occ.ssoc });
@@ -477,7 +476,9 @@
 					: '') +
 				'. This is ' +
 				structural.wageVsNational +
-				' across all ' + DATA_VINTAGE.occupation_count + ' scored occupations, and ' +
+				' across all ' +
+				DATA_VINTAGE.occupation_count +
+				' scored occupations, and ' +
 				structural.groupComparison.wageVsGroup +
 				' within ' +
 				structural.groupComparison.groupName +
@@ -489,7 +490,7 @@
 		`<script type="application/ld+json">${JSON.stringify({
 			'@context': 'https://schema.org',
 			'@type': 'FAQPage',
-			mainEntity: faqItems.map((item) => ({
+			mainEntity: faqItems.map(item => ({
 				'@type': 'Question',
 				name: item.question,
 				acceptedAnswer: { '@type': 'Answer', text: item.answer }
@@ -497,9 +498,7 @@
 		})}<\/script>`
 	);
 
-	let pageTitle = $derived(
-		`Will AI Replace ${occ.title}? ${riskPct}% Risk | ${SITE.name}`
-	);
+	let pageTitle = $derived(`Will AI Replace ${occ.title}? ${riskPct}% Risk | ${SITE.name}`);
 	let pageDescription = $derived(
 		`${occ.title} (SSOC ${occ.ssoc}): AI displacement risk ${riskPct}%, rated ${riskBandLabels[occ.risk_band]}. Median wage SGD ${occ.gross_wage_median.toLocaleString()} in the live Singapore reference market.`
 	);
@@ -513,12 +512,18 @@
 	description={pageDescription}
 	path="/occupation/{occ.ssoc}"
 	ogImage="/og/{occ.ssoc}.png"
-	alternates={alternates}
+	{alternates}
 	jsonLd={[occJsonLd, breadcrumbJsonLd, faqJsonLd]}
 />
 
 <div class={pageLayout({ width: 'content' })}>
-	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: countryConfigs.sg.displayName, href: '/sg' }, { label: occ.title }]} />
+	<PageBreadcrumb
+		items={[
+			{ label: 'Home', href: '/' },
+			{ label: countryConfigs.sg.displayName, href: '/sg' },
+			{ label: occ.title }
+		]}
+	/>
 
 	<!-- ===== BLOCK 1: THE VERDICT ===== -->
 	<div class={cn(card({ padding: 'lg' }), section({ spacing: 'loose' }))}>
@@ -541,16 +546,23 @@
 									: 'positive'
 				},
 				{ label: group?.label ?? occ.major_group, tone: 'muted' },
-				{ label: hasDemand ? `In demand (${demandLabel})` : 'No shortage listing', tone: hasDemand ? 'positive' : 'neutral' },
-				...(crossesBoundary ? [{ label: 'Classification uncertain', tone: 'warning' as const }] : [])
+				{
+					label: hasDemand ? `In demand (${demandLabel})` : 'No shortage listing',
+					tone: hasDemand ? 'positive' : 'neutral'
+				},
+				...(crossesBoundary
+					? [{ label: 'Classification uncertain', tone: 'warning' as const }]
+					: [])
 			]}
 			summary={structural.summaryText}
 			meta={[
 				`SGD ${occ.gross_wage_median.toLocaleString()}/mo${occ.gross_wage_25th > 0 && occ.gross_wage_75th > 0 ? ` (${occ.gross_wage_25th.toLocaleString()}–${occ.gross_wage_75th.toLocaleString()})` : ''}`,
 				occ.estimated_sg_employment_thousands
-					? `~${occ.estimated_sg_employment_thousands >= 1
-						? occ.estimated_sg_employment_thousands.toFixed(1) + 'K'
-						: Math.round(occ.estimated_sg_employment_thousands * 1000).toLocaleString()} workers in SG`
+					? `~${
+							occ.estimated_sg_employment_thousands >= 1
+								? occ.estimated_sg_employment_thousands.toFixed(1) + 'K'
+								: Math.round(occ.estimated_sg_employment_thousands * 1000).toLocaleString()
+						} workers in SG`
 					: 'Employment context not published',
 				`Updated ${DATA_VINTAGE.last_updated}`
 			]}
@@ -583,7 +595,7 @@
 				</Button>
 				<Button variant="outline" size="sm" class="h-8 text-xs" onclick={shareCurrentPage}>
 					Share
-		</Button>
+				</Button>
 			{/snippet}
 		</OccupationHero>
 
@@ -594,16 +606,22 @@
 			<span class={pill({ tone: 'muted' })} title="Risk compared to group median">
 				Risk: {structural.groupComparison.riskVsGroup}
 			</span>
-			<a href="/group/{groupSlug}" class={cn(pill({ tone: 'muted' }), 'hover:bg-accent transition-colors')}>
-				#{structural.groupComparison.riskRankInGroup} of {structural.groupComparison.groupTotal} in {group?.label ?? 'group'} →
+			<a
+				href="/group/{groupSlug}"
+				class={cn(pill({ tone: 'muted' }), 'hover:bg-accent transition-colors')}
+			>
+				#{structural.groupComparison.riskRankInGroup} of {structural.groupComparison.groupTotal} in {group?.label ??
+					'group'} →
 			</a>
 		</div>
-		{#if occ.evidence.signal_conflict && occ.evidence.signal_conflict_reasons?.some(r => r.includes('demand'))}
+		{#if occ.evidence.signal_conflict && occ.evidence.signal_conflict_reasons?.some( r => r.includes('demand') )}
 			<div class="mt-3 max-w-3xl rounded-md border border-amber-500/30 bg-amber-500/5 px-3 py-2">
 				<p class={cn(caption({ weight: 'medium' }), 'text-amber-700 dark:text-amber-400')}>
-					Mixed signal: This occupation scores {riskBandLabels[occ.risk_band].toLowerCase()} structural risk but is currently
+					Mixed signal: This occupation scores {riskBandLabels[occ.risk_band].toLowerCase()} structural
+					risk but is currently
 					{#if occ.evidence.sol_match === 'exact' && occ.evidence.jobs_in_demand_match === 'exact'}
-						on both the Shortage Occupation List and Jobs in Demand — indicating strong active demand despite AI exposure.
+						on both the Shortage Occupation List and Jobs in Demand — indicating strong active
+						demand despite AI exposure.
 					{:else if occ.evidence.sol_match}
 						on the Shortage Occupation List — indicating labour shortage despite AI exposure.
 					{:else if occ.evidence.jobs_in_demand_match}
@@ -678,11 +696,18 @@
 						</p>
 					{/if}
 					<p class={cn(caption(), 'pt-2 text-muted-foreground')}>
-						Sources: {#if occ.evidence.exposure_source_keys?.length}{occ.evidence.exposure_source_keys.map(k => ({ aioe: 'Felten AIOE (2021)', anthropic: 'Anthropic Economic Index (2026)', eloundou: 'Eloundou GPT Exposure (2023)', ilo: 'ILO GenAI (2025)' }[k] ?? k)).join(', ')}{:else}Felten AIOE, Anthropic{/if}, Pizzinelli et al. bottleneck model.
-						<a
-							href="/methodology"
-							class="text-primary hover:underline">Full methodology</a
-						>.
+						Sources: {#if occ.evidence.exposure_source_keys?.length}{occ.evidence.exposure_source_keys
+								.map(
+									k =>
+										({
+											aioe: 'Felten AIOE (2021)',
+											anthropic: 'Anthropic Economic Index (2026)',
+											eloundou: 'Eloundou GPT Exposure (2023)',
+											ilo: 'ILO GenAI (2025)'
+										})[k] ?? k
+								)
+								.join(', ')}{:else}Felten AIOE, Anthropic{/if}, Pizzinelli et al. bottleneck model.
+						<a href="/methodology" class="text-primary hover:underline">Full methodology</a>.
 					</p>
 				</div>
 			</div>
@@ -691,8 +716,8 @@
 				<div class="mt-5 pt-5 border-t border-border">
 					<p class={cn(caption({ weight: 'semibold' }), 'mb-2 text-foreground')}>Role profile</p>
 					<p class={cn(caption(), 'mb-3')}>
-						How this role's work breaks down across key dimensions. This is a general profile,
-						not an individual measurement.
+						How this role's work breaks down across key dimensions. This is a general profile, not
+						an individual measurement.
 					</p>
 					<div class="flex justify-center">
 						<WorkflowRadar dimensions={occ.workflow_overlay} size={240} />

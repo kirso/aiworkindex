@@ -1,6 +1,14 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import { body, caption, display, pill, riskBadge, scoreTileClasses, title as titleStyle } from '$lib/design-system';
+	import {
+		body,
+		caption,
+		display,
+		pill,
+		riskBadge,
+		scoreTileClasses,
+		title as titleStyle
+	} from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import type { RiskBand } from '$lib/data';
 

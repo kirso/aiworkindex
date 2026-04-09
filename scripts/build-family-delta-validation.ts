@@ -78,13 +78,14 @@ for (const occupation of occupations) {
 }
 
 const families = Object.values(signals.family_employment)
-	.map((signal) => {
+	.map(signal => {
 		const occupationsInFamily = byFamily.get(signal.code) ?? [];
 		const weightedEmployment = occupationsInFamily.reduce(
 			(sum, occupation) => sum + (occupation.employment_thousands ?? 0),
 			0
 		);
-		const safeWeight = weightedEmployment > 0 ? weightedEmployment : occupationsInFamily.length || 1;
+		const safeWeight =
+			weightedEmployment > 0 ? weightedEmployment : occupationsInFamily.length || 1;
 		const weightedAverage = (
 			pick: (occupation: OccupationRow) => number | null | undefined
 		): number | null => {
@@ -110,46 +111,42 @@ const families = Object.values(signals.family_employment)
 			total_2025: signal.total_2025,
 			delta_k: signal.delta_k,
 			delta_pct: signal.delta_pct,
-			avg_net_risk: weightedAverage((occupation) => occupation.net_risk),
+			avg_net_risk: weightedAverage(occupation => occupation.net_risk),
 			avg_transition_adjusted_risk: weightedAverage(
-				(occupation) => occupation.transition_adjusted_risk
+				occupation => occupation.transition_adjusted_risk
 			),
-			avg_realized_risk_proxy: weightedAverage((occupation) => occupation.realized_risk_proxy)
+			avg_realized_risk_proxy: weightedAverage(occupation => occupation.realized_risk_proxy)
 		};
 	})
 	.sort((a, b) => Math.abs(b.delta_k) - Math.abs(a.delta_k));
 
-const familiesWithDeltaPct = families.filter((family) => family.delta_pct !== null);
-const deltaPcts = familiesWithDeltaPct.map((family) => family.delta_pct as number);
-const netRiskRows = familiesWithDeltaPct.filter((family) => family.avg_net_risk !== null);
+const familiesWithDeltaPct = families.filter(family => family.delta_pct !== null);
+const deltaPcts = familiesWithDeltaPct.map(family => family.delta_pct as number);
+const netRiskRows = familiesWithDeltaPct.filter(family => family.avg_net_risk !== null);
 const transitionRows = familiesWithDeltaPct.filter(
-	(family) => family.avg_transition_adjusted_risk !== null
+	family => family.avg_transition_adjusted_risk !== null
 );
-const realizedRows = familiesWithDeltaPct.filter(
-	(family) => family.avg_realized_risk_proxy !== null
-);
+const realizedRows = familiesWithDeltaPct.filter(family => family.avg_realized_risk_proxy !== null);
 
 const output = {
 	data_as_of: '2025',
 	summary: {
 		family_count: families.length,
 		correlation_delta_pct_vs_avg_net_risk: pearson(
-			netRiskRows.map((row) => row.delta_pct as number),
-			netRiskRows.map((row) => row.avg_net_risk as number)
+			netRiskRows.map(row => row.delta_pct as number),
+			netRiskRows.map(row => row.avg_net_risk as number)
 		),
 		correlation_delta_pct_vs_avg_transition_adjusted_risk: pearson(
-			transitionRows.map((row) => row.delta_pct as number),
-			transitionRows.map((row) => row.avg_transition_adjusted_risk as number)
+			transitionRows.map(row => row.delta_pct as number),
+			transitionRows.map(row => row.avg_transition_adjusted_risk as number)
 		),
 		correlation_delta_pct_vs_avg_realized_risk_proxy: pearson(
-			realizedRows.map((row) => row.delta_pct as number),
-			realizedRows.map((row) => row.avg_realized_risk_proxy as number)
+			realizedRows.map(row => row.delta_pct as number),
+			realizedRows.map(row => row.avg_realized_risk_proxy as number)
 		),
 		median_family_delta_pct:
 			deltaPcts.length > 0
-				? round(
-						deltaPcts.slice().sort((a, b) => a - b)[Math.floor(deltaPcts.length / 2)] ?? 0
-					)
+				? round(deltaPcts.slice().sort((a, b) => a - b)[Math.floor(deltaPcts.length / 2)] ?? 0)
 				: null
 	},
 	families

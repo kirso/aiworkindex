@@ -257,10 +257,12 @@ async function main() {
 	const { getRiskBand } = await import('../src/lib/data/scoring-constants');
 
 	const final = updated.map(occupation => {
-		const unc = occupation.uncertainty as {
-			net_risk_p10?: number;
-			net_risk_p90?: number;
-		} | undefined;
+		const unc = occupation.uncertainty as
+			| {
+					net_risk_p10?: number;
+					net_risk_p90?: number;
+			  }
+			| undefined;
 		const crossesBoundary =
 			unc?.net_risk_p10 != null &&
 			unc?.net_risk_p90 != null &&
@@ -284,7 +286,9 @@ async function main() {
 	console.log(
 		`Built task_primitives for ${covered}/${final.length} occupations from exact normalized-task matches.`
 	);
-	console.log(`  ${crossBoundaryCount} occupations cross risk-band boundaries (classification uncertain).`);
+	console.log(
+		`  ${crossBoundaryCount} occupations cross risk-band boundaries (classification uncertain).`
+	);
 }
 
 main().catch(console.error);

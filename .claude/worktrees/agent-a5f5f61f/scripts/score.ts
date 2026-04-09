@@ -208,7 +208,12 @@ interface ScoredOccupation {
 	employment_family_code?: string | null;
 	employment_family_total_thousands?: number | null;
 	employment_weight_within_family?: number | null;
-	employment_estimate_method?: 'bls_wage_blend' | 'bls_only' | 'wage_only' | 'equal_fallback' | null;
+	employment_estimate_method?:
+		| 'bls_wage_blend'
+		| 'bls_only'
+		| 'wage_only'
+		| 'equal_fallback'
+		| null;
 	group_employment_thousands: number | null;
 	data_basis: OccupationDataBasis;
 	exposure: number;
@@ -276,7 +281,10 @@ function loadLfrSectionDSignals(): LfrSectionDSignals {
 	return JSON.parse(fs.readFileSync(LFR_SECTION_D_SIGNALS_FILE, 'utf-8')) as LfrSectionDSignals;
 }
 
-function allocateWeightedFamilyEmployment(results: ScoredOccupation[], signals: LfrSectionDSignals) {
+function allocateWeightedFamilyEmployment(
+	results: ScoredOccupation[],
+	signals: LfrSectionDSignals
+) {
 	const byFamily = new Map<string, ScoredOccupation[]>();
 	for (const occupation of results) {
 		const familyCode = occupation.ssoc.slice(0, 2);
@@ -294,15 +302,14 @@ function allocateWeightedFamilyEmployment(results: ScoredOccupation[], signals: 
 			),
 			1
 		);
-		const total =
-			family && Number.isFinite(family.total_2025) ? family.total_2025 : fallbackTotal;
+		const total = family && Number.isFinite(family.total_2025) ? family.total_2025 : fallbackTotal;
 		if (!(total > 0)) continue;
-		const blsValues = occupations.map((occupation) =>
+		const blsValues = occupations.map(occupation =>
 			occupation.bls_proxy_employment && occupation.bls_proxy_employment > 0
 				? occupation.bls_proxy_employment
 				: null
 		);
-		const wageValues = occupations.map((occupation) =>
+		const wageValues = occupations.map(occupation =>
 			occupation.gross_wage_median && occupation.gross_wage_median > 0
 				? Math.sqrt(occupation.gross_wage_median)
 				: null
@@ -315,8 +322,10 @@ function allocateWeightedFamilyEmployment(results: ScoredOccupation[], signals: 
 
 		const fallbackToEqualOnly = !family;
 		for (let index = 0; index < occupations.length; index++) {
-			const blsShare = blsSum > 0 && blsValues[index] !== null ? (blsValues[index] ?? 0) / blsSum : null;
-			const wageShare = wageSum > 0 && wageValues[index] !== null ? (wageValues[index] ?? 0) / wageSum : null;
+			const blsShare =
+				blsSum > 0 && blsValues[index] !== null ? (blsValues[index] ?? 0) / blsSum : null;
+			const wageShare =
+				wageSum > 0 && wageValues[index] !== null ? (wageValues[index] ?? 0) / wageSum : null;
 			let weight = 0;
 			let method: 'bls_wage_blend' | 'bls_only' | 'wage_only' | 'equal_fallback' = 'equal_fallback';
 			if (fallbackToEqualOnly) {
@@ -338,7 +347,7 @@ function allocateWeightedFamilyEmployment(results: ScoredOccupation[], signals: 
 		}
 
 		const normalizedWeightSum = rawWeights.reduce((sum, value) => sum + value, 0) || 1;
-		const normalizedWeights = rawWeights.map((weight) => weight / normalizedWeightSum);
+		const normalizedWeights = rawWeights.map(weight => weight / normalizedWeightSum);
 		let roundedSum = 0;
 		let maxWeightIndex = 0;
 		for (let index = 0; index < occupations.length; index++) {
@@ -2033,11 +2042,7 @@ function scoreOccupations(
 				match_quality: r.matchQuality
 			},
 			// Workflow overlay computed from archetype defaults at build time
-			workflow_overlay: getWorkflowOverlayForOccupation(
-				r.occ.ssoc,
-				r.occ.title,
-				r.occ.major_group
-			)
+			workflow_overlay: getWorkflowOverlayForOccupation(r.occ.ssoc, r.occ.title, r.occ.major_group)
 		});
 	}
 
