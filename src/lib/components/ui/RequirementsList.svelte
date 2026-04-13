@@ -31,16 +31,18 @@
 
 <div class={cn(card({ padding: 'sm' }), className)}>
 	<p class="text-sm font-semibold text-foreground">Entry requirements</p>
+	<p class="mt-1 text-xs text-muted-foreground">What percentage of workers in this occupation have or need each attribute.</p>
 	{#if items.length > 0}
 		<ul class="mt-3 space-y-1.5 text-sm text-muted-foreground">
 			{#each items as item, index (`req-${item.label}-${index}`)}
-				<li class="flex items-center gap-2">
-					<span
-						class={cn('inline-block h-2 w-2 shrink-0 rounded-full', toneClass(item.tone))}
-					></span>
-					<span>
-						<span class="font-medium text-foreground">{item.label}</span>: {item.value}
+				<li class="flex items-center justify-between gap-2">
+					<span class="flex items-center gap-2">
+						<span
+							class={cn('inline-block h-2 w-2 shrink-0 rounded-full', toneClass(item.tone))}
+						></span>
+						<span class="text-foreground">{item.label}</span>
 					</span>
+					<span class="font-mono text-xs tabular-nums">{item.value}</span>
 				</li>
 			{/each}
 		</ul>

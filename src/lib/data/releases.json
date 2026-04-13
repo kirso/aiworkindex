@@ -1,5 +1,22 @@
 [
   {
+    "id": "structural-v7-2026-04-09",
+    "type": "structural_release",
+    "label": "V7 structural release",
+    "version_label": "V7",
+    "published_at": "2026-04-09",
+    "display_date": "9 Apr 2026",
+    "score_version": "V7",
+    "monitor_vintage": "Q3 2025 full + Q4 2025 advance",
+    "href": "/reports/v7-release",
+    "availability": "current_download",
+    "notes": [
+      "Adds task-concentration-weighted exposure (Hampole et al. 2025) and demand-persistence proxy (Imas 2026 price-elasticity critique).",
+      "Two formula additions over V6: exposure_v7 = exposure × (1 + 0.20 × task_signal), demand_persistence added to resilience.",
+      "Median delta from V6: 0.008. Spearman rank correlation with V6: 0.9995."
+    ]
+  },
+  {
     "id": "structural-v6-2026-04-01",
     "type": "structural_release",
     "label": "V6 structural release",
@@ -8,7 +25,7 @@
     "display_date": "1 Apr 2026",
     "score_version": "V6",
     "monitor_vintage": "Q4 2025 full",
-    "href": "/data",
+    "href": "/reports/v6-release",
     "availability": "current_download",
     "notes": [
       "Promotes the live V6 two-axis structural release: deterministic 4-source exposure ensemble, human bottleneck, displacement pressure, and explicit demand resilience.",
