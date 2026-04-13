@@ -8,6 +8,7 @@
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import { buildItemListJsonLd, buildFaqJsonLd } from '$lib/data/ranking-jsonld';
 	import { DATA_VINTAGE } from '$lib/data/scoring-constants';
+	import PageFooterNav from '$lib/components/ui/PageFooterNav.svelte';
 
 	let { data } = $props();
 	const currency = countryConfigs.sg.currency ?? 'SGD';
@@ -49,7 +50,7 @@
 
 	const faqJsonLd = buildFaqJsonLd([
 		{
-			question: 'Which occupations are most at risk of AI replacement?',
+			question: 'Which occupations face the highest AI displacement pressure?',
 			answer:
 				'Data entry clerks, telemarketers, and bookkeepers face the highest structural pressure, with net displacement risk above 50%. These roles have high AI task overlap and low human bottlenecks.'
 		},
@@ -62,8 +63,8 @@
 </script>
 
 <Seo
-	title="Jobs AI Will Replace: 25 Highest Risk Occupations"
-	description="Which jobs will AI replace first? Top 25 occupations ranked by displacement risk from {DATA_VINTAGE.occupation_count} scored."
+	title="25 Highest AI Displacement Risk Occupations"
+	description="Which occupations face the most AI structural pressure? Top 25 ranked by displacement risk from {DATA_VINTAGE.occupation_count} scored."
 	path="/rankings/highest-risk"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
@@ -91,4 +92,11 @@
 		<a href="/methodology" class="text-primary underline">Learn more</a>
 	</p>
 	<RankingNavPills />
+	<PageFooterNav
+		links={[
+			{ href: '/rankings', label: 'All rankings' },
+			{ href: '/explore', label: 'Browse occupations' },
+			{ href: '/methodology', label: 'Methodology' }
+		]}
+	/>
 </main>

@@ -5,13 +5,13 @@
 		card,
 		caption,
 		body,
-		badge,
-		riskBadge
+		badge
 	} from '$lib/design-system';
 	import { pageLayout } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import { SITE } from '$lib/data/scoring-constants';
 	import { countryConfigs } from '$lib/data/country-config';
+	import OccupationCard from '$lib/components/ui/OccupationCard.svelte';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
 
@@ -170,18 +170,13 @@
 			</div>
 			<div class="space-y-1.5">
 				{#each data.highestRisk as occ, i (occ.ssoc)}
-					<a
-						href="/occupation/{occ.ssoc}"
-						class="flex items-center justify-between rounded-md px-2 py-1.5 hover:bg-muted"
-					>
-						<span class="text-sm">
-							<span class="mr-2 font-mono tabular-nums text-muted-foreground">{i + 1}.</span>
-							<span class="text-text-secondary">{occ.title}</span>
-						</span>
-						<span class={cn(riskBadge({ band: occ.risk_band }), 'text-xs')}>
-							{(occ.net_risk * 100).toFixed(0)}%
-						</span>
-					</a>
+					<OccupationCard
+						occupation={{ title: occ.title, ssoc: occ.ssoc, net_risk: occ.net_risk, risk_band: occ.risk_band }}
+						mode="compact"
+						index={i + 1}
+						indexColor="text-risk-very-high"
+						rightColor="text-risk-very-high"
+					/>
 				{/each}
 			</div>
 		</div>
@@ -199,18 +194,13 @@
 			</div>
 			<div class="space-y-1.5">
 				{#each data.aiLeveraged as occ, i (occ.ssoc)}
-					<a
-						href="/occupation/{occ.ssoc}"
-						class="flex items-center justify-between rounded-md px-2 py-1.5 hover:bg-muted"
-					>
-						<span class="text-sm">
-							<span class="mr-2 font-mono tabular-nums text-muted-foreground">{i + 1}.</span>
-							<span class="text-text-secondary">{occ.title}</span>
-						</span>
-						<span class={cn(caption({ weight: 'medium' }), 'tabular-nums')}>
-							{(occ.augmentation * 100).toFixed(0)}% augmentation
-						</span>
-					</a>
+					<OccupationCard
+						occupation={{ title: occ.title, ssoc: occ.ssoc, net_risk: occ.net_risk, risk_band: occ.risk_band }}
+						mode="compact"
+						index={i + 1}
+						indexColor="text-impact-leveraged"
+						rightLabel="{(occ.augmentation * 100).toFixed(0)}% augmentation"
+					/>
 				{/each}
 			</div>
 		</div>
@@ -229,19 +219,13 @@
 			</div>
 			<div class="space-y-1.5">
 				{#each data.safest as occ, i (occ.ssoc)}
-					<a
-						href="/occupation/{occ.ssoc}"
-						class="flex items-center justify-between rounded-md px-2 py-1.5 hover:bg-muted"
-					>
-						<span class="text-sm">
-							<span class="mr-2 font-mono tabular-nums text-muted-foreground">{i + 1}.</span>
-							<span class="text-text-secondary">{occ.title}</span>
-						</span>
-						<span class={cn(caption({ weight: 'medium' }), 'tabular-nums')}>
-							{countryConfigs.sg.currency ?? 'SGD'}
-							{occ.gross_wage_median.toLocaleString()}
-						</span>
-					</a>
+					<OccupationCard
+						occupation={{ title: occ.title, ssoc: occ.ssoc, net_risk: occ.net_risk, risk_band: occ.risk_band }}
+						mode="compact"
+						index={i + 1}
+						indexColor="text-risk-very-low"
+						rightLabel="{countryConfigs.sg.currency ?? 'SGD'} {occ.gross_wage_median.toLocaleString()}"
+					/>
 				{/each}
 			</div>
 		</div>

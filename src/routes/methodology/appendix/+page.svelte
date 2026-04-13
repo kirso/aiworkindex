@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { pageLayout, sectionLabel, caption } from '$lib/design-system';
+	import { pageLayout, sectionLabel, caption, title as titleStyle } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import { DATA_VINTAGE } from '$lib/data/scoring-constants';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
@@ -21,7 +21,7 @@
 		]}
 	/>
 
-	<h1 class="text-xl font-bold tracking-tight text-foreground sm:text-2xl">
+	<h1 class={titleStyle({ size: 'page' })}>
 		Implementation Appendix
 	</h1>
 	<p class="mt-2 text-sm text-muted-foreground">

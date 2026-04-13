@@ -9,6 +9,7 @@
 	import { pageLayout } from '$lib/design-system';
 	import { SITE } from '$lib/data/scoring-constants';
 	import Seo from '$lib/components/ui/Seo.svelte';
+	import PageFooterNav from '$lib/components/ui/PageFooterNav.svelte';
 
 	let { data } = $props();
 
@@ -136,4 +137,11 @@
 		<a href="/methodology" class="text-primary underline">Learn more</a>
 	</p>
 	<RankingNavPills />
+	<PageFooterNav
+		links={[
+			{ href: '/rankings', label: 'All rankings' },
+			{ href: '/explore', label: 'Browse occupations' },
+			{ href: '/methodology', label: 'Methodology' }
+		]}
+	/>
 </main>

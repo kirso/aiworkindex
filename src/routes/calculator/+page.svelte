@@ -18,6 +18,7 @@
 	import { SENIORITY_MODIFIERS } from '$lib/data/scoring-constants';
 	import { titleMatches } from '$lib/utils/search';
 	import { findAliasMatches } from '$lib/data/aliases';
+	import PageFooterNav from '$lib/components/ui/PageFooterNav.svelte';
 
 	let { data } = $props();
 
@@ -316,4 +317,11 @@
 			>
 		</p>
 	</div>
+	<PageFooterNav
+		links={[
+			{ href: '/explore', label: 'Browse occupations' },
+			{ href: '/compare', label: 'Compare' },
+			{ href: '/methodology', label: 'Methodology' }
+		]}
+	/>
 </div>

@@ -15,6 +15,7 @@
 	} from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import { vacancySignalClass } from '$lib/data/detail-display';
+	import OccupationCard from '$lib/components/ui/OccupationCard.svelte';
 	import OccupationHero from '$lib/components/ui/OccupationHero.svelte';
 	import DriverWaterfall from '$lib/components/viz/DriverWaterfall.svelte';
 	import WorkflowRadar from '$lib/components/viz/WorkflowRadar.svelte';
@@ -939,35 +940,25 @@
 					</div>
 					<div class="grid gap-2 sm:grid-cols-3">
 						{#each allUniqueTransitions.slice(0, 3) as t}
-							<a
-								href="/occupation/{t.to_ssoc}"
-								class={cn(
-									card({ padding: 'sm', variant: 'inset' }),
-									'block hover:bg-accent hover:shadow-sm transition-all group'
-								)}
-							>
-								<p class={cn(body(), 'font-medium text-foreground truncate')}>
-									{t.to_title}
-									<span class="opacity-0 group-hover:opacity-100 transition-opacity text-primary"
-										>→</span
-									>
-								</p>
-								<div class={cn(caption(), 'mt-1 flex items-center gap-2')}>
-									<span
-										class={t.risk_improvement > 0
+							<OccupationCard
+								occupation={{ title: t.to_title, ssoc: t.to_ssoc, net_risk: 0 }}
+								mode="inset"
+								metricParts={[
+									{
+										label: t.risk_improvement > 0
+											? `-${(t.risk_improvement * 100).toFixed(0)}pp risk`
+											: t.risk_improvement < 0
+												? `+${(Math.abs(t.risk_improvement) * 100).toFixed(0)}pp risk`
+												: 'No risk change',
+										color: t.risk_improvement > 0
 											? 'text-risk-very-low'
 											: t.risk_improvement < 0
 												? 'text-risk-high'
-												: ''}
-									>
-										{#if t.risk_improvement > 0}-{(t.risk_improvement * 100).toFixed(0)}pp risk{:else if t.risk_improvement < 0}+{(
-												Math.abs(t.risk_improvement) * 100
-											).toFixed(0)}pp risk{:else}No risk change{/if}
-									</span>
-									<span>·</span>
-									<span>{t.label}</span>
-								</div>
-							</a>
+												: undefined
+									},
+									{ label: t.label }
+								]}
+							/>
 						{/each}
 					</div>
 					{#if allUniqueTransitions.length > 3}
@@ -980,26 +971,14 @@
 							>
 							<div class="mt-2 grid gap-2 sm:grid-cols-3">
 								{#each allUniqueTransitions.slice(3) as t}
-									<a
-										href="/occupation/{t.to_ssoc}"
-										class={cn(
-											card({ padding: 'sm', variant: 'inset' }),
-											'block hover:bg-accent hover:shadow-sm transition-all group'
-										)}
-									>
-										<p class={cn(body(), 'font-medium text-foreground truncate')}>
-											{t.to_title}
-											<span
-												class="opacity-0 group-hover:opacity-100 transition-opacity text-primary"
-												>→</span
-											>
-										</p>
-										<div class={cn(caption(), 'mt-1 flex items-center gap-2')}>
-											<span>{(t.composite * 100).toFixed(0)}%</span>
-											<span>·</span>
-											<span>{t.label}</span>
-										</div>
-									</a>
+									<OccupationCard
+										occupation={{ title: t.to_title, ssoc: t.to_ssoc, net_risk: 0 }}
+										mode="inset"
+										metricParts={[
+											{ label: `${(t.composite * 100).toFixed(0)}%` },
+											{ label: t.label }
+										]}
+									/>
 								{/each}
 							</div>
 						</details>
@@ -1014,25 +993,10 @@
 					</p>
 					<div class="grid gap-2 sm:grid-cols-3">
 						{#each structural.relatedOccupations as rel}
-							<a
-								href="/occupation/{rel.ssoc}"
-								class={cn(
-									card({ padding: 'sm', variant: 'inset' }),
-									'block hover:bg-accent hover:shadow-sm transition-all group'
-								)}
-							>
-								<p class={cn(body(), 'font-medium text-foreground truncate')}>
-									{rel.title}
-									<span class="opacity-0 group-hover:opacity-100 transition-opacity text-primary"
-										>→</span
-									>
-								</p>
-								<div class={cn(caption(), 'mt-1 flex items-center gap-2')}>
-									<span>{(rel.net_risk * 100).toFixed(0)}% risk</span>
-									<span>·</span>
-									<span>SGD {rel.gross_wage_median.toLocaleString()}/mo</span>
-								</div>
-							</a>
+							<OccupationCard
+								occupation={{ title: rel.title, ssoc: rel.ssoc, net_risk: rel.net_risk, risk_band: rel.risk_band, gross_wage_median: rel.gross_wage_median }}
+								mode="inset"
+							/>
 						{/each}
 					</div>
 				</div>

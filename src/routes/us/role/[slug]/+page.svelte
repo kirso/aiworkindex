@@ -42,28 +42,28 @@
 			value: `${(data.scored.exposure * 100).toFixed(0)}%`,
 			barValue: data.scored.exposure,
 			barClass: signalBarClass(data.scored.exposure),
-			note: 'Weighted overlap across component occupations'
+			note: 'Share of tasks AI can handle today'
 		},
 		{
 			label: 'Bottleneck',
 			value: `${(data.scored.bottleneck * 100).toFixed(0)}%`,
 			barValue: data.scored.bottleneck,
 			barClass: signalBarClass(data.scored.bottleneck),
-			note: 'Human coordination and physical presence protection'
+			note: 'Work that requires human presence or coordination'
 		},
 		{
 			label: 'Demand resilience',
 			value: `${(data.scored.demand_resilience * 100).toFixed(0)}%`,
 			barValue: data.scored.demand_resilience,
 			barClass: signalBarClass(data.scored.demand_resilience),
-			note: 'Blended local-market buffer for this role'
+			note: 'How strong local hiring demand is for this role'
 		},
 		{
 			label: 'Confidence',
 			value: `${(data.scored.confidence_score * 100).toFixed(0)}%`,
 			barValue: data.scored.confidence_score,
 			barClass: signalBarClass(data.scored.confidence_score),
-			note: 'Component coverage and mapping quality'
+			note: 'How complete the underlying data is'
 		}
 	]);
 
@@ -110,14 +110,13 @@
 			scoreBandLabel={riskBandLabels[data.scored.risk_band]}
 			title={data.scored.title}
 			pills={[
-				{ label: 'United States role view', tone: 'muted' },
+				{ label: 'United States', tone: 'muted' },
 				{
-					label: `Synthetic blend · ${data.scored.components.length} occupations`,
+					label: `${data.scored.components.length} occupations blended`,
 					tone: 'outline'
-				},
-				{ label: `ISCO ${data.primaryOccupation?.canonicalCode ?? '—'}`, tone: 'neutral' }
+				}
 			]}
-			summary="This page reuses the same role shell as Singapore, but the component occupations are mapped onto the United States layer so the score, context, and support bundle reflect US public evidence."
+			summary="AI displacement pressure score based on US employment data, wages, and demand signals. Built from {data.scored.components.length} related occupations weighted by relevance."
 			meta={[
 				`Median wage: ${
 					data.primaryOccupation?.wage?.median != null
@@ -150,8 +149,7 @@
 					<div class={card({ padding: 'sm' })}>
 						<p class="text-sm font-semibold text-foreground">Workflow profile</p>
 						<p class="mt-1 text-xs text-muted-foreground">
-							Heuristic workflow context blended from the role mix. This explains the score; it is
-							not used as a direct local-market forecast.
+							How this role's daily work breaks down across different dimensions.
 						</p>
 						<div class="mt-3 flex justify-center">
 							<WorkflowRadar dimensions={data.scored.workflow_overlay} size={240} />
@@ -163,13 +161,13 @@
 	</section>
 
 	<section class="mt-8">
-		<p class={sectionLabel()}>United States support</p>
+		<p class={sectionLabel()}>US employment data</p>
 		{#if data.primarySupport}
 			<OccupationSupportBundle support={data.primarySupport} />
 		{:else}
 			<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'moderate' }), 'mt-3')}>
 				<p class="text-sm text-muted-foreground">
-					No mapped US support bundle is available for the primary occupation yet.
+					Detailed US employment data is not yet available for the primary occupation in this role.
 				</p>
 			</div>
 		{/if}
@@ -208,30 +206,15 @@
 	</section>
 
 	<section class="mt-8">
-		<p class={sectionLabel()}>Methodology</p>
-		<div class="mt-3 grid gap-3 lg:grid-cols-2">
-			<div class={card({ padding: 'sm' })}>
-				<p class="text-sm font-semibold text-foreground">Shared spine</p>
-				<p class="mt-1 text-sm text-muted-foreground">
-					structural_pressure = exposure × (1 - bottleneck)
-				</p>
-			</div>
-			<div class={card({ padding: 'sm' })}>
-				<p class="text-sm font-semibold text-foreground">Country layer</p>
-				<p class="mt-1 text-sm text-muted-foreground">
-					headline_risk = structural_pressure × (1 - country_demand_resilience)
-				</p>
-			</div>
-		</div>
-	</section>
-
-	<section class="mt-8">
-		<p class={sectionLabel()}>Published limitations</p>
-		<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'moderate' }), 'mt-3')}>
+		<p class={sectionLabel()}>How this score works</p>
+		<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'primary' }), 'mt-3')}>
 			<p class="text-sm text-muted-foreground">
-				This is a synthetic role view built from mapped occupations. It reuses the same shell and
-				visual components as the Singapore role pages, but only the US sources that actually exist
-				are rendered here.
+				The score measures how much this role's tasks overlap with current AI capabilities,
+				adjusted for human-only requirements and local job market demand. This is a structural
+				pressure estimate, not a prediction of job losses.
+				<a href="/methodology" class="font-medium text-primary hover:underline">
+					Learn how scores work →
+				</a>
 			</p>
 		</div>
 	</section>

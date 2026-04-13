@@ -16,6 +16,7 @@
 	} from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import { vacancySignalClass } from '$lib/data/detail-display';
+	import OccupationCard from '$lib/components/ui/OccupationCard.svelte';
 	import DriverWaterfall from '$lib/components/viz/DriverWaterfall.svelte';
 	import WorkflowRadar from '$lib/components/viz/WorkflowRadar.svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
@@ -687,27 +688,14 @@
 				<div class="grid gap-2 sm:grid-cols-3">
 					{#each scored.components as comp}
 						{#if comp.occupation}
-							<a
-								href="/occupation/{comp.ssoc}"
-								class={cn(
-									card({ padding: 'sm', variant: 'inset' }),
-									'block hover:bg-accent hover:shadow-sm transition-all group'
-								)}
-							>
-								<p class="text-sm font-medium text-foreground truncate">
-									{comp.occupation.title}
-									<span class="opacity-0 group-hover:opacity-100 transition-opacity text-primary"
-										>&#8594;</span
-									>
-								</p>
-								<div class="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
-									<span class="font-mono tabular-nums"
-										>{(comp.weight * 100).toFixed(0)}% weight</span
-									>
-									<span>·</span>
-									<span>{(comp.occupation.net_risk * 100).toFixed(0)}% risk</span>
-								</div>
-							</a>
+							<OccupationCard
+								occupation={{ title: comp.occupation.title, ssoc: comp.ssoc, net_risk: comp.occupation.net_risk, risk_band: comp.occupation.risk_band }}
+								mode="inset"
+								metricParts={[
+									{ label: `${(comp.weight * 100).toFixed(0)}% weight` },
+									{ label: `${(comp.occupation.net_risk * 100).toFixed(0)}% risk` }
+								]}
+							/>
 						{/if}
 					{/each}
 				</div>

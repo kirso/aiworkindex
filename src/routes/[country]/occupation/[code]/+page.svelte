@@ -233,10 +233,9 @@
 			title={data.occupation.localTitle}
 			pills={[
 				{ label: data.country.displayName, tone: 'muted' },
-				{ label: `ISCO ${data.occupation.canonicalCode}`, tone: 'outline' },
-				{ label: data.occupation.mappingMethod ?? 'country layer', tone: 'neutral' }
+				{ label: data.occupation.localCode, tone: 'outline' }
 			]}
-			summary={`${data.country.displayName} tracks this occupation on the shared structural baseline and then layers on local demand resilience, wages, and confidence.`}
+			summary={`AI displacement pressure score for ${data.country.displayName}, combining global AI task overlap with local wages, employment trends, and demand signals.`}
 			meta={[
 				data.occupation.employment?.current != null
 					? `${data.occupation.employment.current.toLocaleString()} current${data.occupation.employment.projected != null ? ` · ${data.occupation.employment.projected.toLocaleString()} projected` : ''}`
@@ -603,10 +602,9 @@
 					</p>
 				</div>
 				<div>
-					<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>Mapping quality</p>
+					<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>Data quality</p>
 					<p>
-						{data.occupation.mappingMethod ?? 'country layer'}
-						{data.occupation.employment?.current != null ? ' · employment series present' : ''}
+						{data.occupation.employment?.current != null ? 'Employment data available' : 'Limited employment data'}
 					</p>
 				</div>
 			</div>
@@ -645,16 +643,13 @@
 
 			<div class="pt-3 border-t border-border">
 				<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>
-					Published limitations
+					Important context
 				</p>
 				<p>
-					This page shows the local country layer, not realised individual job outcomes. The global
-					structural baseline is shared across countries; only the local demand and wage layer
-					changes here.
+					This score measures structural AI displacement pressure, not actual job losses. Local
+					wages and demand data are specific to {data.country.displayName}; the underlying AI task
+					overlap analysis is consistent across all countries.
 				</p>
-				{#if support?.note}
-					<p class="mt-1">{support.note}</p>
-				{/if}
 			</div>
 		</Collapsible.Content>
 	</Collapsible.Root>

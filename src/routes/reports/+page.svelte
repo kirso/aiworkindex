@@ -18,6 +18,7 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
+	import PageFooterNav from '$lib/components/ui/PageFooterNav.svelte';
 
 	const ai = aiInSingapore.metrics;
 	const employer = employerPressure;
@@ -541,4 +542,5 @@
 			</div>
 		</details>
 	{/if}
+	<PageFooterNav />
 </main>

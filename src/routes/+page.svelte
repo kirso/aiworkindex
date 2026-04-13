@@ -5,6 +5,7 @@
 	import DemandPressureMatrix from '$lib/components/viz/DemandPressureMatrix.svelte';
 	import HeroSearch from '$lib/components/ui/HeroSearch.svelte';
 	import FilterPanel from '$lib/components/ui/FilterPanel.svelte';
+	import OccupationCard from '$lib/components/ui/OccupationCard.svelte';
 	import OccupationCardList from '$lib/components/ui/OccupationCardList.svelte';
 	import * as Tabs from '$lib/components/ui/tabs/index.js';
 	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
@@ -436,16 +437,13 @@
 						<a href="/rankings/highest-risk" class="text-xs text-primary hover:underline">All →</a>
 					</div>
 					{#each topHighRisk as occ, i (occ.displayCode)}
-						<a
-							href={occ.linkHref ?? '/global'}
-							class="flex items-center gap-1.5 rounded-sm py-1 text-xs transition-colors hover:bg-accent"
-						>
-							<span class="w-3 font-mono font-bold text-risk-very-high">{i + 1}</span>
-							<span class="flex-1 truncate text-foreground">{shortTitle(occ.title)}</span>
-							<span class="shrink-0 font-mono text-risk-very-high">
-								{(occ.net_risk * 100).toFixed(0)}%
-							</span>
-						</a>
+						<OccupationCard
+							occupation={{ title: shortTitle(occ.title), linkHref: occ.linkHref ?? '/global', net_risk: occ.net_risk, risk_band: occ.risk_band }}
+							mode="compact"
+							index={i + 1}
+							indexColor="text-risk-very-high"
+							rightColor="text-risk-very-high"
+						/>
 					{/each}
 				</div>
 
@@ -457,16 +455,13 @@
 						</a>
 					</div>
 					{#each topSafest as occ, i (occ.displayCode)}
-						<a
-							href={occ.linkHref ?? '/global'}
-							class="flex items-center gap-1.5 rounded-sm py-1 text-xs transition-colors hover:bg-accent"
-						>
-							<span class="w-3 font-mono font-bold text-risk-very-low">{i + 1}</span>
-							<span class="flex-1 truncate text-foreground">{shortTitle(occ.title)}</span>
-							<span class="shrink-0 font-mono text-risk-very-low">
-								{(occ.net_risk * 100).toFixed(0)}%
-							</span>
-						</a>
+						<OccupationCard
+							occupation={{ title: shortTitle(occ.title), linkHref: occ.linkHref ?? '/global', net_risk: occ.net_risk, risk_band: occ.risk_band }}
+							mode="compact"
+							index={i + 1}
+							indexColor="text-risk-very-low"
+							rightColor="text-risk-very-low"
+						/>
 					{/each}
 				</div>
 
@@ -476,16 +471,13 @@
 						<a href="/rankings/ai-leveraged" class="text-xs text-primary hover:underline">All →</a>
 					</div>
 					{#each topAugmented as occ, i (occ.displayCode)}
-						<a
-							href={occ.linkHref ?? '/global'}
-							class="flex items-center gap-1.5 rounded-sm py-1 text-xs transition-colors hover:bg-accent"
-						>
-							<span class="w-3 font-mono font-bold text-impact-leveraged">{i + 1}</span>
-							<span class="flex-1 truncate text-foreground">{shortTitle(occ.title)}</span>
-							<span class="shrink-0 font-mono text-muted-foreground"
-								>{riskBandLabels[occ.risk_band]}</span
-							>
-						</a>
+						<OccupationCard
+							occupation={{ title: shortTitle(occ.title), linkHref: occ.linkHref ?? '/global', net_risk: occ.net_risk, risk_band: occ.risk_band }}
+							mode="compact"
+							index={i + 1}
+							indexColor="text-impact-leveraged"
+							rightLabel={riskBandLabels[occ.risk_band]}
+						/>
 					{/each}
 				</div>
 
@@ -495,14 +487,13 @@
 						<a href={focusCardHref} class="text-xs text-primary hover:underline"> All → </a>
 					</div>
 					{#each topFocus as occ, i (occ.displayCode)}
-						<a
-							href={occ.linkHref ?? '/global'}
-							class="flex items-center gap-1.5 rounded-sm py-1 text-xs transition-colors hover:bg-accent"
-						>
-							<span class="w-3 font-mono font-bold text-risk-very-low">{i + 1}</span>
-							<span class="flex-1 truncate text-foreground">{shortTitle(occ.title)}</span>
-							<span class="shrink-0 font-mono text-muted-foreground">{formatFocusValue(occ)}</span>
-						</a>
+						<OccupationCard
+							occupation={{ title: shortTitle(occ.title), linkHref: occ.linkHref ?? '/global', net_risk: occ.net_risk, risk_band: occ.risk_band }}
+							mode="compact"
+							index={i + 1}
+							indexColor="text-risk-very-low"
+							rightLabel={formatFocusValue(occ)}
+						/>
 					{/each}
 				</div>
 			</div>

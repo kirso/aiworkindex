@@ -6,11 +6,20 @@
 		type ContextItemGridItem
 	} from '$lib/components/ui/ContextItemGrid.svelte';
 	import type {
-		UnitedStatesOccupationSupport,
-		UnitedStatesSupportRequirement
+		UnitedStatesOccupationSupport
 	} from '$lib/data/countries/us/support';
 
 	let { support } = $props<{ support: UnitedStatesOccupationSupport }>();
+
+	/** Deduplicate requirement items: keep only the first occurrence of each label */
+	let dedupedRequirements = $derived.by(() => {
+		const seen = new Set<string>();
+		return support.requirementProfile.filter((item: UnitedStatesOccupationSupport['requirementProfile'][number]) => {
+			if (seen.has(item.label)) return false;
+			seen.add(item.label);
+			return true;
+		});
+	});
 
 	type SupportSignalItem = {
 		label: string;
@@ -51,33 +60,6 @@
 				? `${(value / 1000).toFixed(value >= 10000 ? 0 : 1)}M`
 				: `${currencyFormatter.format(value)}K`;
 
-	function averageTopWorkContextValue(
-		items: UnitedStatesOccupationSupport['topWorkContext']
-	): number {
-		if (items.length === 0) return 0;
-		return items.reduce((sum: number, item) => sum + item.value, 0) / items.length;
-	}
-
-	function countHotTechnologies(items: UnitedStatesOccupationSupport['topTechnologies']): number {
-		return items.filter(
-			(entry: UnitedStatesOccupationSupport['topTechnologies'][number]) => entry.hot
-		).length;
-	}
-
-	function countInDemandTechnologies(
-		items: UnitedStatesOccupationSupport['topTechnologies']
-	): number {
-		return items.filter(
-			(entry: UnitedStatesOccupationSupport['topTechnologies'][number]) => entry.inDemand
-		).length;
-	}
-
-	function topRequirementSummary(items: UnitedStatesSupportRequirement[]): string {
-		return items
-			.slice(0, 3)
-			.map(item => `${item.label}: ${item.value}`)
-			.join(' · ');
-	}
 
 	const demandChangeValue = $derived(
 		support.demandProfile.projectedChangePct == null
@@ -87,14 +69,14 @@
 
 	let supportSignals = $derived<SupportSignalItem[]>([
 		{
-			label: 'Task coverage',
+			label: 'AI task overlap',
 			value: formatPct(support.taskPrimitives.matched_task_weight_share),
 			barValue: support.taskPrimitives.matched_task_weight_share ?? 0,
 			barClass: signalBarClass(support.taskPrimitives.matched_task_weight_share ?? 0),
-			note: 'Weighted task overlap from O*NET statements and Anthropic penetration'
+			note: 'Share of job tasks AI can currently perform'
 		},
 		{
-			label: 'Wage context',
+			label: 'Median wage',
 			value: formatCurrency(support.wageProfile.medianAnnual, 'USD'),
 			barValue:
 				support.wageProfile.medianAnnual != null
@@ -105,7 +87,7 @@
 					? clamp01(support.wageProfile.medianAnnual / 200000)
 					: 0
 			),
-			note: 'Median annual wage from BLS OEWS'
+			note: 'Annual median wage'
 		},
 		{
 			label: 'Demand outlook',
@@ -115,17 +97,17 @@
 					: (support.demandProfile.outlook ?? '—'),
 			barValue: demandChangeValue,
 			barClass: signalBarClass(demandChangeValue),
-			note: 'Employment projections and openings from BLS'
+			note: 'Projected employment change 2024–2034'
 		},
 		{
 			label: 'Preparation',
 			value:
 				support.jobZone != null
-					? `Job Zone ${support.jobZone}`
+					? `Zone ${support.jobZone}/5`
 					: (support.demandProfile.education ?? '—'),
 			barValue: support.jobZone != null ? support.jobZone / 5 : 0,
 			barClass: signalBarClass(support.jobZone != null ? support.jobZone / 5 : 0),
-			note: 'Preparation and entry requirements from O*NET and BLS'
+			note: 'Education and training typically needed'
 		}
 	]);
 
@@ -206,17 +188,17 @@
 </script>
 
 <section class="mt-8">
-	<p class={sectionLabel()}>Evidence bundle</p>
+	<p class={sectionLabel()}>Employment overview</p>
 	<div class="mt-3 space-y-4">
 		<SignalProfileGrid items={supportSignals} columns={4} />
 
 		<div class="flex flex-wrap items-center gap-x-3 gap-y-2 border-t border-border pt-3">
 			<span class="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-				Support sources
+				Data coverage
 			</span>
 			<div
 				class="flex items-center gap-1.5"
-				title={`${supportSourceCount} of ${supportSourceFamilies.length} support inputs present`}
+				title={`${supportSourceCount} of ${supportSourceFamilies.length} data sources available`}
 			>
 				{#each supportSourceFamilies as source}
 					<div
@@ -229,50 +211,26 @@
 				{/each}
 			</div>
 			<span class="text-xs text-muted-foreground">
-				{supportSourceCount}/{supportSourceFamilies.length} source families
+				{supportSourceCount}/{supportSourceFamilies.length} sources available
 			</span>
-			<span class="text-xs text-muted-foreground">Updated from {support.sourceVintage}</span>
+			<span class="text-xs text-muted-foreground">Last updated: {support.sourceVintage}</span>
 		</div>
 
 		<ContextItemGrid title="Support snapshot" items={supportSnapshot} />
 
-		<div class="grid gap-3 lg:grid-cols-2">
-			<div class={card({ padding: 'sm' })}>
-				<p class="text-sm font-semibold text-foreground">Occupation profile</p>
-				<p class="mt-1 text-sm text-muted-foreground">
-					{support.occupationDescription ?? 'No O*NET description published.'}
-				</p>
+		<div class={card({ padding: 'sm' })}>
+			<p class="text-sm font-semibold text-foreground">What this job involves</p>
+			<p class="mt-1 text-sm text-muted-foreground">
+				{support.occupationDescription ?? 'No description available.'}
+			</p>
+			{#if support.jobZoneLabel}
 				<p class="mt-2 text-sm text-muted-foreground">
-					{#if support.jobZoneLabel}
-						Job Zone {support.jobZone} · {support.jobZoneLabel}
-					{:else}
-						No job zone published.
-					{/if}
+					Entry requirements: {support.jobZoneLabel}
 				</p>
-				{#if support.jobZoneSummary}
-					<p class="mt-2 text-sm text-muted-foreground">{support.jobZoneSummary}</p>
-				{/if}
-			</div>
-
-			<div class={card({ padding: 'sm' })}>
-				<p class="text-sm font-semibold text-foreground">Task primitives</p>
-				<p class="mt-1 text-sm text-muted-foreground">
-					{#if support.taskPrimitives.matched_task_weight_share != null}
-						Matched task weight share: {(
-							support.taskPrimitives.matched_task_weight_share * 100
-						).toFixed(0)}% · Effective coverage: {(
-							support.taskPrimitives.task_effective_coverage! * 100
-						).toFixed(0)}%
-					{:else}
-						Task primitive coverage is not published for this occupation.
-					{/if}
-				</p>
-				{#if support.taskPrimitives.task_exposure_concentration != null}
-					<p class="mt-2 text-sm text-muted-foreground">
-						Concentration: {(support.taskPrimitives.task_exposure_concentration * 100).toFixed(0)}%
-					</p>
-				{/if}
-			</div>
+			{/if}
+			{#if support.jobZoneSummary}
+				<p class="mt-1 text-sm text-muted-foreground">{support.jobZoneSummary}</p>
+			{/if}
 		</div>
 
 		<div class="grid gap-3 lg:grid-cols-2">
@@ -348,37 +306,34 @@
 
 		<div class="grid gap-3 lg:grid-cols-2">
 			<div class={card({ padding: 'sm' })}>
-				<p class="text-sm font-semibold text-foreground">Requirements and friction</p>
-				{#if support.requirementProfile.length > 0}
-					<div class="mt-3 flex flex-wrap gap-2">
-						{#each support.requirementProfile as item, index (`${item.label}:${item.value}:${index}`)}
-							<span
-								class={cn(
-									'rounded-full border px-2.5 py-1 text-xs font-medium',
-									item.tone === 'pressure'
-										? 'border-amber-200 bg-amber-50 text-amber-900'
-										: item.tone === 'protective'
-											? 'border-emerald-200 bg-emerald-50 text-emerald-900'
-											: item.tone === 'support'
-												? 'border-sky-200 bg-sky-50 text-sky-900'
-												: 'border-border bg-muted text-foreground'
-								)}
-								title={item.detail ?? item.label}
-							>
-								{item.label}: {item.value}
-							</span>
+				<p class="text-sm font-semibold text-foreground">Entry requirements</p>
+				{#if dedupedRequirements.length > 0}
+					<ul class="mt-3 space-y-1.5 text-sm text-muted-foreground">
+						{#each dedupedRequirements as item, index (`${item.label}:${item.value}:${index}`)}
+							<li class="flex items-center gap-2">
+								<span
+									class={cn(
+										'inline-block h-2 w-2 shrink-0 rounded-full',
+										item.tone === 'pressure'
+											? 'bg-risk-moderate'
+											: item.tone === 'protective'
+												? 'bg-risk-very-low'
+												: item.tone === 'support'
+													? 'bg-primary'
+													: 'bg-muted-foreground/30'
+									)}
+								></span>
+								<span><span class="font-medium text-foreground">{item.label}</span>: {item.value}</span>
+							</li>
 						{/each}
-					</div>
-					<p class="mt-3 text-sm text-muted-foreground">
-						{topRequirementSummary(support.requirementProfile)}
-					</p>
+					</ul>
 				{:else}
-					<p class="mt-1 text-sm text-muted-foreground">No ORS requirement data published.</p>
+					<p class="mt-1 text-sm text-muted-foreground">No requirement data available.</p>
 				{/if}
 			</div>
 
 			<div class={card({ padding: 'sm' })}>
-				<p class="text-sm font-semibold text-foreground">Narrative and skills</p>
+				<p class="text-sm font-semibold text-foreground">Day-to-day work</p>
 				{#if support.skillsProfile.topSkills.length > 0}
 					<div class="mt-3 flex flex-wrap gap-2">
 						{#each support.skillsProfile.topSkills as skill, index (`skill-${index}`)}
@@ -399,37 +354,6 @@
 						<p>{support.narrativeProfile.howToBecomeOne}</p>
 					{/if}
 				</div>
-				{#if support.narrativeProfile.pay || support.narrativeProfile.outlook}
-					<div class="mt-4 grid gap-2 text-sm text-muted-foreground sm:grid-cols-2">
-						<p>{support.narrativeProfile.pay ?? 'Pay narrative not published.'}</p>
-						<p>{support.narrativeProfile.outlook ?? 'Outlook narrative not published.'}</p>
-					</div>
-				{/if}
-				{#if support.narrativeProfile.numberOfJobs || support.narrativeProfile.medianPayAnnual || support.narrativeProfile.outlook || support.narrativeProfile.employmentOpenings}
-					<div class="mt-4 grid gap-2 text-sm text-muted-foreground sm:grid-cols-2">
-						<p>
-							Jobs:
-							{support.narrativeProfile.numberOfJobs
-								? Number(support.narrativeProfile.numberOfJobs).toLocaleString()
-								: '—'}
-						</p>
-						<p>
-							Median pay:
-							{support.narrativeProfile.medianPayAnnual
-								? `USD ${Number(support.narrativeProfile.medianPayAnnual).toLocaleString()}`
-								: support.narrativeProfile.medianPayHourly
-									? `USD ${Number(support.narrativeProfile.medianPayHourly).toLocaleString()}/hr`
-									: '—'}
-						</p>
-						<p>Employment outlook: {support.narrativeProfile.outlook ?? '—'}</p>
-						<p>
-							Openings:
-							{support.narrativeProfile.employmentOpenings
-								? Number(support.narrativeProfile.employmentOpenings).toLocaleString()
-								: '—'}
-						</p>
-					</div>
-				{/if}
 				{#if support.narrativeProfile.similarOccupations.length > 0}
 					<p class="mt-3 text-xs text-muted-foreground">
 						Similar occupations: {support.narrativeProfile.similarOccupations
@@ -442,7 +366,7 @@
 
 		<div class="grid gap-3 lg:grid-cols-2">
 			<div class={card({ padding: 'sm' })}>
-				<p class="text-sm font-semibold text-foreground">Tasks and tools</p>
+				<p class="text-sm font-semibold text-foreground">Key tasks</p>
 				{#if support.topTasks.length > 0}
 					<ul class="mt-2 space-y-2 text-sm text-muted-foreground">
 						{#each support.topTasks as task, index (`task-list-${index}`)}
@@ -451,104 +375,69 @@
 								{task.task}
 								{#if task.penetration != null}
 									<span class="text-xs text-muted-foreground">
-										· AI use {(task.penetration * 100).toFixed(0)}%</span
+										· AI can do {(task.penetration * 100).toFixed(0)}%</span
 									>
 								{/if}
 							</li>
 						{/each}
 					</ul>
 				{:else}
-					<p class="mt-1 text-sm text-muted-foreground">No task context published.</p>
+					<p class="mt-1 text-sm text-muted-foreground">No task data available.</p>
 				{/if}
 				{#if support.topTechnologies.length > 0}
-					<div class="mt-4 flex flex-wrap gap-2">
+					<p class="mt-4 text-xs font-semibold text-foreground">Tools commonly used</p>
+					<div class="mt-2 flex flex-wrap gap-2">
 						{#each support.topTechnologies as technology, index (`tech-list-${index}`)}
 							<span class={cn('rounded-full bg-muted px-2.5 py-1 text-xs text-foreground')}>
 								{technology.name}
-								{#if technology.hot}
-									· hot
-								{/if}
-								{#if technology.inDemand}
+								{#if technology.hot && technology.inDemand}
+									· trending
+								{:else if technology.inDemand}
 									· in demand
 								{/if}
 							</span>
 						{/each}
 					</div>
 				{/if}
-				{#if support.skillsProfile.topSkills.length > 0}
-					<div class="mt-4 flex flex-wrap gap-2">
-						{#each support.skillsProfile.topSkills as skill, index (`skill-list-${index}`)}
-							<span
-								class="rounded-full border border-border/60 px-2.5 py-1 text-xs text-foreground"
-							>
-								{skill}
-							</span>
-						{/each}
-					</div>
-				{/if}
 			</div>
 
 			<div class={card({ padding: 'sm' })}>
-				<p class="text-sm font-semibold text-foreground">Work context</p>
+				<p class="text-sm font-semibold text-foreground">Work environment</p>
 				{#if support.topWorkContext.length > 0}
-					<ul class="mt-2 space-y-2 text-sm text-muted-foreground">
+					<ul class="mt-2 space-y-1.5 text-sm text-muted-foreground">
 						{#each support.topWorkContext as item, index (`work-context-${index}`)}
-							<li>{item.label}: {item.value.toFixed(1)}/5</li>
+							<li class="flex items-center justify-between">
+								<span>{item.label}</span>
+								<span class="font-mono text-xs">{item.value.toFixed(1)}/5</span>
+							</li>
 						{/each}
 					</ul>
-					<div class="mt-3 grid gap-2 sm:grid-cols-2">
-						<div class="rounded-2xl bg-muted/50 p-3">
-							<p class="text-xs uppercase tracking-[0.18em] text-muted-foreground">Tech density</p>
-							<p class="mt-1 text-xl font-semibold text-foreground">
-								{support.topTechnologies.length}/6
-							</p>
-							<p class="mt-1 text-xs text-muted-foreground">
-								{countHotTechnologies(support.topTechnologies)} hot · {countInDemandTechnologies(
-									support.topTechnologies
-								)} in demand
-							</p>
-						</div>
-						<div class="rounded-2xl bg-muted/50 p-3">
-							<p class="text-xs uppercase tracking-[0.18em] text-muted-foreground">Work pace</p>
-							<p class="mt-1 text-xl font-semibold text-foreground">
-								{averageTopWorkContextValue(support.topWorkContext).toFixed(1)}/5
-							</p>
-							<p class="mt-1 text-xs text-muted-foreground">
-								Average of the strongest work-context signals.
-							</p>
-						</div>
-					</div>
 				{:else}
-					<p class="mt-1 text-sm text-muted-foreground">No work-context data published.</p>
+					<p class="mt-1 text-sm text-muted-foreground">No work environment data available.</p>
 				{/if}
-				<p class="mt-4 text-sm font-semibold text-foreground">Worker profile</p>
-				<p class="mt-1 text-sm text-muted-foreground">
+				{#if support.ageProfile.medianAge != null || support.ageProfile.totalEmployment != null}
+					<p class="mt-4 text-sm font-semibold text-foreground">Who does this work</p>
 					{#if support.ageProfile.medianAge != null}
-						Median age: {support.ageProfile.medianAge.toFixed(1)}
-					{:else}
-						No CPS age profile published.
+						<p class="mt-1 text-sm text-muted-foreground">
+							Median age: {support.ageProfile.medianAge.toFixed(1)}
+						</p>
 					{/if}
-				</p>
-				{#if support.ageProfile.totalEmployment != null}
-					<p class="mt-2 text-sm text-muted-foreground">
-						Total employed: {formatEmploymentCount(support.ageProfile.totalEmployment)}
-						· Under 25: {(support.ageProfile.under25Share! * 100).toFixed(0)}% · 25 to 54: {(
-							support.ageProfile.primeAgeShare! * 100
-						).toFixed(0)}% · 55+: {(support.ageProfile.olderShare! * 100).toFixed(0)}%
-					</p>
+					{#if support.ageProfile.totalEmployment != null}
+						<p class="mt-1 text-sm text-muted-foreground">
+							{formatEmploymentCount(support.ageProfile.totalEmployment)} employed
+							· Under 25: {(support.ageProfile.under25Share! * 100).toFixed(0)}%
+							· 25–54: {(support.ageProfile.primeAgeShare! * 100).toFixed(0)}%
+							· 55+: {(support.ageProfile.olderShare! * 100).toFixed(0)}%
+						</p>
+					{/if}
 				{/if}
 			</div>
 		</div>
 
-		<div class="grid gap-3 lg:grid-cols-2">
-			<div class={card({ padding: 'sm' })}>
-				<p class="text-sm font-semibold text-foreground">Support note</p>
-				<p class="mt-1 text-sm text-muted-foreground">{support.note}</p>
-			</div>
-			<div class={card({ padding: 'sm' })}>
-				<p class="text-sm font-semibold text-foreground">Source vintage</p>
-				<p class="mt-1 text-sm text-muted-foreground">{support.sourceVintage}</p>
-			</div>
+		<div class={card({ padding: 'sm' })}>
+			<p class="text-xs text-muted-foreground">
+				Data sources: {support.sourceVintage}
+			</p>
 		</div>
 	</div>
 </section>

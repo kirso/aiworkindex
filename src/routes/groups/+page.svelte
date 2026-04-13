@@ -13,6 +13,7 @@
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import { SITE, DATA_VINTAGE } from '$lib/data/scoring-constants';
+	import PageFooterNav from '$lib/components/ui/PageFooterNav.svelte';
 
 	let { data } = $props();
 	let groups = $derived(data.groups);
@@ -100,4 +101,5 @@
 			{/each}
 		</div>
 	</section>
+	<PageFooterNav />
 </div>

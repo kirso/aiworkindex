@@ -7,6 +7,7 @@
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import { buildItemListJsonLd, buildFaqJsonLd } from '$lib/data/ranking-jsonld';
+	import PageFooterNav from '$lib/components/ui/PageFooterNav.svelte';
 
 	let { data } = $props();
 	const currency = countryConfigs.sg.currency ?? 'SGD';
@@ -91,4 +92,11 @@
 		<a href="/methodology" class="text-primary underline">Learn more</a>
 	</p>
 	<RankingNavPills />
+	<PageFooterNav
+		links={[
+			{ href: '/rankings', label: 'All rankings' },
+			{ href: '/explore', label: 'Browse occupations' },
+			{ href: '/methodology', label: 'Methodology' }
+		]}
+	/>
 </main>

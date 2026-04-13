@@ -7,6 +7,7 @@
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import { buildItemListJsonLd, buildFaqJsonLd } from '$lib/data/ranking-jsonld';
+	import PageFooterNav from '$lib/components/ui/PageFooterNav.svelte';
 
 	let { data } = $props();
 	const currency = countryConfigs.sg.currency ?? 'SGD';
@@ -61,8 +62,8 @@
 </script>
 
 <Seo
-	title="AI Safe Jobs: 25 Highest-Paying Low-Risk Careers"
-	description="Which high-paying jobs are safe from AI? 25 occupations with low displacement risk and above-median wages."
+	title="25 Highest-Paying Jobs With Low AI Pressure"
+	description="Which high-paying occupations have the lowest AI displacement pressure? 25 roles with low structural risk and above-median wages."
 	path="/rankings/safest-high-paying"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
@@ -90,4 +91,11 @@
 		<a href="/methodology" class="text-primary underline">Learn more</a>
 	</p>
 	<RankingNavPills />
+	<PageFooterNav
+		links={[
+			{ href: '/rankings', label: 'All rankings' },
+			{ href: '/explore', label: 'Browse occupations' },
+			{ href: '/methodology', label: 'Methodology' }
+		]}
+	/>
 </main>

@@ -1,4 +1,4 @@
-import type { Occupation } from './index';
+import type { Occupation, RiskBand } from './index';
 import type { BlendedOnetEnrichment, OnetEnrichmentEntry } from './onet-enrichment';
 import type { ArchetypeContent } from './role-archetypes';
 import type { ScoredRole } from './synthetic-roles';
@@ -41,7 +41,7 @@ export interface RelatedOccupation {
 	ssoc: string;
 	title: string;
 	net_risk: number;
-	risk_band: string;
+	risk_band: RiskBand;
 	gross_wage_median: number;
 }
 

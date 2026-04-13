@@ -280,7 +280,7 @@
 				<p class={sectionLabel()}>V7 Two-Axis Structural Score</p>
 				<div class="mt-3 space-y-4">
 					<div class={card({ padding: 'sm' })}>
-						<h3 class="text-sm font-semibold text-red-700">Layer 1: Exposure</h3>
+						<h3 class="text-sm font-semibold text-risk-very-high">Layer 1: Exposure</h3>
 						<p class="mt-1 text-sm text-muted-foreground">
 							How much does this job overlap with current AI capabilities? The live {DATA_VINTAGE.model_version}
 							exposure layer uses a deterministic audited 4-source ensemble.
@@ -748,7 +748,7 @@
 							<tr class="border-b border-border/50">
 								<td class="py-2 pr-3 font-medium">High Displacement</td>
 								<td class="py-2 pr-3"
-									><span class="font-semibold text-red-600">At Risk</span> — AI substitutes, weak bottleneck</td
+									><span class="font-semibold text-risk-very-high">At Risk</span> — AI substitutes, weak bottleneck</td
 								>
 								<td class="py-2"
 									><span class="font-semibold text-impact-mixed">Mixed</span> — conflicting signals, high
@@ -758,7 +758,7 @@
 							<tr>
 								<td class="py-2 pr-3 font-medium">Low Displacement</td>
 								<td class="py-2 pr-3"
-									><span class="font-semibold text-green-600">Stable</span> — AI has limited overlap</td
+									><span class="font-semibold text-risk-very-low">Stable</span> — AI has limited overlap</td
 								>
 								<td class="py-2"
 									><span class="font-semibold text-impact-leveraged">Augmented</span> — AI amplifies,
@@ -1287,14 +1287,14 @@
 									Demand resilience: {dataEntryClerk.demand_resilience?.toFixed(2) ?? 'N/A'}
 								</li>
 								<li>
-									Headline risk: <strong class="text-red-600"
+									Headline risk: <strong class="text-risk-very-high"
 										>{dataEntryClerk.net_risk.toFixed(2)} ({riskBandLabels[
 											dataEntryClerk.risk_band
 										]})</strong
 									>
 								</li>
 								<li>
-									Impact type: <strong class="text-red-600"
+									Impact type: <strong class="text-risk-very-high"
 										>{impactTypeLabels[dataEntryClerk.impact_type]}</strong
 									>
 								</li>
