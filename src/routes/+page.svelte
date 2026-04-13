@@ -9,7 +9,7 @@
 	import OccupationCardList from '$lib/components/ui/OccupationCardList.svelte';
 	import * as Tabs from '$lib/components/ui/tabs/index.js';
 	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
-	import { card, sectionLabel, caption, pill } from '$lib/design-system';
+	import { card, sectionLabel, caption, pill, badge } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import { riskBandLabels, riskBandColors, impactTypeLabels, impactTypeColors } from '$lib/data';
 	import type { RiskBand, ImpactType } from '$lib/data';
@@ -501,10 +501,7 @@
 			<div class="flex flex-wrap items-center gap-2 text-xs">
 				<span class={caption({ weight: 'medium' })}>More:</span>
 				{#each [{ href: '/roles', label: 'Modern Roles' }, { href: '/rankings', label: 'All Rankings' }, { href: '/ai-proof-jobs', label: 'AI-Proof Jobs' }, { href: '/ai-job-loss', label: 'AI Job Loss' }, { href: '/will-ai-take-my-job', label: 'Will AI Take My Job?' }, { href: '/compare', label: 'Compare' }, { href: '/methodology', label: 'Methodology' }] as link}
-					<a
-						href={link.href}
-						class="rounded-md border border-border bg-card px-2.5 py-1 font-medium text-foreground transition-colors hover:bg-accent"
-					>
+					<a href={link.href} class={badge({ variant: 'outline' })}>
 						{link.label}
 					</a>
 				{/each}

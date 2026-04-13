@@ -8,10 +8,10 @@
 		pageLayout,
 		card,
 		sectionLabel,
-		microLabel
+		microLabel,
+		badge
 	} from '$lib/design-system';
 	import { cn } from '$lib/utils';
-	import { Badge } from '$lib/components/ui/badge/index.js';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
 
@@ -58,37 +58,27 @@
 		}
 	];
 
-	const defaultReleaseMeta = {
-		label: 'Report',
-		className: 'bg-impact-leveraged-subtle text-impact-leveraged border-impact-leveraged-border'
-	};
+	type BadgeVariant = 'default' | 'outline' | 'success' | 'warning' | 'danger' | 'info';
 
-	const releaseTypeMeta: Record<string, { label: string; className: string }> = {
-		structural_release: {
-			label: 'Structural',
-			className: 'bg-primary/10 text-primary border-primary/30'
-		},
-		experimental_update: {
-			label: 'Shadow',
-			className: 'bg-risk-moderate-subtle text-risk-moderate border-risk-moderate-border'
-		},
+	const defaultReleaseMeta = { label: 'Report', variant: 'info' as BadgeVariant };
+
+	const releaseTypeMeta: Record<string, { label: string; variant: BadgeVariant }> = {
+		structural_release: { label: 'Structural', variant: 'outline' },
+		experimental_update: { label: 'Shadow', variant: 'warning' },
 		report_refresh: defaultReleaseMeta,
-		official_update: {
-			label: 'Official update',
-			className: 'bg-risk-high-subtle text-risk-high border-risk-high-border'
-		}
+		official_update: { label: 'Official update', variant: 'danger' }
 	};
 
 	const experimentalPositiveStates = ['ready_for_shadow_scoring', 'shadow_published', 'promoted'];
 	const blockers = (experimentalMethodology.blockers ?? []) as ExperimentalBlocker[];
 	const isPromoted = siteStatus.experimental_release.status === 'promoted';
-	const experimentalStatusBadgeClass = experimentalPositiveStates.includes(
+	const experimentalStatusBadgeVariant: BadgeVariant = experimentalPositiveStates.includes(
 		siteStatus.experimental_release.status
 	)
-		? 'bg-impact-leveraged-subtle text-impact-leveraged border-impact-leveraged-border'
+		? 'info'
 		: siteStatus.experimental_release.status === 'blocked'
-			? 'bg-risk-high-subtle text-risk-high border-risk-high-border'
-			: 'bg-risk-moderate-subtle text-risk-moderate border-risk-moderate-border';
+			? 'danger'
+			: 'warning';
 
 	function formatDate(value: string): string {
 		return new Intl.DateTimeFormat('en', {
@@ -108,7 +98,7 @@
 		return 'Date not retained';
 	}
 
-	function getReleaseMeta(type: string): { label: string; className: string } {
+	function getReleaseMeta(type: string): { label: string; variant: BadgeVariant } {
 		return releaseTypeMeta[type] ?? defaultReleaseMeta;
 	}
 </script>
@@ -180,9 +170,9 @@
 					status is auditable instead of implied.
 				</p>
 			</div>
-			<Badge variant="outline" class={experimentalStatusBadgeClass}>
+			<span class={badge({ variant: experimentalStatusBadgeVariant })}>
 				{experimentalStatusLabel(siteStatus.experimental_release.status)}
-			</Badge>
+			</span>
 		</div>
 		{#if blockers.length > 0}
 			<div class="mt-4 grid gap-3 sm:grid-cols-2">
@@ -220,8 +210,8 @@
 					<div>
 						<div class="flex flex-wrap items-center gap-2">
 							<p class="text-base font-semibold text-foreground">{release.label}</p>
-							<Badge variant="outline" class={getReleaseMeta(release.type).className}
-								>{getReleaseMeta(release.type).label}</Badge
+							<span class={badge({ variant: getReleaseMeta(release.type).variant })}
+								>{getReleaseMeta(release.type).label}</span
 							>
 						</div>
 						<p class="mt-1 text-xs text-muted-foreground">

@@ -12,10 +12,10 @@
 		pageLayout,
 		card,
 		sectionLabel,
-		microLabel
+		microLabel,
+		badge
 	} from '$lib/design-system';
 	import { cn } from '$lib/utils';
-	import { Badge } from '$lib/components/ui/badge/index.js';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import PageFooterNav from '$lib/components/ui/PageFooterNav.svelte';
@@ -30,13 +30,6 @@
 		siteStatus.structural_release.version === 'V6' ||
 		siteStatus.structural_release.version === 'V7';
 	const experimentalPositiveStates = ['ready_for_shadow_scoring', 'shadow_published', 'promoted'];
-	const experimentalStatusBadgeClass = experimentalPositiveStates.includes(
-		siteStatus.experimental_release?.status ?? ''
-	)
-		? 'bg-impact-leveraged-subtle text-impact-leveraged border-impact-leveraged-border'
-		: siteStatus.experimental_release?.status === 'blocked'
-			? 'bg-risk-high-subtle text-risk-high border-risk-high-border'
-			: 'bg-risk-moderate-subtle text-risk-moderate border-risk-moderate-border';
 </script>
 
 <Seo
@@ -68,11 +61,7 @@
 				<div>
 					<div class="flex items-center gap-2">
 						<span class="text-base font-semibold text-foreground">V7 Release Note</span>
-						<Badge
-							variant="outline"
-							class="bg-impact-leveraged-subtle text-impact-leveraged border-impact-leveraged-border"
-							>Current</Badge
-						>
+						<span class={badge({ variant: 'info' })}>Current</span>
 					</div>
 					<p class="mt-1 text-sm text-muted-foreground">
 						V7 adds task-concentration-weighted exposure (Hampole et al.) and a demand-persistence
@@ -94,9 +83,7 @@
 				<div>
 					<div class="flex items-center gap-2">
 						<span class="text-base font-semibold text-foreground">V6 Release Note</span>
-						<Badge variant="outline" class="bg-primary/10 text-primary border-primary/30"
-							>Archive</Badge
-						>
+						<span class={badge({ variant: 'outline' })}>Archive</span>
 					</div>
 					<p class="mt-1 text-sm text-muted-foreground">
 						V6 introduced the two-axis structural formula with 4-source exposure ensemble, human
@@ -118,8 +105,13 @@
 				<div>
 					<div class="flex items-center gap-2">
 						<span class="text-base font-semibold text-foreground">V4.3 Shadow Model Note</span>
-						<Badge variant="outline" class={experimentalStatusBadgeClass}
-							>{experimentalStatusLabel(siteStatus.experimental_release?.status)}</Badge
+						<span
+							class={experimentalPositiveStates.includes(siteStatus.experimental_release?.status ?? '')
+								? badge({ variant: 'info' })
+								: siteStatus.experimental_release?.status === 'blocked'
+									? badge({ variant: 'danger' })
+									: badge({ variant: 'warning' })}
+							>{experimentalStatusLabel(siteStatus.experimental_release?.status)}</span
 						>
 					</div>
 					<p class="mt-1 text-sm text-muted-foreground">
@@ -155,9 +147,7 @@
 				<div>
 					<div class="flex items-center gap-2">
 						<span class="text-base font-semibold text-foreground">V5 Roadmap</span>
-						<Badge variant="outline" class="bg-primary/10 text-primary border-primary/30"
-							>{isV6Live ? 'Archive' : 'Next'}</Badge
-						>
+						<span class={badge({ variant: 'outline' })}>{isV6Live ? 'Archive' : 'Next'}</span>
 					</div>
 					<p class="mt-1 text-sm text-muted-foreground">
 						{#if isV6Live}
@@ -197,8 +187,8 @@
 							<span class="text-base font-semibold text-foreground"
 								>{isV6Live ? 'V5 Model Note' : 'V5 Experimental Model'}</span
 							>
-							<Badge variant="outline" class="bg-primary/10 text-primary border-primary/30"
-								>{isV6Live ? 'Archived live note' : 'Experimental'}</Badge
+							<span class={badge({ variant: 'outline' })}
+								>{isV6Live ? 'Archived live note' : 'Experimental'}</span
 							>
 						</div>
 						<p class="mt-1 text-sm text-muted-foreground">
@@ -241,10 +231,7 @@
 				<div>
 					<div class="flex items-center gap-2">
 						<span class="text-base font-semibold text-foreground">Wage Exposure Analysis</span>
-						<Badge
-							variant="outline"
-							class="bg-risk-high-subtle text-risk-high border-risk-high-border">Report</Badge
-						>
+						<span class={badge({ variant: 'danger' })}>Report</span>
 					</div>
 					<p class="mt-1 text-sm text-muted-foreground">
 						Annual wage-pool analysis for occupations under high structural AI pressure. Breakdown
@@ -304,11 +291,7 @@
 				<div>
 					<div class="flex items-center gap-2">
 						<span class="text-base font-semibold text-foreground">Changelog</span>
-						<Badge
-							variant="outline"
-							class="bg-impact-leveraged-subtle text-impact-leveraged border-impact-leveraged-border"
-							>Ledger</Badge
-						>
+						<span class={badge({ variant: 'info' })}>Ledger</span>
 					</div>
 					<p class="mt-1 text-sm text-muted-foreground">
 						Canonical release ledger for structural releases, shadow-model notes, report refreshes,
@@ -333,8 +316,7 @@
 		<div class={card({ padding: 'lg' })}>
 			<div class="flex items-center gap-2">
 				<span class="text-base font-semibold text-foreground">Latest release activity</span>
-				<Badge variant="outline" class="bg-primary/10 text-primary border-primary/30">Current</Badge
-				>
+				<span class={badge({ variant: 'outline' })}>Current</span>
 			</div>
 			<div class="mt-3 space-y-3">
 				{#each releases.slice(0, 3) as release (release.id)}
