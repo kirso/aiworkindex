@@ -18,6 +18,7 @@ interface Occupation {
 	title: string;
 	major_group: string;
 	gross_wage_median: number;
+	currency?: string;
 	net_risk: number;
 	risk_band: string;
 	impact_type: string;
@@ -92,7 +93,8 @@ function buildMarkup(occ: Occupation) {
 	const riskLabel = RISK_LABELS[occ.risk_band] ?? occ.risk_band;
 	const impactLabel = IMPACT_LABELS[occ.impact_type] ?? occ.impact_type;
 	const riskPct = Math.round(occ.net_risk * 100);
-	const wage = `SGD ${occ.gross_wage_median.toLocaleString()}/mo`;
+	const wageCurrency = occ.currency ?? 'SGD';
+	const wage = `${wageCurrency} ${occ.gross_wage_median.toLocaleString()}/mo`;
 	const title = occ.title.length > 45 ? occ.title.substring(0, 42) + '...' : occ.title;
 	const range = occ.stability
 		? `${Math.round(occ.stability.optimistic_risk * 100)}–${Math.round(occ.stability.pessimistic_risk * 100)}%`
@@ -184,6 +186,143 @@ function buildMarkup(occ: Occupation) {
 				h('div', {}, `Human moat ${bottleneckPct}%`),
 				hasDemand ? h('div', { style: { color: DS.positive } }, 'In demand') : null,
 				range ? h('div', { style: { color: DS.ghost } }, `${range}`) : null
+			),
+			h('div', { style: { fontSize: '18px', color: DS.url } }, 'www.aiworkindex.com')
+		)
+	);
+}
+
+// --- US occupation OG markup ---
+interface UsOccupation {
+	localCode: string;
+	localTitle: string;
+	headlineRisk: number;
+	headlineBand: string;
+	structuralPressure: number;
+	wage: { median: number | null; currency: string };
+	employment: {
+		current: number | null;
+		projected: number | null;
+		projectedChangePct: number | null;
+	};
+	confidence: { level: string };
+}
+
+function buildUsMarkup(occ: UsOccupation) {
+	const riskColor = RISK_COLORS[occ.headlineBand] ?? '#6b7280';
+	const riskLabel = RISK_LABELS[occ.headlineBand] ?? occ.headlineBand;
+	const riskPct = Math.round(occ.headlineRisk * 100);
+	const title =
+		occ.localTitle.length > 45 ? occ.localTitle.substring(0, 42) + '...' : occ.localTitle;
+	const wagePart =
+		occ.wage.median != null
+			? `${occ.wage.currency} ${occ.wage.median.toLocaleString()}/yr`
+			: null;
+	const pressurePct = Math.round(occ.structuralPressure * 100);
+	const projectionLabel =
+		occ.employment.projectedChangePct != null
+			? `${occ.employment.projectedChangePct > 0 ? '+' : ''}${occ.employment.projectedChangePct.toFixed(1)}% projected`
+			: null;
+
+	return h(
+		'div',
+		{
+			style: {
+				width: '1200px',
+				height: '630px',
+				display: 'flex',
+				flexDirection: 'column',
+				justifyContent: 'space-between',
+				padding: '60px',
+				background: `linear-gradient(135deg, ${DS.primaryBg} 0%, ${DS.primaryBgLight} 100%)`,
+				color: 'white',
+				fontFamily: 'Inter'
+			}
+		},
+		// Top row: branding + confidence
+		h(
+			'div',
+			{
+				style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center' }
+			},
+			h(
+				'div',
+				{ style: { fontSize: '22px', color: DS.primaryLight, letterSpacing: '0.1em' } },
+				'AI WORK INDEX'
+			),
+			h(
+				'div',
+				{ style: { display: 'flex', gap: '16px', alignItems: 'center' } },
+				h(
+					'div',
+					{
+						style: {
+							fontSize: '16px',
+							color: DS.primaryLight,
+							background: DS.primaryBg,
+							borderRadius: '8px',
+							padding: '6px 16px'
+						}
+					},
+					'United States'
+				),
+				h(
+					'div',
+					{ style: { fontSize: '18px', color: DS.ghost } },
+					`Confidence: ${occ.confidence.level.charAt(0).toUpperCase() + occ.confidence.level.slice(1)}`
+				)
+			)
+		),
+		// Middle: title + risk badge
+		h(
+			'div',
+			{ style: { display: 'flex', flexDirection: 'column', gap: '24px' } },
+			h(
+				'div',
+				{
+					style: { fontSize: '52px', fontWeight: 700, lineHeight: 1.1, maxWidth: '900px' }
+				},
+				title
+			),
+			h(
+				'div',
+				{ style: { display: 'flex', alignItems: 'center', gap: '20px' } },
+				h(
+					'div',
+					{
+						style: {
+							background: riskColor,
+							borderRadius: '12px',
+							padding: '10px 24px',
+							fontSize: '24px',
+							fontWeight: 700
+						}
+					},
+					`${riskLabel} Risk`
+				),
+				h(
+					'div',
+					{
+						style: { fontSize: '40px', fontWeight: 700, color: riskColor }
+					},
+					`${riskPct}%`
+				)
+			)
+		),
+		// Bottom: details + URL
+		h(
+			'div',
+			{
+				style: { display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }
+			},
+			h(
+				'div',
+				{ style: { display: 'flex', gap: '20px', fontSize: '18px', color: DS.primaryLight } },
+				wagePart ? h('div', {}, wagePart) : null,
+				h('div', {}, `Structural pressure ${pressurePct}%`),
+				projectionLabel
+					? h('div', { style: { color: DS.positive } }, projectionLabel)
+					: null
 			),
 			h('div', { style: { fontSize: '18px', color: DS.url } }, 'www.aiworkindex.com')
 		)
@@ -347,7 +486,73 @@ async function main() {
 		}
 	}
 
-	console.log(`\nOccupations: ${generated} images, ${errors} errors`);
+	console.log(`\nSG Occupations: ${generated} images, ${errors} errors`);
+
+	// Generate US occupation OG images
+	const US_DATA_FILE = path.join(import.meta.dir, '..', 'data', 'countries', 'us', 'occupations.json');
+	const US_OUT_DIR = path.join(OUT_DIR, 'us');
+	try {
+		const usOccupations: UsOccupation[] = JSON.parse(fs.readFileSync(US_DATA_FILE, 'utf-8')).map(
+			(rec: any) => ({
+				localCode: rec.localCode,
+				localTitle: rec.localTitle,
+				headlineRisk: rec.headlineRisk,
+				headlineBand: rec.headlineBand,
+				structuralPressure: rec.structuralPressure,
+				wage: rec.wage ?? { median: null, currency: 'USD' },
+				employment: rec.employment ?? { current: null, projected: null, projectedChangePct: null },
+				confidence: rec.confidence ?? { level: 'low' }
+			})
+		);
+		console.log(`\nLoaded ${usOccupations.length} US occupations`);
+
+		fs.mkdirSync(US_OUT_DIR, { recursive: true });
+
+		let usGenerated = 0;
+		let usErrors = 0;
+
+		for (const occ of usOccupations) {
+			try {
+				const markup = buildUsMarkup(occ);
+
+				const svg = await satori(markup as any, {
+					width: 1200,
+					height: 630,
+					fonts: [
+						{
+							name: 'Inter',
+							data: fontData,
+							weight: 500,
+							style: 'normal' as const
+						}
+					]
+				});
+
+				const resvg = new Resvg(svg, {
+					fitTo: { mode: 'width' as const, value: 1200 }
+				});
+				const pngData = resvg.render();
+				const pngBuffer = pngData.asPng();
+
+				fs.writeFileSync(path.join(US_OUT_DIR, `${occ.localCode}.png`), pngBuffer);
+				usGenerated++;
+
+				if (usGenerated % 100 === 0) {
+					console.log(`  Generated ${usGenerated}/${usOccupations.length} US...`);
+				}
+			} catch (err: any) {
+				if (usErrors < 3)
+					console.log(`  Error for US ${occ.localCode} (${occ.localTitle}): ${err.message}`);
+				usErrors++;
+			}
+		}
+
+		console.log(`US Occupations: ${usGenerated} images, ${usErrors} errors`);
+		generated += usGenerated;
+		errors += usErrors;
+	} catch (err: any) {
+		console.log(`Could not generate US OG images: ${err.message}`);
+	}
 
 	// Generate synthetic role OG images
 	try {
@@ -470,10 +675,14 @@ async function main() {
 		errors++;
 	}
 
-	const totalSize = fs
-		.readdirSync(OUT_DIR)
-		.filter(f => f.endsWith('.png'))
-		.reduce((sum, f) => sum + fs.statSync(path.join(OUT_DIR, f)).size, 0);
+	function dirPngSize(dir: string): number {
+		if (!fs.existsSync(dir)) return 0;
+		return fs
+			.readdirSync(dir)
+			.filter(f => f.endsWith('.png'))
+			.reduce((sum, f) => sum + fs.statSync(path.join(dir, f)).size, 0);
+	}
+	const totalSize = dirPngSize(OUT_DIR) + dirPngSize(US_OUT_DIR);
 
 	console.log(`\nDone: ${generated} images generated, ${errors} errors`);
 	console.log(`Total size: ${(totalSize / 1024 / 1024).toFixed(1)}MB`);

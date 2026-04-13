@@ -30,12 +30,6 @@
 	import { SITE, DATA_VINTAGE, getRiskBand } from '$lib/data/scoring-constants';
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import {
-		computeOutlook,
-		scenarioPresets,
-		seniorityAdjustments,
-		type SeniorityLevel
-	} from '$lib/data/forecast-engine';
-	import {
 		WATCHLIST_KEY,
 		hasWatchlistEntry,
 		parseStoredWatchlist,
@@ -118,24 +112,6 @@
 	let marketDetailBullets = $derived(
 		buildMarketDetailBullets(occ.labour_monitor, postings, employerPressure)
 	);
-	let selectedSeniority = $state<SeniorityLevel>('mid');
-	let _baseOutlook = $derived.by(() =>
-		computeOutlook(occ, { ...scenarioPresets.base.params, seniority: selectedSeniority })
-	);
-
-	const _seniorityLevels: SeniorityLevel[] = ['junior', 'mid', 'senior'];
-	const _seniorityTabLabels: Record<SeniorityLevel, string> = {
-		junior: 'Junior',
-		mid: 'Mid',
-		senior: 'Senior'
-	};
-	const _outlookDimensions = [
-		{ key: 'displacement_pressure', label: 'Displacement' },
-		{ key: 'augmentation_upside', label: 'Augmentation' },
-		{ key: 'demand_outlook', label: 'Demand' },
-		{ key: 'wage_pressure', label: 'Wage pressure' }
-	] as const;
-
 	// Demand signal helpers
 	let hasDemand = $derived(occ.evidence.sol_match || occ.evidence.jobs_in_demand_match);
 	let demandLabel = $derived.by(() => {
@@ -281,11 +257,6 @@
 		return `${formatPercent(decision.transitionAdjustedRisk)} transition-adjusted pressure after current buffers. ${realizedSentence}`;
 	});
 
-	let _seniorityOutlookNote = $derived.by(() =>
-		selectedSeniority === 'mid'
-			? 'Mid-career is the neutral baseline for the base-case outlook.'
-			: `${seniorityAdjustments[selectedSeniority].label} modifier applied to the base-case outlook.`
-	);
 
 
 	async function shareCurrentPage() {
@@ -1036,7 +1007,7 @@
 				</div>
 				<div>
 					<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>
-						Sensitivity band
+						Score range (best/worst case)
 					</p>
 					<p>Exposure {exposureUncertainty} · Net risk {netRiskUncertainty}</p>
 				</div>
@@ -1065,7 +1036,7 @@
 				>
 				<div class="mt-3 grid gap-3 sm:grid-cols-2">
 					<div>
-						<p class={cn(caption({ weight: 'medium' }), 'mb-1 text-foreground')}>Crosswalk</p>
+						<p class={cn(caption({ weight: 'medium' }), 'mb-1 text-foreground')}>Data matching</p>
 						<p>{occ.match_quality} · SSOC {occ.ssoc}</p>
 						{#if occ.evidence.sol_match}<p class="text-risk-very-low">
 								SOL 2026: {occ.evidence.sol_match} match
@@ -1074,27 +1045,27 @@
 								Jobs in Demand: {occ.evidence.jobs_in_demand_match} match
 							</p>{/if}
 						{#if occ.evidence.anthropic_calibrated}<p>
-								Anthropic: {occ.evidence.anthropic_gap !== null
+								Real-world AI usage: {occ.evidence.anthropic_gap !== null
 									? (occ.evidence.anthropic_gap > 0 ? '+' : '') +
 										Math.round(occ.evidence.anthropic_gap * 100) +
-										'pp vs theory'
-									: 'calibrated'}
+										'% vs estimated'
+									: 'verified'}
 							</p>{/if}
 					</div>
 					<div>
 						<p class={cn(caption({ weight: 'medium' }), 'mb-1 text-foreground')}>
-							Evidence quality
+							Data quality
 						</p>
 						<p>
-							{(occ.confidence.score * 100).toFixed(0)}% · Crosswalk {occ.confidence.crosswalk_quality.toFixed(
+							{(occ.confidence.score * 100).toFixed(0)}% · Matching {occ.confidence.crosswalk_quality.toFixed(
 								2
-							)} · Market {occ.confidence.market_data_granularity.toFixed(2)} · Fresh {occ.confidence.source_freshness.toFixed(
+							)} · Market data {occ.confidence.market_data_granularity.toFixed(2)} · Freshness {occ.confidence.source_freshness.toFixed(
 								2
 							)}
 						</p>
 						{#if confidenceDetail}
 							<p class="mt-1">
-								Threshold {occ.confidence.threshold_level ?? occ.confidence.level} · Published {occ
+								Capped at {occ.confidence.threshold_level ?? occ.confidence.level} · Final rating: {occ
 									.confidence.level} · {confidenceDetail}
 							</p>
 						{/if}

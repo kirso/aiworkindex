@@ -11,7 +11,10 @@
 	import PageFooterNav from '$lib/components/ui/PageFooterNav.svelte';
 	import { riskBandLabels } from '$lib/data';
 	import { SITE, DATA_VINTAGE } from '$lib/data/scoring-constants';
-	import { buildUnitedStatesOccupationAlternates } from '$lib/data/occupation-alternates';
+	import {
+		buildUnitedStatesOccupationAlternates,
+		findSingaporeEquivalent
+	} from '$lib/data/occupation-alternates';
 	import { getUnitedStatesRolesForCanonicalCode } from '$lib/data/countries/us/roles';
 	import {
 		pageLayout,
@@ -38,6 +41,8 @@
 				)
 			: []
 	);
+	const sgEquivalent = $derived(findSingaporeEquivalent(data.occupation.canonicalCode));
+	const canonical = $derived(sgEquivalent ? `/occupation/${sgEquivalent}` : undefined);
 	const relatedRoles = $derived.by(() => {
 		if (data.country.code !== 'us') return [];
 		if (!data.occupation.canonicalCode) return [];
@@ -288,7 +293,9 @@
 	title={`${data.occupation.localTitle} — ${data.country.displayName}`}
 	description={`${data.occupation.localTitle} in ${data.country.name}: structural pressure ${(data.occupation.structuralPressure * 100).toFixed(1)}%, headline risk ${(data.occupation.headlineRisk * 100).toFixed(1)}%, confidence ${data.occupation.confidenceLevel}.`}
 	path={occPath}
+	ogImage={`/og/${data.country.code}/${data.occupation.localCode}.png`}
 	{alternates}
+	{canonical}
 	jsonLd={[occJsonLd, breadcrumbJsonLd]}
 />
 

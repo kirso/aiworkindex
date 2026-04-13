@@ -34,6 +34,7 @@
 	const alternates = $derived(buildGlobalOccupationAlternates(data.occupation.canonicalCode));
 	const sgEquivalent = $derived(findSingaporeEquivalent(data.occupation.canonicalCode));
 	const usEquivalent = $derived(findUnitedStatesEquivalent(data.occupation.canonicalCode));
+	const canonical = $derived(sgEquivalent ? `/occupation/${sgEquivalent}` : undefined);
 
 	const clamp01 = (v: number) => Math.max(0, Math.min(1, v));
 	const pressureBarClass = (v: number) =>
@@ -127,6 +128,7 @@
 	description={`${data.occupation.canonicalTitle}: structural pressure ${(data.occupation.structuralPressure * 100).toFixed(1)}%, exposure ${(data.occupation.exposure * 100).toFixed(1)}%, bottleneck ${(data.occupation.bottleneck * 100).toFixed(1)}%, confidence ${data.occupation.confidenceLevel}.`}
 	path={`/global/occupation/${data.occupation.canonicalCode}`.replace('//', '/')}
 	{alternates}
+	{canonical}
 />
 
 <div class={pageLayout({ width: 'content' })}>

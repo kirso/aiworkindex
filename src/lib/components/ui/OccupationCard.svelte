@@ -20,6 +20,7 @@
 		linkHref?: string | null;
 		gross_wage_median?: number;
 		currency?: string | null;
+		wagePeriod?: 'monthly' | 'annual' | null;
 		valueKind?: 'wage' | 'count';
 		risk_band?: RiskBand;
 		net_risk?: number;
@@ -114,7 +115,7 @@
 				{#if occupation.valueKind === 'count'}
 					{formatCompactCount(occupation.gross_wage_median ?? 0)} mapped occupations
 				{:else if occupation.gross_wage_median}
-					Median: {occupation.currency ?? 'SGD'} {occupation.gross_wage_median?.toLocaleString()}
+					Median: {occupation.currency ?? 'SGD'} {occupation.gross_wage_median?.toLocaleString()}{occupation.wagePeriod === 'annual' ? '/yr' : '/mo'}
 				{:else if occupation.ssoc}
 					{occupation.ssoc}
 				{/if}

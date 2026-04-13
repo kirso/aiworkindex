@@ -10,6 +10,7 @@
 		jsonLd?: string[];
 		noindex?: boolean;
 		alternates?: Array<{ hreflang: string; href: string }>;
+		canonical?: string;
 	}
 
 	let {
@@ -20,16 +21,19 @@
 		type = 'website',
 		jsonLd = [],
 		noindex = false,
-		alternates = []
+		alternates = [],
+		canonical
 	}: Props = $props();
 
 	let fullTitle = $derived(title.includes(SITE.name) ? title : `${title} | ${SITE.name}`);
 	let fullUrl = $derived(`${SITE.url}${path}`);
 	let fullOgImage = $derived(`${SITE.url}${ogImage ?? '/og/default.png'}`);
+	let canonicalUrl = $derived(canonical ? `${SITE.url}${canonical}` : fullUrl);
 </script>
 
 <svelte:head>
 	<title>{fullTitle}</title>
+	<link rel="canonical" href={canonicalUrl} />
 	<meta name="description" content={description} />
 	<meta property="og:title" content={fullTitle} />
 	<meta property="og:description" content={description} />
