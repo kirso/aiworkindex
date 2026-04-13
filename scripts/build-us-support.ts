@@ -604,6 +604,33 @@ function parseOohProfiles(): Map<string, SupportNarrativeProfile> {
 	return profiles;
 }
 
+function extractRequirementLabel(estimateText: string, category: string): string {
+	const lower = estimateText.toLowerCase();
+	if (lower.includes('telework')) return 'Can telework';
+	if (lower.includes('license or certification')) return 'License required';
+	if (lower.includes('apprenticeship')) return 'Apprenticeship';
+	if (lower.includes('educational certificate')) return 'Certificate';
+	if (lower.includes('professional degree')) return 'Professional degree';
+	if (lower.includes('masters degree')) return "Master's degree";
+	if (lower.includes('bachelors degree')) return "Bachelor's degree";
+	if (lower.includes('associates degree')) return "Associate's degree";
+	if (lower.includes('high school diploma')) return 'High school diploma';
+	if (lower.includes('no minimum education')) return 'No education requirement';
+	if (lower.includes('sitting')) return 'Sitting';
+	if (lower.includes('standing')) return 'Standing';
+	if (lower.includes('lifting')) return 'Lifting/carrying';
+	if (lower.includes('outdoors')) return 'Outdoors';
+	if (lower.includes('noise')) return 'Noise exposure';
+	if (lower.includes('driving')) return 'Driving';
+	if (lower.includes('crowds')) return 'Crowds';
+	if (lower.includes('people skills')) return 'People skills';
+	if (lower.includes('verbal')) return 'Verbal interaction';
+	if (lower.includes('work pace')) return 'Work pace';
+	if (lower.includes('control of workload')) return 'Workload control';
+	if (lower.includes('work review')) return 'Work reviewed';
+	return category;
+}
+
 function parseOrsRequirementProfiles(): Map<
 	string,
 	Array<{ occupation: string; items: SupportRequirement[] }>
@@ -663,6 +690,16 @@ function parseOrsRequirementProfiles(): Map<
 		if (!code || !category || !estimateText) continue;
 		const normalized = `${category} ${requirement}`.toLowerCase();
 		if (!priority.some(token => normalized.includes(token))) continue;
+
+		// Skip "did not" rows — ORS gives both sides of every binary (e.g., "had ability to telework" and "did not have")
+		const estimateLower = estimateText.toLowerCase();
+		if (estimateLower.includes('did not') || estimateLower.includes('not require') || estimateLower.includes('not need')) continue;
+
+		// Skip trivially small values (<5%) that add noise — except telework which is meaningful at any level
+		const cleanedEstimate = estimateRaw.replace(/^[<>]/, '');
+		const numericEstimate = parseFloat(cleanedEstimate);
+		if (!isNaN(numericEstimate) && numericEstimate < 5 && !normalized.includes('telework')) continue;
+
 		const buckets = profiles.get(code) ?? [];
 		let bucket = buckets.find(entry => entry.occupation === occupation);
 		if (!bucket) {
@@ -670,8 +707,10 @@ function parseOrsRequirementProfiles(): Map<
 			buckets.push(bucket);
 			profiles.set(code, buckets);
 		}
-		const label = category;
-		if (bucket.items.some(entry => entry.label === label && entry.value === estimateText)) continue;
+		// Extract meaningful label from estimate text (e.g., "ability to telework", "required a license")
+		const label = extractRequirementLabel(estimateText, category);
+		// Keep only the first occurrence of each specific label
+		if (bucket.items.some(entry => entry.label === label)) continue;
 		bucket.items.push({
 			label,
 			value: estimateRaw ? `${estimateRaw}${estimateRaw.endsWith('%') ? '' : '%'}` : estimateText,
