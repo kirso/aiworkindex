@@ -7,7 +7,7 @@
 	import { trackEvent } from '$lib/analytics';
 	import type { SyntheticRole } from '$lib/data/synthetic-roles';
 	import { searchOccupationsAndRoles } from '$lib/utils/search';
-	import { riskBadge, card } from '$lib/design-system';
+	import { riskBadge, card, sectionLabel } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import { Input } from '$lib/components/ui/input/index.js';
 	import { formatCompactCount } from '$lib/data/home-surface';
@@ -149,7 +149,7 @@
 				<!-- Estimated Modern Roles group -->
 				{#if grouped.roles.length > 0}
 					<div class="border-b border-border/50 px-4 py-1.5">
-						<span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+						<span class={sectionLabel({ case: 'upper' })}
 							>Estimated Modern Roles</span
 						>
 					</div>
@@ -186,7 +186,7 @@
 							? 'border-t'
 							: ''}"
 					>
-						<span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+						<span class={sectionLabel({ case: 'upper' })}
 							>Selected Occupations</span
 						>
 					</div>

@@ -542,8 +542,8 @@
 			</a>
 		</div>
 		{#if occ.evidence.signal_conflict && occ.evidence.signal_conflict_reasons?.some( r => r.includes('demand') )}
-			<div class="mt-3 max-w-3xl rounded-md border border-amber-500/30 bg-amber-500/5 px-3 py-2">
-				<p class={cn(caption({ weight: 'medium' }), 'text-amber-700 dark:text-amber-400')}>
+			<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'moderate' }), 'mt-3 max-w-3xl')}>
+				<p class={cn(caption({ weight: 'medium' }), 'text-risk-moderate')}>
 					Mixed signal: This occupation scores {riskBandLabels[occ.risk_band].toLowerCase()} structural
 					risk but is currently
 					{#if occ.evidence.sol_match === 'exact' && occ.evidence.jobs_in_demand_match === 'exact'}
