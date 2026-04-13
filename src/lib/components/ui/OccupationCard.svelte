@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { riskBandLabels } from '$lib/data';
-	import { riskBadge, card, body, caption } from '$lib/design-system';
+	import { riskBadge, card, body, caption, mono } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import { formatCompactCount } from '$lib/data/home-surface';
 
@@ -125,7 +125,7 @@
 			<span class={riskBadge({ band: occupation.risk_band ?? 'moderate' })}>
 				{riskBandLabels[occupation.risk_band ?? 'moderate']}
 			</span>
-			<span class="text-xs font-mono tabular-nums text-muted-foreground">
+			<span class={cn(mono({ size: 'sm' }), 'text-muted-foreground')}>
 				Risk: {((occupation.net_risk ?? 0) * 100).toFixed(0)}%
 			</span>
 		</div>

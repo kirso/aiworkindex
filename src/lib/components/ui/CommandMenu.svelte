@@ -6,7 +6,7 @@
 	import { riskBandLabels } from '$lib/data';
 	import { countryConfigs } from '$lib/data/country-config';
 	import { searchOccupationsAndRoles } from '$lib/utils/search';
-	import { riskBadge } from '$lib/design-system';
+	import { riskBadge, mono } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import { getHomeSurface, resolveHomeSurfaceCode } from '$lib/data/home-surface';
 	import type { Occupation } from '$lib/data';
@@ -327,7 +327,7 @@
 						<div class="flex w-full items-center justify-between">
 							<div class="min-w-0 flex-1">
 								<span class="truncate">{occ.title}</span>
-								<span class="ml-2 text-xs font-mono tabular-nums text-muted-foreground">
+								<span class={cn(mono({ size: 'sm' }), 'ml-2 text-muted-foreground')}>
 									{#if activeSurfaceCode === 'global' && occ.canonicalCode}
 										ISCO {occ.canonicalCode}
 									{:else if activeSurfaceCode === 'us' && occ.localCode}

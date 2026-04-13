@@ -1082,12 +1082,13 @@
 					{#if occ.evidence?.exposure_source_pctiles}
 						<div class="sm:col-span-2">
 							<p class={cn(caption({ weight: 'medium' }), 'mb-1 text-foreground')}>
-								Exposure by source
+								AI overlap by data source
 							</p>
 							<div class="flex flex-wrap gap-3 mt-1">
 								{#each Object.entries(occ.evidence.exposure_source_pctiles) as [source, pctile]}
+									{@const sourceLabels = { aioe: 'AIOE', anthropic: 'Anthropic', eloundou: 'GPT', ilo: 'ILO' } as Record<string, string>}
 									<div class="flex items-center gap-2">
-										<span class={cn(microLabel(), 'w-16')}>{source}</span>
+									<span class={cn(microLabel(), 'w-16')}>{sourceLabels[source] ?? source}</span>
 										<div class="h-2 w-24 rounded-full bg-muted overflow-hidden">
 											<div
 												class="h-full rounded-full bg-foreground/60"
@@ -1110,7 +1111,7 @@
 					{#if occ.evidence?.signal_conflict_reasons?.length}
 						<div class="sm:col-span-2">
 							<p class={cn(caption({ weight: 'medium' }), 'mb-1 text-foreground')}>
-								Signal conflicts
+								Conflicting data signals
 							</p>
 							<div class="flex flex-wrap gap-1.5">
 								{#each occ.evidence.signal_conflict_reasons as reason}
