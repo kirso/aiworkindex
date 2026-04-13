@@ -8,7 +8,9 @@
 	} from '$lib/components/viz/SignalProfileGrid.svelte';
 	import * as Collapsible from '$lib/components/ui/collapsible/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
+	import PageFooterNav from '$lib/components/ui/PageFooterNav.svelte';
 	import { riskBandLabels } from '$lib/data';
+	import { SITE, DATA_VINTAGE } from '$lib/data/scoring-constants';
 	import { buildUnitedStatesOccupationAlternates } from '$lib/data/occupation-alternates';
 	import { getUnitedStatesRolesForCanonicalCode } from '$lib/data/countries/us/roles';
 	import {
@@ -205,13 +207,89 @@
 			toast('Link copied', { description: data.occupation.localTitle });
 		} catch {}
 	}
+
+	const occPath = $derived(
+		`${data.country.routePrefix}/occupation/${data.occupation.localCode}`.replace('//', '/')
+	);
+
+	let occJsonLd = $derived(
+		`<script type="application/ld+json">${JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'Occupation',
+			name: data.occupation.localTitle,
+			description: `AI displacement pressure score for ${data.occupation.localTitle} in ${data.country.displayName}. Headline risk: ${(data.occupation.headlineRisk * 100).toFixed(1)}%.`,
+			dateModified: DATA_VINTAGE.last_updated,
+			identifier: {
+				'@type': 'PropertyValue',
+				name: 'Local occupation code',
+				value: data.occupation.localCode
+			},
+			occupationalCategory: data.occupation.canonicalCode ?? data.occupation.localCode,
+			...(data.occupation.wage != null
+				? {
+						estimatedSalary: {
+							'@type': 'MonetaryAmountDistribution',
+							name: 'Annual Wage',
+							currency: data.occupation.currency,
+							median: data.occupation.wage
+						}
+					}
+				: {}),
+			occupationLocation: { '@type': 'Country', name: data.country.name },
+			additionalProperty: [
+				{
+					'@type': 'PropertyValue',
+					name: 'AI Headline Risk',
+					value: data.occupation.headlineRisk
+				},
+				{
+					'@type': 'PropertyValue',
+					name: 'Risk Band',
+					value: riskBandLabels[data.occupation.riskBand]
+				},
+				{
+					'@type': 'PropertyValue',
+					name: 'Evidence Quality',
+					value: data.occupation.confidenceLevel
+				}
+			]
+		})}<\/script>`
+	);
+
+	let breadcrumbJsonLd = $derived(
+		`<script type="application/ld+json">${JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'BreadcrumbList',
+			itemListElement: [
+				{
+					'@type': 'ListItem',
+					position: 1,
+					name: 'Home',
+					item: SITE.url + '/'
+				},
+				{
+					'@type': 'ListItem',
+					position: 2,
+					name: data.country.displayName,
+					item: SITE.url + data.country.routePrefix
+				},
+				{
+					'@type': 'ListItem',
+					position: 3,
+					name: data.occupation.localTitle,
+					item: SITE.url + occPath
+				}
+			]
+		})}<\/script>`
+	);
 </script>
 
 <Seo
 	title={`${data.occupation.localTitle} — ${data.country.displayName}`}
 	description={`${data.occupation.localTitle} in ${data.country.name}: structural pressure ${(data.occupation.structuralPressure * 100).toFixed(1)}%, headline risk ${(data.occupation.headlineRisk * 100).toFixed(1)}%, confidence ${data.occupation.confidenceLevel}.`}
-	path={`${data.country.routePrefix}/occupation/${data.occupation.localCode}`.replace('//', '/')}
+	path={occPath}
 	{alternates}
+	jsonLd={[occJsonLd, breadcrumbJsonLd]}
 />
 
 <div class={pageLayout({ width: 'content' })}>
@@ -653,4 +731,12 @@
 			</div>
 		</Collapsible.Content>
 	</Collapsible.Root>
+
+	<PageFooterNav
+		links={[
+			{ href: '/explore', label: 'Browse occupations' },
+			{ href: '/compare', label: 'Compare' },
+			{ href: '/methodology', label: 'Methodology' }
+		]}
+	/>
 </div>

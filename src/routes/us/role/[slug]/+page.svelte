@@ -10,10 +10,12 @@
 		type SignalProfileItem
 	} from '$lib/components/viz/SignalProfileGrid.svelte';
 	import { riskBandLabels } from '$lib/data';
+	import { SITE, DATA_VINTAGE } from '$lib/data/scoring-constants';
 	import { buildUnitedStatesRoleAlternates } from '$lib/data/occupation-alternates';
 	import { pageLayout, card, sectionLabel, pill } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import { Button } from '$lib/components/ui/button/index.js';
+	import PageFooterNav from '$lib/components/ui/PageFooterNav.svelte';
 	import { toast } from 'svelte-sonner';
 
 	let { data } = $props();
@@ -83,13 +85,87 @@
 			toast('Link copied', { description: data.scored.title });
 		} catch {}
 	}
+
+	const rolePath = $derived(`/us/role/${data.scored.slug}`);
+
+	let roleJsonLd = $derived(
+		`<script type="application/ld+json">${JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'Occupation',
+			name: data.scored.title,
+			description: `AI displacement pressure score for ${data.scored.title} in the United States. Headline risk: ${(data.scored.net_risk * 100).toFixed(1)}%. Built from ${data.scored.components.length} related occupations.`,
+			dateModified: DATA_VINTAGE.last_updated,
+			occupationLocation: { '@type': 'Country', name: 'United States' },
+			...(data.primaryOccupation?.wage?.median != null
+				? {
+						estimatedSalary: {
+							'@type': 'MonetaryAmountDistribution',
+							name: 'Annual Wage',
+							currency: data.primaryOccupation.wage.currency,
+							median: data.primaryOccupation.wage.median
+						}
+					}
+				: {}),
+			additionalProperty: [
+				{
+					'@type': 'PropertyValue',
+					name: 'AI Headline Risk',
+					value: data.scored.net_risk
+				},
+				{
+					'@type': 'PropertyValue',
+					name: 'Risk Band',
+					value: riskBandLabels[data.scored.risk_band]
+				},
+				{
+					'@type': 'PropertyValue',
+					name: 'Evidence Quality',
+					value: data.scored.confidence
+				}
+			]
+		})}<\/script>`
+	);
+
+	let breadcrumbJsonLd = $derived(
+		`<script type="application/ld+json">${JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'BreadcrumbList',
+			itemListElement: [
+				{
+					'@type': 'ListItem',
+					position: 1,
+					name: 'Home',
+					item: SITE.url + '/'
+				},
+				{
+					'@type': 'ListItem',
+					position: 2,
+					name: 'United States',
+					item: SITE.url + '/us'
+				},
+				{
+					'@type': 'ListItem',
+					position: 3,
+					name: 'Roles',
+					item: SITE.url + '/roles'
+				},
+				{
+					'@type': 'ListItem',
+					position: 4,
+					name: data.scored.title,
+					item: SITE.url + rolePath
+				}
+			]
+		})}<\/script>`
+	);
 </script>
 
 <Seo
 	title={`${data.scored.title} — United States AI Work Index`}
 	description={`${data.scored.title}: headline risk ${(data.scored.net_risk * 100).toFixed(1)}%, structural pressure ${(data.scored.displacement_pressure * 100).toFixed(1)}%, confidence ${data.scored.confidence}.`}
-	path={`/us/role/${data.scored.slug}`.replace('//', '/')}
+	path={rolePath}
 	alternates={buildUnitedStatesRoleAlternates(data.scored.slug)}
+	jsonLd={[roleJsonLd, breadcrumbJsonLd]}
 />
 
 <main class={pageLayout({ width: 'content' })}>
@@ -218,4 +294,12 @@
 			</p>
 		</div>
 	</section>
+
+	<PageFooterNav
+		links={[
+			{ href: '/us', label: 'United States' },
+			{ href: '/explore', label: 'Browse occupations' },
+			{ href: '/methodology', label: 'Methodology' }
+		]}
+	/>
 </main>

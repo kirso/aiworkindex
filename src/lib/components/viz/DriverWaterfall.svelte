@@ -77,14 +77,14 @@
 		// Demand signals pull DOWN
 		if (occ.evidence.sol_match || occ.evidence.jobs_in_demand_match) {
 			const signals = [];
-			if (occ.evidence.sol_match) signals.push('SOL');
-			if (occ.evidence.jobs_in_demand_match) signals.push('JiD');
+			if (occ.evidence.sol_match) signals.push('Shortage Occupation List');
+			if (occ.evidence.jobs_in_demand_match) signals.push('Jobs in Demand');
 			items.push({
 				label: 'Official Demand Signals',
 				value: 0.15,
 				direction: 'down',
 				color: 'var(--color-chart-5)',
-				description: `Listed on ${signals.join(' & ')} — active government demand recognition`
+				description: `On the ${signals.join(' & ')} list — government recognises hiring need`
 			});
 		}
 
@@ -148,13 +148,12 @@
 	{/each}
 
 	<p class="text-xs text-text-secondary italic mt-1">
-		These factors combine multiplicatively — larger bars do not mean proportionally larger
-		contributions to the final score.
+		These factors interact with each other — the final score is not a simple sum of these bars.
 	</p>
 
 	<!-- Net result -->
 	<div class="mt-3 flex items-center justify-between border-t border-border/50 pt-3">
-		<span class="text-sm font-semibold text-foreground">Net Displacement Risk</span>
+		<span class="text-sm font-semibold text-foreground">AI Displacement Pressure</span>
 		<span class="text-sm font-bold font-mono tabular-nums text-foreground">
 			{(occupation.net_risk * 100).toFixed(0)}%
 		</span>

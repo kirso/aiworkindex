@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { pageLayout, card, sectionLabel, title as titleStyle } from '$lib/design-system';
 	import { cn } from '$lib/utils';
+	import PageFooterNav from '$lib/components/ui/PageFooterNav.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import { countryConfigs } from '$lib/data/country-config';
 	import { globalMethodology } from '$lib/data/global-methodology';
@@ -56,9 +57,5 @@
 		</div>
 	</section>
 
-	<div class="mt-8 flex flex-wrap gap-3 text-sm">
-		<a href="/methodology" class="text-primary hover:underline">Methodology</a>
-		<a href="/data" class="text-primary hover:underline">Data</a>
-		<a href="/about" class="text-primary hover:underline">About</a>
-	</div>
+	<PageFooterNav />
 </main>

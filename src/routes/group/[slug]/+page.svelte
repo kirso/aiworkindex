@@ -14,6 +14,7 @@
 	} from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
+	import PageFooterNav from '$lib/components/ui/PageFooterNav.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import { SITE, DATA_VINTAGE } from '$lib/data/scoring-constants';
 	import { countryConfigs } from '$lib/data/country-config';
@@ -255,4 +256,6 @@
 			{/each}
 		</div>
 	</section>
+
+	<PageFooterNav />
 </div>

@@ -239,31 +239,6 @@
 		return 'Mixed local picture. Read these labour indicators as current Singapore context rather than a forecast.';
 	});
 
-	function pressureBarClass(v: number) {
-		return v >= 0.5
-			? 'bg-risk-very-high'
-			: v >= 0.3
-				? 'bg-risk-high'
-				: v >= 0.15
-					? 'bg-risk-moderate'
-					: 'bg-risk-very-low';
-	}
-
-	function marketBarClass(v: number) {
-		return v >= 0.6 ? 'bg-risk-very-low' : v >= 0.35 ? 'bg-risk-moderate' : 'bg-risk-high';
-	}
-
-	function _adaptationBarClass(v: number) {
-		return v >= 0.55 ? 'bg-risk-very-low' : v >= 0.35 ? 'bg-risk-moderate' : 'bg-risk-high';
-	}
-
-	function _realizedBarClass(v: number) {
-		return v >= 0.1 ? 'bg-risk-very-high' : v >= 0.05 ? 'bg-risk-moderate' : 'bg-risk-very-low';
-	}
-
-	function confidenceBarClass(v: number) {
-		return v >= 0.7 ? 'bg-risk-very-low' : v >= 0.4 ? 'bg-risk-moderate' : 'bg-risk-high';
-	}
 
 	function _offsetLevelLabel(value: number, inverse = false) {
 		const score = inverse ? 1 - value : value;
@@ -312,26 +287,6 @@
 			: `${seniorityAdjustments[selectedSeniority].label} modifier applied to the base-case outlook.`
 	);
 
-	let _signalProfileItems = $derived([
-		{
-			label: 'Pressure',
-			value: `${(occ.net_risk * 100).toFixed(0)}%`,
-			barValue: occ.net_risk,
-			barClass: pressureBarClass(occ.net_risk)
-		},
-		{
-			label: 'Market',
-			value: `${(occ.market.market_resilience * 100).toFixed(0)}%`,
-			barValue: occ.market.market_resilience,
-			barClass: marketBarClass(occ.market.market_resilience)
-		},
-		{
-			label: 'Evidence',
-			value: `${(occ.confidence.score * 100).toFixed(0)}%`,
-			barValue: occ.confidence.score,
-			barClass: confidenceBarClass(occ.confidence.score)
-		}
-	]);
 
 	async function shareCurrentPage() {
 		if (!browser) return;
@@ -529,7 +484,7 @@
 	<!-- ===== BLOCK 1: THE VERDICT ===== -->
 	<div class={cn(card({ padding: 'lg' }), section({ spacing: 'loose' }))}>
 		<OccupationHero
-			scoreLabel="Structural pressure"
+			scoreLabel="AI displacement pressure"
 			scoreValue={`${(occ.net_risk * 100).toFixed(0)}%`}
 			scoreBand={occ.risk_band}
 			scoreBandLabel={riskBandLabels[occ.risk_band]}
@@ -651,7 +606,7 @@
 				<div class="md:col-span-3">
 					<DriverWaterfall occupation={occ} />
 					<p class={cn(caption(), 'mt-2')}>
-						AI task overlap, minus human advantages, adjusted for local demand.
+						How much AI overlaps with this job's tasks, offset by human advantages and local demand.
 						{#if occ.stability.label !== 'stable'}
 							<span class="text-risk-moderate">Score stability: {occ.stability.label}.</span>
 						{/if}
@@ -671,7 +626,7 @@
 					</div>
 					<div>
 						<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-risk-very-low')}>
-							Where humans stay essential
+							What AI can't do here
 						</p>
 						<p class={body({ tone: 'muted' })}>
 							{structural.personalizedContent.humanNeeded}
@@ -734,6 +689,7 @@
 			<span class="h-4 w-1 rounded-full bg-impact-leveraged"></span>
 			Singapore Now
 		</h2>
+		<p class={cn(caption(), 'mb-3 -mt-1')}>Current labour market conditions and how they affect this role.</p>
 		<div class={card({ padding: 'md' })}>
 			<p class={cn(body({ tone: 'subtle' }), 'mb-4')}>{marketHeadline}</p>
 
@@ -851,7 +807,8 @@
 				{/if}
 
 				<div class={card({ padding: 'sm' })}>
-					<p class={cn(microLabel(), 'mb-3')}>How this changes by career stage</p>
+					<p class={cn(microLabel(), 'mb-1')}>How this changes by career stage</p>
+					<p class={cn(caption(), 'mb-3')}>Senior workers benefit from institutional knowledge and judgment that AI cannot replicate. Entry-level roles have higher task overlap with AI.</p>
 					<div class="space-y-2">
 						<div
 							class={cn(
@@ -934,7 +891,7 @@
 				<div class="mb-4 border-b border-border pb-4">
 					<div class="flex items-center gap-2 mb-3">
 						<p class={cn(caption({ weight: 'semibold' }), 'text-foreground')}>
-							Adjacent pathways to investigate
+							Related roles you could transition to
 						</p>
 						<span class={pill({ size: 'sm', tone: 'muted' })}>Similarity-based</span>
 					</div>

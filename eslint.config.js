@@ -149,7 +149,9 @@ export default [
 			'src/routes/rankings/*/+page.svelte',
 			'src/routes/about/+page.svelte',
 			'src/routes/data/+page.svelte',
-			'src/routes/reports/*/+page.svelte'
+			'src/routes/reports/*/+page.svelte',
+			'src/routes/*/occupation/*/+page.svelte',
+			'src/routes/us/role/*/+page.svelte'
 		],
 		plugins: { svelte },
 		rules: {

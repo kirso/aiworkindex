@@ -8,6 +8,7 @@
 	} from '$lib/components/viz/SignalProfileGrid.svelte';
 	import * as Collapsible from '$lib/components/ui/collapsible/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
+	import PageFooterNav from '$lib/components/ui/PageFooterNav.svelte';
 	import { countryConfigs } from '$lib/data/country-config';
 	import { globalMethodology } from '$lib/data/global-methodology';
 	import { riskBandLabels } from '$lib/data';
@@ -315,4 +316,6 @@
 			</div>
 		</Collapsible.Content>
 	</Collapsible.Root>
+
+	<PageFooterNav />
 </div>
