@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { card } from '$lib/design-system';
+	import { card, caption } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 
 	interface RequirementItem {
@@ -15,37 +15,60 @@
 
 	let { items, class: className }: Props = $props();
 
-	const toneClass = (tone: RequirementItem['tone']): string => {
+	const toneGroupLabel: Record<RequirementItem['tone'], string> = {
+		protective: 'Protects from AI displacement',
+		support: 'Supports career resilience',
+		pressure: 'Typical background',
+		neutral: 'Other characteristics'
+	};
+
+	const toneGroupOrder: RequirementItem['tone'][] = ['protective', 'support', 'pressure', 'neutral'];
+
+	let grouped = $derived.by(() => {
+		const groups = new Map<RequirementItem['tone'], RequirementItem[]>();
+		for (const item of items) {
+			const list = groups.get(item.tone) ?? [];
+			list.push(item);
+			groups.set(item.tone, list);
+		}
+		return toneGroupOrder
+			.filter((tone) => groups.has(tone))
+			.map((tone) => ({ tone, label: toneGroupLabel[tone], items: groups.get(tone)! }));
+	});
+
+	const toneAccent = (tone: RequirementItem['tone']): string => {
 		switch (tone) {
-			case 'pressure':
-				return 'bg-risk-moderate';
 			case 'protective':
-				return 'bg-risk-very-low';
+				return 'text-risk-very-low';
 			case 'support':
-				return 'bg-primary';
+				return 'text-primary';
+			case 'pressure':
+				return 'text-foreground';
 			case 'neutral':
-				return 'bg-muted-foreground/30';
+				return 'text-muted-foreground';
 		}
 	};
 </script>
 
 <div class={cn(card({ padding: 'sm' }), className)}>
-	<p class="text-sm font-semibold text-foreground">Entry requirements</p>
-	<p class="mt-1 text-xs text-muted-foreground">What percentage of workers in this occupation have or need each attribute.</p>
-	{#if items.length > 0}
-		<ul class="mt-3 space-y-1.5 text-sm text-muted-foreground">
-			{#each items as item, index (`req-${item.label}-${index}`)}
-				<li class="flex items-center justify-between gap-2">
-					<span class="flex items-center gap-2">
-						<span
-							class={cn('inline-block h-2 w-2 shrink-0 rounded-full', toneClass(item.tone))}
-						></span>
-						<span class="text-foreground">{item.label}</span>
-					</span>
-					<span class="font-mono text-xs tabular-nums">{item.value}</span>
-				</li>
+	<p class="text-sm font-semibold text-foreground">Workforce profile</p>
+	<p class={cn(caption(), 'mt-1')}>Based on a survey of workers currently in this occupation.</p>
+	{#if grouped.length > 0}
+		<div class="mt-3 space-y-4">
+			{#each grouped as group (`group-${group.tone}`)}
+				<div>
+					<p class={cn('text-xs font-semibold', toneAccent(group.tone))}>{group.label}</p>
+					<ul class="mt-1.5 space-y-1 text-sm text-muted-foreground">
+						{#each group.items as item, index (`req-${item.label}-${index}`)}
+							<li class="flex items-center justify-between gap-2">
+								<span class="text-foreground">{item.label}</span>
+								<span class="font-mono text-xs tabular-nums shrink-0">{item.value} of workers</span>
+							</li>
+						{/each}
+					</ul>
+				</div>
 			{/each}
-		</ul>
+		</div>
 	{:else}
 		<p class="mt-1 text-sm text-muted-foreground">No requirement data available.</p>
 	{/if}

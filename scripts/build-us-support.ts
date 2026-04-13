@@ -666,17 +666,23 @@ function parseOrsRequirementProfiles(): Map<
 
 	function toneFor(category: string, estimate: string): SupportRequirement['tone'] {
 		const text = `${category} ${estimate}`.toLowerCase();
+		// Licensing, credentials, and telework ability protect against AI displacement
 		if (text.includes('telework')) return 'protective';
+		if (text.includes('license') || text.includes('certification')) return 'protective';
+		if (text.includes('apprenticeship')) return 'protective';
+		// People skills and verbal interactions support career resilience
+		if (text.includes('people skills') || text.includes('verbal interactions')) return 'support';
+		// Education, training, experience are typical background requirements
 		if (text.includes('education') || text.includes('training') || text.includes('experience'))
 			return 'pressure';
-		if (text.includes('credentials')) return 'pressure';
+		if (text.includes('diploma') || text.includes('degree') || text.includes('certificate'))
+			return 'pressure';
 		if (
 			text.includes('work pace') ||
 			text.includes('control of workload') ||
 			text.includes('work review')
 		)
-			return 'pressure';
-		if (text.includes('people skills') || text.includes('verbal interactions')) return 'support';
+			return 'neutral';
 		return 'neutral';
 	}
 
