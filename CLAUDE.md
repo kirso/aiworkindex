@@ -222,7 +222,7 @@ The model is a **structural pressure score, not a prediction**. Key citations:
 - Brynjolfsson et al. (2023): junior workers see biggest AI productivity gains
 - Noy & Zhang (2023): AI narrows experience gap in writing
 - Dell'Acqua et al. (2023): jagged frontier — seniors better at knowing AI boundaries
-- Backtested at cluster level: 3/4 directional checks pass (Q3 2025)
+- Backtested at cluster level: 2/4 directional checks pass (Q4 2025)
 - BLS cross-country validation: SGxUS displacement correlation via `scripts/validate-bls-crosswalk.ts`
 
 **Seniority modifiers:** Outlook section supports Entry-level / Mid-career / Senior adjustments scaled by variant_sensitivity. Junior base shift: +0.14 displacement / −0.12 augmentation. Research-grounded, labeled as estimated.

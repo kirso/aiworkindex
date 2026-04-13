@@ -147,7 +147,7 @@
 	// --- SEO ---
 	let pageTitle = $derived(`All Jobs & Roles \u2014 Structural AI Risk | ${SITE.name}`);
 	let pageDescription = $derived(
-		`Browse ${occCount} official occupations and ${roleCount} modern roles scored for AI displacement risk. Search, filter, and sort by risk, exposure, or wage in Singapore.`
+		`Browse ${occCount} official occupations and ${roleCount} modern roles scored for AI displacement risk. Search, filter, and sort by risk, exposure, or wage.`
 	);
 
 	let itemListJsonLd = $derived(
@@ -155,7 +155,7 @@
 			'@context': 'https://schema.org',
 			'@type': 'ItemList',
 			name: 'AI Work Index Jobs & Roles',
-			description: `${totalCount} occupations and modern roles scored for structural AI pressure in Singapore`,
+			description: `${totalCount} occupations and modern roles scored for structural AI pressure`,
 			numberOfItems: totalCount,
 			itemListElement: [
 				...(data.scoredRoles as ScoredRole[]).slice(0, 5).map((r, i) => ({

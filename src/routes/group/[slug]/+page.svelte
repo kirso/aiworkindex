@@ -29,7 +29,7 @@
 
 	let pageTitle = $derived(`${group.label} — AI Risk by Occupation Group | ${SITE.name}`);
 	let pageDescription = $derived(
-		`AI displacement risk for ${stats.count} ${group.label} occupations in Singapore. Average risk: ${Math.round(stats.avgRisk * 100)}%. Median wage: ${countryConfigs.sg.currency ?? 'SGD'} ${Math.round(stats.medianWage).toLocaleString()}/month.`
+		`AI displacement risk for ${stats.count} ${group.label} occupations. Average risk: ${Math.round(stats.avgRisk * 100)}%. Median wage: ${countryConfigs.sg.currency ?? 'SGD'} ${Math.round(stats.medianWage).toLocaleString()}/month.`
 	);
 
 	let breadcrumbJsonLd = $derived(
@@ -69,7 +69,7 @@
 					name: `How will AI affect ${group.label} jobs?`,
 					acceptedAnswer: {
 						'@type': 'Answer',
-						text: `There are ${stats.count} ${group.label} occupations scored in Singapore. The average AI displacement risk is ${Math.round(stats.avgRisk * 100)}%, with ${stats.bandCounts.very_high + stats.bandCounts.high} occupations at High or Very High risk and ${stats.bandCounts.very_low + stats.bandCounts.low} at Low or Very Low risk. Median gross wage: ${countryConfigs.sg.currency ?? 'SGD'} ${Math.round(stats.medianWage).toLocaleString()}/month.`
+						text: `There are ${stats.count} ${group.label} occupations scored. The average AI displacement risk is ${Math.round(stats.avgRisk * 100)}%, with ${stats.bandCounts.very_high + stats.bandCounts.high} occupations at High or Very High risk and ${stats.bandCounts.very_low + stats.bandCounts.low} at Low or Very Low risk. Median gross wage: ${countryConfigs.sg.currency ?? 'SGD'} ${Math.round(stats.medianWage).toLocaleString()}/month.`
 					}
 				},
 				{

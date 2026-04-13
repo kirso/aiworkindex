@@ -240,12 +240,12 @@
 					<tr class="border-b border-border/50">
 						<td class="py-2 pr-3">Jobs in Demand 2025</td>
 						<td class="py-2 pr-3">exact</td>
-						<td class="py-2 font-mono">+0.10</td>
+						<td class="py-2 font-mono">+0.12</td>
 					</tr>
 					<tr>
 						<td class="py-2 pr-3">Jobs in Demand 2025</td>
 						<td class="py-2 pr-3">prefix</td>
-						<td class="py-2 font-mono">+0.05</td>
+						<td class="py-2 font-mono">+0.06</td>
 					</tr>
 				</tbody>
 			</table>

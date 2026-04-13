@@ -108,7 +108,7 @@
 	<h1 class={titleStyle({ size: 'page' })}>AI Exposure Calculator</h1>
 	<p class={caption({ class: 'mt-1 mb-6' })}>
 		Estimate how much of your role's tasks overlap with current AI capabilities, and what to do
-		about it. The current calculator uses Singapore occupation data.
+		about it.
 	</p>
 
 	<!-- Search + Select -->
@@ -170,7 +170,7 @@
 		</div>
 		{#if selectedEntry && !selectedEntry.isRole && salary > 0}
 			<p class={caption({ class: 'mt-1' })}>
-				Pre-filled with the median gross wage for this occupation in Singapore. Feel free to adjust.
+				Pre-filled with the median gross wage for this occupation. Feel free to adjust.
 			</p>
 		{/if}
 	</div>

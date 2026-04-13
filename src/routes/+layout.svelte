@@ -75,7 +75,10 @@
 				'workforce automation',
 				'career transition planning'
 			],
-			areaServed: { '@type': 'Country', name: 'Singapore' },
+			areaServed: [
+					{ '@type': 'Country', name: 'Singapore' },
+					{ '@type': 'Country', name: 'United States' }
+				],
 			sameAs: [SITE.github, SITE.authorUrl]
 		},
 		potentialAction: {

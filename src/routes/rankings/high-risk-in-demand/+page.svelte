@@ -47,7 +47,7 @@
 	let itemListJsonLd = $derived(
 		buildItemListJsonLd(
 			'High-Risk but In-Demand Occupations',
-			'Occupations with high AI displacement risk that still appear on official demand lists in Singapore',
+			'Occupations with high AI displacement risk that still appear on official demand lists',
 			data.ranked
 		)
 	);
@@ -68,7 +68,7 @@
 
 <Seo
 	title="High AI Risk but In-Demand Jobs"
-	description="Occupations with high AI displacement risk that still appear on official demand lists in Singapore."
+	description="Occupations with high AI displacement risk that still appear on official demand lists."
 	path="/rankings/high-risk-in-demand"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
@@ -84,8 +84,7 @@
 
 	<h1 class={titleStyle({ size: 'page' })}>High Risk but In-Demand</h1>
 	<p class="mt-2 text-sm text-muted-foreground">
-		High or Very High displacement risk (net_risk &ge; 25%), yet still on official demand lists in
-		Singapore.
+		High or Very High displacement risk (net_risk &ge; 25%), yet still on official demand lists.
 	</p>
 
 	{#if data.ranked.length === 0}

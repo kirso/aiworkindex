@@ -24,7 +24,7 @@
 			'@context': 'https://schema.org',
 			'@type': 'ItemList',
 			name: 'Occupations',
-			description: `${DATA_VINTAGE.occupation_count} occupations scored for structural AI pressure in Singapore`,
+			description: `${DATA_VINTAGE.occupation_count} occupations scored for structural AI pressure`,
 			numberOfItems: sortedOccupations.length,
 			itemListElement: sortedOccupations.slice(0, 10).map((item, index) => ({
 				'@type': 'ListItem',
@@ -38,7 +38,7 @@
 
 <Seo
 	title={`Browse Occupations — Structural AI Risk | ${SITE.name}`}
-	description={`Browse all ${DATA_VINTAGE.occupation_count} occupations scored for structural AI pressure in Singapore. Filter by risk band, occupation group, and wage range.`}
+	description={`Browse all ${DATA_VINTAGE.occupation_count} occupations scored for structural AI pressure. Filter by risk band, occupation group, and wage range.`}
 	path="/explore"
 	jsonLd={[itemListJsonLd]}
 />

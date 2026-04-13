@@ -42,7 +42,7 @@
 	let itemListJsonLd = $derived(
 		buildItemListJsonLd(
 			'Occupations with Highest AI Displacement Risk',
-			'Top 25 occupations ranked by AI net displacement risk score in Singapore',
+			'Top 25 occupations ranked by AI net displacement risk score',
 			data.ranked
 		)
 	);
@@ -63,7 +63,7 @@
 
 <Seo
 	title="Jobs AI Will Replace: 25 Highest Risk Occupations"
-	description="Which jobs will AI replace first? Top 25 occupations ranked by displacement risk from {DATA_VINTAGE.occupation_count} scored in Singapore."
+	description="Which jobs will AI replace first? Top 25 occupations ranked by displacement risk from {DATA_VINTAGE.occupation_count} scored."
 	path="/rankings/highest-risk"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
@@ -79,7 +79,7 @@
 
 	<h1 class={titleStyle({ size: 'page' })}>Highest Risk Occupations</h1>
 	<p class="mt-2 text-sm text-muted-foreground">
-		Top 25 occupations by net displacement risk in Singapore.
+		Top 25 occupations by net displacement risk.
 	</p>
 
 	<section class="mt-6">

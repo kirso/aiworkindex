@@ -21,7 +21,7 @@
 		{
 			href: '/rankings/highest-risk',
 			title: 'Highest Risk',
-			description: 'Top 25 occupations by net displacement risk score in Singapore',
+			description: 'Top 25 occupations by net displacement risk score',
 			color: 'text-risk-very-high',
 			accent: 'very_high' as const,
 			count: 25
@@ -82,7 +82,7 @@
 		{
 			href: '/rankings/rich-and-risky',
 			title: 'Rich and Risky',
-			description: 'Highest-paid occupations in Singapore facing high AI displacement risk (30%+)',
+			description: 'Highest-paid occupations facing high AI displacement risk (30%+)',
 			color: 'text-risk-high',
 			accent: 'high' as const,
 			count: 25
@@ -102,7 +102,7 @@
 		'@type': 'CollectionPage',
 		name: 'AI Work Index Rankings',
 		description:
-			'Curated ranking views into Singapore — displacement risk, augmentation, wage safety, transitions, and more.',
+			'Curated ranking views — displacement risk, augmentation, wage safety, transitions, and more.',
 		url: SITE.url + '/rankings',
 		mainEntity: {
 			'@type': 'ItemList',
@@ -119,7 +119,7 @@
 
 <Seo
 	title="AI Work Index Rankings"
-	description="Ranked lists of occupations by AI displacement risk, augmentation potential, wage safety, and more in Singapore."
+	description="Ranked lists of occupations by AI displacement risk, augmentation potential, wage safety, and more."
 	path="/rankings"
 	jsonLd={[collectionJsonLd]}
 />
@@ -130,7 +130,7 @@
 	<div class="mb-8">
 		<h1 class={titleStyle({ size: 'page' })}>Rankings</h1>
 		<p class={cn(body({ tone: 'muted' }), 'mt-2')}>
-			Curated views into Singapore. Each list slices the data differently to surface distinct
+			Curated views into the data. Each list slices differently to surface distinct
 			insights while the global baseline remains the comparable spine.
 		</p>
 	</div>

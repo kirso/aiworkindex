@@ -106,7 +106,7 @@
 	<h1 class={titleStyle({ size: 'page' })}>Will AI Take My Job?</h1>
 	<p class={caption({ class: 'mt-1 mb-6' })}>
 		Search for your occupation or role to see how much of your work overlaps with current AI
-		capabilities. Based on a 4-source exposure ensemble scoring {DATA_VINTAGE.occupation_count} Singapore
+		capabilities. Based on a 4-source exposure ensemble scoring {DATA_VINTAGE.occupation_count}
 		occupations.
 	</p>
 
@@ -169,7 +169,7 @@
 		</div>
 		{#if selectedEntry && !selectedEntry.isRole && salary > 0}
 			<p class={caption({ class: 'mt-1' })}>
-				Pre-filled with the median gross wage for this occupation in Singapore. Feel free to adjust.
+				Pre-filled with the median gross wage for this occupation. Feel free to adjust.
 			</p>
 		{/if}
 	</div>

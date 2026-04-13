@@ -40,7 +40,7 @@
 
 <Seo
 	title="AI Work Index Reports"
-	description="Quarterly reports on AI impact across Singapore, plus global methodology notes, labour-market trends, scoring updates, and analysis."
+	description="Quarterly reports on AI impact, global methodology notes, labour-market trends, scoring updates, and analysis."
 	path="/reports"
 />
 

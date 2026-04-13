@@ -39,7 +39,7 @@
 
 <Seo
 	title="About the AI Work Index — Global Methodology"
-	description="About the AI Work Index: purpose, model card, data sources, and credits. Open-source, MIT licensed. Singapore is fully scored, the United States is next."
+	description="About the AI Work Index: purpose, model card, data sources, and credits. Open-source, MIT licensed. Covers Singapore and the United States."
 	path="/about"
 	jsonLd={[aboutJsonLd]}
 />
@@ -256,8 +256,8 @@
 				official data, not live model-generated ratings
 			</li>
 			<li>
-				<strong>Singapore is fully scored. The United States is next.</strong> Country-specific demand
-				signals and labour-market data stay separate from the structural score
+				<strong>Multi-country coverage.</strong> Singapore and the United States are scored with
+				country-specific demand signals and labour-market data layered on the structural score
 			</li>
 			<li>
 				<strong>Three-layer structural score</strong> — exposure ensemble, human bottleneck, and market

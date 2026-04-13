@@ -185,7 +185,7 @@ function buildMarkup(occ: Occupation) {
 				hasDemand ? h('div', { style: { color: DS.positive } }, 'In demand') : null,
 				range ? h('div', { style: { color: DS.ghost } }, `${range}`) : null
 			),
-			h('div', { style: { fontSize: '18px', color: DS.url } }, 'aiworkindex.com')
+			h('div', { style: { fontSize: '18px', color: DS.url } }, 'www.aiworkindex.com')
 		)
 	);
 }
@@ -292,7 +292,7 @@ function buildRoleMarkup(role: SyntheticRoleOG) {
 				h('div', {}, impactLabel),
 				h('div', {}, `Based on ${role.components} official occupations`)
 			),
-			h('div', { style: { fontSize: '18px', color: DS.url } }, 'aiworkindex.com')
+			h('div', { style: { fontSize: '18px', color: DS.url } }, 'www.aiworkindex.com')
 		)
 	);
 }
@@ -432,7 +432,7 @@ async function main() {
 				h(
 					'div',
 					{ style: { fontSize: '48px', fontWeight: 700, lineHeight: 1.15, maxWidth: '900px' } },
-					'How will AI affect your job in Singapore?'
+					'How will AI affect your job?'
 				),
 				h(
 					'div',
@@ -449,10 +449,10 @@ async function main() {
 					'div',
 					{ style: { display: 'flex', gap: '30px', fontSize: '20px', color: DS.ghost } },
 					h('div', {}, 'Peer-reviewed research'),
-					h('div', {}, 'Official SG data'),
+					h('div', {}, 'Official data sources'),
 					h('div', {}, 'No LLM in scoring')
 				),
-				h('div', { style: { fontSize: '18px', color: DS.url } }, 'aiworkindex.com')
+				h('div', { style: { fontSize: '18px', color: DS.url } }, 'www.aiworkindex.com')
 			)
 		);
 

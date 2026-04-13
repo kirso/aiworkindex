@@ -46,7 +46,7 @@
 	let itemListJsonLd = $derived(
 		buildItemListJsonLd(
 			'High AI Exposure but In-Demand Occupations',
-			'Occupations with high AI exposure that remain on shortage or in-demand lists in Singapore',
+			'Occupations with high AI exposure that remain on shortage or in-demand lists',
 			data.ranked
 		)
 	);
@@ -60,14 +60,14 @@
 		{
 			question: 'Why are some AI-exposed jobs still hiring?',
 			answer:
-				'Demand signals like shortage lists reflect current labor market needs. An occupation can have high theoretical AI exposure while still experiencing talent shortages in Singapore.'
+				'Demand signals like shortage lists reflect current labor market needs. An occupation can have high theoretical AI exposure while still experiencing talent shortages.'
 		}
 	]);
 </script>
 
 <Seo
 	title="High AI Exposure but In-Demand Jobs"
-	description="Occupations with high AI exposure that remain on shortage or in-demand lists in Singapore — paradox roles where demand persists despite AI overlap."
+	description="Occupations with high AI exposure that remain on shortage or in-demand lists — paradox roles where demand persists despite AI overlap."
 	path="/rankings/high-exposure-in-demand"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
@@ -83,7 +83,7 @@
 
 	<h1 class={titleStyle({ size: 'page' })}>High Exposure + In Demand</h1>
 	<p class="mt-2 text-sm text-muted-foreground">
-		Significant AI task overlap (&gt;50% exposure) yet still on the SOL or JiD in Singapore.
+		Significant AI task overlap (&gt;50% exposure) yet still on official shortage or in-demand lists.
 	</p>
 
 	<section class="mt-6">

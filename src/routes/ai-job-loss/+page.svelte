@@ -42,7 +42,7 @@
 	let itemListJsonLd = $derived(
 		buildItemListJsonLd(
 			'Jobs Most at Risk from AI',
-			`Top 50 occupations with highest AI displacement pressure in Singapore`,
+			`Top 50 occupations with highest AI displacement pressure`,
 			data.ranked
 		)
 	);
@@ -54,7 +54,7 @@
 		},
 		{
 			question: 'How many jobs are at risk from AI?',
-			answer: `${data.totalHighRisk} occupations in Singapore score above 30% displacement risk (high or very high band). This does not mean these jobs will disappear — it measures structural pressure from AI task overlap.`
+			answer: `${data.totalHighRisk} occupations score above 30% displacement risk (high or very high band). This does not mean these jobs will disappear — it measures structural pressure from AI task overlap.`
 		},
 		{
 			question: 'Is AI replacing jobs right now?',
@@ -78,7 +78,7 @@
 
 	<h1 class={titleStyle({ size: 'page' })}>AI Job Loss: Which Jobs Are Most at Risk?</h1>
 	<p class="mt-2 max-w-2xl text-sm text-muted-foreground">
-		Of {DATA_VINTAGE.occupation_count} scored occupations in Singapore,
+		Of {DATA_VINTAGE.occupation_count} scored occupations,
 		{data.totalVeryHighRisk} have very high displacement risk (above 50%) and
 		{data.totalHighRisk} score above 30%. These scores measure structural pressure from AI task overlap
 		— not predictions of immediate job losses.

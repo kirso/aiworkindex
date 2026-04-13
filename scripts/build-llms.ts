@@ -37,16 +37,16 @@ const examples = {
 
 const llms = `# AI Work Index
 
-> Structural AI pressure scores for ${DATA_VINTAGE.occupation_count} Singapore occupations and ${DATA_VINTAGE.role_count} modern roles. Current public release: ${version}. Deterministic scoring, open data, no LLM in the scoring loop.
+> Structural AI pressure scores for ${DATA_VINTAGE.occupation_count} occupations and ${DATA_VINTAGE.role_count} modern roles. Current public release: ${version}. Deterministic scoring, open data, no LLM in the scoring loop.
 
 ## About
 
-AI Work Index is a free, open-source project that scores Singapore occupations for structural AI pressure. The current ${version} release separates technical overlap from Singapore demand resilience instead of collapsing everything into a single market modifier.
+AI Work Index is a free, open-source project that scores occupations for structural AI pressure. The current ${version} release separates technical overlap from demand resilience instead of collapsing everything into a single market modifier.
 
 - Author: Kirill So
 - Data vintage: ${version}, last updated ${updated}
 - Coverage: ${DATA_VINTAGE.occupation_count} SSOC occupations + ${DATA_VINTAGE.role_count} synthetic modern roles
-- Location focus: Singapore
+- Countries: Singapore, United States
 
 ## Core Formula
 
@@ -81,16 +81,16 @@ Examples: ${examples.veryLow} is in the very-low band; ${examples.veryHigh} is i
 
 ## Key Pages
 
-- https://aiworkindex.com/
-- https://aiworkindex.com/methodology
-- https://aiworkindex.com/data
-- https://aiworkindex.com/reports
-- https://aiworkindex.com/about
-- https://aiworkindex.com/explore
+- https://www.kirillso.com/
+- https://www.kirillso.com/methodology
+- https://www.kirillso.com/data
+- https://www.kirillso.com/reports
+- https://www.kirillso.com/about
+- https://www.kirillso.com/explore
 
 ## Extended Version
 
-https://aiworkindex.com/llms-full.txt
+https://www.kirillso.com/llms-full.txt
 
 ## Source Code
 
@@ -120,18 +120,18 @@ function faqEntry(o: Occupation) {
 
 const llmsFull = `# AI Work Index — Full Reference
 
-> Structural AI pressure scores for ${DATA_VINTAGE.occupation_count} Singapore occupations and ${DATA_VINTAGE.role_count} modern roles. Current public release: ${version}. Deterministic scoring, open data, no LLM in the scoring loop.
+> Structural AI pressure scores for ${DATA_VINTAGE.occupation_count} occupations and ${DATA_VINTAGE.role_count} modern roles. Current public release: ${version}. Deterministic scoring, open data, no LLM in the scoring loop.
 
 ## Project Overview
 
-AI Work Index is a Singapore-focused occupation scoring project. The live ${version} release measures structural AI pressure, not realised job loss and not a hiring forecast.
+AI Work Index is a global occupation scoring project covering Singapore and the United States. The live ${version} release measures structural AI pressure, not realised job loss and not a hiring forecast.
 
 - Author: Kirill So (https://www.linkedin.com/in/kirso/)
-- Website: https://aiworkindex.com
+- Website: https://www.kirillso.com
 - Source code: https://github.com/kirso/aiworkindex
 - Data vintage: ${version}, last updated ${updated}
 - Coverage: ${DATA_VINTAGE.occupation_count} SSOC occupations + ${DATA_VINTAGE.role_count} synthetic modern roles
-- Location focus: Singapore
+- Countries: Singapore, United States
 
 ## Scoring Methodology
 
@@ -163,7 +163,7 @@ Human bottleneck is based on Pizzinelli theta and captures judgment, presence, c
 
 ### Layer 3: Demand Resilience
 
-Demand resilience is a separate Singapore demand buffer built from:
+Demand resilience is a separate country-specific demand buffer built from:
 - Base resilience from market momentum and occupation scarcity
 - Shortage Occupation List bonuses
 - Jobs in Demand bonuses
@@ -196,20 +196,20 @@ Demand signals influence impact types only indirectly through demand_resilience 
 
 - The live ${version} dataset supports structural rankings across ${DATA_VINTAGE.occupation_count} occupations.
 - It supports downloadable public JSON and CSV exports.
-- It supports directional validation and current Singapore context layers published separately from the core score.
+- It supports directional validation and current country context layers published separately from the core score.
 - It does not support claims about occupation-level realised job loss.
 
 ## Current Public Artifacts
 
-- Dataset: https://aiworkindex.com/data/sg-ai-occupations-${version.toLowerCase()}.json
-- Data dictionary: https://aiworkindex.com/data
-- Methodology: https://aiworkindex.com/methodology
-- Reports: https://aiworkindex.com/reports
-- Research library: https://aiworkindex.com/research
+- Dataset: https://www.kirillso.com/data/sg-ai-occupations-${version.toLowerCase()}.json
+- Data dictionary: https://www.kirillso.com/data
+- Methodology: https://www.kirillso.com/methodology
+- Reports: https://www.kirillso.com/reports
+- Research library: https://www.kirillso.com/research
 
 ## How to Cite
 
-"AI Work Index (${version}, 2026). Structural AI pressure scores for Singapore occupations. https://aiworkindex.com"
+"AI Work Index (${version}, 2026). Structural AI pressure scores for occupations. https://www.kirillso.com"
 
 ## Limitations
 
@@ -239,7 +239,7 @@ ${lowestRisk.slice(0, 10).map(faqEntry).join('\n')}
 
 - LinkedIn: https://www.linkedin.com/in/kirso/
 - GitHub: https://github.com/kirso/aiworkindex
-- Website: https://aiworkindex.com
+- Website: https://www.kirillso.com
 `;
 
 fs.mkdirSync(STATIC_DIR, { recursive: true });

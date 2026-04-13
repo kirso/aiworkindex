@@ -1,17 +1,17 @@
 # AI Work Index — Full Reference
 
-> Structural AI pressure scores for 562 Singapore occupations and 88 modern roles. Current public release: V7. Deterministic scoring, open data, no LLM in the scoring loop.
+> Structural AI pressure scores for 562 occupations and 88 modern roles. Current public release: V7. Deterministic scoring, open data, no LLM in the scoring loop.
 
 ## Project Overview
 
-AI Work Index is a Singapore-focused occupation scoring project. The live V7 release measures structural AI pressure, not realised job loss and not a hiring forecast.
+AI Work Index is a global occupation scoring project covering Singapore and the United States. The live V7 release measures structural AI pressure, not realised job loss and not a hiring forecast.
 
 - Author: Kirill So (https://www.linkedin.com/in/kirso/)
-- Website: https://aiworkindex.com
+- Website: https://www.kirillso.com
 - Source code: https://github.com/kirso/aiworkindex
 - Data vintage: V7, last updated 2026-04-09
 - Coverage: 562 SSOC occupations + 88 synthetic modern roles
-- Location focus: Singapore
+- Countries: Singapore, United States
 
 ## Scoring Methodology
 
@@ -43,7 +43,7 @@ Human bottleneck is based on Pizzinelli theta and captures judgment, presence, c
 
 ### Layer 3: Demand Resilience
 
-Demand resilience is a separate Singapore demand buffer built from:
+Demand resilience is a separate country-specific demand buffer built from:
 - Base resilience from market momentum and occupation scarcity
 - Shortage Occupation List bonuses
 - Jobs in Demand bonuses
@@ -76,20 +76,20 @@ Demand signals influence impact types only indirectly through demand_resilience 
 
 - The live V7 dataset supports structural rankings across 562 occupations.
 - It supports downloadable public JSON and CSV exports.
-- It supports directional validation and current Singapore context layers published separately from the core score.
+- It supports directional validation and current country context layers published separately from the core score.
 - It does not support claims about occupation-level realised job loss.
 
 ## Current Public Artifacts
 
-- Dataset: https://aiworkindex.com/data/sg-ai-occupations-v7.json
-- Data dictionary: https://aiworkindex.com/data
-- Methodology: https://aiworkindex.com/methodology
-- Reports: https://aiworkindex.com/reports
-- Research library: https://aiworkindex.com/research
+- Dataset: https://www.kirillso.com/data/sg-ai-occupations-v7.json
+- Data dictionary: https://www.kirillso.com/data
+- Methodology: https://www.kirillso.com/methodology
+- Reports: https://www.kirillso.com/reports
+- Research library: https://www.kirillso.com/research
 
 ## How to Cite
 
-"AI Work Index (V7, 2026). Structural AI pressure scores for Singapore occupations. https://aiworkindex.com"
+"AI Work Index (V7, 2026). Structural AI pressure scores for occupations. https://www.kirillso.com"
 
 ## Limitations
 
@@ -305,4 +305,4 @@ A: Social service manager has an AI displacement risk of 1%, rated Very Low. Thi
 
 - LinkedIn: https://www.linkedin.com/in/kirso/
 - GitHub: https://github.com/kirso/aiworkindex
-- Website: https://aiworkindex.com
+- Website: https://www.kirillso.com

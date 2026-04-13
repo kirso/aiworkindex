@@ -270,7 +270,7 @@ export const SITE = {
 	name: 'AI Work Index',
 	shortName: 'AIWorkIndex',
 	description: 'AI Work Index — global structural AI exposure and occupation risk methodology',
-	url: 'https://aiworkindex.com',
+	url: 'https://www.kirillso.com',
 	github: 'https://github.com/kirso/aiworkindex',
 	author: 'Kirill So',
 	authorUrl: 'https://www.linkedin.com/in/kirso/'
@@ -346,6 +346,8 @@ export const DEMAND_RESILIENCE_CONSTANTS = {
 /**
  * V7 introduces two formula changes:
  * 1. Task-concentration-weighted exposure (Hampole et al. 2025)
+ *    Source: data/raw/external/anthropic_task_penetration.csv (Anthropic task-level usage data).
+ *    task_signal = task_exposure_concentration × task_effective_coverage, computed per occupation.
  * 2. Demand-persistence proxy (addresses Imas price-elasticity critique)
  */
 export const V7_CONSTANTS = {

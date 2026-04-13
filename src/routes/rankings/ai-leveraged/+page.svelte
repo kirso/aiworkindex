@@ -41,7 +41,7 @@
 	let itemListJsonLd = $derived(
 		buildItemListJsonLd(
 			'AI-Augmented Occupations',
-			'Top 25 occupations where AI augments rather than replaces workers, ranked by augmentation potential in Singapore',
+			'Top 25 occupations where AI augments rather than replaces workers, ranked by augmentation potential',
 			data.ranked
 		)
 	);
@@ -62,7 +62,7 @@
 
 <Seo
 	title="25 AI-Augmented Jobs — High Exposure, Strong Moats"
-	description="Occupations where AI augments rather than replaces — high exposure but strong human bottlenecks create augmentation potential in Singapore."
+	description="Occupations where AI augments rather than replaces — high exposure but strong human bottlenecks create augmentation potential."
 	path="/rankings/ai-leveraged"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
@@ -78,8 +78,8 @@
 
 	<h1 class={titleStyle({ size: 'page' })}>AI-Augmented Occupations</h1>
 	<p class="mt-2 text-sm text-muted-foreground">
-		High AI exposure but strong human bottlenecks — AI augments rather than replaces. Singapore
-		occupations ranked by augmentation potential.
+		High AI exposure but strong human bottlenecks — AI augments rather than replaces. Occupations
+		ranked by augmentation potential.
 	</p>
 
 	<section class="mt-6">

@@ -41,7 +41,7 @@
 	let itemListJsonLd = $derived(
 		buildItemListJsonLd(
 			'Safest High-Paying Jobs',
-			'Top 25 occupations with low AI displacement risk and above-median wages in Singapore',
+			'Top 25 occupations with low AI displacement risk and above-median wages',
 			data.ranked
 		)
 	);
@@ -62,7 +62,7 @@
 
 <Seo
 	title="AI Safe Jobs: 25 Highest-Paying Low-Risk Careers"
-	description="Which high-paying jobs are safe from AI? 25 occupations with low displacement risk and above-median wages in Singapore."
+	description="Which high-paying jobs are safe from AI? 25 occupations with low displacement risk and above-median wages."
 	path="/rankings/safest-high-paying"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
@@ -78,7 +78,7 @@
 
 	<h1 class={titleStyle({ size: 'page' })}>Safest High-Paying Jobs</h1>
 	<p class="mt-2 text-sm text-muted-foreground">
-		Low displacement risk (&lt;15%) with above-median wages in Singapore.
+		Low displacement risk (&lt;15%) with above-median wages.
 	</p>
 
 	<section class="mt-6">

@@ -42,7 +42,7 @@
 	let itemListJsonLd = $derived(
 		buildItemListJsonLd(
 			'AI-Proof Jobs: Careers Safe from AI Displacement',
-			`${data.total} occupations with less than 15% AI displacement risk in Singapore`,
+			`${data.total} occupations with less than 15% AI displacement risk`,
 			data.ranked
 		)
 	);
@@ -50,7 +50,7 @@
 	let faqItems = $derived([
 		{
 			question: 'What jobs are safe from AI?',
-			answer: `${data.total} occupations in Singapore score below 15% displacement risk. These roles typically require physical presence, real-time human coordination, regulatory judgment, or deep relationship-building that AI cannot replicate.`
+			answer: `${data.total} occupations score below 15% displacement risk. These roles typically require physical presence, real-time human coordination, regulatory judgment, or deep relationship-building that AI cannot replicate.`
 		},
 		{
 			question: 'What are AI-proof careers?',
@@ -79,7 +79,7 @@
 
 	<h1 class={titleStyle({ size: 'page' })}>AI-Proof Jobs</h1>
 	<p class="mt-2 max-w-2xl text-sm text-muted-foreground">
-		{data.total} occupations in Singapore score below 15% AI displacement risk. These careers have strong
+		{data.total} occupations score below 15% AI displacement risk. These careers have strong
 		human bottleneck protection, meaning their core tasks resist automation.
 	</p>
 

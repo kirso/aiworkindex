@@ -41,7 +41,7 @@
 	let itemListJsonLd = $derived(
 		buildItemListJsonLd(
 			'Highest-Paid Jobs at Risk of AI Displacement',
-			`Top 25 high-paying occupations facing high AI displacement risk (net risk 30%+, median wage ${currency} 5,000+) in Singapore`,
+			`Top 25 high-paying occupations facing high AI displacement risk (net risk 30%+, median wage ${currency} 5,000+)`,
 			data.ranked
 		)
 	);
@@ -61,7 +61,7 @@
 
 <Seo
 	title="Highest-Paid Jobs at Risk of AI Displacement"
-	description={`Top 25 high-paying occupations (${currency} 5,000+/month) facing high AI displacement risk (30%+) in Singapore.`}
+	description={`Top 25 high-paying occupations (${currency} 5,000+/month) facing high AI displacement risk (30%+).`}
 	path="/rankings/rich-and-risky"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
@@ -77,7 +77,7 @@
 
 	<h1 class={titleStyle({ size: 'page' })}>Highest-Paid Jobs at Risk</h1>
 	<p class="mt-2 text-sm text-muted-foreground">
-		High-paying occupations with net risk &ge; 30% and median wage &ge; {currency} 5,000/month in Singapore.
+		High-paying occupations with net risk &ge; 30% and median wage &ge; {currency} 5,000/month.
 	</p>
 
 	<section class="mt-6">
@@ -86,7 +86,7 @@
 
 	<p class="mt-4 text-xs text-muted-foreground">
 		headline_risk = displacement_pressure &times; (1 &minus; demand_resilience). Wages are gross
-		monthly median (Singapore).
+		monthly median.
 		<a href="/methodology" class="text-primary underline">Learn more</a>
 	</p>
 	<RankingNavPills />

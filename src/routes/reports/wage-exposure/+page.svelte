@@ -32,7 +32,7 @@
 			publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
 			datePublished: DATA_VINTAGE.last_updated,
 			dateModified: DATA_VINTAGE.last_updated,
-			description: `Wage-pool analysis for ${data.highRiskCount} occupations with high structural AI pressure in Singapore.`,
+			description: `Wage-pool analysis for ${data.highRiskCount} occupations with high structural AI pressure.`,
 			mainEntityOfPage: { '@type': 'WebPage', '@id': SITE.url + '/reports/wage-exposure' }
 		})}<\/script>`
 	);
@@ -69,7 +69,7 @@
 	title="Wage Pool Under Structural Pressure — {sgCurrency} {(
 		data.highRiskAnnualWages / 1e9
 	).toFixed(1)}B"
-	description="Wage-pool analysis for occupations with high structural AI pressure in Singapore. {data.highRiskCount} occupations covering about {data.highRiskEmployment.toFixed(
+	description="Wage-pool analysis for occupations with high structural AI pressure. {data.highRiskCount} occupations covering about {data.highRiskEmployment.toFixed(
 		0
 	)}K Est. workers."
 	path="/reports/wage-exposure"
