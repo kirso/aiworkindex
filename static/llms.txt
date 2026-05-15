@@ -7,7 +7,7 @@
 AI Work Index is a free, open-source project that scores occupations for structural AI pressure. The current V7 release separates technical overlap from demand resilience instead of collapsing everything into a single market modifier.
 
 - Author: Kirill So
-- Data vintage: V7, last updated 2026-04-09
+- Data vintage: V7, last updated 2026-05-15
 - Coverage: 562 SSOC occupations + 88 synthetic modern roles
 - Countries: Singapore, United States
 
@@ -44,16 +44,16 @@ Examples: Arts and cultural centre manager (including gallery and museum manager
 
 ## Key Pages
 
-- https://www.kirillso.com/
-- https://www.kirillso.com/methodology
-- https://www.kirillso.com/data
-- https://www.kirillso.com/reports
-- https://www.kirillso.com/about
-- https://www.kirillso.com/explore
+- https://aiworkindex.com/
+- https://aiworkindex.com/methodology
+- https://aiworkindex.com/data
+- https://aiworkindex.com/reports
+- https://aiworkindex.com/about
+- https://aiworkindex.com/explore
 
 ## Extended Version
 
-https://www.kirillso.com/llms-full.txt
+https://aiworkindex.com/llms-full.txt
 
 ## Source Code
 

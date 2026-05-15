@@ -87,9 +87,38 @@ const entries: SourceMapEntry[] = [
 		source_tier: 'cross_country_research',
 		vintage: '2021-2026',
 		transformation:
-			'V6 uses a deterministic reliability-weighted 4-source exposure ensemble over the matched AIOE, Anthropic, Eloundou, and ILO inputs.',
+			'Base deterministic reliability-weighted 4-source exposure ensemble over the matched AIOE, Anthropic, Eloundou, and ILO inputs before V7 task-concentration amplification.',
 		caveat:
 			'Exposure is not an official Singapore government measure; it is a research-backed structural layer.'
+	},
+	{
+		field_path: 'task_signal',
+		dataset: `sg-ai-occupations-${versionTag}.json`,
+		label: 'V7 task signal',
+		source_keys: ['anthropic_task_penetration_2026', 'onet_task_ratings'],
+		source_tier: 'external_proxy',
+		vintage: '2026',
+		transformation:
+			'Computed as task_effective_coverage × task_exposure_concentration from weighted O*NET task matches where available; zero otherwise.',
+		caveat: 'This is a task-evidence proxy, not an official Singapore labour-market measure.'
+	},
+	{
+		field_path: 'exposure_v7',
+		dataset: `sg-ai-occupations-${versionTag}.json`,
+		label: 'V7 amplified exposure',
+		source_keys: [
+			'aioe_2021',
+			'anthropic_economic_index_2026',
+			'eloundou_gpt_exposure_2023',
+			'ilo_genai_2025',
+			'anthropic_task_penetration_2026',
+			'onet_task_ratings'
+		],
+		source_tier: 'synthetic',
+		vintage: '2021-2026',
+		transformation: 'Deterministic V7 formula field: min(1, exposure × (1 + 0.20 × task_signal)).',
+		caveat:
+			'Derived structural field published for interpretability, not a direct source observation.'
 	},
 	{
 		field_path: 'bottleneck',
@@ -149,7 +178,7 @@ const entries: SourceMapEntry[] = [
 		],
 		source_tier: 'synthetic',
 		vintage: '2021-2026',
-		transformation: 'Deterministic formula field derived from exposure × (1 − bottleneck).',
+		transformation: 'Deterministic formula field derived from exposure_v7 × (1 − bottleneck).',
 		caveat: 'Derived field published for interpretability, not a direct source observation.'
 	},
 	{
@@ -161,6 +190,23 @@ const entries: SourceMapEntry[] = [
 		vintage: '2025-2026',
 		transformation:
 			'Deterministic additive bonus from exact or prefix SSOC matches against the official SOL and Jobs in Demand lists.'
+	},
+	{
+		field_path: 'demand_persistence',
+		dataset: `sg-ai-occupations-${versionTag}.json`,
+		label: 'Demand persistence',
+		source_keys: [
+			'mom_employment_by_occupation_group',
+			'mom_industry_x_occupation',
+			'mom_jobs_in_demand_2025',
+			'mom_sol_2026',
+			'mom_ows_2024',
+			'mom_labour_market_report_q4_2025'
+		],
+		source_tier: 'derived_from_official_local',
+		vintage: '2024-2026',
+		transformation:
+			'Ranked V7 proxy combining market momentum, vacancy rank, scarcity rank, and official demand-signal rank.'
 	},
 	{
 		field_path: 'demand_resilience',
@@ -176,7 +222,7 @@ const entries: SourceMapEntry[] = [
 		source_tier: 'derived_from_official_local',
 		vintage: '2024-2026',
 		transformation:
-			'Deterministic V6 formula field computed as min(1, base_resilience × 0.45 + demand_signal_bonus).'
+			'Deterministic V7 formula field computed as min(1, base_resilience × 0.45 + demand_signal_bonus + 0.10 × demand_persistence).'
 	},
 	{
 		field_path: 'task_primitives.*',
@@ -186,7 +232,23 @@ const entries: SourceMapEntry[] = [
 		source_tier: 'external_proxy',
 		vintage: '2026',
 		transformation:
-			'Explicit placeholder fields for future weighted task evidence. In the live V6 dataset they remain null for every occupation.'
+			'Weighted O*NET task portfolio fields populated where normalized task matches exist. Sparse occupations publish explicit nulls.'
+	},
+	{
+		field_path: 'baseline_v6.*',
+		dataset: `sg-ai-occupations-${versionTag}.json`,
+		label: 'Retained V6 baseline fields',
+		source_keys: [
+			'aioe_2021',
+			'anthropic_economic_index_2026',
+			'eloundou_gpt_exposure_2023',
+			'ilo_genai_2025',
+			'pizzinelli_theta_2023'
+		],
+		source_tier: 'synthetic',
+		vintage: '2021-2026',
+		transformation:
+			'Stored V6 exposure and headline-risk outputs retained inside the live V7 records for release-to-release comparison.'
 	},
 	{
 		field_path: 'labour-monitor.provenance.fields.*',
@@ -234,6 +296,40 @@ const entries: SourceMapEntry[] = [
 		source_tier: 'official_local',
 		vintage: 'Q4 2025',
 		transformation: 'Directly taken from the published MOM Q4 2025 labour-market report.'
+	},
+	{
+		field_path: 'forecast-readiness.inputs.*',
+		dataset: `forecast-readiness-${versionTag}.json`,
+		label: 'Forecast-readiness input matrix',
+		source_keys: [
+			'mom_job_vacancy_rates',
+			'mom_job_vacancy_counts',
+			'mom_labour_market_report_q4_2025',
+			'mom_recruitment_resignation_rates',
+			'mom_retrenchment_by_occupation_group',
+			'mom_median_income_by_occupation',
+			'sg_postings_monitor',
+			'mom_ai_adoption_2026',
+			'imda_sgde_2025'
+		],
+		source_tier: 'derived_from_official_local',
+		vintage: '2025-2026',
+		transformation:
+			'Non-promoted source and validation-gate matrix that maps each proposed forecast input to an existing owner artifact, raw source, and required next step.',
+		caveat:
+			'This is a readiness/governance artifact, not a promoted forecast score and not a V7 headline-score input.'
+	},
+	{
+		field_path: 'ai-in-singapore.metrics.mom_firm_ai_adoption_2026',
+		dataset: 'sg-ai-in-singapore-2025.json',
+		label: 'MOM 2026 firm AI adoption context',
+		source_keys: ['mom_ai_adoption_2026'],
+		source_tier: 'official_local',
+		vintage: '2026',
+		transformation:
+			'Directly retained official MOM firm-size, sector, workforce-implication, productivity, and adoption-barrier metrics.',
+		caveat:
+			'Firm adoption is contextual evidence and is not mapped directly into detailed occupation scores.'
 	}
 ];
 

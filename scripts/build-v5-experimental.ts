@@ -1136,7 +1136,9 @@ function main() {
 			summary:
 				DATA_VINTAGE.model_version === 'V5'
 					? 'V5 is now the live structural release. This artifact preserves the final comparison against the retained V4.3 baseline and keeps the transition-adjusted and realized-risk layers auditable.'
-					: 'V5 is a published experimental candidate that now adds task-mode proxies, concentration-driven fragility, source-calibrated latent exposure, hybrid mobility, and archetype-capped realized-risk calibration on top of the existing sidecars. It remains separate from the live V4.3 headline score until its validation family is explicitly promoted.'
+					: DATA_VINTAGE.model_version === 'V6' || DATA_VINTAGE.model_version === 'V7'
+						? `V5 is an archived experimental comparison artifact retained beneath the live ${DATA_VINTAGE.model_version} release. It remains separate from the live headline score while preserving its sidecars, transition-adjusted layer, realized-risk proxy, and validation comparison for auditability.`
+						: 'V5 is a published experimental candidate that now adds task-mode proxies, concentration-driven fragility, source-calibrated latent exposure, hybrid mobility, and archetype-capped realized-risk calibration on top of the existing sidecars. It remains separate from the live headline score until its validation family is explicitly promoted.'
 		}
 	};
 

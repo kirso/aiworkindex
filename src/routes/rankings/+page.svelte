@@ -130,8 +130,8 @@
 	<div class="mb-8">
 		<h1 class={titleStyle({ size: 'page' })}>Rankings</h1>
 		<p class={cn(body({ tone: 'muted' }), 'mt-2')}>
-			Curated views into the data. Each list slices differently to surface distinct
-			insights while the global baseline remains the comparable spine.
+			Curated views into the data. Each list slices differently to surface distinct insights while
+			the global baseline remains the comparable spine.
 		</p>
 	</div>
 
@@ -171,7 +171,12 @@
 			<div class="space-y-1.5">
 				{#each data.highestRisk as occ, i (occ.ssoc)}
 					<OccupationCard
-						occupation={{ title: occ.title, ssoc: occ.ssoc, net_risk: occ.net_risk, risk_band: occ.risk_band }}
+						occupation={{
+							title: occ.title,
+							ssoc: occ.ssoc,
+							net_risk: occ.net_risk,
+							risk_band: occ.risk_band
+						}}
 						mode="compact"
 						index={i + 1}
 						indexColor="text-risk-very-high"
@@ -195,7 +200,12 @@
 			<div class="space-y-1.5">
 				{#each data.aiLeveraged as occ, i (occ.ssoc)}
 					<OccupationCard
-						occupation={{ title: occ.title, ssoc: occ.ssoc, net_risk: occ.net_risk, risk_band: occ.risk_band }}
+						occupation={{
+							title: occ.title,
+							ssoc: occ.ssoc,
+							net_risk: occ.net_risk,
+							risk_band: occ.risk_band
+						}}
 						mode="compact"
 						index={i + 1}
 						indexColor="text-impact-leveraged"
@@ -220,11 +230,17 @@
 			<div class="space-y-1.5">
 				{#each data.safest as occ, i (occ.ssoc)}
 					<OccupationCard
-						occupation={{ title: occ.title, ssoc: occ.ssoc, net_risk: occ.net_risk, risk_band: occ.risk_band }}
+						occupation={{
+							title: occ.title,
+							ssoc: occ.ssoc,
+							net_risk: occ.net_risk,
+							risk_band: occ.risk_band
+						}}
 						mode="compact"
 						index={i + 1}
 						indexColor="text-risk-very-low"
-						rightLabel="{countryConfigs.sg.currency ?? 'SGD'} {occ.gross_wage_median.toLocaleString()}"
+						rightLabel="{countryConfigs.sg.currency ??
+							'SGD'} {occ.gross_wage_median.toLocaleString()}"
 					/>
 				{/each}
 			</div>

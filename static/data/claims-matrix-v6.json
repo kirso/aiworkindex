@@ -340,7 +340,7 @@
       "claim": "National AI adoption and programme statistics from IMDA and MOM are contextual evidence around the score, not occupation-level multipliers inside it.",
       "strength": "high",
       "source_keys": [
-        "imda_digital_economy_2025",
+        "imda_sgde_2025",
         "imda_naiip_2026",
         "mom_soi_2025"
       ],

@@ -14,7 +14,7 @@
 				name: 'What is the AI Work Index?',
 				acceptedAnswer: {
 					'@type': 'Answer',
-					text: `The AI Work Index scores ${DATA_VINTAGE.occupation_count} occupations and ${DATA_VINTAGE.role_count} modern roles for structural AI displacement pressure. The structural score combines a multi-source exposure layer, a human bottleneck layer, and a local market-resilience layer. The product is global-first, with Singapore as the first fully scored country and the United States as the next country layer. No LLM is used in the scoring pipeline.`
+					text: `The AI Work Index scores ${DATA_VINTAGE.occupation_count} occupations and ${DATA_VINTAGE.role_count} modern roles for structural AI displacement pressure. The headline score combines displacement pressure with local demand resilience where a country layer has evidence. The product is global-first, with Singapore as the first fully scored country and the United States as the next country layer. No LLM is used in the scoring pipeline.`
 				}
 			},
 			{
@@ -67,7 +67,8 @@
 		<div class={card({ padding: 'sm', accent: 'high' })}>
 			<p class={cn(sectionLabel({ case: 'upper' }), 'text-risk-high')}>Structural Score</p>
 			<p class={cn(caption(), 'mt-1')}>
-				Core model. Displacement pressure × demand resilience. Published as the primary dataset.
+				Core model. Displacement pressure × (1 − demand resilience). Published as the primary
+				dataset.
 			</p>
 		</div>
 		<div class={card({ padding: 'sm', accent: 'moderate' })}>
@@ -256,8 +257,8 @@
 				official data, not live model-generated ratings
 			</li>
 			<li>
-				<strong>Multi-country coverage.</strong> Singapore and the United States are scored with
-				country-specific demand signals and labour-market data layered on the structural score
+				<strong>Multi-country coverage.</strong> Singapore and the United States are scored with country-specific
+				demand signals and labour-market data layered on the structural score
 			</li>
 			<li>
 				<strong>Three-layer structural score</strong> — exposure ensemble, human bottleneck, and market

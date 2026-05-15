@@ -34,6 +34,8 @@ const SITE_STATUS_FILE = path.join(ROOT_DIR, 'src', 'lib', 'data', 'site-status.
 const QUARTERLY_FILE = path.join(ROOT_DIR, 'src', 'lib', 'data', 'quarterly-report.json');
 const LLMS_FILE = path.join(ROOT_DIR, 'static', 'llms.txt');
 const LLMS_FULL_FILE = path.join(ROOT_DIR, 'static', 'llms-full.txt');
+const ROBOTS_FILE = path.join(ROOT_DIR, 'static', 'robots.txt');
+const SITEMAP_FILE = path.join(ROOT_DIR, 'static', 'sitemap.xml');
 
 function readText(filePath: string): string {
 	return fs.readFileSync(filePath, 'utf-8');
@@ -78,6 +80,9 @@ const quarterlyReport = readJson<{ current_snapshot: string; previous_snapshot: 
 );
 const llms = readText(LLMS_FILE);
 const llmsFull = readText(LLMS_FULL_FILE);
+const robots = readText(ROBOTS_FILE);
+const sitemap = readText(SITEMAP_FILE);
+const currentCsvHeader = readText(STATIC_CSV_FILE).split('\n')[0] ?? '';
 
 assert(
 	sameJson(CANONICAL_DATA_FILE, APP_DATA_FILE),
@@ -88,6 +93,18 @@ assert(
 	`static/data/sg-ai-occupations-${versionTag}.json must match the canonical dataset`
 );
 assert(fs.existsSync(STATIC_CSV_FILE), `missing static/data/sg-ai-occupations-${versionTag}.csv`);
+assert(currentCsvHeader.includes('exposure_v7'), 'current CSV missing V7 exposure column');
+assert(currentCsvHeader.includes('task_signal'), 'current CSV missing V7 task-signal column');
+assert(currentCsvHeader.includes('baseline_v6_net_risk'), 'current CSV missing V6 baseline column');
+assert(!currentCsvHeader.includes('scoring_basis'), 'current CSV still exposes old scoring_basis');
+assert(
+	!currentCsvHeader.includes('transition_adjusted_risk'),
+	'current CSV still exposes archived V5 transition-adjusted field'
+);
+assert(
+	!currentCsvHeader.includes('realized_risk_proxy'),
+	'current CSV still exposes archived V5 realized-risk field'
+);
 
 assert(claimsMatrix.version === DATA_VINTAGE.model_version, 'claims matrix version drift');
 assert(sourceMap.version === DATA_VINTAGE.model_version, 'public field source map version drift');
@@ -130,8 +147,8 @@ assert(
 );
 assert(
 	quarterlyReport.previous_snapshot === null ||
-		quarterlyReport.previous_snapshot.startsWith('occupations-v6-'),
-	'quarterly report previous snapshot should point at the retained V6 baseline for the current V7 release'
+		quarterlyReport.previous_snapshot.startsWith(`occupations-${versionTag}-`),
+	'quarterly report previous snapshot should point at the prior snapshot for the current release line'
 );
 
 for (const [name, contents] of [
@@ -153,6 +170,23 @@ for (const [name, contents] of [
 		`${name} still contains stale transition-adjusted wording`
 	);
 	assert(!contents.includes('realized-risk'), `${name} still contains stale realized-risk wording`);
+	assert(!contents.includes('www.kirillso.com'), `${name} still points at the old host`);
+	assert(contents.includes(DATA_VINTAGE.model_version), `${name} missing current release tag`);
 }
+
+const sitemapLocs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => match[1]);
+const uniqueSitemapLocs = new Set(sitemapLocs);
+assert(
+	robots.includes('Sitemap: https://aiworkindex.com/sitemap.xml'),
+	'robots sitemap host drift'
+);
+assert(!robots.includes('www.kirillso.com'), 'robots still points at the old host');
+assert(sitemapLocs.length > 1800, 'sitemap is unexpectedly small');
+assert(sitemapLocs.length === uniqueSitemapLocs.size, 'sitemap contains duplicate URLs');
+assert(
+	sitemapLocs.every(loc => loc?.startsWith('https://aiworkindex.com/')),
+	'sitemap contains URLs outside the canonical host'
+);
+assert(!sitemap.includes('/sg/occupation/'), 'sitemap includes Singapore redirect aliases');
 
 console.log('release-check: ok');

@@ -80,7 +80,15 @@ const AUDIT_DEFINITIONS: AuditEntryDefinition[] = [
 		location: 'raw',
 		label: 'Median income by occupation group',
 		expectedType: 'csv',
-		usedBy: ['score pipeline', 'market momentum']
+		usedBy: ['score pipeline', 'market momentum', 'forecast-readiness wage outcome candidate']
+	},
+	{
+		key: 'mom_ai_adoption_2026',
+		file: 'mom-ai-adoption-2026.json',
+		location: 'raw',
+		label: 'MOM AI adoption among firms',
+		expectedType: 'json',
+		usedBy: ['AI in Singapore context', 'forecast-readiness adoption source']
 	},
 	{
 		key: 'vacancy_rates_by_occupation_group',

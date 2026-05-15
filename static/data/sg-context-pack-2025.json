@@ -1,10 +1,10 @@
 {
   "version": "V7",
-  "generated_at": "2026-04-01",
+  "generated_at": "2026-05-15",
   "description": "Singapore context bundle for AI Work Index. Context data is published separately from the structural score dataset and includes labour, worker, industry, wage-anchor, geography, macro, and national AI context.",
   "score_dataset": {
-    "json": "sg-ai-occupations-v6.json",
-    "csv": "sg-ai-occupations-v6.csv"
+    "json": "sg-ai-occupations-v7.json",
+    "csv": "sg-ai-occupations-v7.csv"
   },
   "coverage": {
     "labour_monitor_clusters": 3,
@@ -13,7 +13,7 @@
     "sector_wage_anchor_occupations": 481,
     "geography_groups": 8,
     "macro_quarters": 136,
-    "national_ai_sources": 3,
+    "national_ai_sources": 4,
     "transition_programmes": 5,
     "lfr_occupation_families": 40
   },
@@ -18374,8 +18374,8 @@
       "file": "sg-geography-context-2020.json",
       "description": "Official Census 2020 geography context showing planning-area residence concentration and travel-time patterns by broad occupation group.",
       "data": {
-        "version": "V5",
-        "generated_at": "2026-03-21T16:09:17.046Z",
+        "version": "V7",
+        "generated_at": "2026-05-15T08:43:50.925Z",
         "description": "Official Singapore geography context derived from Census of Population 2020 planning-area residence and travel-time occupation tables. This artifact is contextual and does not affect the structural score.",
         "residence": {
           "overall_top_planning_areas": [
@@ -18835,8 +18835,8 @@
       "file": "sg-macro-context-2025.json",
       "description": "Official macro labour context covering unemployment and labour-tightness series for Singapore. Contextual only, not an occupation-level score input.",
       "data": {
-        "version": "V5",
-        "generated_at": "2026-03-21T16:09:17.068Z",
+        "version": "V7",
+        "generated_at": "2026-05-15T08:43:50.950Z",
         "description": "Official Singapore macro labour context derived from unemployment and labour-tightness series. This artifact is contextual and does not affect the structural score.",
         "unemployment": {
           "latest": {
@@ -19807,8 +19807,8 @@
       "file": "sg-ai-in-singapore-2025.json",
       "description": "Official IMDA and MOM national AI adoption, workforce, and programme context for Singapore. This is contextual evidence around the score, not an occupation-level input.",
       "data": {
-        "version": "V6",
-        "generated_at": "2026-04-01T13:22:54.809Z",
+        "version": "V7",
+        "generated_at": "2026-05-15T08:43:50.974Z",
         "context_type": "national_ai_context",
         "description": "Official Singapore national AI adoption, workforce, and programme context from IMDA and MOM releases. This artifact supports reports and public context around the structural score.",
         "usage_guidance": {
@@ -19850,6 +19850,28 @@
             "year": 2024,
             "source_key": "imda_sgde_2025"
           },
+          "mom_firm_ai_adoption_2026": {
+            "firms_not_adopted_ai_pct": 71.5,
+            "firms_started_ai_adoption_pct": 28.5,
+            "firms_integrating_ai_core_processes_pct": 3.8,
+            "firms_planning_ai_pct": 7.4,
+            "firms_piloting_ai_pct": 6,
+            "small_firms_adoption_pct": 23.9,
+            "large_firms_adoption_pct": 76.4,
+            "information_and_communications_adoption_pct": 74.1,
+            "professional_services_adoption_pct": 57.5,
+            "financial_and_insurance_services_adoption_pct": 56.4,
+            "ai_adopting_firms_reduced_headcount_pct": 6.2,
+            "ai_adopting_firms_redesigning_roles_pct": 18.9,
+            "ai_adopting_firms_creating_new_ai_jobs_pct": 13.9,
+            "ai_adopting_firms_productivity_improvement_pct": 70.7,
+            "high_implementation_cost_constraint_pct": 44.9,
+            "lack_in_house_expertise_constraint_pct": 42.4,
+            "year": 2026,
+            "source_key": "mom_ai_adoption_2026",
+            "scope": "Private sector establishments with at least 10 employees.",
+            "notes": "Official firm-adoption context only. This is not mapped into occupation-level score multipliers."
+          },
           "national_programmes": {
             "naiip_enterprises_target_3y": 10000,
             "naiip_workers_target": 100000,
@@ -19869,7 +19891,7 @@
             "agency": "IMDA",
             "title": "Annual Report & Singapore Digital Economy Report 2025",
             "date_published": "2025-10-06",
-            "url": "https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches/factsheets/2024/ar-sgde-2024",
+            "url": "https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches/press-releases/2025/singapore-digital-economy",
             "metrics_used": [
               "digital economy value added (S$128.1B)",
               "digital economy share of GDP (18.6%)",
@@ -19882,6 +19904,26 @@
               "tech median monthly wage (S$7,950)",
               "non-tech median monthly wage (S$4,860)"
             ]
+          },
+          {
+            "key": "mom_ai_adoption_2026",
+            "agency": "MOM",
+            "title": "Inaugural Release of Report on Adoption of Artificial Intelligence Among Firms",
+            "date_published": "2026-04-30",
+            "url": "https://www.mom.gov.sg/newsroom/press-releases/2026/0430-adoption-of-ai-among-firms",
+            "metrics_used": [
+              "firms not yet adopting AI (71.5%)",
+              "firms that have started AI adoption (28.5%)",
+              "firms integrating AI into core processes (3.8%)",
+              "information and communications adoption (74.1%)",
+              "professional services adoption (57.5%)",
+              "financial and insurance services adoption (56.4%)",
+              "AI-adopting firms reporting reduced headcount (6.2%)",
+              "AI-adopting firms redesigning roles (18.9%)",
+              "AI-adopting firms creating new AI-related jobs (13.9%)",
+              "AI-adopting firms reporting worker productivity improvement (70.7%)"
+            ],
+            "notes": "Used as near-term adoption context and forecast-readiness evidence, not as an occupation-level score input."
           },
           {
             "key": "imda_naiip_2026",
@@ -19913,8 +19955,8 @@
       "file": "sg-transition-infrastructure-2025.json",
       "description": "Official Singapore transition-infrastructure context covering Jobs Transformation Maps, major public career-transition programmes, and WSQ training-system activity.",
       "data": {
-        "version": "V5",
-        "generated_at": "2026-03-21T16:09:17.110Z",
+        "version": "V7",
+        "generated_at": "2026-05-15T08:43:50.996Z",
         "description": "Official Singapore transition infrastructure anchors used around the heuristic transition-support layer. This artifact captures published programmes, training-system activity, and Jobs Transformation Map coverage.",
         "programmes": [
           {

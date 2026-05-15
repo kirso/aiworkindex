@@ -1,35 +1,39 @@
-# AI Work Index — Singapore
+# AI Work Index
 
-V5 is the live structural score: a deterministic 3-layer model with latent-source posterior exposure, task-mode adjustment, human bottleneck, and market resilience. Prior V4.2 baselines and V4.3 shadow artifacts remain published for auditability. V5 adds transition-adjusted risk, realized-risk layers, and calibrated uncertainty diagnostics.
+V7 is the live structural score: a deterministic two-axis model that separates displacement pressure from demand resilience. V7 adds task-concentration-weighted exposure and a demand-persistence proxy, while retaining V6 baseline fields and historical V4/V5/V6 artifacts for auditability.
 
 **[Live Site](https://aiworkindex.com)** | **[Global Methodology](https://aiworkindex.com/global)** | **[Methodology](https://aiworkindex.com/methodology)** | **[Calculator](https://aiworkindex.com/calculator)** | **[Data](https://aiworkindex.com/data)**
 
-Current live market: Singapore. The shared structural baseline is designed to transfer across countries; country layers add local demand, wages, policy, and confidence.
+Singapore is the reference implementation. The shared structural baseline also powers global and country pages; local layers add demand, wages, policy, and confidence where evidence is strong enough.
 
 ## Key Numbers
 
-- **562 occupations** scored across 9 major groups
+- **562 Singapore occupations** scored across 9 major groups
 - **88 synthetic roles** (product manager, data scientist, delivery rider, startup founder...)
-- **27% face high+ AI risk** (152 occupations)
-- **SGD 56B** Est. annual wage pool under pressure
-- **50%** average AI task overlap across all occupations
+- **21% face high+ AI risk** (118 occupations)
+- **SGD 35.1B** estimated annual wage pool under high+ structural pressure
+- **492 / 562 occupations** have weighted task-primitives evidence
 - **4-source exposure ensemble**: Felten AIOE + Anthropic observed usage + Eloundou GPT exposure + ILO 2025
 
 ## How It Works
 
-Three-layer deterministic scoring — no LLM in the pipeline:
+Deterministic scoring — no LLM in the scoring pipeline:
 
-1. **Exposure** — reliability-weighted 4-source ensemble: AIOE (2021), Anthropic Economic Index (2026), Eloundou GPTs-are-GPTs (2024), ILO Refined Index (2025), blended using latent-source posterior in V5.
-2. **Human Bottleneck** — Pizzinelli theta from O*NET Work Context (judgment, presence, coordination)
-3. **Market Resilience** — MOM employment/wage trends + SOL/JiD demand signals + Anthropic calibration
+1. **Exposure** - reliability-weighted 4-source ensemble: AIOE (2021), Anthropic Economic Index (2026), Eloundou GPTs-are-GPTs (2024), ILO Refined Index (2025).
+2. **Task concentration** - Anthropic task penetration matched to O*NET task statements; concentrated exposure raises structural pressure.
+3. **Human bottleneck** - Pizzinelli theta from O*NET Work Context (judgment, presence, coordination).
+4. **Demand resilience** - MOM employment/wage trends, vacancy pressure, SOL/JiD demand signals, and demand-persistence proxy.
 
 The same structural spine is intended to power future country adapters. Singapore remains the reference implementation, while `/global` defines the comparable baseline for new markets.
 
 ```
-net_risk = exposure × (1 − bottleneck) × market_modifier
+task_signal = task_effective_coverage x task_exposure_concentration
+exposure_v7 = clamp01(exposure x (1 + 0.20 x task_signal))
+displacement_pressure = exposure_v7 x (1 - bottleneck)
+headline_risk = displacement_pressure x (1 - demand_resilience)
 ```
 
-Published as risk bands (Very Low through Very High) with visible confidence, retained V4.2 baselines, and task-adjusted bootstrap/stability diagnostics.
+Published as risk bands (Very Low through Very High) with visible confidence, uncertainty intervals, retained V6 baselines, and historical release artifacts.
 
 ## Validation
 
@@ -45,10 +49,10 @@ git clone https://github.com/kirso/aiworkindex
 cd aiworkindex
 bun install
 bun run build:release-data  # Refresh all release datasets and metadata
-bun run scripts/score.ts        # Score all 562 occupations
-bun run validate                 # Run release and data-contract validation
-bun run dev                      # Start dev server
-bun run build                    # Build 672 prerendered pages
+bun run scripts/score.ts    # Score all 562 occupations
+bun run validate            # Run release and data-contract validation
+bun run dev                 # Start dev server
+bun run build               # Build the prerendered static site
 ```
 
 ## Data Sources
@@ -100,7 +104,7 @@ Each occupation page shows:
 
 - **Exposure data age**: AIOE is from 2021 (pre-GPT-4). Ensemble with newer sources mitigates but doesn't eliminate.
 - **Employment granularity**: detailed Singapore occupation counts are not publicly released. `estimated_sg_employment_thousands` is a labeled sub-major allocation, and wage-pool analysis uses a separate labeled BLS-weighted proxy.
-- **Market modifier weights**: 0.6/0.4 momentum/scarcity split is calibrated, not empirically derived.
+- **Demand-resilience weights**: market momentum, vacancy, scarcity, demand-signal, and demand-persistence weights are calibrated, not empirically derived.
 - **Cluster-level labour data**: Same vacancy/hiring data for all occupations in each of 3 clusters.
 - **Synthetic role weights**: Expert-assigned SSOC blends, not validated against job posting data.
 
@@ -110,6 +114,6 @@ MIT
 
 ## Author
 
-[Kirill So](https://www.kirillso.com) · [LinkedIn](https://www.linkedin.com/in/kirso/) · [X](https://x.com/kirso_)
+[Kirill So](https://www.linkedin.com/in/kirso/) · [X](https://x.com/kirso_)
 
 Built with [Claude](https://www.anthropic.com) (Anthropic) & [GPT](https://openai.com) (OpenAI)

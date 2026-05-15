@@ -270,7 +270,7 @@ export const SITE = {
 	name: 'AI Work Index',
 	shortName: 'AIWorkIndex',
 	description: 'AI Work Index — global structural AI exposure and occupation risk methodology',
-	url: 'https://www.kirillso.com',
+	url: 'https://aiworkindex.com',
 	github: 'https://github.com/kirso/aiworkindex',
 	author: 'Kirill So',
 	authorUrl: 'https://www.linkedin.com/in/kirso/'
@@ -294,15 +294,15 @@ export const DATA_VINTAGE = {
 	/** Model version */
 	model_version: 'V7',
 	/** Last scoring run date */
-	last_updated: '2026-04-09',
+	last_updated: '2026-05-15',
 	/** Occupation count */
 	occupation_count: 562,
 	/** Synthetic role count */
 	role_count: 88,
 	/** Validation check count */
-	validation_checks: 167,
+	validation_checks: 179,
 	/** Page count */
-	page_count: 672
+	page_count: 1905
 } as const;
 
 // ============================================

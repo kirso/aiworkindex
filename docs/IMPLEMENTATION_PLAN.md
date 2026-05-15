@@ -1,15 +1,15 @@
-# Singapore AI Occupation Impact Index: Full Implementation Plan
+# AI Work Index: Historical Implementation Plan
 
-**Version:** 1.0  
-**Date:** 2026-03-17  
-**Status:** Active implementation plan  
+**Version:** 1.0
+**Date:** 2026-03-17
+**Status:** Historical planning note, superseded by the V7 release docs
 **Scope:** Product, UX, role coverage, data, methodology, validation, and growth
 
 ---
 
 ## 1. Purpose
 
-This document is the single explicit plan for turning the current project from a strong research-grade AI job index into a fully fledged Singapore career intelligence product.
+This document is a historical planning note. The live product is now the V7 AI Work Index release, with Singapore, US, and global occupation surfaces, a task-primitive scoring layer, and V7 release checks. Treat `README.md`, `docs/RELEASE_CHECKLIST.md`, the public methodology pages, and generated release artifacts as the current source of truth.
 
 This plan complements:
 - `docs/PRD.md`: product and methodology requirements
@@ -29,11 +29,11 @@ This document focuses on:
 
 ### 2.1 Shipped
 
-The current app already includes:
-- deterministic three-layer scoring:
+At the time this plan was written, the app already included:
+- deterministic structural scoring:
   - exposure
   - human bottleneck
-  - market resilience
+  - demand resilience
 - risk bands instead of pseudo-precise score labels
 - visible confidence
 - stability / sensitivity analysis

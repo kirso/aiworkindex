@@ -98,7 +98,9 @@
 				<span>{((occupation.net_risk ?? 0) * 100).toFixed(0)}% risk</span>
 				{#if occupation.gross_wage_median}
 					<span>·</span>
-					<span>{occupation.currency ?? 'SGD'} {occupation.gross_wage_median.toLocaleString()}/mo</span>
+					<span
+						>{occupation.currency ?? 'SGD'} {occupation.gross_wage_median.toLocaleString()}/mo</span
+					>
 				{/if}
 			</div>
 		{/if}
@@ -115,7 +117,10 @@
 				{#if occupation.valueKind === 'count'}
 					{formatCompactCount(occupation.gross_wage_median ?? 0)} mapped occupations
 				{:else if occupation.gross_wage_median}
-					Median: {occupation.currency ?? 'SGD'} {occupation.gross_wage_median?.toLocaleString()}{occupation.wagePeriod === 'annual' ? '/yr' : '/mo'}
+					Median: {occupation.currency ?? 'SGD'}
+					{occupation.gross_wage_median?.toLocaleString()}{occupation.wagePeriod === 'annual'
+						? '/yr'
+						: '/mo'}
 				{:else if occupation.ssoc}
 					{occupation.ssoc}
 				{/if}

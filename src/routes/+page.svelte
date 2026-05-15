@@ -120,7 +120,7 @@
 					name: 'How is the score calculated?',
 					acceptedAnswer: {
 						'@type': 'Answer',
-						text: 'Global structural pressure is exposure multiplied by bottleneck protection. Country headline risk layers local demand resilience on top. No LLM is used in the scoring pipeline.'
+						text: 'Global structural pressure is exposure multiplied by one minus the human bottleneck. Country headline risk is structural pressure multiplied by one minus demand resilience. No LLM is used in the scoring pipeline.'
 					}
 				}
 			]
@@ -438,7 +438,12 @@
 					</div>
 					{#each topHighRisk as occ, i (occ.displayCode)}
 						<OccupationCard
-							occupation={{ title: shortTitle(occ.title), linkHref: occ.linkHref ?? '/global', net_risk: occ.net_risk, risk_band: occ.risk_band }}
+							occupation={{
+								title: shortTitle(occ.title),
+								linkHref: occ.linkHref ?? '/global',
+								net_risk: occ.net_risk,
+								risk_band: occ.risk_band
+							}}
 							mode="compact"
 							index={i + 1}
 							indexColor="text-risk-very-high"
@@ -456,7 +461,12 @@
 					</div>
 					{#each topSafest as occ, i (occ.displayCode)}
 						<OccupationCard
-							occupation={{ title: shortTitle(occ.title), linkHref: occ.linkHref ?? '/global', net_risk: occ.net_risk, risk_band: occ.risk_band }}
+							occupation={{
+								title: shortTitle(occ.title),
+								linkHref: occ.linkHref ?? '/global',
+								net_risk: occ.net_risk,
+								risk_band: occ.risk_band
+							}}
 							mode="compact"
 							index={i + 1}
 							indexColor="text-risk-very-low"
@@ -472,7 +482,12 @@
 					</div>
 					{#each topAugmented as occ, i (occ.displayCode)}
 						<OccupationCard
-							occupation={{ title: shortTitle(occ.title), linkHref: occ.linkHref ?? '/global', net_risk: occ.net_risk, risk_band: occ.risk_band }}
+							occupation={{
+								title: shortTitle(occ.title),
+								linkHref: occ.linkHref ?? '/global',
+								net_risk: occ.net_risk,
+								risk_band: occ.risk_band
+							}}
 							mode="compact"
 							index={i + 1}
 							indexColor="text-impact-leveraged"
@@ -488,7 +503,12 @@
 					</div>
 					{#each topFocus as occ, i (occ.displayCode)}
 						<OccupationCard
-							occupation={{ title: shortTitle(occ.title), linkHref: occ.linkHref ?? '/global', net_risk: occ.net_risk, risk_band: occ.risk_band }}
+							occupation={{
+								title: shortTitle(occ.title),
+								linkHref: occ.linkHref ?? '/global',
+								net_risk: occ.net_risk,
+								risk_band: occ.risk_band
+							}}
 							mode="compact"
 							index={i + 1}
 							indexColor="text-risk-very-low"

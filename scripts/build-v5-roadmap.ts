@@ -123,23 +123,27 @@ function main() {
 		status:
 			DATA_VINTAGE.model_version === 'V5'
 				? 'promoted_live'
-				: DATA_VINTAGE.model_version === 'V4.3'
-					? v5ExperimentalModelPublished
-						? 'experimental_model_published'
-						: v5Sidecars
-							? 'sidecars_published'
-							: 'ready_to_start'
-					: 'blocked_on_v43',
+				: DATA_VINTAGE.model_version === 'V6' || DATA_VINTAGE.model_version === 'V7'
+					? 'archived_live_release'
+					: DATA_VINTAGE.model_version === 'V4.3'
+						? v5ExperimentalModelPublished
+							? 'experimental_model_published'
+							: v5Sidecars
+								? 'sidecars_published'
+								: 'ready_to_start'
+						: 'blocked_on_v43',
 		summary:
 			DATA_VINTAGE.model_version === 'V5'
 				? 'V5 is now the live structural release. The retained V4.3 baseline, sidecars, and promotion-comparison artifacts remain published for auditability while the next work shifts to V5.x calibration.'
-				: DATA_VINTAGE.model_version === 'V4.3'
-					? v5ExperimentalModelPublished
-						? 'V4.3 is live, V5 sidecars are published, and the first integrated V5 experimental model is now available for audit and iteration.'
-						: v5Sidecars
-							? 'V4.3 is live and the first V5 sidecars are published, so the next step is validating and iterating on those workstreams.'
-							: 'V4.3 is live, so V5 can focus on the next scientific upgrades instead of promotion mechanics.'
-					: 'V5 remains staged behind the V4.3 promotion path.',
+				: DATA_VINTAGE.model_version === 'V6' || DATA_VINTAGE.model_version === 'V7'
+					? 'V5 is archived as a former live research program. Its sidecars and experimental comparison artifacts remain published for auditability beneath the current live release.'
+					: DATA_VINTAGE.model_version === 'V4.3'
+						? v5ExperimentalModelPublished
+							? 'V4.3 is live, V5 sidecars are published, and the first integrated V5 experimental model is now available for audit and iteration.'
+							: v5Sidecars
+								? 'V4.3 is live and the first V5 sidecars are published, so the next step is validating and iterating on those workstreams.'
+								: 'V4.3 is live, so V5 can focus on the next scientific upgrades instead of promotion mechanics.'
+						: 'V5 remains staged behind the preceding release-governance path.',
 		v43_handoff: {
 			experimental_status: experimental.shadow_readiness.status,
 			experimental_summary: experimental.shadow_readiness.summary,

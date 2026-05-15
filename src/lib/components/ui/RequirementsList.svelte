@@ -22,7 +22,12 @@
 		neutral: 'Other characteristics'
 	};
 
-	const toneGroupOrder: RequirementItem['tone'][] = ['protective', 'support', 'pressure', 'neutral'];
+	const toneGroupOrder: RequirementItem['tone'][] = [
+		'protective',
+		'support',
+		'pressure',
+		'neutral'
+	];
 
 	let grouped = $derived.by(() => {
 		const groups = new Map<RequirementItem['tone'], RequirementItem[]>();
@@ -32,8 +37,8 @@
 			groups.set(item.tone, list);
 		}
 		return toneGroupOrder
-			.filter((tone) => groups.has(tone))
-			.map((tone) => ({ tone, label: toneGroupLabel[tone], items: groups.get(tone)! }));
+			.filter(tone => groups.has(tone))
+			.map(tone => ({ tone, label: toneGroupLabel[tone], items: groups.get(tone)! }));
 	});
 
 	const toneAccent = (tone: RequirementItem['tone']): string => {

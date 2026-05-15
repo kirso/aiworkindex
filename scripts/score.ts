@@ -159,7 +159,7 @@ interface UncertaintyScores {
 	net_risk_p10: number;
 	net_risk_p50: number;
 	net_risk_p90: number;
-	method: 'bootstrap_v1';
+	method: 'bootstrap_v2';
 }
 
 interface LabourClusterMonitor {
@@ -234,8 +234,16 @@ interface ScoredOccupation {
 	impact_type: 'at_risk' | 'ai_leveraged' | 'stable' | 'mixed';
 	evidence: EvidenceSignals;
 	confidence: ConfidenceScores;
+	structural_model_version: 'V7';
 	stability: StabilityScores;
 	task_primitives: TaskPrimitives;
+	task_signal: number;
+	demand_persistence: number;
+	exposure_v7: number;
+	baseline_v6: {
+		net_risk: number;
+		exposure: number;
+	};
 	uncertainty: UncertaintyScores;
 	labour_monitor_key: LabourClusterMonitor['cluster_key'] | null;
 	raw: RawScores;
@@ -1330,7 +1338,7 @@ function buildStabilityScores(
 	};
 }
 
-// ===== Step 7: Score all occupations (V6) =====
+// ===== Step 7: Score all occupations (V7) =====
 function scoreOccupations(
 	sgOccs: SgOccupation[],
 	aioeMap: Map<string, number>,
@@ -1343,7 +1351,7 @@ function scoreOccupations(
 	demandData: { exactCodes: Set<string>; prefixes: Set<string> },
 	labourMonitors: Map<string, LabourClusterMonitor>
 ): ScoredOccupation[] {
-	console.log('\nScoring occupations (V6 — 4-source exposure ensemble)...');
+	console.log('\nScoring occupations (V7 — 4-source exposure ensemble + task concentration)...');
 
 	// Pre-compute theta_MIN for C-AIOE formula
 	const allTheta = [...thetaMap.values()];
@@ -1767,7 +1775,12 @@ function scoreOccupations(
 	console.log('  Loading task primitives for V7 task-concentration signal...');
 	const taskPrimitivesMap = new Map<
 		string,
-		{ task_effective_coverage: number | null; task_exposure_concentration: number | null }
+		{
+			matched_task_weight_share: number | null;
+			task_effective_coverage: number | null;
+			task_exposure_concentration: number | null;
+			method: 'anthropic_task_penetration_v1';
+		}
 	>();
 	try {
 		const taskPrimitivesPath = path.join(DATA_DIR, 'occupations.json');
@@ -1775,6 +1788,7 @@ function scoreOccupations(
 			const existingData = JSON.parse(fs.readFileSync(taskPrimitivesPath, 'utf-8')) as Array<{
 				ssoc: string;
 				task_primitives?: {
+					matched_task_weight_share: number | null;
 					task_effective_coverage: number | null;
 					task_exposure_concentration: number | null;
 					method: string | null;
@@ -1783,8 +1797,10 @@ function scoreOccupations(
 			for (const entry of existingData) {
 				if (entry.task_primitives?.method) {
 					taskPrimitivesMap.set(entry.ssoc, {
+						matched_task_weight_share: entry.task_primitives.matched_task_weight_share,
 						task_effective_coverage: entry.task_primitives.task_effective_coverage,
-						task_exposure_concentration: entry.task_primitives.task_exposure_concentration
+						task_exposure_concentration: entry.task_primitives.task_exposure_concentration,
+						method: 'anthropic_task_penetration_v1'
 					});
 				}
 			}
@@ -2112,12 +2128,19 @@ function scoreOccupations(
 			},
 			structural_model_version: 'V7',
 			stability,
-			task_primitives: {
-				matched_task_weight_share: null,
-				task_effective_coverage: null,
-				task_exposure_concentration: null,
-				method: null
-			},
+			task_primitives: taskPrim
+				? {
+						matched_task_weight_share: taskPrim.matched_task_weight_share,
+						task_effective_coverage: taskPrim.task_effective_coverage,
+						task_exposure_concentration: taskPrim.task_exposure_concentration,
+						method: taskPrim.method
+					}
+				: {
+						matched_task_weight_share: null,
+						task_effective_coverage: null,
+						task_exposure_concentration: null,
+						method: null
+					},
 			// V7 fields
 			task_signal: round(v7Result.task_signal, 4),
 			demand_persistence: round(v7Result.demand_persistence, 4),
@@ -2197,7 +2220,7 @@ function round(n: number, decimals: number): number {
 
 // ===== Distribution Analysis =====
 function printDistributionAnalysis(results: ScoredOccupation[]) {
-	console.log('\n=== V6 Risk Band Distribution ===');
+	console.log('\n=== V7 Risk Band Distribution ===');
 	const bands: RiskBand[] = ['very_low', 'low', 'moderate', 'high', 'very_high'];
 	const bandLabels: Record<RiskBand, string> = {
 		very_low: 'Very Low  (0.00-0.05)',
@@ -2295,7 +2318,7 @@ function printDistributionAnalysis(results: ScoredOccupation[]) {
 
 // ===== Main =====
 async function main() {
-	console.log('=== Singapore AI Job Exposure Scoring Pipeline (V6) ===\n');
+	console.log('=== Singapore AI Job Exposure Scoring Pipeline (V7) ===\n');
 
 	// Load all data sources
 	const aioeMap = loadAioe();

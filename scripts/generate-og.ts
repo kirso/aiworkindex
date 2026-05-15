@@ -215,9 +215,7 @@ function buildUsMarkup(occ: UsOccupation) {
 	const title =
 		occ.localTitle.length > 45 ? occ.localTitle.substring(0, 42) + '...' : occ.localTitle;
 	const wagePart =
-		occ.wage.median != null
-			? `${occ.wage.currency} ${occ.wage.median.toLocaleString()}/yr`
-			: null;
+		occ.wage.median != null ? `${occ.wage.currency} ${occ.wage.median.toLocaleString()}/yr` : null;
 	const pressurePct = Math.round(occ.structuralPressure * 100);
 	const projectionLabel =
 		occ.employment.projectedChangePct != null
@@ -320,9 +318,7 @@ function buildUsMarkup(occ: UsOccupation) {
 				{ style: { display: 'flex', gap: '20px', fontSize: '18px', color: DS.primaryLight } },
 				wagePart ? h('div', {}, wagePart) : null,
 				h('div', {}, `Structural pressure ${pressurePct}%`),
-				projectionLabel
-					? h('div', { style: { color: DS.positive } }, projectionLabel)
-					: null
+				projectionLabel ? h('div', { style: { color: DS.positive } }, projectionLabel) : null
 			),
 			h('div', { style: { fontSize: '18px', color: DS.url } }, 'www.aiworkindex.com')
 		)
@@ -489,7 +485,14 @@ async function main() {
 	console.log(`\nSG Occupations: ${generated} images, ${errors} errors`);
 
 	// Generate US occupation OG images
-	const US_DATA_FILE = path.join(import.meta.dir, '..', 'data', 'countries', 'us', 'occupations.json');
+	const US_DATA_FILE = path.join(
+		import.meta.dir,
+		'..',
+		'data',
+		'countries',
+		'us',
+		'occupations.json'
+	);
 	const US_OUT_DIR = path.join(OUT_DIR, 'us');
 	try {
 		const usOccupations: UsOccupation[] = JSON.parse(fs.readFileSync(US_DATA_FILE, 'utf-8')).map(

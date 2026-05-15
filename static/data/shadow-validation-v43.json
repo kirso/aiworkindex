@@ -1,6 +1,6 @@
 {
   "version": "V4.3-shadow",
-  "generated_at": "2026-03-21T16:09:23.347Z",
+  "generated_at": "2026-05-15T08:43:56.747Z",
   "cluster_directional_accuracy": {
     "baseline": 1,
     "shadow": 0.3333,
@@ -8,15 +8,15 @@
     "pass": false
   },
   "bls_spearman_rho": {
-    "baseline": -0.1437,
-    "shadow": -0.1908,
-    "delta": -0.0471,
+    "baseline": -0.1387,
+    "shadow": -0.167,
+    "delta": -0.0283,
     "pass": true
   },
   "occupation_family_spearman_rho": {
-    "baseline": -0.242,
-    "shadow": -0.4457,
-    "delta": -0.2037,
+    "baseline": -0.249,
+    "shadow": -0.4633,
+    "delta": -0.2143,
     "pass": true
   },
   "shadow_metrics": {
@@ -26,7 +26,7 @@
         {
           "cluster_key": "pmet",
           "cluster_label": "Professionals, Managers, Executives & Technicians",
-          "avg_shadow_net_risk": 0.2033,
+          "avg_shadow_net_risk": 0.2059,
           "vacancy_trend_4q_pct": -3.13,
           "hiring_net_pressure": 0.6,
           "retrenchment_incidence": 1.5
@@ -34,7 +34,7 @@
         {
           "cluster_key": "clerical_sales_service",
           "cluster_label": "Clerical, Sales & Service Workers",
-          "avg_shadow_net_risk": 0.3319,
+          "avg_shadow_net_risk": 0.3262,
           "vacancy_trend_4q_pct": -11.43,
           "hiring_net_pressure": 1,
           "retrenchment_incidence": 1.5
@@ -42,7 +42,7 @@
         {
           "cluster_key": "production_transport",
           "cluster_label": "Production & Transport Operators, Cleaners & Labourers",
-          "avg_shadow_net_risk": 0.1254,
+          "avg_shadow_net_risk": 0.1146,
           "vacancy_trend_4q_pct": 16.67,
           "hiring_net_pressure": 0.9,
           "retrenchment_incidence": 1.5
@@ -55,11 +55,11 @@
     },
     "bls": {
       "sample_size": 530,
-      "spearman_rho": -0.1908
+      "spearman_rho": -0.167
     },
     "occupation_family": {
       "family_count": 35,
-      "spearman_rho": -0.4457
+      "spearman_rho": -0.4633
     }
   }
 }

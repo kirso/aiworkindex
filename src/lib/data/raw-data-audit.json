@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-03-28T02:16:31.896Z",
+  "generated_at": "2026-05-15T08:44:09.580Z",
   "summary": {
-    "valid": 31,
+    "valid": 32,
     "placeholder_error": 0,
     "missing": 0,
     "reference_only": 4
@@ -72,9 +72,24 @@
       "size_bytes": 2467,
       "used_by": [
         "score pipeline",
-        "market momentum"
+        "market momentum",
+        "forecast-readiness wage outcome candidate"
       ],
       "note": "Header starts with: DataSeries,2023,2022,2021,2020,2019,2018,2017,2016,2015,2014,2013,2012,2011,2010,2009,2008,2007,2004,2003,2002,2001"
+    },
+    {
+      "key": "mom_ai_adoption_2026",
+      "file": "mom-ai-adoption-2026.json",
+      "label": "MOM AI adoption among firms",
+      "status": "valid",
+      "exists": true,
+      "expected_type": "json",
+      "size_bytes": 1939,
+      "used_by": [
+        "AI in Singapore context",
+        "forecast-readiness adoption source"
+      ],
+      "note": "Valid JSON payload."
     },
     {
       "key": "vacancy_rates_by_occupation_group",
@@ -401,7 +416,7 @@
       "status": "valid",
       "exists": true,
       "expected_type": "txt",
-      "size_bytes": 2759559,
+      "size_bytes": 2761966,
       "used_by": [
         "O*NET enrichment",
         "experimental task-primitives"
@@ -415,7 +430,7 @@
       "status": "valid",
       "exists": true,
       "expected_type": "txt",
-      "size_bytes": 11707887,
+      "size_bytes": 11915292,
       "used_by": [
         "experimental task-primitives",
         "V4.3 shadow model"
@@ -429,7 +444,7 @@
       "status": "valid",
       "exists": true,
       "expected_type": "txt",
-      "size_bytes": 2592962,
+      "size_bytes": 2601670,
       "used_by": [
         "O*NET enrichment"
       ],

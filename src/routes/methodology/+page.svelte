@@ -748,7 +748,8 @@
 							<tr class="border-b border-border/50">
 								<td class="py-2 pr-3 font-medium">High Displacement</td>
 								<td class="py-2 pr-3"
-									><span class="font-semibold text-risk-very-high">At Risk</span> — AI substitutes, weak bottleneck</td
+									><span class="font-semibold text-risk-very-high">At Risk</span> — AI substitutes, weak
+									bottleneck</td
 								>
 								<td class="py-2"
 									><span class="font-semibold text-impact-mixed">Mixed</span> — conflicting signals, high
@@ -1385,13 +1386,12 @@
 					be read as decision support, not observed mobility data.
 				</p>
 				<p class="mt-2 text-sm text-muted-foreground">
-					Transition capacity is scored as a weighted composite of six sub-components:
-					archetype similarity (0.20), skill overlap via SSOC prefix matching (0.20),
-					demand strength of the target occupation (0.20), wage preservation (0.15),
-					risk improvement (0.15), and credential gap proxy (0.10). Scores range from
-					0 to 1 and are labelled easy (&ge;0.7), moderate (&ge;0.5), stretch (&ge;0.3),
-					or difficult (&lt;0.3). When empirical transition data is available it is blended
-					at 15% weight; otherwise the score is fully model-derived.
+					Transition capacity is scored as a weighted composite of six sub-components: archetype
+					similarity (0.20), skill overlap via SSOC prefix matching (0.20), demand strength of the
+					target occupation (0.20), wage preservation (0.15), risk improvement (0.15), and
+					credential gap proxy (0.10). Scores range from 0 to 1 and are labelled easy (&ge;0.7),
+					moderate (&ge;0.5), stretch (&ge;0.3), or difficult (&lt;0.3). When empirical transition
+					data is available it is blended at 15% weight; otherwise the score is fully model-derived.
 				</p>
 				<p class="mt-2 text-sm text-muted-foreground">
 					<strong>Not yet implemented:</strong> Occupation-level employment data (MOM OED, not publicly

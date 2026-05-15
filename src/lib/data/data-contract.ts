@@ -336,35 +336,55 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 		notes: 'Cluster-level labour evidence layer, not occupation-level outcomes.'
 	},
 	{
-		key: 'job_vacancies_industry_occupation',
-		label: 'Job Vacancies by Industry and Occupation',
+		key: 'mom_labour_market_report_q4_2025',
+		label: 'MOM Labour Market Report Q4 2025',
 		tier: 'official_sg',
 		status: 'live',
-		vintage: '2024',
-		used_for: ['industry context vacancy overlay', 'cluster vacancy counts'],
+		vintage: '2025 Q4',
+		used_for: [
+			'labour monitor enrichment',
+			'vacancy validation',
+			'recruitment and resignation context',
+			'retrenchment incidence context',
+			'forecast-readiness gating'
+		],
+		url: 'https://www.mom.gov.sg/newsroom/press-releases/2026/0320-labour-market-4q-2025',
 		notes:
-			'Used as an industry-level context overlay and to attach published cluster vacancy counts; not treated as occupation-level vacancy truth.'
+			'Official Q4 2025 labour-market release used to enrich current-quarter vacancy, hiring, retrenchment, and re-entry fields where public API feeds lagged.'
 	},
+		{
+			key: 'job_vacancies_industry_occupation',
+			label: 'Job Vacancies by Industry and Occupation',
+			tier: 'official_sg',
+			status: 'live',
+			vintage: '2025',
+			used_for: ['industry context vacancy overlay', 'cluster vacancy counts'],
+			url: 'https://data.gov.sg/datasets?resultId=d_86dffa3d28e4c3ee085c3f99abad6e9f&sort=updatedAt',
+			notes:
+				'Used as an industry-level context overlay and to attach published cluster vacancy counts; not treated as occupation-level vacancy truth.'
+		},
 	{
 		key: 'mom_job_vacancy_rates',
 		label: 'MOM Job Vacancy Rates by Occupation Group',
 		tier: 'official_sg',
-		status: 'live',
-		vintage: '2025',
-		used_for: ['labour monitor', 'vacancy validation'],
-		notes:
-			'Official vacancy-rate series used in the live labour monitor and temporal validation.'
-	},
+			status: 'live',
+			vintage: '2025',
+			used_for: ['labour monitor', 'vacancy validation'],
+			url: 'https://data.gov.sg/datasets?resultId=d_1e10046c33418c507bb2483c26dca489&sort=updatedAt',
+			notes:
+				'Official vacancy-rate series used in the live labour monitor and temporal validation.'
+		},
 	{
 		key: 'mom_job_vacancy_counts',
 		label: 'MOM Job Vacancy Counts',
 		tier: 'official_sg',
-		status: 'live',
-		vintage: '2025',
-		used_for: ['labour monitor', 'vacancy validation'],
-		notes:
-			'Official vacancy-count series used in the live labour monitor and temporal validation.'
-	},
+			status: 'live',
+			vintage: '2025',
+			used_for: ['labour monitor', 'vacancy validation'],
+			url: 'https://data.gov.sg/datasets?resultId=d_86dffa3d28e4c3ee085c3f99abad6e9f&sort=updatedAt',
+			notes:
+				'Official vacancy-count series used in the live labour monitor and temporal validation.'
+		},
 	{
 		key: 'mom_recruitment_resignation_rates',
 		label: 'MOM Recruitment and Resignation Rates',
@@ -376,20 +396,42 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 		notes:
 			'Official annual average monthly recruitment and resignation rates by industry and occupational group. The raw API payload is downloaded into the repo; the published labour monitor still prefers current-quarter MOM enrichment snapshots when available.'
 	},
-	{
-		key: 'mom_retrenchment_by_occupation_group',
-		label: 'MOM / SingStat Retrenchment by Occupation Group',
-		tier: 'official_sg',
+		{
+			key: 'mom_retrenchment_by_occupation_group',
+			label: 'MOM / SingStat Retrenchment by Occupation Group',
+			tier: 'official_sg',
 		status: 'live',
 		vintage: '2026',
 		used_for: ['labour monitor retrenchment signal'],
 		url: 'https://data.gov.sg/datasets?resultId=d_3eaf52cdcc405a80b602d031d0bd092b&sort=updatedAt',
-		notes:
-			'Official quarterly retrenched-employees counts by broad occupational group. The raw API payload is downloaded into the repo and merged with published incidence context from the MOM labour-market snapshot.'
-	},
-	{
-		key: 'singstat_unemployment_rate_quarterly',
-		label: 'SingStat Unemployment Rate, Quarterly, Seasonally Adjusted',
+			notes:
+				'Official quarterly retrenched-employees counts by broad occupational group. The raw API payload is downloaded into the repo and merged with published incidence context from the MOM labour-market snapshot.'
+		},
+		{
+			key: 'mom_median_income_by_occupation',
+			label: 'Median Gross Monthly Income by Occupation and Sex',
+			tier: 'official_sg',
+			status: 'live',
+			vintage: '2023',
+			used_for: ['wage movement source candidate', 'raw data audit'],
+			url: 'https://data.gov.sg/datasets/d_8f024ddf2553d81ee00ede55b1d9b0ff/view',
+			notes:
+				'Official annual broad occupation-group income series. Available as a source candidate for wage-outcome validation, but not yet transformed into a forecast outcome panel.'
+		},
+		{
+			key: 'sg_postings_monitor',
+			label: 'Singapore postings monitor',
+			tier: 'external_proxy',
+			status: 'live',
+			vintage: '2026',
+			used_for: ['postings volume proxy', 'AI-skill share candidate', 'occupation and role context'],
+			url: 'https://www.mycareersfuture.gov.sg/',
+			notes:
+				'Observed postings proxy built from MyCareersFuture and employer ATS snapshots. Useful for timeliness, but not official labour-market statistics.'
+		},
+		{
+			key: 'singstat_unemployment_rate_quarterly',
+			label: 'SingStat Unemployment Rate, Quarterly, Seasonally Adjusted',
 		tier: 'official_sg',
 		status: 'live',
 		vintage: '2025',
@@ -483,28 +525,28 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 		used_for: ['worker-profile wage context'],
 		notes: 'Published male/female wage medians for common occupations, shown as contextual evidence only.'
 	},
-	{
-		key: 'imda_digital_economy_2025',
-		label: 'IMDA Singapore Digital Economy Report 2025',
-		tier: 'official_sg',
-		status: 'live',
-		vintage: '2025',
-		used_for: ['AI in Singapore context', 'reports', 'national AI adoption framing'],
-		url: 'https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches/factsheets/2024/ar-sgde-2024',
-		notes:
-			'Official Singapore national AI-adoption, worker-usage, and tech-workforce context. Used for reports and context, not occupation-level score multipliers.'
-	},
-	{
-		key: 'imda_sgde_2025',
-		label: 'IMDA Singapore Digital Economy Report 2025',
-		tier: 'official_sg',
-		status: 'live',
-		vintage: '2025',
-		used_for: ['AI in Singapore context', 'reports', 'national AI adoption framing'],
-		url: 'https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches/factsheets/2024/ar-sgde-2024',
-		notes:
-			'Official Singapore national AI-adoption, worker-usage, and tech-workforce context. Used for reports and context, not occupation-level score multipliers.'
-	},
+		{
+			key: 'imda_sgde_2025',
+			label: 'IMDA Singapore Digital Economy Report 2025',
+			tier: 'official_sg',
+			status: 'live',
+			vintage: '2025',
+			used_for: ['AI in Singapore context', 'reports', 'national AI adoption framing'],
+			url: 'https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches/press-releases/2025/singapore-digital-economy',
+			notes:
+				'Official Singapore national AI-adoption, worker-usage, and tech-workforce context. Used for reports and context, not occupation-level score multipliers.'
+		},
+		{
+			key: 'mom_ai_adoption_2026',
+			label: 'MOM AI Adoption Among Firms',
+			tier: 'official_sg',
+			status: 'live',
+			vintage: '2026',
+			used_for: ['AI in Singapore context', 'near-term adoption context', 'forecast-readiness gating'],
+			url: 'https://www.mom.gov.sg/newsroom/press-releases/2026/0430-adoption-of-ai-among-firms',
+			notes:
+				'Official firm-size and sector AI adoption release. Used as adoption context only; not mapped into detailed occupation score multipliers.'
+		},
 	{
 		key: 'imda_naiip_2026',
 		label: 'IMDA National AI Impact Programme',
@@ -600,11 +642,35 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 		tier: 'external_proxy',
 		status: 'live',
 		vintage: '2026',
-		used_for: ['task and technology enrichment context'],
+		used_for: ['task primitive matching', 'task enrichment context'],
 		research_keys: ['onet_database_2024'],
 		url: 'https://www.onetcenter.org/database.html',
 		notes:
-			'Used only for contextual task enrichment on detail pages, not as a structural score input.'
+			'Used to match normalized task portfolios into the V7 task-primitive layer and to support contextual task enrichment.'
+	},
+	{
+		key: 'onet_task_ratings',
+		label: 'O*NET Task Ratings',
+		tier: 'external_proxy',
+		status: 'live',
+		vintage: '2026',
+		used_for: ['task primitive weighting'],
+		research_keys: ['onet_database_2024'],
+		url: 'https://www.onetcenter.org/database.html',
+		notes:
+			'Used for importance/frequency task weights inside V7 task primitives where task matching coverage is strong enough.'
+	},
+	{
+		key: 'anthropic_task_penetration_2026',
+		label: 'Anthropic task penetration',
+		tier: 'external_proxy',
+		status: 'live',
+		vintage: '2026',
+		used_for: ['task primitive penetration', 'V7 task signal'],
+		research_keys: ['anthropic_economic_index_2026'],
+		url: 'https://www.anthropic.com/research/anthropic-economic-index-january-2026-report',
+		notes:
+			'Observed task-level AI penetration source used to compute V7 task effective coverage and exposure concentration.'
 	},
 	{
 		key: 'onet_technology_skills',

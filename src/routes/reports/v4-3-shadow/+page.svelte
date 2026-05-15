@@ -49,14 +49,14 @@
 			: isPromoted
 				? ['The V4.3 shadow model has already been promoted into the live structural release.']
 				: [
-						'No methodology blockers remain. The published shadow model has cleared the current promotion gates, so moving it into the live headline score is now a release decision.'
+						'No input blockers remain, but this archived shadow model still requires explicit validation and anchor-review sign-off before any headline promotion decision.'
 					];
 	const shippedNow = [
-		'Bootstrap uncertainty intervals are published on occupations today.',
+		'Bootstrap uncertainty intervals are published on occupations in the live dataset.',
 		'Structural risk and near-term risk are separated in the forecast layer.',
 		'Task-primitives fields now publish weighted evidence where normalized O*NET task matches exist; sparse occupations remain explicit null.',
 		'The release and governance surfaces now expose shadow-model readiness instead of hiding it.',
-		`${shadowComparison.task_native_count} occupations now have published task-native shadow scores for comparison against the live baseline.`
+		`${shadowComparison.task_native_count} occupations have published task-native shadow scores for archived comparison.`
 	];
 	const remainingInputGaps =
 		blockers.length > 0
@@ -98,7 +98,7 @@
 	title="V4.3 Shadow Model Note"
 	description={isPromoted
 		? 'How the V4.3 shadow model was promoted into the live release, what changed, and how the audit trail against V4.2 remains published.'
-		: 'What the V4.3 task-weighted shadow model would change, what is now promotion-ready, and why V4.2 remains the published baseline until a release decision is made.'}
+		: 'Archived V4.3 task-weighted shadow-model note showing task coverage, validation gates, and why the shadow layer is not the live V7 headline formula.'}
 	path="/reports/v4-3-shadow"
 />
 
@@ -134,14 +134,14 @@
 
 	<div class="mt-6 grid gap-3 md:grid-cols-4">
 		<div class={card({ padding: 'sm', variant: 'metric' })}>
-			<p class={microLabel()}>{isPromoted ? 'Comparison baseline' : 'Published baseline'}</p>
+			<p class={microLabel()}>{isPromoted ? 'Comparison baseline' : 'Shadow baseline'}</p>
 			<p class="mt-1 text-lg font-bold text-foreground">
 				{experimentalMethodology.published_baseline_version}
 			</p>
 			<p class="text-xs text-muted-foreground">
 				{isPromoted
 					? 'pre-promotion live release used for comparison'
-					: 'current live structural score'}
+					: 'historical comparison basis for this shadow artifact'}
 			</p>
 		</div>
 		<div class={card({ padding: 'sm', variant: 'metric' })}>
@@ -217,10 +217,10 @@
 	<div class="grid gap-3 md:grid-cols-2">
 		<div class={card({ padding: 'md' })}>
 			<p class="text-sm font-semibold text-foreground">
-				{isPromoted ? 'Now live in V4.3' : 'Already live in V4.2'}
+				{isPromoted ? 'Now live in V4.3' : 'Current live V7 keeps this separate'}
 			</p>
 			<ul class="mt-3 space-y-2 text-sm text-muted-foreground">
-				{#each shippedNow as item}
+				{#each shippedNow as item (item)}
 					<li>{item}</li>
 				{/each}
 			</ul>
@@ -232,7 +232,7 @@
 					: 'What still does not affect the headline score'}
 			</p>
 			<ul class="mt-3 space-y-2 text-sm text-muted-foreground">
-				{#each headlineHoldDisplayItems as item}
+				{#each headlineHoldDisplayItems as item (item)}
 					<li>{item}</li>
 				{/each}
 			</ul>
@@ -242,7 +242,7 @@
 	<p class={cn(sectionLabel(), 'mt-8 mb-3')}>Remaining Input Gaps</p>
 	<div class={card({ padding: 'md' })}>
 		<ul class="space-y-2 text-sm text-muted-foreground">
-			{#each remainingInputGaps as item}
+			{#each remainingInputGaps as item (item)}
 				<li>{item}</li>
 			{/each}
 		</ul>
@@ -304,7 +304,7 @@
 			<p class="mt-1 text-lg font-bold text-foreground">
 				{formatPct(coverage.task_weighted_share)}
 			</p>
-			<p class="text-xs text-muted-foreground">headline score still untouched</p>
+			<p class="text-xs text-muted-foreground">archived outside the live V7 headline</p>
 		</div>
 	</div>
 

@@ -21,9 +21,7 @@
 		]}
 	/>
 
-	<h1 class={titleStyle({ size: 'page' })}>
-		Implementation Appendix
-	</h1>
+	<h1 class={titleStyle({ size: 'page' })}>Implementation Appendix</h1>
 	<p class="mt-2 text-sm text-muted-foreground">
 		Complete {DATA_VINTAGE.model_version} implementation reference. All thresholds match
 		<code class="rounded bg-muted px-1 text-xs">score.ts</code>,

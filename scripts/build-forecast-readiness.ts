@@ -1,0 +1,415 @@
+#!/usr/bin/env bun
+/**
+ * build-forecast-readiness.ts - Publish the non-promoted V7 forecast-readiness
+ * matrix. This is deliberately a governance/source/protocol artifact, not a
+ * second realised-risk score and not a headline-score input.
+ *
+ * Run: bun run scripts/build-forecast-readiness.ts
+ */
+
+import * as fs from 'fs';
+import * as path from 'path';
+
+import { DATA_VINTAGE } from '../src/lib/data/scoring-constants';
+
+const ROOT_DIR = path.join(import.meta.dir, '..');
+const DATA_DIR = path.join(ROOT_DIR, 'data');
+const SRC_DATA_DIR = path.join(ROOT_DIR, 'src', 'lib', 'data');
+const STATIC_DATA_DIR = path.join(ROOT_DIR, 'static', 'data');
+const VERSION_TAG = DATA_VINTAGE.model_version.toLowerCase().replaceAll('.', '');
+
+const OUT_FILE = path.join(DATA_DIR, 'forecast-readiness.json');
+const SRC_OUT_FILE = path.join(SRC_DATA_DIR, 'forecast-readiness.json');
+const STATIC_OUT_FILE = path.join(STATIC_DATA_DIR, `forecast-readiness-${VERSION_TAG}.json`);
+
+type Construct = 'realised_labour_pressure' | 'near_term_adoption' | 'validation_protocol';
+type InputStatus =
+	| 'ready_for_directional_validation'
+	| 'partial_proxy_needs_snapshots'
+	| 'source_available_not_modeled'
+	| 'protocol_only';
+type EvidenceTier = 'official_sg' | 'derived_from_official_sg' | 'external_proxy' | 'synthetic';
+
+interface ForecastInput {
+	key: string;
+	label: string;
+	construct: Construct;
+	status: InputStatus;
+	evidence_tier: EvidenceTier;
+	source_keys: string[];
+	source_urls: string[];
+	raw_files: string[];
+	existing_artifacts: string[];
+	pipeline_owners: string[];
+	public_fields: string[];
+	transformation: string;
+	granularity: string;
+	confidence_for_forecast:
+		| 'strong_directional'
+		| 'medium_directional'
+		| 'weak_until_refreshed'
+		| 'not_ready';
+	non_duplication_rule: string;
+	next_step: string;
+}
+
+function exists(relativePath: string): boolean {
+	return fs.existsSync(path.join(ROOT_DIR, relativePath));
+}
+
+function readJson<T>(relativePath: string): T {
+	return JSON.parse(fs.readFileSync(path.join(ROOT_DIR, relativePath), 'utf-8')) as T;
+}
+
+const occupations = readJson<unknown[]>('data/occupations.json');
+const labourMonitor = readJson<Array<{ cluster_key: string }>>('data/labour-monitor.json');
+const postingsMonitor = readJson<{
+	summary: { total_postings: number; source_count: number; latest_posted_date: string | null };
+	sources: unknown[];
+}>('data/postings/postings-monitor.json');
+const momAiAdoption = readJson<{ metrics: Record<string, number>; published_at: string }>(
+	'data/raw/mom-ai-adoption-2026.json'
+);
+
+const inputs: ForecastInput[] = [
+	{
+		key: 'vacancy_trends',
+		label: 'Vacancy trend',
+		construct: 'realised_labour_pressure',
+		status: 'ready_for_directional_validation',
+		evidence_tier: 'derived_from_official_sg',
+		source_keys: ['mom_job_vacancy_rates', 'mom_job_vacancy_counts'],
+		source_urls: [
+			'https://data.gov.sg/datasets?resultId=d_1e10046c33418c507bb2483c26dca489&sort=updatedAt',
+			'https://data.gov.sg/datasets?resultId=d_86dffa3d28e4c3ee085c3f99abad6e9f&sort=updatedAt'
+		],
+		raw_files: [
+			'data/raw/vacancy_rates_by_occupation_group.csv',
+			'data/raw/job_vacancies_by_industry_and_occupation_quarterly.csv'
+		],
+		existing_artifacts: ['data/labour-monitor.json', 'data/backtests/multi-period-validation.json'],
+		pipeline_owners: ['scripts/build-labour-monitor.ts', 'scripts/backtest-multi-period.ts'],
+		public_fields: [
+			'labour-monitor.vacancy.trend_4q_pct',
+			'labour-monitor.vacancy.count_trend_4q_pct'
+		],
+		transformation:
+			'Quarterly and four-quarter movement are computed from official MOM vacancy-rate and vacancy-count series, with the latest report enrichment retained in the labour monitor.',
+		granularity:
+			'Broad occupation clusters and industry/occupation aggregates; not detailed 5-digit SSOC vacancy truth.',
+		confidence_for_forecast: 'strong_directional',
+		non_duplication_rule:
+			'Reuse the existing labour-monitor and multi-period validation owners; do not create a second vacancy monitor.',
+		next_step:
+			'Use as an outcome in q+1, q+2, and q+4 forecast-horizon tests against frozen structural snapshots.'
+	},
+	{
+		key: 'vacancy_rates',
+		label: 'Vacancy rate',
+		construct: 'realised_labour_pressure',
+		status: 'ready_for_directional_validation',
+		evidence_tier: 'official_sg',
+		source_keys: ['mom_job_vacancy_rates', 'mom_labour_market_report_q4_2025'],
+		source_urls: [
+			'https://data.gov.sg/datasets?resultId=d_1e10046c33418c507bb2483c26dca489&sort=updatedAt',
+			'https://www.mom.gov.sg/newsroom/press-releases/2026/0320-labour-market-4q-2025'
+		],
+		raw_files: ['data/raw/vacancy_rates_by_occupation_group.csv'],
+		existing_artifacts: ['data/labour-monitor.json'],
+		pipeline_owners: ['scripts/build-labour-monitor.ts'],
+		public_fields: ['labour-monitor.vacancy.latest_rate', 'labour-monitor.vacancy.latest_quarter'],
+		transformation:
+			'Direct published vacancy-rate series, with Q4 2025 report-table enrichment where the feed lagged at build time.',
+		granularity: 'Broad occupation clusters.',
+		confidence_for_forecast: 'strong_directional',
+		non_duplication_rule:
+			'Keep vacancy rates as labour-monitor fields and source-map entries; do not copy them into occupation records.',
+		next_step:
+			'Add an outcome panel that stores rates by quarter for each cluster and frozen score vintage.'
+	},
+	{
+		key: 'recruitment_minus_resignation',
+		label: 'Recruitment minus resignation',
+		construct: 'realised_labour_pressure',
+		status: 'ready_for_directional_validation',
+		evidence_tier: 'derived_from_official_sg',
+		source_keys: ['mom_recruitment_resignation_rates', 'mom_labour_market_report_q4_2025'],
+		source_urls: [
+			'https://data.gov.sg/collections/682/datasets/d_236436f8bdb9bbac677c4e5637c6430e/view',
+			'https://www.mom.gov.sg/newsroom/press-releases/2026/0320-labour-market-4q-2025'
+		],
+		raw_files: ['data/raw/recruitment_resignation_rates.json'],
+		existing_artifacts: ['data/labour-monitor.json'],
+		pipeline_owners: ['scripts/download-official-sg-labour.ts', 'scripts/build-labour-monitor.ts'],
+		public_fields: ['labour-monitor.hiring.recruitment_rate', 'labour-monitor.hiring.net_pressure'],
+		transformation:
+			'Deterministic net pressure: recruitment_rate minus resignation_rate from official MOM/SingStat series or current-quarter report enrichment.',
+		granularity:
+			'Broad occupation clusters, with annual/quarterly availability depending on the source feed.',
+		confidence_for_forecast: 'strong_directional',
+		non_duplication_rule:
+			'Keep the computed net pressure in the labour monitor; forecast tests should reference it by source field.',
+		next_step:
+			'Use net pressure as a secondary realised-labour outcome, not as a headline-score multiplier.'
+	},
+	{
+		key: 'retrenchment_incidence',
+		label: 'Retrenchment incidence',
+		construct: 'realised_labour_pressure',
+		status: 'ready_for_directional_validation',
+		evidence_tier: 'official_sg',
+		source_keys: ['mom_retrenchment_by_occupation_group', 'mom_labour_market_report_q4_2025'],
+		source_urls: [
+			'https://data.gov.sg/datasets?resultId=d_3eaf52cdcc405a80b602d031d0bd092b&sort=updatedAt',
+			'https://www.mom.gov.sg/newsroom/press-releases/2026/0320-labour-market-4q-2025'
+		],
+		raw_files: ['data/raw/retrenchment_by_occupation_group.json'],
+		existing_artifacts: ['data/labour-monitor.json'],
+		pipeline_owners: ['scripts/download-official-sg-labour.ts', 'scripts/build-labour-monitor.ts'],
+		public_fields: [
+			'labour-monitor.retrenchment.latest_count',
+			'labour-monitor.retrenchment.incidence_per_1000'
+		],
+		transformation:
+			'Counts come from the official quarterly retrenchment series; incidence per 1,000 employees comes from the MOM labour-market report table.',
+		granularity: 'Broad occupation clusters, not 5-digit SSOC occupations.',
+		confidence_for_forecast: 'strong_directional',
+		non_duplication_rule:
+			'Keep retrenchment as a labour-monitor outcome and do not expose it as occupation-level displacement evidence.',
+		next_step: 'Include as a low-frequency stress signal in forecast-horizon validation.'
+	},
+	{
+		key: 'wage_movement',
+		label: 'Wage movement',
+		construct: 'realised_labour_pressure',
+		status: 'source_available_not_modeled',
+		evidence_tier: 'official_sg',
+		source_keys: ['mom_median_income_by_occupation'],
+		source_urls: ['https://data.gov.sg/datasets/d_8f024ddf2553d81ee00ede55b1d9b0ff/view'],
+		raw_files: ['data/raw/median_income_by_occupation.csv'],
+		existing_artifacts: ['data/raw-data-audit.json'],
+		pipeline_owners: ['scripts/build-raw-data-audit.ts'],
+		public_fields: ['raw-data-audit.median_income_by_occupation'],
+		transformation:
+			'Raw annual wage series is present, but forecast-grade movement needs a long-window and real-wage transform before it should be used as an outcome.',
+		granularity: 'Broad occupation groups and sex splits; annual, sample-survey based.',
+		confidence_for_forecast: 'medium_directional',
+		non_duplication_rule:
+			'Do not duplicate gross_wage_median or sector wage anchors; build a separate wage-outcome transform only if it becomes a validation outcome.',
+		next_step:
+			'Create a wage-outcome panel with 5-year nominal and CPI-adjusted movement, then label it broad-group only.'
+	},
+	{
+		key: 'postings_volume',
+		label: 'Postings volume',
+		construct: 'realised_labour_pressure',
+		status: 'partial_proxy_needs_snapshots',
+		evidence_tier: 'external_proxy',
+		source_keys: ['sg_postings_monitor'],
+		source_urls: ['https://www.mycareersfuture.gov.sg/'],
+		raw_files: ['data/postings/raw/*.json', 'data/postings/source-registry.json'],
+		existing_artifacts: ['data/postings/postings-monitor.json'],
+		pipeline_owners: [
+			'scripts/pipelines/fetch-postings.ts',
+			'scripts/pipelines/normalize-postings.ts'
+		],
+		public_fields: [
+			'postings-monitor.summary.posting_volume_30d',
+			'postings-monitor.by_ssoc.*.posting_volume_90d'
+		],
+		transformation:
+			'Observed postings are normalized from MyCareersFuture and employer ATS snapshots into 30-day/90-day volume and trend fields.',
+		granularity:
+			'Occupation-level where title/alias matching succeeds, but source coverage is partial and the current snapshot is stale-sensitive.',
+		confidence_for_forecast: 'weak_until_refreshed',
+		non_duplication_rule:
+			'Use the existing postings monitor; add scheduled snapshots rather than creating another postings dataset.',
+		next_step:
+			'Schedule monthly snapshots and deduplicate stable source IDs before using postings volume as a realised outcome.'
+	},
+	{
+		key: 'ai_skill_share_in_postings',
+		label: 'AI-skill share in postings',
+		construct: 'near_term_adoption',
+		status: 'partial_proxy_needs_snapshots',
+		evidence_tier: 'external_proxy',
+		source_keys: ['sg_postings_monitor', 'imda_sgde_2025'],
+		source_urls: [
+			'https://www.mycareersfuture.gov.sg/',
+			'https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches/press-releases/2025/singapore-digital-economy'
+		],
+		raw_files: ['data/postings/raw/*.json'],
+		existing_artifacts: ['data/postings/postings-monitor.json'],
+		pipeline_owners: [
+			'scripts/pipelines/fetch-postings.ts',
+			'scripts/pipelines/normalize-postings.ts'
+		],
+		public_fields: ['postings-monitor.summary.top_tools', 'postings-monitor.by_ssoc.*.top_tools'],
+		transformation:
+			'Raw postings already carry ai_tools_mentioned and top_tools counts, but an AI-skill share needs a fixed dictionary, denominator, and time series.',
+		granularity: 'Occupation/role proxy where postings match; not official statistics.',
+		confidence_for_forecast: 'weak_until_refreshed',
+		non_duplication_rule:
+			'Extend postings-monitor fields with shares after snapshots exist; do not build a separate AI-skills crawler.',
+		next_step:
+			'Add a versioned AI-skill dictionary and compute share = AI-skill postings / matched postings by month and occupation.'
+	},
+	{
+		key: 'firm_ai_adoption',
+		label: 'Firm AI adoption',
+		construct: 'near_term_adoption',
+		status: 'source_available_not_modeled',
+		evidence_tier: 'official_sg',
+		source_keys: ['mom_ai_adoption_2026', 'imda_sgde_2025'],
+		source_urls: [
+			'https://www.mom.gov.sg/newsroom/press-releases/2026/0430-adoption-of-ai-among-firms',
+			'https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches/press-releases/2025/singapore-digital-economy'
+		],
+		raw_files: ['data/raw/mom-ai-adoption-2026.json'],
+		existing_artifacts: ['data/ai-in-singapore.json'],
+		pipeline_owners: ['scripts/build-ai-in-singapore.ts'],
+		public_fields: ['ai-in-singapore.metrics.mom_firm_ai_adoption_2026'],
+		transformation:
+			'Official firm-size and sector adoption metrics are retained as context. They are not mapped to detailed occupations until a transparent sector-to-occupation adoption model is built.',
+		granularity: 'Firm-size and broad sector, not occupation-level.',
+		confidence_for_forecast: 'medium_directional',
+		non_duplication_rule:
+			'Keep national adoption data in ai-in-singapore.json and forecast-readiness; do not multiply it into V7 occupation scores.',
+		next_step:
+			'Build a near-term adoption sidecar only after mapping sector adoption to occupation industry footprints with confidence tiers.'
+	},
+	{
+		key: 'forecast_horizon_protocol',
+		label: 'Out-of-sample forecast protocol',
+		construct: 'validation_protocol',
+		status: 'protocol_only',
+		evidence_tier: 'synthetic',
+		source_keys: [],
+		source_urls: [],
+		raw_files: ['data/snapshots/occupations-v7-2026-05.json'],
+		existing_artifacts: ['data/backtests/multi-period-validation.json'],
+		pipeline_owners: ['scripts/backtest-multi-period.ts'],
+		public_fields: ['forecast-readiness.validation_protocol'],
+		transformation:
+			'Freeze structural scores at time t and compare against official outcome panels at t+1Q, t+2Q, and t+4Q.',
+		granularity:
+			'Protocol supports broad cluster outcomes now and can expand to occupation-level outcomes only when reliable data exists.',
+		confidence_for_forecast: 'not_ready',
+		non_duplication_rule:
+			'Extend the existing backtest family with forecast horizons; do not treat current cluster validation as a causal forecast.',
+		next_step:
+			'Add scripts/backtest-forecast-horizons.ts after quarterly outcome panels are materialized.'
+	}
+];
+
+const uniqueInputKeys = new Set(inputs.map(input => input.key));
+if (uniqueInputKeys.size !== inputs.length) {
+	throw new Error('Duplicate forecast-readiness input keys');
+}
+
+function statusCounts() {
+	const result: Record<InputStatus, number> = {
+		ready_for_directional_validation: 0,
+		partial_proxy_needs_snapshots: 0,
+		source_available_not_modeled: 0,
+		protocol_only: 0
+	};
+	for (const input of inputs) result[input.status]++;
+	return result;
+}
+
+function fileHealth(input: ForecastInput) {
+	const literalFiles = input.raw_files
+		.filter(file => !file.includes('*'))
+		.concat(input.existing_artifacts.filter(file => !file.includes('*')));
+	const checked = literalFiles.map(file => ({
+		file,
+		exists: exists(file)
+	}));
+	return {
+		key: input.key,
+		checked,
+		all_present: checked.every(file => file.exists)
+	};
+}
+
+const readiness = {
+	version: DATA_VINTAGE.model_version,
+	generated_at: new Date().toISOString(),
+	status: 'non_promoted_forecast_readiness_layer',
+	description:
+		'Source, duplication, and validation protocol matrix for moving from structural AI pressure to forecast-grade labour-market claims. This artifact does not change the headline V7 score.',
+	non_duplication_policy: {
+		headline_score_mutated: false,
+		realized_risk_score_created: false,
+		decision:
+			'Do not create a second realised-risk model while v5-realized-risk.json, labour-monitor.json, postings-monitor.json, and ai-in-singapore.json already exist. Forecast-readiness references those owners and records missing validation gates.',
+		existing_artifacts_reused: [
+			'data/labour-monitor.json',
+			'data/postings/postings-monitor.json',
+			'data/ai-in-singapore.json',
+			'data/v5-realized-risk.json',
+			'data/v5-experimental-validation.json',
+			'data/backtests/multi-period-validation.json'
+		]
+	},
+	summary: {
+		occupation_count: occupations.length,
+		labour_monitor_cluster_count: labourMonitor.length,
+		postings_total: postingsMonitor.summary.total_postings,
+		posting_source_count: postingsMonitor.summary.source_count,
+		postings_latest_posted_date: postingsMonitor.summary.latest_posted_date,
+		mom_ai_adoption_report_published_at: momAiAdoption.published_at,
+		mom_ai_adopting_firms_pct: momAiAdoption.metrics.firms_started_ai_adoption_pct,
+		status_counts: statusCounts()
+	},
+	inputs,
+	file_health: inputs.map(fileHealth),
+	validation_protocol: {
+		claim_boundary:
+			'V7 may claim structural pressure and directional validation. It should not claim forecast-grade occupation displacement until the gates below pass out of sample.',
+		score_freeze: 'Use data/snapshots/occupations-v7-2026-05.json as the first V7 frozen baseline.',
+		horizons: ['t+1Q', 't+2Q', 't+4Q'],
+		outcomes: [
+			'vacancy_trends',
+			'vacancy_rates',
+			'recruitment_minus_resignation',
+			'retrenchment_incidence',
+			'wage_movement',
+			'postings_volume',
+			'ai_skill_share_in_postings'
+		],
+		metrics: [
+			'Spearman correlation by outcome',
+			'top-quintile lift versus bottom quintile',
+			'pairwise accuracy by cluster/family',
+			'calibration by risk band',
+			'false-positive and false-negative anchor review'
+		],
+		promotion_gates: [
+			'At least four observed quarters after the frozen score baseline.',
+			'High-risk groups show weaker vacancy or postings movement than low-risk groups in at least two horizons.',
+			'High-confidence score segments outperform low-confidence segments.',
+			'Any combined forecast layer remains a sidecar until source granularity and validation results are published.',
+			'No occupation page presents cluster-level outcomes as detailed SSOC evidence.'
+		]
+	},
+	next_steps: [
+		'Do not alter V7 headline scoring.',
+		'Materialize outcome panels under data/outcomes/ only from existing official labour/postings owners.',
+		'Add monthly postings snapshots before computing AI-skill share trends.',
+		'Build scripts/backtest-forecast-horizons.ts once at least one post-baseline quarter exists.',
+		'Promote any forecast layer only as a separate sidecar with confidence labels and source granularity.'
+	]
+};
+
+for (const dir of [DATA_DIR, SRC_DATA_DIR, STATIC_DATA_DIR]) {
+	fs.mkdirSync(dir, { recursive: true });
+}
+
+const payload = JSON.stringify(readiness, null, 2);
+fs.writeFileSync(OUT_FILE, payload, 'utf-8');
+fs.writeFileSync(SRC_OUT_FILE, payload, 'utf-8');
+fs.writeFileSync(STATIC_OUT_FILE, payload, 'utf-8');
+
+console.log(`Built forecast readiness artifact at ${STATIC_OUT_FILE}`);

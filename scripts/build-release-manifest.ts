@@ -38,6 +38,7 @@ interface ReleaseArtifactDefinition {
 		| 'transition_infrastructure'
 		| 'governance'
 		| 'provenance'
+		| 'forecast_readiness'
 		| 'research_memory'
 		| 'shadow_model'
 		| 'v5_sidecar'
@@ -194,6 +195,13 @@ const ARTIFACTS: ReleaseArtifactDefinition[] = [
 			'Machine-readable field-level provenance map for the main public datasets, including source keys, vintages, and transformation notes.'
 	},
 	{
+		file: `forecast-readiness-${VERSION_TAG}.json`,
+		label: 'Forecast readiness matrix',
+		category: 'forecast_readiness',
+		description:
+			'Non-promoted V7 source, duplication, and validation-gate matrix for moving from structural pressure to forecast-grade labour-market claims.'
+	},
+	{
 		file: 'experimental-methodology-v43.json',
 		label: 'V4.3 shadow-model readiness',
 		category: 'governance',
@@ -212,7 +220,7 @@ const ARTIFACTS: ReleaseArtifactDefinition[] = [
 		label: 'V4.3 shadow comparison summary',
 		category: 'shadow_model',
 		description:
-			'Summary of task-native eligibility, score deltas, band flips, and anchor-review counts versus the earlier live V4.2 baseline.'
+			'Summary of task-native eligibility, score deltas, band flips, and anchor-review counts from the retained V4.3 shadow-model audit trail.'
 	},
 	{
 		file: 'shadow-validation-v43.json',

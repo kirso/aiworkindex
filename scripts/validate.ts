@@ -161,6 +161,14 @@ const CLAIMS_MATRIX_FILE = path.join(
 	'data',
 	'claims-matrix.json'
 );
+const FORECAST_READINESS_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'forecast-readiness.json'
+);
 const RESEARCH_LIBRARY_FILE = path.join(
 	import.meta.dir,
 	'..',
@@ -270,6 +278,18 @@ const FORBIDDEN_ACTIVE_COPY = [
 	'Next obvious refresh',
 	'most recent curated official signal',
 	'Q4 2025 advance release'
+];
+
+const REQUIRED_FORECAST_READINESS_INPUTS = [
+	'vacancy_trends',
+	'vacancy_rates',
+	'recruitment_minus_resignation',
+	'retrenchment_incidence',
+	'wage_movement',
+	'postings_volume',
+	'ai_skill_share_in_postings',
+	'firm_ai_adoption',
+	'forecast_horizon_protocol'
 ];
 
 interface Occupation {
@@ -1292,6 +1312,30 @@ async function main() {
 				research_keys: string[];
 			}>;
 		}>(CLAIMS_MATRIX_FILE);
+		const forecastReadiness = readJson<{
+			status: string;
+			non_duplication_policy?: {
+				headline_score_mutated: boolean;
+				realized_risk_score_created: boolean;
+				existing_artifacts_reused: string[];
+			};
+			summary?: {
+				status_counts?: Record<string, number>;
+			};
+			inputs?: Array<{
+				key: string;
+				status: string;
+				source_keys: string[];
+				raw_files: string[];
+				existing_artifacts: string[];
+				non_duplication_rule?: string;
+			}>;
+			file_health?: Array<{ all_present: boolean }>;
+			validation_protocol?: {
+				horizons: string[];
+				promotion_gates: string[];
+			};
+		}>(FORECAST_READINESS_FILE);
 		const onetEnrichment = readJson<
 			Array<{
 				ssoc: string;
@@ -1378,10 +1422,8 @@ async function main() {
 		check(
 			'Experimental release status matches published shadow state and task-weight availability',
 			experimentalMethodology?.shadow_score_published === true
-				? DATA_VINTAGE.model_version === 'V4.3' ||
-					DATA_VINTAGE.model_version === 'V5' ||
-					DATA_VINTAGE.model_version === 'V6' ||
-					DATA_VINTAGE.model_version === 'V7'
+				? experimentalMethodology?.headline_promotion_ready === true &&
+					DATA_VINTAGE.model_version === 'V4.3'
 					? experimentalMethodology?.shadow_readiness.status === 'promoted'
 					: experimentalMethodology?.shadow_readiness.status === 'shadow_published'
 				: experimentalMethodology?.required_inputs?.onet_task_ratings?.present === false
@@ -1512,6 +1554,9 @@ async function main() {
 				) &&
 				(releaseManifest?.artifacts ?? []).some(
 					artifact => artifact.file === 'backtests/occupation-family-validation.json'
+				) &&
+				(releaseManifest?.artifacts ?? []).some(
+					artifact => artifact.file === 'forecast-readiness-v7.json'
 				)
 		);
 		check(
@@ -1830,6 +1875,7 @@ async function main() {
 		check('Raw data audit artifact exists', rawDataAudit !== null);
 		check('O*NET enrichment artifact exists', onetEnrichment !== null);
 		check('Claims matrix artifact exists', claimsMatrix !== null);
+		check('Forecast readiness artifact exists', forecastReadiness !== null);
 		check(
 			'Industry context carries vacancy-overlay metadata',
 			typeof industryContext?.metadata?.vacancy_overlay_vintage === 'string' &&
@@ -1874,6 +1920,13 @@ async function main() {
 			) === true
 		);
 		check(
+			'Raw data audit tracks MOM AI adoption as valid after ingestion',
+			rawDataAudit?.entries?.some(
+				entry =>
+					entry.key === 'mom_ai_adoption_2026' && entry.status === 'valid' && entry.exists === true
+			) === true
+		);
+		check(
 			'O*NET enrichment covers a meaningful share of occupations',
 			(onetEnrichment ?? []).filter(
 				entry => entry.tasks.length > 0 || entry.technologies.length > 0
@@ -1906,6 +1959,71 @@ async function main() {
 				claim.source_keys.every(sourceKey =>
 					dataSourceRegistry.some(entry => entry.key === sourceKey)
 				)
+			)
+		);
+		const forecastInputKeys = (forecastReadiness?.inputs ?? []).map(input => input.key);
+		const forecastInputStatuses = (forecastReadiness?.inputs ?? []).reduce(
+			(acc, input) => {
+				acc[input.status] = (acc[input.status] ?? 0) + 1;
+				return acc;
+			},
+			{} as Record<string, number>
+		);
+		check(
+			'Forecast readiness remains a non-promoted source/protocol layer',
+			forecastReadiness?.status === 'non_promoted_forecast_readiness_layer' &&
+				forecastReadiness?.non_duplication_policy?.headline_score_mutated === false &&
+				forecastReadiness?.non_duplication_policy?.realized_risk_score_created === false
+		);
+		check(
+			'Forecast readiness reuses existing labour/postings/adoption owners',
+			[
+				'data/labour-monitor.json',
+				'data/postings/postings-monitor.json',
+				'data/ai-in-singapore.json',
+				'data/v5-realized-risk.json',
+				'data/backtests/multi-period-validation.json'
+			].every(artifact =>
+				(forecastReadiness?.non_duplication_policy?.existing_artifacts_reused ?? []).includes(
+					artifact
+				)
+			)
+		);
+		check(
+			'Forecast readiness input keys are unique and complete',
+			new Set(forecastInputKeys).size === forecastInputKeys.length &&
+				REQUIRED_FORECAST_READINESS_INPUTS.every(key => forecastInputKeys.includes(key)),
+			JSON.stringify(forecastInputKeys)
+		);
+		check(
+			'Forecast readiness source keys resolve against the published source registry',
+			(forecastReadiness?.inputs ?? []).every(input =>
+				input.source_keys.every(sourceKey =>
+					dataSourceRegistry.some(entry => entry.key === sourceKey)
+				)
+			)
+		);
+		check(
+			'Forecast readiness status counts match the input matrix',
+			Object.entries(forecastInputStatuses).every(
+				([status, count]) => forecastReadiness?.summary?.status_counts?.[status] === count
+			)
+		);
+		check(
+			'Forecast readiness file health is green for literal source files',
+			(forecastReadiness?.file_health ?? []).length === (forecastReadiness?.inputs ?? []).length &&
+				(forecastReadiness?.file_health ?? []).every(entry => entry.all_present === true)
+		);
+		check(
+			'Forecast readiness protocol preserves explicit out-of-sample horizons and gates',
+			['t+1Q', 't+2Q', 't+4Q'].every(horizon =>
+				(forecastReadiness?.validation_protocol?.horizons ?? []).includes(horizon)
+			) && (forecastReadiness?.validation_protocol?.promotion_gates?.length ?? 0) >= 4
+		);
+		check(
+			'build:release-data regenerates forecast readiness',
+			(packageJson?.scripts?.['build:release-data'] ?? '').includes(
+				'scripts/build-forecast-readiness.ts'
 			)
 		);
 		check(

@@ -40,7 +40,6 @@
 	import { trackEvent } from '$lib/analytics';
 	import { getTransitionProgrammeUrl } from '$lib/data/detail-context';
 	import { buildMarketDetailBullets } from '$lib/data/market-summary';
-	import { scoringBasisDescription, scoringBasisLabel } from '$lib/data/scoring-basis-display';
 	import { buildSingaporeOccupationAlternates } from '$lib/data/occupation-alternates';
 	import { rolesBySsoc } from '$lib/data/synthetic-roles';
 
@@ -142,18 +141,17 @@
 		}
 		return 'Task-weighted shadow evidence is not active for this occupation yet.';
 	});
-	let scoringBasisSummary = $derived(scoringBasisLabel(occ.scoring_basis));
-	let scoringBasisDetail = $derived(scoringBasisDescription(occ.scoring_basis));
-	let priorLiveBaseline = $derived(occ.baseline_v43 ?? occ.baseline_v42 ?? null);
 	let priorBaselineDeltaSummary = $derived.by(() => {
-		if (!priorLiveBaseline) return null;
-		const delta = occ.net_risk - priorLiveBaseline.net_risk;
-		const baselineLabel = priorLiveBaseline.structural_model_version;
-		if (Math.abs(delta) < 0.0001)
-			return `No material change versus retained ${baselineLabel} baseline.`;
+		if (!occ.baseline_v6) return null;
+		const delta = occ.net_risk - occ.baseline_v6.net_risk;
+		if (Math.abs(delta) < 0.0001) return 'No material change versus retained V6 baseline.';
 		const direction = delta > 0 ? '+' : '';
-		return `${direction}${(delta * 100).toFixed(1)}pp versus retained ${baselineLabel} baseline.`;
+		return `${direction}${(delta * 100).toFixed(1)}pp versus retained V6 baseline.`;
 	});
+	let scoringBasisSummary = $derived(`${DATA_VINTAGE.model_version} structural score`);
+	let scoringBasisDetail = $derived(
+		'Uses task-concentration-weighted exposure, human bottleneck, and demand resilience. V6 baseline fields are retained for release-to-release comparison.'
+	);
 	const confidenceCapLabels = {
 		insufficient_source_count: 'capped for sparse source coverage',
 		fallback_mapping: 'capped for fallback mapping',
@@ -215,7 +213,6 @@
 		return 'Mixed local picture. Read these labour indicators as current Singapore context rather than a forecast.';
 	});
 
-
 	function _offsetLevelLabel(value: number, inverse = false) {
 		const score = inverse ? 1 - value : value;
 		if (score >= 0.68) return 'High';
@@ -256,8 +253,6 @@
 					: 'Near-term realized pressure is elevated.';
 		return `${formatPercent(decision.transitionAdjustedRisk)} transition-adjusted pressure after current buffers. ${realizedSentence}`;
 	});
-
-
 
 	async function shareCurrentPage() {
 		if (!browser) return;
@@ -542,7 +537,9 @@
 			</a>
 		</div>
 		{#if occ.evidence.signal_conflict && occ.evidence.signal_conflict_reasons?.some( r => r.includes('demand') )}
-			<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'moderate' }), 'mt-3 max-w-3xl')}>
+			<div
+				class={cn(card({ padding: 'sm', variant: 'notice', accent: 'moderate' }), 'mt-3 max-w-3xl')}
+			>
 				<p class={cn(caption({ weight: 'medium' }), 'text-risk-moderate')}>
 					Mixed signal: This occupation scores {riskBandLabels[occ.risk_band].toLowerCase()} structural
 					risk but is currently
@@ -660,7 +657,9 @@
 			<span class="h-4 w-1 rounded-full bg-impact-leveraged"></span>
 			Singapore Now
 		</h2>
-		<p class={cn(caption(), 'mb-3 -mt-1')}>Current labour market conditions and how they affect this role.</p>
+		<p class={cn(caption(), 'mb-3 -mt-1')}>
+			Current labour market conditions and how they affect this role.
+		</p>
 		<div class={card({ padding: 'md' })}>
 			<p class={cn(body({ tone: 'subtle' }), 'mb-4')}>{marketHeadline}</p>
 
@@ -779,7 +778,10 @@
 
 				<div class={card({ padding: 'sm' })}>
 					<p class={cn(microLabel(), 'mb-1')}>How this changes by career stage</p>
-					<p class={cn(caption(), 'mb-3')}>Senior workers benefit from institutional knowledge and judgment that AI cannot replicate. Entry-level roles have higher task overlap with AI.</p>
+					<p class={cn(caption(), 'mb-3')}>
+						Senior workers benefit from institutional knowledge and judgment that AI cannot
+						replicate. Entry-level roles have higher task overlap with AI.
+					</p>
 					<div class="space-y-2">
 						<div
 							class={cn(
@@ -873,16 +875,18 @@
 								mode="inset"
 								metricParts={[
 									{
-										label: t.risk_improvement > 0
-											? `-${(t.risk_improvement * 100).toFixed(0)}pp risk`
-											: t.risk_improvement < 0
-												? `+${(Math.abs(t.risk_improvement) * 100).toFixed(0)}pp risk`
-												: 'No risk change',
-										color: t.risk_improvement > 0
-											? 'text-risk-very-low'
-											: t.risk_improvement < 0
-												? 'text-risk-high'
-												: undefined
+										label:
+											t.risk_improvement > 0
+												? `-${(t.risk_improvement * 100).toFixed(0)}pp risk`
+												: t.risk_improvement < 0
+													? `+${(Math.abs(t.risk_improvement) * 100).toFixed(0)}pp risk`
+													: 'No risk change',
+										color:
+											t.risk_improvement > 0
+												? 'text-risk-very-low'
+												: t.risk_improvement < 0
+													? 'text-risk-high'
+													: undefined
 									},
 									{ label: t.label }
 								]}
@@ -922,7 +926,13 @@
 					<div class="grid gap-2 sm:grid-cols-3">
 						{#each structural.relatedOccupations as rel}
 							<OccupationCard
-								occupation={{ title: rel.title, ssoc: rel.ssoc, net_risk: rel.net_risk, risk_band: rel.risk_band, gross_wage_median: rel.gross_wage_median }}
+								occupation={{
+									title: rel.title,
+									ssoc: rel.ssoc,
+									net_risk: rel.net_risk,
+									risk_band: rel.risk_band,
+									gross_wage_median: rel.gross_wage_median
+								}}
 								mode="inset"
 							/>
 						{/each}
@@ -985,8 +995,7 @@
 				<div>
 					<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>Classification</p>
 					<p>
-						Higher risk than {structural.riskPercentile}% of occupations{#if occ.scoring_basis}
-							· {scoringBasisSummary}{/if}{#if occ.education_label}
+						Higher risk than {structural.riskPercentile}% of occupations · {scoringBasisSummary}{#if occ.education_label}
 							· {occ.education_label}{/if}
 					</p>
 				</div>
@@ -1053,9 +1062,7 @@
 							</p>{/if}
 					</div>
 					<div>
-						<p class={cn(caption({ weight: 'medium' }), 'mb-1 text-foreground')}>
-							Data quality
-						</p>
+						<p class={cn(caption({ weight: 'medium' }), 'mb-1 text-foreground')}>Data quality</p>
 						<p>
 							{(occ.confidence.score * 100).toFixed(0)}% · Matching {occ.confidence.crosswalk_quality.toFixed(
 								2
@@ -1086,9 +1093,14 @@
 							</p>
 							<div class="flex flex-wrap gap-3 mt-1">
 								{#each Object.entries(occ.evidence.exposure_source_pctiles) as [source, pctile]}
-									{@const sourceLabels = { aioe: 'AIOE', anthropic: 'Anthropic', eloundou: 'GPT', ilo: 'ILO' } as Record<string, string>}
+									{@const sourceLabels = {
+										aioe: 'AIOE',
+										anthropic: 'Anthropic',
+										eloundou: 'GPT',
+										ilo: 'ILO'
+									} as Record<string, string>}
 									<div class="flex items-center gap-2">
-									<span class={cn(microLabel(), 'w-16')}>{sourceLabels[source] ?? source}</span>
+										<span class={cn(microLabel(), 'w-16')}>{sourceLabels[source] ?? source}</span>
 										<div class="h-2 w-24 rounded-full bg-muted overflow-hidden">
 											<div
 												class="h-full rounded-full bg-foreground/60"

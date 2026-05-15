@@ -5,6 +5,7 @@ import { describe, test } from 'node:test';
 import type { Occupation } from '../src/lib/data';
 import { occupations } from '../src/lib/data';
 import claimsMatrix from '../src/lib/data/claims-matrix.json';
+import forecastReadiness from '../src/lib/data/forecast-readiness.json';
 import {
 	applyPercentileShift,
 	blendEmploymentMomentum,
@@ -16,7 +17,12 @@ import {
 	computeV6StructuralScores
 } from '../src/lib/data/methodology-core';
 import { dataSourceRegistry } from '../src/lib/data/data-contract';
-import { classifyImpactType } from '../src/lib/data/scoring-constants';
+import {
+	DATA_VINTAGE,
+	DEMAND_RESILIENCE_CONSTANTS,
+	V7_CONSTANTS,
+	classifyImpactType
+} from '../src/lib/data/scoring-constants';
 import { computeForecastScores, scenarioPresets } from '../src/lib/data/forecast-engine';
 import { computeRoleScores, type SyntheticRole } from '../src/lib/data/synthetic-roles';
 import { computeTransitionScore } from '../src/lib/data/transition-capacity';
@@ -54,6 +60,7 @@ import v5RealizedRisk from '../src/lib/data/v5-realized-risk.json';
 import v5Sidecars from '../src/lib/data/v5-sidecars.json';
 import v5ExperimentalModel from '../src/lib/data/v5-experimental-model.json';
 import v5ExperimentalValidation from '../src/lib/data/v5-experimental-validation.json';
+import experimentalMethodology from '../src/lib/data/experimental-methodology-v43.json';
 
 function makeOccupation(overrides: Partial<Occupation> = {}): Occupation {
 	return {
@@ -171,33 +178,45 @@ describe('methodology formulas', () => {
 		assertClose(blendEmploymentMomentum(0.3, 0.7), 0.56, 1e-10);
 	});
 
-	test('stored live occupations reproduce the V6 formulas', () => {
+	test('stored live occupations reproduce the V7 formulas', () => {
 		for (const occupation of occupations) {
-			const scores = computeV6StructuralScores({
-				exposure: occupation.exposure,
-				bottleneck: occupation.bottleneck,
-				base_resilience: occupation.market.market_resilience,
-				sol_match: occupation.evidence.sol_match,
-				jid_match: occupation.evidence.jobs_in_demand_match
-			});
-
-			assert.ok(
-				Math.abs(
-					round4(scores.displacement_pressure) - (occupation.displacement_pressure ?? Number.NaN)
-				) <= 0.00011
+			const taskSignal =
+				occupation.task_primitives?.task_effective_coverage != null &&
+				occupation.task_primitives.task_exposure_concentration != null
+					? occupation.task_primitives.task_effective_coverage *
+						occupation.task_primitives.task_exposure_concentration
+					: 0;
+			const exposureV7 = Math.min(
+				1,
+				occupation.exposure * (1 + V7_CONSTANTS.TASK_CONCENTRATION_LAMBDA * taskSignal)
 			);
+			const displacementPressure = exposureV7 * (1 - occupation.bottleneck);
+			const demandResilience = Math.min(
+				1,
+				occupation.market.market_resilience * DEMAND_RESILIENCE_CONSTANTS.base_weight +
+					(occupation.demand_signal_bonus ?? 0) +
+					V7_CONSTANTS.DEMAND_PERSIST_LAMBDA * (occupation.demand_persistence ?? 0)
+			);
+			const headlineRisk = displacementPressure * (1 - demandResilience);
+			const augmentation = exposureV7 * occupation.bottleneck * occupation.market.market_resilience;
+
+			assert.ok(Math.abs(round4(taskSignal) - (occupation.task_signal ?? Number.NaN)) <= 0.00011);
+			assert.ok(Math.abs(round4(exposureV7) - (occupation.exposure_v7 ?? Number.NaN)) <= 0.00011);
 			assert.ok(
-				Math.abs(round4(scores.demand_resilience) - (occupation.demand_resilience ?? Number.NaN)) <=
+				Math.abs(round4(displacementPressure) - (occupation.displacement_pressure ?? Number.NaN)) <=
 					0.00011
 			);
-			assert.ok(Math.abs(round4(scores.headline_risk) - occupation.net_risk) <= 0.00011);
-			assert.ok(Math.abs(round4(scores.augmentation) - occupation.augmentation) <= 0.00011);
+			assert.ok(
+				Math.abs(round4(demandResilience) - (occupation.demand_resilience ?? Number.NaN)) <= 0.00011
+			);
+			assert.ok(Math.abs(round4(headlineRisk) - occupation.net_risk) <= 0.00011);
+			assert.ok(Math.abs(round4(augmentation) - occupation.augmentation) <= 0.00011);
 		}
 	});
 
-	test('live occupations expose the current V6 public contract', () => {
+	test('live occupations expose the current V7 public contract', () => {
 		for (const occupation of occupations.slice(0, 50)) {
-			assert.equal('structural_model_version' in occupation, false);
+			assert.equal(occupation.structural_model_version, 'V7');
 			assert.equal('scoring_basis' in occupation, false);
 			assert.equal('baseline_v43' in occupation, false);
 			assert.equal('baseline_v42' in occupation, false);
@@ -206,6 +225,10 @@ describe('methodology formulas', () => {
 			assert.equal(typeof occupation.displacement_pressure, 'number');
 			assert.equal(typeof occupation.demand_signal_bonus, 'number');
 			assert.equal(typeof occupation.demand_resilience, 'number');
+			assert.equal(typeof occupation.task_signal, 'number');
+			assert.equal(typeof occupation.demand_persistence, 'number');
+			assert.equal(typeof occupation.exposure_v7, 'number');
+			assert.equal(typeof occupation.baseline_v6?.net_risk, 'number');
 			if (occupation.task_primitives?.method === 'anthropic_task_penetration_v1') {
 				assert.equal(typeof occupation.task_primitives.matched_task_weight_share, 'number');
 				assert.equal(typeof occupation.task_primitives.task_effective_coverage, 'number');
@@ -361,7 +384,8 @@ describe('uncertainty invariants', () => {
 			assert.ok(
 				occupation.uncertainty.method === 'bootstrap_v1' ||
 					occupation.uncertainty.method === 'bootstrap_v1_task_adjusted' ||
-					occupation.uncertainty.method === 'latent_source_measurement_v1'
+					occupation.uncertainty.method === 'latent_source_measurement_v1' ||
+					occupation.uncertainty.method === 'bootstrap_v2'
 			);
 			assert.ok(occupation.uncertainty.exposure_p10 <= occupation.uncertainty.exposure_p50);
 			assert.ok(occupation.uncertainty.exposure_p50 <= occupation.uncertainty.exposure_p90);
@@ -483,6 +507,75 @@ describe('research registry invariants', () => {
 	});
 });
 
+describe('forecast readiness invariants', () => {
+	const requiredInputs = [
+		'vacancy_trends',
+		'vacancy_rates',
+		'recruitment_minus_resignation',
+		'retrenchment_incidence',
+		'wage_movement',
+		'postings_volume',
+		'ai_skill_share_in_postings',
+		'firm_ai_adoption',
+		'forecast_horizon_protocol'
+	];
+
+	test('forecast-readiness stays non-promoted and does not duplicate realized-risk scoring', () => {
+		assert.equal(forecastReadiness.status, 'non_promoted_forecast_readiness_layer');
+		assert.equal(forecastReadiness.version, DATA_VINTAGE.model_version);
+		assert.equal(forecastReadiness.non_duplication_policy.headline_score_mutated, false);
+		assert.equal(forecastReadiness.non_duplication_policy.realized_risk_score_created, false);
+
+		for (const artifact of [
+			'data/labour-monitor.json',
+			'data/postings/postings-monitor.json',
+			'data/ai-in-singapore.json',
+			'data/v5-realized-risk.json',
+			'data/backtests/multi-period-validation.json'
+		]) {
+			assert.ok(
+				forecastReadiness.non_duplication_policy.existing_artifacts_reused.includes(artifact)
+			);
+		}
+	});
+
+	test('forecast-readiness input matrix is complete and source-backed', () => {
+		const inputKeys = forecastReadiness.inputs.map(input => input.key);
+		assert.equal(new Set(inputKeys).size, inputKeys.length);
+
+		for (const key of requiredInputs) {
+			assert.ok(inputKeys.includes(key), key);
+		}
+
+		for (const input of forecastReadiness.inputs) {
+			for (const sourceKey of input.source_keys) {
+				assert.ok(
+					dataSourceRegistry.some(source => source.key === sourceKey),
+					`${input.key} source ${sourceKey}`
+				);
+			}
+			assert.match(input.non_duplication_rule, /do not|reuse|keep|extend|use the existing/i);
+		}
+	});
+
+	test('forecast-readiness health and promotion gates are explicit', () => {
+		const statusCounts = forecastReadiness.inputs.reduce(
+			(acc, input) => {
+				acc[input.status] = (acc[input.status] ?? 0) + 1;
+				return acc;
+			},
+			{} as Record<string, number>
+		);
+
+		assert.deepEqual(forecastReadiness.summary.status_counts, statusCounts);
+		assert.ok(forecastReadiness.summary.mom_ai_adopting_firms_pct > 0);
+		assert.equal(forecastReadiness.file_health.length, forecastReadiness.inputs.length);
+		assert.ok(forecastReadiness.file_health.every(entry => entry.all_present));
+		assert.deepEqual(forecastReadiness.validation_protocol.horizons, ['t+1Q', 't+2Q', 't+4Q']);
+		assert.ok(forecastReadiness.validation_protocol.promotion_gates.length >= 4);
+	});
+});
+
 describe('shadow artifact invariants', () => {
 	test('shadow scores cover all occupations and publish explicit eligibility states', () => {
 		assert.equal(shadowScores.length, occupations.length);
@@ -518,7 +611,14 @@ describe('shadow artifact invariants', () => {
 		assert.equal(shadowComparison.validation_pass_count, passCount);
 		assert.equal(shadowComparison.occupation_count, occupations.length);
 		assert.ok(shadowComparison.validation_pass_count >= 2);
-		assert.equal(shadowAnchorReview.review_candidate_count, 0);
+		assert.equal(shadowAnchorReview.screening_complete, true);
+		assert.equal(
+			shadowComparison.anchor_review_summary.review_candidate_count,
+			shadowAnchorReview.review_candidate_count
+		);
+		if (shadowAnchorReview.review_candidate_count > 0) {
+			assert.equal(experimentalMethodology.headline_promotion_ready, false);
+		}
 	});
 });
 
@@ -791,7 +891,7 @@ describe('v5 experimental model invariants', () => {
 
 	test('experimental validation summary matches the model artifact', () => {
 		assert.equal(v5ExperimentalValidation.status, 'experimental_only');
-		assert.equal(v5ExperimentalValidation.comparison_baseline_version, 'V6');
+		assert.equal(v5ExperimentalValidation.comparison_baseline_version, DATA_VINTAGE.model_version);
 		assert.equal(
 			v5ExperimentalValidation.summary.occupation_count,
 			v5ExperimentalModel.entries.length
@@ -916,7 +1016,7 @@ describe('global expansion invariants', () => {
 		assert.equal(globalSurface.drilldownHref, '/global');
 		assert.equal(globalSurface.metrics[0]?.label, 'Jobs under pressure');
 		assert.equal(globalSurface.metrics[1]?.label, 'Occupations at risk');
-		assert.equal(globalSurface.metrics[2]?.label, 'Mapped occupations');
+		assert.equal(globalSurface.metrics[2]?.label, 'Occupations scored');
 		assert.equal(globalSurface.occupations[0]?.valueKind, 'count');
 		assert.ok(globalSurface.occupations[0]?.linkHref?.startsWith('/global/occupation/'));
 
@@ -937,6 +1037,13 @@ describe('global expansion invariants', () => {
 
 	test('sitemap only publishes canonical occupation URLs', () => {
 		const sitemap = fs.readFileSync(path.join(process.cwd(), 'static', 'sitemap.xml'), 'utf-8');
+		const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => match[1]);
+		const uniqueLocs = new Set(locs);
+
+		assert.ok(locs.length > 1800);
+		assert.equal(locs.length, uniqueLocs.size);
+		assert.ok(locs.every(loc => loc?.startsWith('https://aiworkindex.com/')));
+		assert.equal(sitemap.includes('kirillso.com'), false);
 		assert.equal(sitemap.includes('/sg/occupation/'), false);
 		assert.equal(sitemap.includes('/occupation/'), true);
 		assert.equal(sitemap.includes('/us/occupation/'), true);

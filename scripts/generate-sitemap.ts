@@ -14,6 +14,12 @@ interface Occupation {
 	ssoc: string;
 }
 
+interface SitemapEntry {
+	path: string;
+	priority: string;
+	changefreq: string;
+}
+
 async function main() {
 	const { SITE, DATA_VINTAGE } = await import('../src/lib/data/scoring-constants');
 	const { getCountryOccupationRows } = await import('../src/lib/data/country-pages');
@@ -33,8 +39,9 @@ async function main() {
 		)
 	);
 
-	const staticPages: Array<{ path: string; priority: string; changefreq: string }> = [
+	const staticPages: SitemapEntry[] = [
 		{ path: '/', priority: '1.0', changefreq: 'weekly' },
+		{ path: '/explore', priority: '0.8', changefreq: 'weekly' },
 		{ path: '/methodology', priority: '0.8', changefreq: 'monthly' },
 		{ path: '/global', priority: '0.8', changefreq: 'monthly' },
 		{ path: '/sg', priority: '0.7', changefreq: 'monthly' },
@@ -42,11 +49,16 @@ async function main() {
 		{ path: '/methodology/appendix', priority: '0.7', changefreq: 'monthly' },
 		{ path: '/about', priority: '0.8', changefreq: 'monthly' },
 		{ path: '/data', priority: '0.8', changefreq: 'monthly' },
+		{ path: '/research', priority: '0.7', changefreq: 'monthly' },
+		{ path: '/roles', priority: '0.7', changefreq: 'monthly' },
 		{ path: '/reports', priority: '0.8', changefreq: 'monthly' },
 		{ path: '/reports/q4-2024', priority: '0.6', changefreq: 'yearly' },
 		{ path: '/reports/wage-exposure', priority: '0.7', changefreq: 'monthly' },
 		{ path: '/reports/v7-release', priority: '0.7', changefreq: 'monthly' },
 		{ path: '/reports/v6-release', priority: '0.6', changefreq: 'yearly' },
+		{ path: '/reports/v5-experimental', priority: '0.5', changefreq: 'yearly' },
+		{ path: '/reports/v5-roadmap', priority: '0.5', changefreq: 'yearly' },
+		{ path: '/reports/v4-3-shadow', priority: '0.5', changefreq: 'yearly' },
 		{ path: '/rankings', priority: '0.7', changefreq: 'monthly' },
 		{ path: '/rankings/highest-risk', priority: '0.7', changefreq: 'monthly' },
 		{ path: '/rankings/ai-leveraged', priority: '0.7', changefreq: 'monthly' },
@@ -62,61 +74,69 @@ async function main() {
 		{ path: '/will-ai-take-my-job', priority: '0.8', changefreq: 'monthly' },
 		{ path: '/ai-proof-jobs', priority: '0.8', changefreq: 'monthly' },
 		{ path: '/ai-job-loss', priority: '0.8', changefreq: 'monthly' },
-		{ path: '/groups', priority: '0.7', changefreq: 'monthly' }
+		{ path: '/groups', priority: '0.7', changefreq: 'monthly' },
+		{ path: '/changelog', priority: '0.5', changefreq: 'monthly' }
 	];
 
-	let urls = '';
+	const entries: SitemapEntry[] = [];
+	const seen = new Set<string>();
+	function addUrl(entry: SitemapEntry) {
+		const normalizedPath = entry.path === '/' ? '/' : entry.path.replace(/\/+$/g, '');
+		if (seen.has(normalizedPath)) return;
+		seen.add(normalizedPath);
+		entries.push({ ...entry, path: normalizedPath });
+	}
 
 	// Static pages
 	for (const p of staticPages) {
-		urls += `  <url><loc>${base}${p.path}</loc><lastmod>${lastmod}</lastmod><changefreq>${p.changefreq}</changefreq><priority>${p.priority}</priority></url>\n`;
+		addUrl(p);
 	}
 
 	// Occupation pages
 	for (const occ of occupations) {
-		urls += `  <url><loc>${base}/occupation/${occ.ssoc}</loc><lastmod>${lastmod}</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>\n`;
+		addUrl({ path: `/occupation/${occ.ssoc}`, changefreq: 'monthly', priority: '0.5' });
 	}
 
 	// Global occupation pages
 	for (const occ of getGlobalOccupationEntries()) {
-		urls += `  <url><loc>${base}/global/occupation/${occ.code}</loc><lastmod>${lastmod}</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>\n`;
+		addUrl({
+			path: `/global/occupation/${occ.code}`,
+			changefreq: 'monthly',
+			priority: '0.5'
+		});
 	}
 
 	// Country occupation pages
-	for (const row of getCountryOccupationRows('sg')) {
-		urls += `  <url><loc>${base}/occupation/${row.localCode}</loc><lastmod>${lastmod}</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>\n`;
-	}
 	for (const row of getCountryOccupationRows('us')) {
-		urls += `  <url><loc>${base}/us/occupation/${row.localCode}</loc><lastmod>${lastmod}</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>\n`;
+		addUrl({
+			path: `/us/occupation/${row.localCode}`,
+			changefreq: 'monthly',
+			priority: '0.5'
+		});
 	}
 
 	// Group hub pages
 	for (const g of majorGroups) {
 		const slug = g.key.toLowerCase().replace(/[,&]/g, '').replace(/\s+/g, '-');
-		urls += `  <url><loc>${base}/group/${slug}</loc><lastmod>${lastmod}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>\n`;
+		addUrl({ path: `/group/${slug}`, changefreq: 'monthly', priority: '0.7' });
 	}
 
 	// Role pages
 	for (const role of syntheticRoles) {
-		urls += `  <url><loc>${base}/role/${role.slug}</loc><lastmod>${lastmod}</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>\n`;
-		urls += `  <url><loc>${base}/us/role/${role.slug}</loc><lastmod>${lastmod}</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>\n`;
+		addUrl({ path: `/role/${role.slug}`, changefreq: 'monthly', priority: '0.5' });
+		addUrl({ path: `/us/role/${role.slug}`, changefreq: 'monthly', priority: '0.5' });
 	}
 
+	const urls = entries
+		.map(
+			entry =>
+				`  <url><loc>${base}${entry.path}</loc><lastmod>${lastmod}</lastmod><changefreq>${entry.changefreq}</changefreq><priority>${entry.priority}</priority></url>`
+		)
+		.join('\n');
 	const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}</urlset>\n`;
 
 	fs.writeFileSync(OUT_FILE, sitemap);
-
-	const countryOccupationCount =
-		getCountryOccupationRows('sg').length + getCountryOccupationRows('us').length;
-	const globalOccupationCount = getGlobalOccupationEntries().length;
-	const totalUrls =
-		staticPages.length +
-		occupations.length +
-		syntheticRoles.length +
-		majorGroups.length +
-		countryOccupationCount +
-		globalOccupationCount;
-	console.log(`Sitemap generated: ${totalUrls} URLs`);
+	console.log(`Sitemap generated: ${entries.length} canonical URLs`);
 	console.log(`Domain: ${base}`);
 	console.log(`Output: ${OUT_FILE}`);
 }

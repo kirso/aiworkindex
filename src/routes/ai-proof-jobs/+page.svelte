@@ -79,8 +79,8 @@
 
 	<h1 class={titleStyle({ size: 'page' })}>AI-Proof Jobs</h1>
 	<p class="mt-2 max-w-2xl text-sm text-muted-foreground">
-		{data.total} occupations score below 15% AI displacement risk. These careers have strong
-		human bottleneck protection, meaning their core tasks resist automation.
+		{data.total} occupations score below 15% AI displacement risk. These careers have strong human bottleneck
+		protection, meaning their core tasks resist automation.
 	</p>
 
 	<section class="mt-6">

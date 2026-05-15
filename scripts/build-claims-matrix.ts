@@ -32,7 +32,8 @@ interface ClaimEntry {
 		| 'employment'
 		| 'monitor'
 		| 'synthetic_roles'
-		| 'national_context';
+		| 'national_context'
+		| 'forecast_readiness';
 	claim: string;
 	strength: ClaimStrength;
 	source_keys: string[];
@@ -110,14 +111,31 @@ const claims: ClaimEntry[] = [
 		id: 'onet_task_and_technology_context',
 		category: 'methodology',
 		claim:
-			'O*NET task and technology-skill profiles are used as supporting explanatory context on detail pages, not as direct score inputs.',
+			'O*NET task statements and ratings now feed the V7 task-primitive layer; O*NET technology-skill profiles remain supporting explanatory context.',
 		strength: 'medium',
-		source_keys: ['onet_occupation_data', 'onet_task_statements', 'onet_technology_skills'],
-		research_keys: ['onet_database_2024'],
-		evidence_artifacts: ['onet-enrichment.json', 'scripts/enrich-onet.ts'],
-		where_used: ['/occupation/[ssoc]', '/role/[slug]', '/methodology', '/data'],
+		source_keys: [
+			'onet_occupation_data',
+			'onet_task_statements',
+			'onet_task_ratings',
+			'onet_technology_skills',
+			'anthropic_task_penetration_2026'
+		],
+		research_keys: ['onet_database_2024', 'anthropic_economic_index_2026'],
+		evidence_artifacts: [
+			'onet-enrichment.json',
+			'scripts/enrich-onet.ts',
+			'scripts/build-task-primitives.ts',
+			`sg-ai-occupations-${VERSION_TAG}.json`
+		],
+		where_used: [
+			'/occupation/[ssoc]',
+			'/role/[slug]',
+			'/methodology',
+			'/data',
+			'/reports/v7-release'
+		],
 		notes:
-			'The enrichment is based on title matching and is explicitly treated as contextual support for task and tools framing rather than a determinant of the structural score.'
+			'Task statements and ratings are used in the deterministic V7 task signal where weighted matches exist. Technology-skill enrichment remains contextual and does not directly change the headline score.'
 	},
 	{
 		id: 'structural_pressure_not_prediction',
@@ -157,7 +175,7 @@ const claims: ClaimEntry[] = [
 		claim:
 			'estimated_sg_employment_thousands is an estimated Singapore occupation headcount, not an official detailed occupation count.',
 		strength: 'estimated',
-		source_keys: ['mom_lfr2024_table_d8'],
+		source_keys: ['mom_lfr2025_table_d8'],
 		research_keys: [],
 		evidence_artifacts: [
 			`sg-ai-occupations-${VERSION_TAG}.json`,
@@ -173,7 +191,7 @@ const claims: ClaimEntry[] = [
 		claim:
 			'The wage-pool headline uses a BLS-weighted proxy employment field rather than official Singapore occupation headcounts.',
 		strength: 'estimated',
-		source_keys: ['mom_lfr2024_table_d8', 'bls_projections_2024_2034'],
+		source_keys: ['mom_lfr2025_table_d8', 'bls_projections_2024_2034'],
 		research_keys: ['bls_occupational_projections_2024_2034'],
 		evidence_artifacts: [`sg-ai-occupations-${VERSION_TAG}.json`],
 		where_used: ['/', '/reports/wage-exposure'],
@@ -267,12 +285,33 @@ const claims: ClaimEntry[] = [
 		claim:
 			'National AI adoption and programme statistics from IMDA and MOM are contextual evidence around the score, not occupation-level multipliers inside it.',
 		strength: 'high',
-		source_keys: ['imda_digital_economy_2025', 'imda_naiip_2026', 'mom_soi_2025'],
+		source_keys: ['imda_sgde_2025', 'mom_ai_adoption_2026', 'imda_naiip_2026', 'mom_soi_2025'],
 		research_keys: [],
 		evidence_artifacts: ['sg-ai-in-singapore-2025.json', 'sg-context-pack-2025.json'],
 		where_used: ['/data', '/about', '/methodology'],
 		notes:
 			'These figures explain the broader Singapore context but are not mapped directly onto occupation scores.'
+	},
+	{
+		id: 'forecast_readiness_not_promoted_forecast',
+		category: 'forecast_readiness',
+		claim:
+			'The forecast-readiness matrix tracks sources, gaps, and validation gates for forecast-grade labour-market claims, but it is not a promoted forecast model and does not change V7 headline scores.',
+		strength: 'high',
+		source_keys: [
+			'mom_job_vacancy_rates',
+			'mom_job_vacancy_counts',
+			'mom_recruitment_resignation_rates',
+			'mom_retrenchment_by_occupation_group',
+			'mom_median_income_by_occupation',
+			'sg_postings_monitor',
+			'mom_ai_adoption_2026'
+		],
+		research_keys: [],
+		evidence_artifacts: ['forecast-readiness-v7.json', 'scripts/build-forecast-readiness.ts'],
+		where_used: ['/data', '/reports/v7-release'],
+		notes:
+			'This is the non-duplicative bridge from structural pressure to future validation work. It reuses existing labour, postings, AI context, and V5 sidecar artifacts instead of creating another realised-risk score.'
 	}
 ];
 

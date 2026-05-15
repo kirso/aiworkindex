@@ -1,17 +1,17 @@
 {
   "version": "V5-roadmap",
-  "generated_at": "2026-03-21T16:09:31.003Z",
-  "current_live_version": "V5",
+  "generated_at": "2026-05-15T08:44:11.321Z",
+  "current_live_version": "V7",
   "prerequisite_release": "V4.3",
-  "status": "promoted_live",
-  "summary": "V5 is now the live structural release. The retained V4.3 baseline, sidecars, and promotion-comparison artifacts remain published for auditability while the next work shifts to V5.x calibration.",
+  "status": "archived_live_release",
+  "summary": "V5 is archived as a former live research program. Its sidecars and experimental comparison artifacts remain published for auditability beneath the current live release.",
   "v43_handoff": {
-    "experimental_status": "promoted",
-    "experimental_summary": "The V4.3 shadow model was first promoted into the live structural release and is now retained as the immediate pre-V5 baseline. The shadow artifacts remain published for auditability against the earlier V4.2 baseline.",
-    "headline_promotion_ready": true,
-    "task_native_count": 485,
-    "band_flip_count": 111,
-    "impact_flip_count": 47,
+    "experimental_status": "shadow_published",
+    "experimental_summary": "Shadow score is published. Promotion into the headline model still depends on validation and anchor-review sign-off.",
+    "headline_promotion_ready": false,
+    "task_native_count": 492,
+    "band_flip_count": 123,
+    "impact_flip_count": 57,
     "validation_result": "2/3"
   },
   "release_thesis": "V5 should be the first release that upgrades the science beyond exposure alone: augmentation heterogeneity, empirical mobility, richer uncertainty, and a clearer realized-risk forecast.",
@@ -40,14 +40,14 @@
     }
   },
   "experimental_model_status": {
-    "status": "promoted_live",
+    "status": "experimental_only",
     "model_artifact": "v5-experimental-model.json",
     "validation_artifact": "v5-experimental-validation.json",
     "structural_validation_result": "2/2",
-    "realized_validation_result": "3/4",
-    "comparison_baseline_version": "V4.3",
-    "transition_band_flip_count": 135,
-    "impact_flip_count": 242
+    "realized_validation_result": "2/4",
+    "comparison_baseline_version": "V7",
+    "transition_band_flip_count": 169,
+    "impact_flip_count": 158
   },
   "workstreams": [
     {
@@ -160,8 +160,8 @@
     }
   ],
   "promotion_gates": [
-    "Retain the V4.3 baseline snapshot and the V5 promotion-comparison artifacts so future iterations stay auditable.",
+    "Each workstream must ship as an auditable sidecar artifact before it touches the headline model.",
     "Validation families must map cleanly to the construct they are testing: structural, transition, augmentation, or realized risk.",
-    "Future V5.x changes should promote only after they beat the retained V5 baseline on the relevant validation family."
+    "No release should absorb multiple unvalidated constructs into the headline score at once."
   ]
 }

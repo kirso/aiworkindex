@@ -14,6 +14,7 @@
 	import { experimentalStatusLabel } from '$lib/data/experimental-status-display';
 	import releaseManifest from '$lib/data/release-manifest.json';
 	import researchLibrary from '$lib/data/research-library.json';
+	import forecastReadinessData from '$lib/data/forecast-readiness.json';
 	import { releases, siteStatus } from '$lib/data/site-status';
 	import rawDataAudit from '$lib/data/raw-data-audit.json';
 	import Seo from '$lib/components/ui/Seo.svelte';
@@ -154,7 +155,19 @@
 			name: 'exposure',
 			type: 'number',
 			description:
-				'Live exposure score (0-1). V7 uses a 4-source exposure ensemble with task-concentration amplification.'
+				'Base 4-source exposure ensemble (0-1), before V7 task-concentration amplification.'
+		},
+		{
+			name: 'task_signal',
+			type: 'number',
+			description:
+				'V7 task-concentration signal: task_effective_coverage × task_exposure_concentration. Zero when task primitives are unavailable.'
+		},
+		{
+			name: 'exposure_v7',
+			type: 'number',
+			description:
+				'Live V7 exposure after task-concentration amplification. Formula: min(1, exposure × (1 + 0.20 × task_signal)).'
 		},
 		{
 			name: 'bottleneck',
@@ -166,13 +179,19 @@
 			name: 'displacement_pressure',
 			type: 'number',
 			description:
-				'Intermediate structural pressure field (0-1). Formula: exposure × (1 - bottleneck).'
+				'Intermediate structural pressure field (0-1). Formula: exposure_v7 × (1 - bottleneck).'
 		},
 		{
 			name: 'demand_signal_bonus',
 			type: 'number',
 			description:
 				'Additive demand bonus from exact or prefix matches against SOL and Jobs in Demand.'
+		},
+		{
+			name: 'demand_persistence',
+			type: 'number',
+			description:
+				'V7 demand-side counterforce proxy built from market momentum, vacancy rank, scarcity rank, and official demand-signal rank.'
 		},
 		{
 			name: 'demand_resilience',
@@ -184,7 +203,7 @@
 			name: 'net_risk',
 			type: 'number',
 			description:
-				'Headline displacement risk (0-1). Formula: headline_risk = displacement_pressure × (1 - demand_resilience), where displacement_pressure = exposure × (1 - bottleneck).'
+				'Headline displacement risk (0-1). Formula: headline_risk = displacement_pressure × (1 - demand_resilience), where displacement_pressure = exposure_v7 × (1 - bottleneck).'
 		},
 		{
 			name: 'risk_band',
@@ -196,12 +215,18 @@
 			name: 'augmentation',
 			type: 'number',
 			description:
-				'Live V7 augmentation potential (0-1). Formula: exposure × bottleneck × market.market_resilience.'
+				'Live V7 augmentation potential (0-1). Formula: exposure_v7 × bottleneck × market.market_resilience.'
 		},
 		{
 			name: 'impact_type',
 			type: 'enum',
 			description: 'ai_leveraged | at_risk | stable | mixed, based on displacement and augmentation thresholds.'
+		},
+		{
+			name: 'baseline_v6',
+			type: 'object',
+			description:
+				'Retained V6 baseline fields for release-to-release comparison. Contains baseline_v6.net_risk and baseline_v6.exposure.'
 		},
 		{
 			name: 'market.market_momentum',
@@ -443,14 +468,18 @@
 			fields: fields.filter((f) =>
 				[
 					'exposure',
+					'task_signal',
+					'exposure_v7',
 					'bottleneck',
 					'displacement_pressure',
 					'demand_signal_bonus',
+					'demand_persistence',
 					'demand_resilience',
 					'net_risk',
 					'risk_band',
 					'augmentation',
-					'impact_type'
+					'impact_type',
+					'baseline_v6'
 				].includes(f.name)
 			)
 		},
@@ -506,7 +535,7 @@
 		}>;
 	};
 
-	const rawAudit = rawDataAudit as {
+		const rawAudit = rawDataAudit as {
 		generated_at: string;
 		summary: {
 			valid: number;
@@ -524,8 +553,31 @@
 			size_bytes: number | null;
 			used_by: string[];
 			note: string;
-		}>;
-	};
+			}>;
+		};
+
+		const forecastReadiness = forecastReadinessData as {
+			status: string;
+			summary: {
+				status_counts: {
+					ready_for_directional_validation: number;
+					partial_proxy_needs_snapshots: number;
+					source_available_not_modeled: number;
+					protocol_only: number;
+				};
+				mom_ai_adopting_firms_pct: number;
+				postings_latest_posted_date: string | null;
+			};
+			inputs: Array<{
+				key: string;
+				label: string;
+				status: string;
+				confidence_for_forecast: string;
+				next_step: string;
+			}>;
+		};
+
+		const forecastReadinessCounts = forecastReadiness.summary.status_counts;
 
 	const rawStatusLabels = {
 		valid: 'Valid',
@@ -584,19 +636,32 @@
 	</p>
 
 	<!-- TL;DR -->
-	<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'primary' }), 'mt-4 mb-4')}>
-		<p class="text-sm font-semibold text-foreground">
-			{DATA_VINTAGE.occupation_count} occupations · {DATA_VINTAGE.role_count} roles · {dataSourceCount}
+		<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'primary' }), 'mt-4 mb-4')}>
+			<p class="text-sm font-semibold text-foreground">
+				{DATA_VINTAGE.occupation_count} occupations · {DATA_VINTAGE.role_count} roles · {dataSourceCount}
 			data sources · MIT licensed
 		</p>
 		<p class="mt-1 text-sm text-muted-foreground">
 			Structural scores and local context are separate downloads. Each artifact has an evidence
 			tier: official local, derived from official local, cross-country research, external proxy,
-			or synthetic.
-		</p>
-	</div>
+				or synthetic.
+			</p>
+		</div>
 
-	<div class="grid gap-3 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5">
+	<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'none' }), 'mb-4')}>
+			<p class="text-sm font-semibold text-foreground">Forecast readiness is published separately</p>
+			<p class="mt-1 text-sm text-muted-foreground">
+				{forecastReadinessCounts.ready_for_directional_validation} inputs are ready for directional
+				validation, {forecastReadinessCounts.partial_proxy_needs_snapshots} need recurring snapshots,
+				and {forecastReadinessCounts.source_available_not_modeled} are source-available but not yet
+				modelled. The matrix does not change the {DATA_VINTAGE.model_version} headline score.
+			</p>
+			<a href={'/data/forecast-readiness-' + currentVersionTag + '.json'} download class="mt-2 inline-block text-xs text-primary underline">
+				forecast-readiness-{currentVersionTag}.json
+			</a>
+		</div>
+
+		<div class="grid gap-3 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5">
 		<div class={cn(card({ variant: 'metric', padding: 'sm' }))}>
 			<p class={microLabel()}>
 				Structural release
@@ -732,7 +797,8 @@
 					<span class="text-base font-semibold text-foreground">JSON</span>
 				</div>
 				<p class="mt-1 text-sm text-muted-foreground">
-					Full {DATA_VINTAGE.model_version} scores with nested fields, scoring-basis metadata, latent uncertainty intervals, and the retained V4.3 baseline snapshot.
+					Full {DATA_VINTAGE.model_version} scores with nested fields, task primitives, uncertainty
+					intervals, and retained V6 baseline fields.
 				</p>
 				<span class="mt-auto pt-2 text-xs text-primary"
 					>{'sg-ai-occupations-' + currentVersionTag + '.json'}</span
@@ -751,7 +817,7 @@
 					<span class="text-base font-semibold text-foreground">V4.3 Audit Trail</span>
 				</div>
 				<p class="mt-1 text-sm text-muted-foreground">
-					Shadow-governance status, promotion history, and the retained audit trail behind the live
+					Shadow-governance status, promotion gates, and the retained audit trail beneath the live
 					V7 release.
 				</p>
 				<span class="mt-auto pt-2 text-xs text-primary">experimental-methodology-v43.json</span>
@@ -769,7 +835,7 @@
 					<span class="text-base font-semibold text-foreground">V4.3 Comparison Scores</span>
 				</div>
 				<p class="mt-1 text-sm text-muted-foreground">
-					Task-adjusted comparison scores published alongside the live baseline for validation and promotion review.
+					Task-adjusted comparison scores retained for archived validation and promotion-gate review.
 				</p>
 				<span class="mt-auto pt-2 text-xs text-primary">shadow-scores-v43.json</span>
 			</div>
@@ -840,15 +906,15 @@
 				</div>
 				<p class="mt-1 text-sm text-muted-foreground">
 					Final promotion-comparison artifact for the former live V5 model, retaining the
-					pre-promotion V4.3 baseline and the published adjunct layers.
+					V4.3 comparison snapshot and the published adjunct layers.
 				</p>
 				<span class="mt-auto pt-2 text-xs text-primary">v5-experimental-model.json</span>
 			</div>
 		</a>
 
-		<a href="/data/v5-experimental-validation.json" download class="no-underline">
-			<div class={cn(card({ padding: 'lg', hover: true }), 'flex h-full flex-col items-start')}>
-				<div class="flex items-center gap-2">
+			<a href="/data/v5-experimental-validation.json" download class="no-underline">
+				<div class={cn(card({ padding: 'lg', hover: true }), 'flex h-full flex-col items-start')}>
+					<div class="flex items-center gap-2">
 					<svg class="h-5 w-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 						<path d="M4 19h16"/>
 						<path d="M7 15V9"/>
@@ -858,14 +924,33 @@
 					<span class="text-base font-semibold text-foreground">V5 Validation Comparison</span>
 				</div>
 				<p class="mt-1 text-sm text-muted-foreground">
-					Comparison and validation summary for the former live V5 model versus the retained V4.3 baseline
+					Comparison and validation summary for the former live V5 model versus the retained V4.3 snapshot
 					across structural and realized-risk checks.
 				</p>
-				<span class="mt-auto pt-2 text-xs text-primary">v5-experimental-validation.json</span>
-			</div>
-		</a>
+					<span class="mt-auto pt-2 text-xs text-primary">v5-experimental-validation.json</span>
+				</div>
+			</a>
 
-		<a href={SITE.github} target="_blank" rel="noopener noreferrer" class="no-underline">
+			<a href={'/data/forecast-readiness-' + currentVersionTag + '.json'} download class="no-underline">
+				<div class={cn(card({ padding: 'lg', hover: true }), 'flex h-full flex-col items-start')}>
+					<div class="flex items-center gap-2">
+						<svg class="h-5 w-5 text-risk-moderate" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<path d="M4 19h16"/>
+							<path d="M7 15V9"/>
+							<path d="M12 15V5"/>
+							<path d="M17 15v-3"/>
+						</svg>
+						<span class="text-base font-semibold text-foreground">Forecast Readiness</span>
+					</div>
+					<p class="mt-1 text-sm text-muted-foreground">
+						Source, duplication, and validation-gate matrix for future forecast-grade labour claims.
+						Separate from the live structural score.
+					</p>
+					<span class="mt-auto pt-2 text-xs text-primary">forecast-readiness-{currentVersionTag}.json</span>
+				</div>
+			</a>
+
+			<a href={SITE.github} target="_blank" rel="noopener noreferrer" class="no-underline">
 			<div class={cn(card({ padding: 'lg', hover: true }), 'flex h-full flex-col items-start')}>
 				<div class="flex items-center gap-2">
 					<svg class="h-5 w-5 text-impact-leveraged" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -905,10 +990,11 @@
 				{ href: '/data/sg-macro-context-2025.json', label: 'Macro context', desc: 'Unemployment, GDP, tightness' },
 				{ href: '/data/sg-ai-in-singapore-2025.json', label: 'AI in Singapore', desc: 'Adoption, NAIIP, workforce' },
 				{ href: '/data/onet-enrichment.json', label: 'O*NET task + tools', desc: 'Supporting task and technology context' },
-				{ href: '/data/sg-transition-support-v4.json', label: 'Transition support', desc: 'Pathways, SkillsFuture, JTM / WSQ anchors' },
-				{ href: '/data/sg-offset-potential-v4.json', label: 'Offset potential', desc: 'Demand persistence, redesign room, switching friction' },
-				{ href: '/data/public-field-source-map.json', label: 'Field source map', desc: 'Field-level provenance and transformations' }
-			] as file}
+					{ href: '/data/sg-transition-support-v4.json', label: 'Transition support', desc: 'Pathways, SkillsFuture, JTM / WSQ anchors' },
+					{ href: '/data/sg-offset-potential-v4.json', label: 'Offset potential', desc: 'Demand persistence, redesign room, switching friction' },
+					{ href: '/data/forecast-readiness-' + currentVersionTag + '.json', label: 'Forecast readiness', desc: 'Sources, gaps, validation gates' },
+					{ href: '/data/public-field-source-map.json', label: 'Field source map', desc: 'Field-level provenance and transformations' }
+				] as file}
 				<a
 					href={file.href}
 					download
@@ -993,7 +1079,7 @@
 				<p><span class="font-medium text-foreground">Separate context bundle:</span> Labour monitor, worker profile, industry context, sector wage anchors, geography context, macro labour context, national AI context, offset potential, transition support, and US wage / requirements / skills / narrative layers</p>
 				<p><span class="font-medium text-foreground">Retained baseline trail:</span> {experimentalStatusLabel(siteStatus.experimental_release.status)}. The full V4.3 shadow and V5 promotion comparison remain published so the live V7 release can still be audited against the retained V4.3 and V4.2 baselines.</p>
 				<p><span class="font-medium text-foreground">Research memory:</span> {researchLibrary.entry_count} canonical research entries are published in the research library and linked to claims/source registry records.</p>
-				<p><span class="font-medium text-foreground">Sources:</span> Live reference-market official statistics and policy data (wages, labour-force context, industry context, demand signals), BLS OEWS, ORS, CPS demographics, Skills Data, OOH, IMDA Singapore Digital Economy Report 2025, IMDA NAIIP 2026, O*NET, Felten AIOE, Pizzinelli/IMF, Anthropic observed usage, Anthropic labor-market impacts, Eloundou GPT exposure, ILO occupational exposure, SOL 2026, Jobs in Demand 2025</p>
+					<p><span class="font-medium text-foreground">Sources:</span> Live reference-market official statistics and policy data (wages, labour-force context, industry context, demand signals), MOM AI Adoption Among Firms 2026, BLS OEWS, ORS, CPS demographics, Skills Data, OOH, IMDA Singapore Digital Economy Report 2025, IMDA NAIIP 2026, O*NET, Felten AIOE, Pizzinelli/IMF, Anthropic observed usage, Anthropic labor-market impacts, Eloundou GPT exposure, ILO occupational exposure, SOL 2026, Jobs in Demand 2025</p>
 			</div>
 			<div class="mt-3 flex flex-wrap gap-4 text-sm">
 				<a href="/methodology" class="text-primary underline">Full methodology &rarr;</a>

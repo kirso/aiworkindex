@@ -65,7 +65,7 @@
 					</div>
 					<p class="mt-1 text-sm text-muted-foreground">
 						V7 adds task-concentration-weighted exposure (Hampole et al.) and a demand-persistence
-						proxy to the structural formula. Stability: median delta 0.008, Spearman 0.9995.
+						proxy to the structural formula. Stability: median delta 0.0075, Spearman 0.9996.
 					</p>
 				</div>
 				<svg
@@ -106,7 +106,9 @@
 					<div class="flex items-center gap-2">
 						<span class="text-base font-semibold text-foreground">V4.3 Shadow Model Note</span>
 						<span
-							class={experimentalPositiveStates.includes(siteStatus.experimental_release?.status ?? '')
+							class={experimentalPositiveStates.includes(
+								siteStatus.experimental_release?.status ?? ''
+							)
 								? badge({ variant: 'info' })
 								: siteStatus.experimental_release?.status === 'blocked'
 									? badge({ variant: 'danger' })
@@ -116,14 +118,14 @@
 					</div>
 					<p class="mt-1 text-sm text-muted-foreground">
 						{#if isV6Live}
-							How the V4.3 shadow model first became live and why it remains published inside the
-							retained V4.3 → V5 → V6 → V7 audit trail.
+							Archived task-weighted shadow comparison retained inside the V4.3 → V5 → V6 → V7 audit
+							trail. It is not the current V7 headline formula.
 						{:else if isPromoted}
 							How the task-weighted shadow model was promoted into the live release, what changed,
 							and what remains published for auditability.
 						{:else}
-							What the task-weighted shadow model would change, what is now promotion-ready, and why
-							V4.2 remains the published baseline until a release decision is made.
+							What the task-weighted shadow model would change, which promotion gates remain open,
+							and why it stays separate from the live headline score.
 						{/if}
 					</p>
 					<p class="mt-2 text-xs text-muted-foreground">
@@ -208,7 +210,7 @@
 							{#if isV6Live}
 								The retained V4.3 baseline and promotion-comparison artifacts remain published.
 							{:else}
-								This remains separate from the live V4.3 score.
+								This remains separate from the live headline score.
 							{/if}
 						</p>
 					</div>
@@ -500,7 +502,7 @@
 				<div class={card({ padding: 'sm', variant: 'flat' })}>
 					<p class="text-sm font-semibold text-foreground">What changed</p>
 					<ul class="mt-2 space-y-2 text-sm text-muted-foreground">
-						{#each quarterly.briefing.what_changed as item}
+						{#each quarterly.briefing.what_changed as item (item)}
 							<li>{item}</li>
 						{/each}
 					</ul>
@@ -508,7 +510,7 @@
 				<div class={card({ padding: 'sm', variant: 'flat' })}>
 					<p class="text-sm font-semibold text-foreground">Why it matters</p>
 					<ul class="mt-2 space-y-2 text-sm text-muted-foreground">
-						{#each quarterly.briefing.why_it_matters as item}
+						{#each quarterly.briefing.why_it_matters as item (item)}
 							<li>{item}</li>
 						{/each}
 					</ul>
@@ -516,7 +518,7 @@
 				<div class={card({ padding: 'sm', variant: 'flat' })}>
 					<p class="text-sm font-semibold text-foreground">What to watch</p>
 					<ul class="mt-2 space-y-2 text-sm text-muted-foreground">
-						{#each quarterly.briefing.what_to_watch as item}
+						{#each quarterly.briefing.what_to_watch as item (item)}
 							<li>{item}</li>
 						{/each}
 					</ul>

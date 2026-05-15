@@ -7,7 +7,8 @@ import {
 	DATA_VINTAGE,
 	DEMAND_RESILIENCE_CONSTANTS,
 	IMPACT_TYPE_THRESHOLDS,
-	RISK_BAND_THRESHOLDS
+	RISK_BAND_THRESHOLDS,
+	SITE
 } from '../src/lib/data/scoring-constants';
 
 const ROOT_DIR = path.join(import.meta.dir, '..');
@@ -81,16 +82,16 @@ Examples: ${examples.veryLow} is in the very-low band; ${examples.veryHigh} is i
 
 ## Key Pages
 
-- https://www.kirillso.com/
-- https://www.kirillso.com/methodology
-- https://www.kirillso.com/data
-- https://www.kirillso.com/reports
-- https://www.kirillso.com/about
-- https://www.kirillso.com/explore
+- ${SITE.url}/
+- ${SITE.url}/methodology
+- ${SITE.url}/data
+- ${SITE.url}/reports
+- ${SITE.url}/about
+- ${SITE.url}/explore
 
 ## Extended Version
 
-https://www.kirillso.com/llms-full.txt
+${SITE.url}/llms-full.txt
 
 ## Source Code
 
@@ -127,7 +128,7 @@ const llmsFull = `# AI Work Index — Full Reference
 AI Work Index is a global occupation scoring project covering Singapore and the United States. The live ${version} release measures structural AI pressure, not realised job loss and not a hiring forecast.
 
 - Author: Kirill So (https://www.linkedin.com/in/kirso/)
-- Website: https://www.kirillso.com
+- Website: ${SITE.url}
 - Source code: https://github.com/kirso/aiworkindex
 - Data vintage: ${version}, last updated ${updated}
 - Coverage: ${DATA_VINTAGE.occupation_count} SSOC occupations + ${DATA_VINTAGE.role_count} synthetic modern roles
@@ -201,15 +202,15 @@ Demand signals influence impact types only indirectly through demand_resilience 
 
 ## Current Public Artifacts
 
-- Dataset: https://www.kirillso.com/data/sg-ai-occupations-${version.toLowerCase()}.json
-- Data dictionary: https://www.kirillso.com/data
-- Methodology: https://www.kirillso.com/methodology
-- Reports: https://www.kirillso.com/reports
-- Research library: https://www.kirillso.com/research
+- Dataset: ${SITE.url}/data/sg-ai-occupations-${version.toLowerCase()}.json
+- Data dictionary: ${SITE.url}/data
+- Methodology: ${SITE.url}/methodology
+- Reports: ${SITE.url}/reports
+- Research library: ${SITE.url}/research
 
 ## How to Cite
 
-"AI Work Index (${version}, 2026). Structural AI pressure scores for occupations. https://www.kirillso.com"
+"AI Work Index (${version}, 2026). Structural AI pressure scores for occupations. ${SITE.url}"
 
 ## Limitations
 
@@ -239,7 +240,7 @@ ${lowestRisk.slice(0, 10).map(faqEntry).join('\n')}
 
 - LinkedIn: https://www.linkedin.com/in/kirso/
 - GitHub: https://github.com/kirso/aiworkindex
-- Website: https://www.kirillso.com
+- Website: ${SITE.url}
 `;
 
 fs.mkdirSync(STATIC_DIR, { recursive: true });

@@ -7,12 +7,12 @@ AI Work Index: 562 Singapore occupations and 88 modern roles scored for AI displ
 - Use **Bun**, not npm or pnpm.
 - Install: `bun install`
 - Dev server: `bun run dev`
-- Build: `bun run build` (prerendered static site, 664 pages)
+- Build: `bun run build` (prerendered static site)
 - Typecheck: `bun run check`
 - Lint: `bun run lint`
 - Format: `bun run format`
 - Format check: `bun run format:check`
-- Validate scoring: `bun run validate` (58 structural checks)
+- Validate scoring: `bun run validate`
 - Full verify: `bun run verify` (typecheck + lint + format + validate)
 - Run scoring pipeline: `bun run scripts/score.ts`
 - Run backtesting: `bun run scripts/backtest.ts`
@@ -30,8 +30,8 @@ AI Work Index: 562 Singapore occupations and 88 modern roles scored for AI displ
 - No `any` in production code (`src/`). Scripts (`scripts/`) are relaxed.
 - Use Svelte 5 runes syntax (`$state`, `$derived`, `$effect`, `$props`). No legacy Svelte 4 stores.
 - After every change, run `bun run check && bun run lint` at minimum.
-- After scoring or data changes, run `bun run validate` to verify 58 structural checks pass.
-- After significant changes, run `bun run build` to confirm 664 pages prerender.
+- After scoring or data changes, run `bun run validate` and `bun run release:check`.
+- After significant changes, run `bun run build` to confirm prerendering succeeds.
 
 ## Simplicity Rules
 
@@ -102,7 +102,7 @@ V7 adds two formula changes over V6:
 - `src/lib/design-system.ts` — Signal design system (card, badge, typography variants)
 - `src/lib/components/viz/` — D3-powered visualizations (Treemap, Waterfall, Histogram, etc.)
 - `src/lib/components/ui/` — shadcn-style UI components (Bits UI based)
-- `src/lib/components/Seo.svelte` — unified SEO component (meta, OG, JSON-LD)
+- `src/lib/components/ui/Seo.svelte` — unified SEO component (meta, OG, JSON-LD)
 
 ### Routes (21+ pages)
 

@@ -149,9 +149,7 @@
 				<!-- Estimated Modern Roles group -->
 				{#if grouped.roles.length > 0}
 					<div class="border-b border-border/50 px-4 py-1.5">
-						<span class={sectionLabel({ case: 'upper' })}
-							>Estimated Modern Roles</span
-						>
+						<span class={sectionLabel({ case: 'upper' })}>Estimated Modern Roles</span>
 					</div>
 					{#each grouped.roles as result, i}
 						<button
@@ -186,9 +184,7 @@
 							? 'border-t'
 							: ''}"
 					>
-						<span class={sectionLabel({ case: 'upper' })}
-							>Selected Occupations</span
-						>
+						<span class={sectionLabel({ case: 'upper' })}>Selected Occupations</span>
 					</div>
 					{#each grouped.occupations as result, i}
 						{@const occ = result.type === 'occupation' ? result.occupation : null}

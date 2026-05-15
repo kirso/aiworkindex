@@ -76,7 +76,11 @@ export interface UncertaintyScores {
 	net_risk_p10: number;
 	net_risk_p50: number;
 	net_risk_p90: number;
-	method: 'bootstrap_v1' | 'bootstrap_v1_task_adjusted' | 'latent_source_measurement_v1';
+	method:
+		| 'bootstrap_v1'
+		| 'bootstrap_v1_task_adjusted'
+		| 'latent_source_measurement_v1'
+		| 'bootstrap_v2';
 }
 
 export type OccupationScoringBasis =

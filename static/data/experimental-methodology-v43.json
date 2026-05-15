@@ -1,14 +1,14 @@
 {
   "version": "V4.3-shadow",
-  "generated_at": "2026-03-31T05:43:45.611Z",
+  "generated_at": "2026-05-15T08:43:56.795Z",
   "published_baseline_version": "V4.2",
-  "live_structural_version": "V5",
+  "live_structural_version": "V7",
   "shadow_readiness": {
-    "status": "promoted",
-    "summary": "The V4.3 shadow model was first promoted into the live structural release and is now retained as the immediate pre-V5 baseline. The shadow artifacts remain published for auditability against the earlier V4.2 baseline."
+    "status": "shadow_published",
+    "summary": "Shadow score is published. Promotion into the headline model still depends on validation and anchor-review sign-off."
   },
   "shadow_score_published": true,
-  "headline_promotion_ready": true,
+  "headline_promotion_ready": false,
   "shadow_artifacts": {
     "shadow_scores": "data/shadow-scores-v43.json",
     "shadow_validation": "data/shadow-validation-v43.json",
@@ -34,16 +34,16 @@
   },
   "coverage": {
     "occupation_count": 562,
-    "direct_mapped_occupation_count": 521,
-    "task_weighted_occupation_count": 485,
-    "direct_task_weighted_occupation_count": 456,
-    "task_weighted_share": 0.863,
-    "direct_task_weighted_share": 0.8752,
-    "bootstrap_uncertainty_coverage_share": 1,
+    "direct_mapped_occupation_count": 508,
+    "task_weighted_occupation_count": 492,
+    "direct_task_weighted_occupation_count": 453,
+    "task_weighted_share": 0.8754,
+    "direct_task_weighted_share": 0.8917,
+    "bootstrap_uncertainty_coverage_share": 0,
     "median_matched_task_weight_share": 1,
     "median_direct_matched_task_weight_share": 1,
-    "median_task_effective_coverage": 0.0817,
-    "median_task_exposure_concentration": 0.2217
+    "median_task_effective_coverage": 0.0813,
+    "median_task_exposure_concentration": 0.2158
   },
   "promotion_gates": [
     {
@@ -61,15 +61,15 @@
       "threshold": "at_least_2_of_3",
       "actual": "2/3",
       "state": "pass",
-      "note": "Requires at least 2 of 3 external checks to match or improve baseline. Current results: cluster directional accuracy 0.3333 vs 1; BLS rho -0.1908 vs -0.1437; family rho -0.4457 vs -0.242."
+      "note": "Requires at least 2 of 3 external checks to match or improve baseline. Current results: cluster directional accuracy 0.3333 vs 1; BLS rho -0.167 vs -0.1387; family rho -0.4633 vs -0.249."
     },
     {
       "key": "anchor_review",
       "label": "No implausible anchor label flips without written rationale",
       "threshold": "zero_unexplained_flips",
-      "actual": 0,
-      "state": "pass",
-      "note": "8/8 anchors screened; 0 candidates still need editorial sign-off."
+      "actual": 1,
+      "state": "pending",
+      "note": "8/8 anchors screened; 1 candidates still need editorial sign-off."
     }
   ],
   "blockers": [],

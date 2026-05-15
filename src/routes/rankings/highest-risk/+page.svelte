@@ -79,9 +79,7 @@
 	/>
 
 	<h1 class={titleStyle({ size: 'page' })}>Highest Risk Occupations</h1>
-	<p class="mt-2 text-sm text-muted-foreground">
-		Top 25 occupations by net displacement risk.
-	</p>
+	<p class="mt-2 text-sm text-muted-foreground">Top 25 occupations by net displacement risk.</p>
 
 	<section class="mt-6">
 		<RankingTable occupations={data.ranked} {columns} />

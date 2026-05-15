@@ -1,7 +1,6 @@
 #!/usr/bin/env bun
 /**
- * export-csv.ts — Export the live occupation dataset and retained historical
- * snapshots to clean CSV files.
+ * export-csv.ts — Export the live occupation dataset to a clean CSV file.
  *
  * Run: bun run scripts/export-csv.ts
  */
@@ -53,7 +52,13 @@ interface Occupation {
 		skillsfuture_eligible?: boolean;
 	};
 	exposure: number;
+	task_signal?: number;
+	exposure_v7?: number;
 	bottleneck: number;
+	displacement_pressure?: number;
+	demand_signal_bonus?: number;
+	demand_persistence?: number;
+	demand_resilience?: number;
 	market: {
 		market_momentum: number;
 		occupation_scarcity: number;
@@ -65,16 +70,6 @@ interface Occupation {
 	augmentation: number;
 	augmentation_band: string;
 	impact_type: string;
-	structural_risk?: number;
-	structural_risk_band?: string;
-	transition_adjusted_risk?: number;
-	transition_adjusted_band?: string;
-	transition_adjusted_impact_type?: string;
-	realized_risk_proxy?: number;
-	adaptation_capacity?: number;
-	adaptation_buffer?: number;
-	demand_fragility?: number;
-	reallocation_capacity?: number;
 	profile?: string;
 	evidence: {
 		anthropic_calibrated: boolean;
@@ -99,20 +94,24 @@ interface Occupation {
 	match_quality: string;
 	education_label?: string;
 	structural_model_version?: string;
-	scoring_basis?: string;
-	baseline_v42?: {
+	baseline_v6?: {
 		exposure: number;
 		net_risk: number;
-		risk_band: string;
-		augmentation: number;
-		impact_type: string;
 	};
-	baseline_v43?: {
-		exposure: number;
-		net_risk: number;
-		risk_band: string;
-		augmentation: number;
-		impact_type: string;
+	task_primitives?: {
+		matched_task_weight_share: number | null;
+		task_effective_coverage: number | null;
+		task_exposure_concentration: number | null;
+		method: string | null;
+	};
+	uncertainty?: {
+		exposure_p10: number;
+		exposure_p50: number;
+		exposure_p90: number;
+		net_risk_p10: number;
+		net_risk_p50: number;
+		net_risk_p90: number;
+		method: string;
 	};
 }
 
@@ -134,7 +133,13 @@ const columns = [
 	'bls_proxy_employment',
 	'wage_pool_proxy_tier',
 	'exposure',
+	'task_signal',
+	'exposure_v7',
 	'bottleneck',
+	'displacement_pressure',
+	'demand_signal_bonus',
+	'demand_persistence',
+	'demand_resilience',
 	'market_resilience',
 	'market_modifier',
 	'net_risk',
@@ -142,16 +147,6 @@ const columns = [
 	'augmentation',
 	'augmentation_band',
 	'impact_type',
-	'structural_risk',
-	'structural_risk_band',
-	'transition_adjusted_risk',
-	'transition_adjusted_band',
-	'transition_adjusted_impact_type',
-	'realized_risk_proxy',
-	'adaptation_capacity',
-	'adaptation_buffer',
-	'demand_fragility',
-	'reallocation_capacity',
 	'profile',
 	'anthropic_calibrated',
 	'anthropic_gap',
@@ -169,17 +164,19 @@ const columns = [
 	'confidence_signal_agreement',
 	'confidence_sensitivity',
 	'structural_model_version',
-	'scoring_basis',
-	'baseline_v42_exposure',
-	'baseline_v42_net_risk',
-	'baseline_v42_risk_band',
-	'baseline_v42_augmentation',
-	'baseline_v42_impact_type',
-	'baseline_v43_exposure',
-	'baseline_v43_net_risk',
-	'baseline_v43_risk_band',
-	'baseline_v43_augmentation',
-	'baseline_v43_impact_type',
+	'baseline_v6_exposure',
+	'baseline_v6_net_risk',
+	'task_primitives_matched_task_weight_share',
+	'task_primitives_task_effective_coverage',
+	'task_primitives_task_exposure_concentration',
+	'task_primitives_method',
+	'uncertainty_exposure_p10',
+	'uncertainty_exposure_p50',
+	'uncertainty_exposure_p90',
+	'uncertainty_net_risk_p10',
+	'uncertainty_net_risk_p50',
+	'uncertainty_net_risk_p90',
+	'uncertainty_method',
 	'match_quality',
 	'education_label',
 	'education_tier',
@@ -189,7 +186,7 @@ const columns = [
 	'skillsfuture_eligible'
 ];
 
-function escapeCSV(value: string | number): string {
+function escapeCSV(value: string | number | boolean): string {
 	const str = String(value);
 	if (str.includes(',') || str.includes('"') || str.includes('\n')) {
 		return `"${str.replace(/"/g, '""')}"`;
@@ -220,7 +217,13 @@ function buildCsv(occupations: Occupation[]): string {
 		o.bls_proxy_employment ?? '',
 		o.data_basis?.wage_pool_proxy?.tier ?? '',
 		o.exposure.toFixed(4),
+		o.task_signal?.toFixed(4) ?? '',
+		o.exposure_v7?.toFixed(4) ?? '',
 		o.bottleneck.toFixed(4),
+		o.displacement_pressure?.toFixed(4) ?? '',
+		o.demand_signal_bonus?.toFixed(4) ?? '',
+		o.demand_persistence?.toFixed(4) ?? '',
+		o.demand_resilience?.toFixed(4) ?? '',
 		o.market.market_resilience.toFixed(4),
 		o.market.market_modifier.toFixed(4),
 		o.net_risk.toFixed(4),
@@ -228,16 +231,6 @@ function buildCsv(occupations: Occupation[]): string {
 		o.augmentation.toFixed(4),
 		o.augmentation_band,
 		o.impact_type,
-		o.structural_risk?.toFixed(4) ?? '',
-		o.structural_risk_band ?? '',
-		o.transition_adjusted_risk?.toFixed(4) ?? '',
-		o.transition_adjusted_band ?? '',
-		o.transition_adjusted_impact_type ?? '',
-		o.realized_risk_proxy?.toFixed(4) ?? '',
-		o.adaptation_capacity?.toFixed(4) ?? '',
-		o.adaptation_buffer?.toFixed(4) ?? '',
-		o.demand_fragility?.toFixed(4) ?? '',
-		o.reallocation_capacity?.toFixed(4) ?? '',
 		o.profile ?? '',
 		o.evidence.anthropic_calibrated,
 		o.evidence.anthropic_gap ?? '',
@@ -257,17 +250,19 @@ function buildCsv(occupations: Occupation[]): string {
 		o.confidence.signal_agreement?.toFixed(4) ?? '',
 		o.confidence.sensitivity?.toFixed(4) ?? '',
 		o.structural_model_version ?? '',
-		o.scoring_basis ?? '',
-		o.baseline_v42?.exposure?.toFixed(4) ?? '',
-		o.baseline_v42?.net_risk?.toFixed(4) ?? '',
-		o.baseline_v42?.risk_band ?? '',
-		o.baseline_v42?.augmentation?.toFixed(4) ?? '',
-		o.baseline_v42?.impact_type ?? '',
-		o.baseline_v43?.exposure?.toFixed(4) ?? '',
-		o.baseline_v43?.net_risk?.toFixed(4) ?? '',
-		o.baseline_v43?.risk_band ?? '',
-		o.baseline_v43?.augmentation?.toFixed(4) ?? '',
-		o.baseline_v43?.impact_type ?? '',
+		o.baseline_v6?.exposure?.toFixed(4) ?? '',
+		o.baseline_v6?.net_risk?.toFixed(4) ?? '',
+		o.task_primitives?.matched_task_weight_share?.toFixed(4) ?? '',
+		o.task_primitives?.task_effective_coverage?.toFixed(4) ?? '',
+		o.task_primitives?.task_exposure_concentration?.toFixed(4) ?? '',
+		o.task_primitives?.method ?? '',
+		o.uncertainty?.exposure_p10?.toFixed(4) ?? '',
+		o.uncertainty?.exposure_p50?.toFixed(4) ?? '',
+		o.uncertainty?.exposure_p90?.toFixed(4) ?? '',
+		o.uncertainty?.net_risk_p10?.toFixed(4) ?? '',
+		o.uncertainty?.net_risk_p50?.toFixed(4) ?? '',
+		o.uncertainty?.net_risk_p90?.toFixed(4) ?? '',
+		o.uncertainty?.method ?? '',
 		o.match_quality,
 		o.education_label ?? '',
 		o.data_basis?.education?.tier ?? '',
@@ -289,18 +284,5 @@ const liveOutFile = path.join(
 	`sg-ai-occupations-${versionTag(DATA_VINTAGE.model_version)}.csv`
 );
 fs.writeFileSync(liveOutFile, liveCsv, 'utf-8');
-
-for (const entry of fs.readdirSync(DATA_DIR)) {
-	const match = entry.match(/^occupations-(v\d+(?:\.\d+)?)\.json$/i);
-	if (!match) continue;
-	const occupations: Occupation[] = JSON.parse(
-		fs.readFileSync(path.join(DATA_DIR, entry), 'utf-8')
-	);
-	fs.writeFileSync(
-		path.join(OUT_DIR, `sg-ai-occupations-${match[1]!.toLowerCase().replaceAll('.', '')}.csv`),
-		buildCsv(occupations),
-		'utf-8'
-	);
-}
 
 console.log(`Exported ${liveOccupations.length} occupations to ${liveOutFile}`);

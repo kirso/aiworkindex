@@ -689,7 +689,12 @@
 					{#each scored.components as comp}
 						{#if comp.occupation}
 							<OccupationCard
-								occupation={{ title: comp.occupation.title, ssoc: comp.ssoc, net_risk: comp.occupation.net_risk, risk_band: comp.occupation.risk_band }}
+								occupation={{
+									title: comp.occupation.title,
+									ssoc: comp.ssoc,
+									net_risk: comp.occupation.net_risk,
+									risk_band: comp.occupation.risk_band
+								}}
 								mode="inset"
 								metricParts={[
 									{ label: `${(comp.weight * 100).toFixed(0)}% weight` },

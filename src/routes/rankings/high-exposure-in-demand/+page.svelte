@@ -84,7 +84,8 @@
 
 	<h1 class={titleStyle({ size: 'page' })}>High Exposure + In Demand</h1>
 	<p class="mt-2 text-sm text-muted-foreground">
-		Significant AI task overlap (&gt;50% exposure) yet still on official shortage or in-demand lists.
+		Significant AI task overlap (&gt;50% exposure) yet still on official shortage or in-demand
+		lists.
 	</p>
 
 	<section class="mt-6">

@@ -10,20 +10,20 @@
 	import TaskListCard from '$lib/components/ui/TaskListCard.svelte';
 	import WorkContextCard from '$lib/components/ui/WorkContextCard.svelte';
 	import RequirementsList from '$lib/components/ui/RequirementsList.svelte';
-	import type {
-		UnitedStatesOccupationSupport
-	} from '$lib/data/countries/us/support';
+	import type { UnitedStatesOccupationSupport } from '$lib/data/countries/us/support';
 
 	let { support } = $props<{ support: UnitedStatesOccupationSupport }>();
 
 	/** Deduplicate requirement items: keep only the first occurrence of each label */
 	let dedupedRequirements = $derived.by(() => {
 		const seen = new Set<string>();
-		return support.requirementProfile.filter((item: UnitedStatesOccupationSupport['requirementProfile'][number]) => {
-			if (seen.has(item.label)) return false;
-			seen.add(item.label);
-			return true;
-		});
+		return support.requirementProfile.filter(
+			(item: UnitedStatesOccupationSupport['requirementProfile'][number]) => {
+				if (seen.has(item.label)) return false;
+				seen.add(item.label);
+				return true;
+			}
+		);
 	});
 
 	type SupportSignalItem = {
@@ -40,7 +40,9 @@
 		value == null ? '—' : `${(value * 100).toFixed(digits)}%`;
 
 	const formatCurrency = (value: number | null, currency = 'USD') =>
-		value == null ? '—' : `${currency} ${new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(value)}`;
+		value == null
+			? '—'
+			: `${currency} ${new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(value)}`;
 
 	const signalBarClass = (value: number) =>
 		value >= 0.66 ? 'bg-impact-leveraged' : value >= 0.33 ? 'bg-risk-moderate' : 'bg-risk-high';
@@ -282,19 +284,18 @@
 		</div>
 
 		<div class="grid gap-3 lg:grid-cols-2">
-			<TaskListCard
-				tasks={support.topTasks}
-				technologies={support.topTechnologies}
-			/>
+			<TaskListCard tasks={support.topTasks} technologies={support.topTechnologies} />
 			<WorkContextCard
 				items={support.topWorkContext}
-				demographics={support.ageProfile.medianAge != null ? {
-					medianAge: support.ageProfile.medianAge,
-					totalEmployment: support.ageProfile.totalEmployment,
-					under25Share: support.ageProfile.under25Share,
-					primeAgeShare: support.ageProfile.primeAgeShare,
-					olderShare: support.ageProfile.olderShare
-				} : undefined}
+				demographics={support.ageProfile.medianAge != null
+					? {
+							medianAge: support.ageProfile.medianAge,
+							totalEmployment: support.ageProfile.totalEmployment,
+							under25Share: support.ageProfile.under25Share,
+							primeAgeShare: support.ageProfile.primeAgeShare,
+							olderShare: support.ageProfile.olderShare
+						}
+					: undefined}
 			/>
 		</div>
 

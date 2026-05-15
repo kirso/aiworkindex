@@ -437,7 +437,9 @@ function main() {
 		...baseMetadata,
 		status: 'pilot_sidecars_published',
 		summary:
-			'V5 sidecar workstreams are now published as audit artifacts without changing the live V4.3 headline score.',
+			DATA_VINTAGE.model_version === 'V6' || DATA_VINTAGE.model_version === 'V7'
+				? `V5 sidecar workstreams are archived as audit artifacts beneath the live ${DATA_VINTAGE.model_version} headline score.`
+				: 'V5 sidecar workstreams are published as audit artifacts without changing the live headline score.',
 		sidecars
 	};
 

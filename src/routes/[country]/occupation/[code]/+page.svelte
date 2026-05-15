@@ -11,10 +11,7 @@
 	import PageFooterNav from '$lib/components/ui/PageFooterNav.svelte';
 	import { riskBandLabels } from '$lib/data';
 	import { SITE, DATA_VINTAGE } from '$lib/data/scoring-constants';
-	import {
-		buildUnitedStatesOccupationAlternates,
-		findSingaporeEquivalent
-	} from '$lib/data/occupation-alternates';
+	import { buildUnitedStatesOccupationAlternates } from '$lib/data/occupation-alternates';
 	import { getUnitedStatesRolesForCanonicalCode } from '$lib/data/countries/us/roles';
 	import {
 		pageLayout,
@@ -41,8 +38,6 @@
 				)
 			: []
 	);
-	const sgEquivalent = $derived(findSingaporeEquivalent(data.occupation.canonicalCode));
-	const canonical = $derived(sgEquivalent ? `/occupation/${sgEquivalent}` : undefined);
 	const relatedRoles = $derived.by(() => {
 		if (data.country.code !== 'us') return [];
 		if (!data.occupation.canonicalCode) return [];
@@ -295,7 +290,6 @@
 	path={occPath}
 	ogImage={`/og/${data.country.code}/${data.occupation.localCode}.png`}
 	{alternates}
-	{canonical}
 	jsonLd={[occJsonLd, breadcrumbJsonLd]}
 />
 
@@ -689,7 +683,9 @@
 				<div>
 					<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>Data quality</p>
 					<p>
-						{data.occupation.employment?.current != null ? 'Employment data available' : 'Limited employment data'}
+						{data.occupation.employment?.current != null
+							? 'Employment data available'
+							: 'Limited employment data'}
 					</p>
 				</div>
 			</div>
@@ -727,9 +723,7 @@
 			{/if}
 
 			<div class="pt-3 border-t border-border">
-				<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>
-					Important context
-				</p>
+				<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>Important context</p>
 				<p>
 					This score measures structural AI displacement pressure, not actual job losses. Local
 					wages and demand data are specific to {data.country.displayName}; the underlying AI task

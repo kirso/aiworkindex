@@ -38,9 +38,7 @@
 	const formatWorkerCount = (value: number | null) =>
 		value == null ? '\u2014' : `${fmt.format(value)} workers`;
 
-	let barWidth = $derived(
-		median != null ? Math.max(0, Math.min(100, (median / 200000) * 100)) : 0
-	);
+	let barWidth = $derived(median != null ? Math.max(0, Math.min(100, (median / 200000) * 100)) : 0);
 
 	let periodLabel = $derived(period === 'monthly' ? 'monthly' : 'annual');
 </script>
@@ -84,9 +82,6 @@
 	</div>
 
 	<div class="mt-4 h-1.5 overflow-hidden rounded-full bg-muted">
-		<div
-			class="h-full rounded-full bg-primary/80"
-			style={`width: ${barWidth.toFixed(1)}%`}
-		></div>
+		<div class="h-full rounded-full bg-primary/80" style={`width: ${barWidth.toFixed(1)}%`}></div>
 	</div>
 </div>

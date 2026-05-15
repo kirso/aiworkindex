@@ -49,7 +49,6 @@
 		{ href: '/us', label: countryConfigs.us.name }
 	];
 
-	let currentPath = $derived(page.url.pathname);
 	let mobileMenuOpen = $state(false);
 
 	function isActive(href: string): boolean {
@@ -76,9 +75,9 @@
 				'career transition planning'
 			],
 			areaServed: [
-					{ '@type': 'Country', name: 'Singapore' },
-					{ '@type': 'Country', name: 'United States' }
-				],
+				{ '@type': 'Country', name: 'Singapore' },
+				{ '@type': 'Country', name: 'United States' }
+			],
 			sameAs: [SITE.github, SITE.authorUrl]
 		},
 		potentialAction: {
@@ -93,7 +92,6 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
-	<link rel="canonical" href="{SITE.url}{currentPath}" />
 	<meta property="og:site_name" content={SITE.name} />
 	<meta property="og:type" content="website" />
 	<meta name="twitter:card" content="summary_large_image" />
@@ -293,7 +291,7 @@
 				{siteStatus.structural_release.version} · {DATA_VINTAGE.occupation_count} occupations · {DATA_VINTAGE.role_count}
 				roles · MIT Licensed ·
 				<a
-					href="https://www.kirillso.com"
+					href={SITE.authorUrl}
 					target="_blank"
 					rel="noopener noreferrer"
 					class="hover:text-muted-foreground">Kirill So</a

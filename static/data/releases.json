@@ -1,5 +1,22 @@
 [
   {
+    "id": "structural-v7-2026-04-07",
+    "type": "structural_release",
+    "label": "V7 structural release",
+    "version_label": "V7",
+    "published_at": "2026-04-07",
+    "display_date": "7 Apr 2026",
+    "score_version": "V7",
+    "monitor_vintage": "Q4 2025 full",
+    "href": "/data",
+    "availability": "current_download",
+    "notes": [
+      "Promotes the live V7 release: task-concentration-weighted exposure and a demand-persistence proxy on top of the V6 two-axis structural model.",
+      "The canonical public export, sitemap, release manifest, claims matrix, and LLM surfaces now share the same V7 release contract.",
+      "V6 remains preserved as the immediate previous structural baseline for auditability."
+    ]
+  },
+  {
     "id": "structural-v6-2026-04-01",
     "type": "structural_release",
     "label": "V6 structural release",
@@ -8,12 +25,12 @@
     "display_date": "1 Apr 2026",
     "score_version": "V6",
     "monitor_vintage": "Q4 2025 full",
-    "href": "/data",
-    "availability": "current_download",
+    "href": "/data/sg-ai-occupations-v6.json",
+    "availability": "historical_snapshot",
     "notes": [
       "Promotes the live V6 two-axis structural release: deterministic 4-source exposure ensemble, human bottleneck, displacement pressure, and explicit demand resilience.",
       "The canonical public export now matches the live app dataset and release-governance artifacts.",
-      "V5 remains retained as the immediate previous live baseline for auditability."
+      "Retained as the immediate pre-V7 structural baseline for auditability."
     ]
   },
   {
@@ -45,9 +62,9 @@
     "href": "/data/sg-ai-occupations-v43.json",
     "availability": "historical_snapshot",
     "notes": [
-      "Promotes the task-aware exposure upgrade from the published V4.3 shadow model into the live structural score.",
-      "Bootstrap uncertainty tracks the promoted task-aware exposure layer where weighted task evidence exists.",
-      "Retained as the immediate pre-V5 live baseline for auditability."
+      "Retained task-aware structural snapshot from the V4 lineage.",
+      "The separate V4.3 shadow-governance artifact remains published with its own validation and anchor-review gates.",
+      "Retained for auditability beneath the later V5, V6, and V7 releases."
     ]
   },
   {
@@ -182,29 +199,29 @@
     "id": "shadow-score-v43-published",
     "type": "experimental_update",
     "label": "V4.3 shadow score published",
-    "published_at": "2026-04-09",
+    "published_at": "2026-05-15",
     "display_date": "21 Mar 2026",
     "score_version": "V7",
     "monitor_vintage": "Q4 2025 full",
     "href": "/reports/v4-3-shadow",
     "availability": "current_download",
     "notes": [
-      "V4.3 remains published as part of the retained audit trail beneath the later V5 and V6 live releases.",
-      "Shadow score is fully ready for headline-promotion review."
+      "V4.3 remains published as part of the retained audit trail beneath later live releases.",
+      "Shadow score is published, but promotion into the headline model is still gated by validation and anchor review."
     ]
   },
   {
     "id": "v5-sidecars-published",
     "type": "experimental_update",
     "label": "V5 sidecars published",
-    "published_at": "2026-04-09",
+    "published_at": "2026-05-15",
     "display_date": "21 Mar 2026",
     "score_version": "V7",
     "monitor_vintage": "Q4 2025 full",
     "href": "/reports/v5-roadmap",
     "availability": "current_download",
     "notes": [
-      "The former live V5 model is now archived as the immediate pre-V6 baseline, with its published sidecars and comparison artifacts retained for auditability.",
+      "The former live V5 model is archived with its published sidecars and comparison artifacts retained for auditability.",
       "Each V5 workstream now ships as an auditable sidecar artifact before any future headline-score change."
     ]
   },
@@ -212,15 +229,15 @@
     "id": "v5-experimental-model-published",
     "type": "experimental_update",
     "label": "V5 experimental model published",
-    "published_at": "2026-04-09",
+    "published_at": "2026-05-15",
     "display_date": "21 Mar 2026",
     "score_version": "V7",
     "monitor_vintage": "Q4 2025 full",
     "href": "/reports/v5-experimental",
     "availability": "current_download",
     "notes": [
-      "Combines posterior uncertainty, augmentation heterogeneity, empirical mobility, and realized-risk calibration into one auditable candidate.",
-      "Current validation snapshot: structural 2/2, realized 3/4."
+      "The former live V5 model is retained as a historical baseline together with its validation and adjunct artifacts.",
+      "Current validation snapshot: structural 2/2, realized 2/4."
     ]
   },
   {
@@ -242,7 +259,7 @@
     "id": "quarterly-briefing-2026-q1",
     "type": "report_refresh",
     "label": "2026 Q1 quarterly briefing",
-    "published_at": "2026-04-09",
+    "published_at": "2026-05-15",
     "display_date": "21 Mar 2026",
     "score_version": "V7",
     "monitor_vintage": "Q4 2025 full",

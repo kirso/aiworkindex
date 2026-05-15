@@ -135,19 +135,19 @@
 			<div class="mt-3 grid gap-3 sm:grid-cols-2">
 				<div class={card({ padding: 'sm' })}>
 					<p class={caption({ weight: 'semibold' })}>Median |delta risk|</p>
-					<p class={cn(mono({ size: 'sm' }), 'mt-1')}>0.0077</p>
+					<p class={cn(mono({ size: 'sm' }), 'mt-1')}>0.0075</p>
 					<p class="mt-1 text-xs text-muted-foreground">Target: &lt; 0.03</p>
 				</div>
 				<div class={card({ padding: 'sm' })}>
 					<p class={caption({ weight: 'semibold' })}>Band flips</p>
 					<p class={cn(mono({ size: 'sm' }), 'mt-1')}>
-						39 / {DATA_VINTAGE.occupation_count} (6.9%)
+						42 / {DATA_VINTAGE.occupation_count} (7.5%)
 					</p>
 					<p class="mt-1 text-xs text-muted-foreground">Target: &lt; 15%</p>
 				</div>
 				<div class={card({ padding: 'sm' })}>
 					<p class={caption({ weight: 'semibold' })}>Spearman rank correlation</p>
-					<p class={cn(mono({ size: 'sm' }), 'mt-1')}>0.9995</p>
+					<p class={cn(mono({ size: 'sm' }), 'mt-1')}>0.9996</p>
 					<p class="mt-1 text-xs text-muted-foreground">Target: &gt; 0.95</p>
 				</div>
 				<div class={card({ padding: 'sm' })}>
@@ -161,10 +161,11 @@
 		<div>
 			<h2 class={sectionLabel()}>Validation</h2>
 			<p class="mt-3 text-sm text-muted-foreground">
-				V7 passes 166 of 169 structural validation checks. All 6 anchor occupations pass (Software
-				Developer, Data Entry Clerk, Surgeon, Telemarketer, Registered Nurse, Data Scientist). The 3
-				pre-existing failures (crosswalk coverage threshold, software developer crosswalk type,
-				experimental release status) are unchanged from V6.
+				V7 passes {DATA_VINTAGE.validation_checks} of {DATA_VINTAGE.validation_checks} internal release
+				and data-contract checks. All 6 anchor occupations pass (Software Developer, Data Entry Clerk,
+				Surgeon, Telemarketer, Registered Nurse, Data Scientist). External calibration is reported separately:
+				the direct BLS segment remains significantly negative, and the Singapore cluster labour backtest
+				currently passes 2 of 4 checks.
 			</p>
 		</div>
 
@@ -197,6 +198,11 @@
 				<code class="text-xs">baseline_v6</code>
 				field of every occupation record. New V7 fields: <code class="text-xs">task_signal</code>,
 				<code class="text-xs">demand_persistence</code>, <code class="text-xs">exposure_v7</code>.
+				The non-promoted
+				<a href="/data/forecast-readiness-v7.json" class="text-primary hover:underline"
+					>forecast-readiness matrix</a
+				>
+				maps labour-outcome and adoption inputs to their existing source owners and validation gates.
 			</p>
 		</div>
 	</section>

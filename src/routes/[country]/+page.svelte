@@ -1,5 +1,12 @@
 <script lang="ts">
-	import { pageLayout, card, sectionLabel, title as titleStyle, caption, body } from '$lib/design-system';
+	import {
+		pageLayout,
+		card,
+		sectionLabel,
+		title as titleStyle,
+		caption,
+		body
+	} from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import OccupationCard from '$lib/components/ui/OccupationCard.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
@@ -10,7 +17,7 @@
 	let { data } = $props();
 
 	const moduleStates = $derived(buildCountryModuleStatuses(data.country));
-	const publishedCount = $derived(moduleStates.filter((m) => m.available).length);
+	const publishedCount = $derived(moduleStates.filter(m => m.available).length);
 	const highRiskPct = $derived(
 		data.stats.count > 0 ? ((data.stats.highRisk / data.stats.count) * 100).toFixed(0) : '0'
 	);
@@ -84,14 +91,14 @@
 		<h1 class={titleStyle({ size: 'page' })}>{data.country.displayName}</h1>
 		<p class={cn(body({ size: 'lg', tone: 'muted' }), 'mt-3')}>
 			{#if data.country.status === 'live'}
-				AI displacement pressure scores for every occupation, combined with local wages,
-				job market demand signals, and government support programmes.
+				AI displacement pressure scores for every occupation, combined with local wages, job market
+				demand signals, and government support programmes.
 			{:else if data.country.status === 'ready'}
-				AI pressure scores combined with local wages, employment projections, and
-				skills data. Full index publishing soon.
+				AI pressure scores combined with local wages, employment projections, and skills data. Full
+				index publishing soon.
 			{:else}
-				AI pressure scores based on the global structural baseline.
-				Local data layers are being prepared.
+				AI pressure scores based on the global structural baseline. Local data layers are being
+				prepared.
 			{/if}
 		</p>
 	</section>
@@ -116,16 +123,17 @@
 			<p class="mt-1 text-2xl font-semibold text-foreground">
 				{(data.stats.medianRisk * 100).toFixed(0)}%
 			</p>
-			<p class={caption()}>
-				Midpoint across all occupations
-			</p>
+			<p class={caption()}>Midpoint across all occupations</p>
 		</div>
 		<div class={card({ padding: 'sm' })}>
 			<p class={caption({ weight: 'medium' })}>Index status</p>
 			<p class="mt-1 text-lg font-semibold text-foreground">{statusLabel}</p>
 			{#if data.stats.medianWage != null}
 				<p class={caption()}>
-					Median wage: {data.country.currency} {data.stats.medianWage.toLocaleString()}/{data.country.wagePeriod === 'annual' ? 'yr' : 'mo'}
+					Median wage: {data.country.currency}
+					{data.stats.medianWage.toLocaleString()}/{data.country.wagePeriod === 'annual'
+						? 'yr'
+						: 'mo'}
 				</p>
 			{/if}
 		</div>
@@ -135,7 +143,8 @@
 	<section class="mt-8">
 		<p class={sectionLabel()}>What data is available</p>
 		<p class={cn(caption(), 'mt-1')}>
-			{publishedCount} of {moduleStates.length} research areas are published for {data.country.name}.
+			{publishedCount} of {moduleStates.length} research areas are published for {data.country
+				.name}.
 		</p>
 		<div class="mt-3 grid gap-3 md:grid-cols-2">
 			{#each moduleStates as module}
@@ -151,7 +160,8 @@
 						<div>
 							<p class="text-sm font-semibold text-foreground">{friendly?.title ?? module.title}</p>
 							<p class="mt-1 text-sm text-muted-foreground">
-								{friendly?.description ?? (module.available ? module.publishedDescription : module.unavailableDescription)}
+								{friendly?.description ??
+									(module.available ? module.publishedDescription : module.unavailableDescription)}
 							</p>
 						</div>
 						<span
@@ -182,7 +192,10 @@
 					<OccupationCard
 						occupation={{
 							title: row.title,
-							linkHref: `${data.country.routePrefix}/occupation/${row.code}`,
+							linkHref:
+								data.country.code === 'sg'
+									? `/occupation/${row.code}`
+									: `${data.country.routePrefix}/occupation/${row.code}`,
 							net_risk: row.risk,
 							risk_band: getRiskBand(row.risk),
 							gross_wage_median: row.wage ?? undefined,
@@ -199,8 +212,8 @@
 			<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'moderate' }), 'mt-3')}>
 				<p class="text-sm font-semibold text-foreground">Local data coming soon</p>
 				<p class="mt-1 text-sm text-muted-foreground">
-					You can view global AI pressure scores for all occupations while we prepare
-					local data for {data.country.name}.
+					You can view global AI pressure scores for all occupations while we prepare local data for {data
+						.country.name}.
 				</p>
 			</div>
 		{/if}

@@ -699,12 +699,18 @@ function parseOrsRequirementProfiles(): Map<
 
 		// Skip "did not" rows — ORS gives both sides of every binary (e.g., "had ability to telework" and "did not have")
 		const estimateLower = estimateText.toLowerCase();
-		if (estimateLower.includes('did not') || estimateLower.includes('not require') || estimateLower.includes('not need')) continue;
+		if (
+			estimateLower.includes('did not') ||
+			estimateLower.includes('not require') ||
+			estimateLower.includes('not need')
+		)
+			continue;
 
 		// Skip trivially small values (<5%) that add noise — except telework which is meaningful at any level
 		const cleanedEstimate = estimateRaw.replace(/^[<>]/, '');
 		const numericEstimate = parseFloat(cleanedEstimate);
-		if (!isNaN(numericEstimate) && numericEstimate < 5 && !normalized.includes('telework')) continue;
+		if (!isNaN(numericEstimate) && numericEstimate < 5 && !normalized.includes('telework'))
+			continue;
 
 		const buckets = profiles.get(code) ?? [];
 		let bucket = buckets.find(entry => entry.occupation === occupation);

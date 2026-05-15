@@ -192,7 +192,8 @@
 					tone: 'outline'
 				}
 			]}
-			summary="AI displacement pressure score based on US employment data, wages, and demand signals. Built from {data.scored.components.length} related occupations weighted by relevance."
+			summary="AI displacement pressure score based on US employment data, wages, and demand signals. Built from {data
+				.scored.components.length} related occupations weighted by relevance."
 			meta={[
 				`Median wage: ${
 					data.primaryOccupation?.wage?.median != null
@@ -285,9 +286,9 @@
 		<p class={sectionLabel()}>How this score works</p>
 		<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'primary' }), 'mt-3')}>
 			<p class="text-sm text-muted-foreground">
-				The score measures how much this role's tasks overlap with current AI capabilities,
-				adjusted for human-only requirements and local job market demand. This is a structural
-				pressure estimate, not a prediction of job losses.
+				The score measures how much this role's tasks overlap with current AI capabilities, adjusted
+				for human-only requirements and local job market demand. This is a structural pressure
+				estimate, not a prediction of job losses.
 				<a href="/methodology" class="font-medium text-primary hover:underline">
 					Learn how scores work →
 				</a>

@@ -2,10 +2,10 @@
   {
     "canonicalCode": "1120",
     "canonicalTitle": "Company director",
-    "structuralPressure": 0.0404,
+    "structuralPressure": 0.037399999999999996,
     "structuralBand": "very_low",
-    "exposure": 0.6291,
-    "bottleneck": 0.9358,
+    "exposure": 0.6278,
+    "bottleneck": 0.9411999999999999,
     "structuralFootprint": 3,
     "sourceOccupationCount": 3,
     "sourceOccupationCodes": [
@@ -14,14 +14,14 @@
       "11203"
     ],
     "confidence": {
-      "score": 0.8639,
+      "score": 0.8839,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.6999999999999998,
       "source_freshness": 0.8386999999999999,
       "source_coverage": 1,
       "signal_agreement": 0.85,
-      "sensitivity": 0.65,
+      "sensitivity": 0.7833333333333333,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -30,10 +30,10 @@
   {
     "canonicalCode": "1211",
     "canonicalTitle": "Audit manager",
-    "structuralPressure": 0.1531,
+    "structuralPressure": 0.22066666666666665,
     "structuralBand": "moderate",
     "exposure": 0.7879,
-    "bottleneck": 0.8057,
+    "bottleneck": 0.7219000000000001,
     "structuralFootprint": 3,
     "sourceOccupationCount": 3,
     "sourceOccupationCodes": [
@@ -42,14 +42,14 @@
       "12113"
     ],
     "confidence": {
-      "score": 0.8139,
+      "score": 0.8039,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.6999999999999998,
       "source_freshness": 0.8386999999999999,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.7166666666666667,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -58,10 +58,10 @@
   {
     "canonicalCode": "1212",
     "canonicalTitle": "Training manager",
-    "structuralPressure": 0.1906,
+    "structuralPressure": 0.21503333333333333,
     "structuralBand": "moderate",
     "exposure": 0.6853000000000001,
-    "bottleneck": 0.7219000000000001,
+    "bottleneck": 0.6881,
     "structuralFootprint": 3,
     "sourceOccupationCount": 3,
     "sourceOccupationCodes": [
@@ -86,10 +86,10 @@
   {
     "canonicalCode": "1213",
     "canonicalTitle": "Policy manager",
-    "structuralPressure": 0.0128,
+    "structuralPressure": 0.0358,
     "structuralBand": "very_low",
-    "exposure": 0.4501,
-    "bottleneck": 0.9715000000000001,
+    "exposure": 0.4489,
+    "bottleneck": 0.9216000000000001,
     "structuralFootprint": 3,
     "sourceOccupationCount": 3,
     "sourceOccupationCodes": [
@@ -114,10 +114,10 @@
   {
     "canonicalCode": "1219",
     "canonicalTitle": "Security manager",
-    "structuralPressure": 0.1019,
+    "structuralPressure": 0.14046666666666666,
     "structuralBand": "low",
     "exposure": 0.6728999999999999,
-    "bottleneck": 0.8485,
+    "bottleneck": 0.7932,
     "structuralFootprint": 3,
     "sourceOccupationCount": 3,
     "sourceOccupationCodes": [
@@ -126,14 +126,14 @@
       "12194"
     ],
     "confidence": {
-      "score": 0.8714,
+      "score": 0.9014000000000001,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.75,
       "source_freshness": 0.8386999999999999,
       "source_coverage": 1,
       "signal_agreement": 0.85,
-      "sensitivity": 0.65,
+      "sensitivity": 0.85,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -142,10 +142,10 @@
   {
     "canonicalCode": "1221",
     "canonicalTitle": "Sales manager",
-    "structuralPressure": 0.1959,
+    "structuralPressure": 0.21311999999999998,
     "structuralBand": "moderate",
     "exposure": 0.7738,
-    "bottleneck": 0.7469,
+    "bottleneck": 0.7291,
     "structuralFootprint": 5,
     "sourceOccupationCount": 5,
     "sourceOccupationCodes": [
@@ -172,10 +172,10 @@
   {
     "canonicalCode": "1222",
     "canonicalTitle": "Marketing manager",
-    "structuralPressure": 0.1632,
+    "structuralPressure": 0.21960000000000002,
     "structuralBand": "moderate",
     "exposure": 0.718,
-    "bottleneck": 0.7727,
+    "bottleneck": 0.6961,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -183,14 +183,14 @@
       "12222"
     ],
     "confidence": {
-      "score": 0.9017999999999999,
+      "score": 0.8787,
       "level": "high",
-      "crosswalk_quality": 0.9716,
+      "crosswalk_quality": 0.9993,
       "market_data_granularity": 0.8,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.85,
-      "sensitivity": 0.85,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -199,10 +199,10 @@
   {
     "canonicalCode": "1223",
     "canonicalTitle": "Research and development manager",
-    "structuralPressure": 0.0289,
+    "structuralPressure": 0.0241,
     "structuralBand": "very_low",
-    "exposure": 0.3559,
-    "bottleneck": 0.9189,
+    "exposure": 0.3548,
+    "bottleneck": 0.9332,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -225,10 +225,10 @@
   {
     "canonicalCode": "1224",
     "canonicalTitle": "Call centre manager",
-    "structuralPressure": 0.3897,
+    "structuralPressure": 0.3893,
     "structuralBand": "high",
     "exposure": 0.7109,
-    "bottleneck": 0.4519,
+    "bottleneck": 0.4572,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -236,9 +236,9 @@
       "12242"
     ],
     "confidence": {
-      "score": 0.7582,
+      "score": 0.7646,
       "level": "high",
-      "crosswalk_quality": 0.6756,
+      "crosswalk_quality": 0.7011,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8029,
       "source_coverage": 0.82,
@@ -252,10 +252,10 @@
   {
     "canonicalCode": "1310",
     "canonicalTitle": "Production manager in agriculture and fisheries",
-    "structuralPressure": 0.0172,
+    "structuralPressure": 0.0141,
     "structuralBand": "very_low",
-    "exposure": 0.2122,
-    "bottleneck": 0.9189,
+    "exposure": 0.2105,
+    "bottleneck": 0.9332,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -278,10 +278,10 @@
   {
     "canonicalCode": "1321",
     "canonicalTitle": "Manufacturing manager",
-    "structuralPressure": 0.0913,
-    "structuralBand": "low",
+    "structuralPressure": 0.0336,
+    "structuralBand": "very_low",
     "exposure": 0.6284,
-    "bottleneck": 0.8547,
+    "bottleneck": 0.9474,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -304,14 +304,126 @@
   {
     "canonicalCode": "1323",
     "canonicalTitle": "Construction manager",
-    "structuralPressure": 0.0854,
-    "structuralBand": "low",
+    "structuralPressure": 0.0312,
+    "structuralBand": "very_low",
     "exposure": 0.588,
-    "bottleneck": 0.8547,
+    "bottleneck": 0.9474,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "13230"
+    ],
+    "confidence": {
+      "score": 0.8339,
+      "level": "high",
+      "crosswalk_quality": 1,
+      "market_data_granularity": 0.7,
+      "source_freshness": 0.8387,
+      "source_coverage": 1,
+      "signal_agreement": 0.45,
+      "sensitivity": 0.85,
+      "exposure_source_count": 4
+    },
+    "confidenceLevel": "high",
+    "dataVintage": "Global structural baseline v7"
+  },
+  {
+    "canonicalCode": "1324",
+    "canonicalTitle": "Postal service manager",
+    "structuralPressure": 0.10697999999999999,
+    "structuralBand": "low",
+    "exposure": 0.6461,
+    "bottleneck": 0.836,
+    "structuralFootprint": 5,
+    "sourceOccupationCount": 5,
+    "sourceOccupationCodes": [
+      "13241",
+      "13242",
+      "13243",
+      "13244",
+      "13245"
+    ],
+    "confidence": {
+      "score": 0.8878999999999999,
+      "level": "high",
+      "crosswalk_quality": 1,
+      "market_data_granularity": 0.7,
+      "source_freshness": 0.8387,
+      "source_coverage": 1,
+      "signal_agreement": 0.85,
+      "sensitivity": 0.8099999999999999,
+      "exposure_source_count": 4
+    },
+    "confidenceLevel": "high",
+    "dataVintage": "Global structural baseline v7"
+  },
+  {
+    "canonicalCode": "1329",
+    "canonicalTitle": "Quality control/assurance manager",
+    "structuralPressure": 0.08385000000000001,
+    "structuralBand": "low",
+    "exposure": 0.5912,
+    "bottleneck": 0.8583,
+    "structuralFootprint": 2,
+    "sourceOccupationCount": 2,
+    "sourceOccupationCodes": [
+      "13291",
+      "13292"
+    ],
+    "confidence": {
+      "score": 0.786,
+      "level": "high",
+      "crosswalk_quality": 0.8467,
+      "market_data_granularity": 0.7,
+      "source_freshness": 0.8029,
+      "source_coverage": 0.82,
+      "signal_agreement": 0.85,
+      "sensitivity": 0.65,
+      "exposure_source_count": 4
+    },
+    "confidenceLevel": "high",
+    "dataVintage": "Global structural baseline v7"
+  },
+  {
+    "canonicalCode": "1330",
+    "canonicalTitle": "ICT service manager",
+    "structuralPressure": 0.020300000000000002,
+    "structuralBand": "very_low",
+    "exposure": 0.478,
+    "bottleneck": 0.9581,
+    "structuralFootprint": 4,
+    "sourceOccupationCount": 4,
+    "sourceOccupationCodes": [
+      "13301",
+      "13302",
+      "13303",
+      "13304"
+    ],
+    "confidence": {
+      "score": 0.78535,
+      "level": "high",
+      "crosswalk_quality": 0.761,
+      "market_data_granularity": 0.775,
+      "source_freshness": 0.8387,
+      "source_coverage": 1,
+      "signal_agreement": 0.45,
+      "sensitivity": 0.85,
+      "exposure_source_count": 4
+    },
+    "confidenceLevel": "high",
+    "dataVintage": "Global structural baseline v7"
+  },
+  {
+    "canonicalCode": "1341",
+    "canonicalTitle": "Pre-school education manager",
+    "structuralPressure": 0.086,
+    "structuralBand": "low",
+    "exposure": 0.3278,
+    "bottleneck": 0.7389,
+    "structuralFootprint": 1,
+    "sourceOccupationCount": 1,
+    "sourceOccupationCodes": [
+      "13410"
     ],
     "confidence": {
       "score": 0.8039,
@@ -328,138 +440,26 @@
     "dataVintage": "Global structural baseline v7"
   },
   {
-    "canonicalCode": "1324",
-    "canonicalTitle": "Postal service manager",
-    "structuralPressure": 0.0783,
-    "structuralBand": "low",
-    "exposure": 0.6461,
-    "bottleneck": 0.8788,
-    "structuralFootprint": 5,
-    "sourceOccupationCount": 5,
-    "sourceOccupationCodes": [
-      "13241",
-      "13242",
-      "13243",
-      "13244",
-      "13245"
-    ],
-    "confidence": {
-      "score": 0.8638999999999999,
-      "level": "high",
-      "crosswalk_quality": 1,
-      "market_data_granularity": 0.7,
-      "source_freshness": 0.8387,
-      "source_coverage": 1,
-      "signal_agreement": 0.85,
-      "sensitivity": 0.65,
-      "exposure_source_count": 4
-    },
-    "confidenceLevel": "high",
-    "dataVintage": "Global structural baseline v7"
-  },
-  {
-    "canonicalCode": "1329",
-    "canonicalTitle": "Quality control/assurance manager",
-    "structuralPressure": 0.0775,
-    "structuralBand": "low",
-    "exposure": 0.5912,
-    "bottleneck": 0.869,
-    "structuralFootprint": 2,
-    "sourceOccupationCount": 2,
-    "sourceOccupationCodes": [
-      "13291",
-      "13292"
-    ],
-    "confidence": {
-      "score": 0.7884,
-      "level": "high",
-      "crosswalk_quality": 0.8565,
-      "market_data_granularity": 0.7,
-      "source_freshness": 0.8029,
-      "source_coverage": 0.82,
-      "signal_agreement": 0.85,
-      "sensitivity": 0.65,
-      "exposure_source_count": 4
-    },
-    "confidenceLevel": "high",
-    "dataVintage": "Global structural baseline v7"
-  },
-  {
-    "canonicalCode": "1330",
-    "canonicalTitle": "ICT service manager",
-    "structuralPressure": 0.0047,
-    "structuralBand": "very_low",
-    "exposure": 0.478,
-    "bottleneck": 0.9902,
-    "structuralFootprint": 4,
-    "sourceOccupationCount": 4,
-    "sourceOccupationCodes": [
-      "13301",
-      "13302",
-      "13303",
-      "13304"
-    ],
-    "confidence": {
-      "score": 0.78405,
-      "level": "high",
-      "crosswalk_quality": 0.7556,
-      "market_data_granularity": 0.775,
-      "source_freshness": 0.8387,
-      "source_coverage": 1,
-      "signal_agreement": 0.45,
-      "sensitivity": 0.85,
-      "exposure_source_count": 4
-    },
-    "confidenceLevel": "high",
-    "dataVintage": "Global structural baseline v7"
-  },
-  {
-    "canonicalCode": "1341",
-    "canonicalTitle": "Pre-school education manager",
-    "structuralPressure": 0.1257,
-    "structuralBand": "low",
-    "exposure": 0.3287,
-    "bottleneck": 0.6176,
-    "structuralFootprint": 1,
-    "sourceOccupationCount": 1,
-    "sourceOccupationCodes": [
-      "13410"
-    ],
-    "confidence": {
-      "score": 0.8339,
-      "level": "high",
-      "crosswalk_quality": 1,
-      "market_data_granularity": 0.7,
-      "source_freshness": 0.8387,
-      "source_coverage": 1,
-      "signal_agreement": 0.45,
-      "sensitivity": 0.85,
-      "exposure_source_count": 4
-    },
-    "confidenceLevel": "high",
-    "dataVintage": "Global structural baseline v7"
-  },
-  {
     "canonicalCode": "1342",
     "canonicalTitle": "Health services manager",
-    "structuralPressure": 0.1595,
+    "structuralPressure": 0.2491,
     "structuralBand": "moderate",
     "exposure": 0.5965,
-    "bottleneck": 0.7326,
+    "bottleneck": 0.5865,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "13420"
     ],
     "confidence": {
-      "score": 0.8339,
+      "score": 0.8039,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.85,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -468,10 +468,10 @@
   {
     "canonicalCode": "1343",
     "canonicalTitle": "Aged care services manager",
-    "structuralPressure": 0.1316,
+    "structuralPressure": 0.0897,
     "structuralBand": "low",
-    "exposure": 0.3442,
-    "bottleneck": 0.6176,
+    "exposure": 0.3433,
+    "bottleneck": 0.7389,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -494,10 +494,10 @@
   {
     "canonicalCode": "1344",
     "canonicalTitle": "Social service manager",
-    "structuralPressure": 0.143,
-    "structuralBand": "low",
-    "exposure": 0.4892,
-    "bottleneck": 0.7077,
+    "structuralPressure": 0.0078,
+    "structuralBand": "very_low",
+    "exposure": 0.5408,
+    "bottleneck": 0.9857,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -520,19 +520,19 @@
   {
     "canonicalCode": "1345",
     "canonicalTitle": "School principal",
-    "structuralPressure": 0.0098,
+    "structuralPressure": 0.0231,
     "structuralBand": "very_low",
     "exposure": 0.4593,
-    "bottleneck": 0.9786,
+    "bottleneck": 0.9501,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "13451"
     ],
     "confidence": {
-      "score": 0.7141,
+      "score": 0.7154,
       "level": "high",
-      "crosswalk_quality": 0.5208,
+      "crosswalk_quality": 0.5262,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -546,10 +546,10 @@
   {
     "canonicalCode": "1346",
     "canonicalTitle": "Financial risk manager",
-    "structuralPressure": 0.294,
-    "structuralBand": "moderate",
+    "structuralPressure": 0.30086666666666667,
+    "structuralBand": "high",
     "exposure": 0.6759,
-    "bottleneck": 0.5651,
+    "bottleneck": 0.5561,
     "structuralFootprint": 3,
     "sourceOccupationCount": 3,
     "sourceOccupationCodes": [
@@ -574,10 +574,10 @@
   {
     "canonicalCode": "1349",
     "canonicalTitle": "Media and broadcasting manager",
-    "structuralPressure": 0.0981,
+    "structuralPressure": 0.134,
     "structuralBand": "low",
     "exposure": 0.6473,
-    "bottleneck": 0.8485,
+    "bottleneck": 0.7932,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -585,14 +585,14 @@
       "13493"
     ],
     "confidence": {
-      "score": 0.8639,
+      "score": 0.8939,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.85,
-      "sensitivity": 0.65,
+      "sensitivity": 0.85,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -601,10 +601,10 @@
   {
     "canonicalCode": "1411",
     "canonicalTitle": "Hotel operations/Lodging services manager",
-    "structuralPressure": 0.0528,
+    "structuralPressure": 0.0607,
     "structuralBand": "low",
-    "exposure": 0.5586,
-    "bottleneck": 0.9055,
+    "exposure": 0.5574,
+    "bottleneck": 0.893,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -627,10 +627,10 @@
   {
     "canonicalCode": "1412",
     "canonicalTitle": "Catering manager",
-    "structuralPressure": 0.1327,
-    "structuralBand": "low",
+    "structuralPressure": 0.23440000000000003,
+    "structuralBand": "moderate",
     "exposure": 0.438,
-    "bottleneck": 0.697,
+    "bottleneck": 0.4742,
     "structuralFootprint": 3,
     "sourceOccupationCount": 3,
     "sourceOccupationCodes": [
@@ -639,14 +639,14 @@
       "14123"
     ],
     "confidence": {
-      "score": 0.7943000000000001,
+      "score": 0.7714,
       "level": "high",
-      "crosswalk_quality": 0.8418,
+      "crosswalk_quality": 0.7898999999999999,
       "market_data_granularity": 0.6999999999999998,
       "source_freshness": 0.8386999999999999,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.85,
+      "sensitivity": 0.7833333333333333,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -655,10 +655,10 @@
   {
     "canonicalCode": "1420",
     "canonicalTitle": "Retail manager",
-    "structuralPressure": 0.1607,
+    "structuralPressure": 0.1574,
     "structuralBand": "moderate",
-    "exposure": 0.6651,
-    "bottleneck": 0.7585,
+    "exposure": 0.6647,
+    "bottleneck": 0.7674,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -666,14 +666,14 @@
       "14202"
     ],
     "confidence": {
-      "score": 0.5932,
+      "score": 0.6073999999999999,
       "level": "medium",
-      "crosswalk_quality": 0.3172,
+      "crosswalk_quality": 0.3142,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.65,
+      "sensitivity": 0.75,
       "exposure_source_count": 4
     },
     "confidenceLevel": "medium",
@@ -682,24 +682,24 @@
   {
     "canonicalCode": "1431",
     "canonicalTitle": "Sports centre manager",
-    "structuralPressure": 0.0662,
-    "structuralBand": "low",
-    "exposure": 0.2835,
-    "bottleneck": 0.7665,
+    "structuralPressure": 0.0215,
+    "structuralBand": "very_low",
+    "exposure": 0.3033,
+    "bottleneck": 0.9305,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "14310"
     ],
     "confidence": {
-      "score": 0.6986,
+      "score": 0.6768,
       "level": "medium",
-      "crosswalk_quality": 0.3688,
+      "crosswalk_quality": 0.4018,
       "market_data_granularity": 0.65,
       "source_freshness": 0.8387,
       "source_coverage": 1,
-      "signal_agreement": 0.85,
-      "sensitivity": 0.65,
+      "signal_agreement": 0.45,
+      "sensitivity": 0.85,
       "exposure_source_count": 4
     },
     "confidenceLevel": "medium",
@@ -708,10 +708,10 @@
   {
     "canonicalCode": "1432",
     "canonicalTitle": "Attractions manager",
-    "structuralPressure": 0.119,
-    "structuralBand": "low",
-    "exposure": 0.3469,
-    "bottleneck": 0.6569,
+    "structuralPressure": 0.0461,
+    "structuralBand": "very_low",
+    "exposure": 0.4133,
+    "bottleneck": 0.8904,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -719,91 +719,12 @@
       "14324"
     ],
     "confidence": {
-      "score": 0.5474,
+      "score": 0.5174,
       "level": "medium",
       "crosswalk_quality": 0,
       "market_data_granularity": 0.7,
       "source_freshness": 0.7744,
       "source_coverage": 0.55,
-      "signal_agreement": 0.85,
-      "sensitivity": 0.85,
-      "exposure_source_count": 4
-    },
-    "confidenceLevel": "medium",
-    "dataVintage": "Global structural baseline v7"
-  },
-  {
-    "canonicalCode": "1433",
-    "canonicalTitle": "Arts and cultural centre manager (including gallery and museum manager)",
-    "structuralPressure": 0.0143,
-    "structuralBand": "very_low",
-    "exposure": 0.5724,
-    "bottleneck": 0.975,
-    "structuralFootprint": 1,
-    "sourceOccupationCount": 1,
-    "sourceOccupationCodes": [
-      "14330"
-    ],
-    "confidence": {
-      "score": 0.6911,
-      "level": "medium",
-      "crosswalk_quality": 0.6171,
-      "market_data_granularity": 0.65,
-      "source_freshness": 0.8029,
-      "source_coverage": 0.82,
-      "signal_agreement": 0.45,
-      "sensitivity": 0.85,
-      "exposure_source_count": 4
-    },
-    "confidenceLevel": "medium",
-    "dataVintage": "Global structural baseline v7"
-  },
-  {
-    "canonicalCode": "1439",
-    "canonicalTitle": "Event manager",
-    "structuralPressure": 0.1243,
-    "structuralBand": "low",
-    "exposure": 0.5648,
-    "bottleneck": 0.7799,
-    "structuralFootprint": 2,
-    "sourceOccupationCount": 2,
-    "sourceOccupationCodes": [
-      "14391",
-      "14392"
-    ],
-    "confidence": {
-      "score": 0.7827,
-      "level": "high",
-      "crosswalk_quality": 0.9409,
-      "market_data_granularity": 0.7,
-      "source_freshness": 0.7744,
-      "source_coverage": 0.55,
-      "signal_agreement": 0.85,
-      "sensitivity": 0.85,
-      "exposure_source_count": 4
-    },
-    "confidenceLevel": "high",
-    "dataVintage": "Global structural baseline v7"
-  },
-  {
-    "canonicalCode": "2113",
-    "canonicalTitle": "Chemist",
-    "structuralPressure": 0.1723,
-    "structuralBand": "moderate",
-    "exposure": 0.6403,
-    "bottleneck": 0.7308,
-    "structuralFootprint": 1,
-    "sourceOccupationCount": 1,
-    "sourceOccupationCodes": [
-      "21130"
-    ],
-    "confidence": {
-      "score": 0.682,
-      "level": "medium",
-      "crosswalk_quality": 0.4326,
-      "market_data_granularity": 0.7,
-      "source_freshness": 0.8387,
-      "source_coverage": 1,
       "signal_agreement": 0.85,
       "sensitivity": 0.65,
       "exposure_source_count": 4
@@ -812,12 +733,91 @@
     "dataVintage": "Global structural baseline v7"
   },
   {
+    "canonicalCode": "1433",
+    "canonicalTitle": "Arts and cultural centre manager (including gallery and museum manager)",
+    "structuralPressure": 0.0322,
+    "structuralBand": "very_low",
+    "exposure": 0.5724,
+    "bottleneck": 0.9447,
+    "structuralFootprint": 1,
+    "sourceOccupationCount": 1,
+    "sourceOccupationCodes": [
+      "14330"
+    ],
+    "confidence": {
+      "score": 0.6624,
+      "level": "medium",
+      "crosswalk_quality": 0.6225,
+      "market_data_granularity": 0.65,
+      "source_freshness": 0.8029,
+      "source_coverage": 0.82,
+      "signal_agreement": 0.45,
+      "sensitivity": 0.65,
+      "exposure_source_count": 4
+    },
+    "confidenceLevel": "medium",
+    "dataVintage": "Global structural baseline v7"
+  },
+  {
+    "canonicalCode": "1439",
+    "canonicalTitle": "Event manager",
+    "structuralPressure": 0.0386,
+    "structuralBand": "very_low",
+    "exposure": 0.5997,
+    "bottleneck": 0.9367,
+    "structuralFootprint": 2,
+    "sourceOccupationCount": 2,
+    "sourceOccupationCodes": [
+      "14391",
+      "14392"
+    ],
+    "confidence": {
+      "score": 0.7625,
+      "level": "high",
+      "crosswalk_quality": 0.9801,
+      "market_data_granularity": 0.7,
+      "source_freshness": 0.7744,
+      "source_coverage": 0.55,
+      "signal_agreement": 0.85,
+      "sensitivity": 0.65,
+      "exposure_source_count": 4
+    },
+    "confidenceLevel": "high",
+    "dataVintage": "Global structural baseline v7"
+  },
+  {
+    "canonicalCode": "2113",
+    "canonicalTitle": "Chemist",
+    "structuralPressure": 0.2599,
+    "structuralBand": "moderate",
+    "exposure": 0.6403,
+    "bottleneck": 0.5971,
+    "structuralFootprint": 1,
+    "sourceOccupationCount": 1,
+    "sourceOccupationCodes": [
+      "21130"
+    ],
+    "confidence": {
+      "score": 0.7561,
+      "level": "high",
+      "crosswalk_quality": 0.4489,
+      "market_data_granularity": 0.7,
+      "source_freshness": 0.8387,
+      "source_coverage": 1,
+      "signal_agreement": 0.85,
+      "sensitivity": 0.85,
+      "exposure_source_count": 4
+    },
+    "confidenceLevel": "high",
+    "dataVintage": "Global structural baseline v7"
+  },
+  {
     "canonicalCode": "2121",
     "canonicalTitle": "Actuary",
-    "structuralPressure": 0.5766,
+    "structuralPressure": 0.71975,
     "structuralBand": "very_high",
     "exposure": 0.8899,
-    "bottleneck": 0.352,
+    "bottleneck": 0.1952,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -825,14 +825,14 @@
       "21213"
     ],
     "confidence": {
-      "score": 0.8085,
+      "score": 0.8,
       "level": "high",
-      "crosswalk_quality": 0.8167,
+      "crosswalk_quality": 0.8427,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8029,
       "source_coverage": 0.82,
       "signal_agreement": 0.95,
-      "sensitivity": 0.75,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -841,10 +841,10 @@
   {
     "canonicalCode": "2122",
     "canonicalTitle": "Statistician",
-    "structuralPressure": 0.7337,
-    "structuralBand": "very_high",
+    "structuralPressure": 0.44899999999999995,
+    "structuralBand": "high",
     "exposure": 0.9197,
-    "bottleneck": 0.2023,
+    "bottleneck": 0.5143,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -852,14 +852,14 @@
       "21222"
     ],
     "confidence": {
-      "score": 0.8492999999999999,
+      "score": 0.8514999999999999,
       "level": "high",
-      "crosswalk_quality": 1,
+      "crosswalk_quality": 0.989,
       "market_data_granularity": 0.8,
       "source_freshness": 0.8029,
       "source_coverage": 0.82,
       "signal_agreement": 0.95,
-      "sensitivity": 0.75,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -868,24 +868,24 @@
   {
     "canonicalCode": "2123",
     "canonicalTitle": "Statistical officer/Data analyst",
-    "structuralPressure": 0.7784,
+    "structuralPressure": 0.717,
     "structuralBand": "very_high",
     "exposure": 0.9619,
-    "bottleneck": 0.1907,
+    "bottleneck": 0.2567,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "21231"
     ],
     "confidence": {
-      "score": 0.8664,
+      "score": 0.8258,
       "level": "high",
-      "crosswalk_quality": 0.9884,
+      "crosswalk_quality": 0.946,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8029,
       "source_coverage": 0.82,
       "signal_agreement": 0.95,
-      "sensitivity": 0.85,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -894,45 +894,45 @@
   {
     "canonicalCode": "2131",
     "canonicalTitle": "Biologist",
-    "structuralPressure": 0.2685,
-    "structuralBand": "moderate",
+    "structuralPressure": 0.6701,
+    "structuralBand": "very_high",
     "exposure": 0.8188,
-    "bottleneck": 0.672,
+    "bottleneck": 0.1952,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "21311"
     ],
     "confidence": {
-      "score": 0.7264,
-      "level": "high",
-      "crosswalk_quality": 0.6,
+      "score": 0.6427,
+      "level": "medium",
+      "crosswalk_quality": 0.5454,
       "market_data_granularity": 0.65,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.85,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
-    "confidenceLevel": "high",
+    "confidenceLevel": "medium",
     "dataVintage": "Global structural baseline v7"
   },
   {
     "canonicalCode": "2133",
     "canonicalTitle": "Environmental officer (environmental protection)",
-    "structuralPressure": 0.1303,
+    "structuralPressure": 0.1128,
     "structuralBand": "low",
     "exposure": 0.5538,
-    "bottleneck": 0.7647,
+    "bottleneck": 0.7986,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "21331"
     ],
     "confidence": {
-      "score": 0.7903,
+      "score": 0.7917,
       "level": "high",
-      "crosswalk_quality": 0.8255,
+      "crosswalk_quality": 0.8312,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -946,10 +946,10 @@
   {
     "canonicalCode": "2134",
     "canonicalTitle": "Biochemist",
-    "structuralPressure": 0.10230000000000002,
+    "structuralPressure": 0.09494,
     "structuralBand": "low",
     "exposure": 0.5465,
-    "bottleneck": 0.8128,
+    "bottleneck": 0.8271,
     "structuralFootprint": 5,
     "sourceOccupationCount": 5,
     "sourceOccupationCodes": [
@@ -960,9 +960,9 @@
       "21347"
     ],
     "confidence": {
-      "score": 0.6767,
+      "score": 0.6776,
       "level": "medium",
-      "crosswalk_quality": 0.6198,
+      "crosswalk_quality": 0.6233,
       "market_data_granularity": 0.75,
       "source_freshness": 0.8029,
       "source_coverage": 0.82,
@@ -976,10 +976,10 @@
   {
     "canonicalCode": "2141",
     "canonicalTitle": "Process engineer",
-    "structuralPressure": 0.1248,
-    "structuralBand": "low",
+    "structuralPressure": 0.16692,
+    "structuralBand": "moderate",
     "exposure": 0.5836,
-    "bottleneck": 0.7861,
+    "bottleneck": 0.7148,
     "structuralFootprint": 5,
     "sourceOccupationCount": 5,
     "sourceOccupationCodes": [
@@ -990,10 +990,63 @@
       "21415"
     ],
     "confidence": {
-      "score": 0.8444,
+      "score": 0.8384,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.77,
+      "source_freshness": 0.8387,
+      "source_coverage": 1,
+      "signal_agreement": 0.45,
+      "sensitivity": 0.8099999999999999,
+      "exposure_source_count": 4
+    },
+    "confidenceLevel": "high",
+    "dataVintage": "Global structural baseline v7"
+  },
+  {
+    "canonicalCode": "2142",
+    "canonicalTitle": "Civil engineer",
+    "structuralPressure": 0.31225,
+    "structuralBand": "high",
+    "exposure": 0.6749,
+    "bottleneck": 0.5392,
+    "structuralFootprint": 2,
+    "sourceOccupationCount": 2,
+    "sourceOccupationCodes": [
+      "21421",
+      "21422"
+    ],
+    "confidence": {
+      "score": 0.7988999999999999,
+      "level": "high",
+      "crosswalk_quality": 1,
+      "market_data_granularity": 0.7,
+      "source_freshness": 0.8387,
+      "source_coverage": 1,
+      "signal_agreement": 0.45,
+      "sensitivity": 0.75,
+      "exposure_source_count": 4
+    },
+    "confidenceLevel": "high",
+    "dataVintage": "Global structural baseline v7"
+  },
+  {
+    "canonicalCode": "2143",
+    "canonicalTitle": "Environmental engineer",
+    "structuralPressure": 0.1379,
+    "structuralBand": "low",
+    "exposure": 0.693,
+    "bottleneck": 0.8021,
+    "structuralFootprint": 1,
+    "sourceOccupationCount": 1,
+    "sourceOccupationCodes": [
+      "21430"
+    ],
+    "confidence": {
+      "score": 0.8564,
+      "level": "high",
+      "crosswalk_quality": 1,
+      "market_data_granularity": 0.85,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.45,
@@ -1004,65 +1057,12 @@
     "dataVintage": "Global structural baseline v7"
   },
   {
-    "canonicalCode": "2142",
-    "canonicalTitle": "Civil engineer",
-    "structuralPressure": 0.3134,
-    "structuralBand": "high",
-    "exposure": 0.6749,
-    "bottleneck": 0.5357,
-    "structuralFootprint": 2,
-    "sourceOccupationCount": 2,
-    "sourceOccupationCodes": [
-      "21421",
-      "21422"
-    ],
-    "confidence": {
-      "score": 0.7639,
-      "level": "high",
-      "crosswalk_quality": 1,
-      "market_data_granularity": 0.7,
-      "source_freshness": 0.8387,
-      "source_coverage": 1,
-      "signal_agreement": 0.45,
-      "sensitivity": 0.65,
-      "exposure_source_count": 4
-    },
-    "confidenceLevel": "high",
-    "dataVintage": "Global structural baseline v7"
-  },
-  {
-    "canonicalCode": "2143",
-    "canonicalTitle": "Environmental engineer",
-    "structuralPressure": 0.0927,
-    "structuralBand": "low",
-    "exposure": 0.693,
-    "bottleneck": 0.8663,
-    "structuralFootprint": 1,
-    "sourceOccupationCount": 1,
-    "sourceOccupationCodes": [
-      "21430"
-    ],
-    "confidence": {
-      "score": 0.8264,
-      "level": "high",
-      "crosswalk_quality": 1,
-      "market_data_granularity": 0.85,
-      "source_freshness": 0.8387,
-      "source_coverage": 1,
-      "signal_agreement": 0.45,
-      "sensitivity": 0.65,
-      "exposure_source_count": 4
-    },
-    "confidenceLevel": "high",
-    "dataVintage": "Global structural baseline v7"
-  },
-  {
     "canonicalCode": "2144",
     "canonicalTitle": "Mechanical engineer",
-    "structuralPressure": 0.1656,
+    "structuralPressure": 0.2157,
     "structuralBand": "moderate",
     "exposure": 0.6275,
-    "bottleneck": 0.7361999999999999,
+    "bottleneck": 0.6578,
     "structuralFootprint": 3,
     "sourceOccupationCount": 3,
     "sourceOccupationCodes": [
@@ -1087,24 +1087,24 @@
   {
     "canonicalCode": "2145",
     "canonicalTitle": "Food and drink technologist",
-    "structuralPressure": 0.2556,
-    "structuralBand": "moderate",
+    "structuralPressure": 0.137,
+    "structuralBand": "low",
     "exposure": 0.6459,
-    "bottleneck": 0.6043,
+    "bottleneck": 0.7879,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "21454"
     ],
     "confidence": {
-      "score": 0.8264,
+      "score": 0.8564,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.85,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.65,
+      "sensitivity": 0.85,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -1113,10 +1113,10 @@
   {
     "canonicalCode": "2147",
     "canonicalTitle": "Marine engineer",
-    "structuralPressure": 0.1964,
+    "structuralPressure": 0.2094,
     "structuralBand": "moderate",
     "exposure": 0.6259,
-    "bottleneck": 0.6863,
+    "bottleneck": 0.6667,
     "structuralFootprint": 3,
     "sourceOccupationCount": 3,
     "sourceOccupationCodes": [
@@ -1125,9 +1125,9 @@
       "21475"
     ],
     "confidence": {
-      "score": 0.6486,
+      "score": 0.6488999999999999,
       "level": "medium",
-      "crosswalk_quality": 0.3073,
+      "crosswalk_quality": 0.3083,
       "market_data_granularity": 0.6833333333333332,
       "source_freshness": 0.8028999999999998,
       "source_coverage": 0.82,
@@ -1141,10 +1141,10 @@
   {
     "canonicalCode": "2149",
     "canonicalTitle": "Energy engineer",
-    "structuralPressure": 0.1712,
+    "structuralPressure": 0.1707166666666667,
     "structuralBand": "moderate",
     "exposure": 0.5322,
-    "bottleneck": 0.6783,
+    "bottleneck": 0.68,
     "structuralFootprint": 6,
     "sourceOccupationCount": 6,
     "sourceOccupationCodes": [
@@ -1172,10 +1172,10 @@
   {
     "canonicalCode": "2151",
     "canonicalTitle": "Lift engineer",
-    "structuralPressure": 0.2632,
+    "structuralPressure": 0.213,
     "structuralBand": "moderate",
     "exposure": 0.5977,
-    "bottleneck": 0.5597,
+    "bottleneck": 0.6453,
     "structuralFootprint": 3,
     "sourceOccupationCount": 3,
     "sourceOccupationCodes": [
@@ -1184,26 +1184,26 @@
       "21513"
     ],
     "confidence": {
-      "score": 0.7158000000000001,
-      "level": "high",
-      "crosswalk_quality": 0.5277,
+      "score": 0.6739,
+      "level": "medium",
+      "crosswalk_quality": 0.4803,
       "market_data_granularity": 0.6999999999999998,
       "source_freshness": 0.8386999999999999,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.85,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
-    "confidenceLevel": "high",
+    "confidenceLevel": "medium",
     "dataVintage": "Global structural baseline v7"
   },
   {
     "canonicalCode": "2152",
     "canonicalTitle": "Computer engineer",
-    "structuralPressure": 0.3087,
+    "structuralPressure": 0.39911666666666673,
     "structuralBand": "high",
-    "exposure": 0.6403,
-    "bottleneck": 0.5178000000000001,
+    "exposure": 0.6399,
+    "bottleneck": 0.3788,
     "structuralFootprint": 6,
     "sourceOccupationCount": 6,
     "sourceOccupationCodes": [
@@ -1215,14 +1215,14 @@
       "21526"
     ],
     "confidence": {
-      "score": 0.9064,
+      "score": 0.8864000000000001,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.7833333333333333,
       "source_freshness": 0.8387000000000001,
       "source_coverage": 1,
       "signal_agreement": 0.85,
-      "sensitivity": 0.85,
+      "sensitivity": 0.7166666666666667,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -1231,10 +1231,10 @@
   {
     "canonicalCode": "2153",
     "canonicalTitle": "Telecommunications engineer",
-    "structuralPressure": 0.6457,
+    "structuralPressure": 0.6361,
     "structuralBand": "very_high",
     "exposure": 0.8059,
-    "bottleneck": 0.1988,
+    "bottleneck": 0.213,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -1258,24 +1258,24 @@
   {
     "canonicalCode": "2161",
     "canonicalTitle": "Building architect",
-    "structuralPressure": 0.1597,
-    "structuralBand": "moderate",
+    "structuralPressure": 0.1248,
+    "structuralBand": "low",
     "exposure": 0.4843,
-    "bottleneck": 0.6702,
+    "bottleneck": 0.7433,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "21610"
     ],
     "confidence": {
-      "score": 0.7999,
+      "score": 0.8166,
       "level": "high",
-      "crosswalk_quality": 0.984,
+      "crosswalk_quality": 0.931,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.65,
+      "sensitivity": 0.85,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -1284,10 +1284,10 @@
   {
     "canonicalCode": "2162",
     "canonicalTitle": "Landscape architect",
-    "structuralPressure": 0.1565,
+    "structuralPressure": 0.2078,
     "structuralBand": "moderate",
     "exposure": 0.472,
-    "bottleneck": 0.6684,
+    "bottleneck": 0.5597,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -1310,10 +1310,10 @@
   {
     "canonicalCode": "2163",
     "canonicalTitle": "Fashion designer",
-    "structuralPressure": 0.1699,
+    "structuralPressure": 0.21925,
     "structuralBand": "moderate",
     "exposure": 0.5495,
-    "bottleneck": 0.6907,
+    "bottleneck": 0.6034,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -1321,9 +1321,9 @@
       "21632"
     ],
     "confidence": {
-      "score": 0.7282500000000001,
+      "score": 0.73465,
       "level": "high",
-      "crosswalk_quality": 0.7124,
+      "crosswalk_quality": 0.7381,
       "market_data_granularity": 0.675,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -1337,24 +1337,24 @@
   {
     "canonicalCode": "2164",
     "canonicalTitle": "Urban planner",
-    "structuralPressure": 0.202,
-    "structuralBand": "moderate",
+    "structuralPressure": 0.1356,
+    "structuralBand": "low",
     "exposure": 0.5322,
-    "bottleneck": 0.6203,
+    "bottleneck": 0.7451,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "21641"
     ],
     "confidence": {
-      "score": 0.7549,
+      "score": 0.7754,
       "level": "high",
-      "crosswalk_quality": 0.8043,
+      "crosswalk_quality": 0.766,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.65,
+      "sensitivity": 0.85,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -1363,10 +1363,10 @@
   {
     "canonicalCode": "2165",
     "canonicalTitle": "Land surveyor",
-    "structuralPressure": 0.4843,
-    "structuralBand": "high",
+    "structuralPressure": 0.5013,
+    "structuralBand": "very_high",
     "exposure": 0.6767,
-    "bottleneck": 0.2843,
+    "bottleneck": 0.2594,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -1390,10 +1390,10 @@
   {
     "canonicalCode": "2166",
     "canonicalTitle": "Graphic designer",
-    "structuralPressure": 0.3869,
+    "structuralPressure": 0.422675,
     "structuralBand": "high",
     "exposure": 0.7459,
-    "bottleneck": 0.4813,
+    "bottleneck": 0.4412,
     "structuralFootprint": 4,
     "sourceOccupationCount": 4,
     "sourceOccupationCodes": [
@@ -1403,14 +1403,14 @@
       "21664"
     ],
     "confidence": {
-      "score": 0.7562,
+      "score": 0.7727,
       "level": "high",
-      "crosswalk_quality": 0.5095,
+      "crosswalk_quality": 0.5455,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.95,
-      "sensitivity": 0.65,
+      "sensitivity": 0.7,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -1419,19 +1419,19 @@
   {
     "canonicalCode": "2167",
     "canonicalTitle": "Service designer",
-    "structuralPressure": 0.4517,
+    "structuralPressure": 0.4464,
     "structuralBand": "high",
     "exposure": 0.7038,
-    "bottleneck": 0.3583,
+    "bottleneck": 0.3725,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "21670"
     ],
     "confidence": {
-      "score": 0.7886,
+      "score": 0.7911,
       "level": "high",
-      "crosswalk_quality": 0.7971,
+      "crosswalk_quality": 0.8073,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8029,
       "source_coverage": 0.82,
@@ -1445,10 +1445,10 @@
   {
     "canonicalCode": "2171",
     "canonicalTitle": "Marine superintendent",
-    "structuralPressure": 0.056100000000000004,
+    "structuralPressure": 0.05449999999999999,
     "structuralBand": "low",
-    "exposure": 0.34559999999999996,
-    "bottleneck": 0.8378,
+    "exposure": 0.3445,
+    "bottleneck": 0.8431000000000001,
     "structuralFootprint": 3,
     "sourceOccupationCount": 3,
     "sourceOccupationCodes": [
@@ -1473,10 +1473,10 @@
   {
     "canonicalCode": "2172",
     "canonicalTitle": "Commercial airline pilot",
-    "structuralPressure": 0.0039,
+    "structuralPressure": 0.0154,
     "structuralBand": "very_low",
     "exposure": 0.2078,
-    "bottleneck": 0.9813,
+    "bottleneck": 0.926,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -1484,9 +1484,9 @@
       "21723"
     ],
     "confidence": {
-      "score": 0.8528,
+      "score": 0.8594,
       "level": "high",
-      "crosswalk_quality": 0.9339,
+      "crosswalk_quality": 0.9603,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8029,
       "source_coverage": 0.82,
@@ -1500,10 +1500,10 @@
   {
     "canonicalCode": "2211",
     "canonicalTitle": "General practitioner/physician",
-    "structuralPressure": 0.0106,
+    "structuralPressure": 0.009,
     "structuralBand": "very_low",
-    "exposure": 0.2388,
-    "bottleneck": 0.9554,
+    "exposure": 0.2375,
+    "bottleneck": 0.9626,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -1526,10 +1526,10 @@
   {
     "canonicalCode": "2212",
     "canonicalTitle": "Psychiatrist",
-    "structuralPressure": 0.019,
+    "structuralPressure": 0.008074999999999999,
     "structuralBand": "very_low",
-    "exposure": 0.4267,
-    "bottleneck": 0.9554,
+    "exposure": 0.4254,
+    "bottleneck": 0.9813,
     "structuralFootprint": 4,
     "sourceOccupationCount": 4,
     "sourceOccupationCodes": [
@@ -1539,9 +1539,9 @@
       "22128"
     ],
     "confidence": {
-      "score": 0.7864,
+      "score": 0.7852,
       "level": "high",
-      "crosswalk_quality": 0.6,
+      "crosswalk_quality": 0.5954,
       "market_data_granularity": 0.65,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -1555,10 +1555,10 @@
   {
     "canonicalCode": "2213",
     "canonicalTitle": "Urologist",
-    "structuralPressure": 0.0103,
+    "structuralPressure": 0.001,
     "structuralBand": "very_low",
-    "exposure": 0.2319,
-    "bottleneck": 0.9554,
+    "exposure": 0.2302,
+    "bottleneck": 0.9955,
     "structuralFootprint": 4,
     "sourceOccupationCount": 4,
     "sourceOccupationCodes": [
@@ -1584,10 +1584,10 @@
   {
     "canonicalCode": "2214",
     "canonicalTitle": "Ophthalmologist",
-    "structuralPressure": 0.019600000000000003,
+    "structuralPressure": 0.012166666666666668,
     "structuralBand": "very_low",
-    "exposure": 0.4398,
-    "bottleneck": 0.9554,
+    "exposure": 0.4381,
+    "bottleneck": 0.9724,
     "structuralFootprint": 6,
     "sourceOccupationCount": 6,
     "sourceOccupationCodes": [
@@ -1599,9 +1599,9 @@
       "22148"
     ],
     "confidence": {
-      "score": 0.74805,
+      "score": 0.74695,
       "level": "high",
-      "crosswalk_quality": 0.6,
+      "crosswalk_quality": 0.5957,
       "market_data_granularity": 0.6583333333333333,
       "source_freshness": 0.8029000000000001,
       "source_coverage": 0.82,
@@ -1615,10 +1615,10 @@
   {
     "canonicalCode": "2220",
     "canonicalTitle": "Registered nurse and other nursing professional (e.g. clinical nurse, nurse educator, excluding enrolled nurse)",
-    "structuralPressure": 0.0369,
+    "structuralPressure": 0.0402,
     "structuralBand": "very_low",
-    "exposure": 0.4708,
-    "bottleneck": 0.9216,
+    "exposure": 0.4691,
+    "bottleneck": 0.9144,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -1641,10 +1641,10 @@
   {
     "canonicalCode": "2230",
     "canonicalTitle": "Traditional Chinese medicine practitioner",
-    "structuralPressure": 0.0017,
+    "structuralPressure": 0.004,
     "structuralBand": "very_low",
     "exposure": 0.318,
-    "bottleneck": 0.9947,
+    "bottleneck": 0.9875,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -1667,10 +1667,10 @@
   {
     "canonicalCode": "2250",
     "canonicalTitle": "Veterinarian",
-    "structuralPressure": 0.0006,
+    "structuralPressure": 0.0036,
     "structuralBand": "very_low",
-    "exposure": 0.3306,
-    "bottleneck": 0.9982,
+    "exposure": 0.3298,
+    "bottleneck": 0.9893,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -1719,24 +1719,24 @@
   {
     "canonicalCode": "2262",
     "canonicalTitle": "Pharmacist (patient care)",
-    "structuralPressure": 0.0122,
+    "structuralPressure": 0.0376,
     "structuralBand": "very_low",
-    "exposure": 0.5268,
-    "bottleneck": 0.9768,
+    "exposure": 0.5263,
+    "bottleneck": 0.9287,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "22621"
     ],
     "confidence": {
-      "score": 0.8939,
+      "score": 0.8639,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.85,
-      "sensitivity": 0.85,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -1745,10 +1745,10 @@
   {
     "canonicalCode": "2263",
     "canonicalTitle": "Environmental officer (public health)",
-    "structuralPressure": 0.0616,
+    "structuralPressure": 0.1264,
     "structuralBand": "low",
     "exposure": 0.6845,
-    "bottleneck": 0.91,
+    "bottleneck": 0.8155,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -1756,14 +1756,14 @@
       "22632"
     ],
     "confidence": {
-      "score": 0.8001499999999999,
+      "score": 0.8301499999999999,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.675,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.65,
+      "sensitivity": 0.85,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -1772,19 +1772,19 @@
   {
     "canonicalCode": "2264",
     "canonicalTitle": "Physiotherapist",
-    "structuralPressure": 0.0044,
+    "structuralPressure": 0.01,
     "structuralBand": "very_low",
-    "exposure": 0.2895,
-    "bottleneck": 0.9848,
+    "exposure": 0.2887,
+    "bottleneck": 0.9652,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "22640"
     ],
     "confidence": {
-      "score": 0.8098,
+      "score": 0.805,
       "level": "high",
-      "crosswalk_quality": 0.5137,
+      "crosswalk_quality": 0.4946,
       "market_data_granularity": 0.85,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -1798,10 +1798,10 @@
   {
     "canonicalCode": "2265",
     "canonicalTitle": "Dietitian",
-    "structuralPressure": 0.0697,
+    "structuralPressure": 0.1442,
     "structuralBand": "low",
     "exposure": 0.7747,
-    "bottleneck": 0.91,
+    "bottleneck": 0.8155,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -1825,10 +1825,10 @@
   {
     "canonicalCode": "2266",
     "canonicalTitle": "Audiologist",
-    "structuralPressure": 0.0954,
-    "structuralBand": "low",
+    "structuralPressure": 0.03735,
+    "structuralBand": "very_low",
     "exposure": 0.4133,
-    "bottleneck": 0.7692,
+    "bottleneck": 0.91,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -1836,14 +1836,14 @@
       "22662"
     ],
     "confidence": {
-      "score": 0.8339,
+      "score": 0.8039,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.85,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -1852,19 +1852,19 @@
   {
     "canonicalCode": "2267",
     "canonicalTitle": "Optometrist",
-    "structuralPressure": 0.0194,
+    "structuralPressure": 0.0268,
     "structuralBand": "very_low",
-    "exposure": 0.3207,
-    "bottleneck": 0.9394,
+    "exposure": 0.3195,
+    "bottleneck": 0.9162,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "22670"
     ],
     "confidence": {
-      "score": 0.7306,
+      "score": 0.7449,
       "level": "high",
-      "crosswalk_quality": 0.347,
+      "crosswalk_quality": 0.4042,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -1878,19 +1878,19 @@
   {
     "canonicalCode": "2268",
     "canonicalTitle": "Occupational therapist",
-    "structuralPressure": 0.0043,
+    "structuralPressure": 0.01,
     "structuralBand": "very_low",
-    "exposure": 0.2868,
-    "bottleneck": 0.9848,
+    "exposure": 0.2857,
+    "bottleneck": 0.9652,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "22680"
     ],
     "confidence": {
-      "score": 0.7702,
+      "score": 0.7654,
       "level": "high",
-      "crosswalk_quality": 0.5137,
+      "crosswalk_quality": 0.4946,
       "market_data_granularity": 0.85,
       "source_freshness": 0.8029,
       "source_coverage": 0.82,
@@ -1904,10 +1904,10 @@
   {
     "canonicalCode": "2269",
     "canonicalTitle": "Podiatrist",
-    "structuralPressure": 0.0351,
+    "structuralPressure": 0.0433,
     "structuralBand": "very_low",
     "exposure": 0.3521,
-    "bottleneck": 0.9002,
+    "bottleneck": 0.8770000000000001,
     "structuralFootprint": 3,
     "sourceOccupationCount": 3,
     "sourceOccupationCodes": [
@@ -1932,10 +1932,10 @@
   {
     "canonicalCode": "2310",
     "canonicalTitle": "University lecturer",
-    "structuralPressure": 0.1032,
-    "structuralBand": "low",
+    "structuralPressure": 0.1572,
+    "structuralBand": "moderate",
     "exposure": 0.6194,
-    "bottleneck": 0.8333,
+    "bottleneck": 0.7478,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -1959,19 +1959,19 @@
   {
     "canonicalCode": "2330",
     "canonicalTitle": "Technical/Vocational/Commercial education institute teacher and trainer",
-    "structuralPressure": 0.0445,
+    "structuralPressure": 0.0383,
     "structuralBand": "very_low",
     "exposure": 0.4626,
-    "bottleneck": 0.9037,
+    "bottleneck": 0.918,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "23300"
     ],
     "confidence": {
-      "score": 0.6178,
+      "score": 0.6202,
       "level": "medium",
-      "crosswalk_quality": 0.2559,
+      "crosswalk_quality": 0.2654,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -1985,24 +1985,24 @@
   {
     "canonicalCode": "2362",
     "canonicalTitle": "Early intervention teacher for infants and children",
-    "structuralPressure": 0.1548,
-    "structuralBand": "moderate",
-    "exposure": 0.5048,
-    "bottleneck": 0.6934,
+    "structuralPressure": 0.0045,
+    "structuralBand": "very_low",
+    "exposure": 0.5042,
+    "bottleneck": 0.9911,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "23622"
     ],
     "confidence": {
-      "score": 0.5143,
+      "score": 0.5443,
       "level": "medium",
       "crosswalk_quality": 0,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8029,
       "source_coverage": 0.82,
       "signal_agreement": 0.45,
-      "sensitivity": 0.65,
+      "sensitivity": 0.85,
       "exposure_source_count": 4
     },
     "confidenceLevel": "medium",
@@ -2011,10 +2011,10 @@
   {
     "canonicalCode": "2411",
     "canonicalTitle": "Tax accountant",
-    "structuralPressure": 0.6313,
+    "structuralPressure": 0.6562,
     "structuralBand": "very_high",
     "exposure": 0.9046,
-    "bottleneck": 0.3021,
+    "bottleneck": 0.2807,
     "structuralFootprint": 3,
     "sourceOccupationCount": 3,
     "sourceOccupationCodes": [
@@ -2023,14 +2023,14 @@
       "24113"
     ],
     "confidence": {
-      "score": 0.9080666666666666,
+      "score": 0.8980666666666667,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.7833333333333333,
       "source_freshness": 0.8386999999999999,
       "source_coverage": 1,
       "signal_agreement": 0.9499999999999998,
-      "sensitivity": 0.85,
+      "sensitivity": 0.7833333333333333,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -2039,10 +2039,10 @@
   {
     "canonicalCode": "2412",
     "canonicalTitle": "Business valuer",
-    "structuralPressure": 0.3051,
+    "structuralPressure": 0.4108,
     "structuralBand": "high",
-    "exposure": 0.7491,
-    "bottleneck": 0.5927,
+    "exposure": 0.7487,
+    "bottleneck": 0.4519,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -2050,14 +2050,14 @@
       "24122"
     ],
     "confidence": {
-      "score": 0.8339000000000001,
+      "score": 0.8489,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.8,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.75,
+      "sensitivity": 0.85,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -2066,10 +2066,10 @@
   {
     "canonicalCode": "2413",
     "canonicalTitle": "Treasury manager",
-    "structuralPressure": 0.6061,
+    "structuralPressure": 0.52878,
     "structuralBand": "very_high",
     "exposure": 0.8808,
-    "bottleneck": 0.3119,
+    "bottleneck": 0.4029,
     "structuralFootprint": 5,
     "sourceOccupationCount": 5,
     "sourceOccupationCodes": [
@@ -2080,26 +2080,26 @@
       "24135"
     ],
     "confidence": {
-      "score": 0.7954000000000001,
-      "level": "high",
-      "crosswalk_quality": 1,
+      "score": 0.6714,
+      "level": "medium",
+      "crosswalk_quality": 0.6,
       "market_data_granularity": 0.75,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.8099999999999999,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
-    "confidenceLevel": "high",
+    "confidenceLevel": "medium",
     "dataVintage": "Global structural baseline v7"
   },
   {
     "canonicalCode": "2414",
     "canonicalTitle": "Foreign exchange dealer",
-    "structuralPressure": 0.4816,
+    "structuralPressure": 0.4058,
     "structuralBand": "high",
     "exposure": 0.8175,
-    "bottleneck": 0.4109,
+    "bottleneck": 0.5036,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -2107,9 +2107,9 @@
       "24142"
     ],
     "confidence": {
-      "score": 0.712,
+      "score": 0.7195,
       "level": "high",
-      "crosswalk_quality": 0.9508,
+      "crosswalk_quality": 0.9807,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8029,
       "source_coverage": 0.82,
@@ -2123,10 +2123,10 @@
   {
     "canonicalCode": "2415",
     "canonicalTitle": "Foreign exchange broker",
-    "structuralPressure": 0.5461,
-    "structuralBand": "very_high",
+    "structuralPressure": 0.457,
+    "structuralBand": "high",
     "exposure": 0.8258,
-    "bottleneck": 0.3387,
+    "bottleneck": 0.4474,
     "structuralFootprint": 3,
     "sourceOccupationCount": 3,
     "sourceOccupationCodes": [
@@ -2135,9 +2135,9 @@
       "24154"
     ],
     "confidence": {
-      "score": 0.6989,
-      "level": "medium",
-      "crosswalk_quality": 0.8683,
+      "score": 0.7007,
+      "level": "high",
+      "crosswalk_quality": 0.8757,
       "market_data_granularity": 0.75,
       "source_freshness": 0.8028999999999998,
       "source_coverage": 0.82,
@@ -2145,16 +2145,16 @@
       "sensitivity": 0.65,
       "exposure_source_count": 4
     },
-    "confidenceLevel": "medium",
+    "confidenceLevel": "high",
     "dataVintage": "Global structural baseline v7"
   },
   {
     "canonicalCode": "2416",
     "canonicalTitle": "Insurance underwriter",
-    "structuralPressure": 0.6549,
+    "structuralPressure": 0.6835,
     "structuralBand": "very_high",
     "exposure": 0.7735,
-    "bottleneck": 0.1533,
+    "bottleneck": 0.1444,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -2177,10 +2177,10 @@
   {
     "canonicalCode": "2421",
     "canonicalTitle": "Business consultant",
-    "structuralPressure": 0.2149,
-    "structuralBand": "moderate",
+    "structuralPressure": 0.3213666666666667,
+    "structuralBand": "high",
     "exposure": 0.7582,
-    "bottleneck": 0.7166,
+    "bottleneck": 0.5793,
     "structuralFootprint": 3,
     "sourceOccupationCount": 3,
     "sourceOccupationCodes": [
@@ -2189,14 +2189,14 @@
       "24213"
     ],
     "confidence": {
-      "score": 0.8039,
+      "score": 0.8339,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.6999999999999998,
       "source_freshness": 0.8386999999999999,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.65,
+      "sensitivity": 0.85,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -2205,19 +2205,19 @@
   {
     "canonicalCode": "2422",
     "canonicalTitle": "Policy administration professional (e.g. policy analyst)",
-    "structuralPressure": 0.5172,
+    "structuralPressure": 0.5693,
     "structuralBand": "very_high",
     "exposure": 0.8434,
-    "bottleneck": 0.3868,
+    "bottleneck": 0.3262,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "24220"
     ],
     "confidence": {
-      "score": 0.7251,
+      "score": 0.7181,
       "level": "high",
-      "crosswalk_quality": 0.7249,
+      "crosswalk_quality": 0.6968,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -2231,10 +2231,10 @@
   {
     "canonicalCode": "2423",
     "canonicalTitle": "Executive search consultant",
-    "structuralPressure": 0.3251,
+    "structuralPressure": 0.30317500000000003,
     "structuralBand": "high",
     "exposure": 0.8386,
-    "bottleneck": 0.6123,
+    "bottleneck": 0.639,
     "structuralFootprint": 4,
     "sourceOccupationCount": 4,
     "sourceOccupationCodes": [
@@ -2244,14 +2244,14 @@
       "24234"
     ],
     "confidence": {
-      "score": 0.855625,
+      "score": 0.863125,
       "level": "high",
-      "crosswalk_quality": 0.9446,
+      "crosswalk_quality": 0.9444,
       "market_data_granularity": 0.6875,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.85,
-      "sensitivity": 0.7,
+      "sensitivity": 0.75,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -2260,19 +2260,19 @@
   {
     "canonicalCode": "2424",
     "canonicalTitle": "Training and staff development professional",
-    "structuralPressure": 0.478,
+    "structuralPressure": 0.4848,
     "structuralBand": "high",
     "exposure": 0.7772,
-    "bottleneck": 0.385,
+    "bottleneck": 0.3868,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "24240"
     ],
     "confidence": {
-      "score": 0.8212,
+      "score": 0.8173,
       "level": "high",
-      "crosswalk_quality": 0.7094,
+      "crosswalk_quality": 0.6936,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -2286,10 +2286,10 @@
   {
     "canonicalCode": "2425",
     "canonicalTitle": "Intellectual property agent",
-    "structuralPressure": 0.8023,
+    "structuralPressure": 0.7444,
     "structuralBand": "very_high",
     "exposure": 0.8421,
-    "bottleneck": 0.0472,
+    "bottleneck": 0.1364,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -2312,19 +2312,19 @@
   {
     "canonicalCode": "2429",
     "canonicalTitle": "Research officer (non-statistical)",
-    "structuralPressure": 0.3267,
+    "structuralPressure": 0.4147,
     "structuralBand": "high",
     "exposure": 0.7734,
-    "bottleneck": 0.5775,
+    "bottleneck": 0.4706,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "24291"
     ],
     "confidence": {
-      "score": 0.7499,
+      "score": 0.7509,
       "level": "high",
-      "crosswalk_quality": 0.7023,
+      "crosswalk_quality": 0.7063,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8029,
       "source_coverage": 0.82,
@@ -2338,10 +2338,10 @@
   {
     "canonicalCode": "2431",
     "canonicalTitle": "Revenue specialist",
-    "structuralPressure": 0.3703,
+    "structuralPressure": 0.39002,
     "structuralBand": "high",
     "exposure": 0.8954000000000001,
-    "bottleneck": 0.5865,
+    "bottleneck": 0.5686,
     "structuralFootprint": 5,
     "sourceOccupationCount": 5,
     "sourceOccupationCodes": [
@@ -2354,7 +2354,7 @@
     "confidence": {
       "score": 0.8396000000000001,
       "level": "high",
-      "crosswalk_quality": 0.8428000000000001,
+      "crosswalk_quality": 0.8431,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -2368,10 +2368,10 @@
   {
     "canonicalCode": "2432",
     "canonicalTitle": "Public relations/Corporate communications professional",
-    "structuralPressure": 0.3616,
+    "structuralPressure": 0.3754,
     "structuralBand": "high",
     "exposure": 0.8595,
-    "bottleneck": 0.5793,
+    "bottleneck": 0.5633,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -2394,10 +2394,10 @@
   {
     "canonicalCode": "2433",
     "canonicalTitle": "Technical sales professional",
-    "structuralPressure": 0.3338,
-    "structuralBand": "high",
+    "structuralPressure": 0.5138499999999999,
+    "structuralBand": "very_high",
     "exposure": 0.7818,
-    "bottleneck": 0.5731,
+    "bottleneck": 0.3467,
     "structuralFootprint": 4,
     "sourceOccupationCount": 4,
     "sourceOccupationCodes": [
@@ -2407,26 +2407,26 @@
       "24334"
     ],
     "confidence": {
-      "score": 0.7128,
-      "level": "high",
-      "crosswalk_quality": 0.5858,
+      "score": 0.6998,
+      "level": "medium",
+      "crosswalk_quality": 0.6237,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.7999999999999999,
+      "sensitivity": 0.85,
       "exposure_source_count": 4
     },
-    "confidenceLevel": "high",
+    "confidenceLevel": "medium",
     "dataVintage": "Global structural baseline v7"
   },
   {
     "canonicalCode": "2435",
     "canonicalTitle": "Ship charterer",
-    "structuralPressure": 0.4977,
+    "structuralPressure": 0.4495,
     "structuralBand": "high",
     "exposure": 0.8644,
-    "bottleneck": 0.4242000000000001,
+    "bottleneck": 0.4813,
     "structuralFootprint": 3,
     "sourceOccupationCount": 3,
     "sourceOccupationCodes": [
@@ -2435,9 +2435,9 @@
       "24353"
     ],
     "confidence": {
-      "score": 0.783,
+      "score": 0.7848,
       "level": "high",
-      "crosswalk_quality": 0.7749,
+      "crosswalk_quality": 0.7821000000000001,
       "market_data_granularity": 0.6999999999999998,
       "source_freshness": 0.8028999999999998,
       "source_coverage": 0.82,
@@ -2451,10 +2451,10 @@
   {
     "canonicalCode": "2436",
     "canonicalTitle": "Trade broker",
-    "structuralPressure": 0.4977,
+    "structuralPressure": 0.4491,
     "structuralBand": "high",
     "exposure": 0.8644,
-    "bottleneck": 0.4242,
+    "bottleneck": 0.4813,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -2462,9 +2462,9 @@
       "24362"
     ],
     "confidence": {
-      "score": 0.783,
+      "score": 0.7848,
       "level": "high",
-      "crosswalk_quality": 0.7749,
+      "crosswalk_quality": 0.7821,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8029,
       "source_coverage": 0.82,
@@ -2478,10 +2478,10 @@
   {
     "canonicalCode": "2511",
     "canonicalTitle": "Systems designer/analyst",
-    "structuralPressure": 0.44849999999999995,
+    "structuralPressure": 0.4362333333333333,
     "structuralBand": "high",
     "exposure": 0.8065000000000001,
-    "bottleneck": 0.4439,
+    "bottleneck": 0.4617,
     "structuralFootprint": 3,
     "sourceOccupationCount": 3,
     "sourceOccupationCodes": [
@@ -2506,10 +2506,10 @@
   {
     "canonicalCode": "2512",
     "canonicalTitle": "Software developer",
-    "structuralPressure": 0.6976999999999999,
+    "structuralPressure": 0.8260666666666667,
     "structuralBand": "very_high",
     "exposure": 0.8584,
-    "bottleneck": 0.1872,
+    "bottleneck": 0.0481,
     "structuralFootprint": 3,
     "sourceOccupationCount": 3,
     "sourceOccupationCodes": [
@@ -2518,9 +2518,9 @@
       "25123"
     ],
     "confidence": {
-      "score": 0.7597333333333333,
+      "score": 0.7607333333333334,
       "level": "high",
-      "crosswalk_quality": 0.9137,
+      "crosswalk_quality": 0.9175999999999999,
       "market_data_granularity": 0.8166666666666668,
       "source_freshness": 0.7549,
       "source_coverage": 0.55,
@@ -2534,24 +2534,24 @@
   {
     "canonicalCode": "2514",
     "canonicalTitle": "Applications/Systems programmer",
-    "structuralPressure": 0.6187,
+    "structuralPressure": 0.717,
     "structuralBand": "very_high",
     "exposure": 0.8787,
-    "bottleneck": 0.2959,
+    "bottleneck": 0.1952,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "25140"
     ],
     "confidence": {
-      "score": 0.7347,
+      "score": 0.7337,
       "level": "high",
-      "crosswalk_quality": 0.767,
+      "crosswalk_quality": 0.8828,
       "market_data_granularity": 0.85,
       "source_freshness": 0.7549,
       "source_coverage": 0.55,
       "signal_agreement": 0.95,
-      "sensitivity": 0.85,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -2560,10 +2560,10 @@
   {
     "canonicalCode": "2515",
     "canonicalTitle": "ICT auditor",
-    "structuralPressure": 0.5918,
+    "structuralPressure": 0.61755,
     "structuralBand": "very_high",
     "exposure": 0.8342,
-    "bottleneck": 0.2906,
+    "bottleneck": 0.2656,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -2571,14 +2571,14 @@
       "25152"
     ],
     "confidence": {
-      "score": 0.5361,
+      "score": 0.5256000000000001,
       "level": "medium",
-      "crosswalk_quality": 0.9643,
+      "crosswalk_quality": 0.9826,
       "market_data_granularity": 0.7,
       "source_freshness": 0.55,
       "source_coverage": 0.1,
       "signal_agreement": 0.25,
-      "sensitivity": 0.85,
+      "sensitivity": 0.75,
       "exposure_source_count": 4
     },
     "confidenceLevel": "medium",
@@ -2587,10 +2587,10 @@
   {
     "canonicalCode": "2521",
     "canonicalTitle": "Database architect",
-    "structuralPressure": 0.8003,
+    "structuralPressure": 0.76015,
     "structuralBand": "very_high",
     "exposure": 0.8952,
-    "bottleneck": 0.1061,
+    "bottleneck": 0.1578,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -2598,14 +2598,14 @@
       "25212"
     ],
     "confidence": {
-      "score": 0.8105,
+      "score": 0.7805,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.7,
       "source_freshness": 0.7549,
       "source_coverage": 0.55,
       "signal_agreement": 0.95,
-      "sensitivity": 0.85,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -2614,10 +2614,10 @@
   {
     "canonicalCode": "2522",
     "canonicalTitle": "Network, servers and computer systems administrator",
-    "structuralPressure": 0.6463,
+    "structuralPressure": 0.6649,
     "structuralBand": "very_high",
     "exposure": 0.7747,
-    "bottleneck": 0.1658,
+    "bottleneck": 0.1497,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -2640,10 +2640,10 @@
   {
     "canonicalCode": "2523",
     "canonicalTitle": "Cloud specialist",
-    "structuralPressure": 0.4799,
+    "structuralPressure": 0.4694,
     "structuralBand": "high",
-    "exposure": 0.7113,
-    "bottleneck": 0.3253,
+    "exposure": 0.7088,
+    "bottleneck": 0.3378,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -2651,8 +2651,8 @@
       "25232"
     ],
     "confidence": {
-      "score": 0.6805,
-      "level": "medium",
+      "score": 0.7005,
+      "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.8,
       "source_freshness": 0.7549,
@@ -2661,16 +2661,16 @@
       "sensitivity": 0.65,
       "exposure_source_count": 4
     },
-    "confidenceLevel": "medium",
+    "confidenceLevel": "high",
     "dataVintage": "Global structural baseline v7"
   },
   {
     "canonicalCode": "2524",
     "canonicalTitle": "Cyber risk specialist",
-    "structuralPressure": 0.5918,
+    "structuralPressure": 0.6171666666666668,
     "structuralBand": "very_high",
     "exposure": 0.8342,
-    "bottleneck": 0.2906,
+    "bottleneck": 0.2656,
     "structuralFootprint": 3,
     "sourceOccupationCount": 3,
     "sourceOccupationCodes": [
@@ -2679,9 +2679,9 @@
       "25245"
     ],
     "confidence": {
-      "score": 0.5269333333333334,
+      "score": 0.5314333333333333,
       "level": "medium",
-      "crosswalk_quality": 0.9643,
+      "crosswalk_quality": 0.9826,
       "market_data_granularity": 0.8166666666666668,
       "source_freshness": 0.55,
       "source_coverage": 0.10000000000000002,
@@ -2695,10 +2695,10 @@
   {
     "canonicalCode": "2529",
     "canonicalTitle": "Data centre engineer",
-    "structuralPressure": 0.6175,
+    "structuralPressure": 0.644,
     "structuralBand": "very_high",
     "exposure": 0.8132,
-    "bottleneck": 0.2406,
+    "bottleneck": 0.2103,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -2721,19 +2721,19 @@
   {
     "canonicalCode": "2611",
     "canonicalTitle": "In-house legal counsel (except judiciary, ministries and statutory boards)",
-    "structuralPressure": 0.0744,
-    "structuralBand": "low",
+    "structuralPressure": 0.1724,
+    "structuralBand": "moderate",
     "exposure": 0.6844,
-    "bottleneck": 0.8913,
+    "bottleneck": 0.7504,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "26112"
     ],
     "confidence": {
-      "score": 0.7849,
+      "score": 0.7742,
       "level": "high",
-      "crosswalk_quality": 0.924,
+      "crosswalk_quality": 0.8814,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -2747,19 +2747,19 @@
   {
     "canonicalCode": "2621",
     "canonicalTitle": "Curator",
-    "structuralPressure": 0.2335,
+    "structuralPressure": 0.2228,
     "structuralBand": "moderate",
-    "exposure": 0.5574,
-    "bottleneck": 0.5811,
+    "exposure": 0.557,
+    "bottleneck": 0.6061,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "26212"
     ],
     "confidence": {
-      "score": 0.6019,
+      "score": 0.6047,
       "level": "medium",
-      "crosswalk_quality": 0.1923,
+      "crosswalk_quality": 0.2033,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -2773,24 +2773,24 @@
   {
     "canonicalCode": "2622",
     "canonicalTitle": "Librarian",
-    "structuralPressure": 0.2617,
+    "structuralPressure": 0.2046,
     "structuralBand": "moderate",
     "exposure": 0.7851,
-    "bottleneck": 0.6667,
+    "bottleneck": 0.7415,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "26221"
     ],
     "confidence": {
-      "score": 0.7339,
+      "score": 0.7039,
       "level": "high",
       "crosswalk_quality": 0.6,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.85,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -2799,10 +2799,10 @@
   {
     "canonicalCode": "2631",
     "canonicalTitle": "Economist",
-    "structuralPressure": 0.4132,
+    "structuralPressure": 0.4543,
     "structuralBand": "high",
     "exposure": 0.8847,
-    "bottleneck": 0.533,
+    "bottleneck": 0.4902,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -2825,10 +2825,10 @@
   {
     "canonicalCode": "2632",
     "canonicalTitle": "Social science researcher",
-    "structuralPressure": 0.0699,
-    "structuralBand": "low",
-    "exposure": 0.6532,
-    "bottleneck": 0.893,
+    "structuralPressure": 0.1505,
+    "structuralBand": "moderate",
+    "exposure": 0.6528,
+    "bottleneck": 0.7718,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -2851,10 +2851,10 @@
   {
     "canonicalCode": "2634",
     "canonicalTitle": "Clinical psychologist",
-    "structuralPressure": 0.1229,
+    "structuralPressure": 0.0855,
     "structuralBand": "low",
-    "exposure": 0.474,
-    "bottleneck": 0.7406,
+    "exposure": 0.4736,
+    "bottleneck": 0.8209,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -2862,14 +2862,14 @@
       "26343"
     ],
     "confidence": {
-      "score": 0.7585,
+      "score": 0.7403,
       "level": "high",
-      "crosswalk_quality": 0.6384,
+      "crosswalk_quality": 0.6857,
       "market_data_granularity": 0.8,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.85,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -2878,10 +2878,10 @@
   {
     "canonicalCode": "2635",
     "canonicalTitle": "Medical social worker",
-    "structuralPressure": 0.0537,
+    "structuralPressure": 0.0585,
     "structuralBand": "low",
     "exposure": 0.3836,
-    "bottleneck": 0.8601,
+    "bottleneck": 0.8476,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -2905,19 +2905,19 @@
   {
     "canonicalCode": "2636",
     "canonicalTitle": "Minister of religion",
-    "structuralPressure": 0.0392,
-    "structuralBand": "very_low",
+    "structuralPressure": 0.0642,
+    "structuralBand": "low",
     "exposure": 0.4578,
-    "bottleneck": 0.9144,
+    "bottleneck": 0.861,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "26361"
     ],
     "confidence": {
-      "score": 0.7693,
+      "score": 0.7583,
       "level": "high",
-      "crosswalk_quality": 0.8919,
+      "crosswalk_quality": 0.8479,
       "market_data_granularity": 0.65,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -2931,10 +2931,10 @@
   {
     "canonicalCode": "2637",
     "canonicalTitle": "School counsellor",
-    "structuralPressure": 0.0644,
+    "structuralPressure": 0.08513333333333334,
     "structuralBand": "low",
     "exposure": 0.5738,
-    "bottleneck": 0.8877,
+    "bottleneck": 0.852,
     "structuralFootprint": 3,
     "sourceOccupationCount": 3,
     "sourceOccupationCodes": [
@@ -2943,9 +2943,9 @@
       "26375"
     ],
     "confidence": {
-      "score": 0.664,
+      "score": 0.6694,
       "level": "medium",
-      "crosswalk_quality": 0.6089,
+      "crosswalk_quality": 0.6306,
       "market_data_granularity": 0.6833333333333332,
       "source_freshness": 0.8028999999999998,
       "source_coverage": 0.82,
@@ -2959,10 +2959,10 @@
   {
     "canonicalCode": "2641",
     "canonicalTitle": "Author",
-    "structuralPressure": 0.7299,
+    "structuralPressure": 0.755075,
     "structuralBand": "very_high",
     "exposure": 0.8557,
-    "bottleneck": 0.1471,
+    "bottleneck": 0.1257,
     "structuralFootprint": 4,
     "sourceOccupationCount": 4,
     "sourceOccupationCodes": [
@@ -2972,14 +2972,14 @@
       "26414"
     ],
     "confidence": {
-      "score": 0.76765,
+      "score": 0.77515,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.675,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.7,
+      "sensitivity": 0.75,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -2988,10 +2988,10 @@
   {
     "canonicalCode": "2642",
     "canonicalTitle": "Journalist",
-    "structuralPressure": 0.2464,
+    "structuralPressure": 0.25615,
     "structuralBand": "moderate",
     "exposure": 0.8254,
-    "bottleneck": 0.7014,
+    "bottleneck": 0.6925,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -3015,43 +3015,14 @@
   {
     "canonicalCode": "2643",
     "canonicalTitle": "Translator",
-    "structuralPressure": 0.5641,
-    "structuralBand": "very_high",
+    "structuralPressure": 0.3157,
+    "structuralBand": "high",
     "exposure": 0.9227,
-    "bottleneck": 0.3886,
+    "bottleneck": 0.6613,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "26431"
-    ],
-    "confidence": {
-      "score": 0.8639,
-      "level": "high",
-      "crosswalk_quality": 1,
-      "market_data_granularity": 0.7,
-      "source_freshness": 0.8387,
-      "source_coverage": 1,
-      "signal_agreement": 0.85,
-      "sensitivity": 0.65,
-      "exposure_source_count": 4
-    },
-    "confidenceLevel": "high",
-    "dataVintage": "Global structural baseline v7"
-  },
-  {
-    "canonicalCode": "2654",
-    "canonicalTitle": "Editor (radio, television and video)",
-    "structuralPressure": 0.1243,
-    "structuralBand": "low",
-    "exposure": 0.6117,
-    "bottleneck": 0.7968,
-    "structuralFootprint": 4,
-    "sourceOccupationCount": 4,
-    "sourceOccupationCodes": [
-      "26541",
-      "26542",
-      "26543",
-      "26544"
     ],
     "confidence": {
       "score": 0.8939,
@@ -3068,12 +3039,41 @@
     "dataVintage": "Global structural baseline v7"
   },
   {
+    "canonicalCode": "2654",
+    "canonicalTitle": "Editor (radio, television and video)",
+    "structuralPressure": 0.1491,
+    "structuralBand": "low",
+    "exposure": 0.6117,
+    "bottleneck": 0.7594,
+    "structuralFootprint": 4,
+    "sourceOccupationCount": 4,
+    "sourceOccupationCodes": [
+      "26541",
+      "26542",
+      "26543",
+      "26544"
+    ],
+    "confidence": {
+      "score": 0.8789,
+      "level": "high",
+      "crosswalk_quality": 1,
+      "market_data_granularity": 0.7,
+      "source_freshness": 0.8387,
+      "source_coverage": 1,
+      "signal_agreement": 0.85,
+      "sensitivity": 0.75,
+      "exposure_source_count": 4
+    },
+    "confidenceLevel": "high",
+    "dataVintage": "Global structural baseline v7"
+  },
+  {
     "canonicalCode": "3100",
     "canonicalTitle": "Assistant electrical engineer",
-    "structuralPressure": 0.1914,
+    "structuralPressure": 0.22378,
     "structuralBand": "moderate",
-    "exposure": 0.3794,
-    "bottleneck": 0.4955,
+    "exposure": 0.3788,
+    "bottleneck": 0.41180000000000005,
     "structuralFootprint": 5,
     "sourceOccupationCount": 5,
     "sourceOccupationCodes": [
@@ -3084,14 +3084,14 @@
       "31006"
     ],
     "confidence": {
-      "score": 0.7812,
+      "score": 0.7907,
       "level": "high",
-      "crosswalk_quality": 0.8278000000000001,
+      "crosswalk_quality": 0.8177,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8029,
       "source_coverage": 0.82,
       "signal_agreement": 0.85,
-      "sensitivity": 0.65,
+      "sensitivity": 0.7300000000000001,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -3100,24 +3100,24 @@
   {
     "canonicalCode": "3111",
     "canonicalTitle": "Chemistry technician",
-    "structuralPressure": 0.3233,
+    "structuralPressure": 0.3946,
     "structuralBand": "high",
-    "exposure": 0.5197,
-    "bottleneck": 0.3779,
+    "exposure": 0.5193,
+    "bottleneck": 0.246,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "31111"
     ],
     "confidence": {
-      "score": 0.6929,
+      "score": 0.6645,
       "level": "medium",
-      "crosswalk_quality": 0.596,
+      "crosswalk_quality": 0.6025,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.85,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "medium",
@@ -3126,10 +3126,10 @@
   {
     "canonicalCode": "3112",
     "canonicalTitle": "Building technician",
-    "structuralPressure": 0.1354,
-    "structuralBand": "low",
-    "exposure": 0.4633,
-    "bottleneck": 0.7077,
+    "structuralPressure": 0.26495,
+    "structuralBand": "moderate",
+    "exposure": 0.4629,
+    "bottleneck": 0.434,
     "structuralFootprint": 4,
     "sourceOccupationCount": 4,
     "sourceOccupationCodes": [
@@ -3139,9 +3139,9 @@
       "31124"
     ],
     "confidence": {
-      "score": 0.743,
+      "score": 0.7575,
       "level": "high",
-      "crosswalk_quality": 0.3966,
+      "crosswalk_quality": 0.4547,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -3155,10 +3155,10 @@
   {
     "canonicalCode": "3113",
     "canonicalTitle": "Lift technician",
-    "structuralPressure": 0.1993,
+    "structuralPressure": 0.17235,
     "structuralBand": "moderate",
-    "exposure": 0.3499,
-    "bottleneck": 0.4305,
+    "exposure": 0.3491,
+    "bottleneck": 0.5071,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -3166,9 +3166,9 @@
       "31132"
     ],
     "confidence": {
-      "score": 0.6996,
+      "score": 0.698,
       "level": "medium",
-      "crosswalk_quality": 0.3428,
+      "crosswalk_quality": 0.3365,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -3182,10 +3182,10 @@
   {
     "canonicalCode": "3114",
     "canonicalTitle": "Semi-conductor technician",
-    "structuralPressure": 0.1778,
+    "structuralPressure": 0.2338,
     "structuralBand": "moderate",
-    "exposure": 0.3621,
-    "bottleneck": 0.5089,
+    "exposure": 0.3612,
+    "bottleneck": 0.3538,
     "structuralFootprint": 4,
     "sourceOccupationCount": 4,
     "sourceOccupationCodes": [
@@ -3195,14 +3195,14 @@
       "31144"
     ],
     "confidence": {
-      "score": 0.676,
+      "score": 0.6976,
       "level": "medium",
-      "crosswalk_quality": 0.4886,
+      "crosswalk_quality": 0.4848,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.65,
+      "sensitivity": 0.7999999999999999,
       "exposure_source_count": 4
     },
     "confidenceLevel": "medium",
@@ -3211,10 +3211,10 @@
   {
     "canonicalCode": "3115",
     "canonicalTitle": "Machining/Tooling technician",
-    "structuralPressure": 0.2009,
+    "structuralPressure": 0.17969999999999997,
     "structuralBand": "moderate",
-    "exposure": 0.3928,
-    "bottleneck": 0.4884,
+    "exposure": 0.39189999999999997,
+    "bottleneck": 0.5437,
     "structuralFootprint": 3,
     "sourceOccupationCount": 3,
     "sourceOccupationCodes": [
@@ -3223,7 +3223,7 @@
       "31153"
     ],
     "confidence": {
-      "score": 0.8039,
+      "score": 0.7772333333333333,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.6999999999999998,
@@ -3239,10 +3239,10 @@
   {
     "canonicalCode": "3116",
     "canonicalTitle": "Chemical engineering technician",
-    "structuralPressure": 0.3674,
+    "structuralPressure": 0.3914,
     "structuralBand": "high",
-    "exposure": 0.5388,
-    "bottleneck": 0.3182,
+    "exposure": 0.5375,
+    "bottleneck": 0.2718,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -3266,10 +3266,10 @@
   {
     "canonicalCode": "3117",
     "canonicalTitle": "Automation technician",
-    "structuralPressure": 0.1266,
-    "structuralBand": "low",
-    "exposure": 0.2808,
-    "bottleneck": 0.549,
+    "structuralPressure": 0.19636,
+    "structuralBand": "moderate",
+    "exposure": 0.2795,
+    "bottleneck": 0.2995,
     "structuralFootprint": 5,
     "sourceOccupationCount": 5,
     "sourceOccupationCodes": [
@@ -3280,14 +3280,14 @@
       "31175"
     ],
     "confidence": {
-      "score": 0.8939,
+      "score": 0.8638999999999999,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.85,
-      "sensitivity": 0.85,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -3296,10 +3296,10 @@
   {
     "canonicalCode": "3118",
     "canonicalTitle": "Marine draughtsman",
-    "structuralPressure": 0.1387,
+    "structuralPressure": 0.14376,
     "structuralBand": "low",
-    "exposure": 0.3786,
-    "bottleneck": 0.6337,
+    "exposure": 0.3769,
+    "bottleneck": 0.6212,
     "structuralFootprint": 5,
     "sourceOccupationCount": 5,
     "sourceOccupationCodes": [
@@ -3326,10 +3326,10 @@
   {
     "canonicalCode": "3121",
     "canonicalTitle": "Automotive engineering technician",
-    "structuralPressure": 0.1308,
-    "structuralBand": "low",
-    "exposure": 0.2901,
-    "bottleneck": 0.549,
+    "structuralPressure": 0.20320000000000002,
+    "structuralBand": "moderate",
+    "exposure": 0.2889,
+    "bottleneck": 0.2995,
     "structuralFootprint": 4,
     "sourceOccupationCount": 4,
     "sourceOccupationCodes": [
@@ -3339,14 +3339,14 @@
       "31214"
     ],
     "confidence": {
-      "score": 0.89015,
+      "score": 0.86015,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.6749999999999999,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.85,
-      "sensitivity": 0.85,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -3355,10 +3355,10 @@
   {
     "canonicalCode": "3141",
     "canonicalTitle": "Clinical research coordinator",
-    "structuralPressure": 0.3141,
+    "structuralPressure": 0.3297,
     "structuralBand": "high",
-    "exposure": 0.5199,
-    "bottleneck": 0.3957,
+    "exposure": 0.5195,
+    "bottleneck": 0.3672,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -3381,10 +3381,10 @@
   {
     "canonicalCode": "3151",
     "canonicalTitle": "Marine engineering officer (including third, fourth and fifth engineer)",
-    "structuralPressure": 0.0105,
+    "structuralPressure": 0.0087,
     "structuralBand": "very_low",
     "exposure": 0.1792,
-    "bottleneck": 0.9412,
+    "bottleneck": 0.9519,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -3433,10 +3433,10 @@
   {
     "canonicalCode": "3157",
     "canonicalTitle": "Train service supervisor",
-    "structuralPressure": 0.0474,
+    "structuralPressure": 0.036500000000000005,
     "structuralBand": "very_low",
     "exposure": 0.2739,
-    "bottleneck": 0.8271000000000001,
+    "bottleneck": 0.8681,
     "structuralFootprint": 3,
     "sourceOccupationCount": 3,
     "sourceOccupationCodes": [
@@ -3445,14 +3445,14 @@
       "31574"
     ],
     "confidence": {
-      "score": 0.8218,
+      "score": 0.8355,
       "level": "high",
-      "crosswalk_quality": 1,
+      "crosswalk_quality": 0.975,
       "market_data_granularity": 0.6833333333333332,
       "source_freshness": 0.8028999999999998,
       "source_coverage": 0.82,
       "signal_agreement": 0.85,
-      "sensitivity": 0.65,
+      "sensitivity": 0.7833333333333333,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -3461,10 +3461,10 @@
   {
     "canonicalCode": "3159",
     "canonicalTitle": "Air cargo officer",
-    "structuralPressure": 0.1166,
+    "structuralPressure": 0.12068000000000001,
     "structuralBand": "low",
-    "exposure": 0.3182,
-    "bottleneck": 0.6337,
+    "exposure": 0.3146,
+    "bottleneck": 0.6212,
     "structuralFootprint": 5,
     "sourceOccupationCount": 5,
     "sourceOccupationCodes": [
@@ -3491,10 +3491,10 @@
   {
     "canonicalCode": "3160",
     "canonicalTitle": "Landscape operations officer",
-    "structuralPressure": 0.0294,
+    "structuralPressure": 0.02435,
     "structuralBand": "very_low",
-    "exposure": 0.2303,
-    "bottleneck": 0.8725,
+    "exposure": 0.2309,
+    "bottleneck": 0.8957,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -3502,9 +3502,9 @@
       "31602"
     ],
     "confidence": {
-      "score": 0.62165,
+      "score": 0.62955,
       "level": "medium",
-      "crosswalk_quality": 0.4845,
+      "crosswalk_quality": 0.5159,
       "market_data_granularity": 0.675,
       "source_freshness": 0.8029,
       "source_coverage": 0.82,
@@ -3518,19 +3518,19 @@
   {
     "canonicalCode": "3171",
     "canonicalTitle": "Fire and safety inspector",
-    "structuralPressure": 0.0526,
-    "structuralBand": "low",
+    "structuralPressure": 0.0468,
+    "structuralBand": "very_low",
     "exposure": 0.2344,
-    "bottleneck": 0.7754,
+    "bottleneck": 0.8004,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "31711"
     ],
     "confidence": {
-      "score": 0.6778,
+      "score": 0.6844,
       "level": "medium",
-      "crosswalk_quality": 0.3839,
+      "crosswalk_quality": 0.4105,
       "market_data_granularity": 0.65,
       "source_freshness": 0.8029,
       "source_coverage": 0.82,
@@ -3544,19 +3544,19 @@
   {
     "canonicalCode": "3172",
     "canonicalTitle": "Safety inspector (vehicles, processes and products)",
-    "structuralPressure": 0.3162,
+    "structuralPressure": 0.3849,
     "structuralBand": "high",
-    "exposure": 0.5311,
-    "bottleneck": 0.4046,
+    "exposure": 0.5305,
+    "bottleneck": 0.2745,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "31720"
     ],
     "confidence": {
-      "score": 0.7293,
+      "score": 0.7255,
       "level": "high",
-      "crosswalk_quality": 0.6201,
+      "crosswalk_quality": 0.6049,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8029,
       "source_coverage": 0.82,
@@ -3570,10 +3570,10 @@
   {
     "canonicalCode": "3211",
     "canonicalTitle": "Sonographer",
-    "structuralPressure": 0.1164,
+    "structuralPressure": 0.1049,
     "structuralBand": "low",
     "exposure": 0.2468,
-    "bottleneck": 0.5285,
+    "bottleneck": 0.5749,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -3581,9 +3581,9 @@
       "32112"
     ],
     "confidence": {
-      "score": 0.7152,
+      "score": 0.7171,
       "level": "high",
-      "crosswalk_quality": 0.5255,
+      "crosswalk_quality": 0.5328,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -3597,19 +3597,19 @@
   {
     "canonicalCode": "3212",
     "canonicalTitle": "Medical and pathology laboratory technician",
-    "structuralPressure": 0.249,
+    "structuralPressure": 0.2436,
     "structuralBand": "moderate",
-    "exposure": 0.3424,
-    "bottleneck": 0.2727,
+    "exposure": 0.3407,
+    "bottleneck": 0.287,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "32120"
     ],
     "confidence": {
-      "score": 0.7385,
+      "score": 0.7366,
       "level": "high",
-      "crosswalk_quality": 0.5421,
+      "crosswalk_quality": 0.5345,
       "market_data_granularity": 0.7,
       "source_freshness": 0.7897,
       "source_coverage": 0.82,
@@ -3623,19 +3623,19 @@
   {
     "canonicalCode": "3213",
     "canonicalTitle": "Pharmacy technician",
-    "structuralPressure": 0.2229,
+    "structuralPressure": 0.2281,
     "structuralBand": "moderate",
-    "exposure": 0.3291,
-    "bottleneck": 0.3226,
+    "exposure": 0.3283,
+    "bottleneck": 0.3155,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "32130"
     ],
     "confidence": {
-      "score": 0.7732,
+      "score": 0.7772,
       "level": "high",
-      "crosswalk_quality": 0.5772,
+      "crosswalk_quality": 0.5935,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -3649,24 +3649,24 @@
   {
     "canonicalCode": "3214",
     "canonicalTitle": "Dental technician",
-    "structuralPressure": 0.0313,
+    "structuralPressure": 0.0448,
     "structuralBand": "very_low",
-    "exposure": 0.2283,
-    "bottleneck": 0.8627,
+    "exposure": 0.2279,
+    "bottleneck": 0.8057,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "32143"
     ],
     "confidence": {
-      "score": 0.6751,
+      "score": 0.6404,
       "level": "medium",
-      "crosswalk_quality": 0.395,
+      "crosswalk_quality": 0.3761,
       "market_data_granularity": 0.65,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.85,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "medium",
@@ -3675,24 +3675,24 @@
   {
     "canonicalCode": "3220",
     "canonicalTitle": "Enrolled/Assistant nurse (excluding registered nurse)",
-    "structuralPressure": 0.0405,
-    "structuralBand": "very_low",
+    "structuralPressure": 0.0613,
+    "structuralBand": "low",
     "exposure": 0.1659,
-    "bottleneck": 0.7558,
+    "bottleneck": 0.631,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "32200"
     ],
     "confidence": {
-      "score": 0.8693,
+      "score": 0.8372,
       "level": "high",
-      "crosswalk_quality": 1,
+      "crosswalk_quality": 0.9917,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8029,
       "source_coverage": 0.82,
       "signal_agreement": 0.95,
-      "sensitivity": 0.85,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -3701,24 +3701,24 @@
   {
     "canonicalCode": "3240",
     "canonicalTitle": "Veterinary technician/assistant",
-    "structuralPressure": 0.1704,
+    "structuralPressure": 0.2355,
     "structuralBand": "moderate",
     "exposure": 0.3145,
-    "bottleneck": 0.4581,
+    "bottleneck": 0.2513,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "32400"
     ],
     "confidence": {
-      "score": 0.7639,
+      "score": 0.8339,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.65,
+      "sensitivity": 0.85,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -3727,24 +3727,24 @@
   {
     "canonicalCode": "3253",
     "canonicalTitle": "Community health worker",
-    "structuralPressure": 0.1885,
+    "structuralPressure": 0.2604,
     "structuralBand": "moderate",
     "exposure": 0.3478,
-    "bottleneck": 0.4581,
+    "bottleneck": 0.2513,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "32530"
     ],
     "confidence": {
-      "score": 0.7964,
+      "score": 0.8264,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.65,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.65,
+      "sensitivity": 0.85,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -3753,24 +3753,24 @@
   {
     "canonicalCode": "3254",
     "canonicalTitle": "Optician",
-    "structuralPressure": 0.137,
+    "structuralPressure": 0.1348,
     "structuralBand": "low",
-    "exposure": 0.3446,
-    "bottleneck": 0.6025,
+    "exposure": 0.3438,
+    "bottleneck": 0.6078,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "32540"
     ],
     "confidence": {
-      "score": 0.8639,
+      "score": 0.8939,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.85,
-      "sensitivity": 0.65,
+      "sensitivity": 0.85,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -3779,24 +3779,24 @@
   {
     "canonicalCode": "3255",
     "canonicalTitle": "Massage therapist",
-    "structuralPressure": 0.0005,
-    "structuralBand": "very_low",
-    "exposure": 0.1406,
-    "bottleneck": 0.9964,
+    "structuralPressure": 0.0548,
+    "structuralBand": "low",
+    "exposure": 0.141,
+    "bottleneck": 0.6114,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "32551"
     ],
     "confidence": {
-      "score": 0.9089,
+      "score": 0.7789,
       "level": "high",
-      "crosswalk_quality": 1,
+      "crosswalk_quality": 0.6,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.95,
-      "sensitivity": 0.85,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -3805,10 +3805,10 @@
   {
     "canonicalCode": "3257",
     "canonicalTitle": "Occupational health and safety inspector",
-    "structuralPressure": 0.1923,
+    "structuralPressure": 0.2659,
     "structuralBand": "moderate",
     "exposure": 0.3549,
-    "bottleneck": 0.4581,
+    "bottleneck": 0.2513,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -3816,14 +3816,14 @@
       "32572"
     ],
     "confidence": {
-      "score": 0.7839,
+      "score": 0.8339,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.65,
+      "sensitivity": 0.85,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -3832,46 +3832,20 @@
   {
     "canonicalCode": "3259",
     "canonicalTitle": "Paramedic",
-    "structuralPressure": 0.2135,
+    "structuralPressure": 0.295,
     "structuralBand": "moderate",
     "exposure": 0.394,
-    "bottleneck": 0.4581,
+    "bottleneck": 0.2513,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "32591"
     ],
     "confidence": {
-      "score": 0.8564,
+      "score": 0.8864,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.65,
-      "source_freshness": 0.8387,
-      "source_coverage": 1,
-      "signal_agreement": 0.85,
-      "sensitivity": 0.65,
-      "exposure_source_count": 4
-    },
-    "confidenceLevel": "high",
-    "dataVintage": "Global structural baseline v7"
-  },
-  {
-    "canonicalCode": "3312",
-    "canonicalTitle": "Financial markets back office administrator",
-    "structuralPressure": 0.722,
-    "structuralBand": "very_high",
-    "exposure": 0.9081,
-    "bottleneck": 0.205,
-    "structuralFootprint": 1,
-    "sourceOccupationCount": 1,
-    "sourceOccupationCodes": [
-      "33121"
-    ],
-    "confidence": {
-      "score": 0.8839,
-      "level": "high",
-      "crosswalk_quality": 0.9601,
-      "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.85,
@@ -3882,12 +3856,38 @@
     "dataVintage": "Global structural baseline v7"
   },
   {
+    "canonicalCode": "3312",
+    "canonicalTitle": "Financial markets back office administrator",
+    "structuralPressure": 0.6489,
+    "structuralBand": "very_high",
+    "exposure": 0.9081,
+    "bottleneck": 0.2888,
+    "structuralFootprint": 1,
+    "sourceOccupationCount": 1,
+    "sourceOccupationCodes": [
+      "33121"
+    ],
+    "confidence": {
+      "score": 0.8405,
+      "level": "high",
+      "crosswalk_quality": 0.9064,
+      "market_data_granularity": 0.7,
+      "source_freshness": 0.8387,
+      "source_coverage": 1,
+      "signal_agreement": 0.85,
+      "sensitivity": 0.65,
+      "exposure_source_count": 4
+    },
+    "confidenceLevel": "high",
+    "dataVintage": "Global structural baseline v7"
+  },
+  {
     "canonicalCode": "3313",
     "canonicalTitle": "Assistant accountant",
-    "structuralPressure": 0.6223,
+    "structuralPressure": 0.6476000000000001,
     "structuralBand": "very_high",
     "exposure": 0.8917,
-    "bottleneck": 0.3021,
+    "bottleneck": 0.2807,
     "structuralFootprint": 3,
     "sourceOccupationCount": 3,
     "sourceOccupationCodes": [
@@ -3912,10 +3912,10 @@
   {
     "canonicalCode": "3315",
     "canonicalTitle": "Assessor",
-    "structuralPressure": 0.5715,
+    "structuralPressure": 0.5106999999999999,
     "structuralBand": "very_high",
     "exposure": 0.7378,
-    "bottleneck": 0.2255,
+    "bottleneck": 0.3111,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -3923,14 +3923,14 @@
       "33152"
     ],
     "confidence": {
-      "score": 0.753,
+      "score": 0.768,
       "level": "high",
       "crosswalk_quality": 0.6,
       "market_data_granularity": 0.7,
       "source_freshness": 0.7897,
       "source_coverage": 0.82,
       "signal_agreement": 0.95,
-      "sensitivity": 0.75,
+      "sensitivity": 0.85,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -3939,10 +3939,10 @@
   {
     "canonicalCode": "3321",
     "canonicalTitle": "Insurance sales agent/broker (including independent financial planner)",
-    "structuralPressure": 0.8417,
+    "structuralPressure": 0.859,
     "structuralBand": "very_high",
     "exposure": 0.8493,
-    "bottleneck": 0.0089,
+    "bottleneck": 0.0018,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -3965,10 +3965,10 @@
   {
     "canonicalCode": "3322",
     "canonicalTitle": "Business development executive",
-    "structuralPressure": 0.49420000000000003,
-    "structuralBand": "high",
+    "structuralPressure": 0.5097799999999999,
+    "structuralBand": "very_high",
     "exposure": 0.8774,
-    "bottleneck": 0.4367,
+    "bottleneck": 0.426,
     "structuralFootprint": 5,
     "sourceOccupationCount": 5,
     "sourceOccupationCodes": [
@@ -3979,14 +3979,14 @@
       "33225"
     ],
     "confidence": {
-      "score": 0.9089,
+      "score": 0.8968999999999999,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.95,
-      "sensitivity": 0.85,
+      "sensitivity": 0.7699999999999999,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -3995,10 +3995,10 @@
   {
     "canonicalCode": "3323",
     "canonicalTitle": "Buyer",
-    "structuralPressure": 0.2636,
-    "structuralBand": "moderate",
+    "structuralPressure": 0.3422,
+    "structuralBand": "high",
     "exposure": 0.6993,
-    "bottleneck": 0.623,
+    "bottleneck": 0.5107,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -4006,14 +4006,14 @@
       "33232"
     ],
     "confidence": {
-      "score": 0.8095,
+      "score": 0.7374,
       "level": "high",
-      "crosswalk_quality": 0.9025,
+      "crosswalk_quality": 0.894,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.85,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -4022,10 +4022,10 @@
   {
     "canonicalCode": "3331",
     "canonicalTitle": "Clearing and forwarding agent",
-    "structuralPressure": 0.8919,
+    "structuralPressure": 0.9064,
     "structuralBand": "very_high",
     "exposure": 0.8975,
-    "bottleneck": 0.0062,
+    "bottleneck": 0.0134,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -4033,9 +4033,9 @@
       "33312"
     ],
     "confidence": {
-      "score": 0.8912,
+      "score": 0.8873,
       "level": "high",
-      "crosswalk_quality": 0.9294,
+      "crosswalk_quality": 0.9139,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -4049,10 +4049,10 @@
   {
     "canonicalCode": "3332",
     "canonicalTitle": "Exhibition/Conference/Event planner (including wedding planner/coordinator)",
-    "structuralPressure": 0.343,
+    "structuralPressure": 0.3782,
     "structuralBand": "high",
     "exposure": 0.7952,
-    "bottleneck": 0.5686,
+    "bottleneck": 0.5294,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -4075,10 +4075,10 @@
   {
     "canonicalCode": "3333",
     "canonicalTitle": "Employment agent/Labour contractor",
-    "structuralPressure": 0.6119,
+    "structuralPressure": 0.6392,
     "structuralBand": "very_high",
     "exposure": 0.7063,
-    "bottleneck": 0.1337,
+    "bottleneck": 0.1159,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -4101,19 +4101,19 @@
   {
     "canonicalCode": "3334",
     "canonicalTitle": "Real estate agent",
-    "structuralPressure": 0.1636,
-    "structuralBand": "moderate",
+    "structuralPressure": 0.1423,
+    "structuralBand": "low",
     "exposure": 0.6601,
-    "bottleneck": 0.7522,
+    "bottleneck": 0.7861,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "33340"
     ],
     "confidence": {
-      "score": 0.716,
+      "score": 0.7232,
       "level": "high",
-      "crosswalk_quality": 0.6485,
+      "crosswalk_quality": 0.6775,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -4127,10 +4127,10 @@
   {
     "canonicalCode": "3339",
     "canonicalTitle": "Advertising salesman",
-    "structuralPressure": 0.3866,
+    "structuralPressure": 0.37353333333333333,
     "structuralBand": "high",
     "exposure": 0.7773,
-    "bottleneck": 0.5027,
+    "bottleneck": 0.5241,
     "structuralFootprint": 3,
     "sourceOccupationCount": 3,
     "sourceOccupationCodes": [
@@ -4155,10 +4155,10 @@
   {
     "canonicalCode": "3346",
     "canonicalTitle": "Maintenance planner",
-    "structuralPressure": 0.3928,
+    "structuralPressure": 0.48519999999999996,
     "structuralBand": "high",
     "exposure": 0.7333,
-    "bottleneck": 0.4643,
+    "bottleneck": 0.3414,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -4166,26 +4166,26 @@
       "33462"
     ],
     "confidence": {
-      "score": 0.6852,
-      "level": "medium",
-      "crosswalk_quality": 0.3836,
+      "score": 0.7111,
+      "level": "high",
+      "crosswalk_quality": 0.3673,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8029,
       "source_coverage": 0.82,
       "signal_agreement": 0.95,
-      "sensitivity": 0.65,
+      "sensitivity": 0.85,
       "exposure_source_count": 4
     },
-    "confidenceLevel": "medium",
+    "confidenceLevel": "high",
     "dataVintage": "Global structural baseline v7"
   },
   {
     "canonicalCode": "3349",
     "canonicalTitle": "Management executive",
-    "structuralPressure": 0.45459999999999995,
+    "structuralPressure": 0.4576,
     "structuralBand": "high",
     "exposure": 0.7775,
-    "bottleneck": 0.4153,
+    "bottleneck": 0.4189,
     "structuralFootprint": 3,
     "sourceOccupationCount": 3,
     "sourceOccupationCodes": [
@@ -4194,9 +4194,9 @@
       "33493"
     ],
     "confidence": {
-      "score": 0.8626999999999999,
+      "score": 0.8619,
       "level": "high",
-      "crosswalk_quality": 0.9735,
+      "crosswalk_quality": 0.9704,
       "market_data_granularity": 0.6999999999999998,
       "source_freshness": 0.8028999999999998,
       "source_coverage": 0.82,
@@ -4210,24 +4210,24 @@
   {
     "canonicalCode": "3361",
     "canonicalTitle": "Air transport equipment project executive",
-    "structuralPressure": 0.2723,
-    "structuralBand": "moderate",
-    "exposure": 0.5743,
-    "bottleneck": 0.5258,
+    "structuralPressure": 0.3529,
+    "structuralBand": "high",
+    "exposure": 0.5738,
+    "bottleneck": 0.385,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "33611"
     ],
     "confidence": {
-      "score": 0.6391,
+      "score": 0.6051,
       "level": "medium",
-      "crosswalk_quality": 0.1394,
+      "crosswalk_quality": 0.1232,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8029,
       "source_coverage": 0.82,
       "signal_agreement": 0.85,
-      "sensitivity": 0.85,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "medium",
@@ -4236,24 +4236,24 @@
   {
     "canonicalCode": "3411",
     "canonicalTitle": "Legal associate professional (e.g. paralegal)",
-    "structuralPressure": 0.7446,
+    "structuralPressure": 0.6912,
     "structuralBand": "very_high",
     "exposure": 0.7815,
-    "bottleneck": 0.0472,
+    "bottleneck": 0.1364,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "34110"
     ],
     "confidence": {
-      "score": 0.8939,
+      "score": 0.8639,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.85,
-      "sensitivity": 0.85,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -4262,10 +4262,10 @@
   {
     "canonicalCode": "3412",
     "canonicalTitle": "Volunteer executive",
-    "structuralPressure": 0.0954,
+    "structuralPressure": 0.06716666666666667,
     "structuralBand": "low",
-    "exposure": 0.34970000000000007,
-    "bottleneck": 0.7273,
+    "exposure": 0.3493,
+    "bottleneck": 0.8093,
     "structuralFootprint": 3,
     "sourceOccupationCount": 3,
     "sourceOccupationCodes": [
@@ -4274,35 +4274,35 @@
       "34123"
     ],
     "confidence": {
-      "score": 0.7153,
-      "level": "high",
-      "crosswalk_quality": 0.5258,
+      "score": 0.6966,
+      "level": "medium",
+      "crosswalk_quality": 0.5707,
       "market_data_granularity": 0.6999999999999998,
       "source_freshness": 0.8386999999999999,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.85,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
-    "confidenceLevel": "high",
+    "confidenceLevel": "medium",
     "dataVintage": "Global structural baseline v7"
   },
   {
     "canonicalCode": "3421",
     "canonicalTitle": "Athlete/Sportsman",
-    "structuralPressure": 0.1453,
-    "structuralBand": "low",
+    "structuralPressure": 0.167,
+    "structuralBand": "moderate",
     "exposure": 0.5063,
-    "bottleneck": 0.713,
+    "bottleneck": 0.6702,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "34210"
     ],
     "confidence": {
-      "score": 0.7763,
+      "score": 0.7782,
       "level": "high",
-      "crosswalk_quality": 0.8899,
+      "crosswalk_quality": 0.8975,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -4316,10 +4316,10 @@
   {
     "canonicalCode": "3422",
     "canonicalTitle": "Sports coach",
-    "structuralPressure": 0.0251,
+    "structuralPressure": 0.0323,
     "structuralBand": "very_low",
-    "exposure": 0.3434,
-    "bottleneck": 0.9269,
+    "exposure": 0.3421,
+    "bottleneck": 0.9055,
     "structuralFootprint": 3,
     "sourceOccupationCount": 3,
     "sourceOccupationCodes": [
@@ -4344,24 +4344,24 @@
   {
     "canonicalCode": "3431",
     "canonicalTitle": "Photographer",
-    "structuralPressure": 0.3638,
-    "structuralBand": "high",
+    "structuralPressure": 0.2595,
+    "structuralBand": "moderate",
     "exposure": 0.5357,
-    "bottleneck": 0.3209,
+    "bottleneck": 0.5205,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "34310"
     ],
     "confidence": {
-      "score": 0.7564,
+      "score": 0.8264,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.65,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.65,
+      "sensitivity": 0.85,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -4370,10 +4370,10 @@
   {
     "canonicalCode": "3432",
     "canonicalTitle": "Interior designer",
-    "structuralPressure": 0.4007,
+    "structuralPressure": 0.3229,
     "structuralBand": "high",
-    "exposure": 0.485,
-    "bottleneck": 0.1738,
+    "exposure": 0.4838,
+    "bottleneck": 0.3324,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -4381,9 +4381,9 @@
       "34323"
     ],
     "confidence": {
-      "score": 0.7075,
+      "score": 0.7253,
       "level": "high",
-      "crosswalk_quality": 0.7747,
+      "crosswalk_quality": 0.8458,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -4397,24 +4397,24 @@
   {
     "canonicalCode": "3433",
     "canonicalTitle": "Library officer",
-    "structuralPressure": 0.1294,
-    "structuralBand": "low",
+    "structuralPressure": 0.2013,
+    "structuralBand": "moderate",
     "exposure": 0.5456,
-    "bottleneck": 0.7629,
+    "bottleneck": 0.6328,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "34331"
     ],
     "confidence": {
-      "score": 0.8339,
+      "score": 0.8039,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.85,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -4423,10 +4423,10 @@
   {
     "canonicalCode": "3434",
     "canonicalTitle": "Chef",
-    "structuralPressure": 0.1093,
+    "structuralPressure": 0.13016666666666665,
     "structuralBand": "low",
     "exposure": 0.5376,
-    "bottleneck": 0.7967999999999998,
+    "bottleneck": 0.7594,
     "structuralFootprint": 3,
     "sourceOccupationCount": 3,
     "sourceOccupationCodes": [
@@ -4451,10 +4451,10 @@
   {
     "canonicalCode": "3511",
     "canonicalTitle": "Computer systems operator",
-    "structuralPressure": 0.5797,
-    "structuralBand": "very_high",
+    "structuralPressure": 0.3723,
+    "structuralBand": "high",
     "exposure": 0.767,
-    "bottleneck": 0.2442,
+    "bottleneck": 0.5169,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -4477,10 +4477,10 @@
   {
     "canonicalCode": "3512",
     "canonicalTitle": "IT security technician",
-    "structuralPressure": 0.49479999999999996,
+    "structuralPressure": 0.33956666666666663,
     "structuralBand": "high",
-    "exposure": 0.7553,
-    "bottleneck": 0.3449,
+    "exposure": 0.7544999999999998,
+    "bottleneck": 0.5508,
     "structuralFootprint": 3,
     "sourceOccupationCount": 3,
     "sourceOccupationCodes": [
@@ -4489,14 +4489,14 @@
       "35123"
     ],
     "confidence": {
-      "score": 0.6914000000000001,
+      "score": 0.6730333333333333,
       "level": "medium",
-      "crosswalk_quality": 0.6,
+      "crosswalk_quality": 0.5932,
       "market_data_granularity": 0.6833333333333332,
       "source_freshness": 0.8386999999999999,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.85,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "medium",
@@ -4505,24 +4505,24 @@
   {
     "canonicalCode": "3514",
     "canonicalTitle": "Website administrator/Webmaster",
-    "structuralPressure": 0.523,
+    "structuralPressure": 0.6838,
     "structuralBand": "very_high",
-    "exposure": 0.7984,
-    "bottleneck": 0.3449,
+    "exposure": 0.7975,
+    "bottleneck": 0.1426,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "35140"
     ],
     "confidence": {
-      "score": 0.6939,
+      "score": 0.6583,
       "level": "medium",
-      "crosswalk_quality": 0.6,
+      "crosswalk_quality": 0.5778,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.85,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "medium",
@@ -4531,10 +4531,10 @@
   {
     "canonicalCode": "3521",
     "canonicalTitle": "Video camera operator",
-    "structuralPressure": 0.3836,
+    "structuralPressure": 0.31395,
     "structuralBand": "high",
-    "exposure": 0.4643,
-    "bottleneck": 0.1738,
+    "exposure": 0.4631,
+    "bottleneck": 0.3324,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -4542,9 +4542,35 @@
       "35212"
     ],
     "confidence": {
-      "score": 0.7075,
+      "score": 0.7603,
       "level": "high",
-      "crosswalk_quality": 0.7747,
+      "crosswalk_quality": 0.8458,
+      "market_data_granularity": 0.7,
+      "source_freshness": 0.8387,
+      "source_coverage": 1,
+      "signal_agreement": 0.45,
+      "sensitivity": 0.75,
+      "exposure_source_count": 4
+    },
+    "confidenceLevel": "high",
+    "dataVintage": "Global structural baseline v7"
+  },
+  {
+    "canonicalCode": "3522",
+    "canonicalTitle": "Telecommunications technician",
+    "structuralPressure": 0.1338,
+    "structuralBand": "low",
+    "exposure": 0.3828,
+    "bottleneck": 0.6515,
+    "structuralFootprint": 1,
+    "sourceOccupationCount": 1,
+    "sourceOccupationCodes": [
+      "35220"
+    ],
+    "confidence": {
+      "score": 0.7639,
+      "level": "high",
+      "crosswalk_quality": 1,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -4556,64 +4582,38 @@
     "dataVintage": "Global structural baseline v7"
   },
   {
-    "canonicalCode": "3522",
-    "canonicalTitle": "Telecommunications technician",
-    "structuralPressure": 0.1292,
-    "structuralBand": "low",
-    "exposure": 0.3823,
-    "bottleneck": 0.6622,
-    "structuralFootprint": 1,
-    "sourceOccupationCount": 1,
-    "sourceOccupationCodes": [
-      "35220"
-    ],
-    "confidence": {
-      "score": 0.7939,
-      "level": "high",
-      "crosswalk_quality": 1,
-      "market_data_granularity": 0.7,
-      "source_freshness": 0.8387,
-      "source_coverage": 1,
-      "signal_agreement": 0.45,
-      "sensitivity": 0.85,
-      "exposure_source_count": 4
-    },
-    "confidenceLevel": "high",
-    "dataVintage": "Global structural baseline v7"
-  },
-  {
     "canonicalCode": "3610",
     "canonicalTitle": "Pre-primary education teacher",
-    "structuralPressure": 0.0298,
-    "structuralBand": "very_low",
-    "exposure": 0.2091,
-    "bottleneck": 0.8574,
+    "structuralPressure": 0.0619,
+    "structuralBand": "low",
+    "exposure": 0.2074,
+    "bottleneck": 0.7041,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "36100"
     ],
     "confidence": {
-      "score": 0.7081,
-      "level": "high",
-      "crosswalk_quality": 0.6553,
+      "score": 0.6657,
+      "level": "medium",
+      "crosswalk_quality": 0.6055,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8029,
       "source_coverage": 0.82,
       "signal_agreement": 0.45,
-      "sensitivity": 0.85,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
-    "confidenceLevel": "high",
+    "confidenceLevel": "medium",
     "dataVintage": "Global structural baseline v7"
   },
   {
     "canonicalCode": "3620",
     "canonicalTitle": "Music instructor (extracurriculum)",
-    "structuralPressure": 0.5749,
-    "structuralBand": "very_high",
+    "structuralPressure": 0.268175,
+    "structuralBand": "moderate",
     "exposure": 0.9046,
-    "bottleneck": 0.3645,
+    "bottleneck": 0.7041,
     "structuralFootprint": 4,
     "sourceOccupationCount": 4,
     "sourceOccupationCodes": [
@@ -4623,35 +4623,35 @@
       "36204"
     ],
     "confidence": {
-      "score": 0.520625,
-      "level": "medium",
-      "crosswalk_quality": 1,
+      "score": 0.405625,
+      "level": "low",
+      "crosswalk_quality": 0.6,
       "market_data_granularity": 0.6875,
       "source_freshness": 0.55,
       "source_coverage": 0.1,
       "signal_agreement": 0.25,
-      "sensitivity": 0.7,
+      "sensitivity": 0.8,
       "exposure_source_count": 4
     },
-    "confidenceLevel": "medium",
+    "confidenceLevel": "low",
     "dataVintage": "Global structural baseline v7"
   },
   {
     "canonicalCode": "3691",
     "canonicalTitle": "Private tutor (academic)",
-    "structuralPressure": 0.5749,
-    "structuralBand": "very_high",
+    "structuralPressure": 0.2677,
+    "structuralBand": "moderate",
     "exposure": 0.9046,
-    "bottleneck": 0.3645,
+    "bottleneck": 0.7041,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "36910"
     ],
     "confidence": {
-      "score": 0.545,
-      "level": "medium",
-      "crosswalk_quality": 1,
+      "score": 0.415,
+      "level": "low",
+      "crosswalk_quality": 0.6,
       "market_data_granularity": 0.7,
       "source_freshness": 0.55,
       "source_coverage": 0.1,
@@ -4659,42 +4659,42 @@
       "sensitivity": 0.85,
       "exposure_source_count": 4
     },
-    "confidenceLevel": "medium",
+    "confidenceLevel": "low",
     "dataVintage": "Global structural baseline v7"
   },
   {
     "canonicalCode": "3699",
     "canonicalTitle": "Relief teacher",
-    "structuralPressure": 0.5749,
-    "structuralBand": "very_high",
+    "structuralPressure": 0.2677,
+    "structuralBand": "moderate",
     "exposure": 0.9046,
-    "bottleneck": 0.3645,
+    "bottleneck": 0.7041,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "36991"
     ],
     "confidence": {
-      "score": 0.515,
-      "level": "medium",
-      "crosswalk_quality": 1,
+      "score": 0.415,
+      "level": "low",
+      "crosswalk_quality": 0.6,
       "market_data_granularity": 0.7,
       "source_freshness": 0.55,
       "source_coverage": 0.1,
       "signal_agreement": 0.25,
-      "sensitivity": 0.65,
+      "sensitivity": 0.85,
       "exposure_source_count": 4
     },
-    "confidenceLevel": "medium",
+    "confidenceLevel": "low",
     "dataVintage": "Global structural baseline v7"
   },
   {
     "canonicalCode": "3991",
     "canonicalTitle": "Non-ordained religious associate professional",
-    "structuralPressure": 0.2163,
+    "structuralPressure": 0.226,
     "structuralBand": "moderate",
-    "exposure": 0.4545,
-    "bottleneck": 0.5241,
+    "exposure": 0.4528,
+    "bottleneck": 0.5009,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -4717,10 +4717,10 @@
   {
     "canonicalCode": "4000",
     "canonicalTitle": "Office supervisor",
-    "structuralPressure": 0.4793,
-    "structuralBand": "high",
+    "structuralPressure": 0.5135,
+    "structuralBand": "very_high",
     "exposure": 0.7448,
-    "bottleneck": 0.3565,
+    "bottleneck": 0.3137,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -4743,10 +4743,10 @@
   {
     "canonicalCode": "4110",
     "canonicalTitle": "Personnel/Human resource clerk",
-    "structuralPressure": 0.739,
+    "structuralPressure": 0.74945,
     "structuralBand": "very_high",
     "exposure": 0.7727,
-    "bottleneck": 0.0437,
+    "bottleneck": 0.0365,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -4770,10 +4770,10 @@
   {
     "canonicalCode": "4120",
     "canonicalTitle": "Secretary",
-    "structuralPressure": 0.8233,
+    "structuralPressure": 0.848,
     "structuralBand": "very_high",
     "exposure": 0.8665,
-    "bottleneck": 0.0499,
+    "bottleneck": 0.0214,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -4796,10 +4796,10 @@
   {
     "canonicalCode": "4131",
     "canonicalTitle": "Typist and word processing operator",
-    "structuralPressure": 0.8118,
+    "structuralPressure": 0.8512,
     "structuralBand": "very_high",
     "exposure": 0.99,
-    "bottleneck": 0.18,
+    "bottleneck": 0.148,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -4822,10 +4822,10 @@
   {
     "canonicalCode": "4132",
     "canonicalTitle": "Data entry clerk",
-    "structuralPressure": 0.8459,
+    "structuralPressure": 0.8721,
     "structuralBand": "very_high",
-    "exposure": 0.8731,
-    "bottleneck": 0.0312,
+    "exposure": 0.8718,
+    "bottleneck": 0.0187,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -4848,10 +4848,10 @@
   {
     "canonicalCode": "4211",
     "canonicalTitle": "Bank teller",
-    "structuralPressure": 0.5289,
+    "structuralPressure": 0.5428666666666667,
     "structuralBand": "very_high",
-    "exposure": 0.6698,
-    "bottleneck": 0.21030000000000001,
+    "exposure": 0.6686,
+    "bottleneck": 0.18889999999999998,
     "structuralFootprint": 3,
     "sourceOccupationCount": 3,
     "sourceOccupationCodes": [
@@ -4860,14 +4860,14 @@
       "42113"
     ],
     "confidence": {
-      "score": 0.7839,
+      "score": 0.7738999999999999,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.6999999999999998,
       "source_freshness": 0.8386999999999999,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.7833333333333333,
+      "sensitivity": 0.7166666666666667,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -4876,10 +4876,10 @@
   {
     "canonicalCode": "4213",
     "canonicalTitle": "Pawnbroker",
-    "structuralPressure": 0.7242,
+    "structuralPressure": 0.7341,
     "structuralBand": "very_high",
     "exposure": 0.7958,
-    "bottleneck": 0.09,
+    "bottleneck": 0.0775,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -4902,10 +4902,10 @@
   {
     "canonicalCode": "4214",
     "canonicalTitle": "Bill collector",
-    "structuralPressure": 0.6969,
+    "structuralPressure": 0.7175,
     "structuralBand": "very_high",
     "exposure": 0.7658,
-    "bottleneck": 0.09,
+    "bottleneck": 0.0775,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -4928,24 +4928,24 @@
   {
     "canonicalCode": "4221",
     "canonicalTitle": "Travel consultant/Reservation executive",
-    "structuralPressure": 0.2967,
-    "structuralBand": "moderate",
+    "structuralPressure": 0.3854,
+    "structuralBand": "high",
     "exposure": 0.5623,
-    "bottleneck": 0.4724,
+    "bottleneck": 0.3226,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "42210"
     ],
     "confidence": {
-      "score": 0.5839,
+      "score": 0.5139,
       "level": "medium",
       "crosswalk_quality": 0,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.85,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "medium",
@@ -4954,10 +4954,10 @@
   {
     "canonicalCode": "4223",
     "canonicalTitle": "Telephone operator",
-    "structuralPressure": 0.5999,
+    "structuralPressure": 0.62,
     "structuralBand": "very_high",
     "exposure": 0.6968,
-    "bottleneck": 0.139,
+    "bottleneck": 0.1212,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -4980,10 +4980,10 @@
   {
     "canonicalCode": "4224",
     "canonicalTitle": "Receptionist (general)",
-    "structuralPressure": 0.5256,
+    "structuralPressure": 0.5929142857142857,
     "structuralBand": "very_high",
-    "exposure": 0.7020999999999998,
-    "bottleneck": 0.2513,
+    "exposure": 0.7008,
+    "bottleneck": 0.16579999999999998,
     "structuralFootprint": 7,
     "sourceOccupationCount": 7,
     "sourceOccupationCodes": [
@@ -4996,14 +4996,14 @@
       "42247"
     ],
     "confidence": {
-      "score": 0.6226142857142857,
+      "score": 0.6039,
       "level": "medium",
-      "crosswalk_quality": 0.3323,
+      "crosswalk_quality": 0.36010000000000003,
       "market_data_granularity": 0.7000000000000001,
       "source_freshness": 0.8387000000000001,
       "source_coverage": 1,
       "signal_agreement": 0.45000000000000007,
-      "sensitivity": 0.8214285714285713,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "medium",
@@ -5012,10 +5012,10 @@
   {
     "canonicalCode": "4311",
     "canonicalTitle": "Bookkeeper",
-    "structuralPressure": 0.7904,
+    "structuralPressure": 0.80695,
     "structuralBand": "very_high",
     "exposure": 0.8685999999999999,
-    "bottleneck": 0.08999999999999998,
+    "bottleneck": 0.0775,
     "structuralFootprint": 6,
     "sourceOccupationCount": 6,
     "sourceOccupationCodes": [
@@ -5043,10 +5043,10 @@
   {
     "canonicalCode": "4312",
     "canonicalTitle": "Securities clerk",
-    "structuralPressure": 0.8584,
+    "structuralPressure": 0.8602666666666666,
     "structuralBand": "very_high",
     "exposure": 0.8756,
-    "bottleneck": 0.0196,
+    "bottleneck": 0.030300000000000004,
     "structuralFootprint": 3,
     "sourceOccupationCount": 3,
     "sourceOccupationCodes": [
@@ -5055,9 +5055,9 @@
       "43123"
     ],
     "confidence": {
-      "score": 0.7700999999999999,
+      "score": 0.7734,
       "level": "high",
-      "crosswalk_quality": 0.9049,
+      "crosswalk_quality": 0.918,
       "market_data_granularity": 0.6999999999999998,
       "source_freshness": 0.8386999999999999,
       "source_coverage": 1,
@@ -5071,10 +5071,10 @@
   {
     "canonicalCode": "4314",
     "canonicalTitle": "Statistical clerk",
-    "structuralPressure": 0.8942,
+    "structuralPressure": 0.7514000000000001,
     "structuralBand": "very_high",
     "exposure": 0.951,
-    "bottleneck": 0.0597,
+    "bottleneck": 0.2166,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -5082,9 +5082,9 @@
       "43142"
     ],
     "confidence": {
-      "score": 0.81765,
+      "score": 0.83405,
       "level": "high",
-      "crosswalk_quality": 0.8083,
+      "crosswalk_quality": 0.8741,
       "market_data_granularity": 0.675,
       "source_freshness": 0.8029,
       "source_coverage": 0.82,
@@ -5098,10 +5098,10 @@
   {
     "canonicalCode": "4315",
     "canonicalTitle": "Data processing control clerk",
-    "structuralPressure": 0.8024,
+    "structuralPressure": 0.8187,
     "structuralBand": "very_high",
-    "exposure": 0.8282,
-    "bottleneck": 0.0312,
+    "exposure": 0.8265,
+    "bottleneck": 0.0187,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -5124,10 +5124,10 @@
   {
     "canonicalCode": "4321",
     "canonicalTitle": "Storekeeper",
-    "structuralPressure": 0.2169,
+    "structuralPressure": 0.2183,
     "structuralBand": "moderate",
-    "exposure": 0.2654,
-    "bottleneck": 0.1827,
+    "exposure": 0.266,
+    "bottleneck": 0.1791,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -5151,10 +5151,10 @@
   {
     "canonicalCode": "4322",
     "canonicalTitle": "Material planning clerk",
-    "structuralPressure": 0.3737,
+    "structuralPressure": 0.413,
     "structuralBand": "high",
-    "exposure": 0.5183,
-    "bottleneck": 0.279,
+    "exposure": 0.5172,
+    "bottleneck": 0.2077,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -5178,10 +5178,10 @@
   {
     "canonicalCode": "4323",
     "canonicalTitle": "Shipping clerk",
-    "structuralPressure": 0.44270000000000004,
+    "structuralPressure": 0.45599999999999996,
     "structuralBand": "high",
-    "exposure": 0.5494,
-    "bottleneck": 0.1943,
+    "exposure": 0.5482,
+    "bottleneck": 0.1747,
     "structuralFootprint": 3,
     "sourceOccupationCount": 3,
     "sourceOccupationCodes": [
@@ -5206,10 +5206,10 @@
   {
     "canonicalCode": "4411",
     "canonicalTitle": "Library clerk",
-    "structuralPressure": 0.5373,
+    "structuralPressure": 0.5415,
     "structuralBand": "very_high",
-    "exposure": 0.6267,
-    "bottleneck": 0.1426,
+    "exposure": 0.6258,
+    "bottleneck": 0.139,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -5232,9 +5232,9 @@
   {
     "canonicalCode": "4412",
     "canonicalTitle": "Postman",
-    "structuralPressure": 0.6732,
+    "structuralPressure": 0.6728,
     "structuralBand": "very_high",
-    "exposure": 0.6968,
+    "exposure": 0.6964,
     "bottleneck": 0.0339,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
@@ -5258,10 +5258,10 @@
   {
     "canonicalCode": "4417",
     "canonicalTitle": "Legal clerk",
-    "structuralPressure": 0.682,
+    "structuralPressure": 0.6473,
     "structuralBand": "very_high",
     "exposure": 0.7357,
-    "bottleneck": 0.0731,
+    "bottleneck": 0.1408,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -5284,10 +5284,10 @@
   {
     "canonicalCode": "4419",
     "canonicalTitle": "Proofreading clerk",
-    "structuralPressure": 0.7008,
+    "structuralPressure": 0.722,
     "structuralBand": "very_high",
-    "exposure": 0.7489,
-    "bottleneck": 0.0642,
+    "exposure": 0.7463,
+    "bottleneck": 0.0446,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -5310,10 +5310,10 @@
   {
     "canonicalCode": "5111",
     "canonicalTitle": "Chief steward",
-    "structuralPressure": 0.1954,
+    "structuralPressure": 0.2508,
     "structuralBand": "moderate",
     "exposure": 0.3703,
-    "bottleneck": 0.4724,
+    "bottleneck": 0.3226,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -5321,7 +5321,7 @@
       "51112"
     ],
     "confidence": {
-      "score": 0.5139,
+      "score": 0.5539,
       "level": "medium",
       "crosswalk_quality": 0,
       "market_data_granularity": 0.7,
@@ -5337,19 +5337,19 @@
   {
     "canonicalCode": "5112",
     "canonicalTitle": "Rail station service assistant",
-    "structuralPressure": 0.15,
-    "structuralBand": "moderate",
-    "exposure": 0.2306,
-    "bottleneck": 0.3494,
+    "structuralPressure": 0.0315,
+    "structuralBand": "very_low",
+    "exposure": 0.231,
+    "bottleneck": 0.8636,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "51121"
     ],
     "confidence": {
-      "score": 0.7939,
+      "score": 0.7893,
       "level": "high",
-      "crosswalk_quality": 0.6,
+      "crosswalk_quality": 0.5818,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -5363,10 +5363,10 @@
   {
     "canonicalCode": "5113",
     "canonicalTitle": "Tour guide",
-    "structuralPressure": 0.1489,
+    "structuralPressure": 0.14135,
     "structuralBand": "low",
-    "exposure": 0.4294,
-    "bottleneck": 0.6533,
+    "exposure": 0.4277,
+    "bottleneck": 0.6729,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -5374,9 +5374,9 @@
       "51132"
     ],
     "confidence": {
-      "score": 0.78015,
+      "score": 0.78325,
       "level": "high",
-      "crosswalk_quality": 0.7236,
+      "crosswalk_quality": 0.7363,
       "market_data_granularity": 0.675,
       "source_freshness": 0.7897,
       "source_coverage": 0.82,
@@ -5390,10 +5390,10 @@
   {
     "canonicalCode": "5120",
     "canonicalTitle": "Cook (e.g. commis cook 2/3)",
-    "structuralPressure": 0.1749,
+    "structuralPressure": 0.2221,
     "structuralBand": "moderate",
     "exposure": 0.2626,
-    "bottleneck": 0.3342,
+    "bottleneck": 0.1542,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -5401,9 +5401,9 @@
       "51202"
     ],
     "confidence": {
-      "score": 0.6141,
+      "score": 0.6771,
       "level": "medium",
-      "crosswalk_quality": 0.4011,
+      "crosswalk_quality": 0.4931,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -5417,10 +5417,10 @@
   {
     "canonicalCode": "5131",
     "canonicalTitle": "Waiter",
-    "structuralPressure": 0.1909,
+    "structuralPressure": 0.1877,
     "structuralBand": "moderate",
     "exposure": 0.1981,
-    "bottleneck": 0.0365,
+    "bottleneck": 0.0526,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -5430,7 +5430,7 @@
     "confidence": {
       "score": 0.865,
       "level": "high",
-      "crosswalk_quality": 0.9144,
+      "crosswalk_quality": 0.9145,
       "market_data_granularity": 0.75,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -5444,10 +5444,10 @@
   {
     "canonicalCode": "5132",
     "canonicalTitle": "Barista",
-    "structuralPressure": 0.1516,
-    "structuralBand": "moderate",
-    "exposure": 0.158,
-    "bottleneck": 0.0401,
+    "structuralPressure": 0.111,
+    "structuralBand": "low",
+    "exposure": 0.1584,
+    "bottleneck": 0.2995,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -5471,10 +5471,10 @@
   {
     "canonicalCode": "5141",
     "canonicalTitle": "Hair stylist/Hairdresser",
-    "structuralPressure": 0.0996,
+    "structuralPressure": 0.1002,
     "structuralBand": "low",
-    "exposure": 0.1809,
-    "bottleneck": 0.4492,
+    "exposure": 0.1813,
+    "bottleneck": 0.4545,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -5497,10 +5497,10 @@
   {
     "canonicalCode": "5142",
     "canonicalTitle": "Beautician",
-    "structuralPressure": 0.0886,
-    "structuralBand": "low",
+    "structuralPressure": 0.0398,
+    "structuralBand": "very_low",
     "exposure": 0.1495,
-    "bottleneck": 0.4073,
+    "bottleneck": 0.7353,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -5508,14 +5508,14 @@
       "51422"
     ],
     "confidence": {
-      "score": 0.8145,
+      "score": 0.8432,
       "level": "high",
-      "crosswalk_quality": 0.7426,
+      "crosswalk_quality": 0.7374,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.95,
-      "sensitivity": 0.65,
+      "sensitivity": 0.85,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -5524,10 +5524,10 @@
   {
     "canonicalCode": "5149",
     "canonicalTitle": "Slimming consultant",
-    "structuralPressure": 0.0991,
+    "structuralPressure": 0.0823,
     "structuralBand": "low",
-    "exposure": 0.1301,
-    "bottleneck": 0.238,
+    "exposure": 0.1306,
+    "bottleneck": 0.3699,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -5551,10 +5551,10 @@
   {
     "canonicalCode": "5150",
     "canonicalTitle": "House steward",
-    "structuralPressure": 0.063,
+    "structuralPressure": 0.077,
     "structuralBand": "low",
     "exposure": 0.3515,
-    "bottleneck": 0.8209,
+    "bottleneck": 0.7816,
     "structuralFootprint": 3,
     "sourceOccupationCount": 3,
     "sourceOccupationCodes": [
@@ -5563,9 +5563,9 @@
       "51503"
     ],
     "confidence": {
-      "score": 0.6957999999999999,
+      "score": 0.6937000000000001,
       "level": "medium",
-      "crosswalk_quality": 0.8862,
+      "crosswalk_quality": 0.8775,
       "market_data_granularity": 0.6999999999999998,
       "source_freshness": 0.8028999999999998,
       "source_coverage": 0.82,
@@ -5579,10 +5579,10 @@
   {
     "canonicalCode": "5170",
     "canonicalTitle": "Bookmaker/Croupier/Casino dealer and related gaming worker",
-    "structuralPressure": 0.2935,
+    "structuralPressure": 0.2951,
     "structuralBand": "moderate",
-    "exposure": 0.3095,
-    "bottleneck": 0.0517,
+    "exposure": 0.3078,
+    "bottleneck": 0.041,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -5605,10 +5605,10 @@
   {
     "canonicalCode": "5193",
     "canonicalTitle": "Undertaker",
-    "structuralPressure": 0.0165,
+    "structuralPressure": 0.02,
     "structuralBand": "very_low",
     "exposure": 0.1964,
-    "bottleneck": 0.9162,
+    "bottleneck": 0.8984,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -5631,10 +5631,10 @@
   {
     "canonicalCode": "5194",
     "canonicalTitle": "Keeper/Trainer in zoological, bird and aquatic parks",
-    "structuralPressure": 0.1712,
-    "structuralBand": "moderate",
-    "exposure": 0.1839,
-    "bottleneck": 0.0695,
+    "structuralPressure": 0.0778,
+    "structuralBand": "low",
+    "exposure": 0.1845,
+    "bottleneck": 0.5829,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -5657,10 +5657,10 @@
   {
     "canonicalCode": "5195",
     "canonicalTitle": "Driving instructor/tester",
-    "structuralPressure": 0.0223,
+    "structuralPressure": 0.0137,
     "structuralBand": "very_low",
     "exposure": 0.0552,
-    "bottleneck": 0.5954,
+    "bottleneck": 0.7522,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -5683,10 +5683,10 @@
   {
     "canonicalCode": "5220",
     "canonicalTitle": "Sales supervisor",
-    "structuralPressure": 0.4636,
+    "structuralPressure": 0.4787,
     "structuralBand": "high",
-    "exposure": 0.5904,
-    "bottleneck": 0.2148,
+    "exposure": 0.5893,
+    "bottleneck": 0.2005,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -5694,14 +5694,14 @@
       "52202"
     ],
     "confidence": {
-      "score": 0.7148,
+      "score": 0.7298,
       "level": "high",
       "crosswalk_quality": 0.9019,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8029,
       "source_coverage": 0.82,
       "signal_agreement": 0.45,
-      "sensitivity": 0.75,
+      "sensitivity": 0.85,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -5710,10 +5710,10 @@
   {
     "canonicalCode": "5230",
     "canonicalTitle": "Cashier (general)",
-    "structuralPressure": 0.411,
+    "structuralPressure": 0.38545,
     "structuralBand": "high",
     "exposure": 0.4226,
-    "bottleneck": 0.0276,
+    "bottleneck": 0.0989,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -5737,10 +5737,10 @@
   {
     "canonicalCode": "5242",
     "canonicalTitle": "Sales demonstrator",
-    "structuralPressure": 0.2782,
+    "structuralPressure": 0.28215,
     "structuralBand": "moderate",
     "exposure": 0.2785,
-    "bottleneck": 0.0009,
+    "bottleneck": 0.0045,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -5764,10 +5764,10 @@
   {
     "canonicalCode": "5244",
     "canonicalTitle": "Telemarketer",
-    "structuralPressure": 0.8815,
+    "structuralPressure": 0.9101,
     "structuralBand": "very_high",
     "exposure": 0.891,
-    "bottleneck": 0.0107,
+    "bottleneck": 0,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -5790,10 +5790,10 @@
   {
     "canonicalCode": "5249",
     "canonicalTitle": "Petrol station attendant",
-    "structuralPressure": 0.4267,
+    "structuralPressure": 0.40795000000000003,
     "structuralBand": "high",
-    "exposure": 0.4572,
-    "bottleneck": 0.0668,
+    "exposure": 0.4554,
+    "bottleneck": 0.1132,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -5817,10 +5817,10 @@
   {
     "canonicalCode": "5311",
     "canonicalTitle": "Educarer",
-    "structuralPressure": 0.1224,
+    "structuralPressure": 0.10765,
     "structuralBand": "low",
     "exposure": 0.2016,
-    "bottleneck": 0.393,
+    "bottleneck": 0.4661,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -5828,14 +5828,14 @@
       "53115"
     ],
     "confidence": {
-      "score": 0.89015,
+      "score": 0.8751500000000001,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.675,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.85,
-      "sensitivity": 0.85,
+      "sensitivity": 0.75,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -5844,10 +5844,10 @@
   {
     "canonicalCode": "5312",
     "canonicalTitle": "Teacher aide",
-    "structuralPressure": 0.2011,
+    "structuralPressure": 0.1507,
     "structuralBand": "moderate",
-    "exposure": 0.3461,
-    "bottleneck": 0.4189,
+    "exposure": 0.3436,
+    "bottleneck": 0.5615,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -5870,10 +5870,10 @@
   {
     "canonicalCode": "5320",
     "canonicalTitle": "Dental aide/assistant",
-    "structuralPressure": 0.2286,
+    "structuralPressure": 0.17236666666666667,
     "structuralBand": "moderate",
     "exposure": 0.3411,
-    "bottleneck": 0.3298,
+    "bottleneck": 0.4973,
     "structuralFootprint": 3,
     "sourceOccupationCount": 3,
     "sourceOccupationCodes": [
@@ -5882,9 +5882,9 @@
       "53203"
     ],
     "confidence": {
-      "score": 0.6493,
+      "score": 0.6463,
       "level": "medium",
-      "crosswalk_quality": 0.3002,
+      "crosswalk_quality": 0.2881,
       "market_data_granularity": 0.6999999999999998,
       "source_freshness": 0.8028999999999998,
       "source_coverage": 0.82,
@@ -5898,19 +5898,19 @@
   {
     "canonicalCode": "5412",
     "canonicalTitle": "Auxiliary police officer",
-    "structuralPressure": 0.0477,
+    "structuralPressure": 0.0446,
     "structuralBand": "very_low",
-    "exposure": 0.1194,
-    "bottleneck": 0.6007,
+    "exposure": 0.1199,
+    "bottleneck": 0.6346,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "54123"
     ],
     "confidence": {
-      "score": 0.7773,
+      "score": 0.7688,
       "level": "high",
-      "crosswalk_quality": 0.5937,
+      "crosswalk_quality": 0.5596,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -5924,10 +5924,10 @@
   {
     "canonicalCode": "5414",
     "canonicalTitle": "Security supervisor",
-    "structuralPressure": 0.0979,
+    "structuralPressure": 0.0672,
     "structuralBand": "low",
     "exposure": 0.1632,
-    "bottleneck": 0.4002,
+    "bottleneck": 0.5909,
     "structuralFootprint": 4,
     "sourceOccupationCount": 4,
     "sourceOccupationCodes": [
@@ -5953,10 +5953,10 @@
   {
     "canonicalCode": "5415",
     "canonicalTitle": "Lifeguard",
-    "structuralPressure": 0.0805,
+    "structuralPressure": 0.0579,
     "structuralBand": "low",
     "exposure": 0.1717,
-    "bottleneck": 0.5312,
+    "bottleneck": 0.6631,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -5979,47 +5979,20 @@
   {
     "canonicalCode": "5419",
     "canonicalTitle": "Insurance investigator",
-    "structuralPressure": 0.2301,
+    "structuralPressure": 0.258,
     "structuralBand": "moderate",
-    "exposure": 0.3731,
-    "bottleneck": 0.3832,
+    "exposure": 0.3718,
+    "bottleneck": 0.328,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "54193"
     ],
     "confidence": {
-      "score": 0.8039,
+      "score": 0.8339,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.7,
-      "source_freshness": 0.8387,
-      "source_coverage": 1,
-      "signal_agreement": 0.45,
-      "sensitivity": 0.65,
-      "exposure_source_count": 4
-    },
-    "confidenceLevel": "high",
-    "dataVintage": "Global structural baseline v7"
-  },
-  {
-    "canonicalCode": "6113",
-    "canonicalTitle": "Gardener and horticultural worker",
-    "structuralPressure": 0.1465,
-    "structuralBand": "low",
-    "exposure": 0.2366,
-    "bottleneck": 0.3806,
-    "structuralFootprint": 2,
-    "sourceOccupationCount": 2,
-    "sourceOccupationCodes": [
-      "61131",
-      "61133"
-    ],
-    "confidence": {
-      "score": 0.8264,
-      "level": "high",
-      "crosswalk_quality": 1,
-      "market_data_granularity": 0.65,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.45,
@@ -6030,21 +6003,48 @@
     "dataVintage": "Global structural baseline v7"
   },
   {
+    "canonicalCode": "6113",
+    "canonicalTitle": "Gardener and horticultural worker",
+    "structuralPressure": 0.1604,
+    "structuralBand": "moderate",
+    "exposure": 0.2353,
+    "bottleneck": 0.3182,
+    "structuralFootprint": 2,
+    "sourceOccupationCount": 2,
+    "sourceOccupationCodes": [
+      "61131",
+      "61133"
+    ],
+    "confidence": {
+      "score": 0.8114,
+      "level": "high",
+      "crosswalk_quality": 1,
+      "market_data_granularity": 0.65,
+      "source_freshness": 0.8387,
+      "source_coverage": 1,
+      "signal_agreement": 0.45,
+      "sensitivity": 0.75,
+      "exposure_source_count": 4
+    },
+    "confidenceLevel": "high",
+    "dataVintage": "Global structural baseline v7"
+  },
+  {
     "canonicalCode": "6221",
     "canonicalTitle": "Aquarium fish farm worker",
-    "structuralPressure": 0.0689,
-    "structuralBand": "low",
+    "structuralPressure": 0.0444,
+    "structuralBand": "very_low",
     "exposure": 0.1068,
-    "bottleneck": 0.3547,
+    "bottleneck": 0.5847,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "62212"
     ],
     "confidence": {
-      "score": 0.773,
-      "level": "high",
-      "crosswalk_quality": 1,
+      "score": 0.673,
+      "level": "medium",
+      "crosswalk_quality": 0.6,
       "market_data_granularity": 0.65,
       "source_freshness": 0.7549,
       "source_coverage": 0.55,
@@ -6052,30 +6052,30 @@
       "sensitivity": 0.65,
       "exposure_source_count": 4
     },
-    "confidenceLevel": "high",
+    "confidenceLevel": "medium",
     "dataVintage": "Global structural baseline v7"
   },
   {
     "canonicalCode": "7100",
     "canonicalTitle": "Supervisor/General foreman (building and related trades)",
-    "structuralPressure": 0.03,
+    "structuralPressure": 0.0181,
     "structuralBand": "very_low",
     "exposure": 0.3908,
-    "bottleneck": 0.9234,
+    "bottleneck": 0.9537,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "71000"
     ],
     "confidence": {
-      "score": 0.7643,
+      "score": 0.7943,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8029,
       "source_coverage": 0.82,
       "signal_agreement": 0.45,
-      "sensitivity": 0.65,
+      "sensitivity": 0.85,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -6084,10 +6084,10 @@
   {
     "canonicalCode": "7115",
     "canonicalTitle": "Joiner",
-    "structuralPressure": 0.014,
+    "structuralPressure": 0.0201,
     "structuralBand": "very_low",
     "exposure": 0.089,
-    "bottleneck": 0.8422,
+    "bottleneck": 0.7745,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -6111,19 +6111,19 @@
   {
     "canonicalCode": "7122",
     "canonicalTitle": "Floor/Wall tiler",
-    "structuralPressure": 0.0607,
+    "structuralPressure": 0.0577,
     "structuralBand": "low",
     "exposure": 0.0707,
-    "bottleneck": 0.1408,
+    "bottleneck": 0.1836,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "71220"
     ],
     "confidence": {
-      "score": 0.7411,
+      "score": 0.7438,
       "level": "high",
-      "crosswalk_quality": 0.4489,
+      "crosswalk_quality": 0.4598,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -6137,19 +6137,19 @@
   {
     "canonicalCode": "7126",
     "canonicalTitle": "Plumber",
-    "structuralPressure": 0.0175,
+    "structuralPressure": 0.0188,
     "structuralBand": "very_low",
     "exposure": 0.1293,
-    "bottleneck": 0.8645,
+    "bottleneck": 0.8556,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "71261"
     ],
     "confidence": {
-      "score": 0.8226,
+      "score": 0.8257,
       "level": "high",
-      "crosswalk_quality": 0.8748,
+      "crosswalk_quality": 0.8875,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -6163,19 +6163,19 @@
   {
     "canonicalCode": "7127",
     "canonicalTitle": "Air-conditioning/Refrigeration equipment mechanic",
-    "structuralPressure": 0.0668,
+    "structuralPressure": 0.0807,
     "structuralBand": "low",
     "exposure": 0.1695,
-    "bottleneck": 0.6061,
+    "bottleneck": 0.5276,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "71271"
     ],
     "confidence": {
-      "score": 0.5845,
+      "score": 0.5792,
       "level": "medium",
-      "crosswalk_quality": 0.3125,
+      "crosswalk_quality": 0.2914,
       "market_data_granularity": 0.65,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -6189,10 +6189,10 @@
   {
     "canonicalCode": "7131",
     "canonicalTitle": "Building painter",
-    "structuralPressure": 0.3782,
+    "structuralPressure": 0.3809,
     "structuralBand": "high",
     "exposure": 0.3871,
-    "bottleneck": 0.0232,
+    "bottleneck": 0.016,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -6215,24 +6215,24 @@
   {
     "canonicalCode": "7133",
     "canonicalTitle": "Building maintenance worker",
-    "structuralPressure": 0.0235,
+    "structuralPressure": 0.0386,
     "structuralBand": "very_low",
-    "exposure": 0.0982,
-    "bottleneck": 0.7611,
+    "exposure": 0.0988,
+    "bottleneck": 0.6096,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "71331"
     ],
     "confidence": {
-      "score": 0.853,
+      "score": 0.823,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.7,
       "source_freshness": 0.7897,
       "source_coverage": 0.82,
       "signal_agreement": 0.85,
-      "sensitivity": 0.85,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -6241,24 +6241,24 @@
   {
     "canonicalCode": "7200",
     "canonicalTitle": "Supervisor/General foreman (metal, machinery and related trades)",
-    "structuralPressure": 0.1107,
-    "structuralBand": "low",
-    "exposure": 0.3138,
-    "bottleneck": 0.6471,
+    "structuralPressure": 0.0362,
+    "structuralBand": "very_low",
+    "exposure": 0.3126,
+    "bottleneck": 0.8841,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "72000"
     ],
     "confidence": {
-      "score": 0.7943,
+      "score": 0.7643,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8029,
       "source_coverage": 0.82,
       "signal_agreement": 0.45,
-      "sensitivity": 0.85,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -6267,24 +6267,24 @@
   {
     "canonicalCode": "7211",
     "canonicalTitle": "Metal moulder and coremaker",
-    "structuralPressure": 0.1,
+    "structuralPressure": 0.0826,
     "structuralBand": "low",
     "exposure": 0.1299,
-    "bottleneck": 0.2299,
+    "bottleneck": 0.3636,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "72110"
     ],
     "confidence": {
-      "score": 0.8414,
+      "score": 0.8789,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.95,
-      "sensitivity": 0.4,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -6293,10 +6293,10 @@
   {
     "canonicalCode": "7212",
     "canonicalTitle": "Welder and flame cutter",
-    "structuralPressure": 0.0667,
+    "structuralPressure": 0.0693,
     "structuralBand": "low",
     "exposure": 0.074,
-    "bottleneck": 0.098,
+    "bottleneck": 0.0624,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -6319,10 +6319,10 @@
   {
     "canonicalCode": "7222",
     "canonicalTitle": "Locksmith",
-    "structuralPressure": 0.1237,
+    "structuralPressure": 0.1022,
     "structuralBand": "low",
     "exposure": 0.1606,
-    "bottleneck": 0.2299,
+    "bottleneck": 0.3636,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -6330,14 +6330,14 @@
       "72222"
     ],
     "confidence": {
-      "score": 0.8564,
+      "score": 0.87515,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.675,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.95,
-      "sensitivity": 0.525,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -6346,10 +6346,10 @@
   {
     "canonicalCode": "7231",
     "canonicalTitle": "Automotive mechanic",
-    "structuralPressure": 0.0442,
+    "structuralPressure": 0.0456,
     "structuralBand": "very_low",
     "exposure": 0.1126,
-    "bottleneck": 0.6078,
+    "bottleneck": 0.5954,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -6372,10 +6372,10 @@
   {
     "canonicalCode": "7239",
     "canonicalTitle": "Machinery mechanic",
-    "structuralPressure": 0.0763,
+    "structuralPressure": 0.1226,
     "structuralBand": "low",
     "exposure": 0.1897,
-    "bottleneck": 0.598,
+    "bottleneck": 0.3592,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -6383,14 +6383,14 @@
       "72392"
     ],
     "confidence": {
-      "score": 0.73375,
+      "score": 0.74095,
       "level": "high",
-      "crosswalk_quality": 0.8128,
+      "crosswalk_quality": 0.7815,
       "market_data_granularity": 0.675,
       "source_freshness": 0.8029,
       "source_coverage": 0.82,
       "signal_agreement": 0.85,
-      "sensitivity": 0.65,
+      "sensitivity": 0.75,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -6399,24 +6399,24 @@
   {
     "canonicalCode": "7300",
     "canonicalTitle": "Supervisor/General foreman (precision, handicraft, printing and related trades)",
-    "structuralPressure": 0.1107,
-    "structuralBand": "low",
-    "exposure": 0.3138,
-    "bottleneck": 0.6471,
+    "structuralPressure": 0.0363,
+    "structuralBand": "very_low",
+    "exposure": 0.3126,
+    "bottleneck": 0.8841,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "73000"
     ],
     "confidence": {
-      "score": 0.7943,
+      "score": 0.7643,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8029,
       "source_coverage": 0.82,
       "signal_agreement": 0.45,
-      "sensitivity": 0.85,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -6425,10 +6425,10 @@
   {
     "canonicalCode": "7311",
     "canonicalTitle": "Medical device assembler/repairer",
-    "structuralPressure": 0.1728,
+    "structuralPressure": 0.1683,
     "structuralBand": "moderate",
-    "exposure": 0.1945,
-    "bottleneck": 0.1114,
+    "exposure": 0.1936,
+    "bottleneck": 0.131,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -6452,24 +6452,24 @@
   {
     "canonicalCode": "7321",
     "canonicalTitle": "Pre-press trades worker",
-    "structuralPressure": 0.4001,
+    "structuralPressure": 0.4219,
     "structuralBand": "high",
-    "exposure": 0.4521,
-    "bottleneck": 0.115,
+    "exposure": 0.4513,
+    "bottleneck": 0.0651,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "73210"
     ],
     "confidence": {
-      "score": 0.5139,
+      "score": 0.5439,
       "level": "medium",
       "crosswalk_quality": 0,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.65,
+      "sensitivity": 0.85,
       "exposure_source_count": 4
     },
     "confidenceLevel": "medium",
@@ -6478,10 +6478,10 @@
   {
     "canonicalCode": "7400",
     "canonicalTitle": "Lift supervisor",
-    "structuralPressure": 0.0352,
-    "structuralBand": "very_low",
-    "exposure": 0.5124,
-    "bottleneck": 0.9314,
+    "structuralPressure": 0.06535,
+    "structuralBand": "low",
+    "exposure": 0.5107,
+    "bottleneck": 0.8725,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -6505,10 +6505,10 @@
   {
     "canonicalCode": "7411",
     "canonicalTitle": "Electrician",
-    "structuralPressure": 0.0156,
+    "structuralPressure": 0.0118,
     "structuralBand": "very_low",
-    "exposure": 0.1349,
-    "bottleneck": 0.8841,
+    "exposure": 0.1353,
+    "bottleneck": 0.9127,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -6531,10 +6531,10 @@
   {
     "canonicalCode": "7412",
     "canonicalTitle": "Electrical fitter",
-    "structuralPressure": 0.072,
+    "structuralPressure": 0.07526666666666666,
     "structuralBand": "low",
-    "exposure": 0.21329999999999996,
-    "bottleneck": 0.6622,
+    "exposure": 0.2137,
+    "bottleneck": 0.6515,
     "structuralFootprint": 3,
     "sourceOccupationCount": 3,
     "sourceOccupationCodes": [
@@ -6559,24 +6559,24 @@
   {
     "canonicalCode": "7500",
     "canonicalTitle": "Supervisor/General foreman (food processing, woodworking, garment, leather and related trades)",
-    "structuralPressure": 0.1107,
-    "structuralBand": "low",
-    "exposure": 0.3138,
-    "bottleneck": 0.6471,
+    "structuralPressure": 0.0362,
+    "structuralBand": "very_low",
+    "exposure": 0.3126,
+    "bottleneck": 0.8841,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "75000"
     ],
     "confidence": {
-      "score": 0.7943,
+      "score": 0.7643,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8029,
       "source_coverage": 0.82,
       "signal_agreement": 0.45,
-      "sensitivity": 0.85,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -6585,10 +6585,10 @@
   {
     "canonicalCode": "7511",
     "canonicalTitle": "Butcher, fishmonger and related food preparer",
-    "structuralPressure": 0.1082,
+    "structuralPressure": 0.1106,
     "structuralBand": "low",
-    "exposure": 0.1251,
-    "bottleneck": 0.1355,
+    "exposure": 0.1256,
+    "bottleneck": 0.1194,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -6611,10 +6611,10 @@
   {
     "canonicalCode": "7512",
     "canonicalTitle": "Baker",
-    "structuralPressure": 0.158,
+    "structuralPressure": 0.1605,
     "structuralBand": "moderate",
     "exposure": 0.1757,
-    "bottleneck": 0.1007,
+    "bottleneck": 0.0865,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -6638,19 +6638,19 @@
   {
     "canonicalCode": "7531",
     "canonicalTitle": "Tailor/Dressmaker",
-    "structuralPressure": 0.0952,
+    "structuralPressure": 0.094,
     "structuralBand": "low",
     "exposure": 0.0976,
-    "bottleneck": 0.025,
+    "bottleneck": 0.0428,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "75310"
     ],
     "confidence": {
-      "score": 0.815,
+      "score": 0.8295,
       "level": "high",
-      "crosswalk_quality": 0.8945,
+      "crosswalk_quality": 0.9523,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -6664,10 +6664,10 @@
   {
     "canonicalCode": "7541",
     "canonicalTitle": "Underwater diver",
-    "structuralPressure": 0.0194,
+    "structuralPressure": 0.0225,
     "structuralBand": "very_low",
     "exposure": 0.1145,
-    "bottleneck": 0.8307,
+    "bottleneck": 0.8039,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -6690,10 +6690,10 @@
   {
     "canonicalCode": "7544",
     "canonicalTitle": "Fumigator and other pest and weed controller",
-    "structuralPressure": 0.0585,
-    "structuralBand": "low",
+    "structuralPressure": 0.0352,
+    "structuralBand": "very_low",
     "exposure": 0.0712,
-    "bottleneck": 0.1783,
+    "bottleneck": 0.5187,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -6716,10 +6716,10 @@
   {
     "canonicalCode": "8100",
     "canonicalTitle": "Stationary plant and machine supervisor/general foreman",
-    "structuralPressure": 0.1107,
-    "structuralBand": "low",
-    "exposure": 0.3138,
-    "bottleneck": 0.6471,
+    "structuralPressure": 0.0366,
+    "structuralBand": "very_low",
+    "exposure": 0.3126,
+    "bottleneck": 0.8841,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -6742,10 +6742,10 @@
   {
     "canonicalCode": "8121",
     "canonicalTitle": "Metal melter, caster and rolling mill operator",
-    "structuralPressure": 0.0964,
+    "structuralPressure": 0.0944,
     "structuralBand": "low",
     "exposure": 0.1839,
-    "bottleneck": 0.4759,
+    "bottleneck": 0.4866,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -6768,19 +6768,19 @@
   {
     "canonicalCode": "8122",
     "canonicalTitle": "Metal heat treating plant operator",
-    "structuralPressure": 0.1021,
+    "structuralPressure": 0.1056,
     "structuralBand": "low",
     "exposure": 0.1099,
-    "bottleneck": 0.0713,
+    "bottleneck": 0.0392,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "81220"
     ],
     "confidence": {
-      "score": 0.8354,
+      "score": 0.8218,
       "level": "high",
-      "crosswalk_quality": 0.8261,
+      "crosswalk_quality": 0.7716,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -6794,10 +6794,10 @@
   {
     "canonicalCode": "8125",
     "canonicalTitle": "Metalworking machine setter-operator",
-    "structuralPressure": 0.1007,
+    "structuralPressure": 0.10605,
     "structuralBand": "low",
     "exposure": 0.1065,
-    "bottleneck": 0.0544,
+    "bottleneck": 0.0098,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -6805,9 +6805,9 @@
       "81252"
     ],
     "confidence": {
-      "score": 0.7695,
+      "score": 0.7711,
       "level": "high",
-      "crosswalk_quality": 0.9482,
+      "crosswalk_quality": 0.9548,
       "market_data_granularity": 0.7,
       "source_freshness": 0.7744,
       "source_coverage": 0.55,
@@ -6821,10 +6821,10 @@
   {
     "canonicalCode": "8150",
     "canonicalTitle": "Sewing machine operator",
-    "structuralPressure": 0.1118,
+    "structuralPressure": 0.1114,
     "structuralBand": "low",
     "exposure": 0.1122,
-    "bottleneck": 0.0036,
+    "bottleneck": 0.0071,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -6847,19 +6847,19 @@
   {
     "canonicalCode": "8160",
     "canonicalTitle": "Dairy and confectionery products machine operator",
-    "structuralPressure": 0.1198,
+    "structuralPressure": 0.1153,
     "structuralBand": "low",
     "exposure": 0.1278,
-    "bottleneck": 0.0624,
+    "bottleneck": 0.1034,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "81602"
     ],
     "confidence": {
-      "score": 0.7906,
+      "score": 0.782,
       "level": "high",
-      "crosswalk_quality": 0.6468,
+      "crosswalk_quality": 0.6124,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -6873,19 +6873,19 @@
   {
     "canonicalCode": "8183",
     "canonicalTitle": "Packing/Bottling/Labelling machine operator",
-    "structuralPressure": 0.0892,
+    "structuralPressure": 0.0884,
     "structuralBand": "low",
     "exposure": 0.1027,
-    "bottleneck": 0.1319,
+    "bottleneck": 0.1462,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "81830"
     ],
     "confidence": {
-      "score": 0.8347,
+      "score": 0.8432,
       "level": "high",
-      "crosswalk_quality": 0.8233,
+      "crosswalk_quality": 0.8573,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -6899,10 +6899,10 @@
   {
     "canonicalCode": "8184",
     "canonicalTitle": "Printing machine operator",
-    "structuralPressure": 0.3627,
+    "structuralPressure": 0.3853,
     "structuralBand": "high",
-    "exposure": 0.4098,
-    "bottleneck": 0.115,
+    "exposure": 0.4087,
+    "bottleneck": 0.0651,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -6925,10 +6925,10 @@
   {
     "canonicalCode": "8200",
     "canonicalTitle": "Supervisor/General foreman of assemblers and quality checkers",
-    "structuralPressure": 0.1107,
-    "structuralBand": "low",
-    "exposure": 0.3138,
-    "bottleneck": 0.6471,
+    "structuralPressure": 0.0362,
+    "structuralBand": "very_low",
+    "exposure": 0.3126,
+    "bottleneck": 0.8841,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -6951,19 +6951,19 @@
   {
     "canonicalCode": "8211",
     "canonicalTitle": "Mechanical equipment/component assembler",
-    "structuralPressure": 0.2381,
+    "structuralPressure": 0.2476,
     "structuralBand": "moderate",
     "exposure": 0.2806,
-    "bottleneck": 0.1515,
+    "bottleneck": 0.1176,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "82110"
     ],
     "confidence": {
-      "score": 0.6752,
+      "score": 0.6802,
       "level": "medium",
-      "crosswalk_quality": 0.6322,
+      "crosswalk_quality": 0.652,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8317,
       "source_coverage": 0.82,
@@ -6977,10 +6977,10 @@
   {
     "canonicalCode": "8212",
     "canonicalTitle": "Electronic equipment/component assembler",
-    "structuralPressure": 0.1545,
+    "structuralPressure": 0.1589,
     "structuralBand": "moderate",
     "exposure": 0.1733,
-    "bottleneck": 0.1087,
+    "bottleneck": 0.1016,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -7003,23 +7003,23 @@
   {
     "canonicalCode": "8213",
     "canonicalTitle": "Mechanical products quality checker and tester",
-    "structuralPressure": 0.2274,
+    "structuralPressure": 0.2293,
     "structuralBand": "moderate",
-    "exposure": 0.2866,
-    "bottleneck": 0.2068,
+    "exposure": 0.2628,
+    "bottleneck": 0.1337,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "82132"
     ],
     "confidence": {
-      "score": 0.5174,
+      "score": 0.4574,
       "level": "medium",
       "crosswalk_quality": 0,
       "market_data_granularity": 0.7,
       "source_freshness": 0.7744,
       "source_coverage": 0.55,
-      "signal_agreement": 0.85,
+      "signal_agreement": 0.45,
       "sensitivity": 0.65,
       "exposure_source_count": 4
     },
@@ -7029,19 +7029,19 @@
   {
     "canonicalCode": "8300",
     "canonicalTitle": "Mobile machinery supervisor and general foreman",
-    "structuralPressure": 0.1123,
-    "structuralBand": "low",
+    "structuralPressure": 0.029,
+    "structuralBand": "very_low",
     "exposure": 0.2107,
-    "bottleneck": 0.467,
+    "bottleneck": 0.8636,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "83000"
     ],
     "confidence": {
-      "score": 0.6943,
+      "score": 0.6897,
       "level": "medium",
-      "crosswalk_quality": 0.6,
+      "crosswalk_quality": 0.5818,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8029,
       "source_coverage": 0.82,
@@ -7055,19 +7055,19 @@
   {
     "canonicalCode": "8311",
     "canonicalTitle": "Train operator",
-    "structuralPressure": 0.046,
+    "structuralPressure": 0.0436,
     "structuralBand": "very_low",
-    "exposure": 0.1871,
-    "bottleneck": 0.754,
+    "exposure": 0.1875,
+    "bottleneck": 0.7701,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "83110"
     ],
     "confidence": {
-      "score": 0.7816,
+      "score": 0.7854,
       "level": "high",
-      "crosswalk_quality": 0.641,
+      "crosswalk_quality": 0.6563,
       "market_data_granularity": 0.65,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -7081,10 +7081,10 @@
   {
     "canonicalCode": "8321",
     "canonicalTitle": "Motorcycle delivery man",
-    "structuralPressure": 0.1848,
+    "structuralPressure": 0.15325,
     "structuralBand": "moderate",
     "exposure": 0.252,
-    "bottleneck": 0.2665,
+    "bottleneck": 0.393,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -7092,9 +7092,9 @@
       "83212"
     ],
     "confidence": {
-      "score": 0.7174,
+      "score": 0.7228,
       "level": "high",
-      "crosswalk_quality": 0.5442,
+      "crosswalk_quality": 0.5656,
       "market_data_granularity": 0.75,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -7108,10 +7108,10 @@
   {
     "canonicalCode": "8322",
     "canonicalTitle": "Chauffeur",
-    "structuralPressure": 0.1336,
+    "structuralPressure": 0.0994,
     "structuralBand": "low",
     "exposure": 0.2133,
-    "bottleneck": 0.3734,
+    "bottleneck": 0.5339,
     "structuralFootprint": 4,
     "sourceOccupationCount": 4,
     "sourceOccupationCodes": [
@@ -7121,14 +7121,14 @@
       "83225"
     ],
     "confidence": {
-      "score": 0.9164,
+      "score": 0.8864,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.75,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.95,
-      "sensitivity": 0.85,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -7137,24 +7137,24 @@
   {
     "canonicalCode": "8331",
     "canonicalTitle": "Bus driver",
-    "structuralPressure": 0.1484,
+    "structuralPressure": 0.1343,
     "structuralBand": "low",
     "exposure": 0.172,
-    "bottleneck": 0.1373,
+    "bottleneck": 0.2193,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "83311"
     ],
     "confidence": {
-      "score": 0.7919,
+      "score": 0.8106,
       "level": "high",
-      "crosswalk_quality": 0.952,
+      "crosswalk_quality": 0.9068,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.65,
+      "sensitivity": 0.85,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -7163,10 +7163,10 @@
   {
     "canonicalCode": "8332",
     "canonicalTitle": "Lorry driver",
-    "structuralPressure": 0.1808,
-    "structuralBand": "moderate",
+    "structuralPressure": 0.1496,
+    "structuralBand": "low",
     "exposure": 0.2465,
-    "bottleneck": 0.2665,
+    "bottleneck": 0.393,
     "structuralFootprint": 4,
     "sourceOccupationCount": 4,
     "sourceOccupationCodes": [
@@ -7176,14 +7176,14 @@
       "83324"
     ],
     "confidence": {
-      "score": 0.70615,
+      "score": 0.71905,
       "level": "high",
-      "crosswalk_quality": 0.5442,
+      "crosswalk_quality": 0.5656,
       "market_data_granularity": 0.6749999999999999,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.85,
-      "sensitivity": 0.65,
+      "sensitivity": 0.7,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -7192,10 +7192,10 @@
   {
     "canonicalCode": "8342",
     "canonicalTitle": "Excavating/Trench digging machine operator",
-    "structuralPressure": 0.0479,
+    "structuralPressure": 0.0472,
     "structuralBand": "very_low",
     "exposure": 0.0923,
-    "bottleneck": 0.4813,
+    "bottleneck": 0.4884,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -7218,10 +7218,10 @@
   {
     "canonicalCode": "8343",
     "canonicalTitle": "Crane operator (on-site)",
-    "structuralPressure": 0.0385,
+    "structuralPressure": 0.0334,
     "structuralBand": "very_low",
     "exposure": 0.0836,
-    "bottleneck": 0.5392,
+    "bottleneck": 0.5998,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -7229,14 +7229,14 @@
       "83432"
     ],
     "confidence": {
-      "score": 0.7677,
+      "score": 0.7858,
       "level": "high",
-      "crosswalk_quality": 0.5552,
+      "crosswalk_quality": 0.5678,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.95,
-      "sensitivity": 0.65,
+      "sensitivity": 0.75,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -7245,19 +7245,19 @@
   {
     "canonicalCode": "8344",
     "canonicalTitle": "Fork lift truck operator",
-    "structuralPressure": 0.0754,
+    "structuralPressure": 0.0793,
     "structuralBand": "low",
     "exposure": 0.0995,
-    "bottleneck": 0.2424,
+    "bottleneck": 0.2032,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "83441"
     ],
     "confidence": {
-      "score": 0.8568,
+      "score": 0.857,
       "level": "high",
-      "crosswalk_quality": 0.9115,
+      "crosswalk_quality": 0.9125,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -7271,10 +7271,10 @@
   {
     "canonicalCode": "8349",
     "canonicalTitle": "Airport mobile equipment operator",
-    "structuralPressure": 0.0401,
+    "structuralPressure": 0.0329,
     "structuralBand": "very_low",
     "exposure": 0.0726,
-    "bottleneck": 0.4474,
+    "bottleneck": 0.5472,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -7297,10 +7297,10 @@
   {
     "canonicalCode": "8350",
     "canonicalTitle": "Deckhand (including lighterman)",
-    "structuralPressure": 0.0098,
+    "structuralPressure": 0.0094,
     "structuralBand": "very_low",
-    "exposure": 0.0942,
-    "bottleneck": 0.8957,
+    "exposure": 0.0946,
+    "bottleneck": 0.9011,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -7308,9 +7308,9 @@
       "83502"
     ],
     "confidence": {
-      "score": 0.7133,
+      "score": 0.7099,
       "level": "high",
-      "crosswalk_quality": 0.2178,
+      "crosswalk_quality": 0.2042,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -7324,19 +7324,19 @@
   {
     "canonicalCode": "9100",
     "canonicalTitle": "Cleaning supervisor",
-    "structuralPressure": 0.063,
+    "structuralPressure": 0.0767,
     "structuralBand": "low",
     "exposure": 0.3515,
-    "bottleneck": 0.8209,
+    "bottleneck": 0.7816,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "91000"
     ],
     "confidence": {
-      "score": 0.6958,
+      "score": 0.6937,
       "level": "medium",
-      "crosswalk_quality": 0.8862,
+      "crosswalk_quality": 0.8775,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8029,
       "source_coverage": 0.82,
@@ -7350,10 +7350,10 @@
   {
     "canonicalCode": "9112",
     "canonicalTitle": "Hotel cleaner",
-    "structuralPressure": 0.0457,
+    "structuralPressure": 0.045,
     "structuralBand": "very_low",
     "exposure": 0.0496,
-    "bottleneck": 0.0784,
+    "bottleneck": 0.0927,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -7361,9 +7361,9 @@
       "91122"
     ],
     "confidence": {
-      "score": 0.8549,
+      "score": 0.8372,
       "level": "high",
-      "crosswalk_quality": 0.9039,
+      "crosswalk_quality": 0.8334,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -7377,10 +7377,10 @@
   {
     "canonicalCode": "9113",
     "canonicalTitle": "Office, commercial and industrial establishments indoor cleaner",
-    "structuralPressure": 0.0567,
+    "structuralPressure": 0.0562,
     "structuralBand": "low",
     "exposure": 0.0615,
-    "bottleneck": 0.0784,
+    "bottleneck": 0.0927,
     "structuralFootprint": 3,
     "sourceOccupationCount": 3,
     "sourceOccupationCodes": [
@@ -7389,9 +7389,9 @@
       "91133"
     ],
     "confidence": {
-      "score": 0.8153,
+      "score": 0.7976,
       "level": "high",
-      "crosswalk_quality": 0.9039,
+      "crosswalk_quality": 0.8334,
       "market_data_granularity": 0.6999999999999998,
       "source_freshness": 0.8028999999999998,
       "source_coverage": 0.82,
@@ -7405,10 +7405,10 @@
   {
     "canonicalCode": "9115",
     "canonicalTitle": "Dishwasher",
-    "structuralPressure": 0.056100000000000004,
+    "structuralPressure": 0.0555,
     "structuralBand": "low",
     "exposure": 0.0569,
-    "bottleneck": 0.0143,
+    "bottleneck": 0.025000000000000005,
     "structuralFootprint": 3,
     "sourceOccupationCount": 3,
     "sourceOccupationCodes": [
@@ -7417,9 +7417,9 @@
       "91153"
     ],
     "confidence": {
-      "score": 0.7648,
+      "score": 0.7656,
       "level": "high",
-      "crosswalk_quality": 0.7018999999999999,
+      "crosswalk_quality": 0.7054,
       "market_data_granularity": 0.6999999999999998,
       "source_freshness": 0.8028999999999998,
       "source_coverage": 0.82,
@@ -7433,19 +7433,19 @@
   {
     "canonicalCode": "9116",
     "canonicalTitle": "Residential and open areas general cleaner",
-    "structuralPressure": 0.0524,
-    "structuralBand": "low",
+    "structuralPressure": 0.0468,
+    "structuralBand": "very_low",
     "exposure": 0.0585,
-    "bottleneck": 0.1034,
+    "bottleneck": 0.205,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "91161"
     ],
     "confidence": {
-      "score": 0.7319,
+      "score": 0.7305,
       "level": "high",
-      "crosswalk_quality": 0.5705,
+      "crosswalk_quality": 0.5647,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8029,
       "source_coverage": 0.82,
@@ -7459,10 +7459,10 @@
   {
     "canonicalCode": "9121",
     "canonicalTitle": "Hand launderer/presser (non-household)",
-    "structuralPressure": 0.0583,
+    "structuralPressure": 0.0664,
     "structuralBand": "low",
     "exposure": 0.0811,
-    "bottleneck": 0.2816,
+    "bottleneck": 0.1818,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -7485,10 +7485,10 @@
   {
     "canonicalCode": "9122",
     "canonicalTitle": "Motor vehicle cleaner/polisher",
-    "structuralPressure": 0.0677,
+    "structuralPressure": 0.0643,
     "structuralBand": "low",
     "exposure": 0.0718,
-    "bottleneck": 0.057,
+    "bottleneck": 0.1052,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
@@ -7511,10 +7511,10 @@
   {
     "canonicalCode": "9214",
     "canonicalTitle": "Landscape worker",
-    "structuralPressure": 0.0477,
+    "structuralPressure": 0.0447,
     "structuralBand": "very_low",
     "exposure": 0.0574,
-    "bottleneck": 0.1684,
+    "bottleneck": 0.2219,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -7522,9 +7522,9 @@
       "92142"
     ],
     "confidence": {
-      "score": 0.6289,
+      "score": 0.6307,
       "level": "medium",
-      "crosswalk_quality": 0,
+      "crosswalk_quality": 0.0073,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
@@ -7538,7 +7538,7 @@
   {
     "canonicalCode": "9310",
     "canonicalTitle": "Civil engineering/Building construction labourer",
-    "structuralPressure": 0.0315,
+    "structuralPressure": 0.0317,
     "structuralBand": "very_low",
     "exposure": 0.0592,
     "bottleneck": 0.4688,
@@ -7548,9 +7548,9 @@
       "93100"
     ],
     "confidence": {
-      "score": 0.7264,
+      "score": 0.7251,
       "level": "high",
-      "crosswalk_quality": 0.5484,
+      "crosswalk_quality": 0.5434,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8029,
       "source_coverage": 0.82,
@@ -7564,19 +7564,19 @@
   {
     "canonicalCode": "9320",
     "canonicalTitle": "Hand packer",
-    "structuralPressure": 0.0742,
+    "structuralPressure": 0.0724,
     "structuralBand": "low",
     "exposure": 0.0853,
-    "bottleneck": 0.1301,
+    "bottleneck": 0.1515,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "93201"
     ],
     "confidence": {
-      "score": 0.7758,
+      "score": 0.7816,
       "level": "high",
-      "crosswalk_quality": 0.7459,
+      "crosswalk_quality": 0.7692,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8029,
       "source_coverage": 0.82,
@@ -7590,10 +7590,10 @@
   {
     "canonicalCode": "9333",
     "canonicalTitle": "Mover",
-    "structuralPressure": 0.0532,
+    "structuralPressure": 0.0525,
     "structuralBand": "low",
     "exposure": 0.0682,
-    "bottleneck": 0.2201,
+    "bottleneck": 0.2308,
     "structuralFootprint": 4,
     "sourceOccupationCount": 4,
     "sourceOccupationCodes": [
@@ -7619,10 +7619,10 @@
   {
     "canonicalCode": "9410",
     "canonicalTitle": "Kitchen assistant",
-    "structuralPressure": 0.1909,
+    "structuralPressure": 0.2057,
     "structuralBand": "moderate",
     "exposure": 0.2184,
-    "bottleneck": 0.1257,
+    "bottleneck": 0.0579,
     "structuralFootprint": 4,
     "sourceOccupationCount": 4,
     "sourceOccupationCodes": [
@@ -7648,10 +7648,10 @@
   {
     "canonicalCode": "9611",
     "canonicalTitle": "Waste recycling sorter",
-    "structuralPressure": 0.0716,
+    "structuralPressure": 0.08729999999999999,
     "structuralBand": "low",
     "exposure": 0.0935,
-    "bottleneck": 0.2344,
+    "bottleneck": 0.0686,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -7675,10 +7675,10 @@
   {
     "canonicalCode": "9621",
     "canonicalTitle": "Bell captain",
-    "structuralPressure": 0.3066,
+    "structuralPressure": 0.31456666666666666,
     "structuralBand": "high",
-    "exposure": 0.3482,
-    "bottleneck": 0.1194,
+    "exposure": 0.3486,
+    "bottleneck": 0.1087,
     "structuralFootprint": 3,
     "sourceOccupationCount": 3,
     "sourceOccupationCodes": [
@@ -7703,10 +7703,10 @@
   {
     "canonicalCode": "9625",
     "canonicalTitle": "Bus attendant",
-    "structuralPressure": 0.26699999999999996,
+    "structuralPressure": 0.24305,
     "structuralBand": "moderate",
     "exposure": 0.3176999999999999,
-    "bottleneck": 0.1595,
+    "bottleneck": 0.2398,
     "structuralFootprint": 6,
     "sourceOccupationCount": 6,
     "sourceOccupationCodes": [
@@ -7718,14 +7718,14 @@
       "96256"
     ],
     "confidence": {
-      "score": 0.7693,
+      "score": 0.7376333333333333,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.7000000000000001,
       "source_freshness": 0.8029000000000001,
       "source_coverage": 0.82,
       "signal_agreement": 0.45,
-      "sensitivity": 0.6833333333333332,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -7734,10 +7734,10 @@
   {
     "canonicalCode": "9626",
     "canonicalTitle": "Doorman",
-    "structuralPressure": 0.0883,
+    "structuralPressure": 0.0604,
     "structuralBand": "low",
     "exposure": 0.1192,
-    "bottleneck": 0.2594,
+    "bottleneck": 0.4929,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
@@ -7761,24 +7761,24 @@
   {
     "canonicalCode": "9627",
     "canonicalTitle": "Concierge (hotel)",
-    "structuralPressure": 0.4115,
-    "structuralBand": "high",
+    "structuralPressure": 0.5575,
+    "structuralBand": "very_high",
     "exposure": 0.675,
-    "bottleneck": 0.3904,
+    "bottleneck": 0.1854,
     "structuralFootprint": 1,
     "sourceOccupationCount": 1,
     "sourceOccupationCodes": [
       "96272"
     ],
     "confidence": {
-      "score": 0.8393,
+      "score": 0.8693,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8029,
       "source_coverage": 0.82,
       "signal_agreement": 0.95,
-      "sensitivity": 0.65,
+      "sensitivity": 0.85,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -7787,10 +7787,10 @@
   {
     "canonicalCode": "9629",
     "canonicalTitle": "Odd job person",
-    "structuralPressure": 0.1645,
+    "structuralPressure": 0.1768,
     "structuralBand": "moderate",
-    "exposure": 0.227,
-    "bottleneck": 0.2754,
+    "exposure": 0.2278,
+    "bottleneck": 0.2255,
     "structuralFootprint": 2,
     "sourceOccupationCount": 2,
     "sourceOccupationCodes": [
