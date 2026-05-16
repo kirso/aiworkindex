@@ -23,7 +23,7 @@
 			'@context': 'https://schema.org',
 			'@type': 'CollectionPage',
 			name: 'Occupation Groups — AI Work Index',
-			description: `Browse ${DATA_VINTAGE.occupation_count} occupations organised by {groups.length} major occupation groups, each scored for structural AI pressure.`,
+			description: `Browse ${DATA_VINTAGE.occupation_count} occupations organised by ${groups.length} major occupation groups, each scored for structural AI pressure.`,
 			url: SITE.url + '/groups',
 			mainEntity: {
 				'@type': 'ItemList',
@@ -40,8 +40,8 @@
 </script>
 
 <Seo
-	title="Occupation Groups — Structural AI Risk | {SITE.name}"
-	description="Browse {DATA_VINTAGE.occupation_count} occupations across {groups.length} major groups. Compare average AI displacement risk, median wages, and high-risk counts."
+	title="Occupation Groups — Structural AI Risk"
+	description={`Browse ${DATA_VINTAGE.occupation_count} occupations across ${groups.length} major groups. Compare average AI displacement risk, median wages, and high-risk counts.`}
 	path="/groups"
 	jsonLd={[collectionJsonLd]}
 />
@@ -61,7 +61,7 @@
 	<section class={section()}>
 		<h2 class={sectionLabel()}>All Groups</h2>
 		<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-			{#each groups as g}
+			{#each groups as g (g.slug)}
 				<a
 					href="/group/{g.slug}"
 					class={cn(

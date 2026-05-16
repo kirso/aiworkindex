@@ -5,6 +5,7 @@
 	import DemandPressureMatrix from '$lib/components/viz/DemandPressureMatrix.svelte';
 	import HeroSearch from '$lib/components/ui/HeroSearch.svelte';
 	import FilterPanel from '$lib/components/ui/FilterPanel.svelte';
+	import FaqList from '$lib/components/ui/FaqList.svelte';
 	import OccupationCard from '$lib/components/ui/OccupationCard.svelte';
 	import OccupationCardList from '$lib/components/ui/OccupationCardList.svelte';
 	import * as Tabs from '$lib/components/ui/tabs/index.js';
@@ -18,6 +19,7 @@
 	import { siteStatus } from '$lib/data/site-status';
 	import { shortTitle } from '$lib/data/display-names';
 	import { formatCompactCount, type HomeSurfaceItem } from '$lib/data/home-surface';
+	import { buildFaqJsonLd } from '$lib/data/ranking-jsonld';
 	import { innerWidth as windowWidth } from 'svelte/reactivity/window';
 
 	let { data } = $props();
@@ -95,6 +97,19 @@
 		}
 		return `${(occ.market.market_resilience * 100).toFixed(0)}%`;
 	}
+
+	const faqItems = [
+		{
+			question: 'What does the AI Work Index measure?',
+			answer:
+				'It measures structural AI pressure on occupations. The homepage defaults to the global structural baseline, and country layers add local demand, wage, and policy context when selected.'
+		},
+		{
+			question: 'How is the score calculated?',
+			answer:
+				'Global structural pressure is exposure multiplied by one minus the human bottleneck. Country headline risk is structural pressure multiplied by one minus demand resilience. No LLM is used in the scoring pipeline.'
+		}
+	];
 </script>
 
 <Seo
@@ -102,30 +117,7 @@
 	description="See which occupations face the most AI pressure. Filter by country for local wages and demand data."
 	path="/"
 	ogImage="/og/default.png"
-	jsonLd={[
-		`<script type="application/ld+json">${JSON.stringify({
-			'@context': 'https://schema.org',
-			'@type': 'FAQPage',
-			mainEntity: [
-				{
-					'@type': 'Question',
-					name: 'What does the AI Work Index measure?',
-					acceptedAnswer: {
-						'@type': 'Answer',
-						text: 'It measures structural AI pressure on occupations. The homepage defaults to the global structural baseline, and country layers add local demand, wage, and policy context when selected.'
-					}
-				},
-				{
-					'@type': 'Question',
-					name: 'How is the score calculated?',
-					acceptedAnswer: {
-						'@type': 'Answer',
-						text: 'Global structural pressure is exposure multiplied by one minus the human bottleneck. Country headline risk is structural pressure multiplied by one minus demand resilience. No LLM is used in the scoring pipeline.'
-					}
-				}
-			]
-		})}<\/script>`
-	]}
+	jsonLd={[buildFaqJsonLd(faqItems)]}
 />
 
 <div class="border-b border-risk-moderate-border bg-risk-moderate-subtle">
@@ -531,6 +523,8 @@
 				{data.surface.config.displayName} · {DATA_VINTAGE.model_version} · {surfaceOccupations.length.toLocaleString()}
 				occupations
 			</p>
+
+			<FaqList items={faqItems} />
 		</div>
 	</div>
 </div>

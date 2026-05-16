@@ -6,6 +6,7 @@
 	import { countryConfigs } from '$lib/data/country-config';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
+	import FaqList from '$lib/components/ui/FaqList.svelte';
 	import { buildItemListJsonLd, buildFaqJsonLd } from '$lib/data/ranking-jsonld';
 	import PageFooterNav from '$lib/components/ui/PageFooterNav.svelte';
 
@@ -47,7 +48,7 @@
 		)
 	);
 
-	const faqJsonLd = buildFaqJsonLd([
+	const faqItems = [
 		{
 			question: 'Which high-paying jobs are most at risk from AI?',
 			answer: `Occupations earning ${currency} 5,000+ per month with net displacement risk above 30%. These professionals face significant structural pressure despite high compensation.`
@@ -57,7 +58,9 @@
 			answer:
 				'Not directly. High wages often correlate with knowledge-intensive roles that have significant AI task overlap. Wage level reflects current market value, not future automation resistance.'
 		}
-	]);
+	];
+
+	const faqJsonLd = buildFaqJsonLd(faqItems);
 </script>
 
 <Seo
@@ -90,6 +93,7 @@
 		monthly median.
 		<a href="/methodology" class="text-primary underline">Learn more</a>
 	</p>
+	<FaqList items={faqItems} />
 	<RankingNavPills />
 	<PageFooterNav
 		links={[

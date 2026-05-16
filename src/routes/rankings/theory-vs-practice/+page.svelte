@@ -10,6 +10,8 @@
 	import { SITE } from '$lib/data/scoring-constants';
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import PageFooterNav from '$lib/components/ui/PageFooterNav.svelte';
+	import FaqList from '$lib/components/ui/FaqList.svelte';
+	import { buildFaqJsonLd } from '$lib/data/ranking-jsonld';
 
 	let { data } = $props();
 
@@ -30,28 +32,20 @@
 		})}<\/script>`
 	);
 
-	const faqJsonLd = `<script type="application/ld+json">${JSON.stringify({
-		'@context': 'https://schema.org',
-		'@type': 'FAQPage',
-		mainEntity: [
-			{
-				'@type': 'Question',
-				name: 'Where does AI theory diverge from actual usage?',
-				acceptedAnswer: {
-					'@type': 'Answer',
-					text: "Academic AI exposure indices measure theoretical task automation potential, while Anthropic's observed usage data shows what people actually use AI for. The biggest gaps reveal where adoption lags or leads predictions."
-				}
-			},
-			{
-				'@type': 'Question',
-				name: 'Why do some jobs have high theoretical AI exposure but low real usage?',
-				acceptedAnswer: {
-					'@type': 'Answer',
-					text: 'Regulatory barriers, trust requirements, or workflow integration costs can slow adoption even when tasks are technically automatable. Conversely, some low-exposure roles adopt AI tools faster than predicted.'
-				}
-			}
-		]
-	})}<\/script>`;
+	const faqItems = [
+		{
+			question: 'Where does AI theory diverge from actual usage?',
+			answer:
+				"Academic AI exposure indices measure theoretical task automation potential, while Anthropic's observed usage data shows what people actually use AI for. The biggest gaps reveal where adoption lags or leads predictions."
+		},
+		{
+			question: 'Why do some jobs have high theoretical AI exposure but low real usage?',
+			answer:
+				'Regulatory barriers, trust requirements, or workflow integration costs can slow adoption even when tasks are technically automatable. Conversely, some low-exposure roles adopt AI tools faster than predicted.'
+		}
+	];
+
+	const faqJsonLd = buildFaqJsonLd(faqItems);
 
 	const columns = [
 		{
@@ -136,6 +130,7 @@
 		AI adoption than theory predicts.
 		<a href="/methodology" class="text-primary underline">Learn more</a>
 	</p>
+	<FaqList items={faqItems} />
 	<RankingNavPills />
 	<PageFooterNav
 		links={[

@@ -47,6 +47,11 @@ import {
 	getGlobalOccupationRow,
 	globalOccupations
 } from '../src/lib/data/global-occupations';
+import {
+	buildGlobalOccupationAlternates,
+	buildSingaporeOccupationAlternates,
+	buildUnitedStatesOccupationAlternates
+} from '../src/lib/data/occupation-alternates';
 import { usOccupations } from '../src/lib/data/countries/us/occupations';
 import researchLibrary from '../src/lib/data/research-library.json';
 import shadowAnchorReview from '../src/lib/data/shadow-anchor-review-v43.json';
@@ -1057,5 +1062,13 @@ describe('global expansion invariants', () => {
 		assert.ok(headers.includes('https://:version.aiworkindex.pages.dev/*'));
 		assert.ok(headers.includes('X-Robots-Tag: noindex'));
 		assert.ok(headers.includes('Link: <https://aiworkindex.com/:splat>; rel="canonical"'));
+	});
+
+	test('occupation pages do not emit non-reciprocal hreflang alternates', () => {
+		assert.deepEqual(buildSingaporeOccupationAlternates('24362', '2436'), []);
+		assert.deepEqual(buildUnitedStatesOccupationAlternates('13-2011.00', '2411'), []);
+		assert.deepEqual(buildGlobalOccupationAlternates('2411'), [
+			{ hreflang: 'x-default', href: 'https://aiworkindex.com/global/occupation/2411' }
+		]);
 	});
 });

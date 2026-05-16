@@ -36,65 +36,21 @@ export function findUnitedStatesEquivalent(canonicalCode: string | null): string
 }
 
 export function buildSingaporeOccupationAlternates(
-	localCode: string,
-	canonicalCode: string | null
+	_localCode: string,
+	_canonicalCode: string | null
 ): SeoAlternateLink[] {
-	const alternates: SeoAlternateLink[] = [
-		{ hreflang: 'en-SG', href: absolute(`/occupation/${localCode}`) }
-	];
-
-	if (canonicalCode) {
-		alternates.push({
-			hreflang: 'x-default',
-			href: absolute(`/global/occupation/${canonicalCode}`)
-		});
-		const usCode = findUnitedStatesEquivalent(canonicalCode);
-		if (usCode) {
-			alternates.push({ hreflang: 'en-US', href: absolute(`/us/occupation/${usCode}`) });
-		}
-	}
-
-	return uniqueByHref(alternates);
+	return [];
 }
 
 export function buildUnitedStatesOccupationAlternates(
-	localCode: string,
-	canonicalCode: string | null
+	_localCode: string,
+	_canonicalCode: string | null
 ): SeoAlternateLink[] {
-	const alternates: SeoAlternateLink[] = [
-		{ hreflang: 'en-US', href: absolute(`/us/occupation/${localCode}`) }
-	];
-
-	if (canonicalCode) {
-		alternates.push({
-			hreflang: 'x-default',
-			href: absolute(`/global/occupation/${canonicalCode}`)
-		});
-		const sgCode = findSingaporeEquivalent(canonicalCode);
-		if (sgCode) {
-			alternates.push({ hreflang: 'en-SG', href: absolute(`/occupation/${sgCode}`) });
-		}
-	}
-
-	return uniqueByHref(alternates);
+	return [];
 }
 
 export function buildGlobalOccupationAlternates(canonicalCode: string): SeoAlternateLink[] {
-	const alternates: SeoAlternateLink[] = [
-		{ hreflang: 'x-default', href: absolute(`/global/occupation/${canonicalCode}`) }
-	];
-
-	const sgCode = findSingaporeEquivalent(canonicalCode);
-	if (sgCode) {
-		alternates.push({ hreflang: 'en-SG', href: absolute(`/occupation/${sgCode}`) });
-	}
-
-	const usCode = findUnitedStatesEquivalent(canonicalCode);
-	if (usCode) {
-		alternates.push({ hreflang: 'en-US', href: absolute(`/us/occupation/${usCode}`) });
-	}
-
-	return uniqueByHref(alternates);
+	return [{ hreflang: 'x-default', href: absolute(`/global/occupation/${canonicalCode}`) }];
 }
 
 export function buildRoleAlternates(slug: string): SeoAlternateLink[] {

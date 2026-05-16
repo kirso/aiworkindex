@@ -6,6 +6,7 @@
 	import { countryConfigs } from '$lib/data/country-config';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
+	import FaqList from '$lib/components/ui/FaqList.svelte';
 	import { buildItemListJsonLd, buildFaqJsonLd } from '$lib/data/ranking-jsonld';
 	import { DATA_VINTAGE } from '$lib/data/scoring-constants';
 	import PageFooterNav from '$lib/components/ui/PageFooterNav.svelte';
@@ -48,7 +49,7 @@
 		)
 	);
 
-	const faqJsonLd = buildFaqJsonLd([
+	const faqItems = [
 		{
 			question: 'Which occupations face the highest AI displacement pressure?',
 			answer:
@@ -56,15 +57,16 @@
 		},
 		{
 			question: 'How is the AI displacement risk ranking calculated?',
-			answer:
-				'Each occupation is scored using headline risk = displacement pressure × (1 − demand resilience). This ranking sorts all ${DATA_VINTAGE.occupation_count} occupations by net risk, showing the top 25.'
+			answer: `Each occupation is scored using headline risk = displacement pressure × (1 − demand resilience). This ranking sorts all ${DATA_VINTAGE.occupation_count} occupations by net risk, showing the top 25.`
 		}
-	]);
+	];
+
+	const faqJsonLd = buildFaqJsonLd(faqItems);
 </script>
 
 <Seo
 	title="25 Highest AI Displacement Risk Occupations"
-	description="Which occupations face the most AI structural pressure? Top 25 ranked by displacement risk from {DATA_VINTAGE.occupation_count} scored."
+	description={`Which occupations face the most AI structural pressure? Top 25 ranked by displacement risk from ${DATA_VINTAGE.occupation_count} scored.`}
 	path="/rankings/highest-risk"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
@@ -89,6 +91,7 @@
 		headline_risk = displacement_pressure &times; (1 &minus; demand_resilience).
 		<a href="/methodology" class="text-primary underline">Learn more</a>
 	</p>
+	<FaqList items={faqItems} />
 	<RankingNavPills />
 	<PageFooterNav
 		links={[

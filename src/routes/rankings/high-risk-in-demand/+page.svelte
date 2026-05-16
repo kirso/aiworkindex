@@ -6,6 +6,7 @@
 	import { countryConfigs } from '$lib/data/country-config';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
+	import FaqList from '$lib/components/ui/FaqList.svelte';
 	import { buildItemListJsonLd, buildFaqJsonLd } from '$lib/data/ranking-jsonld';
 	import PageFooterNav from '$lib/components/ui/PageFooterNav.svelte';
 
@@ -53,7 +54,7 @@
 		)
 	);
 
-	const faqJsonLd = buildFaqJsonLd([
+	const faqItems = [
 		{
 			question: 'Are there high AI risk jobs that still get hired?',
 			answer:
@@ -64,7 +65,9 @@
 			answer:
 				'Demand signals provide a buffer but not immunity. These occupations may see role transformation rather than elimination — the work changes even as demand persists.'
 		}
-	]);
+	];
+
+	const faqJsonLd = buildFaqJsonLd(faqItems);
 </script>
 
 <Seo
@@ -98,6 +101,7 @@
 			{data.ranked.length} occupation{data.ranked.length === 1 ? '' : 's'} with high risk and active demand.
 		</p>
 	{/if}
+	<FaqList items={faqItems} />
 	<RankingNavPills />
 	<PageFooterNav
 		links={[

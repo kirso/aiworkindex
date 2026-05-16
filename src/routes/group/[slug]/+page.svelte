@@ -15,9 +15,11 @@
 	import { cn } from '$lib/utils';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import PageFooterNav from '$lib/components/ui/PageFooterNav.svelte';
+	import FaqList from '$lib/components/ui/FaqList.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import { SITE, DATA_VINTAGE } from '$lib/data/scoring-constants';
 	import { countryConfigs } from '$lib/data/country-config';
+	import { buildFaqJsonLd } from '$lib/data/ranking-jsonld';
 
 	let { data } = $props();
 	let group = $derived(data.group);
@@ -60,30 +62,18 @@
 		})}<\/script>`
 	);
 
-	let faqJsonLd = $derived(
-		`<script type="application/ld+json">${JSON.stringify({
-			'@context': 'https://schema.org',
-			'@type': 'FAQPage',
-			mainEntity: [
-				{
-					'@type': 'Question',
-					name: `How will AI affect ${group.label} jobs?`,
-					acceptedAnswer: {
-						'@type': 'Answer',
-						text: `There are ${stats.count} ${group.label} occupations scored. The average AI displacement risk is ${Math.round(stats.avgRisk * 100)}%, with ${stats.bandCounts.very_high + stats.bandCounts.high} occupations at High or Very High risk and ${stats.bandCounts.very_low + stats.bandCounts.low} at Low or Very Low risk. Median gross wage: ${countryConfigs.sg.currency ?? 'SGD'} ${Math.round(stats.medianWage).toLocaleString()}/month.`
-					}
-				},
-				{
-					'@type': 'Question',
-					name: `What are the highest AI risk ${group.label.toLowerCase()} occupations?`,
-					acceptedAnswer: {
-						'@type': 'Answer',
-						text: `The highest-risk ${group.label} occupations are: ${highestRisk.map(o => `${o.title} (${Math.round(o.net_risk * 100)}%)`).join(', ')}.`
-					}
-				}
-			]
-		})}<\/script>`
-	);
+	let faqItems = $derived([
+		{
+			question: `How will AI affect ${group.label} jobs?`,
+			answer: `There are ${stats.count} ${group.label} occupations scored. The average AI displacement risk is ${Math.round(stats.avgRisk * 100)}%, with ${stats.bandCounts.very_high + stats.bandCounts.high} occupations at High or Very High risk and ${stats.bandCounts.very_low + stats.bandCounts.low} at Low or Very Low risk. Median gross wage: ${countryConfigs.sg.currency ?? 'SGD'} ${Math.round(stats.medianWage).toLocaleString()}/month.`
+		},
+		{
+			question: `What are the highest AI risk ${group.label.toLowerCase()} occupations?`,
+			answer: `The highest-risk ${group.label} occupations are: ${highestRisk.map(o => `${o.title} (${Math.round(o.net_risk * 100)}%)`).join(', ')}.`
+		}
+	]);
+
+	let faqJsonLd = $derived(buildFaqJsonLd(faqItems));
 </script>
 
 <Seo
@@ -256,6 +246,8 @@
 			{/each}
 		</div>
 	</section>
+
+	<FaqList items={faqItems} />
 
 	<PageFooterNav />
 </div>

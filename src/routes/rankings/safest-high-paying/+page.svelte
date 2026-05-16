@@ -6,6 +6,7 @@
 	import { countryConfigs } from '$lib/data/country-config';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
+	import FaqList from '$lib/components/ui/FaqList.svelte';
 	import { buildItemListJsonLd, buildFaqJsonLd } from '$lib/data/ranking-jsonld';
 	import PageFooterNav from '$lib/components/ui/PageFooterNav.svelte';
 
@@ -47,7 +48,7 @@
 		)
 	);
 
-	const faqJsonLd = buildFaqJsonLd([
+	const faqItems = [
 		{
 			question: 'What are the safest high-paying jobs from AI?',
 			answer:
@@ -58,7 +59,9 @@
 			answer:
 				'Yes. Many occupations in healthcare, engineering, and senior management have both low displacement pressure and wages well above the national median.'
 		}
-	]);
+	];
+
+	const faqJsonLd = buildFaqJsonLd(faqItems);
 </script>
 
 <Seo
@@ -90,6 +93,7 @@
 		Filtered: net_risk &lt; 0.15 and gross_wage_median above the market median.
 		<a href="/methodology" class="text-primary underline">Learn more</a>
 	</p>
+	<FaqList items={faqItems} />
 	<RankingNavPills />
 	<PageFooterNav
 		links={[

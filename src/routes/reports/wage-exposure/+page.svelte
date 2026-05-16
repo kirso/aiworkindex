@@ -5,6 +5,8 @@
 	import { countryConfigs } from '$lib/data/country-config';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
+	import FaqList from '$lib/components/ui/FaqList.svelte';
+	import { buildFaqJsonLd } from '$lib/data/ranking-jsonld';
 
 	let { data } = $props();
 	const sgCurrency = countryConfigs.sg.currency ?? 'SGD';
@@ -37,32 +39,20 @@
 		})}<\/script>`
 	);
 
-	let faqJsonLd = $derived(
-		`<script type="application/ld+json">${JSON.stringify({
-			'@context': 'https://schema.org',
-			'@type': 'FAQPage',
-			mainEntity: [
-				{
-					'@type': 'Question',
-					name: 'How large is the wage pool in the high-pressure occupations?',
-					acceptedAnswer: {
-						'@type': 'Answer',
-						text: `${headlineNumber} is the estimated annual wage pool inside occupations with high structural AI pressure in the AI Work Index. It is a wage-pool estimate, not a forecast of wages lost.`
-					}
-				},
-				{
-					'@type': 'Question',
-					name: 'Which sectors contain the largest wage pools under structural AI pressure?',
-					acceptedAnswer: {
-						'@type': 'Answer',
-						text: topGroup
-							? `${topGroup.label} contains the largest wage pool at ${formatWagesBillions(topGroup.wages)}, covering ${topGroup.count} high-pressure occupations with an average net risk of ${(topGroup.avgRisk * 100).toFixed(0)}%.`
-							: 'See the full breakdown on the AI Work Index wage exposure report.'
-					}
-				}
-			]
-		})}<\/script>`
-	);
+	let faqItems = $derived([
+		{
+			question: 'How large is the wage pool in the high-pressure occupations?',
+			answer: `${headlineNumber} is the estimated annual wage pool inside occupations with high structural AI pressure in the AI Work Index. It is a wage-pool estimate, not a forecast of wages lost.`
+		},
+		{
+			question: 'Which sectors contain the largest wage pools under structural AI pressure?',
+			answer: topGroup
+				? `${topGroup.label} contains the largest wage pool at ${formatWagesBillions(topGroup.wages)}, covering ${topGroup.count} high-pressure occupations with an average net risk of ${(topGroup.avgRisk * 100).toFixed(0)}%.`
+				: 'See the full breakdown on the AI Work Index wage exposure report.'
+		}
+	]);
+
+	let faqJsonLd = $derived(buildFaqJsonLd(faqItems));
 </script>
 
 <Seo
@@ -89,7 +79,7 @@
 	<!-- Hero -->
 	<section class="mt-2">
 		<p class={cn(sectionLabel(), 'mb-2')}>Wage Exposure Analysis</p>
-		<p class={display({ size: 'xl' })}>{headlineNumber}</p>
+		<h1 class={display({ size: 'xl' })}>{headlineNumber}</h1>
 		<p class="mt-2 text-base text-muted-foreground">
 			Est. annual wage pool inside high-pressure occupations
 		</p>
@@ -232,4 +222,6 @@
 			<a href="/data" class="text-primary hover:underline">Download data</a>
 		</p>
 	</section>
+
+	<FaqList items={faqItems} />
 </main>

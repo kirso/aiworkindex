@@ -7,6 +7,8 @@
 	import { SITE } from '$lib/data/scoring-constants';
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import PageFooterNav from '$lib/components/ui/PageFooterNav.svelte';
+	import FaqList from '$lib/components/ui/FaqList.svelte';
+	import { buildFaqJsonLd } from '$lib/data/ranking-jsonld';
 
 	let { data } = $props();
 
@@ -27,28 +29,20 @@
 		})}<\/script>`
 	);
 
-	const faqJsonLd = `<script type="application/ld+json">${JSON.stringify({
-		'@context': 'https://schema.org',
-		'@type': 'FAQPage',
-		mainEntity: [
-			{
-				'@type': 'Question',
-				name: 'What career transitions reduce AI displacement risk?',
-				acceptedAnswer: {
-					'@type': 'Answer',
-					text: 'The best transitions move workers from high-risk roles to adjacent occupations with lower AI exposure while leveraging similar skills. Transition feasibility is scored by skill overlap and risk reduction.'
-				}
-			},
-			{
-				'@type': 'Question',
-				name: 'How are career transition scores calculated?',
-				acceptedAnswer: {
-					'@type': 'Answer',
-					text: 'Transition scores combine skill similarity between occupations with the net risk reduction achieved by moving. Higher scores mean more feasible moves with larger risk improvements.'
-				}
-			}
-		]
-	})}<\/script>`;
+	const faqItems = [
+		{
+			question: 'What career transitions reduce AI displacement risk?',
+			answer:
+				'The best transitions move workers from high-risk roles to adjacent occupations with lower AI exposure while leveraging similar skills. Transition feasibility is scored by skill overlap and risk reduction.'
+		},
+		{
+			question: 'How are career transition scores calculated?',
+			answer:
+				'Transition scores combine skill similarity between occupations with the net risk reduction achieved by moving. Higher scores mean more feasible moves with larger risk improvements.'
+		}
+	];
+
+	const faqJsonLd = buildFaqJsonLd(faqItems);
 </script>
 
 <Seo
@@ -122,6 +116,7 @@
 			</div>
 		{/each}
 	</div>
+	<FaqList items={faqItems} />
 	<RankingNavPills />
 	<PageFooterNav
 		links={[

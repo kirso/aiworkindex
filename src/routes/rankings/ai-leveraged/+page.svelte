@@ -6,6 +6,7 @@
 	import { countryConfigs } from '$lib/data/country-config';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
+	import FaqList from '$lib/components/ui/FaqList.svelte';
 	import { buildItemListJsonLd, buildFaqJsonLd } from '$lib/data/ranking-jsonld';
 	import PageFooterNav from '$lib/components/ui/PageFooterNav.svelte';
 
@@ -47,7 +48,7 @@
 		)
 	);
 
-	const faqJsonLd = buildFaqJsonLd([
+	const faqItems = [
 		{
 			question: 'Which jobs benefit most from AI augmentation?',
 			answer:
@@ -58,7 +59,9 @@
 			answer:
 				'Augmentation measures the productive overlap between AI capabilities and human strengths. High augmentation means AI tools can boost productivity in the role without displacing the worker.'
 		}
-	]);
+	];
+
+	const faqJsonLd = buildFaqJsonLd(faqItems);
 </script>
 
 <Seo
@@ -91,6 +94,7 @@
 		Augmented = net_risk &lt; 0.25 AND augmentation &ge; 0.12.
 		<a href="/methodology" class="text-primary underline">Learn more</a>
 	</p>
+	<FaqList items={faqItems} />
 	<RankingNavPills />
 	<PageFooterNav
 		links={[

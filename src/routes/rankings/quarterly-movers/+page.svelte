@@ -8,6 +8,8 @@
 	import { SITE } from '$lib/data/scoring-constants';
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import PageFooterNav from '$lib/components/ui/PageFooterNav.svelte';
+	import FaqList from '$lib/components/ui/FaqList.svelte';
+	import { buildFaqJsonLd } from '$lib/data/ranking-jsonld';
 
 	let { data } = $props();
 	let report = $derived(data.report);
@@ -29,28 +31,20 @@
 		})}<\/script>`
 	);
 
-	const faqJsonLd = `<script type="application/ld+json">${JSON.stringify({
-		'@context': 'https://schema.org',
-		'@type': 'FAQPage',
-		mainEntity: [
-			{
-				'@type': 'Question',
-				name: 'Why do AI risk scores change between quarters?',
-				acceptedAnswer: {
-					'@type': 'Answer',
-					text: 'Scores shift when underlying data sources update — new demand signal lists, revised exposure indices, or changes to the scoring methodology between model versions.'
-				}
-			},
-			{
-				'@type': 'Question',
-				name: 'What does a band change mean for my occupation?',
-				acceptedAnswer: {
-					'@type': 'Answer',
-					text: 'A band change (e.g., Moderate to High) means the occupation crossed a structural threshold. It reflects a meaningful shift in the balance between AI exposure, human bottlenecks, and market demand.'
-				}
-			}
-		]
-	})}<\/script>`;
+	const faqItems = [
+		{
+			question: 'Why do AI risk scores change between quarters?',
+			answer:
+				'Scores shift when underlying data sources update - new demand signal lists, revised exposure indices, or changes to the scoring methodology between model versions.'
+		},
+		{
+			question: 'What does a band change mean for my occupation?',
+			answer:
+				'A band change, such as Moderate to High, means the occupation crossed a structural threshold. It reflects a meaningful shift in the balance between AI exposure, human bottlenecks, and market demand.'
+		}
+	];
+
+	const faqJsonLd = buildFaqJsonLd(faqItems);
 </script>
 
 <Seo
@@ -217,6 +211,7 @@
 			</p>
 		</div>
 	{/if}
+	<FaqList items={faqItems} />
 	<RankingNavPills />
 	<PageFooterNav
 		links={[

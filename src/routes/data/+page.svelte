@@ -22,16 +22,56 @@
 	const dataSourceCount = dataSourceRegistry.length;
 	const structuralReleases = releases.filter(release => release.type === 'structural_release');
 	const currentVersionTag = DATA_VINTAGE.model_version.toLowerCase().replaceAll('.', '');
+	const datasetIdentifier = `${SITE.url}/data#${currentVersionTag}`;
+	const datasetCitation = `${SITE.name}. ${DATA_VINTAGE.model_version} structural AI pressure dataset. ${DATA_VINTAGE.last_updated}. ${SITE.url}/data`;
+	const dataDownloads = [
+		{
+			file: `sg-ai-occupations-${currentVersionTag}.csv`,
+			name: 'AI Work Index occupation scores CSV',
+			encodingFormat: 'text/csv'
+		},
+		{
+			file: `sg-ai-occupations-${currentVersionTag}.json`,
+			name: 'AI Work Index occupation scores JSON',
+			encodingFormat: 'application/json'
+		},
+		{
+			file: `claims-matrix-${currentVersionTag}.json`,
+			name: 'AI Work Index claims matrix',
+			encodingFormat: 'application/json'
+		},
+		{
+			file: 'public-field-source-map.json',
+			name: 'AI Work Index field source map',
+			encodingFormat: 'application/json'
+		}
+	] as const;
 
 	const datasetJsonLd = `<script type="application/ld+json">${JSON.stringify({
 		'@context': 'https://schema.org',
 		'@type': 'Dataset',
 		name: 'AI Work Index — Structural Scores and Country Bundles',
 		description: `${DATA_VINTAGE.occupation_count} occupations scored for structural AI pressure using the live ${DATA_VINTAGE.model_version} release: deterministic 4-source exposure ensemble, human bottleneck, displacement pressure, demand resilience, and country-specific reference-market context.`,
+		identifier: datasetIdentifier,
 		url: SITE.url + '/data',
 		license: 'https://opensource.org/licenses/MIT',
 		creator: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+		publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+		version: DATA_VINTAGE.model_version,
+		datePublished: DATA_VINTAGE.last_updated,
 		dateModified: DATA_VINTAGE.last_updated,
+		isAccessibleForFree: true,
+		keywords: [
+			'AI job exposure',
+			'occupation risk',
+			'future of work',
+			'Singapore wages',
+			'labour market data',
+			'programmatic SEO dataset'
+		],
+		citation: datasetCitation,
+		measurementTechnique:
+			'Deterministic four-source exposure ensemble with human bottleneck, demand resilience, uncertainty, and country-context overlays.',
 		spatialCoverage: { '@type': 'Place', name: 'Singapore (fully scored), United States (ready), global baseline' },
 		variableMeasured: [
 			'AI exposure ensemble',
@@ -39,7 +79,13 @@
 			'Net displacement risk',
 			'Augmentation potential',
 			'Market resilience'
-		]
+		],
+		distribution: dataDownloads.map(download => ({
+			'@type': 'DataDownload',
+			name: download.name,
+			contentUrl: `${SITE.url}/data/${download.file}`,
+			encodingFormat: download.encodingFormat
+		}))
 	})}<\/script>`;
 
 	const evidenceTiers = [
@@ -1152,6 +1198,20 @@
 			</div>
 		</details>
 	</div>
+
+	<section class="mt-8">
+		<p class={cn(sectionLabel(), 'mb-3')}>Dataset Citation</p>
+		<div class={card({ padding: 'lg' })}>
+			<p class="text-sm font-semibold text-foreground">{DATA_VINTAGE.model_version} public dataset</p>
+			<p class="mt-2 font-mono text-xs leading-relaxed text-muted-foreground">
+				{datasetCitation}
+			</p>
+			<p class="mt-3 text-xs text-muted-foreground">
+				The structured Dataset metadata uses this same citation and links the current CSV, JSON,
+				claims matrix, and field source map as machine-readable downloads.
+			</p>
+		</div>
+	</section>
 
 	<div class="mt-8">
 		<details>

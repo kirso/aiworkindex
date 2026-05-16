@@ -98,7 +98,6 @@
 	<meta property="og:site_name" content={SITE.name} />
 	<meta property="og:type" content="website" />
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="robots" content="index, follow" />
 	<meta name="author" content="Kirill So" />
 	{@html layoutJsonLd}
 </svelte:head>

@@ -4,37 +4,26 @@
 	import { DATA_VINTAGE, SITE } from '$lib/data/scoring-constants';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
+	import FaqList from '$lib/components/ui/FaqList.svelte';
+	import { buildFaqJsonLd } from '$lib/data/ranking-jsonld';
 
-	const aboutJsonLd = `<script type="application/ld+json">${JSON.stringify({
-		'@context': 'https://schema.org',
-		'@type': 'FAQPage',
-		mainEntity: [
-			{
-				'@type': 'Question',
-				name: 'What is the AI Work Index?',
-				acceptedAnswer: {
-					'@type': 'Answer',
-					text: `The AI Work Index scores ${DATA_VINTAGE.occupation_count} occupations and ${DATA_VINTAGE.role_count} modern roles for structural AI displacement pressure. The headline score combines displacement pressure with local demand resilience where a country layer has evidence. The product is global-first, with Singapore as the first fully scored country and the United States as the next country layer. No LLM is used in the scoring pipeline.`
-				}
-			},
-			{
-				'@type': 'Question',
-				name: 'How is the AI job risk score calculated?',
-				acceptedAnswer: {
-					'@type': 'Answer',
-					text: 'Headline risk = displacement pressure × (1 − demand resilience), where displacement pressure = exposure ensemble × (1 − human bottleneck). The exposure layer combines available matches from AIOE, Anthropic observed usage, Eloundou GPT exposure, and the ILO occupational exposure index. Human bottleneck comes from Pizzinelli theta, while demand resilience comes from country-specific demand, wage, and labour-market signals.'
-				}
-			},
-			{
-				'@type': 'Question',
-				name: 'Is the AI Work Index open source?',
-				acceptedAnswer: {
-					'@type': 'Answer',
-					text: `Yes. The entire scoring pipeline, data, and website are MIT licensed and available on GitHub at ${SITE.github}. Anyone can reproduce the results by running the deterministic scoring script.`
-				}
-			}
-		]
-	})}<\/script>`;
+	const faqItems = [
+		{
+			question: 'What is the AI Work Index?',
+			answer: `The AI Work Index scores ${DATA_VINTAGE.occupation_count} occupations and ${DATA_VINTAGE.role_count} modern roles for structural AI displacement pressure. The headline score combines displacement pressure with local demand resilience where a country layer has evidence. The product is global-first, with Singapore as the first fully scored country and the United States as the next country layer. No LLM is used in the scoring pipeline.`
+		},
+		{
+			question: 'How is the AI job risk score calculated?',
+			answer:
+				'Headline risk = displacement pressure x (1 - demand resilience), where displacement pressure = exposure ensemble x (1 - human bottleneck). The exposure layer combines available matches from AIOE, Anthropic observed usage, Eloundou GPT exposure, and the ILO occupational exposure index. Human bottleneck comes from Pizzinelli theta, while demand resilience comes from country-specific demand, wage, and labour-market signals.'
+		},
+		{
+			question: 'Is the AI Work Index open source?',
+			answer: `Yes. The entire scoring pipeline, data, and website are MIT licensed and available on GitHub at ${SITE.github}. Anyone can reproduce the results by running the deterministic scoring script.`
+		}
+	];
+
+	const aboutJsonLd = buildFaqJsonLd(faqItems);
 </script>
 
 <Seo
@@ -278,6 +267,8 @@
 			</li>
 		</ul>
 	</section>
+
+	<FaqList items={faqItems} />
 
 	<!-- License + Credits -->
 	<section class="mb-8 mt-8">
