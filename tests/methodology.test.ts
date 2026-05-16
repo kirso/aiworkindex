@@ -1049,4 +1049,13 @@ describe('global expansion invariants', () => {
 		assert.equal(sitemap.includes('/us/occupation/'), true);
 		assert.equal(sitemap.includes('/global/occupation/'), true);
 	});
+
+	test('Cloudflare Pages duplicate hosts are excluded from search', () => {
+		const headers = fs.readFileSync(path.join(process.cwd(), 'static', '_headers'), 'utf-8');
+
+		assert.ok(headers.includes('https://aiworkindex.pages.dev/*'));
+		assert.ok(headers.includes('https://:version.aiworkindex.pages.dev/*'));
+		assert.ok(headers.includes('X-Robots-Tag: noindex'));
+		assert.ok(headers.includes('Link: <https://aiworkindex.com/:splat>; rel="canonical"'));
+	});
 });

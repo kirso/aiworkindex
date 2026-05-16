@@ -20,6 +20,15 @@
 /llms-full.txt
   Cache-Control: public, max-age=3600
 
+# Cloudflare Pages default and preview hosts — keep duplicate Pages URLs out of search
+https://aiworkindex.pages.dev/*
+  X-Robots-Tag: noindex
+  Link: <https://aiworkindex.com/:splat>; rel="canonical"
+
+https://:version.aiworkindex.pages.dev/*
+  X-Robots-Tag: noindex
+  Link: <https://aiworkindex.com/:splat>; rel="canonical"
+
 # Security headers — all pages
 /*
   X-Frame-Options: DENY

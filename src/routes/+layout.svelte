@@ -58,13 +58,16 @@
 	const layoutJsonLd = `<script type="application/ld+json">${JSON.stringify({
 		'@context': 'https://schema.org',
 		'@type': 'WebSite',
+		'@id': `${SITE.url}/#website`,
 		name: SITE.name,
-		url: SITE.url,
+		alternateName: SITE.shortName,
+		url: `${SITE.url}/`,
 		description: `${DATA_VINTAGE.occupation_count} occupations scored for AI displacement risk using official data and published research.`,
 		publisher: {
 			'@type': 'Organization',
+			'@id': `${SITE.url}/#organization`,
 			name: SITE.name,
-			url: SITE.url,
+			url: `${SITE.url}/`,
 			description: 'Open-source AI displacement risk scoring for occupations and modern roles',
 			foundingDate: '2024',
 			knowsAbout: [

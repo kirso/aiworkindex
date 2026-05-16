@@ -36,6 +36,7 @@ const LLMS_FILE = path.join(ROOT_DIR, 'static', 'llms.txt');
 const LLMS_FULL_FILE = path.join(ROOT_DIR, 'static', 'llms-full.txt');
 const ROBOTS_FILE = path.join(ROOT_DIR, 'static', 'robots.txt');
 const SITEMAP_FILE = path.join(ROOT_DIR, 'static', 'sitemap.xml');
+const HEADERS_FILE = path.join(ROOT_DIR, 'static', '_headers');
 
 function readText(filePath: string): string {
 	return fs.readFileSync(filePath, 'utf-8');
@@ -82,6 +83,7 @@ const llms = readText(LLMS_FILE);
 const llmsFull = readText(LLMS_FULL_FILE);
 const robots = readText(ROBOTS_FILE);
 const sitemap = readText(SITEMAP_FILE);
+const headers = readText(HEADERS_FILE);
 const currentCsvHeader = readText(STATIC_CSV_FILE).split('\n')[0] ?? '';
 
 assert(
@@ -181,6 +183,16 @@ assert(
 	'robots sitemap host drift'
 );
 assert(!robots.includes('www.kirillso.com'), 'robots still points at the old host');
+assert(
+	headers.includes('https://aiworkindex.pages.dev/*') &&
+		headers.includes('https://:version.aiworkindex.pages.dev/*'),
+	'headers must cover Cloudflare Pages default and preview hosts'
+);
+assert(
+	headers.includes('X-Robots-Tag: noindex') &&
+		headers.includes('Link: <https://aiworkindex.com/:splat>; rel="canonical"'),
+	'headers must noindex duplicate Pages hosts and point canonicals at aiworkindex.com'
+);
 assert(sitemapLocs.length > 1800, 'sitemap is unexpectedly small');
 assert(sitemapLocs.length === uniqueSitemapLocs.size, 'sitemap contains duplicate URLs');
 assert(
