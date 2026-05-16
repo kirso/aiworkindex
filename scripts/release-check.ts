@@ -37,6 +37,7 @@ const LLMS_FULL_FILE = path.join(ROOT_DIR, 'static', 'llms-full.txt');
 const ROBOTS_FILE = path.join(ROOT_DIR, 'static', 'robots.txt');
 const SITEMAP_FILE = path.join(ROOT_DIR, 'static', 'sitemap.xml');
 const HEADERS_FILE = path.join(ROOT_DIR, 'static', '_headers');
+const WORKER_FILE = path.join(ROOT_DIR, 'static', '_worker.js');
 const BUILD_DIR = path.join(ROOT_DIR, 'build');
 
 function readText(filePath: string): string {
@@ -423,6 +424,7 @@ const llmsFull = readText(LLMS_FULL_FILE);
 const robots = readText(ROBOTS_FILE);
 const sitemap = readText(SITEMAP_FILE);
 const headers = readText(HEADERS_FILE);
+const worker = readText(WORKER_FILE);
 const currentCsvHeader = readText(STATIC_CSV_FILE).split('\n')[0] ?? '';
 
 assert(
@@ -522,6 +524,9 @@ assert(
 	'robots sitemap host drift'
 );
 assert(!robots.includes('www.kirillso.com'), 'robots still points at the old host');
+assert(worker.includes('www.aiworkindex.com'), 'worker must redirect www duplicate host');
+assert(worker.includes('aiworkindex.pages.dev'), 'worker must redirect default Pages duplicate host');
+assert(worker.includes('https://aiworkindex.com'), 'worker redirects must target canonical host');
 assert(
 	headers.includes('https://aiworkindex.pages.dev/*') &&
 		headers.includes('https://:version.aiworkindex.pages.dev/*'),

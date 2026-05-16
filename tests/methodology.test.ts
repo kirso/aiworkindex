@@ -1055,13 +1055,17 @@ describe('global expansion invariants', () => {
 		assert.equal(sitemap.includes('/global/occupation/'), true);
 	});
 
-	test('Cloudflare Pages duplicate hosts are excluded from search', () => {
+	test('Cloudflare Pages duplicate hosts are redirected or excluded from search', () => {
 		const headers = fs.readFileSync(path.join(process.cwd(), 'static', '_headers'), 'utf-8');
+		const worker = fs.readFileSync(path.join(process.cwd(), 'static', '_worker.js'), 'utf-8');
 
 		assert.ok(headers.includes('https://aiworkindex.pages.dev/*'));
 		assert.ok(headers.includes('https://:version.aiworkindex.pages.dev/*'));
 		assert.ok(headers.includes('X-Robots-Tag: noindex'));
 		assert.ok(headers.includes('Link: <https://aiworkindex.com/:splat>; rel="canonical"'));
+		assert.ok(worker.includes('www.aiworkindex.com'));
+		assert.ok(worker.includes('aiworkindex.pages.dev'));
+		assert.ok(worker.includes('https://aiworkindex.com'));
 	});
 
 	test('occupation pages do not emit non-reciprocal hreflang alternates', () => {
