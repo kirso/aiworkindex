@@ -450,8 +450,9 @@
 	<!-- ===== BLOCK 1: THE VERDICT ===== -->
 	<div class={cn(card({ padding: 'lg' }), section({ spacing: 'loose' }))}>
 		<OccupationHero
-			scoreLabel="AI displacement pressure"
+			scoreLabel="AI displacement risk"
 			scoreValue={`${(occ.net_risk * 100).toFixed(0)}%`}
+			scoreRange={occ.uncertainty ? netRiskUncertainty : undefined}
 			scoreBand={occ.risk_band}
 			scoreBandLabel={riskBandLabels[occ.risk_band]}
 			title={occ.title}
@@ -626,7 +627,7 @@
 										({
 											aioe: 'Felten AIOE (2021)',
 											anthropic: 'Anthropic Economic Index (2026)',
-											eloundou: 'Eloundou GPT Exposure (2023)',
+											eloundou: 'Eloundou GPT Exposure (Science, 2024)',
 											ilo: 'ILO GenAI (2025)'
 										})[k] ?? k
 								)

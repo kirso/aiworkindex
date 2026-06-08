@@ -305,7 +305,7 @@
 	<!-- ===== BLOCK 1: THE VERDICT ===== -->
 	<div class={cn(card({ padding: 'lg' }), section({ spacing: 'loose' }))}>
 		<OccupationHero
-			scoreLabel="Headline risk"
+			scoreLabel="AI displacement risk"
 			scoreValue={`${(data.occupation.headlineRisk * 100).toFixed(0)}%`}
 			scoreBand={data.occupation.riskBand}
 			scoreBandLabel={riskBandLabels[data.occupation.riskBand]}

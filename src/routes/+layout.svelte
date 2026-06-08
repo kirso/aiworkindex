@@ -27,15 +27,15 @@
 
 	const navLinks = [
 		{ href: '/', label: 'Find' },
+		{ href: '/explore', label: 'Browse' },
+		{ href: '/rankings', label: 'Rankings' },
 		{ href: '/compare', label: 'Compare' },
+		{ href: '/calculator', label: 'Calculator' },
 		{ href: '/methodology', label: 'Methodology' }
 	];
 
 	const secondaryLinks = [
-		{ href: '/explore', label: 'Browse' },
 		{ href: '/roles', label: 'Roles' },
-		{ href: '/calculator', label: 'Calculator' },
-		{ href: '/rankings', label: 'Rankings' },
 		{ href: '/reports', label: 'Reports' },
 		{ href: '/research', label: 'Research' },
 		{ href: '/data', label: 'Data' },

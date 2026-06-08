@@ -237,7 +237,7 @@
 		{
 			key: 'market_resilience',
 			label: 'Market Resilience',
-			format: e => e.market_resilience.toFixed(2)
+			format: e => pct(e.market_resilience)
 		},
 		{
 			key: 'augmentation',
@@ -253,7 +253,7 @@
 		{
 			key: 'wage',
 			label: 'Median Wage',
-			format: e => (e.wage ? `Local currency ${e.wage.toLocaleString()}` : 'N/A (synthetic)')
+			format: e => (e.wage ? `SGD ${e.wage.toLocaleString()}` : 'N/A (synthetic)')
 		},
 		{ key: 'confidence', label: 'Evidence Quality', format: e => e.confidence }
 	];
@@ -476,7 +476,7 @@
 							<div class="mb-1 flex items-center justify-between text-xs">
 								<span class="text-muted-foreground">Market Resilience</span>
 								<span class="font-medium font-mono tabular-nums"
-									>{entity.market_resilience.toFixed(2)}</span
+									>{pct(entity.market_resilience)}</span
 								>
 							</div>
 							<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
@@ -507,8 +507,7 @@
 						<div class="mt-4 border-t border-border/50 pt-3">
 							<div class="flex items-center justify-between text-xs">
 								<span class="text-muted-foreground">Median Wage</span>
-								<span class="font-semibold text-foreground"
-									>Local currency {entity.wage.toLocaleString()}</span
+								<span class="font-semibold text-foreground">SGD {entity.wage.toLocaleString()}</span
 								>
 							</div>
 						</div>
@@ -581,7 +580,7 @@
 											: 'text-foreground'
 								)}
 							>
-								{journeyData.wageDelta > 0 ? '+' : ''}Local currency {journeyData.wageDelta.toLocaleString()}
+								{journeyData.wageDelta > 0 ? '+' : ''}SGD {journeyData.wageDelta.toLocaleString()}
 							</p>
 						</div>
 						<div class={cn(card({ variant: 'inset', padding: 'sm' }), 'text-center')}>

@@ -4,7 +4,7 @@
 	import type { ScoredRole } from '$lib/data/synthetic-roles';
 	import { roleCategoryMap } from '$lib/data/role-taxonomy';
 	import type { RoleCategory } from '$lib/data/role-taxonomy';
-	import { titleMatches } from '$lib/utils/search';
+	import { titleMatches, fuzzyTitleMatches } from '$lib/utils/search';
 	import { findAliasMatches } from '$lib/data/aliases';
 	import {
 		card,
@@ -45,9 +45,13 @@
 	let searchFilteredRoles = $derived.by((): ScoredRole[] => {
 		if (!isSearching) return data.scoredRoles as ScoredRole[];
 		const q = searchQuery.trim().toLowerCase();
-		return (data.scoredRoles as ScoredRole[]).filter(
+		const roles = data.scoredRoles as ScoredRole[];
+		const exact = roles.filter(
 			r => titleMatches(r.title, q) || titleMatches(r.description, q) || r.slug.includes(q)
 		);
+		// Typo-tolerant fallback only when exact matching finds nothing.
+		if (exact.length > 0) return exact;
+		return roles.filter(r => fuzzyTitleMatches(r.title, q));
 	});
 
 	let searchFilteredOccupations = $derived.by((): Occupation[] => {
@@ -66,7 +70,10 @@
 			o => !aliasSet.has(o.ssoc) && (titleMatches(o.title, q) || o.ssoc.includes(q))
 		);
 
-		return [...aliasOccs, ...titleOccs];
+		const exact = [...aliasOccs, ...titleOccs];
+		// Typo-tolerant fallback only when exact matching finds nothing.
+		if (exact.length > 0) return exact;
+		return allOccs.filter(o => fuzzyTitleMatches(o.title, q));
 	});
 
 	// --- Role grouping by category ---

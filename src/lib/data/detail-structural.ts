@@ -150,8 +150,12 @@ function describeWageVsNational(wage: number, nationalMedian: number): string {
 
 function getRiskPercentile(targetRisk: number, allOccupations: Occupation[]): number {
 	if (allOccupations.length === 0) return 0;
-	const lowerOrEqual = allOccupations.filter((occupation) => occupation.net_risk <= targetRisk).length;
-	return Math.round((lowerOrEqual / allOccupations.length) * 100);
+	// Count occupations with strictly lower risk so "higher risk than X%" excludes the
+	// occupation itself, and cap at 99 so the highest-risk occupation never reads "100%".
+	const strictlyLower = allOccupations.filter(
+		(occupation) => occupation.net_risk < targetRisk
+	).length;
+	return Math.min(99, Math.round((strictlyLower / allOccupations.length) * 100));
 }
 
 function buildOccupationWorkflowNarrative(occupation: Occupation): string | null {

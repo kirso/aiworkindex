@@ -141,7 +141,7 @@
 	<!-- ===== BLOCK 1: THE VERDICT ===== -->
 	<div class={cn(card({ padding: 'lg' }), section({ spacing: 'loose' }))}>
 		<OccupationHero
-			scoreLabel="AI displacement pressure"
+			scoreLabel="AI displacement risk"
 			scoreValue={`${(data.occupation.structuralPressure * 100).toFixed(0)}%`}
 			scoreBand={data.occupation.structuralBand}
 			scoreBandLabel={riskBandLabels[data.occupation.structuralBand]}

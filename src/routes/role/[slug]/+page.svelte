@@ -358,11 +358,14 @@
 	<div class={cn(card({ padding: 'lg' }), 'mb-8 overflow-hidden')}>
 		<div class="grid gap-6 md:grid-cols-[12rem_minmax(0,1fr)] md:items-start">
 			<div class={cn('rounded-2xl border p-5', scoreTileClasses(scored.risk_band))}>
-				<p class={microLabel()}>Structural pressure</p>
+				<p class={microLabel()}>AI displacement risk</p>
 				<p class={cn(display({ size: 'xl' }), 'mt-2')}>{(scored.net_risk * 100).toFixed(0)}%</p>
 				<span class={cn(riskBadge({ band: scored.risk_band }), 'mt-2 inline-flex')}>
 					{riskBandLabels[scored.risk_band]} Risk
 				</span>
+				<p class="mt-2 text-[11px] leading-snug text-muted-foreground">
+					Structural pressure, not a prediction of job loss.
+				</p>
 				{#if scored.risk_range}
 					<div class="mt-5 border-t border-border/70 pt-3">
 						<p class={microLabel()}>Likely range</p>

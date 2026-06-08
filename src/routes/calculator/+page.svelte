@@ -15,8 +15,8 @@
 	} from '$lib/design-system';
 	import { riskBandLabels, impactTypeLabels } from '$lib/data';
 	import type { RiskBand, ImpactType } from '$lib/data';
-	import { SENIORITY_MODIFIERS } from '$lib/data/scoring-constants';
-	import { titleMatches } from '$lib/utils/search';
+	import { SENIORITY_MODIFIERS, getRiskBand } from '$lib/data/scoring-constants';
+	import { titleMatches, fuzzyTitleMatches } from '$lib/utils/search';
 	import { findAliasMatches } from '$lib/data/aliases';
 	import PageFooterNav from '$lib/components/ui/PageFooterNav.svelte';
 
@@ -50,7 +50,16 @@
 		const titleEntries = data.entries.filter(
 			e => !aliasIds.has(e.id) && titleMatches(e.title, q.toLowerCase())
 		);
-		return [...aliasEntries, ...titleEntries].slice(0, 8);
+		let results = [...aliasEntries, ...titleEntries].slice(0, 8);
+		// Typo-tolerant fallback: fill remaining slots so "accuntant" still finds "Accountant".
+		if (results.length < 8) {
+			const seen = new Set(results.map(e => e.id));
+			const fuzzy = data.entries.filter(
+				e => !seen.has(e.id) && fuzzyTitleMatches(e.title, q.toLowerCase())
+			);
+			results = [...results, ...fuzzy].slice(0, 8);
+		}
+		return results;
 	});
 
 	let seniorityAdjustedRisk = $derived.by(() => {
@@ -70,6 +79,8 @@
 		);
 	});
 
+	// Band reflects the seniority-adjusted value the user is currently viewing, not the base entry.
+	let adjustedRiskBand = $derived(getRiskBand(seniorityAdjustedRisk) as RiskBand);
 	let riskAmount = $derived(Math.round(salary * seniorityAdjustedRisk));
 	let annualAtRisk = $derived(riskAmount * 12);
 
@@ -159,7 +170,7 @@
 	<div class={card({ padding: 'lg', class: 'mb-4' })}>
 		<p class={sectionLabel({ class: 'mb-2' })}>2. Enter your monthly salary</p>
 		<div class="flex items-center gap-2">
-			<span class="text-sm font-medium text-muted-foreground">Local currency</span>
+			<span class="text-sm font-medium text-muted-foreground">SGD</span>
 			<input
 				type="number"
 				class={formInput({ size: 'lg', class: 'max-w-xs' })}
@@ -196,9 +207,7 @@
 
 	<!-- Results -->
 	{#if selectedEntry && salary > 0}
-		<div
-			class={card({ padding: 'lg', accent: selectedEntry.risk_band as RiskBand, class: 'mb-6' })}
-		>
+		<div class={card({ padding: 'lg', accent: adjustedRiskBand, class: 'mb-6' })}>
 			<p class={sectionLabel({ class: 'mb-3' })}>Your result</p>
 
 			<div class="mb-4 text-center">
@@ -209,15 +218,15 @@
 				<p class="mt-3 text-base font-mono font-semibold text-muted-foreground">
 					{selectedEntry && 'currency' in selectedEntry && selectedEntry.currency
 						? selectedEntry.currency
-						: 'Local'}
+						: 'SGD'}
 					{riskAmount.toLocaleString()}/mo
 				</p>
 				<p class={caption()}>salary equivalent of overlapping tasks</p>
 			</div>
 
 			<div class="flex flex-wrap items-center justify-center gap-3 mb-4">
-				<span class={riskBadge({ band: selectedEntry.risk_band as RiskBand })}>
-					{riskBandLabels[selectedEntry.risk_band as RiskBand]} Risk
+				<span class={riskBadge({ band: adjustedRiskBand })}>
+					{riskBandLabels[adjustedRiskBand]} Risk
 				</span>
 				<span class={impactBadge({ type: selectedEntry.impact_type as ImpactType })}>
 					{impactTypeLabels[selectedEntry.impact_type as ImpactType]}
@@ -230,7 +239,7 @@
 					<span class="font-mono font-semibold">
 						{selectedEntry && 'currency' in selectedEntry && selectedEntry.currency
 							? selectedEntry.currency
-							: 'Local'}
+							: 'SGD'}
 						{annualAtRisk.toLocaleString()}
 					</span>
 				</div>

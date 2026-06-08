@@ -180,7 +180,7 @@
 
 	<div class={cn(card({ padding: 'lg' }), 'mt-6')}>
 		<OccupationHero
-			scoreLabel="Headline risk"
+			scoreLabel="AI displacement risk"
 			scoreValue={`${(data.scored.net_risk * 100).toFixed(0)}%`}
 			scoreBand={data.scored.risk_band}
 			scoreBandLabel={riskBandLabels[data.scored.risk_band]}

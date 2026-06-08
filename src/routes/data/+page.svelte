@@ -201,7 +201,7 @@
 			name: 'exposure',
 			type: 'number',
 			description:
-				'Base 4-source exposure ensemble (0-1), before V7 task-concentration amplification.'
+				'Base 4-source exposure ensemble (0-1), before the V7 task-concentration buffer.'
 		},
 		{
 			name: 'task_signal',
@@ -213,7 +213,7 @@
 			name: 'exposure_v7',
 			type: 'number',
 			description:
-				'Live V7 exposure after task-concentration amplification. Formula: min(1, exposure × (1 + 0.20 × task_signal)).'
+				'Live V7 exposure after the task-concentration buffer (Hampole et al. 2025: concentration offsets labour-demand losses). Formula: min(1, exposure × (1 − 0.20 × task_signal)).'
 		},
 		{
 			name: 'bottleneck',
@@ -665,7 +665,7 @@
 </script>
 
 <Seo
-	title="Download AI Work Index Data"
+	title="Data & Downloads"
 	description={`Download the current AI Work Index dataset and versioned snapshots, including the live ${DATA_VINTAGE.model_version} structural scores, uncertainty intervals, and metadata. The global baseline stays structural-only; country bundles add local wages, demand, support, and policy context where evidence exists.`}
 	path="/data"
 	jsonLd={[datasetJsonLd]}

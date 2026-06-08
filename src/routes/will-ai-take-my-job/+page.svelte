@@ -17,7 +17,7 @@
 	import { riskBandLabels, impactTypeLabels } from '$lib/data';
 	import type { RiskBand, ImpactType } from '$lib/data';
 	import { SENIORITY_MODIFIERS } from '$lib/data/scoring-constants';
-	import { titleMatches } from '$lib/utils/search';
+	import { titleMatches, fuzzyTitleMatches } from '$lib/utils/search';
 	import { findAliasMatches } from '$lib/data/aliases';
 
 	let { data } = $props();
@@ -48,7 +48,16 @@
 		const titleEntries = data.entries.filter(
 			(e: Entry) => !aliasIds.has(e.id) && titleMatches(e.title, q.toLowerCase())
 		);
-		return [...aliasEntries, ...titleEntries].slice(0, 8);
+		let results = [...aliasEntries, ...titleEntries].slice(0, 8);
+		// Typo-tolerant fallback: fill remaining slots so "accuntant" still finds "Accountant".
+		if (results.length < 8) {
+			const seen = new Set(results.map((e: Entry) => e.id));
+			const fuzzy = data.entries.filter(
+				(e: Entry) => !seen.has(e.id) && fuzzyTitleMatches(e.title, q.toLowerCase())
+			);
+			results = [...results, ...fuzzy].slice(0, 8);
+		}
+		return results;
 	});
 
 	let seniorityAdjustedRisk = $derived.by(() => {
@@ -157,7 +166,7 @@
 	<div class={card({ padding: 'lg', class: 'mb-4' })}>
 		<p class={sectionLabel({ class: 'mb-2' })}>2. Enter your monthly salary</p>
 		<div class="flex items-center gap-2">
-			<span class="text-sm font-medium text-muted-foreground">Local currency</span>
+			<span class="text-sm font-medium text-muted-foreground">SGD</span>
 			<input
 				type="number"
 				class={formInput({ size: 'lg', class: 'max-w-xs' })}
@@ -207,7 +216,7 @@
 				<p class="mt-3 text-base font-mono font-semibold text-muted-foreground">
 					{selectedEntry && 'currency' in selectedEntry && selectedEntry.currency
 						? selectedEntry.currency
-						: 'Local'}
+						: 'SGD'}
 					{riskAmount.toLocaleString()}/mo
 				</p>
 				<p class={caption()}>salary equivalent of overlapping tasks</p>
@@ -228,7 +237,7 @@
 					<span class="font-mono font-semibold">
 						{selectedEntry && 'currency' in selectedEntry && selectedEntry.currency
 							? selectedEntry.currency
-							: 'Local'}
+							: 'SGD'}
 						{annualAtRisk.toLocaleString()}
 					</span>
 				</div>

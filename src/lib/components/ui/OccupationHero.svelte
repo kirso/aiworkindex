@@ -27,6 +27,10 @@
 		summary: string;
 		meta?: string[];
 		actions?: Snippet;
+		/** Optional uncertainty range (e.g. "59–81%") shown under the headline number. */
+		scoreRange?: string;
+		/** Short caveat under the score. Defaults to the structural-pressure framing. */
+		scoreCaveat?: string;
 		class?: string;
 	}
 
@@ -40,6 +44,8 @@
 		summary,
 		meta = [],
 		actions,
+		scoreRange,
+		scoreCaveat = 'Structural pressure, not a prediction of job loss.',
 		class: className = ''
 	}: Props = $props();
 </script>
@@ -49,17 +55,23 @@
 		<div
 			class={cn('rounded-2xl border p-5', scoreTileClasses(scoreBand))}
 			role="figure"
-			aria-label={`${scoreLabel} ${scoreValue}, rated ${scoreBandLabel}`}
+			aria-label={`${scoreLabel} ${scoreValue}, rated ${scoreBandLabel}${scoreRange ? `, range ${scoreRange}` : ''}. ${scoreCaveat}`}
 		>
 			<p class="text-xs uppercase tracking-wide text-muted-foreground">{scoreLabel}</p>
 			<p class={cn(display({ size: 'xl' }), 'mt-2')}>{scoreValue}</p>
+			{#if scoreRange}
+				<p class="mt-1 text-xs text-muted-foreground">Range {scoreRange}</p>
+			{/if}
 			<span class={cn(riskBadge({ band: scoreBand }), 'mt-2 inline-flex')}>
 				{scoreBandLabel} Risk
 			</span>
+			{#if scoreCaveat}
+				<p class="mt-2 text-[11px] leading-snug text-muted-foreground">{scoreCaveat}</p>
+			{/if}
 		</div>
 
 		<div class="min-w-0">
-			<div class="flex items-start justify-between gap-4">
+			<div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
 				<h1 class={cn(titleStyle({ size: 'page' }), 'min-w-0')}>
 					{title}
 				</h1>

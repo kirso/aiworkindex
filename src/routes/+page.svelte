@@ -355,11 +355,11 @@
 								{/if}
 							</p>
 						</div>
-						<Tabs.List class="w-full md:w-auto">
+						<Tabs.List class="w-full overflow-x-auto md:w-auto">
 							{#each chartTabs as tab (tab.key)}
 								<Tabs.Trigger
 									value={tab.key}
-									class="min-w-0 flex-1 text-xs sm:flex-initial sm:text-sm"
+									class="shrink-0 whitespace-nowrap text-xs sm:flex-1 sm:text-sm md:flex-initial"
 								>
 									{tab.label}
 								</Tabs.Trigger>
@@ -383,7 +383,8 @@
 								href="/explore"
 								class="mt-2 block text-center text-xs font-medium text-primary hover:underline"
 							>
-								View all {filteredOccupations.length} occupations →
+								View all {filteredOccupations.length}
+								{data.surface.code === 'global' ? 'occupation groups' : 'occupations'} →
 							</a>
 						{/if}
 					</Tabs.Content>
@@ -416,7 +417,7 @@
 					<Tabs.Content value="distribution">
 						<Histogram
 							occupations={filteredOccupations as unknown as Occupation[]}
-							scoreLabel={data.surface.code === 'global' ? 'Structural pressure' : 'Headline risk'}
+							scoreLabel="AI displacement risk"
 						/>
 					</Tabs.Content>
 				</Tabs.Root>

@@ -359,13 +359,18 @@ export const formInput = tv({
 
 // ============================================
 // RISK COLOR SCALE (D3)
-// Signal palette — full saturation
+// sRGB hex equivalents of the --color-risk-* oklch band tokens in app.css, so
+// D3 visualizations (Treemap, Histogram) match the risk badges exactly. D3 needs
+// concrete color strings, so these are kept in sync with the tokens by value:
+//   very-low oklch(0.48 0.14 155) low oklch(0.47 0.12 145) moderate oklch(0.55 0.14 75)
+//   high oklch(0.5 0.16 40) very-high oklch(0.55 0.22 25)
+// If the tokens change, recompute these hex values.
 // ============================================
 
 export const riskColorScale = d3Scale
 	.scaleLinear<string>()
 	.domain([0, 0.15, 0.35, 0.6, 1.0])
-	.range(['#34d399', '#fbbf24', '#f97316', '#ef4444', '#991b1b'])
+	.range(['#007338', '#256c2c', '#a06200', '#aa3700', '#d40924'])
 	.clamp(true);
 
 // ============================================
