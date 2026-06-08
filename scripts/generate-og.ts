@@ -8,6 +8,7 @@ import satori from 'satori';
 import { Resvg } from '@resvg/resvg-js';
 import * as fs from 'fs';
 import * as path from 'path';
+import { ogSignature, type OgScoreItem } from './og-signature';
 
 const DATA_FILE = path.join(import.meta.dir, '..', 'data', 'occupations.json');
 const OUT_DIR = path.join(import.meta.dir, '..', 'static', 'og');
@@ -686,6 +687,34 @@ async function main() {
 			.reduce((sum, f) => sum + fs.statSync(path.join(dir, f)).size, 0);
 	}
 	const totalSize = dirPngSize(OUT_DIR) + dirPngSize(US_OUT_DIR);
+
+	// Freshness manifest: signature of the scores just rendered. release-check.ts
+	// recomputes this and fails if the live scores have drifted from the cards.
+	const { syntheticRoles, computeRoleScores } = await import('../src/lib/data/synthetic-roles');
+	const { occupationsBySSoc } = await import('../src/lib/data/index');
+	const signatureItems: OgScoreItem[] = [
+		...occupations.map(o => ({
+			key: `occ:${o.ssoc}`,
+			net_risk: o.net_risk,
+			risk_band: o.risk_band
+		})),
+		...syntheticRoles.map(role => {
+			const scored = computeRoleScores(role, occupationsBySSoc);
+			return { key: `role:${role.slug}`, net_risk: scored.net_risk, risk_band: scored.risk_band };
+		})
+	];
+	fs.writeFileSync(
+		path.join(OUT_DIR, 'og-manifest.json'),
+		JSON.stringify(
+			{
+				signature: ogSignature(signatureItems),
+				occupation_count: occupations.length,
+				role_count: syntheticRoles.length
+			},
+			null,
+			2
+		)
+	);
 
 	console.log(`\nDone: ${generated} images generated, ${errors} errors`);
 	console.log(`Total size: ${(totalSize / 1024 / 1024).toFixed(1)}MB`);

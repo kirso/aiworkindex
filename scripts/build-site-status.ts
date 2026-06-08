@@ -69,9 +69,9 @@ const STRUCTURAL_VERSION_HISTORY = [
 		availability: 'current_download',
 		href: '/data',
 		notes: [
-			'Promotes the live V7 release: task-concentration-weighted exposure and a demand-persistence proxy on top of the V6 two-axis structural model.',
-			'The canonical public export, sitemap, release manifest, claims matrix, and LLM surfaces now share the same V7 release contract.',
-			'V6 remains preserved as the immediate previous structural baseline for auditability.'
+			'Promotes the live V7 release: a task-concentration exposure buffer and a demand-persistence proxy on top of the V6 two-axis structural model.',
+			'Revised 7 Jun 2026: the task-concentration term was corrected from an exposure amplifier to a buffer, matching the cited Hampole et al. (2025) finding that concentrated exposure offsets labour-demand losses.',
+			'The canonical public export, sitemap, release manifest, claims matrix, and LLM surfaces share the same V7 release contract. V6 remains preserved as the immediate previous structural baseline for auditability.'
 		]
 	},
 	{

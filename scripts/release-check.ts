@@ -4,6 +4,9 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 import { DATA_VINTAGE } from '../src/lib/data/scoring-constants';
+import { syntheticRoles, computeRoleScores } from '../src/lib/data/synthetic-roles';
+import { occupationsBySSoc } from '../src/lib/data/index';
+import { ogSignature, type OgScoreItem } from './og-signature';
 
 const ROOT_DIR = path.join(import.meta.dir, '..');
 const versionTag = DATA_VINTAGE.model_version.toLowerCase().replaceAll('.', '');
@@ -525,7 +528,10 @@ assert(
 );
 assert(!robots.includes('www.kirillso.com'), 'robots still points at the old host');
 assert(worker.includes('www.aiworkindex.com'), 'worker must redirect www duplicate host');
-assert(worker.includes('aiworkindex.pages.dev'), 'worker must redirect default Pages duplicate host');
+assert(
+	worker.includes('aiworkindex.pages.dev'),
+	'worker must redirect default Pages duplicate host'
+);
 assert(worker.includes('https://aiworkindex.com'), 'worker redirects must target canonical host');
 assert(
 	headers.includes('https://aiworkindex.pages.dev/*') &&
@@ -546,5 +552,35 @@ assert(
 assert(!sitemap.includes('/sg/occupation/'), 'sitemap includes Singapore redirect aliases');
 
 runStaticBuildSeoAudit(sitemapLocs);
+
+// OG-image freshness guard: fail if live scores have drifted from the rendered share cards.
+const OG_MANIFEST_FILE = path.join(ROOT_DIR, 'static', 'og', 'og-manifest.json');
+assert(
+	fs.existsSync(OG_MANIFEST_FILE),
+	'static/og/og-manifest.json missing — run bun run scripts/generate-og.ts'
+);
+const ogManifest = JSON.parse(fs.readFileSync(OG_MANIFEST_FILE, 'utf-8')) as {
+	signature: string;
+};
+const ogOccupations = JSON.parse(fs.readFileSync(CANONICAL_DATA_FILE, 'utf-8')) as Array<{
+	ssoc: string;
+	net_risk: number;
+	risk_band: string;
+}>;
+const ogSignatureItems: OgScoreItem[] = [
+	...ogOccupations.map(o => ({
+		key: `occ:${o.ssoc}`,
+		net_risk: o.net_risk,
+		risk_band: o.risk_band
+	})),
+	...syntheticRoles.map(role => {
+		const scored = computeRoleScores(role, occupationsBySSoc);
+		return { key: `role:${role.slug}`, net_risk: scored.net_risk, risk_band: scored.risk_band };
+	})
+];
+assert(
+	ogSignature(ogSignatureItems) === ogManifest.signature,
+	'OG share images are stale (scores changed since they were rendered) — run bun run scripts/generate-og.ts'
+);
 
 console.log('release-check: ok');
