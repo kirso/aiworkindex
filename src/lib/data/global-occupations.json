@@ -2,7 +2,7 @@
   {
     "canonicalCode": "1120",
     "canonicalTitle": "Company director",
-    "structuralPressure": 0.037399999999999996,
+    "structuralPressure": 0.03643333333333334,
     "structuralBand": "very_low",
     "exposure": 0.6278,
     "bottleneck": 0.9411999999999999,
@@ -14,14 +14,14 @@
       "11203"
     ],
     "confidence": {
-      "score": 0.8839,
+      "score": 0.8739,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.6999999999999998,
       "source_freshness": 0.8386999999999999,
       "source_coverage": 1,
       "signal_agreement": 0.85,
-      "sensitivity": 0.7833333333333333,
+      "sensitivity": 0.7166666666666667,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -30,7 +30,7 @@
   {
     "canonicalCode": "1211",
     "canonicalTitle": "Audit manager",
-    "structuralPressure": 0.22066666666666665,
+    "structuralPressure": 0.21746666666666667,
     "structuralBand": "moderate",
     "exposure": 0.7879,
     "bottleneck": 0.7219000000000001,
@@ -58,7 +58,7 @@
   {
     "canonicalCode": "1212",
     "canonicalTitle": "Training manager",
-    "structuralPressure": 0.21503333333333333,
+    "structuralPressure": 0.21256666666666665,
     "structuralBand": "moderate",
     "exposure": 0.6853000000000001,
     "bottleneck": 0.6881,
@@ -86,7 +86,7 @@
   {
     "canonicalCode": "1213",
     "canonicalTitle": "Policy manager",
-    "structuralPressure": 0.0358,
+    "structuralPressure": 0.0346,
     "structuralBand": "very_low",
     "exposure": 0.4489,
     "bottleneck": 0.9216000000000001,
@@ -114,7 +114,7 @@
   {
     "canonicalCode": "1219",
     "canonicalTitle": "Security manager",
-    "structuralPressure": 0.14046666666666666,
+    "structuralPressure": 0.13776666666666668,
     "structuralBand": "low",
     "exposure": 0.6728999999999999,
     "bottleneck": 0.7932,
@@ -142,7 +142,7 @@
   {
     "canonicalCode": "1221",
     "canonicalTitle": "Sales manager",
-    "structuralPressure": 0.21311999999999998,
+    "structuralPressure": 0.20615999999999998,
     "structuralBand": "moderate",
     "exposure": 0.7738,
     "bottleneck": 0.7291,
@@ -172,7 +172,7 @@
   {
     "canonicalCode": "1222",
     "canonicalTitle": "Marketing manager",
-    "structuralPressure": 0.21960000000000002,
+    "structuralPressure": 0.2168,
     "structuralBand": "moderate",
     "exposure": 0.718,
     "bottleneck": 0.6961,
@@ -199,7 +199,7 @@
   {
     "canonicalCode": "1223",
     "canonicalTitle": "Research and development manager",
-    "structuralPressure": 0.0241,
+    "structuralPressure": 0.0233,
     "structuralBand": "very_low",
     "exposure": 0.3548,
     "bottleneck": 0.9332,
@@ -225,7 +225,7 @@
   {
     "canonicalCode": "1224",
     "canonicalTitle": "Call centre manager",
-    "structuralPressure": 0.3893,
+    "structuralPressure": 0.3825,
     "structuralBand": "high",
     "exposure": 0.7109,
     "bottleneck": 0.4572,
@@ -278,7 +278,7 @@
   {
     "canonicalCode": "1321",
     "canonicalTitle": "Manufacturing manager",
-    "structuralPressure": 0.0336,
+    "structuralPressure": 0.0325,
     "structuralBand": "very_low",
     "exposure": 0.6284,
     "bottleneck": 0.9474,
@@ -304,7 +304,7 @@
   {
     "canonicalCode": "1323",
     "canonicalTitle": "Construction manager",
-    "structuralPressure": 0.0312,
+    "structuralPressure": 0.0307,
     "structuralBand": "very_low",
     "exposure": 0.588,
     "bottleneck": 0.9474,
@@ -330,7 +330,7 @@
   {
     "canonicalCode": "1324",
     "canonicalTitle": "Postal service manager",
-    "structuralPressure": 0.10697999999999999,
+    "structuralPressure": 0.1049,
     "structuralBand": "low",
     "exposure": 0.6461,
     "bottleneck": 0.836,
@@ -360,7 +360,7 @@
   {
     "canonicalCode": "1329",
     "canonicalTitle": "Quality control/assurance manager",
-    "structuralPressure": 0.08385000000000001,
+    "structuralPressure": 0.08374999999999999,
     "structuralBand": "low",
     "exposure": 0.5912,
     "bottleneck": 0.8583,
@@ -387,7 +387,7 @@
   {
     "canonicalCode": "1330",
     "canonicalTitle": "ICT service manager",
-    "structuralPressure": 0.020300000000000002,
+    "structuralPressure": 0.019774999999999997,
     "structuralBand": "very_low",
     "exposure": 0.478,
     "bottleneck": 0.9581,
@@ -416,7 +416,7 @@
   {
     "canonicalCode": "1341",
     "canonicalTitle": "Pre-school education manager",
-    "structuralPressure": 0.086,
+    "structuralPressure": 0.0852,
     "structuralBand": "low",
     "exposure": 0.3278,
     "bottleneck": 0.7389,
@@ -442,7 +442,7 @@
   {
     "canonicalCode": "1342",
     "canonicalTitle": "Health services manager",
-    "structuralPressure": 0.2491,
+    "structuralPressure": 0.2443,
     "structuralBand": "moderate",
     "exposure": 0.5965,
     "bottleneck": 0.5865,
@@ -494,7 +494,7 @@
   {
     "canonicalCode": "1344",
     "canonicalTitle": "Social service manager",
-    "structuralPressure": 0.0078,
+    "structuralPressure": 0.0076,
     "structuralBand": "very_low",
     "exposure": 0.5408,
     "bottleneck": 0.9857,
@@ -520,7 +520,7 @@
   {
     "canonicalCode": "1345",
     "canonicalTitle": "School principal",
-    "structuralPressure": 0.0231,
+    "structuralPressure": 0.0227,
     "structuralBand": "very_low",
     "exposure": 0.4593,
     "bottleneck": 0.9501,
@@ -546,8 +546,8 @@
   {
     "canonicalCode": "1346",
     "canonicalTitle": "Financial risk manager",
-    "structuralPressure": 0.30086666666666667,
-    "structuralBand": "high",
+    "structuralPressure": 0.2991333333333333,
+    "structuralBand": "moderate",
     "exposure": 0.6759,
     "bottleneck": 0.5561,
     "structuralFootprint": 3,
@@ -574,7 +574,7 @@
   {
     "canonicalCode": "1349",
     "canonicalTitle": "Media and broadcasting manager",
-    "structuralPressure": 0.134,
+    "structuralPressure": 0.13365,
     "structuralBand": "low",
     "exposure": 0.6473,
     "bottleneck": 0.7932,
@@ -601,7 +601,7 @@
   {
     "canonicalCode": "1411",
     "canonicalTitle": "Hotel operations/Lodging services manager",
-    "structuralPressure": 0.0607,
+    "structuralPressure": 0.0586,
     "structuralBand": "low",
     "exposure": 0.5574,
     "bottleneck": 0.893,
@@ -627,7 +627,7 @@
   {
     "canonicalCode": "1412",
     "canonicalTitle": "Catering manager",
-    "structuralPressure": 0.23440000000000003,
+    "structuralPressure": 0.22630000000000003,
     "structuralBand": "moderate",
     "exposure": 0.438,
     "bottleneck": 0.4742,
@@ -655,7 +655,7 @@
   {
     "canonicalCode": "1420",
     "canonicalTitle": "Retail manager",
-    "structuralPressure": 0.1574,
+    "structuralPressure": 0.1519,
     "structuralBand": "moderate",
     "exposure": 0.6647,
     "bottleneck": 0.7674,
@@ -682,7 +682,7 @@
   {
     "canonicalCode": "1431",
     "canonicalTitle": "Sports centre manager",
-    "structuralPressure": 0.0215,
+    "structuralPressure": 0.0207,
     "structuralBand": "very_low",
     "exposure": 0.3033,
     "bottleneck": 0.9305,
@@ -708,7 +708,7 @@
   {
     "canonicalCode": "1432",
     "canonicalTitle": "Attractions manager",
-    "structuralPressure": 0.0461,
+    "structuralPressure": 0.0445,
     "structuralBand": "very_low",
     "exposure": 0.4133,
     "bottleneck": 0.8904,
@@ -735,7 +735,7 @@
   {
     "canonicalCode": "1433",
     "canonicalTitle": "Arts and cultural centre manager (including gallery and museum manager)",
-    "structuralPressure": 0.0322,
+    "structuralPressure": 0.0311,
     "structuralBand": "very_low",
     "exposure": 0.5724,
     "bottleneck": 0.9447,
@@ -761,7 +761,7 @@
   {
     "canonicalCode": "1439",
     "canonicalTitle": "Event manager",
-    "structuralPressure": 0.0386,
+    "structuralPressure": 0.0373,
     "structuralBand": "very_low",
     "exposure": 0.5997,
     "bottleneck": 0.9367,
@@ -788,7 +788,7 @@
   {
     "canonicalCode": "2113",
     "canonicalTitle": "Chemist",
-    "structuralPressure": 0.2599,
+    "structuralPressure": 0.2559,
     "structuralBand": "moderate",
     "exposure": 0.6403,
     "bottleneck": 0.5971,
@@ -814,7 +814,7 @@
   {
     "canonicalCode": "2121",
     "canonicalTitle": "Actuary",
-    "structuralPressure": 0.71975,
+    "structuralPressure": 0.7125999999999999,
     "structuralBand": "very_high",
     "exposure": 0.8899,
     "bottleneck": 0.1952,
@@ -825,14 +825,14 @@
       "21213"
     ],
     "confidence": {
-      "score": 0.8,
+      "score": 0.815,
       "level": "high",
       "crosswalk_quality": 0.8427,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8029,
       "source_coverage": 0.82,
       "signal_agreement": 0.95,
-      "sensitivity": 0.65,
+      "sensitivity": 0.75,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -841,7 +841,7 @@
   {
     "canonicalCode": "2122",
     "canonicalTitle": "Statistician",
-    "structuralPressure": 0.44899999999999995,
+    "structuralPressure": 0.4445,
     "structuralBand": "high",
     "exposure": 0.9197,
     "bottleneck": 0.5143,
@@ -868,7 +868,7 @@
   {
     "canonicalCode": "2123",
     "canonicalTitle": "Statistical officer/Data analyst",
-    "structuralPressure": 0.717,
+    "structuralPressure": 0.713,
     "structuralBand": "very_high",
     "exposure": 0.9619,
     "bottleneck": 0.2567,
@@ -894,7 +894,7 @@
   {
     "canonicalCode": "2131",
     "canonicalTitle": "Biologist",
-    "structuralPressure": 0.6701,
+    "structuralPressure": 0.6478,
     "structuralBand": "very_high",
     "exposure": 0.8188,
     "bottleneck": 0.1952,
@@ -920,7 +920,7 @@
   {
     "canonicalCode": "2133",
     "canonicalTitle": "Environmental officer (environmental protection)",
-    "structuralPressure": 0.1128,
+    "structuralPressure": 0.1103,
     "structuralBand": "low",
     "exposure": 0.5538,
     "bottleneck": 0.7986,
@@ -946,7 +946,7 @@
   {
     "canonicalCode": "2134",
     "canonicalTitle": "Biochemist",
-    "structuralPressure": 0.09494,
+    "structuralPressure": 0.09401999999999999,
     "structuralBand": "low",
     "exposure": 0.5465,
     "bottleneck": 0.8271,
@@ -976,7 +976,7 @@
   {
     "canonicalCode": "2141",
     "canonicalTitle": "Process engineer",
-    "structuralPressure": 0.16692,
+    "structuralPressure": 0.16596,
     "structuralBand": "moderate",
     "exposure": 0.5836,
     "bottleneck": 0.7148,
@@ -990,14 +990,14 @@
       "21415"
     ],
     "confidence": {
-      "score": 0.8384,
+      "score": 0.8444,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.77,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.8099999999999999,
+      "sensitivity": 0.85,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -1006,7 +1006,7 @@
   {
     "canonicalCode": "2142",
     "canonicalTitle": "Civil engineer",
-    "structuralPressure": 0.31225,
+    "structuralPressure": 0.30974999999999997,
     "structuralBand": "high",
     "exposure": 0.6749,
     "bottleneck": 0.5392,
@@ -1017,14 +1017,14 @@
       "21422"
     ],
     "confidence": {
-      "score": 0.7988999999999999,
+      "score": 0.7839,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.75,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -1033,7 +1033,7 @@
   {
     "canonicalCode": "2143",
     "canonicalTitle": "Environmental engineer",
-    "structuralPressure": 0.1379,
+    "structuralPressure": 0.1363,
     "structuralBand": "low",
     "exposure": 0.693,
     "bottleneck": 0.8021,
@@ -1059,7 +1059,7 @@
   {
     "canonicalCode": "2144",
     "canonicalTitle": "Mechanical engineer",
-    "structuralPressure": 0.2157,
+    "structuralPressure": 0.21389999999999998,
     "structuralBand": "moderate",
     "exposure": 0.6275,
     "bottleneck": 0.6578,
@@ -1113,7 +1113,7 @@
   {
     "canonicalCode": "2147",
     "canonicalTitle": "Marine engineer",
-    "structuralPressure": 0.2094,
+    "structuralPressure": 0.20789999999999997,
     "structuralBand": "moderate",
     "exposure": 0.6259,
     "bottleneck": 0.6667,
@@ -1141,7 +1141,7 @@
   {
     "canonicalCode": "2149",
     "canonicalTitle": "Energy engineer",
-    "structuralPressure": 0.1707166666666667,
+    "structuralPressure": 0.1698833333333333,
     "structuralBand": "moderate",
     "exposure": 0.5322,
     "bottleneck": 0.68,
@@ -1172,7 +1172,7 @@
   {
     "canonicalCode": "2151",
     "canonicalTitle": "Lift engineer",
-    "structuralPressure": 0.213,
+    "structuralPressure": 0.21103333333333332,
     "structuralBand": "moderate",
     "exposure": 0.5977,
     "bottleneck": 0.6453,
@@ -1200,7 +1200,7 @@
   {
     "canonicalCode": "2152",
     "canonicalTitle": "Computer engineer",
-    "structuralPressure": 0.39911666666666673,
+    "structuralPressure": 0.3958833333333333,
     "structuralBand": "high",
     "exposure": 0.6399,
     "bottleneck": 0.3788,
@@ -1231,7 +1231,7 @@
   {
     "canonicalCode": "2153",
     "canonicalTitle": "Telecommunications engineer",
-    "structuralPressure": 0.6361,
+    "structuralPressure": 0.6324,
     "structuralBand": "very_high",
     "exposure": 0.8059,
     "bottleneck": 0.213,
@@ -1258,7 +1258,7 @@
   {
     "canonicalCode": "2161",
     "canonicalTitle": "Building architect",
-    "structuralPressure": 0.1248,
+    "structuralPressure": 0.1238,
     "structuralBand": "low",
     "exposure": 0.4843,
     "bottleneck": 0.7433,
@@ -1310,7 +1310,7 @@
   {
     "canonicalCode": "2163",
     "canonicalTitle": "Fashion designer",
-    "structuralPressure": 0.21925,
+    "structuralPressure": 0.21665,
     "structuralBand": "moderate",
     "exposure": 0.5495,
     "bottleneck": 0.6034,
@@ -1363,7 +1363,7 @@
   {
     "canonicalCode": "2165",
     "canonicalTitle": "Land surveyor",
-    "structuralPressure": 0.5013,
+    "structuralPressure": 0.5011,
     "structuralBand": "very_high",
     "exposure": 0.6767,
     "bottleneck": 0.2594,
@@ -1390,7 +1390,7 @@
   {
     "canonicalCode": "2166",
     "canonicalTitle": "Graphic designer",
-    "structuralPressure": 0.422675,
+    "structuralPressure": 0.41097500000000003,
     "structuralBand": "high",
     "exposure": 0.7459,
     "bottleneck": 0.4412,
@@ -1403,14 +1403,14 @@
       "21664"
     ],
     "confidence": {
-      "score": 0.7727,
+      "score": 0.7652,
       "level": "high",
       "crosswalk_quality": 0.5455,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.95,
-      "sensitivity": 0.7,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -1419,7 +1419,7 @@
   {
     "canonicalCode": "2167",
     "canonicalTitle": "Service designer",
-    "structuralPressure": 0.4464,
+    "structuralPressure": 0.4368,
     "structuralBand": "high",
     "exposure": 0.7038,
     "bottleneck": 0.3725,
@@ -1445,7 +1445,7 @@
   {
     "canonicalCode": "2171",
     "canonicalTitle": "Marine superintendent",
-    "structuralPressure": 0.05449999999999999,
+    "structuralPressure": 0.05353333333333333,
     "structuralBand": "low",
     "exposure": 0.3445,
     "bottleneck": 0.8431000000000001,
@@ -1500,7 +1500,7 @@
   {
     "canonicalCode": "2211",
     "canonicalTitle": "General practitioner/physician",
-    "structuralPressure": 0.009,
+    "structuralPressure": 0.0087,
     "structuralBand": "very_low",
     "exposure": 0.2375,
     "bottleneck": 0.9626,
@@ -1526,7 +1526,7 @@
   {
     "canonicalCode": "2212",
     "canonicalTitle": "Psychiatrist",
-    "structuralPressure": 0.008074999999999999,
+    "structuralPressure": 0.007875,
     "structuralBand": "very_low",
     "exposure": 0.4254,
     "bottleneck": 0.9813,
@@ -1584,7 +1584,7 @@
   {
     "canonicalCode": "2214",
     "canonicalTitle": "Ophthalmologist",
-    "structuralPressure": 0.012166666666666668,
+    "structuralPressure": 0.012033333333333333,
     "structuralBand": "very_low",
     "exposure": 0.4381,
     "bottleneck": 0.9724,
@@ -1615,7 +1615,7 @@
   {
     "canonicalCode": "2220",
     "canonicalTitle": "Registered nurse and other nursing professional (e.g. clinical nurse, nurse educator, excluding enrolled nurse)",
-    "structuralPressure": 0.0402,
+    "structuralPressure": 0.0401,
     "structuralBand": "very_low",
     "exposure": 0.4691,
     "bottleneck": 0.9144,
@@ -1641,7 +1641,7 @@
   {
     "canonicalCode": "2230",
     "canonicalTitle": "Traditional Chinese medicine practitioner",
-    "structuralPressure": 0.004,
+    "structuralPressure": 0.0039,
     "structuralBand": "very_low",
     "exposure": 0.318,
     "bottleneck": 0.9875,
@@ -1667,7 +1667,7 @@
   {
     "canonicalCode": "2250",
     "canonicalTitle": "Veterinarian",
-    "structuralPressure": 0.0036,
+    "structuralPressure": 0.0035,
     "structuralBand": "very_low",
     "exposure": 0.3298,
     "bottleneck": 0.9893,
@@ -1719,7 +1719,7 @@
   {
     "canonicalCode": "2262",
     "canonicalTitle": "Pharmacist (patient care)",
-    "structuralPressure": 0.0376,
+    "structuralPressure": 0.0374,
     "structuralBand": "very_low",
     "exposure": 0.5263,
     "bottleneck": 0.9287,
@@ -1745,7 +1745,7 @@
   {
     "canonicalCode": "2263",
     "canonicalTitle": "Environmental officer (public health)",
-    "structuralPressure": 0.1264,
+    "structuralPressure": 0.12619999999999998,
     "structuralBand": "low",
     "exposure": 0.6845,
     "bottleneck": 0.8155,
@@ -1798,7 +1798,7 @@
   {
     "canonicalCode": "2265",
     "canonicalTitle": "Dietitian",
-    "structuralPressure": 0.1442,
+    "structuralPressure": 0.1416,
     "structuralBand": "low",
     "exposure": 0.7747,
     "bottleneck": 0.8155,
@@ -1825,7 +1825,7 @@
   {
     "canonicalCode": "2266",
     "canonicalTitle": "Audiologist",
-    "structuralPressure": 0.03735,
+    "structuralPressure": 0.03705,
     "structuralBand": "very_low",
     "exposure": 0.4133,
     "bottleneck": 0.91,
@@ -1878,7 +1878,7 @@
   {
     "canonicalCode": "2268",
     "canonicalTitle": "Occupational therapist",
-    "structuralPressure": 0.01,
+    "structuralPressure": 0.0099,
     "structuralBand": "very_low",
     "exposure": 0.2857,
     "bottleneck": 0.9652,
@@ -1932,7 +1932,7 @@
   {
     "canonicalCode": "2310",
     "canonicalTitle": "University lecturer",
-    "structuralPressure": 0.1572,
+    "structuralPressure": 0.15525,
     "structuralBand": "moderate",
     "exposure": 0.6194,
     "bottleneck": 0.7478,
@@ -1959,7 +1959,7 @@
   {
     "canonicalCode": "2330",
     "canonicalTitle": "Technical/Vocational/Commercial education institute teacher and trainer",
-    "structuralPressure": 0.0383,
+    "structuralPressure": 0.0375,
     "structuralBand": "very_low",
     "exposure": 0.4626,
     "bottleneck": 0.918,
@@ -2011,7 +2011,7 @@
   {
     "canonicalCode": "2411",
     "canonicalTitle": "Tax accountant",
-    "structuralPressure": 0.6562,
+    "structuralPressure": 0.6451,
     "structuralBand": "very_high",
     "exposure": 0.9046,
     "bottleneck": 0.2807,
@@ -2039,7 +2039,7 @@
   {
     "canonicalCode": "2412",
     "canonicalTitle": "Business valuer",
-    "structuralPressure": 0.4108,
+    "structuralPressure": 0.40995,
     "structuralBand": "high",
     "exposure": 0.7487,
     "bottleneck": 0.4519,
@@ -2066,7 +2066,7 @@
   {
     "canonicalCode": "2413",
     "canonicalTitle": "Treasury manager",
-    "structuralPressure": 0.52878,
+    "structuralPressure": 0.52322,
     "structuralBand": "very_high",
     "exposure": 0.8808,
     "bottleneck": 0.4029,
@@ -2123,7 +2123,7 @@
   {
     "canonicalCode": "2415",
     "canonicalTitle": "Foreign exchange broker",
-    "structuralPressure": 0.457,
+    "structuralPressure": 0.4556,
     "structuralBand": "high",
     "exposure": 0.8258,
     "bottleneck": 0.4474,
@@ -2151,7 +2151,7 @@
   {
     "canonicalCode": "2416",
     "canonicalTitle": "Insurance underwriter",
-    "structuralPressure": 0.6835,
+    "structuralPressure": 0.6402,
     "structuralBand": "very_high",
     "exposure": 0.7735,
     "bottleneck": 0.1444,
@@ -2177,7 +2177,7 @@
   {
     "canonicalCode": "2421",
     "canonicalTitle": "Business consultant",
-    "structuralPressure": 0.3213666666666667,
+    "structuralPressure": 0.3165,
     "structuralBand": "high",
     "exposure": 0.7582,
     "bottleneck": 0.5793,
@@ -2205,7 +2205,7 @@
   {
     "canonicalCode": "2422",
     "canonicalTitle": "Policy administration professional (e.g. policy analyst)",
-    "structuralPressure": 0.5693,
+    "structuralPressure": 0.5673,
     "structuralBand": "very_high",
     "exposure": 0.8434,
     "bottleneck": 0.3262,
@@ -2231,7 +2231,7 @@
   {
     "canonicalCode": "2423",
     "canonicalTitle": "Executive search consultant",
-    "structuralPressure": 0.30317500000000003,
+    "structuralPressure": 0.3022,
     "structuralBand": "high",
     "exposure": 0.8386,
     "bottleneck": 0.639,
@@ -2244,14 +2244,14 @@
       "24234"
     ],
     "confidence": {
-      "score": 0.863125,
+      "score": 0.8706250000000001,
       "level": "high",
       "crosswalk_quality": 0.9444,
       "market_data_granularity": 0.6875,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.85,
-      "sensitivity": 0.75,
+      "sensitivity": 0.7999999999999999,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -2260,7 +2260,7 @@
   {
     "canonicalCode": "2424",
     "canonicalTitle": "Training and staff development professional",
-    "structuralPressure": 0.4848,
+    "structuralPressure": 0.4683,
     "structuralBand": "high",
     "exposure": 0.7772,
     "bottleneck": 0.3868,
@@ -2286,7 +2286,7 @@
   {
     "canonicalCode": "2425",
     "canonicalTitle": "Intellectual property agent",
-    "structuralPressure": 0.7444,
+    "structuralPressure": 0.7101,
     "structuralBand": "very_high",
     "exposure": 0.8421,
     "bottleneck": 0.1364,
@@ -2312,7 +2312,7 @@
   {
     "canonicalCode": "2429",
     "canonicalTitle": "Research officer (non-statistical)",
-    "structuralPressure": 0.4147,
+    "structuralPressure": 0.4042,
     "structuralBand": "high",
     "exposure": 0.7734,
     "bottleneck": 0.4706,
@@ -2338,7 +2338,7 @@
   {
     "canonicalCode": "2431",
     "canonicalTitle": "Revenue specialist",
-    "structuralPressure": 0.39002,
+    "structuralPressure": 0.38248000000000004,
     "structuralBand": "high",
     "exposure": 0.8954000000000001,
     "bottleneck": 0.5686,
@@ -2394,7 +2394,7 @@
   {
     "canonicalCode": "2433",
     "canonicalTitle": "Technical sales professional",
-    "structuralPressure": 0.5138499999999999,
+    "structuralPressure": 0.5076499999999999,
     "structuralBand": "very_high",
     "exposure": 0.7818,
     "bottleneck": 0.3467,
@@ -2423,7 +2423,7 @@
   {
     "canonicalCode": "2435",
     "canonicalTitle": "Ship charterer",
-    "structuralPressure": 0.4495,
+    "structuralPressure": 0.4472666666666667,
     "structuralBand": "high",
     "exposure": 0.8644,
     "bottleneck": 0.4813,
@@ -2451,7 +2451,7 @@
   {
     "canonicalCode": "2436",
     "canonicalTitle": "Trade broker",
-    "structuralPressure": 0.4491,
+    "structuralPressure": 0.4476,
     "structuralBand": "high",
     "exposure": 0.8644,
     "bottleneck": 0.4813,
@@ -2478,7 +2478,7 @@
   {
     "canonicalCode": "2511",
     "canonicalTitle": "Systems designer/analyst",
-    "structuralPressure": 0.4362333333333333,
+    "structuralPressure": 0.43206666666666665,
     "structuralBand": "high",
     "exposure": 0.8065000000000001,
     "bottleneck": 0.4617,
@@ -2506,7 +2506,7 @@
   {
     "canonicalCode": "2512",
     "canonicalTitle": "Software developer",
-    "structuralPressure": 0.8260666666666667,
+    "structuralPressure": 0.8081,
     "structuralBand": "very_high",
     "exposure": 0.8584,
     "bottleneck": 0.0481,
@@ -2534,7 +2534,7 @@
   {
     "canonicalCode": "2514",
     "canonicalTitle": "Applications/Systems programmer",
-    "structuralPressure": 0.717,
+    "structuralPressure": 0.6974,
     "structuralBand": "very_high",
     "exposure": 0.8787,
     "bottleneck": 0.1952,
@@ -2560,7 +2560,7 @@
   {
     "canonicalCode": "2515",
     "canonicalTitle": "ICT auditor",
-    "structuralPressure": 0.61755,
+    "structuralPressure": 0.6078,
     "structuralBand": "very_high",
     "exposure": 0.8342,
     "bottleneck": 0.2656,
@@ -2587,7 +2587,7 @@
   {
     "canonicalCode": "2521",
     "canonicalTitle": "Database architect",
-    "structuralPressure": 0.76015,
+    "structuralPressure": 0.74785,
     "structuralBand": "very_high",
     "exposure": 0.8952,
     "bottleneck": 0.1578,
@@ -2614,7 +2614,7 @@
   {
     "canonicalCode": "2522",
     "canonicalTitle": "Network, servers and computer systems administrator",
-    "structuralPressure": 0.6649,
+    "structuralPressure": 0.6525,
     "structuralBand": "very_high",
     "exposure": 0.7747,
     "bottleneck": 0.1497,
@@ -2667,7 +2667,7 @@
   {
     "canonicalCode": "2524",
     "canonicalTitle": "Cyber risk specialist",
-    "structuralPressure": 0.6171666666666668,
+    "structuralPressure": 0.6082,
     "structuralBand": "very_high",
     "exposure": 0.8342,
     "bottleneck": 0.2656,
@@ -2695,7 +2695,7 @@
   {
     "canonicalCode": "2529",
     "canonicalTitle": "Data centre engineer",
-    "structuralPressure": 0.644,
+    "structuralPressure": 0.6404,
     "structuralBand": "very_high",
     "exposure": 0.8132,
     "bottleneck": 0.2103,
@@ -2721,7 +2721,7 @@
   {
     "canonicalCode": "2611",
     "canonicalTitle": "In-house legal counsel (except judiciary, ministries and statutory boards)",
-    "structuralPressure": 0.1724,
+    "structuralPressure": 0.1692,
     "structuralBand": "moderate",
     "exposure": 0.6844,
     "bottleneck": 0.7504,
@@ -2747,7 +2747,7 @@
   {
     "canonicalCode": "2621",
     "canonicalTitle": "Curator",
-    "structuralPressure": 0.2228,
+    "structuralPressure": 0.216,
     "structuralBand": "moderate",
     "exposure": 0.557,
     "bottleneck": 0.6061,
@@ -2773,7 +2773,7 @@
   {
     "canonicalCode": "2622",
     "canonicalTitle": "Librarian",
-    "structuralPressure": 0.2046,
+    "structuralPressure": 0.2013,
     "structuralBand": "moderate",
     "exposure": 0.7851,
     "bottleneck": 0.7415,
@@ -2799,7 +2799,7 @@
   {
     "canonicalCode": "2631",
     "canonicalTitle": "Economist",
-    "structuralPressure": 0.4543,
+    "structuralPressure": 0.4478,
     "structuralBand": "high",
     "exposure": 0.8847,
     "bottleneck": 0.4902,
@@ -2825,8 +2825,8 @@
   {
     "canonicalCode": "2632",
     "canonicalTitle": "Social science researcher",
-    "structuralPressure": 0.1505,
-    "structuralBand": "moderate",
+    "structuralPressure": 0.1474,
+    "structuralBand": "low",
     "exposure": 0.6528,
     "bottleneck": 0.7718,
     "structuralFootprint": 1,
@@ -2851,7 +2851,7 @@
   {
     "canonicalCode": "2634",
     "canonicalTitle": "Clinical psychologist",
-    "structuralPressure": 0.0855,
+    "structuralPressure": 0.0842,
     "structuralBand": "low",
     "exposure": 0.4736,
     "bottleneck": 0.8209,
@@ -2905,7 +2905,7 @@
   {
     "canonicalCode": "2636",
     "canonicalTitle": "Minister of religion",
-    "structuralPressure": 0.0642,
+    "structuralPressure": 0.0631,
     "structuralBand": "low",
     "exposure": 0.4578,
     "bottleneck": 0.861,
@@ -2931,7 +2931,7 @@
   {
     "canonicalCode": "2637",
     "canonicalTitle": "School counsellor",
-    "structuralPressure": 0.08513333333333334,
+    "structuralPressure": 0.08466666666666667,
     "structuralBand": "low",
     "exposure": 0.5738,
     "bottleneck": 0.852,
@@ -2959,7 +2959,7 @@
   {
     "canonicalCode": "2641",
     "canonicalTitle": "Author",
-    "structuralPressure": 0.755075,
+    "structuralPressure": 0.741225,
     "structuralBand": "very_high",
     "exposure": 0.8557,
     "bottleneck": 0.1257,
@@ -2972,14 +2972,14 @@
       "26414"
     ],
     "confidence": {
-      "score": 0.77515,
+      "score": 0.7901499999999999,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.675,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.75,
+      "sensitivity": 0.85,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -2988,7 +2988,7 @@
   {
     "canonicalCode": "2642",
     "canonicalTitle": "Journalist",
-    "structuralPressure": 0.25615,
+    "structuralPressure": 0.2515,
     "structuralBand": "moderate",
     "exposure": 0.8254,
     "bottleneck": 0.6925,
@@ -3015,7 +3015,7 @@
   {
     "canonicalCode": "2643",
     "canonicalTitle": "Translator",
-    "structuralPressure": 0.3157,
+    "structuralPressure": 0.3092,
     "structuralBand": "high",
     "exposure": 0.9227,
     "bottleneck": 0.6613,
@@ -3041,7 +3041,7 @@
   {
     "canonicalCode": "2654",
     "canonicalTitle": "Editor (radio, television and video)",
-    "structuralPressure": 0.1491,
+    "structuralPressure": 0.14529999999999998,
     "structuralBand": "low",
     "exposure": 0.6117,
     "bottleneck": 0.7594,
@@ -3054,14 +3054,14 @@
       "26544"
     ],
     "confidence": {
-      "score": 0.8789,
+      "score": 0.8864,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.85,
-      "sensitivity": 0.75,
+      "sensitivity": 0.8,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -3070,7 +3070,7 @@
   {
     "canonicalCode": "3100",
     "canonicalTitle": "Assistant electrical engineer",
-    "structuralPressure": 0.22378,
+    "structuralPressure": 0.22188,
     "structuralBand": "moderate",
     "exposure": 0.3788,
     "bottleneck": 0.41180000000000005,
@@ -3084,14 +3084,14 @@
       "31006"
     ],
     "confidence": {
-      "score": 0.7907,
+      "score": 0.7967,
       "level": "high",
       "crosswalk_quality": 0.8177,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8029,
       "source_coverage": 0.82,
       "signal_agreement": 0.85,
-      "sensitivity": 0.7300000000000001,
+      "sensitivity": 0.77,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -3100,7 +3100,7 @@
   {
     "canonicalCode": "3111",
     "canonicalTitle": "Chemistry technician",
-    "structuralPressure": 0.3946,
+    "structuralPressure": 0.3885,
     "structuralBand": "high",
     "exposure": 0.5193,
     "bottleneck": 0.246,
@@ -3126,7 +3126,7 @@
   {
     "canonicalCode": "3112",
     "canonicalTitle": "Building technician",
-    "structuralPressure": 0.26495,
+    "structuralPressure": 0.259,
     "structuralBand": "moderate",
     "exposure": 0.4629,
     "bottleneck": 0.434,
@@ -3155,7 +3155,7 @@
   {
     "canonicalCode": "3113",
     "canonicalTitle": "Lift technician",
-    "structuralPressure": 0.17235,
+    "structuralPressure": 0.1717,
     "structuralBand": "moderate",
     "exposure": 0.3491,
     "bottleneck": 0.5071,
@@ -3182,7 +3182,7 @@
   {
     "canonicalCode": "3114",
     "canonicalTitle": "Semi-conductor technician",
-    "structuralPressure": 0.2338,
+    "structuralPressure": 0.23305000000000003,
     "structuralBand": "moderate",
     "exposure": 0.3612,
     "bottleneck": 0.3538,
@@ -3211,7 +3211,7 @@
   {
     "canonicalCode": "3115",
     "canonicalTitle": "Machining/Tooling technician",
-    "structuralPressure": 0.17969999999999997,
+    "structuralPressure": 0.17803333333333335,
     "structuralBand": "moderate",
     "exposure": 0.39189999999999997,
     "bottleneck": 0.5437,
@@ -3266,7 +3266,7 @@
   {
     "canonicalCode": "3117",
     "canonicalTitle": "Automation technician",
-    "structuralPressure": 0.19636,
+    "structuralPressure": 0.19524,
     "structuralBand": "moderate",
     "exposure": 0.2795,
     "bottleneck": 0.2995,
@@ -3296,7 +3296,7 @@
   {
     "canonicalCode": "3118",
     "canonicalTitle": "Marine draughtsman",
-    "structuralPressure": 0.14376,
+    "structuralPressure": 0.14179999999999998,
     "structuralBand": "low",
     "exposure": 0.3769,
     "bottleneck": 0.6212,
@@ -3310,14 +3310,14 @@
       "31185"
     ],
     "confidence": {
-      "score": 0.6775,
+      "score": 0.6715,
       "level": "medium",
       "crosswalk_quality": 0.6,
       "market_data_granularity": 0.7,
       "source_freshness": 0.7549,
       "source_coverage": 0.55,
       "signal_agreement": 0.85,
-      "sensitivity": 0.73,
+      "sensitivity": 0.6900000000000001,
       "exposure_source_count": 4
     },
     "confidenceLevel": "medium",
@@ -3326,7 +3326,7 @@
   {
     "canonicalCode": "3121",
     "canonicalTitle": "Automotive engineering technician",
-    "structuralPressure": 0.20320000000000002,
+    "structuralPressure": 0.2015,
     "structuralBand": "moderate",
     "exposure": 0.2889,
     "bottleneck": 0.2995,
@@ -3355,7 +3355,7 @@
   {
     "canonicalCode": "3141",
     "canonicalTitle": "Clinical research coordinator",
-    "structuralPressure": 0.3297,
+    "structuralPressure": 0.3277,
     "structuralBand": "high",
     "exposure": 0.5195,
     "bottleneck": 0.3672,
@@ -3381,7 +3381,7 @@
   {
     "canonicalCode": "3151",
     "canonicalTitle": "Marine engineering officer (including third, fourth and fifth engineer)",
-    "structuralPressure": 0.0087,
+    "structuralPressure": 0.0086,
     "structuralBand": "very_low",
     "exposure": 0.1792,
     "bottleneck": 0.9519,
@@ -3433,7 +3433,7 @@
   {
     "canonicalCode": "3157",
     "canonicalTitle": "Train service supervisor",
-    "structuralPressure": 0.036500000000000005,
+    "structuralPressure": 0.0358,
     "structuralBand": "very_low",
     "exposure": 0.2739,
     "bottleneck": 0.8681,
@@ -3461,7 +3461,7 @@
   {
     "canonicalCode": "3159",
     "canonicalTitle": "Air cargo officer",
-    "structuralPressure": 0.12068000000000001,
+    "structuralPressure": 0.11769999999999999,
     "structuralBand": "low",
     "exposure": 0.3146,
     "bottleneck": 0.6212,
@@ -3491,7 +3491,7 @@
   {
     "canonicalCode": "3160",
     "canonicalTitle": "Landscape operations officer",
-    "structuralPressure": 0.02435,
+    "structuralPressure": 0.02375,
     "structuralBand": "very_low",
     "exposure": 0.2309,
     "bottleneck": 0.8957,
@@ -3597,7 +3597,7 @@
   {
     "canonicalCode": "3212",
     "canonicalTitle": "Medical and pathology laboratory technician",
-    "structuralPressure": 0.2436,
+    "structuralPressure": 0.2423,
     "structuralBand": "moderate",
     "exposure": 0.3407,
     "bottleneck": 0.287,
@@ -3623,7 +3623,7 @@
   {
     "canonicalCode": "3213",
     "canonicalTitle": "Pharmacy technician",
-    "structuralPressure": 0.2281,
+    "structuralPressure": 0.2213,
     "structuralBand": "moderate",
     "exposure": 0.3283,
     "bottleneck": 0.3155,
@@ -3649,7 +3649,7 @@
   {
     "canonicalCode": "3214",
     "canonicalTitle": "Dental technician",
-    "structuralPressure": 0.0448,
+    "structuralPressure": 0.0437,
     "structuralBand": "very_low",
     "exposure": 0.2279,
     "bottleneck": 0.8057,
@@ -3675,7 +3675,7 @@
   {
     "canonicalCode": "3220",
     "canonicalTitle": "Enrolled/Assistant nurse (excluding registered nurse)",
-    "structuralPressure": 0.0613,
+    "structuralPressure": 0.0611,
     "structuralBand": "low",
     "exposure": 0.1659,
     "bottleneck": 0.631,
@@ -3805,7 +3805,7 @@
   {
     "canonicalCode": "3257",
     "canonicalTitle": "Occupational health and safety inspector",
-    "structuralPressure": 0.2659,
+    "structuralPressure": 0.26549999999999996,
     "structuralBand": "moderate",
     "exposure": 0.3549,
     "bottleneck": 0.2513,
@@ -3858,7 +3858,7 @@
   {
     "canonicalCode": "3312",
     "canonicalTitle": "Financial markets back office administrator",
-    "structuralPressure": 0.6489,
+    "structuralPressure": 0.6429,
     "structuralBand": "very_high",
     "exposure": 0.9081,
     "bottleneck": 0.2888,
@@ -3884,7 +3884,7 @@
   {
     "canonicalCode": "3313",
     "canonicalTitle": "Assistant accountant",
-    "structuralPressure": 0.6476000000000001,
+    "structuralPressure": 0.6351,
     "structuralBand": "very_high",
     "exposure": 0.8917,
     "bottleneck": 0.2807,
@@ -3912,7 +3912,7 @@
   {
     "canonicalCode": "3315",
     "canonicalTitle": "Assessor",
-    "structuralPressure": 0.5106999999999999,
+    "structuralPressure": 0.50595,
     "structuralBand": "very_high",
     "exposure": 0.7378,
     "bottleneck": 0.3111,
@@ -3939,7 +3939,7 @@
   {
     "canonicalCode": "3321",
     "canonicalTitle": "Insurance sales agent/broker (including independent financial planner)",
-    "structuralPressure": 0.859,
+    "structuralPressure": 0.8365,
     "structuralBand": "very_high",
     "exposure": 0.8493,
     "bottleneck": 0.0018,
@@ -3965,8 +3965,8 @@
   {
     "canonicalCode": "3322",
     "canonicalTitle": "Business development executive",
-    "structuralPressure": 0.5097799999999999,
-    "structuralBand": "very_high",
+    "structuralPressure": 0.49742,
+    "structuralBand": "high",
     "exposure": 0.8774,
     "bottleneck": 0.426,
     "structuralFootprint": 5,
@@ -3979,14 +3979,14 @@
       "33225"
     ],
     "confidence": {
-      "score": 0.8968999999999999,
+      "score": 0.9029,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.95,
-      "sensitivity": 0.7699999999999999,
+      "sensitivity": 0.8099999999999999,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -4022,7 +4022,7 @@
   {
     "canonicalCode": "3331",
     "canonicalTitle": "Clearing and forwarding agent",
-    "structuralPressure": 0.9064,
+    "structuralPressure": 0.8646,
     "structuralBand": "very_high",
     "exposure": 0.8975,
     "bottleneck": 0.0134,
@@ -4049,7 +4049,7 @@
   {
     "canonicalCode": "3332",
     "canonicalTitle": "Exhibition/Conference/Event planner (including wedding planner/coordinator)",
-    "structuralPressure": 0.3782,
+    "structuralPressure": 0.3702,
     "structuralBand": "high",
     "exposure": 0.7952,
     "bottleneck": 0.5294,
@@ -4075,7 +4075,7 @@
   {
     "canonicalCode": "3333",
     "canonicalTitle": "Employment agent/Labour contractor",
-    "structuralPressure": 0.6392,
+    "structuralPressure": 0.6098,
     "structuralBand": "very_high",
     "exposure": 0.7063,
     "bottleneck": 0.1159,
@@ -4101,7 +4101,7 @@
   {
     "canonicalCode": "3334",
     "canonicalTitle": "Real estate agent",
-    "structuralPressure": 0.1423,
+    "structuralPressure": 0.1401,
     "structuralBand": "low",
     "exposure": 0.6601,
     "bottleneck": 0.7861,
@@ -4111,14 +4111,14 @@
       "33340"
     ],
     "confidence": {
-      "score": 0.7232,
+      "score": 0.7532,
       "level": "high",
       "crosswalk_quality": 0.6775,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.65,
+      "sensitivity": 0.85,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -4127,7 +4127,7 @@
   {
     "canonicalCode": "3339",
     "canonicalTitle": "Advertising salesman",
-    "structuralPressure": 0.37353333333333333,
+    "structuralPressure": 0.3663666666666667,
     "structuralBand": "high",
     "exposure": 0.7773,
     "bottleneck": 0.5241,
@@ -4155,7 +4155,7 @@
   {
     "canonicalCode": "3346",
     "canonicalTitle": "Maintenance planner",
-    "structuralPressure": 0.48519999999999996,
+    "structuralPressure": 0.48075,
     "structuralBand": "high",
     "exposure": 0.7333,
     "bottleneck": 0.3414,
@@ -4182,7 +4182,7 @@
   {
     "canonicalCode": "3349",
     "canonicalTitle": "Management executive",
-    "structuralPressure": 0.4576,
+    "structuralPressure": 0.446,
     "structuralBand": "high",
     "exposure": 0.7775,
     "bottleneck": 0.4189,
@@ -4236,7 +4236,7 @@
   {
     "canonicalCode": "3411",
     "canonicalTitle": "Legal associate professional (e.g. paralegal)",
-    "structuralPressure": 0.6912,
+    "structuralPressure": 0.6587,
     "structuralBand": "very_high",
     "exposure": 0.7815,
     "bottleneck": 0.1364,
@@ -4262,7 +4262,7 @@
   {
     "canonicalCode": "3412",
     "canonicalTitle": "Volunteer executive",
-    "structuralPressure": 0.06716666666666667,
+    "structuralPressure": 0.06606666666666666,
     "structuralBand": "low",
     "exposure": 0.3493,
     "bottleneck": 0.8093,
@@ -4344,7 +4344,7 @@
   {
     "canonicalCode": "3431",
     "canonicalTitle": "Photographer",
-    "structuralPressure": 0.2595,
+    "structuralPressure": 0.2543,
     "structuralBand": "moderate",
     "exposure": 0.5357,
     "bottleneck": 0.5205,
@@ -4397,7 +4397,7 @@
   {
     "canonicalCode": "3433",
     "canonicalTitle": "Library officer",
-    "structuralPressure": 0.2013,
+    "structuralPressure": 0.1994,
     "structuralBand": "moderate",
     "exposure": 0.5456,
     "bottleneck": 0.6328,
@@ -4423,7 +4423,7 @@
   {
     "canonicalCode": "3434",
     "canonicalTitle": "Chef",
-    "structuralPressure": 0.13016666666666665,
+    "structuralPressure": 0.1286333333333333,
     "structuralBand": "low",
     "exposure": 0.5376,
     "bottleneck": 0.7594,
@@ -4451,7 +4451,7 @@
   {
     "canonicalCode": "3511",
     "canonicalTitle": "Computer systems operator",
-    "structuralPressure": 0.3723,
+    "structuralPressure": 0.3688,
     "structuralBand": "high",
     "exposure": 0.767,
     "bottleneck": 0.5169,
@@ -4477,7 +4477,7 @@
   {
     "canonicalCode": "3512",
     "canonicalTitle": "IT security technician",
-    "structuralPressure": 0.33956666666666663,
+    "structuralPressure": 0.33826666666666666,
     "structuralBand": "high",
     "exposure": 0.7544999999999998,
     "bottleneck": 0.5508,
@@ -4531,7 +4531,7 @@
   {
     "canonicalCode": "3521",
     "canonicalTitle": "Video camera operator",
-    "structuralPressure": 0.31395,
+    "structuralPressure": 0.30435,
     "structuralBand": "high",
     "exposure": 0.4631,
     "bottleneck": 0.3324,
@@ -4542,14 +4542,14 @@
       "35212"
     ],
     "confidence": {
-      "score": 0.7603,
+      "score": 0.7453,
       "level": "high",
       "crosswalk_quality": 0.8458,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.75,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -4558,7 +4558,7 @@
   {
     "canonicalCode": "3522",
     "canonicalTitle": "Telecommunications technician",
-    "structuralPressure": 0.1338,
+    "structuralPressure": 0.133,
     "structuralBand": "low",
     "exposure": 0.3828,
     "bottleneck": 0.6515,
@@ -4584,7 +4584,7 @@
   {
     "canonicalCode": "3610",
     "canonicalTitle": "Pre-primary education teacher",
-    "structuralPressure": 0.0619,
+    "structuralPressure": 0.0608,
     "structuralBand": "low",
     "exposure": 0.2074,
     "bottleneck": 0.7041,
@@ -4610,7 +4610,7 @@
   {
     "canonicalCode": "3620",
     "canonicalTitle": "Music instructor (extracurriculum)",
-    "structuralPressure": 0.268175,
+    "structuralPressure": 0.2672,
     "structuralBand": "moderate",
     "exposure": 0.9046,
     "bottleneck": 0.7041,
@@ -4717,7 +4717,7 @@
   {
     "canonicalCode": "4000",
     "canonicalTitle": "Office supervisor",
-    "structuralPressure": 0.5135,
+    "structuralPressure": 0.5088,
     "structuralBand": "very_high",
     "exposure": 0.7448,
     "bottleneck": 0.3137,
@@ -4743,7 +4743,7 @@
   {
     "canonicalCode": "4110",
     "canonicalTitle": "Personnel/Human resource clerk",
-    "structuralPressure": 0.74945,
+    "structuralPressure": 0.7395,
     "structuralBand": "very_high",
     "exposure": 0.7727,
     "bottleneck": 0.0365,
@@ -4796,7 +4796,7 @@
   {
     "canonicalCode": "4131",
     "canonicalTitle": "Typist and word processing operator",
-    "structuralPressure": 0.8512,
+    "structuralPressure": 0.8358,
     "structuralBand": "very_high",
     "exposure": 0.99,
     "bottleneck": 0.148,
@@ -4822,7 +4822,7 @@
   {
     "canonicalCode": "4132",
     "canonicalTitle": "Data entry clerk",
-    "structuralPressure": 0.8721,
+    "structuralPressure": 0.839,
     "structuralBand": "very_high",
     "exposure": 0.8718,
     "bottleneck": 0.0187,
@@ -4848,7 +4848,7 @@
   {
     "canonicalCode": "4211",
     "canonicalTitle": "Bank teller",
-    "structuralPressure": 0.5428666666666667,
+    "structuralPressure": 0.5415666666666666,
     "structuralBand": "very_high",
     "exposure": 0.6686,
     "bottleneck": 0.18889999999999998,
@@ -4902,7 +4902,7 @@
   {
     "canonicalCode": "4214",
     "canonicalTitle": "Bill collector",
-    "structuralPressure": 0.7175,
+    "structuralPressure": 0.6953,
     "structuralBand": "very_high",
     "exposure": 0.7658,
     "bottleneck": 0.0775,
@@ -4928,7 +4928,7 @@
   {
     "canonicalCode": "4221",
     "canonicalTitle": "Travel consultant/Reservation executive",
-    "structuralPressure": 0.3854,
+    "structuralPressure": 0.3764,
     "structuralBand": "high",
     "exposure": 0.5623,
     "bottleneck": 0.3226,
@@ -4954,7 +4954,7 @@
   {
     "canonicalCode": "4223",
     "canonicalTitle": "Telephone operator",
-    "structuralPressure": 0.62,
+    "structuralPressure": 0.6046,
     "structuralBand": "very_high",
     "exposure": 0.6968,
     "bottleneck": 0.1212,
@@ -4980,7 +4980,7 @@
   {
     "canonicalCode": "4224",
     "canonicalTitle": "Receptionist (general)",
-    "structuralPressure": 0.5929142857142857,
+    "structuralPressure": 0.5763714285714286,
     "structuralBand": "very_high",
     "exposure": 0.7008,
     "bottleneck": 0.16579999999999998,
@@ -5012,7 +5012,7 @@
   {
     "canonicalCode": "4311",
     "canonicalTitle": "Bookkeeper",
-    "structuralPressure": 0.80695,
+    "structuralPressure": 0.7955999999999999,
     "structuralBand": "very_high",
     "exposure": 0.8685999999999999,
     "bottleneck": 0.0775,
@@ -5043,7 +5043,7 @@
   {
     "canonicalCode": "4312",
     "canonicalTitle": "Securities clerk",
-    "structuralPressure": 0.8602666666666666,
+    "structuralPressure": 0.8378666666666666,
     "structuralBand": "very_high",
     "exposure": 0.8756,
     "bottleneck": 0.030300000000000004,
@@ -5071,7 +5071,7 @@
   {
     "canonicalCode": "4314",
     "canonicalTitle": "Statistical clerk",
-    "structuralPressure": 0.7514000000000001,
+    "structuralPressure": 0.7386,
     "structuralBand": "very_high",
     "exposure": 0.951,
     "bottleneck": 0.2166,
@@ -5098,7 +5098,7 @@
   {
     "canonicalCode": "4315",
     "canonicalTitle": "Data processing control clerk",
-    "structuralPressure": 0.8187,
+    "structuralPressure": 0.8035,
     "structuralBand": "very_high",
     "exposure": 0.8265,
     "bottleneck": 0.0187,
@@ -5151,7 +5151,7 @@
   {
     "canonicalCode": "4322",
     "canonicalTitle": "Material planning clerk",
-    "structuralPressure": 0.413,
+    "structuralPressure": 0.4065,
     "structuralBand": "high",
     "exposure": 0.5172,
     "bottleneck": 0.2077,
@@ -5178,7 +5178,7 @@
   {
     "canonicalCode": "4323",
     "canonicalTitle": "Shipping clerk",
-    "structuralPressure": 0.45599999999999996,
+    "structuralPressure": 0.4488666666666667,
     "structuralBand": "high",
     "exposure": 0.5482,
     "bottleneck": 0.1747,
@@ -5206,7 +5206,7 @@
   {
     "canonicalCode": "4411",
     "canonicalTitle": "Library clerk",
-    "structuralPressure": 0.5415,
+    "structuralPressure": 0.5361,
     "structuralBand": "very_high",
     "exposure": 0.6258,
     "bottleneck": 0.139,
@@ -5258,7 +5258,7 @@
   {
     "canonicalCode": "4417",
     "canonicalTitle": "Legal clerk",
-    "structuralPressure": 0.6473,
+    "structuralPressure": 0.6169,
     "structuralBand": "very_high",
     "exposure": 0.7357,
     "bottleneck": 0.1408,
@@ -5284,7 +5284,7 @@
   {
     "canonicalCode": "4419",
     "canonicalTitle": "Proofreading clerk",
-    "structuralPressure": 0.722,
+    "structuralPressure": 0.7041,
     "structuralBand": "very_high",
     "exposure": 0.7463,
     "bottleneck": 0.0446,
@@ -5363,7 +5363,7 @@
   {
     "canonicalCode": "5113",
     "canonicalTitle": "Tour guide",
-    "structuralPressure": 0.14135,
+    "structuralPressure": 0.13845,
     "structuralBand": "low",
     "exposure": 0.4277,
     "bottleneck": 0.6729,
@@ -5471,7 +5471,7 @@
   {
     "canonicalCode": "5141",
     "canonicalTitle": "Hair stylist/Hairdresser",
-    "structuralPressure": 0.1002,
+    "structuralPressure": 0.0975,
     "structuralBand": "low",
     "exposure": 0.1813,
     "bottleneck": 0.4545,
@@ -5497,7 +5497,7 @@
   {
     "canonicalCode": "5142",
     "canonicalTitle": "Beautician",
-    "structuralPressure": 0.0398,
+    "structuralPressure": 0.039400000000000004,
     "structuralBand": "very_low",
     "exposure": 0.1495,
     "bottleneck": 0.7353,
@@ -5551,7 +5551,7 @@
   {
     "canonicalCode": "5150",
     "canonicalTitle": "House steward",
-    "structuralPressure": 0.077,
+    "structuralPressure": 0.07643333333333334,
     "structuralBand": "low",
     "exposure": 0.3515,
     "bottleneck": 0.7816,
@@ -5631,7 +5631,7 @@
   {
     "canonicalCode": "5194",
     "canonicalTitle": "Keeper/Trainer in zoological, bird and aquatic parks",
-    "structuralPressure": 0.0778,
+    "structuralPressure": 0.0762,
     "structuralBand": "low",
     "exposure": 0.1845,
     "bottleneck": 0.5829,
@@ -5683,7 +5683,7 @@
   {
     "canonicalCode": "5220",
     "canonicalTitle": "Sales supervisor",
-    "structuralPressure": 0.4787,
+    "structuralPressure": 0.4636,
     "structuralBand": "high",
     "exposure": 0.5893,
     "bottleneck": 0.2005,
@@ -5710,7 +5710,7 @@
   {
     "canonicalCode": "5230",
     "canonicalTitle": "Cashier (general)",
-    "structuralPressure": 0.38545,
+    "structuralPressure": 0.37625,
     "structuralBand": "high",
     "exposure": 0.4226,
     "bottleneck": 0.0989,
@@ -5737,7 +5737,7 @@
   {
     "canonicalCode": "5242",
     "canonicalTitle": "Sales demonstrator",
-    "structuralPressure": 0.28215,
+    "structuralPressure": 0.27235,
     "structuralBand": "moderate",
     "exposure": 0.2785,
     "bottleneck": 0.0045,
@@ -5764,7 +5764,7 @@
   {
     "canonicalCode": "5244",
     "canonicalTitle": "Telemarketer",
-    "structuralPressure": 0.9101,
+    "structuralPressure": 0.8719,
     "structuralBand": "very_high",
     "exposure": 0.891,
     "bottleneck": 0,
@@ -5790,7 +5790,7 @@
   {
     "canonicalCode": "5249",
     "canonicalTitle": "Petrol station attendant",
-    "structuralPressure": 0.40795000000000003,
+    "structuralPressure": 0.39975000000000005,
     "structuralBand": "high",
     "exposure": 0.4554,
     "bottleneck": 0.1132,
@@ -5817,7 +5817,7 @@
   {
     "canonicalCode": "5311",
     "canonicalTitle": "Educarer",
-    "structuralPressure": 0.10765,
+    "structuralPressure": 0.10755,
     "structuralBand": "low",
     "exposure": 0.2016,
     "bottleneck": 0.4661,
@@ -5870,7 +5870,7 @@
   {
     "canonicalCode": "5320",
     "canonicalTitle": "Dental aide/assistant",
-    "structuralPressure": 0.17236666666666667,
+    "structuralPressure": 0.17046666666666666,
     "structuralBand": "moderate",
     "exposure": 0.3411,
     "bottleneck": 0.4973,
@@ -5898,7 +5898,7 @@
   {
     "canonicalCode": "5412",
     "canonicalTitle": "Auxiliary police officer",
-    "structuralPressure": 0.0446,
+    "structuralPressure": 0.043,
     "structuralBand": "very_low",
     "exposure": 0.1199,
     "bottleneck": 0.6346,
@@ -5924,7 +5924,7 @@
   {
     "canonicalCode": "5414",
     "canonicalTitle": "Security supervisor",
-    "structuralPressure": 0.0672,
+    "structuralPressure": 0.0664,
     "structuralBand": "low",
     "exposure": 0.1632,
     "bottleneck": 0.5909,
@@ -5979,7 +5979,7 @@
   {
     "canonicalCode": "5419",
     "canonicalTitle": "Insurance investigator",
-    "structuralPressure": 0.258,
+    "structuralPressure": 0.2417,
     "structuralBand": "moderate",
     "exposure": 0.3718,
     "bottleneck": 0.328,
@@ -5989,14 +5989,14 @@
       "54193"
     ],
     "confidence": {
-      "score": 0.8339,
+      "score": 0.8039,
       "level": "high",
       "crosswalk_quality": 1,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.45,
-      "sensitivity": 0.85,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -6137,7 +6137,7 @@
   {
     "canonicalCode": "7126",
     "canonicalTitle": "Plumber",
-    "structuralPressure": 0.0188,
+    "structuralPressure": 0.0186,
     "structuralBand": "very_low",
     "exposure": 0.1293,
     "bottleneck": 0.8556,
@@ -6163,7 +6163,7 @@
   {
     "canonicalCode": "7127",
     "canonicalTitle": "Air-conditioning/Refrigeration equipment mechanic",
-    "structuralPressure": 0.0807,
+    "structuralPressure": 0.0794,
     "structuralBand": "low",
     "exposure": 0.1695,
     "bottleneck": 0.5276,
@@ -6372,7 +6372,7 @@
   {
     "canonicalCode": "7239",
     "canonicalTitle": "Machinery mechanic",
-    "structuralPressure": 0.1226,
+    "structuralPressure": 0.1205,
     "structuralBand": "low",
     "exposure": 0.1897,
     "bottleneck": 0.3592,
@@ -6383,14 +6383,14 @@
       "72392"
     ],
     "confidence": {
-      "score": 0.74095,
+      "score": 0.72595,
       "level": "high",
       "crosswalk_quality": 0.7815,
       "market_data_granularity": 0.675,
       "source_freshness": 0.8029,
       "source_coverage": 0.82,
       "signal_agreement": 0.85,
-      "sensitivity": 0.75,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -6399,7 +6399,7 @@
   {
     "canonicalCode": "7300",
     "canonicalTitle": "Supervisor/General foreman (precision, handicraft, printing and related trades)",
-    "structuralPressure": 0.0363,
+    "structuralPressure": 0.0362,
     "structuralBand": "very_low",
     "exposure": 0.3126,
     "bottleneck": 0.8841,
@@ -6478,7 +6478,7 @@
   {
     "canonicalCode": "7400",
     "canonicalTitle": "Lift supervisor",
-    "structuralPressure": 0.06535,
+    "structuralPressure": 0.06485,
     "structuralBand": "low",
     "exposure": 0.5107,
     "bottleneck": 0.8725,
@@ -6531,7 +6531,7 @@
   {
     "canonicalCode": "7412",
     "canonicalTitle": "Electrical fitter",
-    "structuralPressure": 0.07526666666666666,
+    "structuralPressure": 0.0737,
     "structuralBand": "low",
     "exposure": 0.2137,
     "bottleneck": 0.6515,
@@ -6638,7 +6638,7 @@
   {
     "canonicalCode": "7531",
     "canonicalTitle": "Tailor/Dressmaker",
-    "structuralPressure": 0.094,
+    "structuralPressure": 0.0929,
     "structuralBand": "low",
     "exposure": 0.0976,
     "bottleneck": 0.0428,
@@ -6648,14 +6648,14 @@
       "75310"
     ],
     "confidence": {
-      "score": 0.8295,
+      "score": 0.867,
       "level": "high",
       "crosswalk_quality": 0.9523,
       "market_data_granularity": 0.7,
       "source_freshness": 0.8387,
       "source_coverage": 1,
       "signal_agreement": 0.95,
-      "sensitivity": 0.4,
+      "sensitivity": 0.65,
       "exposure_source_count": 4
     },
     "confidenceLevel": "high",
@@ -6690,7 +6690,7 @@
   {
     "canonicalCode": "7544",
     "canonicalTitle": "Fumigator and other pest and weed controller",
-    "structuralPressure": 0.0352,
+    "structuralPressure": 0.0333,
     "structuralBand": "very_low",
     "exposure": 0.0712,
     "bottleneck": 0.5187,
@@ -6716,7 +6716,7 @@
   {
     "canonicalCode": "8100",
     "canonicalTitle": "Stationary plant and machine supervisor/general foreman",
-    "structuralPressure": 0.0366,
+    "structuralPressure": 0.0359,
     "structuralBand": "very_low",
     "exposure": 0.3126,
     "bottleneck": 0.8841,
@@ -6794,7 +6794,7 @@
   {
     "canonicalCode": "8125",
     "canonicalTitle": "Metalworking machine setter-operator",
-    "structuralPressure": 0.10605,
+    "structuralPressure": 0.10495,
     "structuralBand": "low",
     "exposure": 0.1065,
     "bottleneck": 0.0098,
@@ -6847,7 +6847,7 @@
   {
     "canonicalCode": "8160",
     "canonicalTitle": "Dairy and confectionery products machine operator",
-    "structuralPressure": 0.1153,
+    "structuralPressure": 0.1137,
     "structuralBand": "low",
     "exposure": 0.1278,
     "bottleneck": 0.1034,
@@ -6873,7 +6873,7 @@
   {
     "canonicalCode": "8183",
     "canonicalTitle": "Packing/Bottling/Labelling machine operator",
-    "structuralPressure": 0.0884,
+    "structuralPressure": 0.087,
     "structuralBand": "low",
     "exposure": 0.1027,
     "bottleneck": 0.1462,
@@ -6899,7 +6899,7 @@
   {
     "canonicalCode": "8184",
     "canonicalTitle": "Printing machine operator",
-    "structuralPressure": 0.3853,
+    "structuralPressure": 0.3789,
     "structuralBand": "high",
     "exposure": 0.4087,
     "bottleneck": 0.0651,
@@ -6977,7 +6977,7 @@
   {
     "canonicalCode": "8212",
     "canonicalTitle": "Electronic equipment/component assembler",
-    "structuralPressure": 0.1589,
+    "structuralPressure": 0.1526,
     "structuralBand": "moderate",
     "exposure": 0.1733,
     "bottleneck": 0.1016,
@@ -7003,7 +7003,7 @@
   {
     "canonicalCode": "8213",
     "canonicalTitle": "Mechanical products quality checker and tester",
-    "structuralPressure": 0.2293,
+    "structuralPressure": 0.226,
     "structuralBand": "moderate",
     "exposure": 0.2628,
     "bottleneck": 0.1337,
@@ -7029,7 +7029,7 @@
   {
     "canonicalCode": "8300",
     "canonicalTitle": "Mobile machinery supervisor and general foreman",
-    "structuralPressure": 0.029,
+    "structuralPressure": 0.0285,
     "structuralBand": "very_low",
     "exposure": 0.2107,
     "bottleneck": 0.8636,
@@ -7055,7 +7055,7 @@
   {
     "canonicalCode": "8311",
     "canonicalTitle": "Train operator",
-    "structuralPressure": 0.0436,
+    "structuralPressure": 0.0427,
     "structuralBand": "very_low",
     "exposure": 0.1875,
     "bottleneck": 0.7701,
@@ -7081,7 +7081,7 @@
   {
     "canonicalCode": "8321",
     "canonicalTitle": "Motorcycle delivery man",
-    "structuralPressure": 0.15325,
+    "structuralPressure": 0.1526,
     "structuralBand": "moderate",
     "exposure": 0.252,
     "bottleneck": 0.393,
@@ -7297,7 +7297,7 @@
   {
     "canonicalCode": "8350",
     "canonicalTitle": "Deckhand (including lighterman)",
-    "structuralPressure": 0.0094,
+    "structuralPressure": 0.00935,
     "structuralBand": "very_low",
     "exposure": 0.0946,
     "bottleneck": 0.9011,
@@ -7377,7 +7377,7 @@
   {
     "canonicalCode": "9113",
     "canonicalTitle": "Office, commercial and industrial establishments indoor cleaner",
-    "structuralPressure": 0.0562,
+    "structuralPressure": 0.0554,
     "structuralBand": "low",
     "exposure": 0.0615,
     "bottleneck": 0.0927,
@@ -7433,7 +7433,7 @@
   {
     "canonicalCode": "9116",
     "canonicalTitle": "Residential and open areas general cleaner",
-    "structuralPressure": 0.0468,
+    "structuralPressure": 0.0462,
     "structuralBand": "very_low",
     "exposure": 0.0585,
     "bottleneck": 0.205,
@@ -7538,7 +7538,7 @@
   {
     "canonicalCode": "9310",
     "canonicalTitle": "Civil engineering/Building construction labourer",
-    "structuralPressure": 0.0317,
+    "structuralPressure": 0.0313,
     "structuralBand": "very_low",
     "exposure": 0.0592,
     "bottleneck": 0.4688,
@@ -7648,7 +7648,7 @@
   {
     "canonicalCode": "9611",
     "canonicalTitle": "Waste recycling sorter",
-    "structuralPressure": 0.08729999999999999,
+    "structuralPressure": 0.08685,
     "structuralBand": "low",
     "exposure": 0.0935,
     "bottleneck": 0.0686,
@@ -7675,7 +7675,7 @@
   {
     "canonicalCode": "9621",
     "canonicalTitle": "Bell captain",
-    "structuralPressure": 0.31456666666666666,
+    "structuralPressure": 0.30676666666666663,
     "structuralBand": "high",
     "exposure": 0.3486,
     "bottleneck": 0.1087,
@@ -7703,7 +7703,7 @@
   {
     "canonicalCode": "9625",
     "canonicalTitle": "Bus attendant",
-    "structuralPressure": 0.24305,
+    "structuralPressure": 0.23998333333333333,
     "structuralBand": "moderate",
     "exposure": 0.3176999999999999,
     "bottleneck": 0.2398,
@@ -7761,7 +7761,7 @@
   {
     "canonicalCode": "9627",
     "canonicalTitle": "Concierge (hotel)",
-    "structuralPressure": 0.5575,
+    "structuralPressure": 0.5423,
     "structuralBand": "very_high",
     "exposure": 0.675,
     "bottleneck": 0.1854,
@@ -7787,7 +7787,7 @@
   {
     "canonicalCode": "9629",
     "canonicalTitle": "Odd job person",
-    "structuralPressure": 0.1768,
+    "structuralPressure": 0.17604999999999998,
     "structuralBand": "moderate",
     "exposure": 0.2278,
     "bottleneck": 0.2255,

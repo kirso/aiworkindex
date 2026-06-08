@@ -1,8 +1,8 @@
 {
   "version": "V5-sidecars",
-  "generated_at": "2026-05-15T08:44:10.124Z",
+  "generated_at": "2026-06-07T11:57:23.837Z",
   "live_version": "V7",
-  "live_release_date": "2026-05-15",
+  "live_release_date": "2026-06-07",
   "status": "pilot_sidecars_published",
   "summary": "V5 sidecar workstreams are archived as audit artifacts beneath the live V7 headline score.",
   "sidecars": {
@@ -10,7 +10,7 @@
       "status": "pilot_sidecar",
       "artifact": "v5-augmentation-heterogeneity.json",
       "coverage_count": 562,
-      "median_delta_vs_live": -0.0248,
+      "median_delta_vs_live": -0.0244,
       "top_positive_shift": [
         {
           "ssoc": "52440",
@@ -25,7 +25,7 @@
         {
           "ssoc": "43122",
           "title": "Insurance/Underwriting clerk",
-          "delta_vs_live": 0.0264
+          "delta_vs_live": 0.0265
         },
         {
           "ssoc": "41102",
@@ -35,34 +35,34 @@
         {
           "ssoc": "25121",
           "title": "Software developer",
-          "delta_vs_live": 0.0176
+          "delta_vs_live": 0.0178
         }
       ],
       "top_negative_shift": [
         {
           "ssoc": "11201",
           "title": "Managing director/Chief executive officer",
-          "delta_vs_live": -0.1381
+          "delta_vs_live": -0.1345
         },
         {
           "ssoc": "11202",
           "title": "Company director",
-          "delta_vs_live": -0.1297
+          "delta_vs_live": -0.1263
         },
         {
           "ssoc": "11203",
           "title": "Chief operating officer/General Manager",
-          "delta_vs_live": -0.1223
+          "delta_vs_live": -0.1171
         },
         {
           "ssoc": "36203",
           "title": "Information technology trainer (extracurriculum)",
-          "delta_vs_live": -0.115
+          "delta_vs_live": -0.1146
         },
         {
           "ssoc": "22632",
           "title": "Environmental officer (public health)",
-          "delta_vs_live": -0.1095
+          "delta_vs_live": -0.109
         }
       ]
     },
@@ -71,7 +71,7 @@
       "artifact": "v5-empirical-mobility.json",
       "coverage_count": 562,
       "observed_enriched_count": 486,
-      "median_empirical_mobility_score": 0.5619
+      "median_empirical_mobility_score": 0.5617
     },
     "posterior_uncertainty": {
       "status": "pilot_sidecar",
@@ -84,7 +84,7 @@
       "status": "pilot_sidecar",
       "artifact": "v5-realized-risk.json",
       "coverage_count": 562,
-      "median_realization_scalar": 0.2805,
+      "median_realization_scalar": 0.2803,
       "high_realized_risk_count": 0
     }
   }

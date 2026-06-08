@@ -1,5 +1,5 @@
 {
-  "validation_date": "2026-05-15",
+  "validation_date": "2026-06-07",
   "model_version": "V7",
   "bls_data_period": "2024-2034 projections",
   "total_occupations": 562,
@@ -14,7 +14,7 @@
         "t_statistic": -3.58,
         "p_value_below_001": true,
         "p_value_below_01": true,
-        "avg_net_risk": 0.185,
+        "avg_net_risk": 0.182,
         "avg_bls_change": 2.55,
         "negative_direction": true
       },
@@ -22,11 +22,11 @@
         "sample_size": 50,
         "share_of_matched_sample": 0.094,
         "share_of_total_occupations": 0.089,
-        "spearman_rho": 0.084,
-        "t_statistic": 0.59,
+        "spearman_rho": 0.083,
+        "t_statistic": 0.57,
         "p_value_below_001": false,
         "p_value_below_01": false,
-        "avg_net_risk": 0.143,
+        "avg_net_risk": 0.142,
         "avg_bls_change": 2.02,
         "negative_direction": false
       },
@@ -46,11 +46,11 @@
         "sample_size": 51,
         "share_of_matched_sample": 0.096,
         "share_of_total_occupations": 0.091,
-        "spearman_rho": 0.066,
-        "t_statistic": 0.46,
+        "spearman_rho": 0.065,
+        "t_statistic": 0.45,
         "p_value_below_001": false,
         "p_value_below_01": false,
-        "avg_net_risk": 0.144,
+        "avg_net_risk": 0.143,
         "avg_bls_change": 1.99,
         "negative_direction": false
       }
@@ -64,7 +64,7 @@
         "t_statistic": -1.01,
         "p_value_below_001": false,
         "p_value_below_01": false,
-        "avg_net_risk": 0.173,
+        "avg_net_risk": 0.17,
         "avg_bls_change": 3.16,
         "negative_direction": true
       },
@@ -76,7 +76,7 @@
         "t_statistic": -3.31,
         "p_value_below_001": false,
         "p_value_below_01": true,
-        "avg_net_risk": 0.196,
+        "avg_net_risk": 0.193,
         "avg_bls_change": 1.4,
         "negative_direction": true
       },
@@ -88,7 +88,7 @@
         "t_statistic": -2.18,
         "p_value_below_001": false,
         "p_value_below_01": false,
-        "avg_net_risk": 0.179,
+        "avg_net_risk": 0.177,
         "avg_bls_change": 2.76,
         "negative_direction": true
       },
@@ -97,10 +97,10 @@
         "share_of_matched_sample": 0.974,
         "share_of_total_occupations": 0.918,
         "spearman_rho": -0.136,
-        "t_statistic": -3.12,
+        "t_statistic": -3.11,
         "p_value_below_001": false,
         "p_value_below_01": true,
-        "avg_net_risk": 0.182,
+        "avg_net_risk": 0.179,
         "avg_bls_change": 2.49,
         "negative_direction": true
       }
@@ -114,7 +114,7 @@
         "t_statistic": -2.18,
         "p_value_below_001": false,
         "p_value_below_01": false,
-        "avg_net_risk": 0.179,
+        "avg_net_risk": 0.177,
         "avg_bls_change": 2.76,
         "negative_direction": true
       },
@@ -126,7 +126,7 @@
         "t_statistic": -2.09,
         "p_value_below_001": false,
         "p_value_below_01": false,
-        "avg_net_risk": 0.094,
+        "avg_net_risk": 0.092,
         "avg_bls_change": -1.31,
         "negative_direction": true
       },
@@ -134,11 +134,11 @@
         "sample_size": 148,
         "share_of_matched_sample": 0.279,
         "share_of_total_occupations": 0.263,
-        "spearman_rho": -0.282,
-        "t_statistic": -3.55,
+        "spearman_rho": -0.28,
+        "t_statistic": -3.52,
         "p_value_below_001": true,
         "p_value_below_01": true,
-        "avg_net_risk": 0.175,
+        "avg_net_risk": 0.173,
         "avg_bls_change": 1.95,
         "negative_direction": true
       },
@@ -147,17 +147,17 @@
         "share_of_matched_sample": 0.655,
         "share_of_total_occupations": 0.617,
         "spearman_rho": -0.101,
-        "t_statistic": -1.89,
+        "t_statistic": -1.88,
         "p_value_below_001": false,
         "p_value_below_01": false,
-        "avg_net_risk": 0.189,
+        "avg_net_risk": 0.186,
         "avg_bls_change": 2.95,
         "negative_direction": true
       }
     }
   },
   "summary": {
-    "direct_vs_fallback_rho_gap": 0.096,
+    "direct_vs_fallback_rho_gap": 0.097,
     "high_vs_low_confidence_rho_gap": -0.476,
     "direct_segment_significant_negative": true,
     "high_or_medium_significant_negative": true,

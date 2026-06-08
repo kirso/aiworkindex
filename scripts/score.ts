@@ -7,13 +7,15 @@
  * for each of 562 Singapore SSOC occupations.
  *
  * V7 adds:
- *   - Task-concentration-weighted exposure (Hampole et al. 2025)
- *   - Demand-persistence proxy (addresses Imas price-elasticity critique)
+ *   - Task-concentration exposure buffer (Hampole et al. 2025: concentrated exposure
+ *     offsets labour-demand losses via within-job task reallocation)
+ *   - Demand-persistence proxy (motivated by the Imas price-elasticity critique;
+ *     measures recent labour-demand persistence, not output-price elasticity)
  *
  * Canonical structural formulas:
  *   exposure            = reliability-weighted percentile blend of available exposure sources
  *   task_signal         = task_exposure_concentration * task_effective_coverage
- *   exposure_v7         = clamp01(exposure * (1 + 0.20 * task_signal))
+ *   exposure_v7         = clamp01(exposure * (1 - 0.20 * task_signal))
  *   bottleneck          = pctile(theta)
  *   base_resilience     = 0.6 * market_momentum + 0.4 * occupation_scarcity
  *   demand_persistence  = 0.4*mm_rank + 0.3*vacancy_rank + 0.2*scarcity_rank + 0.1*bonus_rank
@@ -1807,9 +1809,15 @@ function scoreOccupations(
 			console.log(`    Loaded task primitives for ${taskPrimitivesMap.size} occupations`);
 		}
 	} catch {
-		console.log(
-			'    No pre-existing task primitives found — task_signal will be 0 for all occupations'
+		// fall through to the hard guard below
+	}
+	if (taskPrimitivesMap.size < 300) {
+		console.error(
+			`    ERROR: only ${taskPrimitivesMap.size} occupations have task primitives (expected ~492). ` +
+				'The V7 task-concentration buffer would silently collapse to zero. ' +
+				'Run "bun run build:task-primitives" first (it enriches data/occupations.json).'
 		);
+		process.exit(1);
 	}
 
 	// ===== V7: Precompute demand-persistence rank arrays =====

@@ -10,6 +10,7 @@ import * as path from 'path';
 import {
 	DATA_VINTAGE,
 	RISK_BAND_THRESHOLDS,
+	V7_CONSTANTS,
 	classifyImpactType,
 	getRiskBand
 } from '../src/lib/data/scoring-constants';
@@ -517,6 +518,57 @@ async function main() {
 		data.every(row => getLabourMonitor(row))
 	);
 
+	console.log('\n--- V7 formula integrity ---');
+	const FORMULA_TOLERANCE = 1e-3;
+	check(
+		'All occupations have V7 fields (task_signal, exposure_v7, demand_persistence)',
+		data.every(
+			row =>
+				typeof row.task_signal === 'number' &&
+				typeof row.exposure_v7 === 'number' &&
+				typeof row.demand_persistence === 'number'
+		)
+	);
+	const taskSignalCoverage = data.filter(row => (row.task_signal ?? 0) > 0).length;
+	check(
+		'Task-signal coverage >= 300 occupations (guards silent task-primitive collapse)',
+		taskSignalCoverage >= 300,
+		`got ${taskSignalCoverage}`
+	);
+	check(
+		'exposure_v7 matches buffer formula exposure × (1 − λ × task_signal)',
+		data.every(row => {
+			const expected = Math.min(
+				1,
+				Math.max(
+					0,
+					row.exposure * (1 - V7_CONSTANTS.TASK_CONCENTRATION_LAMBDA * (row.task_signal ?? 0))
+				)
+			);
+			return Math.abs((row.exposure_v7 ?? 0) - expected) < FORMULA_TOLERANCE;
+		})
+	);
+	check(
+		'Task-concentration buffer never raises exposure (exposure_v7 <= exposure)',
+		data.every(row => (row.exposure_v7 ?? 0) <= row.exposure + FORMULA_TOLERANCE)
+	);
+	check(
+		'displacement_pressure recomputes from exposure_v7 × (1 − bottleneck)',
+		data.every(
+			row =>
+				Math.abs(row.displacement_pressure - (row.exposure_v7 ?? 0) * (1 - row.bottleneck)) <
+				FORMULA_TOLERANCE
+		)
+	);
+	check(
+		'net_risk recomputes from displacement_pressure × (1 − demand_resilience)',
+		data.every(
+			row =>
+				Math.abs(row.net_risk - row.displacement_pressure * (1 - row.demand_resilience)) <
+				FORMULA_TOLERANCE
+		)
+	);
+
 	console.log('\n--- Coverage ---');
 	const direct = data.filter(row => row.match_quality === 'direct').length;
 	const submajor = data.filter(row => row.match_quality === 'submajor_fallback').length;
@@ -832,6 +884,32 @@ async function main() {
 						role.context_adjustment >= 0.85 &&
 						role.context_adjustment <= 1.15
 				)
+		);
+		check(
+			'Synthetic roles expose V7 fields (task_signal, demand_persistence, exposure_v7)',
+			roleScores.every(
+				role =>
+					typeof role.task_signal === 'number' &&
+					typeof role.demand_persistence === 'number' &&
+					typeof role.exposure_v7 === 'number'
+			)
+		);
+		check(
+			'Synthetic roles share the occupation V7 spine (exposure_v7 = exposure × (1 − λ × task_signal))',
+			roleScores.every(role => {
+				const expected = Math.min(
+					1,
+					Math.max(
+						0,
+						role.exposure * (1 - V7_CONSTANTS.TASK_CONCENTRATION_LAMBDA * role.task_signal)
+					)
+				);
+				return Math.abs(role.exposure_v7 - expected) < 1e-3;
+			})
+		);
+		check(
+			'Synthetic role buffer never raises exposure (exposure_v7 <= exposure)',
+			roleScores.every(role => role.exposure_v7 <= role.exposure + 1e-3)
 		);
 	} catch (error) {
 		check('All synthetic roles compute without errors', false, String(error));

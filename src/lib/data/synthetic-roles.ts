@@ -5,9 +5,12 @@ import {
 	AUGMENTATION_THRESHOLDS
 } from './scoring-constants';
 import {
+	computeAugmentation,
 	computeDemandResilience,
-	computeHeadlineRisk,
-	computeV6StructuralScores
+	computeDemandResilienceV7,
+	computeDisplacementPressure,
+	computeExposureV7,
+	computeHeadlineRisk
 } from './methodology-core';
 import type { DerivedOverlayScores, WorkflowOverlay } from './workflow-overlay';
 import {
@@ -43,6 +46,12 @@ export interface ScoredRole {
 	base_resilience: number;
 	demand_signal_bonus: number;
 	demand_resilience: number;
+	/** V7: blended task-concentration buffer signal (0 when components lack task data) */
+	task_signal: number;
+	/** V7: blended demand-persistence composite */
+	demand_persistence: number;
+	/** V7: exposure after the task-concentration buffer */
+	exposure_v7: number;
 	displacement_pressure: number;
 	market_resilience: number;
 	net_risk: number;
@@ -1424,6 +1433,9 @@ export function computeRoleScores(
 				base_resilience: 0.5,
 				demand_signal_bonus: 0.1
 			}),
+			task_signal: 0,
+			demand_persistence: 0,
+			exposure_v7: 0.5,
 			displacement_pressure: 0.25,
 			market_resilience: 0.5,
 			net_risk: computeHeadlineRisk({
@@ -1456,6 +1468,12 @@ export function computeRoleScores(
 	const bottlenecks = validComponents.map((c) => c.occupation!.bottleneck);
 	const baseResiliencies = validComponents.map((c) => c.occupation!.market.market_resilience);
 	const demandSignalBonuses = validComponents.map((c) => c.occupation!.demand_signal_bonus ?? 0);
+	// V7 sub-signals are blended directly from the constituent occupations. task_signal
+	// (concentration buffer) and demand_persistence are already 0-1 composites, so blending
+	// them is exactly analogous to blending demand_signal_bonus — keeping roles on the same
+	// V7 structural spine as occupations rather than the old V6 path.
+	const taskSignals = validComponents.map((c) => c.occupation!.task_signal ?? 0);
+	const demandPersistences = validComponents.map((c) => c.occupation!.demand_persistence ?? 0);
 	const weights = validComponents.map((c) => c.weight);
 	const totalConfiguredWeight = role.components.reduce((sum, component) => sum + component.weight, 0);
 
@@ -1468,28 +1486,36 @@ export function computeRoleScores(
 		totalConfiguredWeight,
 		0
 	);
-	const {
-		displacement_pressure,
-		headline_risk: base_net_risk,
-		augmentation
-	} = computeV6StructuralScores({
-		exposure,
-		bottleneck,
+	const task_signal = weightedMeanWithCoverage(taskSignals, weights, totalConfiguredWeight, 0);
+	const demand_persistence = weightedMeanWithCoverage(
+		demandPersistences,
+		weights,
+		totalConfiguredWeight,
+		0
+	);
+
+	// V7 structural spine (matches the occupation pipeline in methodology-core).
+	const exposure_v7 = computeExposureV7(exposure, task_signal);
+	const displacement_pressure = computeDisplacementPressure({ exposure: exposure_v7, bottleneck });
+	const demand_resilience_weighted = computeDemandResilienceV7({
 		base_resilience,
-		sol_match: false,
-		jid_match: false
+		demand_signal_bonus,
+		demand_persistence
 	});
-	const demand_resilience_weighted = computeDemandResilience({
-		base_resilience,
-		demand_signal_bonus
+	const base_net_risk = computeHeadlineRisk({
+		displacement_pressure,
+		demand_resilience: demand_resilience_weighted
+	});
+	const augmentation = computeAugmentation({
+		exposure: exposure_v7,
+		bottleneck,
+		market_resilience: base_resilience
 	});
 	const workflowMeta = buildRoleWorkflowMeta(role, validComponents);
-	const net_risk = clamp01(
-		computeHeadlineRisk({
-			displacement_pressure,
-			demand_resilience: demand_resilience_weighted
-		}) * workflowMeta.contextAdjustment
-	);
+	// Roles carry a workflow context adjustment on top of the structural spine — this is an
+	// intentional role-only signal (occupations have no workflow overlay). base_net_risk is the
+	// pure V7 structural score; net_risk applies the role workflow context.
+	const net_risk = clamp01(base_net_risk * workflowMeta.contextAdjustment);
 	const risk_band = getRiskBand(net_risk);
 	const augmentation_band = computeAugmentationBand(augmentation);
 	const impact_type = classifyImpactType(net_risk, augmentation);
@@ -1530,6 +1556,9 @@ export function computeRoleScores(
 		base_resilience,
 		demand_signal_bonus,
 		demand_resilience: demand_resilience_weighted,
+		task_signal,
+		demand_persistence,
+		exposure_v7,
 		displacement_pressure,
 		market_resilience: base_resilience,
 		net_risk,

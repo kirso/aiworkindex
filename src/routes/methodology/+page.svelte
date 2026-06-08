@@ -45,7 +45,12 @@
 	const clusterBacktestPath = `data/backtests/${clusterValidation.data_period.toLowerCase().replace(/\s+/g, '-')}-validation.json`;
 	const clusterChecks = clusterValidation.correlation_checks;
 	const vacancyCheck = clusterChecks[0] ?? { pass: false, actual: 'N/A', note: 'Unavailable' };
-	const retrenchmentCheck = clusterChecks[1] ?? { pass: false, actual: 'N/A', note: 'Unavailable' };
+	const retrenchmentCheck = clusterChecks[1] ?? {
+		pass: false,
+		actual: 'N/A',
+		note: 'Unavailable',
+		inconclusive: false
+	};
 	const hiringCheck = clusterChecks[2] ?? { pass: false, actual: 'N/A', note: 'Unavailable' };
 	const accuracyCheck = clusterChecks[3] ?? { pass: false, actual: 'N/A', note: 'Unavailable' };
 	const temporalVacancySummary = multiPeriodValidation.metrics.vacancy_rate_yoy.summary;
@@ -269,9 +274,10 @@
 				<p class="text-sm font-semibold text-foreground">TL;DR</p>
 				<p class="mt-1 text-sm text-muted-foreground">
 					Headline risk = displacement pressure × (1 − demand resilience), where displacement
-					pressure = AI exposure × (1 − human bottleneck). In V7, exposure is amplified by
-					task-concentration (Hampole et al.) and demand resilience includes a persistence proxy. No
-					LLM assigns scores in the pipeline.
+					pressure = AI exposure × (1 − human bottleneck). In V7, exposure carries a
+					task-concentration buffer (Hampole et al. find concentrated exposure offsets labour-demand
+					losses) and demand resilience includes a persistence proxy. No LLM assigns scores in the
+					pipeline.
 				</p>
 			</div>
 
@@ -368,12 +374,30 @@
 				<ul class="mt-1 list-inside list-disc space-y-0.5 text-sm text-muted-foreground">
 					<li>
 						<code class="rounded bg-muted px-1 text-xs"
-							>displacement_pressure = exposure &times; (1 - bottleneck)</code
+							>displacement_pressure = exposure_v7 &times; (1 - bottleneck)</code
 						>
 					</li>
 					<li>
 						<code class="rounded bg-muted px-1 text-xs"
-							>demand_resilience = min(1.0, base_resilience &times; 0.45 + demand_signal_bonus)</code
+							>exposure_v7 = exposure &times; (1 - 0.20 &times; task_signal)</code
+						>
+						— the V7 task-concentration buffer (Hampole et al. 2025)
+					</li>
+					<li>
+						<code class="rounded bg-muted px-1 text-xs"
+							>task_signal = task_exposure_concentration &times; task_effective_coverage</code
+						>
+					</li>
+					<li>
+						<code class="rounded bg-muted px-1 text-xs"
+							>demand_resilience = min(1.0, base_resilience &times; 0.45 + demand_signal_bonus +
+							0.10 &times; demand_persistence)</code
+						>
+					</li>
+					<li>
+						<code class="rounded bg-muted px-1 text-xs"
+							>demand_persistence = 0.4 &times; momentum_rank + 0.3 &times; vacancy_rank + 0.2
+							&times; scarcity_rank + 0.1 &times; demand_bonus_rank</code
 						>
 					</li>
 					<li>
@@ -532,7 +556,8 @@
 								base_resilience = 0.6 &times; market_momentum + 0.4 &times; occupation_scarcity
 							</p>
 							<p class="rounded bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
-								demand_resilience = min(1.0, base_resilience &times; 0.45 + demand_signal_bonus)
+								demand_resilience = min(1.0, base_resilience &times; 0.45 + demand_signal_bonus +
+								0.10 &times; demand_persistence)
 							</p>
 						</div>
 						<p class="mt-2 text-sm text-muted-foreground">
@@ -720,10 +745,10 @@
 				</p>
 				<div class="mt-2 space-y-2">
 					<p class="rounded bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
-						displacement_pressure = exposure &times; (1 - bottleneck)
+						displacement_pressure = exposure_v7 &times; (1 - bottleneck)
 					</p>
 					<p class="rounded bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
-						augmentation = exposure &times; bottleneck &times; base_resilience
+						augmentation = exposure_v7 &times; bottleneck &times; base_resilience
 					</p>
 				</div>
 				<p class="mt-2 text-sm text-muted-foreground">
@@ -952,10 +977,12 @@
 						</div>
 						<div class="flex items-center gap-2">
 							<span
-								class={retrenchmentCheck.pass
-									? 'text-risk-very-low font-bold shrink-0'
-									: 'text-risk-very-high font-bold shrink-0'}
-								>{retrenchmentCheck.pass ? '✓' : '✗'}</span
+								class={retrenchmentCheck.inconclusive
+									? 'text-muted-foreground font-bold shrink-0'
+									: retrenchmentCheck.pass
+										? 'text-risk-very-low font-bold shrink-0'
+										: 'text-risk-very-high font-bold shrink-0'}
+								>{retrenchmentCheck.inconclusive ? '—' : retrenchmentCheck.pass ? '✓' : '✗'}</span
 							>
 							<span
 								><strong>Risk vs retrenchment:</strong>
@@ -1209,7 +1236,8 @@
 							<tr class="border-b border-border/50">
 								<td class="py-2 pr-3 font-medium">GPTs-are-GPTs</td>
 								<td class="py-2 pr-3"
-									>Eloundou et al. (2023) — LLM task-level exposure via human + GPT-4 assessment</td
+									>Eloundou et al. (Science, 2024) — LLM task-level exposure via human + GPT-4
+									assessment</td
 								>
 								<td class="py-2"
 									>Integrated in the live ensemble with reliability weighting when matched via SOC
@@ -1219,7 +1247,8 @@
 							<tr class="border-b border-border/50">
 								<td class="py-2 pr-3 font-medium">ILO AI Exposure</td>
 								<td class="py-2 pr-3"
-									>ILO (2024) — task-level AI automation potential scored across ISCO occupations</td
+									>ILO WP140 (2025) — task-level AI automation potential scored across ISCO
+									occupations</td
 								>
 								<td class="py-2"
 									>Integrated in the live ensemble with reliability weighting when matched via ISCO
@@ -1366,8 +1395,9 @@
 					modifiers (Entry-level / Mid-career / Senior). Adjustments scale with each occupation's variant
 					sensitivity — roles with high institutional knowledge (e.g., software engineering) vary more
 					by seniority than roles with low context-dependence (e.g., truck driver). Grounded in: Stanford
-					"Canaries in the Coal Mine" (2025) showing entry-level displacement pressure, and Anthropic
-					Economic Index (2026) showing 14% drop in job-finding for 22-25 year olds in AI-exposed occupations.
+					"Canaries in the Coal Mine" (2025) showing a 13% relative employment decline for ages 22-25
+					in most-exposed occupations, and Anthropic Economic Index (2026) showing a 14% lower rate of
+					entering highly AI-exposed occupations for 22-25 year olds.
 				</p>
 				<p class="mt-2 text-sm text-muted-foreground">
 					<strong>Labour monitor</strong> is built from official vacancy, recruitment/resignation, retrenchment,
@@ -1467,10 +1497,11 @@
 								<td class="py-2 pr-3 font-mono">+14pp × sensitivity</td>
 								<td class="py-2 pr-3 font-mono">−12pp × sensitivity</td>
 								<td class="py-2">
-									More routine tasks, less institutional knowledge. Anthropic (2026): 14% drop in
-									job-finding for ages 22-25. Stanford DEL (2025): entry-level faces
-									disproportionate pressure. Brynjolfsson et al. (2023): largest AI productivity
-									gains among junior workers, compressing the experience gap.
+									More routine tasks, less institutional knowledge. Anthropic (2026): 14% lower rate
+									of entering highly AI-exposed occupations for ages 22-25. Stanford DEL (2025): 13%
+									relative employment decline for ages 22-25 in most-exposed occupations. Note the
+									tension: Brynjolfsson et al. (2023) find the largest AI productivity gains among
+									junior workers — the penalty reflects employment access, not productivity.
 								</td>
 							</tr>
 							<tr class="border-b border-border/50">
@@ -1615,12 +1646,20 @@
 				<p class={sectionLabel()}>Known Limitations</p>
 				<ul class="mt-2 list-inside list-disc space-y-2 text-sm text-muted-foreground">
 					<li>
-						<strong>Exposure ≠ displacement</strong> — Market translation uses heuristics and lagging
-						indicators. Captures displacement but not reinstatement (Acemoglu &amp; Restrepo, 2019).
+						<strong>Exposure ≠ adoption ≠ displacement</strong> — This is the central limitation.
+						The exposure layer measures <em>potential</em> task overlap with AI capability, not
+						realised adoption (which is gated by cost, integration, regulation, verification, and
+						diffusion lag) and not actual job loss. There is
+						<strong>no adoption/diffusion-intensity variable</strong>
+						in the model; observed Claude usage (Anthropic) calibrates exposure but is not a substitute
+						for sector-level adoption data. Treat scores as structural pressure, not a forecast. The model
+						captures displacement but not reinstatement (Acemoglu &amp; Restrepo, 2019).
 					</li>
 					<li>
 						<strong>US-centric ability data</strong> — O*NET surveys US workers; task composition may
-						differ in Singapore.
+						differ in Singapore. The closest Singapore-specific external benchmark is IMF SIP/2024/040
+						(Khan), which estimates ~77% of Singapore workers are highly exposed; the model is not yet
+						formally calibrated against it.
 					</li>
 					<li>
 						<strong>Hierarchical market granularity</strong> — Momentum is major-group level; wage structure

@@ -87,7 +87,7 @@ const entries: SourceMapEntry[] = [
 		source_tier: 'cross_country_research',
 		vintage: '2021-2026',
 		transformation:
-			'Base deterministic reliability-weighted 4-source exposure ensemble over the matched AIOE, Anthropic, Eloundou, and ILO inputs before V7 task-concentration amplification.',
+			'Base deterministic reliability-weighted 4-source exposure ensemble over the matched AIOE, Anthropic, Eloundou, and ILO inputs before the V7 task-concentration buffer.',
 		caveat:
 			'Exposure is not an official Singapore government measure; it is a research-backed structural layer.'
 	},
@@ -105,7 +105,7 @@ const entries: SourceMapEntry[] = [
 	{
 		field_path: 'exposure_v7',
 		dataset: `sg-ai-occupations-${versionTag}.json`,
-		label: 'V7 amplified exposure',
+		label: 'V7 buffered exposure',
 		source_keys: [
 			'aioe_2021',
 			'anthropic_economic_index_2026',
@@ -116,7 +116,7 @@ const entries: SourceMapEntry[] = [
 		],
 		source_tier: 'synthetic',
 		vintage: '2021-2026',
-		transformation: 'Deterministic V7 formula field: min(1, exposure × (1 + 0.20 × task_signal)).',
+		transformation: 'Deterministic V7 formula field: min(1, exposure × (1 − 0.20 × task_signal)).',
 		caveat:
 			'Derived structural field published for interpretability, not a direct source observation.'
 	},

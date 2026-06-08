@@ -500,9 +500,31 @@ export const researchRegistry: ResearchEntry[] = [
 		summary:
 			'Shows that mean exposure and concentration of exposure in a few tasks can have different labour-demand implications.',
 		limitations:
-			"The repo uses a simplified shadow-model concentration buffer rather than the paper's full firm-task empirical setting.",
+			"The repo uses a simplified concentration buffer rather than the paper's full firm-task empirical setting; the buffer magnitude (lambda = 0.20) is heuristic, not estimated from the paper's coefficients.",
 		repo_notes:
-			'Primary scientific justification for publishing task exposure concentration as its own field and using it in the shadow model.'
+			'Primary scientific justification for the live V7 task-concentration exposure buffer (concentration offsets labour-demand losses via within-job task reallocation).'
+	},
+	{
+		key: 'imas_shukla_2026',
+		title: 'How Will AI-Driven Automation Actually Affect Jobs?',
+		authors: ['Alex Imas', 'Vasudha Shukla'],
+		year: 2026,
+		published_at: '2026-03',
+		publisher: 'Ghosts of Electricity (Substack)',
+		url: 'https://aleximas.substack.com/p/how-will-ai-driven-automation-actually',
+		type: 'article',
+		domains: ['forecast', 'measurement', 'context'],
+		role: 'active_core',
+		status: 'active',
+		used_for: ['demand-persistence proxy motivation', 'exposure-index critique framing'],
+		source_keys: [],
+		claim_ids: [],
+		summary:
+			'Argues exposure alone cannot predict displacement: output-demand price elasticity (elastic demand can expand hiring as AI cuts costs) and job dimensionality (low-task jobs are easier to automate fully) are the missing variables.',
+		limitations:
+			'Commentary rather than peer-reviewed estimation; proposes collecting new price/quantity data rather than a ready-made occupation-level measure.',
+		repo_notes:
+			"Motivates the V7 demand-persistence proxy. The proxy measures recent labour-demand persistence (momentum, vacancies, scarcity), not output-price elasticity, and does not capture dimensionality — it is a partial response to this critique, not a resolution."
 	},
 	{
 		key: 'imf_occupational_mobility_2024',
@@ -525,6 +547,28 @@ export const researchRegistry: ResearchEntry[] = [
 			'Cross-country evidence informs the transition design, but the repo still needs a Singapore-specific mobility dataset.',
 		repo_notes:
 			'Guides the schema for observed transition priors and future ranking logic in the transition layer.'
+	},
+	{
+		key: 'khan_imf_singapore_2024',
+		title: 'Impact of AI on Singapore’s Labor Market',
+		authors: ['Shujaat Khan'],
+		year: 2024,
+		published_at: '2024',
+		publisher: 'IMF Selected Issues Paper SIP/2024/040',
+		url: 'https://www.imf.org/-/media/files/publications/selected-issues-papers/2024/english/sipea2024040.pdf',
+		type: 'working_paper',
+		domains: ['exposure', 'complementarity', 'context'],
+		role: 'validation',
+		status: 'active',
+		used_for: ['Singapore-specific exposure benchmark', 'external convergent validation target'],
+		source_keys: [],
+		claim_ids: [],
+		summary:
+			'IMF Singapore-specific estimates: ~77% of Singapore workers are highly exposed to AI (vs ~60% advanced-economy / ~40% emerging-market averages), split roughly evenly between high- and low-complementarity exposure.',
+		limitations:
+			'Aggregate exposure/complementarity shares at the economy level, not occupation-by-occupation scores; uses the IMF exposure framework rather than this repo’s 4-source ensemble.',
+		repo_notes:
+			'The most directly relevant external benchmark for a Singapore AI-exposure product. Not yet used for formal calibration; flagged as a convergent-validity target more relevant than US BLS.'
 	},
 	{
 		key: 'bick_blandin_deming_2025',

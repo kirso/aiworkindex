@@ -1,10 +1,10 @@
 {
-  "updated_at": "2026-05-15T08:45:05.515Z",
+  "updated_at": "2026-06-08T11:02:59.718Z",
   "structural_release": {
     "version": "V7",
     "label": "V7 structural release",
-    "generated_at": "2026-05-15T00:00:00.000Z",
-    "score_dataset_generated_at": "2026-05-15",
+    "generated_at": "2026-06-07T00:00:00.000Z",
+    "score_dataset_generated_at": "2026-06-07",
     "release_manifest": "release-manifest-v7.json"
   },
   "experimental_release": {
@@ -26,8 +26,8 @@
     "experimental_model_published": true,
     "structural_validation_result": "2/2",
     "realized_validation_result": "2/4",
-    "transition_band_flip_count": 169,
-    "impact_flip_count": 158
+    "transition_band_flip_count": 166,
+    "impact_flip_count": 157
   },
   "live_monitor": {
     "labour_monitor_artifact_vintage": "Q4 2025 full",
@@ -43,15 +43,15 @@
     "refresh_note": "The live labour monitor now uses the full MOM Labour Market Report Q4 2025, including explicit Q3-to-Q4 deltas for vacancy, hiring, retrenchment and re-entry signals.",
     "macro_vintage": "2025 4Q",
     "ai_context_vintage": "2024 data",
-    "postings_generated_at": "2026-05-15T08:44:09.912Z",
+    "postings_generated_at": "2026-06-07T11:57:23.564Z",
     "postings_volume_30d": 0,
-    "employer_pressure_generated_at": "2026-05-15T08:44:09.949Z",
+    "employer_pressure_generated_at": "2026-06-07T11:57:23.650Z",
     "employer_pressure_latest_signal_date": "2025-10-06",
-    "quarterly_report_generated_at": "2026-05-15T08:44:09.615Z",
-    "quarterly_current_snapshot": "occupations-v7-2026-05.json",
-    "quarterly_previous_snapshot": "occupations-v7-2026-04.json",
+    "quarterly_report_generated_at": "2026-06-08T11:02:59.640Z",
+    "quarterly_current_snapshot": "occupations-v7-2026-06.json",
+    "quarterly_previous_snapshot": "occupations-v7-2026-05.json",
     "cluster_validation_checks_passed": 2,
-    "cluster_validation_checks_total": 4,
+    "cluster_validation_checks_total": 3,
     "temporal_validation_vacancy_accuracy": 1,
     "temporal_validation_vacancy_periods": 2,
     "temporal_validation_hiring_accuracy": 0.3,
@@ -64,7 +64,7 @@
     "occupation_family_validation_rho": -0.249,
     "occupation_family_validation_family_count": 29,
     "occupation_family_validation_significant": false,
-    "offset_potential_generated_at": "2026-05-15T08:44:10.015Z",
+    "offset_potential_generated_at": "2026-06-07T11:57:23.728Z",
     "offset_potential_high_count": 18
   },
   "homepage_banner": {

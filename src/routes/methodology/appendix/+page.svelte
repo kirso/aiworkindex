@@ -39,9 +39,20 @@
 			<p class="rounded-md bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
 				headline_risk = displacement_pressure × (1 − demand_resilience)
 			</p>
+			<p class="rounded-md bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
+				displacement_pressure = exposure_v7 × (1 − bottleneck)
+			</p>
+			<p class="rounded-md bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
+				exposure_v7 = clamp01(exposure × (1 − 0.20 × task_signal))
+			</p>
+			<p class="rounded-md bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
+				task_signal = task_exposure_concentration × task_effective_coverage
+			</p>
 			<p class="text-xs text-muted-foreground">
 				Where exposure and bottleneck are percentile-ranked (0–1) across all {DATA_VINTAGE.occupation_count}
-				occupations.
+				occupations. The task-concentration buffer follows Hampole et al. (2025): concentrated exposure
+				offsets labour-demand losses, so it reduces effective exposure. task_signal = 0 where task data
+				is unavailable.
 			</p>
 		</div>
 	</section>
@@ -157,7 +168,7 @@
 	<section class="mb-8">
 		<p class={sectionLabel()}>Augmentation Score</p>
 		<p class="mt-2 rounded-md bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
-			augmentation = exposure × bottleneck × market_resilience
+			augmentation = exposure_v7 × bottleneck × market_resilience
 		</p>
 		<p class="mt-2 text-sm text-muted-foreground">
 			The same published <code class="rounded bg-muted px-1 text-xs">market_resilience</code> field is
@@ -206,7 +217,12 @@
 				market_resilience = 0.6 × market_momentum + 0.4 × occupation_scarcity
 			</p>
 			<p class="rounded-md bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
-				demand_resilience = min(1.0, base_resilience × 0.45 + demand_signal_bonus)
+				demand_resilience = min(1.0, base_resilience × 0.45 + demand_signal_bonus + 0.10 ×
+				demand_persistence)
+			</p>
+			<p class="rounded-md bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
+				demand_persistence = 0.4 × momentum_rank + 0.3 × vacancy_rank + 0.2 × scarcity_rank + 0.1 ×
+				demand_bonus_rank
 			</p>
 		</div>
 		<p class="mt-2 text-sm text-muted-foreground">

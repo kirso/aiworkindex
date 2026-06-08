@@ -97,8 +97,15 @@ function spearmanCorrelation(x: number[], y: number[]): number {
 	function rank(arr: number[]): number[] {
 		const sorted = arr.map((v, i) => ({ v, i })).sort((a, b) => a.v - b.v);
 		const ranks = new Array(n);
-		for (let i = 0; i < n; i++) {
-			ranks[sorted[i].i] = i + 1;
+		// Average tied ranks so a column of identical values does not produce a
+		// spurious monotonic ordering (matches the BLS-crosswalk validator).
+		let i = 0;
+		while (i < n) {
+			let j = i;
+			while (j + 1 < n && sorted[j + 1].v === sorted[i].v) j++;
+			const avgRank = (i + j) / 2 + 1;
+			for (let k = i; k <= j; k++) ranks[sorted[k].i] = avgRank;
+			i = j + 1;
 		}
 		return ranks;
 	}
@@ -106,13 +113,22 @@ function spearmanCorrelation(x: number[], y: number[]): number {
 	const rx = rank(x);
 	const ry = rank(y);
 
-	let sumD2 = 0;
+	// Pearson correlation on the (tie-averaged) ranks — the tie-corrected Spearman.
+	const meanX = rx.reduce((s, v) => s + v, 0) / n;
+	const meanY = ry.reduce((s, v) => s + v, 0) / n;
+	let cov = 0;
+	let varX = 0;
+	let varY = 0;
 	for (let i = 0; i < n; i++) {
-		const d = rx[i] - ry[i];
-		sumD2 += d * d;
+		const dx = rx[i] - meanX;
+		const dy = ry[i] - meanY;
+		cov += dx * dy;
+		varX += dx * dx;
+		varY += dy * dy;
 	}
-
-	return 1 - (6 * sumD2) / (n * (n * n - 1));
+	// Zero variance (e.g. a constant column) → correlation is undefined, not 0.
+	if (varX === 0 || varY === 0) return NaN;
+	return cov / Math.sqrt(varX * varY);
 }
 
 function formatValidationPeriod(value: string): string {
@@ -206,7 +222,12 @@ function main() {
 		actual: string;
 		pass: boolean;
 		note: string;
+		/** True when the check cannot discriminate (e.g. the outcome column has no variance). Excluded from the pass tally. */
+		inconclusive?: boolean;
 	}> = [];
+
+	/** A column with no variance (all clusters equal) cannot be correlated against. */
+	const hasVariance = (vals: number[]): boolean => new Set(vals).size > 1;
 
 	// Check 1: Higher risk clusters should have lower/declining vacancy growth
 	const _riskByCluster = new Map(clusterStats.map(s => [s.cluster_key, s.avg_net_risk]));
@@ -237,17 +258,28 @@ function main() {
 			.map(s => s.avg_net_risk);
 
 		if (retrenchmentVals.length >= 2) {
-			const rho2 = spearmanCorrelation(matchedRisks, retrenchmentVals);
+			// MOM publishes retrenchment incidence at the same level for all three clusters,
+			// so this column has no cross-cluster variance and cannot be correlated against.
+			// Report it as inconclusive rather than scoring it as a spurious pass/fail.
+			const retrenchmentHasVariance = hasVariance(retrenchmentVals);
+			const rho2 = retrenchmentHasVariance
+				? spearmanCorrelation(matchedRisks, retrenchmentVals)
+				: NaN;
 			checks.push({
 				test: 'Risk vs retrenchment incidence (Spearman)',
 				expected: 'Positive correlation (higher risk → higher retrenchment)',
-				actual: `ρ = ${isNaN(rho2) ? 'N/A' : rho2.toFixed(3)}`,
-				pass: !isNaN(rho2) && rho2 > 0,
-				note: isNaN(rho2)
-					? 'Insufficient data'
-					: rho2 > 0
-						? 'Directionally consistent'
-						: 'Structural risk scores do not yet predict short-run retrenchment patterns'
+				actual: retrenchmentHasVariance
+					? `ρ = ${isNaN(rho2) ? 'N/A' : rho2.toFixed(3)}`
+					: 'N/A (no cross-cluster variance)',
+				pass: retrenchmentHasVariance && !isNaN(rho2) && rho2 > 0,
+				inconclusive: !retrenchmentHasVariance,
+				note: !retrenchmentHasVariance
+					? 'Retrenchment incidence is reported identically across clusters — not discriminating; excluded from the tally'
+					: isNaN(rho2)
+						? 'Insufficient data'
+						: rho2 > 0
+							? 'Directionally consistent'
+							: 'Structural risk scores do not yet predict short-run retrenchment patterns'
 			});
 		}
 
@@ -358,9 +390,10 @@ function main() {
 		);
 	}
 
-	// Summary
-	const passCount = checks.filter(c => c.pass).length;
-	const totalChecks = checks.length;
+	// Summary — inconclusive checks (no-variance outcome columns) are excluded from the tally.
+	const scorableChecks = checks.filter(c => !c.inconclusive);
+	const passCount = scorableChecks.filter(c => c.pass).length;
+	const totalChecks = scorableChecks.length;
 
 	const result = {
 		validation_date: new Date().toISOString().split('T')[0],

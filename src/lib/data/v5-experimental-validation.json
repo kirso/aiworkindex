@@ -1,6 +1,6 @@
 {
   "version": "V5-experimental-validation",
-  "generated_at": "2026-05-15T08:44:11.239Z",
+  "generated_at": "2026-06-07T11:57:24.921Z",
   "live_version": "V7",
   "comparison_baseline_version": "V7",
   "status": "experimental_only",
@@ -10,23 +10,23 @@
       "posterior_ensemble_fallback": 562
     },
     "profile_counts": {
-      "leveraged": 99,
-      "shielded": 189,
+      "leveraged": 97,
+      "shielded": 190,
       "retooling": 149,
-      "balanced": 125
+      "balanced": 126
     },
     "task_mode_method_count": 492,
     "task_mode_blended_count": 492,
     "observed_enriched_mobility_count": 486,
     "realized_pass_count": 2,
     "realized_scorable_check_count": 4,
-    "structural_band_flip_count": 185,
-    "transition_band_flip_count": 169,
-    "impact_flip_count": 158,
-    "mean_delta_vs_live_structural": 0.0297,
-    "mean_delta_vs_live_transition": 0.0127,
+    "structural_band_flip_count": 190,
+    "transition_band_flip_count": 166,
+    "impact_flip_count": 157,
+    "mean_delta_vs_live_structural": 0.0326,
+    "mean_delta_vs_live_transition": 0.0156,
     "median_realized_risk_proxy": 0.0373,
-    "median_adaptation_capacity": 0.3997,
+    "median_adaptation_capacity": 0.399,
     "median_demand_fragility": 0.1185,
     "median_reallocation_capacity": 0.7613
   },
@@ -35,17 +35,17 @@
       {
         "ssoc": "25121",
         "title": "Software developer",
-        "value": 0.2799
+        "value": 0.2883
       },
       {
         "ssoc": "25122",
         "title": "Web and mobile applications developer",
-        "value": 0.2147
+        "value": 0.221
       },
       {
         "ssoc": "52422",
         "title": "Salesperson (door-to-door)",
-        "value": 0.2117
+        "value": 0.2185
       },
       {
         "ssoc": "43212",
@@ -67,7 +67,7 @@
       {
         "ssoc": "43112",
         "title": "Ledger and accounts clerk",
-        "value": -0.1405
+        "value": -0.1398
       },
       {
         "ssoc": "33493",
@@ -80,21 +80,21 @@
         "value": -0.1171
       },
       {
-        "ssoc": "43114",
-        "title": "Payroll/Wages clerk",
-        "value": -0.1158
+        "ssoc": "42112",
+        "title": "Postal service counter clerk",
+        "value": -0.115
       }
     ],
     "transition_risers": [
       {
         "ssoc": "25121",
         "title": "Software developer",
-        "value": 0.2298
+        "value": 0.2383
       },
       {
         "ssoc": "52422",
         "title": "Salesperson (door-to-door)",
-        "value": 0.1837
+        "value": 0.1905
       },
       {
         "ssoc": "43212",
@@ -109,7 +109,7 @@
       {
         "ssoc": "81252",
         "title": "Precision grinding machine setter-operator",
-        "value": 0.1729
+        "value": 0.1746
       }
     ],
     "transition_fallers": [
@@ -121,7 +121,7 @@
       {
         "ssoc": "43112",
         "title": "Ledger and accounts clerk",
-        "value": -0.1694
+        "value": -0.1699
       },
       {
         "ssoc": "33493",
@@ -129,14 +129,14 @@
         "value": -0.1568
       },
       {
-        "ssoc": "43114",
-        "title": "Payroll/Wages clerk",
-        "value": -0.1449
-      },
-      {
         "ssoc": "42112",
         "title": "Postal service counter clerk",
         "value": -0.1439
+      },
+      {
+        "ssoc": "33151",
+        "title": "Appraiser/Valuer (excluding intangible asset valuer)",
+        "value": -0.1385
       }
     ],
     "highest_realized_risk": [
@@ -148,7 +148,7 @@
       {
         "ssoc": "42131",
         "title": "Pawnbroker",
-        "value": 0.3188
+        "value": 0.3187
       },
       {
         "ssoc": "41201",
@@ -163,21 +163,21 @@
       {
         "ssoc": "41101",
         "title": "Office clerk (including filing and copying)",
-        "value": 0.2699
+        "value": 0.27
       }
     ]
   },
   "structural_validation": {
     "bls_spearman_rho": {
-      "live": -0.1387,
+      "live": -0.1385,
       "experimental": -0.2007,
-      "delta": -0.062,
+      "delta": -0.0622,
       "pass": true
     },
     "transition_bls_spearman_rho": {
-      "live": -0.1387,
+      "live": -0.1385,
       "experimental": -0.2027,
-      "delta": -0.064,
+      "delta": -0.0642,
       "pass": true
     },
     "occupation_family_spearman_rho": {
@@ -197,7 +197,7 @@
     "cluster_rows": [
       {
         "cluster_key": "pmet",
-        "avg_realized_risk": 0.0565,
+        "avg_realized_risk": 0.0564,
         "vacancy_trend_4q_pct": -3.13,
         "hiring_net_pressure": 0.6,
         "retrenchment_incidence": 1.5
@@ -211,7 +211,7 @@
       },
       {
         "cluster_key": "production_transport",
-        "avg_realized_risk": 0.0134,
+        "avg_realized_risk": 0.0129,
         "vacancy_trend_4q_pct": 16.67,
         "hiring_net_pressure": 0.9,
         "retrenchment_incidence": 1.5
@@ -237,7 +237,7 @@
     },
     "employer_pressure_rho": {
       "sample_size": 435,
-      "experimental": 0.4871,
+      "experimental": 0.5485,
       "expected_direction": "positive",
       "scorable": true,
       "pass": true

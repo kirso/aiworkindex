@@ -1,5 +1,5 @@
 {
-  "validation_date": "2026-05-15",
+  "validation_date": "2026-06-07",
   "model_version": "V7",
   "bls_data_period": "2024-2034 projections",
   "family_definition": "2-digit SSOC occupation families with at least 5 occupations overall and 3 BLS-matched occupations",
@@ -16,7 +16,7 @@
       "label": "CLERICAL SUPPORT WORKERS",
       "occupation_count": 5,
       "matched_occupation_count": 5,
-      "avg_net_risk": 0.6402,
+      "avg_net_risk": 0.629,
       "avg_bls_change": -9.38,
       "direct_share": 1
     },
@@ -25,7 +25,7 @@
       "label": "CLERICAL SUPPORT WORKERS",
       "occupation_count": 19,
       "matched_occupation_count": 19,
-      "avg_net_risk": 0.5019,
+      "avg_net_risk": 0.4933,
       "avg_bls_change": -5.55,
       "direct_share": 1
     },
@@ -34,7 +34,7 @@
       "label": "CLERICAL SUPPORT WORKERS",
       "occupation_count": 14,
       "matched_occupation_count": 14,
-      "avg_net_risk": 0.4593,
+      "avg_net_risk": 0.45,
       "avg_bls_change": -2.61,
       "direct_share": 1
     },
@@ -43,7 +43,7 @@
       "label": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "occupation_count": 28,
       "matched_occupation_count": 26,
-      "avg_net_risk": 0.4111,
+      "avg_net_risk": 0.4014,
       "avg_bls_change": 2.52,
       "direct_share": 1
     },
@@ -52,7 +52,7 @@
       "label": "SERVICE AND SALES WORKERS",
       "occupation_count": 9,
       "matched_occupation_count": 9,
-      "avg_net_risk": 0.3152,
+      "avg_net_risk": 0.3056,
       "avg_bls_change": -4.56,
       "direct_share": 0.778
     },
@@ -61,7 +61,7 @@
       "label": "PROFESSIONALS",
       "occupation_count": 42,
       "matched_occupation_count": 42,
-      "avg_net_risk": 0.2964,
+      "avg_net_risk": 0.2921,
       "avg_bls_change": 4,
       "direct_share": 0.881
     },
@@ -70,7 +70,7 @@
       "label": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "occupation_count": 8,
       "matched_occupation_count": 8,
-      "avg_net_risk": 0.2767,
+      "avg_net_risk": 0.274,
       "avg_bls_change": 0.39,
       "direct_share": 0.5
     },
@@ -79,7 +79,7 @@
       "label": "PROFESSIONALS",
       "occupation_count": 62,
       "matched_occupation_count": 62,
-      "avg_net_risk": 0.1941,
+      "avg_net_risk": 0.192,
       "avg_bls_change": 6.01,
       "direct_share": 0.984
     },
@@ -88,7 +88,7 @@
       "label": "PROFESSIONALS",
       "occupation_count": 24,
       "matched_occupation_count": 24,
-      "avg_net_risk": 0.1862,
+      "avg_net_risk": 0.1828,
       "avg_bls_change": 2.9,
       "direct_share": 0.958
     },
@@ -97,7 +97,7 @@
       "label": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "occupation_count": 7,
       "matched_occupation_count": 7,
-      "avg_net_risk": 0.1813,
+      "avg_net_risk": 0.1807,
       "avg_bls_change": 1.84,
       "direct_share": 0.143
     }
@@ -108,7 +108,7 @@
       "label": "CLERICAL SUPPORT WORKERS",
       "occupation_count": 5,
       "matched_occupation_count": 5,
-      "avg_net_risk": 0.6402,
+      "avg_net_risk": 0.629,
       "avg_bls_change": -9.38,
       "direct_share": 1
     },
@@ -117,7 +117,7 @@
       "label": "CLERICAL SUPPORT WORKERS",
       "occupation_count": 19,
       "matched_occupation_count": 19,
-      "avg_net_risk": 0.5019,
+      "avg_net_risk": 0.4933,
       "avg_bls_change": -5.55,
       "direct_share": 1
     },
@@ -126,7 +126,7 @@
       "label": "SERVICE AND SALES WORKERS",
       "occupation_count": 9,
       "matched_occupation_count": 9,
-      "avg_net_risk": 0.3152,
+      "avg_net_risk": 0.3056,
       "avg_bls_change": -4.56,
       "direct_share": 0.778
     },
@@ -135,7 +135,7 @@
       "label": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
       "occupation_count": 9,
       "matched_occupation_count": 9,
-      "avg_net_risk": 0.0899,
+      "avg_net_risk": 0.0889,
       "avg_bls_change": -4.41,
       "direct_share": 1
     },
@@ -144,7 +144,7 @@
       "label": "CLERICAL SUPPORT WORKERS",
       "occupation_count": 14,
       "matched_occupation_count": 14,
-      "avg_net_risk": 0.4593,
+      "avg_net_risk": 0.45,
       "avg_bls_change": -2.61,
       "direct_share": 1
     },
@@ -153,7 +153,7 @@
       "label": "CRAFTSMEN AND RELATED TRADES WORKERS",
       "occupation_count": 8,
       "matched_occupation_count": 8,
-      "avg_net_risk": 0.07,
+      "avg_net_risk": 0.0696,
       "avg_bls_change": -1.44,
       "direct_share": 1
     },
@@ -171,7 +171,7 @@
       "label": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "occupation_count": 8,
       "matched_occupation_count": 8,
-      "avg_net_risk": 0.2767,
+      "avg_net_risk": 0.274,
       "avg_bls_change": 0.39,
       "direct_share": 0.5
     },
@@ -180,7 +180,7 @@
       "label": "CRAFTSMEN AND RELATED TRADES WORKERS",
       "occupation_count": 6,
       "matched_occupation_count": 6,
-      "avg_net_risk": 0.0496,
+      "avg_net_risk": 0.0488,
       "avg_bls_change": 0.52,
       "direct_share": 1
     },
@@ -189,7 +189,7 @@
       "label": "SERVICE AND SALES WORKERS",
       "occupation_count": 7,
       "matched_occupation_count": 7,
-      "avg_net_risk": 0.0623,
+      "avg_net_risk": 0.0601,
       "avg_bls_change": 0.7,
       "direct_share": 1
     }

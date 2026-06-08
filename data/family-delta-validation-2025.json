@@ -2,7 +2,7 @@
   "data_as_of": "2025",
   "summary": {
     "family_count": 40,
-    "correlation_delta_pct_vs_avg_net_risk": 0.0732,
+    "correlation_delta_pct_vs_avg_net_risk": 0.0742,
     "correlation_delta_pct_vs_avg_transition_adjusted_risk": null,
     "correlation_delta_pct_vs_avg_realized_risk_proxy": null,
     "median_family_delta_pct": -0.0033
@@ -16,7 +16,7 @@
       "total_2025": 258.9,
       "delta_k": 10,
       "delta_pct": 0.0402,
-      "avg_net_risk": 0.4044,
+      "avg_net_risk": 0.3954,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -28,7 +28,7 @@
       "total_2025": 81.5,
       "delta_k": 8,
       "delta_pct": 0.1088,
-      "avg_net_risk": 0.0354,
+      "avg_net_risk": 0.0352,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -40,7 +40,7 @@
       "total_2025": 82.3,
       "delta_k": 5.9,
       "delta_pct": 0.0772,
-      "avg_net_risk": 0.3817,
+      "avg_net_risk": 0.3761,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -52,7 +52,7 @@
       "total_2025": 46.2,
       "delta_k": 5.8,
       "delta_pct": 0.1436,
-      "avg_net_risk": 0.0689,
+      "avg_net_risk": 0.0663,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -64,7 +64,7 @@
       "total_2025": 51.2,
       "delta_k": 5.4,
       "delta_pct": 0.1179,
-      "avg_net_risk": 0.1799,
+      "avg_net_risk": 0.1793,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -76,7 +76,7 @@
       "total_2025": 216.1,
       "delta_k": -5.3,
       "delta_pct": -0.0239,
-      "avg_net_risk": 0.2909,
+      "avg_net_risk": 0.287,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -88,7 +88,7 @@
       "total_2025": 116.9,
       "delta_k": 4.5,
       "delta_pct": 0.04,
-      "avg_net_risk": 0.0585,
+      "avg_net_risk": 0.0584,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -100,7 +100,7 @@
       "total_2025": 66.7,
       "delta_k": 4.4,
       "delta_pct": 0.0706,
-      "avg_net_risk": 0.0768,
+      "avg_net_risk": 0.0759,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -112,7 +112,7 @@
       "total_2025": 46.5,
       "delta_k": -4.4,
       "delta_pct": -0.0864,
-      "avg_net_risk": 0.5099,
+      "avg_net_risk": 0.5009,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -124,7 +124,7 @@
       "total_2025": 22.4,
       "delta_k": -3.8,
       "delta_pct": -0.145,
-      "avg_net_risk": 0.2794,
+      "avg_net_risk": 0.2766,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -136,7 +136,7 @@
       "total_2025": 7.2,
       "delta_k": -3.7,
       "delta_pct": -0.3394,
-      "avg_net_risk": 0.0496,
+      "avg_net_risk": 0.0489,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -148,7 +148,7 @@
       "total_2025": 61.6,
       "delta_k": 3.3,
       "delta_pct": 0.0566,
-      "avg_net_risk": 0.0212,
+      "avg_net_risk": 0.021,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -172,7 +172,7 @@
       "total_2025": 109.4,
       "delta_k": 2.8,
       "delta_pct": 0.0263,
-      "avg_net_risk": 0.3195,
+      "avg_net_risk": 0.3095,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -184,7 +184,7 @@
       "total_2025": 97.2,
       "delta_k": -2.7,
       "delta_pct": -0.027,
-      "avg_net_risk": 0.6378,
+      "avg_net_risk": 0.6282,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -196,7 +196,7 @@
       "total_2025": 10.8,
       "delta_k": -2.7,
       "delta_pct": -0.2,
-      "avg_net_risk": 0.0686,
+      "avg_net_risk": 0.0682,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -208,7 +208,7 @@
       "total_2025": 154.5,
       "delta_k": -2.6,
       "delta_pct": -0.0165,
-      "avg_net_risk": 0.1894,
+      "avg_net_risk": 0.1873,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -220,7 +220,7 @@
       "total_2025": 3.7,
       "delta_k": -2.6,
       "delta_pct": -0.4127,
-      "avg_net_risk": 0.1093,
+      "avg_net_risk": 0.1078,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -232,7 +232,7 @@
       "total_2025": 17.2,
       "delta_k": -2.4,
       "delta_pct": -0.1224,
-      "avg_net_risk": 0.1108,
+      "avg_net_risk": 0.11,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -244,7 +244,7 @@
       "total_2025": 52.6,
       "delta_k": 2.3,
       "delta_pct": 0.0457,
-      "avg_net_risk": 0.0236,
+      "avg_net_risk": 0.023,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -256,7 +256,7 @@
       "total_2025": 42.7,
       "delta_k": -2.1,
       "delta_pct": -0.0469,
-      "avg_net_risk": 0.0773,
+      "avg_net_risk": 0.0746,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -268,7 +268,7 @@
       "total_2025": 48,
       "delta_k": -2.1,
       "delta_pct": -0.0419,
-      "avg_net_risk": 0.4604,
+      "avg_net_risk": 0.4515,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -280,7 +280,7 @@
       "total_2025": 73.2,
       "delta_k": -1.7,
       "delta_pct": -0.0227,
-      "avg_net_risk": 0.0867,
+      "avg_net_risk": 0.0863,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -292,7 +292,7 @@
       "total_2025": 28.3,
       "delta_k": -1.6,
       "delta_pct": -0.0535,
-      "avg_net_risk": 0.0327,
+      "avg_net_risk": 0.0326,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -304,7 +304,7 @@
       "total_2025": 19.9,
       "delta_k": 1.5,
       "delta_pct": 0.0815,
-      "avg_net_risk": 0.0605,
+      "avg_net_risk": 0.0603,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -316,7 +316,7 @@
       "total_2025": 8.3,
       "delta_k": -1.4,
       "delta_pct": -0.1443,
-      "avg_net_risk": 0.0865,
+      "avg_net_risk": 0.0856,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -328,7 +328,7 @@
       "total_2025": 21.3,
       "delta_k": -1.4,
       "delta_pct": -0.0617,
-      "avg_net_risk": 0.1404,
+      "avg_net_risk": 0.138,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -340,7 +340,7 @@
       "total_2025": 43.4,
       "delta_k": -1.2,
       "delta_pct": -0.0269,
-      "avg_net_risk": 0.1797,
+      "avg_net_risk": 0.1763,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -352,7 +352,7 @@
       "total_2025": 188.7,
       "delta_k": 1.1,
       "delta_pct": 0.0059,
-      "avg_net_risk": 0.1232,
+      "avg_net_risk": 0.1207,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -364,7 +364,7 @@
       "total_2025": 5.8,
       "delta_k": 1,
       "delta_pct": 0.2083,
-      "avg_net_risk": 0.5115,
+      "avg_net_risk": 0.5003,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -400,7 +400,7 @@
       "total_2025": 17.1,
       "delta_k": -0.6,
       "delta_pct": -0.0339,
-      "avg_net_risk": 0.1389,
+      "avg_net_risk": 0.1383,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -424,7 +424,7 @@
       "total_2025": 10.1,
       "delta_k": 0.6,
       "delta_pct": 0.0632,
-      "avg_net_risk": 0.0697,
+      "avg_net_risk": 0.0694,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -436,7 +436,7 @@
       "total_2025": 105.4,
       "delta_k": 0.5,
       "delta_pct": 0.0048,
-      "avg_net_risk": 0.1498,
+      "avg_net_risk": 0.1483,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -448,7 +448,7 @@
       "total_2025": 3.4,
       "delta_k": -0.5,
       "delta_pct": -0.1282,
-      "avg_net_risk": 0.393,
+      "avg_net_risk": 0.3894,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -460,7 +460,7 @@
       "total_2025": 121.7,
       "delta_k": -0.4,
       "delta_pct": -0.0033,
-      "avg_net_risk": 0.0723,
+      "avg_net_risk": 0.0715,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -472,7 +472,7 @@
       "total_2025": 38.8,
       "delta_k": 0.4,
       "delta_pct": 0.0104,
-      "avg_net_risk": 0.1447,
+      "avg_net_risk": 0.1421,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },

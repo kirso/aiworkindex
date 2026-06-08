@@ -40,7 +40,7 @@ export interface EvidenceSignals {
 	anthropic_observed_pctile: number | null;
 	sol_match: 'exact' | 'prefix' | false;
 	jobs_in_demand_match: 'exact' | 'prefix' | false;
-	/** GPTs-are-GPTs (Eloundou et al. 2023) exposure percentile, if matched via SOC crosswalk */
+	/** GPTs-are-GPTs (Eloundou et al., Science 2024) exposure percentile, if matched via SOC crosswalk */
 	gpt_exposure?: number | null;
 	exposure_blend_strategy?: 'reliability_weighted';
 	/** Agreement across exposure measures: consensus_high, consensus_low, aligned_mid, divergent, insufficient_data */
@@ -281,11 +281,11 @@ export interface Occupation {
 	task_primitives?: TaskPrimitives;
 	uncertainty?: UncertaintyScores;
 	classification_uncertainty?: 'crosses_boundary' | null;
-	/** V7: task-concentration signal used to amplify exposure */
+	/** V7: task-concentration signal applied as an exposure buffer (Hampole et al. 2025) */
 	task_signal?: number;
 	/** V7: demand-persistence composite proxy */
 	demand_persistence?: number;
-	/** V7: task-concentration-amplified exposure */
+	/** V7: exposure after the task-concentration buffer */
 	exposure_v7?: number;
 	/** V6 baseline scores for comparison after V7 upgrade */
 	baseline_v6?: { net_risk: number; exposure: number };

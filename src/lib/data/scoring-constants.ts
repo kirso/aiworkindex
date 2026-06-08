@@ -250,11 +250,14 @@ export const AUGMENTATION_THRESHOLDS = {
 // ============================================
 
 /**
- * Seniority modifiers — calibrated based on Stanford DEL (2025):
- * - Ages 22-25 in AI-exposed occupations: 16% relative employment decline
- * - Ages 30+ in same occupations: 6-12% growth
+ * Seniority modifiers — directionally motivated by Stanford DEL (2025),
+ * "Canaries in the Coal Mine" (Brynjolfsson, Chandar & Chen):
+ * - Ages 22-25 in most AI-exposed occupations: 13% relative employment decline
+ * - Older workers in same occupations: stable to growing employment
  * - Effects concentrated in automation-prone occupations
- * Asymmetric: junior penalty (0.14) > senior bonus (0.10) per empirical data
+ * Asymmetric: junior penalty (0.14) > senior bonus (0.10). Magnitudes are
+ * expert-set assumptions, not derived from the paper's coefficients; the
+ * paper measures employment effects, not exposure-percentile shifts.
  */
 export const SENIORITY_MODIFIERS = {
 	junior: { exposure_adj: 0.14, bottleneck_adj: -0.12 },
@@ -294,13 +297,13 @@ export const DATA_VINTAGE = {
 	/** Model version */
 	model_version: 'V7',
 	/** Last scoring run date */
-	last_updated: '2026-05-15',
+	last_updated: '2026-06-07',
 	/** Occupation count */
 	occupation_count: 562,
 	/** Synthetic role count */
 	role_count: 88,
 	/** Validation check count */
-	validation_checks: 179,
+	validation_checks: 188,
 	/** Page count */
 	page_count: 1905
 } as const;
@@ -345,13 +348,21 @@ export const DEMAND_RESILIENCE_CONSTANTS = {
 
 /**
  * V7 introduces two formula changes:
- * 1. Task-concentration-weighted exposure (Hampole et al. 2025)
+ * 1. Task-concentration exposure buffer (Hampole et al. 2025, NBER w33509)
  *    Source: data/raw/external/anthropic_task_penetration.csv (Anthropic task-level usage data).
  *    task_signal = task_exposure_concentration × task_effective_coverage, computed per occupation.
- * 2. Demand-persistence proxy (addresses Imas price-elasticity critique)
+ *    Hampole et al. find concentrated exposure OFFSETS labour-demand losses (workers
+ *    reallocate effort to non-exposed tasks), so the signal reduces effective exposure.
+ *    Corrected from amplifier to buffer in the June 2026 revision.
+ * 2. Demand-persistence proxy (motivated by the Imas price-elasticity critique; measures
+ *    recent labour-demand persistence, NOT output-price elasticity)
  */
 export const V7_CONSTANTS = {
-	/** Amplifier for concentrated task exposure. task_signal * lambda → max exposure boost. */
+	/**
+	 * Buffer for concentrated task exposure: exposure_v7 = exposure × (1 − λ × task_signal).
+	 * λ is a heuristic magnitude (not estimated from Hampole's coefficients); max observed
+	 * task_signal ≈ 0.16, so the buffer reduces exposure by at most ~3%.
+	 */
 	TASK_CONCENTRATION_LAMBDA: 0.20,
 	/** Additive demand persistence contribution to demand_resilience. */
 	DEMAND_PERSIST_LAMBDA: 0.10,

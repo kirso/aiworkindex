@@ -17,7 +17,7 @@ AI Work Index: 562 Singapore occupations and 88 modern roles scored for AI displ
 - Run scoring pipeline: `bun run scripts/score.ts`
 - Run backtesting: `bun run scripts/backtest.ts`
 - Generate sitemap: `bun run scripts/generate-sitemap.ts`
-- Generate OG images: `bun run scripts/generate-og.ts`
+- Generate OG images: `bun run scripts/generate-og.ts` (also part of `build:release-data` and `release:generate`; writes `static/og/og-manifest.json`, whose signature `release:check` verifies — stale share cards now fail the gate)
 - Build industry momentum: `bun run scripts/build-industry-momentum.ts`
 - Validate BLS crosswalk: `bun run scripts/validate-bls-crosswalk.ts`
 
@@ -30,7 +30,7 @@ AI Work Index: 562 Singapore occupations and 88 modern roles scored for AI displ
 - No `any` in production code (`src/`). Scripts (`scripts/`) are relaxed.
 - Use Svelte 5 runes syntax (`$state`, `$derived`, `$effect`, `$props`). No legacy Svelte 4 stores.
 - After every change, run `bun run check && bun run lint` at minimum.
-- After scoring or data changes, run `bun run validate` and `bun run release:check`.
+- After scoring or data changes, regenerate OG cards (`bun run scripts/generate-og.ts`), then run `bun run validate` and `bun run release:check` (the latter fails if share cards are stale).
 - After significant changes, run `bun run build` to confirm prerendering succeeds.
 
 ## Simplicity Rules
@@ -66,8 +66,8 @@ data/raw/external/ → scripts/score.ts → data/occupations.json → src/lib/da
 **Scoring formula (V7):** `headline_risk = displacement_pressure × (1 − demand_resilience)`
 
 V7 adds two formula changes over V6:
-- **Task-concentration exposure** (Hampole et al. 2025): `task_signal = task_concentration × task_coverage`, `exposure_v7 = exposure × (1 + 0.20 × task_signal)` — concentrated task exposure amplifies risk
-- **Demand persistence proxy** (addresses Imas price-elasticity critique): `demand_persistence = 0.4 × momentum_rank + 0.3 × vacancy_rank + 0.2 × scarcity_rank + 0.1 × demand_bonus_rank`
+- **Task-concentration exposure buffer** (Hampole et al. 2025): `task_signal = task_concentration × task_coverage`, `exposure_v7 = exposure × (1 − 0.20 × task_signal)` — concentrated task exposure buffers risk (workers reallocate effort to non-exposed tasks, offsetting labour-demand losses)
+- **Demand persistence proxy** (motivated by the Imas price-elasticity critique; measures recent labour-demand persistence, not output-price elasticity): `demand_persistence = 0.4 × momentum_rank + 0.3 × vacancy_rank + 0.2 × scarcity_rank + 0.1 × demand_bonus_rank`
 
 - **Displacement pressure**: `exposure_v7 × (1 − bottleneck)` — task-concentration-weighted structural automation potential
 - **Demand resilience**: `min(1.0, base_resilience × 0.45 + demand_signal_bonus + 0.10 × demand_persistence)` — market counterforce with persistence proxy
@@ -155,7 +155,7 @@ Canonical source: `src/lib/data/scoring-constants.ts`. Also documented in `score
 
 | Change type | Minimum verification |
 |---|---|
-| Score formula or threshold | `bun run check && bun run validate && bun run build` |
+| Score formula or threshold | `bun run scripts/generate-og.ts` (refresh share cards) then `bun run check && bun run validate && bun run build` |
 | UI or component | `bun run check && bun run lint` |
 | Data pipeline script | `bun run scripts/score.ts && bun run validate` |
 | Labour data update | `bun run scripts/build-labour-monitor.ts && bun run scripts/score.ts && bun run validate` |
@@ -214,8 +214,8 @@ Current data: Q3 2025 full report + Q4 2025 advance release. When full Q4 2025 d
 
 The model is a **structural pressure score, not a prediction**. Key citations:
 - Frank et al. (2025): ensemble exposure > single measures
-- Hampole et al. (2025): concentrated task exposure predicts higher displacement risk (V7 task-concentration signal)
-- Imas (2026): price elasticity as missing variable — V7 addresses with demand-persistence proxy
+- Hampole et al. (2025): mean exposure depresses labour demand, but concentrated exposure offsets losses via within-job task reallocation (V7 task-concentration buffer)
+- Imas & Shukla (2026): price elasticity + job dimensionality as missing variables — V7's demand-persistence proxy is a partial, labour-demand-side response (it does not measure output-price elasticity)
 - Brookings/PIIE (2026): "still in the first inning" + career pathway erosion framework
 - Acemoglu & Restrepo (2019): we measure displacement only, not reinstatement
 - Stanford DEL (2025) + Anthropic (2026): entry-level faces disproportionate displacement

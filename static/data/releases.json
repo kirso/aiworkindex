@@ -11,9 +11,9 @@
     "href": "/data",
     "availability": "current_download",
     "notes": [
-      "Promotes the live V7 release: task-concentration-weighted exposure and a demand-persistence proxy on top of the V6 two-axis structural model.",
-      "The canonical public export, sitemap, release manifest, claims matrix, and LLM surfaces now share the same V7 release contract.",
-      "V6 remains preserved as the immediate previous structural baseline for auditability."
+      "Promotes the live V7 release: a task-concentration exposure buffer and a demand-persistence proxy on top of the V6 two-axis structural model.",
+      "Revised 7 Jun 2026: the task-concentration term was corrected from an exposure amplifier to a buffer, matching the cited Hampole et al. (2025) finding that concentrated exposure offsets labour-demand losses.",
+      "The canonical public export, sitemap, release manifest, claims matrix, and LLM surfaces share the same V7 release contract. V6 remains preserved as the immediate previous structural baseline for auditability."
     ]
   },
   {
@@ -199,7 +199,7 @@
     "id": "shadow-score-v43-published",
     "type": "experimental_update",
     "label": "V4.3 shadow score published",
-    "published_at": "2026-05-15",
+    "published_at": "2026-06-07",
     "display_date": "21 Mar 2026",
     "score_version": "V7",
     "monitor_vintage": "Q4 2025 full",
@@ -214,7 +214,7 @@
     "id": "v5-sidecars-published",
     "type": "experimental_update",
     "label": "V5 sidecars published",
-    "published_at": "2026-05-15",
+    "published_at": "2026-06-07",
     "display_date": "21 Mar 2026",
     "score_version": "V7",
     "monitor_vintage": "Q4 2025 full",
@@ -229,7 +229,7 @@
     "id": "v5-experimental-model-published",
     "type": "experimental_update",
     "label": "V5 experimental model published",
-    "published_at": "2026-05-15",
+    "published_at": "2026-06-07",
     "display_date": "21 Mar 2026",
     "score_version": "V7",
     "monitor_vintage": "Q4 2025 full",
@@ -259,7 +259,7 @@
     "id": "quarterly-briefing-2026-q1",
     "type": "report_refresh",
     "label": "2026 Q1 quarterly briefing",
-    "published_at": "2026-05-15",
+    "published_at": "2026-06-07",
     "display_date": "21 Mar 2026",
     "score_version": "V7",
     "monitor_vintage": "Q4 2025 full",

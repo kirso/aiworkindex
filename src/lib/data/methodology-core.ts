@@ -191,13 +191,19 @@ export function computeTaskSignal(inputs: V7TaskSignalInputs): number {
 	return clamp01(inputs.task_exposure_concentration * inputs.task_effective_coverage);
 }
 
-/** Amplify exposure by task-concentration signal. */
+/**
+ * Apply the task-concentration buffer to exposure.
+ * Hampole et al. (2025, NBER w33509): holding mean exposure constant, exposure
+ * concentrated in a few tasks lets workers reallocate effort to non-exposed
+ * tasks, OFFSETTING labour-demand losses. Concentration therefore reduces
+ * effective exposure rather than amplifying it.
+ */
 export function computeExposureV7(
 	exposure: number,
 	taskSignal: number,
 	lambda: number = V7_CONSTANTS.TASK_CONCENTRATION_LAMBDA
 ): number {
-	return clamp01(exposure * (1 + lambda * taskSignal));
+	return clamp01(exposure * (1 - lambda * taskSignal));
 }
 
 /** Compute demand-persistence composite from ranked inputs. */

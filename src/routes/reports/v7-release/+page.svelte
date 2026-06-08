@@ -11,13 +11,17 @@
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import { DATA_VINTAGE, SITE } from '$lib/data/scoring-constants';
+	import clusterValidation from '$lib/data/backtests/current-validation.json';
+
+	const clusterChecksPassed = clusterValidation.summary.checks_passed;
+	const clusterChecksTotal = clusterValidation.summary.checks_total;
 
 	const articleJsonLd = `<script type="application/ld+json">${JSON.stringify({
 		'@context': 'https://schema.org',
 		'@type': 'Article',
 		headline: 'V7 Release Note — Task-Concentration Exposure + Demand Persistence',
 		description:
-			'V7 adds task-concentration-weighted exposure (Hampole et al. 2025) and a demand-persistence proxy to the structural formula.',
+			'V7 adds a task-concentration exposure buffer (Hampole et al. 2025) and a demand-persistence proxy to the structural formula.',
 		url: `${SITE.url}/reports/v7-release`,
 		datePublished: '2026-04-07',
 		dateModified: DATA_VINTAGE.last_updated,
@@ -28,7 +32,7 @@
 
 <Seo
 	title="V7 Release Note — Task-Concentration Exposure + Demand Persistence"
-	description="V7 adds task-concentration-weighted exposure (Hampole et al. 2025) and a demand-persistence proxy to the structural formula. Release note with formula, validation, and stability metrics."
+	description="V7 adds a task-concentration exposure buffer (Hampole et al. 2025) and a demand-persistence proxy to the structural formula. Release note with formula, validation, and stability metrics."
 	path="/reports/v7-release"
 	jsonLd={[articleJsonLd]}
 />
@@ -64,19 +68,28 @@
 
 				<div class={cn(card({ padding: 'md' }), 'space-y-3')}>
 					<div>
-						<p class="font-semibold text-foreground">1. Task-concentration-weighted exposure</p>
+						<p class="font-semibold text-foreground">1. Task-concentration exposure buffer</p>
 						<p class="mt-1">
-							Occupations with concentrated AI task exposure face higher displacement risk than
-							those with distributed exposure (Hampole et al. 2025). V7 amplifies the base exposure
-							score using a task-concentration signal derived from Anthropic task penetration data
-							matched to O*NET task statements.
+							Hampole et al. (2025) find that mean task exposure depresses labour demand, but
+							exposure concentrated in a few tasks offsets those losses — workers reallocate effort
+							to non-exposed tasks. V7 therefore applies the task-concentration signal (derived from
+							Anthropic task penetration data matched to O*NET task statements) as a buffer that
+							reduces effective exposure.
 						</p>
 						<div class={cn(card({ padding: 'sm', variant: 'inset' }), 'mt-2 font-mono text-xs')}>
 							<p>task_signal = task_exposure_concentration x task_effective_coverage</p>
-							<p>exposure_v7 = clamp01(exposure x (1 + 0.20 x task_signal))</p>
+							<p>exposure_v7 = clamp01(exposure x (1 - 0.20 x task_signal))</p>
 						</div>
+						<p class="mt-2 text-xs italic">
+							Correction (7 Jun 2026): the original V7 release applied this term as an exposure
+							amplifier. That inverted the sign of the cited finding — Hampole et al. show
+							concentration buffers labour-demand losses. The term now reduces effective exposure;
+							all published scores reflect the corrected formula.
+						</p>
 						<p class="mt-2">
-							492 of {DATA_VINTAGE.occupation_count} occupations have task data. The remaining 70 receive
+							492 of {DATA_VINTAGE.occupation_count} occupations have task data; 361 end up with a non-zero
+							<code class="text-xs">task_signal</code>. Occupations without task data (or with zero
+							measured concentration) receive
 							<code class="text-xs">task_signal = 0</code>, preserving V6-equivalent exposure.
 						</p>
 					</div>
@@ -84,9 +97,10 @@
 					<div class="border-t border-border pt-3">
 						<p class="font-semibold text-foreground">2. Demand-persistence proxy</p>
 						<p class="mt-1">
-							Addresses the Imas price-elasticity critique: when AI reduces service costs, demand
-							may increase enough to offset displacement. Since occupation-level elasticity data
-							does not exist, V7 builds a ranked composite proxy from four existing signals.
+							Motivated by the Imas price-elasticity critique: when AI reduces service costs, demand
+							may increase enough to offset displacement. Occupation-level elasticity data does not
+							exist, so V7 builds a ranked composite proxy from four existing labour-demand signals
+							— a partial response, not an elasticity measure.
 						</p>
 						<div class={cn(card({ padding: 'sm', variant: 'inset' }), 'mt-2 font-mono text-xs')}>
 							<p>
@@ -114,7 +128,7 @@
 					exposure = reliability-weighted 4-source ensemble (Felten AIOE, Anthropic, Eloundou, ILO)
 				</p>
 				<p>task_signal = task_exposure_concentration x task_effective_coverage</p>
-				<p>exposure_v7 = clamp01(exposure x (1 + 0.20 x task_signal))</p>
+				<p>exposure_v7 = clamp01(exposure x (1 - 0.20 x task_signal))</p>
 				<p>bottleneck = pctile_rank(Pizzinelli theta)</p>
 				<p>displacement_pressure = exposure_v7 x (1 - bottleneck)</p>
 				<p>
@@ -135,13 +149,13 @@
 			<div class="mt-3 grid gap-3 sm:grid-cols-2">
 				<div class={card({ padding: 'sm' })}>
 					<p class={caption({ weight: 'semibold' })}>Median |delta risk|</p>
-					<p class={cn(mono({ size: 'sm' }), 'mt-1')}>0.0075</p>
+					<p class={cn(mono({ size: 'sm' }), 'mt-1')}>0.0092</p>
 					<p class="mt-1 text-xs text-muted-foreground">Target: &lt; 0.03</p>
 				</div>
 				<div class={card({ padding: 'sm' })}>
 					<p class={caption({ weight: 'semibold' })}>Band flips</p>
 					<p class={cn(mono({ size: 'sm' }), 'mt-1')}>
-						42 / {DATA_VINTAGE.occupation_count} (7.5%)
+						53 / {DATA_VINTAGE.occupation_count} (9.4%)
 					</p>
 					<p class="mt-1 text-xs text-muted-foreground">Target: &lt; 15%</p>
 				</div>
@@ -165,7 +179,8 @@
 				and data-contract checks. All 6 anchor occupations pass (Software Developer, Data Entry Clerk,
 				Surgeon, Telemarketer, Registered Nurse, Data Scientist). External calibration is reported separately:
 				the direct BLS segment remains significantly negative, and the Singapore cluster labour backtest
-				currently passes 2 of 4 checks.
+				currently passes {clusterChecksPassed} of {clusterChecksTotal} discriminating checks (a no-variance
+				retrenchment column is excluded as inconclusive).
 			</p>
 		</div>
 
@@ -173,14 +188,17 @@
 			<h2 class={sectionLabel()}>Research grounding</h2>
 			<ul class="mt-3 list-disc pl-5 space-y-2 text-sm text-muted-foreground">
 				<li>
-					<span class="font-medium text-foreground">Hampole et al. (2025)</span> — Task concentration
-					predicts displacement vulnerability. Occupations where AI penetration is concentrated in a few
-					high-weight tasks face greater structural pressure than those with distributed exposure.
+					<span class="font-medium text-foreground">Hampole et al. (2025, NBER w33509)</span> — Mean task
+					exposure depresses within-firm labour demand, but concentration of exposure in a few tasks offsets
+					losses: workers reallocate effort toward non-exposed tasks. V7 applies concentration as an exposure
+					buffer accordingly.
 				</li>
 				<li>
-					<span class="font-medium text-foreground">Imas / Silicon Canals (2026)</span> — Price elasticity
-					of demand is the critical missing variable for predicting actual displacement. V7 addresses
-					this with a demand-persistence proxy, not a direct elasticity measure.
+					<span class="font-medium text-foreground">Imas &amp; Shukla (2026)</span> — Argue exposure alone
+					cannot predict displacement without output-demand price elasticity and job dimensionality. V7's
+					demand-persistence proxy is a partial, labour-demand-side response: it measures recent demand
+					persistence (momentum, vacancies, scarcity), not output-price elasticity, and does not capture
+					dimensionality.
 				</li>
 				<li>
 					<span class="font-medium text-foreground">Brookings (2026)</span> — Career pathway erosion when
