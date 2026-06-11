@@ -12,7 +12,8 @@
 		pill,
 		microLabel,
 		section,
-		sectionNumber
+		sectionNumber,
+		dataChip
 	} from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import { vacancySignalClass } from '$lib/data/detail-display';
@@ -454,7 +455,7 @@
 	/>
 
 	<!-- ===== BLOCK 1: THE VERDICT ===== -->
-	<div class={cn(card({ padding: 'lg' }), section({ spacing: 'loose' }))}>
+	<div class={section({ spacing: 'loose' })}>
 		<OccupationHero
 			scoreLabel="AI displacement risk"
 			scoreValue={`${(occ.net_risk * 100).toFixed(0)}%`}
@@ -525,16 +526,16 @@
 			{/snippet}
 		</OccupationHero>
 
-		<div class="mt-2 flex flex-wrap items-center gap-2">
-			<span class={pill({ tone: 'muted' })} title="Wage compared to group median">
-				Wage: {structural.groupComparison.wageVsGroup}
+		<div class="mt-3 flex flex-wrap items-center gap-2">
+			<span class={dataChip()} title="Wage compared to group median">
+				Wage {structural.groupComparison.wageVsGroup}
 			</span>
-			<span class={pill({ tone: 'muted' })} title="Risk compared to group median">
-				Risk: {structural.groupComparison.riskVsGroup}
+			<span class={dataChip()} title="Risk compared to group median">
+				Risk {structural.groupComparison.riskVsGroup}
 			</span>
 			<a
 				href="/group/{groupSlug}"
-				class={cn(pill({ tone: 'muted' }), 'hover:bg-accent transition-colors')}
+				class={cn(dataChip(), 'transition-colors hover:bg-foreground hover:text-background')}
 			>
 				#{structural.groupComparison.riskRankInGroup} of {structural.groupComparison.groupTotal} in {group?.label ??
 					'group'} →

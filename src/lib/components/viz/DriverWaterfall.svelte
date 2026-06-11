@@ -55,7 +55,7 @@
 			label: 'Local Hiring Demand',
 			value: occ.market.market_resilience,
 			direction: 'down',
-			color: 'var(--color-impact-leveraged)',
+			color: 'var(--color-risk-very-low)',
 			description: `${(occ.market.market_resilience * 100).toFixed(0)}% demand buffer from the local labour market`
 		});
 
@@ -66,7 +66,7 @@
 				label: 'Observed AI Adoption',
 				value: Math.abs(gap),
 				direction: gap > 0 ? 'up' : 'down',
-				color: gap > 0 ? 'var(--color-risk-high)' : 'var(--color-risk-very-low)',
+				color: gap > 0 ? 'var(--color-risk-very-high)' : 'var(--color-risk-very-low)',
 				description:
 					gap > 0
 						? `AI usage ${(Math.abs(gap) * 100).toFixed(0)}pp above theoretical exposure`
@@ -83,7 +83,7 @@
 				label: 'Official Demand Signals',
 				value: 0.15,
 				direction: 'down',
-				color: 'var(--color-chart-5)',
+				color: 'var(--color-risk-very-low)',
 				description: `On the ${signals.join(' & ')} list — government recognises hiring need`
 			});
 		}
