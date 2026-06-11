@@ -664,6 +664,23 @@ async function main() {
 		)
 	);
 	check(
+		'Every occupation carries classification_uncertainty (guards pipeline-order drops)',
+		data.every(row => {
+			const value = (row as { classification_uncertainty?: 'crosses_boundary' | null })
+				.classification_uncertainty;
+			return value === null || value === 'crosses_boundary';
+		}),
+		`${data.filter(row => (row as { classification_uncertainty?: unknown }).classification_uncertainty === undefined).length} missing`
+	);
+	check(
+		'Some occupations cross risk-band boundaries under uncertainty',
+		data.some(
+			row =>
+				(row as { classification_uncertainty?: 'crosses_boundary' | null })
+					.classification_uncertainty === 'crosses_boundary'
+		)
+	);
+	check(
 		'Task primitive fields are explicit nulls or bounded values',
 		data.every(row => {
 			const taskPrimitives = row.task_primitives;

@@ -253,6 +253,7 @@ interface ScoredOccupation {
 		exposure: number;
 	};
 	uncertainty: UncertaintyScores;
+	classification_uncertainty: 'crosses_boundary' | null;
 	labour_monitor_key: LabourClusterMonitor['cluster_key'] | null;
 	raw: RawScores;
 	isco_codes_matched: string[];
@@ -2170,6 +2171,10 @@ function scoreOccupations(
 				exposure: round(v7Result.baseline_v6.exposure, 4)
 			},
 			uncertainty,
+			classification_uncertainty:
+				getRiskBand(uncertainty.net_risk_p10) !== getRiskBand(uncertainty.net_risk_p90)
+					? ('crosses_boundary' as const)
+					: null,
 			labour_monitor_key: labourMonitor?.cluster_key ?? null,
 			raw: {
 				aioe: round(r.avgAioe, 4),

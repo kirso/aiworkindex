@@ -286,26 +286,9 @@ async function main() {
 		};
 	});
 
-	// Post-processing: compute classification_uncertainty from uncertainty p10/p90
-	const { getRiskBand } = await import('../src/lib/data/scoring-constants');
-
-	const final = updated.map(occupation => {
-		const unc = occupation.uncertainty as
-			| {
-					net_risk_p10?: number;
-					net_risk_p90?: number;
-			  }
-			| undefined;
-		const crossesBoundary =
-			unc?.net_risk_p10 != null &&
-			unc?.net_risk_p90 != null &&
-			getRiskBand(unc.net_risk_p10) !== getRiskBand(unc.net_risk_p90);
-
-		return {
-			...occupation,
-			classification_uncertainty: crossesBoundary ? 'crosses_boundary' : null
-		};
-	});
+	// classification_uncertainty is owned by score.ts (computed from the fresh
+	// uncertainty interval there) and passes through the spread untouched here.
+	const final = updated;
 
 	writeJson(OCCUPATIONS_FILE, final);
 	writeJson(SRC_OCCUPATIONS_FILE, final);
