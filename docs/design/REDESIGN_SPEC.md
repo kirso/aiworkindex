@@ -82,16 +82,95 @@ Technical Details / methodology.
    breakdown, V6 baseline delta, evidence bars, career-stage table.
 6. FAQ stays last; compare/related links inline at section ends.
 
-## Implementation slices (each ends green: `bun run check && bun run lint && bun run build`)
+## Complete coverage matrix (audited June 2026: 43 routes, 38 UI components, 11 viz components)
 
-- **S1 — tokens**: install fontsource packages, rewrite `src/app.css` `@theme` tokens +
-  `src/lib/design-system.ts` to the contract above (new variants; old ones aliased then
-  removed), global masthead/topline.
-- **S2 — occupation page**: restructure to the IA above; role page follows the same template.
-- **S3 — home / explore / rankings**: homepage hero + treemap framing, explore list rows
-  (rule-separated rows, band mark instead of filled badges), rankings index (neutral cards,
-  numbered).
-- **S4 — methodology / data / calculator / compare sweep** + delete dead design-system
-  variants; verify no `rounded-lg border bg-card` raw usage remains.
+### Routes → template families
+
+| Family | Routes | Treatment | Slice |
+|---|---|---|---|
+| Detail | `/occupation/[ssoc]`, `/[country]/occupation/[code]`, `/global/occupation/[code]`, `/role/[slug]`, `/us/role/[slug]` | The reference IA (hero verdict panel, numbered sections, Technical Details) — one template, five consumers | S2 |
+| Home | `/`, `/[country]`, `/global` | Masthead + search-first hero; treemap reframed under a numbered section; the four list columns become two rule-separated tables | S3 |
+| List/browse | `/explore`, `/roles`, `/groups`, `/group/[slug]`, `/watchlist` | Rule-separated rows; filled band badges → 5-segment band mark + mono % | S3 |
+| Rankings | `/rankings` + 9 views | Index: neutral cards, numbered, color only in band marks. Views: tables per V2; dumbbell/graph views keep their viz restyled to tokens | S3 |
+| Tools | `/calculator`, `/compare` | Form controls restyled (mono values, ink focus rings); result panels use the verdict-panel pattern | S4 |
+| Reference | `/methodology`, `/methodology/appendix`, `/about`, `/data`, `/research`, `/changelog` | Long-form editorial: numbered sections, tables over cards; validation cards become ruled blocks | S4 |
+| Reports | `/reports` + q4-2024, v4-3-shadow, v5-experimental, v5-roadmap, v6-release, v7-release, wage-exposure | Same long-form treatment; older report pages get tokens-only pass (no re-layout) | S4 |
+| Editorial/SEO | `/ai-job-loss`, `/ai-proof-jobs`, `/will-ai-take-my-job` | Article template: serifless editorial, verdict panels reused | S4 |
+| Chrome | `+layout.svelte` (masthead, footer, command menu), `+error.svelte` (MISSING — create) | Signal-red topline, mono breadcrumbs, ruled footer; designed 404 | S1/S5 |
+
+### UI components (38) — disposition
+
+- **Restyle to contract (S1, used everywhere)**: `button`, `input`, `label`, `slider`,
+  `separator`, `table`, `tabs`, `tooltip`, `dialog`, `sheet`, `collapsible`, `alert`,
+  `command`/`CommandMenu` (search), `sonner` (toasts), `breadcrumb`/`PageBreadcrumb`,
+  `PageFooterNav`.
+- **Merge into the 3-chip contract (S1)**: `badge` component + design-system `pill`, `chip`,
+  `riskBadge`, `impactBadge`, `confidenceBadge` → `statusBadge` / `dataChip` / `linkPill`.
+  `RankingNavPills` becomes link-pill row.
+- **Restyle per detail-page IA (S2)**: `OccupationHero`, `OccupationCard`,
+  `OccupationCardList`, `ScoreMetricGrid`, `DemandOutlookCard`, `WageCard`,
+  `WorkContextCard`, `TaskListCard`, `RequirementsList`, `OccupationSupportBundle`,
+  `EvidenceModuleGrid`, `ContextItemGrid`, `PostingsSignalSummary`, `FaqList`.
+- **Restyle (S3)**: `HeroSearch`, `FilterPanel`, `RankingTable`.
+- **No visual change**: `Seo`.
+
+### Viz components (11) — token mapping (S2/S3 alongside their host pages)
+
+All D3 components consume the new tokens: risk scale = the 5 reserved colors; everything else
+ink/rule neutrals; axis/annotation text → IBM Plex Mono 10–11px; gridlines `--rule`.
+
+| Component | Notes |
+|---|---|
+| `Treemap` | band colors only; labels mono; remove gradients/shadows |
+| `DriverWaterfall` | aligns with the driver-table aesthetic (flat bars, mono values) |
+| `Histogram`, `DemandPressureMatrix` | neutral bars + band-colored highlights |
+| `QuarterlyMoversDumbbell`, `TheoryPracticeDumbbell` | ink dots, signal-red delta lines |
+| `TransitionGraph` | ink edges, band-colored nodes |
+| `WorkflowRadar` | moves inside Technical Details; neutral ink stroke |
+| `EvidenceBar`, `SignalProfileGrid` | mono labels, neutral fills |
+| `Tooltip` (viz) | white, 1px ink border, mono text |
+
+### Typography migration (S1, enforced by deletion)
+
+Old `design-system.ts` text variants are deleted, forcing migration:
+`display`→`display`, `title`→`heading`, `sectionLabel`→`sectionNumber`+`sectionTitle`,
+`body` stays, `caption`+`microLabel`→`monoLabel` (11px tracked) or plain `small` (13.5px),
+`mono`→`dataValue` (Plex Mono, tnum). Rule: numerals are NEVER grotesque.
+
+### OG share cards (S5)
+
+`scripts/generate-og.ts` currently draws Inter + ink-blue cards — a different brand than the
+site. Redesign cards to the Swiss identity (white, ink, Schibsted Grotesk bold, band mark,
+signal-red rule); ship the font file to `static/fonts/`. The freshness guard signs scores, not
+pixels, so the redesign itself cannot trip it — but all SG + role + US PNGs must be
+regenerated in the same slice.
+
+### States & odds-and-ends (S5)
+
+Mobile nav (sheet) and responsive collapse of the verdict panel; command-menu styling; toast
+styling; focus-visible rings (2px ink); selection color (signal red, white text); favicon +
+logo lockup (wordmark in Schibsted Grotesk 900); designed `+error.svelte`; print stylesheet
+(editorial design should print well — cheap win).
+
+### Dark mode — explicit decision
+
+`app.css` has `.dark` token plumbing but the editorial identity is print-light. Decision:
+**light-only at launch**; keep the `.dark` custom-variant plumbing dormant. Revisit only after
+the light identity ships everywhere.
+
+## Implementation slices (revised; each ends green: `bun run check && bun run lint && bun run build`)
+
+- **S1 — foundation**: fontsource packages, `app.css` `@theme` rewrite, `design-system.ts`
+  rewrite (3-chip contract + new type scale, old variants deleted), shared chrome (masthead,
+  topline, footer, breadcrumbs, buttons/inputs/tabs/dialogs/toasts). Site-wide but mechanical.
+- **S2 — detail family**: occupation/role/country detail template + their 14 components +
+  their viz (waterfall, radar, evidence bar).
+- **S3 — discovery**: home ×3, explore/list family, rankings index + 9 views, treemap/
+  histogram/dumbbells/graph, HeroSearch/FilterPanel/RankingTable.
+- **S4 — reading surfaces**: methodology + appendix, about, data, research, changelog,
+  reports ×8, calculator, compare, editorial/SEO pages ×3.
+- **S5 — chrome & identity**: OG card redesign + full regeneration, error page, favicon/logo,
+  mobile/responsive audit, print stylesheet, dead-code sweep (no raw `rounded-lg border
+  bg-card`, no orphaned variants).
 
 Mockups carry real Secretary (SSOC 41201) data and demonstrate every pattern above.
