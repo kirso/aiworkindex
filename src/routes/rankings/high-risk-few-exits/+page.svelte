@@ -38,7 +38,7 @@
 		{
 			question: 'What counts as "few exits"?',
 			answer:
-				'An occupation lands here when its single best transition option falls in the weakest quarter of exit scores among all high-risk occupations. The transition score combines archetype similarity, skill overlap, wage preservation, demand strength, and risk improvement — so a weak best exit means even the most adjacent move is comparatively poor on those dimensions.'
+				'An occupation lands here when its single best risk-reducing transition falls in the weakest quarter of exit scores among all high-risk occupations. Lateral or higher-risk moves never count as exits, however similar the work. The transition score combines archetype similarity, skill overlap, wage preservation, demand strength, and risk improvement.'
 		}
 	];
 
@@ -66,8 +66,8 @@
 		Mobility research finds that displacement pressure only becomes hardship when workers lack
 		credible adjacent moves (del Rio-Chanona et al. 2021; IMF 2024). Of {data.highRiskCount} occupations
 		above the displacement threshold, these {data.quadrant.length} have the weakest exit options: their
-		<em>best</em>
-		available transition falls in the bottom quarter of exit scores within the high-risk cohort (&le;{(
+		<em>best risk-reducing</em>
+		transition falls in the bottom quarter of exit scores within the high-risk cohort (&le;{(
 			data.threshold * 100
 		).toFixed(0)}% match). For high-risk occupations with strong escape routes, see
 		<a href="/rankings/best-transitions" class="text-primary hover:underline">Best Transitions</a>.
@@ -91,7 +91,7 @@
 					</span>
 				</div>
 				{#if targets.length > 0}
-					<p class="mt-2 text-xs text-muted-foreground">Best available options:</p>
+					<p class="mt-2 text-xs text-muted-foreground">Best risk-reducing options:</p>
 					<div class="mt-2 grid gap-2 sm:grid-cols-3">
 						{#each targets as t (t.to_ssoc)}
 							<a
@@ -118,7 +118,7 @@
 					</div>
 				{:else}
 					<p class="mt-2 text-xs text-muted-foreground italic">
-						No plausible transition paths found at all.
+						No risk-reducing transition paths found.
 					</p>
 				{/if}
 			</div>

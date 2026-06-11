@@ -13,6 +13,15 @@ const versionTag = DATA_VINTAGE.model_version.toLowerCase().replaceAll('.', '');
 
 const CANONICAL_DATA_FILE = path.join(ROOT_DIR, 'data', 'occupations.json');
 const APP_DATA_FILE = path.join(ROOT_DIR, 'src', 'lib', 'data', 'occupations.json');
+const US_OCCUPATIONS_FILE = path.join(
+	ROOT_DIR,
+	'src',
+	'lib',
+	'data',
+	'countries',
+	'us',
+	'occupations.json'
+);
 const STATIC_DATA_FILE = path.join(
 	ROOT_DIR,
 	'static',
@@ -567,6 +576,11 @@ const ogOccupations = JSON.parse(fs.readFileSync(CANONICAL_DATA_FILE, 'utf-8')) 
 	net_risk: number;
 	risk_band: string;
 }>;
+const ogUsOccupations = JSON.parse(fs.readFileSync(US_OCCUPATIONS_FILE, 'utf-8')) as Array<{
+	localCode: string;
+	headlineRisk: number;
+	headlineBand: string;
+}>;
 const ogSignatureItems: OgScoreItem[] = [
 	...ogOccupations.map(o => ({
 		key: `occ:${o.ssoc}`,
@@ -576,7 +590,12 @@ const ogSignatureItems: OgScoreItem[] = [
 	...syntheticRoles.map(role => {
 		const scored = computeRoleScores(role, occupationsBySSoc);
 		return { key: `role:${role.slug}`, net_risk: scored.net_risk, risk_band: scored.risk_band };
-	})
+	}),
+	...ogUsOccupations.map(o => ({
+		key: `us:${o.localCode}`,
+		net_risk: o.headlineRisk,
+		risk_band: o.headlineBand
+	}))
 ];
 assert(
 	ogSignature(ogSignatureItems) === ogManifest.signature,

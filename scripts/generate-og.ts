@@ -489,12 +489,16 @@ async function main() {
 	const US_DATA_FILE = path.join(
 		import.meta.dir,
 		'..',
+		'src',
+		'lib',
 		'data',
 		'countries',
 		'us',
 		'occupations.json'
 	);
 	const US_OUT_DIR = path.join(OUT_DIR, 'us');
+	let usSignatureItems: OgScoreItem[] = [];
+	let usOccupationCount = 0;
 	try {
 		const usOccupations: UsOccupation[] = JSON.parse(fs.readFileSync(US_DATA_FILE, 'utf-8')).map(
 			(rec: any) => ({
@@ -508,6 +512,12 @@ async function main() {
 				confidence: rec.confidence ?? { level: 'low' }
 			})
 		);
+		usOccupationCount = usOccupations.length;
+		usSignatureItems = usOccupations.map(occ => ({
+			key: `us:${occ.localCode}`,
+			net_risk: occ.headlineRisk,
+			risk_band: occ.headlineBand
+		}));
 		console.log(`\nLoaded ${usOccupations.length} US occupations`);
 
 		fs.mkdirSync(US_OUT_DIR, { recursive: true });
@@ -701,7 +711,8 @@ async function main() {
 		...syntheticRoles.map(role => {
 			const scored = computeRoleScores(role, occupationsBySSoc);
 			return { key: `role:${role.slug}`, net_risk: scored.net_risk, risk_band: scored.risk_band };
-		})
+		}),
+		...usSignatureItems
 	];
 	fs.writeFileSync(
 		path.join(OUT_DIR, 'og-manifest.json'),
@@ -709,7 +720,8 @@ async function main() {
 			{
 				signature: ogSignature(signatureItems),
 				occupation_count: occupations.length,
-				role_count: syntheticRoles.length
+				role_count: syntheticRoles.length,
+				us_occupation_count: usOccupationCount
 			},
 			null,
 			2

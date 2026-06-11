@@ -36,7 +36,12 @@ export function getExitQuadrant(): ExitQuadrantData {
 		occ => occ.net_risk >= IMPACT_TYPE_THRESHOLDS.displacement_threshold
 	);
 	const scored = highRisk.map(from => {
-		const targets = findBestTransitions(from, occupations, 3);
+		// An "exit" must actually reduce risk: lateral or higher-risk moves can
+		// score a high composite on similarity/wage/demand alone, but they are
+		// not escape routes from displacement pressure.
+		const targets = findBestTransitions(from, occupations, occupations.length)
+			.filter(target => target.risk_improvement > 0)
+			.slice(0, 3);
 		return { from, targets, best_composite: targets[0]?.composite ?? 0 };
 	});
 

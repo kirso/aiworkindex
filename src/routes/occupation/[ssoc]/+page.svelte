@@ -921,9 +921,9 @@
 						</p>
 					{:else if exitQuadrant}
 						<p class="mb-3 text-xs text-muted-foreground">
-							High displacement pressure, but comparatively credible adjacent moves exist — the
-							strongest option scores {(exitQuadrant.best_composite * 100).toFixed(0)}% match.
-							Escape-route quality, not pressure alone, shapes how risk resolves.
+							High displacement pressure, but comparatively credible risk-reducing moves exist — the
+							strongest scores {(exitQuadrant.best_composite * 100).toFixed(0)}% match. Escape-route
+							quality, not pressure alone, shapes how risk resolves.
 						</p>
 					{/if}
 					<div class="grid gap-2 sm:grid-cols-3">
