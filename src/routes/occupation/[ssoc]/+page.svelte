@@ -96,6 +96,9 @@
 	let allUniqueTransitions = $derived(structural.topTransitions ?? []);
 	// Quadrant verdict from the shared exit-quadrant module (null below the displacement threshold).
 	let exitQuadrant = $derived(data.exitQuadrant);
+	// Explanatory per-task evidence and theta-channel decomposition (never score inputs).
+	let taskDetail = $derived(data.taskDetail);
+	let channelInfo = $derived(data.channelInfo);
 	let _fallbackTransitions = $derived.by(() =>
 		allUniqueTransitions.filter(
 			transition => transition.to_ssoc !== decision.bestTransition?.to_ssoc
@@ -594,6 +597,19 @@
 						<p class={body({ tone: 'muted' })}>
 							{structural.personalizedContent.aiCanDo}
 						</p>
+						{#if (taskDetail?.most_observed.length ?? 0) > 0}
+							<ul class="mt-2 space-y-1">
+								{#each taskDetail?.most_observed ?? [] as item (item.task)}
+									<li class={cn(caption(), 'text-muted-foreground')}>
+										&bull; {item.task}
+									</li>
+								{/each}
+							</ul>
+							<p class={cn(caption(), 'mt-1 italic text-muted-foreground')}>
+								O*NET tasks for this occupation with the most observed AI usage (Anthropic task
+								data).
+							</p>
+						{/if}
 					</div>
 					<div>
 						<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-risk-very-low')}>
@@ -602,6 +618,28 @@
 						<p class={body({ tone: 'muted' })}>
 							{structural.personalizedContent.humanNeeded}
 						</p>
+						{#if (channelInfo?.top_channels.length ?? 0) > 0}
+							<p class={cn(caption(), 'mt-2 text-muted-foreground')}>
+								Main insulation channels:
+								{#each channelInfo?.top_channels ?? [] as channel, i (channel.key)}{i > 0
+										? ' + '
+										: ''}<span class="font-medium text-foreground">{channel.label}</span>{/each}
+								&mdash; the work-context dimensions behind this occupation's human bottleneck.
+							</p>
+						{/if}
+						{#if (taskDetail?.most_protected.length ?? 0) > 0}
+							<ul class="mt-2 space-y-1">
+								{#each taskDetail?.most_protected ?? [] as item (item.task)}
+									<li class={cn(caption(), 'text-muted-foreground')}>
+										&bull; {item.task}
+									</li>
+								{/each}
+							</ul>
+							<p class={cn(caption(), 'mt-1 italic text-muted-foreground')}>
+								Highest-importance tasks with no observed AI usage in the same data &mdash; absence
+								of observed usage, not proof of immunity.
+							</p>
+						{/if}
 					</div>
 					{#if structural.personalizedContent.skills.length > 0}
 						<div class="pt-3 border-t border-border">

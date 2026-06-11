@@ -14,7 +14,7 @@
 	import claimsMatrix from '$lib/data/claims-matrix.json';
 	import researchLibrary from '$lib/data/research-library.json';
 	import { releases, siteStatus } from '$lib/data/site-status';
-	import { DATA_VINTAGE, SITE } from '$lib/data/scoring-constants';
+	import { DATA_VINTAGE, SITE, getRiskBand } from '$lib/data/scoring-constants';
 	import { pageLayout, card, sectionLabel, caption } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
@@ -63,6 +63,27 @@
 	const calibrationFallback = calibrationDiagnostics.segments.by_match_quality.all_fallback;
 	const calibrationHighMedium = calibrationDiagnostics.segments.by_confidence_level.high_or_medium;
 	const calibrationLow = calibrationDiagnostics.segments.by_confidence_level.low;
+
+	// V6 -> V7 score diff, computed from the retained per-occupation baseline.
+	const v6DiffStats = (() => {
+		let bandFlips = 0;
+		let sumAbs = 0;
+		let maxAbs = 0;
+		let counted = 0;
+		for (const occupation of occupations) {
+			if (!occupation.baseline_v6) continue;
+			counted++;
+			const delta = occupation.net_risk - occupation.baseline_v6.net_risk;
+			sumAbs += Math.abs(delta);
+			maxAbs = Math.max(maxAbs, Math.abs(delta));
+			if (getRiskBand(occupation.baseline_v6.net_risk) !== occupation.risk_band) bandFlips++;
+		}
+		return {
+			band_flips: bandFlips,
+			mean_abs_delta_pp: ((sumAbs / Math.max(1, counted)) * 100).toFixed(1),
+			max_abs_delta_pp: (maxAbs * 100).toFixed(1)
+		};
+	})();
 
 	function pct(value: number, total: number): string {
 		return ((value / total) * 100).toFixed(1);
@@ -414,6 +435,15 @@
 					Demand resilience is its own axis, not a compressed multiplier. Weak demand provides less
 					buffer; strong verified demand can offset much more of the structural pressure than the
 					old buffering rule allowed.
+				</p>
+				<p class="mt-2 text-sm text-muted-foreground italic">
+					<strong>Honest framing of this axis:</strong> displacement pressure is the
+					evidence-grounded axis (exposure ensemble &times; bottleneck); demand resilience is best
+					read as a <em>counterweight adjustment</em> built from backward-looking labour-demand signals,
+					not an independently validated co-equal prediction. The sensitivity analysis identifies its
+					weights (base_weight in particular) as the model's most level-sensitive constants, and the IMF
+					convergence check flags the exposure tail as a candidate recalibration target &mdash; recalibration
+					is deferred to the next major version rather than tuned ad hoc.
 				</p>
 			</section>
 
@@ -2068,6 +2098,9 @@
 							<p class="mt-1 text-sm text-muted-foreground">
 								{release.notes.join(' ')}
 								{#if release.version_label === 'V7'}
+									Score diff vs retained V6 baseline: {v6DiffStats.band_flips} of {DATA_VINTAGE.occupation_count}
+									occupations changed risk band, mean absolute net-risk change {v6DiffStats.mean_abs_delta_pp}pp,
+									largest single change {v6DiffStats.max_abs_delta_pp}pp.
 									<a href="/reports/v7-release" class="ml-1 text-primary hover:underline"
 										>Release note</a
 									>

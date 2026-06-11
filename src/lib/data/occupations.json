@@ -187,7 +187,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.1,
       "tool_velocity": 0.6
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "12221",
@@ -375,7 +376,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.1,
       "tool_velocity": 0.6
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "13430",
@@ -565,7 +567,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "14330",
@@ -752,7 +755,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "14322",
@@ -934,7 +938,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "12113",
@@ -1124,7 +1129,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "12111",
@@ -1314,7 +1320,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "12212",
@@ -1502,7 +1509,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "12242",
@@ -1689,7 +1697,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.1,
       "tool_velocity": 0.6
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "14122",
@@ -1879,7 +1888,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "13301",
@@ -2069,7 +2079,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.05,
       "tool_velocity": 0.95
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "11203",
@@ -2257,7 +2268,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.1,
       "tool_velocity": 0.6
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "13492",
@@ -2445,7 +2457,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "11202",
@@ -2633,7 +2646,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.1,
       "tool_velocity": 0.6
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "13230",
@@ -2823,7 +2837,8 @@
       "regulatory_weight": 0.55,
       "physical_presence": 0.5,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "12241",
@@ -3010,7 +3025,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.1,
       "tool_velocity": 0.6
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "14391",
@@ -3192,7 +3208,8 @@
       "regulatory_weight": 0.55,
       "physical_presence": 0.5,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "13463",
@@ -3374,7 +3391,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "13461",
@@ -3556,7 +3574,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "14123",
@@ -3746,7 +3765,8 @@
       "regulatory_weight": 0.55,
       "physical_presence": 0.5,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "13420",
@@ -3936,7 +3956,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "14110",
@@ -4126,7 +4147,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "13304",
@@ -4316,7 +4338,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.05,
       "tool_velocity": 0.95
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "12122",
@@ -4506,7 +4529,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.1,
       "tool_velocity": 0.6
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "13462",
@@ -4688,7 +4712,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "12192",
@@ -4876,7 +4901,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.1,
       "tool_velocity": 0.6
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "11201",
@@ -5064,7 +5090,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.1,
       "tool_velocity": 0.6
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "13210",
@@ -5252,7 +5279,8 @@
       "regulatory_weight": 0.55,
       "physical_presence": 0.5,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "12222",
@@ -5440,7 +5468,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "13493",
@@ -5628,7 +5657,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "12214",
@@ -5816,7 +5846,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.1,
       "tool_velocity": 0.6
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "13303",
@@ -6006,7 +6037,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.05,
       "tool_velocity": 0.95
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "12215",
@@ -6194,7 +6226,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "12121",
@@ -6384,7 +6417,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.2,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "12131",
@@ -6572,7 +6606,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.1,
       "tool_velocity": 0.6
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "13245",
@@ -6760,7 +6795,8 @@
       "regulatory_weight": 0.55,
       "physical_presence": 0.5,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "13244",
@@ -6948,7 +6984,8 @@
       "regulatory_weight": 0.55,
       "physical_presence": 0.5,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "12191",
@@ -7136,7 +7173,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.1,
       "tool_velocity": 0.6
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "13410",
@@ -7326,7 +7364,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "13242",
@@ -7514,7 +7553,8 @@
       "regulatory_weight": 0.55,
       "physical_presence": 0.5,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "13100",
@@ -7696,7 +7736,8 @@
       "regulatory_weight": 0.55,
       "physical_presence": 0.5,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "13292",
@@ -7881,7 +7922,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "12213",
@@ -8069,7 +8111,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "12230",
@@ -8256,7 +8299,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.1,
       "tool_velocity": 0.6
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "14121",
@@ -8446,7 +8490,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "14201",
@@ -8637,7 +8682,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "12133",
@@ -8825,7 +8871,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.1,
       "tool_velocity": 0.6
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "12211",
@@ -9013,7 +9060,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "13451",
@@ -9203,7 +9251,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "12194",
@@ -9391,7 +9440,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.1,
       "tool_velocity": 0.6
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "13441",
@@ -9573,7 +9623,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "13302",
@@ -9763,7 +9814,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.05,
       "tool_velocity": 0.95
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "14310",
@@ -9953,7 +10005,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "12132",
@@ -10141,7 +10194,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.1,
       "tool_velocity": 0.6
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "13241",
@@ -10329,7 +10383,8 @@
       "regulatory_weight": 0.55,
       "physical_presence": 0.5,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "13291",
@@ -10514,7 +10569,8 @@
       "regulatory_weight": 0.55,
       "physical_presence": 0.5,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "12123",
@@ -10704,7 +10760,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.1,
       "tool_velocity": 0.6
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "13243",
@@ -10892,7 +10949,8 @@
       "regulatory_weight": 0.55,
       "physical_presence": 0.5,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "14392",
@@ -11074,7 +11132,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "14324",
@@ -11256,7 +11315,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "14202",
@@ -11447,7 +11507,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "24111",
@@ -11637,7 +11698,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "21213",
@@ -11824,7 +11886,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "21471",
@@ -12009,7 +12072,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "21443",
@@ -12199,7 +12263,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "22141",
@@ -12384,7 +12449,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "25140",
@@ -12569,7 +12635,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.05,
       "tool_velocity": 0.95
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "26543",
@@ -12757,7 +12824,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "21524",
@@ -12947,7 +13015,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "22661",
@@ -13137,7 +13206,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "24112",
@@ -13328,7 +13398,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "26411",
@@ -13519,7 +13590,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "21413",
@@ -13709,7 +13781,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "21343",
@@ -13896,7 +13969,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "21311",
@@ -14087,7 +14161,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "21491",
@@ -14275,7 +14350,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "21610",
@@ -14465,7 +14541,8 @@
       "regulatory_weight": 0.1,
       "physical_presence": 0.1,
       "tool_velocity": 0.85
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "21422",
@@ -14656,7 +14733,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "24213",
@@ -14846,7 +14924,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "24212",
@@ -15036,7 +15115,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "24122",
@@ -15226,7 +15306,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "22132",
@@ -15413,7 +15494,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "26375",
@@ -15600,7 +15682,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "21130",
@@ -15788,7 +15871,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "21711",
@@ -15973,7 +16057,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "21421",
@@ -16163,7 +16248,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "26341",
@@ -16353,7 +16439,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "21347",
@@ -16540,7 +16627,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "25231",
@@ -16724,7 +16812,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.05,
       "tool_velocity": 0.95
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "21721",
@@ -16909,7 +16998,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "24154",
@@ -17097,7 +17187,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "24351",
@@ -17284,7 +17375,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "24132",
@@ -17475,7 +17567,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "21522",
@@ -17665,7 +17758,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "26413",
@@ -17856,7 +17950,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "26373",
@@ -18043,7 +18138,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "24311",
@@ -18233,7 +18329,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "26212",
@@ -18423,7 +18520,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "25241",
@@ -18605,7 +18703,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.05,
       "tool_velocity": 0.95
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "25245",
@@ -18787,7 +18886,8 @@
       "regulatory_weight": 0.1,
       "physical_presence": 0.1,
       "tool_velocity": 0.85
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "25291",
@@ -18971,7 +19071,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "21222",
@@ -19156,7 +19257,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "25211",
@@ -19340,7 +19442,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.05,
       "tool_velocity": 0.95
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "25212",
@@ -19524,7 +19627,8 @@
       "regulatory_weight": 0.1,
       "physical_presence": 0.1,
       "tool_velocity": 0.85
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "22122",
@@ -19712,7 +19816,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "22142",
@@ -19897,7 +20002,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "22651",
@@ -20087,7 +20193,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "24314",
@@ -20277,7 +20384,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "26542",
@@ -20465,7 +20573,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "23622",
@@ -20652,7 +20761,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "26310",
@@ -20842,7 +20952,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "26422",
@@ -21027,7 +21138,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "26544",
@@ -21215,7 +21327,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "21511",
@@ -21405,7 +21518,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "21521",
@@ -21593,7 +21707,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "21526",
@@ -21781,7 +21896,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "22143",
@@ -21966,7 +22082,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "21496",
@@ -22154,7 +22271,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "25113",
@@ -22338,7 +22456,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.05,
       "tool_velocity": 0.95
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "21430",
@@ -22528,7 +22647,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "21331",
@@ -22718,7 +22838,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "22632",
@@ -22908,7 +23029,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "24232",
@@ -23096,7 +23218,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "21631",
@@ -23286,7 +23409,8 @@
       "regulatory_weight": 0.1,
       "physical_presence": 0.1,
       "tool_velocity": 0.85
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "24131",
@@ -23477,7 +23601,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "24135",
@@ -23668,7 +23793,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "24121",
@@ -23858,7 +23984,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "21723",
@@ -24043,7 +24170,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "21454",
@@ -24233,7 +24361,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "24152",
@@ -24421,7 +24550,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "24142",
@@ -24609,7 +24739,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "24133",
@@ -24800,7 +24931,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "22611",
@@ -24988,7 +25120,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "22110",
@@ -25178,7 +25311,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "22131",
@@ -25365,7 +25499,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "21661",
@@ -25555,7 +25690,8 @@
       "regulatory_weight": 0.1,
       "physical_presence": 0.1,
       "tool_velocity": 0.85
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "24231",
@@ -25743,7 +25879,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.2,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "21652",
@@ -25933,7 +26070,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "25152",
@@ -26114,7 +26252,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "25112",
@@ -26298,7 +26437,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "25151",
@@ -26479,7 +26619,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "24333",
@@ -26670,7 +26811,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "26343",
@@ -26860,7 +27002,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "21442",
@@ -27050,7 +27193,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "24234",
@@ -27238,7 +27382,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "21493",
@@ -27426,7 +27571,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "26112",
@@ -27616,7 +27762,8 @@
       "regulatory_weight": 0.95,
       "physical_presence": 0.15,
       "tool_velocity": 0.3
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "21525",
@@ -27804,7 +27951,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "24160",
@@ -27992,7 +28140,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "24251",
@@ -28179,7 +28328,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "21664",
@@ -28369,7 +28519,8 @@
       "regulatory_weight": 0.1,
       "physical_presence": 0.1,
       "tool_velocity": 0.85
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "22124",
@@ -28557,7 +28708,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "25232",
@@ -28742,7 +28894,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.05,
       "tool_velocity": 0.95
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "26421",
@@ -28927,7 +29080,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "21651",
@@ -29117,7 +29271,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "21621",
@@ -29307,7 +29462,8 @@
       "regulatory_weight": 0.1,
       "physical_presence": 0.1,
       "tool_velocity": 0.85
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "26221",
@@ -29497,7 +29653,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "21513",
@@ -29687,7 +29844,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "24211",
@@ -29877,7 +30035,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "21411",
@@ -30067,7 +30226,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "21473",
@@ -30252,7 +30412,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "21714",
@@ -30437,7 +30598,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "21712",
@@ -30622,7 +30784,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "24312",
@@ -30812,7 +30975,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "24313",
@@ -31002,7 +31166,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "21492",
@@ -31190,7 +31355,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "21441",
@@ -31380,7 +31546,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "21531",
@@ -31570,7 +31737,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "24332",
@@ -31761,7 +31929,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "22693",
@@ -31945,7 +32114,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "21342",
@@ -32132,7 +32302,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "21346",
@@ -32319,7 +32490,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "26353",
@@ -32506,7 +32678,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "26361",
@@ -32696,7 +32869,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "21662",
@@ -32886,7 +33060,8 @@
       "regulatory_weight": 0.1,
       "physical_presence": 0.1,
       "tool_velocity": 0.85
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "25123",
@@ -33070,7 +33245,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.05,
       "tool_velocity": 0.95
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "21663",
@@ -33260,7 +33436,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "25220",
@@ -33446,7 +33623,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.05,
       "tool_velocity": 0.95
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "22652",
@@ -33636,7 +33814,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "22144",
@@ -33821,7 +34000,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "22631",
@@ -34011,7 +34191,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "22680",
@@ -34196,7 +34377,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "24352",
@@ -34383,7 +34565,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "21212",
@@ -34570,7 +34753,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "22145",
@@ -34755,7 +34939,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "22670",
@@ -34943,7 +35128,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "22135",
@@ -35130,7 +35316,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "22148",
@@ -35315,7 +35502,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "22126",
@@ -35503,7 +35691,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "24233",
@@ -35691,7 +35880,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.2,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "22621",
@@ -35879,7 +36069,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "21341",
@@ -36066,7 +36257,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "22640",
@@ -36254,7 +36446,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "22692",
@@ -36438,7 +36631,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "24220",
@@ -36629,7 +36823,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "21512",
@@ -36819,7 +37014,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "21415",
@@ -37009,7 +37205,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "21498",
@@ -37197,7 +37394,8 @@
       "regulatory_weight": 0.55,
       "physical_presence": 0.5,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "26541",
@@ -37385,7 +37583,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "21632",
@@ -37575,7 +37774,8 @@
       "regulatory_weight": 0.1,
       "physical_presence": 0.1,
       "tool_velocity": 0.85
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "21412",
@@ -37765,7 +37965,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "22128",
@@ -37953,7 +38154,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "24320",
@@ -38144,7 +38346,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "21414",
@@ -38334,7 +38537,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "21494",
@@ -38522,7 +38726,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "22694",
@@ -38706,7 +38911,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "22200",
@@ -38891,7 +39097,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "24291",
@@ -39078,7 +39285,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "24315",
@@ -39268,7 +39476,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "21475",
@@ -39453,7 +39662,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "24334",
@@ -39644,7 +39854,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "26374",
@@ -39831,7 +40042,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "26412",
@@ -40022,7 +40234,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "24151",
@@ -40210,7 +40423,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "24141",
@@ -40398,7 +40612,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "25243",
@@ -40579,7 +40794,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.05,
       "tool_velocity": 0.95
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "21523",
@@ -40769,7 +40985,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "21670",
@@ -40956,7 +41173,8 @@
       "regulatory_weight": 0.1,
       "physical_presence": 0.1,
       "tool_velocity": 0.85
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "24362",
@@ -41143,7 +41361,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "24353",
@@ -41330,7 +41549,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "26322",
@@ -41518,7 +41738,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "26351",
@@ -41705,7 +41926,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "25121",
@@ -41890,7 +42112,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.05,
       "tool_velocity": 0.95
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "22662",
@@ -42080,7 +42303,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "21231",
@@ -42267,7 +42491,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "21221",
@@ -42454,7 +42679,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "25111",
@@ -42638,7 +42864,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "24113",
@@ -42828,7 +43055,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "23103",
@@ -43018,7 +43246,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "24331",
@@ -43209,7 +43438,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "26414",
@@ -43400,7 +43630,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "23300",
@@ -43590,7 +43821,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "21532",
@@ -43780,7 +44012,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "24361",
@@ -43967,7 +44200,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "22301",
@@ -44155,7 +44389,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "24240",
@@ -44345,7 +44580,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "26431",
@@ -44533,7 +44769,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.1,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "24134",
@@ -44724,7 +44961,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "23101",
@@ -44914,7 +45152,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "21641",
@@ -45104,7 +45343,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "22138",
@@ -45291,7 +45531,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "22500",
@@ -45482,7 +45723,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "25122",
@@ -45667,7 +45909,8 @@
       "regulatory_weight": 0.15,
       "physical_presence": 0.05,
       "tool_velocity": 0.95
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "33392",
@@ -45857,7 +46100,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "31211",
@@ -46045,7 +46289,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "33222",
@@ -46235,7 +46480,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "31594",
@@ -46414,7 +46660,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "33611",
@@ -46601,7 +46848,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "31571",
@@ -46786,7 +47034,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "31152",
@@ -46977,7 +47226,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "33151",
@@ -47164,7 +47414,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "31184",
@@ -47346,7 +47597,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "36202",
@@ -47525,7 +47777,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "33152",
@@ -47712,7 +47965,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "33131",
@@ -47902,7 +48156,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "31001",
@@ -48087,7 +48342,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "31002",
@@ -48272,7 +48528,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "31003",
@@ -48457,7 +48714,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "31006",
@@ -48642,7 +48900,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "31004",
@@ -48827,7 +49086,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "34210",
@@ -49017,7 +49277,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "31143",
@@ -49207,7 +49468,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "33132",
@@ -49397,7 +49659,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "31174",
@@ -49585,7 +49848,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "31212",
@@ -49773,7 +50037,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "31122",
@@ -49961,7 +50226,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "33221",
@@ -50151,7 +50417,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "33231",
@@ -50342,7 +50609,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "34341",
@@ -50532,7 +50800,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "31161",
@@ -50723,7 +50992,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "31163",
@@ -50914,7 +51184,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "31111",
@@ -51105,7 +51376,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "31121",
@@ -51293,7 +51565,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "31183",
@@ -51475,7 +51748,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "33311",
@@ -51665,7 +51939,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "31412",
@@ -51855,7 +52130,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "32530",
@@ -52045,7 +52321,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "35110",
@@ -52236,7 +52513,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "33493",
@@ -52423,7 +52701,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "32143",
@@ -52613,7 +52892,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "31131",
@@ -52801,7 +53081,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "31182",
@@ -52983,7 +53264,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "31141",
@@ -53173,7 +53455,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "33330",
@@ -53364,7 +53647,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "32200",
@@ -53549,7 +53833,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "32571",
@@ -53739,7 +54024,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "33320",
@@ -53929,7 +54215,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "33121",
@@ -54119,7 +54406,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "31711",
@@ -54304,7 +54592,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "31593",
@@ -54483,7 +54772,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "31522",
@@ -54671,7 +54961,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "36203",
@@ -54850,7 +55141,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "31144",
@@ -55040,7 +55332,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "33211",
@@ -55230,7 +55523,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "34321",
@@ -55421,7 +55715,8 @@
       "regulatory_weight": 0.1,
       "physical_presence": 0.1,
       "tool_velocity": 0.85
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "33393",
@@ -55609,7 +55904,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "35121",
@@ -55800,7 +56096,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "35122",
@@ -55990,7 +56287,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "35123",
@@ -56181,7 +56479,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "34342",
@@ -56371,7 +56670,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "31123",
@@ -56559,7 +56859,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "31602",
@@ -56747,7 +57048,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "36201",
@@ -56926,7 +57228,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "34110",
@@ -57116,7 +57419,8 @@
       "regulatory_weight": 0.95,
       "physical_presence": 0.15,
       "tool_velocity": 0.3
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "34331",
@@ -57306,7 +57610,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "31132",
@@ -57494,7 +57799,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "31595",
@@ -57673,7 +57979,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "33461",
@@ -57860,7 +58167,8 @@
       "regulatory_weight": 0.55,
       "physical_presence": 0.5,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "31153",
@@ -58051,7 +58359,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "33462",
@@ -58238,7 +58547,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "33491",
@@ -58425,7 +58735,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "31171",
@@ -58613,7 +58924,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "31185",
@@ -58795,7 +59107,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "31510",
@@ -58980,7 +59293,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "31213",
@@ -59168,7 +59482,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "33223",
@@ -59358,7 +59673,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "34222",
@@ -59548,7 +59864,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "32551",
@@ -59736,7 +60053,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "31181",
@@ -59918,7 +60236,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "31151",
@@ -60108,7 +60427,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "35211",
@@ -60299,7 +60619,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "32120",
@@ -60484,7 +60805,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "32112",
@@ -60674,7 +60996,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "33225",
@@ -60864,7 +61187,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "36204",
@@ -61043,7 +61367,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "39910",
@@ -61222,7 +61547,8 @@
       "regulatory_weight": 0.35,
       "physical_presence": 0.15,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "32572",
@@ -61412,7 +61738,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "33224",
@@ -61602,7 +61929,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "33492",
@@ -61789,7 +62117,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "32540",
@@ -61977,7 +62306,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "32591",
@@ -62165,7 +62495,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "34343",
@@ -62355,7 +62686,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "32130",
@@ -62543,7 +62875,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "34310",
@@ -62733,7 +63066,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "34223",
@@ -62923,7 +63257,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "31574",
@@ -63108,7 +63443,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "31601",
@@ -63296,7 +63632,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "36100",
@@ -63483,7 +63820,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "36910",
@@ -63662,7 +64000,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "31173",
@@ -63850,7 +64189,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "31172",
@@ -64038,7 +64378,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "33232",
@@ -64229,7 +64570,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "31175",
@@ -64417,7 +64759,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "33340",
@@ -64607,7 +64950,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "36991",
@@ -64786,7 +65130,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "31124",
@@ -64974,7 +65319,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "31597",
@@ -65153,7 +65499,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "31214",
@@ -65341,7 +65688,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "33394",
@@ -65529,7 +65877,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "31720",
@@ -65716,7 +66065,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "31142",
@@ -65906,7 +66256,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "33312",
@@ -66096,7 +66447,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "34122",
@@ -66286,7 +66638,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "32111",
@@ -66476,7 +66829,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "34221",
@@ -66666,7 +67020,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "33133",
@@ -66856,7 +67211,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "35220",
@@ -67047,7 +67403,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "31596",
@@ -67226,7 +67583,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "31572",
@@ -67411,7 +67769,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "32400",
@@ -67601,7 +67960,8 @@
       "regulatory_weight": 0.9,
       "physical_presence": 0.95,
       "tool_velocity": 0.35
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "35212",
@@ -67791,7 +68151,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "34323",
@@ -67982,7 +68343,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "34123",
@@ -68172,7 +68534,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "35140",
@@ -68363,7 +68726,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "34121",
@@ -68553,7 +68917,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.4,
       "tool_velocity": 0.45
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "43233",
@@ -68744,7 +69109,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "43113",
@@ -68931,7 +69297,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "43121",
@@ -69122,7 +69489,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "42111",
@@ -69313,7 +69681,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "42141",
@@ -69500,7 +69869,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "43115",
@@ -69687,7 +70057,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "43111",
@@ -69874,7 +70245,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "42246",
@@ -70065,7 +70437,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "42245",
@@ -70256,7 +70629,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "41320",
@@ -70447,7 +70821,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "43151",
@@ -70635,7 +71010,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.05,
       "tool_velocity": 0.8
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "43142",
@@ -70822,7 +71198,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "42247",
@@ -71013,7 +71390,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "42242",
@@ -71204,7 +71582,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "43122",
@@ -71395,7 +71774,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "43232",
@@ -71586,7 +71966,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "43112",
@@ -71773,7 +72154,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "44170",
@@ -71960,7 +72342,8 @@
       "regulatory_weight": 0.95,
       "physical_presence": 0.15,
       "tool_velocity": 0.3
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "44110",
@@ -72151,7 +72534,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "43221",
@@ -72339,7 +72723,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "42243",
@@ -72530,7 +72915,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "42113",
@@ -72721,7 +73107,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "41101",
@@ -72912,7 +73299,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "40000",
@@ -73099,7 +73487,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "42244",
@@ -73290,7 +73679,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "42131",
@@ -73477,7 +73867,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "43114",
@@ -73664,7 +74055,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "41102",
@@ -73855,7 +74247,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.2,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "42112",
@@ -74046,7 +74439,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "44122",
@@ -74237,7 +74631,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "43116",
@@ -74424,7 +74819,8 @@
       "regulatory_weight": 0.55,
       "physical_presence": 0.5,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "43222",
@@ -74612,7 +75008,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "44191",
@@ -74797,7 +75194,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "42241",
@@ -74988,7 +75386,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "41201",
@@ -75178,7 +75577,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "43123",
@@ -75369,7 +75769,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "43231",
@@ -75560,7 +75961,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "43141",
@@ -75747,7 +76149,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "43211",
@@ -75934,7 +76337,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "43212",
@@ -76121,7 +76525,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "42230",
@@ -76312,7 +76717,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "42210",
@@ -76503,7 +76909,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "41310",
@@ -76693,7 +77100,8 @@
       "regulatory_weight": 0.3,
       "physical_presence": 0.2,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "51132",
@@ -76878,7 +77286,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "54123",
@@ -77066,7 +77475,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "51322",
@@ -77254,7 +77664,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "51321",
@@ -77442,7 +77853,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "51421",
@@ -77630,7 +78042,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "51702",
@@ -77817,7 +78230,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "51112",
@@ -78007,7 +78421,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "52301",
@@ -78198,7 +78613,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "51311",
@@ -78386,7 +78802,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "52302",
@@ -78577,7 +78994,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "51111",
@@ -78767,7 +79185,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "53113",
@@ -78955,7 +79374,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "51201",
@@ -79145,7 +79565,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "53203",
@@ -79330,7 +79751,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "51950",
@@ -79515,7 +79937,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "53115",
@@ -79703,7 +80126,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "52492",
@@ -79884,7 +80308,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "51411",
@@ -80072,7 +80497,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "53201",
@@ -80257,7 +80683,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "51502",
@@ -80445,7 +80872,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "51501",
@@ -80633,7 +81061,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "51503",
@@ -80821,7 +81250,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "54193",
@@ -81011,7 +81441,8 @@
       "regulatory_weight": 0.8,
       "physical_presence": 0.1,
       "tool_velocity": 0.5
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "51942",
@@ -81196,7 +81627,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "54150",
@@ -81378,7 +81810,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "51422",
@@ -81566,7 +81999,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "51491",
@@ -81751,7 +82185,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "53202",
@@ -81936,7 +82371,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "52491",
@@ -82117,7 +82553,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "54144",
@@ -82305,7 +82742,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "51121",
@@ -82493,7 +82931,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "52421",
@@ -82683,7 +83122,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "52201",
@@ -82871,7 +83311,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "52422",
@@ -83061,7 +83502,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "54142",
@@ -83249,7 +83691,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "51202",
@@ -83439,7 +83882,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "54143",
@@ -83627,7 +84071,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "54141",
@@ -83815,7 +84260,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "52202",
@@ -84003,7 +84449,8 @@
       "regulatory_weight": 0.2,
       "physical_presence": 0.3,
       "tool_velocity": 0.55
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "51492",
@@ -84188,7 +84635,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "53120",
@@ -84372,7 +84820,8 @@
       "regulatory_weight": 0.45,
       "physical_presence": 0.75,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "52440",
@@ -84562,7 +85011,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "51131",
@@ -84747,7 +85197,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "51931",
@@ -84929,7 +85380,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "51312",
@@ -85117,7 +85569,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "62212",
@@ -85299,7 +85752,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "61133",
@@ -85489,7 +85943,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "61131",
@@ -85679,7 +86134,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "71271",
@@ -85870,7 +86326,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "72310",
@@ -86058,7 +86515,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "75121",
@@ -86246,7 +86704,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "71331",
@@ -86431,7 +86890,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "71311",
@@ -86619,7 +87079,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "75110",
@@ -86807,7 +87268,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "71151",
@@ -86995,7 +87457,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "74121",
@@ -87186,7 +87649,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "74123",
@@ -87377,7 +87841,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "74122",
@@ -87568,7 +88033,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "74110",
@@ -87756,7 +88222,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "71220",
@@ -87944,7 +88411,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "75440",
@@ -88129,7 +88597,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "72392",
@@ -88316,7 +88785,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "71152",
@@ -88504,7 +88974,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "74001",
@@ -88689,7 +89160,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "72222",
@@ -88877,7 +89349,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "72391",
@@ -89064,7 +89537,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "73113",
@@ -89252,7 +89726,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "72110",
@@ -89440,7 +89915,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "75122",
@@ -89628,7 +90104,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "71261",
@@ -89818,7 +90295,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "73210",
@@ -90009,7 +90487,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "71000",
@@ -90196,7 +90675,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "74002",
@@ -90381,7 +90861,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "75000",
@@ -90568,7 +91049,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "72000",
@@ -90755,7 +91237,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "73000",
@@ -90942,7 +91425,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "75310",
@@ -91130,7 +91614,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "72221",
@@ -91318,7 +91803,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "75410",
@@ -91506,7 +91992,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "73111",
@@ -91694,7 +92181,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "72120",
@@ -91879,7 +92367,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "83492",
@@ -92064,7 +92553,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "83224",
@@ -92252,7 +92742,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "83311",
@@ -92442,7 +92933,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "83222",
@@ -92630,7 +93122,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "83323",
@@ -92820,7 +93313,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "83432",
@@ -93008,7 +93502,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "83431",
@@ -93196,7 +93691,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "81602",
@@ -93384,7 +93880,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "83502",
@@ -93572,7 +94069,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "83212",
@@ -93762,7 +94260,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "82122",
@@ -93950,7 +94449,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "83421",
@@ -94138,7 +94638,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "83441",
@@ -94326,7 +94827,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "83321",
@@ -94516,7 +95018,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "82110",
@@ -94703,7 +95206,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "82132",
@@ -94887,7 +95391,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "81220",
@@ -95075,7 +95580,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "81210",
@@ -95263,7 +95769,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "81251",
@@ -95445,7 +95952,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "83000",
@@ -95632,7 +96140,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "83211",
@@ -95822,7 +96331,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "81830",
@@ -96010,7 +96520,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "83225",
@@ -96198,7 +96709,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "83501",
@@ -96386,7 +96898,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "81252",
@@ -96568,7 +97081,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "81841",
@@ -96755,7 +97269,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "81501",
@@ -96940,7 +97455,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "81000",
@@ -97127,7 +97643,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "82000",
@@ -97314,7 +97831,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "83322",
@@ -97504,7 +98022,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "83110",
@@ -97692,7 +98211,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "83223",
@@ -97880,7 +98400,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "83324",
@@ -98070,7 +98591,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "93333",
@@ -98258,7 +98780,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "96211",
@@ -98448,7 +98971,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "96212",
@@ -98638,7 +99162,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "96261",
@@ -98823,7 +99348,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "96256",
@@ -99010,7 +99536,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "96254",
@@ -99198,7 +99725,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "93100",
@@ -99383,7 +99911,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "91000",
@@ -99571,7 +100100,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "96272",
@@ -99758,7 +100288,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "91153",
@@ -99943,7 +100474,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "96262",
@@ -100128,7 +100660,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "94103",
@@ -100316,7 +100849,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "91151",
@@ -100501,7 +101035,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "94102",
@@ -100689,7 +101224,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "96111",
@@ -100877,7 +101413,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "91210",
@@ -101065,7 +101602,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "93201",
@@ -101250,7 +101788,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "96253",
@@ -101437,7 +101976,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "91122",
@@ -101625,7 +102165,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "91121",
@@ -101813,7 +102354,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "94101",
@@ -102001,7 +102543,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "96252",
@@ -102189,7 +102732,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "92142",
@@ -102377,7 +102921,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "96291",
@@ -102559,7 +103104,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "91220",
@@ -102747,7 +103293,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "93336",
@@ -102935,7 +103482,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "96293",
@@ -103117,7 +103665,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "91131",
@@ -103302,7 +103851,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "91133",
@@ -103487,7 +104037,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "91132",
@@ -103672,7 +104223,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "96251",
@@ -103860,7 +104412,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "96213",
@@ -104050,7 +104603,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "91161",
@@ -104235,7 +104789,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "96255",
@@ -104423,7 +104978,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "91152",
@@ -104608,7 +105164,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "94104",
@@ -104796,7 +105353,8 @@
       "regulatory_weight": 0.25,
       "physical_presence": 0.9,
       "tool_velocity": 0.25
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   },
   {
     "ssoc": "92141",
@@ -104984,7 +105542,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "93335",
@@ -105172,7 +105731,8 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "93334",
@@ -105360,7 +105920,8 @@
       "regulatory_weight": 0.55,
       "physical_presence": 0.5,
       "tool_velocity": 0.4
-    }
+    },
+    "classification_uncertainty": null
   },
   {
     "ssoc": "96112",
@@ -105548,6 +106109,7 @@
       "regulatory_weight": 0.4,
       "physical_presence": 0.95,
       "tool_velocity": 0.2
-    }
+    },
+    "classification_uncertainty": "crosses_boundary"
   }
 ]
