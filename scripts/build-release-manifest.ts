@@ -368,6 +368,13 @@ const ARTIFACTS: ReleaseArtifactDefinition[] = [
 		category: 'governance',
 		description:
 			'Family-level convergent validation aggregating occupations to 2-digit SSOC families before comparing structural risk with BLS projected employment change.'
+	},
+	{
+		file: 'backtests/sensitivity-analysis.json',
+		label: 'Sensitivity analysis',
+		category: 'governance',
+		description:
+			'Robustness evidence for the hand-set V7 constants: one-at-a-time and joint Monte-Carlo perturbations with rank-stability, band-flip, and top-list overlap metrics against the baseline ranking.'
 	}
 ];
 

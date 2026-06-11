@@ -89,6 +89,15 @@ const CALIBRATION_DIAGNOSTICS_FILE = path.join(
 	'backtests',
 	'calibration-diagnostics.json'
 );
+const SENSITIVITY_ANALYSIS_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'backtests',
+	'sensitivity-analysis.json'
+);
 const OCCUPATION_FAMILY_VALIDATION_FILE = path.join(
 	import.meta.dir,
 	'..',
@@ -1089,6 +1098,9 @@ async function main() {
 				calibration_high_medium_rho?: number | null;
 				calibration_high_medium_sample?: number | null;
 				calibration_low_confidence_sample?: number | null;
+				sensitivity_spearman_p50?: number | null;
+				sensitivity_top20_jaccard_p50?: number | null;
+				sensitivity_fidelity_ok?: boolean | null;
 				occupation_family_validation_rho?: number | null;
 				occupation_family_validation_family_count?: number | null;
 				occupation_family_validation_significant?: boolean | null;
@@ -1170,6 +1182,15 @@ async function main() {
 				};
 			};
 		}>(CALIBRATION_DIAGNOSTICS_FILE);
+		const sensitivityAnalysis = readJson<{
+			recompute_fidelity?: { ok: boolean; max_abs_diff: number; occupations_checked: number };
+			monte_carlo?: {
+				draws: number;
+				spearman_p50: number;
+				top20_jaccard_p50: number;
+			};
+			per_constant?: Array<{ name: string; worst_spearman: number }>;
+		}>(SENSITIVITY_ANALYSIS_FILE);
 		const occupationFamilyValidation = readJson<{
 			family_count: number;
 			spearman_rho: number;
@@ -1632,6 +1653,9 @@ async function main() {
 				) &&
 				(releaseManifest?.artifacts ?? []).some(
 					artifact => artifact.file === 'backtests/occupation-family-validation.json'
+				) &&
+				(releaseManifest?.artifacts ?? []).some(
+					artifact => artifact.file === 'backtests/sensitivity-analysis.json'
 				) &&
 				(releaseManifest?.artifacts ?? []).some(
 					artifact => artifact.file === 'forecast-readiness-v7.json'
@@ -2406,6 +2430,44 @@ async function main() {
 				occupationFamilyValidation?.negative_direction === true &&
 					(occupationFamilyValidation?.spearman_rho ?? 0) < 0,
 				JSON.stringify(occupationFamilyValidation)
+			);
+			check('Sensitivity analysis artifact exists', sensitivityAnalysis !== null);
+			check(
+				'Sensitivity analysis recompute reproduces stored net_risk',
+				sensitivityAnalysis?.recompute_fidelity?.ok === true &&
+					(sensitivityAnalysis?.recompute_fidelity?.occupations_checked ?? 0) === data.length,
+				JSON.stringify(sensitivityAnalysis?.recompute_fidelity)
+			);
+			check(
+				'Sensitivity analysis median joint-perturbation Spearman is at least 0.90',
+				(sensitivityAnalysis?.monte_carlo?.spearman_p50 ?? 0) >= 0.9,
+				String(sensitivityAnalysis?.monte_carlo?.spearman_p50 ?? 0)
+			);
+			check(
+				'Sensitivity analysis covers all perturbable constant groups',
+				(sensitivityAnalysis?.per_constant?.length ?? 0) >= 16,
+				String(sensitivityAnalysis?.per_constant?.length ?? 0)
+			);
+			check(
+				'Site status sensitivity summary matches artifact',
+				siteStatus?.live_monitor?.sensitivity_spearman_p50 ===
+					(sensitivityAnalysis?.monte_carlo?.spearman_p50 ?? null) &&
+					siteStatus?.live_monitor?.sensitivity_top20_jaccard_p50 ===
+						(sensitivityAnalysis?.monte_carlo?.top20_jaccard_p50 ?? null) &&
+					siteStatus?.live_monitor?.sensitivity_fidelity_ok ===
+						(sensitivityAnalysis?.recompute_fidelity?.ok ?? null),
+				JSON.stringify({
+					siteStatus: {
+						spearman: siteStatus?.live_monitor?.sensitivity_spearman_p50,
+						top20: siteStatus?.live_monitor?.sensitivity_top20_jaccard_p50,
+						fidelity: siteStatus?.live_monitor?.sensitivity_fidelity_ok
+					},
+					artifact: {
+						spearman: sensitivityAnalysis?.monte_carlo?.spearman_p50,
+						top20: sensitivityAnalysis?.monte_carlo?.top20_jaccard_p50,
+						fidelity: sensitivityAnalysis?.recompute_fidelity?.ok
+					}
+				})
 			);
 			check(
 				'Site status occupation-family summary matches artifact',

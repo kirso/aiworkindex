@@ -23,6 +23,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { DATA_VINTAGE } from '../src/lib/data/scoring-constants';
+import { spearmanCorrelation } from '../src/lib/utils/validation-stats';
 
 const DATA_DIR = path.join(import.meta.dir, '..', 'data');
 const OCCUPATIONS_FILE = path.join(DATA_DIR, 'occupations.json');
@@ -85,50 +86,6 @@ interface ClusterStats {
 	retrenchment_incidence: number | null;
 	re_entry_rate_12m: number | null;
 	overall_signal: string;
-}
-
-/**
- * Compute Spearman rank correlation between two arrays.
- */
-function spearmanCorrelation(x: number[], y: number[]): number {
-	if (x.length !== y.length || x.length < 3) return NaN;
-	const n = x.length;
-
-	function rank(arr: number[]): number[] {
-		const sorted = arr.map((v, i) => ({ v, i })).sort((a, b) => a.v - b.v);
-		const ranks = new Array(n);
-		// Average tied ranks so a column of identical values does not produce a
-		// spurious monotonic ordering (matches the BLS-crosswalk validator).
-		let i = 0;
-		while (i < n) {
-			let j = i;
-			while (j + 1 < n && sorted[j + 1].v === sorted[i].v) j++;
-			const avgRank = (i + j) / 2 + 1;
-			for (let k = i; k <= j; k++) ranks[sorted[k].i] = avgRank;
-			i = j + 1;
-		}
-		return ranks;
-	}
-
-	const rx = rank(x);
-	const ry = rank(y);
-
-	// Pearson correlation on the (tie-averaged) ranks — the tie-corrected Spearman.
-	const meanX = rx.reduce((s, v) => s + v, 0) / n;
-	const meanY = ry.reduce((s, v) => s + v, 0) / n;
-	let cov = 0;
-	let varX = 0;
-	let varY = 0;
-	for (let i = 0; i < n; i++) {
-		const dx = rx[i] - meanX;
-		const dy = ry[i] - meanY;
-		cov += dx * dy;
-		varX += dx * dx;
-		varY += dy * dy;
-	}
-	// Zero variance (e.g. a constant column) → correlation is undefined, not 0.
-	if (varX === 0 || varY === 0) return NaN;
-	return cov / Math.sqrt(varX * varY);
 }
 
 function formatValidationPeriod(value: string): string {

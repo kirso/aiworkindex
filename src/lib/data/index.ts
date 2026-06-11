@@ -285,6 +285,13 @@ export interface Occupation {
 	task_signal?: number;
 	/** V7: demand-persistence composite proxy */
 	demand_persistence?: number;
+	/** V7: the four percentile-rank inputs behind demand_persistence (persisted for sensitivity analysis) */
+	demand_persistence_inputs?: {
+		market_momentum_rank: number;
+		vacancy_trend_rank: number;
+		scarcity_rank: number;
+		demand_signal_bonus_rank: number;
+	};
 	/** V7: exposure after the task-concentration buffer */
 	exposure_v7?: number;
 	/** V6 baseline scores for comparison after V7 upgrade */

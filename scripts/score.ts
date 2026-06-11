@@ -241,6 +241,12 @@ interface ScoredOccupation {
 	task_primitives: TaskPrimitives;
 	task_signal: number;
 	demand_persistence: number;
+	demand_persistence_inputs: {
+		market_momentum_rank: number;
+		vacancy_trend_rank: number;
+		scarcity_rank: number;
+		demand_signal_bonus_rank: number;
+	};
 	exposure_v7: number;
 	baseline_v6: {
 		net_risk: number;
@@ -2152,6 +2158,12 @@ function scoreOccupations(
 			// V7 fields
 			task_signal: round(v7Result.task_signal, 4),
 			demand_persistence: round(v7Result.demand_persistence, 4),
+			demand_persistence_inputs: {
+				market_momentum_rank: round(mmRanks[i], 4),
+				vacancy_trend_rank: round(vacancyRanks[i], 4),
+				scarcity_rank: round(scarcityRanks[i], 4),
+				demand_signal_bonus_rank: round(demandBonusRanks[i], 4)
+			},
 			exposure_v7: round(v7Result.exposure_v7, 4),
 			baseline_v6: {
 				net_risk: round(v7Result.baseline_v6.headline_risk, 4),

@@ -35,6 +35,11 @@ const OCCUPATION_FAMILY_VALIDATION_FILE = path.join(
 	'backtests',
 	'occupation-family-validation.json'
 );
+const SENSITIVITY_ANALYSIS_FILE = path.join(
+	STATIC_DATA_DIR,
+	'backtests',
+	'sensitivity-analysis.json'
+);
 const OFFSET_POTENTIAL_FILE = path.join(STATIC_DATA_DIR, 'sg-offset-potential-v4.json');
 const EXPERIMENTAL_METHODOLOGY_FILE = path.join(
 	STATIC_DATA_DIR,
@@ -296,6 +301,10 @@ function buildSiteStatus() {
 			};
 		};
 	}>(CALIBRATION_DIAGNOSTICS_FILE);
+	const sensitivityAnalysis = readJson<{
+		recompute_fidelity?: { ok: boolean };
+		monte_carlo?: { spearman_p50: number; top20_jaccard_p50: number };
+	}>(SENSITIVITY_ANALYSIS_FILE);
 	const occupationFamilyValidation = readJson<{
 		family_count: number;
 		spearman_rho: number;
@@ -451,6 +460,9 @@ function buildSiteStatus() {
 				calibrationDiagnostics?.segments?.by_confidence_level?.high_or_medium?.sample_size ?? null,
 			calibration_low_confidence_sample:
 				calibrationDiagnostics?.segments?.by_confidence_level?.low?.sample_size ?? null,
+			sensitivity_spearman_p50: sensitivityAnalysis?.monte_carlo?.spearman_p50 ?? null,
+			sensitivity_top20_jaccard_p50: sensitivityAnalysis?.monte_carlo?.top20_jaccard_p50 ?? null,
+			sensitivity_fidelity_ok: sensitivityAnalysis?.recompute_fidelity?.ok ?? null,
 			occupation_family_validation_rho: occupationFamilyValidation?.spearman_rho ?? null,
 			occupation_family_validation_family_count: occupationFamilyValidation?.family_count ?? null,
 			occupation_family_validation_significant:

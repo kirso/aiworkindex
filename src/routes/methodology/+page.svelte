@@ -6,6 +6,7 @@
 	import blsValidation from '$lib/data/backtests/bls-crosswalk-validation.json';
 	import multiPeriodValidation from '$lib/data/backtests/multi-period-validation.json';
 	import calibrationDiagnostics from '$lib/data/backtests/calibration-diagnostics.json';
+	import sensitivityAnalysis from '$lib/data/backtests/sensitivity-analysis.json';
 	import occupationFamilyValidation from '$lib/data/backtests/occupation-family-validation.json';
 	import { dataSourceRegistry } from '$lib/data/data-contract';
 	import claimsMatrix from '$lib/data/claims-matrix.json';
@@ -1154,6 +1155,43 @@
 						This is a calibration check for mapping quality and confidence labels, not separate
 						Singapore outcome truth. Full results in
 						<code class="rounded bg-muted px-1">data/backtests/calibration-diagnostics.json</code>.
+					</p>
+				</div>
+
+				<div class={cn(card({ padding: 'sm' }), 'mt-3')}>
+					<h3 class="text-sm font-semibold text-foreground mb-2">
+						Sensitivity Analysis (hand-set constants)
+					</h3>
+					<p class="text-sm text-muted-foreground">
+						The formula contains {sensitivityAnalysis.per_constant.length} hand-set constants (the Hampole
+						buffer &lambda;, demand weights, SOL/JiD bonuses, ensemble reliability weights). We perturb
+						each one to &plusmn;25% / &plusmn;50% and run
+						{sensitivityAnalysis.monte_carlo.draws} seeded Monte-Carlo draws perturbing all of them jointly
+						by &plusmn;25%. The occupation <em>ranking</em> is highly robust: median rank
+						correlation with the baseline ordering is
+						<strong>&rho; = {sensitivityAnalysis.monte_carlo.spearman_p50}</strong>
+						(worst single-constant case &rho; = {sensitivityAnalysis.summary
+							.most_sensitive_worst_spearman}), and the median top-20 overlap is
+						<strong>{Math.round(sensitivityAnalysis.monte_carlo.top20_jaccard_p50 * 100)}%</strong>.
+					</p>
+					<p class="mt-3 text-sm text-muted-foreground">
+						The honest nuance: <em>band assignments</em> are more sensitive than rankings because
+						bands depend on absolute score levels. The most sensitive constant is
+						<code class="rounded bg-muted px-1"
+							>{sensitivityAnalysis.summary.most_sensitive_constant}</code
+						>
+						&mdash; at &plusmn;50% it flips up to {Math.max(
+							...sensitivityAnalysis.per_constant.map(c => c.max_band_flips)
+						)} of {DATA_VINTAGE.occupation_count} band labels while leaving the ranking nearly unchanged.
+						Constants with lower worst-case stability are recalibration priorities, not hidden assumptions.
+					</p>
+					<p class="mt-3 text-xs text-muted-foreground italic">
+						Every run first proves the recompute reproduces the published scores (max deviation {sensitivityAnalysis
+							.recompute_fidelity.max_abs_diff} across all {sensitivityAnalysis.recompute_fidelity
+							.occupations_checked} occupations). Rank stability is internal robustness evidence only
+						&mdash; it says nothing about whether the input data measure true displacement pressure. Full
+						results in
+						<code class="rounded bg-muted px-1">data/backtests/sensitivity-analysis.json</code>.
 					</p>
 				</div>
 

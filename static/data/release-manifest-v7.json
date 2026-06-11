@@ -1,7 +1,7 @@
 {
   "version": "V7",
-  "generated_at": "2026-06-08T11:02:59.762Z",
-  "score_dataset_generated_at": "2026-06-07",
+  "generated_at": "2026-06-11T10:07:45.448Z",
+  "score_dataset_generated_at": "2026-06-11",
   "artifacts": [
     {
       "file": "sg-ai-occupations-v7.csv",
@@ -10,16 +10,16 @@
       "description": "Flattened CSV export of the canonical live structural dataset.",
       "bytes": 353298,
       "sha256": "edd48803b1ead2a3f952cdc33ca86be7c50419382fe59691f0c65b5738e54052",
-      "generated_at": "2026-06-08T11:02:59.453Z"
+      "generated_at": "2026-06-11T09:55:37.323Z"
     },
     {
       "file": "sg-ai-occupations-v7.json",
       "label": "V7 structural score JSON",
       "category": "structural_score",
       "description": "Canonical live structural score JSON export matching the app dataset exactly.",
-      "bytes": 3302576,
-      "sha256": "ccbd45678644c1ff175565f6e3e46804487c3903fa902dd8043176844d67cd08",
-      "generated_at": "2026-06-08T11:02:59.395Z"
+      "bytes": 3408016,
+      "sha256": "f598820d84167405d44d864050760c8e3427961ec34746332c89fa86767bcbd7",
+      "generated_at": "2026-06-11T09:55:37.270Z"
     },
     {
       "file": "sg-ai-occupations-v43.csv",
@@ -37,7 +37,7 @@
       "description": "Versioned JSON snapshot for the retained V4.3 structural release.",
       "bytes": 4223552,
       "sha256": "0cd2872762d6f20bedbfecce260538a4e2249dc32cae97c5fba74befafa6450b",
-      "generated_at": "2026-06-08T11:02:59.405Z"
+      "generated_at": "2026-06-11T09:55:37.280Z"
     },
     {
       "file": "sg-ai-occupations-v5.csv",
@@ -55,7 +55,7 @@
       "description": "Versioned JSON snapshot for the promoted V5 live structural release with transition-adjusted and realized-risk adjunct fields.",
       "bytes": 4324271,
       "sha256": "2d9716694eecb86dc1ec3cbb1a508061a3b592b305af7ffe4b71b2f3a1a73621",
-      "generated_at": "2026-06-08T11:02:59.409Z"
+      "generated_at": "2026-06-11T09:55:37.285Z"
     },
     {
       "file": "sg-ai-occupations-v42.csv",
@@ -73,7 +73,7 @@
       "description": "Historical JSON snapshot for the retained V4.2 pre-promotion baseline.",
       "bytes": 3166563,
       "sha256": "63029c9709c7b841a694107798d4396428108963120b2f8b75d72b5093b28269",
-      "generated_at": "2026-06-08T11:02:59.401Z"
+      "generated_at": "2026-06-11T09:55:37.278Z"
     },
     {
       "file": "onet-enrichment.json",
@@ -90,8 +90,8 @@
       "category": "context_bundle",
       "description": "Published Singapore context bundle around the structural score: labour monitor, worker profile, industry context, sector wage anchors, geography context, macro labour context, and national AI context.",
       "bytes": 671499,
-      "sha256": "3324c051c9aa37874fbb257f139924120be5f472c73537cacfadc3d680105124",
-      "generated_at": "2026-06-08T11:02:59.605Z"
+      "sha256": "69384d017841becdfcbfb98e33c1d6a8f044c3477c0482fcd12c7be78e80190a",
+      "generated_at": "2026-06-11T09:55:37.363Z"
     },
     {
       "file": "sg-labour-monitor-2025.json",
@@ -100,7 +100,7 @@
       "description": "Published cluster-level labour monitor used as current evidence around the score.",
       "bytes": 27832,
       "sha256": "cfacd54ba28bc34cb6e9feb32eb09b04e80de669d0056e9ffaa167cd92f9ab13",
-      "generated_at": "2026-06-08T11:02:59.606Z"
+      "generated_at": "2026-06-11T09:55:37.363Z"
     },
     {
       "file": "sg-worker-profile-2025.json",
@@ -118,7 +118,7 @@
       "description": "Published 2024 to 2025 Labour Force Section D family, cluster, and industry-mix deltas used for validation and contextual reporting.",
       "bytes": 44667,
       "sha256": "9642f9b7f5c7a0064389c9643f56b28c9326cde85dda5c5178ec358a4034c70c",
-      "generated_at": "2026-06-08T11:02:59.606Z"
+      "generated_at": "2026-06-11T09:55:37.364Z"
     },
     {
       "file": "sg-geography-context-2020.json",
@@ -260,9 +260,9 @@
       "label": "Research library",
       "category": "research_memory",
       "description": "Machine-readable registry of the academic papers, reports, and datasets cited by the methodology, validation, and V5 roadmap.",
-      "bytes": 31354,
-      "sha256": "920a9463a72b095690a809ad1d0a5ec90eb74e3f2aaf29b7a5ea9b6e0d1a5118",
-      "generated_at": "2026-06-08T11:02:05.151Z"
+      "bytes": 39347,
+      "sha256": "cc6311e0a7de0684abc9a5a9e6366bd8e03292857d663c3b821f142ca8e6db0f",
+      "generated_at": "2026-06-11T09:43:28.299Z"
     },
     {
       "file": "v5-roadmap.json",
@@ -352,7 +352,7 @@
       "description": "Current AI-facing summary file for retrieval, citation, and answer-engine consumption.",
       "bytes": 2160,
       "sha256": "e2b28be42181c931e9825793047610ac661b39f9e913823254ee5a8f8ed15482",
-      "generated_at": "2026-06-07T21:23:21.867Z"
+      "generated_at": "2026-06-08T11:02:59.865Z"
     },
     {
       "file": "../llms-full.txt",
@@ -361,16 +361,16 @@
       "description": "Expanded AI-facing reference file with current methodology, caveats, and citation guidance.",
       "bytes": 15945,
       "sha256": "e5dda2ab06f3cf62cb92896e371958f28a95f7bc50f01a28c9dd84a2410bb4b4",
-      "generated_at": "2026-06-07T21:23:21.868Z"
+      "generated_at": "2026-06-08T11:02:59.865Z"
     },
     {
       "file": "site-status.json",
       "label": "Public site status",
       "category": "governance",
       "description": "Canonical public status object covering current structural release, live monitor vintage, and latest official update state.",
-      "bytes": 3533,
-      "sha256": "9bcb935037790044f73330a5a765da93189f08a0f5e80a1d78fa966fcd4d8bfd",
-      "generated_at": "2026-06-08T11:02:59.719Z"
+      "bytes": 3655,
+      "sha256": "682e56d98d72b583ceccf6cffd5edd70e9ca3b745553522fdebe7bd8abc2a337",
+      "generated_at": "2026-06-11T10:07:45.425Z"
     },
     {
       "file": "releases.json",
@@ -378,8 +378,8 @@
       "category": "governance",
       "description": "Ordered release and update history spanning structural releases, quarterly briefings, and official monitor updates.",
       "bytes": 10278,
-      "sha256": "c194655f66be166e3b1116c8f405246e6729c1500199a26da4fdfa5414126b0c",
-      "generated_at": "2026-06-08T11:02:59.719Z"
+      "sha256": "3aafd04f61047e656668fa747dceecb95a8ee02034a7afcd93bda20b2b446c41",
+      "generated_at": "2026-06-11T10:07:45.425Z"
     },
     {
       "file": "backtests/current-validation.json",
@@ -388,7 +388,7 @@
       "description": "Current cluster-level directional validation artifact for the live labour-monitor vintage.",
       "bytes": 9745,
       "sha256": "fededec10bb9eb7ddd175dc76a2b62426b8438c6e9b5786f274b03ae2e1f8091",
-      "generated_at": "2026-06-08T06:35:41.563Z"
+      "generated_at": "2026-06-11T09:53:45.955Z"
     },
     {
       "file": "backtests/bls-crosswalk-validation.json",
@@ -425,6 +425,15 @@
       "bytes": 5785,
       "sha256": "5ebb89d60047d098bd958ce6e1c586aab0619d663fbe3e999420dd6e176c19aa",
       "generated_at": "2026-06-07T11:57:10.957Z"
+    },
+    {
+      "file": "backtests/sensitivity-analysis.json",
+      "label": "Sensitivity analysis",
+      "category": "governance",
+      "description": "Robustness evidence for the hand-set V7 constants: one-at-a-time and joint Monte-Carlo perturbations with rank-stability, band-flip, and top-list overlap metrics against the baseline ranking.",
+      "bytes": 18941,
+      "sha256": "fa1710b340ed7c047a14b1c7bd31977d1544e67b8a1751d259cf8a5aafb10f6b",
+      "generated_at": "2026-06-11T09:59:45.080Z"
     }
   ]
 }

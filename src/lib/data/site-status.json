@@ -1,10 +1,10 @@
 {
-  "updated_at": "2026-06-08T11:02:59.718Z",
+  "updated_at": "2026-06-11T10:07:45.424Z",
   "structural_release": {
     "version": "V7",
     "label": "V7 structural release",
-    "generated_at": "2026-06-07T00:00:00.000Z",
-    "score_dataset_generated_at": "2026-06-07",
+    "generated_at": "2026-06-11T00:00:00.000Z",
+    "score_dataset_generated_at": "2026-06-11",
     "release_manifest": "release-manifest-v7.json"
   },
   "experimental_release": {
@@ -61,6 +61,9 @@
     "calibration_high_medium_rho": -0.136,
     "calibration_high_medium_sample": 516,
     "calibration_low_confidence_sample": 14,
+    "sensitivity_spearman_p50": 0.9993,
+    "sensitivity_top20_jaccard_p50": 0.9048,
+    "sensitivity_fidelity_ok": true,
     "occupation_family_validation_rho": -0.249,
     "occupation_family_validation_family_count": 29,
     "occupation_family_validation_significant": false,
