@@ -7,6 +7,7 @@
 	import multiPeriodValidation from '$lib/data/backtests/multi-period-validation.json';
 	import calibrationDiagnostics from '$lib/data/backtests/calibration-diagnostics.json';
 	import sensitivityAnalysis from '$lib/data/backtests/sensitivity-analysis.json';
+	import imfConvergence from '$lib/data/backtests/imf-convergence.json';
 	import occupationFamilyValidation from '$lib/data/backtests/occupation-family-validation.json';
 	import { dataSourceRegistry } from '$lib/data/data-contract';
 	import claimsMatrix from '$lib/data/claims-matrix.json';
@@ -1116,6 +1117,41 @@
 						structural pressure, not total employment change. Treat this as weak convergent
 						evidence, not strong external validation. Full results in
 						<code class="rounded bg-muted px-1">data/backtests/bls-crosswalk-validation.json</code>.
+					</p>
+				</div>
+
+				<div class={cn(card({ padding: 'sm' }), 'mt-3')}>
+					<h3 class="text-sm font-semibold text-foreground mb-2">
+						IMF Singapore Convergence (macro benchmark)
+					</h3>
+					<p class="text-sm text-muted-foreground">
+						<strong>Framing first:</strong> the IMF's Singapore estimates (SIP/2024/040, Khan) are
+						absolute economy-wide shares &mdash; 77% of workers highly exposed, split roughly evenly
+						between high and low complementarity. Our exposure is percentile-ranked within
+						{DATA_VINTAGE.occupation_count} Singapore occupations, so it cannot reproduce absolute shares
+						by construction. What is comparable is the
+						<em>employment-weighted complementarity split among the most-exposed occupations</em>.
+					</p>
+					<p class="mt-3 text-sm text-muted-foreground">
+						At the top-half exposure cut, exposed employment splits
+						<strong
+							>{imfConvergence.employment_weighted_bins.top_half.exposed_high_complementarity_pct}%
+							high-complementarity to {imfConvergence.employment_weighted_bins.top_half
+								.exposed_low_complementarity_pct}% low-complementarity</strong
+						>
+						(ratio {imfConvergence.employment_weighted_bins.top_half.high_to_low_ratio}) &mdash;
+						broadly consistent with the IMF's roughly even split. At the stricter top-quartile cut
+						the ratio falls to
+						<strong>{imfConvergence.employment_weighted_bins.top_quartile.high_to_low_ratio}</strong
+						>: our most-exposed employment skews low-complementarity, i.e. the model is more
+						pessimistic than the IMF at the exposure tail. We disclose this divergence as a
+						candidate recalibration signal rather than hiding it.
+					</p>
+					<p class="mt-3 text-xs text-muted-foreground italic">
+						Convergent-directional Singapore macro benchmark only &mdash; not occupation-level
+						validation. The MOM AI-adoption survey (April 2026) is adoption/context evidence, and
+						the BLS slope above is the occupation-level external check. Full results in
+						<code class="rounded bg-muted px-1">data/backtests/imf-convergence.json</code>.
 					</p>
 				</div>
 

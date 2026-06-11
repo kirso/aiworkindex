@@ -98,6 +98,15 @@ const SENSITIVITY_ANALYSIS_FILE = path.join(
 	'backtests',
 	'sensitivity-analysis.json'
 );
+const IMF_CONVERGENCE_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'backtests',
+	'imf-convergence.json'
+);
 const OCCUPATION_FAMILY_VALIDATION_FILE = path.join(
 	import.meta.dir,
 	'..',
@@ -1101,6 +1110,8 @@ async function main() {
 				sensitivity_spearman_p50?: number | null;
 				sensitivity_top20_jaccard_p50?: number | null;
 				sensitivity_fidelity_ok?: boolean | null;
+				imf_top_half_exposed_share_pct?: number | null;
+				imf_top_half_high_to_low_ratio?: number | null;
 				occupation_family_validation_rho?: number | null;
 				occupation_family_validation_family_count?: number | null;
 				occupation_family_validation_significant?: boolean | null;
@@ -1196,6 +1207,19 @@ async function main() {
 			};
 			per_constant?: Array<{ name: string; worst_spearman: number }>;
 		}>(SENSITIVITY_ANALYSIS_FILE);
+		const imfConvergence = readJson<{
+			framing_caveat?: string;
+			employment_weighted_bins?: Record<
+				string,
+				{
+					exposed_high_complementarity_pct: number;
+					exposed_low_complementarity_pct: number;
+					not_exposed_pct: number;
+					exposed_share_pct: number;
+					high_to_low_ratio: number;
+				}
+			>;
+		}>(IMF_CONVERGENCE_FILE);
 		const occupationFamilyValidation = readJson<{
 			family_count: number;
 			spearman_rho: number;
@@ -1661,6 +1685,9 @@ async function main() {
 				) &&
 				(releaseManifest?.artifacts ?? []).some(
 					artifact => artifact.file === 'backtests/sensitivity-analysis.json'
+				) &&
+				(releaseManifest?.artifacts ?? []).some(
+					artifact => artifact.file === 'backtests/imf-convergence.json'
 				) &&
 				(releaseManifest?.artifacts ?? []).some(
 					artifact => artifact.file === 'forecast-readiness-v7.json'
@@ -2448,6 +2475,39 @@ async function main() {
 				JSON.stringify(occupationFamilyValidation)
 			);
 			check('Sensitivity analysis artifact exists', sensitivityAnalysis !== null);
+			check('IMF convergence artifact exists', imfConvergence !== null);
+			check(
+				'IMF convergence leads with the percentile-internal framing caveat',
+				(imfConvergence?.framing_caveat ?? '').includes('percentile-ranked'),
+				(imfConvergence?.framing_caveat ?? '').slice(0, 80)
+			);
+			check(
+				'IMF convergence employment shares sum to 100% at every cut',
+				Object.values(imfConvergence?.employment_weighted_bins ?? {}).every(
+					bin =>
+						Math.abs(
+							bin.exposed_high_complementarity_pct +
+								bin.exposed_low_complementarity_pct +
+								bin.not_exposed_pct -
+								100
+						) < 0.5
+				) && Object.keys(imfConvergence?.employment_weighted_bins ?? {}).length >= 2,
+				JSON.stringify(imfConvergence?.employment_weighted_bins)
+			);
+			check(
+				'Site status IMF convergence summary matches artifact',
+				siteStatus?.live_monitor?.imf_top_half_exposed_share_pct ===
+					(imfConvergence?.employment_weighted_bins?.top_half?.exposed_share_pct ?? null) &&
+					siteStatus?.live_monitor?.imf_top_half_high_to_low_ratio ===
+						(imfConvergence?.employment_weighted_bins?.top_half?.high_to_low_ratio ?? null),
+				JSON.stringify({
+					siteStatus: {
+						share: siteStatus?.live_monitor?.imf_top_half_exposed_share_pct,
+						ratio: siteStatus?.live_monitor?.imf_top_half_high_to_low_ratio
+					},
+					artifact: imfConvergence?.employment_weighted_bins?.top_half
+				})
+			);
 			check(
 				'Sensitivity analysis recompute reproduces stored net_risk',
 				sensitivityAnalysis?.recompute_fidelity?.ok === true &&

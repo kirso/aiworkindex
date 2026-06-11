@@ -40,6 +40,7 @@ const SENSITIVITY_ANALYSIS_FILE = path.join(
 	'backtests',
 	'sensitivity-analysis.json'
 );
+const IMF_CONVERGENCE_FILE = path.join(STATIC_DATA_DIR, 'backtests', 'imf-convergence.json');
 const OFFSET_POTENTIAL_FILE = path.join(STATIC_DATA_DIR, 'sg-offset-potential-v4.json');
 const EXPERIMENTAL_METHODOLOGY_FILE = path.join(
 	STATIC_DATA_DIR,
@@ -305,6 +306,11 @@ function buildSiteStatus() {
 		recompute_fidelity?: { ok: boolean };
 		monte_carlo?: { spearman_p50: number; top20_jaccard_p50: number };
 	}>(SENSITIVITY_ANALYSIS_FILE);
+	const imfConvergence = readJson<{
+		employment_weighted_bins?: {
+			top_half?: { exposed_share_pct: number; high_to_low_ratio: number };
+		};
+	}>(IMF_CONVERGENCE_FILE);
 	const occupationFamilyValidation = readJson<{
 		family_count: number;
 		spearman_rho: number;
@@ -463,6 +469,10 @@ function buildSiteStatus() {
 			sensitivity_spearman_p50: sensitivityAnalysis?.monte_carlo?.spearman_p50 ?? null,
 			sensitivity_top20_jaccard_p50: sensitivityAnalysis?.monte_carlo?.top20_jaccard_p50 ?? null,
 			sensitivity_fidelity_ok: sensitivityAnalysis?.recompute_fidelity?.ok ?? null,
+			imf_top_half_exposed_share_pct:
+				imfConvergence?.employment_weighted_bins?.top_half?.exposed_share_pct ?? null,
+			imf_top_half_high_to_low_ratio:
+				imfConvergence?.employment_weighted_bins?.top_half?.high_to_low_ratio ?? null,
 			occupation_family_validation_rho: occupationFamilyValidation?.spearman_rho ?? null,
 			occupation_family_validation_family_count: occupationFamilyValidation?.family_count ?? null,
 			occupation_family_validation_significant:

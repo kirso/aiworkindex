@@ -1,6 +1,6 @@
 {
   "version": "V7",
-  "generated_at": "2026-06-11T10:21:35.282Z",
+  "generated_at": "2026-06-11T10:27:00.398Z",
   "score_dataset_generated_at": "2026-06-11",
   "artifacts": [
     {
@@ -260,9 +260,9 @@
       "label": "Research library",
       "category": "research_memory",
       "description": "Machine-readable registry of the academic papers, reports, and datasets cited by the methodology, validation, and V5 roadmap.",
-      "bytes": 39347,
-      "sha256": "cc6311e0a7de0684abc9a5a9e6366bd8e03292857d663c3b821f142ca8e6db0f",
-      "generated_at": "2026-06-11T09:43:28.299Z"
+      "bytes": 39382,
+      "sha256": "add77529e79ae2078a725a880e50ba6cc262e692cbb7b8e15182d2789c6f9b9b",
+      "generated_at": "2026-06-11T10:23:25.928Z"
     },
     {
       "file": "v5-roadmap.json",
@@ -368,9 +368,9 @@
       "label": "Public site status",
       "category": "governance",
       "description": "Canonical public status object covering current structural release, live monitor vintage, and latest official update state.",
-      "bytes": 3655,
-      "sha256": "6ecd748ce2e2823bd62390bcf1eb384ea6db48d9ac691ef2dbb3946f7ee5c3e1",
-      "generated_at": "2026-06-11T10:21:35.259Z"
+      "bytes": 3742,
+      "sha256": "db7c93b445b5f4fcecea5f2f0d8c02764407fc8b2eae0c582d3ab70ce4077146",
+      "generated_at": "2026-06-11T10:27:00.375Z"
     },
     {
       "file": "releases.json",
@@ -379,7 +379,7 @@
       "description": "Ordered release and update history spanning structural releases, quarterly briefings, and official monitor updates.",
       "bytes": 10278,
       "sha256": "3aafd04f61047e656668fa747dceecb95a8ee02034a7afcd93bda20b2b446c41",
-      "generated_at": "2026-06-11T10:21:35.259Z"
+      "generated_at": "2026-06-11T10:27:00.376Z"
     },
     {
       "file": "backtests/current-validation.json",
@@ -425,6 +425,15 @@
       "bytes": 5785,
       "sha256": "5ebb89d60047d098bd958ce6e1c586aab0619d663fbe3e999420dd6e176c19aa",
       "generated_at": "2026-06-07T11:57:10.957Z"
+    },
+    {
+      "file": "backtests/imf-convergence.json",
+      "label": "IMF Singapore convergence",
+      "category": "governance",
+      "description": "Convergent-directional Singapore macro benchmark comparing employment-weighted exposure x complementarity bins against the IMF SIP/2024/040 estimates, with the percentile-internal framing caveat leading.",
+      "bytes": 3827,
+      "sha256": "4d52dbf32f78585687517edbf5e9b61c22447689aaac3802686b139704c7bea4",
+      "generated_at": "2026-06-11T10:24:21.950Z"
     },
     {
       "file": "backtests/sensitivity-analysis.json",

@@ -555,7 +555,7 @@ export const researchRegistry: ResearchEntry[] = [
 		year: 2024,
 		published_at: '2024',
 		publisher: 'IMF Selected Issues Paper SIP/2024/040',
-		url: 'https://www.imf.org/-/media/files/publications/selected-issues-papers/2024/english/sipea2024040.pdf',
+		url: 'https://www.imf.org/en/Publications/selected-issues-papers/Issues/2024/08/23/Impact-of-AI-on-Singapore-s-Labor-Market-Singapore-553481',
 		type: 'working_paper',
 		domains: ['exposure', 'complementarity', 'context'],
 		role: 'validation',

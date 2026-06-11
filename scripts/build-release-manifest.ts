@@ -370,6 +370,13 @@ const ARTIFACTS: ReleaseArtifactDefinition[] = [
 			'Family-level convergent validation aggregating occupations to 2-digit SSOC families before comparing structural risk with BLS projected employment change.'
 	},
 	{
+		file: 'backtests/imf-convergence.json',
+		label: 'IMF Singapore convergence',
+		category: 'governance',
+		description:
+			'Convergent-directional Singapore macro benchmark comparing employment-weighted exposure x complementarity bins against the IMF SIP/2024/040 estimates, with the percentile-internal framing caveat leading.'
+	},
+	{
 		file: 'backtests/sensitivity-analysis.json',
 		label: 'Sensitivity analysis',
 		category: 'governance',

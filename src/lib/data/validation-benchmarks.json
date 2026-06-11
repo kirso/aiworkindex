@@ -1,0 +1,13 @@
+{
+	"khan_imf_singapore_2024": {
+		"source_key": "khan_imf_singapore_2024",
+		"label": "IMF SIP/2024/040 — Impact of AI on Singapore's Labor Market (Khan)",
+		"url": "https://www.imf.org/en/Publications/selected-issues-papers/Issues/2024/08/23/Impact-of-AI-on-Singapore-s-Labor-Market-Singapore-553481",
+		"highly_exposed_pct": 77,
+		"high_complementarity_pct": 39,
+		"low_complementarity_pct": 38,
+		"advanced_economy_avg_exposed_pct": 60,
+		"emerging_market_avg_exposed_pct": 40,
+		"framing": "IMF reports absolute economy-wide employment shares using the Cazzaniga et al. (2024) exposure x complementarity framework. This repo's exposure is percentile-ranked within 562 Singapore occupations, so absolute shares are not comparable; only the occupational pattern and the complementarity split direction are."
+	}
+}
