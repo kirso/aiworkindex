@@ -11,7 +11,8 @@
 		mono,
 		pill,
 		microLabel,
-		section
+		section,
+		sectionNumber
 	} from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import { vacancySignalClass } from '$lib/data/detail-display';
@@ -473,17 +474,14 @@
 									? 'warning'
 									: 'positive'
 				},
-				{ label: group?.label ?? occ.major_group, tone: 'muted' },
-				{
-					label: hasDemand ? `In demand (${demandLabel})` : 'No shortage listing',
-					tone: hasDemand ? 'positive' : 'neutral'
-				},
+				...(hasDemand ? [{ label: `In demand (${demandLabel})`, tone: 'positive' as const }] : []),
 				...(crossesBoundary
 					? [{ label: 'Classification uncertain', tone: 'warning' as const }]
 					: [])
 			]}
 			summary={structural.summaryText}
 			meta={[
+				group?.label ?? occ.major_group,
 				`SGD ${occ.gross_wage_median.toLocaleString()}/mo${occ.gross_wage_25th > 0 && occ.gross_wage_75th > 0 ? ` (${occ.gross_wage_25th.toLocaleString()}–${occ.gross_wage_75th.toLocaleString()})` : ''}`,
 				occ.estimated_sg_employment_thousands
 					? `~${
@@ -570,10 +568,10 @@
 
 	<!-- ===== BLOCK 2: WHY THIS SCORE ===== -->
 	<section class={section({ spacing: 'loose' })}>
-		<h2 class={cn(titleStyle({ size: 'subsection' }), 'mb-3 flex items-center gap-2')}>
-			<span class="h-4 w-1 rounded-full bg-primary"></span>
-			Why This Score
-		</h2>
+		<div class="mb-4 border-b-2 border-foreground pb-2">
+			<span class={sectionNumber()}>01</span>
+			<h2 class={cn(titleStyle({ size: 'section' }), 'mt-0.5')}>Why This Score</h2>
+		</div>
 		<div class={card({ padding: 'md' })}>
 			<div class="grid gap-6 md:grid-cols-5">
 				<!-- Left: Waterfall (3/5 on desktop) -->
@@ -694,10 +692,10 @@
 
 	<!-- ===== BLOCK 3: SINGAPORE NOW ===== -->
 	<section class={section({ spacing: 'loose' })}>
-		<h2 class={cn(titleStyle({ size: 'subsection' }), 'mb-3 flex items-center gap-2')}>
-			<span class="h-4 w-1 rounded-full bg-impact-leveraged"></span>
-			Singapore Now
-		</h2>
+		<div class="mb-4 border-b-2 border-foreground pb-2">
+			<span class={sectionNumber()}>02</span>
+			<h2 class={cn(titleStyle({ size: 'section' }), 'mt-0.5')}>Singapore Now</h2>
+		</div>
 		<p class={cn(caption(), 'mb-3 -mt-1')}>
 			Current labour market conditions and how they affect this role.
 		</p>
@@ -865,10 +863,10 @@
 
 	<!-- ===== BLOCK 4: WHAT YOU CAN DO ===== -->
 	<section class={section({ spacing: 'loose' })}>
-		<h2 class={cn(titleStyle({ size: 'subsection' }), 'mb-3 flex items-center gap-2')}>
-			<span class="h-4 w-1 rounded-full bg-risk-very-low"></span>
-			What You Can Do
-		</h2>
+		<div class="mb-4 border-b-2 border-foreground pb-2">
+			<span class={sectionNumber()}>03</span>
+			<h2 class={cn(titleStyle({ size: 'section' }), 'mt-0.5')}>What You Can Do</h2>
+		</div>
 		<div class={card({ padding: 'md' })}>
 			{#if offsetPotential}
 				<p class={cn(body({ tone: 'subtle' }), 'mb-4 pb-4 border-b border-border')}>
