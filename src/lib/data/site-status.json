@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-11T10:27:00.375Z",
+  "updated_at": "2026-06-11T10:50:05.451Z",
   "structural_release": {
     "version": "V7",
     "label": "V7 structural release",
@@ -66,6 +66,8 @@
     "sensitivity_fidelity_ok": true,
     "imf_top_half_exposed_share_pct": 59.1,
     "imf_top_half_high_to_low_ratio": 0.9,
+    "forecast_horizon_status": "pending_sufficient_quarters",
+    "forecast_horizon_post_baseline_quarters": 0,
     "occupation_family_validation_rho": -0.249,
     "occupation_family_validation_family_count": 29,
     "occupation_family_validation_significant": false,

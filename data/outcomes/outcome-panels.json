@@ -1,0 +1,167 @@
+{
+  "generated_date": "2026-06-11",
+  "model_version": "V7",
+  "provenance": {
+    "source": "data/labour-monitor.json",
+    "owners": [
+      "scripts/build-labour-monitor.ts"
+    ],
+    "note": "Official MOM labour outcomes re-shaped into cluster-quarter panels. No new realized-risk model; values are copied, not derived."
+  },
+  "latest_quarter": "2025 Q4",
+  "outcomes_v1": [
+    "vacancy_rate",
+    "retrenchment_count",
+    "hiring_net_pressure",
+    "re_entry_rate"
+  ],
+  "reserved_v2_outcomes": {
+    "postings_volume": null,
+    "ai_skill_share": null,
+    "wage_movement": null,
+    "note": "Deferred per forecast-readiness: postings need scheduled snapshots, AI-skill share needs a fixed dictionary + denominator + time series, and wage movement needs a multi-year nominal + CPI-adjusted transform before use as outcomes."
+  },
+  "clusters": [
+    {
+      "cluster_key": "pmet",
+      "cluster_label": "Professionals, Managers, Executives & Technicians",
+      "data_as_of": "2025 Q4",
+      "quarterly": [
+        {
+          "quarter": "2024 Q3",
+          "vacancy_rate": 2.9,
+          "retrenchment_count": 2250
+        },
+        {
+          "quarter": "2024 Q4",
+          "vacancy_rate": 3.2,
+          "retrenchment_count": 2960
+        },
+        {
+          "quarter": "2025 Q1",
+          "retrenchment_count": 2730
+        },
+        {
+          "quarter": "2025 Q2",
+          "retrenchment_count": 2880
+        },
+        {
+          "quarter": "2025 Q3",
+          "vacancy_rate": 3.1,
+          "retrenchment_count": 3110
+        },
+        {
+          "quarter": "2025 Q4",
+          "vacancy_rate": 3.1,
+          "retrenchment_count": 3150
+        }
+      ],
+      "latest": {
+        "quarter": "2025 Q4",
+        "vacancy_rate": 3.1,
+        "vacancy_trend_4q_pct": -3.13,
+        "hiring_recruitment_rate": 1.5,
+        "hiring_resignation_rate": 0.9,
+        "hiring_net_pressure": 0.6,
+        "retrenchment_count": 3150,
+        "retrenchment_trend_4q_pct": 6.42,
+        "re_entry_rate_6m": 56.4,
+        "re_entry_rate_12m": 67.7
+      }
+    },
+    {
+      "cluster_key": "clerical_sales_service",
+      "cluster_label": "Clerical, Sales & Service Workers",
+      "data_as_of": "2025 Q4",
+      "quarterly": [
+        {
+          "quarter": "2024 Q3",
+          "vacancy_rate": 3.5,
+          "retrenchment_count": 240
+        },
+        {
+          "quarter": "2024 Q4",
+          "vacancy_rate": 3.5,
+          "retrenchment_count": 250
+        },
+        {
+          "quarter": "2025 Q1",
+          "retrenchment_count": 240
+        },
+        {
+          "quarter": "2025 Q2",
+          "retrenchment_count": 280
+        },
+        {
+          "quarter": "2025 Q3",
+          "vacancy_rate": 3.3,
+          "retrenchment_count": 410
+        },
+        {
+          "quarter": "2025 Q4",
+          "vacancy_rate": 3.1,
+          "retrenchment_count": 270
+        }
+      ],
+      "latest": {
+        "quarter": "2025 Q4",
+        "vacancy_rate": 3.1,
+        "vacancy_trend_4q_pct": -11.43,
+        "hiring_recruitment_rate": 2.6,
+        "hiring_resignation_rate": 1.6,
+        "hiring_net_pressure": 1,
+        "retrenchment_count": 270,
+        "retrenchment_trend_4q_pct": 8,
+        "re_entry_rate_6m": 65,
+        "re_entry_rate_12m": 78.5
+      }
+    },
+    {
+      "cluster_key": "production_transport",
+      "cluster_label": "Production & Transport Operators, Cleaners & Labourers",
+      "data_as_of": "2025 Q4",
+      "quarterly": [
+        {
+          "quarter": "2024 Q3",
+          "vacancy_rate": 1.7,
+          "retrenchment_count": 410
+        },
+        {
+          "quarter": "2024 Q4",
+          "vacancy_rate": 2.4,
+          "retrenchment_count": 470
+        },
+        {
+          "quarter": "2025 Q1",
+          "retrenchment_count": 630
+        },
+        {
+          "quarter": "2025 Q2",
+          "retrenchment_count": 380
+        },
+        {
+          "quarter": "2025 Q3",
+          "vacancy_rate": 2,
+          "retrenchment_count": 150
+        },
+        {
+          "quarter": "2025 Q4",
+          "vacancy_rate": 2.8,
+          "retrenchment_count": 280
+        }
+      ],
+      "latest": {
+        "quarter": "2025 Q4",
+        "vacancy_rate": 2.8,
+        "vacancy_trend_4q_pct": 16.67,
+        "hiring_recruitment_rate": 2.4,
+        "hiring_resignation_rate": 1.5,
+        "hiring_net_pressure": 0.9,
+        "retrenchment_count": 280,
+        "retrenchment_trend_4q_pct": -40.43,
+        "re_entry_rate_6m": 64.8,
+        "re_entry_rate_12m": 78.1
+      }
+    }
+  ]
+}

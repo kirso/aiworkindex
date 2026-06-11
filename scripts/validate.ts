@@ -107,6 +107,15 @@ const IMF_CONVERGENCE_FILE = path.join(
 	'backtests',
 	'imf-convergence.json'
 );
+const FORECAST_HORIZON_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'backtests',
+	'forecast-horizon-validation.json'
+);
 const OCCUPATION_FAMILY_VALIDATION_FILE = path.join(
 	import.meta.dir,
 	'..',
@@ -1112,6 +1121,8 @@ async function main() {
 				sensitivity_fidelity_ok?: boolean | null;
 				imf_top_half_exposed_share_pct?: number | null;
 				imf_top_half_high_to_low_ratio?: number | null;
+				forecast_horizon_status?: string | null;
+				forecast_horizon_post_baseline_quarters?: number | null;
 				occupation_family_validation_rho?: number | null;
 				occupation_family_validation_family_count?: number | null;
 				occupation_family_validation_significant?: boolean | null;
@@ -1220,6 +1231,12 @@ async function main() {
 				}
 			>;
 		}>(IMF_CONVERGENCE_FILE);
+		const forecastHorizon = readJson<{
+			non_promoted?: boolean;
+			status?: string;
+			post_baseline_quarters_available?: number;
+			protocol?: { naive_benchmark?: string; promotion_gate?: string };
+		}>(FORECAST_HORIZON_FILE);
 		const occupationFamilyValidation = readJson<{
 			family_count: number;
 			spearman_rho: number;
@@ -1688,6 +1705,9 @@ async function main() {
 				) &&
 				(releaseManifest?.artifacts ?? []).some(
 					artifact => artifact.file === 'backtests/imf-convergence.json'
+				) &&
+				(releaseManifest?.artifacts ?? []).some(
+					artifact => artifact.file === 'backtests/forecast-horizon-validation.json'
 				) &&
 				(releaseManifest?.artifacts ?? []).some(
 					artifact => artifact.file === 'forecast-readiness-v7.json'
@@ -2475,6 +2495,47 @@ async function main() {
 				JSON.stringify(occupationFamilyValidation)
 			);
 			check('Sensitivity analysis artifact exists', sensitivityAnalysis !== null);
+			check('Forecast-horizon sidecar artifact exists', forecastHorizon !== null);
+			check(
+				'Forecast-horizon sidecar is marked non-promoted with a published protocol',
+				forecastHorizon?.non_promoted === true &&
+					typeof forecastHorizon?.protocol?.naive_benchmark === 'string' &&
+					typeof forecastHorizon?.protocol?.promotion_gate === 'string',
+				JSON.stringify({ non_promoted: forecastHorizon?.non_promoted })
+			);
+			check(
+				'Forecast-horizon status is coherent with available quarters',
+				(forecastHorizon?.post_baseline_quarters_available === 0 &&
+					forecastHorizon?.status === 'pending_sufficient_quarters') ||
+					((forecastHorizon?.post_baseline_quarters_available ?? 0) >= 1 &&
+						forecastHorizon?.status === 'directional'),
+				`${forecastHorizon?.status} @ ${forecastHorizon?.post_baseline_quarters_available} quarters`
+			);
+			check(
+				'Forecast-horizon sidecar is not referenced as SSOC-level evidence',
+				['src/routes/occupation/[ssoc]/+page.svelte', 'src/routes/role/[slug]/+page.svelte'].every(
+					pagePath =>
+						!fs
+							.readFileSync(path.join(import.meta.dir, '..', pagePath), 'utf-8')
+							.includes('forecast-horizon')
+				)
+			);
+			check(
+				'Site status forecast-horizon summary matches artifact',
+				siteStatus?.live_monitor?.forecast_horizon_status === (forecastHorizon?.status ?? null) &&
+					siteStatus?.live_monitor?.forecast_horizon_post_baseline_quarters ===
+						(forecastHorizon?.post_baseline_quarters_available ?? null),
+				JSON.stringify({
+					siteStatus: {
+						status: siteStatus?.live_monitor?.forecast_horizon_status,
+						quarters: siteStatus?.live_monitor?.forecast_horizon_post_baseline_quarters
+					},
+					artifact: {
+						status: forecastHorizon?.status,
+						quarters: forecastHorizon?.post_baseline_quarters_available
+					}
+				})
+			);
 			check('IMF convergence artifact exists', imfConvergence !== null);
 			check(
 				'IMF convergence leads with the percentile-internal framing caveat',

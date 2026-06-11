@@ -1,0 +1,71 @@
+{
+  "validation_date": "2026-06-11",
+  "model_version": "V7",
+  "non_promoted": true,
+  "sidecar_rules": [
+    "Never folded into headline scores.",
+    "Never shown as SSOC-level evidence on occupation or role pages.",
+    "Activates only as official post-baseline quarters land; no forecast claim is made before the promotion gate."
+  ],
+  "frozen_baseline": {
+    "snapshot_file": "data/snapshots/occupations-v7-2026-05.json",
+    "baseline_quarter": "2026 Q2",
+    "cluster_risk": [
+      {
+        "cluster_key": "pmet",
+        "avg_net_risk": 0.1887,
+        "occupation_count": 365
+      },
+      {
+        "cluster_key": "clerical_sales_service",
+        "avg_net_risk": 0.313,
+        "occupation_count": 88
+      },
+      {
+        "cluster_key": "production_transport",
+        "avg_net_risk": 0.0801,
+        "occupation_count": 109
+      }
+    ]
+  },
+  "post_baseline_quarters_available": 0,
+  "status": "pending_sufficient_quarters",
+  "horizons": [
+    {
+      "horizon": "t+1Q",
+      "target_quarter": "2026 Q3",
+      "status": "no_data_yet",
+      "outcomes": null
+    },
+    {
+      "horizon": "t+2Q",
+      "target_quarter": "2026 Q4",
+      "status": "no_data_yet",
+      "outcomes": null
+    },
+    {
+      "horizon": "t+4Q",
+      "target_quarter": "2027 Q2",
+      "status": "no_data_yet",
+      "outcomes": null
+    }
+  ],
+  "protocol": {
+    "design": "Cluster-level structural risk frozen at the baseline snapshot is rank-correlated (tie-corrected Spearman) against realized changes in official outcomes at t+1Q, t+2Q, and t+4Q, with directional calls pooled across quarters and outcomes into an exact binomial sign test.",
+    "outcomes_v1": [
+      "vacancy_rate",
+      "retrenchment_count"
+    ],
+    "naive_benchmark": "Random-walk (no-change) and historical-trend continuation. The frozen ranking must beat the naive benchmark before any forecast-skill claim is made.",
+    "pooling_rule": "Directional calls accumulate across quarters and outcomes toward a sample where an exact binomial sign test has power (~24 calls after ~8 quarters); no pass/fail claim is published from underpowered samples.",
+    "promotion_gate": "At least 4 post-baseline quarters of official outcome data before any result is promoted beyond this sidecar.",
+    "pre_registration": "The frozen snapshot is committed in-repo (git-timestamped) before outcome data exists; the protocol above is published with zero post-baseline quarters so the test cannot be tuned after seeing outcomes."
+  },
+  "summary": "Harness built and protocol published. The labour monitor ends at 2025 Q4, which precedes the frozen 2026 Q2 baseline, so no horizon test is possible yet — status is pending_sufficient_quarters. No forecast evidence exists or is claimed.",
+  "caveats": [
+    "Three clusters only — any single-quarter directional result is statistically uninformative on its own; only the pooled sign test across quarters and outcomes carries evidential weight.",
+    "Hiring net pressure and re-entry rates are published as latest-quarter snapshots, not quarterly series, so v1 horizons cover vacancy rate and retrenchment count only.",
+    "Postings volume, AI-skill share, and wage movement are reserved for v2 panels per forecast-readiness.",
+    "This artifact is a sidecar: it never feeds headline scores and is not occupation-level evidence."
+  ]
+}

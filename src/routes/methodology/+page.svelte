@@ -8,6 +8,7 @@
 	import calibrationDiagnostics from '$lib/data/backtests/calibration-diagnostics.json';
 	import sensitivityAnalysis from '$lib/data/backtests/sensitivity-analysis.json';
 	import imfConvergence from '$lib/data/backtests/imf-convergence.json';
+	import forecastHorizonValidation from '$lib/data/backtests/forecast-horizon-validation.json';
 	import occupationFamilyValidation from '$lib/data/backtests/occupation-family-validation.json';
 	import { dataSourceRegistry } from '$lib/data/data-contract';
 	import claimsMatrix from '$lib/data/claims-matrix.json';
@@ -1239,6 +1240,35 @@
 						&mdash; it says nothing about whether the input data measure true displacement pressure. Full
 						results in
 						<code class="rounded bg-muted px-1">data/backtests/sensitivity-analysis.json</code>.
+					</p>
+				</div>
+
+				<div class={cn(card({ padding: 'sm' }), 'mt-3')}>
+					<h3 class="text-sm font-semibold text-foreground mb-2">
+						Forecast Horizons (sidecar, not promoted)
+					</h3>
+					<p class="text-sm text-muted-foreground">
+						We have frozen the May 2026 cluster-level risk ranking (<code
+							class="rounded bg-muted px-1">data/snapshots/occupations-v7-2026-05.json</code
+						>, git-timestamped) and published the test protocol before any outcome data exists:
+						realized changes in official vacancy and retrenchment outcomes at t+1Q, t+2Q, and t+4Q,
+						scored against a random-walk naive benchmark, with directional calls pooled across
+						quarters and outcomes into an exact binomial sign test.
+						<strong>
+							{forecastHorizonValidation.post_baseline_quarters_available} post-baseline quarters are
+							available today</strong
+						>
+						&mdash; the labour monitor ends before the frozen baseline &mdash; so no horizon result exists
+						yet and none is claimed. Status:
+						<code class="rounded bg-muted px-1">{forecastHorizonValidation.status}</code>.
+					</p>
+					<p class="mt-3 text-xs text-muted-foreground italic">
+						This harness activates as MOM publishes new quarters and is promoted only after at least
+						4 post-baseline quarters. It is a sidecar: never folded into headline scores and never
+						shown as occupation-level evidence. Protocol and current state in
+						<code class="rounded bg-muted px-1"
+							>data/backtests/forecast-horizon-validation.json</code
+						>.
 					</p>
 				</div>
 

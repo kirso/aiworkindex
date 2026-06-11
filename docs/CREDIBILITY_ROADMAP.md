@@ -54,10 +54,16 @@ Validation = occupation-level; context = firm/sector-level. Do not conflate.
 - BLS-2034 extension: extend the existing `validate-bls-crosswalk.ts` / calibration diagnostics
   with the Anthropic-style slope specification (projected-growth change per exposure increment),
   explicitly distinguished from realized outcomes. No duplicate validation story.
-- SSG "AI Potential on Tasks" convergence: **discovery spike first** — verify the dashboard's
-  ~37k Skills-Framework task scores are extractable in usable form (portal blocks automated
-  fetching). Only if accessible does it become an artifact; potentially the strongest
-  Singapore-native exposure benchmark (answers the Lewandowski crosswalk critique).
+- SSG "AI Potential on Tasks" convergence: **spike resolved (June 2026) — extractable but
+  licence-gated; no artifact unless permission is granted or we independently re-score official
+  task statements.** Technical access is trivial (the full 38,158-record dataset is server-rendered
+  in the dashboard page; the official Skills Framework XLSX downloads freely from file.go.gov.sg
+  and joins 85.4% exact), but the portal ToU prohibits scraping/redistribution and the data is not
+  on data.gov.sg, so no open licence applies. Path forward (needs a personal decision): (a) email
+  SSG for written permission, and/or (b) re-score the official task statements with our own
+  documented Eloundou-style rubric, holding SSG's classifications privately as a correlation
+  check only. Still potentially the strongest Singapore-native exposure benchmark (answers the
+  Lewandowski crosswalk critique).
 
 ### Slice 3 — forecast-horizon sidecar (modest)
 

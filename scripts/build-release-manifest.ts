@@ -370,6 +370,13 @@ const ARTIFACTS: ReleaseArtifactDefinition[] = [
 			'Family-level convergent validation aggregating occupations to 2-digit SSOC families before comparing structural risk with BLS projected employment change.'
 	},
 	{
+		file: 'backtests/forecast-horizon-validation.json',
+		label: 'Forecast-horizon sidecar',
+		category: 'governance',
+		description:
+			'Non-promoted forecast-horizon harness: frozen May 2026 cluster risk vs official outcomes at t+1Q/t+2Q/t+4Q, with the pre-registered protocol, naive benchmark, and 4-quarter promotion gate published while post-baseline quarters are still zero.'
+	},
+	{
 		file: 'backtests/imf-convergence.json',
 		label: 'IMF Singapore convergence',
 		category: 'governance',

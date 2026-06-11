@@ -1,6 +1,6 @@
 {
   "version": "V7",
-  "generated_at": "2026-06-11T10:27:00.398Z",
+  "generated_at": "2026-06-11T10:50:05.475Z",
   "score_dataset_generated_at": "2026-06-11",
   "artifacts": [
     {
@@ -206,9 +206,9 @@
       "label": "Forecast readiness matrix",
       "category": "forecast_readiness",
       "description": "Non-promoted V7 source, duplication, and validation-gate matrix for moving from structural pressure to forecast-grade labour-market claims.",
-      "bytes": 19584,
-      "sha256": "1a213c55e8a9bff9b25d47abe23ef9317eb2aac05fd96d3773d6867a825ad6cf",
-      "generated_at": "2026-06-07T11:57:25.046Z"
+      "bytes": 20182,
+      "sha256": "f06e61f88a6781166d3023ba55e0b84775bc0e5dff6b96dea0e445ba7d43958e",
+      "generated_at": "2026-06-11T10:50:05.422Z"
     },
     {
       "file": "experimental-methodology-v43.json",
@@ -368,9 +368,9 @@
       "label": "Public site status",
       "category": "governance",
       "description": "Canonical public status object covering current structural release, live monitor vintage, and latest official update state.",
-      "bytes": 3742,
-      "sha256": "db7c93b445b5f4fcecea5f2f0d8c02764407fc8b2eae0c582d3ab70ce4077146",
-      "generated_at": "2026-06-11T10:27:00.375Z"
+      "bytes": 3854,
+      "sha256": "10aef690354777c6d861d621cbf61ad6f28d5380a4d1193b784d3a7fc77c164c",
+      "generated_at": "2026-06-11T10:50:05.451Z"
     },
     {
       "file": "releases.json",
@@ -379,7 +379,7 @@
       "description": "Ordered release and update history spanning structural releases, quarterly briefings, and official monitor updates.",
       "bytes": 10278,
       "sha256": "3aafd04f61047e656668fa747dceecb95a8ee02034a7afcd93bda20b2b446c41",
-      "generated_at": "2026-06-11T10:27:00.376Z"
+      "generated_at": "2026-06-11T10:50:05.452Z"
     },
     {
       "file": "backtests/current-validation.json",
@@ -425,6 +425,15 @@
       "bytes": 5785,
       "sha256": "5ebb89d60047d098bd958ce6e1c586aab0619d663fbe3e999420dd6e176c19aa",
       "generated_at": "2026-06-07T11:57:10.957Z"
+    },
+    {
+      "file": "backtests/forecast-horizon-validation.json",
+      "label": "Forecast-horizon sidecar",
+      "category": "governance",
+      "description": "Non-promoted forecast-horizon harness: frozen May 2026 cluster risk vs official outcomes at t+1Q/t+2Q/t+4Q, with the pre-registered protocol, naive benchmark, and 4-quarter promotion gate published while post-baseline quarters are still zero.",
+      "bytes": 3360,
+      "sha256": "325c0c3f8047a93c3bb555482417ef7307eb5ceeeb4feb478fde6364c3cf2d61",
+      "generated_at": "2026-06-11T10:44:55.823Z"
     },
     {
       "file": "backtests/imf-convergence.json",

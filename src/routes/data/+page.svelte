@@ -605,12 +605,7 @@
 		const forecastReadiness = forecastReadinessData as {
 			status: string;
 			summary: {
-				status_counts: {
-					ready_for_directional_validation: number;
-					partial_proxy_needs_snapshots: number;
-					source_available_not_modeled: number;
-					protocol_only: number;
-				};
+				status_counts: Record<string, number>;
 				mom_ai_adopting_firms_pct: number;
 				postings_latest_posted_date: string | null;
 			};
