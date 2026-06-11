@@ -111,38 +111,15 @@
 		Skip to content
 	</a>
 
-	<!-- Header: Signal — clean white bar, minimal chrome -->
-	<header
-		class="sticky top-0 z-50 border-b border-border/40 bg-header-bg/75 backdrop-blur-lg backdrop-saturate-[1.15]"
-	>
+	<!-- Header: Swiss editorial — signal topline, solid white bar, strong rule -->
+	<div class="h-[5px] bg-primary"></div>
+	<header class="sticky top-0 z-50 border-b border-foreground bg-header-bg">
 		<div class="mx-auto max-w-screen-2xl px-5 sm:px-6 flex items-center justify-between h-12">
 			<a
 				href="/"
 				class="flex items-center gap-2 text-header-text transition-colors hover:text-primary"
 			>
-				<svg class="h-5 w-5" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-					<rect width="32" height="32" rx="6" class="fill-primary" />
-					<rect x="8" y="9" width="14" height="4" rx="2" fill="white" opacity="0.9" />
-					<rect
-						x="8"
-						y="15"
-						width="10"
-						height="4"
-						rx="2"
-						class="fill-risk-moderate"
-						opacity="0.85"
-					/>
-					<rect
-						x="8"
-						y="21"
-						width="6"
-						height="4"
-						rx="2"
-						class="fill-risk-very-low"
-						opacity="0.85"
-					/>
-				</svg>
-				<span class="text-sm font-bold tracking-tight">{SITE.name}</span>
+				<span class="text-sm font-black uppercase tracking-tight">{SITE.name}</span>
 			</a>
 
 			<!-- Desktop nav -->
