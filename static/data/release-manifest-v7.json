@@ -1,6 +1,6 @@
 {
   "version": "V7",
-  "generated_at": "2026-06-11T10:07:45.448Z",
+  "generated_at": "2026-06-11T10:21:35.282Z",
   "score_dataset_generated_at": "2026-06-11",
   "artifacts": [
     {
@@ -369,8 +369,8 @@
       "category": "governance",
       "description": "Canonical public status object covering current structural release, live monitor vintage, and latest official update state.",
       "bytes": 3655,
-      "sha256": "682e56d98d72b583ceccf6cffd5edd70e9ca3b745553522fdebe7bd8abc2a337",
-      "generated_at": "2026-06-11T10:07:45.425Z"
+      "sha256": "6ecd748ce2e2823bd62390bcf1eb384ea6db48d9ac691ef2dbb3946f7ee5c3e1",
+      "generated_at": "2026-06-11T10:21:35.259Z"
     },
     {
       "file": "releases.json",
@@ -379,7 +379,7 @@
       "description": "Ordered release and update history spanning structural releases, quarterly briefings, and official monitor updates.",
       "bytes": 10278,
       "sha256": "3aafd04f61047e656668fa747dceecb95a8ee02034a7afcd93bda20b2b446c41",
-      "generated_at": "2026-06-11T10:07:45.425Z"
+      "generated_at": "2026-06-11T10:21:35.259Z"
     },
     {
       "file": "backtests/current-validation.json",
@@ -395,9 +395,9 @@
       "label": "BLS crosswalk validation",
       "category": "governance",
       "description": "Cross-country convergent validation artifact comparing structural risk against US BLS projected employment change.",
-      "bytes": 2729,
-      "sha256": "32aa23d8bbf2342d7f0f12fb2231d9b000252772ea47e742611392c263f81bee",
-      "generated_at": "2026-06-07T11:57:11.410Z"
+      "bytes": 3357,
+      "sha256": "439c5168d76616f358dcf819e21c8b42e301e69b26760fb739d2cc9cf814646c",
+      "generated_at": "2026-06-11T10:20:17.033Z"
     },
     {
       "file": "backtests/multi-period-validation.json",

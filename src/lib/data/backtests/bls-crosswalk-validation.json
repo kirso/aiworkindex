@@ -1,5 +1,5 @@
 {
-  "validation_date": "2026-06-07",
+  "validation_date": "2026-06-11",
   "bls_data_period": "2024-2034 projections",
   "model_version": "V7",
   "sample_size": 530,
@@ -11,6 +11,17 @@
   "p_value_below_01": true,
   "direction": "negative",
   "interpretation": "Spearman rho = -0.1385 indicates a negative correlation between our structural risk scores and BLS projected employment change. Higher risk scores are associated with lower (or negative) projected employment growth. The very_high risk band is the only band with projected negative employment growth (-4.8%). The top three risk bands show monotonically decreasing BLS projected growth. The modest correlation is expected: BLS projections include non-AI factors (demographics, trade, policy), while our model measures AI-specific structural pressure.",
+  "slope_specification": {
+    "design": "OLS of BLS 2024-2034 projected percent employment change on net_risk — the same projected-growth regression design as Anthropic Massenkoff & McCrory (March 2026), who found -0.6pp per +10pp observed task coverage. Different exposure measure, so compare design and direction, not magnitude.",
+    "slope_per_unit_net_risk": -10.13,
+    "slope_per_10pp_net_risk": -1.01,
+    "intercept": 4.31,
+    "slope_t_statistic": -7.06,
+    "slope_p_value_below_001": true,
+    "slope_p_value_below_01": true,
+    "anthropic_benchmark_per_10pp": -0.6,
+    "direction_matches_anthropic": true
+  },
   "by_risk_band": {
     "very_low": {
       "count": 128,

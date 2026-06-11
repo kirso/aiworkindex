@@ -282,6 +282,41 @@ function main() {
 	console.log(`p-value (approx): ${pValue.toFixed(6)}`);
 	console.log(`Direction: ${rho < 0 ? 'negative (expected)' : 'positive (unexpected)'}\n`);
 
+	// 4b. OLS slope specification — the same design Anthropic's labour-market
+	// study (Massenkoff & McCrory, March 2026) used against BLS 2024-2034
+	// projections: regress projected percent employment change on the exposure
+	// measure and report the growth change per +10pp of the measure. Their
+	// observed-exposure result was -0.6pp per +10pp task coverage; ours uses
+	// net_risk, a different measure, so the comparison is design + direction,
+	// not magnitude.
+	const meanRisk = risks.reduce((s, v) => s + v, 0) / n;
+	const meanChange = blsChanges.reduce((s, v) => s + v, 0) / n;
+	let sxx = 0;
+	let sxy = 0;
+	for (let i = 0; i < n; i++) {
+		const dx = risks[i] - meanRisk;
+		sxx += dx * dx;
+		sxy += dx * (blsChanges[i] - meanChange);
+	}
+	const slope = sxy / sxx;
+	const intercept = meanChange - slope * meanRisk;
+	let sse = 0;
+	for (let i = 0; i < n; i++) {
+		const resid = blsChanges[i] - (intercept + slope * risks[i]);
+		sse += resid * resid;
+	}
+	const slopeSe = Math.sqrt(sse / (n - 2) / sxx);
+	const slopeT = slope / slopeSe;
+	const slopePValue = tDistPValue(slopeT, n - 2);
+	const slopePer10pp = slope * 0.1;
+
+	console.log(`OLS slope: ${slope.toFixed(2)}pp projected growth per +1.0 net_risk`);
+	console.log(
+		`  = ${slopePer10pp.toFixed(2)}pp per +0.10 net_risk (t = ${slopeT.toFixed(2)}, p ${
+			slopePValue < 0.001 ? '< 0.001' : `= ${slopePValue.toFixed(4)}`
+		})\n`
+	);
+
 	// 5. Average BLS change per risk band
 	const bands = ['very_low', 'low', 'moderate', 'high', 'very_high'] as const;
 	const byBand: Record<
@@ -347,6 +382,18 @@ function main() {
 		p_value_below_01: pValue < 0.01,
 		direction: rho < 0 ? 'negative' : 'positive',
 		interpretation,
+		slope_specification: {
+			design:
+				'OLS of BLS 2024-2034 projected percent employment change on net_risk — the same projected-growth regression design as Anthropic Massenkoff & McCrory (March 2026), who found -0.6pp per +10pp observed task coverage. Different exposure measure, so compare design and direction, not magnitude.',
+			slope_per_unit_net_risk: Number(slope.toFixed(2)),
+			slope_per_10pp_net_risk: Number(slopePer10pp.toFixed(2)),
+			intercept: Number(intercept.toFixed(2)),
+			slope_t_statistic: Number(slopeT.toFixed(2)),
+			slope_p_value_below_001: slopePValue < 0.001,
+			slope_p_value_below_01: slopePValue < 0.01,
+			anthropic_benchmark_per_10pp: -0.6,
+			direction_matches_anthropic: slopePer10pp < 0
+		},
 		by_risk_band: byBand,
 		caveats: [
 			'BLS projections cover 2024-2034 and include non-AI factors (demographics, trade, immigration, policy)',

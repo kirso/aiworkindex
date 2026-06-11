@@ -1042,6 +1042,17 @@
 						<strong>&rho; = {blsValidation.spearman_rho}</strong> (p &lt; 0.01, n = {blsValidation.sample_size}).
 						Higher risk scores are associated with weaker projected employment growth.
 					</p>
+					<p class="mt-3 text-sm text-muted-foreground">
+						The slope specification &mdash; the same projected-growth regression design Anthropic
+						(Massenkoff &amp; McCrory, March 2026) used against these BLS projections &mdash; gives
+						<strong
+							>{blsValidation.slope_specification.slope_per_10pp_net_risk}pp lower projected
+							employment growth per +0.10 net_risk</strong
+						>
+						(p &lt; 0.001). Anthropic's observed-exposure measure found &minus;0.6pp per +10pp task coverage.
+						The measures differ, so this is a design-and-direction convergence, not a magnitude match
+						&mdash; but both find that higher measured pressure predicts weaker projected growth.
+					</p>
 					<div class="mt-3 overflow-x-auto">
 						<table class="w-full text-left text-sm">
 							<thead>

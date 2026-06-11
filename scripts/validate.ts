@@ -1147,6 +1147,11 @@ async function main() {
 		const blsBacktest = readJson<{
 			sample_size: number;
 			spearman_rho: number;
+			slope_specification?: {
+				slope_per_10pp_net_risk: number;
+				slope_p_value_below_001: boolean;
+				direction_matches_anthropic: boolean;
+			};
 		}>(BLS_BACKTEST_FILE);
 		const multiPeriodBacktest = readJson<{
 			metrics?: {
@@ -1965,6 +1970,17 @@ async function main() {
 		}
 		check('Current cluster backtest artifact exists', currentBacktest !== null);
 		check('BLS crosswalk validation artifact exists', blsBacktest !== null);
+		check(
+			'BLS projected-growth slope is negative and significant',
+			(blsBacktest?.slope_specification?.slope_per_10pp_net_risk ?? 0) < 0 &&
+				blsBacktest?.slope_specification?.slope_p_value_below_001 === true,
+			JSON.stringify(blsBacktest?.slope_specification)
+		);
+		check(
+			'BLS slope direction matches the Anthropic projected-growth benchmark',
+			blsBacktest?.slope_specification?.direction_matches_anthropic === true,
+			String(blsBacktest?.slope_specification?.direction_matches_anthropic)
+		);
 		check('Multi-period validation artifact exists', multiPeriodBacktest !== null);
 		check('Calibration diagnostics artifact exists', calibrationDiagnostics !== null);
 		check('Occupation-family validation artifact exists', occupationFamilyValidation !== null);
