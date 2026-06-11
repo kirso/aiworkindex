@@ -675,19 +675,6 @@
 					</p>
 				</div>
 			</div>
-
-			{#if occ.workflow_overlay}
-				<div class="mt-5 pt-5 border-t border-border">
-					<p class={cn(caption({ weight: 'semibold' }), 'mb-2 text-foreground')}>Role profile</p>
-					<p class={cn(caption(), 'mb-3')}>
-						How this role's work breaks down across key dimensions. This is a general profile, not
-						an individual measurement.
-					</p>
-					<div class="flex justify-center">
-						<WorkflowRadar dimensions={occ.workflow_overlay} size={240} />
-					</div>
-				</div>
-			{/if}
 		</div>
 	</section>
 
@@ -815,49 +802,6 @@
 						</p>
 					</div>
 				{/if}
-
-				<div class={card({ padding: 'sm' })}>
-					<p class={cn(microLabel(), 'mb-1')}>How this changes by career stage</p>
-					<p class={cn(caption(), 'mb-3')}>
-						Senior workers benefit from institutional knowledge and judgment that AI cannot
-						replicate. Entry-level roles have higher task overlap with AI.
-					</p>
-					<div class="space-y-2">
-						<div
-							class={cn(
-								card({ padding: 'sm', variant: 'inset' }),
-								'flex items-center justify-between'
-							)}
-						>
-							<span class={caption()}>Junior / Entry-level</span>
-							<span class={caption({ weight: 'medium' })}
-								><span class="text-risk-high">Higher AI displacement risk</span></span
-							>
-						</div>
-						<div
-							class={cn(
-								card({ padding: 'sm', variant: 'inset' }),
-								'flex items-center justify-between'
-							)}
-						>
-							<span class={caption()}>Mid-career</span>
-							<span class={cn(caption({ weight: 'medium' }), 'text-foreground')}
-								>Standard risk profile</span
-							>
-						</div>
-						<div
-							class={cn(
-								card({ padding: 'sm', variant: 'inset' }),
-								'flex items-center justify-between'
-							)}
-						>
-							<span class={caption()}>Senior / Lead</span>
-							<span class={caption({ weight: 'medium' })}
-								><span class="text-risk-very-low">More protected by experience</span></span
-							>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
 	</section>
@@ -1287,6 +1231,64 @@
 					</div>
 				</details>
 			{/if}
+
+			<!-- Role profile (moved from Why This Score) -->
+			{#if occ.workflow_overlay}
+				<div class="mt-5 pt-5 border-t border-border">
+					<p class={cn(caption({ weight: 'semibold' }), 'mb-2 text-foreground')}>Role profile</p>
+					<p class={cn(caption(), 'mb-3')}>
+						How this role's work breaks down across key dimensions. This is a general profile, not
+						an individual measurement.
+					</p>
+					<div class="flex justify-center">
+						<WorkflowRadar dimensions={occ.workflow_overlay} size={240} />
+					</div>
+				</div>
+			{/if}
+
+			<!-- Career-stage modifiers (moved from Singapore Now) -->
+			<div class={card({ padding: 'sm' })}>
+				<p class={cn(microLabel(), 'mb-1')}>How this changes by career stage</p>
+				<p class={cn(caption(), 'mb-3')}>
+					Senior workers benefit from institutional knowledge and judgment that AI cannot replicate.
+					Entry-level roles have higher task overlap with AI.
+				</p>
+				<div class="space-y-2">
+					<div
+						class={cn(
+							card({ padding: 'sm', variant: 'inset' }),
+							'flex items-center justify-between'
+						)}
+					>
+						<span class={caption()}>Junior / Entry-level</span>
+						<span class={caption({ weight: 'medium' })}
+							><span class="text-risk-high">Higher AI displacement risk</span></span
+						>
+					</div>
+					<div
+						class={cn(
+							card({ padding: 'sm', variant: 'inset' }),
+							'flex items-center justify-between'
+						)}
+					>
+						<span class={caption()}>Mid-career</span>
+						<span class={cn(caption({ weight: 'medium' }), 'text-foreground')}
+							>Standard risk profile</span
+						>
+					</div>
+					<div
+						class={cn(
+							card({ padding: 'sm', variant: 'inset' }),
+							'flex items-center justify-between'
+						)}
+					>
+						<span class={caption()}>Senior / Lead</span>
+						<span class={caption({ weight: 'medium' })}
+							><span class="text-risk-very-low">More protected by experience</span></span
+						>
+					</div>
+				</div>
+			</div>
 		</Collapsible.Content>
 	</Collapsible.Root>
 
