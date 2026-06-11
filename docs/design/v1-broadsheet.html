@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Secretary — AI Work Index (V1 Broadsheet)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Archivo:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --paper:#faf6ef; --ink:#191512; --ink-2:#5c534a; --ink-3:#8a7f74;
+  --rule:#d8cfc2; --rule-strong:#191512;
+  --accent:#7a2e1f;
+  --risk-vh:#a31621; --risk-h:#c05621; --risk-m:#b7950b; --risk-l:#3f6e4e; --risk-vl:#2d5a45;
+  --chip-bg:#f1ebe0;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:'Archivo',sans-serif;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:980px;margin:0 auto;padding:0 32px 80px}
+/* masthead */
+.masthead{display:flex;justify-content:space-between;align-items:baseline;padding:18px 0 14px;border-bottom:3px double var(--rule-strong)}
+.masthead .brand{font-family:'Newsreader',serif;font-size:21px;font-weight:600;letter-spacing:-.01em}
+.masthead nav{display:flex;gap:22px;font-size:13.5px;color:var(--ink-2)}
+.masthead nav a{color:inherit;text-decoration:none}
+.crumb{font-size:12.5px;color:var(--ink-3);padding:14px 0 0;font-family:'Spline Sans Mono',monospace;text-transform:uppercase;letter-spacing:.08em}
+/* hero */
+.hero{display:grid;grid-template-columns:300px 1fr;gap:48px;padding:34px 0 38px;border-bottom:1px solid var(--rule)}
+.score-num{font-family:'Newsreader',serif;font-size:128px;line-height:.9;font-weight:500;letter-spacing:-.03em;font-feature-settings:'tnum'}
+.score-num sup{font-size:40px;font-weight:400;color:var(--ink-2);vertical-align:super}
+.score-label{font-family:'Spline Sans Mono',monospace;font-size:11.5px;text-transform:uppercase;letter-spacing:.14em;color:var(--ink-2);margin-bottom:10px}
+.band{display:inline-flex;align-items:center;gap:7px;margin-top:14px;font-weight:600;font-size:14px;color:var(--risk-vh)}
+.band .sq{width:11px;height:11px;background:var(--risk-vh)}
+.range{font-family:'Spline Sans Mono',monospace;font-size:12.5px;color:var(--ink-3);margin-top:8px}
+.hero h1{font-family:'Newsreader',serif;font-size:46px;font-weight:600;letter-spacing:-.015em;line-height:1.05}
+.kicker{font-family:'Spline Sans Mono',monospace;font-size:12px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+.dek{font-family:'Newsreader',serif;font-size:21px;line-height:1.45;color:var(--ink-2);margin-top:14px;max-width:34em}
+.dek strong{color:var(--ink);font-weight:600}
+.meta{display:flex;flex-wrap:wrap;gap:8px 26px;margin-top:22px;font-family:'Spline Sans Mono',monospace;font-size:12.5px;color:var(--ink-2)}
+.meta b{color:var(--ink);font-weight:500}
+.note{margin-top:18px;font-size:13px;color:var(--ink-3);border-left:2px solid var(--rule);padding-left:12px;max-width:36em}
+/* section */
+section{padding:34px 0;border-bottom:1px solid var(--rule)}
+.sec-head{font-family:'Spline Sans Mono',monospace;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.16em;color:var(--ink);margin-bottom:22px;display:flex;align-items:center;gap:14px}
+.sec-head::after{content:'';flex:1;height:1px;background:var(--rule)}
+/* drivers */
+.driver{display:grid;grid-template-columns:220px 1fr 64px 110px;gap:18px;align-items:center;padding:9px 0}
+.driver + .driver{border-top:1px dotted var(--rule)}
+.d-name{font-weight:600;font-size:14.5px}
+.d-sub{font-size:12.5px;color:var(--ink-3);font-weight:400}
+.bar{height:10px;background:#ece5d8;position:relative}
+.bar i{position:absolute;inset:0 auto 0 0;display:block}
+.d-val{font-family:'Spline Sans Mono',monospace;font-size:14px;text-align:right;font-weight:500}
+.d-dir{font-family:'Spline Sans Mono',monospace;font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;text-align:right}
+.up{color:var(--risk-vh)} .down{color:var(--risk-l)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:30px}
+.split h3{font-family:'Newsreader',serif;font-size:18px;font-weight:600;margin-bottom:8px}
+.split p{color:var(--ink-2);font-size:14.5px}
+.task-list{margin-top:12px;list-style:none}
+.task-list li{padding:7px 0 7px 0;border-top:1px dotted var(--rule);font-size:13.5px;color:var(--ink-2);display:flex;gap:10px}
+.task-list li::before{content:'—';color:var(--ink-3);flex-shrink:0}
+.fineprint{font-size:12px;color:var(--ink-3);margin-top:10px;font-style:italic}
+/* chips: the 3-type contract */
+.datachip{display:inline-block;font-family:'Spline Sans Mono',monospace;font-size:12px;color:var(--ink-2);background:var(--chip-bg);padding:3px 9px;margin:0 6px 6px 0}
+.linkpill{display:inline-block;font-size:13px;font-weight:500;color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent);margin-right:18px;padding-bottom:1px}
+.linkpill::after{content:' ↗';font-size:11px}
+/* transitions table */
+table{width:100%;border-collapse:collapse;margin-top:6px}
+th{font-family:'Spline Sans Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-3);font-weight:500;text-align:left;padding:0 0 10px}
+th.r,td.r{text-align:right}
+td{padding:11px 0;border-top:1px solid var(--rule);font-size:14.5px}
+td .mono{font-family:'Spline Sans Mono',monospace;font-size:13.5px}
+.gain{color:var(--risk-l);font-weight:500}
+.warnbox{margin:18px 0 24px;padding:14px 16px;background:#f3e9e2;border-left:3px solid var(--accent);font-size:13.5px;color:#5a3a2e;max-width:46em}
+.warnbox a{color:var(--accent)}
+/* market strip */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.stat{padding:0 24px;border-left:1px solid var(--rule)}
+.stat:first-child{padding-left:0;border-left:none}
+.stat .k{font-family:'Spline Sans Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--ink-3)}
+.stat .v{font-family:'Newsreader',serif;font-size:34px;font-weight:500;margin-top:4px;font-feature-settings:'tnum'}
+.stat .t{font-size:12.5px;color:var(--ink-2);margin-top:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="masthead">
+    <span class="brand">AI Work Index</span>
+    <nav><a href="#">Find</a><a href="#">Browse</a><a href="#">Rankings</a><a href="#">Compare</a><a href="#">Methodology</a></nav>
+  </header>
+  <div class="crumb">Singapore · Clerical Support Workers · SSOC 41201</div>
+
+  <div class="hero">
+    <div>
+      <div class="score-label">AI Displacement Pressure</div>
+      <div class="score-num">63<sup>%</sup></div>
+      <div class="band"><span class="sq"></span>Very High · At Risk</div>
+      <div class="range">range 55.9 – 67.7 · v7 · Jun 2026</div>
+    </div>
+    <div>
+      <h1>Secretary</h1>
+      <p class="dek"><strong>87% of this job's tasks overlap with current AI</strong>, with only 2% human-bottleneck protection — higher structural pressure than 98% of Singapore occupations.</p>
+      <div class="meta">
+        <span>WAGE <b>SGD 5,035/mo</b> (3.7–6.8K)</span>
+        <span>WORKERS <b>~25,900</b></span>
+        <span>GROUP RANK <b>#7 of 43</b></span>
+        <span>WAGE VS GROUP <b>+58%</b></span>
+      </div>
+      <p class="note">This is structural pressure, not a prediction of job loss. Displacement tends to arrive through slower hiring, wage compression and role redesign before layoffs.</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="sec-head">Why this score</div>
+    <div class="driver">
+      <div><div class="d-name">AI capability overlap</div><div class="d-sub">4-source ensemble</div></div>
+      <div class="bar"><i style="width:87%;background:var(--risk-vh)"></i></div>
+      <div class="d-val">87%</div><div class="d-dir up">▲ raises</div>
+    </div>
+    <div class="driver">
+      <div><div class="d-name">Human bottleneck</div><div class="d-sub">judgment &amp; presence</div></div>
+      <div class="bar"><i style="width:2%;background:var(--risk-l)"></i></div>
+      <div class="d-val">2%</div><div class="d-dir down">▼ lowers</div>
+    </div>
+    <div class="driver">
+      <div><div class="d-name">Local hiring demand</div><div class="d-sub">vacancies, momentum, scarcity</div></div>
+      <div class="bar"><i style="width:50%;background:var(--risk-l)"></i></div>
+      <div class="d-val">50%</div><div class="d-dir down">▼ lowers</div>
+    </div>
+    <div class="driver">
+      <div><div class="d-name">Observed AI adoption</div><div class="d-sub">Anthropic task usage</div></div>
+      <div class="bar"><i style="width:74%;background:var(--risk-vh)"></i></div>
+      <div class="d-val">74%</div><div class="d-dir up">▲ raises</div>
+    </div>
+
+    <div class="split">
+      <div>
+        <h3>What AI already does here</h3>
+        <p>The most exposed secretary tasks, by observed AI usage:</p>
+        <ul class="task-list">
+          <li>Schedule and confirm appointments for clients or supervisors</li>
+          <li>Compose, type and distribute meeting notes and routine correspondence</li>
+          <li>Maintain scheduling and event calendars</li>
+        </ul>
+      </div>
+      <div>
+        <h3>What still needs a person</h3>
+        <p>Main insulation: <strong>non-routine work</strong> and <strong>high-stakes coordination</strong> — but at 2%, the thinnest protection in the clerical family.</p>
+        <ul class="task-list">
+          <li>Greet visitors and handle sensitive in-person matters</li>
+          <li>Manage confidential records under discretion</li>
+        </ul>
+        <p class="fineprint">Absence of observed AI usage, not proof of immunity.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">Singapore now · Q4 2025</div>
+    <div class="stats">
+      <div class="stat"><div class="k">Vacancy rate</div><div class="v">3.1%</div><div class="t">softer, not collapsing</div></div>
+      <div class="stat"><div class="k">Hiring vs quits</div><div class="v">1.5 / 0.9</div><div class="t">recruitment still leads</div></div>
+      <div class="stat"><div class="k">Retrenchment</div><div class="v">Low</div><div class="t">rising from low base</div></div>
+      <div class="stat"><div class="k">Re-entry 12m</div><div class="v">67.7%</div><div class="t">softening</div></div>
+    </div>
+  </section>
+
+  <section style="border-bottom:none">
+    <div class="sec-head">What you can do</div>
+    <div class="warnbox">
+      <strong>Few easy exits.</strong> This occupation sits in the structurally vulnerable quadrant — high pressure, and its best risk-reducing move ranks in the weakest quarter of exit options among high-risk occupations. <a href="#">See the full quadrant</a>.
+    </div>
+    <table>
+      <thead><tr><th>Best risk-reducing moves</th><th class="r">Risk change</th><th class="r">Feasibility</th><th class="r">Wage</th></tr></thead>
+      <tbody>
+        <tr><td>Material planning clerk</td><td class="r mono gain">−67pp</td><td class="r mono">moderate</td><td class="r mono">SGD 3,9K</td></tr>
+        <tr><td>Travel consultant / reservations</td><td class="r mono gain">−71pp</td><td class="r mono">moderate</td><td class="r mono">SGD 3,4K</td></tr>
+        <tr><td>Stock records clerk</td><td class="r mono gain">−92pp</td><td class="r mono">moderate</td><td class="r mono">SGD 2,7K</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:22px;font-size:13.5px;color:var(--ink-2)">Published support:</p>
+    <p style="margin-top:8px">
+      <a class="linkpill" href="#">Career Conversion Programmes</a>
+      <a class="linkpill" href="#">SkillsFuture Career Transition</a>
+      <a class="linkpill" href="#">Jobs Transformation Maps</a>
+    </p>
+    <p style="margin-top:18px">
+      <span class="datachip">SKILLS · process optimisation</span>
+      <span class="datachip">SKILLS · AI tool proficiency</span>
+      <span class="datachip">SKILLS · exception handling</span>
+    </p>
+  </section>
+</div>
+</body>
+</html>
