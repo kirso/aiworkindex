@@ -149,10 +149,11 @@
 				<span>Sensitivity-tested (band stability stress test)</span>
 			</div>
 			<div class="flex items-center gap-2 text-sm text-muted-foreground">
-				<span class="text-risk-very-low font-bold">&#10003;</span>
+				<span class="text-risk-moderate font-bold">~</span>
 				<span>
 					Cluster-level directional check only: {clusterChecksPassed}/{clusterChecksTotal} checks pass
-					({clusterValidation.data_period}, n = {clusterValidation.cluster_stats.length} clusters)
+					({clusterValidation.data_period}, n = {clusterValidation.cluster_stats.length} clusters) &mdash;
+					underpowered at this sample size; see Validation tab
 				</span>
 			</div>
 			<div class="flex items-center gap-2 text-sm text-muted-foreground">
@@ -944,9 +945,14 @@
 				<p class="text-sm font-semibold text-foreground">TL;DR</p>
 				<p class="mt-1 text-sm text-muted-foreground">
 					{clusterChecksPassed} of {clusterChecksTotal} cluster-level directional checks pass against
-					{clusterValidation.data_period} MOM data. BLS cross-country check shows weak but significant
-					negative correlation (rho = {blsValidation.spearman_rho}, p &lt; 0.01). This is a
-					structural pressure score, not a job-loss prediction.
+					{clusterValidation.data_period} MOM data &mdash; with only four binary checks this is statistically
+					indistinguishable from chance in either direction (a coin flip passes &ge;2 of 4 about 69% of
+					the time), so we treat it as underpowered by construction and accumulate checks across quarters
+					rather than claiming validation from it. BLS cross-country check shows a weak but significant
+					negative correlation (rho = {blsValidation.spearman_rho}, p &lt; 0.01) &mdash; a small
+					effect, consistent with field-wide findings that realized employment effects are not yet
+					detectable at the occupation-stock level. This is a structural pressure score, not a
+					job-loss prediction.
 				</p>
 			</div>
 
@@ -1652,14 +1658,59 @@
 						diffusion lag) and not actual job loss. There is
 						<strong>no adoption/diffusion-intensity variable</strong>
 						in the model; observed Claude usage (Anthropic) calibrates exposure but is not a substitute
-						for sector-level adoption data. Treat scores as structural pressure, not a forecast. The model
-						captures displacement but not reinstatement (Acemoglu &amp; Restrepo, 2019).
+						for sector-level adoption data. The best Singapore-native adoption evidence is MOM's inaugural
+						firm survey (April 2026): 28.5% of firms have begun adopting AI, and among adopters 6.2% report
+						reduced headcount versus 18.9% redesigning roles &mdash; we use this as context, never as
+						a score input. Treat scores as structural pressure, not a forecast. The model captures displacement
+						but not reinstatement (Acemoglu &amp; Restrepo, 2019) &mdash; historically the dominant long-run
+						channel: 60% of 2018 US employment was in job titles that did not exist in 1940 (Autor et
+						al., 2024).
 					</li>
 					<li>
-						<strong>US-centric ability data</strong> — O*NET surveys US workers; task composition may
-						differ in Singapore. The closest Singapore-specific external benchmark is IMF SIP/2024/040
-						(Khan), which estimates ~77% of Singapore workers are highly exposed; the model is not yet
-						formally calibrated against it.
+						<strong>Displacement realizes through hiring, not layoffs</strong> &mdash; The empirical AI
+						evidence so far (Stanford &ldquo;Canaries&rdquo;, 2025; Anthropic, 2026) finds effects concentrated
+						in reduced hiring of new entrants while incumbent headcount stays stable. A single score is
+						therefore a different object for someone entering the occupation (hiring-market risk) than
+						for an incumbent (task-redesign and wage-growth risk). The seniority modifiers approximate
+						this, but the model does not track hiring flows.
+					</li>
+					<li>
+						<strong>Wage and redesign channels are invisible to a headcount frame</strong> &mdash; Pressure
+						can resolve as slower wage growth, variable-pay compression, or role redesign with no job
+						loss. Singapore&rsquo;s institutions push in this direction: National Wages Council flexible-wage
+						guidance channels shocks into variable pay before layoffs, and Progressive Wage Model floors
+						block downward wage adjustment for most lower-wage workers. The score is agnostic between
+						&ldquo;job disappears&rdquo; and &ldquo;wage growth flattens&rdquo;.
+					</li>
+					<li>
+						<strong>Foreign-workforce buffer not modelled</strong> &mdash; Non-residents are roughly 40%
+						of total Singapore employment, and work-pass non-renewal historically absorbs downturns before
+						resident employment falls (the 2020 contraction fell entirely on non-resident employment).
+						Resident-facing risk is overstated in occupations with high work-pass shares &mdash; a buffer
+						that is thickest in manual occupations where AI pressure is lowest and thinnest in resident-dominated
+						PMET roles.
+					</li>
+					<li>
+						<strong>Transition capacity &ne; retraining efficacy</strong> &mdash; Transition scores measure
+						structural skill adjacency between occupations, not evidence that retraining works. The meta-analytic
+						record (Card, Kluve &amp; Weber, 2018) finds near-zero short-run gains and only modest gains
+						2&ndash;3 years after training programmes, and no causal evaluation of SkillsFuture/SCTP outcomes
+						has been published.
+					</li>
+					<li>
+						<strong>Exposure measurement instability</strong> &mdash; Two 2026 studies show the exposure
+						input class carries real measurement error: LLM-annotated exposure rubrics diverge up to 3.6&times;
+						across annotating models (Yin, Vu &amp; Persico, 2026), and platform-usage-based exposure
+						over-weights early-adopter occupations &mdash; reweighting to workforce composition attenuates
+						estimates by 42&ndash;93% (Yin &amp; Ogut, 2026). The 4-source ensemble dilutes but does not
+						remove these errors.
+					</li>
+					<li>
+						<strong>US-centric ability data</strong> — O*NET surveys US workers; task content for the
+						same occupation differs measurably across countries (Lewandowski et al., 2022), so the SSOC
+						&rarr; ISCO &rarr; SOC crosswalk inherits that bias. The closest Singapore-specific external
+						benchmark is IMF SIP/2024/040 (Khan), which estimates ~77% of Singapore workers are highly
+						exposed; the model is not yet formally calibrated against it.
 					</li>
 					<li>
 						<strong>Hierarchical market granularity</strong> — Momentum is major-group level; wage structure
@@ -1855,9 +1906,10 @@
 						</p>
 						<p class="mt-1 text-xs">
 							We measure where AI has the most technical overlap with human tasks, adjusted for
-							human bottlenecks and market signals. Validated directionally at cluster level ({clusterChecksPassed}/{clusterChecksTotal}
-							checks pass vs {siteStatus.live_monitor.labour_monitor_validation_vintage} data) and temporally
-							through vacancy rank-order checks, not causally at occupation level.
+							human bottlenecks and market signals. Directionally checked at cluster level ({clusterChecksPassed}/{clusterChecksTotal}
+							checks pass vs {siteStatus.live_monitor.labour_monitor_validation_vintage} data &mdash;
+							underpowered at four binary checks) and temporally through vacancy rank-order checks, not
+							causally at occupation level.
 						</p>
 					</div>
 				</div>

@@ -299,7 +299,7 @@
 				class="font-medium text-primary hover:underline">Codex</a
 			>
 			(OpenAI). Data from MOM, BLS, O*NET, Felten et al. (2021), Pizzinelli et al. (2023), Anthropic Economic
-			Index, Eloundou et al. (2023/2024), ILO, and Stanford DEL.
+			Index, Eloundou et al. (Science, 2024), ILO, and Stanford DEL.
 		</p>
 	</section>
 
