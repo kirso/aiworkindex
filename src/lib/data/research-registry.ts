@@ -779,6 +779,35 @@ export const researchRegistry: ResearchEntry[] = [
 			'Disclosed in Known Limitations: affects the Eloundou and ILO components of the exposure ensemble.'
 	},
 	{
+		key: 'del_rio_chanona_etal_2021',
+		title: 'Occupational mobility and automation: a data-driven network model',
+		authors: [
+			'R. Maria del Rio-Chanona',
+			'Penny Mealy',
+			'Mariano Beguerisse-Diaz',
+			'Francois Lafond',
+			'J. Doyne Farmer'
+		],
+		year: 2021,
+		published_at: '2021-01',
+		publisher: 'Journal of the Royal Society Interface 18(174)',
+		url: 'https://royalsocietypublishing.org/doi/10.1098/rsif.2020.0898',
+		doi: '10.1098/rsif.2020.0898',
+		type: 'paper',
+		domains: ['mobility', 'context'],
+		role: 'supporting_context',
+		status: 'supporting',
+		used_for: ['risk x transition-capacity quadrant framing'],
+		source_keys: [],
+		claim_ids: [],
+		summary:
+			'Network model on empirical occupational transitions: whether an automation shock produces unemployment or smooth reallocation depends on the topology of the transition network around an occupation, not its exposure alone.',
+		limitations:
+			'US transition-network data; Singapore-specific mobility networks are not yet measured, so the repo applies the insight via its structural transition-capacity scores.',
+		repo_notes:
+			'Grounds the high-risk x few-exits quadrant surfacing (rankings and occupation pages): escape-route quality, not pressure alone, shapes outcomes.'
+	},
+	{
 		key: 'yin_ogut_2026',
 		title: 'Who Uses AI? Platform Selection and the Measurement of Occupational AI Exposure',
 		authors: ['Michelle Yin', 'Burhan Ogut'],

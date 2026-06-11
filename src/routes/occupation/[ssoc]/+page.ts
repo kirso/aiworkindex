@@ -1,6 +1,7 @@
 import { occupations, occupationsBySSoc } from '$lib/data';
 import { buildOccupationDetailStructural } from '$lib/data/detail-structural';
 import { buildOccupationDetailContext } from '$lib/data/detail-context';
+import { lookupExitQuadrant } from '$lib/data/exit-quadrant';
 import type { PageLoad } from './$types';
 import { error } from '@sveltejs/kit';
 
@@ -16,7 +17,8 @@ export const load: PageLoad = ({ params }) => {
 	return {
 		occupation,
 		structural,
-		context
+		context,
+		exitQuadrant: lookupExitQuadrant(occupation.ssoc)
 	};
 };
 

@@ -80,6 +80,15 @@
 			count: 25
 		},
 		{
+			href: '/rankings/high-risk-few-exits',
+			title: 'High Risk, Few Exits',
+			description:
+				'The vulnerable quadrant — high displacement pressure where even the best adjacent move is a stretch',
+			color: 'text-risk-very-high',
+			accent: 'very_high' as const,
+			count: null
+		},
+		{
 			href: '/rankings/rich-and-risky',
 			title: 'Rich and Risky',
 			description: 'Highest-paid occupations facing high AI displacement risk (30%+)',

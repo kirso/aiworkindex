@@ -67,6 +67,7 @@ async function main() {
 		{ path: '/rankings/theory-vs-practice', priority: '0.7', changefreq: 'monthly' },
 		{ path: '/rankings/safest-high-paying', priority: '0.7', changefreq: 'monthly' },
 		{ path: '/rankings/best-transitions', priority: '0.7', changefreq: 'monthly' },
+		{ path: '/rankings/high-risk-few-exits', priority: '0.7', changefreq: 'monthly' },
 		{ path: '/rankings/quarterly-movers', priority: '0.7', changefreq: 'monthly' },
 		{ path: '/compare', priority: '0.6', changefreq: 'monthly' },
 		{ path: '/rankings/rich-and-risky', priority: '0.7', changefreq: 'monthly' },

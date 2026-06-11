@@ -1,25 +1,25 @@
 {
   "version": "V7",
-  "generated_at": "2026-06-11T10:23:25.927Z",
-  "entry_count": 33,
+  "generated_at": "2026-06-11T11:22:22.452Z",
+  "entry_count": 34,
   "domain_counts": {
     "exposure": 10,
     "tasks": 10,
     "complementarity": 2,
     "validation": 8,
-    "mobility": 2,
+    "mobility": 3,
     "forecast": 6,
     "uncertainty": 1,
     "productivity": 4,
     "augmentation": 4,
     "measurement": 15,
-    "context": 12
+    "context": 13
   },
   "role_counts": {
     "active_core": 16,
     "validation": 2,
     "candidate_v5": 2,
-    "supporting_context": 13
+    "supporting_context": 14
   },
   "entries": [
     {
@@ -923,6 +923,37 @@
       "summary": "Worker-survey evidence across 46 countries: task content differs substantially across countries within the same occupation, so US O*NET-based task measures misstate task content abroad.",
       "limitations": "Singapore is not in the PIAAC/STEP samples, so the bias cannot be directly corrected; high-income economies show smaller divergence from US task content.",
       "repo_notes": "The canonical citation for the SSOC-ISCO-SOC-O*NET crosswalk caveat; motivates benchmarking against Singapore-native task data (SkillsFuture Skills Framework)."
+    },
+    {
+      "key": "del_rio_chanona_etal_2021",
+      "title": "Occupational mobility and automation: a data-driven network model",
+      "authors": [
+        "R. Maria del Rio-Chanona",
+        "Penny Mealy",
+        "Mariano Beguerisse-Diaz",
+        "Francois Lafond",
+        "J. Doyne Farmer"
+      ],
+      "year": 2021,
+      "published_at": "2021-01",
+      "publisher": "Journal of the Royal Society Interface 18(174)",
+      "url": "https://royalsocietypublishing.org/doi/10.1098/rsif.2020.0898",
+      "doi": "10.1098/rsif.2020.0898",
+      "type": "paper",
+      "domains": [
+        "mobility",
+        "context"
+      ],
+      "role": "supporting_context",
+      "status": "supporting",
+      "used_for": [
+        "risk x transition-capacity quadrant framing"
+      ],
+      "source_keys": [],
+      "claim_ids": [],
+      "summary": "Network model on empirical occupational transitions: whether an automation shock produces unemployment or smooth reallocation depends on the topology of the transition network around an occupation, not its exposure alone.",
+      "limitations": "US transition-network data; Singapore-specific mobility networks are not yet measured, so the repo applies the insight via its structural transition-capacity scores.",
+      "repo_notes": "Grounds the high-risk x few-exits quadrant surfacing (rankings and occupation pages): escape-route quality, not pressure alone, shapes outcomes."
     },
     {
       "key": "felten_raj_seamans_2021",

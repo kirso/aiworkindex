@@ -94,6 +94,8 @@
 	let groupSlug = $derived(occ.major_group.toLowerCase().replace(/[,&]/g, '').replace(/\s+/g, '-'));
 	let linkedRoles = $derived(rolesBySsoc.get(occ.ssoc) ?? []);
 	let allUniqueTransitions = $derived(structural.topTransitions ?? []);
+	// Quadrant verdict from the shared exit-quadrant module (null below the displacement threshold).
+	let exitQuadrant = $derived(data.exitQuadrant);
 	let _fallbackTransitions = $derived.by(() =>
 		allUniqueTransitions.filter(
 			transition => transition.to_ssoc !== decision.bestTransition?.to_ssoc
@@ -869,6 +871,23 @@
 						</p>
 						<span class={pill({ size: 'sm', tone: 'muted' })}>Similarity-based</span>
 					</div>
+					{#if exitQuadrant?.in_quadrant}
+						<p class="mb-3 text-xs text-risk-high">
+							This occupation sits in the structurally vulnerable quadrant: high displacement
+							pressure, and its best adjacent move ranks in the weakest quarter of exit options
+							among high-risk occupations. Mobility research finds outcomes hinge on escape-route
+							quality, not pressure alone.
+							<a href="/rankings/high-risk-few-exits" class="underline hover:text-foreground"
+								>See all occupations in this quadrant</a
+							>.
+						</p>
+					{:else if exitQuadrant}
+						<p class="mb-3 text-xs text-muted-foreground">
+							High displacement pressure, but comparatively credible adjacent moves exist — the
+							strongest option scores {(exitQuadrant.best_composite * 100).toFixed(0)}% match.
+							Escape-route quality, not pressure alone, shapes how risk resolves.
+						</p>
+					{/if}
 					<div class="grid gap-2 sm:grid-cols-3">
 						{#each allUniqueTransitions.slice(0, 3) as t}
 							<OccupationCard
