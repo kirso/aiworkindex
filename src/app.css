@@ -127,12 +127,12 @@
 	--color-impact-mixed-subtle: oklch(0.97 0.02 75);
 	--color-impact-mixed-border: oklch(0.9 0.05 75);
 
-	/* --- Chart Colors (5-color, high contrast) --- */
-	--color-chart-1: oklch(0.5 0.18 255);
-	--color-chart-2: oklch(0.6 0.16 155);
-	--color-chart-3: oklch(0.7 0.16 75);
-	--color-chart-4: oklch(0.55 0.22 25);
-	--color-chart-5: oklch(0.5 0.1 300);
+	/* --- Chart Colors: ink + risk-scale derivatives only (color reservation) --- */
+	--color-chart-1: #0c0c0c;
+	--color-chart-2: #2a7f62;
+	--color-chart-3: #a07a0a;
+	--color-chart-4: #d6151c;
+	--color-chart-5: #6f6f6f;
 
 	/* --- Shadows: Clean, not colored ---
 	     Signal style uses sharp, functional shadows. */
@@ -427,4 +427,28 @@
 html {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   PRINT — the editorial layout is print-native
+   ============================================ */
+
+@media print {
+	header,
+	footer,
+	nav,
+	[data-print-hide] {
+		display: none !important;
+	}
+	body {
+		background: #fff;
+		color: #000;
+	}
+	a {
+		color: #000;
+		text-decoration: none;
+	}
+	main {
+		max-width: 100% !important;
+	}
 }

@@ -22,7 +22,7 @@
 			href: '/rankings/highest-risk',
 			title: 'Highest Risk',
 			description: 'Top 25 occupations by net displacement risk score',
-			color: 'text-risk-very-high',
+			color: 'text-foreground',
 			accent: 'very_high' as const,
 			count: 25
 		},
@@ -31,7 +31,7 @@
 			title: 'Augmented',
 			description:
 				'Roles where AI augments rather than replaces — high exposure + strong human bottlenecks',
-			color: 'text-impact-leveraged',
+			color: 'text-foreground',
 			accent: 'leveraged' as const,
 			count: 25
 		},
@@ -40,7 +40,7 @@
 			title: 'High Exposure + In Demand',
 			description:
 				'Occupations with significant AI overlap that are still on shortage or in-demand lists',
-			color: 'text-risk-moderate',
+			color: 'text-foreground',
 			accent: 'moderate' as const,
 			count: null
 		},
@@ -49,7 +49,7 @@
 			title: 'High Risk but In-Demand',
 			description:
 				'Occupations with high displacement risk that still appear on official demand lists',
-			color: 'text-risk-high',
+			color: 'text-foreground',
 			accent: 'high' as const,
 			count: null
 		},
@@ -58,7 +58,7 @@
 			title: 'Theory vs Practice',
 			description:
 				'Biggest gaps between theoretical AI exposure and observed AI usage from Anthropic data',
-			color: 'text-primary',
+			color: 'text-foreground',
 			accent: 'primary' as const,
 			count: 25
 		},
@@ -66,7 +66,7 @@
 			href: '/rankings/safest-high-paying',
 			title: 'Safest High-Paying',
 			description: 'Low displacement risk with above-median wages — the sweet spot',
-			color: 'text-risk-very-low',
+			color: 'text-foreground',
 			accent: 'very_low' as const,
 			count: 25
 		},
@@ -75,7 +75,7 @@
 			title: 'Best Transitions',
 			description:
 				'Highest-risk occupations with the best transition paths to lower-risk alternatives',
-			color: 'text-impact-leveraged',
+			color: 'text-foreground',
 			accent: 'leveraged' as const,
 			count: 25
 		},
@@ -84,7 +84,7 @@
 			title: 'High Risk, Few Exits',
 			description:
 				'The vulnerable quadrant — high displacement pressure where even the best adjacent move is a stretch',
-			color: 'text-risk-very-high',
+			color: 'text-foreground',
 			accent: 'very_high' as const,
 			count: null
 		},
@@ -92,7 +92,7 @@
 			href: '/rankings/rich-and-risky',
 			title: 'Rich and Risky',
 			description: 'Highest-paid occupations facing high AI displacement risk (30%+)',
-			color: 'text-risk-high',
+			color: 'text-foreground',
 			accent: 'high' as const,
 			count: 25
 		},
@@ -100,7 +100,7 @@
 			href: '/rankings/quarterly-movers',
 			title: 'Quarterly Movers',
 			description: 'Occupations that changed risk bands since the last quarterly snapshot',
-			color: 'text-chart-5',
+			color: 'text-foreground',
 			accent: 'mixed' as const,
 			count: null
 		}
@@ -150,7 +150,7 @@
 		<div class="grid gap-4 sm:grid-cols-2">
 			{#each rankingPages as page}
 				<a href={page.href} class="no-underline">
-					<div class={cn(card({ padding: 'md', hover: true, accent: page.accent }), 'h-full')}>
+					<div class={cn(card({ padding: 'md', hover: true }), 'h-full')}>
 						<div class="flex items-start justify-between gap-2">
 							<h3 class={cn('text-base font-semibold', page.color)}>{page.title}</h3>
 							{#if page.count}

@@ -3,15 +3,12 @@
 	import { riskBandLabels, impactTypeLabels, augmentationBandLabels } from '$lib/data';
 	import {
 		card,
-		riskBadge,
 		impactBadge,
 		pageLayout,
-		display,
 		title as titleStyle,
 		sectionLabel,
 		caption,
 		pill,
-		scoreTileClasses,
 		microLabel
 	} from '$lib/design-system';
 	import { cn } from '$lib/utils';
@@ -334,6 +331,28 @@
 	let pageDescription = $derived(
 		`${scored.title}: Estimated AI risk ${riskPct}%, rated ${riskBandLabels[scored.risk_band]}. Based on ${scored.components.length} official occupations in Singapore.`
 	);
+
+	const bandSteps: Record<import('$lib/data').RiskBand, number> = {
+		very_low: 1,
+		low: 2,
+		moderate: 3,
+		high: 4,
+		very_high: 5
+	};
+	const bandFill: Record<import('$lib/data').RiskBand, string> = {
+		very_low: 'bg-risk-very-low',
+		low: 'bg-risk-low',
+		moderate: 'bg-risk-moderate',
+		high: 'bg-risk-high',
+		very_high: 'bg-risk-very-high'
+	};
+	const bandText: Record<import('$lib/data').RiskBand, string> = {
+		very_low: 'text-risk-very-low',
+		low: 'text-risk-low',
+		moderate: 'text-risk-moderate',
+		high: 'text-risk-high',
+		very_high: 'text-risk-very-high'
+	};
 </script>
 
 <Seo
@@ -355,66 +374,84 @@
 	/>
 
 	<!-- ===== BLOCK 1: THE VERDICT ===== -->
-	<div class={cn(card({ padding: 'lg' }), 'mb-8 overflow-hidden')}>
-		<div class="grid gap-6 md:grid-cols-[12rem_minmax(0,1fr)] md:items-start">
-			<div class={cn('rounded-2xl border p-5', scoreTileClasses(scored.risk_band))}>
-				<p class={microLabel()}>AI displacement risk</p>
-				<p class={cn(display({ size: 'xl' }), 'mt-2')}>{(scored.net_risk * 100).toFixed(0)}%</p>
-				<span class={cn(riskBadge({ band: scored.risk_band }), 'mt-2 inline-flex')}>
-					{riskBandLabels[scored.risk_band]} Risk
-				</span>
-				<p class="mt-2 text-[11px] leading-snug text-muted-foreground">
-					Structural pressure, not a prediction of job loss.
+	<div class="mb-8 min-w-0">
+		<div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
+			<h1 class={cn(titleStyle({ size: 'page' }), 'min-w-0')}>{scored.title}</h1>
+			<div class="flex shrink-0 items-center gap-2">
+				<Button
+					variant="outline"
+					size="sm"
+					class="h-8 text-xs"
+					href="/compare?entities=role:{scored.slug}"
+				>
+					Compare
+				</Button>
+				<Button
+					variant={isWatchlisted ? 'default' : 'outline'}
+					size="sm"
+					class="h-8 gap-1.5 text-xs"
+					onclick={toggleWatchlist}
+				>
+					<svg
+						class="h-3.5 w-3.5"
+						viewBox="0 0 24 24"
+						fill={isWatchlisted ? 'currentColor' : 'none'}
+						stroke="currentColor"
+						stroke-width="2"
+					>
+						<path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+					</svg>
+					{isWatchlisted ? 'Saved' : 'Save'}
+				</Button>
+				<Button variant="outline" size="sm" class="h-8 text-xs" onclick={shareCurrentPage}>
+					Share
+				</Button>
+			</div>
+		</div>
+
+		<div
+			class="mt-5 grid border-t border-b border-t-foreground border-b-border md:grid-cols-[minmax(15rem,19rem)_minmax(0,1fr)]"
+		>
+			<div class="border-b border-border py-5 pr-6 md:border-r md:border-b-0">
+				<p class="font-mono text-[11px] tracking-[0.16em] text-muted-foreground uppercase">
+					AI displacement risk
 				</p>
-				{#if scored.risk_range}
-					<div class="mt-5 border-t border-border/70 pt-3">
-						<p class={microLabel()}>Likely range</p>
-						<p class="mt-1 font-mono text-sm text-foreground">
-							{(scored.risk_range.optimistic * 100).toFixed(0)}–{(
-								scored.risk_range.pessimistic * 100
-							).toFixed(0)}%
-						</p>
+				<p class="mt-1 font-sans text-7xl leading-none font-black tracking-display tabular-nums">
+					{(scored.net_risk * 100).toFixed(0)}%
+				</p>
+				<div class="mt-4 flex items-center gap-2.5">
+					<div class="flex gap-0.5" aria-hidden="true">
+						{#each Array.from({ length: 5 }, (_, i) => i) as step (step)}
+							<span
+								class={cn(
+									'h-2 w-4',
+									step < bandSteps[scored.risk_band] ? bandFill[scored.risk_band] : 'bg-muted'
+								)}
+							></span>
+						{/each}
 					</div>
+					<span class={cn('text-sm font-bold', bandText[scored.risk_band])}>
+						{riskBandLabels[scored.risk_band]}
+					</span>
+				</div>
+				{#if scored.risk_range}
+					<p class="mt-2.5 font-mono text-xs text-muted-foreground tabular-nums">
+						Range {(scored.risk_range.optimistic * 100).toFixed(0)}–{(
+							scored.risk_range.pessimistic * 100
+						).toFixed(0)}%
+					</p>
 				{/if}
 			</div>
 
-			<div class="min-w-0">
-				<div class="flex items-start justify-between gap-4">
-					<h1 class={cn(titleStyle({ size: 'page' }), 'min-w-0')}>{scored.title}</h1>
-					<div class="flex shrink-0 items-center gap-2">
-						<Button
-							variant="outline"
-							size="sm"
-							class="h-8 text-xs"
-							href="/compare?entities=role:{scored.slug}"
-						>
-							Compare
-						</Button>
-						<Button
-							variant={isWatchlisted ? 'default' : 'outline'}
-							size="sm"
-							class="h-8 gap-1.5 text-xs"
-							onclick={toggleWatchlist}
-						>
-							<svg
-								class="h-3.5 w-3.5"
-								viewBox="0 0 24 24"
-								fill={isWatchlisted ? 'currentColor' : 'none'}
-								stroke="currentColor"
-								stroke-width="2"
-							>
-								<path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
-							</svg>
-							{isWatchlisted ? 'Saved' : 'Save'}
-						</Button>
-						<Button variant="outline" size="sm" class="h-8 text-xs" onclick={shareCurrentPage}>
-							Share
-						</Button>
-					</div>
-				</div>
+			<div class="min-w-0 py-5 md:pl-7">
 				<p class={caption({ weight: 'medium' })}>{scored.description}</p>
-				<p class="mt-3 max-w-3xl text-[15px] leading-relaxed text-text-secondary">
+				<p class="mt-2 max-w-3xl text-[17px] leading-snug text-text-secondary">
 					{structural.summaryText}
+				</p>
+				<p class="mt-3.5 flex max-w-2xl gap-2 text-[13px] leading-snug text-muted-foreground">
+					<span class="text-primary" aria-hidden="true">※</span>
+					Structural pressure, not a prediction of job loss. Displacement tends to arrive through slower
+					hiring, wage compression and role redesign before layoffs.
 				</p>
 
 				{#if scored.dispersion > 0.08}
