@@ -19,6 +19,8 @@ const RUNES_GLOBALS = {
 const BASE_IGNORES = [
 	'.svelte-kit/**',
 	'.claude/**',
+	'.remember/**',
+	'output/**',
 	'build/**',
 	'dist/**',
 	'node_modules/**',

@@ -1,0 +1,638 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Secretary — AI Work Index (V2 Swiss)</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+			rel="stylesheet"
+		/>
+		<style>
+			:root {
+				--bg: #ffffff;
+				--ink: #0c0c0c;
+				--ink-2: #444;
+				--ink-3: #8b8b8b;
+				--rule: #e3e3e3;
+				--rule-strong: #0c0c0c;
+				--signal: #e3120b;
+				--risk-vh: #d6151c;
+				--risk-h: #e8702a;
+				--risk-m: #d9a514;
+				--risk-l: #48a06c;
+				--risk-vl: #2a7f62;
+			}
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			body {
+				background: var(--bg);
+				color: var(--ink);
+				font-family: 'Schibsted Grotesk', sans-serif;
+				font-size: 15px;
+				line-height: 1.55;
+				-webkit-font-smoothing: antialiased;
+			}
+			.topline {
+				height: 5px;
+				background: var(--signal);
+			}
+			.wrap {
+				max-width: 1020px;
+				margin: 0 auto;
+				padding: 0 36px 80px;
+			}
+			.masthead {
+				display: flex;
+				justify-content: space-between;
+				align-items: baseline;
+				padding: 18px 0;
+				border-bottom: 1px solid var(--rule-strong);
+			}
+			.brand {
+				font-weight: 900;
+				font-size: 18px;
+				letter-spacing: -0.02em;
+				text-transform: uppercase;
+			}
+			.masthead nav {
+				display: flex;
+				gap: 24px;
+				font-size: 13.5px;
+				font-weight: 500;
+				color: var(--ink-2);
+			}
+			.masthead nav a {
+				color: inherit;
+				text-decoration: none;
+			}
+			.crumb {
+				font-family: 'IBM Plex Mono', monospace;
+				font-size: 11.5px;
+				color: var(--ink-3);
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				padding: 16px 0 0;
+			}
+			/* hero */
+			.hero {
+				padding: 30px 0 0;
+			}
+			.hero h1 {
+				font-size: 64px;
+				font-weight: 900;
+				letter-spacing: -0.035em;
+				line-height: 0.98;
+			}
+			.verdict {
+				display: grid;
+				grid-template-columns: minmax(280px, 340px) 1fr;
+				gap: 0;
+				margin-top: 30px;
+				border-top: 1px solid var(--rule-strong);
+				border-bottom: 1px solid var(--rule);
+			}
+			.v-left {
+				padding: 26px 36px 26px 0;
+				border-right: 1px solid var(--rule);
+			}
+			.v-right {
+				padding: 26px 0 26px 36px;
+			}
+			.score-label {
+				font-family: 'IBM Plex Mono', monospace;
+				font-size: 11px;
+				text-transform: uppercase;
+				letter-spacing: 0.16em;
+				color: var(--ink-3);
+			}
+			.score-row {
+				display: flex;
+				align-items: baseline;
+				gap: 14px;
+				margin-top: 6px;
+			}
+			.score-num {
+				font-size: 104px;
+				font-weight: 900;
+				letter-spacing: -0.05em;
+				line-height: 0.95;
+				font-feature-settings: 'tnum';
+			}
+			.score-num span {
+				font-size: 36px;
+				font-weight: 600;
+				color: var(--ink-3);
+				letter-spacing: 0;
+			}
+			.band-row {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				margin-top: 14px;
+			}
+			.bandmark {
+				display: flex;
+				gap: 2px;
+			}
+			.bandmark i {
+				width: 18px;
+				height: 8px;
+				background: #ededed;
+			}
+			.bandmark i.on {
+				background: var(--risk-vh);
+			}
+			.band-txt {
+				font-weight: 700;
+				font-size: 14px;
+				color: var(--risk-vh);
+			}
+			.range {
+				font-family: 'IBM Plex Mono', monospace;
+				font-size: 12px;
+				color: var(--ink-3);
+				margin-top: 10px;
+			}
+			.v-right p.lede {
+				font-size: 22px;
+				font-weight: 500;
+				line-height: 1.4;
+				letter-spacing: -0.01em;
+				max-width: 30em;
+			}
+			.v-right p.lede em {
+				font-style: normal;
+				border-bottom: 3px solid var(--signal);
+			}
+			.metaline {
+				font-family: 'IBM Plex Mono', monospace;
+				font-size: 12.5px;
+				color: var(--ink-2);
+				margin-top: 20px;
+				display: flex;
+				flex-wrap: wrap;
+				gap: 6px 0;
+			}
+			.metaline span + span::before {
+				content: '·';
+				margin: 0 12px;
+				color: var(--ink-3);
+			}
+			.caveat {
+				display: flex;
+				gap: 10px;
+				margin-top: 18px;
+				font-size: 13px;
+				color: var(--ink-3);
+				max-width: 40em;
+			}
+			.caveat::before {
+				content: '※';
+				color: var(--signal);
+				font-size: 14px;
+			}
+			/* sections */
+			section {
+				padding: 38px 0;
+				border-bottom: 1px solid var(--rule);
+			}
+			.sec-num {
+				font-family: 'IBM Plex Mono', monospace;
+				font-size: 11px;
+				color: var(--signal);
+				font-weight: 600;
+				letter-spacing: 0.1em;
+			}
+			.sec-title {
+				font-size: 24px;
+				font-weight: 700;
+				letter-spacing: -0.02em;
+				margin: 2px 0 26px;
+			}
+			/* drivers */
+			.driver {
+				display: grid;
+				grid-template-columns: 230px 1fr 70px 90px;
+				gap: 20px;
+				align-items: center;
+				padding: 12px 0;
+				border-top: 1px solid var(--rule);
+			}
+			.driver:last-of-type {
+				border-bottom: 1px solid var(--rule);
+			}
+			.d-name {
+				font-weight: 600;
+				font-size: 15px;
+			}
+			.d-sub {
+				font-size: 12.5px;
+				color: var(--ink-3);
+			}
+			.bar {
+				height: 14px;
+				background: #f2f2f2;
+				position: relative;
+			}
+			.bar i {
+				position: absolute;
+				inset: 0 auto 0 0;
+			}
+			.d-val {
+				font-family: 'IBM Plex Mono', monospace;
+				font-weight: 600;
+				font-size: 15px;
+				text-align: right;
+			}
+			.d-dir {
+				font-family: 'IBM Plex Mono', monospace;
+				font-size: 11px;
+				text-align: right;
+				text-transform: uppercase;
+				letter-spacing: 0.05em;
+			}
+			.up {
+				color: var(--risk-vh);
+			}
+			.down {
+				color: var(--risk-vl);
+			}
+			.cols {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 60px;
+				margin-top: 34px;
+			}
+			.cols h3 {
+				font-size: 13px;
+				font-weight: 700;
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				margin-bottom: 14px;
+				display: flex;
+				align-items: center;
+				gap: 8px;
+			}
+			.dot {
+				width: 8px;
+				height: 8px;
+				border-radius: 50%;
+			}
+			.cols ul {
+				list-style: none;
+			}
+			.cols li {
+				padding: 9px 0;
+				border-top: 1px solid var(--rule);
+				font-size: 14px;
+				color: var(--ink-2);
+			}
+			.cols .lead-p {
+				font-size: 14.5px;
+				color: var(--ink-2);
+				margin-bottom: 12px;
+			}
+			.cols .lead-p b {
+				color: var(--ink);
+			}
+			.fineprint {
+				font-size: 12px;
+				color: var(--ink-3);
+				margin-top: 10px;
+			}
+			/* market */
+			.stats {
+				display: grid;
+				grid-template-columns: repeat(4, 1fr);
+				border-top: 1px solid var(--rule-strong);
+			}
+			.stat {
+				padding: 18px 24px 4px 0;
+				border-right: 1px solid var(--rule);
+			}
+			.stat:last-child {
+				border-right: none;
+			}
+			.stat .k {
+				font-family: 'IBM Plex Mono', monospace;
+				font-size: 10.5px;
+				text-transform: uppercase;
+				letter-spacing: 0.14em;
+				color: var(--ink-3);
+			}
+			.stat .v {
+				font-size: 40px;
+				font-weight: 900;
+				letter-spacing: -0.03em;
+				margin-top: 6px;
+				font-feature-settings: 'tnum';
+			}
+			.stat .t {
+				font-size: 12.5px;
+				color: var(--ink-2);
+				margin-top: 2px;
+			}
+			/* actions */
+			.alert {
+				display: grid;
+				grid-template-columns: 6px 1fr;
+				gap: 16px;
+				margin-bottom: 28px;
+			}
+			.alert .bar-v {
+				background: var(--risk-vh);
+			}
+			.alert p {
+				font-size: 15px;
+				max-width: 46em;
+				color: var(--ink-2);
+			}
+			.alert p b {
+				color: var(--ink);
+			}
+			.alert a {
+				color: var(--signal);
+				font-weight: 600;
+				text-decoration: none;
+				border-bottom: 1px solid var(--signal);
+			}
+			table {
+				width: 100%;
+				border-collapse: collapse;
+			}
+			th {
+				font-family: 'IBM Plex Mono', monospace;
+				font-size: 10.5px;
+				text-transform: uppercase;
+				letter-spacing: 0.12em;
+				color: var(--ink-3);
+				font-weight: 500;
+				text-align: left;
+				padding-bottom: 10px;
+				border-bottom: 1px solid var(--rule-strong);
+			}
+			th.r,
+			td.r {
+				text-align: right;
+			}
+			td {
+				padding: 13px 0;
+				border-bottom: 1px solid var(--rule);
+				font-size: 15px;
+				font-weight: 500;
+			}
+			td.mono {
+				font-family: 'IBM Plex Mono', monospace;
+				font-size: 13.5px;
+				font-weight: 500;
+			}
+			.gain {
+				color: var(--risk-vl);
+				font-weight: 600;
+			}
+			.linkrow {
+				margin-top: 26px;
+				display: flex;
+				flex-wrap: wrap;
+				gap: 12px;
+			}
+			.linkpill {
+				font-size: 13.5px;
+				font-weight: 600;
+				color: var(--ink);
+				text-decoration: none;
+				border: 1.5px solid var(--ink);
+				padding: 7px 14px;
+				display: inline-flex;
+				align-items: center;
+				gap: 7px;
+			}
+			.linkpill::after {
+				content: '→';
+			}
+			.datachips {
+				margin-top: 20px;
+			}
+			.datachip {
+				display: inline-block;
+				font-family: 'IBM Plex Mono', monospace;
+				font-size: 11.5px;
+				color: var(--ink-2);
+				background: #f4f4f4;
+				padding: 4px 10px;
+				margin: 0 8px 8px 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="topline"></div>
+		<div class="wrap">
+			<header class="masthead">
+				<span class="brand">AI Work Index</span>
+				<nav>
+					<a href="#">Find</a><a href="#">Browse</a><a href="#">Rankings</a><a href="#">Compare</a
+					><a href="#">Methodology</a>
+				</nav>
+			</header>
+			<div class="crumb">Singapore / Clerical Support Workers / SSOC 41201</div>
+
+			<div class="hero">
+				<h1>Secretary</h1>
+				<div class="verdict">
+					<div class="v-left">
+						<div class="score-label">AI displacement pressure</div>
+						<div class="score-row">
+							<div class="score-num">63<span>%</span></div>
+						</div>
+						<div class="band-row">
+							<div class="bandmark">
+								<i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i
+								><i class="on"></i>
+							</div>
+							<span class="band-txt">Very high</span>
+						</div>
+						<div class="range">P10–P90 · 55.9 – 67.7 · model v7</div>
+					</div>
+					<div class="v-right">
+						<p class="lede">
+							<em>87% of tasks overlap with current AI</em> against just 2% human-bottleneck
+							protection — more structural pressure than 98% of Singapore occupations.
+						</p>
+						<div class="metaline">
+							<span>SGD 5,035/mo</span><span>~25.9K workers</span><span>#7 of 43 in group</span
+							><span>wage +58% vs group</span><span>Jun 2026</span>
+						</div>
+						<div class="caveat">
+							Structural pressure, not a prediction. Displacement shows up first in hiring
+							slowdowns, wage compression and role redesign — not layoffs.
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<section>
+				<div class="sec-num">01</div>
+				<h2 class="sec-title">Why this score</h2>
+				<div class="driver">
+					<div>
+						<div class="d-name">AI capability overlap</div>
+						<div class="d-sub">4-source ensemble</div>
+					</div>
+					<div class="bar"><i style="width: 87%; background: var(--risk-vh)"></i></div>
+					<div class="d-val">0.87</div>
+					<div class="d-dir up">+ raises</div>
+				</div>
+				<div class="driver">
+					<div>
+						<div class="d-name">Human bottleneck</div>
+						<div class="d-sub">judgment &amp; presence</div>
+					</div>
+					<div class="bar"><i style="width: 2%; background: var(--risk-vl)"></i></div>
+					<div class="d-val">0.02</div>
+					<div class="d-dir down">− lowers</div>
+				</div>
+				<div class="driver">
+					<div>
+						<div class="d-name">Local hiring demand</div>
+						<div class="d-sub">vacancy · momentum · scarcity</div>
+					</div>
+					<div class="bar"><i style="width: 50%; background: var(--risk-vl)"></i></div>
+					<div class="d-val">0.50</div>
+					<div class="d-dir down">− lowers</div>
+				</div>
+				<div class="driver">
+					<div>
+						<div class="d-name">Observed AI adoption</div>
+						<div class="d-sub">Anthropic task usage</div>
+					</div>
+					<div class="bar"><i style="width: 74%; background: var(--risk-vh)"></i></div>
+					<div class="d-val">0.74</div>
+					<div class="d-dir up">+ raises</div>
+				</div>
+
+				<div class="cols">
+					<div>
+						<h3><span class="dot" style="background: var(--risk-vh)"></span>AI already does</h3>
+						<p class="lead-p">Most-exposed tasks by <b>observed</b> AI usage:</p>
+						<ul>
+							<li>Schedule and confirm appointments</li>
+							<li>Compose and distribute meeting notes, routine correspondence</li>
+							<li>Maintain scheduling and event calendars</li>
+						</ul>
+					</div>
+					<div>
+						<h3>
+							<span class="dot" style="background: var(--risk-vl)"></span>Still needs a person
+						</h3>
+						<p class="lead-p">
+							Insulation: <b>non-routine work</b> + <b>high-stakes coordination</b> — at 2%, the
+							thinnest in the clerical family.
+						</p>
+						<ul>
+							<li>Greet visitors, handle sensitive in-person matters</li>
+							<li>Manage confidential records with discretion</li>
+						</ul>
+						<p class="fineprint">No observed AI usage ≠ immunity.</p>
+					</div>
+				</div>
+			</section>
+
+			<section>
+				<div class="sec-num">02</div>
+				<h2 class="sec-title">
+					Singapore now
+					<span
+						style="
+							font-size: 13px;
+							font-weight: 500;
+							color: var(--ink-3);
+							font-family: 'IBM Plex Mono', monospace;
+							margin-left: 10px;
+						"
+						>Q4 2025</span
+					>
+				</h2>
+				<div class="stats">
+					<div class="stat">
+						<div class="k">Vacancy rate</div>
+						<div class="v">3.1%</div>
+						<div class="t">softer, not collapsing</div>
+					</div>
+					<div class="stat">
+						<div class="k">Hiring / quits</div>
+						<div class="v">1.5/0.9</div>
+						<div class="t">recruitment still leads</div>
+					</div>
+					<div class="stat">
+						<div class="k">Retrenchment</div>
+						<div class="v">low</div>
+						<div class="t">rising from low base</div>
+					</div>
+					<div class="stat">
+						<div class="k">Re-entry 12m</div>
+						<div class="v">68%</div>
+						<div class="t">softening</div>
+					</div>
+				</div>
+			</section>
+
+			<section style="border-bottom: none">
+				<div class="sec-num">03</div>
+				<h2 class="sec-title">What you can do</h2>
+				<div class="alert">
+					<div class="bar-v"></div>
+					<p>
+						<b>Few easy exits.</b> Secretary sits in the structurally vulnerable quadrant: high
+						pressure, and even its best risk-reducing move ranks in the weakest quarter of exit
+						options among high-risk occupations. <a href="#">See the quadrant</a>
+					</p>
+				</div>
+				<table>
+					<thead>
+						<tr>
+							<th>Best risk-reducing moves</th>
+							<th class="r">Δ risk</th>
+							<th class="r">Feasibility</th>
+							<th class="r">Median wage</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Material planning clerk</td>
+							<td class="r mono gain">−67pp</td>
+							<td class="r mono">moderate</td>
+							<td class="r mono">3,900</td>
+						</tr>
+						<tr>
+							<td>Travel consultant / reservations</td>
+							<td class="r mono gain">−71pp</td>
+							<td class="r mono">moderate</td>
+							<td class="r mono">3,400</td>
+						</tr>
+						<tr>
+							<td>Stock records clerk</td>
+							<td class="r mono gain">−92pp</td>
+							<td class="r mono">moderate</td>
+							<td class="r mono">2,716</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="linkrow">
+					<a class="linkpill" href="#">Career Conversion Programmes</a>
+					<a class="linkpill" href="#">SkillsFuture Career Transition</a>
+					<a class="linkpill" href="#">Jobs Transformation Maps</a>
+				</div>
+				<div class="datachips">
+					<span class="datachip">SKILL · PROCESS OPTIMISATION</span>
+					<span class="datachip">SKILL · AI TOOL PROFICIENCY</span>
+					<span class="datachip">SKILL · EXCEPTION HANDLING</span>
+				</div>
+			</section>
+		</div>
+	</body>
+</html>

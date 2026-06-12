@@ -341,7 +341,7 @@ function buildGlobalMetrics(items: HomeSurfaceItem[]): HomeSurfaceMetric[] {
 			label: 'Occupations scored',
 			value: formatCompactCount(mappedOccupations),
 			note: '',
-			tooltip: 'Total occupations scored across the shared structural baseline using the 4-source AI exposure ensemble.'
+			tooltip: 'Total underlying occupations scored across the shared structural baseline (4-source AI exposure ensemble). On the map these are consolidated into comparable occupation groups, so the map shows fewer nodes than this count.'
 		}
 	];
 }
@@ -405,9 +405,9 @@ export function getHomeSurface(code: HomeSurfaceCode): HomeSurface {
 			drilldownHref: countryConfigs.sg.routePrefix,
 			valueLabel: 'median wage',
 			chartNotes: {
-				treemap: 'Size = median wage · Colour = headline risk',
-				matrix: 'Headline risk vs demand resilience',
-				histogram: 'Headline risk distribution'
+				treemap: 'Size = median wage · Colour = AI displacement risk',
+				matrix: 'AI displacement risk vs demand resilience',
+				histogram: 'AI displacement risk distribution'
 			},
 			metrics: buildCountryMetrics(items, countryConfigs.sg.currency ?? 'SGD', countryConfigs.sg.wagePeriod ?? 'monthly'),
 			occupations: items
@@ -427,9 +427,9 @@ export function getHomeSurface(code: HomeSurfaceCode): HomeSurface {
 			drilldownHref: countryConfigs.us.routePrefix,
 			valueLabel: 'median wage',
 			chartNotes: {
-				treemap: 'Size = median wage · Colour = headline risk',
-				matrix: 'Structural pressure vs demand resilience',
-				histogram: 'Headline risk distribution'
+				treemap: 'Size = median wage · Colour = AI displacement risk',
+				matrix: 'AI displacement risk vs demand resilience',
+				histogram: 'AI displacement risk distribution'
 			},
 			metrics: buildCountryMetrics(items, countryConfigs.us.currency ?? 'USD', countryConfigs.us.wagePeriod ?? 'annual'),
 			occupations: items
@@ -448,9 +448,9 @@ export function getHomeSurface(code: HomeSurfaceCode): HomeSurface {
 		drilldownHref: countryConfigs.global.routePrefix,
 		valueLabel: valueKindLabel('count'),
 		chartNotes: {
-			treemap: 'Size = mapped occupations · Colour = structural pressure',
-			matrix: 'Structural pressure vs bottleneck protection',
-			histogram: 'Structural pressure distribution'
+			treemap: 'Size = mapped occupations · Colour = AI displacement risk',
+			matrix: 'AI displacement risk vs bottleneck protection',
+			histogram: 'AI displacement risk distribution'
 		},
 		metrics: buildGlobalMetrics(items),
 		occupations: items

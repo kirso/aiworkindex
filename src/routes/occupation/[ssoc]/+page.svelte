@@ -11,7 +11,9 @@
 		mono,
 		pill,
 		microLabel,
-		section
+		section,
+		sectionNumber,
+		dataChip
 	} from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import { vacancySignalClass } from '$lib/data/detail-display';
@@ -94,6 +96,16 @@
 	let groupSlug = $derived(occ.major_group.toLowerCase().replace(/[,&]/g, '').replace(/\s+/g, '-'));
 	let linkedRoles = $derived(rolesBySsoc.get(occ.ssoc) ?? []);
 	let allUniqueTransitions = $derived(structural.topTransitions ?? []);
+	// Quadrant verdict from the shared exit-quadrant module (null below the displacement threshold).
+	let exitQuadrant = $derived(data.exitQuadrant);
+	// High-risk pages show risk-reducing exits (matching the quadrant verdict copy);
+	// low-risk pages keep similarity-ranked related roles.
+	let displayTransitions = $derived(
+		exitQuadrant?.targets?.length ? exitQuadrant.targets : allUniqueTransitions
+	);
+	// Explanatory per-task evidence and theta-channel decomposition (never score inputs).
+	let taskDetail = $derived(data.taskDetail);
+	let channelInfo = $derived(data.channelInfo);
 	let _fallbackTransitions = $derived.by(() =>
 		allUniqueTransitions.filter(
 			transition => transition.to_ssoc !== decision.bestTransition?.to_ssoc
@@ -448,10 +460,11 @@
 	/>
 
 	<!-- ===== BLOCK 1: THE VERDICT ===== -->
-	<div class={cn(card({ padding: 'lg' }), section({ spacing: 'loose' }))}>
+	<div class={section({ spacing: 'loose' })}>
 		<OccupationHero
-			scoreLabel="AI displacement pressure"
+			scoreLabel="AI displacement risk"
 			scoreValue={`${(occ.net_risk * 100).toFixed(0)}%`}
+			scoreRange={occ.uncertainty ? netRiskUncertainty : undefined}
 			scoreBand={occ.risk_band}
 			scoreBandLabel={riskBandLabels[occ.risk_band]}
 			title={occ.title}
@@ -467,17 +480,14 @@
 									? 'warning'
 									: 'positive'
 				},
-				{ label: group?.label ?? occ.major_group, tone: 'muted' },
-				{
-					label: hasDemand ? `In demand (${demandLabel})` : 'No shortage listing',
-					tone: hasDemand ? 'positive' : 'neutral'
-				},
+				...(hasDemand ? [{ label: `In demand (${demandLabel})`, tone: 'positive' as const }] : []),
 				...(crossesBoundary
 					? [{ label: 'Classification uncertain', tone: 'warning' as const }]
 					: [])
 			]}
 			summary={structural.summaryText}
 			meta={[
+				group?.label ?? occ.major_group,
 				`SGD ${occ.gross_wage_median.toLocaleString()}/mo${occ.gross_wage_25th > 0 && occ.gross_wage_75th > 0 ? ` (${occ.gross_wage_25th.toLocaleString()}–${occ.gross_wage_75th.toLocaleString()})` : ''}`,
 				occ.estimated_sg_employment_thousands
 					? `~${
@@ -521,16 +531,16 @@
 			{/snippet}
 		</OccupationHero>
 
-		<div class="mt-2 flex flex-wrap items-center gap-2">
-			<span class={pill({ tone: 'muted' })} title="Wage compared to group median">
-				Wage: {structural.groupComparison.wageVsGroup}
+		<div class="mt-3 flex flex-wrap items-center gap-2">
+			<span class={dataChip()} title="Wage compared to group median">
+				Wage {structural.groupComparison.wageVsGroup}
 			</span>
-			<span class={pill({ tone: 'muted' })} title="Risk compared to group median">
-				Risk: {structural.groupComparison.riskVsGroup}
+			<span class={dataChip()} title="Risk compared to group median">
+				Risk {structural.groupComparison.riskVsGroup}
 			</span>
 			<a
 				href="/group/{groupSlug}"
-				class={cn(pill({ tone: 'muted' }), 'hover:bg-accent transition-colors')}
+				class={cn(dataChip(), 'transition-colors hover:bg-foreground hover:text-background')}
 			>
 				#{structural.groupComparison.riskRankInGroup} of {structural.groupComparison.groupTotal} in {group?.label ??
 					'group'} →
@@ -564,10 +574,10 @@
 
 	<!-- ===== BLOCK 2: WHY THIS SCORE ===== -->
 	<section class={section({ spacing: 'loose' })}>
-		<h2 class={cn(titleStyle({ size: 'subsection' }), 'mb-3 flex items-center gap-2')}>
-			<span class="h-4 w-1 rounded-full bg-primary"></span>
-			Why This Score
-		</h2>
+		<div class="mb-4 border-b-2 border-foreground pb-2">
+			<span class={sectionNumber()}>01</span>
+			<h2 class={cn(titleStyle({ size: 'section' }), 'mt-0.5')}>Why This Score</h2>
+		</div>
 		<div class={card({ padding: 'md' })}>
 			<div class="grid gap-6 md:grid-cols-5">
 				<!-- Left: Waterfall (3/5 on desktop) -->
@@ -591,6 +601,19 @@
 						<p class={body({ tone: 'muted' })}>
 							{structural.personalizedContent.aiCanDo}
 						</p>
+						{#if (taskDetail?.most_observed.length ?? 0) > 0}
+							<ul class="mt-2 space-y-1">
+								{#each taskDetail?.most_observed ?? [] as item (item.task)}
+									<li class={cn(caption(), 'text-muted-foreground')}>
+										&bull; {item.task}
+									</li>
+								{/each}
+							</ul>
+							<p class={cn(caption(), 'mt-1 italic text-muted-foreground')}>
+								O*NET tasks for this occupation with the most observed AI usage (Anthropic task
+								data).
+							</p>
+						{/if}
 					</div>
 					<div>
 						<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-risk-very-low')}>
@@ -599,6 +622,28 @@
 						<p class={body({ tone: 'muted' })}>
 							{structural.personalizedContent.humanNeeded}
 						</p>
+						{#if (channelInfo?.top_channels.length ?? 0) > 0}
+							<p class={cn(caption(), 'mt-2 text-muted-foreground')}>
+								Main insulation channels:
+								{#each channelInfo?.top_channels ?? [] as channel, i (channel.key)}{i > 0
+										? ' + '
+										: ''}<span class="font-medium text-foreground">{channel.label}</span>{/each}
+								&mdash; the work-context dimensions behind this occupation's human bottleneck.
+							</p>
+						{/if}
+						{#if (taskDetail?.most_protected.length ?? 0) > 0}
+							<ul class="mt-2 space-y-1">
+								{#each taskDetail?.most_protected ?? [] as item (item.task)}
+									<li class={cn(caption(), 'text-muted-foreground')}>
+										&bull; {item.task}
+									</li>
+								{/each}
+							</ul>
+							<p class={cn(caption(), 'mt-1 italic text-muted-foreground')}>
+								Highest-importance tasks with no observed AI usage in the same data &mdash; absence
+								of observed usage, not proof of immunity.
+							</p>
+						{/if}
 					</div>
 					{#if structural.personalizedContent.skills.length > 0}
 						<div class="pt-3 border-t border-border">
@@ -626,7 +671,7 @@
 										({
 											aioe: 'Felten AIOE (2021)',
 											anthropic: 'Anthropic Economic Index (2026)',
-											eloundou: 'Eloundou GPT Exposure (2023)',
+											eloundou: 'Eloundou GPT Exposure (Science, 2024)',
 											ilo: 'ILO GenAI (2025)'
 										})[k] ?? k
 								)
@@ -635,28 +680,15 @@
 					</p>
 				</div>
 			</div>
-
-			{#if occ.workflow_overlay}
-				<div class="mt-5 pt-5 border-t border-border">
-					<p class={cn(caption({ weight: 'semibold' }), 'mb-2 text-foreground')}>Role profile</p>
-					<p class={cn(caption(), 'mb-3')}>
-						How this role's work breaks down across key dimensions. This is a general profile, not
-						an individual measurement.
-					</p>
-					<div class="flex justify-center">
-						<WorkflowRadar dimensions={occ.workflow_overlay} size={240} />
-					</div>
-				</div>
-			{/if}
 		</div>
 	</section>
 
 	<!-- ===== BLOCK 3: SINGAPORE NOW ===== -->
 	<section class={section({ spacing: 'loose' })}>
-		<h2 class={cn(titleStyle({ size: 'subsection' }), 'mb-3 flex items-center gap-2')}>
-			<span class="h-4 w-1 rounded-full bg-impact-leveraged"></span>
-			Singapore Now
-		</h2>
+		<div class="mb-4 border-b-2 border-foreground pb-2">
+			<span class={sectionNumber()}>02</span>
+			<h2 class={cn(titleStyle({ size: 'section' }), 'mt-0.5')}>Singapore Now</h2>
+		</div>
 		<p class={cn(caption(), 'mb-3 -mt-1')}>
 			Current labour market conditions and how they affect this role.
 		</p>
@@ -775,59 +807,16 @@
 						</p>
 					</div>
 				{/if}
-
-				<div class={card({ padding: 'sm' })}>
-					<p class={cn(microLabel(), 'mb-1')}>How this changes by career stage</p>
-					<p class={cn(caption(), 'mb-3')}>
-						Senior workers benefit from institutional knowledge and judgment that AI cannot
-						replicate. Entry-level roles have higher task overlap with AI.
-					</p>
-					<div class="space-y-2">
-						<div
-							class={cn(
-								card({ padding: 'sm', variant: 'inset' }),
-								'flex items-center justify-between'
-							)}
-						>
-							<span class={caption()}>Junior / Entry-level</span>
-							<span class={caption({ weight: 'medium' })}
-								><span class="text-risk-high">Higher AI displacement risk</span></span
-							>
-						</div>
-						<div
-							class={cn(
-								card({ padding: 'sm', variant: 'inset' }),
-								'flex items-center justify-between'
-							)}
-						>
-							<span class={caption()}>Mid-career</span>
-							<span class={cn(caption({ weight: 'medium' }), 'text-foreground')}
-								>Standard risk profile</span
-							>
-						</div>
-						<div
-							class={cn(
-								card({ padding: 'sm', variant: 'inset' }),
-								'flex items-center justify-between'
-							)}
-						>
-							<span class={caption()}>Senior / Lead</span>
-							<span class={caption({ weight: 'medium' })}
-								><span class="text-risk-very-low">More protected by experience</span></span
-							>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
 	</section>
 
 	<!-- ===== BLOCK 4: WHAT YOU CAN DO ===== -->
 	<section class={section({ spacing: 'loose' })}>
-		<h2 class={cn(titleStyle({ size: 'subsection' }), 'mb-3 flex items-center gap-2')}>
-			<span class="h-4 w-1 rounded-full bg-risk-very-low"></span>
-			What You Can Do
-		</h2>
+		<div class="mb-4 border-b-2 border-foreground pb-2">
+			<span class={sectionNumber()}>03</span>
+			<h2 class={cn(titleStyle({ size: 'section' }), 'mt-0.5')}>What You Can Do</h2>
+		</div>
 		<div class={card({ padding: 'md' })}>
 			{#if offsetPotential}
 				<p class={cn(body({ tone: 'subtle' }), 'mb-4 pb-4 border-b border-border')}>
@@ -860,16 +849,35 @@
 				</div>
 			{/if}
 
-			{#if allUniqueTransitions.length > 0}
+			{#if displayTransitions.length > 0}
 				<div class="mb-4 border-b border-border pb-4">
 					<div class="flex items-center gap-2 mb-3">
 						<p class={cn(caption({ weight: 'semibold' }), 'text-foreground')}>
 							Related roles you could transition to
 						</p>
-						<span class={pill({ size: 'sm', tone: 'muted' })}>Similarity-based</span>
+						<span class={pill({ size: 'sm', tone: 'muted' })}
+							>{exitQuadrant?.targets?.length ? 'Risk-reducing' : 'Similarity-based'}</span
+						>
 					</div>
+					{#if exitQuadrant?.in_quadrant}
+						<p class="mb-3 text-xs text-risk-high">
+							This occupation sits in the structurally vulnerable quadrant: high displacement
+							pressure, and its best adjacent move ranks in the weakest quarter of exit options
+							among high-risk occupations. Mobility research finds outcomes hinge on escape-route
+							quality, not pressure alone.
+							<a href="/rankings/high-risk-few-exits" class="underline hover:text-foreground"
+								>See all occupations in this quadrant</a
+							>.
+						</p>
+					{:else if exitQuadrant}
+						<p class="mb-3 text-xs text-muted-foreground">
+							High displacement pressure, but comparatively credible risk-reducing moves exist — the
+							strongest scores {(exitQuadrant.best_composite * 100).toFixed(0)}% match. Escape-route
+							quality, not pressure alone, shapes how risk resolves.
+						</p>
+					{/if}
 					<div class="grid gap-2 sm:grid-cols-3">
-						{#each allUniqueTransitions.slice(0, 3) as t}
+						{#each displayTransitions.slice(0, 3) as t}
 							<OccupationCard
 								occupation={{ title: t.to_title, ssoc: t.to_ssoc, net_risk: 0 }}
 								mode="inset"
@@ -893,16 +901,16 @@
 							/>
 						{/each}
 					</div>
-					{#if allUniqueTransitions.length > 3}
+					{#if displayTransitions.length > 3}
 						<details class="mt-2">
 							<summary
 								class={cn(
 									caption({ weight: 'medium' }),
 									'cursor-pointer text-primary hover:underline'
-								)}>See {allUniqueTransitions.length - 3} more</summary
+								)}>See {displayTransitions.length - 3} more</summary
 							>
 							<div class="mt-2 grid gap-2 sm:grid-cols-3">
-								{#each allUniqueTransitions.slice(3) as t}
+								{#each displayTransitions.slice(3) as t}
 									<OccupationCard
 										occupation={{ title: t.to_title, ssoc: t.to_ssoc, net_risk: 0 }}
 										mode="inset"
@@ -1230,6 +1238,64 @@
 					</div>
 				</details>
 			{/if}
+
+			<!-- Role profile (moved from Why This Score) -->
+			{#if occ.workflow_overlay}
+				<div class="mt-5 pt-5 border-t border-border">
+					<p class={cn(caption({ weight: 'semibold' }), 'mb-2 text-foreground')}>Role profile</p>
+					<p class={cn(caption(), 'mb-3')}>
+						How this role's work breaks down across key dimensions. This is a general profile, not
+						an individual measurement.
+					</p>
+					<div class="flex justify-center">
+						<WorkflowRadar dimensions={occ.workflow_overlay} size={240} />
+					</div>
+				</div>
+			{/if}
+
+			<!-- Career-stage modifiers (moved from Singapore Now) -->
+			<div class={card({ padding: 'sm' })}>
+				<p class={cn(microLabel(), 'mb-1')}>How this changes by career stage</p>
+				<p class={cn(caption(), 'mb-3')}>
+					Senior workers benefit from institutional knowledge and judgment that AI cannot replicate.
+					Entry-level roles have higher task overlap with AI.
+				</p>
+				<div class="space-y-2">
+					<div
+						class={cn(
+							card({ padding: 'sm', variant: 'inset' }),
+							'flex items-center justify-between'
+						)}
+					>
+						<span class={caption()}>Junior / Entry-level</span>
+						<span class={caption({ weight: 'medium' })}
+							><span class="text-risk-high">Higher AI displacement risk</span></span
+						>
+					</div>
+					<div
+						class={cn(
+							card({ padding: 'sm', variant: 'inset' }),
+							'flex items-center justify-between'
+						)}
+					>
+						<span class={caption()}>Mid-career</span>
+						<span class={cn(caption({ weight: 'medium' }), 'text-foreground')}
+							>Standard risk profile</span
+						>
+					</div>
+					<div
+						class={cn(
+							card({ padding: 'sm', variant: 'inset' }),
+							'flex items-center justify-between'
+						)}
+					>
+						<span class={caption()}>Senior / Lead</span>
+						<span class={caption({ weight: 'medium' })}
+							><span class="text-risk-very-low">More protected by experience</span></span
+						>
+					</div>
+				</div>
+			</div>
 		</Collapsible.Content>
 	</Collapsible.Root>
 

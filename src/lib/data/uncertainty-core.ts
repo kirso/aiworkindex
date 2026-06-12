@@ -7,6 +7,7 @@ import {
 	computeExposureV7,
 	computeDemandResilienceV7
 } from './methodology-core';
+import { seedFromInputs, mulberry32, quantile } from '../utils/validation-stats';
 
 export interface ExposureBootstrapInput {
 	key: string;
@@ -35,40 +36,10 @@ export interface UncertaintyResult {
 	method: 'bootstrap_v1';
 }
 
-function seedFromInputs(values: number[]): number {
-	let seed = 2166136261;
-	for (const value of values) {
-		const scaled = Math.round(value * 10000);
-		seed ^= scaled;
-		seed = Math.imul(seed, 16777619);
-	}
-	return seed >>> 0;
-}
-
-function mulberry32(seed: number): () => number {
-	let state = seed >>> 0;
-	return () => {
-		state += 0x6d2b79f5;
-		let t = state;
-		t = Math.imul(t ^ (t >>> 15), t | 1);
-		t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-		return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-	};
-}
-
 function randn(random: () => number): number {
 	const u1 = Math.max(random(), 1e-12);
 	const u2 = random();
 	return Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
-}
-
-function quantile(sortedValues: number[], probability: number): number {
-	if (sortedValues.length === 0) return 0;
-	const index = Math.max(
-		0,
-		Math.min(sortedValues.length - 1, Math.floor(probability * (sortedValues.length - 1)))
-	);
-	return sortedValues[index] ?? 0;
 }
 
 function round4(value: number): number {

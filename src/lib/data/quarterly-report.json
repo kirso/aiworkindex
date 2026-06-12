@@ -1,139 +1,167 @@
 {
-  "generated_at": "2026-05-15T08:44:09.615Z",
-  "current_snapshot": "occupations-v7-2026-05.json",
-  "previous_snapshot": "occupations-v7-2026-04.json",
+  "generated_at": "2026-06-08T11:02:59.640Z",
+  "current_snapshot": "occupations-v7-2026-06.json",
+  "previous_snapshot": "occupations-v7-2026-05.json",
   "total_occupations": 562,
   "band_distribution": {
-    "moderate": 149,
-    "low": 162,
+    "moderate": 148,
+    "low": 166,
     "very_low": 133,
-    "high": 78,
-    "very_high": 40
+    "high": 79,
+    "very_high": 36
   },
   "band_movers": [
     {
+      "ssoc": "12113",
+      "title": "Audit manager",
+      "from_band": "moderate",
+      "to_band": "low",
+      "risk_delta": -0.005300000000000027
+    },
+    {
       "ssoc": "12215",
       "title": "Online sales channel manager",
-      "from_band": "low",
-      "to_band": "moderate",
-      "risk_delta": 0.0024000000000000132
+      "from_band": "moderate",
+      "to_band": "low",
+      "risk_delta": -0.004799999999999999
     },
     {
       "ssoc": "12211",
       "title": "Sales manager",
-      "from_band": "low",
-      "to_band": "moderate",
-      "risk_delta": 0.0024000000000000132
+      "from_band": "moderate",
+      "to_band": "low",
+      "risk_delta": -0.004799999999999999
     },
     {
       "ssoc": "25211",
       "title": "Database administrator",
-      "from_band": "high",
-      "to_band": "very_high",
-      "risk_delta": 0.00599999999999995
+      "from_band": "very_high",
+      "to_band": "high",
+      "risk_delta": -0.011999999999999955
     },
     {
       "ssoc": "25123",
       "title": "Multimedia (including games) developer",
-      "from_band": "high",
-      "to_band": "very_high",
-      "risk_delta": 0.006400000000000017
+      "from_band": "very_high",
+      "to_band": "high",
+      "risk_delta": -0.012800000000000034
     },
     {
       "ssoc": "21475",
       "title": "Rolling stock engineer",
-      "from_band": "low",
-      "to_band": "moderate",
-      "risk_delta": 0.0003999999999999837
+      "from_band": "moderate",
+      "to_band": "low",
+      "risk_delta": -0.0007999999999999952
     },
     {
       "ssoc": "24134",
       "title": "Treasury manager",
-      "from_band": "moderate",
-      "to_band": "high",
-      "risk_delta": 0.005200000000000038
-    },
-    {
-      "ssoc": "42243",
-      "title": "Medical/Dental receptionist",
       "from_band": "high",
-      "to_band": "very_high",
-      "risk_delta": 0.00599999999999995
-    }
-  ],
-  "top_risers": [
-    {
-      "ssoc": "33311",
-      "title": "Clearing and forwarding agent",
-      "old_risk": 0.7557,
-      "new_risk": 0.7735,
-      "delta": 0.017799999999999927
-    },
-    {
-      "ssoc": "33312",
-      "title": "Shipping agent/Boarding officer",
-      "old_risk": 0.7443,
-      "new_risk": 0.7618,
-      "delta": 0.01750000000000007
-    },
-    {
-      "ssoc": "24160",
-      "title": "Insurance underwriter",
-      "old_risk": 0.4627,
-      "new_risk": 0.4779,
-      "delta": 0.015199999999999991
-    },
-    {
-      "ssoc": "24251",
-      "title": "Intellectual property agent",
-      "old_risk": 0.5891,
-      "new_risk": 0.603,
-      "delta": 0.013900000000000023
-    },
-    {
-      "ssoc": "41320",
-      "title": "Data entry clerk",
-      "old_risk": 0.6989,
-      "new_risk": 0.7125,
-      "delta": 0.013600000000000056
-    },
-    {
-      "ssoc": "52440",
-      "title": "Telemarketer",
-      "old_risk": 0.6086,
-      "new_risk": 0.6216,
-      "delta": 0.013000000000000012
+      "to_band": "moderate",
+      "risk_delta": -0.01050000000000001
     },
     {
       "ssoc": "34110",
       "title": "Legal associate professional (e.g. paralegal)",
-      "old_risk": 0.5117,
-      "new_risk": 0.524,
-      "delta": 0.012299999999999978
+      "from_band": "very_high",
+      "to_band": "high",
+      "risk_delta": -0.02460000000000001
+    },
+    {
+      "ssoc": "42243",
+      "title": "Medical/Dental receptionist",
+      "from_band": "very_high",
+      "to_band": "high",
+      "risk_delta": -0.011999999999999955
+    },
+    {
+      "ssoc": "43222",
+      "title": "Production planning clerk",
+      "from_band": "high",
+      "to_band": "moderate",
+      "risk_delta": -0.0048000000000000265
+    },
+    {
+      "ssoc": "52492",
+      "title": "Food service counter attendant",
+      "from_band": "high",
+      "to_band": "moderate",
+      "risk_delta": -0.006500000000000006
+    }
+  ],
+  "top_risers": [],
+  "top_fallers": [
+    {
+      "ssoc": "33311",
+      "title": "Clearing and forwarding agent",
+      "old_risk": 0.7735,
+      "new_risk": 0.7378,
+      "delta": -0.035699999999999954
+    },
+    {
+      "ssoc": "33312",
+      "title": "Shipping agent/Boarding officer",
+      "old_risk": 0.7618,
+      "new_risk": 0.7267,
+      "delta": -0.03510000000000002
+    },
+    {
+      "ssoc": "24160",
+      "title": "Insurance underwriter",
+      "old_risk": 0.4779,
+      "new_risk": 0.4476,
+      "delta": -0.030299999999999994
+    },
+    {
+      "ssoc": "24251",
+      "title": "Intellectual property agent",
+      "old_risk": 0.603,
+      "new_risk": 0.5752,
+      "delta": -0.027799999999999936
+    },
+    {
+      "ssoc": "41320",
+      "title": "Data entry clerk",
+      "old_risk": 0.7125,
+      "new_risk": 0.6854,
+      "delta": -0.027100000000000013
+    },
+    {
+      "ssoc": "52440",
+      "title": "Telemarketer",
+      "old_risk": 0.6216,
+      "new_risk": 0.5955,
+      "delta": -0.026100000000000012
+    },
+    {
+      "ssoc": "34110",
+      "title": "Legal associate professional (e.g. paralegal)",
+      "old_risk": 0.524,
+      "new_risk": 0.4994,
+      "delta": -0.02460000000000001
     },
     {
       "ssoc": "43121",
       "title": "Bank operations clerk",
-      "old_risk": 0.6521,
-      "new_risk": 0.6636,
-      "delta": 0.011499999999999955
+      "old_risk": 0.6636,
+      "new_risk": 0.6406,
+      "delta": -0.02300000000000002
     },
     {
       "ssoc": "44170",
       "title": "Legal clerk",
-      "old_risk": 0.4747,
-      "new_risk": 0.4861,
-      "delta": 0.011399999999999966
+      "old_risk": 0.4861,
+      "new_risk": 0.4633,
+      "delta": -0.022799999999999987
     },
     {
       "ssoc": "33330",
       "title": "Employment agent/Labour contractor",
-      "old_risk": 0.436,
-      "new_risk": 0.4463,
-      "delta": 0.010299999999999976
+      "old_risk": 0.4463,
+      "new_risk": 0.4257,
+      "delta": -0.02059999999999995
     }
   ],
-  "top_fallers": [],
   "demand_changes": {
     "new_sol": [],
     "removed_sol": [],
@@ -209,13 +237,13 @@
     ]
   },
   "summary": {
-    "band_mover_count": 7,
-    "positive_drift_count": 10,
-    "negative_drift_count": 0
+    "band_mover_count": 11,
+    "positive_drift_count": 0,
+    "negative_drift_count": 10
   },
   "briefing": {
     "what_changed": [
-      "7 occupations changed risk band between occupations-v7-2026-04.json and occupations-v7-2026-05.json.",
+      "11 occupations changed risk band between occupations-v7-2026-05.json and occupations-v7-2026-06.json.",
       "Production & Transport Operators, Cleaners & Labourers saw the strongest vacancy pickup while Clerical, Sales & Service Workers saw the sharpest vacancy cooling in the live labour monitor.",
       "Structural movers remain limited in the latest snapshot comparison."
     ],

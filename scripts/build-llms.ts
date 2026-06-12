@@ -53,8 +53,8 @@ AI Work Index is a free, open-source project that scores occupations for structu
 
 headline_risk = displacement_pressure x (1 - demand_resilience)
 
-V7: task_signal = task_concentration x task_coverage (Hampole et al.)
-V7: exposure_v7 = exposure x (1 + 0.20 x task_signal)
+V7: task_signal = task_concentration x task_coverage (Hampole et al. — concentration buffers risk)
+V7: exposure_v7 = exposure x (1 - 0.20 x task_signal)
 V7: demand_persistence = ranked composite of momentum, vacancy, scarcity, demand signals
 
 - displacement_pressure = exposure_v7 x (1 - bottleneck)
@@ -141,8 +141,8 @@ AI Work Index is a global occupation scoring project covering Singapore and the 
 headline_risk = displacement_pressure x (1 - demand_resilience)
 
 V7 additions:
-  task_signal = task_exposure_concentration x task_effective_coverage (Hampole et al. 2025)
-  exposure_v7 = exposure x (1 + 0.20 x task_signal)
+  task_signal = task_exposure_concentration x task_effective_coverage (Hampole et al. 2025 — concentrated exposure buffers labour-demand losses)
+  exposure_v7 = exposure x (1 - 0.20 x task_signal)
   demand_persistence = ranked composite of market momentum, vacancy trends, scarcity, demand signals
 
 Where:

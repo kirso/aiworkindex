@@ -6,12 +6,15 @@
 	import blsValidation from '$lib/data/backtests/bls-crosswalk-validation.json';
 	import multiPeriodValidation from '$lib/data/backtests/multi-period-validation.json';
 	import calibrationDiagnostics from '$lib/data/backtests/calibration-diagnostics.json';
+	import sensitivityAnalysis from '$lib/data/backtests/sensitivity-analysis.json';
+	import imfConvergence from '$lib/data/backtests/imf-convergence.json';
+	import forecastHorizonValidation from '$lib/data/backtests/forecast-horizon-validation.json';
 	import occupationFamilyValidation from '$lib/data/backtests/occupation-family-validation.json';
 	import { dataSourceRegistry } from '$lib/data/data-contract';
 	import claimsMatrix from '$lib/data/claims-matrix.json';
 	import researchLibrary from '$lib/data/research-library.json';
 	import { releases, siteStatus } from '$lib/data/site-status';
-	import { DATA_VINTAGE, SITE } from '$lib/data/scoring-constants';
+	import { DATA_VINTAGE, SITE, getRiskBand } from '$lib/data/scoring-constants';
 	import { pageLayout, card, sectionLabel, caption } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
@@ -45,7 +48,12 @@
 	const clusterBacktestPath = `data/backtests/${clusterValidation.data_period.toLowerCase().replace(/\s+/g, '-')}-validation.json`;
 	const clusterChecks = clusterValidation.correlation_checks;
 	const vacancyCheck = clusterChecks[0] ?? { pass: false, actual: 'N/A', note: 'Unavailable' };
-	const retrenchmentCheck = clusterChecks[1] ?? { pass: false, actual: 'N/A', note: 'Unavailable' };
+	const retrenchmentCheck = clusterChecks[1] ?? {
+		pass: false,
+		actual: 'N/A',
+		note: 'Unavailable',
+		inconclusive: false
+	};
 	const hiringCheck = clusterChecks[2] ?? { pass: false, actual: 'N/A', note: 'Unavailable' };
 	const accuracyCheck = clusterChecks[3] ?? { pass: false, actual: 'N/A', note: 'Unavailable' };
 	const temporalVacancySummary = multiPeriodValidation.metrics.vacancy_rate_yoy.summary;
@@ -55,6 +63,27 @@
 	const calibrationFallback = calibrationDiagnostics.segments.by_match_quality.all_fallback;
 	const calibrationHighMedium = calibrationDiagnostics.segments.by_confidence_level.high_or_medium;
 	const calibrationLow = calibrationDiagnostics.segments.by_confidence_level.low;
+
+	// V6 -> V7 score diff, computed from the retained per-occupation baseline.
+	const v6DiffStats = (() => {
+		let bandFlips = 0;
+		let sumAbs = 0;
+		let maxAbs = 0;
+		let counted = 0;
+		for (const occupation of occupations) {
+			if (!occupation.baseline_v6) continue;
+			counted++;
+			const delta = occupation.net_risk - occupation.baseline_v6.net_risk;
+			sumAbs += Math.abs(delta);
+			maxAbs = Math.max(maxAbs, Math.abs(delta));
+			if (getRiskBand(occupation.baseline_v6.net_risk) !== occupation.risk_band) bandFlips++;
+		}
+		return {
+			band_flips: bandFlips,
+			mean_abs_delta_pp: ((sumAbs / Math.max(1, counted)) * 100).toFixed(1),
+			max_abs_delta_pp: (maxAbs * 100).toFixed(1)
+		};
+	})();
 
 	function pct(value: number, total: number): string {
 		return ((value / total) * 100).toFixed(1);
@@ -144,10 +173,11 @@
 				<span>Sensitivity-tested (band stability stress test)</span>
 			</div>
 			<div class="flex items-center gap-2 text-sm text-muted-foreground">
-				<span class="text-risk-very-low font-bold">&#10003;</span>
+				<span class="text-risk-moderate font-bold">~</span>
 				<span>
 					Cluster-level directional check only: {clusterChecksPassed}/{clusterChecksTotal} checks pass
-					({clusterValidation.data_period}, n = {clusterValidation.cluster_stats.length} clusters)
+					({clusterValidation.data_period}, n = {clusterValidation.cluster_stats.length} clusters) &mdash;
+					underpowered at this sample size; see Validation tab
 				</span>
 			</div>
 			<div class="flex items-center gap-2 text-sm text-muted-foreground">
@@ -269,9 +299,10 @@
 				<p class="text-sm font-semibold text-foreground">TL;DR</p>
 				<p class="mt-1 text-sm text-muted-foreground">
 					Headline risk = displacement pressure × (1 − demand resilience), where displacement
-					pressure = AI exposure × (1 − human bottleneck). In V7, exposure is amplified by
-					task-concentration (Hampole et al.) and demand resilience includes a persistence proxy. No
-					LLM assigns scores in the pipeline.
+					pressure = AI exposure × (1 − human bottleneck). In V7, exposure carries a
+					task-concentration buffer (Hampole et al. find concentrated exposure offsets labour-demand
+					losses) and demand resilience includes a persistence proxy. No LLM assigns scores in the
+					pipeline.
 				</p>
 			</div>
 
@@ -368,12 +399,30 @@
 				<ul class="mt-1 list-inside list-disc space-y-0.5 text-sm text-muted-foreground">
 					<li>
 						<code class="rounded bg-muted px-1 text-xs"
-							>displacement_pressure = exposure &times; (1 - bottleneck)</code
+							>displacement_pressure = exposure_v7 &times; (1 - bottleneck)</code
 						>
 					</li>
 					<li>
 						<code class="rounded bg-muted px-1 text-xs"
-							>demand_resilience = min(1.0, base_resilience &times; 0.45 + demand_signal_bonus)</code
+							>exposure_v7 = exposure &times; (1 - 0.20 &times; task_signal)</code
+						>
+						— the V7 task-concentration buffer (Hampole et al. 2025)
+					</li>
+					<li>
+						<code class="rounded bg-muted px-1 text-xs"
+							>task_signal = task_exposure_concentration &times; task_effective_coverage</code
+						>
+					</li>
+					<li>
+						<code class="rounded bg-muted px-1 text-xs"
+							>demand_resilience = min(1.0, base_resilience &times; 0.45 + demand_signal_bonus +
+							0.10 &times; demand_persistence)</code
+						>
+					</li>
+					<li>
+						<code class="rounded bg-muted px-1 text-xs"
+							>demand_persistence = 0.4 &times; momentum_rank + 0.3 &times; vacancy_rank + 0.2
+							&times; scarcity_rank + 0.1 &times; demand_bonus_rank</code
 						>
 					</li>
 					<li>
@@ -386,6 +435,15 @@
 					Demand resilience is its own axis, not a compressed multiplier. Weak demand provides less
 					buffer; strong verified demand can offset much more of the structural pressure than the
 					old buffering rule allowed.
+				</p>
+				<p class="mt-2 text-sm text-muted-foreground italic">
+					<strong>Honest framing of this axis:</strong> displacement pressure is the
+					evidence-grounded axis (exposure ensemble &times; bottleneck); demand resilience is best
+					read as a <em>counterweight adjustment</em> built from backward-looking labour-demand signals,
+					not an independently validated co-equal prediction. The sensitivity analysis identifies its
+					weights (base_weight in particular) as the model's most level-sensitive constants, and the IMF
+					convergence check flags the exposure tail as a candidate recalibration target &mdash; recalibration
+					is deferred to the next major version rather than tuned ad hoc.
 				</p>
 			</section>
 
@@ -532,7 +590,8 @@
 								base_resilience = 0.6 &times; market_momentum + 0.4 &times; occupation_scarcity
 							</p>
 							<p class="rounded bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
-								demand_resilience = min(1.0, base_resilience &times; 0.45 + demand_signal_bonus)
+								demand_resilience = min(1.0, base_resilience &times; 0.45 + demand_signal_bonus +
+								0.10 &times; demand_persistence)
 							</p>
 						</div>
 						<p class="mt-2 text-sm text-muted-foreground">
@@ -720,10 +779,10 @@
 				</p>
 				<div class="mt-2 space-y-2">
 					<p class="rounded bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
-						displacement_pressure = exposure &times; (1 - bottleneck)
+						displacement_pressure = exposure_v7 &times; (1 - bottleneck)
 					</p>
 					<p class="rounded bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
-						augmentation = exposure &times; bottleneck &times; base_resilience
+						augmentation = exposure_v7 &times; bottleneck &times; base_resilience
 					</p>
 				</div>
 				<p class="mt-2 text-sm text-muted-foreground">
@@ -919,9 +978,14 @@
 				<p class="text-sm font-semibold text-foreground">TL;DR</p>
 				<p class="mt-1 text-sm text-muted-foreground">
 					{clusterChecksPassed} of {clusterChecksTotal} cluster-level directional checks pass against
-					{clusterValidation.data_period} MOM data. BLS cross-country check shows weak but significant
-					negative correlation (rho = {blsValidation.spearman_rho}, p &lt; 0.01). This is a
-					structural pressure score, not a job-loss prediction.
+					{clusterValidation.data_period} MOM data &mdash; with only four binary checks this is statistically
+					indistinguishable from chance in either direction (a coin flip passes &ge;2 of 4 about 69% of
+					the time), so we treat it as underpowered by construction and accumulate checks across quarters
+					rather than claiming validation from it. BLS cross-country check shows a weak but significant
+					negative correlation (rho = {blsValidation.spearman_rho}, p &lt; 0.01) &mdash; a small
+					effect, consistent with field-wide findings that realized employment effects are not yet
+					detectable at the occupation-stock level. This is a structural pressure score, not a
+					job-loss prediction.
 				</p>
 			</div>
 
@@ -952,10 +1016,12 @@
 						</div>
 						<div class="flex items-center gap-2">
 							<span
-								class={retrenchmentCheck.pass
-									? 'text-risk-very-low font-bold shrink-0'
-									: 'text-risk-very-high font-bold shrink-0'}
-								>{retrenchmentCheck.pass ? '✓' : '✗'}</span
+								class={retrenchmentCheck.inconclusive
+									? 'text-muted-foreground font-bold shrink-0'
+									: retrenchmentCheck.pass
+										? 'text-risk-very-low font-bold shrink-0'
+										: 'text-risk-very-high font-bold shrink-0'}
+								>{retrenchmentCheck.inconclusive ? '—' : retrenchmentCheck.pass ? '✓' : '✗'}</span
 							>
 							<span
 								><strong>Risk vs retrenchment:</strong>
@@ -1007,6 +1073,17 @@
 						change:
 						<strong>&rho; = {blsValidation.spearman_rho}</strong> (p &lt; 0.01, n = {blsValidation.sample_size}).
 						Higher risk scores are associated with weaker projected employment growth.
+					</p>
+					<p class="mt-3 text-sm text-muted-foreground">
+						The slope specification &mdash; the same projected-growth regression design Anthropic
+						(Massenkoff &amp; McCrory, March 2026) used against these BLS projections &mdash; gives
+						<strong
+							>{blsValidation.slope_specification.slope_per_10pp_net_risk}pp lower projected
+							employment growth per +0.10 net_risk</strong
+						>
+						(p &lt; 0.001). Anthropic's observed-exposure measure found &minus;0.6pp per +10pp task coverage.
+						The measures differ, so this is a design-and-direction convergence, not a magnitude match
+						&mdash; but both find that higher measured pressure predicts weaker projected growth.
 					</p>
 					<div class="mt-3 overflow-x-auto">
 						<table class="w-full text-left text-sm">
@@ -1076,6 +1153,41 @@
 
 				<div class={cn(card({ padding: 'sm' }), 'mt-3')}>
 					<h3 class="text-sm font-semibold text-foreground mb-2">
+						IMF Singapore Convergence (macro benchmark)
+					</h3>
+					<p class="text-sm text-muted-foreground">
+						<strong>Framing first:</strong> the IMF's Singapore estimates (SIP/2024/040, Khan) are
+						absolute economy-wide shares &mdash; 77% of workers highly exposed, split roughly evenly
+						between high and low complementarity. Our exposure is percentile-ranked within
+						{DATA_VINTAGE.occupation_count} Singapore occupations, so it cannot reproduce absolute shares
+						by construction. What is comparable is the
+						<em>employment-weighted complementarity split among the most-exposed occupations</em>.
+					</p>
+					<p class="mt-3 text-sm text-muted-foreground">
+						At the top-half exposure cut, exposed employment splits
+						<strong
+							>{imfConvergence.employment_weighted_bins.top_half.exposed_high_complementarity_pct}%
+							high-complementarity to {imfConvergence.employment_weighted_bins.top_half
+								.exposed_low_complementarity_pct}% low-complementarity</strong
+						>
+						(ratio {imfConvergence.employment_weighted_bins.top_half.high_to_low_ratio}) &mdash;
+						broadly consistent with the IMF's roughly even split. At the stricter top-quartile cut
+						the ratio falls to
+						<strong>{imfConvergence.employment_weighted_bins.top_quartile.high_to_low_ratio}</strong
+						>: our most-exposed employment skews low-complementarity, i.e. the model is more
+						pessimistic than the IMF at the exposure tail. We disclose this divergence as a
+						candidate recalibration signal rather than hiding it.
+					</p>
+					<p class="mt-3 text-xs text-muted-foreground italic">
+						Convergent-directional Singapore macro benchmark only &mdash; not occupation-level
+						validation. The MOM AI-adoption survey (April 2026) is adoption/context evidence, and
+						the BLS slope above is the occupation-level external check. Full results in
+						<code class="rounded bg-muted px-1">data/backtests/imf-convergence.json</code>.
+					</p>
+				</div>
+
+				<div class={cn(card({ padding: 'sm' }), 'mt-3')}>
+					<h3 class="text-sm font-semibold text-foreground mb-2">
 						Temporal Robustness Check (Singapore labour history)
 					</h3>
 					<p class="text-sm text-muted-foreground">
@@ -1121,6 +1233,72 @@
 						This is a calibration check for mapping quality and confidence labels, not separate
 						Singapore outcome truth. Full results in
 						<code class="rounded bg-muted px-1">data/backtests/calibration-diagnostics.json</code>.
+					</p>
+				</div>
+
+				<div class={cn(card({ padding: 'sm' }), 'mt-3')}>
+					<h3 class="text-sm font-semibold text-foreground mb-2">
+						Sensitivity Analysis (hand-set constants)
+					</h3>
+					<p class="text-sm text-muted-foreground">
+						The formula contains {sensitivityAnalysis.per_constant.length} hand-set constants (the Hampole
+						buffer &lambda;, demand weights, SOL/JiD bonuses, ensemble reliability weights). We perturb
+						each one to &plusmn;25% / &plusmn;50% and run
+						{sensitivityAnalysis.monte_carlo.draws} seeded Monte-Carlo draws perturbing all of them jointly
+						by &plusmn;25%. The occupation <em>ranking</em> is highly robust: median rank
+						correlation with the baseline ordering is
+						<strong>&rho; = {sensitivityAnalysis.monte_carlo.spearman_p50}</strong>
+						(worst single-constant case &rho; = {sensitivityAnalysis.summary
+							.most_sensitive_worst_spearman}), and the median top-20 overlap is
+						<strong>{Math.round(sensitivityAnalysis.monte_carlo.top20_jaccard_p50 * 100)}%</strong>.
+					</p>
+					<p class="mt-3 text-sm text-muted-foreground">
+						The honest nuance: <em>band assignments</em> are more sensitive than rankings because
+						bands depend on absolute score levels. The most sensitive constant is
+						<code class="rounded bg-muted px-1"
+							>{sensitivityAnalysis.summary.most_sensitive_constant}</code
+						>
+						&mdash; at &plusmn;50% it flips up to {Math.max(
+							...sensitivityAnalysis.per_constant.map(c => c.max_band_flips)
+						)} of {DATA_VINTAGE.occupation_count} band labels while leaving the ranking nearly unchanged.
+						Constants with lower worst-case stability are recalibration priorities, not hidden assumptions.
+					</p>
+					<p class="mt-3 text-xs text-muted-foreground italic">
+						Every run first proves the recompute reproduces the published scores (max deviation {sensitivityAnalysis
+							.recompute_fidelity.max_abs_diff} across all {sensitivityAnalysis.recompute_fidelity
+							.occupations_checked} occupations). Rank stability is internal robustness evidence only
+						&mdash; it says nothing about whether the input data measure true displacement pressure. Full
+						results in
+						<code class="rounded bg-muted px-1">data/backtests/sensitivity-analysis.json</code>.
+					</p>
+				</div>
+
+				<div class={cn(card({ padding: 'sm' }), 'mt-3')}>
+					<h3 class="text-sm font-semibold text-foreground mb-2">
+						Forecast Horizons (sidecar, not promoted)
+					</h3>
+					<p class="text-sm text-muted-foreground">
+						We have frozen the May 2026 cluster-level risk ranking (<code
+							class="rounded bg-muted px-1">data/snapshots/occupations-v7-2026-05.json</code
+						>, git-timestamped) and published the test protocol before any outcome data exists:
+						realized changes in official vacancy and retrenchment outcomes at t+1Q, t+2Q, and t+4Q,
+						scored against a random-walk naive benchmark, with directional calls pooled across
+						quarters and outcomes into an exact binomial sign test.
+						<strong>
+							{forecastHorizonValidation.post_baseline_quarters_available} post-baseline quarters are
+							available today</strong
+						>
+						&mdash; the labour monitor ends before the frozen baseline &mdash; so no horizon result exists
+						yet and none is claimed. Status:
+						<code class="rounded bg-muted px-1">{forecastHorizonValidation.status}</code>.
+					</p>
+					<p class="mt-3 text-xs text-muted-foreground italic">
+						This harness activates as MOM publishes new quarters and is promoted only after at least
+						4 post-baseline quarters. It is a sidecar: never folded into headline scores and never
+						shown as occupation-level evidence. Protocol and current state in
+						<code class="rounded bg-muted px-1"
+							>data/backtests/forecast-horizon-validation.json</code
+						>.
 					</p>
 				</div>
 
@@ -1209,7 +1387,8 @@
 							<tr class="border-b border-border/50">
 								<td class="py-2 pr-3 font-medium">GPTs-are-GPTs</td>
 								<td class="py-2 pr-3"
-									>Eloundou et al. (2023) — LLM task-level exposure via human + GPT-4 assessment</td
+									>Eloundou et al. (Science, 2024) — LLM task-level exposure via human + GPT-4
+									assessment</td
 								>
 								<td class="py-2"
 									>Integrated in the live ensemble with reliability weighting when matched via SOC
@@ -1219,7 +1398,8 @@
 							<tr class="border-b border-border/50">
 								<td class="py-2 pr-3 font-medium">ILO AI Exposure</td>
 								<td class="py-2 pr-3"
-									>ILO (2024) — task-level AI automation potential scored across ISCO occupations</td
+									>ILO WP140 (2025) — task-level AI automation potential scored across ISCO
+									occupations</td
 								>
 								<td class="py-2"
 									>Integrated in the live ensemble with reliability weighting when matched via ISCO
@@ -1366,8 +1546,9 @@
 					modifiers (Entry-level / Mid-career / Senior). Adjustments scale with each occupation's variant
 					sensitivity — roles with high institutional knowledge (e.g., software engineering) vary more
 					by seniority than roles with low context-dependence (e.g., truck driver). Grounded in: Stanford
-					"Canaries in the Coal Mine" (2025) showing entry-level displacement pressure, and Anthropic
-					Economic Index (2026) showing 14% drop in job-finding for 22-25 year olds in AI-exposed occupations.
+					"Canaries in the Coal Mine" (2025) showing a 13% relative employment decline for ages 22-25
+					in most-exposed occupations, and Anthropic Economic Index (2026) showing a 14% lower rate of
+					entering highly AI-exposed occupations for 22-25 year olds.
 				</p>
 				<p class="mt-2 text-sm text-muted-foreground">
 					<strong>Labour monitor</strong> is built from official vacancy, recruitment/resignation, retrenchment,
@@ -1467,10 +1648,11 @@
 								<td class="py-2 pr-3 font-mono">+14pp × sensitivity</td>
 								<td class="py-2 pr-3 font-mono">−12pp × sensitivity</td>
 								<td class="py-2">
-									More routine tasks, less institutional knowledge. Anthropic (2026): 14% drop in
-									job-finding for ages 22-25. Stanford DEL (2025): entry-level faces
-									disproportionate pressure. Brynjolfsson et al. (2023): largest AI productivity
-									gains among junior workers, compressing the experience gap.
+									More routine tasks, less institutional knowledge. Anthropic (2026): 14% lower rate
+									of entering highly AI-exposed occupations for ages 22-25. Stanford DEL (2025): 13%
+									relative employment decline for ages 22-25 in most-exposed occupations. Note the
+									tension: Brynjolfsson et al. (2023) find the largest AI productivity gains among
+									junior workers — the penalty reflects employment access, not productivity.
 								</td>
 							</tr>
 							<tr class="border-b border-border/50">
@@ -1615,12 +1797,65 @@
 				<p class={sectionLabel()}>Known Limitations</p>
 				<ul class="mt-2 list-inside list-disc space-y-2 text-sm text-muted-foreground">
 					<li>
-						<strong>Exposure ≠ displacement</strong> — Market translation uses heuristics and lagging
-						indicators. Captures displacement but not reinstatement (Acemoglu &amp; Restrepo, 2019).
+						<strong>Exposure ≠ adoption ≠ displacement</strong> — This is the central limitation.
+						The exposure layer measures <em>potential</em> task overlap with AI capability, not
+						realised adoption (which is gated by cost, integration, regulation, verification, and
+						diffusion lag) and not actual job loss. There is
+						<strong>no adoption/diffusion-intensity variable</strong>
+						in the model; observed Claude usage (Anthropic) calibrates exposure but is not a substitute
+						for sector-level adoption data. The best Singapore-native adoption evidence is MOM's inaugural
+						firm survey (April 2026): 28.5% of firms have begun adopting AI, and among adopters 6.2% report
+						reduced headcount versus 18.9% redesigning roles &mdash; we use this as context, never as
+						a score input. Treat scores as structural pressure, not a forecast. The model captures displacement
+						but not reinstatement (Acemoglu &amp; Restrepo, 2019) &mdash; historically the dominant long-run
+						channel: 60% of 2018 US employment was in job titles that did not exist in 1940 (Autor et
+						al., 2024).
 					</li>
 					<li>
-						<strong>US-centric ability data</strong> — O*NET surveys US workers; task composition may
-						differ in Singapore.
+						<strong>Displacement realizes through hiring, not layoffs</strong> &mdash; The empirical AI
+						evidence so far (Stanford &ldquo;Canaries&rdquo;, 2025; Anthropic, 2026) finds effects concentrated
+						in reduced hiring of new entrants while incumbent headcount stays stable. A single score is
+						therefore a different object for someone entering the occupation (hiring-market risk) than
+						for an incumbent (task-redesign and wage-growth risk). The seniority modifiers approximate
+						this, but the model does not track hiring flows.
+					</li>
+					<li>
+						<strong>Wage and redesign channels are invisible to a headcount frame</strong> &mdash; Pressure
+						can resolve as slower wage growth, variable-pay compression, or role redesign with no job
+						loss. Singapore&rsquo;s institutions push in this direction: National Wages Council flexible-wage
+						guidance channels shocks into variable pay before layoffs, and Progressive Wage Model floors
+						block downward wage adjustment for most lower-wage workers. The score is agnostic between
+						&ldquo;job disappears&rdquo; and &ldquo;wage growth flattens&rdquo;.
+					</li>
+					<li>
+						<strong>Foreign-workforce buffer not modelled</strong> &mdash; Non-residents are roughly 40%
+						of total Singapore employment, and work-pass non-renewal historically absorbs downturns before
+						resident employment falls (the 2020 contraction fell entirely on non-resident employment).
+						Resident-facing risk is overstated in occupations with high work-pass shares &mdash; a buffer
+						that is thickest in manual occupations where AI pressure is lowest and thinnest in resident-dominated
+						PMET roles.
+					</li>
+					<li>
+						<strong>Transition capacity &ne; retraining efficacy</strong> &mdash; Transition scores measure
+						structural skill adjacency between occupations, not evidence that retraining works. The meta-analytic
+						record (Card, Kluve &amp; Weber, 2018) finds near-zero short-run gains and only modest gains
+						2&ndash;3 years after training programmes, and no causal evaluation of SkillsFuture/SCTP outcomes
+						has been published.
+					</li>
+					<li>
+						<strong>Exposure measurement instability</strong> &mdash; Two 2026 studies show the exposure
+						input class carries real measurement error: LLM-annotated exposure rubrics diverge up to 3.6&times;
+						across annotating models (Yin, Vu &amp; Persico, 2026), and platform-usage-based exposure
+						over-weights early-adopter occupations &mdash; reweighting to workforce composition attenuates
+						estimates by 42&ndash;93% (Yin &amp; Ogut, 2026). The 4-source ensemble dilutes but does not
+						remove these errors.
+					</li>
+					<li>
+						<strong>US-centric ability data</strong> — O*NET surveys US workers; task content for the
+						same occupation differs measurably across countries (Lewandowski et al., 2022), so the SSOC
+						&rarr; ISCO &rarr; SOC crosswalk inherits that bias. The closest Singapore-specific external
+						benchmark is IMF SIP/2024/040 (Khan), which estimates ~77% of Singapore workers are highly
+						exposed; the model is not yet formally calibrated against it.
 					</li>
 					<li>
 						<strong>Hierarchical market granularity</strong> — Momentum is major-group level; wage structure
@@ -1816,9 +2051,10 @@
 						</p>
 						<p class="mt-1 text-xs">
 							We measure where AI has the most technical overlap with human tasks, adjusted for
-							human bottlenecks and market signals. Validated directionally at cluster level ({clusterChecksPassed}/{clusterChecksTotal}
-							checks pass vs {siteStatus.live_monitor.labour_monitor_validation_vintage} data) and temporally
-							through vacancy rank-order checks, not causally at occupation level.
+							human bottlenecks and market signals. Directionally checked at cluster level ({clusterChecksPassed}/{clusterChecksTotal}
+							checks pass vs {siteStatus.live_monitor.labour_monitor_validation_vintage} data &mdash;
+							underpowered at four binary checks) and temporally through vacancy rank-order checks, not
+							causally at occupation level.
 						</p>
 					</div>
 				</div>
@@ -1862,6 +2098,9 @@
 							<p class="mt-1 text-sm text-muted-foreground">
 								{release.notes.join(' ')}
 								{#if release.version_label === 'V7'}
+									Score diff vs retained V6 baseline: {v6DiffStats.band_flips} of {DATA_VINTAGE.occupation_count}
+									occupations changed risk band, mean absolute net-risk change {v6DiffStats.mean_abs_delta_pp}pp,
+									largest single change {v6DiffStats.max_abs_delta_pp}pp.
 									<a href="/reports/v7-release" class="ml-1 text-primary hover:underline"
 										>Release note</a
 									>

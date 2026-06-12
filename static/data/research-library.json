@@ -1,25 +1,25 @@
 {
   "version": "V7",
-  "generated_at": "2026-05-15T08:44:09.356Z",
-  "entry_count": 25,
+  "generated_at": "2026-06-11T11:22:22.452Z",
+  "entry_count": 34,
   "domain_counts": {
-    "exposure": 7,
-    "tasks": 8,
-    "complementarity": 1,
-    "validation": 7,
-    "mobility": 1,
-    "forecast": 5,
+    "exposure": 10,
+    "tasks": 10,
+    "complementarity": 2,
+    "validation": 8,
+    "mobility": 3,
+    "forecast": 6,
     "uncertainty": 1,
     "productivity": 4,
     "augmentation": 4,
-    "measurement": 11,
-    "context": 7
+    "measurement": 15,
+    "context": 13
   },
   "role_counts": {
-    "active_core": 15,
-    "validation": 1,
+    "active_core": 16,
+    "validation": 2,
     "candidate_v5": 2,
-    "supporting_context": 7
+    "supporting_context": 14
   },
   "entries": [
     {
@@ -55,6 +55,64 @@
       "summary": "Adds observed AI-usage evidence to the exposure stack and motivates the repo's task-primitives sidecar.",
       "limitations": "Observed Claude usage is not a full labour-market census and is still a platform-specific measure.",
       "repo_notes": "Active live source in the audited exposure ensemble and a major input to the future task-native direction."
+    },
+    {
+      "key": "yin_vu_persico_2026",
+      "title": "How (un)Stable Are LLM Occupational Exposure Scores? Evidence from Multi-Model Replication",
+      "authors": [
+        "Michelle Yin",
+        "Hoa Vu",
+        "Claudia Persico"
+      ],
+      "year": 2026,
+      "published_at": "2026-04",
+      "publisher": "NBER Working Paper 35110",
+      "url": "https://www.nber.org/papers/w35110",
+      "doi": "10.3386/w35110",
+      "type": "working_paper",
+      "domains": [
+        "measurement",
+        "exposure"
+      ],
+      "role": "supporting_context",
+      "status": "supporting",
+      "used_for": [
+        "exposure measurement-instability disclosure"
+      ],
+      "source_keys": [],
+      "claim_ids": [],
+      "summary": "Replicating the Eloundou-style exposure rubric with three frontier LLMs yields a 3.6-fold divergence in mean exposure and inter-model agreement as low as 57%; downstream employment estimates vary 2.4x and can flip sign by annotating model.",
+      "limitations": "Measures annotator instability, not which annotation is correct; ensemble averaging across independent measures dilutes but does not remove the error.",
+      "repo_notes": "Disclosed in Known Limitations: affects the Eloundou and ILO components of the exposure ensemble."
+    },
+    {
+      "key": "imas_shukla_2026",
+      "title": "How Will AI-Driven Automation Actually Affect Jobs?",
+      "authors": [
+        "Alex Imas",
+        "Vasudha Shukla"
+      ],
+      "year": 2026,
+      "published_at": "2026-03",
+      "publisher": "Ghosts of Electricity (Substack)",
+      "url": "https://aleximas.substack.com/p/how-will-ai-driven-automation-actually",
+      "type": "article",
+      "domains": [
+        "forecast",
+        "measurement",
+        "context"
+      ],
+      "role": "active_core",
+      "status": "active",
+      "used_for": [
+        "demand-persistence proxy motivation",
+        "exposure-index critique framing"
+      ],
+      "source_keys": [],
+      "claim_ids": [],
+      "summary": "Argues exposure alone cannot predict displacement: output-demand price elasticity (elastic demand can expand hiring as AI cuts costs) and job dimensionality (low-task jobs are easier to automate fully) are the missing variables.",
+      "limitations": "Commentary rather than peer-reviewed estimation; proposes collecting new price/quantity data rather than a ready-made occupation-level measure.",
+      "repo_notes": "Motivates the V7 demand-persistence proxy. The proxy measures recent labour-demand persistence (momentum, vacancies, scarcity), not output-price elasticity, and does not capture dimensionality — it is a partial response to this critique, not a resolution."
     },
     {
       "key": "anthropic_labor_market_impacts_2026",
@@ -150,6 +208,33 @@
       "repo_notes": "Useful for the forecast layer, not for the core structural score."
     },
     {
+      "key": "yin_ogut_2026",
+      "title": "Who Uses AI? Platform Selection and the Measurement of Occupational AI Exposure",
+      "authors": [
+        "Michelle Yin",
+        "Burhan Ogut"
+      ],
+      "year": 2026,
+      "published_at": "2026-05",
+      "publisher": "arXiv 2605.21743",
+      "url": "https://arxiv.org/abs/2605.21743",
+      "type": "working_paper",
+      "domains": [
+        "measurement",
+        "exposure"
+      ],
+      "role": "supporting_context",
+      "status": "supporting",
+      "used_for": [
+        "platform-selection bias disclosure"
+      ],
+      "source_keys": [],
+      "claim_ids": [],
+      "summary": "Platform-log exposure measures conflate task-level AI applicability with the occupational composition of platform users; reweighting to BLS employment shares attenuates post-ChatGPT employment estimates by 42-93%, and swapping platforms changes coefficients 1.9x.",
+      "limitations": "US workforce reweighting; the direction of bias for Singapore depends on local adoption composition, which is not measured at occupation level.",
+      "repo_notes": "Disclosed in Known Limitations: affects the Anthropic observed-usage component of the exposure ensemble."
+    },
+    {
       "key": "dillon_etal_2025",
       "title": "AI, Productivity, and Work Quality",
       "authors": [
@@ -207,8 +292,8 @@
       "source_keys": [],
       "claim_ids": [],
       "summary": "Shows that mean exposure and concentration of exposure in a few tasks can have different labour-demand implications.",
-      "limitations": "The repo uses a simplified shadow-model concentration buffer rather than the paper's full firm-task empirical setting.",
-      "repo_notes": "Primary scientific justification for publishing task exposure concentration as its own field and using it in the shadow model."
+      "limitations": "The repo uses a simplified concentration buffer rather than the paper's full firm-task empirical setting; the buffer magnitude (lambda = 0.20) is heuristic, not estimated from the paper's coefficients.",
+      "repo_notes": "Primary scientific justification for the live V7 task-concentration exposure buffer (concentration offsets labour-demand losses via within-job task reallocation)."
     },
     {
       "key": "bls_skills_data_2025",
@@ -240,6 +325,35 @@
       "summary": "Official 17-skill summary for occupations, built on O*NET inputs and BLS projections occupations.",
       "limitations": "It is a summarized skills view, not a direct task-by-task automation score.",
       "repo_notes": "Best public structured skill overlay for the US country layer."
+    },
+    {
+      "key": "brynjolfsson_chandar_chen_2025",
+      "title": "Canaries in the Coal Mine? Six Facts about the Recent Employment Effects of Artificial Intelligence",
+      "authors": [
+        "Erik Brynjolfsson",
+        "Bharat Chandar",
+        "Ruyu Chen"
+      ],
+      "year": 2025,
+      "published_at": "2025-11",
+      "publisher": "Stanford Digital Economy Lab",
+      "url": "https://digitaleconomy.stanford.edu/publication/canaries-in-the-coal-mine-six-facts-about-the-recent-employment-effects-of-artificial-intelligence/",
+      "type": "working_paper",
+      "domains": [
+        "validation",
+        "context"
+      ],
+      "role": "supporting_context",
+      "status": "supporting",
+      "used_for": [
+        "seniority modifier grounding",
+        "hiring-margin displacement framing"
+      ],
+      "source_keys": [],
+      "claim_ids": [],
+      "summary": "ADP payroll microdata: 13% (revised ~16% by Oct 2025) relative employment decline for ages 22-25 in the most AI-exposed occupations, concentrated where usage is automative; adjustment runs through reduced hiring of entrants, not layoffs of incumbents.",
+      "limitations": "US payroll data; the Feb 2026 update concedes effects are significant only from 2024 under the broadest macro controls. Entry-margin evidence, not occupation-level displacement totals.",
+      "repo_notes": "Primary citation for the seniority modifiers and for the hiring-margin limitation: entrant-facing and incumbent-facing risk are different objects."
     },
     {
       "key": "bls_cps_demographics_2025",
@@ -564,6 +678,64 @@
       "repo_notes": "Guides the schema for observed transition priors and future ranking logic in the transition layer."
     },
     {
+      "key": "khan_imf_singapore_2024",
+      "title": "Impact of AI on Singapore’s Labor Market",
+      "authors": [
+        "Shujaat Khan"
+      ],
+      "year": 2024,
+      "published_at": "2024",
+      "publisher": "IMF Selected Issues Paper SIP/2024/040",
+      "url": "https://www.imf.org/en/Publications/selected-issues-papers/Issues/2024/08/23/Impact-of-AI-on-Singapore-s-Labor-Market-Singapore-553481",
+      "type": "working_paper",
+      "domains": [
+        "exposure",
+        "complementarity",
+        "context"
+      ],
+      "role": "validation",
+      "status": "active",
+      "used_for": [
+        "Singapore-specific exposure benchmark",
+        "external convergent validation target"
+      ],
+      "source_keys": [],
+      "claim_ids": [],
+      "summary": "IMF Singapore-specific estimates: ~77% of Singapore workers are highly exposed to AI (vs ~60% advanced-economy / ~40% emerging-market averages), split roughly evenly between high- and low-complementarity exposure.",
+      "limitations": "Aggregate exposure/complementarity shares at the economy level, not occupation-by-occupation scores; uses the IMF exposure framework rather than this repo’s 4-source ensemble.",
+      "repo_notes": "The most directly relevant external benchmark for a Singapore AI-exposure product. Not yet used for formal calibration; flagged as a convergent-validity target more relevant than US BLS."
+    },
+    {
+      "key": "autor_chin_salomons_seegmiller_2024",
+      "title": "New Frontiers: The Origins and Content of New Work, 1940-2018",
+      "authors": [
+        "David Autor",
+        "Caroline Chin",
+        "Anna Salomons",
+        "Bryan Seegmiller"
+      ],
+      "year": 2024,
+      "published_at": "2024-08",
+      "publisher": "Quarterly Journal of Economics 139(3)",
+      "url": "https://academic.oup.com/qje/article/139/3/1399/7630175",
+      "doi": "10.1093/qje/qjae008",
+      "type": "paper",
+      "domains": [
+        "tasks",
+        "context"
+      ],
+      "role": "supporting_context",
+      "status": "supporting",
+      "used_for": [
+        "reinstatement-channel acknowledgment"
+      ],
+      "source_keys": [],
+      "claim_ids": [],
+      "summary": "60% of 2018 US employment is in job titles that did not exist in 1940; new work emerges disproportionately in occupations exposed to augmenting rather than automating innovations.",
+      "limitations": "Historical US evidence; no AI-era occupation-level reinstatement rate yet exists that could serve as a score input.",
+      "repo_notes": "The canonical quantified evidence for why displacement-only scores overstate long-run risk; cited in the central limitation."
+    },
+    {
       "key": "bls_occupational_projections_2024_2034",
       "title": "US BLS Employment Projections 2024-2034",
       "authors": [
@@ -722,6 +894,68 @@
       "repo_notes": "Directly tied to the theta-based bottleneck implementation in the current scorer."
     },
     {
+      "key": "lewandowski_etal_2022",
+      "title": "Technology, Skills, and Globalization: Explaining International Differences in Routine and Nonroutine Work Using Survey Data",
+      "authors": [
+        "Piotr Lewandowski",
+        "Albert Park",
+        "Wojciech Hardy",
+        "Yang Du",
+        "Saier Wu"
+      ],
+      "year": 2022,
+      "published_at": "2022-05",
+      "publisher": "World Bank Economic Review 36(3)",
+      "url": "https://academic.oup.com/wber/article/36/3/670/6535703",
+      "doi": "10.1093/wber/lhac005",
+      "type": "paper",
+      "domains": [
+        "measurement",
+        "tasks"
+      ],
+      "role": "supporting_context",
+      "status": "supporting",
+      "used_for": [
+        "crosswalk limitation citation"
+      ],
+      "source_keys": [],
+      "claim_ids": [],
+      "summary": "Worker-survey evidence across 46 countries: task content differs substantially across countries within the same occupation, so US O*NET-based task measures misstate task content abroad.",
+      "limitations": "Singapore is not in the PIAAC/STEP samples, so the bias cannot be directly corrected; high-income economies show smaller divergence from US task content.",
+      "repo_notes": "The canonical citation for the SSOC-ISCO-SOC-O*NET crosswalk caveat; motivates benchmarking against Singapore-native task data (SkillsFuture Skills Framework)."
+    },
+    {
+      "key": "del_rio_chanona_etal_2021",
+      "title": "Occupational mobility and automation: a data-driven network model",
+      "authors": [
+        "R. Maria del Rio-Chanona",
+        "Penny Mealy",
+        "Mariano Beguerisse-Diaz",
+        "Francois Lafond",
+        "J. Doyne Farmer"
+      ],
+      "year": 2021,
+      "published_at": "2021-01",
+      "publisher": "Journal of the Royal Society Interface 18(174)",
+      "url": "https://royalsocietypublishing.org/doi/10.1098/rsif.2020.0898",
+      "doi": "10.1098/rsif.2020.0898",
+      "type": "paper",
+      "domains": [
+        "mobility",
+        "context"
+      ],
+      "role": "supporting_context",
+      "status": "supporting",
+      "used_for": [
+        "risk x transition-capacity quadrant framing"
+      ],
+      "source_keys": [],
+      "claim_ids": [],
+      "summary": "Network model on empirical occupational transitions: whether an automation shock produces unemployment or smooth reallocation depends on the topology of the transition network around an occupation, not its exposure alone.",
+      "limitations": "US transition-network data; Singapore-specific mobility networks are not yet measured, so the repo applies the insight via its structural transition-capacity scores.",
+      "repo_notes": "Grounds the high-risk x few-exits quadrant surfacing (rankings and occupation pages): escape-route quality, not pressure alone, shapes outcomes."
+    },
+    {
       "key": "felten_raj_seamans_2021",
       "title": "Occupational, industry, and geographic exposure to artificial intelligence: A novel dataset and its potential uses",
       "authors": [
@@ -786,6 +1020,35 @@
       "summary": "Introduces the task-ability linkage approach that underpins modern AI-exposure measurement.",
       "limitations": "Provides the conceptual bridge from AI capabilities to work content, but not current observed usage or Singapore-specific outcomes.",
       "repo_notes": "Referenced as the foundational exposure framework behind later AIOE-style occupation measures."
+    },
+    {
+      "key": "card_kluve_weber_2018",
+      "title": "What Works? A Meta-Analysis of Recent Active Labor Market Program Evaluations",
+      "authors": [
+        "David Card",
+        "Jochen Kluve",
+        "Andrea Weber"
+      ],
+      "year": 2018,
+      "published_at": "2018-06",
+      "publisher": "Journal of the European Economic Association 16(3)",
+      "url": "https://academic.oup.com/jeea/article-abstract/16/3/894/4430618",
+      "doi": "10.1093/jeea/jvx028",
+      "type": "paper",
+      "domains": [
+        "mobility",
+        "context"
+      ],
+      "role": "supporting_context",
+      "status": "supporting",
+      "used_for": [
+        "transition-capacity framing caveat"
+      ],
+      "source_keys": [],
+      "claim_ids": [],
+      "summary": "Meta-analysis of 200+ active labour market programme evaluations: average training impacts are close to zero in the short run and only modestly positive 2-3 years post-programme.",
+      "limitations": "Pre-AI-era programmes, mostly Europe/US; Singapore schemes (SkillsFuture, SCTP, CCP) have published only selection-biased administrative outcomes, no causal evaluation.",
+      "repo_notes": "Grounds the caveat that transition-capacity scores measure structural skill adjacency, not evidence that retraining works."
     }
   ]
 }

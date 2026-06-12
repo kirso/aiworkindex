@@ -9,14 +9,19 @@
 
 	let { data } = $props();
 
+	const PAGE_SIZE = 30;
+
 	let filterResult: typeof data.occupations | null = $state(null);
+	let visibleCount = $state(PAGE_SIZE);
 	let filteredOccupations = $derived(filterResult ?? data.occupations);
 	let sortedOccupations = $derived(
 		[...filteredOccupations].sort((a, b) => a.title.localeCompare(b.title))
 	);
+	let visibleOccupations = $derived(sortedOccupations.slice(0, visibleCount));
 
 	function handleFilter(filtered: typeof data.occupations) {
 		filterResult = filtered;
+		visibleCount = PAGE_SIZE; // reset paging whenever the filter changes
 	}
 
 	const itemListJsonLd = $derived(
@@ -62,15 +67,50 @@
 		<section>
 			<div class="mb-4">
 				<p class="text-sm text-muted-foreground">
-					Showing {sortedOccupations.length} of {data.occupations.length} occupations
+					{#if sortedOccupations.length === 0}
+						Showing 0 of {data.occupations.length} occupations
+					{:else}
+						Showing {Math.min(visibleCount, sortedOccupations.length)} of {sortedOccupations.length}
+						{sortedOccupations.length === data.occupations.length
+							? 'occupations'
+							: `matching occupations (${data.occupations.length} total)`}
+					{/if}
 				</p>
 			</div>
 
-			<div class="space-y-2">
-				{#each sortedOccupations as occupation (occupation.ssoc)}
-					<OccupationCard {occupation} />
-				{/each}
-			</div>
+			{#if sortedOccupations.length === 0}
+				<div class={cn(card({ padding: 'lg' }), 'border-dashed text-center')}>
+					<p class="text-sm font-medium text-foreground">No occupations match your filters.</p>
+					<p class="mt-1 text-sm text-muted-foreground">
+						Try widening the risk band, occupation group, or wage range.
+					</p>
+					<button
+						type="button"
+						class="mt-3 text-sm font-medium text-primary hover:underline"
+						onclick={() => handleFilter(data.occupations)}
+					>
+						Clear filters
+					</button>
+				</div>
+			{:else}
+				<div class="space-y-2">
+					{#each visibleOccupations as occupation (occupation.ssoc)}
+						<OccupationCard {occupation} />
+					{/each}
+				</div>
+
+				{#if visibleCount < sortedOccupations.length}
+					<div class="mt-4 text-center">
+						<button
+							type="button"
+							class={cn(card({ padding: 'sm' }), 'w-full text-sm font-medium hover:bg-muted/50')}
+							onclick={() => (visibleCount += PAGE_SIZE)}
+						>
+							Show more ({sortedOccupations.length - visibleCount} remaining)
+						</button>
+					</div>
+				{/if}
+			{/if}
 		</section>
 	</div>
 </main>

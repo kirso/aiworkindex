@@ -47,6 +47,13 @@
 
 @import 'tailwindcss';
 @import 'tw-animate-css';
+@import '@fontsource/schibsted-grotesk/400.css';
+@import '@fontsource/schibsted-grotesk/500.css';
+@import '@fontsource/schibsted-grotesk/700.css';
+@import '@fontsource/schibsted-grotesk/900.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+@import '@fontsource/ibm-plex-mono/600.css';
 @custom-variant dark (&:is(.dark *));
 
 /* ============================================
@@ -57,8 +64,8 @@
 
 @theme {
 	/* --- Typography --- */
-	--font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
-	--font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', monospace;
+	--font-sans: 'Schibsted Grotesk', ui-sans-serif, system-ui, -apple-system, sans-serif;
+	--font-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Code', monospace;
 
 	/* --- Custom tracking --- */
 	--tracking-display: -0.03em;
@@ -69,42 +76,39 @@
 	--leading-display: 1.1;
 	--leading-heading: 1.2;
 
-	/* --- Radius (tighter than default — tool-like) --- */
-	--radius-xs: 0.125rem;
-	--radius-sm: 0.25rem;
-	--radius-md: 0.375rem;
-	--radius-lg: 0.5rem;
-	--radius-xl: 0.75rem;
+	/* --- Radius: Swiss editorial — sharp corners everywhere --- */
+	--radius-xs: 0;
+	--radius-sm: 0;
+	--radius-md: 0;
+	--radius-lg: 0;
+	--radius-xl: 0;
 
 	/* --- Risk Spectrum: Full saturation, diagnostic ---
 	     Each risk level has 3 tokens: solid, subtle bg, border.
 	     Solid colors used for badges/bars.
 	     Subtle/border for tinted backgrounds. */
 
-	/* Very Low — emerald (darkened for WCAG AA text contrast on white) */
-	--color-risk-very-low: oklch(0.48 0.14 155);
-	--color-risk-very-low-subtle: oklch(0.97 0.02 155);
-	--color-risk-very-low-border: oklch(0.88 0.06 155);
+	/* Risk scale — the ONLY chromatic system besides the signal accent.
+	   Spec: docs/design/REDESIGN_SPEC.md */
+	--color-risk-very-low: #2a7f62;
+	--color-risk-very-low-subtle: #eef6f2;
+	--color-risk-very-low-border: #c4e0d4;
 
-	/* Low — green (darkened for WCAG AA text contrast) */
-	--color-risk-low: oklch(0.47 0.12 145);
-	--color-risk-low-subtle: oklch(0.97 0.018 145);
-	--color-risk-low-border: oklch(0.88 0.05 145);
+	--color-risk-low: #48a06c;
+	--color-risk-low-subtle: #eff7f1;
+	--color-risk-low-border: #cbe5d3;
 
-	/* Moderate — amber (darkened for WCAG AA text contrast on white) */
-	--color-risk-moderate: oklch(0.55 0.14 75);
-	--color-risk-moderate-subtle: oklch(0.97 0.02 75);
-	--color-risk-moderate-border: oklch(0.9 0.06 75);
+	--color-risk-moderate: #a07a0a;
+	--color-risk-moderate-subtle: #faf5e6;
+	--color-risk-moderate-border: #e8d9a8;
 
-	/* High — orange (darkened for AA text contrast on white and tinted bg) */
-	--color-risk-high: oklch(0.5 0.16 40);
-	--color-risk-high-subtle: oklch(0.97 0.02 40);
-	--color-risk-high-border: oklch(0.9 0.05 40);
+	--color-risk-high: #c05a1d;
+	--color-risk-high-subtle: #fbf1ea;
+	--color-risk-high-border: #efcfb8;
 
-	/* Very High — red */
-	--color-risk-very-high: oklch(0.55 0.22 25);
-	--color-risk-very-high-subtle: oklch(0.97 0.02 25);
-	--color-risk-very-high-border: oklch(0.9 0.05 25);
+	--color-risk-very-high: #d6151c;
+	--color-risk-very-high-subtle: #fcecec;
+	--color-risk-very-high-border: #f3c0c1;
 
 	/* --- Impact Types (3-step each) --- */
 	--color-impact-leveraged: oklch(0.5 0.18 255);
@@ -123,19 +127,20 @@
 	--color-impact-mixed-subtle: oklch(0.97 0.02 75);
 	--color-impact-mixed-border: oklch(0.9 0.05 75);
 
-	/* --- Chart Colors (5-color, high contrast) --- */
-	--color-chart-1: oklch(0.5 0.18 255);
-	--color-chart-2: oklch(0.6 0.16 155);
-	--color-chart-3: oklch(0.7 0.16 75);
-	--color-chart-4: oklch(0.55 0.22 25);
-	--color-chart-5: oklch(0.5 0.1 300);
+	/* --- Chart Colors: ink + risk-scale derivatives only (color reservation) --- */
+	--color-chart-1: #0c0c0c;
+	--color-chart-2: #2a7f62;
+	--color-chart-3: #a07a0a;
+	--color-chart-4: #d6151c;
+	--color-chart-5: #6f6f6f;
 
 	/* --- Shadows: Clean, not colored ---
 	     Signal style uses sharp, functional shadows. */
-	--shadow-xs: 0 1px 2px rgb(0 0 0 / 0.04);
-	--shadow-sm: 0 1px 3px rgb(0 0 0 / 0.06), 0 1px 2px rgb(0 0 0 / 0.04);
-	--shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
-	--shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+	/* Swiss editorial: structure comes from rules, not elevation */
+	--shadow-xs: 0 0 #0000;
+	--shadow-sm: 0 0 #0000;
+	--shadow-md: 0 0 #0000;
+	--shadow-lg: 0 0 #0000;
 
 	/* --- Easing --- */
 	--ease-snappy: cubic-bezier(0.2, 0, 0, 1);
@@ -159,46 +164,46 @@
 	 * Cards are defined by border + shadow, not tonal shift alone.
 	 * Tinted variants (subtle, metric) darken progressively.
 	 */
-	--background: oklch(0.98 0.002 240); /* page canvas — subtle gray, clean */
-	--foreground: oklch(0.14 0.005 240); /* near-black, blue-tinted */
-	--card: oklch(1 0 0); /* pure white — lifts off background */
-	--card-foreground: oklch(0.14 0.005 240);
-	--inset: oklch(0.955 0.005 240); /* clearly recessed within card */
-	--inset-foreground: oklch(0.4 0.005 240);
+	/* Swiss editorial: pure white canvas, true ink, hairline rules.
+	   Spec: docs/design/REDESIGN_SPEC.md */
+	--background: #ffffff;
+	--foreground: #0c0c0c;
+	--card: #ffffff;
+	--card-foreground: #0c0c0c;
+	--inset: #f4f4f4;
+	--inset-foreground: #444444;
 
-	/* Surface roles — tinted steps darker than card white */
-	--surface-subtle: oklch(0.975 0.003 240); /* section panels inside cards */
-	--surface-metric: oklch(0.965 0.004 240); /* stat grouping — visible tint */
-	--popover: oklch(1 0 0);
-	--popover-foreground: oklch(0.14 0.005 240);
+	--surface-subtle: #fafafa;
+	--surface-metric: #f4f4f4;
+	--popover: #ffffff;
+	--popover-foreground: #0c0c0c;
 
-	/* Brand: ink blue — credible, analytical, doesn't compete with risk colors */
-	--primary: oklch(0.42 0.16 230);
-	--primary-foreground: oklch(0.98 0 0);
-	--secondary: oklch(0.96 0.004 240);
-	--secondary-foreground: oklch(0.25 0.01 240);
+	/* Brand: signal red — the only brand color (Economist register) */
+	--primary: #e3120b;
+	--primary-foreground: #ffffff;
+	--secondary: #f4f4f4;
+	--secondary-foreground: #0c0c0c;
 
 	/* UI Chrome */
-	--muted: oklch(0.955 0.003 240);
-	--muted-foreground: oklch(0.48 0.01 240);
+	--muted: #f4f4f4;
+	--muted-foreground: #6f6f6f;
 
-	/* Text hierarchy — 3 tiers below foreground, no ad-hoc opacity.
-	   All pass WCAG AA (4.5:1) against both --background (0.980) and --card (1.0). */
-	--text-secondary: oklch(0.42 0.008 240); /* supporting copy, descriptions */
-	--text-tertiary: oklch(0.52 0.006 240); /* metadata, sources, timestamps */
-	--text-ghost: oklch(0.58 0.005 240); /* fine print, separators */
-	--accent: oklch(0.945 0.006 240);
-	--accent-foreground: oklch(0.2 0.01 240);
-	--destructive: oklch(0.55 0.22 25);
-	--border: oklch(0.91 0.005 240); /* structural border — use at reduced opacity for ghost effect */
-	--input: oklch(0.905 0.005 240);
-	--ring: oklch(0.48 0.14 230);
+	/* Text hierarchy — ink steps, AA on white */
+	--text-secondary: #444444;
+	--text-tertiary: #6f6f6f;
+	--text-ghost: #8b8b8b;
+	--accent: #f4f4f4;
+	--accent-foreground: #0c0c0c;
+	--destructive: #d6151c;
+	--border: #e3e3e3;
+	--input: #d9d9d9;
+	--ring: #0c0c0c;
 
 	/* Header */
-	--header-bg: oklch(1 0 0);
-	--header-text: oklch(0.14 0.005 240);
-	--header-muted: oklch(0.48 0.01 240);
-	--header-active-bg: oklch(0.945 0.006 240);
+	--header-bg: #ffffff;
+	--header-text: #0c0c0c;
+	--header-muted: #6f6f6f;
+	--header-active-bg: #f4f4f4;
 
 	/* Sidebar */
 	--sidebar: oklch(0.975 0.003 240);
@@ -301,7 +306,12 @@
 
 	body {
 		@apply bg-background text-foreground font-sans;
-		font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+		font-variant-numeric: lining-nums;
+	}
+
+	/* Tabular figures only where data alignment matters (mono + explicit opt-in) */
+	.font-mono,
+	.tabular-nums {
 		font-variant-numeric: tabular-nums lining-nums;
 	}
 
@@ -417,4 +427,28 @@
 html {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   PRINT — the editorial layout is print-native
+   ============================================ */
+
+@media print {
+	header,
+	footer,
+	nav,
+	[data-print-hide] {
+		display: none !important;
+	}
+	body {
+		background: #fff;
+		color: #000;
+	}
+	a {
+		color: #000;
+		text-decoration: none;
+	}
+	main {
+		max-width: 100% !important;
+	}
 }

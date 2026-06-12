@@ -1,6 +1,6 @@
 {
   "version": "V7",
-  "generated_at": "2026-05-15T08:51:16.970Z",
+  "generated_at": "2026-06-08T11:02:59.515Z",
   "description": "Machine-readable field-level source map for the main public AI Work Index artifacts. Use this to inspect where headline fields come from, what vintage they use, and whether they are direct official values, derived local values, cross-country research inputs, or external proxies.",
   "entries": [
     {
@@ -63,7 +63,7 @@
       ],
       "source_tier": "cross_country_research",
       "vintage": "2021-2026",
-      "transformation": "Base deterministic reliability-weighted 4-source exposure ensemble over the matched AIOE, Anthropic, Eloundou, and ILO inputs before V7 task-concentration amplification.",
+      "transformation": "Base deterministic reliability-weighted 4-source exposure ensemble over the matched AIOE, Anthropic, Eloundou, and ILO inputs before the V7 task-concentration buffer.",
       "caveat": "Exposure is not an official Singapore government measure; it is a research-backed structural layer."
     },
     {
@@ -82,7 +82,7 @@
     {
       "field_path": "exposure_v7",
       "dataset": "sg-ai-occupations-v7.json",
-      "label": "V7 amplified exposure",
+      "label": "V7 buffered exposure",
       "source_keys": [
         "aioe_2021",
         "anthropic_economic_index_2026",
@@ -93,7 +93,7 @@
       ],
       "source_tier": "synthetic",
       "vintage": "2021-2026",
-      "transformation": "Deterministic V7 formula field: min(1, exposure × (1 + 0.20 × task_signal)).",
+      "transformation": "Deterministic V7 formula field: min(1, exposure × (1 − 0.20 × task_signal)).",
       "caveat": "Derived structural field published for interpretability, not a direct source observation."
     },
     {

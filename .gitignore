@@ -12,6 +12,10 @@ node_modules
 .DS_Store
 Thumbs.db
 
+# Browser-automation session artifacts
+.playwright-cli
+output/playwright
+
 # Uncomment to exclude OG images from git (saves ~57MB)
 # static/og/*.png
 

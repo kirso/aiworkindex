@@ -23,6 +23,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { DATA_VINTAGE } from '../src/lib/data/scoring-constants';
+import { spearmanCorrelation } from '../src/lib/utils/validation-stats';
 
 const DATA_DIR = path.join(import.meta.dir, '..', 'data');
 const OCCUPATIONS_FILE = path.join(DATA_DIR, 'occupations.json');
@@ -85,34 +86,6 @@ interface ClusterStats {
 	retrenchment_incidence: number | null;
 	re_entry_rate_12m: number | null;
 	overall_signal: string;
-}
-
-/**
- * Compute Spearman rank correlation between two arrays.
- */
-function spearmanCorrelation(x: number[], y: number[]): number {
-	if (x.length !== y.length || x.length < 3) return NaN;
-	const n = x.length;
-
-	function rank(arr: number[]): number[] {
-		const sorted = arr.map((v, i) => ({ v, i })).sort((a, b) => a.v - b.v);
-		const ranks = new Array(n);
-		for (let i = 0; i < n; i++) {
-			ranks[sorted[i].i] = i + 1;
-		}
-		return ranks;
-	}
-
-	const rx = rank(x);
-	const ry = rank(y);
-
-	let sumD2 = 0;
-	for (let i = 0; i < n; i++) {
-		const d = rx[i] - ry[i];
-		sumD2 += d * d;
-	}
-
-	return 1 - (6 * sumD2) / (n * (n * n - 1));
 }
 
 function formatValidationPeriod(value: string): string {
@@ -206,7 +179,12 @@ function main() {
 		actual: string;
 		pass: boolean;
 		note: string;
+		/** True when the check cannot discriminate (e.g. the outcome column has no variance). Excluded from the pass tally. */
+		inconclusive?: boolean;
 	}> = [];
+
+	/** A column with no variance (all clusters equal) cannot be correlated against. */
+	const hasVariance = (vals: number[]): boolean => new Set(vals).size > 1;
 
 	// Check 1: Higher risk clusters should have lower/declining vacancy growth
 	const _riskByCluster = new Map(clusterStats.map(s => [s.cluster_key, s.avg_net_risk]));
@@ -237,17 +215,28 @@ function main() {
 			.map(s => s.avg_net_risk);
 
 		if (retrenchmentVals.length >= 2) {
-			const rho2 = spearmanCorrelation(matchedRisks, retrenchmentVals);
+			// MOM publishes retrenchment incidence at the same level for all three clusters,
+			// so this column has no cross-cluster variance and cannot be correlated against.
+			// Report it as inconclusive rather than scoring it as a spurious pass/fail.
+			const retrenchmentHasVariance = hasVariance(retrenchmentVals);
+			const rho2 = retrenchmentHasVariance
+				? spearmanCorrelation(matchedRisks, retrenchmentVals)
+				: NaN;
 			checks.push({
 				test: 'Risk vs retrenchment incidence (Spearman)',
 				expected: 'Positive correlation (higher risk → higher retrenchment)',
-				actual: `ρ = ${isNaN(rho2) ? 'N/A' : rho2.toFixed(3)}`,
-				pass: !isNaN(rho2) && rho2 > 0,
-				note: isNaN(rho2)
-					? 'Insufficient data'
-					: rho2 > 0
-						? 'Directionally consistent'
-						: 'Structural risk scores do not yet predict short-run retrenchment patterns'
+				actual: retrenchmentHasVariance
+					? `ρ = ${isNaN(rho2) ? 'N/A' : rho2.toFixed(3)}`
+					: 'N/A (no cross-cluster variance)',
+				pass: retrenchmentHasVariance && !isNaN(rho2) && rho2 > 0,
+				inconclusive: !retrenchmentHasVariance,
+				note: !retrenchmentHasVariance
+					? 'Retrenchment incidence is reported identically across clusters — not discriminating; excluded from the tally'
+					: isNaN(rho2)
+						? 'Insufficient data'
+						: rho2 > 0
+							? 'Directionally consistent'
+							: 'Structural risk scores do not yet predict short-run retrenchment patterns'
 			});
 		}
 
@@ -358,9 +347,10 @@ function main() {
 		);
 	}
 
-	// Summary
-	const passCount = checks.filter(c => c.pass).length;
-	const totalChecks = checks.length;
+	// Summary — inconclusive checks (no-variance outcome columns) are excluded from the tally.
+	const scorableChecks = checks.filter(c => !c.inconclusive);
+	const passCount = scorableChecks.filter(c => c.pass).length;
+	const totalChecks = scorableChecks.length;
 
 	const result = {
 		validation_date: new Date().toISOString().split('T')[0],

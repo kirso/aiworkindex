@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Secretary — AI Work Index (V3 Gazette)</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Spline+Sans:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500;600&display=swap"
+			rel="stylesheet"
+		/>
+		<style>
+			:root {
+				--bg: #fcfbf8;
+				--ink: #141a21;
+				--ink-2: #4d5660;
+				--ink-3: #919aa3;
+				--rule: #e2dfd8;
+				--rule-strong: #141a21;
+				--accent: #1d4f5c;
+				--risk-vh: #b4232a;
+				--risk-h: #cf6b2d;
+				--risk-m: #c2a019;
+				--risk-l: #4e8a64;
+				--risk-vl: #33735a;
+				--wash: #f3f1ea;
+			}
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			body {
+				background: var(--bg);
+				color: var(--ink);
+				font-family: 'Spline Sans', sans-serif;
+				font-size: 15px;
+				line-height: 1.6;
+				-webkit-font-smoothing: antialiased;
+			}
+			.wrap {
+				max-width: 1060px;
+				margin: 0 auto;
+				padding: 0 36px 90px;
+			}
+			.masthead {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: 20px 0;
+				border-bottom: 1px solid var(--rule-strong);
+			}
+			.brand {
+				font-family: 'Fraunces', serif;
+				font-size: 20px;
+				font-weight: 600;
+				font-variation-settings: 'opsz' 40;
+			}
+			.brand i {
+				font-style: normal;
+				color: var(--accent);
+			}
+			.masthead nav {
+				display: flex;
+				gap: 26px;
+				font-size: 13.5px;
+				font-weight: 500;
+				color: var(--ink-2);
+			}
+			.masthead nav a {
+				color: inherit;
+				text-decoration: none;
+			}
+			/* layout: left rail + content */
+			.page {
+				display: grid;
+				grid-template-columns: 264px 1fr;
+				gap: 0;
+				margin-top: 0;
+			}
+			.rail {
+				border-right: 1px solid var(--rule);
+				padding: 34px 30px 0 0;
+			}
+			.content {
+				padding: 34px 0 0 44px;
+			}
+			.crumb {
+				font-family: 'Spline Sans Mono', monospace;
+				font-size: 11px;
+				color: var(--ink-3);
+				text-transform: uppercase;
+				letter-spacing: 0.12em;
+				margin-bottom: 26px;
+			}
+			.score-label {
+				font-family: 'Spline Sans Mono', monospace;
+				font-size: 10.5px;
+				text-transform: uppercase;
+				letter-spacing: 0.16em;
+				color: var(--ink-3);
+			}
+			.score-num {
+				font-family: 'Fraunces', serif;
+				font-variation-settings: 'opsz' 144;
+				font-size: 96px;
+				font-weight: 600;
+				line-height: 1;
+				letter-spacing: -0.02em;
+				margin-top: 6px;
+			}
+			.score-num span {
+				font-size: 34px;
+				color: var(--ink-3);
+				font-weight: 500;
+			}
+			.scale {
+				margin-top: 16px;
+			}
+			.scale .track {
+				display: flex;
+				height: 6px;
+				gap: 3px;
+			}
+			.scale .track i {
+				flex: 1;
+				background: var(--wash);
+			}
+			.scale .track i.vh {
+				background: var(--risk-vh);
+			}
+			.scale .lbl {
+				display: flex;
+				justify-content: space-between;
+				font-family: 'Spline Sans Mono', monospace;
+				font-size: 10px;
+				color: var(--ink-3);
+				margin-top: 6px;
+				text-transform: uppercase;
+				letter-spacing: 0.04em;
+			}
+			.band-txt {
+				margin-top: 14px;
+				font-weight: 600;
+				color: var(--risk-vh);
+				font-size: 15px;
+			}
+			.impact-line {
+				font-size: 13px;
+				color: var(--ink-2);
+			}
+			.rail dl {
+				margin-top: 28px;
+				border-top: 1px solid var(--rule);
+			}
+			.rail dl div {
+				display: flex;
+				justify-content: space-between;
+				align-items: baseline;
+				padding: 9px 0;
+				border-bottom: 1px solid var(--rule);
+			}
+			.rail dt {
+				font-family: 'Spline Sans Mono', monospace;
+				font-size: 10.5px;
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				color: var(--ink-3);
+			}
+			.rail dd {
+				font-family: 'Spline Sans Mono', monospace;
+				font-size: 13px;
+				font-weight: 500;
+			}
+			.rail .note {
+				margin-top: 22px;
+				font-size: 12.5px;
+				color: var(--ink-3);
+				line-height: 1.55;
+			}
+			.rail .note b {
+				color: var(--accent);
+				font-weight: 600;
+			}
+			/* content */
+			h1 {
+				font-family: 'Fraunces', serif;
+				font-variation-settings: 'opsz' 90;
+				font-size: 54px;
+				font-weight: 600;
+				letter-spacing: -0.015em;
+				line-height: 1.02;
+			}
+			.dek {
+				font-size: 18.5px;
+				color: var(--ink-2);
+				line-height: 1.5;
+				margin-top: 16px;
+				max-width: 33em;
+			}
+			.dek strong {
+				color: var(--ink);
+				font-weight: 600;
+				box-shadow: inset 0 -8px 0 #e9e2cf;
+			}
+			section {
+				margin-top: 46px;
+			}
+			.sec-head {
+				display: flex;
+				align-items: baseline;
+				gap: 12px;
+				border-bottom: 2px solid var(--rule-strong);
+				padding-bottom: 10px;
+				margin-bottom: 4px;
+			}
+			.sec-head h2 {
+				font-family: 'Fraunces', serif;
+				font-size: 23px;
+				font-weight: 600;
+			}
+			.sec-head .when {
+				font-family: 'Spline Sans Mono', monospace;
+				font-size: 11px;
+				color: var(--ink-3);
+				margin-left: auto;
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+			}
+			/* drivers */
+			.driver {
+				display: grid;
+				grid-template-columns: 215px 1fr 56px 86px;
+				gap: 18px;
+				align-items: center;
+				padding: 13px 0;
+				border-bottom: 1px solid var(--rule);
+			}
+			.d-name {
+				font-weight: 600;
+				font-size: 14.5px;
+			}
+			.d-sub {
+				font-size: 12px;
+				color: var(--ink-3);
+			}
+			.bar {
+				height: 8px;
+				background: var(--wash);
+				position: relative;
+				border-radius: 99px;
+				overflow: hidden;
+			}
+			.bar i {
+				position: absolute;
+				inset: 0 auto 0 0;
+				border-radius: 99px;
+			}
+			.d-val {
+				font-family: 'Spline Sans Mono', monospace;
+				font-size: 14px;
+				font-weight: 600;
+				text-align: right;
+			}
+			.d-dir {
+				font-size: 11.5px;
+				font-family: 'Spline Sans Mono', monospace;
+				text-align: right;
+				text-transform: uppercase;
+			}
+			.up {
+				color: var(--risk-vh);
+			}
+			.down {
+				color: var(--risk-l);
+			}
+			.cols {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 48px;
+				margin-top: 28px;
+			}
+			.cols h3 {
+				font-family: 'Fraunces', serif;
+				font-size: 17px;
+				font-weight: 600;
+				margin-bottom: 6px;
+			}
+			.cols p {
+				font-size: 14px;
+				color: var(--ink-2);
+			}
+			.cols ul {
+				list-style: none;
+				margin-top: 10px;
+			}
+			.cols li {
+				font-size: 13.5px;
+				color: var(--ink-2);
+				padding: 7px 0;
+				border-top: 1px dotted var(--rule);
+				display: flex;
+				gap: 9px;
+			}
+			.cols li::before {
+				content: '·';
+				font-weight: 900;
+				color: var(--accent);
+			}
+			.fineprint {
+				font-size: 11.5px;
+				color: var(--ink-3);
+				margin-top: 8px;
+				font-style: italic;
+			}
+			/* market band */
+			.market {
+				display: grid;
+				grid-template-columns: repeat(4, 1fr);
+				gap: 14px;
+				margin-top: 18px;
+			}
+			.m-cell {
+				background: var(--wash);
+				padding: 16px 18px;
+			}
+			.m-cell .k {
+				font-family: 'Spline Sans Mono', monospace;
+				font-size: 10px;
+				text-transform: uppercase;
+				letter-spacing: 0.12em;
+				color: var(--ink-3);
+			}
+			.m-cell .v {
+				font-family: 'Fraunces', serif;
+				font-size: 30px;
+				font-weight: 600;
+				margin-top: 6px;
+			}
+			.m-cell .t {
+				font-size: 12px;
+				color: var(--ink-2);
+				margin-top: 2px;
+			}
+			/* actions */
+			.quadrant {
+				background: #f7e9e6;
+				border-left: 4px solid var(--risk-vh);
+				padding: 16px 20px;
+				margin-top: 18px;
+				font-size: 14px;
+				color: #5d2a26;
+				max-width: 48em;
+			}
+			.quadrant b {
+				color: var(--risk-vh);
+			}
+			.quadrant a {
+				color: var(--risk-vh);
+			}
+			.moves {
+				margin-top: 22px;
+			}
+			.move {
+				display: grid;
+				grid-template-columns: 1fr 90px 100px 90px;
+				gap: 16px;
+				align-items: baseline;
+				padding: 12px 0;
+				border-bottom: 1px solid var(--rule);
+			}
+			.move .name {
+				font-weight: 600;
+				font-size: 15px;
+			}
+			.move .mono {
+				font-family: 'Spline Sans Mono', monospace;
+				font-size: 13px;
+				text-align: right;
+			}
+			.move .gain {
+				color: var(--risk-l);
+				font-weight: 600;
+			}
+			.moves .head {
+				display: grid;
+				grid-template-columns: 1fr 90px 100px 90px;
+				gap: 16px;
+				padding-bottom: 8px;
+				border-bottom: 2px solid var(--rule-strong);
+			}
+			.moves .head span {
+				font-family: 'Spline Sans Mono', monospace;
+				font-size: 10px;
+				text-transform: uppercase;
+				letter-spacing: 0.12em;
+				color: var(--ink-3);
+			}
+			.moves .head span.r {
+				text-align: right;
+			}
+			.linkrow {
+				margin-top: 26px;
+			}
+			.linkpill {
+				display: inline-block;
+				font-size: 13.5px;
+				font-weight: 600;
+				color: var(--accent);
+				text-decoration: none;
+				margin-right: 22px;
+			}
+			.linkpill::before {
+				content: '→ ';
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrap">
+			<header class="masthead">
+				<span class="brand">AI Work <i>Index</i></span>
+				<nav>
+					<a href="#">Find</a><a href="#">Browse</a><a href="#">Rankings</a><a href="#">Compare</a
+					><a href="#">Methodology</a>
+				</nav>
+			</header>
+
+			<div class="page">
+				<aside class="rail">
+					<div class="crumb">SG · Clerical Support</div>
+					<div class="score-label">AI displacement pressure</div>
+					<div class="score-num">63<span>%</span></div>
+					<div class="scale">
+						<div class="track"><i></i><i></i><i></i><i></i><i class="vh"></i></div>
+						<div class="lbl"><span>v.low</span><span>v.high</span></div>
+					</div>
+					<div class="band-txt">Very high · At risk</div>
+					<div class="impact-line">range 55.9–67.7</div>
+					<dl>
+						<div>
+							<dt>Wage</dt>
+							<dd>SGD 5,035</dd>
+						</div>
+						<div>
+							<dt>Workers</dt>
+							<dd>~25.9K</dd>
+						</div>
+						<div>
+							<dt>Group rank</dt>
+							<dd>#7 / 43</dd>
+						</div>
+						<div>
+							<dt>Wage vs group</dt>
+							<dd>+58%</dd>
+						</div>
+						<div>
+							<dt>Updated</dt>
+							<dd>Jun 2026</dd>
+						</div>
+					</dl>
+					<p class="note">
+						<b>How to read this.</b> Structural pressure, not a prediction. Displacement arrives
+						through hiring slowdowns, wage compression and role redesign before layoffs.
+					</p>
+				</aside>
+
+				<main class="content">
+					<h1>Secretary</h1>
+					<p class="dek">
+						<strong>87% of this job's tasks overlap with current AI</strong> against 2%
+						human-bottleneck protection — higher structural pressure than 98% of Singapore
+						occupations.
+					</p>
+
+					<section>
+						<div class="sec-head">
+							<h2>Why this score</h2>
+							<span class="when">4-source ensemble · v7</span>
+						</div>
+						<div class="driver">
+							<div>
+								<div class="d-name">AI capability overlap</div>
+								<div class="d-sub">what AI could do</div>
+							</div>
+							<div class="bar"><i style="width: 87%; background: var(--risk-vh)"></i></div>
+							<div class="d-val">87%</div>
+							<div class="d-dir up">raises ↑</div>
+						</div>
+						<div class="driver">
+							<div>
+								<div class="d-name">Human bottleneck</div>
+								<div class="d-sub">judgment &amp; presence</div>
+							</div>
+							<div class="bar"><i style="width: 2%; background: var(--risk-l)"></i></div>
+							<div class="d-val">2%</div>
+							<div class="d-dir down">lowers ↓</div>
+						</div>
+						<div class="driver">
+							<div>
+								<div class="d-name">Local hiring demand</div>
+								<div class="d-sub">vacancy · momentum · scarcity</div>
+							</div>
+							<div class="bar"><i style="width: 50%; background: var(--risk-l)"></i></div>
+							<div class="d-val">50%</div>
+							<div class="d-dir down">lowers ↓</div>
+						</div>
+						<div class="driver" style="border-bottom: none">
+							<div>
+								<div class="d-name">Observed AI adoption</div>
+								<div class="d-sub">what AI already does</div>
+							</div>
+							<div class="bar"><i style="width: 74%; background: var(--risk-vh)"></i></div>
+							<div class="d-val">74%</div>
+							<div class="d-dir up">raises ↑</div>
+						</div>
+
+						<div class="cols">
+							<div>
+								<h3>AI already does</h3>
+								<p>Most-exposed tasks by observed usage:</p>
+								<ul>
+									<li>Schedule and confirm appointments</li>
+									<li>Compose and distribute meeting notes, correspondence</li>
+									<li>Maintain scheduling and event calendars</li>
+								</ul>
+							</div>
+							<div>
+								<h3>Still needs a person</h3>
+								<p>
+									Insulation: <strong>non-routine work</strong> +
+									<strong>high-stakes coordination</strong> — the thinnest in the clerical family.
+								</p>
+								<ul>
+									<li>Sensitive in-person matters, visitors</li>
+									<li>Confidential records under discretion</li>
+								</ul>
+								<p class="fineprint">No observed AI usage ≠ immunity.</p>
+							</div>
+						</div>
+					</section>
+
+					<section>
+						<div class="sec-head">
+							<h2>Singapore now</h2>
+							<span class="when">Q4 2025 · MOM</span>
+						</div>
+						<div class="market">
+							<div class="m-cell">
+								<div class="k">Vacancy</div>
+								<div class="v">3.1%</div>
+								<div class="t">softer, not collapsing</div>
+							</div>
+							<div class="m-cell">
+								<div class="k">Hiring / quits</div>
+								<div class="v">1.5/0.9</div>
+								<div class="t">recruitment leads</div>
+							</div>
+							<div class="m-cell">
+								<div class="k">Retrenchment</div>
+								<div class="v">Low</div>
+								<div class="t">rising from low base</div>
+							</div>
+							<div class="m-cell">
+								<div class="k">Re-entry 12m</div>
+								<div class="v">67.7%</div>
+								<div class="t">softening</div>
+							</div>
+						</div>
+					</section>
+
+					<section>
+						<div class="sec-head"><h2>What you can do</h2></div>
+						<div class="quadrant">
+							<b>Few easy exits.</b> Secretary sits in the structurally vulnerable quadrant — its
+							best risk-reducing move ranks in the weakest quarter of exit options among high-risk
+							occupations. <a href="#">See the quadrant</a>
+						</div>
+						<div class="moves">
+							<div class="head">
+								<span>Best risk-reducing moves</span><span class="r">Δ risk</span
+								><span class="r">Feasibility</span><span class="r">Wage</span>
+							</div>
+							<div class="move">
+								<span class="name">Material planning clerk</span><span class="mono gain">−67pp</span
+								><span class="mono">moderate</span><span class="mono">3,900</span>
+							</div>
+							<div class="move">
+								<span class="name">Travel consultant / reservations</span
+								><span class="mono gain">−71pp</span><span class="mono">moderate</span
+								><span class="mono">3,400</span>
+							</div>
+							<div class="move">
+								<span class="name">Stock records clerk</span><span class="mono gain">−92pp</span
+								><span class="mono">moderate</span><span class="mono">2,716</span>
+							</div>
+						</div>
+						<div class="linkrow">
+							<a class="linkpill" href="#">Career Conversion Programmes</a>
+							<a class="linkpill" href="#">SkillsFuture Career Transition</a>
+							<a class="linkpill" href="#">Jobs Transformation Maps</a>
+						</div>
+					</section>
+				</main>
+			</div>
+		</div>
+	</body>
+</html>

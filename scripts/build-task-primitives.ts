@@ -207,6 +207,16 @@ async function main() {
 	const tasksByBaseSoc = parseTaskStatements(TASK_STATEMENTS_FILE);
 	const weightsByTask = parseTaskRatings(TASK_RATINGS_FILE);
 
+	const taskDetail: Record<
+		string,
+		{
+			matched_task_count: number;
+			observed_task_count: number;
+			most_observed: Array<{ task: string; weight_share: number; penetration: number | null }>;
+			most_protected: Array<{ task: string; weight_share: number; penetration: number | null }>;
+		}
+	> = {};
+
 	const updated = occupations.map(occupation => {
 		const onetSoc = onetSocBySsoc.get(occupation.ssoc) ?? null;
 		if (!onetSoc) {
@@ -220,11 +230,15 @@ async function main() {
 				const rating = weightsByTask.get(`${taskRow.soc}::${taskRow.taskId}`);
 				if (!rating) return null;
 				return {
+					task: taskRow.task,
 					weight: rating.weight,
 					penetration: penetrationByTask.get(normalizeTaskText(taskRow.task)) ?? null
 				};
 			})
-			.filter((task): task is { weight: number; penetration: number | null } => task !== null);
+			.filter(
+				(task): task is { task: string; weight: number; penetration: number | null } =>
+					task !== null
+			);
 
 		if (weightedTasks.length === 0) {
 			return { ...occupation, task_primitives: nullTaskPrimitives() };
@@ -242,6 +256,25 @@ async function main() {
 			}))
 		);
 
+		// Per-task detail for the explanatory occupation-page surfacing.
+		const withShare = weightedTasks.map(task => ({
+			task: task.task,
+			weight_share: Math.round((task.weight / totalWeight) * 10000) / 10000,
+			penetration: roundOrNull(task.penetration)
+		}));
+		taskDetail[occupation.ssoc] = {
+			matched_task_count: withShare.length,
+			observed_task_count: withShare.filter(task => task.penetration !== null).length,
+			most_observed: withShare
+				.filter(task => task.penetration !== null)
+				.sort((a, b) => (b.penetration ?? 0) - (a.penetration ?? 0))
+				.slice(0, 3),
+			most_protected: withShare
+				.filter(task => task.penetration === null)
+				.sort((a, b) => b.weight_share - a.weight_share)
+				.slice(0, 3)
+		};
+
 		return {
 			...occupation,
 			task_primitives: {
@@ -253,29 +286,21 @@ async function main() {
 		};
 	});
 
-	// Post-processing: compute classification_uncertainty from uncertainty p10/p90
-	const { getRiskBand } = await import('../src/lib/data/scoring-constants');
-
-	const final = updated.map(occupation => {
-		const unc = occupation.uncertainty as
-			| {
-					net_risk_p10?: number;
-					net_risk_p90?: number;
-			  }
-			| undefined;
-		const crossesBoundary =
-			unc?.net_risk_p10 != null &&
-			unc?.net_risk_p90 != null &&
-			getRiskBand(unc.net_risk_p10) !== getRiskBand(unc.net_risk_p90);
-
-		return {
-			...occupation,
-			classification_uncertainty: crossesBoundary ? 'crosses_boundary' : null
-		};
-	});
+	// classification_uncertainty is owned by score.ts (computed from the fresh
+	// uncertainty interval there) and passes through the spread untouched here.
+	const final = updated;
 
 	writeJson(OCCUPATIONS_FILE, final);
 	writeJson(SRC_OCCUPATIONS_FILE, final);
+
+	const detailPayload = {
+		method: 'anthropic_task_penetration_v1',
+		note: 'Explanatory per-task evidence only — never a score input. "Most observed" ranks O*NET tasks by Anthropic task-penetration; "most protected" lists the highest-importance tasks with no observed AI usage in that data (absence of observed usage, not proof of immunity).',
+		entries: taskDetail
+	};
+	writeJson(path.join(DATA_DIR, 'task-exposure-detail.json'), detailPayload);
+	writeJson(path.join(SRC_DATA_DIR, 'task-exposure-detail.json'), detailPayload);
+	console.log(`Task exposure detail emitted for ${Object.keys(taskDetail).length} occupations`);
 
 	const covered = final.filter(
 		occupation => occupation.task_primitives?.matched_task_weight_share != null

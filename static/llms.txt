@@ -7,7 +7,7 @@
 AI Work Index is a free, open-source project that scores occupations for structural AI pressure. The current V7 release separates technical overlap from demand resilience instead of collapsing everything into a single market modifier.
 
 - Author: Kirill So
-- Data vintage: V7, last updated 2026-05-15
+- Data vintage: V7, last updated 2026-06-07
 - Coverage: 562 SSOC occupations + 88 synthetic modern roles
 - Countries: Singapore, United States
 
@@ -15,8 +15,8 @@ AI Work Index is a free, open-source project that scores occupations for structu
 
 headline_risk = displacement_pressure x (1 - demand_resilience)
 
-V7: task_signal = task_concentration x task_coverage (Hampole et al.)
-V7: exposure_v7 = exposure x (1 + 0.20 x task_signal)
+V7: task_signal = task_concentration x task_coverage (Hampole et al. — concentration buffers risk)
+V7: exposure_v7 = exposure x (1 - 0.20 x task_signal)
 V7: demand_persistence = ranked composite of momentum, vacancy, scarcity, demand signals
 
 - displacement_pressure = exposure_v7 x (1 - bottleneck)

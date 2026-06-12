@@ -1,21 +1,32 @@
 {
-  "validation_date": "2026-05-15",
+  "validation_date": "2026-06-11",
   "bls_data_period": "2024-2034 projections",
   "model_version": "V7",
   "sample_size": 530,
   "total_occupations": 562,
   "match_rate": 0.943,
-  "spearman_rho": -0.1387,
-  "t_statistic": -3.22,
+  "spearman_rho": -0.1385,
+  "t_statistic": -3.21,
   "p_value_below_001": true,
   "p_value_below_01": true,
   "direction": "negative",
-  "interpretation": "Spearman rho = -0.1387 indicates a negative correlation between our structural risk scores and BLS projected employment change. Higher risk scores are associated with lower (or negative) projected employment growth. The very_high risk band is the only band with projected negative employment growth (-4.4%). The top three risk bands show monotonically decreasing BLS projected growth. The modest correlation is expected: BLS projections include non-AI factors (demographics, trade, policy), while our model measures AI-specific structural pressure.",
+  "interpretation": "Spearman rho = -0.1385 indicates a negative correlation between our structural risk scores and BLS projected employment change. Higher risk scores are associated with lower (or negative) projected employment growth. The very_high risk band is the only band with projected negative employment growth (-4.8%). The top three risk bands show monotonically decreasing BLS projected growth. The modest correlation is expected: BLS projections include non-AI factors (demographics, trade, policy), while our model measures AI-specific structural pressure.",
+  "slope_specification": {
+    "design": "OLS of BLS 2024-2034 projected percent employment change on net_risk — the same projected-growth regression design as Anthropic Massenkoff & McCrory (March 2026), who found -0.6pp per +10pp observed task coverage. Different exposure measure, so compare design and direction, not magnitude.",
+    "slope_per_unit_net_risk": -10.13,
+    "slope_per_10pp_net_risk": -1.01,
+    "intercept": 4.31,
+    "slope_t_statistic": -7.06,
+    "slope_p_value_below_001": true,
+    "slope_p_value_below_01": true,
+    "anthropic_benchmark_per_10pp": -0.6,
+    "direction_matches_anthropic": true
+  },
   "by_risk_band": {
     "very_low": {
       "count": 128,
       "avg_bls_change": 3.2,
-      "avg_net_risk": 0.024,
+      "avg_net_risk": 0.023,
       "occupations": [
         "Arts and cultural centre manager (including gallery and museum manager)",
         "Attractions manager",
@@ -23,27 +34,27 @@
       ]
     },
     "low": {
-      "count": 159,
+      "count": 163,
       "avg_bls_change": 3.1,
       "avg_net_risk": 0.097,
       "occupations": [
         "Advertising/Public relations manager",
         "Aged care services manager",
-        "Budgeting and financial accounting manager (including financial controller)"
+        "Audit manager"
       ]
     },
     "moderate": {
-      "count": 142,
-      "avg_bls_change": 3,
-      "avg_net_risk": 0.216,
+      "count": 141,
+      "avg_bls_change": 2.9,
+      "avg_net_risk": 0.217,
       "occupations": [
         "Administration manager",
-        "Audit manager",
-        "Call centre manager"
+        "Call centre manager",
+        "Catering manager"
       ]
     },
     "high": {
-      "count": 64,
+      "count": 63,
       "avg_bls_change": 2.6,
       "avg_net_risk": 0.389,
       "occupations": [
@@ -53,9 +64,9 @@
       ]
     },
     "very_high": {
-      "count": 37,
-      "avg_bls_change": -4.4,
-      "avg_net_risk": 0.599,
+      "count": 35,
+      "avg_bls_change": -4.8,
+      "avg_net_risk": 0.591,
       "occupations": [
         "Author",
         "Content writer",

@@ -1,0 +1,696 @@
+{
+  "validation_date": "2026-06-11",
+  "model_version": "V7",
+  "method": "Self-fidelity-gated in-memory recompute of net_risk from stored per-occupation inputs; one-at-a-time perturbations (+/-25%, +/-50%) of each ranking constant plus a seeded joint Monte-Carlo (all constants perturbed by independent uniform +/-25% factors). Rank stability measured by tie-corrected Spearman against the baseline ranking, risk-band flips, and top-20/top-50 Jaccard overlap.",
+  "recompute_fidelity": {
+    "ok": true,
+    "max_abs_diff": 0.0001,
+    "tolerance": 0.0005,
+    "occupations_checked": 562
+  },
+  "per_constant": [
+    {
+      "name": "task_concentration_lambda",
+      "baseline_value": 0.2,
+      "perturbations": [
+        {
+          "factor": 0.5,
+          "value": 0.1,
+          "spearman": 0.9999836397837328,
+          "band_flips": 2,
+          "top20_jaccard": 1,
+          "top50_jaccard": 1
+        },
+        {
+          "factor": 0.75,
+          "value": 0.15,
+          "spearman": 0.9999932395800549,
+          "band_flips": 1,
+          "top20_jaccard": 1,
+          "top50_jaccard": 1
+        },
+        {
+          "factor": 1.25,
+          "value": 0.25,
+          "spearman": 0.999993712809451,
+          "band_flips": 2,
+          "top20_jaccard": 1,
+          "top50_jaccard": 1
+        },
+        {
+          "factor": 1.5,
+          "value": 0.3,
+          "spearman": 0.9999821524913449,
+          "band_flips": 2,
+          "top20_jaccard": 1,
+          "top50_jaccard": 0.9607843137254902
+        }
+      ],
+      "worst_spearman": 1,
+      "max_band_flips": 2,
+      "min_top20_jaccard": 1
+    },
+    {
+      "name": "base_weight",
+      "baseline_value": 0.45,
+      "perturbations": [
+        {
+          "factor": 0.5,
+          "value": 0.225,
+          "spearman": 0.9986930756162098,
+          "band_flips": 101,
+          "top20_jaccard": 1,
+          "top50_jaccard": 0.9230769230769231
+        },
+        {
+          "factor": 0.75,
+          "value": 0.3375,
+          "spearman": 0.9996270952358273,
+          "band_flips": 54,
+          "top20_jaccard": 1,
+          "top50_jaccard": 0.9607843137254902
+        },
+        {
+          "factor": 1.25,
+          "value": 0.5625,
+          "spearman": 0.999434220454793,
+          "band_flips": 57,
+          "top20_jaccard": 0.8181818181818182,
+          "top50_jaccard": 0.9607843137254902
+        },
+        {
+          "factor": 1.5,
+          "value": 0.675,
+          "spearman": 0.9975262947378818,
+          "band_flips": 102,
+          "top20_jaccard": 0.8181818181818182,
+          "top50_jaccard": 0.8518518518518519
+        }
+      ],
+      "worst_spearman": 0.9975,
+      "max_band_flips": 102,
+      "min_top20_jaccard": 0.8182
+    },
+    {
+      "name": "demand_persist_lambda",
+      "baseline_value": 0.1,
+      "perturbations": [
+        {
+          "factor": 0.5,
+          "value": 0.05,
+          "spearman": 0.9998715520210427,
+          "band_flips": 24,
+          "top20_jaccard": 1,
+          "top50_jaccard": 1
+        },
+        {
+          "factor": 0.75,
+          "value": 0.075,
+          "spearman": 0.9999572065417474,
+          "band_flips": 14,
+          "top20_jaccard": 1,
+          "top50_jaccard": 1
+        },
+        {
+          "factor": 1.25,
+          "value": 0.125,
+          "spearman": 0.9999514601847941,
+          "band_flips": 10,
+          "top20_jaccard": 1,
+          "top50_jaccard": 0.9607843137254902
+        },
+        {
+          "factor": 1.5,
+          "value": 0.15,
+          "spearman": 0.99984971586462,
+          "band_flips": 21,
+          "top20_jaccard": 1,
+          "top50_jaccard": 0.9607843137254902
+        }
+      ],
+      "worst_spearman": 0.9998,
+      "max_band_flips": 24,
+      "min_top20_jaccard": 1
+    },
+    {
+      "name": "persistence_weight_market_momentum",
+      "baseline_value": 0.4,
+      "perturbations": [
+        {
+          "factor": 0.5,
+          "value": 0.2,
+          "spearman": 0.9999619388357089,
+          "band_flips": 2,
+          "top20_jaccard": 1,
+          "top50_jaccard": 1
+        },
+        {
+          "factor": 0.75,
+          "value": 0.3,
+          "spearman": 0.9999879664524977,
+          "band_flips": 1,
+          "top20_jaccard": 1,
+          "top50_jaccard": 1
+        },
+        {
+          "factor": 1.25,
+          "value": 0.5,
+          "spearman": 0.9999891157238884,
+          "band_flips": 3,
+          "top20_jaccard": 1,
+          "top50_jaccard": 1
+        },
+        {
+          "factor": 1.5,
+          "value": 0.6,
+          "spearman": 0.9999720794656266,
+          "band_flips": 5,
+          "top20_jaccard": 1,
+          "top50_jaccard": 1
+        }
+      ],
+      "worst_spearman": 1,
+      "max_band_flips": 5,
+      "min_top20_jaccard": 1
+    },
+    {
+      "name": "persistence_weight_vacancy_trend",
+      "baseline_value": 0.3,
+      "perturbations": [
+        {
+          "factor": 0.5,
+          "value": 0.15,
+          "spearman": 0.9999753244672003,
+          "band_flips": 3,
+          "top20_jaccard": 1,
+          "top50_jaccard": 1
+        },
+        {
+          "factor": 0.75,
+          "value": 0.225,
+          "spearman": 0.9999919551002653,
+          "band_flips": 1,
+          "top20_jaccard": 1,
+          "top50_jaccard": 1
+        },
+        {
+          "factor": 1.25,
+          "value": 0.375,
+          "spearman": 0.9999924283296615,
+          "band_flips": 1,
+          "top20_jaccard": 1,
+          "top50_jaccard": 1
+        },
+        {
+          "factor": 1.5,
+          "value": 0.45,
+          "spearman": 0.9999849918677218,
+          "band_flips": 3,
+          "top20_jaccard": 1,
+          "top50_jaccard": 1
+        }
+      ],
+      "worst_spearman": 1,
+      "max_band_flips": 3,
+      "min_top20_jaccard": 1
+    },
+    {
+      "name": "persistence_weight_scarcity",
+      "baseline_value": 0.2,
+      "perturbations": [
+        {
+          "factor": 0.5,
+          "value": 0.1,
+          "spearman": 0.9999775554057823,
+          "band_flips": 5,
+          "top20_jaccard": 1,
+          "top50_jaccard": 1
+        },
+        {
+          "factor": 0.75,
+          "value": 0.15,
+          "spearman": 0.9999916846834676,
+          "band_flips": 5,
+          "top20_jaccard": 1,
+          "top50_jaccard": 1
+        },
+        {
+          "factor": 1.25,
+          "value": 0.25,
+          "spearman": 0.9999922255170631,
+          "band_flips": 0,
+          "top20_jaccard": 1,
+          "top50_jaccard": 1
+        },
+        {
+          "factor": 1.5,
+          "value": 0.3,
+          "spearman": 0.9999825581165416,
+          "band_flips": 0,
+          "top20_jaccard": 1,
+          "top50_jaccard": 1
+        }
+      ],
+      "worst_spearman": 1,
+      "max_band_flips": 5,
+      "min_top20_jaccard": 1
+    },
+    {
+      "name": "persistence_weight_demand_signal_bonus",
+      "baseline_value": 0.1,
+      "perturbations": [
+        {
+          "factor": 0.5,
+          "value": 0.05,
+          "spearman": 0.9999935776010521,
+          "band_flips": 1,
+          "top20_jaccard": 1,
+          "top50_jaccard": 1
+        },
+        {
+          "factor": 0.75,
+          "value": 0.075,
+          "spearman": 0.9999970930194236,
+          "band_flips": 0,
+          "top20_jaccard": 1,
+          "top50_jaccard": 1
+        },
+        {
+          "factor": 1.25,
+          "value": 0.125,
+          "spearman": 0.9999974310404208,
+          "band_flips": 1,
+          "top20_jaccard": 1,
+          "top50_jaccard": 1
+        },
+        {
+          "factor": 1.5,
+          "value": 0.15,
+          "spearman": 0.9999941860388472,
+          "band_flips": 1,
+          "top20_jaccard": 1,
+          "top50_jaccard": 1
+        }
+      ],
+      "worst_spearman": 1,
+      "max_band_flips": 1,
+      "min_top20_jaccard": 1
+    },
+    {
+      "name": "sol_exact_bonus",
+      "baseline_value": 0.15,
+      "perturbations": [
+        {
+          "factor": 0.5,
+          "value": 0.075,
+          "spearman": 0.9997194425722776,
+          "band_flips": 0,
+          "top20_jaccard": 1,
+          "top50_jaccard": 0.9230769230769231
+        },
+        {
+          "factor": 0.75,
+          "value": 0.1125,
+          "spearman": 0.999938277365901,
+          "band_flips": 0,
+          "top20_jaccard": 1,
+          "top50_jaccard": 1
+        },
+        {
+          "factor": 1.25,
+          "value": 0.1875,
+          "spearman": 0.999938277365901,
+          "band_flips": 2,
+          "top20_jaccard": 1,
+          "top50_jaccard": 1
+        },
+        {
+          "factor": 1.5,
+          "value": 0.225,
+          "spearman": 0.9996821250541805,
+          "band_flips": 4,
+          "top20_jaccard": 1,
+          "top50_jaccard": 1
+        }
+      ],
+      "worst_spearman": 0.9997,
+      "max_band_flips": 4,
+      "min_top20_jaccard": 1
+    },
+    {
+      "name": "sol_prefix_bonus",
+      "baseline_value": 0.08,
+      "perturbations": [
+        {
+          "factor": 0.5,
+          "value": 0.04,
+          "spearman": 0.9998570847223602,
+          "band_flips": 6,
+          "top20_jaccard": 1,
+          "top50_jaccard": 1
+        },
+        {
+          "factor": 0.75,
+          "value": 0.06,
+          "spearman": 0.999954907998966,
+          "band_flips": 4,
+          "top20_jaccard": 1,
+          "top50_jaccard": 1
+        },
+        {
+          "factor": 1.25,
+          "value": 0.1,
+          "spearman": 0.9999446321606494,
+          "band_flips": 2,
+          "top20_jaccard": 1,
+          "top50_jaccard": 1
+        },
+        {
+          "factor": 1.5,
+          "value": 0.12,
+          "spearman": 0.9997811652063765,
+          "band_flips": 3,
+          "top20_jaccard": 1,
+          "top50_jaccard": 1
+        }
+      ],
+      "worst_spearman": 0.9998,
+      "max_band_flips": 6,
+      "min_top20_jaccard": 1
+    },
+    {
+      "name": "jid_exact_bonus",
+      "baseline_value": 0.12,
+      "perturbations": [
+        {
+          "factor": 0.5,
+          "value": 0.06,
+          "spearman": 0.999945308202644,
+          "band_flips": 0,
+          "top20_jaccard": 1,
+          "top50_jaccard": 1
+        },
+        {
+          "factor": 0.75,
+          "value": 0.09,
+          "spearman": 0.9999839102005306,
+          "band_flips": 0,
+          "top20_jaccard": 1,
+          "top50_jaccard": 1
+        },
+        {
+          "factor": 1.25,
+          "value": 0.15,
+          "spearman": 0.9999858031181152,
+          "band_flips": 1,
+          "top20_jaccard": 1,
+          "top50_jaccard": 1
+        },
+        {
+          "factor": 1.5,
+          "value": 0.18,
+          "spearman": 0.9999303000703659,
+          "band_flips": 1,
+          "top20_jaccard": 1,
+          "top50_jaccard": 1
+        }
+      ],
+      "worst_spearman": 0.9999,
+      "max_band_flips": 1,
+      "min_top20_jaccard": 1
+    },
+    {
+      "name": "jid_prefix_bonus",
+      "baseline_value": 0.06,
+      "perturbations": [
+        {
+          "factor": 0.5,
+          "value": 0.03,
+          "spearman": 0.9999438885144555,
+          "band_flips": 4,
+          "top20_jaccard": 1,
+          "top50_jaccard": 1
+        },
+        {
+          "factor": 0.75,
+          "value": 0.045,
+          "spearman": 0.9999840454089295,
+          "band_flips": 3,
+          "top20_jaccard": 1,
+          "top50_jaccard": 1
+        },
+        {
+          "factor": 1.25,
+          "value": 0.075,
+          "spearman": 0.999981408845151,
+          "band_flips": 0,
+          "top20_jaccard": 1,
+          "top50_jaccard": 1
+        },
+        {
+          "factor": 1.5,
+          "value": 0.09,
+          "spearman": 0.9999242832966146,
+          "band_flips": 0,
+          "top20_jaccard": 1,
+          "top50_jaccard": 1
+        }
+      ],
+      "worst_spearman": 0.9999,
+      "max_band_flips": 4,
+      "min_top20_jaccard": 1
+    },
+    {
+      "name": "momentum_weight",
+      "baseline_value": 0.6,
+      "perturbations": [
+        {
+          "factor": 0.5,
+          "value": 0.3,
+          "spearman": 0.9985754443091647,
+          "band_flips": 19,
+          "top20_jaccard": 0.8181818181818182,
+          "top50_jaccard": 0.9230769230769231
+        },
+        {
+          "factor": 0.75,
+          "value": 0.45,
+          "spearman": 0.999607422413787,
+          "band_flips": 7,
+          "top20_jaccard": 0.8181818181818182,
+          "top50_jaccard": 0.9607843137254902
+        },
+        {
+          "factor": 1.25,
+          "value": 0.75,
+          "spearman": 0.999566521873119,
+          "band_flips": 15,
+          "top20_jaccard": 0.9047619047619048,
+          "top50_jaccard": 1
+        },
+        {
+          "factor": 1.5,
+          "value": 0.9,
+          "spearman": 0.9984865447868864,
+          "band_flips": 36,
+          "top20_jaccard": 0.9047619047619048,
+          "top50_jaccard": 0.9230769230769231
+        }
+      ],
+      "worst_spearman": 0.9985,
+      "max_band_flips": 36,
+      "min_top20_jaccard": 0.8182
+    },
+    {
+      "name": "reliability_aioe",
+      "baseline_value": 1,
+      "perturbations": [
+        {
+          "factor": 0.5,
+          "value": 0.5,
+          "spearman": 0.9988338275594671,
+          "band_flips": 20,
+          "top20_jaccard": 0.9047619047619048,
+          "top50_jaccard": 0.9230769230769231
+        },
+        {
+          "factor": 0.75,
+          "value": 0.75,
+          "spearman": 0.999691927663101,
+          "band_flips": 9,
+          "top20_jaccard": 0.9047619047619048,
+          "top50_jaccard": 0.9607843137254902
+        },
+        {
+          "factor": 1.25,
+          "value": 1.25,
+          "spearman": 0.9997390477901185,
+          "band_flips": 11,
+          "top20_jaccard": 1,
+          "top50_jaccard": 1
+        },
+        {
+          "factor": 1.5,
+          "value": 1.5,
+          "spearman": 0.9991494715667046,
+          "band_flips": 16,
+          "top20_jaccard": 0.9047619047619048,
+          "top50_jaccard": 0.9607843137254902
+        }
+      ],
+      "worst_spearman": 0.9988,
+      "max_band_flips": 20,
+      "min_top20_jaccard": 0.9048
+    },
+    {
+      "name": "reliability_anthropic",
+      "baseline_value": 1,
+      "perturbations": [
+        {
+          "factor": 0.5,
+          "value": 0.5,
+          "spearman": 0.9976510920900686,
+          "band_flips": 26,
+          "top20_jaccard": 1,
+          "top50_jaccard": 0.8867924528301887
+        },
+        {
+          "factor": 0.75,
+          "value": 0.75,
+          "spearman": 0.9994692394301088,
+          "band_flips": 16,
+          "top20_jaccard": 1,
+          "top50_jaccard": 0.9607843137254902
+        },
+        {
+          "factor": 1.25,
+          "value": 1.25,
+          "spearman": 0.9996504186846379,
+          "band_flips": 6,
+          "top20_jaccard": 0.9047619047619048,
+          "top50_jaccard": 1
+        },
+        {
+          "factor": 1.5,
+          "value": 1.5,
+          "spearman": 0.9989323268780674,
+          "band_flips": 22,
+          "top20_jaccard": 0.9047619047619048,
+          "top50_jaccard": 0.9607843137254902
+        }
+      ],
+      "worst_spearman": 0.9977,
+      "max_band_flips": 26,
+      "min_top20_jaccard": 0.9048
+    },
+    {
+      "name": "reliability_eloundou",
+      "baseline_value": 1,
+      "perturbations": [
+        {
+          "factor": 0.5,
+          "value": 0.5,
+          "spearman": 0.9990702394449479,
+          "band_flips": 16,
+          "top20_jaccard": 0.9047619047619048,
+          "top50_jaccard": 0.9230769230769231
+        },
+        {
+          "factor": 0.75,
+          "value": 0.75,
+          "spearman": 0.9997723766604478,
+          "band_flips": 8,
+          "top20_jaccard": 1,
+          "top50_jaccard": 1
+        },
+        {
+          "factor": 1.25,
+          "value": 1.25,
+          "spearman": 0.9997905621901002,
+          "band_flips": 7,
+          "top20_jaccard": 1,
+          "top50_jaccard": 0.9607843137254902
+        },
+        {
+          "factor": 1.5,
+          "value": 1.5,
+          "spearman": 0.9993863566815816,
+          "band_flips": 9,
+          "top20_jaccard": 0.9047619047619048,
+          "top50_jaccard": 0.9607843137254902
+        }
+      ],
+      "worst_spearman": 0.9991,
+      "max_band_flips": 16,
+      "min_top20_jaccard": 0.9048
+    },
+    {
+      "name": "reliability_ilo",
+      "baseline_value": 1,
+      "perturbations": [
+        {
+          "factor": 0.5,
+          "value": 0.5,
+          "spearman": 0.9983488350326043,
+          "band_flips": 21,
+          "top20_jaccard": 0.8181818181818182,
+          "top50_jaccard": 0.9607843137254902
+        },
+        {
+          "factor": 0.75,
+          "value": 0.75,
+          "spearman": 0.9996497426426434,
+          "band_flips": 12,
+          "top20_jaccard": 0.9047619047619048,
+          "top50_jaccard": 1
+        },
+        {
+          "factor": 1.25,
+          "value": 1.25,
+          "spearman": 0.9997562868609785,
+          "band_flips": 4,
+          "top20_jaccard": 1,
+          "top50_jaccard": 0.9607843137254902
+        },
+        {
+          "factor": 1.5,
+          "value": 1.5,
+          "spearman": 0.9993015810154698,
+          "band_flips": 11,
+          "top20_jaccard": 1,
+          "top50_jaccard": 0.9230769230769231
+        }
+      ],
+      "worst_spearman": 0.9983,
+      "max_band_flips": 21,
+      "min_top20_jaccard": 0.8182
+    }
+  ],
+  "monte_carlo": {
+    "draws": 1000,
+    "perturbation": 0.25,
+    "seed": 3640746153,
+    "spearman_p10": 0.9988,
+    "spearman_p50": 0.9993,
+    "spearman_p90": 0.9997,
+    "spearman_min": 0.9975,
+    "top20_stable_share": 0.3,
+    "top20_jaccard_p10": 0.8182,
+    "top20_jaccard_p50": 0.9048,
+    "top20_jaccard_min": 0.7391,
+    "band_flip_rate_p90": 0.0925,
+    "band_flip_rate_max": 0.1299
+  },
+  "summary": {
+    "headline": "Under joint +/-25% perturbation of all 16 hand-set ranking constants, the median rank correlation with the baseline ordering is 0.9993 and the top-20 list is fully stable in 30% of 1000 draws.",
+    "most_sensitive_constant": "base_weight",
+    "most_sensitive_worst_spearman": 0.9975,
+    "interpretation": "High Spearman values mean the occupation ranking is driven by the input data (exposure ensemble, bottlenecks, market signals), not by the specific hand-set constant values. Constants with lower worst-case Spearman deserve recalibration priority."
+  },
+  "caveats": [
+    "Sensitivity is measured on the ranking and band assignment, not on absolute score levels — a uniform rescaling of net_risk would show as perfectly stable.",
+    "The four demand-persistence rank inputs are held fixed under perturbation; ranks are invariant to monotone rescaling and the pathway is at most ~1% of demand resilience.",
+    "The ensemble perturbation reweights stored per-source percentiles via reliability factors; it cannot capture replacing a source outright.",
+    "Robustness to constant perturbation is internal validity only — it says nothing about whether the input data measure true displacement pressure."
+  ]
+}

@@ -20,7 +20,7 @@ Singapore is the reference implementation. The shared structural baseline also p
 Deterministic scoring — no LLM in the scoring pipeline:
 
 1. **Exposure** - reliability-weighted 4-source ensemble: AIOE (2021), Anthropic Economic Index (2026), Eloundou GPTs-are-GPTs (2024), ILO Refined Index (2025).
-2. **Task concentration** - Anthropic task penetration matched to O*NET task statements; concentrated exposure raises structural pressure.
+2. **Task concentration** - Anthropic task penetration matched to O*NET task statements; concentrated exposure buffers structural pressure (Hampole et al. 2025: workers reallocate effort to non-exposed tasks, offsetting labour-demand losses).
 3. **Human bottleneck** - Pizzinelli theta from O*NET Work Context (judgment, presence, coordination).
 4. **Demand resilience** - MOM employment/wage trends, vacancy pressure, SOL/JiD demand signals, and demand-persistence proxy.
 
@@ -28,7 +28,7 @@ The same structural spine is intended to power future country adapters. Singapor
 
 ```
 task_signal = task_effective_coverage x task_exposure_concentration
-exposure_v7 = clamp01(exposure x (1 + 0.20 x task_signal))
+exposure_v7 = clamp01(exposure x (1 - 0.20 x task_signal))
 displacement_pressure = exposure_v7 x (1 - bottleneck)
 headline_risk = displacement_pressure x (1 - demand_resilience)
 ```

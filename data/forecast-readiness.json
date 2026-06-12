@@ -1,6 +1,6 @@
 {
   "version": "V7",
-  "generated_at": "2026-05-15T08:44:11.351Z",
+  "generated_at": "2026-06-11T10:50:05.421Z",
   "status": "non_promoted_forecast_readiness_layer",
   "description": "Source, duplication, and validation protocol matrix for moving from structural AI pressure to forecast-grade labour-market claims. This artifact does not change the headline V7 score.",
   "non_duplication_policy": {
@@ -26,9 +26,9 @@
     "mom_ai_adopting_firms_pct": 28.5,
     "status_counts": {
       "ready_for_directional_validation": 4,
-      "partial_proxy_needs_snapshots": 2,
       "source_available_not_modeled": 2,
-      "protocol_only": 1
+      "partial_proxy_needs_snapshots": 2,
+      "harness_built_pending_quarters": 1
     }
   },
   "inputs": [
@@ -302,18 +302,22 @@
       "key": "forecast_horizon_protocol",
       "label": "Out-of-sample forecast protocol",
       "construct": "validation_protocol",
-      "status": "protocol_only",
+      "status": "harness_built_pending_quarters",
       "evidence_tier": "synthetic",
       "source_keys": [],
       "source_urls": [],
       "raw_files": [
-        "data/snapshots/occupations-v7-2026-05.json"
+        "data/snapshots/occupations-v7-2026-05.json",
+        "data/outcomes/outcome-panels.json"
       ],
       "existing_artifacts": [
-        "data/backtests/multi-period-validation.json"
+        "data/backtests/multi-period-validation.json",
+        "data/backtests/forecast-horizon-validation.json"
       ],
       "pipeline_owners": [
-        "scripts/backtest-multi-period.ts"
+        "scripts/backtest-multi-period.ts",
+        "scripts/build-outcome-panels.ts",
+        "scripts/backtest-forecast-horizons.ts"
       ],
       "public_fields": [
         "forecast-readiness.validation_protocol"
@@ -322,7 +326,7 @@
       "granularity": "Protocol supports broad cluster outcomes now and can expand to occupation-level outcomes only when reliable data exists.",
       "confidence_for_forecast": "not_ready",
       "non_duplication_rule": "Extend the existing backtest family with forecast horizons; do not treat current cluster validation as a causal forecast.",
-      "next_step": "Add scripts/backtest-forecast-horizons.ts after quarterly outcome panels are materialized."
+      "next_step": "Harness and outcome panels are built with post_baseline_quarters_available = 0; horizons activate as MOM publishes Q3 2026+ data, with promotion gated on at least 4 post-baseline quarters."
     }
   ],
   "file_health": [
@@ -450,7 +454,15 @@
           "exists": true
         },
         {
+          "file": "data/outcomes/outcome-panels.json",
+          "exists": true
+        },
+        {
           "file": "data/backtests/multi-period-validation.json",
+          "exists": true
+        },
+        {
+          "file": "data/backtests/forecast-horizon-validation.json",
           "exists": true
         }
       ],
@@ -493,7 +505,7 @@
     "Do not alter V7 headline scoring.",
     "Materialize outcome panels under data/outcomes/ only from existing official labour/postings owners.",
     "Add monthly postings snapshots before computing AI-skill share trends.",
-    "Build scripts/backtest-forecast-horizons.ts once at least one post-baseline quarter exists.",
+    "Forecast-horizon harness is built (status pending_sufficient_quarters); rerun as each MOM quarter lands and promote only past the 4-quarter gate.",
     "Promote any forecast layer only as a separate sidecar with confidence labels and source granularity."
   ]
 }

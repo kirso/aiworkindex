@@ -10,6 +10,7 @@ import * as path from 'path';
 import {
 	DATA_VINTAGE,
 	RISK_BAND_THRESHOLDS,
+	V7_CONSTANTS,
 	classifyImpactType,
 	getRiskBand
 } from '../src/lib/data/scoring-constants';
@@ -87,6 +88,33 @@ const CALIBRATION_DIAGNOSTICS_FILE = path.join(
 	'data',
 	'backtests',
 	'calibration-diagnostics.json'
+);
+const SENSITIVITY_ANALYSIS_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'backtests',
+	'sensitivity-analysis.json'
+);
+const IMF_CONVERGENCE_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'backtests',
+	'imf-convergence.json'
+);
+const FORECAST_HORIZON_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'backtests',
+	'forecast-horizon-validation.json'
 );
 const OCCUPATION_FAMILY_VALIDATION_FILE = path.join(
 	import.meta.dir,
@@ -517,6 +545,57 @@ async function main() {
 		data.every(row => getLabourMonitor(row))
 	);
 
+	console.log('\n--- V7 formula integrity ---');
+	const FORMULA_TOLERANCE = 1e-3;
+	check(
+		'All occupations have V7 fields (task_signal, exposure_v7, demand_persistence)',
+		data.every(
+			row =>
+				typeof row.task_signal === 'number' &&
+				typeof row.exposure_v7 === 'number' &&
+				typeof row.demand_persistence === 'number'
+		)
+	);
+	const taskSignalCoverage = data.filter(row => (row.task_signal ?? 0) > 0).length;
+	check(
+		'Task-signal coverage >= 300 occupations (guards silent task-primitive collapse)',
+		taskSignalCoverage >= 300,
+		`got ${taskSignalCoverage}`
+	);
+	check(
+		'exposure_v7 matches buffer formula exposure × (1 − λ × task_signal)',
+		data.every(row => {
+			const expected = Math.min(
+				1,
+				Math.max(
+					0,
+					row.exposure * (1 - V7_CONSTANTS.TASK_CONCENTRATION_LAMBDA * (row.task_signal ?? 0))
+				)
+			);
+			return Math.abs((row.exposure_v7 ?? 0) - expected) < FORMULA_TOLERANCE;
+		})
+	);
+	check(
+		'Task-concentration buffer never raises exposure (exposure_v7 <= exposure)',
+		data.every(row => (row.exposure_v7 ?? 0) <= row.exposure + FORMULA_TOLERANCE)
+	);
+	check(
+		'displacement_pressure recomputes from exposure_v7 × (1 − bottleneck)',
+		data.every(
+			row =>
+				Math.abs(row.displacement_pressure - (row.exposure_v7 ?? 0) * (1 - row.bottleneck)) <
+				FORMULA_TOLERANCE
+		)
+	);
+	check(
+		'net_risk recomputes from displacement_pressure × (1 − demand_resilience)',
+		data.every(
+			row =>
+				Math.abs(row.net_risk - row.displacement_pressure * (1 - row.demand_resilience)) <
+				FORMULA_TOLERANCE
+		)
+	);
+
 	console.log('\n--- Coverage ---');
 	const direct = data.filter(row => row.match_quality === 'direct').length;
 	const submajor = data.filter(row => row.match_quality === 'submajor_fallback').length;
@@ -582,6 +661,23 @@ async function main() {
 				row.uncertainty.exposure_p50 <= row.uncertainty.exposure_p90 &&
 				row.uncertainty.net_risk_p10 <= row.uncertainty.net_risk_p50 &&
 				row.uncertainty.net_risk_p50 <= row.uncertainty.net_risk_p90
+		)
+	);
+	check(
+		'Every occupation carries classification_uncertainty (guards pipeline-order drops)',
+		data.every(row => {
+			const value = (row as { classification_uncertainty?: 'crosses_boundary' | null })
+				.classification_uncertainty;
+			return value === null || value === 'crosses_boundary';
+		}),
+		`${data.filter(row => (row as { classification_uncertainty?: unknown }).classification_uncertainty === undefined).length} missing`
+	);
+	check(
+		'Some occupations cross risk-band boundaries under uncertainty',
+		data.some(
+			row =>
+				(row as { classification_uncertainty?: 'crosses_boundary' | null })
+					.classification_uncertainty === 'crosses_boundary'
 		)
 	);
 	check(
@@ -833,6 +929,32 @@ async function main() {
 						role.context_adjustment <= 1.15
 				)
 		);
+		check(
+			'Synthetic roles expose V7 fields (task_signal, demand_persistence, exposure_v7)',
+			roleScores.every(
+				role =>
+					typeof role.task_signal === 'number' &&
+					typeof role.demand_persistence === 'number' &&
+					typeof role.exposure_v7 === 'number'
+			)
+		);
+		check(
+			'Synthetic roles share the occupation V7 spine (exposure_v7 = exposure × (1 − λ × task_signal))',
+			roleScores.every(role => {
+				const expected = Math.min(
+					1,
+					Math.max(
+						0,
+						role.exposure * (1 - V7_CONSTANTS.TASK_CONCENTRATION_LAMBDA * role.task_signal)
+					)
+				);
+				return Math.abs(role.exposure_v7 - expected) < 1e-3;
+			})
+		);
+		check(
+			'Synthetic role buffer never raises exposure (exposure_v7 <= exposure)',
+			roleScores.every(role => role.exposure_v7 <= role.exposure + 1e-3)
+		);
 	} catch (error) {
 		check('All synthetic roles compute without errors', false, String(error));
 	}
@@ -1011,6 +1133,13 @@ async function main() {
 				calibration_high_medium_rho?: number | null;
 				calibration_high_medium_sample?: number | null;
 				calibration_low_confidence_sample?: number | null;
+				sensitivity_spearman_p50?: number | null;
+				sensitivity_top20_jaccard_p50?: number | null;
+				sensitivity_fidelity_ok?: boolean | null;
+				imf_top_half_exposed_share_pct?: number | null;
+				imf_top_half_high_to_low_ratio?: number | null;
+				forecast_horizon_status?: string | null;
+				forecast_horizon_post_baseline_quarters?: number | null;
 				occupation_family_validation_rho?: number | null;
 				occupation_family_validation_family_count?: number | null;
 				occupation_family_validation_significant?: boolean | null;
@@ -1057,6 +1186,11 @@ async function main() {
 		const blsBacktest = readJson<{
 			sample_size: number;
 			spearman_rho: number;
+			slope_specification?: {
+				slope_per_10pp_net_risk: number;
+				slope_p_value_below_001: boolean;
+				direction_matches_anthropic: boolean;
+			};
 		}>(BLS_BACKTEST_FILE);
 		const multiPeriodBacktest = readJson<{
 			metrics?: {
@@ -1092,6 +1226,34 @@ async function main() {
 				};
 			};
 		}>(CALIBRATION_DIAGNOSTICS_FILE);
+		const sensitivityAnalysis = readJson<{
+			recompute_fidelity?: { ok: boolean; max_abs_diff: number; occupations_checked: number };
+			monte_carlo?: {
+				draws: number;
+				spearman_p50: number;
+				top20_jaccard_p50: number;
+			};
+			per_constant?: Array<{ name: string; worst_spearman: number }>;
+		}>(SENSITIVITY_ANALYSIS_FILE);
+		const imfConvergence = readJson<{
+			framing_caveat?: string;
+			employment_weighted_bins?: Record<
+				string,
+				{
+					exposed_high_complementarity_pct: number;
+					exposed_low_complementarity_pct: number;
+					not_exposed_pct: number;
+					exposed_share_pct: number;
+					high_to_low_ratio: number;
+				}
+			>;
+		}>(IMF_CONVERGENCE_FILE);
+		const forecastHorizon = readJson<{
+			non_promoted?: boolean;
+			status?: string;
+			post_baseline_quarters_available?: number;
+			protocol?: { naive_benchmark?: string; promotion_gate?: string };
+		}>(FORECAST_HORIZON_FILE);
 		const occupationFamilyValidation = readJson<{
 			family_count: number;
 			spearman_rho: number;
@@ -1556,6 +1718,15 @@ async function main() {
 					artifact => artifact.file === 'backtests/occupation-family-validation.json'
 				) &&
 				(releaseManifest?.artifacts ?? []).some(
+					artifact => artifact.file === 'backtests/sensitivity-analysis.json'
+				) &&
+				(releaseManifest?.artifacts ?? []).some(
+					artifact => artifact.file === 'backtests/imf-convergence.json'
+				) &&
+				(releaseManifest?.artifacts ?? []).some(
+					artifact => artifact.file === 'backtests/forecast-horizon-validation.json'
+				) &&
+				(releaseManifest?.artifacts ?? []).some(
 					artifact => artifact.file === 'forecast-readiness-v7.json'
 				)
 		);
@@ -1863,6 +2034,17 @@ async function main() {
 		}
 		check('Current cluster backtest artifact exists', currentBacktest !== null);
 		check('BLS crosswalk validation artifact exists', blsBacktest !== null);
+		check(
+			'BLS projected-growth slope is negative and significant',
+			(blsBacktest?.slope_specification?.slope_per_10pp_net_risk ?? 0) < 0 &&
+				blsBacktest?.slope_specification?.slope_p_value_below_001 === true,
+			JSON.stringify(blsBacktest?.slope_specification)
+		);
+		check(
+			'BLS slope direction matches the Anthropic projected-growth benchmark',
+			blsBacktest?.slope_specification?.direction_matches_anthropic === true,
+			String(blsBacktest?.slope_specification?.direction_matches_anthropic)
+		);
 		check('Multi-period validation artifact exists', multiPeriodBacktest !== null);
 		check('Calibration diagnostics artifact exists', calibrationDiagnostics !== null);
 		check('Occupation-family validation artifact exists', occupationFamilyValidation !== null);
@@ -2328,6 +2510,118 @@ async function main() {
 				occupationFamilyValidation?.negative_direction === true &&
 					(occupationFamilyValidation?.spearman_rho ?? 0) < 0,
 				JSON.stringify(occupationFamilyValidation)
+			);
+			check('Sensitivity analysis artifact exists', sensitivityAnalysis !== null);
+			check('Forecast-horizon sidecar artifact exists', forecastHorizon !== null);
+			check(
+				'Forecast-horizon sidecar is marked non-promoted with a published protocol',
+				forecastHorizon?.non_promoted === true &&
+					typeof forecastHorizon?.protocol?.naive_benchmark === 'string' &&
+					typeof forecastHorizon?.protocol?.promotion_gate === 'string',
+				JSON.stringify({ non_promoted: forecastHorizon?.non_promoted })
+			);
+			check(
+				'Forecast-horizon status is coherent with available quarters',
+				(forecastHorizon?.post_baseline_quarters_available === 0 &&
+					forecastHorizon?.status === 'pending_sufficient_quarters') ||
+					((forecastHorizon?.post_baseline_quarters_available ?? 0) >= 1 &&
+						forecastHorizon?.status === 'directional'),
+				`${forecastHorizon?.status} @ ${forecastHorizon?.post_baseline_quarters_available} quarters`
+			);
+			check(
+				'Forecast-horizon sidecar is not referenced as SSOC-level evidence',
+				['src/routes/occupation/[ssoc]/+page.svelte', 'src/routes/role/[slug]/+page.svelte'].every(
+					pagePath =>
+						!fs
+							.readFileSync(path.join(import.meta.dir, '..', pagePath), 'utf-8')
+							.includes('forecast-horizon')
+				)
+			);
+			check(
+				'Site status forecast-horizon summary matches artifact',
+				siteStatus?.live_monitor?.forecast_horizon_status === (forecastHorizon?.status ?? null) &&
+					siteStatus?.live_monitor?.forecast_horizon_post_baseline_quarters ===
+						(forecastHorizon?.post_baseline_quarters_available ?? null),
+				JSON.stringify({
+					siteStatus: {
+						status: siteStatus?.live_monitor?.forecast_horizon_status,
+						quarters: siteStatus?.live_monitor?.forecast_horizon_post_baseline_quarters
+					},
+					artifact: {
+						status: forecastHorizon?.status,
+						quarters: forecastHorizon?.post_baseline_quarters_available
+					}
+				})
+			);
+			check('IMF convergence artifact exists', imfConvergence !== null);
+			check(
+				'IMF convergence leads with the percentile-internal framing caveat',
+				(imfConvergence?.framing_caveat ?? '').includes('percentile-ranked'),
+				(imfConvergence?.framing_caveat ?? '').slice(0, 80)
+			);
+			check(
+				'IMF convergence employment shares sum to 100% at every cut',
+				Object.values(imfConvergence?.employment_weighted_bins ?? {}).every(
+					bin =>
+						Math.abs(
+							bin.exposed_high_complementarity_pct +
+								bin.exposed_low_complementarity_pct +
+								bin.not_exposed_pct -
+								100
+						) < 0.5
+				) && Object.keys(imfConvergence?.employment_weighted_bins ?? {}).length >= 2,
+				JSON.stringify(imfConvergence?.employment_weighted_bins)
+			);
+			check(
+				'Site status IMF convergence summary matches artifact',
+				siteStatus?.live_monitor?.imf_top_half_exposed_share_pct ===
+					(imfConvergence?.employment_weighted_bins?.top_half?.exposed_share_pct ?? null) &&
+					siteStatus?.live_monitor?.imf_top_half_high_to_low_ratio ===
+						(imfConvergence?.employment_weighted_bins?.top_half?.high_to_low_ratio ?? null),
+				JSON.stringify({
+					siteStatus: {
+						share: siteStatus?.live_monitor?.imf_top_half_exposed_share_pct,
+						ratio: siteStatus?.live_monitor?.imf_top_half_high_to_low_ratio
+					},
+					artifact: imfConvergence?.employment_weighted_bins?.top_half
+				})
+			);
+			check(
+				'Sensitivity analysis recompute reproduces stored net_risk',
+				sensitivityAnalysis?.recompute_fidelity?.ok === true &&
+					(sensitivityAnalysis?.recompute_fidelity?.occupations_checked ?? 0) === data.length,
+				JSON.stringify(sensitivityAnalysis?.recompute_fidelity)
+			);
+			check(
+				'Sensitivity analysis median joint-perturbation Spearman is at least 0.90',
+				(sensitivityAnalysis?.monte_carlo?.spearman_p50 ?? 0) >= 0.9,
+				String(sensitivityAnalysis?.monte_carlo?.spearman_p50 ?? 0)
+			);
+			check(
+				'Sensitivity analysis covers all perturbable constant groups',
+				(sensitivityAnalysis?.per_constant?.length ?? 0) >= 16,
+				String(sensitivityAnalysis?.per_constant?.length ?? 0)
+			);
+			check(
+				'Site status sensitivity summary matches artifact',
+				siteStatus?.live_monitor?.sensitivity_spearman_p50 ===
+					(sensitivityAnalysis?.monte_carlo?.spearman_p50 ?? null) &&
+					siteStatus?.live_monitor?.sensitivity_top20_jaccard_p50 ===
+						(sensitivityAnalysis?.monte_carlo?.top20_jaccard_p50 ?? null) &&
+					siteStatus?.live_monitor?.sensitivity_fidelity_ok ===
+						(sensitivityAnalysis?.recompute_fidelity?.ok ?? null),
+				JSON.stringify({
+					siteStatus: {
+						spearman: siteStatus?.live_monitor?.sensitivity_spearman_p50,
+						top20: siteStatus?.live_monitor?.sensitivity_top20_jaccard_p50,
+						fidelity: siteStatus?.live_monitor?.sensitivity_fidelity_ok
+					},
+					artifact: {
+						spearman: sensitivityAnalysis?.monte_carlo?.spearman_p50,
+						top20: sensitivityAnalysis?.monte_carlo?.top20_jaccard_p50,
+						fidelity: sensitivityAnalysis?.recompute_fidelity?.ok
+					}
+				})
 			);
 			check(
 				'Site status occupation-family summary matches artifact',

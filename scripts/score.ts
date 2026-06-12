@@ -7,13 +7,15 @@
  * for each of 562 Singapore SSOC occupations.
  *
  * V7 adds:
- *   - Task-concentration-weighted exposure (Hampole et al. 2025)
- *   - Demand-persistence proxy (addresses Imas price-elasticity critique)
+ *   - Task-concentration exposure buffer (Hampole et al. 2025: concentrated exposure
+ *     offsets labour-demand losses via within-job task reallocation)
+ *   - Demand-persistence proxy (motivated by the Imas price-elasticity critique;
+ *     measures recent labour-demand persistence, not output-price elasticity)
  *
  * Canonical structural formulas:
  *   exposure            = reliability-weighted percentile blend of available exposure sources
  *   task_signal         = task_exposure_concentration * task_effective_coverage
- *   exposure_v7         = clamp01(exposure * (1 + 0.20 * task_signal))
+ *   exposure_v7         = clamp01(exposure * (1 - 0.20 * task_signal))
  *   bottleneck          = pctile(theta)
  *   base_resilience     = 0.6 * market_momentum + 0.4 * occupation_scarcity
  *   demand_persistence  = 0.4*mm_rank + 0.3*vacancy_rank + 0.2*scarcity_rank + 0.1*bonus_rank
@@ -239,12 +241,19 @@ interface ScoredOccupation {
 	task_primitives: TaskPrimitives;
 	task_signal: number;
 	demand_persistence: number;
+	demand_persistence_inputs: {
+		market_momentum_rank: number;
+		vacancy_trend_rank: number;
+		scarcity_rank: number;
+		demand_signal_bonus_rank: number;
+	};
 	exposure_v7: number;
 	baseline_v6: {
 		net_risk: number;
 		exposure: number;
 	};
 	uncertainty: UncertaintyScores;
+	classification_uncertainty: 'crosses_boundary' | null;
 	labour_monitor_key: LabourClusterMonitor['cluster_key'] | null;
 	raw: RawScores;
 	isco_codes_matched: string[];
@@ -1807,9 +1816,15 @@ function scoreOccupations(
 			console.log(`    Loaded task primitives for ${taskPrimitivesMap.size} occupations`);
 		}
 	} catch {
-		console.log(
-			'    No pre-existing task primitives found — task_signal will be 0 for all occupations'
+		// fall through to the hard guard below
+	}
+	if (taskPrimitivesMap.size < 300) {
+		console.error(
+			`    ERROR: only ${taskPrimitivesMap.size} occupations have task primitives (expected ~492). ` +
+				'The V7 task-concentration buffer would silently collapse to zero. ' +
+				'Run "bun run build:task-primitives" first (it enriches data/occupations.json).'
 		);
+		process.exit(1);
 	}
 
 	// ===== V7: Precompute demand-persistence rank arrays =====
@@ -2144,12 +2159,22 @@ function scoreOccupations(
 			// V7 fields
 			task_signal: round(v7Result.task_signal, 4),
 			demand_persistence: round(v7Result.demand_persistence, 4),
+			demand_persistence_inputs: {
+				market_momentum_rank: round(mmRanks[i], 4),
+				vacancy_trend_rank: round(vacancyRanks[i], 4),
+				scarcity_rank: round(scarcityRanks[i], 4),
+				demand_signal_bonus_rank: round(demandBonusRanks[i], 4)
+			},
 			exposure_v7: round(v7Result.exposure_v7, 4),
 			baseline_v6: {
 				net_risk: round(v7Result.baseline_v6.headline_risk, 4),
 				exposure: round(v7Result.baseline_v6.exposure, 4)
 			},
 			uncertainty,
+			classification_uncertainty:
+				getRiskBand(uncertainty.net_risk_p10) !== getRiskBand(uncertainty.net_risk_p90)
+					? ('crosses_boundary' as const)
+					: null,
 			labour_monitor_key: labourMonitor?.cluster_key ?? null,
 			raw: {
 				aioe: round(r.avgAioe, 4),

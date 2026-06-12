@@ -193,7 +193,7 @@ describe('methodology formulas', () => {
 					: 0;
 			const exposureV7 = Math.min(
 				1,
-				occupation.exposure * (1 + V7_CONSTANTS.TASK_CONCENTRATION_LAMBDA * taskSignal)
+				occupation.exposure * (1 - V7_CONSTANTS.TASK_CONCENTRATION_LAMBDA * taskSignal)
 			);
 			const displacementPressure = exposureV7 * (1 - occupation.bottleneck);
 			const demandResilience = Math.min(

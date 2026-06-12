@@ -27,7 +27,8 @@ type InputStatus =
 	| 'ready_for_directional_validation'
 	| 'partial_proxy_needs_snapshots'
 	| 'source_available_not_modeled'
-	| 'protocol_only';
+	| 'protocol_only'
+	| 'harness_built_pending_quarters';
 type EvidenceTier = 'official_sg' | 'derived_from_official_sg' | 'external_proxy' | 'synthetic';
 
 interface ForecastInput {
@@ -282,13 +283,20 @@ const inputs: ForecastInput[] = [
 		key: 'forecast_horizon_protocol',
 		label: 'Out-of-sample forecast protocol',
 		construct: 'validation_protocol',
-		status: 'protocol_only',
+		status: 'harness_built_pending_quarters',
 		evidence_tier: 'synthetic',
 		source_keys: [],
 		source_urls: [],
-		raw_files: ['data/snapshots/occupations-v7-2026-05.json'],
-		existing_artifacts: ['data/backtests/multi-period-validation.json'],
-		pipeline_owners: ['scripts/backtest-multi-period.ts'],
+		raw_files: ['data/snapshots/occupations-v7-2026-05.json', 'data/outcomes/outcome-panels.json'],
+		existing_artifacts: [
+			'data/backtests/multi-period-validation.json',
+			'data/backtests/forecast-horizon-validation.json'
+		],
+		pipeline_owners: [
+			'scripts/backtest-multi-period.ts',
+			'scripts/build-outcome-panels.ts',
+			'scripts/backtest-forecast-horizons.ts'
+		],
 		public_fields: ['forecast-readiness.validation_protocol'],
 		transformation:
 			'Freeze structural scores at time t and compare against official outcome panels at t+1Q, t+2Q, and t+4Q.',
@@ -298,7 +306,7 @@ const inputs: ForecastInput[] = [
 		non_duplication_rule:
 			'Extend the existing backtest family with forecast horizons; do not treat current cluster validation as a causal forecast.',
 		next_step:
-			'Add scripts/backtest-forecast-horizons.ts after quarterly outcome panels are materialized.'
+			'Harness and outcome panels are built with post_baseline_quarters_available = 0; horizons activate as MOM publishes Q3 2026+ data, with promotion gated on at least 4 post-baseline quarters.'
 	}
 ];
 
@@ -308,13 +316,8 @@ if (uniqueInputKeys.size !== inputs.length) {
 }
 
 function statusCounts() {
-	const result: Record<InputStatus, number> = {
-		ready_for_directional_validation: 0,
-		partial_proxy_needs_snapshots: 0,
-		source_available_not_modeled: 0,
-		protocol_only: 0
-	};
-	for (const input of inputs) result[input.status]++;
+	const result: Partial<Record<InputStatus, number>> = {};
+	for (const input of inputs) result[input.status] = (result[input.status] ?? 0) + 1;
 	return result;
 }
 
@@ -398,7 +401,7 @@ const readiness = {
 		'Do not alter V7 headline scoring.',
 		'Materialize outcome panels under data/outcomes/ only from existing official labour/postings owners.',
 		'Add monthly postings snapshots before computing AI-skill share trends.',
-		'Build scripts/backtest-forecast-horizons.ts once at least one post-baseline quarter exists.',
+		'Forecast-horizon harness is built (status pending_sufficient_quarters); rerun as each MOM quarter lands and promote only past the 4-quarter gate.',
 		'Promote any forecast layer only as a separate sidecar with confidence labels and source granularity.'
 	]
 };

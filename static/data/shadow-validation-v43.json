@@ -1,6 +1,6 @@
 {
   "version": "V4.3-shadow",
-  "generated_at": "2026-05-15T08:43:56.747Z",
+  "generated_at": "2026-06-07T11:57:12.055Z",
   "cluster_directional_accuracy": {
     "baseline": 1,
     "shadow": 0.3333,
@@ -8,9 +8,9 @@
     "pass": false
   },
   "bls_spearman_rho": {
-    "baseline": -0.1387,
+    "baseline": -0.1385,
     "shadow": -0.167,
-    "delta": -0.0283,
+    "delta": -0.0285,
     "pass": true
   },
   "occupation_family_spearman_rho": {

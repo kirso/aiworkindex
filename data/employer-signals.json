@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-05-15T08:44:09.949Z",
+  "generated_at": "2026-06-07T11:57:23.650Z",
   "summary": {
     "total_signals": 11,
     "latest_signal_date": "2025-10-06",
     "highest_pressure_label": "high",
     "highest_pressure_archetypes": [
       "general_professional",
-      "operations_logistics",
-      "software_engineering"
+      "software_engineering",
+      "operations_logistics"
     ]
   },
   "signals": [
@@ -201,7 +201,7 @@
       "latest_date": "2025-02-24"
     },
     "general_professional": {
-      "pressure_score": 0.495,
+      "pressure_score": 0.459,
       "label": "high",
       "signal_count": 8,
       "sectors": [
@@ -253,7 +253,7 @@
       "latest_date": "2025-02-14"
     },
     "operations_logistics": {
-      "pressure_score": 0.396,
+      "pressure_score": 0.36,
       "label": "moderate",
       "signal_count": 7,
       "sectors": [
@@ -325,7 +325,7 @@
       "latest_date": "2025-03-17"
     },
     "field_manual": {
-      "pressure_score": 0.09,
+      "pressure_score": 0.054,
       "label": "low",
       "signal_count": 1,
       "sectors": [
@@ -413,7 +413,7 @@
       "latest_date": "2025-08-12"
     },
     "Energy and resources": {
-      "pressure_score": 0.09,
+      "pressure_score": 0.054,
       "label": "low",
       "signal_count": 1,
       "sectors": [

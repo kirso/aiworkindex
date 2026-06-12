@@ -41,7 +41,7 @@ export interface ScenarioParams {
 
 /**
  * Seniority adjustment multipliers, grounded in research:
- * - Anthropic Economic Index (2026): 14% drop in job-finding for ages 22-25 in AI-exposed occupations
+ * - Anthropic Economic Index (2026): 14% lower rate of entering highly AI-exposed occupations for ages 22-25
  * - Stanford "Canaries in the Coal Mine" (2025): entry-level faces disproportionate displacement
  * - Brynjolfsson et al. (2023): biggest AI productivity gains among junior workers (leveling effect)
  * - Noy & Zhang (2023): AI narrows gap between experienced and novice writers

@@ -1,6 +1,6 @@
 {
   "version": "V5-roadmap",
-  "generated_at": "2026-05-15T08:44:11.321Z",
+  "generated_at": "2026-06-07T11:57:25.010Z",
   "current_live_version": "V7",
   "prerequisite_release": "V4.3",
   "status": "archived_live_release",
@@ -10,8 +10,8 @@
     "experimental_summary": "Shadow score is published. Promotion into the headline model still depends on validation and anchor-review sign-off.",
     "headline_promotion_ready": false,
     "task_native_count": 492,
-    "band_flip_count": 123,
-    "impact_flip_count": 57,
+    "band_flip_count": 124,
+    "impact_flip_count": 60,
     "validation_result": "2/3"
   },
   "release_thesis": "V5 should be the first release that upgrades the science beyond exposure alone: augmentation heterogeneity, empirical mobility, richer uncertainty, and a clearer realized-risk forecast.",
@@ -46,8 +46,8 @@
     "structural_validation_result": "2/2",
     "realized_validation_result": "2/4",
     "comparison_baseline_version": "V7",
-    "transition_band_flip_count": 169,
-    "impact_flip_count": 158
+    "transition_band_flip_count": 166,
+    "impact_flip_count": 157
   },
   "workstreams": [
     {

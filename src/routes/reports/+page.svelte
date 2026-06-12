@@ -64,8 +64,9 @@
 						<span class={badge({ variant: 'info' })}>Current</span>
 					</div>
 					<p class="mt-1 text-sm text-muted-foreground">
-						V7 adds task-concentration-weighted exposure (Hampole et al.) and a demand-persistence
-						proxy to the structural formula. Stability: median delta 0.0075, Spearman 0.9996.
+						V7 adds a task-concentration exposure buffer (Hampole et al.) and a demand-persistence
+						proxy to the structural formula. Corrected 7 Jun 2026: the concentration term now
+						buffers rather than amplifies exposure, matching the cited finding.
 					</p>
 				</div>
 				<svg

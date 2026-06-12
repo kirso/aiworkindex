@@ -1,0 +1,59 @@
+{
+  "validation_date": "2026-06-11",
+  "model_version": "V7",
+  "framing_caveat": "The IMF reports absolute economy-wide employment shares (77% of Singapore workers highly exposed); this model's exposure is percentile-ranked within 562 SG occupations and cannot reproduce absolute shares by construction. Only the employment-weighted complementarity split among the most-exposed occupations and its direction are comparable. This is a convergent-directional check, not occupation-level validation.",
+  "imf_targets": {
+    "source_key": "khan_imf_singapore_2024",
+    "label": "IMF SIP/2024/040 — Impact of AI on Singapore's Labor Market (Khan)",
+    "url": "https://www.imf.org/en/Publications/selected-issues-papers/Issues/2024/08/23/Impact-of-AI-on-Singapore-s-Labor-Market-Singapore-553481",
+    "highly_exposed_pct": 77,
+    "high_complementarity_pct": 39,
+    "low_complementarity_pct": 38,
+    "advanced_economy_avg_exposed_pct": 60,
+    "emerging_market_avg_exposed_pct": 40,
+    "framing": "IMF reports absolute economy-wide employment shares using the Cazzaniga et al. (2024) exposure x complementarity framework. This repo's exposure is percentile-ranked within 562 Singapore occupations, so absolute shares are not comparable; only the occupational pattern and the complementarity split direction are."
+  },
+  "complementarity_cut": {
+    "variable": "raw.theta (Pizzinelli complementarity)",
+    "median_threshold": 0.67,
+    "note": "High complementarity = theta at or above the cross-occupation median."
+  },
+  "employment_weighted_bins": {
+    "top_half": {
+      "exposure_cut": "Top half of exposure distribution",
+      "exposure_threshold": 0.51,
+      "exposed_share_pct": 59.1,
+      "exposed_high_complementarity_pct": 28,
+      "exposed_low_complementarity_pct": 31.1,
+      "not_exposed_pct": 40.9,
+      "high_to_low_ratio": 0.9,
+      "exposed_occupation_count": 282
+    },
+    "top_quartile": {
+      "exposure_cut": "Top quartile of exposure distribution",
+      "exposure_threshold": 0.74,
+      "exposed_share_pct": 33.6,
+      "exposed_high_complementarity_pct": 10.8,
+      "exposed_low_complementarity_pct": 22.8,
+      "not_exposed_pct": 66.4,
+      "high_to_low_ratio": 0.47,
+      "exposed_occupation_count": 142
+    }
+  },
+  "exposure_mass_diagnostic": {
+    "employment_weighted_mean_exposure": 0.55,
+    "employment_weighted_mean_exposure_x_complementarity": 0.37,
+    "note": "Continuous secondary diagnostic only — not comparable to IMF share targets."
+  },
+  "verdicts": [
+    "Top half of exposure distribution: employment-weighted complementarity split among exposed workers is 28:31.1 high:low (ratio 0.9) vs IMF ~39:38 (ratio 1.03) — the model is less optimistic on complementarity than the IMF benchmark at this cut.",
+    "Top quartile of exposure distribution: employment-weighted complementarity split among exposed workers is 10.8:22.8 high:low (ratio 0.47) vs IMF ~39:38 (ratio 1.03) — the model is less optimistic on complementarity than the IMF benchmark at this cut.",
+    "At least one cut diverges meaningfully from the IMF split — disclosed as a candidate recalibration signal, not hidden."
+  ],
+  "caveats": [
+    "Employment weights are estimated per-occupation figures derived from published sub-major totals, not official per-occupation headcounts.",
+    "The theta median split is a coarse two-way complementarity classification; the IMF uses the Cazzaniga et al. (2024) framework with different thresholds.",
+    "Exposure cuts at the top half and top quartile bracket the ambiguity of \"highly exposed\" against a percentile-internal measure.",
+    "This check is a Singapore macro benchmark; the MOM AI-adoption survey (April 2026) remains adoption/context evidence, and the BLS slope specification remains the occupation-level external check."
+  ]
+}
