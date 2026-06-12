@@ -1,11 +1,12 @@
 # Credibility Roadmap (plan of record, June 2026)
 
-Scope: the credibility and product work agreed in the June 2026 review sessions. Two tracks.
-Slices 0–3 must not change `net_risk` or `risk_band`. Each slice ends on a green `bun run verify`.
+Scope: the credibility and product work agreed in the June 2026 review sessions. This document is
+now both the plan of record and closeout ledger for the `v7.1-buffer-correction-and-ux` branch.
+Slices 0–3 did not change `net_risk` or `risk_band`; each shipped behind a green `bun run verify`.
 
 ## Track A — code and artifacts (sequential)
 
-### Slice 0 — honesty and acknowledgment patch (bounded)
+### Slice 0 — honesty and acknowledgment patch (shipped)
 
 Methodology copy + citations only. No score changes, no new scoring machinery.
 
@@ -36,7 +37,7 @@ Methodology copy + citations only. No score changes, no new scoring machinery.
 - Source registry: add Canaries 2025, Card-Kluve-Weber 2018, Autor et al. 2024 "New Frontiers",
   Lewandowski et al. 2022, Yin/Vu/Persico 2026, Yin & Ogut 2026. Regenerate research library.
 
-### Slice 1 — sensitivity / ablation analysis
+### Slice 1 — sensitivity / ablation analysis (shipped)
 
 As specified in the approved implementation plan (verified against repo 2026-06-10):
 shared `src/lib/utils/validation-stats.ts` (move spearman + PRNG, byte-identical re-run proof),
@@ -44,7 +45,7 @@ persist the 4 demand-persistence rank inputs, `scripts/build-sensitivity-analysi
 self-fidelity gate, OAT perturbations, seeded ±25% Monte-Carlo (N=1000), full artifact wiring
 (triple-write, manifest, validate, site-status, methodology card).
 
-### Slice 2 — external anchors
+### Slice 2 — external anchors (shipped except permissioned SSG payload)
 
 Validation = occupation-level; context = firm/sector-level. Do not conflate.
 
@@ -54,21 +55,19 @@ Validation = occupation-level; context = firm/sector-level. Do not conflate.
 - BLS-2034 extension: extend the existing `validate-bls-crosswalk.ts` / calibration diagnostics
   with the Anthropic-style slope specification (projected-growth change per exposure increment),
   explicitly distinguished from realized outcomes. No duplicate validation story.
-- SSG "AI Potential on Tasks" convergence: **UNBLOCKED (June 2026) — SSG granted written
-  permission (user emailed earlier and received approval), so the dashboard's task-level
-  classifications can be used directly with attribution.** Build as a full convergence artifact:
-  extract the 38,158-record payload, join to the official Skills Framework XLSX (85.4% exact),
-  benchmark exposure_v7 against SSG's task-level AI-potential classes.** Prior caveat retained
-  below for the record:** technically extractable but ToU-gated without permission. Technical access is trivial (the full 38,158-record dataset is server-rendered
-  in the dashboard page; the official Skills Framework XLSX downloads freely from file.go.gov.sg
-  and joins 85.4% exact), but the portal ToU prohibits scraping/redistribution and the data is not
-  on data.gov.sg, so no open licence applies. Path forward (needs a personal decision): (a) email
-  SSG for written permission, and/or (b) re-score the official task statements with our own
-  documented Eloundou-style rubric, holding SSG's classifications privately as a correlation
-  check only. Still potentially the strongest Singapore-native exposure benchmark (answers the
-  Lewandowski crosswalk critique).
+  Status: BLS-2034 and IMF artifacts are fully shipped and release-gated.
+- SSG "AI Potential on Tasks" convergence: **unblocked by permission, not yet executable from the
+  repo.** Written permission means the dashboard task classifications can be used with attribution,
+  but the permissioned source payload and its exact source URL are not committed here. The next
+  implementation step is now mechanical: place the approved 38,158-record SSG task export plus the
+  official Skills Framework XLSX in `data/raw/external/ssg/`, build a no-raw-redistribution
+  convergence artifact, and wire it through the same triple-write, manifest, validate, site-status,
+  and methodology pattern as the BLS/IMF artifacts. The public artifact should publish only
+  aggregate match counts, join quality, class-share alignment, and correlations against
+  `exposure_v7`; it must not redistribute the raw SSG task table unless the written permission
+  explicitly allows it.
 
-### Slice 3 — forecast-horizon sidecar (modest)
+### Slice 3 — forecast-horizon sidecar (shipped)
 
 As specified in the approved plan: outcome panels (official MOM labour outcomes only — vacancy,
 hiring, retrenchment, re_entry; postings/AI-share/wage deferred to v2),
@@ -78,16 +77,15 @@ Plus: publish the protocol (naive random-walk benchmark, pooled sign-test rules)
 do not imply any forecast evidence exists yet. OSF/timestamped pre-registration when frozen
 forecasts are first staked.
 
-### Slice 4 — product and research backlog
+### Slice 4 — product closeout (shipped) and research backlog
 
-- Surface the "high risk × low transition capacity" quadrant (del Rio-Chanona 2021, IMF WP/24/116).
-- Task-level UX: tasks most exposed / most protected from existing task primitives; editable task
-  table is the differentiator (no major player offers user-adjustable task lists).
-- Named insulation channels (regulatory / relational / physical) decomposed from O*NET work-context.
-- Demand-axis: reframe short-term; recalibrate weights only after sensitivity + IMF outputs exist.
-- Adoption/diffusion: sidecar only, after transparent sector-to-occupation mapping (MOM 2026 gives
-  sector adoption data). Never multiplied into V7 scores.
-- Methodology changelog with per-release score diffs; quarterly validation drops with MOM data.
+- Shipped: high risk × low transition capacity quadrant, occupation-page callouts, task-level
+  evidence, named insulation channels, demand-axis honest reframe, and methodology changelog with
+  per-release score diffs.
+- Deferred by design: editable user task table, demand-axis recalibration, adoption/diffusion
+  sidecar, confidence ratings, scenario families, and age-structure annotation. These are V8 work
+  because they either change scores, need a new schema/design pass, or require a transparent
+  sector-to-occupation mapping.
 
 ### V8 research queue (deferred, each needs its own design pass)
 
@@ -100,12 +98,14 @@ forecasts are first staked.
 - Detection-and-attribution framing for the quarterly monitor (Yale dissimilarity test on MOM
   clusters).
 
-## Track B — credibility infrastructure (parallel; needs a personal go decision on naming)
+## Track B — credibility infrastructure (repo-prepped; external submissions remain manual)
 
 1. Trust pages: named author + bio + contact, "self-funded, no sponsors" statement, suggested
-   citation + BibTeX, corrections log, `/press` page. Blocked on the named-author decision.
+   citation + BibTeX, corrections log, and `/press` page are shipped.
 2. Academic on-ramp, in order: ORCID → Zenodo DOI per release → SSRN methodology paper →
    OSF forecast pre-registration → Scientific Data / Data in Brief data-descriptor submission.
+   Repo-side submission prep lives under `docs/academic/`; account creation, DOI minting, SSRN
+   upload, and OSF registration still require the maintainer's personal accounts.
 3. Singapore sequence: Academia.SG essay → CNA/ST commentary pegged to a MOM quarterly release →
    IPS/IAL seminar. Position as complementing MOM's adoption survey, never contradicting official
    statistics. Track SMU ResWORK (forthcoming vacancy-based SG AI-exposure index — closest future

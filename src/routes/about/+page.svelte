@@ -298,7 +298,7 @@
 			>
 			·
 			<a
-				href="{SITE.github}/issues"
+				href={`${SITE.github}/issues`}
 				target="_blank"
 				rel="noopener noreferrer"
 				class="text-primary hover:underline">GitHub issues</a
