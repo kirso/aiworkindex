@@ -389,6 +389,34 @@ const ARTIFACTS: ReleaseArtifactDefinition[] = [
 		category: 'governance',
 		description:
 			'Robustness evidence for the hand-set V7 constants: one-at-a-time and joint Monte-Carlo perturbations with rank-stability, band-flip, and top-list overlap metrics against the baseline ranking.'
+	},
+	{
+		file: 'confidence-ratings.json',
+		label: 'Occupation confidence ratings',
+		category: 'governance',
+		description:
+			'IPCC-style confidence sidecar translating score confidence components into evidence-quality and signal-agreement ratings for every occupation.'
+	},
+	{
+		file: 'scenario-families.json',
+		label: 'Scenario families',
+		category: 'governance',
+		description:
+			'Non-scoring scenario-family sidecar publishing conservative, base, and fast-adoption outlook overlays from the forecast engine.'
+	},
+	{
+		file: 'adoption-diffusion.json',
+		label: 'Singapore adoption diffusion',
+		category: 'governance',
+		description:
+			'Non-scoring Singapore adoption context from MOM 2026 firm AI-adoption evidence, including sector uptake, constraints, and observed adopter outcomes.'
+	},
+	{
+		file: 'age-structure.json',
+		label: 'Occupation age structure',
+		category: 'governance',
+		description:
+			'Non-scoring age-structure and attrition-absorber context derived from Singapore worker-profile tables.'
 	}
 ];
 

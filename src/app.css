@@ -7,7 +7,7 @@
  * === DESIGN PRINCIPLES ===
  * 1. Numbers are heroes — large, monospace, prominent
  * 2. Cards: border + shadow-sm on white, consistent everywhere via card()
- * 3. Full saturation risk colors — traffic-light clear
+ * 3. Full saturation risk colors — green to red only where severity is encoded
  * 4. Pure white canvas — clean, no warmth, no tint
  * 5. Tight density — tool-like, not editorial
  * 6. Every data display has a source line
@@ -103,21 +103,21 @@
 	--color-risk-moderate-border: #e8d9a8;
 
 	--color-risk-high: #c05a1d;
-	--color-risk-high-subtle: #fbf1ea;
-	--color-risk-high-border: #efcfb8;
+	--color-risk-high-subtle: #fff4ed;
+	--color-risk-high-border: #f2c7aa;
 
 	--color-risk-very-high: #d6151c;
-	--color-risk-very-high-subtle: #fcecec;
-	--color-risk-very-high-border: #f3c0c1;
+	--color-risk-very-high-subtle: #fff1f2;
+	--color-risk-very-high-border: #f0b8bd;
 
 	/* --- Impact Types (3-step each) --- */
 	--color-impact-leveraged: oklch(0.5 0.18 255);
 	--color-impact-leveraged-subtle: oklch(0.97 0.015 255);
 	--color-impact-leveraged-border: oklch(0.9 0.04 255);
 
-	--color-impact-at-risk: oklch(0.55 0.2 25);
-	--color-impact-at-risk-subtle: oklch(0.97 0.02 25);
-	--color-impact-at-risk-border: oklch(0.9 0.05 25);
+	--color-impact-at-risk: #d6151c;
+	--color-impact-at-risk-subtle: #fff1f2;
+	--color-impact-at-risk-border: #f0b8bd;
 
 	--color-impact-stable: oklch(0.55 0.01 260);
 	--color-impact-stable-subtle: oklch(0.97 0.003 260);
@@ -178,8 +178,8 @@
 	--popover: #ffffff;
 	--popover-foreground: #0c0c0c;
 
-	/* Brand: signal red — the only brand color (Economist register) */
-	--primary: #e3120b;
+	/* Brand: cobalt signal accent */
+	--primary: #1d4ed8;
 	--primary-foreground: #ffffff;
 	--secondary: #f4f4f4;
 	--secondary-foreground: #0c0c0c;

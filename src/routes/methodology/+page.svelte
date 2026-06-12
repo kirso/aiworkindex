@@ -63,6 +63,16 @@
 	const calibrationFallback = calibrationDiagnostics.segments.by_match_quality.all_fallback;
 	const calibrationHighMedium = calibrationDiagnostics.segments.by_confidence_level.high_or_medium;
 	const calibrationLow = calibrationDiagnostics.segments.by_confidence_level.low;
+	const liveMonitor = siteStatus.live_monitor;
+	const confidenceRatingHighCount = liveMonitor.confidence_rating_high_count ?? 0;
+	const confidenceRatingMediumCount = liveMonitor.confidence_rating_medium_count ?? 0;
+	const confidenceRatingLowCount = liveMonitor.confidence_rating_low_count ?? 0;
+	const confidenceRatingOccupationCount =
+		confidenceRatingHighCount + confidenceRatingMediumCount + confidenceRatingLowCount;
+	const topConfidenceLimiter = {
+		factor: liveMonitor.confidence_rating_top_limiter ?? 'No single limiter',
+		count: liveMonitor.confidence_rating_top_limiter_count ?? 0
+	};
 
 	// V6 -> V7 score diff, computed from the retained per-occupation baseline.
 	const v6DiffStats = (() => {
@@ -1233,6 +1243,105 @@
 						This is a calibration check for mapping quality and confidence labels, not separate
 						Singapore outcome truth. Full results in
 						<code class="rounded bg-muted px-1">data/backtests/calibration-diagnostics.json</code>.
+					</p>
+				</div>
+
+				<div class={cn(card({ padding: 'sm' }), 'mt-3')}>
+					<h3 class="text-sm font-semibold text-foreground mb-2">
+						Confidence Ratings (evidence quality and agreement)
+					</h3>
+					<p class="text-sm text-muted-foreground">
+						Each occupation now carries an IPCC-style confidence sidecar derived from existing score
+						metadata: crosswalk quality, exposure-source coverage, source freshness, signal
+						agreement, sensitivity, and whether the uncertainty interval crosses a risk-band
+						boundary. The current distribution is
+						<strong>{confidenceRatingHighCount}</strong> high,
+						<strong>{confidenceRatingMediumCount}</strong> medium, and
+						<strong>{confidenceRatingLowCount}</strong> low confidence across
+						{confidenceRatingOccupationCount} occupations.
+					</p>
+					<p class="mt-3 text-sm text-muted-foreground">
+						The leading limiting factor is
+						<strong>{topConfidenceLimiter.factor}</strong>
+						({topConfidenceLimiter.count} occupations). Policy-capped occupations cannot be labeled high
+						confidence, even when the numeric confidence score is near the high threshold.
+					</p>
+					<p class="mt-3 text-xs text-muted-foreground italic">
+						Confidence is an evidence-quality label, not a score input and not a probability that
+						the risk estimate is correct. Full results in
+						<code class="rounded bg-muted px-1">data/confidence-ratings.json</code>.
+					</p>
+				</div>
+
+				<div class={cn(card({ padding: 'sm' }), 'mt-3')}>
+					<h3 class="text-sm font-semibold text-foreground mb-2">
+						Scenario Families (non-scoring outlook overlays)
+					</h3>
+					<p class="text-sm text-muted-foreground">
+						The forecast engine now publishes {liveMonitor.scenario_family_count} named scenario families
+						&mdash; conservative, base, and fast adoption &mdash; as a sidecar rather than quiet UI state.
+						In the base case, average near-term risk is
+						<strong>{Math.round((liveMonitor.scenario_base_avg_near_term_risk ?? 0) * 100)}%</strong
+						>; under fast adoption it rises to
+						<strong
+							>{Math.round(
+								(liveMonitor.scenario_fast_adoption_avg_near_term_risk ?? 0) * 100
+							)}%</strong
+						>.
+					</p>
+					<p class="mt-3 text-xs text-muted-foreground italic">
+						Scenario families stress the score under adoption, cost-cutting, macro, and
+						sector-readiness assumptions. They do not change <code class="rounded bg-muted px-1"
+							>net_risk</code
+						>
+						or
+						<code class="rounded bg-muted px-1">risk_band</code>. Full results in
+						<code class="rounded bg-muted px-1">data/scenario-families.json</code>.
+					</p>
+				</div>
+
+				<div class={cn(card({ padding: 'sm' }), 'mt-3')}>
+					<h3 class="text-sm font-semibold text-foreground mb-2">
+						Adoption / Diffusion Context (Singapore, non-scoring)
+					</h3>
+					<p class="text-sm text-muted-foreground">
+						MOM&rsquo;s 2026 firm survey reports
+						<strong>{liveMonitor.adoption_diffusion_headline_pct}%</strong> of in-scope firms have
+						started AI adoption. Among adopting firms,
+						<strong>{liveMonitor.adoption_diffusion_headcount_reduction_pct}%</strong>
+						reported reduced headcount while
+						<strong>{liveMonitor.adoption_diffusion_role_redesign_pct}%</strong> reported role
+						redesign. The leading published sector is
+						<strong>{liveMonitor.adoption_diffusion_top_sector_label}</strong>
+						({liveMonitor.adoption_diffusion_top_sector_pct}% adoption).
+					</p>
+					<p class="mt-3 text-xs text-muted-foreground italic">
+						This is firm-level adoption context, not an occupation-level multiplier. Full results in
+						<code class="rounded bg-muted px-1">data/adoption-diffusion.json</code>.
+					</p>
+				</div>
+
+				<div class={cn(card({ padding: 'sm' }), 'mt-3')}>
+					<h3 class="text-sm font-semibold text-foreground mb-2">
+						Age Structure (attrition absorber, non-scoring)
+					</h3>
+					<p class="text-sm text-muted-foreground">
+						Age structure is now published as an attrition-channel sidecar. It identifies
+						<strong>{liveMonitor.age_structure_high_attrition_absorber_count}</strong> occupations
+						where the broad worker-profile age mix suggests a high retirement/non-replacement
+						buffer. The average age-50-plus share across covered occupation rows is
+						<strong
+							>{Math.round((liveMonitor.age_structure_avg_age_50_plus_share ?? 0) * 100)}%</strong
+						>.
+						{#if liveMonitor.age_structure_unknown_coverage_count}
+							<strong>{liveMonitor.age_structure_unknown_coverage_count}</strong> occupations have unknown
+							age coverage because their broad group is absent from the source table.
+						{/if}
+					</p>
+					<p class="mt-3 text-xs text-muted-foreground italic">
+						This explains one way pressure can resolve without layoffs; it is broad-group context
+						and does not change headline risk. Full results in
+						<code class="rounded bg-muted px-1">data/age-structure.json</code>.
 					</p>
 				</div>
 

@@ -1,6 +1,6 @@
 {
   "version": "V7",
-  "generated_at": "2026-06-11T10:50:05.475Z",
+  "generated_at": "2026-06-12T11:18:56.337Z",
   "score_dataset_generated_at": "2026-06-11",
   "artifacts": [
     {
@@ -10,16 +10,16 @@
       "description": "Flattened CSV export of the canonical live structural dataset.",
       "bytes": 353298,
       "sha256": "edd48803b1ead2a3f952cdc33ca86be7c50419382fe59691f0c65b5738e54052",
-      "generated_at": "2026-06-11T09:55:37.323Z"
+      "generated_at": "2026-06-12T09:53:05.024Z"
     },
     {
       "file": "sg-ai-occupations-v7.json",
       "label": "V7 structural score JSON",
       "category": "structural_score",
       "description": "Canonical live structural score JSON export matching the app dataset exactly.",
-      "bytes": 3408016,
-      "sha256": "f598820d84167405d44d864050760c8e3427961ec34746332c89fa86767bcbd7",
-      "generated_at": "2026-06-11T09:55:37.270Z"
+      "bytes": 3434822,
+      "sha256": "8caadf0d560a4b6ace5ae5bb9e531ab6b2a790569cf815e5a3f5b05b89eb6f77",
+      "generated_at": "2026-06-12T09:53:05.029Z"
     },
     {
       "file": "sg-ai-occupations-v43.csv",
@@ -37,7 +37,7 @@
       "description": "Versioned JSON snapshot for the retained V4.3 structural release.",
       "bytes": 4223552,
       "sha256": "0cd2872762d6f20bedbfecce260538a4e2249dc32cae97c5fba74befafa6450b",
-      "generated_at": "2026-06-11T09:55:37.280Z"
+      "generated_at": "2026-06-11T14:36:05.598Z"
     },
     {
       "file": "sg-ai-occupations-v5.csv",
@@ -55,7 +55,7 @@
       "description": "Versioned JSON snapshot for the promoted V5 live structural release with transition-adjusted and realized-risk adjunct fields.",
       "bytes": 4324271,
       "sha256": "2d9716694eecb86dc1ec3cbb1a508061a3b592b305af7ffe4b71b2f3a1a73621",
-      "generated_at": "2026-06-11T09:55:37.285Z"
+      "generated_at": "2026-06-11T14:36:05.603Z"
     },
     {
       "file": "sg-ai-occupations-v42.csv",
@@ -73,7 +73,7 @@
       "description": "Historical JSON snapshot for the retained V4.2 pre-promotion baseline.",
       "bytes": 3166563,
       "sha256": "63029c9709c7b841a694107798d4396428108963120b2f8b75d72b5093b28269",
-      "generated_at": "2026-06-11T09:55:37.278Z"
+      "generated_at": "2026-06-11T14:36:05.595Z"
     },
     {
       "file": "onet-enrichment.json",
@@ -91,7 +91,7 @@
       "description": "Published Singapore context bundle around the structural score: labour monitor, worker profile, industry context, sector wage anchors, geography context, macro labour context, and national AI context.",
       "bytes": 671499,
       "sha256": "69384d017841becdfcbfb98e33c1d6a8f044c3477c0482fcd12c7be78e80190a",
-      "generated_at": "2026-06-11T09:55:37.363Z"
+      "generated_at": "2026-06-12T09:53:05.031Z"
     },
     {
       "file": "sg-labour-monitor-2025.json",
@@ -100,7 +100,7 @@
       "description": "Published cluster-level labour monitor used as current evidence around the score.",
       "bytes": 27832,
       "sha256": "cfacd54ba28bc34cb6e9feb32eb09b04e80de669d0056e9ffaa167cd92f9ab13",
-      "generated_at": "2026-06-11T09:55:37.363Z"
+      "generated_at": "2026-06-11T14:36:05.693Z"
     },
     {
       "file": "sg-worker-profile-2025.json",
@@ -118,7 +118,7 @@
       "description": "Published 2024 to 2025 Labour Force Section D family, cluster, and industry-mix deltas used for validation and contextual reporting.",
       "bytes": 44667,
       "sha256": "9642f9b7f5c7a0064389c9643f56b28c9326cde85dda5c5178ec358a4034c70c",
-      "generated_at": "2026-06-11T09:55:37.364Z"
+      "generated_at": "2026-06-11T14:36:05.693Z"
     },
     {
       "file": "sg-geography-context-2020.json",
@@ -127,7 +127,7 @@
       "description": "Published Census 2020 geography context covering planning-area residence concentration and travel-time patterns by broad occupation group.",
       "bytes": 12346,
       "sha256": "7333ab0eb9976abc03f1a0df70a966afbb32375eb234f0b312904f4eb1f6513d",
-      "generated_at": "2026-06-07T11:57:05.422Z"
+      "generated_at": "2026-06-12T09:53:05.033Z"
     },
     {
       "file": "sg-macro-context-2025.json",
@@ -136,7 +136,7 @@
       "description": "Published macro labour context covering unemployment and labour-tightness series for Singapore.",
       "bytes": 20879,
       "sha256": "ed56992d4e66fec3f0431829a49f8b5d9159b53b3012a219e904c78c6994f663",
-      "generated_at": "2026-06-07T11:57:05.472Z"
+      "generated_at": "2026-06-12T09:53:05.033Z"
     },
     {
       "file": "sg-ai-in-singapore-2025.json",
@@ -145,7 +145,7 @@
       "description": "Official IMDA and MOM national AI adoption, workforce, and programme context used for reports and contextual framing.",
       "bytes": 5932,
       "sha256": "c69b92c5c41428e0c45f8b7de1c4a263de54c5334e4603f95272bcdfe4d4eac6",
-      "generated_at": "2026-06-08T11:02:59.551Z"
+      "generated_at": "2026-06-12T09:53:05.022Z"
     },
     {
       "file": "sg-transition-infrastructure-2025.json",
@@ -154,7 +154,7 @@
       "description": "Official Singapore transition-infrastructure artifact covering published programmes, WSQ training-system activity, and Jobs Transformation Maps coverage.",
       "bytes": 5408,
       "sha256": "ffc2d0b735925c7d27c5d7d419b82f28d1c2073269f0fa92f2d079cac60abea8",
-      "generated_at": "2026-06-07T11:57:05.539Z"
+      "generated_at": "2026-06-12T09:53:05.035Z"
     },
     {
       "file": "sg-transition-support-v4.json",
@@ -163,7 +163,7 @@
       "description": "Published hybrid transition-support artifact combining the deterministic transition-capacity model with official Singapore transition-infrastructure context.",
       "bytes": 7674884,
       "sha256": "204023ef0a6c4913c602e9b63e6a8abd9ceb8dac6f8870c1b5c8491208549577",
-      "generated_at": "2026-06-07T11:57:22.878Z"
+      "generated_at": "2026-06-12T09:53:05.042Z"
     },
     {
       "file": "countries/us/support.json",
@@ -181,7 +181,7 @@
       "description": "Published heuristic support layer estimating how demand persistence, transition support, task reallocation, and switching friction could cushion structural pressure.",
       "bytes": 533502,
       "sha256": "5969ea39b5aea75b0a1ff0268fc3b981e6fe74d1fd06ec0f8b536ae497b4cc77",
-      "generated_at": "2026-06-07T11:57:23.730Z"
+      "generated_at": "2026-06-12T09:53:05.035Z"
     },
     {
       "file": "claims-matrix-v7.json",
@@ -190,7 +190,7 @@
       "description": "Machine-readable registry of major public claims, evidence strength, and source keys for the current release.",
       "bytes": 14173,
       "sha256": "546783d6f970c596b562198fffd9d0675844b80a7a8c037486f3b130df7efbf2",
-      "generated_at": "2026-06-08T11:02:59.483Z"
+      "generated_at": "2026-06-12T09:53:05.018Z"
     },
     {
       "file": "public-field-source-map.json",
@@ -199,7 +199,7 @@
       "description": "Machine-readable field-level provenance map for the main public datasets, including source keys, vintages, and transformation notes.",
       "bytes": 12780,
       "sha256": "2bc38e9e7a10bdfb09a4a64600077d8b79a9991325253ee036d167ed4ef2db0e",
-      "generated_at": "2026-06-08T11:02:59.516Z"
+      "generated_at": "2026-06-12T09:53:05.020Z"
     },
     {
       "file": "forecast-readiness-v7.json",
@@ -208,7 +208,7 @@
       "description": "Non-promoted V7 source, duplication, and validation-gate matrix for moving from structural pressure to forecast-grade labour-market claims.",
       "bytes": 20182,
       "sha256": "f06e61f88a6781166d3023ba55e0b84775bc0e5dff6b96dea0e445ba7d43958e",
-      "generated_at": "2026-06-11T10:50:05.422Z"
+      "generated_at": "2026-06-12T09:53:05.019Z"
     },
     {
       "file": "experimental-methodology-v43.json",
@@ -217,7 +217,7 @@
       "description": "Governance artifact for the V4.3 shadow model, including readiness, promotion gates, and promoted/live state.",
       "bytes": 3511,
       "sha256": "f08b6a79268e1aa4426feeada255ad6673a9e53c5d860e96445fad098b1a4e2b",
-      "generated_at": "2026-06-07T11:57:12.098Z"
+      "generated_at": "2026-06-12T09:53:05.019Z"
     },
     {
       "file": "shadow-scores-v43.json",
@@ -226,7 +226,7 @@
       "description": "Per-occupation task-adjusted shadow scores retained for comparison against the earlier V4.2 baseline.",
       "bytes": 469284,
       "sha256": "cf5b40e4668d5e33c55d44b66f49f21a5d4fb272e2e6e74f32b43c71c5bdb4c6",
-      "generated_at": "2026-06-07T11:57:12.061Z"
+      "generated_at": "2026-06-12T09:53:05.045Z"
     },
     {
       "file": "shadow-comparison-v43.json",
@@ -235,7 +235,7 @@
       "description": "Summary of task-native eligibility, score deltas, band flips, and anchor-review counts from the retained V4.3 shadow-model audit trail.",
       "bytes": 46191,
       "sha256": "d1ea7810fbfec3a7effbcef10a21a4caaf42e523f28b1435df8d8bc71ee3afe8",
-      "generated_at": "2026-06-07T11:57:12.062Z"
+      "generated_at": "2026-06-12T09:53:05.045Z"
     },
     {
       "file": "shadow-validation-v43.json",
@@ -244,7 +244,7 @@
       "description": "Comparison of the published shadow scores against the validation benchmarks from the pre-promotion V4.2 live release.",
       "bytes": 1728,
       "sha256": "4a1a32dc40524bd5a9bf67d23368d0ec077070842b5657f4f1028e17329334a0",
-      "generated_at": "2026-06-07T11:57:12.061Z"
+      "generated_at": "2026-06-12T09:53:05.046Z"
     },
     {
       "file": "shadow-anchor-review-v43.json",
@@ -253,16 +253,16 @@
       "description": "Side-by-side anchor occupation screen used to flag large label shifts before any headline promotion decision.",
       "bytes": 4385,
       "sha256": "194139e99fbaa601f73ee99b74a9c4e8b0b36e1d7e4eb3b7b93d97d5af20fe0f",
-      "generated_at": "2026-06-07T11:57:12.061Z"
+      "generated_at": "2026-06-12T09:53:05.045Z"
     },
     {
       "file": "research-library.json",
       "label": "Research library",
       "category": "research_memory",
       "description": "Machine-readable registry of the academic papers, reports, and datasets cited by the methodology, validation, and V5 roadmap.",
-      "bytes": 39382,
-      "sha256": "add77529e79ae2078a725a880e50ba6cc262e692cbb7b8e15182d2789c6f9b9b",
-      "generated_at": "2026-06-11T10:23:25.928Z"
+      "bytes": 40820,
+      "sha256": "ceeb12cbb0ff9f95cf371ddbf9dc4971280158da139adb621fbcceb646e51fcf",
+      "generated_at": "2026-06-12T09:53:05.022Z"
     },
     {
       "file": "v5-roadmap.json",
@@ -271,7 +271,7 @@
       "description": "Machine-readable post-promotion roadmap for what comes after the live V5 structural release.",
       "bytes": 6806,
       "sha256": "9fa138f0574ee3ffcb0e340b6105210ffd33d3bf100102edf66cac2e162400c2",
-      "generated_at": "2026-06-07T11:57:25.011Z"
+      "generated_at": "2026-06-12T09:53:05.060Z"
     },
     {
       "file": "v5-sidecars.json",
@@ -280,7 +280,7 @@
       "description": "Summary artifact for the published V5 workstreams: augmentation heterogeneity, empirical mobility, posterior uncertainty, and realized-risk forecasting.",
       "bytes": 2659,
       "sha256": "e0d8800531913841dab1bdc4106800030d8d7157f84d9916ed855171cd02257a",
-      "generated_at": "2026-06-07T11:57:23.857Z"
+      "generated_at": "2026-06-12T09:53:05.060Z"
     },
     {
       "file": "v5-augmentation-heterogeneity.json",
@@ -289,7 +289,7 @@
       "description": "Pilot sidecar estimating workflow-sensitive augmentation readiness and heterogeneous augmentation potential without changing the live score.",
       "bytes": 309549,
       "sha256": "388b2cddfe29aeee46fbc77b45e6ae61a51f727635a21af34ad38f3a982f0cfe",
-      "generated_at": "2026-06-07T11:57:23.840Z"
+      "generated_at": "2026-06-12T09:53:05.051Z"
     },
     {
       "file": "v5-empirical-mobility.json",
@@ -298,7 +298,7 @@
       "description": "Observed-mobility-enriched transition sidecar built on top of the published transition-support layer.",
       "bytes": 525313,
       "sha256": "f4da6ca0841c0f6f3da655a2ca688ad16edfbdf9448ad0021653d4d37f51bef5",
-      "generated_at": "2026-06-07T11:57:23.845Z"
+      "generated_at": "2026-06-12T09:53:05.052Z"
     },
     {
       "file": "v5-posterior-uncertainty.json",
@@ -307,7 +307,7 @@
       "description": "Latent source-measurement sidecar over persisted exposure-source percentiles with task-aware structural alignment.",
       "bytes": 624846,
       "sha256": "a088c17bb336a35939f403c5f7236e3935660a1db871b1043729145c1a189748",
-      "generated_at": "2026-06-07T11:57:23.850Z"
+      "generated_at": "2026-06-12T09:53:05.056Z"
     },
     {
       "file": "v5-realized-risk.json",
@@ -316,7 +316,7 @@
       "description": "Offset-buffered realized-risk proxy sidecar derived from the live forecast engine and published offset-potential layer.",
       "bytes": 810500,
       "sha256": "0d6ca93f04896b67aa685149b809d9e43b062facbcfb6973d46ae0355cea3372",
-      "generated_at": "2026-06-07T11:57:23.856Z"
+      "generated_at": "2026-06-12T09:53:05.059Z"
     },
     {
       "file": "v5-experimental-model.json",
@@ -325,7 +325,7 @@
       "description": "Promotion-comparison artifact for V5, retaining the integrated model outputs against the retained V4.3 baseline.",
       "bytes": 1755784,
       "sha256": "3e58eb91c1e38e41bacef52c35087fc1bcbb7e2b28b4c492eddadbe04e678166",
-      "generated_at": "2026-06-07T11:57:24.934Z"
+      "generated_at": "2026-06-12T09:53:05.055Z"
     },
     {
       "file": "v5-experimental-validation.json",
@@ -334,7 +334,7 @@
       "description": "Validation and comparison artifact for the promoted V5 model versus the retained V4.3 baseline.",
       "bytes": 6399,
       "sha256": "c1af2021edf60f33a128141b1288aadb57d4db574a9d2406ed5d421ca2e21719",
-      "generated_at": "2026-06-07T11:57:24.935Z"
+      "generated_at": "2026-06-12T09:53:05.055Z"
     },
     {
       "file": "quarterly-report.json",
@@ -343,7 +343,7 @@
       "description": "Quarterly snapshot and drift summary for the current structural release versus the retained prior snapshot.",
       "bytes": 8382,
       "sha256": "eecb50109bd798491d19cbc56e2f84983e936bd0ba060a75987373f5e1b62b80",
-      "generated_at": "2026-06-08T11:02:59.651Z"
+      "generated_at": "2026-06-12T09:53:05.021Z"
     },
     {
       "file": "../llms.txt",
@@ -352,7 +352,7 @@
       "description": "Current AI-facing summary file for retrieval, citation, and answer-engine consumption.",
       "bytes": 2160,
       "sha256": "e2b28be42181c931e9825793047610ac661b39f9e913823254ee5a8f8ed15482",
-      "generated_at": "2026-06-08T11:02:59.865Z"
+      "generated_at": "2026-06-12T09:53:05.063Z"
     },
     {
       "file": "../llms-full.txt",
@@ -361,16 +361,16 @@
       "description": "Expanded AI-facing reference file with current methodology, caveats, and citation guidance.",
       "bytes": 15945,
       "sha256": "e5dda2ab06f3cf62cb92896e371958f28a95f7bc50f01a28c9dd84a2410bb4b4",
-      "generated_at": "2026-06-08T11:02:59.865Z"
+      "generated_at": "2026-06-12T09:53:05.061Z"
     },
     {
       "file": "site-status.json",
       "label": "Public site status",
       "category": "governance",
       "description": "Canonical public status object covering current structural release, live monitor vintage, and latest official update state.",
-      "bytes": 3854,
-      "sha256": "10aef690354777c6d861d621cbf61ad6f28d5380a4d1193b784d3a7fc77c164c",
-      "generated_at": "2026-06-11T10:50:05.451Z"
+      "bytes": 4435,
+      "sha256": "65ee441ba3884772fcfb3e7b53dd3bade5abd4ba58d183714969b9ff8a859621",
+      "generated_at": "2026-06-12T11:18:50.738Z"
     },
     {
       "file": "releases.json",
@@ -379,7 +379,7 @@
       "description": "Ordered release and update history spanning structural releases, quarterly briefings, and official monitor updates.",
       "bytes": 10278,
       "sha256": "3aafd04f61047e656668fa747dceecb95a8ee02034a7afcd93bda20b2b446c41",
-      "generated_at": "2026-06-11T10:50:05.452Z"
+      "generated_at": "2026-06-12T11:18:50.738Z"
     },
     {
       "file": "backtests/current-validation.json",
@@ -388,7 +388,7 @@
       "description": "Current cluster-level directional validation artifact for the live labour-monitor vintage.",
       "bytes": 9745,
       "sha256": "fededec10bb9eb7ddd175dc76a2b62426b8438c6e9b5786f274b03ae2e1f8091",
-      "generated_at": "2026-06-11T09:53:45.955Z"
+      "generated_at": "2026-06-12T09:53:05.016Z"
     },
     {
       "file": "backtests/bls-crosswalk-validation.json",
@@ -397,7 +397,7 @@
       "description": "Cross-country convergent validation artifact comparing structural risk against US BLS projected employment change.",
       "bytes": 3357,
       "sha256": "439c5168d76616f358dcf819e21c8b42e301e69b26760fb739d2cc9cf814646c",
-      "generated_at": "2026-06-11T10:20:17.033Z"
+      "generated_at": "2026-06-12T09:53:05.015Z"
     },
     {
       "file": "backtests/multi-period-validation.json",
@@ -406,7 +406,7 @@
       "description": "Temporal validation artifact measuring how cluster risk rankings align with vacancy and hiring patterns across multiple observed periods.",
       "bytes": 5627,
       "sha256": "0bd080e777c63f7b4d1f29f56aa1c218f4cc52a4d4128450f916193d3c901204",
-      "generated_at": "2026-06-07T11:57:10.498Z"
+      "generated_at": "2026-06-12T09:53:05.016Z"
     },
     {
       "file": "backtests/calibration-diagnostics.json",
@@ -415,7 +415,7 @@
       "description": "Segment-level calibration diagnostic showing how direct vs fallback mappings and confidence tiers align with external BLS projected employment change.",
       "bytes": 5699,
       "sha256": "2b5bd77718394a320119bc31d6b2d4dc173b50ad87de56e1b5094e683066063b",
-      "generated_at": "2026-06-07T11:57:11.781Z"
+      "generated_at": "2026-06-12T09:53:05.015Z"
     },
     {
       "file": "backtests/occupation-family-validation.json",
@@ -424,7 +424,7 @@
       "description": "Family-level convergent validation aggregating occupations to 2-digit SSOC families before comparing structural risk with BLS projected employment change.",
       "bytes": 5785,
       "sha256": "5ebb89d60047d098bd958ce6e1c586aab0619d663fbe3e999420dd6e176c19aa",
-      "generated_at": "2026-06-07T11:57:10.957Z"
+      "generated_at": "2026-06-12T09:53:05.016Z"
     },
     {
       "file": "backtests/forecast-horizon-validation.json",
@@ -433,7 +433,7 @@
       "description": "Non-promoted forecast-horizon harness: frozen May 2026 cluster risk vs official outcomes at t+1Q/t+2Q/t+4Q, with the pre-registered protocol, naive benchmark, and 4-quarter promotion gate published while post-baseline quarters are still zero.",
       "bytes": 3360,
       "sha256": "325c0c3f8047a93c3bb555482417ef7307eb5ceeeb4feb478fde6364c3cf2d61",
-      "generated_at": "2026-06-11T10:44:55.823Z"
+      "generated_at": "2026-06-12T09:53:05.016Z"
     },
     {
       "file": "backtests/imf-convergence.json",
@@ -442,7 +442,7 @@
       "description": "Convergent-directional Singapore macro benchmark comparing employment-weighted exposure x complementarity bins against the IMF SIP/2024/040 estimates, with the percentile-internal framing caveat leading.",
       "bytes": 3827,
       "sha256": "4d52dbf32f78585687517edbf5e9b61c22447689aaac3802686b139704c7bea4",
-      "generated_at": "2026-06-11T10:24:21.950Z"
+      "generated_at": "2026-06-12T09:53:05.016Z"
     },
     {
       "file": "backtests/sensitivity-analysis.json",
@@ -451,7 +451,43 @@
       "description": "Robustness evidence for the hand-set V7 constants: one-at-a-time and joint Monte-Carlo perturbations with rank-stability, band-flip, and top-list overlap metrics against the baseline ranking.",
       "bytes": 18941,
       "sha256": "fa1710b340ed7c047a14b1c7bd31977d1544e67b8a1751d259cf8a5aafb10f6b",
-      "generated_at": "2026-06-11T09:59:45.080Z"
+      "generated_at": "2026-06-12T09:53:05.018Z"
+    },
+    {
+      "file": "confidence-ratings.json",
+      "label": "Occupation confidence ratings",
+      "category": "governance",
+      "description": "IPCC-style confidence sidecar translating score confidence components into evidence-quality and signal-agreement ratings for every occupation.",
+      "bytes": 543953,
+      "sha256": "f308b45e1a8a1fc430589fb0e3a320328265c99f9b8fafe1424b8a4d0fb5a41b",
+      "generated_at": "2026-06-12T10:03:26.669Z"
+    },
+    {
+      "file": "scenario-families.json",
+      "label": "Scenario families",
+      "category": "governance",
+      "description": "Non-scoring scenario-family sidecar publishing conservative, base, and fast-adoption outlook overlays from the forecast engine.",
+      "bytes": 770709,
+      "sha256": "dabcd792ce7d6259205a425e5dba0bec275bfbdb6d6919ab385a8bd747e10aee",
+      "generated_at": "2026-06-12T11:18:44.778Z"
+    },
+    {
+      "file": "adoption-diffusion.json",
+      "label": "Singapore adoption diffusion",
+      "category": "governance",
+      "description": "Non-scoring Singapore adoption context from MOM 2026 firm AI-adoption evidence, including sector uptake, constraints, and observed adopter outcomes.",
+      "bytes": 2621,
+      "sha256": "d4b08a91cca9d42eb51c9e92d49927c01d8f439a82036408772fec02752d9aca",
+      "generated_at": "2026-06-12T11:18:44.764Z"
+    },
+    {
+      "file": "age-structure.json",
+      "label": "Occupation age structure",
+      "category": "governance",
+      "description": "Non-scoring age-structure and attrition-absorber context derived from Singapore worker-profile tables.",
+      "bytes": 317648,
+      "sha256": "7bed9487ec38339535ec29d956a1b21116f7c2f7dc8f380d03414ad555bf0b6e",
+      "generated_at": "2026-06-12T11:18:44.812Z"
     }
   ]
 }

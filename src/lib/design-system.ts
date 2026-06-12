@@ -5,7 +5,7 @@
  * Single source of truth for all component styling.
  *
  * Typography: Schibsted Grotesk (display/UI) + IBM Plex Mono (data/labels)
- * Colors: ink neutrals + signal red + risk scale ONLY (docs/design/REDESIGN_SPEC.md)
+ * Colors: ink neutrals + cobalt signal accent + risk scale ONLY (docs/design/REDESIGN_SPEC.md)
  * Structure: hairline rules over shadows; sharp corners; Swiss editorial
  * Chips: 3-type contract — statusBadge (riskBadge/impactBadge), dataChip, linkPill
  *
@@ -347,18 +347,16 @@ export const formInput = tv({
 
 // ============================================
 // RISK COLOR SCALE (D3)
-// sRGB hex equivalents of the --color-risk-* oklch band tokens in app.css, so
+// sRGB hex equivalents of the --color-risk-* band tokens in app.css, so
 // D3 visualizations (Treemap, Histogram) match the risk badges exactly. D3 needs
 // concrete color strings, so these are kept in sync with the tokens by value:
-//   very-low oklch(0.48 0.14 155) low oklch(0.47 0.12 145) moderate oklch(0.55 0.14 75)
-//   high oklch(0.5 0.16 40) very-high oklch(0.55 0.22 25)
 // If the tokens change, recompute these hex values.
 // ============================================
 
 export const riskColorScale = d3Scale
 	.scaleLinear<string>()
 	.domain([0, 0.15, 0.35, 0.6, 1.0])
-	.range(['#2a7f62', '#48a06c', '#a07a0a', '#c05a1d', '#d6151c'])
+	.range(['#2a7f62', '#48a06c', '#d9a514', '#c05a1d', '#d6151c'])
 	.clamp(true);
 
 // ============================================
@@ -382,7 +380,7 @@ export const linkPill = tv({
 	base: 'inline-flex items-center gap-1.5 border-[1.5px] border-foreground px-3.5 py-1.5 text-[13.5px] font-semibold text-foreground no-underline transition-colors hover:bg-foreground hover:text-background'
 });
 
-/** Numbered section header: mono signal-red number + bold title. */
+/** Numbered section header: mono signal-accent number + bold title. */
 export const sectionNumber = tv({
 	base: 'font-mono text-[11px] font-semibold tracking-[0.1em] text-primary'
 });

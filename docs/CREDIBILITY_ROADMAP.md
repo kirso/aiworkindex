@@ -82,19 +82,23 @@ forecasts are first staked.
 - Shipped: high risk × low transition capacity quadrant, occupation-page callouts, task-level
   evidence, named insulation channels, demand-axis honest reframe, and methodology changelog with
   per-release score diffs.
-- Deferred by design: editable user task table, demand-axis recalibration, adoption/diffusion
-  sidecar, confidence ratings, scenario families, and age-structure annotation. These are V8 work
-  because they either change scores, need a new schema/design pass, or require a transparent
-  sector-to-occupation mapping.
+- Shipped in V8 sidecars: confidence ratings, scenario families, adoption/diffusion context, and
+  age-structure attrition context. All are non-scoring artifacts and do not change `net_risk` or
+  `risk_band`.
+- Deferred by design: editable user task table and demand-axis recalibration. These require either
+  a new interaction design pass or a score-changing release cycle.
 
 ### V8 research queue (deferred, each needs its own design pass)
 
-- Per-occupation IPCC-style confidence ratings (mechanical: crosswalk quality × ensemble
-  disagreement × signal coverage) — highest credibility-per-effort feature identified.
-- Korinek scenario families (2–3 named capability scenarios, defined once in scoring-constants).
+- Per-occupation IPCC-style confidence ratings — shipped as a non-scoring sidecar in
+  `confidence-ratings.json` (PR #3).
+- Korinek scenario families — shipped as `scenario-families.json`.
+- Adoption/diffusion context — shipped as `adoption-diffusion.json` from MOM 2026 firm AI-adoption
+  evidence; remains context-only.
+- Occupational age-structure "attrition absorber" annotation — shipped as `age-structure.json`
+  from existing worker-profile tables.
 - Ensemble vintage refresh: Anthropic observed-exposure (Mar 2026, open data), verify ILO 2025
   refined index vintage, evaluate OECD capability-gap measure as fifth non-LLM-annotated source.
-- Occupational age-structure "attrition absorber" annotation (data.gov.sg, 1-digit SSOC × age).
 - Detection-and-attribution framing for the quarterly monitor (Yale dissimilarity test on MOM
   clusters).
 

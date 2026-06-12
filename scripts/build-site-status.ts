@@ -46,6 +46,10 @@ const FORECAST_HORIZON_FILE = path.join(
 	'backtests',
 	'forecast-horizon-validation.json'
 );
+const CONFIDENCE_RATINGS_FILE = path.join(STATIC_DATA_DIR, 'confidence-ratings.json');
+const SCENARIO_FAMILIES_FILE = path.join(STATIC_DATA_DIR, 'scenario-families.json');
+const ADOPTION_DIFFUSION_FILE = path.join(STATIC_DATA_DIR, 'adoption-diffusion.json');
+const AGE_STRUCTURE_FILE = path.join(STATIC_DATA_DIR, 'age-structure.json');
 const OFFSET_POTENTIAL_FILE = path.join(STATIC_DATA_DIR, 'sg-offset-potential-v4.json');
 const EXPERIMENTAL_METHODOLOGY_FILE = path.join(
 	STATIC_DATA_DIR,
@@ -320,6 +324,35 @@ function buildSiteStatus() {
 		status?: string;
 		post_baseline_quarters_available?: number;
 	}>(FORECAST_HORIZON_FILE);
+	const confidenceRatings = readJson<{
+		summary?: {
+			counts?: { high?: number; medium?: number; low?: number };
+			top_limiting_factors?: Array<{ factor: string; count: number }>;
+		};
+	}>(CONFIDENCE_RATINGS_FILE);
+	const scenarioFamilies = readJson<{
+		summary?: {
+			scenario_count?: number;
+			base_avg_near_term_risk?: number | null;
+			fast_adoption_avg_near_term_risk?: number | null;
+		};
+	}>(SCENARIO_FAMILIES_FILE);
+	const adoptionDiffusion = readJson<{
+		summary?: {
+			headline_adoption_pct?: number;
+			headcount_reduction_among_adopters_pct?: number;
+			role_redesign_among_adopters_pct?: number;
+			top_sector?: { label: string; adoption_pct: number };
+		};
+	}>(ADOPTION_DIFFUSION_FILE);
+	const ageStructure = readJson<{
+		summary?: {
+			high_attrition_absorber_count?: number;
+			known_coverage_count?: number;
+			unknown_coverage_count?: number;
+			avg_age_50_plus_share?: number | null;
+		};
+	}>(AGE_STRUCTURE_FILE);
 	const occupationFamilyValidation = readJson<{
 		family_count: number;
 		spearman_rho: number;
@@ -485,6 +518,30 @@ function buildSiteStatus() {
 			forecast_horizon_status: forecastHorizon?.status ?? null,
 			forecast_horizon_post_baseline_quarters:
 				forecastHorizon?.post_baseline_quarters_available ?? null,
+			confidence_rating_high_count: confidenceRatings?.summary?.counts?.high ?? null,
+			confidence_rating_medium_count: confidenceRatings?.summary?.counts?.medium ?? null,
+			confidence_rating_low_count: confidenceRatings?.summary?.counts?.low ?? null,
+			confidence_rating_top_limiter:
+				confidenceRatings?.summary?.top_limiting_factors?.[0]?.factor ?? null,
+			confidence_rating_top_limiter_count:
+				confidenceRatings?.summary?.top_limiting_factors?.[0]?.count ?? null,
+			scenario_family_count: scenarioFamilies?.summary?.scenario_count ?? null,
+			scenario_base_avg_near_term_risk: scenarioFamilies?.summary?.base_avg_near_term_risk ?? null,
+			scenario_fast_adoption_avg_near_term_risk:
+				scenarioFamilies?.summary?.fast_adoption_avg_near_term_risk ?? null,
+			adoption_diffusion_headline_pct: adoptionDiffusion?.summary?.headline_adoption_pct ?? null,
+			adoption_diffusion_headcount_reduction_pct:
+				adoptionDiffusion?.summary?.headcount_reduction_among_adopters_pct ?? null,
+			adoption_diffusion_role_redesign_pct:
+				adoptionDiffusion?.summary?.role_redesign_among_adopters_pct ?? null,
+			adoption_diffusion_top_sector_label: adoptionDiffusion?.summary?.top_sector?.label ?? null,
+			adoption_diffusion_top_sector_pct:
+				adoptionDiffusion?.summary?.top_sector?.adoption_pct ?? null,
+			age_structure_high_attrition_absorber_count:
+				ageStructure?.summary?.high_attrition_absorber_count ?? null,
+			age_structure_known_coverage_count: ageStructure?.summary?.known_coverage_count ?? null,
+			age_structure_unknown_coverage_count: ageStructure?.summary?.unknown_coverage_count ?? null,
+			age_structure_avg_age_50_plus_share: ageStructure?.summary?.avg_age_50_plus_share ?? null,
 			occupation_family_validation_rho: occupationFamilyValidation?.spearman_rho ?? null,
 			occupation_family_validation_family_count: occupationFamilyValidation?.family_count ?? null,
 			occupation_family_validation_significant:

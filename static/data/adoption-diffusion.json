@@ -1,0 +1,74 @@
+{
+  "validation_date": "2026-06-12",
+  "model_version": "V7",
+  "method": "adoption_diffusion_context_v1",
+  "source": {
+    "key": "mom_ai_adoption_2026",
+    "agency": "MOM",
+    "title": "Inaugural Release of Report on Adoption of Artificial Intelligence Among Firms",
+    "published_at": "2026-04-30",
+    "url": "https://www.mom.gov.sg/newsroom/press-releases/2026/0430-adoption-of-ai-among-firms",
+    "scope": "Private sector establishments with at least 10 employees."
+  },
+  "framing": "Adoption/diffusion context describes firm uptake and constraints. It is not an occupation-level multiplier and does not change net_risk or risk_band.",
+  "overall": {
+    "firms_started_ai_adoption_pct": 28.5,
+    "firms_integrating_ai_core_processes_pct": 3.8,
+    "firms_planning_ai_pct": 7.4,
+    "firms_piloting_ai_pct": 6
+  },
+  "firm_size": {
+    "small_firms_adoption_pct": 23.9,
+    "large_firms_adoption_pct": 76.4
+  },
+  "sector_adoption": [
+    {
+      "key": "information_and_communications",
+      "label": "Information and communications",
+      "adoption_pct": 74.1,
+      "adoption_tier": "leading"
+    },
+    {
+      "key": "professional_services",
+      "label": "Professional services",
+      "adoption_pct": 57.5,
+      "adoption_tier": "early_majority"
+    },
+    {
+      "key": "financial_and_insurance_services",
+      "label": "Financial and insurance services",
+      "adoption_pct": 56.4,
+      "adoption_tier": "early_majority"
+    }
+  ],
+  "observed_outcomes_among_adopters": {
+    "reduced_headcount_pct": 6.2,
+    "redesigning_roles_pct": 18.9,
+    "creating_new_ai_jobs_pct": 13.9,
+    "productivity_improvement_pct": 70.7
+  },
+  "constraints": {
+    "high_implementation_cost_pct": 44.9,
+    "lack_in_house_expertise_pct": 42.4,
+    "small_firms_lack_strategy_pct": 32.4,
+    "small_firms_low_trust_pct": 30.8,
+    "large_firms_integration_complexity_pct": 56.1,
+    "large_firms_data_security_pct": 55.4
+  },
+  "summary": {
+    "headline_adoption_pct": 28.5,
+    "headcount_reduction_among_adopters_pct": 6.2,
+    "role_redesign_among_adopters_pct": 18.9,
+    "top_sector": {
+      "key": "information_and_communications",
+      "label": "Information and communications",
+      "adoption_pct": 74.1,
+      "adoption_tier": "leading"
+    }
+  },
+  "caveats": [
+    "MOM reports establishment-level adoption, not SSOC-level worker exposure.",
+    "The source is used as Singapore adoption context and forecast-readiness evidence, not as a realized-displacement label.",
+    "Sector adoption is only published for selected sectors in this sidecar; it is not mapped into occupation scores."
+  ]
+}

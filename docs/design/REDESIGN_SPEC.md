@@ -31,9 +31,9 @@ pages feel cluttered.
 ### Color (strict reservation)
 - Neutrals: `--bg #ffffff`, `--ink #0c0c0c`, `--ink-2 #444`, `--ink-3 #8b8b8b`,
   `--rule #e3e3e3`, `--rule-strong #0c0c0c`.
-- **Signal accent**: `#e3120b` — the only brand color. Used for: top rule, section numbers,
+- **Signal accent**: `#1d4ed8` — the only brand color. Used for: top rule, section numbers,
   the underline device in verdict sentences, links on hover. Never for data.
-- **Risk scale** (the only other chromatic system): vh `#d6151c`, h `#e8702a`, m `#d9a514`,
+- **Risk scale** (the only other chromatic system): vh `#d6151c`, h `#c05a1d`, m `#d9a514`,
   l `#48a06c`, vl `#2a7f62`. Used ONLY when encoding risk/direction semantics.
 - Everything decorative that is currently colored (section accents, ranking card borders,
   programme pill green/blue) becomes neutral.
@@ -41,7 +41,7 @@ pages feel cluttered.
 ### Structure
 - Hairline rules (`--rule`) and strong rules (`--rule-strong`) replace card borders wherever
   content is sequential. Cards survive only where true grouping is needed.
-- Numbered sections (mono `01`, `02` in signal red + grotesque section title).
+- Numbered sections (mono `01`, `02` in signal cobalt + grotesque section title).
 - Stat strips: columns separated by rules, mono micro-label over big numeral over one-line note.
 
 ## The 3-chip contract (deletes the six-primitive zoo)
@@ -60,7 +60,7 @@ Everything else becomes prose, table cells, or disappears:
 
 ## One caveat device
 
-A single "how to read this" pattern: `※` in signal red + 13px `--ink-3` text. Used once in the
+A single "how to read this" pattern: `※` in signal cobalt + 13px `--ink-3` text. Used once in the
 hero (structural-pressure-not-prediction) and at most once per section where a real
 interpretive caveat exists. All per-section italic hedging is deleted; detailed caveats live in
 Technical Details / methodology.
@@ -69,13 +69,13 @@ Technical Details / methodology.
 
 1. **Hero**: breadcrumb (mono) → h1 → verdict panel split: left = score label, 104px numeral,
    5-segment band mark + band word, P10–P90 range (mono); right = one verdict sentence with the
-   key fact underlined in signal red, one mono meta line (wage · workers · rank · vs-group ·
+   key fact underlined in signal cobalt, one mono meta line (wage · workers · rank · vs-group ·
    updated), the single hero caveat.
 2. **01 Why this score**: driver table (name+sub | bar | mono value | direction in risk color),
    then two columns: "AI already does" (top observed tasks) / "Still needs a person"
    (insulation channels + protected tasks + one-line absence-of-evidence note).
 3. **02 Singapore now**: 4-column stat strip.
-4. **03 What you can do**: quadrant alert (left risk-red bar + bold lead) when applicable;
+4. **03 What you can do**: quadrant alert (left risk-severity bar + bold lead) when applicable;
    transitions as a table (move | Δrisk | feasibility | wage); programme link pills; skill
    data chips.
 5. **Technical Details (collapsed)**: absorbs role-profile radar, sources, confidence
@@ -96,7 +96,7 @@ Technical Details / methodology.
 | Reference | `/methodology`, `/methodology/appendix`, `/about`, `/data`, `/research`, `/changelog` | Long-form editorial: numbered sections, tables over cards; validation cards become ruled blocks | S4 |
 | Reports | `/reports` + q4-2024, v4-3-shadow, v5-experimental, v5-roadmap, v6-release, v7-release, wage-exposure | Same long-form treatment; older report pages get tokens-only pass (no re-layout) | S4 |
 | Editorial/SEO | `/ai-job-loss`, `/ai-proof-jobs`, `/will-ai-take-my-job` | Article template: serifless editorial, verdict panels reused | S4 |
-| Chrome | `+layout.svelte` (masthead, footer, command menu), `+error.svelte` (MISSING — create) | Signal-red topline, mono breadcrumbs, ruled footer; designed 404 | S1/S5 |
+| Chrome | `+layout.svelte` (masthead, footer, command menu), `+error.svelte` (MISSING — create) | Signal-cobalt topline, mono breadcrumbs, ruled footer; designed 404 | S1/S5 |
 
 ### UI components (38) — disposition
 
@@ -124,7 +124,7 @@ ink/rule neutrals; axis/annotation text → IBM Plex Mono 10–11px; gridlines `
 | `Treemap` | band colors only; labels mono; remove gradients/shadows |
 | `DriverWaterfall` | aligns with the driver-table aesthetic (flat bars, mono values) |
 | `Histogram`, `DemandPressureMatrix` | neutral bars + band-colored highlights |
-| `QuarterlyMoversDumbbell`, `TheoryPracticeDumbbell` | ink dots, signal-red delta lines |
+| `QuarterlyMoversDumbbell`, `TheoryPracticeDumbbell` | ink dots, signal-cobalt delta lines |
 | `TransitionGraph` | ink edges, band-colored nodes |
 | `WorkflowRadar` | moves inside Technical Details; neutral ink stroke |
 | `EvidenceBar`, `SignalProfileGrid` | mono labels, neutral fills |
@@ -141,14 +141,14 @@ Old `design-system.ts` text variants are deleted, forcing migration:
 
 `scripts/generate-og.ts` currently draws Inter + ink-blue cards — a different brand than the
 site. Redesign cards to the Swiss identity (white, ink, Schibsted Grotesk bold, band mark,
-signal-red rule); ship the font file to `static/fonts/`. The freshness guard signs scores, not
+signal-cobalt rule); ship the font file to `static/fonts/`. The freshness guard signs scores, not
 pixels, so the redesign itself cannot trip it — but all SG + role + US PNGs must be
 regenerated in the same slice.
 
 ### States & odds-and-ends (S5)
 
 Mobile nav (sheet) and responsive collapse of the verdict panel; command-menu styling; toast
-styling; focus-visible rings (2px ink); selection color (signal red, white text); favicon +
+styling; focus-visible rings (2px ink); selection color (signal cobalt, white text); favicon +
 logo lockup (wordmark in Schibsted Grotesk 900); designed `+error.svelte`; print stylesheet
 (editorial design should print well — cheap win).
 
