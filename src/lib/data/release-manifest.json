@@ -1,6 +1,6 @@
 {
   "version": "V7",
-  "generated_at": "2026-06-12T10:03:36.220Z",
+  "generated_at": "2026-06-12T11:18:56.337Z",
   "score_dataset_generated_at": "2026-06-11",
   "artifacts": [
     {
@@ -368,9 +368,9 @@
       "label": "Public site status",
       "category": "governance",
       "description": "Canonical public status object covering current structural release, live monitor vintage, and latest official update state.",
-      "bytes": 4042,
-      "sha256": "9c873be57ab6ab1859c25043646338109c23b26452f8191136fd62cdf31ce131",
-      "generated_at": "2026-06-12T10:03:32.649Z"
+      "bytes": 4435,
+      "sha256": "65ee441ba3884772fcfb3e7b53dd3bade5abd4ba58d183714969b9ff8a859621",
+      "generated_at": "2026-06-12T11:18:50.738Z"
     },
     {
       "file": "releases.json",
@@ -379,7 +379,7 @@
       "description": "Ordered release and update history spanning structural releases, quarterly briefings, and official monitor updates.",
       "bytes": 10278,
       "sha256": "3aafd04f61047e656668fa747dceecb95a8ee02034a7afcd93bda20b2b446c41",
-      "generated_at": "2026-06-12T10:03:32.649Z"
+      "generated_at": "2026-06-12T11:18:50.738Z"
     },
     {
       "file": "backtests/current-validation.json",
@@ -461,6 +461,33 @@
       "bytes": 543953,
       "sha256": "f308b45e1a8a1fc430589fb0e3a320328265c99f9b8fafe1424b8a4d0fb5a41b",
       "generated_at": "2026-06-12T10:03:26.669Z"
+    },
+    {
+      "file": "scenario-families.json",
+      "label": "Scenario families",
+      "category": "governance",
+      "description": "Non-scoring scenario-family sidecar publishing conservative, base, and fast-adoption outlook overlays from the forecast engine.",
+      "bytes": 770709,
+      "sha256": "dabcd792ce7d6259205a425e5dba0bec275bfbdb6d6919ab385a8bd747e10aee",
+      "generated_at": "2026-06-12T11:18:44.778Z"
+    },
+    {
+      "file": "adoption-diffusion.json",
+      "label": "Singapore adoption diffusion",
+      "category": "governance",
+      "description": "Non-scoring Singapore adoption context from MOM 2026 firm AI-adoption evidence, including sector uptake, constraints, and observed adopter outcomes.",
+      "bytes": 2621,
+      "sha256": "d4b08a91cca9d42eb51c9e92d49927c01d8f439a82036408772fec02752d9aca",
+      "generated_at": "2026-06-12T11:18:44.764Z"
+    },
+    {
+      "file": "age-structure.json",
+      "label": "Occupation age structure",
+      "category": "governance",
+      "description": "Non-scoring age-structure and attrition-absorber context derived from Singapore worker-profile tables.",
+      "bytes": 317648,
+      "sha256": "7bed9487ec38339535ec29d956a1b21116f7c2f7dc8f380d03414ad555bf0b6e",
+      "generated_at": "2026-06-12T11:18:44.812Z"
     }
   ]
 }

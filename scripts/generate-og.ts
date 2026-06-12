@@ -46,8 +46,8 @@ const DS = {
 	tertiary: '#8b8b8b',
 	ghost: '#a8a8a8',
 	// Brand
-	primary: '#e3120b', // signal red — the only brand color
-	primaryLight: '#f3938f', // signal red tint for accents on ink bg
+	primary: '#1d4ed8', // cobalt signal accent
+	primaryLight: '#93b4ff', // cobalt tint for accents on ink bg
 	// Semantic
 	positive: '#48a06c', // risk-low green / demand
 	url: '#8b8b8b' // subtle url line on ink bg
@@ -57,8 +57,8 @@ const RISK_COLORS: Record<string, string> = {
 	very_low: '#2a7f62',
 	low: '#48a06c',
 	moderate: '#d9a514',
-	high: '#e8702a',
-	very_high: '#d6151c'
+	high: '#a85f00',
+	very_high: '#7c3aed'
 };
 
 const RISK_LABELS: Record<string, string> = {

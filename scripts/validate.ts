@@ -124,6 +124,30 @@ const CONFIDENCE_RATINGS_FILE = path.join(
 	'data',
 	'confidence-ratings.json'
 );
+const SCENARIO_FAMILIES_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'scenario-families.json'
+);
+const ADOPTION_DIFFUSION_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'adoption-diffusion.json'
+);
+const AGE_STRUCTURE_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'age-structure.json'
+);
 const OCCUPATION_FAMILY_VALIDATION_FILE = path.join(
 	import.meta.dir,
 	'..',
@@ -1152,6 +1176,14 @@ async function main() {
 				confidence_rating_medium_count?: number | null;
 				confidence_rating_low_count?: number | null;
 				confidence_rating_top_limiter?: string | null;
+				scenario_family_count?: number | null;
+				scenario_base_avg_near_term_risk?: number | null;
+				scenario_fast_adoption_avg_near_term_risk?: number | null;
+				adoption_diffusion_headline_pct?: number | null;
+				adoption_diffusion_headcount_reduction_pct?: number | null;
+				adoption_diffusion_role_redesign_pct?: number | null;
+				age_structure_high_attrition_absorber_count?: number | null;
+				age_structure_avg_age_50_plus_share?: number | null;
 				occupation_family_validation_rho?: number | null;
 				occupation_family_validation_family_count?: number | null;
 				occupation_family_validation_significant?: boolean | null;
@@ -1278,6 +1310,35 @@ async function main() {
 				policy_cap_reason: string | null;
 			}>;
 		}>(CONFIDENCE_RATINGS_FILE);
+		const scenarioFamilies = readJson<{
+			occupation_count?: number;
+			summary?: {
+				scenario_count?: number;
+				base_avg_near_term_risk?: number | null;
+				fast_adoption_avg_near_term_risk?: number | null;
+			};
+			scenarios?: Array<{ key: string; entries: Array<{ ssoc: string }> }>;
+			framing?: string;
+		}>(SCENARIO_FAMILIES_FILE);
+		const adoptionDiffusion = readJson<{
+			framing?: string;
+			source?: { key?: string };
+			overall?: { firms_started_ai_adoption_pct?: number };
+			summary?: {
+				headline_adoption_pct?: number;
+				headcount_reduction_among_adopters_pct?: number;
+				role_redesign_among_adopters_pct?: number;
+			};
+		}>(ADOPTION_DIFFUSION_FILE);
+		const ageStructure = readJson<{
+			occupation_count?: number;
+			framing?: string;
+			summary?: {
+				high_attrition_absorber_count?: number;
+				avg_age_50_plus_share?: number;
+			};
+			entries?: Array<{ ssoc: string; attrition_absorber: 'high' | 'medium' | 'low' }>;
+		}>(AGE_STRUCTURE_FILE);
 		const occupationFamilyValidation = readJson<{
 			family_count: number;
 			spearman_rho: number;
@@ -1752,6 +1813,15 @@ async function main() {
 				) &&
 				(releaseManifest?.artifacts ?? []).some(
 					artifact => artifact.file === 'confidence-ratings.json'
+				) &&
+				(releaseManifest?.artifacts ?? []).some(
+					artifact => artifact.file === 'scenario-families.json'
+				) &&
+				(releaseManifest?.artifacts ?? []).some(
+					artifact => artifact.file === 'adoption-diffusion.json'
+				) &&
+				(releaseManifest?.artifacts ?? []).some(
+					artifact => artifact.file === 'age-structure.json'
 				) &&
 				(releaseManifest?.artifacts ?? []).some(
 					artifact => artifact.file === 'forecast-readiness-v7.json'
@@ -2626,6 +2696,87 @@ async function main() {
 						limiter: siteStatus?.live_monitor?.confidence_rating_top_limiter
 					},
 					artifact: confidenceRatings?.summary
+				})
+			);
+			check('Scenario families artifact exists', scenarioFamilies !== null);
+			check(
+				'Scenario families publish three non-scoring scenarios for every occupation',
+				scenarioFamilies?.occupation_count === data.length &&
+					scenarioFamilies?.summary?.scenario_count === 3 &&
+					(scenarioFamilies?.scenarios ?? []).every(
+						scenario => scenario.entries.length === data.length
+					) &&
+					(scenarioFamilies?.framing ?? '').includes('do not change net_risk'),
+				JSON.stringify({
+					count: scenarioFamilies?.occupation_count,
+					scenarios: scenarioFamilies?.summary?.scenario_count
+				})
+			);
+			check(
+				'Site status scenario-family summary matches artifact',
+				siteStatus?.live_monitor?.scenario_family_count ===
+					(scenarioFamilies?.summary?.scenario_count ?? null) &&
+					siteStatus?.live_monitor?.scenario_base_avg_near_term_risk ===
+						(scenarioFamilies?.summary?.base_avg_near_term_risk ?? null) &&
+					siteStatus?.live_monitor?.scenario_fast_adoption_avg_near_term_risk ===
+						(scenarioFamilies?.summary?.fast_adoption_avg_near_term_risk ?? null),
+				JSON.stringify({
+					siteStatus: {
+						count: siteStatus?.live_monitor?.scenario_family_count,
+						base: siteStatus?.live_monitor?.scenario_base_avg_near_term_risk,
+						fast: siteStatus?.live_monitor?.scenario_fast_adoption_avg_near_term_risk
+					},
+					artifact: scenarioFamilies?.summary
+				})
+			);
+			check('Adoption-diffusion artifact exists', adoptionDiffusion !== null);
+			check(
+				'Adoption-diffusion sidecar remains context-only and source-backed',
+				adoptionDiffusion?.source?.key === 'mom_ai_adoption_2026' &&
+					(adoptionDiffusion?.overall?.firms_started_ai_adoption_pct ?? 0) > 0 &&
+					(adoptionDiffusion?.framing ?? '').includes('does not change net_risk'),
+				JSON.stringify(adoptionDiffusion?.summary)
+			);
+			check(
+				'Site status adoption-diffusion summary matches artifact',
+				siteStatus?.live_monitor?.adoption_diffusion_headline_pct ===
+					(adoptionDiffusion?.summary?.headline_adoption_pct ?? null) &&
+					siteStatus?.live_monitor?.adoption_diffusion_headcount_reduction_pct ===
+						(adoptionDiffusion?.summary?.headcount_reduction_among_adopters_pct ?? null) &&
+					siteStatus?.live_monitor?.adoption_diffusion_role_redesign_pct ===
+						(adoptionDiffusion?.summary?.role_redesign_among_adopters_pct ?? null),
+				JSON.stringify({
+					siteStatus: {
+						headline: siteStatus?.live_monitor?.adoption_diffusion_headline_pct,
+						headcount: siteStatus?.live_monitor?.adoption_diffusion_headcount_reduction_pct,
+						redesign: siteStatus?.live_monitor?.adoption_diffusion_role_redesign_pct
+					},
+					artifact: adoptionDiffusion?.summary
+				})
+			);
+			check('Age-structure artifact exists', ageStructure !== null);
+			check(
+				'Age-structure sidecar covers every occupation and stays non-scoring',
+				ageStructure?.occupation_count === data.length &&
+					(ageStructure?.entries ?? []).length === data.length &&
+					new Set((ageStructure?.entries ?? []).map(entry => entry.ssoc)).size === data.length &&
+					(ageStructure?.framing ?? '').includes('does not change net_risk'),
+				`${ageStructure?.occupation_count} / ${(ageStructure?.entries ?? []).length} vs ${
+					data.length
+				}`
+			);
+			check(
+				'Site status age-structure summary matches artifact',
+				siteStatus?.live_monitor?.age_structure_high_attrition_absorber_count ===
+					(ageStructure?.summary?.high_attrition_absorber_count ?? null) &&
+					siteStatus?.live_monitor?.age_structure_avg_age_50_plus_share ===
+						(ageStructure?.summary?.avg_age_50_plus_share ?? null),
+				JSON.stringify({
+					siteStatus: {
+						high: siteStatus?.live_monitor?.age_structure_high_attrition_absorber_count,
+						avg: siteStatus?.live_monitor?.age_structure_avg_age_50_plus_share
+					},
+					artifact: ageStructure?.summary
 				})
 			);
 			check('IMF convergence artifact exists', imfConvergence !== null);

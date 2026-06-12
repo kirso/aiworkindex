@@ -7,7 +7,7 @@
  * === DESIGN PRINCIPLES ===
  * 1. Numbers are heroes — large, monospace, prominent
  * 2. Cards: border + shadow-sm on white, consistent everywhere via card()
- * 3. Full saturation risk colors — traffic-light clear
+ * 3. Full saturation risk colors — clear ordered severity, not traffic-light dominant
  * 4. Pure white canvas — clean, no warmth, no tint
  * 5. Tight density — tool-like, not editorial
  * 6. Every data display has a source line
@@ -102,22 +102,22 @@
 	--color-risk-moderate-subtle: #faf5e6;
 	--color-risk-moderate-border: #e8d9a8;
 
-	--color-risk-high: #c05a1d;
-	--color-risk-high-subtle: #fbf1ea;
-	--color-risk-high-border: #efcfb8;
+	--color-risk-high: #a85f00;
+	--color-risk-high-subtle: #faf3e6;
+	--color-risk-high-border: #e9d2aa;
 
-	--color-risk-very-high: #d6151c;
-	--color-risk-very-high-subtle: #fcecec;
-	--color-risk-very-high-border: #f3c0c1;
+	--color-risk-very-high: #7c3aed;
+	--color-risk-very-high-subtle: #f2edff;
+	--color-risk-very-high-border: #d8ccff;
 
 	/* --- Impact Types (3-step each) --- */
 	--color-impact-leveraged: oklch(0.5 0.18 255);
 	--color-impact-leveraged-subtle: oklch(0.97 0.015 255);
 	--color-impact-leveraged-border: oklch(0.9 0.04 255);
 
-	--color-impact-at-risk: oklch(0.55 0.2 25);
-	--color-impact-at-risk-subtle: oklch(0.97 0.02 25);
-	--color-impact-at-risk-border: oklch(0.9 0.05 25);
+	--color-impact-at-risk: #7c3aed;
+	--color-impact-at-risk-subtle: #f2edff;
+	--color-impact-at-risk-border: #d8ccff;
 
 	--color-impact-stable: oklch(0.55 0.01 260);
 	--color-impact-stable-subtle: oklch(0.97 0.003 260);
@@ -131,7 +131,7 @@
 	--color-chart-1: #0c0c0c;
 	--color-chart-2: #2a7f62;
 	--color-chart-3: #a07a0a;
-	--color-chart-4: #d6151c;
+	--color-chart-4: #7c3aed;
 	--color-chart-5: #6f6f6f;
 
 	/* --- Shadows: Clean, not colored ---
@@ -178,8 +178,8 @@
 	--popover: #ffffff;
 	--popover-foreground: #0c0c0c;
 
-	/* Brand: signal red — the only brand color (Economist register) */
-	--primary: #e3120b;
+	/* Brand: cobalt signal accent */
+	--primary: #1d4ed8;
 	--primary-foreground: #ffffff;
 	--secondary: #f4f4f4;
 	--secondary-foreground: #0c0c0c;
@@ -194,7 +194,7 @@
 	--text-ghost: #8b8b8b;
 	--accent: #f4f4f4;
 	--accent-foreground: #0c0c0c;
-	--destructive: #d6151c;
+	--destructive: #7c3aed;
 	--border: #e3e3e3;
 	--input: #d9d9d9;
 	--ring: #0c0c0c;

@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-12T10:03:32.649Z",
+  "updated_at": "2026-06-12T11:18:50.734Z",
   "structural_release": {
     "version": "V7",
     "label": "V7 structural release",
@@ -72,6 +72,14 @@
     "confidence_rating_medium_count": 142,
     "confidence_rating_low_count": 172,
     "confidence_rating_top_limiter": "Market Data Granularity",
+    "scenario_family_count": 3,
+    "scenario_base_avg_near_term_risk": 0.065,
+    "scenario_fast_adoption_avg_near_term_risk": 0.1295,
+    "adoption_diffusion_headline_pct": 28.5,
+    "adoption_diffusion_headcount_reduction_pct": 6.2,
+    "adoption_diffusion_role_redesign_pct": 18.9,
+    "age_structure_high_attrition_absorber_count": 194,
+    "age_structure_avg_age_50_plus_share": 0.4037,
     "occupation_family_validation_rho": -0.249,
     "occupation_family_validation_family_count": 29,
     "occupation_family_validation_significant": false,

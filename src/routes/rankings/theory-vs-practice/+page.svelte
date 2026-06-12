@@ -106,7 +106,7 @@
 	<p class="mt-2 text-sm text-muted-foreground">
 		Where does real-world AI usage diverge most from theoretical exposure? Ranked by the absolute
 		gap between Anthropic's observed AI usage percentile and the theoretical AIOE percentile. <span
-			class="bg-risk-very-high-subtle px-1 rounded text-risk-very-high">Red rows</span
+			class="bg-risk-very-high-subtle px-1 rounded text-risk-very-high">Violet rows</span
 		>
 		= usage exceeds theory.
 		<span class="bg-impact-leveraged-subtle px-1 rounded text-impact-leveraged">Blue rows</span> = theory
