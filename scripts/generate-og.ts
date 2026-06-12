@@ -36,29 +36,29 @@ interface Occupation {
 // Keep in sync with the live site palette.
 // ============================================
 const DS = {
-	// Backgrounds
-	primaryBg: '#1a3550', // oklch(0.42 0.16 230) → ink blue dark
-	primaryBgLight: '#1e3a5f', // lighter ink blue for gradients
-	cardBg: '#f8f9fb', // oklch(0.985) off-white
+	// Backgrounds — Swiss editorial: ink panel, white card (REDESIGN_SPEC.md)
+	primaryBg: '#0c0c0c', // ink
+	primaryBgLight: '#1a1a1a', // soft ink for gradients
+	cardBg: '#ffffff', // pure white
 	// Text
-	foreground: '#1a2332', // oklch(0.14 0.005 240)
-	muted: '#6b7a8d', // oklch(0.48 0.01 240)
-	tertiary: '#8494a7', // oklch(0.55 0.006 240)
-	ghost: '#a3b1c1', // oklch(0.68 0.004 240)
+	foreground: '#0c0c0c',
+	muted: '#6f6f6f',
+	tertiary: '#8b8b8b',
+	ghost: '#a8a8a8',
 	// Brand
-	primary: '#2563a8', // oklch(0.42 0.16 230) as hex
-	primaryLight: '#93c5fd', // light blue for accents on dark bg
+	primary: '#e3120b', // signal red — the only brand color
+	primaryLight: '#f3938f', // signal red tint for accents on ink bg
 	// Semantic
-	positive: '#34d399', // risk-very-low / demand
-	url: '#4a6580' // subtle link on dark bg
+	positive: '#48a06c', // risk-low green / demand
+	url: '#8b8b8b' // subtle url line on ink bg
 } as const;
 
 const RISK_COLORS: Record<string, string> = {
-	very_low: '#34d399',
-	low: '#4ade80',
-	moderate: '#f59e0b',
-	high: '#f97316',
-	very_high: '#ef4444'
+	very_low: '#2a7f62',
+	low: '#48a06c',
+	moderate: '#d9a514',
+	high: '#e8702a',
+	very_high: '#d6151c'
 };
 
 const RISK_LABELS: Record<string, string> = {
@@ -700,6 +700,16 @@ async function main() {
 
 	// Freshness manifest: signature of the scores just rendered. release-check.ts
 	// recomputes this and fails if the live scores have drifted from the cards.
+	// The manifest asserts every card matches the live scores — so it must NOT
+	// be written when any card failed to render: a signed manifest over missing/
+	// stale PNGs would let release-check pass on broken share cards.
+	if (errors > 0) {
+		console.error(
+			`\nERROR: ${errors} card(s) failed to render — og-manifest.json NOT written. ` +
+				'Fix the failures and rerun; release-check will fail until the manifest is regenerated.'
+		);
+		process.exit(1);
+	}
 	const { syntheticRoles, computeRoleScores } = await import('../src/lib/data/synthetic-roles');
 	const { occupationsBySSoc } = await import('../src/lib/data/index');
 	const signatureItems: OgScoreItem[] = [

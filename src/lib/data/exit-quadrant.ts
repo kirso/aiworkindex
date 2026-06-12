@@ -60,15 +60,20 @@ export function getExitQuadrant(): ExitQuadrantData {
 }
 
 /** Quadrant verdict for one occupation; null when below the displacement threshold. */
-export function lookupExitQuadrant(
-	ssoc: string
-): { in_quadrant: boolean; best_composite: number; threshold: number } | null {
+export function lookupExitQuadrant(ssoc: string): {
+	in_quadrant: boolean;
+	best_composite: number;
+	threshold: number;
+	/** Top risk-reducing transitions — the exits the verdict copy refers to. */
+	targets: TransitionScore[];
+} | null {
 	const data = getExitQuadrant();
 	const entry = data.entries.get(ssoc);
 	if (!entry) return null;
 	return {
 		in_quadrant: entry.in_quadrant,
 		best_composite: entry.best_composite,
-		threshold: data.threshold
+		threshold: data.threshold,
+		targets: entry.targets
 	};
 }

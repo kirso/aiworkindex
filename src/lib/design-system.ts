@@ -15,7 +15,6 @@
 
 import { tv, type VariantProps } from 'tailwind-variants';
 import * as d3Scale from 'd3-scale';
-import type { RiskBand } from './data';
 
 // ============================================
 // TYPOGRAPHY
@@ -263,17 +262,6 @@ export const impactBadge = tv({
 	}
 });
 
-export const confidenceBadge = tv({
-	base: 'inline-flex items-center border px-2 py-0.5 font-mono text-xs font-medium uppercase tracking-wide',
-	variants: {
-		level: {
-			high: 'border-risk-very-low text-risk-very-low',
-			medium: 'border-risk-moderate text-risk-moderate',
-			low: 'border-risk-very-high text-risk-very-high'
-		}
-	}
-});
-
 export const badge = tv({
 	base: 'inline-flex items-center px-2 py-0.5 text-xs font-medium',
 	variants: {
@@ -380,36 +368,6 @@ export const riskColorScale = d3Scale
 // bg-emerald-50 or similar — always use these.
 // ============================================
 
-/** Score tile — gradient + border classes keyed to risk band */
-export function scoreTileClasses(band: RiskBand): string {
-	const map: Record<RiskBand, string> = {
-		very_low: 'border-risk-very-low-border bg-risk-very-low-subtle',
-		low: 'border-risk-low-border bg-risk-low-subtle',
-		moderate: 'border-risk-moderate-border bg-risk-moderate-subtle',
-		high: 'border-risk-high-border bg-risk-high-subtle',
-		very_high: 'border-risk-very-high-border bg-risk-very-high-subtle'
-	};
-	return map[band];
-}
-
-/** Overall signal → subtle tone */
-export function overallSignalTone(overall: string): string {
-	if (overall === 'strong')
-		return 'bg-risk-very-low-subtle text-risk-very-low border-risk-very-low-border';
-	if (overall === 'moderate')
-		return 'bg-impact-leveraged-subtle text-impact-leveraged border-impact-leveraged-border';
-	if (overall === 'weak')
-		return 'bg-risk-moderate-subtle text-risk-moderate border-risk-moderate-border';
-	return 'bg-risk-very-high-subtle text-risk-very-high border-risk-very-high-border';
-}
-
-/** Direction → text color class */
-export function directionTone(direction: string): string {
-	if (direction === 'up' || direction === 'improving') return 'text-risk-very-low';
-	if (direction === 'down' || direction === 'worsening') return 'text-risk-very-high';
-	return 'text-muted-foreground';
-}
-
 // ============================================
 // SWISS EDITORIAL PRIMITIVES (REDESIGN_SPEC.md)
 // ============================================
@@ -447,7 +405,6 @@ export type TitleVariants = VariantProps<typeof title>;
 export type CardVariants = VariantProps<typeof card>;
 export type RiskBadgeVariants = VariantProps<typeof riskBadge>;
 export type ImpactBadgeVariants = VariantProps<typeof impactBadge>;
-export type ConfidenceBadgeVariants = VariantProps<typeof confidenceBadge>;
 export type BadgeVariants = VariantProps<typeof badge>;
 export type ChipVariants = VariantProps<typeof chip>;
 export type PillVariants = VariantProps<typeof pill>;

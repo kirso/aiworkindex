@@ -98,6 +98,11 @@
 	let allUniqueTransitions = $derived(structural.topTransitions ?? []);
 	// Quadrant verdict from the shared exit-quadrant module (null below the displacement threshold).
 	let exitQuadrant = $derived(data.exitQuadrant);
+	// High-risk pages show risk-reducing exits (matching the quadrant verdict copy);
+	// low-risk pages keep similarity-ranked related roles.
+	let displayTransitions = $derived(
+		exitQuadrant?.targets?.length ? exitQuadrant.targets : allUniqueTransitions
+	);
 	// Explanatory per-task evidence and theta-channel decomposition (never score inputs).
 	let taskDetail = $derived(data.taskDetail);
 	let channelInfo = $derived(data.channelInfo);
@@ -844,13 +849,15 @@
 				</div>
 			{/if}
 
-			{#if allUniqueTransitions.length > 0}
+			{#if displayTransitions.length > 0}
 				<div class="mb-4 border-b border-border pb-4">
 					<div class="flex items-center gap-2 mb-3">
 						<p class={cn(caption({ weight: 'semibold' }), 'text-foreground')}>
 							Related roles you could transition to
 						</p>
-						<span class={pill({ size: 'sm', tone: 'muted' })}>Similarity-based</span>
+						<span class={pill({ size: 'sm', tone: 'muted' })}
+							>{exitQuadrant?.targets?.length ? 'Risk-reducing' : 'Similarity-based'}</span
+						>
 					</div>
 					{#if exitQuadrant?.in_quadrant}
 						<p class="mb-3 text-xs text-risk-high">
@@ -870,7 +877,7 @@
 						</p>
 					{/if}
 					<div class="grid gap-2 sm:grid-cols-3">
-						{#each allUniqueTransitions.slice(0, 3) as t}
+						{#each displayTransitions.slice(0, 3) as t}
 							<OccupationCard
 								occupation={{ title: t.to_title, ssoc: t.to_ssoc, net_risk: 0 }}
 								mode="inset"
@@ -894,16 +901,16 @@
 							/>
 						{/each}
 					</div>
-					{#if allUniqueTransitions.length > 3}
+					{#if displayTransitions.length > 3}
 						<details class="mt-2">
 							<summary
 								class={cn(
 									caption({ weight: 'medium' }),
 									'cursor-pointer text-primary hover:underline'
-								)}>See {allUniqueTransitions.length - 3} more</summary
+								)}>See {displayTransitions.length - 3} more</summary
 							>
 							<div class="mt-2 grid gap-2 sm:grid-cols-3">
-								{#each allUniqueTransitions.slice(3) as t}
+								{#each displayTransitions.slice(3) as t}
 									<OccupationCard
 										occupation={{ title: t.to_title, ssoc: t.to_ssoc, net_risk: 0 }}
 										mode="inset"

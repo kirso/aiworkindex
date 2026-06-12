@@ -59,6 +59,7 @@ async function main() {
 		{ path: '/reports/v5-experimental', priority: '0.5', changefreq: 'yearly' },
 		{ path: '/reports/v5-roadmap', priority: '0.5', changefreq: 'yearly' },
 		{ path: '/reports/v4-3-shadow', priority: '0.5', changefreq: 'yearly' },
+		{ path: '/press', priority: '0.5', changefreq: 'monthly' },
 		{ path: '/rankings', priority: '0.7', changefreq: 'monthly' },
 		{ path: '/rankings/highest-risk', priority: '0.7', changefreq: 'monthly' },
 		{ path: '/rankings/ai-leveraged', priority: '0.7', changefreq: 'monthly' },

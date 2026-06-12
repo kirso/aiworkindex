@@ -270,8 +270,69 @@
 
 	<FaqList items={faqItems} />
 
-	<!-- License + Credits -->
+	<!-- Author & Independence (trust block) -->
 	<section class="mb-8 mt-8">
+		<p class={sectionLabel()}>Author & Independence</p>
+		<p class="mt-2 text-sm text-foreground">
+			The AI Work Index is built and maintained by
+			<a
+				href="https://www.linkedin.com/in/kirso/"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="font-semibold text-primary hover:underline">Kirill So</a
+			>
+			as an independent project.
+		</p>
+		<p class="mt-2 text-sm text-muted-foreground">
+			<strong class="text-foreground">Self-funded, no sponsors.</strong> No advertisers, no paid placements,
+			and no commercial relationship with any data provider or government agency. The full pipeline is
+			open source and every score is reproducible from public inputs.
+		</p>
+		<p class="mt-2 text-sm text-muted-foreground">
+			Contact:
+			<a
+				href="https://www.linkedin.com/in/kirso/"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="text-primary hover:underline">LinkedIn</a
+			>
+			·
+			<a
+				href="{SITE.github}/issues"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="text-primary hover:underline">GitHub issues</a
+			>
+			· <a href="/press" class="text-primary hover:underline">Press &amp; citation</a>
+		</p>
+		<p class="mt-2 text-sm text-muted-foreground">
+			Corrections: mistakes are fixed publicly. Every methodology revision and score change is
+			recorded in the <a href="/changelog" class="text-primary hover:underline">changelog</a> with per-release
+			score diffs.
+		</p>
+	</section>
+
+	<!-- Citation -->
+	<section class="mb-8">
+		<p class={sectionLabel()}>How to cite</p>
+		<p class="mt-2 text-sm text-muted-foreground">
+			So, K. ({new Date(DATA_VINTAGE.last_updated).getFullYear()}). <em>AI Work Index</em>
+			({DATA_VINTAGE.model_version}
+			release): structural AI displacement pressure for {DATA_VINTAGE.occupation_count} Singapore occupations.
+			{SITE.url}
+		</p>
+		<pre
+			class="mt-3 overflow-x-auto border border-border bg-muted p-3 font-mono text-xs text-text-secondary">{`@misc{aiworkindex,
+  author = {So, Kirill},
+  title  = {AI Work Index (${DATA_VINTAGE.model_version}): structural AI displacement pressure for ${DATA_VINTAGE.occupation_count} Singapore occupations},
+  year   = {${new Date(DATA_VINTAGE.last_updated).getFullYear()}},
+  url    = {${SITE.url}},
+  note   = {Data vintage ${DATA_VINTAGE.last_updated}}
+}`}</pre>
+	</section>
+
+	<!-- License + Credits -->
+	<section class="mb-8">
 		<p class={sectionLabel()}>License & Credits</p>
 		<p class="mt-2 text-sm text-muted-foreground">
 			MIT License. Adaptable for other countries via ISCO-08 crosswalks.
