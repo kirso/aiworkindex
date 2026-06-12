@@ -7,7 +7,7 @@
  * === DESIGN PRINCIPLES ===
  * 1. Numbers are heroes — large, monospace, prominent
  * 2. Cards: border + shadow-sm on white, consistent everywhere via card()
- * 3. Full saturation risk colors — clear ordered severity, not traffic-light dominant
+ * 3. Full saturation risk colors — green to red only where severity is encoded
  * 4. Pure white canvas — clean, no warmth, no tint
  * 5. Tight density — tool-like, not editorial
  * 6. Every data display has a source line
@@ -102,22 +102,22 @@
 	--color-risk-moderate-subtle: #faf5e6;
 	--color-risk-moderate-border: #e8d9a8;
 
-	--color-risk-high: #a85f00;
-	--color-risk-high-subtle: #faf3e6;
-	--color-risk-high-border: #e9d2aa;
+	--color-risk-high: #c05a1d;
+	--color-risk-high-subtle: #fff4ed;
+	--color-risk-high-border: #f2c7aa;
 
-	--color-risk-very-high: #7c3aed;
-	--color-risk-very-high-subtle: #f2edff;
-	--color-risk-very-high-border: #d8ccff;
+	--color-risk-very-high: #d6151c;
+	--color-risk-very-high-subtle: #fff1f2;
+	--color-risk-very-high-border: #f0b8bd;
 
 	/* --- Impact Types (3-step each) --- */
 	--color-impact-leveraged: oklch(0.5 0.18 255);
 	--color-impact-leveraged-subtle: oklch(0.97 0.015 255);
 	--color-impact-leveraged-border: oklch(0.9 0.04 255);
 
-	--color-impact-at-risk: #7c3aed;
-	--color-impact-at-risk-subtle: #f2edff;
-	--color-impact-at-risk-border: #d8ccff;
+	--color-impact-at-risk: #d6151c;
+	--color-impact-at-risk-subtle: #fff1f2;
+	--color-impact-at-risk-border: #f0b8bd;
 
 	--color-impact-stable: oklch(0.55 0.01 260);
 	--color-impact-stable-subtle: oklch(0.97 0.003 260);
@@ -131,7 +131,7 @@
 	--color-chart-1: #0c0c0c;
 	--color-chart-2: #2a7f62;
 	--color-chart-3: #a07a0a;
-	--color-chart-4: #7c3aed;
+	--color-chart-4: #d6151c;
 	--color-chart-5: #6f6f6f;
 
 	/* --- Shadows: Clean, not colored ---
@@ -194,7 +194,7 @@
 	--text-ghost: #8b8b8b;
 	--accent: #f4f4f4;
 	--accent-foreground: #0c0c0c;
-	--destructive: #7c3aed;
+	--destructive: #d6151c;
 	--border: #e3e3e3;
 	--input: #d9d9d9;
 	--ring: #0c0c0c;

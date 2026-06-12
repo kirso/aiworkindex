@@ -356,7 +356,7 @@ export const formInput = tv({
 export const riskColorScale = d3Scale
 	.scaleLinear<string>()
 	.domain([0, 0.15, 0.35, 0.6, 1.0])
-	.range(['#2a7f62', '#48a06c', '#a07a0a', '#a85f00', '#7c3aed'])
+	.range(['#2a7f62', '#48a06c', '#d9a514', '#c05a1d', '#d6151c'])
 	.clamp(true);
 
 // ============================================

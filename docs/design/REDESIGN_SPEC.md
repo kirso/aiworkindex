@@ -33,7 +33,7 @@ pages feel cluttered.
   `--rule #e3e3e3`, `--rule-strong #0c0c0c`.
 - **Signal accent**: `#1d4ed8` — the only brand color. Used for: top rule, section numbers,
   the underline device in verdict sentences, links on hover. Never for data.
-- **Risk scale** (the only other chromatic system): vh `#7c3aed`, h `#a85f00`, m `#d9a514`,
+- **Risk scale** (the only other chromatic system): vh `#d6151c`, h `#c05a1d`, m `#d9a514`,
   l `#48a06c`, vl `#2a7f62`. Used ONLY when encoding risk/direction semantics.
 - Everything decorative that is currently colored (section accents, ranking card borders,
   programme pill green/blue) becomes neutral.

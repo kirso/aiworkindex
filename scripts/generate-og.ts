@@ -57,8 +57,8 @@ const RISK_COLORS: Record<string, string> = {
 	very_low: '#2a7f62',
 	low: '#48a06c',
 	moderate: '#d9a514',
-	high: '#a85f00',
-	very_high: '#7c3aed'
+	high: '#c05a1d',
+	very_high: '#d6151c'
 };
 
 const RISK_LABELS: Record<string, string> = {
