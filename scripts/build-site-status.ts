@@ -342,12 +342,15 @@ function buildSiteStatus() {
 			headline_adoption_pct?: number;
 			headcount_reduction_among_adopters_pct?: number;
 			role_redesign_among_adopters_pct?: number;
+			top_sector?: { label: string; adoption_pct: number };
 		};
 	}>(ADOPTION_DIFFUSION_FILE);
 	const ageStructure = readJson<{
 		summary?: {
 			high_attrition_absorber_count?: number;
-			avg_age_50_plus_share?: number;
+			known_coverage_count?: number;
+			unknown_coverage_count?: number;
+			avg_age_50_plus_share?: number | null;
 		};
 	}>(AGE_STRUCTURE_FILE);
 	const occupationFamilyValidation = readJson<{
@@ -520,6 +523,8 @@ function buildSiteStatus() {
 			confidence_rating_low_count: confidenceRatings?.summary?.counts?.low ?? null,
 			confidence_rating_top_limiter:
 				confidenceRatings?.summary?.top_limiting_factors?.[0]?.factor ?? null,
+			confidence_rating_top_limiter_count:
+				confidenceRatings?.summary?.top_limiting_factors?.[0]?.count ?? null,
 			scenario_family_count: scenarioFamilies?.summary?.scenario_count ?? null,
 			scenario_base_avg_near_term_risk: scenarioFamilies?.summary?.base_avg_near_term_risk ?? null,
 			scenario_fast_adoption_avg_near_term_risk:
@@ -529,8 +534,13 @@ function buildSiteStatus() {
 				adoptionDiffusion?.summary?.headcount_reduction_among_adopters_pct ?? null,
 			adoption_diffusion_role_redesign_pct:
 				adoptionDiffusion?.summary?.role_redesign_among_adopters_pct ?? null,
+			adoption_diffusion_top_sector_label: adoptionDiffusion?.summary?.top_sector?.label ?? null,
+			adoption_diffusion_top_sector_pct:
+				adoptionDiffusion?.summary?.top_sector?.adoption_pct ?? null,
 			age_structure_high_attrition_absorber_count:
 				ageStructure?.summary?.high_attrition_absorber_count ?? null,
+			age_structure_known_coverage_count: ageStructure?.summary?.known_coverage_count ?? null,
+			age_structure_unknown_coverage_count: ageStructure?.summary?.unknown_coverage_count ?? null,
 			age_structure_avg_age_50_plus_share: ageStructure?.summary?.avg_age_50_plus_share ?? null,
 			occupation_family_validation_rho: occupationFamilyValidation?.spearman_rho ?? null,
 			occupation_family_validation_family_count: occupationFamilyValidation?.family_count ?? null,

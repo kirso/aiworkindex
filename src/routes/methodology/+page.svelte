@@ -10,10 +10,6 @@
 	import imfConvergence from '$lib/data/backtests/imf-convergence.json';
 	import forecastHorizonValidation from '$lib/data/backtests/forecast-horizon-validation.json';
 	import occupationFamilyValidation from '$lib/data/backtests/occupation-family-validation.json';
-	import confidenceRatings from '$lib/data/confidence-ratings.json';
-	import scenarioFamilies from '$lib/data/scenario-families.json';
-	import adoptionDiffusion from '$lib/data/adoption-diffusion.json';
-	import ageStructure from '$lib/data/age-structure.json';
 	import { dataSourceRegistry } from '$lib/data/data-contract';
 	import claimsMatrix from '$lib/data/claims-matrix.json';
 	import researchLibrary from '$lib/data/research-library.json';
@@ -67,14 +63,16 @@
 	const calibrationFallback = calibrationDiagnostics.segments.by_match_quality.all_fallback;
 	const calibrationHighMedium = calibrationDiagnostics.segments.by_confidence_level.high_or_medium;
 	const calibrationLow = calibrationDiagnostics.segments.by_confidence_level.low;
-	const topConfidenceLimiter = confidenceRatings.summary.top_limiting_factors[0] ?? {
-		factor: 'No single limiter',
-		count: 0
+	const liveMonitor = siteStatus.live_monitor;
+	const confidenceRatingHighCount = liveMonitor.confidence_rating_high_count ?? 0;
+	const confidenceRatingMediumCount = liveMonitor.confidence_rating_medium_count ?? 0;
+	const confidenceRatingLowCount = liveMonitor.confidence_rating_low_count ?? 0;
+	const confidenceRatingOccupationCount =
+		confidenceRatingHighCount + confidenceRatingMediumCount + confidenceRatingLowCount;
+	const topConfidenceLimiter = {
+		factor: liveMonitor.confidence_rating_top_limiter ?? 'No single limiter',
+		count: liveMonitor.confidence_rating_top_limiter_count ?? 0
 	};
-	const baseScenario = scenarioFamilies.scenarios.find(scenario => scenario.key === 'base');
-	const fastScenario = scenarioFamilies.scenarios.find(
-		scenario => scenario.key === 'fast_adoption'
-	);
 
 	// V6 -> V7 score diff, computed from the retained per-occupation baseline.
 	const v6DiffStats = (() => {
@@ -1257,10 +1255,10 @@
 						metadata: crosswalk quality, exposure-source coverage, source freshness, signal
 						agreement, sensitivity, and whether the uncertainty interval crosses a risk-band
 						boundary. The current distribution is
-						<strong>{confidenceRatings.summary.counts.high}</strong> high,
-						<strong>{confidenceRatings.summary.counts.medium}</strong> medium, and
-						<strong>{confidenceRatings.summary.counts.low}</strong> low confidence across
-						{confidenceRatings.occupation_count} occupations.
+						<strong>{confidenceRatingHighCount}</strong> high,
+						<strong>{confidenceRatingMediumCount}</strong> medium, and
+						<strong>{confidenceRatingLowCount}</strong> low confidence across
+						{confidenceRatingOccupationCount} occupations.
 					</p>
 					<p class="mt-3 text-sm text-muted-foreground">
 						The leading limiting factor is
@@ -1280,12 +1278,16 @@
 						Scenario Families (non-scoring outlook overlays)
 					</h3>
 					<p class="text-sm text-muted-foreground">
-						The forecast engine now publishes {scenarioFamilies.summary.scenario_count} named scenario
-						families &mdash; conservative, base, and fast adoption &mdash; as a sidecar rather than quiet
-						UI state. In the base case, average near-term risk is
-						<strong>{Math.round((baseScenario?.summary.avg_near_term_risk ?? 0) * 100)}%</strong>;
-						under fast adoption it rises to
-						<strong>{Math.round((fastScenario?.summary.avg_near_term_risk ?? 0) * 100)}%</strong>.
+						The forecast engine now publishes {liveMonitor.scenario_family_count} named scenario families
+						&mdash; conservative, base, and fast adoption &mdash; as a sidecar rather than quiet UI state.
+						In the base case, average near-term risk is
+						<strong>{Math.round((liveMonitor.scenario_base_avg_near_term_risk ?? 0) * 100)}%</strong
+						>; under fast adoption it rises to
+						<strong
+							>{Math.round(
+								(liveMonitor.scenario_fast_adoption_avg_near_term_risk ?? 0) * 100
+							)}%</strong
+						>.
 					</p>
 					<p class="mt-3 text-xs text-muted-foreground italic">
 						Scenario families stress the score under adoption, cost-cutting, macro, and
@@ -1304,14 +1306,14 @@
 					</h3>
 					<p class="text-sm text-muted-foreground">
 						MOM&rsquo;s 2026 firm survey reports
-						<strong>{adoptionDiffusion.summary.headline_adoption_pct}%</strong> of in-scope firms
-						have started AI adoption. Among adopting firms,
-						<strong>{adoptionDiffusion.summary.headcount_reduction_among_adopters_pct}%</strong>
+						<strong>{liveMonitor.adoption_diffusion_headline_pct}%</strong> of in-scope firms have
+						started AI adoption. Among adopting firms,
+						<strong>{liveMonitor.adoption_diffusion_headcount_reduction_pct}%</strong>
 						reported reduced headcount while
-						<strong>{adoptionDiffusion.summary.role_redesign_among_adopters_pct}%</strong> reported
-						role redesign. The leading published sector is
-						<strong>{adoptionDiffusion.summary.top_sector.label}</strong>
-						({adoptionDiffusion.summary.top_sector.adoption_pct}% adoption).
+						<strong>{liveMonitor.adoption_diffusion_role_redesign_pct}%</strong> reported role
+						redesign. The leading published sector is
+						<strong>{liveMonitor.adoption_diffusion_top_sector_label}</strong>
+						({liveMonitor.adoption_diffusion_top_sector_pct}% adoption).
 					</p>
 					<p class="mt-3 text-xs text-muted-foreground italic">
 						This is firm-level adoption context, not an occupation-level multiplier. Full results in
@@ -1325,10 +1327,16 @@
 					</h3>
 					<p class="text-sm text-muted-foreground">
 						Age structure is now published as an attrition-channel sidecar. It identifies
-						<strong>{ageStructure.summary.high_attrition_absorber_count}</strong> occupations where
-						the broad worker-profile age mix suggests a high retirement/non-replacement buffer. The
-						average age-50-plus share across occupation rows is
-						<strong>{Math.round(ageStructure.summary.avg_age_50_plus_share * 100)}%</strong>.
+						<strong>{liveMonitor.age_structure_high_attrition_absorber_count}</strong> occupations
+						where the broad worker-profile age mix suggests a high retirement/non-replacement
+						buffer. The average age-50-plus share across covered occupation rows is
+						<strong
+							>{Math.round((liveMonitor.age_structure_avg_age_50_plus_share ?? 0) * 100)}%</strong
+						>.
+						{#if liveMonitor.age_structure_unknown_coverage_count}
+							<strong>{liveMonitor.age_structure_unknown_coverage_count}</strong> occupations have unknown
+							age coverage because their broad group is absent from the source table.
+						{/if}
 					</p>
 					<p class="mt-3 text-xs text-muted-foreground italic">
 						This explains one way pressure can resolve without layoffs; it is broad-group context

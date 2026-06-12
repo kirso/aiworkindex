@@ -6,17 +6,23 @@
   "source": {
     "file": "worker-profile.json",
     "data_as_of": "2025",
-    "note": "Broad occupation-group age shares from Singapore Labour Force worker-profile tables."
+    "note": "Broad occupation-group age shares from Singapore Labour Force worker-profile tables. Occupation groups absent from the source are left unknown, not imputed."
   },
   "framing": "Age structure is an attrition-channel context layer. It does not change net_risk or risk_band; it explains one way pressure can resolve without layoffs.",
   "summary": {
     "counts": {
       "high": 194,
       "medium": 183,
-      "low": 185
+      "low": 182,
+      "unknown": 3
     },
     "high_attrition_absorber_count": 194,
-    "avg_age_50_plus_share": 0.4037
+    "known_coverage_count": 559,
+    "unknown_coverage_count": 3,
+    "unknown_groups": [
+      "AGRICULTURAL AND FISHERY WORKERS"
+    ],
+    "avg_age_50_plus_share": 0.4058
   },
   "entries": [
     {
@@ -25,6 +31,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.1581,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -42,6 +49,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.1199,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -59,6 +67,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.0657,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -76,6 +85,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.0233,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -93,6 +103,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.0317,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -110,6 +121,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.1473,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -127,6 +139,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.1466,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -144,6 +157,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.1429,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -161,6 +175,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.2732,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -178,6 +193,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.1695,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -195,6 +211,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.011,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -212,6 +229,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.0237,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -229,6 +247,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.1026,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -246,6 +265,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.0231,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -263,6 +283,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.0217,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -280,6 +301,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.2653,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -297,6 +319,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.0278,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -314,6 +337,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.1948,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -331,6 +355,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.2054,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -348,6 +373,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.1598,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -365,6 +391,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.1574,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -382,6 +409,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.0433,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -399,6 +427,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.0122,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -416,6 +445,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.1426,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -433,6 +463,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.1992,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -450,6 +481,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.0909,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -467,6 +499,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.0223,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -484,6 +517,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.0232,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -501,6 +535,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.1316,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -518,6 +553,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.1045,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -535,6 +571,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.1415,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -552,6 +589,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.0118,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -569,6 +607,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.1466,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -586,6 +625,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.1467,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -603,6 +643,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.0201,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -620,6 +661,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.0754,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -637,6 +679,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.0713,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -654,6 +697,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.0925,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -671,6 +715,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.0575,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -688,6 +733,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.0732,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -705,6 +751,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.0102,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -722,6 +769,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.0564,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -739,6 +787,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.1357,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -756,6 +805,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.0151,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -773,6 +823,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.1717,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -790,6 +841,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.1138,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -807,6 +859,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.0186,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -824,6 +877,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.1471,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -841,6 +895,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.0168,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -858,6 +913,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.0879,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -875,6 +931,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.0053,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -892,6 +949,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.0099,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -909,6 +967,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.015,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -926,6 +985,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.0188,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -943,6 +1003,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.0754,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -960,6 +1021,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.0581,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -977,6 +1039,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.1623,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -994,6 +1057,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.0699,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -1011,6 +1075,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.028,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -1028,6 +1093,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.0304,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -1045,6 +1111,7 @@
       "major_group": "MANAGERS",
       "net_risk": 0.1039,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0241,
         "age_30_49": 0.5756,
@@ -1062,6 +1129,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.4122,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1079,6 +1147,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.4649,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1096,6 +1165,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1602,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1113,6 +1183,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1591,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1130,6 +1201,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0089,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1147,6 +1219,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.4367,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1164,6 +1237,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1096,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1181,6 +1255,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.255,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1198,6 +1273,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.028,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1215,6 +1291,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.3604,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1232,6 +1309,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.5234,
       "risk_band": "very_high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1249,6 +1327,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0969,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1266,6 +1345,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0657,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1283,6 +1363,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.442,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1300,6 +1381,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1219,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1317,6 +1399,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0926,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1334,6 +1417,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.2513,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1351,6 +1435,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.2245,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1368,6 +1453,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.2193,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1385,6 +1471,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.2304,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1402,6 +1489,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0008,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1419,6 +1507,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0616,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1436,6 +1525,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1836,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1453,6 +1543,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.033,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1470,6 +1561,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.2432,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1487,6 +1579,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.05,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1504,6 +1597,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0509,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1521,6 +1615,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.2367,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1538,6 +1633,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0104,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1555,6 +1651,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.2501,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1572,6 +1669,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.2744,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1589,6 +1687,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.287,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1606,6 +1705,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.2847,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1623,6 +1723,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.5581,
       "risk_band": "very_high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1640,6 +1741,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0651,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1657,6 +1759,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.2725,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1674,6 +1777,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1569,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1691,6 +1795,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.3309,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1708,6 +1813,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.3285,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1725,6 +1831,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.5051,
       "risk_band": "very_high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1742,6 +1849,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.2353,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1759,6 +1867,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.4894,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1776,6 +1885,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.4882,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1793,6 +1903,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0053,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1810,6 +1921,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0086,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1827,6 +1939,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1061,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1844,6 +1957,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.2774,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1861,6 +1975,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1005,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1878,6 +1993,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0034,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1895,6 +2011,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.3025,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1912,6 +2029,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1672,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1929,6 +2047,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1051,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1946,6 +2065,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1591,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1963,6 +2083,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.2294,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1980,6 +2101,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.2483,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -1997,6 +2119,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0089,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2014,6 +2137,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1045,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2031,6 +2155,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.2916,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2048,6 +2173,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0852,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2065,6 +2191,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0763,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2082,6 +2209,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0833,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2099,6 +2227,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.2328,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2116,6 +2245,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1538,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2133,6 +2263,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.2936,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2150,6 +2281,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.2532,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2167,6 +2299,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.2173,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2184,6 +2317,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0099,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2201,6 +2335,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0746,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2218,6 +2353,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.2548,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2235,6 +2371,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.2515,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2252,6 +2389,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.2662,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2269,6 +2407,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2286,6 +2425,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0062,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2303,6 +2443,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0008,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2320,6 +2461,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.3327,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2337,6 +2479,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1996,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2354,6 +2497,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.3842,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2371,6 +2515,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.4154,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2388,6 +2533,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.3057,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2405,6 +2551,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.3967,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2422,6 +2569,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.3331,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2439,6 +2587,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0516,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2456,6 +2605,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1673,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2473,6 +2623,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.2205,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2490,6 +2641,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1243,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2507,6 +2659,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1161,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2524,6 +2677,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.2235,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2541,6 +2695,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.4476,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2558,6 +2713,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.5752,
       "risk_band": "very_high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2575,6 +2731,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.2835,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2592,6 +2749,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0058,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2609,6 +2767,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.2931,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2626,6 +2785,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1916,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2643,6 +2803,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.387,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2660,6 +2821,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1438,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2677,6 +2839,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.156,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2694,6 +2857,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1657,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2711,6 +2875,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1975,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2728,6 +2893,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1103,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2745,6 +2911,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1667,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2762,6 +2929,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.025,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2779,6 +2947,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0289,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2796,6 +2965,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.28,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2813,6 +2983,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.2545,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2830,6 +3001,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1246,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2847,6 +3019,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1615,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2864,6 +3037,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.4847,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2881,6 +3055,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.348,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2898,6 +3073,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.025,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2915,6 +3091,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0624,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2932,6 +3109,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0629,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2949,6 +3127,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0345,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2966,6 +3145,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0405,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -2983,6 +3163,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.3234,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3000,6 +3181,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.4921,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3017,6 +3199,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.3004,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3034,6 +3217,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.4029,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3051,6 +3235,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1042,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3068,6 +3253,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0089,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3085,6 +3271,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0937,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3102,6 +3289,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0058,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3119,6 +3307,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.2825,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3136,6 +3325,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.523,
       "risk_band": "very_high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3153,6 +3343,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0083,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3170,6 +3361,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0202,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3187,6 +3379,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0008,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3204,6 +3397,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0086,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3221,6 +3415,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0058,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3238,6 +3433,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.2457,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3255,6 +3451,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0278,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3272,6 +3469,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0524,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3289,6 +3487,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.006,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3306,6 +3505,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0255,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3323,6 +3523,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.4065,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3340,6 +3541,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1482,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3357,6 +3559,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1037,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3374,6 +3577,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1259,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3391,6 +3595,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1059,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3408,6 +3613,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1645,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3425,6 +3631,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1063,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3442,6 +3649,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0056,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3459,6 +3667,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.3004,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3476,6 +3685,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1087,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3493,6 +3703,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1373,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3510,6 +3721,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0289,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3527,6 +3739,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0247,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3544,6 +3757,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.3154,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3561,6 +3775,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.2557,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3578,6 +3793,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1492,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3595,6 +3811,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.3312,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3612,6 +3829,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0628,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3629,6 +3847,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.5239,
       "risk_band": "very_high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3646,6 +3865,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.2525,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3663,6 +3883,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.2596,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3680,6 +3901,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.3636,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3697,6 +3919,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.2702,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3714,6 +3937,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.284,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3731,6 +3955,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.2763,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3748,6 +3973,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.2706,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3765,6 +3991,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1069,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3782,6 +4009,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0401,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3799,6 +4027,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.3229,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3816,6 +4045,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0282,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3833,6 +4063,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.4795,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3850,6 +4081,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.323,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3867,6 +4099,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.3157,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3884,6 +4117,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.3315,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3901,6 +4135,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1257,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3918,6 +4153,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.3703,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3935,6 +4171,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.5268,
       "risk_band": "very_high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3952,6 +4189,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0312,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3969,6 +4207,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.4656,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -3986,6 +4225,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.2792,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -4003,6 +4243,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0027,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -4020,6 +4261,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.3626,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -4037,6 +4279,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.2299,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -4054,6 +4297,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.2938,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -4071,6 +4315,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1069,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -4088,6 +4333,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.1066,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -4105,6 +4351,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0007,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -4122,6 +4369,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.0025,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -4139,6 +4387,7 @@
       "major_group": "PROFESSIONALS",
       "net_risk": 0.4263,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1414,
         "age_30_49": 0.6237,
@@ -4156,6 +4405,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.278,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4173,6 +4423,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1567,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4190,6 +4441,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.368,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4207,6 +4459,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.0993,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4224,6 +4477,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.2708,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4241,6 +4495,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.0289,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4258,6 +4513,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1391,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4275,6 +4531,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.3651,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4292,6 +4549,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.118,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4309,6 +4567,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.2099,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4326,6 +4585,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.3968,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4343,6 +4603,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.5327,
       "risk_band": "very_high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4360,6 +4621,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1809,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4377,6 +4639,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1748,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4394,6 +4657,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1703,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4411,6 +4675,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1816,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4428,6 +4693,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1903,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4445,6 +4711,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1352,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4462,6 +4729,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1894,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4479,6 +4747,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.5333,
       "risk_band": "very_high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4496,6 +4765,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1626,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4513,6 +4783,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1659,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4530,6 +4801,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.2138,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4547,6 +4819,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.3863,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4564,6 +4837,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.274,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4581,6 +4855,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1032,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4598,6 +4873,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.3132,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4615,6 +4891,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.3101,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4632,6 +4909,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.2898,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4649,6 +4927,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.2058,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4666,6 +4945,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1218,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4683,6 +4963,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.7378,
       "risk_band": "very_high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4700,6 +4981,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.2588,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4717,6 +4999,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.2113,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4734,6 +5017,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.2824,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4751,6 +5035,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.3716,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4768,6 +5053,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.036,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4785,6 +5071,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1318,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4802,6 +5089,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1167,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4819,6 +5107,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1914,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4836,6 +5125,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.4257,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4853,6 +5143,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.0423,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4870,6 +5161,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1946,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4887,6 +5179,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.3075,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4904,6 +5197,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.4859,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4921,6 +5215,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.0335,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4938,6 +5233,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.098,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4955,6 +5251,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.0275,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4972,6 +5269,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1841,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -4989,6 +5287,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.185,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5006,6 +5305,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.6333,
       "risk_band": "very_high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5023,6 +5323,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.2574,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5040,6 +5341,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.2376,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5057,6 +5359,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.2788,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5074,6 +5377,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.2463,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5091,6 +5395,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.253,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5108,6 +5413,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1081,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5125,6 +5431,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.2044,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5142,6 +5449,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.0193,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5159,6 +5467,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.2073,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5176,6 +5485,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.4994,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5193,6 +5503,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1635,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5210,6 +5521,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1369,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5227,6 +5539,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1019,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5244,6 +5557,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.3906,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5261,6 +5575,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1456,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5278,6 +5593,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.366,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5295,6 +5611,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.3695,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5312,6 +5629,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1668,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5329,6 +5647,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1195,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5346,6 +5665,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.0065,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5363,6 +5683,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1467,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5380,6 +5701,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.3888,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5397,6 +5719,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.026,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5414,6 +5737,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.0436,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5431,6 +5755,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1137,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5448,6 +5773,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.154,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5465,6 +5791,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.2579,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5482,6 +5809,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1881,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5499,6 +5827,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.0746,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5516,6 +5845,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.4322,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5533,6 +5863,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.2182,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5550,6 +5881,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1868,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5567,6 +5899,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.209,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5584,6 +5917,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.4209,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5601,6 +5935,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.3631,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5618,6 +5953,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1153,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5635,6 +5971,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.2232,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5652,6 +5989,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1064,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5669,6 +6007,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1746,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5686,6 +6025,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1734,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5703,6 +6043,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.0267,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5720,6 +6061,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.0309,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5737,6 +6079,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.0196,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5754,6 +6097,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.0477,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5771,6 +6115,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1929,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5788,6 +6133,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1611,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5805,6 +6151,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1573,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5822,6 +6169,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.282,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5839,6 +6187,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1569,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5856,6 +6205,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1063,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5873,6 +6223,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.2048,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5890,6 +6241,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.2116,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5907,6 +6259,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.0985,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5924,6 +6277,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1663,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5941,6 +6295,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.2433,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5958,6 +6313,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.3181,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5975,6 +6331,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1765,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -5992,6 +6349,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.7267,
       "risk_band": "very_high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -6009,6 +6367,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.0536,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -6026,6 +6385,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.0713,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -6043,6 +6403,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.0232,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -6060,6 +6421,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.5039,
       "risk_band": "very_high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -6077,6 +6439,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.1181,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -6094,6 +6457,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.0946,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -6111,6 +6475,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.0289,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -6128,6 +6493,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.2004,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -6145,6 +6511,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.2405,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -6162,6 +6529,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.2519,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -6179,6 +6547,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.0505,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -6196,6 +6565,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.5148,
       "risk_band": "very_high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -6213,6 +6583,7 @@
       "major_group": "ASSOCIATE PROFESSIONALS AND TECHNICIANS",
       "net_risk": 0.0548,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1686,
         "age_30_49": 0.5204,
@@ -6230,6 +6601,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.3628,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6247,6 +6619,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.6477,
       "risk_band": "very_high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6264,6 +6637,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.6406,
       "risk_band": "very_high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6281,6 +6655,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.4363,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6298,6 +6673,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.5097,
       "risk_band": "very_high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6315,6 +6691,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.6159,
       "risk_band": "very_high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6332,6 +6709,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.593,
       "risk_band": "very_high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6349,6 +6727,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.4542,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6366,6 +6745,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.4461,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6383,6 +6763,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.6854,
       "risk_band": "very_high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6400,6 +6781,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.6145,
       "risk_band": "very_high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6417,6 +6799,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.583,
       "risk_band": "very_high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6434,6 +6817,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.429,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6451,6 +6835,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.4676,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6468,6 +6853,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.6321,
       "risk_band": "very_high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6485,6 +6871,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.3429,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6502,6 +6889,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.6138,
       "risk_band": "very_high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6519,6 +6907,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.4633,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6536,6 +6925,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.4707,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6553,6 +6943,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.2923,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6570,6 +6961,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.4895,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6587,6 +6979,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.4101,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6604,6 +6997,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.5959,
       "risk_band": "very_high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6621,6 +7015,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.3894,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6638,6 +7033,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.4446,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6655,6 +7051,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.5803,
       "risk_band": "very_high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6672,6 +7069,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.5892,
       "risk_band": "very_high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6689,6 +7087,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.5615,
       "risk_band": "very_high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6706,6 +7105,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.458,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6723,6 +7123,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.5461,
       "risk_band": "very_high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6740,6 +7141,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.5883,
       "risk_band": "very_high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6757,6 +7159,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.2989,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6774,6 +7177,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.521,
       "risk_band": "very_high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6791,6 +7195,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.4692,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6808,6 +7213,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.6283,
       "risk_band": "very_high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6825,6 +7231,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.6559,
       "risk_band": "very_high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6842,6 +7249,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.3597,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6859,6 +7267,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.5947,
       "risk_band": "very_high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6876,6 +7285,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.1682,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6893,6 +7303,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.1795,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6910,6 +7321,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.4335,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6927,6 +7339,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.2723,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6944,6 +7357,7 @@
       "major_group": "CLERICAL SUPPORT WORKERS",
       "net_risk": 0.6741,
       "risk_band": "very_high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1557,
         "age_30_49": 0.3537,
@@ -6961,6 +7375,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.0994,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -6978,6 +7393,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.03,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -6995,6 +7411,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.0823,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7012,6 +7429,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.0773,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7029,6 +7447,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.0263,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7046,6 +7465,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.2107,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7063,6 +7483,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.1711,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7080,6 +7501,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.2604,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7097,6 +7519,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.1199,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7114,6 +7537,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.2907,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7131,6 +7555,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.1755,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7148,6 +7573,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.0686,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7165,6 +7591,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.1633,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7182,6 +7609,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.1309,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7199,6 +7627,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.0096,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7216,6 +7645,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.0812,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7233,6 +7663,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.2969,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7250,6 +7681,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.0666,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7267,6 +7699,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.135,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7284,6 +7717,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.0528,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7301,6 +7735,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.0514,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7318,6 +7753,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.051,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7335,6 +7771,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.1768,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7352,6 +7789,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.0545,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7369,6 +7807,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.0418,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7386,6 +7825,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.0276,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7403,6 +7843,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.0658,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7420,6 +7861,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.131,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7437,6 +7879,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.2802,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7454,6 +7897,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.0425,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7471,6 +7915,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.0212,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7488,6 +7933,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.1848,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7505,6 +7951,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.3284,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7522,6 +7969,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.1709,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7539,6 +7987,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.045,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7556,6 +8005,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.1591,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7573,6 +8023,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.0421,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7590,6 +8041,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.0427,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7607,6 +8059,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.3425,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7624,6 +8077,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.0545,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7641,6 +8095,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.1173,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7658,6 +8113,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.5955,
       "risk_band": "very_high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7675,6 +8131,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.0969,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7692,6 +8149,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.0132,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7709,6 +8167,7 @@
       "major_group": "SERVICE AND SALES WORKERS",
       "net_risk": 0.1388,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.1713,
         "age_30_49": 0.3162,
@@ -7726,16 +8185,11 @@
       "major_group": "AGRICULTURAL AND FISHERY WORKERS",
       "net_risk": 0.0301,
       "risk_band": "very_low",
-      "age_share": {
-        "age_15_29": 0,
-        "age_30_49": 0,
-        "age_50_59": 0,
-        "age_60_plus": 0,
-        "age_50_plus": 0
-      },
-      "attrition_absorber": "low",
-      "attrition_absorber_score": 0,
-      "framing": "Younger or mid-career-heavy workforce mix leaves less adjustment room through natural attrition."
+      "age_coverage": "unknown",
+      "age_share": null,
+      "attrition_absorber": "unknown",
+      "attrition_absorber_score": null,
+      "framing": "No broad worker-profile age distribution is available for this occupation group, so attrition-buffer context is left unknown rather than imputed."
     },
     {
       "ssoc": "61133",
@@ -7743,16 +8197,11 @@
       "major_group": "AGRICULTURAL AND FISHERY WORKERS",
       "net_risk": 0.1218,
       "risk_band": "low",
-      "age_share": {
-        "age_15_29": 0,
-        "age_30_49": 0,
-        "age_50_59": 0,
-        "age_60_plus": 0,
-        "age_50_plus": 0
-      },
-      "attrition_absorber": "low",
-      "attrition_absorber_score": 0,
-      "framing": "Younger or mid-career-heavy workforce mix leaves less adjustment room through natural attrition."
+      "age_coverage": "unknown",
+      "age_share": null,
+      "attrition_absorber": "unknown",
+      "attrition_absorber_score": null,
+      "framing": "No broad worker-profile age distribution is available for this occupation group, so attrition-buffer context is left unknown rather than imputed."
     },
     {
       "ssoc": "61131",
@@ -7760,16 +8209,11 @@
       "major_group": "AGRICULTURAL AND FISHERY WORKERS",
       "net_risk": 0.1028,
       "risk_band": "low",
-      "age_share": {
-        "age_15_29": 0,
-        "age_30_49": 0,
-        "age_50_59": 0,
-        "age_60_plus": 0,
-        "age_50_plus": 0
-      },
-      "attrition_absorber": "low",
-      "attrition_absorber_score": 0,
-      "framing": "Younger or mid-career-heavy workforce mix leaves less adjustment room through natural attrition."
+      "age_coverage": "unknown",
+      "age_share": null,
+      "attrition_absorber": "unknown",
+      "attrition_absorber_score": null,
+      "framing": "No broad worker-profile age distribution is available for this occupation group, so attrition-buffer context is left unknown rather than imputed."
     },
     {
       "ssoc": "71271",
@@ -7777,6 +8221,7 @@
       "major_group": "CRAFTSMEN AND RELATED TRADES WORKERS",
       "net_risk": 0.066,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0717,
         "age_30_49": 0.2539,
@@ -7794,6 +8239,7 @@
       "major_group": "CRAFTSMEN AND RELATED TRADES WORKERS",
       "net_risk": 0.0383,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0717,
         "age_30_49": 0.2539,
@@ -7811,6 +8257,7 @@
       "major_group": "CRAFTSMEN AND RELATED TRADES WORKERS",
       "net_risk": 0.1334,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0717,
         "age_30_49": 0.2539,
@@ -7828,6 +8275,7 @@
       "major_group": "CRAFTSMEN AND RELATED TRADES WORKERS",
       "net_risk": 0.0309,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0717,
         "age_30_49": 0.2539,
@@ -7845,6 +8293,7 @@
       "major_group": "CRAFTSMEN AND RELATED TRADES WORKERS",
       "net_risk": 0.3358,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0717,
         "age_30_49": 0.2539,
@@ -7862,6 +8311,7 @@
       "major_group": "CRAFTSMEN AND RELATED TRADES WORKERS",
       "net_risk": 0.0964,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0717,
         "age_30_49": 0.2539,
@@ -7879,6 +8329,7 @@
       "major_group": "CRAFTSMEN AND RELATED TRADES WORKERS",
       "net_risk": 0.0161,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0717,
         "age_30_49": 0.2539,
@@ -7896,6 +8347,7 @@
       "major_group": "CRAFTSMEN AND RELATED TRADES WORKERS",
       "net_risk": 0.062,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0717,
         "age_30_49": 0.2539,
@@ -7913,6 +8365,7 @@
       "major_group": "CRAFTSMEN AND RELATED TRADES WORKERS",
       "net_risk": 0.0618,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0717,
         "age_30_49": 0.2539,
@@ -7930,6 +8383,7 @@
       "major_group": "CRAFTSMEN AND RELATED TRADES WORKERS",
       "net_risk": 0.059,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0717,
         "age_30_49": 0.2539,
@@ -7947,6 +8401,7 @@
       "major_group": "CRAFTSMEN AND RELATED TRADES WORKERS",
       "net_risk": 0.0091,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0717,
         "age_30_49": 0.2539,
@@ -7964,6 +8419,7 @@
       "major_group": "CRAFTSMEN AND RELATED TRADES WORKERS",
       "net_risk": 0.0496,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0717,
         "age_30_49": 0.2539,
@@ -7981,6 +8437,7 @@
       "major_group": "CRAFTSMEN AND RELATED TRADES WORKERS",
       "net_risk": 0.0289,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0717,
         "age_30_49": 0.2539,
@@ -7998,6 +8455,7 @@
       "major_group": "CRAFTSMEN AND RELATED TRADES WORKERS",
       "net_risk": 0.1,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0717,
         "age_30_49": 0.2539,
@@ -8015,6 +8473,7 @@
       "major_group": "CRAFTSMEN AND RELATED TRADES WORKERS",
       "net_risk": 0.0163,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0717,
         "age_30_49": 0.2539,
@@ -8032,6 +8491,7 @@
       "major_group": "CRAFTSMEN AND RELATED TRADES WORKERS",
       "net_risk": 0.0508,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0717,
         "age_30_49": 0.2539,
@@ -8049,6 +8509,7 @@
       "major_group": "CRAFTSMEN AND RELATED TRADES WORKERS",
       "net_risk": 0.0862,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0717,
         "age_30_49": 0.2539,
@@ -8066,6 +8527,7 @@
       "major_group": "CRAFTSMEN AND RELATED TRADES WORKERS",
       "net_risk": 0.0937,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0717,
         "age_30_49": 0.2539,
@@ -8083,6 +8545,7 @@
       "major_group": "CRAFTSMEN AND RELATED TRADES WORKERS",
       "net_risk": 0.1346,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0717,
         "age_30_49": 0.2539,
@@ -8100,6 +8563,7 @@
       "major_group": "CRAFTSMEN AND RELATED TRADES WORKERS",
       "net_risk": 0.0691,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0717,
         "age_30_49": 0.2539,
@@ -8117,6 +8581,7 @@
       "major_group": "CRAFTSMEN AND RELATED TRADES WORKERS",
       "net_risk": 0.1307,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0717,
         "age_30_49": 0.2539,
@@ -8134,6 +8599,7 @@
       "major_group": "CRAFTSMEN AND RELATED TRADES WORKERS",
       "net_risk": 0.0151,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0717,
         "age_30_49": 0.2539,
@@ -8151,6 +8617,7 @@
       "major_group": "CRAFTSMEN AND RELATED TRADES WORKERS",
       "net_risk": 0.3599,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0717,
         "age_30_49": 0.2539,
@@ -8168,6 +8635,7 @@
       "major_group": "CRAFTSMEN AND RELATED TRADES WORKERS",
       "net_risk": 0.0139,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0717,
         "age_30_49": 0.2539,
@@ -8185,6 +8653,7 @@
       "major_group": "CRAFTSMEN AND RELATED TRADES WORKERS",
       "net_risk": 0.0502,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0717,
         "age_30_49": 0.2539,
@@ -8202,6 +8671,7 @@
       "major_group": "CRAFTSMEN AND RELATED TRADES WORKERS",
       "net_risk": 0.0311,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0717,
         "age_30_49": 0.2539,
@@ -8219,6 +8689,7 @@
       "major_group": "CRAFTSMEN AND RELATED TRADES WORKERS",
       "net_risk": 0.0277,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0717,
         "age_30_49": 0.2539,
@@ -8236,6 +8707,7 @@
       "major_group": "CRAFTSMEN AND RELATED TRADES WORKERS",
       "net_risk": 0.0283,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0717,
         "age_30_49": 0.2539,
@@ -8253,6 +8725,7 @@
       "major_group": "CRAFTSMEN AND RELATED TRADES WORKERS",
       "net_risk": 0.0765,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0717,
         "age_30_49": 0.2539,
@@ -8270,6 +8743,7 @@
       "major_group": "CRAFTSMEN AND RELATED TRADES WORKERS",
       "net_risk": 0.0857,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0717,
         "age_30_49": 0.2539,
@@ -8287,6 +8761,7 @@
       "major_group": "CRAFTSMEN AND RELATED TRADES WORKERS",
       "net_risk": 0.018,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0717,
         "age_30_49": 0.2539,
@@ -8304,6 +8779,7 @@
       "major_group": "CRAFTSMEN AND RELATED TRADES WORKERS",
       "net_risk": 0.1293,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0717,
         "age_30_49": 0.2539,
@@ -8321,6 +8797,7 @@
       "major_group": "CRAFTSMEN AND RELATED TRADES WORKERS",
       "net_risk": 0.0557,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0717,
         "age_30_49": 0.2539,
@@ -8338,6 +8815,7 @@
       "major_group": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
       "net_risk": 0.0237,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0388,
         "age_30_49": 0.266,
@@ -8355,6 +8833,7 @@
       "major_group": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
       "net_risk": 0.0564,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0388,
         "age_30_49": 0.266,
@@ -8372,6 +8851,7 @@
       "major_group": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
       "net_risk": 0.0837,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0388,
         "age_30_49": 0.266,
@@ -8389,6 +8869,7 @@
       "major_group": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
       "net_risk": 0.0605,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0388,
         "age_30_49": 0.266,
@@ -8406,6 +8887,7 @@
       "major_group": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
       "net_risk": 0.0984,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0388,
         "age_30_49": 0.266,
@@ -8423,6 +8905,7 @@
       "major_group": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
       "net_risk": 0.0251,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0388,
         "age_30_49": 0.266,
@@ -8440,6 +8923,7 @@
       "major_group": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
       "net_risk": 0.0221,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0388,
         "age_30_49": 0.266,
@@ -8457,6 +8941,7 @@
       "major_group": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
       "net_risk": 0.0771,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0388,
         "age_30_49": 0.266,
@@ -8474,6 +8959,7 @@
       "major_group": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
       "net_risk": 0.0075,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0388,
         "age_30_49": 0.266,
@@ -8491,6 +8977,7 @@
       "major_group": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
       "net_risk": 0.1126,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0388,
         "age_30_49": 0.266,
@@ -8508,6 +8995,7 @@
       "major_group": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
       "net_risk": 0.1206,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0388,
         "age_30_49": 0.266,
@@ -8525,6 +9013,7 @@
       "major_group": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
       "net_risk": 0.0264,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0388,
         "age_30_49": 0.266,
@@ -8542,6 +9031,7 @@
       "major_group": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
       "net_risk": 0.0565,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0388,
         "age_30_49": 0.266,
@@ -8559,6 +9049,7 @@
       "major_group": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
       "net_risk": 0.1062,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0388,
         "age_30_49": 0.266,
@@ -8576,6 +9067,7 @@
       "major_group": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
       "net_risk": 0.1784,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0388,
         "age_30_49": 0.266,
@@ -8593,6 +9085,7 @@
       "major_group": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
       "net_risk": 0.1579,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0388,
         "age_30_49": 0.266,
@@ -8610,6 +9103,7 @@
       "major_group": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
       "net_risk": 0.0698,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0388,
         "age_30_49": 0.266,
@@ -8627,6 +9121,7 @@
       "major_group": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
       "net_risk": 0.0691,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0388,
         "age_30_49": 0.266,
@@ -8644,6 +9139,7 @@
       "major_group": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
       "net_risk": 0.0723,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0388,
         "age_30_49": 0.266,
@@ -8661,6 +9157,7 @@
       "major_group": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
       "net_risk": 0.0221,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0388,
         "age_30_49": 0.266,
@@ -8678,6 +9175,7 @@
       "major_group": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
       "net_risk": 0.1031,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0388,
         "age_30_49": 0.266,
@@ -8695,6 +9193,7 @@
       "major_group": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
       "net_risk": 0.0636,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0388,
         "age_30_49": 0.266,
@@ -8712,6 +9211,7 @@
       "major_group": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
       "net_risk": 0.0662,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0388,
         "age_30_49": 0.266,
@@ -8729,6 +9229,7 @@
       "major_group": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
       "net_risk": 0.007,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0388,
         "age_30_49": 0.266,
@@ -8746,6 +9247,7 @@
       "major_group": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
       "net_risk": 0.0773,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0388,
         "age_30_49": 0.266,
@@ -8763,6 +9265,7 @@
       "major_group": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
       "net_risk": 0.2691,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0388,
         "age_30_49": 0.266,
@@ -8780,6 +9283,7 @@
       "major_group": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
       "net_risk": 0.0782,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0388,
         "age_30_49": 0.266,
@@ -8797,6 +9301,7 @@
       "major_group": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
       "net_risk": 0.0237,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0388,
         "age_30_49": 0.266,
@@ -8814,6 +9319,7 @@
       "major_group": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
       "net_risk": 0.0243,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0388,
         "age_30_49": 0.266,
@@ -8831,6 +9337,7 @@
       "major_group": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
       "net_risk": 0.1007,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0388,
         "age_30_49": 0.266,
@@ -8848,6 +9355,7 @@
       "major_group": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
       "net_risk": 0.0308,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0388,
         "age_30_49": 0.266,
@@ -8865,6 +9373,7 @@
       "major_group": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
       "net_risk": 0.0639,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0388,
         "age_30_49": 0.266,
@@ -8882,6 +9391,7 @@
       "major_group": "PLANT AND MACHINE OPERATORS AND ASSEMBLERS",
       "net_risk": 0.1046,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.0388,
         "age_30_49": 0.266,
@@ -8899,6 +9409,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.0318,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -8916,6 +9427,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.1958,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -8933,6 +9445,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.1919,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -8950,6 +9463,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.0321,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -8967,6 +9481,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.1693,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -8984,6 +9499,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.1357,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -9001,6 +9517,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.0204,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -9018,6 +9535,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.0435,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -9035,6 +9553,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.3144,
       "risk_band": "high",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -9052,6 +9571,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.037,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -9069,6 +9589,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.0364,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -9086,6 +9607,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.1209,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -9103,6 +9625,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.0361,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -9120,6 +9643,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.1291,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -9137,6 +9661,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.0535,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -9154,6 +9679,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.0422,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -9171,6 +9697,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.05,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -9188,6 +9715,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.1617,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -9205,6 +9733,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.0282,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -9222,6 +9751,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.0278,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -9239,6 +9769,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.1366,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -9256,6 +9787,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.1466,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -9273,6 +9805,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.0286,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -9290,6 +9823,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.1165,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -9307,6 +9841,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.039,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -9324,6 +9859,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.0294,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -9341,6 +9877,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.1152,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -9358,6 +9895,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.0381,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -9375,6 +9913,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.0319,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -9392,6 +9931,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.0345,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -9409,6 +9949,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.1377,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -9426,6 +9967,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.2004,
       "risk_band": "moderate",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -9443,6 +9985,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.0299,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -9460,6 +10003,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.1322,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -9477,6 +10021,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.0353,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -9494,6 +10039,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.1321,
       "risk_band": "low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -9511,6 +10057,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.0281,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -9528,6 +10075,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.0323,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -9545,6 +10093,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.0327,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -9562,6 +10111,7 @@
       "major_group": "CLEANERS, LABOURERS AND RELATED WORKERS",
       "net_risk": 0.0492,
       "risk_band": "very_low",
+      "age_coverage": "known",
       "age_share": {
         "age_15_29": 0.052,
         "age_30_49": 0.1383,
@@ -9576,6 +10126,7 @@
   ],
   "caveats": [
     "Age shares are broad occupation-group anchors, not exact SSOC-level age distributions.",
+    "Occupation groups missing from worker-profile tables are reported as unknown instead of being filled with zeros.",
     "High attrition absorber does not mean low risk; it means retirements and non-replacement may absorb part of the adjustment.",
     "This sidecar is context only and is not folded into headline risk."
   ]

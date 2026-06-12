@@ -1176,13 +1176,18 @@ async function main() {
 				confidence_rating_medium_count?: number | null;
 				confidence_rating_low_count?: number | null;
 				confidence_rating_top_limiter?: string | null;
+				confidence_rating_top_limiter_count?: number | null;
 				scenario_family_count?: number | null;
 				scenario_base_avg_near_term_risk?: number | null;
 				scenario_fast_adoption_avg_near_term_risk?: number | null;
 				adoption_diffusion_headline_pct?: number | null;
 				adoption_diffusion_headcount_reduction_pct?: number | null;
 				adoption_diffusion_role_redesign_pct?: number | null;
+				adoption_diffusion_top_sector_label?: string | null;
+				adoption_diffusion_top_sector_pct?: number | null;
 				age_structure_high_attrition_absorber_count?: number | null;
+				age_structure_known_coverage_count?: number | null;
+				age_structure_unknown_coverage_count?: number | null;
 				age_structure_avg_age_50_plus_share?: number | null;
 				occupation_family_validation_rho?: number | null;
 				occupation_family_validation_family_count?: number | null;
@@ -1328,6 +1333,7 @@ async function main() {
 				headline_adoption_pct?: number;
 				headcount_reduction_among_adopters_pct?: number;
 				role_redesign_among_adopters_pct?: number;
+				top_sector?: { label: string; adoption_pct: number };
 			};
 		}>(ADOPTION_DIFFUSION_FILE);
 		const ageStructure = readJson<{
@@ -1335,9 +1341,17 @@ async function main() {
 			framing?: string;
 			summary?: {
 				high_attrition_absorber_count?: number;
-				avg_age_50_plus_share?: number;
+				known_coverage_count?: number;
+				unknown_coverage_count?: number;
+				avg_age_50_plus_share?: number | null;
 			};
-			entries?: Array<{ ssoc: string; attrition_absorber: 'high' | 'medium' | 'low' }>;
+			entries?: Array<{
+				ssoc: string;
+				major_group: string;
+				age_coverage: 'known' | 'unknown';
+				age_share: { age_50_plus: number } | null;
+				attrition_absorber: 'high' | 'medium' | 'low' | 'unknown';
+			}>;
 		}>(AGE_STRUCTURE_FILE);
 		const occupationFamilyValidation = readJson<{
 			family_count: number;
@@ -2687,13 +2701,16 @@ async function main() {
 					siteStatus?.live_monitor?.confidence_rating_low_count ===
 						(confidenceRatings?.summary?.counts?.low ?? null) &&
 					siteStatus?.live_monitor?.confidence_rating_top_limiter ===
-						(confidenceRatings?.summary?.top_limiting_factors?.[0]?.factor ?? null),
+						(confidenceRatings?.summary?.top_limiting_factors?.[0]?.factor ?? null) &&
+					siteStatus?.live_monitor?.confidence_rating_top_limiter_count ===
+						(confidenceRatings?.summary?.top_limiting_factors?.[0]?.count ?? null),
 				JSON.stringify({
 					siteStatus: {
 						high: siteStatus?.live_monitor?.confidence_rating_high_count,
 						medium: siteStatus?.live_monitor?.confidence_rating_medium_count,
 						low: siteStatus?.live_monitor?.confidence_rating_low_count,
-						limiter: siteStatus?.live_monitor?.confidence_rating_top_limiter
+						limiter: siteStatus?.live_monitor?.confidence_rating_top_limiter,
+						limiterCount: siteStatus?.live_monitor?.confidence_rating_top_limiter_count
 					},
 					artifact: confidenceRatings?.summary
 				})
@@ -2744,12 +2761,17 @@ async function main() {
 					siteStatus?.live_monitor?.adoption_diffusion_headcount_reduction_pct ===
 						(adoptionDiffusion?.summary?.headcount_reduction_among_adopters_pct ?? null) &&
 					siteStatus?.live_monitor?.adoption_diffusion_role_redesign_pct ===
-						(adoptionDiffusion?.summary?.role_redesign_among_adopters_pct ?? null),
+						(adoptionDiffusion?.summary?.role_redesign_among_adopters_pct ?? null) &&
+					siteStatus?.live_monitor?.adoption_diffusion_top_sector_label ===
+						(adoptionDiffusion?.summary?.top_sector?.label ?? null) &&
+					siteStatus?.live_monitor?.adoption_diffusion_top_sector_pct ===
+						(adoptionDiffusion?.summary?.top_sector?.adoption_pct ?? null),
 				JSON.stringify({
 					siteStatus: {
 						headline: siteStatus?.live_monitor?.adoption_diffusion_headline_pct,
 						headcount: siteStatus?.live_monitor?.adoption_diffusion_headcount_reduction_pct,
-						redesign: siteStatus?.live_monitor?.adoption_diffusion_role_redesign_pct
+						redesign: siteStatus?.live_monitor?.adoption_diffusion_role_redesign_pct,
+						topSector: siteStatus?.live_monitor?.adoption_diffusion_top_sector_label
 					},
 					artifact: adoptionDiffusion?.summary
 				})
@@ -2766,14 +2788,34 @@ async function main() {
 				}`
 			);
 			check(
+				'Age-structure missing source groups are explicit unknowns, not zero-filled',
+				(ageStructure?.entries ?? [])
+					.filter(entry => entry.age_coverage === 'unknown')
+					.every(entry => entry.age_share === null && entry.attrition_absorber === 'unknown') &&
+					(ageStructure?.summary?.unknown_coverage_count ?? 0) ===
+						(ageStructure?.entries ?? []).filter(entry => entry.age_coverage === 'unknown').length,
+				JSON.stringify({
+					unknownSummary: ageStructure?.summary?.unknown_coverage_count,
+					unknownRows: (ageStructure?.entries ?? []).filter(
+						entry => entry.age_coverage === 'unknown'
+					).length
+				})
+			);
+			check(
 				'Site status age-structure summary matches artifact',
 				siteStatus?.live_monitor?.age_structure_high_attrition_absorber_count ===
 					(ageStructure?.summary?.high_attrition_absorber_count ?? null) &&
+					siteStatus?.live_monitor?.age_structure_known_coverage_count ===
+						(ageStructure?.summary?.known_coverage_count ?? null) &&
+					siteStatus?.live_monitor?.age_structure_unknown_coverage_count ===
+						(ageStructure?.summary?.unknown_coverage_count ?? null) &&
 					siteStatus?.live_monitor?.age_structure_avg_age_50_plus_share ===
 						(ageStructure?.summary?.avg_age_50_plus_share ?? null),
 				JSON.stringify({
 					siteStatus: {
 						high: siteStatus?.live_monitor?.age_structure_high_attrition_absorber_count,
+						known: siteStatus?.live_monitor?.age_structure_known_coverage_count,
+						unknown: siteStatus?.live_monitor?.age_structure_unknown_coverage_count,
 						avg: siteStatus?.live_monitor?.age_structure_avg_age_50_plus_share
 					},
 					artifact: ageStructure?.summary
