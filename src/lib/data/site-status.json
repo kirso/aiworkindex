@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-11T10:50:05.451Z",
+  "updated_at": "2026-06-12T10:03:32.649Z",
   "structural_release": {
     "version": "V7",
     "label": "V7 structural release",
@@ -68,6 +68,10 @@
     "imf_top_half_high_to_low_ratio": 0.9,
     "forecast_horizon_status": "pending_sufficient_quarters",
     "forecast_horizon_post_baseline_quarters": 0,
+    "confidence_rating_high_count": 248,
+    "confidence_rating_medium_count": 142,
+    "confidence_rating_low_count": 172,
+    "confidence_rating_top_limiter": "Market Data Granularity",
     "occupation_family_validation_rho": -0.249,
     "occupation_family_validation_family_count": 29,
     "occupation_family_validation_significant": false,

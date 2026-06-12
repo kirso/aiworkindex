@@ -46,6 +46,7 @@ const FORECAST_HORIZON_FILE = path.join(
 	'backtests',
 	'forecast-horizon-validation.json'
 );
+const CONFIDENCE_RATINGS_FILE = path.join(STATIC_DATA_DIR, 'confidence-ratings.json');
 const OFFSET_POTENTIAL_FILE = path.join(STATIC_DATA_DIR, 'sg-offset-potential-v4.json');
 const EXPERIMENTAL_METHODOLOGY_FILE = path.join(
 	STATIC_DATA_DIR,
@@ -320,6 +321,12 @@ function buildSiteStatus() {
 		status?: string;
 		post_baseline_quarters_available?: number;
 	}>(FORECAST_HORIZON_FILE);
+	const confidenceRatings = readJson<{
+		summary?: {
+			counts?: { high?: number; medium?: number; low?: number };
+			top_limiting_factors?: Array<{ factor: string; count: number }>;
+		};
+	}>(CONFIDENCE_RATINGS_FILE);
 	const occupationFamilyValidation = readJson<{
 		family_count: number;
 		spearman_rho: number;
@@ -485,6 +492,11 @@ function buildSiteStatus() {
 			forecast_horizon_status: forecastHorizon?.status ?? null,
 			forecast_horizon_post_baseline_quarters:
 				forecastHorizon?.post_baseline_quarters_available ?? null,
+			confidence_rating_high_count: confidenceRatings?.summary?.counts?.high ?? null,
+			confidence_rating_medium_count: confidenceRatings?.summary?.counts?.medium ?? null,
+			confidence_rating_low_count: confidenceRatings?.summary?.counts?.low ?? null,
+			confidence_rating_top_limiter:
+				confidenceRatings?.summary?.top_limiting_factors?.[0]?.factor ?? null,
 			occupation_family_validation_rho: occupationFamilyValidation?.spearman_rho ?? null,
 			occupation_family_validation_family_count: occupationFamilyValidation?.family_count ?? null,
 			occupation_family_validation_significant:

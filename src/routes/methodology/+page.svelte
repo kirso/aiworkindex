@@ -10,6 +10,7 @@
 	import imfConvergence from '$lib/data/backtests/imf-convergence.json';
 	import forecastHorizonValidation from '$lib/data/backtests/forecast-horizon-validation.json';
 	import occupationFamilyValidation from '$lib/data/backtests/occupation-family-validation.json';
+	import confidenceRatings from '$lib/data/confidence-ratings.json';
 	import { dataSourceRegistry } from '$lib/data/data-contract';
 	import claimsMatrix from '$lib/data/claims-matrix.json';
 	import researchLibrary from '$lib/data/research-library.json';
@@ -63,6 +64,10 @@
 	const calibrationFallback = calibrationDiagnostics.segments.by_match_quality.all_fallback;
 	const calibrationHighMedium = calibrationDiagnostics.segments.by_confidence_level.high_or_medium;
 	const calibrationLow = calibrationDiagnostics.segments.by_confidence_level.low;
+	const topConfidenceLimiter = confidenceRatings.summary.top_limiting_factors[0] ?? {
+		factor: 'No single limiter',
+		count: 0
+	};
 
 	// V6 -> V7 score diff, computed from the retained per-occupation baseline.
 	const v6DiffStats = (() => {
@@ -1233,6 +1238,33 @@
 						This is a calibration check for mapping quality and confidence labels, not separate
 						Singapore outcome truth. Full results in
 						<code class="rounded bg-muted px-1">data/backtests/calibration-diagnostics.json</code>.
+					</p>
+				</div>
+
+				<div class={cn(card({ padding: 'sm' }), 'mt-3')}>
+					<h3 class="text-sm font-semibold text-foreground mb-2">
+						Confidence Ratings (evidence quality and agreement)
+					</h3>
+					<p class="text-sm text-muted-foreground">
+						Each occupation now carries an IPCC-style confidence sidecar derived from existing score
+						metadata: crosswalk quality, exposure-source coverage, source freshness, signal
+						agreement, sensitivity, and whether the uncertainty interval crosses a risk-band
+						boundary. The current distribution is
+						<strong>{confidenceRatings.summary.counts.high}</strong> high,
+						<strong>{confidenceRatings.summary.counts.medium}</strong> medium, and
+						<strong>{confidenceRatings.summary.counts.low}</strong> low confidence across
+						{confidenceRatings.occupation_count} occupations.
+					</p>
+					<p class="mt-3 text-sm text-muted-foreground">
+						The leading limiting factor is
+						<strong>{topConfidenceLimiter.factor}</strong>
+						({topConfidenceLimiter.count} occupations). Policy-capped occupations cannot be labeled high
+						confidence, even when the numeric confidence score is near the high threshold.
+					</p>
+					<p class="mt-3 text-xs text-muted-foreground italic">
+						Confidence is an evidence-quality label, not a score input and not a probability that
+						the risk estimate is correct. Full results in
+						<code class="rounded bg-muted px-1">data/confidence-ratings.json</code>.
 					</p>
 				</div>
 

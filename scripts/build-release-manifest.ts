@@ -389,6 +389,13 @@ const ARTIFACTS: ReleaseArtifactDefinition[] = [
 		category: 'governance',
 		description:
 			'Robustness evidence for the hand-set V7 constants: one-at-a-time and joint Monte-Carlo perturbations with rank-stability, band-flip, and top-list overlap metrics against the baseline ranking.'
+	},
+	{
+		file: 'confidence-ratings.json',
+		label: 'Occupation confidence ratings',
+		category: 'governance',
+		description:
+			'IPCC-style confidence sidecar translating score confidence components into evidence-quality and signal-agreement ratings for every occupation.'
 	}
 ];
 

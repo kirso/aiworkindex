@@ -116,6 +116,14 @@ const FORECAST_HORIZON_FILE = path.join(
 	'backtests',
 	'forecast-horizon-validation.json'
 );
+const CONFIDENCE_RATINGS_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'confidence-ratings.json'
+);
 const OCCUPATION_FAMILY_VALIDATION_FILE = path.join(
 	import.meta.dir,
 	'..',
@@ -1140,6 +1148,10 @@ async function main() {
 				imf_top_half_high_to_low_ratio?: number | null;
 				forecast_horizon_status?: string | null;
 				forecast_horizon_post_baseline_quarters?: number | null;
+				confidence_rating_high_count?: number | null;
+				confidence_rating_medium_count?: number | null;
+				confidence_rating_low_count?: number | null;
+				confidence_rating_top_limiter?: string | null;
 				occupation_family_validation_rho?: number | null;
 				occupation_family_validation_family_count?: number | null;
 				occupation_family_validation_significant?: boolean | null;
@@ -1254,6 +1266,18 @@ async function main() {
 			post_baseline_quarters_available?: number;
 			protocol?: { naive_benchmark?: string; promotion_gate?: string };
 		}>(FORECAST_HORIZON_FILE);
+		const confidenceRatings = readJson<{
+			occupation_count?: number;
+			summary?: {
+				counts?: { high?: number; medium?: number; low?: number };
+				top_limiting_factors?: Array<{ factor: string; count: number }>;
+			};
+			entries?: Array<{
+				ssoc: string;
+				confidence_rating: 'high' | 'medium' | 'low';
+				policy_cap_reason: string | null;
+			}>;
+		}>(CONFIDENCE_RATINGS_FILE);
 		const occupationFamilyValidation = readJson<{
 			family_count: number;
 			spearman_rho: number;
@@ -1725,6 +1749,9 @@ async function main() {
 				) &&
 				(releaseManifest?.artifacts ?? []).some(
 					artifact => artifact.file === 'backtests/forecast-horizon-validation.json'
+				) &&
+				(releaseManifest?.artifacts ?? []).some(
+					artifact => artifact.file === 'confidence-ratings.json'
 				) &&
 				(releaseManifest?.artifacts ?? []).some(
 					artifact => artifact.file === 'forecast-readiness-v7.json'
@@ -2551,6 +2578,54 @@ async function main() {
 						status: forecastHorizon?.status,
 						quarters: forecastHorizon?.post_baseline_quarters_available
 					}
+				})
+			);
+			check('Confidence ratings artifact exists', confidenceRatings !== null);
+			check(
+				'Confidence ratings cover every occupation exactly once',
+				confidenceRatings?.occupation_count === data.length &&
+					(confidenceRatings?.entries ?? []).length === data.length &&
+					new Set((confidenceRatings?.entries ?? []).map(entry => entry.ssoc)).size === data.length,
+				`${confidenceRatings?.occupation_count} / ${
+					(confidenceRatings?.entries ?? []).length
+				} vs ${data.length}`
+			);
+			check(
+				'Confidence ratings include high, medium, and low evidence classes',
+				(confidenceRatings?.summary?.counts?.high ?? 0) > 0 &&
+					(confidenceRatings?.summary?.counts?.medium ?? 0) > 0 &&
+					(confidenceRatings?.summary?.counts?.low ?? 0) > 0,
+				JSON.stringify(confidenceRatings?.summary?.counts)
+			);
+			check(
+				'Policy-capped occupations are not labeled high confidence',
+				(confidenceRatings?.entries ?? []).every(
+					entry => !entry.policy_cap_reason || entry.confidence_rating !== 'high'
+				),
+				JSON.stringify(
+					(confidenceRatings?.entries ?? [])
+						.filter(entry => entry.policy_cap_reason && entry.confidence_rating === 'high')
+						.slice(0, 5)
+				)
+			);
+			check(
+				'Site status confidence summary matches artifact',
+				siteStatus?.live_monitor?.confidence_rating_high_count ===
+					(confidenceRatings?.summary?.counts?.high ?? null) &&
+					siteStatus?.live_monitor?.confidence_rating_medium_count ===
+						(confidenceRatings?.summary?.counts?.medium ?? null) &&
+					siteStatus?.live_monitor?.confidence_rating_low_count ===
+						(confidenceRatings?.summary?.counts?.low ?? null) &&
+					siteStatus?.live_monitor?.confidence_rating_top_limiter ===
+						(confidenceRatings?.summary?.top_limiting_factors?.[0]?.factor ?? null),
+				JSON.stringify({
+					siteStatus: {
+						high: siteStatus?.live_monitor?.confidence_rating_high_count,
+						medium: siteStatus?.live_monitor?.confidence_rating_medium_count,
+						low: siteStatus?.live_monitor?.confidence_rating_low_count,
+						limiter: siteStatus?.live_monitor?.confidence_rating_top_limiter
+					},
+					artifact: confidenceRatings?.summary
 				})
 			);
 			check('IMF convergence artifact exists', imfConvergence !== null);
