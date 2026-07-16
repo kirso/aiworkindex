@@ -20,17 +20,17 @@ export interface PublicationGate {
 export interface CountryLaunchProfile {
 	code: 'sg' | 'us' | 'uk' | 'ca';
 	title: string;
-	readiness: 'live' | 'ready' | 'research';
+	readiness: 'live' | 'ready' | 'research' | 'withdrawn';
 	primary_sources: string[];
 	method_notes: string[];
 }
 
 export const globalMethodology = {
-	title: 'Global structural methodology',
+	title: 'Global research context and country publication gates',
 	summary:
-		'AI Work Index separates the global structural effect of AI on work from the local labor-market effect of that work in each country. Country headline risk only publishes when local evidence is sufficiently strong; otherwise the page stays on the structural baseline.',
-	structuralFormula: 'structural_pressure = exposure × (1 - bottleneck)',
-	localFormula: 'headline_risk = structural_pressure × (1 - country_demand_resilience)',
+		'Cross-country research informs interpretation, but V8 publishes scores only inside a validated local reference market. There is no current global occupation score.',
+	structuralFormula: 'research signals ≠ a global scored market',
+	localFormula: 'publish only after local denominator, coverage, provenance and outcome-validation gates pass',
 	publicationRules: {
 		minimumMappingCoverage: 0.8,
 		maximumFallbackShare: 0.2,
@@ -131,7 +131,7 @@ export const globalMethodology = {
 		{
 			code: 'us',
 			title: 'United States',
-			readiness: 'ready',
+			readiness: 'withdrawn',
 			primary_sources: [
 				'BLS OEWS',
 				'BLS ORS',
@@ -143,7 +143,7 @@ export const globalMethodology = {
 			],
 			method_notes: [
 				'Strong structural compatibility and deep public labor data across wages, requirements, skills, demographics, and narrative context.',
-				'The country layer resolves detailed BLS occupations onto the shared ISCO-08 spine and can publish a richer evidence stack than most markets.'
+				'The prior score surface is withdrawn until independent mapping units, local score semantics and validation gates are documented and passed.'
 			]
 		},
 		{

@@ -46,7 +46,7 @@
 		index?: number;
 		/** Tailwind text color class for the index number (e.g. 'text-risk-very-high') */
 		indexColor?: string;
-		/** Override the right-side label in compact mode (default: risk %) */
+		/** Override the right-side label in compact mode (default: AI Exposure Rank) */
 		rightLabel?: string;
 		/** Tailwind text color class for the right-side label */
 		rightColor?: string;
@@ -71,7 +71,7 @@
 		{/if}
 		<span class="flex-1 truncate text-foreground">{occupation.title}</span>
 		<span class={cn('shrink-0 font-mono', rightColor ?? 'text-muted-foreground')}>
-			{rightLabel ?? `${((occupation.net_risk ?? 0) * 100).toFixed(0)}%`}
+			{rightLabel ?? `${((occupation.net_risk ?? 0) * 100).toFixed(0)}/100`}
 		</span>
 	</a>
 {:else if mode === 'inset'}
@@ -95,7 +95,7 @@
 			</div>
 		{:else}
 			<div class={cn(caption(), 'mt-1 flex items-center gap-2')}>
-				<span>{((occupation.net_risk ?? 0) * 100).toFixed(0)}% risk</span>
+				<span>AI Exposure Rank {((occupation.net_risk ?? 0) * 100).toFixed(0)}/100</span>
 				{#if occupation.gross_wage_median}
 					<span>·</span>
 					<span
@@ -131,7 +131,7 @@
 				{riskBandLabels[occupation.risk_band ?? 'moderate']}
 			</span>
 			<span class={cn(mono({ size: 'sm' }), 'text-muted-foreground')}>
-				Risk: {((occupation.net_risk ?? 0) * 100).toFixed(0)}%
+				Exposure: {((occupation.net_risk ?? 0) * 100).toFixed(0)}/100
 			</span>
 		</div>
 	</a>

@@ -22,20 +22,20 @@
 		},
 		{
 			key: 'net_risk',
-			label: 'Net Risk',
-			format: (occ: Occupation) => `${(occ.net_risk * 100).toFixed(1)}%`,
+			label: 'AI Exposure Rank',
+			format: (occ: Occupation) => `${(occ.net_risk * 100).toFixed(0)}/100`,
 			align: 'right' as const
 		},
 		{
 			key: 'exposure',
 			label: 'Exposure',
-			format: (occ: Occupation) => `${(occ.exposure * 100).toFixed(0)}%`,
+			format: (occ: Occupation) => `${(occ.exposure * 100).toFixed(0)}/100`,
 			align: 'right' as const
 		},
 		{
 			key: 'bottleneck',
-			label: 'Bottleneck',
-			format: (occ: Occupation) => `${(occ.bottleneck * 100).toFixed(0)}%`,
+			label: 'Human Advantage',
+			format: (occ: Occupation) => `${(occ.bottleneck * 100).toFixed(0)}/100`,
 			align: 'right' as const
 		}
 	];
@@ -43,7 +43,7 @@
 	let itemListJsonLd = $derived(
 		buildItemListJsonLd(
 			'Safest High-Paying Jobs',
-			'Top 25 occupations with low AI displacement risk and above-median wages',
+			'Top 25 occupations with lower AI Exposure Ranks and above-median wages',
 			data.ranked
 		)
 	);
@@ -52,10 +52,10 @@
 		{
 			question: 'What are the safest high-paying jobs from AI?',
 			answer:
-				'Occupations with low AI displacement risk and above-median wages combine structural safety with strong earnings. These typically involve high coordination, physical presence, or regulatory complexity.'
+				'These occupations combine lower relative AI exposure ranks with above-median wages. Lower exposure does not guarantee job security or future demand.'
 		},
 		{
-			question: 'Can you earn well in jobs with low AI risk?',
+			question: 'Which well-paid jobs currently have lower AI Exposure Ranks?',
 			answer:
 				'Yes. Many occupations in healthcare, engineering, and senior management have both low displacement pressure and wages well above the national median.'
 		}
@@ -65,13 +65,13 @@
 </script>
 
 <Seo
-	title="25 Highest-Paying Jobs With Low AI Pressure"
-	description="Which high-paying occupations have the lowest AI displacement pressure? 25 roles with low structural risk and above-median wages."
+	title="25 High-Paying Jobs With Lower AI Exposure"
+	description="Which high-paying occupations have lower relative AI exposure? Explore 25 roles with lower exposure ranks and above-median wages."
 	path="/rankings/safest-high-paying"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
 
-<main class={pageLayout({ width: 'content' })}>
+<main class={pageLayout({ width: 'feature' })}>
 	<PageBreadcrumb
 		items={[
 			{ label: 'Home', href: '/' },
@@ -82,7 +82,8 @@
 
 	<h1 class={titleStyle({ size: 'page' })}>Safest High-Paying Jobs</h1>
 	<p class="mt-2 text-sm text-muted-foreground">
-		Low displacement risk (&lt;15%) with above-median wages.
+		Lower relative V8 score (legacy filter alias &lt; 0.15) with above-median wages; not a safety
+		guarantee.
 	</p>
 
 	<section class="mt-6">

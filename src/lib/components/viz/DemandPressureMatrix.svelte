@@ -28,7 +28,7 @@
 		occupations,
 		surfaceLabel = 'selected surface',
 		xAccessor = 'net_risk',
-		xAxisLabel = 'Structural AI Pressure',
+		xAxisLabel = 'AI Exposure Rank',
 		yAxisLabel = 'Demand Signal Strength',
 		quadrantLabels = [
 			{ label: 'Low risk, high demand', x: 0.1, y: 0.85 },
@@ -149,7 +149,7 @@
 			{height}
 			class="block"
 			role="img"
-			aria-label="{surfaceLabel} demand vs pressure matrix for {occupations.length} occupations"
+			aria-label="{surfaceLabel} demand vs AI exposure matrix for {occupations.length} occupations"
 		>
 			<g transform="translate({margin.left},{margin.top})">
 				<!-- Quadrant fills -->

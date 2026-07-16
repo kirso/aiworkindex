@@ -74,8 +74,8 @@
 		},
 		{
 			key: 'net_risk',
-			label: 'Net Risk',
-			format: (occ: Occupation) => `${(occ.net_risk * 100).toFixed(1)}%`,
+			label: 'AI Exposure Rank',
+			format: (occ: Occupation) => `${(occ.net_risk * 100).toFixed(0)}/100`,
 			align: 'right' as const
 		}
 	];
@@ -93,7 +93,7 @@
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
 
-<main class={pageLayout({ width: 'content' })}>
+<main class={pageLayout({ width: 'feature' })}>
 	<PageBreadcrumb
 		items={[
 			{ label: 'Home', href: '/' },

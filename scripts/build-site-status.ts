@@ -76,6 +76,20 @@ const LATEST_OFFICIAL_LABOUR_REPORT = {
 
 const STRUCTURAL_VERSION_HISTORY = [
 	{
+		id: 'public-v8-2026-07-15',
+		version_label: 'V8',
+		label: 'V8 truthful AI exposure release',
+		published_at: '2026-07-15',
+		display_date: '15 Jul 2026',
+		availability: 'current_download',
+		href: '/data',
+		notes: [
+			'Introduces a clean relative 0-100 Singapore AI exposure contract with substitution, augmentation, pathway, confidence and sensitivity fields.',
+			'Demand, adoption, attrition, entry-level and transition economics are reported separately from the headline score.',
+			'United States and global occupation scores are withdrawn until local validation gates pass.'
+		]
+	},
+	{
 		id: 'structural-v7-2026-04-07',
 		version_label: 'V7',
 		label: 'V7 structural release',
@@ -422,11 +436,11 @@ function buildSiteStatus() {
 	return {
 		updated_at: new Date().toISOString(),
 		structural_release: {
-			version: DATA_VINTAGE.model_version,
-			label: `${DATA_VINTAGE.model_version} structural release`,
-			generated_at: `${DATA_VINTAGE.last_updated}T00:00:00.000Z`,
-			score_dataset_generated_at: DATA_VINTAGE.last_updated,
-			release_manifest: `release-manifest-${DATA_VINTAGE.model_version.toLowerCase().replaceAll('.', '')}.json`
+			version: DATA_VINTAGE.public_version,
+			label: `${DATA_VINTAGE.public_version} truthful AI exposure release`,
+			generated_at: new Date().toISOString(),
+			score_dataset_generated_at: new Date().toISOString().slice(0, 10),
+			release_manifest: `release-manifest-${DATA_VINTAGE.public_version.toLowerCase()}.json`
 		},
 		experimental_release: experimentalMethodology
 			? {
@@ -552,50 +566,11 @@ function buildSiteStatus() {
 			).length
 		},
 		homepage_banner: {
-			tag:
-				DATA_VINTAGE.model_version === 'V7' ||
-				DATA_VINTAGE.model_version === 'V6' ||
-				DATA_VINTAGE.model_version === 'V5' ||
-				DATA_VINTAGE.model_version === 'V4.3'
-					? 'Live now'
-					: 'Update',
-			title:
-				DATA_VINTAGE.model_version === 'V7'
-					? 'V7 is live across the app, downloads, and release surfaces'
-					: DATA_VINTAGE.model_version === 'V6'
-						? 'V6 is live across the app, downloads, and release surfaces'
-						: DATA_VINTAGE.model_version === 'V5' && v5ExperimentalValidation
-							? 'V5 is live with richer structural science and published short-run layers'
-							: DATA_VINTAGE.model_version === 'V4.3' && v5ExperimentalValidation
-								? 'V4.3 is live and the V5 experimental model is now published'
-								: 'MOM Labour Market Report Q4 2025 is now live in the monitor',
-			body:
-				DATA_VINTAGE.model_version === 'V7'
-					? 'V7 is now the live structural release. Task-concentration exposure, demand persistence, downloadable files, methodology artifacts, and SEO/LLM surfaces are aligned to the same release contract.'
-					: DATA_VINTAGE.model_version === 'V6'
-						? 'V6 is now the live structural release. The canonical app dataset, downloadable files, methodology artifacts, and report surfaces are aligned to the same release contract.'
-						: DATA_VINTAGE.model_version === 'V5' && v5ExperimentalValidation
-							? `V5 is live. Transition-adjusted and realized-risk layers are now published separately.`
-							: DATA_VINTAGE.model_version === 'V4.3' && v5ExperimentalValidation
-								? `Task-adjusted exposure is now live in the structural score. The V5 candidate currently clears ${v5StructuralPasses}/2 structural checks and ${v5RealizedPasses}/${v5RealizedScorableChecks} scorable short-run checks while remaining experimental only.`
-								: DATA_VINTAGE.model_version === 'V4.3'
-									? `Structural score is now ${DATA_VINTAGE.model_version}, with task-adjusted exposure live where weighted task evidence is strong. The labour monitor continues to run on ${DATA_VINTAGE.labour_monitor}, with explicit Q3 → Q4 deltas across the Singapore labour layer.`
-									: `Structural score remains ${DATA_VINTAGE.model_version}. The live labour monitor now runs on ${DATA_VINTAGE.labour_monitor}, with explicit Q3 → Q4 deltas across the Singapore labour layer.`,
-			link_href:
-				(DATA_VINTAGE.model_version === 'V5' || DATA_VINTAGE.model_version === 'V4.3') &&
-				v5ExperimentalValidation
-					? '/reports/v5-experimental'
-					: '/reports',
-			link_label:
-				DATA_VINTAGE.model_version === 'V7'
-					? 'Review release surfaces'
-					: DATA_VINTAGE.model_version === 'V6'
-						? 'Review release surfaces'
-						: DATA_VINTAGE.model_version === 'V5' && v5ExperimentalValidation
-							? 'V5 note'
-							: DATA_VINTAGE.model_version === 'V4.3' && v5ExperimentalValidation
-								? 'Review V5 experimental'
-								: 'See report updates'
+			tag: 'Live now',
+			title: 'V8 is live with a truthful relative AI exposure contract',
+			body: 'Scores are now relative 0–100 ranks, not probabilities. Economics is reported separately, and only Singapore remains a live scored market.',
+			link_href: '/methodology',
+			link_label: 'Read the V8 methodology'
 		}
 	};
 }

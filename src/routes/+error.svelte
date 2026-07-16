@@ -25,6 +25,6 @@
 		<a href="/rankings" class={linkPill()}>Rankings →</a>
 	</div>
 	<p class="mt-10 border-t border-border pt-4 font-mono text-xs text-muted-foreground">
-		AI displacement risk scores, not predictions.
+		AI exposure ranks, not job-loss probabilities.
 	</p>
 </main>

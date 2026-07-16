@@ -23,8 +23,8 @@
 		},
 		{
 			key: 'net_risk',
-			label: 'Net Risk',
-			format: (occ: Occupation) => `${(occ.net_risk * 100).toFixed(1)}%`,
+			label: 'AI Exposure Rank',
+			format: (occ: Occupation) => `${(occ.net_risk * 100).toFixed(0)}/100`,
 			align: 'right' as const
 		},
 		{
@@ -57,7 +57,7 @@
 		{
 			question: 'Can a job be high AI exposure but still in demand?',
 			answer:
-				'Yes. Some occupations have significant AI task overlap but remain on the Shortage Occupation List or Jobs in Demand list, suggesting market demand outpaces automation pressure.'
+				'Yes. Some occupations have higher AI exposure but remain on the Shortage Occupation List or Jobs in Demand list. Demand can support employment while AI changes workflows.'
 		},
 		{
 			question: 'Why are some AI-exposed jobs still hiring?',
@@ -76,7 +76,7 @@
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
 
-<main class={pageLayout({ width: 'content' })}>
+<main class={pageLayout({ width: 'feature' })}>
 	<PageBreadcrumb
 		items={[
 			{ label: 'Home', href: '/' },
@@ -87,8 +87,8 @@
 
 	<h1 class={titleStyle({ size: 'page' })}>High Exposure + In Demand</h1>
 	<p class="mt-2 text-sm text-muted-foreground">
-		Significant AI task overlap (&gt;50% exposure) yet still on official shortage or in-demand
-		lists.
+		Higher AI exposure signal (legacy exposure filter &gt; 0.50) yet still on official shortage or
+		in-demand lists.
 	</p>
 
 	<section class="mt-6">

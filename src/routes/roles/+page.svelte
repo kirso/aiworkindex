@@ -152,9 +152,9 @@
 	let searchResultCount = $derived(searchFilteredRoles.length + searchFilteredOccupations.length);
 
 	// --- SEO ---
-	let pageTitle = $derived(`All Jobs & Roles \u2014 Structural AI Risk | ${SITE.name}`);
+	let pageTitle = $derived(`AI Job Exposure by Occupation and Role | ${SITE.name}`);
 	let pageDescription = $derived(
-		`Browse ${occCount} official occupations and ${roleCount} modern roles scored for AI displacement risk. Search, filter, and sort by risk, exposure, or wage.`
+		`Browse ${occCount} official occupations and ${roleCount} estimated modern roles ranked by relative AI exposure.`
 	);
 
 	let itemListJsonLd = $derived(
@@ -162,7 +162,7 @@
 			'@context': 'https://schema.org',
 			'@type': 'ItemList',
 			name: 'AI Work Index Jobs & Roles',
-			description: `${totalCount} occupations and modern roles scored for structural AI pressure`,
+			description: `${totalCount} occupations and modern roles ranked by relative AI exposure`,
 			numberOfItems: totalCount,
 			itemListElement: [
 				...(data.scoredRoles as ScoredRole[]).slice(0, 5).map((r, i) => ({
@@ -186,13 +186,14 @@
 
 {@html itemListJsonLd}
 
-<main class={pageLayout({ width: 'content' })}>
+<main class={pageLayout({ width: 'data' })}>
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'All Jobs & Roles' }]} />
 
 	<div class="mb-6">
 		<h1 class={titleStyle({ size: 'page' })}>All Jobs & Roles</h1>
 		<p class={cn(caption(), 'mt-1')}>
-			{occCount} official occupations and {roleCount} modern roles, all scored for AI displacement risk.
+			{occCount} official occupations and {roleCount} estimated modern roles ranked by how exposed their
+			work is to current AI capabilities.
 		</p>
 	</div>
 
@@ -272,7 +273,7 @@
 											{role.title}
 										</h4>
 										<span class={cn(riskBadge({ band: role.risk_band }), 'shrink-0 text-xs')}>
-											{(role.net_risk * 100).toFixed(0)}%
+											{(role.net_risk * 100).toFixed(0)}/100
 										</span>
 									</div>
 									<p class="text-xs text-muted-foreground line-clamp-2 mb-2">
@@ -392,8 +393,8 @@
 		{#if occViewMode === 'table'}
 			<!-- Sortable table -->
 			<div class={card({ padding: 'none' })}>
-				<div class="overflow-x-auto">
-					<table class="w-full text-sm">
+				<div class="overflow-x-auto" role="region" aria-label="All Singapore occupations">
+					<table class="w-full min-w-[960px] text-sm">
 						<thead>
 							<tr class="border-b text-left text-xs text-muted-foreground">
 								<th scope="col" class="w-8 px-3 py-2.5 font-medium">#</th>
@@ -410,7 +411,7 @@
 										class="hover:text-foreground transition-colors"
 										onclick={() => toggleSort('net_risk')}
 									>
-										Net Risk{sortIndicator('net_risk')}
+										AI Exposure Rank{sortIndicator('net_risk')}
 									</button>
 								</th>
 								<th scope="col" class="px-3 py-2.5 font-medium text-right whitespace-nowrap">
@@ -418,7 +419,7 @@
 										class="hover:text-foreground transition-colors"
 										onclick={() => toggleSort('exposure')}
 									>
-										Exposure{sortIndicator('exposure')}
+										Exposure index{sortIndicator('exposure')}
 									</button>
 								</th>
 								<th scope="col" class="px-3 py-2.5 font-medium text-right whitespace-nowrap">
@@ -426,7 +427,7 @@
 										class="hover:text-foreground transition-colors"
 										onclick={() => toggleSort('bottleneck')}
 									>
-										Bottleneck{sortIndicator('bottleneck')}
+										Human advantage{sortIndicator('bottleneck')}
 									</button>
 								</th>
 								<th scope="col" class="px-3 py-2.5 font-medium text-right whitespace-nowrap">
@@ -437,8 +438,8 @@
 										Wage{sortIndicator('wage')}
 									</button>
 								</th>
-								<th scope="col" class="px-3 py-2.5 font-medium">Risk</th>
-								<th scope="col" class="px-3 py-2.5 font-medium">Impact</th>
+								<th scope="col" class="px-3 py-2.5 font-medium">Exposure</th>
+								<th scope="col" class="px-3 py-2.5 font-medium">Likely impact</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -470,17 +471,17 @@
 									<td
 										class="px-3 py-2 text-right font-mono tabular-nums text-xs text-text-secondary"
 									>
-										{(occ.net_risk * 100).toFixed(0)}%
+										{(occ.net_risk * 100).toFixed(0)}/100
 									</td>
 									<td
 										class="px-3 py-2 text-right font-mono tabular-nums text-xs text-text-secondary"
 									>
-										{(occ.exposure * 100).toFixed(0)}%
+										{(occ.exposure * 100).toFixed(0)}/100
 									</td>
 									<td
 										class="px-3 py-2 text-right font-mono tabular-nums text-xs text-text-secondary"
 									>
-										{(occ.bottleneck * 100).toFixed(0)}%
+										{(occ.bottleneck * 100).toFixed(0)}/100
 									</td>
 									<td
 										class="px-3 py-2 text-right font-mono tabular-nums text-xs text-text-secondary"
@@ -513,23 +514,23 @@
 			</div>
 		{:else}
 			<!-- Card grid -->
-			<div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+			<div class="grid min-w-0 gap-3 sm:grid-cols-2 lg:grid-cols-3">
 				{#each filteredOccupations as occ (occ.ssoc)}
 					<a
 						href="/occupation/{occ.ssoc}"
-						class={cn(card({ padding: 'sm', hover: true }), 'group block')}
+						class={cn(card({ padding: 'sm', hover: true }), 'group block min-w-0 w-full')}
 					>
 						<div class="flex items-start justify-between gap-2 mb-1.5">
 							<h3
-								class="text-sm font-semibold text-foreground group-hover:text-primary transition-colors leading-tight"
+								class="min-w-0 break-words text-sm font-semibold text-foreground group-hover:text-primary transition-colors leading-tight"
 							>
 								{occ.title}
 							</h3>
 							<span class={cn(riskBadge({ band: occ.risk_band }), 'shrink-0 text-xs')}>
-								{(occ.net_risk * 100).toFixed(0)}%
+								{(occ.net_risk * 100).toFixed(0)}/100
 							</span>
 						</div>
-						<p class="text-xs text-muted-foreground mb-2">
+						<p class="break-words text-xs text-muted-foreground mb-2">
 							{occ.major_group}
 							{#if occ.gross_wage_median}
 								&middot; SGD {occ.gross_wage_median.toLocaleString()}/mo

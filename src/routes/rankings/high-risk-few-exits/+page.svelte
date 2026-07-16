@@ -16,7 +16,7 @@
 		`<script type="application/ld+json">${JSON.stringify({
 			'@context': 'https://schema.org',
 			'@type': 'ItemList',
-			name: 'High AI Risk, Few Exit Paths',
+			name: 'High AI Exposure, Fewer Career Moves',
 			description:
 				'Occupations facing high AI displacement pressure where even the best adjacent career move is a stretch',
 			numberOfItems: data.quadrant.length,
@@ -31,14 +31,14 @@
 
 	const faqItems = [
 		{
-			question: 'Why do exit paths matter as much as AI risk itself?',
+			question: 'Why do exit paths matter alongside an AI Exposure Rank?',
 			answer:
-				'Occupational mobility research (del Rio-Chanona et al. 2021; IMF 2024) finds that whether displacement pressure turns into unemployment or smooth reallocation depends on the transition network around an occupation — two occupations with the same risk score can have very different outcomes depending on their escape routes.'
+				'Occupations with similar AI Exposure Ranks can have different outcomes because demand, transferable skills, training access and viable destination jobs differ. The transition layer is contextual, not a probability of successful reallocation.'
 		},
 		{
 			question: 'What counts as "few exits"?',
 			answer:
-				'An occupation lands here when its single best risk-reducing transition falls in the weakest quarter of exit scores among all high-risk occupations. Lateral or higher-risk moves never count as exits, however similar the work. The transition score combines archetype similarity, skill overlap, wage preservation, demand strength, and risk improvement.'
+				'An occupation lands here when its single best exposure-reducing transition falls in the weakest quarter of exit scores among all high-exposure occupations. Lateral or higher-risk moves never count as exits, however similar the work. The transition score combines archetype similarity, skill overlap, wage preservation, demand strength, and risk improvement.'
 		}
 	];
 
@@ -46,18 +46,18 @@
 </script>
 
 <Seo
-	title="High AI Risk, Few Exit Paths"
+	title="High AI Exposure, Fewer Career Moves"
 	description="The structurally vulnerable quadrant: occupations with high AI displacement pressure where even the best adjacent career move is a stretch."
 	path="/rankings/high-risk-few-exits"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
 
-<main class={pageLayout({ width: 'content' })}>
+<main class={pageLayout({ width: 'feature' })}>
 	<PageBreadcrumb
 		items={[
 			{ label: 'Home', href: '/' },
 			{ label: 'Rankings', href: '/rankings' },
-			{ label: 'High Risk, Few Exits' }
+			{ label: 'High Exposure, Fewer Career Moves' }
 		]}
 	/>
 
@@ -66,10 +66,10 @@
 		Mobility research finds that displacement pressure only becomes hardship when workers lack
 		credible adjacent moves (del Rio-Chanona et al. 2021; IMF 2024). Of {data.highRiskCount} occupations
 		above the displacement threshold, these {data.quadrant.length} have the weakest exit options: their
-		<em>best risk-reducing</em>
+		<em>best exposure-reducing</em>
 		transition falls in the bottom quarter of exit scores within the high-risk cohort (&le;{(
 			data.threshold * 100
-		).toFixed(0)}% match). For high-risk occupations with strong escape routes, see
+		).toFixed(0)}% match). For high-exposure occupations with strong escape routes, see
 		<a href="/rankings/best-transitions" class="text-primary hover:underline">Best Transitions</a>.
 	</p>
 
@@ -87,11 +87,11 @@
 						<span class="ml-2 text-xs text-muted-foreground">SSOC {from.ssoc}</span>
 					</div>
 					<span class={cn(riskBadge({ band: from.risk_band }), 'text-xs')}>
-						{(from.net_risk * 100).toFixed(0)}% risk
+						{(from.net_risk * 100).toFixed(0)}/100 score
 					</span>
 				</div>
 				{#if targets.length > 0}
-					<p class="mt-2 text-xs text-muted-foreground">Best risk-reducing options:</p>
+					<p class="mt-2 text-xs text-muted-foreground">Best exposure-reducing options:</p>
 					<div class="mt-2 grid gap-2 sm:grid-cols-3">
 						{#each targets as t (t.to_ssoc)}
 							<a
@@ -118,7 +118,7 @@
 					</div>
 				{:else}
 					<p class="mt-2 text-xs text-muted-foreground italic">
-						No risk-reducing transition paths found.
+						No exposure-reducing transition paths found.
 					</p>
 				{/if}
 			</div>

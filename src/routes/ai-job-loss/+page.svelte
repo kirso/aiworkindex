@@ -15,20 +15,20 @@
 	const columns = [
 		{
 			key: 'net_risk',
-			label: 'Net Risk',
-			format: (occ: Occupation) => `${(occ.net_risk * 100).toFixed(1)}%`,
+			label: 'AI Exposure Rank',
+			format: (occ: Occupation) => `${(occ.net_risk * 100).toFixed(0)}/100`,
 			align: 'right' as const
 		},
 		{
 			key: 'exposure',
-			label: 'Exposure',
-			format: (occ: Occupation) => `${(occ.exposure * 100).toFixed(0)}%`,
+			label: 'Exposure index',
+			format: (occ: Occupation) => `${(occ.exposure * 100).toFixed(0)}/100`,
 			align: 'right' as const
 		},
 		{
 			key: 'bottleneck',
-			label: 'Bottleneck',
-			format: (occ: Occupation) => `${(occ.bottleneck * 100).toFixed(0)}%`,
+			label: 'Human advantage',
+			format: (occ: Occupation) => `${(occ.bottleneck * 100).toFixed(0)}/100`,
 			align: 'right' as const
 		},
 		{
@@ -42,7 +42,7 @@
 	let itemListJsonLd = $derived(
 		buildItemListJsonLd(
 			'Jobs Most at Risk from AI',
-			`Top 50 occupations with highest AI displacement pressure`,
+			`Singapore occupations with the highest relative AI-driven AI exposure ranks`,
 			data.ranked
 		)
 	);
@@ -50,16 +50,16 @@
 	let faqItems = $derived([
 		{
 			question: 'Which jobs will AI replace first?',
-			answer: `Of ${DATA_VINTAGE.occupation_count} scored occupations, ${data.totalVeryHighRisk} have very high displacement risk (above 50%). These are roles with high AI task overlap and low human bottleneck protection, such as data entry, telemarketing, and routine bookkeeping.`
+			answer: `The highest-scoring occupations rank near the top of ${DATA_VINTAGE.occupation_count} Singapore occupations for exposure to current AI capabilities. That ranking does not say how many jobs will be lost or when.`
 		},
 		{
 			question: 'How many jobs are at risk from AI?',
-			answer: `${data.totalHighRisk} occupations score above 30% displacement risk (high or very high band). This does not mean these jobs will disappear — it measures structural pressure from AI task overlap.`
+			answer: `This index cannot estimate a count of jobs that will disappear. It ranks occupations by relative AI exposure and reports demand, adoption and transition context separately.`
 		},
 		{
 			question: 'Is AI replacing jobs right now?',
 			answer:
-				'AI is automating specific tasks within jobs, not eliminating entire occupations overnight. The highest-risk occupations have 50-70% task overlap with current AI capabilities, but actual displacement depends on employer adoption speed, cost-benefit decisions, and regulatory environment.'
+				'AI can change tasks, hiring and job design without eliminating an occupation. Actual outcomes depend on adoption, demand, productivity, wages, institutions and worker transitions.'
 		}
 	]);
 
@@ -67,21 +67,20 @@
 </script>
 
 <Seo
-	title="AI Job Loss: {data.totalHighRisk} Jobs at High Risk from AI"
-	description="Which jobs will AI replace? {data.totalHighRisk} occupations face high displacement pressure. Data from {DATA_VINTAGE.occupation_count} scored occupations."
+	title="AI Job Risk: {data.totalHighRisk} Highly Exposed Occupations"
+	description="Which jobs are most exposed to AI? Explore {data.totalHighRisk} occupations in the higher exposure bands, without treating exposure as predicted job loss."
 	path="/ai-job-loss"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
 
-<main class={pageLayout({ width: 'content' })}>
+<main class={pageLayout({ width: 'feature' })}>
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'AI Job Loss' }]} />
 
-	<h1 class={titleStyle({ size: 'page' })}>AI Job Loss: Which Jobs Are Most at Risk?</h1>
+	<h1 class={titleStyle({ size: 'page' })}>Which Jobs Are Most Exposed to AI?</h1>
 	<p class="mt-2 max-w-2xl text-sm text-muted-foreground">
-		Of {DATA_VINTAGE.occupation_count} scored occupations,
-		{data.totalVeryHighRisk} have very high displacement risk (above 50%) and
-		{data.totalHighRisk} score above 30%. These scores measure structural pressure from AI task overlap
-		— not predictions of immediate job losses.
+		This page ranks {DATA_VINTAGE.occupation_count} Singapore occupations by relative AI exposure. A score
+		of 72/100 means an occupation ranks above roughly 72% of the scored market; it is not a 72% chance
+		of job loss.
 	</p>
 
 	<section class="mt-6">
@@ -89,7 +88,8 @@
 	</section>
 
 	<p class="mt-4 text-xs text-muted-foreground">
-		Ranked by net displacement risk. Scores are structural pressure, not job loss predictions.
+		Ranked by the V8 AI exposure rank. Employment outcomes are shown as context, not hidden in the
+		score.
 		<a href="/methodology" class="text-primary underline">Learn more</a> |
 		<a href="/ai-proof-jobs" class="text-primary underline">AI-proof jobs</a> |
 		<a href="/will-ai-take-my-job" class="text-primary underline">Check your job</a>

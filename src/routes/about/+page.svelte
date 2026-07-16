@@ -10,12 +10,12 @@
 	const faqItems = [
 		{
 			question: 'What is the AI Work Index?',
-			answer: `The AI Work Index scores ${DATA_VINTAGE.occupation_count} occupations and ${DATA_VINTAGE.role_count} modern roles for structural AI displacement pressure. The headline score combines displacement pressure with local demand resilience where a country layer has evidence. The product is global-first, with Singapore as the first fully scored country and the United States as the next country layer. No LLM is used in the scoring pipeline.`
+			answer: `The AI Work Index ranks ${DATA_VINTAGE.occupation_count} Singapore occupations by relative AI exposure and publishes ${DATA_VINTAGE.role_count} synthetic modern-role estimates separately. Demand and adoption inform context and likely pathways, not a hidden headline multiplier. No LLM is used in the scoring pipeline.`
 		},
 		{
-			question: 'How is the AI job risk score calculated?',
+			question: 'How is the AI Exposure Rank calculated?',
 			answer:
-				'Headline risk = displacement pressure x (1 - demand resilience), where displacement pressure = exposure ensemble x (1 - human bottleneck). The exposure layer combines available matches from AIOE, Anthropic observed usage, Eloundou GPT exposure, and the ILO occupational exposure index. Human bottleneck comes from Pizzinelli theta, while demand resilience comes from country-specific demand, wage, and labour-market signals.'
+				'V8 converts a multi-source AI exposure signal into a within-Singapore percentile rank. It separately ranks substitution pressure and augmentation potential. Demand, adoption, attrition and transitions remain visible context. The score is not a probability or employment forecast.'
 		},
 		{
 			question: 'Is the AI Work Index open source?',
@@ -28,7 +28,7 @@
 
 <Seo
 	title="About the AI Work Index — Global Methodology"
-	description="About the AI Work Index: purpose, model card, data sources, and credits. Open-source, MIT licensed. Covers Singapore and the United States."
+	description="About the V8 AI Work Index: a relative Singapore AI exposure ranking with open methodology, explicit confidence and separate labour-market context."
 	path="/about"
 	jsonLd={[aboutJsonLd]}
 />
@@ -45,9 +45,8 @@
 			· MIT licensed · global-first methodology
 		</p>
 		<p class="mt-1 text-sm text-muted-foreground">
-			Structural AI pressure scores with a global baseline and country-specific demand layers. Not a
-			prediction of job losses — a measure of how much current AI capabilities overlap with each
-			job's tasks, adjusted for human bottlenecks and local demand.
+			Relative AI exposure rankings with separate demand and adoption context. They are not
+			predictions of job losses or probabilities that a role will disappear.
 		</p>
 	</div>
 
@@ -88,7 +87,7 @@
 				class="underline">Acemoglu &amp; Restrepo (2019)</a
 			>
 			framework, AI's net impact = displacement - reinstatement. We measure displacement only. Scores
-			likely overstate net risk for occupations where AI creates new work.
+			miss important augmentation and new-work effects, which V8 reports as a separate pathway.
 		</p>
 	</div>
 
@@ -135,7 +134,7 @@
 								Eloundou + ILO)
 							</li>
 							<li>Theta complementarity scores (O*NET survey data)</li>
-							<li>Net risk formula (fully reproducible)</li>
+							<li>Within-market percentile rules (fully reproducible)</li>
 							<li>Official demand signals (SOL 2026, Jobs in Demand)</li>
 						</ul>
 					</div>
@@ -148,7 +147,10 @@
 							<li>Crosswalk quality (national occupations mapped to ISCO-08)</li>
 							<li>Labour monitor (cluster-level, not occupation-level)</li>
 							<li>Observed-usage calibration (Anthropic usage, not universal AI adoption)</li>
-							<li>BLS convergent check (&rho; = &minus;0.14, broad directional check)</li>
+							<li>
+								BLS cross-country check: &rho; = 0.01 across 243 unique mapping signatures; no rank
+								association
+							</li>
 						</ul>
 					</div>
 					<div>
@@ -246,20 +248,20 @@
 				official data, not live model-generated ratings
 			</li>
 			<li>
-				<strong>Multi-country coverage.</strong> Singapore and the United States are scored with country-specific
-				demand signals and labour-market data layered on the structural score
+				<strong>One live scored market.</strong> Singapore is the V8 reference market; U.S. and global
+				occupation scores are withdrawn pending local validation
 			</li>
 			<li>
-				<strong>Three-layer structural score</strong> — exposure ensemble, human bottleneck, and market
-				resilience are kept separate rather than hidden inside one opaque score
+				<strong>Separate mechanisms</strong> — change, substitution, augmentation and labour-market context
+				are visible rather than collapsed into one opaque probability
 			</li>
 			<li>
-				<strong>Externally cross-checked</strong> — cluster-level directional checks, BLS convergent
-				evidence, and {DATA_VINTAGE.validation_checks} internal structural checks
+				<strong>Negative results retained</strong> — the deduplicated BLS comparison shows essentially
+				no rank association, while internal checks establish reproducibility rather than external validity
 			</li>
 			<li>
-				<strong>Seniority modifiers</strong> — research-grounded experience level adjustments (Stanford
-				DEL, Anthropic 2026)
+				<strong>No hidden seniority adjustment</strong> — entry-level sensitivity remains unknown until
+				a suitable open occupation-level series exists
 			</li>
 			<li>
 				<strong>88 synthetic roles</strong> — modern job titles (AI Engineer, Prompt Engineer) scored

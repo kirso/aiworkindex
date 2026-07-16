@@ -106,7 +106,7 @@
 				augmentation: occ.augmentation,
 				augmentation_band: occ.augmentation_band,
 				impact_type: occ.impact_type,
-				confidence: `${occ.confidence.level.charAt(0).toUpperCase() + occ.confidence.level.slice(1)} (${(occ.confidence.score * 100).toFixed(0)}%)${confidenceSuffix}`,
+				confidence: `${occ.confidence.level.charAt(0).toUpperCase() + occ.confidence.level.slice(1)}${confidenceSuffix}`,
 				wage: occ.gross_wage_median
 			};
 		} else {
@@ -125,7 +125,7 @@
 				augmentation: scored.augmentation,
 				augmentation_band: scored.augmentation_band,
 				impact_type: scored.impact_type,
-				confidence: `${scored.confidence.charAt(0).toUpperCase() + scored.confidence.slice(1)} (${(scored.confidence_score * 100).toFixed(0)}%)`,
+				confidence: scored.confidence.charAt(0).toUpperCase() + scored.confidence.slice(1),
 				wage: null
 			};
 		}
@@ -214,8 +214,8 @@
 		setTimeout(() => (copied = false), 2000);
 	}
 
-	function pct(v: number): string {
-		return (v * 100).toFixed(0) + '%';
+	function points(v: number): string {
+		return (v * 100).toFixed(0) + '/100';
 	}
 
 	function barColor(value: number, invert = false): string {
@@ -228,22 +228,22 @@
 	const metrics: { key: string; label: string; format: (e: CompareEntity) => string }[] = [
 		{
 			key: 'net_risk',
-			label: 'Net Risk',
+			label: 'AI Exposure Rank',
 			format: e =>
-				`${pct(e.net_risk)} ${riskBandLabels[e.risk_band as keyof typeof riskBandLabels]}`
+				`${points(e.net_risk)} ${riskBandLabels[e.risk_band as keyof typeof riskBandLabels]}`
 		},
-		{ key: 'exposure', label: 'Exposure', format: e => pct(e.exposure) },
-		{ key: 'bottleneck', label: 'Human Bottleneck', format: e => pct(e.bottleneck) },
+		{ key: 'exposure', label: 'Exposure Index', format: e => points(e.exposure) },
+		{ key: 'bottleneck', label: 'Human Advantage', format: e => points(e.bottleneck) },
 		{
 			key: 'market_resilience',
 			label: 'Market Resilience',
-			format: e => pct(e.market_resilience)
+			format: e => points(e.market_resilience)
 		},
 		{
 			key: 'augmentation',
 			label: 'Augmentation',
 			format: e =>
-				`${pct(e.augmentation)} ${augmentationBandLabels[e.augmentation_band as keyof typeof augmentationBandLabels]}`
+				`${points(e.augmentation)} ${augmentationBandLabels[e.augmentation_band as keyof typeof augmentationBandLabels]}`
 		},
 		{
 			key: 'impact_type',
@@ -260,20 +260,20 @@
 </script>
 
 <Seo
-	title="Compare AI Risk Across Occupations | AI Work Index"
-	description="Compare AI displacement risk across occupations and modern roles side by side. Start from the global structural baseline, then compare country layers as they are added."
+	title="Compare AI Job Exposure Across Occupations"
+	description="Compare AI Exposure Ranks, human advantage, augmentation potential, current demand and wages across Singapore occupations."
 	path="/compare"
 />
 
-<main class={pageLayout({ width: 'content' })}>
+<main class={pageLayout({ width: 'feature' })}>
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Compare' }]} />
 
 	<div class="mb-6 flex flex-wrap items-start justify-between gap-3">
 		<div>
 			<h1 class={titleStyle({ size: 'page' })}>Compare</h1>
 			<p class="mt-1 text-sm text-muted-foreground">
-				Side-by-side comparison of occupations and modern roles (up to 3). Use the global baseline
-				to compare structural pressure, then open country layers to see local demand resilience.
+				Compare how exposed different occupations are to AI, what still needs people, and what the
+				current labour market looks like.
 			</p>
 		</div>
 		{#if entities.length > 0}
@@ -337,9 +337,9 @@
 	{#if entities.length === 0}
 		<div class={cn(card({ padding: 'lg' }))}>
 			<p class="text-sm text-text-secondary leading-relaxed">
-				Compare up to 3 occupations or roles side by side. See how their risk profiles, demand
-				signals, and career paths differ — useful for exploring transitions or understanding where
-				AI pressure varies across similar jobs and across future country layers.
+				Compare up to 3 occupations or roles side by side. See how their exposure, demand signals,
+				and career paths differ — useful for exploring transitions or understanding where AI
+				exposure varies across similar jobs and across future country layers.
 			</p>
 
 			<p class="mt-4 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
@@ -376,7 +376,7 @@
 						: 'and has similar'}
 			<div class={cn(card({ variant: 'notice', accent: 'primary', padding: 'md' }), 'mb-6')}>
 				<p class="text-sm text-foreground">
-					{e1.label} faces {higherLabel} AI pressure ({e1Pct}% vs {e2Pct}%) {demandComparison} market
+					{e1.label} has {higherLabel} AI exposure ({e1Pct}/100 vs {e2Pct}/100) {demandComparison} market
 					demand.
 				</p>
 			</div>
@@ -417,7 +417,7 @@
 
 					<div class="mb-4 flex flex-wrap items-center gap-2">
 						<span class={riskBadge({ band: entity.risk_band as any })}>
-							{riskBandLabels[entity.risk_band as keyof typeof riskBandLabels]} Risk
+							{riskBandLabels[entity.risk_band as keyof typeof riskBandLabels]} exposure
 						</span>
 						<span class={impactBadge({ type: entity.impact_type as any })}>
 							{impactTypeLabels[entity.impact_type as keyof typeof impactTypeLabels]}
@@ -427,8 +427,8 @@
 					<div class="space-y-3">
 						<div>
 							<div class="mb-1 flex items-center justify-between text-xs">
-								<span class="text-muted-foreground">Net Risk</span>
-								<span class="font-medium font-mono tabular-nums">{pct(entity.net_risk)}</span>
+								<span class="text-muted-foreground">AI Exposure Rank</span>
+								<span class="font-medium font-mono tabular-nums">{points(entity.net_risk)}</span>
 							</div>
 							<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
 								<div
@@ -444,8 +444,8 @@
 						</div>
 						<div>
 							<div class="mb-1 flex items-center justify-between text-xs">
-								<span class="text-muted-foreground">Exposure</span>
-								<span class="font-medium font-mono tabular-nums">{pct(entity.exposure)}</span>
+								<span class="text-muted-foreground">Exposure index</span>
+								<span class="font-medium font-mono tabular-nums">{points(entity.exposure)}</span>
 							</div>
 							<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
 								<div
@@ -459,8 +459,8 @@
 						</div>
 						<div>
 							<div class="mb-1 flex items-center justify-between text-xs">
-								<span class="text-muted-foreground">Human Bottleneck</span>
-								<span class="font-medium font-mono tabular-nums">{pct(entity.bottleneck)}</span>
+								<span class="text-muted-foreground">Human advantage</span>
+								<span class="font-medium font-mono tabular-nums">{points(entity.bottleneck)}</span>
 							</div>
 							<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
 								<div
@@ -476,7 +476,7 @@
 							<div class="mb-1 flex items-center justify-between text-xs">
 								<span class="text-muted-foreground">Market Resilience</span>
 								<span class="font-medium font-mono tabular-nums"
-									>{pct(entity.market_resilience)}</span
+									>{points(entity.market_resilience)}</span
 								>
 							</div>
 							<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
@@ -489,7 +489,8 @@
 						<div>
 							<div class="mb-1 flex items-center justify-between text-xs">
 								<span class="text-muted-foreground">Augmentation</span>
-								<span class="font-medium font-mono tabular-nums">{pct(entity.augmentation)}</span>
+								<span class="font-medium font-mono tabular-nums">{points(entity.augmentation)}</span
+								>
 							</div>
 							<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
 								<div
@@ -552,7 +553,7 @@
 							</p>
 						</div>
 						<div class={cn(card({ variant: 'inset', padding: 'sm' }), 'text-center')}>
-							<p class={caption()}>Risk Delta</p>
+							<p class={caption()}>Exposure-rank delta</p>
 							<p
 								class={cn(
 									display({ size: 'md' }),
@@ -564,7 +565,7 @@
 											: 'text-foreground'
 								)}
 							>
-								{journeyData.riskDelta > 0 ? '+' : ''}{(journeyData.riskDelta * 100).toFixed(0)}pp
+								{journeyData.riskDelta > 0 ? '+' : ''}{(journeyData.riskDelta * 100).toFixed(0)} points
 							</p>
 						</div>
 						<div class={cn(card({ variant: 'inset', padding: 'sm' }), 'text-center')}>

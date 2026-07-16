@@ -1,6 +1,6 @@
 {
   "version": "V5-experimental-validation",
-  "generated_at": "2026-06-07T11:57:24.921Z",
+  "generated_at": "2026-07-16T00:14:20.252Z",
   "live_version": "V7",
   "comparison_baseline_version": "V7",
   "status": "experimental_only",
@@ -169,15 +169,15 @@
   },
   "structural_validation": {
     "bls_spearman_rho": {
-      "live": -0.1385,
+      "live": -0.1925,
       "experimental": -0.2007,
-      "delta": -0.0622,
+      "delta": -0.0082,
       "pass": true
     },
     "transition_bls_spearman_rho": {
-      "live": -0.1385,
+      "live": -0.1925,
       "experimental": -0.2027,
-      "delta": -0.0642,
+      "delta": -0.0102,
       "pass": true
     },
     "occupation_family_spearman_rho": {

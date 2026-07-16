@@ -2,7 +2,6 @@ import { error } from '@sveltejs/kit';
 import { countryConfigs, type CountryCode } from '$lib/data/country-config';
 import { globalMethodology } from '$lib/data/global-methodology';
 import { occupations } from '$lib/data';
-import { usOccupations } from '$lib/data/countries/us/occupations';
 
 type CountryHubRow = {
 	code: string;
@@ -29,16 +28,6 @@ function asCountryHubRows(country: CountryCode): CountryHubRow[] {
 			confidence: occ.confidence.score
 		}));
 	}
-	if (country === 'us') {
-		return usOccupations.map(occ => ({
-			code: occ.localCode,
-			title: occ.localTitle,
-			risk: occ.headlineRisk,
-			wage: occ.wage.median,
-			confidence: occ.confidence.score,
-			mappingMethod: occ.mappingMethod
-		}));
-	}
 	return [];
 }
 
@@ -48,6 +37,9 @@ export function load({ params }) {
 
 	if (!config || country === 'global') {
 		throw error(404, 'Country not found');
+	}
+	if (country !== 'sg') {
+		throw error(410, 'Country scores are withdrawn while local-data validation is incomplete');
 	}
 
 	const rows = asCountryHubRows(country);

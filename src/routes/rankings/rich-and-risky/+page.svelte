@@ -22,8 +22,8 @@
 		},
 		{
 			key: 'net_risk',
-			label: 'Net Risk',
-			format: (occ: Occupation) => `${(occ.net_risk * 100).toFixed(1)}%`,
+			label: 'AI Exposure Rank',
+			format: (occ: Occupation) => `${(occ.net_risk * 100).toFixed(0)}/100`,
 			align: 'right' as const
 		},
 		{
@@ -42,8 +42,8 @@
 
 	let itemListJsonLd = $derived(
 		buildItemListJsonLd(
-			'Highest-Paid Jobs at Risk of AI Displacement',
-			`Top 25 high-paying occupations facing high AI displacement risk (net risk 30%+, median wage ${currency} 5,000+)`,
+			'Highest-Paid Jobs Most Exposed to AI of AI Displacement',
+			`Top 25 high-paying occupations with higher AI Exposure Ranks and median wage ${currency} 5,000+`,
 			data.ranked
 		)
 	);
@@ -51,12 +51,12 @@
 	const faqItems = [
 		{
 			question: 'Which high-paying jobs are most at risk from AI?',
-			answer: `Occupations earning ${currency} 5,000+ per month with net displacement risk above 30%. These professionals face significant structural pressure despite high compensation.`
+			answer: `Occupations earning ${currency} 5,000+ per month that clear this page's higher-score filter. The score is relative and does not predict job loss.`
 		},
 		{
 			question: 'Does high pay protect against AI displacement?',
 			answer:
-				'Not directly. High wages often correlate with knowledge-intensive roles that have significant AI task overlap. Wage level reflects current market value, not future automation resistance.'
+				'Not directly. Wage reflects current market value, while AI exposure can lead to augmentation, workflow redesign or hiring substitution. Neither metric guarantees future security.'
 		}
 	];
 
@@ -64,24 +64,24 @@
 </script>
 
 <Seo
-	title="Highest-Paid Jobs at Risk of AI Displacement"
-	description={`Top 25 high-paying occupations (${currency} 5,000+/month) facing high AI displacement risk (30%+).`}
+	title="Highest-Paid Jobs Most Exposed to AI of AI Displacement"
+	description={`Top 25 high-paying occupations (${currency} 5,000+/month) with higher AI exposure ranks.`}
 	path="/rankings/rich-and-risky"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
 
-<main class={pageLayout({ width: 'content' })}>
+<main class={pageLayout({ width: 'feature' })}>
 	<PageBreadcrumb
 		items={[
 			{ label: 'Home', href: '/' },
 			{ label: 'Rankings', href: '/rankings' },
-			{ label: 'Highest-Paid at Risk' }
+			{ label: 'Highest-Paid and AI-Exposed' }
 		]}
 	/>
 
-	<h1 class={titleStyle({ size: 'page' })}>Highest-Paid Jobs at Risk</h1>
+	<h1 class={titleStyle({ size: 'page' })}>Highest-Paid Jobs Most Exposed to AI</h1>
 	<p class="mt-2 text-sm text-muted-foreground">
-		High-paying occupations with net risk &ge; 30% and median wage &ge; {currency} 5,000/month.
+		High-paying occupations clearing the page's V8 score filter, with median wage &ge; {currency} 5,000/month.
 	</p>
 
 	<section class="mt-6">

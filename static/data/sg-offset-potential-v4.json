@@ -1,6 +1,6 @@
 {
   "version": "V7",
-  "generated_at": "2026-06-07T11:57:23.728Z",
+  "generated_at": "2026-07-16T00:14:18.010Z",
   "description": "Published heuristic offset-potential layer estimating how much demand persistence, transition support, and task reallocation could cushion structural AI pressure.",
   "notes": [
     "This is not a direct measure of reinstatement or new-task creation.",

@@ -311,7 +311,7 @@
 	<p class={cn(sectionLabel(), 'mt-8 mb-3')}>Promotion Gates</p>
 	<div class={card({ padding: 'none' })}>
 		<div class="overflow-x-auto">
-			<table class="w-full text-left text-sm">
+			<table class="w-full min-w-[720px] text-left text-sm">
 				<thead>
 					<tr class="border-b border-border">
 						<th class="px-3 py-2.5 font-medium text-muted-foreground">Gate</th>

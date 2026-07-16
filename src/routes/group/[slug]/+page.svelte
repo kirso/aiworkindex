@@ -30,9 +30,9 @@
 	let highestRisk = $derived(occs.slice(0, 5));
 	let lowestRisk = $derived([...occs].sort((a, b) => a.net_risk - b.net_risk).slice(0, 5));
 
-	let pageTitle = $derived(`${group.label} — AI Risk by Occupation Group | ${SITE.name}`);
+	let pageTitle = $derived(`${group.label}: AI Job Exposure by Occupation | ${SITE.name}`);
 	let pageDescription = $derived(
-		`AI displacement risk for ${stats.count} ${group.label} occupations. Average risk: ${Math.round(stats.avgRisk * 100)}%. Median wage: ${countryConfigs.sg.currency ?? 'SGD'} ${Math.round(stats.medianWage).toLocaleString()}/month.`
+		`AI Exposure Ranks for ${stats.count} ${group.label} occupations. Average rank: ${Math.round(stats.avgRisk * 100)}/100. Median wage: ${countryConfigs.sg.currency ?? 'SGD'} ${Math.round(stats.medianWage).toLocaleString()}/month.`
 	);
 
 	let breadcrumbJsonLd = $derived(
@@ -65,11 +65,11 @@
 	let faqItems = $derived([
 		{
 			question: `How will AI affect ${group.label} jobs?`,
-			answer: `There are ${stats.count} ${group.label} occupations scored. The average AI displacement risk is ${Math.round(stats.avgRisk * 100)}%, with ${stats.bandCounts.very_high + stats.bandCounts.high} occupations at High or Very High risk and ${stats.bandCounts.very_low + stats.bandCounts.low} at Low or Very Low risk. Median gross wage: ${countryConfigs.sg.currency ?? 'SGD'} ${Math.round(stats.medianWage).toLocaleString()}/month.`
+			answer: `There are ${stats.count} ${group.label} occupations scored. The average AI exposure rank is ${Math.round(stats.avgRisk * 100)}/100, with ${stats.bandCounts.very_high + stats.bandCounts.high} occupations in the High or Very High bands and ${stats.bandCounts.very_low + stats.bandCounts.low} in the Low or Very Low bands. Median gross wage: ${countryConfigs.sg.currency ?? 'SGD'} ${Math.round(stats.medianWage).toLocaleString()}/month.`
 		},
 		{
-			question: `What are the highest AI risk ${group.label.toLowerCase()} occupations?`,
-			answer: `The highest-risk ${group.label} occupations are: ${highestRisk.map(o => `${o.title} (${Math.round(o.net_risk * 100)}%)`).join(', ')}.`
+			question: `Which ${group.label.toLowerCase()} occupations are most exposed to AI?`,
+			answer: `The most exposed ${group.label} occupations are: ${highestRisk.map(o => `${o.title} (${Math.round(o.net_risk * 100)}/100)`).join(', ')}.`
 		}
 	]);
 
@@ -95,8 +95,8 @@
 	<header class="mb-8">
 		<h1 class={titleStyle({ size: 'page' })}>{group.label}</h1>
 		<p class={cn(body({ size: 'lg', tone: 'subtle' }), 'mt-2 max-w-3xl')}>
-			AI displacement risk overview for {stats.count} occupations in the {group.label} group. Average
-			risk: {Math.round(stats.avgRisk * 100)}%. Updated {DATA_VINTAGE.last_updated}.
+			AI exposure overview for {stats.count} occupations in the {group.label} group. Average rank:
+			{Math.round(stats.avgRisk * 100)}/100. Updated {DATA_VINTAGE.last_updated}.
 		</p>
 	</header>
 
@@ -109,8 +109,8 @@
 				<p class={mono({ size: 'lg' })}>{stats.count}</p>
 			</div>
 			<div class={card({ padding: 'md' })}>
-				<p class={caption()}>Average Risk</p>
-				<p class={mono({ size: 'lg' })}>{Math.round(stats.avgRisk * 100)}%</p>
+				<p class={caption()}>Average exposure rank</p>
+				<p class={mono({ size: 'lg' })}>{Math.round(stats.avgRisk * 100)}/100</p>
 			</div>
 			<div class={card({ padding: 'md' })}>
 				<p class={caption()}>Median Wage</p>
@@ -120,15 +120,15 @@
 				</p>
 			</div>
 			<div class={card({ padding: 'md' })}>
-				<p class={caption()}>High/Very High Risk</p>
+				<p class={caption()}>High/Very High exposure</p>
 				<p class={mono({ size: 'lg' })}>{stats.bandCounts.high + stats.bandCounts.very_high}</p>
 			</div>
 		</div>
 	</section>
 
-	<!-- Risk band distribution -->
+	<!-- Exposure-rank distribution -->
 	<section class={section()}>
-		<h2 class={sectionLabel()}>Risk Distribution</h2>
+		<h2 class={sectionLabel()}>AI exposure distribution</h2>
 		<div class={card({ padding: 'md' })}>
 			<div class="space-y-2">
 				{#each ['very_high', 'high', 'moderate', 'low', 'very_low'] as const as band}
@@ -148,9 +148,9 @@
 		</div>
 	</section>
 
-	<!-- Highest risk -->
+	<!-- Highest exposure -->
 	<section class={section()}>
-		<h2 class={sectionLabel()}>Highest Risk in {group.label}</h2>
+		<h2 class={sectionLabel()}>Most exposed to AI in {group.label}</h2>
 		<div class="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
 			{#each highestRisk as occ}
 				<a
@@ -165,7 +165,8 @@
 						<span class="opacity-0 group-hover:opacity-100 transition-opacity text-primary">→</span>
 					</p>
 					<div class={cn(caption(), 'mt-1 flex items-center gap-2')}>
-						<span class={riskBadge({ band: occ.risk_band })}>{Math.round(occ.net_risk * 100)}%</span
+						<span class={riskBadge({ band: occ.risk_band })}
+							>{Math.round(occ.net_risk * 100)}/100</span
 						>
 						<span
 							>{countryConfigs.sg.currency ?? 'SGD'}
@@ -177,9 +178,9 @@
 		</div>
 	</section>
 
-	<!-- Lowest risk -->
+	<!-- Lowest exposure -->
 	<section class={section()}>
-		<h2 class={sectionLabel()}>Lowest Risk in {group.label}</h2>
+		<h2 class={sectionLabel()}>Least exposed to AI in {group.label}</h2>
 		<div class="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
 			{#each lowestRisk as occ}
 				<a
@@ -194,7 +195,8 @@
 						<span class="opacity-0 group-hover:opacity-100 transition-opacity text-primary">→</span>
 					</p>
 					<div class={cn(caption(), 'mt-1 flex items-center gap-2')}>
-						<span class={riskBadge({ band: occ.risk_band })}>{Math.round(occ.net_risk * 100)}%</span
+						<span class={riskBadge({ band: occ.risk_band })}
+							>{Math.round(occ.net_risk * 100)}/100</span
 						>
 						<span
 							>{countryConfigs.sg.currency ?? 'SGD'}

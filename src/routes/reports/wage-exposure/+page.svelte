@@ -29,25 +29,25 @@
 		`<script type="application/ld+json">${JSON.stringify({
 			'@context': 'https://schema.org',
 			'@type': 'Article',
-			headline: `${sgCurrency} ${(data.highRiskAnnualWages / 1e9).toFixed(1)} Billion in Live-Market Wages Face High AI Structural Pressure`,
+			headline: `${sgCurrency} ${(data.highRiskAnnualWages / 1e9).toFixed(1)} Billion in Annual Wages Across Higher-Exposure Occupations`,
 			author: { '@type': 'Person', name: SITE.author, url: SITE.authorUrl },
 			publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
 			datePublished: DATA_VINTAGE.last_updated,
 			dateModified: DATA_VINTAGE.last_updated,
-			description: `Wage-pool analysis for ${data.highRiskCount} occupations with high structural AI pressure.`,
+			description: `Wage context for ${data.highRiskCount} occupations in the two highest AI exposure bands.`,
 			mainEntityOfPage: { '@type': 'WebPage', '@id': SITE.url + '/reports/wage-exposure' }
 		})}<\/script>`
 	);
 
 	let faqItems = $derived([
 		{
-			question: 'How large is the wage pool in the high-pressure occupations?',
-			answer: `${headlineNumber} is the estimated annual wage pool inside occupations with high structural AI pressure in the AI Work Index. It is a wage-pool estimate, not a forecast of wages lost.`
+			question: 'How large is the wage pool in higher-exposure occupations?',
+			answer: `${headlineNumber} is the estimated annual wage pool across occupations in the two highest AI exposure bands. It describes where wages are paid today, not wages at risk or a forecast of losses.`
 		},
 		{
-			question: 'Which sectors contain the largest wage pools under structural AI pressure?',
+			question: 'Which sectors contain the largest wage pools in higher-exposure work?',
 			answer: topGroup
-				? `${topGroup.label} contains the largest wage pool at ${formatWagesBillions(topGroup.wages)}, covering ${topGroup.count} high-pressure occupations with an average net risk of ${(topGroup.avgRisk * 100).toFixed(0)}%.`
+				? `${topGroup.label} contains the largest wage pool at ${formatWagesBillions(topGroup.wages)}, covering ${topGroup.count} higher-exposure occupations with an average exposure rank of ${(topGroup.avgRisk * 100).toFixed(0)}/100.`
 				: 'See the full breakdown on the AI Work Index wage exposure report.'
 		}
 	]);
@@ -56,10 +56,10 @@
 </script>
 
 <Seo
-	title="Wage Pool Under Structural Pressure — {sgCurrency} {(
-		data.highRiskAnnualWages / 1e9
-	).toFixed(1)}B"
-	description="Wage-pool analysis for occupations with high structural AI pressure. {data.highRiskCount} occupations covering about {data.highRiskEmployment.toFixed(
+	title="Wages in Higher AI Exposure Jobs — {sgCurrency} {(data.highRiskAnnualWages / 1e9).toFixed(
+		1
+	)}B"
+	description="Annual wage context for occupations in the two highest AI exposure bands. {data.highRiskCount} occupations covering about {data.highRiskEmployment.toFixed(
 		0
 	)}K Est. workers."
 	path="/reports/wage-exposure"
@@ -67,7 +67,7 @@
 	jsonLd={[articleJsonLd, faqJsonLd]}
 />
 
-<main class={pageLayout({ width: 'content' })}>
+<main class={pageLayout({ width: 'feature' })}>
 	<PageBreadcrumb
 		items={[
 			{ label: 'Home', href: '/' },
@@ -78,10 +78,10 @@
 
 	<!-- Hero -->
 	<section class="mt-2">
-		<p class={cn(sectionLabel(), 'mb-2')}>Wage Exposure Analysis</p>
+		<p class={cn(sectionLabel(), 'mb-2')}>Wages and AI Exposure</p>
 		<h1 class={display({ size: 'xl' })}>{headlineNumber}</h1>
 		<p class="mt-2 text-base text-muted-foreground">
-			Est. annual wage pool inside high-pressure occupations
+			Est. annual wages paid across higher-exposure occupations
 		</p>
 		<div class="mt-4 flex flex-wrap gap-x-6 gap-y-1 text-sm text-muted-foreground tabular-nums">
 			<span>
@@ -109,9 +109,9 @@
 	<!-- Disclaimer -->
 	<div class={cn(card({ variant: 'inset', padding: 'md' }), 'mt-6')}>
 		<p class="text-xs text-muted-foreground leading-relaxed">
-			These figures represent structural AI pressure, not predicted job losses. Employment counts
-			are proxy-weighted rather than official per-occupation headcounts. The model measures one side
-			of the equation &mdash; displacement potential without reinstatement effects.
+			These figures describe wages paid in occupations with higher relative AI exposure. They are
+			not wages at risk or predicted job losses. Employment counts are proxy-weighted rather than
+			official per-occupation headcounts.
 		</p>
 	</div>
 
@@ -119,8 +119,8 @@
 	<section class="mt-8">
 		<p class={cn(sectionLabel(), 'mb-3')}>Breakdown by Sector</p>
 		<div class={card({ padding: 'none' })}>
-			<div class="overflow-x-auto">
-				<table class="w-full text-sm table-fixed">
+			<div class="overflow-x-auto" role="region" aria-label="Sector wage context">
+				<table class="w-full min-w-[760px] text-sm table-fixed">
 					<colgroup>
 						<col />
 						<col class="w-24" />
@@ -134,7 +134,7 @@
 							<th class="px-3 py-2.5 font-medium text-right">Occupations</th>
 							<th class="px-3 py-2.5 font-medium text-right">Workers (K)</th>
 							<th class="px-3 py-2.5 font-medium text-right">Wage Pool</th>
-							<th class="px-3 py-2.5 font-medium text-right">Avg Risk</th>
+							<th class="px-3 py-2.5 font-medium text-right">Avg Exposure Rank</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -147,7 +147,7 @@
 									>{formatWagesMillions(group.wages)}</td
 								>
 								<td class="px-3 py-2.5 text-right tabular-nums"
-									>{(group.avgRisk * 100).toFixed(0)}%</td
+									>{(group.avgRisk * 100).toFixed(0)}/100</td
 								>
 							</tr>
 						{/each}
@@ -159,10 +159,10 @@
 
 	<!-- Top 15 Individual Wage Exposure -->
 	<section class="mt-8">
-		<p class={cn(sectionLabel(), 'mb-3')}>Top 15 — Highest Risk-Weighted Annual Wage per Worker</p>
+		<p class={cn(sectionLabel(), 'mb-3')}>15 Highest-Paid Higher-Exposure Occupations</p>
 		<div class={card({ padding: 'none' })}>
-			<div class="overflow-x-auto">
-				<table class="w-full text-sm table-fixed">
+			<div class="overflow-x-auto" role="region" aria-label="Occupation wage context">
+				<table class="w-full min-w-[820px] text-sm table-fixed">
 					<colgroup>
 						<col class="w-10" />
 						<col />
@@ -175,8 +175,8 @@
 							<th class="px-3 py-2.5 font-medium">#</th>
 							<th class="px-3 py-2.5 font-medium">Title</th>
 							<th class="px-3 py-2.5 font-medium text-right">Wage</th>
-							<th class="px-3 py-2.5 font-medium text-right">Risk</th>
-							<th class="px-3 py-2.5 font-medium text-right">Annual Exposure</th>
+							<th class="px-3 py-2.5 font-medium text-right">Exposure Rank</th>
+							<th class="px-3 py-2.5 font-medium text-right">Annual Wage</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -194,12 +194,12 @@
 								</td>
 								<td class="px-3 py-2.5 text-right">
 									<span class={riskBadge({ band: occ.risk_band })}>
-										{(occ.net_risk * 100).toFixed(0)}%
+										{(occ.net_risk * 100).toFixed(0)}/100
 									</span>
 								</td>
 								<td class="px-3 py-2.5 text-right tabular-nums font-medium">
 									{sgCurrency}
-									{(occ.gross_wage_median * 12 * occ.net_risk).toLocaleString(undefined, {
+									{(occ.gross_wage_median * 12).toLocaleString(undefined, {
 										maximumFractionDigits: 0
 									})}
 								</td>
@@ -215,8 +215,8 @@
 	<section class="mt-8">
 		<p class={cn(sectionLabel(), 'mb-2')}>Methodology</p>
 		<p class={cn(caption(), 'leading-relaxed')}>
-			Est. annual wage pool = median gross monthly wage &times; 12 &times; proxy employment. High+
-			risk defined as net_risk &ge; 0.30. Source data: official local wages {DATA_VINTAGE.wages},
+			Est. annual wage pool = median gross monthly wage &times; 12 &times; proxy employment. Higher
+			exposure means the High or Very High relative exposure band. Source data: official local wages {DATA_VINTAGE.wages},
 			local employment totals plus BLS-weighted proxy distribution. Scoring {DATA_VINTAGE.model_version}.
 			<a href="/methodology" class="text-primary hover:underline">Full methodology</a> &middot;
 			<a href="/data" class="text-primary hover:underline">Download data</a>

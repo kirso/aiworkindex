@@ -9,33 +9,27 @@
 		caption,
 		display,
 		riskBadge,
-		impactBadge,
-		chip,
 		formInput,
 		pageLayout
 	} from '$lib/design-system';
-	import { riskBandLabels, impactTypeLabels } from '$lib/data';
-	import type { RiskBand, ImpactType } from '$lib/data';
-	import { SENIORITY_MODIFIERS } from '$lib/data/scoring-constants';
+	import { riskBandLabels } from '$lib/data';
+	import type { RiskBand } from '$lib/data';
 	import { titleMatches, fuzzyTitleMatches } from '$lib/utils/search';
 	import { findAliasMatches } from '$lib/data/aliases';
 
 	let { data } = $props();
 
 	type Entry = (typeof data.entries)[number];
-	type Seniority = 'junior' | 'mid' | 'senior';
-
 	let selectedEntry: Entry | null = $state(null);
-	let salary = $state(0);
-	let seniority: Seniority = $state('mid');
 	let searchQuery = $state('');
 	let showDropdown = $state(false);
-
-	const seniorityLabels: Record<Seniority, string> = {
-		junior: 'Entry-level',
-		mid: 'Mid-career',
-		senior: 'Senior'
-	};
+	const pathwayLabels = {
+		limited_direct_change: 'Limited direct impact',
+		workflow_redesign: 'The work is likely to be redesigned',
+		augmentation_led_growth: 'AI is more likely to assist than replace',
+		demand_buffered_redesign: 'Strong demand may cushion the impact',
+		hiring_or_substitution_pressure: 'Greater hiring or substitution pressure'
+	} as const;
 
 	let filteredEntries = $derived.by(() => {
 		const q = searchQuery.trim();
@@ -60,34 +54,10 @@
 		return results;
 	});
 
-	let seniorityAdjustedRisk = $derived.by(() => {
-		if (!selectedEntry) return 0;
-		const mod = SENIORITY_MODIFIERS[seniority];
-		const adjustedExposure = Math.max(0, Math.min(1, selectedEntry.exposure + mod.exposure_adj));
-		const adjustedBottleneck = Math.max(
-			0,
-			Math.min(1, selectedEntry.bottleneck + mod.bottleneck_adj)
-		);
-		return Math.max(
-			0,
-			Math.min(
-				1,
-				adjustedExposure * (1 - adjustedBottleneck) * (1 - (selectedEntry.demand_resilience ?? 0))
-			)
-		);
-	});
-
-	let riskAmount = $derived(Math.round(salary * seniorityAdjustedRisk));
-	let annualAtRisk = $derived(riskAmount * 12);
-
 	function selectEntry(entry: Entry) {
 		selectedEntry = entry;
 		searchQuery = entry.title;
 		showDropdown = false;
-		if (!entry.isRole && 'gross_wage_median' in entry) {
-			const wage = entry.gross_wage_median as number;
-			if (wage > 0) salary = wage;
-		}
 	}
 
 	function handleSearchFocus() {
@@ -105,18 +75,17 @@
 
 <Seo
 	path="/will-ai-take-my-job"
-	title="Will AI Take My Job? Free AI Risk Calculator | AI Work Index"
-	description="Find out if AI will take your job. Search {DATA_VINTAGE.occupation_count} occupations and {DATA_VINTAGE.role_count} modern roles scored for AI displacement risk. Free calculator with seniority adjustments."
+	title="Will AI Take My Job? AI Job Risk Calculator (2026) | AI Work Index"
+	description="Search {DATA_VINTAGE.occupation_count} Singapore occupations and {DATA_VINTAGE.role_count} estimated modern roles. Get a relative AI Exposure Rank, likely pathway and evidence level—not a job-loss probability."
 />
 
-<div class={pageLayout({ width: 'content' })}>
+<div class={pageLayout({ width: 'feature' })}>
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Will AI Take My Job?' }]} />
 
 	<h1 class={titleStyle({ size: 'page' })}>Will AI Take My Job?</h1>
 	<p class={caption({ class: 'mt-1 mb-6' })}>
-		Search for your occupation or role to see how much of your work overlaps with current AI
-		capabilities. Based on a 4-source exposure ensemble scoring {DATA_VINTAGE.occupation_count}
-		occupations.
+		Search your occupation to see how exposed its work is to current AI capabilities, what still
+		needs people, and what hiring demand looks like.
 	</p>
 
 	<!-- Search + Select -->
@@ -162,47 +131,8 @@
 		</div>
 	</div>
 
-	<!-- Salary Input -->
-	<div class={card({ padding: 'lg', class: 'mb-4' })}>
-		<p class={sectionLabel({ class: 'mb-2' })}>2. Enter your monthly salary</p>
-		<div class="flex items-center gap-2">
-			<span class="text-sm font-medium text-muted-foreground">SGD</span>
-			<input
-				type="number"
-				class={formInput({ size: 'lg', class: 'max-w-xs' })}
-				placeholder="e.g. 5000"
-				bind:value={salary}
-				min={0}
-				step={100}
-			/>
-		</div>
-		{#if selectedEntry && !selectedEntry.isRole && salary > 0}
-			<p class={caption({ class: 'mt-1' })}>
-				Pre-filled with the median gross wage for this occupation. Feel free to adjust.
-			</p>
-		{/if}
-	</div>
-
-	<!-- Seniority Toggle -->
-	<div class={card({ padding: 'lg', class: 'mb-6' })}>
-		<p class={sectionLabel({ class: 'mb-2' })}>3. Select your career stage</p>
-		<div class="flex gap-2">
-			{#each ['junior', 'mid', 'senior'] as const as level}
-				<button
-					type="button"
-					class={chip({ active: seniority === level })}
-					onclick={() => {
-						seniority = level;
-					}}
-				>
-					{seniorityLabels[level]}
-				</button>
-			{/each}
-		</div>
-	</div>
-
 	<!-- Results -->
-	{#if selectedEntry && salary > 0}
+	{#if selectedEntry}
 		<div
 			class={card({ padding: 'lg', accent: selectedEntry.risk_band as RiskBand, class: 'mb-6' })}
 		>
@@ -210,59 +140,51 @@
 
 			<div class="mb-4 text-center">
 				<p class={display({ size: 'xl' })}>
-					{(seniorityAdjustedRisk * 100).toFixed(0)}%
+					{selectedEntry.score_points}/100
 				</p>
-				<p class={caption({ class: 'mt-1' })}>of tasks overlap with current AI capabilities</p>
-				<p class="mt-3 text-base font-mono font-semibold text-muted-foreground">
-					{selectedEntry && 'currency' in selectedEntry && selectedEntry.currency
-						? selectedEntry.currency
-						: 'SGD'}
-					{riskAmount.toLocaleString()}/mo
+				<p class={caption({ class: 'mt-1' })}>
+					This work is more exposed to current AI capabilities than approximately {selectedEntry.score_points}%
+					of Singapore occupations. This is a relative rank, not a job-loss probability.
 				</p>
-				<p class={caption()}>salary equivalent of overlapping tasks</p>
 			</div>
 
 			<div class="flex flex-wrap items-center justify-center gap-3 mb-4">
 				<span class={riskBadge({ band: selectedEntry.risk_band as RiskBand })}>
-					{riskBandLabels[selectedEntry.risk_band as RiskBand]} Risk
+					{riskBandLabels[selectedEntry.risk_band as RiskBand]} exposure
 				</span>
-				<span class={impactBadge({ type: selectedEntry.impact_type as ImpactType })}>
-					{impactTypeLabels[selectedEntry.impact_type as ImpactType]}
+				<span class="rounded-full border border-border px-2.5 py-1 text-xs font-medium">
+					{pathwayLabels[selectedEntry.pathway as keyof typeof pathwayLabels]}
 				</span>
 			</div>
 
 			<div class={card({ variant: 'inset', padding: 'md', class: 'space-y-2' })}>
-				<div class="flex items-center justify-between text-sm">
-					<span class="text-muted-foreground">Annual overlap</span>
-					<span class="font-mono font-semibold">
-						{selectedEntry && 'currency' in selectedEntry && selectedEntry.currency
-							? selectedEntry.currency
-							: 'SGD'}
-						{annualAtRisk.toLocaleString()}
-					</span>
+				<div class="flex items-center justify-between gap-4 text-sm">
+					<span class="text-muted-foreground">How AI may affect the work</span>
+					<span class="text-right font-semibold"
+						>{pathwayLabels[selectedEntry.pathway as keyof typeof pathwayLabels]}</span
+					>
 				</div>
 				<div class="flex items-center justify-between text-sm">
-					<span class="text-muted-foreground">Base risk score</span>
-					<span class="font-mono font-semibold">{(selectedEntry.net_risk * 100).toFixed(1)}%</span>
+					<span class="text-muted-foreground">Current hiring demand</span>
+					<span class="font-mono font-semibold capitalize">{selectedEntry.demand_context}</span>
 				</div>
 				<div class="flex items-center justify-between text-sm">
-					<span class="text-muted-foreground">Seniority-adjusted risk</span>
-					<span class="font-mono font-semibold">{(seniorityAdjustedRisk * 100).toFixed(1)}%</span>
+					<span class="text-muted-foreground">Evidence confidence</span>
+					<span class="font-mono font-semibold capitalize">{selectedEntry.evidence_confidence}</span
+					>
 				</div>
-				{#if seniority !== 'mid'}
-					<p class={caption({ class: 'pt-1' })}>
-						As a <strong>{seniorityLabels[seniority].toLowerCase()}</strong> professional, your
-						estimated risk is {(seniorityAdjustedRisk * 100).toFixed(1)}% (vs {(
-							selectedEntry.net_risk * 100
-						).toFixed(1)}% at mid-career).
-					</p>
-				{/if}
+				<div class="flex items-center justify-between text-sm">
+					<span class="text-muted-foreground">Result type</span>
+					<span class="font-mono font-semibold"
+						>{selectedEntry.isEstimated ? 'Estimated role' : 'Official occupation'}</span
+					>
+				</div>
 			</div>
 		</div>
 	{/if}
 
 	<!-- What you can do -->
-	{#if selectedEntry && salary > 0}
+	{#if selectedEntry}
 		<div class={card({ padding: 'lg', class: 'mb-4' })}>
 			<p class={sectionLabel({ class: 'mb-3' })}>What you can do</p>
 			<div class="space-y-3 text-sm text-muted-foreground">
@@ -316,9 +238,9 @@
 	<!-- Disclaimer -->
 	<div class={card({ variant: 'inset', padding: 'md' })}>
 		<p class="text-xs text-muted-foreground">
-			This calculator shows the proportion of your role's tasks that overlap with current AI
-			capabilities — it does not predict job loss. Actual impact depends on employer adoption,
-			regulatory environment, and many other factors.
+			This calculator ranks relative AI exposure. It does not estimate the proportion of tasks
+			automated or the probability of job loss. Actual employment effects depend on adoption,
+			demand, firm behavior, regulation and worker transitions.
 		</p>
 	</div>
 </div>

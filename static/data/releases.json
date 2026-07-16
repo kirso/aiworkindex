@@ -1,5 +1,22 @@
 [
   {
+    "id": "public-v8-2026-07-15",
+    "type": "structural_release",
+    "label": "V8 truthful AI exposure release",
+    "version_label": "V8",
+    "published_at": "2026-07-15",
+    "display_date": "15 Jul 2026",
+    "score_version": "V8",
+    "monitor_vintage": "Q4 2025 full",
+    "href": "/data",
+    "availability": "current_download",
+    "notes": [
+      "Introduces a clean relative 0-100 Singapore AI exposure contract with substitution, augmentation, pathway, confidence and sensitivity fields.",
+      "Demand, adoption, attrition, entry-level and transition economics are reported separately from the headline score.",
+      "United States and global occupation scores are withdrawn until local validation gates pass."
+    ]
+  },
+  {
     "id": "structural-v7-2026-04-07",
     "type": "structural_release",
     "label": "V7 structural release",

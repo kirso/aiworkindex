@@ -13,22 +13,13 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-import { DATA_VINTAGE } from '../src/lib/data/scoring-constants';
-
 const DATA_DIR = path.join(import.meta.dir, '..', 'data');
 const OUT_DIR = path.join(import.meta.dir, '..', 'static', 'data');
-const IN_FILE = path.join(DATA_DIR, 'occupations.json');
-
-function versionTag(version: string): string {
-	return version.toLowerCase().replaceAll('.', '');
-}
+const V8_FILE = path.join(DATA_DIR, 'occupations-v8.json');
 
 fs.mkdirSync(OUT_DIR, { recursive: true });
-const liveJson = fs.readFileSync(IN_FILE);
-const liveOutFile = path.join(
-	OUT_DIR,
-	`sg-ai-occupations-${versionTag(DATA_VINTAGE.model_version)}.json`
-);
+const liveJson = fs.readFileSync(V8_FILE);
+const liveOutFile = path.join(OUT_DIR, 'sg-ai-occupations-v8.json');
 fs.writeFileSync(liveOutFile, liveJson);
 
 for (const entry of fs.readdirSync(DATA_DIR)) {

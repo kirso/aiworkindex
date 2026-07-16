@@ -20,8 +20,8 @@
 	const rankingPages = [
 		{
 			href: '/rankings/highest-risk',
-			title: 'Highest Risk',
-			description: 'Top 25 occupations by net displacement risk score',
+			title: 'Most Exposed to AI',
+			description: 'Top 25 occupations by AI exposure rank',
 			color: 'text-foreground',
 			accent: 'very_high' as const,
 			count: 25
@@ -46,9 +46,9 @@
 		},
 		{
 			href: '/rankings/high-risk-in-demand',
-			title: 'High Risk but In-Demand',
+			title: 'Highly Exposed, Still In Demand',
 			description:
-				'Occupations with high displacement risk that still appear on official demand lists',
+				'Occupations with higher AI Exposure Ranks that still appear on official demand lists',
 			color: 'text-foreground',
 			accent: 'high' as const,
 			count: null
@@ -65,7 +65,7 @@
 		{
 			href: '/rankings/safest-high-paying',
 			title: 'Safest High-Paying',
-			description: 'Low displacement risk with above-median wages — the sweet spot',
+			description: 'Lower AI Exposure Ranks with above-median wages',
 			color: 'text-foreground',
 			accent: 'very_low' as const,
 			count: 25
@@ -74,14 +74,14 @@
 			href: '/rankings/best-transitions',
 			title: 'Best Transitions',
 			description:
-				'Highest-risk occupations with the best transition paths to lower-risk alternatives',
+				'Higher-exposure occupations with the best transition paths to less-exposed alternatives',
 			color: 'text-foreground',
 			accent: 'leveraged' as const,
 			count: 25
 		},
 		{
 			href: '/rankings/high-risk-few-exits',
-			title: 'High Risk, Few Exits',
+			title: 'High Exposure, Fewer Career Moves',
 			description:
 				'The vulnerable quadrant — high displacement pressure where even the best adjacent move is a stretch',
 			color: 'text-foreground',
@@ -90,8 +90,8 @@
 		},
 		{
 			href: '/rankings/rich-and-risky',
-			title: 'Rich and Risky',
-			description: 'Highest-paid occupations facing high AI displacement risk (30%+)',
+			title: 'High-Paying and AI-Exposed',
+			description: 'Highest-paid occupations with higher AI Exposure Ranks',
 			color: 'text-foreground',
 			accent: 'high' as const,
 			count: 25
@@ -99,7 +99,7 @@
 		{
 			href: '/rankings/quarterly-movers',
 			title: 'Quarterly Movers',
-			description: 'Occupations that changed risk bands since the last quarterly snapshot',
+			description: 'Occupations that changed exposure bands since the last quarterly snapshot',
 			color: 'text-foreground',
 			accent: 'mixed' as const,
 			count: null
@@ -111,7 +111,7 @@
 		'@type': 'CollectionPage',
 		name: 'AI Work Index Rankings',
 		description:
-			'Curated ranking views — displacement risk, augmentation, wage safety, transitions, and more.',
+			'Curated ranking views — AI exposure, augmentation, demand, wages and transitions.',
 		url: SITE.url + '/rankings',
 		mainEntity: {
 			'@type': 'ItemList',
@@ -128,12 +128,12 @@
 
 <Seo
 	title="AI Work Index Rankings"
-	description="Ranked lists of occupations by AI displacement risk, augmentation potential, wage safety, and more."
+	description="Singapore occupation rankings by relative AI exposure, augmentation, demand, wages and transitions."
 	path="/rankings"
 	jsonLd={[collectionJsonLd]}
 />
 
-<main class={pageLayout({ width: 'content' })}>
+<main class={pageLayout({ width: 'feature' })}>
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Rankings' }]} />
 
 	<div class="mb-8">
@@ -169,10 +169,10 @@
 
 	<!-- Quick preview: highest risk -->
 	<div class="mb-8">
-		<h2 class={cn(sectionLabel(), 'mb-3')}>Top 5 Highest Risk</h2>
+		<h2 class={cn(sectionLabel(), 'mb-3')}>Top 5 Most Exposed to AI</h2>
 		<div class={card({ padding: 'md' })}>
 			<div class="flex items-center justify-between mb-3">
-				<p class={caption()}>Preview of the highest displacement risk scores</p>
+				<p class={caption()}>Preview of the highest AI exposure ranks</p>
 				<a href="/rankings/highest-risk" class={cn(caption({ weight: 'medium' }), 'text-primary')}
 					>See full list &rarr;</a
 				>
@@ -230,7 +230,7 @@
 		<h2 class={cn(sectionLabel(), 'mb-3')}>Top 5 Safest High-Paying</h2>
 		<div class={card({ padding: 'md' })}>
 			<div class="flex items-center justify-between mb-3">
-				<p class={caption()}>Low displacement risk with above-median wages</p>
+				<p class={caption()}>Lower AI Exposure Ranks with above-median wages</p>
 				<a
 					href="/rankings/safest-high-paying"
 					class={cn(caption({ weight: 'medium' }), 'text-primary')}>See full list &rarr;</a

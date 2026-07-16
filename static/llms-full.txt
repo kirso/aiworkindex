@@ -1,308 +1,129 @@
-# AI Work Index — Full Reference
-
-> Structural AI pressure scores for 562 occupations and 88 modern roles. Current public release: V7. Deterministic scoring, open data, no LLM in the scoring loop.
-
-## Project Overview
-
-AI Work Index is a global occupation scoring project covering Singapore and the United States. The live V7 release measures structural AI pressure, not realised job loss and not a hiring forecast.
-
-- Author: Kirill So (https://www.linkedin.com/in/kirso/)
-- Website: https://aiworkindex.com
-- Source code: https://github.com/kirso/aiworkindex
-- Data vintage: V7, last updated 2026-06-07
-- Coverage: 562 SSOC occupations + 88 synthetic modern roles
-- Countries: Singapore, United States
-
-## Scoring Methodology
-
-### Core Formula
-
-headline_risk = displacement_pressure x (1 - demand_resilience)
-
-V7 additions:
-  task_signal = task_exposure_concentration x task_effective_coverage (Hampole et al. 2025 — concentrated exposure buffers labour-demand losses)
-  exposure_v7 = exposure x (1 - 0.20 x task_signal)
-  demand_persistence = ranked composite of market momentum, vacancy trends, scarcity, demand signals
-
-Where:
-  displacement_pressure = exposure_v7 x (1 - bottleneck)
-  demand_resilience = min(1.0, base_resilience x 0.45 + demand_signal_bonus + 0.10 x demand_persistence)
-  augmentation = exposure_v7 x bottleneck x market.market_resilience
-
-### Layer 1: Exposure
-
-The live V7 exposure layer is a deterministic reliability-weighted 4-source ensemble over:
-- Felten AIOE
-- Anthropic Economic Index / observed AI usage
-- Eloundou GPT exposure
-- ILO occupational exposure
-
-### Layer 2: Human Bottleneck
-
-Human bottleneck is based on Pizzinelli theta and captures judgment, presence, coordination, and responsibility that resist automation.
-
-### Layer 3: Demand Resilience
-
-Demand resilience is a separate country-specific demand buffer built from:
-- Base resilience from market momentum and occupation scarcity
-- Shortage Occupation List bonuses
-- Jobs in Demand bonuses
-
-It is not an occupation-level outcome measure. It reduces structural pressure but does not convert the score into a realised labour-market forecast.
-
-## Risk Classification
-
-### Risk Bands
-
-| Band | Net Risk Range | Label |
-|------|----------------|-------|
-| Very Low | < 0.05 | Very Low |
-| Low | 0.05-0.15 | Low |
-| Moderate | 0.15-0.30 | Moderate |
-| High | 0.30-0.50 | High |
-| Very High | >= 0.50 | Very High |
-
-### Impact Types
-
-Impact types are determined only by the headline risk x augmentation matrix:
-- AI-Leveraged: net_risk < 0.25 AND augmentation >= 0.12
-- At Risk: net_risk >= 0.25 AND augmentation < 0.12
-- Mixed: net_risk >= 0.25 AND augmentation >= 0.12
-- Stable: net_risk < 0.25 AND augmentation < 0.12
-
-Demand signals influence impact types only indirectly through demand_resilience and the resulting net_risk.
-
-## What The Data Supports
-
-- The live V7 dataset supports structural rankings across 562 occupations.
-- It supports downloadable public JSON and CSV exports.
-- It supports directional validation and current country context layers published separately from the core score.
-- It does not support claims about occupation-level realised job loss.
-
-## Current Public Artifacts
-
-- Dataset: https://aiworkindex.com/data/sg-ai-occupations-v7.json
-- Data dictionary: https://aiworkindex.com/data
-- Methodology: https://aiworkindex.com/methodology
-- Reports: https://aiworkindex.com/reports
-- Research library: https://aiworkindex.com/research
-
-## How to Cite
-
-"AI Work Index (V7, 2026). Structural AI pressure scores for occupations. https://aiworkindex.com"
-
-## Limitations
-
-1. Scores measure structural pressure, not actual or predicted job losses.
-2. Crosswalks between SSOC, ISCO, SOC, and O*NET introduce mapping noise.
-3. Exposure inputs reflect published source vintages and can lag capability changes.
-4. Labour-monitor and context layers are supportive evidence, not hidden scoring overrides.
-
-## Top 50 Highest-Risk Occupations
-
-| Occupation | Risk | Band | Impact |
-|------------|------|------|--------|
-| Clearing and forwarding agent | 74% | very high | at risk |
-| Shipping agent/Boarding officer | 73% | very high | at risk |
-| Data entry clerk | 69% | very high | at risk |
-| Typist and word processing operator | 67% | very high | at risk |
-| Securities clerk | 66% | very high | at risk |
-| Audit clerk | 65% | very high | at risk |
-| Bank operations clerk | 64% | very high | at risk |
-| Insurance sales agent/broker (including independent financial planner) | 63% | very high | at risk |
-| Insurance/Underwriting clerk | 63% | very high | at risk |
-| Secretary | 63% | very high | at risk |
-| Billing clerk | 62% | very high | at risk |
-| Data processing control clerk | 61% | very high | at risk |
-| Ledger and accounts clerk | 61% | very high | at risk |
-| Office clerk (including filing and copying) | 60% | very high | at risk |
-| Telemarketer | 60% | very high | at risk |
-| Statistical clerk | 59% | very high | at risk |
-| Bookkeeper | 59% | very high | at risk |
-| Payroll/Wages clerk | 59% | very high | at risk |
-| Procurement/Purchasing clerk | 59% | very high | at risk |
-| Enumerator/Market research interviewer | 58% | very high | at risk |
-| Pawnbroker | 58% | very high | at risk |
-| Intellectual property agent | 58% | very high | at risk |
-| Personnel/Human resource clerk | 56% | very high | at risk |
-| Content writer | 56% | very high | at risk |
-| Postman | 55% | very high | at risk |
-| Audit associate professional | 53% | very high | at risk |
-| Assistant accountant | 53% | very high | at risk |
-| Technical writer | 53% | very high | at risk |
-| Script writer and editor | 52% | very high | at risk |
-| Author | 52% | very high | at risk |
-| Operations research analyst | 52% | very high | at risk |
-| Proofreading clerk | 52% | very high | at risk |
-| Website administrator/Webmaster | 51% | very high | at risk |
-| Bill collector | 51% | very high | at risk |
-| Data centre engineer | 51% | very high | at risk |
-| Tax associate professional | 50% | very high | at risk |
-| Legal associate professional (e.g. paralegal) | 50% | high | at risk |
-| Multimedia (including games) developer | 49% | high | at risk |
-| Medical/Dental receptionist | 49% | high | at risk |
-| Database administrator | 49% | high | at risk |
-| Database architect | 49% | high | at risk |
-| Financial markets back office administrator | 49% | high | at risk |
-| Media and broadcasting engineer | 48% | high | at risk |
-| Statistical officer/Data analyst | 48% | high | mixed |
-| Library clerk | 47% | high | at risk |
-| Receptionist (general) | 47% | high | at risk |
-| Hotel receptionist (including hotel reservation and front desk clerk) | 47% | high | at risk |
-| Telecommunications engineer | 47% | high | at risk |
-| Actuary | 46% | high | at risk |
-| Legal clerk | 46% | high | at risk |
-
-## Top 50 Lowest-Risk Occupations
-
-| Occupation | Risk | Band | Impact |
-|------------|------|------|--------|
-| General dental practitioner | 0% | very low | stable |
-| Urologist | 0% | very low | stable |
-| Orthopaedic surgeon | 0% | very low | stable |
-| General surgeon | 0% | very low | stable |
-| Cardiothoracic surgeon | 0% | very low | stable |
-| Veterinarian | 0% | very low | ai leveraged |
-| Traditional Chinese medicine practitioner | 0% | very low | ai leveraged |
-| Early intervention teacher for infants and children | 0% | very low | ai leveraged |
-| Dermatologist | 1% | very low | ai leveraged |
-| Social service manager | 1% | very low | ai leveraged |
-| Psychiatrist | 1% | very low | ai leveraged |
-| Paediatrician | 1% | very low | ai leveraged |
-| Occupational therapist | 1% | very low | ai leveraged |
-| Internal medicine physician | 1% | very low | ai leveraged |
-| Physiotherapist | 1% | very low | stable |
-| General practitioner/physician | 1% | very low | stable |
-| Marine engineering officer (including third, fourth and fifth engineer) | 1% | very low | stable |
-| Port limit helmsman/steersman/engine driver/tugmaster | 1% | very low | stable |
-| Deckhand (including lighterman) | 1% | very low | stable |
-| Ophthalmologist | 1% | very low | ai leveraged |
-| Otorhinolaryngologist/Ear, nose, throat (ENT) specialist | 1% | very low | ai leveraged |
-| Diagnostic radiologist | 1% | very low | ai leveraged |
-| Obstetrician/Gynaecologist | 1% | very low | ai leveraged |
-| Emergency physician | 1% | very low | ai leveraged |
-| Anaesthesiologist | 1% | very low | ai leveraged |
-| Electrician | 1% | very low | stable |
-| Driving instructor/tester | 1% | very low | stable |
-| Flying instructor (except air force) | 1% | very low | ai leveraged |
-| Software and applications manager | 1% | very low | ai leveraged |
-| Production manager in agriculture and fisheries | 1% | very low | stable |
-| Commercial airline pilot | 1% | very low | stable |
-| Chief information officer/Chief technology officer/Chief security officer | 1% | very low | ai leveraged |
-| Network, communications and infrastructure manager | 1% | very low | ai leveraged |
-| ICT service manager | 1% | very low | ai leveraged |
-| Undertaker | 1% | very low | stable |
-| Supervisor/General foreman (building and related trades) | 1% | very low | ai leveraged |
-| Sports centre manager | 2% | very low | ai leveraged |
-| Plumber | 2% | very low | stable |
-| Research and development manager | 2% | very low | ai leveraged |
-| Carpenter | 2% | very low | stable |
-| Joiner | 2% | very low | stable |
-| School principal | 2% | very low | ai leveraged |
-| Underwater diver | 2% | very low | stable |
-| Risk management manager | 2% | very low | ai leveraged |
-| Strategic planning manager | 2% | very low | ai leveraged |
-| Landscape operations officer | 2% | very low | stable |
-| Premises and facilities maintenance officer | 2% | very low | stable |
-| Policy manager | 2% | very low | ai leveraged |
-| Optometrist | 2% | very low | ai leveraged |
-| Civil engineering/Building construction labourer | 2% | very low | stable |
-
-## Common Questions
-
-Q: Will AI replace Clearing and forwarding agent?
-A: Clearing and forwarding agent has an AI displacement risk of 74%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Shipping agent/Boarding officer?
-A: Shipping agent/Boarding officer has an AI displacement risk of 73%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Data entry clerk?
-A: Data entry clerk has an AI displacement risk of 69%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Typist and word processing operator?
-A: Typist and word processing operator has an AI displacement risk of 67%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Securities clerk?
-A: Securities clerk has an AI displacement risk of 66%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Audit clerk?
-A: Audit clerk has an AI displacement risk of 65%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Bank operations clerk?
-A: Bank operations clerk has an AI displacement risk of 64%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Insurance sales agent/broker (including independent financial planner)?
-A: Insurance sales agent/broker (including independent financial planner) has an AI displacement risk of 63%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Insurance/Underwriting clerk?
-A: Insurance/Underwriting clerk has an AI displacement risk of 63%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Secretary?
-A: Secretary has an AI displacement risk of 63%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Billing clerk?
-A: Billing clerk has an AI displacement risk of 62%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Data processing control clerk?
-A: Data processing control clerk has an AI displacement risk of 61%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Ledger and accounts clerk?
-A: Ledger and accounts clerk has an AI displacement risk of 61%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Office clerk (including filing and copying)?
-A: Office clerk (including filing and copying) has an AI displacement risk of 60%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Telemarketer?
-A: Telemarketer has an AI displacement risk of 60%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Statistical clerk?
-A: Statistical clerk has an AI displacement risk of 59%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Bookkeeper?
-A: Bookkeeper has an AI displacement risk of 59%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Payroll/Wages clerk?
-A: Payroll/Wages clerk has an AI displacement risk of 59%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Procurement/Purchasing clerk?
-A: Procurement/Purchasing clerk has an AI displacement risk of 59%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Enumerator/Market research interviewer?
-A: Enumerator/Market research interviewer has an AI displacement risk of 58%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace General dental practitioner?
-A: General dental practitioner has an AI displacement risk of 0%, rated Very Low. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Urologist?
-A: Urologist has an AI displacement risk of 0%, rated Very Low. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Orthopaedic surgeon?
-A: Orthopaedic surgeon has an AI displacement risk of 0%, rated Very Low. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace General surgeon?
-A: General surgeon has an AI displacement risk of 0%, rated Very Low. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Cardiothoracic surgeon?
-A: Cardiothoracic surgeon has an AI displacement risk of 0%, rated Very Low. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Veterinarian?
-A: Veterinarian has an AI displacement risk of 0%, rated Very Low. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Traditional Chinese medicine practitioner?
-A: Traditional Chinese medicine practitioner has an AI displacement risk of 0%, rated Very Low. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Early intervention teacher for infants and children?
-A: Early intervention teacher for infants and children has an AI displacement risk of 0%, rated Very Low. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Dermatologist?
-A: Dermatologist has an AI displacement risk of 1%, rated Very Low. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Social service manager?
-A: Social service manager has an AI displacement risk of 1%, rated Very Low. This is a structural pressure score, not a prediction of job loss.
-
-
-## Contact
-
-- LinkedIn: https://www.linkedin.com/in/kirso/
-- GitHub: https://github.com/kirso/aiworkindex
-- Website: https://aiworkindex.com
+# AI Work Index — V8 full reference
+
+A score of 72/100 means the occupation is more exposed to current AI capabilities than approximately 72% of the 562 scored Singapore occupations. It is not a 72% probability of job loss, not the share of tasks AI can do, and not a forecast of employment decline.
+
+## Method
+
+V8 ranks a multi-source occupational change signal within the Singapore SSOC universe. Ties receive midranks. Substitution and augmentation are reported as separate relative component scores. Demand, adoption, attrition, entry-level and transition evidence do not silently alter the headline rank; they inform the likely pathway and are available as context fields. Confidence is categorical evidence support. Sensitivity is a specification range, not a statistical confidence interval.
+
+## What V8 does not support
+
+- occupation-level job-loss probabilities or dates
+- claims that a score is the percentage of tasks automated
+- causal estimates of AI's employment effect
+- scored comparisons between Singapore and other countries
+- guarantees that a low-scoring occupation is “AI-proof”
+
+## Highest relative scores
+
+| Occupation | AI Exposure Rank | Band | Likely pathway | Evidence |
+|---|---:|---|---|---|
+| Statistical officer/Data analyst | 100/100 | very high | workflow redesign | medium |
+| Enumerator/Market research interviewer | 100/100 | very high | workflow redesign | high |
+| Statistical clerk | 100/100 | very high | workflow redesign | high |
+| Typist and word processing operator | 100/100 | very high | workflow redesign | high |
+| Data scientist | 99/100 | very high | augmentation led growth | high |
+| Statistician | 99/100 | very high | hiring or substitution pressure | high |
+| Translator | 99/100 | very high | hiring or substitution pressure | medium |
+| Financial markets back office administrator | 99/100 | very high | hiring or substitution pressure | medium |
+| Accountant (excluding tax accountant) | 98/100 | very high | workflow redesign | high |
+| Auditor (accounting) | 98/100 | very high | demand buffered redesign | medium |
+| Tax accountant | 98/100 | very high | workflow redesign | high |
+| Art and craft instructor (extracurriculum) | 98/100 | very high | workflow redesign | low |
+| Information technology trainer (extracurriculum) | 98/100 | very high | workflow redesign | low |
+| Language instructor (extracurriculum) | 98/100 | very high | workflow redesign | low |
+| Music instructor (extracurriculum) | 98/100 | very high | workflow redesign | low |
+| Private tutor (academic) | 98/100 | very high | workflow redesign | low |
+| Relief teacher | 98/100 | very high | workflow redesign | low |
+| Clearing and forwarding agent | 97/100 | very high | workflow redesign | high |
+| Shipping agent/Boarding officer | 97/100 | very high | workflow redesign | high |
+| Creative advertising professional | 96/100 | very high | workflow redesign | medium |
+| Database administrator | 96/100 | very high | workflow redesign | medium |
+| Database architect | 96/100 | very high | hiring or substitution pressure | medium |
+| Digital marketing professional (e.g. online, social media, e-commerce marketing professional) | 96/100 | very high | workflow redesign | high |
+| Market research professional | 96/100 | very high | workflow redesign | high |
+| Marketing strategy/planning professional | 96/100 | very high | workflow redesign | high |
+| Revenue specialist | 96/100 | very high | workflow redesign | medium |
+| Actuary | 95/100 | very high | hiring or substitution pressure | medium |
+| Operations research analyst | 95/100 | very high | workflow redesign | high |
+| Assistant accountant | 95/100 | very high | workflow redesign | high |
+| Audit associate professional | 95/100 | very high | hiring or substitution pressure | high |
+| Tax associate professional | 95/100 | very high | workflow redesign | high |
+| Telemarketer | 95/100 | very high | workflow redesign | high |
+| Compliance officer/Risk analyst (financial) | 94/100 | very high | workflow redesign | low |
+| Economist | 94/100 | very high | hiring or substitution pressure | medium |
+| Financial analyst (e.g. equities analyst, credit analyst, investment research analyst) | 94/100 | very high | workflow redesign | low |
+| Financial product structurer | 94/100 | very high | hiring or substitution pressure | low |
+| Fund/Portfolio manager (including asset allocator) | 94/100 | very high | workflow redesign | low |
+| Treasury manager | 94/100 | very high | workflow redesign | low |
+| Applications/Systems programmer | 93/100 | very high | demand buffered redesign | medium |
+| After sales adviser/Client account service executive | 93/100 | very high | workflow redesign | high |
+| Business development executive | 93/100 | very high | workflow redesign | high |
+| Marketing and sales executive (food & beverage services) | 93/100 | very high | workflow redesign | medium |
+| Merchandising/Category executive | 93/100 | very high | workflow redesign | high |
+| Online sales channel executive | 93/100 | very high | workflow redesign | medium |
+| Bank operations clerk | 92/100 | very high | workflow redesign | medium |
+| Data entry clerk | 92/100 | very high | workflow redesign | medium |
+| Insurance/Underwriting clerk | 92/100 | very high | hiring or substitution pressure | medium |
+| Securities clerk | 92/100 | very high | hiring or substitution pressure | medium |
+| Audit clerk | 91/100 | very high | workflow redesign | medium |
+| Billing clerk | 91/100 | very high | workflow redesign | high |
+
+## Lowest relative scores
+
+| Occupation | AI Exposure Rank | Band | Likely pathway | Evidence |
+|---|---:|---|---|---|
+| Housekeeping/Linen room attendant | 0/100 | very low | limited direct change | medium |
+| Hotel cleaner | 0/100 | very low | limited direct change | medium |
+| Driving instructor/tester | 0/100 | very low | limited direct change | high |
+| Tree worker/technician | 1/100 | very low | limited direct change | medium |
+| Table-top cleaner | 1/100 | very low | limited direct change | medium |
+| Residential and open areas general cleaner | 1/100 | very low | limited direct change | medium |
+| Landscape worker | 1/100 | very low | limited direct change | medium |
+| Food and beverage establishments general cleaner | 1/100 | very low | limited direct change | medium |
+| Dishwasher | 1/100 | very low | limited direct change | medium |
+| Office, commercial and industrial establishments outdoor cleaner | 2/100 | very low | limited direct change | medium |
+| Office, commercial and industrial establishments multi-skilled cleaner cum machine operator | 2/100 | very low | limited direct change | medium |
+| Office, commercial and industrial establishments indoor cleaner | 2/100 | very low | limited direct change | medium |
+| Civil engineering/Building construction labourer | 2/100 | very low | limited direct change | medium |
+| Warehouse worker | 3/100 | very low | limited direct change | medium |
+| Vehicle attendant | 3/100 | very low | limited direct change | medium |
+| Mover | 3/100 | very low | limited direct change | medium |
+| Motor vehicle cleaner/polisher | 3/100 | very low | limited direct change | medium |
+| Aircraft loader (e.g. airport baggage/cargo handler) | 3/100 | very low | limited direct change | medium |
+| Fumigator and other pest and weed controller | 3/100 | very low | limited direct change | medium |
+| Floor/Wall tiler | 3/100 | very low | limited direct change | medium |
+| Hand packer | 4/100 | very low | limited direct change | medium |
+| Hand launderer/presser (non-household) | 4/100 | very low | limited direct change | medium |
+| Crane/Hoist operator (excluding port) | 4/100 | very low | limited direct change | medium |
+| Crane operator (on-site) | 4/100 | very low | limited direct change | medium |
+| Airport mobile equipment operator | 4/100 | very low | limited direct change | medium |
+| Welder and flame cutter | 4/100 | very low | limited direct change | medium |
+| Waste recycling sorter | 5/100 | very low | limited direct change | medium |
+| General waste collection, recycling and material recovery worker | 5/100 | very low | limited direct change | medium |
+| Excavating/Trench digging machine operator | 5/100 | very low | limited direct change | medium |
+| Joiner | 5/100 | very low | limited direct change | medium |
+| Carpenter | 5/100 | very low | limited direct change | medium |
+| Port limit helmsman/steersman/engine driver/tugmaster | 6/100 | very low | limited direct change | medium |
+| Packing/Bottling/Labelling machine operator | 6/100 | very low | limited direct change | medium |
+| Fork lift truck operator | 6/100 | very low | limited direct change | medium |
+| Deckhand (including lighterman) | 6/100 | very low | limited direct change | medium |
+| Tailor/Dressmaker | 6/100 | very low | limited direct change | medium |
+| Building maintenance worker | 6/100 | very low | limited direct change | medium |
+| Sewing machine operator | 7/100 | very low | limited direct change | medium |
+| Precision grinding machine setter-operator | 7/100 | very low | limited direct change | medium |
+| Metalworking machine setter-operator | 7/100 | very low | limited direct change | medium |
+| Metal heat treating plant operator | 7/100 | very low | limited direct change | medium |
+| Automotive mechanic | 7/100 | very low | limited direct change | medium |
+| Aquarium fish farm worker | 7/100 | very low | limited direct change | low |
+| Doorman | 8/100 | very low | limited direct change | medium |
+| Building caretaker/Watchman | 8/100 | very low | limited direct change | medium |
+| Underwater diver | 8/100 | very low | limited direct change | medium |
+| Butcher, fishmonger and related food preparer | 8/100 | very low | limited direct change | medium |
+| Auxiliary police officer | 8/100 | very low | limited direct change | medium |
+| Dairy and confectionery products machine operator | 9/100 | very low | limited direct change | medium |
+| Plumber | 9/100 | very low | limited direct change | medium |
+
+## Citation
+
+AI Work Index (V8, 2026), Singapore AI Exposure Ranks. https://aiworkindex.com

@@ -16,8 +16,8 @@
 	const columns = [
 		{
 			key: 'net_risk',
-			label: 'Net Risk',
-			format: (occ: Occupation) => `${(occ.net_risk * 100).toFixed(1)}%`,
+			label: 'AI Exposure Rank',
+			format: (occ: Occupation) => `${(occ.net_risk * 100).toFixed(0)}/100`,
 			align: 'right' as const
 		},
 		{
@@ -35,7 +35,7 @@
 		{
 			key: 'exposure',
 			label: 'Exposure',
-			format: (occ: Occupation) => `${(occ.exposure * 100).toFixed(0)}%`,
+			format: (occ: Occupation) => `${(occ.exposure * 100).toFixed(0)}/100`,
 			align: 'right' as const
 		},
 		{
@@ -48,17 +48,17 @@
 
 	let itemListJsonLd = $derived(
 		buildItemListJsonLd(
-			'High-Risk but In-Demand Occupations',
-			'Occupations with high AI displacement risk that still appear on official demand lists',
+			'Highly Exposed but In-Demand Occupations',
+			'Occupations with higher AI Exposure Ranks that still appear on official demand lists',
 			data.ranked
 		)
 	);
 
 	const faqItems = [
 		{
-			question: 'Are there high AI risk jobs that still get hired?',
+			question: 'Can high-change occupations still have strong hiring demand?',
 			answer:
-				'Yes. Some occupations face high structural displacement pressure but still appear on official demand lists, creating a paradox where automation risk coexists with active hiring demand.'
+				'Yes. Some occupations rank higher for AI exposure while still appearing on official demand lists. Exposure and hiring demand measure different things.'
 		},
 		{
 			question: 'Should I worry about AI if my job is in demand?',
@@ -72,23 +72,24 @@
 
 <Seo
 	title="High AI Risk but In-Demand Jobs"
-	description="Occupations with high AI displacement risk that still appear on official demand lists."
+	description="Singapore occupations with higher AI Exposure Ranks that still appear on official demand lists."
 	path="/rankings/high-risk-in-demand"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
 
-<main class={pageLayout({ width: 'content' })}>
+<main class={pageLayout({ width: 'feature' })}>
 	<PageBreadcrumb
 		items={[
 			{ label: 'Home', href: '/' },
 			{ label: 'Rankings', href: '/rankings' },
-			{ label: 'High Risk but In-Demand' }
+			{ label: 'Highly Exposed, Still In Demand' }
 		]}
 	/>
 
-	<h1 class={titleStyle({ size: 'page' })}>High Risk but In-Demand</h1>
+	<h1 class={titleStyle({ size: 'page' })}>Highly Exposed, Still In Demand</h1>
 	<p class="mt-2 text-sm text-muted-foreground">
-		High or Very High displacement risk (net_risk &ge; 25%), yet still on official demand lists.
+		Higher relative V8 score (legacy filter alias &ge; 0.25), yet still on official demand lists.
+		Demand can buffer or reshape the pathway.
 	</p>
 
 	{#if data.ranked.length === 0}
@@ -98,7 +99,8 @@
 			<RankingTable occupations={data.ranked} {columns} />
 		</section>
 		<p class="mt-4 text-xs text-muted-foreground">
-			{data.ranked.length} occupation{data.ranked.length === 1 ? '' : 's'} with high risk and active demand.
+			{data.ranked.length} occupation{data.ranked.length === 1 ? '' : 's'} with higher AI exposure and
+			active demand.
 		</p>
 	{/if}
 	<FaqList items={faqItems} />

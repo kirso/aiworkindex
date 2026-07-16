@@ -1234,10 +1234,14 @@ async function main() {
 		}>(CURRENT_BACKTEST_FILE);
 		const blsBacktest = readJson<{
 			sample_size: number;
+			raw_matched_ssoc_rows: number;
+			analysis_unit: string;
 			spearman_rho: number;
+			caveats?: string[];
 			slope_specification?: {
 				slope_per_10pp_net_risk: number;
 				slope_p_value_below_001: boolean;
+				slope_p_value_below_01: boolean;
 				direction_matches_anthropic: boolean;
 			};
 		}>(BLS_BACKTEST_FILE);
@@ -1655,11 +1659,20 @@ async function main() {
 		const lastUpdated = new Date(DATA_VINTAGE.last_updated);
 		const today = new Date();
 		const daysOld = Math.floor((today.getTime() - lastUpdated.getTime()) / (1000 * 60 * 60 * 24));
-		check('Data vintage is fresh (<= 1 day old)', daysOld <= 1, `${daysOld} days old`);
+		check(
+			'Data vintage date is valid and not in the future',
+			Number.isFinite(lastUpdated.getTime()) && daysOld >= 0,
+			`${daysOld} days old`
+		);
+		check(
+			'Public release review age is within 180 days',
+			daysOld <= 180,
+			`${daysOld} days old; source vintages are disclosed separately and do not reset on each build`
+		);
 		check('Site status artifact exists', siteStatus !== null);
 		check(
 			'Site status structural version matches DATA_VINTAGE',
-			siteStatus?.structural_release.version === DATA_VINTAGE.model_version,
+			siteStatus?.structural_release.version === DATA_VINTAGE.public_version,
 			siteStatus?.structural_release.version
 		);
 		check('Experimental methodology artifact exists', experimentalMethodology !== null);
@@ -1766,80 +1779,20 @@ async function main() {
 			)
 		);
 		check(
-			'Release manifest includes governance, research, and shadow artifacts',
-			(releaseManifest?.artifacts ?? []).some(artifact => artifact.file === 'site-status.json') &&
+			'Release manifest exposes the clean V8 contract and its governance artifacts',
+			(releaseManifest?.artifacts ?? []).some(
+				artifact => artifact.file === 'sg-ai-occupations-v8.json'
+			) &&
 				(releaseManifest?.artifacts ?? []).some(
-					artifact => artifact.file === 'experimental-methodology-v43.json'
-				) &&
-				(releaseManifest?.artifacts ?? []).some(artifact => artifact.file === 'releases.json') &&
-				(releaseManifest?.artifacts ?? []).some(
-					artifact => artifact.file === 'research-library.json'
-				) &&
-				(releaseManifest?.artifacts ?? []).some(artifact => artifact.file === 'v5-roadmap.json') &&
-				(releaseManifest?.artifacts ?? []).some(artifact => artifact.file === 'v5-sidecars.json') &&
-				(releaseManifest?.artifacts ?? []).some(
-					artifact => artifact.file === 'v5-augmentation-heterogeneity.json'
+					artifact => artifact.file === 'sg-ai-occupations-v8.csv'
 				) &&
 				(releaseManifest?.artifacts ?? []).some(
-					artifact => artifact.file === 'v5-empirical-mobility.json'
+					artifact => artifact.file === 'claims-matrix-v8.json'
 				) &&
 				(releaseManifest?.artifacts ?? []).some(
-					artifact => artifact.file === 'v5-posterior-uncertainty.json'
+					artifact => artifact.file === 'public-field-source-map.json'
 				) &&
-				(releaseManifest?.artifacts ?? []).some(
-					artifact => artifact.file === 'v5-realized-risk.json'
-				) &&
-				(releaseManifest?.artifacts ?? []).some(
-					artifact => artifact.file === 'v5-experimental-model.json'
-				) &&
-				(releaseManifest?.artifacts ?? []).some(
-					artifact => artifact.file === 'v5-experimental-validation.json'
-				) &&
-				(releaseManifest?.artifacts ?? []).some(
-					artifact => artifact.file === 'shadow-scores-v43.json'
-				) &&
-				(releaseManifest?.artifacts ?? []).some(
-					artifact => artifact.file === 'shadow-comparison-v43.json'
-				) &&
-				(releaseManifest?.artifacts ?? []).some(
-					artifact => artifact.file === 'shadow-validation-v43.json'
-				) &&
-				(releaseManifest?.artifacts ?? []).some(
-					artifact => artifact.file === 'shadow-anchor-review-v43.json'
-				) &&
-				(releaseManifest?.artifacts ?? []).some(
-					artifact => artifact.file === 'sg-offset-potential-v4.json'
-				) &&
-				(releaseManifest?.artifacts ?? []).some(
-					artifact => artifact.file === 'backtests/calibration-diagnostics.json'
-				) &&
-				(releaseManifest?.artifacts ?? []).some(
-					artifact => artifact.file === 'backtests/occupation-family-validation.json'
-				) &&
-				(releaseManifest?.artifacts ?? []).some(
-					artifact => artifact.file === 'backtests/sensitivity-analysis.json'
-				) &&
-				(releaseManifest?.artifacts ?? []).some(
-					artifact => artifact.file === 'backtests/imf-convergence.json'
-				) &&
-				(releaseManifest?.artifacts ?? []).some(
-					artifact => artifact.file === 'backtests/forecast-horizon-validation.json'
-				) &&
-				(releaseManifest?.artifacts ?? []).some(
-					artifact => artifact.file === 'confidence-ratings.json'
-				) &&
-				(releaseManifest?.artifacts ?? []).some(
-					artifact => artifact.file === 'scenario-families.json'
-				) &&
-				(releaseManifest?.artifacts ?? []).some(
-					artifact => artifact.file === 'adoption-diffusion.json'
-				) &&
-				(releaseManifest?.artifacts ?? []).some(
-					artifact => artifact.file === 'age-structure.json'
-				) &&
-				(releaseManifest?.artifacts ?? []).some(
-					artifact => artifact.file === 'forecast-readiness-v7.json'
-				)
+				(releaseManifest?.artifacts ?? []).some(artifact => artifact.file === 'age-structure.json')
 		);
 		check(
 			'Experimental direct task-share summary matches occupation data when present',
@@ -2061,15 +2014,11 @@ async function main() {
 			)
 		);
 		check(
-			'Research library references current claims and source keys cleanly',
-			(researchLibrary?.entries ?? []).every(
-				entry =>
-					entry.source_keys.every(sourceKey =>
-						dataSourceRegistry.some(sourceEntry => sourceEntry.key === sourceKey)
-					) &&
-					entry.claim_ids.every(claimId =>
-						(claimsMatrix?.claims ?? []).some(claim => claim.id === claimId)
-					)
+			'Research library source keys resolve; historical claim links may point to archived matrices',
+			(researchLibrary?.entries ?? []).every(entry =>
+				entry.source_keys.every(sourceKey =>
+					dataSourceRegistry.some(sourceEntry => sourceEntry.key === sourceKey)
+				)
 			)
 		);
 		check(
@@ -2146,15 +2095,22 @@ async function main() {
 		check('Current cluster backtest artifact exists', currentBacktest !== null);
 		check('BLS crosswalk validation artifact exists', blsBacktest !== null);
 		check(
-			'BLS projected-growth slope is negative and significant',
-			(blsBacktest?.slope_specification?.slope_per_10pp_net_risk ?? 0) < 0 &&
-				blsBacktest?.slope_specification?.slope_p_value_below_001 === true,
-			JSON.stringify(blsBacktest?.slope_specification)
+			'BLS comparison uses deduplicated crosswalk signatures and reports its null result',
+			blsBacktest?.analysis_unit === 'unique_ssoc_to_soc_crosswalk_signature' &&
+				(blsBacktest?.sample_size ?? 0) < (blsBacktest?.raw_matched_ssoc_rows ?? 0) &&
+				Math.abs(blsBacktest?.spearman_rho ?? 1) < 0.1 &&
+				blsBacktest?.slope_specification?.slope_p_value_below_01 === false,
+			JSON.stringify({
+				analysis_unit: blsBacktest?.analysis_unit,
+				sample_size: blsBacktest?.sample_size,
+				raw_rows: blsBacktest?.raw_matched_ssoc_rows,
+				slope: blsBacktest?.slope_specification
+			})
 		);
 		check(
-			'BLS slope direction matches the Anthropic projected-growth benchmark',
-			blsBacktest?.slope_specification?.direction_matches_anthropic === true,
-			String(blsBacktest?.slope_specification?.direction_matches_anthropic)
+			'BLS comparison is explicitly non-causal',
+			(blsBacktest?.caveats ?? []).some(caveat => caveat.includes('not causal evidence')),
+			JSON.stringify(blsBacktest?.caveats)
 		);
 		check('Multi-period validation artifact exists', multiPeriodBacktest !== null);
 		check('Calibration diagnostics artifact exists', calibrationDiagnostics !== null);

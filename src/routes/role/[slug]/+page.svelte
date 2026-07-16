@@ -222,7 +222,7 @@
 			if (navigator.share) {
 				await navigator.share({
 					title: `${scored.title} — ${SITE.name}`,
-					text: `Estimated AI displacement risk for ${scored.title}: ${(scored.net_risk * 100).toFixed(0)}%`,
+					text: `Estimated AI Exposure Rank for ${scored.title}: ${(scored.net_risk * 100).toFixed(0)}/100`,
 					url
 				});
 				return;
@@ -243,8 +243,16 @@
 				' official occupations in Singapore',
 			occupationLocation: { '@type': 'Country', name: 'Singapore' },
 			additionalProperty: [
-				{ '@type': 'PropertyValue', name: 'AI Net Displacement Risk', value: scored.net_risk },
-				{ '@type': 'PropertyValue', name: 'Risk Band', value: riskBandLabels[scored.risk_band] },
+				{
+					'@type': 'PropertyValue',
+					name: 'AI Exposure Rank',
+					value: Math.round(scored.net_risk * 100)
+				},
+				{
+					'@type': 'PropertyValue',
+					name: 'Relative Band',
+					value: riskBandLabels[scored.risk_band]
+				},
 				{
 					'@type': 'PropertyValue',
 					name: 'Estimate Type',
@@ -278,27 +286,23 @@
 			question: 'Will AI replace ' + scored.title + '?',
 			answer:
 				structural.summaryText +
-				' Estimated displacement risk: ' +
+				' Estimated AI exposure rank: ' +
 				riskPct +
-				'% (' +
+				'/100 (' +
 				riskBandLabels[scored.risk_band] +
 				').'
 		},
 		{
-			question: 'What is the AI risk score for ' + scored.title + '?',
+			question: 'What is the AI exposure rank for ' + scored.title + '?',
 			answer:
 				scored.title +
-				' has an estimated AI displacement risk of ' +
+				' has an estimated relative AI Exposure Rank of ' +
 				riskPct +
-				'%, rated ' +
+				'/100, rated ' +
 				riskBandLabels[scored.risk_band] +
-				'. AI task overlap: ' +
-				(scored.exposure * 100).toFixed(0) +
-				'%. Human advantage: ' +
-				(scored.bottleneck * 100).toFixed(0) +
-				'%. This is a synthetic estimate blending ' +
+				'. This is a synthetic relative estimate blending ' +
 				scored.components.length +
-				' official occupations in Singapore.'
+				' official occupations in Singapore, not a job-loss probability.'
 		},
 		{
 			question: 'What occupations make up the ' + scored.title + ' estimate?',
@@ -327,9 +331,11 @@
 		})}<\/script>`
 	);
 
-	let pageTitle = $derived(`Will AI Replace ${scored.title}? ${riskPct}% Risk | AI Work Index`);
+	let pageTitle = $derived(
+		`Will AI Replace ${scored.title}? ${riskPct}/100 Estimate | AI Work Index`
+	);
 	let pageDescription = $derived(
-		`${scored.title}: Estimated AI risk ${riskPct}%, rated ${riskBandLabels[scored.risk_band]}. Based on ${scored.components.length} official occupations in Singapore.`
+		`${scored.title}: estimated AI exposure rank ${riskPct}/100, rated ${riskBandLabels[scored.risk_band]}. Synthetic blend of ${scored.components.length} Singapore occupations; not a probability.`
 	);
 
 	const bandSteps: Record<import('$lib/data').RiskBand, number> = {
@@ -364,7 +370,7 @@
 	jsonLd={[roleJsonLd, breadcrumbJsonLd, faqJsonLd]}
 />
 
-<main class={pageLayout({ width: 'content' })}>
+<main class={pageLayout({ width: 'feature' })}>
 	<PageBreadcrumb
 		items={[
 			{ label: 'Home', href: '/' },
@@ -414,10 +420,10 @@
 		>
 			<div class="border-b border-border py-5 pr-6 md:border-r md:border-b-0">
 				<p class="font-mono text-[11px] tracking-[0.16em] text-muted-foreground uppercase">
-					AI displacement risk
+					Estimated AI exposure rank
 				</p>
 				<p class="mt-1 font-sans text-7xl leading-none font-black tracking-display tabular-nums">
-					{(scored.net_risk * 100).toFixed(0)}%
+					{(scored.net_risk * 100).toFixed(0)}<span class="text-2xl">/100</span>
 				</p>
 				<div class="mt-4 flex items-center gap-2.5">
 					<div class="flex gap-0.5" aria-hidden="true">
@@ -436,9 +442,9 @@
 				</div>
 				{#if scored.risk_range}
 					<p class="mt-2.5 font-mono text-xs text-muted-foreground tabular-nums">
-						Range {(scored.risk_range.optimistic * 100).toFixed(0)}–{(
+						Estimated range {(scored.risk_range.optimistic * 100).toFixed(0)}–{(
 							scored.risk_range.pessimistic * 100
-						).toFixed(0)}%
+						).toFixed(0)}/100
 					</p>
 				{/if}
 			</div>
@@ -450,18 +456,18 @@
 				</p>
 				<p class="mt-3.5 flex max-w-2xl gap-2 text-[13px] leading-snug text-muted-foreground">
 					<span class="text-primary" aria-hidden="true">※</span>
-					Structural pressure, not a prediction of job loss. Displacement tends to arrive through slower
-					hiring, wage compression and role redesign before layoffs.
+					Relative AI exposure, not a prediction of job loss. Hiring, wages and role design depend on
+					many forces that this estimate does not forecast.
 				</p>
 
 				{#if scored.dispersion > 0.08}
 					<div class={cn(card({ padding: 'sm', variant: 'inset' }), 'mt-4')}>
 						<p class="text-xs font-medium text-foreground">
-							Risk depends on your actual work split
+							Exposure estimate depends on your actual work split
 						</p>
 						<div class="mt-2 flex items-center gap-2">
 							<span class="font-mono text-xs text-risk-very-low"
-								>{(scored.risk_range.optimistic * 100).toFixed(0)}%</span
+								>{(scored.risk_range.optimistic * 100).toFixed(0)}/100</span
 							>
 							<div class="relative h-1.5 flex-1 rounded-full bg-border">
 								<div
@@ -477,7 +483,7 @@
 								></div>
 							</div>
 							<span class="font-mono text-xs text-risk-very-high"
-								>{(scored.risk_range.pessimistic * 100).toFixed(0)}%</span
+								>{(scored.risk_range.pessimistic * 100).toFixed(0)}/100</span
 							>
 						</div>
 					</div>
@@ -501,7 +507,7 @@
 					{:else if decision && decision.adaptationCapacity >= 0.35}
 						Current buffers soften the raw score somewhat.
 					{:else}
-						Limited buffers available against the structural pressure.
+						Limited current buffers in the supporting context.
 					{/if}
 					{#if scored.confidence === 'low'}
 						<span class="ml-1 text-risk-moderate">Thin evidence — treat with caution.</span>
@@ -618,7 +624,7 @@
 					{/if}
 					{#if employerPressure}
 						<div class={card({ padding: 'sm', variant: 'metric' })}>
-							<p class={microLabel()}>Employer pressure</p>
+							<p class={microLabel()}>Employer signals</p>
 							<p class="mt-1 font-mono text-lg text-foreground">{employerPressure.label}</p>
 							<p class="text-xs text-muted-foreground">
 								{employerPressure.signal_count} recent signals
@@ -738,7 +744,7 @@
 								mode="inset"
 								metricParts={[
 									{ label: `${(comp.weight * 100).toFixed(0)}% weight` },
-									{ label: `${(comp.occupation.net_risk * 100).toFixed(0)}% risk` }
+									{ label: `${(comp.occupation.net_risk * 100).toFixed(0)}/100 score` }
 								]}
 							/>
 						{/if}
@@ -804,7 +810,7 @@
 					<p class="font-mono">
 						{(scored.dispersion * 100).toFixed(1)}pp spread · {(
 							scored.risk_range.optimistic * 100
-						).toFixed(0)}%–{(scored.risk_range.pessimistic * 100).toFixed(0)}% range
+						).toFixed(0)}/100–{(scored.risk_range.pessimistic * 100).toFixed(0)}/100 range
 					</p>
 				</div>
 				<div>
@@ -819,7 +825,7 @@
 				<!-- Percentile (moved from Block 1) -->
 				<div>
 					<p class="font-semibold text-foreground mb-1">Percentile Rank</p>
-					<p>Higher risk than {structural.riskPercentile}% of occupations</p>
+					<p>More exposed than approximately {structural.riskPercentile}% of occupations</p>
 				</div>
 
 				<!-- O*NET tools (moved from Block 2) -->

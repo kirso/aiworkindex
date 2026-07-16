@@ -1,6 +1,5 @@
 import { occupations, majorGroups } from '$lib/data';
 import type { Occupation } from '$lib/data';
-import { RANKING_THRESHOLDS } from '$lib/data/scoring-constants';
 import type { PageLoad } from './$types';
 
 export const csr = false;
@@ -15,7 +14,9 @@ function annualWageBill(o: Occupation): number {
 }
 
 export const load: PageLoad = () => {
-	const highRisk = occupations.filter(o => o.net_risk >= RANKING_THRESHOLDS.high_risk_floor);
+	const higherExposure = occupations.filter(
+		o => o.risk_band === 'high' || o.risk_band === 'very_high'
+	);
 	const allOccs = occupations;
 
 	// Total employment and wages
@@ -23,15 +24,15 @@ export const load: PageLoad = () => {
 	const totalAnnualWages = allOccs.reduce((s, o) => s + annualWageBill(o), 0);
 
 	// High risk employment and wages
-	const highRiskEmployment = highRisk.reduce((s, o) => s + employmentProxy(o), 0);
-	const highRiskAnnualWages = highRisk.reduce((s, o) => s + annualWageBill(o), 0);
+	const highRiskEmployment = higherExposure.reduce((s, o) => s + employmentProxy(o), 0);
+	const highRiskAnnualWages = higherExposure.reduce((s, o) => s + annualWageBill(o), 0);
 
 	// By major group
 	const byGroup = new Map<
 		string,
 		{ employment: number; wages: number; count: number; avgRisk: number }
 	>();
-	for (const occ of highRisk) {
+	for (const occ of higherExposure) {
 		const g = byGroup.get(occ.major_group) ?? { employment: 0, wages: 0, count: 0, avgRisk: 0 };
 		g.employment += employmentProxy(occ);
 		g.wages += annualWageBill(occ);
@@ -51,9 +52,10 @@ export const load: PageLoad = () => {
 		}))
 		.sort((a, b) => b.wages - a.wages);
 
-	// Top 15 by individual wage exposure (wage x risk)
-	const topIndividual = [...highRisk]
-		.sort((a, b) => b.gross_wage_median * b.net_risk - a.gross_wage_median * a.net_risk)
+	// Highest-paid occupations within the higher-exposure bands. We deliberately do not
+	// multiply wages by the relative rank because the result would not be money at risk.
+	const topIndividual = [...higherExposure]
+		.sort((a, b) => b.gross_wage_median - a.gross_wage_median)
 		.slice(0, 15);
 
 	return {
@@ -61,7 +63,7 @@ export const load: PageLoad = () => {
 		totalAnnualWages,
 		highRiskEmployment,
 		highRiskAnnualWages,
-		highRiskCount: highRisk.length,
+		highRiskCount: higherExposure.length,
 		totalCount: allOccs.length,
 		groupBreakdown,
 		topIndividual

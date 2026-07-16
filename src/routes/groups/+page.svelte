@@ -23,7 +23,7 @@
 			'@context': 'https://schema.org',
 			'@type': 'CollectionPage',
 			name: 'Occupation Groups — AI Work Index',
-			description: `Browse ${DATA_VINTAGE.occupation_count} occupations organised by ${groups.length} major occupation groups, each scored for structural AI pressure.`,
+			description: `Browse ${DATA_VINTAGE.occupation_count} occupations organised by ${groups.length} major occupation groups, each ranked by relative AI exposure.`,
 			url: SITE.url + '/groups',
 			mainEntity: {
 				'@type': 'ItemList',
@@ -40,8 +40,8 @@
 </script>
 
 <Seo
-	title="Occupation Groups — Structural AI Risk"
-	description={`Browse ${DATA_VINTAGE.occupation_count} occupations across ${groups.length} major groups. Compare average AI displacement risk, median wages, and high-risk counts.`}
+	title="AI Job Exposure by Occupation Group"
+	description={`Browse ${DATA_VINTAGE.occupation_count} occupations across ${groups.length} major groups. Compare AI exposure ranks and labour-market context.`}
 	path="/groups"
 	jsonLd={[collectionJsonLd]}
 />
@@ -53,8 +53,8 @@
 		<h1 class={titleStyle({ size: 'page' })}>Occupation Groups</h1>
 		<p class={cn(body({ size: 'lg', tone: 'subtle' }), 'mt-2 max-w-3xl')}>
 			{DATA_VINTAGE.occupation_count} occupations organised into {groups.length} major groups. Each group
-			shows aggregate AI displacement risk based on the {DATA_VINTAGE.model_version} scoring model, with
-			Updated {DATA_VINTAGE.last_updated}.
+			shows aggregate AI exposure ranks from the {DATA_VINTAGE.public_version} public release, with Updated
+			{DATA_VINTAGE.last_updated}.
 		</p>
 	</header>
 
@@ -85,15 +85,15 @@
 							<p class={mono({ size: 'md' })}>{g.count}</p>
 						</div>
 						<div>
-							<p class={caption()}>Avg Risk</p>
-							<p class={mono({ size: 'md' })}>{Math.round(g.avgRisk * 100)}%</p>
+							<p class={caption()}>Average exposure rank</p>
+							<p class={mono({ size: 'md' })}>{Math.round(g.avgRisk * 100)}/100</p>
 						</div>
 						<div>
 							<p class={caption()}>Median Wage</p>
 							<p class={mono({ size: 'md' })}>SGD {Math.round(g.medianWage).toLocaleString()}</p>
 						</div>
 						<div>
-							<p class={caption()}>High+ Risk</p>
+							<p class={caption()}>High exposure</p>
 							<p class={mono({ size: 'md' })}>{g.highRiskCount}</p>
 						</div>
 					</div>

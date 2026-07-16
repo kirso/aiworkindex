@@ -29,7 +29,7 @@
 			'@context': 'https://schema.org',
 			'@type': 'ItemList',
 			name: 'Occupations',
-			description: `${DATA_VINTAGE.occupation_count} occupations scored for structural AI pressure`,
+			description: `${DATA_VINTAGE.occupation_count} occupations ranked by relative AI exposure`,
 			numberOfItems: sortedOccupations.length,
 			itemListElement: sortedOccupations.slice(0, 10).map((item, index) => ({
 				'@type': 'ListItem',
@@ -42,20 +42,20 @@
 </script>
 
 <Seo
-	title={`Browse Occupations — Structural AI Risk | ${SITE.name}`}
-	description={`Browse all ${DATA_VINTAGE.occupation_count} occupations scored for structural AI pressure. Filter by risk band, occupation group, and wage range.`}
+	title={`AI Job Exposure by Occupation | ${SITE.name}`}
+	description={`Browse all ${DATA_VINTAGE.occupation_count} occupations ranked by relative AI exposure. Filter by exposure band, occupation group, and wage range.`}
 	path="/explore"
 	jsonLd={[itemListJsonLd]}
 />
 
-<main class={pageLayout({ width: 'content' })}>
+<main class={pageLayout({ width: 'data' })}>
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Browse Occupations' }]} />
 
 	<div class="mb-6">
 		<h1 class={titleStyle({ size: 'page' })}>Browse Occupations</h1>
 		<p class={cn(caption(), 'mt-1')}>
-			All {DATA_VINTAGE.occupation_count} occupations in one place. Filter by risk band, occupation group,
-			and wage range, then open any occupation for the full evidence breakdown.
+			All {DATA_VINTAGE.occupation_count} occupations in one place. Filter by exposure band, occupation
+			group, and wage range, then open any occupation for the full evidence breakdown.
 		</p>
 	</div>
 
@@ -82,7 +82,7 @@
 				<div class={cn(card({ padding: 'lg' }), 'border-dashed text-center')}>
 					<p class="text-sm font-medium text-foreground">No occupations match your filters.</p>
 					<p class="mt-1 text-sm text-muted-foreground">
-						Try widening the risk band, occupation group, or wage range.
+						Try widening the exposure band, occupation group, or wage range.
 					</p>
 					<button
 						type="button"

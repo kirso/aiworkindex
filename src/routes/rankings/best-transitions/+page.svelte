@@ -18,7 +18,7 @@
 			'@type': 'ItemList',
 			name: 'Best AI Career Transitions',
 			description:
-				'Top high-risk occupations with the most feasible transition paths to lower-risk alternatives',
+				'Top high-exposure occupations with the most feasible transition paths to less-exposed alternatives',
 			numberOfItems: data.transitions.length,
 			itemListElement: data.transitions.slice(0, 10).map((t, i: number) => ({
 				'@type': 'ListItem',
@@ -31,14 +31,14 @@
 
 	const faqItems = [
 		{
-			question: 'What career transitions reduce AI displacement risk?',
+			question: 'What career transitions reduce AI exposure?',
 			answer:
-				'The best transitions move workers from high-risk roles to adjacent occupations with lower AI exposure while leveraging similar skills. Transition feasibility is scored by skill overlap and risk reduction.'
+				'The best transitions move workers from high-exposure roles to adjacent occupations with lower AI exposure while leveraging similar skills. Transition feasibility is scored by skill overlap and exposure reduction.'
 		},
 		{
 			question: 'How are career transition scores calculated?',
 			answer:
-				'Transition scores combine skill similarity between occupations with the net risk reduction achieved by moving. Higher scores mean more feasible moves with larger risk improvements.'
+				'Transition scores combine skill similarity with the reduction in AI exposure rank. They are exploratory decision support, not predicted transition success.'
 		}
 	];
 
@@ -47,12 +47,12 @@
 
 <Seo
 	title="Best Career Transitions From High-Risk AI Jobs"
-	description="High-risk occupations with the highest transition scores to lower-risk alternatives."
+	description="High-risk occupations with the highest transition scores to less-exposed alternatives."
 	path="/rankings/best-transitions"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
 
-<main class={pageLayout({ width: 'content' })}>
+<main class={pageLayout({ width: 'feature' })}>
 	<PageBreadcrumb
 		items={[
 			{ label: 'Home', href: '/' },
@@ -63,9 +63,9 @@
 
 	<h1 class={titleStyle({ size: 'page' })}>Best Transition Paths</h1>
 	<p class="mt-2 text-sm text-muted-foreground">
-		For high-risk occupations, these are the most feasible transitions to lower-risk alternatives.
-		Scores combine archetype similarity, skill overlap, wage preservation, demand strength, and risk
-		improvement.
+		For high-exposure occupations, these are the most feasible transitions to less-exposed
+		alternatives. Scores combine archetype similarity, skill overlap, wage preservation, demand
+		strength, and risk improvement.
 	</p>
 
 	<div class="mt-6 space-y-4">
@@ -82,7 +82,7 @@
 						<span class="ml-2 text-xs text-muted-foreground">SSOC {from.ssoc}</span>
 					</div>
 					<span class={cn(riskBadge({ band: from.risk_band }), 'text-xs')}>
-						{(from.net_risk * 100).toFixed(0)}% risk
+						{(from.net_risk * 100).toFixed(0)}/100 score
 					</span>
 				</div>
 				{#if targets.length > 0}

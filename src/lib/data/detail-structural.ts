@@ -95,41 +95,27 @@ function formatOrdinal(n: number): string {
 
 function buildImpactSummary(
 	occupation: Occupation,
-	allOccupations: Occupation[]
+	_allOccupations: Occupation[]
 ): string {
-	const { title, impact_type, exposure, bottleneck, net_risk } = occupation;
-	const exposurePct = Math.round(exposure * 100);
-	const bottleneckPct = Math.round(bottleneck * 100);
-	const percentile = getRiskPercentile(net_risk, allOccupations);
-
-	switch (impact_type) {
-		case 'ai_leveraged':
-			return `${title} has ${exposurePct}% AI task overlap but ${bottleneckPct}% human bottleneck protection — lower risk than ${100 - percentile}% of occupations in the live market. AI is more likely to enhance this role than replace it.`;
-		case 'at_risk':
-			return `${title} has ${exposurePct}% AI task overlap with only ${bottleneckPct}% human bottleneck protection — higher risk than ${percentile}% of occupations in the live market. Structural displacement pressure is significant.`;
-		case 'stable':
-			return `${title} has ${exposurePct}% AI task overlap and ${bottleneckPct}% human bottleneck protection — lower risk than ${100 - percentile}% of occupations in the live market. Current AI capabilities have limited overlap with core tasks.`;
-		case 'mixed':
-			return `${title} has ${exposurePct}% AI task overlap but ${bottleneckPct}% human bottleneck protection — at the ${formatOrdinal(percentile)} percentile across ${allOccupations.length} occupations. High exposure meets organizational friction, creating offsetting forces.`;
-	}
+	const score = occupation.v8.ai_exposure_rank.points;
+	const pathway = occupation.v8.likely_pathway.replaceAll('_', ' ');
+	return `${occupation.title} has an AI Exposure Rank of ${score}/100, meaning its work is more exposed to current AI capabilities than approximately ${score}% of Singapore occupations. The evidence currently points to ${pathway}; this is a relative rank, not a probability of job loss.`;
 }
 
 function buildRoleImpactSummary(scored: ScoredRole, allOccupations: Occupation[]): string {
 	const riskPct = Math.round(scored.net_risk * 100);
-	const exposurePct = Math.round(scored.exposure * 100);
-	const bottleneckPct = Math.round(scored.bottleneck * 100);
 	const percentile = getRiskPercentile(scored.net_risk, allOccupations);
 	const componentCount = scored.components.filter((c) => c.occupation !== null).length;
 
 	switch (scored.impact_type) {
 		case 'ai_leveraged':
-			return `${scored.title} scores an estimated ${riskPct}% displacement risk — lower risk than ${100 - percentile}% of occupations. Blended from ${componentCount} official occupations, it combines ${exposurePct}% AI task overlap with ${bottleneckPct}% human bottleneck protection, suggesting AI is more likely to augment than replace this role.`;
+			return `${scored.title} has an estimated AI Exposure Rank of ${riskPct}/100 — lower than ${100 - percentile}% of official occupations. It is a synthetic blend of ${componentCount} occupations, not a job-loss probability.`;
 		case 'at_risk':
-			return `${scored.title} scores an estimated ${riskPct}% displacement risk — higher risk than ${percentile}% of occupations. Blended from ${componentCount} official occupations, ${exposurePct}% AI task overlap and only ${bottleneckPct}% human bottleneck protection create significant structural pressure.`;
+			return `${scored.title} has an estimated AI Exposure Rank of ${riskPct}/100 — higher than ${percentile}% of official occupations. It is a synthetic blend of ${componentCount} occupations, not a job-loss probability.`;
 		case 'stable':
-			return `${scored.title} scores an estimated ${riskPct}% displacement risk — lower risk than ${100 - percentile}% of occupations. Blended from ${componentCount} official occupations, ${exposurePct}% AI task overlap and ${bottleneckPct}% bottleneck protection suggest limited disruption from current AI capabilities.`;
+			return `${scored.title} has an estimated AI Exposure Rank of ${riskPct}/100 — lower than ${100 - percentile}% of official occupations. It is a synthetic blend of ${componentCount} occupations, not a job-loss probability.`;
 		case 'mixed':
-			return `${scored.title} scores an estimated ${riskPct}% displacement risk — at the ${formatOrdinal(percentile)} percentile. Blended from ${componentCount} official occupations, it combines ${exposurePct}% AI task overlap with ${bottleneckPct}% human bottleneck protection, creating offsetting displacement and augmentation forces.`;
+			return `${scored.title} has an estimated AI Exposure Rank of ${riskPct}/100, near the ${formatOrdinal(percentile)} percentile. It is a synthetic blend of ${componentCount} occupations, not a job-loss probability.`;
 	}
 }
 

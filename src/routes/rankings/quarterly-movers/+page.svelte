@@ -33,7 +33,7 @@
 
 	const faqItems = [
 		{
-			question: 'Why do AI risk scores change between quarters?',
+			question: 'Why do AI exposure ranks change between releases?',
 			answer:
 				'Scores shift when underlying data sources update - new demand signal lists, revised exposure indices, or changes to the scoring methodology between model versions.'
 		},
@@ -49,12 +49,12 @@
 
 <Seo
 	title="Quarterly AI Risk Movers"
-	description="Frozen snapshot-to-snapshot changes in occupation risk scores, band movers, and demand shifts."
+	description="Frozen snapshot-to-snapshot changes in occupation scores, band movers and demand context."
 	path="/rankings/quarterly-movers"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
 
-<main class={pageLayout({ width: 'content' })}>
+<main class={pageLayout({ width: 'feature' })}>
 	<PageBreadcrumb
 		items={[
 			{ label: 'Home', href: '/' },
@@ -102,7 +102,7 @@
 			<h2 class={cn(sectionLabel(), 'mb-3')}>Top Risers</h2>
 			<div class={card({ padding: 'md' })}>
 				<p class="mb-4 text-sm text-muted-foreground">
-					Occupations with the largest increase in structural pressure since the previous frozen
+					Occupations with the largest increase in relative AI exposure since the previous frozen
 					snapshot.
 				</p>
 				{#if data.risers.length > 0}
@@ -119,8 +119,7 @@
 			<h2 class={cn(sectionLabel(), 'mb-3')}>Top Fallers</h2>
 			<div class={card({ padding: 'md' })}>
 				<p class="mb-4 text-sm text-muted-foreground">
-					Occupations with the largest improvement in structural pressure since the previous
-					snapshot.
+					Occupations with the largest decrease in relative AI exposure since the previous snapshot.
 				</p>
 				{#if data.fallers.length > 0}
 					<QuarterlyMoversDumbbell items={data.fallers.slice(0, 10)} direction="falling" />

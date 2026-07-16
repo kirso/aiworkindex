@@ -1,8 +1,8 @@
 {
   "version": "V5-sidecars",
-  "generated_at": "2026-06-07T11:57:23.837Z",
+  "generated_at": "2026-07-16T00:14:18.197Z",
   "live_version": "V7",
-  "live_release_date": "2026-06-07",
+  "live_release_date": "2026-06-11",
   "status": "pilot_sidecars_published",
   "summary": "V5 sidecar workstreams are archived as audit artifacts beneath the live V7 headline score.",
   "sidecars": {

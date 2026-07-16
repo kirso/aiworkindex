@@ -54,10 +54,8 @@ export function buildGlobalOccupationAlternates(canonicalCode: string): SeoAlter
 }
 
 export function buildRoleAlternates(slug: string): SeoAlternateLink[] {
-	return uniqueByHref([
-		{ hreflang: 'x-default', href: absolute(`/role/${slug}`) },
-		{ hreflang: 'en-US', href: absolute(`/us/role/${slug}`) }
-	]);
+	void slug;
+	return [];
 }
 
 export function buildUnitedStatesRoleAlternates(slug: string): SeoAlternateLink[] {

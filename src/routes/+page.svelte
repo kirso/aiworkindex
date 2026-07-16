@@ -79,7 +79,7 @@
 
 	const chartTabs = [
 		{ key: 'treemap' as const, label: 'Occupation Map' },
-		{ key: 'pressure' as const, label: 'Demand vs Pressure' },
+		{ key: 'pressure' as const, label: 'Demand vs Exposure' },
 		{ key: 'distribution' as const, label: 'Distribution' }
 	];
 
@@ -100,21 +100,21 @@
 
 	const faqItems = [
 		{
-			question: 'What does the AI Work Index measure?',
+			question: 'Will AI take my job?',
 			answer:
-				'It measures structural AI pressure on occupations. The homepage defaults to the global structural baseline, and country layers add local demand, wage, and policy context when selected.'
+				'The index cannot predict whether an individual will lose a job. It shows how exposed an occupation is to current AI capabilities, what still requires people, and whether current hiring demand may soften the impact.'
 		},
 		{
-			question: 'How is the score calculated?',
+			question: 'What does the AI Exposure Rank mean?',
 			answer:
-				'Global structural pressure is exposure multiplied by one minus the human bottleneck. Country headline risk is structural pressure multiplied by one minus demand resilience. No LLM is used in the scoring pipeline.'
+				'A rank of 72/100 means the occupation is more exposed to AI capabilities than approximately 72% of Singapore occupations. It is a relative rank, not a 72% probability of job loss.'
 		}
 	];
 </script>
 
 <Seo
-	title="AI Work Index — How will AI affect your job?"
-	description="See which occupations face the most AI pressure. Filter by country for local wages and demand data."
+	title="Will AI Take My Job? AI Exposure by Occupation"
+	description="Search 562 Singapore occupations to see how exposed their work is to AI, what still needs people, and whether hiring demand may soften the impact."
 	path="/"
 	ogImage="/og/default.png"
 	jsonLd={[buildFaqJsonLd(faqItems)]}
@@ -137,9 +137,11 @@
 	<div class="mx-auto max-w-screen-2xl px-4 sm:px-6">
 		<div class="mx-auto max-w-2xl py-10 text-center sm:py-12">
 			<h1 class="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-				How will AI affect your job?
+				Will AI take your job?
 			</h1>
-			<p class="mt-1.5 text-sm text-muted-foreground">Search any job title or occupation</p>
+			<p class="mt-1.5 text-sm text-muted-foreground">
+				See how exposed the work is, what still needs people, and what hiring demand looks like.
+			</p>
 			<div class="mt-4">
 				<HeroSearch
 					occupations={surfaceOccupations as unknown as Occupation[]}
@@ -192,13 +194,13 @@
 					href="/rankings/highest-risk"
 					class={pill({ size: 'lg', tone: 'outline', interactive: true })}
 				>
-					Highest pressure jobs →
+					Most exposed jobs →
 				</a>
 				<a
 					href="/rankings/high-exposure-in-demand"
 					class={pill({ size: 'lg', tone: 'outline', interactive: true })}
 				>
-					In demand, high AI pressure →
+					In demand, higher AI exposure →
 				</a>
 				<a href="/roles" class={pill({ size: 'lg', tone: 'outline', interactive: true })}>
 					Modern roles →
@@ -250,7 +252,7 @@
 				/>
 
 				<div class="mt-3 border-t border-border pt-3">
-					<p class={caption({ weight: 'semibold' })}>Risk Bands</p>
+					<p class={caption({ weight: 'semibold' })}>AI Exposure Bands</p>
 					<div class="mt-1.5 space-y-0.5">
 						{#each ['very_low', 'low', 'moderate', 'high', 'very_high'] as const as band}
 							{@const count = filteredOccupations.filter(o => o.risk_band === band).length}
@@ -393,23 +395,23 @@
 							occupations={filteredOccupations as unknown as Occupation[]}
 							surfaceLabel={data.surface.config.displayName}
 							xAccessor={data.surface.code === 'sg' ? 'net_risk' : 'structuralPressure'}
-							xAxisLabel={data.surface.code === 'sg' ? 'Headline risk' : 'Structural pressure'}
+							xAxisLabel={data.surface.code === 'sg' ? 'AI Exposure Rank' : 'Relative AI exposure'}
 							yAxisLabel={data.surface.code === 'global'
 								? 'Human bottleneck protection'
 								: 'Demand resilience'}
 							quadrantLabels={data.surface.code === 'global'
 								? [
-										{ label: 'Low pressure, high bottleneck', x: 0.1, y: 0.85 },
-										{ label: 'Low pressure, low bottleneck', x: 0.1, y: 0.15 },
-										{ label: 'High pressure, high bottleneck', x: 0.55, y: 0.85 },
-										{ label: 'High pressure, low bottleneck', x: 0.55, y: 0.15 }
+										{ label: 'Lower exposure, high human advantage', x: 0.1, y: 0.85 },
+										{ label: 'Lower exposure, low human advantage', x: 0.1, y: 0.15 },
+										{ label: 'Higher exposure, high human advantage', x: 0.55, y: 0.85 },
+										{ label: 'Higher exposure, low human advantage', x: 0.55, y: 0.15 }
 									]
 								: data.surface.code === 'us'
 									? [
-											{ label: 'Low pressure, high demand', x: 0.1, y: 0.85 },
-											{ label: 'Low pressure, low demand', x: 0.1, y: 0.15 },
-											{ label: 'High pressure, high demand', x: 0.55, y: 0.85 },
-											{ label: 'High pressure, low demand', x: 0.55, y: 0.15 }
+											{ label: 'Lower exposure, high demand', x: 0.1, y: 0.85 },
+											{ label: 'Lower exposure, low demand', x: 0.1, y: 0.15 },
+											{ label: 'Higher exposure, high demand', x: 0.55, y: 0.85 },
+											{ label: 'Higher exposure, low demand', x: 0.55, y: 0.15 }
 										]
 									: undefined}
 						/>
@@ -417,7 +419,7 @@
 					<Tabs.Content value="distribution">
 						<Histogram
 							occupations={filteredOccupations as unknown as Occupation[]}
-							scoreLabel="AI displacement risk"
+							scoreLabel="AI Exposure Rank"
 						/>
 					</Tabs.Content>
 				</Tabs.Root>
@@ -426,7 +428,7 @@
 			<div class="grid gap-4 pb-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
 				<div class={card({ padding: 'sm' })}>
 					<div class="mb-2 flex items-center justify-between">
-						<h3 class={sectionLabel()}>Highest Risk</h3>
+						<h3 class={sectionLabel()}>Most exposed to AI</h3>
 						<a href="/rankings/highest-risk" class="text-xs text-primary hover:underline">All →</a>
 					</div>
 					{#each topHighRisk as occ, i (occ.displayCode)}
@@ -447,7 +449,7 @@
 
 				<div class={card({ padding: 'sm' })}>
 					<div class="mb-2 flex items-center justify-between">
-						<h3 class={sectionLabel()}>Most Resilient</h3>
+						<h3 class={sectionLabel()}>Lowest AI Exposure</h3>
 						<a href="/rankings/safest-high-paying" class="text-xs text-primary hover:underline">
 							All →
 						</a>
@@ -521,7 +523,7 @@
 			</div>
 
 			<p class="mt-4 text-xs text-muted-foreground">
-				{data.surface.config.displayName} · {DATA_VINTAGE.model_version} · {surfaceOccupations.length.toLocaleString()}
+				{data.surface.config.displayName} · {DATA_VINTAGE.public_version} · {surfaceOccupations.length.toLocaleString()}
 				occupations
 			</p>
 

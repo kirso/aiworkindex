@@ -38,8 +38,8 @@
 </script>
 
 <div class={card({ padding: 'none' })}>
-	<div class="overflow-x-auto">
-		<Table.Root>
+	<div class="overflow-x-auto" role="region" aria-label="Occupation ranking table">
+		<Table.Root class="min-w-[720px]">
 			<Table.Header>
 				<Table.Row>
 					<Table.Head scope="col" class="w-10 text-xs uppercase tracking-wider">#</Table.Head>
@@ -54,8 +54,9 @@
 							{col.label}
 						</Table.Head>
 					{/each}
-					<Table.Head scope="col" class="text-xs uppercase tracking-wider">Risk</Table.Head>
-					<Table.Head scope="col" class="text-xs uppercase tracking-wider">Impact</Table.Head>
+					<Table.Head scope="col" class="text-xs uppercase tracking-wider">Exposure</Table.Head>
+					<Table.Head scope="col" class="text-xs uppercase tracking-wider">Likely impact</Table.Head
+					>
 				</Table.Row>
 			</Table.Header>
 			<Table.Body>

@@ -39,13 +39,12 @@
 		</div>
 		<p class="text-sm text-muted-foreground">
 			The headline score is <strong class="text-foreground"
-				>structural pressure, not a prediction of job loss</strong
-			>. Accurate phrasings: &ldquo;X% of this occupation&rsquo;s tasks overlap with current AI
-			capability, adjusted for human bottlenecks and local demand&rdquo; or &ldquo;higher structural
-			AI pressure than N% of Singapore occupations&rdquo;. Please avoid: &ldquo;X% chance of losing
-			your job&rdquo;, &ldquo;X jobs will be lost&rdquo;, or any framing that treats the score as a
-			forecast. The research record so far shows displacement arriving through slower hiring of new
-			entrants, wage compression, and role redesign — not layoffs.
+				>a relative AI exposure rank, not a prediction of job loss</strong
+			>. Accurate phrasing: &ldquo;this occupation is more exposed to current AI capabilities than
+			N% of Singapore occupations&rdquo;. Please avoid: &ldquo;X% chance of losing your job&rdquo;,
+			&ldquo;X jobs will be lost&rdquo;, or any framing that treats the score as a forecast.
+			Research finds several possible channels, including changes in hiring, wages, task mix, and
+			role design; the index does not predict which channel will dominate.
 		</p>
 	</section>
 

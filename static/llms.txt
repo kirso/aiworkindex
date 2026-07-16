@@ -1,60 +1,24 @@
 # AI Work Index
 
-> Structural AI pressure scores for 562 occupations and 88 modern roles. Current public release: V7. Deterministic scoring, open data, no LLM in the scoring loop.
+> Relative AI-driven AI exposure rankings for 562 Singapore occupations. Current public contract: V8.
 
-## About
+AI Work Index is an open-source, deterministic index. A score of 72/100 means the occupation is more exposed to current AI capabilities than approximately 72% of the 562 scored Singapore occupations. It is not a 72% probability of job loss, not the share of tasks AI can do, and not a forecast of employment decline.
 
-AI Work Index is a free, open-source project that scores occupations for structural AI pressure. The current V7 release separates technical overlap from demand resilience instead of collapsing everything into a single market modifier.
+## V8 contract
 
-- Author: Kirill So
-- Data vintage: V7, last updated 2026-06-07
-- Coverage: 562 SSOC occupations + 88 synthetic modern roles
-- Countries: Singapore, United States
+- ai_exposure_rank: within-Singapore percentile rank, 0-100
+- substitution_score and augmentation_score: separate relative component ranks
+- likely_pathway: rule-based interpretation using score, demand and adoption context
+- evidence_confidence: high, medium or low evidence support; not a probability
+- sensitivity: score range across stated alternative specifications
+- labour_market_context: demand, adoption, attrition, entry-level pressure and transition context; reported separately from the score
 
-## Core Formula
+Only Singapore is a live scored market. United States and global occupation scores are withdrawn until local validation gates pass. Global research remains contextual.
 
-headline_risk = displacement_pressure x (1 - demand_resilience)
+## Links
 
-V7: task_signal = task_concentration x task_coverage (Hampole et al. — concentration buffers risk)
-V7: exposure_v7 = exposure x (1 - 0.20 x task_signal)
-V7: demand_persistence = ranked composite of momentum, vacancy, scarcity, demand signals
-
-- displacement_pressure = exposure_v7 x (1 - bottleneck)
-- demand_resilience = min(1.0, base_resilience x 0.45 + demand_signal_bonus + 0.10 x demand_persistence)
-- demand_signal_bonus = SOL exact 0.15, SOL prefix 0.08, JiD exact 0.12, JiD prefix 0.06
-- augmentation = exposure_v7 x bottleneck x market.market_resilience
-
-## Interpretation
-
-- Scores measure structural pressure, not predicted job losses.
-- Impact types are determined only by headline risk and augmentation thresholds.
-- Current release contract is the downloadable V7 dataset and the live app dataset; they should match exactly.
-
-## Risk Bands
-
-| Band | Net Risk Range |
-|------|----------------|
-| Very Low | < 0.05 |
-| Low | 0.05-0.15 |
-| Moderate | 0.15-0.30 |
-| High | 0.30-0.50 |
-| Very High | >= 0.50 |
-
-Examples: Arts and cultural centre manager (including gallery and museum manager) is in the very-low band; Author is in the very-high band.
-
-## Key Pages
-
-- https://aiworkindex.com/
 - https://aiworkindex.com/methodology
 - https://aiworkindex.com/data
-- https://aiworkindex.com/reports
-- https://aiworkindex.com/about
-- https://aiworkindex.com/explore
-
-## Extended Version
-
-https://aiworkindex.com/llms-full.txt
-
-## Source Code
-
-https://github.com/kirso/aiworkindex
+- https://aiworkindex.com/will-ai-take-my-job
+- https://aiworkindex.com/data/sg-ai-occupations-v8.json
+- https://github.com/kirso/aiworkindex

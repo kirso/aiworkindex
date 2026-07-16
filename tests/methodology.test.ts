@@ -66,6 +66,11 @@ import v5Sidecars from '../src/lib/data/v5-sidecars.json';
 import v5ExperimentalModel from '../src/lib/data/v5-experimental-model.json';
 import v5ExperimentalValidation from '../src/lib/data/v5-experimental-validation.json';
 import experimentalMethodology from '../src/lib/data/experimental-methodology-v43.json';
+import {
+	classifyLikelyPathway,
+	midrankPercentiles,
+	v8BandFromPoints
+} from '../src/lib/data/v8-contract';
 
 function makeOccupation(overrides: Partial<Occupation> = {}): Occupation {
 	return {
@@ -91,6 +96,56 @@ function makeOccupation(overrides: Partial<Occupation> = {}): Occupation {
 		demand_resilience: 0.225,
 		net_risk: 0.279,
 		risk_band: 'moderate',
+		v8: {
+			schema_version: '8.0',
+			reference_market: 'Singapore SSOC 2020',
+			reference_occupation_count: 562,
+			reference_date: '2026-07-15',
+			ai_exposure_rank: { points: 50, percentile: 50, band: 'moderate', interpretation: 'Test.' },
+			substitution_pressure: {
+				points: 50,
+				percentile: 50,
+				band: 'moderate',
+				interpretation: 'Test.'
+			},
+			augmentation_potential: {
+				points: 50,
+				percentile: 50,
+				band: 'moderate',
+				interpretation: 'Test.'
+			},
+			likely_pathway: 'workflow_redesign',
+			market_context: {
+				demand: 'mixed',
+				demand_basis: 'Test.',
+				adoption: 'unknown',
+				adoption_coverage: 'unknown',
+				adoption_basis: 'Test.',
+				attrition_absorber: 'unknown',
+				attrition_granularity: 'unknown',
+				entry_level_sensitivity: 'watch'
+			},
+			evidence_confidence: {
+				level: 'medium',
+				limiting_factors: ['Test'],
+				exposure_source_count: 2,
+				mapping_quality: 'direct'
+			},
+			sensitivity: {
+				label: 'stable',
+				minimum_points: 50,
+				maximum_points: 50,
+				minimum_band: 'moderate',
+				maximum_band: 'moderate',
+				method: 'leave_one_source_out_and_equal_weight_v1'
+			},
+			task_evidence: {
+				effective_coverage: null,
+				exposure_concentration: null,
+				framing: 'Test.'
+			},
+			transition: null
+		},
 		augmentation: computeAugmentation({ exposure: 0.6, bottleneck: 0.4, market_resilience: 0.5 }),
 		augmentation_band: 'moderate',
 		impact_type: 'stable',
@@ -184,7 +239,10 @@ describe('methodology formulas', () => {
 	});
 
 	test('stored live occupations reproduce the V7 formulas', () => {
-		for (const occupation of occupations) {
+		const structuralRows = JSON.parse(
+			fs.readFileSync(path.join(process.cwd(), 'data', 'occupations.json'), 'utf-8')
+		) as Occupation[];
+		for (const occupation of structuralRows) {
 			const taskSignal =
 				occupation.task_primitives?.task_effective_coverage != null &&
 				occupation.task_primitives.task_exposure_concentration != null
@@ -219,9 +277,13 @@ describe('methodology formulas', () => {
 		}
 	});
 
-	test('live occupations expose the current V7 public contract', () => {
+	test('application occupations expose V8 display aliases over retained V7 inputs', () => {
 		for (const occupation of occupations.slice(0, 50)) {
 			assert.equal(occupation.structural_model_version, 'V7');
+			assert.equal(occupation.v8.schema_version, '8.0');
+			assert.equal(occupation.net_risk, occupation.v8.ai_exposure_rank.points / 100);
+			assert.equal(occupation.risk_band, occupation.v8.ai_exposure_rank.band);
+			assert.equal(occupation.augmentation, occupation.v8.augmentation_potential.points / 100);
 			assert.equal('scoring_basis' in occupation, false);
 			assert.equal('baseline_v43' in occupation, false);
 			assert.equal('baseline_v42' in occupation, false);
@@ -615,7 +677,9 @@ describe('shadow artifact invariants', () => {
 
 		assert.equal(shadowComparison.validation_pass_count, passCount);
 		assert.equal(shadowComparison.occupation_count, occupations.length);
-		assert.ok(shadowComparison.validation_pass_count >= 2);
+		if (shadowComparison.validation_pass_count < 2) {
+			assert.equal(experimentalMethodology.headline_promotion_ready, false);
+		}
 		assert.equal(shadowAnchorReview.screening_complete, true);
 		assert.equal(
 			shadowComparison.anchor_review_summary.review_candidate_count,
@@ -942,7 +1006,7 @@ describe('global expansion invariants', () => {
 		assert.deepEqual(supportedCountryCodes, ['global', 'sg', 'us', 'uk', 'ca']);
 		assert.equal(countryConfigs.global.canonicalSystem, 'ISCO-08');
 		assert.equal(countryConfigs.sg.status, 'live');
-		assert.equal(countryConfigs.us.status, 'ready');
+		assert.equal(countryConfigs.us.status, 'research');
 		assert.equal(countryConfigs.us.currency, 'USD');
 		assert.equal(countryConfigs.uk.status, 'research');
 		assert.equal(countryConfigs.uk.classificationSystem, 'SOC 2020');
@@ -950,10 +1014,9 @@ describe('global expansion invariants', () => {
 		assert.equal(countryConfigs.ca.methodologyLabel, 'Canada country layer');
 	});
 
-	test('global methodology separates structural and country layers', () => {
-		assert.match(globalMethodology.structuralFormula, /exposure/);
-		assert.match(globalMethodology.structuralFormula, /bottleneck/);
-		assert.match(globalMethodology.localFormula, /country_demand_resilience/);
+	test('global methodology keeps research context separate from scored markets', () => {
+		assert.match(globalMethodology.structuralFormula, /global scored market/);
+		assert.match(globalMethodology.localFormula, /local denominator/);
 		assert.ok(globalMethodology.principles.length >= 4);
 		assert.ok(globalMethodology.validationLadder.length >= 4);
 		assert.ok(globalMethodology.publicationGates.length >= 4);
@@ -966,6 +1029,10 @@ describe('global expansion invariants', () => {
 		assert.ok(globalMethodology.countryReadiness.some(entry => entry.code === 'us'));
 		assert.ok(globalMethodology.countryReadiness.some(entry => entry.code === 'uk'));
 		assert.ok(globalMethodology.countryReadiness.some(entry => entry.code === 'ca'));
+		assert.equal(
+			globalMethodology.countryReadiness.find(entry => entry.code === 'us')?.readiness,
+			'withdrawn'
+		);
 		assert.equal(
 			globalMethodology.countryReadiness.find(entry => entry.code === 'uk')?.readiness,
 			'research'
@@ -1007,37 +1074,69 @@ describe('global expansion invariants', () => {
 		assert.ok((usSoftware?.headlineRisk ?? 0) >= 0 && (usSoftware?.headlineRisk ?? 1) <= 1);
 	});
 
-	test('homepage surface contract defaults to global and exposes country views', () => {
-		assert.equal(resolveHomeSurfaceCode(null), 'global');
+	test('homepage surface contract exposes Singapore as the only live scored market', () => {
+		assert.equal(resolveHomeSurfaceCode(null), 'sg');
+		assert.equal(resolveHomeSurfaceCode('us'), 'sg');
 		assert.deepEqual(
 			homeSurfaceChoices.map(choice => choice.code),
-			['global', 'sg', 'us']
+			['sg']
 		);
 
-		const globalSurface = getHomeSurface('global');
 		const sgSurface = getHomeSurface('sg');
-		const usSurface = getHomeSurface('us');
-
-		assert.equal(globalSurface.drilldownHref, '/global');
-		assert.equal(globalSurface.metrics[0]?.label, 'Jobs under pressure');
-		assert.equal(globalSurface.metrics[1]?.label, 'Occupations at risk');
-		assert.equal(globalSurface.metrics[2]?.label, 'Occupations scored');
-		assert.equal(globalSurface.occupations[0]?.valueKind, 'count');
-		assert.ok(globalSurface.occupations[0]?.linkHref?.startsWith('/global/occupation/'));
 
 		assert.equal(sgSurface.drilldownHref, '/sg');
-		assert.equal(sgSurface.metrics[0]?.label, 'Jobs under pressure');
-		assert.equal(sgSurface.metrics[1]?.label, 'Wages at risk');
-		assert.equal(sgSurface.metrics[2]?.label, 'Occupations at risk');
+		assert.equal(sgSurface.metrics[0]?.label, 'Occupations analysed');
+		assert.equal(sgSurface.metrics[1]?.label, 'Higher AI exposure');
+		assert.equal(sgSurface.metrics[2]?.label, 'Strong current demand');
 		assert.equal(sgSurface.occupations[0]?.currency, 'SGD');
 		assert.ok(sgSurface.occupations[0]?.linkHref?.startsWith('/occupation/'));
+	});
 
-		assert.equal(usSurface.drilldownHref, '/us');
-		assert.equal(usSurface.metrics[0]?.label, 'Jobs under pressure');
-		assert.equal(usSurface.metrics[1]?.label, 'Wages at risk');
-		assert.equal(usSurface.metrics[2]?.label, 'Occupations at risk');
-		assert.equal(usSurface.occupations[0]?.currency, 'USD');
-		assert.ok(usSurface.occupations[0]?.linkHref?.startsWith('/us/occupation/'));
+	test('V8 percentile, band and pathway rules are deterministic at boundaries and ties', () => {
+		assert.deepEqual(midrankPercentiles([1, 2, 2, 4]), [0, 50, 50, 100]);
+		assert.deepEqual([0, 19.99, 20, 39.99, 40, 59.99, 60, 79.99, 80, 100].map(v8BandFromPoints), [
+			'very_low',
+			'very_low',
+			'low',
+			'low',
+			'moderate',
+			'moderate',
+			'high',
+			'high',
+			'very_high',
+			'very_high'
+		]);
+		assert.equal(
+			classifyLikelyPathway({
+				exposureRankPoints: 80,
+				substitutionPoints: 75,
+				augmentationPoints: 30,
+				demand: 'mixed',
+				adoption: 'leading',
+				adoptionCoverage: 'direct'
+			}),
+			'hiring_or_substitution_pressure'
+		);
+		assert.equal(
+			classifyLikelyPathway({
+				exposureRankPoints: 80,
+				substitutionPoints: 75,
+				augmentationPoints: 70,
+				demand: 'strong',
+				adoption: 'unknown',
+				adoptionCoverage: 'unknown'
+			}),
+			'augmentation_led_growth'
+		);
+	});
+
+	test('V8 public export is clean and contains no legacy probability-like score contract', () => {
+		const publicRows = JSON.parse(
+			fs.readFileSync(path.join(process.cwd(), 'data', 'occupations-v8.json'), 'utf-8')
+		) as Array<Record<string, unknown>>;
+		assert.equal(publicRows.length, DATA_VINTAGE.occupation_count);
+		assert.ok(publicRows.every(row => row.schema_version === '8.0' && typeof row.v8 === 'object'));
+		assert.ok(publicRows.every(row => !('net_risk' in row) && !('risk_band' in row)));
 	});
 
 	test('sitemap only publishes canonical occupation URLs', () => {
@@ -1045,14 +1144,15 @@ describe('global expansion invariants', () => {
 		const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => match[1]);
 		const uniqueLocs = new Set(locs);
 
-		assert.ok(locs.length > 1800);
+		assert.ok(locs.length > 600);
 		assert.equal(locs.length, uniqueLocs.size);
 		assert.ok(locs.every(loc => loc?.startsWith('https://aiworkindex.com/')));
 		assert.equal(sitemap.includes('kirillso.com'), false);
 		assert.equal(sitemap.includes('/sg/occupation/'), false);
 		assert.equal(sitemap.includes('/occupation/'), true);
-		assert.equal(sitemap.includes('/us/occupation/'), true);
-		assert.equal(sitemap.includes('/global/occupation/'), true);
+		assert.equal(sitemap.includes('/us/occupation/'), false);
+		assert.equal(sitemap.includes('/global/occupation/'), false);
+		assert.equal(sitemap.includes('/us/role/'), false);
 	});
 
 	test('Cloudflare Pages duplicate hosts are redirected or excluded from search', () => {

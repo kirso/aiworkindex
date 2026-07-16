@@ -90,12 +90,12 @@
 
 <Seo
 	title="Watchlist"
-	description="Your saved occupations. Track AI displacement risk for the roles you care about."
+	description="Your saved occupations. Track relative AI exposure for the roles you care about."
 	path="/watchlist"
 	noindex={true}
 />
 
-<main class={pageLayout({ width: 'content' })}>
+<main class={pageLayout({ width: 'feature' })}>
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Watchlist' }]} />
 
 	<div class="flex items-start justify-between">

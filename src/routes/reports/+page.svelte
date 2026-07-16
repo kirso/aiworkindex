@@ -237,8 +237,8 @@
 						<span class={badge({ variant: 'danger' })}>Report</span>
 					</div>
 					<p class="mt-1 text-sm text-muted-foreground">
-						Annual wage-pool analysis for occupations under high structural AI pressure. Breakdown
-						by sector, risk-weighted wage exposure, and methodology notes.
+						Annual wage context for occupations in the two highest AI exposure bands, with sector
+						breakdowns and explicit limits on what the totals mean.
 					</p>
 					<p class="mt-2 text-xs text-muted-foreground">
 						Based on {siteStatus.structural_release.version} scoring, updated {DATA_VINTAGE.last_updated}

@@ -17,8 +17,8 @@
 	const columns = [
 		{
 			key: 'net_risk',
-			label: 'Net Risk',
-			format: (occ: Occupation) => `${(occ.net_risk * 100).toFixed(1)}%`,
+			label: 'AI Exposure Rank',
+			format: (occ: Occupation) => `${(occ.net_risk * 100).toFixed(0)}/100`,
 			align: 'right' as const
 		},
 		{
@@ -43,8 +43,8 @@
 
 	let itemListJsonLd = $derived(
 		buildItemListJsonLd(
-			'Occupations with Highest AI Displacement Risk',
-			'Top 25 occupations ranked by AI net displacement risk score',
+			'Occupations with Highest AI Exposure',
+			'Top 25 occupations ranked by relative AI-driven AI exposure rank',
 			data.ranked
 		)
 	);
@@ -53,11 +53,11 @@
 		{
 			question: 'Which occupations face the highest AI displacement pressure?',
 			answer:
-				'Data entry clerks, telemarketers, and bookkeepers face the highest structural pressure, with net displacement risk above 50%. These roles have high AI task overlap and low human bottlenecks.'
+				'The highest-scoring occupations rank near the top of the Singapore market for relative AI exposure. This does not imply a probability or timetable for job loss.'
 		},
 		{
-			question: 'How is the AI displacement risk ranking calculated?',
-			answer: `Each occupation is scored using headline risk = displacement pressure × (1 − demand resilience). This ranking sorts all ${DATA_VINTAGE.occupation_count} occupations by net risk, showing the top 25.`
+			question: 'How is the AI exposure ranking calculated?',
+			answer: `The V8 score is a within-Singapore percentile rank of the multi-source AI exposure signal. Demand and adoption are reported separately rather than hidden in the score. This page shows the top 25 of ${DATA_VINTAGE.occupation_count} occupations.`
 		}
 	];
 
@@ -65,23 +65,25 @@
 </script>
 
 <Seo
-	title="25 Highest AI Displacement Risk Occupations"
-	description={`Which occupations face the most AI structural pressure? Top 25 ranked by displacement risk from ${DATA_VINTAGE.occupation_count} scored.`}
+	title="25 Highest AI Exposure Occupations"
+	description={`Which occupations rank highest for AI exposure? Top 25 relative scores from ${DATA_VINTAGE.occupation_count} Singapore occupations.`}
 	path="/rankings/highest-risk"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
 
-<main class={pageLayout({ width: 'content' })}>
+<main class={pageLayout({ width: 'feature' })}>
 	<PageBreadcrumb
 		items={[
 			{ label: 'Home', href: '/' },
 			{ label: 'Rankings', href: '/rankings' },
-			{ label: 'Highest Risk' }
+			{ label: 'Most Exposed to AI' }
 		]}
 	/>
 
-	<h1 class={titleStyle({ size: 'page' })}>Highest Risk Occupations</h1>
-	<p class="mt-2 text-sm text-muted-foreground">Top 25 occupations by net displacement risk.</p>
+	<h1 class={titleStyle({ size: 'page' })}>Most Exposed to AI Occupations</h1>
+	<p class="mt-2 text-sm text-muted-foreground">
+		Top 25 occupations by relative V8 AI exposure rank; not job-loss probabilities.
+	</p>
 
 	<section class="mt-6">
 		<RankingTable occupations={data.ranked} {columns} />

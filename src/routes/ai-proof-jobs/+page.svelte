@@ -7,7 +7,6 @@
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import { buildItemListJsonLd, buildFaqJsonLd } from '$lib/data/ranking-jsonld';
-	import { DATA_VINTAGE } from '$lib/data/scoring-constants';
 
 	let { data } = $props();
 	const currency = countryConfigs.sg.currency ?? 'SGD';
@@ -15,20 +14,20 @@
 	const columns = [
 		{
 			key: 'net_risk',
-			label: 'Net Risk',
-			format: (occ: Occupation) => `${(occ.net_risk * 100).toFixed(1)}%`,
+			label: 'AI Exposure Rank',
+			format: (occ: Occupation) => `${(occ.net_risk * 100).toFixed(0)}/100`,
 			align: 'right' as const
 		},
 		{
 			key: 'exposure',
-			label: 'Exposure',
-			format: (occ: Occupation) => `${(occ.exposure * 100).toFixed(0)}%`,
+			label: 'Exposure index',
+			format: (occ: Occupation) => `${(occ.exposure * 100).toFixed(0)}/100`,
 			align: 'right' as const
 		},
 		{
 			key: 'bottleneck',
-			label: 'Bottleneck',
-			format: (occ: Occupation) => `${(occ.bottleneck * 100).toFixed(0)}%`,
+			label: 'Human advantage',
+			format: (occ: Occupation) => `${(occ.bottleneck * 100).toFixed(0)}/100`,
 			align: 'right' as const
 		},
 		{
@@ -41,8 +40,8 @@
 
 	let itemListJsonLd = $derived(
 		buildItemListJsonLd(
-			'AI-Proof Jobs: Careers Safe from AI Displacement',
-			`${data.total} occupations with less than 15% AI displacement risk`,
+			'Jobs With Lower Relative AI Exposure',
+			`${data.total} occupations in the lower end of the Singapore AI exposure ranking`,
 			data.ranked
 		)
 	);
@@ -50,12 +49,12 @@
 	let faqItems = $derived([
 		{
 			question: 'What jobs are safe from AI?',
-			answer: `${data.total} occupations score below 15% displacement risk. These roles typically require physical presence, real-time human coordination, regulatory judgment, or deep relationship-building that AI cannot replicate.`
+			answer: `${data.total} occupations fall below the page filter. A lower relative score is not proof that a job is safe: technology, demand, policy and job design can still change it.`
 		},
 		{
 			question: 'What are AI-proof careers?',
 			answer:
-				'AI-proof careers combine high human bottleneck protection with strong market demand. Healthcare, skilled trades, senior management, and field-based roles consistently score lowest for AI displacement pressure.'
+				'No career is literally AI-proof. Lower-scoring roles currently rank lower for measured AI exposure, often because physical, interpersonal or accountable work remains important.'
 		},
 		{
 			question: 'Will AI replace all jobs?',
@@ -68,19 +67,19 @@
 </script>
 
 <Seo
-	title="AI-Proof Jobs: {data.total} Careers Safe from AI in 2026"
-	description="Which jobs are safe from AI? {data.total} occupations with less than 15% displacement risk. Data-backed rankings from {DATA_VINTAGE.occupation_count} scored occupations."
+	title="AI-Proof Jobs? Jobs With Lower AI Exposure (2026)"
+	description="Which jobs currently rank lower for AI exposure? A relative Singapore ranking, not a guarantee that any career is AI-proof."
 	path="/ai-proof-jobs"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
 
-<main class={pageLayout({ width: 'content' })}>
+<main class={pageLayout({ width: 'feature' })}>
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'AI-Proof Jobs' }]} />
 
 	<h1 class={titleStyle({ size: 'page' })}>AI-Proof Jobs</h1>
 	<p class="mt-2 max-w-2xl text-sm text-muted-foreground">
-		{data.total} occupations score below 15% AI displacement risk. These careers have strong human bottleneck
-		protection, meaning their core tasks resist automation.
+		{data.total} occupations fall below this page's lower-score filter. “AI-proof” is a search term, not
+		a scientific claim: lower relative AI exposure does not guarantee job security.
 	</p>
 
 	<section class="mt-6">
@@ -88,7 +87,8 @@
 	</section>
 
 	<p class="mt-4 text-xs text-muted-foreground">
-		Filtered: net_risk &lt; 0.15. Scores measure structural pressure, not predicted job losses.
+		Filtered on the V8 relative score alias. Scores rank occupations; they do not predict job
+		losses.
 		<a href="/methodology" class="text-primary underline">Learn more</a> |
 		<a href="/rankings" class="text-primary underline">All rankings</a> |
 		<a href="/will-ai-take-my-job" class="text-primary underline">Check your job</a>

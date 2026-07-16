@@ -37,7 +37,7 @@
 		meta = [],
 		actions,
 		scoreRange,
-		scoreCaveat = 'Structural pressure, not a prediction of job loss. Displacement tends to arrive through slower hiring, wage compression and role redesign before layoffs.',
+		scoreCaveat = 'Relative AI exposure, not a prediction of job loss. Hiring, wages and role design depend on many forces this rank does not forecast.',
 		class: className = ''
 	}: Props = $props();
 

@@ -44,14 +44,14 @@ export const countryConfigs: Record<CountryCode, CountryConfig> = {
 		wagePeriod: null,
 		classificationSystem: 'ISCO-08',
 		canonicalSystem: 'ISCO-08',
-		methodologyLabel: 'Global structural baseline',
-		seoTitle: 'Global AI Work Index Methodology',
+		methodologyLabel: 'Global research context',
+		seoTitle: 'Global AI and Jobs Economics Context',
 		seoDescription:
-			'Global AI Work Index methodology: comparable exposure and bottleneck scores calibrated with observed adoption and task evidence. Countries add local demand, wages, and support data.',
+			'Global research context on AI exposure, adoption, productivity and employment. No global occupation scores are currently published.',
 		status: 'research',
 		capabilities: {
-			occupationDetail: true,
-			structuralProfile: true,
+			occupationDetail: false,
+			structuralProfile: false,
 			wageContext: false,
 			employmentContext: true,
 			demandSignals: false,
@@ -110,10 +110,10 @@ export const countryConfigs: Record<CountryCode, CountryConfig> = {
 		seoTitle: 'United States AI Work Index',
 		seoDescription:
 			'United States occupation risk index built on the shared structural baseline with local wages, projections, requirements, skills, and labour-demand evidence.',
-		status: 'ready',
+		status: 'research',
 		capabilities: {
-			occupationDetail: true,
-			structuralProfile: true,
+			occupationDetail: false,
+			structuralProfile: false,
 			wageContext: true,
 			employmentContext: true,
 			demandSignals: true,

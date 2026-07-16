@@ -29,7 +29,7 @@
 	import ContextItemGrid from '$lib/components/ui/ContextItemGrid.svelte';
 	import { siteStatus } from '$lib/data/site-status';
 	import { countryConfigs } from '$lib/data/country-config';
-	import { SITE, DATA_VINTAGE, getRiskBand } from '$lib/data/scoring-constants';
+	import { SITE, DATA_VINTAGE } from '$lib/data/scoring-constants';
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import {
 		WATCHLIST_KEY,
@@ -50,12 +50,7 @@
 	let structural = $derived(data.structural);
 	let context = $derived(data.context);
 	let decision = $derived(structural.decision);
-	let crossesBoundary = $derived(
-		occ.uncertainty &&
-			occ.uncertainty.net_risk_p10 !== undefined &&
-			occ.uncertainty.net_risk_p90 !== undefined &&
-			getRiskBand(occ.uncertainty.net_risk_p10) !== getRiskBand(occ.uncertainty.net_risk_p90)
-	);
+	let crossesBoundary = $derived(occ.v8.sensitivity.label === 'crosses_band');
 
 	let isWatchlisted = $state(false);
 
@@ -133,11 +128,7 @@
 		return null;
 	});
 	let netRiskUncertainty = $derived(
-		`${((occ.uncertainty?.net_risk_p10 ?? occ.net_risk) * 100).toFixed(2).replace(/\.00$/, '')}–${(
-			(occ.uncertainty?.net_risk_p90 ?? occ.net_risk) * 100
-		)
-			.toFixed(2)
-			.replace(/\.00$/, '')}%`
+		`${occ.v8.sensitivity.minimum_points}–${occ.v8.sensitivity.maximum_points}/100 across source-weight sensitivity checks`
 	);
 	let exposureUncertainty = $derived(
 		`${((occ.uncertainty?.exposure_p10 ?? occ.exposure) * 100).toFixed(0)}–${(
@@ -153,22 +144,23 @@
 		}
 		return 'Task-weighted shadow evidence is not active for this occupation yet.';
 	});
-	let priorBaselineDeltaSummary = $derived.by(() => {
-		if (!occ.baseline_v6) return null;
-		const delta = occ.net_risk - occ.baseline_v6.net_risk;
-		if (Math.abs(delta) < 0.0001) return 'No material change versus retained V6 baseline.';
-		const direction = delta > 0 ? '+' : '';
-		return `${direction}${(delta * 100).toFixed(1)}pp versus retained V6 baseline.`;
-	});
-	let scoringBasisSummary = $derived(`${DATA_VINTAGE.model_version} structural score`);
+	let priorBaselineDeltaSummary = $derived(null);
+	let scoringBasisSummary = $derived('V8 AI Exposure Rank');
 	let scoringBasisDetail = $derived(
-		'Uses task-concentration-weighted exposure, human bottleneck, and demand resilience. V6 baseline fields are retained for release-to-release comparison.'
+		'A relative Singapore occupation index. It ranks AI task exposure; it is not a probability of job loss or a percentage of tasks.'
 	);
 	const confidenceCapLabels = {
 		insufficient_source_count: 'capped for sparse source coverage',
 		fallback_mapping: 'capped for fallback mapping',
 		major_fallback_mapping: 'capped for broad fallback mapping',
 		signal_conflict: 'capped for conflicting signals'
+	} as const;
+	const pathwayLabels = {
+		limited_direct_change: 'Limited direct change',
+		workflow_redesign: 'Workflow redesign',
+		augmentation_led_growth: 'Augmentation-led growth',
+		demand_buffered_redesign: 'Demand-buffered redesign',
+		hiring_or_substitution_pressure: 'Hiring or substitution pressure'
 	} as const;
 	let confidenceDetail = $derived.by(() => {
 		const capReason = occ.confidence.policy_cap_reason;
@@ -273,7 +265,7 @@
 			if (navigator.share) {
 				await navigator.share({
 					title: `${occ.title} — ${SITE.name}`,
-					text: `AI displacement risk for ${occ.title}: ${(occ.net_risk * 100).toFixed(0)}%`,
+					text: `AI Exposure Rank for ${occ.title}: ${occ.v8.ai_exposure_rank.points}/100`,
 					url
 				});
 				return;
@@ -303,11 +295,15 @@
 				? { sameAs: SITE.url + '/global/occupation/' + occ.isco_codes_matched[0] }
 				: {}),
 			additionalProperty: [
-				{ '@type': 'PropertyValue', name: 'AI Net Displacement Risk', value: occ.net_risk },
 				{
 					'@type': 'PropertyValue',
-					name: 'Risk Band',
-					value: riskBandLabels[occ.risk_band]
+					name: 'AI Exposure Rank',
+					value: occ.v8.ai_exposure_rank.points
+				},
+				{
+					'@type': 'PropertyValue',
+					name: 'AI Exposure Band',
+					value: riskBandLabels[occ.v8.ai_exposure_rank.band]
 				},
 				{
 					'@type': 'PropertyValue',
@@ -317,7 +313,7 @@
 				{
 					'@type': 'PropertyValue',
 					name: 'Evidence Quality',
-					value: occ.confidence.level
+					value: occ.v8.evidence_confidence.level
 				}
 			]
 		})}<\/script>`
@@ -350,36 +346,32 @@
 		})}<\/script>`
 	);
 
-	let riskPct = $derived((occ.net_risk * 100).toFixed(0));
+	let riskPct = $derived(String(occ.v8.ai_exposure_rank.points));
 
 	let faqItems = $derived([
 		{
 			question: 'Will AI replace ' + occ.title + '?',
 			answer:
 				structural.summaryText +
-				' Net displacement risk: ' +
+				' AI Exposure Rank: ' +
 				riskPct +
-				'% (' +
-				riskBandLabels[occ.risk_band] +
+				'/100 (' +
+				riskBandLabels[occ.v8.ai_exposure_rank.band] +
 				'). Median wage: SGD ' +
 				occ.gross_wage_median.toLocaleString() +
 				'/month.'
 		},
 		{
-			question: 'What is the AI risk score for ' + occ.title + '?',
+			question: 'What is the AI exposure rank for ' + occ.title + '?',
 			answer:
 				occ.title +
-				' has an AI displacement risk of ' +
+				' has an AI Exposure Rank of ' +
 				riskPct +
-				'%, rated ' +
-				riskBandLabels[occ.risk_band] +
-				'. AI task overlap: ' +
-				(occ.exposure * 100).toFixed(0) +
-				'%. Human advantage: ' +
-				(occ.bottleneck * 100).toFixed(0) +
-				'%. Local demand buffer: ' +
-				(occ.market.market_resilience * 100).toFixed(0) +
-				'%.'
+				'/100, rated ' +
+				riskBandLabels[occ.v8.ai_exposure_rank.band] +
+				'. It ranks higher than approximately ' +
+				riskPct +
+				'% of Singapore occupations for exposure to current AI capabilities; it is not a job-loss probability.'
 		},
 		{
 			question: 'What career transitions are available for ' + occ.title + '?',
@@ -432,9 +424,9 @@
 		})}<\/script>`
 	);
 
-	let pageTitle = $derived(`Will AI Replace ${occ.title}? ${riskPct}% Risk | ${SITE.name}`);
+	let pageTitle = $derived(`Will AI Replace ${occ.title}? Exposure & Job Outlook | ${SITE.name}`);
 	let pageDescription = $derived(
-		`${occ.title} (SSOC ${occ.ssoc}): AI displacement risk ${riskPct}%, rated ${riskBandLabels[occ.risk_band]}. Median wage SGD ${occ.gross_wage_median.toLocaleString()} in the live Singapore reference market.`
+		`${occ.title} (SSOC ${occ.ssoc}) has an AI Exposure Rank of ${riskPct}/100, ranked ${riskBandLabels[occ.v8.ai_exposure_rank.band]}. See the likely pathway, demand context, evidence and transitions.`
 	);
 	const alternates = $derived(
 		buildSingaporeOccupationAlternates(occ.ssoc, occ.isco_codes_matched?.[0] ?? null)
@@ -450,7 +442,7 @@
 	jsonLd={[occJsonLd, breadcrumbJsonLd, faqJsonLd]}
 />
 
-<div class={pageLayout({ width: 'content' })}>
+<div class={pageLayout({ width: 'feature' })}>
 	<PageBreadcrumb
 		items={[
 			{ label: 'Home', href: '/' },
@@ -462,23 +454,23 @@
 	<!-- ===== BLOCK 1: THE VERDICT ===== -->
 	<div class={section({ spacing: 'loose' })}>
 		<OccupationHero
-			scoreLabel="AI displacement risk"
-			scoreValue={`${(occ.net_risk * 100).toFixed(0)}%`}
-			scoreRange={occ.uncertainty ? netRiskUncertainty : undefined}
-			scoreBand={occ.risk_band}
-			scoreBandLabel={riskBandLabels[occ.risk_band]}
+			scoreLabel="AI Exposure Rank"
+			scoreValue={`${occ.v8.ai_exposure_rank.points}/100`}
+			scoreRange={netRiskUncertainty}
+			scoreBand={occ.v8.ai_exposure_rank.band}
+			scoreBandLabel={riskBandLabels[occ.v8.ai_exposure_rank.band]}
 			title={occ.title}
 			pills={[
 				{
-					label: impactTypeLabels[occ.impact_type],
+					label: pathwayLabels[occ.v8.likely_pathway],
 					tone:
-						occ.impact_type === 'at_risk'
+						occ.v8.likely_pathway === 'hiring_or_substitution_pressure'
 							? 'danger'
-							: occ.impact_type === 'stable'
-								? 'neutral'
-								: occ.impact_type === 'mixed'
-									? 'warning'
-									: 'positive'
+							: occ.v8.likely_pathway === 'augmentation_led_growth'
+								? 'positive'
+								: occ.v8.likely_pathway === 'limited_direct_change'
+									? 'neutral'
+									: 'warning'
 				},
 				...(hasDemand ? [{ label: `In demand (${demandLabel})`, tone: 'positive' as const }] : []),
 				...(crossesBoundary
@@ -535,8 +527,8 @@
 			<span class={dataChip()} title="Wage compared to group median">
 				Wage {structural.groupComparison.wageVsGroup}
 			</span>
-			<span class={dataChip()} title="Risk compared to group median">
-				Risk {structural.groupComparison.riskVsGroup}
+			<span class={dataChip()} title="AI exposure compared to group median">
+				Exposure {structural.groupComparison.riskVsGroup}
 			</span>
 			<a
 				href="/group/{groupSlug}"
@@ -551,8 +543,8 @@
 				class={cn(card({ padding: 'sm', variant: 'notice', accent: 'moderate' }), 'mt-3 max-w-3xl')}
 			>
 				<p class={cn(caption({ weight: 'medium' }), 'text-risk-moderate')}>
-					Mixed signal: This occupation scores {riskBandLabels[occ.risk_band].toLowerCase()} structural
-					risk but is currently
+					Mixed signal: This occupation has {riskBandLabels[occ.risk_band].toLowerCase()} relative AI
+					exposure but is currently
 					{#if occ.evidence.sol_match === 'exact' && occ.evidence.jobs_in_demand_match === 'exact'}
 						on both the Shortage Occupation List and Jobs in Demand — indicating strong active
 						demand despite AI exposure.
@@ -584,7 +576,8 @@
 				<div class="md:col-span-3">
 					<DriverWaterfall occupation={occ} />
 					<p class={cn(caption(), 'mt-2')}>
-						How much AI overlaps with this job's tasks, offset by human advantages and local demand.
+						The evidence behind this occupation's AI exposure, with human-work and demand context
+						shown separately.
 						{#if occ.stability.label !== 'stable'}
 							<span class="text-risk-moderate">Score stability: {occ.stability.label}.</span>
 						{/if}
@@ -856,24 +849,23 @@
 							Related roles you could transition to
 						</p>
 						<span class={pill({ size: 'sm', tone: 'muted' })}
-							>{exitQuadrant?.targets?.length ? 'Risk-reducing' : 'Similarity-based'}</span
+							>{exitQuadrant?.targets?.length ? 'Exposure-reducing' : 'Similarity-based'}</span
 						>
 					</div>
 					{#if exitQuadrant?.in_quadrant}
 						<p class="mb-3 text-xs text-risk-high">
-							This occupation sits in the structurally vulnerable quadrant: high displacement
-							pressure, and its best adjacent move ranks in the weakest quarter of exit options
-							among high-risk occupations. Mobility research finds outcomes hinge on escape-route
-							quality, not pressure alone.
+							This occupation has higher relative AI exposure, and its best adjacent move ranks in
+							the weakest quarter of exposure-reducing options. Mobility outcomes also depend on
+							demand, wages, skills and access to credible transitions.
 							<a href="/rankings/high-risk-few-exits" class="underline hover:text-foreground"
 								>See all occupations in this quadrant</a
 							>.
 						</p>
 					{:else if exitQuadrant}
 						<p class="mb-3 text-xs text-muted-foreground">
-							High displacement pressure, but comparatively credible risk-reducing moves exist — the
+							Higher AI exposure, but comparatively credible exposure-reducing moves exist — the
 							strongest scores {(exitQuadrant.best_composite * 100).toFixed(0)}% match. Escape-route
-							quality, not pressure alone, shapes how risk resolves.
+							quality and labour demand matter alongside exposure.
 						</p>
 					{/if}
 					<div class="grid gap-2 sm:grid-cols-3">
@@ -885,10 +877,10 @@
 									{
 										label:
 											t.risk_improvement > 0
-												? `-${(t.risk_improvement * 100).toFixed(0)}pp risk`
+												? `-${(t.risk_improvement * 100).toFixed(0)} points exposure`
 												: t.risk_improvement < 0
-													? `+${(Math.abs(t.risk_improvement) * 100).toFixed(0)}pp risk`
-													: 'No risk change',
+													? `+${(Math.abs(t.risk_improvement) * 100).toFixed(0)} points exposure`
+													: 'No exposure change',
 										color:
 											t.risk_improvement > 0
 												? 'text-risk-very-low'
@@ -1003,7 +995,7 @@
 				<div>
 					<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>Classification</p>
 					<p>
-						Higher risk than {structural.riskPercentile}% of occupations · {scoringBasisSummary}{#if occ.education_label}
+						More exposed than approximately {structural.riskPercentile}% of occupations · {scoringBasisSummary}{#if occ.education_label}
 							· {occ.education_label}{/if}
 					</p>
 				</div>
@@ -1026,7 +1018,9 @@
 					<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>
 						Score range (best/worst case)
 					</p>
-					<p>Exposure {exposureUncertainty} · Net risk {netRiskUncertainty}</p>
+					<p>
+						Exposure sensitivity {exposureUncertainty} · Rank sensitivity {netRiskUncertainty}
+					</p>
 				</div>
 				<div class="sm:col-span-2">
 					<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>Scoring basis</p>
@@ -1072,11 +1066,9 @@
 					<div>
 						<p class={cn(caption({ weight: 'medium' }), 'mb-1 text-foreground')}>Data quality</p>
 						<p>
-							{(occ.confidence.score * 100).toFixed(0)}% · Matching {occ.confidence.crosswalk_quality.toFixed(
-								2
-							)} · Market data {occ.confidence.market_data_granularity.toFixed(2)} · Freshness {occ.confidence.source_freshness.toFixed(
-								2
-							)}
+							{occ.v8.evidence_confidence.level} evidence · {occ.v8.evidence_confidence
+								.exposure_source_count}
+							exposure sources · {occ.v8.evidence_confidence.mapping_quality} mapping
 						</p>
 						{#if confidenceDetail}
 							<p class="mt-1">
@@ -1257,8 +1249,8 @@
 			<div class={card({ padding: 'sm' })}>
 				<p class={cn(microLabel(), 'mb-1')}>How this changes by career stage</p>
 				<p class={cn(caption(), 'mb-3')}>
-					Senior workers benefit from institutional knowledge and judgment that AI cannot replicate.
-					Entry-level roles have higher task overlap with AI.
+					Career stage can change the task mix and human context. These directional profiles are
+					illustrative, not occupation-level forecasts of hiring or displacement.
 				</p>
 				<div class="space-y-2">
 					<div
@@ -1269,7 +1261,7 @@
 					>
 						<span class={caption()}>Junior / Entry-level</span>
 						<span class={caption({ weight: 'medium' })}
-							><span class="text-risk-high">Higher AI displacement risk</span></span
+							><span class="text-risk-high">Potentially more exposed task mix</span></span
 						>
 					</div>
 					<div
@@ -1280,7 +1272,7 @@
 					>
 						<span class={caption()}>Mid-career</span>
 						<span class={cn(caption({ weight: 'medium' }), 'text-foreground')}
-							>Standard risk profile</span
+							>Reference task profile</span
 						>
 					</div>
 					<div
@@ -1291,7 +1283,8 @@
 					>
 						<span class={caption()}>Senior / Lead</span>
 						<span class={caption({ weight: 'medium' })}
-							><span class="text-risk-very-low">More protected by experience</span></span
+							><span class="text-risk-very-low">Potentially more judgment-heavy task mix</span
+							></span
 						>
 					</div>
 				</div>

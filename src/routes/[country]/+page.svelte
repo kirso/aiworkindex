@@ -34,7 +34,7 @@
 	/** Plain-language descriptions for evidence modules */
 	const userFriendlyModules: Record<string, { title: string; description: string }> = {
 		structuralProfile: {
-			title: 'AI task overlap scores',
+			title: 'AI exposure signals',
 			description: 'How much each job overlaps with what AI can do today.'
 		},
 		wageContext: {
@@ -67,7 +67,7 @@
 		},
 		adoptionContext: {
 			title: 'Real-world AI adoption',
-			description: 'Observed AI usage data used to calibrate task overlap estimates.'
+			description: 'Observed AI usage data used as one input to the relative change signal.'
 		},
 		regulatoryOverlay: {
 			title: 'Licensing and regulation',
@@ -94,10 +94,10 @@
 				AI displacement pressure scores for every occupation, combined with local wages, job market
 				demand signals, and government support programmes.
 			{:else if data.country.status === 'ready'}
-				AI pressure scores combined with local wages, employment projections, and skills data. Full
-				index publishing soon.
+				AI exposure rankings combined with local wages, employment projections, and skills data.
+				Full index publishing soon.
 			{:else}
-				AI pressure scores based on the global structural baseline. Local data layers are being
+				AI exposure rankings based on the global structural baseline. Local data layers are being
 				prepared.
 			{/if}
 		</p>
@@ -119,7 +119,7 @@
 			</p>
 		</div>
 		<div class={card({ padding: 'sm' })}>
-			<p class={caption({ weight: 'medium' })}>Median risk score</p>
+			<p class={caption({ weight: 'medium' })}>Median AI Exposure Rank</p>
 			<p class="mt-1 text-2xl font-semibold text-foreground">
 				{(data.stats.medianRisk * 100).toFixed(0)}%
 			</p>
@@ -212,8 +212,8 @@
 			<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'moderate' }), 'mt-3')}>
 				<p class="text-sm font-semibold text-foreground">Local data coming soon</p>
 				<p class="mt-1 text-sm text-muted-foreground">
-					You can view global AI pressure scores for all occupations while we prepare local data for {data
-						.country.name}.
+					You can view global AI exposure rankings for all occupations while we prepare local data
+					for {data.country.name}.
 				</p>
 			</div>
 		{/if}

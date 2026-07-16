@@ -22,8 +22,6 @@ interface SitemapEntry {
 
 async function main() {
 	const { SITE, DATA_VINTAGE } = await import('../src/lib/data/scoring-constants');
-	const { getCountryOccupationRows } = await import('../src/lib/data/country-pages');
-	const { getGlobalOccupationEntries } = await import('../src/lib/data/global-occupations');
 	const lastmod = DATA_VINTAGE.last_updated;
 	const base = SITE.url;
 
@@ -45,7 +43,6 @@ async function main() {
 		{ path: '/methodology', priority: '0.8', changefreq: 'monthly' },
 		{ path: '/global', priority: '0.8', changefreq: 'monthly' },
 		{ path: '/sg', priority: '0.7', changefreq: 'monthly' },
-		{ path: '/us', priority: '0.7', changefreq: 'monthly' },
 		{ path: '/methodology/appendix', priority: '0.7', changefreq: 'monthly' },
 		{ path: '/about', priority: '0.8', changefreq: 'monthly' },
 		{ path: '/data', priority: '0.8', changefreq: 'monthly' },
@@ -72,7 +69,6 @@ async function main() {
 		{ path: '/rankings/quarterly-movers', priority: '0.7', changefreq: 'monthly' },
 		{ path: '/compare', priority: '0.6', changefreq: 'monthly' },
 		{ path: '/rankings/rich-and-risky', priority: '0.7', changefreq: 'monthly' },
-		{ path: '/calculator', priority: '0.7', changefreq: 'monthly' },
 		{ path: '/will-ai-take-my-job', priority: '0.8', changefreq: 'monthly' },
 		{ path: '/ai-proof-jobs', priority: '0.8', changefreq: 'monthly' },
 		{ path: '/ai-job-loss', priority: '0.8', changefreq: 'monthly' },
@@ -99,24 +95,6 @@ async function main() {
 		addUrl({ path: `/occupation/${occ.ssoc}`, changefreq: 'monthly', priority: '0.5' });
 	}
 
-	// Global occupation pages
-	for (const occ of getGlobalOccupationEntries()) {
-		addUrl({
-			path: `/global/occupation/${occ.code}`,
-			changefreq: 'monthly',
-			priority: '0.5'
-		});
-	}
-
-	// Country occupation pages
-	for (const row of getCountryOccupationRows('us')) {
-		addUrl({
-			path: `/us/occupation/${row.localCode}`,
-			changefreq: 'monthly',
-			priority: '0.5'
-		});
-	}
-
 	// Group hub pages
 	for (const g of majorGroups) {
 		const slug = g.key.toLowerCase().replace(/[,&]/g, '').replace(/\s+/g, '-');
@@ -126,7 +104,6 @@ async function main() {
 	// Role pages
 	for (const role of syntheticRoles) {
 		addUrl({ path: `/role/${role.slug}`, changefreq: 'monthly', priority: '0.5' });
-		addUrl({ path: `/us/role/${role.slug}`, changefreq: 'monthly', priority: '0.5' });
 	}
 
 	const urls = entries

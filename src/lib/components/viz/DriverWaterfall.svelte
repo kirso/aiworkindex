@@ -99,7 +99,7 @@
 <div
 	class="space-y-2.5"
 	role="img"
-	aria-label="Score breakdown: factors driving AI displacement risk up and down"
+	aria-label="Evidence profile for AI exposure and employment context"
 >
 	{#each drivers as driver}
 		{@const widthPct = (driver.value / maxValue) * maxBarWidth}
@@ -153,9 +153,9 @@
 
 	<!-- Net result -->
 	<div class="mt-3 flex items-center justify-between border-t border-border/50 pt-3">
-		<span class="text-sm font-semibold text-foreground">AI Displacement Pressure</span>
+		<span class="text-sm font-semibold text-foreground">AI Exposure Rank</span>
 		<span class="text-sm font-bold font-mono tabular-nums text-foreground">
-			{(occupation.net_risk * 100).toFixed(0)}%
+			{(occupation.net_risk * 100).toFixed(0)}/100
 		</span>
 	</div>
 </div>

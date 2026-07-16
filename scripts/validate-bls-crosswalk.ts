@@ -4,7 +4,7 @@
  *
  * Maps 562 Singapore SSOC occupations to US BLS 2024-2034 employment projections
  * via the ISCO-08 → SOC crosswalk, then computes Spearman rank correlation between
- * our net_risk scores and BLS projected employment change.
+ * our V8 AI Exposure Ranks and BLS projected employment change.
  *
  * Outputs:
  *   data/backtests/bls-crosswalk-validation.json
@@ -18,7 +18,8 @@ import * as XLSX from 'xlsx';
 import * as fs from 'fs';
 import * as path from 'path';
 import { ssocToSocCodes } from './crosswalk';
-import { DATA_VINTAGE, getRiskBand } from '../src/lib/data/scoring-constants';
+import { DATA_VINTAGE } from '../src/lib/data/scoring-constants';
+import { midrankPercentiles, v8BandFromPoints } from '../src/lib/data/v8-contract';
 
 const DATA_DIR = path.join(import.meta.dir, '..', 'data');
 const BLS_FILE = path.join(DATA_DIR, 'raw', 'external', 'bls_projections_2024_2034.xlsx');
@@ -46,8 +47,9 @@ const STATIC_OUTPUT_FILE = path.join(
 interface Occupation {
 	ssoc: string;
 	title: string;
-	net_risk: number;
-	risk_band: string;
+	v8: {
+		ai_exposure_rank: { points: number; band: string };
+	};
 }
 
 /**
@@ -227,6 +229,7 @@ function main() {
 	// 2. Read our occupations
 	const occupations: Occupation[] = JSON.parse(fs.readFileSync(OCCUPATIONS_FILE, 'utf-8'));
 	console.log(`Occupations loaded: ${occupations.length}`);
+	const exposureRanks = midrankPercentiles(occupations.map(occupation => occupation.exposure));
 
 	// 3. Match via crosswalk
 	const matched: Array<{
@@ -238,7 +241,7 @@ function main() {
 		soc_codes_matched: string[];
 	}> = [];
 
-	for (const occ of occupations) {
+	for (const [occupationIndex, occ] of occupations.entries()) {
 		const socCodes = ssocToSocCodes(occ.ssoc);
 		const changes: number[] = [];
 		const matchedSocs: string[] = [];
@@ -253,11 +256,12 @@ function main() {
 
 		if (changes.length > 0) {
 			const avgChange = changes.reduce((s, v) => s + v, 0) / changes.length;
+			const exposureRank = exposureRanks[occupationIndex] ?? 0;
 			matched.push({
 				ssoc: occ.ssoc,
 				title: occ.title,
-				net_risk: occ.net_risk,
-				risk_band: occ.risk_band,
+				net_risk: exposureRank / 100,
+				risk_band: v8BandFromPoints(exposureRank),
 				bls_pct_change: Number(avgChange.toFixed(2)),
 				soc_codes_matched: matchedSocs
 			});
@@ -269,11 +273,33 @@ function main() {
 		`Matched: ${matched.length}/${occupations.length} (${(matchRate * 100).toFixed(1)}%)\n`
 	);
 
-	// 4. Spearman rank correlation: net_risk vs BLS percent change
-	const risks = matched.map(m => m.net_risk);
-	const blsChanges = matched.map(m => m.bls_pct_change);
+	// Many SSOC rows inherit the exact same SOC bundle and therefore the exact
+	// same BLS outcome. Treat each unique crosswalk signature as one independent
+	// analysis unit so duplicated outcomes do not create pseudo-replication.
+	const bySignature = new Map<string, typeof matched>();
+	for (const row of matched) {
+		const signature = [...row.soc_codes_matched].sort().join('|');
+		const group = bySignature.get(signature) ?? [];
+		group.push(row);
+		bySignature.set(signature, group);
+	}
+	const analysisUnits = [...bySignature.entries()].map(([signature, rows]) => ({
+		signature,
+		title:
+			rows.length === 1
+				? rows[0]!.title
+				: `${rows[0]!.title} + ${rows.length - 1} related SSOC rows`,
+		net_risk: rows.reduce((sum, row) => sum + row.net_risk, 0) / rows.length,
+		bls_pct_change: rows[0]!.bls_pct_change,
+		ssoc_count: rows.length
+	}));
+	console.log(`Independent crosswalk signatures: ${analysisUnits.length}`);
+
+	// 4. Exploratory association: V8 relative score vs BLS percent change.
+	const risks = analysisUnits.map(m => m.net_risk);
+	const blsChanges = analysisUnits.map(m => m.bls_pct_change);
 	const rho = spearmanCorrelation(risks, blsChanges);
-	const n = matched.length;
+	const n = analysisUnits.length;
 	const t = tStatistic(rho, n);
 	const pValue = tDistPValue(t, n - 2);
 
@@ -325,7 +351,7 @@ function main() {
 	> = {};
 
 	for (const band of bands) {
-		const inBand = matched.filter(m => getRiskBand(m.net_risk) === band);
+		const inBand = analysisUnits.filter(m => v8BandFromPoints(m.net_risk * 100) === band);
 		if (inBand.length === 0) {
 			byBand[band] = { count: 0, avg_bls_change: 0, avg_net_risk: 0, occupations: [] };
 			continue;
@@ -355,15 +381,15 @@ function main() {
 		byBand['high'].avg_bls_change < byBand['moderate'].avg_bls_change;
 
 	const interpretation = [
-		`Spearman rho = ${rho.toFixed(4)} indicates a ${rho < 0 ? 'negative' : 'positive'} correlation between our structural risk scores and BLS projected employment change.`,
+		`Across ${n} unique SSOC-to-SOC crosswalk signatures, Spearman rho = ${rho.toFixed(4)} indicates a ${rho < 0 ? 'negative' : 'positive'} exploratory association between the V8 AI exposure rank and BLS projected employment change.`,
 		rho < 0
-			? 'Higher risk scores are associated with lower (or negative) projected employment growth.'
-			: 'Risk scores do not inversely correlate with projected employment change.',
+			? 'Higher relative scores are associated with lower projected employment growth in this cross-country comparison.'
+			: 'Relative scores do not inversely associate with projected employment change in this comparison.',
 		`The very_high risk band is the ${byBand['very_high'].avg_bls_change < 0 ? 'only band with' : 'band with the lowest'} projected ${byBand['very_high'].avg_bls_change < 0 ? 'negative' : ''} employment growth (${byBand['very_high'].avg_bls_change > 0 ? '+' : ''}${byBand['very_high'].avg_bls_change}%).`,
 		isMonotonic
 			? 'The top three risk bands show monotonically decreasing BLS projected growth.'
 			: 'Band averages do not show a perfectly monotonic relationship across all bands.',
-		'The modest correlation is expected: BLS projections include non-AI factors (demographics, trade, policy), while our model measures AI-specific structural pressure.'
+		'This is a non-causal, cross-country validity check: BLS projections include many non-AI factors and do not validate Singapore employment outcomes.'
 	].join(' ');
 
 	console.log(`\nInterpretation: ${interpretation}\n`);
@@ -372,8 +398,10 @@ function main() {
 	const result = {
 		validation_date: new Date().toISOString().split('T')[0],
 		bls_data_period: '2024-2034 projections',
-		model_version: DATA_VINTAGE.model_version,
-		sample_size: matched.length,
+		model_version: DATA_VINTAGE.public_version,
+		raw_matched_ssoc_rows: matched.length,
+		sample_size: analysisUnits.length,
+		analysis_unit: 'unique_ssoc_to_soc_crosswalk_signature',
 		total_occupations: occupations.length,
 		match_rate: Number(matchRate.toFixed(3)),
 		spearman_rho: Number(rho.toFixed(4)),
@@ -397,10 +425,11 @@ function main() {
 		by_risk_band: byBand,
 		caveats: [
 			'BLS projections cover 2024-2034 and include non-AI factors (demographics, trade, immigration, policy)',
-			'Crosswalk introduces noise: SSOC → ISCO-08 → SOC 2010, with many-to-many mappings averaged',
+			'Crosswalk introduces noise: SSOC → ISCO-08 → SOC, with many-to-many mappings averaged',
+			'Inference uses unique matched-SOC signatures to avoid treating duplicated BLS outcomes as independent observations',
 			'US employment projections may not reflect Singapore-specific market conditions',
-			'A modest correlation (|rho| ~ 0.13) is expected — our model measures AI-specific structural pressure, not total employment change',
-			'The directional consistency and monotonic band pattern support model validity as a structural pressure indicator'
+			'This exploratory association is not causal evidence and is not a validation of occupation-level job-loss forecasts',
+			'Band summaries are descriptive and may be sensitive to crosswalk composition'
 		]
 	};
 

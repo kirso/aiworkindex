@@ -122,12 +122,13 @@ export const pageLayout = tv({
 	variants: {
 		width: {
 			wide: 'max-w-screen-2xl',
+			data: 'max-w-screen-2xl',
 			feature: 'max-w-6xl',
 			content: 'max-w-4xl',
 			prose: 'max-w-3xl'
 		}
 	},
-	defaultVariants: { width: 'content' }
+	defaultVariants: { width: 'feature' }
 });
 
 /** Section spacing */
