@@ -6,7 +6,7 @@
 <Seo
 	path="/calculator"
 	title="AI Job Exposure Calculator | AI Work Index"
-	description="Search Singapore occupations to see their AI Exposure Rank, likely impact, current hiring demand and evidence quality."
+	description="Search Singapore occupations to see their AI Exposure Rank, likely job pathway, current hiring demand and evidence quality."
 />
 
 <main class={pageLayout({ width: 'feature' })}>

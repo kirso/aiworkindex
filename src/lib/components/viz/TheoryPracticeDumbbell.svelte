@@ -25,18 +25,22 @@
 		return () => observer.disconnect();
 	});
 
-	// Compute display data — each occupation needs exposure (theory) and anthropic observed
+	// Compare like-for-like percentiles persisted by the scoring pipeline.
 	let rows = $derived.by(() => {
 		return occupations
-			.filter(o => o.evidence.anthropic_calibrated && o.evidence.anthropic_gap !== null)
+			.filter(
+				o =>
+					typeof o.evidence.exposure_source_pctiles?.aioe === 'number' &&
+					typeof o.evidence.exposure_source_pctiles?.anthropic === 'number'
+			)
 			.map(o => {
-				const gap = o.evidence.anthropic_gap ?? 0;
-				const theory = o.raw.aioe;
-				const observed = theory + gap;
+				const theory = o.evidence.exposure_source_pctiles?.aioe ?? 0;
+				const observed = o.evidence.exposure_source_pctiles?.anthropic ?? 0;
+				const gap = observed - theory;
 				return {
 					occ: o,
-					theory: Math.max(0, Math.min(1, theory)),
-					observed: Math.max(0, Math.min(1, observed)),
+					theory,
+					observed,
 					gap,
 					aboveTheory: gap > 0
 				};
@@ -54,7 +58,13 @@
 
 <div bind:this={containerEl} class="relative w-full">
 	{#if browser && rows.length > 0}
-		<svg {width} height={svgHeight} class="block">
+		<svg
+			{width}
+			height={svgHeight}
+			class="block"
+			role="img"
+			aria-label="AIOE exposure percentile compared with Anthropic Claude usage percentile"
+		>
 			<g transform="translate({marginLeft},20)">
 				<!-- Grid lines -->
 				{#each [0, 0.25, 0.5, 0.75, 1] as tick}
@@ -73,7 +83,7 @@
 						text-anchor="middle"
 						class="fill-muted-foreground text-xs"
 					>
-						{(tick * 100).toFixed(0)}%
+						{(tick * 100).toFixed(0)}
 					</text>
 				{/each}
 
@@ -147,15 +157,15 @@
 				<span
 					class="inline-block h-3 w-3 rounded-full border-2 border-muted-foreground bg-transparent"
 				></span>
-				<span>Theoretical (AIOE)</span>
+				<span>AIOE exposure percentile</span>
 			</div>
 			<div class="flex items-center gap-1.5">
 				<span class="inline-block h-3 w-3 rounded-full bg-risk-very-high"></span>
-				<span>Observed above theory</span>
+				<span>Anthropic Claude usage above AIOE</span>
 			</div>
 			<div class="flex items-center gap-1.5">
 				<span class="inline-block h-3 w-3 rounded-full bg-risk-very-low"></span>
-				<span>Observed below theory</span>
+				<span>Anthropic Claude usage below AIOE</span>
 			</div>
 		</div>
 	{:else if browser}

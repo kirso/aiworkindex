@@ -1,9 +1,8 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import { riskBandLabels, impactTypeLabels, augmentationBandLabels } from '$lib/data';
+	import { riskBandLabels, augmentationBandLabels } from '$lib/data';
 	import {
 		card,
-		impactBadge,
 		pageLayout,
 		title as titleStyle,
 		sectionLabel,
@@ -222,7 +221,7 @@
 			if (navigator.share) {
 				await navigator.share({
 					title: `${scored.title} — ${SITE.name}`,
-					text: `Estimated AI Exposure Rank for ${scored.title}: ${(scored.net_risk * 100).toFixed(0)}/100`,
+					text: `Estimated role exposure score for ${scored.title}: ${(scored.net_risk * 100).toFixed(0)}/100`,
 					url
 				});
 				return;
@@ -245,7 +244,7 @@
 			additionalProperty: [
 				{
 					'@type': 'PropertyValue',
-					name: 'AI Exposure Rank',
+					name: 'Estimated Role Exposure Score',
 					value: Math.round(scored.net_risk * 100)
 				},
 				{
@@ -286,21 +285,21 @@
 			question: 'Will AI replace ' + scored.title + '?',
 			answer:
 				structural.summaryText +
-				' Estimated AI exposure rank: ' +
+				' Estimated role exposure score: ' +
 				riskPct +
 				'/100 (' +
 				riskBandLabels[scored.risk_band] +
 				').'
 		},
 		{
-			question: 'What is the AI exposure rank for ' + scored.title + '?',
+			question: 'What is the AI exposure estimate for ' + scored.title + '?',
 			answer:
 				scored.title +
-				' has an estimated relative AI Exposure Rank of ' +
+				' has an estimated role exposure score of ' +
 				riskPct +
 				'/100, rated ' +
 				riskBandLabels[scored.risk_band] +
-				'. This is a synthetic relative estimate blending ' +
+				'. This is a synthetic estimate blending ' +
 				scored.components.length +
 				' official occupations in Singapore, not a job-loss probability.'
 		},
@@ -335,7 +334,7 @@
 		`Will AI Replace ${scored.title}? ${riskPct}/100 Estimate | AI Work Index`
 	);
 	let pageDescription = $derived(
-		`${scored.title}: estimated AI exposure rank ${riskPct}/100, rated ${riskBandLabels[scored.risk_band]}. Synthetic blend of ${scored.components.length} Singapore occupations; not a probability.`
+		`${scored.title}: estimated role exposure score ${riskPct}/100. Synthetic blend of ${scored.components.length} Singapore occupations; not a percentile rank or probability.`
 	);
 
 	const bandSteps: Record<import('$lib/data').RiskBand, number> = {
@@ -420,7 +419,7 @@
 		>
 			<div class="border-b border-border py-5 pr-6 md:border-r md:border-b-0">
 				<p class="font-mono text-[11px] tracking-[0.16em] text-muted-foreground uppercase">
-					Estimated AI exposure rank
+					Estimated role exposure score
 				</p>
 				<p class="mt-1 font-sans text-7xl leading-none font-black tracking-display tabular-nums">
 					{(scored.net_risk * 100).toFixed(0)}<span class="text-2xl">/100</span>
@@ -456,8 +455,8 @@
 				</p>
 				<p class="mt-3.5 flex max-w-2xl gap-2 text-[13px] leading-snug text-muted-foreground">
 					<span class="text-primary" aria-hidden="true">※</span>
-					Relative AI exposure, not a prediction of job loss. Hiring, wages and role design depend on
-					many forces that this estimate does not forecast.
+					Synthetic role estimate, not an occupation percentile rank or a prediction of job loss. Hiring,
+					wages and role design depend on many forces that this estimate does not forecast.
 				</p>
 
 				{#if scored.dispersion > 0.08}
@@ -490,9 +489,7 @@
 				{/if}
 
 				<div class="mt-3 flex flex-wrap items-center gap-2">
-					<span class={impactBadge({ type: scored.impact_type })}>
-						{impactTypeLabels[scored.impact_type]}
-					</span>
+					<span class={pill({ tone: 'outline' })}>Synthetic role estimate</span>
 					{#if hasDemand}
 						<span class={pill({ tone: 'positive' })}>
 							In demand ({demandLabel})
@@ -543,7 +540,7 @@
 	<section class="mb-8">
 		<h2 class="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
 			<span class="h-4 w-1 rounded-full bg-primary"></span>
-			Why This Score
+			How This Estimate Is Built
 		</h2>
 		<div class={card({ padding: 'md' })}>
 			<div class="grid gap-6 md:grid-cols-5">

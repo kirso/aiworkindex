@@ -59,7 +59,7 @@
 		{
 			question: 'Will AI replace all jobs?',
 			answer:
-				'No. While AI automates specific tasks, most occupations blend automatable and non-automatable work. Roles with high coordination, physical presence, or regulatory complexity face minimal displacement pressure.'
+				'No occupation can be assumed immune to change. AI exposure concerns tasks and capabilities, while employment also depends on demand, investment, regulation, wages, business decisions and how work is redesigned.'
 		}
 	]);
 
@@ -78,8 +78,8 @@
 
 	<h1 class={titleStyle({ size: 'page' })}>AI-Proof Jobs</h1>
 	<p class="mt-2 max-w-2xl text-sm text-muted-foreground">
-		{data.total} occupations fall below this page's lower-score filter. “AI-proof” is a search term, not
-		a scientific claim: lower relative AI exposure does not guarantee job security.
+		{data.total} occupations have an AI Exposure Rank below 40/100. “AI-proof” is a search term, not a
+		scientific claim: lower relative exposure does not guarantee job security.
 	</p>
 
 	<section class="mt-6">
@@ -87,8 +87,8 @@
 	</section>
 
 	<p class="mt-4 text-xs text-muted-foreground">
-		Filtered on the V8 relative score alias. Scores rank occupations; they do not predict job
-		losses.
+		Filtered on the V8 AI Exposure Rank below 40/100. Ranks compare occupations; they do not predict
+		job losses.
 		<a href="/methodology" class="text-primary underline">Learn more</a> |
 		<a href="/rankings" class="text-primary underline">All rankings</a> |
 		<a href="/will-ai-take-my-job" class="text-primary underline">Check your job</a>

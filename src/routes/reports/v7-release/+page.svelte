@@ -12,6 +12,7 @@
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import { DATA_VINTAGE, SITE } from '$lib/data/scoring-constants';
 	import clusterValidation from '$lib/data/backtests/current-validation.json';
+	import ArchivedReleaseNotice from '$lib/components/ui/ArchivedReleaseNotice.svelte';
 
 	const clusterChecksPassed = clusterValidation.summary.checks_passed;
 	const clusterChecksTotal = clusterValidation.summary.checks_total;
@@ -38,6 +39,7 @@
 />
 
 <main class={pageLayout({ width: 'content' })}>
+	<ArchivedReleaseNotice />
 	<PageBreadcrumb
 		items={[
 			{ label: 'Home', href: '/' },

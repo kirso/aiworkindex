@@ -119,8 +119,36 @@
 	<section class="mt-8">
 		<p class={cn(sectionLabel(), 'mb-3')}>Breakdown by Sector</p>
 		<div class={card({ padding: 'none' })}>
-			<div class="overflow-x-auto" role="region" aria-label="Sector wage context">
-				<table class="w-full min-w-[760px] text-sm table-fixed">
+			<div class="divide-y divide-border lg:hidden" aria-label="Sector wage context">
+				{#each data.groupBreakdown as group (group.key)}
+					<article class="p-4">
+						<div class="flex items-start justify-between gap-3">
+							<h3 class="text-sm font-semibold leading-snug text-foreground">{group.label}</h3>
+							<span class="shrink-0 font-mono text-sm font-semibold tabular-nums text-foreground">
+								{formatWagesMillions(group.wages)}
+							</span>
+						</div>
+						<dl class="mt-3 grid grid-cols-3 gap-3">
+							<div>
+								<dt class="text-[10px] uppercase tracking-wide text-muted-foreground">
+									Occupations
+								</dt>
+								<dd class="mt-0.5 font-mono text-xs">{group.count}</dd>
+							</div>
+							<div>
+								<dt class="text-[10px] uppercase tracking-wide text-muted-foreground">Workers</dt>
+								<dd class="mt-0.5 font-mono text-xs">{group.employment.toFixed(1)}K</dd>
+							</div>
+							<div>
+								<dt class="text-[10px] uppercase tracking-wide text-muted-foreground">Avg rank</dt>
+								<dd class="mt-0.5 font-mono text-xs">{(group.avgRisk * 100).toFixed(0)}/100</dd>
+							</div>
+						</dl>
+					</article>
+				{/each}
+			</div>
+			<div class="hidden lg:block" role="region" aria-label="Sector wage context table">
+				<table class="w-full table-fixed text-sm">
 					<colgroup>
 						<col />
 						<col class="w-24" />
@@ -161,8 +189,35 @@
 	<section class="mt-8">
 		<p class={cn(sectionLabel(), 'mb-3')}>15 Highest-Paid Higher-Exposure Occupations</p>
 		<div class={card({ padding: 'none' })}>
-			<div class="overflow-x-auto" role="region" aria-label="Occupation wage context">
-				<table class="w-full min-w-[820px] text-sm table-fixed">
+			<div class="divide-y divide-border lg:hidden" aria-label="Occupation wage context">
+				{#each data.topIndividual as occ, i (occ.ssoc)}
+					<article class="p-4">
+						<div class="flex items-start gap-3">
+							<span class="w-5 shrink-0 font-mono text-xs text-muted-foreground">{i + 1}</span>
+							<div class="min-w-0 flex-1">
+								<a
+									href="/occupation/{occ.ssoc}"
+									class="text-sm font-semibold leading-snug text-foreground hover:text-primary"
+									>{occ.title}</a
+								>
+								<p class="mt-1 font-mono text-xs text-muted-foreground">
+									{sgCurrency}
+									{occ.gross_wage_median.toLocaleString()} monthly
+								</p>
+							</div>
+							<span class={cn(riskBadge({ band: occ.risk_band }), 'shrink-0')}
+								>{(occ.net_risk * 100).toFixed(0)}/100</span
+							>
+						</div>
+						<p class="mt-2 pl-8 text-xs text-muted-foreground">
+							Annualised median pay: {sgCurrency}
+							{(occ.gross_wage_median * 12).toLocaleString()}
+						</p>
+					</article>
+				{/each}
+			</div>
+			<div class="hidden lg:block" role="region" aria-label="Occupation wage context table">
+				<table class="w-full table-fixed text-sm">
 					<colgroup>
 						<col class="w-10" />
 						<col />

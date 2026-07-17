@@ -43,6 +43,17 @@
 					index using published reliability weights. Missing sources are renormalized rather than
 					imputed.
 				</p>
+				<p class={body({ class: 'mt-2 text-muted-foreground' })}>
+					The Anthropic input is the frozen January 2026 occupation-usage release. The
+					<a
+						href="https://www.anthropic.com/research/economic-index-june-2026-report"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="underline">June 2026 report</a
+					>
+					uses changed sampling and classification methods, so it is not silently substituted into this
+					release.
+				</p>
 			</div>
 			<div>
 				<h3 class="font-semibold">2. Rank occupations within Singapore</h3>

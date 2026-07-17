@@ -16,15 +16,15 @@
 
 	const columns = [
 		{
-			key: 'exposure',
-			label: 'Exposure',
-			format: (occ: Occupation) => `${(occ.exposure * 100).toFixed(0)}%`,
+			key: 'net_risk',
+			label: 'AI Exposure Rank',
+			format: (occ: Occupation) => `${occ.v8.ai_exposure_rank.points}/100`,
 			align: 'right' as const
 		},
 		{
-			key: 'net_risk',
-			label: 'AI Exposure Rank',
-			format: (occ: Occupation) => `${(occ.net_risk * 100).toFixed(0)}/100`,
+			key: 'substitution',
+			label: 'Substitution Pressure',
+			format: (occ: Occupation) => `${occ.v8.substitution_pressure.points}/100`,
 			align: 'right' as const
 		},
 		{
@@ -87,8 +87,9 @@
 
 	<h1 class={titleStyle({ size: 'page' })}>High Exposure + In Demand</h1>
 	<p class="mt-2 text-sm text-muted-foreground">
-		Higher AI exposure signal (legacy exposure filter &gt; 0.50) yet still on official shortage or
-		in-demand lists.
+		Occupations in the upper two AI Exposure Rank bands that also have strong current demand in the
+		official-derived V8 labour-market context. Demand is separate and does not lower the exposure
+		rank.
 	</p>
 
 	<section class="mt-6">

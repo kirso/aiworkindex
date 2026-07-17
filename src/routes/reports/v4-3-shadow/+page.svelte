@@ -15,6 +15,7 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
+	import ArchivedReleaseNotice from '$lib/components/ui/ArchivedReleaseNotice.svelte';
 
 	const inputRows = Object.entries(experimentalMethodology.required_inputs).map(([key, value]) => ({
 		key,
@@ -103,6 +104,7 @@
 />
 
 <main class={pageLayout({ width: 'content' })}>
+	<ArchivedReleaseNotice />
 	<PageBreadcrumb
 		items={[
 			{ label: 'Home', href: '/' },

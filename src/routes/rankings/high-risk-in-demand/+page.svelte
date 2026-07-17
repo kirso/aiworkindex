@@ -22,14 +22,8 @@
 		},
 		{
 			key: 'demand',
-			label: 'Demand Signal',
-			format: (occ: Occupation) => {
-				const signals = [];
-				if (occ.evidence.sol_match) signals.push(`SOL ${occ.evidence.sol_match}`);
-				if (occ.evidence.jobs_in_demand_match)
-					signals.push(`JiD ${occ.evidence.jobs_in_demand_match}`);
-				return signals.join(', ');
-			},
+			label: 'Current Demand',
+			format: (_occ: Occupation) => 'Strong',
 			align: 'left' as const
 		},
 		{
@@ -63,7 +57,7 @@
 		{
 			question: 'Should I worry about AI if my job is in demand?',
 			answer:
-				'Demand signals provide a buffer but not immunity. These occupations may see role transformation rather than elimination — the work changes even as demand persists.'
+				'Current demand and AI exposure answer different questions. Strong demand does not remove exposure, and exposure does not establish job loss. Both signals can change over time.'
 		}
 	];
 
@@ -71,7 +65,7 @@
 </script>
 
 <Seo
-	title="High AI Risk but In-Demand Jobs"
+	title="Higher AI Exposure but In-Demand Jobs"
 	description="Singapore occupations with higher AI Exposure Ranks that still appear on official demand lists."
 	path="/rankings/high-risk-in-demand"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
@@ -88,8 +82,8 @@
 
 	<h1 class={titleStyle({ size: 'page' })}>Highly Exposed, Still In Demand</h1>
 	<p class="mt-2 text-sm text-muted-foreground">
-		Higher relative V8 score (legacy filter alias &ge; 0.25), yet still on official demand lists.
-		Demand can buffer or reshape the pathway.
+		Occupations in the upper two V8 exposure bands that also have strong current demand in the V8
+		market context. Demand is shown separately and does not change the exposure rank.
 	</p>
 
 	{#if data.ranked.length === 0}

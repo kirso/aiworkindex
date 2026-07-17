@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import { riskBandLabels, majorGroupByKey, impactTypeLabels } from '$lib/data';
+	import { riskBandLabels, majorGroupByKey } from '$lib/data';
+	import { likelyPathwayLabels } from '$lib/data/v8-display';
 	import {
 		card,
 		pageLayout,
@@ -155,13 +156,6 @@
 		major_fallback_mapping: 'capped for broad fallback mapping',
 		signal_conflict: 'capped for conflicting signals'
 	} as const;
-	const pathwayLabels = {
-		limited_direct_change: 'Limited direct change',
-		workflow_redesign: 'Workflow redesign',
-		augmentation_led_growth: 'Augmentation-led growth',
-		demand_buffered_redesign: 'Demand-buffered redesign',
-		hiring_or_substitution_pressure: 'Hiring or substitution pressure'
-	} as const;
 	let confidenceDetail = $derived.by(() => {
 		const capReason = occ.confidence.policy_cap_reason;
 		if (!capReason) return null;
@@ -307,8 +301,8 @@
 				},
 				{
 					'@type': 'PropertyValue',
-					name: 'Impact Type',
-					value: impactTypeLabels[occ.impact_type]
+					name: 'Likely Job Pathway',
+					value: likelyPathwayLabels[occ.v8.likely_pathway]
 				},
 				{
 					'@type': 'PropertyValue',
@@ -462,7 +456,7 @@
 			title={occ.title}
 			pills={[
 				{
-					label: pathwayLabels[occ.v8.likely_pathway],
+					label: likelyPathwayLabels[occ.v8.likely_pathway],
 					tone:
 						occ.v8.likely_pathway === 'hiring_or_substitution_pressure'
 							? 'danger'
@@ -564,11 +558,11 @@
 		{/if}
 	</div>
 
-	<!-- ===== BLOCK 2: WHY THIS SCORE ===== -->
+	<!-- ===== BLOCK 2: HOW THIS RANK IS BUILT ===== -->
 	<section class={section({ spacing: 'loose' })}>
 		<div class="mb-4 border-b-2 border-foreground pb-2">
 			<span class={sectionNumber()}>01</span>
-			<h2 class={cn(titleStyle({ size: 'section' }), 'mt-0.5')}>Why This Score</h2>
+			<h2 class={cn(titleStyle({ size: 'section' }), 'mt-0.5')}>How This Rank Is Built</h2>
 		</div>
 		<div class={card({ padding: 'md' })}>
 			<div class="grid gap-6 md:grid-cols-5">
@@ -603,7 +597,7 @@
 								{/each}
 							</ul>
 							<p class={cn(caption(), 'mt-1 italic text-muted-foreground')}>
-								O*NET tasks for this occupation with the most observed AI usage (Anthropic task
+								O*NET tasks for this occupation with the most observed Claude usage (Anthropic task
 								data).
 							</p>
 						{/if}
@@ -633,8 +627,8 @@
 								{/each}
 							</ul>
 							<p class={cn(caption(), 'mt-1 italic text-muted-foreground')}>
-								Highest-importance tasks with no observed AI usage in the same data &mdash; absence
-								of observed usage, not proof of immunity.
+								Highest-importance tasks with no observed Claude usage in the same data &mdash;
+								absence of observed usage, not proof of immunity.
 							</p>
 						{/if}
 					</div>

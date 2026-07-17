@@ -5,10 +5,10 @@
 	import {
 		riskBandLabels,
 		riskBandColors,
-		impactTypeLabels,
 		augmentationBandLabels,
 		occupationsBySSoc
 	} from '$lib/data';
+	import { demandContextLabels, likelyPathwayLabels } from '$lib/data/v8-display';
 	import type { Occupation } from '$lib/data';
 	import { searchOccupationsAndRoles } from '$lib/utils/search';
 	import { computeTransitionScore, isPlausibleTransition } from '$lib/data/transition-capacity';
@@ -16,7 +16,6 @@
 		title as titleStyle,
 		card,
 		riskBadge,
-		impactBadge,
 		sectionLabel,
 		display,
 		caption
@@ -45,7 +44,9 @@
 		market_resilience: number;
 		augmentation: number;
 		augmentation_band: string;
-		impact_type: string;
+		score_kind: 'rank' | 'estimate';
+		pathway: string | null;
+		demand_label: string;
 		confidence: string;
 		wage: number | null;
 	}
@@ -105,7 +106,9 @@
 				market_resilience: occ.market.market_resilience,
 				augmentation: occ.augmentation,
 				augmentation_band: occ.augmentation_band,
-				impact_type: occ.impact_type,
+				score_kind: 'rank',
+				pathway: likelyPathwayLabels[occ.v8.likely_pathway],
+				demand_label: demandContextLabels[occ.v8.market_context.demand],
 				confidence: `${occ.confidence.level.charAt(0).toUpperCase() + occ.confidence.level.slice(1)}${confidenceSuffix}`,
 				wage: occ.gross_wage_median
 			};
@@ -124,7 +127,9 @@
 				market_resilience: scored.market_resilience,
 				augmentation: scored.augmentation,
 				augmentation_band: scored.augmentation_band,
-				impact_type: scored.impact_type,
+				score_kind: 'estimate',
+				pathway: null,
+				demand_label: 'Related-occupation proxy',
 				confidence: scored.confidence.charAt(0).toUpperCase() + scored.confidence.slice(1),
 				wage: null
 			};
@@ -228,9 +233,11 @@
 	const metrics: { key: string; label: string; format: (e: CompareEntity) => string }[] = [
 		{
 			key: 'net_risk',
-			label: 'AI Exposure Rank',
+			label: 'Exposure score',
 			format: e =>
-				`${points(e.net_risk)} ${riskBandLabels[e.risk_band as keyof typeof riskBandLabels]}`
+				e.score_kind === 'rank'
+					? `${points(e.net_risk)} rank · ${riskBandLabels[e.risk_band as keyof typeof riskBandLabels]}`
+					: `${points(e.net_risk)} synthetic estimate`
 		},
 		{ key: 'exposure', label: 'Exposure Index', format: e => points(e.exposure) },
 		{ key: 'bottleneck', label: 'Human Advantage', format: e => points(e.bottleneck) },
@@ -246,10 +253,11 @@
 				`${points(e.augmentation)} ${augmentationBandLabels[e.augmentation_band as keyof typeof augmentationBandLabels]}`
 		},
 		{
-			key: 'impact_type',
-			label: 'Impact Type',
-			format: e => impactTypeLabels[e.impact_type as keyof typeof impactTypeLabels]
+			key: 'pathway',
+			label: 'Likely job pathway',
+			format: e => e.pathway ?? 'Not assigned to synthetic roles'
 		},
+		{ key: 'demand', label: 'Current demand context', format: e => e.demand_label },
 		{
 			key: 'wage',
 			label: 'Median Wage',
@@ -261,7 +269,7 @@
 
 <Seo
 	title="Compare AI Job Exposure Across Occupations"
-	description="Compare AI Exposure Ranks, human advantage, augmentation potential, current demand and wages across Singapore occupations."
+	description="Compare AI exposure, augmentation, demand and wages across Singapore occupations and clearly labelled synthetic role estimates."
 	path="/compare"
 />
 
@@ -337,9 +345,8 @@
 	{#if entities.length === 0}
 		<div class={cn(card({ padding: 'lg' }))}>
 			<p class="text-sm text-text-secondary leading-relaxed">
-				Compare up to 3 occupations or roles side by side. See how their exposure, demand signals,
-				and career paths differ — useful for exploring transitions or understanding where AI
-				exposure varies across similar jobs and across future country layers.
+				Compare up to 3 occupations or roles side by side. Official occupations have a within-market
+				AI Exposure Rank. Modern roles use synthetic estimates and are not directly rank-comparable.
 			</p>
 
 			<p class="mt-4 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
@@ -376,8 +383,13 @@
 						: 'and has similar'}
 			<div class={cn(card({ variant: 'notice', accent: 'primary', padding: 'md' }), 'mb-6')}>
 				<p class="text-sm text-foreground">
-					{e1.label} has {higherLabel} AI exposure ({e1Pct}/100 vs {e2Pct}/100) {demandComparison} market
-					demand.
+					{#if e1.score_kind === 'rank' && e2.score_kind === 'rank'}
+						{e1.label} has a {higherLabel} AI Exposure Rank ({e1Pct}/100 vs {e2Pct}/100) {demandComparison}
+						current demand.
+					{:else}
+						At least one selection is a synthetic role estimate. Compare the component profiles, but
+						do not interpret the score difference as a difference in occupation percentile rank.
+					{/if}
 				</p>
 			</div>
 		{/if}
@@ -419,15 +431,21 @@
 						<span class={riskBadge({ band: entity.risk_band as any })}>
 							{riskBandLabels[entity.risk_band as keyof typeof riskBandLabels]} exposure
 						</span>
-						<span class={impactBadge({ type: entity.impact_type as any })}>
-							{impactTypeLabels[entity.impact_type as keyof typeof impactTypeLabels]}
+						<span class="rounded-sm border border-border px-2 py-0.5 text-xs text-muted-foreground">
+							{entity.score_kind === 'rank'
+								? (entity.pathway ?? 'Occupation rank')
+								: 'Synthetic role estimate'}
 						</span>
 					</div>
 
 					<div class="space-y-3">
 						<div>
 							<div class="mb-1 flex items-center justify-between text-xs">
-								<span class="text-muted-foreground">AI Exposure Rank</span>
+								<span class="text-muted-foreground">
+									{entity.score_kind === 'rank'
+										? 'AI Exposure Rank'
+										: 'Estimated role exposure score'}
+								</span>
 								<span class="font-medium font-mono tabular-nums">{points(entity.net_risk)}</span>
 							</div>
 							<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
@@ -598,7 +616,26 @@
 		<!-- Comparison table -->
 		<p class={cn(sectionLabel(), 'mb-3')}>Detailed Comparison</p>
 		<div class="rounded-md border">
-			<Table.Root>
+			<div class="divide-y divide-border md:hidden">
+				{#each metrics as metric (metric.key)}
+					<section class="p-4">
+						<h3 class="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
+							{metric.label}
+						</h3>
+						<dl class="mt-2 space-y-2">
+							{#each entities as entity}
+								<div class="flex items-start justify-between gap-4">
+									<dt class="min-w-0 text-xs leading-snug text-text-secondary">{entity.label}</dt>
+									<dd class="shrink-0 text-right font-mono text-xs tabular-nums text-foreground">
+										{metric.format(entity)}
+									</dd>
+								</div>
+							{/each}
+						</dl>
+					</section>
+				{/each}
+			</div>
+			<Table.Root class="hidden table-fixed md:table">
 				<Table.Header>
 					<Table.Row>
 						<Table.Head>Metric</Table.Head>

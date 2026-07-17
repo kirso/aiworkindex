@@ -1,12 +1,11 @@
 import { occupations } from '$lib/data';
-import { IMPACT_TYPE_THRESHOLDS } from '$lib/data/scoring-constants';
 import { findBestTransitions } from '$lib/data/transition-capacity';
 import type { PageLoad } from './$types';
 
 export const load: PageLoad = () => {
-	// For high-risk occupations, find the best transition targets
+	// For occupations in the upper two V8 exposure bands, find adjacent targets.
 	const highRiskOccs = occupations
-		.filter(o => o.net_risk >= IMPACT_TYPE_THRESHOLDS.displacement_threshold)
+		.filter(o => o.v8.ai_exposure_rank.points >= 60)
 		.sort((a, b) => b.net_risk - a.net_risk)
 		.slice(0, 15);
 

@@ -45,8 +45,9 @@
 
 	<section class="mt-8">
 		<p class={sectionLabel()}>Exposure bands</p>
-		<div class="mt-3 overflow-x-auto" role="region" aria-label="AI exposure band thresholds">
-			<table class="w-full min-w-[640px] text-left text-sm">
+		<div class="mt-3" role="region" aria-label="AI exposure band thresholds">
+			<table class="w-full table-fixed text-left text-xs sm:text-sm">
+				<colgroup><col class="w-[22%]" /><col class="w-[18%]" /><col /></colgroup>
 				<thead
 					><tr class="border-b"
 						><th class="p-2">Band</th><th class="p-2">Rank</th><th class="p-2"
@@ -113,8 +114,9 @@
 
 	<section class="mt-8">
 		<p class={sectionLabel()}>Likely pathway rules</p>
-		<div class="mt-3 overflow-x-auto" role="region" aria-label="Likely pathway rules">
-			<table class="w-full min-w-[760px] text-left text-sm">
+		<div class="mt-3" role="region" aria-label="Likely pathway rules">
+			<table class="w-full table-fixed text-left text-xs sm:text-sm">
+				<colgroup><col class="w-[38%] sm:w-[32%]" /><col /></colgroup>
 				<thead
 					><tr class="border-b"
 						><th class="p-2">Pathway</th><th class="p-2">Deterministic rule</th></tr

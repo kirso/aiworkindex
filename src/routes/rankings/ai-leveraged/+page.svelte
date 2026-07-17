@@ -16,20 +16,20 @@
 	const columns = [
 		{
 			key: 'augmentation',
-			label: 'Augmentation',
-			format: (occ: Occupation) => `${(occ.augmentation * 100).toFixed(1)}%`,
+			label: 'Augmentation Potential',
+			format: (occ: Occupation) => `${occ.v8.augmentation_potential.points}/100`,
 			align: 'right' as const
 		},
 		{
 			key: 'exposure',
-			label: 'Exposure',
-			format: (occ: Occupation) => `${(occ.exposure * 100).toFixed(0)}%`,
+			label: 'AI Exposure Rank',
+			format: (occ: Occupation) => `${occ.v8.ai_exposure_rank.points}/100`,
 			align: 'right' as const
 		},
 		{
-			key: 'bottleneck',
-			label: 'Bottleneck',
-			format: (occ: Occupation) => `${(occ.bottleneck * 100).toFixed(0)}%`,
+			key: 'demand',
+			label: 'Current Demand',
+			format: (occ: Occupation) => occ.v8.market_context.demand,
 			align: 'right' as const
 		},
 		{
@@ -42,8 +42,8 @@
 
 	let itemListJsonLd = $derived(
 		buildItemListJsonLd(
-			'AI-Augmented Occupations',
-			'Top 25 occupations where AI augments rather than replaces workers, ranked by augmentation potential',
+			'Occupations With Augmentation-Led Growth Pathways',
+			'Top 25 occupations assigned to the V8 augmentation-led-growth pathway, ranked by augmentation potential',
 			data.ranked
 		)
 	);
@@ -52,12 +52,12 @@
 		{
 			question: 'Which jobs benefit most from AI augmentation?',
 			answer:
-				'Occupations with high AI exposure but strong human bottlenecks — judgment, creativity, and interpersonal skills mean AI augments rather than replaces. These roles score net_risk < 0.25 with augmentation >= 0.12.'
+				'These occupations meet the V8 augmentation-led-growth pathway: augmentation potential is in an upper band and current demand is strong. The pathway is a rule-based interpretation, not a productivity or employment forecast.'
 		},
 		{
 			question: 'What is augmentation in the AI Work Index?',
 			answer:
-				'Augmentation measures the productive overlap between AI capabilities and human strengths. High augmentation means AI tools can boost productivity in the role without displacing the worker.'
+				'Augmentation potential is a relative rank of the current augmentation signal. It indicates where AI may support work, but it does not quantify productivity gains or prove that displacement will not occur.'
 		}
 	];
 
@@ -65,8 +65,8 @@
 </script>
 
 <Seo
-	title="25 AI-Augmented Jobs — High Exposure, Strong Moats"
-	description="Occupations where AI augments rather than replaces — high exposure but strong human bottlenecks create augmentation potential."
+	title="25 Occupations With Augmentation-Led Growth Pathways"
+	description="Occupations assigned to the V8 augmentation-led-growth pathway, ranked by relative augmentation potential."
 	path="/rankings/ai-leveraged"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
@@ -80,10 +80,10 @@
 		]}
 	/>
 
-	<h1 class={titleStyle({ size: 'page' })}>AI-Augmented Occupations</h1>
+	<h1 class={titleStyle({ size: 'page' })}>Occupations in the Augmentation-Led Pathway</h1>
 	<p class="mt-2 text-sm text-muted-foreground">
-		High AI exposure but strong human bottlenecks — AI augments rather than replaces. Occupations
-		ranked by augmentation potential.
+		Occupations assigned to the V8 augmentation-led-growth pathway, ranked by relative augmentation
+		potential. The pathway requires strong current demand and does not guarantee growth.
 	</p>
 
 	<section class="mt-6">
@@ -91,7 +91,7 @@
 	</section>
 
 	<p class="mt-4 text-xs text-muted-foreground">
-		Augmented = net_risk &lt; 0.25 AND augmentation &ge; 0.12.
+		V8 pathway rule: augmentation potential at least 60/100 and strong current demand.
 		<a href="/methodology" class="text-primary underline">Learn more</a>
 	</p>
 	<FaqList items={faqItems} />

@@ -28,9 +28,8 @@
 		},
 		{
 			href: '/rankings/ai-leveraged',
-			title: 'Augmented',
-			description:
-				'Roles where AI augments rather than replaces — high exposure + strong human bottlenecks',
+			title: 'Augmentation-Led Pathway',
+			description: 'Occupations assigned to the V8 augmentation-led-growth pathway',
 			color: 'text-foreground',
 			accent: 'leveraged' as const,
 			count: 25
@@ -45,26 +44,17 @@
 			count: null
 		},
 		{
-			href: '/rankings/high-risk-in-demand',
-			title: 'Highly Exposed, Still In Demand',
-			description:
-				'Occupations with higher AI Exposure Ranks that still appear on official demand lists',
-			color: 'text-foreground',
-			accent: 'high' as const,
-			count: null
-		},
-		{
 			href: '/rankings/theory-vs-practice',
-			title: 'Theory vs Practice',
+			title: 'AIOE vs Anthropic Usage',
 			description:
-				'Biggest gaps between theoretical AI exposure and observed AI usage from Anthropic data',
+				'Largest percentile gaps between two source-specific exposure and usage measures',
 			color: 'text-foreground',
 			accent: 'primary' as const,
 			count: 25
 		},
 		{
 			href: '/rankings/safest-high-paying',
-			title: 'Safest High-Paying',
+			title: 'High-Paying, Lower Exposure',
 			description: 'Lower AI Exposure Ranks with above-median wages',
 			color: 'text-foreground',
 			accent: 'very_low' as const,
@@ -82,8 +72,7 @@
 		{
 			href: '/rankings/high-risk-few-exits',
 			title: 'High Exposure, Fewer Career Moves',
-			description:
-				'The vulnerable quadrant — high displacement pressure where even the best adjacent move is a stretch',
+			description: 'Higher-exposure occupations with weaker adjacent transition matches',
 			color: 'text-foreground',
 			accent: 'very_high' as const,
 			count: null
@@ -198,10 +187,10 @@
 
 	<!-- Quick preview: Augmented -->
 	<div class="mb-8">
-		<h2 class={cn(sectionLabel(), 'mb-3')}>Top 5 Augmented</h2>
+		<h2 class={cn(sectionLabel(), 'mb-3')}>Top 5 Augmentation-Led Pathways</h2>
 		<div class={card({ padding: 'md' })}>
 			<div class="flex items-center justify-between mb-3">
-				<p class={caption()}>Roles where AI augments rather than replaces</p>
+				<p class={caption()}>Highest augmentation potential within this V8 pathway</p>
 				<a href="/rankings/ai-leveraged" class={cn(caption({ weight: 'medium' }), 'text-primary')}
 					>See full list &rarr;</a
 				>
@@ -227,7 +216,7 @@
 
 	<!-- Quick preview: Safest High-Paying -->
 	<div class="mb-8">
-		<h2 class={cn(sectionLabel(), 'mb-3')}>Top 5 Safest High-Paying</h2>
+		<h2 class={cn(sectionLabel(), 'mb-3')}>Top 5 High-Paying, Lower-Exposure</h2>
 		<div class={card({ padding: 'md' })}>
 			<div class="flex items-center justify-between mb-3">
 				<p class={caption()}>Lower AI Exposure Ranks with above-median wages</p>

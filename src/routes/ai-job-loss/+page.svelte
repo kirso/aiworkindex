@@ -41,8 +41,8 @@
 
 	let itemListJsonLd = $derived(
 		buildItemListJsonLd(
-			'Jobs Most at Risk from AI',
-			`Singapore occupations with the highest relative AI-driven AI exposure ranks`,
+			'Occupations Most Exposed to AI',
+			`Singapore occupations with the highest relative AI Exposure Ranks`,
 			data.ranked
 		)
 	);
@@ -67,7 +67,7 @@
 </script>
 
 <Seo
-	title="AI Job Risk: {data.totalHighRisk} Highly Exposed Occupations"
+	title="AI Job Exposure: {data.totalHighRisk} Highly Exposed Occupations"
 	description="Which jobs are most exposed to AI? Explore {data.totalHighRisk} occupations in the higher exposure bands, without treating exposure as predicted job loss."
 	path="/ai-job-loss"
 	jsonLd={[itemListJsonLd, faqJsonLd]}

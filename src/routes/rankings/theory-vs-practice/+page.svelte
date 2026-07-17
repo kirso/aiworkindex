@@ -21,7 +21,7 @@
 			'@type': 'ItemList',
 			name: 'Theory vs Practice: AI Exposure Gaps',
 			description:
-				'Top 25 occupations ranked by the gap between theoretical AI exposure and observed real-world AI usage',
+				'Top 25 occupations ranked by the gap between the AIOE exposure percentile and Anthropic Claude usage percentile',
 			numberOfItems: data.ranked.length,
 			itemListElement: data.ranked.slice(0, 10).map((occ: Occupation, i: number) => ({
 				'@type': 'ListItem',
@@ -34,14 +34,14 @@
 
 	const faqItems = [
 		{
-			question: 'Where does AI theory diverge from actual usage?',
+			question: 'Where do the AIOE and Anthropic measures differ?',
 			answer:
-				"Academic AI exposure indices measure theoretical task automation potential, while Anthropic's observed usage data shows what people actually use AI for. The biggest gaps reveal where adoption lags or leads predictions."
+				"AIOE and Anthropic's source-specific Claude usage measure different constructs, populations and periods. This page compares their within-source percentiles; it does not treat either measure as complete real-world AI adoption."
 		},
 		{
-			question: 'Why do some jobs have high theoretical AI exposure but low real usage?',
+			question: 'What causes a large gap between the measures?',
 			answer:
-				'Regulatory barriers, trust requirements, or workflow integration costs can slow adoption even when tasks are technically automatable. Conversely, some low-exposure roles adopt AI tools faster than predicted.'
+				'A gap may reflect construct differences, crosswalks, platform users, sampling, timing or actual usage differences. The comparison is descriptive and does not identify which explanation caused a gap.'
 		}
 	];
 
@@ -52,7 +52,9 @@
 			key: 'gap',
 			label: 'Gap (pts)',
 			format: (occ: Occupation) => {
-				const gap = occ.evidence.anthropic_gap ?? 0;
+				const gap =
+					(occ.evidence.exposure_source_pctiles?.anthropic ?? 0) -
+					(occ.evidence.exposure_source_pctiles?.aioe ?? 0);
 				const pts = Math.round(gap * 100);
 				return `${pts > 0 ? '+' : ''}${pts}`;
 			},
@@ -62,14 +64,24 @@
 			key: 'direction',
 			label: 'Direction',
 			format: (occ: Occupation) => {
-				const gap = occ.evidence.anthropic_gap ?? 0;
+				const gap =
+					(occ.evidence.exposure_source_pctiles?.anthropic ?? 0) -
+					(occ.evidence.exposure_source_pctiles?.aioe ?? 0);
 				return gap > 0 ? 'Above theory' : 'Below theory';
 			}
 		},
 		{
 			key: 'exposure',
-			label: 'AIOE Theory',
-			format: (occ: Occupation) => `${(occ.raw.aioe * 100).toFixed(0)}%`,
+			label: 'AIOE Percentile',
+			format: (occ: Occupation) =>
+				`${Math.round((occ.evidence.exposure_source_pctiles?.aioe ?? 0) * 100)}/100`,
+			align: 'right' as const
+		},
+		{
+			key: 'anthropic',
+			label: 'Anthropic Percentile',
+			format: (occ: Occupation) =>
+				`${Math.round((occ.evidence.exposure_source_pctiles?.anthropic ?? 0) * 100)}/100`,
 			align: 'right' as const
 		},
 		{
@@ -81,14 +93,16 @@
 	];
 
 	function highlightRow(occ: Occupation): string | null {
-		const gap = occ.evidence.anthropic_gap ?? 0;
+		const gap =
+			(occ.evidence.exposure_source_pctiles?.anthropic ?? 0) -
+			(occ.evidence.exposure_source_pctiles?.aioe ?? 0);
 		return gap > 0 ? 'bg-risk-very-high-subtle/30' : 'bg-impact-leveraged-subtle/30';
 	}
 </script>
 
 <Seo
-	title="AI Theory vs Practice — Where Real Usage Diverges"
-	description="Where does observed AI usage diverge most from theoretical exposure? The biggest gaps between Anthropic's real-world data and academic AI exposure indices."
+	title="AIOE vs Anthropic Claude Usage by Occupation"
+	description="Compare occupation percentiles from AIOE exposure and the frozen January 2026 Anthropic Claude usage input."
 	path="/rankings/theory-vs-practice"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
@@ -102,15 +116,16 @@
 		]}
 	/>
 
-	<h1 class={titleStyle({ size: 'page' })}>Theory vs Practice</h1>
+	<h1 class={titleStyle({ size: 'page' })}>AIOE Exposure vs Anthropic Claude Usage</h1>
 	<p class="mt-2 text-sm text-muted-foreground">
-		Where does real-world AI usage diverge most from theoretical exposure? Ranked by the absolute
-		gap between Anthropic's observed AI usage percentile and the theoretical AIOE percentile. <span
-			class="bg-risk-very-high-subtle px-1 rounded text-risk-very-high">Red rows</span
+		A descriptive comparison of two source percentiles, not theory against ground truth. Ranked by
+		the absolute gap between the frozen January 2026 Anthropic Claude usage percentile and the AIOE
+		exposure percentile. <span class="bg-risk-very-high-subtle px-1 rounded text-risk-very-high"
+			>Red rows</span
 		>
-		= usage exceeds theory.
+		= Anthropic percentile is higher.
 		<span class="bg-impact-leveraged-subtle px-1 rounded text-impact-leveraged">Blue rows</span> = theory
-		exceeds usage.
+		percentile is higher. The gap does not establish why the sources differ.
 	</p>
 
 	<!-- Dumbbell chart -->
@@ -126,8 +141,9 @@
 	</section>
 
 	<p class="mt-4 text-xs text-muted-foreground">
-		Gap = Anthropic observed usage percentile minus theoretical AIOE percentile. Positive means more
-		AI adoption than theory predicts.
+		Gap = Anthropic observed-usage percentile minus AIOE exposure percentile. Positive means
+		observed usage ranks higher than the AIOE measure for the same occupation; it does not establish
+		why.
 		<a href="/methodology" class="text-primary underline">Learn more</a>
 	</p>
 	<FaqList items={faqItems} />

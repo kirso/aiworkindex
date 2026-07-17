@@ -1,11 +1,10 @@
 import { occupations, type Occupation } from '$lib/data';
-import { IMPACT_TYPE_THRESHOLDS } from './scoring-constants';
 import { findBestTransitions, type TransitionScore } from './transition-capacity';
 
 /**
- * The high-risk x few-exits quadrant (del Rio-Chanona et al. 2021; IMF 2024):
- * occupations above the displacement threshold whose BEST transition option
- * falls in the bottom quartile of best-exit scores within the high-risk
+ * The higher-exposure x fewer-exits quadrant: occupations in the upper two
+ * V8 exposure bands whose BEST transition option falls in the bottom quartile
+ * of best-exit scores within the higher-exposure
  * cohort. The transition composite distribution is tight (every occupation
  * has some same-family neighbour), so the discriminating definition is
  * relative to the cohort, not the module's absolute labels.
@@ -32,9 +31,7 @@ let cache: ExitQuadrantData | null = null;
 export function getExitQuadrant(): ExitQuadrantData {
 	if (cache) return cache;
 
-	const highRisk = occupations.filter(
-		occ => occ.net_risk >= IMPACT_TYPE_THRESHOLDS.displacement_threshold
-	);
+	const highRisk = occupations.filter(occ => occ.v8.ai_exposure_rank.points >= 60);
 	const scored = highRisk.map(from => {
 		// An "exit" must actually reduce risk: lateral or higher-risk moves can
 		// score a high composite on similarity/wage/demand alone, but they are

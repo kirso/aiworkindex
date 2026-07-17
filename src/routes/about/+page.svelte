@@ -27,7 +27,7 @@
 </script>
 
 <Seo
-	title="About the AI Work Index — Global Methodology"
+	title="About the AI Work Index — Singapore AI Exposure Methodology"
 	description="About the V8 AI Work Index: a relative Singapore AI exposure ranking with open methodology, explicit confidence and separate labour-market context."
 	path="/about"
 	jsonLd={[aboutJsonLd]}
@@ -42,7 +42,7 @@
 	<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'primary' }), 'mt-4')}>
 		<p class="text-sm font-semibold text-foreground">
 			{DATA_VINTAGE.occupation_count} occupations · {DATA_VINTAGE.role_count} roles · No LLM in scoring
-			· MIT licensed · global-first methodology
+			· MIT licensed · Singapore occupation methodology
 		</p>
 		<p class="mt-1 text-sm text-muted-foreground">
 			Relative AI exposure rankings with separate demand and adoption context. They are not
@@ -53,10 +53,10 @@
 	<!-- Three signal layers — visual distinction -->
 	<div class="mt-6 grid gap-3 sm:grid-cols-3">
 		<div class={card({ padding: 'sm', accent: 'high' })}>
-			<p class={cn(sectionLabel({ case: 'upper' }), 'text-risk-high')}>Structural Score</p>
+			<p class={cn(sectionLabel({ case: 'upper' }), 'text-risk-high')}>AI Exposure Rank</p>
 			<p class={cn(caption(), 'mt-1')}>
-				Core model. Displacement pressure × (1 − demand resilience). Published as the primary
-				dataset.
+				A within-Singapore percentile rank of a frozen, multi-source exposure signal. Demand does
+				not change the rank.
 			</p>
 		</div>
 		<div class={card({ padding: 'sm', accent: 'moderate' })}>
@@ -86,14 +86,15 @@
 				rel="noopener noreferrer"
 				class="underline">Acemoglu &amp; Restrepo (2019)</a
 			>
-			framework, AI's net impact = displacement - reinstatement. We measure displacement only. Scores
-			miss important augmentation and new-work effects, which V8 reports as a separate pathway.
+			framework, employment outcomes reflect both displacement and new-task creation. This index ranks
+			AI exposure; it does not estimate either effect. V8 reports augmentation potential and a likely
+			job pathway separately.
 		</p>
 	</div>
 
 	<details class="mt-3">
 		<summary class="cursor-pointer text-sm font-medium text-foreground hover:text-primary">
-			State of the science (early 2026)
+			Why the index stays cautious
 		</summary>
 		<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'leveraged' }), 'mt-2')}>
 			<ul class="space-y-1 text-sm text-text-secondary">
@@ -113,7 +114,10 @@
 						class="underline">still in the first inning</a
 					>" (Brookings/PIIE, 2026)
 				</li>
-				<li>Entry-level workers face earliest pressure (Stanford DEL, 2025; Anthropic, 2026)</li>
+				<li>
+					Early-career effects are an important research question, but the index does not estimate
+					them from occupation exposure alone.
+				</li>
 			</ul>
 		</div>
 	</details>
@@ -211,9 +215,13 @@
 					<p class="text-sm text-foreground">{DATA_VINTAGE.labour_monitor}</p>
 				</div>
 				<div class={card({ padding: 'sm', variant: 'flat' })}>
+					<p class={caption({ weight: 'medium' })}>Observed AI Usage Input</p>
+					<p class="text-sm text-foreground">Anthropic {DATA_VINTAGE.anthropic}</p>
+				</div>
+				<div class={card({ padding: 'sm', variant: 'flat' })}>
 					<p class={caption({ weight: 'medium' })}>Model Version</p>
 					<p class="text-sm text-foreground">
-						{DATA_VINTAGE.model_version} · {DATA_VINTAGE.validation_checks} checks
+						{DATA_VINTAGE.public_version} public contract · {DATA_VINTAGE.validation_checks} checks
 					</p>
 				</div>
 			</div>

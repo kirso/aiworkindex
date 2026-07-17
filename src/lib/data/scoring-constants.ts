@@ -295,17 +295,17 @@ export const DATA_VINTAGE = {
 	/** AIOE index year */
 	aioe: '2021',
 	/** Anthropic Economic Index date */
-	anthropic: 'January 2026',
+	anthropic: 'January 2026 release (frozen)',
 	/** Model version */
 	model_version: 'V7',
 	/** Last scoring run date */
-	last_updated: '2026-06-11',
+	last_updated: '2026-07-16',
 	/** Occupation count */
 	occupation_count: 562,
 	/** Synthetic role count */
 	role_count: 88,
 	/** Validation check count */
-	validation_checks: 221,
+	validation_checks: 222,
 	/** Page count */
 	page_count: 1905
 } as const;

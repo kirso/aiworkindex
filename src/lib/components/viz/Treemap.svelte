@@ -244,7 +244,7 @@
 	}
 
 	function detailValue(occ: TreemapRow): number {
-		return occ.gross_wage_median ?? occ.employment_thousands ?? 1;
+		return occ.employment_thousands ?? 1;
 	}
 
 	let fadeDuration = $derived(prefersReducedMotion.current ? 0 : 200);

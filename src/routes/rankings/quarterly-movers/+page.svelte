@@ -18,9 +18,8 @@
 		`<script type="application/ld+json">${JSON.stringify({
 			'@context': 'https://schema.org',
 			'@type': 'ItemList',
-			name: 'Quarterly AI Risk Movers',
-			description:
-				'Occupations with the largest structural risk changes in the latest quarterly snapshot',
+			name: 'Quarterly AI Exposure Movers',
+			description: 'Occupation changes between comparable AI Exposure Rank snapshots',
 			numberOfItems: data.risers.length + data.fallers.length,
 			itemListElement: [...data.risers, ...data.fallers].slice(0, 10).map((entry, i) => ({
 				'@type': 'ListItem',
@@ -35,12 +34,12 @@
 		{
 			question: 'Why do AI exposure ranks change between releases?',
 			answer:
-				'Scores shift when underlying data sources update - new demand signal lists, revised exposure indices, or changes to the scoring methodology between model versions.'
+				'Ranks can shift when comparable source data update. Methodology changes are not shown as quarterly movement because scores from different versions are not directly comparable.'
 		},
 		{
 			question: 'What does a band change mean for my occupation?',
 			answer:
-				'A band change, such as Moderate to High, means the occupation crossed a structural threshold. It reflects a meaningful shift in the balance between AI exposure, human bottlenecks, and market demand.'
+				'A band change means the occupation crossed a rank-band boundary between two snapshots produced with the same methodology. It does not by itself establish a change in employment outcomes.'
 		}
 	];
 
@@ -48,8 +47,8 @@
 </script>
 
 <Seo
-	title="Quarterly AI Risk Movers"
-	description="Frozen snapshot-to-snapshot changes in occupation scores, band movers and demand context."
+	title="Quarterly AI Exposure Movers"
+	description="Occupation rank changes are shown only when two snapshots use the same scoring methodology."
 	path="/rankings/quarterly-movers"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
@@ -65,39 +64,39 @@
 
 	<h1 class={titleStyle({ size: 'page' })}>Quarterly Movers</h1>
 	<p class="mt-2 text-sm text-muted-foreground">
-		Frozen snapshot-to-snapshot changes in structural risk. These are real scoring deltas — not
-		monitor fluctuations or outlook shifts.
+		Movement is published only when two frozen snapshots use the same scoring methodology. This
+		avoids presenting a model change as a change in occupations.
 	</p>
 
-	<div class="mt-6 grid gap-3 md:grid-cols-3">
-		<div class={card({ padding: 'md' })}>
-			<p class={caption({ weight: 'semibold' })}>Current snapshot</p>
-			<p class="mt-2 font-mono text-lg text-foreground">{report.current_snapshot}</p>
-			<p class="text-xs text-muted-foreground">
-				generated {new Date(report.generated_at).toLocaleDateString('en-SG', {
-					day: 'numeric',
-					month: 'short',
-					year: 'numeric'
-				})}
-			</p>
+	{#if data.comparable}
+		<div class="mt-6 grid gap-3 md:grid-cols-3">
+			<div class={card({ padding: 'md' })}>
+				<p class={caption({ weight: 'semibold' })}>Current snapshot</p>
+				<p class="mt-2 font-mono text-lg text-foreground">{report.current_snapshot}</p>
+				<p class="text-xs text-muted-foreground">
+					generated {new Date(report.generated_at).toLocaleDateString('en-SG', {
+						day: 'numeric',
+						month: 'short',
+						year: 'numeric'
+					})}
+				</p>
+			</div>
+			<div class={card({ padding: 'md' })}>
+				<p class={caption({ weight: 'semibold' })}>Previous snapshot</p>
+				<p class="mt-2 font-mono text-lg text-foreground">
+					{report.previous_snapshot ?? 'Baseline only'}
+				</p>
+				<p class="text-xs text-muted-foreground">frozen comparison anchor</p>
+			</div>
+			<div class={card({ padding: 'md' })}>
+				<p class={caption({ weight: 'semibold' })}>Band movers</p>
+				<p class="mt-2 font-mono text-lg text-foreground">
+					{report.summary?.band_mover_count ?? report.band_movers.length}
+				</p>
+				<p class="text-xs text-muted-foreground">occupations that changed exposure band</p>
+			</div>
 		</div>
-		<div class={card({ padding: 'md' })}>
-			<p class={caption({ weight: 'semibold' })}>Previous snapshot</p>
-			<p class="mt-2 font-mono text-lg text-foreground">
-				{report.previous_snapshot ?? 'Baseline only'}
-			</p>
-			<p class="text-xs text-muted-foreground">frozen comparison anchor</p>
-		</div>
-		<div class={card({ padding: 'md' })}>
-			<p class={caption({ weight: 'semibold' })}>Band movers</p>
-			<p class="mt-2 font-mono text-lg text-foreground">
-				{report.summary?.band_mover_count ?? report.band_movers.length}
-			</p>
-			<p class="text-xs text-muted-foreground">occupations that changed risk band</p>
-		</div>
-	</div>
 
-	{#if report.previous_snapshot}
 		<section class="mt-8">
 			<h2 class={cn(sectionLabel(), 'mb-3')}>Top Risers</h2>
 			<div class={card({ padding: 'md' })}>
@@ -159,7 +158,7 @@
 						{/each}
 					{:else}
 						<p class="text-sm text-muted-foreground">
-							No occupations changed risk bands in this snapshot pair.
+							No occupations changed exposure bands in this snapshot pair.
 						</p>
 					{/if}
 				</div>
@@ -202,11 +201,13 @@
 		</section>
 	{:else}
 		<div class={cn(card({ padding: 'md' }), 'mt-8 text-center')}>
-			<h2 class="text-base font-semibold text-foreground">Baseline Captured</h2>
+			<h2 class="text-base font-semibold text-foreground">
+				Comparable V8 movement is not available yet
+			</h2>
 			<p class="mt-2 text-sm text-muted-foreground">
-				The quarterly snapshot infrastructure is live, but only one frozen scoring snapshot is
-				available so far. This page will automatically switch to real deltas once the next snapshot
-				is generated.
+				The stored comparison uses V7 snapshots, while the public index now uses V8. Those values
+				are not directly comparable, so the old deltas are intentionally withheld. This page will
+				publish movement after a second frozen V8 snapshot is available.
 			</p>
 		</div>
 	{/if}

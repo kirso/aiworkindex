@@ -14,14 +14,7 @@ export const load: PageLoad = () => {
 			title: scored.title,
 			risk_band: scored.risk_band,
 			score_points: Math.round(scored.net_risk * 100),
-			pathway:
-				scored.impact_type === 'ai_leveraged'
-					? 'augmentation_led_growth'
-					: scored.impact_type === 'at_risk'
-						? 'hiring_or_substitution_pressure'
-						: scored.impact_type === 'stable'
-							? 'limited_direct_change'
-							: 'workflow_redesign',
+			pathway: null,
 			demand_context: 'unknown',
 			evidence_confidence: scored.confidence,
 			isEstimated: true,

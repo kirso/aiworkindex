@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { impactTypeLabels, riskBandLabels, majorGroups } from '$lib/data';
+	import { riskBandLabels, majorGroups } from '$lib/data';
+	import { likelyPathwayLabels } from '$lib/data/v8-display';
 	import type { Occupation } from '$lib/data';
 	import type { ScoredRole } from '$lib/data/synthetic-roles';
 	import { roleCategoryMap } from '$lib/data/role-taxonomy';
@@ -9,7 +10,6 @@
 	import {
 		card,
 		riskBadge,
-		impactBadge,
 		riskColorScale,
 		pageLayout,
 		title as titleStyle,
@@ -192,8 +192,8 @@
 	<div class="mb-6">
 		<h1 class={titleStyle({ size: 'page' })}>All Jobs & Roles</h1>
 		<p class={cn(caption(), 'mt-1')}>
-			{occCount} official occupations and {roleCount} estimated modern roles ranked by how exposed their
-			work is to current AI capabilities.
+			{occCount} official occupations with V8 percentile ranks and {roleCount} synthetic modern-role estimates.
+			Role scores are not directly comparable percentile ranks.
 		</p>
 	</div>
 
@@ -236,7 +236,8 @@
 			<div>
 				<h2 class={titleStyle({ size: 'section' })}>Modern Roles</h2>
 				<p class={cn(body({ tone: 'muted', size: 'sm' }), 'mt-0.5')}>
-					{roleCount} estimated roles scored as weighted blends of official occupations
+					{roleCount} synthetic scores built from weighted blends of official occupations and general
+					workflow profiles; not percentile ranks
 				</p>
 			</div>
 			{#if isSearching}
@@ -280,12 +281,7 @@
 										{role.description}
 									</p>
 									<div class="flex items-center gap-1.5 flex-wrap">
-										<span
-											class={cn(impactBadge({ type: role.impact_type }), 'text-xs px-1.5 py-0')}
-										>
-											{impactTypeLabels[role.impact_type]}
-										</span>
-										<span class={pill({ size: 'sm', tone: 'warning' })}> Estimated </span>
+										<span class={pill({ size: 'sm', tone: 'warning' })}>Synthetic estimate</span>
 										<span class="ml-auto text-xs text-muted-foreground">
 											{role.components.length} parts
 										</span>
@@ -345,7 +341,7 @@
 						</svg>
 					</button>
 					<button
-						class="px-2 py-1 text-xs {occViewMode === 'table'
+						class="hidden px-2 py-1 text-xs lg:block {occViewMode === 'table'
 							? 'bg-primary text-primary-foreground'
 							: 'text-muted-foreground hover:text-foreground'} rounded-r-md transition-colors"
 						onclick={() => (occViewMode = 'table')}
@@ -439,7 +435,7 @@
 									</button>
 								</th>
 								<th scope="col" class="px-3 py-2.5 font-medium">Exposure</th>
-								<th scope="col" class="px-3 py-2.5 font-medium">Likely impact</th>
+								<th scope="col" class="px-3 py-2.5 font-medium">Likely job pathway</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -502,8 +498,8 @@
 										</span>
 									</td>
 									<td class="px-3 py-2">
-										<span class={cn(impactBadge({ type: occ.impact_type }), 'text-xs px-1.5 py-0')}>
-											{impactTypeLabels[occ.impact_type]}
+										<span class="text-xs text-text-secondary">
+											{likelyPathwayLabels[occ.v8.likely_pathway]}
 										</span>
 									</td>
 								</tr>
@@ -537,8 +533,8 @@
 							{/if}
 						</p>
 						<div class="flex items-center gap-1.5">
-							<span class={cn(impactBadge({ type: occ.impact_type }), 'text-xs px-1.5 py-0')}>
-								{impactTypeLabels[occ.impact_type]}
+							<span class="text-xs text-text-secondary">
+								{likelyPathwayLabels[occ.v8.likely_pathway]}
 							</span>
 							<span class="ml-auto text-xs text-text-tertiary font-mono tabular-nums">
 								{occ.ssoc}

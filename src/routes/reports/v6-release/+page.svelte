@@ -3,6 +3,7 @@
 	import { cn } from '$lib/utils';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
+	import ArchivedReleaseNotice from '$lib/components/ui/ArchivedReleaseNotice.svelte';
 </script>
 
 <Seo
@@ -12,6 +13,7 @@
 />
 
 <main class={pageLayout({ width: 'content' })}>
+	<ArchivedReleaseNotice />
 	<PageBreadcrumb
 		items={[
 			{ label: 'Home', href: '/' },

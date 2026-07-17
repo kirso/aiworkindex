@@ -42,7 +42,7 @@
 
 	let itemListJsonLd = $derived(
 		buildItemListJsonLd(
-			'Safest High-Paying Jobs',
+			'High-Paying Jobs With Lower AI Exposure',
 			'Top 25 occupations with lower AI Exposure Ranks and above-median wages',
 			data.ranked
 		)
@@ -50,14 +50,14 @@
 
 	const faqItems = [
 		{
-			question: 'What are the safest high-paying jobs from AI?',
+			question: 'Which high-paying jobs currently have lower AI exposure?',
 			answer:
 				'These occupations combine lower relative AI exposure ranks with above-median wages. Lower exposure does not guarantee job security or future demand.'
 		},
 		{
 			question: 'Which well-paid jobs currently have lower AI Exposure Ranks?',
 			answer:
-				'Yes. Many occupations in healthcare, engineering, and senior management have both low displacement pressure and wages well above the national median.'
+				'Many occupations combine below-median AI exposure with wages above the occupation-set median. This page does not claim that those jobs are immune to technology or labour-market change.'
 		}
 	];
 
@@ -76,14 +76,14 @@
 		items={[
 			{ label: 'Home', href: '/' },
 			{ label: 'Rankings', href: '/rankings' },
-			{ label: 'Safest High-Paying' }
+			{ label: 'High-Paying, Lower Exposure' }
 		]}
 	/>
 
-	<h1 class={titleStyle({ size: 'page' })}>Safest High-Paying Jobs</h1>
+	<h1 class={titleStyle({ size: 'page' })}>High-Paying Jobs With Lower AI Exposure</h1>
 	<p class="mt-2 text-sm text-muted-foreground">
-		Lower relative V8 score (legacy filter alias &lt; 0.15) with above-median wages; not a safety
-		guarantee.
+		Below-median AI Exposure Ranks, under 40/100, combined with wages at or above the occupation-set
+		median. This is not a job-security guarantee.
 	</p>
 
 	<section class="mt-6">
@@ -91,7 +91,7 @@
 	</section>
 
 	<p class="mt-4 text-xs text-muted-foreground">
-		Filtered: net_risk &lt; 0.15 and gross_wage_median above the market median.
+		Filtered: AI Exposure Rank below 40/100 and median wage at or above the occupation-set median.
 		<a href="/methodology" class="text-primary underline">Learn more</a>
 	</p>
 	<FaqList items={faqItems} />

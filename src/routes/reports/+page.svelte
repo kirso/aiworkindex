@@ -26,9 +26,7 @@
 	const postings = postingsMonitor.summary;
 	const quarterly = quarterlyReport;
 	const isPromoted = siteStatus.experimental_release?.status === 'promoted';
-	const isV6Live =
-		siteStatus.structural_release.version === 'V6' ||
-		siteStatus.structural_release.version === 'V7';
+	const isV6Live = ['V6', 'V7', 'V8'].includes(siteStatus.structural_release.version);
 	const experimentalPositiveStates = ['ready_for_shadow_scoring', 'shadow_published', 'promoted'];
 </script>
 
@@ -56,17 +54,40 @@
 
 	<p class={cn(sectionLabel(), 'mt-6 mb-3')}>Published Reports</p>
 	<div class="space-y-4">
+		<a href="/methodology" class="block no-underline">
+			<div class={cn(card({ padding: 'lg', hover: true }), 'flex items-start justify-between')}>
+				<div>
+					<div class="flex items-center gap-2">
+						<span class="text-base font-semibold text-foreground"
+							>V8 Methodology and Public Contract</span
+						>
+						<span class={badge({ variant: 'info' })}>Current</span>
+					</div>
+					<p class="mt-1 text-sm text-muted-foreground">
+						The current release publishes a within-market AI Exposure Rank, separate substitution
+						and augmentation ranks, likely job pathways, demand context, and evidence confidence.
+					</p>
+				</div>
+				<svg
+					class="ml-4 mt-1 h-5 w-5 shrink-0 text-muted-foreground"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg
+				>
+			</div>
+		</a>
+
 		<a href="/reports/v7-release" class="block no-underline">
 			<div class={cn(card({ padding: 'lg', hover: true }), 'flex items-start justify-between')}>
 				<div>
 					<div class="flex items-center gap-2">
 						<span class="text-base font-semibold text-foreground">V7 Release Note</span>
-						<span class={badge({ variant: 'info' })}>Current</span>
+						<span class={badge({ variant: 'outline' })}>Archive</span>
 					</div>
 					<p class="mt-1 text-sm text-muted-foreground">
-						V7 adds a task-concentration exposure buffer (Hampole et al.) and a demand-persistence
-						proxy to the structural formula. Corrected 7 Jun 2026: the concentration term now
-						buffers rather than amplifies exposure, matching the cited finding.
+						Archived documentation for the former V7 demand-adjusted structural score. Its formula
+						and bands are not the current V8 public meanings.
 					</p>
 				</div>
 				<svg
@@ -119,8 +140,8 @@
 					</div>
 					<p class="mt-1 text-sm text-muted-foreground">
 						{#if isV6Live}
-							Archived task-weighted shadow comparison retained inside the V4.3 → V5 → V6 → V7 audit
-							trail. It is not the current V7 headline formula.
+							Archived task-weighted shadow comparison retained inside the pre-V8 audit trail. It is
+							not the current public score.
 						{:else if isPromoted}
 							How the task-weighted shadow model was promoted into the live release, what changed,
 							and what remains published for auditability.
@@ -154,8 +175,8 @@
 					</div>
 					<p class="mt-1 text-sm text-muted-foreground">
 						{#if isV6Live}
-							Archived roadmap for the V5 research program that preceded the current V7 two-axis
-							release.
+							Archived roadmap for the V5 research program that preceded the current V8 public
+							contract.
 						{:else}
 							The next scientific release program after V4.3: augmentation heterogeneity, empirical
 							mobility, posterior uncertainty, and realized-risk forecasting.
@@ -269,7 +290,8 @@
 						vs practice gaps.
 					</p>
 					<p class="mt-2 text-xs text-muted-foreground">
-						Archived snapshot rebuilt under the current V7 pipeline, updated {DATA_VINTAGE.last_updated}
+						Archived V3-era report. Its terminology and score definitions are not current V8
+						meanings.
 					</p>
 				</div>
 				<svg

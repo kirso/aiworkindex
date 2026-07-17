@@ -19,6 +19,9 @@ export const load: PageLoad = () => {
 
 	return {
 		report: quarterlyReport,
+		comparable:
+			quarterlyReport.current_snapshot.includes('v8') &&
+			Boolean(quarterlyReport.previous_snapshot?.includes('v8')),
 		risers,
 		fallers
 	};

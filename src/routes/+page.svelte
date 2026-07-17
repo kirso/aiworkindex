@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import Treemap from '$lib/components/viz/Treemap.svelte';
-	import Histogram from '$lib/components/viz/Histogram.svelte';
+	import PathwayBars from '$lib/components/viz/PathwayBars.svelte';
 	import DemandPressureMatrix from '$lib/components/viz/DemandPressureMatrix.svelte';
 	import HeroSearch from '$lib/components/ui/HeroSearch.svelte';
 	import FilterPanel from '$lib/components/ui/FilterPanel.svelte';
@@ -12,9 +12,9 @@
 	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
 	import { card, sectionLabel, caption, pill, badge } from '$lib/design-system';
 	import { cn } from '$lib/utils';
-	import { riskBandLabels, riskBandColors, impactTypeLabels, impactTypeColors } from '$lib/data';
-	import type { RiskBand, ImpactType } from '$lib/data';
+	import { riskBandLabels } from '$lib/data';
 	import type { Occupation } from '$lib/data';
+	import { demandContextLabels } from '$lib/data/v8-display';
 	import { DATA_VINTAGE } from '$lib/data/scoring-constants';
 	import { siteStatus } from '$lib/data/site-status';
 	import { shortTitle } from '$lib/data/display-names';
@@ -54,16 +54,16 @@
 	);
 	let topAugmented = $derived(
 		filteredOccupations
-			.filter(o => o.impact_type === 'ai_leveraged')
-			.sort((a, b) => b.exposure - a.exposure)
+			.filter(o => o.likelyPathway === 'augmentation_led_growth')
+			.sort((a, b) => b.augmentation - a.augmentation)
 			.slice(0, 5)
 	);
 	let topFocus = $derived(
 		(data.surface.code === 'global'
 			? [...filteredOccupations].sort((a, b) => b.surfaceFootprint - a.surfaceFootprint)
-			: [...filteredOccupations].sort(
-					(a, b) => b.market.market_resilience - a.market.market_resilience
-				)
+			: filteredOccupations
+					.filter(occupation => occupation.demandContext === 'strong')
+					.sort((a, b) => b.net_risk - a.net_risk)
 		).slice(0, 5)
 	);
 	let focusCardTitle = $derived(
@@ -78,9 +78,9 @@
 	);
 
 	const chartTabs = [
-		{ key: 'treemap' as const, label: 'Occupation Map' },
-		{ key: 'pressure' as const, label: 'Demand vs Exposure' },
-		{ key: 'distribution' as const, label: 'Distribution' }
+		{ key: 'treemap' as const, label: 'Occupation Map', shortLabel: 'Occupations' },
+		{ key: 'pressure' as const, label: 'Exposure & Demand', shortLabel: 'Demand context' },
+		{ key: 'distribution' as const, label: 'Likely Job Pathways', shortLabel: 'Job pathways' }
 	];
 
 	function handleFilter(filtered: Occupation[]) {
@@ -95,7 +95,7 @@
 		if (data.surface.code === 'global') {
 			return `${formatCompactCount(occ.surfaceFootprint)} mapped occupations`;
 		}
-		return `${(occ.market.market_resilience * 100).toFixed(0)}%`;
+		return demandContextLabels.strong;
 	}
 
 	const faqItems = [
@@ -251,51 +251,10 @@
 					valueStep={surfaceValueScale.step}
 				/>
 
-				<div class="mt-3 border-t border-border pt-3">
-					<p class={caption({ weight: 'semibold' })}>AI Exposure Bands</p>
-					<div class="mt-1.5 space-y-0.5">
-						{#each ['very_low', 'low', 'moderate', 'high', 'very_high'] as const as band}
-							{@const count = filteredOccupations.filter(o => o.risk_band === band).length}
-							{@const pct =
-								filteredOccupations.length > 0 ? (count / filteredOccupations.length) * 100 : 0}
-							<div class="flex items-center gap-1">
-								<span class="w-16 shrink-0 text-right text-xs text-muted-foreground">
-									{riskBandLabels[band as RiskBand]}
-								</span>
-								<div
-									class="h-3.5 rounded-sm"
-									style="width: {Math.max(pct, 4)}%; background-color: {riskBandColors[
-										band as RiskBand
-									]};"
-								></div>
-								<span class="shrink-0 font-mono text-xs text-foreground">{count}</span>
-							</div>
-						{/each}
-					</div>
-				</div>
-
-				<div class="mt-3 border-t border-border pt-3">
-					<p class={caption({ weight: 'semibold' })}>Impact Type</p>
-					<div class="mt-1.5 space-y-0.5">
-						{#each ['ai_leveraged', 'at_risk', 'stable', 'mixed'] as const as type}
-							{@const count = filteredOccupations.filter(o => o.impact_type === type).length}
-							{@const pct =
-								filteredOccupations.length > 0 ? (count / filteredOccupations.length) * 100 : 0}
-							<div class="flex items-center gap-1">
-								<span class="w-16 shrink-0 text-right text-xs text-muted-foreground">
-									{impactTypeLabels[type as ImpactType]}
-								</span>
-								<div
-									class="h-3.5 rounded-sm"
-									style="width: {Math.max(pct, 4)}%; background-color: {impactTypeColors[
-										type as ImpactType
-									]};"
-								></div>
-								<span class="shrink-0 font-mono text-xs text-foreground">{count}</span>
-							</div>
-						{/each}
-					</div>
-				</div>
+				<p class="mt-3 border-t border-border pt-3 text-xs leading-relaxed text-muted-foreground">
+					Use the filters to narrow the charts and occupation lists. Exposure, job pathway, and
+					current demand are reported as separate signals.
+				</p>
 			</div>
 		</aside>
 
@@ -357,13 +316,14 @@
 								{/if}
 							</p>
 						</div>
-						<Tabs.List class="w-full overflow-x-auto md:w-auto">
+						<Tabs.List class="grid w-full grid-cols-3 md:flex md:w-auto">
 							{#each chartTabs as tab (tab.key)}
 								<Tabs.Trigger
 									value={tab.key}
-									class="shrink-0 whitespace-nowrap text-xs sm:flex-1 sm:text-sm md:flex-initial"
+									class="min-w-0 whitespace-normal px-2 text-center text-[11px] leading-tight sm:text-sm md:flex-initial md:whitespace-nowrap"
 								>
-									{tab.label}
+									<span class="sm:hidden">{tab.shortLabel}</span>
+									<span class="hidden sm:inline">{tab.label}</span>
 								</Tabs.Trigger>
 							{/each}
 						</Tabs.List>
@@ -374,7 +334,7 @@
 							<Treemap
 								occupations={filteredOccupations as unknown as Occupation[]}
 								surfaceLabel={data.surface.config.displayName}
-								valueLabel={data.surface.valueLabel}
+								valueLabel="estimated employment"
 							/>
 						{:else}
 							<OccupationCardList
@@ -392,35 +352,12 @@
 					</Tabs.Content>
 					<Tabs.Content value="pressure">
 						<DemandPressureMatrix
-							occupations={filteredOccupations as unknown as Occupation[]}
+							occupations={filteredOccupations}
 							surfaceLabel={data.surface.config.displayName}
-							xAccessor={data.surface.code === 'sg' ? 'net_risk' : 'structuralPressure'}
-							xAxisLabel={data.surface.code === 'sg' ? 'AI Exposure Rank' : 'Relative AI exposure'}
-							yAxisLabel={data.surface.code === 'global'
-								? 'Human bottleneck protection'
-								: 'Demand resilience'}
-							quadrantLabels={data.surface.code === 'global'
-								? [
-										{ label: 'Lower exposure, high human advantage', x: 0.1, y: 0.85 },
-										{ label: 'Lower exposure, low human advantage', x: 0.1, y: 0.15 },
-										{ label: 'Higher exposure, high human advantage', x: 0.55, y: 0.85 },
-										{ label: 'Higher exposure, low human advantage', x: 0.55, y: 0.15 }
-									]
-								: data.surface.code === 'us'
-									? [
-											{ label: 'Lower exposure, high demand', x: 0.1, y: 0.85 },
-											{ label: 'Lower exposure, low demand', x: 0.1, y: 0.15 },
-											{ label: 'Higher exposure, high demand', x: 0.55, y: 0.85 },
-											{ label: 'Higher exposure, low demand', x: 0.55, y: 0.15 }
-										]
-									: undefined}
 						/>
 					</Tabs.Content>
 					<Tabs.Content value="distribution">
-						<Histogram
-							occupations={filteredOccupations as unknown as Occupation[]}
-							scoreLabel="AI Exposure Rank"
-						/>
+						<PathwayBars occupations={filteredOccupations} />
 					</Tabs.Content>
 				</Tabs.Root>
 			</div>
@@ -472,7 +409,7 @@
 
 				<div class={card({ padding: 'sm' })}>
 					<div class="mb-2 flex items-center justify-between">
-						<h3 class={sectionLabel()}>AI-Augmented</h3>
+						<h3 class={sectionLabel()}>Augmentation-Led Pathway</h3>
 						<a href="/rankings/ai-leveraged" class="text-xs text-primary hover:underline">All →</a>
 					</div>
 					{#each topAugmented as occ, i (occ.displayCode)}

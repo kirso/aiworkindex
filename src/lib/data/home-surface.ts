@@ -381,9 +381,9 @@ export function getHomeSurface(code: HomeSurfaceCode): HomeSurface {
 			drilldownHref: countryConfigs.sg.routePrefix,
 			valueLabel: 'median wage',
 			chartNotes: {
-				treemap: 'Size = median wage · Colour = AI Exposure Rank',
-				matrix: 'AI Exposure Rank vs current demand',
-				histogram: 'AI Exposure Rank distribution'
+				treemap: 'Size = proxy-weighted estimated employment · Colour = AI Exposure Rank',
+				matrix: 'Occupation counts by exposure band and separately reported current demand',
+				histogram: 'Five rule-based pathways from the current V8 evidence'
 			},
 			metrics: buildCountryMetrics(items),
 			occupations: items

@@ -18,7 +18,7 @@
 			'@type': 'ItemList',
 			name: 'High AI Exposure, Fewer Career Moves',
 			description:
-				'Occupations facing high AI displacement pressure where even the best adjacent career move is a stretch',
+				'Occupations in the upper two AI exposure bands whose strongest adjacent move has a lower transition match',
 			numberOfItems: data.quadrant.length,
 			itemListElement: data.quadrant.slice(0, 10).map((entry, i: number) => ({
 				'@type': 'ListItem',
@@ -38,7 +38,7 @@
 		{
 			question: 'What counts as "few exits"?',
 			answer:
-				'An occupation lands here when its single best exposure-reducing transition falls in the weakest quarter of exit scores among all high-exposure occupations. Lateral or higher-risk moves never count as exits, however similar the work. The transition score combines archetype similarity, skill overlap, wage preservation, demand strength, and risk improvement.'
+				'An occupation lands here when its single best exposure-reducing transition falls in the weakest quarter of exit scores among occupations ranked 60/100 or higher. Lateral or higher-exposure moves do not count as exits. The transition score combines archetype similarity, skill overlap, wage preservation, demand strength, and exposure-rank reduction.'
 		}
 	];
 
@@ -47,7 +47,7 @@
 
 <Seo
 	title="High AI Exposure, Fewer Career Moves"
-	description="The structurally vulnerable quadrant: occupations with high AI displacement pressure where even the best adjacent career move is a stretch."
+	description="Higher-exposure occupations whose strongest adjacent, exposure-reducing move has a lower transition match."
 	path="/rankings/high-risk-few-exits"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
@@ -61,13 +61,13 @@
 		]}
 	/>
 
-	<h1 class={titleStyle({ size: 'page' })}>High Risk, Few Exit Paths</h1>
+	<h1 class={titleStyle({ size: 'page' })}>Higher AI Exposure, Fewer Adjacent Moves</h1>
 	<p class="mt-2 text-sm text-muted-foreground">
-		Mobility research finds that displacement pressure only becomes hardship when workers lack
-		credible adjacent moves (del Rio-Chanona et al. 2021; IMF 2024). Of {data.highRiskCount} occupations
-		above the displacement threshold, these {data.quadrant.length} have the weakest exit options: their
+		Exposure alone does not show how easily workers could move to related work. Of {data.highRiskCount}
+		occupations ranked 60/100 or higher, these {data.quadrant.length} have the lowest relative transition
+		matches: their
 		<em>best exposure-reducing</em>
-		transition falls in the bottom quarter of exit scores within the high-risk cohort (&le;{(
+		transition falls in the bottom quarter of exit scores within the higher-exposure cohort (&le;{(
 			data.threshold * 100
 		).toFixed(0)}% match). For high-exposure occupations with strong escape routes, see
 		<a href="/rankings/best-transitions" class="text-primary hover:underline">Best Transitions</a>.
@@ -87,7 +87,7 @@
 						<span class="ml-2 text-xs text-muted-foreground">SSOC {from.ssoc}</span>
 					</div>
 					<span class={cn(riskBadge({ band: from.risk_band }), 'text-xs')}>
-						{(from.net_risk * 100).toFixed(0)}/100 score
+						{(from.net_risk * 100).toFixed(0)}/100 exposure rank
 					</span>
 				</div>
 				{#if targets.length > 0}

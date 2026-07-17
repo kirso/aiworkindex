@@ -1,161 +1,132 @@
 <script lang="ts">
-	type WaterfallSubject = {
+	import {
+		demandContextLabels,
+		exposureSourceLabels,
+		formatRank,
+		likelyPathwayLabels
+	} from '$lib/data/v8-display';
+	import type { V8OccupationProjection } from '$lib/data/v8-contract';
+
+	type SourceKey = keyof typeof exposureSourceLabels;
+
+	type EvidenceProfileSubject = {
 		exposure: number;
 		bottleneck: number;
 		net_risk: number;
-		market: {
-			market_resilience: number;
-		};
+		market: { market_resilience: number };
 		evidence: {
-			anthropic_calibrated: boolean;
-			anthropic_gap: number | null;
-			sol_match: 'exact' | 'prefix' | false;
-			jobs_in_demand_match: 'exact' | 'prefix' | false;
+			exposure_source_pctiles?: Partial<Record<SourceKey, number>>;
+			exposure_source_weights?: Partial<Record<SourceKey, number>>;
+			anthropic_calibrated?: boolean;
 		};
+		v8?: V8OccupationProjection;
 	};
 
-	let { occupation }: { occupation: WaterfallSubject } = $props();
+	let { occupation }: { occupation: EvidenceProfileSubject } = $props();
 
-	// Decompose net_risk into driver contributions
-	// net_risk = exposure * (1 - bottleneck) * market_modifier
-	// We show what pushes risk UP and what pulls it DOWN
-
-	interface Driver {
-		label: string;
-		value: number;
-		direction: 'up' | 'down';
-		color: string;
-		description: string;
-	}
-
-	let drivers = $derived.by((): Driver[] => {
-		const occ = occupation;
-		const items: Driver[] = [];
-
-		// AI exposure pushes risk UP
-		items.push({
-			label: 'AI Capability Overlap',
-			value: occ.exposure,
-			direction: 'up',
-			color: 'var(--color-risk-very-high)',
-			description: `${(occ.exposure * 100).toFixed(0)}% of tasks overlap with current AI`
-		});
-
-		// Bottleneck pulls risk DOWN (inverted: higher bottleneck = more protection)
-		items.push({
-			label: 'Human Coordination',
-			value: occ.bottleneck,
-			direction: 'down',
-			color: 'var(--color-risk-very-low)',
-			description: `${(occ.bottleneck * 100).toFixed(0)}% human advantage from judgment & presence`
-		});
-
-		// Market resilience pulls risk DOWN
-		items.push({
-			label: 'Local Hiring Demand',
-			value: occ.market.market_resilience,
-			direction: 'down',
-			color: 'var(--color-risk-very-low)',
-			description: `${(occ.market.market_resilience * 100).toFixed(0)}% demand buffer from the local labour market`
-		});
-
-		// Anthropic observed usage: can push either way
-		if (occ.evidence.anthropic_calibrated && occ.evidence.anthropic_gap !== null) {
-			const gap = occ.evidence.anthropic_gap;
-			items.push({
-				label: 'Observed AI Adoption',
-				value: Math.abs(gap),
-				direction: gap > 0 ? 'up' : 'down',
-				color: gap > 0 ? 'var(--color-risk-very-high)' : 'var(--color-risk-very-low)',
-				description:
-					gap > 0
-						? `AI usage ${(Math.abs(gap) * 100).toFixed(0)}pp above theoretical exposure`
-						: `AI usage ${(Math.abs(gap) * 100).toFixed(0)}pp below theoretical exposure`
-			});
-		}
-
-		// Demand signals pull DOWN
-		if (occ.evidence.sol_match || occ.evidence.jobs_in_demand_match) {
-			const signals = [];
-			if (occ.evidence.sol_match) signals.push('Shortage Occupation List');
-			if (occ.evidence.jobs_in_demand_match) signals.push('Jobs in Demand');
-			items.push({
-				label: 'Official Demand Signals',
-				value: 0.15,
-				direction: 'down',
-				color: 'var(--color-risk-very-low)',
-				description: `On the ${signals.join(' & ')} list — government recognises hiring need`
-			});
-		}
-
-		return items;
-	});
-
-	// Bar chart dimensions
-	const maxBarWidth = 100; // percentage
-	let maxValue = $derived(Math.max(...drivers.map(d => d.value), 0.1));
+	let sources = $derived(
+		(
+			Object.entries(occupation.evidence.exposure_source_pctiles ?? {}) as Array<
+				[SourceKey, number]
+			>
+		).map(([key, value]) => ({
+			key,
+			label: exposureSourceLabels[key],
+			value,
+			weight: occupation.evidence.exposure_source_weights?.[key] ?? null
+		}))
+	);
 </script>
 
-<div
-	class="space-y-2.5"
-	role="img"
-	aria-label="Evidence profile for AI exposure and employment context"
->
-	{#each drivers as driver}
-		{@const widthPct = (driver.value / maxValue) * maxBarWidth}
-		<div>
-			<div class="mb-1 flex items-center justify-between">
-				<span class="text-xs font-medium text-foreground">{driver.label}</span>
-				<span
-					class="flex items-center gap-1 text-xs font-mono tabular-nums {driver.direction === 'up'
-						? 'text-risk-very-high'
-						: 'text-risk-very-low'}"
-				>
-					{#if driver.direction === 'up'}
-						<svg
-							class="h-3 w-3"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7" /></svg
-						>
-						Increases risk
-					{:else}
-						<svg
-							class="h-3 w-3"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2.5"><path d="M12 5v14M19 12l-7 7-7-7" /></svg
-						>
-						Reduces risk
-					{/if}
+<div class="space-y-4" role="img" aria-label="Evidence used to describe AI exposure">
+	{#if occupation.v8 && sources.length > 0}
+		<div class="space-y-3">
+			{#each sources as source}
+				<div>
+					<div class="mb-1 flex items-center justify-between gap-3 text-xs">
+						<span class="font-medium text-foreground">{source.label}</span>
+						<span class="font-mono tabular-nums text-text-secondary">
+							{formatRank(source.value * 100)}{#if source.weight !== null}
+								<span class="ml-1 text-muted-foreground">
+									({Math.round(source.weight * 100)}% weight)
+								</span>
+							{/if}
+						</span>
+					</div>
+					<div class="h-2.5 overflow-hidden rounded-sm bg-muted">
+						<div
+							class="h-full rounded-sm bg-primary"
+							style:width={`${Math.max(2, source.value * 100)}%`}
+						></div>
+					</div>
+				</div>
+			{/each}
+		</div>
+
+		<div class="border-t border-border pt-3">
+			<div class="flex items-baseline justify-between gap-3">
+				<span class="text-sm font-semibold text-foreground">Combined AI Exposure Rank</span>
+				<span class="font-mono text-base font-bold tabular-nums text-foreground">
+					{formatRank(occupation.v8.ai_exposure_rank.points)}
 				</span>
 			</div>
-			<div class="relative h-5 w-full overflow-hidden rounded bg-muted">
-				<div
-					class="absolute inset-y-0 rounded transition-all duration-500"
-					style="width: {Math.max(
-						widthPct,
-						3
-					)}%; background-color: {driver.color}; opacity: 0.7; {driver.direction === 'up'
-						? 'left: 0'
-						: 'right: 0'};"
-				></div>
-			</div>
-			<p class="mt-0.5 text-xs text-muted-foreground">{driver.description}</p>
+			<p class="mt-1 text-xs leading-relaxed text-muted-foreground">
+				The source percentiles are combined using the displayed reliability weights, then ranked
+				against all 562 Singapore occupations. This is not a percentage of tasks and not a job-loss
+				probability.
+			</p>
 		</div>
-	{/each}
 
-	<p class="text-xs text-text-secondary italic mt-1">
-		These factors interact with each other — the final score is not a simple sum of these bars.
-	</p>
-
-	<!-- Net result -->
-	<div class="mt-3 flex items-center justify-between border-t border-border/50 pt-3">
-		<span class="text-sm font-semibold text-foreground">AI Exposure Rank</span>
-		<span class="text-sm font-bold font-mono tabular-nums text-foreground">
-			{(occupation.net_risk * 100).toFixed(0)}/100
-		</span>
-	</div>
+		<div class="grid gap-2 border-t border-border pt-3 sm:grid-cols-2">
+			<div class="rounded-sm bg-muted px-3 py-2">
+				<p class="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
+					Likely job pathway
+				</p>
+				<p class="mt-1 text-xs font-medium text-foreground">
+					{likelyPathwayLabels[occupation.v8.likely_pathway]}
+				</p>
+			</div>
+			<div class="rounded-sm bg-muted px-3 py-2">
+				<p class="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
+					Current demand context
+				</p>
+				<p class="mt-1 text-xs font-medium text-foreground">
+					{demandContextLabels[occupation.v8.market_context.demand]}
+				</p>
+			</div>
+		</div>
+		<p class="text-xs leading-relaxed text-muted-foreground">
+			Pathway and demand are reported beside the exposure rank. Current demand does not change the
+			rank.
+		</p>
+	{:else}
+		<div class="space-y-3">
+			{#each [{ label: 'Component-derived AI exposure', value: occupation.exposure }, { label: 'Human-context input', value: occupation.bottleneck }, { label: 'Related-occupation demand input', value: occupation.market.market_resilience }] as input}
+				<div>
+					<div class="mb-1 flex justify-between gap-3 text-xs">
+						<span class="font-medium text-foreground">{input.label}</span>
+						<span class="font-mono tabular-nums text-text-secondary">
+							{Math.round(input.value * 100)}/100
+						</span>
+					</div>
+					<div class="h-2.5 overflow-hidden rounded-sm bg-muted">
+						<div
+							class="h-full rounded-sm bg-primary"
+							style:width={`${Math.max(2, input.value * 100)}%`}
+						></div>
+					</div>
+				</div>
+			{/each}
+		</div>
+		<div class="flex items-baseline justify-between gap-3 border-t border-border pt-3">
+			<span class="text-sm font-semibold text-foreground">Estimated role exposure score</span>
+			<span class="font-mono text-base font-bold tabular-nums text-foreground">
+				{formatRank(occupation.net_risk * 100)}
+			</span>
+		</div>
+		<p class="text-xs leading-relaxed text-muted-foreground">
+			This role-level estimate is synthesized from related occupations and a general workflow
+			profile. It is not a percentile rank, a measured task share, or a job-loss probability.
+		</p>
+	{/if}
 </div>

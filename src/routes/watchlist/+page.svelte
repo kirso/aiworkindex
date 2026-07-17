@@ -1,14 +1,9 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import { occupationsBySSoc, riskBandLabels, impactTypeLabels } from '$lib/data';
+	import { occupationsBySSoc, riskBandLabels } from '$lib/data';
+	import { likelyPathwayLabels } from '$lib/data/v8-display';
 	import { computeRoleScores, syntheticRoles, type ScoredRole } from '$lib/data/synthetic-roles';
-	import {
-		title as titleStyle,
-		riskBadge,
-		impactBadge,
-		card,
-		sectionLabel
-	} from '$lib/design-system';
+	import { title as titleStyle, riskBadge, card, sectionLabel } from '$lib/design-system';
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import { pageLayout } from '$lib/design-system';
 	import { cn } from '$lib/utils';
@@ -159,10 +154,12 @@
 									<span class={cn(riskBadge({ band: item.occupation.risk_band }), 'text-xs')}>
 										{riskBandLabels[item.occupation.risk_band]} — {(
 											item.occupation.net_risk * 100
-										).toFixed(0)}%
+										).toFixed(0)}/100
 									</span>
-									<span class={cn(impactBadge({ type: item.occupation.impact_type }), 'text-xs')}>
-										{impactTypeLabels[item.occupation.impact_type]}
+									<span
+										class="rounded-sm border border-border px-2 py-0.5 text-xs text-muted-foreground"
+									>
+										{likelyPathwayLabels[item.occupation.v8.likely_pathway]}
 									</span>
 									<span class="text-xs tabular-nums text-muted-foreground">
 										{countryConfigs.sg.currency ?? 'SGD'}
@@ -201,10 +198,7 @@
 								</div>
 								<div class="mt-2 flex flex-wrap items-center gap-2">
 									<span class={cn(riskBadge({ band: item.role.risk_band }), 'text-xs')}>
-										{riskBandLabels[item.role.risk_band]} — {(item.role.net_risk * 100).toFixed(0)}%
-									</span>
-									<span class={cn(impactBadge({ type: item.role.impact_type }), 'text-xs')}>
-										{impactTypeLabels[item.role.impact_type]}
+										Estimated role exposure — {(item.role.net_risk * 100).toFixed(0)}/100
 									</span>
 									<span class="text-xs text-muted-foreground">
 										{item.role.components.length} components

@@ -79,7 +79,7 @@
 		href={occupation.linkHref ?? href}
 		class={cn(
 			card({ padding: 'sm', variant: 'inset' }),
-			'block hover:bg-accent hover:shadow-sm transition-all group'
+			'block min-w-0 hover:bg-accent hover:shadow-sm transition-all group'
 		)}
 	>
 		<p class={cn(body(), 'font-medium text-foreground truncate')}>
@@ -87,14 +87,14 @@
 			<span class="opacity-0 group-hover:opacity-100 transition-opacity text-primary">→</span>
 		</p>
 		{#if metricParts && metricParts.length > 0}
-			<div class={cn(caption(), 'mt-1 flex items-center gap-2')}>
+			<div class={cn(caption(), 'mt-1 flex flex-wrap items-center gap-x-2 gap-y-1')}>
 				{#each metricParts as part, i}
 					{#if i > 0}<span>·</span>{/if}
 					<span class={part.color ?? ''}>{part.label}</span>
 				{/each}
 			</div>
 		{:else}
-			<div class={cn(caption(), 'mt-1 flex items-center gap-2')}>
+			<div class={cn(caption(), 'mt-1 flex flex-wrap items-center gap-x-2 gap-y-1')}>
 				<span>AI Exposure Rank {((occupation.net_risk ?? 0) * 100).toFixed(0)}/100</span>
 				{#if occupation.gross_wage_median}
 					<span>·</span>

@@ -46,8 +46,8 @@
 </script>
 
 <Seo
-	title="Best Career Transitions From High-Risk AI Jobs"
-	description="High-risk occupations with the highest transition scores to less-exposed alternatives."
+	title="Best Career Transitions From Higher-Exposure Jobs"
+	description="Higher-exposure occupations with the strongest adjacent transition matches to less-exposed alternatives."
 	path="/rankings/best-transitions"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
@@ -65,7 +65,8 @@
 	<p class="mt-2 text-sm text-muted-foreground">
 		For high-exposure occupations, these are the most feasible transitions to less-exposed
 		alternatives. Scores combine archetype similarity, skill overlap, wage preservation, demand
-		strength, and risk improvement.
+		strength, and exposure-rank reduction. These are similarity-based options, not recommendations
+		or forecasts of successful moves.
 	</p>
 
 	<div class="mt-6 space-y-4">
@@ -82,7 +83,7 @@
 						<span class="ml-2 text-xs text-muted-foreground">SSOC {from.ssoc}</span>
 					</div>
 					<span class={cn(riskBadge({ band: from.risk_band }), 'text-xs')}>
-						{(from.net_risk * 100).toFixed(0)}/100 score
+						{(from.net_risk * 100).toFixed(0)}/100 exposure rank
 					</span>
 				</div>
 				{#if targets.length > 0}

@@ -225,7 +225,7 @@
 								{occ.gross_wage_median.toLocaleString()}</span
 							>
 							<span class={cn(riskBadge({ band: occ.risk_band }), 'text-xs')}>
-								{Math.round(occ.net_risk * 100)}%
+								{Math.round(occ.net_risk * 100)}/100
 							</span>
 						</div>
 					</a>

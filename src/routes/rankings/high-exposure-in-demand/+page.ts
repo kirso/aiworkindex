@@ -1,15 +1,10 @@
 import { occupations } from '$lib/data';
-import { RANKING_CRITERIA } from '$lib/data/scoring-constants';
 import type { PageLoad } from './$types';
 
 export const load: PageLoad = () => {
 	const ranked = occupations
-		.filter(
-			o =>
-				o.exposure > RANKING_CRITERIA.high_exposure &&
-				(o.evidence.sol_match || o.evidence.jobs_in_demand_match)
-		)
-		.sort((a, b) => b.exposure - a.exposure)
+		.filter(o => o.v8.ai_exposure_rank.points >= 60 && o.v8.market_context.demand === 'strong')
+		.sort((a, b) => b.v8.ai_exposure_rank.points - a.v8.ai_exposure_rank.points)
 		.slice(0, 25);
 	return { ranked };
 };

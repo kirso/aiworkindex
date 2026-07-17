@@ -24,11 +24,11 @@
 	let searchQuery = $state('');
 	let showDropdown = $state(false);
 	const pathwayLabels = {
-		limited_direct_change: 'Limited direct impact',
-		workflow_redesign: 'The work is likely to be redesigned',
-		augmentation_led_growth: 'AI is more likely to assist than replace',
-		demand_buffered_redesign: 'Strong demand may cushion the impact',
-		hiring_or_substitution_pressure: 'Greater hiring or substitution pressure'
+		limited_direct_change: 'Limited direct change',
+		workflow_redesign: 'Workflow redesign',
+		augmentation_led_growth: 'Augmentation-led growth',
+		demand_buffered_redesign: 'Demand-buffered redesign',
+		hiring_or_substitution_pressure: 'Hiring or substitution pressure'
 	} as const;
 
 	let filteredEntries = $derived.by(() => {
@@ -75,7 +75,7 @@
 
 <Seo
 	path="/will-ai-take-my-job"
-	title="Will AI Take My Job? AI Job Risk Calculator (2026) | AI Work Index"
+	title="Will AI Take My Job? AI Exposure Checker (2026) | AI Work Index"
 	description="Search {DATA_VINTAGE.occupation_count} Singapore occupations and {DATA_VINTAGE.role_count} estimated modern roles. Get a relative AI Exposure Rank, likely pathway and evidence level—not a job-loss probability."
 />
 
@@ -119,11 +119,19 @@
 									<span class={caption()}>role</span>
 								{/if}
 							</span>
-							<span
-								class={riskBadge({ band: entry.risk_band as RiskBand, class: 'ml-2 shrink-0' })}
-							>
-								{riskBandLabels[entry.risk_band as RiskBand]}
-							</span>
+							{#if entry.isEstimated}
+								<span
+									class="ml-2 shrink-0 rounded-sm border border-border px-2 py-0.5 text-xs text-muted-foreground"
+								>
+									Synthetic estimate
+								</span>
+							{:else}
+								<span
+									class={riskBadge({ band: entry.risk_band as RiskBand, class: 'ml-2 shrink-0' })}
+								>
+									{riskBandLabels[entry.risk_band as RiskBand]}
+								</span>
+							{/if}
 						</button>
 					{/each}
 				</div>
@@ -143,27 +151,40 @@
 					{selectedEntry.score_points}/100
 				</p>
 				<p class={caption({ class: 'mt-1' })}>
-					This work is more exposed to current AI capabilities than approximately {selectedEntry.score_points}%
-					of Singapore occupations. This is a relative rank, not a job-loss probability.
+					{#if selectedEntry.isEstimated}
+						This is a synthetic role estimate derived from related official occupations and a
+						workflow profile. It is not a percentile rank or a job-loss probability.
+					{:else}
+						This occupation ranks above approximately {selectedEntry.score_points}% of the Singapore
+						occupations in the dataset for AI exposure. It is not a job-loss probability.
+					{/if}
 				</p>
 			</div>
 
 			<div class="flex flex-wrap items-center justify-center gap-3 mb-4">
-				<span class={riskBadge({ band: selectedEntry.risk_band as RiskBand })}>
-					{riskBandLabels[selectedEntry.risk_band as RiskBand]} exposure
-				</span>
-				<span class="rounded-full border border-border px-2.5 py-1 text-xs font-medium">
-					{pathwayLabels[selectedEntry.pathway as keyof typeof pathwayLabels]}
-				</span>
+				{#if selectedEntry.isEstimated}
+					<span class="rounded-full border border-border px-2.5 py-1 text-xs font-medium"
+						>Synthetic role estimate</span
+					>
+				{:else}
+					<span class={riskBadge({ band: selectedEntry.risk_band as RiskBand })}>
+						{riskBandLabels[selectedEntry.risk_band as RiskBand]} exposure
+					</span>
+					<span class="rounded-full border border-border px-2.5 py-1 text-xs font-medium">
+						{pathwayLabels[selectedEntry.pathway as keyof typeof pathwayLabels]}
+					</span>
+				{/if}
 			</div>
 
 			<div class={card({ variant: 'inset', padding: 'md', class: 'space-y-2' })}>
-				<div class="flex items-center justify-between gap-4 text-sm">
-					<span class="text-muted-foreground">How AI may affect the work</span>
-					<span class="text-right font-semibold"
-						>{pathwayLabels[selectedEntry.pathway as keyof typeof pathwayLabels]}</span
-					>
-				</div>
+				{#if !selectedEntry.isEstimated}
+					<div class="flex items-center justify-between gap-4 text-sm">
+						<span class="text-muted-foreground">Likely job pathway</span>
+						<span class="text-right font-semibold"
+							>{pathwayLabels[selectedEntry.pathway as keyof typeof pathwayLabels]}</span
+						>
+					</div>
+				{/if}
 				<div class="flex items-center justify-between text-sm">
 					<span class="text-muted-foreground">Current hiring demand</span>
 					<span class="font-mono font-semibold capitalize">{selectedEntry.demand_context}</span>
@@ -220,15 +241,16 @@
 								: `/occupation/${selectedEntry.ssoc}`}
 							class="text-primary hover:underline">Career transitions</a
 						>
-						show lower-risk and higher-paying options with skills you already have.
+						show similarity-based options with different exposure ranks. They are not predictions of a
+						successful move.
 					</p>
 				</div>
 				<div class="flex gap-2">
 					<span class="shrink-0 text-risk-very-low font-bold">4</span>
 					<p>
 						<span class="font-medium text-foreground">Use AI, don't avoid it.</span>
-						Workers who adopt AI tools see the largest productivity gains (Brynjolfsson et al., 2023).
-						The goal is to be AI-augmented, not AI-replaced.
+						Test relevant tools against real tasks, verify their output, and keep building the judgment
+						and context the tools do not supply.
 					</p>
 				</div>
 			</div>

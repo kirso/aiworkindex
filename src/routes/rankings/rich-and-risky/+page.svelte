@@ -42,7 +42,7 @@
 
 	let itemListJsonLd = $derived(
 		buildItemListJsonLd(
-			'Highest-Paid Jobs Most Exposed to AI of AI Displacement',
+			'Highest-Paid Jobs With Higher AI Exposure',
 			`Top 25 high-paying occupations with higher AI Exposure Ranks and median wage ${currency} 5,000+`,
 			data.ranked
 		)
@@ -50,7 +50,7 @@
 
 	const faqItems = [
 		{
-			question: 'Which high-paying jobs are most at risk from AI?',
+			question: 'Which high-paying jobs have the highest AI exposure?',
 			answer: `Occupations earning ${currency} 5,000+ per month that clear this page's higher-score filter. The score is relative and does not predict job loss.`
 		},
 		{
@@ -64,7 +64,7 @@
 </script>
 
 <Seo
-	title="Highest-Paid Jobs Most Exposed to AI of AI Displacement"
+	title="Highest-Paid Jobs With Higher AI Exposure"
 	description={`Top 25 high-paying occupations (${currency} 5,000+/month) with higher AI exposure ranks.`}
 	path="/rankings/rich-and-risky"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
@@ -79,9 +79,10 @@
 		]}
 	/>
 
-	<h1 class={titleStyle({ size: 'page' })}>Highest-Paid Jobs Most Exposed to AI</h1>
+	<h1 class={titleStyle({ size: 'page' })}>Highest-Paid Jobs With Higher AI Exposure</h1>
 	<p class="mt-2 text-sm text-muted-foreground">
-		High-paying occupations clearing the page's V8 score filter, with median wage &ge; {currency} 5,000/month.
+		High-paying occupations in the upper two V8 exposure bands, with median wage &ge; {currency}
+		5,000/month. Exposure and pay are shown together; neither predicts job loss.
 	</p>
 
 	<section class="mt-6">
@@ -89,8 +90,7 @@
 	</section>
 
 	<p class="mt-4 text-xs text-muted-foreground">
-		headline_risk = displacement_pressure &times; (1 &minus; demand_resilience). Wages are gross
-		monthly median.
+		Filtered at AI Exposure Rank 60/100 or higher. Wages are gross monthly medians.
 		<a href="/methodology" class="text-primary underline">Learn more</a>
 	</p>
 	<FaqList items={faqItems} />
