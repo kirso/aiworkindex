@@ -229,6 +229,38 @@ const FORECAST_READINESS_FILE = path.join(
 	'data',
 	'forecast-readiness.json'
 );
+const JOB_QUALITY_FILE = path.join(import.meta.dir, '..', 'src', 'lib', 'data', 'job-quality.json');
+const DETAILED_DEMAND_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'detailed-demand.json'
+);
+const WAGE_MOVEMENT_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'wage-movement.json'
+);
+const FAMILY_DELTA_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'src',
+	'lib',
+	'data',
+	'family-delta-validation-2025.json'
+);
+const OUTCOME_PANELS_FILE = path.join(
+	import.meta.dir,
+	'..',
+	'data',
+	'outcomes',
+	'outcome-panels.json'
+);
 const RESEARCH_LIBRARY_FILE = path.join(
 	import.meta.dir,
 	'..',
@@ -1616,6 +1648,31 @@ async function main() {
 				promotion_gates: string[];
 			};
 		}>(FORECAST_READINESS_FILE);
+		const jobQuality = readJson<{
+			score_input: boolean;
+			major_groups: Record<string, { non_permanent_share_pct: number }>;
+		}>(JOB_QUALITY_FILE);
+		const detailedDemand = readJson<{
+			score_input: boolean;
+			entry_level_pmet: { share_pct: number; source_boundary: string };
+		}>(DETAILED_DEMAND_FILE);
+		const wageMovement = readJson<{
+			score_input: boolean;
+			series: Array<{ sex: string; movement: { '5y': { real_change_pct: number } } }>;
+			limitations: string[];
+		}>(WAGE_MOVEMENT_FILE);
+		const familyDelta = readJson<{
+			summary: {
+				family_count: number;
+				families_with_v8_exposure_and_delta: number;
+				spearman_delta_pct_vs_avg_v8_ai_exposure_rank: number | null;
+			};
+			limitations: string[];
+		}>(FAMILY_DELTA_FILE);
+		const outcomePanels = readJson<{
+			latest_quarter: string;
+			additional_annual_outcomes?: { wage_movement?: string };
+		}>(OUTCOME_PANELS_FILE);
 		const onetEnrichment = readJson<
 			Array<{
 				ssoc: string;
@@ -2141,6 +2198,44 @@ async function main() {
 		check('Claims matrix artifact exists', claimsMatrix !== null);
 		check('Forecast readiness artifact exists', forecastReadiness !== null);
 		check(
+			'Job-market sidecars are context-only and structurally complete',
+			jobQuality?.score_input === false &&
+				Object.keys(jobQuality.major_groups).length === 8 &&
+				detailedDemand?.score_input === false &&
+				detailedDemand.entry_level_pmet.share_pct === 42.9 &&
+				wageMovement?.score_input === false &&
+				wageMovement.series.length === 16
+		);
+		check(
+			'Wage movement preserves sex-specific medians and real 5-year transforms',
+			new Set(wageMovement.series.map(row => row.sex)).size === 2 &&
+				wageMovement.series.every(row => Number.isFinite(row.movement['5y'].real_change_pct)) &&
+				wageMovement.limitations.some(note => note.includes('not averaged'))
+		);
+		check(
+			'V8 family employment comparison uses the broader 40-family local panel and states limitations',
+			familyDelta.summary.family_count === 40 &&
+				familyDelta.summary.families_with_v8_exposure_and_delta >= 35 &&
+				familyDelta.limitations.length >= 3
+		);
+		check('Outcome panels are current through Q1 2026', outcomePanels.latest_quarter === '2026 Q1');
+		check(
+			'Annual wage movement remains separate from quarterly outcomes',
+			outcomePanels.additional_annual_outcomes?.wage_movement === 'data/wage-movement.json'
+		);
+		check(
+			'Industry vacancy quarter labels are human-readable',
+			industryContext?.metadata?.vacancy_overlay_vintage === '2025 Q3'
+		);
+		check(
+			'build:release-data regenerates all public job-market sidecars',
+			[
+				'scripts/build-job-quality.ts',
+				'scripts/build-detailed-demand.ts',
+				'scripts/build-wage-movement.ts'
+			].every(script => (packageJson?.scripts?.['build:release-data'] ?? '').includes(script))
+		);
+		check(
 			'Industry context carries vacancy-overlay metadata',
 			typeof industryContext?.metadata?.vacancy_overlay_vintage === 'string' &&
 				typeof industryContext?.metadata?.vacancy_overlay_source_note === 'string'
@@ -2189,6 +2284,18 @@ async function main() {
 				entry =>
 					entry.key === 'mom_ai_adoption_2026' && entry.status === 'valid' && entry.exists === true
 			) === true
+		);
+		check(
+			'Raw data audit tracks new free public job-market inputs as valid',
+			[
+				'singstat_all_items_cpi_monthly',
+				'mom_job_vacancies_2025_extract',
+				'mom_labour_force_2025_job_quality_extract'
+			].every(key =>
+				rawDataAudit?.entries?.some(
+					entry => entry.key === key && entry.status === 'valid' && entry.exists === true
+				)
+			)
 		);
 		check(
 			'O*NET enrichment covers a meaningful share of occupations',

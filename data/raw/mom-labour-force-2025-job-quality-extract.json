@@ -1,0 +1,37 @@
+{
+  "source": {
+    "title": "Labour Force in Singapore 2025, advance release",
+    "publisher": "Singapore Ministry of Manpower",
+    "url": "https://stats.mom.gov.sg/iMAS_PdfLibrary/mrsd-labour-force-in-singapore-advance-release-2025.pdf",
+    "report_file": "data/raw/labour-force-singapore-2025.pdf",
+    "vintage": "2025"
+  },
+  "major_groups": {
+    "MANAGERS": { "underemployment_rate_pct": 0.6, "employment_thousands": 321.3, "non_permanent_thousands": 8.7 },
+    "PROFESSIONALS": { "underemployment_rate_pct": 0.9, "employment_thousands": 597.1, "non_permanent_thousands": 41.4 },
+    "ASSOCIATE PROFESSIONALS AND TECHNICIANS": { "underemployment_rate_pct": 2.3, "employment_thousands": 430.7, "non_permanent_thousands": 37.3 },
+    "CLERICAL SUPPORT WORKERS": { "underemployment_rate_pct": 1.9, "employment_thousands": 199.9, "non_permanent_thousands": 24.2 },
+    "SERVICE AND SALES WORKERS": { "underemployment_rate_pct": 4.0, "employment_thousands": 225.0, "non_permanent_thousands": 36.1 },
+    "CRAFTSMEN AND RELATED TRADES WORKERS": { "underemployment_rate_pct": 2.2, "employment_thousands": 44.1, "non_permanent_thousands": 4.2 },
+    "PLANT AND MACHINE OPERATORS AND ASSEMBLERS": { "underemployment_rate_pct": 1.7, "employment_thousands": 63.0, "non_permanent_thousands": 6.5 },
+    "CLEANERS, LABOURERS AND RELATED WORKERS": { "underemployment_rate_pct": 4.9, "employment_thousands": 160.6, "non_permanent_thousands": 30.8 }
+  },
+  "years": [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+  "unemployment_rate_pct": {
+    "pmet_total": [2.7, 3.1, 3.0, 2.9, 2.9, 3.5, 3.4, 2.6, 2.4, 2.7, 2.8],
+    "pmet_age_15_29": [3.6, 3.8, 3.6, 4.1, 4.0, 4.1, 3.9, 4.4, 2.9, 3.8, 2.8],
+    "non_pmet_total": [4.2, 4.2, 4.5, 4.0, 4.7, 6.4, 5.1, 4.4, 3.6, 3.4, 2.8],
+    "non_pmet_age_15_29": [7.5, 6.4, 7.6, 6.2, 8.0, 10.5, 7.0, 5.5, 5.1, 5.2, 4.1]
+  },
+  "long_term_unemployment_rate_pct": {
+    "pmet_total": [0.7, 0.9, 0.7, 0.8, 0.6, 0.8, 0.8, 0.5, 0.4, 0.7, 0.6],
+    "pmet_age_15_29": [0.3, 0.3, 0.4, 0.3, 0.3, 0.5, 0.3, 0.3, 0.1, 0.4, 0.5],
+    "non_pmet_total": [0.6, 0.7, 0.7, 0.7, 0.8, 0.9, 0.9, 0.7, 0.5, 0.6, 0.5],
+    "non_pmet_age_15_29": [0.6, 0.5, 0.6, 0.6, 0.6, 1.1, 0.6, 0.2, 0.3, 0.6, 0.6]
+  },
+  "limitations": [
+    "Major-group statistics are broad labour-market context, not detailed occupation outcomes.",
+    "Underemployment and employment-type estimates are survey estimates and may be affected by sampling variability.",
+    "PMET and non-PMET youth series cannot be assigned to individual occupations."
+  ]
+}

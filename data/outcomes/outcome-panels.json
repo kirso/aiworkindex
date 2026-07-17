@@ -1,5 +1,5 @@
 {
-  "generated_date": "2026-07-16",
+  "generated_date": "2026-07-17",
   "model_version": "V7",
   "provenance": {
     "source": "data/labour-monitor.json",
@@ -8,30 +8,28 @@
     ],
     "note": "Official MOM labour outcomes re-shaped into cluster-quarter panels. No new realized-risk model; values are copied, not derived."
   },
-  "latest_quarter": "2025 Q4",
+  "latest_quarter": "2026 Q1",
   "outcomes_v1": [
     "vacancy_rate",
     "retrenchment_count",
     "hiring_net_pressure",
     "re_entry_rate"
   ],
+  "additional_annual_outcomes": {
+    "wage_movement": "data/wage-movement.json",
+    "note": "Broad-group sex-specific nominal and CPI-adjusted movement is published separately because it is annual and cannot be joined safely to the quarterly three-cluster panel."
+  },
   "reserved_v2_outcomes": {
     "postings_volume": null,
     "ai_skill_share": null,
-    "wage_movement": null,
-    "note": "Deferred per forecast-readiness: postings need scheduled snapshots, AI-skill share needs a fixed dictionary + denominator + time series, and wage movement needs a multi-year nominal + CPI-adjusted transform before use as outcomes."
+    "note": "Deferred per forecast-readiness: postings need scheduled snapshots and AI-skill share needs a fixed dictionary, denominator, and time series."
   },
   "clusters": [
     {
       "cluster_key": "pmet",
       "cluster_label": "Professionals, Managers, Executives & Technicians",
-      "data_as_of": "2025 Q4",
+      "data_as_of": "2026 Q1",
       "quarterly": [
-        {
-          "quarter": "2024 Q3",
-          "vacancy_rate": 2.9,
-          "retrenchment_count": 2250
-        },
         {
           "quarter": "2024 Q4",
           "vacancy_rate": 3.2,
@@ -39,6 +37,7 @@
         },
         {
           "quarter": "2025 Q1",
+          "vacancy_rate": 3.5,
           "retrenchment_count": 2730
         },
         {
@@ -54,31 +53,31 @@
           "quarter": "2025 Q4",
           "vacancy_rate": 3.1,
           "retrenchment_count": 3150
+        },
+        {
+          "quarter": "2026 Q1",
+          "vacancy_rate": 3.4,
+          "retrenchment_count": 3320
         }
       ],
       "latest": {
-        "quarter": "2025 Q4",
-        "vacancy_rate": 3.1,
-        "vacancy_trend_4q_pct": -3.13,
-        "hiring_recruitment_rate": 1.5,
-        "hiring_resignation_rate": 0.9,
-        "hiring_net_pressure": 0.6,
-        "retrenchment_count": 3150,
-        "retrenchment_trend_4q_pct": 6.42,
-        "re_entry_rate_6m": 56.4,
-        "re_entry_rate_12m": 67.7
+        "quarter": "2026 Q1",
+        "vacancy_rate": 3.4,
+        "vacancy_trend_4q_pct": -2.86,
+        "hiring_recruitment_rate": 1.2,
+        "hiring_resignation_rate": 0.7,
+        "hiring_net_pressure": 0.5,
+        "retrenchment_count": 3320,
+        "retrenchment_trend_4q_pct": 21.61,
+        "re_entry_rate_6m": 59.6,
+        "re_entry_rate_12m": 69.1
       }
     },
     {
       "cluster_key": "clerical_sales_service",
       "cluster_label": "Clerical, Sales & Service Workers",
-      "data_as_of": "2025 Q4",
+      "data_as_of": "2026 Q1",
       "quarterly": [
-        {
-          "quarter": "2024 Q3",
-          "vacancy_rate": 3.5,
-          "retrenchment_count": 240
-        },
         {
           "quarter": "2024 Q4",
           "vacancy_rate": 3.5,
@@ -86,6 +85,7 @@
         },
         {
           "quarter": "2025 Q1",
+          "vacancy_rate": 4,
           "retrenchment_count": 240
         },
         {
@@ -101,31 +101,31 @@
           "quarter": "2025 Q4",
           "vacancy_rate": 3.1,
           "retrenchment_count": 270
+        },
+        {
+          "quarter": "2026 Q1",
+          "vacancy_rate": 3.2,
+          "retrenchment_count": 320
         }
       ],
       "latest": {
-        "quarter": "2025 Q4",
-        "vacancy_rate": 3.1,
-        "vacancy_trend_4q_pct": -11.43,
-        "hiring_recruitment_rate": 2.6,
-        "hiring_resignation_rate": 1.6,
-        "hiring_net_pressure": 1,
-        "retrenchment_count": 270,
-        "retrenchment_trend_4q_pct": 8,
-        "re_entry_rate_6m": 65,
-        "re_entry_rate_12m": 78.5
+        "quarter": "2026 Q1",
+        "vacancy_rate": 3.2,
+        "vacancy_trend_4q_pct": -20,
+        "hiring_recruitment_rate": 2.1,
+        "hiring_resignation_rate": 1.4,
+        "hiring_net_pressure": 0.7,
+        "retrenchment_count": 320,
+        "retrenchment_trend_4q_pct": 33.33,
+        "re_entry_rate_6m": 72.7,
+        "re_entry_rate_12m": 68
       }
     },
     {
       "cluster_key": "production_transport",
       "cluster_label": "Production & Transport Operators, Cleaners & Labourers",
-      "data_as_of": "2025 Q4",
+      "data_as_of": "2026 Q1",
       "quarterly": [
-        {
-          "quarter": "2024 Q3",
-          "vacancy_rate": 1.7,
-          "retrenchment_count": 410
-        },
         {
           "quarter": "2024 Q4",
           "vacancy_rate": 2.4,
@@ -133,6 +133,7 @@
         },
         {
           "quarter": "2025 Q1",
+          "vacancy_rate": 2.4,
           "retrenchment_count": 630
         },
         {
@@ -148,19 +149,24 @@
           "quarter": "2025 Q4",
           "vacancy_rate": 2.8,
           "retrenchment_count": 280
+        },
+        {
+          "quarter": "2026 Q1",
+          "vacancy_rate": 2.3,
+          "retrenchment_count": 200
         }
       ],
       "latest": {
-        "quarter": "2025 Q4",
-        "vacancy_rate": 2.8,
-        "vacancy_trend_4q_pct": 16.67,
-        "hiring_recruitment_rate": 2.4,
-        "hiring_resignation_rate": 1.5,
-        "hiring_net_pressure": 0.9,
-        "retrenchment_count": 280,
-        "retrenchment_trend_4q_pct": -40.43,
-        "re_entry_rate_6m": 64.8,
-        "re_entry_rate_12m": 78.1
+        "quarter": "2026 Q1",
+        "vacancy_rate": 2.3,
+        "vacancy_trend_4q_pct": -4.17,
+        "hiring_recruitment_rate": 1.7,
+        "hiring_resignation_rate": 1.2,
+        "hiring_net_pressure": 0.5,
+        "retrenchment_count": 200,
+        "retrenchment_trend_4q_pct": -68.25,
+        "re_entry_rate_6m": 72.5,
+        "re_entry_rate_12m": 76.9
       }
     }
   ]

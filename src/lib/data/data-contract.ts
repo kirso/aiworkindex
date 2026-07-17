@@ -434,7 +434,37 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 			used_for: ['wage movement source candidate', 'raw data audit'],
 			url: 'https://data.gov.sg/datasets/d_8f024ddf2553d81ee00ede55b1d9b0ff/view',
 			notes:
-				'Official annual broad occupation-group income series. Available as a source candidate for wage-outcome validation, but not yet transformed into a forecast outcome panel.'
+				'Official annual broad occupation-group, sex-specific income series. Transformed into separate nominal and CPI-adjusted wage movement context; male and female medians are not averaged.'
+		},
+		{
+			key: 'singstat_all_items_cpi_monthly',
+			label: 'Singapore All Items Consumer Price Index, Monthly',
+			tier: 'official_sg',
+			status: 'live',
+			vintage: 'through 2026 May',
+			used_for: ['real wage movement deflator'],
+			url: 'https://data.gov.sg/collections/1630/view',
+			notes: 'Annual-average All Items CPI deflates the broad-group income series. It is not a score input.'
+		},
+		{
+			key: 'mom_job_vacancies_2025_report',
+			label: 'MOM Job Vacancies 2025',
+			tier: 'official_sg',
+			status: 'live',
+			vintage: 'December 2025',
+			used_for: ['entry-level hiring context', 'experience requirements', 'hard-to-fill jobs'],
+			url: 'https://stats.mom.gov.sg/Pages/Job-Vacancies-2025.aspx',
+			notes: 'Annual vacancy-composition context. Industry and named-job results are not detailed occupation outcomes.'
+		},
+		{
+			key: 'mom_labour_force_2025_job_quality',
+			label: 'Labour Force in Singapore 2025',
+			tier: 'official_sg',
+			status: 'live',
+			vintage: '2025',
+			used_for: ['underemployment context', 'employment type', 'youth unemployment history'],
+			url: 'https://stats.mom.gov.sg/iMAS_PdfLibrary/mrsd-labour-force-in-singapore-advance-release-2025.pdf',
+			notes: 'Broad-group and PMET/non-PMET context only; not a detailed occupation outcome or an AI effect.'
 		},
 		{
 			key: 'sg_postings_monitor',
