@@ -291,7 +291,7 @@ export const DATA_VINTAGE = {
 	/** Demand signal sources */
 	demand_signals: 'SOL 2026 + Jobs in Demand 2025',
 	/** Labour market report period */
-	labour_monitor: 'Q4 2025 full',
+	labour_monitor: 'Q1 2026 full',
 	/** AIOE index year */
 	aioe: '2021',
 	/** Anthropic Economic Index date */
@@ -299,13 +299,13 @@ export const DATA_VINTAGE = {
 	/** Model version */
 	model_version: 'V7',
 	/** Last scoring run date */
-	last_updated: '2026-07-16',
+	last_updated: '2026-07-17',
 	/** Occupation count */
 	occupation_count: 562,
 	/** Synthetic role count */
 	role_count: 88,
 	/** Validation check count */
-	validation_checks: 222,
+	validation_checks: 224,
 	/** Page count */
 	page_count: 1905
 } as const;

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-16T00:14:17.366Z",
+  "generated_at": "2026-07-17T01:38:48.179Z",
   "summary": {
     "valid": 32,
     "placeholder_error": 0,
@@ -272,7 +272,7 @@
       "status": "valid",
       "exists": true,
       "expected_type": "json",
-      "size_bytes": 10531,
+      "size_bytes": 10594,
       "used_by": [
         "macro context"
       ],

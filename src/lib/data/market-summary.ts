@@ -63,7 +63,11 @@ export function buildMarketNowSummary(
 
 	const postingsLabel = hiringStateLabel(postings);
 	if (postingsLabel && postings) {
-		parts.push(`${postingsLabel}, with ${postings.posting_volume_30d} visible postings in the last 30 days.`);
+		parts.push(
+			postings.hiring_state === 'stale'
+				? `${postingsLabel}; the latest captured posting is dated ${postings.latest_posted_date?.slice(0, 10) ?? 'unknown'}.`
+				: `${postingsLabel}, with ${postings.posting_volume_30d} captured postings in the last 30 days.`
+		);
 	}
 
 	const pressureLabel = employerPressureLabel(employerPressure);
@@ -115,7 +119,9 @@ export function buildMarketDetailBullets(
 
 	if (postings && postings.hiring_state !== 'no_signal') {
 		items.push(
-			`Live job ads show ${postings.posting_volume_30d} visible postings in the last 30 days${
+			postings.hiring_state === 'stale'
+				? `The postings snapshot is stale; its latest captured ad is dated ${postings.latest_posted_date?.slice(0, 10) ?? 'unknown'}.`
+				: `Captured job ads show ${postings.posting_volume_30d} postings in the last 30 days${
 				postings.top_skills.length > 0
 					? `, led by ${postings.top_skills
 							.slice(0, 3)
@@ -128,7 +134,7 @@ export function buildMarketDetailBullets(
 
 	if (employerPressure && employerPressure.signal_count > 0) {
 		items.push(
-			`Employer pressure is ${employerPressure.label}, based on ${employerPressure.signal_count} recent Singapore-relevant company signals.`
+			`Employer pressure is ${employerPressure.label}, based on ${employerPressure.signal_count} captured Singapore-relevant company signals through ${employerPressure.latest_date ?? 'an unknown date'}.`
 		);
 	}
 

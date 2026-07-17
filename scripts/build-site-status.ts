@@ -67,10 +67,10 @@ const RELEASES_OUT = path.join(STATIC_DATA_DIR, 'releases.json');
 const RELEASES_SRC_OUT = path.join(SRC_DATA_DIR, 'releases.json');
 
 const LATEST_OFFICIAL_LABOUR_REPORT = {
-	label: 'MOM Labour Market Report Q4 2025',
-	period: 'Q4 2025',
-	published_at: '2026-03-20',
-	url: 'https://stats.mom.gov.sg/Pages/Labour-Market-Report-4Q-2025.aspx',
+	label: 'MOM Labour Market Report Q1 2026',
+	period: 'Q1 2026',
+	published_at: '2026-06-15',
+	url: 'https://stats.mom.gov.sg/Pages/Labour-Market-Report-1Q-2026.aspx',
 	status: 'published_live' as const
 };
 
@@ -298,6 +298,13 @@ function buildSiteStatus() {
 	}>(QUARTERLY_REPORT_FILE);
 	const postingsMonitor = readJson<{
 		generated_at: string;
+		observed_through?: string | null;
+		coverage?: {
+			occupations_covered: number;
+			occupations_total: number;
+			roles_covered: number;
+			roles_total: number;
+		};
 		summary: { total_postings: number; posting_volume_30d: number };
 	}>(POSTINGS_MONITOR_FILE);
 	const employerSignals = readJson<{
@@ -488,14 +495,21 @@ function buildSiteStatus() {
 			: null,
 		live_monitor: {
 			labour_monitor_artifact_vintage: DATA_VINTAGE.labour_monitor,
-			labour_monitor_validation_vintage: currentBacktest?.data_period ?? 'Q4 2025',
+			labour_monitor_validation_vintage: currentBacktest?.data_period ?? null,
 			labour_monitor_source_label: 'MOM cluster labour monitor artifact',
 			latest_official_labour_report: LATEST_OFFICIAL_LABOUR_REPORT,
 			refresh_note:
-				'The live labour monitor now uses the full MOM Labour Market Report Q4 2025, including explicit Q3-to-Q4 deltas for vacancy, hiring, retrenchment and re-entry signals.',
-			macro_vintage: '2025 4Q',
-			ai_context_vintage: '2024 data',
+				'The current labour context uses the full MOM Labour Market Report Q1 2026. Cluster figures remain broad context and do not become occupation-level outcomes.',
+			macro_vintage: '2026 1Q',
+			ai_context_vintage: '2025-2026 publications; underlying periods vary by metric',
 			postings_generated_at: postingsMonitor?.generated_at ?? null,
+			postings_observed_through: postingsMonitor?.observed_through ?? null,
+			postings_occupation_coverage: postingsMonitor?.coverage
+				? `${postingsMonitor.coverage.occupations_covered}/${postingsMonitor.coverage.occupations_total}`
+				: null,
+			postings_role_coverage: postingsMonitor?.coverage
+				? `${postingsMonitor.coverage.roles_covered}/${postingsMonitor.coverage.roles_total}`
+				: null,
 			postings_volume_30d: postingsMonitor?.summary.posting_volume_30d ?? 0,
 			employer_pressure_generated_at: employerSignals?.generated_at ?? null,
 			employer_pressure_latest_signal_date: employerSignals?.summary.latest_signal_date ?? null,
@@ -667,18 +681,18 @@ function buildReleases(siteStatus: ReturnType<typeof buildSiteStatus>) {
 				]
 			: []),
 		{
-			id: 'official-labour-report-q4-2025',
+			id: 'official-labour-report-q1-2026',
 			type: 'official_update',
 			label: siteStatus.live_monitor.latest_official_labour_report.label,
 			published_at: siteStatus.live_monitor.latest_official_labour_report.published_at,
-			display_date: '20 Mar 2026',
+			display_date: '15 Jun 2026',
 			score_version: DATA_VINTAGE.model_version,
 			monitor_vintage: siteStatus.live_monitor.labour_monitor_artifact_vintage,
 			href: siteStatus.live_monitor.latest_official_labour_report.url,
 			availability: 'current_download',
 			notes: [
 				'Fresh official labour report published by MOM.',
-				'Live labour monitor refreshed to the Q4 2025 full vintage.'
+				'Current labour context refreshed to the Q1 2026 full vintage.'
 			]
 		},
 		{

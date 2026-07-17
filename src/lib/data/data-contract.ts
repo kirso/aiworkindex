@@ -12,7 +12,7 @@ export type EmploymentBasis =
 	| 'estimated_sg_submajor_weighted_2025'
 	| 'proxy_bls_weighted';
 
-export type SourceRegistryStatus = 'live' | 'available' | 'planned' | 'requested';
+export type SourceRegistryStatus = 'live' | 'available' | 'historical' | 'planned' | 'requested';
 
 export interface EvidenceDescriptor {
 	tier: EvidenceTier;
@@ -61,6 +61,7 @@ export const evidenceTierLabels: Record<EvidenceTier, string> = {
 export const sourceRegistryStatusLabels: Record<SourceRegistryStatus, string> = {
 	live: 'Live',
 	available: 'Available',
+	historical: 'Historical',
 	planned: 'Planned',
 	requested: 'Requested'
 };
@@ -330,27 +331,44 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 		label: 'MOM Labour Market Reports / monitor series',
 		tier: 'official_sg',
 		status: 'live',
-		vintage: '2025',
+		vintage: 'through 2026 Q1',
 		used_for: ['labour monitor', 'quarterly context', 'cluster vacancy rates'],
 		url: 'https://stats.mom.gov.sg/Pages/Labour-Market-Report.aspx',
 		notes: 'Cluster-level labour evidence layer, not occupation-level outcomes.'
 	},
 	{
+		key: 'mom_labour_market_report_q1_2026',
+		label: 'MOM Labour Market Report Q1 2026',
+		tier: 'official_sg',
+		status: 'live',
+		vintage: '2026 Q1',
+		used_for: [
+			'current labour monitor enrichment',
+			'vacancy and hiring context',
+			'retrenchment incidence context',
+			're-entry context',
+			'macro labour context'
+		],
+		url: 'https://stats.mom.gov.sg/Pages/Labour-Market-Report-1Q-2026.aspx',
+		notes:
+			'Latest full official labour-market report used for current cluster and macro context. These broad cluster figures are not detailed SSOC outcomes.'
+	},
+	{
 		key: 'mom_labour_market_report_q4_2025',
 		label: 'MOM Labour Market Report Q4 2025',
 		tier: 'official_sg',
-		status: 'live',
+		status: 'historical',
 		vintage: '2025 Q4',
 		used_for: [
-			'labour monitor enrichment',
-			'vacancy validation',
+			'historical labour monitor enrichment',
+			'Q4 2025 validation baseline',
 			'recruitment and resignation context',
 			'retrenchment incidence context',
-			'forecast-readiness gating'
+			'forecast-readiness audit trail'
 		],
 		url: 'https://www.mom.gov.sg/newsroom/press-releases/2026/0320-labour-market-4q-2025',
 		notes:
-			'Official Q4 2025 labour-market release used to enrich current-quarter vacancy, hiring, retrenchment, and re-entry fields where public API feeds lagged.'
+			'Historical Q4 2025 release retained because the latest completed cluster backtest uses that period. It is no longer presented as the current monitor.'
 	},
 		{
 			key: 'job_vacancies_industry_occupation',

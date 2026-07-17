@@ -7,7 +7,7 @@
     "published_at": "2026-07-15",
     "display_date": "15 Jul 2026",
     "score_version": "V8",
-    "monitor_vintage": "Q4 2025 full",
+    "monitor_vintage": "Q1 2026 full",
     "href": "/data",
     "availability": "current_download",
     "notes": [
@@ -24,7 +24,7 @@
     "published_at": "2026-04-07",
     "display_date": "7 Apr 2026",
     "score_version": "V7",
-    "monitor_vintage": "Q4 2025 full",
+    "monitor_vintage": "Q1 2026 full",
     "href": "/data",
     "availability": "current_download",
     "notes": [
@@ -41,7 +41,7 @@
     "published_at": "2026-04-01",
     "display_date": "1 Apr 2026",
     "score_version": "V6",
-    "monitor_vintage": "Q4 2025 full",
+    "monitor_vintage": "Q1 2026 full",
     "href": "/data/sg-ai-occupations-v6.json",
     "availability": "historical_snapshot",
     "notes": [
@@ -58,7 +58,7 @@
     "published_at": "2026-03-21",
     "display_date": "21 Mar 2026",
     "score_version": "V5",
-    "monitor_vintage": "Q4 2025 full",
+    "monitor_vintage": "Q1 2026 full",
     "href": "/data/sg-ai-occupations-v5.json",
     "availability": "historical_snapshot",
     "notes": [
@@ -75,7 +75,7 @@
     "published_at": "2026-03-21",
     "display_date": "21 Mar 2026",
     "score_version": "V4.3",
-    "monitor_vintage": "Q4 2025 full",
+    "monitor_vintage": "Q1 2026 full",
     "href": "/data/sg-ai-occupations-v43.json",
     "availability": "historical_snapshot",
     "notes": [
@@ -92,7 +92,7 @@
     "published_at": "2026-03-21",
     "display_date": "21 Mar 2026",
     "score_version": "V4.2",
-    "monitor_vintage": "Q4 2025 full",
+    "monitor_vintage": "Q1 2026 full",
     "href": "/data/sg-ai-occupations-v42.json",
     "availability": "historical_snapshot",
     "notes": [
@@ -108,7 +108,7 @@
     "published_at": "2026-03-19",
     "display_date": "19 Mar 2026",
     "score_version": "V4.0",
-    "monitor_vintage": "Q4 2025 full",
+    "monitor_vintage": "Q1 2026 full",
     "href": "/methodology",
     "availability": "history_only",
     "notes": [
@@ -124,7 +124,7 @@
     "published_at": "2026-03-19",
     "display_date": "19 Mar 2026",
     "score_version": "V3.3",
-    "monitor_vintage": "Q4 2025 full",
+    "monitor_vintage": "Q1 2026 full",
     "href": "/methodology",
     "availability": "history_only",
     "notes": [
@@ -140,7 +140,7 @@
     "published_at": "2026-03-19",
     "display_date": "19 Mar 2026",
     "score_version": "V3.2",
-    "monitor_vintage": "Q4 2025 full",
+    "monitor_vintage": "Q1 2026 full",
     "href": "/methodology",
     "availability": "history_only",
     "notes": [
@@ -156,7 +156,7 @@
     "published_at": "2026-03-16",
     "display_date": "16 Mar 2026",
     "score_version": "V3.1",
-    "monitor_vintage": "Q4 2025 full",
+    "monitor_vintage": "Q1 2026 full",
     "href": "/methodology",
     "availability": "history_only",
     "notes": [
@@ -172,7 +172,7 @@
     "published_at": "2026-03-16",
     "display_date": "16 Mar 2026",
     "score_version": "V3.0",
-    "monitor_vintage": "Q4 2025 full",
+    "monitor_vintage": "Q1 2026 full",
     "href": "/data/sg-ai-occupations-v3.json",
     "availability": "historical_snapshot",
     "notes": [
@@ -188,7 +188,7 @@
     "published_at": null,
     "display_date": "Jan 2026",
     "score_version": "V2",
-    "monitor_vintage": "Q4 2025 full",
+    "monitor_vintage": "Q1 2026 full",
     "href": "/methodology",
     "availability": "history_only",
     "notes": [
@@ -204,7 +204,7 @@
     "published_at": null,
     "display_date": "Dec 2025",
     "score_version": "V1",
-    "monitor_vintage": "Q4 2025 full",
+    "monitor_vintage": "Q1 2026 full",
     "href": "/methodology",
     "availability": "history_only",
     "notes": [
@@ -216,10 +216,10 @@
     "id": "shadow-score-v43-published",
     "type": "experimental_update",
     "label": "V4.3 shadow score published",
-    "published_at": "2026-06-11",
+    "published_at": "2026-07-17",
     "display_date": "21 Mar 2026",
     "score_version": "V7",
-    "monitor_vintage": "Q4 2025 full",
+    "monitor_vintage": "Q1 2026 full",
     "href": "/reports/v4-3-shadow",
     "availability": "current_download",
     "notes": [
@@ -231,10 +231,10 @@
     "id": "v5-sidecars-published",
     "type": "experimental_update",
     "label": "V5 sidecars published",
-    "published_at": "2026-06-11",
+    "published_at": "2026-07-17",
     "display_date": "21 Mar 2026",
     "score_version": "V7",
-    "monitor_vintage": "Q4 2025 full",
+    "monitor_vintage": "Q1 2026 full",
     "href": "/reports/v5-roadmap",
     "availability": "current_download",
     "notes": [
@@ -246,10 +246,10 @@
     "id": "v5-experimental-model-published",
     "type": "experimental_update",
     "label": "V5 experimental model published",
-    "published_at": "2026-06-11",
+    "published_at": "2026-07-17",
     "display_date": "21 Mar 2026",
     "score_version": "V7",
-    "monitor_vintage": "Q4 2025 full",
+    "monitor_vintage": "Q1 2026 full",
     "href": "/reports/v5-experimental",
     "availability": "current_download",
     "notes": [
@@ -258,28 +258,28 @@
     ]
   },
   {
-    "id": "official-labour-report-q4-2025",
+    "id": "official-labour-report-q1-2026",
     "type": "official_update",
-    "label": "MOM Labour Market Report Q4 2025",
-    "published_at": "2026-03-20",
-    "display_date": "20 Mar 2026",
+    "label": "MOM Labour Market Report Q1 2026",
+    "published_at": "2026-06-15",
+    "display_date": "15 Jun 2026",
     "score_version": "V7",
-    "monitor_vintage": "Q4 2025 full",
-    "href": "https://stats.mom.gov.sg/Pages/Labour-Market-Report-4Q-2025.aspx",
+    "monitor_vintage": "Q1 2026 full",
+    "href": "https://stats.mom.gov.sg/Pages/Labour-Market-Report-1Q-2026.aspx",
     "availability": "current_download",
     "notes": [
       "Fresh official labour report published by MOM.",
-      "Live labour monitor refreshed to the Q4 2025 full vintage."
+      "Current labour context refreshed to the Q1 2026 full vintage."
     ]
   },
   {
     "id": "quarterly-briefing-2026-q1",
     "type": "report_refresh",
     "label": "2026 Q1 quarterly briefing",
-    "published_at": "2026-06-11",
+    "published_at": "2026-07-17",
     "display_date": "21 Mar 2026",
     "score_version": "V7",
-    "monitor_vintage": "Q4 2025 full",
+    "monitor_vintage": "Q1 2026 full",
     "href": "/reports",
     "availability": "current_download",
     "notes": [

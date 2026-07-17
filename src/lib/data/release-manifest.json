@@ -1,7 +1,7 @@
 {
   "version": "V8",
-  "generated_at": "2026-07-16T00:22:40.733Z",
-  "score_dataset_generated_at": "2026-07-16",
+  "generated_at": "2026-07-17T01:39:48.101Z",
+  "score_dataset_generated_at": "2026-07-17",
   "artifacts": [
     {
       "file": "sg-ai-occupations-v8.json",
@@ -10,7 +10,7 @@
       "description": "Clean V8 Singapore public contract.",
       "bytes": 1666068,
       "sha256": "451ad8824b7a634f22e2bd30405f40b6923582b665bd53acc4a392de97d2c4a7",
-      "generated_at": "2026-07-16T00:14:20.510Z"
+      "generated_at": "2026-07-17T01:39:47.834Z"
     },
     {
       "file": "sg-ai-occupations-v8.csv",
@@ -19,7 +19,7 @@
       "description": "Flattened V8 Singapore public contract.",
       "bytes": 177961,
       "sha256": "c80077a1587d7317838f721fe2dafc3b4ff771e5f8d7c011c3b70a6bc29ef04e",
-      "generated_at": "2026-07-16T00:14:20.550Z"
+      "generated_at": "2026-07-17T01:39:47.871Z"
     },
     {
       "file": "claims-matrix-v8.json",
@@ -27,8 +27,8 @@
       "category": "governance",
       "description": "Auditable registry of supported and unsupported claims.",
       "bytes": 3879,
-      "sha256": "29862c5176d5515c86a5b56c96606cb8110377ff97aa5af6c691a537d1d4d0df",
-      "generated_at": "2026-07-16T00:14:17.045Z"
+      "sha256": "891caafdac79d0b9edd42f12ad5dfadf9b0b4e033c664768ebe93ddb3777f7a7",
+      "generated_at": "2026-07-17T01:39:47.899Z"
     },
     {
       "file": "public-field-source-map.json",
@@ -36,17 +36,17 @@
       "category": "provenance",
       "description": "Field-level provenance for retained source artifacts.",
       "bytes": 5172,
-      "sha256": "7bdd44a426a6e265c9e10611ff20012d342c257df1c14c0aedba00743e145f5e",
-      "generated_at": "2026-07-16T00:14:17.066Z"
+      "sha256": "690b5a611e4e735395bfecdf66c6376cbed25b1890c9ad76fb89d04234a47ff9",
+      "generated_at": "2026-07-17T01:39:47.927Z"
     },
     {
       "file": "sg-context-pack-2025.json",
       "label": "Singapore context pack",
       "category": "context_bundle",
       "description": "Official labour-market and adoption context reported separately from the score.",
-      "bytes": 671499,
-      "sha256": "1b28a7df2677cbf8c6179aa34a0b9aeea0749b88f602f5db28663261c39d0232",
-      "generated_at": "2026-07-16T00:14:20.591Z"
+      "bytes": 672822,
+      "sha256": "cc1dcdaff3213472e5ea5453d2575c9a6e7e09b53155a248da6256ca7718a880",
+      "generated_at": "2026-07-17T01:39:47.983Z"
     },
     {
       "file": "adoption-diffusion.json",

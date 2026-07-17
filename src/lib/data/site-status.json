@@ -1,10 +1,10 @@
 {
-  "updated_at": "2026-07-16T00:22:40.702Z",
+  "updated_at": "2026-07-17T01:39:48.067Z",
   "structural_release": {
     "version": "V8",
     "label": "V8 truthful AI exposure release",
-    "generated_at": "2026-07-16T00:22:40.702Z",
-    "score_dataset_generated_at": "2026-07-16",
+    "generated_at": "2026-07-17T01:39:48.067Z",
+    "score_dataset_generated_at": "2026-07-17",
     "release_manifest": "release-manifest-v8.json"
   },
   "experimental_release": {
@@ -30,24 +30,27 @@
     "impact_flip_count": 157
   },
   "live_monitor": {
-    "labour_monitor_artifact_vintage": "Q4 2025 full",
+    "labour_monitor_artifact_vintage": "Q1 2026 full",
     "labour_monitor_validation_vintage": "Q4 2025",
     "labour_monitor_source_label": "MOM cluster labour monitor artifact",
     "latest_official_labour_report": {
-      "label": "MOM Labour Market Report Q4 2025",
-      "period": "Q4 2025",
-      "published_at": "2026-03-20",
-      "url": "https://stats.mom.gov.sg/Pages/Labour-Market-Report-4Q-2025.aspx",
+      "label": "MOM Labour Market Report Q1 2026",
+      "period": "Q1 2026",
+      "published_at": "2026-06-15",
+      "url": "https://stats.mom.gov.sg/Pages/Labour-Market-Report-1Q-2026.aspx",
       "status": "published_live"
     },
-    "refresh_note": "The live labour monitor now uses the full MOM Labour Market Report Q4 2025, including explicit Q3-to-Q4 deltas for vacancy, hiring, retrenchment and re-entry signals.",
-    "macro_vintage": "2025 4Q",
-    "ai_context_vintage": "2024 data",
-    "postings_generated_at": "2026-07-16T00:14:17.881Z",
+    "refresh_note": "The current labour context uses the full MOM Labour Market Report Q1 2026. Cluster figures remain broad context and do not become occupation-level outcomes.",
+    "macro_vintage": "2026 1Q",
+    "ai_context_vintage": "2025-2026 publications; underlying periods vary by metric",
+    "postings_generated_at": "2026-07-17T01:36:38.536Z",
+    "postings_observed_through": "2026-03-20T05:39:49.826Z",
+    "postings_occupation_coverage": "93/562",
+    "postings_role_coverage": "42/88",
     "postings_volume_30d": 0,
     "employer_pressure_generated_at": "2026-07-16T00:14:17.931Z",
     "employer_pressure_latest_signal_date": "2025-10-06",
-    "quarterly_report_generated_at": "2026-07-16T00:14:17.398Z",
+    "quarterly_report_generated_at": "2026-07-17T01:39:48.015Z",
     "quarterly_current_snapshot": "occupations-v7-2026-07.json",
     "quarterly_previous_snapshot": "occupations-v7-2026-06.json",
     "cluster_validation_checks_passed": 2,

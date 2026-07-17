@@ -1,6 +1,6 @@
 {
   "version": "V8",
-  "generated_at": "2026-07-16T00:14:17.044Z",
+  "generated_at": "2026-07-17T01:39:47.899Z",
   "strength_labels": {
     "high": "Directly supported by the published contract, deterministic pipeline or official source.",
     "medium": "Supported with partial coverage or methodological interpretation.",

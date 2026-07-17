@@ -1225,8 +1225,23 @@ async function main() {
 		}>(QUARTERLY_REPORT_FILE);
 		const postingsMonitor = readJson<{
 			generated_at: string;
+			observed_through?: string | null;
+			coverage?: {
+				occupations_covered: number;
+				occupations_total: number;
+				occupations_coverage_pct: number;
+				roles_covered: number;
+				roles_total: number;
+				roles_coverage_pct: number;
+			};
+			by_ssoc?: Record<string, unknown>;
+			by_role?: Record<string, unknown>;
 			sources?: Array<{ source: string; source_tier: string }>;
-			summary?: { salary_min_hint?: number | null; posting_volume_30d?: number | null };
+			summary?: {
+				salary_min_hint?: number | null;
+				posting_volume_30d?: number | null;
+				latest_posted_date?: string | null;
+			};
 		}>(POSTINGS_MONITOR_FILE);
 		const currentBacktest = readJson<{
 			data_period: string;
@@ -2076,9 +2091,9 @@ async function main() {
 			})
 		);
 		if (
-			DATA_VINTAGE.labour_monitor === 'Q4 2025 full' &&
+			DATA_VINTAGE.labour_monitor === 'Q1 2026 full' &&
 			industryContext?.metadata?.vacancy_overlay_vintage &&
-			industryContext.metadata.vacancy_overlay_vintage !== 'Q4 2025'
+			industryContext.metadata.vacancy_overlay_vintage !== 'Q1 2026'
 		) {
 			check(
 				'Detail pages disclose that industry vacancy overlays lag the main labour monitor',
@@ -2440,13 +2455,13 @@ async function main() {
 					'scripts/build-calibration-diagnostics.ts'
 				)
 		);
-		if (DATA_VINTAGE.labour_monitor === 'Q4 2025 full') {
+		if (DATA_VINTAGE.labour_monitor === 'Q1 2026 full') {
 			check(
-				'Labour monitor latest quarter is Q4 2025 for all clusters',
-				labourMonitors.every(monitor => monitor.vacancy.latest_quarter === '2025 Q4')
+				'Labour monitor latest quarter is Q1 2026 for all clusters',
+				labourMonitors.every(monitor => monitor.vacancy.latest_quarter === '2026 Q1')
 			);
 			check(
-				'Labour monitor exposes Q3→Q4 delta fields',
+				'Labour monitor exposes prior-quarter delta fields',
 				labourMonitors.every(
 					monitor =>
 						typeof monitor.vacancy.qoq_delta_pp === 'number' &&
@@ -2461,7 +2476,7 @@ async function main() {
 			check(
 				'Quarterly report includes labour monitor delta summary',
 				(quarterlyReport?.labour_monitor?.clusters?.length ?? 0) === labourMonitors.length &&
-					quarterlyReport?.labour_monitor?.data_as_of === '2025 Q4' &&
+					quarterlyReport?.labour_monitor?.data_as_of === '2026 Q1' &&
 					(quarterlyReport?.labour_monitor?.clusters ?? []).every(
 						cluster => typeof cluster.vacancy_qoq_delta_pp === 'number'
 					)
@@ -2473,9 +2488,23 @@ async function main() {
 					(quarterlyReport?.briefing?.what_to_watch?.length ?? 0) >= 2
 			);
 			check(
-				'Current cluster backtest uses Q4 2025 monitor data',
+				'Latest completed cluster backtest remains explicitly period-labelled',
 				currentBacktest?.data_period === 'Q4 2025',
 				currentBacktest?.data_period
+			);
+			check(
+				'Postings coverage counts match monitor maps',
+				postingsMonitor?.coverage?.occupations_covered ===
+					Object.keys(postingsMonitor?.by_ssoc ?? {}).length &&
+					postingsMonitor?.coverage?.roles_covered ===
+						Object.keys(postingsMonitor?.by_role ?? {}).length &&
+					postingsMonitor?.coverage?.occupations_total === 562 &&
+					postingsMonitor?.coverage?.roles_total === 88
+			);
+			check(
+				'Postings observed-through date matches latest posting date',
+				postingsMonitor?.observed_through === postingsMonitor?.summary?.latest_posted_date,
+				`${postingsMonitor?.observed_through} vs ${postingsMonitor?.summary?.latest_posted_date}`
 			);
 			check(
 				'Site status validation vintage matches current cluster backtest',

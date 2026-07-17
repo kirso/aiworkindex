@@ -65,6 +65,13 @@ function readJson<T>(relativePath: string): T {
 const occupations = readJson<unknown[]>('data/occupations.json');
 const labourMonitor = readJson<Array<{ cluster_key: string }>>('data/labour-monitor.json');
 const postingsMonitor = readJson<{
+	observed_through?: string | null;
+	coverage?: {
+		occupations_covered: number;
+		occupations_total: number;
+		roles_covered: number;
+		roles_total: number;
+	};
 	summary: { total_postings: number; source_count: number; latest_posted_date: string | null };
 	sources: unknown[];
 }>('data/postings/postings-monitor.json');
@@ -110,17 +117,17 @@ const inputs: ForecastInput[] = [
 		construct: 'realised_labour_pressure',
 		status: 'ready_for_directional_validation',
 		evidence_tier: 'official_sg',
-		source_keys: ['mom_job_vacancy_rates', 'mom_labour_market_report_q4_2025'],
+		source_keys: ['mom_job_vacancy_rates', 'mom_labour_market_report_q1_2026'],
 		source_urls: [
 			'https://data.gov.sg/datasets?resultId=d_1e10046c33418c507bb2483c26dca489&sort=updatedAt',
-			'https://www.mom.gov.sg/newsroom/press-releases/2026/0320-labour-market-4q-2025'
+			'https://stats.mom.gov.sg/Pages/Labour-Market-Report-1Q-2026.aspx'
 		],
 		raw_files: ['data/raw/vacancy_rates_by_occupation_group.csv'],
 		existing_artifacts: ['data/labour-monitor.json'],
 		pipeline_owners: ['scripts/build-labour-monitor.ts'],
 		public_fields: ['labour-monitor.vacancy.latest_rate', 'labour-monitor.vacancy.latest_quarter'],
 		transformation:
-			'Direct published vacancy-rate series, with Q4 2025 report-table enrichment where the feed lagged at build time.',
+			'Direct published vacancy-rate series, with Q1 2026 report-table enrichment where the feed lagged at build time.',
 		granularity: 'Broad occupation clusters.',
 		confidence_for_forecast: 'strong_directional',
 		non_duplication_rule:
@@ -134,10 +141,10 @@ const inputs: ForecastInput[] = [
 		construct: 'realised_labour_pressure',
 		status: 'ready_for_directional_validation',
 		evidence_tier: 'derived_from_official_sg',
-		source_keys: ['mom_recruitment_resignation_rates', 'mom_labour_market_report_q4_2025'],
+		source_keys: ['mom_recruitment_resignation_rates', 'mom_labour_market_report_q1_2026'],
 		source_urls: [
 			'https://data.gov.sg/collections/682/datasets/d_236436f8bdb9bbac677c4e5637c6430e/view',
-			'https://www.mom.gov.sg/newsroom/press-releases/2026/0320-labour-market-4q-2025'
+			'https://stats.mom.gov.sg/Pages/Labour-Market-Report-1Q-2026.aspx'
 		],
 		raw_files: ['data/raw/recruitment_resignation_rates.json'],
 		existing_artifacts: ['data/labour-monitor.json'],
@@ -159,10 +166,10 @@ const inputs: ForecastInput[] = [
 		construct: 'realised_labour_pressure',
 		status: 'ready_for_directional_validation',
 		evidence_tier: 'official_sg',
-		source_keys: ['mom_retrenchment_by_occupation_group', 'mom_labour_market_report_q4_2025'],
+		source_keys: ['mom_retrenchment_by_occupation_group', 'mom_labour_market_report_q1_2026'],
 		source_urls: [
 			'https://data.gov.sg/datasets?resultId=d_3eaf52cdcc405a80b602d031d0bd092b&sort=updatedAt',
-			'https://www.mom.gov.sg/newsroom/press-releases/2026/0320-labour-market-4q-2025'
+			'https://stats.mom.gov.sg/Pages/Labour-Market-Report-1Q-2026.aspx'
 		],
 		raw_files: ['data/raw/retrenchment_by_occupation_group.json'],
 		existing_artifacts: ['data/labour-monitor.json'],
@@ -362,6 +369,13 @@ const readiness = {
 		postings_total: postingsMonitor.summary.total_postings,
 		posting_source_count: postingsMonitor.summary.source_count,
 		postings_latest_posted_date: postingsMonitor.summary.latest_posted_date,
+		postings_observed_through: postingsMonitor.observed_through ?? null,
+		postings_occupation_coverage: postingsMonitor.coverage
+			? `${postingsMonitor.coverage.occupations_covered}/${postingsMonitor.coverage.occupations_total}`
+			: null,
+		postings_role_coverage: postingsMonitor.coverage
+			? `${postingsMonitor.coverage.roles_covered}/${postingsMonitor.coverage.roles_total}`
+			: null,
 		mom_ai_adoption_report_published_at: momAiAdoption.published_at,
 		mom_ai_adopting_firms_pct: momAiAdoption.metrics.firms_started_ai_adoption_pct,
 		status_counts: statusCounts()

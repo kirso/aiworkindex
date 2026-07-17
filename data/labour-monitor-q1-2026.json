@@ -1,0 +1,209 @@
+[
+  {
+    "cluster_key": "pmet",
+    "vacancy": {
+      "latest_rate": 3.4,
+      "latest_quarter": "2026 Q1",
+      "trend_4q_pct": -2.86,
+      "signal": 0,
+      "qoq_delta_pp": 0.3,
+      "latest_count": 43.0,
+      "count_trend_4q_pct": -5.08,
+      "count_signal": -1,
+      "count_qoq_delta": 3.4,
+      "recent_quarters": [
+        { "quarter": "2023", "rate": 4.0 },
+        { "quarter": "2024", "rate": 3.3 },
+        { "quarter": "2024 Q4", "rate": 3.2 },
+        { "quarter": "2025 Q1", "rate": 3.5 },
+        { "quarter": "2025 Q3", "rate": 3.1 },
+        { "quarter": "2025 Q4", "rate": 3.1 },
+        { "quarter": "2026 Q1", "rate": 3.4 }
+      ],
+      "recent_counts": [
+        { "quarter": "2024 Q3", "count": 35.4 },
+        { "quarter": "2024 Q4", "count": 41.4 },
+        { "quarter": "2025 Q1", "count": 45.3 },
+        { "quarter": "2025 Q2", "count": 43.1 },
+        { "quarter": "2025 Q3", "count": 38.2 },
+        { "quarter": "2025 Q4", "count": 39.6 },
+        { "quarter": "2026 Q1", "count": 43.0 }
+      ]
+    },
+    "hiring": {
+      "recruitment_rate": 1.2,
+      "resignation_rate": 0.7,
+      "quarter": "2026 Q1",
+      "recruitment_delta_pp": -0.1,
+      "resignation_delta_pp": -0.1,
+      "net_pressure_delta_pp": 0,
+      "note": "Hiring and resignation both slowed in Q1; recruitment still exceeded resignation."
+    },
+    "retrenchment": {
+      "latest_count": 3320,
+      "latest_quarter": "2026 Q1",
+      "trend_4q_pct": 21.61,
+      "signal": -1,
+      "trend_direction": "rising",
+      "qoq_delta_count": 170,
+      "incidence_per_1000": 2.6,
+      "recent_quarters": [
+        { "quarter": "2024 Q4", "count": 2960 },
+        { "quarter": "2025 Q1", "count": 2730 },
+        { "quarter": "2025 Q2", "count": 2880 },
+        { "quarter": "2025 Q3", "count": 3110 },
+        { "quarter": "2025 Q4", "count": 3150 },
+        { "quarter": "2026 Q1", "count": 3320 }
+      ]
+    },
+    "re_entry": {
+      "rate_6m": 59.6,
+      "rate_12m": 69.1,
+      "quarter": "2026 Q1",
+      "rate_6m_delta_pp": 3.2,
+      "rate_12m_delta_pp": 1.4,
+      "note": "PMET re-entry improved at both the 6-month and 12-month marks."
+    },
+    "summary": "PMET vacancies increased from Q4 and remained below their year-ago level. Hiring stayed net positive but slowed, while retrenchment incidence remained the highest of the three broad occupation groups.",
+    "data_as_of": "2026 Q1",
+    "source": "Labour Market Report Q1 2026, MRSD, MOM"
+  },
+  {
+    "cluster_key": "clerical_sales_service",
+    "vacancy": {
+      "latest_rate": 3.2,
+      "latest_quarter": "2026 Q1",
+      "trend_4q_pct": -20.0,
+      "signal": -1,
+      "qoq_delta_pp": 0.1,
+      "latest_count": 14.9,
+      "count_trend_4q_pct": -20.32,
+      "count_signal": -1,
+      "count_qoq_delta": 0.6,
+      "recent_quarters": [
+        { "quarter": "2023", "rate": 4.7 },
+        { "quarter": "2024", "rate": 3.9 },
+        { "quarter": "2024 Q4", "rate": 3.5 },
+        { "quarter": "2025 Q1", "rate": 4.0 },
+        { "quarter": "2025 Q3", "rate": 3.3 },
+        { "quarter": "2025 Q4", "rate": 3.1 },
+        { "quarter": "2026 Q1", "rate": 3.2 }
+      ],
+      "recent_counts": [
+        { "quarter": "2024 Q3", "count": 14.8 },
+        { "quarter": "2024 Q4", "count": 16.4 },
+        { "quarter": "2025 Q1", "count": 18.7 },
+        { "quarter": "2025 Q2", "count": 16.7 },
+        { "quarter": "2025 Q3", "count": 14.9 },
+        { "quarter": "2025 Q4", "count": 14.3 },
+        { "quarter": "2026 Q1", "count": 14.9 }
+      ]
+    },
+    "hiring": {
+      "recruitment_rate": 2.1,
+      "resignation_rate": 1.4,
+      "quarter": "2026 Q1",
+      "recruitment_delta_pp": -0.5,
+      "resignation_delta_pp": -0.5,
+      "net_pressure_delta_pp": 0,
+      "note": "Turnover slowed markedly, though recruitment continued to exceed resignation."
+    },
+    "retrenchment": {
+      "latest_count": 320,
+      "latest_quarter": "2026 Q1",
+      "trend_4q_pct": 33.33,
+      "signal": -1,
+      "trend_direction": "rising",
+      "qoq_delta_count": 50,
+      "incidence_per_1000": 0.7,
+      "recent_quarters": [
+        { "quarter": "2024 Q4", "count": 250 },
+        { "quarter": "2025 Q1", "count": 240 },
+        { "quarter": "2025 Q2", "count": 280 },
+        { "quarter": "2025 Q3", "count": 410 },
+        { "quarter": "2025 Q4", "count": 270 },
+        { "quarter": "2026 Q1", "count": 320 }
+      ]
+    },
+    "re_entry": {
+      "rate_6m": 72.7,
+      "rate_12m": 68.0,
+      "quarter": "2026 Q1",
+      "rate_6m_delta_pp": 7.7,
+      "rate_12m_delta_pp": -10.5,
+      "note": "Six-month re-entry improved strongly, while the separate 12-month cohort recorded a lower rate."
+    },
+    "summary": "Clerical, sales and service vacancies recovered slightly from Q4 but remained well below a year earlier. Hiring turnover slowed, retrenchment incidence stayed low, and six-month re-entry improved.",
+    "data_as_of": "2026 Q1",
+    "source": "Labour Market Report Q1 2026, MRSD, MOM"
+  },
+  {
+    "cluster_key": "production_transport",
+    "vacancy": {
+      "latest_rate": 2.3,
+      "latest_quarter": "2026 Q1",
+      "trend_4q_pct": -4.17,
+      "signal": 0,
+      "qoq_delta_pp": -0.5,
+      "latest_count": 17.2,
+      "count_trend_4q_pct": -6.01,
+      "count_signal": -1,
+      "count_qoq_delta": -4.5,
+      "recent_quarters": [
+        { "quarter": "2023", "rate": 2.7 },
+        { "quarter": "2024", "rate": 2.3 },
+        { "quarter": "2024 Q4", "rate": 2.4 },
+        { "quarter": "2025 Q1", "rate": 2.4 },
+        { "quarter": "2025 Q3", "rate": 2.0 },
+        { "quarter": "2025 Q4", "rate": 2.8 },
+        { "quarter": "2026 Q1", "rate": 2.3 }
+      ],
+      "recent_counts": [
+        { "quarter": "2024 Q3", "count": 11.2 },
+        { "quarter": "2024 Q4", "count": 18.0 },
+        { "quarter": "2025 Q1", "count": 18.3 },
+        { "quarter": "2025 Q2", "count": 18.2 },
+        { "quarter": "2025 Q3", "count": 14.8 },
+        { "quarter": "2025 Q4", "count": 21.7 },
+        { "quarter": "2026 Q1", "count": 17.2 }
+      ]
+    },
+    "hiring": {
+      "recruitment_rate": 1.7,
+      "resignation_rate": 1.2,
+      "quarter": "2026 Q1",
+      "recruitment_delta_pp": -0.1,
+      "resignation_delta_pp": -0.2,
+      "net_pressure_delta_pp": 0.1,
+      "note": "Recruitment and resignation both slowed; the net hiring balance improved slightly."
+    },
+    "retrenchment": {
+      "latest_count": 200,
+      "latest_quarter": "2026 Q1",
+      "trend_4q_pct": -68.25,
+      "signal": 1,
+      "trend_direction": "falling",
+      "qoq_delta_count": -80,
+      "incidence_per_1000": 0.3,
+      "recent_quarters": [
+        { "quarter": "2024 Q4", "count": 470 },
+        { "quarter": "2025 Q1", "count": 630 },
+        { "quarter": "2025 Q2", "count": 380 },
+        { "quarter": "2025 Q3", "count": 150 },
+        { "quarter": "2025 Q4", "count": 280 },
+        { "quarter": "2026 Q1", "count": 200 }
+      ]
+    },
+    "re_entry": {
+      "rate_6m": 72.5,
+      "rate_12m": 76.9,
+      "quarter": "2026 Q1",
+      "rate_6m_delta_pp": 7.7,
+      "rate_12m_delta_pp": -1.2,
+      "note": "Six-month re-entry recovered strongly; the separate 12-month cohort remained comparatively high."
+    },
+    "summary": "Production and transport vacancies fell back from the Q4 spike and were slightly below a year earlier. Hiring remained net positive, retrenchments declined, and six-month re-entry improved.",
+    "data_as_of": "2026 Q1",
+    "source": "Labour Market Report Q1 2026, MRSD, MOM"
+  }
+]

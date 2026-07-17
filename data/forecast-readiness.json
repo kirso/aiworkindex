@@ -1,6 +1,6 @@
 {
   "version": "V7",
-  "generated_at": "2026-07-16T00:14:20.377Z",
+  "generated_at": "2026-07-17T01:37:31.832Z",
   "status": "non_promoted_forecast_readiness_layer",
   "description": "Source, duplication, and validation protocol matrix for moving from structural AI pressure to forecast-grade labour-market claims. This artifact does not change the headline V7 score.",
   "non_duplication_policy": {
@@ -22,6 +22,9 @@
     "postings_total": 564,
     "posting_source_count": 4,
     "postings_latest_posted_date": "2026-03-20T05:39:49.826Z",
+    "postings_observed_through": "2026-03-20T05:39:49.826Z",
+    "postings_occupation_coverage": "93/562",
+    "postings_role_coverage": "42/88",
     "mom_ai_adoption_report_published_at": "2026-04-30",
     "mom_ai_adopting_firms_pct": 28.5,
     "status_counts": {
@@ -76,11 +79,11 @@
       "evidence_tier": "official_sg",
       "source_keys": [
         "mom_job_vacancy_rates",
-        "mom_labour_market_report_q4_2025"
+        "mom_labour_market_report_q1_2026"
       ],
       "source_urls": [
         "https://data.gov.sg/datasets?resultId=d_1e10046c33418c507bb2483c26dca489&sort=updatedAt",
-        "https://www.mom.gov.sg/newsroom/press-releases/2026/0320-labour-market-4q-2025"
+        "https://stats.mom.gov.sg/Pages/Labour-Market-Report-1Q-2026.aspx"
       ],
       "raw_files": [
         "data/raw/vacancy_rates_by_occupation_group.csv"
@@ -95,7 +98,7 @@
         "labour-monitor.vacancy.latest_rate",
         "labour-monitor.vacancy.latest_quarter"
       ],
-      "transformation": "Direct published vacancy-rate series, with Q4 2025 report-table enrichment where the feed lagged at build time.",
+      "transformation": "Direct published vacancy-rate series, with Q1 2026 report-table enrichment where the feed lagged at build time.",
       "granularity": "Broad occupation clusters.",
       "confidence_for_forecast": "strong_directional",
       "non_duplication_rule": "Keep vacancy rates as labour-monitor fields and source-map entries; do not copy them into occupation records.",
@@ -109,11 +112,11 @@
       "evidence_tier": "derived_from_official_sg",
       "source_keys": [
         "mom_recruitment_resignation_rates",
-        "mom_labour_market_report_q4_2025"
+        "mom_labour_market_report_q1_2026"
       ],
       "source_urls": [
         "https://data.gov.sg/collections/682/datasets/d_236436f8bdb9bbac677c4e5637c6430e/view",
-        "https://www.mom.gov.sg/newsroom/press-releases/2026/0320-labour-market-4q-2025"
+        "https://stats.mom.gov.sg/Pages/Labour-Market-Report-1Q-2026.aspx"
       ],
       "raw_files": [
         "data/raw/recruitment_resignation_rates.json"
@@ -143,11 +146,11 @@
       "evidence_tier": "official_sg",
       "source_keys": [
         "mom_retrenchment_by_occupation_group",
-        "mom_labour_market_report_q4_2025"
+        "mom_labour_market_report_q1_2026"
       ],
       "source_urls": [
         "https://data.gov.sg/datasets?resultId=d_3eaf52cdcc405a80b602d031d0bd092b&sort=updatedAt",
-        "https://www.mom.gov.sg/newsroom/press-releases/2026/0320-labour-market-4q-2025"
+        "https://stats.mom.gov.sg/Pages/Labour-Market-Report-1Q-2026.aspx"
       ],
       "raw_files": [
         "data/raw/retrenchment_by_occupation_group.json"

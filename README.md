@@ -12,7 +12,7 @@ It is **not** a 72% probability of job loss, a claim that 72% of jobs will disap
 
 ## What V8 publishes
 
-- A AI exposure rank and quintile band.
+- An AI exposure rank and quintile band.
 - Separate structural substitution and augmentation-potential ranks.
 - A rule-based likely pathway: limited direct change, workflow redesign, augmentation-led growth, demand-buffered redesign, or hiring/substitution pressure.
 - Official-derived demand, observed sector-adoption, broad workforce-age and transition context. Entry-level sensitivity remains `unknown` until a suitable occupation-level open series exists.
@@ -34,6 +34,8 @@ Singapore is the only live scored market. Global methodology remains research co
 - [`static/data/sg-ai-occupations-v7.json`](static/data/sg-ai-occupations-v7.json) — archived historical release.
 
 Detailed Singapore employment is an estimate derived from broader official occupation-family totals; it is not an official occupation-level headcount. The public V8 schema labels this basis directly.
+
+The current labour context uses MOM's full Q1 2026 report at three broad occupation-cluster levels. The postings monitor is a partial historical sample observed through 20 March 2026 (93 of 562 occupations and 42 of 88 synthetic roles), not a live or representative measure of hiring. Neither layer changes the headline exposure rank.
 
 ## Reproduce the release
 

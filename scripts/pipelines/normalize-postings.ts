@@ -51,6 +51,15 @@ interface PostingAggregate extends PostingMetricBucket {
 
 interface PostingsMonitor {
 	generated_at: string;
+	observed_through: string | null;
+	coverage: {
+		occupations_covered: number;
+		occupations_total: number;
+		occupation_coverage_pct: number;
+		roles_covered: number;
+		roles_total: number;
+		role_coverage_pct: number;
+	};
 	sources: Array<{
 		source: string;
 		label: string;
@@ -339,6 +348,15 @@ function countSources(values: string[]): Array<{ source: string; count: number }
 function emptyMonitor(): PostingsMonitor {
 	return {
 		generated_at: new Date().toISOString(),
+		observed_through: null,
+		coverage: {
+			occupations_covered: 0,
+			occupations_total: occupationIndex.length,
+			occupation_coverage_pct: 0,
+			roles_covered: 0,
+			roles_total: roleIndex.length,
+			role_coverage_pct: 0
+		},
 		sources: [],
 		summary: {
 			total_postings: 0,
@@ -425,6 +443,15 @@ function main() {
 
 	const payload: PostingsMonitor = {
 		generated_at: new Date().toISOString(),
+		observed_through: aggregateMetrics(normalized).latest_posted_date,
+		coverage: {
+			occupations_covered: bySsoc.size,
+			occupations_total: occupationIndex.length,
+			occupation_coverage_pct: Math.round((bySsoc.size / occupationIndex.length) * 10_000) / 100,
+			roles_covered: byRole.size,
+			roles_total: roleIndex.length,
+			role_coverage_pct: Math.round((byRole.size / roleIndex.length) * 10_000) / 100
+		},
 		sources: [...sourceMap.entries()].map(([source, sourcePostings]) => ({
 			source,
 			label: sourceLabel(source),
