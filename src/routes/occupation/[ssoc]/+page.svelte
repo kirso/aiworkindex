@@ -28,6 +28,7 @@
 	import * as Collapsible from '$lib/components/ui/collapsible/index.js';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import ContextItemGrid from '$lib/components/ui/ContextItemGrid.svelte';
+	import OutcomeContextLenses from '$lib/components/ui/OutcomeContextLenses.svelte';
 	import { siteStatus } from '$lib/data/site-status';
 	import { countryConfigs } from '$lib/data/country-config';
 	import { SITE, DATA_VINTAGE } from '$lib/data/scoring-constants';
@@ -209,6 +210,74 @@
 			return 'Local conditions are under more strain. Vacancies have softened and displacement signals are less forgiving.';
 		}
 		return 'Mixed local picture. Read these labour indicators as current Singapore context rather than a forecast.';
+	});
+
+	let outcomeLenses = $derived.by(() => {
+		const adoption = occ.v8.market_context.adoption;
+		const demand = occ.v8.market_context.demand;
+		const transition = occ.v8.transition;
+		const labour = occ.labour_monitor;
+		const taskCoverage = occ.task_primitives?.task_effective_coverage ?? 0;
+
+		return [
+			{
+				label: 'Workplace adoption',
+				value:
+					adoption === 'leading'
+						? 'Leading sectors represented'
+						: adoption === 'established'
+							? 'Adoption established'
+							: adoption === 'emerging'
+								? 'Adoption emerging'
+								: 'Occupation-level adoption unknown',
+				detail: occ.v8.market_context.adoption_basis,
+				tone: adoption === 'unknown' ? ('warning' as const) : ('neutral' as const)
+			},
+			{
+				label: 'Task structure',
+				value: taskCoverage > 0 ? 'Task evidence available' : 'Task evidence limited',
+				detail: taskEvidenceSummary,
+				tone: taskCoverage > 0 ? ('neutral' as const) : ('warning' as const)
+			},
+			{
+				label: 'Human advantage',
+				value: 'Coordination and judgment still matter',
+				detail: structural.personalizedContent.humanNeeded,
+				tone: 'positive' as const
+			},
+			{
+				label: 'Hiring and demand',
+				value: labour
+					? `${labour.vacancy.latest_rate}% vacancy rate · ${labour.data_as_of}`
+					: `${demand} official demand context`,
+				detail: labour?.summary ?? occ.v8.market_context.demand_basis,
+				tone:
+					demand === 'strong'
+						? ('positive' as const)
+						: demand === 'weak'
+							? ('caution' as const)
+							: ('neutral' as const)
+			},
+			{
+				label: 'Career transitions',
+				value: transition?.to_title ?? 'No dominant route identified',
+				detail: transition
+					? `${transition.label} modeled transition; outcomes still depend on skills, wages and openings.`
+					: 'Explore related work and published training support rather than treating exposure as destiny.',
+				tone: transition ? ('positive' as const) : ('warning' as const)
+			},
+			{
+				label: 'Evidence strength',
+				value: `${occ.v8.evidence_confidence.level} confidence`,
+				detail: `${occ.v8.evidence_confidence.exposure_source_count} exposure sources · sensitivity ${netRiskUncertainty.toLowerCase()}.`,
+				tone:
+					occ.v8.evidence_confidence.level === 'high'
+						? ('positive' as const)
+						: occ.v8.evidence_confidence.level === 'low'
+							? ('caution' as const)
+							: ('warning' as const)
+			}
+		];
 	});
 
 	function _offsetLevelLabel(value: number, inverse = false) {
@@ -668,6 +737,23 @@
 				</div>
 			</div>
 		</div>
+	</section>
+
+	<section class={section({ spacing: 'loose' })}>
+		<div class="mb-4 max-w-3xl">
+			<p class={sectionLabel()}>From exposure to employment</p>
+			<h2 class={cn(titleStyle({ size: 'section' }), 'mt-1')}>
+				What could change the employment outcome?
+			</h2>
+			<p class={cn(body({ tone: 'subtle' }), 'mt-2')}>
+				AI capability is only the starting point. Adoption, task design, human oversight, demand,
+				mobility and evidence quality determine how exposure may resolve in practice.
+			</p>
+		</div>
+		<OutcomeContextLenses
+			lenses={outcomeLenses}
+			sourceNote="These lenses are reported separately and do not alter AI Exposure Rank. Labour-market figures describe a broad official occupation cluster, not this SSOC occupation alone."
+		/>
 	</section>
 
 	<!-- ===== BLOCK 3: SINGAPORE NOW ===== -->

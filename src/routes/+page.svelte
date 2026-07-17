@@ -142,6 +142,10 @@
 			<p class="mt-1.5 text-sm text-muted-foreground">
 				See how exposed the work is, what still needs people, and what hiring demand looks like.
 			</p>
+			<p class="mx-auto mt-2 max-w-xl text-xs leading-relaxed text-text-secondary">
+				Exposure shows where AI can act. Employment outcomes also depend on adoption, work redesign,
+				demand, employer decisions and worker mobility.
+			</p>
 			<div class="mt-4">
 				<HeroSearch
 					occupations={surfaceOccupations as unknown as Occupation[]}

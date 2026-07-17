@@ -45,9 +45,11 @@
 	<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'primary' }), 'mt-4')}>
 		<p class="text-sm text-foreground">
 			<span class="font-semibold">Latest context:</span>
-			{macro.resident_unemployment_rate.toFixed(1)}% resident unemployment ·
+			{macro.resident_unemployment_rate.toFixed(1)}% resident unemployment ({macro.quarter}) ·
+			{macro.current_quarter_job_vacancy_to_unemployed_ratio.toFixed(2)} vacancies per unemployed person
+			·
 			{ai.workforce.workers_using_ai_at_work_pct.toFixed(0)}% of workers using AI at work ·
-			{siteStatus.live_monitor.labour_monitor_artifact_vintage} labour monitor · updated
+			{siteStatus.live_monitor.labour_monitor_artifact_vintage} labour monitor · score release
 			{DATA_VINTAGE.last_updated}
 		</p>
 	</div>
@@ -368,19 +370,20 @@
 		</div>
 	</div>
 
-	<!-- Current Snapshot — live monitor metrics -->
-	<p class={cn(sectionLabel(), 'mt-8 mb-3')}>Current Snapshot</p>
+	<!-- Latest available evidence, with source vintages kept explicit. -->
+	<p class={cn(sectionLabel(), 'mt-8 mb-3')}>Latest Available Evidence</p>
 	<p class="mb-3 text-sm text-muted-foreground">
-		Live monitor metrics and signals, kept separate from the structural score.
+		Latest published or captured observations. Source dates—not file generation dates—determine
+		freshness. These signals remain separate from the structural score.
 	</p>
 
-	<div class="grid gap-3 sm:grid-cols-2 md:grid-cols-4">
+	<div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
 		<div class={card({ padding: 'sm', variant: 'metric' })}>
-			<p class={microLabel()}>AI Adoption · 2024</p>
+			<p class={microLabel()}>Firm AI Adoption · 2026</p>
 			<p class="mt-1 font-mono text-lg font-bold text-foreground">
-				{ai.enterprises.non_sme_ai_adoption_pct.toFixed(1)}%
+				{ai.mom_firm_ai_adoption_2026.firms_started_ai_adoption_pct.toFixed(1)}%
 			</p>
-			<p class="text-xs text-muted-foreground">non-SME AI adoption</p>
+			<p class="text-xs text-muted-foreground">firms started adoption · MOM</p>
 		</div>
 		<div class={card({ padding: 'sm', variant: 'metric' })}>
 			<p class={microLabel()}>Workers · 2024</p>
@@ -390,25 +393,43 @@
 			<p class="text-xs text-muted-foreground">using AI at work</p>
 		</div>
 		<div class={card({ padding: 'sm', variant: 'metric' })}>
-			<p class={microLabel()}>Unemployment · 2025 4Q</p>
+			<p class={microLabel()}>Unemployment · {macro.quarter}</p>
 			<p class="mt-1 font-mono text-lg font-bold text-foreground">
 				{macro.resident_unemployment_rate.toFixed(1)}%
 			</p>
 			<p class="text-xs text-muted-foreground">resident unemployment</p>
 		</div>
 		<div class={card({ padding: 'sm', variant: 'metric' })}>
-			<p class={microLabel()}>NAIIP · 2026</p>
+			<p class={microLabel()}>Labour tightness · {macro.quarter}</p>
 			<p class="mt-1 font-mono text-lg font-bold text-foreground">
-				{Math.round(ai.national_programmes.naiip_workers_target / 1000)}K
+				{macro.current_quarter_job_vacancy_to_unemployed_ratio.toFixed(2)}
 			</p>
-			<p class="text-xs text-muted-foreground">AI-bilingual target</p>
+			<p class="text-xs text-muted-foreground">vacancies per unemployed person</p>
+		</div>
+		<div class={card({ padding: 'sm', variant: 'metric' })}>
+			<p class={microLabel()}>Employment · {macro.quarter}</p>
+			<p class="mt-1 font-mono text-lg font-bold text-foreground">
+				+{macro.total_employment_change_thousands.toFixed(1)}K
+			</p>
+			<p class="text-xs text-muted-foreground">total employment change</p>
+		</div>
+		<div class={card({ padding: 'sm', variant: 'metric' })}>
+			<p class={microLabel()}>Retrenchments · {macro.quarter}</p>
+			<p class="mt-1 font-mono text-lg font-bold text-foreground">
+				{macro.total_retrenchments.toLocaleString('en-SG')}
+			</p>
+			<p class="text-xs text-muted-foreground">
+				{macro.retrenchment_incidence_per_1000.toFixed(1)} per 1,000 employees
+			</p>
 		</div>
 	</div>
 
 	{#if postings.total_postings > 0}
 		<details class="mt-4">
 			<summary class="cursor-pointer text-sm font-medium text-foreground hover:text-primary">
-				Hiring Now Monitor ({postings.posting_volume_30d} postings, 30D)
+				{postings.hiring_state === 'stale' ? 'Archived postings snapshot' : 'Postings monitor'}
+				({postingsMonitor.coverage.occupations_covered}/{postingsMonitor.coverage.occupations_total}
+				occupations covered)
 			</summary>
 			<div class={cn(card({ padding: 'md' }), 'mt-2')}>
 				<div class="grid gap-3 sm:grid-cols-3">
@@ -433,13 +454,20 @@
 						</p>
 					</div>
 					<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
-						<p class={microLabel()}>As of</p>
+						<p class={microLabel()}>Observed through</p>
 						<p class="mt-1 text-sm font-medium text-foreground">
-							{new Date(postingsMonitor.generated_at).toLocaleDateString('en', {
-								day: 'numeric',
-								month: 'short',
-								year: 'numeric'
-							})}
+							{postingsMonitor.observed_through
+								? new Date(postingsMonitor.observed_through).toLocaleDateString('en', {
+										day: 'numeric',
+										month: 'short',
+										year: 'numeric'
+									})
+								: '--'}
+						</p>
+						<p class="text-xs text-muted-foreground">
+							{postings.hiring_state === 'stale'
+								? 'Not a current hiring measure'
+								: `${postingsMonitor.coverage.occupation_coverage_pct.toFixed(1)}% occupation coverage`}
 						</p>
 					</div>
 				</div>
@@ -450,7 +478,7 @@
 	{#if employer.summary.total_signals > 0}
 		<details class="mt-4">
 			<summary class="cursor-pointer text-sm font-medium text-foreground hover:text-primary">
-				Employer Pressure Monitor ({employer.summary.total_signals} signals)
+				Employer signal archive ({employer.summary.total_signals} captured signals)
 			</summary>
 			<div class={cn(card({ padding: 'md' }), 'mt-2')}>
 				<div class="grid gap-3 sm:grid-cols-3">
@@ -483,7 +511,9 @@
 	{#if quarterly.previous_snapshot}
 		<details class="mt-4">
 			<summary class="cursor-pointer text-sm font-medium text-foreground hover:text-primary">
-				Quarterly Movers ({quarterly.band_movers.length} band changes, {quarterly.previous_snapshot} to
+				Archived {quarterly.structural_snapshot_version} structural movers ({quarterly.band_movers
+					.length}
+				band changes, {quarterly.previous_snapshot} to
 				{quarterly.current_snapshot})
 			</summary>
 			<div class={cn(card({ padding: 'md' }), 'mt-2')}>

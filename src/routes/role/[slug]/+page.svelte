@@ -19,6 +19,7 @@
 	import * as Collapsible from '$lib/components/ui/collapsible/index.js';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import ContextItemGrid from '$lib/components/ui/ContextItemGrid.svelte';
+	import OutcomeContextLenses from '$lib/components/ui/OutcomeContextLenses.svelte';
 	import { SITE } from '$lib/data/scoring-constants';
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import {
@@ -143,6 +144,9 @@
 	});
 
 	let roleMarketHeadline = $derived.by(() => {
+		if (postings?.hiring_state === 'stale') {
+			return 'The captured postings sample is stale. Use the official broad occupation-cluster indicators below for current context.';
+		}
 		if (postings?.hiring_state === 'active') {
 			return 'Hiring is active in closely related work. Treat it as directional market context rather than a role-specific labour statistic.';
 		}
@@ -153,6 +157,73 @@
 			return 'Employer demand is elevated for closely related work. Use it as directional context, not a role-specific forecast.';
 		}
 		return 'Use these signals as directional context from closely related occupations and recent postings.';
+	});
+
+	let outcomeLenses = $derived.by(() => {
+		const occupation = primaryOccupation;
+		const adoption = occupation?.v8.market_context.adoption ?? 'unknown';
+		const labour = occupation?.labour_monitor;
+		const transition = occupation?.v8.transition;
+		const confidence = occupation?.v8.evidence_confidence.level ?? scored.confidence;
+
+		return [
+			{
+				label: 'Workplace adoption',
+				value:
+					adoption === 'leading'
+						? 'Leading sectors represented'
+						: adoption === 'established'
+							? 'Adoption established'
+							: adoption === 'emerging'
+								? 'Adoption emerging'
+								: 'Role-level adoption unknown',
+				detail:
+					occupation?.v8.market_context.adoption_basis ??
+					'Sector adoption is not available at synthetic-role level.',
+				tone: adoption === 'unknown' ? ('warning' as const) : ('neutral' as const)
+			},
+			{
+				label: 'Task structure',
+				value: 'Component-derived task profile',
+				detail: structural.personalizedContent.aiCanDo,
+				tone: 'neutral' as const
+			},
+			{
+				label: 'Human advantage',
+				value: 'Coordination and judgment still matter',
+				detail: structural.personalizedContent.humanNeeded,
+				tone: 'positive' as const
+			},
+			{
+				label: 'Hiring and demand',
+				value: labour
+					? `${labour.vacancy.latest_rate}% vacancy rate · ${labour.data_as_of}`
+					: 'Broad-market evidence only',
+				detail:
+					labour?.summary ??
+					'No current official occupation-cluster monitor is mapped to this synthetic role.',
+				tone: labour?.overall === 'strong' ? ('positive' as const) : ('neutral' as const)
+			},
+			{
+				label: 'Career transitions',
+				value: transition?.to_title ?? 'Review component occupations',
+				detail: transition
+					? `${transition.label} modeled transition from the primary component occupation.`
+					: 'Synthetic roles inherit transition evidence from their component occupations.',
+				tone: transition ? ('positive' as const) : ('warning' as const)
+			},
+			{
+				label: 'Evidence strength',
+				value: `${confidence} confidence`,
+				detail: `Synthetic estimate blended from ${scored.components.length} occupation components; it is not an official occupation statistic.`,
+				tone:
+					confidence === 'high'
+						? ('positive' as const)
+						: confidence === 'low'
+							? ('caution' as const)
+							: ('warning' as const)
+			}
+		];
 	});
 
 	function _pressureBarClass(v: number) {
@@ -597,6 +668,23 @@
 				</div>
 			{/if}
 		</div>
+	</section>
+
+	<section class="mb-8">
+		<div class="mb-4 max-w-3xl">
+			<p class={sectionLabel()}>From exposure to employment</p>
+			<h2 class="mt-1 text-xl font-semibold tracking-tight text-foreground">
+				What could change the employment outcome?
+			</h2>
+			<p class="mt-2 text-sm leading-relaxed text-muted-foreground">
+				This synthetic estimate is only a starting point. Adoption, task design, human oversight,
+				demand, mobility and evidence quality determine what happens in practice.
+			</p>
+		</div>
+		<OutcomeContextLenses
+			lenses={outcomeLenses}
+			sourceNote="These lenses do not alter the synthetic exposure estimate. Labour indicators come from the primary component occupation's broad official cluster."
+		/>
 	</section>
 
 	<!-- ===== BLOCK 3: SINGAPORE NOW ===== -->
