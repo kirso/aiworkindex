@@ -16,6 +16,7 @@
 		sectionNumber,
 		dataChip
 	} from '$lib/design-system';
+	import { broadJobMarketContext, broadRealWageContext } from '$lib/data/job-market-context';
 	import { cn } from '$lib/utils';
 	import { vacancySignalClass } from '$lib/data/detail-display';
 	import OccupationCard from '$lib/components/ui/OccupationCard.svelte';
@@ -218,6 +219,8 @@
 		const transition = occ.v8.transition;
 		const labour = occ.labour_monitor;
 		const taskCoverage = occ.task_primitives?.task_effective_coverage ?? 0;
+		const jobQuality = broadJobMarketContext(occ.major_group);
+		const wageMovement = broadRealWageContext(occ.major_group);
 
 		return [
 			{
@@ -250,7 +253,9 @@
 				value: labour
 					? `${labour.vacancy.latest_rate}% vacancy rate · ${labour.data_as_of}`
 					: `${demand} official demand context`,
-				detail: labour?.summary ?? occ.v8.market_context.demand_basis,
+				detail: [labour?.summary ?? occ.v8.market_context.demand_basis, jobQuality, wageMovement]
+					.filter(Boolean)
+					.join(' '),
 				tone:
 					demand === 'strong'
 						? ('positive' as const)

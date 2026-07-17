@@ -10,6 +10,7 @@
 		pill,
 		microLabel
 	} from '$lib/design-system';
+	import { broadJobMarketContext, broadRealWageContext } from '$lib/data/job-market-context';
 	import { cn } from '$lib/utils';
 	import { vacancySignalClass } from '$lib/data/detail-display';
 	import OccupationCard from '$lib/components/ui/OccupationCard.svelte';
@@ -165,6 +166,8 @@
 		const labour = occupation?.labour_monitor;
 		const transition = occupation?.v8.transition;
 		const confidence = occupation?.v8.evidence_confidence.level ?? scored.confidence;
+		const jobQuality = occupation ? broadJobMarketContext(occupation.major_group) : null;
+		const wageMovement = occupation ? broadRealWageContext(occupation.major_group) : null;
 
 		return [
 			{
@@ -199,9 +202,14 @@
 				value: labour
 					? `${labour.vacancy.latest_rate}% vacancy rate · ${labour.data_as_of}`
 					: 'Broad-market evidence only',
-				detail:
+				detail: [
 					labour?.summary ??
-					'No current official occupation-cluster monitor is mapped to this synthetic role.',
+						'No current official occupation-cluster monitor is mapped to this synthetic role.',
+					jobQuality,
+					wageMovement
+				]
+					.filter(Boolean)
+					.join(' '),
 				tone: labour?.overall === 'strong' ? ('positive' as const) : ('neutral' as const)
 			},
 			{

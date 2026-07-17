@@ -56,6 +56,30 @@
 
 	<p class={cn(sectionLabel(), 'mt-6 mb-3')}>Published Reports</p>
 	<div class="space-y-4">
+		<a href="/reports/job-market-evidence" class="block no-underline">
+			<div class={cn(card({ padding: 'lg', hover: true }), 'flex items-start justify-between')}>
+				<div>
+					<div class="flex flex-wrap items-center gap-2">
+						<span class="text-base font-semibold text-foreground"
+							>Singapore Job Market Evidence</span
+						>
+						<span class={badge({ variant: 'info' })}>Current</span>
+					</div>
+					<p class="mt-1 text-sm text-muted-foreground">
+						Vacancies, entry-level hiring, job quality, real wage movement and occupation-family
+						employment change—kept separate from AI exposure ranks.
+					</p>
+				</div>
+				<svg
+					class="ml-4 mt-1 h-5 w-5 shrink-0 text-muted-foreground"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg
+				>
+			</div>
+		</a>
+
 		<a href="/methodology" class="block no-underline">
 			<div class={cn(card({ padding: 'lg', hover: true }), 'flex items-start justify-between')}>
 				<div>

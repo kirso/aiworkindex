@@ -1,9 +1,9 @@
 {
-  "updated_at": "2026-07-17T01:39:48.067Z",
+  "updated_at": "2026-07-17T04:09:11.257Z",
   "structural_release": {
     "version": "V8",
     "label": "V8 truthful AI exposure release",
-    "generated_at": "2026-07-17T01:39:48.067Z",
+    "generated_at": "2026-07-17T04:09:11.257Z",
     "score_dataset_generated_at": "2026-07-17",
     "release_manifest": "release-manifest-v8.json"
   },

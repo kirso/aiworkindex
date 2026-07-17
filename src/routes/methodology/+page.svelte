@@ -113,8 +113,8 @@
 			<li>Detailed Singapore occupation employment is estimated from broader official groups.</li>
 			<li>Demand and age evidence can be broader than the individual SSOC occupation.</li>
 			<li>
-				Output-demand elasticity, firm reorganization and job quality are not measured as occupation
-				scores.
+				Output-demand elasticity and firm reorganization are not measured. Broad-group job quality
+				and real wage movement are published as context, not occupation scores or AI effects.
 			</li>
 			<li>
 				Observed employment effects can appear first in hiring, hours, contractors or career ladders
@@ -133,6 +133,9 @@
 		<h2 class={sectionLabel({ class: 'mb-3' })}>Data and history</h2>
 		<div class="flex flex-wrap gap-3 text-sm">
 			<a class="text-primary hover:underline" href="/data">Download V8 data</a>
+			<a class="text-primary hover:underline" href="/reports/job-market-evidence"
+				>Job market evidence</a
+			>
 			<a class="text-primary hover:underline" href="/research">Research library</a>
 			<a class="text-primary hover:underline" href="/reports/v7-release">Archived V7 release</a>
 			<a class="text-primary hover:underline" href="/methodology/appendix">Technical appendix</a>
