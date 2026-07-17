@@ -76,4 +76,37 @@ describe('V8 public display contract', () => {
 		assert.match(reports, /V7 Release Note/);
 		assert.match(reports, /Archived documentation for the former V7/);
 	});
+
+	test('high-exposure in-demand chart uses occupation-level evidence rather than a synthetic demand axis', () => {
+		const selected = occupations.filter(
+			occupation =>
+				occupation.v8.ai_exposure_rank.points >= 60 &&
+				occupation.v8.market_context.demand === 'strong'
+		);
+		const sol = selected.filter(occupation => occupation.evidence.sol_match !== false);
+		const jid = selected.filter(
+			occupation => occupation.evidence.jobs_in_demand_match !== false
+		);
+		const both = selected.filter(
+			occupation =>
+				occupation.evidence.sol_match !== false &&
+				occupation.evidence.jobs_in_demand_match !== false
+		);
+
+		assert.equal(selected.length, 15);
+		assert.equal(sol.length, 13);
+		assert.equal(jid.length, 5);
+		assert.equal(both.length, 3);
+		assert.ok(
+			selected.every(
+				occupation =>
+					occupation.evidence.sol_match === 'exact' ||
+					occupation.evidence.jobs_in_demand_match === 'exact'
+			)
+		);
+
+		const page = routeSource('src/routes/rankings/high-exposure-in-demand/+page.svelte');
+		assert.match(page, /HighDemandExposurePlot/);
+		assert.doesNotMatch(page, /DemandPressureMatrix/);
+	});
 });

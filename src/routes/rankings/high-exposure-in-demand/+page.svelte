@@ -1,7 +1,7 @@
 <script lang="ts">
 	import RankingTable from '$lib/components/ui/RankingTable.svelte';
 	import RankingNavPills from '$lib/components/ui/RankingNavPills.svelte';
-	import DemandPressureMatrix from '$lib/components/viz/DemandPressureMatrix.svelte';
+	import HighDemandExposurePlot from '$lib/components/viz/HighDemandExposurePlot.svelte';
 	import { title as titleStyle, pageLayout, card } from '$lib/design-system';
 	import type { Occupation } from '$lib/data';
 	import { countryConfigs } from '$lib/data/country-config';
@@ -94,7 +94,7 @@
 
 	<section class="mt-6">
 		<div class={card({ padding: 'md' })}>
-			<DemandPressureMatrix occupations={data.ranked} />
+			<HighDemandExposurePlot occupations={data.ranked} />
 		</div>
 	</section>
 
