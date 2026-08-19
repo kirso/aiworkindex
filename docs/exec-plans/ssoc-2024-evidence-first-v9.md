@@ -40,7 +40,12 @@ history and a final release artifact.
   and deterministic builders.
 - [x] (2026-08-19) Built the current registry, scientific crosswalk, search synonyms, and
   isolated URL continuity artifact.
-- [ ] Implement the V9 public contract and replace the active V8 scoring owner.
+- [x] (2026-08-19) Implemented the V9 generated contract: 1,001 numeric occupations,
+  987 ILO-scored, 14 explicitly unscored, no group fallbacks, and uncertainty retained for
+  official many-to-many mappings.
+- [x] (2026-08-19) Replaced the wage input with the direct MOM Occupational Wages 2025
+  workbook and made detailed wage evidence nullable (523 occupations).
+- [ ] Replace every active V8 application import and public scoring surface with V9.
 - [ ] Refresh Singapore wages and labour evidence and disposition every SSOC-keyed sidecar.
 - [ ] Migrate occupation, role, ranking, methodology, report, export, and responsive UI
   surfaces.
@@ -72,6 +77,13 @@ history and a final release artifact.
   24 June 2026, while both correspondence workbooks remain dated 21 March 2024.
   Evidence: The workbook title rows and generated `source-metadata.json` preserve those
   independent vintages.
+- Observation: The 2025 MOM wage table covers 523 of 1,001 numeric SSOC 2024 occupations
+  and all six published percentile cells are numeric for those rows.
+  Evidence: The V9 builder validates 523 unique codes and the six basic/gross P25, median,
+  and P75 values before accepting the source.
+- Observation: Fourteen numeric SSOC 2024 occupations have no usable ILO 2025 value through
+  the official correspondence; this is a mapping/source gap, not evidence of zero exposure.
+  Evidence: `tests/v9-contract.test.ts` freezes the exact withheld-code set.
 
 ## Decision Log
 
@@ -103,6 +115,10 @@ history and a final release artifact.
   methodology modules.
   Rationale: The existing URL already has authority and the code is the stable official
   identifier.
+  Date/Author: 2026-08-19 / Codex
+- Decision: Preserve direct wage observations only; absence from MOM Table 4 remains null.
+  Rationale: The table's establishment and employee scope is narrower than the full economy,
+  and interpolation would erase both coverage limits and real uncertainty.
   Date/Author: 2026-08-19 / Codex
 
 ## Outcomes & Retrospective

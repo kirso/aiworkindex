@@ -1,0 +1,18 @@
+{
+  "publisher": "Singapore Ministry of Manpower",
+  "dataset": "Occupational Wages 2025, Table 4",
+  "source_page": "https://stats.mom.gov.sg/Pages/Occupational-Wages-Tables2025.aspx",
+  "terms_url": "https://www.mom.gov.sg/terms-of-use",
+  "retrieved_at": "2026-08-19T00:10:19.872Z",
+  "coverage": {
+    "taxonomy": "SSOC 2024",
+    "detailed_occupations": 523,
+    "population": "Full-time resident employees in establishments with at least 25 employees, June 2025"
+  },
+  "file": {
+    "filename": "mom-occupational-wages-2025.xlsx",
+    "url": "https://stats.mom.gov.sg/iMAS_Tables1/Wages/Wages_2025/mrsd_2025Wages_table4.xlsx",
+    "bytes": 218205,
+    "sha256": "781a90bf5f9f24845b999d144e406e74f2e0843d5b297d5453ce31fca6b0f4c3"
+  }
+}
