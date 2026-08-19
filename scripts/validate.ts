@@ -1,6 +1,9 @@
 #!/usr/bin/env bun
 /**
- * validate.ts — Regression and anchor checks for the current scoring model.
+ * validate.ts — Archived V3–V8 regressions plus current V9 release-governance checks.
+ *
+ * The archived checks protect reproducibility of historical fixtures. They do not validate the
+ * current V9 methodology unless a check is explicitly labelled "Current V9".
  *
  * Run: bun run scripts/validate.ts
  */
@@ -524,7 +527,10 @@ interface LabourClusterMonitor {
 }
 
 async function main() {
-	console.log('=== Validation Report ===\n');
+	console.log('=== Archived V3–V8 regressions + current V9 governance ===\n');
+	console.log(
+		'Archive regressions protect historical fixtures; only sections labelled Current V9 validate the current public release.\n'
+	);
 
 	if (!fs.existsSync(DATA_FILE)) {
 		console.error(`ERROR: ${DATA_FILE} not found. Run score.ts first.`);
@@ -574,12 +580,12 @@ async function main() {
 		return labourMonitorByKey.get(row.labour_monitor_key) ?? null;
 	}
 
-	console.log('--- Record counts ---');
+	console.log('--- Archive regression: V3–V8 fixture record counts ---');
 	check('Total occupations = 562', data.length === 562, `got ${data.length}`);
 
-	console.log('\n--- Completeness ---');
+	console.log('\n--- Archive regression: V3–V8 fixture completeness ---');
 	check(
-		'All occupations have current core fields',
+		'Archived occupations retain their historical core fields',
 		data.every(
 			row =>
 				typeof row.estimated_sg_employment_thousands === 'number' &&
@@ -609,7 +615,7 @@ async function main() {
 		data.every(row => getLabourMonitor(row))
 	);
 
-	console.log('\n--- V7 formula integrity ---');
+	console.log('\n--- Archive regression: V7 formula integrity ---');
 	const FORMULA_TOLERANCE = 1e-3;
 	check(
 		'All occupations have V7 fields (task_signal, exposure_v7, demand_persistence)',
@@ -660,7 +666,7 @@ async function main() {
 		)
 	);
 
-	console.log('\n--- Coverage ---');
+	console.log('\n--- Archive regression: V3–V8 coverage ---');
 	const direct = data.filter(row => row.match_quality === 'direct').length;
 	const submajor = data.filter(row => row.match_quality === 'submajor_fallback').length;
 	const major = data.filter(row => row.match_quality === 'major_fallback').length;
@@ -757,7 +763,7 @@ async function main() {
 		})
 	);
 
-	console.log('\n--- Distribution sanity ---');
+	console.log('\n--- Archive regression: V3–V8 distribution sanity ---');
 	const bandCounts: Record<RiskBand, number> = {
 		very_low: 0,
 		low: 0,
@@ -886,7 +892,7 @@ async function main() {
 	console.log(`       Confidence: ${JSON.stringify(confidenceCounts)}`);
 	console.log(`       Stability: ${JSON.stringify(stabilityCounts)}`);
 
-	console.log('\n--- Anchor occupations ---');
+	console.log('\n--- Archive regression: V3–V8 anchor occupations ---');
 	const software = find(/software developer/i);
 	const dataEntry = find(/data entry clerk/i);
 	const surgeon = find(/surgeon/i);
@@ -941,7 +947,7 @@ async function main() {
 		!!dataScientist && dataScientist.impact_type !== 'stable'
 	);
 
-	console.log('\n--- Labour monitor sanity ---');
+	console.log('\n--- Archive regression: V3–V8 labour monitor ---');
 	const staleMonitor = data.find(row => {
 		const monitor = getLabourMonitor(row);
 		return (monitor?.vacancy.recent_quarters.length ?? 0) < 4;
@@ -963,7 +969,7 @@ async function main() {
 		JSON.stringify(labourSignals)
 	);
 
-	console.log('\n--- Synthetic role validation ---');
+	console.log('\n--- Archive regression: V3–V8 synthetic roles ---');
 	try {
 		const { computeRoleScores, syntheticRoles } = await import('../src/lib/data/synthetic-roles');
 		const { occupationsBySSoc } = await import('../src/lib/data');
@@ -1023,7 +1029,7 @@ async function main() {
 		check('All synthetic roles compute without errors', false, String(error));
 	}
 
-	console.log('\n--- Role taxonomy validation ---');
+	console.log('\n--- Archive regression: V3–V8 role taxonomy ---');
 	try {
 		const { syntheticRoles } = await import('../src/lib/data/synthetic-roles');
 		const taxonomy = await import('../src/lib/data/role-taxonomy');
@@ -1035,7 +1041,7 @@ async function main() {
 		warn('Taxonomy validation', `Could not import: ${error}`);
 	}
 
-	console.log('\n--- Alias SSOC validation ---');
+	console.log('\n--- Archive regression: V3–V8 alias SSOC references ---');
 	try {
 		const { jobAliases } = await import('../src/lib/data/aliases');
 		const aliasEntries = Object.values(jobAliases).flat();
@@ -1050,7 +1056,7 @@ async function main() {
 		warn('Alias SSOC validation', `Could not import: ${error}`);
 	}
 
-	console.log('\n--- Archetype classification validation ---');
+	console.log('\n--- Archive regression: V3–V8 archetype classifications ---');
 	try {
 		const { classifyArchetype } = await import('../src/lib/data/role-archetypes');
 		const professional = data.filter(
@@ -1086,7 +1092,7 @@ async function main() {
 		warn('Archetype validation', `Could not import: ${error}`);
 	}
 
-	console.log('\n--- Context modifier validation ---');
+	console.log('\n--- Archive regression: V3–V8 context modifiers ---');
 	try {
 		const contextModule = await import('../src/lib/data/role-context-modifiers');
 		const valid = contextModule.validateContextModifiers?.();
@@ -1099,7 +1105,7 @@ async function main() {
 		console.log('  INFO: Context modifiers module not shipped; skipping optional validation');
 	}
 
-	console.log('\n--- Workflow overlay validation ---');
+	console.log('\n--- Archive regression: V3–V8 workflow overlays ---');
 	try {
 		const { archetypeOverlayDefaults } = await import('../src/lib/data/workflow-overlay');
 		const { classifyArchetype } = await import('../src/lib/data/role-archetypes');
@@ -1139,7 +1145,7 @@ async function main() {
 		warn('Workflow overlay validation', `Could not import: ${error}`);
 	}
 
-	console.log('\n--- Transition capacity validation ---');
+	console.log('\n--- Archive regression: V3–V8 transition capacity ---');
 	try {
 		const { computeTransitionScore } = await import('../src/lib/data/transition-capacity');
 		if (software && dataScientist) {
@@ -1159,74 +1165,72 @@ async function main() {
 		warn('Transition capacity validation', `Could not import: ${error}`);
 	}
 
-	console.log('\n--- Data vintage & consistency ---');
+	console.log('\n--- Archived artifacts and current release ownership ---');
 	try {
 		const { syntheticRoles } = await import('../src/lib/data/synthetic-roles');
 		const siteStatus = readJson<{
-			structural_release: { version: string; release_manifest: string };
-			experimental_release: {
+			schema_version: string;
+			structural_release: {
 				version: string;
-				status:
-					| 'blocked'
-					| 'not_ready'
-					| 'ready_for_shadow_scoring'
-					| 'shadow_published'
-					| 'promoted';
-				artifact: string;
-				headline_promotion_ready: boolean;
-				median_direct_matched_task_weight_share: number | null;
-			} | null;
-			v5_program?: {
 				status: string;
-				experimental_model_published?: boolean;
-				structural_validation_result?: string | null;
-				realized_validation_result?: string | null;
-				transition_band_flip_count?: number | null;
-				impact_flip_count?: number | null;
-			} | null;
+				release_manifest: string;
+				taxonomy: string;
+				headline_construct: string;
+				headline_source: string;
+				counts: {
+					occupations: number;
+					scored: number;
+					insufficient_evidence: number;
+					direct_wages: number;
+				};
+			};
+			role_query_layer: {
+				status: string;
+				artifact: string;
+				count: number;
+				exact_title_match_count: number;
+				reviewed_alias_match_count: number;
+				official_match_count: number;
+				non_official_count: number;
+				estimated_count: number;
+				withheld_count: number;
+				headline_effect: string;
+			};
+			external_comparisons: {
+				status: string;
+				headline_effect: string;
+				reason_code: string;
+				coverage: Record<string, { published: number; total: number }>;
+			};
 			live_monitor: {
-				labour_monitor_artifact_vintage: string;
-				labour_monitor_validation_vintage?: string;
-				postings_volume_30d?: number;
-				temporal_validation_vacancy_accuracy?: number;
-				temporal_validation_vacancy_periods?: number;
-				temporal_validation_hiring_accuracy?: number;
-				temporal_validation_hiring_periods?: number;
-				calibration_direct_rho?: number | null;
-				calibration_direct_sample?: number | null;
-				calibration_high_medium_rho?: number | null;
-				calibration_high_medium_sample?: number | null;
-				calibration_low_confidence_sample?: number | null;
-				sensitivity_spearman_p50?: number | null;
-				sensitivity_top20_jaccard_p50?: number | null;
-				sensitivity_fidelity_ok?: boolean | null;
-				imf_top_half_exposed_share_pct?: number | null;
-				imf_top_half_high_to_low_ratio?: number | null;
-				forecast_horizon_status?: string | null;
-				forecast_horizon_post_baseline_quarters?: number | null;
-				confidence_rating_high_count?: number | null;
-				confidence_rating_medium_count?: number | null;
-				confidence_rating_low_count?: number | null;
-				confidence_rating_top_limiter?: string | null;
-				confidence_rating_top_limiter_count?: number | null;
-				scenario_family_count?: number | null;
-				scenario_base_avg_near_term_risk?: number | null;
-				scenario_fast_adoption_avg_near_term_risk?: number | null;
-				adoption_diffusion_headline_pct?: number | null;
-				adoption_diffusion_headcount_reduction_pct?: number | null;
-				adoption_diffusion_role_redesign_pct?: number | null;
-				adoption_diffusion_top_sector_label?: string | null;
-				adoption_diffusion_top_sector_pct?: number | null;
-				age_structure_high_attrition_absorber_count?: number | null;
-				age_structure_known_coverage_count?: number | null;
-				age_structure_unknown_coverage_count?: number | null;
-				age_structure_avg_age_50_plus_share?: number | null;
-				occupation_family_validation_rho?: number | null;
-				occupation_family_validation_family_count?: number | null;
-				occupation_family_validation_significant?: boolean | null;
-				offset_potential_generated_at?: string | null;
-				offset_potential_high_count?: number | null;
+				market_context_artifact: string;
+				market_context_generated_at: string;
 				latest_official_labour_report: { label: string; url: string };
+				detailed_labour_evidence_vintage: string;
+				macro_context_vintage: string;
+				named_demand: {
+					occupation_count: number;
+					reviewed_source_label_count: number;
+					withheld_generic_label_count: number;
+				};
+				postings: {
+					status: string;
+					public_demand_input: boolean;
+					observed_through: string | null;
+				};
+				quarterly_comparison: {
+					status: string;
+					current_snapshot: null;
+					previous_snapshot: null;
+				};
+				research_review_cutoff: string;
+				research_record_count: number;
+			};
+			archives: {
+				status: string;
+				releases_artifact: string;
+				release_history_page: string;
+				reports_index: string;
 			};
 			homepage_banner: { title: string; body: string };
 		}>(SITE_STATUS_FILE);
@@ -1234,13 +1238,45 @@ async function main() {
 			Array<{
 				id: string;
 				type: string;
-				version_label?: string;
+				version_label?: string | null;
 				score_version: string;
-				monitor_vintage: string;
+				monitor_vintage: string | null;
 				display_date?: string | null;
 				published_at?: string | null;
+				availability: string;
+				status: string;
+				archive: boolean;
+				href: string;
+				label: string;
 			}>
 		>(RELEASES_FILE);
+		const v9Market = readJson<{
+			generated_at: string;
+			demand_by_code: Record<string, Array<{ source_key: string; source_occupation: string }>>;
+			withheld_demand_mappings: unknown[];
+			national: {
+				postings_monitor: {
+					status: string;
+					public_demand_input: boolean;
+					observed_through: string | null;
+				};
+			};
+		}>(path.join(import.meta.dir, '..', 'src', 'lib', 'data', 'v9-market-context.json'));
+		const v9Roles = readJson<{
+			counts: {
+				roles: number;
+				exact_title_matches: number;
+				reviewed_alias_matches: number;
+				official_query_matches: number;
+				non_official_roles: number;
+				composite_roles: number;
+				mapping_withheld: number;
+			};
+		}>(path.join(import.meta.dir, '..', 'src', 'lib', 'data', 'synthetic-roles-v9.json'));
+		const v9DemandEvidence = Object.values(v9Market?.demand_by_code ?? {}).flat();
+		const v9NamedDemandLabels = new Set(
+			v9DemandEvidence.map(item => `${item.source_key}\u0000${item.source_occupation}`)
+		);
 		const quarterlyReport = readJson<{
 			labour_monitor?: {
 				data_as_of: string;
@@ -1429,9 +1465,12 @@ async function main() {
 			by_archetype?: Record<string, { pressure_score: number; signal_count: number }>;
 			by_sector?: Record<string, { pressure_score: number; signal_count: number }>;
 		}>(EMPLOYER_SIGNALS_FILE);
-		const releaseManifest = readJson<{ version: string; artifacts: Array<{ file: string }> }>(
-			RELEASE_MANIFEST_FILE
-		);
+		const releaseManifest = readJson<{
+			version: string;
+			schema_version?: string;
+			taxonomy?: string;
+			artifacts: Array<{ file: string }>;
+		}>(RELEASE_MANIFEST_FILE);
 		const experimentalMethodology = readJson<{
 			version: string;
 			shadow_readiness: {
@@ -1462,6 +1501,9 @@ async function main() {
 			}>;
 		}>(EXPERIMENTAL_METHODOLOGY_FILE);
 		const researchLibrary = readJson<{
+			version?: string;
+			review_cutoff?: string;
+			entry_count?: number;
 			entries?: Array<{ key: string; source_keys: string[]; claim_ids: string[] }>;
 		}>(RESEARCH_LIBRARY_FILE);
 		const v5Sidecars = readJson<{
@@ -1708,6 +1750,7 @@ async function main() {
 			entry => entry.active !== false
 		);
 
+		console.log('\n--- Archive regression: V3–V8 constants and fixture consistency ---');
 		check(
 			'DATA_VINTAGE.occupation_count matches actual data',
 			DATA_VINTAGE.occupation_count === data.length,
@@ -1737,36 +1780,143 @@ async function main() {
 			`${daysOld} days old`
 		);
 		check(
-			'Public release review age is within 180 days',
+			'Archived fixture review age is within 180 days',
 			daysOld <= 180,
 			`${daysOld} days old; source vintages are disclosed separately and do not reset on each build`
 		);
+
+		console.log('\n--- Current V9 release governance ---');
 		check('Site status artifact exists', siteStatus !== null);
 		check(
-			'Site status structural version matches DATA_VINTAGE',
-			siteStatus?.structural_release.version === DATA_VINTAGE.public_version,
+			'Site status publishes the current V9 structural contract',
+			siteStatus?.schema_version === '9.0' &&
+				siteStatus.structural_release.version === 'V9' &&
+				siteStatus.structural_release.status === 'current' &&
+				siteStatus.structural_release.taxonomy === 'SSOC 2024' &&
+				siteStatus.structural_release.headline_construct === 'AI Work Pressure Rank' &&
+				siteStatus.structural_release.headline_source === 'ILO 2025 mean_score_2025',
 			siteStatus?.structural_release.version
 		);
+		check(
+			'Site status publishes only the bounded V9 top-level sections',
+			JSON.stringify(Object.keys(siteStatus ?? {}).sort()) ===
+				JSON.stringify(
+					[
+						'archives',
+						'external_comparisons',
+						'homepage_banner',
+						'live_monitor',
+						'role_query_layer',
+						'schema_version',
+						'structural_release',
+						'updated_at'
+					].sort()
+				)
+		);
+		check(
+			'Site status occupation counts match the canonical V9 release',
+			siteStatus?.structural_release.counts.occupations === 1001 &&
+				siteStatus.structural_release.counts.scored === 987 &&
+				siteStatus.structural_release.counts.insufficient_evidence === 14 &&
+				siteStatus.structural_release.counts.direct_wages === 523,
+			JSON.stringify(siteStatus?.structural_release.counts)
+		);
+		check(
+			'Site status separates official query resolutions, composites and withheld mappings',
+			siteStatus?.role_query_layer.status ===
+				'official_resolutions_composites_and_withheld_queries' &&
+				siteStatus.role_query_layer.count === v9Roles?.counts.roles &&
+				siteStatus.role_query_layer.official_match_count ===
+					v9Roles?.counts.official_query_matches &&
+				siteStatus.role_query_layer.exact_title_match_count ===
+					v9Roles?.counts.exact_title_matches &&
+				siteStatus.role_query_layer.reviewed_alias_match_count ===
+					v9Roles?.counts.reviewed_alias_matches &&
+				siteStatus.role_query_layer.non_official_count === v9Roles?.counts.non_official_roles &&
+				siteStatus.role_query_layer.estimated_count === v9Roles?.counts.composite_roles &&
+				siteStatus.role_query_layer.withheld_count === v9Roles?.counts.mapping_withheld &&
+				siteStatus.role_query_layer.headline_effect === 'none',
+			JSON.stringify(siteStatus?.role_query_layer)
+		);
+		check(
+			'Site status withholds unreplicated external occupation comparisons',
+			siteStatus?.external_comparisons.status === 'withheld' &&
+				siteStatus.external_comparisons.headline_effect === 'none' &&
+				siteStatus.external_comparisons.reason_code ===
+					'missing_verified_isco08_to_soc_provenance_or_construct_replication' &&
+				JSON.stringify(Object.keys(siteStatus.external_comparisons.coverage).sort()) ===
+					JSON.stringify(
+						['aioe', 'eloundou', 'observed_ai_use', 'potential_complementarity'].sort()
+					) &&
+				Object.values(siteStatus.external_comparisons.coverage).every(
+					coverage => coverage.published === 0 && coverage.total === 1001
+				),
+			JSON.stringify(siteStatus?.external_comparisons)
+		);
+		check(
+			'Site status named-demand coverage matches the V9 market artifact',
+			siteStatus?.live_monitor.market_context_artifact === 'v9-market-context.json' &&
+				siteStatus.live_monitor.market_context_generated_at === v9Market?.generated_at &&
+				siteStatus.live_monitor.named_demand.occupation_count ===
+					Object.keys(v9Market?.demand_by_code ?? {}).length &&
+				siteStatus.live_monitor.named_demand.reviewed_source_label_count ===
+					v9NamedDemandLabels.size &&
+				siteStatus.live_monitor.named_demand.withheld_generic_label_count ===
+					(v9Market?.withheld_demand_mappings.length ?? 0),
+			JSON.stringify(siteStatus?.live_monitor.named_demand)
+		);
+		check(
+			'Site status explicitly withholds the stale postings sample',
+			siteStatus?.live_monitor.postings.status === v9Market?.national.postings_monitor.status &&
+				siteStatus.live_monitor.postings.public_demand_input === false &&
+				siteStatus.live_monitor.postings.observed_through ===
+					v9Market?.national.postings_monitor.observed_through,
+			JSON.stringify(siteStatus?.live_monitor.postings)
+		);
+		check(
+			'Site status withholds quarterly comparison until two V9 snapshots exist',
+			siteStatus?.live_monitor.quarterly_comparison.status ===
+				'withheld_until_two_comparable_v9_snapshots' &&
+				siteStatus.live_monitor.quarterly_comparison.current_snapshot === null &&
+				siteStatus.live_monitor.quarterly_comparison.previous_snapshot === null
+		);
+		check(
+			'Site status research cutoff matches the V9 research library',
+			siteStatus?.live_monitor.research_review_cutoff === researchLibrary?.review_cutoff &&
+				siteStatus.live_monitor.research_record_count === researchLibrary?.entry_count,
+			`${siteStatus?.live_monitor.research_review_cutoff} / ${siteStatus?.live_monitor.research_record_count}`
+		);
+		check(
+			'Site status points old methods to explicit archives',
+			siteStatus?.archives.status === 'dated_historical_records_not_current_v9' &&
+				siteStatus.archives.releases_artifact === 'releases.json' &&
+				siteStatus.archives.release_history_page === '/changelog' &&
+				siteStatus.archives.reports_index === '/reports'
+		);
+		const siteStatusText = JSON.stringify(siteStatus);
+		check(
+			'Site status does not expose archived model summaries as current facts',
+			[
+				'experimental_release',
+				'v5_program',
+				'labour_monitor_validation_vintage',
+				'postings_volume_30d',
+				'calibration_direct_rho',
+				'sensitivity_spearman_p50',
+				'forecast_horizon_status',
+				'confidence_rating_high_count',
+				'scenario_family_count',
+				'adoption_diffusion_headcount_reduction_pct',
+				'age_structure_high_attrition_absorber_count',
+				'occupation_family_validation_rho',
+				'offset_potential_high_count'
+			].every(field => !siteStatusText.includes(`"${field}"`))
+		);
+
+		console.log('\n--- Archive regression: V3–V8 sidecars and release lineage ---');
 		check('Experimental methodology artifact exists', experimentalMethodology !== null);
 		check(
-			'Site status includes experimental release summary',
-			siteStatus?.experimental_release?.artifact === 'experimental-methodology-v43.json',
-			siteStatus?.experimental_release?.artifact
-		);
-		check(
-			'Experimental release version is V4.3-shadow',
-			experimentalMethodology?.version === 'V4.3-shadow' &&
-				siteStatus?.experimental_release?.version === 'V4.3-shadow',
-			`${experimentalMethodology?.version} / ${siteStatus?.experimental_release?.version}`
-		);
-		check(
-			'Experimental release shadow publication state matches site status',
-			experimentalMethodology?.shadow_score_published ===
-				(siteStatus?.experimental_release?.status === 'shadow_published' ||
-					siteStatus?.experimental_release?.status === 'promoted')
-		);
-		check(
-			'Experimental release status matches published shadow state and task-weight availability',
+			'Archived experimental release state remains internally coherent',
 			experimentalMethodology?.shadow_score_published === true
 				? experimentalMethodology?.headline_promotion_ready === true &&
 					DATA_VINTAGE.model_version === 'V4.3'
@@ -1780,11 +1930,6 @@ async function main() {
 			experimentalMethodology?.shadow_readiness.status
 		);
 		check(
-			'Experimental release promotion-ready flag matches site status',
-			experimentalMethodology?.headline_promotion_ready ===
-				siteStatus?.experimental_release?.headline_promotion_ready
-		);
-		check(
 			'Experimental methodology publishes shadow artifact paths when shadow score exists',
 			experimentalMethodology?.shadow_score_published === true
 				? experimentalMethodology?.shadow_artifacts?.shadow_scores ===
@@ -1796,21 +1941,24 @@ async function main() {
 				: experimentalMethodology?.shadow_artifacts === null
 		);
 		check(
-			'Site status monitor vintage matches DATA_VINTAGE',
-			siteStatus?.live_monitor.labour_monitor_artifact_vintage === DATA_VINTAGE.labour_monitor,
-			siteStatus?.live_monitor.labour_monitor_artifact_vintage
-		);
-		check(
-			'Site status postings volume matches postings monitor',
-			siteStatus?.live_monitor?.postings_volume_30d ===
-				(postingsMonitor?.summary?.posting_volume_30d ?? 0),
-			`${siteStatus?.live_monitor?.postings_volume_30d} vs ${postingsMonitor?.summary?.posting_volume_30d}`
-		);
-		check(
 			'Releases history exists and preserves full structural lineage',
 			(releases?.length ?? 0) >= 8 &&
-				['V6', 'V5', 'V4.3', 'V4.2', 'V4.0', 'V3.3', 'V3.2', 'V3.1', 'V3.0', 'V2', 'V1'].every(
-					versionLabel => (releases ?? []).some(release => release.version_label === versionLabel)
+				[
+					'V9',
+					'V8',
+					'V6',
+					'V5',
+					'V4.3',
+					'V4.2',
+					'V4.0',
+					'V3.3',
+					'V3.2',
+					'V3.1',
+					'V3.0',
+					'V2',
+					'V1'
+				].every(versionLabel =>
+					(releases ?? []).some(release => release.version_label === versionLabel)
 				),
 			releases
 				? JSON.stringify(releases.map(release => release.version_label ?? release.type))
@@ -1819,6 +1967,18 @@ async function main() {
 		check(
 			'Releases history keeps exact dates or explicit display dates for historical entries',
 			(releases ?? []).every(release => !!release.display_date || !!release.published_at)
+		);
+		check(
+			'Releases history marks every pre-V9 entry as an archive',
+			(releases ?? [])
+				.filter(release => release.score_version !== 'V9')
+				.every(
+					release =>
+						release.archive === true &&
+						release.status === 'archive' &&
+						release.availability !== 'current_download' &&
+						release.availability !== 'current_source'
+				)
 		);
 		check(
 			'Releases history includes the V4.3 shadow trail',
@@ -1850,22 +2010,25 @@ async function main() {
 						: release.label === 'V5 experimental model published')
 			)
 		);
+
+		console.log('\n--- Current V9 release artifact contract ---');
 		check(
-			'Release manifest exposes the clean V8 contract and its governance artifacts',
-			(releaseManifest?.artifacts ?? []).some(
-				artifact => artifact.file === 'sg-ai-occupations-v8.json'
-			) &&
-				(releaseManifest?.artifacts ?? []).some(
-					artifact => artifact.file === 'sg-ai-occupations-v8.csv'
-				) &&
-				(releaseManifest?.artifacts ?? []).some(
-					artifact => artifact.file === 'claims-matrix-v8.json'
-				) &&
-				(releaseManifest?.artifacts ?? []).some(
-					artifact => artifact.file === 'public-field-source-map.json'
-				) &&
-				(releaseManifest?.artifacts ?? []).some(artifact => artifact.file === 'age-structure.json')
+			'Release manifest exposes the clean V9 contract and current evidence artifacts',
+			releaseManifest?.version === 'V9' &&
+				releaseManifest.schema_version === '9.0' &&
+				releaseManifest.taxonomy === 'SSOC 2024' &&
+				[
+					'sg-ai-occupations-v9.json',
+					'sg-ai-occupations-v9.csv',
+					'v9-market-context.json',
+					'synthetic-roles-v9.json',
+					'research-library.json',
+					'site-status.json',
+					'releases.json'
+				].every(file => (releaseManifest?.artifacts ?? []).some(artifact => artifact.file === file))
 		);
+
+		console.log('\n--- Archive regression: remaining V3–V8 sidecar invariants ---');
 		check(
 			'Experimental direct task-share summary matches occupation data when present',
 			(() => {
@@ -2053,18 +2216,6 @@ async function main() {
 				typeof v5ExperimentalValidation?.summary?.realized_scorable_check_count === 'number'
 		);
 		check(
-			'Site status exposes the V5 experimental-program state',
-			!!siteStatus?.v5_program &&
-				siteStatus.v5_program.experimental_model_published === true &&
-				(isLiveV5
-					? siteStatus.v5_program.status === 'promoted_live'
-					: DATA_VINTAGE.model_version === 'V6' || DATA_VINTAGE.model_version === 'V7'
-						? siteStatus.v5_program.status === 'archived_live_release'
-						: siteStatus.v5_program.status === 'experimental_model_published') &&
-				typeof siteStatus.v5_program.structural_validation_result === 'string' &&
-				typeof siteStatus.v5_program.realized_validation_result === 'string'
-		);
-		check(
 			'Research library artifact exists',
 			(researchLibrary?.entries?.length ?? 0) >= 10,
 			String(researchLibrary?.entries?.length ?? 0)
@@ -2147,24 +2298,20 @@ async function main() {
 				return FORBIDDEN_ACTIVE_COPY.every(pattern => !content.includes(pattern));
 			})
 		);
-		if (
-			DATA_VINTAGE.labour_monitor === 'Q1 2026 full' &&
-			industryContext?.metadata?.vacancy_overlay_vintage &&
-			industryContext.metadata.vacancy_overlay_vintage !== 'Q1 2026'
-		) {
-			check(
-				'Detail pages disclose that industry vacancy overlays lag the main labour monitor',
-				[
-					path.join(import.meta.dir, '..', 'src', 'routes', 'occupation', '[ssoc]', '+page.svelte'),
-					path.join(import.meta.dir, '..', 'src', 'routes', 'role', '[slug]', '+page.svelte')
-				].every(filePath =>
-					fs
-						.readFileSync(filePath, 'utf-8')
-						.includes('Industry vacancy overlays use the latest published detailed cross-tab')
-				)
-			);
-		}
-		check('Current cluster backtest artifact exists', currentBacktest !== null);
+		check(
+			'Active V9 detail pages do not present the archived industry-vacancy overlay',
+			[
+				path.join(import.meta.dir, '..', 'src', 'routes', 'occupation', '[ssoc]', '+page.svelte'),
+				path.join(import.meta.dir, '..', 'src', 'routes', 'role', '[slug]', '+page.svelte')
+			].every(filePath => {
+				const content = fs.readFileSync(filePath, 'utf8');
+				return (
+					!content.includes('$lib/data/industry-context') &&
+					!content.includes('Industry vacancy overlays use the latest published detailed cross-tab')
+				);
+			})
+		);
+		check('Archived cluster backtest artifact remains available', currentBacktest !== null);
 		check('BLS crosswalk validation artifact exists', blsBacktest !== null);
 		check(
 			'BLS comparison uses deduplicated crosswalk signatures and reports its null result',
@@ -2218,7 +2365,10 @@ async function main() {
 				familyDelta.summary.families_with_v8_exposure_and_delta >= 35 &&
 				familyDelta.limitations.length >= 3
 		);
-		check('Outcome panels are current through Q1 2026', outcomePanels.latest_quarter === '2026 Q1');
+		check(
+			'Archived outcome panels retain their Q1 2026 terminal quarter',
+			outcomePanels.latest_quarter === '2026 Q1'
+		);
 		check(
 			'Annual wage movement remains separate from quarterly outcomes',
 			outcomePanels.additional_annual_outcomes?.wage_movement === 'data/wage-movement.json'
@@ -2476,14 +2626,6 @@ async function main() {
 			)
 		);
 		check(
-			'Site status mirrors offset-potential summary',
-			siteStatus?.live_monitor?.offset_potential_high_count ===
-				(offsetPotential?.entries ?? []).filter(entry => entry.band === 'high').length,
-			`${siteStatus?.live_monitor?.offset_potential_high_count} vs ${
-				(offsetPotential?.entries ?? []).filter(entry => entry.band === 'high').length
-			}`
-		);
-		check(
 			'Employer pressure includes meaningful signal coverage',
 			(employerSignals?.summary?.total_signals ?? 0) >= 8,
 			String(employerSignals?.summary?.total_signals ?? 0)
@@ -2614,33 +2756,9 @@ async function main() {
 				`${postingsMonitor?.observed_through} vs ${postingsMonitor?.summary?.latest_posted_date}`
 			);
 			check(
-				'Site status validation vintage matches current cluster backtest',
-				siteStatus?.live_monitor?.labour_monitor_validation_vintage ===
-					currentBacktest?.data_period,
-				`${siteStatus?.live_monitor?.labour_monitor_validation_vintage} vs ${currentBacktest?.data_period}`
-			);
-			check(
 				'Multi-period vacancy validation covers multiple periods',
 				(multiPeriodBacktest?.metrics?.vacancy_rate_yoy?.summary?.period_count ?? 0) >= 2 &&
 					(multiPeriodBacktest?.metrics?.vacancy_count_yoy?.summary?.period_count ?? 0) >= 2
-			);
-			check(
-				'Site status temporal vacancy validation matches artifact',
-				siteStatus?.live_monitor?.temporal_validation_vacancy_accuracy ===
-					(multiPeriodBacktest?.metrics?.vacancy_rate_yoy?.summary?.avg_pairwise_accuracy ??
-						null) &&
-					siteStatus?.live_monitor?.temporal_validation_vacancy_periods ===
-						(multiPeriodBacktest?.metrics?.vacancy_rate_yoy?.summary?.period_count ?? null),
-				`${siteStatus?.live_monitor?.temporal_validation_vacancy_accuracy} vs ${multiPeriodBacktest?.metrics?.vacancy_rate_yoy?.summary?.avg_pairwise_accuracy}`
-			);
-			check(
-				'Site status temporal hiring validation matches artifact',
-				siteStatus?.live_monitor?.temporal_validation_hiring_accuracy ===
-					(multiPeriodBacktest?.metrics?.annual_hiring_net?.summary?.avg_pairwise_accuracy ??
-						null) &&
-					siteStatus?.live_monitor?.temporal_validation_hiring_periods ===
-						(multiPeriodBacktest?.metrics?.annual_hiring_net?.summary?.period_count ?? null),
-				`${siteStatus?.live_monitor?.temporal_validation_hiring_accuracy} vs ${multiPeriodBacktest?.metrics?.annual_hiring_net?.summary?.avg_pairwise_accuracy}`
 			);
 			check(
 				'Calibration diagnostics direct segment covers most matched sample',
@@ -2674,34 +2792,6 @@ async function main() {
 				String(
 					calibrationDiagnostics?.segments?.by_confidence_level?.low?.share_of_matched_sample ?? 1
 				)
-			);
-			check(
-				'Site status calibration summary matches diagnostics artifact',
-				siteStatus?.live_monitor?.calibration_direct_rho ===
-					(calibrationDiagnostics?.segments?.by_match_quality?.direct?.spearman_rho ?? null) &&
-					siteStatus?.live_monitor?.calibration_direct_sample ===
-						(calibrationDiagnostics?.segments?.by_match_quality?.direct?.sample_size ?? null) &&
-					siteStatus?.live_monitor?.calibration_high_medium_rho ===
-						(calibrationDiagnostics?.segments?.by_confidence_level?.high_or_medium?.spearman_rho ??
-							null) &&
-					siteStatus?.live_monitor?.calibration_high_medium_sample ===
-						(calibrationDiagnostics?.segments?.by_confidence_level?.high_or_medium?.sample_size ??
-							null) &&
-					siteStatus?.live_monitor?.calibration_low_confidence_sample ===
-						(calibrationDiagnostics?.segments?.by_confidence_level?.low?.sample_size ?? null),
-				JSON.stringify({
-					siteStatus: {
-						direct: siteStatus?.live_monitor?.calibration_direct_rho,
-						highMedium: siteStatus?.live_monitor?.calibration_high_medium_rho,
-						lowSample: siteStatus?.live_monitor?.calibration_low_confidence_sample
-					},
-					artifact: {
-						direct: calibrationDiagnostics?.segments?.by_match_quality?.direct?.spearman_rho,
-						highMedium:
-							calibrationDiagnostics?.segments?.by_confidence_level?.high_or_medium?.spearman_rho,
-						lowSample: calibrationDiagnostics?.segments?.by_confidence_level?.low?.sample_size
-					}
-				})
 			);
 			check(
 				'Occupation-family validation covers a meaningful number of families',
@@ -2740,22 +2830,6 @@ async function main() {
 							.includes('forecast-horizon')
 				)
 			);
-			check(
-				'Site status forecast-horizon summary matches artifact',
-				siteStatus?.live_monitor?.forecast_horizon_status === (forecastHorizon?.status ?? null) &&
-					siteStatus?.live_monitor?.forecast_horizon_post_baseline_quarters ===
-						(forecastHorizon?.post_baseline_quarters_available ?? null),
-				JSON.stringify({
-					siteStatus: {
-						status: siteStatus?.live_monitor?.forecast_horizon_status,
-						quarters: siteStatus?.live_monitor?.forecast_horizon_post_baseline_quarters
-					},
-					artifact: {
-						status: forecastHorizon?.status,
-						quarters: forecastHorizon?.post_baseline_quarters_available
-					}
-				})
-			);
 			check('Confidence ratings artifact exists', confidenceRatings !== null);
 			check(
 				'Confidence ratings cover every occupation exactly once',
@@ -2784,29 +2858,6 @@ async function main() {
 						.slice(0, 5)
 				)
 			);
-			check(
-				'Site status confidence summary matches artifact',
-				siteStatus?.live_monitor?.confidence_rating_high_count ===
-					(confidenceRatings?.summary?.counts?.high ?? null) &&
-					siteStatus?.live_monitor?.confidence_rating_medium_count ===
-						(confidenceRatings?.summary?.counts?.medium ?? null) &&
-					siteStatus?.live_monitor?.confidence_rating_low_count ===
-						(confidenceRatings?.summary?.counts?.low ?? null) &&
-					siteStatus?.live_monitor?.confidence_rating_top_limiter ===
-						(confidenceRatings?.summary?.top_limiting_factors?.[0]?.factor ?? null) &&
-					siteStatus?.live_monitor?.confidence_rating_top_limiter_count ===
-						(confidenceRatings?.summary?.top_limiting_factors?.[0]?.count ?? null),
-				JSON.stringify({
-					siteStatus: {
-						high: siteStatus?.live_monitor?.confidence_rating_high_count,
-						medium: siteStatus?.live_monitor?.confidence_rating_medium_count,
-						low: siteStatus?.live_monitor?.confidence_rating_low_count,
-						limiter: siteStatus?.live_monitor?.confidence_rating_top_limiter,
-						limiterCount: siteStatus?.live_monitor?.confidence_rating_top_limiter_count
-					},
-					artifact: confidenceRatings?.summary
-				})
-			);
 			check('Scenario families artifact exists', scenarioFamilies !== null);
 			check(
 				'Scenario families publish three non-scoring scenarios for every occupation',
@@ -2821,23 +2872,6 @@ async function main() {
 					scenarios: scenarioFamilies?.summary?.scenario_count
 				})
 			);
-			check(
-				'Site status scenario-family summary matches artifact',
-				siteStatus?.live_monitor?.scenario_family_count ===
-					(scenarioFamilies?.summary?.scenario_count ?? null) &&
-					siteStatus?.live_monitor?.scenario_base_avg_near_term_risk ===
-						(scenarioFamilies?.summary?.base_avg_near_term_risk ?? null) &&
-					siteStatus?.live_monitor?.scenario_fast_adoption_avg_near_term_risk ===
-						(scenarioFamilies?.summary?.fast_adoption_avg_near_term_risk ?? null),
-				JSON.stringify({
-					siteStatus: {
-						count: siteStatus?.live_monitor?.scenario_family_count,
-						base: siteStatus?.live_monitor?.scenario_base_avg_near_term_risk,
-						fast: siteStatus?.live_monitor?.scenario_fast_adoption_avg_near_term_risk
-					},
-					artifact: scenarioFamilies?.summary
-				})
-			);
 			check('Adoption-diffusion artifact exists', adoptionDiffusion !== null);
 			check(
 				'Adoption-diffusion sidecar remains context-only and source-backed',
@@ -2845,28 +2879,6 @@ async function main() {
 					(adoptionDiffusion?.overall?.firms_started_ai_adoption_pct ?? 0) > 0 &&
 					(adoptionDiffusion?.framing ?? '').includes('does not change net_risk'),
 				JSON.stringify(adoptionDiffusion?.summary)
-			);
-			check(
-				'Site status adoption-diffusion summary matches artifact',
-				siteStatus?.live_monitor?.adoption_diffusion_headline_pct ===
-					(adoptionDiffusion?.summary?.headline_adoption_pct ?? null) &&
-					siteStatus?.live_monitor?.adoption_diffusion_headcount_reduction_pct ===
-						(adoptionDiffusion?.summary?.headcount_reduction_among_adopters_pct ?? null) &&
-					siteStatus?.live_monitor?.adoption_diffusion_role_redesign_pct ===
-						(adoptionDiffusion?.summary?.role_redesign_among_adopters_pct ?? null) &&
-					siteStatus?.live_monitor?.adoption_diffusion_top_sector_label ===
-						(adoptionDiffusion?.summary?.top_sector?.label ?? null) &&
-					siteStatus?.live_monitor?.adoption_diffusion_top_sector_pct ===
-						(adoptionDiffusion?.summary?.top_sector?.adoption_pct ?? null),
-				JSON.stringify({
-					siteStatus: {
-						headline: siteStatus?.live_monitor?.adoption_diffusion_headline_pct,
-						headcount: siteStatus?.live_monitor?.adoption_diffusion_headcount_reduction_pct,
-						redesign: siteStatus?.live_monitor?.adoption_diffusion_role_redesign_pct,
-						topSector: siteStatus?.live_monitor?.adoption_diffusion_top_sector_label
-					},
-					artifact: adoptionDiffusion?.summary
-				})
 			);
 			check('Age-structure artifact exists', ageStructure !== null);
 			check(
@@ -2893,26 +2905,6 @@ async function main() {
 					).length
 				})
 			);
-			check(
-				'Site status age-structure summary matches artifact',
-				siteStatus?.live_monitor?.age_structure_high_attrition_absorber_count ===
-					(ageStructure?.summary?.high_attrition_absorber_count ?? null) &&
-					siteStatus?.live_monitor?.age_structure_known_coverage_count ===
-						(ageStructure?.summary?.known_coverage_count ?? null) &&
-					siteStatus?.live_monitor?.age_structure_unknown_coverage_count ===
-						(ageStructure?.summary?.unknown_coverage_count ?? null) &&
-					siteStatus?.live_monitor?.age_structure_avg_age_50_plus_share ===
-						(ageStructure?.summary?.avg_age_50_plus_share ?? null),
-				JSON.stringify({
-					siteStatus: {
-						high: siteStatus?.live_monitor?.age_structure_high_attrition_absorber_count,
-						known: siteStatus?.live_monitor?.age_structure_known_coverage_count,
-						unknown: siteStatus?.live_monitor?.age_structure_unknown_coverage_count,
-						avg: siteStatus?.live_monitor?.age_structure_avg_age_50_plus_share
-					},
-					artifact: ageStructure?.summary
-				})
-			);
 			check('IMF convergence artifact exists', imfConvergence !== null);
 			check(
 				'IMF convergence leads with the percentile-internal framing caveat',
@@ -2933,20 +2925,6 @@ async function main() {
 				JSON.stringify(imfConvergence?.employment_weighted_bins)
 			);
 			check(
-				'Site status IMF convergence summary matches artifact',
-				siteStatus?.live_monitor?.imf_top_half_exposed_share_pct ===
-					(imfConvergence?.employment_weighted_bins?.top_half?.exposed_share_pct ?? null) &&
-					siteStatus?.live_monitor?.imf_top_half_high_to_low_ratio ===
-						(imfConvergence?.employment_weighted_bins?.top_half?.high_to_low_ratio ?? null),
-				JSON.stringify({
-					siteStatus: {
-						share: siteStatus?.live_monitor?.imf_top_half_exposed_share_pct,
-						ratio: siteStatus?.live_monitor?.imf_top_half_high_to_low_ratio
-					},
-					artifact: imfConvergence?.employment_weighted_bins?.top_half
-				})
-			);
-			check(
 				'Sensitivity analysis recompute reproduces stored net_risk',
 				sensitivityAnalysis?.recompute_fidelity?.ok === true &&
 					(sensitivityAnalysis?.recompute_fidelity?.occupations_checked ?? 0) === data.length,
@@ -2961,44 +2939,6 @@ async function main() {
 				'Sensitivity analysis covers all perturbable constant groups',
 				(sensitivityAnalysis?.per_constant?.length ?? 0) >= 16,
 				String(sensitivityAnalysis?.per_constant?.length ?? 0)
-			);
-			check(
-				'Site status sensitivity summary matches artifact',
-				siteStatus?.live_monitor?.sensitivity_spearman_p50 ===
-					(sensitivityAnalysis?.monte_carlo?.spearman_p50 ?? null) &&
-					siteStatus?.live_monitor?.sensitivity_top20_jaccard_p50 ===
-						(sensitivityAnalysis?.monte_carlo?.top20_jaccard_p50 ?? null) &&
-					siteStatus?.live_monitor?.sensitivity_fidelity_ok ===
-						(sensitivityAnalysis?.recompute_fidelity?.ok ?? null),
-				JSON.stringify({
-					siteStatus: {
-						spearman: siteStatus?.live_monitor?.sensitivity_spearman_p50,
-						top20: siteStatus?.live_monitor?.sensitivity_top20_jaccard_p50,
-						fidelity: siteStatus?.live_monitor?.sensitivity_fidelity_ok
-					},
-					artifact: {
-						spearman: sensitivityAnalysis?.monte_carlo?.spearman_p50,
-						top20: sensitivityAnalysis?.monte_carlo?.top20_jaccard_p50,
-						fidelity: sensitivityAnalysis?.recompute_fidelity?.ok
-					}
-				})
-			);
-			check(
-				'Site status occupation-family summary matches artifact',
-				siteStatus?.live_monitor?.occupation_family_validation_rho ===
-					(occupationFamilyValidation?.spearman_rho ?? null) &&
-					siteStatus?.live_monitor?.occupation_family_validation_family_count ===
-						(occupationFamilyValidation?.family_count ?? null),
-				JSON.stringify({
-					siteStatus: {
-						rho: siteStatus?.live_monitor?.occupation_family_validation_rho,
-						count: siteStatus?.live_monitor?.occupation_family_validation_family_count
-					},
-					artifact: {
-						rho: occupationFamilyValidation?.spearman_rho,
-						count: occupationFamilyValidation?.family_count
-					}
-				})
 			);
 		}
 		console.log(`  INFO: DATA_VINTAGE expects ${DATA_VINTAGE.validation_checks} checks`);

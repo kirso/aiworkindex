@@ -1,65 +1,56 @@
 # AI Work Index
 
-AI Work Index is an open, deterministic research project that ranks how strongly current AI capabilities may change work across 562 Singapore occupations.
+AI Work Index is an open, deterministic research project about AI work pressure in Singapore. V9 covers all 1,001 numeric occupations in the Singapore Standard Occupational Classification 2024 (SSOC 2024), plus 88 modern-title queries: 67 resolve to official occupations, 18 use clearly labelled editorial composites and 3 are withheld to avoid false precision.
 
-**[Live site](https://aiworkindex.com)** · **[Calculator](https://aiworkindex.com/will-ai-take-my-job)** · **[Methodology](https://aiworkindex.com/methodology)** · **[Data](https://aiworkindex.com/data)**
+**[Live site](https://aiworkindex.com)** · **[Evidence explorer](https://aiworkindex.com/will-ai-take-my-job)** · **[Methodology](https://aiworkindex.com/methodology)** · **[Data](https://aiworkindex.com/data)**
 
-## V8 in one sentence
+## V9 in one sentence
 
-The **AI Exposure Rank** is a 0–100 relative index: a score of 72 means more exposed to current AI capabilities than approximately 72% of occupations in the Singapore reference market.
+The **AI Work Pressure Rank** is the midrank percentile of an occupation's ILO 2025 generative-AI task-exposure score among the 987 scored SSOC 2024 occupations.
 
-It is **not** a 72% probability of job loss, a claim that 72% of jobs will disappear, or an estimate that 72% of tasks can be automated.
+A rank of 72 places the occupation at the 72nd midrank percentile for measured task exposure among scored Singapore occupations. Tied scores share a midrank. It is not a 72% probability of job loss, a prediction that 72% of jobs will disappear, or a claim that 72% of tasks will be automated.
 
-## What V8 publishes
+## What V9 publishes
 
-- An AI exposure rank and quintile band.
-- Separate structural substitution and augmentation-potential ranks.
-- A rule-based likely pathway: limited direct change, workflow redesign, augmentation-led growth, demand-buffered redesign, or hiring/substitution pressure.
-- Official-derived demand, observed sector-adoption, broad workforce-age and transition context. Entry-level sensitivity remains `unknown` until a suitable occupation-level open series exists.
-- High/Medium/Low evidence confidence with visible limiting factors.
-- Source-weight sensitivity using equal-weight and leave-one-source-out variants.
+- The complete numeric SSOC 2024 occupation registry: 1,001 occupations.
+- AI Work Pressure Ranks for 987 occupations; 14 ranks are withheld where the official mapping lacks usable ILO evidence.
+- Exact ILO 2025 exposure categories, mean-score mapping ranges and within-occupation task-score dispersion.
+- Direct MOM 2025 wage observations for 523 detailed occupations.
+- Reviewed current demand matches and broad labour-market context as separate evidence that cannot change the pressure rank.
+- 88 modern-title queries. Eleven exact titles and 56 explicitly reviewed aliases resolve to an official occupation; 18 publish non-official component estimates and 3 are withheld because a fixed mapping would be misleading.
+- Historical V4–V8 releases as dated archives, plus a separate United States evidence preview.
 
-The headline score uses a reliability-weighted ensemble of Felten AIOE, Anthropic observed usage, Eloundou GPT exposure and the ILO refined occupational index. Human bottlenecks and labor-market evidence help interpret how exposure may resolve; they do not turn the score into a job-loss forecast.
+V9 does not publish inferred detailed employment, jobs affected, wage pools at risk, job-loss probabilities, synthetic pathways or augmentation conclusions.
 
-## Why the public contract changed
+## Canonical data
 
-Earlier releases displayed heuristic structural composites in percentage form. V8 is a clean breaking release that reports percentile index points instead. Historical V7 artifacts remain available for reproducibility.
+- [`static/data/sg-ai-occupations-v9.json`](static/data/sg-ai-occupations-v9.json) — nested V9 occupation contract.
+- [`static/data/sg-ai-occupations-v9.csv`](static/data/sg-ai-occupations-v9.csv) — flattened V9 occupation fields.
+- [`static/data/synthetic-roles-v9.json`](static/data/synthetic-roles-v9.json) — modern-title resolutions, non-official composites, withheld mappings and component assumptions.
+- [`static/data/v9-market-context.json`](static/data/v9-market-context.json) — reviewed Singapore demand and labour-market context.
+- [`static/data/research-library.json`](static/data/research-library.json) — research registry reviewed through 19 August 2026.
+- [`static/data/release-manifest-v9.json`](static/data/release-manifest-v9.json) — release files and checksums.
 
-Singapore is the only live scored market. Global methodology remains research context, and country scores do not publish until their mapping and local-data gates pass.
+Older downloads remain available for auditability. V8 and V9 use different occupation universes and headline methods, so their ranks are not a valid time series.
 
-## Data
-
-- [`static/data/sg-ai-occupations-v8.json`](static/data/sg-ai-occupations-v8.json) — clean nested V8 contract.
-- [`static/data/sg-ai-occupations-v8.csv`](static/data/sg-ai-occupations-v8.csv) — flattened V8 fields.
-- [`static/data/sg-ai-occupations-v7.json`](static/data/sg-ai-occupations-v7.json) — archived historical release.
-
-Detailed Singapore employment is an estimate derived from broader official occupation-family totals; it is not an official occupation-level headcount. The public V8 schema labels this basis directly.
-
-The current labour context uses MOM's full Q1 2026 report at three broad occupation-cluster levels. The postings monitor is a partial historical sample observed through 20 March 2026 (93 of 562 occupations and 42 of 88 synthetic roles), not a live or representative measure of hiring. Neither layer changes the headline exposure rank.
-
-## Reproduce the release
+## Reproduce V9
 
 ```bash
 bun install
-bun run build:release-data
-bun run test:methodology
-bun run validate
-bun run check
-bun run lint
-bun run format:check
+bun run release:generate
+bun run verify
 bun run build
-bun run release:check
 ```
 
-The scoring pipeline does not call an LLM. It uses TypeScript, versioned source artifacts and deterministic generators.
+The headline pipeline does not call an LLM. It uses versioned public source artifacts and deterministic TypeScript generators.
 
 ## Stack
 
-SvelteKit 5, Svelte 5, Tailwind CSS v4, Bun, D3, Satori/Resvg and Cloudflare Workers.
+SvelteKit 2, Svelte 5, Tailwind CSS v4, Bun and D3, published as a static Cloudflare Pages site.
 
-## License
+## Licensing
 
-MIT
+Original software in this repository is available under the [MIT License](LICENSE). Official and third-party source data retain their original copyright, attribution and licence terms; see the source metadata and the [data page](https://aiworkindex.com/data).
 
 ## Author
 

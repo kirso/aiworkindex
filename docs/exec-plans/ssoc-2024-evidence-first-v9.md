@@ -1,4 +1,4 @@
-# Cut over Singapore occupations to SSOC 2024 and an evidence-first V9
+# Ship a complete SSOC 2024 AI Work Pressure V9 without losing product surfaces
 
 This ExecPlan is a living document. The sections `Progress`, `Surprises & Discoveries`,
 `Decision Log`, and `Outcomes & Retrospective` must be kept up to date as work proceeds.
@@ -8,14 +8,15 @@ This repository has no repository-level `PLANS.md`, so this plan follows the glo
 
 ## Purpose / Big Picture
 
-AI Work Index currently ranks a 562-row wage-covered sample labelled as SSOC 2020. V9 will
-instead use the complete official SSOC 2024 classification as the Singapore occupation
-registry, use the ILO 2025 task-level GenAI measure as the sole owner of the headline
-exposure rank, and report observed AI use, human complementarity, wages, demand, and other
-labour evidence separately. A reader will be able to search the current Singapore
-classification, distinguish measured evidence from modeled context, and see what is unknown
-without encountering job-loss probabilities or economy-wide totals inferred from proxy
-employment.
+AI Work Index V9 replaces the historical 562-row wage-covered SSOC 2020 sample with the
+complete official SSOC 2024 classification as the Singapore occupation registry. It publishes
+an AI Work Pressure Rank: the midrank percentile of the ILO 2025
+task-level GenAI exposure measure among scored Singapore occupations. The site retains its
+risk-facing product promise while stating exactly what risk evidence exists. Observed AI
+use, human complementarity, wages, demand, adoption, and labour outcomes remain separate
+dimensions rather than hidden weights. A reader will be able to search the current
+classification, explore synthetic roles, rankings, reports, comparisons, and the calculator,
+and distinguish measured evidence from modelled context and unknown outcomes.
 
 Old SSOC codes will exist only at the URL edge to prevent broken links. They will not enter
 the active registry, scoring, search synonyms, synthetic roles, transitions, exports, or
@@ -45,11 +46,21 @@ history and a final release artifact.
   official many-to-many mappings.
 - [x] (2026-08-19) Replaced the wage input with the direct MOM Occupational Wages 2025
   workbook and made detailed wage evidence nullable (523 occupations).
-- [ ] Replace every active V8 application import and public scoring surface with V9.
-- [ ] Refresh Singapore wages and labour evidence and disposition every SSOC-keyed sidecar.
-- [ ] Migrate occupation, role, ranking, methodology, report, export, and responsive UI
+- [x] (2026-08-19) Restored the uncommitted route-reduction draft to `92abee6`; calculator,
+  comparison, synthetic roles, reports, rankings, groups, occupation detail, and US Preview
+  remain migration targets rather than retired surfaces. Preserved user-owned `output/`.
+- [x] (2026-08-19) Replaced the provisional five custom rank bands with the ILO official exposure
+  gradient/category and expose AI Work Pressure Rank as the precise relative statistic.
+- [x] (2026-08-19) Refreshed the evidence registry through the 19 August 2026 cutoff, including current
+  OpenAI, Anthropic, Microsoft, METR, NBER, OECD, ILO, MOM, IMDA, and SingStat evidence.
+- [x] (2026-08-19) Created and validated the user-level `write-human-editorial-copy` skill and applied its
+  evidence-first copy checks to every active public surface.
+- [x] (2026-08-19) Replaced active V8 application imports and public scoring surfaces with V9.
+- [x] (2026-08-19) Refreshed Singapore wages and labour evidence and dispositioned every active
+  SSOC-keyed sidecar.
+- [x] (2026-08-19) Migrated occupation, role, ranking, methodology, report, export, and responsive UI
   surfaces.
-- [ ] Rebuild canonical, structured-data, sitemap, crawler, and answer-engine surfaces.
+- [x] (2026-08-19) Rebuilt canonical, structured-data, sitemap, crawler, and answer-engine surfaces.
 - [ ] Run the full release and browser verification suite, commit coherent slices, push, and
   open the pull request.
 
@@ -70,9 +81,10 @@ history and a final release artifact.
   grain.
   Evidence: `src/lib/data/index.ts` uses required numeric wage and employment fields, while
   `src/lib/data/data-contract.ts` describes broad-total and US-proxy allocation.
-- Observation: The site claims MIT licensing but has no `LICENSE` file and does not separate
-  original code from third-party data terms.
-  Evidence: `/about` and `/press` claim MIT licensing; repository root contains no license.
+- Observation: The previous site claimed MIT licensing without a `LICENSE` file or a clear
+  separation between original code and third-party data terms.
+  Evidence: V9 adds the MIT code license and makes the source-data rights boundary explicit on
+  `/about`, `/press`, and `/data`.
 - Observation: The official detailed definitions and alphabetical index were updated on
   24 June 2026, while both correspondence workbooks remain dated 21 March 2024.
   Evidence: The workbook title rows and generated `source-metadata.json` preserve those
@@ -84,6 +96,14 @@ history and a final release artifact.
 - Observation: Fourteen numeric SSOC 2024 occupations have no usable ILO 2025 value through
   the official correspondence; this is a mapping/source gap, not evidence of zero exposure.
   Evidence: `tests/v9-contract.test.ts` freezes the exact withheld-code set.
+- Observation: The provisional uncommitted UI migration removed 3,630 lines and redirected
+  roles, reports, comparisons, the calculator, US, and most ranking routes to generic pages.
+  Evidence: the restored `static/_redirects` diff contained broad retirement redirects and
+  the route diff showed 3,630 deletions. None of those removals was committed.
+- Observation: A wider 19 August research pass found July 2026 OpenAI task-crossover work
+  and 2026 Microsoft workplace synthesis missing from the existing registry.
+  Evidence: the registry still points to January Anthropic evidence, O*NET 30.2, an older
+  METR horizon date, and the pre-revision Humlum/Vestergaard title.
 
 ## Decision Log
 
@@ -109,7 +129,25 @@ history and a final release artifact.
   Date/Author: 2026-08-19 / Codex
 - Decision: Remove numeric substitution, augmentation, likely-pathway, detailed-employment,
   jobs-affected, and wage-pool claims from the active V9 contract.
-  Rationale: They collapse distinct evidence or rely on unsupported detailed allocations.
+  Rationale: Retain pressure and risk interpretation, but do not disguise distinct evidence
+  or unsupported detailed allocations as a calibrated probability or outcome forecast.
+  Date/Author: 2026-08-19 / Codex
+- Decision: Preserve all substantive Singapore product surfaces and migrate them in place.
+  Historical V4-V8 reports remain accessible as dated archives; current rankings, reports,
+  calculator, compare, groups, and synthetic roles are rebuilt from V9.
+  Rationale: The route inventory has useful search authority and user journeys. Scientific
+  repair does not require deleting the product.
+  Date/Author: 2026-08-19 / Codex
+- Decision: Call the headline statistic `AI Work Pressure Rank`; use `risk` for conditional
+  interpretation across independent evidence rather than as a job-loss probability.
+  Rationale: This retains clear human and search language while keeping the mathematical
+  meaning exact and auditable.
+  Date/Author: 2026-08-19 / Codex
+- Decision: Resolve exact modern-title matches to current official SSOC 2024 occupations before
+  constructing any non-official role estimate. Index only the remaining reviewed role pages and
+  publish component, mapping and weighting sensitivity.
+  Rationale: Modern-title queries answer real search needs, but the site must not publish a
+  competing composite for an official occupation or imply fabricated role-level outcomes.
   Date/Author: 2026-08-19 / Codex
 - Decision: Keep `/occupation/{ssoc}` canonical and isolate legacy redirects from search and
   methodology modules.
@@ -123,15 +161,27 @@ history and a final release artifact.
 
 ## Outcomes & Retrospective
 
-Implementation is in progress. This section will record the final generated counts, withheld
-evidence, released routes, verification results, rank breaks, and remaining source gaps.
+The V9 generators now emit 1,001 official occupations, of which 987 receive a pressure rank and
+14 remain explicitly unranked; 523 have a direct MOM detailed wage row. The modern-title layer
+contains 88 queries: 67 resolve to official occupations, 18 use disclosed non-official
+composites, and 3 are withheld. The sitemap contains 1,059 canonical URLs.
+
+ILO 2025 remains the only headline owner. AIOE, Eloundou, observed Claude use, and potential
+complementarity are withheld for all 1,001 occupations because the checked-in ISCO-to-SOC path
+does not meet the V9 provenance standard. Current named-demand evidence covers 37 occupation
+codes from 47 reviewed source labels; absence is never interpreted as weak demand. Historical
+V3–V8 artifacts remain downloadable, noindex archives and no longer enter the current gate.
+
+Two consecutive `release:generate` runs produced byte-identical current artifacts. Final browser
+and pull-request results will be appended after the release build is frozen.
 
 ## Context and Orientation
 
-`scripts/score.ts` currently owns the four-source V8 input blend and reads the 562-row wage
-sample. `scripts/crosswalk.ts` contains the hand-written SSOC/ISCO/SOC mappings.
-`scripts/build-v8-release.ts` emits the public compatibility layer. The application imports
-generated occupation data through `src/lib/data/index.ts`; the static occupation route is
+`scripts/build-v9-release.ts` owns the current headline contract and reads the canonical SSOC 2024
+registry, official correspondence, ILO 2025 exposure and MOM 2025 wages. `scripts/score.ts`,
+`scripts/crosswalk.ts`, and `scripts/build-v8-release.ts` are archive-era code and cannot emit the
+current release. Active routes load V9 through server-only adapters in `src/lib/data/v9.ts` and
+`src/lib/data/v9-ui.server.ts`; the static occupation route is
 `src/routes/occupation/[ssoc]`. Cloudflare Pages consumes `static/_redirects`,
 `static/_headers`, and `static/_worker.js`.
 
@@ -144,13 +194,15 @@ First, freeze the current V8 release boundary, add official SSOC 2024 snapshots 
 checksums and source metadata, and build a deterministic registry containing all 1,006
 official entries. Build the active SSOC 2024 to ISCO-08 scientific crosswalk from the
 official workbook. Build search synonyms from the current alphabetical index. In a separate
-compatibility directory, generate only the 43 exact legacy redirects and four ambiguous
-route pages; add an import-boundary test that prevents this module from reaching scoring.
+compatibility directory, generate only the 43 exact legacy redirects; leave ambiguous old codes
+unmatched rather than claiming continuity; add an import-boundary test that prevents this module
+from reaching scoring.
 
 Second, introduce the V9 contract. For every numeric occupation, collect ILO 2025 values for
 all official ISCO matches. A row with at least one value receives the median, minimum,
-maximum, a midrank percentile among eligible occupations, and one of five equal-width rank
-bands. A row with no value remains unscored. AIOE, Eloundou, Anthropic usage, potential
+maximum, source dispersion/category range, and a midrank AI Work Pressure Rank among eligible
+occupations. The public category is the ILO official exposure gradient, not a custom
+five-band percentile label. A row with no value remains unscored. AIOE, Eloundou, Anthropic usage, potential
 complementarity, task detail, transitions, and Singapore labour evidence are independent,
 nullable fields and cannot alter the headline rank.
 
@@ -160,15 +212,18 @@ published grain. Remove detailed employment estimates and derived wage-pool tota
 active public contract. Inventory every existing SSOC-keyed sidecar and rebuild, retain as
 broad/modelled context, archive, or retire it explicitly.
 
-Fourth, migrate the public pages and content. Occupation pages will lead with a direct answer,
-then show structural exposure, observed use, human complementarity, Singapore market
-evidence, unknowns, and visible citations. Current rankings will use exposure language.
-Misleading historic route names will permanently redirect to human names. Tables and charts
-will fit ordinary desktop shells and use stacked mobile representations where necessary.
+Fourth, migrate every retained public page and content surface. Occupation and synthetic-role
+pages will lead with a direct pressure answer, then show structural exposure, observed use,
+human complementarity, Singapore market evidence, risk interpretation, unknowns, and visible
+citations. Rankings, calculator, comparison, groups, reports, and research pages stay
+available and move to the same contract. Misleading historic route names may redirect to
+human names without collapsing the route family. Tables and charts will fit ordinary desktop
+shells and use stacked mobile representations where necessary.
 
-Fifth, rebuild search and answer-engine discovery. Index only scored occupation pages;
-unscored numeric pages remain useful on site but use `noindex,follow`, and residual entries
-have no public route. Structured data will include accurate Occupation, BreadcrumbList,
+Fifth, rebuild search and answer-engine discovery. Index all substantive numeric occupation
+pages and all reviewed synthetic-role pages; unscored occupations must provide useful
+official definition and missing-evidence context rather than thin content. Residual entries
+have no public route. Structured data will include accurate Occupation, DefinedTerm, BreadcrumbList,
 Dataset, Article, Organization, and WebSite entities. Remove the non-functional SearchAction
 and mass-generated FAQ markup. Generate truthful last-modified dates, crawler-access tests,
 current `llms.txt` conveniences, public citations, licensing notices, and an IndexNow helper.
@@ -183,26 +238,18 @@ slice.
 From `/Users/kirso/Developer/ai-work-index` run the new composable pipeline:
 
     bun run download:ssoc-2024
-    bun run download:sg-labour
     bun run build:taxonomy
-    bun run build:market
-    bun run build:model:v9
-    bun run build:sidecars
-    bun run build:release
+    bun run release:generate
 
 Then verify:
 
-    bun test
-    bun run check
-    bun run lint
-    bun run format:check
-    bun run validate
-    bun run release:check
+    bun run verify
     bun run build
 
 Expected core observations are `1006 total / 1001 occupations / 5 residual`,
-`987 scored / 14 insufficient evidence`, `523 direct wage rows`, and
-`43 redirects / 4 migration pages`.
+`987 scored / 14 insufficient evidence`, `523 direct wage rows`, 43 exact legacy-code
+legacy occupation redirects, one calculator canonical redirect and 67 generated modern-title
+canonical redirects.
 
 ## Validation and Acceptance
 
@@ -215,10 +262,15 @@ Expected core observations are `1006 total / 1001 occupations / 5 residual`,
   Manager has a 2025 median gross wage of SGD 8,050.
 - Demand, adoption, wages, observed use, complementarity, and transitions never change the
   GenAI task-exposure rank.
-- No active surface presents a probability, task share, causal outcome, detailed employment
+- No active surface presents pressure/risk as a calibrated probability, task share, causal outcome, detailed employment
   estimate, jobs-affected total, or proxy wage pool as observed truth.
-- Forty-three retired code URLs redirect in one hop; four ambiguous codes are useful noindex
-  pages; none appears in the sitemap.
+- Existing calculator, comparison, role, ranking, group, report, methodology, research, data,
+  about, occupation, and US Preview routes remain reachable after migration.
+- Every modern-title query first checks for an official SSOC 2024 match. Remaining non-official
+  roles reference only reviewed, unique current components, publish weighting/mapping sensitivity,
+  and never emit an official rank or role-level wage, demand, employment, or job-loss estimate.
+- Forty-three retired code URLs with exact successors redirect in one hop; ambiguous old codes do
+  not claim continuity; no redirect-only URL appears in the sitemap.
 - Every indexable page has one canonical, one H1, unique title/description, visible evidence,
   and accurate structured data.
 - Representative pages have no document or unintended component overflow at 320, 375, 768,
@@ -246,7 +298,7 @@ and final release validation.
 
 ## Interfaces and Dependencies
 
-The implementation uses Bun, TypeScript, SvelteKit 5 with adapter-static, Tailwind CSS 4,
+The implementation uses Bun, TypeScript, SvelteKit 2 and Svelte 5 with adapter-static, Tailwind CSS 4,
 Cloudflare Pages redirects, D3, and the existing `xlsx` package. It depends only on free
 public SingStat, MOM, ILO, research, and platform documentation sources. Original code will
 be MIT licensed; official and third-party data retain their own attribution and license terms.

@@ -2,14 +2,17 @@
 
 **Version:** 1.0
 **Date:** 2026-03-17
-**Status:** Historical planning note, superseded by the V7 release docs
+**Status:** Historical V7-era planning note; not an active implementation plan
 **Scope:** Product, UX, role coverage, data, methodology, validation, and growth
 
 ---
 
 ## 1. Purpose
 
-This document is a historical planning note. The live product is now the V7 AI Work Index release, with Singapore, US, and global occupation surfaces, a task-primitive scoring layer, and V7 release checks. Treat `README.md`, `docs/RELEASE_CHECKLIST.md`, the public methodology pages, and generated release artifacts as the current source of truth.
+> **Historical document.** This plan describes an abandoned V7 design. It is not release guidance
+> for V9 and its score, country, role, and validation assumptions are superseded. Treat `README.md`,
+> `docs/RELEASE_CHECKLIST.md`, `docs/exec-plans/ssoc-2024-evidence-first-v9.md`, the public
+> methodology pages, and generated V9 release artifacts as the current source of truth.
 
 This plan complements:
 - `docs/PRD.md`: product and methodology requirements

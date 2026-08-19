@@ -1,123 +1,129 @@
 #!/usr/bin/env bun
-/**
- * generate-sitemap.ts — Build sitemap.xml from known routes + data.
- * Run: bun run scripts/generate-sitemap.ts
- */
 
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const DATA_DIR = path.join(import.meta.dir, '..', 'data');
-const OUT_FILE = path.join(import.meta.dir, '..', 'static', 'sitemap.xml');
+import { SITE } from '../src/lib/data/scoring-constants';
+import { loadV9Release } from './v9-public-export';
 
-interface Occupation {
-	ssoc: string;
-}
+const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
+const OUT_FILE = path.join(ROOT, 'static', 'sitemap.xml');
 
 interface SitemapEntry {
 	path: string;
 	priority: string;
-	changefreq: string;
+	changefreq: 'weekly' | 'monthly' | 'yearly';
 }
 
-async function main() {
-	const { SITE, DATA_VINTAGE } = await import('../src/lib/data/scoring-constants');
-	const lastmod = DATA_VINTAGE.last_updated;
-	const base = SITE.url;
+const staticPages: SitemapEntry[] = [
+	{ path: '/', priority: '1.0', changefreq: 'weekly' },
+	{ path: '/explore', priority: '0.9', changefreq: 'monthly' },
+	{ path: '/methodology', priority: '0.9', changefreq: 'monthly' },
+	{ path: '/methodology/appendix', priority: '0.6', changefreq: 'monthly' },
+	{ path: '/about', priority: '0.7', changefreq: 'monthly' },
+	{ path: '/data', priority: '0.8', changefreq: 'monthly' },
+	{ path: '/research', priority: '0.8', changefreq: 'monthly' },
+	{ path: '/sg', priority: '0.7', changefreq: 'monthly' },
+	{ path: '/us', priority: '0.4', changefreq: 'monthly' },
+	{ path: '/global', priority: '0.5', changefreq: 'monthly' },
+	{ path: '/roles', priority: '0.8', changefreq: 'monthly' },
+	{ path: '/groups', priority: '0.7', changefreq: 'monthly' },
+	{ path: '/rankings', priority: '0.8', changefreq: 'monthly' },
+	{ path: '/rankings/highest-risk', priority: '0.8', changefreq: 'monthly' },
+	{ path: '/rankings/ai-leveraged', priority: '0.7', changefreq: 'monthly' },
+	{ path: '/rankings/high-exposure-in-demand', priority: '0.8', changefreq: 'monthly' },
+	{ path: '/rankings/theory-vs-practice', priority: '0.7', changefreq: 'monthly' },
+	{ path: '/rankings/safest-high-paying', priority: '0.8', changefreq: 'monthly' },
+	{ path: '/rankings/rich-and-risky', priority: '0.8', changefreq: 'monthly' },
+	{ path: '/compare', priority: '0.8', changefreq: 'monthly' },
+	{ path: '/will-ai-take-my-job', priority: '0.9', changefreq: 'monthly' },
+	{ path: '/ai-proof-jobs', priority: '0.8', changefreq: 'monthly' },
+	{ path: '/ai-job-loss', priority: '0.8', changefreq: 'monthly' },
+	{ path: '/reports', priority: '0.8', changefreq: 'monthly' },
+	{ path: '/reports/job-market-evidence', priority: '0.8', changefreq: 'monthly' },
+	{ path: '/press', priority: '0.5', changefreq: 'monthly' },
+	{ path: '/changelog', priority: '0.5', changefreq: 'monthly' }
+];
 
-	const occupations: Occupation[] = JSON.parse(
-		fs.readFileSync(path.join(DATA_DIR, 'occupations.json'), 'utf-8')
-	);
+function routeSourceExists(route: string): boolean {
+	if (route === '/') return fs.existsSync(path.join(ROOT, 'src', 'routes', '+page.svelte'));
+	return fs.existsSync(path.join(ROOT, 'src', 'routes', route.slice(1), '+page.svelte'));
+}
 
-	const { syntheticRoles } = await import('../src/lib/data/synthetic-roles');
-	const majorGroups: Array<{ key: string }> = JSON.parse(
-		fs.readFileSync(
-			path.join(import.meta.dir, '..', 'src', 'lib', 'data', 'major-groups.json'),
-			'utf-8'
-		)
-	);
+function xml(value: string): string {
+	return value
+		.replaceAll('&', '&amp;')
+		.replaceAll('<', '&lt;')
+		.replaceAll('>', '&gt;')
+		.replaceAll('"', '&quot;')
+		.replaceAll("'", '&apos;');
+}
 
-	const staticPages: SitemapEntry[] = [
-		{ path: '/', priority: '1.0', changefreq: 'weekly' },
-		{ path: '/explore', priority: '0.8', changefreq: 'weekly' },
-		{ path: '/methodology', priority: '0.8', changefreq: 'monthly' },
-		{ path: '/global', priority: '0.8', changefreq: 'monthly' },
-		{ path: '/sg', priority: '0.7', changefreq: 'monthly' },
-		{ path: '/methodology/appendix', priority: '0.7', changefreq: 'monthly' },
-		{ path: '/about', priority: '0.8', changefreq: 'monthly' },
-		{ path: '/data', priority: '0.8', changefreq: 'monthly' },
-		{ path: '/research', priority: '0.7', changefreq: 'monthly' },
-		{ path: '/roles', priority: '0.7', changefreq: 'monthly' },
-		{ path: '/reports', priority: '0.8', changefreq: 'monthly' },
-		{ path: '/reports/q4-2024', priority: '0.6', changefreq: 'yearly' },
-		{ path: '/reports/wage-exposure', priority: '0.7', changefreq: 'monthly' },
-		{ path: '/reports/v7-release', priority: '0.7', changefreq: 'monthly' },
-		{ path: '/reports/v6-release', priority: '0.6', changefreq: 'yearly' },
-		{ path: '/reports/v5-experimental', priority: '0.5', changefreq: 'yearly' },
-		{ path: '/reports/v5-roadmap', priority: '0.5', changefreq: 'yearly' },
-		{ path: '/reports/v4-3-shadow', priority: '0.5', changefreq: 'yearly' },
-		{ path: '/press', priority: '0.5', changefreq: 'monthly' },
-		{ path: '/rankings', priority: '0.7', changefreq: 'monthly' },
-		{ path: '/rankings/highest-risk', priority: '0.7', changefreq: 'monthly' },
-		{ path: '/rankings/ai-leveraged', priority: '0.7', changefreq: 'monthly' },
-		{ path: '/rankings/high-exposure-in-demand', priority: '0.7', changefreq: 'monthly' },
-		{ path: '/rankings/high-risk-in-demand', priority: '0.7', changefreq: 'monthly' },
-		{ path: '/rankings/theory-vs-practice', priority: '0.7', changefreq: 'monthly' },
-		{ path: '/rankings/safest-high-paying', priority: '0.7', changefreq: 'monthly' },
-		{ path: '/rankings/best-transitions', priority: '0.7', changefreq: 'monthly' },
-		{ path: '/rankings/high-risk-few-exits', priority: '0.7', changefreq: 'monthly' },
-		{ path: '/rankings/quarterly-movers', priority: '0.7', changefreq: 'monthly' },
-		{ path: '/compare', priority: '0.6', changefreq: 'monthly' },
-		{ path: '/rankings/rich-and-risky', priority: '0.7', changefreq: 'monthly' },
-		{ path: '/will-ai-take-my-job', priority: '0.8', changefreq: 'monthly' },
-		{ path: '/ai-proof-jobs', priority: '0.8', changefreq: 'monthly' },
-		{ path: '/ai-job-loss', priority: '0.8', changefreq: 'monthly' },
-		{ path: '/groups', priority: '0.7', changefreq: 'monthly' },
-		{ path: '/changelog', priority: '0.5', changefreq: 'monthly' }
-	];
-
+function main() {
+	const release = loadV9Release();
+	const majorGroups = JSON.parse(
+		fs.readFileSync(path.join(ROOT, 'src', 'lib', 'data', 'major-groups.json'), 'utf8')
+	) as Array<{ key: string }>;
+	const roleRelease = JSON.parse(
+		fs.readFileSync(path.join(ROOT, 'data', 'synthetic-roles-v9.json'), 'utf8')
+	) as {
+		roles: Array<{
+			slug: string;
+			official_status: 'official_occupation_match' | 'non_official_role_query';
+		}>;
+	};
 	const entries: SitemapEntry[] = [];
 	const seen = new Set<string>();
-	function addUrl(entry: SitemapEntry) {
-		const normalizedPath = entry.path === '/' ? '/' : entry.path.replace(/\/+$/g, '');
-		if (seen.has(normalizedPath)) return;
-		seen.add(normalizedPath);
-		entries.push({ ...entry, path: normalizedPath });
+	const add = (entry: SitemapEntry) => {
+		const normalized = entry.path === '/' ? '/' : entry.path.replace(/\/+$/g, '');
+		if (seen.has(normalized)) return;
+		seen.add(normalized);
+		entries.push({ ...entry, path: normalized });
+	};
+
+	for (const entry of staticPages) {
+		if (!routeSourceExists(entry.path) && !['/sg', '/us', '/global'].includes(entry.path)) {
+			throw new Error(`Sitemap route has no source page: ${entry.path}`);
+		}
+		add(entry);
+	}
+	if (routeSourceExists('/reports/v9-release')) {
+		add({ path: '/reports/v9-release', priority: '0.9', changefreq: 'monthly' });
 	}
 
-	// Static pages
-	for (const p of staticPages) {
-		addUrl(p);
+	for (const occupation of release.occupations) {
+		add({
+			path: `/occupation/${occupation.taxonomy.code}`,
+			priority: '0.6',
+			changefreq: 'monthly'
+		});
 	}
-
-	// Occupation pages
-	for (const occ of occupations) {
-		addUrl({ path: `/occupation/${occ.ssoc}`, changefreq: 'monthly', priority: '0.5' });
+	for (const group of majorGroups) {
+		const slug = group.key.toLowerCase().replace(/[,&]/g, '').replace(/\s+/g, '-');
+		add({ path: `/group/${slug}`, priority: '0.6', changefreq: 'monthly' });
 	}
-
-	// Group hub pages
-	for (const g of majorGroups) {
-		const slug = g.key.toLowerCase().replace(/[,&]/g, '').replace(/\s+/g, '-');
-		addUrl({ path: `/group/${slug}`, changefreq: 'monthly', priority: '0.7' });
-	}
-
-	// Role pages
-	for (const role of syntheticRoles) {
-		addUrl({ path: `/role/${role.slug}`, changefreq: 'monthly', priority: '0.5' });
+	for (const role of roleRelease.roles.filter(
+		role => role.official_status === 'non_official_role_query'
+	)) {
+		add({ path: `/role/${role.slug}`, priority: '0.6', changefreq: 'monthly' });
 	}
 
 	const urls = entries
 		.map(
 			entry =>
-				`  <url><loc>${base}${entry.path}</loc><lastmod>${lastmod}</lastmod><changefreq>${entry.changefreq}</changefreq><priority>${entry.priority}</priority></url>`
+				`  <url><loc>${xml(`${SITE.url}${entry.path}`)}</loc><lastmod>${release.generated_at}</lastmod><changefreq>${entry.changefreq}</changefreq><priority>${entry.priority}</priority></url>`
 		)
 		.join('\n');
-	const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}</urlset>\n`;
+	fs.writeFileSync(
+		OUT_FILE,
+		`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`,
+		'utf8'
+	);
 
-	fs.writeFileSync(OUT_FILE, sitemap);
-	console.log(`Sitemap generated: ${entries.length} canonical URLs`);
-	console.log(`Domain: ${base}`);
-	console.log(`Output: ${OUT_FILE}`);
+	console.log(
+		`Sitemap generated: ${entries.length} canonical URLs (${release.occupations.length} occupations, ${roleRelease.roles.filter(role => role.official_status === 'non_official_role_query').length} non-official role queries)`
+	);
 }
 
-main().catch(console.error);
+main();

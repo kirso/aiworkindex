@@ -1,92 +1,120 @@
 #!/usr/bin/env bun
 
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 
-import type { V8PublicOccupation } from '../src/lib/data/v8-contract';
+import { buildV9PublicRelease, ROOT } from './v9-public-export';
 
-const ROOT = path.join(import.meta.dir, '..');
-const input = path.join(ROOT, 'data', 'occupations-v8.json');
-const output = path.join(ROOT, 'static', 'data', 'sg-ai-occupations-v8.csv');
+const output = path.join(ROOT, 'static', 'data', 'sg-ai-occupations-v9.csv');
 
 const columns = [
 	'schema_version',
-	'ssoc',
+	'ssoc_2024',
 	'title',
-	'major_group',
 	'major_group_code',
+	'major_group',
+	'sub_major_group_code',
+	'minor_group_code',
+	'unit_group_code',
+	'score_status',
+	'ilo_mean_score_2025_median',
+	'ilo_mean_score_2025_min',
+	'ilo_mean_score_2025_max',
+	'ai_work_pressure_percentile',
+	'ai_work_pressure_midrank_position',
+	'ai_work_pressure_population_size',
+	'ilo_potential25_categories',
+	'ilo_potential25_least_exposed',
+	'ilo_potential25_most_exposed',
+	'ilo_task_score_sd_2025_median',
+	'ilo_task_score_sd_2025_min',
+	'ilo_task_score_sd_2025_max',
+	'official_isco08_codes',
+	'scored_isco08_codes',
+	'unscored_official_isco08_codes',
+	'mapping_quality',
+	'evidence_support',
+	'basic_monthly_p25_sgd',
+	'basic_monthly_median_sgd',
+	'basic_monthly_p75_sgd',
+	'gross_monthly_p25_sgd',
 	'gross_monthly_median_sgd',
-	'estimated_employment_thousands',
-	'employment_basis',
-	'ai_task_exposure_index',
-	'human_bottleneck_index',
-	'ai_exposure_rank',
-	'job_change_band',
-	'substitution_pressure_score',
-	'substitution_pressure_band',
-	'augmentation_potential_score',
-	'augmentation_potential_band',
-	'likely_pathway',
-	'demand_context',
-	'adoption_context',
-	'adoption_coverage',
-	'attrition_absorber',
-	'entry_level_sensitivity',
-	'evidence_confidence',
-	'evidence_limiting_factors',
-	'sensitivity_label',
-	'sensitivity_minimum_points',
-	'sensitivity_maximum_points',
-	'reference_market',
-	'reference_date'
-];
+	'gross_monthly_p75_sgd',
+	'wage_reference_period',
+	'wage_source_id',
+	'direct_demand_signal_count',
+	'demand_source_keys',
+	'demand_source_occupations',
+	'labour_context_grain',
+	'labour_context_cluster',
+	'labour_context_data_as_of',
+	'evidence_data_as_of',
+	'limitations'
+] as const;
 
-function escapeCsv(value: string | number | null): string {
+function escapeCsv(value: string | number | boolean | null | undefined): string {
 	const text = value == null ? '' : String(value);
-	return /[",\n]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
+	return /[",\n\r]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
 }
 
-const occupations = JSON.parse(fs.readFileSync(input, 'utf8')) as V8PublicOccupation[];
-const rows = occupations.map(occupation => {
-	const v8 = occupation.v8;
+const release = buildV9PublicRelease();
+const rows = release.occupations.map(occupation => {
+	const exposure = occupation.genai_task_exposure;
+	const wage = occupation.singapore_market.wages;
+	const demand = occupation.market_evidence.demand_signals;
+	const majorGroupCode = occupation.taxonomy.hierarchy.major_group.code;
+	const labour = release.market_context.labour_by_major_group[majorGroupCode] ?? null;
 	return [
 		occupation.schema_version,
-		occupation.ssoc,
-		occupation.title,
-		occupation.major_group,
-		occupation.major_group_code,
-		occupation.wages.gross_monthly_median_sgd,
-		occupation.employment.estimated_thousands,
-		occupation.employment.basis,
-		occupation.ai_task_exposure_index,
-		occupation.human_bottleneck_index,
-		v8.ai_exposure_rank.points,
-		v8.ai_exposure_rank.band,
-		v8.substitution_pressure.points,
-		v8.substitution_pressure.band,
-		v8.augmentation_potential.points,
-		v8.augmentation_potential.band,
-		v8.likely_pathway,
-		v8.market_context.demand,
-		v8.market_context.adoption,
-		v8.market_context.adoption_coverage,
-		v8.market_context.attrition_absorber,
-		v8.market_context.entry_level_sensitivity,
-		v8.evidence_confidence.level,
-		v8.evidence_confidence.limiting_factors.join('|'),
-		v8.sensitivity.label,
-		v8.sensitivity.minimum_points,
-		v8.sensitivity.maximum_points,
-		v8.reference_market,
-		v8.reference_date
+		occupation.taxonomy.code,
+		occupation.taxonomy.title,
+		majorGroupCode,
+		occupation.taxonomy.hierarchy.major_group.title,
+		occupation.taxonomy.hierarchy.sub_major_group?.code ?? null,
+		occupation.taxonomy.hierarchy.minor_group?.code ?? null,
+		occupation.taxonomy.hierarchy.unit_group?.code ?? null,
+		occupation.score_status,
+		exposure?.mean_score_2025.median ?? null,
+		exposure?.mean_score_2025.min ?? null,
+		exposure?.mean_score_2025.max ?? null,
+		exposure?.pressure_rank.percentile ?? null,
+		exposure?.pressure_rank.midrank_position ?? null,
+		exposure?.pressure_rank.population_size ?? null,
+		exposure?.potential25.categories.join('|') ?? null,
+		exposure?.potential25.least_exposed ?? null,
+		exposure?.potential25.most_exposed ?? null,
+		exposure?.task_score_sd_2025.median ?? null,
+		exposure?.task_score_sd_2025.min ?? null,
+		exposure?.task_score_sd_2025.max ?? null,
+		occupation.evidence.official_isco08_codes.join('|'),
+		exposure?.scored_isco08_matches.map(match => match.isco08_code).join('|') ?? null,
+		exposure?.unscored_official_isco08_codes.join('|') ?? null,
+		occupation.evidence.mapping_quality,
+		occupation.evidence.support,
+		wage?.value.basic_monthly_sgd.p25 ?? null,
+		wage?.value.basic_monthly_sgd.median ?? null,
+		wage?.value.basic_monthly_sgd.p75 ?? null,
+		wage?.value.gross_monthly_sgd.p25 ?? null,
+		wage?.value.gross_monthly_sgd.median ?? null,
+		wage?.value.gross_monthly_sgd.p75 ?? null,
+		wage?.reference_period ?? null,
+		wage?.source.id ?? null,
+		demand.length,
+		[...new Set(demand.map(signal => signal.source_key))].join('|'),
+		demand.map(signal => signal.source_occupation).join('|'),
+		labour ? 'published_broad_occupation_group' : null,
+		labour?.cluster_key ?? null,
+		labour?.data_as_of ?? null,
+		occupation.evidence.data_as_of,
+		occupation.evidence.limitations.join('|')
 	];
 });
 
 fs.mkdirSync(path.dirname(output), { recursive: true });
 fs.writeFileSync(
 	output,
-	`${[columns, ...rows].map(row => row.map(value => escapeCsv(value as string | number | null)).join(',')).join('\n')}\n`,
+	`${[columns, ...rows].map(row => row.map(value => escapeCsv(value)).join(',')).join('\n')}\n`,
 	'utf8'
 );
 
-console.log(`Exported ${occupations.length} V8 occupations to ${output}`);
+console.log(`Exported ${release.occupations.length} V9 occupations to ${output}`);

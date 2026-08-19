@@ -1,8 +1,11 @@
 # Zenodo Release Notes Draft
 
+> V9 draft for the immutable release archive. Insert the exact Git commit and artifact checksums
+> before deposit.
+
 ## Title
 
-AI Work Index V7.1: Structural AI Displacement Pressure for Singapore Occupations
+AI Work Index V9: GenAI Task Exposure Across SSOC 2024 Occupations
 
 ## Creators
 
@@ -10,20 +13,25 @@ AI Work Index V7.1: Structural AI Displacement Pressure for Singapore Occupation
 
 ## Description
 
-This release archives the AI Work Index V7.1 dataset and deterministic scoring pipeline. The index
-scores Singapore occupations and synthetic modern roles for structural AI displacement pressure by
-combining a multi-source AI exposure ensemble, human bottleneck/complementarity measures, and local
-demand-resilience context.
+This release archives V9 of the AI Work Index and its deterministic public-data pipeline. It covers
+all 1,001 numeric SSOC 2024 occupations. The sole headline input is the ILO 2025 mean GenAI
+task-exposure measure, mapped through the official SSOC 2024 to ISCO-08 correspondence. V9 publishes
+AI Work Pressure Ranks for 987 occupations and withholds 14 where no usable ILO value is available.
 
-The release should be described as a structural exposure index, not a forecast of job losses. The
-V7.1 branch includes the Hampole task-concentration buffer correction, synthetic roles migrated to
-the V7 scoring spine, sensitivity analysis for hand-set constants, Singapore-specific convergence
-checks, forecast-horizon sidecar scaffolding, and public release-governance artifacts.
+The archive retains official exposure categories, task-score dispersion, mapping candidates and
+ranges; 523 direct MOM 2025 wage observations; reviewed demand and broad labour-market context; and
+88 modern job-title queries. Of those queries, 67 resolve to official occupations, 18 use disclosed
+editorial composites, and three are withheld. Observed use, potential complementarity, demand,
+wages, adoption, and labour outcomes remain independent from the rank.
+
+AI Work Pressure is relative task exposure, not a job-loss probability, share of tasks automated,
+or employment forecast. V9 does not publish inferred detailed employment, jobs affected, wage pools,
+substitution or augmentation scores, or synthetic job pathways.
 
 ## Suggested Keywords
 
-AI exposure; labour economics; occupations; Singapore; task automation; skills; workforce risk;
-structural pressure; reproducible data
+generative AI; occupational exposure; Singapore; SSOC 2024; task exposure; labour economics;
+reproducible data
 
 ## Related Identifiers
 
@@ -38,3 +46,9 @@ structural pressure; reproducible data
 Archive the exact GitHub release or branch commit, then add the Zenodo DOI back to the site and
 release notes in a follow-up commit. The DOI should point to immutable release artifacts, not the
 moving live site.
+
+Record before deposit:
+
+- Git commit: `TBD`
+- Release tag: `TBD`
+- V9 manifest SHA-256: `TBD`

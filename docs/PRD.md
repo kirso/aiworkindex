@@ -2,12 +2,12 @@
 
 **Version:** 2.0
 **Date:** 2026-03-16
-**Status:** Historical draft (superseded by live V7 implementation)
+**Status:** Historical V7-era draft; do not use for V9 implementation or claims
 
-> This PRD is preserved for product-history context. It is not the current methodology source of truth.
-> The live scorer is V7 in `scripts/score.ts` and `src/lib/data/methodology-core.ts`.
-> The public source of truth is `src/lib/data/scoring-constants.ts`, `/methodology`, `/methodology/appendix`, and `/reports/v7-release`.
-> V7 formula: `headline_risk = exposure_v7 x (1 - bottleneck) x (1 - demand_resilience)`, with `exposure_v7` adjusted by task concentration and `demand_resilience` adjusted by demand persistence.
+> **Historical document.** This file preserves an abandoned V7 product design, including formulas
+> and claims that V9 does not publish. Do not use it as methodology, release guidance, or external
+> copy. Current sources of truth are the repository `README.md`, `docs/RELEASE_CHECKLIST.md`,
+> `/methodology`, `/methodology/appendix`, and `/reports/v9-release`.
 
 ---
 

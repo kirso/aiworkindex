@@ -1,19 +1,42 @@
 [
   {
+    "id": "public-v9-2026-08-19",
+    "type": "structural_release",
+    "label": "V9 Singapore AI Work Pressure release",
+    "version_label": "V9",
+    "published_at": "2026-08-19",
+    "display_date": "19 Aug 2026",
+    "score_version": "V9",
+    "monitor_vintage": "Q1 2026 detailed; Q2 2026 advance release",
+    "href": "/reports/v9-release",
+    "availability": "current_report",
+    "status": "current",
+    "archive": false,
+    "notes": [
+      "Migrates the active occupation universe to SSOC 2024.",
+      "Uses ILO 2025 mean task exposure as the sole owner of the AI Work Pressure Rank.",
+      "Publishes official exposure categories, mapping ranges, task-score dispersion, direct wages and separate market evidence."
+    ]
+  },
+  {
     "id": "public-v8-2026-07-15",
     "type": "structural_release",
-    "label": "V8 truthful AI exposure release",
+    "label": "V8 AI exposure release",
     "version_label": "V8",
     "published_at": "2026-07-15",
     "display_date": "15 Jul 2026",
     "score_version": "V8",
-    "monitor_vintage": "Q1 2026 full",
-    "href": "/data",
-    "availability": "current_download",
+    "monitor_vintage": null,
+    "href": "/data/sg-ai-occupations-v8.json",
+    "availability": "historical_snapshot",
+    "status": "archive",
+    "archive": true,
     "notes": [
-      "Introduces a clean relative 0-100 Singapore AI exposure contract with substitution, augmentation, pathway, confidence and sensitivity fields.",
-      "Demand, adoption, attrition, entry-level and transition economics are reported separately from the headline score.",
-      "United States and global occupation scores are withdrawn until local validation gates pass."
+      "Archived SSOC 2020 release retained for auditability.",
+      "At publication, V8 introduced a relative 0-100 Singapore AI exposure contract with substitution, augmentation, pathway, confidence and sensitivity fields.",
+      "At publication, demand, adoption, attrition, entry-level and transition economics were reported separately from the headline score.",
+      "At publication, United States and global occupation scores were withdrawn until local validation gates passed.",
+      "Its formulas, labels and sidecars are not part of V9 and must not be joined to V9 as a time series."
     ]
   },
   {
@@ -24,13 +47,16 @@
     "published_at": "2026-04-07",
     "display_date": "7 Apr 2026",
     "score_version": "V7",
-    "monitor_vintage": "Q1 2026 full",
-    "href": "/data",
-    "availability": "current_download",
+    "monitor_vintage": null,
+    "href": "/data/sg-ai-occupations-v7.json",
+    "availability": "historical_snapshot",
+    "status": "archive",
+    "archive": true,
     "notes": [
-      "Promotes the live V7 release: a task-concentration exposure buffer and a demand-persistence proxy on top of the V6 two-axis structural model.",
-      "Revised 7 Jun 2026: the task-concentration term was corrected from an exposure amplifier to a buffer, matching the cited Hampole et al. (2025) finding that concentrated exposure offsets labour-demand losses.",
-      "The canonical public export, sitemap, release manifest, claims matrix, and LLM surfaces share the same V7 release contract. V6 remains preserved as the immediate previous structural baseline for auditability."
+      "Archived SSOC 2020 structural release; superseded by V9.",
+      "V7 added a task-concentration exposure buffer and demand-persistence proxy to the V6 structural model.",
+      "Revised 7 June 2026: the task-concentration term was corrected from an exposure amplifier to a buffer.",
+      "V6 remains preserved as its immediate structural baseline."
     ]
   },
   {
@@ -41,13 +67,15 @@
     "published_at": "2026-04-01",
     "display_date": "1 Apr 2026",
     "score_version": "V6",
-    "monitor_vintage": "Q1 2026 full",
+    "monitor_vintage": null,
     "href": "/data/sg-ai-occupations-v6.json",
     "availability": "historical_snapshot",
+    "status": "archive",
+    "archive": true,
     "notes": [
-      "Promotes the live V6 two-axis structural release: deterministic 4-source exposure ensemble, human bottleneck, displacement pressure, and explicit demand resilience.",
-      "The canonical public export now matches the live app dataset and release-governance artifacts.",
-      "Retained as the immediate pre-V7 structural baseline for auditability."
+      "Archived SSOC 2020 structural release; superseded by V9.",
+      "V6 published a two-axis structural model built from an exposure ensemble, a human bottleneck, displacement pressure and demand resilience.",
+      "It is retained as the immediate pre-V7 structural baseline."
     ]
   },
   {
@@ -58,13 +86,15 @@
     "published_at": "2026-03-21",
     "display_date": "21 Mar 2026",
     "score_version": "V5",
-    "monitor_vintage": "Q1 2026 full",
+    "monitor_vintage": null,
     "href": "/data/sg-ai-occupations-v5.json",
     "availability": "historical_snapshot",
+    "status": "archive",
+    "archive": true,
     "notes": [
-      "Promotes the V5 structural model: latent-source posterior exposure, task-mode blending, concentration-driven fragility, and heterogeneous augmentation.",
-      "Transition-adjusted and realized-risk layers are now published alongside the live structural score instead of being collapsed into the headline number.",
-      "Retained as the immediate pre-V6 live baseline for auditability."
+      "Archived SSOC 2020 structural release; superseded by V9.",
+      "V5 published a latent-source posterior exposure model with task-mode blending, concentration-driven fragility and heterogeneous augmentation.",
+      "Transition-adjusted and realised-risk layers were adjunct fields in that release."
     ]
   },
   {
@@ -75,13 +105,15 @@
     "published_at": "2026-03-21",
     "display_date": "21 Mar 2026",
     "score_version": "V4.3",
-    "monitor_vintage": "Q1 2026 full",
+    "monitor_vintage": null,
     "href": "/data/sg-ai-occupations-v43.json",
     "availability": "historical_snapshot",
+    "status": "archive",
+    "archive": true,
     "notes": [
-      "Retained task-aware structural snapshot from the V4 lineage.",
-      "The separate V4.3 shadow-governance artifact remains published with its own validation and anchor-review gates.",
-      "Retained for auditability beneath the later V5, V6, and V7 releases."
+      "Archived SSOC 2020 structural release; superseded by V9.",
+      "V4.3 retained the task-aware structural snapshot from the V4 lineage.",
+      "Its separate shadow-governance artifact remains available with its historical validation and anchor-review gates."
     ]
   },
   {
@@ -92,12 +124,15 @@
     "published_at": "2026-03-21",
     "display_date": "21 Mar 2026",
     "score_version": "V4.2",
-    "monitor_vintage": "Q1 2026 full",
+    "monitor_vintage": null,
     "href": "/data/sg-ai-occupations-v42.json",
     "availability": "historical_snapshot",
+    "status": "archive",
+    "archive": true,
     "notes": [
-      "Shared methodology core, bootstrap uncertainty, forecast separation, and governance hardening.",
-      "Retained as the final pre-promotion baseline before the task-aware V4.3 release."
+      "Archived SSOC 2020 structural release; superseded by V9.",
+      "V4.2 introduced a shared methodology core, bootstrap uncertainty, forecast separation and governance hardening.",
+      "It is retained as the final pre-V4.3 baseline."
     ]
   },
   {
@@ -108,12 +143,15 @@
     "published_at": "2026-03-19",
     "display_date": "19 Mar 2026",
     "score_version": "V4.0",
-    "monitor_vintage": "Q1 2026 full",
+    "monitor_vintage": null,
     "href": "/methodology",
     "availability": "history_only",
+    "status": "archive",
+    "archive": true,
     "notes": [
-      "Expanded exposure into the four-source ensemble: AIOE, Anthropic, Eloundou, and ILO.",
-      "Preceded the later V4.2 methodology hardening pass."
+      "Methodology milestone retained for lineage; no standalone snapshot is published.",
+      "V4.0 expanded exposure into a four-source ensemble: AIOE, Anthropic, Eloundou and ILO.",
+      "It preceded the V4.2 methodology-hardening pass."
     ]
   },
   {
@@ -124,12 +162,14 @@
     "published_at": "2026-03-19",
     "display_date": "19 Mar 2026",
     "score_version": "V3.3",
-    "monitor_vintage": "Q1 2026 full",
+    "monitor_vintage": null,
     "href": "/methodology",
     "availability": "history_only",
+    "status": "archive",
+    "archive": true,
     "notes": [
-      "Introduced the first ensemble-style exposure blend before the final four-source V4 lineage.",
-      "Tracked here for version continuity; no separate frozen public snapshot is retained."
+      "Methodology milestone retained for lineage; no standalone snapshot is published.",
+      "V3.3 introduced the first ensemble-style exposure blend before the four-source V4 lineage."
     ]
   },
   {
@@ -140,12 +180,14 @@
     "published_at": "2026-03-19",
     "display_date": "19 Mar 2026",
     "score_version": "V3.2",
-    "monitor_vintage": "Q1 2026 full",
+    "monitor_vintage": null,
     "href": "/methodology",
     "availability": "history_only",
+    "status": "archive",
+    "archive": true,
     "notes": [
-      "Surfaced confidence intervals and recalibrated seniority adjustments.",
-      "Tracked as a methodology milestone, not a retained standalone download."
+      "Methodology milestone retained for lineage; no standalone snapshot is published.",
+      "V3.2 surfaced confidence intervals and recalibrated seniority adjustments."
     ]
   },
   {
@@ -156,12 +198,14 @@
     "published_at": "2026-03-16",
     "display_date": "16 Mar 2026",
     "score_version": "V3.1",
-    "monitor_vintage": "Q1 2026 full",
+    "monitor_vintage": null,
     "href": "/methodology",
     "availability": "history_only",
+    "status": "archive",
+    "archive": true,
     "notes": [
-      "Added Anthropic observed usage and stronger Singapore demand/context layers.",
-      "Version tracked from git history; no separate retained public snapshot."
+      "Methodology milestone retained for lineage; no standalone snapshot is published.",
+      "V3.1 added Anthropic observed-usage data and stronger Singapore demand/context layers."
     ]
   },
   {
@@ -172,12 +216,14 @@
     "published_at": "2026-03-16",
     "display_date": "16 Mar 2026",
     "score_version": "V3.0",
-    "monitor_vintage": "Q1 2026 full",
+    "monitor_vintage": null,
     "href": "/data/sg-ai-occupations-v3.json",
     "availability": "historical_snapshot",
+    "status": "archive",
+    "archive": true,
     "notes": [
-      "First full three-layer structural score: exposure, bottleneck, and market modifier.",
-      "Historical public JSON snapshot is still retained."
+      "Archived SSOC 2020 structural release; superseded by V9.",
+      "V3.0 published the first three-layer structural score: exposure, bottleneck and market modifier."
     ]
   },
   {
@@ -188,12 +234,14 @@
     "published_at": null,
     "display_date": "Jan 2026",
     "score_version": "V2",
-    "monitor_vintage": "Q1 2026 full",
+    "monitor_vintage": null,
     "href": "/methodology",
     "availability": "history_only",
+    "status": "archive",
+    "archive": true,
     "notes": [
-      "Second-generation methodology before the V3 structural formula rewrite.",
-      "Tracked for lineage continuity; no retained standalone public snapshot."
+      "Historical methodology lineage only; no standalone snapshot is published.",
+      "V2 was the second-generation Singapore occupation scorer before the V3 formula rewrite."
     ]
   },
   {
@@ -204,87 +252,101 @@
     "published_at": null,
     "display_date": "Dec 2025",
     "score_version": "V1",
-    "monitor_vintage": "Q1 2026 full",
+    "monitor_vintage": null,
     "href": "/methodology",
     "availability": "history_only",
+    "status": "archive",
+    "archive": true,
     "notes": [
-      "First public alpha of the Singapore occupation AI-impact project.",
-      "Tracked for release lineage only."
+      "Historical methodology lineage only; no standalone snapshot is published.",
+      "V1 was the first public alpha of the Singapore occupation AI-impact project."
     ]
   },
   {
     "id": "shadow-score-v43-published",
     "type": "experimental_update",
     "label": "V4.3 shadow score published",
-    "published_at": "2026-07-17",
+    "version_label": null,
+    "published_at": "2026-03-21",
     "display_date": "21 Mar 2026",
-    "score_version": "V7",
-    "monitor_vintage": "Q1 2026 full",
+    "score_version": "V4.3",
+    "monitor_vintage": null,
     "href": "/reports/v4-3-shadow",
-    "availability": "current_download",
+    "availability": "archived_report",
+    "status": "archive",
+    "archive": true,
     "notes": [
-      "V4.3 remains published as part of the retained audit trail beneath later live releases.",
-      "Shadow score is published, but promotion into the headline model is still gated by validation and anchor review."
+      "Archived V4.3 shadow-model record. Its promotion gates and comparison metrics are not part of V9."
     ]
   },
   {
     "id": "v5-sidecars-published",
     "type": "experimental_update",
     "label": "V5 sidecars published",
-    "published_at": "2026-07-17",
+    "version_label": null,
+    "published_at": "2026-03-21",
     "display_date": "21 Mar 2026",
-    "score_version": "V7",
-    "monitor_vintage": "Q1 2026 full",
+    "score_version": "V5",
+    "monitor_vintage": null,
     "href": "/reports/v5-roadmap",
-    "availability": "current_download",
+    "availability": "archived_report",
+    "status": "archive",
+    "archive": true,
     "notes": [
-      "The former live V5 model is archived with its published sidecars and comparison artifacts retained for auditability.",
-      "Each V5 workstream now ships as an auditable sidecar artifact before any future headline-score change."
+      "Archived V5 sidecar record. Its fields do not contribute to V9."
     ]
   },
   {
     "id": "v5-experimental-model-published",
     "type": "experimental_update",
     "label": "V5 experimental model published",
-    "published_at": "2026-07-17",
+    "version_label": null,
+    "published_at": "2026-03-21",
     "display_date": "21 Mar 2026",
-    "score_version": "V7",
-    "monitor_vintage": "Q1 2026 full",
+    "score_version": "V5",
+    "monitor_vintage": null,
     "href": "/reports/v5-experimental",
-    "availability": "current_download",
+    "availability": "archived_report",
+    "status": "archive",
+    "archive": true,
     "notes": [
-      "The former live V5 model is retained as a historical baseline together with its validation and adjunct artifacts.",
-      "Current validation snapshot: structural 2/2, realized 2/4."
+      "Archived V5 experimental-model record. Its risk fields and validation are not part of V9."
     ]
   },
   {
-    "id": "official-labour-report-q1-2026",
+    "id": "official-labour-advance-release-q2-2026",
     "type": "official_update",
-    "label": "MOM Labour Market Report Q1 2026",
-    "published_at": "2026-06-15",
-    "display_date": "15 Jun 2026",
-    "score_version": "V7",
-    "monitor_vintage": "Q1 2026 full",
-    "href": "https://stats.mom.gov.sg/Pages/Labour-Market-Report-1Q-2026.aspx",
-    "availability": "current_download",
+    "label": "MOM Labour Market Advance Release Q2 2026",
+    "version_label": null,
+    "published_at": "2026-07-31",
+    "display_date": "31 Jul 2026",
+    "score_version": "V9",
+    "monitor_vintage": "Q1 2026 detailed; Q2 2026 advance release",
+    "href": "https://www.mom.gov.sg/newsroom/press-releases/2026/0731-labour-market-advance-release-2q-2026",
+    "availability": "current_source",
+    "status": "current_evidence",
+    "archive": false,
     "notes": [
-      "Fresh official labour report published by MOM.",
-      "Current labour context refreshed to the Q1 2026 full vintage."
+      "Preliminary national labour-market figures published by MOM.",
+      "Q1 2026 remains the latest detailed occupation-group evidence until the full Q2 report."
     ]
   },
   {
-    "id": "quarterly-briefing-2026-q1",
+    "id": "v9-quarterly-comparison-withheld",
     "type": "report_refresh",
-    "label": "2026 Q1 quarterly briefing",
-    "published_at": "2026-07-17",
-    "display_date": "21 Mar 2026",
-    "score_version": "V7",
-    "monitor_vintage": "Q1 2026 full",
+    "label": "V9 quarterly comparison pending",
+    "version_label": null,
+    "published_at": "2026-08-19",
+    "display_date": "19 Aug 2026",
+    "score_version": "V9",
+    "monitor_vintage": "Q1 2026 detailed; Q2 2026 advance release",
     "href": "/reports",
-    "availability": "current_download",
+    "availability": "current_notice",
+    "status": "withheld",
+    "archive": false,
     "notes": [
-      "Quarterly movers and briefing context refreshed from frozen snapshots.",
-      "Uses the live monitor artifact vintage current at the time of publication."
+      "No V9 mover ranking is published until two comparable V9 snapshots exist.",
+      "Older structural snapshots are not treated as comparable to the SSOC 2024 release."
     ]
   }
 ]

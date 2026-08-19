@@ -1,5 +1,7 @@
 # SSG Task-Convergence Protocol
 
+> V9 research protocol. This is not an active score input and cannot change AI Work Pressure ranks.
+
 ## Status
 
 Written permission has been granted to use the SkillsFuture Singapore AI Potential on Tasks
@@ -22,15 +24,12 @@ artifacts.
 
 ## Artifact Contract
 
-Build `ssg-convergence.json` with the same release-governance pattern as the BLS, IMF, sensitivity,
-and forecast artifacts:
+Build a versioned `ssg-convergence-v9.json` only after the input contract is reproducible:
 
-- Triple-write to `data/backtests/`, `src/lib/data/backtests/`, and `static/data/backtests/`.
-- Add release-manifest entry.
+- Keep it outside the current release manifest until it passes the validation gate.
 - Add validate checks for existence, source status, join count/rate, aggregate-only output, and
-  site-status parity.
-- Add a methodology Validation card.
-- Add site-status headline stats.
+  source checksums.
+- Publish it as a clearly labelled research comparison, not headline evidence.
 
 ## Metrics
 
@@ -39,6 +38,8 @@ Minimum public metrics:
 - Permission status and source vintage.
 - Raw task row count and joined task row count.
 - Exact join rate to the official Skills Framework workbook.
-- Employment-weighted and unweighted SSG AI-potential class shares.
-- Rank/correlation between occupation-level `exposure_v7` and SSG-derived task potential.
+- Unweighted SSG AI-potential class shares at the source's task and role grains.
+- Rank/correlation between V9 ILO mean task exposure and SSG-derived task potential only for
+  transparently joined occupations.
 - Clear caveat that SSG is Singapore-native task evidence, not a direct job-loss forecast.
+- No employment-weighted result unless a free, same-grain official employment series is available.
