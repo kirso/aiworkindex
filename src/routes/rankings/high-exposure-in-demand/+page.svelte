@@ -1,79 +1,41 @@
 <script lang="ts">
-	import RankingTable from '$lib/components/ui/RankingTable.svelte';
-	import RankingNavPills from '$lib/components/ui/RankingNavPills.svelte';
-	import HighDemandExposurePlot from '$lib/components/viz/HighDemandExposurePlot.svelte';
-	import { title as titleStyle, pageLayout, card } from '$lib/design-system';
-	import type { Occupation } from '$lib/data';
-	import { countryConfigs } from '$lib/data/country-config';
+	import FaqList from '$lib/components/ui/FaqList.svelte';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
-	import FaqList from '$lib/components/ui/FaqList.svelte';
-	import { buildItemListJsonLd, buildFaqJsonLd } from '$lib/data/ranking-jsonld';
-	import PageFooterNav from '$lib/components/ui/PageFooterNav.svelte';
+	import OccupationResultList from '$lib/components/v9-browser/OccupationResultList.svelte';
+	import RankingNav from '$lib/components/v9-browser/RankingNav.svelte';
+	import { card, pageLayout, title as titleStyle } from '$lib/design-system';
+	import { buildItemListJsonLd } from '$lib/data/ranking-jsonld';
 
 	let { data } = $props();
-	const currency = countryConfigs.sg.currency ?? 'SGD';
-
-	const columns = [
-		{
-			key: 'net_risk',
-			label: 'AI Exposure Rank',
-			format: (occ: Occupation) => `${occ.v8.ai_exposure_rank.points}/100`,
-			align: 'right' as const
-		},
-		{
-			key: 'substitution',
-			label: 'Substitution Pressure',
-			format: (occ: Occupation) => `${occ.v8.substitution_pressure.points}/100`,
-			align: 'right' as const
-		},
-		{
-			key: 'demand',
-			label: 'Demand Signal',
-			format: (occ: Occupation) => {
-				const signals: string[] = [];
-				if (occ.evidence.sol_match) signals.push('SOL');
-				if (occ.evidence.jobs_in_demand_match) signals.push('JiD');
-				return signals.join(' + ');
-			}
-		},
-		{
-			key: 'wage',
-			label: 'Median Wage',
-			format: (occ: Occupation) => `${currency} ${occ.gross_wage_median.toLocaleString()}`,
-			align: 'right' as const
-		}
-	];
-
-	let itemListJsonLd = $derived(
-		buildItemListJsonLd(
-			'High AI Exposure but In-Demand Occupations',
-			'Occupations with high AI exposure that remain on shortage or in-demand lists',
-			data.ranked
-		)
-	);
 
 	const faqItems = [
 		{
-			question: 'Can a job be high AI exposure but still in demand?',
+			question: 'Can a job face AI pressure and still be in demand?',
 			answer:
-				'Yes. Some occupations have higher AI exposure but remain on the Shortage Occupation List or Jobs in Demand list. Demand can support employment while AI changes workflows.'
+				'Yes. AI task overlap and current hiring demand measure different things. This page includes occupations named in selected MOM demand or shortage sources and orders them by V9 pressure.'
 		},
 		{
-			question: 'Why are some AI-exposed jobs still hiring?',
+			question: 'Does absence from this list mean demand is weak?',
 			answer:
-				'Demand signals like shortage lists reflect current labor market needs. An occupation can have high theoretical AI exposure while still experiencing talent shortages.'
+				'No. The selected MOM sources name particular occupations and are not an exhaustive detailed-SSOC demand census. Unlisted demand remains unknown.'
 		}
 	];
 
-	const faqJsonLd = buildFaqJsonLd(faqItems);
+	let rankingJsonLd = $derived(
+		buildItemListJsonLd(
+			'Singapore occupations with named demand evidence and AI Work Pressure',
+			'Reviewed matches to selected MOM demand sources, ordered by V9 pressure percentile.',
+			data.ranked.map(occupation => ({ title: occupation.title, ssoc: occupation.code }))
+		)
+	);
 </script>
 
 <Seo
-	title="High AI Exposure but In-Demand Jobs"
-	description="Occupations with high AI exposure that remain on shortage or in-demand lists — paradox roles where demand persists despite AI overlap."
+	title="Singapore Jobs in Demand with AI Work Pressure"
+	description="SSOC 2024 occupations with reviewed named evidence from selected MOM demand or shortage lists, ordered by V9 AI work pressure."
 	path="/rankings/high-exposure-in-demand"
-	jsonLd={[itemListJsonLd, faqJsonLd]}
+	jsonLd={[rankingJsonLd]}
 />
 
 <main class={pageLayout({ width: 'feature' })}>
@@ -81,38 +43,34 @@
 		items={[
 			{ label: 'Home', href: '/' },
 			{ label: 'Rankings', href: '/rankings' },
-			{ label: 'High Exposure + In Demand' }
+			{ label: 'Named demand + pressure' }
 		]}
 	/>
 
-	<h1 class={titleStyle({ size: 'page' })}>High Exposure + In Demand</h1>
-	<p class="mt-2 text-sm text-muted-foreground">
-		Occupations in the upper two AI Exposure Rank bands that also have strong current demand in the
-		official-derived V8 labour-market context. Demand is separate and does not lower the exposure
-		rank.
+	<header class="mb-7 max-w-4xl">
+		<h1 class={titleStyle({ size: 'page' })}>Named demand evidence and AI work pressure</h1>
+		<p class="mt-3 text-base leading-relaxed text-muted-foreground">
+			These {data.ranked.length} occupations have a reviewed title or synonym match to a selected MOM
+			demand or shortage source. They are ordered by pressure, not by demand strength; the sources do
+			not publish a comparable demand score for every occupation.
+		</p>
+	</header>
+
+	<div class="mb-6 {card({ padding: 'md', variant: 'notice', accent: 'primary' })}">
+		<p class="text-sm leading-relaxed text-muted-foreground">
+			A named signal is positive direct evidence for that occupation. It does not prove vacancy
+			volume, future growth or protection from AI-related work redesign.
+		</p>
+	</div>
+
+	<OccupationResultList items={data.ranked} detail="demand" />
+
+	<p class="mt-4 text-xs leading-relaxed text-muted-foreground">
+		Sources: MOM Jobs in Demand 2025 and the 2026 COMPASS Shortage Occupation List. Matches were
+		reviewed against current SSOC 2024 titles and synonyms. Open an occupation to see the exact
+		source label, source occupation and mapping rationale.
 	</p>
 
-	<section class="mt-6">
-		<div class={card({ padding: 'md' })}>
-			<HighDemandExposurePlot occupations={data.ranked} />
-		</div>
-	</section>
-
-	<section class="mt-4">
-		<RankingTable occupations={data.ranked} {columns} />
-	</section>
-
-	<p class="mt-4 text-xs text-muted-foreground">
-		SOL = Shortage Occupation List 2026. JiD = Jobs in Demand (MOM 2025).
-		<a href="/methodology" class="text-primary underline">Learn more</a>
-	</p>
 	<FaqList items={faqItems} />
-	<RankingNavPills />
-	<PageFooterNav
-		links={[
-			{ href: '/rankings', label: 'All rankings' },
-			{ href: '/explore', label: 'Browse occupations' },
-			{ href: '/methodology', label: 'Methodology' }
-		]}
-	/>
+	<RankingNav current="/rankings/high-exposure-in-demand" />
 </main>

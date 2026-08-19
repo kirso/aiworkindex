@@ -1,1394 +1,437 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
-	import { riskBandLabels, majorGroupByKey } from '$lib/data';
-	import { likelyPathwayLabels } from '$lib/data/v8-display';
-	import {
-		card,
-		pageLayout,
-		title as titleStyle,
-		sectionLabel,
-		body,
-		caption,
-		mono,
-		pill,
-		microLabel,
-		section,
-		sectionNumber,
-		dataChip
-	} from '$lib/design-system';
-	import { broadJobMarketContext, broadRealWageContext } from '$lib/data/job-market-context';
-	import { cn } from '$lib/utils';
-	import { vacancySignalClass } from '$lib/data/detail-display';
-	import OccupationCard from '$lib/components/ui/OccupationCard.svelte';
-	import OccupationHero from '$lib/components/ui/OccupationHero.svelte';
-	import DriverWaterfall from '$lib/components/viz/DriverWaterfall.svelte';
-	import WorkflowRadar from '$lib/components/viz/WorkflowRadar.svelte';
-	import EvidenceBar from '$lib/components/viz/EvidenceBar.svelte';
-	import _SignalProfileGrid from '$lib/components/viz/SignalProfileGrid.svelte';
-	import { Button } from '$lib/components/ui/button/index.js';
-	import * as Collapsible from '$lib/components/ui/collapsible/index.js';
+	import FaqList from '$lib/components/ui/FaqList.svelte';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
-	import ContextItemGrid from '$lib/components/ui/ContextItemGrid.svelte';
-	import OutcomeContextLenses from '$lib/components/ui/OutcomeContextLenses.svelte';
-	import { siteStatus } from '$lib/data/site-status';
-	import { countryConfigs } from '$lib/data/country-config';
-	import { SITE, DATA_VINTAGE } from '$lib/data/scoring-constants';
 	import Seo from '$lib/components/ui/Seo.svelte';
-	import {
-		WATCHLIST_KEY,
-		hasWatchlistEntry,
-		parseStoredWatchlist,
-		serializeWatchlist,
-		toggleWatchlistEntry
-	} from '$lib/watchlist';
-	import { toast } from 'svelte-sonner';
-	import { trackEvent } from '$lib/analytics';
-	import { getTransitionProgrammeUrl } from '$lib/data/detail-context';
-	import { buildMarketDetailBullets } from '$lib/data/market-summary';
-	import { buildSingaporeOccupationAlternates } from '$lib/data/occupation-alternates';
-	import { rolesBySsoc } from '$lib/data/synthetic-roles';
+	import OccupationResultList from '$lib/components/v9-browser/OccupationResultList.svelte';
+	import { badge, card, pageLayout, sectionLabel, title as titleStyle } from '$lib/design-system';
+	import { SITE } from '$lib/data/scoring-constants';
 
 	let { data } = $props();
-	let occ = $derived(data.occupation);
-	let structural = $derived(data.structural);
-	let context = $derived(data.context);
-	let decision = $derived(structural.decision);
-	let crossesBoundary = $derived(occ.v8.sensitivity.label === 'crosses_band');
-
-	let isWatchlisted = $state(false);
-
-	$effect(() => {
-		try {
-			const entries = parseStoredWatchlist(localStorage.getItem(WATCHLIST_KEY));
-			isWatchlisted = hasWatchlistEntry(entries, { kind: 'occupation', id: occ.ssoc });
-		} catch {
-			isWatchlisted = false;
-		}
-	});
-
-	function toggleWatchlist() {
-		if (!browser) return;
-		try {
-			const nextEntries = toggleWatchlistEntry(
-				parseStoredWatchlist(localStorage.getItem(WATCHLIST_KEY)),
-				{
-					kind: 'occupation',
-					id: occ.ssoc
-				}
-			);
-			isWatchlisted = hasWatchlistEntry(nextEntries, { kind: 'occupation', id: occ.ssoc });
-			localStorage.setItem(WATCHLIST_KEY, serializeWatchlist(nextEntries));
-			toast(isWatchlisted ? 'Added to watchlist' : 'Removed from watchlist', {
-				description: occ.title
-			});
-			trackEvent('watchlist_saved', {
-				entity_kind: 'occupation',
-				entity_id: occ.ssoc,
-				title: occ.title,
-				action: isWatchlisted ? 'added' : 'removed'
-			});
-		} catch {}
-	}
-
-	let group = $derived(majorGroupByKey.get(occ.major_group));
-	let groupSlug = $derived(occ.major_group.toLowerCase().replace(/[,&]/g, '').replace(/\s+/g, '-'));
-	let linkedRoles = $derived(rolesBySsoc.get(occ.ssoc) ?? []);
-	let allUniqueTransitions = $derived(structural.topTransitions ?? []);
-	// Quadrant verdict from the shared exit-quadrant module (null below the displacement threshold).
-	let exitQuadrant = $derived(data.exitQuadrant);
-	// High-risk pages show risk-reducing exits (matching the quadrant verdict copy);
-	// low-risk pages keep similarity-ranked related roles.
-	let displayTransitions = $derived(
-		exitQuadrant?.targets?.length ? exitQuadrant.targets : allUniqueTransitions
-	);
-	// Explanatory per-task evidence and theta-channel decomposition (never score inputs).
-	let taskDetail = $derived(data.taskDetail);
-	let channelInfo = $derived(data.channelInfo);
-	let _fallbackTransitions = $derived.by(() =>
-		allUniqueTransitions.filter(
-			transition => transition.to_ssoc !== decision.bestTransition?.to_ssoc
-		)
-	);
-	let singaporeContext = $derived(context.singaporeContext);
-	let industryContext = $derived(context.industryContext);
-	let workerProfile = $derived(context.workerProfile);
-	let geographyContext = $derived(context.geographyContext);
-	let transitionSupport = $derived(context.transitionSupport);
-	let offsetPotential = $derived(context.offsetPotential);
-	let postings = $derived(context.postings);
-	let employerPressure = $derived(context.employerPressure);
-	let localContextItems = $derived(singaporeContext.items);
-	let marketDetailBullets = $derived(
-		buildMarketDetailBullets(occ.labour_monitor, postings, employerPressure)
-	);
-	// Demand signal helpers
-	let hasDemand = $derived(occ.evidence.sol_match || occ.evidence.jobs_in_demand_match);
-	let demandLabel = $derived.by(() => {
-		if (occ.evidence.sol_match && occ.evidence.jobs_in_demand_match)
-			return 'SOL 2026 + Jobs in Demand';
-		if (occ.evidence.sol_match) return 'SOL 2026';
-		if (occ.evidence.jobs_in_demand_match) return 'Jobs in Demand';
-		return null;
-	});
-	let netRiskUncertainty = $derived(
-		`${occ.v8.sensitivity.minimum_points}–${occ.v8.sensitivity.maximum_points}/100 across source-weight sensitivity checks`
-	);
-	let exposureUncertainty = $derived(
-		`${((occ.uncertainty?.exposure_p10 ?? occ.exposure) * 100).toFixed(0)}–${(
-			(occ.uncertainty?.exposure_p90 ?? occ.exposure) * 100
-		).toFixed(0)}%`
-	);
-	let taskEvidenceSummary = $derived.by(() => {
-		if (occ.task_primitives?.matched_task_weight_share != null) {
-			return `${(occ.task_primitives.matched_task_weight_share * 100).toFixed(0)}% weighted task match · ${((occ.task_primitives.task_effective_coverage ?? 0) * 100).toFixed(0)}% effective coverage`;
-		}
-		if (siteStatus.experimental_release?.status === 'blocked') {
-			return 'Task-weighted shadow model is blocked in this release, so no weighted task evidence is published here yet.';
-		}
-		return 'Task-weighted shadow evidence is not active for this occupation yet.';
-	});
-	let priorBaselineDeltaSummary = $derived(null);
-	let scoringBasisSummary = $derived('V8 AI Exposure Rank');
-	let scoringBasisDetail = $derived(
-		'A relative Singapore occupation index. It ranks AI task exposure; it is not a probability of job loss or a percentage of tasks.'
-	);
-	const confidenceCapLabels = {
-		insufficient_source_count: 'capped for sparse source coverage',
-		fallback_mapping: 'capped for fallback mapping',
-		major_fallback_mapping: 'capped for broad fallback mapping',
-		signal_conflict: 'capped for conflicting signals'
-	} as const;
-	let confidenceDetail = $derived.by(() => {
-		const capReason = occ.confidence.policy_cap_reason;
-		if (!capReason) return null;
-		return confidenceCapLabels[capReason];
-	});
-
-	const workflowDimensionLabels = {
-		creative_generation: 'Creative generation',
-		real_time_coordination: 'Real-time coordination',
-		ambiguity_tolerance: 'Ambiguity tolerance',
-		institutional_knowledge: 'Institutional knowledge',
-		relationship_intensity: 'Relationship intensity',
-		regulatory_weight: 'Regulatory weight',
-		physical_presence: 'Physical presence',
-		tool_velocity: 'Tool velocity'
-	} as const;
-
-	let _workflowItems = $derived.by(() => {
-		const overlay = occ.workflow_overlay;
-		if (!overlay) return [];
-		return (
-			Object.entries(workflowDimensionLabels) as Array<
-				[keyof typeof workflowDimensionLabels, string]
-			>
-		).map(([key, label]) => ({
-			key,
-			label,
-			value: overlay[key]
-		}));
-	});
-
-	let marketHeadline = $derived.by(() => {
-		const lm = occ.labour_monitor;
-		if (!lm) return 'Current Singapore labour data is thin for this occupation family.';
-		const vacancyCooling = lm.vacancy.trend_4q_pct < -2;
-		const hiringPositive = (lm.hiring?.net_pressure ?? 0) > 0;
-		const lowRetrenchment =
-			lm.retrenchment?.incidence_per_1000 != null && lm.retrenchment.incidence_per_1000 < 2;
-		const reentrySoft =
-			lm.re_entry?.rate_12m_delta_pp != null && lm.re_entry.rate_12m_delta_pp < -2;
-
-		if (vacancyCooling && lowRetrenchment && hiringPositive) {
-			return reentrySoft
-				? 'Cooling, but not collapsing. Vacancies and re-entry are softer, yet retrenchment remains low and hiring still exceeds resignations.'
-				: 'Cooling, but not collapsing. Vacancies are softer, yet retrenchment remains low and hiring still exceeds resignations.';
-		}
-		if (!vacancyCooling && hiringPositive && lowRetrenchment) {
-			return 'Still healthy locally. Hiring remains positive and retrenchment stays low, even if demand is not accelerating.';
-		}
-		if (vacancyCooling && !lowRetrenchment) {
-			return 'Local conditions are under more strain. Vacancies have softened and displacement signals are less forgiving.';
-		}
-		return 'Mixed local picture. Read these labour indicators as current Singapore context rather than a forecast.';
-	});
-
-	let outcomeLenses = $derived.by(() => {
-		const adoption = occ.v8.market_context.adoption;
-		const demand = occ.v8.market_context.demand;
-		const transition = occ.v8.transition;
-		const labour = occ.labour_monitor;
-		const taskCoverage = occ.task_primitives?.task_effective_coverage ?? 0;
-		const jobQuality = broadJobMarketContext(occ.major_group);
-		const wageMovement = broadRealWageContext(occ.major_group);
-
-		return [
-			{
-				label: 'Workplace adoption',
-				value:
-					adoption === 'leading'
-						? 'Leading sectors represented'
-						: adoption === 'established'
-							? 'Adoption established'
-							: adoption === 'emerging'
-								? 'Adoption emerging'
-								: 'Occupation-level adoption unknown',
-				detail: occ.v8.market_context.adoption_basis,
-				tone: adoption === 'unknown' ? ('warning' as const) : ('neutral' as const)
-			},
-			{
-				label: 'Task structure',
-				value: taskCoverage > 0 ? 'Task evidence available' : 'Task evidence limited',
-				detail: taskEvidenceSummary,
-				tone: taskCoverage > 0 ? ('neutral' as const) : ('warning' as const)
-			},
-			{
-				label: 'Human advantage',
-				value: 'Coordination and judgment still matter',
-				detail: structural.personalizedContent.humanNeeded,
-				tone: 'positive' as const
-			},
-			{
-				label: 'Hiring and demand',
-				value: labour
-					? `${labour.vacancy.latest_rate}% vacancy rate · ${labour.data_as_of}`
-					: `${demand} official demand context`,
-				detail: [labour?.summary ?? occ.v8.market_context.demand_basis, jobQuality, wageMovement]
-					.filter(Boolean)
-					.join(' '),
-				tone:
-					demand === 'strong'
-						? ('positive' as const)
-						: demand === 'weak'
-							? ('caution' as const)
-							: ('neutral' as const)
-			},
-			{
-				label: 'Career transitions',
-				value: transition?.to_title ?? 'No dominant route identified',
-				detail: transition
-					? `${transition.label} modeled transition; outcomes still depend on skills, wages and openings.`
-					: 'Explore related work and published training support rather than treating exposure as destiny.',
-				tone: transition ? ('positive' as const) : ('warning' as const)
-			},
-			{
-				label: 'Evidence strength',
-				value: `${occ.v8.evidence_confidence.level} confidence`,
-				detail: `${occ.v8.evidence_confidence.exposure_source_count} exposure sources · sensitivity ${netRiskUncertainty.toLowerCase()}.`,
-				tone:
-					occ.v8.evidence_confidence.level === 'high'
-						? ('positive' as const)
-						: occ.v8.evidence_confidence.level === 'low'
-							? ('caution' as const)
-							: ('warning' as const)
-			}
-		];
-	});
-
-	function _offsetLevelLabel(value: number, inverse = false) {
-		const score = inverse ? 1 - value : value;
-		if (score >= 0.68) return 'High';
-		if (score >= 0.42) return 'Medium';
-		return 'Low';
-	}
-
-	function _adaptationTone() {
-		return decision.adaptationLabel === 'strong'
-			? 'positive'
-			: decision.adaptationLabel === 'moderate'
-				? 'warning'
-				: 'danger';
-	}
-
-	function _realizedTone() {
-		return decision.realizedLabel === 'contained'
-			? 'positive'
-			: decision.realizedLabel === 'watch'
-				? 'warning'
-				: 'danger';
-	}
-
-	function _pathwayTone() {
-		return decision.bestTransition?.evidence_status === 'observed_enriched' ? 'positive' : 'muted';
-	}
-
-	function formatPercent(value: number, digits = 0) {
-		return `${(value * 100).toFixed(digits)}%`;
-	}
-
-	let _decisionHeroSummary = $derived.by(() => {
-		const realizedSentence =
-			decision.realizedLabel === 'contained'
-				? 'Near-term realized pressure is still contained.'
-				: decision.realizedLabel === 'watch'
-					? 'Near-term realized pressure is worth watching.'
-					: 'Near-term realized pressure is elevated.';
-		return `${formatPercent(decision.transitionAdjustedRisk)} transition-adjusted pressure after current buffers. ${realizedSentence}`;
-	});
-
-	async function shareCurrentPage() {
-		if (!browser) return;
-		const url = window.location.href;
-		try {
-			if (navigator.share) {
-				await navigator.share({
-					title: `${occ.title} — ${SITE.name}`,
-					text: `AI Exposure Rank for ${occ.title}: ${occ.v8.ai_exposure_rank.points}/100`,
-					url
-				});
-				return;
-			}
-			await navigator.clipboard.writeText(url);
-			toast('Link copied', { description: occ.title });
-		} catch {}
-	}
-
-	let occJsonLd = $derived(
-		`<script type="application/ld+json">${JSON.stringify({
-			'@context': 'https://schema.org',
-			'@type': 'Occupation',
-			name: occ.title,
-			dateModified: DATA_VINTAGE.last_updated,
-			occupationalCategory: occ.major_group,
-			estimatedSalary: {
-				'@type': 'MonetaryAmountDistribution',
-				name: 'Gross Monthly Wage',
-				currency: 'SGD',
-				median: occ.gross_wage_median,
-				percentile25: occ.gross_wage_25th,
-				percentile75: occ.gross_wage_75th
-			},
-			occupationLocation: { '@type': 'Country', name: 'Singapore live reference market' },
-			...(occ.isco_codes_matched?.length
-				? { sameAs: SITE.url + '/global/occupation/' + occ.isco_codes_matched[0] }
-				: {}),
-			additionalProperty: [
-				{
-					'@type': 'PropertyValue',
-					name: 'AI Exposure Rank',
-					value: occ.v8.ai_exposure_rank.points
-				},
-				{
-					'@type': 'PropertyValue',
-					name: 'AI Exposure Band',
-					value: riskBandLabels[occ.v8.ai_exposure_rank.band]
-				},
-				{
-					'@type': 'PropertyValue',
-					name: 'Likely Job Pathway',
-					value: likelyPathwayLabels[occ.v8.likely_pathway]
-				},
-				{
-					'@type': 'PropertyValue',
-					name: 'Evidence Quality',
-					value: occ.v8.evidence_confidence.level
-				}
-			]
-		})}<\/script>`
-	);
-
-	let breadcrumbJsonLd = $derived(
-		`<script type="application/ld+json">${JSON.stringify({
-			'@context': 'https://schema.org',
-			'@type': 'BreadcrumbList',
-			itemListElement: [
-				{
-					'@type': 'ListItem',
-					position: 1,
-					name: 'Home',
-					item: SITE.url + '/'
-				},
-				{
-					'@type': 'ListItem',
-					position: 2,
-					name: countryConfigs.sg.displayName,
-					item: SITE.url + '/sg'
-				},
-				{
-					'@type': 'ListItem',
-					position: 3,
-					name: occ.title,
-					item: SITE.url + '/occupation/' + occ.ssoc
-				}
-			]
-		})}<\/script>`
-	);
-
-	let riskPct = $derived(String(occ.v8.ai_exposure_rank.points));
-
-	let faqItems = $derived([
+	let view = $derived(data.view);
+	let modernQueries = $derived(data.modernQueries);
+	let occupation = $derived(view.occupation);
+	let exposure = $derived(occupation.genai_task_exposure);
+	let wage = $derived(occupation.singapore_market.wages);
+	let comparisonEvidence = $derived([
+		{ label: 'AIOE ability exposure', evidence: occupation.comparison_evidence.aioe },
+		{ label: 'Eloundou GPT exposure', evidence: occupation.comparison_evidence.eloundou },
+		{ label: 'Observed Claude use', evidence: occupation.comparison_evidence.observed_ai_use },
 		{
-			question: 'Will AI replace ' + occ.title + '?',
-			answer:
-				structural.summaryText +
-				' AI Exposure Rank: ' +
-				riskPct +
-				'/100 (' +
-				riskBandLabels[occ.v8.ai_exposure_rank.band] +
-				'). Median wage: SGD ' +
-				occ.gross_wage_median.toLocaleString() +
-				'/month.'
-		},
-		{
-			question: 'What is the AI exposure rank for ' + occ.title + '?',
-			answer:
-				occ.title +
-				' has an AI Exposure Rank of ' +
-				riskPct +
-				'/100, rated ' +
-				riskBandLabels[occ.v8.ai_exposure_rank.band] +
-				'. It ranks higher than approximately ' +
-				riskPct +
-				'% of Singapore occupations for exposure to current AI capabilities; it is not a job-loss probability.'
-		},
-		{
-			question: 'What career transitions are available for ' + occ.title + '?',
-			answer: structural.decision.bestTransition
-				? occ.title +
-					' has modeled transition pathways to related occupations. The strongest adjacent pathway is ' +
-					structural.decision.bestTransition.to_title +
-					(structural.decision.bestTransition.evidence_status === 'observed_enriched'
-						? ', supported by observed mobility evidence.'
-						: ', based on skill and wage similarity (model-estimated).') +
-					' Transition scoring accounts for wage preservation, training ease, and destination quality.'
-				: occ.title +
-					' does not have a clearly dominant transition pathway in the current model. Career mobility options should be explored through industry-specific training and reskilling programmes.'
-		},
-		{
-			question: 'How does ' + occ.title + ' salary compare in the live market?',
-			answer:
-				occ.title +
-				' earns a median gross wage of SGD ' +
-				occ.gross_wage_median.toLocaleString() +
-				'/month in the live market' +
-				(occ.gross_wage_25th > 0 && occ.gross_wage_75th > 0
-					? ' (25th-75th percentile: SGD ' +
-						occ.gross_wage_25th.toLocaleString() +
-						'-' +
-						occ.gross_wage_75th.toLocaleString() +
-						')'
-					: '') +
-				'. This is ' +
-				structural.wageVsNational +
-				' across all ' +
-				DATA_VINTAGE.occupation_count +
-				' scored occupations, and ' +
-				structural.groupComparison.wageVsGroup +
-				' within ' +
-				structural.groupComparison.groupName +
-				' occupations.'
+			label: 'Potential human–AI complementarity',
+			evidence: occupation.comparison_evidence.potential_complementarity
 		}
 	]);
 
-	let faqJsonLd = $derived(
-		`<script type="application/ld+json">${JSON.stringify({
-			'@context': 'https://schema.org',
-			'@type': 'FAQPage',
-			mainEntity: faqItems.map(item => ({
-				'@type': 'Question',
-				name: item.question,
-				acceptedAnswer: { '@type': 'Answer', text: item.answer }
-			}))
-		})}<\/script>`
+	function formatPercentile(value: number | null): string {
+		if (value == null) return 'Not ranked';
+		return `Percentile ${value.toFixed(value % 1 === 0 ? 0 : 1)}`;
+	}
+
+	function mappingLabel(value: typeof occupation.evidence.mapping_quality): string {
+		if (value === 'one_to_one') return 'One-to-one official mapping';
+		if (value === 'one_to_many') return 'One-to-many official mapping';
+		if (value === 'partial') return 'Partial official mapping';
+		return 'No usable official mapping';
+	}
+
+	function formatScore(value: number | null): string {
+		return value == null ? 'Unknown' : `${(value * 100).toFixed(1)}/100`;
+	}
+
+	function formatWage(value: number | null): string {
+		return value == null ? 'Unknown' : `SGD ${value.toLocaleString()}`;
+	}
+
+	const faqItems = $derived([
+		{
+			question: `How much AI work pressure does ${view.title} face?`,
+			answer:
+				view.pressureRank == null
+					? `V9 does not rank ${view.title} because the official SSOC-to-ISCO mapping does not provide enough usable ILO evidence. This is unknown, not zero pressure.`
+					: `${view.title} has an AI Work Pressure Rank at ${formatPercentile(view.pressureRank)} among 987 scored SSOC 2024 occupations. Its official ILO category is ${view.officialCategory}. The rank measures task overlap, not a probability of job loss.`
+		},
+		{
+			question: `What is the salary for ${view.title} in Singapore?`,
+			answer:
+				view.wageMedian == null
+					? `MOM's June 2025 detailed wage table does not publish a direct row for SSOC ${view.code}. The index leaves the wage unknown.`
+					: `MOM's June 2025 table reports a gross monthly median of SGD ${view.wageMedian.toLocaleString()} for this occupation. Coverage is limited to full-time resident employees in establishments with at least 25 employees.`
+		}
+	]);
+
+	let seoDescription = $derived(
+		modernQueries.length
+			? `${modernQueries[0]?.title} resolves to ${view.title} (SSOC ${view.code}): ${formatPercentile(view.pressureRank)} AI work pressure, ${view.officialCategory}.`
+			: `${view.title} (SSOC ${view.code}): ${formatPercentile(view.pressureRank)} AI work pressure, ${view.officialCategory}, ${view.wageMedian == null ? 'wage unknown' : `SGD ${view.wageMedian.toLocaleString()} gross monthly median`}.`
 	);
 
-	let pageTitle = $derived(`Will AI Replace ${occ.title}? Exposure & Job Outlook | ${SITE.name}`);
-	let pageDescription = $derived(
-		`${occ.title} (SSOC ${occ.ssoc}) has an AI Exposure Rank of ${riskPct}/100, ranked ${riskBandLabels[occ.v8.ai_exposure_rank.band]}. See the likely pathway, demand context, evidence and transitions.`
-	);
-	const alternates = $derived(
-		buildSingaporeOccupationAlternates(occ.ssoc, occ.isco_codes_matched?.[0] ?? null)
+	let occupationJsonLd = $derived(
+		JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'Occupation',
+			name: view.title,
+			alternateName: modernQueries
+				.filter(query => query.resolutionBasis !== 'reviewed_definition_equivalent')
+				.map(query => query.title),
+			description:
+				occupation.taxonomy.detailed_definition ??
+				`Official SSOC 2024 occupation ${view.code} with V9 AI work-pressure evidence.`,
+			url: `${SITE.url}/occupation/${view.code}`,
+			mainEntityOfPage: `${SITE.url}/occupation/${view.code}`,
+			identifier: {
+				'@type': 'PropertyValue',
+				propertyID: 'SSOC 2024',
+				value: view.code
+			},
+			occupationLocation: { '@type': 'Country', name: 'Singapore' },
+			additionalProperty: [
+				{
+					'@type': 'PropertyValue',
+					name: 'AI Work Pressure Rank',
+					value: view.pressureRank,
+					unitText: 'midrank percentile among scored SSOC 2024 occupations'
+				},
+				...(exposure
+					? [
+							{
+								'@type': 'PropertyValue',
+								name:
+									exposure.potential25.categories.length === 1
+										? 'ILO 2025 exposure category'
+										: 'ILO 2025 mapped exposure category range',
+								value: view.officialCategory
+							}
+						]
+					: [
+							{
+								'@type': 'PropertyValue',
+								name: 'V9 score status',
+								value: 'Insufficient evidence; not ranked'
+							}
+						]),
+				{
+					'@type': 'PropertyValue',
+					name: 'Evidence cutoff',
+					value: occupation.evidence.data_as_of
+				}
+			].filter(property => property.value !== null)
+		})
 	);
 </script>
 
 <Seo
-	title={pageTitle}
-	description={pageDescription}
-	path="/occupation/{occ.ssoc}"
-	ogImage="/og/{occ.ssoc}.png"
-	{alternates}
-	jsonLd={[occJsonLd, breadcrumbJsonLd, faqJsonLd]}
+	title={`${view.title} (SSOC ${view.code}): AI Work Pressure`}
+	description={seoDescription}
+	path={`/occupation/${view.code}`}
+	jsonLd={[occupationJsonLd]}
 />
 
-<div class={pageLayout({ width: 'feature' })}>
+<main class={pageLayout({ width: 'feature' })}>
 	<PageBreadcrumb
 		items={[
 			{ label: 'Home', href: '/' },
-			{ label: countryConfigs.sg.displayName, href: '/sg' },
-			{ label: occ.title }
+			{ label: 'Browse occupations', href: '/explore' },
+			{ label: view.title }
 		]}
 	/>
 
-	<!-- ===== BLOCK 1: THE VERDICT ===== -->
-	<div class={section({ spacing: 'loose' })}>
-		<OccupationHero
-			scoreLabel="AI Exposure Rank"
-			scoreValue={`${occ.v8.ai_exposure_rank.points}/100`}
-			scoreRange={netRiskUncertainty}
-			scoreBand={occ.v8.ai_exposure_rank.band}
-			scoreBandLabel={riskBandLabels[occ.v8.ai_exposure_rank.band]}
-			title={occ.title}
-			pills={[
-				{
-					label: likelyPathwayLabels[occ.v8.likely_pathway],
-					tone:
-						occ.v8.likely_pathway === 'hiring_or_substitution_pressure'
-							? 'danger'
-							: occ.v8.likely_pathway === 'augmentation_led_growth'
-								? 'positive'
-								: occ.v8.likely_pathway === 'limited_direct_change'
-									? 'neutral'
-									: 'warning'
-				},
-				...(hasDemand ? [{ label: `In demand (${demandLabel})`, tone: 'positive' as const }] : []),
-				...(crossesBoundary
-					? [{ label: 'Classification uncertain', tone: 'warning' as const }]
-					: [])
-			]}
-			summary={structural.summaryText}
-			meta={[
-				group?.label ?? occ.major_group,
-				`SGD ${occ.gross_wage_median.toLocaleString()}/mo${occ.gross_wage_25th > 0 && occ.gross_wage_75th > 0 ? ` (${occ.gross_wage_25th.toLocaleString()}–${occ.gross_wage_75th.toLocaleString()})` : ''}`,
-				occ.estimated_sg_employment_thousands
-					? `~${
-							occ.estimated_sg_employment_thousands >= 1
-								? occ.estimated_sg_employment_thousands.toFixed(1) + 'K'
-								: Math.round(occ.estimated_sg_employment_thousands * 1000).toLocaleString()
-						} workers in SG`
-					: 'Employment context not published',
-				`Updated ${DATA_VINTAGE.last_updated}`
-			]}
-		>
-			{#snippet actions()}
-				<Button
-					variant="outline"
-					size="sm"
-					class="h-8 text-xs"
-					href="/compare?entities=occupation:{occ.ssoc}"
-				>
-					Compare
-				</Button>
-				<Button
-					variant={isWatchlisted ? 'default' : 'outline'}
-					size="sm"
-					class="h-8 gap-1.5 text-xs"
-					onclick={toggleWatchlist}
-				>
-					<svg
-						class="h-3.5 w-3.5"
-						viewBox="0 0 24 24"
-						fill={isWatchlisted ? 'currentColor' : 'none'}
-						stroke="currentColor"
-						stroke-width="2"
-					>
-						<path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
-					</svg>
-					{isWatchlisted ? 'Saved' : 'Save'}
-				</Button>
-				<Button variant="outline" size="sm" class="h-8 text-xs" onclick={shareCurrentPage}>
-					Share
-				</Button>
-			{/snippet}
-		</OccupationHero>
-
-		<div class="mt-3 flex flex-wrap items-center gap-2">
-			<span class={dataChip()} title="Wage compared to group median">
-				Wage {structural.groupComparison.wageVsGroup}
+	<header class="max-w-5xl">
+		<div class="flex min-w-0 flex-wrap gap-2">
+			<span class={badge({ variant: 'outline' })}>SSOC 2024 · {view.code}</span>
+			<span class={badge({ variant: exposure ? 'info' : 'warning' })}>
+				{exposure ? 'Pressure ranked' : 'Insufficient evidence'}
 			</span>
-			<span class={dataChip()} title="AI exposure compared to group median">
-				Exposure {structural.groupComparison.riskVsGroup}
-			</span>
-			<a
-				href="/group/{groupSlug}"
-				class={cn(dataChip(), 'transition-colors hover:bg-foreground hover:text-background')}
-			>
-				#{structural.groupComparison.riskRankInGroup} of {structural.groupComparison.groupTotal} in {group?.label ??
-					'group'} →
-			</a>
 		</div>
-		{#if occ.evidence.signal_conflict && occ.evidence.signal_conflict_reasons?.some( r => r.includes('demand') )}
-			<div
-				class={cn(card({ padding: 'sm', variant: 'notice', accent: 'moderate' }), 'mt-3 max-w-3xl')}
-			>
-				<p class={cn(caption({ weight: 'medium' }), 'text-risk-moderate')}>
-					Mixed signal: This occupation has {riskBandLabels[occ.risk_band].toLowerCase()} relative AI
-					exposure but is currently
-					{#if occ.evidence.sol_match === 'exact' && occ.evidence.jobs_in_demand_match === 'exact'}
-						on both the Shortage Occupation List and Jobs in Demand — indicating strong active
-						demand despite AI exposure.
-					{:else if occ.evidence.sol_match}
-						on the Shortage Occupation List — indicating labour shortage despite AI exposure.
-					{:else if occ.evidence.jobs_in_demand_match}
-						flagged as Jobs in Demand — indicating positive hiring signals despite AI exposure.
-					{:else}
-						showing positive labour market signals despite AI exposure.
-					{/if}
-				</p>
-			</div>
+		<h1 class="mt-4 break-words {titleStyle({ size: 'page' })}">{view.title}</h1>
+		{#if occupation.taxonomy.detailed_definition}
+			<p class="mt-4 max-w-4xl text-base leading-relaxed text-muted-foreground">
+				{occupation.taxonomy.detailed_definition}
+			</p>
 		{/if}
-
-		{#if occ.confidence.level === 'low'}
-			<p class={cn(caption(), 'mt-3 text-risk-moderate')}>Thin evidence — treat with caution.</p>
+		{#if modernQueries.length > 0}
+			<p class="mt-3 max-w-4xl text-sm leading-relaxed text-muted-foreground">
+				<strong class="text-foreground">Modern job-title queries resolved here:</strong>
+				{modernQueries.map(query => query.title).join(' · ')}. These labels resolve to the official
+				occupation; they do not create a second estimate.
+			</p>
 		{/if}
-	</div>
+	</header>
 
-	<!-- ===== BLOCK 2: HOW THIS RANK IS BUILT ===== -->
-	<section class={section({ spacing: 'loose' })}>
-		<div class="mb-4 border-b-2 border-foreground pb-2">
-			<span class={sectionNumber()}>01</span>
-			<h2 class={cn(titleStyle({ size: 'section' }), 'mt-0.5')}>How This Rank Is Built</h2>
-		</div>
-		<div class={card({ padding: 'md' })}>
-			<div class="grid gap-6 md:grid-cols-5">
-				<!-- Left: Waterfall (3/5 on desktop) -->
-				<div class="md:col-span-3">
-					<DriverWaterfall occupation={occ} />
-					<p class={cn(caption(), 'mt-2')}>
-						The evidence behind this occupation's AI exposure, with human-work and demand context
-						shown separately.
-						{#if occ.stability.label !== 'stable'}
-							<span class="text-risk-moderate">Score stability: {occ.stability.label}.</span>
-						{/if}
-						<a href="/methodology" class="text-primary hover:underline">How this works</a>
-					</p>
-				</div>
-
-				<!-- Right: Task split (2/5 on desktop) -->
-				<div class="md:col-span-2 space-y-4">
-					<div>
-						<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-risk-high')}>
-							Tasks AI can handle
-						</p>
-						<p class={body({ tone: 'muted' })}>
-							{structural.personalizedContent.aiCanDo}
-						</p>
-						{#if (taskDetail?.most_observed.length ?? 0) > 0}
-							<ul class="mt-2 space-y-1">
-								{#each taskDetail?.most_observed ?? [] as item (item.task)}
-									<li class={cn(caption(), 'text-muted-foreground')}>
-										&bull; {item.task}
-									</li>
-								{/each}
-							</ul>
-							<p class={cn(caption(), 'mt-1 italic text-muted-foreground')}>
-								O*NET tasks for this occupation with the most observed Claude usage (Anthropic task
-								data).
-							</p>
-						{/if}
-					</div>
-					<div>
-						<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-risk-very-low')}>
-							What AI can't do here
-						</p>
-						<p class={body({ tone: 'muted' })}>
-							{structural.personalizedContent.humanNeeded}
-						</p>
-						{#if (channelInfo?.top_channels.length ?? 0) > 0}
-							<p class={cn(caption(), 'mt-2 text-muted-foreground')}>
-								Main insulation channels:
-								{#each channelInfo?.top_channels ?? [] as channel, i (channel.key)}{i > 0
-										? ' + '
-										: ''}<span class="font-medium text-foreground">{channel.label}</span>{/each}
-								&mdash; the work-context dimensions behind this occupation's human bottleneck.
-							</p>
-						{/if}
-						{#if (taskDetail?.most_protected.length ?? 0) > 0}
-							<ul class="mt-2 space-y-1">
-								{#each taskDetail?.most_protected ?? [] as item (item.task)}
-									<li class={cn(caption(), 'text-muted-foreground')}>
-										&bull; {item.task}
-									</li>
-								{/each}
-							</ul>
-							<p class={cn(caption(), 'mt-1 italic text-muted-foreground')}>
-								Highest-importance tasks with no observed Claude usage in the same data &mdash;
-								absence of observed usage, not proof of immunity.
-							</p>
-						{/if}
-					</div>
-					{#if structural.personalizedContent.skills.length > 0}
-						<div class="pt-3 border-t border-border">
-							<p class={cn(caption({ weight: 'semibold' }), 'mb-2 text-foreground')}>
-								Skills to focus on
-							</p>
-							<div class="flex flex-wrap gap-1.5">
-								{#each structural.personalizedContent.skills.slice(0, 4) as skill}
-									<span class={pill({ tone: 'primary' })} title={skill.description}>
-										{skill.label}
-									</span>
-								{/each}
-							</div>
-						</div>
-					{/if}
-					{#if structural.personalizedContent.evidence}
-						<p class={cn(caption(), 'pt-2 italic text-muted-foreground')}>
-							{structural.personalizedContent.evidence}
-						</p>
-					{/if}
-					<p class={cn(caption(), 'pt-2 text-muted-foreground')}>
-						Sources: {#if occ.evidence.exposure_source_keys?.length}{occ.evidence.exposure_source_keys
-								.map(
-									k =>
-										({
-											aioe: 'Felten AIOE (2021)',
-											anthropic: 'Anthropic Economic Index (2026)',
-											eloundou: 'Eloundou GPT Exposure (Science, 2024)',
-											ilo: 'ILO GenAI (2025)'
-										})[k] ?? k
-								)
-								.join(', ')}{:else}Felten AIOE, Anthropic{/if}, Pizzinelli et al. bottleneck model.
-						<a href="/methodology" class="text-primary hover:underline">Full methodology</a>.
-					</p>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<section class={section({ spacing: 'loose' })}>
-		<div class="mb-4 max-w-3xl">
-			<p class={sectionLabel()}>From exposure to employment</p>
-			<h2 class={cn(titleStyle({ size: 'section' }), 'mt-1')}>
-				What could change the employment outcome?
-			</h2>
-			<p class={cn(body({ tone: 'subtle' }), 'mt-2')}>
-				AI capability is only the starting point. Adoption, task design, human oversight, demand,
-				mobility and evidence quality determine how exposure may resolve in practice.
+	<section class="mt-8 grid min-w-0 gap-4 lg:grid-cols-[minmax(0,1.35fr)_minmax(17rem,0.65fr)]">
+		<div class={card({ padding: 'lg', variant: 'elevated' })}>
+			<p class={sectionLabel()}>AI work pressure</p>
+			<p
+				class="mt-3 break-words font-mono text-4xl font-black tabular-nums text-foreground sm:text-5xl"
+			>
+				{formatPercentile(view.pressureRank)}
+			</p>
+			<p class="mt-3 text-base font-semibold text-foreground">{view.officialCategory}</p>
+			<p class="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+				{#if view.pressureRank == null}
+					The official mapping does not yield enough scored ILO evidence. V9 leaves the rank
+					unknown; it does not assign zero pressure.
+				{:else}
+					This occupation sits at midrank percentile {view.pressureRank.toFixed(
+						view.pressureRank % 1 === 0 ? 0 : 1
+					)} among scored Singapore occupations. It is a relative task-exposure rank, not a
+					{view.pressureRank}% chance of job loss.
+				{/if}
 			</p>
 		</div>
-		<OutcomeContextLenses
-			lenses={outcomeLenses}
-			sourceNote="These lenses are reported separately and do not alter AI Exposure Rank. Labour-market figures describe a broad official occupation cluster, not this SSOC occupation alone."
-		/>
+
+		<div class={card({ padding: 'lg', variant: 'metric' })}>
+			<p class={sectionLabel()}>Direct wage evidence</p>
+			<p class="mt-3 break-words font-mono text-2xl font-bold tabular-nums text-foreground">
+				{formatWage(view.wageMedian)}
+			</p>
+			<p class="mt-1 text-xs text-muted-foreground">
+				{wage ? 'Gross monthly median · June 2025 MOM row' : 'No direct June 2025 MOM row'}
+			</p>
+			<p class="mt-4 text-xs leading-relaxed text-muted-foreground">
+				{wage
+					? wage.limitations[0]
+					: 'An unpublished detailed wage is unknown. It is not zero and is not inferred from a broad occupation group.'}
+			</p>
+		</div>
 	</section>
 
-	<!-- ===== BLOCK 3: SINGAPORE NOW ===== -->
-	<section class={section({ spacing: 'loose' })}>
-		<div class="mb-4 border-b-2 border-foreground pb-2">
-			<span class={sectionNumber()}>02</span>
-			<h2 class={cn(titleStyle({ size: 'section' }), 'mt-0.5')}>Singapore Now</h2>
-		</div>
-		<p class={cn(caption(), 'mb-3 -mt-1')}>
-			Current labour market conditions and how they affect this role.
-		</p>
-		<div class={card({ padding: 'md' })}>
-			<p class={cn(body({ tone: 'subtle' }), 'mb-4')}>{marketHeadline}</p>
-
-			<!-- Labour metrics row -->
-			{#if occ.labour_monitor}
-				<div class="grid gap-3 sm:grid-cols-4 mb-4">
-					<div class={card({ padding: 'sm', variant: 'metric' })}>
-						<p class={microLabel()}>Vacancy</p>
-						<p class={cn(mono({ size: 'lg' }), 'mt-1 text-foreground')}>
-							{occ.labour_monitor.vacancy.latest_rate}%
-						</p>
-						<p
-							class={cn(
-								caption({ weight: 'medium' }),
-								occ.labour_monitor.vacancy.trend_4q_pct > 0
-									? 'text-risk-very-low'
-									: occ.labour_monitor.vacancy.trend_4q_pct < 0
-										? 'text-risk-high'
-										: ''
-							)}
-						>
-							{occ.labour_monitor.vacancy.trend_4q_pct > 0
-								? '↑'
-								: occ.labour_monitor.vacancy.trend_4q_pct < 0
-									? '↓'
-									: '→'}
-							{Math.abs(occ.labour_monitor.vacancy.trend_4q_pct).toFixed(1)}% YoY
-						</p>
-					</div>
-					{#if occ.labour_monitor.hiring}
-						<div class={card({ padding: 'sm', variant: 'metric' })}>
-							<p class={microLabel()}>Hiring</p>
-							<p class={cn(mono({ size: 'lg' }), 'mt-1 text-foreground')}>
-								{occ.labour_monitor.hiring.recruitment_rate}%
-							</p>
-							<p class={caption()}>
-								vs {occ.labour_monitor.hiring.resignation_rate}% resign
-							</p>
-						</div>
-					{/if}
-					{#if occ.labour_monitor.retrenchment?.incidence_per_1000}
-						<div class={card({ padding: 'sm', variant: 'metric' })}>
-							<p class={microLabel()}>Retrenchment</p>
-							<p class={cn(mono({ size: 'lg' }), 'mt-1 text-foreground')}>
-								{occ.labour_monitor.retrenchment.incidence_per_1000}
-							</p>
-							<p class={caption()}>
-								per 1,000 · {occ.labour_monitor.retrenchment.incidence_per_1000 < 2
-									? 'low'
-									: occ.labour_monitor.retrenchment.incidence_per_1000 < 5
-										? 'moderate'
-										: 'elevated'}
-							</p>
-						</div>
-					{:else if postings && postings.hiring_state !== 'no_signal'}
-						<div class={card({ padding: 'sm', variant: 'metric' })}>
-							<p class={microLabel()}>Postings</p>
-							<p class={cn(mono({ size: 'lg' }), 'mt-1 text-foreground')}>
-								{postings.posting_volume_30d}
-							</p>
-							<p class={caption()}>last 30 days</p>
-						</div>
-					{/if}
-					{#if occ.labour_monitor.re_entry?.rate_12m}
-						<div class={card({ padding: 'sm', variant: 'metric' })}>
-							<p class={microLabel()}>Re-entry</p>
-							<p class={cn(mono({ size: 'lg' }), 'mt-1 text-foreground')}>
-								{occ.labour_monitor.re_entry.rate_12m}%
-							</p>
-							<p class={caption()}>
-								find work in 12mo{#if occ.labour_monitor.re_entry.rate_12m_delta_pp}
-									· <span
-										class={occ.labour_monitor.re_entry.rate_12m_delta_pp > 0
-											? 'text-risk-very-low'
-											: 'text-risk-high'}
-										>{occ.labour_monitor.re_entry.rate_12m_delta_pp > 0
-											? '+'
-											: ''}{occ.labour_monitor.re_entry.rate_12m_delta_pp.toFixed(1)}pp</span
-									>{/if}
-							</p>
-						</div>
-					{/if}
-				</div>
-				<p class={cn(caption(), 'mb-4')}>
-					{occ.labour_monitor.cluster_label} · {occ.labour_monitor.data_as_of}
+	<section class="mt-10">
+		<h2 class={sectionLabel()}>How the pressure evidence maps</h2>
+		<div class="mt-3 grid min-w-0 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+			<div class={card({ padding: 'md', variant: 'metric' })}>
+				<p class="text-xs text-muted-foreground">Official ILO category</p>
+				<p class="mt-2 break-words text-sm font-semibold text-foreground">
+					{view.officialCategory}
 				</p>
-			{/if}
+			</div>
+			<div class={card({ padding: 'md', variant: 'metric' })}>
+				<p class="text-xs text-muted-foreground">Mapped ILO mean score (0–100 display scale)</p>
+				<p class="mt-2 font-mono text-lg font-semibold tabular-nums text-foreground">
+					{formatScore(view.rawExposure)}
+				</p>
+				{#if view.rawExposureRange && view.rawExposureRange.min !== view.rawExposureRange.max}
+					<p class="mt-1 text-xs text-muted-foreground">
+						Range {(view.rawExposureRange.min * 100).toFixed(1)}–{(
+							view.rawExposureRange.max * 100
+						).toFixed(1)}/100
+					</p>
+				{/if}
+			</div>
+			<div class={card({ padding: 'md', variant: 'metric' })}>
+				<p class="text-xs text-muted-foreground">ILO task-score dispersion (0–100 display scale)</p>
+				<p class="mt-2 font-mono text-lg font-semibold tabular-nums text-foreground">
+					{formatScore(view.taskDispersion)}
+				</p>
+				<p class="mt-1 text-xs text-muted-foreground">Within mapped ISCO task scores</p>
+			</div>
+			<div class={card({ padding: 'md', variant: 'metric' })}>
+				<p class="text-xs text-muted-foreground">Mapping support</p>
+				<p class="mt-2 break-words text-sm font-semibold text-foreground">
+					{mappingLabel(occupation.evidence.mapping_quality)}
+				</p>
+				<p class="mt-1 break-words text-xs text-muted-foreground">
+					{occupation.evidence.official_isco08_codes.length > 0
+						? `ISCO ${occupation.evidence.official_isco08_codes.join(', ')}`
+						: 'No matched ISCO code'}
+				</p>
+			</div>
+		</div>
+		<p class="mt-3 max-w-4xl text-xs leading-relaxed text-muted-foreground">
+			The rank is derived from ILO 2025 evidence through the official SSOC–ISCO crosswalk. When one
+			SSOC occupation maps to several scored ISCO occupations, V9 reports the median and preserves
+			the range instead of choosing one match silently.
+		</p>
+	</section>
 
-			<div class="grid gap-4 md:grid-cols-2">
-				{#if industryContext}
-					<div class={card({ padding: 'sm' })}>
-						<p class={cn(microLabel(), 'mb-2')}>Top Industries</p>
-						{#each industryContext.top_industries.slice(0, 3) as industry (industry.key)}
-							<div
-								class="flex items-center justify-between py-1.5 border-b border-border/50 last:border-0"
-							>
-								<span class={body()}>{industry.label}</span>
-								<div class="flex items-center gap-2 shrink-0">
-									{#if industry.vacancy_signal && industry.vacancy_signal !== 'stable'}
-										<span class={cn(caption(), vacancySignalClass(industry.vacancy_signal))}>
-											{industry.vacancy_signal === 'rising' ? '↑' : '↓'}
-										</span>
-									{/if}
-									<span class={cn(mono({ size: 'sm' }), 'text-muted-foreground')}
-										>{(industry.share_2025 * 100).toFixed(0)}%</span
-									>
-								</div>
+	<section class="mt-10 grid min-w-0 gap-6 lg:grid-cols-2">
+		<div class="min-w-0">
+			<h2 class={sectionLabel()}>Direct Singapore wage row</h2>
+			<div class="mt-3 {card({ padding: 'md' })}">
+				{#if wage}
+					<div class="grid grid-cols-3 gap-3">
+						<div class="min-w-0">
+							<p class="text-xs text-muted-foreground">25th percentile</p>
+							<p class="mt-1 break-words font-mono text-sm font-semibold tabular-nums">
+								SGD {wage.value.gross_monthly_sgd.p25.toLocaleString()}
+							</p>
+						</div>
+						<div class="min-w-0">
+							<p class="text-xs text-muted-foreground">Median</p>
+							<p class="mt-1 break-words font-mono text-sm font-semibold tabular-nums">
+								SGD {wage.value.gross_monthly_sgd.median.toLocaleString()}
+							</p>
+						</div>
+						<div class="min-w-0">
+							<p class="text-xs text-muted-foreground">75th percentile</p>
+							<p class="mt-1 break-words font-mono text-sm font-semibold tabular-nums">
+								SGD {wage.value.gross_monthly_sgd.p75.toLocaleString()}
+							</p>
+						</div>
+					</div>
+					<p class="mt-4 text-xs leading-relaxed text-muted-foreground">
+						Gross monthly wages · {wage.geography} · reference period {wage.reference_period}.
+						<a
+							href={wage.source.url}
+							class="text-primary underline"
+							target="_blank"
+							rel="noreferrer">{wage.source.title}</a
+						>.
+					</p>
+				{:else}
+					<p class="text-sm leading-relaxed text-muted-foreground">
+						No exact SSOC 2024 wage row is published in the selected MOM table. V9 does not
+						substitute a broad-group wage or infer a value.
+					</p>
+				{/if}
+			</div>
+		</div>
+
+		<div class="min-w-0">
+			<h2 class={sectionLabel()}>Direct current-demand evidence</h2>
+			<div class="mt-3 {card({ padding: 'md' })}">
+				{#if view.demandSignals.length > 0}
+					<div class="space-y-5">
+						{#each view.demandSignals as signal (`${signal.source_key}-${signal.source_occupation}`)}
+							<div class="border-b border-border pb-5 last:border-b-0 last:pb-0">
+								<a
+									href={signal.url}
+									target="_blank"
+									rel="noreferrer"
+									class="break-words text-sm font-semibold text-primary underline"
+								>
+									{signal.label}
+								</a>
+								<p class="mt-1 text-xs text-muted-foreground">
+									Source occupation: {signal.source_occupation}
+								</p>
+								<p class="mt-2 text-xs leading-relaxed text-muted-foreground">
+									{signal.rationale}
+									{signal.interpretation}
+								</p>
 							</div>
 						{/each}
-						<p class={cn(caption(), 'mt-3')}>
-							Industry vacancy overlays use the latest published detailed cross-tab, which can lag
-							the main labour monitor.
-						</p>
 					</div>
+				{:else}
+					<p class="text-sm leading-relaxed text-muted-foreground">
+						This occupation was not named in the selected MOM demand or shortage lists. Those
+						sources are not exhaustive occupation-level demand measures, so absence is not evidence
+						of weak demand.
+					</p>
 				{/if}
 			</div>
 		</div>
 	</section>
 
-	<!-- ===== BLOCK 4: WHAT YOU CAN DO ===== -->
-	<section class={section({ spacing: 'loose' })}>
-		<div class="mb-4 border-b-2 border-foreground pb-2">
-			<span class={sectionNumber()}>03</span>
-			<h2 class={cn(titleStyle({ size: 'section' }), 'mt-0.5')}>What You Can Do</h2>
-		</div>
-		<div class={card({ padding: 'md' })}>
-			{#if offsetPotential}
-				<p class={cn(body({ tone: 'subtle' }), 'mb-4 pb-4 border-b border-border')}>
-					{offsetPotential.summary}{#if offsetPotential.components.mobility_friction > 0.5}
-						Adjacent routes exist, but switching friction is still high.{/if}
+	{#if view.labourContext}
+		<section class="mt-10">
+			<h2 class={sectionLabel()}>Broad labour-market context</h2>
+			<div class="mt-3 {card({ padding: 'md', variant: 'notice', accent: 'primary' })}">
+				<p class="text-sm leading-relaxed text-foreground">{view.labourContext.summary}</p>
+				<p class="mt-3 text-xs leading-relaxed text-muted-foreground">
+					{view.labourContext.source} · {view.labourContext.data_as_of}. This broad
+					occupation-cluster context is not a detailed SSOC observation and does not change the
+					pressure rank.
 				</p>
-			{/if}
-
-			{#if transitionSupport}
-				<div class="mb-4 border-b border-border pb-4">
-					<p class={cn(caption({ weight: 'semibold' }), 'mb-2 text-foreground')}>
-						Published transition support
-					</p>
-					<div class="flex flex-wrap items-center gap-2">
-						{#if transitionSupport.skillsfuture_eligible}
-							<span class={pill({ tone: 'positive' })}>SkillsFuture eligible</span>
-						{/if}
-						{#each transitionSupport.recommended_programmes as programme}
-							{@const programmeUrl = getTransitionProgrammeUrl(programme)}
-							<a
-								href={programmeUrl ?? '#'}
-								target="_blank"
-								rel="noopener noreferrer"
-								class={pill({ tone: 'primary', interactive: true })}
-							>
-								{programme} ↗
-							</a>
-						{/each}
-					</div>
-				</div>
-			{/if}
-
-			{#if displayTransitions.length > 0}
-				<div class="mb-4 border-b border-border pb-4">
-					<div class="flex items-center gap-2 mb-3">
-						<p class={cn(caption({ weight: 'semibold' }), 'text-foreground')}>
-							Related roles you could transition to
-						</p>
-						<span class={pill({ size: 'sm', tone: 'muted' })}
-							>{exitQuadrant?.targets?.length ? 'Exposure-reducing' : 'Similarity-based'}</span
-						>
-					</div>
-					{#if exitQuadrant?.in_quadrant}
-						<p class="mb-3 text-xs text-risk-high">
-							This occupation has higher relative AI exposure, and its best adjacent move ranks in
-							the weakest quarter of exposure-reducing options. Mobility outcomes also depend on
-							demand, wages, skills and access to credible transitions.
-							<a href="/rankings/high-risk-few-exits" class="underline hover:text-foreground"
-								>See all occupations in this quadrant</a
-							>.
-						</p>
-					{:else if exitQuadrant}
-						<p class="mb-3 text-xs text-muted-foreground">
-							Higher AI exposure, but comparatively credible exposure-reducing moves exist — the
-							strongest scores {(exitQuadrant.best_composite * 100).toFixed(0)}% match. Escape-route
-							quality and labour demand matter alongside exposure.
-						</p>
-					{/if}
-					<div class="grid gap-2 sm:grid-cols-3">
-						{#each displayTransitions.slice(0, 3) as t}
-							<OccupationCard
-								occupation={{ title: t.to_title, ssoc: t.to_ssoc, net_risk: 0 }}
-								mode="inset"
-								metricParts={[
-									{
-										label:
-											t.risk_improvement > 0
-												? `-${(t.risk_improvement * 100).toFixed(0)} points exposure`
-												: t.risk_improvement < 0
-													? `+${(Math.abs(t.risk_improvement) * 100).toFixed(0)} points exposure`
-													: 'No exposure change',
-										color:
-											t.risk_improvement > 0
-												? 'text-risk-very-low'
-												: t.risk_improvement < 0
-													? 'text-risk-high'
-													: undefined
-									},
-									{ label: t.label }
-								]}
-							/>
-						{/each}
-					</div>
-					{#if displayTransitions.length > 3}
-						<details class="mt-2">
-							<summary
-								class={cn(
-									caption({ weight: 'medium' }),
-									'cursor-pointer text-primary hover:underline'
-								)}>See {displayTransitions.length - 3} more</summary
-							>
-							<div class="mt-2 grid gap-2 sm:grid-cols-3">
-								{#each displayTransitions.slice(3) as t}
-									<OccupationCard
-										occupation={{ title: t.to_title, ssoc: t.to_ssoc, net_risk: 0 }}
-										mode="inset"
-										metricParts={[
-											{ label: `${(t.composite * 100).toFixed(0)}%` },
-											{ label: t.label }
-										]}
-									/>
-								{/each}
-							</div>
-						</details>
-					{/if}
-				</div>
-			{/if}
-
-			{#if structural.relatedOccupations.length > 0}
-				<div class="mb-4 border-b border-border pb-4">
-					<p class={cn(caption({ weight: 'semibold' }), 'mb-3 text-foreground')}>
-						Compare within {group?.label ?? 'this group'}
-					</p>
-					<div class="grid gap-2 sm:grid-cols-3">
-						{#each structural.relatedOccupations as rel}
-							<OccupationCard
-								occupation={{
-									title: rel.title,
-									ssoc: rel.ssoc,
-									net_risk: rel.net_risk,
-									risk_band: rel.risk_band,
-									gross_wage_median: rel.gross_wage_median
-								}}
-								mode="inset"
-							/>
-						{/each}
-					</div>
-				</div>
-			{/if}
-
-			{#if linkedRoles.length > 0}
-				<div class="mb-4 border-b border-border pb-4">
-					<p class={cn(caption({ weight: 'semibold' }), 'mb-3 text-foreground')}>
-						Modern roles using this occupation
-					</p>
-					<div class="flex flex-wrap gap-2">
-						{#each linkedRoles as role}
-							<a
-								href="/role/{role.slug}"
-								class={cn(pill({ tone: 'muted' }), 'hover:bg-accent transition-colors')}
-							>
-								{role.title}
-							</a>
-						{/each}
-					</div>
-				</div>
-			{/if}
-
-			<div class="flex items-center justify-between">
-				<p class={caption()}>See how this compares to similar occupations</p>
-				<a
-					href="/compare?entities=occupation:{occ.ssoc}"
-					class={cn(caption({ weight: 'medium' }), 'text-primary hover:underline')}
-				>
-					Compare with... →
-				</a>
 			</div>
-		</div>
-	</section>
+		</section>
+	{/if}
 
-	<!-- ===== TECHNICAL DETAILS (collapsible) ===== -->
-	<Collapsible.Root class={cn(card({ padding: 'none' }), section({ spacing: 'loose' }))}>
-		<Collapsible.Trigger
-			class={cn(
-				sectionLabel(),
-				'flex w-full items-center justify-between px-5 py-3 hover:text-foreground transition-colors'
-			)}
-		>
-			Technical Details
-			<svg
-				class="h-3.5 w-3.5 transition-transform [[data-state=open]>&]:rotate-180"
-				viewBox="0 0 24 24"
-				fill="none"
-				stroke="currentColor"
-				stroke-width="2"><path d="m6 9 6 6 6-6" /></svg
-			>
-		</Collapsible.Trigger>
-		<Collapsible.Content
-			class="border-t border-border px-5 py-4 text-xs text-muted-foreground space-y-3"
-		>
-			<!-- Group 1: Classification & scoring -->
-			<div class="grid gap-3 sm:grid-cols-2">
-				<div>
-					<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>Classification</p>
-					<p>
-						More exposed than approximately {structural.riskPercentile}% of occupations · {scoringBasisSummary}{#if occ.education_label}
-							· {occ.education_label}{/if}
-					</p>
-				</div>
-				<div>
-					<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>Raw scores</p>
-					<p class={mono({ size: 'sm' })}>
-						AIOE {occ.raw.aioe.toFixed(3)} · θ {occ.raw.theta.toFixed(3)} · C-AIOE {occ.raw.c_aioe.toFixed(
-							3
-						)}
-					</p>
-				</div>
-				<div>
-					<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>Stability</p>
-					<p>
-						{occ.stability.label} · Optimistic {(occ.stability.optimistic_risk * 100).toFixed(0)}% ·
-						Pessimistic {(occ.stability.pessimistic_risk * 100).toFixed(0)}%
-					</p>
-				</div>
-				<div>
-					<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>
-						Score range (best/worst case)
-					</p>
-					<p>
-						Exposure sensitivity {exposureUncertainty} · Rank sensitivity {netRiskUncertainty}
-					</p>
-				</div>
-				<div class="sm:col-span-2">
-					<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>Scoring basis</p>
-					<p>
-						{scoringBasisSummary}. {scoringBasisDetail}{#if priorBaselineDeltaSummary}
-							{priorBaselineDeltaSummary}{/if}
-					</p>
-				</div>
-				<div class="sm:col-span-2">
-					<p class={cn(caption({ weight: 'semibold' }), 'mb-1 text-foreground')}>
-						Wage range (SGD/mo)
-					</p>
-					<p class={mono({ size: 'sm' })}>
-						25th {occ.gross_wage_25th.toLocaleString()} · Median {occ.gross_wage_median.toLocaleString()}
-						· 75th {occ.gross_wage_75th.toLocaleString()}
-					</p>
-				</div>
-			</div>
-
-			<!-- Group 2: Evidence & sources -->
-			<details class="pt-3 border-t border-border">
-				<summary class="cursor-pointer text-xs font-semibold text-foreground hover:text-primary"
-					>Evidence & sources</summary
-				>
-				<div class="mt-3 grid gap-3 sm:grid-cols-2">
-					<div>
-						<p class={cn(caption({ weight: 'medium' }), 'mb-1 text-foreground')}>Data matching</p>
-						<p>{occ.match_quality} · SSOC {occ.ssoc}</p>
-						{#if occ.evidence.sol_match}<p class="text-risk-very-low">
-								SOL 2026: {occ.evidence.sol_match} match
-							</p>{/if}
-						{#if occ.evidence.jobs_in_demand_match}<p class="text-risk-very-low">
-								Jobs in Demand: {occ.evidence.jobs_in_demand_match} match
-							</p>{/if}
-						{#if occ.evidence.anthropic_calibrated}<p>
-								Real-world AI usage: {occ.evidence.anthropic_gap !== null
-									? (occ.evidence.anthropic_gap > 0 ? '+' : '') +
-										Math.round(occ.evidence.anthropic_gap * 100) +
-										'% vs estimated'
-									: 'verified'}
-							</p>{/if}
-					</div>
-					<div>
-						<p class={cn(caption({ weight: 'medium' }), 'mb-1 text-foreground')}>Data quality</p>
-						<p>
-							{occ.v8.evidence_confidence.level} evidence · {occ.v8.evidence_confidence
-								.exposure_source_count}
-							exposure sources · {occ.v8.evidence_confidence.mapping_quality} mapping
+	<section class="mt-10">
+		<h2 class={sectionLabel()}>Independent external comparisons</h2>
+		<p class="mt-3 max-w-4xl text-sm leading-relaxed text-muted-foreground">
+			These sources measure different ideas from the ILO headline. V9 reserves a separate, nullable
+			evidence block for each one; none can change the pressure rank.
+		</p>
+		<div class="mt-3 grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-4">
+			{#each comparisonEvidence as item (item.label)}
+				<div class="min-w-0 bg-card p-4">
+					<p class="break-words text-sm font-semibold text-foreground">{item.label}</p>
+					{#if item.evidence}
+						<p class="mt-2 text-xs font-semibold text-primary">Published evidence block</p>
+						<a
+							href={item.evidence.source.url}
+							target="_blank"
+							rel="noreferrer"
+							class="mt-1 block break-words text-xs text-primary underline"
+						>
+							{item.evidence.source.title}
+						</a>
+					{:else}
+						<p class="mt-2 text-xs font-semibold text-muted-foreground">Withheld in V9</p>
+						<p class="mt-1 text-xs leading-relaxed text-muted-foreground">
+							No defensible SSOC 2024 occupation value is published.
 						</p>
-						{#if confidenceDetail}
-							<p class="mt-1">
-								Capped at {occ.confidence.threshold_level ?? occ.confidence.level} · Final rating: {occ
-									.confidence.level} · {confidenceDetail}
-							</p>
-						{/if}
-						<p class="mt-1">{taskEvidenceSummary}</p>
-					</div>
-					<div class="sm:col-span-2">
-						<EvidenceBar
-							sourceCount={occ.evidence.exposure_source_count ?? 0}
-							sourceKeys={occ.evidence.exposure_source_keys ?? []}
-							agreement={occ.evidence.exposure_agreement ?? null}
-							signalConflict={occ.evidence.signal_conflict ?? false}
-						/>
-					</div>
-					{#if occ.evidence?.exposure_source_pctiles}
-						<div class="sm:col-span-2">
-							<p class={cn(caption({ weight: 'medium' }), 'mb-1 text-foreground')}>
-								AI overlap by data source
-							</p>
-							<div class="flex flex-wrap gap-3 mt-1">
-								{#each Object.entries(occ.evidence.exposure_source_pctiles) as [source, pctile]}
-									{@const sourceLabels = {
-										aioe: 'AIOE',
-										anthropic: 'Anthropic',
-										eloundou: 'GPT',
-										ilo: 'ILO'
-									} as Record<string, string>}
-									<div class="flex items-center gap-2">
-										<span class={cn(microLabel(), 'w-16')}>{sourceLabels[source] ?? source}</span>
-										<div class="h-2 w-24 rounded-full bg-muted overflow-hidden">
-											<div
-												class="h-full rounded-full bg-foreground/60"
-												style="width: {(pctile ?? 0) * 100}%"
-											></div>
-										</div>
-										<span class={mono({ size: 'sm' })}>{((pctile ?? 0) * 100).toFixed(0)}%</span>
-									</div>
-								{/each}
-							</div>
-							{#if occ.evidence?.exposure_source_weights}
-								<p class="mt-1">
-									Weights: {Object.entries(occ.evidence.exposure_source_weights)
-										.map(([k, v]) => `${k} ${((v ?? 0) * 100).toFixed(0)}%`)
-										.join(' · ')}
-								</p>
-							{/if}
-						</div>
-					{/if}
-					{#if occ.evidence?.signal_conflict_reasons?.length}
-						<div class="sm:col-span-2">
-							<p class={cn(caption({ weight: 'medium' }), 'mb-1 text-foreground')}>
-								Conflicting data signals
-							</p>
-							<div class="flex flex-wrap gap-1.5">
-								{#each occ.evidence.signal_conflict_reasons as reason}
-									<span class={pill({ size: 'sm', tone: 'warning' })}
-										>{reason.replaceAll('_', ' ')}</span
-									>
-								{/each}
-							</div>
-						</div>
 					{/if}
 				</div>
-			</details>
-
-			<!-- Group 3: O*NET + offset factors -->
-			{#if (structural.onetEnrichment?.technologies.length ?? 0) > 0 || (offsetPotential && (offsetPotential.strengths.length > 0 || offsetPotential.cautions.length > 0))}
-				<details class="pt-3 border-t border-border">
-					<summary class="cursor-pointer text-xs font-semibold text-foreground hover:text-primary"
-						>Tools & offset factors</summary
-					>
-					<div class="mt-3 space-y-3">
-						{#if (structural.onetEnrichment?.technologies.length ?? 0) > 0}
-							<div>
-								<p class={cn(caption({ weight: 'medium' }), 'mb-1 text-foreground')}>
-									Common tools (O*NET proxy)
-								</p>
-								<div class="flex flex-wrap gap-1.5">
-									{#each structural.onetEnrichment?.technologies.slice(0, 6) ?? [] as technology}
-										<span class={pill({ tone: technology.hot ? 'positive' : 'muted' })}
-											>{technology.name}</span
-										>
-									{/each}
-								</div>
-							</div>
-						{/if}
-						{#if offsetPotential && (offsetPotential.strengths.length > 0 || offsetPotential.cautions.length > 0)}
-							<div class="grid gap-3 sm:grid-cols-2">
-								{#if offsetPotential.strengths.length > 0}
-									<div class={cn(card({ variant: 'inset', padding: 'sm' }), 'min-w-0')}>
-										<p class={cn(caption({ weight: 'semibold' }), 'text-impact-leveraged')}>
-											What helps
-										</p>
-										<ul class="mt-1 space-y-0.5">
-											{#each offsetPotential.strengths as item}<li>{item}</li>{/each}
-										</ul>
-									</div>
-								{/if}
-								{#if offsetPotential.cautions.length > 0}
-									<div class={cn(card({ variant: 'inset', padding: 'sm' }), 'min-w-0')}>
-										<p class={cn(caption({ weight: 'semibold' }), 'text-risk-high')}>
-											What could slow it down
-										</p>
-										<ul class="mt-1 space-y-0.5">
-											{#each offsetPotential.cautions as item}<li>{item}</li>{/each}
-										</ul>
-									</div>
-								{/if}
-							</div>
-						{/if}
-					</div>
-				</details>
-			{/if}
-
-			<!-- Group 4: Worker profile & local context -->
-			{#if workerProfile.items.length > 0 || geographyContext.items.length > 0 || localContextItems.length > 0 || marketDetailBullets.length > 0}
-				<details class="pt-3 border-t border-border">
-					<summary class="cursor-pointer text-xs font-semibold text-foreground hover:text-primary"
-						>Worker profile & local context</summary
-					>
-					<div class="mt-3 space-y-4">
-						{#if marketDetailBullets.length > 0}
-							<ul class="space-y-1">
-								{#each marketDetailBullets as item}<li>{item}</li>{/each}
-							</ul>
-						{/if}
-						{#if localContextItems.length > 0}
-							<div class="flex flex-wrap gap-1.5">
-								{#each localContextItems as item (item.key)}
-									<span
-										class={pill({
-											size: 'sm',
-											tone:
-												item.tone === 'protective'
-													? 'positive'
-													: item.tone === 'pressure'
-														? 'danger'
-														: item.tone === 'support'
-															? 'primary'
-															: 'neutral'
-										})}
-										title={item.description}>{item.label}: {item.value}</span
-									>
-								{/each}
-							</div>
-						{/if}
-						{#if workerProfile.items.length > 0}
-							<ContextItemGrid title="Worker profile" items={workerProfile.items} />
-						{/if}
-						{#if geographyContext.items.length > 0}
-							<ContextItemGrid
-								title="Where this work is concentrated"
-								items={geographyContext.items}
-							/>
-						{/if}
-					</div>
-				</details>
-			{/if}
-
-			<!-- Role profile (moved from Why This Score) -->
-			{#if occ.workflow_overlay}
-				<div class="mt-5 pt-5 border-t border-border">
-					<p class={cn(caption({ weight: 'semibold' }), 'mb-2 text-foreground')}>Role profile</p>
-					<p class={cn(caption(), 'mb-3')}>
-						How this role's work breaks down across key dimensions. This is a general profile, not
-						an individual measurement.
-					</p>
-					<div class="flex justify-center">
-						<WorkflowRadar dimensions={occ.workflow_overlay} size={240} />
-					</div>
-				</div>
-			{/if}
-
-			<!-- Career-stage modifiers (moved from Singapore Now) -->
-			<div class={card({ padding: 'sm' })}>
-				<p class={cn(microLabel(), 'mb-1')}>How this changes by career stage</p>
-				<p class={cn(caption(), 'mb-3')}>
-					Career stage can change the task mix and human context. These directional profiles are
-					illustrative, not occupation-level forecasts of hiring or displacement.
-				</p>
-				<div class="space-y-2">
-					<div
-						class={cn(
-							card({ padding: 'sm', variant: 'inset' }),
-							'flex items-center justify-between'
-						)}
-					>
-						<span class={caption()}>Junior / Entry-level</span>
-						<span class={caption({ weight: 'medium' })}
-							><span class="text-risk-high">Potentially more exposed task mix</span></span
-						>
-					</div>
-					<div
-						class={cn(
-							card({ padding: 'sm', variant: 'inset' }),
-							'flex items-center justify-between'
-						)}
-					>
-						<span class={caption()}>Mid-career</span>
-						<span class={cn(caption({ weight: 'medium' }), 'text-foreground')}
-							>Reference task profile</span
-						>
-					</div>
-					<div
-						class={cn(
-							card({ padding: 'sm', variant: 'inset' }),
-							'flex items-center justify-between'
-						)}
-					>
-						<span class={caption()}>Senior / Lead</span>
-						<span class={caption({ weight: 'medium' })}
-							><span class="text-risk-very-low">Potentially more judgment-heavy task mix</span
-							></span
-						>
-					</div>
-				</div>
-			</div>
-		</Collapsible.Content>
-	</Collapsible.Root>
-
-	<!-- ===== FAQ (visible HTML matching JSON-LD) ===== -->
-	<section class="mt-8">
-		<h2 class={sectionLabel()}>Frequently asked questions</h2>
-		<div class="mt-3 space-y-1">
-			{#each faqItems as item}
-				<details class={cn(card({ padding: 'md' }), 'group')}>
-					<summary class="cursor-pointer text-sm font-semibold text-foreground select-none">
-						{item.question}
-					</summary>
-					<p class="mt-2 text-sm leading-relaxed text-text-secondary">{item.answer}</p>
-				</details>
 			{/each}
 		</div>
+		<p class="mt-3 max-w-4xl text-xs leading-relaxed text-muted-foreground">
+			All four blocks are null in the current release. The checked-in ISCO-08 to US SOC bridge lacks
+			row-level source provenance; the complementarity proxy also lacks a frozen, reproducible
+			source construct. V9 does not use title matching or broader-group fallbacks to fill those
+			gaps.
+		</p>
 	</section>
-</div>
+
+	<section class="mt-10 grid min-w-0 gap-6 lg:grid-cols-2">
+		<div class="min-w-0">
+			<h2 class={sectionLabel()}>Evidence limits</h2>
+			<ul
+				class="mt-3 space-y-2 border border-border bg-card p-5 text-sm leading-relaxed text-muted-foreground"
+			>
+				{#each occupation.evidence.limitations as limitation (limitation)}
+					<li class="flex min-w-0 gap-2">
+						<span aria-hidden="true">•</span>
+						<span class="min-w-0 break-words">{limitation}</span>
+					</li>
+				{/each}
+			</ul>
+		</div>
+
+		<div class="min-w-0">
+			<h2 class={sectionLabel()}>Common job titles</h2>
+			<div class="mt-3 border border-border bg-card p-5">
+				{#if occupation.taxonomy.search_synonyms.length > 0}
+					<div class="flex min-w-0 flex-wrap gap-2">
+						{#each occupation.taxonomy.search_synonyms.slice(0, 16) as synonym (synonym)}
+							<span
+								class="max-w-full break-words border border-border px-2 py-1 text-xs text-muted-foreground"
+							>
+								{synonym}
+							</span>
+						{/each}
+					</div>
+				{:else}
+					<p class="text-sm text-muted-foreground">No additional titles are published.</p>
+				{/if}
+			</div>
+		</div>
+	</section>
+
+	{#if data.related.length > 0}
+		<section class="mt-10 min-w-0">
+			<div class="mb-3 flex flex-wrap items-end justify-between gap-2">
+				<div>
+					<h2 class={sectionLabel()}>Related SSOC occupations</h2>
+					<p class="mt-1 text-xs text-muted-foreground">
+						Same unit or minor group, closest pressure ranks first
+					</p>
+				</div>
+				{#if data.groupSlug}
+					<a href="/group/{data.groupSlug}" class="text-xs font-medium text-primary underline">
+						All {data.groupLabel}
+					</a>
+				{/if}
+			</div>
+			<OccupationResultList items={data.related} detail="wage" showRank={false} />
+		</section>
+	{/if}
+
+	<FaqList items={faqItems} />
+
+	<nav class="mt-10 flex min-w-0 flex-wrap gap-3 border-t border-border pt-5 text-sm">
+		<a href="/explore" class="font-medium text-primary underline">Browse occupations</a>
+		<a href="/rankings" class="font-medium text-primary underline">Evidence rankings</a>
+		<a href="/methodology" class="font-medium text-primary underline">V9 methodology</a>
+	</nav>
+</main>

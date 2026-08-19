@@ -1,74 +1,155 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { page } from '$app/state';
 	import * as Command from '$lib/components/ui/command/index.js';
-	import { Badge } from '$lib/components/ui/badge/index.js';
-	import { riskBandLabels } from '$lib/data';
 	import { countryConfigs } from '$lib/data/country-config';
-	import { searchOccupationsAndRoles } from '$lib/utils/search';
-	import { riskBadge, mono } from '$lib/design-system';
-	import { cn } from '$lib/utils';
-	import { getHomeSurface, resolveHomeSurfaceCode } from '$lib/data/home-surface';
-	import type { Occupation } from '$lib/data';
+
+	type SearchIndex = {
+		occupations: Array<{
+			code: string;
+			title: string;
+			pressure_rank: number | null;
+			synonyms: string[];
+		}>;
+		roles: Array<{
+			slug: string;
+			title: string;
+			description: string;
+			tags: string[];
+			estimated_pressure_percentile: number | null;
+		}>;
+		official_role_aliases?: Array<{
+			title: string;
+			official_ssoc2024: string;
+		}>;
+	};
 
 	let open = $state(false);
 	let query = $state('');
+	let loading = $state(false);
+	let loaded = $state(false);
+	let occupations = $state<
+		Array<{
+			code: string;
+			title: string;
+			rank: number | null;
+			aliases: string[];
+			search: string;
+		}>
+	>([]);
+	let roles = $state<Array<{ slug: string; title: string; rank: number | null; search: string }>>(
+		[]
+	);
+	let loadPromise: Promise<void> | null = null;
 
-	type SearchOccupation = Occupation & {
-		linkHref?: string | null;
-		localCode?: string;
-		canonicalCode?: string;
-		ssoc?: string;
-		valueKind?: 'wage' | 'count';
-	};
+	function loadSearchIndex(): Promise<void> {
+		if (loaded) return Promise.resolve();
+		if (loadPromise) return loadPromise;
+		loading = true;
+		loadPromise = fetch('/data/v9-search-index.json?v=2026-08-19-v9')
+			.then(response => {
+				if (!response.ok) throw new Error(`Search index returned ${response.status}`);
+				return response.json() as Promise<SearchIndex>;
+			})
+			.then(searchIndex => {
+				const aliasesByCode = new Map<string, string[]>();
+				for (const alias of searchIndex.official_role_aliases ?? []) {
+					const aliases = aliasesByCode.get(alias.official_ssoc2024) ?? [];
+					aliases.push(alias.title);
+					aliasesByCode.set(alias.official_ssoc2024, aliases);
+				}
+				occupations = searchIndex.occupations.map(occupation => ({
+					code: occupation.code,
+					title: occupation.title,
+					rank: occupation.pressure_rank,
+					aliases: aliasesByCode.get(occupation.code) ?? [],
+					search: [
+						occupation.title,
+						occupation.code,
+						...occupation.synonyms,
+						...(aliasesByCode.get(occupation.code) ?? [])
+					]
+						.join(' ')
+						.toLowerCase()
+				}));
+				roles = searchIndex.roles.map(role => ({
+					slug: role.slug,
+					title: role.title,
+					rank: role.estimated_pressure_percentile,
+					search: [role.title, role.description, role.slug, ...role.tags].join(' ').toLowerCase()
+				}));
+				loaded = true;
+			})
+			.catch(() => {
+				loaded = false;
+			})
+			.finally(() => {
+				loading = false;
+				loadPromise = null;
+			});
+		return loadPromise;
+	}
 
-	type SearchResults = {
-		roles: ReturnType<typeof searchOccupationsAndRoles>['roles'];
-		occupations: SearchOccupation[];
-	};
+	function openSearch() {
+		open = true;
+		void loadSearchIndex();
+	}
 
-	// Keyboard shortcut
-	function handleKeydown(e: KeyboardEvent) {
-		if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
-			e.preventDefault();
+	const pages = [
+		{ href: '/', label: 'Find a job' },
+		{ href: '/explore', label: 'Browse occupations' },
+		{ href: '/roles', label: 'Modern roles' },
+		{ href: '/rankings', label: 'Rankings' },
+		{ href: '/compare', label: 'Compare evidence' },
+		{ href: '/will-ai-take-my-job', label: 'AI job pressure checker' },
+		{ href: '/reports', label: 'Reports' },
+		{ href: '/research', label: 'Research' },
+		{ href: '/methodology', label: 'Methodology' },
+		{ href: '/data', label: 'Data downloads' },
+		{ href: '/about', label: 'About' }
+	];
+
+	const markets = [countryConfigs.sg, countryConfigs.us, countryConfigs.global];
+
+	let occupationResults = $derived.by(() => {
+		const needle = query.trim().toLowerCase();
+		if (needle.length < 2) return [];
+		return occupations
+			.filter(occupation => occupation.search.includes(needle))
+			.sort((a, b) => {
+				const aStarts = a.title.toLowerCase().startsWith(needle) ? 0 : 1;
+				const bStarts = b.title.toLowerCase().startsWith(needle) ? 0 : 1;
+				return aStarts - bStarts || a.title.localeCompare(b.title);
+			})
+			.slice(0, 8);
+	});
+
+	let roleResults = $derived.by(() => {
+		const needle = query.trim().toLowerCase();
+		if (needle.length < 2) return [];
+		return roles
+			.filter(role => role.search.includes(needle))
+			.sort((a, b) => {
+				const aStarts = a.title.toLowerCase().startsWith(needle) ? 0 : 1;
+				const bStarts = b.title.toLowerCase().startsWith(needle) ? 0 : 1;
+				return aStarts - bStarts || a.title.localeCompare(b.title);
+			})
+			.slice(0, 5);
+	});
+
+	function matchingAlias(occupation: (typeof occupations)[number]): string | null {
+		const needle = query.trim().toLowerCase();
+		return occupation.aliases.find(alias => alias.toLowerCase().includes(needle)) ?? null;
+	}
+
+	function handleKeydown(event: KeyboardEvent) {
+		if (event.key === 'k' && (event.metaKey || event.ctrlKey)) {
+			event.preventDefault();
 			open = !open;
+			if (open) void loadSearchIndex();
 		}
 	}
 
-	let activeSurfaceCode = $derived.by(() => {
-		const pathname = page.url.pathname;
-		if (pathname.startsWith('/sg')) return 'sg';
-		if (pathname.startsWith('/us')) return 'us';
-		if (pathname.startsWith('/global')) return 'global';
-		return resolveHomeSurfaceCode(page.url.searchParams.get('surface'));
-	});
-
-	let activeSurfaceOccupations = $derived.by(
-		() => getHomeSurface(activeSurfaceCode).occupations as unknown as SearchOccupation[]
-	);
-
-	let results = $derived(
-		searchOccupationsAndRoles(query, activeSurfaceOccupations) as SearchResults
-	);
-
-	const marketMenuOrder = ['sg', 'us'] as const;
-	const marketMenuLinks = marketMenuOrder.map(code => countryConfigs[code]);
-
-	function selectOccupation(ssoc: string) {
-		open = false;
-		query = '';
-		const occupation = activeSurfaceOccupations.find(result => result.ssoc === ssoc);
-		const href = occupation?.linkHref ?? null;
-		goto(href ?? '/');
-	}
-
-	function selectRole(slug: string) {
-		open = false;
-		query = '';
-		goto(`/role/${slug}`);
-	}
-
-	function selectPage(href: string) {
+	function navigate(href: string) {
 		open = false;
 		query = '';
 		goto(href);
@@ -77,24 +158,23 @@
 
 <svelte:document onkeydown={handleKeydown} />
 
-<!-- Desktop trigger -->
 <button
-	class="hidden sm:flex items-center gap-2 rounded-lg border border-header-active-bg bg-header-active-bg/30 px-3 py-1.5 text-xs text-header-muted hover:bg-header-active-bg hover:text-header-text transition-colors"
-	onclick={() => (open = true)}
+	class="hidden items-center gap-2 rounded-lg border border-header-active-bg bg-header-active-bg/30 px-3 py-1.5 text-xs text-header-muted transition-colors hover:bg-header-active-bg hover:text-header-text sm:flex"
+	onclick={openSearch}
 >
 	<svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 		<circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
 	</svg>
 	<span>Search</span>
 	<kbd
-		class="ml-2 rounded border border-header-active-bg bg-header-bg px-1.5 py-0.5 text-xs font-mono text-header-muted"
+		class="ml-2 rounded border border-header-active-bg bg-header-bg px-1.5 py-0.5 font-mono text-xs text-header-muted"
 		>⌘K</kbd
 	>
 </button>
-<!-- Mobile trigger -->
+
 <button
-	class="sm:hidden flex items-center justify-center rounded-lg p-1.5 text-header-muted hover:bg-header-active-bg hover:text-header-text transition-colors"
-	onclick={() => (open = true)}
+	class="flex items-center justify-center rounded-lg p-1.5 text-header-muted transition-colors hover:bg-header-active-bg hover:text-header-text sm:hidden"
+	onclick={openSearch}
 	aria-label="Search"
 >
 	<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -103,215 +183,65 @@
 </button>
 
 <Command.Dialog bind:open shouldFilter={false}>
-	<Command.Input placeholder="Search occupations, roles, or pages..." bind:value={query} />
+	<Command.Input placeholder="Search occupations, roles or pages…" bind:value={query} />
 	<Command.List>
 		<Command.Empty>
 			<div class="py-4 text-center">
-				<p class="text-sm text-muted-foreground">No results for "{query}"</p>
+				<p class="text-sm text-muted-foreground">
+					{loading ? 'Loading occupation search…' : `No results for “${query}”`}
+				</p>
 				<p class="mt-1 text-xs text-muted-foreground">
-					Try a job title like "nurse", "accountant", or "developer"
+					Try nurse, accountant, driver or developer.
 				</p>
 			</div>
 		</Command.Empty>
 
-		<!-- Quick navigation (always visible when no query) -->
 		{#if !query.trim()}
 			<Command.Group heading="Go to">
-				<Command.Item onSelect={() => selectPage('/')}>
-					<svg
-						class="mr-2 h-4 w-4"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle
-							cx="9"
-							cy="7"
-							r="4"
-						/><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg
-					>
-					Find
-				</Command.Item>
-				<Command.Item onSelect={() => selectPage('/compare')}>
-					<svg
-						class="mr-2 h-4 w-4"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						><circle cx="12" cy="12" r="9" /><path d="M3 12h18" /><path
-							d="M12 3a15 15 0 0 1 0 18"
-						/><path d="M12 3a15 15 0 0 0 0 18" /></svg
-					>
-					Compare
-				</Command.Item>
-				<Command.Item onSelect={() => selectPage('/methodology')}>
-					<svg
-						class="mr-2 h-4 w-4"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" /><path
-							d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"
-						/></svg
-					>
-					Methodology
-				</Command.Item>
-				<Command.Item onSelect={() => selectPage('/global')}>
-					<svg
-						class="mr-2 h-4 w-4"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg
-					>
-					Structural baseline
-				</Command.Item>
-				<Command.Item onSelect={() => selectPage('/explore')}>
-					<svg
-						class="mr-2 h-4 w-4"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"><path d="M3 6h18" /><path d="M3 12h18" /><path d="M3 18h18" /></svg
-					>
-					Browse occupations
-				</Command.Item>
-				<Command.Item onSelect={() => selectPage('/roles')}>
-					<svg
-						class="mr-2 h-4 w-4"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle
-							cx="9"
-							cy="7"
-							r="4"
-						/><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg
-					>
-					Modern roles
-				</Command.Item>
-				<Command.Item onSelect={() => selectPage('/calculator')}>
-					<svg
-						class="mr-2 h-4 w-4"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						><rect x="4" y="2" width="16" height="20" rx="2" /><line
-							x1="8"
-							y1="6"
-							x2="16"
-							y2="6"
-						/><line x1="8" y1="10" x2="10" y2="10" /><line x1="14" y1="10" x2="16" y2="10" /><line
-							x1="8"
-							y1="14"
-							x2="10"
-							y2="14"
-						/><line x1="14" y1="14" x2="16" y2="14" /><line x1="8" y1="18" x2="16" y2="18" /></svg
-					>
-					Calculator
-				</Command.Item>
+				{#each pages as item (item.href)}
+					<Command.Item onSelect={() => navigate(item.href)}>
+						<svg
+							class="mr-2 h-4 w-4"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" /></svg
+						>
+						{item.label}
+					</Command.Item>
+				{/each}
 			</Command.Group>
-
 			<Command.Group heading="Markets">
-				{#each marketMenuLinks as market (market.code)}
-					<Command.Item onSelect={() => selectPage(market.routePrefix)}>
+				{#each markets as market (market.code)}
+					<Command.Item onSelect={() => navigate(market.routePrefix)}>
 						<svg
 							class="mr-2 h-4 w-4"
 							viewBox="0 0 24 24"
 							fill="none"
 							stroke="currentColor"
 							stroke-width="2"
+							><circle cx="12" cy="12" r="9" /><path
+								d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"
+							/></svg
 						>
-							<circle cx="12" cy="12" r="9" />
-							<path d="M12 3a15 15 0 0 1 0 18" />
-							<path d="M3 12h18" />
-						</svg>
-						{market.name}
+						{market.name}{market.code === 'us'
+							? ' Preview'
+							: market.code === 'global'
+								? ' research'
+								: ''}
 					</Command.Item>
 				{/each}
 			</Command.Group>
-
-			<Command.Group heading="More">
-				<Command.Item onSelect={() => selectPage('/rankings')}>
-					<svg
-						class="mr-2 h-4 w-4"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"><path d="M12 20V10M18 20V4M6 20v-4" /></svg
-					>
-					Rankings
-				</Command.Item>
-				<Command.Item onSelect={() => selectPage('/reports')}>
-					<svg
-						class="mr-2 h-4 w-4"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline
-							points="14 2 14 8 20 8"
-						/></svg
-					>
-					Reports
-				</Command.Item>
-				<Command.Item onSelect={() => selectPage('/data')}>
-					<svg
-						class="mr-2 h-4 w-4"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						><ellipse cx="12" cy="5" rx="9" ry="3" /><path
-							d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"
-						/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" /></svg
-					>
-					Data
-				</Command.Item>
-				<Command.Item onSelect={() => selectPage('/about')}>
-					<svg
-						class="mr-2 h-4 w-4"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						><circle cx="12" cy="12" r="10" /><line x1="12" y1="16" x2="12" y2="12" /><line
-							x1="12"
-							y1="8"
-							x2="12.01"
-							y2="8"
-						/></svg
-					>
-					About
-				</Command.Item>
-				<Command.Item onSelect={() => selectPage('/watchlist')}>
-					<svg
-						class="mr-2 h-4 w-4"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" /></svg
-					>
-					Watchlist
-				</Command.Item>
-			</Command.Group>
 		{/if}
 
-		<!-- Estimated Modern Roles -->
-		{#if results.roles.length > 0}
-			<Command.Group heading="Modern Roles (Estimated)">
-				{#each results.roles as role (role.slug)}
-					<Command.Item value="role-{role.slug}" onSelect={() => selectRole(role.slug)}>
-						<div class="flex w-full items-center justify-between">
-							<span>{role.title}</span>
-							<Badge
-								variant="outline"
-								class="ml-2 bg-risk-moderate-subtle text-risk-moderate border-risk-moderate-border text-xs"
-								>Estimate</Badge
+		{#if roleResults.length > 0}
+			<Command.Group heading="Modern-role queries · non-official">
+				{#each roleResults as role (role.slug)}
+					<Command.Item value="role-{role.slug}" onSelect={() => navigate(`/role/${role.slug}`)}>
+						<div class="flex w-full min-w-0 items-center justify-between gap-3">
+							<span class="truncate">{role.title}</span>
+							<span class="shrink-0 font-mono text-xs text-muted-foreground"
+								>{role.rank == null ? 'Withheld' : `Est. ${role.rank.toFixed(1)}`}</span
 							>
 						</div>
 					</Command.Item>
@@ -319,29 +249,25 @@
 			</Command.Group>
 		{/if}
 
-		<!-- Occupations -->
-		{#if results.occupations.length > 0}
-			<Command.Group heading="Occupations">
-				{#each results.occupations as occ (occ.ssoc)}
-					<Command.Item value="occ-{occ.ssoc}" onSelect={() => selectOccupation(occ.ssoc)}>
-						<div class="flex w-full items-center justify-between">
-							<div class="min-w-0 flex-1">
-								<span class="truncate">{occ.title}</span>
-								<span class={cn(mono({ size: 'sm' }), 'ml-2 text-muted-foreground')}>
-									{#if activeSurfaceCode === 'global' && occ.canonicalCode}
-										ISCO {occ.canonicalCode}
-									{:else if activeSurfaceCode === 'us' && occ.localCode}
-										Code {occ.localCode}
-									{:else if occ.ssoc}
-										SSOC {occ.ssoc}
-									{:else if occ.canonicalCode}
-										ISCO {occ.canonicalCode}
-									{/if}
-								</span>
+		{#if occupationResults.length > 0}
+			<Command.Group heading="SSOC 2024 occupations">
+				{#each occupationResults as occupation (occupation.code)}
+					<Command.Item
+						value="occupation-{occupation.code}"
+						onSelect={() => navigate(`/occupation/${occupation.code}`)}
+					>
+						<div class="flex w-full min-w-0 items-center justify-between gap-3">
+							<div class="min-w-0">
+								<span class="block truncate">{occupation.title}</span>
+								<span class="font-mono text-xs text-muted-foreground"
+									>{matchingAlias(occupation)
+										? `Modern title “${matchingAlias(occupation)}” · `
+										: ''}SSOC {occupation.code}</span
+								>
 							</div>
-							<span class={cn(riskBadge({ band: occ.risk_band }), 'ml-2 shrink-0 text-xs')}>
-								{riskBandLabels[occ.risk_band]}
-							</span>
+							<span class="shrink-0 font-mono text-xs font-bold tabular-nums"
+								>{occupation.rank == null ? 'Not ranked' : occupation.rank.toFixed(1)}</span
+							>
 						</div>
 					</Command.Item>
 				{/each}

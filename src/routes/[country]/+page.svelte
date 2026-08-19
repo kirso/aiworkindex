@@ -1,246 +1,246 @@
 <script lang="ts">
-	import {
-		pageLayout,
-		card,
-		sectionLabel,
-		title as titleStyle,
-		caption,
-		body
-	} from '$lib/design-system';
-	import { cn } from '$lib/utils';
-	import OccupationCard from '$lib/components/ui/OccupationCard.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
-	import { buildCountryModuleStatuses } from '$lib/data/country-modules';
-	import { getRiskBand } from '$lib/data/scoring-constants';
+	import { card, caption, pageLayout, sectionLabel, title } from '$lib/design-system';
+	import { cn } from '$lib/utils';
 
 	let { data } = $props();
-
-	const moduleStates = $derived(buildCountryModuleStatuses(data.country));
-	const publishedCount = $derived(moduleStates.filter(m => m.available).length);
-	const highRiskPct = $derived(
-		data.stats.count > 0 ? ((data.stats.highRisk / data.stats.count) * 100).toFixed(0) : '0'
-	);
-	const statusLabel = $derived(
-		data.country.status === 'live'
-			? 'Full index published'
-			: data.country.status === 'ready'
-				? 'Data ready, publishing soon'
-				: data.country.status === 'planned'
-					? 'Coming soon'
-					: 'In research'
-	);
-
-	/** Plain-language descriptions for evidence modules */
-	const userFriendlyModules: Record<string, { title: string; description: string }> = {
-		structuralProfile: {
-			title: 'AI exposure signals',
-			description: 'How much each job overlaps with what AI can do today.'
-		},
-		wageContext: {
-			title: 'Local salary data',
-			description: 'Median and percentile wages from official sources.'
-		},
-		employmentContext: {
-			title: 'Employment data',
-			description: 'How many people work in each occupation and projected trends.'
-		},
-		demandSignals: {
-			title: 'Job market demand',
-			description: 'Shortage lists, vacancy data, and hiring outlook from government sources.'
-		},
-		transitionCapacity: {
-			title: 'Career transition support',
-			description: 'Training programmes and redeployment pathways available to workers.'
-		},
-		workerProfile: {
-			title: 'Worker demographics',
-			description: 'Age, gender, qualification, and experience breakdowns by occupation.'
-		},
-		skillsContext: {
-			title: 'Skills and task detail',
-			description: 'What tasks make up the job and which specific skills matter most.'
-		},
-		narrativeContext: {
-			title: 'Job descriptions',
-			description: 'What the job involves day-to-day, work environment, and typical entry routes.'
-		},
-		adoptionContext: {
-			title: 'Real-world AI adoption',
-			description: 'Observed AI usage data used as one input to the relative change signal.'
-		},
-		regulatoryOverlay: {
-			title: 'Licensing and regulation',
-			description: 'Professional licensing, compliance, and public-sector constraints.'
-		}
-	};
 </script>
 
 <Seo
 	title={data.country.seoTitle}
 	description={data.country.seoDescription}
 	path={data.country.routePrefix}
+	noindex={data.mode === 'research'}
 />
 
-<main class={pageLayout({ width: 'content' })}>
-	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: data.country.displayName }]} />
+<main class={pageLayout({ width: data.mode === 'singapore' ? 'data' : 'feature' })}>
+	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: data.country.name }]} />
 
-	<!-- Hero -->
-	<section class="max-w-3xl">
-		<p class={sectionLabel()}>Country Index</p>
-		<h1 class={titleStyle({ size: 'page' })}>{data.country.displayName}</h1>
-		<p class={cn(body({ size: 'lg', tone: 'muted' }), 'mt-3')}>
-			{#if data.country.status === 'live'}
-				AI displacement pressure scores for every occupation, combined with local wages, job market
-				demand signals, and government support programmes.
-			{:else if data.country.status === 'ready'}
-				AI exposure rankings combined with local wages, employment projections, and skills data.
-				Full index publishing soon.
-			{:else}
-				AI exposure rankings based on the global structural baseline. Local data layers are being
-				prepared.
-			{/if}
-		</p>
-	</section>
+	{#if data.mode === 'singapore'}
+		<header class="max-w-4xl border-b-2 border-foreground pb-6">
+			<p class={sectionLabel()}>Live market · V9</p>
+			<h1 class={title({ size: 'page' })}>Singapore AI Work Pressure Index</h1>
+			<p class="mt-3 max-w-3xl text-base leading-relaxed text-text-secondary">
+				A complete SSOC 2024 view of where generative AI overlaps with occupational tasks. The
+				headline is a relative pressure rank. Wages, current demand and broad labour-market context
+				stay separate because they measure different things.
+			</p>
+		</header>
 
-	<!-- Key stats -->
-	<section class="mt-6 grid gap-3 sm:grid-cols-2 md:grid-cols-4">
-		<div class={card({ padding: 'sm' })}>
-			<p class={caption({ weight: 'medium' })}>Occupations scored</p>
-			<p class="mt-1 text-2xl font-semibold text-foreground">{data.stats.count.toLocaleString()}</p>
-		</div>
-		<div class={card({ padding: 'sm' })}>
-			<p class={caption({ weight: 'medium' })}>High pressure</p>
-			<p class="mt-1 text-2xl font-semibold text-foreground">
-				{data.stats.highRisk.toLocaleString()}
-			</p>
-			<p class={caption()}>
-				{highRiskPct}% of all occupations score above 30%
-			</p>
-		</div>
-		<div class={card({ padding: 'sm' })}>
-			<p class={caption({ weight: 'medium' })}>Median AI Exposure Rank</p>
-			<p class="mt-1 text-2xl font-semibold text-foreground">
-				{(data.stats.medianRisk * 100).toFixed(0)}%
-			</p>
-			<p class={caption()}>Midpoint across all occupations</p>
-		</div>
-		<div class={card({ padding: 'sm' })}>
-			<p class={caption({ weight: 'medium' })}>Index status</p>
-			<p class="mt-1 text-lg font-semibold text-foreground">{statusLabel}</p>
-			{#if data.stats.medianWage != null}
-				<p class={caption()}>
-					Median wage: {data.country.currency}
-					{data.stats.medianWage.toLocaleString()}/{data.country.wagePeriod === 'annual'
-						? 'yr'
-						: 'mo'}
+		<section
+			class="mt-6 grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-5"
+			aria-label="Singapore V9 coverage"
+		>
+			<div class="bg-card p-4">
+				<p class="font-mono text-2xl font-black tabular-nums">
+					{data.stats.occupations.toLocaleString()}
 				</p>
-			{/if}
-		</div>
-	</section>
+				<p class={caption()}>SSOC 2024 occupations</p>
+			</div>
+			<div class="bg-card p-4">
+				<p class="font-mono text-2xl font-black tabular-nums">
+					{data.stats.scored.toLocaleString()}
+				</p>
+				<p class={caption()}>pressure ranks published</p>
+			</div>
+			<div class="bg-card p-4">
+				<p class="font-mono text-2xl font-black tabular-nums">
+					{data.stats.insufficient.toLocaleString()}
+				</p>
+				<p class={caption()}>ranks withheld</p>
+			</div>
+			<div class="bg-card p-4">
+				<p class="font-mono text-2xl font-black tabular-nums">
+					{data.stats.directWages.toLocaleString()}
+				</p>
+				<p class={caption()}>direct wage rows</p>
+			</div>
+			<div class="bg-card p-4">
+				<p class="font-mono text-2xl font-black tabular-nums">
+					{data.stats.namedDemand.toLocaleString()}
+				</p>
+				<p class={caption()}>named demand matches</p>
+			</div>
+		</section>
 
-	<!-- Available data -->
-	<section class="mt-8">
-		<p class={sectionLabel()}>What data is available</p>
-		<p class={cn(caption(), 'mt-1')}>
-			{publishedCount} of {moduleStates.length} research areas are published for {data.country
-				.name}.
-		</p>
-		<div class="mt-3 grid gap-3 md:grid-cols-2">
-			{#each moduleStates as module}
-				{@const friendly = userFriendlyModules[module.key]}
-				<div
-					class={card({
-						padding: 'sm',
-						variant: module.available ? 'default' : 'subtle',
-						accent: module.available ? 'primary' : 'none'
-					})}
-				>
-					<div class="flex items-start justify-between gap-3">
-						<div>
-							<p class="text-sm font-semibold text-foreground">{friendly?.title ?? module.title}</p>
-							<p class="mt-1 text-sm text-muted-foreground">
-								{friendly?.description ??
-									(module.available ? module.publishedDescription : module.unavailableDescription)}
-							</p>
-						</div>
-						<span
-							class={cn(
-								'shrink-0 rounded-full px-2 py-0.5 text-[11px] font-medium',
-								module.available
-									? 'bg-risk-very-low/10 text-risk-very-low'
-									: 'bg-muted text-muted-foreground'
-							)}
-						>
-							{module.available ? 'Available' : 'Coming'}
-						</span>
-					</div>
+		<section class="mt-10">
+			<div class="flex flex-wrap items-end justify-between gap-3 border-b border-foreground pb-2">
+				<div>
+					<p class={sectionLabel()}>Highest relative pressure</p>
+					<h2 class={title({ size: 'section' })}>Highest-ranked V9 occupations</h2>
 				</div>
-			{/each}
-		</div>
-	</section>
-
-	<!-- Top risk occupations -->
-	<section class="mt-8">
-		<p class={sectionLabel()}>Highest pressure occupations</p>
-		<p class={cn(caption(), 'mt-1')}>
-			Occupations with the most structural overlap between AI capabilities and current job tasks.
-		</p>
-		{#if data.rows.length > 0}
-			<div class="mt-3 space-y-1.5">
-				{#each data.rows as row, i}
-					<OccupationCard
-						occupation={{
-							title: row.title,
-							linkHref:
-								data.country.code === 'sg'
-									? `/occupation/${row.code}`
-									: `${data.country.routePrefix}/occupation/${row.code}`,
-							net_risk: row.risk,
-							risk_band: getRiskBand(row.risk),
-							gross_wage_median: row.wage ?? undefined,
-							currency: data.country.currency
-						}}
-						mode="compact"
-						index={i + 1}
-						indexColor="text-risk-very-high"
-						rightColor="text-risk-very-high"
-					/>
+				<a class="text-sm font-medium text-primary hover:underline" href="/rankings/highest-risk"
+					>Open the full ranking</a
+				>
+			</div>
+			<div class="mt-3 grid min-w-0 gap-px bg-border md:grid-cols-2 xl:grid-cols-3">
+				{#each data.topPressure as occupation (occupation.code)}
+					<a class="min-w-0 bg-card p-4 hover:bg-accent" href="/occupation/{occupation.code}">
+						<div class="flex min-w-0 items-start justify-between gap-3">
+							<div class="min-w-0">
+								<p class="font-mono text-xs text-muted-foreground">SSOC {occupation.code}</p>
+								<h3 class="mt-1 break-words text-sm font-bold leading-tight">{occupation.title}</h3>
+							</div>
+							<div class="shrink-0 text-right">
+								<p class="font-mono text-xl font-black tabular-nums">
+									{occupation.pressureRank?.toFixed(1)}
+								</p>
+								<p class="text-[10px] text-muted-foreground">pressure percentile</p>
+							</div>
+						</div>
+						<div
+							class="mt-3 flex flex-wrap gap-x-4 gap-y-1 border-t border-border pt-2 text-xs text-muted-foreground"
+						>
+							<span>{occupation.officialCategory}</span>
+							<span
+								>{occupation.wageMedian == null
+									? 'Wage not published'
+									: `SGD ${occupation.wageMedian.toLocaleString()}/mo`}</span
+							>
+							<span
+								>{occupation.demandSignals.length
+									? 'Named demand match'
+									: 'Not named in selected lists'}</span
+							>
+						</div>
+					</a>
 				{/each}
 			</div>
-		{:else}
-			<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'moderate' }), 'mt-3')}>
-				<p class="text-sm font-semibold text-foreground">Local data coming soon</p>
-				<p class="mt-1 text-sm text-muted-foreground">
-					You can view global AI exposure rankings for all occupations while we prepare local data
-					for {data.country.name}.
-				</p>
-			</div>
-		{/if}
-	</section>
+		</section>
 
-	<!-- Next steps -->
-	<section class="mt-10 border-t border-border pt-6">
-		<p class={sectionLabel()}>Explore further</p>
-		<div class="mt-3 grid gap-3 sm:grid-cols-3">
-			<a href="/explore" class="block no-underline">
-				<div class={cn(card({ padding: 'sm', hover: true }), 'h-full')}>
-					<p class="text-sm font-semibold text-foreground">Browse all occupations</p>
-					<p class={cn(caption(), 'mt-1')}>Filter, search, and compare detailed risk profiles</p>
-				</div>
+		<section class="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+			<a class={cn(card({ padding: 'sm', hover: true }), 'block')} href="/explore">
+				<p class="text-sm font-bold">Browse all occupations</p>
+				<p class="mt-1 text-xs text-muted-foreground">
+					Search SSOC 2024 and inspect each evidence record.
+				</p>
 			</a>
-			<a href="/compare" class="block no-underline">
-				<div class={cn(card({ padding: 'sm', hover: true }), 'h-full')}>
-					<p class="text-sm font-semibold text-foreground">Compare occupations</p>
-					<p class={cn(caption(), 'mt-1')}>Side-by-side risk and demand analysis</p>
-				</div>
+			<a class={cn(card({ padding: 'sm', hover: true }), 'block')} href="/roles">
+				<p class="text-sm font-bold">Explore modern roles</p>
+				<p class="mt-1 text-xs text-muted-foreground">
+					See non-official role mixtures and their assumptions.
+				</p>
 			</a>
-			<a href="/methodology" class="block no-underline">
-				<div class={cn(card({ padding: 'sm', hover: true }), 'h-full')}>
-					<p class="text-sm font-semibold text-foreground">How scores work</p>
-					<p class={cn(caption(), 'mt-1')}>Understand the methodology and data sources</p>
-				</div>
+			<a class={cn(card({ padding: 'sm', hover: true }), 'block')} href="/compare">
+				<p class="text-sm font-bold">Compare evidence</p>
+				<p class="mt-1 text-xs text-muted-foreground">
+					Keep pressure, wages and demand in separate columns.
+				</p>
 			</a>
+			<a class={cn(card({ padding: 'sm', hover: true }), 'block')} href="/methodology">
+				<p class="text-sm font-bold">Read the method</p>
+				<p class="mt-1 text-xs text-muted-foreground">
+					Formulas, mappings, missingness and limitations.
+				</p>
+			</a>
+		</section>
+	{:else if data.mode === 'us_preview'}
+		<header class="max-w-4xl border-b-2 border-foreground pb-6">
+			<p
+				class="mb-2 inline-flex border border-risk-moderate px-2 py-1 font-mono text-xs font-bold uppercase tracking-wide text-risk-moderate"
+			>
+				Preview · separate from Singapore V9
+			</p>
+			<h1 class={title({ size: 'page' })}>United States occupation evidence preview</h1>
+			<p class="mt-3 max-w-3xl text-base leading-relaxed text-text-secondary">
+				This frozen preview retains the existing US public-data layer. It is not rebuilt with the
+				Singapore V9 method, and this page does not publish a cross-country risk ranking. Use the
+				wages, employment projections and occupational context as US evidence only.
+			</p>
+		</header>
+
+		<section class="mt-6 grid gap-px bg-border sm:grid-cols-3">
+			<div class="bg-card p-4">
+				<p class="font-mono text-2xl font-black tabular-nums">
+					{data.stats.occupations.toLocaleString()}
+				</p>
+				<p class={caption()}>US occupation records</p>
+			</div>
+			<div class="bg-card p-4">
+				<p class="font-mono text-2xl font-black tabular-nums">
+					{data.stats.wageRows.toLocaleString()}
+				</p>
+				<p class={caption()}>records with wage evidence</p>
+			</div>
+			<div class="bg-card p-4">
+				<p class="font-mono text-2xl font-black tabular-nums">
+					{data.stats.employmentRows.toLocaleString()}
+				</p>
+				<p class={caption()}>records with employment context</p>
+			</div>
+		</section>
+
+		<div class={cn(card({ padding: 'md', variant: 'notice', accent: 'moderate' }), 'mt-6')}>
+			<p class="text-sm font-bold">Frozen source bundle</p>
+			<p class="mt-1 break-words text-sm leading-relaxed text-text-secondary">
+				{data.stats.sourceVintage}
+			</p>
+			<p class="mt-1 text-xs text-muted-foreground">
+				Generated {data.stats.generatedAt}. Updating research references does not silently
+				recalculate this preview.
+			</p>
 		</div>
-	</section>
+
+		<section class="mt-10">
+			<div class="border-b border-foreground pb-2">
+				<p class={sectionLabel()}>Evidence sample</p>
+				<h2 class={title({ size: 'section' })}>Large occupations in the frozen preview</h2>
+			</div>
+			<p class="mt-2 text-xs text-muted-foreground">
+				Sorted by reported employment, not by AI pressure or job risk.
+			</p>
+			<div class="mt-3 grid gap-px bg-border sm:grid-cols-2">
+				{#each data.sample as row (row.code)}
+					<article class="min-w-0 bg-card p-4">
+						<p class="font-mono text-xs text-muted-foreground">SOC {row.code}</p>
+						<h3 class="mt-1 text-sm font-bold">{row.title}</h3>
+						<div class="mt-3 grid grid-cols-2 gap-3 text-xs">
+							<div>
+								<p class="text-muted-foreground">Employment (thousand workers)</p>
+								<p class="mt-0.5 font-mono font-bold tabular-nums">
+									{row.employmentThousands?.toLocaleString()}
+								</p>
+							</div>
+							<div>
+								<p class="text-muted-foreground">Median annual wage</p>
+								<p class="mt-0.5 font-mono font-bold tabular-nums">
+									{row.wage == null ? 'Not published' : `USD ${row.wage.toLocaleString()}`}
+								</p>
+							</div>
+							<div>
+								<p class="text-muted-foreground">Projected change</p>
+								<p class="mt-0.5 font-mono font-bold tabular-nums">
+									{row.projectedChange == null
+										? 'Not published'
+										: `${row.projectedChange.toFixed(1)}%`}
+								</p>
+							</div>
+						</div>
+					</article>
+				{/each}
+			</div>
+		</section>
+
+		<p class="mt-8 text-sm text-muted-foreground">
+			For the live scored release, use the <a
+				class="font-medium text-primary hover:underline"
+				href="/sg">Singapore V9 index</a
+			>.
+		</p>
+	{:else}
+		<header class="max-w-3xl border-b-2 border-foreground pb-6">
+			<p class={sectionLabel()}>Research only</p>
+			<h1 class={title({ size: 'page' })}>{data.country.name}</h1>
+			<p class="mt-3 text-base leading-relaxed text-text-secondary">
+				No occupation scores are published for this market. A credible country index needs a current
+				local occupation taxonomy, official mappings and locally meaningful labour-market evidence.
+			</p>
+		</header>
+		<p class="mt-6 text-sm">
+			<a class="font-medium text-primary hover:underline" href="/global"
+				>Read the global research context</a
+			>
+		</p>
+	{/if}
 </main>

@@ -1,660 +1,348 @@
 <script lang="ts">
-	import { page } from '$app/state';
-	import { goto } from '$app/navigation';
 	import { browser } from '$app/environment';
-	import {
-		riskBandLabels,
-		riskBandColors,
-		augmentationBandLabels,
-		occupationsBySSoc
-	} from '$lib/data';
-	import { demandContextLabels, likelyPathwayLabels } from '$lib/data/v8-display';
-	import type { Occupation } from '$lib/data';
-	import { searchOccupationsAndRoles } from '$lib/utils/search';
-	import { computeTransitionScore, isPlausibleTransition } from '$lib/data/transition-capacity';
-	import {
-		title as titleStyle,
-		card,
-		riskBadge,
-		sectionLabel,
-		display,
-		caption
-	} from '$lib/design-system';
-	import { pageLayout } from '$lib/design-system';
-	import { cn } from '$lib/utils';
-	import * as Table from '$lib/components/ui/table/index.js';
-	import { Input } from '$lib/components/ui/input/index.js';
-	import { Button } from '$lib/components/ui/button/index.js';
-	import { Badge } from '$lib/components/ui/badge/index.js';
-	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
+	import { goto } from '$app/navigation';
+	import { page } from '$app/state';
 	import Seo from '$lib/components/ui/Seo.svelte';
+	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
+	import { Button } from '$lib/components/ui/button/index.js';
+	import { card, caption, formInput, pageLayout, sectionLabel, title } from '$lib/design-system';
+	import { cn } from '$lib/utils';
+	import { onMount } from 'svelte';
 
-	type CompareEntityRef = { kind: 'occupation'; id: string } | { kind: 'role'; id: string };
-
-	/** Unified entity for display */
-	interface CompareEntity {
-		ref: CompareEntityRef;
-		label: string;
-		sublabel: string;
-		href: string;
-		net_risk: number;
-		risk_band: string;
-		exposure: number;
-		bottleneck: number;
-		market_resilience: number;
-		augmentation: number;
-		augmentation_band: string;
-		score_kind: 'rank' | 'estimate';
-		pathway: string | null;
-		demand_label: string;
-		confidence: string;
-		wage: number | null;
-	}
-
-	type SearchResult =
-		| { type: 'occupation'; occupation: Occupation }
-		| { type: 'role'; role: { slug: string; title: string } };
-
-	let { data } = $props();
-
-	// Parse entities from URL: /compare?entities=occupation:25121,role:product-manager
-	// Also supports legacy: /compare?jobs=25121,41320
-	let entities = $derived.by((): CompareEntity[] => {
-		if (!browser) return [];
-
-		const entitiesParam = page.url.searchParams.get('entities');
-		const legacyParam = page.url.searchParams.get('jobs');
-
-		const refs: CompareEntityRef[] = [];
-
-		if (entitiesParam) {
-			for (const part of entitiesParam
-				.split(',')
-				.map(s => s.trim())
-				.filter(Boolean)) {
-				const [kind, id] = part.split(':') as [string, string];
-				if (kind === 'occupation' || kind === 'role') {
-					refs.push({ kind, id });
-				}
-			}
-		} else if (legacyParam) {
-			for (const ssoc of legacyParam
-				.split(',')
-				.map(s => s.trim())
-				.filter(Boolean)) {
-				refs.push({ kind: 'occupation', id: ssoc });
-			}
-		}
-
-		return refs.map(resolveEntity).filter((e): e is CompareEntity => e !== null);
-	});
-
-	function resolveEntity(ref: CompareEntityRef): CompareEntity | null {
-		if (ref.kind === 'occupation') {
-			const occ = occupationsBySSoc.get(ref.id);
-			if (!occ) return null;
-			const confidenceSuffix = occ.confidence.policy_cap_reason ? ' · capped' : '';
-			return {
-				ref,
-				label: occ.title,
-				sublabel: `SSOC ${occ.ssoc}`,
-				href: `/occupation/${occ.ssoc}`,
-				net_risk: occ.net_risk,
-				risk_band: occ.risk_band,
-				exposure: occ.exposure,
-				bottleneck: occ.bottleneck,
-				market_resilience: occ.market.market_resilience,
-				augmentation: occ.augmentation,
-				augmentation_band: occ.augmentation_band,
-				score_kind: 'rank',
-				pathway: likelyPathwayLabels[occ.v8.likely_pathway],
-				demand_label: demandContextLabels[occ.v8.market_context.demand],
-				confidence: `${occ.confidence.level.charAt(0).toUpperCase() + occ.confidence.level.slice(1)}${confidenceSuffix}`,
-				wage: occ.gross_wage_median
-			};
-		} else {
-			const scored = data.scoredRolesMap.get(ref.id);
-			if (!scored) return null;
-			return {
-				ref,
-				label: scored.title,
-				sublabel: 'Estimated role',
-				href: `/role/${scored.slug}`,
-				net_risk: scored.net_risk,
-				risk_band: scored.risk_band,
-				exposure: scored.exposure,
-				bottleneck: scored.bottleneck,
-				market_resilience: scored.market_resilience,
-				augmentation: scored.augmentation,
-				augmentation_band: scored.augmentation_band,
-				score_kind: 'estimate',
-				pathway: null,
-				demand_label: 'Related-occupation proxy',
-				confidence: scored.confidence.charAt(0).toUpperCase() + scored.confidence.slice(1),
-				wage: null
-			};
-		}
-	}
-
-	// Transition score between first two entities (if both are occupations)
-	let journeyData = $derived.by(() => {
-		if (entities.length < 2) return null;
-		const from = entities[0]!;
-		const to = entities[1]!;
-		if (from.ref.kind !== 'occupation' || to.ref.kind !== 'occupation') return null;
-
-		const fromOcc = occupationsBySSoc.get(from.ref.id);
-		const toOcc = occupationsBySSoc.get(to.ref.id);
-		if (!fromOcc || !toOcc) return null;
-		if (!isPlausibleTransition(fromOcc, toOcc)) return null;
-
-		const transition = computeTransitionScore(fromOcc, toOcc);
-		const riskDelta = to.net_risk - from.net_risk;
-		const wageDelta = (to.wage ?? 0) - (from.wage ?? 0);
-
-		return { transition, riskDelta, wageDelta };
-	});
-
-	let searchQuery = $state('');
-	let showSearch = $state(false);
+	let { data: _data } = $props();
+	type Entity = (typeof _data.entities)[number];
+	let entities = $state<Entity[]>([]);
+	let indexLoading = $state(true);
+	let indexFailed = $state(false);
+	let query = $state('');
+	let searchOpen = $state(false);
 	let copied = $state(false);
+	let queryAliases = $state<Record<string, string>>({});
 
-	let searchResults = $derived.by(() => {
-		if (!searchQuery.trim() || searchQuery.trim().length < 2) return [] as SearchResult[];
-		const existingIds = new Set(entities.map(e => `${e.ref.kind}:${e.ref.id}`));
-
-		const { roles, occupations: occs } = searchOccupationsAndRoles(
-			searchQuery,
-			data.allOccupations,
-			3,
-			8
-		);
-
-		const items: SearchResult[] = [];
-		for (const role of roles) {
-			if (!existingIds.has(`role:${role.slug}`)) {
-				items.push({ type: 'role', role: { slug: role.slug, title: role.title } });
-			}
+	onMount(async () => {
+		try {
+			const response = await fetch('/data/v9-ui-index.json?v=2026-08-19-v9');
+			if (!response.ok) throw new Error(`UI index returned ${response.status}`);
+			const index = (await response.json()) as {
+				compare_entities: typeof _data.entities;
+				query_aliases?: Record<string, string>;
+			};
+			entities = index.compare_entities;
+			queryAliases = index.query_aliases ?? {};
+		} catch {
+			indexFailed = true;
+		} finally {
+			indexLoading = false;
 		}
-		for (const occ of occs) {
-			if (!existingIds.has(`occupation:${occ.ssoc}`)) {
-				items.push({ type: 'occupation', occupation: occ });
-			}
-			if (items.length >= 10) break;
-		}
-
-		return items.slice(0, 10);
 	});
 
-	function buildUrl(refs: CompareEntityRef[]): string {
-		if (refs.length === 0) return '/compare';
-		const param = refs.map(r => `${r.kind}:${r.id}`).join(',');
-		return `/compare?entities=${param}`;
+	let entityById = $derived(new Map(entities.map(entity => [entity.id, entity])));
+	let selected = $derived.by((): Entity[] => {
+		if (!browser) return [];
+		const requested = page.url.searchParams.get('entities') ?? '';
+		const legacy = page.url.searchParams.get('jobs') ?? '';
+		const ids = requested
+			? requested.split(',').map(value => value.trim())
+			: legacy.split(',').map(value => `occupation:${value.trim()}`);
+		return ids
+			.filter(Boolean)
+			.map(id => entityById.get(queryAliases[id] ?? id))
+			.filter((entity): entity is Entity => entity !== undefined)
+			.filter(
+				(entity, index, all) => all.findIndex(candidate => candidate.id === entity.id) === index
+			)
+			.slice(0, 4);
+	});
+
+	let results = $derived.by(() => {
+		const needle = query.trim().toLowerCase();
+		if (needle.length < 2) return [] as Entity[];
+		const chosen = new Set(selected.map(entity => entity.id));
+		return entities
+			.filter(entity => !chosen.has(entity.id) && entity.searchText.includes(needle))
+			.sort((a, b) => {
+				const aStarts = a.title.toLowerCase().startsWith(needle) ? 0 : 1;
+				const bStarts = b.title.toLowerCase().startsWith(needle) ? 0 : 1;
+				return aStarts - bStarts || a.title.localeCompare(b.title);
+			})
+			.slice(0, 10);
+	});
+
+	function comparisonUrl(entities: Entity[]): string {
+		return entities.length
+			? `/compare?entities=${entities.map(entity => entity.id).join(',')}`
+			: '/compare';
 	}
 
-	function addEntity(ref: CompareEntityRef) {
-		if (entities.length >= 3) return;
-		searchQuery = '';
-		showSearch = false;
-		goto(buildUrl([...entities.map(e => e.ref), ref]), {
-			replaceState: true,
+	function add(entity: Entity) {
+		if (selected.length >= 4) return;
+		query = '';
+		searchOpen = false;
+		goto(comparisonUrl([...selected, entity]), { keepFocus: true, noScroll: true });
+	}
+
+	function remove(entity: Entity) {
+		goto(comparisonUrl(selected.filter(candidate => candidate.id !== entity.id)), {
 			keepFocus: true,
 			noScroll: true
 		});
 	}
 
-	function removeEntity(ref: CompareEntityRef) {
-		const remaining = entities.filter(e => !(e.ref.kind === ref.kind && e.ref.id === ref.id));
-		goto(buildUrl(remaining.map(e => e.ref)), {
-			replaceState: true,
-			keepFocus: true,
-			noScroll: true
-		});
-	}
-
-	function shareUrl() {
+	async function copyComparison() {
 		if (!browser) return;
-		navigator.clipboard.writeText(window.location.href);
+		await navigator.clipboard.writeText(window.location.href);
 		copied = true;
-		setTimeout(() => (copied = false), 2000);
+		setTimeout(() => (copied = false), 1600);
 	}
 
-	function points(v: number): string {
-		return (v * 100).toFixed(0) + '/100';
+	function pct(value: number | null, digits = 1): string {
+		return value == null ? 'Not available' : value.toFixed(digits);
 	}
 
-	function barColor(value: number, invert = false): string {
-		const v = invert ? 1 - value : value;
-		if (v > 0.66) return 'var(--color-risk-very-high)';
-		if (v > 0.33) return 'var(--color-risk-moderate)';
-		return 'var(--color-risk-very-low)';
+	function scale100(value: number | null): string {
+		return value == null ? 'Not available' : `${(value * 100).toFixed(1)}/100`;
 	}
 
-	const metrics: { key: string; label: string; format: (e: CompareEntity) => string }[] = [
-		{
-			key: 'net_risk',
-			label: 'Exposure score',
-			format: e =>
-				e.score_kind === 'rank'
-					? `${points(e.net_risk)} rank · ${riskBandLabels[e.risk_band as keyof typeof riskBandLabels]}`
-					: `${points(e.net_risk)} synthetic estimate`
-		},
-		{ key: 'exposure', label: 'Exposure Index', format: e => points(e.exposure) },
-		{ key: 'bottleneck', label: 'Human Advantage', format: e => points(e.bottleneck) },
-		{
-			key: 'market_resilience',
-			label: 'Market Resilience',
-			format: e => points(e.market_resilience)
-		},
-		{
-			key: 'augmentation',
-			label: 'Augmentation',
-			format: e =>
-				`${points(e.augmentation)} ${augmentationBandLabels[e.augmentation_band as keyof typeof augmentationBandLabels]}`
-		},
-		{
-			key: 'pathway',
-			label: 'Likely job pathway',
-			format: e => e.pathway ?? 'Not assigned to synthetic roles'
-		},
-		{ key: 'demand', label: 'Current demand context', format: e => e.demand_label },
-		{
-			key: 'wage',
-			label: 'Median Wage',
-			format: e => (e.wage ? `SGD ${e.wage.toLocaleString()}` : 'N/A (synthetic)')
-		},
-		{ key: 'confidence', label: 'Evidence Quality', format: e => e.confidence }
-	];
+	function mappingLabel(value: string): string {
+		return value.replaceAll('_', ' ');
+	}
+
+	function matchingAlias(entity: Entity): string | null {
+		const needle = query.trim().toLowerCase();
+		if (needle.length < 2) return null;
+		return (entity.queryAliases ?? []).find(alias => alias.toLowerCase().includes(needle)) ?? null;
+	}
+
+	let hasMixedKinds = $derived(
+		selected.some(entity => entity.kind === 'role') &&
+			selected.some(entity => entity.kind === 'occupation')
+	);
 </script>
 
 <Seo
-	title="Compare AI Job Exposure Across Occupations"
-	description="Compare AI exposure, augmentation, demand and wages across Singapore occupations and clearly labelled synthetic role estimates."
+	title="Compare AI Work Pressure and Job-Risk Evidence in Singapore"
+	description="Compare up to four Singapore occupations or non-official modern-role queries across AI work pressure, task exposure, wages, demand and evidence gaps."
 	path="/compare"
 />
 
-<main class={pageLayout({ width: 'feature' })}>
+<main class={pageLayout({ width: 'data' })}>
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Compare' }]} />
 
-	<div class="mb-6 flex flex-wrap items-start justify-between gap-3">
-		<div>
-			<h1 class={titleStyle({ size: 'page' })}>Compare</h1>
-			<p class="mt-1 text-sm text-muted-foreground">
-				Compare how exposed different occupations are to AI, what still needs people, and what the
-				current labour market looks like.
+	<header
+		class="flex flex-col gap-4 border-b-2 border-foreground pb-6 sm:flex-row sm:items-end sm:justify-between"
+	>
+		<div class="max-w-3xl">
+			<p class={sectionLabel()}>Evidence explorer</p>
+			<h1 class={title({ size: 'page' })}>Compare jobs without collapsing the evidence</h1>
+			<p class="mt-3 text-base leading-relaxed text-text-secondary">
+				Pressure, wages, current demand, observed AI use and complementarity answer different
+				questions. This view keeps them separate and marks missing evidence as unknown.
 			</p>
 		</div>
-		{#if entities.length > 0}
-			<Button variant="outline" size="sm" onclick={shareUrl}>
-				{copied ? 'Copied!' : 'Share this comparison'}
-			</Button>
+		{#if selected.length > 0}
+			<Button variant="outline" size="sm" onclick={copyComparison}
+				>{copied ? 'Copied' : 'Copy link'}</Button
+			>
 		{/if}
-	</div>
+	</header>
 
-	<!-- Search to add entities -->
-	{#if entities.length < 3}
-		<div class="relative mb-6">
-			<Input
-				type="text"
-				placeholder="Search occupations or modern roles to compare..."
-				bind:value={searchQuery}
-				onfocus={() => (showSearch = true)}
-				onblur={() => setTimeout(() => (showSearch = false), 200)}
-				class="max-w-md"
+	<section class="relative mt-6 max-w-2xl" aria-label="Add a job to compare">
+		<label class={sectionLabel()} for="compare-search">
+			{selected.length < 4 ? `Add a job (${selected.length}/4)` : 'Four jobs selected'}
+		</label>
+		{#if selected.length < 4}
+			<input
+				id="compare-search"
+				type="search"
+				class={cn(formInput(), 'mt-2 w-full')}
+				placeholder="Search an official occupation or modern role…"
+				bind:value={query}
+				onfocus={() => (searchOpen = true)}
+				onblur={() => setTimeout(() => (searchOpen = false), 180)}
 			/>
-			{#if showSearch && searchResults.length > 0}
+			{#if searchOpen && query.trim().length >= 2}
 				<div
-					class="absolute z-10 mt-1 w-full max-w-md rounded-md border border-border bg-card shadow-lg"
+					class="absolute z-20 mt-1 max-h-80 w-full overflow-y-auto border border-foreground bg-card"
 				>
-					{#each searchResults as result}
-						{#if result.type === 'role'}
+					{#if results.length === 0}
+						<p class="p-3 text-sm text-muted-foreground">No match found.</p>
+					{:else}
+						{#each results as result (result.id)}
 							<button
 								type="button"
-								class="flex w-full items-center justify-between px-3 py-2 text-left text-sm hover:bg-muted"
-								onmousedown={() => addEntity({ kind: 'role', id: result.role.slug })}
+								class="flex w-full min-w-0 items-start justify-between gap-3 border-b border-border px-3 py-2.5 text-left last:border-0 hover:bg-accent"
+								onmousedown={() => add(result)}
 							>
-								<span class="truncate text-text-secondary">{result.role.title}</span>
-								<Badge
-									variant="outline"
-									class="ml-2 shrink-0 bg-risk-moderate-subtle text-risk-moderate border-risk-moderate-border"
-								>
-									Estimated Role
-								</Badge>
-							</button>
-						{:else}
-							<button
-								type="button"
-								class="flex w-full items-center justify-between px-3 py-2 text-left text-sm hover:bg-muted"
-								onmousedown={() => addEntity({ kind: 'occupation', id: result.occupation.ssoc })}
-							>
-								<span class="truncate text-text-secondary">{result.occupation.title}</span>
-								<div class="ml-2 flex shrink-0 items-center gap-2">
-									<span class={riskBadge({ band: result.occupation.risk_band })}>
-										{riskBandLabels[result.occupation.risk_band]}
+								<span class="min-w-0">
+									<span class="block truncate text-sm font-medium">{result.title}</span>
+									<span class="block text-xs text-muted-foreground">
+										{matchingAlias(result)
+											? `Modern title “${matchingAlias(result)}” · ${result.statusLabel}`
+											: result.statusLabel}
 									</span>
-									<span class="text-xs text-muted-foreground">SSOC {result.occupation.ssoc}</span>
-								</div>
+								</span>
+								<span class="shrink-0 font-mono text-xs font-bold tabular-nums"
+									>{pct(result.position)}</span
+								>
 							</button>
-						{/if}
-					{/each}
+						{/each}
+					{/if}
 				</div>
 			{/if}
-		</div>
+		{/if}
+	</section>
+	{#if indexLoading || indexFailed}
+		<p class="mt-2 text-xs text-muted-foreground" aria-live="polite">
+			{indexFailed
+				? 'The comparison index could not load. Open an occupation page to inspect its evidence.'
+				: 'Loading the comparison index…'}
+		</p>
 	{/if}
 
-	{#if entities.length === 0}
-		<div class={cn(card({ padding: 'lg' }))}>
-			<p class="text-sm text-text-secondary leading-relaxed">
-				Compare up to 3 occupations or roles side by side. Official occupations have a within-market
-				AI Exposure Rank. Modern roles use synthetic estimates and are not directly rank-comparable.
+	{#if selected.length === 0}
+		<section class={cn(card({ padding: 'lg', variant: 'subtle' }), 'mt-8')}>
+			<h2 class="text-lg font-bold">Start with two jobs</h2>
+			<p class="mt-2 max-w-2xl text-sm leading-relaxed text-text-secondary">
+				Familiar job titles may resolve to an official SSOC 2024 occupation. The remaining
+				non-official queries use a disclosed composite or withhold the estimate when a fixed mapping
+				would mislead.
 			</p>
-
-			<p class="mt-4 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-				Popular comparisons
-			</p>
-			<div class="mt-2 grid gap-2 sm:grid-cols-2">
-				{#each [{ label: 'Software Developer vs Data Entry Clerk', url: '/compare?entities=occupation:25121,occupation:41320', why: 'Same AI exposure, different outcomes' }, { label: 'Product Manager vs AI Product Manager', url: '/compare?entities=role:product-manager,role:ai-product-manager', why: 'Traditional vs AI-native variant' }, { label: 'Accountant vs Data Analyst', url: '/compare?entities=role:accountant,role:data-analyst', why: 'Both data-heavy, different risk profiles' }, { label: 'Frontend Engineer vs UX Designer', url: '/compare?entities=role:frontend-engineer,role:ux-designer', why: 'Tech vs design in the same product team' }] as comp}
-					<a
-						href={comp.url}
-						class="rounded-md border border-border px-3 py-2.5 hover:bg-accent hover:border-primary/30 transition-colors block"
-					>
-						<p class="text-sm font-medium text-foreground">{comp.label}</p>
-						<p class="text-xs text-muted-foreground">{comp.why}</p>
-					</a>
-				{/each}
+			<div class="mt-5 grid gap-2 sm:grid-cols-2">
+				<a
+					class="border border-border bg-card p-3 text-sm font-medium hover:border-foreground"
+					href="/compare?entities=occupation:25143,occupation:41320"
+					>AI/ML engineer vs data entry clerk</a
+				>
+				<a
+					class="border border-border bg-card p-3 text-sm font-medium hover:border-foreground"
+					href="/compare?entities=occupation:25114,role:ai-product-manager"
+					>Product manager vs AI product manager</a
+				>
+				<a
+					class="border border-border bg-card p-3 text-sm font-medium hover:border-foreground"
+					href="/compare?entities=occupation:24111,occupation:21231">Accountant vs data analyst</a
+				>
+				<a
+					class="border border-border bg-card p-3 text-sm font-medium hover:border-foreground"
+					href="/compare?entities=occupation:25121,occupation:25124"
+					>Frontend engineer vs UX designer</a
+				>
 			</div>
-		</div>
+		</section>
 	{:else}
-		{#if entities.length === 1}
-			<div class={cn(card({ variant: 'notice', accent: 'primary', padding: 'md' }), 'mb-6')}>
-				<p class="text-sm text-muted-foreground">Add another occupation or role to compare.</p>
-			</div>
-		{:else if entities.length === 2}
-			{@const e1 = entities[0]!}
-			{@const e2 = entities[1]!}
-			{@const e1Pct = (e1.net_risk * 100).toFixed(0)}
-			{@const e2Pct = (e2.net_risk * 100).toFixed(0)}
-			{@const higherLabel = e1.net_risk >= e2.net_risk ? 'higher' : 'lower'}
-			{@const demandComparison =
-				e1.market_resilience > e2.market_resilience
-					? 'but has stronger'
-					: e1.market_resilience < e2.market_resilience
-						? 'and has weaker'
-						: 'and has similar'}
-			<div class={cn(card({ variant: 'notice', accent: 'primary', padding: 'md' }), 'mb-6')}>
-				<p class="text-sm text-foreground">
-					{#if e1.score_kind === 'rank' && e2.score_kind === 'rank'}
-						{e1.label} has a {higherLabel} AI Exposure Rank ({e1Pct}/100 vs {e2Pct}/100) {demandComparison}
-						current demand.
-					{:else}
-						At least one selection is a synthetic role estimate. Compare the component profiles, but
-						do not interpret the score difference as a difference in occupation percentile rank.
-					{/if}
+		{#if hasMixedKinds}
+			<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'moderate' }), 'mt-6')}>
+				<p class="text-sm leading-relaxed">
+					This comparison mixes official ranks with non-official estimates. The values share a
+					reference distribution, but the role values also depend on editorial component weights.
 				</p>
 			</div>
 		{/if}
 
-		<!-- Side-by-side columns (stack on mobile) -->
-		<div
-			class={cn(
-				'mb-8 grid gap-4',
-				entities.length <= 2 ? 'sm:grid-cols-2' : 'sm:grid-cols-2 lg:grid-cols-3'
-			)}
-		>
-			{#each entities as entity}
-				<div class={card({ padding: 'sm' })}>
-					<div class="mb-3 flex items-start justify-between">
-						<div>
-							<a href={entity.href} class="font-semibold text-foreground hover:text-primary">
-								{entity.label}
-							</a>
-							<p class="text-xs text-muted-foreground">{entity.sublabel}</p>
+		<section class="mt-6 grid min-w-0 gap-4 md:grid-cols-2 xl:grid-cols-4">
+			{#each selected as entity (entity.id)}
+				<article class="min-w-0 border border-border bg-card">
+					<div class="border-b-2 border-foreground p-4">
+						<div class="flex min-w-0 items-start justify-between gap-3">
+							<div class="min-w-0">
+								<p
+									class="font-mono text-[11px] font-bold uppercase tracking-wide text-muted-foreground"
+								>
+									{entity.statusLabel}
+								</p>
+								<h2 class="mt-1 break-words text-base font-bold leading-tight">
+									<a class="hover:text-primary hover:underline" href={entity.href}>{entity.title}</a
+									>
+								</h2>
+							</div>
+							<button
+								class="shrink-0 text-lg leading-none text-muted-foreground hover:text-foreground"
+								onclick={() => remove(entity)}
+								aria-label="Remove {entity.title}">×</button
+							>
 						</div>
-						<Button
-							variant="ghost"
-							size="icon"
-							class="ml-2 h-7 w-7 shrink-0"
-							onclick={() => removeEntity(entity.ref)}
-							aria-label="Remove {entity.label}"
-						>
-							<svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-								<path
-									fill-rule="evenodd"
-									d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-									clip-rule="evenodd"
-								/>
-							</svg>
-						</Button>
+						<p class="mt-5 font-mono text-5xl font-black tabular-nums">{pct(entity.position)}</p>
+						<p class={cn(caption(), 'mt-1')}>{entity.positionKind}</p>
 					</div>
 
-					<div class="mb-4 flex flex-wrap items-center gap-2">
-						<span class={riskBadge({ band: entity.risk_band as any })}>
-							{riskBandLabels[entity.risk_band as keyof typeof riskBandLabels]} exposure
-						</span>
-						<span class="rounded-sm border border-border px-2 py-0.5 text-xs text-muted-foreground">
-							{entity.score_kind === 'rank'
-								? (entity.pathway ?? 'Occupation rank')
-								: 'Synthetic role estimate'}
-						</span>
-					</div>
-
-					<div class="space-y-3">
-						<div>
-							<div class="mb-1 flex items-center justify-between text-xs">
-								<span class="text-muted-foreground">
-									{entity.score_kind === 'rank'
-										? 'AI Exposure Rank'
-										: 'Estimated role exposure score'}
-								</span>
-								<span class="font-medium font-mono tabular-nums">{points(entity.net_risk)}</span>
-							</div>
-							<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
-								<div
-									class="h-full rounded-full"
-									style="width: {Math.min(
-										entity.net_risk * 100,
-										100
-									)}%; background-color: {riskBandColors[
-										entity.risk_band as keyof typeof riskBandColors
-									]};"
-								></div>
-							</div>
+					<dl class="divide-y divide-border text-sm">
+						<div class="p-3">
+							<dt class="text-xs text-muted-foreground">ILO mean task-exposure score</dt>
+							<dd class="mt-1 font-mono font-bold tabular-nums">{scale100(entity.rawExposure)}</dd>
+							{#if entity.exposureRange && entity.exposureRange.min !== entity.exposureRange.max}
+								<p class="mt-1 text-xs text-muted-foreground">
+									Official mapping range {(entity.exposureRange.min * 100).toFixed(1)}–{(
+										entity.exposureRange.max * 100
+									).toFixed(1)}
+								</p>
+							{/if}
 						</div>
-						<div>
-							<div class="mb-1 flex items-center justify-between text-xs">
-								<span class="text-muted-foreground">Exposure index</span>
-								<span class="font-medium font-mono tabular-nums">{points(entity.exposure)}</span>
-							</div>
-							<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
-								<div
-									class="h-full rounded-full"
-									style="width: {Math.min(
-										entity.exposure * 100,
-										100
-									)}%; background-color: {barColor(entity.exposure)};"
-								></div>
-							</div>
+						<div class="p-3">
+							<dt class="text-xs text-muted-foreground">ILO exposure category</dt>
+							<dd class="mt-1 font-medium">{entity.officialCategory}</dd>
 						</div>
-						<div>
-							<div class="mb-1 flex items-center justify-between text-xs">
-								<span class="text-muted-foreground">Human advantage</span>
-								<span class="font-medium font-mono tabular-nums">{points(entity.bottleneck)}</span>
-							</div>
-							<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
-								<div
-									class="h-full rounded-full"
-									style="width: {Math.min(
-										entity.bottleneck * 100,
-										100
-									)}%; background-color: {barColor(entity.bottleneck, true)};"
-								></div>
-							</div>
+						<div class="p-3">
+							<dt class="text-xs text-muted-foreground">Within-occupation task dispersion</dt>
+							<dd class="mt-1 font-mono font-bold tabular-nums">
+								{scale100(entity.taskDispersion)}
+							</dd>
+							{#if entity.kind === 'role'}<p class="mt-1 text-xs text-muted-foreground">
+									Not aggregated for non-official queries
+								</p>{/if}
 						</div>
-						<div>
-							<div class="mb-1 flex items-center justify-between text-xs">
-								<span class="text-muted-foreground">Market Resilience</span>
-								<span class="font-medium font-mono tabular-nums"
-									>{points(entity.market_resilience)}</span
-								>
-							</div>
-							<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
-								<div
-									class="h-full rounded-full bg-impact-leveraged"
-									style="width: {Math.min(entity.market_resilience * 100, 100)}%;"
-								></div>
-							</div>
+						<div class="p-3">
+							<dt class="text-xs text-muted-foreground">Gross monthly wage</dt>
+							<dd class="mt-1 font-mono font-bold tabular-nums">
+								{entity.wage == null
+									? entity.kind === 'role'
+										? 'No role-level estimate'
+										: 'Not published'
+									: `SGD ${entity.wage.toLocaleString()}`}
+							</dd>
+							<p class="mt-1 text-xs text-muted-foreground">{entity.wageLabel}</p>
 						</div>
-						<div>
-							<div class="mb-1 flex items-center justify-between text-xs">
-								<span class="text-muted-foreground">Augmentation</span>
-								<span class="font-medium font-mono tabular-nums">{points(entity.augmentation)}</span
-								>
-							</div>
-							<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
-								<div
-									class="h-full rounded-full"
-									style="width: {Math.min(
-										entity.augmentation * 100,
-										100
-									)}%; background-color: var(--primary);"
-								></div>
-							</div>
+						<div class="p-3">
+							<dt class="text-xs text-muted-foreground">Current named demand evidence</dt>
+							<dd class="mt-1 font-medium">{entity.demand}</dd>
+							<p class="mt-1 text-xs text-muted-foreground">{entity.demandDetail}</p>
 						</div>
-					</div>
-
-					{#if entity.wage}
-						<div class="mt-4 border-t border-border/50 pt-3">
-							<div class="flex items-center justify-between text-xs">
-								<span class="text-muted-foreground">Median Wage</span>
-								<span class="font-semibold text-foreground">SGD {entity.wage.toLocaleString()}</span
-								>
-							</div>
+						<div class="p-3">
+							<dt class="text-xs text-muted-foreground">Broad labour-market context</dt>
+							<dd class="mt-1 leading-relaxed">
+								{entity.labourContext ?? 'Not applied at this grain'}
+							</dd>
 						</div>
-					{/if}
-				</div>
+						<div class="p-3">
+							<dt class="text-xs text-muted-foreground">Observed AI use</dt>
+							<dd class="mt-1">
+								{entity.observedUse
+									? 'Published evidence block available'
+									: 'Not published at this occupation grain'}
+							</dd>
+						</div>
+						<div class="p-3">
+							<dt class="text-xs text-muted-foreground">Potential complementarity</dt>
+							<dd class="mt-1">
+								{entity.complementarity
+									? 'Published evidence block available'
+									: 'Not published at this occupation grain'}
+							</dd>
+						</div>
+						<div class="p-3">
+							<dt class="text-xs text-muted-foreground">Mapping evidence</dt>
+							<dd class="mt-1 capitalize">{mappingLabel(entity.mapping)}</dd>
+							<p class="mt-1 text-xs text-muted-foreground">{entity.mappingDetail}</p>
+						</div>
+					</dl>
+				</article>
 			{/each}
-		</div>
-
-		<!-- Journey: Current → Target (when exactly 2 occupation entities) -->
-		{#if journeyData}
-			<div class="mb-8">
-				<p class={cn(sectionLabel(), 'mb-3')}>
-					Transition Proxy
-					<span
-						class={cn(
-							'ml-2 inline-block rounded-full bg-muted px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-muted-foreground'
-						)}>Similarity-based</span
-					>
-				</p>
-				<div class={card({ padding: 'md' })}>
-					<p class="text-sm font-semibold text-foreground mb-1">
-						{entities[0]!.label} &rarr; {entities[1]!.label}
-					</p>
-					<p class="text-xs text-muted-foreground mb-3">
-						Based on occupational similarity, not observed transitions.
-					</p>
-					<div class="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
-						<div class={cn(card({ variant: 'inset', padding: 'sm' }), 'text-center')}>
-							<p class={caption()}>Transition Score</p>
-							<p class={cn(display({ size: 'md' }), 'mt-1')}>
-								{(journeyData.transition.composite * 100).toFixed(0)}%
-							</p>
-							<p
-								class="mt-0.5 text-xs font-medium capitalize {journeyData.transition.label ===
-								'easy'
-									? 'text-risk-very-low'
-									: journeyData.transition.label === 'moderate'
-										? 'text-risk-moderate'
-										: 'text-risk-very-high'}"
-							>
-								{journeyData.transition.label}
-							</p>
-						</div>
-						<div class={cn(card({ variant: 'inset', padding: 'sm' }), 'text-center')}>
-							<p class={caption()}>Exposure-rank delta</p>
-							<p
-								class={cn(
-									display({ size: 'md' }),
-									'mt-1',
-									journeyData.riskDelta < 0
-										? 'text-risk-very-low'
-										: journeyData.riskDelta > 0
-											? 'text-risk-very-high'
-											: 'text-foreground'
-								)}
-							>
-								{journeyData.riskDelta > 0 ? '+' : ''}{(journeyData.riskDelta * 100).toFixed(0)} points
-							</p>
-						</div>
-						<div class={cn(card({ variant: 'inset', padding: 'sm' }), 'text-center')}>
-							<p class={caption()}>Wage Delta</p>
-							<p
-								class={cn(
-									display({ size: 'md' }),
-									'mt-1',
-									journeyData.wageDelta > 0
-										? 'text-risk-very-low'
-										: journeyData.wageDelta < 0
-											? 'text-risk-very-high'
-											: 'text-foreground'
-								)}
-							>
-								{journeyData.wageDelta > 0 ? '+' : ''}SGD {journeyData.wageDelta.toLocaleString()}
-							</p>
-						</div>
-						<div class={cn(card({ variant: 'inset', padding: 'sm' }), 'text-center')}>
-							<p class={caption()}>Skill Overlap</p>
-							<p class={cn(display({ size: 'md' }), 'mt-1')}>
-								{(journeyData.transition.skill_overlap * 100).toFixed(0)}%
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		{/if}
-
-		<!-- Comparison table -->
-		<p class={cn(sectionLabel(), 'mb-3')}>Detailed Comparison</p>
-		<div class="rounded-md border">
-			<div class="divide-y divide-border md:hidden">
-				{#each metrics as metric (metric.key)}
-					<section class="p-4">
-						<h3 class="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
-							{metric.label}
-						</h3>
-						<dl class="mt-2 space-y-2">
-							{#each entities as entity}
-								<div class="flex items-start justify-between gap-4">
-									<dt class="min-w-0 text-xs leading-snug text-text-secondary">{entity.label}</dt>
-									<dd class="shrink-0 text-right font-mono text-xs tabular-nums text-foreground">
-										{metric.format(entity)}
-									</dd>
-								</div>
-							{/each}
-						</dl>
-					</section>
-				{/each}
-			</div>
-			<Table.Root class="hidden table-fixed md:table">
-				<Table.Header>
-					<Table.Row>
-						<Table.Head>Metric</Table.Head>
-						{#each entities as entity}
-							<Table.Head>{entity.label}</Table.Head>
-						{/each}
-					</Table.Row>
-				</Table.Header>
-				<Table.Body>
-					{#each metrics as metric (metric.key)}
-						<Table.Row>
-							<Table.Cell class="font-medium text-muted-foreground">{metric.label}</Table.Cell>
-							{#each entities as entity}
-								<Table.Cell class="font-mono tabular-nums">{metric.format(entity)}</Table.Cell>
-							{/each}
-						</Table.Row>
-					{/each}
-				</Table.Body>
-			</Table.Root>
-		</div>
+		</section>
 	{/if}
+
+	<aside class="mt-8 border-t border-foreground pt-4 text-xs leading-relaxed text-muted-foreground">
+		<strong class="text-foreground">Reading rule:</strong> a missing demand match, wage row,
+		observed-use measure or complementarity measure stays missing. It is never converted to zero and
+		never changes the AI Work Pressure Rank.
+		<a class="text-primary hover:underline" href="/methodology">Methodology</a>
+	</aside>
 </main>

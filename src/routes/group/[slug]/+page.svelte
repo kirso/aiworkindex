@@ -1,255 +1,127 @@
 <script lang="ts">
-	import { riskBandLabels } from '$lib/data';
-	import {
-		card,
-		riskBadge,
-		pageLayout,
-		title as titleStyle,
-		body,
-		caption,
-		mono,
-		pill,
-		section,
-		sectionLabel
-	} from '$lib/design-system';
-	import { cn } from '$lib/utils';
-	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
-	import PageFooterNav from '$lib/components/ui/PageFooterNav.svelte';
 	import FaqList from '$lib/components/ui/FaqList.svelte';
+	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
-	import { SITE, DATA_VINTAGE } from '$lib/data/scoring-constants';
-	import { countryConfigs } from '$lib/data/country-config';
-	import { buildFaqJsonLd } from '$lib/data/ranking-jsonld';
+	import OccupationResultList from '$lib/components/v9-browser/OccupationResultList.svelte';
+	import { buildItemListJsonLd } from '$lib/data/ranking-jsonld';
+	import { card, pageLayout, pill, sectionLabel, title as titleStyle } from '$lib/design-system';
 
 	let { data } = $props();
-	let group = $derived(data.group);
-	let occs = $derived(data.occupations);
-	let stats = $derived(data.stats);
-	let allGroups = $derived(data.allGroups);
 
-	let highestRisk = $derived(occs.slice(0, 5));
-	let lowestRisk = $derived([...occs].sort((a, b) => a.net_risk - b.net_risk).slice(0, 5));
+	function formatPercentile(value: number | null): string {
+		if (value == null) return 'Unknown';
+		return `percentile ${value.toFixed(value % 1 === 0 ? 0 : 1)}`;
+	}
 
-	let pageTitle = $derived(`${group.label}: AI Job Exposure by Occupation | ${SITE.name}`);
-	let pageDescription = $derived(
-		`AI Exposure Ranks for ${stats.count} ${group.label} occupations. Average rank: ${Math.round(stats.avgRisk * 100)}/100. Median wage: ${countryConfigs.sg.currency ?? 'SGD'} ${Math.round(stats.medianWage).toLocaleString()}/month.`
-	);
-
-	let breadcrumbJsonLd = $derived(
-		`<script type="application/ld+json">${JSON.stringify({
-			'@context': 'https://schema.org',
-			'@type': 'BreadcrumbList',
-			itemListElement: [
-				{
-					'@type': 'ListItem',
-					position: 1,
-					name: 'Home',
-					item: SITE.url + '/'
-				},
-				{
-					'@type': 'ListItem',
-					position: 2,
-					name: 'Occupation Groups',
-					item: SITE.url + '/groups'
-				},
-				{
-					'@type': 'ListItem',
-					position: 3,
-					name: group.label,
-					item: SITE.url + '/group/' + group.slug
-				}
-			]
-		})}<\/script>`
-	);
-
-	let faqItems = $derived([
+	const faqItems = $derived([
 		{
-			question: `How will AI affect ${group.label} jobs?`,
-			answer: `There are ${stats.count} ${group.label} occupations scored. The average AI exposure rank is ${Math.round(stats.avgRisk * 100)}/100, with ${stats.bandCounts.very_high + stats.bandCounts.high} occupations in the High or Very High bands and ${stats.bandCounts.very_low + stats.bandCounts.low} in the Low or Very Low bands. Median gross wage: ${countryConfigs.sg.currency ?? 'SGD'} ${Math.round(stats.medianWage).toLocaleString()}/month.`
+			question: `What is the AI work pressure for ${data.group.label} jobs?`,
+			answer: `${data.stats.scoredCount} of ${data.stats.count} occupations in this SSOC 2024 major group have a V9 pressure rank. The median occupation-level rank is ${formatPercentile(data.stats.medianPressure)}. This is not weighted by employment and is not a job-loss forecast.`
 		},
 		{
-			question: `Which ${group.label.toLowerCase()} occupations are most exposed to AI?`,
-			answer: `The most exposed ${group.label} occupations are: ${highestRisk.map(o => `${o.title} (${Math.round(o.net_risk * 100)}/100)`).join(', ')}.`
+			question: `Does the group median include wages or demand?`,
+			answer:
+				'No. Direct MOM wages and named demand evidence are displayed separately and never change the pressure rank.'
 		}
 	]);
 
-	let faqJsonLd = $derived(buildFaqJsonLd(faqItems));
+	let groupJsonLd = $derived(
+		buildItemListJsonLd(
+			`${data.group.label} occupations in SSOC 2024`,
+			`Official occupations in SSOC 2024 major group ${data.group.code}, with V9 evidence pages.`,
+			data.occupations.map(occupation => ({ title: occupation.title, ssoc: occupation.code }))
+		)
+	);
 </script>
 
 <Seo
-	title={pageTitle}
-	description={pageDescription}
-	path="/group/{group.slug}"
-	jsonLd={[breadcrumbJsonLd, faqJsonLd]}
+	title={`${data.group.label}: AI Work Pressure by Job`}
+	description={`Compare ${data.stats.count} SSOC 2024 ${data.group.label} occupations by AI work pressure, direct MOM wage coverage and named demand evidence.`}
+	path={`/group/${data.group.slug}`}
+	jsonLd={[groupJsonLd]}
 />
 
-<div class={pageLayout()}>
+<main class={pageLayout({ width: 'feature' })}>
 	<PageBreadcrumb
 		items={[
 			{ label: 'Home', href: '/' },
-			{ label: 'Occupation Groups', href: '/groups' },
-			{ label: group.label }
+			{ label: 'Occupation groups', href: '/groups' },
+			{ label: data.group.label }
 		]}
 	/>
 
-	<header class="mb-8">
-		<h1 class={titleStyle({ size: 'page' })}>{group.label}</h1>
-		<p class={cn(body({ size: 'lg', tone: 'subtle' }), 'mt-2 max-w-3xl')}>
-			AI exposure overview for {stats.count} occupations in the {group.label} group. Average rank:
-			{Math.round(stats.avgRisk * 100)}/100. Updated {DATA_VINTAGE.last_updated}.
+	<header class="mb-8 max-w-4xl">
+		<p class="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">
+			SSOC 2024 major group {data.group.code}
+		</p>
+		<h1 class="mt-2 {titleStyle({ size: 'page' })}">{data.group.label}</h1>
+		<p class="mt-3 text-base leading-relaxed text-muted-foreground">
+			Compare {data.stats.count} detailed occupations in this group. The pressure rank comes from ILO
+			2025 task evidence; Singapore wages and demand signals are direct context and stay outside the score.
 		</p>
 	</header>
 
-	<!-- Stats overview -->
-	<section class={section()}>
-		<h2 class={sectionLabel()}>Group Overview</h2>
-		<div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-			<div class={card({ padding: 'md' })}>
-				<p class={caption()}>Occupations</p>
-				<p class={mono({ size: 'lg' })}>{stats.count}</p>
-			</div>
-			<div class={card({ padding: 'md' })}>
-				<p class={caption()}>Average exposure rank</p>
-				<p class={mono({ size: 'lg' })}>{Math.round(stats.avgRisk * 100)}/100</p>
-			</div>
-			<div class={card({ padding: 'md' })}>
-				<p class={caption()}>Median Wage</p>
-				<p class={mono({ size: 'lg' })}>
-					{countryConfigs.sg.currency ?? 'SGD'}
-					{Math.round(stats.medianWage).toLocaleString()}
-				</p>
-			</div>
-			<div class={card({ padding: 'md' })}>
-				<p class={caption()}>High/Very High exposure</p>
-				<p class={mono({ size: 'lg' })}>{stats.bandCounts.high + stats.bandCounts.very_high}</p>
-			</div>
+	<section aria-label="Group evidence summary" class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+		<div class={card({ padding: 'md', variant: 'metric' })}>
+			<p class="font-mono text-xl font-bold tabular-nums">{data.stats.count}</p>
+			<p class="mt-1 text-xs text-muted-foreground">Detailed occupations</p>
+		</div>
+		<div class={card({ padding: 'md', variant: 'metric' })}>
+			<p class="font-mono text-xl font-bold tabular-nums">
+				{formatPercentile(data.stats.medianPressure)}
+			</p>
+			<p class="mt-1 text-xs text-muted-foreground">Median pressure rank</p>
+		</div>
+		<div class={card({ padding: 'md', variant: 'metric' })}>
+			<p class="font-mono text-xl font-bold tabular-nums">{data.stats.directWageCount}</p>
+			<p class="mt-1 text-xs text-muted-foreground">Direct MOM wage rows</p>
+		</div>
+		<div class={card({ padding: 'md', variant: 'metric' })}>
+			<p class="font-mono text-xl font-bold tabular-nums">{data.stats.namedDemandCount}</p>
+			<p class="mt-1 text-xs text-muted-foreground">Named MOM demand matches</p>
 		</div>
 	</section>
 
-	<!-- Exposure-rank distribution -->
-	<section class={section()}>
-		<h2 class={sectionLabel()}>AI exposure distribution</h2>
-		<div class={card({ padding: 'md' })}>
-			<div class="space-y-2">
-				{#each ['very_high', 'high', 'moderate', 'low', 'very_low'] as const as band}
-					{@const count = stats.bandCounts[band]}
-					{@const pct = stats.count > 0 ? Math.round((count / stats.count) * 100) : 0}
-					<div class="flex items-center gap-3">
-						<span class={cn(riskBadge({ band }), 'w-24 justify-center text-xs')}
-							>{riskBandLabels[band]}</span
-						>
-						<div class="flex-1 h-5 rounded bg-muted overflow-hidden">
-							<div class="h-full rounded bg-current opacity-30" style="width: {pct}%"></div>
-						</div>
-						<span class={cn(mono({ size: 'sm' }), 'w-16 text-right')}>{count} ({pct}%)</span>
-					</div>
-				{/each}
-			</div>
+	<p class="mt-3 text-xs leading-relaxed text-muted-foreground">
+		The group median gives each scored detailed occupation equal weight. It does not infer
+		employment, jobs affected or a wage pool.
+	</p>
+
+	<section class="mt-10 grid min-w-0 gap-7 xl:grid-cols-2">
+		<div class="min-w-0">
+			<h2 class={sectionLabel()}>Highest pressure in this group</h2>
+			<p class="mb-3 mt-1 text-xs text-muted-foreground">
+				Relative to all scored Singapore occupations
+			</p>
+			<OccupationResultList items={data.highestPressure} detail="wage" />
+		</div>
+		<div class="min-w-0">
+			<h2 class={sectionLabel()}>Lowest pressure in this group</h2>
+			<p class="mb-3 mt-1 text-xs text-muted-foreground">
+				Still a task-overlap measure, not “AI-proof” work
+			</p>
+			<OccupationResultList items={data.lowestPressure} detail="wage" />
 		</div>
 	</section>
 
-	<!-- Highest exposure -->
-	<section class={section()}>
-		<h2 class={sectionLabel()}>Most exposed to AI in {group.label}</h2>
-		<div class="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-			{#each highestRisk as occ}
-				<a
-					href="/occupation/{occ.ssoc}"
-					class={cn(
-						card({ padding: 'sm', variant: 'inset' }),
-						'block hover:bg-accent hover:shadow-sm transition-all group'
-					)}
-				>
-					<p class={cn(body(), 'font-medium text-foreground truncate')}>
-						{occ.title}
-						<span class="opacity-0 group-hover:opacity-100 transition-opacity text-primary">→</span>
-					</p>
-					<div class={cn(caption(), 'mt-1 flex items-center gap-2')}>
-						<span class={riskBadge({ band: occ.risk_band })}
-							>{Math.round(occ.net_risk * 100)}/100</span
-						>
-						<span
-							>{countryConfigs.sg.currency ?? 'SGD'}
-							{occ.gross_wage_median.toLocaleString()}/mo</span
-						>
-					</div>
-				</a>
-			{/each}
-		</div>
+	<section class="mt-10 min-w-0">
+		<h2 class={sectionLabel()}>All {data.stats.count} occupations</h2>
+		<p class="mb-3 mt-1 text-xs text-muted-foreground">
+			Ordered by pressure; unranked occupations appear last and remain unknown.
+		</p>
+		<OccupationResultList items={data.occupations} detail="wage" />
 	</section>
 
-	<!-- Lowest exposure -->
-	<section class={section()}>
-		<h2 class={sectionLabel()}>Least exposed to AI in {group.label}</h2>
-		<div class="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-			{#each lowestRisk as occ}
-				<a
-					href="/occupation/{occ.ssoc}"
-					class={cn(
-						card({ padding: 'sm', variant: 'inset' }),
-						'block hover:bg-accent hover:shadow-sm transition-all group'
-					)}
-				>
-					<p class={cn(body(), 'font-medium text-foreground truncate')}>
-						{occ.title}
-						<span class="opacity-0 group-hover:opacity-100 transition-opacity text-primary">→</span>
-					</p>
-					<div class={cn(caption(), 'mt-1 flex items-center gap-2')}>
-						<span class={riskBadge({ band: occ.risk_band })}
-							>{Math.round(occ.net_risk * 100)}/100</span
-						>
-						<span
-							>{countryConfigs.sg.currency ?? 'SGD'}
-							{occ.gross_wage_median.toLocaleString()}/mo</span
-						>
-					</div>
-				</a>
-			{/each}
-		</div>
-	</section>
-
-	<!-- All occupations -->
-	<section class={section()}>
-		<h2 class={sectionLabel()}>All {stats.count} Occupations</h2>
-		<div class={card({ padding: 'md' })}>
-			<div class="divide-y divide-border">
-				{#each occs as occ}
-					<a
-						href="/occupation/{occ.ssoc}"
-						class="flex items-center justify-between py-2 px-1 hover:bg-accent rounded transition-colors"
-					>
-						<span class={cn(body(), 'truncate pr-4')}>{occ.title}</span>
-						<div class="flex items-center gap-3 shrink-0">
-							<span class={mono({ size: 'sm' })}
-								>{countryConfigs.sg.currency ?? 'SGD'}
-								{occ.gross_wage_median.toLocaleString()}</span
-							>
-							<span class={cn(riskBadge({ band: occ.risk_band }), 'text-xs')}>
-								{Math.round(occ.net_risk * 100)}/100
-							</span>
-						</div>
-					</a>
-				{/each}
-			</div>
-		</div>
-	</section>
-
-	<!-- Other groups -->
-	<section class={section()}>
-		<h2 class={sectionLabel()}>Other Occupation Groups</h2>
-		<div class="flex flex-wrap gap-2">
-			{#each allGroups.filter(g => g.slug !== group.slug) as g}
-				<a
-					href="/group/{g.slug}"
-					class={cn(pill({ tone: 'muted' }), 'hover:bg-accent transition-colors')}
-				>
-					{g.label}
+	<section class="mt-10 border-t border-border pt-5">
+		<h2 class={sectionLabel()}>Other occupation groups</h2>
+		<div class="mt-3 flex min-w-0 flex-wrap gap-2">
+			{#each data.allGroups.filter(group => group.slug !== data.group.slug) as group (group.slug)}
+				<a href="/group/{group.slug}" class={pill({ tone: 'muted', interactive: true })}>
+					{group.label}
 				</a>
 			{/each}
 		</div>
 	</section>
 
 	<FaqList items={faqItems} />
-
-	<PageFooterNav />
-</div>
+</main>

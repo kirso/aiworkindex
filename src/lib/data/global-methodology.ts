@@ -5,10 +5,12 @@ export interface MethodologyNote {
 }
 
 export interface PublicationRule {
-	minimumMappingCoverage: number;
-	maximumFallbackShare: number;
-	minimumConfidenceLevel: 'low' | 'medium' | 'high';
-	requireOfficialLocalDemandSource: boolean;
+	requireCurrentOfficialTaxonomy: true;
+	requireExplicitReferencePopulation: true;
+	requirePublishedMappingAudit: true;
+	forbidBroadScoreFallback: true;
+	requireSeparateLocalEvidence: true;
+	requireLocalValidationBeforeForecasts: true;
 }
 
 export interface PublicationGate {
@@ -20,7 +22,7 @@ export interface PublicationGate {
 export interface CountryLaunchProfile {
 	code: 'sg' | 'us' | 'uk' | 'ca';
 	title: string;
-	readiness: 'live' | 'ready' | 'research' | 'withdrawn';
+	readiness: 'live' | 'preview' | 'ready' | 'research' | 'withdrawn';
 	primary_sources: string[];
 	method_notes: string[];
 }
@@ -28,39 +30,47 @@ export interface CountryLaunchProfile {
 export const globalMethodology = {
 	title: 'Global research context and country publication gates',
 	summary:
-		'Cross-country research informs interpretation, but V8 publishes scores only inside a validated local reference market. There is no current global occupation score.',
+		'Cross-country research informs interpretation, but V9 publishes scores only inside the Singapore SSOC 2024 reference market. There is no current global occupation score.',
 	structuralFormula: 'research signals ≠ a global scored market',
 	localFormula: 'publish only after local denominator, coverage, provenance and outcome-validation gates pass',
 	publicationRules: {
-		minimumMappingCoverage: 0.8,
-		maximumFallbackShare: 0.2,
-		minimumConfidenceLevel: 'medium',
-		requireOfficialLocalDemandSource: true
+		requireCurrentOfficialTaxonomy: true,
+		requireExplicitReferencePopulation: true,
+		requirePublishedMappingAudit: true,
+		forbidBroadScoreFallback: true,
+		requireSeparateLocalEvidence: true,
+		requireLocalValidationBeforeForecasts: true
 	} satisfies PublicationRule,
 	publicationGates: [
 		{
-			key: 'global_baseline',
-			title: 'Global structural baseline',
+			key: 'current_taxonomy',
+			title: 'Current local taxonomy',
 			description:
-				'The ISCO-08 structural layer can publish whenever the exposure and bottleneck inputs are available.'
+				'Use the current official occupation classification and state exactly which records enter the public denominator.'
 		},
 		{
-			key: 'country_headline',
-			title: 'Country headline risk',
+			key: 'mapping_audit',
+			title: 'Mapping and missingness audit',
 			description:
-				'Publish headline risk only when mapping coverage is at least 80%, fallback share is no more than 20%, and the country layer reaches medium confidence or better.'
+				'Publish official crosswalk candidates, unmatched records and uncertainty. Do not fill missing occupation scores from broader groups.'
 		},
 		{
-			key: 'provisional_surface',
-			title: 'Provisional markets',
+			key: 'construct_and_denominator',
+			title: 'One named construct and denominator',
 			description:
-				'If the country layer is proxy-heavy or weakly mapped, show structural pressure only and label the surface provisional.'
+				'Define what the headline measures, its comparison population and the mathematical owner of the score before publishing ranks.'
 		},
 		{
-			key: 'regulatory_overlay',
-			title: 'Regulatory overlay',
+			key: 'separate_local_evidence',
+			title: 'Separate local evidence',
 			description:
-				'Licensing, audits, compliance rules, and public-sector constraints stay visible as context, not hidden score inputs.'
+				'Wages, demand, adoption, regulation and labour outcomes retain their source grain and never become hidden modifiers of technical exposure.'
+		},
+		{
+			key: 'forecast_validation',
+			title: 'Validation before forecasts',
+			description:
+				'A country exposure rank may publish without an outcome forecast. Any future forecast requires comparable local time-series evidence and prospective validation.'
 		}
 	] satisfies PublicationGate[],
 	principles: [
@@ -72,15 +82,15 @@ export const globalMethodology = {
 		},
 		{
 			key: 'global-vs-local',
-			title: 'Separate global from local',
+			title: 'Separate research context from local measurement',
 			description:
-				'Exposure and bottleneck remain global. Demand resilience, wages, and policy context are local.'
+				'International task-exposure and usage studies can support interpretation, while local wages, demand and institutions remain separate evidence.'
 		},
 		{
 			key: 'evidence-hierarchy',
-			title: 'Use an evidence hierarchy',
+			title: 'Keep evidence roles explicit',
 			description:
-				'Official local sources drive public country headlines. Proxies and synthetic fields can support calibration, but must be labeled.'
+				'Observed, derived, modelled and contextual fields are labelled. A proxy can support comparison but cannot quietly become a local outcome.'
 		},
 		{
 			key: 'publish-uncertainty',
@@ -92,7 +102,7 @@ export const globalMethodology = {
 			key: 'regulatory-overlay',
 			title: 'Treat regulation as context',
 			description:
-				'Licensing, compliance, and public-sector constraints are shown as an overlay, not silently baked into the structural score.'
+				'Licensing, compliance and public-sector constraints are shown at their published grain, not silently baked into technical exposure.'
 		}
 	] satisfies MethodologyNote[],
 	validationLadder: [
@@ -104,21 +114,21 @@ export const globalMethodology = {
 		},
 		{
 			key: 'formula',
-			title: 'Formula invariants',
+			title: 'Score invariants',
 			description:
-				'Prove boundedness, monotonicity, and reproducibility for the shared structural math.'
+				'Prove denominator, tie handling, boundedness and reproducibility, and prove that evidence sidecars cannot change the headline.'
 		},
 		{
 			key: 'convergence',
-			title: 'Convergent validation',
+			title: 'Independent comparison',
 			description:
-				'Compare country headlines with official outlook, vacancy, wage, or shortage indicators where they exist.'
+				'Compare the headline with external capability, usage and labour evidence without treating agreement as causal validation.'
 		},
 		{
 			key: 'stability',
 			title: 'Temporal stability',
 			description:
-				'Backtest changes over time and show whether the ranking is stable or sensitive to one source.'
+				'Publish movers only between comparable snapshots with the same taxonomy, construct and denominator.'
 		},
 		{
 			key: 'limitations',
@@ -131,7 +141,7 @@ export const globalMethodology = {
 		{
 			code: 'us',
 			title: 'United States',
-			readiness: 'withdrawn',
+			readiness: 'preview',
 			primary_sources: [
 				'BLS OEWS',
 				'BLS ORS',
@@ -143,7 +153,7 @@ export const globalMethodology = {
 			],
 			method_notes: [
 				'Strong structural compatibility and deep public labor data across wages, requirements, skills, demographics, and narrative context.',
-				'The prior score surface is withdrawn until independent mapping units, local score semantics and validation gates are documented and passed.'
+				'The frozen evidence layer remains available as a preview, but it is not recalculated with Singapore V9 or presented as a cross-country risk ranking.'
 			]
 		},
 		{
@@ -172,8 +182,8 @@ export const globalMethodology = {
 			readiness: 'live',
 			primary_sources: ['MOM wages', 'MOM labour force tables', 'SOL / Jobs in Demand'],
 			method_notes: [
-				'First fully scored country.',
-				'Keeps the same structural math while exposing Singapore-specific demand and policy context.'
+				'The only live scored market in V9.',
+				'Uses the complete SSOC 2024 registry and keeps wages, demand and broad labour context separate from the ILO-based pressure rank.'
 			]
 		}
 	] satisfies CountryLaunchProfile[]

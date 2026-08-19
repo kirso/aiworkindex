@@ -1,28 +1,11 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import { riskBandLabels, augmentationBandLabels } from '$lib/data';
-	import {
-		card,
-		pageLayout,
-		title as titleStyle,
-		sectionLabel,
-		caption,
-		pill,
-		microLabel
-	} from '$lib/design-system';
-	import { broadJobMarketContext, broadRealWageContext } from '$lib/data/job-market-context';
-	import { cn } from '$lib/utils';
-	import { vacancySignalClass } from '$lib/data/detail-display';
-	import OccupationCard from '$lib/components/ui/OccupationCard.svelte';
-	import DriverWaterfall from '$lib/components/viz/DriverWaterfall.svelte';
-	import WorkflowRadar from '$lib/components/viz/WorkflowRadar.svelte';
-	import { Button } from '$lib/components/ui/button/index.js';
-	import * as Collapsible from '$lib/components/ui/collapsible/index.js';
-	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
-	import ContextItemGrid from '$lib/components/ui/ContextItemGrid.svelte';
-	import OutcomeContextLenses from '$lib/components/ui/OutcomeContextLenses.svelte';
-	import { SITE } from '$lib/data/scoring-constants';
 	import Seo from '$lib/components/ui/Seo.svelte';
+	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
+	import { Button } from '$lib/components/ui/button/index.js';
+	import { card, caption, display, pageLayout, sectionLabel, title } from '$lib/design-system';
+	import { SITE } from '$lib/data/scoring-constants';
+	import { cn } from '$lib/utils';
 	import {
 		WATCHLIST_KEY,
 		hasWatchlistEntry,
@@ -30,1014 +13,407 @@
 		serializeWatchlist,
 		toggleWatchlistEntry
 	} from '$lib/watchlist';
-	import { getTransitionProgrammeUrl } from '$lib/data/detail-context';
-	import { buildRoleAlternates } from '$lib/data/occupation-alternates';
 	import { toast } from 'svelte-sonner';
-	import { buildMarketDetailBullets } from '$lib/data/market-summary';
 
 	let { data } = $props();
-	let scored = $derived(data.scored);
-	let structural = $derived(data.structural);
-	let context = $derived(data.context);
-	let decision = $derived(structural.decision);
-
+	let role = $derived(data.role);
+	let estimate = $derived(role.estimate);
+	let mappingWithheld = $derived(role.estimate_status === 'mapping_withheld');
 	let isWatchlisted = $state(false);
+
 	$effect(() => {
-		try {
-			const entries = parseStoredWatchlist(localStorage.getItem(WATCHLIST_KEY));
-			isWatchlisted = hasWatchlistEntry(entries, { kind: 'role', id: scored.slug });
-		} catch {
-			isWatchlisted = false;
-		}
+		if (!browser) return;
+		isWatchlisted = hasWatchlistEntry(parseStoredWatchlist(localStorage.getItem(WATCHLIST_KEY)), {
+			kind: 'role',
+			id: role.slug
+		});
 	});
 
 	function toggleWatchlist() {
 		if (!browser) return;
-		try {
-			const nextEntries = toggleWatchlistEntry(
-				parseStoredWatchlist(localStorage.getItem(WATCHLIST_KEY)),
-				{
-					kind: 'role',
-					id: scored.slug
-				}
-			);
-			isWatchlisted = hasWatchlistEntry(nextEntries, { kind: 'role', id: scored.slug });
-			localStorage.setItem(WATCHLIST_KEY, serializeWatchlist(nextEntries));
-			toast(isWatchlisted ? 'Added to watchlist' : 'Removed from watchlist', {
-				description: scored.title
-			});
-		} catch {}
+		const next = toggleWatchlistEntry(parseStoredWatchlist(localStorage.getItem(WATCHLIST_KEY)), {
+			kind: 'role',
+			id: role.slug
+		});
+		localStorage.setItem(WATCHLIST_KEY, serializeWatchlist(next));
+		isWatchlisted = hasWatchlistEntry(next, { kind: 'role', id: role.slug });
+		toast(isWatchlisted ? 'Saved to watchlist' : 'Removed from watchlist');
 	}
 
-	let singaporeContext = $derived(context.singaporeContext);
-	let industryContext = $derived(context.industryContext);
-	let workerProfile = $derived(context.workerProfile);
-	let geographyContext = $derived(context.geographyContext);
-	let primaryOccupation = $derived(context.primaryOccupation);
-	let transitionSupport = $derived(context.transitionSupport);
-	let offsetPotential = $derived(context.offsetPotential);
-	let postings = $derived(context.postings);
-	let employerPressure = $derived(context.employerPressure);
-	let localContextItems = $derived(singaporeContext.items);
-	let marketDetailBullets = $derived(
-		buildMarketDetailBullets(primaryOccupation?.labour_monitor ?? null, postings, employerPressure)
-	);
-	let roleWaterfallSubject = $derived.by(() => {
-		const weightedAnthropicGap = scored.components.reduce((sum, component) => {
-			const gap = component.occupation?.evidence.anthropic_gap ?? 0;
-			return sum + gap * component.weight;
-		}, 0);
-		const solMatch: false | 'prefix' = scored.components.some(
-			component => component.occupation?.evidence.sol_match
-		)
-			? 'prefix'
-			: false;
-		const jobsInDemandMatch: false | 'prefix' = scored.components.some(
-			component => component.occupation?.evidence.jobs_in_demand_match
-		)
-			? 'prefix'
-			: false;
-		return {
-			exposure: scored.exposure,
-			bottleneck: scored.bottleneck,
-			net_risk: scored.net_risk,
-			market: {
-				market_resilience: scored.market_resilience
-			},
-			evidence: {
-				anthropic_calibrated: scored.components.some(
-					component => component.occupation?.evidence.anthropic_calibrated
-				),
-				anthropic_gap: scored.components.some(
-					component => component.occupation?.evidence.anthropic_gap !== null
-				)
-					? weightedAnthropicGap
-					: null,
-				sol_match: solMatch,
-				jobs_in_demand_match: jobsInDemandMatch
-			}
-		};
-	});
-
-	const workflowDimensionLabels = {
-		creative_generation: 'Creative generation',
-		real_time_coordination: 'Real-time coordination',
-		ambiguity_tolerance: 'Ambiguity tolerance',
-		institutional_knowledge: 'Institutional knowledge',
-		relationship_intensity: 'Relationship intensity',
-		regulatory_weight: 'Regulatory weight',
-		physical_presence: 'Physical presence',
-		tool_velocity: 'Tool velocity'
-	} as const;
-
-	let _workflowItems = $derived.by(() => {
-		const overlay = scored.workflow_overlay;
-		if (!overlay) return [];
-		return (
-			Object.entries(workflowDimensionLabels) as Array<
-				[keyof typeof workflowDimensionLabels, string]
-			>
-		).map(([key, label]) => ({
-			key,
-			label,
-			value: overlay[key]
-		}));
-	});
-
-	let roleMarketHeadline = $derived.by(() => {
-		if (postings?.hiring_state === 'stale') {
-			return 'The captured postings sample is stale. Use the official broad occupation-cluster indicators below for current context.';
-		}
-		if (postings?.hiring_state === 'active') {
-			return 'Hiring is active in closely related work. Treat it as directional market context rather than a role-specific labour statistic.';
-		}
-		if (postings?.hiring_state === 'moderate') {
-			return 'There is some hiring in closely related work, but not enough to treat it as a strong standalone market signal.';
-		}
-		if (employerPressure?.label === 'high' || employerPressure?.label === 'critical') {
-			return 'Employer demand is elevated for closely related work. Use it as directional context, not a role-specific forecast.';
-		}
-		return 'Use these signals as directional context from closely related occupations and recent postings.';
-	});
-
-	let outcomeLenses = $derived.by(() => {
-		const occupation = primaryOccupation;
-		const adoption = occupation?.v8.market_context.adoption ?? 'unknown';
-		const labour = occupation?.labour_monitor;
-		const transition = occupation?.v8.transition;
-		const confidence = occupation?.v8.evidence_confidence.level ?? scored.confidence;
-		const jobQuality = occupation ? broadJobMarketContext(occupation.major_group) : null;
-		const wageMovement = occupation ? broadRealWageContext(occupation.major_group) : null;
-
-		return [
-			{
-				label: 'Workplace adoption',
-				value:
-					adoption === 'leading'
-						? 'Leading sectors represented'
-						: adoption === 'established'
-							? 'Adoption established'
-							: adoption === 'emerging'
-								? 'Adoption emerging'
-								: 'Role-level adoption unknown',
-				detail:
-					occupation?.v8.market_context.adoption_basis ??
-					'Sector adoption is not available at synthetic-role level.',
-				tone: adoption === 'unknown' ? ('warning' as const) : ('neutral' as const)
-			},
-			{
-				label: 'Task structure',
-				value: 'Component-derived task profile',
-				detail: structural.personalizedContent.aiCanDo,
-				tone: 'neutral' as const
-			},
-			{
-				label: 'Human advantage',
-				value: 'Coordination and judgment still matter',
-				detail: structural.personalizedContent.humanNeeded,
-				tone: 'positive' as const
-			},
-			{
-				label: 'Hiring and demand',
-				value: labour
-					? `${labour.vacancy.latest_rate}% vacancy rate · ${labour.data_as_of}`
-					: 'Broad-market evidence only',
-				detail: [
-					labour?.summary ??
-						'No current official occupation-cluster monitor is mapped to this synthetic role.',
-					jobQuality,
-					wageMovement
-				]
-					.filter(Boolean)
-					.join(' '),
-				tone: labour?.overall === 'strong' ? ('positive' as const) : ('neutral' as const)
-			},
-			{
-				label: 'Career transitions',
-				value: transition?.to_title ?? 'Review component occupations',
-				detail: transition
-					? `${transition.label} modeled transition from the primary component occupation.`
-					: 'Synthetic roles inherit transition evidence from their component occupations.',
-				tone: transition ? ('positive' as const) : ('warning' as const)
-			},
-			{
-				label: 'Evidence strength',
-				value: `${confidence} confidence`,
-				detail: `Synthetic estimate blended from ${scored.components.length} occupation components; it is not an official occupation statistic.`,
-				tone:
-					confidence === 'high'
-						? ('positive' as const)
-						: confidence === 'low'
-							? ('caution' as const)
-							: ('warning' as const)
-			}
-		];
-	});
-
-	function _pressureBarClass(v: number) {
-		return v >= 0.5
-			? 'bg-risk-very-high'
-			: v >= 0.3
-				? 'bg-risk-high'
-				: v >= 0.15
-					? 'bg-risk-moderate'
-					: 'bg-risk-very-low';
-	}
-
-	function _marketBarClass(v: number) {
-		return v >= 0.6 ? 'bg-risk-very-low' : v >= 0.35 ? 'bg-risk-moderate' : 'bg-risk-high';
-	}
-
-	function _adaptationBarClass(v: number) {
-		return v >= 0.55 ? 'bg-risk-very-low' : v >= 0.35 ? 'bg-risk-moderate' : 'bg-risk-high';
-	}
-
-	function _realizedBarClass(v: number) {
-		return v >= 0.1 ? 'bg-risk-very-high' : v >= 0.05 ? 'bg-risk-moderate' : 'bg-risk-very-low';
-	}
-
-	function _confidenceBarClass(level: string) {
-		return level === 'high'
-			? 'bg-risk-very-low'
-			: level === 'medium'
-				? 'bg-risk-moderate'
-				: 'bg-risk-high';
-	}
-
-	function _moatBarClass(v: number) {
-		return v >= 0.6 ? 'bg-risk-very-low' : v >= 0.3 ? 'bg-risk-moderate' : 'bg-risk-high';
-	}
-
-	function _offsetLevelLabel(value: number, inverse = false) {
-		const score = inverse ? 1 - value : value;
-		if (score >= 0.68) return 'High';
-		if (score >= 0.42) return 'Medium';
-		return 'Low';
-	}
-
-	function _formatPercent(value: number, digits = 0) {
-		return `${(value * 100).toFixed(digits)}%`;
-	}
-
-	// Demand signal helpers (blended from components)
-	let hasDemand = $derived(
-		scored.components.some(c => c.occupation?.evidence.sol_match) ||
-			scored.components.some(c => c.occupation?.evidence.jobs_in_demand_match)
-	);
-	let demandLabel = $derived.by(() => {
-		const hasSol = scored.components.some(c => c.occupation?.evidence.sol_match);
-		const hasJid = scored.components.some(c => c.occupation?.evidence.jobs_in_demand_match);
-		if (hasSol && hasJid) return 'SOL 2026 + Jobs in Demand';
-		if (hasSol) return 'SOL 2026';
-		if (hasJid) return 'Jobs in Demand';
-		return null;
-	});
-
-	async function shareCurrentPage() {
+	async function sharePage() {
 		if (!browser) return;
-		const url = window.location.href;
 		try {
 			if (navigator.share) {
-				await navigator.share({
-					title: `${scored.title} — ${SITE.name}`,
-					text: `Estimated role exposure score for ${scored.title}: ${(scored.net_risk * 100).toFixed(0)}/100`,
-					url
-				});
+				await navigator.share({ title: `${role.title} | ${SITE.name}`, url: window.location.href });
 				return;
 			}
-			await navigator.clipboard.writeText(url);
-			toast('Link copied', { description: scored.title });
-		} catch {}
+			await navigator.clipboard.writeText(window.location.href);
+			toast('Link copied');
+		} catch {
+			// Sharing can be cancelled by the user.
+		}
 	}
 
-	let roleJsonLd = $derived(
-		`<script type="application/ld+json">${JSON.stringify({
-			'@context': 'https://schema.org',
-			'@type': 'Occupation',
-			name: scored.title,
-			description:
-				'Estimated modern role — weighted blend of ' +
-				scored.components.length +
-				' official occupations in Singapore',
-			occupationLocation: { '@type': 'Country', name: 'Singapore' },
-			additionalProperty: [
-				{
-					'@type': 'PropertyValue',
-					name: 'Estimated Role Exposure Score',
-					value: Math.round(scored.net_risk * 100)
-				},
-				{
-					'@type': 'PropertyValue',
-					name: 'Relative Band',
-					value: riskBandLabels[scored.risk_band]
-				},
-				{
-					'@type': 'PropertyValue',
-					name: 'Estimate Type',
-					value: 'Synthetic role (weighted SSOC blend)'
-				}
-			]
-		})}<\/script>`
+	let demandComponents = $derived(
+		role.components.filter(component => component.demand_signals.length > 0)
 	);
-
-	let breadcrumbJsonLd = $derived(
-		`<script type="application/ld+json">${JSON.stringify({
-			'@context': 'https://schema.org',
-			'@type': 'BreadcrumbList',
-			itemListElement: [
-				{ '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url + '/' },
-				{ '@type': 'ListItem', position: 2, name: 'Roles', item: SITE.url + '/roles' },
-				{
-					'@type': 'ListItem',
-					position: 3,
-					name: scored.title,
-					item: SITE.url + '/role/' + scored.slug
-				}
-			]
-		})}<\/script>`
+	let wageComponents = $derived(
+		role.components.filter(component => component.wage_evidence !== null)
 	);
-
-	let riskPct = $derived((scored.net_risk * 100).toFixed(0));
-
-	let faqItems = $derived([
-		{
-			question: 'Will AI replace ' + scored.title + '?',
-			answer:
-				structural.summaryText +
-				' Estimated role exposure score: ' +
-				riskPct +
-				'/100 (' +
-				riskBandLabels[scored.risk_band] +
-				').'
-		},
-		{
-			question: 'What is the AI exposure estimate for ' + scored.title + '?',
-			answer:
-				scored.title +
-				' has an estimated role exposure score of ' +
-				riskPct +
-				'/100, rated ' +
-				riskBandLabels[scored.risk_band] +
-				'. This is a synthetic estimate blending ' +
-				scored.components.length +
-				' official occupations in Singapore, not a job-loss probability.'
-		},
-		{
-			question: 'What occupations make up the ' + scored.title + ' estimate?',
-			answer:
-				scored.title +
-				' is estimated from ' +
-				scored.components.length +
-				' official occupations in Singapore: ' +
-				scored.components
-					.slice(0, 5)
-					.map(c => (c.occupation?.title ?? c.ssoc) + ' (' + (c.weight * 100).toFixed(0) + '%)')
-					.join(', ') +
-				'.'
-		}
-	]);
-
-	let faqJsonLd = $derived(
-		`<script type="application/ld+json">${JSON.stringify({
-			'@context': 'https://schema.org',
-			'@type': 'FAQPage',
-			mainEntity: faqItems.map(item => ({
-				'@type': 'Question',
-				name: item.question,
-				acceptedAnswer: { '@type': 'Answer', text: item.answer }
-			}))
-		})}<\/script>`
-	);
-
-	let pageTitle = $derived(
-		`Will AI Replace ${scored.title}? ${riskPct}/100 Estimate | AI Work Index`
-	);
+	let pageTitle = $derived(`${role.title}: AI Work Pressure and Job-Risk Evidence`);
 	let pageDescription = $derived(
-		`${scored.title}: estimated role exposure score ${riskPct}/100. Synthetic blend of ${scored.components.length} Singapore occupations; not a percentile rank or probability.`
+		estimate
+			? `${role.title} has an estimated AI work-pressure comparison percentile of ${estimate.estimated_comparison_percentile.toFixed(1)} against scored Singapore occupations. See its component mapping and assumption sensitivity.`
+			: `${role.title} has no published AI work-pressure estimate because a fixed SSOC 2024 mapping would create false precision. See what information is needed.`
 	);
 
-	const bandSteps: Record<import('$lib/data').RiskBand, number> = {
-		very_low: 1,
-		low: 2,
-		moderate: 3,
-		high: 4,
-		very_high: 5
-	};
-	const bandFill: Record<import('$lib/data').RiskBand, string> = {
-		very_low: 'bg-risk-very-low',
-		low: 'bg-risk-low',
-		moderate: 'bg-risk-moderate',
-		high: 'bg-risk-high',
-		very_high: 'bg-risk-very-high'
-	};
-	const bandText: Record<import('$lib/data').RiskBand, string> = {
-		very_low: 'text-risk-very-low',
-		low: 'text-risk-low',
-		moderate: 'text-risk-moderate',
-		high: 'text-risk-high',
-		very_high: 'text-risk-very-high'
-	};
+	let structuredData = $derived(
+		`<script type="application/ld+json">${JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'WebPage',
+			name: pageTitle,
+			description: pageDescription,
+			url: `${SITE.url}/role/${role.slug}`,
+			dateModified: '2026-08-19',
+			mainEntity: {
+				'@type': 'DefinedTerm',
+				name: role.title,
+				description: role.description,
+				termCode: role.slug,
+				inDefinedTermSet: {
+					'@type': 'DefinedTermSet',
+					name: 'AI Work Index modern-role query layer',
+					url: `${SITE.url}/roles`
+				},
+				additionalProperty: estimate
+					? [
+							{
+								'@type': 'PropertyValue',
+								name: 'Estimate status',
+								value: 'Non-official role estimate'
+							},
+							{
+								'@type': 'PropertyValue',
+								name: 'Estimated AI work-pressure percentile',
+								value: estimate.estimated_comparison_percentile
+							}
+						]
+					: [
+							{
+								'@type': 'PropertyValue',
+								name: 'Estimate status',
+								value: 'Mapping withheld to avoid false precision'
+							}
+						]
+			}
+		})}<\/script>`
+	);
 </script>
 
 <Seo
 	title={pageTitle}
 	description={pageDescription}
-	path="/role/{scored.slug}"
-	ogImage="/og/role-{scored.slug}.png"
-	alternates={buildRoleAlternates(scored.slug)}
-	jsonLd={[roleJsonLd, breadcrumbJsonLd, faqJsonLd]}
+	path="/role/{role.slug}"
+	type="article"
+	jsonLd={[structuredData]}
 />
 
 <main class={pageLayout({ width: 'feature' })}>
 	<PageBreadcrumb
 		items={[
 			{ label: 'Home', href: '/' },
-			{ label: 'Roles', href: '/roles' },
-			{ label: scored.title }
+			{ label: 'Modern roles', href: '/roles' },
+			{ label: role.title }
 		]}
 	/>
 
-	<!-- ===== BLOCK 1: THE VERDICT ===== -->
-	<div class="mb-8 min-w-0">
-		<div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
-			<h1 class={cn(titleStyle({ size: 'page' }), 'min-w-0')}>{scored.title}</h1>
-			<div class="flex shrink-0 items-center gap-2">
-				<Button
-					variant="outline"
-					size="sm"
-					class="h-8 text-xs"
-					href="/compare?entities=role:{scored.slug}"
+	<header class="border-b-2 border-foreground pb-6">
+		<div class="flex min-w-0 flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+			<div class="min-w-0">
+				<p
+					class="mb-2 inline-flex border border-risk-moderate px-2 py-1 font-mono text-xs font-bold uppercase tracking-wide text-risk-moderate"
 				>
-					Compare
-				</Button>
-				<Button
-					variant={isWatchlisted ? 'default' : 'outline'}
-					size="sm"
-					class="h-8 gap-1.5 text-xs"
-					onclick={toggleWatchlist}
+					{mappingWithheld ? 'Non-official role query' : 'Non-official role estimate'}
+				</p>
+				<h1 class={cn(title({ size: 'page' }), 'break-words')}>{role.title}</h1>
+				<p class="mt-2 max-w-3xl text-base leading-relaxed text-text-secondary">
+					{role.description}.
+				</p>
+			</div>
+			<div class="flex shrink-0 flex-wrap gap-2">
+				<Button variant="outline" size="sm" href="/compare?entities=role:{role.slug}"
+					>Compare</Button
 				>
-					<svg
-						class="h-3.5 w-3.5"
-						viewBox="0 0 24 24"
-						fill={isWatchlisted ? 'currentColor' : 'none'}
-						stroke="currentColor"
-						stroke-width="2"
-					>
-						<path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
-					</svg>
+				<Button variant={isWatchlisted ? 'default' : 'outline'} size="sm" onclick={toggleWatchlist}>
 					{isWatchlisted ? 'Saved' : 'Save'}
 				</Button>
-				<Button variant="outline" size="sm" class="h-8 text-xs" onclick={shareCurrentPage}>
-					Share
-				</Button>
+				<Button variant="outline" size="sm" onclick={sharePage}>Share</Button>
 			</div>
 		</div>
 
-		<div
-			class="mt-5 grid border-t border-b border-t-foreground border-b-border md:grid-cols-[minmax(15rem,19rem)_minmax(0,1fr)]"
-		>
-			<div class="border-b border-border py-5 pr-6 md:border-r md:border-b-0">
-				<p class="font-mono text-[11px] tracking-[0.16em] text-muted-foreground uppercase">
-					Estimated role exposure score
-				</p>
-				<p class="mt-1 font-sans text-7xl leading-none font-black tracking-display tabular-nums">
-					{(scored.net_risk * 100).toFixed(0)}<span class="text-2xl">/100</span>
-				</p>
-				<div class="mt-4 flex items-center gap-2.5">
-					<div class="flex gap-0.5" aria-hidden="true">
-						{#each Array.from({ length: 5 }, (_, i) => i) as step (step)}
-							<span
-								class={cn(
-									'h-2 w-4',
-									step < bandSteps[scored.risk_band] ? bandFill[scored.risk_band] : 'bg-muted'
-								)}
-							></span>
-						{/each}
-					</div>
-					<span class={cn('text-sm font-bold', bandText[scored.risk_band])}>
-						{riskBandLabels[scored.risk_band]}
-					</span>
-				</div>
-				{#if scored.risk_range}
-					<p class="mt-2.5 font-mono text-xs text-muted-foreground tabular-nums">
-						Estimated range {(scored.risk_range.optimistic * 100).toFixed(0)}–{(
-							scored.risk_range.pessimistic * 100
-						).toFixed(0)}/100
+		{#if estimate}
+			<div class="mt-7 grid gap-px bg-border sm:grid-cols-[minmax(13rem,0.8fr)_minmax(0,2fr)]">
+				<div class="bg-card p-5">
+					<p class={sectionLabel()}>Estimated comparison percentile</p>
+					<p class={cn(display({ size: 'xl' }), 'mt-1')}>
+						{estimate.estimated_comparison_percentile.toFixed(1)}
 					</p>
-				{/if}
-			</div>
-
-			<div class="min-w-0 py-5 md:pl-7">
-				<p class={caption({ weight: 'medium' })}>{scored.description}</p>
-				<p class="mt-2 max-w-3xl text-[17px] leading-snug text-text-secondary">
-					{structural.summaryText}
-				</p>
-				<p class="mt-3.5 flex max-w-2xl gap-2 text-[13px] leading-snug text-muted-foreground">
-					<span class="text-primary" aria-hidden="true">※</span>
-					Synthetic role estimate, not an occupation percentile rank or a prediction of job loss. Hiring,
-					wages and role design depend on many forces that this estimate does not forecast.
-				</p>
-
-				{#if scored.dispersion > 0.08}
-					<div class={cn(card({ padding: 'sm', variant: 'inset' }), 'mt-4')}>
-						<p class="text-xs font-medium text-foreground">
-							Exposure estimate depends on your actual work split
-						</p>
-						<div class="mt-2 flex items-center gap-2">
-							<span class="font-mono text-xs text-risk-very-low"
-								>{(scored.risk_range.optimistic * 100).toFixed(0)}/100</span
-							>
-							<div class="relative h-1.5 flex-1 rounded-full bg-border">
-								<div
-									class="absolute h-full rounded-full bg-gradient-to-r from-risk-very-low to-risk-very-high"
-									style="left: {Math.max(scored.risk_range.optimistic * 100, 0)}%; right: {Math.max(
-										100 - scored.risk_range.pessimistic * 100,
-										0
-									)}%;"
-								></div>
-								<div
-									class="absolute -top-[3px] h-3 w-0.5 rounded-full bg-foreground"
-									style="left: {scored.net_risk * 100}%;"
-								></div>
-							</div>
-							<span class="font-mono text-xs text-risk-very-high"
-								>{(scored.risk_range.pessimistic * 100).toFixed(0)}/100</span
-							>
-						</div>
-					</div>
-				{/if}
-
-				<div class="mt-3 flex flex-wrap items-center gap-2">
-					<span class={pill({ tone: 'outline' })}>Synthetic role estimate</span>
-					{#if hasDemand}
-						<span class={pill({ tone: 'positive' })}>
-							In demand ({demandLabel})
-						</span>
-					{/if}
+					<p class={caption()}>Estimated, not an official occupation rank</p>
 				</div>
-
-				<!-- Buffer line + conditional trust cue -->
-				<p class="mt-3 text-xs text-muted-foreground">
-					{#if decision && decision.adaptationCapacity >= 0.55}
-						Current buffers materially reduce the raw score.
-					{:else if decision && decision.adaptationCapacity >= 0.35}
-						Current buffers soften the raw score somewhat.
-					{:else}
-						Limited current buffers in the supporting context.
-					{/if}
-					{#if scored.confidence === 'low'}
-						<span class="ml-1 text-risk-moderate">Thin evidence — treat with caution.</span>
-					{/if}
+				<div class="bg-card p-5">
+					<h2 class="text-lg font-bold">What the number says</h2>
+					<p class="mt-2 max-w-2xl text-sm leading-relaxed text-text-secondary">
+						Based on the published component weights, this role's ILO task-exposure score has an
+						estimated comparison percentile of {estimate.estimated_comparison_percentile.toFixed(1)} against
+						the {estimate.comparison_population}. The role is not added to the official ranking
+						population. This measures pressure on tasks, not the chance of losing a job.
+					</p>
+					<div class="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+						<p>
+							<span class="text-muted-foreground">Weighted ILO score</span>
+							<strong>{(estimate.mean_score_2025 * 100).toFixed(1)}/100</strong>
+						</p>
+						<p>
+							<span class="text-muted-foreground">Official categories represented</span>
+							<strong
+								>{estimate.potential25_component_range.least_exposed ===
+								estimate.potential25_component_range.most_exposed
+									? estimate.potential25_component_range.least_exposed
+									: `${estimate.potential25_component_range.least_exposed} to ${estimate.potential25_component_range.most_exposed}`}</strong
+							>
+						</p>
+					</div>
+				</div>
+			</div>
+		{:else}
+			<div class={cn(card({ padding: 'md', variant: 'notice', accent: 'moderate' }), 'mt-6')}>
+				<p class="font-bold">Mapping and estimate withheld</p>
+				<p class="mt-1 text-sm leading-relaxed text-text-secondary">
+					{role.mapping_rationale} We do not substitute a broad-group, title-similarity or legacy component
+					score.
 				</p>
 			</div>
-		</div>
+		{/if}
+	</header>
 
-		<!-- Built from: surface component occupations above the fold -->
-		<div class="mt-5 border-t border-border/70 pt-4">
-			<p class={cn(microLabel(), 'mb-2')}>
-				Built from {scored.components.length} official occupations in Singapore
+	{#if role.components.length > 0}
+		<section class="mt-10">
+			<div class="border-b border-foreground pb-2">
+				<p class={sectionLabel()}>Published assumptions</p>
+				<h2 class={title({ size: 'section' })}>Official occupations used in this estimate</h2>
+			</div>
+			<p class="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+				The role definition is an editorial query layer. Each weight states how much an official
+				SSOC 2024 occupation contributes to the composite. The links open the underlying official
+				record.
 			</p>
-			<div class="flex flex-wrap gap-x-4 gap-y-1">
-				{#each scored.components as comp}
-					{#if comp.occupation}
-						<a
-							href="/occupation/{comp.ssoc}"
-							class="text-xs text-text-secondary hover:text-primary hover:underline underline-offset-2"
-						>
-							{comp.occupation.title}
-							<span class="font-mono tabular-nums text-muted-foreground"
-								>({(comp.weight * 100).toFixed(0)}%)</span
-							>
-						</a>
-					{/if}
+			<div class="mt-4 grid gap-3 md:grid-cols-2">
+				{#each role.components as component (component.ssoc2024)}
+					<article class={card({ padding: 'sm' })}>
+						<div class="flex min-w-0 items-start justify-between gap-3">
+							<div class="min-w-0">
+								<a
+									class="text-sm font-bold hover:text-primary hover:underline"
+									href="/occupation/{component.ssoc2024}"
+								>
+									{component.title}
+								</a>
+								<p class="mt-0.5 font-mono text-xs text-muted-foreground">
+									SSOC {component.ssoc2024}
+								</p>
+							</div>
+							<p class="shrink-0 font-mono text-lg font-bold tabular-nums">
+								{(component.weight * 100).toFixed(0)}%
+							</p>
+						</div>
+						<p class="mt-3 text-xs leading-relaxed text-text-secondary">{component.rationale}</p>
+						<div class="mt-3 grid grid-cols-2 gap-2 border-t border-border pt-3 text-xs">
+							<div>
+								<p class="text-muted-foreground">Official pressure rank</p>
+								<p class="mt-0.5 font-mono font-bold tabular-nums">
+									{component.pressure_rank == null
+										? 'Not ranked'
+										: component.pressure_rank.toFixed(1)}
+								</p>
+							</div>
+							<div>
+								<p class="text-muted-foreground">ILO category</p>
+								<p class="mt-0.5 font-medium">
+									{component.potential25?.categories.join(', ') ?? 'Not available'}
+								</p>
+							</div>
+						</div>
+						{#if component.migration_note}
+							<p class="mt-3 border-l-2 border-risk-moderate pl-2 text-xs text-muted-foreground">
+								{component.migration_note}
+							</p>
+						{/if}
+					</article>
 				{/each}
 			</div>
-		</div>
-	</div>
+		</section>
+	{:else}
+		<section class="mt-10">
+			<div class="border-b border-foreground pb-2">
+				<p class={sectionLabel()}>What is needed</p>
+				<h2 class={title({ size: 'section' })}>Choose a task profile before comparing pressure</h2>
+			</div>
+			<p class="mt-3 max-w-3xl text-sm leading-relaxed text-text-secondary">
+				Use the official occupation explorer to choose the sector or task profile that best
+				describes the work. Publishing one weighted average for this label would hide materially
+				different jobs.
+			</p>
+			<a class="mt-3 inline-block text-sm font-medium text-primary hover:underline" href="/explore">
+				Browse official SSOC 2024 occupations
+			</a>
+		</section>
+	{/if}
 
-	<!-- ===== BLOCK 2: WHY THIS SCORE ===== -->
-	<section class="mb-8">
-		<h2 class="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
-			<span class="h-4 w-1 rounded-full bg-primary"></span>
-			How This Estimate Is Built
-		</h2>
-		<div class={card({ padding: 'md' })}>
-			<div class="grid gap-6 md:grid-cols-5">
-				<!-- Left: Waterfall (3/5) -->
-				<div class="md:col-span-3">
-					<DriverWaterfall occupation={roleWaterfallSubject} />
-					<p class="mt-2 text-xs text-muted-foreground">
-						Blended across {scored.components.length} occupations using the same score logic as an occupation
-						page.
-						<a href="/methodology" class="text-primary hover:underline">How this works</a>
+	{#if estimate}
+		<section class="mt-10">
+			<div class="border-b border-foreground pb-2">
+				<p class={sectionLabel()}>Assumption sensitivity</p>
+				<h2 class={title({ size: 'section' })}>How sensitive is the estimate?</h2>
+			</div>
+			<div class="mt-4 grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-4">
+				<div class="bg-card p-4">
+					<p class={caption()}>Editorial weights</p>
+					<p class="mt-1 font-mono text-xl font-bold tabular-nums">
+						{(estimate.weighting_sensitivity.editorial_weight_point * 100).toFixed(1)}
 					</p>
 				</div>
-
-				<!-- Right: Task split (2/5) -->
-				<div class="md:col-span-2 space-y-4">
-					<div>
-						<p class="text-xs font-semibold text-risk-high mb-1">Tasks AI can handle</p>
-						<p class="text-sm text-muted-foreground leading-relaxed">
-							{structural.personalizedContent.aiCanDo}
-						</p>
-					</div>
-					<div>
-						<p class="text-xs font-semibold text-risk-very-low mb-1">Where humans stay essential</p>
-						<p class="text-sm text-muted-foreground leading-relaxed">
-							{structural.personalizedContent.humanNeeded}
-						</p>
-					</div>
-					{#if structural.personalizedContent.skills.length > 0}
-						<div class="pt-3 border-t border-border">
-							<p class="text-xs font-semibold text-foreground mb-2">Skills to focus on</p>
-							<div class="flex flex-wrap gap-1.5">
-								{#each structural.personalizedContent.skills.slice(0, 4) as skill}
-									<span class={pill({ tone: 'primary' })} title={skill.description}>
-										{skill.label}
-									</span>
-								{/each}
-							</div>
-						</div>
-					{/if}
+				<div class="bg-card p-4">
+					<p class={caption()}>Equal weights</p>
+					<p class="mt-1 font-mono text-xl font-bold tabular-nums">
+						{(estimate.weighting_sensitivity.equal_weight_point * 100).toFixed(1)}
+					</p>
+				</div>
+				<div class="bg-card p-4">
+					<p class={caption()}>Leave-one-out low</p>
+					<p class="mt-1 font-mono text-xl font-bold tabular-nums">
+						{(estimate.weighting_sensitivity.leave_one_component_out_min * 100).toFixed(1)}
+					</p>
+				</div>
+				<div class="bg-card p-4">
+					<p class={caption()}>Leave-one-out high</p>
+					<p class="mt-1 font-mono text-xl font-bold tabular-nums">
+						{(estimate.weighting_sensitivity.leave_one_component_out_max * 100).toFixed(1)}
+					</p>
 				</div>
 			</div>
-
-			{#if scored.workflow_overlay}
-				<div class="mt-5 pt-5 border-t border-border">
-					<p class="text-xs font-semibold text-foreground mb-2">Role profile</p>
-					<p class="text-xs text-muted-foreground mb-3">
-						Heuristic workflow context blended from related occupations. This profile helps
-						interpret the score; it is not a direct role-level measurement and is not part of the
-						core net-risk formula.
-					</p>
-					<div class="flex justify-center">
-						<WorkflowRadar dimensions={scored.workflow_overlay} size={240} />
-					</div>
-				</div>
-			{/if}
-		</div>
-	</section>
-
-	<section class="mb-8">
-		<div class="mb-4 max-w-3xl">
-			<p class={sectionLabel()}>From exposure to employment</p>
-			<h2 class="mt-1 text-xl font-semibold tracking-tight text-foreground">
-				What could change the employment outcome?
-			</h2>
-			<p class="mt-2 text-sm leading-relaxed text-muted-foreground">
-				This synthetic estimate is only a starting point. Adoption, task design, human oversight,
-				demand, mobility and evidence quality determine what happens in practice.
+			<p class="mt-2 text-xs text-muted-foreground">
+				Values are ILO mean task-exposure scores on a 0–100 display scale. They are not
+				probabilities.
 			</p>
-		</div>
-		<OutcomeContextLenses
-			lenses={outcomeLenses}
-			sourceNote="These lenses do not alter the synthetic exposure estimate. Labour indicators come from the primary component occupation's broad official cluster."
-		/>
-	</section>
+		</section>
+	{/if}
 
-	<!-- ===== BLOCK 3: SINGAPORE NOW ===== -->
-	{#if postings || employerPressure || industryContext.top_industries.length > 0 || localContextItems.length > 0}
-		<section class="mb-8">
-			<h2 class="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
-				<span class="h-4 w-1 rounded-full bg-impact-leveraged"></span>
-				Singapore Now
-			</h2>
-			<div class={card({ padding: 'md' })}>
-				<p class="text-sm leading-relaxed text-text-secondary mb-4">{roleMarketHeadline}</p>
-
-				<div class="grid gap-3 sm:grid-cols-3 mb-4">
-					{#if postings}
-						<div class={card({ padding: 'sm', variant: 'metric' })}>
-							<p class={microLabel()}>Observed hiring</p>
-							<p class="mt-1 font-mono text-lg text-foreground">{postings.posting_volume_30d}</p>
-							<p class="text-xs text-muted-foreground">
-								30-day postings · {postings.hiring_state}
-							</p>
-						</div>
-					{/if}
-					{#if employerPressure}
-						<div class={card({ padding: 'sm', variant: 'metric' })}>
-							<p class={microLabel()}>Employer signals</p>
-							<p class="mt-1 font-mono text-lg text-foreground">{employerPressure.label}</p>
-							<p class="text-xs text-muted-foreground">
-								{employerPressure.signal_count} recent signals
-							</p>
-						</div>
-					{/if}
-					{#if localContextItems.length > 0}
-						<div class={card({ padding: 'sm', variant: 'metric' })}>
-							<p class={microLabel()}>Local support</p>
-							<p class="mt-1 font-mono text-lg text-foreground">{localContextItems.length}</p>
-							<p class="text-xs text-muted-foreground">blended context anchors</p>
-						</div>
-					{/if}
+	{#if role.components.length > 0}
+		<section class="mt-10 grid min-w-0 gap-6 lg:grid-cols-2">
+			<div class="min-w-0">
+				<div class="border-b border-foreground pb-2">
+					<p class={sectionLabel()}>Observed wage evidence</p>
+					<h2 class={title({ size: 'section' })}>Component wages</h2>
 				</div>
-
-				<div class="grid gap-4 md:grid-cols-2">
-					{#if industryContext.top_industries.length > 0}
-						<div class={card({ padding: 'sm' })}>
-							<p class={cn(microLabel(), 'mb-2')}>Top Industries</p>
-							{#each industryContext.top_industries.slice(0, 3) as industry (industry.key)}
-								<div
-									class="flex items-center justify-between py-1.5 border-b border-border/50 last:border-0"
-								>
-									<span class="text-sm text-foreground truncate mr-2">{industry.label}</span>
-									<div class="flex items-center gap-2 shrink-0">
-										{#if industry.vacancy_signal && industry.vacancy_signal !== 'stable'}
-											<span class={cn('text-xs', vacancySignalClass(industry.vacancy_signal))}>
-												{industry.vacancy_signal === 'rising' ? '↑' : '↓'}
-											</span>
-										{/if}
-										<span class="font-mono text-xs text-muted-foreground"
-											>{(industry.share_2025 * 100).toFixed(0)}%</span
-										>
-									</div>
+				{#if wageComponents.length > 0}
+					<div class="mt-3 divide-y divide-border border border-border bg-card">
+						{#each wageComponents as component (component.ssoc2024)}
+							<div class="flex min-w-0 items-start justify-between gap-3 p-3 text-sm">
+								<div class="min-w-0">
+									<a
+										class="font-medium hover:text-primary hover:underline"
+										href="/occupation/{component.ssoc2024}">{component.title}</a
+									>
+									<p class="text-xs text-muted-foreground">MOM 2025, direct SSOC row</p>
 								</div>
-							{/each}
-						</div>
-					{/if}
-
-					<div class={card({ padding: 'sm' })}>
-						<p class={cn(microLabel(), 'mb-2')}>How this changes by career stage</p>
-						<div class="space-y-1.5 text-xs">
-							<div class="flex items-center justify-between">
-								<span class="text-muted-foreground">Junior / Entry-level</span>
-								<span class="font-medium text-risk-high">Higher substitution exposure</span>
+								<p class="shrink-0 font-mono font-bold tabular-nums">
+									SGD {component.wage_evidence!.value.gross_monthly_sgd.median.toLocaleString()}/mo
+								</p>
 							</div>
-							<div class="flex items-center justify-between">
-								<span class="text-muted-foreground">Mid-career</span>
-								<span class="font-medium text-foreground">Baseline role profile</span>
-							</div>
-							<div class="flex items-center justify-between">
-								<span class="text-muted-foreground">Senior / Lead</span>
-								<span class="font-medium text-risk-very-low"
-									>More insulated by coordination & judgment</span
-								>
-							</div>
-						</div>
+						{/each}
 					</div>
+					<p class="mt-2 text-xs text-muted-foreground">
+						These are occupation observations, not an estimated wage for {role.title}.
+					</p>
+				{:else}
+					<p class="mt-3 text-sm text-muted-foreground">
+						No direct component wage observation is published.
+					</p>
+				{/if}
+			</div>
+
+			<div class="min-w-0">
+				<div class="border-b border-foreground pb-2">
+					<p class={sectionLabel()}>Current demand evidence</p>
+					<h2 class={title({ size: 'section' })}>Named component matches</h2>
 				</div>
+				{#if demandComponents.length > 0}
+					<div class="mt-3 space-y-3">
+						{#each demandComponents as component (component.ssoc2024)}
+							<article class={card({ padding: 'sm' })}>
+								<p class="text-sm font-bold">{component.title}</p>
+								<ul class="mt-2 space-y-2">
+									{#each component.demand_signals as signal}
+										<li class="text-xs leading-relaxed text-text-secondary">
+											<a
+												class="font-medium text-primary hover:underline"
+												href={signal.url}
+												target="_blank"
+												rel="noopener noreferrer">{signal.label}</a
+											>
+											— {signal.interpretation}
+										</li>
+									{/each}
+								</ul>
+							</article>
+						{/each}
+					</div>
+					<p class="mt-2 text-xs text-muted-foreground">
+						A named source match is not a complete demand measure for the synthetic role.
+					</p>
+				{:else}
+					<p class="mt-3 text-sm text-muted-foreground">
+						No reviewed component match appears in the current named demand sources.
+					</p>
+				{/if}
 			</div>
 		</section>
 	{/if}
 
-	<!-- ===== BLOCK 4: WHAT YOU CAN DO ===== -->
-	<section class="mb-8">
-		<h2 class="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
-			<span class="h-4 w-1 rounded-full bg-risk-very-low"></span>
-			What You Can Do
-		</h2>
-		<div class={card({ padding: 'md' })}>
-			{#if offsetPotential}
-				<p class="mb-4 pb-4 border-b border-border text-sm text-text-secondary">
-					{offsetPotential.summary}{#if offsetPotential.components.mobility_friction > 0.5}
-						Adjacent routes exist, but switching friction is still high.{/if}
-				</p>
-			{/if}
-
-			{#if transitionSupport}
-				<div class="mb-4 border-b border-border pb-4">
-					<p class="text-xs font-semibold text-foreground mb-2">Published transition support</p>
-					<div class="flex flex-wrap items-center gap-2">
-						{#if transitionSupport.skillsfuture_eligible}
-							<span class={pill({ tone: 'positive' })}>SkillsFuture eligible</span>
-						{/if}
-						{#each transitionSupport.recommended_programmes as programme}
-							{@const programmeUrl = getTransitionProgrammeUrl(programme)}
-							<a
-								href={programmeUrl ?? '#'}
-								target="_blank"
-								rel="noopener noreferrer"
-								class={pill({ tone: 'primary', interactive: true })}
-							>
-								{programme} ↗
-							</a>
-						{/each}
-					</div>
-				</div>
-			{/if}
-
-			<div class="mb-4 border-b border-border pb-4">
-				<div class="flex items-center gap-2 mb-3">
-					<p class="text-xs font-semibold text-foreground">Component occupation pathways</p>
-					<span class={pill({ size: 'sm', tone: 'muted' })}>
-						Explore each occupation for seniority and labour-market detail
-					</span>
-				</div>
-				<div class="grid gap-2 sm:grid-cols-3">
-					{#each scored.components as comp}
-						{#if comp.occupation}
-							<OccupationCard
-								occupation={{
-									title: comp.occupation.title,
-									ssoc: comp.ssoc,
-									net_risk: comp.occupation.net_risk,
-									risk_band: comp.occupation.risk_band
-								}}
-								mode="inset"
-								metricParts={[
-									{ label: `${(comp.weight * 100).toFixed(0)}% weight` },
-									{ label: `${(comp.occupation.net_risk * 100).toFixed(0)}/100 score` }
-								]}
-							/>
-						{/if}
-					{/each}
-				</div>
-			</div>
-
-			<div class="mt-4 pt-4 border-t border-border flex items-center justify-between">
-				<p class="text-xs text-muted-foreground">Compare with similar roles or occupations</p>
-				<a
-					href="/compare?entities=role:{scored.slug}"
-					class="text-xs font-medium text-primary hover:underline"
-				>
-					Compare with... →
-				</a>
-			</div>
-		</div>
-	</section>
-
-	<!-- ===== TECHNICAL DETAILS (collapsed) ===== -->
-	<Collapsible.Root class={cn(card({ padding: 'none' }), 'mb-8')}>
-		<Collapsible.Trigger
-			class="flex w-full items-center justify-between px-5 py-3 text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors"
-		>
-			Technical Details · {scored.components.length} components · {scored.confidence} evidence quality
-			<svg
-				class="h-3.5 w-3.5 transition-transform [[data-state=open]>&]:rotate-180"
-				viewBox="0 0 24 24"
-				fill="none"
-				stroke="currentColor"
-				stroke-width="2"><path d="m6 9 6 6 6-6" /></svg
-			>
-		</Collapsible.Trigger>
-		<Collapsible.Content class="border-t border-border px-5 py-4">
-			<div class="grid gap-4 sm:grid-cols-2 text-xs text-muted-foreground">
-				<div>
-					<p class="font-semibold text-foreground mb-1">Built From</p>
-					{#each scored.components as comp}
-						<div class="flex items-center justify-between py-0.5">
-							{#if comp.occupation}
-								<a href="/occupation/{comp.ssoc}" class="hover:text-primary"
-									>{comp.occupation.title} (SSOC {comp.ssoc})</a
-								>
-							{:else}
-								<span>SSOC {comp.ssoc} — not found</span>
-							{/if}
-							<span class="tabular-nums font-mono font-medium"
-								>{(comp.weight * 100).toFixed(0)}%</span
-							>
-						</div>
-					{/each}
-				</div>
-				<div>
-					<p class="font-semibold text-foreground mb-1">Augmentation</p>
-					<p>
-						{augmentationBandLabels[scored.augmentation_band]} ({(
-							scored.augmentation * 100
-						).toFixed(0)}%)
-					</p>
-				</div>
-				<div>
-					<p class="font-semibold text-foreground mb-1">Dispersion</p>
-					<p class="font-mono">
-						{(scored.dispersion * 100).toFixed(1)}pp spread · {(
-							scored.risk_range.optimistic * 100
-						).toFixed(0)}/100–{(scored.risk_range.pessimistic * 100).toFixed(0)}/100 range
-					</p>
-				</div>
-				<div>
-					<p class="font-semibold text-foreground mb-1">Raw Scores</p>
-					<p class="font-mono">
-						Exp {scored.exposure.toFixed(3)} · Bot {scored.bottleneck.toFixed(3)} · Mkt {scored.market_resilience.toFixed(
-							3
-						)}
-					</p>
-				</div>
-
-				<!-- Percentile (moved from Block 1) -->
-				<div>
-					<p class="font-semibold text-foreground mb-1">Percentile Rank</p>
-					<p>More exposed than approximately {structural.riskPercentile}% of occupations</p>
-				</div>
-
-				<!-- O*NET tools (moved from Block 2) -->
-				{#if (structural.onetEnrichment?.technologies.length ?? 0) > 0}
-					<div>
-						<p class="font-semibold text-foreground mb-1">Common tools in similar work</p>
-						<div class="flex flex-wrap gap-1.5">
-							{#each structural.onetEnrichment?.technologies.slice(0, 4) ?? [] as technology}
-								<span class={pill({ tone: technology.hot ? 'positive' : 'muted' })}>
-									{technology.name}
-								</span>
-							{/each}
-						</div>
-						<p class="mt-1 text-xs text-muted-foreground">
-							{structural.onetEnrichment?.note ??
-								'Proxy enrichment from matched O*NET technology profiles, not direct role-native evidence.'}
-						</p>
-					</div>
-				{/if}
-
-				<!-- What helps / What slows (moved from Block 4) -->
-				{#if offsetPotential && (offsetPotential.strengths.length > 0 || offsetPotential.cautions.length > 0)}
-					<div>
-						{#if offsetPotential.strengths.length > 0}
-							<p class="font-semibold text-impact-leveraged mb-1">What helps</p>
-							<ul class="space-y-1">
-								{#each offsetPotential.strengths as item}
-									<li>{item}</li>
-								{/each}
-							</ul>
-						{/if}
-					</div>
-					<div>
-						{#if offsetPotential.cautions.length > 0}
-							<p class="font-semibold text-risk-high mb-1">What could slow it down</p>
-							<ul class="space-y-1">
-								{#each offsetPotential.cautions as item}
-									<li>{item}</li>
-								{/each}
-							</ul>
-						{/if}
-					</div>
-				{/if}
-
-				<!-- Worker profile (moved from Block 3) -->
-				{#if workerProfile.items.length > 0}
-					<div class="sm:col-span-2">
-						<ContextItemGrid title="Worker profile" items={workerProfile.items} />
-					</div>
-				{/if}
-
-				<!-- Geography context (moved from Block 3) -->
-				{#if geographyContext.items.length > 0}
-					<div class="sm:col-span-2">
-						<ContextItemGrid
-							title="Where this work is concentrated"
-							items={geographyContext.items}
-						/>
-					</div>
-				{/if}
-
-				<!-- Local context items (moved from Block 3) -->
-				{#if localContextItems.length > 0}
-					<div class="sm:col-span-2">
-						<p class="font-semibold text-foreground mb-1">Local context & support</p>
-						<div class="flex flex-wrap gap-1.5">
-							{#each localContextItems as item (item.key)}
-								<span
-									class={pill({
-										size: 'sm',
-										tone:
-											item.tone === 'protective'
-												? 'positive'
-												: item.tone === 'pressure'
-													? 'danger'
-													: item.tone === 'support'
-														? 'primary'
-														: 'neutral'
-									})}
-									title={item.description}
-								>
-									{item.label}: {item.value}
-								</span>
-							{/each}
-						</div>
-					</div>
-				{/if}
-
-				<!-- Market detail bullets (moved from Block 3) -->
-				{#if marketDetailBullets.length > 0}
-					<div class="sm:col-span-2">
-						<p class="font-semibold text-foreground mb-1">Market detail</p>
-						<p class="mb-2">
-							Industry vacancy overlays use the latest published detailed cross-tab, which can lag
-							the main labour monitor.
-						</p>
-						<ul class="space-y-1">
-							{#each marketDetailBullets as item}
-								<li>{item}</li>
-							{/each}
-						</ul>
-					</div>
-				{/if}
-			</div>
-		</Collapsible.Content>
-	</Collapsible.Root>
-
-	<!-- ===== FAQ (visible HTML matching JSON-LD) ===== -->
-	<section class="mt-8">
-		<h2 class={sectionLabel()}>Frequently asked questions</h2>
-		<div class="mt-3 space-y-1">
-			{#each faqItems as item}
-				<details class={cn(card({ padding: 'md' }), 'group')}>
-					<summary class="cursor-pointer text-sm font-semibold text-foreground select-none">
-						{item.question}
-					</summary>
-					<p class="mt-2 text-sm leading-relaxed text-text-secondary">{item.answer}</p>
-				</details>
+	<section class="mt-10 border-t-2 border-foreground pt-5">
+		<p class={sectionLabel()}>Limits</p>
+		<h2 class={title({ size: 'section' })}>What this page does not claim</h2>
+		<ul class="mt-3 grid gap-2 text-sm text-text-secondary sm:grid-cols-2">
+			{#each role.limitations as limitation}
+				<li class="border-l-2 border-border pl-3">{limitation}</li>
 			{/each}
-		</div>
+		</ul>
+		<p class="mt-4 text-sm">
+			<a class="font-medium text-primary hover:underline" href="/methodology#synthetic-roles"
+				>Read the full method</a
+			>
+			<span class="text-muted-foreground"> · </span>
+			<a class="font-medium text-primary hover:underline" href="/data"
+				>Download the published role data</a
+			>
+		</p>
 	</section>
+
+	{#if data.related.length > 0}
+		<section class="mt-10">
+			<p class={sectionLabel()}>Related role queries</p>
+			<div class="mt-3 grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-3">
+				{#each data.related as related (related.slug)}
+					<a class="min-w-0 bg-card p-3 hover:bg-accent" href="/role/{related.slug}">
+						<p class="text-sm font-bold">{related.title}</p>
+						<p class="mt-1 text-xs text-muted-foreground">
+							{related.estimate
+								? `Estimated pressure percentile ${related.estimate.estimated_comparison_percentile.toFixed(1)}`
+								: 'Mapping and estimate withheld'}
+						</p>
+					</a>
+				{/each}
+			</div>
+		</section>
+	{/if}
 </main>

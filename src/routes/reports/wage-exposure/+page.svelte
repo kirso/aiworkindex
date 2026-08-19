@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { pageLayout, card, sectionLabel, caption, display, riskBadge } from '$lib/design-system';
 	import { cn } from '$lib/utils';
-	import { DATA_VINTAGE, SITE } from '$lib/data/scoring-constants';
+	import { SITE } from '$lib/data/scoring-constants';
 	import { countryConfigs } from '$lib/data/country-config';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import FaqList from '$lib/components/ui/FaqList.svelte';
 	import { buildFaqJsonLd } from '$lib/data/ranking-jsonld';
+	import ArchivedReportNotice from '$lib/components/v9/ArchivedReportNotice.svelte';
 
 	let { data } = $props();
 	const sgCurrency = countryConfigs.sg.currency ?? 'SGD';
@@ -32,8 +33,8 @@
 			headline: `${sgCurrency} ${(data.highRiskAnnualWages / 1e9).toFixed(1)} Billion in Annual Wages Across Higher-Exposure Occupations`,
 			author: { '@type': 'Person', name: SITE.author, url: SITE.authorUrl },
 			publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
-			datePublished: DATA_VINTAGE.last_updated,
-			dateModified: DATA_VINTAGE.last_updated,
+			datePublished: '2026-07-17',
+			dateModified: '2026-07-17',
 			description: `Wage context for ${data.highRiskCount} occupations in the two highest AI exposure bands.`,
 			mainEntityOfPage: { '@type': 'WebPage', '@id': SITE.url + '/reports/wage-exposure' }
 		})}<\/script>`
@@ -65,9 +66,15 @@
 	path="/reports/wage-exposure"
 	type="article"
 	jsonLd={[articleJsonLd, faqJsonLd]}
+	noindex={true}
 />
 
 <main class={pageLayout({ width: 'feature' })}>
+	<ArchivedReportNotice
+		release="V8 wage exposure analysis"
+		date="17 July 2026"
+		note="This page preserves a legacy wage-pool estimate built with inferred employment and V8 exposure bands. V9 does not publish inferred employment, jobs affected or wage pools."
+	/>
 	<PageBreadcrumb
 		items={[
 			{ label: 'Home', href: '/' },
@@ -271,10 +278,9 @@
 		<p class={cn(sectionLabel(), 'mb-2')}>Methodology</p>
 		<p class={cn(caption(), 'leading-relaxed')}>
 			Est. annual wage pool = median gross monthly wage &times; 12 &times; proxy employment. Higher
-			exposure means the High or Very High relative exposure band. Source data: official local wages {DATA_VINTAGE.wages},
-			local employment totals plus BLS-weighted proxy distribution. Scoring {DATA_VINTAGE.model_version}.
-			<a href="/methodology" class="text-primary hover:underline">Full methodology</a> &middot;
-			<a href="/data" class="text-primary hover:underline">Download data</a>
+			exposure means the legacy High or Very High relative exposure band. Source data: 2024 local
+			wages, local employment totals and a BLS-weighted proxy distribution. This method is archived.
+			<a href="/reports/v9-release" class="text-primary hover:underline">Current V9 report</a>
 		</p>
 	</section>
 

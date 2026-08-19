@@ -1,12 +1,19 @@
 <script lang="ts">
-	import { riskBandColors, type RiskBand } from '$lib/data';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
-	import ArchivedReleaseNotice from '$lib/components/ui/ArchivedReleaseNotice.svelte';
+	import ArchivedReportNotice from '$lib/components/v9/ArchivedReportNotice.svelte';
 	import { title as titleStyle } from '$lib/design-system';
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import { pageLayout } from '$lib/design-system';
-	import { DATA_VINTAGE } from '$lib/data/scoring-constants';
+
+	type RiskBand = 'very_low' | 'low' | 'moderate' | 'high' | 'very_high';
+	const riskBandColors: Record<RiskBand, string> = {
+		very_low: 'var(--color-risk-very-low)',
+		low: 'var(--color-risk-low)',
+		moderate: 'var(--color-risk-moderate)',
+		high: 'var(--color-risk-high)',
+		very_high: 'var(--color-risk-very-high)'
+	};
 
 	let { data } = $props();
 
@@ -38,10 +45,15 @@
 	title="Q4 2024 Quarterly Report — AI Work Index"
 	description="AI Work Index quarterly snapshot for Q4 2024. Risk distribution, top movers, and labour market highlights."
 	path="/reports/q4-2024"
+	noindex={true}
 />
 
 <main class={pageLayout({ width: 'content' })}>
-	<ArchivedReleaseNotice />
+	<ArchivedReportNotice
+		release="Q4 2024"
+		date="October–December 2024 period"
+		note="This early scoring snapshot keeps its legacy figures and terminology. It is not comparable with the SSOC 2024 V9 release."
+	/>
 	<PageBreadcrumb
 		items={[
 			{ label: 'Home', href: '/' },
@@ -55,10 +67,8 @@
 	<div
 		class="mt-4 rounded-lg border border-border/60 bg-muted/40 px-4 py-3 text-sm text-muted-foreground"
 	>
-		This is an archived report surface for <span class="font-medium text-foreground">Q4 2024</span>.
-		It is rendered with the current {DATA_VINTAGE.model_version} methodology and source registry, so later
-		sources and labels may appear below. Read it as a historical snapshot rebuilt under the current pipeline,
-		not as a period-authentic 2024 publication.
+		The figures below come from the retained legacy scoring pipeline. They are preserved for audit,
+		not recalculated as V9 findings.
 	</div>
 
 	<!-- Stat strip — borderless, editorial OWID style -->
@@ -268,10 +278,8 @@
 			exposure, SOL 2026, Jobs in Demand 2025.
 		</p>
 		<p class="mt-1">
-			Rendered with the current {DATA_VINTAGE.model_version} structural baseline. All scores remain deterministic
-			and reproducible.
-			<a href="/methodology" class="text-primary underline">Methodology</a> &middot;
-			<a href="/data" class="text-primary underline">Download data</a>
+			Legacy calculations retained as published. See the
+			<a href="/reports/v9-release" class="text-primary underline">V9 release report</a> for current findings.
 		</p>
 	</div>
 </main>

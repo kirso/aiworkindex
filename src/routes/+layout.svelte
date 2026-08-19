@@ -2,7 +2,7 @@
 	import '../app.css';
 	import favicon from '$lib/assets/favicon.svg';
 	import { page } from '$app/state';
-	import { DATA_VINTAGE, SITE } from '$lib/data/scoring-constants';
+	import { SITE } from '$lib/data/scoring-constants';
 	import { siteStatus } from '$lib/data/site-status';
 	import * as Sheet from '$lib/components/ui/sheet/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
@@ -44,7 +44,11 @@
 		{ href: '/watchlist', label: 'Watchlist' }
 	];
 
-	const marketLinks = [{ href: '/sg', label: countryConfigs.sg.name }];
+	const marketLinks = [
+		{ href: '/sg', label: countryConfigs.sg.name },
+		{ href: '/us', label: 'US Preview' },
+		{ href: '/global', label: 'Global research' }
+	];
 
 	let mobileMenuOpen = $state(false);
 
@@ -59,16 +63,18 @@
 		name: SITE.name,
 		alternateName: SITE.shortName,
 		url: `${SITE.url}/`,
-		description: `${DATA_VINTAGE.occupation_count} occupations ranked by an AI Exposure Rank using official data and published research.`,
+		description: `${siteStatus.structural_release.counts.scored} Singapore SSOC 2024 occupations ranked by AI Work Pressure using ILO 2025 task-exposure evidence, with ${siteStatus.structural_release.counts.insufficient_evidence} occupations explicitly unranked.`,
 		publisher: {
 			'@type': 'Organization',
 			'@id': `${SITE.url}/#organization`,
 			name: SITE.name,
 			url: `${SITE.url}/`,
-			description: 'Open-source AI exposure rankings for occupations and modern roles',
+			description:
+				'Open-source evidence on AI work pressure for Singapore occupations and clearly labelled modern-role estimates',
 			foundingDate: '2024',
 			knowsAbout: [
-				'AI job exposure',
+				'AI work pressure',
+				'AI job risk',
 				'occupational exposure to artificial intelligence',
 				'labor economics',
 				'workforce automation',
@@ -80,20 +86,14 @@
 			],
 			sameAs: [SITE.github, SITE.authorUrl]
 		},
-		potentialAction: {
-			'@type': 'SearchAction',
-			target: `${SITE.url}/?q={search_term_string}`,
-			'query-input': 'required name=search_term_string'
-		},
 		inLanguage: 'en',
-		dateModified: DATA_VINTAGE.last_updated
+		dateModified: siteStatus.updated_at
 	})}<\/script>`;
 </script>
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
 	<meta property="og:site_name" content={SITE.name} />
-	<meta property="og:type" content="website" />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="author" content="Kirill So" />
 	{@html layoutJsonLd}
@@ -244,7 +244,7 @@
 		<div class="mx-auto max-w-screen-2xl px-5 sm:px-6 py-4">
 			<div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
 				<p class="text-xs text-muted-foreground">
-					AI exposure ranks, not job-loss probabilities.
+					AI Work Pressure Ranks, not job-loss probabilities.
 					<a href="/methodology" class="text-primary hover:underline">Methodology</a>
 				</p>
 				<div class="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
@@ -264,8 +264,9 @@
 				</div>
 			</div>
 			<p class="mt-2 text-xs text-text-ghost">
-				{siteStatus.structural_release.version} · {DATA_VINTAGE.occupation_count} occupations · {DATA_VINTAGE.role_count}
-				roles · MIT Licensed ·
+				{siteStatus.structural_release.version} · {siteStatus.structural_release.counts.occupations.toLocaleString()}
+				SSOC 2024 occupations · {siteStatus.role_query_layer.non_official_count} non-official role pages
+				· Code under MIT ·
 				<a
 					href={SITE.authorUrl}
 					target="_blank"

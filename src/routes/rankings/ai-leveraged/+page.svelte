@@ -1,74 +1,17 @@
 <script lang="ts">
-	import RankingTable from '$lib/components/ui/RankingTable.svelte';
-	import RankingNavPills from '$lib/components/ui/RankingNavPills.svelte';
-	import { title as titleStyle, pageLayout } from '$lib/design-system';
-	import type { Occupation } from '$lib/data';
-	import { countryConfigs } from '$lib/data/country-config';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
-	import FaqList from '$lib/components/ui/FaqList.svelte';
-	import { buildItemListJsonLd, buildFaqJsonLd } from '$lib/data/ranking-jsonld';
-	import PageFooterNav from '$lib/components/ui/PageFooterNav.svelte';
+	import OccupationResultList from '$lib/components/v9-browser/OccupationResultList.svelte';
+	import RankingNav from '$lib/components/v9-browser/RankingNav.svelte';
+	import { badge, card, pageLayout, title as titleStyle } from '$lib/design-system';
 
 	let { data } = $props();
-	const currency = countryConfigs.sg.currency ?? 'SGD';
-
-	const columns = [
-		{
-			key: 'augmentation',
-			label: 'Augmentation Potential',
-			format: (occ: Occupation) => `${occ.v8.augmentation_potential.points}/100`,
-			align: 'right' as const
-		},
-		{
-			key: 'exposure',
-			label: 'AI Exposure Rank',
-			format: (occ: Occupation) => `${occ.v8.ai_exposure_rank.points}/100`,
-			align: 'right' as const
-		},
-		{
-			key: 'demand',
-			label: 'Current Demand',
-			format: (occ: Occupation) => occ.v8.market_context.demand,
-			align: 'right' as const
-		},
-		{
-			key: 'wage',
-			label: 'Median Wage',
-			format: (occ: Occupation) => `${currency} ${occ.gross_wage_median.toLocaleString()}`,
-			align: 'right' as const
-		}
-	];
-
-	let itemListJsonLd = $derived(
-		buildItemListJsonLd(
-			'Occupations With Augmentation-Led Growth Pathways',
-			'Top 25 occupations assigned to the V8 augmentation-led-growth pathway, ranked by augmentation potential',
-			data.ranked
-		)
-	);
-
-	const faqItems = [
-		{
-			question: 'Which jobs benefit most from AI augmentation?',
-			answer:
-				'These occupations meet the V8 augmentation-led-growth pathway: augmentation potential is in an upper band and current demand is strong. The pathway is a rule-based interpretation, not a productivity or employment forecast.'
-		},
-		{
-			question: 'What is augmentation in the AI Work Index?',
-			answer:
-				'Augmentation potential is a relative rank of the current augmentation signal. It indicates where AI may support work, but it does not quantify productivity gains or prove that displacement will not occur.'
-		}
-	];
-
-	const faqJsonLd = buildFaqJsonLd(faqItems);
 </script>
 
 <Seo
-	title="25 Occupations With Augmentation-Led Growth Pathways"
-	description="Occupations assigned to the V8 augmentation-led-growth pathway, ranked by relative augmentation potential."
+	title="Singapore Occupations in ILO GenAI Gradient 4"
+	description="SSOC 2024 occupations whose official mapped ILO category set reaches Exposed: Gradient 4, ordered by V9 AI work pressure."
 	path="/rankings/ai-leveraged"
-	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
 
 <main class={pageLayout({ width: 'feature' })}>
@@ -76,31 +19,33 @@
 		items={[
 			{ label: 'Home', href: '/' },
 			{ label: 'Rankings', href: '/rankings' },
-			{ label: 'Augmented' }
+			{ label: 'ILO Gradient 4' }
 		]}
 	/>
 
-	<h1 class={titleStyle({ size: 'page' })}>Occupations in the Augmentation-Led Pathway</h1>
-	<p class="mt-2 text-sm text-muted-foreground">
-		Occupations assigned to the V8 augmentation-led-growth pathway, ranked by relative augmentation
-		potential. The pathway requires strong current demand and does not guarantee growth.
+	<header class="mb-7 max-w-4xl">
+		<span class={badge({ variant: 'outline' })}>Official ILO category</span>
+		<h1 class="mt-3 {titleStyle({ size: 'page' })}">Occupations reaching ILO Gradient 4</h1>
+		<p class="mt-3 text-base leading-relaxed text-muted-foreground">
+			These {data.ranked.length} SSOC 2024 occupations map to an ILO category set whose most exposed match
+			is <strong>Exposed: Gradient 4</strong>. A range appears when official mappings disagree.
+		</p>
+	</header>
+
+	<div class="mb-6 {card({ padding: 'md', variant: 'notice', accent: 'primary' })}">
+		<p class="text-sm leading-relaxed text-muted-foreground">
+			This URL was used for an earlier “AI-leveraged” ranking. V9 does not infer augmentation or a
+			positive job pathway from exposure alone. It now shows the official category the evidence can
+			support.
+		</p>
+	</div>
+
+	<OccupationResultList items={data.ranked} detail="category" />
+
+	<p class="mt-4 text-xs leading-relaxed text-muted-foreground">
+		Gradient 4 denotes greater potential task exposure in the ILO framework. It does not specify
+		whether employers will automate, augment or redesign the work.
 	</p>
 
-	<section class="mt-6">
-		<RankingTable occupations={data.ranked} {columns} />
-	</section>
-
-	<p class="mt-4 text-xs text-muted-foreground">
-		V8 pathway rule: augmentation potential at least 60/100 and strong current demand.
-		<a href="/methodology" class="text-primary underline">Learn more</a>
-	</p>
-	<FaqList items={faqItems} />
-	<RankingNavPills />
-	<PageFooterNav
-		links={[
-			{ href: '/rankings', label: 'All rankings' },
-			{ href: '/explore', label: 'Browse occupations' },
-			{ href: '/methodology', label: 'Methodology' }
-		]}
-	/>
+	<RankingNav current="/rankings/ai-leveraged" />
 </main>

@@ -11,7 +11,7 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
-	import ArchivedReleaseNotice from '$lib/components/ui/ArchivedReleaseNotice.svelte';
+	import ArchivedReportNotice from '$lib/components/v9/ArchivedReportNotice.svelte';
 
 	const structuralPasses = [
 		v5ExperimentalValidation.structural_validation.bls_spearman_rho.pass,
@@ -29,10 +29,15 @@
 		? 'Audit note for the former live V5 structural release, preserving the final comparison against the retained V4.3 baseline and the published transition-adjusted and realized-risk layers.'
 		: 'Integrated V5 experimental candidate combining posterior exposure, task-mode proxies, concentration-driven fragility, augmentation heterogeneity, empirical mobility, and archetype-capped realized-risk calibration.'}
 	path="/reports/v5-experimental"
+	noindex={true}
 />
 
 <main class={pageLayout({ width: 'content' })}>
-	<ArchivedReleaseNotice />
+	<ArchivedReportNotice
+		release="V5 experimental model"
+		date="16 July 2026 archive snapshot"
+		note="This page preserves the V5 experimental integration and validation record. Its risk, mobility and pathway constructs are not current V9 outputs."
+	/>
 	<PageBreadcrumb
 		items={[
 			{ label: 'Home', href: '/' },

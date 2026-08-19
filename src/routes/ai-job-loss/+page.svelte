@@ -1,112 +1,120 @@
 <script lang="ts">
-	import RankingTable from '$lib/components/ui/RankingTable.svelte';
-	import { title as titleStyle, pageLayout, card, sectionLabel } from '$lib/design-system';
-	import { cn } from '$lib/utils';
-	import type { Occupation } from '$lib/data';
-	import { countryConfigs } from '$lib/data/country-config';
-	import { DATA_VINTAGE } from '$lib/data/scoring-constants';
+	import OccupationResultList from '$lib/components/v9-browser/OccupationResultList.svelte';
+	import FaqList from '$lib/components/ui/FaqList.svelte';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
-	import { buildItemListJsonLd, buildFaqJsonLd } from '$lib/data/ranking-jsonld';
+	import { buildFaqJsonLd, buildItemListJsonLd } from '$lib/data/ranking-jsonld';
+	import { card, pageLayout, sectionLabel, title } from '$lib/design-system';
+	import { cn } from '$lib/utils';
 
 	let { data } = $props();
-	const currency = countryConfigs.sg.currency ?? 'SGD';
-
-	const columns = [
-		{
-			key: 'net_risk',
-			label: 'AI Exposure Rank',
-			format: (occ: Occupation) => `${(occ.net_risk * 100).toFixed(0)}/100`,
-			align: 'right' as const
-		},
-		{
-			key: 'exposure',
-			label: 'Exposure index',
-			format: (occ: Occupation) => `${(occ.exposure * 100).toFixed(0)}/100`,
-			align: 'right' as const
-		},
-		{
-			key: 'bottleneck',
-			label: 'Human advantage',
-			format: (occ: Occupation) => `${(occ.bottleneck * 100).toFixed(0)}/100`,
-			align: 'right' as const
-		},
-		{
-			key: 'wage',
-			label: 'Median Wage',
-			format: (occ: Occupation) => `${currency} ${occ.gross_wage_median.toLocaleString()}`,
-			align: 'right' as const
-		}
-	];
-
-	let itemListJsonLd = $derived(
-		buildItemListJsonLd(
-			'Occupations Most Exposed to AI',
-			`Singapore occupations with the highest relative AI Exposure Ranks`,
-			data.ranked
-		)
-	);
 
 	let faqItems = $derived([
 		{
 			question: 'Which jobs will AI replace first?',
-			answer: `The highest-scoring occupations rank near the top of ${DATA_VINTAGE.occupation_count} Singapore occupations for exposure to current AI capabilities. That ranking does not say how many jobs will be lost or when.`
-		},
-		{
-			question: 'How many jobs are at risk from AI?',
-			answer: `This index cannot estimate a count of jobs that will disappear. It ranks occupations by relative AI exposure and reports demand, adoption and transition context separately.`
-		},
-		{
-			question: 'Is AI replacing jobs right now?',
 			answer:
-				'AI can change tasks, hiring and job design without eliminating an occupation. Actual outcomes depend on adoption, demand, productivity, wages, institutions and worker transitions.'
+				'No defensible occupation ranking can answer that question. This page shows where current generative AI overlaps most with measured occupational tasks. Replacement also depends on adoption, demand, costs, regulation, job redesign and new work.'
+		},
+		{
+			question: 'What does an AI Work Pressure Rank of 90 mean?',
+			answer: `It places the occupation at the 90th midrank percentile for ILO-based task exposure among the ${data.counts.scored.toLocaleString()} scored SSOC 2024 occupations. It does not mean a 90% chance of job loss or that 90% of the job can be automated.`
+		},
+		{
+			question: 'Is there evidence that AI is changing jobs now?',
+			answer:
+				'Yes. Research reports changes in AI use, task mix, productivity and some hiring outcomes, but results vary across settings and time periods. The V9 pressure rank does not fold those outcomes into the score.'
+		},
+		{
+			question: 'How many jobs will be lost to AI?',
+			answer:
+				'The AI Work Index does not publish a job-loss count. Public evidence does not support converting an occupation exposure rank into a headcount forecast for Singapore.'
 		}
 	]);
 
+	let itemListJsonLd = $derived(
+		buildItemListJsonLd(
+			'Singapore occupations with the highest AI Work Pressure',
+			`The highest relative ILO-based task-exposure ranks in AI Work Index V9. The list contains ${data.ranked.length} rows because it preserves the complete tie at the 50-row cutoff.`,
+			data.ranked.map(occupation => ({ title: occupation.title, ssoc: occupation.code }))
+		)
+	);
 	let faqJsonLd = $derived(buildFaqJsonLd(faqItems));
 </script>
 
 <Seo
-	title="AI Job Exposure: {data.totalHighRisk} Highly Exposed Occupations"
-	description="Which jobs are most exposed to AI? Explore {data.totalHighRisk} occupations in the higher exposure bands, without treating exposure as predicted job loss."
+	title="AI Job Loss: Jobs With the Highest AI Work Pressure"
+	description="Which Singapore jobs face the most AI pressure? See the highest V9 task-exposure ranks, the evidence behind them and why they are not job-loss forecasts."
 	path="/ai-job-loss"
 	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
 
 <main class={pageLayout({ width: 'feature' })}>
-	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'AI Job Loss' }]} />
+	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'AI job loss' }]} />
 
-	<h1 class={titleStyle({ size: 'page' })}>Which Jobs Are Most Exposed to AI?</h1>
-	<p class="mt-2 max-w-2xl text-sm text-muted-foreground">
-		This page ranks {DATA_VINTAGE.occupation_count} Singapore occupations by relative AI exposure. A score
-		of 72/100 means an occupation ranks above roughly 72% of the scored market; it is not a 72% chance
-		of job loss.
-	</p>
+	<header class="max-w-4xl border-b-2 border-foreground pb-6">
+		<p class={sectionLabel()}>Singapore · V9 · evidence cutoff 19 Aug 2026</p>
+		<h1 class={title({ size: 'page' })}>Which jobs face the most AI pressure?</h1>
+		<p class="mt-3 max-w-3xl text-base leading-relaxed text-text-secondary">
+			No credible score can tell you which jobs AI will eliminate first. V9 can show which
+			occupations have the greatest measured overlap between their tasks and current generative-AI
+			capabilities. The list contains {data.ranked.length} rows because it preserves the complete tie
+			at the 50-row cutoff, among
+			{data.counts.scored.toLocaleString()} scored SSOC 2024 occupations.
+		</p>
+	</header>
 
-	<section class="mt-6">
-		<RankingTable occupations={data.ranked} {columns} />
-	</section>
-
-	<p class="mt-4 text-xs text-muted-foreground">
-		Ranked by the V8 AI exposure rank. Employment outcomes are shown as context, not hidden in the
-		score.
-		<a href="/methodology" class="text-primary underline">Learn more</a> |
-		<a href="/ai-proof-jobs" class="text-primary underline">AI-proof jobs</a> |
-		<a href="/will-ai-take-my-job" class="text-primary underline">Check your job</a>
-	</p>
-
-	<!-- Visible FAQ -->
-	<section class="mt-8">
-		<h2 class={sectionLabel()}>Frequently asked questions</h2>
-		<div class="mt-3 space-y-1">
-			{#each faqItems as item}
-				<details class={cn(card({ padding: 'md' }), 'group')}>
-					<summary class="cursor-pointer text-sm font-semibold text-foreground select-none">
-						{item.question}
-					</summary>
-					<p class="mt-2 text-sm leading-relaxed text-text-secondary">{item.answer}</p>
-				</details>
-			{/each}
+	<section class="mt-6 grid gap-3 sm:grid-cols-3" aria-label="How to interpret this ranking">
+		<div class={card({ padding: 'sm', variant: 'flat' })}>
+			<p class="text-sm font-bold text-foreground">Measured</p>
+			<p class="mt-1 text-xs leading-relaxed text-muted-foreground">
+				ILO 2025 task-exposure evidence mapped through the official SSOC 2024 correspondence.
+			</p>
+		</div>
+		<div class={card({ padding: 'sm', variant: 'flat' })}>
+			<p class="text-sm font-bold text-foreground">Derived</p>
+			<p class="mt-1 text-xs leading-relaxed text-muted-foreground">
+				A within-Singapore midrank percentile. A rank of 90 places an occupation at percentile 90
+				among scored occupations. Ties share the same position.
+			</p>
+		</div>
+		<div class={card({ padding: 'sm', variant: 'flat' })}>
+			<p class="text-sm font-bold text-foreground">Unknown</p>
+			<p class="mt-1 text-xs leading-relaxed text-muted-foreground">
+				The number of jobs lost, the timing of change and the outcome for any worker or employer.
+			</p>
 		</div>
 	</section>
+
+	<section class="mt-10">
+		<div class="mb-3 border-b border-foreground pb-2">
+			<h2 class={title({ size: 'section' })}>Highest relative task pressure</h2>
+			<p class="mt-1 text-sm text-muted-foreground">
+				Monthly wages are direct Singapore context where published. They do not change the pressure
+				rank.
+			</p>
+		</div>
+		<OccupationResultList items={data.ranked} detail="wage" />
+	</section>
+
+	<aside class={cn(card({ padding: 'md', variant: 'notice', accent: 'primary' }), 'mt-8')}>
+		<p class="text-sm font-bold text-foreground">Pressure is not predicted loss</p>
+		<p class="mt-1 text-sm leading-relaxed text-text-secondary">
+			High technical exposure can lead to substitution, assistance, new tasks or a mix of all three.
+			Current demand, employer adoption and wages are considered separately because none has a
+			justified hidden weight in the headline rank. Occupation-level observed-use and
+			complementarity mappings are withheld in V9 because their cross-system provenance does not
+			pass the publication gate.
+		</p>
+		<div class="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+			<a class="font-medium text-primary hover:underline" href="/methodology">Read the V9 method</a>
+			<a class="font-medium text-primary hover:underline" href="/reports/job-market-evidence"
+				>See current job-market evidence</a
+			>
+			<a class="font-medium text-primary hover:underline" href="/will-ai-take-my-job"
+				>Check an occupation or role</a
+			>
+		</div>
+	</aside>
+
+	<FaqList items={faqItems} />
 </main>

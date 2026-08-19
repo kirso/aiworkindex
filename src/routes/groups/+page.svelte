@@ -1,38 +1,32 @@
 <script lang="ts">
-	import {
-		card,
-		pageLayout,
-		title as titleStyle,
-		body,
-		caption,
-		mono,
-		section,
-		sectionLabel
-	} from '$lib/design-system';
-	import { cn } from '$lib/utils';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
-	import { SITE, DATA_VINTAGE } from '$lib/data/scoring-constants';
-	import PageFooterNav from '$lib/components/ui/PageFooterNav.svelte';
+	import { card, pageLayout, title as titleStyle } from '$lib/design-system';
+	import { SITE } from '$lib/data/scoring-constants';
 
 	let { data } = $props();
-	let groups = $derived(data.groups);
+
+	function formatPercentile(value: number | null): string {
+		if (value == null) return 'Unknown';
+		return `Percentile ${value.toFixed(value % 1 === 0 ? 0 : 1)}`;
+	}
 
 	let collectionJsonLd = $derived(
 		`<script type="application/ld+json">${JSON.stringify({
 			'@context': 'https://schema.org',
 			'@type': 'CollectionPage',
-			name: 'Occupation Groups — AI Work Index',
-			description: `Browse ${DATA_VINTAGE.occupation_count} occupations organised by ${groups.length} major occupation groups, each ranked by relative AI exposure.`,
-			url: SITE.url + '/groups',
+			name: 'Singapore SSOC 2024 occupation groups',
+			description:
+				'Nine SSOC 2024 major groups with AI work pressure and direct evidence coverage.',
+			url: `${SITE.url}/groups`,
 			mainEntity: {
 				'@type': 'ItemList',
-				numberOfItems: groups.length,
-				itemListElement: groups.map((g, i) => ({
+				numberOfItems: data.groups.length,
+				itemListElement: data.groups.map((group, index) => ({
 					'@type': 'ListItem',
-					position: i + 1,
-					name: g.label,
-					url: SITE.url + '/group/' + g.slug
+					position: index + 1,
+					name: group.label,
+					url: `${SITE.url}/group/${group.slug}`
 				}))
 			}
 		})}<\/script>`
@@ -40,66 +34,74 @@
 </script>
 
 <Seo
-	title="AI Job Exposure by Occupation Group"
-	description={`Browse ${DATA_VINTAGE.occupation_count} occupations across ${groups.length} major groups. Compare AI exposure ranks and labour-market context.`}
+	title="Singapore Jobs by SSOC 2024 Occupation Group"
+	description="Browse all nine Singapore SSOC 2024 major groups. Compare pressure-rank coverage, direct MOM wage rows and named demand evidence without filling missing data."
 	path="/groups"
 	jsonLd={[collectionJsonLd]}
 />
 
-<div class={pageLayout()}>
-	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Occupation Groups' }]} />
+<main class={pageLayout({ width: 'feature' })}>
+	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Occupation groups' }]} />
 
-	<header class="mb-8">
-		<h1 class={titleStyle({ size: 'page' })}>Occupation Groups</h1>
-		<p class={cn(body({ size: 'lg', tone: 'subtle' }), 'mt-2 max-w-3xl')}>
-			{DATA_VINTAGE.occupation_count} occupations organised into {groups.length} major groups. Each group
-			shows aggregate AI exposure ranks from the {DATA_VINTAGE.public_version} public release, with Updated
-			{DATA_VINTAGE.last_updated}.
+	<header class="mb-8 max-w-4xl">
+		<h1 class={titleStyle({ size: 'page' })}>Occupation groups</h1>
+		<p class="mt-3 text-base leading-relaxed text-muted-foreground">
+			The 1,001 SSOC 2024 occupations sit within nine official major groups. Group cards summarize
+			coverage and the median of occupation-level pressure ranks; they are not employment-weighted
+			job loss estimates.
 		</p>
 	</header>
 
-	<section class={section()}>
-		<h2 class={sectionLabel()}>All Groups</h2>
-		<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-			{#each groups as g (g.slug)}
-				<a
-					href="/group/{g.slug}"
-					class={cn(
-						card({ padding: 'md' }),
-						'block hover:bg-accent hover:shadow-sm transition-all group'
-					)}
-				>
-					<div class="flex items-start justify-between gap-2">
-						<h3 class={cn(body({ size: 'lg' }), 'font-semibold text-foreground')}>
-							{g.label}
-							<span class="opacity-0 group-hover:opacity-100 transition-opacity text-primary"
-								>→</span
-							>
-						</h3>
-						<span class="shrink-0 h-3 w-3 rounded-full mt-1.5" style="background-color: {g.color}"
-						></span>
+	<div class="grid min-w-0 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+		{#each data.groups as group (group.code)}
+			<a
+				href="/group/{group.slug}"
+				class="block min-w-0 no-underline {card({ padding: 'md', hover: true })}"
+			>
+				<p class="font-mono text-xs text-muted-foreground">SSOC major group {group.code}</p>
+				<h2 class="mt-2 break-words text-lg font-semibold leading-snug text-foreground">
+					{group.label}
+				</h2>
+
+				<dl class="mt-5 grid grid-cols-2 gap-x-4 gap-y-4">
+					<div class="min-w-0">
+						<dt class="text-xs text-muted-foreground">Occupations</dt>
+						<dd class="mt-1 font-mono text-base font-semibold tabular-nums">{group.count}</dd>
 					</div>
-					<div class="mt-3 grid grid-cols-2 gap-3">
-						<div>
-							<p class={caption()}>Occupations</p>
-							<p class={mono({ size: 'md' })}>{g.count}</p>
-						</div>
-						<div>
-							<p class={caption()}>Average exposure rank</p>
-							<p class={mono({ size: 'md' })}>{Math.round(g.avgRisk * 100)}/100</p>
-						</div>
-						<div>
-							<p class={caption()}>Median Wage</p>
-							<p class={mono({ size: 'md' })}>SGD {Math.round(g.medianWage).toLocaleString()}</p>
-						</div>
-						<div>
-							<p class={caption()}>High exposure</p>
-							<p class={mono({ size: 'md' })}>{g.highRiskCount}</p>
-						</div>
+					<div class="min-w-0">
+						<dt class="text-xs text-muted-foreground">Median pressure rank</dt>
+						<dd class="mt-1 font-mono text-base font-semibold tabular-nums">
+							{formatPercentile(group.medianPressure)}
+						</dd>
 					</div>
-				</a>
-			{/each}
-		</div>
-	</section>
-	<PageFooterNav />
-</div>
+					<div class="min-w-0">
+						<dt class="text-xs text-muted-foreground">Pressure ranked</dt>
+						<dd class="mt-1 font-mono text-base font-semibold tabular-nums">
+							{group.scoredCount}/{group.count}
+						</dd>
+					</div>
+					<div class="min-w-0">
+						<dt class="text-xs text-muted-foreground">Direct wage rows</dt>
+						<dd class="mt-1 font-mono text-base font-semibold tabular-nums">
+							{group.directWageCount}
+						</dd>
+					</div>
+				</dl>
+
+				{#if group.namedDemandCount > 0}
+					<p class="mt-4 border-t border-border pt-3 text-xs text-muted-foreground">
+						{group.namedDemandCount} occupation{group.namedDemandCount === 1 ? '' : 's'} with a reviewed
+						named MOM demand signal
+					</p>
+				{/if}
+			</a>
+		{/each}
+	</div>
+
+	<p class="mt-8 text-sm leading-relaxed text-muted-foreground">
+		Group medians give each detailed occupation equal weight. They do not use inferred employment
+		counts or wage pools. <a href="/methodology" class="text-primary underline"
+			>Read the V9 method</a
+		>.
+	</p>
+</main>

@@ -10,9 +10,9 @@
 	import { cn } from '$lib/utils';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
-	import { DATA_VINTAGE, SITE } from '$lib/data/scoring-constants';
+	import { SITE } from '$lib/data/scoring-constants';
 	import clusterValidation from '$lib/data/backtests/current-validation.json';
-	import ArchivedReleaseNotice from '$lib/components/ui/ArchivedReleaseNotice.svelte';
+	import ArchivedReportNotice from '$lib/components/v9/ArchivedReportNotice.svelte';
 
 	const clusterChecksPassed = clusterValidation.summary.checks_passed;
 	const clusterChecksTotal = clusterValidation.summary.checks_total;
@@ -25,7 +25,7 @@
 			'V7 adds a task-concentration exposure buffer (Hampole et al. 2025) and a demand-persistence proxy to the structural formula.',
 		url: `${SITE.url}/reports/v7-release`,
 		datePublished: '2026-04-07',
-		dateModified: DATA_VINTAGE.last_updated,
+		dateModified: '2026-07-17',
 		author: { '@type': 'Person', name: SITE.author, url: SITE.authorUrl },
 		publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url }
 	})}<\/script>`;
@@ -36,10 +36,15 @@
 	description="V7 adds a task-concentration exposure buffer (Hampole et al. 2025) and a demand-persistence proxy to the structural formula. Release note with formula, validation, and stability metrics."
 	path="/reports/v7-release"
 	jsonLd={[articleJsonLd]}
+	noindex={true}
 />
 
 <main class={pageLayout({ width: 'content' })}>
-	<ArchivedReleaseNotice />
+	<ArchivedReportNotice
+		release="V7"
+		date="7 April 2026; corrected 7 June 2026"
+		note="This page preserves the V7 task-concentration and demand-persistence method. Its 562-occupation SSOC 2020 universe and risk score are not comparable with V9."
+	/>
 	<PageBreadcrumb
 		items={[
 			{ label: 'Home', href: '/' },
@@ -51,11 +56,10 @@
 	<h1 class={titleStyle({ size: 'page' })}>V7 Release Note</h1>
 
 	<div class={cn(card({ padding: 'md', variant: 'notice', accent: 'primary' }), 'mt-4')}>
-		<p class="text-sm font-semibold text-foreground">Current release</p>
+		<p class="text-sm font-semibold text-foreground">Historical release status</p>
 		<p class="mt-1 text-sm text-muted-foreground">
-			V7 is the live structural release as of {DATA_VINTAGE.last_updated}. It scores
-			{DATA_VINTAGE.occupation_count} occupations and {DATA_VINTAGE.role_count} modern roles. V6 baseline
-			scores are preserved in every occupation record for comparison.
+			V7 was published for 562 occupations and 88 modern-role estimates. It was later superseded;
+			its V6 comparison fields remain part of the historical artifact only.
 		</p>
 	</div>
 
@@ -89,7 +93,7 @@
 							all published scores reflect the corrected formula.
 						</p>
 						<p class="mt-2">
-							492 of {DATA_VINTAGE.occupation_count} occupations have task data; 361 end up with a non-zero
+							492 of 562 occupations have task data; 361 end up with a non-zero
 							<code class="text-xs">task_signal</code>. Occupations without task data (or with zero
 							measured concentration) receive
 							<code class="text-xs">task_signal = 0</code>, preserving V6-equivalent exposure.
@@ -156,9 +160,7 @@
 				</div>
 				<div class={card({ padding: 'sm' })}>
 					<p class={caption({ weight: 'semibold' })}>Band flips</p>
-					<p class={cn(mono({ size: 'sm' }), 'mt-1')}>
-						53 / {DATA_VINTAGE.occupation_count} (9.4%)
-					</p>
+					<p class={cn(mono({ size: 'sm' }), 'mt-1')}>53 / 562 (9.4%)</p>
 					<p class="mt-1 text-xs text-muted-foreground">Target: &lt; 15%</p>
 				</div>
 				<div class={card({ padding: 'sm' })}>
@@ -177,12 +179,12 @@
 		<div>
 			<h2 class={sectionLabel()}>Validation</h2>
 			<p class="mt-3 text-sm text-muted-foreground">
-				V7 passes {DATA_VINTAGE.validation_checks} of {DATA_VINTAGE.validation_checks} internal release
-				and data-contract checks. All 6 anchor occupations pass (Software Developer, Data Entry Clerk,
-				Surgeon, Telemarketer, Registered Nurse, Data Scientist). External calibration is reported separately:
-				the direct BLS segment remains significantly negative, and the Singapore cluster labour backtest
-				currently passes {clusterChecksPassed} of {clusterChecksTotal} discriminating checks (a no-variance
-				retrenchment column is excluded as inconclusive).
+				V7 passes 232 of 232 internal release and data-contract checks. All 6 anchor occupations
+				pass (Software Developer, Data Entry Clerk, Surgeon, Telemarketer, Registered Nurse, Data
+				Scientist). External calibration is reported separately: the direct BLS segment remains
+				significantly negative, and the Singapore cluster labour backtest currently passes {clusterChecksPassed}
+				of {clusterChecksTotal} discriminating checks (a no-variance retrenchment column is excluded as
+				inconclusive).
 			</p>
 		</div>
 
