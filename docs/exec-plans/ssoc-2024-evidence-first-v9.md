@@ -61,8 +61,8 @@ history and a final release artifact.
 - [x] (2026-08-19) Migrated occupation, role, ranking, methodology, report, export, and responsive UI
   surfaces.
 - [x] (2026-08-19) Rebuilt canonical, structured-data, sitemap, crawler, and answer-engine surfaces.
-- [ ] Run the full release and browser verification suite, commit coherent slices, push, and
-  open the pull request.
+- [x] (2026-08-19) Ran the full release and browser verification suite, committed three coherent
+  slices, pushed the branch, and updated draft pull request #4 for V9.
 
 ## Surprises & Discoveries
 
@@ -172,8 +172,13 @@ does not meet the V9 provenance standard. Current named-demand evidence covers 3
 codes from 47 reviewed source labels; absence is never interpreted as weak demand. Historical
 V3–V8 artifacts remain downloadable, noindex archives and no longer enter the current gate.
 
-Two consecutive `release:generate` runs produced byte-identical current artifacts. Final browser
-and pull-request results will be appended after the release build is frozen.
+Two consecutive `release:generate` runs produced byte-identical current artifacts. `bun run verify`
+passed typechecking, lint, formatting, 89 tests, and the V9 release contract; `bun run build`
+completed the static production build. Headless Chrome passed 84 route/viewport combinations at
+320, 375, 768, 1,024, and 1,440 pixels with no document overflow or console errors. Modern-title
+search and compare aliases, role and calculator redirects, current SEO metadata, the wide scatter,
+and archive noindex/schema boundaries were exercised. The branch is published in draft pull
+request #4: `https://github.com/kirso/aiworkindex/pull/4`.
 
 ## Context and Orientation
 
@@ -288,9 +293,8 @@ production. Do not reset or clean the worktree and never modify the user-owned r
 
 ## Artifacts and Notes
 
-The final pull request must contain source checksums, registry/crosswalk counts, the sidecar
-disposition manifest, V8-to-V9 rank-break documentation, route/sitemap diffs, representative
-desktop/mobile screenshots, and complete verification output.
+The final pull request records source checksums, registry/crosswalk counts, the sidecar disposition
+manifest, route/sitemap changes, responsive browser-QA results, and complete verification output.
 
 Implementation commits will be sliced as documentation and release boundary, canonical
 taxonomy, V9 model, Singapore evidence, public UI, search/discovery, documentation/licensing,
