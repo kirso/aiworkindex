@@ -1,0 +1,18 @@
+{
+  "publisher": "Singapore Department of Statistics",
+  "purpose": "URL continuity only. This source is forbidden from active data and methodology imports.",
+  "source_page": "https://www.singstat.gov.sg/standard-classifications/national-classifications/singapore-standard-occupational-classification-ssoc",
+  "terms_url": "https://www.singstat.gov.sg/terms-of-use",
+  "retrieved_at": "2026-08-19T00:04:47.846Z",
+  "files": [
+    {
+      "key": "ssoc2020_2024_url_continuity",
+      "purpose": "url_continuity_only",
+      "filename": "ssoc-2020-2024-correspondence.xlsx",
+      "url": "https://www.singstat.gov.sg/files/9c84e968-93bb-44e2-8e96-2c7142c1cf42.xlsx",
+      "published": "2024-03-21",
+      "bytes": 97584,
+      "sha256": "6b53f99db1d63581ba42bd5c73243bf9a2a13824044c0bc31c11c70a71c84f35"
+    }
+  ]
+}

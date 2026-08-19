@@ -7,6 +7,8 @@
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
+		"download:ssoc-2024": "bun run scripts/download-ssoc-2024.ts",
+		"build:taxonomy": "bun run scripts/build-ssoc-2024-registry.ts",
 		"download:sg-labour": "bun run scripts/download-official-sg-labour.ts",
 		"download:sg-context": "bun run scripts/download-official-sg-context.ts",
 		"download:sg-transition": "bun run scripts/download-official-sg-transition.ts",

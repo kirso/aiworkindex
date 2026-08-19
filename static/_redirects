@@ -1,2 +1,47 @@
-# SG occupation aliases — redirect to canonical /occupation/ paths at the edge
+# Generated SSOC 2020 occupation redirects — URL continuity only
+/occupation/21663 /occupation/21662 308
+/occupation/21664 /occupation/25124 308
+/occupation/22150 /occupation/22149 308
+/occupation/25140 /occupation/25141 308
+/occupation/26341 /occupation/26611 308
+/occupation/26342 /occupation/26612 308
+/occupation/26343 /occupation/26613 308
+/occupation/26349 /occupation/26619 308
+/occupation/26351 /occupation/26621 308
+/occupation/26352 /occupation/26623 308
+/occupation/26353 /occupation/26622 308
+/occupation/26359 /occupation/26629 308
+/occupation/26371 /occupation/26631 308
+/occupation/26372 /occupation/26632 308
+/occupation/26373 /occupation/26633 308
+/occupation/26374 /occupation/26634 308
+/occupation/26379 /occupation/26639 308
+/occupation/33611 /occupation/33601 308
+/occupation/33612 /occupation/33602 308
+/occupation/33613 /occupation/33603 308
+/occupation/33614 /occupation/33609 308
+/occupation/33619 /occupation/33609 308
+/occupation/52411 /occupation/52410 308
+/occupation/52419 /occupation/52410 308
+/occupation/53115 /occupation/36100 308
+/occupation/61221 /occupation/61220 308
+/occupation/61222 /occupation/61220 308
+/occupation/71324 /occupation/71323 308
+/occupation/72391 /occupation/72390 308
+/occupation/72392 /occupation/72390 308
+/occupation/72399 /occupation/72390 308
+/occupation/74211 /occupation/74210 308
+/occupation/74212 /occupation/74221 308
+/occupation/75363 /occupation/75362 308
+/occupation/81811 /occupation/81810 308
+/occupation/81812 /occupation/81810 308
+/occupation/81819 /occupation/81810 308
+/occupation/83121 /occupation/83120 308
+/occupation/83129 /occupation/83120 308
+/occupation/96111 /occupation/96101 308
+/occupation/96112 /occupation/96102 308
+/occupation/96113 /occupation/96109 308
+/occupation/96119 /occupation/96109 308
+
+# SG occupation path aliases — redirect to canonical /occupation/ paths at the edge
 /sg/occupation/* /occupation/:splat 308

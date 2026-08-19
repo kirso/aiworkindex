@@ -34,9 +34,12 @@ history and a final release artifact.
   SSOC 2024 to ISCO-08 to ILO 2025 path; 14 do not.
 - [x] (2026-08-19) Confirmed MOM Occupational Wages 2025 contains 523 unique detailed
   SSOC 2024 occupations.
-- [ ] Record the final V8 release boundary and add canonical SSOC 2024 source snapshots.
-- [ ] Build the current registry, scientific crosswalk, search synonyms, and isolated URL
-  continuity artifact.
+- [x] (2026-08-19) Tagged `c1b3dcf` as `v8-ssoc2020-final` and committed this living
+  execution record.
+- [x] (2026-08-19) Added frozen official SSOC 2024 source snapshots with retrieval metadata
+  and deterministic builders.
+- [x] (2026-08-19) Built the current registry, scientific crosswalk, search synonyms, and
+  isolated URL continuity artifact.
 - [ ] Implement the V9 public contract and replace the active V8 scoring owner.
 - [ ] Refresh Singapore wages and labour evidence and disposition every SSOC-keyed sidecar.
 - [ ] Migrate occupation, role, ranking, methodology, report, export, and responsive UI
@@ -65,6 +68,10 @@ history and a final release artifact.
 - Observation: The site claims MIT licensing but has no `LICENSE` file and does not separate
   original code from third-party data terms.
   Evidence: `/about` and `/press` claim MIT licensing; repository root contains no license.
+- Observation: The official detailed definitions and alphabetical index were updated on
+  24 June 2026, while both correspondence workbooks remain dated 21 March 2024.
+  Evidence: The workbook title rows and generated `source-metadata.json` preserve those
+  independent vintages.
 
 ## Decision Log
 
