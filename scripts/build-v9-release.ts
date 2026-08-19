@@ -2,18 +2,28 @@
 
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import { createHash } from 'node:crypto';
+import { fileURLToPath } from 'node:url';
 import * as XLSX from 'xlsx';
 import type {
-	ExposureBand,
+	V9ExternalComparisonAudit,
 	V9GenAiTaskExposure,
+	V9IloExposureCategory,
+	V9IloIscoEvidence,
 	V9Occupation,
 	V9WageEvidence
 } from '../src/lib/data/v9-contract';
 
-const ROOT = path.join(import.meta.dir, '..');
+const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DATA_DIR = path.join(ROOT, 'data');
 const REGISTRY_FILE = path.join(DATA_DIR, 'ssoc-2024-registry.json');
 const ILO_FILE = path.join(DATA_DIR, 'raw', 'external', 'ilo_genai_scores_isco08_2025.xlsx');
+const ILO_METADATA_FILE = path.join(
+	DATA_DIR,
+	'raw',
+	'external',
+	'ilo_genai_scores_isco08_2025.metadata.json'
+);
 const WAGE_FILE = path.join(
 	DATA_DIR,
 	'raw',
@@ -30,6 +40,149 @@ const WAGE_METADATA_FILE = path.join(
 );
 const OUTPUT_FILE = path.join(DATA_DIR, 'occupations-v9.json');
 
+/**
+ * These source snapshots are useful comparison inputs, but the repository does not contain a
+ * release-grade, row-level ISCO-08 to US SOC correspondence artifact. The legacy table in
+ * scripts/crosswalk.ts is hand-maintained, mixes SOC editions and manual additions, and cannot
+ * be reconciled back to a checked-in official source row by row. Publishing occupation values
+ * through it would overstate mapping precision, so V9 intentionally leaves every field null.
+ */
+export const V9_EXTERNAL_COMPARISON_AUDIT = {
+	headline_effect: 'none',
+	mapping_policy: 'official_ssoc_2024_to_isco08_then_verified_isco08_to_soc_then_exact_source_soc',
+	reviewed_mapping_artifact: {
+		path: 'scripts/crosswalk.ts',
+		status: 'rejected_for_v9',
+		reasons: [
+			'No row-level official ISCO-08 to US SOC source snapshot, version, checksum, or retrieval metadata is checked in.',
+			'The table combines claimed SOC 2010 correspondence with manual Singapore-specific additions and a hand-maintained SOC 2010 to 2018 bridge.',
+			'Inline comments identify semantic mismatches between several ISCO occupations and their assigned SOC codes.'
+		]
+	},
+	sidecars: {
+		aioe: {
+			target_field: 'comparison_evidence.aioe',
+			construct: 'general_ai_ability_exposure',
+			status: 'withheld_unverified_isco08_soc_crosswalk',
+			checked_in_source: {
+				artifact: 'data/raw/external/AIOE_DataAppendix.xlsx',
+				value_field: 'Appendix A.AIOE',
+				occupation_code_system: 'US SOC 2010',
+				observation_vintage: null,
+				source: {
+					id: 'felten_raj_seamans_aioe_2021',
+					publisher: 'Strategic Management Journal',
+					title:
+						'Occupational, industry, and geographic exposure to artificial intelligence: A novel dataset and its potential uses',
+					url: 'https://doi.org/10.1002/smj.3286',
+					release_date: '2021'
+				}
+			},
+			mapping: {
+				method: 'official_ssoc_2024_to_isco08_then_verified_isco08_to_soc_then_exact_source_soc',
+				quality: 'rejected_unverified_provenance',
+				aggregation: 'not_applied'
+			},
+			published_coverage: { occupations: 0, denominator: 1001, percent: 0 },
+			limitations: [
+				'US ability-based theoretical AI exposure is not observed GenAI use, Singapore adoption, or a labour-market outcome.',
+				'The checked-in workbook records a 2021 publication source but does not identify an occupation-observation period.',
+				'Occupation values cannot be joined to SSOC 2024 until a reproducible ISCO-08 to SOC crosswalk is checked in and validated.'
+			]
+		},
+		eloundou: {
+			target_field: 'comparison_evidence.eloundou',
+			construct: 'gpt_task_exposure',
+			status: 'withheld_unverified_isco08_soc_crosswalk',
+			checked_in_source: {
+				artifact: 'data/raw/external/eloundou_gpts_occ_level.csv',
+				value_field: 'dv_rating_beta',
+				occupation_code_system: 'O*NET-SOC',
+				observation_vintage: null,
+				source: {
+					id: 'eloundou_gpts_are_gpts_2023',
+					publisher: 'OpenAI',
+					title:
+						'GPTs are GPTs: An Early Look at the Labor Market Impact Potential of Large Language Models',
+					url: 'https://arxiv.org/abs/2303.10130',
+					release_date: '2023-03-17'
+				}
+			},
+			mapping: {
+				method: 'official_ssoc_2024_to_isco08_then_verified_isco08_to_soc_then_exact_source_soc',
+				quality: 'rejected_unverified_provenance',
+				aggregation: 'not_applied'
+			},
+			published_coverage: { occupations: 0, denominator: 1001, percent: 0 },
+			limitations: [
+				'The GPT-4 beta rating is an early US O*NET-based capability judgement, not observed use, adoption, job loss, or a Singapore outcome.',
+				'The checked-in file is a 2023 model-rating artifact rather than an observed-use period.',
+				'Occupation values cannot be joined to SSOC 2024 until a reproducible ISCO-08 to SOC crosswalk is checked in and validated.'
+			]
+		},
+		observed_ai_use: {
+			target_field: 'comparison_evidence.observed_ai_use',
+			construct: 'observed_claude_occupation_use',
+			status: 'withheld_unverified_isco08_soc_crosswalk',
+			checked_in_source: {
+				artifact: 'data/raw/external/anthropic_job_exposure.csv',
+				value_field: 'observed_exposure',
+				occupation_code_system: 'US SOC',
+				observation_vintage: '2025-11',
+				source: {
+					id: 'anthropic_economic_index_2026',
+					publisher: 'Anthropic',
+					title: 'Anthropic Economic Index report: Economic primitives',
+					url: 'https://www.anthropic.com/research/anthropic-economic-index-january-2026-report',
+					release_date: '2026-01-15'
+				}
+			},
+			mapping: {
+				method: 'official_ssoc_2024_to_isco08_then_verified_isco08_to_soc_then_exact_source_soc',
+				quality: 'rejected_unverified_provenance',
+				aggregation: 'not_applied'
+			},
+			published_coverage: { occupations: 0, denominator: 1001, percent: 0 },
+			limitations: [
+				'Claude usage is platform-selected and is not a representative census of workers, employers, geographies, occupations, or all AI tools.',
+				'Observed platform use is not the share of a job automated, Singapore adoption, or a causal labour-market outcome.',
+				'Occupation values cannot be joined to SSOC 2024 until a reproducible ISCO-08 to SOC crosswalk is checked in and validated.'
+			]
+		},
+		potential_complementarity: {
+			target_field: 'comparison_evidence.potential_complementarity',
+			construct: 'potential_human_ai_complementarity',
+			status: 'withheld_unverified_crosswalk_and_construct_replication',
+			checked_in_source: {
+				artifact: 'data/intermediate/theta_by_soc.json',
+				value_field: 'theta',
+				occupation_code_system: 'US SOC',
+				observation_vintage: null,
+				source: {
+					id: 'pizzinelli_etal_2023',
+					publisher: 'International Monetary Fund',
+					title:
+						'Labor Market Exposure to AI: Cross-country Differences and Distributional Implications',
+					url: 'https://www.imf.org/en/Publications/WP/Issues/2023/10/04/Labor-Market-Exposure-to-AI-Cross-country-Differences-and-Distributional-Implications-539656',
+					release_date: '2023-10-04'
+				}
+			},
+			mapping: {
+				method: 'official_ssoc_2024_to_isco08_then_verified_isco08_to_soc_then_exact_source_soc',
+				quality: 'rejected_unverified_provenance_and_construct_replication',
+				aggregation: 'not_applied'
+			},
+			published_coverage: { occupations: 0, denominator: 1001, percent: 0 },
+			limitations: [
+				'The checked-in theta file is a repository-derived O*NET proxy, not a frozen occupation-level IMF source table.',
+				'The O*NET observation vintage and a row-level replication against the published IMF construct are not recorded.',
+				'Potential complementarity is cross-country context, not realised augmentation, job protection, or a Singapore outcome.',
+				'Occupation values also require a reproducible ISCO-08 to SOC crosswalk.'
+			]
+		}
+	}
+} as const satisfies V9ExternalComparisonAudit;
+
 interface RegistryEntry {
 	code: string;
 	title: string;
@@ -44,7 +197,31 @@ interface RegistryEntry {
 	};
 }
 
+export interface V9HeadlineRegistryEntry {
+	code: string;
+	official_isco08_codes: string[];
+}
+
+export interface IloOccupationEvidence {
+	mean_score_2025: number;
+	task_score_sd_2025: number;
+	potential25: V9IloExposureCategory;
+}
+
 type Cell = string | number | boolean | Date | null;
+
+const ILO_EXPOSURE_CATEGORIES = [
+	'Not Exposed',
+	'Minimal Exposure',
+	'Exposed: Gradient 1',
+	'Exposed: Gradient 2',
+	'Exposed: Gradient 3',
+	'Exposed: Gradient 4'
+] as const satisfies readonly V9IloExposureCategory[];
+
+const ILO_EXPOSURE_CATEGORY_ORDER = new Map<V9IloExposureCategory, number>(
+	ILO_EXPOSURE_CATEGORIES.map((category, index) => [category, index])
+);
 
 function round(value: number, decimals: number): number {
 	const multiplier = 10 ** decimals;
@@ -52,37 +229,86 @@ function round(value: number, decimals: number): number {
 }
 
 function median(values: number[]): number {
+	if (values.length === 0) throw new Error('Cannot calculate the median of an empty array');
 	const sorted = [...values].sort((a, b) => a - b);
 	const middle = Math.floor(sorted.length / 2);
-	return sorted.length % 2 === 0 ? (sorted[middle - 1] + sorted[middle]) / 2 : sorted[middle];
+	return sorted.length % 2 === 0 ? (sorted[middle - 1]! + sorted[middle]!) / 2 : sorted[middle]!;
 }
 
-function band(percentile: number): ExposureBand {
-	if (percentile < 20) return 'very_low';
-	if (percentile < 40) return 'low';
-	if (percentile < 60) return 'moderate';
-	if (percentile < 80) return 'high';
-	return 'very_high';
+function isIloExposureCategory(value: unknown): value is V9IloExposureCategory {
+	return ILO_EXPOSURE_CATEGORIES.includes(value as V9IloExposureCategory);
 }
 
-function loadIloScores(): Map<string, number> {
+function loadIloMetadata() {
+	const metadata = JSON.parse(fs.readFileSync(ILO_METADATA_FILE, 'utf8')) as {
+		file: string;
+		size_bytes: number;
+		sha256: string;
+		worksheet: string;
+		[key: string]: unknown;
+	};
+	const bytes = fs.readFileSync(ILO_FILE);
+	const digest = createHash('sha256').update(bytes).digest('hex');
+	if (metadata.file !== path.basename(ILO_FILE)) throw new Error('ILO metadata filename mismatch');
+	if (metadata.size_bytes !== bytes.length) throw new Error('ILO source size mismatch');
+	if (metadata.sha256 !== digest) throw new Error('ILO source checksum mismatch');
+	if (metadata.worksheet !== 'Sheet1') throw new Error('ILO source worksheet metadata mismatch');
+	return metadata;
+}
+
+function loadIloScores(): Map<string, IloOccupationEvidence> {
 	const workbook = XLSX.readFile(ILO_FILE);
 	const sheetName = workbook.SheetNames[0];
 	if (!sheetName) throw new Error('ILO workbook has no worksheet');
-	const rows = XLSX.utils.sheet_to_json<Record<string, unknown>>(workbook.Sheets[sheetName]);
-	const valuesByIsco = new Map<string, Set<number>>();
+	const sheet = workbook.Sheets[sheetName];
+	if (!sheet) throw new Error(`ILO workbook worksheet ${sheetName} is unavailable`);
+	const rows = XLSX.utils.sheet_to_json<Record<string, unknown>>(sheet);
+	const valuesByIsco = new Map<
+		string,
+		{
+			mean: Set<number>;
+			sd: Set<number>;
+			category: Set<V9IloExposureCategory>;
+		}
+	>();
 	for (const row of rows) {
 		const isco = String(row.ISCO_08 ?? '').trim();
-		const value = row.mean_score_2025;
-		if (!/^\d{4}$/.test(isco) || typeof value !== 'number' || !Number.isFinite(value)) continue;
-		const values = valuesByIsco.get(isco) ?? new Set<number>();
-		values.add(value);
+		if (!/^\d{4}$/.test(isco)) continue;
+		const mean = row.mean_score_2025;
+		const sd = row.SD_2025;
+		const category = row.potential25;
+		if (typeof mean !== 'number' || !Number.isFinite(mean) || mean < 0 || mean > 1) {
+			throw new Error(`${isco}: invalid mean_score_2025`);
+		}
+		if (typeof sd !== 'number' || !Number.isFinite(sd) || sd < 0 || sd > 1) {
+			throw new Error(`${isco}: invalid SD_2025`);
+		}
+		if (!isIloExposureCategory(category)) {
+			throw new Error(`${isco}: invalid potential25 category ${String(category)}`);
+		}
+		const values = valuesByIsco.get(isco) ?? {
+			mean: new Set<number>(),
+			sd: new Set<number>(),
+			category: new Set<V9IloExposureCategory>()
+		};
+		values.mean.add(mean);
+		values.sd.add(sd);
+		values.category.add(category);
 		valuesByIsco.set(isco, values);
 	}
-	const result = new Map<string, number>();
+	const result = new Map<string, IloOccupationEvidence>();
 	for (const [isco, values] of valuesByIsco) {
-		if (values.size !== 1) throw new Error(`${isco}: inconsistent mean_score_2025 values`);
-		result.set(isco, [...values][0]);
+		if (values.mean.size !== 1) throw new Error(`${isco}: inconsistent mean_score_2025 values`);
+		if (values.sd.size !== 1) throw new Error(`${isco}: inconsistent SD_2025 values`);
+		if (values.category.size !== 1) throw new Error(`${isco}: inconsistent potential25 values`);
+		const mean = [...values.mean][0]!;
+		const sd = [...values.sd][0]!;
+		const category = [...values.category][0]!;
+		result.set(isco, {
+			mean_score_2025: mean,
+			task_score_sd_2025: sd,
+			potential25: category
+		});
 	}
 	if (result.size !== 427) throw new Error(`expected 427 ILO ISCO groups, found ${result.size}`);
 	return result;
@@ -107,41 +333,160 @@ function loadWages(): Map<string, V9WageEvidence> {
 		if (!/^\d{5}$/.test(code)) continue;
 		if (result.has(code)) throw new Error(`${code}: duplicate MOM wage row`);
 		result.set(code, {
-			source: 'mom_occupational_wages_2025',
-			population: 'full_time_resident_employees_in_establishments_25_plus',
+			construct: 'observed_monthly_occupation_wages',
+			evidence_kind: 'observed',
+			geography: 'Singapore',
 			reference_period: '2025-06',
-			basic_monthly_sgd: {
-				p25: wageNumber(row, 3, code),
-				median: wageNumber(row, 4, code),
-				p75: wageNumber(row, 5, code)
+			source: {
+				id: 'mom_occupational_wages_2025',
+				publisher: 'Singapore Ministry of Manpower',
+				title: 'Occupational Wages 2025, Table 4',
+				url: 'https://stats.mom.gov.sg/Pages/Occupational-Wages-Tables2025.aspx',
+				release_date: null
 			},
-			gross_monthly_sgd: {
-				p25: wageNumber(row, 6, code),
-				median: wageNumber(row, 7, code),
-				p75: wageNumber(row, 8, code)
+			mapping: { method: 'exact_ssoc_2024_code', quality: 'direct' },
+			limitations: [
+				'Coverage is limited to full-time resident employees in establishments with at least 25 employees.'
+			],
+			value: {
+				basic_monthly_sgd: {
+					p25: wageNumber(row, 3, code),
+					median: wageNumber(row, 4, code),
+					p75: wageNumber(row, 5, code)
+				},
+				gross_monthly_sgd: {
+					p25: wageNumber(row, 6, code),
+					median: wageNumber(row, 7, code),
+					p75: wageNumber(row, 8, code)
+				}
 			}
 		});
 	}
 	if (result.size !== 523) throw new Error(`expected 523 MOM wage rows, found ${result.size}`);
-	if (result.get('12112')?.gross_monthly_sgd.median !== 8050) {
+	if (result.get('12112')?.value.gross_monthly_sgd.median !== 8050) {
 		throw new Error('Administration manager wage sentinel changed');
 	}
 	return result;
 }
 
-function midrankPercentiles(valuesByCode: Map<string, number>): Map<string, number> {
+interface MidrankResult {
+	percentile: number;
+	position: number;
+}
+
+export function midrankPercentiles(
+	valuesByCode: ReadonlyMap<string, number>
+): Map<string, MidrankResult> {
 	const rows = [...valuesByCode].sort((a, b) => a[1] - b[1] || a[0].localeCompare(b[0]));
-	const result = new Map<string, number>();
+	const result = new Map<string, MidrankResult>();
 	let start = 0;
 	while (start < rows.length) {
+		const current = rows[start]!;
 		let end = start;
-		while (end + 1 < rows.length && rows[end + 1][1] === rows[start][1]) end += 1;
+		while (end + 1 < rows.length && rows[end + 1]![1] === current[1]) end += 1;
 		const averageZeroBasedRank = (start + end) / 2;
 		const percentile = rows.length === 1 ? 50 : (averageZeroBasedRank / (rows.length - 1)) * 100;
 		for (let index = start; index <= end; index += 1)
-			result.set(rows[index][0], round(percentile, 1));
+			result.set(rows[index]![0], {
+				percentile: round(percentile, 1),
+				position: averageZeroBasedRank + 1
+			});
 		start = end + 1;
 	}
+	return result;
+}
+
+function categoryRange(categories: readonly V9IloExposureCategory[]) {
+	const sorted = [...new Set(categories)].sort(
+		(a, b) =>
+			(ILO_EXPOSURE_CATEGORY_ORDER.get(a) ?? Number.POSITIVE_INFINITY) -
+			(ILO_EXPOSURE_CATEGORY_ORDER.get(b) ?? Number.POSITIVE_INFINITY)
+	);
+	const leastExposed = sorted[0];
+	const mostExposed = sorted.at(-1);
+	if (!leastExposed || !mostExposed)
+		throw new Error('Cannot calculate an empty ILO category range');
+	return { categories: sorted, leastExposed, mostExposed };
+}
+
+/**
+ * Sole owner of V9 headline scores. Its inputs deliberately exclude wages, demand,
+ * observed use, complementarity, labour context, and every other sidecar.
+ */
+export function buildHeadlineExposure(
+	registry: readonly V9HeadlineRegistryEntry[],
+	iloScores: ReadonlyMap<string, IloOccupationEvidence>
+): Map<string, V9GenAiTaskExposure | null> {
+	const matchedByCode = new Map<string, V9IloIscoEvidence[]>();
+	const meanByCode = new Map<string, number>();
+
+	for (const entry of registry) {
+		const matches = entry.official_isco08_codes.flatMap(isco08Code => {
+			const evidence = iloScores.get(isco08Code);
+			return evidence
+				? [
+						{
+							isco08_code: isco08Code,
+							...evidence
+						} satisfies V9IloIscoEvidence
+					]
+				: [];
+		});
+		matchedByCode.set(entry.code, matches);
+		if (matches.length > 0) {
+			meanByCode.set(entry.code, round(median(matches.map(match => match.mean_score_2025)), 4));
+		}
+	}
+
+	const ranks = midrankPercentiles(meanByCode);
+	const result = new Map<string, V9GenAiTaskExposure | null>();
+	for (const entry of registry) {
+		const matches = matchedByCode.get(entry.code) ?? [];
+		const rank = ranks.get(entry.code);
+		if (matches.length === 0 || !rank) {
+			result.set(entry.code, null);
+			continue;
+		}
+
+		const means = matches.map(match => match.mean_score_2025);
+		const standardDeviations = matches.map(match => match.task_score_sd_2025);
+		const categories = categoryRange(matches.map(match => match.potential25));
+		const scoredCodes = new Set(matches.map(match => match.isco08_code));
+		result.set(entry.code, {
+			source: 'ilo_genai_2025',
+			mean_score_2025: {
+				median: round(median(means), 4),
+				min: round(Math.min(...means), 4),
+				max: round(Math.max(...means), 4)
+			},
+			task_score_sd_2025: {
+				median: round(median(standardDeviations), 4),
+				min: round(Math.min(...standardDeviations), 4),
+				max: round(Math.max(...standardDeviations), 4),
+				meaning: 'within_isco_occupation_task_score_dispersion'
+			},
+			potential25: {
+				categories: categories.categories,
+				least_exposed: categories.leastExposed,
+				most_exposed: categories.mostExposed
+			},
+			pressure_rank: {
+				percentile: rank.percentile,
+				midrank_position: rank.position,
+				method: 'midrank_percentile',
+				comparison_population: 'scored_ssoc_2024_occupations',
+				population_size: meanByCode.size,
+				direction: 'higher_means_more_genai_task_exposure'
+			},
+			official_isco08_codes: [...entry.official_isco08_codes],
+			scored_isco08_matches: matches,
+			unscored_official_isco08_codes: entry.official_isco08_codes.filter(
+				code => !scoredCodes.has(code)
+			),
+			aggregation: 'median_across_scored_official_isco_matches'
+		});
+	}
+
 	return result;
 }
 
@@ -151,6 +496,22 @@ function main() {
 	}
 	const registryDocument = JSON.parse(fs.readFileSync(REGISTRY_FILE, 'utf8')) as {
 		counts: { total: number; occupations: number; residual: number };
+		source: {
+			publisher: string;
+			taxonomy: string;
+			source_page: string;
+			terms_url: string;
+			retrieved_at: string;
+			files: Array<{
+				key: string;
+				purpose: string;
+				filename: string;
+				url: string;
+				published: string;
+				bytes: number;
+				sha256: string;
+			}>;
+		};
 		entries: RegistryEntry[];
 	};
 	if (
@@ -161,41 +522,19 @@ function main() {
 		throw new Error('SSOC 2024 registry count contract changed');
 	}
 	const registry = registryDocument.entries.filter(entry => entry.entry_kind === 'occupation');
+	const iloMetadata = loadIloMetadata();
 	const iloScores = loadIloScores();
+	const headlineExposure = buildHeadlineExposure(
+		registry.map(entry => ({
+			code: entry.code,
+			official_isco08_codes: entry.isco08.candidates.map(candidate => candidate.code)
+		})),
+		iloScores
+	);
 	const wages = loadWages();
 
-	const rawByCode = new Map<string, number>();
-	const iscoValuesByCode = new Map<string, { code: string; value: number }[]>();
-	for (const entry of registry) {
-		const candidates = entry.isco08.candidates
-			.map(candidate => ({ code: candidate.code, value: iloScores.get(candidate.code) }))
-			.filter(
-				(candidate): candidate is { code: string; value: number } => candidate.value !== undefined
-			);
-		iscoValuesByCode.set(entry.code, candidates);
-		if (candidates.length > 0)
-			rawByCode.set(entry.code, median(candidates.map(candidate => candidate.value)));
-	}
-	const percentiles = midrankPercentiles(rawByCode);
-
 	const occupations: V9Occupation[] = registry.map(entry => {
-		const candidates = iscoValuesByCode.get(entry.code) ?? [];
-		const rawMedian = rawByCode.get(entry.code);
-		const percentile = percentiles.get(entry.code);
-		let exposure: V9GenAiTaskExposure | null = null;
-		if (rawMedian !== undefined && percentile !== undefined) {
-			const values = candidates.map(candidate => candidate.value);
-			exposure = {
-				source: 'ilo_genai_2025',
-				raw_median: round(rawMedian, 4),
-				raw_min: round(Math.min(...values), 4),
-				raw_max: round(Math.max(...values), 4),
-				percentile,
-				band: band(percentile),
-				isco08_codes: candidates.map(candidate => candidate.code),
-				aggregation: 'median_across_official_isco_matches'
-			};
-		}
+		const exposure = headlineExposure.get(entry.code) ?? null;
 		const limitations = [
 			'Exposure measures task overlap with current GenAI capabilities; it is not a job-loss probability or forecast.'
 		];
@@ -206,6 +545,11 @@ function main() {
 		}
 		if (!exposure)
 			limitations.push('No usable ILO 2025 score exists for the official ISCO mapping.');
+		if (exposure && exposure.unscored_official_isco08_codes.length > 0) {
+			limitations.push(
+				'At least one official ISCO match has no ILO 2025 score; the point estimate uses only the scored official matches.'
+			);
+		}
 		if (!wages.has(entry.code)) {
 			limitations.push('MOM does not publish a 2025 detailed wage row for this occupation.');
 		}
@@ -237,7 +581,12 @@ function main() {
 			},
 			evidence: {
 				mapping_quality: entry.isco08.quality,
-				support: exposure ? 'official_crosswalk' : 'unavailable',
+				support: exposure
+					? 'official_crosswalk'
+					: entry.isco08.candidates.length > 0
+						? 'official_crosswalk_without_ilo_score'
+						: 'unmatched',
+				official_isco08_codes: entry.isco08.candidates.map(candidate => candidate.code),
 				sources: [
 					'Singapore Department of Statistics SSOC 2024',
 					...(exposure ? ['ILO Generative AI and Jobs refined index (2025)'] : []),
@@ -270,24 +619,31 @@ function main() {
 		`${JSON.stringify(
 			{
 				schema_version: '9.0',
-				release: 'SSOC 2024 evidence-first V9',
+				release: 'SSOC 2024 AI Work Pressure V9',
 				generated_at: '2026-08-19',
 				method: {
-					headline_construct: 'Relative GenAI task exposure',
+					headline_construct:
+						'AI Work Pressure Rank: relative GenAI task exposure, not an outcome probability',
 					headline_owner: 'ILO 2025 mean_score_2025',
 					multi_mapping:
-						'Median of available official ISCO-08 matches; minimum and maximum retained',
-					ranking: 'Midrank percentile among scored SSOC 2024 occupations',
-					bands: 'Five equal-width percentile intervals',
-					fallbacks: 'None'
+						'Median of scored official ISCO-08 matches; all official candidates, scored values, ranges, SD_2025 and potential25 categories retained',
+					source_score_scale:
+						'ILO mean_score_2025 and task_score_sd_2025 are stored on a 0 to 1 scale; the UI may display the same values multiplied by 100 and labelled /100.',
+					ranking: 'Midrank percentile among scored SSOC 2024 occupations, rounded to one decimal',
+					official_categories: [...ILO_EXPOSURE_CATEGORIES],
+					fallbacks: 'No occupation-group or demand fallback',
+					sidecars:
+						'Nullable independent evidence blocks; none can change the AI Work Pressure Rank',
+					detailed_tasks:
+						'Withheld at five-digit occupation grain. SSOC 2024 publishes task statements at four-digit unit-group grain, and V9 does not copy them down to detailed occupations.',
+					external_comparison_audit: V9_EXTERNAL_COMPARISON_AUDIT
 				},
 				sources: {
 					taxonomy:
-						registryDocument.entries.length === 1006 ? 'data/ssoc-2024-registry.json' : null,
-					exposure: {
-						file: 'data/raw/external/ilo_genai_scores_isco08_2025.xlsx',
-						url: 'https://www.ilo.org/publications/generative-ai-and-jobs-refined-global-index-occupational-exposure'
-					},
+						registryDocument.entries.length === 1006
+							? { artifact: 'data/ssoc-2024-registry.json', ...registryDocument.source }
+							: null,
+					exposure: iloMetadata,
 					wages: wageMetadata
 				},
 				counts: {
@@ -307,4 +663,4 @@ function main() {
 	);
 }
 
-main();
+if (import.meta.main) main();

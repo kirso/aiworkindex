@@ -3,8 +3,12 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-import { DATA_VINTAGE } from '../src/lib/data/scoring-constants';
-import { researchRegistry } from '../src/lib/data/research-registry';
+import {
+	RESEARCH_LIBRARY_VERSION,
+	RESEARCH_REVIEW_CUTOFF,
+	V9_HEADLINE_RESEARCH_KEY,
+	researchRegistry
+} from '../src/lib/data/research-registry';
 
 const ROOT_DIR = path.join(import.meta.dir, '..');
 const DATA_DIR = path.join(ROOT_DIR, 'data');
@@ -21,13 +25,18 @@ function writeJson(filePath: string, payload: unknown): void {
 }
 
 const entries = [...researchRegistry].sort((a, b) => {
-	if (b.year !== a.year) return b.year - a.year;
+	const dateOrder = b.published_at.localeCompare(a.published_at);
+	if (dateOrder !== 0) return dateOrder;
 	return a.title.localeCompare(b.title);
 });
 
 const payload = {
-	version: DATA_VINTAGE.model_version,
-	generated_at: new Date().toISOString(),
+	version: RESEARCH_LIBRARY_VERSION,
+	generated_at: RESEARCH_REVIEW_CUTOFF,
+	review_cutoff: RESEARCH_REVIEW_CUTOFF,
+	headline_research_key: V9_HEADLINE_RESEARCH_KEY,
+	methodology_note:
+		'Only the ILO 2025 refined exposure index supplies the V9 headline structural score. Platform usage, capability, complementarity and labour-outcome research remain separate evidence or interpretation.',
 	entry_count: entries.length,
 	domain_counts: Object.fromEntries(
 		[

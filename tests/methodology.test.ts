@@ -219,7 +219,7 @@ function assertClose(actual: number, expected: number, tolerance: number, messag
 	);
 }
 
-describe('methodology formulas', () => {
+describe('archived V7/V8 methodology regression invariants', () => {
 	test('structural score helpers match canonical formulas', () => {
 		const scores = computeStructuralScores({
 			exposure: 0.72,
@@ -238,7 +238,7 @@ describe('methodology formulas', () => {
 		assertClose(blendEmploymentMomentum(0.3, 0.7), 0.56, 1e-10);
 	});
 
-	test('stored live occupations reproduce the V7 formulas', () => {
+	test('stored archived occupations reproduce the V7 formulas', () => {
 		const structuralRows = JSON.parse(
 			fs.readFileSync(path.join(process.cwd(), 'data', 'occupations.json'), 'utf-8')
 		) as Occupation[];
@@ -277,7 +277,7 @@ describe('methodology formulas', () => {
 		}
 	});
 
-	test('application occupations expose V8 display aliases over retained V7 inputs', () => {
+	test('archived V8 application fixtures expose display aliases over retained V7 inputs', () => {
 		for (const occupation of occupations.slice(0, 50)) {
 			assert.equal(occupation.structural_model_version, 'V7');
 			assert.equal(occupation.v8.schema_version, '8.0');
@@ -480,7 +480,7 @@ describe('task primitive invariants', () => {
 		);
 	});
 
-	test('published live occupations expose weighted and sparse task primitives where evidence exists', () => {
+	test('archived V7/V8 occupations retain weighted and sparse task primitives where evidence exists', () => {
 		const weighted = occupations.filter(
 			occupation => occupation.task_primitives?.method === 'anthropic_task_penetration_v1'
 		);
@@ -570,6 +570,78 @@ describe('research registry invariants', () => {
 			for (const researchKey of source.research_keys ?? []) {
 				assert.ok(researchLibrary.entries.some(entry => entry.key === researchKey));
 			}
+		}
+	});
+
+	test('V9 research roles separate the headline source from external evidence', () => {
+		const requiredCurrentKeys = [
+			'ilo_genai_exposure_2025',
+			'anthropic_labor_market_impacts_2026',
+			'anthropic_economic_index_cadences_2026',
+			'openai_jobs_transition_2026',
+			'openai_agents_transforming_work_2026',
+			'openai_work_at_frontier_2026',
+			'openai_signals_global_work_2026',
+			'microsoft_working_with_ai_2025',
+			'microsoft_future_of_work_2026',
+			'manning_aguirre_adaptive_capacity_2026',
+			'acemoglu_autor_johnson_pro_worker_ai_2026',
+			'althoff_reichardt_task_specific_change_2026',
+			'oecd_employment_outlook_2026',
+			'costa_frontier_ai_measurement_2026',
+			'yin_ogut_2026'
+		];
+
+		for (const key of requiredCurrentKeys) {
+			assert.ok(
+				researchLibrary.entries.some(entry => entry.key === key),
+				`missing ${key}`
+			);
+		}
+
+		assert.equal(researchLibrary.version, 'V9');
+		assert.equal(researchLibrary.review_cutoff, '2026-08-19');
+		assert.equal(researchLibrary.headline_research_key, 'ilo_genai_exposure_2025');
+		assert.equal(researchLibrary.entry_count, researchLibrary.entries.length);
+		assert.equal(
+			Object.values(researchLibrary.role_counts).reduce((sum, count) => sum + count, 0),
+			researchLibrary.entry_count
+		);
+		for (const entry of researchLibrary.entries) {
+			assert.ok(
+				entry.published_at.localeCompare(researchLibrary.review_cutoff) <= 0,
+				`${entry.key} is later than the declared research cutoff`
+			);
+		}
+		for (let index = 1; index < researchLibrary.entries.length; index += 1) {
+			assert.ok(
+				researchLibrary.entries[index - 1]!.published_at.localeCompare(
+					researchLibrary.entries[index]!.published_at
+				) >= 0,
+				'research entries must be sorted newest first'
+			);
+		}
+
+		assert.deepEqual(
+			researchLibrary.entries.filter(entry => entry.role === 'active_core').map(entry => entry.key),
+			['ilo_genai_exposure_2025']
+		);
+
+		const stanford = researchLibrary.entries.find(
+			entry => entry.key === 'brynjolfsson_chandar_chen_2025'
+		);
+		assert.equal(stanford?.published_at, '2026-08-12');
+		assert.ok(stanford?.repo_notes.includes('does not apply age or seniority modifiers'));
+
+		for (const key of [
+			'anthropic_economic_index_cadences_2026',
+			'openai_agents_transforming_work_2026',
+			'openai_work_at_frontier_2026',
+			'openai_signals_global_work_2026',
+			'microsoft_working_with_ai_2025'
+		]) {
+			const entry = researchLibrary.entries.find(candidate => candidate.key === key);
+			assert.notEqual(entry?.role, 'active_core', `${key} must remain external context`);
 		}
 	});
 });
@@ -1006,7 +1078,8 @@ describe('global expansion invariants', () => {
 		assert.deepEqual(supportedCountryCodes, ['global', 'sg', 'us', 'uk', 'ca']);
 		assert.equal(countryConfigs.global.canonicalSystem, 'ISCO-08');
 		assert.equal(countryConfigs.sg.status, 'live');
-		assert.equal(countryConfigs.us.status, 'research');
+		assert.equal(countryConfigs.us.status, 'preview');
+		assert.equal(countryConfigs.sg.classificationSystem, 'SSOC 2024');
 		assert.equal(countryConfigs.us.currency, 'USD');
 		assert.equal(countryConfigs.uk.status, 'research');
 		assert.equal(countryConfigs.uk.classificationSystem, 'SOC 2020');
@@ -1020,18 +1093,20 @@ describe('global expansion invariants', () => {
 		assert.ok(globalMethodology.principles.length >= 4);
 		assert.ok(globalMethodology.validationLadder.length >= 4);
 		assert.ok(globalMethodology.publicationGates.length >= 4);
-		assert.equal(globalMethodology.publicationRules.minimumMappingCoverage, 0.8);
-		assert.equal(globalMethodology.publicationRules.maximumFallbackShare, 0.2);
-		assert.equal(globalMethodology.publicationRules.minimumConfidenceLevel, 'medium');
-		assert.equal(globalMethodology.publicationRules.requireOfficialLocalDemandSource, true);
-		assert.ok(globalMethodology.publicationGates.some(entry => entry.key === 'regulatory_overlay'));
+		assert.equal(globalMethodology.publicationRules.requireCurrentOfficialTaxonomy, true);
+		assert.equal(globalMethodology.publicationRules.requireExplicitReferencePopulation, true);
+		assert.equal(globalMethodology.publicationRules.requirePublishedMappingAudit, true);
+		assert.equal(globalMethodology.publicationRules.forbidBroadScoreFallback, true);
+		assert.equal(globalMethodology.publicationRules.requireSeparateLocalEvidence, true);
+		assert.equal(globalMethodology.publicationRules.requireLocalValidationBeforeForecasts, true);
+		assert.ok(globalMethodology.principles.some(entry => entry.key === 'regulatory-overlay'));
 		assert.ok(globalMethodology.countryReadiness.some(entry => entry.code === 'sg'));
 		assert.ok(globalMethodology.countryReadiness.some(entry => entry.code === 'us'));
 		assert.ok(globalMethodology.countryReadiness.some(entry => entry.code === 'uk'));
 		assert.ok(globalMethodology.countryReadiness.some(entry => entry.code === 'ca'));
 		assert.equal(
 			globalMethodology.countryReadiness.find(entry => entry.code === 'us')?.readiness,
-			'withdrawn'
+			'preview'
 		);
 		assert.equal(
 			globalMethodology.countryReadiness.find(entry => entry.code === 'uk')?.readiness,
@@ -1039,7 +1114,7 @@ describe('global expansion invariants', () => {
 		);
 	});
 
-	test('global and US datasets are generated from the shared methodology contract', () => {
+	test('archived global and US datasets retain the shared methodology contract', () => {
 		assert.ok(globalOccupations.length >= 250);
 		assert.ok(
 			globalOccupations.every(row => row.structuralPressure >= 0 && row.structuralPressure <= 1)
@@ -1054,7 +1129,7 @@ describe('global expansion invariants', () => {
 		assert.ok(usOccupations.every(row => row.headlineRisk >= 0 && row.headlineRisk <= 1));
 	});
 
-	test('country occupation page helpers expose live SG and US pages', () => {
+	test('archived country occupation helpers retain SG and US fixtures', () => {
 		const sgRows = getCountryOccupationRows('sg');
 		const usRows = getCountryOccupationRows('us');
 
@@ -1074,7 +1149,7 @@ describe('global expansion invariants', () => {
 		assert.ok((usSoftware?.headlineRisk ?? 0) >= 0 && (usSoftware?.headlineRisk ?? 1) <= 1);
 	});
 
-	test('homepage surface contract exposes Singapore as the only live scored market', () => {
+	test('current homepage surface contract exposes Singapore as the only scored market', () => {
 		assert.equal(resolveHomeSurfaceCode(null), 'sg');
 		assert.equal(resolveHomeSurfaceCode('us'), 'sg');
 		assert.deepEqual(
@@ -1092,7 +1167,7 @@ describe('global expansion invariants', () => {
 		assert.ok(sgSurface.occupations[0]?.linkHref?.startsWith('/occupation/'));
 	});
 
-	test('V8 percentile, band and pathway rules are deterministic at boundaries and ties', () => {
+	test('archived V8 percentile, band and pathway rules remain deterministic at boundaries and ties', () => {
 		assert.deepEqual(midrankPercentiles([1, 2, 2, 4]), [0, 50, 50, 100]);
 		assert.deepEqual([0, 19.99, 20, 39.99, 40, 59.99, 60, 79.99, 80, 100].map(v8BandFromPoints), [
 			'very_low',
@@ -1130,7 +1205,7 @@ describe('global expansion invariants', () => {
 		);
 	});
 
-	test('V8 public export is clean and contains no legacy probability-like score contract', () => {
+	test('archived V8 public export retains its probability-free public contract', () => {
 		const publicRows = JSON.parse(
 			fs.readFileSync(path.join(process.cwd(), 'data', 'occupations-v8.json'), 'utf-8')
 		) as Array<Record<string, unknown>>;

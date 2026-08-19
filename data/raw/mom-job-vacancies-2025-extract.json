@@ -23,7 +23,7 @@
   "entry_level_pmet": {
     "share_pct": 42.9,
     "vacancies_thousands": 32.5,
-    "definition": "PMET vacancies with offered monthly salary from SGD 2,300 to SGD 5,000, from job portals and openings reported by local job seekers.",
+    "definition": "Vacancies suitable for fresh graduates, advertised to recruit local job seekers, with a minimum monthly salary from SGD 2,300 to SGD 5,000; sources include MOM surveys and online job portals.",
     "source_boundary": "This measure uses a different source and denominator from the employer vacancy survey."
   },
   "no_experience_required_by_industry_pct": {
