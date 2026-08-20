@@ -1,8 +1,8 @@
 /**
  * AI Work Index — warm evidence-editorial design system.
  *
- * Schibsted Grotesk carries the reading experience; IBM Plex Mono is reserved
- * for provenance, codes and tabular values. Pressure, occupation family,
+ * Lyra supplies the component geometry, Outfit carries the reading experience,
+ * and Geist Mono carries headings, provenance, codes and tabular values. Pressure, occupation family,
  * evidence status and action guidance are independent semantic channels.
  */
 
@@ -18,7 +18,7 @@ import * as d3Scale from 'd3-scale';
 
 /** Display — hero numbers, the star of every page */
 export const display = tv({
-	base: 'font-sans font-black tracking-display leading-display text-foreground tabular-nums',
+	base: 'font-heading font-bold tracking-display leading-display text-foreground tabular-nums',
 	variants: {
 		size: {
 			xl: 'text-6xl sm:text-7xl lg:text-8xl',
@@ -31,7 +31,7 @@ export const display = tv({
 
 /** Title — page and section headings */
 export const title = tv({
-	base: 'font-sans font-bold text-foreground tracking-display leading-heading',
+	base: 'font-heading font-bold text-foreground tracking-display leading-heading',
 	variants: {
 		size: {
 			page: 'text-[2.375rem] sm:text-5xl lg:text-6xl',
@@ -154,7 +154,7 @@ export const section = tv({
 // ============================================
 
 export const card = tv({
-	base: 'rounded-xl border border-border bg-card shadow-xs',
+	base: 'rounded-none border border-border bg-card shadow-xs',
 	variants: {
 		padding: {
 			none: '',
@@ -169,12 +169,12 @@ export const card = tv({
 		variant: {
 			default: '',
 			flat: 'shadow-none',
-			inset: 'rounded-lg border-transparent bg-inset shadow-none',
+			inset: 'rounded-none border-transparent bg-inset shadow-none',
 			elevated: 'border-transparent bg-white shadow-md',
 			/** Subtle surface — section panels. */
 			subtle: 'bg-surface-subtle shadow-none',
 			/** Metric surface — stat grouping cards. */
-			metric: 'rounded-lg bg-surface-metric shadow-none',
+			metric: 'rounded-none bg-surface-metric shadow-none',
 			/** Notice — contextual callout. Pair with accent for semantic color. */
 			notice: ''
 		},
@@ -257,7 +257,7 @@ export const impactBadge = tv({
 });
 
 export const badge = tv({
-	base: 'inline-flex items-center rounded-md px-2 py-1 text-xs font-medium',
+	base: 'inline-flex items-center rounded-none px-2 py-1 text-xs font-medium',
 	variants: {
 		variant: {
 			default: 'bg-secondary text-secondary-foreground',
@@ -284,7 +284,7 @@ export const badge = tv({
 // ============================================
 
 export const pill = tv({
-	base: 'inline-flex items-center rounded-lg font-medium',
+	base: 'inline-flex items-center rounded-none font-medium',
 	variants: {
 		size: {
 			sm: 'px-2 py-1 text-xs',
@@ -317,7 +317,7 @@ export const pill = tv({
 // ============================================
 
 export const chip = tv({
-	base: 'min-h-11 rounded-lg border px-3 py-2 text-sm font-medium transition-all duration-200 ease-editorial',
+	base: 'min-h-11 rounded-none border px-3 py-2 text-sm font-medium transition-all duration-200 ease-editorial',
 	variants: {
 		active: {
 			true: 'chip-active border-foreground bg-foreground text-background',
@@ -328,7 +328,7 @@ export const chip = tv({
 });
 
 export const formInput = tv({
-	base: 'min-h-11 w-full rounded-lg border border-input bg-card px-3 py-2 text-base text-foreground shadow-xs placeholder:text-muted-foreground outline-none transition-[border-color,box-shadow] duration-200 focus:border-ring focus:ring-2 focus:ring-ring/20',
+	base: 'min-h-11 w-full rounded-none border border-input bg-card px-3 py-2 text-base text-foreground shadow-xs placeholder:text-muted-foreground outline-none transition-[border-color,box-shadow] duration-200 focus:border-ring focus:ring-2 focus:ring-ring/20',
 	variants: {
 		size: {
 			sm: 'px-2.5 py-1.5 text-sm',
@@ -361,7 +361,7 @@ export const pressureColorScale = d3Scale
 	.clamp(true);
 
 export const evidenceBadge = tv({
-	base: 'inline-flex items-center gap-1.5 rounded-md border bg-card px-2 py-1 text-xs font-medium',
+	base: 'inline-flex items-center gap-1.5 rounded-none border bg-card px-2 py-1 text-xs font-medium',
 	variants: {
 		status: {
 			source: 'border-evidence-source/30 text-evidence-source',
@@ -377,7 +377,7 @@ export const evidenceBadge = tv({
 
 /** Action-lane container for PersonalWorkCheck and occupation guidance. */
 export const actionCard = tv({
-	base: 'rounded-lg border px-4 py-3',
+	base: 'rounded-none border px-4 py-3',
 	variants: {
 		action: {
 			try: 'border-action-try-border bg-action-try-subtle text-action-try',
@@ -392,7 +392,7 @@ export const actionCard = tv({
 
 /** Compact word label for the same action lanes. Always keep the text visible. */
 export const actionBadge = tv({
-	base: 'inline-flex items-center rounded-md border px-2 py-1 text-xs font-semibold',
+	base: 'inline-flex items-center rounded-none border px-2 py-1 text-xs font-semibold',
 	variants: {
 		action: {
 			try: 'border-action-try-border bg-action-try-subtle text-action-try',
@@ -418,12 +418,12 @@ export const actionBadge = tv({
 
 /** Data chip — neutral mono tag for comparisons, skills, method notes. */
 export const dataChip = tv({
-	base: 'inline-block rounded-md bg-muted px-2.5 py-1 font-mono text-xs uppercase tracking-wide text-text-secondary'
+	base: 'inline-block rounded-none bg-muted px-2.5 py-1 font-mono text-xs uppercase tracking-wide text-text-secondary'
 });
 
 /** Link pill — navigation only. Ink border, trailing arrow added by caller. */
 export const linkPill = tv({
-	base: 'inline-flex min-h-11 items-center gap-1.5 rounded-lg border border-foreground px-4 py-2 text-sm font-semibold text-foreground no-underline transition-[transform,background-color,color] duration-200 ease-editorial hover:-translate-y-0.5 hover:bg-foreground hover:text-background active:translate-y-0'
+	base: 'inline-flex min-h-11 items-center gap-1.5 rounded-none border border-foreground px-4 py-2 text-sm font-semibold text-foreground no-underline transition-[transform,background-color,color] duration-200 ease-editorial hover:-translate-y-0.5 hover:bg-foreground hover:text-background active:translate-y-0'
 });
 
 /** Numbered section header: mono signal-accent number + bold title. */
