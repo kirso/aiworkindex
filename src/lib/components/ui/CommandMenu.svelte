@@ -1,8 +1,10 @@
 <script lang="ts">
+	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
 	import { trackProductEvent } from '$lib/analytics';
 	import * as Command from '$lib/components/ui/command/index.js';
 	import { countryConfigs } from '$lib/data/country-config';
+	import { cn } from '$lib/utils';
 
 	type SearchIndex = {
 		occupations: Array<{
@@ -181,12 +183,17 @@
 		});
 		navigate(href);
 	}
+
+	let hideHeaderSearch = $derived(page.url.pathname === '/');
 </script>
 
 <svelte:document onkeydown={handleKeydown} />
 
 <button
-	class="hidden items-center gap-2 rounded-lg border border-header-active-bg bg-header-active-bg/30 px-3 py-1.5 text-xs text-header-muted transition-colors hover:bg-header-active-bg hover:text-header-text sm:flex"
+	class={cn(
+		'items-center gap-2 rounded-none border border-header-active-bg bg-header-active-bg/30 px-3 py-1.5 text-xs text-header-muted transition-colors hover:bg-header-active-bg hover:text-header-text',
+		hideHeaderSearch ? 'hidden' : 'hidden sm:flex'
+	)}
 	onclick={openSearch}
 >
 	<svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -200,17 +207,29 @@
 </button>
 
 <button
-	class="flex items-center justify-center rounded-lg p-1.5 text-header-muted transition-colors hover:bg-header-active-bg hover:text-header-text sm:hidden"
+	class={cn(
+		'items-center justify-center rounded-none p-1.5 text-header-muted transition-colors hover:bg-header-active-bg hover:text-header-text',
+		hideHeaderSearch ? 'hidden' : 'flex sm:hidden'
+	)}
 	onclick={openSearch}
-	aria-label="Search"
+	aria-label="Search occupations and pages"
 >
 	<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 		<circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
 	</svg>
 </button>
 
-<Command.Dialog bind:open shouldFilter={false}>
-	<Command.Input placeholder="Search occupations, roles or pages…" bind:value={query} />
+<Command.Dialog
+	bind:open
+	shouldFilter={false}
+	title="Search occupations and pages"
+	description="Find an occupation, a familiar job title, or a site page."
+>
+	<Command.Input
+		placeholder="Search occupations, roles or pages…"
+		aria-label="Search occupations, roles or pages"
+		bind:value={query}
+	/>
 	<Command.List>
 		<Command.Empty>
 			<div class="py-4 text-center">
