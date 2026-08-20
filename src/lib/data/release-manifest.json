@@ -18,8 +18,8 @@
       "label": "V9 public JSON",
       "category": "structural_pressure",
       "description": "SSOC 2024 AI Work Pressure ranks, uncertainty, wages, and evidence links.",
-      "bytes": 4824632,
-      "sha256": "1a697ec656c930829890a2884a443689042cf3c51b33310d6789803de2ee441a",
+      "bytes": 4825108,
+      "sha256": "40d0e3dfe46e8bf3cb7b4a5f9d57c70258927b2889a67954648758fb1f7e221a",
       "generated_at": "2026-08-19"
     },
     {
@@ -40,6 +40,26 @@
       "description": "Reviewed demand signals and labour evidence kept separate from pressure ranks.",
       "bytes": 81185,
       "sha256": "e49176f7fecf57f837c40b22ce0b371dc225bd7fd5b82de816fdc1e9e5dad177",
+      "generated_at": "2026-08-19"
+    },
+    {
+      "file": "ilo-isco-task-evidence-v9.json",
+      "public_path": "/data/ilo-isco-task-evidence-v9.json",
+      "label": "ILO task evidence by ISCO-08 group",
+      "category": "task_evidence",
+      "description": "Attributed ILO task text and 2025 scores at four-digit ISCO grain; mapped examples never change occupation pressure ranks.",
+      "bytes": 842967,
+      "sha256": "9f39f5062f65c5de9b3a267a69c2ad825f1336935e0feb52cd604339f662fa52",
+      "generated_at": "2026-08-19"
+    },
+    {
+      "file": "v9-external-crosswalk-audit.json",
+      "public_path": "/data/v9-external-crosswalk-audit.json",
+      "label": "V9 external crosswalk audit",
+      "category": "external_evidence",
+      "description": "Checksum-pinned ESCO-O*NET candidate mapping audit and explicit publication gates; no external values enter the headline.",
+      "bytes": 371983,
+      "sha256": "0c43049378fe4fddff0cfa0356a83cbe5e2dee277e6b39407af9999ca73d7ac1",
       "generated_at": "2026-08-19"
     },
     {
@@ -88,8 +108,8 @@
       "label": "Current release status",
       "category": "governance",
       "description": "Bounded current V9 facts, evidence vintages, withheld inputs, and archive links.",
-      "bytes": 3865,
-      "sha256": "e2867f2dc1fcc57339fbfc663e520573c95b49140a81f1d6f3424dfca3e9743f",
+      "bytes": 4117,
+      "sha256": "3b41442cee157c4941dcc53a2c054b5600515a13d57bcbb19a1752d65763116b",
       "generated_at": "2026-08-19"
     },
     {
@@ -108,8 +128,8 @@
       "label": "Concise machine-readable guide",
       "category": "discovery",
       "description": "Concise V9 scope, interpretation, and canonical links.",
-      "bytes": 2553,
-      "sha256": "5f877aaec820967ceb20034ca2be4461879faf6a6feaffdc4e34beb212fefecf",
+      "bytes": 2662,
+      "sha256": "c69cdcc464b37f08ba19c0023d28a6af69ef38147ff25f93538815523f505147",
       "generated_at": "2026-08-19"
     },
     {
@@ -118,8 +138,8 @@
       "label": "Full machine-readable guide",
       "category": "discovery",
       "description": "Full V9 method, limitations, official occupations, reviewed modern-title resolutions and non-official role-query links.",
-      "bytes": 148065,
-      "sha256": "efcc7f32277746355d433226081d256638677744b385cea7e94065799330f5fe",
+      "bytes": 148716,
+      "sha256": "2ec1a38929a577ed7cf8bcfdd8abc06079cdad64f6fa6c6287c1e26a9013cd5d",
       "generated_at": "2026-08-19"
     },
     {

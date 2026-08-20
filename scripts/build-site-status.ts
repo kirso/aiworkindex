@@ -17,6 +17,7 @@ const SRC_DATA_DIR = path.join(ROOT_DIR, 'src', 'lib', 'data');
 const V9_RELEASE_FILE = path.join(ROOT_DIR, 'data', 'occupations-v9.json');
 const V9_MARKET_FILE = path.join(ROOT_DIR, 'data', 'v9-market-context.json');
 const V9_ROLES_FILE = path.join(ROOT_DIR, 'data', 'synthetic-roles-v9.json');
+const V9_EXTERNAL_AUDIT_FILE = path.join(ROOT_DIR, 'data', 'v9-external-crosswalk-audit.json');
 const RESEARCH_LIBRARY_FILE = path.join(ROOT_DIR, 'data', 'research-library.json');
 
 const SITE_STATUS_OUT = path.join(STATIC_DATA_DIR, 'site-status.json');
@@ -89,6 +90,15 @@ type ResearchLibrary = {
 	entry_count: number;
 };
 
+type V9ExternalAudit = {
+	status: string;
+	headline_effect: 'none';
+	quality: {
+		relevant_official_isco08_groups: number;
+		strict_mapped_isco08_groups: number;
+	};
+};
+
 function readJson<T>(filePath: string): T {
 	if (!fs.existsSync(filePath)) throw new Error(`Missing required V9 artifact: ${filePath}`);
 	return JSON.parse(fs.readFileSync(filePath, 'utf8')) as T;
@@ -102,6 +112,7 @@ function writeJson(filePath: string, payload: unknown): void {
 const V9_RELEASE = readJson<V9Release>(V9_RELEASE_FILE);
 const V9_MARKET = readJson<V9Market>(V9_MARKET_FILE);
 const V9_ROLES = readJson<V9Roles>(V9_ROLES_FILE);
+const V9_EXTERNAL_AUDIT = readJson<V9ExternalAudit>(V9_EXTERNAL_AUDIT_FILE);
 const RESEARCH_LIBRARY = readJson<ResearchLibrary>(RESEARCH_LIBRARY_FILE);
 
 const LATEST_OFFICIAL_LABOUR_REPORT = {
@@ -346,7 +357,13 @@ function buildSiteStatus() {
 		external_comparisons: {
 			status: 'withheld',
 			headline_effect: 'none',
-			reason_code: 'missing_verified_isco08_to_soc_provenance_or_construct_replication',
+			audit_artifact: 'v9-external-crosswalk-audit.json',
+			audit_status: V9_EXTERNAL_AUDIT.status,
+			strict_candidate_chain_coverage: {
+				isco08_groups: V9_EXTERNAL_AUDIT.quality.strict_mapped_isco08_groups,
+				total_relevant_isco08_groups: V9_EXTERNAL_AUDIT.quality.relevant_official_isco08_groups
+			},
+			reason_code: 'source_versions_transfer_rules_or_construct_artifacts_not_publishable',
 			coverage: {
 				aioe: { published: 0, total: V9_RELEASE.counts.occupations },
 				eloundou: { published: 0, total: V9_RELEASE.counts.occupations },

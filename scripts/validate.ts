@@ -1839,11 +1839,14 @@ async function main() {
 			JSON.stringify(siteStatus?.role_query_layer)
 		);
 		check(
-			'Site status withholds unreplicated external occupation comparisons',
+			'Site status publishes the crosswalk audit while withholding unvalidated external values',
 			siteStatus?.external_comparisons.status === 'withheld' &&
 				siteStatus.external_comparisons.headline_effect === 'none' &&
 				siteStatus.external_comparisons.reason_code ===
-					'missing_verified_isco08_to_soc_provenance_or_construct_replication' &&
+					'source_versions_transfer_rules_or_construct_artifacts_not_publishable' &&
+				siteStatus.external_comparisons.audit_artifact === 'v9-external-crosswalk-audit.json' &&
+				siteStatus.external_comparisons.audit_status ===
+					'crosswalk_chain_available_sidecars_still_withheld' &&
 				JSON.stringify(Object.keys(siteStatus.external_comparisons.coverage).sort()) ===
 					JSON.stringify(
 						['aioe', 'eloundou', 'observed_ai_use', 'potential_complementarity'].sort()

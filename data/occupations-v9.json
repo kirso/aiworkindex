@@ -18,24 +18,24 @@
     ],
     "fallbacks": "No occupation-group or demand fallback",
     "sidecars": "Nullable independent evidence blocks; none can change the AI Work Pressure Rank",
-    "detailed_tasks": "Withheld at five-digit occupation grain. SSOC 2024 publishes task statements at four-digit unit-group grain, and V9 does not copy them down to detailed occupations.",
+    "detailed_tasks": "Withheld at five-digit occupation grain. SSOC 2024 publishes task statements at four-digit unit-group grain, and V9 does not copy them down to detailed occupations. Attributed ILO task rows are published separately at four-digit ISCO grain and never change the headline rank.",
     "external_comparison_audit": {
       "headline_effect": "none",
       "mapping_policy": "official_ssoc_2024_to_isco08_then_verified_isco08_to_soc_then_exact_source_soc",
       "reviewed_mapping_artifact": {
-        "path": "scripts/crosswalk.ts",
-        "status": "rejected_for_v9",
+        "path": "data/v9-external-crosswalk-audit.json",
+        "status": "official_candidate_chain_available_transfer_not_published",
         "reasons": [
-          "No row-level official ISCO-08 to US SOC source snapshot, version, checksum, or retrieval metadata is checked in.",
-          "The table combines claimed SOC 2010 correspondence with manual Singapore-specific additions and a hand-maintained SOC 2010 to 2018 bridge.",
-          "Inline comments identify semantic mismatches between several ISCO occupations and their assigned SOC codes."
+          "Official ESCO v1.1.0 occupation rows and the human-validated ESCO-O*NET v1 crosswalk are frozen with source checksums.",
+          "Only exact and close relations are candidate inputs; broad and narrow relations are excluded.",
+          "Source taxonomy editions and a pre-registered many-to-many transfer rule are still required before any external value is published."
         ]
       },
       "sidecars": {
         "aioe": {
           "target_field": "comparison_evidence.aioe",
           "construct": "general_ai_ability_exposure",
-          "status": "withheld_unverified_isco08_soc_crosswalk",
+          "status": "withheld_soc2010_to_onet_soc2019_version_bridge_missing",
           "checked_in_source": {
             "artifact": "data/raw/external/AIOE_DataAppendix.xlsx",
             "value_field": "Appendix A.AIOE",
@@ -51,7 +51,7 @@
           },
           "mapping": {
             "method": "official_ssoc_2024_to_isco08_then_verified_isco08_to_soc_then_exact_source_soc",
-            "quality": "rejected_unverified_provenance",
+            "quality": "rejected_soc_version_mismatch",
             "aggregation": "not_applied"
           },
           "published_coverage": {
@@ -62,13 +62,13 @@
           "limitations": [
             "US ability-based theoretical AI exposure is not observed GenAI use, Singapore adoption, or a labour-market outcome.",
             "The checked-in workbook records a 2021 publication source but does not identify an occupation-observation period.",
-            "Occupation values cannot be joined to SSOC 2024 until a reproducible ISCO-08 to SOC crosswalk is checked in and validated."
+            "The source uses SOC 2010 while the official audited bridge targets O*NET-SOC 2019; a verified edition bridge is not checked in."
           ]
         },
         "eloundou": {
           "target_field": "comparison_evidence.eloundou",
           "construct": "gpt_task_exposure",
-          "status": "withheld_unverified_isco08_soc_crosswalk",
+          "status": "withheld_pending_source_taxonomy_version_and_many_to_many_transfer_validation",
           "checked_in_source": {
             "artifact": "data/raw/external/eloundou_gpts_occ_level.csv",
             "value_field": "dv_rating_beta",
@@ -84,7 +84,7 @@
           },
           "mapping": {
             "method": "official_ssoc_2024_to_isco08_then_verified_isco08_to_soc_then_exact_source_soc",
-            "quality": "rejected_unverified_provenance",
+            "quality": "audited_candidate_chain_transfer_not_validated",
             "aggregation": "not_applied"
           },
           "published_coverage": {
@@ -95,13 +95,13 @@
           "limitations": [
             "The GPT-4 beta rating is an early US O*NET-based capability judgement, not observed use, adoption, job loss, or a Singapore outcome.",
             "The checked-in file is a 2023 model-rating artifact rather than an observed-use period.",
-            "Occupation values cannot be joined to SSOC 2024 until a reproducible ISCO-08 to SOC crosswalk is checked in and validated."
+            "The source O*NET-SOC edition is not recorded, and no many-to-many transfer rule has passed sensitivity review."
           ]
         },
         "observed_ai_use": {
           "target_field": "comparison_evidence.observed_ai_use",
           "construct": "observed_claude_occupation_use",
-          "status": "withheld_unverified_isco08_soc_crosswalk",
+          "status": "withheld_pending_source_taxonomy_version_and_many_to_many_transfer_validation",
           "checked_in_source": {
             "artifact": "data/raw/external/anthropic_job_exposure.csv",
             "value_field": "observed_exposure",
@@ -117,7 +117,7 @@
           },
           "mapping": {
             "method": "official_ssoc_2024_to_isco08_then_verified_isco08_to_soc_then_exact_source_soc",
-            "quality": "rejected_unverified_provenance",
+            "quality": "audited_candidate_chain_transfer_not_validated",
             "aggregation": "not_applied"
           },
           "published_coverage": {
@@ -128,13 +128,13 @@
           "limitations": [
             "Claude usage is platform-selected and is not a representative census of workers, employers, geographies, occupations, or all AI tools.",
             "Observed platform use is not the share of a job automated, Singapore adoption, or a causal labour-market outcome.",
-            "Occupation values cannot be joined to SSOC 2024 until a reproducible ISCO-08 to SOC crosswalk is checked in and validated."
+            "The source SOC edition is not recorded, and no many-to-many transfer rule has passed sensitivity review."
           ]
         },
         "potential_complementarity": {
           "target_field": "comparison_evidence.potential_complementarity",
           "construct": "potential_human_ai_complementarity",
-          "status": "withheld_unverified_crosswalk_and_construct_replication",
+          "status": "withheld_unverified_construct_replication",
           "checked_in_source": {
             "artifact": "data/intermediate/theta_by_soc.json",
             "value_field": "theta",
@@ -150,7 +150,7 @@
           },
           "mapping": {
             "method": "official_ssoc_2024_to_isco08_then_verified_isco08_to_soc_then_exact_source_soc",
-            "quality": "rejected_unverified_provenance_and_construct_replication",
+            "quality": "rejected_construct_replication",
             "aggregation": "not_applied"
           },
           "published_coverage": {
@@ -162,7 +162,7 @@
             "The checked-in theta file is a repository-derived O*NET proxy, not a frozen occupation-level IMF source table.",
             "The O*NET observation vintage and a row-level replication against the published IMF construct are not recorded.",
             "Potential complementarity is cross-country context, not realised augmentation, job protection, or a Singapore outcome.",
-            "Occupation values also require a reproducible ISCO-08 to SOC crosswalk."
+            "The official candidate bridge does not repair the missing source-level construct replication."
           ]
         }
       }
@@ -212,7 +212,10 @@
       "published_at": "2025-05-20",
       "retrieved_at": "2026-03-19",
       "url": "https://www.ilo.org/publications/generative-ai-and-jobs-refined-global-index-occupational-exposure",
+      "repository_url": "https://researchrepository.ilo.org/esploro/outputs/encyclopediaEntry/Generative-AI-and-jobs-a-refined/995653520102676",
       "doi": "10.54394/HETP0387",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
       "file": "ilo_genai_scores_isco08_2025.xlsx",
       "size_bytes": 2598951,
       "sha256": "c1940b87e7293b1eb95b530b6d3da7cd806b61d217c4bff1e69372b2cff5c90a",

@@ -37,6 +37,24 @@ const definitions = [
 		description: 'Reviewed demand signals and labour evidence kept separate from pressure ranks.'
 	},
 	{
+		file: 'ilo-isco-task-evidence-v9.json',
+		path: path.join(STATIC_DATA, 'ilo-isco-task-evidence-v9.json'),
+		public_path: '/data/ilo-isco-task-evidence-v9.json',
+		label: 'ILO task evidence by ISCO-08 group',
+		category: 'task_evidence',
+		description:
+			'Attributed ILO task text and 2025 scores at four-digit ISCO grain; mapped examples never change occupation pressure ranks.'
+	},
+	{
+		file: 'v9-external-crosswalk-audit.json',
+		path: path.join(STATIC_DATA, 'v9-external-crosswalk-audit.json'),
+		public_path: '/data/v9-external-crosswalk-audit.json',
+		label: 'V9 external crosswalk audit',
+		category: 'external_evidence',
+		description:
+			'Checksum-pinned ESCO-O*NET candidate mapping audit and explicit publication gates; no external values enter the headline.'
+	},
+	{
 		file: 'synthetic-roles-v9.json',
 		path: path.join(STATIC_DATA, 'synthetic-roles-v9.json'),
 		public_path: '/data/synthetic-roles-v9.json',

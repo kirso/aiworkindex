@@ -55,7 +55,7 @@ ${interpretation}
 
 The headline uses only ILO 2025 mean_score_2025 values connected through the official SSOC 2024 to ISCO-08 correspondence. Multiple official matches use the median; the minimum, maximum, task-score dispersion, official ILO categories, and unmatched candidates remain visible. There is no occupation-group fallback.
 
-Wages, named demand evidence, external comparisons, adoption, and labour-market conditions are separate evidence. They do not change the pressure rank. The current release publishes direct wages and reviewed named demand where available; its external AIOE, Eloundou, observed-use, and potential-complementarity blocks remain null because the checked-in cross-system mapping is not reproducible enough. Missing evidence is not zero.
+Wages, named demand evidence, external comparisons, adoption, and labour-market conditions are separate evidence. They do not change the pressure rank. The current release publishes direct wages and reviewed named demand where available. External AIOE, Eloundou, observed-use, and potential-complementarity blocks remain null while source-code editions, many-to-many transfer rules and construct replication are validated. Missing evidence is not zero.
 
 ## Primary pages and data
 
@@ -70,6 +70,7 @@ Wages, named demand evidence, external comparisons, adoption, and labour-market 
 - Current JSON: ${SITE.url}/data/sg-ai-occupations-v9.json
 - Current CSV: ${SITE.url}/data/sg-ai-occupations-v9.csv
 - Singapore market context: ${SITE.url}/data/v9-market-context.json
+- Mapped ILO task evidence: ${SITE.url}/data/ilo-isco-task-evidence-v9.json
 - Full machine-readable guide: ${SITE.url}/llms-full.txt
 - Source repository: ${SITE.github}
 `;
@@ -127,10 +128,12 @@ ILO potential25 categories are: Not Exposed; Minimal Exposure; Exposed: Gradient
 
 ## Separate evidence
 
+- The attributed ILO task artifact retains all 3,265 task rows across 427 four-digit ISCO-08 groups. Occupation pages show bounded examples only through official SSOC-to-ISCO mappings. They are mapped examples, not exact five-digit SSOC duties, and they never change the headline rank.
 - MOM wages are direct observations for full-time resident employees in establishments with at least 25 employees. Missing rows stay null.
 - MOM named-demand signals are reviewed against SSOC 2024 titles and synonyms. Absence from a named list does not mean weak demand.
 - Q1 2026 labour evidence is broad occupation-group context. Q2 2026 figures are preliminary national context.
-- External comparison blocks for AIOE, Eloundou, observed AI use and potential complementarity are currently null. The checked-in ISCO-08 to US SOC bridge lacks the row-level provenance required for publication. The release records that disposition; no fallback is used.
+- External comparison blocks for AIOE, Eloundou, observed AI use and potential complementarity are currently null. A checksum-pinned official ESCO-O*NET candidate bridge now covers 362 of 432 relevant ISCO groups, but source-code editions, many-to-many transfer validation and construct replication still block publication. Candidate coverage is not published occupation coverage; no fallback is used.
+- The external crosswalk audit is available at ${SITE.url}/data/v9-external-crosswalk-audit.json and never changes the headline rank.
 - Stale convenience-sample job postings are withheld from current-demand interpretation.
 - The 11 exact SSOC title duplicates use the official occupation URL. The 56 reviewed familiar-title guides have their own explanatory URL but quote the matched occupation's official score unchanged. The remaining role pages are either disclosed editorial composites or deliberately withheld queries. None is a government classification.
 
@@ -187,6 +190,7 @@ ${exactOfficialTitles.map(role => `- [${role.title}](${SITE.url}/occupation/${ro
 - Current JSON: ${SITE.url}/data/sg-ai-occupations-v9.json
 - Current CSV: ${SITE.url}/data/sg-ai-occupations-v9.csv
 - Market sidecar: ${SITE.url}/data/v9-market-context.json
+- Mapped ILO task evidence: ${SITE.url}/data/ilo-isco-task-evidence-v9.json
 
 Suggested citation: AI Work Index, Singapore AI Work Pressure V9, ${release.generated_at}, ${SITE.url}.
 `;

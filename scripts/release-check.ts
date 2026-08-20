@@ -91,6 +91,45 @@ const market = readJson<{
 		};
 	};
 }>(path.join(STATIC_DATA, 'v9-market-context.json'));
+const taskEvidence = readJson<{
+	schema_version: string;
+	generated_at: string;
+	construct: string;
+	headline_effect: string;
+	grain: string;
+	source: { license: string; sha256: string };
+	counts: { isco08_groups: number; tasks: number };
+	by_isco08: Record<
+		string,
+		{
+			isco08_code: string;
+			title: string;
+			tasks: Array<{ task_id: number; text: string; score_2025: number }>;
+		}
+	>;
+}>(path.join(STATIC_DATA, 'ilo-isco-task-evidence-v9.json'));
+const externalAudit = readJson<{
+	schema_version: string;
+	generated_at: string;
+	status: string;
+	headline_effect: string;
+	quality: {
+		esco_occupation_rows: number;
+		relevant_official_isco08_groups: number;
+		strict_mapped_isco08_groups: number;
+		candidate_coverage_not_public_coverage: Record<
+			string,
+			{
+				isco08_groups: number;
+				isco08_denominator: number;
+				ssoc_occupations: number;
+				ssoc_denominator: number;
+			}
+		>;
+	};
+	dispositions: Record<string, string>;
+	per_isco08: Record<string, unknown>;
+}>(path.join(STATIC_DATA, 'v9-external-crosswalk-audit.json'));
 const roleRelease = readJson<{
 	schema_version: string;
 	taxonomy: string;
@@ -167,6 +206,12 @@ const siteStatus = readJson<{
 	external_comparisons: {
 		status: string;
 		headline_effect: string;
+		audit_artifact: string;
+		audit_status: string;
+		strict_candidate_chain_coverage: {
+			isco08_groups: number;
+			total_relevant_isco08_groups: number;
+		};
 		reason_code: string;
 		coverage: Record<string, { published: number; total: number }>;
 	};
@@ -287,6 +332,73 @@ for (const occupation of publicRelease.occupations) {
 }
 assert.equal(scored, 987);
 assert.equal(directWages, 523);
+
+assert.equal(taskEvidence.schema_version, '9.0');
+assert.equal(taskEvidence.generated_at, core.generated_at);
+assert.equal(taskEvidence.headline_effect, 'none');
+assert.equal(taskEvidence.grain, 'ISCO-08 four-digit occupation group');
+assert.equal(taskEvidence.source.license, 'CC BY 4.0');
+assert.equal(taskEvidence.counts.isco08_groups, 427);
+assert.equal(taskEvidence.counts.tasks, 3265);
+assert.equal(Object.keys(taskEvidence.by_isco08).length, 427);
+assert.equal(
+	Object.values(taskEvidence.by_isco08).reduce((sum, group) => sum + group.tasks.length, 0),
+	3265
+);
+for (const [code, group] of Object.entries(taskEvidence.by_isco08)) {
+	assert.match(code, /^\d{4}$/);
+	assert.equal(group.isco08_code, code);
+	assert(group.title.length > 0);
+	assert(group.tasks.length > 0);
+	for (const task of group.tasks) {
+		assert(task.text.length > 0);
+		assert(task.score_2025 >= 0 && task.score_2025 <= 1);
+	}
+}
+for (const occupation of publicRelease.occupations) {
+	for (const match of occupation.genai_task_exposure?.scored_isco08_matches ?? []) {
+		assert(
+			taskEvidence.by_isco08[match.isco08_code],
+			`${occupation.taxonomy.code}: missing mapped ILO tasks for ${match.isco08_code}`
+		);
+	}
+}
+assert.equal(
+	readText(path.join(STATIC_DATA, 'ilo-isco-task-evidence-v9.json')),
+	readText(path.join(ROOT, 'src', 'lib', 'data', 'ilo-isco-task-evidence-v9.json')),
+	'source and public ILO task-evidence copies differ'
+);
+assert.equal(
+	readText(path.join(STATIC_DATA, 'ilo-isco-task-evidence-v9.json')),
+	readText(path.join(ROOT, 'data', 'ilo-isco-task-evidence-v9.json')),
+	'canonical and public ILO task-evidence copies differ'
+);
+
+assert.equal(externalAudit.schema_version, '9.0');
+assert.equal(externalAudit.generated_at, '2026-08-20');
+assert.equal(externalAudit.headline_effect, 'none');
+assert.equal(externalAudit.status, 'crosswalk_chain_available_sidecars_still_withheld');
+assert.equal(externalAudit.quality.esco_occupation_rows, 2987);
+assert.equal(externalAudit.quality.relevant_official_isco08_groups, 432);
+assert.equal(externalAudit.quality.strict_mapped_isco08_groups, 362);
+assert.equal(Object.keys(externalAudit.per_isco08).length, 432);
+assert(Object.values(externalAudit.dispositions).every(value => value.startsWith('withheld_')));
+assert(
+	Object.values(externalAudit.quality.candidate_coverage_not_public_coverage).every(
+		coverage => coverage.ssoc_denominator === publicRelease.counts.occupations
+	),
+	'candidate coverage denominators must use the full official occupation universe'
+);
+assert.equal(
+	readText(path.join(STATIC_DATA, 'v9-external-crosswalk-audit.json')),
+	readText(path.join(ROOT, 'src', 'lib', 'data', 'v9-external-crosswalk-audit.json')),
+	'source and public external-audit copies differ'
+);
+assert.equal(
+	readText(path.join(STATIC_DATA, 'v9-external-crosswalk-audit.json')),
+	readText(path.join(ROOT, 'data', 'v9-external-crosswalk-audit.json')),
+	'canonical and public external-audit copies differ'
+);
 
 const forbiddenCurrentFields = [
 	'net_risk',
@@ -488,9 +600,15 @@ assert.equal(siteStatus.role_query_layer.withheld_count, roleRelease.counts.mapp
 assert.equal(siteStatus.role_query_layer.headline_effect, 'none');
 assert.equal(siteStatus.external_comparisons.status, 'withheld');
 assert.equal(siteStatus.external_comparisons.headline_effect, 'none');
+assert.equal(siteStatus.external_comparisons.audit_artifact, 'v9-external-crosswalk-audit.json');
+assert.equal(siteStatus.external_comparisons.audit_status, externalAudit.status);
+assert.deepEqual(siteStatus.external_comparisons.strict_candidate_chain_coverage, {
+	isco08_groups: 362,
+	total_relevant_isco08_groups: 432
+});
 assert.equal(
 	siteStatus.external_comparisons.reason_code,
-	'missing_verified_isco08_to_soc_provenance_or_construct_replication'
+	'source_versions_transfer_rules_or_construct_artifacts_not_publishable'
 );
 assert.deepEqual(Object.keys(siteStatus.external_comparisons.coverage).sort(), [
 	'aioe',
@@ -615,6 +733,8 @@ for (const artifact of manifest.artifacts) {
 assert(!manifest.artifacts.some(artifact => /v[3-8]\b/i.test(artifact.file)));
 assert(manifest.artifacts.some(artifact => artifact.file === 'synthetic-roles-v9.json'));
 assert(manifest.artifacts.some(artifact => artifact.file === 'v9-search-index.json'));
+assert(manifest.artifacts.some(artifact => artifact.file === 'ilo-isco-task-evidence-v9.json'));
+assert(manifest.artifacts.some(artifact => artifact.file === 'v9-external-crosswalk-audit.json'));
 assert(manifest.artifacts.some(artifact => artifact.file === 'releases.json'));
 assert(fs.existsSync(path.join(STATIC_DATA, 'sg-ai-occupations-v8.json')));
 assert.equal(fs.existsSync(path.join(STATIC_DATA, 'global', 'occupations.json')), false);
@@ -626,6 +746,8 @@ const currentMachineArtifacts = new Set([
 	'/data/research-library.json',
 	'/data/sg-ai-occupations-v9.csv',
 	'/data/sg-ai-occupations-v9.json',
+	'/data/ilo-isco-task-evidence-v9.json',
+	'/data/v9-external-crosswalk-audit.json',
 	'/data/site-status.json',
 	'/data/synthetic-roles-v9.json',
 	'/data/v9-market-context.json',

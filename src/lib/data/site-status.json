@@ -34,7 +34,13 @@
   "external_comparisons": {
     "status": "withheld",
     "headline_effect": "none",
-    "reason_code": "missing_verified_isco08_to_soc_provenance_or_construct_replication",
+    "audit_artifact": "v9-external-crosswalk-audit.json",
+    "audit_status": "crosswalk_chain_available_sidecars_still_withheld",
+    "strict_candidate_chain_coverage": {
+      "isco08_groups": 362,
+      "total_relevant_isco08_groups": 432
+    },
+    "reason_code": "source_versions_transfer_rules_or_construct_artifacts_not_publishable",
     "coverage": {
       "aioe": {
         "published": 0,

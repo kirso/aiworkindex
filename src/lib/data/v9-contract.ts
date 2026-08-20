@@ -100,8 +100,9 @@ export interface V9ExternalComparisonDisposition {
 	target_field: `comparison_evidence.${V9ExternalComparisonKey}`;
 	construct: string;
 	status:
-		| 'withheld_unverified_isco08_soc_crosswalk'
-		| 'withheld_unverified_crosswalk_and_construct_replication';
+		| 'withheld_pending_source_taxonomy_version_and_many_to_many_transfer_validation'
+		| 'withheld_soc2010_to_onet_soc2019_version_bridge_missing'
+		| 'withheld_unverified_construct_replication';
 	checked_in_source: {
 		artifact: string;
 		value_field: string;
@@ -113,8 +114,9 @@ export interface V9ExternalComparisonDisposition {
 		method:
 			| 'official_ssoc_2024_to_isco08_then_verified_isco08_to_soc_then_exact_source_soc';
 		quality:
-			| 'rejected_unverified_provenance'
-			| 'rejected_unverified_provenance_and_construct_replication';
+			| 'audited_candidate_chain_transfer_not_validated'
+			| 'rejected_soc_version_mismatch'
+			| 'rejected_construct_replication';
 		aggregation: 'not_applied';
 	};
 	published_coverage: {
@@ -130,8 +132,8 @@ export interface V9ExternalComparisonAudit {
 	mapping_policy:
 		| 'official_ssoc_2024_to_isco08_then_verified_isco08_to_soc_then_exact_source_soc';
 	reviewed_mapping_artifact: {
-		path: 'scripts/crosswalk.ts';
-		status: 'rejected_for_v9';
+		path: 'data/v9-external-crosswalk-audit.json';
+		status: 'official_candidate_chain_available_transfer_not_published';
 		reasons: string[];
 	};
 	sidecars: Record<V9ExternalComparisonKey, V9ExternalComparisonDisposition>;
