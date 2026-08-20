@@ -132,10 +132,13 @@
 			<div class="border-t border-border p-5">
 				<p class="max-w-4xl text-sm leading-relaxed text-muted-foreground">
 					AIOE, Eloundou GPT exposure, Anthropic observed use and the potential-complementarity
-					proxy remain unavailable at the SSOC 2024 occupation level. The checked-in values use US
-					occupation systems, while the available ISCO-08 to SOC bridge lacks row-level source
-					provenance. The complementarity proxy also lacks a frozen source table and reproducible
-					construct replication. V9 does not fill these gaps with title or broad-group estimates.
+					proxy remain unavailable at the SSOC 2024 occupation level. A checksum-pinned official
+					ESCO–O*NET bridge now supplies candidate mappings for 362 of 432 relevant ISCO groups.
+					Source-code editions, a validated many-to-many transfer rule and mapping-sensitivity
+					checks are still required before candidate values can be published. AIOE also needs a
+					SOC-edition bridge, while the complementarity proxy lacks a frozen source table and
+					reproducible construct replication. V9 does not fill these gaps with title or broad-group
+					estimates.
 				</p>
 				<p class="mt-2 text-sm font-medium text-foreground">
 					Withholding these fields does not change any AI Work Pressure Rank.

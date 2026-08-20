@@ -1,9 +1,11 @@
 <script lang="ts">
 	import FaqList from '$lib/components/ui/FaqList.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
-	import OccupationExplorer from '$lib/components/v9-browser/OccupationExplorer.svelte';
+	import OccupationGroupOverview from '$lib/components/v9-browser/OccupationGroupOverview.svelte';
+	import NamedDemandPressurePlot from '$lib/components/v9-browser/NamedDemandPressurePlot.svelte';
 	import OccupationResultList from '$lib/components/v9-browser/OccupationResultList.svelte';
 	import OccupationSearch from '$lib/components/v9-browser/OccupationSearch.svelte';
+	import PressureDistribution from '$lib/components/v9-browser/PressureDistribution.svelte';
 	import {
 		actionCard,
 		badge,
@@ -40,7 +42,7 @@
 
 <Seo
 	title="Singapore AI Job Pressure by Occupation"
-	description="Search and map 1,001 SSOC 2024 occupations. Compare AI task pressure with Singapore pay and named demand evidence, then inspect the sources and limits."
+	description="Search 1,001 SSOC 2024 occupations or start with a major occupation group. Compare AI task pressure with Singapore pay and named demand evidence."
 	path="/"
 	jsonLd={[buildFaqJsonLd(faqItems)]}
 />
@@ -69,7 +71,7 @@
 				</p>
 			</div>
 
-			<aside class="hidden rounded-xl border border-border bg-surface-subtle p-6 lg:block">
+			<aside class="hidden border border-border bg-surface-subtle p-6 lg:block">
 				<p class={sectionLabel()}>What you can compare</p>
 				<dl class="mt-4 grid grid-cols-2 gap-x-5 gap-y-4">
 					<div>
@@ -101,31 +103,74 @@
 		</div>
 	</section>
 
-	<section
-		class="{pageLayout({ width: 'data' })} pt-6 sm:pt-8"
-		aria-labelledby="flagship-map-title"
-	>
-		<div class="mb-4 flex flex-wrap items-end justify-between gap-3">
+	<section class="{pageLayout({ width: 'data' })} py-9 sm:py-12" aria-labelledby="groups-title">
+		<div class="mb-5 flex flex-wrap items-end justify-between gap-4">
 			<div>
-				<p class={sectionLabel()}>Explore all occupations</p>
+				<p class={sectionLabel()}>Start with your kind of work</p>
 				<h2
-					id="flagship-map-title"
+					id="groups-title"
 					class="mt-1 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl"
 				>
-					See the whole Singapore occupation map
+					Choose a broad occupation group before the details
 				</h2>
+				<p class="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+					The nine official major groups show where occupation records sit across the ILO
+					categories. Open a group when you want the detailed map, filters and exact occupations.
+				</p>
 			</div>
-			<a href="/explore" class="hidden text-sm font-semibold text-primary underline sm:inline">
-				Open the full explorer
-			</a>
+			<a href="/explore" class={linkPill()}> Open the 1,001-occupation explorer → </a>
 		</div>
 
-		<OccupationExplorer
-			items={data.occupations}
-			listPageSize={12}
-			sourceUrl="/data/v9-search-index.json?v=2026-08-19-v9-role-guides"
-			expectedTotal={data.counts.occupations}
+		<OccupationGroupOverview
+			groups={data.groupSummaries}
+			categories={data.categorySummary}
+			rankedTotal={data.counts.scored}
+			unrankedTotal={data.counts.insufficient_evidence}
 		/>
+	</section>
+
+	<section class="border-y border-border bg-surface-subtle">
+		<div
+			class="{pageLayout({ width: 'data' })} grid gap-8 py-10 xl:grid-cols-[1.2fr_0.8fr] xl:py-14"
+		>
+			<PressureDistribution
+				bins={data.pressureBins}
+				rankedTotal={data.counts.scored}
+				unrankedTotal={data.counts.insufficient_evidence}
+			/>
+
+			<div>
+				<p class={sectionLabel()}>What Singapore employers reported</p>
+				<h2 class="mt-1 font-heading text-2xl font-bold text-foreground">
+					Current labour-market context
+				</h2>
+				<p class="mt-2 text-sm leading-relaxed text-muted-foreground">
+					These national figures describe firms and vacancies. They do not change an occupation’s
+					pressure rank.
+				</p>
+				<div class="mt-5 divide-y divide-border border-y border-border bg-card">
+					{#each data.marketFacts as fact (fact.label)}
+						<article class="grid gap-2 px-4 py-4 sm:grid-cols-[7rem_1fr] sm:px-5">
+							<p class="font-mono text-3xl font-semibold tabular-nums text-foreground">
+								{fact.value}
+							</p>
+							<div>
+								<h3 class="text-sm font-semibold text-foreground">{fact.label}</h3>
+								<p class="mt-1 text-xs leading-relaxed text-muted-foreground">{fact.detail}</p>
+								<a
+									href={fact.sourceUrl}
+									class="mt-2 inline-block text-xs font-semibold text-primary underline"
+									target="_blank"
+									rel="noreferrer"
+								>
+									{fact.sourceTitle}
+								</a>
+							</div>
+						</article>
+					{/each}
+				</div>
+			</div>
+		</div>
 	</section>
 
 	<section
@@ -159,7 +204,7 @@
 					Full list
 				</a>
 			</div>
-			<OccupationResultList items={namedDemand} detail="demand" />
+			<NamedDemandPressurePlot items={namedDemand} compact />
 		</div>
 	</section>
 

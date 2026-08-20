@@ -150,9 +150,10 @@
 			is too ambiguous.
 		</p>
 		<p class="mt-3 text-sm leading-relaxed text-muted-foreground">
-			A non-official composite can show an estimated comparison percentile and component evidence. A
-			withheld query shows neither. Neither can claim official SSOC status, a role-level employment
-			total, a wage pool, demand level or probability of displacement.
+			A non-official composite reports an estimated comparison percentile from documented official
+			components. Pay appears only when a direct occupation source supports it, and hiring evidence
+			appears only as a named source match. Ambiguous titles remain unscored until the work context
+			is clear enough to map.
 		</p>
 	</section>
 

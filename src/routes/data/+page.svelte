@@ -39,14 +39,24 @@
 				'@type': 'DataDownload',
 				contentUrl: `${SITE.url}/data/v9-market-context.json`,
 				encodingFormat: 'application/json'
+			},
+			{
+				'@type': 'DataDownload',
+				contentUrl: `${SITE.url}/data/ilo-isco-task-evidence-v9.json`,
+				encodingFormat: 'application/json'
+			},
+			{
+				'@type': 'DataDownload',
+				contentUrl: `${SITE.url}/data/v9-external-crosswalk-audit.json`,
+				encodingFormat: 'application/json'
 			}
 		]
 	});
 
 	const fields = [
 		['schema_version', 'V9 contract identifier: 9.0.'],
-		['method.external_comparison_audit', 'Machine-readable source, mapping rejection, coverage and headline-invariance disposition for four external sidecars.'],
-		['taxonomy', 'Official SSOC 2024 code, title, hierarchy, detailed definition and search synonyms. The tasks array is empty at detailed grain because SSOC 2024 publishes tasks at four-digit unit-group grain; V9 does not copy them down.'],
+		['method.external_comparison_audit', 'Machine-readable publication disposition for four external sidecars. The companion crosswalk-audit download records the official ESCO–O*NET candidate chain, checksums, candidate coverage and remaining gates.'],
+		['taxonomy', 'Official SSOC 2024 code, title, hierarchy, detailed definition and search synonyms. The tasks array is empty at detailed grain because SSOC 2024 publishes tasks at four-digit unit-group grain; V9 does not copy them down. Mapped ILO task evidence is a separate four-digit ISCO artifact.'],
 		['score_status', 'scored or insufficient_evidence. Unavailable evidence is never encoded as zero.'],
 		['genai_task_exposure.mean_score_2025', 'Median, minimum and maximum ILO mean score across scored official ISCO matches, stored on the source 0–1 scale. The website may show the same value multiplied by 100 and labelled /100.'],
 		['genai_task_exposure.task_score_sd_2025', 'Median and range of within-ISCO task-score dispersion on the source 0–1 scale; not a confidence interval. The website may show it multiplied by 100 and labelled /100.'],
@@ -134,6 +144,30 @@
 			<p class={body({ class: 'mt-2 font-medium' })}>v9-market-context.json</p>
 			<p class={caption({ class: 'mt-1' })}>
 				Reviewed demand mappings, broad labour context and explicitly withheld stale signals.
+			</p>
+		</a>
+		<a
+			href="/data/ilo-isco-task-evidence-v9.json"
+			download
+			class={card({ padding: 'lg', hover: true })}
+		>
+			<p class={sectionLabel()}>Mapped task evidence JSON</p>
+			<p class={body({ class: 'mt-2 font-medium' })}>ilo-isco-task-evidence-v9.json</p>
+			<p class={caption({ class: 'mt-1' })}>
+				3,265 attributed ILO task rows across 427 four-digit ISCO groups. These are not exact
+				five-digit SSOC duties and never change the headline rank.
+			</p>
+		</a>
+		<a
+			href="/data/v9-external-crosswalk-audit.json"
+			download
+			class={card({ padding: 'lg', hover: true })}
+		>
+			<p class={sectionLabel()}>External evidence audit JSON</p>
+			<p class={body({ class: 'mt-2 font-medium' })}>v9-external-crosswalk-audit.json</p>
+			<p class={caption({ class: 'mt-1' })}>
+				Official ESCO–O*NET candidate mappings, source checksums and the remaining publication
+				gates. Candidate coverage is not published occupation coverage.
 			</p>
 		</a>
 	</section>
@@ -227,6 +261,14 @@
 				</li>
 				<li>
 					<a
+						href="https://esco.ec.europa.eu/en/use-esco/other-crosswalks"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="text-primary underline">European Commission ESCO Secretariat</a
+					>: official ESCO–O*NET crosswalk used only for the external-evidence candidate audit.
+				</li>
+				<li>
+					<a
 						href="https://www.mom.gov.sg/newsroom/parliament-questions-and-replies/2026/0805-written-answer-to-pq-on-trends-in-job-vacancies"
 						target="_blank"
 						rel="noopener noreferrer"
@@ -242,7 +284,7 @@
 				<li>Source titles, official candidates and crosswalk quality</li>
 				<li>Explicit nulls where occupation-level evidence is unavailable</li>
 				<li>Record-specific mapping support, limitations and evidence cutoff</li>
-				<li>Release-level source URLs, vintages and rejected mapping audits</li>
+					<li>Release-level source URLs, vintages and publication-gate audits</li>
 			</ul>
 		</div>
 	</section>
@@ -252,8 +294,9 @@
 		<p class={body({ class: 'mt-3 max-w-3xl text-muted-foreground' })}>
 			Project code and original editorial material use the licence stated in the repository.
 			Official and third-party source data retain their own terms, attribution requirements and
-			copyright. A download does not relicense those inputs. Review the linked source terms before
-			redistributing source-derived fields.
+			copyright. The mapped ILO task artifact identifies its source, CC BY 4.0 licence and AI Work
+			Index adaptations inside the download. Other downloads do not relicense their source inputs;
+			review the linked source terms before redistributing source-derived fields.
 		</p>
 	</section>
 

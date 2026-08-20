@@ -115,7 +115,7 @@
 				<option value="all">All occupations</option>
 				<option value="ranked">Pressure ranked</option>
 				<option value="wage">Direct wage row</option>
-				<option value="demand">Named demand signal</option>
+				<option value="demand">Named in selected sources</option>
 				<option value="unranked">Pressure not ranked</option>
 			</select>
 		</label>

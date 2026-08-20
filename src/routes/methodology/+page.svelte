@@ -23,22 +23,28 @@
 			use: 'Sole input to the headline rank'
 		},
 		{
+			construct: 'Mapped task examples',
+			source: 'ILO refined GenAI exposure workbook (2025)',
+			grain: 'Four-digit ISCO-08 group and task',
+			use: 'Explains the source score; never represented as exact SSOC duties and never changes the rank'
+		},
+		{
 			construct: 'Observed AI use',
 			source: 'Anthropic occupation-use file (released January 2026)',
 			grain: 'US SOC platform activity; November 2025 observation',
-			use: 'Reviewed but withheld: the ISCO-to-SOC bridge lacks publishable provenance'
+			use: 'Reviewed but withheld: source-code version and many-to-many transfer rules need validation'
 		},
 		{
 			construct: 'Potential complementarity',
 			source: 'Pizzinelli et al. (2023)',
 			grain: 'Repository-derived US SOC proxy',
-			use: 'Withheld: crosswalk provenance and source-construct replication are incomplete'
+			use: 'Withheld: the checked-in proxy does not reproduce a frozen source-level construct'
 		},
 		{
 			construct: 'External exposure comparisons',
 			source: 'AIOE (2021) and Eloundou et al. (2023)',
 			grain: 'US SOC / O*NET-SOC',
-			use: 'Reviewed but withheld; no title or broad-group fallback is allowed'
+			use: 'Official candidate bridge audited; values withheld until edition and transfer checks pass'
 		},
 		{
 			construct: 'Wages',
@@ -182,6 +188,24 @@
 			>. The index covers nearly 30,000 tasks using worker input, expert review and model-assisted
 			assessment.
 		</p>
+		<div
+			class={cn(card({ padding: 'md', variant: 'notice', accent: 'primary' }), 'mt-4 max-w-4xl')}
+		>
+			<h3 class="font-semibold text-foreground">How task examples appear on occupation pages</h3>
+			<p class={body({ class: 'mt-2 text-muted-foreground' })}>
+				The downloadable ILO artifact contains 3,265 task rows across 427 four-digit ISCO groups. An
+				occupation page follows its official SSOC-to-ISCO mapping and shows bounded higher- and
+				lower-scoring examples from those groups. The source text, ISCO code and task score stay
+				visible. The examples help a visitor inspect their own work; they are not exact duties for
+				every worker under the five-digit SSOC title.
+			</p>
+			<p class={caption({ class: 'mt-2' })}>
+				This explanatory artifact has no input path into the headline builder.
+				<a href="/data/ilo-isco-task-evidence-v9.json" class="font-semibold text-primary underline">
+					Download the mapped task evidence</a
+				>.
+			</p>
+		</div>
 	</section>
 
 	<section class="mt-12">
@@ -284,9 +308,10 @@
 		<h2 class={sectionLabel()}>How to read the risk profile</h2>
 		<p class={body({ class: 'mt-3 max-w-3xl text-muted-foreground' })}>
 			These are conditional interpretation patterns, not V9 categories or outcome scores. The
-			current release can show pressure beside direct demand and wage evidence. Its occupation-level
-			observed-use and complementarity blocks remain null until a reproducible mapping chain is
-			available.
+			current release can show pressure beside direct demand and wage evidence. An official
+			ESCO–O*NET candidate bridge is now audited, while occupation-level observed-use and
+			complementarity values remain unpublished until the narrower source-version, transfer and
+			construct checks pass.
 		</p>
 		<div class="mt-3 grid gap-3 md:grid-cols-2">
 			<div class={card({ padding: 'md' })}>

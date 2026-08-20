@@ -183,6 +183,30 @@
 	</section>
 
 	<section class="mt-10">
+		<h2 class={sectionLabel()}>Mapped ILO task-evidence artifact</h2>
+		<div class={cn(card({ padding: 'lg', variant: 'inset' }), 'mt-3 space-y-3')}>
+			<p class="text-sm text-muted-foreground">
+				<code>ilo-isco-task-evidence-v9.json</code> retains all 3,265 source task rows across 427
+				four-digit ISCO-08 groups. Each row keeps the ILO task ID, exact task text,
+				<code>score_2025</code> and source-status field.
+			</p>
+			<p class="text-sm text-muted-foreground">
+				Occupation pages join this artifact only through the official SSOC 2024 to ISCO-08 candidate
+				codes already published in the headline record. They show up to three highest and three
+				lowest task scores per mapped group. The selection is an interface summary, not a new score.
+			</p>
+			<p class={mono({ size: 'sm' })}>
+				headline effect = none · published grain = ISCO-08 four-digit group
+			</p>
+			<p class="text-sm text-muted-foreground">
+				Task rows may explain why an ISCO mean is high or low. They must not be described as exact
+				five-digit SSOC duties, worker-level observations, adoption, time shares or job-loss
+				probabilities.
+			</p>
+		</div>
+	</section>
+
+	<section class="mt-10">
 		<h2 class={sectionLabel()}>Date fields</h2>
 		<dl class="mt-3 grid gap-3 sm:grid-cols-2">
 			{#each [['published_at', 'When the source was released to the public.'], ['observation_period', 'When the source data or measurement applies.'], ['reviewed_at', 'When AI Work Index last checked the source for V9.'], ['generated_at', 'When the deterministic V9 artifact was produced; not when the underlying event happened.']] as dateField}
@@ -202,9 +226,11 @@
 		</p>
 		<p class="mt-2 max-w-3xl text-sm text-muted-foreground">
 			In V9, AIOE, Eloundou, observed-use and potential-complementarity blocks are null for all
-			1,001 occupations. The available ISCO-08 to US SOC bridge does not meet the row-level
-			provenance gate; the complementarity proxy also lacks a reproducible source-construct
-			replication. The release audit records 0% coverage and no headline effect.
+			1,001 occupations. A checksum-pinned official ESCO–O*NET bridge now provides candidate matches
+			for 362 of 432 relevant ISCO groups. Those candidates are not published values: source-code
+			editions, many-to-many transfer rules and mapping sensitivity still require validation; the
+			complementarity proxy also lacks a source-level construct replication. The release audit
+			records 0% published coverage and no headline effect.
 		</p>
 		<div class={cn(card({ padding: 'none' }), 'mt-3 overflow-hidden')}>
 			<div class="hidden sm:block">
@@ -278,7 +304,7 @@
 	<section class="mt-10">
 		<h2 class={sectionLabel()}>Release invariants</h2>
 		<ul class="mt-3 grid gap-2 md:grid-cols-2">
-			{#each ['1,001 numeric SSOC occupations; five residual records excluded from scoring', '987 scored and 14 explicitly insufficient-evidence occupations', '523 direct MOM 2025 detailed wage matches', 'Every scored occupation traces to an official SSOC–ISCO candidate', 'All ties use midranks and all ranks use the scored V9 population', 'Changing a sidecar cannot change any headline pressure rank', 'Missing evidence never renders as zero or a negative market signal', 'Every published record carries source, limitation and 19 August 2026 cutoff metadata'] as invariant}
+			{#each ['1,001 numeric SSOC occupations; five residual records excluded from scoring', '987 scored and 14 explicitly insufficient-evidence occupations', '523 direct MOM 2025 detailed wage matches', '3,265 mapped task rows retain their four-digit ISCO grain and have no headline effect', 'Every scored occupation traces to an official SSOC–ISCO candidate', 'All ties use midranks and all ranks use the scored V9 population', 'Changing a sidecar cannot change any headline pressure rank', 'Missing evidence never renders as zero or a negative market signal', 'Every published record carries source, limitation and 19 August 2026 cutoff metadata'] as invariant}
 				<li class={card({ padding: 'sm' })}>
 					<span class="text-sm text-muted-foreground">{invariant}</span>
 				</li>

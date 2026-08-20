@@ -99,9 +99,9 @@
 	</div>
 
 	<p class="mt-8 text-sm leading-relaxed text-muted-foreground">
-		Group medians give each detailed occupation equal weight. They do not use inferred employment
-		counts or wage pools. <a href="/methodology" class="text-primary underline"
-			>Read the V9 method</a
-		>.
+		Each scored detailed occupation contributes one observation to the group median. <a
+			href="/methodology"
+			class="text-primary underline">Read the V9 method</a
+		> for weighting and coverage details.
 	</p>
 </main>

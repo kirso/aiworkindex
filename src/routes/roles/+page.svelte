@@ -7,6 +7,7 @@
 	let { data } = $props();
 	let query = $state('');
 	let activeCategory = $state<string | null>(null);
+	let visibleLimit = $state(24);
 
 	let filteredCategories = $derived.by(() => {
 		const needle = query.trim().toLowerCase();
@@ -27,6 +28,21 @@
 
 	let resultCount = $derived(
 		filteredCategories.reduce((sum, category) => sum + category.roles.length, 0)
+	);
+
+	let visibleCategories = $derived.by(() => {
+		let remaining = query.trim() || activeCategory ? Number.POSITIVE_INFINITY : visibleLimit;
+		return filteredCategories
+			.map(category => {
+				const roles = category.roles.slice(0, remaining);
+				remaining -= roles.length;
+				return { ...category, roles, matchedRoleCount: category.roles.length };
+			})
+			.filter(category => category.roles.length > 0);
+	});
+
+	let visibleCount = $derived(
+		visibleCategories.reduce((sum, category) => sum + category.roles.length, 0)
 	);
 
 	let itemListJsonLd = $derived(
@@ -92,7 +108,10 @@
 				class="border px-2.5 py-1 text-xs font-medium {activeCategory === null
 					? 'border-foreground bg-foreground text-background'
 					: 'border-border bg-card text-muted-foreground hover:border-foreground'}"
-				onclick={() => (activeCategory = null)}>All roles</button
+				onclick={() => {
+					activeCategory = null;
+					visibleLimit = 24;
+				}}>All roles</button
 			>
 			{#each data.categories as category (category.key)}
 				<button
@@ -101,8 +120,10 @@
 						? 'border-foreground bg-foreground text-background'
 						: 'border-border bg-card text-muted-foreground hover:border-foreground'}"
 					style:border-bottom-color={category.presentation.accent}
-					onclick={() => (activeCategory = activeCategory === category.key ? null : category.key)}
-					>{category.label}</button
+					onclick={() => {
+						activeCategory = activeCategory === category.key ? null : category.key;
+						visibleLimit = 24;
+					}}>{category.label}</button
 				>
 			{/each}
 		</div>
@@ -121,7 +142,7 @@
 		</div>
 	{:else}
 		<div class="mt-8 space-y-10">
-			{#each filteredCategories as category (category.key)}
+			{#each visibleCategories as category (category.key)}
 				<section>
 					<div
 						class="mb-3 flex flex-wrap items-end justify-between gap-2 border-b-2 pb-2"
@@ -131,7 +152,11 @@
 							<h2 class={title({ size: 'section' })}>{category.label}</h2>
 							<p class={caption()}>{category.description}</p>
 						</div>
-						<p class="font-mono text-xs text-muted-foreground">{category.roles.length} roles</p>
+						<p class="font-mono text-xs text-muted-foreground">
+							{category.roles.length === category.matchedRoleCount
+								? `${category.roles.length} roles`
+								: `${category.roles.length} of ${category.matchedRoleCount}`}
+						</p>
 					</div>
 					<div class="grid min-w-0 gap-px bg-border sm:grid-cols-2 xl:grid-cols-3">
 						{#each category.roles as role (role.slug)}
@@ -186,6 +211,18 @@
 				</section>
 			{/each}
 		</div>
+		{#if visibleCount < resultCount}
+			<div class="mt-8 border-t border-border pt-5 text-center">
+				<p class={caption()}>{visibleCount} of {resultCount} matching roles shown</p>
+				<button
+					type="button"
+					class="mt-3 min-h-11 border border-foreground bg-card px-5 text-sm font-semibold text-foreground hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2"
+					onclick={() => (visibleLimit = resultCount)}
+				>
+					Show all {resultCount} roles
+				</button>
+			</div>
+		{/if}
 	{/if}
 
 	<aside class={cn(card({ padding: 'md', variant: 'notice', accent: 'primary' }), 'mt-10')}>

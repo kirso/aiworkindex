@@ -3,6 +3,7 @@ import { syntheticRolesV9 } from '$lib/data/synthetic-roles-v9';
 import { toV9BrowserItem } from '$lib/data/v9-browser';
 import { toV9OccupationView } from '$lib/data/v9-display';
 import { getV9Occupation, v9Occupations } from '$lib/data/v9';
+import { getMappedTaskExamples, v9TaskEvidenceMetadata } from '$lib/data/v9-task-evidence.server';
 import type { PageServerLoad } from './$types';
 import { error } from '@sveltejs/kit';
 
@@ -49,6 +50,11 @@ export const load: PageServerLoad = ({ params }) => {
 
 	return {
 		view,
+		mappedTaskExamples: getMappedTaskExamples(occupation.evidence.official_isco08_codes),
+		taskEvidenceSource: {
+			url: v9TaskEvidenceMetadata.source.repository_url,
+			licenseUrl: v9TaskEvidenceMetadata.source.license_url
+		},
 		related: relatedPool,
 		modernQueries,
 		groupSlug: group ? toSlug(group.key) : null,

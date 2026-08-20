@@ -3,6 +3,7 @@
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import OccupationResultList from '$lib/components/v9-browser/OccupationResultList.svelte';
+	import NamedDemandPressurePlot from '$lib/components/v9-browser/NamedDemandPressurePlot.svelte';
 	import RankingNav from '$lib/components/v9-browser/RankingNav.svelte';
 	import { card, pageLayout, title as titleStyle } from '$lib/design-system';
 	import { buildItemListJsonLd } from '$lib/data/ranking-jsonld';
@@ -61,6 +62,10 @@
 			A named signal is positive direct evidence for that occupation. It does not prove vacancy
 			volume, future growth or protection from AI-related work redesign.
 		</p>
+	</div>
+
+	<div class="mb-8">
+		<NamedDemandPressurePlot items={data.ranked} />
 	</div>
 
 	<OccupationResultList items={data.ranked} detail="demand" />

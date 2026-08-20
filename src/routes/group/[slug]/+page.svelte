@@ -83,8 +83,8 @@
 	</section>
 
 	<p class="mt-3 text-xs leading-relaxed text-muted-foreground">
-		The group median gives each scored detailed occupation equal weight. It does not infer
-		employment, jobs affected or a wage pool.
+		Each scored detailed occupation contributes one observation to the group median. Employment size
+		is not used as a weight.
 	</p>
 
 	<section class="mt-10 grid min-w-0 gap-7 xl:grid-cols-2">

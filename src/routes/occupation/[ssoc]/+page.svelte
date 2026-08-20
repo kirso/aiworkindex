@@ -1,5 +1,6 @@
 <script lang="ts">
 	import SaveJobButton from '$lib/components/product/SaveJobButton.svelte';
+	import MappedTaskEvidence from '$lib/components/product/MappedTaskEvidence.svelte';
 	import SharePageButton from '$lib/components/product/SharePageButton.svelte';
 	import FaqList from '$lib/components/ui/FaqList.svelte';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
@@ -163,11 +164,10 @@
 						{#if index > 0}/<wbr />{/if}{titlePart}
 					{/each}
 				</h1>
-				{#if occupation.taxonomy.detailed_definition}
-					<p class="mt-4 max-w-4xl text-base leading-relaxed text-muted-foreground">
-						{occupation.taxonomy.detailed_definition}
-					</p>
-				{/if}
+				<p class="mt-4 max-w-3xl text-base leading-relaxed text-muted-foreground">
+					See its relative task pressure, mapped task examples, direct pay evidence and selected
+					demand sources below.
+				</p>
 				{#if modernQueries.length > 0}
 					<p class="mt-3 max-w-4xl text-sm leading-relaxed text-muted-foreground">
 						<strong class="text-foreground">Also found as:</strong>
@@ -228,6 +228,24 @@
 			</div>
 		</div>
 	</section>
+
+	{#if occupation.taxonomy.detailed_definition}
+		<details class="mt-5 border border-border bg-card">
+			<summary class="cursor-pointer px-4 py-3 text-sm font-semibold text-foreground">
+				Read the official SSOC definition
+			</summary>
+			<p class="border-t border-border px-4 py-4 text-sm leading-relaxed text-muted-foreground">
+				{occupation.taxonomy.detailed_definition}
+			</p>
+		</details>
+	{/if}
+
+	<MappedTaskEvidence
+		groups={data.mappedTaskExamples}
+		sourceUrl={data.taskEvidenceSource.url}
+		licenseUrl={data.taskEvidenceSource.licenseUrl}
+		occupationCode={view.code}
+	/>
 
 	<section class="mt-10" aria-labelledby="actions-heading">
 		<h2 id="actions-heading" class={sectionLabel()}>Reviewed guidance: what you can do next</h2>
