@@ -13,8 +13,13 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @import 'shadcn-svelte/tailwind.css';
-@import '@fontsource-variable/outfit';
-@import '@fontsource-variable/geist-mono';
+@import '@fontsource/schibsted-grotesk/400.css';
+@import '@fontsource/schibsted-grotesk/500.css';
+@import '@fontsource/schibsted-grotesk/700.css';
+@import '@fontsource/schibsted-grotesk/900.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+@import '@fontsource/ibm-plex-mono/600.css';
 @custom-variant dark (&:is(.dark *));
 
 /* ============================================
@@ -24,10 +29,12 @@
    ============================================ */
 
 @theme {
-	/* --- Typography --- */
-	--font-sans: 'Outfit Variable', sans-serif;
-	--font-heading: 'Geist Mono Variable', ui-monospace, monospace;
-	--font-mono: 'Geist Mono Variable', ui-monospace, monospace;
+	/* --- Typography ---
+	   Schibsted Grotesk is the display and reading face.
+	   IBM Plex Mono is reserved for numbers, codes and labels. */
+	--font-sans: 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif;
+	--font-heading: 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif;
+	--font-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Code', monospace;
 
 	/* --- Custom tracking --- */
 	--tracking-display: -0.03em;
@@ -45,13 +52,14 @@
 	--radius-lg: 0.375rem;
 	--radius-xl: 0.5rem;
 
-	/* V9 AI task-pressure scale. Continuous, sequential and non-moralising. */
-	--color-pressure-0: #eaf4f1;
-	--color-pressure-20: #cfe5df;
-	--color-pressure-40: #a7cec5;
-	--color-pressure-60: #77aea5;
-	--color-pressure-80: #3e8984;
-	--color-pressure-100: #155f64;
+	/* V9 AI task-pressure scale. Sequential teal with separable lightness steps.
+	   Never legend these as ILO Gradient 1–4. Unranked uses the hatch, not a fake zero. */
+	--color-pressure-0: #f1f7f5;
+	--color-pressure-20: #b7ddd3;
+	--color-pressure-40: #5fafa0;
+	--color-pressure-60: #2c8073;
+	--color-pressure-80: #155a52;
+	--color-pressure-100: #0b3532;
 	--color-pressure-unranked: #d8d3c8;
 
 	/* Occupation-family identity is categorical and never encodes pressure. */
@@ -154,35 +162,6 @@
 	/* --- Easing --- */
 	--ease-snappy: cubic-bezier(0.2, 0, 0, 1);
 	--ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
-	--color-sidebar-ring: var(--sidebar-ring);
-	--color-sidebar-border: var(--sidebar-border);
-	--color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-	--color-sidebar-accent: var(--sidebar-accent);
-	--color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-	--color-sidebar-primary: var(--sidebar-primary);
-	--color-sidebar-foreground: var(--sidebar-foreground);
-	--color-sidebar: var(--sidebar);
-	--color-ring: var(--ring);
-	--color-input: var(--input);
-	--color-border: var(--border);
-	--color-destructive: var(--destructive);
-	--color-accent-foreground: var(--accent-foreground);
-	--color-accent: var(--accent);
-	--color-muted-foreground: var(--muted-foreground);
-	--color-muted: var(--muted);
-	--color-secondary-foreground: var(--secondary-foreground);
-	--color-secondary: var(--secondary);
-	--color-primary-foreground: var(--primary-foreground);
-	--color-primary: var(--primary);
-	--color-popover-foreground: var(--popover-foreground);
-	--color-popover: var(--popover);
-	--color-card-foreground: var(--card-foreground);
-	--color-card: var(--card);
-	--color-foreground: var(--foreground);
-	--color-background: var(--background);
-	--radius-2xl: calc(var(--radius) * 1.8);
-	--radius-3xl: calc(var(--radius) * 2.2);
-	--radius-4xl: calc(var(--radius) * 2.6);
 }
 
 /* ============================================
@@ -204,9 +183,9 @@
 	--popover: #ffffff;
 	--popover-foreground: #171714;
 
-	/* Brand: cobalt signal accent */
-	--primary: oklch(0.5 0.134 242.749);
-	--primary-foreground: oklch(0.977 0.013 236.62);
+	/* Brand: cobalt signal accent. Accent chrome stays warm-neutral so hover:bg-accent is not a loud fill. */
+	--primary: #2457d6;
+	--primary-foreground: #ffffff;
 	--secondary: #eceae3;
 	--secondary-foreground: #171714;
 
@@ -218,12 +197,12 @@
 	--text-secondary: #55524a;
 	--text-tertiary: #747168;
 	--text-ghost: #918d83;
-	--accent: oklch(0.5 0.134 242.749);
-	--accent-foreground: #ffffff;
-	--destructive: oklch(0.577 0.245 27.325);
+	--accent: #ece8dc;
+	--accent-foreground: #171714;
+	--destructive: #d6151c;
 	--border: #d6d2c8;
 	--input: #c8c2b6;
-	--ring: oklch(0.5 0.134 242.749);
+	--ring: #2457d6;
 	--focus: #f5c451;
 
 	/* Header */
@@ -235,12 +214,12 @@
 	/* Sidebar */
 	--sidebar: #f0eee7;
 	--sidebar-foreground: #171714;
-	--sidebar-primary: oklch(0.588 0.158 241.966);
-	--sidebar-primary-foreground: oklch(0.977 0.013 236.62);
-	--sidebar-accent: oklch(0.5 0.134 242.749);
-	--sidebar-accent-foreground: #ffffff;
+	--sidebar-primary: #2457d6;
+	--sidebar-primary-foreground: #ffffff;
+	--sidebar-accent: #ece8dc;
+	--sidebar-accent-foreground: #171714;
 	--sidebar-border: #d6d2c8;
-	--sidebar-ring: oklch(0.5 0.134 242.749);
+	--sidebar-ring: #2457d6;
 	--chart-1: #171714;
 	--chart-2: #3e8984;
 	--chart-3: #9b6b12;
@@ -341,6 +320,9 @@
 	--color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
 	--color-sidebar-border: var(--sidebar-border);
 	--color-sidebar-ring: var(--sidebar-ring);
+	--radius-2xl: calc(var(--radius) * 1.8);
+	--radius-3xl: calc(var(--radius) * 2.2);
+	--radius-4xl: calc(var(--radius) * 2.6);
 }
 
 /* ============================================

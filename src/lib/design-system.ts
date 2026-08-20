@@ -1,9 +1,12 @@
 /**
  * AI Work Index — warm evidence-editorial design system.
  *
- * Lyra supplies the component geometry, Outfit carries the reading experience,
- * and Geist Mono carries headings, provenance, codes and tabular values. Pressure, occupation family,
- * evidence status and action guidance are independent semantic channels.
+ * Lyra supplies shadcn-svelte geometry (square radius, Phosphor, Bits UI).
+ * Schibsted Grotesk carries titles and reading. IBM Plex Mono is reserved for
+ * numbers, codes and labels. Pressure, occupation family, evidence status and
+ * action guidance are independent semantic channels.
+ *
+ * Visual SSOT: docs/design.md. This file remains the code SSOT for variants.
  */
 
 import { tv, type VariantProps } from 'tailwind-variants';
@@ -12,13 +15,13 @@ import * as d3Scale from 'd3-scale';
 // ============================================
 // TYPOGRAPHY
 //
-// 5 levels. Sans for all UI. Mono for numbers.
-// No serif — Signal is a tool, not a publication.
+// Schibsted for titles and UI. IBM Plex Mono for numbers and codes only.
+// No serif — this is a tool, not a magazine reprint.
 // ============================================
 
 /** Display — hero numbers, the star of every page */
 export const display = tv({
-	base: 'font-heading font-bold tracking-display leading-display text-foreground tabular-nums',
+	base: 'font-mono font-semibold tracking-display leading-display text-foreground tabular-nums',
 	variants: {
 		size: {
 			xl: 'text-6xl sm:text-7xl lg:text-8xl',
@@ -29,9 +32,9 @@ export const display = tv({
 	defaultVariants: { size: 'lg' }
 });
 
-/** Title — page and section headings */
+/** Title — page and section headings. Spoken names, never codebook monospace. */
 export const title = tv({
-	base: 'font-heading font-bold text-foreground tracking-display leading-heading',
+	base: 'font-sans font-bold text-foreground tracking-display leading-heading',
 	variants: {
 		size: {
 			page: 'text-[2.375rem] sm:text-5xl lg:text-6xl',
@@ -357,8 +360,22 @@ export const riskColorScale = d3Scale
 export const pressureColorScale = d3Scale
 	.scaleLinear<string>()
 	.domain([0, 20, 40, 60, 80, 100])
-	.range(['#eaf4f1', '#cfe5df', '#a7cec5', '#77aea5', '#3e8984', '#155f64'])
+	.range(['#f1f7f5', '#b7ddd3', '#5fafa0', '#2c8073', '#155a52', '#0b3532'])
 	.clamp(true);
+
+/** Consumer pressure word. ILO Gradient strings stay in methodology only. */
+export const pressureBadge = tv({
+	base: 'inline-flex items-center rounded-none px-2 py-1 font-sans text-xs font-semibold',
+	variants: {
+		tone: {
+			very_low: 'bg-pressure-0 text-pressure-100',
+			low: 'bg-pressure-20 text-pressure-100',
+			moderate: 'bg-pressure-40 text-pressure-100',
+			high: 'bg-pressure-80 text-white',
+			very_high: 'bg-pressure-100 text-white'
+		}
+	}
+});
 
 export const evidenceBadge = tv({
 	base: 'inline-flex items-center gap-1.5 rounded-none border bg-card px-2 py-1 text-xs font-medium',
@@ -453,6 +470,7 @@ export type BadgeVariants = VariantProps<typeof badge>;
 export type ChipVariants = VariantProps<typeof chip>;
 export type PillVariants = VariantProps<typeof pill>;
 export type FormInputVariants = VariantProps<typeof formInput>;
+export type PressureBadgeVariants = VariantProps<typeof pressureBadge>;
 export type EvidenceBadgeVariants = VariantProps<typeof evidenceBadge>;
 export type ActionCardVariants = VariantProps<typeof actionCard>;
 export type ActionBadgeVariants = VariantProps<typeof actionBadge>;
