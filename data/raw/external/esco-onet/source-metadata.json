@@ -1,0 +1,23 @@
+{
+  "publisher": "European Commission, ESCO Secretariat",
+  "retrieved_at": "2026-08-20",
+  "classification": {
+    "version": "ESCO v1.1.0",
+    "artifact": "occupations_en_v1.1.0.csv",
+    "source_package_url": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.1.0%20-%20classification%20-%20en%20-%20csv.zip",
+    "source_package_sha256": "3b2ed440310d85edda9594773abbf113246eb11d07de83393879b3f167e5e45a",
+    "artifact_sha256": "00a95c87a57f0ff260c3c924b37d733f44c1904f86abe130aad3ab105153b483"
+  },
+  "crosswalk": {
+    "version": "1",
+    "version_date": "2022-09",
+    "onet_version": "O*NET-SOC 2019",
+    "esco_version": "ESCO v1.1.0",
+    "artifact": "onet-esco-crosswalk_v1.0.csv",
+    "url": "https://esco.ec.europa.eu/system/files/2023-08/ONET_%28Occupations%29_0_updated.csv",
+    "sha256": "82179a0a3340da97b63df90134d8d941ec3c2c478334d855b69e4dd57a91b620",
+    "methodology_url": "https://esco.ec.europa.eu/publication/crosswalk-between-esco-and-onet-technical-report",
+    "quality_note": "Official European Commission and US Department of Labor collaboration. Exact, close, broad and narrow relations were human validated; related matches are excluded from this artifact."
+  },
+  "use_boundary": "Crosswalk audit input only. No row may enter the V9 headline. Any external sidecar also requires exact source-code compatibility, transfer rules, aggregation and coverage review."
+}
