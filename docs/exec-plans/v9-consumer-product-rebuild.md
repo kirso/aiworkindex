@@ -23,6 +23,29 @@ percentile derived from ILO 2025 `mean_score_2025` through official SSOC 2024 to
 
 ## Progress
 
+- [x] (2026-08-20) Re-audited `main`, committed V9, and the dirty recovery worktree at matching
+  desktop and mobile widths. Confirmed that V9 improved the scientific contract but that commit
+  `000ec7c` removed useful interaction and presentation together with unsupported V8 outputs.
+- [x] (2026-08-20) Audited the current shadcn-svelte configuration and applied the cited preset to
+  a disposable copy. `b3rnTwetSc` resolves to Lyra with a neutral base, Outfit body text, Geist
+  Mono headings, Phosphor icons, zero radius, a translucent menu and bold menu accents. Before the
+  migration, the live repository still declared the legacy `default`/`slate` configuration despite
+  extensive local overrides.
+- [x] (2026-08-20) Adopted Lyra as the recorded upstream component style, then reapplied the product's
+  pressure, evidence, action, role-family, missingness, focus and data-visualisation semantics on
+  top of it. Do not accept Lyra's generic monochrome chart scale as occupation evidence.
+- [x] (2026-08-20) Replaced the homepage's 1,001-mark detailed-first experience with a category-first
+  overview. Keep the detailed equal-area map in Explore and as an explicit deeper view.
+- [x] (2026-08-20) Restored V9-safe pressure distribution, named-demand, pay and comparison visuals;
+  complete the answer-first occupation, role, ranking, report, calculator and saved-job journeys.
+- [x] (2026-08-20) Published mapped ILO task examples at their true ISCO grain with source text,
+  attribution, adaptation notice and a hard prohibition on presenting them as exact SSOC duties.
+- [x] (2026-08-20) Prototyped and quality-audited the official SSOC-to-ISCO-to-ESCO-to-O*NET chain for
+  OECD, O*NET, Eloundou and observed-use panels. Keep all such panels separate from the headline.
+- [x] (2026-08-20) Completed final release generation, scientific invariance tests, copy lint,
+  responsive and keyboard QA, production build and performance measurement. Record real-customer,
+  screen-reader and production-RUM work as external validation, not something automated QA proves.
+
 - [x] (2026-08-19) Completed a read-only audit of the current repository, rendered desktop and
   mobile routes, design system, visual components, copy, scientific model, modern-title layer,
   current Singapore market evidence, and primary research through 19 August 2026.
@@ -79,7 +102,8 @@ percentile derived from ILO 2025 `mean_score_2025` through official SSOC 2024 to
 - Observation: The checked-in ILO workbook has 3,265 final task rows across 427 ISCO codes, but the
   public detailed SSOC occupation task arrays are empty because the source task grain is broader.
   Evidence: the V9 builder correctly avoids copying unit-group tasks down as exact five-digit SSOC
-  duties. Public task text remains gated on artifact-specific rights and provenance review.
+  duties. The separate mapped-task artifact now publishes the permitted source text at its true
+  ISCO grain with CC BY 4.0 attribution and an explicit adaptation notice.
 - Observation: Rebuilding the flagship with the full browser corpus in every prerendered route made
   the homepage and Explore HTML roughly 855 KB and 827 KB before compression.
   Evidence: moving the canonical browser corpus to the existing fetchable V9 search artifact cut
@@ -92,6 +116,26 @@ percentile derived from ILO 2025 `mean_score_2025` through official SSOC 2024 to
   Evidence: the live product now has an equal-area occupation map, direct-pay scatter, ordinal work
   profile and evidence chain without reviving employment sizing, synthetic protection scores or
   weak-demand inference.
+- Observation: The repository was not using a modern shadcn-svelte preset even though it contained
+  shadcn-derived primitives.
+  Evidence: `components.json` declared `style: default` and `baseColor: slate`. Applying
+  `b3rnTwetSc` in `/tmp` produced `style: lyra`, `baseColor: neutral`, `iconLibrary: phosphor`,
+  `menuColor: default-translucent`, and `menuAccent: bold`, plus Outfit and Geist Mono fonts.
+- Observation: The equal-area map is scientifically honest but too detailed for the first product
+  explanation and creates a very large visual and accessibility tree.
+  Evidence: the current homepage places `OccupationExplorer` immediately after the hero and sends
+  all 1,001 official records into that first exploration block. The category and group structure
+  already exists in the same data and can orient the visitor first.
+- Observation: The ILO task-text gate was too broad.
+  Evidence: the pinned, checksummed workbook contains 3,265 task rows for 427 ISCO groups, and the
+  cited ILO work is published under CC BY 4.0. The remaining scientific requirement is truthful
+  grain: mapped ISCO task examples are not exact five-digit SSOC duties.
+- Observation: An official candidate crosswalk is now available, but it does not by itself make
+  external scores publishable.
+  Evidence: frozen ESCO v1.1.0 occupations plus the official ESCO–O*NET v1 crosswalk provide
+  exact-or-close candidates for 362 of 432 relevant ISCO groups. Eloundou and Anthropic still lack
+  pinned source-code editions and a validated many-to-many transfer rule; AIOE uses SOC 2010; the
+  OECD paper does not publish a row-level occupation artifact.
 
 ## Decision Log
 
@@ -126,10 +170,30 @@ percentile derived from ILO 2025 `mean_score_2025` through official SSOC 2024 to
   Rationale: The current stack is sufficient; the missing capability is a shared chart and evidence
   contract, not a larger runtime.
   Date/Author: 2026-08-19 / Codex
+- Decision: Adopt the explicit shadcn-svelte preset `b3rnTwetSc` as the recorded Lyra baseline.
+  Rationale: It gives local primitives a coherent upstream style, typography, icon and menu
+  contract. AI Work Index will retain separate semantic tokens for evidence and data meaning rather
+  than treating the preset as a complete product design.
+  Date/Author: 2026-08-20 / Codex
+- Decision: Make the homepage category-first and move the full 1,001-record explorer one level
+  deeper.
+  Rationale: People need an intelligible map of work before a detailed mark for every occupation.
+  The full equal-area map remains valuable in Explore, where filters and drill-down are expected.
+  Date/Author: 2026-08-20 / Codex
+- Decision: Publish ILO task text only as mapped ISCO examples, retaining exact source text and
+  source occupation code.
+  Rationale: This adds the most useful missing explanation without inventing detailed SSOC duties or
+  changing the pressure rank.
+  Date/Author: 2026-08-20 / Codex
+- Decision: Publish the ESCO–O*NET crosswalk audit, not transferred external occupation scores.
+  Rationale: Candidate mappings make the remaining work measurable, but source-edition and transfer
+  choices still change interpretation. Candidate coverage must not be presented as measured
+  occupation coverage.
+  Date/Author: 2026-08-20 / Codex
 
 ## Outcomes & Retrospective
 
-The V9 rebuild is implemented end to end without changing the headline formula. The current release
+The first V9 recovery milestone was implemented without changing the headline formula. The current release
 contains 1,001 official SSOC 2024 occupations: 987 receive an ILO-based pressure rank, 14 remain
 unranked, and 523 have a direct MOM wage row. The role layer preserves all 88 familiar-title queries:
 11 exact titles resolve to official occupations, 56 reviewed aliases have useful self-canonical
@@ -151,27 +215,37 @@ adoption update; corrects the Stanford linked finding from 19% to 16%; and remov
 Eloundou record. Current market evidence contains 49 reviewed source attachments across 37
 occupations, with one ambiguous mapping withheld. V8's field map is now explicitly archived.
 
-Final verification on 20 August 2026:
+Final verification on 20 August 2026 after the Lyra, task-evidence and external-audit work:
 
-- `bun run verify`: 106 tests passed, zero failed; Svelte diagnostics, ESLint, Prettier and the V9
+- `bun run verify`: 113 tests passed, zero failed; Svelte diagnostics, ESLint, Prettier and the V9
   release contract passed.
 - `bun run release:check`: 1,001 occupations, 77 role guides and 1,115 sitemap URLs passed the
   current-release boundary.
 - `bun run build`: the static production site completed successfully.
-- Strict editorial lint scanned 25 active product files with zero warnings.
-- Browser QA covered 17 active routes at 375 pixels with no horizontal document overflow, plus the
-  flagship scatter at 320 pixels and desktop map, role, occupation, calculator, comparison and
-  saved-job journeys. The final build has one `main` landmark, mobile scatter remains a real chart,
-  and all six radar labels stay inside the SVG.
-- Final prerendered HTML is 65,424 bytes for home and 25,450 bytes for Explore, down from roughly
-  855 KB and 827 KB during the initial rebuild.
+- Strict editorial lint scanned 27 active product and plan files with zero warnings.
+- Browser QA covered 17 active routes at 320, 375, 768, 1,024 and 1,440 pixels: 85 route/viewport
+  combinations returned 200, rendered one `main` and one `h1`, logged no console error, and had no
+  horizontal document overflow. Populated Search, Explore, Compare, role and personal-work states
+  were also exercised.
+- Two consecutive release generations produced identical hashes for the research register,
+  task-evidence artifact, external-crosswalk audit, manifest, LLM guide and sitemap.
+- Final prerendered HTML is 95,799 bytes for home and 25,551 bytes for Explore; gzip sizes are
+  15,162 and 6,628 bytes. The on-demand search artifact is 122,614 bytes gzip and is not embedded in
+  the homepage HTML.
 
-What remains is deliberately evidence-gated rather than silently approximated: redistribution and
-grain review for ILO task text; verified crosswalks for OECD, AIOE, Eloundou, Anthropic observed-use
-and complementarity layers; detailed occupation-level adoption and vacancy data; defensible
-transition evidence; and a second comparable V9 snapshot before publishing change-over-time
-rankings. None of these layers may alter the current headline unless a future version explicitly
-changes and validates that scientific contract.
+The comparative product audit is now implemented. `components.json` records the cited Lyra preset;
+Outfit, Geist Mono and Phosphor are installed; the homepage starts with official category and major-
+group orientation; Explore owns the full 1,001-record map; pressure distribution and named-demand
+visuals are active; and occupation pages expose mapped task examples before technical details. The
+scientific release adds a separate 3,265-row ILO task artifact and a checksum-pinned external-
+crosswalk audit without changing any headline rank.
+
+What remains evidence-gated rather than silently approximated: publishable transferred values for
+OECD, AIOE, Eloundou, Anthropic observed use and complementarity; detailed occupation-level adoption
+and vacancy data; defensible transition evidence; and a second comparable V9 snapshot before
+publishing change-over-time rankings. None of these layers may alter the current headline unless a
+future version explicitly changes and validates that scientific contract. Real customer testing,
+manual screen-reader testing and production Core Web Vitals remain external validation work.
 
 ## Context and Orientation
 
@@ -232,15 +306,17 @@ coverage is never backfilled from a broad group merely to complete a screen.
 | Personal task explorer | Build now | Visitor-selected work activities, consequence and review responsibility produce locally stored guidance only |
 | Quarterly movers and historical pressure change | Withhold | Publish after a second methodologically comparable V9 snapshot |
 | Job-loss, jobs-affected and wage-pool outputs | Retire from current product | Preserve dated archive records only; never regenerate as current V9 findings |
-| External AIOE, Eloundou, Anthropic and complementarity sidecars | Withhold at occupation grain | Activate only after a verified reproducible crosswalk and construct-specific validation; no headline effect |
+| External AIOE, Eloundou, Anthropic and complementarity sidecars | Withhold at occupation grain | The official ESCO–O*NET candidate bridge is now audited. Activate values only after source-edition, transfer and construct-specific validation; no headline effect |
 
 ## Page Architecture and Wireframes
 
 The homepage starts with a one-sentence answer, a job-title search and four small facts about the
-current Singapore release. The equal-area occupation map follows in the first exploration block,
-with a compact filter bar, view switcher and selected-job summary. Pressure/pay is a secondary view,
-not a separate dead-end chart. Below it, show modern-title entry points, current Singapore market
-signals and three action routes: inspect my work, compare jobs and save jobs.
+current Singapore release. A category-first overview then explains the official ILO categories and
+nine Singapore major groups before showing the pressure distribution and named-demand evidence.
+The full equal-area map, shared filters, pressure/pay scatter and result list live in Explore, where
+detailed comparison is expected. Below the homepage overview, show modern-title entry points,
+current Singapore market signals and three action routes: inspect my work, compare jobs and save
+jobs.
 
 An occupation page starts with title, SSOC code, relative pressure position, one plain-language
 interpretation and Save/Compare/Share. The next screenful answers pay and named demand, then presents
@@ -317,27 +393,94 @@ measured separately on home, Explore and Compare because their interaction paylo
 
 ## Open Product Decisions
 
-- Decide after usability testing whether the default homepage view is the equal-area map or a
-  compact ranked list on phones below 375 pixels; both must remain available.
+- Validate the category-first homepage with customers and decide whether a compact ranked list or
+  category distribution should be the default secondary view on phones below 375 pixels. The full
+  equal-area map remains available in Explore.
 - Decide whether a visitor may export their local saved jobs and personal work plan. Current scope
   keeps both device-local and deliberately simple.
 - Decide whether reviewed alias guides need unique editorial examples beyond title and family
   context. Any added text needs a named reviewer and date to avoid thin or templated SEO pages.
-- Decide whether to seek permission to redistribute ILO task text. Until permission and provenance
-  are recorded, exact source task statements remain unpublished.
+- Recheck the pinned ILO workbook's attribution and third-party notices whenever the source artifact
+  changes. The current release uses its CC BY 4.0 task text only as mapped ISCO examples, never as
+  exact detailed SSOC duties.
 - Decide the cadence for a second comparable V9 snapshot. `Quarterly movers` stays unavailable until
   that cadence produces genuinely comparable data.
 
+## Recovery backlog and current status
+
+P0 restores obvious customer value while keeping the V9 headline byte-for-byte stable.
+
+- [x] Record and apply Lyra in `components.json`; install its fonts, icon set and Tailwind base; migrate
+  local Button, Command, Sheet, Tabs, Table, Tooltip, input and empty-state compositions to the Lyra
+  contract without overwriting evidence tokens.
+- [x] Consolidate the three search presentations around one query index and direct-navigation contract.
+  Selecting a homepage result must open its destination directly. The global command palette may
+  require one action to open and one to select, but no intermediate results page.
+- [x] Replace the homepage's immediate detailed map with a nine-major-group overview, official ILO
+  category distribution, a few current Singapore facts and clear entry points into Search, Explore,
+  Compare and My work.
+- [x] Keep all 88 familiar-title journeys, family color, Save, Share and Compare. Preserve 11 exact
+  redirects, 56 reviewed alias guides, 18 composites and 3 withheld guides.
+- [x] Reorder occupation, role, ranking and report pages around meaning, work changes, human
+  contribution, Singapore context and actions. Put mapping codes and raw values behind useful
+  progressive disclosure.
+- [x] Repair loading, empty, error, no-wage, no-demand, unranked and mapping-withheld states. Remove
+  defensive phrases such as `not a wage pool at risk` from customer copy while retaining the
+  methodological boundary in the relevant evidence explanation.
+
+P1 rebuilds visual forms against explicit V9-safe data contracts.
+
+- [x] Build a category/group overview where area and length represent occupation-record counts only.
+- [x] Add a pressure distribution that discloses the 987-record ranking population, ties and 14
+  unranked records.
+- [x] Keep the pressure/pay scatter limited to direct MOM wage rows and provide aggregation or table
+  fallbacks rather than hundreds of sequential keyboard targets.
+- [x] Build a named-demand plot from reviewed source attachments only. Absence from those sources must
+  read `not named in the selected sources`, never `weak demand`.
+- [x] Rebuild Compare with aligned visual rows for pressure, mapped score range, pay, demand and evidence
+  status. Do not calculate an overall winner.
+- [x] Replace DriverWaterfall with an evidence chain. Keep the ordinal role radar as reviewed guidance,
+  not measured skills or statistical uncertainty.
+
+P2 adds newly validated free public evidence without changing the headline.
+
+- [x] Add mapped ILO task examples with exact source row, ISCO code, score, attribution, checksum and
+  grain disclosure.
+- [ ] Freeze a distributable row-level OECD 2026 capability artifact and a fully pinned current O*NET
+  source. ESCO v1.1.0 and the official ESCO–O*NET crosswalk are already frozen, checksummed and
+  covered by a multiplicity audit.
+- [ ] After the source-edition and transfer checks pass, add OECD capability, O*NET work-profile, Eloundou theoretical
+  exposure and Anthropic observed-use panels separately. Keep AIOE values link-only until its
+  redistribution terms are explicit.
+- [x] Expand Singapore context with correctly grained MOM and IMDA adoption, vacancy, entry-level and
+  digital-work evidence. Keep national, sector, broad-group and named-occupation facts visibly
+  distinct.
+- [ ] Pilot reviewed Skills Framework/WSG mappings in a small number of sectors before adding scalable
+  skills and training guidance.
+
+P3 covers longitudinal evidence, transitions and real-world validation.
+
+- [ ] Freeze a second comparable V9 snapshot before enabling movers. Lock source construct, taxonomy,
+  crosswalk, aggregation, ranking population, missing-data policy, rounding and publication timing.
+- [ ] Replace the old transition composite with separate task/skill similarity, qualification or
+  licensing gap, direct wage difference, named demand, training route and work-context dimensions.
+  Do not call a transition `best` until the product has a validated decision rule.
+- [ ] Run moderated customer comprehension and actionability sessions, manual VoiceOver/NVDA testing
+  and production Core Web Vitals/RUM. Automated browsers are pre-release checks, not substitutes.
+
 ## Plan of Work
 
-First, repair the foundation. Update the design tokens to a warm editorial surface system, define a
+First, repair the foundation. Apply preset `b3rnTwetSc` so `components.json`, font dependencies,
+Phosphor icon dependency and shadcn-svelte base CSS all record Lyra as the upstream primitive
+contract. Then update the design tokens to a warm editorial surface system, define a
 continuous V9 pressure scale, define role-family and evidence-status tokens, increase body and chart
 typography, and add consistent focus, active, radius, depth, and touch-target behavior. Add small
 presentation modules for evidence labels, pressure formatting, local saved-job state, personal task
 answers, and URL-backed browse state. Correct the current research and market claims that can be
 fixed from already-reviewed primary sources without changing the score.
 
-Second, restore exploration. Create a new equal-area occupation map whose data contract contains
+Second, restore category-first exploration. Create a nine-major-group and official-category summary
+for the homepage. Keep the equal-area occupation map in Explore, where its data contract contains
 only stable identity, official group, V9 pressure, direct wage availability, named-demand count, and
 mapping status. Add a chart frame, legend, meaningful mobile view, selected-occupation summary, and
 accessible list/table alternative. Connect the same filters to the map, list, and pressure/pay
@@ -370,6 +513,11 @@ comparable V9 snapshot exists. Keep technical reproduction in the appendix. Keep
 and action links before source registries. Ensure archive pages are frozen, noindexed, and do not
 inject live V9 status into old claims.
 
+Next, add publishable mapped ILO task examples and prototype the verified external crosswalk without
+changing the headline. Every new evidence block records source artifact, checksum, date, construct,
+grain, mapping quality, coverage and limitations. The headline invariance suite must pass before a
+side panel is reachable.
+
 Finally, regenerate release artifacts and validate in layers. Run focused component and route tests
 while editing, then copy lint, Svelte checks, the full test suite, release generation/checks, static
 build, responsive browser flows, keyboard/focus checks, and data/performance assertions. Update this
@@ -384,6 +532,15 @@ Establish and repeatedly check the baseline:
     git status --short
     bun run check
     bun test
+
+Inspect the recorded Lyra preset in a disposable copy before applying it to the dirty worktree:
+
+    npm_config_cache=/tmp/aiwi-npm-cache npx --yes shadcn-svelte@latest apply b3rnTwetSc -c /tmp/aiwi-preset-audit -y --no-deps-install --skip-preflight
+
+Apply Lyra to the repository only after the temporary diff is understood, then reconcile product
+tokens and local primitive customisations rather than accepting the generated CSS blindly:
+
+    npm_config_cache=/tmp/aiwi-npm-cache npx --yes shadcn-svelte@latest apply b3rnTwetSc -c /Users/kirso/Developer/ai-work-index -y --no-deps-install --skip-preflight
 
 Regenerate deterministic current artifacts after source-builder or discovery changes:
 
@@ -415,11 +572,11 @@ composite role, one withheld role, one scored occupation, one unranked occupatio
 
 - The V9 headline builder and all 987 published ranks are byte-for-byte unchanged unless an explicit
   separately reviewed scientific correction is recorded in this plan.
-- The homepage shows search and a useful occupation-map view in the first mobile viewport; one tile
-  is visibly defined as one occupation record.
+- The homepage shows search, current Singapore evidence and a useful category/group overview before
+  exposing a detailed map. One tile in the Explore map is visibly defined as one occupation record.
 - Filters update the map, list, scatter, result count, and URL without treating missing values as
   zero. A shared link restores the same state.
-- The map includes all 1,001 official numeric occupations, visibly hatches 14 unranked records, and
+- The Explore map includes all 1,001 official numeric occupations, visibly hatches 14 unranked records, and
   does not size marks by employment or wages.
 - The pressure/pay visual retains its relationship on mobile, states the plotted denominator, and
   does not expose hundreds of marks as sequential tab stops.
@@ -438,6 +595,10 @@ composite role, one withheld role, one scored occupation, one unranked occupatio
 - Metadata, structured data, sitemap, `llms.txt`, and visible page claims agree.
 - The human-copy linter has no unreviewed warnings in changed public copy.
 - `bun run verify` and `bun run build` pass.
+- `components.json` records `style: lyra`, the selected icon and menu contracts, and no active V9
+  component depends on an unrecorded preset assumption.
+- Every published mapped ILO task example exposes the source ISCO code and cannot be read or exported
+  as an exact five-digit SSOC duty.
 
 ## Idempotence and Recovery
 
@@ -467,7 +628,8 @@ The final implementation should leave:
 
 ## Interfaces and Dependencies
 
-The work uses Bun, TypeScript, SvelteKit 2, Svelte 5, adapter-static, Tailwind CSS 4, modular D3,
+The work uses Bun, TypeScript, SvelteKit 2, Svelte 5, adapter-static, Tailwind CSS 4,
+shadcn-svelte Lyra preset `b3rnTwetSc`, Outfit, Geist Mono, Phosphor icons, modular D3,
 Cloudflare Pages redirects/headers, local browser storage, and the existing build/test toolchain. It
 adds no paid data source and no new chart runtime. It depends on the frozen SSOC 2024, ILO 2025, MOM
 2025/2026, current research registry, and V9 role-mapping artifacts already in the repository.
