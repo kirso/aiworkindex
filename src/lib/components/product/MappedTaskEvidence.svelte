@@ -29,7 +29,7 @@
 		<p class={sectionLabel()}>Mapped task examples</p>
 		<div class="mt-2 flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
 			<div class="max-w-4xl">
-				<h2 id="mapped-task-heading" class="font-heading text-2xl font-bold text-foreground">
+				<h2 id="mapped-task-heading" class="font-sans text-2xl font-bold text-foreground">
 					Which tasks the ILO scored higher and lower
 				</h2>
 				<p class="mt-2 text-sm leading-relaxed text-muted-foreground">
@@ -48,7 +48,7 @@
 				<article class="border border-border bg-card">
 					<header class="border-b border-border bg-surface-subtle px-4 py-4 sm:px-5">
 						<p class="font-mono text-xs text-muted-foreground">Mapped ISCO-08 {group.isco08Code}</p>
-						<h3 class="mt-1 font-heading text-lg font-bold text-foreground">
+						<h3 class="mt-1 font-sans text-lg font-bold text-foreground">
 							{group.isco08Title}
 						</h3>
 					</header>

@@ -9,11 +9,18 @@
 	import OccupationResultList from '$lib/components/v9-browser/OccupationResultList.svelte';
 	import { badge, card, pageLayout, sectionLabel, title as titleStyle } from '$lib/design-system';
 	import { SITE } from '$lib/data/scoring-constants';
+	import { formatIloCodebookCategory, spokenOccupationTitle } from '$lib/data/v9-display';
 
 	let { data } = $props();
 	let view = $derived(data.view);
 	let modernQueries = $derived(data.modernQueries);
 	let occupation = $derived(view.occupation);
+	let spokenTitle = $derived(
+		spokenOccupationTitle(
+			view.title,
+			modernQueries.map(query => query.title)
+		)
+	);
 	let exposure = $derived(occupation.genai_task_exposure);
 	let wage = $derived(occupation.singapore_market.wages);
 	let comparisonEvidence = $derived([
@@ -48,8 +55,8 @@
 
 	let demandSummary = $derived(
 		view.demandSignals.length > 0
-			? `${view.demandSignals.length} named official ${view.demandSignals.length === 1 ? 'signal' : 'signals'}`
-			: 'No match in selected lists'
+			? `${view.demandSignals.length} named ${view.demandSignals.length === 1 ? 'list' : 'lists'}`
+			: 'Not named in the selected lists'
 	);
 
 	const faqItems = $derived([
@@ -77,7 +84,7 @@
 	]);
 
 	let seoDescription = $derived(
-		`${view.title} (SSOC ${view.code}): ${formatPercentile(view.pressureRank)} AI task pressure, ${view.wageMedian == null ? 'no direct pay row in the selected detailed MOM table' : `SGD ${view.wageMedian.toLocaleString()} gross monthly median`}, and ${view.demandSignals.length} named demand ${view.demandSignals.length === 1 ? 'signal' : 'signals'}.`
+		`${spokenTitle} (SSOC ${view.code}): ${formatPercentile(view.pressureRank)} AI task overlap, ${view.wageMedian == null ? 'no direct pay row in the selected detailed MOM table' : `SGD ${view.wageMedian.toLocaleString()} gross monthly median`}, and ${view.demandSignals.length} named demand ${view.demandSignals.length === 1 ? 'source' : 'sources'}.`
 	);
 
 	let occupationJsonLd = $derived(
@@ -135,7 +142,7 @@
 </script>
 
 <Seo
-	title={`${view.title} (SSOC ${view.code}): AI Task Pressure and Pay`}
+	title={`${spokenTitle}: AI task overlap in Singapore`}
 	description={seoDescription}
 	path={`/occupation/${view.code}`}
 	jsonLd={[occupationJsonLd]}
@@ -146,7 +153,7 @@
 		items={[
 			{ label: 'Home', href: '/' },
 			{ label: 'Browse occupations', href: '/explore' },
-			{ label: view.title }
+			{ label: spokenTitle }
 		]}
 	/>
 
@@ -154,34 +161,24 @@
 		<div class="flex min-w-0 flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
 			<div class="min-w-0 max-w-4xl">
 				<div class="flex min-w-0 flex-wrap gap-2">
-					<span class={badge({ variant: 'outline' })}>SSOC 2024 · {view.code}</span>
+					<span class={badge({ variant: 'outline' })}>SSOC {view.code}</span>
 					<span class={badge({ variant: exposure ? 'info' : 'warning' })}>
-						{exposure ? 'Pressure ranked' : 'Insufficient evidence'}
+						{exposure ? 'Pressure ranked' : 'Not ranked'}
 					</span>
 				</div>
-				<h1 class="mt-4 break-words {titleStyle({ size: 'page' })}">
-					{#each view.title.split('/') as titlePart, index (index)}
-						{#if index > 0}/<wbr />{/if}{titlePart}
-					{/each}
-				</h1>
-				<p class="mt-4 max-w-3xl text-base leading-relaxed text-muted-foreground">
-					See its relative task pressure, mapped task examples, direct pay evidence and selected
-					demand sources below.
-				</p>
-				{#if modernQueries.length > 0}
-					<p class="mt-3 max-w-4xl text-sm leading-relaxed text-muted-foreground">
-						<strong class="text-foreground">Also found as:</strong>
-						{modernQueries.map(query => query.title).join(' · ')}. These titles point to this one
-						official occupation and score.
+				<h1 class="mt-4 break-words {titleStyle({ size: 'page' })}">{spokenTitle}</h1>
+				{#if spokenTitle !== view.title}
+					<p class="mt-2 max-w-3xl text-sm text-muted-foreground">
+						Official title: {view.title}
 					</p>
 				{/if}
 			</div>
 			<div class="flex shrink-0 flex-wrap gap-2">
 				<Button variant="outline" href="/compare?entities=occupation:{view.code}" class="min-h-11"
-					>Compare</Button
+					>Compare these jobs</Button
 				>
 				<SaveJobButton kind="occupation" id={view.code} size="default" class="min-h-11" />
-				<SharePageButton title={`${view.title} | ${SITE.name}`} size="default" />
+				<SharePageButton title={`${spokenTitle} | ${SITE.name}`} size="default" />
 			</div>
 		</div>
 	</header>
@@ -190,25 +187,25 @@
 		<h2 id="answer-heading" class={sectionLabel()}>What the evidence says</h2>
 		<div class="mt-3 grid min-w-0 gap-4 lg:grid-cols-3">
 			<div class={card({ padding: 'lg', variant: 'elevated' })}>
-				<p class="text-sm font-semibold text-foreground">AI task pressure</p>
-				<p class="mt-3 break-words font-mono text-4xl font-black tabular-nums text-foreground">
+				<p class="text-sm font-semibold text-foreground">AI task overlap</p>
+				<p class="mt-3 break-words font-mono text-4xl font-semibold tabular-nums text-foreground">
 					{formatPercentile(view.pressureRank)}
 				</p>
-				<p class="mt-2 text-sm font-semibold text-foreground">{view.officialCategory}</p>
+				<p class="mt-2 text-sm font-semibold text-foreground">{view.pressureLabel}</p>
 				<p class="mt-3 text-sm leading-relaxed text-muted-foreground">
 					{view.pressureRank == null
-						? 'The official mapping yielded insufficient scored ILO evidence, so this occupation remains unranked.'
+						? 'Not ranked — not enough mapped task evidence yet.'
 						: `Relative task overlap among ${view.pressurePopulation?.toLocaleString() ?? 987} scored occupations. Not a job-loss probability.`}
 				</p>
 			</div>
 
 			<div class={card({ padding: 'lg', variant: 'metric' })}>
 				<p class="text-sm font-semibold text-foreground">Pay in Singapore</p>
-				<p class="mt-3 break-words font-mono text-3xl font-bold tabular-nums text-foreground">
+				<p class="mt-3 break-words font-mono text-3xl font-semibold tabular-nums text-foreground">
 					{formatWage(view.wageMedian)}
 				</p>
 				<p class="mt-2 text-xs text-muted-foreground">
-					{wage ? 'Gross monthly median · June 2025' : 'No direct row in the selected MOM table'}
+					{wage ? 'Gross monthly median · June 2025' : 'No direct pay row in this table'}
 				</p>
 				<p class="mt-3 text-sm leading-relaxed text-muted-foreground">
 					{wage
@@ -223,10 +220,16 @@
 				<p class="mt-3 text-sm leading-relaxed text-muted-foreground">
 					{view.demandSignals.length > 0
 						? 'A reviewed match connects this occupation to an entry in a selected MOM demand source.'
-						: 'These sources cover selected demand and shortage categories.'}
+						: 'Absence from these lists is not weak demand. Coverage is limited to the occupations each source names.'}
 				</p>
 			</div>
 		</div>
+		{#if modernQueries.length > 0}
+			<p class="mt-4 max-w-4xl text-sm leading-relaxed text-muted-foreground">
+				<strong class="text-foreground">Also found as:</strong>
+				{modernQueries.map(query => query.title).join(' · ')}.
+			</p>
+		{/if}
 	</section>
 
 	{#if occupation.taxonomy.detailed_definition}
@@ -409,9 +412,9 @@
 			</p>
 			<div class="mt-4 grid min-w-0 gap-3 sm:grid-cols-2 lg:grid-cols-4">
 				<div class={card({ padding: 'md', variant: 'metric' })}>
-					<p class="text-xs text-muted-foreground">Mapped ILO category</p>
+					<p class="text-xs text-muted-foreground">ILO codebook category</p>
 					<p class="mt-2 break-words text-sm font-semibold text-foreground">
-						{view.officialCategory}
+						{formatIloCodebookCategory(exposure)}
 					</p>
 				</div>
 				<div class={card({ padding: 'md', variant: 'metric' })}>

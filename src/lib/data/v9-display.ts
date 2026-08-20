@@ -13,6 +13,16 @@ const categoryOrder: V9IloExposureCategory[] = [
 ];
 
 const categoryLabels: Record<V9IloExposureCategory, string> = {
+	'Not Exposed': 'Not exposed',
+	'Minimal Exposure': 'Minimal overlap',
+	'Exposed: Gradient 1': 'Lower overlap',
+	'Exposed: Gradient 2': 'Moderate overlap',
+	'Exposed: Gradient 3': 'Higher overlap',
+	'Exposed: Gradient 4': 'Highest overlap'
+};
+
+/** Official ILO codebook strings. Use only in methodology, appendix and data dictionaries. */
+export const ILO_CATEGORY_CODEBOOK: Record<V9IloExposureCategory, string> = {
 	'Not Exposed': 'Not Exposed',
 	'Minimal Exposure': 'Minimal Exposure',
 	'Exposed: Gradient 1': 'Exposed: Gradient 1',
@@ -62,11 +72,45 @@ export function formatOfficialCategory(exposure: V9GenAiTaskExposure | null): st
 	if (!exposure) return 'Not ranked';
 	const least = exposure.potential25.least_exposed;
 	const most = exposure.potential25.most_exposed;
-	if (least === most) return least;
+	if (least === most) return categoryLabels[most];
 	const leastIndex = categoryOrder.indexOf(least);
 	const mostIndex = categoryOrder.indexOf(most);
-	if (leastIndex < 0 || mostIndex < 0) return `${least} to ${most}`;
+	if (leastIndex < 0 || mostIndex < 0) {
+		return `${categoryLabels[least] ?? least} to ${categoryLabels[most] ?? most}`;
+	}
+	return `${categoryLabels[least]} to ${categoryLabels[most].toLowerCase()}`;
+}
+
+export function formatIloCodebookCategory(exposure: V9GenAiTaskExposure | null): string {
+	if (!exposure) return 'Not ranked';
+	const least = exposure.potential25.least_exposed;
+	const most = exposure.potential25.most_exposed;
+	if (least === most) return least;
 	return `${least} to ${most}`;
+}
+
+function sentenceCaseIfShouting(value: string): string {
+	const letters = value.replace(/[^A-Za-z]/g, '');
+	if (letters.length > 3 && letters === letters.toUpperCase()) {
+		return value.charAt(0) + value.slice(1).toLowerCase();
+	}
+	return value;
+}
+
+/** Spoken H1. Official slash titles and n.e.c. residuals stay in the subtitle. */
+export function spokenOccupationTitle(
+	officialTitle: string,
+	spokenCandidates: readonly string[] = []
+): string {
+	const spoken = spokenCandidates.find(
+		candidate =>
+			candidate.trim().length > 0 &&
+			!candidate.includes('/') &&
+			!/n\.e\.c/i.test(candidate)
+	);
+	if (spoken) return sentenceCaseIfShouting(spoken.trim());
+	const firstSegment = officialTitle.split('/')[0]?.replace(/\s*n\.e\.c\.?\s*$/i, '').trim();
+	return sentenceCaseIfShouting(firstSegment || officialTitle);
 }
 
 export function pressureLabel(exposure: V9GenAiTaskExposure | null): string {

@@ -74,7 +74,9 @@
 					? 'Direct wage evidence unknown'
 					: 'Direct gross wage median';
 			case 'demand':
-				return item.demandSignalCount === 0 ? 'Demand remains unknown' : 'Direct MOM list evidence';
+				return item.demandSignalCount === 0
+					? 'Not named in the selected lists'
+					: 'Direct MOM list evidence';
 			case 'dispersion':
 				return 'ILO task-score standard deviation';
 			case 'mapping': {

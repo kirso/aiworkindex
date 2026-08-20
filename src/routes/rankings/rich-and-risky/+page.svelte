@@ -9,8 +9,8 @@
 </script>
 
 <Seo
-	title="High-Paying Singapore Jobs in ILO Exposure Gradients 2–4"
-	description="Direct June 2025 MOM gross wage medians for SSOC 2024 occupations whose mapped ILO category reaches Gradient 2, 3 or 4."
+	title="Higher-overlap Singapore jobs with a published pay row"
+	description="Direct June 2025 MOM gross wage medians for SSOC 2024 occupations whose mapped overlap is moderate or higher."
 	path="/rankings/rich-and-risky"
 />
 
@@ -24,11 +24,10 @@
 	/>
 
 	<header class="mb-7 max-w-4xl">
-		<h1 class={titleStyle({ size: 'page' })}>Direct wages in ILO Gradients 2–4</h1>
+		<h1 class={titleStyle({ size: 'page' })}>Higher-overlap jobs with a pay row</h1>
 		<p class="mt-3 text-base leading-relaxed text-muted-foreground">
-			These occupations have an exact June 2025 MOM wage row and an official mapped category set
-			that reaches <strong>Exposed: Gradient 2, 3 or 4</strong>. The list is ordered by gross
-			monthly median, not by a combined wage-risk formula.
+			These occupations have an exact June 2025 MOM wage row and mapped overlap at moderate or
+			higher. The list is ordered by gross monthly median, not by a combined wage-risk formula.
 		</p>
 	</header>
 

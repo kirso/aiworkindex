@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { formInput } from '$lib/design-system';
 	import type { V9IloExposureCategory } from '$lib/data/v9-contract';
+	import { categoryLabel } from '$lib/data/v9-display';
 
 	export type EvidenceFilter = 'all' | 'ranked' | 'wage' | 'demand' | 'unranked';
 	export type OccupationSort = 'title' | 'pressure' | 'wage';
@@ -52,7 +53,7 @@
 
 <section
 	aria-label="Filter occupations"
-	class="rounded-xl border border-border bg-card p-3 shadow-xs sm:p-4"
+	class="rounded-none border border-border bg-card p-3 shadow-xs sm:p-4"
 >
 	<div class="grid min-w-0 gap-3 md:grid-cols-[minmax(15rem,1.5fr)_auto] md:items-end">
 		<label class="block min-w-0 text-sm font-medium text-foreground">
@@ -67,7 +68,7 @@
 
 		<button
 			type="button"
-			class="touch-target inline-flex items-center justify-center rounded-lg border border-border bg-card px-4 py-2 text-sm font-semibold text-foreground md:hidden"
+			class="touch-target inline-flex items-center justify-center rounded-none border border-border bg-card px-4 py-2 text-sm font-semibold text-foreground md:hidden"
 			onclick={() => (filtersOpen = !filtersOpen)}
 			aria-controls="occupation-filter-controls"
 			aria-expanded={filtersOpen}
@@ -100,11 +101,11 @@
 		</label>
 
 		<label class="block min-w-0 text-sm font-medium text-foreground">
-			Official ILO category
+			Official overlap band
 			<select bind:value={category} class="mt-1.5 {formInput()}">
-				<option value="all">All categories</option>
+				<option value="all">All bands</option>
 				{#each categoryOptions as option (option)}
-					<option value={option}>{option}</option>
+					<option value={option}>{categoryLabel(option)}</option>
 				{/each}
 			</select>
 		</label>

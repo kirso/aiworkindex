@@ -72,7 +72,8 @@ describe('V9 consumer occupation explorer', () => {
 		const home = source('src/routes/+page.svelte');
 		const explore = source('src/routes/explore/+page.svelte');
 		assert.match(home, /OccupationGroupOverview/);
-		assert.match(home, /Choose a broad occupation group before the details/);
+		assert.match(home, /How does AI overlap with your job\?/);
+		assert.doesNotMatch(home, /Exposed: Gradient/);
 		assert.doesNotMatch(home, /<OccupationExplorer/);
 		assert.match(explore, /<OccupationExplorer/);
 	});

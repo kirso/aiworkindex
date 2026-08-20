@@ -1,4 +1,6 @@
 <script lang="ts">
+	import type { V9IloExposureCategory } from '$lib/data/v9-contract';
+	import { categoryLabel, spokenOccupationTitle } from '$lib/data/v9-display';
 	import type { V9CategorySummary, V9GroupSummary } from '$lib/data/v9-home';
 
 	interface Props {
@@ -10,22 +12,13 @@
 
 	let { groups, categories, rankedTotal, unrankedTotal }: Props = $props();
 
-	const categoryColors: Record<string, string> = {
+	const categoryColors: Record<V9IloExposureCategory, string> = {
 		'Not Exposed': 'var(--color-pressure-0)',
 		'Minimal Exposure': 'var(--color-pressure-20)',
 		'Exposed: Gradient 1': 'var(--color-pressure-40)',
 		'Exposed: Gradient 2': 'var(--color-pressure-60)',
 		'Exposed: Gradient 3': 'var(--color-pressure-80)',
 		'Exposed: Gradient 4': 'var(--color-pressure-100)'
-	};
-
-	const categoryShortLabels: Record<string, string> = {
-		'Not Exposed': 'Not exposed',
-		'Minimal Exposure': 'Minimal',
-		'Exposed: Gradient 1': 'Gradient 1',
-		'Exposed: Gradient 2': 'Gradient 2',
-		'Exposed: Gradient 3': 'Gradient 3',
-		'Exposed: Gradient 4': 'Gradient 4'
 	};
 
 	function width(count: number, total: number): number {
@@ -37,12 +30,11 @@
 	<div class="border-b border-border px-4 py-5 sm:px-6">
 		<div class="flex flex-wrap items-end justify-between gap-4">
 			<div>
-				<h3 id="occupation-groups-title" class="font-heading text-xl font-bold text-foreground">
-					How the official ILO categories appear across Singapore occupations
+				<h3 id="occupation-groups-title" class="font-sans text-xl font-bold text-foreground">
+					Where occupation records sit
 				</h3>
 				<p class="mt-1 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-					Each scored occupation is counted once using the most exposed official category among its
-					mapped ISCO matches. These are occupation records, not worker counts.
+					Each scored occupation is counted once. These are occupation records, not worker counts.
 				</p>
 			</div>
 			<p class="font-mono text-xs text-muted-foreground">
@@ -52,13 +44,13 @@
 
 		<div
 			class="mt-4 flex h-4 w-full overflow-hidden border border-border bg-muted"
-			aria-label="Overall distribution by official ILO exposure category"
+			aria-label="Overall distribution by AI task overlap"
 		>
 			{#each categories as category (category.category)}
 				<span
 					style:width="{width(category.count, rankedTotal)}%"
 					style:background-color={categoryColors[category.category]}
-					title="{categoryShortLabels[category.category]}: {category.count} occupations"
+					title="{categoryLabel(category.category)}: {category.count} occupations"
 				></span>
 			{/each}
 		</div>
@@ -71,7 +63,7 @@
 						style:background-color={categoryColors[category.category]}
 						aria-hidden="true"
 					></span>
-					<span>{categoryShortLabels[category.category]}</span>
+					<span>{categoryLabel(category.category)}</span>
 					<strong class="font-mono font-medium text-foreground">{category.count}</strong>
 				</li>
 			{/each}
@@ -90,8 +82,8 @@
 					<div class="flex items-start justify-between gap-4">
 						<div>
 							<p class="font-mono text-xs text-muted-foreground">SSOC {group.code}</p>
-							<h4 class="mt-1 font-heading text-base font-bold leading-snug text-foreground">
-								{group.title}
+							<h4 class="mt-1 font-sans text-base font-bold leading-snug text-foreground">
+								{spokenOccupationTitle(group.title)}
 							</h4>
 						</div>
 						<span class="font-mono text-lg font-semibold tabular-nums text-foreground">
@@ -104,14 +96,14 @@
 							<span
 								style:width="{width(category.count, group.ranked)}%"
 								style:background-color={categoryColors[category.category]}
-								title="{categoryShortLabels[category.category]}: {category.count}"
+								title="{categoryLabel(category.category)}: {category.count}"
 							></span>
 						{/each}
 					</div>
 
 					<div class="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground">
 						<span>
-							Median pressure
+							Median overlap
 							<strong class="font-mono font-medium text-foreground">
 								{group.medianPressure == null ? 'Unranked' : group.medianPressure.toFixed(1)}
 							</strong>

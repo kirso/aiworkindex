@@ -353,14 +353,16 @@
 		</div>
 
 		<div class="mt-5">
-			<RoleWorkProfile
-				id={role.slug}
-				familyLabel={presentation.label}
-				items={presentation.workProfile}
-				accent={presentation.accent}
-				surface={presentation.surface}
-				disclosure={ROLE_GUIDANCE_DISCLOSURE}
-			/>
+			{#if !mappingWithheld}
+				<RoleWorkProfile
+					id={role.slug}
+					familyLabel={presentation.label}
+					items={presentation.workProfile}
+					accent={presentation.accent}
+					surface={presentation.surface}
+					disclosure={ROLE_GUIDANCE_DISCLOSURE}
+				/>
+			{/if}
 		</div>
 	</section>
 

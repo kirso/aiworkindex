@@ -39,8 +39,25 @@ describe('V9 consumer product journeys', () => {
 		const occupation = source('src/routes/occupation/[ssoc]/+page.svelte');
 		const roles = source('src/routes/roles/+page.svelte');
 		assert.match(occupation, /Read the official SSOC definition/);
+		assert.match(occupation, /spokenOccupationTitle/);
+		assert.doesNotMatch(occupation, /view\.title\.split\('\/'\)/);
 		assert.match(roles, /visibleLimit = \$state\(24\)/);
 		assert.match(roles, /Show all \{resultCount\} roles/);
+	});
+
+	test('names the command palette and keeps closed chrome inside the dialog', () => {
+		const menu = source('src/lib/components/ui/CommandMenu.svelte');
+		const dialog = source('src/lib/components/ui/command/command-dialog.svelte');
+		assert.match(menu, /title="Search occupations and pages"/);
+		assert.match(menu, /aria-label="Search occupations, roles or pages"/);
+		assert.match(dialog, /<Dialog\.Header class="sr-only">/);
+		assert.ok(dialog.indexOf('<Dialog.Content') < dialog.indexOf('<Dialog.Header'));
+	});
+
+	test('does not attach a family radar to withheld role mappings', () => {
+		const role = source('src/routes/role/[slug]/+page.svelte');
+		assert.match(role, /\{#if !mappingWithheld\}/);
+		assert.match(role, /RoleWorkProfile/);
 	});
 
 	test('uses responsive comparison cards instead of a wide scrolling table', () => {

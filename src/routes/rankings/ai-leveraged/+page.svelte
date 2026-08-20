@@ -9,8 +9,8 @@
 </script>
 
 <Seo
-	title="Singapore Occupations in ILO GenAI Gradient 4"
-	description="SSOC 2024 occupations whose official mapped ILO category set reaches Exposed: Gradient 4, ordered by V9 AI work pressure."
+	title="Singapore jobs with the highest AI task overlap"
+	description="SSOC 2024 occupations whose mapped ILO evidence reaches the highest overlap band, ordered by V9 AI work pressure."
 	path="/rankings/ai-leveraged"
 />
 
@@ -19,16 +19,16 @@
 		items={[
 			{ label: 'Home', href: '/' },
 			{ label: 'Rankings', href: '/rankings' },
-			{ label: 'ILO Gradient 4' }
+			{ label: 'Highest overlap' }
 		]}
 	/>
 
 	<header class="mb-7 max-w-4xl">
-		<span class={badge({ variant: 'outline' })}>Official ILO category</span>
-		<h1 class="mt-3 {titleStyle({ size: 'page' })}">Occupations reaching ILO Gradient 4</h1>
+		<span class={badge({ variant: 'outline' })}>Highest overlap band</span>
+		<h1 class="mt-3 {titleStyle({ size: 'page' })}">Jobs with the highest AI task overlap</h1>
 		<p class="mt-3 text-base leading-relaxed text-muted-foreground">
-			These {data.ranked.length} SSOC 2024 occupations map to an ILO category set whose most exposed match
-			is <strong>Exposed: Gradient 4</strong>. A range appears when official mappings disagree.
+			These {data.ranked.length} occupations map to ILO evidence in the highest overlap band. A range
+			appears when official mappings disagree. How-calculated records the ILO codebook name.
 		</p>
 	</header>
 
@@ -43,8 +43,9 @@
 	<OccupationResultList items={data.ranked} detail="category" />
 
 	<p class="mt-4 text-xs leading-relaxed text-muted-foreground">
-		Gradient 4 denotes greater potential task exposure in the ILO framework. It does not specify
-		whether employers will automate, augment or redesign the work.
+		The ILO codebook calls this band Exposed: Gradient 4. That name is the source label, not a
+		job-loss forecast. It does not say whether employers will automate, augment or redesign the
+		work.
 	</p>
 
 	<RankingNav current="/rankings/ai-leveraged" />

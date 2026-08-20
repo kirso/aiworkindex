@@ -17,8 +17,8 @@
 		},
 		{
 			href: '/rankings/ai-leveraged',
-			title: 'ILO Gradient 4 occupations',
-			description: `${data.counts.officialGradient4} occupations whose official mapped category set reaches ILO's highest exposure gradient.`,
+			title: 'Jobs with the highest AI task overlap',
+			description: `${data.counts.officialGradient4} occupations whose mapped evidence reaches the highest overlap band.`,
 			status: 'V9',
 			available: true
 		},
@@ -31,8 +31,8 @@
 		},
 		{
 			href: '/rankings/rich-and-risky',
-			title: 'Direct wages in ILO Gradients 2–4',
-			description: `${data.counts.wagePressure} occupations with a direct MOM wage row and an official mapped category reaching Gradient 2, 3 or 4.`,
+			title: 'Higher overlap jobs with a pay row',
+			description: `${data.counts.wagePressure} occupations with a direct MOM wage row and mapped overlap at moderate or higher.`,
 			status: 'Direct wages',
 			available: true
 		},

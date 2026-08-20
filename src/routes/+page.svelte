@@ -41,8 +41,8 @@
 </script>
 
 <Seo
-	title="Singapore AI Job Pressure by Occupation"
-	description="Search 1,001 SSOC 2024 occupations or start with a major occupation group. Compare AI task pressure with Singapore pay and named demand evidence."
+	title="How does AI overlap with your job in Singapore?"
+	description="Search 1,001 Singapore occupations. See AI task overlap, pay and named demand evidence, then open a major group or the full explorer."
 	path="/"
 	jsonLd={[buildFaqJsonLd(faqItems)]}
 />
@@ -56,11 +56,11 @@
 		>
 			<div class="max-w-4xl">
 				<span class={badge({ variant: 'outline' })}>Singapore · SSOC 2024 · V9</span>
-				<h1 class="mt-3 {titleStyle({ size: 'page' })}">Where AI puts pressure on work</h1>
+				<h1 class="mt-3 {titleStyle({ size: 'page' })}">How does AI overlap with your job?</h1>
 				<p class="mt-3 max-w-2xl text-base leading-relaxed text-text-secondary sm:text-lg">
-					Find your occupation, see which tasks face more AI overlap, and compare pay with current
-					demand. Use the percentile to locate your occupation among Singapore jobs, then read pay
-					and demand for the wider picture.
+					Find your occupation, see its relative AI task overlap, then check pay and named hiring
+					lists. The percentile locates the job among scored Singapore occupations. It is not a
+					job-loss probability.
 				</p>
 				<div class="mt-5 max-w-2xl">
 					<OccupationSearch label="Search your job title or SSOC code" />
@@ -114,8 +114,8 @@
 					Choose a broad occupation group before the details
 				</h2>
 				<p class="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-					The nine official major groups show where occupation records sit across the ILO
-					categories. Open a group when you want the detailed map, filters and exact occupations.
+					Nine official major groups. Open a group for the detailed map, filters and exact
+					occupations.
 				</p>
 			</div>
 			<a href="/explore" class={linkPill()}> Open the 1,001-occupation explorer → </a>
@@ -141,7 +141,7 @@
 
 			<div>
 				<p class={sectionLabel()}>What Singapore employers reported</p>
-				<h2 class="mt-1 font-heading text-2xl font-bold text-foreground">
+				<h2 class="mt-1 font-sans text-2xl font-bold text-foreground">
 					Current labour-market context
 				</h2>
 				<p class="mt-2 text-sm leading-relaxed text-muted-foreground">
