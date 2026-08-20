@@ -22,7 +22,10 @@ export interface ResearchEntry {
 	title: string;
 	authors: string[];
 	year: number;
+	/** Publication or public-release date. This is not the source's observation period. */
 	published_at: string;
+	/** Period covered by the underlying observations, when the source reports one clearly. */
+	observation_period?: string;
 	publisher: string;
 	url: string;
 	doi?: string;
@@ -94,28 +97,6 @@ export const researchRegistry: ResearchEntry[] = [
 			'The source key preserves the frozen pre-V9 artifact. AIOE is not averaged into the V9 headline score.'
 	},
 	{
-		key: 'openai_gpts_are_gpts_2023',
-		title: 'GPTs are GPTs: An Early Look at the Labor Market Impact Potential of Large Language Models',
-		authors: ['Tyna Eloundou', 'Sam Manning', 'Pamela Mishkin', 'Daniel Rock'],
-		year: 2023,
-		published_at: '2023-03-17',
-		publisher: 'OpenAI',
-		url: 'https://openai.com/index/gpts-are-gpts/',
-		type: 'article',
-		domains: ['exposure', 'tasks'],
-		role: 'supporting_context',
-		status: 'supporting',
-		used_for: ['LLM-specific task exposure framing', 'historical task-exposure comparison'],
-		source_keys: [],
-		claim_ids: [],
-		summary:
-			'Frames LLM exposure around task feasibility and time-saving potential rather than broad automation narratives.',
-		limitations:
-			'The paper is early and US-oriented, and it does not by itself provide Singapore labour-market calibration.',
-		repo_notes:
-			'Background evidence only in V9; its US task rubric is not a Singapore score weight.'
-	},
-	{
 		key: 'pizzinelli_etal_2023',
 		title: 'Labor Market Exposure to AI: Cross-country Differences and Distributional Implications',
 		authors: ['Carolina Pizzinelli', 'et al.'],
@@ -151,6 +132,7 @@ export const researchRegistry: ResearchEntry[] = [
 		],
 		year: 2026,
 		published_at: '2026-01-15',
+		observation_period: '2025-11',
 		publisher: 'Anthropic',
 		url: 'https://www.anthropic.com/research/anthropic-economic-index-january-2026-report',
 		type: 'report',
@@ -224,22 +206,27 @@ export const researchRegistry: ResearchEntry[] = [
 		title: 'GPTs are GPTs: An Early Look at the Labor Market Impact Potential of Large Language Models',
 		authors: ['Tyna Eloundou', 'Sam Manning', 'Pamela Mishkin', 'Daniel Rock'],
 		year: 2023,
-		published_at: '2023-03',
-		publisher: 'arXiv / OpenAI',
-		url: 'https://arxiv.org/abs/2303.10130',
-		type: 'paper',
-		domains: ['exposure'],
+		published_at: '2023-03-17',
+		publisher: 'OpenAI / arXiv',
+		url: 'https://openai.com/index/gpts-are-gpts/',
+		doi: '10.48550/arXiv.2303.10130',
+		type: 'working_paper',
+		domains: ['exposure', 'tasks'],
 		role: 'supporting_context',
 		status: 'supporting',
-		used_for: ['historical LLM-exposure source', 'method comparison'],
+		used_for: [
+			'LLM-specific task exposure framing',
+			'historical LLM-exposure comparison',
+			'method comparison'
+		],
 		source_keys: ['eloundou_gpt_exposure_2023'],
 		claim_ids: ['v9_external_comparison_withheld'],
 		summary:
-			'Provides an early GPT-oriented task-exposure rubric used for historical comparison with newer measures.',
+			'Frames LLM exposure around task feasibility and time-saving potential and provides an early GPT-oriented occupation rubric.',
 		limitations:
 			'Like other exposure indices, it measures capability overlap rather than realised displacement.',
 		repo_notes:
-			'The source key preserves the historical artifact. It is not averaged into the V9 headline score.'
+			'The sole registry record for the OpenAI/Eloundou study. Its source key preserves the historical artifact; it is not averaged into the V9 headline score.'
 	},
 	{
 		key: 'ilo_genai_exposure_2025',
@@ -730,8 +717,8 @@ export const researchRegistry: ResearchEntry[] = [
 		title:
 			'Canaries in the Coal Mine? Six Facts about the Recent Employment Effects of Artificial Intelligence',
 		authors: ['Erik Brynjolfsson', 'Bharat Chandar', 'Ruyu Chen'],
-		year: 2026,
-		published_at: '2026-08-12',
+		year: 2025,
+		published_at: '2025-08',
 		publisher: 'Stanford Digital Economy Lab',
 		url: 'https://digitaleconomy.stanford.edu/publication/canaries-in-the-coal-mine-six-facts-about-the-recent-employment-effects-of-artificial-intelligence/',
 		type: 'working_paper',
@@ -742,7 +729,7 @@ export const researchRegistry: ResearchEntry[] = [
 		source_keys: [],
 		claim_ids: [],
 		summary:
-			'The August 2026 revision uses ADP payroll data through June 2026 and reports no broad displacement, but a 19% relative employment gap for workers aged 22-25 in AI-exposed occupations, concentrated in reduced hiring and more automative-use occupations.',
+			'The linked Stanford publication reports no broad displacement, but a 16% relative employment decline for workers aged 22-25 in the most AI-exposed occupations, concentrated in reduced hiring and occupations where AI use more often automates tasks.',
 		limitations:
 			'Descriptive US payroll evidence, not a causal Singapore estimate; education controls attenuate the pattern, some trends predate generative AI, and the ADP sample shows larger effects than national survey benchmarks.',
 		repo_notes:
@@ -1004,6 +991,7 @@ export const researchRegistry: ResearchEntry[] = [
 		authors: ['Kiran Tomlinson', 'Sonia Jaffe', 'Will Wang', 'Scott Counts', 'Siddharth Suri'],
 		year: 2025,
 		published_at: '2025-07-10',
+		observation_period: '2024-01 to 2024-09',
 		publisher: 'Microsoft Research / arXiv',
 		url: 'https://www.microsoft.com/en-us/research/publication/working-with-ai-measuring-the-occupational-implications-of-generative-ai/',
 		doi: '10.48550/arXiv.2507.07935',
@@ -1170,11 +1158,145 @@ export const researchRegistry: ResearchEntry[] = [
 			'Supports versioned, source-dependent capability context and the decision not to convert frontier trend lines into occupation-level Singapore forecasts.'
 	},
 	{
+		key: 'oecd_ai_capability_gap_2026',
+		title: 'The OECD AI Exposure Measure: Mapping the OECD AI Capability Indicators to Occupations',
+		authors: ['OECD'],
+		year: 2026,
+		published_at: '2026-05-26',
+		publisher: 'OECD Publishing',
+		url: 'https://www.oecd.org/en/publications/the-oecd-ai-exposure-measure_f3da0f0a-en.html',
+		doi: '10.1787/f3da0f0a-en',
+		type: 'working_paper',
+		domains: ['exposure', 'tasks', 'complementarity', 'measurement'],
+		role: 'supporting_context',
+		status: 'supporting',
+		used_for: [
+			'multidimensional capability-gap framing',
+			'human-work profile research gate',
+			'external exposure comparison'
+		],
+		source_keys: [],
+		claim_ids: [],
+		summary:
+			'Maps current AI capabilities across nine cognitive, social and physical domains to occupation requirements and reports an updateable AI Capability Gap index.',
+		limitations:
+			'Uses US O*NET occupation requirements and model-assisted ratings. It measures capability proximity, not adoption or labour outcomes, and no verified SSOC 2024 row-level mapping is active.',
+		repo_notes:
+			'Supports the design of a separate multidimensional work profile. It is not a V9 headline input and remains unpublished at occupation level until the source rows, licence and crosswalk pass the evidence gate.'
+	},
+	{
+		key: 'oecd_skills_ai_age_2026',
+		title: 'Skills in the AI Age',
+		authors: ['OECD'],
+		year: 2026,
+		published_at: '2026-07-08',
+		publisher: 'OECD Publishing',
+		url: 'https://www.oecd.org/en/publications/skills-in-the-ai-age_972bd15e-en.html',
+		doi: '10.1787/972bd15e-en',
+		type: 'report',
+		domains: ['tasks', 'complementarity', 'mobility', 'context'],
+		role: 'supporting_context',
+		status: 'supporting',
+		used_for: ['human-skills interpretation', 'training and adaptation context'],
+		source_keys: [],
+		claim_ids: [],
+		summary:
+			'Reviews how AI changes skill demand and why domain knowledge, problem solving, social skills, management and continuing learning remain important alongside technical AI skills.',
+		limitations:
+			'A policy synthesis, not a detailed Singapore occupation dataset or a measure of whether a worker is protected from displacement.',
+		repo_notes:
+			'Informs practical guidance and the human-work research agenda. It supplies no occupation score and does not change V9 ranks.'
+	},
+	{
+		key: 'oecd_piaac_singapore_2024',
+		title: 'Survey of Adult Skills 2023: Singapore',
+		authors: ['OECD'],
+		year: 2024,
+		published_at: '2024-12-10',
+		observation_period: '2022-2023',
+		publisher: 'OECD Publishing',
+		url: 'https://www.oecd.org/en/publications/survey-of-adults-skills-2023-country-notes_ab4f6b8c-en/singapore_382e963a-en.html',
+		type: 'report',
+		domains: ['tasks', 'measurement', 'mobility', 'context'],
+		role: 'supporting_context',
+		status: 'supporting',
+		used_for: ['Singapore adult-skills context', 'future local adaptability research'],
+		source_keys: [],
+		claim_ids: [],
+		summary:
+			'Reports literacy, numeracy and adaptive problem-solving results from 5,011 adults aged 16-65, representing about 2.8 million Singapore residents.',
+		limitations:
+			'The country note is population evidence. It does not publish a reliable score for every detailed SSOC 2024 occupation and cannot be used as an occupation resilience measure without weighted microdata analysis.',
+		repo_notes:
+			'Corrects the outdated implication that Singapore lacks PIAAC evidence. It may support future national or carefully weighted subgroup context, but it is not a V9 score input.'
+	},
+	{
+		key: 'afrouzi_etal_career_dynamics_2026',
+		title: 'Automation, Learning, and Career Dynamics',
+		authors: ['Hassan Afrouzi', 'Andres Blanco', 'Andrés Drenik', 'Erik Hurst'],
+		year: 2026,
+		published_at: '2026-04',
+		publisher: 'NBER',
+		url: 'https://www.nber.org/papers/w35157',
+		doi: '10.3386/w35157',
+		type: 'working_paper',
+		domains: ['tasks', 'mobility', 'forecast', 'context'],
+		role: 'supporting_context',
+		status: 'supporting',
+		used_for: ['learning-by-doing caveat', 'entry-level and career-ladder research agenda'],
+		source_keys: [],
+		claim_ids: [],
+		summary:
+			'Models how automation can alter learning-by-doing and worker-to-manager progression when junior tasks are part of skill formation.',
+		limitations:
+			'A general-equilibrium model, not observed evidence that a particular occupation or Singapore career ladder has already weakened.',
+		repo_notes:
+			'Supports treating career progression as a separate dynamic question. V9 publishes no occupation transition probability or junior-work penalty.'
+	},
+	{
+		key: 'yotzov_etal_firm_data_ai_2026',
+		title: 'Firm Data on AI',
+		authors: [
+			'Ivan Yotzov',
+			'Jose Maria Barrero',
+			'Nicholas Bloom',
+			'Philip Bunn',
+			'Steven J. Davis',
+			'Kevin M. Foster',
+			'Aaron Jalca',
+			'Brent H. Meyer',
+			'Paul Mizen',
+			'Michael A. Navarrete',
+			'Pawel Smietanka',
+			'Gregory Thwaites',
+			'Ben Zhe Wang'
+		],
+		year: 2026,
+		published_at: '2026-02',
+		publisher: 'NBER',
+		url: 'https://www.nber.org/papers/w34836',
+		doi: '10.3386/w34836',
+		type: 'working_paper',
+		domains: ['validation', 'productivity', 'measurement', 'context'],
+		role: 'validation',
+		status: 'active',
+		used_for: ['firm-adoption versus realised-outcome distinction', 'international outcome context'],
+		source_keys: [],
+		claim_ids: [],
+		summary:
+			'Surveys nearly 6,000 senior executives in four countries: 69% report active AI use, while nine in ten report no employment or productivity effect at their firm over the previous three years.',
+		limitations:
+			'Executive survey responses from the US, UK, Germany and Australia are not Singapore occupation outcomes; forward expectations are not realised effects.',
+		repo_notes:
+			'Validates the separation of adoption, expected effects and observed outcomes. It does not change any occupation rank or create a Singapore forecast.'
+	},
+	{
 		key: 'openai_signals_global_work_2026',
 		title: 'From Asking to Doing: How the World Is Putting ChatGPT to Work',
 		authors: ['OpenAI'],
 		year: 2026,
 		published_at: '2026-08-06',
+		observation_period: '2026-Q2',
 		publisher: 'OpenAI Economic Research',
 		url: 'https://openai.com/index/how-the-world-is-putting-chatgpt-to-work/',
 		type: 'report',

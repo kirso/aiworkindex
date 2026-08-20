@@ -6,6 +6,7 @@
 	import Seo from '$lib/components/ui/Seo.svelte';
 
 	const vacancies = v9NationalContext.job_vacancies_2025;
+	const vacancyUpdate = v9NationalContext.job_vacancies_august_2026_update;
 	const adoption = v9NationalContext.ai_adoption_2026;
 	const q1 = v9NationalContext.labour_market_q1_2026_detailed;
 	const q2 = v9NationalContext.labour_market_q2_2026_advance;
@@ -47,14 +48,60 @@
 			What is happening in Singapore's job market?
 		</h1>
 		<p class="mt-4 text-base leading-relaxed text-muted-foreground">
-			Singapore's labour market remained tight in the preliminary Q2 2026 release, while firm AI
-			adoption was still uneven. MOM's adoption survey found role redesign more often than reported
-			headcount reduction among firms using AI. These are current conditions, not proof that AI
-			caused an employment change.
+			National vacancies fell from 77,700 in December 2025 to 73,300 in March 2026, mainly in
+			non-PMET roles. Entry-level PMET openings edged up from 32,500 to 32,800, and the preliminary
+			Q2 release still showed employment growth. MOM also reported role redesign more often than
+			headcount reduction among firms using AI. None of these comparisons proves that AI caused an
+			employment change.
 		</p>
 	</div>
 
 	<section class="mt-8">
+		<h2 class={sectionLabel()}>Latest national vacancy update</h2>
+		<div class="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+			<div class={card({ padding: 'md', variant: 'metric' })}>
+				<p class="text-2xl font-semibold tabular-nums">
+					{vacancyUpdate.job_vacancies_thousands['2026-03']}K
+				</p>
+				<p class="mt-1 text-sm font-medium">vacancies in March 2026</p>
+				<p class="mt-1 text-xs text-muted-foreground">
+					down from {vacancyUpdate.job_vacancies_thousands['2025-12']}K in December
+				</p>
+			</div>
+			<div class={card({ padding: 'md', variant: 'metric' })}>
+				<p class="text-2xl font-semibold tabular-nums">
+					{vacancyUpdate.entry_level_pmet_vacancies_thousands['2026-03']}K
+				</p>
+				<p class="mt-1 text-sm font-medium">entry-level PMET openings</p>
+				<p class="mt-1 text-xs text-muted-foreground">
+					up from {vacancyUpdate.entry_level_pmet_vacancies_thousands['2025-12']}K in December
+				</p>
+			</div>
+			<div class={card({ padding: 'md' })}>
+				<p class="text-sm font-semibold text-foreground">Where vacancies fell</p>
+				<p class="mt-2 text-sm leading-relaxed text-muted-foreground">
+					{vacancyUpdate.vacancy_change_context}
+				</p>
+			</div>
+			<div class={card({ padding: 'md' })}>
+				<p class="text-sm font-semibold text-foreground">What this cannot tell us</p>
+				<p class="mt-2 text-sm leading-relaxed text-muted-foreground">
+					National totals cannot be assigned to a detailed occupation or attributed to AI.
+				</p>
+			</div>
+		</div>
+		<p class="mt-3 max-w-3xl text-xs leading-relaxed text-muted-foreground">
+			<a
+				href={vacancyUpdate.url}
+				target="_blank"
+				rel="noopener noreferrer"
+				class="text-primary underline">MOM parliamentary answer, published 5 August 2026</a
+			>. Observations cover {vacancyUpdate.observation_period}; AI Work Index reviewed the source on
+			19 August 2026.
+		</p>
+	</section>
+
+	<section class="mt-10">
 		<div class="flex flex-wrap items-center gap-2">
 			<h2 class={sectionLabel()}>Q2 2026 advance release</h2>
 			<span class={badge({ variant: 'warning' })}>Preliminary</span>
@@ -135,41 +182,48 @@
 	</section>
 
 	<section class="mt-10">
-		<h2 class={sectionLabel()}>What firms reported about AI adoption</h2>
+		<h2 class={sectionLabel()}>What AI-adopting firms reported</h2>
+		<p class="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+			The underlying firm survey found {adoption.metrics.firms_started_ai_adoption_pct}% had started
+			adopting AI and {adoption.metrics.firms_integrating_ai_core_processes_pct}% had integrated it
+			into core processes. Among the firms that had adopted AI, MOM's 5 August answer reported these
+			rounded employment responses:
+		</p>
 		<div class="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
 			<div class={card({ padding: 'md', accent: 'primary' })}>
 				<p class="text-2xl font-semibold tabular-nums">
-					{adoption.metrics.firms_started_ai_adoption_pct}%
+					{vacancyUpdate.ai_adopting_firms_employment_responses_pct.redesigned_roles}%
 				</p>
-				<p class="mt-1 text-sm">had started adopting AI</p>
+				<p class="mt-1 text-sm">redesigned roles</p>
 			</div>
 			<div class={card({ padding: 'md', accent: 'moderate' })}>
 				<p class="text-2xl font-semibold tabular-nums">
-					{adoption.metrics.firms_integrating_ai_core_processes_pct}%
+					{vacancyUpdate.ai_adopting_firms_employment_responses_pct.created_ai_roles}%
 				</p>
-				<p class="mt-1 text-sm">had integrated AI into core processes</p>
+				<p class="mt-1 text-sm">created AI roles</p>
 			</div>
 			<div class={card({ padding: 'md' })}>
 				<p class="text-2xl font-semibold tabular-nums">
-					{adoption.metrics.ai_adopting_firms_redesigning_roles_pct}%
+					{vacancyUpdate.ai_adopting_firms_employment_responses_pct.reduced_hiring}%
 				</p>
-				<p class="mt-1 text-sm">of AI-adopting firms reported role redesign</p>
+				<p class="mt-1 text-sm">reduced hiring</p>
 			</div>
 			<div class={card({ padding: 'md', accent: 'high' })}>
 				<p class="text-2xl font-semibold tabular-nums">
-					{adoption.metrics.ai_adopting_firms_reduced_headcount_pct}%
+					{vacancyUpdate.ai_adopting_firms_employment_responses_pct.reduced_headcount}%
 				</p>
-				<p class="mt-1 text-sm">of AI-adopting firms reported reduced headcount</p>
+				<p class="mt-1 text-sm">reduced headcount</p>
 			</div>
 		</div>
 		<p class="mt-3 max-w-3xl text-xs leading-relaxed text-muted-foreground">
 			<a
-				href={adoption.url}
+				href={vacancyUpdate.url}
 				target="_blank"
 				rel="noopener noreferrer"
-				class="text-primary underline">MOM firm AI adoption report, 30 April 2026</a
-			>. Population: {adoption.scope} These firm-level percentages do not measure occupation-level adoption
-			or identify AI's causal effect on employment.
+				class="text-primary underline">MOM parliamentary answer, 5 August 2026</a
+			>. {vacancyUpdate.ai_response_population}
+			{vacancyUpdate.rounding} These responses are not mutually exclusive, do not measure occupation-level
+			adoption and do not identify a causal effect. The underlying survey scope was {adoption.scope}
 		</p>
 	</section>
 

@@ -16,6 +16,12 @@ const SOL_FILE = path.join(ROOT, 'data', 'raw', 'external', 'mom_sol_2026.json')
 const LABOUR_FILE = path.join(ROOT, 'data', 'labour-monitor-q1-2026.json');
 const ADOPTION_FILE = path.join(ROOT, 'data', 'raw', 'mom-ai-adoption-2026.json');
 const VACANCIES_FILE = path.join(ROOT, 'data', 'raw', 'mom-job-vacancies-2025-extract.json');
+const AUGUST_2026_VACANCIES_UPDATE_FILE = path.join(
+	ROOT,
+	'data',
+	'raw',
+	'mom-job-vacancies-2026-08-update.json'
+);
 const EARLY_CAREER_FILE = path.join(
 	ROOT,
 	'data',
@@ -23,11 +29,14 @@ const EARLY_CAREER_FILE = path.join(
 	'mom-labour-force-2025-job-quality-extract.json'
 );
 const POSTINGS_FILE = path.join(ROOT, 'data', 'postings', 'postings-monitor.json');
+const MARKET_REVIEWED_AT = '2026-08-19';
 
 const Q1_2026_DETAILED_CONTEXT = {
 	source: 'Singapore Ministry of Manpower',
 	title: 'Labour Market Report 1Q 2026',
 	published_at: '2026-06-15',
+	observation_period: '2026-Q1',
+	reviewed_at: MARKET_REVIEWED_AT,
 	url: 'https://stats.mom.gov.sg/Pages/Labour-Market-Report-1Q-2026.aspx',
 	status: 'latest_detailed_quarter',
 	quarter: '2026-Q1',
@@ -426,6 +435,26 @@ function main() {
 	const labour = readJson<Array<Record<string, unknown> & { cluster_key: string }>>(LABOUR_FILE);
 	const adoption = readJson<Record<string, unknown>>(ADOPTION_FILE);
 	const vacancies = readJson<Record<string, unknown>>(VACANCIES_FILE);
+	const augustVacanciesUpdate = readJson<{
+		source_key: string;
+		agency: string;
+		title: string;
+		published_at: string;
+		url: string;
+		observation_period: string;
+		job_vacancies_thousands: Record<'2025-12' | '2026-03', number>;
+		entry_level_pmet_vacancies_thousands: Record<'2025-12' | '2026-03', number>;
+		vacancy_change_context: string;
+		ai_adopting_firms_employment_responses_pct: {
+			reduced_headcount: number;
+			reduced_hiring: number;
+			redesigned_roles: number;
+			created_ai_roles: number;
+		};
+		ai_response_population: string;
+		rounding: string;
+		limitations: string[];
+	}>(AUGUST_2026_VACANCIES_UPDATE_FILE);
 	const earlyCareer = readJson<{
 		source: {
 			title: string;
@@ -457,6 +486,12 @@ function main() {
 	const earlyCareerNonPmet = earlyCareer.unemployment_rate_pct.non_pmet_age_15_29.at(-1);
 	if (earlyCareerYear !== 2025 || earlyCareerPmet !== 2.8 || earlyCareerNonPmet !== 4.1) {
 		throw new Error('Unexpected latest early-career labour-force values');
+	}
+	if (
+		augustVacanciesUpdate.job_vacancies_thousands['2026-03'] !== 73.3 ||
+		augustVacanciesUpdate.entry_level_pmet_vacancies_thousands['2026-03'] !== 32.8
+	) {
+		throw new Error('Unexpected August 2026 MOM vacancy update values');
 	}
 	const sourceNames = new Map<SourceKey, Set<string>>([
 		['mom_jobs_in_demand_2025', new Set(jobs.occupations.map(item => item.title))],
@@ -497,6 +532,7 @@ function main() {
 			(demandByCode[code] ??= []).push({
 				source_key: mapping.source,
 				...source,
+				reviewed_at: MARKET_REVIEWED_AT,
 				source_occupation: mapping.name,
 				mapping_basis: 'reviewed_against_ssoc_2024_title_and_synonyms',
 				rationale: mapping.rationale,
@@ -518,7 +554,14 @@ function main() {
 
 	const output = {
 		schema_version: '9.0',
-		generated_at: '2026-08-19',
+		generated_at: MARKET_REVIEWED_AT,
+		reviewed_at: MARKET_REVIEWED_AT,
+		date_fields: {
+			published_at: 'When an official source was released.',
+			observation_period: 'When the reported measurement applies.',
+			reviewed_at: 'When AI Work Index last checked the source for V9.',
+			generated_at: 'The deterministic V9 artifact date; it is not an observation date.'
+		},
 		taxonomy: 'SSOC 2024',
 		rules: {
 			demand: 'Only reviewed named occupation matches. No code-prefix or parent-group inheritance.',
@@ -538,10 +581,15 @@ function main() {
 			})),
 		labour_by_major_group: labourByMajorGroup,
 		national: {
-			job_vacancies_2025: vacancies,
-			ai_adoption_2026: adoption,
+			job_vacancies_2025: { ...vacancies, reviewed_at: MARKET_REVIEWED_AT },
+			job_vacancies_august_2026_update: {
+				...augustVacanciesUpdate,
+				reviewed_at: MARKET_REVIEWED_AT
+			},
+			ai_adoption_2026: { ...adoption, reviewed_at: MARKET_REVIEWED_AT },
 			labour_market_q1_2026_detailed: Q1_2026_DETAILED_CONTEXT,
 			early_career_2025: {
+				reviewed_at: MARKET_REVIEWED_AT,
 				source: earlyCareer.source,
 				latest_full_report: {
 					title: 'Labour Force in Singapore 2025',
@@ -566,6 +614,8 @@ function main() {
 				source: 'Singapore Ministry of Manpower',
 				title: 'Labour Market Advance Release 2Q 2026',
 				published_at: '2026-07-31',
+				observation_period: '2026-Q2',
+				reviewed_at: MARKET_REVIEWED_AT,
 				url: 'https://www.mom.gov.sg/newsroom/press-releases/2026/0731-labour-market-advance-release-2q-2026',
 				status: 'preliminary',
 				total_employment_change: 10700,
@@ -575,6 +625,7 @@ function main() {
 					'Advance macro figures only. Q1 2026 remains the latest detailed occupation-group release until the full Q2 report.'
 			},
 			postings_monitor: {
+				reviewed_at: MARKET_REVIEWED_AT,
 				status: 'withheld_stale_convenience_sample',
 				public_demand_input: false,
 				observed_through: postings.observed_through ?? postings.summary?.latest_posted_date ?? null,

@@ -59,6 +59,13 @@
 		['market_evidence.labour_context_ref', 'Reference to broad occupation-group labour context in market_context; null when no published group context applies.'],
 		['evidence', 'Mapping quality, sources, limitations and data cutoff.']
 	] as const;
+
+	const dateFields = [
+		['published_at', 'The date an official or research source was released.'],
+		['observation_period', 'The period covered by the underlying data, when the source states it.'],
+		['reviewed_at', 'The date AI Work Index last checked the source for V9.'],
+		['generated_at', 'The deterministic artifact date; not the date of the underlying observation.']
+	] as const;
 </script>
 
 <Seo
@@ -178,13 +185,25 @@
 		</div>
 	</section>
 
+	<section class="mt-10">
+		<h2 class={sectionLabel()}>Dates are not interchangeable</h2>
+		<dl class="mt-3 grid gap-3 sm:grid-cols-2">
+			{#each dateFields as field}
+				<div class={card({ padding: 'sm' })}>
+					<dt class="font-mono text-xs font-semibold text-foreground">{field[0]}</dt>
+					<dd class={caption({ class: 'mt-1' })}>{field[1]}</dd>
+				</div>
+			{/each}
+		</dl>
+	</section>
+
 	<section class="mt-10 grid gap-4 lg:grid-cols-2">
 		<div class={card({ padding: 'lg' })}>
 			<h2 class="font-semibold text-foreground">Primary source chain</h2>
 			<ul class="mt-3 space-y-3 text-sm text-muted-foreground">
 				<li>
 					<a
-						href="https://www.singstat.gov.sg/standard-classifications/national-classifications/singapore-standard-occupational-classification-ssoc"
+						href="https://www.singstat.gov.sg/standards/standards-and-classifications/ssoc"
 						target="_blank"
 						rel="noopener noreferrer"
 						class="text-primary underline">Singapore Department of Statistics</a
@@ -205,6 +224,15 @@
 						rel="noopener noreferrer"
 						class="text-primary underline">Singapore Ministry of Manpower</a
 					>: Occupational Wages 2025, Table 4.
+				</li>
+				<li>
+					<a
+						href="https://www.mom.gov.sg/newsroom/parliament-questions-and-replies/2026/0805-written-answer-to-pq-on-trends-in-job-vacancies"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="text-primary underline">Singapore Ministry of Manpower</a
+					>: 5 August 2026 update on national vacancies and reported responses among AI-adopting
+					firms.
 				</li>
 			</ul>
 		</div>
@@ -240,6 +268,9 @@
 			<a class="text-primary underline" href="/methodology">Current methodology</a>
 			<a class="text-primary underline" href="/data/sg-ai-occupations-v8.json"
 				>Archived V8 JSON · superseded SSOC 2020 method</a
+			>
+			<a class="text-primary underline" href="/data/archive/v8/public-field-source-map.json"
+				>Archived V8 field source map · not a V9 artifact</a
 			>
 			<a class="text-primary underline" href="/data/sg-ai-occupations-v7.json"
 				>Archived V7 JSON · superseded SSOC 2020 method</a

@@ -1,4 +1,5 @@
 import { toV9BrowserItem } from '$lib/data/v9-browser';
+import type { V9BrowserItem } from '$lib/data/v9-browser';
 import { takePressureWithCutoffTies, toV9OccupationView } from '$lib/data/v9-display';
 import { v9Counts, v9Occupations } from '$lib/data/v9';
 import type { PageServerLoad } from './$types';
@@ -17,19 +18,11 @@ export const load: PageServerLoad = () => {
 	return {
 		counts: v9Counts,
 		directDemandCount: occupations.filter(item => item.demandSignalCount > 0).length,
+		occupations: [] as V9BrowserItem[],
 		highestPressure: takePressureWithCutoffTies(scored, 6),
 		namedDemand: takePressureWithCutoffTies(
 			scored.filter(item => item.demandSignalCount > 0),
 			6
-		),
-		wageEvidence: occupations
-			.filter(item => item.pressureRank != null && item.wageMedian != null)
-			.map(item => ({
-				code: item.code,
-				title: item.title,
-				pressureRank: item.pressureRank,
-				wageMedian: item.wageMedian,
-				demandSignalCount: item.demandSignalCount
-			}))
+		)
 	};
 };

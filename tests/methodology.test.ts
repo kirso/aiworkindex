@@ -559,6 +559,11 @@ describe('research registry invariants', () => {
 	test('research keys are unique and claims/source links resolve', () => {
 		const keys = researchLibrary.entries.map(entry => entry.key);
 		assert.equal(new Set(keys).size, keys.length);
+		const works = researchLibrary.entries.map(
+			entry => `${entry.title.trim().toLowerCase()}\u0000${entry.authors.join('|').toLowerCase()}`
+		);
+		assert.equal(new Set(works).size, works.length);
+		assert.equal(keys.includes('openai_gpts_are_gpts_2023'), false);
 
 		for (const claim of claimsMatrix.claims) {
 			for (const researchKey of claim.research_keys) {
@@ -588,6 +593,11 @@ describe('research registry invariants', () => {
 			'acemoglu_autor_johnson_pro_worker_ai_2026',
 			'althoff_reichardt_task_specific_change_2026',
 			'oecd_employment_outlook_2026',
+			'oecd_ai_capability_gap_2026',
+			'oecd_skills_ai_age_2026',
+			'oecd_piaac_singapore_2024',
+			'afrouzi_etal_career_dynamics_2026',
+			'yotzov_etal_firm_data_ai_2026',
 			'costa_frontier_ai_measurement_2026',
 			'yin_ogut_2026'
 		];
@@ -601,6 +611,10 @@ describe('research registry invariants', () => {
 
 		assert.equal(researchLibrary.version, 'V9');
 		assert.equal(researchLibrary.review_cutoff, '2026-08-19');
+		assert.equal(researchLibrary.reviewed_at, '2026-08-19');
+		assert.match(researchLibrary.date_fields.published_at, /published/);
+		assert.match(researchLibrary.date_fields.observation_period, /observations/);
+		assert.match(researchLibrary.date_fields.reviewed_at, /last checked/);
 		assert.equal(researchLibrary.headline_research_key, 'ilo_genai_exposure_2025');
 		assert.equal(researchLibrary.entry_count, researchLibrary.entries.length);
 		assert.equal(
@@ -608,6 +622,7 @@ describe('research registry invariants', () => {
 			researchLibrary.entry_count
 		);
 		for (const entry of researchLibrary.entries) {
+			assert.equal(entry.reviewed_at, researchLibrary.review_cutoff);
 			assert.ok(
 				entry.published_at.localeCompare(researchLibrary.review_cutoff) <= 0,
 				`${entry.key} is later than the declared research cutoff`
@@ -630,7 +645,9 @@ describe('research registry invariants', () => {
 		const stanford = researchLibrary.entries.find(
 			entry => entry.key === 'brynjolfsson_chandar_chen_2025'
 		);
-		assert.equal(stanford?.published_at, '2026-08-12');
+		assert.equal(stanford?.published_at, '2025-08');
+		assert.match(stanford?.summary ?? '', /16%/);
+		assert.doesNotMatch(stanford?.summary ?? '', /19%/);
 		assert.ok(stanford?.repo_notes.includes('does not apply age or seniority modifiers'));
 
 		for (const key of [

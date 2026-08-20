@@ -56,7 +56,7 @@ export const load: PageServerLoad = () => {
 		v9Counts,
 		q2: v9NationalContext.labour_market_q2_2026_advance,
 		adoption: v9NationalContext.ai_adoption_2026,
-		vacancies: v9NationalContext.job_vacancies_2025,
+		vacancyUpdate: v9NationalContext.job_vacancies_august_2026_update,
 		categoryCounts,
 		mixedCategoryCount,
 		rangeCount,

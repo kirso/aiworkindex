@@ -13,6 +13,39 @@ function routeSource(relativePath: string): string {
 }
 
 describe('archived V8 regression and current V9 route boundary', () => {
+	test('the V8 field map is archived and cannot look like a current V9 artifact', () => {
+		const currentLookingPaths = [
+			'data/public-field-source-map.json',
+			'src/lib/data/public-field-source-map.json',
+			'static/data/public-field-source-map.json'
+		];
+		for (const relativePath of currentLookingPaths) {
+			assert.equal(fs.existsSync(path.join(root, relativePath)), false, relativePath);
+		}
+
+		const archivePath = path.join(root, 'static/data/archive/v8/public-field-source-map.json');
+		assert.equal(fs.existsSync(archivePath), true);
+		const archive = JSON.parse(fs.readFileSync(archivePath, 'utf8')) as {
+			version: string;
+			status: string;
+			current: boolean;
+			superseded_by: string;
+		};
+		assert.equal(archive.version, 'V8');
+		assert.equal(archive.status, 'archived_superseded');
+		assert.equal(archive.current, false);
+		assert.equal(archive.superseded_by, '/data/sg-ai-occupations-v9.json');
+
+		const manifest = JSON.parse(
+			fs.readFileSync(path.join(root, 'static/data/release-manifest-v8.json'), 'utf8')
+		) as { artifacts: Array<{ file: string; public_path?: string }> };
+		const sourceMap = manifest.artifacts.find(artifact =>
+			artifact.file.endsWith('public-field-source-map.json')
+		);
+		assert.equal(sourceMap?.file, 'archive/v8/public-field-source-map.json');
+		assert.equal(sourceMap?.public_path, '/data/archive/v8/public-field-source-map.json');
+	});
+
 	test('archived V8 occupations retain five pathways and complete counts', () => {
 		const counts = new Map(likelyPathwayOrder.map(pathway => [pathway, 0]));
 		for (const occupation of occupations) {

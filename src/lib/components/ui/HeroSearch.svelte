@@ -4,7 +4,7 @@
 	import { riskBandLabels } from '$lib/data';
 	import { DATA_VINTAGE } from '$lib/data/scoring-constants';
 	import { syntheticRoles } from '$lib/data/synthetic-roles';
-	import { trackEvent } from '$lib/analytics';
+	import { trackProductEvent } from '$lib/analytics';
 	import type { SyntheticRole } from '$lib/data/synthetic-roles';
 	import { searchOccupationsAndRoles } from '$lib/utils/search';
 	import { riskBadge, card, sectionLabel } from '$lib/design-system';
@@ -72,14 +72,9 @@
 
 	function navigateToResult(result: SearchResult) {
 		showDropdown = false;
-		const searchQuery = query;
 		query = '';
 		if (result.type === 'role') {
-			trackEvent('search_used', {
-				query: searchQuery,
-				selected_type: 'role',
-				selected_id: result.role.slug
-			});
+			trackProductEvent('job_search_selected', { entity_kind: 'role', context: 'home' });
 			goto(`/role/${result.role.slug}`);
 		} else {
 			const code =
@@ -87,11 +82,7 @@
 				result.occupation.localCode ??
 				result.occupation.canonicalCode ??
 				null;
-			trackEvent('search_used', {
-				query: searchQuery,
-				selected_type: 'occupation',
-				selected_id: code ?? 'unknown'
-			});
+			trackProductEvent('job_search_selected', { entity_kind: 'occupation', context: 'home' });
 
 			const target =
 				result.occupation.linkHref ??

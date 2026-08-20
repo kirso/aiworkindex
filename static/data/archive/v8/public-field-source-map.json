@@ -1,7 +1,10 @@
 {
   "version": "V8",
   "generated_at": "2026-07-17T01:39:47.926Z",
-  "description": "Field-level provenance for the clean V8 public contract.",
+  "status": "archived_superseded",
+  "current": false,
+  "superseded_by": "/data/sg-ai-occupations-v9.json",
+  "description": "Archived field-level provenance for the superseded V8 public contract. This is not a V9 source map.",
   "entries": [
     {
       "field_path": "wages.*",

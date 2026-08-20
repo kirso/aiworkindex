@@ -5,6 +5,7 @@ export interface V9DemandSignal {
 	label: string;
 	published_at: string;
 	effective_at: string | null;
+	reviewed_at: string;
 	url: string;
 	source_occupation: string;
 	mapping_basis: 'reviewed_against_ssoc_2024_title_and_synonyms';

@@ -6,6 +6,7 @@ import { DATA_VINTAGE } from '../src/lib/data/scoring-constants';
 
 const ROOT = path.join(import.meta.dir, '..');
 const dataset = 'sg-ai-occupations-v8.json';
+const ARCHIVE_GENERATED_AT = '2026-07-17T01:39:47.926Z';
 const entries = [
 	{
 		field_path: 'wages.*',
@@ -136,17 +137,22 @@ const entries = [
 const payload = JSON.stringify(
 	{
 		version: DATA_VINTAGE.public_version,
-		generated_at: new Date().toISOString(),
-		description: 'Field-level provenance for the clean V8 public contract.',
+		generated_at: ARCHIVE_GENERATED_AT,
+		status: 'archived_superseded',
+		current: false,
+		superseded_by: '/data/sg-ai-occupations-v9.json',
+		description:
+			'Archived field-level provenance for the superseded V8 public contract. This is not a V9 source map.',
 		entries
 	},
 	null,
 	2
 );
 for (const file of [
-	path.join(ROOT, 'data', 'public-field-source-map.json'),
-	path.join(ROOT, 'src', 'lib', 'data', 'public-field-source-map.json'),
-	path.join(ROOT, 'static', 'data', 'public-field-source-map.json')
-])
+	path.join(ROOT, 'data', 'archive', 'v8', 'public-field-source-map.json'),
+	path.join(ROOT, 'static', 'data', 'archive', 'v8', 'public-field-source-map.json')
+]) {
+	fs.mkdirSync(path.dirname(file), { recursive: true });
 	fs.writeFileSync(file, payload);
-console.log('Built V8 public field source map');
+}
+console.log('Built archived V8 public field source map');

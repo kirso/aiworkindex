@@ -1,48 +1,13 @@
 /*
- * AI Work Index — "Signal" Design System
+ * AI Work Index — warm evidence-editorial design system.
  *
- * The score IS the interface. Data-first, everything else supports it.
- * Built on Tailwind CSS v4 with proper @theme configuration.
+ * The interface starts with a human question, then shows the evidence needed
+ * to answer it. Pressure, pay, demand, mapping quality and personal guidance
+ * keep separate visual identities because they are separate measurements.
  *
- * === DESIGN PRINCIPLES ===
- * 1. Numbers are heroes — large, monospace, prominent
- * 2. Cards: border + shadow-sm on white, consistent everywhere via card()
- * 3. Full saturation risk colors — green to red only where severity is encoded
- * 4. Pure white canvas — clean, no warmth, no tint
- * 5. Tight density — tool-like, not editorial
- * 6. Every data display has a source line
- *
- * === ARCHITECTURE (Tailwind v4) ===
- * @theme        → static tokens (risk colors, fonts, shadows, radius)
- *                 Generates CSS vars AND utility classes automatically.
- * :root / .dark → mode-switchable tokens (bg, fg, card, border)
- * @theme inline → bridges mode-switchable tokens to Tailwind utilities
- *
- * === CARD SYSTEM ===
- * ONE card function: card() from design-system.ts
- * Base: rounded-lg + border + shadow-sm (always both border AND shadow)
- * Variants:
- *   card()                     — standard content card
- *   card({ hover: true })      — clickable (adds hover:shadow-md)
- *   card({ variant: 'inset' }) — nested muted area (no border, no shadow)
- *   card({ variant: 'flat' })  — border only, no shadow
- *   card({ padding: 'sm' })    — compact (p-3)
- *   card({ padding: 'md' })    — standard (px-5 py-4)
- *   card({ padding: 'lg' })    — feature/hero (p-6)
- * NEVER write raw `rounded-lg border border-border bg-card` — use card().
- *
- * === COLOR RULES ===
- * NEVER use hardcoded Tailwind colors (bg-emerald-50, text-amber-700).
- * Use semantic tokens: bg-risk-very-low-subtle, text-impact-leveraged, etc.
- * Use helpers: riskTone(), impactTone(), overallSignalTone(), directionTone()
- *
- * === TYPOGRAPHY ===
- * display() — hero numbers (font-mono, 3xl-6xl)
- * title()   — headings (font-sans, bold, page/section/subsection)
- * body()    — prose (font-sans, sm/md/lg, default/muted/subtle)
- * caption() — metadata (font-sans, xs)
- * mono()    — tabular data (font-mono)
- * Floor: text-xs (12px). No text-[10px] or text-[11px].
+ * Tailwind v4 generates utilities from @theme. Mode-switchable surfaces live
+ * in :root/.dark and are bridged through @theme inline. Legacy risk/impact
+ * tokens remain for dated archives; current V9 charts use the pressure scale.
  */
 
 @import 'tailwindcss';
@@ -76,12 +41,61 @@
 	--leading-display: 1.1;
 	--leading-heading: 1.2;
 
-	/* --- Radius: Swiss editorial — sharp corners everywhere --- */
-	--radius-xs: 0;
-	--radius-sm: 0;
-	--radius-md: 0;
-	--radius-lg: 0;
-	--radius-xl: 0;
+	/* Containers are soft; nested controls stay tighter. */
+	--radius-xs: 0.25rem;
+	--radius-sm: 0.375rem;
+	--radius-md: 0.5rem;
+	--radius-lg: 0.75rem;
+	--radius-xl: 1rem;
+
+	/* V9 AI task-pressure scale. Continuous, sequential and non-moralising. */
+	--color-pressure-0: #eaf4f1;
+	--color-pressure-20: #cfe5df;
+	--color-pressure-40: #a7cec5;
+	--color-pressure-60: #77aea5;
+	--color-pressure-80: #3e8984;
+	--color-pressure-100: #155f64;
+	--color-pressure-unranked: #d8d3c8;
+
+	/* Occupation-family identity is categorical and never encodes pressure. */
+	--color-family-technology: #2f5fb8;
+	--color-family-technology-subtle: #eaf0fc;
+	--color-family-business: #80510d;
+	--color-family-business-subtle: #faf0dd;
+	--color-family-people: #9e3f57;
+	--color-family-people-subtle: #fbeaef;
+	--color-family-creative: #684a93;
+	--color-family-creative-subtle: #f2ecf8;
+	--color-family-operations: #256a5d;
+	--color-family-operations-subtle: #e6f2ef;
+	--color-family-public: #934a2a;
+	--color-family-public-subtle: #f9ede7;
+
+	/* Evidence provenance. Pair every colour with a word and marker shape. */
+	--color-evidence-source: #171714;
+	--color-evidence-official: #2457d6;
+	--color-evidence-calculated: #256a5d;
+	--color-evidence-estimate: #80510d;
+	--color-evidence-editorial: #684a93;
+	--color-evidence-visitor: #2f5fb8;
+	--color-evidence-unavailable: #747168;
+
+	/* Consumer action lanes. These describe next steps, not outcome severity. */
+	--color-action-try: #2457d6;
+	--color-action-try-subtle: #edf2fd;
+	--color-action-try-border: #b8c9f3;
+	--color-action-verify: #80510d;
+	--color-action-verify-subtle: #faf0dd;
+	--color-action-verify-border: #e7c98d;
+	--color-action-human-led: #684a93;
+	--color-action-human-led-subtle: #f2ecf8;
+	--color-action-human-led-border: #cfbde1;
+	--color-action-strengthen: #256a5d;
+	--color-action-strengthen-subtle: #e6f2ef;
+	--color-action-strengthen-border: #acd3ca;
+	--color-action-monitor: #55524a;
+	--color-action-monitor-subtle: #f0eee8;
+	--color-action-monitor-border: #cfcac0;
 
 	/* --- Risk Spectrum: Full saturation, diagnostic ---
 	     Each risk level has 3 tokens: solid, subtle bg, border.
@@ -127,23 +141,22 @@
 	--color-impact-mixed-subtle: oklch(0.97 0.02 75);
 	--color-impact-mixed-border: oklch(0.9 0.05 75);
 
-	/* --- Chart Colors: ink + risk-scale derivatives only (color reservation) --- */
-	--color-chart-1: #0c0c0c;
-	--color-chart-2: #2a7f62;
-	--color-chart-3: #a07a0a;
-	--color-chart-4: #d6151c;
-	--color-chart-5: #6f6f6f;
+	/* Chart roots: ink, pressure teal, demand ochre, selection cobalt, missing. */
+	--color-chart-1: #171714;
+	--color-chart-2: #3e8984;
+	--color-chart-3: #9b6b12;
+	--color-chart-4: #2457d6;
+	--color-chart-5: #747168;
 
-	/* --- Shadows: Clean, not colored ---
-	     Signal style uses sharp, functional shadows. */
-	/* Swiss editorial: structure comes from rules, not elevation */
-	--shadow-xs: 0 0 #0000;
-	--shadow-sm: 0 0 #0000;
-	--shadow-md: 0 0 #0000;
-	--shadow-lg: 0 0 #0000;
+	/* Warm, restrained depth. Elevation is reserved for interactive surfaces. */
+	--shadow-xs: 0 1px 2px rgb(64 55 36 / 0.06);
+	--shadow-sm: 0 2px 8px rgb(64 55 36 / 0.08);
+	--shadow-md: 0 10px 28px rgb(64 55 36 / 0.1);
+	--shadow-lg: 0 18px 52px rgb(64 55 36 / 0.13);
 
 	/* --- Easing --- */
 	--ease-snappy: cubic-bezier(0.2, 0, 0, 1);
+	--ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* ============================================
@@ -153,67 +166,55 @@
    ============================================ */
 
 :root {
-	/*
-	 * Surface stack (light mode):
-	 *   card       1.000  — pure white, primary content surface
-	 *   background 0.980  — page canvas, subtle cool tint
-	 *   subtle     0.975  — section panels inside cards
-	 *   metric     0.965  — stat grouping cards
-	 *   inset      0.955  — nested muted areas
-	 *
-	 * Cards are defined by border + shadow, not tonal shift alone.
-	 * Tinted variants (subtle, metric) darken progressively.
-	 */
-	/* Swiss editorial: pure white canvas, true ink, hairline rules.
-	   Spec: docs/design/REDESIGN_SPEC.md */
-	--background: #ffffff;
-	--foreground: #0c0c0c;
-	--card: #ffffff;
-	--card-foreground: #0c0c0c;
-	--inset: #f4f4f4;
-	--inset-foreground: #444444;
+	--background: #f7f5ef;
+	--foreground: #171714;
+	--card: #fffdf8;
+	--card-foreground: #171714;
+	--inset: #f0eee8;
+	--inset-foreground: #55524a;
 
-	--surface-subtle: #fafafa;
-	--surface-metric: #f4f4f4;
+	--surface-subtle: #f3f0e8;
+	--surface-metric: #eeebe2;
 	--popover: #ffffff;
-	--popover-foreground: #0c0c0c;
+	--popover-foreground: #171714;
 
 	/* Brand: cobalt signal accent */
-	--primary: #1d4ed8;
+	--primary: #2457d6;
 	--primary-foreground: #ffffff;
-	--secondary: #f4f4f4;
-	--secondary-foreground: #0c0c0c;
+	--secondary: #eeebe2;
+	--secondary-foreground: #171714;
 
 	/* UI Chrome */
-	--muted: #f4f4f4;
-	--muted-foreground: #6f6f6f;
+	--muted: #eeebe2;
+	--muted-foreground: #747168;
 
 	/* Text hierarchy — ink steps, AA on white */
-	--text-secondary: #444444;
-	--text-tertiary: #6f6f6f;
-	--text-ghost: #8b8b8b;
-	--accent: #f4f4f4;
-	--accent-foreground: #0c0c0c;
+	--text-secondary: #55524a;
+	--text-tertiary: #747168;
+	--text-ghost: #918d83;
+	--accent: #ece8dc;
+	--accent-foreground: #171714;
 	--destructive: #d6151c;
-	--border: #e3e3e3;
-	--input: #d9d9d9;
-	--ring: #0c0c0c;
+	--border: #d8d3c8;
+	--input: #c9c3b7;
+	--ring: #2457d6;
+	--focus: #f5c451;
 
 	/* Header */
-	--header-bg: #ffffff;
-	--header-text: #0c0c0c;
-	--header-muted: #6f6f6f;
-	--header-active-bg: #f4f4f4;
+	--header-bg: #fffdf8;
+	--header-text: #171714;
+	--header-muted: #747168;
+	--header-active-bg: #eeebe2;
 
 	/* Sidebar */
-	--sidebar: oklch(0.975 0.003 240);
-	--sidebar-foreground: oklch(0.14 0.005 240);
-	--sidebar-primary: oklch(0.42 0.16 230);
-	--sidebar-primary-foreground: oklch(0.98 0 0);
-	--sidebar-accent: oklch(0.945 0.006 240);
-	--sidebar-accent-foreground: oklch(0.2 0.01 240);
-	--sidebar-border: oklch(0.905 0.005 240);
-	--sidebar-ring: oklch(0.48 0.14 230);
+	--sidebar: #f3f0e8;
+	--sidebar-foreground: #171714;
+	--sidebar-primary: #2457d6;
+	--sidebar-primary-foreground: #ffffff;
+	--sidebar-accent: #ece8dc;
+	--sidebar-accent-foreground: #171714;
+	--sidebar-border: #d8d3c8;
+	--sidebar-ring: #2457d6;
 }
 
 .dark {
@@ -242,6 +243,7 @@
 	--border: oklch(1 0 0 / 10%);
 	--input: oklch(1 0 0 / 12%);
 	--ring: oklch(0.55 0.12 230);
+	--focus: #f5c451;
 	--header-bg: oklch(0.1 0.005 240);
 	--header-text: oklch(0.93 0.002 240);
 	--header-muted: oklch(0.55 0.005 240);
@@ -281,6 +283,7 @@
 	--color-border: var(--border);
 	--color-input: var(--input);
 	--color-ring: var(--ring);
+	--color-focus: var(--focus);
 	--color-header-bg: var(--header-bg);
 	--color-header-text: var(--header-text);
 	--color-header-muted: var(--header-muted);
@@ -307,6 +310,9 @@
 	body {
 		@apply bg-background text-foreground font-sans;
 		font-variant-numeric: lining-nums;
+		font-size: 1rem;
+		line-height: 1.55;
+		min-width: 0;
 	}
 
 	/* Tabular figures only where data alignment matters (mono + explicit opt-in) */
@@ -323,14 +329,30 @@
 	h5,
 	h6 {
 		letter-spacing: -0.02em;
-		line-height: 1.2;
+		line-height: 1.12;
 		text-wrap: balance;
+	}
+
+	p,
+	li {
+		text-wrap: pretty;
 	}
 
 	/* Links: accent color, subtle underline offset */
 	a {
 		text-decoration-color: var(--primary);
-		text-underline-offset: 2px;
+		text-underline-offset: 3px;
+	}
+
+	:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+		outline: 3px solid var(--focus);
+		outline-offset: 3px;
+		box-shadow: 0 0 0 1px var(--foreground);
+	}
+
+	::selection {
+		background: var(--focus);
+		color: var(--foreground);
 	}
 }
 
@@ -354,12 +376,47 @@
 
 /* Source attribution (data journalism convention) */
 .source-line {
-	font-size: 0.6875rem;
+	font-size: 0.75rem;
 	line-height: 1.4;
 	color: var(--muted-foreground);
 	border-top: 1px solid var(--border);
-	padding-top: 0.5rem;
-	margin-top: 0.75rem;
+	padding-top: 0.75rem;
+	margin-top: 1rem;
+}
+
+/* Shared evidence figure shell. It groups a chart without making it look like a dashboard tile. */
+.evidence-figure {
+	background: var(--card);
+	border: 1px solid var(--border);
+	border-radius: var(--radius-xl);
+	box-shadow: var(--shadow-xs);
+	overflow: clip;
+}
+
+.pressure-legend {
+	background: linear-gradient(
+		90deg,
+		var(--color-pressure-0),
+		var(--color-pressure-20),
+		var(--color-pressure-40),
+		var(--color-pressure-60),
+		var(--color-pressure-80),
+		var(--color-pressure-100)
+	);
+}
+
+.unranked-hatch {
+	background-color: var(--color-pressure-unranked);
+	background-image: repeating-linear-gradient(
+		135deg,
+		transparent 0 3px,
+		rgb(85 82 74 / 0.48) 3px 4px
+	);
+}
+
+.touch-target {
+	min-height: 2.75rem;
+	min-width: 2.75rem;
 }
 
 /* Leader dots — label····value alignment */
@@ -396,13 +453,13 @@
 
 .scatter-dot {
 	transition:
-		opacity 0.15s ease,
-		transform 0.15s ease;
+		opacity 0.18s var(--ease-editorial),
+		transform 0.18s var(--ease-editorial);
 	transform-origin: center;
 	transform-box: fill-box;
 }
 .scatter-dot:hover {
-	transform: scale(1.5);
+	transform: scale(1.35);
 	opacity: 1 !important;
 }
 

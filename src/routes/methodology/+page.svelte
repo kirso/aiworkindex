@@ -44,7 +44,7 @@
 			construct: 'Wages',
 			source: 'MOM Occupational Wages 2025',
 			grain: 'Direct detailed SSOC rows where published',
-			use: 'Current pay context; not a wage pool at risk'
+			use: 'Report direct published rows only; leave missing pay unknown'
 		},
 		{
 			construct: 'Demand',
@@ -54,10 +54,33 @@
 		},
 		{
 			construct: 'Labour market and adoption',
-			source: 'MOM and IMDA releases through 19 August 2026',
+			source: 'MOM and IMDA releases published through 5 August 2026',
 			grain: 'National, sector, firm-size or broad occupation group',
 			use: 'Reported at source grain; never spread across occupations'
 		}
+	] as const;
+
+	const evidenceLabels = [
+		[
+			'Observed',
+			'A source directly reports the value for the stated population, such as a published wage row.'
+		],
+		[
+			'Derived',
+			'V9 calculates the value from published inputs, such as a mapping median or percentile rank.'
+		],
+		[
+			'Modelled',
+			'A non-official estimate depends on stated assumptions, such as a reviewed modern-role composite.'
+		],
+		[
+			'Reviewed match',
+			'An editor connected two named records after checking titles, definitions and synonyms.'
+		],
+		[
+			'Unknown',
+			'The evidence is missing or does not pass the publication gate. Unknown is not zero.'
+		]
 	] as const;
 </script>
 
@@ -162,6 +185,22 @@
 	</section>
 
 	<section class="mt-12">
+		<h2 class={sectionLabel()}>How evidence is labelled</h2>
+		<p class={body({ class: 'mt-3 max-w-3xl text-muted-foreground' })}>
+			A number should tell you whether it came straight from a source, was calculated, or depends on
+			judgement. V9 uses these labels throughout the product and data files.
+		</p>
+		<dl class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+			{#each evidenceLabels as item}
+				<div class={card({ padding: 'md' })}>
+					<dt class="font-semibold text-foreground">{item[0]}</dt>
+					<dd class={caption({ class: 'mt-1' })}>{item[1]}</dd>
+				</div>
+			{/each}
+		</dl>
+	</section>
+
+	<section class="mt-12">
 		<h2 class={sectionLabel()}>How mapping uncertainty is shown</h2>
 		<div class="mt-3 grid gap-4 lg:grid-cols-3">
 			<div class={card({ padding: 'md' })}>
@@ -188,7 +227,7 @@
 		<p class={caption({ class: 'mt-3 max-w-3xl' })}>
 			The taxonomy and correspondence come from the
 			<a
-				href="https://www.singstat.gov.sg/standard-classifications/national-classifications/singapore-standard-occupational-classification-ssoc"
+				href="https://www.singstat.gov.sg/standards/standards-and-classifications/ssoc"
 				target="_blank"
 				rel="noopener noreferrer"
 				class="text-primary underline">Singapore Department of Statistics SSOC 2024 release</a
@@ -313,17 +352,25 @@
 				{v9Counts.direct_wages} V9 occupations. No value is inferred for the remainder.
 			</li>
 			<li>
-				MOM Job Vacancies 2025 supplies vacancy composition and named hard-to-fill work, not a
-				complete detailed-occupation demand census.
+				MOM reported on 5 August 2026 that total vacancies moved from 77,700 in December 2025 to
+				73,300 in March 2026, while entry-level PMET openings moved from 32,500 to 32,800. These are
+				national figures, not detailed-occupation demand scores.
 			</li>
 			<li>
 				The Q1 2026 Labour Market Report remains the latest detailed quarterly release at the review
 				cutoff. The Q2 advance release is preliminary and is used only for national context.
 			</li>
 			<li>
-				MOM's 30 April 2026 firm survey and IMDA's 2025 digital-economy report describe adoption at
-				their published firm, sector and workforce populations. They do not identify
-				occupation-level AI adoption.
+				MOM's 30 April survey, its 5 August parliamentary answer and IMDA's 2025 digital-economy
+				report describe adoption at their published firm, sector and workforce populations. Among
+				AI-adopting firms, the August answer rounded responses to 6% reducing headcount, 8% reducing
+				hiring, 19% redesigning roles and 14% creating AI roles. They do not identify
+				occupation-level effects or establish causality.
+			</li>
+			<li>
+				Singapore's 2022–2023 OECD Survey of Adult Skills provides national and subgroup skills
+				context. It does not publish a reliable resilience score for every detailed SSOC 2024
+				occupation.
 			</li>
 			<li>
 				Singapore does not currently publish a defensible detailed-occupation estimate of AI-caused

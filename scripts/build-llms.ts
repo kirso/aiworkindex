@@ -4,6 +4,7 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 
 import { SITE } from '../src/lib/data/scoring-constants';
+import { getRoleFamilyPresentation } from '../src/lib/data/role-presentation';
 import { syntheticRolesV9, syntheticRoleV9Counts } from '../src/lib/data/synthetic-roles-v9';
 import type { V9PublicOccupation } from './v9-public-export';
 import { buildV9PublicRelease, ROOT } from './v9-public-export';
@@ -28,6 +29,12 @@ const unscored = release.occupations.filter(occupation => occupation.genai_task_
 const officialRoleMatches = syntheticRolesV9.filter(
 	role => role.official_status === 'official_occupation_match'
 );
+const exactOfficialTitles = officialRoleMatches.filter(
+	role => role.resolution_basis === 'normalized_exact_title'
+);
+const familiarTitleGuides = officialRoleMatches.filter(
+	role => role.resolution_basis !== 'normalized_exact_title'
+);
 const nonOfficialRoles = syntheticRolesV9.filter(
 	role => role.official_status === 'non_official_role_query'
 );
@@ -39,6 +46,8 @@ const llms = `# AI Work Index
 > Evidence on AI work pressure and job risk across Singapore's SSOC 2024 occupations. Current public release: V9, dated ${release.generated_at}.
 
 AI Work Index covers ${release.counts.occupations} official numeric SSOC 2024 occupations. ${release.counts.scored} have an AI Work Pressure Rank, ${release.counts.insufficient_evidence} are explicitly unranked, and ${release.counts.direct_wages} have a direct MOM 2025 wage observation.
+
+The modern-title lookup covers ${syntheticRoleV9Counts.roles} familiar titles: ${syntheticRoleV9Counts.exact_title_matches} exact official titles, ${syntheticRoleV9Counts.reviewed_alias_matches} reviewed familiar-title guides that reuse an official score unchanged, ${syntheticRoleV9Counts.composite_roles} disclosed cross-occupation estimates, and ${syntheticRoleV9Counts.mapping_withheld} titles that need more work context before comparison.
 
 ## What the headline means
 
@@ -54,6 +63,7 @@ Wages, named demand evidence, external comparisons, adoption, and labour-market 
 - Research: ${SITE.url}/research
 - Data and licences: ${SITE.url}/data
 - Occupation explorer: ${SITE.url}/explore
+- Familiar job-title lookup: ${SITE.url}/roles
 - Rankings: ${SITE.url}/rankings
 - Job pressure calculator: ${SITE.url}/will-ai-take-my-job
 - Comparison tool: ${SITE.url}/compare
@@ -122,7 +132,7 @@ ILO potential25 categories are: Not Exposed; Minimal Exposure; Exposed: Gradient
 - Q1 2026 labour evidence is broad occupation-group context. Q2 2026 figures are preliminary national context.
 - External comparison blocks for AIOE, Eloundou, observed AI use and potential complementarity are currently null. The checked-in ISCO-08 to US SOC bridge lacks the row-level provenance required for publication. The release records that disposition; no fallback is used.
 - Stale convenience-sample job postings are withheld from current-demand interpretation.
-- Exact titles and explicit reviewed title, synonym or definition matches resolve to the official SSOC 2024 occupation, so no competing composite is published. The remaining role pages are either disclosed editorial composites or deliberately withheld queries, not government classifications.
+- The 11 exact SSOC title duplicates use the official occupation URL. The 56 reviewed familiar-title guides have their own explanatory URL but quote the matched occupation's official score unchanged. The remaining role pages are either disclosed editorial composites or deliberately withheld queries. None is a government classification.
 
 ## All ranked official occupations
 
@@ -145,17 +155,29 @@ ${unscored
 	)
 	.join('\n')}
 
-## Non-official modern-role query pages
+## Cross-occupation estimates and titles needing context
 
 The estimated pages below use disclosed, reviewed SSOC 2024 composites. The withheld pages publish no score because a fixed occupational mapping would create false precision. None is an official SSOC occupation.
 
 ${nonOfficialRoles.map(role => `- [${role.title}](${SITE.url}/role/${role.slug})`).join('\n')}
 
-## Modern role titles that resolve to official occupations
+## Familiar-title guides with a reviewed official match
 
-These ${officialRoleMatches.length} query labels resolve to a current SSOC 2024 occupation through either a normalized exact title or an explicit reviewed title, synonym or definition match. Their role URLs redirect to the official record; no separate estimate is published.
+These ${familiarTitleGuides.length} guides explain why a familiar title maps to one SSOC 2024 occupation. Each page shows the official occupation's rank verbatim, keeps pay and demand separate, and labels family-level actions as guidance rather than score input.
 
-${officialRoleMatches.map(role => `- [${role.title}](${SITE.url}/occupation/${role.official_occupation?.ssoc2024})`).join('\n')}
+${familiarTitleGuides
+	.map(role => {
+		const family = getRoleFamilyPresentation(role.slug);
+		const rank = role.official_occupation?.pressure_rank;
+		return `- [${role.title}](${SITE.url}/role/${role.slug}) — ${family.label}; SSOC ${role.official_occupation?.ssoc2024}; official pressure rank ${rank == null ? 'not ranked' : rank.toFixed(1)}`;
+	})
+	.join('\n')}
+
+## Exact modern titles that use the official occupation URL
+
+These ${exactOfficialTitles.length} query labels normalize to an official SSOC 2024 title. Their role URLs redirect to the official record; no duplicate guide or score is published.
+
+${exactOfficialTitles.map(role => `- [${role.title}](${SITE.url}/occupation/${role.official_occupation?.ssoc2024})`).join('\n')}
 
 ## Source and citation links
 

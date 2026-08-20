@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { trackProductEvent } from '$lib/analytics';
 	import * as Command from '$lib/components/ui/command/index.js';
 	import { countryConfigs } from '$lib/data/country-config';
 
@@ -10,16 +11,22 @@
 			pressure_rank: number | null;
 			synonyms: string[];
 		}>;
-		roles: Array<{
+		role_queries: Array<{
 			slug: string;
 			title: string;
 			description: string;
 			tags: string[];
-			estimated_pressure_percentile: number | null;
-		}>;
-		official_role_aliases?: Array<{
-			title: string;
-			official_ssoc2024: string;
+			journey_kind:
+				| 'exact_official_title'
+				| 'reviewed_official_match'
+				| 'composite_estimate'
+				| 'mapping_withheld';
+			official_ssoc2024: string | null;
+			pressure_rank: number | null;
+			pressure_kind: 'official' | 'estimated' | 'withheld';
+			href: string;
+			family_label: string;
+			family_accent: string;
 		}>;
 	};
 
@@ -32,49 +39,57 @@
 			code: string;
 			title: string;
 			rank: number | null;
-			aliases: string[];
 			search: string;
 		}>
 	>([]);
-	let roles = $state<Array<{ slug: string; title: string; rank: number | null; search: string }>>(
-		[]
-	);
+	let roles = $state<
+		Array<{
+			slug: string;
+			title: string;
+			rank: number | null;
+			pressureKind: 'official' | 'estimated' | 'withheld';
+			journeyKind:
+				| 'exact_official_title'
+				| 'reviewed_official_match'
+				| 'composite_estimate'
+				| 'mapping_withheld';
+			officialCode: string | null;
+			href: string;
+			familyLabel: string;
+			familyAccent: string;
+			search: string;
+		}>
+	>([]);
 	let loadPromise: Promise<void> | null = null;
 
 	function loadSearchIndex(): Promise<void> {
 		if (loaded) return Promise.resolve();
 		if (loadPromise) return loadPromise;
 		loading = true;
-		loadPromise = fetch('/data/v9-search-index.json?v=2026-08-19-v9')
+		loadPromise = fetch('/data/v9-search-index.json?v=2026-08-19-v9-role-guides')
 			.then(response => {
 				if (!response.ok) throw new Error(`Search index returned ${response.status}`);
 				return response.json() as Promise<SearchIndex>;
 			})
 			.then(searchIndex => {
-				const aliasesByCode = new Map<string, string[]>();
-				for (const alias of searchIndex.official_role_aliases ?? []) {
-					const aliases = aliasesByCode.get(alias.official_ssoc2024) ?? [];
-					aliases.push(alias.title);
-					aliasesByCode.set(alias.official_ssoc2024, aliases);
-				}
 				occupations = searchIndex.occupations.map(occupation => ({
 					code: occupation.code,
 					title: occupation.title,
 					rank: occupation.pressure_rank,
-					aliases: aliasesByCode.get(occupation.code) ?? [],
-					search: [
-						occupation.title,
-						occupation.code,
-						...occupation.synonyms,
-						...(aliasesByCode.get(occupation.code) ?? [])
-					]
+					search: [occupation.title, occupation.code, ...occupation.synonyms]
 						.join(' ')
 						.toLowerCase()
 				}));
-				roles = searchIndex.roles.map(role => ({
+				roles = (searchIndex.role_queries ?? []).map(role => ({
 					slug: role.slug,
 					title: role.title,
-					rank: role.estimated_pressure_percentile,
+					rank: role.pressure_rank,
+					pressureKind: role.pressure_kind,
+					journeyKind: role.journey_kind,
+					officialCode: role.official_ssoc2024,
+					href: role.href,
+					familyLabel: role.family_label,
+					familyAccent: role.family_accent,
 					search: [role.title, role.description, role.slug, ...role.tags].join(' ').toLowerCase()
 				}));
 				loaded = true;
@@ -110,19 +125,6 @@
 
 	const markets = [countryConfigs.sg, countryConfigs.us, countryConfigs.global];
 
-	let occupationResults = $derived.by(() => {
-		const needle = query.trim().toLowerCase();
-		if (needle.length < 2) return [];
-		return occupations
-			.filter(occupation => occupation.search.includes(needle))
-			.sort((a, b) => {
-				const aStarts = a.title.toLowerCase().startsWith(needle) ? 0 : 1;
-				const bStarts = b.title.toLowerCase().startsWith(needle) ? 0 : 1;
-				return aStarts - bStarts || a.title.localeCompare(b.title);
-			})
-			.slice(0, 8);
-	});
-
 	let roleResults = $derived.by(() => {
 		const needle = query.trim().toLowerCase();
 		if (needle.length < 2) return [];
@@ -136,9 +138,26 @@
 			.slice(0, 5);
 	});
 
-	function matchingAlias(occupation: (typeof occupations)[number]): string | null {
+	let occupationResults = $derived.by(() => {
 		const needle = query.trim().toLowerCase();
-		return occupation.aliases.find(alias => alias.toLowerCase().includes(needle)) ?? null;
+		if (needle.length < 2) return [];
+		const roleCodes = new Set(
+			roleResults.flatMap(role => (role.officialCode ? [role.officialCode] : []))
+		);
+		return occupations
+			.filter(occupation => occupation.search.includes(needle) && !roleCodes.has(occupation.code))
+			.sort((a, b) => {
+				const aStarts = a.title.toLowerCase().startsWith(needle) ? 0 : 1;
+				const bStarts = b.title.toLowerCase().startsWith(needle) ? 0 : 1;
+				return aStarts - bStarts || a.title.localeCompare(b.title);
+			})
+			.slice(0, 8);
+	});
+
+	function roleRankLabel(role: (typeof roles)[number]): string {
+		if (role.rank == null)
+			return role.journeyKind === 'mapping_withheld' ? 'Needs context' : 'Not ranked';
+		return `${role.pressureKind === 'estimated' ? 'Est. ' : ''}${role.rank.toFixed(1)}`;
 	}
 
 	function handleKeydown(event: KeyboardEvent) {
@@ -153,6 +172,14 @@
 		open = false;
 		query = '';
 		goto(href);
+	}
+
+	function navigateToSearchResult(href: string, entityKind: 'occupation' | 'role') {
+		trackProductEvent('job_search_selected', {
+			entity_kind: entityKind,
+			context: 'navigation'
+		});
+		navigate(href);
 	}
 </script>
 
@@ -235,14 +262,36 @@
 		{/if}
 
 		{#if roleResults.length > 0}
-			<Command.Group heading="Modern-role queries · non-official">
+			<Command.Group heading="Familiar job titles">
 				{#each roleResults as role (role.slug)}
-					<Command.Item value="role-{role.slug}" onSelect={() => navigate(`/role/${role.slug}`)}>
+					<Command.Item
+						value="role-{role.slug}"
+						onSelect={() =>
+							navigateToSearchResult(
+								role.href,
+								role.journeyKind === 'exact_official_title' ? 'occupation' : 'role'
+							)}
+					>
 						<div class="flex w-full min-w-0 items-center justify-between gap-3">
-							<span class="truncate">{role.title}</span>
-							<span class="shrink-0 font-mono text-xs text-muted-foreground"
-								>{role.rank == null ? 'Withheld' : `Est. ${role.rank.toFixed(1)}`}</span
-							>
+							<div class="flex min-w-0 items-center gap-2">
+								<span class="h-2.5 w-2.5 shrink-0 rounded-full" style:background={role.familyAccent}
+								></span>
+								<div class="min-w-0">
+									<span class="block truncate">{role.title}</span>
+									<span class="block truncate text-xs text-muted-foreground">
+										{role.journeyKind === 'exact_official_title'
+											? `Official SSOC title · ${role.officialCode} · ${role.familyLabel}`
+											: role.journeyKind === 'reviewed_official_match'
+												? `Familiar-title guide · SSOC ${role.officialCode} · ${role.familyLabel}`
+												: role.journeyKind === 'composite_estimate'
+													? `Reviewed composite · ${role.familyLabel}`
+													: `Choose a work context · ${role.familyLabel}`}
+									</span>
+								</div>
+							</div>
+							<span class="shrink-0 font-mono text-xs text-muted-foreground">
+								{roleRankLabel(role)}
+							</span>
 						</div>
 					</Command.Item>
 				{/each}
@@ -254,16 +303,12 @@
 				{#each occupationResults as occupation (occupation.code)}
 					<Command.Item
 						value="occupation-{occupation.code}"
-						onSelect={() => navigate(`/occupation/${occupation.code}`)}
+						onSelect={() => navigateToSearchResult(`/occupation/${occupation.code}`, 'occupation')}
 					>
 						<div class="flex w-full min-w-0 items-center justify-between gap-3">
 							<div class="min-w-0">
 								<span class="block truncate">{occupation.title}</span>
-								<span class="font-mono text-xs text-muted-foreground"
-									>{matchingAlias(occupation)
-										? `Modern title “${matchingAlias(occupation)}” · `
-										: ''}SSOC {occupation.code}</span
-								>
+								<span class="font-mono text-xs text-muted-foreground">SSOC {occupation.code}</span>
 							</div>
 							<span class="shrink-0 font-mono text-xs font-bold tabular-nums"
 								>{occupation.rank == null ? 'Not ranked' : occupation.rank.toFixed(1)}</span

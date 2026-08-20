@@ -13,6 +13,7 @@ const END = '# END GENERATED V9 CANONICAL REDIRECTS';
 interface RoleRelease {
 	roles: Array<{
 		slug: string;
+		resolution_basis: string;
 		official_status: 'official_occupation_match' | 'non_official_role_query';
 		official_occupation: { ssoc2024: string } | null;
 	}>;
@@ -27,7 +28,9 @@ function main() {
 	const roleRedirects = roleRelease.roles
 		.filter(
 			(role): role is typeof role & { official_occupation: { ssoc2024: string } } =>
-				role.official_status === 'official_occupation_match' && role.official_occupation !== null
+				role.resolution_basis === 'normalized_exact_title' &&
+				role.official_status === 'official_occupation_match' &&
+				role.official_occupation !== null
 		)
 		.map(role => `/role/${role.slug} /occupation/${role.official_occupation.ssoc2024} 308`)
 		.sort();

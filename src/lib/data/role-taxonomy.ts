@@ -1,8 +1,8 @@
 /**
- * Role Taxonomy — Category system for synthetic roles.
+ * Role Taxonomy — Family system for familiar-title guides.
  *
  * Provides parent-child relationships and variant tracking
- * for the synthetic role system.
+ * for exact titles, reviewed aliases, composites and withheld mappings.
  */
 
 export interface RoleCategory {
@@ -21,7 +21,7 @@ export const roleCategories: RoleCategory[] = [
 	{ key: 'finance', label: 'Finance & Legal', description: 'Finance, accounting, compliance, and legal roles' },
 	{ key: 'people', label: 'People & HR', description: 'HR, recruiting, and people operations roles' },
 	{ key: 'operations', label: 'Operations', description: 'Operations, supply chain, and procurement roles' },
-	{ key: 'strategy', label: 'Strategy & Leadership', description: 'Strategy, consulting, and executive support roles' },
+	{ key: 'strategy', label: 'Strategy & Advisory', description: 'Strategy, consulting, policy, and executive support roles' },
 	{ key: 'leadership', label: 'Leadership & New Ventures', description: 'Founders, executives, and emerging leadership roles' },
 	{ key: 'customer', label: 'Customer & Service', description: 'Customer success, support, and community roles' }
 ];
@@ -29,7 +29,7 @@ export const roleCategories: RoleCategory[] = [
 export const roleCategoryByKey = new Map(roleCategories.map((c) => [c.key, c]));
 
 /**
- * Maps each synthetic role slug to its category and optional variant_of parent.
+ * Maps each familiar-title slug to its family and optional variant_of parent.
  * variant_of indicates this role is a variant of another role (e.g., "technical-product-manager" is a variant of "product-manager").
  */
 export const roleCategoryMap: Record<string, { category: string; variant_of?: string }> = {

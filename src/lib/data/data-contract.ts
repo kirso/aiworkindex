@@ -657,7 +657,7 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 		status: 'live',
 		vintage: '2023',
 		used_for: ['exposure ensemble'],
-		research_keys: ['eloundou_etal_2023', 'openai_gpts_are_gpts_2023'],
+		research_keys: ['eloundou_etal_2023'],
 		url: 'https://arxiv.org/abs/2303.10130',
 		notes: 'LLM-oriented exposure source.'
 	},

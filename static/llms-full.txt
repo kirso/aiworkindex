@@ -33,7 +33,7 @@ ILO potential25 categories are: Not Exposed; Minimal Exposure; Exposed: Gradient
 - Q1 2026 labour evidence is broad occupation-group context. Q2 2026 figures are preliminary national context.
 - External comparison blocks for AIOE, Eloundou, observed AI use and potential complementarity are currently null. The checked-in ISCO-08 to US SOC bridge lacks the row-level provenance required for publication. The release records that disposition; no fallback is used.
 - Stale convenience-sample job postings are withheld from current-demand interpretation.
-- Exact titles and explicit reviewed title, synonym or definition matches resolve to the official SSOC 2024 occupation, so no competing composite is published. The remaining role pages are either disclosed editorial composites or deliberately withheld queries, not government classifications.
+- The 11 exact SSOC title duplicates use the official occupation URL. The 56 reviewed familiar-title guides have their own explanatory URL but quote the matched occupation's official score unchanged. The remaining role pages are either disclosed editorial composites or deliberately withheld queries. None is a government classification.
 
 ## All ranked official occupations
 
@@ -1050,7 +1050,7 @@ These pages remain useful classification records. Missing exposure is not zero.
 | [Other sales worker n.e.c.](https://aiworkindex.com/occupation/52499) | 52499 | 5249 | No usable ILO 2025 score through the official mapping |
 | [Stationary plant/machine operator n.e.c.](https://aiworkindex.com/occupation/81890) | 81890 | 8189 | No usable ILO 2025 score through the official mapping |
 
-## Non-official modern-role query pages
+## Cross-occupation estimates and titles needing context
 
 The estimated pages below use disclosed, reviewed SSOC 2024 composites. The withheld pages publish no score because a fixed occupational mapping would create false precision. None is an official SSOC occupation.
 
@@ -1076,77 +1076,82 @@ The estimated pages below use disclosed, reviewed SSOC 2024 composites. The with
 - [Content Creator](https://aiworkindex.com/role/content-creator)
 - [Virtual Assistant](https://aiworkindex.com/role/virtual-assistant)
 
-## Modern role titles that resolve to official occupations
+## Familiar-title guides with a reviewed official match
 
-These 67 query labels resolve to a current SSOC 2024 occupation through either a normalized exact title or an explicit reviewed title, synonym or definition match. Their role URLs redirect to the official record; no separate estimate is published.
+These 56 guides explain why a familiar title maps to one SSOC 2024 occupation. Each page shows the official occupation's rank verbatim, keeps pay and demand separate, and labels family-level actions as guidance rather than score input.
 
-- [Product Manager](https://aiworkindex.com/occupation/25114)
+- [Product Manager](https://aiworkindex.com/role/product-manager) — Product & Design; SSOC 25114; official pressure rank 89.1
+- [HR Business Partner](https://aiworkindex.com/role/hr-business-partner) — People & HR; SSOC 24231; official pressure rank 61.4
+- [Customer Success Manager](https://aiworkindex.com/role/customer-success-manager) — Customer & Service; SSOC 24333; official pressure rank 88.5
+- [Account Executive](https://aiworkindex.com/role/account-executive) — Sales & Business Development; SSOC 33221; official pressure rank 85.4
+- [Platform Engineer](https://aiworkindex.com/role/platform-engineer) — Engineering; SSOC 25239; official pressure rank 89.1
+- [UX Designer](https://aiworkindex.com/role/ux-designer) — Product & Design; SSOC 25124; official pressure rank 90.6
+- [Venture Capitalist](https://aiworkindex.com/role/venture-capitalist) — Finance & Legal; SSOC 24133; official pressure rank 97.3
+- [Solutions Engineer](https://aiworkindex.com/role/solutions-engineer) — Engineering; SSOC 24333; official pressure rank 88.5
+- [Operations Analyst](https://aiworkindex.com/role/operations-analyst) — Data & AI; SSOC 21212; official pressure rank 93.1
+- [Brand Manager](https://aiworkindex.com/role/brand-manager) — Marketing & Growth; SSOC 12222; official pressure rank 73.3
+- [Sales Engineer](https://aiworkindex.com/role/sales-engineer) — Engineering; SSOC 24331; official pressure rank 87.4
+- [Partnerships Manager](https://aiworkindex.com/role/partnerships-manager) — Sales & Business Development; SSOC 12212; official pressure rank 73.3
+- [Supply Chain Analyst](https://aiworkindex.com/role/supply-chain-analyst) — Operations; SSOC 33461; official pressure rank 33.8
+- [ML Engineer](https://aiworkindex.com/role/ml-engineer) — Data & AI; SSOC 25143; official pressure rank 94.5
+- [People Partner](https://aiworkindex.com/role/people-partner) — People & HR; SSOC 24231; official pressure rank 61.4
+- [Procurement Manager](https://aiworkindex.com/role/procurement-manager) — Operations; SSOC 13242; official pressure rank 67.6
+- [Frontend Engineer](https://aiworkindex.com/role/frontend-engineer) — Engineering; SSOC 25121; official pressure rank 89.7
+- [Backend Engineer](https://aiworkindex.com/role/backend-engineer) — Engineering; SSOC 25121; official pressure rank 89.7
+- [Full-Stack Developer](https://aiworkindex.com/role/full-stack-developer) — Engineering; SSOC 25121; official pressure rank 89.7
+- [Mobile Engineer](https://aiworkindex.com/role/mobile-engineer) — Engineering; SSOC 25122; official pressure rank 96.5
+- [Security Engineer](https://aiworkindex.com/role/security-engineer) — Engineering; SSOC 25245; official pressure rank 85.4
+- [Site Reliability Engineer](https://aiworkindex.com/role/site-reliability-engineer) — Engineering; SSOC 25232; official pressure rank 89.1
+- [Engineering Manager](https://aiworkindex.com/role/engineering-manager) — Engineering; SSOC 13302; official pressure rank 78.3
+- [Startup CTO](https://aiworkindex.com/role/startup-cto) — Engineering; SSOC 13301; official pressure rank 78.3
+- [Content Strategist](https://aiworkindex.com/role/content-strategist) — Marketing & Growth; SSOC 24313; official pressure rank 91.7
+- [Policy Analyst](https://aiworkindex.com/role/policy-analyst) — Strategy & Advisory; SSOC 24221; official pressure rank 75.1
+- [Founder Associate](https://aiworkindex.com/role/founder-associate) — Strategy & Advisory; SSOC 33491; official pressure rank not ranked
+- [Quant Researcher](https://aiworkindex.com/role/quant-researcher) — Finance & Legal; SSOC 21212; official pressure rank 93.1
+- [FP&A Analyst](https://aiworkindex.com/role/fpa-analyst) — Finance & Legal; SSOC 24111; official pressure rank 88.5
+- [Treasury Analyst](https://aiworkindex.com/role/treasury-analyst) — Finance & Legal; SSOC 24134; official pressure rank 97.3
+- [Game Developer](https://aiworkindex.com/role/game-developer) — Engineering; SSOC 25123; official pressure rank 90.6
+- [QA Engineer](https://aiworkindex.com/role/qa-engineer) — Engineering; SSOC 25151; official pressure rank 91.7
+- [Systems Analyst](https://aiworkindex.com/role/systems-analyst) — Engineering; SSOC 25111; official pressure rank 85.4
+- [Financial Adviser](https://aiworkindex.com/role/financial-adviser) — Finance & Legal; SSOC 24121; official pressure rank 94.5
+- [Auditor](https://aiworkindex.com/role/auditor) — Finance & Legal; SSOC 24112; official pressure rank 88.5
+- [Data Analyst](https://aiworkindex.com/role/data-analyst) — Data & AI; SSOC 21231; official pressure rank 93.6
+- [Business Analyst](https://aiworkindex.com/role/business-analyst) — Data & AI; SSOC 25112; official pressure rank 85.4
+- [Scrum Master](https://aiworkindex.com/role/scrum-master) — Operations; SSOC 24213; official pressure rank 81.9
+- [SEO Specialist](https://aiworkindex.com/role/seo-specialist) — Marketing & Growth; SSOC 24314; official pressure rank 91.7
+- [Social Media Manager](https://aiworkindex.com/role/social-media-manager) — Marketing & Growth; SSOC 24314; official pressure rank 91.7
+- [Product Designer](https://aiworkindex.com/role/product-designer) — Product & Design; SSOC 25124; official pressure rank 90.6
+- [Database Administrator](https://aiworkindex.com/role/database-administrator) — Data & AI; SSOC 25211; official pressure rank 94.5
+- [Network Engineer](https://aiworkindex.com/role/network-engineer) — Engineering; SSOC 25232; official pressure rank 89.1
+- [Customer Support Specialist](https://aiworkindex.com/role/customer-support-specialist) — Customer & Service; SSOC 35123; official pressure rank 80.8
+- [HR Manager](https://aiworkindex.com/role/hr-manager) — People & HR; SSOC 12121; official pressure rank 60.2
+- [Talent Acquisition Lead](https://aiworkindex.com/role/talent-acquisition-lead) — People & HR; SSOC 12121; official pressure rank 60.2
+- [Legal Counsel](https://aiworkindex.com/role/legal-counsel) — Finance & Legal; SSOC 26112; official pressure rank 60.2
+- [Finance Manager](https://aiworkindex.com/role/finance-manager) — Finance & Legal; SSOC 12111; official pressure rank 63.6
+- [Accountant](https://aiworkindex.com/role/accountant) — Finance & Legal; SSOC 24111; official pressure rank 88.5
+- [Executive Assistant](https://aiworkindex.com/role/executive-assistant) — Operations; SSOC 33494; official pressure rank 90.2
+- [AI Engineer](https://aiworkindex.com/role/ai-engineer) — Data & AI; SSOC 25143; official pressure rank 94.5
+- [Data Architect](https://aiworkindex.com/role/data-architect) — Data & AI; SSOC 25212; official pressure rank 94.5
+- [Ride-Hail Driver](https://aiworkindex.com/role/ride-hail-driver) — Operations; SSOC 83226; official pressure rank 43.1
+- [Freelance Designer](https://aiworkindex.com/role/freelance-designer) — Design & Creative; SSOC 21661; official pressure rank 85.4
+- [Startup Founder / CEO](https://aiworkindex.com/role/startup-founder) — Leadership & New Ventures; SSOC 11201; official pressure rank 67.6
+- [Sustainability Manager](https://aiworkindex.com/role/sustainability-manager) — Leadership & New Ventures; SSOC 24214; official pressure rank 75.1
+
+## Exact modern titles that use the official occupation URL
+
+These 11 query labels normalize to an official SSOC 2024 title. Their role URLs redirect to the official record; no duplicate guide or score is published.
+
 - [DevOps Engineer](https://aiworkindex.com/occupation/25125)
 - [Data Engineer](https://aiworkindex.com/occupation/25213)
-- [HR Business Partner](https://aiworkindex.com/occupation/24231)
-- [Customer Success Manager](https://aiworkindex.com/occupation/24333)
-- [Account Executive](https://aiworkindex.com/occupation/33221)
-- [Platform Engineer](https://aiworkindex.com/occupation/25239)
-- [UX Designer](https://aiworkindex.com/occupation/25124)
-- [Venture Capitalist](https://aiworkindex.com/occupation/24133)
-- [Solutions Engineer](https://aiworkindex.com/occupation/24333)
-- [Operations Analyst](https://aiworkindex.com/occupation/21212)
-- [Brand Manager](https://aiworkindex.com/occupation/12222)
-- [Sales Engineer](https://aiworkindex.com/occupation/24331)
-- [Partnerships Manager](https://aiworkindex.com/occupation/12212)
-- [Supply Chain Analyst](https://aiworkindex.com/occupation/33461)
-- [ML Engineer](https://aiworkindex.com/occupation/25143)
-- [People Partner](https://aiworkindex.com/occupation/24231)
-- [Procurement Manager](https://aiworkindex.com/occupation/13242)
-- [Frontend Engineer](https://aiworkindex.com/occupation/25121)
-- [Backend Engineer](https://aiworkindex.com/occupation/25121)
-- [Full-Stack Developer](https://aiworkindex.com/occupation/25121)
-- [Mobile Engineer](https://aiworkindex.com/occupation/25122)
-- [Security Engineer](https://aiworkindex.com/occupation/25245)
-- [Site Reliability Engineer](https://aiworkindex.com/occupation/25232)
-- [Engineering Manager](https://aiworkindex.com/occupation/13302)
-- [Startup CTO](https://aiworkindex.com/occupation/13301)
-- [Content Strategist](https://aiworkindex.com/occupation/24313)
-- [Policy Analyst](https://aiworkindex.com/occupation/24221)
-- [Founder Associate](https://aiworkindex.com/occupation/33491)
-- [Quant Researcher](https://aiworkindex.com/occupation/21212)
-- [FP&A Analyst](https://aiworkindex.com/occupation/24111)
-- [Treasury Analyst](https://aiworkindex.com/occupation/24134)
-- [Game Developer](https://aiworkindex.com/occupation/25123)
-- [QA Engineer](https://aiworkindex.com/occupation/25151)
-- [Systems Analyst](https://aiworkindex.com/occupation/25111)
-- [Financial Adviser](https://aiworkindex.com/occupation/24121)
 - [Insurance Underwriter](https://aiworkindex.com/occupation/24160)
-- [Auditor](https://aiworkindex.com/occupation/24112)
-- [Data Analyst](https://aiworkindex.com/occupation/21231)
 - [Data Scientist](https://aiworkindex.com/occupation/21222)
-- [Business Analyst](https://aiworkindex.com/occupation/25112)
 - [Management Consultant](https://aiworkindex.com/occupation/24211)
-- [Scrum Master](https://aiworkindex.com/occupation/24213)
 - [Technical Writer](https://aiworkindex.com/occupation/26414)
-- [SEO Specialist](https://aiworkindex.com/occupation/24314)
-- [Social Media Manager](https://aiworkindex.com/occupation/24314)
-- [Product Designer](https://aiworkindex.com/occupation/25124)
 - [Graphic Designer](https://aiworkindex.com/occupation/21661)
-- [Database Administrator](https://aiworkindex.com/occupation/25211)
-- [Network Engineer](https://aiworkindex.com/occupation/25232)
 - [Business Development Manager](https://aiworkindex.com/occupation/12212)
 - [Marketing Manager](https://aiworkindex.com/occupation/12222)
 - [Sales Manager](https://aiworkindex.com/occupation/12211)
-- [Customer Support Specialist](https://aiworkindex.com/occupation/35123)
-- [HR Manager](https://aiworkindex.com/occupation/12121)
-- [Talent Acquisition Lead](https://aiworkindex.com/occupation/12121)
-- [Legal Counsel](https://aiworkindex.com/occupation/26112)
-- [Finance Manager](https://aiworkindex.com/occupation/12111)
-- [Accountant](https://aiworkindex.com/occupation/24111)
-- [Executive Assistant](https://aiworkindex.com/occupation/33494)
 - [Event Manager](https://aiworkindex.com/occupation/14391)
-- [AI Engineer](https://aiworkindex.com/occupation/25143)
-- [Data Architect](https://aiworkindex.com/occupation/25212)
-- [Ride-Hail Driver](https://aiworkindex.com/occupation/83226)
-- [Freelance Designer](https://aiworkindex.com/occupation/21661)
-- [Startup Founder / CEO](https://aiworkindex.com/occupation/11201)
-- [Sustainability Manager](https://aiworkindex.com/occupation/24214)
 
 ## Source and citation links
 

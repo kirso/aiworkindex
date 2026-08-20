@@ -4,6 +4,8 @@
 
 AI Work Index covers 1001 official numeric SSOC 2024 occupations. 987 have an AI Work Pressure Rank, 14 are explicitly unranked, and 523 have a direct MOM 2025 wage observation.
 
+The modern-title lookup covers 88 familiar titles: 11 exact official titles, 56 reviewed familiar-title guides that reuse an official score unchanged, 18 disclosed cross-occupation estimates, and 3 titles that need more work context before comparison.
+
 ## What the headline means
 
 The AI Work Pressure Rank is a midrank percentile across 987 scored SSOC 2024 occupations. A rank of 72 places an occupation at the 72nd midrank percentile for ILO 2025 mean task exposure in that comparison population. Tied exposure values share the same position. The rank is not a 72% probability of job loss, a forecast of employment decline, or the share of tasks that will be automated.
@@ -18,6 +20,7 @@ Wages, named demand evidence, external comparisons, adoption, and labour-market 
 - Research: https://aiworkindex.com/research
 - Data and licences: https://aiworkindex.com/data
 - Occupation explorer: https://aiworkindex.com/explore
+- Familiar job-title lookup: https://aiworkindex.com/roles
 - Rankings: https://aiworkindex.com/rankings
 - Job pressure calculator: https://aiworkindex.com/will-ai-take-my-job
 - Comparison tool: https://aiworkindex.com/compare

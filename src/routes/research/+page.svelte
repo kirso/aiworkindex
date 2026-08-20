@@ -1,5 +1,9 @@
 <script lang="ts">
-	import { researchRegistry, type ResearchRole } from '$lib/data/research-registry';
+	import {
+		RESEARCH_REVIEW_CUTOFF,
+		researchRegistry,
+		type ResearchRole
+	} from '$lib/data/research-registry';
 	import {
 		title as titleStyle,
 		pageLayout,
@@ -11,7 +15,24 @@
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
 
-	const reviewCutoff = '19 August 2026';
+	function formatPublishedAt(value: string): string {
+		if (/^\d{4}$/.test(value)) return value;
+		if (/^\d{4}-\d{2}$/.test(value)) {
+			return new Intl.DateTimeFormat('en-SG', {
+				month: 'long',
+				year: 'numeric',
+				timeZone: 'UTC'
+			}).format(new Date(`${value}-01T00:00:00Z`));
+		}
+		return new Intl.DateTimeFormat('en-SG', {
+			day: 'numeric',
+			month: 'long',
+			year: 'numeric',
+			timeZone: 'UTC'
+		}).format(new Date(`${value}T00:00:00Z`));
+	}
+
+	const reviewCutoff = formatPublishedAt(RESEARCH_REVIEW_CUTOFF);
 	const roleMeta: Record<ResearchRole, { label: string; description: string }> = {
 		active_core: {
 			label: 'Headline input',
@@ -117,89 +138,117 @@
 
 	<section class="mt-10 grid gap-4 lg:grid-cols-3">
 		<div class={card({ padding: 'md' })}>
-			<h2 class="font-semibold text-foreground">Capability is moving faster than outcomes</h2>
+			<h2 class="font-semibold text-foreground">Capability is multidimensional</h2>
 			<p class="mt-2 text-sm leading-relaxed text-muted-foreground">
-				ILO and METR show expanding technical capability. Employment outcomes still depend on
-				adoption, reliability, workflow design, prices, demand and organisational decisions.
+				ILO and OECD measures compare AI capabilities with different parts of work. V9 uses the ILO
+				task measure for its rank and keeps the OECD capability-gap work as a separate research
+				path.
 			</p>
 		</div>
 		<div class={card({ padding: 'md' })}>
-			<h2 class="font-semibold text-foreground">Usage data describe selected platforms</h2>
+			<h2 class="font-semibold text-foreground">Use does not settle the job outcome</h2>
 			<p class="mt-2 text-sm leading-relaxed text-muted-foreground">
 				Anthropic, OpenAI and Microsoft can observe valuable task patterns, but their users and
-				products are not representative samples of Singapore occupations.
+				products are not representative samples of Singapore occupations. Adoption, productivity,
+				hiring and employment remain distinct measurements.
 			</p>
 		</div>
 		<div class={card({ padding: 'md' })}>
-			<h2 class="font-semibold text-foreground">Early labour effects are uneven</h2>
+			<h2 class="font-semibold text-foreground">Career ladders need direct evidence</h2>
 			<p class="mt-2 text-sm leading-relaxed text-muted-foreground">
-				Recent US and Danish findings differ by age, task orientation and outcome. V9 does not carry
-				their coefficients into Singapore scores.
+				Recent work raises questions about junior hiring and learning-by-doing. Singapore does not
+				yet publish an occupation-level measure that can answer them, so V9 applies no age or
+				seniority modifier.
 			</p>
 		</div>
 	</section>
 
+	<p class="mt-4 max-w-3xl text-xs leading-relaxed text-muted-foreground">
+		A source's publication date, observation period and V9 review date are different. Cards show
+		publication and observation separately. “Reviewed through {reviewCutoff}” only tells you when
+		this register was last checked.
+	</p>
+
 	{#each groupedEntries as group}
 		<section class="mt-12" id={group.role}>
-			<div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-				<h2 class={sectionLabel()}>{group.meta.label}</h2>
-				<span class="text-xs text-muted-foreground">{group.entries.length} sources</span>
-			</div>
-			<p class="mt-2 max-w-3xl text-sm text-muted-foreground">{group.meta.description}</p>
+			<details open={group.role === 'active_core'} class="border border-border bg-card">
+				<summary
+					class="flex min-h-12 cursor-pointer flex-wrap items-baseline gap-x-3 gap-y-1 px-5 py-4"
+				>
+					<span class={sectionLabel()}>{group.meta.label}</span>
+					<span class="text-xs text-muted-foreground">{group.entries.length} sources</span>
+				</summary>
+				<div class="border-t border-border p-4 sm:p-5">
+					<p class="max-w-3xl text-sm text-muted-foreground">{group.meta.description}</p>
 
-			<div class="mt-4 grid gap-4 lg:grid-cols-2">
-				{#each group.entries as entry (entry.key)}
-					<article class={card({ padding: 'md' })}>
-						<div class="flex flex-wrap items-center gap-2">
-							<span
-								class="rounded-full border border-border bg-muted/60 px-2 py-0.5 text-[11px] uppercase tracking-wide text-muted-foreground"
-							>
-								{entry.type.replaceAll('_', ' ')}
-							</span>
-							<time class="text-xs text-muted-foreground" datetime={entry.published_at}>
-								{entry.published_at}
-							</time>
-						</div>
-						<h3 class="mt-3 text-base font-semibold leading-snug text-foreground">{entry.title}</h3>
-						<p class="mt-1 text-xs leading-relaxed text-muted-foreground">
-							{entry.authors.join(', ')} · {entry.publisher}
-						</p>
-						<p class="mt-3 text-sm leading-relaxed text-muted-foreground">{entry.summary}</p>
+					<div class="mt-4 grid gap-4 lg:grid-cols-2">
+						{#each group.entries as entry (entry.key)}
+							<article class={card({ padding: 'md' })}>
+								<div class="flex flex-wrap items-center gap-2">
+									<span
+										class="rounded-full border border-border bg-muted/60 px-2 py-0.5 text-[11px] uppercase tracking-wide text-muted-foreground"
+									>
+										{entry.type.replaceAll('_', ' ')}
+									</span>
+									<span class="text-xs text-muted-foreground">
+										Published
+										<time datetime={entry.published_at}
+											>{formatPublishedAt(entry.published_at)}</time
+										>
+									</span>
+									{#if entry.observation_period}
+										<span class="text-xs text-muted-foreground"
+											>Observed {entry.observation_period}</span
+										>
+									{/if}
+								</div>
+								<h3 class="mt-3 text-base font-semibold leading-snug text-foreground">
+									{entry.title}
+								</h3>
+								<p class="mt-1 text-xs leading-relaxed text-muted-foreground">
+									{entry.authors.join(', ')} · {entry.publisher}
+								</p>
+								<p class="mt-3 text-sm leading-relaxed text-muted-foreground">{entry.summary}</p>
 
-						<div
-							class="mt-3 border-t border-border pt-3 text-xs leading-relaxed text-muted-foreground"
-						>
-							<p><span class="font-semibold text-foreground">Limit:</span> {entry.limitations}</p>
-							<p class="mt-2">
-								<span class="font-semibold text-foreground">V9 use:</span>
-								{entry.repo_notes}
-							</p>
-						</div>
-
-						<div class="mt-3 flex flex-wrap items-center gap-2">
-							{#each entry.domains as domain}
-								<span
-									class="rounded-full bg-accent/40 px-2 py-0.5 text-[11px] text-muted-foreground"
-									>{domain}</span
+								<div
+									class="mt-3 border-t border-border pt-3 text-xs leading-relaxed text-muted-foreground"
 								>
-							{/each}
-						</div>
+									<p>
+										<span class="font-semibold text-foreground">Limit:</span>
+										{entry.limitations}
+									</p>
+									<p class="mt-2">
+										<span class="font-semibold text-foreground">V9 use:</span>
+										{entry.repo_notes}
+									</p>
+								</div>
 
-						<div class="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs">
-							<a
-								href={entry.url}
-								target="_blank"
-								rel="noopener noreferrer"
-								class="font-medium text-primary underline"
-							>
-								Read the source
-							</a>
-							{#if entry.doi}<span class="break-all text-muted-foreground">DOI {entry.doi}</span
-								>{/if}
-						</div>
-					</article>
-				{/each}
-			</div>
+								<div class="mt-3 flex flex-wrap items-center gap-2">
+									{#each entry.domains as domain}
+										<span
+											class="rounded-full bg-accent/40 px-2 py-0.5 text-[11px] text-muted-foreground"
+											>{domain}</span
+										>
+									{/each}
+								</div>
+
+								<div class="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs">
+									<a
+										href={entry.url}
+										target="_blank"
+										rel="noopener noreferrer"
+										class="font-medium text-primary underline"
+									>
+										Read the source
+									</a>
+									{#if entry.doi}<span class="break-all text-muted-foreground">DOI {entry.doi}</span
+										>{/if}
+								</div>
+							</article>
+						{/each}
+					</div>
+				</div>
+			</details>
 		</section>
 	{/each}
 

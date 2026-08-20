@@ -3,6 +3,12 @@ import { describe, test } from 'node:test';
 import roles from '../data/synthetic-roles-v9.json';
 import release from '../data/occupations-v9.json';
 import { reviewedV9RoleMappings } from '../scripts/v9-role-mappings';
+import {
+	getRoleFamilyPresentation,
+	getRoleHref,
+	getRoleJourneyKind,
+	ROLE_GUIDANCE_DISCLOSURE
+} from '../src/lib/data/role-presentation';
 
 function normalizeTitle(value: string): string {
 	return value
@@ -166,5 +172,31 @@ describe('V9 modern-role query layer', () => {
 		]) {
 			assert.equal(serialized.includes(forbidden), false);
 		}
+	});
+
+	test('keeps all 88 title journeys and family guidance separate from scoring', () => {
+		const kinds = roles.roles.map(role => getRoleJourneyKind(role));
+		assert.equal(kinds.filter(kind => kind === 'exact_official_title').length, 11);
+		assert.equal(kinds.filter(kind => kind === 'reviewed_official_match').length, 56);
+		assert.equal(kinds.filter(kind => kind === 'composite_estimate').length, 18);
+		assert.equal(kinds.filter(kind => kind === 'mapping_withheld').length, 3);
+
+		for (const role of roles.roles) {
+			const presentation = getRoleFamilyPresentation(role.slug);
+			assert(presentation.label.length > 0, role.slug);
+			assert.equal(presentation.workProfile.length, 6, role.slug);
+			assert.equal(presentation.actions.tryWithAi.length, 2, role.slug);
+			assert.equal(presentation.actions.keepHumanLed.length, 2, role.slug);
+			assert.equal(
+				getRoleHref(role),
+				role.resolution_basis === 'normalized_exact_title'
+					? `/occupation/${role.official_occupation?.ssoc2024}`
+					: `/role/${role.slug}`
+			);
+		}
+
+		assert.match(ROLE_GUIDANCE_DISCLOSURE, /pressure calculation stays separate/);
+		assert.equal(JSON.stringify(roles).includes('workProfile'), false);
+		assert.equal(JSON.stringify(roles).includes('tryWithAi'), false);
 	});
 });

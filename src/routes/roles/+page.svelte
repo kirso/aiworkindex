@@ -39,9 +39,7 @@
 				'@type': 'ListItem',
 				position: index + 1,
 				name: role.title,
-				url: role.official_occupation
-					? `https://aiworkindex.com/occupation/${role.official_occupation.ssoc2024}`
-					: `https://aiworkindex.com/role/${role.slug}`
+				url: `https://aiworkindex.com${role.href}`
 			}))
 		})}<\/script>`
 	);
@@ -49,7 +47,7 @@
 
 <Seo
 	title="AI Work Pressure by Modern Role in Singapore"
-	description={`Explore ${data.counts.roles} modern job-title queries: ${data.counts.official_query_matches} resolve to official SSOC 2024 occupations, ${data.counts.composite_roles} use disclosed composites and ${data.counts.mapping_withheld} are withheld.`}
+	description={`Find ${data.counts.roles} familiar Singapore job titles. ${data.counts.reviewed_alias_matches} reviewed title guides reuse official SSOC 2024 scores, ${data.counts.composite_roles} use disclosed estimates and ${data.counts.mapping_withheld} need more context.`}
 	path="/roles"
 />
 
@@ -59,19 +57,19 @@
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Modern roles' }]} />
 
 	<header class="max-w-4xl border-b-2 border-foreground pb-6">
-		<p class={sectionLabel()}>Official resolutions + reviewed role queries</p>
-		<h1 class={title({ size: 'page' })}>AI work pressure for modern job titles</h1>
+		<p class={sectionLabel()}>88 familiar titles · SSOC 2024</p>
+		<h1 class={title({ size: 'page' })}>Find your job title</h1>
 		<p class="mt-3 max-w-3xl text-base leading-relaxed text-text-secondary">
-			This lookup covers {data.counts.roles} familiar job titles. Exact titles and explicit reviewed title,
-			synonym or definition matches resolve to one current SSOC 2024 occupation. Genuinely cross-occupation
-			roles use public component weights and sensitivity checks. Ambiguous labels are withheld instead
-			of forced into a score. Composite values are estimates, not official statistics or job-loss probabilities.
+			Search the title you use at work. A reviewed familiar-title guide reuses the record and score
+			from its official SSOC occupation. Titles that genuinely span several occupations show a
+			disclosed estimate. Ambiguous titles stay unscored until you choose a work context.
 		</p>
 		<div class="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm">
-			<p><strong>{data.counts.official_query_matches}</strong> official occupation resolutions</p>
+			<p><strong>{data.counts.exact_title_matches}</strong> exact official titles</p>
+			<p><strong>{data.counts.reviewed_alias_matches}</strong> reviewed familiar-title guides</p>
 			<p><strong>{data.counts.composite_roles}</strong> non-official composite estimates</p>
 			<p>
-				<strong>{data.counts.mapping_withheld}</strong> withheld to avoid false precision
+				<strong>{data.counts.mapping_withheld}</strong> need a clearer work context
 			</p>
 			<a class="font-medium text-primary hover:underline" href="/explore">
 				Browse {data.officialOccupationCount.toLocaleString()} official occupations
@@ -80,7 +78,7 @@
 	</header>
 
 	<section class="mt-6" aria-label="Find a modern role">
-		<label class={sectionLabel()} for="role-search">Find a role</label>
+		<label class={sectionLabel()} for="role-search">Search all {data.counts.roles} titles</label>
 		<input
 			id="role-search"
 			class={cn(formInput(), 'mt-2 w-full max-w-2xl')}
@@ -99,9 +97,10 @@
 			{#each data.categories as category (category.key)}
 				<button
 					type="button"
-					class="border px-2.5 py-1 text-xs font-medium {activeCategory === category.key
+					class="border border-b-2 px-2.5 py-1 text-xs font-medium {activeCategory === category.key
 						? 'border-foreground bg-foreground text-background'
 						: 'border-border bg-card text-muted-foreground hover:border-foreground'}"
+					style:border-bottom-color={category.presentation.accent}
 					onclick={() => (activeCategory = activeCategory === category.key ? null : category.key)}
 					>{category.label}</button
 				>
@@ -125,7 +124,8 @@
 			{#each filteredCategories as category (category.key)}
 				<section>
 					<div
-						class="mb-3 flex flex-wrap items-end justify-between gap-2 border-b border-foreground pb-2"
+						class="mb-3 flex flex-wrap items-end justify-between gap-2 border-b-2 pb-2"
+						style:border-color={category.presentation.accent}
 					>
 						<div>
 							<h2 class={title({ size: 'section' })}>{category.label}</h2>
@@ -136,10 +136,9 @@
 					<div class="grid min-w-0 gap-px bg-border sm:grid-cols-2 xl:grid-cols-3">
 						{#each category.roles as role (role.slug)}
 							<a
-								href={role.official_occupation
-									? `/occupation/${role.official_occupation.ssoc2024}`
-									: `/role/${role.slug}`}
-								class="group min-w-0 bg-card p-4 transition-colors hover:bg-accent"
+								href={role.href}
+								class="group min-w-0 border-t-2 bg-card p-4 transition-colors hover:bg-accent"
+								style:border-color={role.presentation.accent}
 							>
 								<div class="flex min-w-0 items-start justify-between gap-3">
 									<h3 class="min-w-0 text-sm font-bold leading-tight group-hover:text-primary">
@@ -156,7 +155,9 @@
 											{role.estimate.estimated_comparison_percentile.toFixed(1)}
 										</span>
 									{:else}
-										<span class="shrink-0 font-mono text-xs text-muted-foreground">Withheld</span>
+										<span class="shrink-0 font-mono text-xs text-muted-foreground"
+											>Needs context</span
+										>
 									{/if}
 								</div>
 								<p class="mt-1 line-clamp-2 text-xs leading-relaxed text-muted-foreground">
@@ -166,20 +167,17 @@
 									class="mt-3 flex flex-wrap items-center justify-between gap-2 border-t border-border pt-2"
 								>
 									<span
-										class="text-[11px] font-semibold uppercase tracking-wide text-risk-moderate"
+										class="text-[11px] font-semibold uppercase tracking-wide"
+										style:color={role.presentation.accent}
 									>
-										{role.official_occupation
-											? 'Resolves to official occupation'
-											: role.estimate
-												? 'Non-official estimate'
-												: 'Mapping withheld'}
+										{role.statusLabel}
 									</span>
 									<span class="font-mono text-[11px] text-muted-foreground">
 										{role.official_occupation
-											? `SSOC ${role.official_occupation.ssoc2024} · official pressure percentile`
+											? `SSOC ${role.official_occupation.ssoc2024} · official pressure rank`
 											: role.estimate
 												? `Estimated pressure percentile · ${role.components.length} components`
-												: 'No fixed SSOC mapping or score published'}
+												: 'Choose a sector and task profile'}
 									</span>
 								</div>
 							</a>
@@ -193,10 +191,10 @@
 	<aside class={cn(card({ padding: 'md', variant: 'notice', accent: 'primary' }), 'mt-10')}>
 		<p class="text-sm font-bold">How to read these pages</p>
 		<p class="mt-1 text-sm leading-relaxed text-text-secondary">
-			A direct reviewed match uses the official occupation record, so the site never publishes a
-			competing composite. Cross-occupation role pages compare a weighted ILO task-exposure score
-			with the official distribution. Ambiguous roles publish no score. None estimates layoffs,
-			employment or role-level wages; component wages and demand signals stay separate.
+			The score answers one question: how exposed are the mapped occupation's tasks relative to
+			other scored occupations? Pay, named demand and practical guidance answer different questions
+			and stay outside the calculation. Personal outcomes also depend on actual use, demand,
+			regulation, organisational choices and human responsibility.
 		</p>
 		<a
 			class="mt-2 inline-block text-sm font-medium text-primary hover:underline"

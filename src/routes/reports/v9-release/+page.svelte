@@ -16,7 +16,7 @@
 	let v9Counts = $derived(data.v9Counts);
 	let q2 = $derived(data.q2);
 	let adoption = $derived(data.adoption);
-	let vacancies = $derived(data.vacancies);
+	let vacancyUpdate = $derived(data.vacancyUpdate);
 	let categoryCounts = $derived(data.categoryCounts);
 	let mixedCategoryCount = $derived(data.mixedCategoryCount);
 	let rangeCount = $derived(data.rangeCount);
@@ -124,20 +124,24 @@
 	</section>
 
 	<section class="mt-10">
-		<h2 class={sectionLabel()}>External occupation comparisons are withheld</h2>
-		<div class={cn(card({ padding: 'lg', variant: 'notice', accent: 'moderate' }), 'mt-3')}>
-			<p class="font-semibold text-foreground">Four reviewed sidecars publish 0% V9 coverage.</p>
-			<p class="mt-2 text-sm leading-relaxed text-muted-foreground">
-				AIOE, Eloundou GPT exposure, Anthropic observed use and the potential-complementarity proxy
-				remain null for all 1,001 occupations. Their checked-in values use US occupation systems,
-				while the available ISCO-08 to SOC bridge lacks row-level source provenance. The
-				complementarity proxy also lacks a frozen source table and reproducible construct
-				replication. V9 records the rejection and applies no fallback.
-			</p>
-			<p class="mt-2 text-sm font-medium text-foreground">
-				This decision does not change any AI Work Pressure Rank.
-			</p>
-		</div>
+		<h2 class={sectionLabel()}>Why some comparisons are not shown</h2>
+		<details class="mt-3 border border-border bg-card">
+			<summary class="cursor-pointer px-5 py-4 text-sm font-semibold text-foreground">
+				US and platform measures did not pass the V9 mapping checks
+			</summary>
+			<div class="border-t border-border p-5">
+				<p class="max-w-4xl text-sm leading-relaxed text-muted-foreground">
+					AIOE, Eloundou GPT exposure, Anthropic observed use and the potential-complementarity
+					proxy remain unavailable at the SSOC 2024 occupation level. The checked-in values use US
+					occupation systems, while the available ISCO-08 to SOC bridge lacks row-level source
+					provenance. The complementarity proxy also lacks a frozen source table and reproducible
+					construct replication. V9 does not fill these gaps with title or broad-group estimates.
+				</p>
+				<p class="mt-2 text-sm font-medium text-foreground">
+					Withholding these fields does not change any AI Work Pressure Rank.
+				</p>
+			</div>
+		</details>
 	</section>
 
 	<section class="mt-10">
@@ -200,12 +204,14 @@
 			</div>
 			<div class={card({ padding: 'md' })}>
 				<p class="text-2xl font-semibold tabular-nums">
-					{vacancies.national.newly_created_positions_pct}%
+					{vacancyUpdate.job_vacancies_thousands['2026-03']}K
 				</p>
-				<h3 class="mt-1 font-semibold text-foreground">Newly created vacancies</h3>
+				<h3 class="mt-1 font-semibold text-foreground">March vacancies</h3>
 				<p class="mt-2 text-sm text-muted-foreground">
-					National employer-survey result from MOM Job Vacancies 2025. It is not an AI-attributed
-					share.
+					Down from {vacancyUpdate.job_vacancies_thousands['2025-12']}K in December 2025, mainly in
+					non-PMET roles. Entry-level PMET openings moved from
+					{vacancyUpdate.entry_level_pmet_vacancies_thousands['2025-12']}K to
+					{vacancyUpdate.entry_level_pmet_vacancies_thousands['2026-03']}K.
 				</p>
 			</div>
 			<div class={card({ padding: 'md' })}>
@@ -219,12 +225,14 @@
 			</div>
 			<div class={card({ padding: 'md' })}>
 				<p class="text-2xl font-semibold tabular-nums">
-					{adoption.metrics.ai_adopting_firms_redesigning_roles_pct}%
+					{vacancyUpdate.ai_adopting_firms_employment_responses_pct.redesigned_roles}%
 				</p>
 				<h3 class="mt-1 font-semibold text-foreground">Reported role redesign</h3>
 				<p class="mt-2 text-sm text-muted-foreground">
-					Share among AI-adopting firms, compared with
-					{adoption.metrics.ai_adopting_firms_reduced_headcount_pct}% reporting reduced headcount.
+					Rounded share among AI-adopting firms, compared with
+					{vacancyUpdate.ai_adopting_firms_employment_responses_pct.reduced_headcount}% reporting
+					reduced headcount and
+					{vacancyUpdate.ai_adopting_firms_employment_responses_pct.reduced_hiring}% reduced hiring.
 				</p>
 			</div>
 			<div class={card({ padding: 'md' })}>
@@ -244,7 +252,8 @@
 			</div>
 		</div>
 		<p class="mt-3 max-w-3xl text-xs leading-relaxed text-muted-foreground">
-			Q2 is an advance national release; Q1 remains the latest detailed quarter. Market evidence is
+			The vacancy update was published on 5 August 2026 and describes observations through March. Q2
+			is an advance national release; Q1 remains the latest detailed quarter. Market evidence is
 			reported at its published grain and never changes the pressure rank.
 		</p>
 	</section>
@@ -275,8 +284,15 @@
 			measured employment effects.
 		</p>
 		<p class="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-			V9 uses those findings to frame interpretation and limitations. It does not transfer US,
-			Danish or platform coefficients into Singapore occupations.
+			The 2026 OECD capability and skills reports support a separate, multidimensional view of human
+			work rather than another hidden score weight. Singapore's 2022–2023 OECD adult-skills survey
+			adds local population context, but not a reliable value for every detailed occupation. New
+			NBER work on firms and career dynamics strengthens the case for tracking adoption, realised
+			outcomes and career ladders separately.
+		</p>
+		<p class="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+			V9 uses these findings to frame interpretation and limitations. It does not transfer US,
+			Danish, OECD or platform coefficients into Singapore occupation ranks.
 		</p>
 		<a href="/research" class="mt-3 inline-block text-sm text-primary underline"
 			>Inspect the source-by-source register</a

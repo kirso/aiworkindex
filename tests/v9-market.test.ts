@@ -14,6 +14,7 @@ describe('V9 Singapore market sidecar', () => {
 					signal => signal.mapping_basis === 'reviewed_against_ssoc_2024_title_and_synonyms'
 				)
 			);
+			assert.ok(signals.every(signal => signal.reviewed_at === '2026-08-19'));
 		}
 		assert.equal(
 			market.demand_by_code['25143']?.some(signal => signal.source_occupation === 'AI engineer'),
@@ -41,12 +42,20 @@ describe('V9 Singapore market sidecar', () => {
 	});
 
 	test('keeps current market evidence separate and correctly dated', () => {
+		assert.equal(market.reviewed_at, '2026-08-19');
+		assert.match(market.date_fields.published_at, /released/);
+		assert.match(market.date_fields.observation_period, /measurement/);
+		assert.match(market.date_fields.reviewed_at, /last checked/);
 		assert.equal(
 			market.rules.headline_separation,
 			'No market field changes AI Work Pressure Rank.'
 		);
 		assert.equal(market.national.labour_market_q2_2026_advance.status, 'preliminary');
+		assert.equal(market.national.labour_market_q2_2026_advance.published_at, '2026-07-31');
+		assert.equal(market.national.labour_market_q2_2026_advance.observation_period, '2026-Q2');
 		assert.equal(market.national.labour_market_q2_2026_advance.total_employment_change, 10700);
+		assert.equal(market.national.labour_market_q1_2026_detailed.published_at, '2026-06-15');
+		assert.equal(market.national.labour_market_q1_2026_detailed.observation_period, '2026-Q1');
 		assert.equal(market.national.labour_market_q1_2026_detailed.vacancies.value, 73.3);
 		assert.equal(
 			market.national.labour_market_q1_2026_detailed.vacancies.unit,
@@ -67,6 +76,25 @@ describe('V9 Singapore market sidecar', () => {
 		assert.equal(serialized.includes('occupations_total'), false);
 		assert.equal(serialized.includes('salary_min_hint'), false);
 		assert.equal(serialized.includes('top_skills'), false);
+	});
+
+	test('publishes the 5 August MOM vacancy update without assigning it to occupations', () => {
+		const update = market.national.job_vacancies_august_2026_update;
+		assert.equal(update.published_at, '2026-08-05');
+		assert.equal(update.observation_period, '2025-12 to 2026-03');
+		assert.equal(update.reviewed_at, '2026-08-19');
+		assert.equal(update.job_vacancies_thousands['2025-12'], 77.7);
+		assert.equal(update.job_vacancies_thousands['2026-03'], 73.3);
+		assert.equal(update.entry_level_pmet_vacancies_thousands['2025-12'], 32.5);
+		assert.equal(update.entry_level_pmet_vacancies_thousands['2026-03'], 32.8);
+		assert.match(update.vacancy_change_context, /mainly in non-PMET roles/);
+		assert.deepEqual(update.ai_adopting_firms_employment_responses_pct, {
+			reduced_headcount: 6,
+			reduced_hiring: 8,
+			redesigned_roles: 19,
+			created_ai_roles: 14
+		});
+		assert.match(update.limitations.join(' '), /cannot be assigned to detailed SSOC occupations/);
 	});
 
 	test('publishes explicit units for broad labour-market context', () => {

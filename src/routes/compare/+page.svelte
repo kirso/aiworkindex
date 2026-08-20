@@ -2,10 +2,12 @@
 	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
+	import { trackProductEvent } from '$lib/analytics';
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
+	import SaveJobButton from '$lib/components/product/SaveJobButton.svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
-	import { card, caption, formInput, pageLayout, sectionLabel, title } from '$lib/design-system';
+	import { card, formInput, pageLayout, sectionLabel, title } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import { onMount } from 'svelte';
 
@@ -78,6 +80,11 @@
 		if (selected.length >= 4) return;
 		query = '';
 		searchOpen = false;
+		trackProductEvent('comparison_created', {
+			entity_kind: entity.kind,
+			selected_count: selected.length + 1,
+			context: 'compare'
+		});
 		goto(comparisonUrl([...selected, entity]), { keepFocus: true, noScroll: true });
 	}
 
@@ -91,6 +98,10 @@
 	async function copyComparison() {
 		if (!browser) return;
 		await navigator.clipboard.writeText(window.location.href);
+		trackProductEvent('comparison_link_copied', {
+			selected_count: selected.length,
+			context: 'compare'
+		});
 		copied = true;
 		setTimeout(() => (copied = false), 1600);
 	}
@@ -99,13 +110,38 @@
 		return value == null ? 'Not available' : value.toFixed(digits);
 	}
 
-	function scale100(value: number | null): string {
-		return value == null ? 'Not available' : `${(value * 100).toFixed(1)}/100`;
+	function mappingLabel(value: string): string {
+		const labels: Record<string, string> = {
+			exact: 'Direct official match',
+			partial: 'Official partial correspondence',
+			one_to_one: 'Direct official match',
+			one_to_many: 'Several official matches',
+			editorial_component_mix: 'Reviewed occupation mix'
+		};
+		return labels[value] ?? value.replaceAll('_', ' ');
 	}
 
-	function mappingLabel(value: string): string {
-		return value.replaceAll('_', ' ');
+	function pressureWidth(value: number | null): string {
+		return `${Math.max(0, Math.min(100, value ?? 0))}%`;
 	}
+
+	function wageText(entity: Entity): string {
+		if (entity.wage != null) return `SGD ${entity.wage.toLocaleString()}`;
+		return entity.kind === 'role' ? 'No role-level figure' : 'Not published';
+	}
+
+	let rankedSelected = $derived(selected.filter(entity => entity.position != null));
+	let wageSelected = $derived(selected.filter(entity => entity.wage != null));
+	let positionSpread = $derived.by(() => {
+		if (rankedSelected.length < 2) return null;
+		const positions = rankedSelected.map(entity => entity.position as number);
+		return Math.max(...positions) - Math.min(...positions);
+	});
+	let wageSpread = $derived.by(() => {
+		if (wageSelected.length < 2) return null;
+		const wages = wageSelected.map(entity => entity.wage as number);
+		return Math.max(...wages) - Math.min(...wages);
+	});
 
 	function matchingAlias(entity: Entity): string | null {
 		const needle = query.trim().toLowerCase();
@@ -120,8 +156,8 @@
 </script>
 
 <Seo
-	title="Compare AI Work Pressure and Job-Risk Evidence in Singapore"
-	description="Compare up to four Singapore occupations or non-official modern-role queries across AI work pressure, task exposure, wages, demand and evidence gaps."
+	title="Compare Singapore Jobs: AI Task Pressure, Pay and Demand"
+	description="Compare up to four Singapore jobs across relative AI task pressure, MOM pay, named demand signals and how each title is mapped."
 	path="/compare"
 />
 
@@ -132,11 +168,11 @@
 		class="flex flex-col gap-4 border-b-2 border-foreground pb-6 sm:flex-row sm:items-end sm:justify-between"
 	>
 		<div class="max-w-3xl">
-			<p class={sectionLabel()}>Evidence explorer</p>
-			<h1 class={title({ size: 'page' })}>Compare jobs without collapsing the evidence</h1>
+			<p class={sectionLabel()}>Job comparison</p>
+			<h1 class={title({ size: 'page' })}>Put the differences side by side</h1>
 			<p class="mt-3 text-base leading-relaxed text-text-secondary">
-				Pressure, wages, current demand, observed AI use and complementarity answer different
-				questions. This view keeps them separate and marks missing evidence as unknown.
+				Compare AI task pressure, published pay, named demand sources and title matching. Each row
+				answers one question, so a strong result in one row never becomes an overall winner.
 			</p>
 		</div>
 		{#if selected.length > 0}
@@ -233,104 +269,180 @@
 		{#if hasMixedKinds}
 			<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'moderate' }), 'mt-6')}>
 				<p class="text-sm leading-relaxed">
-					This comparison mixes official ranks with non-official estimates. The values share a
-					reference distribution, but the role values also depend on editorial component weights.
+					Official occupations and modern-role estimates appear together here. Modern-role values
+					depend on a reviewed mix of occupations; open a role page to inspect that mix.
 				</p>
 			</div>
 		{/if}
 
-		<section class="mt-6 grid min-w-0 gap-4 md:grid-cols-2 xl:grid-cols-4">
-			{#each selected as entity (entity.id)}
-				<article class="min-w-0 border border-border bg-card">
-					<div class="border-b-2 border-foreground p-4">
-						<div class="flex min-w-0 items-start justify-between gap-3">
+		<section
+			class="mt-6 border border-border bg-card p-4 sm:p-5"
+			aria-labelledby="difference-title"
+		>
+			<p class={sectionLabel()}>What stands out</p>
+			<h2 id="difference-title" class="mt-1 text-lg font-bold">Read the gaps before the details</h2>
+			<div class="mt-3 grid gap-3 text-sm sm:grid-cols-3">
+				<div class="border-l-4 border-primary pl-3">
+					<p class="text-xs text-muted-foreground">Pressure-position gap</p>
+					<p class="mt-1 font-mono text-xl font-bold tabular-nums">
+						{positionSpread == null ? 'Need 2 ranked jobs' : `${positionSpread.toFixed(1)} points`}
+					</p>
+				</div>
+				<div class="border-l-4 border-action-strengthen pl-3">
+					<p class="text-xs text-muted-foreground">Published monthly-pay gap</p>
+					<p class="mt-1 font-mono text-xl font-bold tabular-nums">
+						{wageSpread == null ? 'Need 2 pay rows' : `SGD ${wageSpread.toLocaleString()}`}
+					</p>
+				</div>
+				<div class="border-l-4 border-action-verify pl-3">
+					<p class="text-xs text-muted-foreground">Named demand coverage</p>
+					<p class="mt-1 text-sm font-bold">
+						{selected.filter(entity => !entity.demand.startsWith('No ')).length} of {selected.length}
+						jobs have a reviewed named match
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<section class="mt-6 hidden xl:block" aria-label="Job comparison matrix">
+			<div
+				class="comparison-grid border-l border-t border-border"
+				style:grid-template-columns={`minmax(10rem, 0.72fr) repeat(${selected.length}, minmax(0, 1fr))`}
+			>
+				<div class="matrix-label bg-surface-subtle">
+					<span class={sectionLabel()}>Question</span>
+				</div>
+				{#each selected as entity (entity.id)}
+					<div class="matrix-cell bg-surface-subtle">
+						<div class="flex items-start justify-between gap-2">
 							<div class="min-w-0">
-								<p
-									class="font-mono text-[11px] font-bold uppercase tracking-wide text-muted-foreground"
-								>
-									{entity.statusLabel}
-								</p>
+								<p class="text-xs text-muted-foreground">{entity.statusLabel}</p>
 								<h2 class="mt-1 break-words text-base font-bold leading-tight">
-									<a class="hover:text-primary hover:underline" href={entity.href}>{entity.title}</a
+									<a href={entity.href} class="hover:text-primary hover:underline">{entity.title}</a
 									>
 								</h2>
 							</div>
 							<button
-								class="shrink-0 text-lg leading-none text-muted-foreground hover:text-foreground"
+								type="button"
+								class="grid size-8 shrink-0 place-items-center text-lg text-muted-foreground hover:bg-accent hover:text-foreground"
 								onclick={() => remove(entity)}
 								aria-label="Remove {entity.title}">×</button
 							>
 						</div>
-						<p class="mt-5 font-mono text-5xl font-black tabular-nums">{pct(entity.position)}</p>
-						<p class={cn(caption(), 'mt-1')}>{entity.positionKind}</p>
+						<div class="mt-3"><SaveJobButton kind={entity.kind} id={entity.code} /></div>
 					</div>
+				{/each}
 
+				<div class="matrix-label">
+					<strong>How much current AI task overlap?</strong><span
+						>Relative position across scored Singapore occupations.</span
+					>
+				</div>
+				{#each selected as entity (entity.id)}
+					<div class="matrix-cell">
+						<p class="font-mono text-3xl font-black tabular-nums">{pct(entity.position)}</p>
+						<p class="mt-1 text-xs text-muted-foreground">out of 100</p>
+						<div class="mt-3 h-2 bg-surface-metric" aria-hidden="true">
+							<div class="h-full bg-primary" style:width={pressureWidth(entity.position)}></div>
+						</div>
+					</div>
+				{/each}
+
+				<div class="matrix-label">
+					<strong>What is the published pay?</strong><span
+						>Gross monthly pay from a direct MOM 2025 row.</span
+					>
+				</div>
+				{#each selected as entity (entity.id)}
+					<div class="matrix-cell">
+						<p class="font-mono text-lg font-bold tabular-nums">{wageText(entity)}</p>
+						<p class="mt-1 text-xs text-muted-foreground">{entity.wageLabel}</p>
+					</div>
+				{/each}
+
+				<div class="matrix-label">
+					<strong>Is it named in current demand sources?</strong><span
+						>Selected official lists, rather than full-market coverage.</span
+					>
+				</div>
+				{#each selected as entity (entity.id)}
+					<div class="matrix-cell">
+						<p class="text-sm font-bold">{entity.demand}</p>
+						<p class="mt-1 text-xs text-muted-foreground">{entity.demandDetail}</p>
+					</div>
+				{/each}
+
+				<div class="matrix-label">
+					<strong>How was the title matched?</strong><span
+						>Official correspondence or a reviewed role mix.</span
+					>
+				</div>
+				{#each selected as entity (entity.id)}
+					<div class="matrix-cell">
+						<p class="text-sm font-bold capitalize">{mappingLabel(entity.mapping)}</p>
+						<p class="mt-1 text-xs text-muted-foreground">{entity.mappingDetail}</p>
+					</div>
+				{/each}
+
+				<div class="matrix-label">
+					<strong>What broader context is available?</strong><span
+						>Shown at its published labour-market grain.</span
+					>
+				</div>
+				{#each selected as entity (entity.id)}
+					<div class="matrix-cell text-sm leading-relaxed text-text-secondary">
+						{entity.labourContext ?? 'No broad context attached to this record'}
+					</div>
+				{/each}
+			</div>
+		</section>
+
+		<section class="mt-6 grid gap-4 sm:grid-cols-2 xl:hidden" aria-label="Job comparison cards">
+			{#each selected as entity (entity.id)}
+				<article class="min-w-0 border border-border bg-card">
+					<header class="border-t-4 border-primary bg-surface-subtle p-4">
+						<div class="flex items-start justify-between gap-3">
+							<div class="min-w-0">
+								<p class="text-xs text-muted-foreground">{entity.statusLabel}</p>
+								<h2 class="mt-1 break-words text-lg font-bold">
+									<a href={entity.href} class="hover:text-primary hover:underline">{entity.title}</a
+									>
+								</h2>
+							</div>
+							<button
+								type="button"
+								class="grid size-10 shrink-0 place-items-center text-xl text-muted-foreground hover:bg-accent"
+								onclick={() => remove(entity)}
+								aria-label="Remove {entity.title}">×</button
+							>
+						</div>
+						<div class="mt-3"><SaveJobButton kind={entity.kind} id={entity.code} /></div>
+					</header>
 					<dl class="divide-y divide-border text-sm">
-						<div class="p-3">
-							<dt class="text-xs text-muted-foreground">ILO mean task-exposure score</dt>
-							<dd class="mt-1 font-mono font-bold tabular-nums">{scale100(entity.rawExposure)}</dd>
-							{#if entity.exposureRange && entity.exposureRange.min !== entity.exposureRange.max}
-								<p class="mt-1 text-xs text-muted-foreground">
-									Official mapping range {(entity.exposureRange.min * 100).toFixed(1)}–{(
-										entity.exposureRange.max * 100
-									).toFixed(1)}
-								</p>
-							{/if}
-						</div>
-						<div class="p-3">
-							<dt class="text-xs text-muted-foreground">ILO exposure category</dt>
-							<dd class="mt-1 font-medium">{entity.officialCategory}</dd>
-						</div>
-						<div class="p-3">
-							<dt class="text-xs text-muted-foreground">Within-occupation task dispersion</dt>
-							<dd class="mt-1 font-mono font-bold tabular-nums">
-								{scale100(entity.taskDispersion)}
+						<div class="p-4">
+							<dt class="text-xs text-muted-foreground">Relative AI task pressure</dt>
+							<dd class="mt-1 font-mono text-3xl font-black tabular-nums">
+								{pct(entity.position)}<span class="ml-1 text-xs font-normal text-muted-foreground"
+									>/100</span
+								>
 							</dd>
-							{#if entity.kind === 'role'}<p class="mt-1 text-xs text-muted-foreground">
-									Not aggregated for non-official queries
-								</p>{/if}
+							<div class="mt-2 h-2 bg-surface-metric">
+								<div class="h-full bg-primary" style:width={pressureWidth(entity.position)}></div>
+							</div>
 						</div>
-						<div class="p-3">
-							<dt class="text-xs text-muted-foreground">Gross monthly wage</dt>
-							<dd class="mt-1 font-mono font-bold tabular-nums">
-								{entity.wage == null
-									? entity.kind === 'role'
-										? 'No role-level estimate'
-										: 'Not published'
-									: `SGD ${entity.wage.toLocaleString()}`}
-							</dd>
+						<div class="p-4">
+							<dt class="text-xs text-muted-foreground">Pay in Singapore</dt>
+							<dd class="mt-1 font-mono font-bold">{wageText(entity)}</dd>
 							<p class="mt-1 text-xs text-muted-foreground">{entity.wageLabel}</p>
 						</div>
-						<div class="p-3">
-							<dt class="text-xs text-muted-foreground">Current named demand evidence</dt>
-							<dd class="mt-1 font-medium">{entity.demand}</dd>
+						<div class="p-4">
+							<dt class="text-xs text-muted-foreground">Named demand sources</dt>
+							<dd class="mt-1 font-bold">{entity.demand}</dd>
 							<p class="mt-1 text-xs text-muted-foreground">{entity.demandDetail}</p>
 						</div>
-						<div class="p-3">
-							<dt class="text-xs text-muted-foreground">Broad labour-market context</dt>
-							<dd class="mt-1 leading-relaxed">
-								{entity.labourContext ?? 'Not applied at this grain'}
-							</dd>
-						</div>
-						<div class="p-3">
-							<dt class="text-xs text-muted-foreground">Observed AI use</dt>
-							<dd class="mt-1">
-								{entity.observedUse
-									? 'Published evidence block available'
-									: 'Not published at this occupation grain'}
-							</dd>
-						</div>
-						<div class="p-3">
-							<dt class="text-xs text-muted-foreground">Potential complementarity</dt>
-							<dd class="mt-1">
-								{entity.complementarity
-									? 'Published evidence block available'
-									: 'Not published at this occupation grain'}
-							</dd>
-						</div>
-						<div class="p-3">
-							<dt class="text-xs text-muted-foreground">Mapping evidence</dt>
-							<dd class="mt-1 capitalize">{mappingLabel(entity.mapping)}</dd>
+						<div class="p-4">
+							<dt class="text-xs text-muted-foreground">How the title was matched</dt>
+							<dd class="mt-1 font-bold capitalize">{mappingLabel(entity.mapping)}</dd>
 							<p class="mt-1 text-xs text-muted-foreground">{entity.mappingDetail}</p>
 						</div>
 					</dl>
@@ -340,9 +452,35 @@
 	{/if}
 
 	<aside class="mt-8 border-t border-foreground pt-4 text-xs leading-relaxed text-muted-foreground">
-		<strong class="text-foreground">Reading rule:</strong> a missing demand match, wage row,
-		observed-use measure or complementarity measure stays missing. It is never converted to zero and
-		never changes the AI Work Pressure Rank.
-		<a class="text-primary hover:underline" href="/methodology">Methodology</a>
+		A blank or unavailable value stays unavailable. Pay, named demand and broad market context sit
+		alongside the pressure position; each keeps its own source and meaning.
+		<a class="text-primary hover:underline" href="/methodology">How the comparison works</a>
 	</aside>
 </main>
+
+<style>
+	.comparison-grid {
+		display: grid;
+	}
+
+	.matrix-label,
+	.matrix-cell {
+		min-width: 0;
+		border-right: 1px solid var(--border);
+		border-bottom: 1px solid var(--border);
+		padding: 1rem;
+	}
+
+	.matrix-label {
+		display: flex;
+		flex-direction: column;
+		gap: 0.3rem;
+		font-size: 0.875rem;
+		line-height: 1.4;
+	}
+
+	.matrix-label span {
+		font-size: 0.75rem;
+		color: var(--muted-foreground);
+	}
+</style>

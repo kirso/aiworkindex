@@ -16,7 +16,7 @@
 		],
 		['geography', 'The population or market represented by the source.'],
 		['reference_period', 'When the underlying observation applies.'],
-		['source', 'Publisher, title, URL and release date.'],
+		['source', 'Publisher, title, URL and publication date.'],
 		['mapping', 'Method and quality when the evidence is crosswalked.'],
 		['limitations', 'Specific reasons the value may be misread.']
 	] as const;
@@ -173,12 +173,25 @@
 			<div class={card({ padding: 'md' })}>
 				<h3 class="font-semibold text-foreground"><code>task_score_sd_2025</code></h3>
 				<p class="mt-2 text-sm text-muted-foreground">
-					Describes variation in task scores inside an ISCO occupation. V9 publishes its median and
-					range across matches. It is not a statistical confidence interval around the pressure
-					rank.
+					Describes the unweighted variation across the listed ILO task scores inside an ISCO
+					occupation. V9 publishes its median and range across official matches. It is not a
+					confidence interval, a measure of variation across workers, or a time-weighted task
+					concentration measure.
 				</p>
 			</div>
 		</div>
+	</section>
+
+	<section class="mt-10">
+		<h2 class={sectionLabel()}>Date fields</h2>
+		<dl class="mt-3 grid gap-3 sm:grid-cols-2">
+			{#each [['published_at', 'When the source was released to the public.'], ['observation_period', 'When the source data or measurement applies.'], ['reviewed_at', 'When AI Work Index last checked the source for V9.'], ['generated_at', 'When the deterministic V9 artifact was produced; not when the underlying event happened.']] as dateField}
+				<div class={card({ padding: 'sm' })}>
+					<dt class="font-mono text-xs font-semibold text-foreground">{dateField[0]}</dt>
+					<dd class="mt-1 text-sm text-muted-foreground">{dateField[1]}</dd>
+				</div>
+			{/each}
+		</dl>
 	</section>
 
 	<section class="mt-10">

@@ -107,8 +107,9 @@ const roleRelease = readJson<{
 	roles: Array<{
 		slug: string;
 		official_status: string;
+		resolution_basis: string;
 		estimate: unknown;
-		official_occupation: { ssoc2024: string } | null;
+		official_occupation: { ssoc2024: string; pressure_rank: number | null } | null;
 		components: Array<{ ssoc2024: string }>;
 	}>;
 }>(path.join(STATIC_DATA, 'synthetic-roles-v9.json'));
@@ -117,6 +118,22 @@ const searchIndex = readJson<{
 	occupations: Array<{ code: string }>;
 	roles: Array<{ slug: string }>;
 	official_role_aliases: Array<{ slug: string; official_ssoc2024: string }>;
+	role_queries: Array<{
+		slug: string;
+		journey_kind: string;
+		official_ssoc2024: string | null;
+		pressure_rank: number | null;
+		pressure_kind: string;
+		href: string;
+		family_key: string;
+	}>;
+	role_query_counts: {
+		all: number;
+		exact_official_titles: number;
+		reviewed_official_matches: number;
+		composite_estimates: number;
+		mapping_withheld: number;
+	};
 }>(path.join(STATIC_DATA, 'v9-search-index.json'));
 const uiIndex = readJson<{
 	schema_version: string;
@@ -354,6 +371,33 @@ assert.equal(searchIndex.schema_version, '9.0');
 assert.equal(searchIndex.occupations.length, 1001);
 assert.equal(searchIndex.roles.length, roleRelease.counts.non_official_roles);
 assert.equal(searchIndex.official_role_aliases.length, roleRelease.counts.official_query_matches);
+assert.equal(searchIndex.role_queries.length, roleRelease.counts.roles);
+assert.deepEqual(searchIndex.role_query_counts, {
+	all: roleRelease.counts.roles,
+	exact_official_titles: roleRelease.counts.exact_title_matches,
+	reviewed_official_matches: roleRelease.counts.reviewed_alias_matches,
+	composite_estimates: roleRelease.counts.composite_roles,
+	mapping_withheld: roleRelease.counts.mapping_withheld
+});
+assert.equal(
+	new Set(searchIndex.role_queries.map(role => role.slug)).size,
+	roleRelease.counts.roles
+);
+for (const query of searchIndex.role_queries) {
+	const source = roleRelease.roles.find(role => role.slug === query.slug);
+	assert(source, `search role query has no release source: ${query.slug}`);
+	assert(query.family_key.length > 0, `${query.slug}: missing family presentation`);
+	if (source.resolution_basis === 'normalized_exact_title') {
+		assert.equal(query.journey_kind, 'exact_official_title');
+		assert.equal(query.href, `/occupation/${source.official_occupation?.ssoc2024}`);
+	} else {
+		assert.equal(query.href, `/role/${source.slug}`);
+	}
+	if (source.official_occupation) {
+		assert.equal(query.pressure_kind, 'official');
+		assert.equal(query.pressure_rank, source.official_occupation.pressure_rank);
+	}
+}
 assert.deepEqual(
 	new Set(searchIndex.occupations.map(occupation => occupation.code)),
 	new Set(publicRelease.occupations.map(occupation => occupation.taxonomy.code))
@@ -630,19 +674,26 @@ for (const occupation of publicRelease.occupations) {
 	);
 }
 for (const role of roleRelease.roles) {
-	if (role.official_status === 'official_occupation_match') {
+	if (role.resolution_basis === 'normalized_exact_title') {
 		assert(
 			!sitemapSet.has(`${SITE_URL}/role/${role.slug}`),
-			`sitemap includes canonicalized role alias ${role.slug}`
+			`sitemap includes duplicate official title ${role.slug}`
 		);
 		assert(
 			redirects.includes(
 				`/role/${role.slug} /occupation/${role.official_occupation?.ssoc2024} 308`
 			),
-			`redirects missing official role alias ${role.slug}`
+			`redirects missing duplicate official title ${role.slug}`
 		);
 	} else {
-		assert(sitemapSet.has(`${SITE_URL}/role/${role.slug}`), `sitemap missing role ${role.slug}`);
+		assert(
+			sitemapSet.has(`${SITE_URL}/role/${role.slug}`),
+			`sitemap missing title guide ${role.slug}`
+		);
+		assert(
+			!redirects.split('\n').some(line => line.startsWith(`/role/${role.slug} `)),
+			`title guide is incorrectly redirected: ${role.slug}`
+		);
 	}
 }
 assert(redirects.includes('/calculator /will-ai-take-my-job 308'));
@@ -700,5 +751,5 @@ assert.equal(countryConfigs.us.status, 'preview');
 assert.equal(countryConfigs.global.status, 'research');
 
 console.log(
-	`release-check: V9 ok (${publicRelease.counts.occupations} occupations, ${roleRelease.counts.non_official_roles} non-official roles, ${sitemapLocs.length} sitemap URLs)`
+	`release-check: V9 ok (${publicRelease.counts.occupations} occupations, ${roleRelease.counts.roles - roleRelease.counts.exact_title_matches} modern-title guides, ${sitemapLocs.length} sitemap URLs)`
 );

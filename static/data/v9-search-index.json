@@ -38701,341 +38701,2192 @@
       "estimated_pressure_percentile": 90.4
     }
   ],
-  "official_role_aliases": [
+  "role_queries": [
     {
       "slug": "product-manager",
       "title": "Product Manager",
-      "official_ssoc2024": "25114"
+      "description": "Leads product strategy, roadmap, and cross-functional execution",
+      "tags": [
+        "tech",
+        "management",
+        "strategy"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "25114",
+      "pressure_rank": 89.1,
+      "pressure_kind": "official",
+      "href": "/role/product-manager",
+      "family_key": "product",
+      "family_label": "Product & Design",
+      "family_accent": "#0f766e",
+      "family_surface": "#f0fdfa"
+    },
+    {
+      "slug": "project-manager",
+      "title": "Project Manager",
+      "description": "Plans, executes, and delivers projects on time and within budget",
+      "tags": [
+        "management",
+        "operations"
+      ],
+      "resolution_basis": "mapping_withheld",
+      "journey_kind": "mapping_withheld",
+      "official_ssoc2024": null,
+      "pressure_rank": null,
+      "pressure_kind": "withheld",
+      "href": "/role/project-manager",
+      "family_key": "operations",
+      "family_label": "Operations",
+      "family_accent": "#475569",
+      "family_surface": "#f8fafc"
+    },
+    {
+      "slug": "recruiter",
+      "title": "Recruiter",
+      "description": "Sources, screens, and hires talent for organizations",
+      "tags": [
+        "hr",
+        "talent"
+      ],
+      "resolution_basis": "reviewed_composite",
+      "journey_kind": "composite_estimate",
+      "official_ssoc2024": null,
+      "pressure_rank": 80.8,
+      "pressure_kind": "estimated",
+      "href": "/role/recruiter",
+      "family_key": "people",
+      "family_label": "People & HR",
+      "family_accent": "#9f1239",
+      "family_surface": "#fff1f2"
     },
     {
       "slug": "devops-engineer",
       "title": "DevOps Engineer",
-      "official_ssoc2024": "25125"
+      "description": "Builds and maintains CI/CD pipelines, infrastructure, and deployment automation",
+      "tags": [
+        "tech",
+        "engineering",
+        "infrastructure"
+      ],
+      "resolution_basis": "normalized_exact_title",
+      "journey_kind": "exact_official_title",
+      "official_ssoc2024": "25125",
+      "pressure_rank": 93.6,
+      "pressure_kind": "official",
+      "href": "/occupation/25125",
+      "family_key": "engineering",
+      "family_label": "Engineering",
+      "family_accent": "#1d4ed8",
+      "family_surface": "#eff6ff"
     },
     {
       "slug": "data-engineer",
       "title": "Data Engineer",
-      "official_ssoc2024": "25213"
+      "description": "Designs and builds data pipelines, warehouses, and analytics infrastructure",
+      "tags": [
+        "tech",
+        "data",
+        "engineering"
+      ],
+      "resolution_basis": "normalized_exact_title",
+      "journey_kind": "exact_official_title",
+      "official_ssoc2024": "25213",
+      "pressure_rank": 94.5,
+      "pressure_kind": "official",
+      "href": "/occupation/25213",
+      "family_key": "data",
+      "family_label": "Data & AI",
+      "family_accent": "#6d28d9",
+      "family_surface": "#f5f3ff"
     },
     {
       "slug": "hr-business-partner",
       "title": "HR Business Partner",
-      "official_ssoc2024": "24231"
+      "description": "Aligns HR strategy with business objectives and supports organizational development",
+      "tags": [
+        "hr",
+        "management",
+        "strategy"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "24231",
+      "pressure_rank": 61.4,
+      "pressure_kind": "official",
+      "href": "/role/hr-business-partner",
+      "family_key": "people",
+      "family_label": "People & HR",
+      "family_accent": "#9f1239",
+      "family_surface": "#fff1f2"
     },
     {
       "slug": "customer-success-manager",
       "title": "Customer Success Manager",
-      "official_ssoc2024": "24333"
+      "description": "Drives customer retention, adoption, and expansion through proactive relationship management",
+      "tags": [
+        "sales",
+        "customer",
+        "management"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "24333",
+      "pressure_rank": 88.5,
+      "pressure_kind": "official",
+      "href": "/role/customer-success-manager",
+      "family_key": "customer",
+      "family_label": "Customer & Service",
+      "family_accent": "#0369a1",
+      "family_surface": "#f0f9ff"
     },
     {
       "slug": "account-executive",
       "title": "Account Executive",
-      "official_ssoc2024": "33221"
+      "description": "Manages the full sales cycle from prospecting to closing deals",
+      "tags": [
+        "sales",
+        "business-development"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "33221",
+      "pressure_rank": 85.4,
+      "pressure_kind": "official",
+      "href": "/role/account-executive",
+      "family_key": "sales",
+      "family_label": "Sales & Business Development",
+      "family_accent": "#a16207",
+      "family_surface": "#fefce8"
     },
     {
       "slug": "platform-engineer",
       "title": "Platform Engineer",
-      "official_ssoc2024": "25239"
+      "description": "Builds and maintains internal developer platforms and tooling",
+      "tags": [
+        "tech",
+        "engineering",
+        "infrastructure"
+      ],
+      "resolution_basis": "reviewed_definition_equivalent",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "25239",
+      "pressure_rank": 89.1,
+      "pressure_kind": "official",
+      "href": "/role/platform-engineer",
+      "family_key": "engineering",
+      "family_label": "Engineering",
+      "family_accent": "#1d4ed8",
+      "family_surface": "#eff6ff"
     },
     {
       "slug": "ux-designer",
       "title": "UX Designer",
-      "official_ssoc2024": "25124"
+      "description": "Designs user experiences through research, prototyping, and interaction design",
+      "tags": [
+        "design",
+        "tech",
+        "ux"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "25124",
+      "pressure_rank": 90.6,
+      "pressure_kind": "official",
+      "href": "/role/ux-designer",
+      "family_key": "product",
+      "family_label": "Product & Design",
+      "family_accent": "#0f766e",
+      "family_surface": "#f0fdfa"
     },
     {
       "slug": "venture-capitalist",
       "title": "Venture Capitalist",
-      "official_ssoc2024": "24133"
+      "description": "Evaluates startups, manages fund portfolios, and drives investment decisions",
+      "tags": [
+        "finance",
+        "strategy"
+      ],
+      "resolution_basis": "reviewed_definition_equivalent",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "24133",
+      "pressure_rank": 97.3,
+      "pressure_kind": "official",
+      "href": "/role/venture-capitalist",
+      "family_key": "finance",
+      "family_label": "Finance & Legal",
+      "family_accent": "#166534",
+      "family_surface": "#f0fdf4"
     },
     {
       "slug": "solutions-engineer",
       "title": "Solutions Engineer",
-      "official_ssoc2024": "24333"
+      "description": "Bridges technical and commercial teams by designing solutions for customer needs",
+      "tags": [
+        "tech",
+        "sales",
+        "engineering"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "24333",
+      "pressure_rank": 88.5,
+      "pressure_kind": "official",
+      "href": "/role/solutions-engineer",
+      "family_key": "engineering",
+      "family_label": "Engineering",
+      "family_accent": "#1d4ed8",
+      "family_surface": "#eff6ff"
     },
     {
       "slug": "operations-analyst",
       "title": "Operations Analyst",
-      "official_ssoc2024": "21212"
+      "description": "Optimizes business processes through data analysis and operational research",
+      "tags": [
+        "operations",
+        "data",
+        "strategy"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "21212",
+      "pressure_rank": 93.1,
+      "pressure_kind": "official",
+      "href": "/role/operations-analyst",
+      "family_key": "data",
+      "family_label": "Data & AI",
+      "family_accent": "#6d28d9",
+      "family_surface": "#f5f3ff"
     },
     {
       "slug": "brand-manager",
       "title": "Brand Manager",
-      "official_ssoc2024": "12222"
+      "description": "Develops and executes brand strategy, positioning, and marketing campaigns",
+      "tags": [
+        "marketing",
+        "management",
+        "strategy"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "12222",
+      "pressure_rank": 73.3,
+      "pressure_kind": "official",
+      "href": "/role/brand-manager",
+      "family_key": "marketing",
+      "family_label": "Marketing & Growth",
+      "family_accent": "#c2410c",
+      "family_surface": "#fff7ed"
+    },
+    {
+      "slug": "community-manager",
+      "title": "Community Manager",
+      "description": "Builds and nurtures online and offline communities around a brand or product",
+      "tags": [
+        "marketing",
+        "customer"
+      ],
+      "resolution_basis": "reviewed_composite",
+      "journey_kind": "composite_estimate",
+      "official_ssoc2024": null,
+      "pressure_rank": 88.1,
+      "pressure_kind": "estimated",
+      "href": "/role/community-manager",
+      "family_key": "marketing",
+      "family_label": "Marketing & Growth",
+      "family_accent": "#c2410c",
+      "family_surface": "#fff7ed"
     },
     {
       "slug": "sales-engineer",
       "title": "Sales Engineer",
-      "official_ssoc2024": "24331"
+      "description": "Combines technical expertise with sales skills to sell complex technical products",
+      "tags": [
+        "tech",
+        "sales",
+        "engineering"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "24331",
+      "pressure_rank": 87.4,
+      "pressure_kind": "official",
+      "href": "/role/sales-engineer",
+      "family_key": "engineering",
+      "family_label": "Engineering",
+      "family_accent": "#1d4ed8",
+      "family_surface": "#eff6ff"
+    },
+    {
+      "slug": "developer-advocate",
+      "title": "Developer Advocate",
+      "description": "Promotes developer tools through content, community engagement, and technical evangelism",
+      "tags": [
+        "tech",
+        "marketing",
+        "engineering"
+      ],
+      "resolution_basis": "reviewed_composite",
+      "journey_kind": "composite_estimate",
+      "official_ssoc2024": null,
+      "pressure_rank": 90.4,
+      "pressure_kind": "estimated",
+      "href": "/role/developer-advocate",
+      "family_key": "marketing",
+      "family_label": "Marketing & Growth",
+      "family_accent": "#c2410c",
+      "family_surface": "#fff7ed"
+    },
+    {
+      "slug": "investment-banker",
+      "title": "Investment Banker",
+      "description": "Advises on mergers, acquisitions, and capital markets transactions",
+      "tags": [
+        "finance",
+        "strategy"
+      ],
+      "resolution_basis": "reviewed_composite",
+      "journey_kind": "composite_estimate",
+      "official_ssoc2024": null,
+      "pressure_rank": 96,
+      "pressure_kind": "estimated",
+      "href": "/role/investment-banker",
+      "family_key": "finance",
+      "family_label": "Finance & Legal",
+      "family_accent": "#166534",
+      "family_surface": "#f0fdf4"
     },
     {
       "slug": "partnerships-manager",
       "title": "Partnerships Manager",
-      "official_ssoc2024": "12212"
+      "description": "Develops and manages strategic business partnerships and alliance programs",
+      "tags": [
+        "business-development",
+        "management",
+        "strategy"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "12212",
+      "pressure_rank": 73.3,
+      "pressure_kind": "official",
+      "href": "/role/partnerships-manager",
+      "family_key": "sales",
+      "family_label": "Sales & Business Development",
+      "family_accent": "#a16207",
+      "family_surface": "#fefce8"
     },
     {
       "slug": "supply-chain-analyst",
       "title": "Supply Chain Analyst",
-      "official_ssoc2024": "33461"
+      "description": "Analyzes and optimizes supply chain operations, logistics, and inventory management",
+      "tags": [
+        "operations",
+        "data"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "33461",
+      "pressure_rank": 33.8,
+      "pressure_kind": "official",
+      "href": "/role/supply-chain-analyst",
+      "family_key": "operations",
+      "family_label": "Operations",
+      "family_accent": "#475569",
+      "family_surface": "#f8fafc"
     },
     {
       "slug": "ml-engineer",
       "title": "ML Engineer",
-      "official_ssoc2024": "25143"
+      "description": "Builds, trains, and deploys machine learning models into production systems",
+      "tags": [
+        "tech",
+        "data",
+        "engineering"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "25143",
+      "pressure_rank": 94.5,
+      "pressure_kind": "official",
+      "href": "/role/ml-engineer",
+      "family_key": "data",
+      "family_label": "Data & AI",
+      "family_accent": "#6d28d9",
+      "family_surface": "#f5f3ff"
+    },
+    {
+      "slug": "technical-product-manager",
+      "title": "Technical Product Manager",
+      "description": "Manages product development with deep technical understanding and cross-functional coordination",
+      "tags": [
+        "tech",
+        "management",
+        "strategy"
+      ],
+      "resolution_basis": "reviewed_composite",
+      "journey_kind": "composite_estimate",
+      "official_ssoc2024": null,
+      "pressure_rank": 88.9,
+      "pressure_kind": "estimated",
+      "href": "/role/technical-product-manager",
+      "family_key": "product",
+      "family_label": "Product & Design",
+      "family_accent": "#0f766e",
+      "family_surface": "#f0fdfa"
     },
     {
       "slug": "people-partner",
       "title": "People Partner",
-      "official_ssoc2024": "24231"
+      "description": "Partners with business leaders to align people strategy with organizational goals",
+      "tags": [
+        "hr",
+        "management",
+        "strategy"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "24231",
+      "pressure_rank": 61.4,
+      "pressure_kind": "official",
+      "href": "/role/people-partner",
+      "family_key": "people",
+      "family_label": "People & HR",
+      "family_accent": "#9f1239",
+      "family_surface": "#fff1f2"
+    },
+    {
+      "slug": "revops-manager",
+      "title": "RevOps Manager",
+      "description": "Aligns sales, marketing, and customer success operations to optimize revenue growth",
+      "tags": [
+        "operations",
+        "sales",
+        "management"
+      ],
+      "resolution_basis": "reviewed_composite",
+      "journey_kind": "composite_estimate",
+      "official_ssoc2024": null,
+      "pressure_rank": 82.2,
+      "pressure_kind": "estimated",
+      "href": "/role/revops-manager",
+      "family_key": "operations",
+      "family_label": "Operations",
+      "family_accent": "#475569",
+      "family_surface": "#f8fafc"
     },
     {
       "slug": "procurement-manager",
       "title": "Procurement Manager",
-      "official_ssoc2024": "13242"
+      "description": "Manages organizational purchasing, vendor relationships, and procurement strategy",
+      "tags": [
+        "operations",
+        "management"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "13242",
+      "pressure_rank": 67.6,
+      "pressure_kind": "official",
+      "href": "/role/procurement-manager",
+      "family_key": "operations",
+      "family_label": "Operations",
+      "family_accent": "#475569",
+      "family_surface": "#f8fafc"
     },
     {
       "slug": "frontend-engineer",
       "title": "Frontend Engineer",
-      "official_ssoc2024": "25121"
+      "description": "Builds user interfaces and client-side applications using web technologies",
+      "tags": [
+        "tech",
+        "engineering"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "25121",
+      "pressure_rank": 89.7,
+      "pressure_kind": "official",
+      "href": "/role/frontend-engineer",
+      "family_key": "engineering",
+      "family_label": "Engineering",
+      "family_accent": "#1d4ed8",
+      "family_surface": "#eff6ff"
     },
     {
       "slug": "backend-engineer",
       "title": "Backend Engineer",
-      "official_ssoc2024": "25121"
+      "description": "Designs and builds server-side systems, APIs, and data infrastructure",
+      "tags": [
+        "tech",
+        "engineering"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "25121",
+      "pressure_rank": 89.7,
+      "pressure_kind": "official",
+      "href": "/role/backend-engineer",
+      "family_key": "engineering",
+      "family_label": "Engineering",
+      "family_accent": "#1d4ed8",
+      "family_surface": "#eff6ff"
     },
     {
       "slug": "full-stack-developer",
       "title": "Full-Stack Developer",
-      "official_ssoc2024": "25121"
+      "description": "Works across frontend and backend to deliver complete web applications",
+      "tags": [
+        "tech",
+        "engineering"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "25121",
+      "pressure_rank": 89.7,
+      "pressure_kind": "official",
+      "href": "/role/full-stack-developer",
+      "family_key": "engineering",
+      "family_label": "Engineering",
+      "family_accent": "#1d4ed8",
+      "family_surface": "#eff6ff"
     },
     {
       "slug": "mobile-engineer",
       "title": "Mobile Engineer",
-      "official_ssoc2024": "25122"
+      "description": "Develops native and cross-platform mobile applications for iOS and Android",
+      "tags": [
+        "tech",
+        "engineering"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "25122",
+      "pressure_rank": 96.5,
+      "pressure_kind": "official",
+      "href": "/role/mobile-engineer",
+      "family_key": "engineering",
+      "family_label": "Engineering",
+      "family_accent": "#1d4ed8",
+      "family_surface": "#eff6ff"
     },
     {
       "slug": "security-engineer",
       "title": "Security Engineer",
-      "official_ssoc2024": "25245"
+      "description": "Protects systems and data through security architecture, testing, and incident response",
+      "tags": [
+        "tech",
+        "engineering",
+        "security"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "25245",
+      "pressure_rank": 85.4,
+      "pressure_kind": "official",
+      "href": "/role/security-engineer",
+      "family_key": "engineering",
+      "family_label": "Engineering",
+      "family_accent": "#1d4ed8",
+      "family_surface": "#eff6ff"
     },
     {
       "slug": "site-reliability-engineer",
       "title": "Site Reliability Engineer",
-      "official_ssoc2024": "25232"
+      "description": "Ensures system reliability, performance, and scalability through automation and monitoring",
+      "tags": [
+        "tech",
+        "engineering",
+        "infrastructure"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "25232",
+      "pressure_rank": 89.1,
+      "pressure_kind": "official",
+      "href": "/role/site-reliability-engineer",
+      "family_key": "engineering",
+      "family_label": "Engineering",
+      "family_accent": "#1d4ed8",
+      "family_surface": "#eff6ff"
     },
     {
       "slug": "engineering-manager",
       "title": "Engineering Manager",
-      "official_ssoc2024": "13302"
+      "description": "Leads engineering teams, manages delivery, and drives technical strategy",
+      "tags": [
+        "tech",
+        "management",
+        "engineering"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "13302",
+      "pressure_rank": 78.3,
+      "pressure_kind": "official",
+      "href": "/role/engineering-manager",
+      "family_key": "engineering",
+      "family_label": "Engineering",
+      "family_accent": "#1d4ed8",
+      "family_surface": "#eff6ff"
     },
     {
       "slug": "startup-cto",
       "title": "Startup CTO",
-      "official_ssoc2024": "13301"
+      "description": "Sets technical vision, builds engineering team, and makes architecture decisions at an early-stage company",
+      "tags": [
+        "tech",
+        "management",
+        "strategy"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "13301",
+      "pressure_rank": 78.3,
+      "pressure_kind": "official",
+      "href": "/role/startup-cto",
+      "family_key": "engineering",
+      "family_label": "Engineering",
+      "family_accent": "#1d4ed8",
+      "family_surface": "#eff6ff"
+    },
+    {
+      "slug": "growth-marketer",
+      "title": "Growth Marketer",
+      "description": "Drives user acquisition and retention through data-driven experimentation and channel optimization",
+      "tags": [
+        "marketing",
+        "data"
+      ],
+      "resolution_basis": "reviewed_composite",
+      "journey_kind": "composite_estimate",
+      "official_ssoc2024": null,
+      "pressure_rank": 91.7,
+      "pressure_kind": "estimated",
+      "href": "/role/growth-marketer",
+      "family_key": "marketing",
+      "family_label": "Marketing & Growth",
+      "family_accent": "#c2410c",
+      "family_surface": "#fff7ed"
     },
     {
       "slug": "content-strategist",
       "title": "Content Strategist",
-      "official_ssoc2024": "24313"
+      "description": "Plans, creates, and governs content across channels to achieve business objectives",
+      "tags": [
+        "marketing",
+        "content"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "24313",
+      "pressure_rank": 91.7,
+      "pressure_kind": "official",
+      "href": "/role/content-strategist",
+      "family_key": "marketing",
+      "family_label": "Marketing & Growth",
+      "family_accent": "#c2410c",
+      "family_surface": "#fff7ed"
     },
     {
       "slug": "policy-analyst",
       "title": "Policy Analyst",
-      "official_ssoc2024": "24221"
+      "description": "Researches, evaluates, and recommends public or organizational policy",
+      "tags": [
+        "government",
+        "strategy"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "24221",
+      "pressure_rank": 75.1,
+      "pressure_kind": "official",
+      "href": "/role/policy-analyst",
+      "family_key": "strategy",
+      "family_label": "Strategy & Advisory",
+      "family_accent": "#3730a3",
+      "family_surface": "#eef2ff"
+    },
+    {
+      "slug": "chief-of-staff",
+      "title": "Chief of Staff",
+      "description": "Supports executive leadership with strategic initiatives, cross-functional coordination, and operations",
+      "tags": [
+        "management",
+        "strategy",
+        "operations"
+      ],
+      "resolution_basis": "reviewed_composite",
+      "journey_kind": "composite_estimate",
+      "official_ssoc2024": null,
+      "pressure_rank": 71.3,
+      "pressure_kind": "estimated",
+      "href": "/role/chief-of-staff",
+      "family_key": "strategy",
+      "family_label": "Strategy & Advisory",
+      "family_accent": "#3730a3",
+      "family_surface": "#eef2ff"
     },
     {
       "slug": "founder-associate",
       "title": "Founder Associate",
-      "official_ssoc2024": "33491"
+      "description": "Supports startup founders across strategy, operations, fundraising, and product",
+      "tags": [
+        "strategy",
+        "operations",
+        "startup"
+      ],
+      "resolution_basis": "reviewed_definition_equivalent",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "33491",
+      "pressure_rank": null,
+      "pressure_kind": "official",
+      "href": "/role/founder-associate",
+      "family_key": "strategy",
+      "family_label": "Strategy & Advisory",
+      "family_accent": "#3730a3",
+      "family_surface": "#eef2ff"
     },
     {
       "slug": "quant-researcher",
       "title": "Quant Researcher",
-      "official_ssoc2024": "21212"
+      "description": "Develops quantitative models and strategies for trading, risk, or pricing",
+      "tags": [
+        "finance",
+        "data",
+        "engineering"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "21212",
+      "pressure_rank": 93.1,
+      "pressure_kind": "official",
+      "href": "/role/quant-researcher",
+      "family_key": "finance",
+      "family_label": "Finance & Legal",
+      "family_accent": "#166534",
+      "family_surface": "#f0fdf4"
+    },
+    {
+      "slug": "private-equity-associate",
+      "title": "Private Equity Associate",
+      "description": "Evaluates deals, builds financial models, and supports portfolio companies",
+      "tags": [
+        "finance",
+        "strategy"
+      ],
+      "resolution_basis": "reviewed_composite",
+      "journey_kind": "composite_estimate",
+      "official_ssoc2024": null,
+      "pressure_rank": 96.7,
+      "pressure_kind": "estimated",
+      "href": "/role/private-equity-associate",
+      "family_key": "finance",
+      "family_label": "Finance & Legal",
+      "family_accent": "#166534",
+      "family_surface": "#f0fdf4"
     },
     {
       "slug": "fpa-analyst",
       "title": "FP&A Analyst",
-      "official_ssoc2024": "24111"
+      "description": "Drives financial planning, budgeting, forecasting, and business performance analysis",
+      "tags": [
+        "finance",
+        "data"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "24111",
+      "pressure_rank": 88.5,
+      "pressure_kind": "official",
+      "href": "/role/fpa-analyst",
+      "family_key": "finance",
+      "family_label": "Finance & Legal",
+      "family_accent": "#166534",
+      "family_surface": "#f0fdf4"
     },
     {
       "slug": "treasury-analyst",
       "title": "Treasury Analyst",
-      "official_ssoc2024": "24134"
+      "description": "Manages cash flow, liquidity, and financial risk for organizations",
+      "tags": [
+        "finance"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "24134",
+      "pressure_rank": 97.3,
+      "pressure_kind": "official",
+      "href": "/role/treasury-analyst",
+      "family_key": "finance",
+      "family_label": "Finance & Legal",
+      "family_accent": "#166534",
+      "family_surface": "#f0fdf4"
+    },
+    {
+      "slug": "compliance-officer",
+      "title": "Compliance Officer",
+      "description": "Ensures organizational adherence to laws, regulations, and internal policies",
+      "tags": [
+        "legal",
+        "finance"
+      ],
+      "resolution_basis": "mapping_withheld",
+      "journey_kind": "mapping_withheld",
+      "official_ssoc2024": null,
+      "pressure_rank": null,
+      "pressure_kind": "withheld",
+      "href": "/role/compliance-officer",
+      "family_key": "finance",
+      "family_label": "Finance & Legal",
+      "family_accent": "#166534",
+      "family_surface": "#f0fdf4"
     },
     {
       "slug": "game-developer",
       "title": "Game Developer",
-      "official_ssoc2024": "25123"
+      "description": "Creates interactive games across platforms using game engines and programming",
+      "tags": [
+        "tech",
+        "creative",
+        "engineering"
+      ],
+      "resolution_basis": "reviewed_definition_equivalent",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "25123",
+      "pressure_rank": 90.6,
+      "pressure_kind": "official",
+      "href": "/role/game-developer",
+      "family_key": "engineering",
+      "family_label": "Engineering",
+      "family_accent": "#1d4ed8",
+      "family_surface": "#eff6ff"
     },
     {
       "slug": "qa-engineer",
       "title": "QA Engineer",
-      "official_ssoc2024": "25151"
+      "description": "Tests software quality through manual and automated testing strategies",
+      "tags": [
+        "tech",
+        "engineering"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "25151",
+      "pressure_rank": 91.7,
+      "pressure_kind": "official",
+      "href": "/role/qa-engineer",
+      "family_key": "engineering",
+      "family_label": "Engineering",
+      "family_accent": "#1d4ed8",
+      "family_surface": "#eff6ff"
     },
     {
       "slug": "systems-analyst",
       "title": "Systems Analyst",
-      "official_ssoc2024": "25111"
+      "description": "Analyzes business requirements and designs IT system solutions",
+      "tags": [
+        "tech",
+        "strategy"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "25111",
+      "pressure_rank": 85.4,
+      "pressure_kind": "official",
+      "href": "/role/systems-analyst",
+      "family_key": "engineering",
+      "family_label": "Engineering",
+      "family_accent": "#1d4ed8",
+      "family_surface": "#eff6ff"
     },
     {
       "slug": "financial-adviser",
       "title": "Financial Adviser",
-      "official_ssoc2024": "24121"
+      "description": "Provides personalized financial planning and investment advice to clients",
+      "tags": [
+        "finance",
+        "customer"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "24121",
+      "pressure_rank": 94.5,
+      "pressure_kind": "official",
+      "href": "/role/financial-adviser",
+      "family_key": "finance",
+      "family_label": "Finance & Legal",
+      "family_accent": "#166534",
+      "family_surface": "#f0fdf4"
     },
     {
       "slug": "insurance-underwriter",
       "title": "Insurance Underwriter",
-      "official_ssoc2024": "24160"
+      "description": "Evaluates risk and determines insurance policy terms and premiums",
+      "tags": [
+        "finance",
+        "insurance"
+      ],
+      "resolution_basis": "normalized_exact_title",
+      "journey_kind": "exact_official_title",
+      "official_ssoc2024": "24160",
+      "pressure_rank": 89.7,
+      "pressure_kind": "official",
+      "href": "/occupation/24160",
+      "family_key": "finance",
+      "family_label": "Finance & Legal",
+      "family_accent": "#166534",
+      "family_surface": "#f0fdf4"
     },
     {
       "slug": "auditor",
       "title": "Auditor",
-      "official_ssoc2024": "24112"
+      "description": "Examines financial records and processes for accuracy and regulatory compliance",
+      "tags": [
+        "finance",
+        "legal"
+      ],
+      "resolution_basis": "reviewed_definition_equivalent",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "24112",
+      "pressure_rank": 88.5,
+      "pressure_kind": "official",
+      "href": "/role/auditor",
+      "family_key": "finance",
+      "family_label": "Finance & Legal",
+      "family_accent": "#166534",
+      "family_surface": "#f0fdf4"
     },
     {
       "slug": "data-analyst",
       "title": "Data Analyst",
-      "official_ssoc2024": "21231"
+      "description": "Analyzes data to extract insights and inform business decisions",
+      "tags": [
+        "data",
+        "strategy"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "21231",
+      "pressure_rank": 93.6,
+      "pressure_kind": "official",
+      "href": "/role/data-analyst",
+      "family_key": "data",
+      "family_label": "Data & AI",
+      "family_accent": "#6d28d9",
+      "family_surface": "#f5f3ff"
     },
     {
       "slug": "data-scientist",
       "title": "Data Scientist",
-      "official_ssoc2024": "21222"
+      "description": "Applies statistical methods and machine learning to solve complex analytical problems",
+      "tags": [
+        "data",
+        "engineering"
+      ],
+      "resolution_basis": "normalized_exact_title",
+      "journey_kind": "exact_official_title",
+      "official_ssoc2024": "21222",
+      "pressure_rank": 93.1,
+      "pressure_kind": "official",
+      "href": "/occupation/21222",
+      "family_key": "data",
+      "family_label": "Data & AI",
+      "family_accent": "#6d28d9",
+      "family_surface": "#f5f3ff"
     },
     {
       "slug": "business-analyst",
       "title": "Business Analyst",
-      "official_ssoc2024": "25112"
+      "description": "Bridges business needs and technology solutions through requirements analysis",
+      "tags": [
+        "strategy",
+        "tech"
+      ],
+      "resolution_basis": "reviewed_definition_equivalent",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "25112",
+      "pressure_rank": 85.4,
+      "pressure_kind": "official",
+      "href": "/role/business-analyst",
+      "family_key": "data",
+      "family_label": "Data & AI",
+      "family_accent": "#6d28d9",
+      "family_surface": "#f5f3ff"
     },
     {
       "slug": "management-consultant",
       "title": "Management Consultant",
-      "official_ssoc2024": "24211"
+      "description": "Advises organizations on strategy, operations, and organizational improvement",
+      "tags": [
+        "strategy",
+        "management"
+      ],
+      "resolution_basis": "normalized_exact_title",
+      "journey_kind": "exact_official_title",
+      "official_ssoc2024": "24211",
+      "pressure_rank": 81.9,
+      "pressure_kind": "official",
+      "href": "/occupation/24211",
+      "family_key": "strategy",
+      "family_label": "Strategy & Advisory",
+      "family_accent": "#3730a3",
+      "family_surface": "#eef2ff"
     },
     {
       "slug": "scrum-master",
       "title": "Scrum Master",
-      "official_ssoc2024": "24213"
+      "description": "Facilitates agile development processes and removes team impediments",
+      "tags": [
+        "management",
+        "tech"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "24213",
+      "pressure_rank": 81.9,
+      "pressure_kind": "official",
+      "href": "/role/scrum-master",
+      "family_key": "operations",
+      "family_label": "Operations",
+      "family_accent": "#475569",
+      "family_surface": "#f8fafc"
     },
     {
       "slug": "technical-writer",
       "title": "Technical Writer",
-      "official_ssoc2024": "26414"
+      "description": "Creates documentation, guides, and knowledge base articles for technical products",
+      "tags": [
+        "content",
+        "tech"
+      ],
+      "resolution_basis": "normalized_exact_title",
+      "journey_kind": "exact_official_title",
+      "official_ssoc2024": "26414",
+      "pressure_rank": 91.7,
+      "pressure_kind": "official",
+      "href": "/occupation/26414",
+      "family_key": "marketing",
+      "family_label": "Marketing & Growth",
+      "family_accent": "#c2410c",
+      "family_surface": "#fff7ed"
     },
     {
       "slug": "seo-specialist",
       "title": "SEO Specialist",
-      "official_ssoc2024": "24314"
+      "description": "Optimizes web content and technical infrastructure for search engine visibility",
+      "tags": [
+        "marketing",
+        "data"
+      ],
+      "resolution_basis": "reviewed_definition_equivalent",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "24314",
+      "pressure_rank": 91.7,
+      "pressure_kind": "official",
+      "href": "/role/seo-specialist",
+      "family_key": "marketing",
+      "family_label": "Marketing & Growth",
+      "family_accent": "#c2410c",
+      "family_surface": "#fff7ed"
     },
     {
       "slug": "social-media-manager",
       "title": "Social Media Manager",
-      "official_ssoc2024": "24314"
+      "description": "Manages brand presence across social platforms through content and engagement",
+      "tags": [
+        "marketing",
+        "content"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "24314",
+      "pressure_rank": 91.7,
+      "pressure_kind": "official",
+      "href": "/role/social-media-manager",
+      "family_key": "marketing",
+      "family_label": "Marketing & Growth",
+      "family_accent": "#c2410c",
+      "family_surface": "#fff7ed"
     },
     {
       "slug": "product-designer",
       "title": "Product Designer",
-      "official_ssoc2024": "25124"
+      "description": "Designs end-to-end product experiences combining UX research, visual design, and prototyping",
+      "tags": [
+        "design",
+        "product"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "25124",
+      "pressure_rank": 90.6,
+      "pressure_kind": "official",
+      "href": "/role/product-designer",
+      "family_key": "product",
+      "family_label": "Product & Design",
+      "family_accent": "#0f766e",
+      "family_surface": "#f0fdfa"
     },
     {
       "slug": "graphic-designer",
       "title": "Graphic Designer",
-      "official_ssoc2024": "21661"
+      "description": "Creates visual content for branding, marketing, and digital products",
+      "tags": [
+        "design",
+        "creative"
+      ],
+      "resolution_basis": "normalized_exact_title",
+      "journey_kind": "exact_official_title",
+      "official_ssoc2024": "21661",
+      "pressure_rank": 85.4,
+      "pressure_kind": "official",
+      "href": "/occupation/21661",
+      "family_key": "product",
+      "family_label": "Product & Design",
+      "family_accent": "#0f766e",
+      "family_surface": "#f0fdfa"
+    },
+    {
+      "slug": "cloud-architect",
+      "title": "Cloud Architect",
+      "description": "Designs and oversees cloud infrastructure, migration strategies, and platform architecture",
+      "tags": [
+        "tech",
+        "infrastructure"
+      ],
+      "resolution_basis": "reviewed_composite",
+      "journey_kind": "composite_estimate",
+      "official_ssoc2024": null,
+      "pressure_rank": 88.9,
+      "pressure_kind": "estimated",
+      "href": "/role/cloud-architect",
+      "family_key": "engineering",
+      "family_label": "Engineering",
+      "family_accent": "#1d4ed8",
+      "family_surface": "#eff6ff"
+    },
+    {
+      "slug": "it-manager",
+      "title": "IT Manager",
+      "description": "Manages IT operations, infrastructure, and technical teams",
+      "tags": [
+        "tech",
+        "management"
+      ],
+      "resolution_basis": "reviewed_composite",
+      "journey_kind": "composite_estimate",
+      "official_ssoc2024": null,
+      "pressure_rank": 78.3,
+      "pressure_kind": "estimated",
+      "href": "/role/it-manager",
+      "family_key": "engineering",
+      "family_label": "Engineering",
+      "family_accent": "#1d4ed8",
+      "family_surface": "#eff6ff"
     },
     {
       "slug": "database-administrator",
       "title": "Database Administrator",
-      "official_ssoc2024": "25211"
+      "description": "Manages, maintains, and optimizes database systems for performance and security",
+      "tags": [
+        "tech",
+        "data"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "25211",
+      "pressure_rank": 94.5,
+      "pressure_kind": "official",
+      "href": "/role/database-administrator",
+      "family_key": "data",
+      "family_label": "Data & AI",
+      "family_accent": "#6d28d9",
+      "family_surface": "#f5f3ff"
     },
     {
       "slug": "network-engineer",
       "title": "Network Engineer",
-      "official_ssoc2024": "25232"
+      "description": "Designs, implements, and maintains computer network infrastructure",
+      "tags": [
+        "tech",
+        "infrastructure"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "25232",
+      "pressure_rank": 89.1,
+      "pressure_kind": "official",
+      "href": "/role/network-engineer",
+      "family_key": "engineering",
+      "family_label": "Engineering",
+      "family_accent": "#1d4ed8",
+      "family_surface": "#eff6ff"
     },
     {
       "slug": "business-development-manager",
       "title": "Business Development Manager",
-      "official_ssoc2024": "12212"
+      "description": "Identifies growth opportunities and builds strategic relationships to drive revenue",
+      "tags": [
+        "sales",
+        "strategy"
+      ],
+      "resolution_basis": "normalized_exact_title",
+      "journey_kind": "exact_official_title",
+      "official_ssoc2024": "12212",
+      "pressure_rank": 73.3,
+      "pressure_kind": "official",
+      "href": "/occupation/12212",
+      "family_key": "sales",
+      "family_label": "Sales & Business Development",
+      "family_accent": "#a16207",
+      "family_surface": "#fefce8"
     },
     {
       "slug": "marketing-manager",
       "title": "Marketing Manager",
-      "official_ssoc2024": "12222"
+      "description": "Leads marketing strategy, campaigns, and team execution",
+      "tags": [
+        "marketing",
+        "management"
+      ],
+      "resolution_basis": "normalized_exact_title",
+      "journey_kind": "exact_official_title",
+      "official_ssoc2024": "12222",
+      "pressure_rank": 73.3,
+      "pressure_kind": "official",
+      "href": "/occupation/12222",
+      "family_key": "marketing",
+      "family_label": "Marketing & Growth",
+      "family_accent": "#c2410c",
+      "family_surface": "#fff7ed"
     },
     {
       "slug": "sales-manager",
       "title": "Sales Manager",
-      "official_ssoc2024": "12211"
+      "description": "Leads sales teams, sets targets, and drives revenue performance",
+      "tags": [
+        "sales",
+        "management"
+      ],
+      "resolution_basis": "normalized_exact_title",
+      "journey_kind": "exact_official_title",
+      "official_ssoc2024": "12211",
+      "pressure_rank": 73.3,
+      "pressure_kind": "official",
+      "href": "/occupation/12211",
+      "family_key": "sales",
+      "family_label": "Sales & Business Development",
+      "family_accent": "#a16207",
+      "family_surface": "#fefce8"
     },
     {
       "slug": "customer-support-specialist",
       "title": "Customer Support Specialist",
-      "official_ssoc2024": "35123"
+      "description": "Resolves customer issues through technical troubleshooting and service excellence",
+      "tags": [
+        "customer",
+        "operations"
+      ],
+      "resolution_basis": "reviewed_definition_equivalent",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "35123",
+      "pressure_rank": 80.8,
+      "pressure_kind": "official",
+      "href": "/role/customer-support-specialist",
+      "family_key": "customer",
+      "family_label": "Customer & Service",
+      "family_accent": "#0369a1",
+      "family_surface": "#f0f9ff"
     },
     {
       "slug": "hr-manager",
       "title": "HR Manager",
-      "official_ssoc2024": "12121"
+      "description": "Oversees HR operations, policies, and employee relations",
+      "tags": [
+        "people",
+        "management"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "12121",
+      "pressure_rank": 60.2,
+      "pressure_kind": "official",
+      "href": "/role/hr-manager",
+      "family_key": "people",
+      "family_label": "People & HR",
+      "family_accent": "#9f1239",
+      "family_surface": "#fff1f2"
     },
     {
       "slug": "talent-acquisition-lead",
       "title": "Talent Acquisition Lead",
-      "official_ssoc2024": "12121"
+      "description": "Leads recruitment strategy and hiring processes across the organization",
+      "tags": [
+        "people",
+        "management"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "12121",
+      "pressure_rank": 60.2,
+      "pressure_kind": "official",
+      "href": "/role/talent-acquisition-lead",
+      "family_key": "people",
+      "family_label": "People & HR",
+      "family_accent": "#9f1239",
+      "family_surface": "#fff1f2"
     },
     {
       "slug": "legal-counsel",
       "title": "Legal Counsel",
-      "official_ssoc2024": "26112"
+      "description": "Provides in-house legal advice on contracts, compliance, and corporate matters",
+      "tags": [
+        "legal",
+        "strategy"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "26112",
+      "pressure_rank": 60.2,
+      "pressure_kind": "official",
+      "href": "/role/legal-counsel",
+      "family_key": "finance",
+      "family_label": "Finance & Legal",
+      "family_accent": "#166534",
+      "family_surface": "#f0fdf4"
     },
     {
       "slug": "finance-manager",
       "title": "Finance Manager",
-      "official_ssoc2024": "12111"
+      "description": "Oversees financial operations, reporting, and strategic financial planning",
+      "tags": [
+        "finance",
+        "management"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "12111",
+      "pressure_rank": 63.6,
+      "pressure_kind": "official",
+      "href": "/role/finance-manager",
+      "family_key": "finance",
+      "family_label": "Finance & Legal",
+      "family_accent": "#166534",
+      "family_surface": "#f0fdf4"
     },
     {
       "slug": "accountant",
       "title": "Accountant",
-      "official_ssoc2024": "24111"
+      "description": "Manages financial records, tax compliance, and financial reporting",
+      "tags": [
+        "finance"
+      ],
+      "resolution_basis": "reviewed_definition_equivalent",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "24111",
+      "pressure_rank": 88.5,
+      "pressure_kind": "official",
+      "href": "/role/accountant",
+      "family_key": "finance",
+      "family_label": "Finance & Legal",
+      "family_accent": "#166534",
+      "family_surface": "#f0fdf4"
     },
     {
       "slug": "executive-assistant",
       "title": "Executive Assistant",
-      "official_ssoc2024": "33494"
+      "description": "Provides high-level administrative support to senior leadership",
+      "tags": [
+        "operations",
+        "management"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "33494",
+      "pressure_rank": 90.2,
+      "pressure_kind": "official",
+      "href": "/role/executive-assistant",
+      "family_key": "operations",
+      "family_label": "Operations",
+      "family_accent": "#475569",
+      "family_surface": "#f8fafc"
+    },
+    {
+      "slug": "office-manager",
+      "title": "Office Manager",
+      "description": "Manages office operations, facilities, and administrative staff",
+      "tags": [
+        "operations",
+        "management"
+      ],
+      "resolution_basis": "reviewed_composite",
+      "journey_kind": "composite_estimate",
+      "official_ssoc2024": null,
+      "pressure_rank": 81.7,
+      "pressure_kind": "estimated",
+      "href": "/role/office-manager",
+      "family_key": "operations",
+      "family_label": "Operations",
+      "family_accent": "#475569",
+      "family_surface": "#f8fafc"
     },
     {
       "slug": "event-manager",
       "title": "Event Manager",
-      "official_ssoc2024": "14391"
+      "description": "Plans and executes corporate events, conferences, and experiential marketing",
+      "tags": [
+        "marketing",
+        "operations"
+      ],
+      "resolution_basis": "normalized_exact_title",
+      "journey_kind": "exact_official_title",
+      "official_ssoc2024": "14391",
+      "pressure_rank": null,
+      "pressure_kind": "official",
+      "href": "/occupation/14391",
+      "family_key": "marketing",
+      "family_label": "Marketing & Growth",
+      "family_accent": "#c2410c",
+      "family_surface": "#fff7ed"
     },
     {
       "slug": "ai-engineer",
       "title": "AI Engineer",
-      "official_ssoc2024": "25143"
+      "description": "Builds and deploys AI/ML systems in production — model training, inference pipelines, and MLOps",
+      "tags": [
+        "tech",
+        "data",
+        "engineering"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "25143",
+      "pressure_rank": 94.5,
+      "pressure_kind": "official",
+      "href": "/role/ai-engineer",
+      "family_key": "data",
+      "family_label": "Data & AI",
+      "family_accent": "#6d28d9",
+      "family_surface": "#f5f3ff"
+    },
+    {
+      "slug": "prompt-engineer",
+      "title": "Prompt Engineer",
+      "description": "Designs, tests, and optimizes prompts and AI system interactions for production applications",
+      "tags": [
+        "tech",
+        "data",
+        "content"
+      ],
+      "resolution_basis": "mapping_withheld",
+      "journey_kind": "mapping_withheld",
+      "official_ssoc2024": null,
+      "pressure_rank": null,
+      "pressure_kind": "withheld",
+      "href": "/role/prompt-engineer",
+      "family_key": "data",
+      "family_label": "Data & AI",
+      "family_accent": "#6d28d9",
+      "family_surface": "#f5f3ff"
+    },
+    {
+      "slug": "ai-product-manager",
+      "title": "AI Product Manager",
+      "description": "Manages AI-powered product features — bridges ML capabilities with user needs and business goals",
+      "tags": [
+        "tech",
+        "management",
+        "strategy"
+      ],
+      "resolution_basis": "reviewed_composite",
+      "journey_kind": "composite_estimate",
+      "official_ssoc2024": null,
+      "pressure_rank": 89.4,
+      "pressure_kind": "estimated",
+      "href": "/role/ai-product-manager",
+      "family_key": "product",
+      "family_label": "Product & Design",
+      "family_accent": "#0f766e",
+      "family_surface": "#f0fdfa"
     },
     {
       "slug": "data-architect",
       "title": "Data Architect",
-      "official_ssoc2024": "25212"
+      "description": "Designs data infrastructure, schemas, and pipelines for enterprise data systems",
+      "tags": [
+        "tech",
+        "data",
+        "engineering"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "25212",
+      "pressure_rank": 94.5,
+      "pressure_kind": "official",
+      "href": "/role/data-architect",
+      "family_key": "data",
+      "family_label": "Data & AI",
+      "family_accent": "#6d28d9",
+      "family_surface": "#f5f3ff"
+    },
+    {
+      "slug": "it-security-manager",
+      "title": "IT Security Manager",
+      "description": "Manages cybersecurity strategy, incident response, and security infrastructure",
+      "tags": [
+        "tech",
+        "management",
+        "security"
+      ],
+      "resolution_basis": "reviewed_composite",
+      "journey_kind": "composite_estimate",
+      "official_ssoc2024": null,
+      "pressure_rank": 82.8,
+      "pressure_kind": "estimated",
+      "href": "/role/it-security-manager",
+      "family_key": "engineering",
+      "family_label": "Engineering",
+      "family_accent": "#1d4ed8",
+      "family_surface": "#eff6ff"
+    },
+    {
+      "slug": "delivery-rider",
+      "title": "Delivery Rider",
+      "description": "Platform delivery worker (Grab, Foodpanda) — transports food and parcels via motorcycle or bicycle",
+      "tags": [
+        "gig",
+        "logistics",
+        "platform"
+      ],
+      "resolution_basis": "reviewed_composite",
+      "journey_kind": "composite_estimate",
+      "official_ssoc2024": null,
+      "pressure_rank": 29.2,
+      "pressure_kind": "estimated",
+      "href": "/role/delivery-rider",
+      "family_key": "operations",
+      "family_label": "Operations",
+      "family_accent": "#475569",
+      "family_surface": "#f8fafc"
     },
     {
       "slug": "ride-hail-driver",
       "title": "Ride-Hail Driver",
-      "official_ssoc2024": "83226"
+      "description": "Platform driver (Grab, Gojek, Tada) — provides passenger transport via private hire vehicle",
+      "tags": [
+        "gig",
+        "transport",
+        "platform"
+      ],
+      "resolution_basis": "reviewed_definition_equivalent",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "83226",
+      "pressure_rank": 43.1,
+      "pressure_kind": "official",
+      "href": "/role/ride-hail-driver",
+      "family_key": "operations",
+      "family_label": "Operations",
+      "family_accent": "#475569",
+      "family_surface": "#f8fafc"
     },
     {
       "slug": "freelance-designer",
       "title": "Freelance Designer",
-      "official_ssoc2024": "21661"
+      "description": "Independent visual/graphic designer working on contract or platform basis",
+      "tags": [
+        "gig",
+        "creative",
+        "design"
+      ],
+      "resolution_basis": "reviewed_definition_equivalent",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "21661",
+      "pressure_rank": 85.4,
+      "pressure_kind": "official",
+      "href": "/role/freelance-designer",
+      "family_key": "design",
+      "family_label": "Design & Creative",
+      "family_accent": "#be185d",
+      "family_surface": "#fdf2f8"
     },
     {
       "slug": "startup-founder",
       "title": "Startup Founder / CEO",
-      "official_ssoc2024": "11201"
+      "description": "Founder of an early-stage company — wears multiple hats across product, sales, fundraising, and operations",
+      "tags": [
+        "startup",
+        "management",
+        "strategy"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "11201",
+      "pressure_rank": 67.6,
+      "pressure_kind": "official",
+      "href": "/role/startup-founder",
+      "family_key": "leadership",
+      "family_label": "Leadership & New Ventures",
+      "family_accent": "#7c2d12",
+      "family_surface": "#fff7ed"
+    },
+    {
+      "slug": "e-commerce-seller",
+      "title": "E-Commerce Seller",
+      "description": "Independent online retailer (Shopee, Lazada, own site) — manages products, marketing, fulfilment",
+      "tags": [
+        "startup",
+        "sales",
+        "marketing"
+      ],
+      "resolution_basis": "reviewed_composite",
+      "journey_kind": "composite_estimate",
+      "official_ssoc2024": null,
+      "pressure_rank": 86.8,
+      "pressure_kind": "estimated",
+      "href": "/role/e-commerce-seller",
+      "family_key": "sales",
+      "family_label": "Sales & Business Development",
+      "family_accent": "#a16207",
+      "family_surface": "#fefce8"
     },
     {
       "slug": "sustainability-manager",
       "title": "Sustainability Manager",
-      "official_ssoc2024": "24214"
+      "description": "Leads ESG strategy, carbon reporting, and sustainability initiatives for organizations",
+      "tags": [
+        "management",
+        "strategy",
+        "sustainability"
+      ],
+      "resolution_basis": "reviewed_official_synonym",
+      "journey_kind": "reviewed_official_match",
+      "official_ssoc2024": "24214",
+      "pressure_rank": 75.1,
+      "pressure_kind": "official",
+      "href": "/role/sustainability-manager",
+      "family_key": "leadership",
+      "family_label": "Leadership & New Ventures",
+      "family_accent": "#7c2d12",
+      "family_surface": "#fff7ed"
+    },
+    {
+      "slug": "content-creator",
+      "title": "Content Creator",
+      "description": "Creates video, written, or multimedia content for social platforms (YouTube, TikTok, Instagram)",
+      "tags": [
+        "creative",
+        "content",
+        "marketing"
+      ],
+      "resolution_basis": "reviewed_composite",
+      "journey_kind": "composite_estimate",
+      "official_ssoc2024": null,
+      "pressure_rank": 84,
+      "pressure_kind": "estimated",
+      "href": "/role/content-creator",
+      "family_key": "marketing",
+      "family_label": "Marketing & Growth",
+      "family_accent": "#c2410c",
+      "family_surface": "#fff7ed"
+    },
+    {
+      "slug": "virtual-assistant",
+      "title": "Virtual Assistant",
+      "description": "Remote administrative and coordination support — scheduling, email, research, data entry",
+      "tags": [
+        "gig",
+        "operations",
+        "admin"
+      ],
+      "resolution_basis": "reviewed_composite",
+      "journey_kind": "composite_estimate",
+      "official_ssoc2024": null,
+      "pressure_rank": 90.4,
+      "pressure_kind": "estimated",
+      "href": "/role/virtual-assistant",
+      "family_key": "operations",
+      "family_label": "Operations",
+      "family_accent": "#475569",
+      "family_surface": "#f8fafc"
+    }
+  ],
+  "role_query_counts": {
+    "all": 88,
+    "exact_official_titles": 11,
+    "reviewed_official_matches": 56,
+    "composite_estimates": 18,
+    "mapping_withheld": 3
+  },
+  "official_role_aliases": [
+    {
+      "slug": "product-manager",
+      "title": "Product Manager",
+      "official_ssoc2024": "25114",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/product-manager"
+    },
+    {
+      "slug": "devops-engineer",
+      "title": "DevOps Engineer",
+      "official_ssoc2024": "25125",
+      "resolution_basis": "normalized_exact_title",
+      "href": "/occupation/25125"
+    },
+    {
+      "slug": "data-engineer",
+      "title": "Data Engineer",
+      "official_ssoc2024": "25213",
+      "resolution_basis": "normalized_exact_title",
+      "href": "/occupation/25213"
+    },
+    {
+      "slug": "hr-business-partner",
+      "title": "HR Business Partner",
+      "official_ssoc2024": "24231",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/hr-business-partner"
+    },
+    {
+      "slug": "customer-success-manager",
+      "title": "Customer Success Manager",
+      "official_ssoc2024": "24333",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/customer-success-manager"
+    },
+    {
+      "slug": "account-executive",
+      "title": "Account Executive",
+      "official_ssoc2024": "33221",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/account-executive"
+    },
+    {
+      "slug": "platform-engineer",
+      "title": "Platform Engineer",
+      "official_ssoc2024": "25239",
+      "resolution_basis": "reviewed_definition_equivalent",
+      "href": "/role/platform-engineer"
+    },
+    {
+      "slug": "ux-designer",
+      "title": "UX Designer",
+      "official_ssoc2024": "25124",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/ux-designer"
+    },
+    {
+      "slug": "venture-capitalist",
+      "title": "Venture Capitalist",
+      "official_ssoc2024": "24133",
+      "resolution_basis": "reviewed_definition_equivalent",
+      "href": "/role/venture-capitalist"
+    },
+    {
+      "slug": "solutions-engineer",
+      "title": "Solutions Engineer",
+      "official_ssoc2024": "24333",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/solutions-engineer"
+    },
+    {
+      "slug": "operations-analyst",
+      "title": "Operations Analyst",
+      "official_ssoc2024": "21212",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/operations-analyst"
+    },
+    {
+      "slug": "brand-manager",
+      "title": "Brand Manager",
+      "official_ssoc2024": "12222",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/brand-manager"
+    },
+    {
+      "slug": "sales-engineer",
+      "title": "Sales Engineer",
+      "official_ssoc2024": "24331",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/sales-engineer"
+    },
+    {
+      "slug": "partnerships-manager",
+      "title": "Partnerships Manager",
+      "official_ssoc2024": "12212",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/partnerships-manager"
+    },
+    {
+      "slug": "supply-chain-analyst",
+      "title": "Supply Chain Analyst",
+      "official_ssoc2024": "33461",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/supply-chain-analyst"
+    },
+    {
+      "slug": "ml-engineer",
+      "title": "ML Engineer",
+      "official_ssoc2024": "25143",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/ml-engineer"
+    },
+    {
+      "slug": "people-partner",
+      "title": "People Partner",
+      "official_ssoc2024": "24231",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/people-partner"
+    },
+    {
+      "slug": "procurement-manager",
+      "title": "Procurement Manager",
+      "official_ssoc2024": "13242",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/procurement-manager"
+    },
+    {
+      "slug": "frontend-engineer",
+      "title": "Frontend Engineer",
+      "official_ssoc2024": "25121",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/frontend-engineer"
+    },
+    {
+      "slug": "backend-engineer",
+      "title": "Backend Engineer",
+      "official_ssoc2024": "25121",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/backend-engineer"
+    },
+    {
+      "slug": "full-stack-developer",
+      "title": "Full-Stack Developer",
+      "official_ssoc2024": "25121",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/full-stack-developer"
+    },
+    {
+      "slug": "mobile-engineer",
+      "title": "Mobile Engineer",
+      "official_ssoc2024": "25122",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/mobile-engineer"
+    },
+    {
+      "slug": "security-engineer",
+      "title": "Security Engineer",
+      "official_ssoc2024": "25245",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/security-engineer"
+    },
+    {
+      "slug": "site-reliability-engineer",
+      "title": "Site Reliability Engineer",
+      "official_ssoc2024": "25232",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/site-reliability-engineer"
+    },
+    {
+      "slug": "engineering-manager",
+      "title": "Engineering Manager",
+      "official_ssoc2024": "13302",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/engineering-manager"
+    },
+    {
+      "slug": "startup-cto",
+      "title": "Startup CTO",
+      "official_ssoc2024": "13301",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/startup-cto"
+    },
+    {
+      "slug": "content-strategist",
+      "title": "Content Strategist",
+      "official_ssoc2024": "24313",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/content-strategist"
+    },
+    {
+      "slug": "policy-analyst",
+      "title": "Policy Analyst",
+      "official_ssoc2024": "24221",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/policy-analyst"
+    },
+    {
+      "slug": "founder-associate",
+      "title": "Founder Associate",
+      "official_ssoc2024": "33491",
+      "resolution_basis": "reviewed_definition_equivalent",
+      "href": "/role/founder-associate"
+    },
+    {
+      "slug": "quant-researcher",
+      "title": "Quant Researcher",
+      "official_ssoc2024": "21212",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/quant-researcher"
+    },
+    {
+      "slug": "fpa-analyst",
+      "title": "FP&A Analyst",
+      "official_ssoc2024": "24111",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/fpa-analyst"
+    },
+    {
+      "slug": "treasury-analyst",
+      "title": "Treasury Analyst",
+      "official_ssoc2024": "24134",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/treasury-analyst"
+    },
+    {
+      "slug": "game-developer",
+      "title": "Game Developer",
+      "official_ssoc2024": "25123",
+      "resolution_basis": "reviewed_definition_equivalent",
+      "href": "/role/game-developer"
+    },
+    {
+      "slug": "qa-engineer",
+      "title": "QA Engineer",
+      "official_ssoc2024": "25151",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/qa-engineer"
+    },
+    {
+      "slug": "systems-analyst",
+      "title": "Systems Analyst",
+      "official_ssoc2024": "25111",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/systems-analyst"
+    },
+    {
+      "slug": "financial-adviser",
+      "title": "Financial Adviser",
+      "official_ssoc2024": "24121",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/financial-adviser"
+    },
+    {
+      "slug": "insurance-underwriter",
+      "title": "Insurance Underwriter",
+      "official_ssoc2024": "24160",
+      "resolution_basis": "normalized_exact_title",
+      "href": "/occupation/24160"
+    },
+    {
+      "slug": "auditor",
+      "title": "Auditor",
+      "official_ssoc2024": "24112",
+      "resolution_basis": "reviewed_definition_equivalent",
+      "href": "/role/auditor"
+    },
+    {
+      "slug": "data-analyst",
+      "title": "Data Analyst",
+      "official_ssoc2024": "21231",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/data-analyst"
+    },
+    {
+      "slug": "data-scientist",
+      "title": "Data Scientist",
+      "official_ssoc2024": "21222",
+      "resolution_basis": "normalized_exact_title",
+      "href": "/occupation/21222"
+    },
+    {
+      "slug": "business-analyst",
+      "title": "Business Analyst",
+      "official_ssoc2024": "25112",
+      "resolution_basis": "reviewed_definition_equivalent",
+      "href": "/role/business-analyst"
+    },
+    {
+      "slug": "management-consultant",
+      "title": "Management Consultant",
+      "official_ssoc2024": "24211",
+      "resolution_basis": "normalized_exact_title",
+      "href": "/occupation/24211"
+    },
+    {
+      "slug": "scrum-master",
+      "title": "Scrum Master",
+      "official_ssoc2024": "24213",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/scrum-master"
+    },
+    {
+      "slug": "technical-writer",
+      "title": "Technical Writer",
+      "official_ssoc2024": "26414",
+      "resolution_basis": "normalized_exact_title",
+      "href": "/occupation/26414"
+    },
+    {
+      "slug": "seo-specialist",
+      "title": "SEO Specialist",
+      "official_ssoc2024": "24314",
+      "resolution_basis": "reviewed_definition_equivalent",
+      "href": "/role/seo-specialist"
+    },
+    {
+      "slug": "social-media-manager",
+      "title": "Social Media Manager",
+      "official_ssoc2024": "24314",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/social-media-manager"
+    },
+    {
+      "slug": "product-designer",
+      "title": "Product Designer",
+      "official_ssoc2024": "25124",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/product-designer"
+    },
+    {
+      "slug": "graphic-designer",
+      "title": "Graphic Designer",
+      "official_ssoc2024": "21661",
+      "resolution_basis": "normalized_exact_title",
+      "href": "/occupation/21661"
+    },
+    {
+      "slug": "database-administrator",
+      "title": "Database Administrator",
+      "official_ssoc2024": "25211",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/database-administrator"
+    },
+    {
+      "slug": "network-engineer",
+      "title": "Network Engineer",
+      "official_ssoc2024": "25232",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/network-engineer"
+    },
+    {
+      "slug": "business-development-manager",
+      "title": "Business Development Manager",
+      "official_ssoc2024": "12212",
+      "resolution_basis": "normalized_exact_title",
+      "href": "/occupation/12212"
+    },
+    {
+      "slug": "marketing-manager",
+      "title": "Marketing Manager",
+      "official_ssoc2024": "12222",
+      "resolution_basis": "normalized_exact_title",
+      "href": "/occupation/12222"
+    },
+    {
+      "slug": "sales-manager",
+      "title": "Sales Manager",
+      "official_ssoc2024": "12211",
+      "resolution_basis": "normalized_exact_title",
+      "href": "/occupation/12211"
+    },
+    {
+      "slug": "customer-support-specialist",
+      "title": "Customer Support Specialist",
+      "official_ssoc2024": "35123",
+      "resolution_basis": "reviewed_definition_equivalent",
+      "href": "/role/customer-support-specialist"
+    },
+    {
+      "slug": "hr-manager",
+      "title": "HR Manager",
+      "official_ssoc2024": "12121",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/hr-manager"
+    },
+    {
+      "slug": "talent-acquisition-lead",
+      "title": "Talent Acquisition Lead",
+      "official_ssoc2024": "12121",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/talent-acquisition-lead"
+    },
+    {
+      "slug": "legal-counsel",
+      "title": "Legal Counsel",
+      "official_ssoc2024": "26112",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/legal-counsel"
+    },
+    {
+      "slug": "finance-manager",
+      "title": "Finance Manager",
+      "official_ssoc2024": "12111",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/finance-manager"
+    },
+    {
+      "slug": "accountant",
+      "title": "Accountant",
+      "official_ssoc2024": "24111",
+      "resolution_basis": "reviewed_definition_equivalent",
+      "href": "/role/accountant"
+    },
+    {
+      "slug": "executive-assistant",
+      "title": "Executive Assistant",
+      "official_ssoc2024": "33494",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/executive-assistant"
+    },
+    {
+      "slug": "event-manager",
+      "title": "Event Manager",
+      "official_ssoc2024": "14391",
+      "resolution_basis": "normalized_exact_title",
+      "href": "/occupation/14391"
+    },
+    {
+      "slug": "ai-engineer",
+      "title": "AI Engineer",
+      "official_ssoc2024": "25143",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/ai-engineer"
+    },
+    {
+      "slug": "data-architect",
+      "title": "Data Architect",
+      "official_ssoc2024": "25212",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/data-architect"
+    },
+    {
+      "slug": "ride-hail-driver",
+      "title": "Ride-Hail Driver",
+      "official_ssoc2024": "83226",
+      "resolution_basis": "reviewed_definition_equivalent",
+      "href": "/role/ride-hail-driver"
+    },
+    {
+      "slug": "freelance-designer",
+      "title": "Freelance Designer",
+      "official_ssoc2024": "21661",
+      "resolution_basis": "reviewed_definition_equivalent",
+      "href": "/role/freelance-designer"
+    },
+    {
+      "slug": "startup-founder",
+      "title": "Startup Founder / CEO",
+      "official_ssoc2024": "11201",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/startup-founder"
+    },
+    {
+      "slug": "sustainability-manager",
+      "title": "Sustainability Manager",
+      "official_ssoc2024": "24214",
+      "resolution_basis": "reviewed_official_synonym",
+      "href": "/role/sustainability-manager"
     }
   ]
 }

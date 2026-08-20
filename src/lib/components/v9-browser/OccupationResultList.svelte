@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { pressureColorScale } from '$lib/design-system';
 	import type { V9BrowserItem } from '$lib/data/v9-browser';
 
 	type Detail = 'wage' | 'demand' | 'dispersion' | 'mapping' | 'category' | 'none';
@@ -51,7 +52,7 @@
 				return formatWage(item.wageMedian);
 			case 'demand':
 				return item.demandSignalCount === 0
-					? 'No named signal'
+					? 'Not named in selected sources'
 					: `${item.demandSignalCount} named signal${item.demandSignalCount === 1 ? '' : 's'}`;
 			case 'dispersion':
 				return item.taskDispersion == null
@@ -73,9 +74,7 @@
 					? 'Direct wage evidence unknown'
 					: 'Direct gross wage median';
 			case 'demand':
-				return item.demandSignalCount === 0
-					? 'Not evidence of weak demand'
-					: 'Direct MOM list evidence';
+				return item.demandSignalCount === 0 ? 'Demand remains unknown' : 'Direct MOM list evidence';
 			case 'dispersion':
 				return 'ILO task-score standard deviation';
 			case 'mapping': {
@@ -93,43 +92,61 @@
 </script>
 
 {#if items.length === 0}
-	<div class="border border-dashed border-border bg-card px-4 py-8 text-center">
+	<div class="rounded-xl border border-dashed border-border bg-card px-4 py-10 text-center">
 		<p class="text-sm text-muted-foreground">{emptyMessage}</p>
 	</div>
 {:else}
-	<ol class="divide-y divide-border border border-border bg-card">
+	<ol
+		class="divide-y divide-border overflow-hidden rounded-xl border border-border bg-card shadow-xs"
+	>
 		{#each items as item (item.code)}
 			<li class="min-w-0">
 				<a
 					href="/occupation/{item.code}"
-					class="grid min-w-0 grid-cols-[2rem_minmax(0,1fr)] gap-x-3 gap-y-3 px-3 py-3 no-underline transition-colors hover:bg-accent sm:grid-cols-[2rem_minmax(0,1fr)_10rem_12rem] sm:items-center sm:px-4"
+					class="grid min-w-0 gap-3 px-4 py-4 no-underline transition-colors duration-200 hover:bg-accent sm:grid-cols-[minmax(0,1.35fr)_minmax(8rem,0.65fr)_minmax(10rem,0.8fr)] sm:items-center sm:px-5"
 				>
-					<span class="font-mono text-xs tabular-nums text-muted-foreground">
-						{showRank ? formatDescendingMidrank(item) : ''}
-					</span>
-
 					<div class="min-w-0">
-						<p class="break-words text-sm font-semibold leading-snug text-foreground">
-							{item.title}
-						</p>
+						<div class="flex min-w-0 items-baseline gap-2">
+							{#if showRank}
+								<span class="shrink-0 font-mono text-xs tabular-nums text-muted-foreground">
+									{formatDescendingMidrank(item)}
+								</span>
+							{/if}
+							<p
+								class="min-w-0 break-words text-[0.9375rem] font-semibold leading-snug text-foreground"
+							>
+								{item.title}
+							</p>
+						</div>
 						<p class="mt-1 break-words text-xs text-muted-foreground">
-							SSOC {item.code} · {item.officialCategory}
+							SSOC {item.code} · Group {item.majorGroupCode}
 						</p>
 					</div>
 
-					<div class="col-start-2 min-w-0 sm:col-start-auto">
-						<p class="font-mono text-sm font-semibold tabular-nums text-foreground">
-							{formatPercentile(item.pressureRank)}
-						</p>
-						<p class="text-xs text-muted-foreground">AI work pressure</p>
+					<div class="min-w-0">
+						<div class="flex items-center gap-2">
+							<span
+								class="h-3 w-3 shrink-0 rounded-sm {item.pressureRank == null
+									? 'unranked-hatch border border-border'
+									: ''}"
+								style={item.pressureRank == null
+									? undefined
+									: `background: ${pressureColorScale(item.pressureRank)}`}
+								aria-hidden="true"
+							></span>
+							<p class="font-mono text-sm font-semibold tabular-nums text-foreground">
+								{formatPercentile(item.pressureRank)}
+							</p>
+						</div>
+						<p class="mt-0.5 text-xs text-muted-foreground">AI task pressure</p>
 					</div>
 
 					{#if detail !== 'none'}
-						<div class="col-start-2 min-w-0 sm:col-start-auto">
+						<div class="min-w-0">
 							<p class="break-words font-mono text-sm font-semibold tabular-nums text-foreground">
 								{detailValue(item)}
 							</p>
-							<p class="break-words text-xs text-muted-foreground">{detailLabel(item)}</p>
+							<p class="mt-0.5 break-words text-xs text-muted-foreground">{detailLabel(item)}</p>
 						</div>
 					{/if}
 				</a>

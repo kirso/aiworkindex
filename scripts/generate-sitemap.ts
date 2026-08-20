@@ -70,6 +70,7 @@ function main() {
 	) as {
 		roles: Array<{
 			slug: string;
+			resolution_basis: string;
 			official_status: 'official_occupation_match' | 'non_official_role_query';
 		}>;
 	};
@@ -103,9 +104,10 @@ function main() {
 		const slug = group.key.toLowerCase().replace(/[,&]/g, '').replace(/\s+/g, '-');
 		add({ path: `/group/${slug}`, priority: '0.6', changefreq: 'monthly' });
 	}
-	for (const role of roleRelease.roles.filter(
-		role => role.official_status === 'non_official_role_query'
-	)) {
+	const modernTitleGuides = roleRelease.roles.filter(
+		role => role.resolution_basis !== 'normalized_exact_title'
+	);
+	for (const role of modernTitleGuides) {
 		add({ path: `/role/${role.slug}`, priority: '0.6', changefreq: 'monthly' });
 	}
 
@@ -122,7 +124,7 @@ function main() {
 	);
 
 	console.log(
-		`Sitemap generated: ${entries.length} canonical URLs (${release.occupations.length} occupations, ${roleRelease.roles.filter(role => role.official_status === 'non_official_role_query').length} non-official role queries)`
+		`Sitemap generated: ${entries.length} canonical URLs (${release.occupations.length} occupations, ${modernTitleGuides.length} modern-title guides)`
 	);
 }
 

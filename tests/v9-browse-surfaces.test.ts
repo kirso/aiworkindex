@@ -64,10 +64,10 @@ describe('V9 browse and ranking surfaces', () => {
 		}
 
 		assert.match(source('src/routes/+page.svelte'), /AI work pressure/);
-		assert.match(source('src/routes/explore/+page.svelte'), /Official ILO category/);
+		assert.match(source('src/routes/explore/+page.svelte'), /Official\s+ILO category/);
 		assert.match(
 			source('src/routes/occupation/[ssoc]/+page.svelte'),
-			/not a probability of job loss/i
+			/Not a job-loss probability/i
 		);
 		assert.match(
 			source('src/routes/rankings/high-exposure-in-demand/+page.svelte'),
@@ -77,15 +77,19 @@ describe('V9 browse and ranking surfaces', () => {
 
 	test('keeps null wage and demand evidence from becoming zero or weak demand', () => {
 		const occupation = source('src/routes/occupation/[ssoc]/+page.svelte');
-		const explore = source('src/routes/explore/+page.svelte');
+		const home = source('src/routes/+page.svelte');
+		const explorer = source('src/lib/components/v9-browser/OccupationExplorer.svelte');
 		const scatter = source('src/lib/components/v9-browser/PressureWageScatter.svelte');
 
-		assert.match(occupation, /unknown, not zero pressure/i);
-		assert.match(occupation, /absence is not evidence\s+of weak demand/i);
-		assert.match(
-			explore,
-			/Missing evidence stays unknown|missing observation cannot look like zero/i
-		);
+		assert.match(occupation, /if \(value == null\) return 'Unranked'/);
+		assert.match(occupation, /return value == null \? 'No direct row'/);
+		assert.match(occupation, /No match in selected lists/);
+		assert.match(occupation, /source covers only the categories and occupations it names/i);
+		assert.doesNotMatch(occupation, /weak demand|pressureRank\s*\?\?\s*0|wageMedian\s*\?\?\s*0/i);
+		assert.match(home, /Unpublished evidence stays marked Unknown/i);
+		assert.match(explorer, /item\.wageMedian != null/);
+		assert.match(explorer, /item\.demandSignalCount > 0/);
+		assert.match(explorer, /item\.pressureRank == null/);
 		assert.match(scatter, /Missing wages are omitted, not treated as zero/);
 		assert.match(scatter, /item\.wageMedian != null/);
 	});

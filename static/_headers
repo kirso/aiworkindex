@@ -11,6 +11,8 @@
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
 
 # Superseded releases and sidecars remain downloadable archives, but must not compete with V9.
+/data/archive/*
+  X-Robots-Tag: noindex, nofollow
 /data/backtests/*
   X-Robots-Tag: noindex, nofollow
 /data/global/*

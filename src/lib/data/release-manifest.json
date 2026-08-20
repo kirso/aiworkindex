@@ -18,8 +18,8 @@
       "label": "V9 public JSON",
       "category": "structural_pressure",
       "description": "SSOC 2024 AI Work Pressure ranks, uncertainty, wages, and evidence links.",
-      "bytes": 4820671,
-      "sha256": "0a570fb00cbb0b4faa9dfe71634758ddd9da48a5ac4509b22488c4fda20fba43",
+      "bytes": 4824632,
+      "sha256": "1a697ec656c930829890a2884a443689042cf3c51b33310d6789803de2ee441a",
       "generated_at": "2026-08-19"
     },
     {
@@ -38,8 +38,8 @@
       "label": "V9 Singapore market context",
       "category": "market_context",
       "description": "Reviewed demand signals and labour evidence kept separate from pressure ranks.",
-      "bytes": 77152,
-      "sha256": "d7fb84d9caf713c2ca8b9bbff6ac1e71046109e604feb1cdd52b8f7ccaed92ea",
+      "bytes": 81185,
+      "sha256": "e49176f7fecf57f837c40b22ce0b371dc225bd7fd5b82de816fdc1e9e5dad177",
       "generated_at": "2026-08-19"
     },
     {
@@ -48,8 +48,8 @@
       "label": "V9 modern-title query layer",
       "category": "synthetic_roles",
       "description": "Exact and explicitly reviewed official-occupation resolutions plus non-official composites, withheld mappings, editorial weights and sensitivity checks.",
-      "bytes": 339967,
-      "sha256": "9d0d0fab55fc170698f37ab8dac24973a20fd99363cd1b444e32931986fc40ca",
+      "bytes": 346301,
+      "sha256": "c4936bc77494568a29bbe99af0c9c490a96b3f11dade1794a90adac3a192f5f8",
       "generated_at": "2026-08-19"
     },
     {
@@ -58,8 +58,8 @@
       "label": "V9 search index",
       "category": "discovery",
       "description": "Lightweight occupation and non-official role-query search records plus canonical aliases for exact and explicitly reviewed official-occupation matches.",
-      "bytes": 1282703,
-      "sha256": "2654cd0c3a6ee6b4672bf9f586868f837f1400e9bf626a68d6ffe71ac16f64b2",
+      "bytes": 1345281,
+      "sha256": "e82da2d3cb93e301fb4e778073a29ecc0a0e49314b685da6a703cdef60abf301",
       "generated_at": "2026-08-19"
     },
     {
@@ -78,8 +78,8 @@
       "label": "Research register",
       "category": "research",
       "description": "Versioned research claims, roles, sources, and limitations.",
-      "bytes": 60376,
-      "sha256": "48fc44445b279582e73079db4ae7b376e10eb0db9d7435c01cc1e8fa1a5c4728",
+      "bytes": 68638,
+      "sha256": "e5ce7de4c895487c9cc1e021f57b24afc09f248b340eaab1629b5b23f6a0b2b9",
       "generated_at": "2026-08-19"
     },
     {
@@ -89,7 +89,7 @@
       "category": "governance",
       "description": "Bounded current V9 facts, evidence vintages, withheld inputs, and archive links.",
       "bytes": 3865,
-      "sha256": "3384289f546750f5faa0b7157d4213ec884010324eb3862cbfce8452112f2abd",
+      "sha256": "e2867f2dc1fcc57339fbfc663e520573c95b49140a81f1d6f3424dfca3e9743f",
       "generated_at": "2026-08-19"
     },
     {
@@ -108,8 +108,8 @@
       "label": "Concise machine-readable guide",
       "category": "discovery",
       "description": "Concise V9 scope, interpretation, and canonical links.",
-      "bytes": 2241,
-      "sha256": "8194418dd640e46ff2b6072c791353092fe172d5d4db560978588eb8dedcfd78",
+      "bytes": 2553,
+      "sha256": "5f877aaec820967ceb20034ca2be4461879faf6a6feaffdc4e34beb212fefecf",
       "generated_at": "2026-08-19"
     },
     {
@@ -118,8 +118,8 @@
       "label": "Full machine-readable guide",
       "category": "discovery",
       "description": "Full V9 method, limitations, official occupations, reviewed modern-title resolutions and non-official role-query links.",
-      "bytes": 144155,
-      "sha256": "31c99bedd8ca010aa19e2b7c4d1fd164f45bb3a73f048555527ce23851deef6a",
+      "bytes": 148065,
+      "sha256": "efcc7f32277746355d433226081d256638677744b385cea7e94065799330f5fe",
       "generated_at": "2026-08-19"
     },
     {
@@ -128,8 +128,8 @@
       "label": "Canonical sitemap",
       "category": "discovery",
       "description": "Indexable V9 pages on the canonical host.",
-      "bytes": 159138,
-      "sha256": "f47f8213b14c8b7e13ac1fde1648018702225c916e12449739107024214330a9",
+      "bytes": 167827,
+      "sha256": "6b156a9d2a4ffff9ddf5fd8899e893e9b12e4347e754bd59e997a4cd678acbe8",
       "generated_at": "2026-08-19"
     }
   ]

@@ -68,7 +68,7 @@ describe('V9 release and discovery pipeline', () => {
 		}
 	});
 
-	test('publishes one canonical sitemap URL for every occupation and non-official role', () => {
+	test('publishes one canonical sitemap URL for every occupation and non-duplicate title guide', () => {
 		const release = buildV9PublicRelease();
 		const sitemap = fs.readFileSync(path.join(staticDir, 'sitemap.xml'), 'utf8');
 		const urls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => match[1]!);
@@ -80,7 +80,7 @@ describe('V9 release and discovery pipeline', () => {
 		for (const role of roleRelease.roles) {
 			assert.equal(
 				set.has(`https://aiworkindex.com/role/${role.slug}`),
-				role.official_status === 'non_official_role_query'
+				role.resolution_basis !== 'normalized_exact_title'
 			);
 		}
 		assert.equal(
@@ -121,17 +121,65 @@ describe('V9 release and discovery pipeline', () => {
 		assert(fs.existsSync(path.join(dataDir, 'sg-ai-occupations-v8.json')));
 	});
 
-	test('publishes edge redirects for canonicalized query labels', () => {
+	test('redirects only literal official-title duplicates', () => {
 		const redirects = fs.readFileSync(path.join(staticDir, '_redirects'), 'utf8');
 		assert.match(redirects, /^\/calculator \/will-ai-take-my-job 308$/m);
 		for (const role of roleRelease.roles.filter(
-			role => role.official_status === 'official_occupation_match'
+			role => role.resolution_basis === 'normalized_exact_title'
 		)) {
 			assert.ok(role.official_occupation);
 			assert.match(
 				redirects,
 				new RegExp(`^/role/${role.slug} /occupation/${role.official_occupation.ssoc2024} 308$`, 'm')
 			);
+		}
+		for (const role of roleRelease.roles.filter(
+			role =>
+				role.official_status === 'official_occupation_match' &&
+				role.resolution_basis !== 'normalized_exact_title'
+		)) {
+			assert.doesNotMatch(redirects, new RegExp(`^/role/${role.slug} `, 'm'));
+		}
+	});
+
+	test('makes every familiar title discoverable with one coherent destination', () => {
+		const search = JSON.parse(
+			fs.readFileSync(path.join(staticDir, 'data', 'v9-search-index.json'), 'utf8')
+		) as {
+			role_queries: Array<{
+				slug: string;
+				journey_kind: string;
+				official_ssoc2024: string | null;
+				href: string;
+				pressure_rank: number | null;
+				pressure_kind: string;
+				family_key: string;
+			}>;
+			role_query_counts: Record<string, number>;
+		};
+		assert.equal(search.role_queries.length, 88);
+		assert.deepEqual(search.role_query_counts, {
+			all: 88,
+			exact_official_titles: 11,
+			reviewed_official_matches: 56,
+			composite_estimates: 18,
+			mapping_withheld: 3
+		});
+		assert.equal(new Set(search.role_queries.map(role => role.slug)).size, 88);
+		for (const query of search.role_queries) {
+			const source = roleRelease.roles.find(role => role.slug === query.slug);
+			assert(source, query.slug);
+			assert(query.family_key.length > 0);
+			if (source.resolution_basis === 'normalized_exact_title') {
+				assert.equal(query.href, `/occupation/${source.official_occupation?.ssoc2024}`);
+				assert.equal(query.journey_kind, 'exact_official_title');
+			} else {
+				assert.equal(query.href, `/role/${source.slug}`);
+			}
+			if (source.official_occupation) {
+				assert.equal(query.pressure_rank, source.official_occupation.pressure_rank);
+				assert.equal(query.pressure_kind, 'official');
+			}
 		}
 	});
 

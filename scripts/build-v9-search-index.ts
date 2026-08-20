@@ -2,6 +2,11 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import {
+	getRoleFamilyPresentation,
+	getRoleHref,
+	getRoleJourneyKind
+} from '../src/lib/data/role-presentation';
 
 const ROOT = path.join(import.meta.dir, '..');
 
@@ -41,11 +46,41 @@ const roles = readJson<{
 		title: string;
 		description: string;
 		tags: string[];
+		resolution_basis: string;
 		estimate: { estimated_comparison_percentile: number } | null;
 		official_status: 'official_occupation_match' | 'non_official_role_query';
-		official_occupation: { ssoc2024: string } | null;
+		official_occupation: { ssoc2024: string; pressure_rank: number | null } | null;
 	}>;
 }>(path.join(ROOT, 'data', 'synthetic-roles-v9.json'));
+
+const roleQueries = roles.roles.map(role => {
+	const family = getRoleFamilyPresentation(role.slug);
+	const journeyKind = getRoleJourneyKind(role);
+	return {
+		slug: role.slug,
+		title: role.title,
+		description: role.description,
+		tags: role.tags,
+		resolution_basis: role.resolution_basis,
+		journey_kind: journeyKind,
+		official_ssoc2024: role.official_occupation?.ssoc2024 ?? null,
+		pressure_rank:
+			role.official_occupation?.pressure_rank ??
+			role.estimate?.estimated_comparison_percentile ??
+			null,
+		pressure_kind:
+			journeyKind === 'exact_official_title' || journeyKind === 'reviewed_official_match'
+				? 'official'
+				: journeyKind === 'composite_estimate'
+					? 'estimated'
+					: 'withheld',
+		href: getRoleHref(role),
+		family_key: family.key,
+		family_label: family.label,
+		family_accent: family.accent,
+		family_surface: family.surface
+	};
+});
 
 const output = {
 	schema_version: '9.0',
@@ -99,6 +134,18 @@ const output = {
 			tags: role.tags,
 			estimated_pressure_percentile: role.estimate?.estimated_comparison_percentile ?? null
 		})),
+	role_queries: roleQueries,
+	role_query_counts: {
+		all: roleQueries.length,
+		exact_official_titles: roleQueries.filter(role => role.journey_kind === 'exact_official_title')
+			.length,
+		reviewed_official_matches: roleQueries.filter(
+			role => role.journey_kind === 'reviewed_official_match'
+		).length,
+		composite_estimates: roleQueries.filter(role => role.journey_kind === 'composite_estimate')
+			.length,
+		mapping_withheld: roleQueries.filter(role => role.journey_kind === 'mapping_withheld').length
+	},
 	official_role_aliases: roles.roles
 		.filter(
 			(role): role is typeof role & { official_occupation: { ssoc2024: string } } =>
@@ -107,7 +154,9 @@ const output = {
 		.map(role => ({
 			slug: role.slug,
 			title: role.title,
-			official_ssoc2024: role.official_occupation.ssoc2024
+			official_ssoc2024: role.official_occupation.ssoc2024,
+			resolution_basis: role.resolution_basis,
+			href: getRoleHref(role)
 		}))
 };
 
@@ -121,5 +170,5 @@ for (const file of [
 }
 
 console.log(
-	`V9 search: ${output.occupations.length} occupations, ${output.roles.length} non-official role queries, ${output.official_role_aliases.length} official query resolutions`
+	`V9 search: ${output.occupations.length} occupations, ${output.role_queries.length} modern-title journeys (${output.role_query_counts.reviewed_official_matches} familiar-title guides, ${output.role_query_counts.composite_estimates} composites, ${output.role_query_counts.mapping_withheld} withheld)`
 );

@@ -106,7 +106,7 @@ function main() {
 				official_status: 'official_occupation_match',
 				resolution_basis: 'normalized_exact_title',
 				mapping_rationale: `Normalized exact title match to SSOC 2024 occupation ${exactOfficialMatch.taxonomy.code}.`,
-				disclosure: `This query resolves to official SSOC 2024 occupation ${exactOfficialMatch.taxonomy.code}; no synthetic estimate is published.`,
+				disclosure: `This title duplicates official SSOC 2024 occupation ${exactOfficialMatch.taxonomy.code}. Its role URL canonicalizes to the official occupation; no second page or score is published.`,
 				slug: role.slug,
 				title: role.title,
 				description: role.description,
@@ -146,7 +146,7 @@ function main() {
 						? 'reviewed_official_synonym'
 						: 'reviewed_definition_equivalent',
 				mapping_rationale: disposition.rationale,
-				disclosure: `This query resolves through a reviewed SSOC 2024 title, synonym or definition match to official occupation ${disposition.ssoc2024}; no synthetic estimate is published.`,
+				disclosure: `This familiar-title guide uses a reviewed title, synonym or definition match to official SSOC 2024 occupation ${disposition.ssoc2024}. It reuses the official occupation score unchanged; no synthetic estimate is published.`,
 				slug: role.slug,
 				title: role.title,
 				description: role.description,
@@ -171,7 +171,7 @@ function main() {
 				resolution_basis: 'mapping_withheld',
 				mapping_rationale: disposition.reason,
 				disclosure:
-					'Non-official role query; no score is published because a fixed SSOC mapping would create false precision.',
+					'Non-official familiar-title guide. No score is published because this title needs a sector and task profile before it can be mapped without false precision.',
 				slug: role.slug,
 				title: role.title,
 				description: role.description,
@@ -298,7 +298,7 @@ function main() {
 			resolution_basis: 'reviewed_composite',
 			mapping_rationale: disposition.rationale,
 			disclosure:
-				'Non-official role estimate built from a reviewed SSOC 2024 occupation composite.',
+				'Synthetic, non-official role estimate built from a reviewed SSOC 2024 occupation composite. The components and weights are published assumptions.',
 			slug: role.slug,
 			title: role.title,
 			description: role.description,

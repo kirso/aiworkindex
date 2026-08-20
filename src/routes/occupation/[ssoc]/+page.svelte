@@ -1,7 +1,10 @@
 <script lang="ts">
+	import SaveJobButton from '$lib/components/product/SaveJobButton.svelte';
+	import SharePageButton from '$lib/components/product/SharePageButton.svelte';
 	import FaqList from '$lib/components/ui/FaqList.svelte';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
+	import { Button } from '$lib/components/ui/button/index.js';
 	import OccupationResultList from '$lib/components/v9-browser/OccupationResultList.svelte';
 	import { badge, card, pageLayout, sectionLabel, title as titleStyle } from '$lib/design-system';
 	import { SITE } from '$lib/data/scoring-constants';
@@ -23,7 +26,7 @@
 	]);
 
 	function formatPercentile(value: number | null): string {
-		if (value == null) return 'Not ranked';
+		if (value == null) return 'Unranked';
 		return `Percentile ${value.toFixed(value % 1 === 0 ? 0 : 1)}`;
 	}
 
@@ -39,30 +42,41 @@
 	}
 
 	function formatWage(value: number | null): string {
-		return value == null ? 'Unknown' : `SGD ${value.toLocaleString()}`;
+		return value == null ? 'No direct row' : `SGD ${value.toLocaleString()}`;
 	}
+
+	let demandSummary = $derived(
+		view.demandSignals.length > 0
+			? `${view.demandSignals.length} named official ${view.demandSignals.length === 1 ? 'signal' : 'signals'}`
+			: 'No match in selected lists'
+	);
 
 	const faqItems = $derived([
 		{
-			question: `How much AI work pressure does ${view.title} face?`,
+			question: `How much AI task pressure does ${view.title} face?`,
 			answer:
 				view.pressureRank == null
-					? `V9 does not rank ${view.title} because the official SSOC-to-ISCO mapping does not provide enough usable ILO evidence. This is unknown, not zero pressure.`
-					: `${view.title} has an AI Work Pressure Rank at ${formatPercentile(view.pressureRank)} among 987 scored SSOC 2024 occupations. Its official ILO category is ${view.officialCategory}. The rank measures task overlap, not a probability of job loss.`
+					? `The official SSOC-to-ISCO mapping yielded insufficient usable ILO evidence for ${view.title}, so V9 leaves it unranked.`
+					: `${view.title} is at ${formatPercentile(view.pressureRank)} among 987 scored SSOC 2024 occupations. Its mapped ILO category is ${view.officialCategory}. The rank compares mapped task overlap.`
 		},
 		{
 			question: `What is the salary for ${view.title} in Singapore?`,
 			answer:
 				view.wageMedian == null
-					? `MOM's June 2025 detailed wage table does not publish a direct row for SSOC ${view.code}. The index leaves the wage unknown.`
-					: `MOM's June 2025 table reports a gross monthly median of SGD ${view.wageMedian.toLocaleString()} for this occupation. Coverage is limited to full-time resident employees in establishments with at least 25 employees.`
+					? `The selected MOM June 2025 detailed wage table has no direct row for SSOC ${view.code}, so V9 reports no value.`
+					: `MOM's June 2025 table reports a gross monthly median of SGD ${view.wageMedian.toLocaleString()} for this occupation. It covers full-time resident employees in establishments with at least 25 employees.`
+		},
+		{
+			question: `Is ${view.title} in demand in Singapore?`,
+			answer:
+				view.demandSignals.length > 0
+					? `${view.title} is matched to ${view.demandSignals.length} named entry or entries in the selected MOM demand sources. Vacancy totals come from a different national source.`
+					: `The selected MOM demand and shortage lists contain no match for ${view.title}. Their coverage is limited to the occupations and categories each source names.`
 		}
 	]);
 
 	let seoDescription = $derived(
-		modernQueries.length
-			? `${modernQueries[0]?.title} resolves to ${view.title} (SSOC ${view.code}): ${formatPercentile(view.pressureRank)} AI work pressure, ${view.officialCategory}.`
-			: `${view.title} (SSOC ${view.code}): ${formatPercentile(view.pressureRank)} AI work pressure, ${view.officialCategory}, ${view.wageMedian == null ? 'wage unknown' : `SGD ${view.wageMedian.toLocaleString()} gross monthly median`}.`
+		`${view.title} (SSOC ${view.code}): ${formatPercentile(view.pressureRank)} AI task pressure, ${view.wageMedian == null ? 'no direct pay row in the selected detailed MOM table' : `SGD ${view.wageMedian.toLocaleString()} gross monthly median`}, and ${view.demandSignals.length} named demand ${view.demandSignals.length === 1 ? 'signal' : 'signals'}.`
 	);
 
 	let occupationJsonLd = $derived(
@@ -75,7 +89,7 @@
 				.map(query => query.title),
 			description:
 				occupation.taxonomy.detailed_definition ??
-				`Official SSOC 2024 occupation ${view.code} with V9 AI work-pressure evidence.`,
+				`Official SSOC 2024 occupation ${view.code} with V9 AI task-pressure evidence.`,
 			url: `${SITE.url}/occupation/${view.code}`,
 			mainEntityOfPage: `${SITE.url}/occupation/${view.code}`,
 			identifier: {
@@ -106,12 +120,12 @@
 							{
 								'@type': 'PropertyValue',
 								name: 'V9 score status',
-								value: 'Insufficient evidence; not ranked'
+								value: 'Insufficient evidence; unranked'
 							}
 						]),
 				{
 					'@type': 'PropertyValue',
-					name: 'Evidence cutoff',
+					name: 'Evidence reviewed through',
 					value: occupation.evidence.data_as_of
 				}
 			].filter(property => property.value !== null)
@@ -120,7 +134,7 @@
 </script>
 
 <Seo
-	title={`${view.title} (SSOC ${view.code}): AI Work Pressure`}
+	title={`${view.title} (SSOC ${view.code}): AI Task Pressure and Pay`}
 	description={seoDescription}
 	path={`/occupation/${view.code}`}
 	jsonLd={[occupationJsonLd]}
@@ -135,141 +149,153 @@
 		]}
 	/>
 
-	<header class="max-w-5xl">
-		<div class="flex min-w-0 flex-wrap gap-2">
-			<span class={badge({ variant: 'outline' })}>SSOC 2024 · {view.code}</span>
-			<span class={badge({ variant: exposure ? 'info' : 'warning' })}>
-				{exposure ? 'Pressure ranked' : 'Insufficient evidence'}
-			</span>
-		</div>
-		<h1 class="mt-4 break-words {titleStyle({ size: 'page' })}">{view.title}</h1>
-		{#if occupation.taxonomy.detailed_definition}
-			<p class="mt-4 max-w-4xl text-base leading-relaxed text-muted-foreground">
-				{occupation.taxonomy.detailed_definition}
-			</p>
-		{/if}
-		{#if modernQueries.length > 0}
-			<p class="mt-3 max-w-4xl text-sm leading-relaxed text-muted-foreground">
-				<strong class="text-foreground">Modern job-title queries resolved here:</strong>
-				{modernQueries.map(query => query.title).join(' · ')}. These labels resolve to the official
-				occupation; they do not create a second estimate.
-			</p>
-		{/if}
-	</header>
-
-	<section class="mt-8 grid min-w-0 gap-4 lg:grid-cols-[minmax(0,1.35fr)_minmax(17rem,0.65fr)]">
-		<div class={card({ padding: 'lg', variant: 'elevated' })}>
-			<p class={sectionLabel()}>AI work pressure</p>
-			<p
-				class="mt-3 break-words font-mono text-4xl font-black tabular-nums text-foreground sm:text-5xl"
-			>
-				{formatPercentile(view.pressureRank)}
-			</p>
-			<p class="mt-3 text-base font-semibold text-foreground">{view.officialCategory}</p>
-			<p class="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-				{#if view.pressureRank == null}
-					The official mapping does not yield enough scored ILO evidence. V9 leaves the rank
-					unknown; it does not assign zero pressure.
-				{:else}
-					This occupation sits at midrank percentile {view.pressureRank.toFixed(
-						view.pressureRank % 1 === 0 ? 0 : 1
-					)} among scored Singapore occupations. It is a relative task-exposure rank, not a
-					{view.pressureRank}% chance of job loss.
+	<header class="border-b-2 border-foreground pb-6">
+		<div class="flex min-w-0 flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
+			<div class="min-w-0 max-w-4xl">
+				<div class="flex min-w-0 flex-wrap gap-2">
+					<span class={badge({ variant: 'outline' })}>SSOC 2024 · {view.code}</span>
+					<span class={badge({ variant: exposure ? 'info' : 'warning' })}>
+						{exposure ? 'Pressure ranked' : 'Insufficient evidence'}
+					</span>
+				</div>
+				<h1 class="mt-4 break-words {titleStyle({ size: 'page' })}">
+					{#each view.title.split('/') as titlePart, index (index)}
+						{#if index > 0}/<wbr />{/if}{titlePart}
+					{/each}
+				</h1>
+				{#if occupation.taxonomy.detailed_definition}
+					<p class="mt-4 max-w-4xl text-base leading-relaxed text-muted-foreground">
+						{occupation.taxonomy.detailed_definition}
+					</p>
 				{/if}
-			</p>
-		</div>
-
-		<div class={card({ padding: 'lg', variant: 'metric' })}>
-			<p class={sectionLabel()}>Direct wage evidence</p>
-			<p class="mt-3 break-words font-mono text-2xl font-bold tabular-nums text-foreground">
-				{formatWage(view.wageMedian)}
-			</p>
-			<p class="mt-1 text-xs text-muted-foreground">
-				{wage ? 'Gross monthly median · June 2025 MOM row' : 'No direct June 2025 MOM row'}
-			</p>
-			<p class="mt-4 text-xs leading-relaxed text-muted-foreground">
-				{wage
-					? wage.limitations[0]
-					: 'An unpublished detailed wage is unknown. It is not zero and is not inferred from a broad occupation group.'}
-			</p>
-		</div>
-	</section>
-
-	<section class="mt-10">
-		<h2 class={sectionLabel()}>How the pressure evidence maps</h2>
-		<div class="mt-3 grid min-w-0 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-			<div class={card({ padding: 'md', variant: 'metric' })}>
-				<p class="text-xs text-muted-foreground">Official ILO category</p>
-				<p class="mt-2 break-words text-sm font-semibold text-foreground">
-					{view.officialCategory}
-				</p>
-			</div>
-			<div class={card({ padding: 'md', variant: 'metric' })}>
-				<p class="text-xs text-muted-foreground">Mapped ILO mean score (0–100 display scale)</p>
-				<p class="mt-2 font-mono text-lg font-semibold tabular-nums text-foreground">
-					{formatScore(view.rawExposure)}
-				</p>
-				{#if view.rawExposureRange && view.rawExposureRange.min !== view.rawExposureRange.max}
-					<p class="mt-1 text-xs text-muted-foreground">
-						Range {(view.rawExposureRange.min * 100).toFixed(1)}–{(
-							view.rawExposureRange.max * 100
-						).toFixed(1)}/100
+				{#if modernQueries.length > 0}
+					<p class="mt-3 max-w-4xl text-sm leading-relaxed text-muted-foreground">
+						<strong class="text-foreground">Also found as:</strong>
+						{modernQueries.map(query => query.title).join(' · ')}. These titles point to this one
+						official occupation and score.
 					</p>
 				{/if}
 			</div>
-			<div class={card({ padding: 'md', variant: 'metric' })}>
-				<p class="text-xs text-muted-foreground">ILO task-score dispersion (0–100 display scale)</p>
-				<p class="mt-2 font-mono text-lg font-semibold tabular-nums text-foreground">
-					{formatScore(view.taskDispersion)}
-				</p>
-				<p class="mt-1 text-xs text-muted-foreground">Within mapped ISCO task scores</p>
+			<div class="flex shrink-0 flex-wrap gap-2">
+				<Button variant="outline" href="/compare?entities=occupation:{view.code}" class="min-h-11"
+					>Compare</Button
+				>
+				<SaveJobButton kind="occupation" id={view.code} size="default" class="min-h-11" />
+				<SharePageButton title={`${view.title} | ${SITE.name}`} size="default" />
 			</div>
-			<div class={card({ padding: 'md', variant: 'metric' })}>
-				<p class="text-xs text-muted-foreground">Mapping support</p>
-				<p class="mt-2 break-words text-sm font-semibold text-foreground">
-					{mappingLabel(occupation.evidence.mapping_quality)}
+		</div>
+	</header>
+
+	<section class="mt-8" aria-labelledby="answer-heading">
+		<h2 id="answer-heading" class={sectionLabel()}>What the evidence says</h2>
+		<div class="mt-3 grid min-w-0 gap-4 lg:grid-cols-3">
+			<div class={card({ padding: 'lg', variant: 'elevated' })}>
+				<p class="text-sm font-semibold text-foreground">AI task pressure</p>
+				<p class="mt-3 break-words font-mono text-4xl font-black tabular-nums text-foreground">
+					{formatPercentile(view.pressureRank)}
 				</p>
-				<p class="mt-1 break-words text-xs text-muted-foreground">
-					{occupation.evidence.official_isco08_codes.length > 0
-						? `ISCO ${occupation.evidence.official_isco08_codes.join(', ')}`
-						: 'No matched ISCO code'}
+				<p class="mt-2 text-sm font-semibold text-foreground">{view.officialCategory}</p>
+				<p class="mt-3 text-sm leading-relaxed text-muted-foreground">
+					{view.pressureRank == null
+						? 'The official mapping yielded insufficient scored ILO evidence, so this occupation remains unranked.'
+						: `Relative task overlap among ${view.pressurePopulation?.toLocaleString() ?? 987} scored occupations. Not a job-loss probability.`}
+				</p>
+			</div>
+
+			<div class={card({ padding: 'lg', variant: 'metric' })}>
+				<p class="text-sm font-semibold text-foreground">Pay in Singapore</p>
+				<p class="mt-3 break-words font-mono text-3xl font-bold tabular-nums text-foreground">
+					{formatWage(view.wageMedian)}
+				</p>
+				<p class="mt-2 text-xs text-muted-foreground">
+					{wage ? 'Gross monthly median · June 2025' : 'No direct row in the selected MOM table'}
+				</p>
+				<p class="mt-3 text-sm leading-relaxed text-muted-foreground">
+					{wage
+						? 'Measured for full-time resident employees in establishments with at least 25 employees.'
+						: 'The selected MOM wage table contains no direct row for this occupation.'}
+				</p>
+			</div>
+
+			<div class={card({ padding: 'lg', variant: 'metric' })}>
+				<p class="text-sm font-semibold text-foreground">Named demand evidence</p>
+				<p class="mt-3 text-2xl font-bold text-foreground">{demandSummary}</p>
+				<p class="mt-3 text-sm leading-relaxed text-muted-foreground">
+					{view.demandSignals.length > 0
+						? 'A reviewed match connects this occupation to an entry in a selected MOM demand source.'
+						: 'These sources cover selected demand and shortage categories.'}
 				</p>
 			</div>
 		</div>
-		<p class="mt-3 max-w-4xl text-xs leading-relaxed text-muted-foreground">
-			The rank is derived from ILO 2025 evidence through the official SSOC–ISCO crosswalk. When one
-			SSOC occupation maps to several scored ISCO occupations, V9 reports the median and preserves
-			the range instead of choosing one match silently.
+	</section>
+
+	<section class="mt-10" aria-labelledby="actions-heading">
+		<h2 id="actions-heading" class={sectionLabel()}>Reviewed guidance: what you can do next</h2>
+		<p class="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+			Use the occupation rank as a prompt to inspect your work. Your employer, industry, seniority
+			and actual task mix can change what AI means for you. These prompts are reviewed editorial
+			guidance, separate from source-measured occupation evidence.
 		</p>
+		<div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+			<div class={card({ padding: 'md' })}>
+				<h3 class="font-semibold text-foreground">List your recurring tasks</h3>
+				<p class="mt-2 text-sm leading-relaxed text-muted-foreground">
+					Separate drafting, searching and summarising from decisions, relationships, physical work
+					and sign-off.
+				</p>
+			</div>
+			<div class={card({ padding: 'md' })}>
+				<h3 class="font-semibold text-foreground">Test one low-consequence task</h3>
+				<p class="mt-2 text-sm leading-relaxed text-muted-foreground">
+					Compare time, errors and review effort before expanding a tool to more important work.
+				</p>
+			</div>
+			<div class={card({ padding: 'md' })}>
+				<h3 class="font-semibold text-foreground">Keep accountability visible</h3>
+				<p class="mt-2 text-sm leading-relaxed text-muted-foreground">
+					Write down who checks facts, handles exceptions and owns the result when mistakes carry a
+					cost.
+				</p>
+			</div>
+			<div class={card({ padding: 'md' })}>
+				<h3 class="font-semibold text-foreground">Check the hiring evidence</h3>
+				<p class="mt-2 text-sm leading-relaxed text-muted-foreground">
+					Use the named official signal alongside live vacancy listings and evidence from your
+					industry.
+				</p>
+			</div>
+		</div>
+		<div class="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+			<a
+				href="/will-ai-take-my-job?job=occupation:{view.code}"
+				class="font-medium text-primary underline">Explore your task mix</a
+			>
+			<a href="/reports/job-market-evidence" class="font-medium text-primary underline"
+				>See Singapore job-market evidence</a
+			>
+			<a href="/compare?entities=occupation:{view.code}" class="font-medium text-primary underline"
+				>Compare another occupation</a
+			>
+		</div>
 	</section>
 
 	<section class="mt-10 grid min-w-0 gap-6 lg:grid-cols-2">
 		<div class="min-w-0">
-			<h2 class={sectionLabel()}>Direct Singapore wage row</h2>
+			<h2 class={sectionLabel()}>Pay in Singapore</h2>
 			<div class="mt-3 {card({ padding: 'md' })}">
 				{#if wage}
-					<div class="grid grid-cols-3 gap-3">
-						<div class="min-w-0">
-							<p class="text-xs text-muted-foreground">25th percentile</p>
-							<p class="mt-1 break-words font-mono text-sm font-semibold tabular-nums">
-								SGD {wage.value.gross_monthly_sgd.p25.toLocaleString()}
-							</p>
-						</div>
-						<div class="min-w-0">
-							<p class="text-xs text-muted-foreground">Median</p>
-							<p class="mt-1 break-words font-mono text-sm font-semibold tabular-nums">
-								SGD {wage.value.gross_monthly_sgd.median.toLocaleString()}
-							</p>
-						</div>
-						<div class="min-w-0">
-							<p class="text-xs text-muted-foreground">75th percentile</p>
-							<p class="mt-1 break-words font-mono text-sm font-semibold tabular-nums">
-								SGD {wage.value.gross_monthly_sgd.p75.toLocaleString()}
-							</p>
-						</div>
+					<div class="grid gap-3 sm:grid-cols-3">
+						{#each [['25th percentile', wage.value.gross_monthly_sgd.p25], ['Median', wage.value.gross_monthly_sgd.median], ['75th percentile', wage.value.gross_monthly_sgd.p75]] as row}
+							<div class="min-w-0">
+								<p class="text-xs text-muted-foreground">{row[0]}</p>
+								<p class="mt-1 break-words font-mono text-sm font-semibold tabular-nums">
+									SGD {Number(row[1]).toLocaleString()}
+								</p>
+							</div>
+						{/each}
 					</div>
 					<p class="mt-4 text-xs leading-relaxed text-muted-foreground">
-						Gross monthly wages · {wage.geography} · reference period {wage.reference_period}.
+						Gross monthly wages · {wage.geography} · observed {wage.reference_period}.
 						<a
 							href={wage.source.url}
 							class="text-primary underline"
@@ -279,15 +305,14 @@
 					</p>
 				{:else}
 					<p class="text-sm leading-relaxed text-muted-foreground">
-						No exact SSOC 2024 wage row is published in the selected MOM table. V9 does not
-						substitute a broad-group wage or infer a value.
+						The selected MOM table has no exact SSOC 2024 row, so pay is shown as unknown.
 					</p>
 				{/if}
 			</div>
 		</div>
 
 		<div class="min-w-0">
-			<h2 class={sectionLabel()}>Direct current-demand evidence</h2>
+			<h2 class={sectionLabel()}>Named demand evidence</h2>
 			<div class="mt-3 {card({ padding: 'md' })}">
 				{#if view.demandSignals.length > 0}
 					<div class="space-y-5">
@@ -302,7 +327,7 @@
 									{signal.label}
 								</a>
 								<p class="mt-1 text-xs text-muted-foreground">
-									Source occupation: {signal.source_occupation}
+									Published {signal.published_at} · source label “{signal.source_occupation}”
 								</p>
 								<p class="mt-2 text-xs leading-relaxed text-muted-foreground">
 									{signal.rationale}
@@ -313,81 +338,15 @@
 					</div>
 				{:else}
 					<p class="text-sm leading-relaxed text-muted-foreground">
-						This occupation was not named in the selected MOM demand or shortage lists. Those
-						sources are not exhaustive occupation-level demand measures, so absence is not evidence
-						of weak demand.
+						The selected MOM demand and shortage lists contain no match for this occupation. Each
+						source covers only the categories and occupations it names.
 					</p>
 				{/if}
 			</div>
 		</div>
 	</section>
 
-	{#if view.labourContext}
-		<section class="mt-10">
-			<h2 class={sectionLabel()}>Broad labour-market context</h2>
-			<div class="mt-3 {card({ padding: 'md', variant: 'notice', accent: 'primary' })}">
-				<p class="text-sm leading-relaxed text-foreground">{view.labourContext.summary}</p>
-				<p class="mt-3 text-xs leading-relaxed text-muted-foreground">
-					{view.labourContext.source} · {view.labourContext.data_as_of}. This broad
-					occupation-cluster context is not a detailed SSOC observation and does not change the
-					pressure rank.
-				</p>
-			</div>
-		</section>
-	{/if}
-
-	<section class="mt-10">
-		<h2 class={sectionLabel()}>Independent external comparisons</h2>
-		<p class="mt-3 max-w-4xl text-sm leading-relaxed text-muted-foreground">
-			These sources measure different ideas from the ILO headline. V9 reserves a separate, nullable
-			evidence block for each one; none can change the pressure rank.
-		</p>
-		<div class="mt-3 grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-4">
-			{#each comparisonEvidence as item (item.label)}
-				<div class="min-w-0 bg-card p-4">
-					<p class="break-words text-sm font-semibold text-foreground">{item.label}</p>
-					{#if item.evidence}
-						<p class="mt-2 text-xs font-semibold text-primary">Published evidence block</p>
-						<a
-							href={item.evidence.source.url}
-							target="_blank"
-							rel="noreferrer"
-							class="mt-1 block break-words text-xs text-primary underline"
-						>
-							{item.evidence.source.title}
-						</a>
-					{:else}
-						<p class="mt-2 text-xs font-semibold text-muted-foreground">Withheld in V9</p>
-						<p class="mt-1 text-xs leading-relaxed text-muted-foreground">
-							No defensible SSOC 2024 occupation value is published.
-						</p>
-					{/if}
-				</div>
-			{/each}
-		</div>
-		<p class="mt-3 max-w-4xl text-xs leading-relaxed text-muted-foreground">
-			All four blocks are null in the current release. The checked-in ISCO-08 to US SOC bridge lacks
-			row-level source provenance; the complementarity proxy also lacks a frozen, reproducible
-			source construct. V9 does not use title matching or broader-group fallbacks to fill those
-			gaps.
-		</p>
-	</section>
-
 	<section class="mt-10 grid min-w-0 gap-6 lg:grid-cols-2">
-		<div class="min-w-0">
-			<h2 class={sectionLabel()}>Evidence limits</h2>
-			<ul
-				class="mt-3 space-y-2 border border-border bg-card p-5 text-sm leading-relaxed text-muted-foreground"
-			>
-				{#each occupation.evidence.limitations as limitation (limitation)}
-					<li class="flex min-w-0 gap-2">
-						<span aria-hidden="true">•</span>
-						<span class="min-w-0 break-words">{limitation}</span>
-					</li>
-				{/each}
-			</ul>
-		</div>
-
 		<div class="min-w-0">
 			<h2 class={sectionLabel()}>Common job titles</h2>
 			<div class="mt-3 border border-border bg-card p-5">
@@ -406,7 +365,122 @@
 				{/if}
 			</div>
 		</div>
+		{#if view.labourContext}
+			<div class="min-w-0">
+				<h2 class={sectionLabel()}>Broader hiring context</h2>
+				<div class="mt-3 {card({ padding: 'md', variant: 'notice', accent: 'primary' })}">
+					<p class="text-sm leading-relaxed text-foreground">{view.labourContext.summary}</p>
+					<p class="mt-3 text-xs leading-relaxed text-muted-foreground">
+						{view.labourContext.source} · observed {view.labourContext.data_as_of}. This describes a
+						broad occupation cluster. The pressure rank comes from the separate ILO task measure.
+					</p>
+				</div>
+			</div>
+		{/if}
 	</section>
+
+	<details class="mt-10 border border-border bg-card">
+		<summary class="cursor-pointer px-5 py-4 text-sm font-semibold text-foreground">
+			How this was calculated
+		</summary>
+		<div class="border-t border-border p-5">
+			<p class="max-w-4xl text-sm leading-relaxed text-muted-foreground">
+				V9 maps this SSOC 2024 occupation to the ILO's 2025 ISCO-08 evidence through the official
+				Singapore correspondence. Several matches use the median as the point estimate and keep the
+				full range visible.
+			</p>
+			<div class="mt-4 grid min-w-0 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+				<div class={card({ padding: 'md', variant: 'metric' })}>
+					<p class="text-xs text-muted-foreground">Mapped ILO category</p>
+					<p class="mt-2 break-words text-sm font-semibold text-foreground">
+						{view.officialCategory}
+					</p>
+				</div>
+				<div class={card({ padding: 'md', variant: 'metric' })}>
+					<p class="text-xs text-muted-foreground">Mapped ILO mean · display scale</p>
+					<p class="mt-2 font-mono text-lg font-semibold tabular-nums text-foreground">
+						{formatScore(view.rawExposure)}
+					</p>
+					{#if view.rawExposureRange && view.rawExposureRange.min !== view.rawExposureRange.max}
+						<p class="mt-1 text-xs text-muted-foreground">
+							Range {(view.rawExposureRange.min * 100).toFixed(1)}–{(
+								view.rawExposureRange.max * 100
+							).toFixed(1)}/100
+						</p>
+					{/if}
+				</div>
+				<div class={card({ padding: 'md', variant: 'metric' })}>
+					<p class="text-xs text-muted-foreground">Variation across listed ILO tasks</p>
+					<p class="mt-2 font-mono text-lg font-semibold tabular-nums text-foreground">
+						{formatScore(view.taskDispersion)}
+					</p>
+					<p class="mt-1 text-xs text-muted-foreground">Task-score variation only</p>
+				</div>
+				<div class={card({ padding: 'md', variant: 'metric' })}>
+					<p class="text-xs text-muted-foreground">Mapping support</p>
+					<p class="mt-2 break-words text-sm font-semibold text-foreground">
+						{mappingLabel(occupation.evidence.mapping_quality)}
+					</p>
+					<p class="mt-1 break-words text-xs text-muted-foreground">
+						{occupation.evidence.official_isco08_codes.length > 0
+							? `ISCO ${occupation.evidence.official_isco08_codes.join(', ')}`
+							: 'No matched ISCO code'}
+					</p>
+				</div>
+			</div>
+
+			<div class="mt-6 grid gap-5 lg:grid-cols-2">
+				<div>
+					<h3 class="text-sm font-semibold text-foreground">Limits for this record</h3>
+					<ul class="mt-2 list-disc space-y-2 pl-5 text-sm leading-relaxed text-muted-foreground">
+						{#each occupation.evidence.limitations as limitation (limitation)}
+							<li>{limitation}</li>
+						{/each}
+					</ul>
+				</div>
+				<div>
+					<h3 class="text-sm font-semibold text-foreground">Source boundary</h3>
+					<p class="mt-2 text-sm leading-relaxed text-muted-foreground">
+						The rank is derived from the ILO 2025 task-exposure measure. Pay and demand come from
+						separate Singapore sources and never change it. Evidence was reviewed through
+						{occupation.evidence.data_as_of}.
+					</p>
+				</div>
+			</div>
+		</div>
+	</details>
+
+	<details class="mt-3 border border-border bg-card">
+		<summary class="cursor-pointer px-5 py-4 text-sm font-semibold text-foreground">
+			Unavailable external comparisons
+		</summary>
+		<div class="border-t border-border p-5">
+			<p class="max-w-4xl text-sm leading-relaxed text-muted-foreground">
+				AIOE, Eloundou, observed platform use and potential complementarity measure different ideas
+				from the headline. They remain unavailable because the current cross-system mapping or
+				source construct falls short of the publication gate.
+			</p>
+			<div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+				{#each comparisonEvidence as item (item.label)}
+					<div class={card({ padding: 'sm' })}>
+						<p class="break-words text-sm font-semibold text-foreground">{item.label}</p>
+						{#if item.evidence}
+							<a
+								href={item.evidence.source.url}
+								target="_blank"
+								rel="noreferrer"
+								class="mt-2 block break-words text-xs text-primary underline"
+							>
+								{item.evidence.source.title}
+							</a>
+						{:else}
+							<p class="mt-2 text-xs text-muted-foreground">No occupation value published in V9.</p>
+						{/if}
+					</div>
+				{/each}
+			</div>
+		</div>
+	</details>
 
 	{#if data.related.length > 0}
 		<section class="mt-10 min-w-0">
