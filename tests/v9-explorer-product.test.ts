@@ -3,6 +3,13 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { describe, test } from 'node:test';
 import { fileURLToPath } from 'node:url';
+import { occupationToV9BrowserItem } from '../src/lib/data/v9-browser';
+import {
+	buildV9CategorySummary,
+	buildV9GroupSummaries,
+	buildV9PressureBins
+} from '../src/lib/data/v9-home';
+import { v9Occupations } from '../src/lib/data/v9';
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -11,6 +18,27 @@ function source(relativePath: string): string {
 }
 
 describe('V9 consumer occupation explorer', () => {
+	test('builds category-first summaries without changing the occupation denominator', () => {
+		const items = v9Occupations.map(occupationToV9BrowserItem);
+		const groups = buildV9GroupSummaries(items);
+		const categories = buildV9CategorySummary(items);
+		const bins = buildV9PressureBins(items);
+		assert.equal(groups.length, 9);
+		assert.equal(
+			groups.reduce((sum, group) => sum + group.total, 0),
+			1001
+		);
+		assert.equal(
+			categories.reduce((sum, category) => sum + category.count, 0),
+			987
+		);
+		assert.equal(
+			bins.reduce((sum, bin) => sum + bin.count, 0),
+			987
+		);
+		assert.equal(items.filter(item => item.pressureRank == null).length, 14);
+	});
+
 	test('uses one equal-weight leaf for every mapped occupation tile', () => {
 		const map = source('src/lib/components/v9-browser/EqualAreaOccupationMap.svelte');
 		assert.match(map, /datum\.kind === 'occupation' \? 1 : 0/);
@@ -31,11 +59,22 @@ describe('V9 consumer occupation explorer', () => {
 		assert.match(explorer, /OccupationResultList/);
 		assert.match(explorer, /replaceState/);
 		assert.match(explorer, /browser_occupations/);
-		assert.match(source('src/routes/+page.server.ts'), /occupations: \[\] as V9BrowserItem\[\]/);
+		const homeLoader = source('src/routes/+page.server.ts');
+		assert.match(homeLoader, /buildV9GroupSummaries/);
+		assert.doesNotMatch(homeLoader, /occupations: \[\] as V9BrowserItem\[\]/);
 		assert.match(
 			source('src/routes/explore/+page.server.ts'),
 			/occupations: \[\] as V9BrowserItem\[\]/
 		);
+	});
+
+	test('keeps the homepage category-first and the 1,001-record map in Explore', () => {
+		const home = source('src/routes/+page.svelte');
+		const explore = source('src/routes/explore/+page.svelte');
+		assert.match(home, /OccupationGroupOverview/);
+		assert.match(home, /Choose a broad occupation group before the details/);
+		assert.doesNotMatch(home, /<OccupationExplorer/);
+		assert.match(explore, /<OccupationExplorer/);
 	});
 
 	test('keeps the scatter relationship on mobile and exposes one keyboard entry point', () => {

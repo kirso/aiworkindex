@@ -11,12 +11,14 @@ function source(relativePath: string): string {
 }
 
 describe('V9 consumer product journeys', () => {
-	test('keeps the flagship explorer and personal action flow on active routes', () => {
+	test('keeps category-first discovery, the detailed explorer and personal action flow', () => {
 		const home = source('src/routes/+page.svelte');
+		const explore = source('src/routes/explore/+page.svelte');
 		const checker = source('src/routes/will-ai-take-my-job/+page.svelte');
 		const personalCheck = source('src/lib/components/product/PersonalWorkCheck.svelte');
-		assert.match(home, /OccupationExplorer/);
-		assert.match(home, /Explore all occupations/);
+		assert.match(home, /OccupationGroupOverview/);
+		assert.match(home, /PressureDistribution/);
+		assert.match(explore, /OccupationExplorer/);
 		assert.match(checker, /PersonalWorkCheck/);
 		assert.match(personalCheck, /Build my work plan/);
 	});
@@ -31,6 +33,14 @@ describe('V9 consumer product journeys', () => {
 			assert.match(page, /SharePageButton/);
 			assert.match(page, /\/compare\?entities=/);
 		}
+	});
+
+	test('keeps long official definitions and role directories behind progressive disclosure', () => {
+		const occupation = source('src/routes/occupation/[ssoc]/+page.svelte');
+		const roles = source('src/routes/roles/+page.svelte');
+		assert.match(occupation, /Read the official SSOC definition/);
+		assert.match(roles, /visibleLimit = \$state\(24\)/);
+		assert.match(roles, /Show all \{resultCount\} roles/);
 	});
 
 	test('uses responsive comparison cards instead of a wide scrolling table', () => {

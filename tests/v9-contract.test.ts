@@ -236,10 +236,14 @@ describe('V9 evidence-first occupation contract', () => {
 		}
 	});
 
-	test('withholds external sidecars when the checked-in ISCO to SOC mapping is not auditable', () => {
+	test('withholds external sidecars after auditing the official candidate mapping chain', () => {
 		assert.deepEqual(release.method.external_comparison_audit, V9_EXTERNAL_COMPARISON_AUDIT);
 		assert.equal(V9_EXTERNAL_COMPARISON_AUDIT.headline_effect, 'none');
-		assert.equal(V9_EXTERNAL_COMPARISON_AUDIT.reviewed_mapping_artifact.status, 'rejected_for_v9');
+		assert.equal(
+			V9_EXTERNAL_COMPARISON_AUDIT.reviewed_mapping_artifact.status,
+			'official_candidate_chain_available_transfer_not_published'
+		);
+		assert.ok(fs.existsSync(V9_EXTERNAL_COMPARISON_AUDIT.reviewed_mapping_artifact.path));
 		assert.ok(V9_EXTERNAL_COMPARISON_AUDIT.reviewed_mapping_artifact.reasons.length >= 3);
 
 		for (const [key, disposition] of Object.entries(V9_EXTERNAL_COMPARISON_AUDIT.sidecars)) {
@@ -250,7 +254,10 @@ describe('V9 evidence-first occupation contract', () => {
 			});
 			assert.ok(disposition.status.startsWith('withheld_'));
 			assert.equal(disposition.mapping.aggregation, 'not_applied');
-			assert.ok(disposition.mapping.quality.startsWith('rejected_'));
+			assert.ok(
+				disposition.mapping.quality.startsWith('rejected_') ||
+					disposition.mapping.quality.startsWith('audited_')
+			);
 			assert.ok(fs.existsSync(disposition.checked_in_source.artifact), `${key} source missing`);
 		}
 
