@@ -10,9 +10,11 @@ distinct jobs) and drops V8 risk-band chrome from consumer surfaces.
 
 ## What this product is
 
-A Singapore worker looking up a job. The page answers how much AI task overlap
-that occupation has, then shows pay and named demand as separate facts. It is
-not a job-loss meter, a dashboard, or a methods appendix.
+A compact, evidence-rich Singapore work explorer. A worker can search a familiar
+job title, open the final occupation in one action, scan AI task pressure, pay,
+named demand and available capability evidence, and decide what to inspect or
+try next. It is not a job-loss meter or a methods appendix. Its data-workspace
+density is intentional.
 
 ## Stack
 
@@ -79,14 +81,14 @@ Weights: Grotesk 400 / 500 / 700 / 900. Plex Mono 400 / 500 / 600 with
 
 ## Colour
 
-Warm paper (`#f6f5f0` / card `#fffefb`), ink `#171714`, cobalt primary `#2457d6`.
-`--accent` is a warm mute (`#ece8dc`) so `hover:bg-accent` is a quiet chrome
-change, not a primary fill.
+Use white cards, cool-neutral subtle surfaces, near-black ink and cobalt for
+links, focus and selected controls. Avoid warm paper as the dominant page tint.
 
-**Pressure** is the only sequential colour on V9 occupation surfaces. Teal steps
-must stay separable at a glance:
-
-`0 #e7f6f1 → 20 #6fd0b8 → 40 #1a9e88 → 60 #0b6f63 → 80 #044840 → 100 #012824`
+**Pressure** is the primary sequential colour on V9 occupation surfaces. Restore
+the compact green-to-gold-to-orange-to-red continuum from the earlier product,
+with accessible foregrounds and text labels at every important reading. It
+means lower-to-higher relative task pressure, never safe-to-doomed or a job-loss
+probability.
 
 Unranked uses `--color-pressure-unranked` plus `.unranked-hatch`. Never encode
 missing evidence as a low-pressure colour.
@@ -94,8 +96,9 @@ missing evidence as a low-pressure colour.
 Do not legend pressure as “Gradient 1–4”. Those are ILO codebook labels and
 belong in How-calculated / methodology.
 
-Family colours are categorical and never encode pressure. Evidence and action
-colours are separate channels. Archive V8 `risk-*` / `impact-*` tokens remain
+Family colours are categorical and never encode pressure. Keep them to small
+badges, radar lines and legends rather than page chrome. Active V9 surfaces do
+not use coloured left borders. Archive V8 `risk-*` / `impact-*` tokens remain
 for dated reports; new V9 UI uses `pressureBadge`, not `riskBadge`.
 
 No hardcoded Tailwind palette classes (`bg-teal-700`, `text-emerald-600`) on
@@ -116,10 +119,11 @@ Product variants in `design-system.ts`: `display`, `title`, `sectionLabel`,
 `riskBadge` / `impactBadge` are archive-only. Do not introduce them on `/`,
 `/occupation`, `/roles`, `/explore`, or V9 rankings.
 
-The homepage and Explore overview chart is a **named grouped map**: nine spoken
-major-group labels (`Managers`, `Professionals`, …), sized by occupation count,
-coloured by median pressure. Zoom or filter before showing equal-area occupation
-tiles. Do not size by employment or wage.
+The homepage and Explore share a compact, connected flagship workspace with a
+persistent filter rail and four tabs: Occupation map, Pressure & pay, Named
+demand and Distribution. The map shows equal-area occupation leaves inside
+spoken major-group boundaries. A visible occupation opens its final page in one
+action. Do not size a leaf by employment, wage, task count or inferred risk.
 
 Command palette: name the combobox (“Search occupations and pages”). Keep
 dialog title/description **inside** `Dialog.Content` so closed chrome does not
@@ -142,8 +146,11 @@ See `/human-product-copy`. The design implications:
 **Do**
 
 - One search on the homepage body. Header ⌘K stays a site-wide palette.
-- Grouped occupation overview on home; 1,001-tile map stays in Explore.
-- Sequential teal with a word label. ILO strings in How-calculated.
+- Keep the search, filters and start of the flagship workspace above the fold
+  at 1,440 by 900.
+- Let a visible occupation tile or known official alias reach its final
+  occupation in one action.
+- Sequential pressure colour with a word label. ILO strings in How-calculated.
 - Withheld roles: no family radar pretending the title is a scored occupation.
 
 **Don’t**
@@ -153,13 +160,16 @@ See `/human-product-copy`. The design implications:
 - Outfit, Geist Mono, or Inter as the job-title face.
 - Net-risk meters, employment-sized treemaps, or reconnecting archived V8
   Treemap / DriverWaterfall / DemandPressureMatrix / TransitionGraph unchanged.
+- Coloured left-border decoration on active V9 cards, lists or results.
+- Selection panels that ask a visitor to confirm an occupation they already
+  selected.
 - Changing the V9 headline formula.
 
 ## Page signature
 
-Occupation pages: spoken H1, then the percentile as the page (Plex Mono),
-with Compare/Save/Share beside it and pay plus named demand as supporting
-facts. The official definition sits behind a disclosure. Home opens on a
-named grouped map — nine labelled groups, then named occupations after a
-click — never 1,001 unlabelled tiles. The memorable thing is the large
-number on warm paper with a teal mark.
+Occupation pages: spoken H1, then the percentile as the page (Plex Mono), with
+Compare/Save/Share beside it and pay plus named demand as supporting facts. The
+official definition sits behind a disclosure. Home opens on the detailed
+occupation workspace with equal-area leaves grouped by nine labelled major
+groups, direct links and persistent filters. The memorable thing is the large
+number, compact evidence hierarchy and meaningful pressure colour.

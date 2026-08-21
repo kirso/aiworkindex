@@ -1,5 +1,9 @@
 # Rebuild AI Work Index V9 as a useful Singapore career product
 
+> Historical implementation record. The current completion decisions and remaining work are owned
+> by `docs/exec-plans/v9-product-and-evidence-completion.md`. In particular, its compact detailed
+> flagship and one-click destination decisions supersede this plan's category-first homepage choice.
+
 This ExecPlan is a living document. The sections `Progress`, `Surprises & Discoveries`,
 `Decision Log`, and `Outcomes & Retrospective` must be kept up to date as work proceeds.
 
