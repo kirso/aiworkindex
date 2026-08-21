@@ -234,6 +234,38 @@ const skillsPilot = readJson<{
 	occupation_status: Record<string, string>;
 	profiles: Record<string, unknown>;
 }>(path.join(STATIC_DATA, 'v9-skills-pilot.json'));
+const evidenceVector = readJson<{
+	schema_version: string;
+	release: string;
+	generated_at: string;
+	snapshot_id: string;
+	headline_effect: string;
+	construct: string;
+	claim_boundary: string;
+	coverage: {
+		ssoc_occupations: number;
+		shared_pressure_capability_subset: number;
+		dimensions: Record<string, number>;
+		pattern_counts: Record<string, number>;
+	};
+	records: Array<{ occupation: { ssoc2024: string }; patterns: unknown[] }>;
+}>(path.join(STATIC_DATA, 'v9-evidence-vector.json'));
+const signalChange = readJson<{
+	schema_version: string;
+	release: string;
+	generated_at: string;
+	headline_effect: string;
+	construct: string;
+	claim_boundary: string;
+	baseline_snapshot: { id: string; artifact: string; status: string };
+	pressure_change: {
+		status: string;
+		current_snapshot: string;
+		previous_comparable_snapshot: null;
+	};
+	observed_changes: Array<{ key: string; change_pct?: number }>;
+	withheld_change_products: Record<string, string>;
+}>(path.join(STATIC_DATA, 'v9-signal-change.json'));
 const roleRelease = readJson<{
 	schema_version: string;
 	taxonomy: string;
@@ -287,6 +319,11 @@ const uiIndex = readJson<{
 		queryAliases: string[];
 		capabilityProximity: number | null;
 		capabilityDomains: unknown[];
+		theoreticalExposure: number | null;
+		observedUse: number | null;
+		theoryUseGap: number | null;
+		officialSkillProfileCount: number;
+		officialSkills: string[];
 	}>;
 	compare_entities: Array<{
 		id: string;
@@ -294,6 +331,11 @@ const uiIndex = readJson<{
 		queryAliases: string[];
 		capabilityProximity: number | null;
 		capabilityDomains: unknown[];
+		theoreticalExposure: number | null;
+		observedUse: number | null;
+		theoryUseGap: number | null;
+		officialSkillProfileCount: number;
+		officialSkills: string[];
 	}>;
 }>(path.join(STATIC_DATA, 'v9-ui-index.json'));
 const siteStatus = readJson<{
@@ -336,6 +378,27 @@ const siteStatus = readJson<{
 		headline_effect: string;
 		coverage: typeof skillsPilot.coverage;
 	};
+	evidence_vector: {
+		status: string;
+		artifact: string;
+		change_artifact: string;
+		report: string;
+		generated_at: string;
+		snapshot_id: string;
+		construct: string;
+		headline_effect: string;
+		claim_boundary: string;
+		coverage: typeof evidenceVector.coverage;
+		change_ledger: {
+			generated_at: string;
+			construct: string;
+			headline_effect: string;
+			claim_boundary: string;
+			baseline_snapshot: typeof signalChange.baseline_snapshot;
+			observed_change_count: number;
+			withheld_change_products: Record<string, string>;
+		};
+	};
 	role_query_layer: {
 		status: string;
 		artifact: string;
@@ -377,7 +440,7 @@ const siteStatus = readJson<{
 		};
 		quarterly_comparison: {
 			status: string;
-			current_snapshot: null;
+			current_snapshot: string;
 			previous_snapshot: null;
 		};
 		research_review_cutoff: string;
@@ -803,6 +866,18 @@ assert.equal(
 	uiIndex.compare_entities.filter(entry => entry.capabilityProximity != null).length,
 	capabilityProfiles.coverage.available_reviewed_identity_profiles
 );
+assert.equal(
+	uiIndex.compare_entities.filter(entry => entry.theoreticalExposure != null).length,
+	researchSignals.coverage.eloundou_theoretical_exposure_available
+);
+assert.equal(
+	uiIndex.compare_entities.filter(entry => entry.observedUse != null).length,
+	researchSignals.coverage.anthropic_observed_exposure_available
+);
+assert.equal(
+	uiIndex.compare_entities.filter(entry => entry.officialSkillProfileCount > 0).length,
+	skillsPilot.coverage.unique_occupations
+);
 assert(
 	uiIndex.checker_entries.every(entry =>
 		entry.capabilityProximity == null
@@ -842,6 +917,7 @@ assert.deepEqual(Object.keys(siteStatus).sort(), [
 	'archives',
 	'capability_profiles',
 	'economic_observatory',
+	'evidence_vector',
 	'external_comparisons',
 	'homepage_banner',
 	'live_monitor',
@@ -883,6 +959,49 @@ assert.deepEqual(skillsPilot.coverage, {
 });
 assert.equal(Object.keys(skillsPilot.occupation_status).length, 1001);
 assert.equal(Object.keys(skillsPilot.profiles).length, 6);
+assert.equal(evidenceVector.schema_version, '9.0');
+assert.equal(evidenceVector.release, 'V9');
+assert.equal(evidenceVector.construct, 'multi_signal_occupation_evidence_vector');
+assert.equal(evidenceVector.headline_effect, 'none_except_existing_task_pressure_owner');
+assert.match(evidenceVector.claim_boundary, /does not average them/);
+assert.equal(evidenceVector.records.length, 1001);
+assert.equal(new Set(evidenceVector.records.map(record => record.occupation.ssoc2024)).size, 1001);
+assert.deepEqual(evidenceVector.coverage.dimensions, {
+	task_pressure: 987,
+	capability_proximity: 75,
+	theoretical_exposure: 75,
+	observed_use: 73,
+	direct_pay: 523,
+	named_demand: 37,
+	broad_labour_context: 990,
+	official_skills: 6
+});
+assert.deepEqual(evidenceVector.coverage.pattern_counts, {
+	capability_proximity_above_task_pressure: 18,
+	high_pressure_with_named_demand: 17,
+	high_pressure_with_official_skill_path: 4,
+	task_pressure_above_capability_proximity: 19,
+	technical_scope_ahead_of_observed_use: 51
+});
+assert(!JSON.stringify(evidenceVector).includes('composite_score'));
+assert.equal(signalChange.schema_version, '9.0');
+assert.equal(signalChange.release, 'V9');
+assert.equal(signalChange.headline_effect, 'none');
+assert.equal(signalChange.pressure_change.status, 'baseline_only');
+assert.equal(signalChange.pressure_change.previous_comparable_snapshot, null);
+assert.equal(signalChange.observed_changes.length, 10);
+assert.equal(signalChange.observed_changes[0]?.key, 'national_job_vacancies');
+assert.equal(signalChange.observed_changes[0]?.change_pct, -5.6628);
+assert.equal(siteStatus.evidence_vector.artifact, 'v9-evidence-vector.json');
+assert.equal(siteStatus.evidence_vector.change_artifact, 'v9-signal-change.json');
+assert.equal(siteStatus.evidence_vector.report, '/reports/evidence-patterns');
+assert.equal(siteStatus.evidence_vector.snapshot_id, evidenceVector.snapshot_id);
+assert.deepEqual(siteStatus.evidence_vector.coverage, evidenceVector.coverage);
+assert.equal(siteStatus.evidence_vector.change_ledger.observed_change_count, 10);
+assert.deepEqual(
+	siteStatus.evidence_vector.change_ledger.withheld_change_products,
+	signalChange.withheld_change_products
+);
 assert.equal(
 	siteStatus.role_query_layer.status,
 	'official_resolutions_composites_and_withheld_queries'
@@ -976,7 +1095,10 @@ assert.equal(
 	siteStatus.live_monitor.quarterly_comparison.status,
 	'withheld_until_two_comparable_v9_snapshots'
 );
-assert.equal(siteStatus.live_monitor.quarterly_comparison.current_snapshot, null);
+assert.equal(
+	siteStatus.live_monitor.quarterly_comparison.current_snapshot,
+	evidenceVector.snapshot_id
+);
 assert.equal(siteStatus.live_monitor.quarterly_comparison.previous_snapshot, null);
 assert.equal(siteStatus.live_monitor.research_review_cutoff, researchLibrary.review_cutoff);
 assert.equal(siteStatus.live_monitor.research_record_count, researchLibrary.entry_count);
@@ -1063,6 +1185,8 @@ assert(manifest.artifacts.some(artifact => artifact.file === 'v9-economic-observ
 assert(manifest.artifacts.some(artifact => artifact.file === 'v9-capability-profiles.json'));
 assert(manifest.artifacts.some(artifact => artifact.file === 'v9-research-signals.json'));
 assert(manifest.artifacts.some(artifact => artifact.file === 'v9-skills-pilot.json'));
+assert(manifest.artifacts.some(artifact => artifact.file === 'v9-evidence-vector.json'));
+assert(manifest.artifacts.some(artifact => artifact.file === 'v9-signal-change.json'));
 assert(manifest.artifacts.some(artifact => artifact.file === 'releases.json'));
 assert(fs.existsSync(path.join(STATIC_DATA, 'sg-ai-occupations-v8.json')));
 assert.equal(fs.existsSync(path.join(STATIC_DATA, 'global', 'occupations.json')), false);
@@ -1083,6 +1207,8 @@ const currentMachineArtifacts = new Set([
 	'/data/v9-capability-profiles.json',
 	'/data/v9-research-signals.json',
 	'/data/v9-skills-pilot.json',
+	'/data/v9-evidence-vector.json',
+	'/data/v9-signal-change.json',
 	'/data/v9-search-index.json',
 	'/data/v9-ui-index.json'
 ]);
@@ -1116,6 +1242,9 @@ assert(llms.includes('/data/v9-research-signals.json'));
 assert(llms.includes('/reports/research-signals'));
 assert(llms.includes('/data/v9-skills-pilot.json'));
 assert(llms.includes('/reports/skills-pilot'));
+assert(llms.includes('/data/v9-evidence-vector.json'));
+assert(llms.includes('/data/v9-signal-change.json'));
+assert(llms.includes('/reports/evidence-patterns'));
 assert(llmsFull.includes('Official occupations without a pressure rank'));
 for (const role of roleRelease.roles) {
 	const expectedUrl =
@@ -1168,6 +1297,7 @@ for (const route of [
 	'/reports/labour-observatory',
 	'/reports/research-signals',
 	'/reports/skills-pilot',
+	'/reports/evidence-patterns',
 	'/will-ai-take-my-job',
 	'/compare',
 	'/roles',

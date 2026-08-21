@@ -90,6 +90,57 @@
       "unavailable_outside_pilot": 995
     }
   },
+  "evidence_vector": {
+    "status": "published_separate_dimensions_and_comparable_change_only",
+    "artifact": "v9-evidence-vector.json",
+    "change_artifact": "v9-signal-change.json",
+    "report": "/reports/evidence-patterns",
+    "generated_at": "2026-08-22",
+    "snapshot_id": "v9-evidence-2026-08-22",
+    "construct": "multi_signal_occupation_evidence_vector",
+    "headline_effect": "none_except_existing_task_pressure_owner",
+    "claim_boundary": "An aligned view of separate evidence dimensions. It does not average them, estimate job loss or transfer broad context into a detailed occupation outcome.",
+    "coverage": {
+      "ssoc_occupations": 1001,
+      "shared_pressure_capability_subset": 75,
+      "dimensions": {
+        "task_pressure": 987,
+        "capability_proximity": 75,
+        "theoretical_exposure": 75,
+        "observed_use": 73,
+        "direct_pay": 523,
+        "named_demand": 37,
+        "broad_labour_context": 990,
+        "official_skills": 6
+      },
+      "pattern_counts": {
+        "capability_proximity_above_task_pressure": 18,
+        "high_pressure_with_named_demand": 17,
+        "high_pressure_with_official_skill_path": 4,
+        "task_pressure_above_capability_proximity": 19,
+        "technical_scope_ahead_of_observed_use": 51
+      }
+    },
+    "change_ledger": {
+      "generated_at": "2026-08-22",
+      "construct": "signal_specific_change_ledger",
+      "headline_effect": "none",
+      "claim_boundary": "Change is reported only when the same construct, source family and grain are comparable. A market update is never relabelled as a change in AI Work Pressure.",
+      "baseline_snapshot": {
+        "id": "v9-evidence-2026-08-22",
+        "artifact": "snapshots/v9-evidence-2026-08-22.json",
+        "status": "first_comparable_v9_evidence_snapshot"
+      },
+      "observed_change_count": 10,
+      "withheld_change_products": {
+        "quarterly_pressure_movers": "needs_second_comparable_v9_pressure_snapshot",
+        "detailed_demand_movers": "needs_repeated_same-grain occupation demand source",
+        "direct_wage_movers": "needs_repeated SSOC 2024 detailed wage table",
+        "observed_use_movers": "needs_second comparable source release and stable occupation mapping",
+        "capability_movers": "needs_second comparable OECD capability release"
+      }
+    }
+  },
   "role_query_layer": {
     "status": "official_resolutions_composites_and_withheld_queries",
     "artifact": "synthetic-roles-v9.json",
@@ -168,7 +219,7 @@
     },
     "quarterly_comparison": {
       "status": "withheld_until_two_comparable_v9_snapshots",
-      "current_snapshot": null,
+      "current_snapshot": "v9-evidence-2026-08-22",
       "previous_snapshot": null
     },
     "research_review_cutoff": "2026-08-19",

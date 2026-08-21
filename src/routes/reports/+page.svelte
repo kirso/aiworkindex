@@ -8,6 +8,7 @@
 	const capabilityCoverage = siteStatus.capability_profiles.coverage;
 	const researchCoverage = siteStatus.external_comparisons.separate_signal_coverage;
 	const skillsCoverage = siteStatus.official_skills_pilot.coverage;
+	const evidenceCoverage = siteStatus.evidence_vector.coverage;
 
 	const archivedReports = [
 		{
@@ -78,10 +79,29 @@
 	<section class="mt-8">
 		<h2 class={sectionLabel()}>Current reports</h2>
 		<div class="mt-3 space-y-4">
+			<a href="/reports/evidence-patterns" class="block no-underline">
+				<article
+					class={cn(card({ padding: 'lg', hover: true }), 'sm:flex sm:items-start sm:justify-between')}
+				>
+					<div>
+						<div class="flex flex-wrap items-center gap-2">
+							<h3 class="text-lg font-semibold text-foreground">Where the evidence disagrees</h3>
+							<span class={badge({ variant: 'info' })}>Eight separate signals</span>
+						</div>
+						<p class="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+							Compare task pressure, capability, observed use, pay, demand, labour context and
+							official skills without folding them into one score. Includes {evidenceCoverage.shared_pressure_capability_subset}
+							reviewed pressure–capability comparisons and the first V9 change baseline.
+						</p>
+					</div>
+					<span aria-hidden="true" class="mt-3 block text-primary sm:ml-6 sm:mt-1">→</span>
+				</article>
+			</a>
+
 			<a href="/reports/skills-pilot" class="block no-underline">
 				<article
 					class={cn(
-						card({ padding: 'lg', hover: true, accent: 'primary' }),
+						card({ padding: 'lg', hover: true }),
 						'sm:flex sm:items-start sm:justify-between'
 					)}
 				>
@@ -102,7 +122,7 @@
 			<a href="/reports/research-signals" class="block no-underline">
 				<article
 					class={cn(
-						card({ padding: 'lg', hover: true, accent: 'moderate' }),
+						card({ padding: 'lg', hover: true }),
 						'sm:flex sm:items-start sm:justify-between'
 					)}
 				>
@@ -126,7 +146,7 @@
 			<a href="/reports/ai-capabilities" class="block no-underline">
 				<article
 					class={cn(
-						card({ padding: 'lg', hover: true, accent: 'primary' }),
+						card({ padding: 'lg', hover: true }),
 						'sm:flex sm:items-start sm:justify-between'
 					)}
 				>
@@ -148,7 +168,7 @@
 			<a href="/reports/v9-release" class="block no-underline">
 				<article
 					class={cn(
-						card({ padding: 'lg', hover: true, accent: 'primary' }),
+						card({ padding: 'lg', hover: true }),
 						'sm:flex sm:items-start sm:justify-between'
 					)}
 				>
@@ -195,7 +215,7 @@
 			<a href="/reports/labour-observatory" class="block no-underline">
 				<article
 					class={cn(
-						card({ padding: 'lg', hover: true, accent: 'moderate' }),
+						card({ padding: 'lg', hover: true }),
 						'sm:flex sm:items-start sm:justify-between'
 					)}
 				>

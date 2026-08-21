@@ -50,6 +50,22 @@ const skillsPilot = JSON.parse(
 		sector_role_profiles: number;
 	};
 };
+const evidenceVector = JSON.parse(
+	fs.readFileSync(path.join(ROOT, 'data', 'v9-evidence-vector.json'), 'utf8')
+) as {
+	snapshot_id: string;
+	coverage: {
+		shared_pressure_capability_subset: number;
+		dimensions: Record<string, number>;
+		pattern_counts: Record<string, number>;
+	};
+};
+const signalChange = JSON.parse(
+	fs.readFileSync(path.join(ROOT, 'data', 'v9-signal-change.json'), 'utf8')
+) as {
+	pressure_change: { status: string; previous_comparable_snapshot: null; reason: string };
+	observed_changes: unknown[];
+};
 const scored = release.occupations
 	.filter(
 		(
@@ -102,6 +118,8 @@ The separate OECD 2026 capability layer publishes nine-domain profiles for ${cap
 
 The official Skills Framework pilot publishes selected skill names for ${skillsPilot.coverage.unique_occupations} occupations across ${skillsPilot.coverage.sectors} sectors and ${skillsPilot.coverage.sector_role_profiles} reviewed sector-role profiles. It supports practical gap checks and training discovery. It does not infer a person's skills, recommend a transition or change the pressure rank.
 
+The multi-signal evidence vector aligns pressure, OECD capability proximity, Eloundou theoretical scope, Anthropic observed use, direct pay, named demand, broad labour context and official skills by SSOC 2024 code. It does not average them into a score. Pressure and capability are compared only across the ${evidenceVector.coverage.shared_pressure_capability_subset} occupations that have both measures. The ${evidenceVector.snapshot_id} release is the first comparable V9 baseline, so pressure movers remain unavailable. The separate change ledger reports ${signalChange.observed_changes.length} compatible public labour changes at their own source grain.
+
 ## Primary pages and data
 
 - Methodology: ${SITE.url}/methodology
@@ -123,6 +141,9 @@ The official Skills Framework pilot publishes selected skill names for ${skillsP
 - Research signal data: ${SITE.url}/data/v9-research-signals.json
 - Official skills pilot: ${SITE.url}/reports/skills-pilot
 - Official skills pilot data: ${SITE.url}/data/v9-skills-pilot.json
+- Evidence pattern report: ${SITE.url}/reports/evidence-patterns
+- Multi-signal evidence vector: ${SITE.url}/data/v9-evidence-vector.json
+- Signal-specific change ledger: ${SITE.url}/data/v9-signal-change.json
 - Mapped ILO task evidence: ${SITE.url}/data/ilo-isco-task-evidence-v9.json
 - Full machine-readable guide: ${SITE.url}/llms-full.txt
 - Source repository: ${SITE.github}
@@ -191,6 +212,8 @@ ILO potential25 categories are: Not Exposed; Minimal Exposure; Exposed: Gradient
 - External comparison blocks inside the headline occupation artifact remain null. A separate identity-gated artifact publishes Eloundou theoretical exposure for ${researchSignals.coverage.eloundou_theoretical_exposure_available} occupations and Anthropic observed use for ${researchSignals.coverage.anthropic_observed_exposure_available}. Each published profile uses one reviewed detailed-title identity and one exact source occupation; broader and many-to-many transfers remain unavailable.
 - AIOE still lacks a verified SOC-edition bridge, and the complementarity proxy lacks a frozen source-level construct replication. The research-signal artifact and external crosswalk audit are available at ${SITE.url}/data/v9-research-signals.json and ${SITE.url}/data/v9-external-crosswalk-audit.json. Neither can change the headline rank.
 - The official Skills Framework pilot covers ${skillsPilot.coverage.unique_occupations} occupations across ${skillsPilot.coverage.sectors} sectors. It republishes selected skill names and source proficiency labels only; it does not infer worker skill levels or alter the headline.
+- The multi-signal evidence vector aligns eight separately sourced dimensions by SSOC 2024 code and publishes descriptive disagreement flags. It never averages the dimensions. Pressure-versus-capability ranks use only the ${evidenceVector.coverage.shared_pressure_capability_subset}-occupation shared subset; absent values stay null.
+- The ${evidenceVector.snapshot_id} evidence snapshot is the first longitudinal V9 baseline. The change ledger publishes ${signalChange.observed_changes.length} same-construct, same-grain labour changes. ${signalChange.pressure_change.reason}
 - Stale convenience-sample job postings are withheld from current-demand interpretation.
 - The 11 exact SSOC title duplicates use the official occupation URL. The 56 reviewed familiar-title guides have their own explanatory URL but quote the matched occupation's official score unchanged. The remaining role pages are either disclosed editorial composites or deliberately withheld queries. None is a government classification.
 
@@ -255,6 +278,9 @@ ${exactOfficialTitles.map(role => `- [${role.title}](${SITE.url}/occupation/${ro
 - Research signal data: ${SITE.url}/data/v9-research-signals.json
 - Official skills pilot: ${SITE.url}/reports/skills-pilot
 - Official skills pilot data: ${SITE.url}/data/v9-skills-pilot.json
+- Evidence pattern report: ${SITE.url}/reports/evidence-patterns
+- Multi-signal evidence vector: ${SITE.url}/data/v9-evidence-vector.json
+- Signal-specific change ledger: ${SITE.url}/data/v9-signal-change.json
 - Mapped ILO task evidence: ${SITE.url}/data/ilo-isco-task-evidence-v9.json
 
 Suggested citation: AI Work Index, Singapore AI Work Pressure V9, ${release.generated_at}, ${SITE.url}.

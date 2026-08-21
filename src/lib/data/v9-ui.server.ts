@@ -2,6 +2,8 @@ import { syntheticRolesV9 } from './synthetic-roles-v9';
 import { toV9OccupationView } from './v9-display';
 import { v9Counts, v9Occupations } from './v9';
 import { getV9CapabilityProfile } from './v9-capability-profiles';
+import { getV9ResearchSignalProfile } from './v9-research-signals';
+import { getV9SkillsPilotProfile } from './v9-skills-pilot';
 
 function capabilityFields(code: string) {
 	const profile = getV9CapabilityProfile(code);
@@ -29,6 +31,27 @@ function capabilityFields(code: string) {
 	};
 }
 
+function supportingEvidenceFields(code: string) {
+	const research = getV9ResearchSignalProfile(code);
+	const skills = getV9SkillsPilotProfile(code);
+	return {
+		theoreticalExposure: research?.eloundou_theoretical_exposure.value_0_1 ?? null,
+		observedUse: research?.anthropic_observed_exposure?.value_0_1 ?? null,
+		theoryUseGap: research?.derived_theory_use_gap?.value_0_1 ?? null,
+		skillsSectors: skills?.sector_profiles.map(profile => profile.sector) ?? [],
+		officialSkillProfileCount: skills?.sector_profiles.length ?? 0,
+		officialSkills: skills
+			? [
+					...new Set(
+						skills.sector_profiles.flatMap(profile =>
+							profile.technical_skills.map(skill => skill.name)
+						)
+					)
+				].slice(0, 6)
+			: []
+	};
+}
+
 const officialRoleAliasesByCode = new Map<string, string[]>();
 for (const role of syntheticRolesV9) {
 	if (role.official_status !== 'official_occupation_match' || !role.official_occupation) continue;
@@ -46,6 +69,7 @@ export function buildV9CheckerEntries() {
 		const view = toV9OccupationView(occupation);
 		const capability = capabilityFields(view.code);
 		const queryAliases = officialRoleAliases(view.code);
+		const supporting = supportingEvidenceFields(view.code);
 		return {
 			id: `occupation:${view.code}`,
 			kind: 'occupation' as const,
@@ -67,6 +91,7 @@ export function buildV9CheckerEntries() {
 			labourContext: view.labourContext?.summary ?? null,
 			mappingQuality: occupation.evidence.mapping_quality,
 			componentCount: null,
+			...supporting,
 			...capability
 		};
 	});
@@ -102,6 +127,12 @@ export function buildV9CheckerEntries() {
 			labourContext: null,
 			mappingQuality: 'editorial_component_mix',
 			componentCount: role.components.length,
+			theoreticalExposure: null,
+			observedUse: null,
+			theoryUseGap: null,
+			skillsSectors: [] as string[],
+			officialSkillProfileCount: 0,
+			officialSkills: [] as string[],
 			capabilityProximity: null,
 			capabilityDomains: [] as ReturnType<typeof capabilityFields>['capabilityDomains']
 		}));
@@ -115,6 +146,7 @@ export function buildV9CompareEntities() {
 		const capability = capabilityFields(view.code);
 		const exposure = occupation.genai_task_exposure;
 		const queryAliases = officialRoleAliases(view.code);
+		const supporting = supportingEvidenceFields(view.code);
 		return {
 			id: `occupation:${view.code}`,
 			kind: 'occupation' as const,
@@ -143,7 +175,7 @@ export function buildV9CompareEntities() {
 				? 'Named in a current official demand source'
 				: 'Absence is not evidence of weak demand',
 			labourContext: view.labourContext?.summary ?? null,
-			observedUse: occupation.comparison_evidence.observed_ai_use,
+			...supporting,
 			complementarity: occupation.comparison_evidence.potential_complementarity,
 			mapping: occupation.evidence.mapping_quality,
 			mappingDetail: exposure
@@ -187,6 +219,11 @@ export function buildV9CompareEntities() {
 			demandDetail: 'Component evidence only; not a role-level demand measure',
 			labourContext: null,
 			observedUse: null,
+			theoreticalExposure: null,
+			theoryUseGap: null,
+			skillsSectors: [] as string[],
+			officialSkillProfileCount: 0,
+			officialSkills: [] as string[],
 			complementarity: null,
 			mapping: 'editorial_component_mix',
 			mappingDetail: `${role.components.length} published SSOC 2024 components`,

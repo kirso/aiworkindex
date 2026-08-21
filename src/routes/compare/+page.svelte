@@ -138,6 +138,10 @@
 		return value == null ? 'No conservative profile' : `${(value * 100).toFixed(1)}/100`;
 	}
 
+	function researchText(value: number | null): string {
+		return value == null ? 'Not available' : `${(value * 100).toFixed(1)}/100`;
+	}
+
 	function wageText(entity: Entity): string {
 		if (entity.wage != null) return `SGD ${entity.wage.toLocaleString()}`;
 		return entity.kind === 'role' ? 'No role-level figure' : 'Not published';
@@ -169,8 +173,8 @@
 </script>
 
 <Seo
-	title="Compare Singapore Jobs: AI Task Pressure, Pay and Demand"
-	description="Compare up to four Singapore jobs across AI task pressure, mapped OECD capability proximity, MOM pay, named demand signals and title mapping."
+	title="Compare Singapore Jobs: AI Pressure, Use, Pay, Demand and Skills"
+	description="Compare up to four Singapore jobs across AI task pressure, OECD capabilities, theoretical LLM scope, observed Claude use, MOM pay, demand and official skills."
 	path="/compare"
 />
 
@@ -184,8 +188,8 @@
 			<p class={sectionLabel()}>Job comparison</p>
 			<h1 class={title({ size: 'page' })}>Compare jobs</h1>
 			<p class="mt-3 text-base leading-relaxed text-text-secondary">
-				Compare AI task overlap, mapped AI capabilities, published pay, named demand and how each
-				title is mapped. Each row answers one question.
+				Compare AI task pressure, mapped capabilities, possible scope, observed use, published pay,
+				named demand and official skills. Each row keeps its own source and meaning.
 			</p>
 		</div>
 		{#if selected.length > 0}
@@ -415,6 +419,42 @@
 				{/each}
 
 				<div class="matrix-label">
+					<strong>How much work is within LLM scope?</strong><span
+						>Eloundou theoretical exposure for reviewed occupation identities.</span
+					>
+				</div>
+				{#each selected as entity (entity.id)}
+					<div class="matrix-cell">
+						<p class="font-mono text-lg font-bold tabular-nums">
+							{researchText(entity.theoreticalExposure)}
+						</p>
+						<p class="mt-1 text-xs text-muted-foreground">
+							Technical scope from US task evidence; not Singapore adoption.
+						</p>
+					</div>
+				{/each}
+
+				<div class="matrix-label">
+					<strong>Is AI use showing up in practice?</strong><span
+						>Observed work-related Claude activity for the mapped US SOC.</span
+					>
+				</div>
+				{#each selected as entity (entity.id)}
+					<div class="matrix-cell">
+						<p class="font-mono text-lg font-bold tabular-nums">
+							{researchText(entity.observedUse)}
+						</p>
+						{#if entity.theoryUseGap != null}
+							<p class="mt-1 text-xs text-muted-foreground">
+								Possible scope is {(entity.theoryUseGap * 100).toFixed(1)} points higher than observed use.
+							</p>
+						{:else}
+							<p class="mt-1 text-xs text-muted-foreground">No compatible observed-use row.</p>
+						{/if}
+					</div>
+				{/each}
+
+				<div class="matrix-label">
 					<strong>How much current AI task overlap?</strong><span
 						>Relative position across scored Singapore occupations.</span
 					>
@@ -432,6 +472,25 @@
 									: pressureColorScale(entity.position)}
 							></div>
 						</div>
+					</div>
+				{/each}
+
+				<div class="matrix-label">
+					<strong>Is official skills guidance available?</strong><span
+						>Selected Singapore Skills Framework role profiles.</span
+					>
+				</div>
+				{#each selected as entity (entity.id)}
+					<div class="matrix-cell">
+						{#if entity.officialSkillProfileCount > 0}
+							<p class="text-sm font-bold">{entity.skillsSectors.join(' · ')}</p>
+							<p class="mt-1 text-xs leading-relaxed text-muted-foreground">
+								{entity.officialSkills.join(' · ')}
+							</p>
+						{:else}
+							<p class="text-sm font-bold">Outside the three-sector pilot</p>
+							<p class="mt-1 text-xs text-muted-foreground">No occupation-level fallback is used.</p>
+						{/if}
 					</div>
 				{/each}
 
@@ -487,7 +546,7 @@
 		<section class="mt-6 grid gap-4 sm:grid-cols-2 xl:hidden" aria-label="Job comparison cards">
 			{#each selected as entity (entity.id)}
 				<article class="min-w-0 border border-border bg-card">
-					<header class="border-t-4 border-primary bg-surface-subtle p-4">
+				<header class="border-b border-border bg-surface-subtle p-4">
 						<div class="flex items-start justify-between gap-3">
 							<div class="min-w-0">
 								<p class="text-xs text-muted-foreground">{entity.statusLabel}</p>
@@ -533,6 +592,18 @@
 							</p>
 						</div>
 						<div class="p-4">
+							<dt class="text-xs text-muted-foreground">Possible LLM scope</dt>
+							<dd class="mt-1 font-mono font-bold">
+								{researchText(entity.theoreticalExposure)}
+							</dd>
+							<p class="mt-1 text-xs text-muted-foreground">Eloundou technical exposure; US task evidence.</p>
+						</div>
+						<div class="p-4">
+							<dt class="text-xs text-muted-foreground">Observed AI use</dt>
+							<dd class="mt-1 font-mono font-bold">{researchText(entity.observedUse)}</dd>
+							<p class="mt-1 text-xs text-muted-foreground">Work-related Claude activity; not Singapore adoption.</p>
+						</div>
+						<div class="p-4">
 							<dt class="text-xs text-muted-foreground">Pay in Singapore</dt>
 							<dd class="mt-1 font-mono font-bold">{wageText(entity)}</dd>
 							<p class="mt-1 text-xs text-muted-foreground">{entity.wageLabel}</p>
@@ -541,6 +612,17 @@
 							<dt class="text-xs text-muted-foreground">Named demand sources</dt>
 							<dd class="mt-1 font-bold">{entity.demand}</dd>
 							<p class="mt-1 text-xs text-muted-foreground">{entity.demandDetail}</p>
+						</div>
+						<div class="p-4">
+							<dt class="text-xs text-muted-foreground">Official skills guidance</dt>
+							<dd class="mt-1 font-bold">
+								{entity.officialSkillProfileCount > 0
+									? entity.skillsSectors.join(' · ')
+									: 'Outside the three-sector pilot'}
+							</dd>
+							{#if entity.officialSkills.length > 0}
+								<p class="mt-1 text-xs text-muted-foreground">{entity.officialSkills.join(' · ')}</p>
+							{/if}
 						</div>
 						<div class="p-4">
 							<dt class="text-xs text-muted-foreground">How the title was matched</dt>

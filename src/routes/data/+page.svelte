@@ -10,6 +10,7 @@
 	const capabilityCoverage = siteStatus.capability_profiles.coverage;
 	const researchCoverage = siteStatus.external_comparisons.separate_signal_coverage;
 	const skillsCoverage = siteStatus.official_skills_pilot.coverage;
+	const evidenceCoverage = siteStatus.evidence_vector.coverage;
 
 	const datasetJsonLd = JSON.stringify({
 		'@context': 'https://schema.org',
@@ -19,7 +20,7 @@
 		identifier: `${SITE.url}/data#v9`,
 		url: `${SITE.url}/data`,
 		version: '9.0',
-		dateModified: '2026-08-21',
+		dateModified: '2026-08-22',
 		license: `${SITE.url}/data#licensing`,
 		spatialCoverage: { '@type': 'Country', name: 'Singapore' },
 		distribution: [
@@ -65,6 +66,16 @@
 			},
 			{
 				'@type': 'DataDownload',
+				contentUrl: `${SITE.url}/data/v9-evidence-vector.json`,
+				encodingFormat: 'application/json'
+			},
+			{
+				'@type': 'DataDownload',
+				contentUrl: `${SITE.url}/data/v9-signal-change.json`,
+				encodingFormat: 'application/json'
+			},
+			{
+				'@type': 'DataDownload',
 				contentUrl: `${SITE.url}/data/ilo-isco-task-evidence-v9.json`,
 				encodingFormat: 'application/json'
 			},
@@ -94,6 +105,9 @@
 		['economic_observatory', 'Separate V9 artifact covering six labour-economics mechanisms, broad occupation-group observations, detailed evidence availability and explicit publication gates. It has no headline effect.'],
 		['capability_profiles', `Separate OECD 2026 capability profiles for ${capabilityCoverage.available_reviewed_identity_profiles} occupations that pass an automated or explicit reviewed detailed-identity decision. Nine domains, source ranges and all 1,001 availability states are published; no value changes the pressure rank.`],
 		['official_skills_pilot', `Selected official Skills Framework labels for ${skillsCoverage.unique_occupations} occupations across ${skillsCoverage.sectors} sectors and ${skillsCoverage.sector_role_profiles} sector-role profiles. No value changes the pressure rank or infers a worker's skill level.`],
+		['evidence_vector.dimensions', `Eight separately sourced dimensions aligned by SSOC 2024 code. Coverage varies from ${evidenceCoverage.dimensions.official_skills} official-skills records to ${evidenceCoverage.dimensions.task_pressure} pressure records. They are never averaged into a combined score.`],
+		['evidence_vector.shared_subset_comparison', `Pressure and capability positions recomputed only across the ${evidenceCoverage.shared_pressure_capability_subset} occupations with both measures. The difference describes cross-construct disagreement, not risk.`],
+		['signal_change', 'Same-construct, same-source-family and same-grain changes only. The first V9 pressure snapshot is a baseline, so pressure movers remain unavailable until a second compatible snapshot exists.'],
 		['evidence', 'Mapping quality, sources, limitations and data cutoff.']
 	] as const;
 
@@ -116,7 +130,7 @@
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Data' }]} />
 
 	<div class="max-w-3xl">
-		<p class={sectionLabel()}>V9 · published 19 August · capability data added 21 August 2026</p>
+		<p class={sectionLabel()}>V9 · published 19 August · evidence baseline added 22 August 2026</p>
 		<h1 class="mt-2 {title({ size: 'page' })}">Download the Singapore occupation data</h1>
 		<p class={body({ class: 'mt-3 text-muted-foreground' })}>
 			The V9 release contains {v9Counts.occupations.toLocaleString()} numeric SSOC 2024 occupations.
@@ -233,6 +247,30 @@
 			<p class={caption({ class: 'mt-1' })}>
 				Selected official Skills Framework labels for {skillsCoverage.unique_occupations} occupations
 				 across ICT, financial services and healthcare, with mapping and source provenance.
+			</p>
+		</a>
+		<a
+			href="/data/v9-evidence-vector.json"
+			download
+			class={card({ padding: 'lg', hover: true })}
+		>
+			<p class={sectionLabel()}>Multi-signal evidence JSON</p>
+			<p class={body({ class: 'mt-2 font-medium' })}>v9-evidence-vector.json</p>
+			<p class={caption({ class: 'mt-1' })}>
+				Eight evidence dimensions aligned across 1,001 occupations, with shared-subset comparisons,
+				descriptive pattern flags and explicit nulls. No composite score.
+			</p>
+		</a>
+		<a
+			href="/data/v9-signal-change.json"
+			download
+			class={card({ padding: 'lg', hover: true })}
+		>
+			<p class={sectionLabel()}>Comparable change JSON</p>
+			<p class={body({ class: 'mt-2 font-medium' })}>v9-signal-change.json</p>
+			<p class={caption({ class: 'mt-1' })}>
+				Public labour changes compared at their source grain, plus the first frozen V9 evidence
+				baseline and explicit gates for unavailable movers.
 			</p>
 		</a>
 		<a

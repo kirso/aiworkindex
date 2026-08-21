@@ -38,6 +38,8 @@ ILO potential25 categories are: Not Exposed; Minimal Exposure; Exposed: Gradient
 - External comparison blocks inside the headline occupation artifact remain null. A separate identity-gated artifact publishes Eloundou theoretical exposure for 75 occupations and Anthropic observed use for 73. Each published profile uses one reviewed detailed-title identity and one exact source occupation; broader and many-to-many transfers remain unavailable.
 - AIOE still lacks a verified SOC-edition bridge, and the complementarity proxy lacks a frozen source-level construct replication. The research-signal artifact and external crosswalk audit are available at https://aiworkindex.com/data/v9-research-signals.json and https://aiworkindex.com/data/v9-external-crosswalk-audit.json. Neither can change the headline rank.
 - The official Skills Framework pilot covers 6 occupations across 3 sectors. It republishes selected skill names and source proficiency labels only; it does not infer worker skill levels or alter the headline.
+- The multi-signal evidence vector aligns eight separately sourced dimensions by SSOC 2024 code and publishes descriptive disagreement flags. It never averages the dimensions. Pressure-versus-capability ranks use only the 75-occupation shared subset; absent values stay null.
+- The v9-evidence-2026-08-22 evidence snapshot is the first longitudinal V9 baseline. The change ledger publishes 10 same-construct, same-grain labour changes. V9 has one frozen ILO 2025 pressure snapshot. Earlier model versions use different taxonomies and formulas.
 - Stale convenience-sample job postings are withheld from current-demand interpretation.
 - The 11 exact SSOC title duplicates use the official occupation URL. The 56 reviewed familiar-title guides have their own explanatory URL but quote the matched occupation's official score unchanged. The remaining role pages are either disclosed editorial composites or deliberately withheld queries. None is a government classification.
 
@@ -1175,6 +1177,9 @@ These 11 query labels normalize to an official SSOC 2024 title. Their role URLs 
 - Research signal data: https://aiworkindex.com/data/v9-research-signals.json
 - Official skills pilot: https://aiworkindex.com/reports/skills-pilot
 - Official skills pilot data: https://aiworkindex.com/data/v9-skills-pilot.json
+- Evidence pattern report: https://aiworkindex.com/reports/evidence-patterns
+- Multi-signal evidence vector: https://aiworkindex.com/data/v9-evidence-vector.json
+- Signal-specific change ledger: https://aiworkindex.com/data/v9-signal-change.json
 - Mapped ILO task evidence: https://aiworkindex.com/data/ilo-isco-task-evidence-v9.json
 
 Suggested citation: AI Work Index, Singapore AI Work Pressure V9, 2026-08-19, https://aiworkindex.com.

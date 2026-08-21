@@ -8,6 +8,7 @@
 	const capabilityCoverage = siteStatus.capability_profiles.coverage;
 	const researchCoverage = siteStatus.external_comparisons.separate_signal_coverage;
 	const skillsCoverage = siteStatus.official_skills_pilot.coverage;
+	const evidenceCoverage = siteStatus.evidence_vector.coverage;
 
 	const iloCategories = [
 		'Not Exposed',
@@ -115,7 +116,7 @@
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Methodology' }]} />
 
 	<div class="max-w-3xl">
-		<p class={sectionLabel()}>V9 headline · supporting data checked 21 August 2026</p>
+		<p class={sectionLabel()}>V9 headline · supporting data checked 22 August 2026</p>
 		<h1 class={cn(title({ size: 'page' }), 'mt-2')}>How AI Work Pressure is measured</h1>
 		<p class={body({ class: 'mt-4 text-muted-foreground' })}>
 			AI Work Pressure Rank compares the task exposure of a Singapore occupation with other scored
@@ -126,7 +127,7 @@
 	</div>
 
 	<section class="mt-8 grid gap-4 md:grid-cols-2">
-		<div class={card({ padding: 'lg', accent: 'high' })}>
+		<div class={card({ padding: 'lg' })}>
 			<h2 class="font-semibold text-foreground">What V9 measures</h2>
 			<p class={body({ class: 'mt-2 text-muted-foreground' })}>
 				How closely the tasks in an occupation overlap with capabilities assessed in the ILO's 2025
@@ -134,7 +135,7 @@
 				correspondence.
 			</p>
 		</div>
-		<div class={card({ padding: 'lg', accent: 'moderate' })}>
+		<div class={card({ padding: 'lg' })}>
 			<h2 class="font-semibold text-foreground">What V9 does not predict</h2>
 			<p class={body({ class: 'mt-2 text-muted-foreground' })}>
 				Whether an employer will adopt AI, which tasks will be delegated, how demand will respond,
@@ -147,7 +148,7 @@
 	<section id="skills-evidence" class="mt-12 scroll-mt-24">
 		<h2 class={sectionLabel()}>Official skills evidence</h2>
 		<div class="mt-3 grid gap-5 lg:grid-cols-[0.8fr_1.2fr]">
-			<div class={card({ padding: 'lg', accent: 'primary' })}>
+			<div class={card({ padding: 'lg' })}>
 				<p class="font-mono text-4xl font-semibold tabular-nums text-foreground">
 					{skillsCoverage.unique_occupations}
 				</p>
@@ -182,7 +183,7 @@
 	<section id="capability-evidence" class="mt-12 scroll-mt-24">
 		<h2 class={sectionLabel()}>Current AI capability evidence</h2>
 		<div class="mt-3 grid gap-5 lg:grid-cols-[0.8fr_1.2fr]">
-			<div class={card({ padding: 'lg', accent: 'primary' })}>
+			<div class={card({ padding: 'lg' })}>
 				<p class="font-mono text-4xl font-semibold tabular-nums text-foreground">
 					{capabilityCoverage.available_reviewed_identity_profiles}
 				</p>
@@ -266,6 +267,50 @@
 		</div>
 	</section>
 
+	<section id="evidence-synthesis" class="mt-12 scroll-mt-24">
+		<h2 class={sectionLabel()}>How V9 combines evidence without blending it</h2>
+		<div class="mt-3 grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
+			<div class="grid grid-cols-2 gap-px border border-border bg-border">
+				<div class="bg-card p-5">
+					<p class="font-mono text-4xl font-semibold tabular-nums text-foreground">
+						{evidenceCoverage.shared_pressure_capability_subset}
+					</p>
+					<p class="mt-1 text-sm font-medium text-foreground">shared comparisons</p>
+				</div>
+				<div class="bg-card p-5">
+					<p class="font-mono text-4xl font-semibold tabular-nums text-foreground">8</p>
+					<p class="mt-1 text-sm font-medium text-foreground">separate dimensions</p>
+				</div>
+			</div>
+			<div class="space-y-3 text-sm leading-relaxed text-muted-foreground">
+				<p>
+					Each occupation can have task pressure, capability proximity, theoretical scope,
+					observed use, direct pay, named demand, broad labour context and official skills. The
+					values share an SSOC code, but not a scale, geography or causal meaning, so V9 never
+					averages them.
+				</p>
+				<p>
+					Pressure and capability are compared only among occupations with both measures. V9
+					recomputes midrank percentiles inside that shared set, then flags gaps of at least 25
+					percentile points for investigation. These flags are descriptive—not a new ranking.
+				</p>
+				<p>
+					Change follows the same rule: compare a measure only with a later release of the same
+					construct, source family and grain. The 22 August snapshot is the first compatible V9
+					baseline, so pressure movers cannot yet be reported.
+				</p>
+				<div class="flex flex-wrap gap-x-5 gap-y-2">
+					<a href="/reports/evidence-patterns" class="font-semibold text-primary underline"
+						>Explore signal disagreements</a
+					>
+					<a href="/data/v9-evidence-vector.json" class="text-primary underline"
+						>Download the evidence vector</a
+					>
+				</div>
+			</div>
+		</div>
+	</section>
+
 	<section class="mt-12">
 		<h2 class={sectionLabel()}>The headline calculation</h2>
 		<div class={cn(card({ padding: 'lg', variant: 'inset' }), 'mt-3 space-y-3')}>
@@ -326,7 +371,7 @@
 			assessment.
 		</p>
 		<div
-			class={cn(card({ padding: 'md', variant: 'notice', accent: 'primary' }), 'mt-4 max-w-4xl')}
+			class={cn(card({ padding: 'md', variant: 'notice' }), 'mt-4 max-w-4xl')}
 		>
 			<h3 class="font-semibold text-foreground">How task examples appear on occupation pages</h3>
 			<p class={body({ class: 'mt-2 text-muted-foreground' })}>
@@ -457,7 +502,7 @@
 				</div>
 			{/each}
 		</div>
-		<div class={cn(card({ padding: 'lg', variant: 'notice', accent: 'primary' }), 'mt-4')}>
+		<div class={cn(card({ padding: 'lg', variant: 'notice' }), 'mt-4')}>
 			<h3 class="font-semibold text-foreground">What V9 can observe today</h3>
 			<p class={body({ class: 'mt-2 text-muted-foreground' })}>
 				V9 combines detailed task pressure with direct wages and named demand where available. It
@@ -525,7 +570,7 @@
 
 	<section id="synthetic-roles" class="mt-12 scroll-mt-24">
 		<h2 class={sectionLabel()}>Modern-title query layer</h2>
-		<div class={cn(card({ padding: 'lg', variant: 'notice', accent: 'primary' }), 'mt-3')}>
+		<div class={cn(card({ padding: 'lg', variant: 'notice' }), 'mt-3')}>
 			<p class="font-semibold text-foreground">
 				Direct reviewed matches resolve before a composite is built.
 			</p>

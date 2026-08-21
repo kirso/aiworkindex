@@ -20,6 +20,8 @@ const V9_ECONOMIC_OBSERVATORY_FILE = path.join(ROOT_DIR, 'data', 'v9-economic-ob
 const V9_CAPABILITY_PROFILES_FILE = path.join(ROOT_DIR, 'data', 'v9-capability-profiles.json');
 const V9_RESEARCH_SIGNALS_FILE = path.join(ROOT_DIR, 'data', 'v9-research-signals.json');
 const V9_SKILLS_PILOT_FILE = path.join(ROOT_DIR, 'data', 'v9-skills-pilot.json');
+const V9_EVIDENCE_VECTOR_FILE = path.join(ROOT_DIR, 'data', 'v9-evidence-vector.json');
+const V9_SIGNAL_CHANGE_FILE = path.join(ROOT_DIR, 'data', 'v9-signal-change.json');
 const V9_ROLES_FILE = path.join(ROOT_DIR, 'data', 'synthetic-roles-v9.json');
 const V9_EXTERNAL_AUDIT_FILE = path.join(ROOT_DIR, 'data', 'v9-external-crosswalk-audit.json');
 const RESEARCH_LIBRARY_FILE = path.join(ROOT_DIR, 'data', 'research-library.json');
@@ -155,6 +157,36 @@ type V9SkillsPilot = {
 	};
 };
 
+type V9EvidenceVector = {
+	generated_at: string;
+	snapshot_id: string;
+	construct: string;
+	headline_effect: string;
+	claim_boundary: string;
+	coverage: {
+		ssoc_occupations: number;
+		shared_pressure_capability_subset: number;
+		dimensions: Record<string, number>;
+		pattern_counts: Record<string, number>;
+	};
+};
+
+type V9SignalChange = {
+	generated_at: string;
+	headline_effect: 'none';
+	construct: string;
+	claim_boundary: string;
+	baseline_snapshot: { id: string; artifact: string; status: string };
+	pressure_change: {
+		status: 'baseline_only';
+		current_snapshot: string;
+		previous_comparable_snapshot: null;
+		reason: string;
+	};
+	observed_changes: unknown[];
+	withheld_change_products: Record<string, string>;
+};
+
 type ResearchLibrary = {
 	version: string;
 	review_cutoff: string;
@@ -186,6 +218,8 @@ const V9_ECONOMIC_OBSERVATORY = readJson<V9EconomicObservatory>(V9_ECONOMIC_OBSE
 const V9_CAPABILITY_PROFILES = readJson<V9CapabilityProfiles>(V9_CAPABILITY_PROFILES_FILE);
 const V9_RESEARCH_SIGNALS = readJson<V9ResearchSignals>(V9_RESEARCH_SIGNALS_FILE);
 const V9_SKILLS_PILOT = readJson<V9SkillsPilot>(V9_SKILLS_PILOT_FILE);
+const V9_EVIDENCE_VECTOR = readJson<V9EvidenceVector>(V9_EVIDENCE_VECTOR_FILE);
+const V9_SIGNAL_CHANGE = readJson<V9SignalChange>(V9_SIGNAL_CHANGE_FILE);
 const V9_ROLES = readJson<V9Roles>(V9_ROLES_FILE);
 const V9_EXTERNAL_AUDIT = readJson<V9ExternalAudit>(V9_EXTERNAL_AUDIT_FILE);
 const RESEARCH_LIBRARY = readJson<ResearchLibrary>(RESEARCH_LIBRARY_FILE);
@@ -447,6 +481,27 @@ function buildSiteStatus() {
 			headline_effect: V9_SKILLS_PILOT.headline_effect,
 			coverage: V9_SKILLS_PILOT.coverage
 		},
+		evidence_vector: {
+			status: 'published_separate_dimensions_and_comparable_change_only',
+			artifact: 'v9-evidence-vector.json',
+			change_artifact: 'v9-signal-change.json',
+			report: '/reports/evidence-patterns',
+			generated_at: V9_EVIDENCE_VECTOR.generated_at,
+			snapshot_id: V9_EVIDENCE_VECTOR.snapshot_id,
+			construct: V9_EVIDENCE_VECTOR.construct,
+			headline_effect: V9_EVIDENCE_VECTOR.headline_effect,
+			claim_boundary: V9_EVIDENCE_VECTOR.claim_boundary,
+			coverage: V9_EVIDENCE_VECTOR.coverage,
+			change_ledger: {
+				generated_at: V9_SIGNAL_CHANGE.generated_at,
+				construct: V9_SIGNAL_CHANGE.construct,
+				headline_effect: V9_SIGNAL_CHANGE.headline_effect,
+				claim_boundary: V9_SIGNAL_CHANGE.claim_boundary,
+				baseline_snapshot: V9_SIGNAL_CHANGE.baseline_snapshot,
+				observed_change_count: V9_SIGNAL_CHANGE.observed_changes.length,
+				withheld_change_products: V9_SIGNAL_CHANGE.withheld_change_products
+			}
+		},
 		role_query_layer: {
 			status: 'official_resolutions_composites_and_withheld_queries',
 			artifact: 'synthetic-roles-v9.json',
@@ -499,7 +554,7 @@ function buildSiteStatus() {
 			},
 			quarterly_comparison: {
 				status: 'withheld_until_two_comparable_v9_snapshots',
-				current_snapshot: null,
+				current_snapshot: V9_SIGNAL_CHANGE.pressure_change.current_snapshot,
 				previous_snapshot: null
 			},
 			research_review_cutoff: RESEARCH_LIBRARY.review_cutoff,

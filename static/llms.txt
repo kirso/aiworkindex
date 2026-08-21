@@ -20,6 +20,8 @@ The separate OECD 2026 capability layer publishes nine-domain profiles for 75 oc
 
 The official Skills Framework pilot publishes selected skill names for 6 occupations across 3 sectors and 7 reviewed sector-role profiles. It supports practical gap checks and training discovery. It does not infer a person's skills, recommend a transition or change the pressure rank.
 
+The multi-signal evidence vector aligns pressure, OECD capability proximity, Eloundou theoretical scope, Anthropic observed use, direct pay, named demand, broad labour context and official skills by SSOC 2024 code. It does not average them into a score. Pressure and capability are compared only across the 75 occupations that have both measures. The v9-evidence-2026-08-22 release is the first comparable V9 baseline, so pressure movers remain unavailable. The separate change ledger reports 10 compatible public labour changes at their own source grain.
+
 ## Primary pages and data
 
 - Methodology: https://aiworkindex.com/methodology
@@ -41,6 +43,9 @@ The official Skills Framework pilot publishes selected skill names for 6 occupat
 - Research signal data: https://aiworkindex.com/data/v9-research-signals.json
 - Official skills pilot: https://aiworkindex.com/reports/skills-pilot
 - Official skills pilot data: https://aiworkindex.com/data/v9-skills-pilot.json
+- Evidence pattern report: https://aiworkindex.com/reports/evidence-patterns
+- Multi-signal evidence vector: https://aiworkindex.com/data/v9-evidence-vector.json
+- Signal-specific change ledger: https://aiworkindex.com/data/v9-signal-change.json
 - Mapped ILO task evidence: https://aiworkindex.com/data/ilo-isco-task-evidence-v9.json
 - Full machine-readable guide: https://aiworkindex.com/llms-full.txt
 - Source repository: https://github.com/kirso/aiworkindex

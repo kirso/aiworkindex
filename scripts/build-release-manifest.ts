@@ -73,6 +73,24 @@ const definitions = [
 			'Selected official skill names for seven reviewed sector-role profiles across ICT, financial services and healthcare; no headline effect.'
 	},
 	{
+		file: 'v9-evidence-vector.json',
+		path: path.join(STATIC_DATA, 'v9-evidence-vector.json'),
+		public_path: '/data/v9-evidence-vector.json',
+		label: 'V9 multi-signal occupation evidence vector',
+		category: 'evidence_synthesis',
+		description:
+			'Eight evidence dimensions aligned by SSOC 2024 occupation without averaging them into a composite score.'
+	},
+	{
+		file: 'v9-signal-change.json',
+		path: path.join(STATIC_DATA, 'v9-signal-change.json'),
+		public_path: '/data/v9-signal-change.json',
+		label: 'V9 signal-specific change ledger',
+		category: 'longitudinal_evidence',
+		description:
+			'Comparable changes in public Singapore labour signals plus explicit gates for pressure and other unavailable movers.'
+	},
+	{
 		file: 'ilo-isco-task-evidence-v9.json',
 		path: path.join(STATIC_DATA, 'ilo-isco-task-evidence-v9.json'),
 		public_path: '/data/ilo-isco-task-evidence-v9.json',

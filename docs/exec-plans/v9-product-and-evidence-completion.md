@@ -69,7 +69,11 @@ agree or disagree instead of receiving a falsely precise average.
   headline remains unchanged.
 - [x] (2026-08-22) Milestone 5: expanded OECD mapping through reviewed identity decisions and shipped a small official
   Skills Framework / WSG pilot.
-- [ ] Milestone 6: build the versioned multi-signal evidence vector and longitudinal observatory.
+- [x] (2026-08-22) Milestone 6: published a one-record-per-occupation eight-dimension evidence
+  vector, shared-subset pressure-versus-capability comparisons, descriptive divergence flags, a
+  first frozen V9 baseline, a same-grain change ledger and consumer report. Compare now exposes
+  Eloundou theoretical scope, Anthropic observed use and official Skills Framework evidence where
+  available. No composite score or causal outcome was introduced.
 - [ ] Milestone 7: finish copy, SEO/AEO/GEO/LLMO, accessibility, performance, release generation,
   commits, push and pull-request handoff.
 
