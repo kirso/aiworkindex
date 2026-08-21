@@ -6,6 +6,7 @@
 	import Seo from '$lib/components/ui/Seo.svelte';
 
 	const v9Counts = siteStatus.structural_release.counts;
+	const researchCoverage = siteStatus.external_comparisons.separate_signal_coverage;
 
 	const evidenceFields = [
 		['construct', 'The concept being reported.'],
@@ -226,10 +227,10 @@
 		</p>
 		<p class="mt-2 max-w-3xl text-sm text-muted-foreground">
 			The four comparison fields inside the headline occupation artifact remain null for all 1,001
-			occupations. A separate artifact publishes Eloundou theoretical exposure for 68 reviewed
-			detailed-title identities and Anthropic observed use for 66 of them. This avoids a broad or
-			many-to-many aggregation and keeps the main score contract unchanged. AIOE still lacks a
-			verified SOC-edition bridge; the complementarity proxy still lacks a frozen source-level
+			occupations. A separate artifact publishes Eloundou theoretical exposure for {researchCoverage.eloundou_theoretical_exposure_available}
+			reviewed identities and Anthropic observed use for {researchCoverage.anthropic_observed_exposure_available}
+			of them. This avoids a broad or many-to-many aggregation and keeps the main score contract unchanged.
+			AIOE still lacks a verified SOC-edition bridge; the complementarity proxy still lacks a frozen source-level
 			construct replication. Every external signal has no headline effect.
 		</p>
 		<div class={cn(card({ padding: 'none' }), 'mt-3 overflow-hidden')}>
@@ -264,24 +265,26 @@
 		<h2 class={sectionLabel()}>OECD capability-profile contract</h2>
 		<div class={cn(card({ padding: 'lg', variant: 'inset' }), 'mt-3 space-y-3')}>
 			<p class={mono({ size: 'sm' })}>
-				candidate = official SSOC→ISCO candidate + exact ESCO→O*NET relation + identical O*NET code
+				candidate = official SSOC→ISCO candidate + official ESCO→O*NET relation + identical O*NET
+				code
 			</p>
 			<p class={mono({ size: 'sm' })}>
-				published profile = candidate + conservative official-title identity
+				published profile = candidate + conservative title rule or explicit reviewed identity
 			</p>
 			<p class="text-sm text-muted-foreground">
-				The official SSOC title retains parenthetical qualifiers and is split only into explicit
-				slash variants. Singularised tokens must appear as a contiguous phrase in the O*NET title
-				and at least one token must be occupation-specific. A one-word SSOC title must equal the
-				whole singularised O*NET title. Search synonyms and examples are not used.
+				The automated rule retains parenthetical qualifiers, splits only explicit slash variants and
+				requires contiguous occupation-specific title tokens. A small allow-list may accept an
+				official exact or close candidate after a dated title-and-definition review; every decision
+				publishes its rationale.
 			</p>
 			<p class="text-sm text-muted-foreground">
-				Of 1,001 occupations, 698 have at least one raw exact candidate and 68 pass detailed-title
-				identity. All 1,001 retain a status. The output keeps all nine OECD domain values, source
-				scales, O*NET codes, titles and the O*NET 2019-to-30.3 transfer limitation.
+				Of 1,001 occupations, 698 have at least one raw exact candidate, 68 pass the automated title
+				rule and seven more pass explicit review. All 1,001 retain a status. The output keeps all
+				nine OECD domain values, source scales, O*NET codes, titles and the O*NET 2019-to-30.3
+				transfer limitation.
 			</p>
 			<p class={mono({ size: 'sm' })}>
-				headline effect = none · close matches published = 0 · broader fallback = none
+				headline effect = none · reviewed close matches = 3 · fuzzy or group fallback = none
 			</p>
 		</div>
 	</section>

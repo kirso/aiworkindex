@@ -29,7 +29,7 @@ const capabilityProfiles = JSON.parse(
 	coverage: {
 		ssoc_occupations: number;
 		raw_exact_candidate_coverage: number;
-		available_exact_title_identity_profiles: number;
+		available_reviewed_identity_profiles: number;
 		unavailable_without_published_profile: number;
 	};
 };
@@ -39,6 +39,15 @@ const researchSignals = JSON.parse(
 	coverage: {
 		eloundou_theoretical_exposure_available: number;
 		anthropic_observed_exposure_available: number;
+	};
+};
+const skillsPilot = JSON.parse(
+	fs.readFileSync(path.join(ROOT, 'data', 'v9-skills-pilot.json'), 'utf8')
+) as {
+	coverage: {
+		sectors: number;
+		unique_occupations: number;
+		sector_role_profiles: number;
 	};
 };
 const scored = release.occupations
@@ -89,7 +98,9 @@ Wages, named demand evidence, external comparisons, adoption, and labour-market 
 
 The Singapore AI labour observatory follows six separate channels between task pressure and jobs: displacement; productivity and demand expansion; new work; human responsibility and complementarity; employer adoption and organisation; and worker adjustment. It publishes broad official observations at their source grain. It does not assign occupation-level job outcomes or a Jevons-style rebound effect without adoption, price, output and causal labour evidence.
 
-The separate OECD 2026 capability layer publishes nine-domain profiles for ${capabilityProfiles.coverage.available_exact_title_identity_profiles} occupations. Although ${capabilityProfiles.coverage.raw_exact_candidate_coverage} occupations have a raw exact crosswalk candidate, V9 publishes a profile only when the official SSOC detailed title also agrees with the O*NET title under a conservative rule. The other ${capabilityProfiles.coverage.unavailable_without_published_profile} occupations stay unavailable; they are not scored lower. Capability profiles do not change the pressure rank.
+The separate OECD 2026 capability layer publishes nine-domain profiles for ${capabilityProfiles.coverage.available_reviewed_identity_profiles} occupations. Most pass a conservative title rule; a small published allow-list records additional title-and-definition reviews. The other ${capabilityProfiles.coverage.unavailable_without_published_profile} occupations stay unavailable; they are not scored lower. Capability profiles do not change the pressure rank.
+
+The official Skills Framework pilot publishes selected skill names for ${skillsPilot.coverage.unique_occupations} occupations across ${skillsPilot.coverage.sectors} sectors and ${skillsPilot.coverage.sector_role_profiles} reviewed sector-role profiles. It supports practical gap checks and training discovery. It does not infer a person's skills, recommend a transition or change the pressure rank.
 
 ## Primary pages and data
 
@@ -110,6 +121,8 @@ The separate OECD 2026 capability layer publishes nine-domain profiles for ${cap
 - AI capability profile data: ${SITE.url}/data/v9-capability-profiles.json
 - Theoretical scope vs observed use: ${SITE.url}/reports/research-signals
 - Research signal data: ${SITE.url}/data/v9-research-signals.json
+- Official skills pilot: ${SITE.url}/reports/skills-pilot
+- Official skills pilot data: ${SITE.url}/data/v9-skills-pilot.json
 - Mapped ILO task evidence: ${SITE.url}/data/ilo-isco-task-evidence-v9.json
 - Full machine-readable guide: ${SITE.url}/llms-full.txt
 - Source repository: ${SITE.github}
@@ -169,7 +182,7 @@ ILO potential25 categories are: Not Exposed; Minimal Exposure; Exposed: Gradient
 ## Separate evidence
 
 - The attributed ILO task artifact retains all 3,265 task rows across 427 four-digit ISCO-08 groups. Occupation pages show bounded examples only through official SSOC-to-ISCO mappings. They are mapped examples, not exact five-digit SSOC duties, and they never change the headline rank.
-- The OECD capability artifact publishes nine capability domains for ${capabilityProfiles.coverage.available_exact_title_identity_profiles} occupations. Raw exact crosswalk candidates are only candidate generation; the official SSOC detailed title must also agree with the O*NET title. Missing profiles stay unavailable and do not change the ILO headline.
+- The OECD capability artifact publishes nine capability domains for ${capabilityProfiles.coverage.available_reviewed_identity_profiles} occupations. Raw crosswalk candidates are only candidate generation; publication also requires the conservative title rule or an explicit reviewed title-and-definition decision. Missing profiles stay unavailable and do not change the ILO headline.
 - MOM wages are direct observations for full-time resident employees in establishments with at least 25 employees. Missing rows stay null.
 - MOM named-demand signals are reviewed against SSOC 2024 titles and synonyms. Absence from a named list does not mean weak demand.
 - Q1 2026 labour evidence is broad occupation-group context. Q2 2026 figures are preliminary national context.
@@ -177,6 +190,7 @@ ILO potential25 categories are: Not Exposed; Minimal Exposure; Exposed: Gradient
 - Productivity-led demand expansion, sometimes described as rebound or a Jevons-style effect, is a mechanism to test rather than an assumed outcome. Detailed adoption, output or price elasticity, and new-task coverage are currently ${economicObservatory.coverage.detailed_ai_adoption}, ${economicObservatory.coverage.detailed_output_or_price_elasticity}, and ${economicObservatory.coverage.detailed_new_task_creation} occupations respectively.
 - External comparison blocks inside the headline occupation artifact remain null. A separate identity-gated artifact publishes Eloundou theoretical exposure for ${researchSignals.coverage.eloundou_theoretical_exposure_available} occupations and Anthropic observed use for ${researchSignals.coverage.anthropic_observed_exposure_available}. Each published profile uses one reviewed detailed-title identity and one exact source occupation; broader and many-to-many transfers remain unavailable.
 - AIOE still lacks a verified SOC-edition bridge, and the complementarity proxy lacks a frozen source-level construct replication. The research-signal artifact and external crosswalk audit are available at ${SITE.url}/data/v9-research-signals.json and ${SITE.url}/data/v9-external-crosswalk-audit.json. Neither can change the headline rank.
+- The official Skills Framework pilot covers ${skillsPilot.coverage.unique_occupations} occupations across ${skillsPilot.coverage.sectors} sectors. It republishes selected skill names and source proficiency labels only; it does not infer worker skill levels or alter the headline.
 - Stale convenience-sample job postings are withheld from current-demand interpretation.
 - The 11 exact SSOC title duplicates use the official occupation URL. The 56 reviewed familiar-title guides have their own explanatory URL but quote the matched occupation's official score unchanged. The remaining role pages are either disclosed editorial composites or deliberately withheld queries. None is a government classification.
 
@@ -239,6 +253,8 @@ ${exactOfficialTitles.map(role => `- [${role.title}](${SITE.url}/occupation/${ro
 - AI capability profile data: ${SITE.url}/data/v9-capability-profiles.json
 - Theoretical scope vs observed use: ${SITE.url}/reports/research-signals
 - Research signal data: ${SITE.url}/data/v9-research-signals.json
+- Official skills pilot: ${SITE.url}/reports/skills-pilot
+- Official skills pilot data: ${SITE.url}/data/v9-skills-pilot.json
 - Mapped ILO task evidence: ${SITE.url}/data/ilo-isco-task-evidence-v9.json
 
 Suggested citation: AI Work Index, Singapore AI Work Pressure V9, ${release.generated_at}, ${SITE.url}.

@@ -7,6 +7,9 @@
 
 	const v9Counts = siteStatus.structural_release.counts;
 	const roleLayer = siteStatus.role_query_layer;
+	const capabilityCoverage = siteStatus.capability_profiles.coverage;
+	const researchCoverage = siteStatus.external_comparisons.separate_signal_coverage;
+	const skillsCoverage = siteStatus.official_skills_pilot.coverage;
 
 	const datasetJsonLd = JSON.stringify({
 		'@context': 'https://schema.org',
@@ -57,6 +60,11 @@
 			},
 			{
 				'@type': 'DataDownload',
+				contentUrl: `${SITE.url}/data/v9-skills-pilot.json`,
+				encodingFormat: 'application/json'
+			},
+			{
+				'@type': 'DataDownload',
 				contentUrl: `${SITE.url}/data/ilo-isco-task-evidence-v9.json`,
 				encodingFormat: 'application/json'
 			},
@@ -79,12 +87,13 @@
 		['genai_task_exposure.pressure_rank', 'Midrank percentile among the 987 scored SSOC 2024 occupations.'],
 		['genai_task_exposure.scored_isco08_matches', 'Every scored official ISCO candidate and its source values.'],
 		['comparison_evidence', 'Nullable fields inside the headline occupation artifact. All four remain null so external research cannot silently enter the pressure score.'],
-		['research_signals', 'Separate identity-gated Eloundou theoretical exposure for 68 occupations and Anthropic observed-use evidence for 66. Includes all 1,001 availability states; no value changes the pressure rank.'],
+		['research_signals', `Separate identity-gated Eloundou theoretical exposure for ${researchCoverage.eloundou_theoretical_exposure_available} occupations and Anthropic observed-use evidence for ${researchCoverage.anthropic_observed_exposure_available}. Includes all 1,001 availability states; no value changes the pressure rank.`],
 		['singapore_market.wages', 'Direct MOM 2025 wage percentiles where published.'],
 		['market_evidence.demand_signals', 'Reviewed official demand-list matches where available; an empty array is not evidence of weak demand.'],
 		['market_evidence.labour_context_ref', 'Reference to broad occupation-group labour context in market_context; null when no published group context applies.'],
 		['economic_observatory', 'Separate V9 artifact covering six labour-economics mechanisms, broad occupation-group observations, detailed evidence availability and explicit publication gates. It has no headline effect.'],
-		['capability_profiles', 'Separate OECD 2026 capability profiles for 68 occupations that pass exact-crosswalk and conservative detailed-title identity. Nine domains, source ranges and all 1,001 availability states are published; no value changes the pressure rank.'],
+		['capability_profiles', `Separate OECD 2026 capability profiles for ${capabilityCoverage.available_reviewed_identity_profiles} occupations that pass an automated or explicit reviewed detailed-identity decision. Nine domains, source ranges and all 1,001 availability states are published; no value changes the pressure rank.`],
+		['official_skills_pilot', `Selected official Skills Framework labels for ${skillsCoverage.unique_occupations} occupations across ${skillsCoverage.sectors} sectors and ${skillsCoverage.sector_role_profiles} sector-role profiles. No value changes the pressure rank or infers a worker's skill level.`],
 		['evidence', 'Mapping quality, sources, limitations and data cutoff.']
 	] as const;
 
@@ -184,7 +193,8 @@
 			<p class={sectionLabel()}>AI capability profile JSON</p>
 			<p class={body({ class: 'mt-2 font-medium' })}>v9-capability-profiles.json</p>
 			<p class={caption({ class: 'mt-1' })}>
-				Nine OECD capability domains for 68 conservative detailed-title matches, plus an explicit
+				Nine OECD capability domains for {capabilityCoverage.available_reviewed_identity_profiles}
+				 reviewed detailed-identity matches, plus an explicit
 				availability status for all 1,001 occupations. No values change the pressure rank.
 			</p>
 		</a>
@@ -208,8 +218,21 @@
 			<p class={sectionLabel()}>Research comparison JSON</p>
 			<p class={body({ class: 'mt-2 font-medium' })}>v9-research-signals.json</p>
 			<p class={caption({ class: 'mt-1' })}>
-				Eloundou theoretical LLM scope for 68 reviewed identities and Anthropic observed Claude
-				use for 66. Includes source checksums, mapping rules and explicit missingness.
+				Eloundou theoretical LLM scope for {researchCoverage.eloundou_theoretical_exposure_available}
+				 reviewed identities and Anthropic observed Claude use for {researchCoverage.anthropic_observed_exposure_available}.
+				 Includes source checksums, mapping rules and explicit missingness.
+			</p>
+		</a>
+		<a
+			href="/data/v9-skills-pilot.json"
+			download
+			class={card({ padding: 'lg', hover: true })}
+		>
+			<p class={sectionLabel()}>Official skills pilot JSON</p>
+			<p class={body({ class: 'mt-2 font-medium' })}>v9-skills-pilot.json</p>
+			<p class={caption({ class: 'mt-1' })}>
+				Selected official Skills Framework labels for {skillsCoverage.unique_occupations} occupations
+				 across ICT, financial services and healthcare, with mapping and source provenance.
 			</p>
 		</a>
 		<a

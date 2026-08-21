@@ -1,0 +1,198 @@
+{
+  "schema_version": "9.0",
+  "reviewed_at": "2026-08-22",
+  "scope": "Selected official skill labels for a three-sector product pilot. This is not a copy of the source manuals.",
+  "rights_boundary": "Source publishers retain rights in the manuals. The pilot republishes only short skill names, proficiency labels, role identity and source links; it does not reproduce skill descriptions, task text or training catalogues.",
+  "sources": {
+    "ict": {
+      "sector": "Infocomm Technology",
+      "publisher": "Infocomm Media Development Authority",
+      "title": "Skills Framework for Infocomm Technology — Consolidated Career Maps",
+      "url": "https://www.imda.gov.sg/-/media/imda/images/programmes/skills-framework-for-ict/consolidated-career-maps.pdf",
+      "artifact_sha256": "77c15aa610a3f41b2043115359685d51f53a5afeaf5e180943b63e0cc3f44027",
+      "verification": "Current publisher PDF downloaded and reviewed on 2026-08-21.",
+      "sector_page": "https://www.imda.gov.sg/how-we-can-help/techskills-accelerator-tesa"
+    },
+    "financial_services": {
+      "sector": "Financial Services",
+      "publisher": "SkillsFuture Singapore and Workforce Singapore",
+      "title": "Skills Framework for Financial Services",
+      "url": "https://www.skillsfuture.gov.sg/docs/default-source/skills-framework/sfw_fin_booklet_fa_20190930.pdf?sfvrsn=7ee0c43c_3",
+      "artifact_sha256": null,
+      "verification": "Official indexed document text and role pages reviewed on 2026-08-21; the current publisher URL did not return a stable binary for local redistribution.",
+      "sector_page": "https://www.skillsfuture.gov.sg/skills-framework"
+    },
+    "healthcare": {
+      "sector": "Healthcare",
+      "publisher": "SkillsFuture Singapore, Workforce Singapore and Ministry of Health",
+      "title": "Skills Framework for Healthcare",
+      "url": "https://www.skillsfuture.gov.sg/docs/default-source/skills-framework/skillsfuture_skillsframework-for-healthcare-r18.pdf",
+      "artifact_sha256": null,
+      "verification": "Official indexed document text and current Healthcare framework page reviewed on 2026-08-21; the current publisher URL did not return a stable binary for local redistribution.",
+      "sector_page": "https://www.skillsfuture.gov.sg/initiatives/training-providers/skills-framework/hc"
+    }
+  },
+  "profiles": [
+    {
+      "sector_key": "ict",
+      "source_job_role": "Data Engineer",
+      "ssoc2024": "25213",
+      "expected_ssoc_title": "Data engineer",
+      "mapping_quality": "exact_title",
+      "mapping_rationale": "The official sector role and detailed SSOC occupation use the same title.",
+      "technical_skills": [
+        ["Data Design", "Level 3"],
+        ["Data Engineering", "Level 3"],
+        ["Data Governance", "Level 4"],
+        ["Data Migration", "Level 3"],
+        ["Security Architecture", "Level 3"],
+        ["System Integration", "Level 4"]
+      ],
+      "core_skills": [
+        ["Leadership", "Intermediate"],
+        ["Developing People", "Intermediate"],
+        ["Communication", "Intermediate"],
+        ["Transdisciplinary Thinking", "Intermediate"],
+        ["Computational Thinking", "Intermediate"]
+      ]
+    },
+    {
+      "sector_key": "ict",
+      "source_job_role": "AI / Machine Learning Engineer",
+      "ssoc2024": "25143",
+      "expected_ssoc_title": "Artificial intelligence/Machine learning engineer",
+      "mapping_quality": "exact_title",
+      "mapping_rationale": "The official sector role names the AI and machine-learning engineering occupation directly.",
+      "technical_skills": [
+        ["Business Needs Analysis", "Level 4"],
+        ["Computational Modelling", "Level 3"],
+        ["Data Engineering", "Level 3"],
+        ["Data Governance", "Level 4"],
+        ["Intelligent Reasoning", "Level 4"],
+        ["Test Planning", "Level 3"]
+      ],
+      "core_skills": [
+        ["Leadership", "Intermediate"],
+        ["Developing People", "Intermediate"],
+        ["Transdisciplinary Thinking", "Intermediate"],
+        ["Computational Thinking", "Intermediate"],
+        ["Communication", "Intermediate"]
+      ]
+    },
+    {
+      "sector_key": "ict",
+      "source_job_role": "Software Engineer",
+      "ssoc2024": "25121",
+      "expected_ssoc_title": "Software developer",
+      "mapping_quality": "reviewed_definition_equivalent",
+      "mapping_rationale": "The sector role's software design, development, testing and integration scope matches the detailed SSOC Software Developer occupation.",
+      "technical_skills": [
+        ["Applications Development", "Level 4"],
+        ["Applications Integration", "Level 4"],
+        ["Software Design", "Level 4"],
+        ["Software Testing", "Level 3"],
+        ["Quality Standards", "Level 4"],
+        ["System Integration", "Level 3"]
+      ],
+      "core_skills": [
+        ["Computational Thinking", "Intermediate"],
+        ["Problem Solving", "Intermediate"],
+        ["Lifelong Learning", "Intermediate"],
+        ["Communication", "Basic"],
+        ["Teamwork", "Intermediate"]
+      ]
+    },
+    {
+      "sector_key": "financial_services",
+      "source_job_role": "Data Engineer",
+      "ssoc2024": "25213",
+      "expected_ssoc_title": "Data engineer",
+      "mapping_quality": "exact_title",
+      "mapping_rationale": "The official sector role and detailed SSOC occupation use the same title; the skill list is specific to financial services.",
+      "technical_skills": [
+        ["Data Analytics and Computational Modelling", "Level 3"],
+        ["Data Collection and Analysis", "Level 3"],
+        ["Emerging Technology Synthesis", "Level 3"],
+        ["Programming and Coding", "Level 3"],
+        ["Software Configuration", "Level 3"]
+      ],
+      "core_skills": [
+        ["Sense Making", "Intermediate"],
+        ["Problem Solving", "Intermediate"],
+        ["Digital Literacy", "Intermediate"],
+        ["Resource Management", "Intermediate"],
+        ["Transdisciplinary Thinking", "Basic"]
+      ]
+    },
+    {
+      "sector_key": "financial_services",
+      "source_job_role": "Underwriting Executive",
+      "ssoc2024": "24160",
+      "expected_ssoc_title": "Insurance underwriter",
+      "mapping_quality": "reviewed_definition_equivalent",
+      "mapping_rationale": "The sector role performs the risk assessment and underwriting work named by the detailed SSOC occupation.",
+      "technical_skills": [
+        ["Credit Assessment", "Level 3"],
+        ["Data Collection and Analysis", "Level 3"],
+        ["Fraud Risk Management", "Level 3"],
+        ["Risk Analytics", "Level 3"],
+        ["Underwriting Process", "Level 3"],
+        ["Regulatory Compliance", "Level 3"]
+      ],
+      "core_skills": [
+        ["Sense Making", "Basic"],
+        ["Service Orientation", "Basic"],
+        ["Interpersonal Skills", "Basic"],
+        ["Decision Making", "Basic"],
+        ["Problem Solving", "Basic"]
+      ]
+    },
+    {
+      "sector_key": "healthcare",
+      "source_job_role": "Physiotherapist",
+      "ssoc2024": "22640",
+      "expected_ssoc_title": "Physiotherapist",
+      "mapping_quality": "exact_title",
+      "mapping_rationale": "The official sector role and detailed SSOC occupation use the same title.",
+      "technical_skills": [
+        ["Client Assessment for Physiotherapy", "Level 3"],
+        ["Development on Intervention Plan for Physiotherapy", "Level 3"],
+        ["Therapy Intervention Implementation", "Level 3"],
+        ["Effective Client Communication", "Level 3"],
+        ["Inter-professional Collaboration", "Level 3"],
+        ["Professional, Legal and Ethical Healthcare Practice", "Level 3"]
+      ],
+      "core_skills": [
+        ["Communication", "Intermediate"],
+        ["Decision Making", "Basic"],
+        ["Interpersonal Skills", "Basic"],
+        ["Teamwork", "Basic"],
+        ["Problem Solving", "Basic"]
+      ]
+    },
+    {
+      "sector_key": "healthcare",
+      "source_job_role": "Occupational Therapist",
+      "ssoc2024": "22680",
+      "expected_ssoc_title": "Occupational therapist",
+      "mapping_quality": "exact_title",
+      "mapping_rationale": "The official sector role and detailed SSOC occupation use the same title.",
+      "technical_skills": [
+        ["Client Assessment for Occupational Therapy", "Level 3"],
+        ["Intervention Planning in Occupational Therapy", "Level 3"],
+        ["Therapy Intervention Implementation", "Level 3"],
+        ["Effective Client Communication", "Level 3"],
+        ["Inter-professional Collaboration", "Level 3"],
+        ["Professional, Legal and Ethical Healthcare Practice", "Level 3"]
+      ],
+      "core_skills": [
+        ["Communication", "Intermediate"],
+        ["Teamwork", "Basic"],
+        ["Decision Making", "Basic"],
+        ["Interpersonal Skills", "Intermediate"],
+        ["Problem Solving", "Basic"]
+      ]
+    }
+  ],
+  "training_discovery_url": "https://www.myskillsfuture.gov.sg/"
+}

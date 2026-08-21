@@ -52,7 +52,7 @@ const definitions = [
 		label: 'V9 OECD AI capability profiles',
 		category: 'capability_evidence',
 		description:
-			'Nine-domain OECD capability profiles for the conservative exact-title-identity subset; all missingness is explicit and the headline effect is none.'
+			'Nine-domain OECD capability profiles for the reviewed detailed-identity subset; automated and manual identity decisions are explicit, missingness is preserved, and the headline effect is none.'
 	},
 	{
 		file: 'v9-research-signals.json',
@@ -62,6 +62,15 @@ const definitions = [
 		category: 'external_evidence',
 		description:
 			'Identity-gated Eloundou theoretical exposure and Anthropic observed Claude-use measures, published separately with explicit missingness and no headline effect.'
+	},
+	{
+		file: 'v9-skills-pilot.json',
+		path: path.join(STATIC_DATA, 'v9-skills-pilot.json'),
+		public_path: '/data/v9-skills-pilot.json',
+		label: 'V9 official Skills Framework pilot',
+		category: 'skills_evidence',
+		description:
+			'Selected official skill names for seven reviewed sector-role profiles across ICT, financial services and healthcare; no headline effect.'
 	},
 	{
 		file: 'ilo-isco-task-evidence-v9.json',

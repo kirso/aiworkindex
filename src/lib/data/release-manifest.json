@@ -57,9 +57,9 @@
       "public_path": "/data/v9-capability-profiles.json",
       "label": "V9 OECD AI capability profiles",
       "category": "capability_evidence",
-      "description": "Nine-domain OECD capability profiles for the conservative exact-title-identity subset; all missingness is explicit and the headline effect is none.",
-      "bytes": 749630,
-      "sha256": "421921b005a10e7c89116988341ff515777b2da1e6699850bee8890a4c1ca2cf",
+      "description": "Nine-domain OECD capability profiles for the reviewed detailed-identity subset; automated and manual identity decisions are explicit, missingness is preserved, and the headline effect is none.",
+      "bytes": 817281,
+      "sha256": "2f5aa9bc0074ce6a5b9895b279c11b593cd39875904a8311e4628e5676ff03b3",
       "generated_at": "2026-08-19"
     },
     {
@@ -68,8 +68,18 @@
       "label": "V9 theoretical and observed-use research signals",
       "category": "external_evidence",
       "description": "Identity-gated Eloundou theoretical exposure and Anthropic observed Claude-use measures, published separately with explicit missingness and no headline effect.",
-      "bytes": 347660,
-      "sha256": "dd14e4f7e2e4bd3f5fa78c940e819b7bc818820d50298b7879bcd98ab5ca30fc",
+      "bytes": 384328,
+      "sha256": "be5fa93eac7642ebdd9e80e8cf37539c66ba398ea768f2d781a0b3bb2b0cb120",
+      "generated_at": "2026-08-19"
+    },
+    {
+      "file": "v9-skills-pilot.json",
+      "public_path": "/data/v9-skills-pilot.json",
+      "label": "V9 official Skills Framework pilot",
+      "category": "skills_evidence",
+      "description": "Selected official skill names for seven reviewed sector-role profiles across ICT, financial services and healthcare; no headline effect.",
+      "bytes": 74445,
+      "sha256": "906f554b3490ded90a438a06df962f2ae8f318a18f1ba7a9a7697bdd132519e8",
       "generated_at": "2026-08-19"
     },
     {
@@ -118,8 +128,8 @@
       "label": "V9 on-demand interface index",
       "category": "discovery",
       "description": "Route-specific evidence projections loaded on demand by the calculator and comparison tools.",
-      "bytes": 3369770,
-      "sha256": "704e894800926b89b5e83fdc4631b966887d9e5372a3a6fc2bccad8d5b6ca56c",
+      "bytes": 3391196,
+      "sha256": "7deb32cded8a9bc4913045a49400ed6104378311200203c44837d586f0e3ee99",
       "generated_at": "2026-08-19"
     },
     {
@@ -128,8 +138,8 @@
       "label": "Research register",
       "category": "research",
       "description": "Versioned research claims, roles, sources, and limitations.",
-      "bytes": 75824,
-      "sha256": "944367036f2ed32e8c2e1b176e701f64121295b77e24091633b47b773639f94e",
+      "bytes": 75849,
+      "sha256": "05c950ba61697e4acc8a9e5b962b65f179de3ce65ad1dbfdfce018c8d4efd10d",
       "generated_at": "2026-08-19"
     },
     {
@@ -138,8 +148,8 @@
       "label": "Current release status",
       "category": "governance",
       "description": "Bounded current V9 facts, evidence vintages, withheld inputs, and archive links.",
-      "bytes": 7045,
-      "sha256": "9106bd5640c55e222c605a937c3595d3dcf7f90dff7985978d596fb05354ba55",
+      "bytes": 7714,
+      "sha256": "fd65940e7667cf1f4f429f96638c45dbae587d3201e4a7a3cd06fc4630d78649",
       "generated_at": "2026-08-19"
     },
     {
@@ -158,8 +168,8 @@
       "label": "Concise machine-readable guide",
       "category": "discovery",
       "description": "Concise V9 scope, interpretation, and canonical links.",
-      "bytes": 4088,
-      "sha256": "d94b2d5e3b1b2b264c7bd399931fc489223a0b3a4a1d1b7e1c6b5a10f5a4e1a5",
+      "bytes": 4450,
+      "sha256": "a53fbaf9bc774ff53116ff4c9cb70d91d2f37eba2a829231bfac989fa7c8fb8d",
       "generated_at": "2026-08-19"
     },
     {
@@ -168,8 +178,8 @@
       "label": "Full machine-readable guide",
       "category": "discovery",
       "description": "Full V9 method, limitations, official occupations, reviewed modern-title resolutions and non-official role-query links.",
-      "bytes": 150130,
-      "sha256": "01ac21926fe580aabda806db1328eaec1e27aed0596a1d36073a372c4faa5f82",
+      "bytes": 150522,
+      "sha256": "95e962372b3667843fcd2f71e3fa00d2d6b71af2cf029bea3b539f80cafe40fa",
       "generated_at": "2026-08-19"
     },
     {
@@ -178,8 +188,8 @@
       "label": "Canonical sitemap",
       "category": "discovery",
       "description": "Indexable V9 pages on the canonical host.",
-      "bytes": 168302,
-      "sha256": "d1813e05f78762e89bf03be1ab24884a36f6d82bb0644126499886663c1eb9d7",
+      "bytes": 168456,
+      "sha256": "666532bd8bcb553311bb57343a6678a750a74dbae19d9592f5e12ef885c5227d",
       "generated_at": "2026-08-19"
     }
   ]

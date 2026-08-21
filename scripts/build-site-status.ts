@@ -19,6 +19,7 @@ const V9_MARKET_FILE = path.join(ROOT_DIR, 'data', 'v9-market-context.json');
 const V9_ECONOMIC_OBSERVATORY_FILE = path.join(ROOT_DIR, 'data', 'v9-economic-observatory.json');
 const V9_CAPABILITY_PROFILES_FILE = path.join(ROOT_DIR, 'data', 'v9-capability-profiles.json');
 const V9_RESEARCH_SIGNALS_FILE = path.join(ROOT_DIR, 'data', 'v9-research-signals.json');
+const V9_SKILLS_PILOT_FILE = path.join(ROOT_DIR, 'data', 'v9-skills-pilot.json');
 const V9_ROLES_FILE = path.join(ROOT_DIR, 'data', 'synthetic-roles-v9.json');
 const V9_EXTERNAL_AUDIT_FILE = path.join(ROOT_DIR, 'data', 'v9-external-crosswalk-audit.json');
 const RESEARCH_LIBRARY_FILE = path.join(ROOT_DIR, 'data', 'research-library.json');
@@ -115,10 +116,12 @@ type V9CapabilityProfiles = {
 	coverage: {
 		ssoc_occupations: number;
 		raw_exact_candidate_coverage: number;
-		available_exact_title_identity_profiles: number;
+		available_reviewed_identity_profiles: number;
+		available_automated_title_rule_profiles: number;
+		available_manual_review_profiles: number;
 		unavailable_without_published_profile: number;
 		coverage_pct: number;
-		close_match_profiles_published: 0;
+		close_match_profiles_published: number;
 	};
 };
 
@@ -133,6 +136,22 @@ type V9ResearchSignals = {
 		both_signals_available: number;
 		unavailable_without_reviewed_identity: number;
 		anthropic_unavailable_source_rows_after_identity: number;
+	};
+};
+
+type V9SkillsPilot = {
+	generated_at: string;
+	reviewed_at: string;
+	construct: string;
+	headline_effect: 'none';
+	coverage: {
+		ssoc_occupations: number;
+		sectors: number;
+		unique_occupations: number;
+		sector_role_profiles: number;
+		exact_title_profiles: number;
+		reviewed_definition_equivalent_profiles: number;
+		unavailable_outside_pilot: number;
 	};
 };
 
@@ -166,6 +185,7 @@ const V9_MARKET = readJson<V9Market>(V9_MARKET_FILE);
 const V9_ECONOMIC_OBSERVATORY = readJson<V9EconomicObservatory>(V9_ECONOMIC_OBSERVATORY_FILE);
 const V9_CAPABILITY_PROFILES = readJson<V9CapabilityProfiles>(V9_CAPABILITY_PROFILES_FILE);
 const V9_RESEARCH_SIGNALS = readJson<V9ResearchSignals>(V9_RESEARCH_SIGNALS_FILE);
+const V9_SKILLS_PILOT = readJson<V9SkillsPilot>(V9_SKILLS_PILOT_FILE);
 const V9_ROLES = readJson<V9Roles>(V9_ROLES_FILE);
 const V9_EXTERNAL_AUDIT = readJson<V9ExternalAudit>(V9_EXTERNAL_AUDIT_FILE);
 const RESEARCH_LIBRARY = readJson<ResearchLibrary>(RESEARCH_LIBRARY_FILE);
@@ -409,13 +429,23 @@ function buildSiteStatus() {
 			publication_gates: V9_ECONOMIC_OBSERVATORY.publication_gates
 		},
 		capability_profiles: {
-			status: 'published_conservative_title_identity_subset',
+			status: 'published_reviewed_detailed_identity_subset',
 			artifact: 'v9-capability-profiles.json',
 			report: '/reports/ai-capabilities',
 			generated_at: V9_CAPABILITY_PROFILES.generated_at,
 			construct: V9_CAPABILITY_PROFILES.construct,
 			headline_effect: V9_CAPABILITY_PROFILES.headline_effect,
 			coverage: V9_CAPABILITY_PROFILES.coverage
+		},
+		official_skills_pilot: {
+			status: 'published_three_sector_pilot',
+			artifact: 'v9-skills-pilot.json',
+			report: '/reports/skills-pilot',
+			generated_at: V9_SKILLS_PILOT.generated_at,
+			reviewed_at: V9_SKILLS_PILOT.reviewed_at,
+			construct: V9_SKILLS_PILOT.construct,
+			headline_effect: V9_SKILLS_PILOT.headline_effect,
+			coverage: V9_SKILLS_PILOT.coverage
 		},
 		role_query_layer: {
 			status: 'official_resolutions_composites_and_withheld_queries',

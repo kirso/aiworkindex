@@ -63,7 +63,11 @@ agree or disagree instead of receiving a falsely precise average.
   checksums, licences, observation periods and source taxonomies; validated the source occupations
   against O*NET 27.2; and published separate identity-gated profiles for 68 and 66 occupations
   respectively. The headline occupation fields remain null and headline invariance is tested.
-- [ ] Milestone 5: expand OECD mapping by reviewed identity decisions and ship a small official
+- [x] (2026-08-22) Milestone 5A: added a seven-row reviewed OECD identity allow-list with locked
+  current titles, source occupations, relation types, rationale and review dates. OECD and Eloundou
+  coverage now reaches 75 occupations and Anthropic observed-use coverage reaches 73; the ILO
+  headline remains unchanged.
+- [x] (2026-08-22) Milestone 5: expanded OECD mapping through reviewed identity decisions and shipped a small official
   Skills Framework / WSG pilot.
 - [ ] Milestone 6: build the versioned multi-signal evidence vector and longitudinal observatory.
 - [ ] Milestone 7: finish copy, SEO/AEO/GEO/LLMO, accessibility, performance, release generation,
@@ -101,8 +105,8 @@ agree or disagree instead of receiving a falsely precise average.
   signal at its own compatible cadence rather than manufacture movement in a static score.
 - Observation: the evidence base is broad but not yet maximized at detailed SSOC grain.
   Evidence: current publication covers 987 pressure ranks, 523 direct wage rows, 37 named-demand
-  matches, broad labour context for nearly all occupations, 68 conservative OECD profiles, 68
-  Eloundou theoretical-exposure profiles and 66 Anthropic observed-use profiles. AIOE and
+  matches, broad labour context for nearly all occupations, 75 reviewed OECD profiles, 75
+  Eloundou theoretical-exposure profiles and 73 Anthropic observed-use profiles. AIOE and
   complementarity remain unavailable for the specific source and transfer reasons recorded in the
   release audit.
 - Observation: the checked-in Eloundou source is reproducible even though the old audit called its
@@ -154,7 +158,7 @@ agree or disagree instead of receiving a falsely precise average.
   Date/Author: 2026-08-21 / User and Codex
 - Decision: publish Eloundou and Anthropic only through the already reviewed detailed-title identity
   owner, in a separate artifact.
-  Rationale: this produces 68 theoretical and 66 observed-use profiles without inventing a
+  Rationale: after the reviewed expansion this produces 75 theoretical and 73 observed-use profiles without inventing a
   many-to-many aggregation or allowing either construct to alter the ILO headline.
   Date/Author: 2026-08-21 / Codex
 
@@ -170,7 +174,7 @@ Validation through Milestone 2: `svelte-check` reports zero errors and zero warn
 destination, explorer, browse and product-journey suites report 26 passes and zero failures; desktop
 and 375-pixel browser renders have no page overflow; and the direct modern-title journey was
 exercised through Playwright with zero console errors. Scientific and generated-release validation
-will be repeated after the evidence milestones because the search artifact now also carries the 68
+will be repeated after the evidence milestones because the search artifact now also carries the 75
 published capability-profile values.
 
 Milestone 3 adds a visible SSOC → ISCO → ILO task evidence → Singapore midrank chain and labels the
@@ -206,9 +210,10 @@ labour context. There are 523 direct MOM wage rows and 37 occupations with revie
 matches. Broad evidence must remain labelled at national, industry or broad occupation-group grain;
 it cannot become a detailed occupation outcome.
 
-`data/v9-capability-profiles.json` owns the separate OECD 2026 capability layer. Sixty-eight
-occupations pass the current exact-title-identity publication rule; 933 remain unavailable. Raw
-candidate coverage is not publication coverage.
+`data/v9-capability-profiles.json` owns the separate OECD 2026 capability layer. Seventy-five
+occupations pass the reviewed detailed-identity publication rule: 68 through the conservative title
+rule and seven through explicit dated review. The other 926 remain unavailable. Raw candidate
+coverage is not publication coverage.
 
 `data/synthetic-roles-v9.json`, `scripts/v9-role-mappings.ts` and
 `scripts/build-synthetic-roles-v9.ts` own the 88 familiar-title queries. Sixty-seven resolve to
@@ -362,7 +367,7 @@ not Singapore adoption; capability proximity is not employment impact.
 
 ### Milestone 5 — Expand capability and skills evidence through reviewed work
 
-Keep the current 68 OECD profiles live. Build a reviewed mapping queue for the other occupations,
+Keep the current 75 OECD profiles live. Continue the reviewed mapping queue for other occupations,
 prioritised by product traffic, named-demand coverage and major-group diversity. Every approved row
 records the SSOC title, candidate O*NET title, relation, reviewer rationale and date. Do not activate
 all 698 raw exact candidates or close matches through an automated title threshold.
@@ -372,6 +377,12 @@ Technology, Financial Services and Healthcare. Freeze the source documents and t
 explicit occupation or job-role relations, and publish source-backed skills and training links as a
 separate practical layer. Editorial advice remains labelled reviewed guidance. Measure pilot
 coverage and user comprehension before scaling to other sectors.
+
+Implemented result: six unique occupations have seven reviewed sector-role profiles across the
+three sectors. Five mappings use the same current role title and two are reviewed
+definition-equivalent relations. The public artifact contains selected skill names and source
+proficiency labels, not full framework text or inferred personal skill gaps. Occupation pages link
+directly to the official source and MySkillsFuture training discovery.
 
 ### Milestone 6 — Build the novel multi-signal and longitudinal product
 
@@ -520,7 +531,9 @@ Current structural baseline at plan creation:
 - 523 direct MOM wage rows.
 - 37 occupations with reviewed named-demand matches.
 - 88 familiar-title queries: 67 official resolutions, 18 composites and 3 withheld.
-- 68 published OECD capability profiles; 933 unavailable under the current conservative rule.
+- 75 published OECD capability profiles; 926 unavailable under the current reviewed rule.
+- 75 Eloundou theoretical-exposure profiles and 73 Anthropic observed-use profiles.
+- 6 occupations and 7 sector-role profiles in the three-sector official Skills Framework pilot.
 - 56 research-registry records reviewed through 19 August 2026.
 - zero published AIOE, Eloundou, Anthropic-use and complementarity sidecars.
 - no second comparable V9 pressure snapshot.

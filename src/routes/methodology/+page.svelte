@@ -5,6 +5,9 @@
 	import { cn } from '$lib/utils';
 	import { siteStatus } from '$lib/data/site-status';
 	const v9Counts = siteStatus.structural_release.counts;
+	const capabilityCoverage = siteStatus.capability_profiles.coverage;
+	const researchCoverage = siteStatus.external_comparisons.separate_signal_coverage;
+	const skillsCoverage = siteStatus.official_skills_pilot.coverage;
 
 	const iloCategories = [
 		'Not Exposed',
@@ -32,13 +35,13 @@
 			construct: 'Current AI capability proximity',
 			source: 'OECD AI Capability Gap Index (2026)',
 			grain: 'O*NET 30.3 occupation mapped to a conservative SSOC title subset',
-			use: 'Separate nine-domain profile for 68 occupations; no headline effect'
+			use: `Separate nine-domain profile for ${capabilityCoverage.available_reviewed_identity_profiles} occupations; no headline effect`
 		},
 		{
 			construct: 'Observed AI use',
 			source: 'Anthropic labour-market-impact file (March 2026)',
 			grain: 'US SOC platform activity; August and November 2025 observations',
-			use: 'Separate measure for 66 reviewed occupation identities; no headline effect'
+			use: `Separate measure for ${researchCoverage.anthropic_observed_exposure_available} reviewed occupation identities; no headline effect`
 		},
 		{
 			construct: 'Potential complementarity',
@@ -50,13 +53,19 @@
 			construct: 'External exposure comparisons',
 			source: 'AIOE (2021) and Eloundou et al. (2023)',
 			grain: 'US SOC / O*NET-SOC',
-			use: 'Eloundou publishes for 68 reviewed identities; AIOE stays withheld pending a SOC-edition bridge'
+			use: `Eloundou publishes for ${researchCoverage.eloundou_theoretical_exposure_available} reviewed identities; AIOE stays withheld pending a SOC-edition bridge`
 		},
 		{
 			construct: 'Wages',
 			source: 'MOM Occupational Wages 2025',
 			grain: 'Direct detailed SSOC rows where published',
 			use: 'Report direct published rows only; leave missing pay unknown'
+		},
+		{
+			construct: 'Official sector skills',
+			source: 'Singapore Skills Frameworks',
+			grain: 'Selected sector job role mapped to detailed SSOC occupation',
+			use: `Practical pilot for ${skillsCoverage.unique_occupations} occupations; no headline effect`
 		},
 		{
 			construct: 'Demand',
@@ -135,14 +144,52 @@
 		</div>
 	</section>
 
+	<section id="skills-evidence" class="mt-12 scroll-mt-24">
+		<h2 class={sectionLabel()}>Official skills evidence</h2>
+		<div class="mt-3 grid gap-5 lg:grid-cols-[0.8fr_1.2fr]">
+			<div class={card({ padding: 'lg', accent: 'primary' })}>
+				<p class="font-mono text-4xl font-semibold tabular-nums text-foreground">
+					{skillsCoverage.unique_occupations}
+				</p>
+				<p class="mt-1 text-sm font-medium text-foreground">occupations in the pilot</p>
+				<p class={caption({ class: 'mt-3' })}>
+					{skillsCoverage.sector_role_profiles} reviewed profiles across {skillsCoverage.sectors} sectors.
+				</p>
+			</div>
+			<div class="space-y-3 text-sm leading-relaxed text-muted-foreground">
+				<p>
+					The pilot uses short official skill names and proficiency labels from the ICT, financial
+					services and healthcare Skills Frameworks. Each source role is linked to an SSOC
+					occupation by exact title or an explicit definition review.
+				</p>
+				<p>
+					The list supports a personal gap check and training conversation. It does not measure a
+					worker's skill, rank training providers, recommend a career transition or change AI Work
+					Pressure.
+				</p>
+				<div class="flex flex-wrap gap-x-5 gap-y-2">
+					<a href="/reports/skills-pilot" class="font-semibold text-primary underline"
+						>Explore the pilot</a
+					>
+					<a href="/data/v9-skills-pilot.json" class="text-primary underline"
+						>Download the artifact</a
+					>
+				</div>
+			</div>
+		</div>
+	</section>
+
 	<section id="capability-evidence" class="mt-12 scroll-mt-24">
 		<h2 class={sectionLabel()}>Current AI capability evidence</h2>
 		<div class="mt-3 grid gap-5 lg:grid-cols-[0.8fr_1.2fr]">
 			<div class={card({ padding: 'lg', accent: 'primary' })}>
-				<p class="font-mono text-4xl font-semibold tabular-nums text-foreground">68</p>
+				<p class="font-mono text-4xl font-semibold tabular-nums text-foreground">
+					{capabilityCoverage.available_reviewed_identity_profiles}
+				</p>
 				<p class="mt-1 text-sm font-medium text-foreground">published occupation profiles</p>
 				<p class={caption({ class: 'mt-3' })}>
-					Out of 1,001 SSOC occupations. The other 933 stay unavailable; they are not scored lower.
+					Out of 1,001 SSOC occupations. The other {capabilityCoverage.unavailable_without_published_profile}
+					stay unavailable; they are not scored lower.
 				</p>
 			</div>
 			<div class="space-y-3 text-sm leading-relaxed text-muted-foreground">
@@ -154,8 +201,9 @@
 				<p>
 					V9 first uses the official SSOC-to-ISCO and ESCO-to-O*NET chain to generate candidates. An
 					exact ESCO–O*NET relation does not prove that a five-digit Singapore occupation is the
-					same job. Publication therefore also requires a conservative contiguous match to the
-					official SSOC detailed title. Search synonyms, examples and close matches are excluded.
+					same job. Publication therefore also requires a conservative contiguous title match or an
+					explicit title-and-definition review recorded in a small allow-list. There is no fuzzy or
+					broad-group fallback.
 				</p>
 				<p>
 					Capability proximity is not task pressure, adoption, automation, job loss or a Singapore
@@ -178,11 +226,15 @@
 		<div class="mt-3 grid gap-5 lg:grid-cols-[0.8fr_1.2fr]">
 			<div class="grid grid-cols-2 gap-px bg-border">
 				<div class="bg-card p-5">
-					<p class="font-mono text-4xl font-semibold tabular-nums text-foreground">68</p>
+					<p class="font-mono text-4xl font-semibold tabular-nums text-foreground">
+						{researchCoverage.eloundou_theoretical_exposure_available}
+					</p>
 					<p class="mt-1 text-sm font-medium text-foreground">Eloundou profiles</p>
 				</div>
 				<div class="bg-card p-5">
-					<p class="font-mono text-4xl font-semibold tabular-nums text-foreground">66</p>
+					<p class="font-mono text-4xl font-semibold tabular-nums text-foreground">
+						{researchCoverage.anthropic_observed_exposure_available}
+					</p>
 					<p class="mt-1 text-sm font-medium text-foreground">Anthropic profiles</p>
 				</div>
 			</div>
@@ -194,10 +246,9 @@
 					blending them.
 				</p>
 				<p>
-					Publication requires the same conservative identity owner as the OECD layer: one exact
-					ESCO–O*NET candidate, a reviewed match to the detailed SSOC title, then one exact source
-					occupation code. The other occupations stay unavailable. Broader and many-to-many
-					transfers are not averaged into a result.
+					Publication uses the same reviewed identity owner as the OECD layer, then matches the
+					source occupation code. Eloundou is detailed O*NET evidence; Anthropic publishes at the
+					six-digit parent SOC grain, which remains visible. The other occupations stay unavailable.
 				</p>
 				<p>
 					These US measures do not show Singapore adoption, hiring, productivity or job loss. They

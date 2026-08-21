@@ -9,6 +9,7 @@
 	import SharePageButton from '$lib/components/product/SharePageButton.svelte';
 	import FaqList from '$lib/components/ui/FaqList.svelte';
 	import OccupationHero from '$lib/components/ui/OccupationHero.svelte';
+	import OfficialSkillsPanel from '$lib/components/product/OfficialSkillsPanel.svelte';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
@@ -220,6 +221,8 @@
 		profile={data.researchSignalProfile}
 		sources={data.researchSignalSources}
 	/>
+
+	<OfficialSkillsPanel profile={data.skillsPilotProfile} />
 
 	<section class="mt-10" aria-labelledby="actions-heading">
 		<p class={sectionLabel()}>Turn evidence into a work plan</p>

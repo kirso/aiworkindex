@@ -29,14 +29,15 @@ ILO potential25 categories are: Not Exposed; Minimal Exposure; Exposed: Gradient
 ## Separate evidence
 
 - The attributed ILO task artifact retains all 3,265 task rows across 427 four-digit ISCO-08 groups. Occupation pages show bounded examples only through official SSOC-to-ISCO mappings. They are mapped examples, not exact five-digit SSOC duties, and they never change the headline rank.
-- The OECD capability artifact publishes nine capability domains for 68 occupations. Raw exact crosswalk candidates are only candidate generation; the official SSOC detailed title must also agree with the O*NET title. Missing profiles stay unavailable and do not change the ILO headline.
+- The OECD capability artifact publishes nine capability domains for 75 occupations. Raw crosswalk candidates are only candidate generation; publication also requires the conservative title rule or an explicit reviewed title-and-definition decision. Missing profiles stay unavailable and do not change the ILO headline.
 - MOM wages are direct observations for full-time resident employees in establishments with at least 25 employees. Missing rows stay null.
 - MOM named-demand signals are reviewed against SSOC 2024 titles and synonyms. Absence from a named list does not mean weak demand.
 - Q1 2026 labour evidence is broad occupation-group context. Q2 2026 figures are preliminary national context.
 - The labour observatory supplies broad employment context to 990 detailed records by reference only. It publishes 0 causal occupation outcomes and 0 classified economic scenarios.
 - Productivity-led demand expansion, sometimes described as rebound or a Jevons-style effect, is a mechanism to test rather than an assumed outcome. Detailed adoption, output or price elasticity, and new-task coverage are currently 0, 0, and 0 occupations respectively.
-- External comparison blocks inside the headline occupation artifact remain null. A separate identity-gated artifact publishes Eloundou theoretical exposure for 68 occupations and Anthropic observed use for 66. Each published profile uses one reviewed detailed-title identity and one exact source occupation; broader and many-to-many transfers remain unavailable.
+- External comparison blocks inside the headline occupation artifact remain null. A separate identity-gated artifact publishes Eloundou theoretical exposure for 75 occupations and Anthropic observed use for 73. Each published profile uses one reviewed detailed-title identity and one exact source occupation; broader and many-to-many transfers remain unavailable.
 - AIOE still lacks a verified SOC-edition bridge, and the complementarity proxy lacks a frozen source-level construct replication. The research-signal artifact and external crosswalk audit are available at https://aiworkindex.com/data/v9-research-signals.json and https://aiworkindex.com/data/v9-external-crosswalk-audit.json. Neither can change the headline rank.
+- The official Skills Framework pilot covers 6 occupations across 3 sectors. It republishes selected skill names and source proficiency labels only; it does not infer worker skill levels or alter the headline.
 - Stale convenience-sample job postings are withheld from current-demand interpretation.
 - The 11 exact SSOC title duplicates use the official occupation URL. The 56 reviewed familiar-title guides have their own explanatory URL but quote the matched occupation's official score unchanged. The remaining role pages are either disclosed editorial composites or deliberately withheld queries. None is a government classification.
 
@@ -1172,6 +1173,8 @@ These 11 query labels normalize to an official SSOC 2024 title. Their role URLs 
 - AI capability profile data: https://aiworkindex.com/data/v9-capability-profiles.json
 - Theoretical scope vs observed use: https://aiworkindex.com/reports/research-signals
 - Research signal data: https://aiworkindex.com/data/v9-research-signals.json
+- Official skills pilot: https://aiworkindex.com/reports/skills-pilot
+- Official skills pilot data: https://aiworkindex.com/data/v9-skills-pilot.json
 - Mapped ILO task evidence: https://aiworkindex.com/data/ilo-isco-task-evidence-v9.json
 
 Suggested citation: AI Work Index, Singapore AI Work Pressure V9, 2026-08-19, https://aiworkindex.com.

@@ -50,7 +50,7 @@
     }
   },
   "capability_profiles": {
-    "status": "published_conservative_title_identity_subset",
+    "status": "published_reviewed_detailed_identity_subset",
     "artifact": "v9-capability-profiles.json",
     "report": "/reports/ai-capabilities",
     "generated_at": "2026-08-21",
@@ -59,15 +59,35 @@
     "coverage": {
       "ssoc_occupations": 1001,
       "raw_exact_candidate_coverage": 698,
-      "available_exact_title_identity_profiles": 68,
-      "unavailable_without_published_profile": 933,
-      "coverage_pct": 6.7932,
-      "unique_oecd_rows_used": 68,
+      "available_reviewed_identity_profiles": 75,
+      "available_automated_title_rule_profiles": 68,
+      "available_manual_review_profiles": 7,
+      "unavailable_without_published_profile": 926,
+      "coverage_pct": 7.4925,
+      "unique_oecd_rows_used": 75,
       "profiles_with_several_title_identity_candidates": 0,
       "profiles_with_nonzero_overall_mapping_range": 0,
       "raw_exact_candidates_rejected_by_title_rule": 1606,
-      "occupations_available_only_if_close_matches_were_allowed": 231,
-      "close_match_profiles_published": 0
+      "occupations_available_only_if_close_matches_were_allowed": 230,
+      "close_match_profiles_published": 3
+    }
+  },
+  "official_skills_pilot": {
+    "status": "published_three_sector_pilot",
+    "artifact": "v9-skills-pilot.json",
+    "report": "/reports/skills-pilot",
+    "generated_at": "2026-08-22",
+    "reviewed_at": "2026-08-22",
+    "construct": "official_sector_role_skills_pilot",
+    "headline_effect": "none",
+    "coverage": {
+      "ssoc_occupations": 1001,
+      "sectors": 3,
+      "unique_occupations": 6,
+      "sector_role_profiles": 7,
+      "exact_title_profiles": 5,
+      "reviewed_definition_equivalent_profiles": 2,
+      "unavailable_outside_pilot": 995
     }
   },
   "role_query_layer": {
@@ -114,11 +134,11 @@
     },
     "separate_signal_coverage": {
       "ssoc_occupations": 1001,
-      "reviewed_identity_profiles": 68,
-      "eloundou_theoretical_exposure_available": 68,
-      "anthropic_observed_exposure_available": 66,
-      "both_signals_available": 66,
-      "unavailable_without_reviewed_identity": 933,
+      "reviewed_identity_profiles": 75,
+      "eloundou_theoretical_exposure_available": 75,
+      "anthropic_observed_exposure_available": 73,
+      "both_signals_available": 73,
+      "unavailable_without_reviewed_identity": 926,
       "anthropic_unavailable_source_rows_after_identity": 2
     }
   },

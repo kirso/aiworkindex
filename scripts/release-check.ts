@@ -176,7 +176,9 @@ const capabilityProfiles = readJson<{
 	coverage: {
 		ssoc_occupations: number;
 		raw_exact_candidate_coverage: number;
-		available_exact_title_identity_profiles: number;
+		available_reviewed_identity_profiles: number;
+		available_automated_title_rule_profiles: number;
+		available_manual_review_profiles: number;
 		unavailable_without_published_profile: number;
 		close_match_profiles_published: number;
 	};
@@ -186,7 +188,13 @@ const capabilityProfiles = readJson<{
 		{
 			status: string;
 			headline_effect: string;
-			mapping: { oecd_candidates: Array<{ relation: string; detailed_title_identity: boolean }> };
+			mapping: {
+				oecd_candidates: Array<{
+					relation: string;
+					detailed_title_identity: boolean;
+					identity_basis: string;
+				}>;
+			};
 		}
 	>;
 }>(path.join(STATIC_DATA, 'v9-capability-profiles.json'));
@@ -207,6 +215,25 @@ const researchSignals = readJson<{
 	occupation_status: Record<string, unknown>;
 	profiles: Record<string, unknown>;
 }>(path.join(STATIC_DATA, 'v9-research-signals.json'));
+const skillsPilot = readJson<{
+	schema_version: string;
+	release: string;
+	generated_at: string;
+	reviewed_at: string;
+	construct: string;
+	headline_effect: string;
+	coverage: {
+		ssoc_occupations: number;
+		sectors: number;
+		unique_occupations: number;
+		sector_role_profiles: number;
+		exact_title_profiles: number;
+		reviewed_definition_equivalent_profiles: number;
+		unavailable_outside_pilot: number;
+	};
+	occupation_status: Record<string, string>;
+	profiles: Record<string, unknown>;
+}>(path.join(STATIC_DATA, 'v9-skills-pilot.json'));
 const roleRelease = readJson<{
 	schema_version: string;
 	taxonomy: string;
@@ -298,6 +325,16 @@ const siteStatus = readJson<{
 		construct: string;
 		headline_effect: string;
 		coverage: typeof capabilityProfiles.coverage;
+	};
+	official_skills_pilot: {
+		status: string;
+		artifact: string;
+		report: string;
+		generated_at: string;
+		reviewed_at: string;
+		construct: string;
+		headline_effect: string;
+		coverage: typeof skillsPilot.coverage;
 	};
 	role_query_layer: {
 		status: string;
@@ -519,17 +556,19 @@ assert.equal(capabilityProfiles.source.licence.identifier, 'CC BY 4.0');
 assert.deepEqual(capabilityProfiles.coverage, {
 	ssoc_occupations: 1001,
 	raw_exact_candidate_coverage: 698,
-	available_exact_title_identity_profiles: 68,
-	unavailable_without_published_profile: 933,
-	coverage_pct: 6.7932,
-	unique_oecd_rows_used: 68,
+	available_reviewed_identity_profiles: 75,
+	available_automated_title_rule_profiles: 68,
+	available_manual_review_profiles: 7,
+	unavailable_without_published_profile: 926,
+	coverage_pct: 7.4925,
+	unique_oecd_rows_used: 75,
 	profiles_with_several_title_identity_candidates: 0,
 	profiles_with_nonzero_overall_mapping_range: 0,
 	raw_exact_candidates_rejected_by_title_rule: 1606,
-	occupations_available_only_if_close_matches_were_allowed: 231,
-	close_match_profiles_published: 0
+	occupations_available_only_if_close_matches_were_allowed: 230,
+	close_match_profiles_published: 3
 });
-assert.equal(Object.keys(capabilityProfiles.profiles).length, 68);
+assert.equal(Object.keys(capabilityProfiles.profiles).length, 75);
 assert.equal(Object.keys(capabilityProfiles.occupation_status).length, 1001);
 assert.equal(capabilityProfiles.profiles['25143'], undefined);
 assert.equal(
@@ -539,10 +578,15 @@ assert.equal(
 assert(
 	Object.values(capabilityProfiles.profiles).every(
 		profile =>
-			profile.status === 'available_exact_title_identity' &&
+			profile.status === 'available_reviewed_identity' &&
 			profile.headline_effect === 'none' &&
 			profile.mapping.oecd_candidates.every(
-				candidate => candidate.relation === 'exactMatch' && candidate.detailed_title_identity
+				candidate =>
+					['exactMatch', 'closeMatch'].includes(candidate.relation) &&
+					candidate.detailed_title_identity &&
+					['conservative_title_rule', 'reviewed_title_and_definition'].includes(
+						candidate.identity_basis
+					)
 			)
 	)
 );
@@ -753,11 +797,11 @@ assert.equal(
 );
 assert.equal(
 	uiIndex.checker_entries.filter(entry => entry.capabilityProximity != null).length,
-	capabilityProfiles.coverage.available_exact_title_identity_profiles
+	capabilityProfiles.coverage.available_reviewed_identity_profiles
 );
 assert.equal(
 	uiIndex.compare_entities.filter(entry => entry.capabilityProximity != null).length,
-	capabilityProfiles.coverage.available_exact_title_identity_profiles
+	capabilityProfiles.coverage.available_reviewed_identity_profiles
 );
 assert(
 	uiIndex.checker_entries.every(entry =>
@@ -801,6 +845,7 @@ assert.deepEqual(Object.keys(siteStatus).sort(), [
 	'external_comparisons',
 	'homepage_banner',
 	'live_monitor',
+	'official_skills_pilot',
 	'role_query_layer',
 	'schema_version',
 	'structural_release',
@@ -817,11 +862,27 @@ assert.deepEqual(
 	siteStatus.economic_observatory.publication_gates,
 	economicObservatory.publication_gates
 );
-assert.equal(siteStatus.capability_profiles.status, 'published_conservative_title_identity_subset');
+assert.equal(siteStatus.capability_profiles.status, 'published_reviewed_detailed_identity_subset');
 assert.equal(siteStatus.capability_profiles.artifact, 'v9-capability-profiles.json');
 assert.equal(siteStatus.capability_profiles.report, '/reports/ai-capabilities');
 assert.equal(siteStatus.capability_profiles.headline_effect, 'none');
 assert.deepEqual(siteStatus.capability_profiles.coverage, capabilityProfiles.coverage);
+assert.equal(siteStatus.official_skills_pilot.status, 'published_three_sector_pilot');
+assert.equal(siteStatus.official_skills_pilot.artifact, 'v9-skills-pilot.json');
+assert.equal(siteStatus.official_skills_pilot.report, '/reports/skills-pilot');
+assert.equal(siteStatus.official_skills_pilot.headline_effect, 'none');
+assert.deepEqual(siteStatus.official_skills_pilot.coverage, skillsPilot.coverage);
+assert.deepEqual(skillsPilot.coverage, {
+	ssoc_occupations: 1001,
+	sectors: 3,
+	unique_occupations: 6,
+	sector_role_profiles: 7,
+	exact_title_profiles: 5,
+	reviewed_definition_equivalent_profiles: 2,
+	unavailable_outside_pilot: 995
+});
+assert.equal(Object.keys(skillsPilot.occupation_status).length, 1001);
+assert.equal(Object.keys(skillsPilot.profiles).length, 6);
 assert.equal(
 	siteStatus.role_query_layer.status,
 	'official_resolutions_composites_and_withheld_queries'
@@ -874,16 +935,16 @@ assert.deepEqual(
 );
 assert.deepEqual(researchSignals.coverage, {
 	ssoc_occupations: 1001,
-	reviewed_identity_profiles: 68,
-	eloundou_theoretical_exposure_available: 68,
-	anthropic_observed_exposure_available: 66,
-	both_signals_available: 66,
-	unavailable_without_reviewed_identity: 933,
+	reviewed_identity_profiles: 75,
+	eloundou_theoretical_exposure_available: 75,
+	anthropic_observed_exposure_available: 73,
+	both_signals_available: 73,
+	unavailable_without_reviewed_identity: 926,
 	anthropic_unavailable_source_rows_after_identity: 2
 });
 assert.equal(researchSignals.headline_effect, 'none');
 assert.equal(Object.keys(researchSignals.occupation_status).length, 1001);
-assert.equal(Object.keys(researchSignals.profiles).length, 68);
+assert.equal(Object.keys(researchSignals.profiles).length, 75);
 assert.equal(siteStatus.live_monitor.market_context_artifact, 'v9-market-context.json');
 assert.equal(siteStatus.live_monitor.market_context_generated_at, core.generated_at);
 const demandEvidence = Object.values(market.demand_by_code).flat() as Array<{
@@ -1001,6 +1062,7 @@ assert(manifest.artifacts.some(artifact => artifact.file === 'v9-external-crossw
 assert(manifest.artifacts.some(artifact => artifact.file === 'v9-economic-observatory.json'));
 assert(manifest.artifacts.some(artifact => artifact.file === 'v9-capability-profiles.json'));
 assert(manifest.artifacts.some(artifact => artifact.file === 'v9-research-signals.json'));
+assert(manifest.artifacts.some(artifact => artifact.file === 'v9-skills-pilot.json'));
 assert(manifest.artifacts.some(artifact => artifact.file === 'releases.json'));
 assert(fs.existsSync(path.join(STATIC_DATA, 'sg-ai-occupations-v8.json')));
 assert.equal(fs.existsSync(path.join(STATIC_DATA, 'global', 'occupations.json')), false);
@@ -1020,6 +1082,7 @@ const currentMachineArtifacts = new Set([
 	'/data/v9-economic-observatory.json',
 	'/data/v9-capability-profiles.json',
 	'/data/v9-research-signals.json',
+	'/data/v9-skills-pilot.json',
 	'/data/v9-search-index.json',
 	'/data/v9-ui-index.json'
 ]);
@@ -1051,6 +1114,8 @@ assert(llms.includes('/data/v9-capability-profiles.json'));
 assert(llms.includes('/reports/ai-capabilities'));
 assert(llms.includes('/data/v9-research-signals.json'));
 assert(llms.includes('/reports/research-signals'));
+assert(llms.includes('/data/v9-skills-pilot.json'));
+assert(llms.includes('/reports/skills-pilot'));
 assert(llmsFull.includes('Official occupations without a pressure rank'));
 for (const role of roleRelease.roles) {
 	const expectedUrl =
@@ -1102,6 +1167,7 @@ for (const route of [
 	'/reports/job-market-evidence',
 	'/reports/labour-observatory',
 	'/reports/research-signals',
+	'/reports/skills-pilot',
 	'/will-ai-take-my-job',
 	'/compare',
 	'/roles',

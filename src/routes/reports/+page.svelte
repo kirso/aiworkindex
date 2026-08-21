@@ -5,6 +5,9 @@
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import { siteStatus } from '$lib/data/site-status';
 	const v9Counts = siteStatus.structural_release.counts;
+	const capabilityCoverage = siteStatus.capability_profiles.coverage;
+	const researchCoverage = siteStatus.external_comparisons.separate_signal_coverage;
+	const skillsCoverage = siteStatus.official_skills_pilot.coverage;
 
 	const archivedReports = [
 		{
@@ -75,6 +78,27 @@
 	<section class="mt-8">
 		<h2 class={sectionLabel()}>Current reports</h2>
 		<div class="mt-3 space-y-4">
+			<a href="/reports/skills-pilot" class="block no-underline">
+				<article
+					class={cn(
+						card({ padding: 'lg', hover: true, accent: 'primary' }),
+						'sm:flex sm:items-start sm:justify-between'
+					)}
+				>
+					<div>
+						<div class="flex flex-wrap items-center gap-2">
+							<h3 class="text-lg font-semibold text-foreground">Skills to check and strengthen</h3>
+							<span class={badge({ variant: 'info' })}>Official Skills Framework pilot</span>
+						</div>
+						<p class="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+							Selected official skill names for {skillsCoverage.unique_occupations} occupations across
+							ICT, financial services and healthcare, with direct training discovery.
+						</p>
+					</div>
+					<span aria-hidden="true" class="mt-3 block text-primary sm:ml-6 sm:mt-1">→</span>
+				</article>
+			</a>
+
 			<a href="/reports/research-signals" class="block no-underline">
 				<article
 					class={cn(
@@ -90,8 +114,9 @@
 							<span class={badge({ variant: 'info' })}>OpenAI + Anthropic</span>
 						</div>
 						<p class="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-							Eloundou theoretical exposure for 68 reviewed occupation identities and Anthropic
-							observed Claude use for 66, kept separate from the Singapore pressure rank.
+							Eloundou theoretical exposure for {researchCoverage.eloundou_theoretical_exposure_available}
+							reviewed occupation identities and Anthropic observed Claude use for {researchCoverage.anthropic_observed_exposure_available},
+							kept separate from the Singapore pressure rank.
 						</p>
 					</div>
 					<span aria-hidden="true" class="mt-3 block text-primary sm:ml-6 sm:mt-1">→</span>
@@ -111,8 +136,9 @@
 							<span class={badge({ variant: 'info' })}>OECD capability evidence</span>
 						</div>
 						<p class="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-							Nine capability domains for the 68 Singapore occupations that pass a conservative
-							detailed-title mapping rule. Kept separate from pressure and labour outcomes.
+							Nine capability domains for {capabilityCoverage.available_reviewed_identity_profiles}
+							Singapore occupations that pass an automated or explicit reviewed identity decision. Kept
+							separate from pressure and labour outcomes.
 						</p>
 					</div>
 					<span aria-hidden="true" class="mt-3 block text-primary sm:ml-6 sm:mt-1">→</span>
