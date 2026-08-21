@@ -45,9 +45,9 @@ agree or disagree instead of receiving a falsely precise average.
   rebuild, and unsupported outputs to keep retired.
 - [x] (2026-08-21) Consolidated product, design, science, data, research, signal, longitudinal,
   copy, SEO, accessibility and release work into this plan.
-- [ ] Milestone 0: freeze the current evidence and visual baseline, add direct-destination tests,
+- [x] (2026-08-21) Milestone 0: froze the current evidence baseline, added a single direct-destination owner and tests, removed map/scatter confirmation panels, made Explore detailed-first, and routed reviewed official aliases directly to their official occupation while preserving familiar-title context.
   and make this plan the only active completion owner.
-- [ ] Milestone 1: restore the compact Lyra visual system and one-click journeys without changing
+- [ ] (2026-08-21, in progress) Milestone 1: restore the compact Lyra visual system and one-click journeys without changing
   the V9 headline contract.
 - [ ] Milestone 2: restore the connected flagship explorer and all V9-safe visual modes.
 - [ ] Milestone 3: rebuild occupation, familiar-title, comparison, saved-job, calculator, ranking
@@ -477,6 +477,14 @@ Current structural baseline at plan creation:
 - 56 research-registry records reviewed through 19 August 2026.
 - zero published AIOE, Eloundou, Anthropic-use and complementarity sidecars.
 - no second comparable V9 pressure snapshot.
+
+Frozen pre-product-change SHA-256 values:
+
+- `data/occupations-v9.json`: `61349a61cc5f1c8132d5c7384c1c758787200ef741d933a3786e0409d6b7cc0c`
+- `data/v9-market-context.json`: `e49176f7fecf57f837c40b22ce0b371dc225bd7fd5b82de816fdc1e9e5dad177`
+- `data/v9-capability-profiles.json`: `421921b005a10e7c89116988341ff515777b2da1e6699850bee8890a4c1ca2cf`
+- `data/v9-economic-observatory.json`: `c9738614758dc12f7a0bd0f5da0ddf3d14ec0cc65c0092cd3ab2d7046982b16d`
+- `static/data/v9-search-index.json`: `e82da2d3cb93e301fb4e778073a29ecc0a0e49314b685da6a703cdef60abf301`
 
 The seven user-supplied screenshots are design references for density, compact navigation, filters,
 tabs, colour and hierarchy. Their V7 labels, percentages, impact categories, demand-protection axes,

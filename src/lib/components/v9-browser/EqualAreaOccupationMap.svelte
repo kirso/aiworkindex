@@ -167,7 +167,7 @@
 
 	function handleClick(event: MouseEvent): void {
 		const item = itemFromTarget(event.target) ?? leaves[keyboardIndex]?.data.item ?? null;
-		if (item) select(item);
+		if (item) void goto(`/occupation/${item.code}`);
 	}
 
 	function handleKeyboard(event: KeyboardEvent): void {
@@ -239,7 +239,7 @@
 			type="button"
 			bind:this={containerEl}
 			class="relative block min-h-[32.5rem] w-full overflow-hidden rounded-lg border-0 bg-surface-subtle p-0 text-left outline-none"
-			aria-label="Equal-area occupation map. Use arrow keys to inspect occupations and Enter to open the selected occupation."
+			aria-label="Equal-area occupation map. Select a tile to open its occupation. Use arrow keys to move and Enter to open."
 			onclick={handleClick}
 			onkeydown={handleKeyboard}
 			onpointermove={handlePointerMove}
@@ -344,36 +344,8 @@
 		</button>
 
 		<p class="mt-2 text-xs leading-relaxed text-muted-foreground">
-			Tap a tile to inspect it. With a keyboard, focus the map, use arrow keys to move, and press
-			Enter to open the selected occupation.
+			Select a tile to open the occupation. With a keyboard, use arrow keys to move and Enter to
+			open.
 		</p>
-
-		{#if selectedItem}
-			<aside
-				class="mt-3 rounded-lg border border-primary/25 bg-action-try-subtle p-4"
-				aria-live="polite"
-			>
-				<div class="flex flex-wrap items-start justify-between gap-3">
-					<div class="min-w-0">
-						<p class="text-xs font-medium text-action-try">Selected occupation</p>
-						<h4 class="mt-1 text-base font-semibold text-foreground">{selectedItem.title}</h4>
-						<p class="mt-1 text-xs text-muted-foreground">
-							SSOC {selectedItem.code} · {selectedItem.majorGroupTitle}
-						</p>
-					</div>
-					<a
-						href="/occupation/{selectedItem.code}"
-						class="touch-target inline-flex items-center rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground no-underline"
-					>
-						Open occupation
-					</a>
-				</div>
-				<div class="mt-3 grid gap-2 text-sm text-text-secondary sm:grid-cols-3">
-					<p>{pressureLabel(selectedItem)}</p>
-					<p>{wageLabel(selectedItem)}</p>
-					<p>{demandLabel(selectedItem)}</p>
-				</div>
-			</aside>
-		{/if}
 	{/if}
 </ChartFrame>

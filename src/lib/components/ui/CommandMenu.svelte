@@ -4,6 +4,7 @@
 	import { trackProductEvent } from '$lib/analytics';
 	import * as Command from '$lib/components/ui/command/index.js';
 	import { countryConfigs } from '$lib/data/country-config';
+	import { v9DestinationEntityKind, v9RoleDestination } from '$lib/data/v9-destination';
 	import { cn } from '$lib/utils';
 
 	type SearchIndex = {
@@ -26,7 +27,6 @@
 			official_ssoc2024: string | null;
 			pressure_rank: number | null;
 			pressure_kind: 'official' | 'estimated' | 'withheld';
-			href: string;
 			family_label: string;
 			family_accent: string;
 		}>;
@@ -56,7 +56,6 @@
 				| 'composite_estimate'
 				| 'mapping_withheld';
 			officialCode: string | null;
-			href: string;
 			familyLabel: string;
 			familyAccent: string;
 			search: string;
@@ -89,7 +88,6 @@
 					pressureKind: role.pressure_kind,
 					journeyKind: role.journey_kind,
 					officialCode: role.official_ssoc2024,
-					href: role.href,
 					familyLabel: role.family_label,
 					familyAccent: role.family_accent,
 					search: [role.title, role.description, role.slug, ...role.tags].join(' ').toLowerCase()
@@ -287,8 +285,12 @@
 						value="role-{role.slug}"
 						onSelect={() =>
 							navigateToSearchResult(
-								role.href,
-								role.journeyKind === 'exact_official_title' ? 'occupation' : 'role'
+								v9RoleDestination({
+									slug: role.slug,
+									journey_kind: role.journeyKind,
+									official_ssoc2024: role.officialCode
+								}),
+								v9DestinationEntityKind({ journey_kind: role.journeyKind })
 							)}
 					>
 						<div class="flex w-full min-w-0 items-center justify-between gap-3">
@@ -301,7 +303,7 @@
 										{role.journeyKind === 'exact_official_title'
 											? `Official SSOC title · ${role.officialCode} · ${role.familyLabel}`
 											: role.journeyKind === 'reviewed_official_match'
-												? `Familiar-title guide · SSOC ${role.officialCode} · ${role.familyLabel}`
+												? `Resolves to SSOC ${role.officialCode} · ${role.familyLabel}`
 												: role.journeyKind === 'composite_estimate'
 													? `Reviewed composite · ${role.familyLabel}`
 													: `Choose a work context · ${role.familyLabel}`}

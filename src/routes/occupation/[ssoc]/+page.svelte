@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/state';
 	import SaveJobButton from '$lib/components/product/SaveJobButton.svelte';
 	import CapabilityProfile from '$lib/components/product/CapabilityProfile.svelte';
 	import EconomicOutcomeEvidence from '$lib/components/product/EconomicOutcomeEvidence.svelte';
@@ -21,12 +22,16 @@
 	let { data } = $props();
 	let view = $derived(data.view);
 	let modernQueries = $derived(data.modernQueries);
+	let familiarQuery = $derived(
+		modernQueries.find(query => query.slug === page.url.searchParams.get('as')) ?? null
+	);
 	let occupation = $derived(view.occupation);
 	let spokenTitle = $derived(
-		spokenOccupationTitle(
-			view.title,
-			modernQueries.map(query => query.title)
-		)
+		familiarQuery?.title ??
+			spokenOccupationTitle(
+				view.title,
+				modernQueries.map(query => query.title)
+			)
 	);
 	let exposure = $derived(occupation.genai_task_exposure);
 	let wage = $derived(occupation.singapore_market.wages);

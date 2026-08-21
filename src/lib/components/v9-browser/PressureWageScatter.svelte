@@ -132,7 +132,7 @@
 
 	function handleClick(event: MouseEvent): void {
 		const item = itemFromTarget(event.target) ?? plotted[keyboardIndex] ?? null;
-		if (item) select(item);
+		if (item) void goto(`/occupation/${item.code}`);
 	}
 
 	function handleKeyboard(event: KeyboardEvent): void {
@@ -202,7 +202,7 @@
 			type="button"
 			bind:this={containerEl}
 			class="relative block min-h-[24.375rem] w-full overflow-hidden rounded-lg border-0 bg-surface-subtle p-0 text-left outline-none"
-			aria-label="Scatter plot. Use arrow keys to inspect plotted occupations and Enter to open the selected occupation."
+			aria-label="Scatter plot. Select a point to open its occupation. Use arrow keys to move and Enter to open."
 			onclick={handleClick}
 			onkeydown={handleKeyboard}
 			onpointermove={handlePointerMove}
@@ -357,32 +357,8 @@
 		</button>
 
 		<p class="mt-2 text-xs leading-relaxed text-muted-foreground">
-			Tap a point to inspect it. With a keyboard, focus the chart, use arrow keys to move through
-			occupations, and press Enter to open the selected occupation. Use the List view for exact
-			lookup.
+			Select a point to open the occupation. With a keyboard, use arrow keys to move and Enter to
+			open. Use the List view for exact lookup.
 		</p>
-
-		{#if selectedItem}
-			<aside
-				class="mt-3 rounded-lg border border-primary/25 bg-action-try-subtle p-4"
-				aria-live="polite"
-			>
-				<div class="flex flex-wrap items-start justify-between gap-3">
-					<div>
-						<p class="text-xs font-medium text-action-try">Selected occupation</p>
-						<h4 class="mt-1 text-base font-semibold text-foreground">{selectedItem.title}</h4>
-						<p class="mt-1 text-sm text-text-secondary">
-							{pressure(selectedItem.pressureRank)} · {wage(selectedItem.wageMedian)}
-						</p>
-					</div>
-					<a
-						href="/occupation/{selectedItem.code}"
-						class="touch-target inline-flex items-center rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground no-underline"
-					>
-						Open occupation
-					</a>
-				</div>
-			</aside>
-		{/if}
 	{/if}
 </ChartFrame>

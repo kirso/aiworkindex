@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { trackProductEvent } from '$lib/analytics';
+	import { v9DestinationEntityKind, v9RoleDestination } from '$lib/data/v9-destination';
 
 	type OccupationItem = {
 		code: string;
@@ -23,10 +24,7 @@
 		official_ssoc2024: string | null;
 		pressure_rank: number | null;
 		pressure_kind: 'official' | 'estimated' | 'withheld';
-		href: string;
 		family_label: string;
-		family_accent: string;
-		family_surface: string;
 	};
 
 	type SearchPayload = {
@@ -155,7 +153,7 @@
 			event.preventDefault();
 			if (result.kind === 'role') {
 				trackRoleSelection(result.role);
-				void goto(result.role.href);
+				void goto(v9RoleDestination(result.role));
 			} else {
 				trackProductEvent('job_search_selected', {
 					entity_kind: 'occupation',
@@ -168,7 +166,7 @@
 
 	function trackRoleSelection(role: RoleQueryItem): void {
 		trackProductEvent('job_search_selected', {
-			entity_kind: role.journey_kind === 'exact_official_title' ? 'occupation' : 'role',
+			entity_kind: v9DestinationEntityKind(role),
 			context: 'home'
 		});
 	}
@@ -220,15 +218,14 @@
 					{#if result.kind === 'role'}
 						<a
 							id="occupation-search-option-{index}"
-							href={result.role.href}
+							href={v9RoleDestination(result.role)}
 							role="option"
 							aria-selected={index === selectedIndex}
 							onclick={() => trackRoleSelection(result.role)}
-							class="block min-h-11 min-w-0 border-b border-l-4 px-4 py-3 no-underline last:border-b-0 {index ===
+							class="block min-h-11 min-w-0 border-b border-border px-4 py-3 no-underline last:border-b-0 {index ===
 							selectedIndex
 								? 'bg-accent'
 								: 'hover:bg-accent'}"
-							style:border-left-color={result.role.family_accent}
 						>
 							<span class="block break-words text-sm font-semibold text-foreground">
 								{result.role.title}

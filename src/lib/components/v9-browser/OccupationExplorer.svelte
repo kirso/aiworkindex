@@ -3,10 +3,8 @@
 	import type { V9BrowserItem } from '$lib/data/v9-browser';
 	import type { V9IloExposureCategory } from '$lib/data/v9-contract';
 	import { spokenMajorGroupTitle } from '$lib/data/v9-display';
-	import { toV9MapItem } from '$lib/data/v9-home';
 	import { onMount } from 'svelte';
 	import EqualAreaOccupationMap from './EqualAreaOccupationMap.svelte';
-	import GroupedOccupationMap from './GroupedOccupationMap.svelte';
 	import OccupationFilters from './OccupationFilters.svelte';
 	import OccupationResultList from './OccupationResultList.svelte';
 	import PressureWageScatter from './PressureWageScatter.svelte';
@@ -93,10 +91,6 @@
 	let pageLimit = $derived(visibleCount === 0 ? listPageSize : visibleCount);
 	let visible = $derived(filtered.slice(0, pageLimit));
 	let listDetail = $derived(evidence === 'demand' ? ('demand' as const) : ('wage' as const));
-	let showGroupOverview = $derived(
-		query.trim() === '' && group === 'all' && category === 'all' && evidence === 'all'
-	);
-	let mapItems = $derived(filtered.map(toV9MapItem));
 
 	function isEvidenceFilter(value: string | null): value is EvidenceFilter {
 		return ['all', 'ranked', 'wage', 'demand', 'unranked'].includes(value ?? '');
@@ -248,19 +242,11 @@
 			</button>
 		</div>
 	{:else if view === 'map'}
-		{#if showGroupOverview}
-			<GroupedOccupationMap
-				items={mapItems}
-				totalCount={expectedTotal || items.length}
-				exploreHref="/explore"
-			/>
-		{:else}
-			<EqualAreaOccupationMap
-				items={filtered}
-				totalCount={expectedTotal || items.length}
-				bind:selectedCode
-			/>
-		{/if}
+		<EqualAreaOccupationMap
+			items={filtered}
+			totalCount={expectedTotal || items.length}
+			bind:selectedCode
+		/>
 	{:else if view === 'scatter'}
 		<PressureWageScatter items={filtered} bind:selectedCode />
 	{:else}

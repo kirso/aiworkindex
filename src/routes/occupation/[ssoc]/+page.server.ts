@@ -47,7 +47,7 @@ export const load: PageServerLoad = ({ params }) => {
 				role.official_occupation?.ssoc2024 === view.code &&
 				role.title.localeCompare(view.title, undefined, { sensitivity: 'base' }) !== 0
 		)
-		.map(role => ({ title: role.title, resolutionBasis: role.resolution_basis }))
+		.map(role => ({ slug: role.slug, title: role.title, resolutionBasis: role.resolution_basis }))
 		.sort((a, b) => a.title.localeCompare(b.title));
 
 	return {
