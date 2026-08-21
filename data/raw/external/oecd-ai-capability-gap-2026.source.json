@@ -1,0 +1,21 @@
+{
+  "publisher": "Organisation for Economic Co-operation and Development",
+  "title": "OECD AI Exposure Measure — Data File",
+  "publication_title": "The OECD AI exposure measure: Mapping the OECD AI Capability Indicators to occupations",
+  "publication_date": "2026-05-26",
+  "publication_revision": "2026-07",
+  "doi": "10.1787/f3da0f0a-en",
+  "publication_url": "https://www.oecd.org/en/publications/the-oecd-ai-exposure-measure_f3da0f0a-en.html",
+  "download_url": "https://www.oecd.org/content/dam/oecd/en/about/projects/edu/aifs-%28ai-and-future-skills%29/OECD%20AI%20Capability%20Gap%20Index_public%20data.xlsx/_jcr_content/renditions/original.media_file.download_attachment.file/OECD%20AI%20Capability%20Gap%20Index_public%20data.xlsx",
+  "retrieved_at": "2026-08-21",
+  "artifact": "oecd-ai-capability-gap-2026.xlsx",
+  "sha256": "11643c1e5aa002613a8652c15aa93975652089eda5d005017e7ea165ead24dcd",
+  "occupation_system": "O*NET-SOC 30.3",
+  "occupation_rows": 879,
+  "licence": {
+    "name": "Creative Commons Attribution 4.0 International",
+    "identifier": "CC BY 4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "use_boundary": "Mapped international capability evidence only. It is not a Singapore adoption measure, does not identify employment effects and cannot change the V9 ILO headline."
+}

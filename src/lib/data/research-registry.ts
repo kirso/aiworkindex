@@ -1066,6 +1066,147 @@ export const researchRegistry: ResearchEntry[] = [
 			'Used to explain why worker vulnerability is distinct from task pressure. It does not create a Singapore transition or risk score.'
 	},
 	{
+		key: 'acemoglu_restrepo_automation_new_tasks_2019',
+		title: 'Automation and New Tasks: How Technology Displaces and Reinstates Labor',
+		authors: ['Daron Acemoglu', 'Pascual Restrepo'],
+		year: 2019,
+		published_at: '2019-03',
+		publisher: 'NBER / Journal of Economic Perspectives',
+		url: 'https://www.nber.org/papers/w25684',
+		doi: '10.3386/w25684',
+		type: 'working_paper',
+		domains: ['tasks', 'productivity', 'context'],
+		role: 'supporting_context',
+		status: 'supporting',
+		used_for: [
+			'displacement-versus-reinstatement framework',
+			'productivity and scale interpretation',
+			'new-task evidence gate'
+		],
+		source_keys: [],
+		claim_ids: [],
+		summary:
+			'Distinguishes the labour-displacing effect of automation from productivity effects and the reinstatement of labour through new tasks.',
+		limitations:
+			'A general task framework and historical empirical analysis; it does not identify the current effect of generative AI in Singapore.',
+		repo_notes:
+			'Owns the V9 economic-observatory mechanism taxonomy. It does not change occupation pressure ranks or supply a displacement coefficient.'
+	},
+	{
+		key: 'acemoglu_kong_restrepo_tasks_at_work_2024',
+		title: 'Tasks At Work: Comparative Advantage, Technology and Labor Demand',
+		authors: ['Daron Acemoglu', 'Fredric Kong', 'Pascual Restrepo'],
+		year: 2025,
+		published_at: '2025-03',
+		publisher: 'NBER',
+		url: 'https://www.nber.org/papers/w32872',
+		doi: '10.3386/w32872',
+		type: 'working_paper',
+		domains: ['tasks', 'productivity', 'mobility', 'context'],
+		role: 'supporting_context',
+		status: 'supporting',
+		used_for: [
+			'general-equilibrium interpretation',
+			'comparative-advantage framing',
+			'occupation-outcome claim boundary'
+		],
+		source_keys: [],
+		claim_ids: [],
+		summary:
+			'Shows why automation, labour augmentation, capital augmentation and new tasks have different effects on labour demand, wages and productivity once substitution and general-equilibrium responses are considered.',
+		limitations:
+			'A general labour-economics framework rather than a measured Singapore generative-AI outcome panel.',
+		repo_notes:
+			'Supports V9 withholding a single job-outcome score when adoption, demand response, substitution and new-task evidence are unavailable.'
+	},
+	{
+		key: 'oecd_using_ai_workplace_2024',
+		title: 'Using AI in the Workplace: Opportunities, Risks and Policy Responses',
+		authors: ['OECD'],
+		year: 2024,
+		published_at: '2024-03-15',
+		publisher: 'OECD Publishing',
+		url: 'https://www.oecd.org/en/publications/using-ai-in-the-workplace_73d417f9-en.html',
+		doi: '10.1787/73d417f9-en',
+		type: 'report',
+		domains: ['augmentation', 'productivity', 'measurement', 'context'],
+		role: 'supporting_context',
+		status: 'supporting',
+		used_for: ['job-quality evidence', 'worker-agency context', 'workplace-governance framing'],
+		source_keys: [],
+		claim_ids: [],
+		summary:
+			'Synthesizes employer and worker evidence on performance, job enjoyment, work intensity, data collection, inequality and workplace AI governance.',
+		limitations:
+			'Cross-country survey and policy evidence cannot identify detailed Singapore occupation outcomes.',
+		repo_notes:
+			'Keeps job quality and worker agency visible as separate outcomes. V9 publishes no detailed job-quality estimate until compatible local observations exist.'
+	},
+	{
+		key: 'baslandze_etal_corporate_ai_2026',
+		title: 'Artificial Intelligence, Productivity, and the Workforce: Evidence from Corporate Executives',
+		authors: [
+			'Salome Baslandze',
+			'Zachary Edwards',
+			'John Graham',
+			'Ty McClure',
+			'Brent H. Meyer',
+			'Michael Sparks',
+			'Sonya R. Waddell',
+			'Daniel Weitz'
+		],
+		year: 2026,
+		published_at: '2026-03',
+		publisher: 'NBER',
+		url: 'https://www.nber.org/papers/w34984',
+		doi: '10.3386/w34984',
+		type: 'working_paper',
+		domains: ['validation', 'productivity', 'measurement', 'context'],
+		role: 'validation',
+		status: 'active',
+		used_for: [
+			'firm-heterogeneity validation',
+			'productivity-versus-employment interpretation',
+			'composition-change context'
+		],
+		source_keys: [],
+		claim_ids: [],
+		summary:
+			'Finds heterogeneous adoption and productivity reports across nearly 750 corporate executives, little near-term aggregate employment decline, and different expected workforce effects by firm size.',
+		limitations:
+			'Executive survey evidence is not a causal Singapore occupation panel, and perceived productivity can differ from measured gains.',
+		repo_notes:
+			'Validates the V9 separation of adoption, productivity, scale and workforce composition. No reported coefficient is transferred into Singapore occupations.'
+	},
+	{
+		key: 'oecd_productivity_compendium_2026',
+		title: 'OECD Compendium of Productivity Indicators 2026',
+		authors: ['OECD'],
+		year: 2026,
+		published_at: '2026-06-23',
+		observation_period: 'Mainly through 2024; preliminary and nowcast estimates for 2025',
+		publisher: 'OECD Publishing',
+		url: 'https://www.oecd.org/en/publications/oecd-compendium-of-productivity-indicators-2026_734a5e68-en.html',
+		doi: '10.1787/734a5e68-en',
+		type: 'report',
+		domains: ['productivity', 'measurement', 'context'],
+		role: 'supporting_context',
+		status: 'supporting',
+		used_for: [
+			'aggregate productivity measurement caveat',
+			'industry and firm heterogeneity',
+			'AI attribution boundary'
+		],
+		source_keys: [],
+		claim_ids: [],
+		summary:
+			'Shows that aggregate productivity patterns conceal large differences across industries and firms, while current AI attribution remains tentative and difficult to isolate in official statistics.',
+		limitations:
+			'International aggregate and industry evidence does not isolate a causal AI effect for Singapore or a detailed occupation.',
+		repo_notes:
+			'Supports treating productivity and demand expansion as monitored outcomes rather than assuming a rebound coefficient.'
+	},
+	{
 		key: 'acemoglu_autor_johnson_pro_worker_ai_2026',
 		title: 'Building Pro-Worker Artificial Intelligence',
 		authors: ['Daron Acemoglu', 'David Autor', 'Simon Johnson'],
@@ -1180,9 +1321,9 @@ export const researchRegistry: ResearchEntry[] = [
 		summary:
 			'Maps current AI capabilities across nine cognitive, social and physical domains to occupation requirements and reports an updateable AI Capability Gap index.',
 		limitations:
-			'Uses US O*NET occupation requirements and model-assisted ratings. It measures capability proximity, not adoption or labour outcomes, and no verified SSOC 2024 row-level mapping is active.',
+			'Uses US O*NET occupation requirements and model-assisted ratings. It measures capability proximity, not adoption or labour outcomes. The O*NET edition differs from the official crosswalk edition, so V9 publishes only identical codes that also pass a conservative detailed-title rule.',
 		repo_notes:
-			'Supports the design of a separate multidimensional work profile. It is not a V9 headline input and remains unpublished at occupation level until the source rows, licence and crosswalk pass the evidence gate.'
+			'The public row-level workbook, licence and checksum are now pinned. V9 publishes a separate nine-domain profile for 68 SSOC occupations with exact-crosswalk candidates and detailed-title identity. It is not a headline input; all other occupations remain explicitly unavailable.'
 	},
 	{
 		key: 'oecd_skills_ai_age_2026',

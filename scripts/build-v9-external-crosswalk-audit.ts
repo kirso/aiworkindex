@@ -243,7 +243,7 @@ function main() {
 		chain:
 			'official SSOC 2024 to ISCO-08 candidates → ESCO v1.1.0 occupations → official ESCO-O*NET v1 exact/close matches → exact compatible source occupation code',
 		transfer_rule_under_review:
-			'Exact and close ESCO-O*NET relations only. Broad and narrow relations remain excluded. No candidate-value aggregation is published until source code versions and mapping sensitivity are validated.',
+			'For AIOE, Eloundou, Anthropic observed use and complementarity, exact and close ESCO-O*NET candidates remain audit-only. The separate OECD capability builder uses exact relations plus a conservative detailed-title gate; broad and narrow relations remain excluded.',
 		sources: {
 			esco_onet: escoMetadata,
 			eloundou: {
@@ -266,8 +266,11 @@ function main() {
 				publication_url:
 					'https://www.oecd.org/en/publications/the-oecd-ai-exposure-measure_f3da0f0a-en.html',
 				publication_revision: '2026-07',
-				row_level_artifact: null,
-				status: 'withheld_no_row_level_occupation_artifact'
+				row_level_artifact: 'data/raw/external/oecd-ai-capability-gap-2026.xlsx',
+				sha256: '11643c1e5aa002613a8652c15aa93975652089eda5d005017e7ea165ead24dcd',
+				occupation_system: 'O*NET 30.3',
+				occupation_rows: 879,
+				status: 'published_separate_exact_title_identity_subset'
 			}
 		},
 		quality: {
@@ -291,7 +294,7 @@ function main() {
 			anthropic_observed_use:
 				'withheld_pending_source_taxonomy_version_and_many_to_many_transfer_validation',
 			aioe: 'withheld_soc2010_to_onet_soc2019_version_bridge_missing',
-			oecd_ai_capability_gap: 'withheld_no_row_level_occupation_artifact'
+			oecd_ai_capability_gap: 'published_separate_exact_title_identity_subset'
 		},
 		publication_gates: [
 			'Pin the exact occupation-code taxonomy version for each source snapshot.',
@@ -308,7 +311,7 @@ function main() {
 		fs.writeFileSync(output, payload, 'utf8');
 	}
 	console.log(
-		`External crosswalk audit: ${audit.quality.strict_mapped_isco08_groups}/${relevantIsco.size} relevant ISCO groups have exact/close O*NET candidates; publication remains withheld`
+		`External crosswalk audit: ${audit.quality.strict_mapped_isco08_groups}/${relevantIsco.size} relevant ISCO groups have exact/close O*NET candidates; four comparison sidecars remain withheld; OECD capability uses a separate title gate`
 	);
 }
 
