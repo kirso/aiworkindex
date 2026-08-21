@@ -18,6 +18,58 @@
       "direct_wages": 523
     }
   },
+  "economic_observatory": {
+    "status": "descriptive_evidence_and_explicit_gaps",
+    "artifact": "v9-economic-observatory.json",
+    "report": "/reports/labour-observatory",
+    "generated_at": "2026-08-19",
+    "headline_effect": "none",
+    "coverage": {
+      "detailed_occupations": 1001,
+      "pressure_ranked": 987,
+      "direct_wage": 523,
+      "named_demand": 37,
+      "broad_employment_context": 990,
+      "broad_labour_context": 1001,
+      "detailed_ai_adoption": 0,
+      "detailed_output_or_price_elasticity": 0,
+      "detailed_new_task_creation": 0,
+      "detailed_job_quality_change": 0,
+      "causal_ai_labour_outcomes": 0,
+      "classified_economic_scenarios": 0
+    },
+    "observed_broad_group_profiles": 8,
+    "publication_gates": {
+      "detailed_adoption": "Requires occupation-linked adoption observations with a stated sampling frame and period.",
+      "productivity_scale": "Requires compatible price, quantity or revenue evidence and a demand-response design.",
+      "new_tasks": "Requires versioned occupation or task observations showing genuinely new human work.",
+      "job_quality": "Requires hours, intensity, autonomy, monitoring or contract evidence at compatible grain.",
+      "causal_outcomes": "Requires adoption timing, a defensible comparison group and outcome data at compatible grain.",
+      "transitions": "Requires observed Singapore mobility and training outcomes rather than structural similarity alone.",
+      "longitudinal_pressure": "Requires a second methodologically comparable V9 task-pressure snapshot."
+    }
+  },
+  "capability_profiles": {
+    "status": "published_conservative_title_identity_subset",
+    "artifact": "v9-capability-profiles.json",
+    "report": "/reports/ai-capabilities",
+    "generated_at": "2026-08-21",
+    "construct": "mapped_oecd_ai_capability_gap_profile",
+    "headline_effect": "none",
+    "coverage": {
+      "ssoc_occupations": 1001,
+      "raw_exact_candidate_coverage": 698,
+      "available_exact_title_identity_profiles": 68,
+      "unavailable_without_published_profile": 933,
+      "coverage_pct": 6.7932,
+      "unique_oecd_rows_used": 68,
+      "profiles_with_several_title_identity_candidates": 0,
+      "profiles_with_nonzero_overall_mapping_range": 0,
+      "raw_exact_candidates_rejected_by_title_rule": 1606,
+      "occupations_available_only_if_close_matches_were_allowed": 231,
+      "close_match_profiles_published": 0
+    }
+  },
   "role_query_layer": {
     "status": "official_resolutions_composites_and_withheld_queries",
     "artifact": "synthetic-roles-v9.json",
@@ -90,7 +142,7 @@
       "previous_snapshot": null
     },
     "research_review_cutoff": "2026-08-19",
-    "research_record_count": 51,
+    "research_record_count": 56,
     "headline_separation": "No market field changes AI Work Pressure Rank.",
     "refresh_note": "Q1 2026 remains the latest detailed occupation-group evidence. Q2 2026 is preliminary national context and does not become an occupation-level outcome."
   },

@@ -16,6 +16,8 @@ const SRC_DATA_DIR = path.join(ROOT_DIR, 'src', 'lib', 'data');
 
 const V9_RELEASE_FILE = path.join(ROOT_DIR, 'data', 'occupations-v9.json');
 const V9_MARKET_FILE = path.join(ROOT_DIR, 'data', 'v9-market-context.json');
+const V9_ECONOMIC_OBSERVATORY_FILE = path.join(ROOT_DIR, 'data', 'v9-economic-observatory.json');
+const V9_CAPABILITY_PROFILES_FILE = path.join(ROOT_DIR, 'data', 'v9-capability-profiles.json');
 const V9_ROLES_FILE = path.join(ROOT_DIR, 'data', 'synthetic-roles-v9.json');
 const V9_EXTERNAL_AUDIT_FILE = path.join(ROOT_DIR, 'data', 'v9-external-crosswalk-audit.json');
 const RESEARCH_LIBRARY_FILE = path.join(ROOT_DIR, 'data', 'research-library.json');
@@ -84,6 +86,41 @@ type V9Roles = {
 	};
 };
 
+type V9EconomicObservatory = {
+	generated_at: string;
+	headline_effect: 'none';
+	coverage: {
+		detailed_occupations: number;
+		pressure_ranked: number;
+		direct_wage: number;
+		named_demand: number;
+		broad_employment_context: number;
+		broad_labour_context: number;
+		detailed_ai_adoption: number;
+		detailed_output_or_price_elasticity: number;
+		detailed_new_task_creation: number;
+		detailed_job_quality_change: number;
+		causal_ai_labour_outcomes: number;
+		classified_economic_scenarios: number;
+	};
+	group_profiles: Record<string, { measurement_status: string }>;
+	publication_gates: Record<string, string>;
+};
+
+type V9CapabilityProfiles = {
+	generated_at: string;
+	headline_effect: 'none';
+	construct: string;
+	coverage: {
+		ssoc_occupations: number;
+		raw_exact_candidate_coverage: number;
+		available_exact_title_identity_profiles: number;
+		unavailable_without_published_profile: number;
+		coverage_pct: number;
+		close_match_profiles_published: 0;
+	};
+};
+
 type ResearchLibrary = {
 	version: string;
 	review_cutoff: string;
@@ -111,6 +148,8 @@ function writeJson(filePath: string, payload: unknown): void {
 
 const V9_RELEASE = readJson<V9Release>(V9_RELEASE_FILE);
 const V9_MARKET = readJson<V9Market>(V9_MARKET_FILE);
+const V9_ECONOMIC_OBSERVATORY = readJson<V9EconomicObservatory>(V9_ECONOMIC_OBSERVATORY_FILE);
+const V9_CAPABILITY_PROFILES = readJson<V9CapabilityProfiles>(V9_CAPABILITY_PROFILES_FILE);
 const V9_ROLES = readJson<V9Roles>(V9_ROLES_FILE);
 const V9_EXTERNAL_AUDIT = readJson<V9ExternalAudit>(V9_EXTERNAL_AUDIT_FILE);
 const RESEARCH_LIBRARY = readJson<ResearchLibrary>(RESEARCH_LIBRARY_FILE);
@@ -340,6 +379,27 @@ function buildSiteStatus() {
 			headline_construct: 'AI Work Pressure Rank',
 			headline_source: 'ILO 2025 mean_score_2025',
 			counts: V9_RELEASE.counts
+		},
+		economic_observatory: {
+			status: 'descriptive_evidence_and_explicit_gaps',
+			artifact: 'v9-economic-observatory.json',
+			report: '/reports/labour-observatory',
+			generated_at: V9_ECONOMIC_OBSERVATORY.generated_at,
+			headline_effect: V9_ECONOMIC_OBSERVATORY.headline_effect,
+			coverage: V9_ECONOMIC_OBSERVATORY.coverage,
+			observed_broad_group_profiles: Object.values(V9_ECONOMIC_OBSERVATORY.group_profiles).filter(
+				profile => profile.measurement_status === 'observed_broad_occupation_group'
+			).length,
+			publication_gates: V9_ECONOMIC_OBSERVATORY.publication_gates
+		},
+		capability_profiles: {
+			status: 'published_conservative_title_identity_subset',
+			artifact: 'v9-capability-profiles.json',
+			report: '/reports/ai-capabilities',
+			generated_at: V9_CAPABILITY_PROFILES.generated_at,
+			construct: V9_CAPABILITY_PROFILES.construct,
+			headline_effect: V9_CAPABILITY_PROFILES.headline_effect,
+			coverage: V9_CAPABILITY_PROFILES.coverage
 		},
 		role_query_layer: {
 			status: 'official_resolutions_composites_and_withheld_queries',

@@ -37,6 +37,24 @@ const definitions = [
 		description: 'Reviewed demand signals and labour evidence kept separate from pressure ranks.'
 	},
 	{
+		file: 'v9-economic-observatory.json',
+		path: path.join(STATIC_DATA, 'v9-economic-observatory.json'),
+		public_path: '/data/v9-economic-observatory.json',
+		label: 'V9 Singapore AI labour observatory',
+		category: 'economic_outcomes',
+		description:
+			'Broad official labour observations, six causal mechanisms, detailed evidence availability and explicit publication gates; no headline effect.'
+	},
+	{
+		file: 'v9-capability-profiles.json',
+		path: path.join(STATIC_DATA, 'v9-capability-profiles.json'),
+		public_path: '/data/v9-capability-profiles.json',
+		label: 'V9 OECD AI capability profiles',
+		category: 'capability_evidence',
+		description:
+			'Nine-domain OECD capability profiles for the conservative exact-title-identity subset; all missingness is explicit and the headline effect is none.'
+	},
+	{
 		file: 'ilo-isco-task-evidence-v9.json',
 		path: path.join(STATIC_DATA, 'ilo-isco-task-evidence-v9.json'),
 		public_path: '/data/ilo-isco-task-evidence-v9.json',

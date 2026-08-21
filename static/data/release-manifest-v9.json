@@ -43,6 +43,26 @@
       "generated_at": "2026-08-19"
     },
     {
+      "file": "v9-economic-observatory.json",
+      "public_path": "/data/v9-economic-observatory.json",
+      "label": "V9 Singapore AI labour observatory",
+      "category": "economic_outcomes",
+      "description": "Broad official labour observations, six causal mechanisms, detailed evidence availability and explicit publication gates; no headline effect.",
+      "bytes": 619346,
+      "sha256": "c9738614758dc12f7a0bd0f5da0ddf3d14ec0cc65c0092cd3ab2d7046982b16d",
+      "generated_at": "2026-08-19"
+    },
+    {
+      "file": "v9-capability-profiles.json",
+      "public_path": "/data/v9-capability-profiles.json",
+      "label": "V9 OECD AI capability profiles",
+      "category": "capability_evidence",
+      "description": "Nine-domain OECD capability profiles for the conservative exact-title-identity subset; all missingness is explicit and the headline effect is none.",
+      "bytes": 749630,
+      "sha256": "421921b005a10e7c89116988341ff515777b2da1e6699850bee8890a4c1ca2cf",
+      "generated_at": "2026-08-19"
+    },
+    {
       "file": "ilo-isco-task-evidence-v9.json",
       "public_path": "/data/ilo-isco-task-evidence-v9.json",
       "label": "ILO task evidence by ISCO-08 group",
@@ -58,8 +78,8 @@
       "label": "V9 external crosswalk audit",
       "category": "external_evidence",
       "description": "Checksum-pinned ESCO-O*NET candidate mapping audit and explicit publication gates; no external values enter the headline.",
-      "bytes": 371983,
-      "sha256": "0c43049378fe4fddff0cfa0356a83cbe5e2dee277e6b39407af9999ca73d7ac1",
+      "bytes": 372263,
+      "sha256": "8915024b30e291c216c9b86500b8b3af0c57b71c76a5251ffbd4125ce52574a8",
       "generated_at": "2026-08-19"
     },
     {
@@ -88,8 +108,8 @@
       "label": "V9 on-demand interface index",
       "category": "discovery",
       "description": "Route-specific evidence projections loaded on demand by the calculator and comparison tools.",
-      "bytes": 3029240,
-      "sha256": "43176f1c8a4c84e0412fc538b79c3fe1f889daa547762dd03534bb1c5cefdf45",
+      "bytes": 3369770,
+      "sha256": "704e894800926b89b5e83fdc4631b966887d9e5372a3a6fc2bccad8d5b6ca56c",
       "generated_at": "2026-08-19"
     },
     {
@@ -98,8 +118,8 @@
       "label": "Research register",
       "category": "research",
       "description": "Versioned research claims, roles, sources, and limitations.",
-      "bytes": 68638,
-      "sha256": "e5ce7de4c895487c9cc1e021f57b24afc09f248b340eaab1629b5b23f6a0b2b9",
+      "bytes": 75824,
+      "sha256": "944367036f2ed32e8c2e1b176e701f64121295b77e24091633b47b773639f94e",
       "generated_at": "2026-08-19"
     },
     {
@@ -108,8 +128,8 @@
       "label": "Current release status",
       "category": "governance",
       "description": "Bounded current V9 facts, evidence vintages, withheld inputs, and archive links.",
-      "bytes": 4117,
-      "sha256": "3b41442cee157c4941dcc53a2c054b5600515a13d57bcbb19a1752d65763116b",
+      "bytes": 6567,
+      "sha256": "6da7a7e0c2b4bd3a0f63b123571a6d3d6ff0166b994e11acf8d2e5ed7a5b185f",
       "generated_at": "2026-08-19"
     },
     {
@@ -128,8 +148,8 @@
       "label": "Concise machine-readable guide",
       "category": "discovery",
       "description": "Concise V9 scope, interpretation, and canonical links.",
-      "bytes": 2662,
-      "sha256": "c69cdcc464b37f08ba19c0023d28a6af69ef38147ff25f93538815523f505147",
+      "bytes": 3862,
+      "sha256": "a21440809fffe7ae736256b7bd5f7449aa9fed74bb13d0e381b82a9d63d721c0",
       "generated_at": "2026-08-19"
     },
     {
@@ -138,8 +158,8 @@
       "label": "Full machine-readable guide",
       "category": "discovery",
       "description": "Full V9 method, limitations, official occupations, reviewed modern-title resolutions and non-official role-query links.",
-      "bytes": 148716,
-      "sha256": "2ec1a38929a577ed7cf8bcfdd8abc06079cdad64f6fa6c6287c1e26a9013cd5d",
+      "bytes": 149785,
+      "sha256": "71e5bd4da2bc38aea2fc0420e987231c8d67a3327335bd9c94612de03b88ac3b",
       "generated_at": "2026-08-19"
     },
     {
@@ -148,8 +168,8 @@
       "label": "Canonical sitemap",
       "category": "discovery",
       "description": "Indexable V9 pages on the canonical host.",
-      "bytes": 167827,
-      "sha256": "6b156a9d2a4ffff9ddf5fd8899e893e9b12e4347e754bd59e997a4cd678acbe8",
+      "bytes": 168144,
+      "sha256": "287d31a90f8026c40ffbb028f2e22cf74a7993eeeeef398c7c65c6d236a7ff46",
       "generated_at": "2026-08-19"
     }
   ]

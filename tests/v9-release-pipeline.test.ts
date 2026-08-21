@@ -88,6 +88,8 @@ describe('V9 release and discovery pipeline', () => {
 			false
 		);
 		assert.equal(set.has('https://aiworkindex.com/reports/v7-release'), false);
+		assert.equal(set.has('https://aiworkindex.com/reports/labour-observatory'), true);
+		assert.equal(set.has('https://aiworkindex.com/reports/ai-capabilities'), true);
 		assert.equal(set.has('https://aiworkindex.com/rankings/quarterly-movers'), false);
 		assert.equal(set.has('https://aiworkindex.com/rankings/best-transitions'), false);
 	});
@@ -110,6 +112,8 @@ describe('V9 release and discovery pipeline', () => {
 		const llms = fs.readFileSync(path.join(staticDir, 'llms.txt'), 'utf8');
 		assert.equal(manifest.version, 'V9');
 		assert(manifest.artifacts.some(artifact => artifact.file === 'sg-ai-occupations-v9.json'));
+		assert(manifest.artifacts.some(artifact => artifact.file === 'v9-economic-observatory.json'));
+		assert(manifest.artifacts.some(artifact => artifact.file === 'v9-capability-profiles.json'));
 		assert.equal(
 			manifest.artifacts.every(artifact => artifact.generated_at === manifest.generated_at),
 			true

@@ -14,6 +14,10 @@ The headline uses only ILO 2025 mean_score_2025 values connected through the off
 
 Wages, named demand evidence, external comparisons, adoption, and labour-market conditions are separate evidence. They do not change the pressure rank. The current release publishes direct wages and reviewed named demand where available. External AIOE, Eloundou, observed-use, and potential-complementarity blocks remain null while source-code editions, many-to-many transfer rules and construct replication are validated. Missing evidence is not zero.
 
+The Singapore AI labour observatory follows six separate channels between task pressure and jobs: displacement; productivity and demand expansion; new work; human responsibility and complementarity; employer adoption and organisation; and worker adjustment. It publishes broad official observations at their source grain. It does not assign occupation-level job outcomes or a Jevons-style rebound effect without adoption, price, output and causal labour evidence.
+
+The separate OECD 2026 capability layer publishes nine-domain profiles for 68 occupations. Although 698 occupations have a raw exact crosswalk candidate, V9 publishes a profile only when the official SSOC detailed title also agrees with the O*NET title under a conservative rule. The other 933 occupations stay unavailable; they are not scored lower. Capability profiles do not change the pressure rank.
+
 ## Primary pages and data
 
 - Methodology: https://aiworkindex.com/methodology
@@ -27,6 +31,10 @@ Wages, named demand evidence, external comparisons, adoption, and labour-market 
 - Current JSON: https://aiworkindex.com/data/sg-ai-occupations-v9.json
 - Current CSV: https://aiworkindex.com/data/sg-ai-occupations-v9.csv
 - Singapore market context: https://aiworkindex.com/data/v9-market-context.json
+- Singapore AI labour observatory: https://aiworkindex.com/reports/labour-observatory
+- Labour observatory data: https://aiworkindex.com/data/v9-economic-observatory.json
+- AI capability report: https://aiworkindex.com/reports/ai-capabilities
+- AI capability profile data: https://aiworkindex.com/data/v9-capability-profiles.json
 - Mapped ILO task evidence: https://aiworkindex.com/data/ilo-isco-task-evidence-v9.json
 - Full machine-readable guide: https://aiworkindex.com/llms-full.txt
 - Source repository: https://github.com/kirso/aiworkindex

@@ -91,6 +91,42 @@ const market = readJson<{
 		};
 	};
 }>(path.join(STATIC_DATA, 'v9-market-context.json'));
+const economicObservatory = readJson<{
+	schema_version: string;
+	release: string;
+	generated_at: string;
+	review_cutoff: string;
+	headline_effect: string;
+	causal_model: {
+		mechanisms: Array<{ id: string; status: string; missing_for_outcome: string[] }>;
+		scenario_policy: string;
+	};
+	coverage: {
+		detailed_occupations: number;
+		pressure_ranked: number;
+		direct_wage: number;
+		named_demand: number;
+		broad_employment_context: number;
+		broad_labour_context: number;
+		detailed_ai_adoption: number;
+		detailed_output_or_price_elasticity: number;
+		detailed_new_task_creation: number;
+		detailed_job_quality_change: number;
+		causal_ai_labour_outcomes: number;
+		classified_economic_scenarios: number;
+	};
+	group_profiles: Record<string, { measurement_status: string }>;
+	occupation_coverage: Array<{
+		ssoc: string;
+		detailed_ai_adoption: boolean;
+		detailed_output_or_price_elasticity: boolean;
+		detailed_new_task_creation: boolean;
+		detailed_job_quality_change: boolean;
+		causal_ai_labour_outcome: boolean;
+		economic_scenario: string;
+	}>;
+	publication_gates: Record<string, string>;
+}>(path.join(STATIC_DATA, 'v9-economic-observatory.json'));
 const taskEvidence = readJson<{
 	schema_version: string;
 	generated_at: string;
@@ -130,6 +166,30 @@ const externalAudit = readJson<{
 	dispositions: Record<string, string>;
 	per_isco08: Record<string, unknown>;
 }>(path.join(STATIC_DATA, 'v9-external-crosswalk-audit.json'));
+const capabilityProfiles = readJson<{
+	schema_version: string;
+	release: string;
+	generated_at: string;
+	headline_effect: string;
+	construct: string;
+	source: { sha256: string; occupation_rows: number; licence: { identifier: string } };
+	coverage: {
+		ssoc_occupations: number;
+		raw_exact_candidate_coverage: number;
+		available_exact_title_identity_profiles: number;
+		unavailable_without_published_profile: number;
+		close_match_profiles_published: number;
+	};
+	occupation_status: Record<string, { status: string }>;
+	profiles: Record<
+		string,
+		{
+			status: string;
+			headline_effect: string;
+			mapping: { oecd_candidates: Array<{ relation: string; detailed_title_identity: boolean }> };
+		}
+	>;
+}>(path.join(STATIC_DATA, 'v9-capability-profiles.json'));
 const roleRelease = readJson<{
 	schema_version: string;
 	taxonomy: string;
@@ -177,8 +237,20 @@ const searchIndex = readJson<{
 const uiIndex = readJson<{
 	schema_version: string;
 	query_aliases: Record<string, string>;
-	checker_entries: Array<{ id: string; searchText: string; queryAliases: string[] }>;
-	compare_entities: Array<{ id: string; searchText: string; queryAliases: string[] }>;
+	checker_entries: Array<{
+		id: string;
+		searchText: string;
+		queryAliases: string[];
+		capabilityProximity: number | null;
+		capabilityDomains: unknown[];
+	}>;
+	compare_entities: Array<{
+		id: string;
+		searchText: string;
+		queryAliases: string[];
+		capabilityProximity: number | null;
+		capabilityDomains: unknown[];
+	}>;
 }>(path.join(STATIC_DATA, 'v9-ui-index.json'));
 const siteStatus = readJson<{
 	schema_version: string;
@@ -190,6 +262,25 @@ const siteStatus = readJson<{
 		headline_construct: string;
 		headline_source: string;
 		counts: V9PublicRelease['counts'];
+	};
+	economic_observatory: {
+		status: string;
+		artifact: string;
+		report: string;
+		generated_at: string;
+		headline_effect: string;
+		coverage: typeof economicObservatory.coverage;
+		observed_broad_group_profiles: number;
+		publication_gates: Record<string, string>;
+	};
+	capability_profiles: {
+		status: string;
+		artifact: string;
+		report: string;
+		generated_at: string;
+		construct: string;
+		headline_effect: string;
+		coverage: typeof capabilityProfiles.coverage;
 	};
 	role_query_layer: {
 		status: string;
@@ -382,7 +473,13 @@ assert.equal(externalAudit.quality.esco_occupation_rows, 2987);
 assert.equal(externalAudit.quality.relevant_official_isco08_groups, 432);
 assert.equal(externalAudit.quality.strict_mapped_isco08_groups, 362);
 assert.equal(Object.keys(externalAudit.per_isco08).length, 432);
-assert(Object.values(externalAudit.dispositions).every(value => value.startsWith('withheld_')));
+assert(
+	Object.entries(externalAudit.dispositions).every(([key, value]) =>
+		key === 'oecd_ai_capability_gap'
+			? value === 'published_separate_exact_title_identity_subset'
+			: value.startsWith('withheld_')
+	)
+);
 assert(
 	Object.values(externalAudit.quality.candidate_coverage_not_public_coverage).every(
 		coverage => coverage.ssoc_denominator === publicRelease.counts.occupations
@@ -393,6 +490,51 @@ assert.equal(
 	readText(path.join(STATIC_DATA, 'v9-external-crosswalk-audit.json')),
 	readText(path.join(ROOT, 'src', 'lib', 'data', 'v9-external-crosswalk-audit.json')),
 	'source and public external-audit copies differ'
+);
+assert.equal(capabilityProfiles.schema_version, '9.0');
+assert.equal(capabilityProfiles.release, 'V9');
+assert.equal(capabilityProfiles.headline_effect, 'none');
+assert.equal(capabilityProfiles.source.occupation_rows, 879);
+assert.equal(capabilityProfiles.source.licence.identifier, 'CC BY 4.0');
+assert.deepEqual(capabilityProfiles.coverage, {
+	ssoc_occupations: 1001,
+	raw_exact_candidate_coverage: 698,
+	available_exact_title_identity_profiles: 68,
+	unavailable_without_published_profile: 933,
+	coverage_pct: 6.7932,
+	unique_oecd_rows_used: 68,
+	profiles_with_several_title_identity_candidates: 0,
+	profiles_with_nonzero_overall_mapping_range: 0,
+	raw_exact_candidates_rejected_by_title_rule: 1606,
+	occupations_available_only_if_close_matches_were_allowed: 231,
+	close_match_profiles_published: 0
+});
+assert.equal(Object.keys(capabilityProfiles.profiles).length, 68);
+assert.equal(Object.keys(capabilityProfiles.occupation_status).length, 1001);
+assert.equal(capabilityProfiles.profiles['25143'], undefined);
+assert.equal(
+	capabilityProfiles.occupation_status['25143']?.status,
+	'unavailable_no_detailed_title_identity'
+);
+assert(
+	Object.values(capabilityProfiles.profiles).every(
+		profile =>
+			profile.status === 'available_exact_title_identity' &&
+			profile.headline_effect === 'none' &&
+			profile.mapping.oecd_candidates.every(
+				candidate => candidate.relation === 'exactMatch' && candidate.detailed_title_identity
+			)
+	)
+);
+assert.equal(
+	readText(path.join(STATIC_DATA, 'v9-capability-profiles.json')),
+	readText(path.join(ROOT, 'data', 'v9-capability-profiles.json')),
+	'canonical and public capability-profile copies differ'
+);
+assert.equal(
+	readText(path.join(STATIC_DATA, 'v9-capability-profiles.json')),
+	readText(path.join(ROOT, 'src', 'lib', 'data', 'v9-capability-profiles.json')),
+	'source and public capability-profile copies differ'
 );
 assert.equal(
 	readText(path.join(STATIC_DATA, 'v9-external-crosswalk-audit.json')),
@@ -443,6 +585,57 @@ assert.match(market.rules.headline_separation, /No market field changes AI Work 
 assert.equal(market.national.labour_market_q2_2026_advance.status, 'preliminary');
 assert.equal(market.national.postings_monitor.public_demand_input, false);
 assert.equal(market.national.postings_monitor.status, 'withheld_stale_convenience_sample');
+
+assert.equal(economicObservatory.schema_version, '9.0');
+assert.equal(economicObservatory.release, 'V9 Singapore AI Labour Observatory');
+assert.equal(economicObservatory.generated_at, core.generated_at);
+assert.equal(economicObservatory.review_cutoff, '2026-08-19');
+assert.equal(economicObservatory.headline_effect, 'none');
+assert.equal(economicObservatory.causal_model.mechanisms.length, 6);
+assert.deepEqual(economicObservatory.coverage, {
+	detailed_occupations: 1001,
+	pressure_ranked: 987,
+	direct_wage: 523,
+	named_demand: 37,
+	broad_employment_context: 990,
+	broad_labour_context: 1001,
+	detailed_ai_adoption: 0,
+	detailed_output_or_price_elasticity: 0,
+	detailed_new_task_creation: 0,
+	detailed_job_quality_change: 0,
+	causal_ai_labour_outcomes: 0,
+	classified_economic_scenarios: 0
+});
+assert.equal(Object.keys(economicObservatory.group_profiles).length, 9);
+assert.equal(
+	Object.values(economicObservatory.group_profiles).filter(
+		profile => profile.measurement_status === 'observed_broad_occupation_group'
+	).length,
+	8
+);
+assert.equal(economicObservatory.occupation_coverage.length, 1001);
+assert.equal(new Set(economicObservatory.occupation_coverage.map(row => row.ssoc)).size, 1001);
+assert(
+	economicObservatory.occupation_coverage.every(
+		row =>
+			row.detailed_ai_adoption === false &&
+			row.detailed_output_or_price_elasticity === false &&
+			row.detailed_new_task_creation === false &&
+			row.detailed_job_quality_change === false &&
+			row.causal_ai_labour_outcome === false &&
+			row.economic_scenario === 'withheld_insufficient_compatible_evidence'
+	)
+);
+assert.equal(
+	readText(path.join(STATIC_DATA, 'v9-economic-observatory.json')),
+	readText(path.join(ROOT, 'data', 'v9-economic-observatory.json')),
+	'canonical and public economic-observatory copies differ'
+);
+assert.equal(
+	readText(path.join(STATIC_DATA, 'v9-economic-observatory.json')),
+	readText(path.join(ROOT, 'src', 'lib', 'data', 'v9-economic-observatory.json')),
+	'source and public economic-observatory copies differ'
+);
 
 assert.equal(roleRelease.schema_version, '9.0');
 assert.equal(roleRelease.taxonomy, 'SSOC 2024');
@@ -538,6 +731,21 @@ assert.equal(
 	uiIndex.checker_entries.reduce((sum, entry) => sum + entry.queryAliases.length, 0),
 	roleRelease.counts.official_query_matches
 );
+assert.equal(
+	uiIndex.checker_entries.filter(entry => entry.capabilityProximity != null).length,
+	capabilityProfiles.coverage.available_exact_title_identity_profiles
+);
+assert.equal(
+	uiIndex.compare_entities.filter(entry => entry.capabilityProximity != null).length,
+	capabilityProfiles.coverage.available_exact_title_identity_profiles
+);
+assert(
+	uiIndex.checker_entries.every(entry =>
+		entry.capabilityProximity == null
+			? entry.capabilityDomains.length === 0
+			: entry.capabilityDomains.length === 9
+	)
+);
 for (const field of forbiddenCurrentFields) {
 	assert(!collectKeys(uiIndex).has(field), `current V9 UI index contains retired field ${field}`);
 }
@@ -568,6 +776,8 @@ assert.equal(siteStatus.structural_release.headline_source, 'ILO 2025 mean_score
 assert.deepEqual(siteStatus.structural_release.counts, publicRelease.counts);
 assert.deepEqual(Object.keys(siteStatus).sort(), [
 	'archives',
+	'capability_profiles',
+	'economic_observatory',
 	'external_comparisons',
 	'homepage_banner',
 	'live_monitor',
@@ -576,6 +786,22 @@ assert.deepEqual(Object.keys(siteStatus).sort(), [
 	'structural_release',
 	'updated_at'
 ]);
+assert.equal(siteStatus.economic_observatory.status, 'descriptive_evidence_and_explicit_gaps');
+assert.equal(siteStatus.economic_observatory.artifact, 'v9-economic-observatory.json');
+assert.equal(siteStatus.economic_observatory.report, '/reports/labour-observatory');
+assert.equal(siteStatus.economic_observatory.generated_at, economicObservatory.generated_at);
+assert.equal(siteStatus.economic_observatory.headline_effect, 'none');
+assert.deepEqual(siteStatus.economic_observatory.coverage, economicObservatory.coverage);
+assert.equal(siteStatus.economic_observatory.observed_broad_group_profiles, 8);
+assert.deepEqual(
+	siteStatus.economic_observatory.publication_gates,
+	economicObservatory.publication_gates
+);
+assert.equal(siteStatus.capability_profiles.status, 'published_conservative_title_identity_subset');
+assert.equal(siteStatus.capability_profiles.artifact, 'v9-capability-profiles.json');
+assert.equal(siteStatus.capability_profiles.report, '/reports/ai-capabilities');
+assert.equal(siteStatus.capability_profiles.headline_effect, 'none');
+assert.deepEqual(siteStatus.capability_profiles.coverage, capabilityProfiles.coverage);
 assert.equal(
 	siteStatus.role_query_layer.status,
 	'official_resolutions_composites_and_withheld_queries'
@@ -735,6 +961,8 @@ assert(manifest.artifacts.some(artifact => artifact.file === 'synthetic-roles-v9
 assert(manifest.artifacts.some(artifact => artifact.file === 'v9-search-index.json'));
 assert(manifest.artifacts.some(artifact => artifact.file === 'ilo-isco-task-evidence-v9.json'));
 assert(manifest.artifacts.some(artifact => artifact.file === 'v9-external-crosswalk-audit.json'));
+assert(manifest.artifacts.some(artifact => artifact.file === 'v9-economic-observatory.json'));
+assert(manifest.artifacts.some(artifact => artifact.file === 'v9-capability-profiles.json'));
 assert(manifest.artifacts.some(artifact => artifact.file === 'releases.json'));
 assert(fs.existsSync(path.join(STATIC_DATA, 'sg-ai-occupations-v8.json')));
 assert.equal(fs.existsSync(path.join(STATIC_DATA, 'global', 'occupations.json')), false);
@@ -751,6 +979,8 @@ const currentMachineArtifacts = new Set([
 	'/data/site-status.json',
 	'/data/synthetic-roles-v9.json',
 	'/data/v9-market-context.json',
+	'/data/v9-economic-observatory.json',
+	'/data/v9-capability-profiles.json',
 	'/data/v9-search-index.json',
 	'/data/v9-ui-index.json'
 ]);
@@ -776,6 +1006,10 @@ for (const contents of [llms, llmsFull]) {
 	assert(!contents.includes('substitution_score'));
 }
 assert(llms.includes('/data/sg-ai-occupations-v9.json'));
+assert(llms.includes('/reports/labour-observatory'));
+assert(llms.includes('/data/v9-economic-observatory.json'));
+assert(llms.includes('/data/v9-capability-profiles.json'));
+assert(llms.includes('/reports/ai-capabilities'));
 assert(llmsFull.includes('Official occupations without a pressure rank'));
 for (const role of roleRelease.roles) {
 	const expectedUrl =
@@ -825,6 +1059,7 @@ for (const route of [
 	'/rankings/high-exposure-in-demand',
 	'/reports',
 	'/reports/job-market-evidence',
+	'/reports/labour-observatory',
 	'/will-ai-take-my-job',
 	'/compare',
 	'/roles',
