@@ -1,15 +1,8 @@
 <script lang="ts">
 	import { badge, card, sectionLabel } from '$lib/design-system';
-	import type {
-		V9CapabilityDomain,
-		V9CapabilityProfile,
-		V9CapabilityStatus
-	} from '$lib/data/v9-capability-profiles';
+	import type { V9CapabilityDomain, V9CapabilityProfile } from '$lib/data/v9-capability-profiles';
 
-	let {
-		profile,
-		status
-	}: { profile: V9CapabilityProfile | null; status: V9CapabilityStatus | null } = $props();
+	let { profile }: { profile: V9CapabilityProfile | null; status?: unknown } = $props();
 
 	let domains = $derived(
 		profile
@@ -26,32 +19,21 @@
 	function percentage(value: number, maximum: number): number {
 		return Math.max(0, Math.min(100, (value / maximum) * 100));
 	}
-
-	function availabilityReason(value: V9CapabilityStatus | null): string {
-		if (!value) return 'No mapping record is available.';
-		if (value.status === 'unavailable_no_exact_crosswalk') {
-			return 'The official mapping chain has no exact OECD occupation candidate. A broader match is not substituted.';
-		}
-		if (value.status === 'unavailable_no_detailed_title_identity') {
-			return 'The broader mapping chain produced candidates, but their detailed titles did not match this SSOC occupation closely enough to publish.';
-		}
-		return '';
-	}
 </script>
 
-<section class="mt-10" aria-labelledby="capability-profile-heading">
-	<div class="max-w-3xl">
-		<p class={sectionLabel()}>What current AI can do</p>
-		<h2 id="capability-profile-heading" class="mt-2 text-2xl font-semibold tracking-tight">
-			A separate capability view
-		</h2>
-		<p class="mt-3 text-sm leading-relaxed text-muted-foreground">
-			OECD evidence compares current AI capabilities with the abilities a mapped occupation needs.
-			It complements the ILO task-overlap rank; it does not change that rank.
-		</p>
-	</div>
+{#if profile}
+	<section class="mt-10" aria-labelledby="capability-profile-heading">
+		<div class="max-w-3xl">
+			<p class={sectionLabel()}>What current AI can do</p>
+			<h2 id="capability-profile-heading" class="mt-2 text-2xl font-semibold tracking-tight">
+				A separate capability view
+			</h2>
+			<p class="mt-3 text-sm leading-relaxed text-muted-foreground">
+				OECD evidence compares current AI capabilities with the abilities a mapped occupation needs.
+				It complements the ILO task-overlap rank; it does not change that rank.
+			</p>
+		</div>
 
-	{#if profile}
 		<div class="mt-5 grid gap-px bg-border lg:grid-cols-[18rem_1fr]">
 			<div class="bg-primary p-5 text-primary-foreground sm:p-6">
 				<p class="font-mono text-xs uppercase tracking-[0.14em] opacity-80">
@@ -158,24 +140,13 @@
 				</div>
 			</div>
 		{/if}
-	{:else}
-		<div class="mt-5 {card({ padding: 'md', variant: 'subtle' })}">
-			<div class="flex flex-wrap items-center gap-2">
-				<h3 class="font-semibold text-foreground">No detailed capability profile</h3>
-				<span class={badge({ variant: 'outline' })}>Left unavailable</span>
-			</div>
-			<p class="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-				{availabilityReason(status)}
-			</p>
+		<div class="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+			<a href="/reports/ai-capabilities" class="font-medium text-primary underline">
+				Read the capability report
+			</a>
+			<a href="/methodology#capability-evidence" class="font-medium text-primary underline">
+				How the mapping is controlled
+			</a>
 		</div>
-	{/if}
-
-	<div class="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
-		<a href="/reports/ai-capabilities" class="font-medium text-primary underline">
-			Read the capability report
-		</a>
-		<a href="/methodology#capability-evidence" class="font-medium text-primary underline">
-			How the mapping is controlled
-		</a>
-	</div>
-</section>
+	</section>
+{/if}

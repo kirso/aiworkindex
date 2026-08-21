@@ -65,6 +65,20 @@ describe('V9 consumer product journeys', () => {
 		assert.doesNotMatch(search, /Exposed: Gradient/);
 		assert.match(hero, /display\(\{ size: 'hero' \}\)/);
 		assert.doesNotMatch(hero, /Exposed: Gradient|riskBadge|Highest Risk|Augmented/);
+		assert.match(hero, /percentile AI work pressure/);
+		assert.doesNotMatch(hero, /percent AI task overlap/);
+	});
+
+	test('explains the occupation rank as an evidence chain without per-page unavailable panels', () => {
+		const occupation = source('src/routes/occupation/[ssoc]/+page.svelte');
+		const chain = source('src/lib/components/product/PressureEvidenceChain.svelte');
+		assert.match(occupation, /PressureEvidenceChain/);
+		assert.doesNotMatch(occupation, /Unavailable external comparisons/);
+		assert.match(chain, /01 · Job/);
+		assert.match(chain, /02 · Mapping/);
+		assert.match(chain, /03 · Task evidence/);
+		assert.match(chain, /04 · Comparison/);
+		assert.match(chain, /Pay, demand, capability profiles and personal answers stay outside/);
 	});
 
 	test('does not attach a family radar to withheld role mappings', () => {

@@ -222,7 +222,7 @@
 			statusLabel="{data.statusLabel} · {presentation.label}"
 			meaning={officialOccupation.pressure_rank == null
 				? 'This familiar title maps to an official occupation that V9 leaves unranked.'
-				: `Relative task overlap among scored Singapore occupations, taken from ${officialOccupation.title}.`}
+				: `Relative AI work pressure among scored Singapore occupations, taken from ${officialOccupation.title}.`}
 			caveat="This is mapped AI task overlap, not a job-loss probability."
 			payValue={heroPay.value}
 			payDetail={heroPay.detail}

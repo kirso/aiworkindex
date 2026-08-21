@@ -4,6 +4,7 @@
 	import CapabilityProfile from '$lib/components/product/CapabilityProfile.svelte';
 	import EconomicOutcomeEvidence from '$lib/components/product/EconomicOutcomeEvidence.svelte';
 	import MappedTaskEvidence from '$lib/components/product/MappedTaskEvidence.svelte';
+	import PressureEvidenceChain from '$lib/components/product/PressureEvidenceChain.svelte';
 	import SharePageButton from '$lib/components/product/SharePageButton.svelte';
 	import FaqList from '$lib/components/ui/FaqList.svelte';
 	import OccupationHero from '$lib/components/ui/OccupationHero.svelte';
@@ -35,16 +36,6 @@
 	);
 	let exposure = $derived(occupation.genai_task_exposure);
 	let wage = $derived(occupation.singapore_market.wages);
-	let comparisonEvidence = $derived([
-		{ label: 'AIOE ability exposure', evidence: occupation.comparison_evidence.aioe },
-		{ label: 'Eloundou GPT exposure', evidence: occupation.comparison_evidence.eloundou },
-		{ label: 'Observed Claude use', evidence: occupation.comparison_evidence.observed_ai_use },
-		{
-			label: 'Potential human–AI complementarity',
-			evidence: occupation.comparison_evidence.potential_complementarity
-		}
-	]);
-
 	function formatPercentile(value: number | null): string {
 		if (value == null) return 'Unranked';
 		return `Percentile ${value.toFixed(value % 1 === 0 ? 0 : 1)}`;
@@ -96,7 +87,7 @@
 	]);
 
 	let seoDescription = $derived(
-		`${spokenTitle} (SSOC ${view.code}): ${formatPercentile(view.pressureRank)} AI task overlap, ${view.wageMedian == null ? 'no direct pay row in the selected detailed MOM table' : `SGD ${view.wageMedian.toLocaleString()} gross monthly median`}, and ${view.demandSignals.length} named demand ${view.demandSignals.length === 1 ? 'source' : 'sources'}.`
+		`${spokenTitle} (SSOC ${view.code}): ${formatPercentile(view.pressureRank)} AI work pressure, ${view.wageMedian == null ? 'no direct pay row in the selected detailed MOM table' : `SGD ${view.wageMedian.toLocaleString()} gross monthly median`}, and ${view.demandSignals.length} named demand ${view.demandSignals.length === 1 ? 'source' : 'sources'}.`
 	);
 
 	let occupationJsonLd = $derived(
@@ -154,7 +145,7 @@
 </script>
 
 <Seo
-	title={`${spokenTitle}: AI task overlap in Singapore`}
+	title={`${spokenTitle}: AI work pressure in Singapore`}
 	description={seoDescription}
 	path={`/occupation/${view.code}`}
 	jsonLd={[occupationJsonLd]}
@@ -182,7 +173,7 @@
 		statusLabel={exposure ? 'Pressure ranked' : 'Not ranked'}
 		meaning={view.pressureRank == null
 			? 'This official occupation is shown, but V9 does not assign a pressure percentile.'
-			: `Relative task overlap among ${view.pressurePopulation?.toLocaleString() ?? 987} scored Singapore occupations.`}
+			: `Relative AI work pressure among ${view.pressurePopulation?.toLocaleString() ?? 987} scored Singapore occupations.`}
 		caveat="This is mapped AI task overlap, not a job-loss probability."
 		payValue={formatWage(view.wageMedian)}
 		payDetail={wage
@@ -206,6 +197,15 @@
 		{/snippet}
 	</OccupationHero>
 
+	<PressureEvidenceChain
+		ssocCode={view.code}
+		iscoCodes={occupation.evidence.official_isco08_codes}
+		mappedScore={view.rawExposure}
+		percentile={view.pressureRank}
+		population={view.pressurePopulation ?? 987}
+		mappingLabel={mappingLabel(occupation.evidence.mapping_quality)}
+	/>
+
 	<MappedTaskEvidence
 		groups={data.mappedTaskExamples}
 		sourceUrl={data.taskEvidenceSource.url}
@@ -216,11 +216,13 @@
 	<CapabilityProfile profile={data.capabilityProfile} status={data.capabilityStatus} />
 
 	<section class="mt-10" aria-labelledby="actions-heading">
-		<h2 id="actions-heading" class={sectionLabel()}>Reviewed guidance: what you can do next</h2>
+		<p class={sectionLabel()}>Turn evidence into a work plan</p>
+		<h2 id="actions-heading" class="mt-1 text-2xl font-bold text-foreground">
+			What you can do next
+		</h2>
 		<p class="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-			Use the occupation rank as a prompt to inspect your work. Your employer, industry, seniority
-			and actual task mix can change what AI means for you. These prompts are reviewed editorial
-			guidance, separate from source-measured occupation evidence.
+			Use the result to inspect your own tasks, test approved tools and agree how work will be
+			checked. These practical prompts do not change the occupation rank.
 		</p>
 		<div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
 			<div class={card({ padding: 'md' })}>
@@ -336,7 +338,7 @@
 		</div>
 	</section>
 
-	<section class="mt-10 grid min-w-0 gap-6 lg:grid-cols-2">
+	<section class="mt-10 min-w-0">
 		<div class="min-w-0">
 			<h2 class={sectionLabel()}>Common job titles</h2>
 			<div class="mt-3 border border-border bg-card p-5">
@@ -355,18 +357,6 @@
 				{/if}
 			</div>
 		</div>
-		{#if view.labourContext}
-			<div class="min-w-0">
-				<h2 class={sectionLabel()}>Broader hiring context</h2>
-				<div class="mt-3 {card({ padding: 'md', variant: 'notice', accent: 'primary' })}">
-					<p class="text-sm leading-relaxed text-foreground">{view.labourContext.summary}</p>
-					<p class="mt-3 text-xs leading-relaxed text-muted-foreground">
-						{view.labourContext.source} · observed {view.labourContext.data_as_of}. This describes a
-						broad occupation cluster. The pressure rank comes from the separate ILO task measure.
-					</p>
-				</div>
-			</div>
-		{/if}
 	</section>
 
 	<details class="mt-10 border border-border bg-card">
@@ -436,38 +426,6 @@
 						{occupation.evidence.data_as_of}.
 					</p>
 				</div>
-			</div>
-		</div>
-	</details>
-
-	<details class="mt-3 border border-border bg-card">
-		<summary class="cursor-pointer px-5 py-4 text-sm font-semibold text-foreground">
-			Unavailable external comparisons
-		</summary>
-		<div class="border-t border-border p-5">
-			<p class="max-w-4xl text-sm leading-relaxed text-muted-foreground">
-				AIOE, Eloundou, observed platform use and potential complementarity measure different ideas
-				from the headline. They remain unavailable because the current cross-system mapping or
-				source construct falls short of the publication gate.
-			</p>
-			<div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-				{#each comparisonEvidence as item (item.label)}
-					<div class={card({ padding: 'sm' })}>
-						<p class="break-words text-sm font-semibold text-foreground">{item.label}</p>
-						{#if item.evidence}
-							<a
-								href={item.evidence.source.url}
-								target="_blank"
-								rel="noreferrer"
-								class="mt-2 block break-words text-xs text-primary underline"
-							>
-								{item.evidence.source.title}
-							</a>
-						{:else}
-							<p class="mt-2 text-xs text-muted-foreground">No occupation value published in V9.</p>
-						{/if}
-					</div>
-				{/each}
 			</div>
 		</div>
 	</details>

@@ -94,16 +94,18 @@
 		class="mt-6 grid border-t-2 border-t-foreground border-b border-border md:grid-cols-[minmax(16rem,22rem)_minmax(0,1fr)]"
 		role="figure"
 		aria-label="{ranked
-			? `${scoreValue} percent AI task overlap, ${pressureLabel}`
+			? `${scoreValue} percentile AI work pressure, ${pressureLabel}`
 			: `Not ranked. ${pressureLabel}`}. {caveat}"
 	>
 		<div class="border-b border-border py-6 pr-6 md:border-r md:border-b-0">
 			<p class="font-mono text-[11px] tracking-[0.16em] text-muted-foreground uppercase">
-				AI task overlap
+				AI work pressure
 			</p>
 			{#if ranked}
 				<p class={cn(display({ size: 'hero' }), 'mt-1 text-foreground')}>
-					{scoreValue}<span class="text-[0.42em] font-medium tracking-normal">%</span>
+					{scoreValue}<span class="ml-1 text-[0.22em] font-medium tracking-normal uppercase"
+						>percentile</span
+					>
 				</p>
 			{:else}
 				<p

@@ -54,8 +54,11 @@ agree or disagree instead of receiving a falsely precise average.
   one shared URL state, persistent desktop filters, a detailed equal-area occupation map,
   pressure-and-pay, named-demand, distribution and list views, plus a separate OECD capability
   colour mode. Search and map journeys were verified in a real browser at desktop and mobile sizes.
-- [ ] Milestone 3: rebuild occupation, familiar-title, comparison, saved-job, calculator, ranking
-  and report journeys around decisions and actions.
+- [x] (2026-08-21) Milestone 3: rebuilt the occupation hierarchy around a plain-language pressure
+  result, direct pay and demand, a four-step evidence chain, mapped task examples, available-only
+  capability evidence, practical actions and compact Singapore employment context. Removed the
+  repeated unavailable-sidecar panel and retained the validated familiar-title, comparison,
+  saved-job, personal task-check, ranking and report journeys.
 - [ ] Milestone 4: publish defensible Eloundou and Anthropic dimensions, or leave individual rows
   machine-readably unavailable when their exact transfer chain fails.
 - [ ] Milestone 5: expand OECD mapping by reviewed identity decisions and ship a small official
@@ -152,6 +155,14 @@ and 375-pixel browser renders have no page overflow; and the direct modern-title
 exercised through Playwright with zero console errors. Scientific and generated-release validation
 will be repeated after the evidence milestones because the search artifact now also carries the 68
 published capability-profile values.
+
+Milestone 3 adds a visible SSOC → ISCO → ILO task evidence → Singapore midrank chain and labels the
+headline number as a percentile rather than a percentage of tasks. Occupation pages no longer list
+four unavailable research comparisons, and OECD capability sections render only where a reviewed
+profile exists. The employment section now shows useful broad-group observations instead of six
+cards dominated by “unknown”. A retained composite role (`/role/recruiter`) and the familiar-title
+occupation journey were rendered at 1,200 by 900 with zero console errors. The focused scientific
+and product suite reports 41 passes and zero failures.
 
 ## Context and Orientation
 
