@@ -42,19 +42,20 @@ const OUTPUT_FILE = path.join(DATA_DIR, 'occupations-v9.json');
 
 /**
  * The official ESCO-O*NET bridge is now frozen and audited separately. It establishes candidate
- * correspondences, not a licence to publish transferred values. Source taxonomy editions and a
- * many-to-many transfer rule still need to be pinned and validated, so all sidecars remain null.
+ * correspondences, not a licence to publish broad transferred values. The headline artifact keeps
+ * every sidecar null. A separate identity-gated artifact publishes Eloundou and Anthropic values
+ * only where one reviewed detailed-title identity resolves to one exact source occupation.
  */
 export const V9_EXTERNAL_COMPARISON_AUDIT = {
 	headline_effect: 'none',
 	mapping_policy: 'official_ssoc_2024_to_isco08_then_verified_isco08_to_soc_then_exact_source_soc',
 	reviewed_mapping_artifact: {
 		path: 'data/v9-external-crosswalk-audit.json',
-		status: 'official_candidate_chain_available_transfer_not_published',
+		status: 'official_candidate_chain_available_identity_subset_published_separately',
 		reasons: [
 			'Official ESCO v1.1.0 occupation rows and the human-validated ESCO-O*NET v1 crosswalk are frozen with source checksums.',
 			'Only exact and close relations are candidate inputs; broad and narrow relations are excluded.',
-			'Source taxonomy editions and a pre-registered many-to-many transfer rule are still required before any external value is published.'
+			'Broad many-to-many transfer remains withheld; data/v9-research-signals.json publishes only a reviewed one-identity subset and cannot affect the headline.'
 		]
 	},
 	sidecars: {
@@ -82,6 +83,7 @@ export const V9_EXTERNAL_COMPARISON_AUDIT = {
 				aggregation: 'not_applied'
 			},
 			published_coverage: { occupations: 0, denominator: 1001, percent: 0 },
+			separate_publication: null,
 			limitations: [
 				'US ability-based theoretical AI exposure is not observed GenAI use, Singapore adoption, or a labour-market outcome.',
 				'The checked-in workbook records a 2021 publication source but does not identify an occupation-observation period.',
@@ -91,11 +93,11 @@ export const V9_EXTERNAL_COMPARISON_AUDIT = {
 		eloundou: {
 			target_field: 'comparison_evidence.eloundou',
 			construct: 'gpt_task_exposure',
-			status: 'withheld_pending_source_taxonomy_version_and_many_to_many_transfer_validation',
+			status: 'withheld_from_headline_artifact_published_separately',
 			checked_in_source: {
 				artifact: 'data/raw/external/eloundou_gpts_occ_level.csv',
 				value_field: 'dv_rating_beta',
-				occupation_code_system: 'O*NET-SOC',
+				occupation_code_system: 'O*NET-SOC 2019; code-title pairs validated against O*NET 27.2',
 				observation_vintage: null,
 				source: {
 					id: 'eloundou_gpts_are_gpts_2023',
@@ -112,27 +114,33 @@ export const V9_EXTERNAL_COMPARISON_AUDIT = {
 				aggregation: 'not_applied'
 			},
 			published_coverage: { occupations: 0, denominator: 1001, percent: 0 },
+			separate_publication: {
+				artifact: 'data/v9-research-signals.json',
+				method: 'reviewed_detailed_title_identity_then_exact_source_occupation',
+				published_coverage: { occupations: 68, denominator: 1001 },
+				headline_effect: 'none'
+			},
 			limitations: [
 				'The GPT-4 beta rating is an early US O*NET-based capability judgement, not observed use, adoption, job loss, or a Singapore outcome.',
 				'The checked-in file is a 2023 model-rating artifact rather than an observed-use period.',
-				'The source O*NET-SOC edition is not recorded, and no many-to-many transfer rule has passed sensitivity review.'
+				'The separate publication uses 68 reviewed detailed-title identities; all broader or ambiguous transfers remain unavailable.'
 			]
 		},
 		observed_ai_use: {
 			target_field: 'comparison_evidence.observed_ai_use',
 			construct: 'observed_claude_occupation_use',
-			status: 'withheld_pending_source_taxonomy_version_and_many_to_many_transfer_validation',
+			status: 'withheld_from_headline_artifact_published_separately',
 			checked_in_source: {
 				artifact: 'data/raw/external/anthropic_job_exposure.csv',
 				value_field: 'observed_exposure',
-				occupation_code_system: 'US SOC',
-				observation_vintage: '2025-11',
+				occupation_code_system: 'six-digit US SOC; codes validated against O*NET 27.2',
+				observation_vintage: '2025-08 and 2025-11',
 				source: {
 					id: 'anthropic_economic_index_2026',
 					publisher: 'Anthropic',
-					title: 'Anthropic Economic Index report: Economic primitives',
-					url: 'https://www.anthropic.com/research/anthropic-economic-index-january-2026-report',
-					release_date: '2026-01-15'
+					title: 'Labor market impacts of AI: A new measure and early evidence',
+					url: 'https://www.anthropic.com/research/labor-market-impacts',
+					release_date: '2026-03-05'
 				}
 			},
 			mapping: {
@@ -141,10 +149,16 @@ export const V9_EXTERNAL_COMPARISON_AUDIT = {
 				aggregation: 'not_applied'
 			},
 			published_coverage: { occupations: 0, denominator: 1001, percent: 0 },
+			separate_publication: {
+				artifact: 'data/v9-research-signals.json',
+				method: 'reviewed_detailed_title_identity_then_exact_source_occupation',
+				published_coverage: { occupations: 66, denominator: 1001 },
+				headline_effect: 'none'
+			},
 			limitations: [
 				'Claude usage is platform-selected and is not a representative census of workers, employers, geographies, occupations, or all AI tools.',
 				'Observed platform use is not the share of a job automated, Singapore adoption, or a causal labour-market outcome.',
-				'The source SOC edition is not recorded, and no many-to-many transfer rule has passed sensitivity review.'
+				'The separate publication uses 66 reviewed detailed-title identities with exact source codes; all broader or ambiguous transfers remain unavailable.'
 			]
 		},
 		potential_complementarity: {
@@ -171,6 +185,7 @@ export const V9_EXTERNAL_COMPARISON_AUDIT = {
 				aggregation: 'not_applied'
 			},
 			published_coverage: { occupations: 0, denominator: 1001, percent: 0 },
+			separate_publication: null,
 			limitations: [
 				'The checked-in theta file is a repository-derived O*NET proxy, not a frozen occupation-level IMF source table.',
 				'The O*NET observation vintage and a row-level replication against the published IMF construct are not recorded.',

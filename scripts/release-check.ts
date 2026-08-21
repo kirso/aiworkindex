@@ -190,6 +190,23 @@ const capabilityProfiles = readJson<{
 		}
 	>;
 }>(path.join(STATIC_DATA, 'v9-capability-profiles.json'));
+const researchSignals = readJson<{
+	schema_version: string;
+	release: string;
+	generated_at: string;
+	headline_effect: string;
+	coverage: {
+		ssoc_occupations: number;
+		reviewed_identity_profiles: number;
+		eloundou_theoretical_exposure_available: number;
+		anthropic_observed_exposure_available: number;
+		both_signals_available: number;
+		unavailable_without_reviewed_identity: number;
+		anthropic_unavailable_source_rows_after_identity: number;
+	};
+	occupation_status: Record<string, unknown>;
+	profiles: Record<string, unknown>;
+}>(path.join(STATIC_DATA, 'v9-research-signals.json'));
 const roleRelease = readJson<{
 	schema_version: string;
 	taxonomy: string;
@@ -298,13 +315,15 @@ const siteStatus = readJson<{
 		status: string;
 		headline_effect: string;
 		audit_artifact: string;
+		published_artifact: string;
 		audit_status: string;
 		strict_candidate_chain_coverage: {
 			isco08_groups: number;
 			total_relevant_isco08_groups: number;
 		};
 		reason_code: string;
-		coverage: Record<string, { published: number; total: number }>;
+		headline_field_coverage: Record<string, { published: number; total: number }>;
+		separate_signal_coverage: typeof researchSignals.coverage;
 	};
 	live_monitor: {
 		market_context_artifact: string;
@@ -466,19 +485,20 @@ assert.equal(
 );
 
 assert.equal(externalAudit.schema_version, '9.0');
-assert.equal(externalAudit.generated_at, '2026-08-20');
+assert.equal(externalAudit.generated_at, '2026-08-21');
 assert.equal(externalAudit.headline_effect, 'none');
-assert.equal(externalAudit.status, 'crosswalk_chain_available_sidecars_still_withheld');
+assert.equal(externalAudit.status, 'crosswalk_chain_available_identity_gated_subset_published');
 assert.equal(externalAudit.quality.esco_occupation_rows, 2987);
 assert.equal(externalAudit.quality.relevant_official_isco08_groups, 432);
 assert.equal(externalAudit.quality.strict_mapped_isco08_groups, 362);
 assert.equal(Object.keys(externalAudit.per_isco08).length, 432);
 assert(
-	Object.entries(externalAudit.dispositions).every(([key, value]) =>
-		key === 'oecd_ai_capability_gap'
-			? value === 'published_separate_exact_title_identity_subset'
-			: value.startsWith('withheld_')
-	)
+	externalAudit.dispositions.eloundou === 'published_separate_reviewed_identity_subset' &&
+		externalAudit.dispositions.anthropic_observed_use ===
+			'published_separate_reviewed_identity_subset' &&
+		externalAudit.dispositions.oecd_ai_capability_gap ===
+			'published_separate_exact_title_identity_subset' &&
+		externalAudit.dispositions.aioe.startsWith('withheld_')
 );
 assert(
 	Object.values(externalAudit.quality.candidate_coverage_not_public_coverage).every(
@@ -824,9 +844,10 @@ assert.equal(siteStatus.role_query_layer.non_official_count, roleRelease.counts.
 assert.equal(siteStatus.role_query_layer.estimated_count, roleRelease.counts.composite_roles);
 assert.equal(siteStatus.role_query_layer.withheld_count, roleRelease.counts.mapping_withheld);
 assert.equal(siteStatus.role_query_layer.headline_effect, 'none');
-assert.equal(siteStatus.external_comparisons.status, 'withheld');
+assert.equal(siteStatus.external_comparisons.status, 'identity_gated_signals_published_separately');
 assert.equal(siteStatus.external_comparisons.headline_effect, 'none');
 assert.equal(siteStatus.external_comparisons.audit_artifact, 'v9-external-crosswalk-audit.json');
+assert.equal(siteStatus.external_comparisons.published_artifact, 'v9-research-signals.json');
 assert.equal(siteStatus.external_comparisons.audit_status, externalAudit.status);
 assert.deepEqual(siteStatus.external_comparisons.strict_candidate_chain_coverage, {
 	isco08_groups: 362,
@@ -834,19 +855,35 @@ assert.deepEqual(siteStatus.external_comparisons.strict_candidate_chain_coverage
 });
 assert.equal(
 	siteStatus.external_comparisons.reason_code,
-	'source_versions_transfer_rules_or_construct_artifacts_not_publishable'
+	'broad_and_ambiguous_transfers_withheld_exact_identity_subset_published'
 );
-assert.deepEqual(Object.keys(siteStatus.external_comparisons.coverage).sort(), [
+assert.deepEqual(Object.keys(siteStatus.external_comparisons.headline_field_coverage).sort(), [
 	'aioe',
 	'eloundou',
 	'observed_ai_use',
 	'potential_complementarity'
 ]);
 assert(
-	Object.values(siteStatus.external_comparisons.coverage).every(
+	Object.values(siteStatus.external_comparisons.headline_field_coverage).every(
 		coverage => coverage.published === 0 && coverage.total === publicRelease.counts.occupations
 	)
 );
+assert.deepEqual(
+	siteStatus.external_comparisons.separate_signal_coverage,
+	researchSignals.coverage
+);
+assert.deepEqual(researchSignals.coverage, {
+	ssoc_occupations: 1001,
+	reviewed_identity_profiles: 68,
+	eloundou_theoretical_exposure_available: 68,
+	anthropic_observed_exposure_available: 66,
+	both_signals_available: 66,
+	unavailable_without_reviewed_identity: 933,
+	anthropic_unavailable_source_rows_after_identity: 2
+});
+assert.equal(researchSignals.headline_effect, 'none');
+assert.equal(Object.keys(researchSignals.occupation_status).length, 1001);
+assert.equal(Object.keys(researchSignals.profiles).length, 68);
 assert.equal(siteStatus.live_monitor.market_context_artifact, 'v9-market-context.json');
 assert.equal(siteStatus.live_monitor.market_context_generated_at, core.generated_at);
 const demandEvidence = Object.values(market.demand_by_code).flat() as Array<{
@@ -963,6 +1000,7 @@ assert(manifest.artifacts.some(artifact => artifact.file === 'ilo-isco-task-evid
 assert(manifest.artifacts.some(artifact => artifact.file === 'v9-external-crosswalk-audit.json'));
 assert(manifest.artifacts.some(artifact => artifact.file === 'v9-economic-observatory.json'));
 assert(manifest.artifacts.some(artifact => artifact.file === 'v9-capability-profiles.json'));
+assert(manifest.artifacts.some(artifact => artifact.file === 'v9-research-signals.json'));
 assert(manifest.artifacts.some(artifact => artifact.file === 'releases.json'));
 assert(fs.existsSync(path.join(STATIC_DATA, 'sg-ai-occupations-v8.json')));
 assert.equal(fs.existsSync(path.join(STATIC_DATA, 'global', 'occupations.json')), false);
@@ -981,6 +1019,7 @@ const currentMachineArtifacts = new Set([
 	'/data/v9-market-context.json',
 	'/data/v9-economic-observatory.json',
 	'/data/v9-capability-profiles.json',
+	'/data/v9-research-signals.json',
 	'/data/v9-search-index.json',
 	'/data/v9-ui-index.json'
 ]);
@@ -1010,6 +1049,8 @@ assert(llms.includes('/reports/labour-observatory'));
 assert(llms.includes('/data/v9-economic-observatory.json'));
 assert(llms.includes('/data/v9-capability-profiles.json'));
 assert(llms.includes('/reports/ai-capabilities'));
+assert(llms.includes('/data/v9-research-signals.json'));
+assert(llms.includes('/reports/research-signals'));
 assert(llmsFull.includes('Official occupations without a pressure rank'));
 for (const role of roleRelease.roles) {
 	const expectedUrl =
@@ -1060,6 +1101,7 @@ for (const route of [
 	'/reports',
 	'/reports/job-market-evidence',
 	'/reports/labour-observatory',
+	'/reports/research-signals',
 	'/will-ai-take-my-job',
 	'/compare',
 	'/roles',

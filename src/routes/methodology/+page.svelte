@@ -36,9 +36,9 @@
 		},
 		{
 			construct: 'Observed AI use',
-			source: 'Anthropic occupation-use file (released January 2026)',
-			grain: 'US SOC platform activity; November 2025 observation',
-			use: 'Reviewed but withheld: source-code version and many-to-many transfer rules need validation'
+			source: 'Anthropic labour-market-impact file (March 2026)',
+			grain: 'US SOC platform activity; August and November 2025 observations',
+			use: 'Separate measure for 66 reviewed occupation identities; no headline effect'
 		},
 		{
 			construct: 'Potential complementarity',
@@ -50,7 +50,7 @@
 			construct: 'External exposure comparisons',
 			source: 'AIOE (2021) and Eloundou et al. (2023)',
 			grain: 'US SOC / O*NET-SOC',
-			use: 'Official candidate bridge audited; values withheld until edition and transfer checks pass'
+			use: 'Eloundou publishes for 68 reviewed identities; AIOE stays withheld pending a SOC-edition bridge'
 		},
 		{
 			construct: 'Wages',
@@ -167,6 +167,48 @@
 					>
 					<a href="/data/v9-capability-profiles.json" class="text-primary underline"
 						>Download the profile artifact</a
+					>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="research-comparisons" class="mt-12 scroll-mt-24">
+		<h2 class={sectionLabel()}>Theoretical scope and observed use</h2>
+		<div class="mt-3 grid gap-5 lg:grid-cols-[0.8fr_1.2fr]">
+			<div class="grid grid-cols-2 gap-px bg-border">
+				<div class="bg-card p-5">
+					<p class="font-mono text-4xl font-semibold tabular-nums text-foreground">68</p>
+					<p class="mt-1 text-sm font-medium text-foreground">Eloundou profiles</p>
+				</div>
+				<div class="bg-card p-5">
+					<p class="font-mono text-4xl font-semibold tabular-nums text-foreground">66</p>
+					<p class="mt-1 text-sm font-medium text-foreground">Anthropic profiles</p>
+				</div>
+			</div>
+			<div class="space-y-3 text-sm leading-relaxed text-muted-foreground">
+				<p>
+					Eloundou estimates the task share-equivalent within an LLM's technical scope. Anthropic
+					combines theoretical feasibility with work-related Claude use and weights automated use
+					more than assisted use. They answer different questions, so V9 shows both rather than
+					blending them.
+				</p>
+				<p>
+					Publication requires the same conservative identity owner as the OECD layer: one exact
+					ESCO–O*NET candidate, a reviewed match to the detailed SSOC title, then one exact source
+					occupation code. The other occupations stay unavailable. Broader and many-to-many
+					transfers are not averaged into a result.
+				</p>
+				<p>
+					These US measures do not show Singapore adoption, hiring, productivity or job loss. They
+					cannot change the ILO-based pressure rank.
+				</p>
+				<div class="flex flex-wrap gap-x-5 gap-y-2">
+					<a href="/reports/research-signals" class="font-semibold text-primary underline"
+						>Compare the signals</a
+					>
+					<a href="/data/v9-research-signals.json" class="text-primary underline"
+						>Download the artifact</a
 					>
 				</div>
 			</div>
@@ -393,10 +435,10 @@
 		<h2 class={sectionLabel()}>How to read the risk profile</h2>
 		<p class={body({ class: 'mt-3 max-w-3xl text-muted-foreground' })}>
 			These are conditional interpretation patterns, not V9 categories or outcome scores. The
-			current release can show pressure beside direct demand and wage evidence. An official
-			ESCO–O*NET candidate bridge is now audited, while occupation-level observed-use and
-			complementarity values remain unpublished until the narrower source-version, transfer and
-			construct checks pass.
+			current release can show pressure beside direct demand and wage evidence. A reviewed
+			detailed-title identity layer also supports separate Eloundou and Anthropic values for a
+			conservative subset. AIOE, complementarity and every broader or ambiguous transfer stay
+			unpublished until their narrower version, transfer and construct checks pass.
 		</p>
 		<div class="mt-3 grid gap-3 md:grid-cols-2">
 			<div class={card({ padding: 'md' })}>

@@ -225,12 +225,12 @@
 			No value inside this envelope is read by the headline-rank function.
 		</p>
 		<p class="mt-2 max-w-3xl text-sm text-muted-foreground">
-			In V9, AIOE, Eloundou, observed-use and potential-complementarity blocks are null for all
-			1,001 occupations. A checksum-pinned official ESCO–O*NET bridge now provides candidate matches
-			for 362 of 432 relevant ISCO groups. Those candidates are not published values: source-code
-			editions, many-to-many transfer rules and mapping sensitivity still require validation; the
-			complementarity proxy also lacks a source-level construct replication. The release audit
-			records 0% published coverage and no headline effect.
+			The four comparison fields inside the headline occupation artifact remain null for all 1,001
+			occupations. A separate artifact publishes Eloundou theoretical exposure for 68 reviewed
+			detailed-title identities and Anthropic observed use for 66 of them. This avoids a broad or
+			many-to-many aggregation and keeps the main score contract unchanged. AIOE still lacks a
+			verified SOC-edition bridge; the complementarity proxy still lacks a frozen source-level
+			construct replication. Every external signal has no headline effect.
 		</p>
 		<div class={cn(card({ padding: 'none' }), 'mt-3 overflow-hidden')}>
 			<div class="hidden sm:block">

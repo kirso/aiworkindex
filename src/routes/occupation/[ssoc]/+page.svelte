@@ -5,6 +5,7 @@
 	import EconomicOutcomeEvidence from '$lib/components/product/EconomicOutcomeEvidence.svelte';
 	import MappedTaskEvidence from '$lib/components/product/MappedTaskEvidence.svelte';
 	import PressureEvidenceChain from '$lib/components/product/PressureEvidenceChain.svelte';
+	import ResearchSignalComparison from '$lib/components/product/ResearchSignalComparison.svelte';
 	import SharePageButton from '$lib/components/product/SharePageButton.svelte';
 	import FaqList from '$lib/components/ui/FaqList.svelte';
 	import OccupationHero from '$lib/components/ui/OccupationHero.svelte';
@@ -214,6 +215,11 @@
 	/>
 
 	<CapabilityProfile profile={data.capabilityProfile} status={data.capabilityStatus} />
+
+	<ResearchSignalComparison
+		profile={data.researchSignalProfile}
+		sources={data.researchSignalSources}
+	/>
 
 	<section class="mt-10" aria-labelledby="actions-heading">
 		<p class={sectionLabel()}>Turn evidence into a work plan</p>

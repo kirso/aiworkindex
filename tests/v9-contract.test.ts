@@ -236,12 +236,12 @@ describe('V9 evidence-first occupation contract', () => {
 		}
 	});
 
-	test('withholds external sidecars after auditing the official candidate mapping chain', () => {
+	test('keeps headline sidecars null while publishing a reviewed subset separately', () => {
 		assert.deepEqual(release.method.external_comparison_audit, V9_EXTERNAL_COMPARISON_AUDIT);
 		assert.equal(V9_EXTERNAL_COMPARISON_AUDIT.headline_effect, 'none');
 		assert.equal(
 			V9_EXTERNAL_COMPARISON_AUDIT.reviewed_mapping_artifact.status,
-			'official_candidate_chain_available_transfer_not_published'
+			'official_candidate_chain_available_identity_subset_published_separately'
 		);
 		assert.ok(fs.existsSync(V9_EXTERNAL_COMPARISON_AUDIT.reviewed_mapping_artifact.path));
 		assert.ok(V9_EXTERNAL_COMPARISON_AUDIT.reviewed_mapping_artifact.reasons.length >= 3);
@@ -260,6 +260,23 @@ describe('V9 evidence-first occupation contract', () => {
 			);
 			assert.ok(fs.existsSync(disposition.checked_in_source.artifact), `${key} source missing`);
 		}
+		assert.deepEqual(V9_EXTERNAL_COMPARISON_AUDIT.sidecars.eloundou.separate_publication, {
+			artifact: 'data/v9-research-signals.json',
+			method: 'reviewed_detailed_title_identity_then_exact_source_occupation',
+			published_coverage: { occupations: 68, denominator: 1001 },
+			headline_effect: 'none'
+		});
+		assert.deepEqual(V9_EXTERNAL_COMPARISON_AUDIT.sidecars.observed_ai_use.separate_publication, {
+			artifact: 'data/v9-research-signals.json',
+			method: 'reviewed_detailed_title_identity_then_exact_source_occupation',
+			published_coverage: { occupations: 66, denominator: 1001 },
+			headline_effect: 'none'
+		});
+		assert.equal(V9_EXTERNAL_COMPARISON_AUDIT.sidecars.aioe.separate_publication, null);
+		assert.equal(
+			V9_EXTERNAL_COMPARISON_AUDIT.sidecars.potential_complementarity.separate_publication,
+			null
+		);
 
 		for (const occupation of occupations) {
 			assert.equal(occupation.comparison_evidence.aioe, null);
@@ -269,7 +286,7 @@ describe('V9 evidence-first occupation contract', () => {
 		}
 	});
 
-	test('reconciles withheld source identities and exact value fields to checked-in artifacts', () => {
+	test('reconciles external source identities and exact value fields to checked-in artifacts', () => {
 		const aioeWorkbook = XLSX.readFile(
 			V9_EXTERNAL_COMPARISON_AUDIT.sidecars.aioe.checked_in_source.artifact
 		);

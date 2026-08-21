@@ -52,6 +52,11 @@
 			},
 			{
 				'@type': 'DataDownload',
+				contentUrl: `${SITE.url}/data/v9-research-signals.json`,
+				encodingFormat: 'application/json'
+			},
+			{
+				'@type': 'DataDownload',
 				contentUrl: `${SITE.url}/data/ilo-isco-task-evidence-v9.json`,
 				encodingFormat: 'application/json'
 			},
@@ -73,7 +78,8 @@
 		['genai_task_exposure.potential25', 'Official ILO category set and least/most-exposed endpoints.'],
 		['genai_task_exposure.pressure_rank', 'Midrank percentile among the 987 scored SSOC 2024 occupations.'],
 		['genai_task_exposure.scored_isco08_matches', 'Every scored official ISCO candidate and its source values.'],
-		['comparison_evidence', 'Nullable external comparison blocks. All four are withheld in V9; the release method records the failed mapping gates and 0% published coverage.'],
+		['comparison_evidence', 'Nullable fields inside the headline occupation artifact. All four remain null so external research cannot silently enter the pressure score.'],
+		['research_signals', 'Separate identity-gated Eloundou theoretical exposure for 68 occupations and Anthropic observed-use evidence for 66. Includes all 1,001 availability states; no value changes the pressure rank.'],
 		['singapore_market.wages', 'Direct MOM 2025 wage percentiles where published.'],
 		['market_evidence.demand_signals', 'Reviewed official demand-list matches where available; an empty array is not evidence of weak demand.'],
 		['market_evidence.labour_context_ref', 'Reference to broad occupation-group labour context in market_context; null when no published group context applies.'],
@@ -192,6 +198,18 @@
 			<p class={caption({ class: 'mt-1' })}>
 				3,265 attributed ILO task rows across 427 four-digit ISCO groups. These are not exact
 				five-digit SSOC duties and never change the headline rank.
+			</p>
+		</a>
+		<a
+			href="/data/v9-research-signals.json"
+			download
+			class={card({ padding: 'lg', hover: true })}
+		>
+			<p class={sectionLabel()}>Research comparison JSON</p>
+			<p class={body({ class: 'mt-2 font-medium' })}>v9-research-signals.json</p>
+			<p class={caption({ class: 'mt-1' })}>
+				Eloundou theoretical LLM scope for 68 reviewed identities and Anthropic observed Claude
+				use for 66. Includes source checksums, mapping rules and explicit missingness.
 			</p>
 		</a>
 		<a

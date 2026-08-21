@@ -18,6 +18,7 @@ const V9_RELEASE_FILE = path.join(ROOT_DIR, 'data', 'occupations-v9.json');
 const V9_MARKET_FILE = path.join(ROOT_DIR, 'data', 'v9-market-context.json');
 const V9_ECONOMIC_OBSERVATORY_FILE = path.join(ROOT_DIR, 'data', 'v9-economic-observatory.json');
 const V9_CAPABILITY_PROFILES_FILE = path.join(ROOT_DIR, 'data', 'v9-capability-profiles.json');
+const V9_RESEARCH_SIGNALS_FILE = path.join(ROOT_DIR, 'data', 'v9-research-signals.json');
 const V9_ROLES_FILE = path.join(ROOT_DIR, 'data', 'synthetic-roles-v9.json');
 const V9_EXTERNAL_AUDIT_FILE = path.join(ROOT_DIR, 'data', 'v9-external-crosswalk-audit.json');
 const RESEARCH_LIBRARY_FILE = path.join(ROOT_DIR, 'data', 'research-library.json');
@@ -121,6 +122,20 @@ type V9CapabilityProfiles = {
 	};
 };
 
+type V9ResearchSignals = {
+	generated_at: string;
+	headline_effect: 'none';
+	coverage: {
+		ssoc_occupations: number;
+		reviewed_identity_profiles: number;
+		eloundou_theoretical_exposure_available: number;
+		anthropic_observed_exposure_available: number;
+		both_signals_available: number;
+		unavailable_without_reviewed_identity: number;
+		anthropic_unavailable_source_rows_after_identity: number;
+	};
+};
+
 type ResearchLibrary = {
 	version: string;
 	review_cutoff: string;
@@ -150,6 +165,7 @@ const V9_RELEASE = readJson<V9Release>(V9_RELEASE_FILE);
 const V9_MARKET = readJson<V9Market>(V9_MARKET_FILE);
 const V9_ECONOMIC_OBSERVATORY = readJson<V9EconomicObservatory>(V9_ECONOMIC_OBSERVATORY_FILE);
 const V9_CAPABILITY_PROFILES = readJson<V9CapabilityProfiles>(V9_CAPABILITY_PROFILES_FILE);
+const V9_RESEARCH_SIGNALS = readJson<V9ResearchSignals>(V9_RESEARCH_SIGNALS_FILE);
 const V9_ROLES = readJson<V9Roles>(V9_ROLES_FILE);
 const V9_EXTERNAL_AUDIT = readJson<V9ExternalAudit>(V9_EXTERNAL_AUDIT_FILE);
 const RESEARCH_LIBRARY = readJson<ResearchLibrary>(RESEARCH_LIBRARY_FILE);
@@ -415,21 +431,23 @@ function buildSiteStatus() {
 			headline_effect: 'none'
 		},
 		external_comparisons: {
-			status: 'withheld',
+			status: 'identity_gated_signals_published_separately',
 			headline_effect: 'none',
 			audit_artifact: 'v9-external-crosswalk-audit.json',
+			published_artifact: 'v9-research-signals.json',
 			audit_status: V9_EXTERNAL_AUDIT.status,
 			strict_candidate_chain_coverage: {
 				isco08_groups: V9_EXTERNAL_AUDIT.quality.strict_mapped_isco08_groups,
 				total_relevant_isco08_groups: V9_EXTERNAL_AUDIT.quality.relevant_official_isco08_groups
 			},
-			reason_code: 'source_versions_transfer_rules_or_construct_artifacts_not_publishable',
-			coverage: {
+			reason_code: 'broad_and_ambiguous_transfers_withheld_exact_identity_subset_published',
+			headline_field_coverage: {
 				aioe: { published: 0, total: V9_RELEASE.counts.occupations },
 				eloundou: { published: 0, total: V9_RELEASE.counts.occupations },
 				observed_ai_use: { published: 0, total: V9_RELEASE.counts.occupations },
 				potential_complementarity: { published: 0, total: V9_RELEASE.counts.occupations }
-			}
+			},
+			separate_signal_coverage: V9_RESEARCH_SIGNALS.coverage
 		},
 		live_monitor: {
 			market_context_artifact: 'v9-market-context.json',

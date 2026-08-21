@@ -59,8 +59,10 @@ agree or disagree instead of receiving a falsely precise average.
   capability evidence, practical actions and compact Singapore employment context. Removed the
   repeated unavailable-sidecar panel and retained the validated familiar-title, comparison,
   saved-job, personal task-check, ranking and report journeys.
-- [ ] Milestone 4: publish defensible Eloundou and Anthropic dimensions, or leave individual rows
-  machine-readably unavailable when their exact transfer chain fails.
+- [x] (2026-08-21) Milestone 4: froze the official Eloundou and Anthropic source revisions,
+  checksums, licences, observation periods and source taxonomies; validated the source occupations
+  against O*NET 27.2; and published separate identity-gated profiles for 68 and 66 occupations
+  respectively. The headline occupation fields remain null and headline invariance is tested.
 - [ ] Milestone 5: expand OECD mapping by reviewed identity decisions and ship a small official
   Skills Framework / WSG pilot.
 - [ ] Milestone 6: build the versioned multi-signal evidence vector and longitudinal observatory.
@@ -99,8 +101,18 @@ agree or disagree instead of receiving a falsely precise average.
   signal at its own compatible cadence rather than manufacture movement in a static score.
 - Observation: the evidence base is broad but not yet maximized at detailed SSOC grain.
   Evidence: current publication covers 987 pressure ranks, 523 direct wage rows, 37 named-demand
-  matches, broad labour context for nearly all occupations, 68 conservative OECD profiles, and zero
-  published AIOE, Eloundou, Anthropic-use or complementarity sidecars.
+  matches, broad labour context for nearly all occupations, 68 conservative OECD profiles, 68
+  Eloundou theoretical-exposure profiles and 66 Anthropic observed-use profiles. AIOE and
+  complementarity remain unavailable for the specific source and transfer reasons recorded in the
+  release audit.
+- Observation: the checked-in Eloundou source is reproducible even though the old audit called its
+  taxonomy version unknown.
+  Evidence: all 923 code-title pairs match O*NET 27.2 exactly; the checked-in file also matches the
+  official OpenAI repository blob at commit `0471612fef3cc22b74fb884d27bff9dbd3770582`.
+- Observation: Anthropic's current labour-market-impact occupation file is independently
+  reproducible.
+  Evidence: the 756-row checked-in file matches the official Economic Index dataset blob at revision
+  `2ea58ff75e4247d26810c37f10c179edc2466cac`; all source SOC codes exist in O*NET 27.2.
 
 ## Decision Log
 
@@ -140,6 +152,11 @@ agree or disagree instead of receiving a falsely precise average.
   Rationale: normal pages should state the relevant missing field once and focus on interpretation
   and action instead of repeating defensive prose.
   Date/Author: 2026-08-21 / User and Codex
+- Decision: publish Eloundou and Anthropic only through the already reviewed detailed-title identity
+  owner, in a separate artifact.
+  Rationale: this produces 68 theoretical and 66 observed-use profiles without inventing a
+  many-to-many aggregation or allowing either construct to alter the ILO headline.
+  Date/Author: 2026-08-21 / Codex
 
 ## Outcomes & Retrospective
 
@@ -163,6 +180,14 @@ profile exists. The employment section now shows useful broad-group observations
 cards dominated by “unknown”. A retained composite role (`/role/recruiter`) and the familiar-title
 occupation journey were rendered at 1,200 by 900 with zero console errors. The focused scientific
 and product suite reports 41 passes and zero failures.
+
+Milestone 4 adds `data/v9-research-signals.json`, a source manifest, a deterministic builder and a
+consumer report that compares possible LLM scope with observed Claude use. Occupation pages show
+the comparison only for a reviewed identity. The machine contract carries all 1,001 availability
+states and leaves all other occupations unavailable rather than zero. The main occupation release
+still stores null external-comparison fields. Twenty-four focused contract and release tests pass,
+`svelte-check` reports zero diagnostics, and `release-check` passes with 1,001 occupations, 77
+modern-title guides and 1,118 sitemap URLs.
 
 ## Context and Orientation
 

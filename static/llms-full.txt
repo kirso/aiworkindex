@@ -35,8 +35,8 @@ ILO potential25 categories are: Not Exposed; Minimal Exposure; Exposed: Gradient
 - Q1 2026 labour evidence is broad occupation-group context. Q2 2026 figures are preliminary national context.
 - The labour observatory supplies broad employment context to 990 detailed records by reference only. It publishes 0 causal occupation outcomes and 0 classified economic scenarios.
 - Productivity-led demand expansion, sometimes described as rebound or a Jevons-style effect, is a mechanism to test rather than an assumed outcome. Detailed adoption, output or price elasticity, and new-task coverage are currently 0, 0, and 0 occupations respectively.
-- External comparison blocks for AIOE, Eloundou, observed AI use and potential complementarity are currently null. A checksum-pinned official ESCO-O*NET candidate bridge now covers 362 of 432 relevant ISCO groups, but source-code editions, many-to-many transfer validation and construct replication still block publication. Candidate coverage is not published occupation coverage; no fallback is used.
-- The external crosswalk audit is available at https://aiworkindex.com/data/v9-external-crosswalk-audit.json and never changes the headline rank.
+- External comparison blocks inside the headline occupation artifact remain null. A separate identity-gated artifact publishes Eloundou theoretical exposure for 68 occupations and Anthropic observed use for 66. Each published profile uses one reviewed detailed-title identity and one exact source occupation; broader and many-to-many transfers remain unavailable.
+- AIOE still lacks a verified SOC-edition bridge, and the complementarity proxy lacks a frozen source-level construct replication. The research-signal artifact and external crosswalk audit are available at https://aiworkindex.com/data/v9-research-signals.json and https://aiworkindex.com/data/v9-external-crosswalk-audit.json. Neither can change the headline rank.
 - Stale convenience-sample job postings are withheld from current-demand interpretation.
 - The 11 exact SSOC title duplicates use the official occupation URL. The 56 reviewed familiar-title guides have their own explanatory URL but quote the matched occupation's official score unchanged. The remaining role pages are either disclosed editorial composites or deliberately withheld queries. None is a government classification.
 
@@ -1170,6 +1170,8 @@ These 11 query labels normalize to an official SSOC 2024 title. Their role URLs 
 - Labour observatory data: https://aiworkindex.com/data/v9-economic-observatory.json
 - AI capability report: https://aiworkindex.com/reports/ai-capabilities
 - AI capability profile data: https://aiworkindex.com/data/v9-capability-profiles.json
+- Theoretical scope vs observed use: https://aiworkindex.com/reports/research-signals
+- Research signal data: https://aiworkindex.com/data/v9-research-signals.json
 - Mapped ILO task evidence: https://aiworkindex.com/data/ilo-isco-task-evidence-v9.json
 
 Suggested citation: AI Work Index, Singapore AI Work Pressure V9, 2026-08-19, https://aiworkindex.com.

@@ -136,6 +136,30 @@
 		</div>
 	</section>
 
+	<section class="mt-10 grid gap-px border border-border bg-border lg:grid-cols-2">
+		<div class="bg-card p-5 sm:p-6">
+			<p class={sectionLabel()}>Published comparison layer</p>
+			<h2 class="mt-2 text-xl font-bold text-foreground">Theory and use are visible separately</h2>
+			<p class="mt-3 text-sm leading-relaxed text-muted-foreground">
+				For 68 reviewed occupation identities, V9 publishes Eloundou's theoretical exposure. For 66,
+				it also publishes Anthropic's observed-use measure. The difference is an adoption question
+				to investigate, not a forecast.
+			</p>
+		</div>
+		<div class="bg-surface-subtle p-5 sm:p-6">
+			<p class="text-sm leading-relaxed text-muted-foreground">
+				The mapping requires one reviewed detailed-title identity and one exact source occupation.
+				Looser transfers stay unavailable, and neither source changes the ILO pressure rank.
+			</p>
+			<div class="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+				<a href="/reports/research-signals" class="font-semibold text-primary underline"
+					>Explore the comparison</a
+				>
+				<a href="/data/v9-research-signals.json" class="text-primary underline">Download JSON</a>
+			</div>
+		</div>
+	</section>
+
 	<section class="mt-10 grid gap-4 lg:grid-cols-3">
 		<div class={card({ padding: 'md' })}>
 			<h2 class="font-semibold text-foreground">Capability is multidimensional</h2>

@@ -12,7 +12,7 @@ The AI Work Pressure Rank is a midrank percentile across 987 scored SSOC 2024 oc
 
 The headline uses only ILO 2025 mean_score_2025 values connected through the official SSOC 2024 to ISCO-08 correspondence. Multiple official matches use the median; the minimum, maximum, task-score dispersion, official ILO categories, and unmatched candidates remain visible. There is no occupation-group fallback.
 
-Wages, named demand evidence, external comparisons, adoption, and labour-market conditions are separate evidence. They do not change the pressure rank. The current release publishes direct wages and reviewed named demand where available. External AIOE, Eloundou, observed-use, and potential-complementarity blocks remain null while source-code editions, many-to-many transfer rules and construct replication are validated. Missing evidence is not zero.
+Wages, named demand evidence, external comparisons, adoption, and labour-market conditions are separate evidence. They do not change the pressure rank. The current release publishes direct wages and reviewed named demand where available. A separate identity-gated artifact publishes Eloundou theoretical exposure for 68 occupations and Anthropic observed use for 66; the four fields in the headline artifact remain null. AIOE, complementarity and broader transfers remain unavailable. Missing evidence is not zero.
 
 The Singapore AI labour observatory follows six separate channels between task pressure and jobs: displacement; productivity and demand expansion; new work; human responsibility and complementarity; employer adoption and organisation; and worker adjustment. It publishes broad official observations at their source grain. It does not assign occupation-level job outcomes or a Jevons-style rebound effect without adoption, price, output and causal labour evidence.
 
@@ -35,6 +35,8 @@ The separate OECD 2026 capability layer publishes nine-domain profiles for 68 oc
 - Labour observatory data: https://aiworkindex.com/data/v9-economic-observatory.json
 - AI capability report: https://aiworkindex.com/reports/ai-capabilities
 - AI capability profile data: https://aiworkindex.com/data/v9-capability-profiles.json
+- Theoretical scope vs observed use: https://aiworkindex.com/reports/research-signals
+- Research signal data: https://aiworkindex.com/data/v9-research-signals.json
 - Mapped ILO task evidence: https://aiworkindex.com/data/ilo-isco-task-evidence-v9.json
 - Full machine-readable guide: https://aiworkindex.com/llms-full.txt
 - Source repository: https://github.com/kirso/aiworkindex

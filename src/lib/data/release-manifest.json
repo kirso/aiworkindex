@@ -18,8 +18,8 @@
       "label": "V9 public JSON",
       "category": "structural_pressure",
       "description": "SSOC 2024 AI Work Pressure ranks, uncertainty, wages, and evidence links.",
-      "bytes": 4825108,
-      "sha256": "40d0e3dfe46e8bf3cb7b4a5f9d57c70258927b2889a67954648758fb1f7e221a",
+      "bytes": 4826022,
+      "sha256": "5e8c13b0cdfb62fe4c4dfc9593b65a893eabf94737444195778355fa1da59349",
       "generated_at": "2026-08-19"
     },
     {
@@ -63,6 +63,16 @@
       "generated_at": "2026-08-19"
     },
     {
+      "file": "v9-research-signals.json",
+      "public_path": "/data/v9-research-signals.json",
+      "label": "V9 theoretical and observed-use research signals",
+      "category": "external_evidence",
+      "description": "Identity-gated Eloundou theoretical exposure and Anthropic observed Claude-use measures, published separately with explicit missingness and no headline effect.",
+      "bytes": 347660,
+      "sha256": "dd14e4f7e2e4bd3f5fa78c940e819b7bc818820d50298b7879bcd98ab5ca30fc",
+      "generated_at": "2026-08-19"
+    },
+    {
       "file": "ilo-isco-task-evidence-v9.json",
       "public_path": "/data/ilo-isco-task-evidence-v9.json",
       "label": "ILO task evidence by ISCO-08 group",
@@ -78,8 +88,8 @@
       "label": "V9 external crosswalk audit",
       "category": "external_evidence",
       "description": "Checksum-pinned ESCO-O*NET candidate mapping audit and explicit publication gates; no external values enter the headline.",
-      "bytes": 372263,
-      "sha256": "8915024b30e291c216c9b86500b8b3af0c57b71c76a5251ffbd4125ce52574a8",
+      "bytes": 375438,
+      "sha256": "2940c6272d1db6209939f6f6f5e9d1e964a6422736c6f29f30fbfb153ada96a9",
       "generated_at": "2026-08-19"
     },
     {
@@ -98,8 +108,8 @@
       "label": "V9 search index",
       "category": "discovery",
       "description": "Lightweight occupation and non-official role-query search records plus canonical aliases for exact and explicitly reviewed official-occupation matches.",
-      "bytes": 1345281,
-      "sha256": "e82da2d3cb93e301fb4e778073a29ecc0a0e49314b685da6a703cdef60abf301",
+      "bytes": 1380440,
+      "sha256": "d166bf6044c883827fc039da7c2342c2cdc1d5be63ce26957c43bdbe5f9ca41e",
       "generated_at": "2026-08-19"
     },
     {
@@ -128,8 +138,8 @@
       "label": "Current release status",
       "category": "governance",
       "description": "Bounded current V9 facts, evidence vintages, withheld inputs, and archive links.",
-      "bytes": 6567,
-      "sha256": "6da7a7e0c2b4bd3a0f63b123571a6d3d6ff0166b994e11acf8d2e5ed7a5b185f",
+      "bytes": 7045,
+      "sha256": "9106bd5640c55e222c605a937c3595d3dcf7f90dff7985978d596fb05354ba55",
       "generated_at": "2026-08-19"
     },
     {
@@ -148,8 +158,8 @@
       "label": "Concise machine-readable guide",
       "category": "discovery",
       "description": "Concise V9 scope, interpretation, and canonical links.",
-      "bytes": 3862,
-      "sha256": "a21440809fffe7ae736256b7bd5f7449aa9fed74bb13d0e381b82a9d63d721c0",
+      "bytes": 4088,
+      "sha256": "d94b2d5e3b1b2b264c7bd399931fc489223a0b3a4a1d1b7e1c6b5a10f5a4e1a5",
       "generated_at": "2026-08-19"
     },
     {
@@ -158,8 +168,8 @@
       "label": "Full machine-readable guide",
       "category": "discovery",
       "description": "Full V9 method, limitations, official occupations, reviewed modern-title resolutions and non-official role-query links.",
-      "bytes": 149785,
-      "sha256": "71e5bd4da2bc38aea2fc0420e987231c8d67a3327335bd9c94612de03b88ac3b",
+      "bytes": 150130,
+      "sha256": "01ac21926fe580aabda806db1328eaec1e27aed0596a1d36073a372c4faa5f82",
       "generated_at": "2026-08-19"
     },
     {
@@ -168,8 +178,8 @@
       "label": "Canonical sitemap",
       "category": "discovery",
       "description": "Indexable V9 pages on the canonical host.",
-      "bytes": 168144,
-      "sha256": "287d31a90f8026c40ffbb028f2e22cf74a7993eeeeef398c7c65c6d236a7ff46",
+      "bytes": 168302,
+      "sha256": "d1813e05f78762e89bf03be1ab24884a36f6d82bb0644126499886663c1eb9d7",
       "generated_at": "2026-08-19"
     }
   ]

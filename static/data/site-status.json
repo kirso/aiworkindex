@@ -84,16 +84,17 @@
     "headline_effect": "none"
   },
   "external_comparisons": {
-    "status": "withheld",
+    "status": "identity_gated_signals_published_separately",
     "headline_effect": "none",
     "audit_artifact": "v9-external-crosswalk-audit.json",
-    "audit_status": "crosswalk_chain_available_sidecars_still_withheld",
+    "published_artifact": "v9-research-signals.json",
+    "audit_status": "crosswalk_chain_available_identity_gated_subset_published",
     "strict_candidate_chain_coverage": {
       "isco08_groups": 362,
       "total_relevant_isco08_groups": 432
     },
-    "reason_code": "source_versions_transfer_rules_or_construct_artifacts_not_publishable",
-    "coverage": {
+    "reason_code": "broad_and_ambiguous_transfers_withheld_exact_identity_subset_published",
+    "headline_field_coverage": {
       "aioe": {
         "published": 0,
         "total": 1001
@@ -110,6 +111,15 @@
         "published": 0,
         "total": 1001
       }
+    },
+    "separate_signal_coverage": {
+      "ssoc_occupations": 1001,
+      "reviewed_identity_profiles": 68,
+      "eloundou_theoretical_exposure_available": 68,
+      "anthropic_observed_exposure_available": 66,
+      "both_signals_available": 66,
+      "unavailable_without_reviewed_identity": 933,
+      "anthropic_unavailable_source_rows_after_identity": 2
     }
   },
   "live_monitor": {

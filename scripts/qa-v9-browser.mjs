@@ -38,6 +38,18 @@ const cases = [
 		screenshot: 'capabilities-desktop.png'
 	},
 	{
+		path: '/reports/research-signals',
+		width: 375,
+		height: 900,
+		screenshot: 'research-signals-mobile.png'
+	},
+	{
+		path: '/reports/research-signals',
+		width: 1440,
+		height: 1000,
+		screenshot: 'research-signals-desktop.png'
+	},
+	{
 		path: '/occupation/12222',
 		width: 375,
 		height: 900,

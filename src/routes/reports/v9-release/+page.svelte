@@ -125,25 +125,29 @@
 	</section>
 
 	<section class="mt-10">
-		<h2 class={sectionLabel()}>Why some comparisons are not shown</h2>
+		<h2 class={sectionLabel()}>How external research is shown</h2>
 		<details class="mt-3 border border-border bg-card">
 			<summary class="cursor-pointer px-5 py-4 text-sm font-semibold text-foreground">
-				US and platform measures did not pass the V9 mapping checks
+				A conservative subset is published separately
 			</summary>
 			<div class="border-t border-border p-5">
 				<p class="max-w-4xl text-sm leading-relaxed text-muted-foreground">
-					AIOE, Eloundou GPT exposure, Anthropic observed use and the potential-complementarity
-					proxy remain unavailable at the SSOC 2024 occupation level. A checksum-pinned official
-					ESCO–O*NET bridge now supplies candidate mappings for 362 of 432 relevant ISCO groups.
-					Source-code editions, a validated many-to-many transfer rule and mapping-sensitivity
-					checks are still required before candidate values can be published. AIOE also needs a
-					SOC-edition bridge, while the complementarity proxy lacks a frozen source table and
-					reproducible construct replication. V9 does not fill these gaps with title or broad-group
-					estimates.
+					V9 publishes Eloundou theoretical exposure for 68 reviewed detailed-title identities and
+					Anthropic observed use for 66 of them in a separate artifact. Each profile requires one
+					exact ESCO–O*NET candidate, a reviewed detailed-title identity and one exact source
+					occupation. Broader and many-to-many transfers remain unavailable. AIOE still needs a
+					verified SOC-edition bridge, while the complementarity proxy lacks a frozen source table
+					and reproducible construct replication.
 				</p>
 				<p class="mt-2 text-sm font-medium text-foreground">
-					Withholding these fields does not change any AI Work Pressure Rank.
+					Publishing or withholding these separate signals does not change any AI Work Pressure
+					Rank.
 				</p>
+				<a
+					href="/reports/research-signals"
+					class="mt-3 inline-block font-medium text-primary underline"
+					>Compare theoretical scope and observed use</a
+				>
 			</div>
 		</details>
 	</section>

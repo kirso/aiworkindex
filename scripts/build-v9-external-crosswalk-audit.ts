@@ -16,6 +16,14 @@ const REGISTRY_FILE = path.join(ROOT, 'data', 'ssoc-2024-registry.json');
 const ELOUNDOU_FILE = path.join(ROOT, 'data', 'raw', 'external', 'eloundou_gpts_occ_level.csv');
 const ANTHROPIC_FILE = path.join(ROOT, 'data', 'raw', 'external', 'anthropic_job_exposure.csv');
 const AIOE_FILE = path.join(ROOT, 'data', 'raw', 'external', 'AIOE_DataAppendix.xlsx');
+const RESEARCH_SIGNAL_METADATA_FILE = path.join(
+	ROOT,
+	'data',
+	'raw',
+	'external',
+	'v9-research-signals-source-metadata.json'
+);
+const RESEARCH_SIGNALS_FILE = path.join(ROOT, 'data', 'v9-research-signals.json');
 const OUTPUTS = [
 	path.join(ROOT, 'data', 'v9-external-crosswalk-audit.json'),
 	path.join(ROOT, 'src', 'lib', 'data', 'v9-external-crosswalk-audit.json'),
@@ -103,12 +111,26 @@ function main() {
 		REGISTRY_FILE,
 		ELOUNDOU_FILE,
 		ANTHROPIC_FILE,
-		AIOE_FILE
+		AIOE_FILE,
+		RESEARCH_SIGNAL_METADATA_FILE,
+		RESEARCH_SIGNALS_FILE
 	]) {
 		if (!fs.existsSync(file)) throw new Error(`${file}: required audit input missing`);
 	}
 
 	const escoMetadata = JSON.parse(fs.readFileSync(ESCO_METADATA_FILE, 'utf8'));
+	const researchSignalMetadata = JSON.parse(
+		fs.readFileSync(RESEARCH_SIGNAL_METADATA_FILE, 'utf8')
+	) as {
+		eloundou: Record<string, unknown>;
+		anthropic_observed_exposure: Record<string, unknown>;
+	};
+	const researchSignals = JSON.parse(fs.readFileSync(RESEARCH_SIGNALS_FILE, 'utf8')) as {
+		coverage: {
+			eloundou_theoretical_exposure_available: number;
+			anthropic_observed_exposure_available: number;
+		};
+	};
 	const escoToIsco = new Map<string, string>();
 	for (const row of rows<EscoOccupationRow>(OCCUPATIONS_FILE)) {
 		const uri = String(row.conceptUri ?? '').trim();
@@ -237,24 +259,22 @@ function main() {
 	const sortedCounts = [...strictCounts].sort((a, b) => a - b);
 	const audit = {
 		schema_version: '9.0',
-		generated_at: '2026-08-20',
+		generated_at: '2026-08-21',
 		headline_effect: 'none',
-		status: 'crosswalk_chain_available_sidecars_still_withheld',
+		status: 'crosswalk_chain_available_identity_gated_subset_published',
 		chain:
 			'official SSOC 2024 to ISCO-08 candidates → ESCO v1.1.0 occupations → official ESCO-O*NET v1 exact/close matches → exact compatible source occupation code',
 		transfer_rule_under_review:
-			'For AIOE, Eloundou, Anthropic observed use and complementarity, exact and close ESCO-O*NET candidates remain audit-only. The separate OECD capability builder uses exact relations plus a conservative detailed-title gate; broad and narrow relations remain excluded.',
+			'Broad and ambiguous transfers remain audit-only. Eloundou and Anthropic publish separately only after one exact ESCO-O*NET candidate passes a reviewed detailed-title identity gate; OECD capability profiles use the same identity owner. AIOE and complementarity remain withheld.',
 		sources: {
 			esco_onet: escoMetadata,
 			eloundou: {
-				artifact: path.relative(ROOT, ELOUNDOU_FILE),
-				sha256: sha256(ELOUNDOU_FILE),
-				code_system_in_file: 'O*NET-SOC with detail suffix; exact taxonomy version not recorded'
+				...researchSignalMetadata.eloundou,
+				sha256: sha256(ELOUNDOU_FILE)
 			},
 			anthropic_observed_use: {
-				artifact: path.relative(ROOT, ANTHROPIC_FILE),
-				sha256: sha256(ANTHROPIC_FILE),
-				code_system_in_file: 'six-digit US SOC; exact taxonomy version not recorded'
+				...researchSignalMetadata.anthropic_observed_exposure,
+				sha256: sha256(ANTHROPIC_FILE)
 			},
 			aioe: {
 				artifact: path.relative(ROOT, AIOE_FILE),
@@ -290,15 +310,25 @@ function main() {
 			}
 		},
 		dispositions: {
-			eloundou: 'withheld_pending_source_taxonomy_version_and_many_to_many_transfer_validation',
-			anthropic_observed_use:
-				'withheld_pending_source_taxonomy_version_and_many_to_many_transfer_validation',
+			eloundou: 'published_separate_reviewed_identity_subset',
+			anthropic_observed_use: 'published_separate_reviewed_identity_subset',
 			aioe: 'withheld_soc2010_to_onet_soc2019_version_bridge_missing',
 			oecd_ai_capability_gap: 'published_separate_exact_title_identity_subset'
 		},
+		separate_publication: {
+			artifact: 'data/v9-research-signals.json',
+			method:
+				'one reviewed detailed-title identity to one exact source occupation; no broad, close, or many-to-many aggregation',
+			coverage: {
+				eloundou: researchSignals.coverage.eloundou_theoretical_exposure_available,
+				anthropic_observed_use: researchSignals.coverage.anthropic_observed_exposure_available,
+				ssoc_denominator: occupations.length
+			},
+			headline_effect: 'none'
+		},
 		publication_gates: [
-			'Pin the exact occupation-code taxonomy version for each source snapshot.',
-			'Pre-register an aggregation rule for several exact/close O*NET candidates and report range, count and relation mix.',
+			'Keep exact source versions, rows, checksums and code-title validation frozen for every published subset.',
+			'Pre-register an aggregation rule before publishing any occupation with several exact/close O*NET candidates.',
 			'Compare exact-only and exact-plus-close results; withhold records whose interpretation is mapping-sensitive.',
 			'Keep geography, observation period, platform selection and construct limitations on every published block.',
 			'Prove with an invariance test that external evidence cannot change the ILO headline.'
@@ -311,7 +341,7 @@ function main() {
 		fs.writeFileSync(output, payload, 'utf8');
 	}
 	console.log(
-		`External crosswalk audit: ${audit.quality.strict_mapped_isco08_groups}/${relevantIsco.size} relevant ISCO groups have exact/close O*NET candidates; four comparison sidecars remain withheld; OECD capability uses a separate title gate`
+		`External crosswalk audit: ${audit.quality.strict_mapped_isco08_groups}/${relevantIsco.size} relevant ISCO groups have exact/close O*NET candidates; separate signals publish ${researchSignals.coverage.eloundou_theoretical_exposure_available} Eloundou and ${researchSignals.coverage.anthropic_observed_exposure_available} Anthropic profiles`
 	);
 }
 

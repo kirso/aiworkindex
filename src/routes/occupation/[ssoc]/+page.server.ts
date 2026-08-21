@@ -5,6 +5,7 @@ import { toV9OccupationView } from '$lib/data/v9-display';
 import { getV9CapabilityProfile, getV9CapabilityStatus } from '$lib/data/v9-capability-profiles';
 import { getV9EconomicOccupationContext } from '$lib/data/v9-economic-observatory';
 import { getV9Occupation, v9Occupations } from '$lib/data/v9';
+import { getV9ResearchSignalProfile, v9ResearchSignalSources } from '$lib/data/v9-research-signals';
 import { getMappedTaskExamples, v9TaskEvidenceMetadata } from '$lib/data/v9-task-evidence.server';
 import type { PageServerLoad } from './$types';
 import { error } from '@sveltejs/kit';
@@ -54,6 +55,8 @@ export const load: PageServerLoad = ({ params }) => {
 		view,
 		capabilityProfile: getV9CapabilityProfile(occupation.taxonomy.code),
 		capabilityStatus: getV9CapabilityStatus(occupation.taxonomy.code),
+		researchSignalProfile: getV9ResearchSignalProfile(occupation.taxonomy.code),
+		researchSignalSources: v9ResearchSignalSources,
 		economicContext: getV9EconomicOccupationContext(occupation.taxonomy.code),
 		mappedTaskExamples: getMappedTaskExamples(occupation.evidence.official_isco08_codes),
 		taskEvidenceSource: {

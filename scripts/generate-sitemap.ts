@@ -44,6 +44,7 @@ const staticPages: SitemapEntry[] = [
 	{ path: '/reports/job-market-evidence', priority: '0.8', changefreq: 'monthly' },
 	{ path: '/reports/labour-observatory', priority: '0.8', changefreq: 'monthly' },
 	{ path: '/reports/ai-capabilities', priority: '0.8', changefreq: 'monthly' },
+	{ path: '/reports/research-signals', priority: '0.8', changefreq: 'monthly' },
 	{ path: '/press', priority: '0.5', changefreq: 'monthly' },
 	{ path: '/changelog', priority: '0.5', changefreq: 'monthly' }
 ];

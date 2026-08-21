@@ -33,6 +33,14 @@ const capabilityProfiles = JSON.parse(
 		unavailable_without_published_profile: number;
 	};
 };
+const researchSignals = JSON.parse(
+	fs.readFileSync(path.join(ROOT, 'data', 'v9-research-signals.json'), 'utf8')
+) as {
+	coverage: {
+		eloundou_theoretical_exposure_available: number;
+		anthropic_observed_exposure_available: number;
+	};
+};
 const scored = release.occupations
 	.filter(
 		(
@@ -77,7 +85,7 @@ ${interpretation}
 
 The headline uses only ILO 2025 mean_score_2025 values connected through the official SSOC 2024 to ISCO-08 correspondence. Multiple official matches use the median; the minimum, maximum, task-score dispersion, official ILO categories, and unmatched candidates remain visible. There is no occupation-group fallback.
 
-Wages, named demand evidence, external comparisons, adoption, and labour-market conditions are separate evidence. They do not change the pressure rank. The current release publishes direct wages and reviewed named demand where available. External AIOE, Eloundou, observed-use, and potential-complementarity blocks remain null while source-code editions, many-to-many transfer rules and construct replication are validated. Missing evidence is not zero.
+Wages, named demand evidence, external comparisons, adoption, and labour-market conditions are separate evidence. They do not change the pressure rank. The current release publishes direct wages and reviewed named demand where available. A separate identity-gated artifact publishes Eloundou theoretical exposure for ${researchSignals.coverage.eloundou_theoretical_exposure_available} occupations and Anthropic observed use for ${researchSignals.coverage.anthropic_observed_exposure_available}; the four fields in the headline artifact remain null. AIOE, complementarity and broader transfers remain unavailable. Missing evidence is not zero.
 
 The Singapore AI labour observatory follows six separate channels between task pressure and jobs: displacement; productivity and demand expansion; new work; human responsibility and complementarity; employer adoption and organisation; and worker adjustment. It publishes broad official observations at their source grain. It does not assign occupation-level job outcomes or a Jevons-style rebound effect without adoption, price, output and causal labour evidence.
 
@@ -100,6 +108,8 @@ The separate OECD 2026 capability layer publishes nine-domain profiles for ${cap
 - Labour observatory data: ${SITE.url}/data/v9-economic-observatory.json
 - AI capability report: ${SITE.url}/reports/ai-capabilities
 - AI capability profile data: ${SITE.url}/data/v9-capability-profiles.json
+- Theoretical scope vs observed use: ${SITE.url}/reports/research-signals
+- Research signal data: ${SITE.url}/data/v9-research-signals.json
 - Mapped ILO task evidence: ${SITE.url}/data/ilo-isco-task-evidence-v9.json
 - Full machine-readable guide: ${SITE.url}/llms-full.txt
 - Source repository: ${SITE.github}
@@ -165,8 +175,8 @@ ILO potential25 categories are: Not Exposed; Minimal Exposure; Exposed: Gradient
 - Q1 2026 labour evidence is broad occupation-group context. Q2 2026 figures are preliminary national context.
 - The labour observatory supplies broad employment context to ${economicObservatory.coverage.broad_employment_context} detailed records by reference only. It publishes ${economicObservatory.coverage.causal_ai_labour_outcomes} causal occupation outcomes and ${economicObservatory.coverage.classified_economic_scenarios} classified economic scenarios.
 - Productivity-led demand expansion, sometimes described as rebound or a Jevons-style effect, is a mechanism to test rather than an assumed outcome. Detailed adoption, output or price elasticity, and new-task coverage are currently ${economicObservatory.coverage.detailed_ai_adoption}, ${economicObservatory.coverage.detailed_output_or_price_elasticity}, and ${economicObservatory.coverage.detailed_new_task_creation} occupations respectively.
-- External comparison blocks for AIOE, Eloundou, observed AI use and potential complementarity are currently null. A checksum-pinned official ESCO-O*NET candidate bridge now covers 362 of 432 relevant ISCO groups, but source-code editions, many-to-many transfer validation and construct replication still block publication. Candidate coverage is not published occupation coverage; no fallback is used.
-- The external crosswalk audit is available at ${SITE.url}/data/v9-external-crosswalk-audit.json and never changes the headline rank.
+- External comparison blocks inside the headline occupation artifact remain null. A separate identity-gated artifact publishes Eloundou theoretical exposure for ${researchSignals.coverage.eloundou_theoretical_exposure_available} occupations and Anthropic observed use for ${researchSignals.coverage.anthropic_observed_exposure_available}. Each published profile uses one reviewed detailed-title identity and one exact source occupation; broader and many-to-many transfers remain unavailable.
+- AIOE still lacks a verified SOC-edition bridge, and the complementarity proxy lacks a frozen source-level construct replication. The research-signal artifact and external crosswalk audit are available at ${SITE.url}/data/v9-research-signals.json and ${SITE.url}/data/v9-external-crosswalk-audit.json. Neither can change the headline rank.
 - Stale convenience-sample job postings are withheld from current-demand interpretation.
 - The 11 exact SSOC title duplicates use the official occupation URL. The 56 reviewed familiar-title guides have their own explanatory URL but quote the matched occupation's official score unchanged. The remaining role pages are either disclosed editorial composites or deliberately withheld queries. None is a government classification.
 
@@ -227,6 +237,8 @@ ${exactOfficialTitles.map(role => `- [${role.title}](${SITE.url}/occupation/${ro
 - Labour observatory data: ${SITE.url}/data/v9-economic-observatory.json
 - AI capability report: ${SITE.url}/reports/ai-capabilities
 - AI capability profile data: ${SITE.url}/data/v9-capability-profiles.json
+- Theoretical scope vs observed use: ${SITE.url}/reports/research-signals
+- Research signal data: ${SITE.url}/data/v9-research-signals.json
 - Mapped ILO task evidence: ${SITE.url}/data/ilo-isco-task-evidence-v9.json
 
 Suggested citation: AI Work Index, Singapore AI Work Pressure V9, ${release.generated_at}, ${SITE.url}.

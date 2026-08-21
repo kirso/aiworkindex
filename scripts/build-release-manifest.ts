@@ -55,6 +55,15 @@ const definitions = [
 			'Nine-domain OECD capability profiles for the conservative exact-title-identity subset; all missingness is explicit and the headline effect is none.'
 	},
 	{
+		file: 'v9-research-signals.json',
+		path: path.join(STATIC_DATA, 'v9-research-signals.json'),
+		public_path: '/data/v9-research-signals.json',
+		label: 'V9 theoretical and observed-use research signals',
+		category: 'external_evidence',
+		description:
+			'Identity-gated Eloundou theoretical exposure and Anthropic observed Claude-use measures, published separately with explicit missingness and no headline effect.'
+	},
+	{
 		file: 'ilo-isco-task-evidence-v9.json',
 		path: path.join(STATIC_DATA, 'ilo-isco-task-evidence-v9.json'),
 		public_path: '/data/ilo-isco-task-evidence-v9.json',

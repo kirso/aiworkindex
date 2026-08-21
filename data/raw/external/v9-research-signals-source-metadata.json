@@ -1,0 +1,61 @@
+{
+	"reviewed_at": "2026-08-21",
+	"eloundou": {
+		"publisher": "OpenAI",
+		"publication_title": "GPTs are GPTs: An Early Look at the Labor Market Impact Potential of Large Language Models",
+		"publication_date": "2023-03-17",
+		"publication_url": "https://openai.com/index/gpts-are-gpts/",
+		"paper_url": "https://arxiv.org/abs/2303.10130",
+		"repository_url": "https://github.com/openai/GPTs-are-GPTs",
+		"repository_commit": "0471612fef3cc22b74fb884d27bff9dbd3770582",
+		"repository_commit_date": "2025-10-04",
+		"artifact": "data/raw/external/eloundou_gpts_occ_level.csv",
+		"artifact_upstream_path": "data/occ_level.csv",
+		"artifact_git_blob": "faf734ccef32b373b16899d40636a9ff8de52a40",
+		"artifact_sha256": "40c74f53de40aec91c0017d80690cbba915f83a8bb414bcf2f884692f1749acb",
+		"row_count": 923,
+		"value_field": "dv_rating_beta",
+		"construct": "Share-equivalent theoretical task exposure under the paper's beta rubric: direct LLM exposure plus half-weighted exposure requiring complementary software.",
+		"code_system": "O*NET-SOC 2019 detailed occupation codes",
+		"taxonomy_validation": {
+			"official_release": "O*NET 27.2, February 2023",
+			"official_archive_url": "https://www.onetcenter.org/dl_files/database/db_27_2_text.zip",
+			"official_archive_sha256": "e5f89d41a7dcb4adf93622037a83ac93a8a1e73f2b34115e5b3de423681b843c",
+			"source_code_title_pairs_checked": 923,
+			"missing_codes": 0,
+			"title_mismatches": 0
+		},
+		"licence": {
+			"name": "MIT License",
+			"url": "https://github.com/openai/GPTs-are-GPTs/blob/0471612fef3cc22b74fb884d27bff9dbd3770582/LICENSE"
+		}
+	},
+	"anthropic_observed_exposure": {
+		"publisher": "Anthropic",
+		"publication_title": "Labor market impacts of AI: A new measure and early evidence",
+		"publication_date": "2026-03-05",
+		"publication_updated_at": "2026-03-08",
+		"publication_url": "https://www.anthropic.com/research/labor-market-impacts",
+		"dataset_url": "https://huggingface.co/datasets/Anthropic/EconomicIndex",
+		"dataset_revision": "2ea58ff75e4247d26810c37f10c179edc2466cac",
+		"dataset_revision_date": "2026-06-26",
+		"artifact": "data/raw/external/anthropic_job_exposure.csv",
+		"artifact_upstream_path": "labor_market_impacts/job_exposure.csv",
+		"artifact_git_blob": "aae568975228d5850a1913c0d09f6ce8437e7253",
+		"artifact_sha256": "4f0a3adf5feeb2ec5f5d02ab18cc5e851a2a4b8470bde84c0c9335017be12d68",
+		"row_count": 756,
+		"value_field": "observed_exposure",
+		"construct": "Platform-observed occupational exposure combining theoretical task feasibility with work-related Claude usage and greater weight for automated than augmentative use.",
+		"observation_periods": ["2025-08", "2025-11"],
+		"code_system": "Six-digit US SOC codes derived from O*NET tasks",
+		"taxonomy_validation": {
+			"reference_release": "O*NET 27.2, February 2023",
+			"source_soc_codes_checked": 756,
+			"missing_soc_codes": 0
+		},
+		"licence": {
+			"name": "MIT License",
+			"url": "https://huggingface.co/datasets/Anthropic/EconomicIndex"
+		}
+	}
+}

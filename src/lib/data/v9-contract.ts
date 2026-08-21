@@ -101,6 +101,7 @@ export interface V9ExternalComparisonDisposition {
 	construct: string;
 	status:
 		| 'withheld_pending_source_taxonomy_version_and_many_to_many_transfer_validation'
+		| 'withheld_from_headline_artifact_published_separately'
 		| 'withheld_soc2010_to_onet_soc2019_version_bridge_missing'
 		| 'withheld_unverified_construct_replication';
 	checked_in_source: {
@@ -124,6 +125,15 @@ export interface V9ExternalComparisonDisposition {
 		denominator: 1001;
 		percent: 0;
 	};
+	separate_publication: {
+		artifact: 'data/v9-research-signals.json';
+		method: 'reviewed_detailed_title_identity_then_exact_source_occupation';
+		published_coverage: {
+			occupations: number;
+			denominator: 1001;
+		};
+		headline_effect: 'none';
+	} | null;
 	limitations: string[];
 }
 
@@ -133,7 +143,7 @@ export interface V9ExternalComparisonAudit {
 		| 'official_ssoc_2024_to_isco08_then_verified_isco08_to_soc_then_exact_source_soc';
 	reviewed_mapping_artifact: {
 		path: 'data/v9-external-crosswalk-audit.json';
-		status: 'official_candidate_chain_available_transfer_not_published';
+		status: 'official_candidate_chain_available_identity_subset_published_separately';
 		reasons: string[];
 	};
 	sidecars: Record<V9ExternalComparisonKey, V9ExternalComparisonDisposition>;
