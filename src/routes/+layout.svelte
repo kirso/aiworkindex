@@ -105,9 +105,8 @@
 	</a>
 
 	<!-- Header -->
-	<div class="h-[5px] bg-primary"></div>
 	<header class="sticky top-0 z-50 border-b border-foreground bg-header-bg">
-		<div class="mx-auto flex h-14 max-w-screen-2xl items-center justify-between px-5 sm:px-6">
+		<div class="mx-auto flex h-12 max-w-screen-2xl items-center justify-between px-5 sm:px-6">
 			<a
 				href="/"
 				class="flex items-center gap-2 text-header-text transition-colors hover:text-primary"
@@ -124,7 +123,7 @@
 					{#each navLinks as link (link.href)}
 						<a
 							href={link.href}
-							class="inline-flex min-h-11 items-center rounded-md px-2.5 py-1 text-xs font-medium transition-colors duration-100
+							class="inline-flex min-h-10 items-center rounded-none px-2.5 py-1 text-xs font-medium transition-colors duration-100
 								{isActive(link.href)
 								? 'bg-header-active-bg text-foreground'
 								: 'text-header-muted hover:text-foreground'}"
@@ -134,12 +133,12 @@
 					{/each}
 				</nav>
 				<div
-					class="ml-2 hidden items-center gap-1 rounded-full border border-header-active-bg bg-header-active-bg/20 p-0.5 lg:flex"
+					class="ml-2 hidden items-center gap-1 border border-header-active-bg bg-header-active-bg/20 p-0.5 lg:flex"
 				>
 					{#each marketLinks as market (market.href)}
 						<a
 							href={market.href}
-							class="rounded-full px-2.5 py-1 text-[11px] font-medium transition-colors duration-100
+							class="rounded-none px-2.5 py-1 text-[11px] font-medium transition-colors duration-100
 								{isActive(market.href)
 								? 'bg-header-active-bg text-foreground'
 								: 'text-header-muted hover:text-foreground'}"

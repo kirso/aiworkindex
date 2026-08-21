@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { pressureColorScale } from '$lib/design-system';
 	import ChartFrame from './ChartFrame.svelte';
 
 	interface ScatterItem {
@@ -165,11 +166,8 @@
 	<div class="mb-3 flex flex-wrap items-center justify-between gap-3 text-xs text-muted-foreground">
 		<div class="flex flex-wrap items-center gap-4">
 			<span class="inline-flex items-center gap-1.5">
-				<span
-					class="h-2.5 w-2.5 rounded-full border border-chart-2 bg-chart-2/40"
-					aria-hidden="true"
-				></span>
-				Direct wage row
+				<span class="pressure-legend h-2.5 w-16 border border-border" aria-hidden="true"></span>
+				Colour = pressure percentile
 			</span>
 			<span class="inline-flex items-center gap-1.5">
 				<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"
@@ -280,9 +278,9 @@
 							<path
 								data-occupation-code={item.code}
 								d={diamondPath(x(item.pressureRank), y(item.wageMedian), selected ? 7 : 5)}
-								fill={selected ? 'var(--color-primary)' : 'var(--color-chart-3)'}
+								fill={pressureColorScale(item.pressureRank)}
 								fill-opacity={selected ? 1 : 0.82}
-								stroke="var(--color-foreground)"
+								stroke={selected ? 'var(--color-foreground)' : 'var(--color-card)'}
 								stroke-width={selected ? 1.8 : 0.8}
 								class="scatter-dot cursor-pointer"
 							>
@@ -297,9 +295,9 @@
 								cx={x(item.pressureRank)}
 								cy={y(item.wageMedian)}
 								r={selected ? 6.5 : 4}
-								fill={selected ? 'var(--color-primary)' : 'var(--color-chart-2)'}
-								fill-opacity={selected ? 1 : 0.36}
-								stroke={selected ? 'var(--color-foreground)' : 'var(--color-chart-2)'}
+								fill={pressureColorScale(item.pressureRank)}
+								fill-opacity={selected ? 1 : 0.72}
+								stroke={selected ? 'var(--color-foreground)' : 'var(--color-card)'}
 								stroke-width={selected ? 1.8 : 0.75}
 								class="scatter-dot cursor-pointer"
 							>

@@ -40,6 +40,10 @@ const market = readJson<{ demand_by_code: Record<string, unknown[]> }>(
 	path.join(ROOT, 'data', 'v9-market-context.json')
 );
 
+const capabilityProfiles = readJson<{
+	profiles: Record<string, { overall: { ai_capability_proximity_0_1: { median: number } } }>;
+}>(path.join(ROOT, 'data', 'v9-capability-profiles.json'));
+
 const roles = readJson<{
 	roles: Array<{
 		slug: string;
@@ -122,6 +126,9 @@ const output = {
 				? exposure.mean_score_2025.max - exposure.mean_score_2025.min
 				: null,
 			mappedIscoCount: exposure?.official_isco08_codes.length ?? 0,
+			capabilityProximity:
+				capabilityProfiles.profiles[occupation.taxonomy.code]?.overall.ai_capability_proximity_0_1
+					.median ?? null,
 			searchSynonyms: []
 		};
 	}),

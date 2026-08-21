@@ -2,16 +2,20 @@
 	import { replaceState } from '$app/navigation';
 	import type { V9BrowserItem } from '$lib/data/v9-browser';
 	import type { V9IloExposureCategory } from '$lib/data/v9-contract';
+	import { buildV9PressureBins } from '$lib/data/v9-home';
 	import { spokenMajorGroupTitle } from '$lib/data/v9-display';
 	import { onMount } from 'svelte';
 	import EqualAreaOccupationMap from './EqualAreaOccupationMap.svelte';
 	import OccupationFilters from './OccupationFilters.svelte';
 	import OccupationResultList from './OccupationResultList.svelte';
+	import NamedDemandPressurePlot from './NamedDemandPressurePlot.svelte';
+	import PressureDistribution from './PressureDistribution.svelte';
 	import PressureWageScatter from './PressureWageScatter.svelte';
 
-	type EvidenceFilter = 'all' | 'ranked' | 'wage' | 'demand' | 'unranked';
+	type EvidenceFilter = 'all' | 'ranked' | 'wage' | 'demand' | 'capability' | 'unranked';
 	type OccupationSort = 'title' | 'pressure' | 'wage';
-	type ExplorerView = 'map' | 'scatter' | 'list';
+	type ExplorerView = 'map' | 'scatter' | 'demand' | 'distribution' | 'list';
+	type MapMode = 'pressure' | 'capability';
 
 	interface Props {
 		items?: V9BrowserItem[];
@@ -34,6 +38,7 @@
 	let evidence = $state<EvidenceFilter>('all');
 	let sort = $state<OccupationSort>('title');
 	let view = $state<ExplorerView>('map');
+	let mapMode = $state<MapMode>('pressure');
 	let selectedCode = $state<string | null>(null);
 	let visibleCount = $state(0);
 	let urlReady = $state(false);
@@ -67,6 +72,7 @@
 				(evidence === 'ranked' && item.pressureRank != null) ||
 				(evidence === 'wage' && item.wageMedian != null) ||
 				(evidence === 'demand' && item.demandSignalCount > 0) ||
+				(evidence === 'capability' && item.capabilityProximity != null) ||
 				(evidence === 'unranked' && item.pressureRank == null);
 			return matchesQuery && matchesCategory && matchesGroup && matchesEvidence;
 		});
@@ -91,9 +97,21 @@
 	let pageLimit = $derived(visibleCount === 0 ? listPageSize : visibleCount);
 	let visible = $derived(filtered.slice(0, pageLimit));
 	let listDetail = $derived(evidence === 'demand' ? ('demand' as const) : ('wage' as const));
+	let demandItems = $derived(
+		filtered
+			.filter(item => item.demandSignalCount > 0)
+			.sort(
+				(a, b) =>
+					(b.pressureRank ?? Number.NEGATIVE_INFINITY) -
+						(a.pressureRank ?? Number.NEGATIVE_INFINITY) || a.title.localeCompare(b.title)
+			)
+	);
+	let pressureBins = $derived(buildV9PressureBins(filtered));
+	let rankedCount = $derived(filtered.filter(item => item.pressureRank != null).length);
+	let unrankedCount = $derived(filtered.length - rankedCount);
 
 	function isEvidenceFilter(value: string | null): value is EvidenceFilter {
-		return ['all', 'ranked', 'wage', 'demand', 'unranked'].includes(value ?? '');
+		return ['all', 'ranked', 'wage', 'demand', 'capability', 'unranked'].includes(value ?? '');
 	}
 
 	function isSort(value: string | null): value is OccupationSort {
@@ -101,7 +119,7 @@
 	}
 
 	function isView(value: string | null): value is ExplorerView {
-		return ['map', 'scatter', 'list'].includes(value ?? '');
+		return ['map', 'scatter', 'demand', 'distribution', 'list'].includes(value ?? '');
 	}
 
 	function readUrl(): void {
@@ -181,7 +199,7 @@
 	});
 </script>
 
-<div class="min-w-0 space-y-4">
+<div class="grid min-w-0 gap-4 lg:grid-cols-[15rem_minmax(0,1fr)] lg:items-start">
 	<OccupationFilters
 		bind:query
 		bind:category
@@ -193,95 +211,118 @@
 		totalCount={expectedTotal || items.length}
 	/>
 
-	<div class="flex flex-wrap items-center justify-between gap-3">
-		<nav
-			class="inline-flex rounded-lg border border-border bg-card p-1 shadow-xs"
-			aria-label="Occupation explorer view"
-		>
-			{#each [['map', 'Map'], ['scatter', 'Pressure & pay'], ['list', 'List']] as [key, label] (key)}
-				<button
-					type="button"
-					class="touch-target rounded-md px-3 py-2 text-sm font-semibold transition-colors {view ===
-					key
-						? 'bg-foreground text-background'
-						: 'text-muted-foreground hover:bg-accent hover:text-foreground'}"
-					onclick={() => (view = key as ExplorerView)}
-					aria-pressed={view === key}
-				>
-					{label}
-				</button>
-			{/each}
-		</nav>
+	<div class="min-w-0">
+		<div class="flex flex-wrap items-center justify-between gap-3 border border-border bg-card p-1">
+			<nav class="flex min-w-0 flex-wrap" aria-label="Occupation explorer view">
+				{#each [['map', 'Occupation map'], ['scatter', 'Pressure & pay'], ['demand', 'Named demand'], ['distribution', 'Distribution'], ['list', 'List']] as [key, label] (key)}
+					<button
+						type="button"
+						class="touch-target rounded-none px-3 py-2 text-sm font-semibold transition-colors {view ===
+						key
+							? 'bg-foreground text-background'
+							: 'text-muted-foreground hover:bg-accent hover:text-foreground'}"
+						onclick={() => (view = key as ExplorerView)}
+						aria-pressed={view === key}
+					>
+						{label}
+					</button>
+				{/each}
+			</nav>
 
-		<p class="text-xs leading-relaxed text-muted-foreground">
-			Your filters stay with you across every view.
-		</p>
-	</div>
-
-	{#if loading}
-		<div
-			class="grid min-h-[32.5rem] place-items-center rounded-lg border border-border bg-surface-subtle px-5 text-center"
-			aria-live="polite"
-		>
-			<div>
-				<p class="text-sm font-semibold text-foreground">Loading the occupation map…</p>
-				<p class="mt-1 text-xs text-muted-foreground">
-					Preparing {expectedTotal.toLocaleString()} official occupation records.
-				</p>
-			</div>
-		</div>
-	{:else if loadFailed}
-		<div class="rounded-lg border border-border bg-card px-5 py-10 text-center">
-			<p class="text-sm font-semibold text-foreground">The occupation explorer could not load.</p>
-			<button
-				type="button"
-				class="touch-target mt-3 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground"
-				onclick={() => void loadItems()}
-			>
-				Try again
-			</button>
-		</div>
-	{:else if view === 'map'}
-		<EqualAreaOccupationMap
-			items={filtered}
-			totalCount={expectedTotal || items.length}
-			bind:selectedCode
-		/>
-	{:else if view === 'scatter'}
-		<PressureWageScatter items={filtered} bind:selectedCode />
-	{:else}
-		<section class="min-w-0" aria-labelledby="occupation-list-title">
-			<div class="mb-3 flex flex-wrap items-end justify-between gap-2">
-				<div>
-					<h3 id="occupation-list-title" class="text-lg font-semibold text-foreground">
-						Occupation list
-					</h3>
-					<p class="mt-1 text-sm text-muted-foreground">
-						Showing {Math.min(visible.length, filtered.length).toLocaleString()} of {filtered.length.toLocaleString()}
-						matching records
-					</p>
+			{#if view === 'map'}
+				<div class="flex border-l border-border pl-1" aria-label="Map colour">
+					{#each [['pressure', 'Pressure'], ['capability', 'Capability']] as [key, label] (key)}
+						<button
+							type="button"
+							class="min-h-9 px-2.5 text-xs font-semibold {mapMode === key
+								? 'bg-primary text-primary-foreground'
+								: 'text-muted-foreground hover:bg-accent hover:text-foreground'}"
+							onclick={() => (mapMode = key as MapMode)}
+							aria-pressed={mapMode === key}>{label}</button
+						>
+					{/each}
 				</div>
-				<p class="text-xs text-muted-foreground">
-					Open an occupation to see its sources and limits.
-				</p>
-			</div>
-
-			<OccupationResultList
-				items={visible}
-				detail={listDetail}
-				showRank={sort === 'pressure'}
-				emptyMessage="No occupation matches these filters. Remove one evidence constraint."
-			/>
-
-			{#if pageLimit < filtered.length}
-				<button
-					type="button"
-					class="touch-target mt-4 w-full rounded-lg border border-border bg-card px-4 py-3 text-sm font-semibold text-foreground shadow-xs transition-colors hover:border-primary hover:bg-accent"
-					onclick={() => (visibleCount = pageLimit + listPageSize)}
-				>
-					Show {Math.min(listPageSize, filtered.length - pageLimit)} more
-				</button>
 			{/if}
-		</section>
-	{/if}
+		</div>
+
+		<div class="mt-3">
+			{#if loading}
+				<div
+					class="grid min-h-[32.5rem] place-items-center rounded-lg border border-border bg-surface-subtle px-5 text-center"
+					aria-live="polite"
+				>
+					<div>
+						<p class="text-sm font-semibold text-foreground">Loading the occupation map…</p>
+						<p class="mt-1 text-xs text-muted-foreground">
+							Preparing {expectedTotal.toLocaleString()} official occupation records.
+						</p>
+					</div>
+				</div>
+			{:else if loadFailed}
+				<div class="rounded-lg border border-border bg-card px-5 py-10 text-center">
+					<p class="text-sm font-semibold text-foreground">
+						The occupation explorer could not load.
+					</p>
+					<button
+						type="button"
+						class="touch-target mt-3 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground"
+						onclick={() => void loadItems()}
+					>
+						Try again
+					</button>
+				</div>
+			{:else if view === 'map'}
+				<EqualAreaOccupationMap
+					items={filtered}
+					totalCount={expectedTotal || items.length}
+					bind:selectedCode
+					mode={mapMode}
+				/>
+			{:else if view === 'scatter'}
+				<PressureWageScatter items={filtered} bind:selectedCode />
+			{:else if view === 'demand'}
+				<NamedDemandPressurePlot items={demandItems} />
+			{:else if view === 'distribution'}
+				<PressureDistribution
+					bins={pressureBins}
+					rankedTotal={rankedCount}
+					unrankedTotal={unrankedCount}
+				/>
+			{:else}
+				<section class="min-w-0" aria-labelledby="occupation-list-title">
+					<div class="mb-3 flex flex-wrap items-end justify-between gap-2">
+						<div>
+							<h3 id="occupation-list-title" class="text-lg font-semibold text-foreground">
+								Occupation list
+							</h3>
+							<p class="mt-1 text-sm text-muted-foreground">
+								Showing {Math.min(visible.length, filtered.length).toLocaleString()} of {filtered.length.toLocaleString()}
+								matching records
+							</p>
+						</div>
+						<p class="text-xs text-muted-foreground">
+							Open an occupation to see its sources and limits.
+						</p>
+					</div>
+
+					<OccupationResultList
+						items={visible}
+						detail={listDetail}
+						showRank={sort === 'pressure'}
+						emptyMessage="No occupation matches these filters. Remove one evidence constraint."
+					/>
+
+					{#if pageLimit < filtered.length}
+						<button
+							type="button"
+							class="touch-target mt-4 w-full rounded-lg border border-border bg-card px-4 py-3 text-sm font-semibold text-foreground shadow-xs transition-colors hover:border-primary hover:bg-accent"
+							onclick={() => (visibleCount = pageLimit + listPageSize)}
+						>
+							Show {Math.min(listPageSize, filtered.length - pageLimit)} more
+						</button>
+					{/if}
+				</section>
+			{/if}
+		</div>
+	</div>
 </div>

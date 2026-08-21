@@ -1,6 +1,11 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { pressureColorScale } from '$lib/design-system';
+	import {
+		capabilityColorScale,
+		capabilityLabelFill,
+		pressureColorScale,
+		pressureLabelFill
+	} from '$lib/design-system';
 	import type { V9BrowserItem } from '$lib/data/v9-browser';
 	import * as d3Hierarchy from 'd3-hierarchy';
 	import type { HierarchyRectangularNode } from 'd3-hierarchy';
@@ -10,6 +15,7 @@
 		items: V9BrowserItem[];
 		totalCount?: number;
 		selectedCode?: string | null;
+		mode?: 'pressure' | 'capability';
 	}
 
 	type RootDatum = { kind: 'root'; children: GroupDatum[] };
@@ -22,7 +28,12 @@
 	type OccupationDatum = { kind: 'occupation'; item: V9BrowserItem };
 	type MapDatum = RootDatum | GroupDatum | OccupationDatum;
 
-	let { items, totalCount = 1001, selectedCode = $bindable(null) }: Props = $props();
+	let {
+		items,
+		totalCount = 1001,
+		selectedCode = $bindable(null),
+		mode = 'pressure'
+	}: Props = $props();
 
 	let containerEl = $state<HTMLButtonElement>();
 	let containerWidth = $state(0);
@@ -98,8 +109,12 @@
 	);
 	let selectedItem = $derived(items.find(item => item.code === selectedCode) ?? null);
 	let hoveredItem = $derived(items.find(item => item.code === hoveredCode) ?? null);
-	let rankedCount = $derived(items.filter(item => item.pressureRank != null).length);
-	let unrankedCount = $derived(items.length - rankedCount);
+	let availableCount = $derived(
+		items.filter(item =>
+			mode === 'pressure' ? item.pressureRank != null : item.capabilityProximity != null
+		).length
+	);
+	let unavailableCount = $derived(items.length - availableCount);
 
 	$effect(() => {
 		if (!containerEl) return;
@@ -127,6 +142,26 @@
 		return `Pressure percentile ${item.pressureRank.toFixed(item.pressureRank % 1 === 0 ? 0 : 1)}`;
 	}
 
+	function colour(item: V9BrowserItem): string {
+		if (mode === 'capability') {
+			return item.capabilityProximity == null
+				? 'url(#occupation-map-unranked)'
+				: capabilityColorScale(item.capabilityProximity);
+		}
+		return item.pressureRank == null
+			? 'url(#occupation-map-unranked)'
+			: pressureColorScale(item.pressureRank);
+	}
+
+	function evidenceLabel(item: V9BrowserItem): string {
+		if (mode === 'capability') {
+			return item.capabilityProximity == null
+				? 'OECD capability profile unavailable'
+				: `OECD capability proximity ${(item.capabilityProximity * 100).toFixed(1)}/100`;
+		}
+		return pressureLabel(item);
+	}
+
 	function wageLabel(item: V9BrowserItem): string {
 		return item.wageMedian == null
 			? 'Direct wage not published'
@@ -137,6 +172,14 @@
 		return item.demandSignalCount > 0
 			? `${item.demandSignalCount} named demand signal${item.demandSignalCount === 1 ? '' : 's'}`
 			: 'No named demand signal; demand is unknown';
+	}
+
+	function truncateLabel(value: string, width: number): string {
+		const maxCharacters = Math.floor((width - 8) / 5.8);
+		if (maxCharacters < 4) return '';
+		return value.length <= maxCharacters
+			? value
+			: `${value.slice(0, Math.max(3, maxCharacters - 1))}…`;
 	}
 
 	function select(item: V9BrowserItem): void {
@@ -201,23 +244,37 @@
 
 <ChartFrame
 	id="occupation-map"
-	title="Singapore occupations by AI task pressure"
-	subtitle="{items.length.toLocaleString()} of {totalCount.toLocaleString()} official SSOC 2024 occupation records. Every tile has equal weight; colour shows the V9 within-Singapore pressure percentile."
-	source="SSOC 2024 occupation registry and ILO 2025 generative-AI task-exposure evidence, mapped through official SSOC–ISCO tables. V9 release, 19 August 2026."
-	note="Each equal tile represents one occupation record. Tile area carries no worker count. Unranked occupations stay visible with a hatch and an Unknown label."
+	title={mode === 'pressure'
+		? 'Singapore occupations by AI task pressure'
+		: 'Singapore occupations with mapped OECD capability profiles'}
+	subtitle={mode === 'pressure'
+		? `${items.length.toLocaleString()} of ${totalCount.toLocaleString()} official SSOC 2024 occupation records. Every tile has equal weight; colour shows the V9 within-Singapore pressure percentile.`
+		: `${items.length.toLocaleString()} filtered occupation records. Colour shows mapped OECD AI capability proximity where the conservative title-identity rule passes.`}
+	source={mode === 'pressure'
+		? 'SSOC 2024 occupation registry and ILO 2025 generative-AI task-exposure evidence, mapped through official SSOC–ISCO tables. V9 release, 19 August 2026.'
+		: 'OECD 2026 AI Capability Gap profiles mapped through reviewed SSOC–ISCO–ESCO–O*NET title identity. Separate from V9 pressure.'}
+	note={mode === 'pressure'
+		? 'Each equal tile represents one occupation record. Tile area carries no worker count. Unranked occupations stay visible with a hatch and an Unknown label.'
+		: 'Each equal tile represents one occupation record. Missing profiles stay hatched and do not mean low capability proximity. This layer does not change the pressure rank.'}
 >
 	<div class="mb-3 flex flex-wrap items-center justify-between gap-3">
 		<div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted-foreground">
 			<span><strong class="font-mono text-foreground">1</strong> tile = 1 occupation</span>
-			<span><strong class="font-mono text-foreground">{rankedCount}</strong> ranked</span>
-			<span><strong class="font-mono text-foreground">{unrankedCount}</strong> unranked</span>
+			<span><strong class="font-mono text-foreground">{availableCount}</strong> available</span>
+			<span><strong class="font-mono text-foreground">{unavailableCount}</strong> unavailable</span>
 		</div>
 		<div
 			class="flex min-w-[13rem] items-center gap-2 text-xs text-muted-foreground"
-			aria-label="Pressure colour scale from lower to higher relative pressure"
+			aria-label={mode === 'pressure'
+				? 'Pressure colour scale from lower to higher relative pressure'
+				: 'Capability colour scale from lower to higher proximity'}
 		>
 			<span>Lower</span>
-			<span class="pressure-legend h-2 flex-1 rounded-sm border border-border" aria-hidden="true"
+			<span
+				class="{mode === 'pressure'
+					? 'pressure-legend'
+					: 'capability-legend'} h-2 flex-1 rounded-sm border border-border"
+				aria-hidden="true"
 			></span>
 			<span>Higher</span>
 			<span class="unranked-hatch ml-1 h-3 w-3 rounded-sm border border-border" aria-hidden="true"
@@ -252,7 +309,10 @@
 					viewBox="0 0 {containerWidth} {chartHeight}"
 					class="block max-w-full"
 					role="img"
-					aria-label="Map of {items.length} equal-area occupation tiles grouped by SSOC major group and coloured by AI task-pressure percentile"
+					aria-label="Map of {items.length} equal-area occupation tiles grouped by SSOC major group and coloured by {mode ===
+					'pressure'
+						? 'AI task-pressure percentile'
+						: 'mapped OECD capability proximity'}"
 				>
 					<defs>
 						<pattern
@@ -303,6 +363,8 @@
 					{#each leaves as leaf (leaf.data.item.code)}
 						{@const item = leaf.data.item}
 						{@const selected = item.code === selectedCode}
+						{@const leafWidth = Math.max(0, leaf.x1 - leaf.x0)}
+						{@const leafHeight = Math.max(0, leaf.y1 - leaf.y0)}
 						<rect
 							data-occupation-code={item.code}
 							x={leaf.x0}
@@ -310,15 +372,27 @@
 							width={Math.max(0, leaf.x1 - leaf.x0)}
 							height={Math.max(0, leaf.y1 - leaf.y0)}
 							rx="1.5"
-							fill={item.pressureRank == null
-								? 'url(#occupation-map-unranked)'
-								: pressureColorScale(item.pressureRank)}
+							fill={colour(item)}
 							stroke={selected ? 'var(--color-primary)' : 'var(--color-card)'}
 							stroke-width={selected ? 3 : 0.75}
 							class="cursor-pointer transition-opacity duration-200 hover:opacity-75"
 						>
-							<title>{item.title}; {pressureLabel(item)}; {wageLabel(item)}</title>
+							<title>{item.title}; {evidenceLabel(item)}; {wageLabel(item)}</title>
 						</rect>
+						{#if leafWidth >= 34 && leafHeight >= 18}
+							<text
+								x={leaf.x0 + 4}
+								y={leaf.y0 + 12}
+								font-size={leafWidth >= 70 ? 10.5 : 9}
+								font-weight="500"
+								fill={mode === 'pressure'
+									? pressureLabelFill(item.pressureRank)
+									: capabilityLabelFill(item.capabilityProximity)}
+								pointer-events="none"
+							>
+								{truncateLabel(item.title, leafWidth)}
+							</text>
+						{/if}
 					{/each}
 				</svg>
 
@@ -330,7 +404,7 @@
 					>
 						<p class="font-semibold leading-snug text-foreground">{hoveredItem.title}</p>
 						<p class="mt-1 font-mono text-muted-foreground">SSOC {hoveredItem.code}</p>
-						<p class="mt-2 text-text-secondary">{pressureLabel(hoveredItem)}</p>
+						<p class="mt-2 text-text-secondary">{evidenceLabel(hoveredItem)}</p>
 						<p class="mt-0.5 text-text-secondary">{wageLabel(hoveredItem)}</p>
 						<p class="mt-0.5 text-text-secondary">{demandLabel(hoveredItem)}</p>
 					</div>

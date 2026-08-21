@@ -7,7 +7,7 @@
 		familyLabel,
 		items,
 		accent,
-		surface,
+		surface: _surface,
 		disclosure
 	}: {
 		id: string;
@@ -68,7 +68,7 @@
 	}
 </script>
 
-<div class="border p-4 sm:p-5" style:background={surface} style:border-color={accent}>
+<div class="border border-border bg-card p-4 sm:p-5">
 	<div>
 		<p class="text-xs font-bold uppercase tracking-wide" style:color={accent}>Human work profile</p>
 		<h3 class="mt-1 text-base font-bold">Common {familyLabel.toLowerCase()} work pattern</h3>
@@ -164,10 +164,7 @@
 		{/each}
 	</div>
 
-	<p
-		class="mt-4 border-t pt-3 text-xs leading-relaxed text-muted-foreground"
-		style:border-color={accent}
-	>
+	<p class="mt-4 border-t border-border pt-3 text-xs leading-relaxed text-muted-foreground">
 		{disclosure}
 	</p>
 </div>

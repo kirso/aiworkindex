@@ -1,19 +1,11 @@
 <script lang="ts">
 	import FaqList from '$lib/components/ui/FaqList.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
-	import OccupationGroupOverview from '$lib/components/v9-browser/OccupationGroupOverview.svelte';
 	import NamedDemandPressurePlot from '$lib/components/v9-browser/NamedDemandPressurePlot.svelte';
+	import OccupationExplorer from '$lib/components/v9-browser/OccupationExplorer.svelte';
 	import OccupationResultList from '$lib/components/v9-browser/OccupationResultList.svelte';
 	import OccupationSearch from '$lib/components/v9-browser/OccupationSearch.svelte';
-	import PressureDistribution from '$lib/components/v9-browser/PressureDistribution.svelte';
-	import {
-		badge,
-		card,
-		linkPill,
-		pageLayout,
-		sectionLabel,
-		title as titleStyle
-	} from '$lib/design-system';
+	import { badge, pageLayout, sectionLabel } from '$lib/design-system';
 	import { buildFaqJsonLd } from '$lib/data/ranking-jsonld';
 
 	let { data } = $props();
@@ -24,7 +16,7 @@
 		{
 			question: 'What does AI task pressure mean?',
 			answer:
-				'AI task pressure compares how much an occupation’s tasks overlap with current generative-AI capabilities. The formal V9 field is the AI work pressure rank. V9 maps ILO 2025 evidence to SSOC 2024 occupations and ranks scored occupations within Singapore.'
+				'AI task pressure compares how much an occupation’s mapped tasks overlap with current generative-AI capabilities. V9 maps ILO 2025 evidence to SSOC 2024 occupations and ranks scored occupations within Singapore.'
 		},
 		{
 			question: 'How does current demand relate to task pressure?',
@@ -41,228 +33,124 @@
 
 <Seo
 	title="How does AI overlap with your job in Singapore?"
-	description="Search 1,001 Singapore occupations. See AI task overlap, pay and named demand evidence, then open a major group or the full explorer."
+	description="Search and map 1,001 Singapore occupations. Compare AI task pressure, direct pay, named demand and available OECD capability evidence."
 	path="/"
 	jsonLd={[buildFaqJsonLd(faqItems)]}
 />
 
 <main>
 	<section class="border-b border-border bg-card">
-		<div
-			class="{pageLayout({
-				width: 'data'
-			})} grid gap-8 pb-8 pt-7 lg:grid-cols-[minmax(0,1.15fr)_minmax(20rem,0.85fr)] lg:items-end lg:pb-12 lg:pt-14"
-		>
-			<div class="max-w-4xl">
-				<span class={badge({ variant: 'outline' })}>Singapore · SSOC 2024 · V9</span>
-				<h1 class="mt-3 {titleStyle({ size: 'page' })}">How does AI overlap with your job?</h1>
-				<p class="mt-3 max-w-2xl text-base leading-relaxed text-text-secondary sm:text-lg">
-					Find your occupation, see its relative AI task overlap, then check pay and named hiring
-					lists. The percentile locates the job among scored Singapore occupations. It is not a
-					job-loss probability.
-				</p>
-				<div class="mt-5 max-w-2xl">
-					<OccupationSearch label="Search your job title or SSOC code" />
+		<div class="{pageLayout({ width: 'data' })} !py-5 lg:!py-6">
+			<div class="grid gap-5 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+				<div class="max-w-4xl">
+					<div class="flex flex-wrap items-center gap-2">
+						<span class={badge({ variant: 'outline' })}>Singapore · SSOC 2024 · V9</span>
+						<span class="text-xs text-muted-foreground">Updated 19 August 2026</span>
+					</div>
+					<h1
+						class="mt-3 max-w-4xl text-3xl font-black tracking-tight text-foreground sm:text-4xl lg:text-5xl"
+					>
+						How does AI overlap with your job?
+					</h1>
+					<p class="mt-2 max-w-3xl text-sm leading-relaxed text-text-secondary sm:text-base">
+						Find a job, compare its relative task pressure with pay and named demand, then open the
+						evidence and practical next steps.
+					</p>
+					<div class="mt-4 max-w-2xl">
+						<OccupationSearch label="Search a job title or SSOC code" />
+					</div>
 				</div>
-				<p class="mt-3 text-xs text-muted-foreground">
-					{data.counts.occupations.toLocaleString()} official occupations · {data.counts.scored.toLocaleString()}
-					with a pressure rank · updated 19 August 2026
-				</p>
-			</div>
 
-			<aside class="hidden border border-border bg-surface-subtle p-6 lg:block">
-				<p class={sectionLabel()}>What you can compare</p>
-				<dl class="mt-4 grid grid-cols-2 gap-x-5 gap-y-4">
-					<div>
-						<dt class="text-sm text-muted-foreground">Pressure-ranked</dt>
-						<dd class="mt-1 font-mono text-2xl font-semibold tabular-nums text-foreground">
-							{data.counts.scored.toLocaleString()}
-						</dd>
-					</div>
-					<div>
-						<dt class="text-sm text-muted-foreground">Direct wage rows</dt>
-						<dd class="mt-1 font-mono text-2xl font-semibold tabular-nums text-foreground">
-							{data.counts.direct_wages.toLocaleString()}
-						</dd>
-					</div>
-					<div>
-						<dt class="text-sm text-muted-foreground">Named demand evidence</dt>
-						<dd class="mt-1 font-mono text-2xl font-semibold tabular-nums text-foreground">
-							{data.directDemandCount}
-						</dd>
-					</div>
-					<div>
-						<dt class="text-sm text-muted-foreground">Unranked, still shown</dt>
-						<dd class="mt-1 font-mono text-2xl font-semibold tabular-nums text-foreground">
-							{data.counts.insufficient_evidence.toLocaleString()}
-						</dd>
-					</div>
+				<dl class="grid grid-cols-4 gap-px border border-border bg-border lg:w-[32rem]">
+					{#each [['Ranked', data.counts.scored], ['Pay rows', data.counts.direct_wages], ['Named demand', data.directDemandCount], ['Capability', data.capabilityProfileCount]] as item (item[0])}
+						<div class="min-w-0 bg-card px-3 py-3">
+							<dt class="text-[11px] leading-tight text-muted-foreground">{item[0]}</dt>
+							<dd class="mt-1 font-mono text-xl font-semibold tabular-nums text-foreground">
+								{Number(item[1]).toLocaleString()}
+							</dd>
+						</div>
+					{/each}
 				</dl>
-			</aside>
+			</div>
 		</div>
 	</section>
 
-	<section class="{pageLayout({ width: 'data' })} py-9 sm:py-12" aria-labelledby="groups-title">
-		<div class="mb-5 flex flex-wrap items-end justify-between gap-4">
+	<section class="{pageLayout({ width: 'data' })} !py-4 sm:!py-5" aria-labelledby="explorer-title">
+		<div class="mb-3 flex flex-wrap items-end justify-between gap-3">
 			<div>
-				<p class={sectionLabel()}>Start with your kind of work</p>
-				<h2
-					id="groups-title"
-					class="mt-1 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl"
-				>
-					Named jobs, grouped like a map
+				<p class={sectionLabel()}>Singapore occupation explorer</p>
+				<h2 id="explorer-title" class="mt-1 text-xl font-bold text-foreground sm:text-2xl">
+					Explore all 1,001 official occupations
 				</h2>
-				<p class="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-					Switch between AI task pressure and the conservative OECD capability subset. Tile size is
-					the number of official occupations, not workers or pay.
-				</p>
-				<p class="mt-1 text-xs text-muted-foreground">
-					OECD capability profiles are available for {data.capabilityProfileCount} occupations; missing
-					profiles remain hatched.
-				</p>
 			</div>
-			<a href="/explore" class={linkPill()}> Open the 1,001-occupation explorer → </a>
+			<p class="max-w-xl text-xs leading-relaxed text-muted-foreground">
+				Every map tile has equal weight. Filters stay active across the map, pay, demand and
+				distribution views.
+			</p>
 		</div>
 
-		<OccupationGroupOverview
-			groups={data.groupSummaries}
-			categories={data.categorySummary}
-			mapItems={data.mapItems}
-			rankedTotal={data.counts.scored}
-			unrankedTotal={data.counts.insufficient_evidence}
+		<OccupationExplorer
+			sourceUrl="/data/v9-search-index.json?v=2026-08-21-compact-explorer"
+			expectedTotal={data.counts.occupations}
+			listPageSize={40}
 		/>
 	</section>
 
 	<section class="border-y border-border bg-surface-subtle">
-		<div
-			class="{pageLayout({ width: 'data' })} grid gap-8 py-10 xl:grid-cols-[1.2fr_0.8fr] xl:py-14"
-		>
-			<PressureDistribution
-				bins={data.pressureBins}
-				rankedTotal={data.counts.scored}
-				unrankedTotal={data.counts.insufficient_evidence}
-			/>
-
-			<div>
-				<p class={sectionLabel()}>What Singapore employers reported</p>
-				<h2 class="mt-1 font-sans text-2xl font-bold text-foreground">
-					Current labour-market context
-				</h2>
-				<p class="mt-2 text-sm leading-relaxed text-muted-foreground">
-					These national figures describe firms and vacancies. They do not change an occupation’s
-					pressure rank.
-				</p>
-				<div class="mt-5 divide-y divide-border border-y border-border bg-card">
-					{#each data.marketFacts as fact (fact.label)}
-						<article class="grid gap-2 px-4 py-4 sm:grid-cols-[7rem_1fr] sm:px-5">
-							<p class="font-mono text-3xl font-semibold tabular-nums text-foreground">
-								{fact.value}
-							</p>
-							<div>
-								<h3 class="text-sm font-semibold text-foreground">{fact.label}</h3>
-								<p class="mt-1 text-xs leading-relaxed text-muted-foreground">{fact.detail}</p>
-								<a
-									href={fact.sourceUrl}
-									class="mt-2 inline-block text-xs font-semibold text-primary underline"
-									target="_blank"
-									rel="noreferrer"
-								>
-									{fact.sourceTitle}
-								</a>
-							</div>
-						</article>
-					{/each}
-				</div>
+		<div class="{pageLayout({ width: 'data' })} !py-6">
+			<div class="grid gap-px border border-border bg-border md:grid-cols-3">
+				{#each data.marketFacts as fact (fact.label)}
+					<article class="grid gap-2 bg-card p-4 sm:grid-cols-[6rem_1fr]">
+						<p class="font-mono text-2xl font-semibold tabular-nums text-foreground">
+							{fact.value}
+						</p>
+						<div>
+							<h3 class="text-sm font-semibold text-foreground">{fact.label}</h3>
+							<p class="mt-1 text-xs leading-relaxed text-muted-foreground">{fact.detail}</p>
+							<a
+								href={fact.sourceUrl}
+								class="mt-1 inline-block text-xs font-semibold text-primary underline"
+								target="_blank"
+								rel="noreferrer">Source</a
+							>
+						</div>
+					</article>
+				{/each}
 			</div>
 		</div>
 	</section>
 
-	<section
-		class="{pageLayout({
-			width: 'data'
-		})} grid min-w-0 gap-8 border-t border-border py-10 xl:grid-cols-2 xl:py-14"
-	>
+	<section class="{pageLayout({ width: 'data' })} grid min-w-0 gap-6 !py-7 xl:grid-cols-2">
 		<div class="min-w-0">
-			<div class="mb-4 flex flex-wrap items-end justify-between gap-2">
+			<div class="mb-3 flex items-end justify-between gap-3">
 				<div>
-					<p class={sectionLabel()}>Higher relative task pressure</p>
-					<h2 class="mt-1 text-xl font-semibold text-foreground">Occupations near the top of V9</h2>
+					<p class={sectionLabel()}>Higher relative pressure</p>
+					<h2 class="mt-1 text-xl font-bold text-foreground">Occupations near the top of V9</h2>
 				</div>
-				<a href="/rankings/highest-risk" class="text-sm font-semibold text-primary underline"
-					>Full ranking</a
+				<a href="/rankings/highest-risk" class="text-sm font-semibold text-primary underline">All</a
 				>
 			</div>
 			<OccupationResultList items={highestPressure} detail="category" />
 		</div>
 
 		<div class="min-w-0">
-			<div class="mb-4 flex flex-wrap items-end justify-between gap-2">
+			<div class="mb-3 flex items-end justify-between gap-3">
 				<div>
 					<p class={sectionLabel()}>Pressure and demand can coexist</p>
-					<h2 class="mt-1 text-xl font-semibold text-foreground">Named in current MOM sources</h2>
+					<h2 class="mt-1 text-xl font-bold text-foreground">Named in current MOM sources</h2>
 				</div>
 				<a
 					href="/rankings/high-exposure-in-demand"
-					class="text-sm font-semibold text-primary underline"
+					class="text-sm font-semibold text-primary underline">All</a
 				>
-					Full list
-				</a>
 			</div>
 			<NamedDemandPressurePlot items={namedDemand} compact />
 		</div>
 	</section>
 
-	<section class="bg-card">
-		<div class="{pageLayout({ width: 'feature' })} py-12 sm:py-16">
-			<p class={sectionLabel()}>Next step</p>
-			<h2 class="mt-2 max-w-3xl text-3xl font-semibold tracking-tight text-foreground">
-				Check the tasks you actually do
-			</h2>
-			<p class="mt-3 max-w-2xl text-base leading-relaxed text-text-secondary">
-				The percentile locates a job among scored Singapore occupations. Your shift, employer and
-				task mix still decide what is practical.
-			</p>
-			<div class="mt-6 flex flex-wrap gap-3">
-				<a href="/will-ai-take-my-job" class={linkPill()}>Check your own task mix →</a>
-				<a href="/compare" class={linkPill()}>Compare jobs →</a>
-			</div>
+	<section class="border-t border-border bg-card">
+		<div class="{pageLayout({ width: 'content' })} !py-7">
+			<FaqList items={faqItems} />
 		</div>
-	</section>
-
-	<section class="{pageLayout({ width: 'content' })} py-12">
-		<div class={card({ padding: 'lg', variant: 'subtle' })}>
-			<p class={sectionLabel()}>Keep the signals separate</p>
-			<div class="mt-4 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-				<div>
-					<h3 class="text-base font-semibold text-foreground">AI task pressure</h3>
-					<p class="mt-2 text-sm leading-relaxed text-muted-foreground">
-						A within-Singapore rank based on ILO task-exposure evidence and official occupation
-						mappings.
-					</p>
-				</div>
-				<div>
-					<h3 class="text-base font-semibold text-foreground">Direct market evidence</h3>
-					<p class="mt-2 text-sm leading-relaxed text-muted-foreground">
-						Detailed MOM wage rows and reviewed matches to named demand or shortage lists.
-					</p>
-				</div>
-				<div>
-					<h3 class="text-base font-semibold text-foreground">Current AI capabilities</h3>
-					<p class="mt-2 text-sm leading-relaxed text-muted-foreground">
-						A separate OECD profile for {data.capabilityProfileCount} occupations whose detailed titles
-						pass the conservative mapping rule.
-					</p>
-				</div>
-				<div>
-					<h3 class="text-base font-semibold text-foreground">Your real task mix</h3>
-					<p class="mt-2 text-sm leading-relaxed text-muted-foreground">
-						Your responsibilities and workplace decide what is practical. Personal answers stay
-						local to your check and leave V9 unchanged.
-					</p>
-				</div>
-			</div>
-		</div>
-
-		<FaqList items={faqItems} />
 	</section>
 </main>

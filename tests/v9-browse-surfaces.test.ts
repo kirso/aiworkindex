@@ -63,7 +63,7 @@ describe('V9 browse and ranking surfaces', () => {
 			assert.doesNotMatch(contents, /overflow-x-auto|overflow-x-scroll/);
 		}
 
-		assert.match(source('src/routes/+page.svelte'), /AI work pressure/);
+		assert.match(source('src/routes/+page.svelte'), /AI task pressure/);
 		assert.match(source('src/routes/explore/+page.svelte'), /Official\s+ILO category/);
 		assert.match(
 			source('src/routes/occupation/[ssoc]/+page.svelte'),

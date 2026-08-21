@@ -56,18 +56,18 @@
 		very_high: 5
 	};
 	const toneFill: Record<PressureTone, string> = {
-		very_low: 'bg-pressure-20',
-		low: 'bg-pressure-40',
+		very_low: 'bg-pressure-0',
+		low: 'bg-pressure-20',
 		moderate: 'bg-pressure-60',
 		high: 'bg-pressure-80',
 		very_high: 'bg-pressure-100'
 	};
 	const toneText: Record<PressureTone, string> = {
-		very_low: 'text-pressure-80',
-		low: 'text-pressure-80',
-		moderate: 'text-pressure-80',
-		high: 'text-pressure-80',
-		very_high: 'text-pressure-100'
+		very_low: 'text-risk-very-low',
+		low: 'text-risk-low',
+		moderate: 'text-risk-moderate',
+		high: 'text-risk-high',
+		very_high: 'text-risk-very-high'
 	};
 </script>
 

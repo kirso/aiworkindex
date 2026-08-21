@@ -1,5 +1,5 @@
 /*
- * AI Work Index — warm evidence-editorial design system.
+ * AI Work Index — compact evidence-product design system.
  *
  * The interface starts with a human question, then shows the evidence needed
  * to answer it. Pressure, pay, demand, mapping quality and personal guidance
@@ -52,15 +52,15 @@
 	--radius-lg: 0.375rem;
 	--radius-xl: 0.5rem;
 
-	/* V9 AI task-pressure scale. Sequential teal with separable lightness steps.
+	/* V9 AI task-pressure scale. Lower-to-higher pressure, not safe-to-doomed.
 	   Never legend these as ILO Gradient 1–4. Unranked uses the hatch, not a fake zero. */
-	--color-pressure-0: #e7f6f1;
-	--color-pressure-20: #6fd0b8;
-	--color-pressure-40: #1a9e88;
-	--color-pressure-60: #0b6f63;
-	--color-pressure-80: #044840;
-	--color-pressure-100: #012824;
-	--color-pressure-unranked: #d8d3c8;
+	--color-pressure-0: #2a7f62;
+	--color-pressure-20: #48a06c;
+	--color-pressure-40: #9cad5e;
+	--color-pressure-60: #d9a514;
+	--color-pressure-80: #cf6a32;
+	--color-pressure-100: #d6151c;
+	--color-pressure-unranked: #d8d8d5;
 
 	/* Occupation-family identity is categorical and never encodes pressure. */
 	--color-family-technology: #2f5fb8;
@@ -85,22 +85,22 @@
 	--color-evidence-visitor: #2f5fb8;
 	--color-evidence-unavailable: #747168;
 
-	/* Consumer action lanes. These describe next steps, not outcome severity. */
-	--color-action-try: #2457d6;
-	--color-action-try-subtle: #edf2fd;
-	--color-action-try-border: #b8c9f3;
-	--color-action-verify: #80510d;
-	--color-action-verify-subtle: #faf0dd;
-	--color-action-verify-border: #e7c98d;
-	--color-action-human-led: #684a93;
-	--color-action-human-led-subtle: #f2ecf8;
-	--color-action-human-led-border: #cfbde1;
-	--color-action-strengthen: #256a5d;
-	--color-action-strengthen-subtle: #e6f2ef;
-	--color-action-strengthen-border: #acd3ca;
-	--color-action-monitor: #55524a;
-	--color-action-monitor-subtle: #f0eee8;
-	--color-action-monitor-border: #cfcac0;
+	/* Consumer action lanes use words and icons, not a second rainbow. */
+	--color-action-try: #30302e;
+	--color-action-try-subtle: #f4f4f2;
+	--color-action-try-border: #d6d6d2;
+	--color-action-verify: #30302e;
+	--color-action-verify-subtle: #f4f4f2;
+	--color-action-verify-border: #d6d6d2;
+	--color-action-human-led: #30302e;
+	--color-action-human-led-subtle: #f4f4f2;
+	--color-action-human-led-border: #d6d6d2;
+	--color-action-strengthen: #30302e;
+	--color-action-strengthen-subtle: #f4f4f2;
+	--color-action-strengthen-border: #d6d6d2;
+	--color-action-monitor: #30302e;
+	--color-action-monitor-subtle: #f4f4f2;
+	--color-action-monitor-border: #d6d6d2;
 
 	/* --- Risk Spectrum: Full saturation, diagnostic ---
 	     Each risk level has 3 tokens: solid, subtle bg, border.
@@ -146,7 +146,7 @@
 	--color-impact-mixed-subtle: oklch(0.97 0.02 75);
 	--color-impact-mixed-border: oklch(0.9 0.05 75);
 
-	/* Chart roots: ink, pressure teal, demand ochre, selection cobalt, missing. */
+	/* Chart roots: ink, direct evidence blue, demand ochre, selection cobalt, missing. */
 	--color-chart-1: #171714;
 	--color-chart-2: #3e8984;
 	--color-chart-3: #9b6b12;
@@ -155,11 +155,11 @@
 	--color-capability-low: #eef3ff;
 	--color-capability-high: #153487;
 
-	/* Warm, restrained depth. Elevation is reserved for interactive surfaces. */
-	--shadow-xs: 0 1px 2px rgb(64 55 36 / 0.06);
-	--shadow-sm: 0 2px 8px rgb(64 55 36 / 0.08);
-	--shadow-md: 0 10px 28px rgb(64 55 36 / 0.1);
-	--shadow-lg: 0 18px 52px rgb(64 55 36 / 0.13);
+	/* Flat data surfaces. Elevation is reserved for overlays. */
+	--shadow-xs: 0 1px 2px rgb(28 28 26 / 0.04);
+	--shadow-sm: 0 2px 7px rgb(28 28 26 / 0.07);
+	--shadow-md: 0 8px 24px rgb(28 28 26 / 0.1);
+	--shadow-lg: 0 16px 44px rgb(28 28 26 / 0.13);
 
 	/* --- Easing --- */
 	--ease-snappy: cubic-bezier(0.2, 0, 0, 1);
@@ -173,54 +173,54 @@
    ============================================ */
 
 :root {
-	--background: #f6f5f0;
-	--foreground: #171714;
-	--card: #fffefb;
-	--card-foreground: #171714;
-	--inset: #f0eee8;
-	--inset-foreground: #55524a;
+	--background: #fafafa;
+	--foreground: #171717;
+	--card: #ffffff;
+	--card-foreground: #171717;
+	--inset: #f1f1ef;
+	--inset-foreground: #555552;
 
-	--surface-subtle: #f3f0e8;
-	--surface-metric: #eeebe2;
+	--surface-subtle: #f5f5f3;
+	--surface-metric: #eeeeeb;
 	--popover: #ffffff;
-	--popover-foreground: #171714;
+	--popover-foreground: #171717;
 
 	/* Brand: cobalt signal accent. Accent chrome stays warm-neutral so hover:bg-accent is not a loud fill. */
 	--primary: #2457d6;
 	--primary-foreground: #ffffff;
-	--secondary: #eceae3;
-	--secondary-foreground: #171714;
+	--secondary: #eeeeec;
+	--secondary-foreground: #171717;
 
 	/* UI Chrome */
-	--muted: #eceae3;
-	--muted-foreground: #68655e;
+	--muted: #eeeeec;
+	--muted-foreground: #666663;
 
 	/* Text hierarchy — ink steps, AA on white */
-	--text-secondary: #55524a;
-	--text-tertiary: #747168;
-	--text-ghost: #918d83;
-	--accent: #ece8dc;
-	--accent-foreground: #171714;
+	--text-secondary: #50504d;
+	--text-tertiary: #747470;
+	--text-ghost: #92928d;
+	--accent: #ededeb;
+	--accent-foreground: #171717;
 	--destructive: #d6151c;
-	--border: #d6d2c8;
-	--input: #c8c2b6;
+	--border: #d9d9d5;
+	--input: #c8c8c4;
 	--ring: #2457d6;
 	--focus: #f5c451;
 
 	/* Header */
-	--header-bg: #fffdf8;
-	--header-text: #171714;
-	--header-muted: #747168;
-	--header-active-bg: #eeebe2;
+	--header-bg: #ffffff;
+	--header-text: #171717;
+	--header-muted: #686865;
+	--header-active-bg: #eeeeec;
 
 	/* Sidebar */
-	--sidebar: #f0eee7;
-	--sidebar-foreground: #171714;
+	--sidebar: #f4f4f2;
+	--sidebar-foreground: #171717;
 	--sidebar-primary: #2457d6;
 	--sidebar-primary-foreground: #ffffff;
-	--sidebar-accent: #ece8dc;
-	--sidebar-accent-foreground: #171714;
-	--sidebar-border: #d6d2c8;
+	--sidebar-accent: #eaeae7;
+	--sidebar-accent-foreground: #171717;
+	--sidebar-border: #d9d9d5;
 	--sidebar-ring: #2457d6;
 	--chart-1: #171714;
 	--chart-2: #3e8984;
@@ -422,7 +422,7 @@
 	background: var(--card);
 	border: 1px solid var(--border);
 	border-radius: var(--radius-xl);
-	box-shadow: var(--shadow-xs);
+	box-shadow: none;
 	overflow: clip;
 }
 

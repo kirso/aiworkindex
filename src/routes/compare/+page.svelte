@@ -329,19 +329,19 @@
 			<p class={sectionLabel()}>What stands out</p>
 			<h2 id="difference-title" class="mt-1 text-lg font-bold">Read the gaps before the details</h2>
 			<div class="mt-3 grid gap-3 text-sm sm:grid-cols-3">
-				<div class="border-l-4 border-primary pl-3">
+				<div class="border border-border bg-surface-subtle p-3">
 					<p class="text-xs text-muted-foreground">Pressure-position gap</p>
 					<p class="mt-1 font-mono text-xl font-bold tabular-nums">
 						{positionSpread == null ? 'Need 2 ranked jobs' : `${positionSpread.toFixed(1)} points`}
 					</p>
 				</div>
-				<div class="border-l-4 border-action-strengthen pl-3">
+				<div class="border border-border bg-surface-subtle p-3">
 					<p class="text-xs text-muted-foreground">Published monthly-pay gap</p>
 					<p class="mt-1 font-mono text-xl font-bold tabular-nums">
 						{wageSpread == null ? 'Need 2 pay rows' : `SGD ${wageSpread.toLocaleString()}`}
 					</p>
 				</div>
-				<div class="border-l-4 border-action-verify pl-3">
+				<div class="border border-border bg-surface-subtle p-3">
 					<p class="text-xs text-muted-foreground">Named demand coverage</p>
 					<p class="mt-1 text-sm font-bold">
 						{selected.filter(entity => !entity.demand.startsWith('No ')).length} of {selected.length}

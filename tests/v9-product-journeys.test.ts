@@ -11,13 +11,12 @@ function source(relativePath: string): string {
 }
 
 describe('V9 consumer product journeys', () => {
-	test('keeps category-first discovery, the detailed explorer and personal action flow', () => {
+	test('keeps flagship discovery, the detailed explorer and personal action flow', () => {
 		const home = source('src/routes/+page.svelte');
 		const explore = source('src/routes/explore/+page.svelte');
 		const checker = source('src/routes/will-ai-take-my-job/+page.svelte');
 		const personalCheck = source('src/lib/components/product/PersonalWorkCheck.svelte');
-		assert.match(home, /OccupationGroupOverview/);
-		assert.match(home, /PressureDistribution/);
+		assert.match(home, /OccupationExplorer/);
 		assert.match(explore, /OccupationExplorer/);
 		assert.match(checker, /PersonalWorkCheck/);
 		assert.match(personalCheck, /Build my work plan/);

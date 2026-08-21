@@ -92,23 +92,23 @@
 				<h2 class={title({ size: 'section' })}>Pressure is real; outcomes are conditional</h2>
 			</div>
 			<ul class="mt-3 space-y-3 text-sm leading-relaxed text-text-secondary">
-				<li class="border-l-2 border-border pl-3">
+				<li class="border-t border-border pt-2">
 					Generative AI can already perform or assist parts of many cognitive jobs, with large
 					differences across tasks.
 				</li>
-				<li class="border-l-2 border-border pl-3">
+				<li class="border-t border-border pt-2">
 					Use is concentrated and selective. Product telemetry describes users of particular
 					systems, not the whole workforce.
 				</li>
-				<li class="border-l-2 border-border pl-3">
+				<li class="border-t border-border pt-2">
 					Early labour effects can appear in hiring composition and entry-level opportunities
 					without an immediate fall in total employment.
 				</li>
-				<li class="border-l-2 border-border pl-3">
+				<li class="border-t border-border pt-2">
 					Productivity gains can reduce labour needed per task while lower prices and new demand
 					expand the amount of work.
 				</li>
-				<li class="border-l-2 border-border pl-3">
+				<li class="border-t border-border pt-2">
 					Institutional details such as regulation, bargaining power, training, mobility and firm
 					design shape who gains and who bears the pressure.
 				</li>
@@ -120,23 +120,23 @@
 				<h2 class={title({ size: 'section' })}>Do not turn one signal into a forecast</h2>
 			</div>
 			<ul class="mt-3 space-y-3 text-sm leading-relaxed text-text-secondary">
-				<li class="border-l-2 border-risk-moderate pl-3">
+				<li class="border-t border-border pt-2">
 					<strong class="text-foreground">Exposure ≠ automation.</strong> A task may be technically exposed
 					but rarely delegated.
 				</li>
-				<li class="border-l-2 border-risk-moderate pl-3">
+				<li class="border-t border-border pt-2">
 					<strong class="text-foreground">Automation ≠ job loss.</strong> Jobs are bundles of tasks and
 					demand can change.
 				</li>
-				<li class="border-l-2 border-risk-moderate pl-3">
+				<li class="border-t border-border pt-2">
 					<strong class="text-foreground">No aggregate effect ≠ no harm.</strong> Effects may be concentrated
 					by age, seniority, firm or occupation.
 				</li>
-				<li class="border-l-2 border-risk-moderate pl-3">
+				<li class="border-t border-border pt-2">
 					<strong class="text-foreground">Job postings ≠ employment.</strong> Posting data have duplicates,
 					coverage shifts and platform-selection bias.
 				</li>
-				<li class="border-l-2 border-risk-moderate pl-3">
+				<li class="border-t border-border pt-2">
 					<strong class="text-foreground">A demo ≠ durable productivity.</strong> Reliability, integration
 					and supervision costs matter.
 				</li>

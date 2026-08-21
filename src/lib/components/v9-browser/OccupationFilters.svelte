@@ -3,7 +3,7 @@
 	import type { V9IloExposureCategory } from '$lib/data/v9-contract';
 	import { categoryLabel } from '$lib/data/v9-display';
 
-	export type EvidenceFilter = 'all' | 'ranked' | 'wage' | 'demand' | 'unranked';
+	export type EvidenceFilter = 'all' | 'ranked' | 'wage' | 'demand' | 'capability' | 'unranked';
 	export type OccupationSort = 'title' | 'pressure' | 'wage';
 
 	interface Props {
@@ -53,9 +53,9 @@
 
 <section
 	aria-label="Filter occupations"
-	class="rounded-none border border-border bg-card p-3 shadow-xs sm:p-4"
+	class="border border-border bg-card p-3 lg:sticky lg:top-16"
 >
-	<div class="grid min-w-0 gap-3 md:grid-cols-[minmax(15rem,1.5fr)_auto] md:items-end">
+	<div class="min-w-0">
 		<label class="block min-w-0 text-sm font-medium text-foreground">
 			Official occupation or SSOC code
 			<input
@@ -76,7 +76,10 @@
 			Filters{activeFilterCount > 0 ? ` (${activeFilterCount})` : ''}
 		</button>
 
-		<p class="hidden pb-2 text-right text-sm text-muted-foreground md:block" aria-live="polite">
+		<p
+			class="mt-3 hidden border-y border-border py-2 text-sm text-muted-foreground lg:block"
+			aria-live="polite"
+		>
 			<span class="font-mono font-medium tabular-nums text-foreground"
 				>{resultCount.toLocaleString()}</span
 			>
@@ -88,7 +91,7 @@
 		id="occupation-filter-controls"
 		class="{filtersOpen
 			? 'grid'
-			: 'hidden'} mt-3 min-w-0 gap-3 border-t border-border pt-3 sm:grid-cols-2 md:grid md:grid-cols-4"
+			: 'hidden'} mt-3 min-w-0 gap-3 border-t border-border pt-3 sm:grid-cols-2 lg:grid lg:grid-cols-1"
 	>
 		<label class="block min-w-0 text-sm font-medium text-foreground">
 			Major group
@@ -117,6 +120,7 @@
 				<option value="ranked">Pressure ranked</option>
 				<option value="wage">Direct wage row</option>
 				<option value="demand">Named in selected sources</option>
+				<option value="capability">OECD capability profile</option>
 				<option value="unranked">Pressure not ranked</option>
 			</select>
 		</label>
@@ -131,7 +135,7 @@
 		</label>
 	</div>
 
-	<div class="mt-3 flex flex-wrap items-center justify-between gap-2 md:hidden">
+	<div class="mt-3 flex flex-wrap items-center justify-between gap-2 lg:hidden">
 		<p class="text-sm text-muted-foreground" aria-live="polite">
 			<span class="font-mono font-medium tabular-nums text-foreground"
 				>{resultCount.toLocaleString()}</span
@@ -150,7 +154,7 @@
 	</div>
 
 	{#if activeFilterCount > 0 || query.trim() !== '' || sort !== 'title'}
-		<div class="mt-3 hidden justify-end md:flex">
+		<div class="mt-3 hidden justify-start lg:flex">
 			<button
 				type="button"
 				class="touch-target text-sm font-semibold text-primary underline"

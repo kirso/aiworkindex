@@ -1,11 +1,5 @@
 import { toV9BrowserItem } from '$lib/data/v9-browser';
 import { takePressureWithCutoffTies, toV9OccupationView } from '$lib/data/v9-display';
-import {
-	buildV9CategorySummary,
-	buildV9GroupSummaries,
-	buildV9PressureBins,
-	toV9MapItem
-} from '$lib/data/v9-home';
 import { v9NationalContext } from '$lib/data/v9-market';
 import { v9Counts, v9Occupations } from '$lib/data/v9';
 import { v9CapabilityCoverage } from '$lib/data/v9-capability-profiles';
@@ -26,10 +20,6 @@ export const load: PageServerLoad = () => {
 		counts: v9Counts,
 		capabilityProfileCount: v9CapabilityCoverage.available_exact_title_identity_profiles,
 		directDemandCount: occupations.filter(item => item.demandSignalCount > 0).length,
-		groupSummaries: buildV9GroupSummaries(occupations),
-		mapItems: occupations.map(toV9MapItem),
-		categorySummary: buildV9CategorySummary(occupations),
-		pressureBins: buildV9PressureBins(occupations),
 		marketFacts: [
 			{
 				value: `${v9NationalContext.ai_adoption_2026.metrics.firms_started_ai_adoption_pct}%`,

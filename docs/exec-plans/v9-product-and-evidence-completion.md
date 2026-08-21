@@ -46,10 +46,14 @@ agree or disagree instead of receiving a falsely precise average.
 - [x] (2026-08-21) Consolidated product, design, science, data, research, signal, longitudinal,
   copy, SEO, accessibility and release work into this plan.
 - [x] (2026-08-21) Milestone 0: froze the current evidence baseline, added a single direct-destination owner and tests, removed map/scatter confirmation panels, made Explore detailed-first, and routed reviewed official aliases directly to their official occupation while preserving familiar-title context.
-  and make this plan the only active completion owner.
-- [ ] (2026-08-21, in progress) Milestone 1: restore the compact Lyra visual system and one-click journeys without changing
-  the V9 headline contract.
-- [ ] Milestone 2: restore the connected flagship explorer and all V9-safe visual modes.
+  This plan is now the only active completion owner.
+- [x] (2026-08-21) Milestone 1: restored the compact Lyra visual system, cool-neutral surfaces,
+  pressure colour scale and compact header; removed decorative coloured left borders from active
+  product surfaces without changing the V9 headline contract.
+- [x] (2026-08-21) Milestone 2: restored the connected flagship explorer on home and Explore with
+  one shared URL state, persistent desktop filters, a detailed equal-area occupation map,
+  pressure-and-pay, named-demand, distribution and list views, plus a separate OECD capability
+  colour mode. Search and map journeys were verified in a real browser at desktop and mobile sizes.
 - [ ] Milestone 3: rebuild occupation, familiar-title, comparison, saved-job, calculator, ranking
   and report journeys around decisions and actions.
 - [ ] Milestone 4: publish defensible Eloundou and Anthropic dimensions, or leave individual rows
@@ -136,11 +140,18 @@ agree or disagree instead of receiving a falsely precise average.
 
 ## Outcomes & Retrospective
 
-The review and consolidation phase is complete. No production behavior has been changed by this
-plan slice. The implementation outcomes, validation numbers, remaining external gates and lessons
-must be recorded here after every milestone. A milestone is not complete merely because source code
-exists; its customer journey, scientific invariants, generated artifacts and responsive browser
-behavior must all pass.
+The review, direct-destination and flagship restoration phases are complete. The homepage again
+opens with a compact search-and-map workspace rather than a sequence of monochrome lists. It shows
+all 1,001 occupation records with equal-area tiles; pressure, pay, named demand and capability remain
+separate evidence modes. The desktop filter rail becomes a compact mobile disclosure, and modern
+titles such as “AI Engineer” now open `/occupation/25143?as=ai-engineer` in one selection.
+
+Validation through Milestone 2: `svelte-check` reports zero errors and zero warnings; the focused
+destination, explorer, browse and product-journey suites report 26 passes and zero failures; desktop
+and 375-pixel browser renders have no page overflow; and the direct modern-title journey was
+exercised through Playwright with zero console errors. Scientific and generated-release validation
+will be repeated after the evidence milestones because the search artifact now also carries the 68
+published capability-profile values.
 
 ## Context and Orientation
 

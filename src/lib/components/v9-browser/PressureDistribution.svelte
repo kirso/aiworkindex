@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { pressureColorScale } from '$lib/design-system';
 	import type { V9PressureBin } from '$lib/data/v9-home';
 	import ChartFrame from './ChartFrame.svelte';
 
@@ -28,8 +29,9 @@
 					{bin.count}
 				</div>
 				<div
-					class="w-full bg-pressure-80 transition-colors hover:bg-pressure-100"
+					class="w-full transition-opacity hover:opacity-80"
 					style:height="{Math.max(2, (bin.count / maxCount) * 100)}%"
+					style:background={pressureColorScale((bin.start + bin.end) / 2)}
 					aria-label="Pressure percentile {bin.label}: {bin.count} occupations"
 				></div>
 			</div>

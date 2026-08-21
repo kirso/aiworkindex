@@ -1,5 +1,5 @@
 /**
- * AI Work Index — warm evidence-editorial design system.
+ * AI Work Index — compact evidence-product design system.
  *
  * Lyra supplies shadcn-svelte geometry (square radius, Phosphor, Bits UI).
  * Schibsted Grotesk carries titles and reading. IBM Plex Mono is reserved for
@@ -24,8 +24,8 @@ export const display = tv({
 	base: 'font-mono font-semibold tracking-display leading-display text-foreground tabular-nums',
 	variants: {
 		size: {
-			hero: 'text-7xl sm:text-8xl lg:text-[7.25rem]',
-			xl: 'text-6xl sm:text-7xl lg:text-8xl',
+			hero: 'text-6xl sm:text-7xl lg:text-8xl',
+			xl: 'text-5xl sm:text-6xl lg:text-7xl',
 			lg: 'text-4xl sm:text-5xl',
 			md: 'text-2xl sm:text-3xl' // Inline stat
 		}
@@ -38,7 +38,7 @@ export const title = tv({
 	base: 'font-sans font-bold text-foreground tracking-display leading-heading',
 	variants: {
 		size: {
-			page: 'text-[2.375rem] sm:text-5xl lg:text-6xl',
+			page: 'text-[2rem] sm:text-[2.75rem] lg:text-[3.5rem]',
 			section: 'text-2xl sm:text-3xl',
 			subsection: 'text-lg sm:text-xl font-semibold'
 		}
@@ -115,7 +115,7 @@ export const mono = tv({
 // ============================================
 
 export const pageLayout = tv({
-	base: 'mx-auto px-4 py-7 sm:px-6 sm:py-9 lg:px-8',
+	base: 'mx-auto px-4 py-5 sm:px-6 sm:py-6 lg:px-8',
 	variants: {
 		width: {
 			wide: 'max-w-[90rem]',
@@ -158,7 +158,7 @@ export const section = tv({
 // ============================================
 
 export const card = tv({
-	base: 'rounded-none border border-border bg-card shadow-xs',
+	base: 'rounded-none border border-border bg-card shadow-none',
 	variants: {
 		padding: {
 			none: '',
@@ -167,7 +167,7 @@ export const card = tv({
 			lg: 'p-6'
 		},
 		hover: {
-			true: 'cursor-pointer transition-[transform,box-shadow,border-color] duration-200 ease-editorial hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-sm active:translate-y-0',
+			true: 'cursor-pointer transition-[background-color,border-color] duration-150 ease-editorial hover:border-foreground hover:bg-accent',
 			false: ''
 		},
 		variant: {
@@ -361,7 +361,7 @@ export const riskColorScale = d3Scale
 export const pressureColorScale = d3Scale
 	.scaleLinear<string>()
 	.domain([0, 20, 40, 60, 80, 100])
-	.range(['#e7f6f1', '#6fd0b8', '#1a9e88', '#0b6f63', '#044840', '#012824'])
+	.range(['#2a7f62', '#48a06c', '#9cad5e', '#d9a514', '#cf6a32', '#d6151c'])
 	.clamp(true);
 
 /** Separate OECD capability-proximity scale. Never use it for the ILO pressure rank. */
@@ -373,13 +373,13 @@ export const capabilityColorScale = d3Scale
 
 export function capabilityLabelFill(proximity: number | null): string {
 	if (proximity == null) return 'var(--color-foreground)';
-	return proximity >= 0.56 ? '#fffefb' : '#171714';
+	return proximity >= 0.56 ? '#ffffff' : '#171717';
 }
 
-/** Ink on pale teal, paper on the dark steps. */
+/** Keep map labels legible across the green-to-red continuum. */
 export function pressureLabelFill(rank: number | null): string {
 	if (rank == null) return 'var(--color-foreground)';
-	return rank >= 42 ? '#fffefb' : '#171714';
+	return rank > 34 && rank < 73 ? '#171717' : '#ffffff';
 }
 
 /** Consumer pressure word. ILO Gradient strings stay in methodology only. */
@@ -387,9 +387,9 @@ export const pressureBadge = tv({
 	base: 'inline-flex items-center rounded-none px-2 py-1 font-sans text-xs font-semibold',
 	variants: {
 		tone: {
-			very_low: 'bg-pressure-0 text-pressure-100',
-			low: 'bg-pressure-20 text-pressure-100',
-			moderate: 'bg-pressure-40 text-pressure-100',
+			very_low: 'bg-pressure-0 text-white',
+			low: 'bg-pressure-20 text-white',
+			moderate: 'bg-pressure-60 text-foreground',
 			high: 'bg-pressure-80 text-white',
 			very_high: 'bg-pressure-100 text-white'
 		}
@@ -413,30 +413,28 @@ export const evidenceBadge = tv({
 
 /** Action-lane container for PersonalWorkCheck and occupation guidance. */
 export const actionCard = tv({
-	base: 'rounded-none border px-4 py-3',
+	base: 'rounded-none border border-border bg-card px-4 py-3 text-foreground',
 	variants: {
 		action: {
-			try: 'border-action-try-border bg-action-try-subtle text-action-try',
-			verify: 'border-action-verify-border bg-action-verify-subtle text-action-verify',
-			human_led: 'border-action-human-led-border bg-action-human-led-subtle text-action-human-led',
-			strengthen:
-				'border-action-strengthen-border bg-action-strengthen-subtle text-action-strengthen',
-			monitor: 'border-action-monitor-border bg-action-monitor-subtle text-action-monitor'
+			try: '',
+			verify: '',
+			human_led: '',
+			strengthen: '',
+			monitor: ''
 		}
 	}
 });
 
 /** Compact word label for the same action lanes. Always keep the text visible. */
 export const actionBadge = tv({
-	base: 'inline-flex items-center rounded-none border px-2 py-1 text-xs font-semibold',
+	base: 'inline-flex items-center rounded-none border border-border bg-muted px-2 py-1 text-xs font-semibold text-foreground',
 	variants: {
 		action: {
-			try: 'border-action-try-border bg-action-try-subtle text-action-try',
-			verify: 'border-action-verify-border bg-action-verify-subtle text-action-verify',
-			human_led: 'border-action-human-led-border bg-action-human-led-subtle text-action-human-led',
-			strengthen:
-				'border-action-strengthen-border bg-action-strengthen-subtle text-action-strengthen',
-			monitor: 'border-action-monitor-border bg-action-monitor-subtle text-action-monitor'
+			try: '',
+			verify: '',
+			human_led: '',
+			strengthen: '',
+			monitor: ''
 		}
 	}
 });

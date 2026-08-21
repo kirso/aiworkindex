@@ -166,9 +166,7 @@
 						{#each category.roles as role (role.slug)}
 							<a
 								href={role.href}
-								class="group min-w-0 border-l-4 bg-card p-4 transition-colors hover:bg-accent"
-								style:border-color={role.presentation.accent}
-								style:background={role.presentation.surface}
+								class="group min-w-0 border border-border bg-card p-4 transition-colors hover:bg-accent"
 							>
 								<div class="flex min-w-0 items-start justify-between gap-3">
 									<h3

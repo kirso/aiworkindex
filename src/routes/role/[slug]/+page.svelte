@@ -312,7 +312,7 @@
 				<h3 class="text-sm font-bold" style:color={presentation.accent}>Try with approved AI</h3>
 				<ul class="mt-2 space-y-2 text-sm leading-relaxed text-text-secondary">
 					{#each presentation.actions.tryWithAi as item}
-						<li class="border-l-2 pl-3" style:border-color={presentation.accent}>{item}</li>
+						<li class="flex gap-2"><span aria-hidden="true">•</span><span>{item}</span></li>
 					{/each}
 				</ul>
 			</div>
@@ -320,7 +320,7 @@
 				<h3 class="text-sm font-bold" style:color={presentation.accent}>Keep human-led</h3>
 				<ul class="mt-2 space-y-2 text-sm leading-relaxed text-text-secondary">
 					{#each presentation.actions.keepHumanLed as item}
-						<li class="border-l-2 pl-3" style:border-color={presentation.accent}>{item}</li>
+						<li class="flex gap-2"><span aria-hidden="true">•</span><span>{item}</span></li>
 					{/each}
 				</ul>
 			</div>
@@ -328,7 +328,7 @@
 				<h3 class="text-sm font-bold" style:color={presentation.accent}>Skills to strengthen</h3>
 				<ul class="mt-2 space-y-2 text-sm leading-relaxed text-text-secondary">
 					{#each presentation.actions.strengthen as item}
-						<li class="border-l-2 pl-3" style:border-color={presentation.accent}>{item}</li>
+						<li class="flex gap-2"><span aria-hidden="true">•</span><span>{item}</span></li>
 					{/each}
 				</ul>
 			</div>
@@ -338,7 +338,7 @@
 				</h3>
 				<ul class="mt-2 space-y-2 text-sm leading-relaxed text-text-secondary">
 					{#each presentation.actions.askAtWork as item}
-						<li class="border-l-2 pl-3" style:border-color={presentation.accent}>{item}</li>
+						<li class="flex gap-2"><span aria-hidden="true">•</span><span>{item}</span></li>
 					{/each}
 				</ul>
 			</div>
@@ -450,7 +450,7 @@
 							</div>
 						</div>
 						{#if component.migration_note}
-							<p class="mt-3 border-l-2 border-risk-moderate pl-2 text-xs text-muted-foreground">
+							<p class="mt-3 border-t border-border pt-2 text-xs text-muted-foreground">
 								{component.migration_note}
 							</p>
 						{/if}

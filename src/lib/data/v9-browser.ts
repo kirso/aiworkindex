@@ -1,4 +1,5 @@
 import type { V9IloExposureCategory } from './v9-contract';
+import { capabilityProximityFor } from './v9-capability-profiles';
 import { toV9OccupationView, type V9OccupationView } from './v9-display';
 import type { V9Occupation } from './v9';
 
@@ -19,6 +20,7 @@ export interface V9BrowserItem {
 	mappingQuality: V9Occupation['evidence']['mapping_quality'];
 	mappedScoreRangeWidth: number | null;
 	mappedIscoCount: number;
+	capabilityProximity: number | null;
 	searchSynonyms: string[];
 }
 
@@ -43,6 +45,7 @@ export function toV9BrowserItem(view: V9OccupationView): V9BrowserItem {
 			? view.rawExposureRange.max - view.rawExposureRange.min
 			: null,
 		mappedIscoCount: exposure?.official_isco08_codes.length ?? 0,
+		capabilityProximity: capabilityProximityFor(view.code),
 		searchSynonyms: view.occupation.taxonomy.search_synonyms
 	};
 }
