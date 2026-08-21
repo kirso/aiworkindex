@@ -40,7 +40,9 @@ const retainedRankingPages = [
 ];
 
 const retainedReportPages = [
+	'ai-capabilities',
 	'job-market-evidence',
+	'labour-observatory',
 	'q4-2024',
 	'v4-3-shadow',
 	'v5-experimental',

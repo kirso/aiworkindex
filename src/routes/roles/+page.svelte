@@ -116,10 +116,14 @@
 			{#each data.categories as category (category.key)}
 				<button
 					type="button"
-					class="border border-b-2 px-2.5 py-1 text-xs font-medium {activeCategory === category.key
+					class="border px-2.5 py-1.5 text-xs font-medium {activeCategory === category.key
 						? 'border-foreground bg-foreground text-background'
 						: 'border-border bg-card text-muted-foreground hover:border-foreground'}"
+					style:background={activeCategory === category.key
+						? undefined
+						: category.presentation.surface}
 					style:border-bottom-color={category.presentation.accent}
+					style:border-bottom-width="2px"
 					onclick={() => {
 						activeCategory = activeCategory === category.key ? null : category.key;
 						visibleLimit = 24;
@@ -162,22 +166,25 @@
 						{#each category.roles as role (role.slug)}
 							<a
 								href={role.href}
-								class="group min-w-0 border-t-2 bg-card p-4 transition-colors hover:bg-accent"
+								class="group min-w-0 border-l-4 bg-card p-4 transition-colors hover:bg-accent"
 								style:border-color={role.presentation.accent}
+								style:background={role.presentation.surface}
 							>
 								<div class="flex min-w-0 items-start justify-between gap-3">
-									<h3 class="min-w-0 text-sm font-bold leading-tight group-hover:text-primary">
+									<h3
+										class="min-w-0 font-sans text-base font-bold leading-tight group-hover:text-primary"
+									>
 										{role.title}
 									</h3>
 									{#if role.official_occupation}
-										<span class="shrink-0 font-mono text-sm font-bold tabular-nums">
+										<span class="shrink-0 font-mono text-lg font-semibold tabular-nums">
 											{role.official_occupation.pressure_rank == null
-												? 'Not ranked'
-												: role.official_occupation.pressure_rank.toFixed(1)}
+												? '—'
+												: `${role.official_occupation.pressure_rank.toFixed(0)}%`}
 										</span>
 									{:else if role.estimate}
-										<span class="shrink-0 font-mono text-sm font-bold tabular-nums">
-											{role.estimate.estimated_comparison_percentile.toFixed(1)}
+										<span class="shrink-0 font-mono text-lg font-semibold tabular-nums">
+											{role.estimate.estimated_comparison_percentile.toFixed(0)}%
 										</span>
 									{:else}
 										<span class="shrink-0 font-mono text-xs text-muted-foreground"
@@ -189,20 +196,17 @@
 									{role.description}
 								</p>
 								<div
-									class="mt-3 flex flex-wrap items-center justify-between gap-2 border-t border-border pt-2"
+									class="mt-3 flex flex-wrap items-center justify-between gap-2 border-t border-border/70 pt-2"
 								>
-									<span
-										class="text-[11px] font-semibold uppercase tracking-wide"
-										style:color={role.presentation.accent}
-									>
+									<span class="text-xs font-semibold" style:color={role.presentation.accent}>
 										{role.statusLabel}
 									</span>
 									<span class="font-mono text-[11px] text-muted-foreground">
 										{role.official_occupation
-											? `SSOC ${role.official_occupation.ssoc2024} · official pressure rank`
+											? `SSOC ${role.official_occupation.ssoc2024}`
 											: role.estimate
-												? `Estimated pressure percentile · ${role.components.length} components`
-												: 'Choose a sector and task profile'}
+												? `${role.components.length} official jobs`
+												: 'Choose a sector'}
 									</span>
 								</div>
 							</a>

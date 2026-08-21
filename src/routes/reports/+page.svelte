@@ -75,6 +75,27 @@
 	<section class="mt-8">
 		<h2 class={sectionLabel()}>Current reports</h2>
 		<div class="mt-3 space-y-4">
+			<a href="/reports/ai-capabilities" class="block no-underline">
+				<article
+					class={cn(
+						card({ padding: 'lg', hover: true, accent: 'primary' }),
+						'sm:flex sm:items-start sm:justify-between'
+					)}
+				>
+					<div>
+						<div class="flex flex-wrap items-center gap-2">
+							<h3 class="text-lg font-semibold text-foreground">What current AI can do</h3>
+							<span class={badge({ variant: 'info' })}>OECD capability evidence</span>
+						</div>
+						<p class="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+							Nine capability domains for the 68 Singapore occupations that pass a conservative
+							detailed-title mapping rule. Kept separate from pressure and labour outcomes.
+						</p>
+					</div>
+					<span aria-hidden="true" class="mt-3 block text-primary sm:ml-6 sm:mt-1">→</span>
+				</article>
+			</a>
+
 			<a href="/reports/v9-release" class="block no-underline">
 				<article
 					class={cn(
@@ -116,6 +137,28 @@
 						<p class="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
 							Q2 2026 preliminary conditions, Q1 detailed labour evidence, 2025 vacancies, wages and
 							firm AI adoption. These measures do not change the pressure rank.
+						</p>
+					</div>
+					<span aria-hidden="true" class="mt-3 block text-primary sm:ml-6 sm:mt-1">→</span>
+				</article>
+			</a>
+
+			<a href="/reports/labour-observatory" class="block no-underline">
+				<article
+					class={cn(
+						card({ padding: 'lg', hover: true, accent: 'moderate' }),
+						'sm:flex sm:items-start sm:justify-between'
+					)}
+				>
+					<div>
+						<div class="flex flex-wrap items-center gap-2">
+							<h3 class="text-lg font-semibold text-foreground">Singapore AI labour observatory</h3>
+							<span class={badge({ variant: 'info' })}>Current evidence</span>
+						</div>
+						<p class="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+							Tracks the channels between task pressure and jobs: substitution, productivity and
+							demand, new work, human responsibility, adoption and worker adjustment. Broad evidence
+							stays broad; unsupported outcomes stay unknown.
 						</p>
 					</div>
 					<span aria-hidden="true" class="mt-3 block text-primary sm:ml-6 sm:mt-1">→</span>

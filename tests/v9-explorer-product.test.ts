@@ -41,12 +41,16 @@ describe('V9 consumer occupation explorer', () => {
 
 	test('uses one equal-weight leaf for every mapped occupation tile', () => {
 		const map = source('src/lib/components/v9-browser/EqualAreaOccupationMap.svelte');
+		const grouped = source('src/lib/components/v9-browser/GroupedOccupationMap.svelte');
 		assert.match(map, /datum\.kind === 'occupation' \? 1 : 0/);
 		assert.match(map, /Each equal tile represents one occupation record/);
 		assert.match(map, /Tile area carries no worker count/);
 		assert.match(map, /Unranked occupations stay visible with a hatch and an Unknown label/);
 		assert.match(map, /occupation-map-unranked/);
 		assert.doesNotMatch(map, /employment|jobs affected|wage pool/i);
+		assert.match(grouped, /if \(datum\.kind === 'occupation'\) return 1;/);
+		assert.match(grouped, /not workers or pay/);
+		assert.doesNotMatch(grouped, /employment|wage pool|jobs affected/i);
 	});
 
 	test('shares bounded URL state across map, scatter and list', () => {
@@ -54,6 +58,7 @@ describe('V9 consumer occupation explorer', () => {
 		for (const parameter of ['q', 'category', 'group', 'evidence', 'sort', 'view', 'job']) {
 			assert.match(explorer, new RegExp(`params\\.set\\('${parameter}'`));
 		}
+		assert.match(explorer, /GroupedOccupationMap/);
 		assert.match(explorer, /EqualAreaOccupationMap/);
 		assert.match(explorer, /PressureWageScatter/);
 		assert.match(explorer, /OccupationResultList/);
@@ -71,7 +76,9 @@ describe('V9 consumer occupation explorer', () => {
 	test('keeps the homepage category-first and the 1,001-record map in Explore', () => {
 		const home = source('src/routes/+page.svelte');
 		const explore = source('src/routes/explore/+page.svelte');
+		const overview = source('src/lib/components/v9-browser/OccupationGroupOverview.svelte');
 		assert.match(home, /OccupationGroupOverview/);
+		assert.match(overview, /GroupedOccupationMap/);
 		assert.match(home, /How does AI overlap with your job\?/);
 		assert.doesNotMatch(home, /Exposed: Gradient/);
 		assert.doesNotMatch(home, /<OccupationExplorer/);

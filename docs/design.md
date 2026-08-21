@@ -86,7 +86,7 @@ change, not a primary fill.
 **Pressure** is the only sequential colour on V9 occupation surfaces. Teal steps
 must stay separable at a glance:
 
-`0 #f1f7f5 → 20 #b7ddd3 → 40 #5fafa0 → 60 #2c8073 → 80 #155a52 → 100 #0b3532`
+`0 #e7f6f1 → 20 #6fd0b8 → 40 #1a9e88 → 60 #0b6f63 → 80 #044840 → 100 #012824`
 
 Unranked uses `--color-pressure-unranked` plus `.unranked-hatch`. Never encode
 missing evidence as a low-pressure colour.
@@ -115,6 +115,11 @@ Product variants in `design-system.ts`: `display`, `title`, `sectionLabel`,
 
 `riskBadge` / `impactBadge` are archive-only. Do not introduce them on `/`,
 `/occupation`, `/roles`, `/explore`, or V9 rankings.
+
+The homepage and Explore overview chart is a **named grouped map**: nine spoken
+major-group labels (`Managers`, `Professionals`, …), sized by occupation count,
+coloured by median pressure. Zoom or filter before showing equal-area occupation
+tiles. Do not size by employment or wage.
 
 Command palette: name the combobox (“Search occupations and pages”). Keep
 dialog title/description **inside** `Dialog.Content` so closed chrome does not
@@ -152,7 +157,9 @@ See `/human-product-copy`. The design implications:
 
 ## Page signature
 
-Occupation pages: spoken H1, then a three-part evidence strip (pressure
-percentile in Plex Mono, pay, named demand), then the official definition
-behind a disclosure. The memorable thing is the large number on warm paper
-with a teal mark — not a dashboard card wall.
+Occupation pages: spoken H1, then the percentile as the page (Plex Mono),
+with Compare/Save/Share beside it and pay plus named demand as supporting
+facts. The official definition sits behind a disclosure. Home opens on a
+named grouped map — nine labelled groups, then named occupations after a
+click — never 1,001 unlabelled tiles. The memorable thing is the large
+number on warm paper with a teal mark.

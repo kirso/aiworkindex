@@ -16,7 +16,7 @@
 		identifier: `${SITE.url}/data#v9`,
 		url: `${SITE.url}/data`,
 		version: '9.0',
-		dateModified: '2026-08-19',
+		dateModified: '2026-08-21',
 		license: `${SITE.url}/data#licensing`,
 		spatialCoverage: { '@type': 'Country', name: 'Singapore' },
 		distribution: [
@@ -38,6 +38,16 @@
 			{
 				'@type': 'DataDownload',
 				contentUrl: `${SITE.url}/data/v9-market-context.json`,
+				encodingFormat: 'application/json'
+			},
+			{
+				'@type': 'DataDownload',
+				contentUrl: `${SITE.url}/data/v9-economic-observatory.json`,
+				encodingFormat: 'application/json'
+			},
+			{
+				'@type': 'DataDownload',
+				contentUrl: `${SITE.url}/data/v9-capability-profiles.json`,
 				encodingFormat: 'application/json'
 			},
 			{
@@ -67,6 +77,8 @@
 		['singapore_market.wages', 'Direct MOM 2025 wage percentiles where published.'],
 		['market_evidence.demand_signals', 'Reviewed official demand-list matches where available; an empty array is not evidence of weak demand.'],
 		['market_evidence.labour_context_ref', 'Reference to broad occupation-group labour context in market_context; null when no published group context applies.'],
+		['economic_observatory', 'Separate V9 artifact covering six labour-economics mechanisms, broad occupation-group observations, detailed evidence availability and explicit publication gates. It has no headline effect.'],
+		['capability_profiles', 'Separate OECD 2026 capability profiles for 68 occupations that pass exact-crosswalk and conservative detailed-title identity. Nine domains, source ranges and all 1,001 availability states are published; no value changes the pressure rank.'],
 		['evidence', 'Mapping quality, sources, limitations and data cutoff.']
 	] as const;
 
@@ -80,8 +92,8 @@
 
 <Seo
 	path="/data"
-	title="Download Singapore AI Job Pressure Data (V9)"
-	description="Download V9 AI Work Pressure data for 1,001 SSOC 2024 occupations, with ILO categories, mapping uncertainty, wage evidence and source metadata."
+	title="Download Singapore AI Work and Job Evidence Data (V9)"
+	description="Download V9 data for 1,001 SSOC 2024 occupations, including AI task pressure, mapped OECD capability profiles, wage evidence and source metadata."
 	jsonLd={[datasetJsonLd]}
 />
 
@@ -89,7 +101,7 @@
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Data' }]} />
 
 	<div class="max-w-3xl">
-		<p class={sectionLabel()}>V9 · published 19 August 2026</p>
+		<p class={sectionLabel()}>V9 · published 19 August · capability data added 21 August 2026</p>
 		<h1 class="mt-2 {title({ size: 'page' })}">Download the Singapore occupation data</h1>
 		<p class={body({ class: 'mt-3 text-muted-foreground' })}>
 			The V9 release contains {v9Counts.occupations.toLocaleString()} numeric SSOC 2024 occupations.
@@ -144,6 +156,30 @@
 			<p class={body({ class: 'mt-2 font-medium' })}>v9-market-context.json</p>
 			<p class={caption({ class: 'mt-1' })}>
 				Reviewed demand mappings, broad labour context and explicitly withheld stale signals.
+			</p>
+		</a>
+		<a
+			href="/data/v9-economic-observatory.json"
+			download
+			class={card({ padding: 'lg', hover: true })}
+		>
+			<p class={sectionLabel()}>Labour observatory JSON</p>
+			<p class={body({ class: 'mt-2 font-medium' })}>v9-economic-observatory.json</p>
+			<p class={caption({ class: 'mt-1' })}>
+				Broad employment, workforce and industry observations; mechanism coverage; and the evidence
+				still needed for occupation-level outcomes. No values change the pressure rank.
+			</p>
+		</a>
+		<a
+			href="/data/v9-capability-profiles.json"
+			download
+			class={card({ padding: 'lg', hover: true })}
+		>
+			<p class={sectionLabel()}>AI capability profile JSON</p>
+			<p class={body({ class: 'mt-2 font-medium' })}>v9-capability-profiles.json</p>
+			<p class={caption({ class: 'mt-1' })}>
+				Nine OECD capability domains for 68 conservative detailed-title matches, plus an explicit
+				availability status for all 1,001 occupations. No values change the pressure rank.
 			</p>
 		</a>
 		<a
@@ -235,6 +271,15 @@
 		<div class={card({ padding: 'lg' })}>
 			<h2 class="font-semibold text-foreground">Primary source chain</h2>
 			<ul class="mt-3 space-y-3 text-sm text-muted-foreground">
+				<li>
+					<a
+						href="https://www.oecd.org/en/publications/the-oecd-ai-exposure-measure_f3da0f0a-en.html"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="text-primary underline">OECD AI Capability Gap Index</a
+					>: public 2026 O*NET workbook used only for the separate conservative capability-profile
+					layer.
+				</li>
 				<li>
 					<a
 						href="https://www.singstat.gov.sg/standards/standards-and-classifications/ssoc"

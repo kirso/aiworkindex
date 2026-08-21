@@ -261,6 +261,32 @@
 	</section>
 
 	<section class="mt-10">
+		<h2 class={sectionLabel()}>OECD capability-profile contract</h2>
+		<div class={cn(card({ padding: 'lg', variant: 'inset' }), 'mt-3 space-y-3')}>
+			<p class={mono({ size: 'sm' })}>
+				candidate = official SSOC→ISCO candidate + exact ESCO→O*NET relation + identical O*NET code
+			</p>
+			<p class={mono({ size: 'sm' })}>
+				published profile = candidate + conservative official-title identity
+			</p>
+			<p class="text-sm text-muted-foreground">
+				The official SSOC title retains parenthetical qualifiers and is split only into explicit
+				slash variants. Singularised tokens must appear as a contiguous phrase in the O*NET title
+				and at least one token must be occupation-specific. A one-word SSOC title must equal the
+				whole singularised O*NET title. Search synonyms and examples are not used.
+			</p>
+			<p class="text-sm text-muted-foreground">
+				Of 1,001 occupations, 698 have at least one raw exact candidate and 68 pass detailed-title
+				identity. All 1,001 retain a status. The output keeps all nine OECD domain values, source
+				scales, O*NET codes, titles and the O*NET 2019-to-30.3 transfer limitation.
+			</p>
+			<p class={mono({ size: 'sm' })}>
+				headline effect = none · close matches published = 0 · broader fallback = none
+			</p>
+		</div>
+	</section>
+
+	<section class="mt-10">
 		<h2 class={sectionLabel()}>Null and source-grain rules</h2>
 		<ul
 			class="mt-3 max-w-3xl list-disc space-y-2 pl-5 text-sm leading-relaxed text-muted-foreground"
@@ -274,6 +300,41 @@
 			<li>National, sector and firm-size adoption statistics remain context at that grain.</li>
 			<li>US or platform evidence must disclose its geography, population and mapping method.</li>
 			<li>Stale job-posting samples cannot be labelled current or determine a public ranking.</li>
+		</ul>
+	</section>
+
+	<section class="mt-10">
+		<h2 class={sectionLabel()}>Economic-observatory contract</h2>
+		<div class={cn(card({ padding: 'lg', variant: 'inset' }), 'mt-3 space-y-3')}>
+			<p class="text-sm text-muted-foreground">
+				<code>v9-economic-observatory.json</code> joins only evidence that can retain its published geography,
+				population, period and grain. Detailed occupation records carry availability flags; broad observations
+				remain in separate major-group profiles.
+			</p>
+			<p class={mono({ size: 'sm' })}>
+				labour outcome = displacement + productivity and scale + new tasks + composition +
+				adjustment
+			</p>
+			<p class="text-sm text-muted-foreground">
+				The identity is a causal checklist, not an additive numeric model. V9 assigns no
+				coefficients and publishes no contraction, expansion, complementarity, slow-diffusion or
+				polarisation scenario. A scenario requires compatible adoption, market-response and
+				labour-outcome evidence.
+			</p>
+			<p class={mono({ size: 'sm' })}>
+				headline effect = none · detailed occupations = 1,001 · classified outcomes = 0
+			</p>
+		</div>
+		<ul class="mt-3 max-w-3xl list-disc space-y-2 pl-5 text-sm text-muted-foreground">
+			<li>Annual employment and workforce composition are broad occupation-group observations.</li>
+			<li>Industry footprints are broad occupation group by industry.</li>
+			<li>
+				Quarterly vacancy, hiring and retrenchment evidence uses MOM's published broad clusters.
+			</li>
+			<li>Major group 6 remains unavailable where the retained source has no separate row.</li>
+			<li>
+				Every derived change is descriptive; none is attributed to AI without a causal design.
+			</li>
 		</ul>
 	</section>
 
@@ -319,6 +380,8 @@
 					>bun run download:ssoc-2024
 	bun run download:mom-wages-2025
 	bun run build:taxonomy
+	bun run build:economics:v9
+	bun run build:capabilities:v9
 	bun run release:generate
 	bun run verify
 	bun run build</code

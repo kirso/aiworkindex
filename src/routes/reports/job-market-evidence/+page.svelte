@@ -337,6 +337,9 @@
 		</div>
 		<div class="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
 			<a href="/reports/v9-release" class="text-primary underline">Read the V9 release report</a>
+			<a href="/reports/labour-observatory" class="text-primary underline"
+				>Explore labour outcomes and evidence gaps</a
+			>
 			<a href="/methodology" class="text-primary underline">See how market evidence is separated</a>
 			<a href="/data" class="text-primary underline">Download the public data</a>
 		</div>

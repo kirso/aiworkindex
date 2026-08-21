@@ -1,6 +1,33 @@
 import { syntheticRolesV9 } from './synthetic-roles-v9';
 import { toV9OccupationView } from './v9-display';
 import { v9Counts, v9Occupations } from './v9';
+import { getV9CapabilityProfile } from './v9-capability-profiles';
+
+function capabilityFields(code: string) {
+	const profile = getV9CapabilityProfile(code);
+	if (!profile) {
+		return {
+			capabilityProximity: null,
+			capabilityDomains: [] as Array<{
+				key: string;
+				label: string;
+				gap: number;
+				gapMaximum: number;
+				demand: number;
+			}>
+		};
+	}
+	return {
+		capabilityProximity: profile.overall.ai_capability_proximity_0_1.median,
+		capabilityDomains: Object.entries(profile.domains).map(([key, domain]) => ({
+			key,
+			label: domain.label,
+			gap: domain.capability_gap.median,
+			gapMaximum: domain.gap_scale.max,
+			demand: domain.job_demand.median
+		}))
+	};
+}
 
 const officialRoleAliasesByCode = new Map<string, string[]>();
 for (const role of syntheticRolesV9) {
@@ -17,6 +44,7 @@ function officialRoleAliases(code: string): string[] {
 export function buildV9CheckerEntries() {
 	const occupations = v9Occupations.map(occupation => {
 		const view = toV9OccupationView(occupation);
+		const capability = capabilityFields(view.code);
 		const queryAliases = officialRoleAliases(view.code);
 		return {
 			id: `occupation:${view.code}`,
@@ -38,7 +66,8 @@ export function buildV9CheckerEntries() {
 			demandSignals: view.demandSignals.map(signal => signal.label),
 			labourContext: view.labourContext?.summary ?? null,
 			mappingQuality: occupation.evidence.mapping_quality,
-			componentCount: null
+			componentCount: null,
+			...capability
 		};
 	});
 
@@ -72,7 +101,9 @@ export function buildV9CheckerEntries() {
 			),
 			labourContext: null,
 			mappingQuality: 'editorial_component_mix',
-			componentCount: role.components.length
+			componentCount: role.components.length,
+			capabilityProximity: null,
+			capabilityDomains: [] as ReturnType<typeof capabilityFields>['capabilityDomains']
 		}));
 
 	return [...occupations, ...roles];
@@ -81,6 +112,7 @@ export function buildV9CheckerEntries() {
 export function buildV9CompareEntities() {
 	const occupations = v9Occupations.map(occupation => {
 		const view = toV9OccupationView(occupation);
+		const capability = capabilityFields(view.code);
 		const exposure = occupation.genai_task_exposure;
 		const queryAliases = officialRoleAliases(view.code);
 		return {
@@ -116,7 +148,8 @@ export function buildV9CompareEntities() {
 			mapping: occupation.evidence.mapping_quality,
 			mappingDetail: exposure
 				? `${exposure.scored_isco08_matches.length} scored of ${exposure.official_isco08_codes.length} official ISCO match${exposure.official_isco08_codes.length === 1 ? '' : 'es'}`
-				: occupation.evidence.support
+				: occupation.evidence.support,
+			...capability
 		};
 	});
 
@@ -156,7 +189,9 @@ export function buildV9CompareEntities() {
 			observedUse: null,
 			complementarity: null,
 			mapping: 'editorial_component_mix',
-			mappingDetail: `${role.components.length} published SSOC 2024 components`
+			mappingDetail: `${role.components.length} published SSOC 2024 components`,
+			capabilityProximity: null,
+			capabilityDomains: [] as ReturnType<typeof capabilityFields>['capabilityDomains']
 		}));
 
 	return [...occupations, ...roles];

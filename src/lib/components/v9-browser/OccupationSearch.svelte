@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { trackProductEvent } from '$lib/analytics';
 
 	type OccupationItem = {
@@ -44,6 +45,7 @@
 	let roleQueries = $state<RoleQueryItem[]>([]);
 	let loading = $state(false);
 	let loaded = $state(false);
+	let selectedIndex = $state(-1);
 	let loadPromise: Promise<void> | null = null;
 
 	function loadItems(): Promise<void> {
@@ -135,7 +137,33 @@
 	}
 
 	function handleKeydown(event: KeyboardEvent): void {
-		if (event.key === 'Escape') query = '';
+		if (event.key === 'Escape') {
+			query = '';
+			selectedIndex = -1;
+			return;
+		}
+		if (matches.length === 0) return;
+		if (event.key === 'ArrowDown') {
+			event.preventDefault();
+			selectedIndex = Math.min(selectedIndex + 1, matches.length - 1);
+		} else if (event.key === 'ArrowUp') {
+			event.preventDefault();
+			selectedIndex = Math.max(selectedIndex - 1, 0);
+		} else if (event.key === 'Enter' && selectedIndex >= 0) {
+			const result = matches[selectedIndex];
+			if (!result) return;
+			event.preventDefault();
+			if (result.kind === 'role') {
+				trackRoleSelection(result.role);
+				void goto(result.role.href);
+			} else {
+				trackProductEvent('job_search_selected', {
+					entity_kind: 'occupation',
+					context: 'home'
+				});
+				void goto(`/occupation/${result.occupation.code}`);
+			}
+		}
 	}
 
 	function trackRoleSelection(role: RoleQueryItem): void {
@@ -151,36 +179,55 @@
 	<input
 		id="occupation-search"
 		type="search"
-		bind:value={query}
+		role="combobox"
+		aria-autocomplete="list"
+		aria-expanded={query.trim().length >= 2}
+		aria-controls="occupation-search-results"
+		aria-activedescendant={selectedIndex >= 0
+			? `occupation-search-option-${selectedIndex}`
+			: undefined}
+		value={query}
+		oninput={event => {
+			query = event.currentTarget.value;
+			selectedIndex = -1;
+		}}
 		onfocus={() => void loadItems()}
 		onkeydown={handleKeydown}
 		placeholder={label}
 		autocomplete="off"
-		class="min-h-13 w-full min-w-0 rounded-xl border border-foreground bg-card px-4 py-3 text-base text-foreground shadow-sm outline-none placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20"
+		class="min-h-13 w-full min-w-0 border border-foreground bg-card px-4 py-3 text-base text-foreground shadow-sm outline-none placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20"
 	/>
 
 	{#if query.trim().length >= 2}
 		<div
 			id="occupation-search-results"
-			class="absolute inset-x-0 z-20 mt-2 max-h-96 overflow-y-auto rounded-xl border border-border bg-popover shadow-lg"
+			role="listbox"
+			aria-label="Matching jobs"
+			class="absolute inset-x-0 z-20 mt-2 max-h-96 overflow-y-auto border border-border bg-popover shadow-lg"
 		>
 			{#if loading}
 				<p class="px-4 py-3 text-sm text-muted-foreground">Loading job-title search…</p>
 			{:else if matches.length === 0}
 				<div class="px-4 py-3">
-					<p class="text-sm text-muted-foreground">No matching title or SSOC occupation.</p>
+					<p class="text-sm text-muted-foreground">No matches. Try a shorter title.</p>
 					<a
 						class="mt-1 inline-block text-xs font-medium text-primary hover:underline"
-						href="/roles">Browse all 88 familiar titles</a
+						href="/roles">Browse familiar titles</a
 					>
 				</div>
 			{:else}
-				{#each matches as result (result.key)}
+				{#each matches as result, index (result.key)}
 					{#if result.kind === 'role'}
 						<a
+							id="occupation-search-option-{index}"
 							href={result.role.href}
+							role="option"
+							aria-selected={index === selectedIndex}
 							onclick={() => trackRoleSelection(result.role)}
-							class="block min-h-11 min-w-0 border-b border-l-4 px-4 py-3 no-underline transition-colors last:border-b-0 hover:bg-accent"
+							class="block min-h-11 min-w-0 border-b border-l-4 px-4 py-3 no-underline last:border-b-0 {index ===
+							selectedIndex
+								? 'bg-accent'
+								: 'hover:bg-accent'}"
 							style:border-left-color={result.role.family_accent}
 						>
 							<span class="block break-words text-sm font-semibold text-foreground">
@@ -195,20 +242,28 @@
 						</a>
 					{:else}
 						<a
+							id="occupation-search-option-{index}"
 							href="/occupation/{result.occupation.code}"
+							role="option"
+							aria-selected={index === selectedIndex}
 							onclick={() =>
 								trackProductEvent('job_search_selected', {
 									entity_kind: 'occupation',
 									context: 'home'
 								})}
-							class="block min-h-11 min-w-0 border-b border-border px-4 py-3 no-underline transition-colors last:border-b-0 hover:bg-accent"
+							class="block min-h-11 min-w-0 border-b border-border px-4 py-3 no-underline last:border-b-0 {index ===
+							selectedIndex
+								? 'bg-accent'
+								: 'hover:bg-accent'}"
 						>
 							<span class="block break-words text-sm font-semibold text-foreground">
 								{result.occupation.title}
 							</span>
 							<span class="mt-0.5 block text-xs text-muted-foreground">
-								Official occupation · SSOC {result.occupation.code} · {result.occupation
-									.official_category}
+								Official occupation · SSOC {result.occupation.code}{result.occupation
+									.pressure_rank == null
+									? ' · Not ranked'
+									: ` · ${result.occupation.pressure_rank.toFixed(1)}`}
 							</span>
 						</a>
 					{/if}

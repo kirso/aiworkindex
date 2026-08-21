@@ -30,13 +30,16 @@
 	note="Horizontal position shows the occupation’s pressure percentile. Every marker has the same size: source counts are shown as documentation, not as a demand-strength score. Absence from these selected lists leaves demand unknown."
 >
 	<div
-		class="mb-2 grid grid-cols-[minmax(8rem,0.9fr)_minmax(8rem,1.1fr)_3.25rem] items-end gap-3 border-b border-border pb-2 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground sm:grid-cols-[minmax(12rem,0.9fr)_minmax(12rem,1.1fr)_4.25rem]"
+		class="mb-2 grid grid-cols-[minmax(0,0.95fr)_minmax(4.5rem,1.05fr)_2.75rem] items-end gap-2 border-b border-border pb-2 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground sm:grid-cols-[minmax(12rem,0.9fr)_minmax(12rem,1.1fr)_4.25rem] sm:gap-3"
 	>
 		<span>Occupation</span>
 		<span class="flex justify-between font-mono font-normal normal-case tracking-normal">
-			<span>0</span><span>Pressure percentile</span><span>100</span>
+			<span>0</span><span class="sm:hidden">Pressure</span><span class="hidden sm:inline"
+				>Pressure percentile</span
+			><span>100</span>
 		</span>
-		<span class="text-right">Rank / sources</span>
+		<span class="text-right sm:hidden">Rank</span>
+		<span class="hidden text-right sm:inline">Rank / sources</span>
 	</div>
 
 	<ul class={compact ? 'space-y-1.5' : 'grid gap-x-7 gap-y-1.5 xl:grid-cols-2'}>
@@ -44,7 +47,7 @@
 			<li>
 				<a
 					href="/occupation/{item.code}"
-					class="grid min-h-11 grid-cols-[minmax(8rem,0.9fr)_minmax(8rem,1.1fr)_3.25rem] items-center gap-3 border-b border-border/70 py-2 no-underline hover:bg-muted/60 focus-visible:bg-muted sm:grid-cols-[minmax(12rem,0.9fr)_minmax(12rem,1.1fr)_4.25rem]"
+					class="grid min-h-11 grid-cols-[minmax(0,0.95fr)_minmax(4.5rem,1.05fr)_2.75rem] items-center gap-2 border-b border-border/70 py-2 no-underline hover:bg-muted/60 focus-visible:bg-muted sm:grid-cols-[minmax(12rem,0.9fr)_minmax(12rem,1.1fr)_4.25rem] sm:gap-3"
 				>
 					<span class="min-w-0">
 						<span class="block truncate text-xs font-semibold text-foreground sm:text-sm">

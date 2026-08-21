@@ -7,7 +7,15 @@
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import SaveJobButton from '$lib/components/product/SaveJobButton.svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
-	import { card, formInput, pageLayout, sectionLabel, title } from '$lib/design-system';
+	import {
+		card,
+		capabilityColorScale,
+		formInput,
+		pageLayout,
+		pressureColorScale,
+		sectionLabel,
+		title
+	} from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import { onMount } from 'svelte';
 
@@ -18,6 +26,7 @@
 	let indexFailed = $state(false);
 	let query = $state('');
 	let searchOpen = $state(false);
+	let selectedIndex = $state(-1);
 	let copied = $state(false);
 	let queryAliases = $state<Record<string, string>>({});
 
@@ -125,6 +134,10 @@
 		return `${Math.max(0, Math.min(100, value ?? 0))}%`;
 	}
 
+	function capabilityText(value: number | null): string {
+		return value == null ? 'No conservative profile' : `${(value * 100).toFixed(1)}/100`;
+	}
+
 	function wageText(entity: Entity): string {
 		if (entity.wage != null) return `SGD ${entity.wage.toLocaleString()}`;
 		return entity.kind === 'role' ? 'No role-level figure' : 'Not published';
@@ -157,7 +170,7 @@
 
 <Seo
 	title="Compare Singapore Jobs: AI Task Pressure, Pay and Demand"
-	description="Compare up to four Singapore jobs across relative AI task pressure, MOM pay, named demand signals and how each title is mapped."
+	description="Compare up to four Singapore jobs across AI task pressure, mapped OECD capability proximity, MOM pay, named demand signals and title mapping."
 	path="/compare"
 />
 
@@ -169,10 +182,10 @@
 	>
 		<div class="max-w-3xl">
 			<p class={sectionLabel()}>Job comparison</p>
-			<h1 class={title({ size: 'page' })}>Put the differences side by side</h1>
+			<h1 class={title({ size: 'page' })}>Compare jobs</h1>
 			<p class="mt-3 text-base leading-relaxed text-text-secondary">
-				Compare AI task pressure, published pay, named demand sources and title matching. Each row
-				answers one question, so a strong result in one row never becomes an overall winner.
+				Compare AI task overlap, mapped AI capabilities, published pay, named demand and how each
+				title is mapped. Each row answers one question.
 			</p>
 		</div>
 		{#if selected.length > 0}
@@ -190,23 +203,57 @@
 			<input
 				id="compare-search"
 				type="search"
+				role="combobox"
+				aria-autocomplete="list"
+				aria-expanded={searchOpen && query.trim().length >= 2}
+				aria-controls="compare-search-results"
+				aria-activedescendant={selectedIndex >= 0
+					? `compare-search-option-${selectedIndex}`
+					: undefined}
 				class={cn(formInput(), 'mt-2 w-full')}
 				placeholder="Search an official occupation or modern role…"
 				bind:value={query}
 				onfocus={() => (searchOpen = true)}
 				onblur={() => setTimeout(() => (searchOpen = false), 180)}
+				onkeydown={event => {
+					if (!searchOpen || results.length === 0) return;
+					if (event.key === 'ArrowDown') {
+						event.preventDefault();
+						selectedIndex = Math.min(selectedIndex + 1, results.length - 1);
+					} else if (event.key === 'ArrowUp') {
+						event.preventDefault();
+						selectedIndex = Math.max(selectedIndex - 1, 0);
+					} else if (event.key === 'Enter' && selectedIndex >= 0) {
+						const picked = results[selectedIndex];
+						if (!picked) return;
+						event.preventDefault();
+						add(picked);
+						selectedIndex = -1;
+					} else if (event.key === 'Escape') {
+						searchOpen = false;
+					}
+				}}
 			/>
 			{#if searchOpen && query.trim().length >= 2}
 				<div
+					id="compare-search-results"
+					role="listbox"
+					aria-label="Matching jobs"
 					class="absolute z-20 mt-1 max-h-80 w-full overflow-y-auto border border-foreground bg-card"
 				>
 					{#if results.length === 0}
 						<p class="p-3 text-sm text-muted-foreground">No match found.</p>
 					{:else}
-						{#each results as result (result.id)}
+						{#each results as result, index (result.id)}
 							<button
 								type="button"
-								class="flex w-full min-w-0 items-start justify-between gap-3 border-b border-border px-3 py-2.5 text-left last:border-0 hover:bg-accent"
+								id="compare-search-option-{index}"
+								role="option"
+								aria-selected={index === selectedIndex}
+								class="flex w-full min-w-0 items-start justify-between gap-3 border-b border-border px-3 py-2.5 text-left last:border-0 {index ===
+								selectedIndex
+									? 'bg-accent'
+									: 'hover:bg-accent'}"
 								onmousedown={() => add(result)}
 							>
 								<span class="min-w-0">
@@ -260,8 +307,8 @@
 				>
 				<a
 					class="border border-border bg-card p-3 text-sm font-medium hover:border-foreground"
-					href="/compare?entities=occupation:25121,occupation:25124"
-					>Frontend engineer vs UX designer</a
+					href="/compare?entities=occupation:12222,occupation:21661"
+					>Marketing manager vs graphic designer</a
 				>
 			</div>
 		</section>
@@ -334,6 +381,40 @@
 				{/each}
 
 				<div class="matrix-label">
+					<strong>How close are current AI capabilities?</strong><span
+						>Separate OECD evidence for the conservative mapped subset.</span
+					>
+				</div>
+				{#each selected as entity (entity.id)}
+					<div class="matrix-cell">
+						<p class="font-mono text-lg font-bold tabular-nums">
+							{capabilityText(entity.capabilityProximity)}
+						</p>
+						{#if entity.capabilityProximity != null}
+							<div class="mt-3 h-2 bg-surface-metric" aria-hidden="true">
+								<div
+									class="h-full"
+									style:width={`${entity.capabilityProximity * 100}%`}
+									style:background={capabilityColorScale(entity.capabilityProximity)}
+								></div>
+							</div>
+							<p class="mt-2 text-xs text-muted-foreground">
+								{entity.capabilityDomains
+									.slice()
+									.sort((a, b) => a.gap / a.gapMaximum - b.gap / b.gapMaximum)
+									.slice(0, 3)
+									.map(item => item.label)
+									.join(' · ')}
+							</p>
+						{:else}
+							<p class="mt-1 text-xs text-muted-foreground">
+								No broader occupation or role-level fallback is used.
+							</p>
+						{/if}
+					</div>
+				{/each}
+
+				<div class="matrix-label">
 					<strong>How much current AI task overlap?</strong><span
 						>Relative position across scored Singapore occupations.</span
 					>
@@ -343,7 +424,13 @@
 						<p class="font-mono text-3xl font-black tabular-nums">{pct(entity.position)}</p>
 						<p class="mt-1 text-xs text-muted-foreground">out of 100</p>
 						<div class="mt-3 h-2 bg-surface-metric" aria-hidden="true">
-							<div class="h-full bg-primary" style:width={pressureWidth(entity.position)}></div>
+							<div
+								class="h-full"
+								style:width={pressureWidth(entity.position)}
+								style:background={entity.position == null
+									? 'var(--color-pressure-unranked)'
+									: pressureColorScale(entity.position)}
+							></div>
 						</div>
 					</div>
 				{/each}
@@ -427,8 +514,23 @@
 								>
 							</dd>
 							<div class="mt-2 h-2 bg-surface-metric">
-								<div class="h-full bg-primary" style:width={pressureWidth(entity.position)}></div>
+								<div
+									class="h-full"
+									style:width={pressureWidth(entity.position)}
+									style:background={entity.position == null
+										? 'var(--color-pressure-unranked)'
+										: pressureColorScale(entity.position)}
+								></div>
 							</div>
+						</div>
+						<div class="p-4">
+							<dt class="text-xs text-muted-foreground">Mapped AI capability proximity</dt>
+							<dd class="mt-1 font-mono font-bold">
+								{capabilityText(entity.capabilityProximity)}
+							</dd>
+							<p class="mt-1 text-xs text-muted-foreground">
+								OECD evidence; separate from pressure and Singapore adoption.
+							</p>
 						</div>
 						<div class="p-4">
 							<dt class="text-xs text-muted-foreground">Pay in Singapore</dt>

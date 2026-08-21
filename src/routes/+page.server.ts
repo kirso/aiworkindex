@@ -3,10 +3,12 @@ import { takePressureWithCutoffTies, toV9OccupationView } from '$lib/data/v9-dis
 import {
 	buildV9CategorySummary,
 	buildV9GroupSummaries,
-	buildV9PressureBins
+	buildV9PressureBins,
+	toV9MapItem
 } from '$lib/data/v9-home';
 import { v9NationalContext } from '$lib/data/v9-market';
 import { v9Counts, v9Occupations } from '$lib/data/v9';
+import { v9CapabilityCoverage } from '$lib/data/v9-capability-profiles';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = () => {
@@ -22,8 +24,10 @@ export const load: PageServerLoad = () => {
 		);
 	return {
 		counts: v9Counts,
+		capabilityProfileCount: v9CapabilityCoverage.available_exact_title_identity_profiles,
 		directDemandCount: occupations.filter(item => item.demandSignalCount > 0).length,
 		groupSummaries: buildV9GroupSummaries(occupations),
+		mapItems: occupations.map(toV9MapItem),
 		categorySummary: buildV9CategorySummary(occupations),
 		pressureBins: buildV9PressureBins(occupations),
 		marketFacts: [

@@ -24,6 +24,7 @@ export const display = tv({
 	base: 'font-mono font-semibold tracking-display leading-display text-foreground tabular-nums',
 	variants: {
 		size: {
+			hero: 'text-7xl sm:text-8xl lg:text-[7.25rem]',
 			xl: 'text-6xl sm:text-7xl lg:text-8xl',
 			lg: 'text-4xl sm:text-5xl',
 			md: 'text-2xl sm:text-3xl' // Inline stat
@@ -360,8 +361,26 @@ export const riskColorScale = d3Scale
 export const pressureColorScale = d3Scale
 	.scaleLinear<string>()
 	.domain([0, 20, 40, 60, 80, 100])
-	.range(['#f1f7f5', '#b7ddd3', '#5fafa0', '#2c8073', '#155a52', '#0b3532'])
+	.range(['#e7f6f1', '#6fd0b8', '#1a9e88', '#0b6f63', '#044840', '#012824'])
 	.clamp(true);
+
+/** Separate OECD capability-proximity scale. Never use it for the ILO pressure rank. */
+export const capabilityColorScale = d3Scale
+	.scaleLinear<string>()
+	.domain([0, 0.25, 0.5, 0.75, 1])
+	.range(['#eef3ff', '#b9c9f5', '#7092e7', '#2457d6', '#153487'])
+	.clamp(true);
+
+export function capabilityLabelFill(proximity: number | null): string {
+	if (proximity == null) return 'var(--color-foreground)';
+	return proximity >= 0.56 ? '#fffefb' : '#171714';
+}
+
+/** Ink on pale teal, paper on the dark steps. */
+export function pressureLabelFill(rank: number | null): string {
+	if (rank == null) return 'var(--color-foreground)';
+	return rank >= 42 ? '#fffefb' : '#171714';
+}
 
 /** Consumer pressure word. ILO Gradient strings stay in methodology only. */
 export const pressureBadge = tv({

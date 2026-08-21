@@ -28,6 +28,7 @@
 	let wageCoveragePct = $derived(data.wageCoveragePct);
 
 	const releaseDate = '2026-08-19';
+	const modifiedDate = '2026-08-21';
 
 	const articleJsonLd = JSON.stringify({
 		'@context': 'https://schema.org',
@@ -37,7 +38,7 @@
 			'V9 migrates the AI Work Index to SSOC 2024, ranks 987 occupations with an ILO-based AI Work Pressure Rank, and keeps labour-market evidence separate.',
 		url: `${SITE.url}/reports/v9-release`,
 		datePublished: releaseDate,
-		dateModified: releaseDate,
+		dateModified: modifiedDate,
 		author: { '@type': 'Person', name: SITE.author, url: SITE.authorUrl },
 		publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
 		mainEntityOfPage: { '@type': 'WebPage', '@id': `${SITE.url}/reports/v9-release` }
@@ -63,7 +64,7 @@
 
 	<div class="max-w-4xl">
 		<div class="flex flex-wrap items-center gap-2">
-			<p class={sectionLabel()}>Published 19 August 2026</p>
+			<p class={sectionLabel()}>Published 19 August · capability update 21 August 2026</p>
 			<span class={badge({ variant: 'info' })}>Current release</span>
 		</div>
 		<h1 class={cn(titleStyle({ size: 'page' }), 'mt-2')}>V9: Singapore AI Work Pressure</h1>
@@ -294,6 +295,14 @@
 			outcomes and career ladders separately.
 		</p>
 		<p class="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+			The public OECD occupation workbook is now integrated as a separate nine-domain layer for 68
+			SSOC titles that pass the conservative detailed-title mapping rule. Raw crosswalk candidates
+			are not published automatically, and the capability layer cannot change the ILO headline.
+			<a href="/reports/ai-capabilities" class="text-primary underline"
+				>Read the capability report</a
+			>.
+		</p>
+		<p class="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground">
 			V9 uses these findings to frame interpretation and limitations. It does not transfer US,
 			Danish, OECD or platform coefficients into Singapore occupation ranks.
 		</p>
@@ -338,6 +347,9 @@
 				>
 				<a href="/reports/job-market-evidence" class="text-primary underline"
 					>Review current market evidence</a
+				>
+				<a href="/reports/labour-observatory" class="text-primary underline"
+					>Explore labour outcomes and evidence gaps</a
 				>
 			</div>
 		</div>

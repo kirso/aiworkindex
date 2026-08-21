@@ -54,12 +54,12 @@
 
 	/* V9 AI task-pressure scale. Sequential teal with separable lightness steps.
 	   Never legend these as ILO Gradient 1–4. Unranked uses the hatch, not a fake zero. */
-	--color-pressure-0: #f1f7f5;
-	--color-pressure-20: #b7ddd3;
-	--color-pressure-40: #5fafa0;
-	--color-pressure-60: #2c8073;
-	--color-pressure-80: #155a52;
-	--color-pressure-100: #0b3532;
+	--color-pressure-0: #e7f6f1;
+	--color-pressure-20: #6fd0b8;
+	--color-pressure-40: #1a9e88;
+	--color-pressure-60: #0b6f63;
+	--color-pressure-80: #044840;
+	--color-pressure-100: #012824;
 	--color-pressure-unranked: #d8d3c8;
 
 	/* Occupation-family identity is categorical and never encodes pressure. */
@@ -152,6 +152,8 @@
 	--color-chart-3: #9b6b12;
 	--color-chart-4: #2457d6;
 	--color-chart-5: #747168;
+	--color-capability-low: #eef3ff;
+	--color-capability-high: #153487;
 
 	/* Warm, restrained depth. Elevation is reserved for interactive surfaces. */
 	--shadow-xs: 0 1px 2px rgb(64 55 36 / 0.06);
@@ -434,6 +436,10 @@
 		var(--color-pressure-80),
 		var(--color-pressure-100)
 	);
+}
+
+.capability-legend {
+	background: linear-gradient(90deg, var(--color-capability-low), var(--color-capability-high));
 }
 
 .unranked-hatch {

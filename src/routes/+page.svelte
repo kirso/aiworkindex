@@ -7,7 +7,6 @@
 	import OccupationSearch from '$lib/components/v9-browser/OccupationSearch.svelte';
 	import PressureDistribution from '$lib/components/v9-browser/PressureDistribution.svelte';
 	import {
-		actionCard,
 		badge,
 		card,
 		linkPill,
@@ -111,11 +110,15 @@
 					id="groups-title"
 					class="mt-1 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl"
 				>
-					Choose a broad occupation group before the details
+					Named jobs, grouped like a map
 				</h2>
 				<p class="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-					Nine official major groups. Open a group for the detailed map, filters and exact
-					occupations.
+					Switch between AI task pressure and the conservative OECD capability subset. Tile size is
+					the number of official occupations, not workers or pay.
+				</p>
+				<p class="mt-1 text-xs text-muted-foreground">
+					OECD capability profiles are available for {data.capabilityProfileCount} occupations; missing
+					profiles remain hatched.
 				</p>
 			</div>
 			<a href="/explore" class={linkPill()}> Open the 1,001-occupation explorer → </a>
@@ -124,6 +127,7 @@
 		<OccupationGroupOverview
 			groups={data.groupSummaries}
 			categories={data.categorySummary}
+			mapItems={data.mapItems}
 			rankedTotal={data.counts.scored}
 			unrankedTotal={data.counts.insufficient_evidence}
 		/>
@@ -210,37 +214,17 @@
 
 	<section class="bg-card">
 		<div class="{pageLayout({ width: 'feature' })} py-12 sm:py-16">
-			<p class={sectionLabel()}>What to do with the result</p>
+			<p class={sectionLabel()}>Next step</p>
 			<h2 class="mt-2 max-w-3xl text-3xl font-semibold tracking-tight text-foreground">
-				Use the score to ask better questions about your work
+				Check the tasks you actually do
 			</h2>
-			<div class="mt-6 grid gap-4 md:grid-cols-3">
-				<article class={actionCard({ action: 'try' })}>
-					<h3 class="text-lg font-semibold">Try</h3>
-					<p class="mt-2 text-sm leading-relaxed text-text-secondary">
-						Test AI on a low-consequence, repeatable task and compare speed, quality and review
-						time.
-					</p>
-				</article>
-				<article class={actionCard({ action: 'verify' })}>
-					<h3 class="text-lg font-semibold">Verify carefully</h3>
-					<p class="mt-2 text-sm leading-relaxed text-text-secondary">
-						Keep a person responsible for facts, exceptions, confidential data and consequential
-						decisions.
-					</p>
-				</article>
-				<article class={actionCard({ action: 'strengthen' })}>
-					<h3 class="text-lg font-semibold">Strengthen</h3>
-					<p class="mt-2 text-sm leading-relaxed text-text-secondary">
-						Build the parts of your role that depend on context, relationships, accountability and
-						judgment.
-					</p>
-				</article>
-			</div>
+			<p class="mt-3 max-w-2xl text-base leading-relaxed text-text-secondary">
+				The percentile locates a job among scored Singapore occupations. Your shift, employer and
+				task mix still decide what is practical.
+			</p>
 			<div class="mt-6 flex flex-wrap gap-3">
 				<a href="/will-ai-take-my-job" class={linkPill()}>Check your own task mix →</a>
-				<a href="/compare" class={linkPill()}>Compare occupations →</a>
-				<a href="/methodology" class={linkPill()}>Read how V9 works →</a>
+				<a href="/compare" class={linkPill()}>Compare jobs →</a>
 			</div>
 		</div>
 	</section>
@@ -248,7 +232,7 @@
 	<section class="{pageLayout({ width: 'content' })} py-12">
 		<div class={card({ padding: 'lg', variant: 'subtle' })}>
 			<p class={sectionLabel()}>Keep the signals separate</p>
-			<div class="mt-4 grid gap-5 md:grid-cols-3">
+			<div class="mt-4 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
 				<div>
 					<h3 class="text-base font-semibold text-foreground">AI task pressure</h3>
 					<p class="mt-2 text-sm leading-relaxed text-muted-foreground">
@@ -260,6 +244,13 @@
 					<h3 class="text-base font-semibold text-foreground">Direct market evidence</h3>
 					<p class="mt-2 text-sm leading-relaxed text-muted-foreground">
 						Detailed MOM wage rows and reviewed matches to named demand or shortage lists.
+					</p>
+				</div>
+				<div>
+					<h3 class="text-base font-semibold text-foreground">Current AI capabilities</h3>
+					<p class="mt-2 text-sm leading-relaxed text-muted-foreground">
+						A separate OECD profile for {data.capabilityProfileCount} occupations whose detailed titles
+						pass the conservative mapping rule.
 					</p>
 				</div>
 				<div>

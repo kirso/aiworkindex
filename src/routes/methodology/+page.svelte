@@ -29,6 +29,12 @@
 			use: 'Explains the source score; never represented as exact SSOC duties and never changes the rank'
 		},
 		{
+			construct: 'Current AI capability proximity',
+			source: 'OECD AI Capability Gap Index (2026)',
+			grain: 'O*NET 30.3 occupation mapped to a conservative SSOC title subset',
+			use: 'Separate nine-domain profile for 68 occupations; no headline effect'
+		},
+		{
 			construct: 'Observed AI use',
 			source: 'Anthropic occupation-use file (released January 2026)',
 			grain: 'US SOC platform activity; November 2025 observation',
@@ -100,7 +106,7 @@
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Methodology' }]} />
 
 	<div class="max-w-3xl">
-		<p class={sectionLabel()}>V9 · evidence reviewed 19 August 2026</p>
+		<p class={sectionLabel()}>V9 headline · supporting data checked 21 August 2026</p>
 		<h1 class={cn(title({ size: 'page' }), 'mt-2')}>How AI Work Pressure is measured</h1>
 		<p class={body({ class: 'mt-4 text-muted-foreground' })}>
 			AI Work Pressure Rank compares the task exposure of a Singapore occupation with other scored
@@ -126,6 +132,44 @@
 				or how many jobs, hours or wages will change. Those outcomes depend on evidence the score
 				does not contain.
 			</p>
+		</div>
+	</section>
+
+	<section id="capability-evidence" class="mt-12 scroll-mt-24">
+		<h2 class={sectionLabel()}>Current AI capability evidence</h2>
+		<div class="mt-3 grid gap-5 lg:grid-cols-[0.8fr_1.2fr]">
+			<div class={card({ padding: 'lg', accent: 'primary' })}>
+				<p class="font-mono text-4xl font-semibold tabular-nums text-foreground">68</p>
+				<p class="mt-1 text-sm font-medium text-foreground">published occupation profiles</p>
+				<p class={caption({ class: 'mt-3' })}>
+					Out of 1,001 SSOC occupations. The other 933 stay unavailable; they are not scored lower.
+				</p>
+			</div>
+			<div class="space-y-3 text-sm leading-relaxed text-muted-foreground">
+				<p>
+					The OECD's 2026 measure compares current AI capabilities with job demands across language,
+					social interaction, problem solving, creativity, critical thinking, knowledge and
+					learning, vision, physical manipulation and robotic intelligence.
+				</p>
+				<p>
+					V9 first uses the official SSOC-to-ISCO and ESCO-to-O*NET chain to generate candidates. An
+					exact ESCO–O*NET relation does not prove that a five-digit Singapore occupation is the
+					same job. Publication therefore also requires a conservative contiguous match to the
+					official SSOC detailed title. Search synonyms, examples and close matches are excluded.
+				</p>
+				<p>
+					Capability proximity is not task pressure, adoption, automation, job loss or a Singapore
+					observation. It appears as a separate lens and cannot enter the headline builder.
+				</p>
+				<div class="flex flex-wrap gap-x-5 gap-y-2">
+					<a href="/reports/ai-capabilities" class="font-semibold text-primary underline"
+						>Read the capability report</a
+					>
+					<a href="/data/v9-capability-profiles.json" class="text-primary underline"
+						>Download the profile artifact</a
+					>
+				</div>
+			</div>
 		</div>
 	</section>
 
@@ -301,6 +345,47 @@
 					</div>
 				{/each}
 			</dl>
+		</div>
+	</section>
+
+	<section id="economic-evidence" class="mt-12 scroll-mt-24">
+		<h2 class={sectionLabel()}>From task pressure to jobs</h2>
+		<p class={body({ class: 'mt-3 max-w-3xl text-muted-foreground' })}>
+			A task becoming easier does not tell us whether employment will fall. Employers may save
+			labour, serve more customers, lower prices, improve quality, create new work or reorganise
+			teams. The result also depends on adoption, human responsibility and how workers move between
+			jobs.
+		</p>
+		<div class="mt-4 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+			{#each [['Task substitution', 'Can AI complete work that people do today, with little review?'], ['Productivity and demand', 'Do lower costs or better service create enough new demand to expand work?'], ['New work', 'Are firms creating products, tasks and roles where people retain an advantage?'], ['Human responsibility', 'Where do judgement, trust, accountability and physical action remain central?'], ['Adoption and organisation', 'Are firms deploying AI and changing workflows, teams or hiring?'], ['Worker adjustment', 'Who gains, who faces disruption, and can people move or retrain?']] as mechanism}
+				<div class={card({ padding: 'md' })}>
+					<h3 class="font-semibold text-foreground">{mechanism[0]}</h3>
+					<p class={caption({ class: 'mt-1' })}>{mechanism[1]}</p>
+				</div>
+			{/each}
+		</div>
+		<div class={cn(card({ padding: 'lg', variant: 'notice', accent: 'primary' }), 'mt-4')}>
+			<h3 class="font-semibold text-foreground">What V9 can observe today</h3>
+			<p class={body({ class: 'mt-2 text-muted-foreground' })}>
+				V9 combines detailed task pressure with direct wages and named demand where available. It
+				also publishes broad occupation-group employment, workforce, industry and labour-market
+				context. The broad observations stay at their published grain; they are not copied into
+				detailed occupations.
+			</p>
+			<p class={body({ class: 'mt-2 text-muted-foreground' })}>
+				Singapore does not yet publish the detailed adoption, output, price, new-task and causal
+				outcome data needed to classify an occupation as contracting or expanding because of AI. V9
+				therefore publishes the missing evidence and its release gate instead of filling the gap
+				with a scenario.
+			</p>
+			<div class="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+				<a href="/reports/labour-observatory" class="font-semibold text-primary underline"
+					>Explore the Singapore labour observatory</a
+				>
+				<a href="/data/v9-economic-observatory.json" class="text-primary underline"
+					>Download the evidence contract</a
+				>
+			</div>
 		</div>
 	</section>
 

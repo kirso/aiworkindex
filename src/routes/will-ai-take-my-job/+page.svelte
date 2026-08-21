@@ -217,7 +217,25 @@
 				</div>
 			</div>
 
-			<div class="grid gap-px bg-border sm:grid-cols-3">
+			<div class="grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-4">
+				<div class="bg-card p-4">
+					<p class={caption()}>Mapped AI capability proximity</p>
+					<p class="mt-1 font-mono text-lg font-bold tabular-nums">
+						{selected.capabilityProximity == null
+							? 'No conservative profile'
+							: `${(selected.capabilityProximity * 100).toFixed(1)}/100`}
+					</p>
+					<p class="mt-1 text-xs text-muted-foreground">
+						{selected.capabilityProximity == null
+							? 'No broader occupation or role fallback is used.'
+							: `Closest mapped domains: ${selected.capabilityDomains
+									.slice()
+									.sort((a, b) => a.gap / a.gapMaximum - b.gap / b.gapMaximum)
+									.slice(0, 2)
+									.map(item => item.label)
+									.join(' · ')}.`}
+					</p>
+				</div>
 				<div class="bg-card p-4">
 					<p class={caption()}>Pay in Singapore</p>
 					<p class="mt-1 font-mono text-lg font-bold tabular-nums">

@@ -2,6 +2,8 @@ import majorGroupsData from '$lib/data/major-groups.json';
 import { syntheticRolesV9 } from '$lib/data/synthetic-roles-v9';
 import { toV9BrowserItem } from '$lib/data/v9-browser';
 import { toV9OccupationView } from '$lib/data/v9-display';
+import { getV9CapabilityProfile, getV9CapabilityStatus } from '$lib/data/v9-capability-profiles';
+import { getV9EconomicOccupationContext } from '$lib/data/v9-economic-observatory';
 import { getV9Occupation, v9Occupations } from '$lib/data/v9';
 import { getMappedTaskExamples, v9TaskEvidenceMetadata } from '$lib/data/v9-task-evidence.server';
 import type { PageServerLoad } from './$types';
@@ -50,6 +52,9 @@ export const load: PageServerLoad = ({ params }) => {
 
 	return {
 		view,
+		capabilityProfile: getV9CapabilityProfile(occupation.taxonomy.code),
+		capabilityStatus: getV9CapabilityStatus(occupation.taxonomy.code),
+		economicContext: getV9EconomicOccupationContext(occupation.taxonomy.code),
 		mappedTaskExamples: getMappedTaskExamples(occupation.evidence.official_isco08_codes),
 		taskEvidenceSource: {
 			url: v9TaskEvidenceMetadata.source.repository_url,

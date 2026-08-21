@@ -2,12 +2,14 @@
 	import SaveJobButton from '$lib/components/product/SaveJobButton.svelte';
 	import RoleWorkProfile from '$lib/components/product/RoleWorkProfile.svelte';
 	import SharePageButton from '$lib/components/product/SharePageButton.svelte';
+	import OccupationHero from '$lib/components/ui/OccupationHero.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
-	import { card, caption, display, pageLayout, sectionLabel, title } from '$lib/design-system';
+	import { card, caption, pageLayout, sectionLabel, title } from '$lib/design-system';
 	import { ROLE_GUIDANCE_DISCLOSURE } from '$lib/data/role-presentation';
 	import { SITE } from '$lib/data/scoring-constants';
+	import { formatPressureNumber, toneFromPercentile } from '$lib/data/v9-display';
 	import { cn } from '$lib/utils';
 
 	let { data } = $props();
@@ -29,6 +31,32 @@
 			? `/compare?entities=occupation:${officialOccupation.ssoc2024}`
 			: `/compare?entities=role:${role.slug}`
 	);
+	let heroPay = $derived.by(() => {
+		const wage = officialOccupation?.wage_evidence ?? wageComponents[0]?.wage_evidence ?? null;
+		if (!wage) return { value: 'No direct row', detail: 'No direct pay row in this table.' };
+		return {
+			value: `SGD ${wage.value.gross_monthly_sgd.median.toLocaleString()}`,
+			detail: officialOccupation
+				? 'Gross monthly median from the matched official occupation.'
+				: 'Pay from a component occupation, not a role-level wage.'
+		};
+	});
+	let heroDemand = $derived.by(() => {
+		const count =
+			officialOccupation?.demand_signals.length ??
+			role.components.filter(component => component.demand_signals.length > 0).length;
+		if (count > 0) {
+			return {
+				value: `${count} named ${count === 1 ? 'list' : 'lists'}`,
+				detail: 'Reviewed matches in selected MOM demand or shortage lists.'
+			};
+		}
+		return {
+			value: 'Not named in the selected lists',
+			detail:
+				'No match in selected lists. Coverage is limited to the occupations each source names.'
+		};
+	});
 	let taskMixHref = $derived(
 		`/will-ai-take-my-job?job=${encodeURIComponent(
 			officialOccupation ? `occupation:${officialOccupation.ssoc2024}` : `role:${role.slug}`
@@ -180,119 +208,83 @@
 		]}
 	/>
 
-	<header class="border-b-2 border-foreground pb-6">
-		<div class="flex min-w-0 flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-			<div class="min-w-0">
-				<p
-					class="mb-2 inline-flex border px-2 py-1 font-mono text-xs font-bold uppercase tracking-wide"
-					style:background={presentation.surface}
-					style:border-color={presentation.accent}
-					style:color={presentation.accent}
-				>
-					{data.statusLabel} · {presentation.label}
-				</p>
-				<h1 class={cn(title({ size: 'page' }), 'break-words')}>{role.title}</h1>
-				<p class="mt-2 max-w-3xl text-base leading-relaxed text-text-secondary">
-					{role.description}.
-				</p>
-				{#if officialMatch && officialOccupation}
-					<p class="mt-3 max-w-3xl text-sm leading-relaxed">
-						<strong>Reviewed match:</strong>
-						{role.title} maps to
-						<a
-							class="font-medium text-primary hover:underline"
-							href="/occupation/{officialOccupation.ssoc2024}">{officialOccupation.title}</a
-						>, SSOC {officialOccupation.ssoc2024}. This guide uses that occupation's official score
-						unchanged.
-					</p>
-				{/if}
+	{#if officialMatch && officialOccupation}
+		<OccupationHero
+			spokenTitle={role.title}
+			officialTitle={officialOccupation.title}
+			code={officialOccupation.ssoc2024}
+			scoreValue={formatPressureNumber(officialOccupation.pressure_rank)}
+			ranked={officialOccupation.pressure_rank != null}
+			pressureLabel={officialOccupation.pressure_rank == null
+				? 'Not ranked — not enough mapped task evidence yet.'
+				: 'Official occupation score, reused unchanged.'}
+			pressureTone={toneFromPercentile(officialOccupation.pressure_rank)}
+			statusLabel="{data.statusLabel} · {presentation.label}"
+			meaning={officialOccupation.pressure_rank == null
+				? 'This familiar title maps to an official occupation that V9 leaves unranked.'
+				: `Relative task overlap among scored Singapore occupations, taken from ${officialOccupation.title}.`}
+			caveat="This is mapped AI task overlap, not a job-loss probability."
+			payValue={heroPay.value}
+			payDetail={heroPay.detail}
+			demandValue={heroDemand.value}
+			demandDetail={heroDemand.detail}
+		>
+			{#snippet actions()}
+				<Button variant="outline" href={compareHref} class="min-h-11">Compare these jobs</Button>
+				<SaveJobButton kind="role" id={role.slug} size="default" class="min-h-11" />
+				<SharePageButton title={`${role.title} | ${SITE.name}`} size="default" />
+			{/snippet}
+		</OccupationHero>
+	{:else if estimate}
+		<OccupationHero
+			spokenTitle={role.title}
+			code={role.slug}
+			codeLabel="Composite estimate"
+			scoreValue={formatPressureNumber(estimate.estimated_comparison_percentile)}
+			ranked={true}
+			pressureLabel="Reviewed estimate · outside the official ranking"
+			pressureTone={toneFromPercentile(estimate.estimated_comparison_percentile)}
+			statusLabel="{data.statusLabel} · {presentation.label}"
+			meaning="This title maps to several official jobs. The number is a disclosed mix, not a blended official score."
+			caveat="This is mapped AI task overlap, not a job-loss probability."
+			payValue={heroPay.value}
+			payDetail={heroPay.detail}
+			demandValue={heroDemand.value}
+			demandDetail={heroDemand.detail}
+		>
+			{#snippet actions()}
+				<Button variant="outline" href={compareHref} class="min-h-11">Compare these jobs</Button>
+				<SaveJobButton kind="role" id={role.slug} size="default" class="min-h-11" />
+				<SharePageButton title={`${role.title} | ${SITE.name}`} size="default" />
+			{/snippet}
+		</OccupationHero>
+	{:else}
+		<header class="border-b-2 border-foreground pb-6">
+			<p
+				class="mb-2 inline-flex border px-2 py-1 text-xs font-bold tracking-wide"
+				style:background={presentation.surface}
+				style:border-color={presentation.accent}
+				style:color={presentation.accent}
+			>
+				{data.statusLabel} · {presentation.label}
+			</p>
+			<h1 class={cn(title({ size: 'page' }), 'break-words')}>{role.title}</h1>
+			<p class="mt-2 max-w-3xl text-base leading-relaxed text-text-secondary">
+				{role.description}.
+			</p>
+			<div class="mt-5 flex flex-wrap gap-2">
+				<Button variant="outline" href={compareHref} class="min-h-11">Compare these jobs</Button>
+				<SaveJobButton kind="role" id={role.slug} size="default" class="min-h-11" />
+				<SharePageButton title={`${role.title} | ${SITE.name}`} size="default" />
 			</div>
-			<div class="flex shrink-0 flex-wrap gap-2">
-				<Button variant="outline" size="sm" href={compareHref}>Compare</Button>
-				<SaveJobButton kind="role" id={role.slug} />
-				<SharePageButton title={`${role.title} | ${SITE.name}`} />
-			</div>
-		</div>
-
-		{#if officialMatch && officialOccupation}
-			<div class="mt-7 grid gap-px bg-border sm:grid-cols-[minmax(13rem,0.8fr)_minmax(0,2fr)]">
-				<div class="bg-card p-5">
-					<p class={sectionLabel()}>Official AI Work Pressure Rank</p>
-					<p class={cn(display({ size: 'xl' }), 'mt-1')}>
-						{officialOccupation.pressure_rank == null
-							? 'Not ranked'
-							: officialOccupation.pressure_rank.toFixed(1)}
-					</p>
-					<p class={caption()}>SSOC {officialOccupation.ssoc2024} · official occupation record</p>
-				</div>
-				<div class="bg-card p-5">
-					<h2 class="text-lg font-bold">What this tells you</h2>
-					{#if officialOccupation.pressure_rank == null}
-						<p class="mt-2 max-w-2xl text-sm leading-relaxed text-text-secondary">
-							The official mapping lacks sufficient ILO evidence for a pressure rank, so its status
-							is Unranked. Treat missing evidence as unknown.
-						</p>
-					{:else}
-						<p class="mt-2 max-w-2xl text-sm leading-relaxed text-text-secondary">
-							This places {officialOccupation.title} at the {officialOccupation.pressure_rank.toFixed(
-								1
-							)} midrank percentile for ILO task exposure among scored SSOC 2024 occupations. Employment
-							outcomes also depend on actual use, demand, regulation, organisational choices and human
-							responsibility.
-						</p>
-					{/if}
-					<a
-						class="mt-3 inline-block text-sm font-medium text-primary hover:underline"
-						href="/occupation/{officialOccupation.ssoc2024}"
-					>
-						Open the official occupation evidence
-					</a>
-				</div>
-			</div>
-		{:else if estimate}
-			<div class="mt-7 grid gap-px bg-border sm:grid-cols-[minmax(13rem,0.8fr)_minmax(0,2fr)]">
-				<div class="bg-card p-5">
-					<p class={sectionLabel()}>Estimated comparison percentile</p>
-					<p class={cn(display({ size: 'xl' }), 'mt-1')}>
-						{estimate.estimated_comparison_percentile.toFixed(1)}
-					</p>
-					<p class={caption()}>Editorial estimate · outside the official ranking</p>
-				</div>
-				<div class="bg-card p-5">
-					<h2 class="text-lg font-bold">What the number says</h2>
-					<p class="mt-2 max-w-2xl text-sm leading-relaxed text-text-secondary">
-						The published component weights place this role at an estimated comparison percentile of
-						{estimate.estimated_comparison_percentile.toFixed(1)} against the {estimate.comparison_population}.
-						Read it as relative pressure on tasks. Employment outcomes also depend on actual use,
-						demand, organisational choices and human responsibility.
-					</p>
-					<div class="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm">
-						<p>
-							<span class="text-muted-foreground">Weighted ILO score</span>
-							<strong>{(estimate.mean_score_2025 * 100).toFixed(1)}/100</strong>
-						</p>
-						<p>
-							<span class="text-muted-foreground">Official categories represented</span>
-							<strong
-								>{estimate.potential25_component_range.least_exposed ===
-								estimate.potential25_component_range.most_exposed
-									? estimate.potential25_component_range.least_exposed
-									: `${estimate.potential25_component_range.least_exposed} to ${estimate.potential25_component_range.most_exposed}`}</strong
-							>
-						</p>
-					</div>
-				</div>
-			</div>
-		{:else}
 			<div class={cn(card({ padding: 'md', variant: 'notice', accent: 'moderate' }), 'mt-6')}>
 				<p class="font-bold">Choose a work context</p>
 				<p class="mt-1 text-sm leading-relaxed text-text-secondary">
-					{role.mapping_rationale} A sector and task profile will produce a more useful comparison than
-					a broad-group or title-similarity substitute.
+					This title maps to several official jobs. Pick the closest one. {role.mapping_rationale}
 				</p>
 			</div>
-		{/if}
-	</header>
+		</header>
+	{/if}
 
 	<section class="mt-10" aria-labelledby="practical-guidance">
 		<div class="border-b border-foreground pb-2">

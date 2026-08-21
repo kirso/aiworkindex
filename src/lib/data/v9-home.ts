@@ -1,5 +1,7 @@
 import type { V9BrowserItem } from './v9-browser';
 import type { V9IloExposureCategory } from './v9-contract';
+import { spokenMajorGroupTitle, spokenOccupationTitle } from './v9-display';
+import { capabilityProximityFor } from './v9-capability-profiles';
 
 export const V9_CATEGORY_ORDER: readonly V9IloExposureCategory[] = [
 	'Not Exposed',
@@ -25,6 +27,16 @@ export interface V9GroupSummary {
 	namedDemand: number;
 	medianPressure: number | null;
 	categories: V9CategorySummary[];
+}
+
+export interface V9MapItem {
+	code: string;
+	title: string;
+	spokenTitle: string;
+	majorGroupCode: string;
+	majorGroupTitle: string;
+	pressureRank: number | null;
+	capabilityProximity: number | null;
 }
 
 export interface V9PressureBin {
@@ -70,7 +82,10 @@ export function buildV9GroupSummaries(items: V9BrowserItem[]): V9GroupSummary[] 
 			const ranked = groupItems.filter(item => item.pressureRank != null);
 			return {
 				code,
-				title: groupItems[0]?.majorGroupTitle ?? `SSOC major group ${code}`,
+				title: spokenMajorGroupTitle(
+					code,
+					groupItems[0]?.majorGroupTitle ?? `SSOC major group ${code}`
+				),
 				total: groupItems.length,
 				ranked: ranked.length,
 				unranked: groupItems.length - ranked.length,
@@ -100,4 +115,16 @@ export function buildV9PressureBins(items: V9BrowserItem[]): V9PressureBin[] {
 	}
 
 	return bins;
+}
+
+export function toV9MapItem(item: V9BrowserItem): V9MapItem {
+	return {
+		code: item.code,
+		title: item.title,
+		spokenTitle: spokenOccupationTitle(item.title, item.searchSynonyms),
+		majorGroupCode: item.majorGroupCode,
+		majorGroupTitle: spokenMajorGroupTitle(item.majorGroupCode, item.majorGroupTitle),
+		pressureRank: item.pressureRank,
+		capabilityProximity: capabilityProximityFor(item.code)
+	};
 }

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { linkPill, sectionLabel } from '$lib/design-system';
+	import { linkPill, pressureColorScale, sectionLabel } from '$lib/design-system';
 	import type { V9IloTaskEvidenceRow, V9MappedTaskExamples } from '$lib/data/v9-task-evidence';
 
 	interface Props {
@@ -21,6 +21,10 @@
 
 	function taskList(tasks: V9IloTaskEvidenceRow[], tone: 'higher' | 'lower') {
 		return { tasks, tone };
+	}
+
+	function spectrum(group: V9MappedTaskExamples): V9IloTaskEvidenceRow[] {
+		return [...group.lower, ...group.higher].sort((a, b) => a.score_2025 - b.score_2025);
 	}
 </script>
 
@@ -51,6 +55,31 @@
 						<h3 class="mt-1 font-sans text-lg font-bold text-foreground">
 							{group.isco08Title}
 						</h3>
+						<div class="mt-4" aria-label="Mapped ILO tasks from lower to higher GenAI potential">
+							<div class="flex h-3 overflow-hidden border border-border">
+								{#each spectrum(group) as task (task.task_id)}
+									<span
+										class="min-w-3 flex-1"
+										style:background={pressureColorScale(task.score_2025 * 100)}
+										title="{task.text} · {displayScore(task.score_2025)}"
+									></span>
+								{/each}
+							</div>
+							<div class="mt-2 flex justify-between text-[11px] text-muted-foreground">
+								<span>Lower GenAI potential</span>
+								<span>Higher GenAI potential</span>
+							</div>
+							<ol class="mt-3 grid gap-x-4 gap-y-1 sm:grid-cols-2">
+								{#each spectrum(group) as task (task.task_id)}
+									<li class="flex min-w-0 items-baseline justify-between gap-2 text-xs">
+										<span class="min-w-0 truncate text-foreground">{task.text}</span>
+										<span class="shrink-0 font-mono tabular-nums text-muted-foreground"
+											>{displayScore(task.score_2025)}</span
+										>
+									</li>
+								{/each}
+							</ol>
+						</div>
 					</header>
 
 					<div class="grid lg:grid-cols-2">

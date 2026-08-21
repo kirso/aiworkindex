@@ -3,7 +3,10 @@ import { describe, test } from 'node:test';
 import {
 	categoryLabel,
 	formatIloCodebookCategory,
-	spokenOccupationTitle
+	formatPressureNumber,
+	spokenMajorGroupTitle,
+	spokenOccupationTitle,
+	toneFromPercentile
 } from '../src/lib/data/v9-display';
 import type { V9GenAiTaskExposure } from '../src/lib/data/v9-contract';
 
@@ -15,6 +18,23 @@ describe('V9 consumer display labels', () => {
 		);
 		assert.equal(spokenOccupationTitle('Accounting/Bookkeeping clerk n.e.c.'), 'Accounting');
 		assert.equal(spokenOccupationTitle('Software developer'), 'Software developer');
+	});
+
+	test('shortens official major-group names for maps and filters', () => {
+		assert.equal(
+			spokenMajorGroupTitle('1', 'Legislators, senior officials and managers'),
+			'Managers'
+		);
+		assert.equal(spokenMajorGroupTitle('5', 'Services and sales workers'), 'Services and sales');
+		assert.equal(spokenMajorGroupTitle('X', 'Some other group'), 'Some other group');
+	});
+
+	test('maps percentiles onto a consumer pressure tone without custom risk bands', () => {
+		assert.equal(toneFromPercentile(null), 'moderate');
+		assert.equal(toneFromPercentile(12), 'very_low');
+		assert.equal(toneFromPercentile(88), 'very_high');
+		assert.equal(formatPressureNumber(32), '32');
+		assert.equal(formatPressureNumber(89.1), '89.1');
 	});
 
 	test('keeps ILO codebook strings out of consumer category words', () => {

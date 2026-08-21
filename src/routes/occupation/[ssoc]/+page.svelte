@@ -1,15 +1,22 @@
 <script lang="ts">
 	import SaveJobButton from '$lib/components/product/SaveJobButton.svelte';
+	import CapabilityProfile from '$lib/components/product/CapabilityProfile.svelte';
+	import EconomicOutcomeEvidence from '$lib/components/product/EconomicOutcomeEvidence.svelte';
 	import MappedTaskEvidence from '$lib/components/product/MappedTaskEvidence.svelte';
 	import SharePageButton from '$lib/components/product/SharePageButton.svelte';
 	import FaqList from '$lib/components/ui/FaqList.svelte';
+	import OccupationHero from '$lib/components/ui/OccupationHero.svelte';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import OccupationResultList from '$lib/components/v9-browser/OccupationResultList.svelte';
-	import { badge, card, pageLayout, sectionLabel, title as titleStyle } from '$lib/design-system';
+	import { card, pageLayout, sectionLabel } from '$lib/design-system';
 	import { SITE } from '$lib/data/scoring-constants';
-	import { formatIloCodebookCategory, spokenOccupationTitle } from '$lib/data/v9-display';
+	import {
+		formatIloCodebookCategory,
+		formatPressureNumber,
+		spokenOccupationTitle
+	} from '$lib/data/v9-display';
 
 	let { data } = $props();
 	let view = $derived(data.view);
@@ -157,91 +164,42 @@
 		]}
 	/>
 
-	<header class="border-b-2 border-foreground pb-6">
-		<div class="flex min-w-0 flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
-			<div class="min-w-0 max-w-4xl">
-				<div class="flex min-w-0 flex-wrap gap-2">
-					<span class={badge({ variant: 'outline' })}>SSOC {view.code}</span>
-					<span class={badge({ variant: exposure ? 'info' : 'warning' })}>
-						{exposure ? 'Pressure ranked' : 'Not ranked'}
-					</span>
-				</div>
-				<h1 class="mt-4 break-words {titleStyle({ size: 'page' })}">{spokenTitle}</h1>
-				{#if spokenTitle !== view.title}
-					<p class="mt-2 max-w-3xl text-sm text-muted-foreground">
-						Official title: {view.title}
-					</p>
-				{/if}
-			</div>
-			<div class="flex shrink-0 flex-wrap gap-2">
-				<Button variant="outline" href="/compare?entities=occupation:{view.code}" class="min-h-11"
-					>Compare these jobs</Button
-				>
-				<SaveJobButton kind="occupation" id={view.code} size="default" class="min-h-11" />
-				<SharePageButton title={`${spokenTitle} | ${SITE.name}`} size="default" />
-			</div>
-		</div>
-	</header>
-
-	<section class="mt-8" aria-labelledby="answer-heading">
-		<h2 id="answer-heading" class={sectionLabel()}>What the evidence says</h2>
-		<div class="mt-3 grid min-w-0 gap-4 lg:grid-cols-3">
-			<div class={card({ padding: 'lg', variant: 'elevated' })}>
-				<p class="text-sm font-semibold text-foreground">AI task overlap</p>
-				<p class="mt-3 break-words font-mono text-4xl font-semibold tabular-nums text-foreground">
-					{formatPercentile(view.pressureRank)}
-				</p>
-				<p class="mt-2 text-sm font-semibold text-foreground">{view.pressureLabel}</p>
-				<p class="mt-3 text-sm leading-relaxed text-muted-foreground">
-					{view.pressureRank == null
-						? 'Not ranked — not enough mapped task evidence yet.'
-						: `Relative task overlap among ${view.pressurePopulation?.toLocaleString() ?? 987} scored occupations. Not a job-loss probability.`}
-				</p>
-			</div>
-
-			<div class={card({ padding: 'lg', variant: 'metric' })}>
-				<p class="text-sm font-semibold text-foreground">Pay in Singapore</p>
-				<p class="mt-3 break-words font-mono text-3xl font-semibold tabular-nums text-foreground">
-					{formatWage(view.wageMedian)}
-				</p>
-				<p class="mt-2 text-xs text-muted-foreground">
-					{wage ? 'Gross monthly median · June 2025' : 'No direct pay row in this table'}
-				</p>
-				<p class="mt-3 text-sm leading-relaxed text-muted-foreground">
-					{wage
-						? 'Measured for full-time resident employees in establishments with at least 25 employees.'
-						: 'The selected MOM wage table contains no direct row for this occupation.'}
-				</p>
-			</div>
-
-			<div class={card({ padding: 'lg', variant: 'metric' })}>
-				<p class="text-sm font-semibold text-foreground">Named demand evidence</p>
-				<p class="mt-3 text-2xl font-bold text-foreground">{demandSummary}</p>
-				<p class="mt-3 text-sm leading-relaxed text-muted-foreground">
-					{view.demandSignals.length > 0
-						? 'A reviewed match connects this occupation to an entry in a selected MOM demand source.'
-						: 'Absence from these lists is not weak demand. Coverage is limited to the occupations each source names.'}
-				</p>
-			</div>
-		</div>
-		{#if modernQueries.length > 0}
-			<p class="mt-4 max-w-4xl text-sm leading-relaxed text-muted-foreground">
-				<strong class="text-foreground">Also found as:</strong>
-				{modernQueries.map(query => query.title).join(' · ')}.
-			</p>
-		{/if}
-	</section>
-
-	{#if occupation.taxonomy.detailed_definition}
-		<details class="mt-5 border border-border bg-card">
-			<summary class="cursor-pointer px-4 py-3 text-sm font-semibold text-foreground">
-				Read the official SSOC definition
-			</summary>
-			<p class="border-t border-border px-4 py-4 text-sm leading-relaxed text-muted-foreground">
-				{occupation.taxonomy.detailed_definition}
-			</p>
-		</details>
-	{/if}
+	<OccupationHero
+		{spokenTitle}
+		officialTitle={spokenTitle === view.title ? undefined : view.title}
+		code={view.code}
+		scoreValue={formatPressureNumber(view.pressureRank)}
+		ranked={view.pressureRank != null}
+		pressureLabel={view.pressureRank == null
+			? 'Not ranked — not enough mapped task evidence yet.'
+			: view.pressureLabel}
+		pressureTone={view.pressureTone}
+		statusLabel={exposure ? 'Pressure ranked' : 'Not ranked'}
+		meaning={view.pressureRank == null
+			? 'This official occupation is shown, but V9 does not assign a pressure percentile.'
+			: `Relative task overlap among ${view.pressurePopulation?.toLocaleString() ?? 987} scored Singapore occupations.`}
+		caveat="This is mapped AI task overlap, not a job-loss probability."
+		payValue={formatWage(view.wageMedian)}
+		payDetail={wage
+			? 'Gross monthly median · June 2025 · establishments with at least 25 employees.'
+			: 'No direct pay row in this table.'}
+		demandValue={demandSummary}
+		demandDetail={view.demandSignals.length > 0
+			? 'A reviewed match in a selected MOM demand or shortage list.'
+			: 'No match in selected lists. Coverage is limited to the occupations each source names.'}
+		definition={occupation.taxonomy.detailed_definition}
+		alsoFoundAs={modernQueries.length > 0
+			? modernQueries.map(query => query.title).join(' · ')
+			: undefined}
+	>
+		{#snippet actions()}
+			<Button variant="outline" href="/compare?entities=occupation:{view.code}" class="min-h-11"
+				>Compare these jobs</Button
+			>
+			<SaveJobButton kind="occupation" id={view.code} size="default" class="min-h-11" />
+			<SharePageButton title={`${spokenTitle} | ${SITE.name}`} size="default" />
+		{/snippet}
+	</OccupationHero>
 
 	<MappedTaskEvidence
 		groups={data.mappedTaskExamples}
@@ -249,6 +207,8 @@
 		licenseUrl={data.taskEvidenceSource.licenseUrl}
 		occupationCode={view.code}
 	/>
+
+	<CapabilityProfile profile={data.capabilityProfile} status={data.capabilityStatus} />
 
 	<section class="mt-10" aria-labelledby="actions-heading">
 		<h2 id="actions-heading" class={sectionLabel()}>Reviewed guidance: what you can do next</h2>
@@ -299,6 +259,10 @@
 			>
 		</div>
 	</section>
+
+	{#if data.economicContext}
+		<EconomicOutcomeEvidence context={data.economicContext} />
+	{/if}
 
 	<section class="mt-10 grid min-w-0 gap-6 lg:grid-cols-2">
 		<div class="min-w-0">

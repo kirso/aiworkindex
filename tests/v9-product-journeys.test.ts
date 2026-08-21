@@ -37,9 +37,11 @@ describe('V9 consumer product journeys', () => {
 
 	test('keeps long official definitions and role directories behind progressive disclosure', () => {
 		const occupation = source('src/routes/occupation/[ssoc]/+page.svelte');
+		const hero = source('src/lib/components/ui/OccupationHero.svelte');
 		const roles = source('src/routes/roles/+page.svelte');
-		assert.match(occupation, /Read the official SSOC definition/);
+		assert.match(hero, /Read the official SSOC definition/);
 		assert.match(occupation, /spokenOccupationTitle/);
+		assert.match(occupation, /definition=\{occupation\.taxonomy\.detailed_definition\}/);
 		assert.doesNotMatch(occupation, /view\.title\.split\('\/'\)/);
 		assert.match(roles, /visibleLimit = \$state\(24\)/);
 		assert.match(roles, /Show all \{resultCount\} roles/);
@@ -52,6 +54,18 @@ describe('V9 consumer product journeys', () => {
 		assert.match(menu, /aria-label="Search occupations, roles or pages"/);
 		assert.match(dialog, /<Dialog\.Header class="sr-only">/);
 		assert.ok(dialog.indexOf('<Dialog.Content') < dialog.indexOf('<Dialog.Header'));
+	});
+
+	test('restores a named homepage search listbox without Gradient legends', () => {
+		const search = source('src/lib/components/v9-browser/OccupationSearch.svelte');
+		const hero = source('src/lib/components/ui/OccupationHero.svelte');
+		assert.match(search, /role="combobox"/);
+		assert.match(search, /role="listbox"/);
+		assert.match(search, /role="option"/);
+		assert.match(search, /aria-selected=/);
+		assert.doesNotMatch(search, /Exposed: Gradient/);
+		assert.match(hero, /display\(\{ size: 'hero' \}\)/);
+		assert.doesNotMatch(hero, /Exposed: Gradient|riskBadge|Highest Risk|Augmented/);
 	});
 
 	test('does not attach a family radar to withheld role mappings', () => {

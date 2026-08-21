@@ -113,6 +113,23 @@ export function spokenOccupationTitle(
 	return sentenceCaseIfShouting(firstSegment || officialTitle);
 }
 
+const MAJOR_GROUP_SHORT: Record<string, string> = {
+	'1': 'Managers',
+	'2': 'Professionals',
+	'3': 'Associate professionals',
+	'4': 'Clerical support',
+	'5': 'Services and sales',
+	'6': 'Agricultural',
+	'7': 'Crafts',
+	'8': 'Plant operators',
+	'9': 'Cleaners and labourers'
+};
+
+/** Short group name for maps and filters. Official SSOC wording stays in data. */
+export function spokenMajorGroupTitle(code: string, officialTitle = ''): string {
+	return MAJOR_GROUP_SHORT[code] ?? spokenOccupationTitle(officialTitle);
+}
+
 export function pressureLabel(exposure: V9GenAiTaskExposure | null): string {
 	if (!exposure) return 'Pressure not ranked';
 	const least = exposure.potential25.least_exposed;
@@ -126,8 +143,22 @@ export function pressureTone(exposure: V9GenAiTaskExposure | null): PressureTone
 }
 
 export function pressureComparison(rank: number | null): string {
-	if (rank == null) return 'AI work pressure is not ranked because the official mapping lacks usable evidence.';
-	return `AI task pressure has a midrank percentile of ${rank.toFixed(rank % 1 === 0 ? 0 : 1)} among scored Singapore occupations.`;
+	if (rank == null) return 'Not ranked — not enough mapped task evidence yet.';
+	return `This occupation sits at the ${rank.toFixed(rank % 1 === 0 ? 0 : 1)} percentile of mapped AI task overlap among scored Singapore occupations.`;
+}
+
+export function formatPressureNumber(rank: number | null): string {
+	if (rank == null) return 'Not ranked';
+	return rank.toFixed(rank % 1 === 0 ? 0 : 1);
+}
+
+export function toneFromPercentile(rank: number | null): PressureTone {
+	if (rank == null) return 'moderate';
+	if (rank < 20) return 'very_low';
+	if (rank < 40) return 'low';
+	if (rank < 60) return 'moderate';
+	if (rank < 80) return 'high';
+	return 'very_high';
 }
 
 export function toV9OccupationView(occupation: V9Occupation): V9OccupationView {

@@ -126,9 +126,9 @@
 					</div>
 
 					<div class="min-w-0">
-						<div class="flex items-center gap-2">
+						<div class="flex items-center gap-3">
 							<span
-								class="h-3 w-3 shrink-0 rounded-sm {item.pressureRank == null
+								class="h-2.5 w-10 shrink-0 {item.pressureRank == null
 									? 'unranked-hatch border border-border'
 									: ''}"
 								style={item.pressureRank == null
@@ -136,7 +136,7 @@
 									: `background: ${pressureColorScale(item.pressureRank)}`}
 								aria-hidden="true"
 							></span>
-							<p class="font-mono text-sm font-semibold tabular-nums text-foreground">
+							<p class="font-mono text-lg font-semibold tabular-nums text-foreground">
 								{formatPercentile(item.pressureRank)}
 							</p>
 						</div>
