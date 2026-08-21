@@ -16,8 +16,8 @@ interface ResearchArtifact {
 	claim_boundary: string;
 	publication_rule: {
 		relations_allowed: string[];
-		detailed_title_identity_required: boolean;
-		close_broad_narrow_relations_allowed: boolean;
+		detailed_identity_required: boolean;
+		unreviewed_close_broad_narrow_relations_allowed: boolean;
 		missingness: string;
 	};
 	coverage: {
@@ -78,21 +78,24 @@ describe('V9 separate research signals', () => {
 		const artifact = read();
 		assert.equal(artifact.headline_effect, 'none');
 		assert.match(artifact.claim_boundary, /cannot change the ILO headline/);
-		assert.deepEqual(artifact.publication_rule.relations_allowed, ['exactMatch']);
-		assert.equal(artifact.publication_rule.detailed_title_identity_required, true);
-		assert.equal(artifact.publication_rule.close_broad_narrow_relations_allowed, false);
+		assert.deepEqual(artifact.publication_rule.relations_allowed, [
+			'exactMatch',
+			'explicitly reviewed closeMatch'
+		]);
+		assert.equal(artifact.publication_rule.detailed_identity_required, true);
+		assert.equal(artifact.publication_rule.unreviewed_close_broad_narrow_relations_allowed, false);
 		assert.equal(artifact.publication_rule.missingness, 'unavailable_never_zero');
 		assert.deepEqual(artifact.coverage, {
 			ssoc_occupations: 1001,
-			reviewed_identity_profiles: 68,
-			eloundou_theoretical_exposure_available: 68,
-			anthropic_observed_exposure_available: 66,
-			both_signals_available: 66,
-			unavailable_without_reviewed_identity: 933,
+			reviewed_identity_profiles: 75,
+			eloundou_theoretical_exposure_available: 75,
+			anthropic_observed_exposure_available: 73,
+			both_signals_available: 73,
+			unavailable_without_reviewed_identity: 926,
 			anthropic_unavailable_source_rows_after_identity: 2
 		});
 		assert.equal(Object.keys(artifact.occupation_status).length, 1001);
-		assert.equal(Object.keys(artifact.profiles).length, 68);
+		assert.equal(Object.keys(artifact.profiles).length, 75);
 	});
 
 	test('reuses only the reviewed capability identity owner', () => {

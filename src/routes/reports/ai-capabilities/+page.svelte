@@ -9,7 +9,7 @@
 
 <Seo
 	title="What Can AI Do Today? OECD Capability Profiles for Singapore Jobs"
-	description="Explore a conservative V9 mapping of the OECD 2026 AI Capability Gap Index to 68 Singapore occupations, kept separate from AI task pressure and employment outcomes."
+	description={`Explore a reviewed V9 mapping of the OECD 2026 AI Capability Gap Index to ${data.coverage.available_reviewed_identity_profiles} Singapore occupations, kept separate from AI task pressure and employment outcomes.`}
 	path="/reports/ai-capabilities"
 	type="article"
 />
@@ -33,8 +33,8 @@
 		</h1>
 		<p class="mt-4 max-w-3xl text-base leading-relaxed text-muted-foreground">
 			The OECD compares present AI capabilities with nine kinds of ability that occupations demand.
-			V9 publishes that profile only when the detailed Singapore title and mapped O*NET title agree
-			under a conservative rule.
+			V9 publishes that profile only when the detailed Singapore and O*NET occupations agree under
+			the conservative title rule or an explicit title-and-definition review.
 		</p>
 	</header>
 
@@ -53,7 +53,7 @@
 		</div>
 		<div class="bg-primary p-5 text-primary-foreground">
 			<p class="font-mono text-3xl font-semibold tabular-nums">
-				{data.coverage.available_exact_title_identity_profiles}
+				{data.coverage.available_reviewed_identity_profiles}
 			</p>
 			<p class="mt-1 text-sm font-medium">passed detailed-title identity and are published</p>
 		</div>
@@ -105,8 +105,10 @@
 				Examples with higher mapped proximity
 			</h2>
 			<p class="mt-3 text-sm leading-relaxed text-muted-foreground">
-				These are examples within the 68-title subset, not a ranking of all Singapore work. The
-				missing 933 occupations are not lower; their profile is unavailable.
+				These are examples within the {data.coverage
+					.available_reviewed_identity_profiles}-occupation subset, not a ranking of all Singapore
+				work. The missing {data.coverage.unavailable_without_published_profile}
+				occupations are not lower; their profile is unavailable.
 			</p>
 		</div>
 		<div class="mt-4 grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-3">
@@ -136,7 +138,8 @@
 			<p class="mt-3 text-sm leading-relaxed text-muted-foreground">
 				The official chain first maps a Singapore occupation to an ISCO group. An exact ESCO–O*NET
 				relation can still point to another occupation inside that group. V9 therefore requires a
-				contiguous detailed-title match and does not use search synonyms, examples or close matches.
+				contiguous detailed-title match. Seven additional identities were accepted through a
+				published title-and-definition review; there is no fuzzy or occupation-group fallback.
 			</p>
 		</div>
 		<div class={card({ padding: 'lg' })}>

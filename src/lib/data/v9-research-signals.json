@@ -9,21 +9,25 @@
   "publication_rule": {
     "identity_owner": "data/v9-capability-profiles.json",
     "relations_allowed": [
-      "exactMatch"
+      "exactMatch",
+      "explicitly reviewed closeMatch"
     ],
-    "detailed_title_identity_required": true,
-    "close_broad_narrow_relations_allowed": false,
-    "source_code_match": "exact",
+    "detailed_identity_required": true,
+    "unreviewed_close_broad_narrow_relations_allowed": false,
+    "source_code_match": {
+      "eloundou": "exact detailed O*NET-SOC code",
+      "anthropic_observed_exposure": "six-digit parent SOC code published by the source; source title and grain stay visible"
+    },
     "aggregation": "not_needed_one_reviewed_identity_candidate_per_published_occupation",
     "missingness": "unavailable_never_zero"
   },
   "coverage": {
     "ssoc_occupations": 1001,
-    "reviewed_identity_profiles": 68,
-    "eloundou_theoretical_exposure_available": 68,
-    "anthropic_observed_exposure_available": 66,
-    "both_signals_available": 66,
-    "unavailable_without_reviewed_identity": 933,
+    "reviewed_identity_profiles": 75,
+    "eloundou_theoretical_exposure_available": 75,
+    "anthropic_observed_exposure_available": 73,
+    "both_signals_available": 73,
+    "unavailable_without_reviewed_identity": 926,
     "anthropic_unavailable_source_rows_after_identity": 2
   },
   "sources": {
@@ -1126,9 +1130,9 @@
       "anthropic_observed_exposure": "unavailable_no_reviewed_identity"
     },
     "22200": {
-      "identity": "unavailable_no_reviewed_identity",
-      "eloundou_theoretical_exposure": "unavailable_no_reviewed_identity",
-      "anthropic_observed_exposure": "unavailable_no_reviewed_identity"
+      "identity": "available_reviewed_identity",
+      "eloundou_theoretical_exposure": "available",
+      "anthropic_observed_exposure": "available"
     },
     "22301": {
       "identity": "unavailable_no_reviewed_identity",
@@ -1156,9 +1160,9 @@
       "anthropic_observed_exposure": "unavailable_no_reviewed_identity"
     },
     "22621": {
-      "identity": "unavailable_no_reviewed_identity",
-      "eloundou_theoretical_exposure": "unavailable_no_reviewed_identity",
-      "anthropic_observed_exposure": "unavailable_no_reviewed_identity"
+      "identity": "available_reviewed_identity",
+      "eloundou_theoretical_exposure": "available",
+      "anthropic_observed_exposure": "available"
     },
     "22629": {
       "identity": "unavailable_no_reviewed_identity",
@@ -1181,9 +1185,9 @@
       "anthropic_observed_exposure": "unavailable_no_reviewed_identity"
     },
     "22640": {
-      "identity": "unavailable_no_reviewed_identity",
-      "eloundou_theoretical_exposure": "unavailable_no_reviewed_identity",
-      "anthropic_observed_exposure": "unavailable_no_reviewed_identity"
+      "identity": "available_reviewed_identity",
+      "eloundou_theoretical_exposure": "available",
+      "anthropic_observed_exposure": "available"
     },
     "22651": {
       "identity": "unavailable_no_reviewed_identity",
@@ -1441,9 +1445,9 @@
       "anthropic_observed_exposure": "unavailable_no_reviewed_identity"
     },
     "24214": {
-      "identity": "unavailable_no_reviewed_identity",
-      "eloundou_theoretical_exposure": "unavailable_no_reviewed_identity",
-      "anthropic_observed_exposure": "unavailable_no_reviewed_identity"
+      "identity": "available_reviewed_identity",
+      "eloundou_theoretical_exposure": "available",
+      "anthropic_observed_exposure": "available"
     },
     "24221": {
       "identity": "unavailable_no_reviewed_identity",
@@ -1586,9 +1590,9 @@
       "anthropic_observed_exposure": "unavailable_no_reviewed_identity"
     },
     "25111": {
-      "identity": "unavailable_no_reviewed_identity",
-      "eloundou_theoretical_exposure": "unavailable_no_reviewed_identity",
-      "anthropic_observed_exposure": "unavailable_no_reviewed_identity"
+      "identity": "available_reviewed_identity",
+      "eloundou_theoretical_exposure": "available",
+      "anthropic_observed_exposure": "available"
     },
     "25112": {
       "identity": "unavailable_no_reviewed_identity",
@@ -1596,9 +1600,9 @@
       "anthropic_observed_exposure": "unavailable_no_reviewed_identity"
     },
     "25113": {
-      "identity": "unavailable_no_reviewed_identity",
-      "eloundou_theoretical_exposure": "unavailable_no_reviewed_identity",
-      "anthropic_observed_exposure": "unavailable_no_reviewed_identity"
+      "identity": "available_reviewed_identity",
+      "eloundou_theoretical_exposure": "available",
+      "anthropic_observed_exposure": "available"
     },
     "25114": {
       "identity": "unavailable_no_reviewed_identity",
@@ -1671,9 +1675,9 @@
       "anthropic_observed_exposure": "unavailable_no_reviewed_identity"
     },
     "25213": {
-      "identity": "unavailable_no_reviewed_identity",
-      "eloundou_theoretical_exposure": "unavailable_no_reviewed_identity",
-      "anthropic_observed_exposure": "unavailable_no_reviewed_identity"
+      "identity": "available_reviewed_identity",
+      "eloundou_theoretical_exposure": "available",
+      "anthropic_observed_exposure": "available"
     },
     "25220": {
       "identity": "unavailable_no_reviewed_identity",
@@ -5105,31 +5109,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "1212"
         ],
         "onet_soc_code": "11-3121.00",
         "onet_title": "Human Resources Managers",
-        "matched_ssoc_title_variant": "Human resource manager"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Human resource manager",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.48,
-        "within_published_subset_midrank_percentile": 65.6716,
+        "within_published_subset_midrank_percentile": 63.5135,
         "source_occupation": {
           "code": "11-3121.00",
           "title": "Human Resources Managers"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0,
-        "within_published_subset_midrank_percentile": 19.2308,
+        "within_published_subset_midrank_percentile": 17.3611,
         "source_occupation": {
           "code": "11-3121",
           "title": "Human Resources Managers"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -5145,31 +5155,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "1221"
         ],
         "onet_soc_code": "11-2022.00",
         "onet_title": "Sales Managers",
-        "matched_ssoc_title_variant": "Sales manager"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Sales manager",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.45,
-        "within_published_subset_midrank_percentile": 53.7313,
+        "within_published_subset_midrank_percentile": 52.7027,
         "source_occupation": {
           "code": "11-2022.00",
           "title": "Sales Managers"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.0433,
-        "within_published_subset_midrank_percentile": 47.6923,
+        "within_published_subset_midrank_percentile": 44.4444,
         "source_occupation": {
           "code": "11-2022",
           "title": "Sales Managers"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -5185,31 +5201,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "1221"
         ],
         "onet_soc_code": "11-2021.00",
         "onet_title": "Marketing Managers",
-        "matched_ssoc_title_variant": "Marketing manager"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Marketing manager",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.5,
-        "within_published_subset_midrank_percentile": 72.3881,
+        "within_published_subset_midrank_percentile": 69.5946,
         "source_occupation": {
           "code": "11-2021.00",
           "title": "Marketing Managers"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.3195,
-        "within_published_subset_midrank_percentile": 89.2308,
+        "within_published_subset_midrank_percentile": 88.8889,
         "source_occupation": {
           "code": "11-2021",
           "title": "Marketing Managers"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -5225,31 +5247,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "1323"
         ],
         "onet_soc_code": "11-9021.00",
         "onet_title": "Construction Managers",
-        "matched_ssoc_title_variant": "Construction manager"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Construction manager",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.4444,
-        "within_published_subset_midrank_percentile": 50.7463,
+        "within_published_subset_midrank_percentile": 50,
         "source_occupation": {
           "code": "11-9021.00",
           "title": "Construction Managers"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.1186,
-        "within_published_subset_midrank_percentile": 69.2308,
+        "within_published_subset_midrank_percentile": 66.6667,
         "source_occupation": {
           "code": "11-9021",
           "title": "Construction Managers"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -5265,31 +5293,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "1324"
         ],
         "onet_soc_code": "11-3061.00",
         "onet_title": "Purchasing Managers",
-        "matched_ssoc_title_variant": "Purchasing manager"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Purchasing manager",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.5857,
-        "within_published_subset_midrank_percentile": 85.0746,
+        "within_published_subset_midrank_percentile": 81.0811,
         "source_occupation": {
           "code": "11-3061.00",
           "title": "Purchasing Managers"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.2004,
-        "within_published_subset_midrank_percentile": 76.9231,
+        "within_published_subset_midrank_percentile": 75,
         "source_occupation": {
           "code": "11-3061",
           "title": "Purchasing Managers"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -5305,31 +5339,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "1342"
         ],
         "onet_soc_code": "11-9111.00",
         "onet_title": "Medical and Health Services Managers",
-        "matched_ssoc_title_variant": "Health services manager"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Health services manager",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.4286,
-        "within_published_subset_midrank_percentile": 49.2537,
+        "within_published_subset_midrank_percentile": 47.973,
         "source_occupation": {
           "code": "11-9111.00",
           "title": "Medical and Health Services Managers"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.0659,
-        "within_published_subset_midrank_percentile": 58.4615,
+        "within_published_subset_midrank_percentile": 55.5556,
         "source_occupation": {
           "code": "11-9111",
           "title": "Medical and Health Services Managers"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -5345,31 +5385,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2113"
         ],
         "onet_soc_code": "19-2031.00",
         "onet_title": "Chemists",
-        "matched_ssoc_title_variant": "Chemist"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Chemist",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.38,
-        "within_published_subset_midrank_percentile": 40.2985,
+        "within_published_subset_midrank_percentile": 39.1892,
         "source_occupation": {
           "code": "19-2031.00",
           "title": "Chemists"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.2614,
-        "within_published_subset_midrank_percentile": 84.6154,
+        "within_published_subset_midrank_percentile": 81.9444,
         "source_occupation": {
           "code": "19-2031",
           "title": "Chemists"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -5385,14 +5431,18 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2120"
         ],
         "onet_soc_code": "15-2021.00",
         "onet_title": "Mathematicians",
-        "matched_ssoc_title_variant": "Mathematician"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Mathematician",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 1,
@@ -5401,15 +5451,17 @@
           "code": "15-2021.00",
           "title": "Mathematicians"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.4241,
-        "within_published_subset_midrank_percentile": 93.8462,
+        "within_published_subset_midrank_percentile": 93.0556,
         "source_occupation": {
           "code": "15-2021",
           "title": "Mathematicians"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -5425,31 +5477,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2120"
         ],
         "onet_soc_code": "15-2011.00",
         "onet_title": "Actuaries",
-        "matched_ssoc_title_variant": "Actuary"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Actuary",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.5,
-        "within_published_subset_midrank_percentile": 72.3881,
+        "within_published_subset_midrank_percentile": 69.5946,
         "source_occupation": {
           "code": "15-2011.00",
           "title": "Actuaries"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.0539,
-        "within_published_subset_midrank_percentile": 50.7692,
+        "within_published_subset_midrank_percentile": 47.2222,
         "source_occupation": {
           "code": "15-2011",
           "title": "Actuaries"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -5465,31 +5523,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2120"
         ],
         "onet_soc_code": "15-2041.00",
         "onet_title": "Statisticians",
-        "matched_ssoc_title_variant": "Statistician"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Statistician",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.7895,
-        "within_published_subset_midrank_percentile": 94.0299,
+        "within_published_subset_midrank_percentile": 93.2432,
         "source_occupation": {
           "code": "15-2041.00",
           "title": "Statisticians"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.2107,
-        "within_published_subset_midrank_percentile": 78.4615,
+        "within_published_subset_midrank_percentile": 76.3889,
         "source_occupation": {
           "code": "15-2041",
           "title": "Statisticians"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -5505,31 +5569,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2131"
         ],
         "onet_soc_code": "19-1029.04",
         "onet_title": "Biologists",
-        "matched_ssoc_title_variant": "Biologist"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Biologist",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.4853,
-        "within_published_subset_midrank_percentile": 67.1642,
+        "within_published_subset_midrank_percentile": 64.8649,
         "source_occupation": {
           "code": "19-1029.04",
           "title": "Biologists"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.2452,
-        "within_published_subset_midrank_percentile": 83.0769,
+        "within_published_subset_midrank_percentile": 80.5556,
         "source_occupation": {
           "code": "19-1029",
           "title": "Biological Scientists, All Other"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -5545,31 +5615,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2141"
         ],
         "onet_soc_code": "17-2112.03",
         "onet_title": "Manufacturing Engineers",
-        "matched_ssoc_title_variant": "Manufacturing engineer"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Manufacturing engineer",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.4787,
-        "within_published_subset_midrank_percentile": 62.6866,
+        "within_published_subset_midrank_percentile": 60.8108,
         "source_occupation": {
           "code": "17-2112.03",
           "title": "Manufacturing Engineers"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.0367,
-        "within_published_subset_midrank_percentile": 46.1538,
+        "within_published_subset_midrank_percentile": 43.0556,
         "source_occupation": {
           "code": "17-2112",
           "title": "Industrial Engineers"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -5585,31 +5661,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2142"
         ],
         "onet_soc_code": "17-2051.00",
         "onet_title": "Civil Engineers",
-        "matched_ssoc_title_variant": "Civil engineer"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Civil engineer",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.4464,
-        "within_published_subset_midrank_percentile": 52.2388,
+        "within_published_subset_midrank_percentile": 51.3514,
         "source_occupation": {
           "code": "17-2051.00",
           "title": "Civil Engineers"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.0081,
-        "within_published_subset_midrank_percentile": 41.5385,
+        "within_published_subset_midrank_percentile": 37.5,
         "source_occupation": {
           "code": "17-2051",
           "title": "Civil Engineers"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -5625,31 +5707,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2143"
         ],
         "onet_soc_code": "17-2081.00",
         "onet_title": "Environmental Engineers",
-        "matched_ssoc_title_variant": "Environmental engineer"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Environmental engineer",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.5556,
-        "within_published_subset_midrank_percentile": 77.6119,
+        "within_published_subset_midrank_percentile": 74.3243,
         "source_occupation": {
           "code": "17-2081.00",
           "title": "Environmental Engineers"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.0358,
-        "within_published_subset_midrank_percentile": 44.6154,
+        "within_published_subset_midrank_percentile": 41.6667,
         "source_occupation": {
           "code": "17-2081",
           "title": "Environmental Engineers"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -5665,31 +5753,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2144"
         ],
         "onet_soc_code": "17-2141.00",
         "onet_title": "Mechanical Engineers",
-        "matched_ssoc_title_variant": "Mechanical engineer"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Mechanical engineer",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.4535,
-        "within_published_subset_midrank_percentile": 55.2239,
+        "within_published_subset_midrank_percentile": 54.0541,
         "source_occupation": {
           "code": "17-2141.00",
           "title": "Mechanical Engineers"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.0813,
-        "within_published_subset_midrank_percentile": 63.8462,
+        "within_published_subset_midrank_percentile": 60.4167,
         "source_occupation": {
           "code": "17-2141",
           "title": "Mechanical Engineers"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -5705,31 +5799,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2144"
         ],
         "onet_soc_code": "17-2141.02",
         "onet_title": "Automotive Engineers",
-        "matched_ssoc_title_variant": "Automotive engineer"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Automotive engineer",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.66,
-        "within_published_subset_midrank_percentile": 91.0448,
+        "within_published_subset_midrank_percentile": 87.8378,
         "source_occupation": {
           "code": "17-2141.02",
           "title": "Automotive Engineers"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.0813,
-        "within_published_subset_midrank_percentile": 63.8462,
+        "within_published_subset_midrank_percentile": 60.4167,
         "source_occupation": {
           "code": "17-2141",
           "title": "Mechanical Engineers"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -5745,31 +5845,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2149"
         ],
         "onet_soc_code": "17-2031.00",
         "onet_title": "Bioengineers and Biomedical Engineers",
-        "matched_ssoc_title_variant": "Biomedical engineer"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Biomedical engineer",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.5897,
-        "within_published_subset_midrank_percentile": 86.5672,
+        "within_published_subset_midrank_percentile": 82.4324,
         "source_occupation": {
           "code": "17-2031.00",
           "title": "Bioengineers and Biomedical Engineers"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.1328,
-        "within_published_subset_midrank_percentile": 70.7692,
+        "within_published_subset_midrank_percentile": 68.0556,
         "source_occupation": {
           "code": "17-2031",
           "title": "Bioengineers and Biomedical Engineers"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -5785,31 +5891,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2151"
         ],
         "onet_soc_code": "17-2071.00",
         "onet_title": "Electrical Engineers",
-        "matched_ssoc_title_variant": "Electrical engineer"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Electrical engineer",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.5625,
-        "within_published_subset_midrank_percentile": 79.1045,
+        "within_published_subset_midrank_percentile": 75.6757,
         "source_occupation": {
           "code": "17-2071.00",
           "title": "Electrical Engineers"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.059,
-        "within_published_subset_midrank_percentile": 53.8462,
+        "within_published_subset_midrank_percentile": 50,
         "source_occupation": {
           "code": "17-2071",
           "title": "Electrical Engineers"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -5825,31 +5937,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2152"
         ],
         "onet_soc_code": "17-2072.00",
         "onet_title": "Electronics Engineers, Except Computer",
-        "matched_ssoc_title_variant": "Electronics engineer"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Electronics engineer",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.5735,
-        "within_published_subset_midrank_percentile": 82.0896,
+        "within_published_subset_midrank_percentile": 78.3784,
         "source_occupation": {
           "code": "17-2072.00",
           "title": "Electronics Engineers, Except Computer"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.0999,
-        "within_published_subset_midrank_percentile": 66.1538,
+        "within_published_subset_midrank_percentile": 63.8889,
         "source_occupation": {
           "code": "17-2072",
           "title": "Electronics Engineers, Except Computer"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -5865,31 +5983,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2162"
         ],
         "onet_soc_code": "17-1012.00",
         "onet_title": "Landscape Architects",
-        "matched_ssoc_title_variant": "Landscape architect"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Landscape architect",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.4211,
-        "within_published_subset_midrank_percentile": 46.2687,
+        "within_published_subset_midrank_percentile": 44.5946,
         "source_occupation": {
           "code": "17-1012.00",
           "title": "Landscape Architects"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0,
-        "within_published_subset_midrank_percentile": 19.2308,
+        "within_published_subset_midrank_percentile": 17.3611,
         "source_occupation": {
           "code": "17-1012",
           "title": "Landscape Architects"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -5905,31 +6029,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2163"
         ],
         "onet_soc_code": "27-1022.00",
         "onet_title": "Fashion Designers",
-        "matched_ssoc_title_variant": "Fashion designer"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Fashion designer",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.3906,
-        "within_published_subset_midrank_percentile": 43.2836,
+        "within_published_subset_midrank_percentile": 41.8919,
         "source_occupation": {
           "code": "27-1022.00",
           "title": "Fashion Designers"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.0568,
-        "within_published_subset_midrank_percentile": 52.3077,
+        "within_published_subset_midrank_percentile": 48.6111,
         "source_occupation": {
           "code": "27-1022",
           "title": "Fashion Designers"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -5945,31 +6075,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2163"
         ],
         "onet_soc_code": "27-1021.00",
         "onet_title": "Commercial and Industrial Designers",
-        "matched_ssoc_title_variant": "Industrial designer"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Industrial designer",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.4655,
-        "within_published_subset_midrank_percentile": 59.7015,
+        "within_published_subset_midrank_percentile": 58.1081,
         "source_occupation": {
           "code": "27-1021.00",
           "title": "Commercial and Industrial Designers"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.0437,
-        "within_published_subset_midrank_percentile": 49.2308,
+        "within_published_subset_midrank_percentile": 45.8333,
         "source_occupation": {
           "code": "27-1021",
           "title": "Commercial and Industrial Designers"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -5985,31 +6121,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2166"
         ],
         "onet_soc_code": "27-1024.00",
         "onet_title": "Graphic Designers",
-        "matched_ssoc_title_variant": "Graphic designer"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Graphic designer",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.5,
-        "within_published_subset_midrank_percentile": 72.3881,
+        "within_published_subset_midrank_percentile": 69.5946,
         "source_occupation": {
           "code": "27-1024.00",
           "title": "Graphic Designers"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.3672,
-        "within_published_subset_midrank_percentile": 92.3077,
+        "within_published_subset_midrank_percentile": 91.6667,
         "source_occupation": {
           "code": "27-1024",
           "title": "Graphic Designers"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -6025,35 +6167,180 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "3153"
         ],
         "onet_soc_code": "53-2011.00",
         "onet_title": "Airline Pilots, Copilots, and Flight Engineers",
-        "matched_ssoc_title_variant": "Flight engineer"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Flight engineer",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.3523,
-        "within_published_subset_midrank_percentile": 38.806,
+        "within_published_subset_midrank_percentile": 37.8378,
         "source_occupation": {
           "code": "53-2011.00",
           "title": "Airline Pilots, Copilots, and Flight Engineers"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0,
-        "within_published_subset_midrank_percentile": 19.2308,
+        "within_published_subset_midrank_percentile": 17.3611,
         "source_occupation": {
           "code": "53-2011",
           "title": "Airline Pilots, Copilots, and Flight Engineers"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
         "value_0_1": 0.3523,
+        "interpretation": "Eloundou beta minus Anthropic observed exposure. A larger positive gap indicates more theoretical scope than observed Claude use in the source periods; it is not a forecast."
+      }
+    },
+    "22200": {
+      "occupation": {
+        "ssoc2024": "22200",
+        "title": "Registered nurse and related nursing professional (excluding enrolled nurse)"
+      },
+      "status": "available_reviewed_identity",
+      "headline_effect": "none",
+      "mapping": {
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
+        "ssoc_isco_quality": "partial",
+        "official_isco08_codes": [
+          "2222",
+          "2221"
+        ],
+        "onet_soc_code": "29-1141.00",
+        "onet_title": "Registered Nurses",
+        "identity_relation": "exactMatch",
+        "identity_basis": "reviewed_title_and_definition",
+        "matched_ssoc_title_variant": "Registered nurse and related nursing professional (excluding enrolled nurse)",
+        "reviewed_at": "2026-08-21",
+        "review_rationale": "The source occupation is the named registered-nurse component of this detailed SSOC occupation; enrolled nurses are explicitly excluded on both sides of the decision."
+      },
+      "eloundou_theoretical_exposure": {
+        "value_0_1": 0.3333,
+        "within_published_subset_midrank_percentile": 34.4595,
+        "source_occupation": {
+          "code": "29-1141.00",
+          "title": "Registered Nurses"
+        },
+        "source_grain": "detailed O*NET-SOC occupation",
+        "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
+      },
+      "anthropic_observed_exposure": {
+        "value_0_1": 0.0595,
+        "within_published_subset_midrank_percentile": 51.3889,
+        "source_occupation": {
+          "code": "29-1141",
+          "title": "Registered Nurses"
+        },
+        "source_grain": "six-digit parent SOC occupation",
+        "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
+      },
+      "derived_theory_use_gap": {
+        "value_0_1": 0.2738,
+        "interpretation": "Eloundou beta minus Anthropic observed exposure. A larger positive gap indicates more theoretical scope than observed Claude use in the source periods; it is not a forecast."
+      }
+    },
+    "22621": {
+      "occupation": {
+        "ssoc2024": "22621",
+        "title": "Pharmacist (patient care)"
+      },
+      "status": "available_reviewed_identity",
+      "headline_effect": "none",
+      "mapping": {
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
+        "ssoc_isco_quality": "one_to_one",
+        "official_isco08_codes": [
+          "2262"
+        ],
+        "onet_soc_code": "29-1051.00",
+        "onet_title": "Pharmacists",
+        "identity_relation": "closeMatch",
+        "identity_basis": "reviewed_title_and_definition",
+        "matched_ssoc_title_variant": "Pharmacist (patient care)",
+        "reviewed_at": "2026-08-21",
+        "review_rationale": "The O*NET occupation is broader than the patient-care qualifier, but its pharmacist work identity contains the detailed SSOC role without changing occupation family."
+      },
+      "eloundou_theoretical_exposure": {
+        "value_0_1": 0.4286,
+        "within_published_subset_midrank_percentile": 47.973,
+        "source_occupation": {
+          "code": "29-1051.00",
+          "title": "Pharmacists"
+        },
+        "source_grain": "detailed O*NET-SOC occupation",
+        "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
+      },
+      "anthropic_observed_exposure": {
+        "value_0_1": 0.0896,
+        "within_published_subset_midrank_percentile": 62.5,
+        "source_occupation": {
+          "code": "29-1051",
+          "title": "Pharmacists"
+        },
+        "source_grain": "six-digit parent SOC occupation",
+        "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
+      },
+      "derived_theory_use_gap": {
+        "value_0_1": 0.339,
+        "interpretation": "Eloundou beta minus Anthropic observed exposure. A larger positive gap indicates more theoretical scope than observed Claude use in the source periods; it is not a forecast."
+      }
+    },
+    "22640": {
+      "occupation": {
+        "ssoc2024": "22640",
+        "title": "Physiotherapist"
+      },
+      "status": "available_reviewed_identity",
+      "headline_effect": "none",
+      "mapping": {
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
+        "ssoc_isco_quality": "one_to_one",
+        "official_isco08_codes": [
+          "2264"
+        ],
+        "onet_soc_code": "29-1123.00",
+        "onet_title": "Physical Therapists",
+        "identity_relation": "exactMatch",
+        "identity_basis": "reviewed_title_and_definition",
+        "matched_ssoc_title_variant": "Physiotherapist",
+        "reviewed_at": "2026-08-21",
+        "review_rationale": "Physiotherapist and Physical Therapist are the Singapore and United States titles for the same regulated therapy occupation."
+      },
+      "eloundou_theoretical_exposure": {
+        "value_0_1": 0.1915,
+        "within_published_subset_midrank_percentile": 18.9189,
+        "source_occupation": {
+          "code": "29-1123.00",
+          "title": "Physical Therapists"
+        },
+        "source_grain": "detailed O*NET-SOC occupation",
+        "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
+      },
+      "anthropic_observed_exposure": {
+        "value_0_1": 0.0174,
+        "within_published_subset_midrank_percentile": 40.2778,
+        "source_occupation": {
+          "code": "29-1123",
+          "title": "Physical Therapists"
+        },
+        "source_grain": "six-digit parent SOC occupation",
+        "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
+      },
+      "derived_theory_use_gap": {
+        "value_0_1": 0.1741,
         "interpretation": "Eloundou beta minus Anthropic observed exposure. A larger positive gap indicates more theoretical scope than observed Claude use in the source periods; it is not a forecast."
       }
     },
@@ -6065,31 +6352,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2266"
         ],
         "onet_soc_code": "29-1181.00",
         "onet_title": "Audiologists",
-        "matched_ssoc_title_variant": "Audiologist"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Audiologist",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.4545,
-        "within_published_subset_midrank_percentile": 57.4627,
+        "within_published_subset_midrank_percentile": 56.0811,
         "source_occupation": {
           "code": "29-1181.00",
           "title": "Audiologists"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0,
-        "within_published_subset_midrank_percentile": 19.2308,
+        "within_published_subset_midrank_percentile": 17.3611,
         "source_occupation": {
           "code": "29-1181",
           "title": "Audiologists"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -6105,31 +6398,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2267"
         ],
         "onet_soc_code": "29-1041.00",
         "onet_title": "Optometrists",
-        "matched_ssoc_title_variant": "Optometrist"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Optometrist",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.3,
-        "within_published_subset_midrank_percentile": 29.8507,
+        "within_published_subset_midrank_percentile": 28.3784,
         "source_occupation": {
           "code": "29-1041.00",
           "title": "Optometrists"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0,
-        "within_published_subset_midrank_percentile": 19.2308,
+        "within_published_subset_midrank_percentile": 17.3611,
         "source_occupation": {
           "code": "29-1041",
           "title": "Optometrists"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -6145,31 +6444,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2269"
         ],
         "onet_soc_code": "29-1122.00",
         "onet_title": "Occupational Therapists",
-        "matched_ssoc_title_variant": "Occupational therapist"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Occupational therapist",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.303,
-        "within_published_subset_midrank_percentile": 31.3433,
+        "within_published_subset_midrank_percentile": 29.7297,
         "source_occupation": {
           "code": "29-1122.00",
           "title": "Occupational Therapists"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.008,
-        "within_published_subset_midrank_percentile": 40,
+        "within_published_subset_midrank_percentile": 36.1111,
         "source_occupation": {
           "code": "29-1122",
           "title": "Occupational Therapists"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -6185,31 +6490,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2269"
         ],
         "onet_soc_code": "29-1011.00",
         "onet_title": "Chiropractors",
-        "matched_ssoc_title_variant": "Chiropractor"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Chiropractor",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.4545,
-        "within_published_subset_midrank_percentile": 57.4627,
+        "within_published_subset_midrank_percentile": 56.0811,
         "source_occupation": {
           "code": "29-1011.00",
           "title": "Chiropractors"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0,
-        "within_published_subset_midrank_percentile": 19.2308,
+        "within_published_subset_midrank_percentile": 17.3611,
         "source_occupation": {
           "code": "29-1011",
           "title": "Chiropractors"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -6225,31 +6536,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2269"
         ],
         "onet_soc_code": "29-1081.00",
         "onet_title": "Podiatrists",
-        "matched_ssoc_title_variant": "Podiatrist"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Podiatrist",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.2857,
-        "within_published_subset_midrank_percentile": 28.3582,
+        "within_published_subset_midrank_percentile": 27.027,
         "source_occupation": {
           "code": "29-1081.00",
           "title": "Podiatrists"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0,
-        "within_published_subset_midrank_percentile": 19.2308,
+        "within_published_subset_midrank_percentile": 17.3611,
         "source_occupation": {
           "code": "29-1081",
           "title": "Podiatrists"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -6265,31 +6582,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "3211"
         ],
         "onet_soc_code": "29-1124.00",
         "onet_title": "Radiation Therapists",
-        "matched_ssoc_title_variant": "Radiation therapist"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Radiation therapist",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.2805,
-        "within_published_subset_midrank_percentile": 26.8657,
+        "within_published_subset_midrank_percentile": 25.6757,
         "source_occupation": {
           "code": "29-1124.00",
           "title": "Radiation Therapists"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0,
-        "within_published_subset_midrank_percentile": 19.2308,
+        "within_published_subset_midrank_percentile": 17.3611,
         "source_occupation": {
           "code": "29-1124",
           "title": "Radiation Therapists"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -6305,31 +6628,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2330"
         ],
         "onet_soc_code": "25-2031.00",
         "onet_title": "Secondary School Teachers, Except Special and Career/Technical Education",
-        "matched_ssoc_title_variant": "Secondary school teacher"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Secondary school teacher",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.3333,
-        "within_published_subset_midrank_percentile": 35.8209,
+        "within_published_subset_midrank_percentile": 34.4595,
         "source_occupation": {
           "code": "25-2031.00",
           "title": "Secondary School Teachers, Except Special and Career/Technical Education"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.2901,
-        "within_published_subset_midrank_percentile": 87.6923,
+        "within_published_subset_midrank_percentile": 86.1111,
         "source_occupation": {
           "code": "25-2031",
           "title": "Secondary School Teachers, Except Special and Career/Technical Education"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -6345,35 +6674,181 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "3321"
         ],
         "onet_soc_code": "13-2053.00",
         "onet_title": "Insurance Underwriters",
-        "matched_ssoc_title_variant": "Insurance underwriter"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Insurance underwriter",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.5714,
-        "within_published_subset_midrank_percentile": 80.597,
+        "within_published_subset_midrank_percentile": 77.027,
         "source_occupation": {
           "code": "13-2053.00",
           "title": "Insurance Underwriters"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.0625,
-        "within_published_subset_midrank_percentile": 56.9231,
+        "within_published_subset_midrank_percentile": 54.1667,
         "source_occupation": {
           "code": "13-2053",
           "title": "Insurance Underwriters"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
         "value_0_1": 0.5089,
+        "interpretation": "Eloundou beta minus Anthropic observed exposure. A larger positive gap indicates more theoretical scope than observed Claude use in the source periods; it is not a forecast."
+      }
+    },
+    "24214": {
+      "occupation": {
+        "ssoc2024": "24214",
+        "title": "Sustainability project development/management professional"
+      },
+      "status": "available_reviewed_identity",
+      "headline_effect": "none",
+      "mapping": {
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
+        "ssoc_isco_quality": "partial",
+        "official_isco08_codes": [
+          "2133",
+          "2421"
+        ],
+        "onet_soc_code": "13-1199.05",
+        "onet_title": "Sustainability Specialists",
+        "identity_relation": "closeMatch",
+        "identity_basis": "reviewed_title_and_definition",
+        "matched_ssoc_title_variant": "Sustainability project development/management professional",
+        "reviewed_at": "2026-08-21",
+        "review_rationale": "The source role is the closest detailed sustainability-specialist identity and covers sustainability project development and management rather than a generic environmental occupation."
+      },
+      "eloundou_theoretical_exposure": {
+        "value_0_1": 0.6071,
+        "within_published_subset_midrank_percentile": 85.1351,
+        "source_occupation": {
+          "code": "13-1199.05",
+          "title": "Sustainability Specialists"
+        },
+        "source_grain": "detailed O*NET-SOC occupation",
+        "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
+      },
+      "anthropic_observed_exposure": {
+        "value_0_1": 0.1846,
+        "within_published_subset_midrank_percentile": 70.8333,
+        "source_occupation": {
+          "code": "13-1199",
+          "title": "Business Operations Specialists, All Other"
+        },
+        "source_grain": "six-digit parent SOC occupation",
+        "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
+      },
+      "derived_theory_use_gap": {
+        "value_0_1": 0.4225,
+        "interpretation": "Eloundou beta minus Anthropic observed exposure. A larger positive gap indicates more theoretical scope than observed Claude use in the source periods; it is not a forecast."
+      }
+    },
+    "25111": {
+      "occupation": {
+        "ssoc2024": "25111",
+        "title": "Systems designer/analyst"
+      },
+      "status": "available_reviewed_identity",
+      "headline_effect": "none",
+      "mapping": {
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
+        "ssoc_isco_quality": "one_to_one",
+        "official_isco08_codes": [
+          "2511"
+        ],
+        "onet_soc_code": "15-1211.00",
+        "onet_title": "Computer Systems Analysts",
+        "identity_relation": "closeMatch",
+        "identity_basis": "reviewed_title_and_definition",
+        "matched_ssoc_title_variant": "Systems designer/analyst",
+        "reviewed_at": "2026-08-21",
+        "review_rationale": "The O*NET role matches the systems-analysis component and its design-and-analysis definition; no broader computer occupation is included."
+      },
+      "eloundou_theoretical_exposure": {
+        "value_0_1": 0.75,
+        "within_published_subset_midrank_percentile": 90.5405,
+        "source_occupation": {
+          "code": "15-1211.00",
+          "title": "Computer Systems Analysts"
+        },
+        "source_grain": "detailed O*NET-SOC occupation",
+        "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
+      },
+      "anthropic_observed_exposure": {
+        "value_0_1": 0.2763,
+        "within_published_subset_midrank_percentile": 83.3333,
+        "source_occupation": {
+          "code": "15-1211",
+          "title": "Computer Systems Analysts"
+        },
+        "source_grain": "six-digit parent SOC occupation",
+        "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
+      },
+      "derived_theory_use_gap": {
+        "value_0_1": 0.4737,
+        "interpretation": "Eloundou beta minus Anthropic observed exposure. A larger positive gap indicates more theoretical scope than observed Claude use in the source periods; it is not a forecast."
+      }
+    },
+    "25113": {
+      "occupation": {
+        "ssoc2024": "25113",
+        "title": "Enterprise/Solution/Software architect"
+      },
+      "status": "available_reviewed_identity",
+      "headline_effect": "none",
+      "mapping": {
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
+        "ssoc_isco_quality": "partial",
+        "official_isco08_codes": [
+          "2511",
+          "2523"
+        ],
+        "onet_soc_code": "15-1299.08",
+        "onet_title": "Computer Systems Engineers/Architects",
+        "identity_relation": "exactMatch",
+        "identity_basis": "reviewed_title_and_definition",
+        "matched_ssoc_title_variant": "Enterprise/Solution/Software architect",
+        "reviewed_at": "2026-08-21",
+        "review_rationale": "The source detailed occupation explicitly covers computer systems architects, matching the architecture work named in the SSOC title and definition."
+      },
+      "eloundou_theoretical_exposure": {
+        "value_0_1": 0.7679,
+        "within_published_subset_midrank_percentile": 91.8919,
+        "source_occupation": {
+          "code": "15-1299.08",
+          "title": "Computer Systems Engineers/Architects"
+        },
+        "source_grain": "detailed O*NET-SOC occupation",
+        "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
+      },
+      "anthropic_observed_exposure": {
+        "value_0_1": 0.3106,
+        "within_published_subset_midrank_percentile": 87.5,
+        "source_occupation": {
+          "code": "15-1299",
+          "title": "Computer Occupations, All Other"
+        },
+        "source_grain": "six-digit parent SOC occupation",
+        "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
+      },
+      "derived_theory_use_gap": {
+        "value_0_1": 0.4573,
         "interpretation": "Eloundou beta minus Anthropic observed exposure. A larger positive gap indicates more theoretical scope than observed Claude use in the source periods; it is not a forecast."
       }
     },
@@ -6385,31 +6860,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2513"
         ],
         "onet_soc_code": "15-1254.00",
         "onet_title": "Web Developers",
-        "matched_ssoc_title_variant": "Web developer"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Web developer",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.9327,
-        "within_published_subset_midrank_percentile": 97.0149,
+        "within_published_subset_midrank_percentile": 95.9459,
         "source_occupation": {
           "code": "15-1254.00",
           "title": "Web Developers"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.4802,
-        "within_published_subset_midrank_percentile": 100,
+        "within_published_subset_midrank_percentile": 98.6111,
         "source_occupation": {
           "code": "15-1254",
           "title": "Web Developers"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -6425,35 +6906,87 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2521"
         ],
         "onet_soc_code": "15-1242.00",
         "onet_title": "Database Administrators",
-        "matched_ssoc_title_variant": "Database administrator"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Database administrator",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.9355,
-        "within_published_subset_midrank_percentile": 98.5075,
+        "within_published_subset_midrank_percentile": 97.2973,
         "source_occupation": {
           "code": "15-1242.00",
           "title": "Database Administrators"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.3315,
-        "within_published_subset_midrank_percentile": 90.7692,
+        "within_published_subset_midrank_percentile": 90.2778,
         "source_occupation": {
           "code": "15-1242",
           "title": "Database Administrators"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
         "value_0_1": 0.604,
+        "interpretation": "Eloundou beta minus Anthropic observed exposure. A larger positive gap indicates more theoretical scope than observed Claude use in the source periods; it is not a forecast."
+      }
+    },
+    "25213": {
+      "occupation": {
+        "ssoc2024": "25213",
+        "title": "Data engineer"
+      },
+      "status": "available_reviewed_identity",
+      "headline_effect": "none",
+      "mapping": {
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
+        "ssoc_isco_quality": "one_to_one",
+        "official_isco08_codes": [
+          "2521"
+        ],
+        "onet_soc_code": "15-1243.01",
+        "onet_title": "Data Warehousing Specialists",
+        "identity_relation": "exactMatch",
+        "identity_basis": "reviewed_title_and_definition",
+        "matched_ssoc_title_variant": "Data engineer",
+        "reviewed_at": "2026-08-21",
+        "review_rationale": "The source role covers the data-pipeline, storage and warehousing work that defines the detailed SSOC Data Engineer occupation; the unrelated database-administrator candidate is excluded."
+      },
+      "eloundou_theoretical_exposure": {
+        "value_0_1": 0.9444,
+        "within_published_subset_midrank_percentile": 98.6486,
+        "source_occupation": {
+          "code": "15-1243.01",
+          "title": "Data Warehousing Specialists"
+        },
+        "source_grain": "detailed O*NET-SOC occupation",
+        "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
+      },
+      "anthropic_observed_exposure": {
+        "value_0_1": 0.5787,
+        "within_published_subset_midrank_percentile": 100,
+        "source_occupation": {
+          "code": "15-1243",
+          "title": "Database Architects"
+        },
+        "source_grain": "six-digit parent SOC occupation",
+        "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
+      },
+      "derived_theory_use_gap": {
+        "value_0_1": 0.3657,
         "interpretation": "Eloundou beta minus Anthropic observed exposure. A larger positive gap indicates more theoretical scope than observed Claude use in the source periods; it is not a forecast."
       }
     },
@@ -6465,31 +6998,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2621"
         ],
         "onet_soc_code": "25-4011.00",
         "onet_title": "Archivists",
-        "matched_ssoc_title_variant": "Archivist"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Archivist",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.5,
-        "within_published_subset_midrank_percentile": 72.3881,
+        "within_published_subset_midrank_percentile": 69.5946,
         "source_occupation": {
           "code": "25-4011.00",
           "title": "Archivists"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.1348,
-        "within_published_subset_midrank_percentile": 72.3077,
+        "within_published_subset_midrank_percentile": 69.4444,
         "source_occupation": {
           "code": "25-4011",
           "title": "Archivists"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -6505,31 +7044,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2631"
         ],
         "onet_soc_code": "19-3011.00",
         "onet_title": "Economists",
-        "matched_ssoc_title_variant": "Economist"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Economist",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.5,
-        "within_published_subset_midrank_percentile": 72.3881,
+        "within_published_subset_midrank_percentile": 69.5946,
         "source_occupation": {
           "code": "19-3011.00",
           "title": "Economists"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.2418,
-        "within_published_subset_midrank_percentile": 81.5385,
+        "within_published_subset_midrank_percentile": 79.1667,
         "source_occupation": {
           "code": "19-3011",
           "title": "Economists"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -6545,31 +7090,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2633"
         ],
         "onet_soc_code": "19-3094.00",
         "onet_title": "Political Scientists",
-        "matched_ssoc_title_variant": "Political scientist"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Political scientist",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.4792,
-        "within_published_subset_midrank_percentile": 64.1791,
+        "within_published_subset_midrank_percentile": 62.1622,
         "source_occupation": {
           "code": "19-3094.00",
           "title": "Political Scientists"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.452,
-        "within_published_subset_midrank_percentile": 96.9231,
+        "within_published_subset_midrank_percentile": 95.8333,
         "source_occupation": {
           "code": "19-3094",
           "title": "Political Scientists"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -6585,31 +7136,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2641"
         ],
         "onet_soc_code": "27-3042.00",
         "onet_title": "Technical Writers",
-        "matched_ssoc_title_variant": "Technical writer"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Technical writer",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.7,
-        "within_published_subset_midrank_percentile": 92.5373,
+        "within_published_subset_midrank_percentile": 89.1892,
         "source_occupation": {
           "code": "27-3042.00",
           "title": "Technical Writers"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.4747,
-        "within_published_subset_midrank_percentile": 98.4615,
+        "within_published_subset_midrank_percentile": 97.2222,
         "source_occupation": {
           "code": "27-3042",
           "title": "Technical Writers"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -6625,31 +7182,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2655"
         ],
         "onet_soc_code": "27-2011.00",
         "onet_title": "Actors",
-        "matched_ssoc_title_variant": "Actor"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Actor",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.1875,
-        "within_published_subset_midrank_percentile": 18.6567,
+        "within_published_subset_midrank_percentile": 16.8919,
         "source_occupation": {
           "code": "27-2011.00",
           "title": "Actors"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.1011,
-        "within_published_subset_midrank_percentile": 67.6923,
+        "within_published_subset_midrank_percentile": 65.2778,
         "source_occupation": {
           "code": "27-2011",
           "title": "Actors"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -6665,31 +7228,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "3115"
         ],
         "onet_soc_code": "17-3027.01",
         "onet_title": "Automotive Engineering Technicians",
-        "matched_ssoc_title_variant": "Automotive engineering technician"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Automotive engineering technician",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.2778,
-        "within_published_subset_midrank_percentile": 25.3731,
+        "within_published_subset_midrank_percentile": 24.3243,
         "source_occupation": {
           "code": "17-3027.01",
           "title": "Automotive Engineering Technicians"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.0683,
-        "within_published_subset_midrank_percentile": 60,
+        "within_published_subset_midrank_percentile": 56.9444,
         "source_occupation": {
           "code": "17-3027",
           "title": "Mechanical Engineering Technologists and Technicians"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -6705,31 +7274,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "3141"
         ],
         "onet_soc_code": "19-4021.00",
         "onet_title": "Biological Technicians",
-        "matched_ssoc_title_variant": "Biological technician"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Biological technician",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.4167,
-        "within_published_subset_midrank_percentile": 44.7761,
+        "within_published_subset_midrank_percentile": 43.2432,
         "source_occupation": {
           "code": "19-4021.00",
           "title": "Biological Technicians"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.0599,
-        "within_published_subset_midrank_percentile": 55.3846,
+        "within_published_subset_midrank_percentile": 52.7778,
         "source_occupation": {
           "code": "19-4021",
           "title": "Biological Technicians"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -6745,31 +7320,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "3154"
         ],
         "onet_soc_code": "53-2021.00",
         "onet_title": "Air Traffic Controllers",
-        "matched_ssoc_title_variant": "Air traffic controller"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Air traffic controller",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.3409,
-        "within_published_subset_midrank_percentile": 37.3134,
+        "within_published_subset_midrank_percentile": 36.4865,
         "source_occupation": {
           "code": "53-2021.00",
           "title": "Air Traffic Controllers"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0,
-        "within_published_subset_midrank_percentile": 19.2308,
+        "within_published_subset_midrank_percentile": 17.3611,
         "source_occupation": {
           "code": "53-2021",
           "title": "Air Traffic Controllers"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -6785,31 +7366,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "3213"
         ],
         "onet_soc_code": "29-2052.00",
         "onet_title": "Pharmacy Technicians",
-        "matched_ssoc_title_variant": "Pharmacy technician"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Pharmacy technician",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.4265,
-        "within_published_subset_midrank_percentile": 47.7612,
+        "within_published_subset_midrank_percentile": 45.9459,
         "source_occupation": {
           "code": "29-2052.00",
           "title": "Pharmacy Technicians"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.0735,
-        "within_published_subset_midrank_percentile": 61.5385,
+        "within_published_subset_midrank_percentile": 58.3333,
         "source_occupation": {
           "code": "29-2052",
           "title": "Pharmacy Technicians"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -6825,31 +7412,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "3253"
         ],
         "onet_soc_code": "21-1094.00",
         "onet_title": "Community Health Workers",
-        "matched_ssoc_title_variant": "Community health worker"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Community health worker",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.3194,
-        "within_published_subset_midrank_percentile": 34.3284,
+        "within_published_subset_midrank_percentile": 32.4324,
         "source_occupation": {
           "code": "21-1094.00",
           "title": "Community Health Workers"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0,
-        "within_published_subset_midrank_percentile": 19.2308,
+        "within_published_subset_midrank_percentile": 17.3611,
         "source_occupation": {
           "code": "21-1094",
           "title": "Community Health Workers"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -6865,31 +7458,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "3312"
         ],
         "onet_soc_code": "13-2072.00",
         "onet_title": "Loan Officers",
-        "matched_ssoc_title_variant": "Loans officer"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Loans officer",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.5909,
-        "within_published_subset_midrank_percentile": 88.0597,
+        "within_published_subset_midrank_percentile": 83.7838,
         "source_occupation": {
           "code": "13-2072.00",
           "title": "Loan Officers"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.1857,
-        "within_published_subset_midrank_percentile": 73.8462,
+        "within_published_subset_midrank_percentile": 72.2222,
         "source_occupation": {
           "code": "13-2072",
           "title": "Loan Officers"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -6905,22 +7504,27 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "3323"
         ],
         "onet_soc_code": "13-1023.00",
         "onet_title": "Purchasing Agents, Except Wholesale, Retail, and Farm Products",
-        "matched_ssoc_title_variant": "Purchasing agent"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Purchasing agent",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.4737,
-        "within_published_subset_midrank_percentile": 61.194,
+        "within_published_subset_midrank_percentile": 59.4595,
         "source_occupation": {
           "code": "13-1023.00",
           "title": "Purchasing Agents, Except Wholesale, Retail, and Farm Products"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": null,
@@ -6934,31 +7538,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "3343"
         ],
         "onet_soc_code": "43-6011.00",
         "onet_title": "Executive Secretaries and Executive Administrative Assistants",
-        "matched_ssoc_title_variant": "Executive secretary"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Executive secretary",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.6486,
-        "within_published_subset_midrank_percentile": 89.5522,
+        "within_published_subset_midrank_percentile": 86.4865,
         "source_occupation": {
           "code": "43-6011.00",
           "title": "Executive Secretaries and Executive Administrative Assistants"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.2336,
-        "within_published_subset_midrank_percentile": 80,
+        "within_published_subset_midrank_percentile": 77.7778,
         "source_occupation": {
           "code": "43-6011",
           "title": "Executive Secretaries and Executive Administrative Assistants"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -6974,31 +7584,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "3422"
         ],
         "onet_soc_code": "27-2023.00",
         "onet_title": "Umpires, Referees, and Other Sports Officials",
-        "matched_ssoc_title_variant": "Sports official"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Sports official",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.3125,
-        "within_published_subset_midrank_percentile": 32.8358,
+        "within_published_subset_midrank_percentile": 31.0811,
         "source_occupation": {
           "code": "27-2023.00",
           "title": "Umpires, Referees, and Other Sports Officials"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0,
-        "within_published_subset_midrank_percentile": 19.2308,
+        "within_published_subset_midrank_percentile": 17.3611,
         "source_occupation": {
           "code": "27-2023",
           "title": "Umpires, Referees, and Other Sports Officials"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -7014,31 +7630,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "3431"
         ],
         "onet_soc_code": "27-4021.00",
         "onet_title": "Photographers",
-        "matched_ssoc_title_variant": "Photographer"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Photographer",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.3854,
-        "within_published_subset_midrank_percentile": 41.791,
+        "within_published_subset_midrank_percentile": 40.5405,
         "source_occupation": {
           "code": "27-4021.00",
           "title": "Photographers"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.195,
-        "within_published_subset_midrank_percentile": 75.3846,
+        "within_published_subset_midrank_percentile": 73.6111,
         "source_occupation": {
           "code": "27-4021",
           "title": "Photographers"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -7054,31 +7676,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "3432"
         ],
         "onet_soc_code": "27-1025.00",
         "onet_title": "Interior Designers",
-        "matched_ssoc_title_variant": "Interior designer"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Interior designer",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.5,
-        "within_published_subset_midrank_percentile": 72.3881,
+        "within_published_subset_midrank_percentile": 69.5946,
         "source_occupation": {
           "code": "27-1025.00",
           "title": "Interior Designers"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0,
-        "within_published_subset_midrank_percentile": 19.2308,
+        "within_published_subset_midrank_percentile": 17.3611,
         "source_occupation": {
           "code": "27-1025",
           "title": "Interior Designers"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -7094,7 +7722,7 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "partial",
         "official_isco08_codes": [
           "4415",
@@ -7102,24 +7730,30 @@
         ],
         "onet_soc_code": "43-9061.00",
         "onet_title": "Office Clerks, General",
-        "matched_ssoc_title_variant": "Office clerk"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Office clerk",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.5758,
-        "within_published_subset_midrank_percentile": 83.5821,
+        "within_published_subset_midrank_percentile": 79.7297,
         "source_occupation": {
           "code": "43-9061.00",
           "title": "Office Clerks, General"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.4504,
-        "within_published_subset_midrank_percentile": 95.3846,
+        "within_published_subset_midrank_percentile": 94.4444,
         "source_occupation": {
           "code": "43-9061",
           "title": "Office Clerks, General"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -7135,22 +7769,27 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "5113"
         ],
         "onet_soc_code": "39-7011.00",
         "onet_title": "Tour Guides and Escorts",
-        "matched_ssoc_title_variant": "Tour guide"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Tour guide",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.2692,
-        "within_published_subset_midrank_percentile": 23.8806,
+        "within_published_subset_midrank_percentile": 22.973,
         "source_occupation": {
           "code": "39-7011.00",
           "title": "Tour Guides and Escorts"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": null,
@@ -7164,31 +7803,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "5132"
         ],
         "onet_soc_code": "35-3023.01",
         "onet_title": "Baristas",
-        "matched_ssoc_title_variant": "Barista"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Barista",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.1316,
-        "within_published_subset_midrank_percentile": 11.9403,
+        "within_published_subset_midrank_percentile": 10.8108,
         "source_occupation": {
           "code": "35-3023.01",
           "title": "Baristas"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0,
-        "within_published_subset_midrank_percentile": 19.2308,
+        "within_published_subset_midrank_percentile": 17.3611,
         "source_occupation": {
           "code": "35-3023",
           "title": "Fast Food and Counter Workers"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -7204,31 +7849,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "5141"
         ],
         "onet_soc_code": "39-5011.00",
         "onet_title": "Barbers",
-        "matched_ssoc_title_variant": "Barber"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Barber",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.1618,
-        "within_published_subset_midrank_percentile": 16.4179,
+        "within_published_subset_midrank_percentile": 14.8649,
         "source_occupation": {
           "code": "39-5011.00",
           "title": "Barbers"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0,
-        "within_published_subset_midrank_percentile": 19.2308,
+        "within_published_subset_midrank_percentile": 17.3611,
         "source_occupation": {
           "code": "39-5011",
           "title": "Barbers"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -7244,31 +7895,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "5163"
         ],
         "onet_soc_code": "39-4011.00",
         "onet_title": "Embalmers",
-        "matched_ssoc_title_variant": "Embalmer"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Embalmer",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.04,
-        "within_published_subset_midrank_percentile": 5.2239,
+        "within_published_subset_midrank_percentile": 4.7297,
         "source_occupation": {
           "code": "39-4011.00",
           "title": "Embalmers"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0,
-        "within_published_subset_midrank_percentile": 19.2308,
+        "within_published_subset_midrank_percentile": 17.3611,
         "source_occupation": {
           "code": "39-4011",
           "title": "Embalmers"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -7284,31 +7941,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "5244"
         ],
         "onet_soc_code": "41-9041.00",
         "onet_title": "Telemarketers",
-        "matched_ssoc_title_variant": "Telemarketer"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Telemarketer",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.8056,
-        "within_published_subset_midrank_percentile": 95.5224,
+        "within_published_subset_midrank_percentile": 94.5946,
         "source_occupation": {
           "code": "41-9041.00",
           "title": "Telemarketers"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.2852,
-        "within_published_subset_midrank_percentile": 86.1538,
+        "within_published_subset_midrank_percentile": 84.7222,
         "source_occupation": {
           "code": "41-9041",
           "title": "Telemarketers"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -7324,31 +7987,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "7115"
         ],
         "onet_soc_code": "47-2031.00",
         "onet_title": "Carpenters",
-        "matched_ssoc_title_variant": "Carpenter"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Carpenter",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.1444,
-        "within_published_subset_midrank_percentile": 13.4328,
+        "within_published_subset_midrank_percentile": 12.1622,
         "source_occupation": {
           "code": "47-2031.00",
           "title": "Carpenters"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0,
-        "within_published_subset_midrank_percentile": 19.2308,
+        "within_published_subset_midrank_percentile": 17.3611,
         "source_occupation": {
           "code": "47-2031",
           "title": "Carpenters"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -7364,31 +8033,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "7121"
         ],
         "onet_soc_code": "47-2181.00",
         "onet_title": "Roofers",
-        "matched_ssoc_title_variant": "Roofer"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Roofer",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.04,
-        "within_published_subset_midrank_percentile": 5.2239,
+        "within_published_subset_midrank_percentile": 4.7297,
         "source_occupation": {
           "code": "47-2181.00",
           "title": "Roofers"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0.0157,
-        "within_published_subset_midrank_percentile": 43.0769,
+        "within_published_subset_midrank_percentile": 38.8889,
         "source_occupation": {
           "code": "47-2181",
           "title": "Roofers"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -7404,31 +8079,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "7125"
         ],
         "onet_soc_code": "47-2121.00",
         "onet_title": "Glaziers",
-        "matched_ssoc_title_variant": "Glazier"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Glazier",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.0833,
-        "within_published_subset_midrank_percentile": 10.4478,
+        "within_published_subset_midrank_percentile": 9.4595,
         "source_occupation": {
           "code": "47-2121.00",
           "title": "Glaziers"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0,
-        "within_published_subset_midrank_percentile": 19.2308,
+        "within_published_subset_midrank_percentile": 17.3611,
         "source_occupation": {
           "code": "47-2121",
           "title": "Glaziers"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -7444,31 +8125,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "7213"
         ],
         "onet_soc_code": "47-2211.00",
         "onet_title": "Sheet Metal Workers",
-        "matched_ssoc_title_variant": "Sheet metal worker"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Sheet metal worker",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.0658,
-        "within_published_subset_midrank_percentile": 7.4627,
+        "within_published_subset_midrank_percentile": 6.7568,
         "source_occupation": {
           "code": "47-2211.00",
           "title": "Sheet Metal Workers"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0,
-        "within_published_subset_midrank_percentile": 19.2308,
+        "within_published_subset_midrank_percentile": 17.3611,
         "source_occupation": {
           "code": "47-2211",
           "title": "Sheet Metal Workers"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -7484,31 +8171,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "7222"
         ],
         "onet_soc_code": "51-4111.00",
         "onet_title": "Tool and Die Makers",
-        "matched_ssoc_title_variant": "Die maker"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Die maker",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.1875,
-        "within_published_subset_midrank_percentile": 18.6567,
+        "within_published_subset_midrank_percentile": 16.8919,
         "source_occupation": {
           "code": "51-4111.00",
           "title": "Tool and Die Makers"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0,
-        "within_published_subset_midrank_percentile": 19.2308,
+        "within_published_subset_midrank_percentile": 17.3611,
         "source_occupation": {
           "code": "51-4111",
           "title": "Tool and Die Makers"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -7524,31 +8217,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "7411"
         ],
         "onet_soc_code": "47-2111.00",
         "onet_title": "Electricians",
-        "matched_ssoc_title_variant": "Electrician"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Electrician",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.1463,
-        "within_published_subset_midrank_percentile": 14.9254,
+        "within_published_subset_midrank_percentile": 13.5135,
         "source_occupation": {
           "code": "47-2111.00",
           "title": "Electricians"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0,
-        "within_published_subset_midrank_percentile": 19.2308,
+        "within_published_subset_midrank_percentile": 17.3611,
         "source_occupation": {
           "code": "47-2111",
           "title": "Electricians"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -7564,31 +8263,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "7512"
         ],
         "onet_soc_code": "51-3011.00",
         "onet_title": "Bakers",
-        "matched_ssoc_title_variant": "Baker"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Baker",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.2647,
-        "within_published_subset_midrank_percentile": 22.3881,
+        "within_published_subset_midrank_percentile": 21.6216,
         "source_occupation": {
           "code": "51-3011.00",
           "title": "Bakers"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0,
-        "within_published_subset_midrank_percentile": 19.2308,
+        "within_published_subset_midrank_percentile": 17.3611,
         "source_occupation": {
           "code": "51-3011",
           "title": "Bakers"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -7604,31 +8309,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "8153"
         ],
         "onet_soc_code": "51-6031.00",
         "onet_title": "Sewing Machine Operators",
-        "matched_ssoc_title_variant": "Sewing machine operator"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Sewing machine operator",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.0814,
-        "within_published_subset_midrank_percentile": 8.9552,
+        "within_published_subset_midrank_percentile": 8.1081,
         "source_occupation": {
           "code": "51-6031.00",
           "title": "Sewing Machine Operators"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0,
-        "within_published_subset_midrank_percentile": 19.2308,
+        "within_published_subset_midrank_percentile": 17.3611,
         "source_occupation": {
           "code": "51-6031",
           "title": "Sewing Machine Operators"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -7644,31 +8355,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "8331"
         ],
         "onet_soc_code": "53-3052.00",
         "onet_title": "Bus Drivers, Transit and Intercity",
-        "matched_ssoc_title_variant": "Bus driver"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Bus driver",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0.2407,
-        "within_published_subset_midrank_percentile": 20.8955,
+        "within_published_subset_midrank_percentile": 20.2703,
         "source_occupation": {
           "code": "53-3052.00",
           "title": "Bus Drivers, Transit and Intercity"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0,
-        "within_published_subset_midrank_percentile": 19.2308,
+        "within_published_subset_midrank_percentile": 17.3611,
         "source_occupation": {
           "code": "53-3052",
           "title": "Bus Drivers, Transit and Intercity"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -7684,31 +8401,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "8342"
         ],
         "onet_soc_code": "53-7031.00",
         "onet_title": "Dredge Operators",
-        "matched_ssoc_title_variant": "Dredge operator"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Dredge operator",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0,
-        "within_published_subset_midrank_percentile": 1.4925,
+        "within_published_subset_midrank_percentile": 1.3514,
         "source_occupation": {
           "code": "53-7031.00",
           "title": "Dredge Operators"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0,
-        "within_published_subset_midrank_percentile": 19.2308,
+        "within_published_subset_midrank_percentile": 17.3611,
         "source_occupation": {
           "code": "53-7031",
           "title": "Dredge Operators"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -7724,31 +8447,37 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "8342"
         ],
         "onet_soc_code": "47-2072.00",
         "onet_title": "Pile Driver Operators",
-        "matched_ssoc_title_variant": "Pile driver operator"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Pile driver operator",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0,
-        "within_published_subset_midrank_percentile": 1.4925,
+        "within_published_subset_midrank_percentile": 1.3514,
         "source_occupation": {
           "code": "47-2072.00",
           "title": "Pile Driver Operators"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0,
-        "within_published_subset_midrank_percentile": 19.2308,
+        "within_published_subset_midrank_percentile": 17.3611,
         "source_occupation": {
           "code": "47-2072",
           "title": "Pile Driver Operators"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {
@@ -7764,7 +8493,7 @@
       "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code",
+        "method": "official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code",
         "ssoc_isco_quality": "partial",
         "official_isco08_codes": [
           "9412",
@@ -7772,24 +8501,30 @@
         ],
         "onet_soc_code": "35-9021.00",
         "onet_title": "Dishwashers",
-        "matched_ssoc_title_variant": "Dishwasher"
+        "identity_relation": "exactMatch",
+        "identity_basis": "conservative_title_rule",
+        "matched_ssoc_title_variant": "Dishwasher",
+        "reviewed_at": null,
+        "review_rationale": null
       },
       "eloundou_theoretical_exposure": {
         "value_0_1": 0,
-        "within_published_subset_midrank_percentile": 1.4925,
+        "within_published_subset_midrank_percentile": 1.3514,
         "source_occupation": {
           "code": "35-9021.00",
           "title": "Dishwashers"
         },
+        "source_grain": "detailed O*NET-SOC occupation",
         "interpretation": "Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption."
       },
       "anthropic_observed_exposure": {
         "value_0_1": 0,
-        "within_published_subset_midrank_percentile": 19.2308,
+        "within_published_subset_midrank_percentile": 17.3611,
         "source_occupation": {
           "code": "35-9021",
           "title": "Dishwashers"
         },
+        "source_grain": "six-digit parent SOC occupation",
         "interpretation": "Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption."
       },
       "derived_theory_use_gap": {

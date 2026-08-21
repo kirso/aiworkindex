@@ -53,18 +53,23 @@
   },
   "publication_rule": {
     "relations_used": [
-      "exactMatch"
+      "exactMatch",
+      "reviewed closeMatch allow-list"
     ],
-    "relations_excluded": [
+    "relations_excluded_without_review": [
       "closeMatch",
       "broadMatch",
       "narrowMatch"
     ],
-    "detailed_identity": "The singularised official SSOC detailed-title variant, including any parenthetical qualifier, must appear as a contiguous phrase in the O*NET title. A one-word SSOC title must equal the whole singularised O*NET title. Search synonyms and examples are not used.",
+    "detailed_identity_modes": {
+      "automated": "The singularised official SSOC detailed-title variant, including any parenthetical qualifier, must appear as a contiguous phrase in the O*NET title. A one-word SSOC title must equal the whole singularised O*NET title.",
+      "reviewed": "An explicit allow-list may accept an exact or close official candidate after the current SSOC and O*NET titles, occupation definitions and scope qualifiers are reviewed. The decision, date and rationale are published on the record."
+    },
+    "manual_review_registry": "scripts/v9-capability-reviewed-mappings.ts",
     "candidate_chain_boundary": "An exact ESCO–O*NET relation generates candidates but does not establish identity for a five-digit SSOC occupation.",
-    "aggregation": "median_across_unique_exact_title_identity_candidates",
+    "aggregation": "median_across_unique_reviewed_identity_candidates",
     "uncertainty": "Publish minimum, median, maximum and candidate count for every measure.",
-    "missingness": "No raw exact candidate or no accepted detailed-title identity means unavailable; no synonym, example, close-match or broad-group fallback is allowed."
+    "missingness": "No accepted automated or explicitly reviewed detailed identity means unavailable. Search synonyms, examples and broad-group fallbacks are never accepted automatically."
   },
   "domains": [
     {
@@ -197,15 +202,17 @@
   "coverage": {
     "ssoc_occupations": 1001,
     "raw_exact_candidate_coverage": 698,
-    "available_exact_title_identity_profiles": 68,
-    "unavailable_without_published_profile": 933,
-    "coverage_pct": 6.7932,
-    "unique_oecd_rows_used": 68,
+    "available_reviewed_identity_profiles": 75,
+    "available_automated_title_rule_profiles": 68,
+    "available_manual_review_profiles": 7,
+    "unavailable_without_published_profile": 926,
+    "coverage_pct": 7.4925,
+    "unique_oecd_rows_used": 75,
     "profiles_with_several_title_identity_candidates": 0,
     "profiles_with_nonzero_overall_mapping_range": 0,
     "raw_exact_candidates_rejected_by_title_rule": 1606,
-    "occupations_available_only_if_close_matches_were_allowed": 231,
-    "close_match_profiles_published": 0
+    "occupations_available_only_if_close_matches_were_allowed": 230,
+    "close_match_profiles_published": 3
   },
   "occupation_status": {
     "11110": {
@@ -313,7 +320,7 @@
       "close_candidates_not_used": 1
     },
     "12121": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "1212"
       ],
@@ -418,7 +425,7 @@
       "close_candidates_not_used": 3
     },
     "12211": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "1221"
       ],
@@ -471,7 +478,7 @@
       "close_candidates_not_used": 1
     },
     "12222": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "1221"
       ],
@@ -525,7 +532,7 @@
       "close_candidates_not_used": 2
     },
     "13230": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "1323"
       ],
@@ -543,7 +550,7 @@
       "close_candidates_not_used": 3
     },
     "13242": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "1324"
       ],
@@ -671,7 +678,7 @@
       "close_candidates_not_used": 0
     },
     "13420": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "1342"
       ],
@@ -952,7 +959,7 @@
       "close_candidates_not_used": 1
     },
     "21130": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "2113"
       ],
@@ -988,7 +995,7 @@
       "close_candidates_not_used": 4
     },
     "21211": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "2120"
       ],
@@ -1006,7 +1013,7 @@
       "close_candidates_not_used": 4
     },
     "21213": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "2120"
       ],
@@ -1015,7 +1022,7 @@
       "close_candidates_not_used": 7
     },
     "21221": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "2120"
       ],
@@ -1053,7 +1060,7 @@
       "close_candidates_not_used": 3
     },
     "21311": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "2131"
       ],
@@ -1220,7 +1227,7 @@
       "close_candidates_not_used": 16
     },
     "21411": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "2141"
       ],
@@ -1265,7 +1272,7 @@
       "close_candidates_not_used": 7
     },
     "21421": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "2142"
       ],
@@ -1283,7 +1290,7 @@
       "close_candidates_not_used": 5
     },
     "21430": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "2143"
       ],
@@ -1292,7 +1299,7 @@
       "close_candidates_not_used": 8
     },
     "21441": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "2144"
       ],
@@ -1382,7 +1389,7 @@
       "close_candidates_not_used": 6
     },
     "21472": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "2144"
       ],
@@ -1418,7 +1425,7 @@
       "close_candidates_not_used": 6
     },
     "21491": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "2149"
       ],
@@ -1499,7 +1506,7 @@
       "close_candidates_not_used": 18
     },
     "21511": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "2151"
       ],
@@ -1526,7 +1533,7 @@
       "close_candidates_not_used": 2
     },
     "21521": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "2152"
       ],
@@ -1607,7 +1614,7 @@
       "close_candidates_not_used": 4
     },
     "21621": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "2162"
       ],
@@ -1625,7 +1632,7 @@
       "close_candidates_not_used": 1
     },
     "21631": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "2163"
       ],
@@ -1634,7 +1641,7 @@
       "close_candidates_not_used": 2
     },
     "21632": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "2163"
       ],
@@ -1688,7 +1695,7 @@
       "close_candidates_not_used": 3
     },
     "21661": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "2166"
       ],
@@ -1785,7 +1792,7 @@
       "close_candidates_not_used": 3
     },
     "21724": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "3153"
       ],
@@ -2028,14 +2035,14 @@
       "close_candidates_not_used": 2
     },
     "22200": {
-      "status": "unavailable_no_detailed_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "2222",
         "2221"
       ],
       "raw_exact_oecd_candidate_count": 2,
-      "accepted_title_identity_count": 0,
-      "close_candidates_not_used": 1
+      "accepted_title_identity_count": 1,
+      "close_candidates_not_used": 2
     },
     "22301": {
       "status": "unavailable_no_detailed_title_identity",
@@ -2082,12 +2089,13 @@
       "close_candidates_not_used": 1
     },
     "22621": {
-      "status": "unavailable_no_exact_crosswalk",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "2262"
       ],
-      "exact_oecd_candidate_count": 0,
-      "close_candidates_not_used": 2
+      "raw_exact_oecd_candidate_count": 0,
+      "accepted_title_identity_count": 1,
+      "close_candidates_not_used": 1
     },
     "22629": {
       "status": "unavailable_no_exact_crosswalk",
@@ -2125,12 +2133,12 @@
       "close_candidates_not_used": 1
     },
     "22640": {
-      "status": "unavailable_no_detailed_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "2264"
       ],
       "raw_exact_oecd_candidate_count": 1,
-      "accepted_title_identity_count": 0,
+      "accepted_title_identity_count": 1,
       "close_candidates_not_used": 2
     },
     "22651": {
@@ -2150,7 +2158,7 @@
       "close_candidates_not_used": 0
     },
     "22661": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "2266"
       ],
@@ -2168,7 +2176,7 @@
       "close_candidates_not_used": 1
     },
     "22670": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "2267"
       ],
@@ -2177,7 +2185,7 @@
       "close_candidates_not_used": 4
     },
     "22680": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "2269"
       ],
@@ -2186,7 +2194,7 @@
       "close_candidates_not_used": 15
     },
     "22691": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "2269"
       ],
@@ -2195,7 +2203,7 @@
       "close_candidates_not_used": 15
     },
     "22692": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "2269"
       ],
@@ -2213,7 +2221,7 @@
       "close_candidates_not_used": 5
     },
     "22694": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "3211"
       ],
@@ -2286,7 +2294,7 @@
       "close_candidates_not_used": 6
     },
     "23400": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "2330"
       ],
@@ -2537,7 +2545,7 @@
       "close_candidates_not_used": 6
     },
     "24160": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "3321"
       ],
@@ -2573,14 +2581,14 @@
       "close_candidates_not_used": 2
     },
     "24214": {
-      "status": "unavailable_no_detailed_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "2133",
         "2421"
       ],
       "raw_exact_oecd_candidate_count": 4,
-      "accepted_title_identity_count": 0,
-      "close_candidates_not_used": 13
+      "accepted_title_identity_count": 1,
+      "close_candidates_not_used": 16
     },
     "24221": {
       "status": "unavailable_no_detailed_title_identity",
@@ -2832,13 +2840,13 @@
       "close_candidates_not_used": 1
     },
     "25111": {
-      "status": "unavailable_no_detailed_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "2511"
       ],
       "raw_exact_oecd_candidate_count": 3,
-      "accepted_title_identity_count": 0,
-      "close_candidates_not_used": 4
+      "accepted_title_identity_count": 1,
+      "close_candidates_not_used": 6
     },
     "25112": {
       "status": "unavailable_no_detailed_title_identity",
@@ -2850,14 +2858,14 @@
       "close_candidates_not_used": 4
     },
     "25113": {
-      "status": "unavailable_no_detailed_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "2511",
         "2523"
       ],
       "raw_exact_oecd_candidate_count": 3,
-      "accepted_title_identity_count": 0,
-      "close_candidates_not_used": 6
+      "accepted_title_identity_count": 1,
+      "close_candidates_not_used": 8
     },
     "25114": {
       "status": "unavailable_no_detailed_title_identity",
@@ -2878,7 +2886,7 @@
       "close_candidates_not_used": 4
     },
     "25122": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "2513"
       ],
@@ -2971,7 +2979,7 @@
       "close_candidates_not_used": 1
     },
     "25211": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "2521"
       ],
@@ -2989,13 +2997,13 @@
       "close_candidates_not_used": 0
     },
     "25213": {
-      "status": "unavailable_no_detailed_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "2521"
       ],
       "raw_exact_oecd_candidate_count": 2,
-      "accepted_title_identity_count": 0,
-      "close_candidates_not_used": 0
+      "accepted_title_identity_count": 1,
+      "close_candidates_not_used": 1
     },
     "25220": {
       "status": "unavailable_no_detailed_title_identity",
@@ -3185,7 +3193,7 @@
       "close_candidates_not_used": 3
     },
     "26211": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "2621"
       ],
@@ -3230,7 +3238,7 @@
       "close_candidates_not_used": 0
     },
     "26310": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "2631"
       ],
@@ -3257,7 +3265,7 @@
       "close_candidates_not_used": 7
     },
     "26331": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "2633"
       ],
@@ -3320,7 +3328,7 @@
       "close_candidates_not_used": 0
     },
     "26414": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "2641"
       ],
@@ -3491,7 +3499,7 @@
       "close_candidates_not_used": 2
     },
     "26550": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "2655"
       ],
@@ -3998,7 +4006,7 @@
       "close_candidates_not_used": 8
     },
     "31212": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "3115"
       ],
@@ -4205,7 +4213,7 @@
       "close_candidates_not_used": 2
     },
     "31411": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "3141"
       ],
@@ -4292,7 +4300,7 @@
       "close_candidates_not_used": 2
     },
     "31540": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "3154"
       ],
@@ -4518,7 +4526,7 @@
       "close_candidates_not_used": 3
     },
     "32130": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "3213"
       ],
@@ -4591,7 +4599,7 @@
       "close_candidates_not_used": 0
     },
     "32530": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "3253"
       ],
@@ -4662,7 +4670,7 @@
       "close_candidates_not_used": 5
     },
     "33120": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "3312"
       ],
@@ -4806,7 +4814,7 @@
       "close_candidates_not_used": 5
     },
     "33232": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "3323"
       ],
@@ -4967,7 +4975,7 @@
       "close_candidates_not_used": 0
     },
     "33494": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "3343"
       ],
@@ -5150,7 +5158,7 @@
       "close_candidates_not_used": 4
     },
     "34224": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "3422"
       ],
@@ -5169,7 +5177,7 @@
       "close_candidates_not_used": 5
     },
     "34310": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "3431"
       ],
@@ -5178,7 +5186,7 @@
       "close_candidates_not_used": 1
     },
     "34321": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "3432"
       ],
@@ -5543,7 +5551,7 @@
       "close_candidates_not_used": 2
     },
     "41101": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "4415",
         "4110"
@@ -6106,7 +6114,7 @@
       "close_candidates_not_used": 2
     },
     "51131": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "5113"
       ],
@@ -6176,7 +6184,7 @@
       "close_candidates_not_used": 0
     },
     "51322": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "5132"
       ],
@@ -6212,7 +6220,7 @@
       "close_candidates_not_used": 0
     },
     "51412": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "5141"
       ],
@@ -6374,7 +6382,7 @@
       "close_candidates_not_used": 1
     },
     "51932": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "5163"
       ],
@@ -6566,7 +6574,7 @@
       "close_candidates_not_used": 0
     },
     "52440": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "5244"
       ],
@@ -6974,7 +6982,7 @@
       "close_candidates_not_used": 0
     },
     "71151": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "7115"
       ],
@@ -7019,7 +7027,7 @@
       "close_candidates_not_used": 3
     },
     "71210": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "7121"
       ],
@@ -7069,7 +7077,7 @@
       "close_candidates_not_used": 1
     },
     "71250": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "7125"
       ],
@@ -7220,7 +7228,7 @@
       "close_candidates_not_used": 3
     },
     "72130": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "7213"
       ],
@@ -7255,7 +7263,7 @@
       "close_candidates_not_used": 1
     },
     "72221": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "7222"
       ],
@@ -7467,7 +7475,7 @@
       "close_candidates_not_used": 1
     },
     "74110": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "7411"
       ],
@@ -7594,7 +7602,7 @@
       "close_candidates_not_used": 1
     },
     "75121": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "7512"
       ],
@@ -7891,7 +7899,7 @@
       "close_candidates_not_used": 1
     },
     "81501": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "8153"
       ],
@@ -8239,7 +8247,7 @@
       "close_candidates_not_used": 2
     },
     "83311": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "8331"
       ],
@@ -8306,7 +8314,7 @@
       "close_candidates_not_used": 4
     },
     "83422": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "8342"
       ],
@@ -8315,7 +8323,7 @@
       "close_candidates_not_used": 6
     },
     "83423": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "8342"
       ],
@@ -8519,7 +8527,7 @@
       "close_candidates_not_used": 2
     },
     "91153": {
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "official_isco08_codes": [
         "9412",
         "9112"
@@ -9030,10 +9038,10 @@
         "ssoc2024": "12121",
         "title": "Personnel/Human resource manager"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "1212"
@@ -9044,11 +9052,14 @@
             "title": "Human Resources Managers",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Human resource manager"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Human resource manager",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 0,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -9299,10 +9310,10 @@
         "ssoc2024": "12211",
         "title": "Sales manager"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "1221"
@@ -9313,11 +9324,14 @@
             "title": "Sales Managers",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Sales manager"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Sales manager",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 2,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -9568,10 +9582,10 @@
         "ssoc2024": "12222",
         "title": "Marketing manager"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "1221"
@@ -9582,11 +9596,14 @@
             "title": "Marketing Managers",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Marketing manager"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Marketing manager",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 2,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -9837,10 +9854,10 @@
         "ssoc2024": "13230",
         "title": "Construction manager"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "1323"
@@ -9851,11 +9868,14 @@
             "title": "Construction Managers",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Construction manager"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Construction manager",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 0,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -10106,10 +10126,10 @@
         "ssoc2024": "13242",
         "title": "Procurement/Purchasing manager"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "1324"
@@ -10120,11 +10140,14 @@
             "title": "Purchasing Managers",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Purchasing manager"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Purchasing manager",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 2,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -10375,10 +10398,10 @@
         "ssoc2024": "13420",
         "title": "Health services manager"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "1342"
@@ -10389,11 +10412,14 @@
             "title": "Medical and Health Services Managers",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Health services manager"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Health services manager",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 0,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -10644,10 +10670,10 @@
         "ssoc2024": "21130",
         "title": "Chemist"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2113"
@@ -10658,11 +10684,14 @@
             "title": "Chemists",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Chemist"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Chemist",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 0,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -10913,10 +10942,10 @@
         "ssoc2024": "21211",
         "title": "Mathematician"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2120"
@@ -10927,11 +10956,14 @@
             "title": "Mathematicians",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Mathematician"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Mathematician",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 3,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -11182,10 +11214,10 @@
         "ssoc2024": "21213",
         "title": "Actuary"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2120"
@@ -11196,11 +11228,14 @@
             "title": "Actuaries",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Actuary"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Actuary",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 3,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -11451,10 +11486,10 @@
         "ssoc2024": "21221",
         "title": "Statistician"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2120"
@@ -11465,11 +11500,14 @@
             "title": "Statisticians",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Statistician"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Statistician",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 3,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -11720,10 +11758,10 @@
         "ssoc2024": "21311",
         "title": "Biologist"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2131"
@@ -11734,11 +11772,14 @@
             "title": "Biologists",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Biologist"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Biologist",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 4,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -11989,10 +12030,10 @@
         "ssoc2024": "21411",
         "title": "Manufacturing engineer"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2141"
@@ -12003,11 +12044,14 @@
             "title": "Manufacturing Engineers",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Manufacturing engineer"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Manufacturing engineer",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 1,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -12258,10 +12302,10 @@
         "ssoc2024": "21421",
         "title": "Civil engineer"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2142"
@@ -12272,11 +12316,14 @@
             "title": "Civil Engineers",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Civil engineer"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Civil engineer",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 2,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -12527,10 +12574,10 @@
         "ssoc2024": "21430",
         "title": "Environmental engineer"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2143"
@@ -12541,11 +12588,14 @@
             "title": "Environmental Engineers",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Environmental engineer"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Environmental engineer",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 2,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -12796,10 +12846,10 @@
         "ssoc2024": "21441",
         "title": "Mechanical engineer"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2144"
@@ -12810,11 +12860,14 @@
             "title": "Mechanical Engineers",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Mechanical engineer"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Mechanical engineer",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 4,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -13065,10 +13118,10 @@
         "ssoc2024": "21472",
         "title": "Automotive engineer"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2144"
@@ -13079,11 +13132,14 @@
             "title": "Automotive Engineers",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Automotive engineer"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Automotive engineer",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 4,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -13334,10 +13390,10 @@
         "ssoc2024": "21491",
         "title": "Biomedical engineer"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2149"
@@ -13348,11 +13404,14 @@
             "title": "Bioengineers and Biomedical Engineers",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Biomedical engineer"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Biomedical engineer",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 11,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -13603,10 +13662,10 @@
         "ssoc2024": "21511",
         "title": "Electrical engineer"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2151"
@@ -13617,11 +13676,14 @@
             "title": "Electrical Engineers",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Electrical engineer"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Electrical engineer",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 0,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -13872,10 +13934,10 @@
         "ssoc2024": "21521",
         "title": "Electronics engineer"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2152"
@@ -13886,11 +13948,14 @@
             "title": "Electronics Engineers, Except Computer",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Electronics engineer"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Electronics engineer",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 2,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -14141,10 +14206,10 @@
         "ssoc2024": "21621",
         "title": "Landscape architect"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2162"
@@ -14155,11 +14220,14 @@
             "title": "Landscape Architects",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Landscape architect"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Landscape architect",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 0,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -14410,10 +14478,10 @@
         "ssoc2024": "21631",
         "title": "Fashion designer"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2163"
@@ -14424,11 +14492,14 @@
             "title": "Fashion Designers",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Fashion designer"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Fashion designer",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 1,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -14679,10 +14750,10 @@
         "ssoc2024": "21632",
         "title": "Product/Industrial designer"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2163"
@@ -14693,11 +14764,14 @@
             "title": "Commercial and Industrial Designers",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Industrial designer"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Industrial designer",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 1,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -14948,10 +15022,10 @@
         "ssoc2024": "21661",
         "title": "Graphic designer"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2166"
@@ -14962,11 +15036,14 @@
             "title": "Graphic Designers",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Graphic designer"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Graphic designer",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 2,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -15217,10 +15294,10 @@
         "ssoc2024": "21724",
         "title": "Flight engineer"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "3153"
@@ -15231,11 +15308,14 @@
             "title": "Airline Pilots, Copilots, and Flight Engineers",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Flight engineer"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Flight engineer",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 1,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -15481,15 +15561,832 @@
         }
       }
     },
+    "22200": {
+      "occupation": {
+        "ssoc2024": "22200",
+        "title": "Registered nurse and related nursing professional (excluding enrolled nurse)"
+      },
+      "status": "available_reviewed_identity",
+      "headline_effect": "none",
+      "mapping": {
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
+        "ssoc_isco_quality": "partial",
+        "official_isco08_codes": [
+          "2222",
+          "2221"
+        ],
+        "oecd_candidates": [
+          {
+            "onet_soc_code": "29-1141.00",
+            "title": "Registered Nurses",
+            "relation": "exactMatch",
+            "detailed_title_identity": true,
+            "identity_basis": "reviewed_title_and_definition",
+            "matched_ssoc_title_variant": "Registered nurse and related nursing professional (excluding enrolled nurse)",
+            "reviewed_at": "2026-08-21",
+            "review_rationale": "The source occupation is the named registered-nurse component of this detailed SSOC occupation; enrolled nurses are explicitly excluded on both sides of the decision."
+          }
+        ],
+        "raw_exact_candidates_rejected_by_title_rule": 2,
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
+        "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
+      },
+      "overall": {
+        "ai_capability_proximity_0_1": {
+          "median": 0.6638,
+          "min": 0.6638,
+          "max": 0.6638,
+          "candidate_count": 1
+        },
+        "total_capability_gap_0_23": {
+          "median": 7.7332,
+          "min": 7.7332,
+          "max": 7.7332,
+          "candidate_count": 1
+        },
+        "interpretation": "Higher proximity means current AI capabilities are closer to the capability demands of the mapped O*NET occupations. It does not measure adoption or employment effects."
+      },
+      "domains": {
+        "language": {
+          "label": "Language",
+          "capability_gap": {
+            "median": 0.8,
+            "min": 0.8,
+            "max": 0.8,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 2,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 3.8,
+            "min": 3.8,
+            "max": 3.8,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "social_interaction": {
+          "label": "Social interaction",
+          "capability_gap": {
+            "median": 2,
+            "min": 2,
+            "max": 2,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 3,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 4,
+            "min": 4,
+            "max": 4,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "problem_solving": {
+          "label": "Problem solving",
+          "capability_gap": {
+            "median": 2,
+            "min": 2,
+            "max": 2,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 3,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 4,
+            "min": 4,
+            "max": 4,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "creativity": {
+          "label": "Creativity",
+          "capability_gap": {
+            "median": 0,
+            "min": 0,
+            "max": 0,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 2,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 2.05,
+            "min": 2.05,
+            "max": 2.05,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "metacognition_critical_thinking": {
+          "label": "Critical thinking",
+          "capability_gap": {
+            "median": 1.95,
+            "min": 1.95,
+            "max": 1.95,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 3,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 3.95,
+            "min": 3.95,
+            "max": 3.95,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "knowledge_learning_memory": {
+          "label": "Knowledge, learning and memory",
+          "capability_gap": {
+            "median": 1,
+            "min": 1,
+            "max": 1,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 2,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 4,
+            "min": 4,
+            "max": 4,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "vision": {
+          "label": "Vision",
+          "capability_gap": {
+            "median": 0.75,
+            "min": 0.75,
+            "max": 0.75,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 2,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 3.75,
+            "min": 3.75,
+            "max": 3.75,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "manipulation": {
+          "label": "Physical manipulation",
+          "capability_gap": {
+            "median": 1.9,
+            "min": 1.9,
+            "max": 1.9,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 3,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 3.9,
+            "min": 3.9,
+            "max": 3.9,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "robotic_intelligence": {
+          "label": "Robotic intelligence",
+          "capability_gap": {
+            "median": 1.9,
+            "min": 1.9,
+            "max": 1.9,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 3,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 3.9,
+            "min": 3.9,
+            "max": 3.9,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        }
+      }
+    },
+    "22621": {
+      "occupation": {
+        "ssoc2024": "22621",
+        "title": "Pharmacist (patient care)"
+      },
+      "status": "available_reviewed_identity",
+      "headline_effect": "none",
+      "mapping": {
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
+        "ssoc_isco_quality": "one_to_one",
+        "official_isco08_codes": [
+          "2262"
+        ],
+        "oecd_candidates": [
+          {
+            "onet_soc_code": "29-1051.00",
+            "title": "Pharmacists",
+            "relation": "closeMatch",
+            "detailed_title_identity": true,
+            "identity_basis": "reviewed_title_and_definition",
+            "matched_ssoc_title_variant": "Pharmacist (patient care)",
+            "reviewed_at": "2026-08-21",
+            "review_rationale": "The O*NET occupation is broader than the patient-care qualifier, but its pharmacist work identity contains the detailed SSOC role without changing occupation family."
+          }
+        ],
+        "raw_exact_candidates_rejected_by_title_rule": 0,
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
+        "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
+      },
+      "overall": {
+        "ai_capability_proximity_0_1": {
+          "median": 0.798,
+          "min": 0.798,
+          "max": 0.798,
+          "candidate_count": 1
+        },
+        "total_capability_gap_0_23": {
+          "median": 4.6466,
+          "min": 4.6466,
+          "max": 4.6466,
+          "candidate_count": 1
+        },
+        "interpretation": "Higher proximity means current AI capabilities are closer to the capability demands of the mapped O*NET occupations. It does not measure adoption or employment effects."
+      },
+      "domains": {
+        "language": {
+          "label": "Language",
+          "capability_gap": {
+            "median": 0.95,
+            "min": 0.95,
+            "max": 0.95,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 2,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 3.95,
+            "min": 3.95,
+            "max": 3.95,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "social_interaction": {
+          "label": "Social interaction",
+          "capability_gap": {
+            "median": 1.55,
+            "min": 1.55,
+            "max": 1.55,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 3,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 3.55,
+            "min": 3.55,
+            "max": 3.55,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "problem_solving": {
+          "label": "Problem solving",
+          "capability_gap": {
+            "median": 1.3,
+            "min": 1.3,
+            "max": 1.3,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 3,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 3.3,
+            "min": 3.3,
+            "max": 3.3,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "creativity": {
+          "label": "Creativity",
+          "capability_gap": {
+            "median": 0,
+            "min": 0,
+            "max": 0,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 2,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 2,
+            "min": 2,
+            "max": 2,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "metacognition_critical_thinking": {
+          "label": "Critical thinking",
+          "capability_gap": {
+            "median": 1.5,
+            "min": 1.5,
+            "max": 1.5,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 3,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 3.5,
+            "min": 3.5,
+            "max": 3.5,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "knowledge_learning_memory": {
+          "label": "Knowledge, learning and memory",
+          "capability_gap": {
+            "median": 0.9,
+            "min": 0.9,
+            "max": 0.9,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 2,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 3.9,
+            "min": 3.9,
+            "max": 3.9,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "vision": {
+          "label": "Vision",
+          "capability_gap": {
+            "median": 0,
+            "min": 0,
+            "max": 0,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 2,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 1.85,
+            "min": 1.85,
+            "max": 1.85,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "manipulation": {
+          "label": "Physical manipulation",
+          "capability_gap": {
+            "median": 0.5,
+            "min": 0.5,
+            "max": 0.5,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 3,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 2.5,
+            "min": 2.5,
+            "max": 2.5,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "robotic_intelligence": {
+          "label": "Robotic intelligence",
+          "capability_gap": {
+            "median": 0,
+            "min": 0,
+            "max": 0,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 3,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 1.55,
+            "min": 1.55,
+            "max": 1.55,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        }
+      }
+    },
+    "22640": {
+      "occupation": {
+        "ssoc2024": "22640",
+        "title": "Physiotherapist"
+      },
+      "status": "available_reviewed_identity",
+      "headline_effect": "none",
+      "mapping": {
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
+        "ssoc_isco_quality": "one_to_one",
+        "official_isco08_codes": [
+          "2264"
+        ],
+        "oecd_candidates": [
+          {
+            "onet_soc_code": "29-1123.00",
+            "title": "Physical Therapists",
+            "relation": "exactMatch",
+            "detailed_title_identity": true,
+            "identity_basis": "reviewed_title_and_definition",
+            "matched_ssoc_title_variant": "Physiotherapist",
+            "reviewed_at": "2026-08-21",
+            "review_rationale": "Physiotherapist and Physical Therapist are the Singapore and United States titles for the same regulated therapy occupation."
+          }
+        ],
+        "raw_exact_candidates_rejected_by_title_rule": 1,
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
+        "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
+      },
+      "overall": {
+        "ai_capability_proximity_0_1": {
+          "median": 0.6788,
+          "min": 0.6788,
+          "max": 0.6788,
+          "candidate_count": 1
+        },
+        "total_capability_gap_0_23": {
+          "median": 7.3883,
+          "min": 7.3883,
+          "max": 7.3883,
+          "candidate_count": 1
+        },
+        "interpretation": "Higher proximity means current AI capabilities are closer to the capability demands of the mapped O*NET occupations. It does not measure adoption or employment effects."
+      },
+      "domains": {
+        "language": {
+          "label": "Language",
+          "capability_gap": {
+            "median": 0.75,
+            "min": 0.75,
+            "max": 0.75,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 2,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 3.75,
+            "min": 3.75,
+            "max": 3.75,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "social_interaction": {
+          "label": "Social interaction",
+          "capability_gap": {
+            "median": 2,
+            "min": 2,
+            "max": 2,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 3,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 4,
+            "min": 4,
+            "max": 4,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "problem_solving": {
+          "label": "Problem solving",
+          "capability_gap": {
+            "median": 1.9,
+            "min": 1.9,
+            "max": 1.9,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 3,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 3.9,
+            "min": 3.9,
+            "max": 3.9,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "creativity": {
+          "label": "Creativity",
+          "capability_gap": {
+            "median": 0,
+            "min": 0,
+            "max": 0,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 2,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 2.15,
+            "min": 2.15,
+            "max": 2.15,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "metacognition_critical_thinking": {
+          "label": "Critical thinking",
+          "capability_gap": {
+            "median": 1.95,
+            "min": 1.95,
+            "max": 1.95,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 3,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 3.95,
+            "min": 3.95,
+            "max": 3.95,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "knowledge_learning_memory": {
+          "label": "Knowledge, learning and memory",
+          "capability_gap": {
+            "median": 1.1,
+            "min": 1.1,
+            "max": 1.1,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 2,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 4.1,
+            "min": 4.1,
+            "max": 4.1,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "vision": {
+          "label": "Vision",
+          "capability_gap": {
+            "median": 0.65,
+            "min": 0.65,
+            "max": 0.65,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 2,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 3.65,
+            "min": 3.65,
+            "max": 3.65,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "manipulation": {
+          "label": "Physical manipulation",
+          "capability_gap": {
+            "median": 1.95,
+            "min": 1.95,
+            "max": 1.95,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 3,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 3.95,
+            "min": 3.95,
+            "max": 3.95,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "robotic_intelligence": {
+          "label": "Robotic intelligence",
+          "capability_gap": {
+            "median": 1.9,
+            "min": 1.9,
+            "max": 1.9,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 3,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 3.9,
+            "min": 3.9,
+            "max": 3.9,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        }
+      }
+    },
     "22661": {
       "occupation": {
         "ssoc2024": "22661",
         "title": "Audiologist"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2266"
@@ -15500,11 +16397,14 @@
             "title": "Audiologists",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Audiologist"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Audiologist",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 1,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -15755,10 +16655,10 @@
         "ssoc2024": "22670",
         "title": "Optometrist"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2267"
@@ -15769,11 +16669,14 @@
             "title": "Optometrists",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Optometrist"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Optometrist",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 1,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -16024,10 +16927,10 @@
         "ssoc2024": "22680",
         "title": "Occupational therapist"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2269"
@@ -16038,11 +16941,14 @@
             "title": "Occupational Therapists",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Occupational therapist"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Occupational therapist",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 8,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -16293,10 +17199,10 @@
         "ssoc2024": "22691",
         "title": "Chiropractor"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2269"
@@ -16307,11 +17213,14 @@
             "title": "Chiropractors",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Chiropractor"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Chiropractor",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 8,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -16562,10 +17471,10 @@
         "ssoc2024": "22692",
         "title": "Podiatrist"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2269"
@@ -16576,11 +17485,14 @@
             "title": "Podiatrists",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Podiatrist"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Podiatrist",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 8,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -16831,10 +17743,10 @@
         "ssoc2024": "22694",
         "title": "Radiation therapist"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "3211"
@@ -16845,11 +17757,14 @@
             "title": "Radiation Therapists",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Radiation therapist"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Radiation therapist",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 0,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -17100,10 +18015,10 @@
         "ssoc2024": "23400",
         "title": "Secondary school teacher"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2330"
@@ -17114,11 +18029,14 @@
             "title": "Secondary School Teachers, Except Special and Career/Technical Education",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Secondary school teacher"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Secondary school teacher",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 0,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -17369,10 +18287,10 @@
         "ssoc2024": "24160",
         "title": "Insurance underwriter"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "3321"
@@ -17383,11 +18301,14 @@
             "title": "Insurance Underwriters",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Insurance underwriter"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Insurance underwriter",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 1,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -17633,15 +18554,833 @@
         }
       }
     },
+    "24214": {
+      "occupation": {
+        "ssoc2024": "24214",
+        "title": "Sustainability project development/management professional"
+      },
+      "status": "available_reviewed_identity",
+      "headline_effect": "none",
+      "mapping": {
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
+        "ssoc_isco_quality": "partial",
+        "official_isco08_codes": [
+          "2133",
+          "2421"
+        ],
+        "oecd_candidates": [
+          {
+            "onet_soc_code": "13-1199.05",
+            "title": "Sustainability Specialists",
+            "relation": "closeMatch",
+            "detailed_title_identity": true,
+            "identity_basis": "reviewed_title_and_definition",
+            "matched_ssoc_title_variant": "Sustainability project development/management professional",
+            "reviewed_at": "2026-08-21",
+            "review_rationale": "The source role is the closest detailed sustainability-specialist identity and covers sustainability project development and management rather than a generic environmental occupation."
+          }
+        ],
+        "raw_exact_candidates_rejected_by_title_rule": 4,
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
+        "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
+      },
+      "overall": {
+        "ai_capability_proximity_0_1": {
+          "median": 0.8345,
+          "min": 0.8345,
+          "max": 0.8345,
+          "candidate_count": 1
+        },
+        "total_capability_gap_0_23": {
+          "median": 3.8063,
+          "min": 3.8063,
+          "max": 3.8063,
+          "candidate_count": 1
+        },
+        "interpretation": "Higher proximity means current AI capabilities are closer to the capability demands of the mapped O*NET occupations. It does not measure adoption or employment effects."
+      },
+      "domains": {
+        "language": {
+          "label": "Language",
+          "capability_gap": {
+            "median": 1,
+            "min": 1,
+            "max": 1,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 2,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 4,
+            "min": 4,
+            "max": 4,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "social_interaction": {
+          "label": "Social interaction",
+          "capability_gap": {
+            "median": 1.05,
+            "min": 1.05,
+            "max": 1.05,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 3,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 3.05,
+            "min": 3.05,
+            "max": 3.05,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "problem_solving": {
+          "label": "Problem solving",
+          "capability_gap": {
+            "median": 1.7,
+            "min": 1.7,
+            "max": 1.7,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 3,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 3.7,
+            "min": 3.7,
+            "max": 3.7,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "creativity": {
+          "label": "Creativity",
+          "capability_gap": {
+            "median": 0,
+            "min": 0,
+            "max": 0,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 2,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 2.5,
+            "min": 2.5,
+            "max": 2.5,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "metacognition_critical_thinking": {
+          "label": "Critical thinking",
+          "capability_gap": {
+            "median": 1.7,
+            "min": 1.7,
+            "max": 1.7,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 3,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 3.7,
+            "min": 3.7,
+            "max": 3.7,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "knowledge_learning_memory": {
+          "label": "Knowledge, learning and memory",
+          "capability_gap": {
+            "median": 0.6,
+            "min": 0.6,
+            "max": 0.6,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 2,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 3.6,
+            "min": 3.6,
+            "max": 3.6,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "vision": {
+          "label": "Vision",
+          "capability_gap": {
+            "median": 0,
+            "min": 0,
+            "max": 0,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 2,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 0.2,
+            "min": 0.2,
+            "max": 0.2,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "manipulation": {
+          "label": "Physical manipulation",
+          "capability_gap": {
+            "median": 0,
+            "min": 0,
+            "max": 0,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 3,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 0,
+            "min": 0,
+            "max": 0,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "robotic_intelligence": {
+          "label": "Robotic intelligence",
+          "capability_gap": {
+            "median": 0,
+            "min": 0,
+            "max": 0,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 3,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 0,
+            "min": 0,
+            "max": 0,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        }
+      }
+    },
+    "25111": {
+      "occupation": {
+        "ssoc2024": "25111",
+        "title": "Systems designer/analyst"
+      },
+      "status": "available_reviewed_identity",
+      "headline_effect": "none",
+      "mapping": {
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
+        "ssoc_isco_quality": "one_to_one",
+        "official_isco08_codes": [
+          "2511"
+        ],
+        "oecd_candidates": [
+          {
+            "onet_soc_code": "15-1211.00",
+            "title": "Computer Systems Analysts",
+            "relation": "closeMatch",
+            "detailed_title_identity": true,
+            "identity_basis": "reviewed_title_and_definition",
+            "matched_ssoc_title_variant": "Systems designer/analyst",
+            "reviewed_at": "2026-08-21",
+            "review_rationale": "The O*NET role matches the systems-analysis component and its design-and-analysis definition; no broader computer occupation is included."
+          }
+        ],
+        "raw_exact_candidates_rejected_by_title_rule": 3,
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
+        "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
+      },
+      "overall": {
+        "ai_capability_proximity_0_1": {
+          "median": 0.8246,
+          "min": 0.8246,
+          "max": 0.8246,
+          "candidate_count": 1
+        },
+        "total_capability_gap_0_23": {
+          "median": 4.0335,
+          "min": 4.0335,
+          "max": 4.0335,
+          "candidate_count": 1
+        },
+        "interpretation": "Higher proximity means current AI capabilities are closer to the capability demands of the mapped O*NET occupations. It does not measure adoption or employment effects."
+      },
+      "domains": {
+        "language": {
+          "label": "Language",
+          "capability_gap": {
+            "median": 0.9,
+            "min": 0.9,
+            "max": 0.9,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 2,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 3.9,
+            "min": 3.9,
+            "max": 3.9,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "social_interaction": {
+          "label": "Social interaction",
+          "capability_gap": {
+            "median": 1.3,
+            "min": 1.3,
+            "max": 1.3,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 3,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 3.3,
+            "min": 3.3,
+            "max": 3.3,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "problem_solving": {
+          "label": "Problem solving",
+          "capability_gap": {
+            "median": 1.55,
+            "min": 1.55,
+            "max": 1.55,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 3,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 3.55,
+            "min": 3.55,
+            "max": 3.55,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "creativity": {
+          "label": "Creativity",
+          "capability_gap": {
+            "median": 0,
+            "min": 0,
+            "max": 0,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 2,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 2.4,
+            "min": 2.4,
+            "max": 2.4,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "metacognition_critical_thinking": {
+          "label": "Critical thinking",
+          "capability_gap": {
+            "median": 2.05,
+            "min": 2.05,
+            "max": 2.05,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 3,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 4.05,
+            "min": 4.05,
+            "max": 4.05,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "knowledge_learning_memory": {
+          "label": "Knowledge, learning and memory",
+          "capability_gap": {
+            "median": 0.5,
+            "min": 0.5,
+            "max": 0.5,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 2,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 3.5,
+            "min": 3.5,
+            "max": 3.5,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "vision": {
+          "label": "Vision",
+          "capability_gap": {
+            "median": 0,
+            "min": 0,
+            "max": 0,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 2,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 0.2,
+            "min": 0.2,
+            "max": 0.2,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "manipulation": {
+          "label": "Physical manipulation",
+          "capability_gap": {
+            "median": 0,
+            "min": 0,
+            "max": 0,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 3,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 0,
+            "min": 0,
+            "max": 0,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "robotic_intelligence": {
+          "label": "Robotic intelligence",
+          "capability_gap": {
+            "median": 0,
+            "min": 0,
+            "max": 0,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 3,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 0,
+            "min": 0,
+            "max": 0,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        }
+      }
+    },
+    "25113": {
+      "occupation": {
+        "ssoc2024": "25113",
+        "title": "Enterprise/Solution/Software architect"
+      },
+      "status": "available_reviewed_identity",
+      "headline_effect": "none",
+      "mapping": {
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
+        "ssoc_isco_quality": "partial",
+        "official_isco08_codes": [
+          "2511",
+          "2523"
+        ],
+        "oecd_candidates": [
+          {
+            "onet_soc_code": "15-1299.08",
+            "title": "Computer Systems Engineers/Architects",
+            "relation": "exactMatch",
+            "detailed_title_identity": true,
+            "identity_basis": "reviewed_title_and_definition",
+            "matched_ssoc_title_variant": "Enterprise/Solution/Software architect",
+            "reviewed_at": "2026-08-21",
+            "review_rationale": "The source detailed occupation explicitly covers computer systems architects, matching the architecture work named in the SSOC title and definition."
+          }
+        ],
+        "raw_exact_candidates_rejected_by_title_rule": 3,
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
+        "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
+      },
+      "overall": {
+        "ai_capability_proximity_0_1": {
+          "median": 0.8036,
+          "min": 0.8036,
+          "max": 0.8036,
+          "candidate_count": 1
+        },
+        "total_capability_gap_0_23": {
+          "median": 4.5167,
+          "min": 4.5167,
+          "max": 4.5167,
+          "candidate_count": 1
+        },
+        "interpretation": "Higher proximity means current AI capabilities are closer to the capability demands of the mapped O*NET occupations. It does not measure adoption or employment effects."
+      },
+      "domains": {
+        "language": {
+          "label": "Language",
+          "capability_gap": {
+            "median": 0.9,
+            "min": 0.9,
+            "max": 0.9,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 2,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 3.9,
+            "min": 3.9,
+            "max": 3.9,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "social_interaction": {
+          "label": "Social interaction",
+          "capability_gap": {
+            "median": 1,
+            "min": 1,
+            "max": 1,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 3,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 3,
+            "min": 3,
+            "max": 3,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "problem_solving": {
+          "label": "Problem solving",
+          "capability_gap": {
+            "median": 1.9,
+            "min": 1.9,
+            "max": 1.9,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 3,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 3.9,
+            "min": 3.9,
+            "max": 3.9,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "creativity": {
+          "label": "Creativity",
+          "capability_gap": {
+            "median": 0,
+            "min": 0,
+            "max": 0,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 2,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 2.25,
+            "min": 2.25,
+            "max": 2.25,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "metacognition_critical_thinking": {
+          "label": "Critical thinking",
+          "capability_gap": {
+            "median": 2.15,
+            "min": 2.15,
+            "max": 2.15,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 3,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 4.15,
+            "min": 4.15,
+            "max": 4.15,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "knowledge_learning_memory": {
+          "label": "Knowledge, learning and memory",
+          "capability_gap": {
+            "median": 0.5,
+            "min": 0.5,
+            "max": 0.5,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 2,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 3.5,
+            "min": 3.5,
+            "max": 3.5,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "vision": {
+          "label": "Vision",
+          "capability_gap": {
+            "median": 0,
+            "min": 0,
+            "max": 0,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 2,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 0.25,
+            "min": 0.25,
+            "max": 0.25,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "manipulation": {
+          "label": "Physical manipulation",
+          "capability_gap": {
+            "median": 0,
+            "min": 0,
+            "max": 0,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 3,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 0.25,
+            "min": 0.25,
+            "max": 0.25,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "robotic_intelligence": {
+          "label": "Robotic intelligence",
+          "capability_gap": {
+            "median": 0,
+            "min": 0,
+            "max": 0,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 3,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 0.25,
+            "min": 0.25,
+            "max": 0.25,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        }
+      }
+    },
     "25122": {
       "occupation": {
         "ssoc2024": "25122",
         "title": "Web/Mobile applications developer"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2513"
@@ -17652,11 +19391,14 @@
             "title": "Web Developers",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Web developer"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Web developer",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 1,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -17907,10 +19649,10 @@
         "ssoc2024": "25211",
         "title": "Data/Database administrator"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2521"
@@ -17921,11 +19663,14 @@
             "title": "Database Administrators",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Database administrator"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Database administrator",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 1,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -18171,15 +19916,287 @@
         }
       }
     },
+    "25213": {
+      "occupation": {
+        "ssoc2024": "25213",
+        "title": "Data engineer"
+      },
+      "status": "available_reviewed_identity",
+      "headline_effect": "none",
+      "mapping": {
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
+        "ssoc_isco_quality": "one_to_one",
+        "official_isco08_codes": [
+          "2521"
+        ],
+        "oecd_candidates": [
+          {
+            "onet_soc_code": "15-1243.01",
+            "title": "Data Warehousing Specialists",
+            "relation": "exactMatch",
+            "detailed_title_identity": true,
+            "identity_basis": "reviewed_title_and_definition",
+            "matched_ssoc_title_variant": "Data engineer",
+            "reviewed_at": "2026-08-21",
+            "review_rationale": "The source role covers the data-pipeline, storage and warehousing work that defines the detailed SSOC Data Engineer occupation; the unrelated database-administrator candidate is excluded."
+          }
+        ],
+        "raw_exact_candidates_rejected_by_title_rule": 2,
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
+        "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
+      },
+      "overall": {
+        "ai_capability_proximity_0_1": {
+          "median": 0.9547,
+          "min": 0.9547,
+          "max": 0.9547,
+          "candidate_count": 1
+        },
+        "total_capability_gap_0_23": {
+          "median": 1.042,
+          "min": 1.042,
+          "max": 1.042,
+          "candidate_count": 1
+        },
+        "interpretation": "Higher proximity means current AI capabilities are closer to the capability demands of the mapped O*NET occupations. It does not measure adoption or employment effects."
+      },
+      "domains": {
+        "language": {
+          "label": "Language",
+          "capability_gap": {
+            "median": 0,
+            "min": 0,
+            "max": 0,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 2,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 3,
+            "min": 3,
+            "max": 3,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "social_interaction": {
+          "label": "Social interaction",
+          "capability_gap": {
+            "median": 0,
+            "min": 0,
+            "max": 0,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 3,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 2,
+            "min": 2,
+            "max": 2,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "problem_solving": {
+          "label": "Problem solving",
+          "capability_gap": {
+            "median": 0.75,
+            "min": 0.75,
+            "max": 0.75,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 3,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 2.75,
+            "min": 2.75,
+            "max": 2.75,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "creativity": {
+          "label": "Creativity",
+          "capability_gap": {
+            "median": 0,
+            "min": 0,
+            "max": 0,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 2,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 2,
+            "min": 2,
+            "max": 2,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "metacognition_critical_thinking": {
+          "label": "Critical thinking",
+          "capability_gap": {
+            "median": 1,
+            "min": 1,
+            "max": 1,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 3,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 3,
+            "min": 3,
+            "max": 3,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "knowledge_learning_memory": {
+          "label": "Knowledge, learning and memory",
+          "capability_gap": {
+            "median": 0,
+            "min": 0,
+            "max": 0,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 2,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 3,
+            "min": 3,
+            "max": 3,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "vision": {
+          "label": "Vision",
+          "capability_gap": {
+            "median": 0,
+            "min": 0,
+            "max": 0,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 2,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 0,
+            "min": 0,
+            "max": 0,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "manipulation": {
+          "label": "Physical manipulation",
+          "capability_gap": {
+            "median": 0,
+            "min": 0,
+            "max": 0,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 3,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 0,
+            "min": 0,
+            "max": 0,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        },
+        "robotic_intelligence": {
+          "label": "Robotic intelligence",
+          "capability_gap": {
+            "median": 0,
+            "min": 0,
+            "max": 0,
+            "candidate_count": 1
+          },
+          "gap_scale": {
+            "min": 0,
+            "max": 3,
+            "lower_is_closer": true
+          },
+          "job_demand": {
+            "median": 0,
+            "min": 0,
+            "max": 0,
+            "candidate_count": 1
+          },
+          "demand_scale": {
+            "min": 0,
+            "max": 5,
+            "higher_is_more_demanded": true
+          }
+        }
+      }
+    },
     "26211": {
       "occupation": {
         "ssoc2024": "26211",
         "title": "Archivist"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2621"
@@ -18190,11 +20207,14 @@
             "title": "Archivists",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Archivist"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Archivist",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 0,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -18445,10 +20465,10 @@
         "ssoc2024": "26310",
         "title": "Economist"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2631"
@@ -18459,11 +20479,14 @@
             "title": "Economists",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Economist"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Economist",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 0,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -18714,10 +20737,10 @@
         "ssoc2024": "26331",
         "title": "Political scientist"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2633"
@@ -18728,11 +20751,14 @@
             "title": "Political Scientists",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Political scientist"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Political scientist",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 1,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -18983,10 +21009,10 @@
         "ssoc2024": "26414",
         "title": "Technical writer"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2641"
@@ -18997,11 +21023,14 @@
             "title": "Technical Writers",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Technical writer"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Technical writer",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 0,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -19252,10 +21281,10 @@
         "ssoc2024": "26550",
         "title": "Actor"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "2655"
@@ -19266,11 +21295,14 @@
             "title": "Actors",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Actor"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Actor",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 0,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -19521,10 +21553,10 @@
         "ssoc2024": "31212",
         "title": "Automotive engineering technician"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "3115"
@@ -19535,11 +21567,14 @@
             "title": "Automotive Engineering Technicians",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Automotive engineering technician"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Automotive engineering technician",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 2,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -19790,10 +21825,10 @@
         "ssoc2024": "31411",
         "title": "Biological technician"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "3141"
@@ -19804,11 +21839,14 @@
             "title": "Biological Technicians",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Biological technician"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Biological technician",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 0,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -20059,10 +22097,10 @@
         "ssoc2024": "31540",
         "title": "Air traffic controller"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "3154"
@@ -20073,11 +22111,14 @@
             "title": "Air Traffic Controllers",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Air traffic controller"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Air traffic controller",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 2,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -20328,10 +22369,10 @@
         "ssoc2024": "32130",
         "title": "Pharmacy technician"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "3213"
@@ -20342,11 +22383,14 @@
             "title": "Pharmacy Technicians",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Pharmacy technician"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Pharmacy technician",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 1,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -20597,10 +22641,10 @@
         "ssoc2024": "32530",
         "title": "Community health worker"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "3253"
@@ -20611,11 +22655,14 @@
             "title": "Community Health Workers",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Community health worker"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Community health worker",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 0,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -20866,10 +22913,10 @@
         "ssoc2024": "33120",
         "title": "Credit/Loans officer"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "3312"
@@ -20880,11 +22927,14 @@
             "title": "Loan Officers",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Loans officer"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Loans officer",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 3,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -21135,10 +23185,10 @@
         "ssoc2024": "33232",
         "title": "Purchasing agent"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "3323"
@@ -21149,11 +23199,14 @@
             "title": "Purchasing Agents, Except Wholesale, Retail, and Farm Products",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Purchasing agent"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Purchasing agent",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 0,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -21404,10 +23457,10 @@
         "ssoc2024": "33494",
         "title": "Executive secretary"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "3343"
@@ -21418,11 +23471,14 @@
             "title": "Executive Secretaries and Executive Administrative Assistants",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Executive secretary"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Executive secretary",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 2,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -21673,10 +23729,10 @@
         "ssoc2024": "34224",
         "title": "Sports official"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "3422"
@@ -21687,11 +23743,14 @@
             "title": "Umpires, Referees, and Other Sports Officials",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Sports official"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Sports official",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 1,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -21942,10 +24001,10 @@
         "ssoc2024": "34310",
         "title": "Photographer"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "3431"
@@ -21956,11 +24015,14 @@
             "title": "Photographers",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Photographer"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Photographer",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 0,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -22211,10 +24273,10 @@
         "ssoc2024": "34321",
         "title": "Interior designer"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "3432"
@@ -22225,11 +24287,14 @@
             "title": "Interior Designers",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Interior designer"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Interior designer",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 2,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -22480,10 +24545,10 @@
         "ssoc2024": "41101",
         "title": "Office clerk"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "partial",
         "official_isco08_codes": [
           "4415",
@@ -22495,11 +24560,14 @@
             "title": "Office Clerks, General",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Office clerk"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Office clerk",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 1,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -22750,10 +24818,10 @@
         "ssoc2024": "51131",
         "title": "Tour guide"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "5113"
@@ -22764,11 +24832,14 @@
             "title": "Tour Guides and Escorts",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Tour guide"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Tour guide",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 0,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -23019,10 +25090,10 @@
         "ssoc2024": "51322",
         "title": "Barista"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "5132"
@@ -23033,11 +25104,14 @@
             "title": "Baristas",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Barista"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Barista",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 1,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -23288,10 +25362,10 @@
         "ssoc2024": "51412",
         "title": "Barber"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "5141"
@@ -23302,11 +25376,14 @@
             "title": "Barbers",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Barber"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Barber",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 1,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -23557,10 +25634,10 @@
         "ssoc2024": "51932",
         "title": "Embalmer"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "5163"
@@ -23571,11 +25648,14 @@
             "title": "Embalmers",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Embalmer"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Embalmer",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 2,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -23826,10 +25906,10 @@
         "ssoc2024": "52440",
         "title": "Telemarketer"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "5244"
@@ -23840,11 +25920,14 @@
             "title": "Telemarketers",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Telemarketer"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Telemarketer",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 0,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -24095,10 +26178,10 @@
         "ssoc2024": "71151",
         "title": "Carpenter"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "7115"
@@ -24109,11 +26192,14 @@
             "title": "Carpenters",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Carpenter"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Carpenter",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 0,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -24364,10 +26450,10 @@
         "ssoc2024": "71210",
         "title": "Roofer"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "7121"
@@ -24378,11 +26464,14 @@
             "title": "Roofers",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Roofer"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Roofer",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 0,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -24633,10 +26722,10 @@
         "ssoc2024": "71250",
         "title": "Glazier"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "7125"
@@ -24647,11 +26736,14 @@
             "title": "Glaziers",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Glazier"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Glazier",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 1,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -24902,10 +26994,10 @@
         "ssoc2024": "72130",
         "title": "Sheet metal worker"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "7213"
@@ -24916,11 +27008,14 @@
             "title": "Sheet Metal Workers",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Sheet metal worker"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Sheet metal worker",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 1,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -25171,10 +27266,10 @@
         "ssoc2024": "72221",
         "title": "Tool/Die maker"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "7222"
@@ -25185,11 +27280,14 @@
             "title": "Tool and Die Makers",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Die maker"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Die maker",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 2,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -25440,10 +27538,10 @@
         "ssoc2024": "74110",
         "title": "Electrician"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "7411"
@@ -25454,11 +27552,14 @@
             "title": "Electricians",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Electrician"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Electrician",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 1,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -25709,10 +27810,10 @@
         "ssoc2024": "75121",
         "title": "Baker"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "7512"
@@ -25723,11 +27824,14 @@
             "title": "Bakers",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Baker"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Baker",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 0,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -25978,10 +28082,10 @@
         "ssoc2024": "81501",
         "title": "Sewing machine operator"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "8153"
@@ -25992,11 +28096,14 @@
             "title": "Sewing Machine Operators",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Sewing machine operator"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Sewing machine operator",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 0,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -26247,10 +28354,10 @@
         "ssoc2024": "83311",
         "title": "Bus driver"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "8331"
@@ -26261,11 +28368,14 @@
             "title": "Bus Drivers, Transit and Intercity",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Bus driver"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Bus driver",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 0,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -26516,10 +28626,10 @@
         "ssoc2024": "83422",
         "title": "Dredge operator"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "8342"
@@ -26530,11 +28640,14 @@
             "title": "Dredge Operators",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Dredge operator"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Dredge operator",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 2,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -26785,10 +28898,10 @@
         "ssoc2024": "83423",
         "title": "Pile driver/drilling machine operator"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "one_to_one",
         "official_isco08_codes": [
           "8342"
@@ -26799,11 +28912,14 @@
             "title": "Pile Driver Operators",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Pile driver operator"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Pile driver operator",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 2,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {
@@ -27054,10 +29170,10 @@
         "ssoc2024": "91153",
         "title": "Dishwasher"
       },
-      "status": "available_exact_title_identity",
+      "status": "available_reviewed_identity",
       "headline_effect": "none",
       "mapping": {
-        "method": "official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity",
+        "method": "official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision",
         "ssoc_isco_quality": "partial",
         "official_isco08_codes": [
           "9412",
@@ -27069,11 +29185,14 @@
             "title": "Dishwashers",
             "relation": "exactMatch",
             "detailed_title_identity": true,
-            "matched_ssoc_title_variant": "Dishwasher"
+            "identity_basis": "conservative_title_rule",
+            "matched_ssoc_title_variant": "Dishwasher",
+            "reviewed_at": null,
+            "review_rationale": null
           }
         ],
         "raw_exact_candidates_rejected_by_title_rule": 2,
-        "aggregation": "median_across_unique_exact_title_identity_candidates",
+        "aggregation": "median_across_unique_reviewed_identity_candidates",
         "version_limitation": "The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible."
       },
       "overall": {

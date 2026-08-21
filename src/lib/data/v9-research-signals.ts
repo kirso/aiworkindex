@@ -4,6 +4,7 @@ export interface V9ResearchSignalValue {
 	value_0_1: number;
 	within_published_subset_midrank_percentile: number;
 	source_occupation: { code: string; title: string };
+	source_grain: string;
 	interpretation: string;
 }
 
@@ -17,7 +18,11 @@ export interface V9ResearchSignalProfile {
 		official_isco08_codes: string[];
 		onet_soc_code: string;
 		onet_title: string;
+		identity_relation: 'exactMatch' | 'closeMatch';
+		identity_basis: 'conservative_title_rule' | 'reviewed_title_and_definition';
 		matched_ssoc_title_variant: string;
+		reviewed_at: string | null;
+		review_rationale: string | null;
 	};
 	eloundou_theoretical_exposure: V9ResearchSignalValue;
 	anthropic_observed_exposure: V9ResearchSignalValue | null;

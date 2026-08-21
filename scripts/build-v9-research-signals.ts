@@ -30,9 +30,12 @@ interface OccupationRelease {
 interface AcceptedIdentity {
 	onet_soc_code: string;
 	title: string;
-	relation: 'exactMatch';
+	relation: 'exactMatch' | 'closeMatch';
 	detailed_title_identity: true;
+	identity_basis: 'conservative_title_rule' | 'reviewed_title_and_definition';
 	matched_ssoc_title_variant: string;
+	reviewed_at: string | null;
+	review_rationale: string | null;
 }
 
 interface CapabilityArtifact {
@@ -211,7 +214,11 @@ const mappedRows = new Map<
 			official_isco08_codes: string[];
 			onet_soc_code: string;
 			onet_title: string;
+			identity_relation: 'exactMatch' | 'closeMatch';
+			identity_basis: 'conservative_title_rule' | 'reviewed_title_and_definition';
 			matched_ssoc_title_variant: string;
+			reviewed_at: string | null;
+			review_rationale: string | null;
 		};
 		eloundou: EloundouRow;
 		anthropic: AnthropicRow | null;
@@ -234,12 +241,16 @@ for (const [ssoc, profile] of Object.entries(capabilities.profiles)) {
 		occupation: profile.occupation,
 		mapping: {
 			method:
-				'official SSOC 2024 to ISCO-08, exact ESCO to O*NET-SOC, reviewed detailed-title identity, then exact source occupation code',
+				'official SSOC 2024 to ISCO-08, official ESCO to O*NET-SOC candidate relation, reviewed detailed occupation identity, then the source occupation code',
 			ssoc_isco_quality: profile.mapping.ssoc_isco_quality,
 			official_isco08_codes: profile.mapping.official_isco08_codes,
 			onet_soc_code: identity.onet_soc_code,
 			onet_title: identity.title,
-			matched_ssoc_title_variant: identity.matched_ssoc_title_variant
+			identity_relation: identity.relation,
+			identity_basis: identity.identity_basis,
+			matched_ssoc_title_variant: identity.matched_ssoc_title_variant,
+			reviewed_at: identity.reviewed_at,
+			review_rationale: identity.review_rationale
 		},
 		eloundou: eloundouRow,
 		anthropic: anthropic.get(identity.onet_soc_code.slice(0, 7)) ?? null
@@ -269,6 +280,7 @@ const profiles = Object.fromEntries(
 				value_0_1: round(row.eloundou.value),
 				within_published_subset_midrank_percentile: eloundouPercentiles.get(code),
 				source_occupation: { code: row.eloundou.code, title: row.eloundou.title },
+				source_grain: 'detailed O*NET-SOC occupation',
 				interpretation:
 					'Higher values mean more tasks were judged directly exposed to an LLM or exposed with complementary software under the beta rubric. This is potential, not observed adoption.'
 			},
@@ -277,6 +289,7 @@ const profiles = Object.fromEntries(
 						value_0_1: round(row.anthropic.value),
 						within_published_subset_midrank_percentile: anthropicPercentiles.get(code),
 						source_occupation: { code: row.anthropic.code, title: row.anthropic.title },
+						source_grain: 'six-digit parent SOC occupation',
 						interpretation:
 							'Higher values mean more theoretically feasible tasks were observed in work-related Claude usage, with automated use weighted more than augmentative use. This is platform evidence, not Singapore adoption.'
 					}
@@ -323,10 +336,14 @@ const artifact = {
 		'These US occupation research signals are transferred only through reviewed detailed-title identities. They do not measure Singapore adoption, employment effects or job-loss probability and cannot change the ILO headline.',
 	publication_rule: {
 		identity_owner: 'data/v9-capability-profiles.json',
-		relations_allowed: ['exactMatch'],
-		detailed_title_identity_required: true,
-		close_broad_narrow_relations_allowed: false,
-		source_code_match: 'exact',
+		relations_allowed: ['exactMatch', 'explicitly reviewed closeMatch'],
+		detailed_identity_required: true,
+		unreviewed_close_broad_narrow_relations_allowed: false,
+		source_code_match: {
+			eloundou: 'exact detailed O*NET-SOC code',
+			anthropic_observed_exposure:
+				'six-digit parent SOC code published by the source; source title and grain stay visible'
+		},
 		aggregation: 'not_needed_one_reviewed_identity_candidate_per_published_occupation',
 		missingness: 'unavailable_never_zero'
 	},

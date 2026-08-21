@@ -28,7 +28,7 @@ export interface V9CapabilityDomain {
 
 export interface V9CapabilityProfile {
 	occupation: { ssoc2024: string; title: string };
-	status: 'available_exact_title_identity';
+	status: 'available_reviewed_identity';
 	headline_effect: 'none';
 	mapping: {
 		method: string;
@@ -37,12 +37,15 @@ export interface V9CapabilityProfile {
 		oecd_candidates: Array<{
 			onet_soc_code: string;
 			title: string;
-			relation: 'exactMatch';
+			relation: 'exactMatch' | 'closeMatch';
 			detailed_title_identity: true;
+			identity_basis: 'conservative_title_rule' | 'reviewed_title_and_definition';
 			matched_ssoc_title_variant: string;
+			reviewed_at: string | null;
+			review_rationale: string | null;
 		}>;
 		raw_exact_candidates_rejected_by_title_rule: number;
-		aggregation: 'median_across_unique_exact_title_identity_candidates';
+		aggregation: 'median_across_unique_reviewed_identity_candidates';
 		version_limitation: string;
 	};
 	overall: {
@@ -55,7 +58,7 @@ export interface V9CapabilityProfile {
 
 export type V9CapabilityStatus =
 	| {
-			status: 'available_exact_title_identity';
+			status: 'available_reviewed_identity';
 			official_isco08_codes: string[];
 			raw_exact_oecd_candidate_count: number;
 			accepted_title_identity_count: number;
@@ -107,7 +110,9 @@ interface V9CapabilityArtifact {
 	coverage: {
 		ssoc_occupations: 1001;
 		raw_exact_candidate_coverage: number;
-		available_exact_title_identity_profiles: number;
+		available_reviewed_identity_profiles: number;
+		available_automated_title_rule_profiles: number;
+		available_manual_review_profiles: number;
 		unavailable_without_published_profile: number;
 		coverage_pct: number;
 		unique_oecd_rows_used: number;
@@ -115,7 +120,7 @@ interface V9CapabilityArtifact {
 		profiles_with_nonzero_overall_mapping_range: number;
 		raw_exact_candidates_rejected_by_title_rule: number;
 		occupations_available_only_if_close_matches_were_allowed: number;
-		close_match_profiles_published: 0;
+		close_match_profiles_published: number;
 	};
 	occupation_status: Record<string, V9CapabilityStatus>;
 	profiles: Record<string, V9CapabilityProfile>;

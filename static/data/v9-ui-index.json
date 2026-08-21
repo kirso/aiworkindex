@@ -6242,8 +6242,72 @@
       "labourContext": "PMET vacancies increased from Q4 and remained below their year-ago level. Hiring stayed net positive but slowed, while retrenchment incidence remained the highest of the three broad occupation groups.",
       "mappingQuality": "partial",
       "componentCount": null,
-      "capabilityProximity": null,
-      "capabilityDomains": []
+      "capabilityProximity": 0.6638,
+      "capabilityDomains": [
+        {
+          "key": "language",
+          "label": "Language",
+          "gap": 0.8,
+          "gapMaximum": 2,
+          "demand": 3.8
+        },
+        {
+          "key": "social_interaction",
+          "label": "Social interaction",
+          "gap": 2,
+          "gapMaximum": 3,
+          "demand": 4
+        },
+        {
+          "key": "problem_solving",
+          "label": "Problem solving",
+          "gap": 2,
+          "gapMaximum": 3,
+          "demand": 4
+        },
+        {
+          "key": "creativity",
+          "label": "Creativity",
+          "gap": 0,
+          "gapMaximum": 2,
+          "demand": 2.05
+        },
+        {
+          "key": "metacognition_critical_thinking",
+          "label": "Critical thinking",
+          "gap": 1.95,
+          "gapMaximum": 3,
+          "demand": 3.95
+        },
+        {
+          "key": "knowledge_learning_memory",
+          "label": "Knowledge, learning and memory",
+          "gap": 1,
+          "gapMaximum": 2,
+          "demand": 4
+        },
+        {
+          "key": "vision",
+          "label": "Vision",
+          "gap": 0.75,
+          "gapMaximum": 2,
+          "demand": 3.75
+        },
+        {
+          "key": "manipulation",
+          "label": "Physical manipulation",
+          "gap": 1.9,
+          "gapMaximum": 3,
+          "demand": 3.9
+        },
+        {
+          "key": "robotic_intelligence",
+          "label": "Robotic intelligence",
+          "gap": 1.9,
+          "gapMaximum": 3,
+          "demand": 3.9
+        }
+      ]
     },
     {
       "id": "occupation:22301",
@@ -6374,8 +6438,72 @@
       "labourContext": "PMET vacancies increased from Q4 and remained below their year-ago level. Hiring stayed net positive but slowed, while retrenchment incidence remained the highest of the three broad occupation groups.",
       "mappingQuality": "one_to_one",
       "componentCount": null,
-      "capabilityProximity": null,
-      "capabilityDomains": []
+      "capabilityProximity": 0.798,
+      "capabilityDomains": [
+        {
+          "key": "language",
+          "label": "Language",
+          "gap": 0.95,
+          "gapMaximum": 2,
+          "demand": 3.95
+        },
+        {
+          "key": "social_interaction",
+          "label": "Social interaction",
+          "gap": 1.55,
+          "gapMaximum": 3,
+          "demand": 3.55
+        },
+        {
+          "key": "problem_solving",
+          "label": "Problem solving",
+          "gap": 1.3,
+          "gapMaximum": 3,
+          "demand": 3.3
+        },
+        {
+          "key": "creativity",
+          "label": "Creativity",
+          "gap": 0,
+          "gapMaximum": 2,
+          "demand": 2
+        },
+        {
+          "key": "metacognition_critical_thinking",
+          "label": "Critical thinking",
+          "gap": 1.5,
+          "gapMaximum": 3,
+          "demand": 3.5
+        },
+        {
+          "key": "knowledge_learning_memory",
+          "label": "Knowledge, learning and memory",
+          "gap": 0.9,
+          "gapMaximum": 2,
+          "demand": 3.9
+        },
+        {
+          "key": "vision",
+          "label": "Vision",
+          "gap": 0,
+          "gapMaximum": 2,
+          "demand": 1.85
+        },
+        {
+          "key": "manipulation",
+          "label": "Physical manipulation",
+          "gap": 0.5,
+          "gapMaximum": 3,
+          "demand": 2.5
+        },
+        {
+          "key": "robotic_intelligence",
+          "label": "Robotic intelligence",
+          "gap": 0,
+          "gapMaximum": 3,
+          "demand": 1.55
+        }
+      ]
     },
     {
       "id": "occupation:22629",
@@ -6486,8 +6614,72 @@
       "labourContext": "PMET vacancies increased from Q4 and remained below their year-ago level. Hiring stayed net positive but slowed, while retrenchment incidence remained the highest of the three broad occupation groups.",
       "mappingQuality": "one_to_one",
       "componentCount": null,
-      "capabilityProximity": null,
-      "capabilityDomains": []
+      "capabilityProximity": 0.6788,
+      "capabilityDomains": [
+        {
+          "key": "language",
+          "label": "Language",
+          "gap": 0.75,
+          "gapMaximum": 2,
+          "demand": 3.75
+        },
+        {
+          "key": "social_interaction",
+          "label": "Social interaction",
+          "gap": 2,
+          "gapMaximum": 3,
+          "demand": 4
+        },
+        {
+          "key": "problem_solving",
+          "label": "Problem solving",
+          "gap": 1.9,
+          "gapMaximum": 3,
+          "demand": 3.9
+        },
+        {
+          "key": "creativity",
+          "label": "Creativity",
+          "gap": 0,
+          "gapMaximum": 2,
+          "demand": 2.15
+        },
+        {
+          "key": "metacognition_critical_thinking",
+          "label": "Critical thinking",
+          "gap": 1.95,
+          "gapMaximum": 3,
+          "demand": 3.95
+        },
+        {
+          "key": "knowledge_learning_memory",
+          "label": "Knowledge, learning and memory",
+          "gap": 1.1,
+          "gapMaximum": 2,
+          "demand": 4.1
+        },
+        {
+          "key": "vision",
+          "label": "Vision",
+          "gap": 0.65,
+          "gapMaximum": 2,
+          "demand": 3.65
+        },
+        {
+          "key": "manipulation",
+          "label": "Physical manipulation",
+          "gap": 1.95,
+          "gapMaximum": 3,
+          "demand": 3.95
+        },
+        {
+          "key": "robotic_intelligence",
+          "label": "Robotic intelligence",
+          "gap": 1.9,
+          "gapMaximum": 3,
+          "demand": 3.9
+        }
+      ]
     },
     {
       "id": "occupation:22651",
@@ -8179,8 +8371,72 @@
       "labourContext": "PMET vacancies increased from Q4 and remained below their year-ago level. Hiring stayed net positive but slowed, while retrenchment incidence remained the highest of the three broad occupation groups.",
       "mappingQuality": "partial",
       "componentCount": null,
-      "capabilityProximity": null,
-      "capabilityDomains": []
+      "capabilityProximity": 0.8345,
+      "capabilityDomains": [
+        {
+          "key": "language",
+          "label": "Language",
+          "gap": 1,
+          "gapMaximum": 2,
+          "demand": 4
+        },
+        {
+          "key": "social_interaction",
+          "label": "Social interaction",
+          "gap": 1.05,
+          "gapMaximum": 3,
+          "demand": 3.05
+        },
+        {
+          "key": "problem_solving",
+          "label": "Problem solving",
+          "gap": 1.7,
+          "gapMaximum": 3,
+          "demand": 3.7
+        },
+        {
+          "key": "creativity",
+          "label": "Creativity",
+          "gap": 0,
+          "gapMaximum": 2,
+          "demand": 2.5
+        },
+        {
+          "key": "metacognition_critical_thinking",
+          "label": "Critical thinking",
+          "gap": 1.7,
+          "gapMaximum": 3,
+          "demand": 3.7
+        },
+        {
+          "key": "knowledge_learning_memory",
+          "label": "Knowledge, learning and memory",
+          "gap": 0.6,
+          "gapMaximum": 2,
+          "demand": 3.6
+        },
+        {
+          "key": "vision",
+          "label": "Vision",
+          "gap": 0,
+          "gapMaximum": 2,
+          "demand": 0.2
+        },
+        {
+          "key": "manipulation",
+          "label": "Physical manipulation",
+          "gap": 0,
+          "gapMaximum": 3,
+          "demand": 0
+        },
+        {
+          "key": "robotic_intelligence",
+          "label": "Robotic intelligence",
+          "gap": 0,
+          "gapMaximum": 3,
+          "demand": 0
+        }
+      ]
     },
     {
       "id": "occupation:24221",
@@ -8836,8 +9092,72 @@
       "labourContext": "PMET vacancies increased from Q4 and remained below their year-ago level. Hiring stayed net positive but slowed, while retrenchment incidence remained the highest of the three broad occupation groups.",
       "mappingQuality": "one_to_one",
       "componentCount": null,
-      "capabilityProximity": null,
-      "capabilityDomains": []
+      "capabilityProximity": 0.8246,
+      "capabilityDomains": [
+        {
+          "key": "language",
+          "label": "Language",
+          "gap": 0.9,
+          "gapMaximum": 2,
+          "demand": 3.9
+        },
+        {
+          "key": "social_interaction",
+          "label": "Social interaction",
+          "gap": 1.3,
+          "gapMaximum": 3,
+          "demand": 3.3
+        },
+        {
+          "key": "problem_solving",
+          "label": "Problem solving",
+          "gap": 1.55,
+          "gapMaximum": 3,
+          "demand": 3.55
+        },
+        {
+          "key": "creativity",
+          "label": "Creativity",
+          "gap": 0,
+          "gapMaximum": 2,
+          "demand": 2.4
+        },
+        {
+          "key": "metacognition_critical_thinking",
+          "label": "Critical thinking",
+          "gap": 2.05,
+          "gapMaximum": 3,
+          "demand": 4.05
+        },
+        {
+          "key": "knowledge_learning_memory",
+          "label": "Knowledge, learning and memory",
+          "gap": 0.5,
+          "gapMaximum": 2,
+          "demand": 3.5
+        },
+        {
+          "key": "vision",
+          "label": "Vision",
+          "gap": 0,
+          "gapMaximum": 2,
+          "demand": 0.2
+        },
+        {
+          "key": "manipulation",
+          "label": "Physical manipulation",
+          "gap": 0,
+          "gapMaximum": 3,
+          "demand": 0
+        },
+        {
+          "key": "robotic_intelligence",
+          "label": "Robotic intelligence",
+          "gap": 0,
+          "gapMaximum": 3,
+          "demand": 0
+        }
+      ]
     },
     {
       "id": "occupation:25112",
@@ -8882,8 +9202,72 @@
       "labourContext": "PMET vacancies increased from Q4 and remained below their year-ago level. Hiring stayed net positive but slowed, while retrenchment incidence remained the highest of the three broad occupation groups.",
       "mappingQuality": "partial",
       "componentCount": null,
-      "capabilityProximity": null,
-      "capabilityDomains": []
+      "capabilityProximity": 0.8036,
+      "capabilityDomains": [
+        {
+          "key": "language",
+          "label": "Language",
+          "gap": 0.9,
+          "gapMaximum": 2,
+          "demand": 3.9
+        },
+        {
+          "key": "social_interaction",
+          "label": "Social interaction",
+          "gap": 1,
+          "gapMaximum": 3,
+          "demand": 3
+        },
+        {
+          "key": "problem_solving",
+          "label": "Problem solving",
+          "gap": 1.9,
+          "gapMaximum": 3,
+          "demand": 3.9
+        },
+        {
+          "key": "creativity",
+          "label": "Creativity",
+          "gap": 0,
+          "gapMaximum": 2,
+          "demand": 2.25
+        },
+        {
+          "key": "metacognition_critical_thinking",
+          "label": "Critical thinking",
+          "gap": 2.15,
+          "gapMaximum": 3,
+          "demand": 4.15
+        },
+        {
+          "key": "knowledge_learning_memory",
+          "label": "Knowledge, learning and memory",
+          "gap": 0.5,
+          "gapMaximum": 2,
+          "demand": 3.5
+        },
+        {
+          "key": "vision",
+          "label": "Vision",
+          "gap": 0,
+          "gapMaximum": 2,
+          "demand": 0.25
+        },
+        {
+          "key": "manipulation",
+          "label": "Physical manipulation",
+          "gap": 0,
+          "gapMaximum": 3,
+          "demand": 0.25
+        },
+        {
+          "key": "robotic_intelligence",
+          "label": "Robotic intelligence",
+          "gap": 0,
+          "gapMaximum": 3,
+          "demand": 0.25
+        }
+      ]
     },
     {
       "id": "occupation:25114",
@@ -9377,8 +9761,72 @@
       "labourContext": "PMET vacancies increased from Q4 and remained below their year-ago level. Hiring stayed net positive but slowed, while retrenchment incidence remained the highest of the three broad occupation groups.",
       "mappingQuality": "one_to_one",
       "componentCount": null,
-      "capabilityProximity": null,
-      "capabilityDomains": []
+      "capabilityProximity": 0.9547,
+      "capabilityDomains": [
+        {
+          "key": "language",
+          "label": "Language",
+          "gap": 0,
+          "gapMaximum": 2,
+          "demand": 3
+        },
+        {
+          "key": "social_interaction",
+          "label": "Social interaction",
+          "gap": 0,
+          "gapMaximum": 3,
+          "demand": 2
+        },
+        {
+          "key": "problem_solving",
+          "label": "Problem solving",
+          "gap": 0.75,
+          "gapMaximum": 3,
+          "demand": 2.75
+        },
+        {
+          "key": "creativity",
+          "label": "Creativity",
+          "gap": 0,
+          "gapMaximum": 2,
+          "demand": 2
+        },
+        {
+          "key": "metacognition_critical_thinking",
+          "label": "Critical thinking",
+          "gap": 1,
+          "gapMaximum": 3,
+          "demand": 3
+        },
+        {
+          "key": "knowledge_learning_memory",
+          "label": "Knowledge, learning and memory",
+          "gap": 0,
+          "gapMaximum": 2,
+          "demand": 3
+        },
+        {
+          "key": "vision",
+          "label": "Vision",
+          "gap": 0,
+          "gapMaximum": 2,
+          "demand": 0
+        },
+        {
+          "key": "manipulation",
+          "label": "Physical manipulation",
+          "gap": 0,
+          "gapMaximum": 3,
+          "demand": 0
+        },
+        {
+          "key": "robotic_intelligence",
+          "label": "Robotic intelligence",
+          "gap": 0,
+          "gapMaximum": 3,
+          "demand": 0
+        }
+      ]
     },
     {
       "id": "occupation:25220",
@@ -35136,8 +35584,72 @@
       "complementarity": null,
       "mapping": "partial",
       "mappingDetail": "2 scored of 2 official ISCO matches",
-      "capabilityProximity": null,
-      "capabilityDomains": []
+      "capabilityProximity": 0.6638,
+      "capabilityDomains": [
+        {
+          "key": "language",
+          "label": "Language",
+          "gap": 0.8,
+          "gapMaximum": 2,
+          "demand": 3.8
+        },
+        {
+          "key": "social_interaction",
+          "label": "Social interaction",
+          "gap": 2,
+          "gapMaximum": 3,
+          "demand": 4
+        },
+        {
+          "key": "problem_solving",
+          "label": "Problem solving",
+          "gap": 2,
+          "gapMaximum": 3,
+          "demand": 4
+        },
+        {
+          "key": "creativity",
+          "label": "Creativity",
+          "gap": 0,
+          "gapMaximum": 2,
+          "demand": 2.05
+        },
+        {
+          "key": "metacognition_critical_thinking",
+          "label": "Critical thinking",
+          "gap": 1.95,
+          "gapMaximum": 3,
+          "demand": 3.95
+        },
+        {
+          "key": "knowledge_learning_memory",
+          "label": "Knowledge, learning and memory",
+          "gap": 1,
+          "gapMaximum": 2,
+          "demand": 4
+        },
+        {
+          "key": "vision",
+          "label": "Vision",
+          "gap": 0.75,
+          "gapMaximum": 2,
+          "demand": 3.75
+        },
+        {
+          "key": "manipulation",
+          "label": "Physical manipulation",
+          "gap": 1.9,
+          "gapMaximum": 3,
+          "demand": 3.9
+        },
+        {
+          "key": "robotic_intelligence",
+          "label": "Robotic intelligence",
+          "gap": 1.9,
+          "gapMaximum": 3,
+          "demand": 3.9
+        }
+      ]
     },
     {
       "id": "occupation:22301",
@@ -35322,8 +35834,72 @@
       "complementarity": null,
       "mapping": "one_to_one",
       "mappingDetail": "1 scored of 1 official ISCO match",
-      "capabilityProximity": null,
-      "capabilityDomains": []
+      "capabilityProximity": 0.798,
+      "capabilityDomains": [
+        {
+          "key": "language",
+          "label": "Language",
+          "gap": 0.95,
+          "gapMaximum": 2,
+          "demand": 3.95
+        },
+        {
+          "key": "social_interaction",
+          "label": "Social interaction",
+          "gap": 1.55,
+          "gapMaximum": 3,
+          "demand": 3.55
+        },
+        {
+          "key": "problem_solving",
+          "label": "Problem solving",
+          "gap": 1.3,
+          "gapMaximum": 3,
+          "demand": 3.3
+        },
+        {
+          "key": "creativity",
+          "label": "Creativity",
+          "gap": 0,
+          "gapMaximum": 2,
+          "demand": 2
+        },
+        {
+          "key": "metacognition_critical_thinking",
+          "label": "Critical thinking",
+          "gap": 1.5,
+          "gapMaximum": 3,
+          "demand": 3.5
+        },
+        {
+          "key": "knowledge_learning_memory",
+          "label": "Knowledge, learning and memory",
+          "gap": 0.9,
+          "gapMaximum": 2,
+          "demand": 3.9
+        },
+        {
+          "key": "vision",
+          "label": "Vision",
+          "gap": 0,
+          "gapMaximum": 2,
+          "demand": 1.85
+        },
+        {
+          "key": "manipulation",
+          "label": "Physical manipulation",
+          "gap": 0.5,
+          "gapMaximum": 3,
+          "demand": 2.5
+        },
+        {
+          "key": "robotic_intelligence",
+          "label": "Robotic intelligence",
+          "gap": 0,
+          "gapMaximum": 3,
+          "demand": 1.55
+        }
+      ]
     },
     {
       "id": "occupation:22629",
@@ -35477,8 +36053,72 @@
       "complementarity": null,
       "mapping": "one_to_one",
       "mappingDetail": "1 scored of 1 official ISCO match",
-      "capabilityProximity": null,
-      "capabilityDomains": []
+      "capabilityProximity": 0.6788,
+      "capabilityDomains": [
+        {
+          "key": "language",
+          "label": "Language",
+          "gap": 0.75,
+          "gapMaximum": 2,
+          "demand": 3.75
+        },
+        {
+          "key": "social_interaction",
+          "label": "Social interaction",
+          "gap": 2,
+          "gapMaximum": 3,
+          "demand": 4
+        },
+        {
+          "key": "problem_solving",
+          "label": "Problem solving",
+          "gap": 1.9,
+          "gapMaximum": 3,
+          "demand": 3.9
+        },
+        {
+          "key": "creativity",
+          "label": "Creativity",
+          "gap": 0,
+          "gapMaximum": 2,
+          "demand": 2.15
+        },
+        {
+          "key": "metacognition_critical_thinking",
+          "label": "Critical thinking",
+          "gap": 1.95,
+          "gapMaximum": 3,
+          "demand": 3.95
+        },
+        {
+          "key": "knowledge_learning_memory",
+          "label": "Knowledge, learning and memory",
+          "gap": 1.1,
+          "gapMaximum": 2,
+          "demand": 4.1
+        },
+        {
+          "key": "vision",
+          "label": "Vision",
+          "gap": 0.65,
+          "gapMaximum": 2,
+          "demand": 3.65
+        },
+        {
+          "key": "manipulation",
+          "label": "Physical manipulation",
+          "gap": 1.95,
+          "gapMaximum": 3,
+          "demand": 3.95
+        },
+        {
+          "key": "robotic_intelligence",
+          "label": "Robotic intelligence",
+          "gap": 1.9,
+          "gapMaximum": 3,
+          "demand": 3.9
+        }
+      ]
     },
     {
       "id": "occupation:22651",
@@ -37620,8 +38260,72 @@
       "complementarity": null,
       "mapping": "partial",
       "mappingDetail": "2 scored of 2 official ISCO matches",
-      "capabilityProximity": null,
-      "capabilityDomains": []
+      "capabilityProximity": 0.8345,
+      "capabilityDomains": [
+        {
+          "key": "language",
+          "label": "Language",
+          "gap": 1,
+          "gapMaximum": 2,
+          "demand": 4
+        },
+        {
+          "key": "social_interaction",
+          "label": "Social interaction",
+          "gap": 1.05,
+          "gapMaximum": 3,
+          "demand": 3.05
+        },
+        {
+          "key": "problem_solving",
+          "label": "Problem solving",
+          "gap": 1.7,
+          "gapMaximum": 3,
+          "demand": 3.7
+        },
+        {
+          "key": "creativity",
+          "label": "Creativity",
+          "gap": 0,
+          "gapMaximum": 2,
+          "demand": 2.5
+        },
+        {
+          "key": "metacognition_critical_thinking",
+          "label": "Critical thinking",
+          "gap": 1.7,
+          "gapMaximum": 3,
+          "demand": 3.7
+        },
+        {
+          "key": "knowledge_learning_memory",
+          "label": "Knowledge, learning and memory",
+          "gap": 0.6,
+          "gapMaximum": 2,
+          "demand": 3.6
+        },
+        {
+          "key": "vision",
+          "label": "Vision",
+          "gap": 0,
+          "gapMaximum": 2,
+          "demand": 0.2
+        },
+        {
+          "key": "manipulation",
+          "label": "Physical manipulation",
+          "gap": 0,
+          "gapMaximum": 3,
+          "demand": 0
+        },
+        {
+          "key": "robotic_intelligence",
+          "label": "Robotic intelligence",
+          "gap": 0,
+          "gapMaximum": 3,
+          "demand": 0
+        }
+      ]
     },
     {
       "id": "occupation:24221",
@@ -38536,8 +39240,72 @@
       "complementarity": null,
       "mapping": "one_to_one",
       "mappingDetail": "1 scored of 1 official ISCO match",
-      "capabilityProximity": null,
-      "capabilityDomains": []
+      "capabilityProximity": 0.8246,
+      "capabilityDomains": [
+        {
+          "key": "language",
+          "label": "Language",
+          "gap": 0.9,
+          "gapMaximum": 2,
+          "demand": 3.9
+        },
+        {
+          "key": "social_interaction",
+          "label": "Social interaction",
+          "gap": 1.3,
+          "gapMaximum": 3,
+          "demand": 3.3
+        },
+        {
+          "key": "problem_solving",
+          "label": "Problem solving",
+          "gap": 1.55,
+          "gapMaximum": 3,
+          "demand": 3.55
+        },
+        {
+          "key": "creativity",
+          "label": "Creativity",
+          "gap": 0,
+          "gapMaximum": 2,
+          "demand": 2.4
+        },
+        {
+          "key": "metacognition_critical_thinking",
+          "label": "Critical thinking",
+          "gap": 2.05,
+          "gapMaximum": 3,
+          "demand": 4.05
+        },
+        {
+          "key": "knowledge_learning_memory",
+          "label": "Knowledge, learning and memory",
+          "gap": 0.5,
+          "gapMaximum": 2,
+          "demand": 3.5
+        },
+        {
+          "key": "vision",
+          "label": "Vision",
+          "gap": 0,
+          "gapMaximum": 2,
+          "demand": 0.2
+        },
+        {
+          "key": "manipulation",
+          "label": "Physical manipulation",
+          "gap": 0,
+          "gapMaximum": 3,
+          "demand": 0
+        },
+        {
+          "key": "robotic_intelligence",
+          "label": "Robotic intelligence",
+          "gap": 0,
+          "gapMaximum": 3,
+          "demand": 0
+        }
+      ]
     },
     {
       "id": "occupation:25112",
@@ -38600,8 +39368,72 @@
       "complementarity": null,
       "mapping": "partial",
       "mappingDetail": "2 scored of 2 official ISCO matches",
-      "capabilityProximity": null,
-      "capabilityDomains": []
+      "capabilityProximity": 0.8036,
+      "capabilityDomains": [
+        {
+          "key": "language",
+          "label": "Language",
+          "gap": 0.9,
+          "gapMaximum": 2,
+          "demand": 3.9
+        },
+        {
+          "key": "social_interaction",
+          "label": "Social interaction",
+          "gap": 1,
+          "gapMaximum": 3,
+          "demand": 3
+        },
+        {
+          "key": "problem_solving",
+          "label": "Problem solving",
+          "gap": 1.9,
+          "gapMaximum": 3,
+          "demand": 3.9
+        },
+        {
+          "key": "creativity",
+          "label": "Creativity",
+          "gap": 0,
+          "gapMaximum": 2,
+          "demand": 2.25
+        },
+        {
+          "key": "metacognition_critical_thinking",
+          "label": "Critical thinking",
+          "gap": 2.15,
+          "gapMaximum": 3,
+          "demand": 4.15
+        },
+        {
+          "key": "knowledge_learning_memory",
+          "label": "Knowledge, learning and memory",
+          "gap": 0.5,
+          "gapMaximum": 2,
+          "demand": 3.5
+        },
+        {
+          "key": "vision",
+          "label": "Vision",
+          "gap": 0,
+          "gapMaximum": 2,
+          "demand": 0.25
+        },
+        {
+          "key": "manipulation",
+          "label": "Physical manipulation",
+          "gap": 0,
+          "gapMaximum": 3,
+          "demand": 0.25
+        },
+        {
+          "key": "robotic_intelligence",
+          "label": "Robotic intelligence",
+          "gap": 0,
+          "gapMaximum": 3,
+          "demand": 0.25
+        }
+      ]
     },
     {
       "id": "occupation:25114",
@@ -39219,8 +40051,72 @@
       "complementarity": null,
       "mapping": "one_to_one",
       "mappingDetail": "1 scored of 1 official ISCO match",
-      "capabilityProximity": null,
-      "capabilityDomains": []
+      "capabilityProximity": 0.9547,
+      "capabilityDomains": [
+        {
+          "key": "language",
+          "label": "Language",
+          "gap": 0,
+          "gapMaximum": 2,
+          "demand": 3
+        },
+        {
+          "key": "social_interaction",
+          "label": "Social interaction",
+          "gap": 0,
+          "gapMaximum": 3,
+          "demand": 2
+        },
+        {
+          "key": "problem_solving",
+          "label": "Problem solving",
+          "gap": 0.75,
+          "gapMaximum": 3,
+          "demand": 2.75
+        },
+        {
+          "key": "creativity",
+          "label": "Creativity",
+          "gap": 0,
+          "gapMaximum": 2,
+          "demand": 2
+        },
+        {
+          "key": "metacognition_critical_thinking",
+          "label": "Critical thinking",
+          "gap": 1,
+          "gapMaximum": 3,
+          "demand": 3
+        },
+        {
+          "key": "knowledge_learning_memory",
+          "label": "Knowledge, learning and memory",
+          "gap": 0,
+          "gapMaximum": 2,
+          "demand": 3
+        },
+        {
+          "key": "vision",
+          "label": "Vision",
+          "gap": 0,
+          "gapMaximum": 2,
+          "demand": 0
+        },
+        {
+          "key": "manipulation",
+          "label": "Physical manipulation",
+          "gap": 0,
+          "gapMaximum": 3,
+          "demand": 0
+        },
+        {
+          "key": "robotic_intelligence",
+          "label": "Robotic intelligence",
+          "gap": 0,
+          "gapMaximum": 3,
+          "demand": 0
+        }
+      ]
     },
     {
       "id": "occupation:25220",

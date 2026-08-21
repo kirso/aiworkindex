@@ -11,6 +11,7 @@
 	} from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import { SITE } from '$lib/data/scoring-constants';
+	import { siteStatus } from '$lib/data/site-status';
 
 	let { data } = $props();
 	let v9Counts = $derived(data.v9Counts);
@@ -26,6 +27,7 @@
 	let demandOccupationCount = $derived(data.demandOccupationCount);
 	let scoredPct = $derived(data.scoredPct);
 	let wageCoveragePct = $derived(data.wageCoveragePct);
+	const researchCoverage = siteStatus.external_comparisons.separate_signal_coverage;
 
 	const releaseDate = '2026-08-19';
 	const modifiedDate = '2026-08-21';
@@ -132,12 +134,12 @@
 			</summary>
 			<div class="border-t border-border p-5">
 				<p class="max-w-4xl text-sm leading-relaxed text-muted-foreground">
-					V9 publishes Eloundou theoretical exposure for 68 reviewed detailed-title identities and
-					Anthropic observed use for 66 of them in a separate artifact. Each profile requires one
-					exact ESCO–O*NET candidate, a reviewed detailed-title identity and one exact source
-					occupation. Broader and many-to-many transfers remain unavailable. AIOE still needs a
-					verified SOC-edition bridge, while the complementarity proxy lacks a frozen source table
-					and reproducible construct replication.
+					V9 publishes Eloundou theoretical exposure for {researchCoverage.eloundou_theoretical_exposure_available}
+					reviewed identities and Anthropic observed use for {researchCoverage.anthropic_observed_exposure_available}
+					of them in a separate artifact. Each profile requires one reviewed detailed occupation identity.
+					Broader and many-to-many transfers remain unavailable. AIOE still needs a verified SOC-edition
+					bridge, while the complementarity proxy lacks a frozen source table and reproducible construct
+					replication.
 				</p>
 				<p class="mt-2 text-sm font-medium text-foreground">
 					Publishing or withholding these separate signals does not change any AI Work Pressure
@@ -299,9 +301,9 @@
 			outcomes and career ladders separately.
 		</p>
 		<p class="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-			The public OECD occupation workbook is now integrated as a separate nine-domain layer for 68
-			SSOC titles that pass the conservative detailed-title mapping rule. Raw crosswalk candidates
-			are not published automatically, and the capability layer cannot change the ILO headline.
+			The public OECD occupation workbook is integrated as a separate nine-domain layer for a
+			reviewed detailed-identity subset. Raw crosswalk candidates are not published automatically,
+			and the capability layer cannot change the ILO headline.
 			<a href="/reports/ai-capabilities" class="text-primary underline"
 				>Read the capability report</a
 			>.

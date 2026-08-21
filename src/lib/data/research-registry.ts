@@ -1323,7 +1323,7 @@ export const researchRegistry: ResearchEntry[] = [
 		limitations:
 			'Uses US O*NET occupation requirements and model-assisted ratings. It measures capability proximity, not adoption or labour outcomes. The O*NET edition differs from the official crosswalk edition, so V9 publishes only identical codes that also pass a conservative detailed-title rule.',
 		repo_notes:
-			'The public row-level workbook, licence and checksum are now pinned. V9 publishes a separate nine-domain profile for 68 SSOC occupations with exact-crosswalk candidates and detailed-title identity. It is not a headline input; all other occupations remain explicitly unavailable.'
+			'The public row-level workbook, licence and checksum are pinned. V9 publishes a separate nine-domain profile for 75 SSOC occupations: 68 pass the conservative title rule and seven pass explicit title-and-definition review. It is not a headline input; all other occupations remain explicitly unavailable.'
 	},
 	{
 		key: 'oecd_skills_ai_age_2026',

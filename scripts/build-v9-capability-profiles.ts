@@ -7,6 +7,8 @@ import { fileURLToPath } from 'node:url';
 
 import * as XLSX from 'xlsx';
 
+import { reviewedCapabilityMappings } from './v9-capability-reviewed-mappings';
+
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SOURCE_FILE = path.join(ROOT, 'data', 'raw', 'external', 'oecd-ai-capability-gap-2026.xlsx');
 const SOURCE_METADATA_FILE = path.join(
@@ -313,11 +315,20 @@ function main() {
 	const profiles: Record<string, unknown> = {};
 	const occupationStatus: Record<string, unknown> = {};
 	const usedOecdCodes = new Set<string>();
+	const reviewedBySsoc = new Map(
+		reviewedCapabilityMappings.map(mapping => [mapping.ssoc2024, mapping])
+	);
+	if (reviewedBySsoc.size !== reviewedCapabilityMappings.length) {
+		throw new Error('Reviewed capability mappings contain duplicate SSOC codes');
+	}
 	let mappingSensitive = 0;
 	let severalCandidates = 0;
 	let closeOnlyCoverage = 0;
 	let rawExactCoverage = 0;
 	let rejectedRawExactCandidates = 0;
+	let automatedIdentityProfiles = 0;
+	let manuallyReviewedProfiles = 0;
+	let publishedCloseMatches = 0;
 
 	for (const occupation of occupations) {
 		const officialIscoCodes = occupation.isco08.candidates.map(candidate => candidate.code);
@@ -339,7 +350,12 @@ function main() {
 			)
 		].sort();
 
-		if (exactCandidateCodes.length === 0) {
+		const reviewedMapping = reviewedBySsoc.get(occupation.code);
+		if (reviewedMapping && reviewedMapping.expected_ssoc_title !== occupation.title) {
+			throw new Error(`${occupation.code}: reviewed SSOC title drift`);
+		}
+
+		if (exactCandidateCodes.length === 0 && !reviewedMapping) {
 			if (exactOrCloseCandidateCodes.length > 0) closeOnlyCoverage += 1;
 			occupationStatus[occupation.code] = {
 				status: 'unavailable_no_exact_crosswalk',
@@ -349,14 +365,55 @@ function main() {
 			};
 			continue;
 		}
-		rawExactCoverage += 1;
+		if (exactCandidateCodes.length > 0) rawExactCoverage += 1;
 
-		const acceptedCandidates = exactCandidateCodes.flatMap(code => {
+		const automatedCandidates = exactCandidateCodes.flatMap(code => {
 			const candidate = oecdByCode.get(code)!;
 			const identity = detailedTitleIdentity(occupation.title, candidate.title);
-			return identity.matched ? [{ candidate, identity }] : [];
+			return identity.matched
+				? [
+						{
+							candidate,
+							relation: 'exactMatch' as const,
+							identity_basis: 'conservative_title_rule' as const,
+							matched_ssoc_title_variant: identity.ssoc_title_variant,
+							reviewed_at: null,
+							review_rationale: null
+						}
+					]
+				: [];
 		});
-		rejectedRawExactCandidates += exactCandidateCodes.length - acceptedCandidates.length;
+		rejectedRawExactCandidates += exactCandidateCodes.length - automatedCandidates.length;
+
+		let acceptedCandidates = automatedCandidates;
+		if (reviewedMapping) {
+			const candidate = oecdByCode.get(reviewedMapping.onet_soc_code);
+			if (!candidate) throw new Error(`${occupation.code}: reviewed OECD code is unavailable`);
+			if (candidate.title !== reviewedMapping.expected_onet_title) {
+				throw new Error(`${occupation.code}: reviewed OECD title drift`);
+			}
+			const officialCandidatePool =
+				reviewedMapping.relation === 'exactMatch'
+					? exactCandidateCodes
+					: exactOrCloseCandidateCodes;
+			if (!officialCandidatePool.includes(reviewedMapping.onet_soc_code)) {
+				throw new Error(
+					`${occupation.code}: reviewed ${reviewedMapping.relation} code is not in the official candidate chain`
+				);
+			}
+			acceptedCandidates = [
+				{
+					candidate,
+					relation: reviewedMapping.relation,
+					identity_basis: 'reviewed_title_and_definition' as const,
+					matched_ssoc_title_variant: occupation.title,
+					reviewed_at: reviewedMapping.reviewed_at,
+					review_rationale: reviewedMapping.review_rationale
+				}
+			];
+			manuallyReviewedProfiles += 1;
+			if (reviewedMapping.relation === 'closeMatch') publishedCloseMatches += 1;
+		} else if (acceptedCandidates.length > 0) automatedIdentityProfiles += 1;
 
 		if (acceptedCandidates.length === 0) {
 			occupationStatus[occupation.code] = {
@@ -383,23 +440,26 @@ function main() {
 				ssoc2024: occupation.code,
 				title: occupation.title
 			},
-			status: 'available_exact_title_identity',
+			status: 'available_reviewed_identity',
 			headline_effect: 'none',
 			mapping: {
 				method:
-					'official SSOC 2024 to ISCO-08 candidates, exact ESCO v1.1.0 to O*NET-SOC relation, identical OECD O*NET 30.3 code, then conservative detailed-title identity',
+					'official SSOC 2024 to ISCO-08 candidates, official ESCO v1.1.0 to O*NET-SOC candidate relation, identical OECD O*NET 30.3 code, then either the conservative detailed-title rule or an explicit reviewed title-and-definition decision',
 				ssoc_isco_quality: occupation.isco08.quality,
 				official_isco08_codes: officialIscoCodes,
-				oecd_candidates: acceptedCandidates.map(({ candidate, identity }) => ({
-					onet_soc_code: candidate.code,
-					title: candidate.title,
-					relation: 'exactMatch',
+				oecd_candidates: acceptedCandidates.map(candidateRow => ({
+					onet_soc_code: candidateRow.candidate.code,
+					title: candidateRow.candidate.title,
+					relation: candidateRow.relation,
 					detailed_title_identity: true,
-					matched_ssoc_title_variant: identity.ssoc_title_variant
+					identity_basis: candidateRow.identity_basis,
+					matched_ssoc_title_variant: candidateRow.matched_ssoc_title_variant,
+					reviewed_at: candidateRow.reviewed_at,
+					review_rationale: candidateRow.review_rationale
 				})),
 				raw_exact_candidates_rejected_by_title_rule:
-					exactCandidateCodes.length - acceptedCandidates.length,
-				aggregation: 'median_across_unique_exact_title_identity_candidates',
+					exactCandidateCodes.length - automatedCandidates.length,
+				aggregation: 'median_across_unique_reviewed_identity_candidates',
 				version_limitation:
 					'The official ESCO crosswalk identifies O*NET-SOC 2019 while the OECD workbook uses O*NET 30.3. Only identical detailed codes are retained; title and range remain visible.'
 			},
@@ -423,7 +483,7 @@ function main() {
 			)
 		};
 		occupationStatus[occupation.code] = {
-			status: 'available_exact_title_identity',
+			status: 'available_reviewed_identity',
 			official_isco08_codes: officialIscoCodes,
 			raw_exact_oecd_candidate_count: exactCandidateCodes.length,
 			accepted_title_identity_count: candidates.length,
@@ -447,16 +507,21 @@ function main() {
 		},
 		crosswalk_source: audit.sources.esco_onet,
 		publication_rule: {
-			relations_used: ['exactMatch'],
-			relations_excluded: ['closeMatch', 'broadMatch', 'narrowMatch'],
-			detailed_identity:
-				'The singularised official SSOC detailed-title variant, including any parenthetical qualifier, must appear as a contiguous phrase in the O*NET title. A one-word SSOC title must equal the whole singularised O*NET title. Search synonyms and examples are not used.',
+			relations_used: ['exactMatch', 'reviewed closeMatch allow-list'],
+			relations_excluded_without_review: ['closeMatch', 'broadMatch', 'narrowMatch'],
+			detailed_identity_modes: {
+				automated:
+					'The singularised official SSOC detailed-title variant, including any parenthetical qualifier, must appear as a contiguous phrase in the O*NET title. A one-word SSOC title must equal the whole singularised O*NET title.',
+				reviewed:
+					'An explicit allow-list may accept an exact or close official candidate after the current SSOC and O*NET titles, occupation definitions and scope qualifiers are reviewed. The decision, date and rationale are published on the record.'
+			},
+			manual_review_registry: 'scripts/v9-capability-reviewed-mappings.ts',
 			candidate_chain_boundary:
 				'An exact ESCO–O*NET relation generates candidates but does not establish identity for a five-digit SSOC occupation.',
-			aggregation: 'median_across_unique_exact_title_identity_candidates',
+			aggregation: 'median_across_unique_reviewed_identity_candidates',
 			uncertainty: 'Publish minimum, median, maximum and candidate count for every measure.',
 			missingness:
-				'No raw exact candidate or no accepted detailed-title identity means unavailable; no synonym, example, close-match or broad-group fallback is allowed.'
+				'No accepted automated or explicitly reviewed detailed identity means unavailable. Search synonyms, examples and broad-group fallbacks are never accepted automatically.'
 		},
 		domains: DOMAINS.map(domain => ({
 			key: domain.key,
@@ -467,7 +532,9 @@ function main() {
 		coverage: {
 			ssoc_occupations: occupations.length,
 			raw_exact_candidate_coverage: rawExactCoverage,
-			available_exact_title_identity_profiles: available,
+			available_reviewed_identity_profiles: available,
+			available_automated_title_rule_profiles: automatedIdentityProfiles,
+			available_manual_review_profiles: manuallyReviewedProfiles,
 			unavailable_without_published_profile: occupations.length - available,
 			coverage_pct: round((available / occupations.length) * 100),
 			unique_oecd_rows_used: usedOecdCodes.size,
@@ -475,7 +542,7 @@ function main() {
 			profiles_with_nonzero_overall_mapping_range: mappingSensitive,
 			raw_exact_candidates_rejected_by_title_rule: rejectedRawExactCandidates,
 			occupations_available_only_if_close_matches_were_allowed: closeOnlyCoverage,
-			close_match_profiles_published: 0
+			close_match_profiles_published: publishedCloseMatches
 		},
 		occupation_status: occupationStatus,
 		profiles
@@ -488,7 +555,7 @@ function main() {
 	}
 
 	console.log(
-		`V9 capability profiles: ${available}/${occupations.length} exact-title-identity SSOC occupations; ${usedOecdCodes.size} OECD rows; headline unchanged`
+		`V9 capability profiles: ${available}/${occupations.length} reviewed SSOC identities (${automatedIdentityProfiles} automated, ${manuallyReviewedProfiles} manual); ${usedOecdCodes.size} OECD rows; headline unchanged`
 	);
 }
 

@@ -18,7 +18,7 @@ export const load: PageServerLoad = () => {
 		);
 	return {
 		counts: v9Counts,
-		capabilityProfileCount: v9CapabilityCoverage.available_exact_title_identity_profiles,
+		capabilityProfileCount: v9CapabilityCoverage.available_reviewed_identity_profiles,
 		directDemandCount: occupations.filter(item => item.demandSignalCount > 0).length,
 		marketFacts: [
 			{

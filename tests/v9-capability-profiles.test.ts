@@ -23,7 +23,9 @@ interface CapabilityArtifact {
 	coverage: {
 		ssoc_occupations: number;
 		raw_exact_candidate_coverage: number;
-		available_exact_title_identity_profiles: number;
+		available_reviewed_identity_profiles: number;
+		available_automated_title_rule_profiles: number;
+		available_manual_review_profiles: number;
 		close_match_profiles_published: number;
 	};
 	profiles: Record<string, V9CapabilityProfile>;
@@ -44,23 +46,48 @@ describe('V9 OECD capability profiles', () => {
 		assert.equal(artifact.source.licence.identifier, 'CC BY 4.0');
 	});
 
-	test('publishes only the conservative detailed-title subset', () => {
+	test('publishes only automated or explicitly reviewed detailed identities', () => {
 		const artifact = read();
 		assert.equal(artifact.coverage.ssoc_occupations, 1001);
 		assert.equal(artifact.coverage.raw_exact_candidate_coverage, 698);
-		assert.equal(artifact.coverage.available_exact_title_identity_profiles, 68);
-		assert.equal(Object.keys(artifact.profiles).length, 68);
+		assert.equal(artifact.coverage.available_reviewed_identity_profiles, 75);
+		assert.equal(artifact.coverage.available_automated_title_rule_profiles, 68);
+		assert.equal(artifact.coverage.available_manual_review_profiles, 7);
+		assert.equal(Object.keys(artifact.profiles).length, 75);
 		assert.equal(Object.keys(artifact.occupation_status).length, 1001);
-		assert.equal(artifact.coverage.close_match_profiles_published, 0);
+		assert.equal(artifact.coverage.close_match_profiles_published, 3);
 		for (const profile of Object.values(artifact.profiles)) {
-			assert.equal(profile.status, 'available_exact_title_identity');
+			assert.equal(profile.status, 'available_reviewed_identity');
 			assert.equal(profile.headline_effect, 'none');
 			for (const candidate of profile.mapping.oecd_candidates) {
-				assert.equal(candidate.relation, 'exactMatch');
 				assert.equal(candidate.detailed_title_identity, true);
 				assert.ok(candidate.matched_ssoc_title_variant.length > 1);
+				if (candidate.identity_basis === 'reviewed_title_and_definition') {
+					assert.ok(candidate.reviewed_at);
+					assert.ok(candidate.review_rationale);
+				}
 			}
 		}
+	});
+
+	test('locks the small reviewed identity allow-list while rejecting a known false match', () => {
+		const artifact = read();
+		assert.deepEqual(
+			Object.entries(artifact.profiles)
+				.filter(([, profile]) =>
+					profile.mapping.oecd_candidates.some(
+						candidate => candidate.identity_basis === 'reviewed_title_and_definition'
+					)
+				)
+				.map(([code]) => code)
+				.sort(),
+			['22200', '22621', '22640', '24214', '25111', '25113', '25213']
+		);
+		assert.equal(
+			artifact.profiles['25213']?.mapping.oecd_candidates[0]?.onet_soc_code,
+			'15-1243.01'
+		);
+		assert.equal(artifact.profiles['25143'], undefined);
 	});
 
 	test('blocks the known broad-group false match', () => {
