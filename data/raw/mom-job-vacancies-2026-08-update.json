@@ -1,0 +1,30 @@
+{
+  "source_key": "mom_job_vacancies_august_2026_update",
+  "agency": "Singapore Ministry of Manpower",
+  "title": "Written Answer to PQ on Trends in Job Vacancies",
+  "published_at": "2026-08-05",
+  "url": "https://www.mom.gov.sg/newsroom/parliament-questions-and-replies/2026/0805-written-answer-to-pq-on-trends-in-job-vacancies",
+  "observation_period": "2025-12 to 2026-03",
+  "job_vacancies_thousands": {
+    "2025-12": 77.7,
+    "2026-03": 73.3
+  },
+  "entry_level_pmet_vacancies_thousands": {
+    "2025-12": 32.5,
+    "2026-03": 32.8
+  },
+  "vacancy_change_context": "The decline in vacancies was mainly in non-PMET roles.",
+  "ai_adopting_firms_employment_responses_pct": {
+    "reduced_headcount": 6,
+    "reduced_hiring": 8,
+    "redesigned_roles": 19,
+    "created_ai_roles": 14
+  },
+  "ai_response_population": "Firms that had adopted AI; about three in ten firms had adopted AI at the time of the cited survey.",
+  "rounding": "Employment-response percentages are rounded values reported in the parliamentary answer.",
+  "limitations": [
+    "The vacancy totals are national and cannot be assigned to detailed SSOC occupations.",
+    "The firm responses are reported among AI-adopting firms and do not identify AI's causal effect on employment.",
+    "Entry-level PMET openings use the source definition and are not a complete measure of outcomes for first-time jobseekers."
+  ]
+}

@@ -1,84 +1,87 @@
 {
-  "validation_date": "2026-06-11",
+  "validation_date": "2026-07-16",
   "bls_data_period": "2024-2034 projections",
-  "model_version": "V7",
-  "sample_size": 530,
+  "model_version": "V8",
+  "raw_matched_ssoc_rows": 530,
+  "sample_size": 243,
+  "analysis_unit": "unique_ssoc_to_soc_crosswalk_signature",
   "total_occupations": 562,
   "match_rate": 0.943,
-  "spearman_rho": -0.1385,
-  "t_statistic": -3.21,
-  "p_value_below_001": true,
-  "p_value_below_01": true,
-  "direction": "negative",
-  "interpretation": "Spearman rho = -0.1385 indicates a negative correlation between our structural risk scores and BLS projected employment change. Higher risk scores are associated with lower (or negative) projected employment growth. The very_high risk band is the only band with projected negative employment growth (-4.8%). The top three risk bands show monotonically decreasing BLS projected growth. The modest correlation is expected: BLS projections include non-AI factors (demographics, trade, policy), while our model measures AI-specific structural pressure.",
+  "spearman_rho": 0.0138,
+  "t_statistic": 0.21,
+  "p_value_below_001": false,
+  "p_value_below_01": false,
+  "direction": "positive",
+  "interpretation": "Across 243 unique SSOC-to-SOC crosswalk signatures, Spearman rho = 0.0138 indicates a positive exploratory association between the V8 AI exposure rank and BLS projected employment change. Relative scores do not inversely associate with projected employment change in this comparison. The very_high risk band is the band with the lowest projected  employment growth (+1.7%). The top three risk bands show monotonically decreasing BLS projected growth. This is a non-causal, cross-country validity check: BLS projections include many non-AI factors and do not validate Singapore employment outcomes.",
   "slope_specification": {
     "design": "OLS of BLS 2024-2034 projected percent employment change on net_risk — the same projected-growth regression design as Anthropic Massenkoff & McCrory (March 2026), who found -0.6pp per +10pp observed task coverage. Different exposure measure, so compare design and direction, not magnitude.",
-    "slope_per_unit_net_risk": -10.13,
-    "slope_per_10pp_net_risk": -1.01,
-    "intercept": 4.31,
-    "slope_t_statistic": -7.06,
-    "slope_p_value_below_001": true,
-    "slope_p_value_below_01": true,
+    "slope_per_unit_net_risk": -0.41,
+    "slope_per_10pp_net_risk": -0.04,
+    "intercept": 2.57,
+    "slope_t_statistic": -0.31,
+    "slope_p_value_below_001": false,
+    "slope_p_value_below_01": false,
     "anthropic_benchmark_per_10pp": -0.6,
     "direction_matches_anthropic": true
   },
   "by_risk_band": {
     "very_low": {
-      "count": 128,
-      "avg_bls_change": 3.2,
-      "avg_net_risk": 0.023,
+      "count": 66,
+      "avg_bls_change": 2.1,
+      "avg_net_risk": 0.095,
       "occupations": [
-        "Arts and cultural centre manager (including gallery and museum manager)",
-        "Attractions manager",
-        "Chief information officer/Chief technology officer/Chief security officer"
+        "Cardiothoracic surgeon + 3 related SSOC rows",
+        "Commercial airline pilot + 1 related SSOC rows",
+        "General dental practitioner"
       ]
     },
     "low": {
-      "count": 163,
-      "avg_bls_change": 3.1,
-      "avg_net_risk": 0.097,
+      "count": 40,
+      "avg_bls_change": 2.8,
+      "avg_net_risk": 0.291,
       "occupations": [
-        "Advertising/Public relations manager",
-        "Aged care services manager",
-        "Audit manager"
+        "Aged care services manager + 1 related SSOC rows",
+        "Production manager in agriculture and fisheries + 1 related SSOC rows",
+        "Sports centre manager"
       ]
     },
     "moderate": {
-      "count": 141,
-      "avg_bls_change": 2.9,
-      "avg_net_risk": 0.217,
+      "count": 52,
+      "avg_bls_change": 3.2,
+      "avg_net_risk": 0.502,
       "occupations": [
-        "Administration manager",
-        "Call centre manager",
-        "Catering manager"
+        "Arts and cultural centre manager (including gallery and museum manager)",
+        "Attractions manager + 1 related SSOC rows",
+        "Catering manager + 2 related SSOC rows"
       ]
     },
     "high": {
-      "count": 63,
-      "avg_bls_change": 2.6,
-      "avg_net_risk": 0.389,
+      "count": 45,
+      "avg_bls_change": 2.1,
+      "avg_net_risk": 0.7,
       "occupations": [
-        "Accountant (excluding tax accountant)",
-        "Actuary",
-        "Auditor (accounting)"
+        "Advertising/Public relations manager + 1 related SSOC rows",
+        "Business development manager + 4 related SSOC rows",
+        "Call centre manager + 2 related SSOC rows"
       ]
     },
     "very_high": {
-      "count": 35,
-      "avg_bls_change": -4.8,
-      "avg_net_risk": 0.591,
+      "count": 40,
+      "avg_bls_change": 1.7,
+      "avg_net_risk": 0.901,
       "occupations": [
-        "Author",
-        "Content writer",
-        "Intellectual property agent"
+        "Administration manager + 2 related SSOC rows",
+        "Accountant (excluding tax accountant) + 5 related SSOC rows",
+        "Actuary + 1 related SSOC rows"
       ]
     }
   },
   "caveats": [
     "BLS projections cover 2024-2034 and include non-AI factors (demographics, trade, immigration, policy)",
-    "Crosswalk introduces noise: SSOC → ISCO-08 → SOC 2010, with many-to-many mappings averaged",
+    "Crosswalk introduces noise: SSOC → ISCO-08 → SOC, with many-to-many mappings averaged",
+    "Inference uses unique matched-SOC signatures to avoid treating duplicated BLS outcomes as independent observations",
     "US employment projections may not reflect Singapore-specific market conditions",
-    "A modest correlation (|rho| ~ 0.13) is expected — our model measures AI-specific structural pressure, not total employment change",
-    "The directional consistency and monotonic band pattern support model validity as a structural pressure indicator"
+    "This exploratory association is not causal evidence and is not a validation of occupation-level job-loss forecasts",
+    "Band summaries are descriptive and may be sensitive to crosswalk composition"
   ]
 }

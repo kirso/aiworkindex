@@ -1,43 +1,26 @@
 #!/usr/bin/env bun
-/**
- * export-json.ts — Copy the current live score dataset and retained historical
- * snapshots to versioned public JSON artifacts.
- *
- * Run: bun run scripts/export-json.ts
- * Output:
- *   static/data/sg-ai-occupations-v6.json
- *   static/data/sg-ai-occupations-v43.json (when live model is V4.3)
- *   static/data/sg-ai-occupations-v42.json (when historical snapshot exists)
- */
 
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 
-import { DATA_VINTAGE } from '../src/lib/data/scoring-constants';
+import { buildV9PublicRelease, ROOT } from './v9-public-export';
 
-const DATA_DIR = path.join(import.meta.dir, '..', 'data');
-const OUT_DIR = path.join(import.meta.dir, '..', 'static', 'data');
-const IN_FILE = path.join(DATA_DIR, 'occupations.json');
-
-function versionTag(version: string): string {
-	return version.toLowerCase().replaceAll('.', '');
-}
+const DATA_DIR = path.join(ROOT, 'data');
+const OUT_DIR = path.join(ROOT, 'static', 'data');
+const CURRENT_FILE = path.join(OUT_DIR, 'sg-ai-occupations-v9.json');
 
 fs.mkdirSync(OUT_DIR, { recursive: true });
-const liveJson = fs.readFileSync(IN_FILE);
-const liveOutFile = path.join(
-	OUT_DIR,
-	`sg-ai-occupations-${versionTag(DATA_VINTAGE.model_version)}.json`
-);
-fs.writeFileSync(liveOutFile, liveJson);
+fs.writeFileSync(CURRENT_FILE, `${JSON.stringify(buildV9PublicRelease(), null, 2)}\n`, 'utf8');
 
+// Preserve retained historical releases as versioned artifacts. They are never
+// imported into, or substituted for, the current V9 public contract.
 for (const entry of fs.readdirSync(DATA_DIR)) {
 	const match = entry.match(/^occupations-(v\d+(?:\.\d+)?)\.json$/i);
-	if (!match) continue;
-	fs.writeFileSync(
-		path.join(OUT_DIR, `sg-ai-occupations-${match[1]!.toLowerCase().replaceAll('.', '')}.json`),
-		fs.readFileSync(path.join(DATA_DIR, entry))
+	if (!match || match[1]?.toLowerCase() === 'v9') continue;
+	fs.copyFileSync(
+		path.join(DATA_DIR, entry),
+		path.join(OUT_DIR, `sg-ai-occupations-${match[1]!.toLowerCase().replaceAll('.', '')}.json`)
 	);
 }
 
-console.log(`Exported live JSON dataset to ${liveOutFile}`);
+console.log(`Exported current V9 JSON dataset to ${CURRENT_FILE}`);

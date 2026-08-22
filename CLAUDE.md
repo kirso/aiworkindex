@@ -1,6 +1,6 @@
 # CLAUDE.md — AI Work Index
 
-AI Work Index: 562 Singapore occupations and 88 modern roles scored for AI displacement risk using a deterministic V7 two-axis model (displacement pressure and demand resilience). Static site, no backend.
+AI Work Index: 562 Singapore occupations and 88 modern roles ranked by relative AI exposure using the deterministic V8 public contract. Substitution, augmentation, likely pathway, demand context and confidence are separate fields. Static site, no backend.
 
 ## Core Commands
 
@@ -63,7 +63,9 @@ data/raw/external/ → scripts/score.ts → data/occupations.json → src/lib/da
                    → scripts/validate-bls-crosswalk.ts → BLS cross-country validation
 ```
 
-**Scoring formula (V7):** `headline_risk = displacement_pressure × (1 − demand_resilience)`
+**Current public contract (V8):** `exposure_rank` is the percentile rank of the reliability-weighted four-source exposure ensemble within the 562-occupation Singapore reference market. It is not a probability or job-loss forecast. Demand, adoption, transition and observed outcome sidecars do not alter this headline rank.
+
+**Archived V7 formula:** `headline_risk = displacement_pressure × (1 − demand_resilience)`
 
 V7 adds two formula changes over V6:
 - **Task-concentration exposure buffer** (Hampole et al. 2025): `task_signal = task_concentration × task_coverage`, `exposure_v7 = exposure × (1 − 0.20 × task_signal)` — concentrated task exposure buffers risk (workers reallocate effort to non-exposed tasks, offsetting labour-demand losses)
@@ -208,7 +210,9 @@ Three clusters (not per-occupation):
 - **Clerical & Service**: Clerical Support + Service & Sales Workers
 - **Production & Transport**: Craftsmen, Plant Operators, Cleaners
 
-Current data: Q3 2025 full report + Q4 2025 advance release. When full Q4 2025 drops, follow the quarterly update procedure above.
+Current context: full Q1 2026 report, published 15 June 2026. It supplies broad-cluster vacancy, hiring, retrenchment and re-entry context plus macro labour indicators. The last completed cluster backtest remains explicitly labelled Q4 2025 until a new forecast-validation cycle is completed.
+
+The postings monitor is a partial historical sample observed through 20 March 2026. Coverage and freshness must remain visible; never describe it as live, current, representative, or occupation-level labour-market truth.
 
 ## Research Context
 
@@ -222,9 +226,9 @@ The model is a **structural pressure score, not a prediction**. Key citations:
 - Brynjolfsson et al. (2023): junior workers see biggest AI productivity gains
 - Noy & Zhang (2023): AI narrows experience gap in writing
 - Dell'Acqua et al. (2023): jagged frontier — seniors better at knowing AI boundaries
-- Backtested at cluster level: 2/4 directional checks pass (Q4 2025)
+- Latest completed cluster backtest: 2/4 directional checks pass (Q4 2025); the current Q1 2026 monitor is contextual evidence, not a silently relabelled validation result
 - BLS cross-country validation: SGxUS displacement correlation via `scripts/validate-bls-crosswalk.ts`
 
 **Seniority modifiers:** Outlook section supports Entry-level / Mid-career / Senior adjustments scaled by variant_sensitivity. Junior base shift: +0.14 displacement / −0.12 augmentation. Research-grounded, labeled as estimated.
 
-**Do not claim** the scores predict actual job losses. Frame as structural risk.
+**Do not claim** the scores predict actual job losses. Frame the headline as relative AI exposure, then discuss employment outcomes through adoption, task redesign, demand, employer behaviour, worker mobility and evidence quality.

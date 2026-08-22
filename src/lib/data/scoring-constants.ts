@@ -272,7 +272,7 @@ export const SENIORITY_MODIFIERS = {
 export const SITE = {
 	name: 'AI Work Index',
 	shortName: 'AIWorkIndex',
-	description: 'AI Work Index — global structural AI exposure and occupation risk methodology',
+	description: 'AI Work Index — Singapore AI Exposure Ranks, pathways, and labor-market context',
 	url: 'https://aiworkindex.com',
 	github: 'https://github.com/kirso/aiworkindex',
 	author: 'Kirill So',
@@ -284,26 +284,28 @@ export const SITE = {
 // ============================================
 
 export const DATA_VINTAGE = {
+	/** Current public data-contract release; the retained structural input model remains V7. */
+	public_version: 'V8',
 	/** MOM wage data year */
 	wages: '2024',
 	/** Demand signal sources */
 	demand_signals: 'SOL 2026 + Jobs in Demand 2025',
 	/** Labour market report period */
-	labour_monitor: 'Q4 2025 full',
+	labour_monitor: 'Q1 2026 full',
 	/** AIOE index year */
 	aioe: '2021',
 	/** Anthropic Economic Index date */
-	anthropic: 'January 2026',
+	anthropic: 'January 2026 release (frozen)',
 	/** Model version */
 	model_version: 'V7',
 	/** Last scoring run date */
-	last_updated: '2026-06-11',
+	last_updated: '2026-07-17',
 	/** Occupation count */
 	occupation_count: 562,
 	/** Synthetic role count */
 	role_count: 88,
 	/** Validation check count */
-	validation_checks: 221,
+	validation_checks: 232,
 	/** Page count */
 	page_count: 1905
 } as const;

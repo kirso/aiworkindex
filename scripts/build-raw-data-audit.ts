@@ -80,7 +80,31 @@ const AUDIT_DEFINITIONS: AuditEntryDefinition[] = [
 		location: 'raw',
 		label: 'Median income by occupation group',
 		expectedType: 'csv',
-		usedBy: ['score pipeline', 'market momentum', 'forecast-readiness wage outcome candidate']
+		usedBy: ['score pipeline', 'market momentum', 'wage movement context']
+	},
+	{
+		key: 'singstat_all_items_cpi_monthly',
+		file: 'cpi-monthly.json',
+		location: 'raw',
+		label: 'All Items Consumer Price Index, monthly',
+		expectedType: 'json',
+		usedBy: ['real wage movement deflator']
+	},
+	{
+		key: 'mom_job_vacancies_2025_extract',
+		file: 'mom-job-vacancies-2025-extract.json',
+		location: 'raw',
+		label: 'MOM Job Vacancies 2025 curated extract',
+		expectedType: 'json',
+		usedBy: ['entry-level and vacancy composition context']
+	},
+	{
+		key: 'mom_labour_force_2025_job_quality_extract',
+		file: 'mom-labour-force-2025-job-quality-extract.json',
+		location: 'raw',
+		label: 'MOM Labour Force 2025 job-quality extract',
+		expectedType: 'json',
+		usedBy: ['underemployment, employment type and youth context']
 	},
 	{
 		key: 'mom_ai_adoption_2026',

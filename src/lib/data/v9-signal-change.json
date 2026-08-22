@@ -1,0 +1,180 @@
+{
+  "schema_version": "9.0",
+  "release": "V9",
+  "generated_at": "2026-08-22",
+  "headline_effect": "none",
+  "construct": "signal_specific_change_ledger",
+  "claim_boundary": "Change is reported only when the same construct, source family and grain are comparable. A market update is never relabelled as a change in AI Work Pressure.",
+  "baseline_snapshot": {
+    "id": "v9-evidence-2026-08-22",
+    "artifact": "snapshots/v9-evidence-2026-08-22.json",
+    "status": "first_comparable_v9_evidence_snapshot"
+  },
+  "pressure_change": {
+    "status": "baseline_only",
+    "current_snapshot": "v9-evidence-2026-08-22",
+    "previous_comparable_snapshot": null,
+    "reason": "V9 has one frozen ILO 2025 pressure snapshot. Earlier model versions use different taxonomies and formulas."
+  },
+  "observed_changes": [
+    {
+      "key": "national_job_vacancies",
+      "label": "National job vacancies",
+      "geography": "Singapore",
+      "grain": "national",
+      "from": {
+        "period": "2025-12",
+        "value": 77.7
+      },
+      "to": {
+        "period": "2026-03",
+        "value": 73.3
+      },
+      "unit": "thousand vacancies",
+      "change_pct": -5.6628,
+      "source": {
+        "title": "Written Answer to PQ on Trends in Job Vacancies",
+        "url": "https://www.mom.gov.sg/newsroom/parliament-questions-and-replies/2026/0805-written-answer-to-pq-on-trends-in-job-vacancies"
+      }
+    },
+    {
+      "key": "entry_level_pmet_vacancies",
+      "label": "Entry-level PMET vacancies",
+      "geography": "Singapore",
+      "grain": "national source definition",
+      "from": {
+        "period": "2025-12",
+        "value": 32.5
+      },
+      "to": {
+        "period": "2026-03",
+        "value": 32.8
+      },
+      "unit": "thousand vacancies",
+      "change_pct": 0.9231,
+      "source": {
+        "title": "Written Answer to PQ on Trends in Job Vacancies",
+        "url": "https://www.mom.gov.sg/newsroom/parliament-questions-and-replies/2026/0805-written-answer-to-pq-on-trends-in-job-vacancies"
+      }
+    },
+    {
+      "key": "resident_employment_major_group_1",
+      "label": "Legislators, senior officials and managers resident employment",
+      "geography": "Singapore residents",
+      "grain": "broad_occupation_group",
+      "period": "2025",
+      "latest_value": 405.7,
+      "unit": "thousand_employed_residents",
+      "year_over_year_pct": 0.2,
+      "since_2019_pct": 11.18,
+      "source": {
+        "artifact": "v9-economic-observatory.json"
+      }
+    },
+    {
+      "key": "resident_employment_major_group_2",
+      "label": "Professionals resident employment",
+      "geography": "Singapore residents",
+      "grain": "broad_occupation_group",
+      "period": "2025",
+      "latest_value": 624.4,
+      "unit": "thousand_employed_residents",
+      "year_over_year_pct": 0.73,
+      "since_2019_pct": 33.02,
+      "source": {
+        "artifact": "v9-economic-observatory.json"
+      }
+    },
+    {
+      "key": "resident_employment_major_group_3",
+      "label": "Associate professionals and technicians resident employment",
+      "geography": "Singapore residents",
+      "grain": "broad_occupation_group",
+      "period": "2025",
+      "latest_value": 495.5,
+      "unit": "thousand_employed_residents",
+      "year_over_year_pct": 2.57,
+      "since_2019_pct": 5.9,
+      "source": {
+        "artifact": "v9-economic-observatory.json"
+      }
+    },
+    {
+      "key": "resident_employment_major_group_4",
+      "label": "Clerical support workers resident employment",
+      "geography": "Singapore residents",
+      "grain": "broad_occupation_group",
+      "period": "2025",
+      "latest_value": 201,
+      "unit": "thousand_employed_residents",
+      "year_over_year_pct": -4.1,
+      "since_2019_pct": -15.26,
+      "source": {
+        "artifact": "v9-economic-observatory.json"
+      }
+    },
+    {
+      "key": "resident_employment_major_group_5",
+      "label": "Service and sales workers resident employment",
+      "geography": "Singapore residents",
+      "grain": "broad_occupation_group",
+      "period": "2025",
+      "latest_value": 247,
+      "unit": "thousand_employed_residents",
+      "year_over_year_pct": 2.15,
+      "since_2019_pct": -4.15,
+      "source": {
+        "artifact": "v9-economic-observatory.json"
+      }
+    },
+    {
+      "key": "resident_employment_major_group_7",
+      "label": "Craftsmen and related trades workers resident employment",
+      "geography": "Singapore residents",
+      "grain": "broad_occupation_group",
+      "period": "2025",
+      "latest_value": 51.6,
+      "unit": "thousand_employed_residents",
+      "year_over_year_pct": -5.84,
+      "since_2019_pct": -23.89,
+      "source": {
+        "artifact": "v9-economic-observatory.json"
+      }
+    },
+    {
+      "key": "resident_employment_major_group_8",
+      "label": "Plant and machine operators and assemblers resident employment",
+      "geography": "Singapore residents",
+      "grain": "broad_occupation_group",
+      "period": "2025",
+      "latest_value": 128.9,
+      "unit": "thousand_employed_residents",
+      "year_over_year_pct": 0.39,
+      "since_2019_pct": -14.86,
+      "source": {
+        "artifact": "v9-economic-observatory.json"
+      }
+    },
+    {
+      "key": "resident_employment_major_group_9",
+      "label": "Cleaners, labourers and related workers resident employment",
+      "geography": "Singapore residents",
+      "grain": "broad_occupation_group",
+      "period": "2025",
+      "latest_value": 167.7,
+      "unit": "thousand_employed_residents",
+      "year_over_year_pct": 1.21,
+      "since_2019_pct": 12.25,
+      "source": {
+        "artifact": "v9-economic-observatory.json"
+      }
+    }
+  ],
+  "withheld_change_products": {
+    "quarterly_pressure_movers": "needs_second_comparable_v9_pressure_snapshot",
+    "detailed_demand_movers": "needs_repeated_same-grain occupation demand source",
+    "direct_wage_movers": "needs_repeated SSOC 2024 detailed wage table",
+    "observed_use_movers": "needs_second comparable source release and stable occupation mapping",
+    "capability_movers": "needs_second comparable OECD capability release"
+  }
+}

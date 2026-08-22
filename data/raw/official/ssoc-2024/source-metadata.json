@@ -1,0 +1,36 @@
+{
+  "publisher": "Singapore Department of Statistics",
+  "taxonomy": "Singapore Standard Occupational Classification 2024",
+  "source_page": "https://www.singstat.gov.sg/standard-classifications/national-classifications/singapore-standard-occupational-classification-ssoc",
+  "terms_url": "https://www.singstat.gov.sg/terms-of-use",
+  "retrieved_at": "2026-08-19T00:04:47.846Z",
+  "files": [
+    {
+      "key": "definitions",
+      "purpose": "current_taxonomy",
+      "filename": "ssoc-2024-detailed-definitions.xlsx",
+      "url": "https://www.singstat.gov.sg/files/456a230e-fa6a-41f6-9e7f-6d3f0ffcf521.xlsx",
+      "published": "2026-06-24",
+      "bytes": 394635,
+      "sha256": "7d89f79055e3d45bfc87774f4adbc02ccb510ff15d16f7d7b7bf9a7fe98323dc"
+    },
+    {
+      "key": "alphabetical_index",
+      "purpose": "current_taxonomy",
+      "filename": "ssoc-2024-alphabetical-index.xlsx",
+      "url": "https://www.singstat.gov.sg/files/e1468cad-4d50-412e-97b7-40d3621a4953.xlsx",
+      "published": "2026-06-24",
+      "bytes": 395172,
+      "sha256": "93001abb8ef7a5f7b3189eee73b6cc62b252e4d0f3f0cbdcf3729f2a8f1edee1"
+    },
+    {
+      "key": "ssoc2024_isco08",
+      "purpose": "current_taxonomy",
+      "filename": "ssoc-2024-isco08-correspondence.xlsx",
+      "url": "https://www.singstat.gov.sg/files/64fec1e2-8a1f-426b-87f7-07b29aae61b3.xlsx",
+      "published": "2024-03-21",
+      "bytes": 102531,
+      "sha256": "ca5b0cb6def219dbd36d5fec117d2a2f1fb72816259fceb331a0409371cd32a7"
+    }
+  ]
+}

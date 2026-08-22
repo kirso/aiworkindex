@@ -29,7 +29,7 @@ export interface CountryConfig {
 	methodologyLabel: string;
 	seoTitle: string;
 	seoDescription: string;
-	status: 'live' | 'ready' | 'planned' | 'research';
+	status: 'live' | 'preview' | 'ready' | 'planned' | 'research';
 	capabilities: CountryCapabilities;
 }
 
@@ -44,14 +44,14 @@ export const countryConfigs: Record<CountryCode, CountryConfig> = {
 		wagePeriod: null,
 		classificationSystem: 'ISCO-08',
 		canonicalSystem: 'ISCO-08',
-		methodologyLabel: 'Global structural baseline',
-		seoTitle: 'Global AI Work Index Methodology',
+		methodologyLabel: 'Global research context',
+		seoTitle: 'Global AI and Jobs Economics Context',
 		seoDescription:
-			'Global AI Work Index methodology: comparable exposure and bottleneck scores calibrated with observed adoption and task evidence. Countries add local demand, wages, and support data.',
+			'Global research context on AI exposure, adoption, productivity and employment. No global occupation scores are currently published.',
 		status: 'research',
 		capabilities: {
-			occupationDetail: true,
-			structuralProfile: true,
+			occupationDetail: false,
+			structuralProfile: false,
 			wageContext: false,
 			employmentContext: true,
 			demandSignals: false,
@@ -73,12 +73,12 @@ export const countryConfigs: Record<CountryCode, CountryConfig> = {
 		locale: 'en-SG',
 		currency: 'SGD',
 		wagePeriod: 'monthly',
-		classificationSystem: 'SSOC 2020',
+		classificationSystem: 'SSOC 2024',
 		canonicalSystem: 'ISCO-08',
-		methodologyLabel: 'Singapore country layer',
-		seoTitle: 'Singapore AI Work Index',
+		methodologyLabel: 'Singapore AI Work Pressure V9',
+		seoTitle: 'Singapore AI Work Pressure and Job-Risk Evidence',
 		seoDescription:
-			'Singapore occupation risk index with official labour-market context, demand signals, wages, worker profile, and transition infrastructure.',
+			'Compare AI work pressure across Singapore SSOC 2024 occupations with separate wage and demand evidence, explicit missingness, and source limitations.',
 		status: 'live',
 		capabilities: {
 			occupationDetail: true,
@@ -86,14 +86,14 @@ export const countryConfigs: Record<CountryCode, CountryConfig> = {
 			wageContext: true,
 			employmentContext: true,
 			demandSignals: true,
-			transitionCapacity: true,
-			workerProfile: true,
+			transitionCapacity: false,
+			workerProfile: false,
 			skillsContext: true,
 			narrativeContext: false,
 			adoptionContext: true,
-			offsetSupport: true,
+			offsetSupport: false,
 			policyContext: true,
-			regulatoryOverlay: true
+			regulatoryOverlay: false
 		}
 	},
 	us: {
@@ -107,13 +107,13 @@ export const countryConfigs: Record<CountryCode, CountryConfig> = {
 		classificationSystem: 'SOC',
 		canonicalSystem: 'ISCO-08',
 		methodologyLabel: 'United States country layer',
-		seoTitle: 'United States AI Work Index',
+		seoTitle: 'United States AI Work Index Preview',
 		seoDescription:
-			'United States occupation risk index built on the shared structural baseline with local wages, projections, requirements, skills, and labour-demand evidence.',
-		status: 'ready',
+			'Preview of United States occupation evidence. Methods and data are not part of the Singapore V9 release.',
+		status: 'preview',
 		capabilities: {
-			occupationDetail: true,
-			structuralProfile: true,
+			occupationDetail: false,
+			structuralProfile: false,
 			wageContext: true,
 			employmentContext: true,
 			demandSignals: true,
@@ -138,9 +138,9 @@ export const countryConfigs: Record<CountryCode, CountryConfig> = {
 		classificationSystem: 'SOC 2020',
 		canonicalSystem: 'ISCO-08',
 		methodologyLabel: 'United Kingdom country layer',
-		seoTitle: 'United Kingdom AI Work Index',
+		seoTitle: 'United Kingdom AI and Jobs Research Status',
 		seoDescription:
-			'United Kingdom occupation risk index built on the shared structural baseline with local labour demand, wages, and policy context.',
+			'Research status for a possible United Kingdom occupation layer. No occupation scores or risk rankings are currently published.',
 		status: 'research',
 		capabilities: {
 			occupationDetail: false,
@@ -169,9 +169,9 @@ export const countryConfigs: Record<CountryCode, CountryConfig> = {
 		classificationSystem: 'NOC 2021',
 		canonicalSystem: 'ISCO-08',
 		methodologyLabel: 'Canada country layer',
-		seoTitle: 'Canada AI Work Index',
+		seoTitle: 'Canada AI and Jobs Research Status',
 		seoDescription:
-			'Canada occupation risk index built on the shared structural baseline with local vacancy, wage, and outlook evidence.',
+			'Research status for a possible Canada occupation layer. No occupation scores or risk rankings are currently published.',
 		status: 'research',
 		capabilities: {
 			occupationDetail: false,

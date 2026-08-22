@@ -50,6 +50,8 @@ export interface HomeSurfaceItem {
 	augmentation: number;
 	augmentation_band: 'very_low' | 'low' | 'moderate' | 'high' | 'very_high';
 	impact_type: ImpactType;
+	likelyPathway?: string;
+	demandContext?: string;
 	confidence: {
 		score: number;
 		level: 'high' | 'medium' | 'low';
@@ -85,22 +87,10 @@ export interface HomeSurface {
 
 const surfaceChoices: HomeSurfaceChoice[] = [
 	{
-		code: 'global',
-		label: 'Global',
-		description: 'Comparable scores across all countries.',
-		status: 'global'
-	},
-	{
 		code: 'sg',
 		label: 'Singapore',
 		description: 'Singapore wages, demand signals, and policy data.',
 		status: 'live'
-	},
-	{
-		code: 'us',
-		label: 'United States',
-		description: 'US wages, employment projections, and BLS data.',
-		status: 'ready'
 	}
 ];
 
@@ -135,12 +125,6 @@ const usMajorGroups: Record<string, string> = {
 
 function formatPercent(value: number): string {
 	return `${Math.round(value * 100)}%`;
-}
-
-function formatBillions(value: number): string {
-	if (value >= 1e9) return `${(value / 1e9).toFixed(1)}B`;
-	if (value >= 1e6) return `${(value / 1e6).toFixed(0)}M`;
-	return value.toFixed(0);
 }
 
 export function formatCompactCount(value: number): string {
@@ -247,6 +231,8 @@ function mapSingaporeItem(occupation: (typeof occupations)[number]): HomeSurface
 		augmentation: occupation.augmentation,
 		augmentation_band: occupation.augmentation_band,
 		impact_type: occupation.impact_type,
+		likelyPathway: occupation.v8?.likely_pathway,
+		demandContext: occupation.v8?.market_context.demand,
 		confidence: {
 			score: occupation.confidence.score,
 			level: occupation.confidence.level
@@ -326,16 +312,16 @@ function buildGlobalMetrics(items: HomeSurfaceItem[]): HomeSurfaceMetric[] {
 	const mappedOccupations = items.reduce((sum, item) => sum + item.surfaceFootprint, 0);
 	return [
 		{
-			label: 'Jobs under pressure',
+			label: 'Upper score bands',
 			value: formatPercent(total > 0 ? highPressure / total : 0),
 			note: '',
-			tooltip: 'Share of occupations scoring in the high (30\u201350%) or very high (50%+) net displacement risk band.'
+			tooltip: 'Share of occupations in the upper two bands of the relative V8 AI exposure ranking.'
 		},
 		{
-			label: 'Occupations at risk',
+			label: 'Upper-band occupations',
 			value: highPressure.toLocaleString(),
 			note: '',
-			tooltip: 'Occupations with net displacement risk above the 30% threshold \u2014 high AI task overlap and limited human bottleneck protection.'
+			tooltip: 'Occupations in the upper two bands of the relative V8 AI exposure ranking.'
 		},
 		{
 			label: 'Occupations scored',
@@ -346,40 +332,30 @@ function buildGlobalMetrics(items: HomeSurfaceItem[]): HomeSurfaceMetric[] {
 	];
 }
 
-function buildCountryMetrics(
-	items: HomeSurfaceItem[],
-	currency: string,
-	wagePeriod: 'monthly' | 'annual'
-): HomeSurfaceMetric[] {
+function buildCountryMetrics(items: HomeSurfaceItem[]): HomeSurfaceMetric[] {
 	const total = items.length;
 	const highPressure = items.filter(
 		item => item.risk_band === 'high' || item.risk_band === 'very_high'
 	).length;
-	const wageMultiplier = wagePeriod === 'monthly' ? 12 : 1;
-	const wageAtRisk = items
-		.filter(item => item.risk_band === 'high' || item.risk_band === 'very_high')
-		.reduce(
-			(sum, item) => sum + item.gross_wage_median * wageMultiplier * item.employment_thousands * 1000,
-			0
-		);
+	const strongDemand = items.filter(item => item.demandContext === 'strong').length;
 	return [
 		{
-			label: 'Jobs under pressure',
-			value: formatPercent(total > 0 ? highPressure / total : 0),
+			label: 'Occupations analysed',
+			value: total.toLocaleString(),
 			note: '',
-			tooltip: 'Share of occupations scoring in the high (30\u201350%) or very high (50%+) net displacement risk band.'
+			tooltip: 'Singapore SSOC occupations included in the current public release.'
 		},
 		{
-			label: 'Wages at risk',
-			value: `${currency} ${formatBillions(wageAtRisk)}`,
-			note: '',
-			tooltip: 'Total annual wage bill across occupations scoring high or very high displacement risk, based on median wages and employment estimates.'
-		},
-		{
-			label: 'Occupations at risk',
+			label: 'Higher AI exposure',
 			value: highPressure.toLocaleString(),
 			note: '',
-			tooltip: 'Occupations with net displacement risk above the 30% threshold \u2014 high AI task overlap and limited human bottleneck protection.'
+			tooltip: 'Occupations in the High or Very High fifths of the Singapore AI Exposure Rank.'
+		},
+		{
+			label: 'Strong current demand',
+			value: strongDemand.toLocaleString(),
+			note: '',
+			tooltip: 'Occupations with strong current demand in the official-derived labour-market context.'
 		}
 	];
 }
@@ -387,8 +363,8 @@ function buildCountryMetrics(
 export const homeSurfaceChoices = surfaceChoices;
 
 export function resolveHomeSurfaceCode(value: string | null | undefined): HomeSurfaceCode {
-	if (value === 'sg' || value === 'us' || value === 'global') return value;
-	return 'global';
+	void value;
+	return 'sg';
 }
 
 export function getHomeSurface(code: HomeSurfaceCode): HomeSurface {
@@ -405,11 +381,11 @@ export function getHomeSurface(code: HomeSurfaceCode): HomeSurface {
 			drilldownHref: countryConfigs.sg.routePrefix,
 			valueLabel: 'median wage',
 			chartNotes: {
-				treemap: 'Size = median wage · Colour = AI displacement risk',
-				matrix: 'AI displacement risk vs demand resilience',
-				histogram: 'AI displacement risk distribution'
+				treemap: 'Size = proxy-weighted estimated employment · Colour = AI Exposure Rank',
+				matrix: 'Occupation counts by exposure band and separately reported current demand',
+				histogram: 'Five rule-based pathways from the current V8 evidence'
 			},
-			metrics: buildCountryMetrics(items, countryConfigs.sg.currency ?? 'SGD', countryConfigs.sg.wagePeriod ?? 'monthly'),
+			metrics: buildCountryMetrics(items),
 			occupations: items
 		};
 	}
@@ -427,11 +403,11 @@ export function getHomeSurface(code: HomeSurfaceCode): HomeSurface {
 			drilldownHref: countryConfigs.us.routePrefix,
 			valueLabel: 'median wage',
 			chartNotes: {
-				treemap: 'Size = median wage · Colour = AI displacement risk',
-				matrix: 'AI displacement risk vs demand resilience',
-				histogram: 'AI displacement risk distribution'
+				treemap: 'Withdrawn score surface',
+				matrix: 'Withdrawn score surface',
+				histogram: 'Withdrawn score surface'
 			},
-			metrics: buildCountryMetrics(items, countryConfigs.us.currency ?? 'USD', countryConfigs.us.wagePeriod ?? 'annual'),
+			metrics: buildCountryMetrics(items),
 			occupations: items
 		};
 	}
@@ -442,15 +418,15 @@ export function getHomeSurface(code: HomeSurfaceCode): HomeSurface {
 		config: countryConfigs.global,
 		title: 'Global structural index',
 		description:
-			'Comparable AI pressure scores across all occupations, before country-specific data.',
+			'Comparable AI exposure rankings across all occupations, before country-specific data.',
 		summary: 'Comparable global scores without country-specific data.',
 		drilldownLabel: 'Open global methodology',
 		drilldownHref: countryConfigs.global.routePrefix,
 		valueLabel: valueKindLabel('count'),
 		chartNotes: {
-			treemap: 'Size = mapped occupations · Colour = AI displacement risk',
-			matrix: 'AI displacement risk vs bottleneck protection',
-			histogram: 'AI displacement risk distribution'
+			treemap: 'Withdrawn score surface',
+			matrix: 'Withdrawn score surface',
+			histogram: 'Withdrawn score surface'
 		},
 		metrics: buildGlobalMetrics(items),
 		occupations: items

@@ -1,16 +1,12 @@
 /**
- * AI Work Index — "Signal" Design System
+ * AI Work Index — compact evidence-product design system.
  *
- * The score IS the interface. Data-first, everything else supports it.
- * Single source of truth for all component styling.
+ * Lyra supplies shadcn-svelte geometry (square radius, Phosphor, Bits UI).
+ * Schibsted Grotesk carries titles and reading. IBM Plex Mono is reserved for
+ * numbers, codes and labels. Pressure, occupation family, evidence status and
+ * action guidance are independent semantic channels.
  *
- * Typography: Schibsted Grotesk (display/UI) + IBM Plex Mono (data/labels)
- * Colors: ink neutrals + cobalt signal accent + risk scale ONLY (docs/design/REDESIGN_SPEC.md)
- * Structure: hairline rules over shadows; sharp corners; Swiss editorial
- * Chips: 3-type contract — statusBadge (riskBadge/impactBadge), dataChip, linkPill
- *
- * All color helpers return token-based classes (bg-risk-*, text-impact-*, etc.)
- * NO hardcoded Tailwind colors (bg-emerald-50, text-amber-700) anywhere.
+ * Visual SSOT: docs/design.md. This file remains the code SSOT for variants.
  */
 
 import { tv, type VariantProps } from 'tailwind-variants';
@@ -19,31 +15,32 @@ import * as d3Scale from 'd3-scale';
 // ============================================
 // TYPOGRAPHY
 //
-// 5 levels. Sans for all UI. Mono for numbers.
-// No serif — Signal is a tool, not a publication.
+// Schibsted for titles and UI. IBM Plex Mono for numbers and codes only.
+// No serif — this is a tool, not a magazine reprint.
 // ============================================
 
 /** Display — hero numbers, the star of every page */
 export const display = tv({
-	base: 'font-sans font-black tracking-display leading-display text-foreground tabular-nums',
+	base: 'font-mono font-semibold tracking-display leading-display text-foreground tabular-nums',
 	variants: {
 		size: {
-			xl: 'text-6xl sm:text-7xl', // Risk score hero
-			lg: 'text-4xl sm:text-5xl', // Secondary callout
+			hero: 'text-6xl sm:text-7xl lg:text-8xl',
+			xl: 'text-5xl sm:text-6xl lg:text-7xl',
+			lg: 'text-4xl sm:text-5xl',
 			md: 'text-2xl sm:text-3xl' // Inline stat
 		}
 	},
 	defaultVariants: { size: 'lg' }
 });
 
-/** Title — page and section headings */
+/** Title — page and section headings. Spoken names, never codebook monospace. */
 export const title = tv({
-	base: 'font-sans font-black text-foreground tracking-display leading-heading',
+	base: 'font-sans font-bold text-foreground tracking-display leading-heading',
 	variants: {
 		size: {
-			page: 'text-3xl sm:text-5xl',
-			section: 'text-xl sm:text-2xl font-bold',
-			subsection: 'text-sm font-bold'
+			page: 'text-[2rem] sm:text-[2.75rem] lg:text-[3.5rem]',
+			section: 'text-2xl sm:text-3xl',
+			subsection: 'text-lg sm:text-xl font-semibold'
 		}
 	},
 	defaultVariants: { size: 'page' }
@@ -63,7 +60,7 @@ export const sectionLabel = tv({
 
 /** Body text */
 export const body = tv({
-	base: 'font-sans text-sm leading-relaxed',
+	base: 'font-sans leading-[1.55]',
 	variants: {
 		tone: {
 			default: 'text-foreground',
@@ -71,9 +68,9 @@ export const body = tv({
 			subtle: 'text-text-secondary'
 		},
 		size: {
-			lg: 'text-base',
-			md: 'text-sm',
-			sm: 'text-xs'
+			lg: 'text-lg',
+			md: 'text-base',
+			sm: 'text-sm'
 		}
 	},
 	defaultVariants: { tone: 'default', size: 'md' }
@@ -118,16 +115,17 @@ export const mono = tv({
 // ============================================
 
 export const pageLayout = tv({
-	base: 'mx-auto px-5 sm:px-6 py-6',
+	base: 'mx-auto px-4 py-5 sm:px-6 sm:py-6 lg:px-8',
 	variants: {
 		width: {
-			wide: 'max-w-screen-2xl',
-			feature: 'max-w-6xl',
-			content: 'max-w-4xl',
+			wide: 'max-w-[90rem]',
+			data: 'max-w-[90rem]',
+			feature: 'max-w-7xl',
+			content: 'max-w-5xl',
 			prose: 'max-w-3xl'
 		}
 	},
-	defaultVariants: { width: 'content' }
+	defaultVariants: { width: 'feature' }
 });
 
 /** Section spacing */
@@ -160,7 +158,7 @@ export const section = tv({
 // ============================================
 
 export const card = tv({
-	base: 'border border-border bg-card',
+	base: 'rounded-none border border-border bg-card shadow-none',
 	variants: {
 		padding: {
 			none: '',
@@ -169,18 +167,18 @@ export const card = tv({
 			lg: 'p-6'
 		},
 		hover: {
-			true: 'transition-colors duration-150 ease-snappy hover:border-foreground cursor-pointer',
+			true: 'cursor-pointer transition-[background-color,border-color] duration-150 ease-editorial hover:border-foreground hover:bg-accent',
 			false: ''
 		},
 		variant: {
 			default: '',
-			flat: '',
-			inset: 'bg-inset border-transparent',
-			elevated: 'border-foreground',
+			flat: 'shadow-none',
+			inset: 'rounded-none border-transparent bg-inset shadow-none',
+			elevated: 'border-transparent bg-white shadow-md',
 			/** Subtle surface — section panels. */
-			subtle: 'bg-surface-subtle',
+			subtle: 'bg-surface-subtle shadow-none',
 			/** Metric surface — stat grouping cards. */
-			metric: 'bg-surface-metric',
+			metric: 'rounded-none bg-surface-metric shadow-none',
 			/** Notice — contextual callout. Pair with accent for semantic color. */
 			notice: ''
 		},
@@ -238,7 +236,7 @@ export const card = tv({
 // ============================================
 
 export const riskBadge = tv({
-	base: 'inline-flex items-center px-2 py-0.5 font-mono text-xs font-semibold uppercase tracking-wide',
+	base: 'inline-flex items-center rounded-md px-2 py-0.5 font-mono text-xs font-semibold uppercase tracking-wide',
 	variants: {
 		band: {
 			very_low: 'bg-risk-very-low text-white',
@@ -251,7 +249,7 @@ export const riskBadge = tv({
 });
 
 export const impactBadge = tv({
-	base: 'inline-flex items-center px-2 py-0.5 font-mono text-xs font-semibold uppercase tracking-wide',
+	base: 'inline-flex items-center rounded-md px-2 py-0.5 font-mono text-xs font-semibold uppercase tracking-wide',
 	variants: {
 		type: {
 			ai_leveraged: 'bg-impact-leveraged text-white',
@@ -263,7 +261,7 @@ export const impactBadge = tv({
 });
 
 export const badge = tv({
-	base: 'inline-flex items-center px-2 py-0.5 text-xs font-medium',
+	base: 'inline-flex items-center rounded-none px-2 py-1 text-xs font-medium',
 	variants: {
 		variant: {
 			default: 'bg-secondary text-secondary-foreground',
@@ -290,12 +288,12 @@ export const badge = tv({
 // ============================================
 
 export const pill = tv({
-	base: 'inline-flex items-center font-medium',
+	base: 'inline-flex items-center rounded-none font-medium',
 	variants: {
 		size: {
-			sm: 'px-1.5 py-0.5 text-[10px]',
-			md: 'px-2.5 py-1 text-[11px]',
-			lg: 'px-3 py-1.5 text-xs'
+			sm: 'px-2 py-1 text-xs',
+			md: 'px-2.5 py-1.5 text-xs',
+			lg: 'min-h-11 px-4 py-2 text-sm'
 		},
 		tone: {
 			muted: 'bg-muted text-text-secondary',
@@ -307,7 +305,7 @@ export const pill = tv({
 			outline: 'border-[1.5px] border-foreground bg-background text-foreground font-semibold'
 		},
 		interactive: {
-			true: 'transition-colors hover:opacity-80',
+			true: 'transition-[transform,background-color,color,border-color] duration-200 ease-editorial hover:-translate-y-0.5 active:translate-y-0',
 			false: ''
 		}
 	},
@@ -323,7 +321,7 @@ export const pill = tv({
 // ============================================
 
 export const chip = tv({
-	base: 'border px-2.5 py-1 text-xs font-medium transition-all duration-150 ease-snappy',
+	base: 'min-h-11 rounded-none border px-3 py-2 text-sm font-medium transition-all duration-200 ease-editorial',
 	variants: {
 		active: {
 			true: 'chip-active border-foreground bg-foreground text-background',
@@ -334,11 +332,11 @@ export const chip = tv({
 });
 
 export const formInput = tv({
-	base: 'w-full border border-border bg-card px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground outline-none transition-colors duration-150 focus:border-ring focus:ring-1 focus:ring-ring',
+	base: 'min-h-11 w-full rounded-none border border-input bg-card px-3 py-2 text-base text-foreground shadow-xs placeholder:text-muted-foreground outline-none transition-[border-color,box-shadow] duration-200 focus:border-ring focus:ring-2 focus:ring-ring/20',
 	variants: {
 		size: {
-			sm: 'px-2.5 py-1.5 text-xs',
-			md: 'px-3 py-2 text-sm',
+			sm: 'px-2.5 py-1.5 text-sm',
+			md: 'px-3 py-2 text-base',
 			lg: 'px-4 py-2.5 text-base'
 		}
 	},
@@ -359,6 +357,88 @@ export const riskColorScale = d3Scale
 	.range(['#2a7f62', '#48a06c', '#d9a514', '#c05a1d', '#d6151c'])
 	.clamp(true);
 
+/** Continuous V9 percentile scale. Nulls use a hatch, never a numeric fallback. */
+export const pressureColorScale = d3Scale
+	.scaleLinear<string>()
+	.domain([0, 20, 40, 60, 80, 100])
+	.range(['#2a7f62', '#48a06c', '#9cad5e', '#d9a514', '#cf6a32', '#d6151c'])
+	.clamp(true);
+
+/** Separate OECD capability-proximity scale. Never use it for the ILO pressure rank. */
+export const capabilityColorScale = d3Scale
+	.scaleLinear<string>()
+	.domain([0, 0.25, 0.5, 0.75, 1])
+	.range(['#eef3ff', '#b9c9f5', '#7092e7', '#2457d6', '#153487'])
+	.clamp(true);
+
+export function capabilityLabelFill(proximity: number | null): string {
+	if (proximity == null) return 'var(--color-foreground)';
+	return proximity >= 0.56 ? '#ffffff' : '#171717';
+}
+
+/** Keep map labels legible across the green-to-red continuum. */
+export function pressureLabelFill(rank: number | null): string {
+	if (rank == null) return 'var(--color-foreground)';
+	return rank > 34 && rank < 73 ? '#171717' : '#ffffff';
+}
+
+/** Consumer pressure word. ILO Gradient strings stay in methodology only. */
+export const pressureBadge = tv({
+	base: 'inline-flex items-center rounded-none px-2 py-1 font-sans text-xs font-semibold',
+	variants: {
+		tone: {
+			very_low: 'bg-pressure-0 text-white',
+			low: 'bg-pressure-20 text-white',
+			moderate: 'bg-pressure-60 text-foreground',
+			high: 'bg-pressure-80 text-white',
+			very_high: 'bg-pressure-100 text-white'
+		}
+	}
+});
+
+export const evidenceBadge = tv({
+	base: 'inline-flex items-center gap-1.5 rounded-none border bg-card px-2 py-1 text-xs font-medium',
+	variants: {
+		status: {
+			source: 'border-evidence-source/30 text-evidence-source',
+			official: 'border-evidence-official/35 text-evidence-official',
+			calculated: 'border-evidence-calculated/35 text-evidence-calculated',
+			estimate: 'border-evidence-estimate/35 text-evidence-estimate',
+			editorial: 'border-evidence-editorial/35 text-evidence-editorial',
+			visitor: 'border-evidence-visitor/35 text-evidence-visitor',
+			unavailable: 'border-dashed border-evidence-unavailable/45 text-evidence-unavailable'
+		}
+	}
+});
+
+/** Action-lane container for PersonalWorkCheck and occupation guidance. */
+export const actionCard = tv({
+	base: 'rounded-none border border-border bg-card px-4 py-3 text-foreground',
+	variants: {
+		action: {
+			try: '',
+			verify: '',
+			human_led: '',
+			strengthen: '',
+			monitor: ''
+		}
+	}
+});
+
+/** Compact word label for the same action lanes. Always keep the text visible. */
+export const actionBadge = tv({
+	base: 'inline-flex items-center rounded-none border border-border bg-muted px-2 py-1 text-xs font-semibold text-foreground',
+	variants: {
+		action: {
+			try: '',
+			verify: '',
+			human_led: '',
+			strengthen: '',
+			monitor: ''
+		}
+	}
+});
+
 // ============================================
 // SEMANTIC COLOR HELPERS
 //
@@ -372,12 +452,12 @@ export const riskColorScale = d3Scale
 
 /** Data chip — neutral mono tag for comparisons, skills, method notes. */
 export const dataChip = tv({
-	base: 'inline-block bg-muted px-2.5 py-1 font-mono text-[11px] uppercase tracking-wide text-text-secondary'
+	base: 'inline-block rounded-none bg-muted px-2.5 py-1 font-mono text-xs uppercase tracking-wide text-text-secondary'
 });
 
 /** Link pill — navigation only. Ink border, trailing arrow added by caller. */
 export const linkPill = tv({
-	base: 'inline-flex items-center gap-1.5 border-[1.5px] border-foreground px-3.5 py-1.5 text-[13.5px] font-semibold text-foreground no-underline transition-colors hover:bg-foreground hover:text-background'
+	base: 'inline-flex min-h-11 items-center gap-1.5 rounded-none border border-foreground px-4 py-2 text-sm font-semibold text-foreground no-underline transition-[transform,background-color,color] duration-200 ease-editorial hover:-translate-y-0.5 hover:bg-foreground hover:text-background active:translate-y-0'
 });
 
 /** Numbered section header: mono signal-accent number + bold title. */
@@ -407,3 +487,7 @@ export type BadgeVariants = VariantProps<typeof badge>;
 export type ChipVariants = VariantProps<typeof chip>;
 export type PillVariants = VariantProps<typeof pill>;
 export type FormInputVariants = VariantProps<typeof formInput>;
+export type PressureBadgeVariants = VariantProps<typeof pressureBadge>;
+export type EvidenceBadgeVariants = VariantProps<typeof evidenceBadge>;
+export type ActionCardVariants = VariantProps<typeof actionCard>;
+export type ActionBadgeVariants = VariantProps<typeof actionBadge>;

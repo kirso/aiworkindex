@@ -2,11 +2,19 @@
   "data_as_of": "2025",
   "summary": {
     "family_count": 40,
+    "families_with_v8_exposure_and_delta": 39,
+    "spearman_delta_pct_vs_avg_v8_ai_exposure_rank": 0.1117,
     "correlation_delta_pct_vs_avg_net_risk": 0.0742,
     "correlation_delta_pct_vs_avg_transition_adjusted_risk": null,
     "correlation_delta_pct_vs_avg_realized_risk_proxy": null,
     "median_family_delta_pct": -0.0033
   },
+  "interpretation": "A contemporaneous, descriptive comparison between the current V8 AI Exposure Rank and official 2024 to 2025 employment movement across 2-digit occupation families. It is a broader local check than the three-cluster quarterly panel, but it is not causal and is not an out-of-sample forecast.",
+  "limitations": [
+    "Employment movement reflects demand, migration, demographics, wages, policy and sampling variation as well as technology.",
+    "The score and outcome periods overlap, so this is convergent evidence rather than forecast validation.",
+    "Family averages inherit detailed occupation employment estimates and should not be read as official detailed-occupation results."
+  ],
   "families": [
     {
       "code": "33",
@@ -17,6 +25,7 @@
       "delta_k": 10,
       "delta_pct": 0.0402,
       "avg_net_risk": 0.3954,
+      "avg_v8_ai_exposure_rank": 83.1051,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -29,6 +38,7 @@
       "delta_k": 8,
       "delta_pct": 0.1088,
       "avg_net_risk": 0.0352,
+      "avg_v8_ai_exposure_rank": 4.6086,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -41,6 +51,7 @@
       "delta_k": 5.9,
       "delta_pct": 0.0772,
       "avg_net_risk": 0.3761,
+      "avg_v8_ai_exposure_rank": 85.7983,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -53,6 +64,7 @@
       "delta_k": 5.8,
       "delta_pct": 0.1436,
       "avg_net_risk": 0.0663,
+      "avg_v8_ai_exposure_rank": 15.6017,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -65,6 +77,7 @@
       "delta_k": 5.4,
       "delta_pct": 0.1179,
       "avg_net_risk": 0.1793,
+      "avg_v8_ai_exposure_rank": 86.1484,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -77,6 +90,7 @@
       "delta_k": -5.3,
       "delta_pct": -0.0239,
       "avg_net_risk": 0.287,
+      "avg_v8_ai_exposure_rank": 87.522,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -89,6 +103,7 @@
       "delta_k": 4.5,
       "delta_pct": 0.04,
       "avg_net_risk": 0.0584,
+      "avg_v8_ai_exposure_rank": 13.379,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -101,6 +116,7 @@
       "delta_k": 4.4,
       "delta_pct": 0.0706,
       "avg_net_risk": 0.0759,
+      "avg_v8_ai_exposure_rank": 56.0615,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -113,6 +129,7 @@
       "delta_k": -4.4,
       "delta_pct": -0.0864,
       "avg_net_risk": 0.5009,
+      "avg_v8_ai_exposure_rank": 75.8688,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -125,6 +142,7 @@
       "delta_k": -3.8,
       "delta_pct": -0.145,
       "avg_net_risk": 0.2766,
+      "avg_v8_ai_exposure_rank": 66.1875,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -137,6 +155,7 @@
       "delta_k": -3.7,
       "delta_pct": -0.3394,
       "avg_net_risk": 0.0489,
+      "avg_v8_ai_exposure_rank": 28.6111,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -149,6 +168,7 @@
       "delta_k": 3.3,
       "delta_pct": 0.0566,
       "avg_net_risk": 0.021,
+      "avg_v8_ai_exposure_rank": 39.7127,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -161,6 +181,7 @@
       "delta_k": -3,
       "delta_pct": -0.0779,
       "avg_net_risk": 0.1295,
+      "avg_v8_ai_exposure_rank": 18,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -173,6 +194,7 @@
       "delta_k": 2.8,
       "delta_pct": 0.0263,
       "avg_net_risk": 0.3095,
+      "avg_v8_ai_exposure_rank": 49.2422,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -185,6 +207,7 @@
       "delta_k": -2.7,
       "delta_pct": -0.027,
       "avg_net_risk": 0.6282,
+      "avg_v8_ai_exposure_rank": 87.9506,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -197,6 +220,7 @@
       "delta_k": -2.7,
       "delta_pct": -0.2,
       "avg_net_risk": 0.0682,
+      "avg_v8_ai_exposure_rank": 12.9259,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -209,6 +233,7 @@
       "delta_k": -2.6,
       "delta_pct": -0.0165,
       "avg_net_risk": 0.1873,
+      "avg_v8_ai_exposure_rank": 61.1003,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -221,6 +246,7 @@
       "delta_k": -2.6,
       "delta_pct": -0.4127,
       "avg_net_risk": 0.1078,
+      "avg_v8_ai_exposure_rank": 22.7027,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -233,6 +259,7 @@
       "delta_k": -2.4,
       "delta_pct": -0.1224,
       "avg_net_risk": 0.11,
+      "avg_v8_ai_exposure_rank": 25.5756,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -245,6 +272,7 @@
       "delta_k": 2.3,
       "delta_pct": 0.0457,
       "avg_net_risk": 0.023,
+      "avg_v8_ai_exposure_rank": 63,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -257,6 +285,7 @@
       "delta_k": -2.1,
       "delta_pct": -0.0469,
       "avg_net_risk": 0.0746,
+      "avg_v8_ai_exposure_rank": 50.897,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -269,6 +298,7 @@
       "delta_k": -2.1,
       "delta_pct": -0.0419,
       "avg_net_risk": 0.4515,
+      "avg_v8_ai_exposure_rank": 71.1021,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -281,6 +311,7 @@
       "delta_k": -1.7,
       "delta_pct": -0.0227,
       "avg_net_risk": 0.0863,
+      "avg_v8_ai_exposure_rank": 21.847,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -293,6 +324,7 @@
       "delta_k": -1.6,
       "delta_pct": -0.0535,
       "avg_net_risk": 0.0326,
+      "avg_v8_ai_exposure_rank": 3.0035,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -305,6 +337,7 @@
       "delta_k": 1.5,
       "delta_pct": 0.0815,
       "avg_net_risk": 0.0603,
+      "avg_v8_ai_exposure_rank": 15.0251,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -317,6 +350,7 @@
       "delta_k": -1.4,
       "delta_pct": -0.1443,
       "avg_net_risk": 0.0856,
+      "avg_v8_ai_exposure_rank": 13.4578,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -329,6 +363,7 @@
       "delta_k": -1.4,
       "delta_pct": -0.0617,
       "avg_net_risk": 0.138,
+      "avg_v8_ai_exposure_rank": 25.8685,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -341,6 +376,7 @@
       "delta_k": -1.2,
       "delta_pct": -0.0269,
       "avg_net_risk": 0.1763,
+      "avg_v8_ai_exposure_rank": 68.0046,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -353,6 +389,7 @@
       "delta_k": 1.1,
       "delta_pct": 0.0059,
       "avg_net_risk": 0.1207,
+      "avg_v8_ai_exposure_rank": 68.1908,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -365,6 +402,7 @@
       "delta_k": 1,
       "delta_pct": 0.2083,
       "avg_net_risk": 0.5003,
+      "avg_v8_ai_exposure_rank": 71.2241,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -377,6 +415,7 @@
       "delta_k": 1,
       "delta_pct": 0.4,
       "avg_net_risk": 0.1544,
+      "avg_v8_ai_exposure_rank": 25.2857,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -389,6 +428,7 @@
       "delta_k": 0.8,
       "delta_pct": 4,
       "avg_net_risk": null,
+      "avg_v8_ai_exposure_rank": null,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -401,6 +441,7 @@
       "delta_k": -0.6,
       "delta_pct": -0.0339,
       "avg_net_risk": 0.1383,
+      "avg_v8_ai_exposure_rank": 27.3099,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -413,6 +454,7 @@
       "delta_k": 0.6,
       "delta_pct": 0.5,
       "avg_net_risk": 0.1868,
+      "avg_v8_ai_exposure_rank": 46,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -425,6 +467,7 @@
       "delta_k": 0.6,
       "delta_pct": 0.0632,
       "avg_net_risk": 0.0694,
+      "avg_v8_ai_exposure_rank": 11.5842,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -437,6 +480,7 @@
       "delta_k": 0.5,
       "delta_pct": 0.0048,
       "avg_net_risk": 0.1483,
+      "avg_v8_ai_exposure_rank": 33.7676,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -449,6 +493,7 @@
       "delta_k": -0.5,
       "delta_pct": -0.1282,
       "avg_net_risk": 0.3894,
+      "avg_v8_ai_exposure_rank": 75,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -461,6 +506,7 @@
       "delta_k": -0.4,
       "delta_pct": -0.0033,
       "avg_net_risk": 0.0715,
+      "avg_v8_ai_exposure_rank": 55.8956,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -473,6 +519,7 @@
       "delta_k": 0.4,
       "delta_pct": 0.0104,
       "avg_net_risk": 0.1421,
+      "avg_v8_ai_exposure_rank": 46.6856,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     },
@@ -485,6 +532,7 @@
       "delta_k": -0.1,
       "delta_pct": -0.0909,
       "avg_net_risk": 0.0284,
+      "avg_v8_ai_exposure_rank": 1,
       "avg_transition_adjusted_risk": null,
       "avg_realized_risk_proxy": null
     }

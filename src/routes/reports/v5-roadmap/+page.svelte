@@ -11,6 +11,7 @@
 	import { cn } from '$lib/utils';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
+	import ArchivedReportNotice from '$lib/components/v9/ArchivedReportNotice.svelte';
 
 	function sidecarStatusLabel(status: string) {
 		return status.replaceAll('_', ' ');
@@ -19,11 +20,17 @@
 
 <Seo
 	title="V5 Roadmap"
-	description="Archived roadmap for the V5 research program that preceded the current V7 two-axis release."
+	description="Archived roadmap for the V5 research programme that preceded the current SSOC 2024 V9 release."
 	path="/reports/v5-roadmap"
+	noindex={true}
 />
 
 <main class={pageLayout({ width: 'content' })}>
+	<ArchivedReportNotice
+		release="V5 roadmap"
+		date="16 July 2026 archive snapshot"
+		note="This page preserves the V5 research programme and its historical sidecars. It does not describe the current V9 evidence model."
+	/>
 	<PageBreadcrumb
 		items={[
 			{ label: 'Home', href: '/' },

@@ -12,7 +12,7 @@ export type EmploymentBasis =
 	| 'estimated_sg_submajor_weighted_2025'
 	| 'proxy_bls_weighted';
 
-export type SourceRegistryStatus = 'live' | 'available' | 'planned' | 'requested';
+export type SourceRegistryStatus = 'live' | 'available' | 'historical' | 'planned' | 'requested';
 
 export interface EvidenceDescriptor {
 	tier: EvidenceTier;
@@ -61,6 +61,7 @@ export const evidenceTierLabels: Record<EvidenceTier, string> = {
 export const sourceRegistryStatusLabels: Record<SourceRegistryStatus, string> = {
 	live: 'Live',
 	available: 'Available',
+	historical: 'Historical',
 	planned: 'Planned',
 	requested: 'Requested'
 };
@@ -330,27 +331,44 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 		label: 'MOM Labour Market Reports / monitor series',
 		tier: 'official_sg',
 		status: 'live',
-		vintage: '2025',
+		vintage: 'through 2026 Q1',
 		used_for: ['labour monitor', 'quarterly context', 'cluster vacancy rates'],
 		url: 'https://stats.mom.gov.sg/Pages/Labour-Market-Report.aspx',
 		notes: 'Cluster-level labour evidence layer, not occupation-level outcomes.'
 	},
 	{
+		key: 'mom_labour_market_report_q1_2026',
+		label: 'MOM Labour Market Report Q1 2026',
+		tier: 'official_sg',
+		status: 'live',
+		vintage: '2026 Q1',
+		used_for: [
+			'current labour monitor enrichment',
+			'vacancy and hiring context',
+			'retrenchment incidence context',
+			're-entry context',
+			'macro labour context'
+		],
+		url: 'https://stats.mom.gov.sg/Pages/Labour-Market-Report-1Q-2026.aspx',
+		notes:
+			'Latest full official labour-market report used for current cluster and macro context. These broad cluster figures are not detailed SSOC outcomes.'
+	},
+	{
 		key: 'mom_labour_market_report_q4_2025',
 		label: 'MOM Labour Market Report Q4 2025',
 		tier: 'official_sg',
-		status: 'live',
+		status: 'historical',
 		vintage: '2025 Q4',
 		used_for: [
-			'labour monitor enrichment',
-			'vacancy validation',
+			'historical labour monitor enrichment',
+			'Q4 2025 validation baseline',
 			'recruitment and resignation context',
 			'retrenchment incidence context',
-			'forecast-readiness gating'
+			'forecast-readiness audit trail'
 		],
 		url: 'https://www.mom.gov.sg/newsroom/press-releases/2026/0320-labour-market-4q-2025',
 		notes:
-			'Official Q4 2025 labour-market release used to enrich current-quarter vacancy, hiring, retrenchment, and re-entry fields where public API feeds lagged.'
+			'Historical Q4 2025 release retained because the latest completed cluster backtest uses that period. It is no longer presented as the current monitor.'
 	},
 		{
 			key: 'job_vacancies_industry_occupation',
@@ -416,7 +434,37 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 			used_for: ['wage movement source candidate', 'raw data audit'],
 			url: 'https://data.gov.sg/datasets/d_8f024ddf2553d81ee00ede55b1d9b0ff/view',
 			notes:
-				'Official annual broad occupation-group income series. Available as a source candidate for wage-outcome validation, but not yet transformed into a forecast outcome panel.'
+				'Official annual broad occupation-group, sex-specific income series. Transformed into separate nominal and CPI-adjusted wage movement context; male and female medians are not averaged.'
+		},
+		{
+			key: 'singstat_all_items_cpi_monthly',
+			label: 'Singapore All Items Consumer Price Index, Monthly',
+			tier: 'official_sg',
+			status: 'live',
+			vintage: 'through 2026 May',
+			used_for: ['real wage movement deflator'],
+			url: 'https://data.gov.sg/collections/1630/view',
+			notes: 'Annual-average All Items CPI deflates the broad-group income series. It is not a score input.'
+		},
+		{
+			key: 'mom_job_vacancies_2025_report',
+			label: 'MOM Job Vacancies 2025',
+			tier: 'official_sg',
+			status: 'live',
+			vintage: 'December 2025',
+			used_for: ['entry-level hiring context', 'experience requirements', 'hard-to-fill jobs'],
+			url: 'https://stats.mom.gov.sg/Pages/Job-Vacancies-2025.aspx',
+			notes: 'Annual vacancy-composition context. Industry and named-job results are not detailed occupation outcomes.'
+		},
+		{
+			key: 'mom_labour_force_2025_job_quality',
+			label: 'Labour Force in Singapore 2025',
+			tier: 'official_sg',
+			status: 'live',
+			vintage: '2025',
+			used_for: ['underemployment context', 'employment type', 'youth unemployment history'],
+			url: 'https://stats.mom.gov.sg/iMAS_PdfLibrary/mrsd-labour-force-in-singapore-advance-release-2025.pdf',
+			notes: 'Broad-group and PMET/non-PMET context only; not a detailed occupation outcome or an AI effect.'
 		},
 		{
 			key: 'sg_postings_monitor',
@@ -609,7 +657,7 @@ export const dataSourceRegistry: SourceRegistryEntry[] = [
 		status: 'live',
 		vintage: '2023',
 		used_for: ['exposure ensemble'],
-		research_keys: ['eloundou_etal_2023', 'openai_gpts_are_gpts_2023'],
+		research_keys: ['eloundou_etal_2023'],
 		url: 'https://arxiv.org/abs/2303.10130',
 		notes: 'LLM-oriented exposure source.'
 	},

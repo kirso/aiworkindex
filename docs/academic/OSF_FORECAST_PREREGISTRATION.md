@@ -1,52 +1,63 @@
-# OSF Forecast-Horizon Pre-Registration Draft
+# V9 Outcome-Validation Protocol Draft
+
+> **Not ready to register.** The repository does not yet contain free public outcome data at a grain
+> and horizon capable of validating the 1,001-occupation V9 rank. Registering a detailed forecast
+> now would imply evidence the project does not have.
 
 ## Study Title
 
-Pre-registered forecast-horizon validation for the AI Work Index V7.1 structural pressure baseline
+Prospective validation of the AI Work Index V9 task-exposure baseline
 
 ## Baseline
 
-The frozen baseline is the May 2026 V7 occupation snapshot used by the published
-forecast-horizon sidecar. The baseline is fixed before any post-baseline MOM labour-market quarter
-is available in the repository.
+The candidate baseline is the tagged 19 August 2026 V9 release: 987 ranked SSOC 2024 occupations,
+14 unranked occupations, and the exact source and release-manifest checksums. The rank must remain
+unchanged after registration; later methods become separate versions.
 
 ## Primary Question
 
-Do clusters with higher frozen structural AI pressure subsequently show weaker labour-market
-outcomes than clusters with lower pressure?
+At a grain supported by official outcome data, is higher frozen GenAI task exposure associated with
+subsequent changes in hiring, vacancies, wages, hours, or employment after accounting for the
+pre-existing trajectory?
 
 ## Outcomes
 
-Primary outcomes are official MOM labour-market outcomes already materialised in the outcome-panel
-schema:
+Candidate outcomes must come from free official Singapore sources and retain their published unit
+and population:
 
-- Vacancy-rate movement
-- Retrenchment incidence/count movement
-- Hiring net-pressure or re-entry signals where an official series is available
+- employment and hiring or entry rates;
+- vacancy levels or rates;
+- gross monthly wages or hours;
+- retrenchment incidence where the same occupation grain is available.
 
-Postings volume, AI-skill share, and wage movement remain reserved fields until the data pipeline
-has repeatable time-series support.
+Job postings and platform telemetry cannot be primary outcomes unless coverage, deduplication, and
+sampling changes are measured prospectively.
 
 ## Horizons
 
-Evaluate t+1Q, t+2Q, and t+4Q from the frozen baseline once the relevant post-baseline quarters are
-published.
+Pre-specify 4-, 8-, and 12-quarter horizons only after the compatible outcome panel exists. Do not
+shorten the horizon after seeing results.
 
 ## Naive Benchmark
 
-Use a random-walk / historical-trend benchmark. A structural-risk directional call should beat the
-naive baseline before being promoted beyond sidecar status.
+Compare against no-change and pre-period trend benchmarks. Exposure must add out-of-sample
+information beyond those baselines before it is described as predictive.
 
 ## Statistical Protocol
 
-Use the same tie-corrected Spearman and pairwise-directional accuracy helpers used by the
-repository validation artifacts. The promotion gate requires at least four post-baseline quarters
-and a pooled exact binomial sign test over the pre-specified directional calls. Until that threshold
-is met, the artifact remains `pending_sufficient_quarters` and non-promoted.
+Before registration, publish and freeze the crosswalk, aggregation rule, sample exclusions,
+pre-period, horizons, outcomes, covariates, missing-data treatment, benchmark, primary test, and
+multiple-testing correction. Three broad MOM occupation clusters are not enough for
+occupation-level validation. A broad-grain descriptive panel must be labelled as such and cannot
+validate detailed SSOC ranks.
+
+The current V9 release therefore has no promotion threshold. A future protocol should set power and
+minimum-sample requirements from the actual compatible panel, not choose them after results arrive.
 
 ## Reporting Rules
 
-- Report pending status when fewer than four post-baseline quarters are available.
+- Keep the protocol dormant until same-grain data and a defensible pre-period are available.
 - Publish null or negative results unchanged.
-- Do not use the sidecar as occupation-level evidence.
+- Do not use broad-group associations as occupation-level evidence.
 - Do not change the frozen baseline after registration.
+- Separate association, prediction, and causal claims.

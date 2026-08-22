@@ -1,0 +1,4 @@
+import { directWageGradient2To4 } from '../ranking-data.server';
+import type { PageServerLoad } from './$types';
+
+export const load: PageServerLoad = () => ({ ranked: directWageGradient2To4.slice(0, 50) });

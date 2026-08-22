@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-06-07T11:57:23.218Z",
+  "generated_at": "2026-07-17T04:09:11.173Z",
   "summary": {
-    "valid": 32,
+    "valid": 35,
     "placeholder_error": 0,
     "missing": 0,
     "reference_only": 4
@@ -73,9 +73,48 @@
       "used_by": [
         "score pipeline",
         "market momentum",
-        "forecast-readiness wage outcome candidate"
+        "wage movement context"
       ],
       "note": "Header starts with: DataSeries,2023,2022,2021,2020,2019,2018,2017,2016,2015,2014,2013,2012,2011,2010,2009,2008,2007,2004,2003,2002,2001"
+    },
+    {
+      "key": "singstat_all_items_cpi_monthly",
+      "file": "cpi-monthly.json",
+      "label": "All Items Consumer Price Index, monthly",
+      "status": "valid",
+      "exists": true,
+      "expected_type": "json",
+      "size_bytes": 2627399,
+      "used_by": [
+        "real wage movement deflator"
+      ],
+      "note": "Valid JSON payload."
+    },
+    {
+      "key": "mom_job_vacancies_2025_extract",
+      "file": "mom-job-vacancies-2025-extract.json",
+      "label": "MOM Job Vacancies 2025 curated extract",
+      "status": "valid",
+      "exists": true,
+      "expected_type": "json",
+      "size_bytes": 2465,
+      "used_by": [
+        "entry-level and vacancy composition context"
+      ],
+      "note": "Valid JSON payload."
+    },
+    {
+      "key": "mom_labour_force_2025_job_quality_extract",
+      "file": "mom-labour-force-2025-job-quality-extract.json",
+      "label": "MOM Labour Force 2025 job-quality extract",
+      "status": "valid",
+      "exists": true,
+      "expected_type": "json",
+      "size_bytes": 2561,
+      "used_by": [
+        "underemployment, employment type and youth context"
+      ],
+      "note": "Valid JSON payload."
     },
     {
       "key": "mom_ai_adoption_2026",
@@ -272,7 +311,7 @@
       "status": "valid",
       "exists": true,
       "expected_type": "json",
-      "size_bytes": 10531,
+      "size_bytes": 10594,
       "used_by": [
         "macro context"
       ],

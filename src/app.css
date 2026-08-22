@@ -1,52 +1,18 @@
 /*
- * AI Work Index — "Signal" Design System
+ * AI Work Index — compact evidence-product design system.
  *
- * The score IS the interface. Data-first, everything else supports it.
- * Built on Tailwind CSS v4 with proper @theme configuration.
+ * The interface starts with a human question, then shows the evidence needed
+ * to answer it. Pressure, pay, demand, mapping quality and personal guidance
+ * keep separate visual identities because they are separate measurements.
  *
- * === DESIGN PRINCIPLES ===
- * 1. Numbers are heroes — large, monospace, prominent
- * 2. Cards: border + shadow-sm on white, consistent everywhere via card()
- * 3. Full saturation risk colors — green to red only where severity is encoded
- * 4. Pure white canvas — clean, no warmth, no tint
- * 5. Tight density — tool-like, not editorial
- * 6. Every data display has a source line
- *
- * === ARCHITECTURE (Tailwind v4) ===
- * @theme        → static tokens (risk colors, fonts, shadows, radius)
- *                 Generates CSS vars AND utility classes automatically.
- * :root / .dark → mode-switchable tokens (bg, fg, card, border)
- * @theme inline → bridges mode-switchable tokens to Tailwind utilities
- *
- * === CARD SYSTEM ===
- * ONE card function: card() from design-system.ts
- * Base: rounded-lg + border + shadow-sm (always both border AND shadow)
- * Variants:
- *   card()                     — standard content card
- *   card({ hover: true })      — clickable (adds hover:shadow-md)
- *   card({ variant: 'inset' }) — nested muted area (no border, no shadow)
- *   card({ variant: 'flat' })  — border only, no shadow
- *   card({ padding: 'sm' })    — compact (p-3)
- *   card({ padding: 'md' })    — standard (px-5 py-4)
- *   card({ padding: 'lg' })    — feature/hero (p-6)
- * NEVER write raw `rounded-lg border border-border bg-card` — use card().
- *
- * === COLOR RULES ===
- * NEVER use hardcoded Tailwind colors (bg-emerald-50, text-amber-700).
- * Use semantic tokens: bg-risk-very-low-subtle, text-impact-leveraged, etc.
- * Use helpers: riskTone(), impactTone(), overallSignalTone(), directionTone()
- *
- * === TYPOGRAPHY ===
- * display() — hero numbers (font-mono, 3xl-6xl)
- * title()   — headings (font-sans, bold, page/section/subsection)
- * body()    — prose (font-sans, sm/md/lg, default/muted/subtle)
- * caption() — metadata (font-sans, xs)
- * mono()    — tabular data (font-mono)
- * Floor: text-xs (12px). No text-[10px] or text-[11px].
+ * Tailwind v4 generates utilities from @theme. Mode-switchable surfaces live
+ * in :root/.dark and are bridged through @theme inline. Legacy risk/impact
+ * tokens remain for dated archives; current V9 charts use the pressure scale.
  */
 
 @import 'tailwindcss';
 @import 'tw-animate-css';
+@import 'shadcn-svelte/tailwind.css';
 @import '@fontsource/schibsted-grotesk/400.css';
 @import '@fontsource/schibsted-grotesk/500.css';
 @import '@fontsource/schibsted-grotesk/700.css';
@@ -63,8 +29,11 @@
    ============================================ */
 
 @theme {
-	/* --- Typography --- */
-	--font-sans: 'Schibsted Grotesk', ui-sans-serif, system-ui, -apple-system, sans-serif;
+	/* --- Typography ---
+	   Schibsted Grotesk is the display and reading face.
+	   IBM Plex Mono is reserved for numbers, codes and labels. */
+	--font-sans: 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif;
+	--font-heading: 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif;
 	--font-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Code', monospace;
 
 	/* --- Custom tracking --- */
@@ -76,12 +45,62 @@
 	--leading-display: 1.1;
 	--leading-heading: 1.2;
 
-	/* --- Radius: Swiss editorial — sharp corners everywhere --- */
+	/* Lyra is square by default. Product figures get only a restrained soft edge. */
 	--radius-xs: 0;
-	--radius-sm: 0;
-	--radius-md: 0;
-	--radius-lg: 0;
-	--radius-xl: 0;
+	--radius-sm: 0.125rem;
+	--radius-md: 0.25rem;
+	--radius-lg: 0.375rem;
+	--radius-xl: 0.5rem;
+
+	/* V9 AI task-pressure scale. Lower-to-higher pressure, not safe-to-doomed.
+	   Never legend these as ILO Gradient 1–4. Unranked uses the hatch, not a fake zero. */
+	--color-pressure-0: #2a7f62;
+	--color-pressure-20: #48a06c;
+	--color-pressure-40: #9cad5e;
+	--color-pressure-60: #d9a514;
+	--color-pressure-80: #cf6a32;
+	--color-pressure-100: #d6151c;
+	--color-pressure-unranked: #d8d8d5;
+
+	/* Occupation-family identity is categorical and never encodes pressure. */
+	--color-family-technology: #2f5fb8;
+	--color-family-technology-subtle: #eaf0fc;
+	--color-family-business: #80510d;
+	--color-family-business-subtle: #faf0dd;
+	--color-family-people: #9e3f57;
+	--color-family-people-subtle: #fbeaef;
+	--color-family-creative: #684a93;
+	--color-family-creative-subtle: #f2ecf8;
+	--color-family-operations: #256a5d;
+	--color-family-operations-subtle: #e6f2ef;
+	--color-family-public: #934a2a;
+	--color-family-public-subtle: #f9ede7;
+
+	/* Evidence provenance. Pair every colour with a word and marker shape. */
+	--color-evidence-source: #171714;
+	--color-evidence-official: #2457d6;
+	--color-evidence-calculated: #256a5d;
+	--color-evidence-estimate: #80510d;
+	--color-evidence-editorial: #684a93;
+	--color-evidence-visitor: #2f5fb8;
+	--color-evidence-unavailable: #747168;
+
+	/* Consumer action lanes use words and icons, not a second rainbow. */
+	--color-action-try: #30302e;
+	--color-action-try-subtle: #f4f4f2;
+	--color-action-try-border: #d6d6d2;
+	--color-action-verify: #30302e;
+	--color-action-verify-subtle: #f4f4f2;
+	--color-action-verify-border: #d6d6d2;
+	--color-action-human-led: #30302e;
+	--color-action-human-led-subtle: #f4f4f2;
+	--color-action-human-led-border: #d6d6d2;
+	--color-action-strengthen: #30302e;
+	--color-action-strengthen-subtle: #f4f4f2;
+	--color-action-strengthen-border: #d6d6d2;
+	--color-action-monitor: #30302e;
+	--color-action-monitor-subtle: #f4f4f2;
+	--color-action-monitor-border: #d6d6d2;
 
 	/* --- Risk Spectrum: Full saturation, diagnostic ---
 	     Each risk level has 3 tokens: solid, subtle bg, border.
@@ -127,23 +146,24 @@
 	--color-impact-mixed-subtle: oklch(0.97 0.02 75);
 	--color-impact-mixed-border: oklch(0.9 0.05 75);
 
-	/* --- Chart Colors: ink + risk-scale derivatives only (color reservation) --- */
-	--color-chart-1: #0c0c0c;
-	--color-chart-2: #2a7f62;
-	--color-chart-3: #a07a0a;
-	--color-chart-4: #d6151c;
-	--color-chart-5: #6f6f6f;
+	/* Chart roots: ink, direct evidence blue, demand ochre, selection cobalt, missing. */
+	--color-chart-1: #171714;
+	--color-chart-2: #3e8984;
+	--color-chart-3: #9b6b12;
+	--color-chart-4: #2457d6;
+	--color-chart-5: #747168;
+	--color-capability-low: #eef3ff;
+	--color-capability-high: #153487;
 
-	/* --- Shadows: Clean, not colored ---
-	     Signal style uses sharp, functional shadows. */
-	/* Swiss editorial: structure comes from rules, not elevation */
-	--shadow-xs: 0 0 #0000;
-	--shadow-sm: 0 0 #0000;
-	--shadow-md: 0 0 #0000;
-	--shadow-lg: 0 0 #0000;
+	/* Flat data surfaces. Elevation is reserved for overlays. */
+	--shadow-xs: 0 1px 2px rgb(28 28 26 / 0.04);
+	--shadow-sm: 0 2px 7px rgb(28 28 26 / 0.07);
+	--shadow-md: 0 8px 24px rgb(28 28 26 / 0.1);
+	--shadow-lg: 0 16px 44px rgb(28 28 26 / 0.13);
 
 	/* --- Easing --- */
 	--ease-snappy: cubic-bezier(0.2, 0, 0, 1);
+	--ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* ============================================
@@ -153,99 +173,107 @@
    ============================================ */
 
 :root {
-	/*
-	 * Surface stack (light mode):
-	 *   card       1.000  — pure white, primary content surface
-	 *   background 0.980  — page canvas, subtle cool tint
-	 *   subtle     0.975  — section panels inside cards
-	 *   metric     0.965  — stat grouping cards
-	 *   inset      0.955  — nested muted areas
-	 *
-	 * Cards are defined by border + shadow, not tonal shift alone.
-	 * Tinted variants (subtle, metric) darken progressively.
-	 */
-	/* Swiss editorial: pure white canvas, true ink, hairline rules.
-	   Spec: docs/design/REDESIGN_SPEC.md */
-	--background: #ffffff;
-	--foreground: #0c0c0c;
+	--background: #fafafa;
+	--foreground: #171717;
 	--card: #ffffff;
-	--card-foreground: #0c0c0c;
-	--inset: #f4f4f4;
-	--inset-foreground: #444444;
+	--card-foreground: #171717;
+	--inset: #f1f1ef;
+	--inset-foreground: #555552;
 
-	--surface-subtle: #fafafa;
-	--surface-metric: #f4f4f4;
+	--surface-subtle: #f5f5f3;
+	--surface-metric: #eeeeeb;
 	--popover: #ffffff;
-	--popover-foreground: #0c0c0c;
+	--popover-foreground: #171717;
 
-	/* Brand: cobalt signal accent */
-	--primary: #1d4ed8;
+	/* Brand: cobalt signal accent. Accent chrome stays warm-neutral so hover:bg-accent is not a loud fill. */
+	--primary: #2457d6;
 	--primary-foreground: #ffffff;
-	--secondary: #f4f4f4;
-	--secondary-foreground: #0c0c0c;
+	--secondary: #eeeeec;
+	--secondary-foreground: #171717;
 
 	/* UI Chrome */
-	--muted: #f4f4f4;
-	--muted-foreground: #6f6f6f;
+	--muted: #eeeeec;
+	--muted-foreground: #666663;
 
 	/* Text hierarchy — ink steps, AA on white */
-	--text-secondary: #444444;
-	--text-tertiary: #6f6f6f;
-	--text-ghost: #8b8b8b;
-	--accent: #f4f4f4;
-	--accent-foreground: #0c0c0c;
+	--text-secondary: #50504d;
+	--text-tertiary: #747470;
+	--text-ghost: #92928d;
+	--accent: #ededeb;
+	--accent-foreground: #171717;
 	--destructive: #d6151c;
-	--border: #e3e3e3;
-	--input: #d9d9d9;
-	--ring: #0c0c0c;
+	--border: #d9d9d5;
+	--input: #c8c8c4;
+	--ring: #2457d6;
+	--focus: #f5c451;
 
 	/* Header */
 	--header-bg: #ffffff;
-	--header-text: #0c0c0c;
-	--header-muted: #6f6f6f;
-	--header-active-bg: #f4f4f4;
+	--header-text: #171717;
+	--header-muted: #686865;
+	--header-active-bg: #eeeeec;
 
 	/* Sidebar */
-	--sidebar: oklch(0.975 0.003 240);
-	--sidebar-foreground: oklch(0.14 0.005 240);
-	--sidebar-primary: oklch(0.42 0.16 230);
-	--sidebar-primary-foreground: oklch(0.98 0 0);
-	--sidebar-accent: oklch(0.945 0.006 240);
-	--sidebar-accent-foreground: oklch(0.2 0.01 240);
-	--sidebar-border: oklch(0.905 0.005 240);
-	--sidebar-ring: oklch(0.48 0.14 230);
+	--sidebar: #f4f4f2;
+	--sidebar-foreground: #171717;
+	--sidebar-primary: #2457d6;
+	--sidebar-primary-foreground: #ffffff;
+	--sidebar-accent: #eaeae7;
+	--sidebar-accent-foreground: #171717;
+	--sidebar-border: #d9d9d5;
+	--sidebar-ring: #2457d6;
+	--chart-1: #171714;
+	--chart-2: #3e8984;
+	--chart-3: #9b6b12;
+	--chart-4: #2457d6;
+	--chart-5: #747168;
+	--radius: 0rem;
 }
 
 .dark {
-	--background: oklch(0.12 0.005 240);
-	--foreground: oklch(0.93 0.002 240);
-	--card: oklch(0.17 0.005 240);
-	--card-foreground: oklch(0.93 0.002 240);
+	--background: oklch(0.145 0 0);
+	--foreground: oklch(0.985 0 0);
+	--card: oklch(0.205 0 0);
+	--card-foreground: oklch(0.985 0 0);
 	--inset: oklch(0.13 0.005 240);
 	--inset-foreground: oklch(0.65 0.005 240);
 	--surface-subtle: oklch(0.15 0.004 240);
 	--surface-metric: oklch(0.14 0.004 240);
-	--popover: oklch(0.18 0.005 240);
-	--popover-foreground: oklch(0.93 0.002 240);
-	--primary: oklch(0.65 0.12 230);
-	--primary-foreground: oklch(0.12 0.005 240);
-	--secondary: oklch(0.2 0.005 240);
-	--secondary-foreground: oklch(0.85 0.002 240);
-	--muted: oklch(0.2 0.005 240);
-	--muted-foreground: oklch(0.6 0.005 240);
+	--popover: oklch(0.205 0 0);
+	--popover-foreground: oklch(0.985 0 0);
+	--primary: oklch(0.443 0.11 240.79);
+	--primary-foreground: oklch(0.977 0.013 236.62);
+	--secondary: oklch(0.274 0.006 286.033);
+	--secondary-foreground: oklch(0.985 0 0);
+	--muted: oklch(0.269 0 0);
+	--muted-foreground: oklch(0.708 0 0);
 	--text-secondary: oklch(0.65 0.005 240);
 	--text-tertiary: oklch(0.52 0.004 240);
 	--text-ghost: oklch(0.4 0.003 240);
-	--accent: oklch(0.24 0.005 240);
-	--accent-foreground: oklch(0.93 0.002 240);
-	--destructive: oklch(0.6 0.18 25);
+	--accent: oklch(0.443 0.11 240.79);
+	--accent-foreground: oklch(0.977 0.013 236.62);
+	--destructive: oklch(0.704 0.191 22.216);
 	--border: oklch(1 0 0 / 10%);
-	--input: oklch(1 0 0 / 12%);
-	--ring: oklch(0.55 0.12 230);
+	--input: oklch(1 0 0 / 15%);
+	--ring: oklch(0.556 0 0);
+	--focus: #f5c451;
 	--header-bg: oklch(0.1 0.005 240);
 	--header-text: oklch(0.93 0.002 240);
 	--header-muted: oklch(0.55 0.005 240);
 	--header-active-bg: oklch(1 0 0 / 8%);
+	--chart-1: oklch(0.87 0 0);
+	--chart-2: oklch(0.556 0 0);
+	--chart-3: oklch(0.439 0 0);
+	--chart-4: oklch(0.371 0 0);
+	--chart-5: oklch(0.269 0 0);
+	--sidebar: oklch(0.205 0 0);
+	--sidebar-foreground: oklch(0.985 0 0);
+	--sidebar-primary: oklch(0.685 0.169 237.323);
+	--sidebar-primary-foreground: oklch(0.293 0.066 243.157);
+	--sidebar-accent: oklch(0.269 0 0);
+	--sidebar-accent-foreground: oklch(0.985 0 0);
+	--sidebar-border: oklch(1 0 0 / 10%);
+	--sidebar-ring: oklch(0.556 0 0);
 }
 
 /* ============================================
@@ -281,6 +309,7 @@
 	--color-border: var(--border);
 	--color-input: var(--input);
 	--color-ring: var(--ring);
+	--color-focus: var(--focus);
 	--color-header-bg: var(--header-bg);
 	--color-header-text: var(--header-text);
 	--color-header-muted: var(--header-muted);
@@ -293,6 +322,9 @@
 	--color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
 	--color-sidebar-border: var(--sidebar-border);
 	--color-sidebar-ring: var(--sidebar-ring);
+	--radius-2xl: calc(var(--radius) * 1.8);
+	--radius-3xl: calc(var(--radius) * 2.2);
+	--radius-4xl: calc(var(--radius) * 2.6);
 }
 
 /* ============================================
@@ -305,8 +337,11 @@
 	}
 
 	body {
-		@apply bg-background text-foreground font-sans;
+		@apply font-sans bg-background text-foreground;
 		font-variant-numeric: lining-nums;
+		font-size: 1rem;
+		line-height: 1.55;
+		min-width: 0;
 	}
 
 	/* Tabular figures only where data alignment matters (mono + explicit opt-in) */
@@ -322,15 +357,35 @@
 	h4,
 	h5,
 	h6 {
+		font-family: var(--font-heading);
 		letter-spacing: -0.02em;
-		line-height: 1.2;
+		line-height: 1.12;
 		text-wrap: balance;
+	}
+
+	p,
+	li {
+		text-wrap: pretty;
 	}
 
 	/* Links: accent color, subtle underline offset */
 	a {
 		text-decoration-color: var(--primary);
-		text-underline-offset: 2px;
+		text-underline-offset: 3px;
+	}
+
+	:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+		outline: 3px solid var(--focus);
+		outline-offset: 3px;
+		box-shadow: 0 0 0 1px var(--foreground);
+	}
+
+	::selection {
+		background: var(--focus);
+		color: var(--foreground);
+	}
+	html {
+		@apply font-sans;
 	}
 }
 
@@ -354,12 +409,51 @@
 
 /* Source attribution (data journalism convention) */
 .source-line {
-	font-size: 0.6875rem;
+	font-size: 0.75rem;
 	line-height: 1.4;
 	color: var(--muted-foreground);
 	border-top: 1px solid var(--border);
-	padding-top: 0.5rem;
-	margin-top: 0.75rem;
+	padding-top: 0.75rem;
+	margin-top: 1rem;
+}
+
+/* Shared evidence figure shell. It groups a chart without making it look like a dashboard tile. */
+.evidence-figure {
+	background: var(--card);
+	border: 1px solid var(--border);
+	border-radius: var(--radius-xl);
+	box-shadow: none;
+	overflow: clip;
+}
+
+.pressure-legend {
+	background: linear-gradient(
+		90deg,
+		var(--color-pressure-0),
+		var(--color-pressure-20),
+		var(--color-pressure-40),
+		var(--color-pressure-60),
+		var(--color-pressure-80),
+		var(--color-pressure-100)
+	);
+}
+
+.capability-legend {
+	background: linear-gradient(90deg, var(--color-capability-low), var(--color-capability-high));
+}
+
+.unranked-hatch {
+	background-color: var(--color-pressure-unranked);
+	background-image: repeating-linear-gradient(
+		135deg,
+		transparent 0 3px,
+		rgb(85 82 74 / 0.48) 3px 4px
+	);
+}
+
+.touch-target {
+	min-height: 2.75rem;
+	min-width: 2.75rem;
 }
 
 /* Leader dots — label····value alignment */
@@ -396,13 +490,13 @@
 
 .scatter-dot {
 	transition:
-		opacity 0.15s ease,
-		transform 0.15s ease;
+		opacity 0.18s var(--ease-editorial),
+		transform 0.18s var(--ease-editorial);
 	transform-origin: center;
 	transform-box: fill-box;
 }
 .scatter-dot:hover {
-	transform: scale(1.5);
+	transform: scale(1.35);
 	opacity: 1 !important;
 }
 

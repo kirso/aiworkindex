@@ -1,7 +1,9 @@
 {
-  "generated_at": "2026-06-08T11:02:59.640Z",
-  "current_snapshot": "occupations-v7-2026-06.json",
-  "previous_snapshot": "occupations-v7-2026-05.json",
+  "generated_at": "2026-07-17T01:39:48.015Z",
+  "public_contract_version": "V8",
+  "structural_snapshot_version": "V7",
+  "current_snapshot": "occupations-v7-2026-07.json",
+  "previous_snapshot": "occupations-v7-2026-06.json",
   "total_occupations": 562,
   "band_distribution": {
     "moderate": 148,
@@ -10,158 +12,9 @@
     "high": 79,
     "very_high": 36
   },
-  "band_movers": [
-    {
-      "ssoc": "12113",
-      "title": "Audit manager",
-      "from_band": "moderate",
-      "to_band": "low",
-      "risk_delta": -0.005300000000000027
-    },
-    {
-      "ssoc": "12215",
-      "title": "Online sales channel manager",
-      "from_band": "moderate",
-      "to_band": "low",
-      "risk_delta": -0.004799999999999999
-    },
-    {
-      "ssoc": "12211",
-      "title": "Sales manager",
-      "from_band": "moderate",
-      "to_band": "low",
-      "risk_delta": -0.004799999999999999
-    },
-    {
-      "ssoc": "25211",
-      "title": "Database administrator",
-      "from_band": "very_high",
-      "to_band": "high",
-      "risk_delta": -0.011999999999999955
-    },
-    {
-      "ssoc": "25123",
-      "title": "Multimedia (including games) developer",
-      "from_band": "very_high",
-      "to_band": "high",
-      "risk_delta": -0.012800000000000034
-    },
-    {
-      "ssoc": "21475",
-      "title": "Rolling stock engineer",
-      "from_band": "moderate",
-      "to_band": "low",
-      "risk_delta": -0.0007999999999999952
-    },
-    {
-      "ssoc": "24134",
-      "title": "Treasury manager",
-      "from_band": "high",
-      "to_band": "moderate",
-      "risk_delta": -0.01050000000000001
-    },
-    {
-      "ssoc": "34110",
-      "title": "Legal associate professional (e.g. paralegal)",
-      "from_band": "very_high",
-      "to_band": "high",
-      "risk_delta": -0.02460000000000001
-    },
-    {
-      "ssoc": "42243",
-      "title": "Medical/Dental receptionist",
-      "from_band": "very_high",
-      "to_band": "high",
-      "risk_delta": -0.011999999999999955
-    },
-    {
-      "ssoc": "43222",
-      "title": "Production planning clerk",
-      "from_band": "high",
-      "to_band": "moderate",
-      "risk_delta": -0.0048000000000000265
-    },
-    {
-      "ssoc": "52492",
-      "title": "Food service counter attendant",
-      "from_band": "high",
-      "to_band": "moderate",
-      "risk_delta": -0.006500000000000006
-    }
-  ],
+  "band_movers": [],
   "top_risers": [],
-  "top_fallers": [
-    {
-      "ssoc": "33311",
-      "title": "Clearing and forwarding agent",
-      "old_risk": 0.7735,
-      "new_risk": 0.7378,
-      "delta": -0.035699999999999954
-    },
-    {
-      "ssoc": "33312",
-      "title": "Shipping agent/Boarding officer",
-      "old_risk": 0.7618,
-      "new_risk": 0.7267,
-      "delta": -0.03510000000000002
-    },
-    {
-      "ssoc": "24160",
-      "title": "Insurance underwriter",
-      "old_risk": 0.4779,
-      "new_risk": 0.4476,
-      "delta": -0.030299999999999994
-    },
-    {
-      "ssoc": "24251",
-      "title": "Intellectual property agent",
-      "old_risk": 0.603,
-      "new_risk": 0.5752,
-      "delta": -0.027799999999999936
-    },
-    {
-      "ssoc": "41320",
-      "title": "Data entry clerk",
-      "old_risk": 0.7125,
-      "new_risk": 0.6854,
-      "delta": -0.027100000000000013
-    },
-    {
-      "ssoc": "52440",
-      "title": "Telemarketer",
-      "old_risk": 0.6216,
-      "new_risk": 0.5955,
-      "delta": -0.026100000000000012
-    },
-    {
-      "ssoc": "34110",
-      "title": "Legal associate professional (e.g. paralegal)",
-      "old_risk": 0.524,
-      "new_risk": 0.4994,
-      "delta": -0.02460000000000001
-    },
-    {
-      "ssoc": "43121",
-      "title": "Bank operations clerk",
-      "old_risk": 0.6636,
-      "new_risk": 0.6406,
-      "delta": -0.02300000000000002
-    },
-    {
-      "ssoc": "44170",
-      "title": "Legal clerk",
-      "old_risk": 0.4861,
-      "new_risk": 0.4633,
-      "delta": -0.022799999999999987
-    },
-    {
-      "ssoc": "33330",
-      "title": "Employment agent/Labour contractor",
-      "old_risk": 0.4463,
-      "new_risk": 0.4257,
-      "delta": -0.02059999999999995
-    }
-  ],
+  "top_fallers": [],
   "demand_changes": {
     "new_sol": [],
     "removed_sol": [],
@@ -169,82 +22,82 @@
     "removed_jid": []
   },
   "labour_monitor": {
-    "data_as_of": "2025 Q4",
-    "source": "Labour Market Report Q4 2025, MRSD, MOM",
-    "strongest_vacancy_pickup": "Production & Transport Operators, Cleaners & Labourers",
-    "sharpest_vacancy_cooling": "Clerical, Sales & Service Workers",
+    "data_as_of": "2026 Q1",
+    "source": "Labour Market Report Q1 2026, MRSD, MOM",
+    "strongest_vacancy_pickup": "Professionals, Managers, Executives & Technicians",
+    "sharpest_vacancy_cooling": "Production & Transport Operators, Cleaners & Labourers",
     "clusters": [
       {
         "cluster_key": "pmet",
         "cluster_label": "Professionals, Managers, Executives & Technicians",
         "overall": "weak",
-        "summary": "PMET vacancy rate held at 3.1% in Dec 2025 while published vacancies rose slightly quarter on quarter. Hiring cooled from Q3 but remained net positive. Retrenchments stayed low in incidence terms, even as PMET retrenchment counts edged up.",
-        "vacancy_rate": 3.1,
-        "vacancy_qoq_delta_pp": 0,
-        "vacancy_count": 39.6,
-        "vacancy_count_qoq_delta": 1.4,
-        "recruitment_rate": 1.5,
-        "recruitment_delta_pp": -0.3,
-        "resignation_rate": 0.9,
-        "resignation_delta_pp": -0.3,
-        "retrenchment_count": 3150,
-        "retrenchment_qoq_delta_count": 40,
-        "reentry_6m": 56.4,
-        "reentry_6m_delta_pp": 2.1,
-        "reentry_12m": 67.7,
-        "reentry_12m_delta_pp": -5.3
+        "summary": "PMET vacancies increased from Q4 and remained below their year-ago level. Hiring stayed net positive but slowed, while retrenchment incidence remained the highest of the three broad occupation groups.",
+        "vacancy_rate": 3.4,
+        "vacancy_qoq_delta_pp": 0.3,
+        "vacancy_count": 43,
+        "vacancy_count_qoq_delta": 3.4,
+        "recruitment_rate": 1.2,
+        "recruitment_delta_pp": -0.1,
+        "resignation_rate": 0.7,
+        "resignation_delta_pp": -0.1,
+        "retrenchment_count": 3320,
+        "retrenchment_qoq_delta_count": 170,
+        "reentry_6m": 59.6,
+        "reentry_6m_delta_pp": 3.2,
+        "reentry_12m": 69.1,
+        "reentry_12m_delta_pp": 1.4
       },
       {
         "cluster_key": "clerical_sales_service",
         "cluster_label": "Clerical, Sales & Service Workers",
         "overall": "deteriorating",
-        "summary": "Clerical, sales and service vacancies eased further in Q4 2025, but net hiring remained positive and retrenchment counts fell from the Q3 spike. Re-entry improved meaningfully at the 6-month mark.",
-        "vacancy_rate": 3.1,
-        "vacancy_qoq_delta_pp": -0.2,
-        "vacancy_count": 14.3,
-        "vacancy_count_qoq_delta": -0.6,
-        "recruitment_rate": 2.6,
-        "recruitment_delta_pp": 0.1,
-        "resignation_rate": 1.6,
-        "resignation_delta_pp": 0.1,
-        "retrenchment_count": 270,
-        "retrenchment_qoq_delta_count": -140,
-        "reentry_6m": 65,
-        "reentry_6m_delta_pp": 4.5,
-        "reentry_12m": 78.5,
-        "reentry_12m_delta_pp": -1.6
+        "summary": "Clerical, sales and service vacancies recovered slightly from Q4 but remained well below a year earlier. Hiring turnover slowed, retrenchment incidence stayed low, and six-month re-entry improved.",
+        "vacancy_rate": 3.2,
+        "vacancy_qoq_delta_pp": 0.1,
+        "vacancy_count": 14.9,
+        "vacancy_count_qoq_delta": 0.6,
+        "recruitment_rate": 2.1,
+        "recruitment_delta_pp": -0.5,
+        "resignation_rate": 1.4,
+        "resignation_delta_pp": -0.5,
+        "retrenchment_count": 320,
+        "retrenchment_qoq_delta_count": 50,
+        "reentry_6m": 72.7,
+        "reentry_6m_delta_pp": 7.7,
+        "reentry_12m": 68,
+        "reentry_12m_delta_pp": -10.5
       },
       {
         "cluster_key": "production_transport",
         "cluster_label": "Production & Transport Operators, Cleaners & Labourers",
         "overall": "strong",
-        "summary": "Production and transport demand strengthened sharply in Q4 2025, with vacancy rates and published vacancy counts both rising strongly. Hiring stayed net positive and retrenchments remained well below the year-ago quarter.",
-        "vacancy_rate": 2.8,
-        "vacancy_qoq_delta_pp": 0.8,
-        "vacancy_count": 21.7,
-        "vacancy_count_qoq_delta": 6.9,
-        "recruitment_rate": 2.4,
-        "recruitment_delta_pp": 0.3,
-        "resignation_rate": 1.5,
-        "resignation_delta_pp": 0.2,
-        "retrenchment_count": 280,
-        "retrenchment_qoq_delta_count": 130,
-        "reentry_6m": 64.8,
-        "reentry_6m_delta_pp": -2.8,
-        "reentry_12m": 78.1,
-        "reentry_12m_delta_pp": -4.5
+        "summary": "Production and transport vacancies fell back from the Q4 spike and were slightly below a year earlier. Hiring remained net positive, retrenchments declined, and six-month re-entry improved.",
+        "vacancy_rate": 2.3,
+        "vacancy_qoq_delta_pp": -0.5,
+        "vacancy_count": 17.2,
+        "vacancy_count_qoq_delta": -4.5,
+        "recruitment_rate": 1.7,
+        "recruitment_delta_pp": -0.1,
+        "resignation_rate": 1.2,
+        "resignation_delta_pp": -0.2,
+        "retrenchment_count": 200,
+        "retrenchment_qoq_delta_count": -80,
+        "reentry_6m": 72.5,
+        "reentry_6m_delta_pp": 7.7,
+        "reentry_12m": 76.9,
+        "reentry_12m_delta_pp": -1.2
       }
     ]
   },
   "summary": {
-    "band_mover_count": 11,
+    "band_mover_count": 0,
     "positive_drift_count": 0,
-    "negative_drift_count": 10
+    "negative_drift_count": 0
   },
   "briefing": {
     "what_changed": [
-      "11 occupations changed risk band between occupations-v7-2026-05.json and occupations-v7-2026-06.json.",
-      "Production & Transport Operators, Cleaners & Labourers saw the strongest vacancy pickup while Clerical, Sales & Service Workers saw the sharpest vacancy cooling in the live labour monitor.",
+      "No occupations changed risk band in the latest frozen comparison.",
+      "Professionals, Managers, Executives & Technicians saw the strongest vacancy pickup while Production & Transport Operators, Cleaners & Labourers saw the sharpest vacancy cooling in the live labour monitor.",
       "Structural movers remain limited in the latest snapshot comparison."
     ],
     "why_it_matters": [

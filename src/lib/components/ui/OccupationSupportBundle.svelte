@@ -55,11 +55,11 @@
 
 	let supportSignals = $derived<SupportSignalItem[]>([
 		{
-			label: 'AI task overlap',
+			label: 'Matched task evidence',
 			value: formatPct(support.taskPrimitives.matched_task_weight_share),
 			barValue: support.taskPrimitives.matched_task_weight_share ?? 0,
 			barClass: signalBarClass(support.taskPrimitives.matched_task_weight_share ?? 0),
-			note: 'Share of job tasks AI can currently perform'
+			note: 'Share of weighted task evidence matched to the supporting task dataset; not an automation share'
 		},
 		{
 			label: 'Median wage',

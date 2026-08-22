@@ -15,6 +15,7 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
+	import ArchivedReportNotice from '$lib/components/v9/ArchivedReportNotice.svelte';
 
 	const inputRows = Object.entries(experimentalMethodology.required_inputs).map(([key, value]) => ({
 		key,
@@ -100,9 +101,15 @@
 		? 'How the V4.3 shadow model was promoted into the live release, what changed, and how the audit trail against V4.2 remains published.'
 		: 'Archived V4.3 task-weighted shadow-model note showing task coverage, validation gates, and why the shadow layer is not the live V7 headline formula.'}
 	path="/reports/v4-3-shadow"
+	noindex={true}
 />
 
 <main class={pageLayout({ width: 'content' })}>
+	<ArchivedReportNotice
+		release="V4.3 shadow model"
+		date="16 July 2026 archive snapshot"
+		note="This page preserves the V4.3 shadow comparison, inputs and promotion gates. None of its formulas or status labels is part of V9."
+	/>
 	<PageBreadcrumb
 		items={[
 			{ label: 'Home', href: '/' },
@@ -310,8 +317,34 @@
 
 	<p class={cn(sectionLabel(), 'mt-8 mb-3')}>Promotion Gates</p>
 	<div class={card({ padding: 'none' })}>
-		<div class="overflow-x-auto">
-			<table class="w-full text-left text-sm">
+		<div class="divide-y divide-border md:hidden">
+			{#each promotionGates as gate (gate.key)}
+				<div class="space-y-3 p-4">
+					<div>
+						<p class="text-sm font-medium text-foreground">{gate.label}</p>
+						<p class="mt-1 text-xs text-muted-foreground">{gate.note}</p>
+					</div>
+					<dl class="grid grid-cols-3 gap-3 text-xs">
+						<div>
+							<dt class="text-muted-foreground">Threshold</dt>
+							<dd class="mt-1">{gate.comparator}{String(gate.threshold)}</dd>
+						</div>
+						<div>
+							<dt class="text-muted-foreground">Actual</dt>
+							<dd class="mt-1">{gate.actual === null ? 'n/a' : String(gate.actual)}</dd>
+						</div>
+						<div>
+							<dt class="text-muted-foreground">State</dt>
+							<dd class={cn('mt-1 font-semibold', stateClass(gate.state))}>
+								{formatState(gate.state)}
+							</dd>
+						</div>
+					</dl>
+				</div>
+			{/each}
+		</div>
+		<div class="hidden md:block">
+			<table class="w-full table-fixed text-left text-sm">
 				<thead>
 					<tr class="border-b border-border">
 						<th class="px-3 py-2.5 font-medium text-muted-foreground">Gate</th>

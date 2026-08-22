@@ -1,0 +1,153 @@
+{
+  "version": "V8",
+  "generated_at": "2026-07-17T01:39:47.926Z",
+  "status": "archived_superseded",
+  "current": false,
+  "superseded_by": "/data/sg-ai-occupations-v9.json",
+  "description": "Archived field-level provenance for the superseded V8 public contract. This is not a V9 source map.",
+  "entries": [
+    {
+      "field_path": "wages.*",
+      "dataset": "sg-ai-occupations-v8.json",
+      "label": "Singapore gross monthly wages",
+      "source_keys": [
+        "mom_ows_2024"
+      ],
+      "source_tier": "official_local",
+      "vintage": "2024",
+      "transformation": "Direct MOM occupational wage fields."
+    },
+    {
+      "field_path": "employment.*",
+      "dataset": "sg-ai-occupations-v8.json",
+      "label": "Estimated detailed employment",
+      "source_keys": [
+        "mom_lfr2025_table_d8",
+        "bls_projections_2024_2034"
+      ],
+      "source_tier": "derived_from_official_local",
+      "vintage": "2025",
+      "transformation": "Official family totals allocated to detailed occupations with disclosed proxy weights.",
+      "caveat": "Not an official detailed SSOC headcount."
+    },
+    {
+      "field_path": "ai_task_exposure_index",
+      "dataset": "sg-ai-occupations-v8.json",
+      "label": "Multi-source AI exposure signal",
+      "source_keys": [
+        "aioe_2021",
+        "anthropic_economic_index_2026",
+        "eloundou_gpt_exposure_2023",
+        "ilo_genai_2025"
+      ],
+      "source_tier": "cross_country_research",
+      "vintage": "2021-2026",
+      "transformation": "Deterministic reliability-weighted research ensemble.",
+      "caveat": "Not an official Singapore measure and not a task share."
+    },
+    {
+      "field_path": "human_bottleneck_index",
+      "dataset": "sg-ai-occupations-v8.json",
+      "label": "Human advantage signal",
+      "source_keys": [
+        "pizzinelli_theta_2023"
+      ],
+      "source_tier": "cross_country_research",
+      "vintage": "2023",
+      "transformation": "Matched complementarity input.",
+      "caveat": "Cross-country research proxy."
+    },
+    {
+      "field_path": "v8.ai_exposure_rank",
+      "dataset": "sg-ai-occupations-v8.json",
+      "label": "Relative AI exposure rank",
+      "source_keys": [
+        "aioe_2021",
+        "anthropic_economic_index_2026",
+        "eloundou_gpt_exposure_2023",
+        "ilo_genai_2025"
+      ],
+      "source_tier": "cross_country_research",
+      "vintage": "2021-2026",
+      "transformation": "Midrank percentile within 562 Singapore occupations.",
+      "caveat": "Not a probability, task share or forecast."
+    },
+    {
+      "field_path": "v8.substitution_pressure",
+      "dataset": "sg-ai-occupations-v8.json",
+      "label": "Relative substitution component",
+      "source_keys": [
+        "aioe_2021",
+        "pizzinelli_theta_2023"
+      ],
+      "source_tier": "cross_country_research",
+      "vintage": "2021-2026",
+      "transformation": "Within-market rank of exposure times complement of human bottleneck."
+    },
+    {
+      "field_path": "v8.augmentation_potential",
+      "dataset": "sg-ai-occupations-v8.json",
+      "label": "Relative augmentation component",
+      "source_keys": [
+        "aioe_2021",
+        "pizzinelli_theta_2023"
+      ],
+      "source_tier": "cross_country_research",
+      "vintage": "2021-2026",
+      "transformation": "Within-market rank of exposure times human bottleneck."
+    },
+    {
+      "field_path": "v8.market_context.demand",
+      "dataset": "sg-ai-occupations-v8.json",
+      "label": "Demand context",
+      "source_keys": [
+        "mom_sol_2026",
+        "mom_job_vacancy_rates"
+      ],
+      "source_tier": "derived_from_official_local",
+      "vintage": "2025-2026",
+      "transformation": "Categorical rule from official demand lists and derived momentum/scarcity signals.",
+      "caveat": "Context and pathway input, not a headline-score weight."
+    },
+    {
+      "field_path": "v8.market_context.adoption",
+      "dataset": "sg-ai-occupations-v8.json",
+      "label": "Sector adoption context",
+      "source_keys": [
+        "mom_ai_adoption_2026"
+      ],
+      "source_tier": "official_local",
+      "vintage": "2026",
+      "transformation": "Sector evidence mapped only where occupation-industry coverage supports it.",
+      "caveat": "Coverage is explicit; unknown is preserved."
+    },
+    {
+      "field_path": "v8.evidence_confidence",
+      "dataset": "sg-ai-occupations-v8.json",
+      "label": "Evidence confidence",
+      "source_keys": [
+        "aioe_2021",
+        "anthropic_economic_index_2026"
+      ],
+      "source_tier": "synthetic",
+      "vintage": "2021-2026",
+      "transformation": "Categorical rule using source count, mapping quality, task evidence and policy caps.",
+      "caveat": "Not a probability that the score is correct."
+    },
+    {
+      "field_path": "v8.sensitivity",
+      "dataset": "sg-ai-occupations-v8.json",
+      "label": "Specification sensitivity",
+      "source_keys": [
+        "aioe_2021",
+        "anthropic_economic_index_2026",
+        "eloundou_gpt_exposure_2023",
+        "ilo_genai_2025"
+      ],
+      "source_tier": "synthetic",
+      "vintage": "2021-2026",
+      "transformation": "Observed range across equal-weight and leave-one-source-out variants.",
+      "caveat": "Not a statistical confidence interval."
+    }
+  ]
+}

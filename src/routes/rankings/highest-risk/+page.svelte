@@ -1,103 +1,69 @@
 <script lang="ts">
-	import RankingTable from '$lib/components/ui/RankingTable.svelte';
-	import RankingNavPills from '$lib/components/ui/RankingNavPills.svelte';
-	import { title as titleStyle, pageLayout } from '$lib/design-system';
-	import type { Occupation } from '$lib/data';
-	import { countryConfigs } from '$lib/data/country-config';
+	import FaqList from '$lib/components/ui/FaqList.svelte';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
-	import FaqList from '$lib/components/ui/FaqList.svelte';
-	import { buildItemListJsonLd, buildFaqJsonLd } from '$lib/data/ranking-jsonld';
-	import { DATA_VINTAGE } from '$lib/data/scoring-constants';
-	import PageFooterNav from '$lib/components/ui/PageFooterNav.svelte';
+	import OccupationResultList from '$lib/components/v9-browser/OccupationResultList.svelte';
+	import RankingNav from '$lib/components/v9-browser/RankingNav.svelte';
+	import { pageLayout, title as titleStyle } from '$lib/design-system';
+	import { buildItemListJsonLd } from '$lib/data/ranking-jsonld';
 
 	let { data } = $props();
-	const currency = countryConfigs.sg.currency ?? 'SGD';
-
-	const columns = [
-		{
-			key: 'net_risk',
-			label: 'Net Risk',
-			format: (occ: Occupation) => `${(occ.net_risk * 100).toFixed(1)}%`,
-			align: 'right' as const
-		},
-		{
-			key: 'exposure',
-			label: 'Exposure',
-			format: (occ: Occupation) => `${(occ.exposure * 100).toFixed(0)}%`,
-			align: 'right' as const
-		},
-		{
-			key: 'bottleneck',
-			label: 'Bottleneck',
-			format: (occ: Occupation) => `${(occ.bottleneck * 100).toFixed(0)}%`,
-			align: 'right' as const
-		},
-		{
-			key: 'wage',
-			label: 'Median Wage',
-			format: (occ: Occupation) => `${currency} ${occ.gross_wage_median.toLocaleString()}`,
-			align: 'right' as const
-		}
-	];
-
-	let itemListJsonLd = $derived(
-		buildItemListJsonLd(
-			'Occupations with Highest AI Displacement Risk',
-			'Top 25 occupations ranked by AI net displacement risk score',
-			data.ranked
-		)
-	);
 
 	const faqItems = [
 		{
-			question: 'Which occupations face the highest AI displacement pressure?',
+			question: 'Which Singapore occupations face the most AI work pressure?',
 			answer:
-				'Data entry clerks, telemarketers, and bookkeepers face the highest structural pressure, with net displacement risk above 50%. These roles have high AI task overlap and low human bottlenecks.'
+				'This list orders SSOC 2024 occupations by their V9 pressure percentile. Data entry and several clerical occupations rank near the top because the mapped ILO task evidence shows substantial overlap with current generative AI capabilities.'
 		},
 		{
-			question: 'How is the AI displacement risk ranking calculated?',
-			answer: `Each occupation is scored using headline risk = displacement pressure × (1 − demand resilience). This ranking sorts all ${DATA_VINTAGE.occupation_count} occupations by net risk, showing the top 25.`
+			question: 'Is the pressure percentile a job-loss probability?',
+			answer:
+				'No. A rank of 90 places an occupation at the 90th midrank percentile for ILO task exposure in this release. It does not mean a 90% probability of job loss.'
 		}
 	];
 
-	const faqJsonLd = buildFaqJsonLd(faqItems);
+	let rankingJsonLd = $derived(
+		buildItemListJsonLd(
+			'Singapore occupations with the highest AI Work Pressure',
+			`The highest V9 midrank percentiles for ILO-based task exposure. The list contains ${data.ranked.length} rows because it preserves the complete tie at the 50-row cutoff.`,
+			data.ranked.map(occupation => ({ title: occupation.title, ssoc: occupation.code }))
+		)
+	);
 </script>
 
 <Seo
-	title="25 Highest AI Displacement Risk Occupations"
-	description={`Which occupations face the most AI structural pressure? Top 25 ranked by displacement risk from ${DATA_VINTAGE.occupation_count} scored.`}
+	title="Singapore Jobs with the Highest AI Work Pressure"
+	description="The highest V9 AI work pressure ranks among scored SSOC 2024 occupations, including cutoff ties, official ILO categories and mapping limits."
 	path="/rankings/highest-risk"
-	jsonLd={[itemListJsonLd, faqJsonLd]}
+	jsonLd={[rankingJsonLd]}
 />
 
-<main class={pageLayout({ width: 'content' })}>
+<main class={pageLayout({ width: 'feature' })}>
 	<PageBreadcrumb
 		items={[
 			{ label: 'Home', href: '/' },
 			{ label: 'Rankings', href: '/rankings' },
-			{ label: 'Highest Risk' }
+			{ label: 'AI work pressure' }
 		]}
 	/>
 
-	<h1 class={titleStyle({ size: 'page' })}>Highest Risk Occupations</h1>
-	<p class="mt-2 text-sm text-muted-foreground">Top 25 occupations by net displacement risk.</p>
+	<header class="mb-7 max-w-4xl">
+		<h1 class={titleStyle({ size: 'page' })}>Highest AI work pressure</h1>
+		<p class="mt-3 text-base leading-relaxed text-muted-foreground">
+			The highest-pressure occupations among 987 scored SSOC 2024 occupations, ordered by their
+			within-Singapore pressure percentile. This list contains {data.ranked.length} rows because it preserves
+			the complete tie at the 50-row cutoff. The official ILO category stays visible beside each rank.
+			Neither number is a job-loss probability.
+		</p>
+	</header>
 
-	<section class="mt-6">
-		<RankingTable occupations={data.ranked} {columns} />
-	</section>
+	<OccupationResultList items={data.ranked} detail="category" />
 
-	<p class="mt-4 text-xs text-muted-foreground">
-		headline_risk = displacement_pressure &times; (1 &minus; demand_resilience).
-		<a href="/methodology" class="text-primary underline">Learn more</a>
+	<p class="mt-4 text-xs leading-relaxed text-muted-foreground">
+		Tied ILO inputs receive the same midrank percentile. Fourteen occupations lack enough mapped ILO
+		evidence and are not placed at the bottom of the ranking.
 	</p>
+
 	<FaqList items={faqItems} />
-	<RankingNavPills />
-	<PageFooterNav
-		links={[
-			{ href: '/rankings', label: 'All rankings' },
-			{ href: '/explore', label: 'Browse occupations' },
-			{ href: '/methodology', label: 'Methodology' }
-		]}
-	/>
+	<RankingNav current="/rankings/highest-risk" />
 </main>

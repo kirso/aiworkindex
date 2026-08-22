@@ -1,5 +1,5 @@
 {
-  "validation_date": "2026-06-11",
+  "validation_date": "2026-07-17",
   "model_version": "V7",
   "non_promoted": true,
   "sidecar_rules": [
@@ -61,7 +61,7 @@
     "promotion_gate": "At least 4 post-baseline quarters of official outcome data before any result is promoted beyond this sidecar.",
     "pre_registration": "The frozen snapshot is committed in-repo (git-timestamped) before outcome data exists; the protocol above is published with zero post-baseline quarters so the test cannot be tuned after seeing outcomes."
   },
-  "summary": "Harness built and protocol published. The labour monitor ends at 2025 Q4, which precedes the frozen 2026 Q2 baseline, so no horizon test is possible yet — status is pending_sufficient_quarters. No forecast evidence exists or is claimed.",
+  "summary": "Harness built and protocol published. The labour monitor ends at 2026 Q1, which precedes the frozen 2026 Q2 baseline, so no horizon test is possible yet — status is pending_sufficient_quarters. No forecast evidence exists or is claimed.",
   "caveats": [
     "Three clusters only — any single-quarter directional result is statistically uninformative on its own; only the pooled sign test across quarters and outcomes carries evidential weight.",
     "Hiring net pressure and re-entry rates are published as latest-quarter snapshots, not quarterly series, so v1 horizons cover vacancy rate and retrenchment count only.",

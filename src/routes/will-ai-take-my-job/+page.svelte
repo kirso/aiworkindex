@@ -1,324 +1,348 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
+	import { page } from '$app/state';
+	import { trackProductEvent } from '$lib/analytics';
 	import Seo from '$lib/components/ui/Seo.svelte';
-	import { DATA_VINTAGE } from '$lib/data/scoring-constants';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
+	import PersonalWorkCheck from '$lib/components/product/PersonalWorkCheck.svelte';
+	import SaveJobButton from '$lib/components/product/SaveJobButton.svelte';
+	import SharePageButton from '$lib/components/product/SharePageButton.svelte';
+	import FaqList from '$lib/components/ui/FaqList.svelte';
+	import { Button } from '$lib/components/ui/button/index.js';
 	import {
 		card,
-		title as titleStyle,
-		sectionLabel,
 		caption,
 		display,
-		riskBadge,
-		impactBadge,
-		chip,
 		formInput,
-		pageLayout
+		pageLayout,
+		sectionLabel,
+		title
 	} from '$lib/design-system';
-	import { riskBandLabels, impactTypeLabels } from '$lib/data';
-	import type { RiskBand, ImpactType } from '$lib/data';
-	import { SENIORITY_MODIFIERS } from '$lib/data/scoring-constants';
-	import { titleMatches, fuzzyTitleMatches } from '$lib/utils/search';
-	import { findAliasMatches } from '$lib/data/aliases';
+	import { cn } from '$lib/utils';
+	import { buildFaqJsonLd } from '$lib/data/ranking-jsonld';
+	import { onMount } from 'svelte';
 
 	let { data } = $props();
-
 	type Entry = (typeof data.entries)[number];
-	type Seniority = 'junior' | 'mid' | 'senior';
+	let entries = $state<Entry[]>([]);
+	let indexLoading = $state(true);
+	let indexFailed = $state(false);
+	let query = $state('');
+	let selected = $state<Entry | null>(null);
+	let searchOpen = $state(false);
 
-	let selectedEntry: Entry | null = $state(null);
-	let salary = $state(0);
-	let seniority: Seniority = $state('mid');
-	let searchQuery = $state('');
-	let showDropdown = $state(false);
-
-	const seniorityLabels: Record<Seniority, string> = {
-		junior: 'Entry-level',
-		mid: 'Mid-career',
-		senior: 'Senior'
-	};
-
-	let filteredEntries = $derived.by(() => {
-		const q = searchQuery.trim();
-		if (q.length < 2) return [];
-		const aliasHits = findAliasMatches(q);
-		const aliasSsocs = new Set(aliasHits.flatMap(m => m.ssocs));
-		const aliasEntries =
-			aliasSsocs.size > 0 ? data.entries.filter((e: Entry) => aliasSsocs.has(e.ssoc)) : [];
-		const aliasIds = new Set(aliasEntries.map((e: Entry) => e.id));
-		const titleEntries = data.entries.filter(
-			(e: Entry) => !aliasIds.has(e.id) && titleMatches(e.title, q.toLowerCase())
-		);
-		let results = [...aliasEntries, ...titleEntries].slice(0, 8);
-		// Typo-tolerant fallback: fill remaining slots so "accuntant" still finds "Accountant".
-		if (results.length < 8) {
-			const seen = new Set(results.map((e: Entry) => e.id));
-			const fuzzy = data.entries.filter(
-				(e: Entry) => !seen.has(e.id) && fuzzyTitleMatches(e.title, q.toLowerCase())
-			);
-			results = [...results, ...fuzzy].slice(0, 8);
+	const faqItems = [
+		{
+			question: 'Will AI take my job?',
+			answer:
+				'No occupation score can answer that as a probability. AI Work Index shows current overlap between generative-AI capabilities and mapped occupation tasks, then places scored Singapore occupations on a relative scale. Hiring demand, employer choices, regulation, adoption and your own work still matter.'
+		},
+		{
+			question: 'What does the 0–100 AI task-pressure position mean?',
+			answer:
+				'It is a relative midrank position among 987 scored SSOC 2024 occupations in V9. It is not the percentage of tasks automated and it is not the chance of job loss. Tied occupation scores share the same position.'
+		},
+		{
+			question: 'Does the personal work check change my occupation score?',
+			answer:
+				'No. Your selected activities, AI use, error consequences and review responsibility stay in your browser. They produce reviewed guidance for experiments and questions; the published occupation record remains unchanged.'
 		}
-		return results;
+	];
+
+	onMount(async () => {
+		try {
+			const response = await fetch('/data/v9-ui-index.json?v=2026-08-19-v9');
+			if (!response.ok) throw new Error(`UI index returned ${response.status}`);
+			const index = (await response.json()) as { checker_entries: typeof data.entries };
+			entries = index.checker_entries;
+			const requested = page.url.searchParams.get('job');
+			if (requested) {
+				const match = entries.find(entry => entry.id === requested);
+				if (match) {
+					selected = match;
+					query = match.title;
+				}
+			}
+		} catch {
+			indexFailed = true;
+		} finally {
+			indexLoading = false;
+		}
 	});
 
-	let seniorityAdjustedRisk = $derived.by(() => {
-		if (!selectedEntry) return 0;
-		const mod = SENIORITY_MODIFIERS[seniority];
-		const adjustedExposure = Math.max(0, Math.min(1, selectedEntry.exposure + mod.exposure_adj));
-		const adjustedBottleneck = Math.max(
-			0,
-			Math.min(1, selectedEntry.bottleneck + mod.bottleneck_adj)
-		);
-		return Math.max(
-			0,
-			Math.min(
-				1,
-				adjustedExposure * (1 - adjustedBottleneck) * (1 - (selectedEntry.demand_resilience ?? 0))
-			)
-		);
+	let results = $derived.by(() => {
+		const needle = query.trim().toLowerCase();
+		if (needle.length < 2) return [] as Entry[];
+		return entries
+			.filter(entry => entry.searchText.includes(needle))
+			.sort((a, b) => {
+				const aStarts = a.title.toLowerCase().startsWith(needle) ? 0 : 1;
+				const bStarts = b.title.toLowerCase().startsWith(needle) ? 0 : 1;
+				return aStarts - bStarts || a.title.localeCompare(b.title);
+			})
+			.slice(0, 10);
 	});
 
-	let riskAmount = $derived(Math.round(salary * seniorityAdjustedRisk));
-	let annualAtRisk = $derived(riskAmount * 12);
-
-	function selectEntry(entry: Entry) {
-		selectedEntry = entry;
-		searchQuery = entry.title;
-		showDropdown = false;
-		if (!entry.isRole && 'gross_wage_median' in entry) {
-			const wage = entry.gross_wage_median as number;
-			if (wage > 0) salary = wage;
-		}
+	function choose(entry: Entry) {
+		selected = entry;
+		query = entry.title;
+		searchOpen = false;
+		trackProductEvent('job_search_selected', { entity_kind: entry.kind, context: 'checker' });
+		goto(`/will-ai-take-my-job?job=${encodeURIComponent(entry.id)}`, {
+			keepFocus: true,
+			noScroll: true
+		});
 	}
 
-	function handleSearchFocus() {
-		if (filteredEntries.length > 0) {
-			showDropdown = true;
+	function positionText(entry: Entry): string {
+		if (entry.position == null) {
+			return entry.kind === 'role'
+				? 'This modern title covers too many different kinds of work for one defensible estimate. Use the full page to choose a closer occupation.'
+				: 'This occupation cannot be placed on the relative scale because its official mapping has too little usable task evidence.';
 		}
+		const population = entry.comparisonPopulation ?? data.counts.scored;
+		return entry.kind === 'role'
+			? `This reviewed role estimate sits at ${entry.position.toFixed(1)} on the same 0–100 comparison scale used for ${population.toLocaleString()} scored Singapore occupations. The estimate depends on its published occupation mix.`
+			: `This official occupation sits at ${entry.position.toFixed(1)} on a 0–100 relative scale across ${population.toLocaleString()} scored Singapore occupations. The position reflects how much the mapped tasks overlap with current generative-AI capabilities.`;
 	}
 
-	function handleSearchBlur() {
-		setTimeout(() => {
-			showDropdown = false;
-		}, 200);
+	function matchingAlias(entry: Entry): string | null {
+		const needle = query.trim().toLowerCase();
+		if (needle.length < 2) return null;
+		return (entry.queryAliases ?? []).find(alias => alias.toLowerCase().includes(needle)) ?? null;
 	}
 </script>
 
 <Seo
+	title="Will AI Take My Job? Check Your Work in Singapore"
+	description="Find your Singapore occupation, see its current AI task pressure, and build a personal plan for what to try, verify, keep human-led and monitor."
 	path="/will-ai-take-my-job"
-	title="Will AI Take My Job? Free AI Risk Calculator | AI Work Index"
-	description="Find out if AI will take your job. Search {DATA_VINTAGE.occupation_count} occupations and {DATA_VINTAGE.role_count} modern roles scored for AI displacement risk. Free calculator with seniority adjustments."
+	jsonLd={[buildFaqJsonLd(faqItems)]}
 />
 
-<div class={pageLayout({ width: 'content' })}>
-	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Will AI Take My Job?' }]} />
+<main class={pageLayout({ width: 'feature' })}>
+	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'AI job pressure checker' }]} />
 
-	<h1 class={titleStyle({ size: 'page' })}>Will AI Take My Job?</h1>
-	<p class={caption({ class: 'mt-1 mb-6' })}>
-		Search for your occupation or role to see how much of your work overlaps with current AI
-		capabilities. Based on a 4-source exposure ensemble scoring {DATA_VINTAGE.occupation_count}
-		occupations.
-	</p>
+	<header class="max-w-4xl border-b-2 border-foreground pb-6">
+		<p class={sectionLabel()}>Find your work</p>
+		<h1 class={title({ size: 'page' })}>See where AI may change your work first</h1>
+		<p class="mt-3 max-w-3xl text-base leading-relaxed text-text-secondary">
+			Start with a Singapore occupation or a familiar modern title. You will see where its tasks sit
+			on the national pressure scale, then describe the work you actually do and get a practical
+			plan.
+		</p>
+		<div class="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-xs text-muted-foreground">
+			<p><strong class="text-foreground">Published:</strong> occupation and market evidence</p>
+			<p><strong class="text-foreground">Private:</strong> your answers stay in this browser</p>
+			<p><strong class="text-foreground">Outcome:</strong> guidance, not a job-loss forecast</p>
+		</div>
+	</header>
 
-	<!-- Search + Select -->
-	<div class={card({ padding: 'lg', class: 'mb-4' })}>
-		<p class={sectionLabel({ class: 'mb-2' })}>1. Find your occupation or role</p>
-		<div class="relative">
-			<input
-				type="text"
-				class={formInput({ size: 'lg' })}
-				placeholder="Search occupations or roles..."
-				bind:value={searchQuery}
-				onfocus={handleSearchFocus}
-				onblur={handleSearchBlur}
-				oninput={() => {
-					showDropdown = true;
-				}}
-			/>
-			{#if showDropdown && filteredEntries.length > 0}
-				<div
-					class="absolute top-full left-0 z-20 mt-1 w-full overflow-hidden rounded-md border border-border bg-card shadow-md"
-				>
-					{#each filteredEntries as entry}
+	<section class="relative mt-7" aria-label="Search for your job">
+		<label class={sectionLabel()} for="job-search">What work do you do?</label>
+		<input
+			id="job-search"
+			type="search"
+			class={cn(formInput({ size: 'lg' }), 'mt-2 w-full')}
+			placeholder="Try accountant, AI engineer, driver, product manager…"
+			bind:value={query}
+			onfocus={() => (searchOpen = true)}
+			onblur={() => setTimeout(() => (searchOpen = false), 180)}
+		/>
+		{#if searchOpen && query.trim().length >= 2}
+			<div
+				class="absolute z-20 mt-1 max-h-96 w-full overflow-y-auto border border-foreground bg-card"
+			>
+				{#if results.length === 0}
+					<p class="p-4 text-sm text-muted-foreground">No match found. Try a shorter job title.</p>
+				{:else}
+					{#each results as result (result.id)}
 						<button
 							type="button"
-							class="flex w-full items-center justify-between px-3 py-2 text-left text-sm hover:bg-accent"
-							onmousedown={() => selectEntry(entry)}
+							class="flex w-full min-w-0 items-start justify-between gap-3 border-b border-border px-4 py-3 text-left last:border-0 hover:bg-accent"
+							onmousedown={() => choose(result)}
 						>
-							<span class="truncate">
-								{entry.title}
-								{#if entry.isRole}
-									<span class={caption()}>role</span>
-								{/if}
+							<span class="min-w-0">
+								<span class="block truncate text-sm font-bold">{result.title}</span>
+								<span class="block text-xs text-muted-foreground"
+									>{matchingAlias(result)
+										? `Modern title “${matchingAlias(result)}” · SSOC ${result.code}`
+										: `${result.statusLabel}${result.kind === 'occupation' ? ` · SSOC ${result.code}` : ''}`}</span
+								>
 							</span>
-							<span
-								class={riskBadge({ band: entry.risk_band as RiskBand, class: 'ml-2 shrink-0' })}
+							<span class="shrink-0 font-mono text-sm font-bold tabular-nums"
+								>{result.position == null ? 'Withheld' : result.position.toFixed(1)}</span
 							>
-								{riskBandLabels[entry.risk_band as RiskBand]}
-							</span>
 						</button>
 					{/each}
-				</div>
-			{/if}
-		</div>
-	</div>
-
-	<!-- Salary Input -->
-	<div class={card({ padding: 'lg', class: 'mb-4' })}>
-		<p class={sectionLabel({ class: 'mb-2' })}>2. Enter your monthly salary</p>
-		<div class="flex items-center gap-2">
-			<span class="text-sm font-medium text-muted-foreground">SGD</span>
-			<input
-				type="number"
-				class={formInput({ size: 'lg', class: 'max-w-xs' })}
-				placeholder="e.g. 5000"
-				bind:value={salary}
-				min={0}
-				step={100}
-			/>
-		</div>
-		{#if selectedEntry && !selectedEntry.isRole && salary > 0}
-			<p class={caption({ class: 'mt-1' })}>
-				Pre-filled with the median gross wage for this occupation. Feel free to adjust.
-			</p>
-		{/if}
-	</div>
-
-	<!-- Seniority Toggle -->
-	<div class={card({ padding: 'lg', class: 'mb-6' })}>
-		<p class={sectionLabel({ class: 'mb-2' })}>3. Select your career stage</p>
-		<div class="flex gap-2">
-			{#each ['junior', 'mid', 'senior'] as const as level}
-				<button
-					type="button"
-					class={chip({ active: seniority === level })}
-					onclick={() => {
-						seniority = level;
-					}}
-				>
-					{seniorityLabels[level]}
-				</button>
-			{/each}
-		</div>
-	</div>
-
-	<!-- Results -->
-	{#if selectedEntry && salary > 0}
-		<div
-			class={card({ padding: 'lg', accent: selectedEntry.risk_band as RiskBand, class: 'mb-6' })}
-		>
-			<p class={sectionLabel({ class: 'mb-3' })}>Your result</p>
-
-			<div class="mb-4 text-center">
-				<p class={display({ size: 'xl' })}>
-					{(seniorityAdjustedRisk * 100).toFixed(0)}%
-				</p>
-				<p class={caption({ class: 'mt-1' })}>of tasks overlap with current AI capabilities</p>
-				<p class="mt-3 text-base font-mono font-semibold text-muted-foreground">
-					{selectedEntry && 'currency' in selectedEntry && selectedEntry.currency
-						? selectedEntry.currency
-						: 'SGD'}
-					{riskAmount.toLocaleString()}/mo
-				</p>
-				<p class={caption()}>salary equivalent of overlapping tasks</p>
-			</div>
-
-			<div class="flex flex-wrap items-center justify-center gap-3 mb-4">
-				<span class={riskBadge({ band: selectedEntry.risk_band as RiskBand })}>
-					{riskBandLabels[selectedEntry.risk_band as RiskBand]} Risk
-				</span>
-				<span class={impactBadge({ type: selectedEntry.impact_type as ImpactType })}>
-					{impactTypeLabels[selectedEntry.impact_type as ImpactType]}
-				</span>
-			</div>
-
-			<div class={card({ variant: 'inset', padding: 'md', class: 'space-y-2' })}>
-				<div class="flex items-center justify-between text-sm">
-					<span class="text-muted-foreground">Annual overlap</span>
-					<span class="font-mono font-semibold">
-						{selectedEntry && 'currency' in selectedEntry && selectedEntry.currency
-							? selectedEntry.currency
-							: 'SGD'}
-						{annualAtRisk.toLocaleString()}
-					</span>
-				</div>
-				<div class="flex items-center justify-between text-sm">
-					<span class="text-muted-foreground">Base risk score</span>
-					<span class="font-mono font-semibold">{(selectedEntry.net_risk * 100).toFixed(1)}%</span>
-				</div>
-				<div class="flex items-center justify-between text-sm">
-					<span class="text-muted-foreground">Seniority-adjusted risk</span>
-					<span class="font-mono font-semibold">{(seniorityAdjustedRisk * 100).toFixed(1)}%</span>
-				</div>
-				{#if seniority !== 'mid'}
-					<p class={caption({ class: 'pt-1' })}>
-						As a <strong>{seniorityLabels[seniority].toLowerCase()}</strong> professional, your
-						estimated risk is {(seniorityAdjustedRisk * 100).toFixed(1)}% (vs {(
-							selectedEntry.net_risk * 100
-						).toFixed(1)}% at mid-career).
-					</p>
 				{/if}
 			</div>
-		</div>
-	{/if}
+		{/if}
+		<p class={cn(caption(), 'mt-2')}>
+			{data.counts.occupations.toLocaleString()} official occupations · {data.counts.roles} non-official
+			role queries ({data.counts.estimatedRoles} estimated, {data.counts.withheldRoles} withheld)
+		</p>
+		{#if indexLoading || indexFailed}
+			<p class="mt-1 text-xs text-muted-foreground" aria-live="polite">
+				{indexFailed
+					? 'The evidence index could not load. Open the occupation browser to continue.'
+					: 'Loading the occupation evidence index…'}
+			</p>
+		{/if}
+	</section>
 
-	<!-- What you can do -->
-	{#if selectedEntry && salary > 0}
-		<div class={card({ padding: 'lg', class: 'mb-4' })}>
-			<p class={sectionLabel({ class: 'mb-3' })}>What you can do</p>
-			<div class="space-y-3 text-sm text-muted-foreground">
-				<div class="flex gap-2">
-					<span class="shrink-0 text-risk-very-low font-bold">1</span>
-					<p>
-						<span class="font-medium text-foreground">See the full picture.</span>
-						Overlap does not mean replacement. View the
-						<a
-							href={selectedEntry.isRole
-								? `/role/${selectedEntry.slug}`
-								: `/occupation/${selectedEntry.ssoc}`}
-							class="text-primary hover:underline">detailed breakdown</a
-						>
-						to understand what AI can and cannot do in this role.
+	{#if selected}
+		<section class="mt-8 border border-foreground bg-card" aria-labelledby="selected-job-title">
+			<div class="grid gap-px bg-border md:grid-cols-[minmax(14rem,0.8fr)_minmax(0,2fr)]">
+				<div class="bg-surface-metric p-5 sm:p-6">
+					<p class={sectionLabel()}>Relative AI task pressure</p>
+					<p class={cn(display({ size: 'xl' }), 'mt-2')}>
+						{selected.position == null ? '—' : selected.position.toFixed(1)}
+					</p>
+					<p class={caption()}>
+						{selected.position == null ? 'Position unavailable' : 'out of 100'}
 					</p>
 				</div>
-				<div class="flex gap-2">
-					<span class="shrink-0 text-risk-very-low font-bold">2</span>
-					<p>
-						<span class="font-medium text-foreground">Focus on human-advantage skills.</span>
-						Judgment, coordination, stakeholder management, and physical presence are the strongest bottlenecks
-						against AI displacement.
+				<div class="bg-card p-5 sm:p-6">
+					<p class="font-mono text-xs text-muted-foreground">
+						{selected.kind === 'occupation' ? `SSOC ${selected.code}` : 'Modern role'}
+					</p>
+					<h2 id="selected-job-title" class="mt-1 text-2xl font-black tracking-tight">
+						{selected.title}
+					</h2>
+					<p class="mt-3 max-w-2xl text-sm leading-relaxed text-text-secondary">
+						{positionText(selected)}
+					</p>
+					<p class="mt-2 text-xs text-muted-foreground">{selected.statusLabel}</p>
+				</div>
+			</div>
+
+			<div class="grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-4">
+				<div class="bg-card p-4">
+					<p class={caption()}>Mapped AI capability proximity</p>
+					<p class="mt-1 font-mono text-lg font-bold tabular-nums">
+						{selected.capabilityProximity == null
+							? 'No conservative profile'
+							: `${(selected.capabilityProximity * 100).toFixed(1)}/100`}
+					</p>
+					<p class="mt-1 text-xs text-muted-foreground">
+						{selected.capabilityProximity == null
+							? 'No broader occupation or role fallback is used.'
+							: `Closest mapped domains: ${selected.capabilityDomains
+									.slice()
+									.sort((a, b) => a.gap / a.gapMaximum - b.gap / b.gapMaximum)
+									.slice(0, 2)
+									.map(item => item.label)
+									.join(' · ')}.`}
 					</p>
 				</div>
-				<div class="flex gap-2">
-					<span class="shrink-0 text-risk-very-low font-bold">3</span>
-					<p>
-						<span class="font-medium text-foreground">Explore career paths.</span>
-						<a
-							href={selectedEntry.isRole
-								? `/role/${selectedEntry.slug}`
-								: `/occupation/${selectedEntry.ssoc}`}
-							class="text-primary hover:underline">Career transitions</a
-						>
-						show lower-risk and higher-paying options with skills you already have.
+				<div class="bg-card p-4">
+					<p class={caption()}>Pay in Singapore</p>
+					<p class="mt-1 font-mono text-lg font-bold tabular-nums">
+						{selected.wage == null
+							? selected.kind === 'role'
+								? 'No role-level figure'
+								: 'Not published'
+							: `SGD ${selected.wage.toLocaleString()}`}
+					</p>
+					<p class="mt-1 text-xs text-muted-foreground">
+						{selected.wage == null
+							? 'Open the full page for any component context.'
+							: 'Median gross monthly pay, MOM 2025.'}
 					</p>
 				</div>
-				<div class="flex gap-2">
-					<span class="shrink-0 text-risk-very-low font-bold">4</span>
-					<p>
-						<span class="font-medium text-foreground">Use AI, don't avoid it.</span>
-						Workers who adopt AI tools see the largest productivity gains (Brynjolfsson et al., 2023).
-						The goal is to be AI-augmented, not AI-replaced.
+				<div class="bg-card p-4">
+					<p class={caption()}>Named in current demand sources</p>
+					<p class="mt-1 text-sm font-bold">
+						{selected.demandSignals.length
+							? selected.demandSignals.join(' · ')
+							: 'No named match in the reviewed lists'}
+					</p>
+					<p class="mt-1 text-xs text-muted-foreground">
+						These sources cover selected occupations rather than the whole labour market.
+					</p>
+				</div>
+				<div class="bg-card p-4">
+					<p class={caption()}>Title and data status</p>
+					<p class="mt-1 text-sm font-bold">{selected.statusLabel}</p>
+					<p class="mt-1 text-xs text-muted-foreground">
+						{selected.kind === 'occupation'
+							? 'Official SSOC 2024 occupation.'
+							: `${selected.componentCount ?? 0} official occupation components.`}
 					</p>
 				</div>
 			</div>
-		</div>
+
+			{#if selected.labourContext}
+				<div
+					class="border-t border-border bg-surface-subtle p-4 text-sm leading-relaxed text-text-secondary"
+				>
+					<strong class="text-foreground">Current labour-market context:</strong>
+					{selected.labourContext}
+				</div>
+			{/if}
+
+			<div class="flex flex-wrap gap-2 border-t border-border p-4">
+				<Button href={selected.href}>Open the full job page</Button>
+				<Button variant="outline" href="/compare?entities={selected.id}"
+					>Compare with another job</Button
+				>
+				<SaveJobButton kind={selected.kind} id={selected.code} />
+				<SharePageButton title={`${selected.title} — AI Work Index`} />
+			</div>
+
+			<details class="border-t border-border p-4">
+				<summary class="cursor-pointer text-sm font-bold">Technical result details</summary>
+				<div class="mt-3 grid gap-3 text-sm sm:grid-cols-3">
+					<p>
+						<span class="block text-xs text-muted-foreground">Published position type</span>
+						<strong>{selected.positionKind}</strong>
+					</p>
+					<p>
+						<span class="block text-xs text-muted-foreground">ILO task-exposure score</span>
+						<strong
+							>{selected.rawExposure == null
+								? 'Unavailable'
+								: `${(selected.rawExposure * 100).toFixed(1)}/100`}</strong
+						>
+					</p>
+					<p>
+						<span class="block text-xs text-muted-foreground">ILO category</span>
+						<strong>{selected.category}</strong>
+					</p>
+				</div>
+			</details>
+		</section>
+
+		{#key selected.id}
+			<PersonalWorkCheck entityId={selected.id} entityTitle={selected.title} />
+		{/key}
+	{:else}
+		<section class={cn(card({ padding: 'md', variant: 'subtle' }), 'mt-8')}>
+			<h2 class="text-base font-bold">What you will get</h2>
+			<div class="mt-3 grid gap-3 text-sm text-text-secondary sm:grid-cols-3">
+				<p>
+					<strong class="block text-foreground">1. Your job's position</strong>See how its tasks
+					compare with other scored Singapore occupations.
+				</p>
+				<p>
+					<strong class="block text-foreground">2. Your work pattern</strong>Choose the activities,
+					consequences and review responsibility that shape your day.
+				</p>
+				<p>
+					<strong class="block text-foreground">3. Your next moves</strong>Get experiments, checks,
+					human-led work and questions to take to your employer.
+				</p>
+			</div>
+		</section>
 	{/if}
 
-	<!-- Disclaimer -->
-	<div class={card({ variant: 'inset', padding: 'md' })}>
-		<p class="text-xs text-muted-foreground">
-			This calculator shows the proportion of your role's tasks that overlap with current AI
-			capabilities — it does not predict job loss. Actual impact depends on employer adoption,
-			regulatory environment, and many other factors.
-		</p>
-	</div>
-</div>
+	<aside class="mt-8 border-t border-foreground pt-4 text-xs leading-relaxed text-muted-foreground">
+		The published occupation position comes from ILO 2025 task evidence mapped through the official
+		SSOC 2024 correspondence. Your answers create guidance only. Pay and demand are shown alongside
+		the position. <a class="text-primary hover:underline" href="/methodology">How the index works</a
+		>.
+	</aside>
+
+	<FaqList items={faqItems} />
+</main>

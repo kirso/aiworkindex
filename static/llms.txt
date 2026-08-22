@@ -1,60 +1,53 @@
 # AI Work Index
 
-> Structural AI pressure scores for 562 occupations and 88 modern roles. Current public release: V7. Deterministic scoring, open data, no LLM in the scoring loop.
+> Evidence on AI work pressure and job risk across Singapore's SSOC 2024 occupations. Current public release: V9, dated 2026-08-19.
 
-## About
+Supporting capability, research-signal, official-skills and evidence-synthesis layers were last updated on 22 August 2026. The structural pressure release remains dated 2026-08-19.
 
-AI Work Index is a free, open-source project that scores occupations for structural AI pressure. The current V7 release separates technical overlap from demand resilience instead of collapsing everything into a single market modifier.
+AI Work Index covers 1001 official numeric SSOC 2024 occupations. 987 have an AI Work Pressure Rank, 14 are explicitly unranked, and 523 have a direct MOM 2025 wage observation.
 
-- Author: Kirill So
-- Data vintage: V7, last updated 2026-06-07
-- Coverage: 562 SSOC occupations + 88 synthetic modern roles
-- Countries: Singapore, United States
+The modern-title lookup covers 88 familiar titles: 11 exact official titles, 56 reviewed familiar-title guides that reuse an official score unchanged, 18 disclosed cross-occupation estimates, and 3 titles that need more work context before comparison.
 
-## Core Formula
+## What the headline means
 
-headline_risk = displacement_pressure x (1 - demand_resilience)
+The AI Work Pressure Rank is a midrank percentile across 987 scored SSOC 2024 occupations. A rank of 72 places an occupation at the 72nd midrank percentile for ILO 2025 mean task exposure in that comparison population. Tied exposure values share the same position. The rank is not a 72% probability of job loss, a forecast of employment decline, or the share of tasks that will be automated.
 
-V7: task_signal = task_concentration x task_coverage (Hampole et al. — concentration buffers risk)
-V7: exposure_v7 = exposure x (1 - 0.20 x task_signal)
-V7: demand_persistence = ranked composite of momentum, vacancy, scarcity, demand signals
+The headline uses only ILO 2025 mean_score_2025 values connected through the official SSOC 2024 to ISCO-08 correspondence. Multiple official matches use the median; the minimum, maximum, task-score dispersion, official ILO categories, and unmatched candidates remain visible. There is no occupation-group fallback.
 
-- displacement_pressure = exposure_v7 x (1 - bottleneck)
-- demand_resilience = min(1.0, base_resilience x 0.45 + demand_signal_bonus + 0.10 x demand_persistence)
-- demand_signal_bonus = SOL exact 0.15, SOL prefix 0.08, JiD exact 0.12, JiD prefix 0.06
-- augmentation = exposure_v7 x bottleneck x market.market_resilience
+Wages, named demand evidence, external comparisons, adoption, and labour-market conditions are separate evidence. They do not change the pressure rank. The current release publishes direct wages and reviewed named demand where available. A separate identity-gated artifact publishes Eloundou theoretical exposure for 75 occupations and Anthropic observed use for 73; the four fields in the headline artifact remain null. AIOE, complementarity and broader transfers remain unavailable. Missing evidence is not zero.
 
-## Interpretation
+The Singapore AI labour observatory follows six separate channels between task pressure and jobs: displacement; productivity and demand expansion; new work; human responsibility and complementarity; employer adoption and organisation; and worker adjustment. It publishes broad official observations at their source grain. It does not assign occupation-level job outcomes or a Jevons-style rebound effect without adoption, price, output and causal labour evidence.
 
-- Scores measure structural pressure, not predicted job losses.
-- Impact types are determined only by headline risk and augmentation thresholds.
-- Current release contract is the downloadable V7 dataset and the live app dataset; they should match exactly.
+The separate OECD 2026 capability layer publishes nine-domain profiles for 75 occupations. Most pass a conservative title rule; a small published allow-list records additional title-and-definition reviews. The other 926 occupations stay unavailable; they are not scored lower. Capability profiles do not change the pressure rank.
 
-## Risk Bands
+The official Skills Framework pilot publishes selected skill names for 6 occupations across 3 sectors and 7 reviewed sector-role profiles. It supports practical gap checks and training discovery. It does not infer a person's skills, recommend a transition or change the pressure rank.
 
-| Band | Net Risk Range |
-|------|----------------|
-| Very Low | < 0.05 |
-| Low | 0.05-0.15 |
-| Moderate | 0.15-0.30 |
-| High | 0.30-0.50 |
-| Very High | >= 0.50 |
+The multi-signal evidence vector aligns pressure, OECD capability proximity, Eloundou theoretical scope, Anthropic observed use, direct pay, named demand, broad labour context and official skills by SSOC 2024 code. It does not average them into a score. Pressure and capability are compared only across the 75 occupations that have both measures. The v9-evidence-2026-08-22 release is the first comparable V9 baseline, so pressure movers remain unavailable. The separate change ledger reports 10 compatible public labour changes at their own source grain.
 
-Examples: Arts and cultural centre manager (including gallery and museum manager) is in the very-low band; Author is in the very-high band.
+## Primary pages and data
 
-## Key Pages
-
-- https://aiworkindex.com/
-- https://aiworkindex.com/methodology
-- https://aiworkindex.com/data
-- https://aiworkindex.com/reports
-- https://aiworkindex.com/about
-- https://aiworkindex.com/explore
-
-## Extended Version
-
-https://aiworkindex.com/llms-full.txt
-
-## Source Code
-
-https://github.com/kirso/aiworkindex
+- Methodology: https://aiworkindex.com/methodology
+- Research: https://aiworkindex.com/research
+- Data and licences: https://aiworkindex.com/data
+- Occupation explorer: https://aiworkindex.com/explore
+- Familiar job-title lookup: https://aiworkindex.com/roles
+- Rankings: https://aiworkindex.com/rankings
+- Job pressure calculator: https://aiworkindex.com/will-ai-take-my-job
+- Comparison tool: https://aiworkindex.com/compare
+- Current JSON: https://aiworkindex.com/data/sg-ai-occupations-v9.json
+- Current CSV: https://aiworkindex.com/data/sg-ai-occupations-v9.csv
+- Singapore market context: https://aiworkindex.com/data/v9-market-context.json
+- Singapore AI labour observatory: https://aiworkindex.com/reports/labour-observatory
+- Labour observatory data: https://aiworkindex.com/data/v9-economic-observatory.json
+- AI capability report: https://aiworkindex.com/reports/ai-capabilities
+- AI capability profile data: https://aiworkindex.com/data/v9-capability-profiles.json
+- Theoretical scope vs observed use: https://aiworkindex.com/reports/research-signals
+- Research signal data: https://aiworkindex.com/data/v9-research-signals.json
+- Official skills pilot: https://aiworkindex.com/reports/skills-pilot
+- Official skills pilot data: https://aiworkindex.com/data/v9-skills-pilot.json
+- Evidence pattern report: https://aiworkindex.com/reports/evidence-patterns
+- Multi-signal evidence vector: https://aiworkindex.com/data/v9-evidence-vector.json
+- Signal-specific change ledger: https://aiworkindex.com/data/v9-signal-change.json
+- Mapped ILO task evidence: https://aiworkindex.com/data/ilo-isco-task-evidence-v9.json
+- Full machine-readable guide: https://aiworkindex.com/llms-full.txt
+- Source repository: https://github.com/kirso/aiworkindex

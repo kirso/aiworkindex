@@ -1,457 +1,224 @@
 #!/usr/bin/env bun
-/**
- * build-release-manifest.ts — Build a versioned public release manifest with
- * checksums, file sizes, and generation metadata for downloadable artifacts.
- *
- * Run: bun run scripts/build-release-manifest.ts
- */
 
-import * as fs from 'fs';
-import * as path from 'path';
-import { createHash } from 'crypto';
+import { createHash } from 'node:crypto';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-import { DATA_VINTAGE } from '../src/lib/data/scoring-constants';
+import { loadV9Release } from './v9-public-export';
 
-const ROOT_DIR = path.join(import.meta.dir, '..');
-const STATIC_DATA_DIR = path.join(ROOT_DIR, 'static', 'data');
-const SRC_DATA_DIR = path.join(ROOT_DIR, 'src', 'lib', 'data');
-const VERSION_TAG = DATA_VINTAGE.model_version.toLowerCase().replaceAll('.', '');
-const OUT_FILE = path.join(STATIC_DATA_DIR, `release-manifest-${VERSION_TAG}.json`);
-const VERSIONED_OUT_FILE = path.join(STATIC_DATA_DIR, `release-manifest-${VERSION_TAG}.json`);
-const SRC_OUT_FILE = path.join(SRC_DATA_DIR, 'release-manifest.json');
+const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
+const STATIC = path.join(ROOT, 'static');
+const STATIC_DATA = path.join(STATIC, 'data');
+const MANIFEST_GENERATED_AT = '2026-08-22';
 
-interface ReleaseArtifactDefinition {
-	file: string;
-	label: string;
-	category:
-		| 'structural_score'
-		| 'context_bundle'
-		| 'task_skill_enrichment'
-		| 'labour_monitor'
-		| 'worker_profile'
-		| 'lfr_context'
-		| 'geography_context'
-		| 'macro_context'
-		| 'national_ai_context'
-		| 'transition_support'
-		| 'offset_potential'
-		| 'transition_infrastructure'
-		| 'governance'
-		| 'provenance'
-		| 'forecast_readiness'
-		| 'research_memory'
-		| 'shadow_model'
-		| 'v5_sidecar'
-		| 'v5_experimental_model'
-		| 'roadmap';
-	description: string;
-}
-
-const ARTIFACTS: ReleaseArtifactDefinition[] = [
+const definitions = [
 	{
-		file: `sg-ai-occupations-${VERSION_TAG}.csv`,
-		label: `${DATA_VINTAGE.model_version} structural score CSV`,
-		category: 'structural_score',
-		description: 'Flattened CSV export of the canonical live structural dataset.'
+		file: 'sg-ai-occupations-v9.json',
+		path: path.join(STATIC_DATA, 'sg-ai-occupations-v9.json'),
+		public_path: '/data/sg-ai-occupations-v9.json',
+		label: 'V9 public JSON',
+		category: 'structural_pressure',
+		description: 'SSOC 2024 AI Work Pressure ranks, uncertainty, wages, and evidence links.'
 	},
 	{
-		file: `sg-ai-occupations-${VERSION_TAG}.json`,
-		label: `${DATA_VINTAGE.model_version} structural score JSON`,
-		category: 'structural_score',
-		description: 'Canonical live structural score JSON export matching the app dataset exactly.'
+		file: 'sg-ai-occupations-v9.csv',
+		path: path.join(STATIC_DATA, 'sg-ai-occupations-v9.csv'),
+		public_path: '/data/sg-ai-occupations-v9.csv',
+		label: 'V9 public CSV',
+		category: 'structural_pressure',
+		description: 'Flattened V9 occupation evidence with nullable fields.'
 	},
 	{
-		file: 'sg-ai-occupations-v43.csv',
-		label: 'V4.3 structural score CSV snapshot',
-		category: 'structural_score',
-		description: 'Versioned CSV snapshot for the retained V4.3 structural release.'
+		file: 'v9-market-context.json',
+		path: path.join(STATIC_DATA, 'v9-market-context.json'),
+		public_path: '/data/v9-market-context.json',
+		label: 'V9 Singapore market context',
+		category: 'market_context',
+		description: 'Reviewed demand signals and labour evidence kept separate from pressure ranks.'
 	},
 	{
-		file: 'sg-ai-occupations-v43.json',
-		label: 'V4.3 structural score JSON snapshot',
-		category: 'structural_score',
-		description: 'Versioned JSON snapshot for the retained V4.3 structural release.'
-	},
-	{
-		file: 'sg-ai-occupations-v5.csv',
-		label: 'V5 structural score CSV snapshot',
-		category: 'structural_score',
+		file: 'v9-economic-observatory.json',
+		path: path.join(STATIC_DATA, 'v9-economic-observatory.json'),
+		public_path: '/data/v9-economic-observatory.json',
+		label: 'V9 Singapore AI labour observatory',
+		category: 'economic_outcomes',
 		description:
-			'Versioned CSV snapshot for the promoted V5 live structural release with transition-adjusted and realized-risk adjunct fields.'
+			'Broad official labour observations, six causal mechanisms, detailed evidence availability and explicit publication gates; no headline effect.'
 	},
 	{
-		file: 'sg-ai-occupations-v5.json',
-		label: 'V5 structural score JSON snapshot',
-		category: 'structural_score',
+		file: 'v9-capability-profiles.json',
+		path: path.join(STATIC_DATA, 'v9-capability-profiles.json'),
+		public_path: '/data/v9-capability-profiles.json',
+		label: 'V9 OECD AI capability profiles',
+		category: 'capability_evidence',
 		description:
-			'Versioned JSON snapshot for the promoted V5 live structural release with transition-adjusted and realized-risk adjunct fields.'
+			'Nine-domain OECD capability profiles for the reviewed detailed-identity subset; automated and manual identity decisions are explicit, missingness is preserved, and the headline effect is none.'
 	},
 	{
-		file: 'sg-ai-occupations-v42.csv',
-		label: 'V4.2 structural score CSV snapshot',
-		category: 'structural_score',
-		description: 'Historical CSV snapshot for the retained V4.2 pre-promotion baseline.'
-	},
-	{
-		file: 'sg-ai-occupations-v42.json',
-		label: 'V4.2 structural score JSON snapshot',
-		category: 'structural_score',
-		description: 'Historical JSON snapshot for the retained V4.2 pre-promotion baseline.'
-	},
-	{
-		file: 'onet-enrichment.json',
-		label: 'O*NET task and technology enrichment',
-		category: 'task_skill_enrichment',
+		file: 'v9-research-signals.json',
+		path: path.join(STATIC_DATA, 'v9-research-signals.json'),
+		public_path: '/data/v9-research-signals.json',
+		label: 'V9 theoretical and observed-use research signals',
+		category: 'external_evidence',
 		description:
-			'Title-matched O*NET task and technology-skill enrichment used as supporting context for occupation and role pages.'
+			'Identity-gated Eloundou theoretical exposure and Anthropic observed Claude-use measures, published separately with explicit missingness and no headline effect.'
 	},
 	{
-		file: 'sg-context-pack-2025.json',
-		label: 'Singapore context pack',
-		category: 'context_bundle',
+		file: 'v9-skills-pilot.json',
+		path: path.join(STATIC_DATA, 'v9-skills-pilot.json'),
+		public_path: '/data/v9-skills-pilot.json',
+		label: 'V9 official Skills Framework pilot',
+		category: 'skills_evidence',
 		description:
-			'Published Singapore context bundle around the structural score: labour monitor, worker profile, industry context, sector wage anchors, geography context, macro labour context, and national AI context.'
+			'Selected official skill names for seven reviewed sector-role profiles across ICT, financial services and healthcare; no headline effect.'
 	},
 	{
-		file: 'sg-labour-monitor-2025.json',
-		label: 'Singapore labour monitor',
-		category: 'labour_monitor',
-		description: 'Published cluster-level labour monitor used as current evidence around the score.'
-	},
-	{
-		file: 'sg-worker-profile-2025.json',
-		label: 'Singapore worker profile',
-		category: 'worker_profile',
-		description: 'Published Labour Force 2025 worker-profile context and detailed gender anchors.'
-	},
-	{
-		file: 'sg-lfr-deltas-2025.json',
-		label: 'Singapore Section D deltas',
-		category: 'lfr_context',
+		file: 'v9-evidence-vector.json',
+		path: path.join(STATIC_DATA, 'v9-evidence-vector.json'),
+		public_path: '/data/v9-evidence-vector.json',
+		label: 'V9 multi-signal occupation evidence vector',
+		category: 'evidence_synthesis',
 		description:
-			'Published 2024 to 2025 Labour Force Section D family, cluster, and industry-mix deltas used for validation and contextual reporting.'
+			'Eight evidence dimensions aligned by SSOC 2024 occupation without averaging them into a composite score.'
 	},
 	{
-		file: 'sg-geography-context-2020.json',
-		label: 'Singapore geography context',
-		category: 'geography_context',
+		file: 'v9-signal-change.json',
+		path: path.join(STATIC_DATA, 'v9-signal-change.json'),
+		public_path: '/data/v9-signal-change.json',
+		label: 'V9 signal-specific change ledger',
+		category: 'longitudinal_evidence',
 		description:
-			'Published Census 2020 geography context covering planning-area residence concentration and travel-time patterns by broad occupation group.'
+			'Comparable changes in public Singapore labour signals plus explicit gates for pressure and other unavailable movers.'
 	},
 	{
-		file: 'sg-macro-context-2025.json',
-		label: 'Singapore macro labour context',
-		category: 'macro_context',
+		file: 'ilo-isco-task-evidence-v9.json',
+		path: path.join(STATIC_DATA, 'ilo-isco-task-evidence-v9.json'),
+		public_path: '/data/ilo-isco-task-evidence-v9.json',
+		label: 'ILO task evidence by ISCO-08 group',
+		category: 'task_evidence',
 		description:
-			'Published macro labour context covering unemployment and labour-tightness series for Singapore.'
+			'Attributed ILO task text and 2025 scores at four-digit ISCO grain; mapped examples never change occupation pressure ranks.'
 	},
 	{
-		file: 'sg-ai-in-singapore-2025.json',
-		label: 'AI in Singapore context',
-		category: 'national_ai_context',
+		file: 'v9-external-crosswalk-audit.json',
+		path: path.join(STATIC_DATA, 'v9-external-crosswalk-audit.json'),
+		public_path: '/data/v9-external-crosswalk-audit.json',
+		label: 'V9 external crosswalk audit',
+		category: 'external_evidence',
 		description:
-			'Official IMDA and MOM national AI adoption, workforce, and programme context used for reports and contextual framing.'
+			'Checksum-pinned ESCO-O*NET candidate mapping audit and explicit publication gates; no external values enter the headline.'
 	},
 	{
-		file: 'sg-transition-infrastructure-2025.json',
-		label: 'Transition infrastructure layer',
-		category: 'transition_infrastructure',
+		file: 'synthetic-roles-v9.json',
+		path: path.join(STATIC_DATA, 'synthetic-roles-v9.json'),
+		public_path: '/data/synthetic-roles-v9.json',
+		label: 'V9 modern-title query layer',
+		category: 'synthetic_roles',
 		description:
-			'Official Singapore transition-infrastructure artifact covering published programmes, WSQ training-system activity, and Jobs Transformation Maps coverage.'
+			'Exact and explicitly reviewed official-occupation resolutions plus non-official composites, withheld mappings, editorial weights and sensitivity checks.'
 	},
 	{
-		file: 'sg-transition-support-v4.json',
-		label: 'Transition support layer',
-		category: 'transition_support',
+		file: 'v9-search-index.json',
+		path: path.join(STATIC_DATA, 'v9-search-index.json'),
+		public_path: '/data/v9-search-index.json',
+		label: 'V9 search index',
+		category: 'discovery',
 		description:
-			'Published hybrid transition-support artifact combining the deterministic transition-capacity model with official Singapore transition-infrastructure context.'
+			'Lightweight occupation and non-official role-query search records plus canonical aliases for exact and explicitly reviewed official-occupation matches.'
 	},
 	{
-		file: 'countries/us/support.json',
-		label: 'United States evidence support bundle',
-		category: 'context_bundle',
+		file: 'v9-ui-index.json',
+		path: path.join(STATIC_DATA, 'v9-ui-index.json'),
+		public_path: '/data/v9-ui-index.json',
+		label: 'V9 on-demand interface index',
+		category: 'discovery',
 		description:
-			'Published United States evidence-support bundle combining O*NET occupation descriptions, task primitives, technology skills, work context, Job Zones, BLS OEWS wages, BLS employment projections, BLS ORS requirements, BLS OOH narrative, BLS skills data, Anthropic task penetration, and CPS age profile context.'
-	},
-	{
-		file: 'sg-offset-potential-v4.json',
-		label: 'Offset potential layer',
-		category: 'offset_potential',
-		description:
-			'Published heuristic support layer estimating how demand persistence, transition support, task reallocation, and switching friction could cushion structural pressure.'
-	},
-	{
-		file: `claims-matrix-${VERSION_TAG}.json`,
-		label: 'Public claims matrix',
-		category: 'governance',
-		description:
-			'Machine-readable registry of major public claims, evidence strength, and source keys for the current release.'
-	},
-	{
-		file: 'public-field-source-map.json',
-		label: 'Public field source map',
-		category: 'provenance',
-		description:
-			'Machine-readable field-level provenance map for the main public datasets, including source keys, vintages, and transformation notes.'
-	},
-	{
-		file: `forecast-readiness-${VERSION_TAG}.json`,
-		label: 'Forecast readiness matrix',
-		category: 'forecast_readiness',
-		description:
-			'Non-promoted V7 source, duplication, and validation-gate matrix for moving from structural pressure to forecast-grade labour-market claims.'
-	},
-	{
-		file: 'experimental-methodology-v43.json',
-		label: 'V4.3 shadow-model readiness',
-		category: 'governance',
-		description:
-			'Governance artifact for the V4.3 shadow model, including readiness, promotion gates, and promoted/live state.'
-	},
-	{
-		file: 'shadow-scores-v43.json',
-		label: 'V4.3 shadow scores',
-		category: 'shadow_model',
-		description:
-			'Per-occupation task-adjusted shadow scores retained for comparison against the earlier V4.2 baseline.'
-	},
-	{
-		file: 'shadow-comparison-v43.json',
-		label: 'V4.3 shadow comparison summary',
-		category: 'shadow_model',
-		description:
-			'Summary of task-native eligibility, score deltas, band flips, and anchor-review counts from the retained V4.3 shadow-model audit trail.'
-	},
-	{
-		file: 'shadow-validation-v43.json',
-		label: 'V4.3 shadow validation comparison',
-		category: 'shadow_model',
-		description:
-			'Comparison of the published shadow scores against the validation benchmarks from the pre-promotion V4.2 live release.'
-	},
-	{
-		file: 'shadow-anchor-review-v43.json',
-		label: 'V4.3 shadow anchor review',
-		category: 'shadow_model',
-		description:
-			'Side-by-side anchor occupation screen used to flag large label shifts before any headline promotion decision.'
+			'Route-specific evidence projections loaded on demand by the calculator and comparison tools.'
 	},
 	{
 		file: 'research-library.json',
-		label: 'Research library',
-		category: 'research_memory',
-		description:
-			'Machine-readable registry of the academic papers, reports, and datasets cited by the methodology, validation, and V5 roadmap.'
-	},
-	{
-		file: 'v5-roadmap.json',
-		label: 'V5 roadmap',
-		category: 'roadmap',
-		description:
-			'Machine-readable post-promotion roadmap for what comes after the live V5 structural release.'
-	},
-	{
-		file: 'v5-sidecars.json',
-		label: 'V5 sidecar summary',
-		category: 'v5_sidecar',
-		description:
-			'Summary artifact for the published V5 workstreams: augmentation heterogeneity, empirical mobility, posterior uncertainty, and realized-risk forecasting.'
-	},
-	{
-		file: 'v5-augmentation-heterogeneity.json',
-		label: 'V5 augmentation heterogeneity sidecar',
-		category: 'v5_sidecar',
-		description:
-			'Pilot sidecar estimating workflow-sensitive augmentation readiness and heterogeneous augmentation potential without changing the live score.'
-	},
-	{
-		file: 'v5-empirical-mobility.json',
-		label: 'V5 empirical mobility sidecar',
-		category: 'v5_sidecar',
-		description:
-			'Observed-mobility-enriched transition sidecar built on top of the published transition-support layer.'
-	},
-	{
-		file: 'v5-posterior-uncertainty.json',
-		label: 'V5 posterior uncertainty sidecar',
-		category: 'v5_sidecar',
-		description:
-			'Latent source-measurement sidecar over persisted exposure-source percentiles with task-aware structural alignment.'
-	},
-	{
-		file: 'v5-realized-risk.json',
-		label: 'V5 realized-risk sidecar',
-		category: 'v5_sidecar',
-		description:
-			'Offset-buffered realized-risk proxy sidecar derived from the live forecast engine and published offset-potential layer.'
-	},
-	{
-		file: 'v5-experimental-model.json',
-		label: 'V5 experimental model',
-		category: 'v5_experimental_model',
-		description:
-			'Promotion-comparison artifact for V5, retaining the integrated model outputs against the retained V4.3 baseline.'
-	},
-	{
-		file: 'v5-experimental-validation.json',
-		label: 'V5 experimental validation',
-		category: 'v5_experimental_model',
-		description:
-			'Validation and comparison artifact for the promoted V5 model versus the retained V4.3 baseline.'
-	},
-	{
-		file: 'quarterly-report.json',
-		label: 'Quarterly report',
-		category: 'governance',
-		description:
-			'Quarterly snapshot and drift summary for the current structural release versus the retained prior snapshot.'
-	},
-	{
-		file: '../llms.txt',
-		label: 'LLMs summary',
-		category: 'governance',
-		description:
-			'Current AI-facing summary file for retrieval, citation, and answer-engine consumption.'
-	},
-	{
-		file: '../llms-full.txt',
-		label: 'LLMs full reference',
-		category: 'governance',
-		description:
-			'Expanded AI-facing reference file with current methodology, caveats, and citation guidance.'
+		path: path.join(STATIC_DATA, 'research-library.json'),
+		public_path: '/data/research-library.json',
+		label: 'Research register',
+		category: 'research',
+		description: 'Versioned research claims, roles, sources, and limitations.'
 	},
 	{
 		file: 'site-status.json',
-		label: 'Public site status',
+		path: path.join(STATIC_DATA, 'site-status.json'),
+		public_path: '/data/site-status.json',
+		label: 'Current release status',
 		category: 'governance',
-		description:
-			'Canonical public status object covering current structural release, live monitor vintage, and latest official update state.'
+		description: 'Bounded current V9 facts, evidence vintages, withheld inputs, and archive links.'
 	},
 	{
 		file: 'releases.json',
-		label: 'Public release history',
+		path: path.join(STATIC_DATA, 'releases.json'),
+		public_path: '/data/releases.json',
+		label: 'Dated release history',
 		category: 'governance',
-		description:
-			'Ordered release and update history spanning structural releases, quarterly briefings, and official monitor updates.'
+		description: 'Current V9 release notes and explicitly dated archives of superseded methods.'
 	},
 	{
-		file: 'backtests/current-validation.json',
-		label: 'Current cluster validation',
-		category: 'governance',
-		description:
-			'Current cluster-level directional validation artifact for the live labour-monitor vintage.'
+		file: 'llms.txt',
+		path: path.join(STATIC, 'llms.txt'),
+		public_path: '/llms.txt',
+		label: 'Concise machine-readable guide',
+		category: 'discovery',
+		description: 'Concise V9 scope, interpretation, and canonical links.'
 	},
 	{
-		file: 'backtests/bls-crosswalk-validation.json',
-		label: 'BLS crosswalk validation',
-		category: 'governance',
+		file: 'llms-full.txt',
+		path: path.join(STATIC, 'llms-full.txt'),
+		public_path: '/llms-full.txt',
+		label: 'Full machine-readable guide',
+		category: 'discovery',
 		description:
-			'Cross-country convergent validation artifact comparing structural risk against US BLS projected employment change.'
+			'Full V9 method, limitations, official occupations, reviewed modern-title resolutions and non-official role-query links.'
 	},
 	{
-		file: 'backtests/multi-period-validation.json',
-		label: 'Multi-period temporal validation',
-		category: 'governance',
-		description:
-			'Temporal validation artifact measuring how cluster risk rankings align with vacancy and hiring patterns across multiple observed periods.'
-	},
-	{
-		file: 'backtests/calibration-diagnostics.json',
-		label: 'Calibration diagnostics',
-		category: 'governance',
-		description:
-			'Segment-level calibration diagnostic showing how direct vs fallback mappings and confidence tiers align with external BLS projected employment change.'
-	},
-	{
-		file: 'backtests/occupation-family-validation.json',
-		label: 'Occupation-family validation',
-		category: 'governance',
-		description:
-			'Family-level convergent validation aggregating occupations to 2-digit SSOC families before comparing structural risk with BLS projected employment change.'
-	},
-	{
-		file: 'backtests/forecast-horizon-validation.json',
-		label: 'Forecast-horizon sidecar',
-		category: 'governance',
-		description:
-			'Non-promoted forecast-horizon harness: frozen May 2026 cluster risk vs official outcomes at t+1Q/t+2Q/t+4Q, with the pre-registered protocol, naive benchmark, and 4-quarter promotion gate published while post-baseline quarters are still zero.'
-	},
-	{
-		file: 'backtests/imf-convergence.json',
-		label: 'IMF Singapore convergence',
-		category: 'governance',
-		description:
-			'Convergent-directional Singapore macro benchmark comparing employment-weighted exposure x complementarity bins against the IMF SIP/2024/040 estimates, with the percentile-internal framing caveat leading.'
-	},
-	{
-		file: 'backtests/sensitivity-analysis.json',
-		label: 'Sensitivity analysis',
-		category: 'governance',
-		description:
-			'Robustness evidence for the hand-set V7 constants: one-at-a-time and joint Monte-Carlo perturbations with rank-stability, band-flip, and top-list overlap metrics against the baseline ranking.'
-	},
-	{
-		file: 'confidence-ratings.json',
-		label: 'Occupation confidence ratings',
-		category: 'governance',
-		description:
-			'IPCC-style confidence sidecar translating score confidence components into evidence-quality and signal-agreement ratings for every occupation.'
-	},
-	{
-		file: 'scenario-families.json',
-		label: 'Scenario families',
-		category: 'governance',
-		description:
-			'Non-scoring scenario-family sidecar publishing conservative, base, and fast-adoption outlook overlays from the forecast engine.'
-	},
-	{
-		file: 'adoption-diffusion.json',
-		label: 'Singapore adoption diffusion',
-		category: 'governance',
-		description:
-			'Non-scoring Singapore adoption context from MOM 2026 firm AI-adoption evidence, including sector uptake, constraints, and observed adopter outcomes.'
-	},
-	{
-		file: 'age-structure.json',
-		label: 'Occupation age structure',
-		category: 'governance',
-		description:
-			'Non-scoring age-structure and attrition-absorber context derived from Singapore worker-profile tables.'
+		file: 'sitemap.xml',
+		path: path.join(STATIC, 'sitemap.xml'),
+		public_path: '/sitemap.xml',
+		label: 'Canonical sitemap',
+		category: 'discovery',
+		description: 'Indexable V9 pages on the canonical host.'
 	}
-];
+] as const;
 
-function sha256(buffer: Buffer): string {
-	return createHash('sha256').update(buffer).digest('hex');
-}
-
-function buildArtifact(definition: ReleaseArtifactDefinition) {
-	const filePath = path.join(STATIC_DATA_DIR, definition.file);
-	if (!fs.existsSync(filePath)) {
-		throw new Error(`Missing artifact: ${definition.file}`);
-	}
-
-	const bytes = fs.readFileSync(filePath);
-	const stats = fs.statSync(filePath);
-
+const release = loadV9Release();
+const artifacts = definitions.map(definition => {
+	if (!fs.existsSync(definition.path)) throw new Error(`Missing V9 artifact: ${definition.path}`);
+	const bytes = fs.readFileSync(definition.path);
+	const stat = fs.statSync(definition.path);
 	return {
-		...definition,
-		bytes: stats.size,
-		sha256: sha256(bytes),
-		generated_at: stats.mtime.toISOString()
+		file: definition.file,
+		public_path: definition.public_path,
+		label: definition.label,
+		category: definition.category,
+		description: definition.description,
+		bytes: stat.size,
+		sha256: createHash('sha256').update(bytes).digest('hex'),
+		generated_at: MANIFEST_GENERATED_AT
 	};
-}
+});
 
 const manifest = {
-	version: DATA_VINTAGE.model_version,
-	generated_at: new Date().toISOString(),
-	score_dataset_generated_at: DATA_VINTAGE.last_updated,
-	artifacts: ARTIFACTS.map(buildArtifact)
+	version: 'V9',
+	schema_version: '9.0',
+	generated_at: MANIFEST_GENERATED_AT,
+	score_dataset_generated_at: release.generated_at,
+	taxonomy: 'SSOC 2024',
+	headline: 'AI Work Pressure Rank',
+	counts: release.counts,
+	artifacts
 };
-
-fs.mkdirSync(STATIC_DATA_DIR, { recursive: true });
-fs.mkdirSync(SRC_DATA_DIR, { recursive: true });
-fs.writeFileSync(OUT_FILE, JSON.stringify(manifest, null, 2), 'utf-8');
-fs.writeFileSync(VERSIONED_OUT_FILE, JSON.stringify(manifest, null, 2), 'utf-8');
-fs.writeFileSync(SRC_OUT_FILE, JSON.stringify(manifest, null, 2), 'utf-8');
-
-console.log(`Built release manifest at ${OUT_FILE}`);
+const payload = `${JSON.stringify(manifest, null, 2)}\n`;
+for (const file of [
+	path.join(STATIC_DATA, 'release-manifest-v9.json'),
+	path.join(ROOT, 'src', 'lib', 'data', 'release-manifest.json')
+]) {
+	fs.writeFileSync(file, payload, 'utf8');
+}
+console.log(`Built V9 release manifest with ${artifacts.length} artifacts`);

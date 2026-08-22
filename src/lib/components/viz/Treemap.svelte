@@ -244,7 +244,7 @@
 	}
 
 	function detailValue(occ: TreemapRow): number {
-		return occ.gross_wage_median ?? occ.employment_thousands ?? 1;
+		return occ.employment_thousands ?? 1;
 	}
 
 	let fadeDuration = $derived(prefersReducedMotion.current ? 0 : 200);
@@ -295,7 +295,7 @@
 							role="button"
 							tabindex="0"
 							aria-label="{groupLabel(node.data.name)}: {node.data
-								.count} occupations, average net risk {(avgRisk * 100).toFixed(0)}%"
+								.count} occupations, average AI Exposure Rank {(avgRisk * 100).toFixed(0)}/100"
 							onclick={() => handleClickGroup(node.data.name)}
 							onkeydown={e => {
 								if (e.key === 'Enter') handleClickGroup(node.data.name);
@@ -336,7 +336,7 @@
 					role="img"
 					aria-label="Treemap showing occupations in {groupLabel(
 						zoomedGroup
-					)}, sized by {valueLabel} and shaded by net AI displacement risk"
+					)}, sized by {valueLabel} and shaded by AI Exposure Rank"
 				>
 					{#each zoomedLeaves as leaf (leaf.data.occupation?.ssoc ?? leaf.data.name)}
 						{@const occ = leaf.data.occupation as TreemapRow}
@@ -357,9 +357,9 @@
 								: 'transition-opacity duration-150 hover:opacity-100'}
 							role={href ? 'button' : undefined}
 							tabindex={href ? 0 : undefined}
-							aria-label="{occ.title}: Net Risk {(riskValue(occ) * 100).toFixed(
+							aria-label="{occ.title}: AI Exposure Rank {(riskValue(occ) * 100).toFixed(
 								0
-							)}%, {riskBandLabels[occ.risk_band ?? 'moderate']}, {valueLabel} {detailValue(
+							)}/100, {riskBandLabels[occ.risk_band ?? 'moderate']}, {valueLabel} {detailValue(
 								occ
 							).toLocaleString()} in {surfaceLabel}"
 							onmouseenter={() => handleMouseEnterOcc(occ)}
@@ -407,12 +407,12 @@
 
 <!-- Color Legend -->
 <div class="mt-3 flex items-center gap-2">
-	<span class="text-xs text-muted-foreground">Lower AI Risk</span>
+	<span class="text-xs text-muted-foreground">Lower AI exposure</span>
 	<div
 		class="h-2.5 flex-1 rounded-full"
 		style="background: linear-gradient(to right, var(--color-risk-very-low), var(--color-risk-moderate), var(--color-risk-high), var(--color-risk-very-high));"
 	></div>
-	<span class="text-xs text-muted-foreground">Higher AI Risk</span>
+	<span class="text-xs text-muted-foreground">Higher AI exposure</span>
 </div>
 
 <Tooltip occupation={tooltipOccupation} x={tooltipX} y={tooltipY} visible={tooltipVisible} />

@@ -1,84 +1,27 @@
 <script lang="ts">
-	import { experimentalStatusLabel } from '$lib/data/experimental-status-display';
-	import experimentalMethodology from '$lib/data/experimental-methodology-v43.json';
-	import releaseManifest from '$lib/data/release-manifest.json';
-	import { releases, siteStatus } from '$lib/data/site-status';
-	import {
-		title as titleStyle,
-		pageLayout,
-		card,
-		sectionLabel,
-		microLabel,
-		badge
-	} from '$lib/design-system';
-	import { cn } from '$lib/utils';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
+	import releaseManifest from '$lib/data/release-manifest.json';
+	import { releases, siteStatus } from '$lib/data/site-status';
+	import { badge, card, pageLayout, sectionLabel, title } from '$lib/design-system';
+	import { cn } from '$lib/utils';
 
-	type ScopeCard = {
-		label: string;
-		description: string;
-		href?: string;
-	};
-
-	type ExperimentalBlocker = {
-		key: string;
-		note: string;
-	};
-
-	const scopeCards: ScopeCard[] = [
-		{
-			label: 'Changelog',
-			description: 'What changed, when it changed, and where to inspect the release.'
-		},
-		{
-			label: 'Methodology',
-			description: 'Why the score works this way and the canonical structural formulas.',
-			href: '/methodology'
-		},
-		{
-			label: 'Appendix',
-			description: 'Thresholds, implementation rules, and heuristic overlays.',
-			href: '/methodology/appendix'
-		},
-		{
-			label: 'Data',
-			description: 'Schema, downloads, manifest checksums, and raw-input health.',
-			href: '/data'
-		},
-		{
-			label: 'Reports',
-			description: 'Narrative analysis and release impact notes.',
-			href: '/reports'
-		},
-		{
-			label: 'Research',
-			description: 'Canonical source library and repo-written research notes.',
-			href: '/research'
-		}
-	];
-
+	type Release = (typeof releases)[number];
 	type BadgeVariant = 'default' | 'outline' | 'success' | 'warning' | 'danger' | 'info';
 
-	const defaultReleaseMeta = { label: 'Report', variant: 'info' as BadgeVariant };
+	const currentRelease = releases.find(release => release.id === 'public-v9-2026-08-19');
+	const v9Counts = siteStatus.structural_release.counts;
+	const currentEvidenceUpdates = releases.filter(
+		release => release.score_version === 'V9' && release.id !== 'public-v9-2026-08-19'
+	);
+	const historicalReleases = releases.filter(release => release.score_version !== 'V9');
 
 	const releaseTypeMeta: Record<string, { label: string; variant: BadgeVariant }> = {
-		structural_release: { label: 'Structural', variant: 'outline' },
-		experimental_update: { label: 'Shadow', variant: 'warning' },
-		report_refresh: defaultReleaseMeta,
-		official_update: { label: 'Official update', variant: 'danger' }
+		structural_release: { label: 'Method release', variant: 'outline' },
+		experimental_update: { label: 'Experiment', variant: 'warning' },
+		report_refresh: { label: 'Report update', variant: 'info' },
+		official_update: { label: 'Official data', variant: 'success' }
 	};
-
-	const experimentalPositiveStates = ['ready_for_shadow_scoring', 'shadow_published', 'promoted'];
-	const blockers = (experimentalMethodology.blockers ?? []) as ExperimentalBlocker[];
-	const isPromoted = siteStatus.experimental_release.status === 'promoted';
-	const experimentalStatusBadgeVariant: BadgeVariant = experimentalPositiveStates.includes(
-		siteStatus.experimental_release.status
-	)
-		? 'info'
-		: siteStatus.experimental_release.status === 'blocked'
-			? 'danger'
-			: 'warning';
 
 	function formatDate(value: string): string {
 		return new Intl.DateTimeFormat('en', {
@@ -89,184 +32,179 @@
 		}).format(new Date(value));
 	}
 
-	function releaseDateLabel(release: {
-		display_date?: string | null;
-		published_at?: string | null;
-	}): string {
+	function releaseDateLabel(release: Release): string {
 		if (release.display_date) return release.display_date;
 		if (release.published_at) return formatDate(release.published_at);
-		return 'Date not retained';
+		return 'Exact date not retained';
 	}
 
-	function getReleaseMeta(type: string): { label: string; variant: BadgeVariant } {
-		return releaseTypeMeta[type] ?? defaultReleaseMeta;
+	function releaseMeta(type: string): { label: string; variant: BadgeVariant } {
+		return releaseTypeMeta[type] ?? { label: 'Release note', variant: 'info' };
 	}
 </script>
 
 <Seo
-	title="Changelog & Release Notes"
-	description="Canonical change log for structural releases, shadow-model updates, report refreshes, and official labour-monitor updates."
+	title="AI Work Index V9 Changelog and Release History"
+	description="Current V9 release notes, Singapore labour-evidence updates and a dated archive of earlier AI Work Index methods and experiments."
 	path="/changelog"
 />
 
 <main class={pageLayout({ width: 'content' })}>
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Changelog' }]} />
 
-	<h1 class={titleStyle({ size: 'page' })}>Changelog</h1>
+	<p class={sectionLabel()}>Release ledger</p>
+	<h1 class={title({ size: 'page' })}>Changelog</h1>
+	<p class="mt-3 max-w-3xl text-base leading-relaxed text-text-secondary">
+		V9 is the current Singapore release. Earlier entries are retained as dated records of what the
+		project published at the time. Their scores and formulas are not part of the V9 method and
+		should not be joined into a time series.
+	</p>
 
-	<div class={cn(card({ padding: 'md', variant: 'notice', accent: 'primary' }), 'mt-4')}>
-		<p class="text-sm font-semibold text-foreground">Scope</p>
-		<p class="mt-1 text-sm text-muted-foreground">
-			This page is the release ledger. It records what changed and where to inspect it. It does not
-			restate formulas, thresholds, or dataset fields already documented elsewhere.
-		</p>
-	</div>
-
-	<div class="mt-6 grid gap-3 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6">
-		{#each scopeCards as item}
-			<div class={card({ padding: 'sm', variant: 'flat' })}>
-				<p class={microLabel()}>{item.label}</p>
-				<p class="mt-1 text-sm text-muted-foreground">{item.description}</p>
-				{#if item.href}
-					<a href={item.href} class="mt-2 inline-block text-xs text-primary hover:underline">
-						Open →
-					</a>
-				{/if}
+	<section class="mt-8 border border-foreground bg-card" aria-labelledby="current-release">
+		<div class="border-b border-foreground p-5 sm:p-6">
+			<div class="flex flex-wrap items-center gap-2">
+				<span class={badge({ variant: 'success' })}>Current</span>
+				<p class="font-mono text-xs text-muted-foreground">19 Aug 2026 · SSOC 2024</p>
 			</div>
-		{/each}
-	</div>
-
-	<p class={cn(sectionLabel(), 'mt-8 mb-3')}>Current State</p>
-	<div class="grid gap-3 md:grid-cols-3">
-		<div class={card({ padding: 'sm', variant: 'metric' })}>
-			<p class={microLabel()}>Structural release</p>
-			<p class="mt-1 text-lg font-bold text-foreground">{siteStatus.structural_release.version}</p>
-			<p class="text-xs text-muted-foreground">
-				dataset generated {siteStatus.structural_release.score_dataset_generated_at}
+			<h2 id="current-release" class="mt-2 text-2xl font-black tracking-tight text-foreground">
+				V9 Singapore AI Work Pressure
+			</h2>
+			<p class="mt-2 max-w-3xl text-sm leading-relaxed text-text-secondary">
+				V9 moves the active occupation universe to SSOC 2024. The ILO 2025 mean task-exposure score
+				is the sole owner of the headline pressure rank. Mapping uncertainty, official categories,
+				wages and current market evidence are published separately.
 			</p>
 		</div>
-		<div class={card({ padding: 'sm', variant: 'metric' })}>
-			<p class={microLabel()}>Shadow model</p>
-			<p class="mt-1 text-sm font-semibold text-foreground">
-				{siteStatus.experimental_release.label}
-			</p>
-			<p class="text-xs text-muted-foreground">{siteStatus.experimental_release.summary}</p>
-		</div>
-		<div class={card({ padding: 'sm', variant: 'metric' })}>
-			<p class={microLabel()}>Release manifest</p>
-			<p class="mt-1 text-sm font-semibold text-foreground">{releaseManifest.version}</p>
-			<p class="text-xs text-muted-foreground">
-				{releaseManifest.artifacts.length} published artifacts in the current ledger
-			</p>
-		</div>
-	</div>
-
-	<div class={cn(card({ padding: 'md' }), 'mt-6')}>
-		<div class="flex items-start justify-between gap-4">
-			<div>
-				<p class="text-sm font-semibold text-foreground">Shadow status</p>
-				<p class="mt-1 text-sm text-muted-foreground">
-					{experimentalMethodology.shadow_readiness.summary} Release-readiness inputs are shown here so
-					status is auditable instead of implied.
+		<div class="grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-4">
+			<div class="bg-card p-4">
+				<p class="font-mono text-2xl font-black tabular-nums">
+					{v9Counts.occupations.toLocaleString()}
 				</p>
+				<p class="text-xs text-muted-foreground">SSOC 2024 occupations</p>
 			</div>
-			<span class={badge({ variant: experimentalStatusBadgeVariant })}>
-				{experimentalStatusLabel(siteStatus.experimental_release.status)}
-			</span>
+			<div class="bg-card p-4">
+				<p class="font-mono text-2xl font-black tabular-nums">{v9Counts.scored.toLocaleString()}</p>
+				<p class="text-xs text-muted-foreground">pressure ranks published</p>
+			</div>
+			<div class="bg-card p-4">
+				<p class="font-mono text-2xl font-black tabular-nums">
+					{v9Counts.insufficient_evidence.toLocaleString()}
+				</p>
+				<p class="text-xs text-muted-foreground">ranks withheld</p>
+			</div>
+			<div class="bg-card p-4">
+				<p class="font-mono text-2xl font-black tabular-nums">{releaseManifest.artifacts.length}</p>
+				<p class="text-xs text-muted-foreground">checksummed release artifacts</p>
+			</div>
 		</div>
-		{#if blockers.length > 0}
-			<div class="mt-4 grid gap-3 sm:grid-cols-2">
-				{#each blockers as blocker (blocker.key)}
-					<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
-						<p class="text-sm font-medium text-foreground">{blocker.key.replaceAll('_', ' ')}</p>
-						<p class="mt-1 text-xs text-muted-foreground">{blocker.note}</p>
-					</div>
+		<div class="flex flex-wrap gap-x-5 gap-y-2 border-t border-border p-4 text-sm">
+			<a class="font-medium text-primary hover:underline" href="/reports/v9-release"
+				>Read the V9 release report</a
+			>
+			<a class="font-medium text-primary hover:underline" href="/methodology">Current methodology</a
+			>
+			<a class="font-medium text-primary hover:underline" href="/data">Downloads and manifest</a>
+		</div>
+	</section>
+
+	{#if currentRelease}
+		<section class="mt-8">
+			<h2 class={sectionLabel()}>V9 release changes</h2>
+			<ul class="mt-3 space-y-2 text-sm leading-relaxed text-muted-foreground">
+				{#each currentRelease.notes as note}
+					<li>{note}</li>
 				{/each}
-			</div>
-		{:else}
-			<div
-				class="mt-4 rounded-lg border border-impact-leveraged-border bg-impact-leveraged-subtle px-3 py-3"
-			>
-				<p class="text-sm font-medium text-impact-leveraged">No local input blockers remain</p>
-				<p class="mt-1 text-xs text-muted-foreground">
-					{#if isPromoted}
-						Shadow artifacts remain published and the promoted live release can still be audited
-						against the retained V4.3 and V4.2 baselines.
-					{:else}
-						Shadow artifacts are published and the current promotion gates are clear. Moving the
-						shadow model into the headline score is now a release decision, not a missing-data or
-						validation blocker.
-					{/if}
-				</p>
-			</div>
-		{/if}
-	</div>
+			</ul>
+		</section>
+	{/if}
 
-	<p class={cn(sectionLabel(), 'mt-8 mb-3')}>Release Ledger</p>
-	<div class="space-y-4">
-		{#each releases as release (release.id)}
-			<div class={card({ padding: 'lg' })}>
-				<div class="flex items-start justify-between gap-4">
-					<div>
-						<div class="flex flex-wrap items-center gap-2">
-							<p class="text-base font-semibold text-foreground">{release.label}</p>
-							<span class={badge({ variant: getReleaseMeta(release.type).variant })}
-								>{getReleaseMeta(release.type).label}</span
-							>
-						</div>
-						<p class="mt-1 text-xs text-muted-foreground">
-							Published {releaseDateLabel(release)} · score {release.score_version} · monitor
-							{release.monitor_vintage}
-						</p>
-					</div>
-					<a
-						href={release.href}
-						class="text-xs text-primary hover:underline"
-						target={release.href.startsWith('http') ? '_blank' : undefined}
-						rel={release.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-					>
-						Open →
-					</a>
-				</div>
-				<ul class="mt-3 space-y-1 text-sm text-muted-foreground">
-					{#each release.notes as note}
-						<li>{note}</li>
-					{/each}
-				</ul>
-			</div>
-		{/each}
-	</div>
-
-	<div class={cn(card({ padding: 'md' }), 'mt-8')}>
-		<p class="text-sm font-semibold text-foreground">Use This With</p>
-		<div class="mt-3 grid gap-3 md:grid-cols-3">
-			<a
-				href="/reports/v5-experimental"
-				class="rounded-lg border border-border/60 bg-background/70 px-3 py-3 no-underline transition-colors hover:border-primary/30 hover:bg-accent/40"
-			>
-				<p class="text-sm font-medium text-foreground">V5 model note</p>
-				<p class="mt-1 text-xs text-muted-foreground">
-					Final promotion comparison for the live V5 release and the retained V4.3 baseline.
-				</p>
-			</a>
-			<a
-				href="/data"
-				class="rounded-lg border border-border/60 bg-background/70 px-3 py-3 no-underline transition-colors hover:border-primary/30 hover:bg-accent/40"
-			>
-				<p class="text-sm font-medium text-foreground">Data page</p>
-				<p class="mt-1 text-xs text-muted-foreground">
-					Schema, downloads, manifest checksums, and raw-input audit.
-				</p>
-			</a>
-			<a
-				href="/methodology"
-				class="rounded-lg border border-border/60 bg-background/70 px-3 py-3 no-underline transition-colors hover:border-primary/30 hover:bg-accent/40"
-			>
-				<p class="text-sm font-medium text-foreground">Methodology</p>
-				<p class="mt-1 text-xs text-muted-foreground">
-					Canonical explanation of the structural model and its validation boundaries.
-				</p>
-			</a>
+	<section class="mt-10">
+		<div class="border-b border-foreground pb-2">
+			<p class={sectionLabel()}>Current evidence updates</p>
+			<h2 class={title({ size: 'section' })}>Updates that do not recalculate the rank</h2>
 		</div>
-	</div>
+		<p class="mt-2 text-sm leading-relaxed text-muted-foreground">
+			Labour-market releases and report status are dated separately from the occupation score.
+			{siteStatus.live_monitor.refresh_note}
+		</p>
+		<div class="mt-4 space-y-3">
+			{#each currentEvidenceUpdates as release (release.id)}
+				<article class={card({ padding: 'md' })}>
+					<div class="flex flex-wrap items-start justify-between gap-3">
+						<div class="min-w-0">
+							<div class="flex flex-wrap items-center gap-2">
+								<h3 class="text-sm font-bold text-foreground">{release.label}</h3>
+								<span class={badge({ variant: releaseMeta(release.type).variant })}>
+									{releaseMeta(release.type).label}
+								</span>
+							</div>
+							<p class="mt-1 font-mono text-xs text-muted-foreground">
+								{releaseDateLabel(release)} · {release.monitor_vintage}
+							</p>
+						</div>
+						<a
+							href={release.href}
+							class="shrink-0 text-xs font-medium text-primary hover:underline"
+							target={release.href.startsWith('http') ? '_blank' : undefined}
+							rel={release.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+							>Open source or note</a
+						>
+					</div>
+					<ul class="mt-3 space-y-1 text-sm leading-relaxed text-muted-foreground">
+						{#each release.notes as note}
+							<li>{note}</li>
+						{/each}
+					</ul>
+				</article>
+			{/each}
+		</div>
+	</section>
+
+	<section class="mt-10">
+		<div class="border-b border-foreground pb-2">
+			<p class={sectionLabel()}>Historical archive</p>
+			<h2 class={title({ size: 'section' })}>Earlier methods and experiments</h2>
+		</div>
+		<div class={cn(card({ padding: 'md', variant: 'notice', accent: 'moderate' }), 'mt-4')}>
+			<p class="text-sm font-bold text-foreground">Historical, not current</p>
+			<p class="mt-1 text-sm leading-relaxed text-text-secondary">
+				These entries document retired SSOC 2020 models, sidecars and experiments. Their labels and
+				figures describe the release at its publication date. Use V9 for current Singapore
+				occupation comparisons.
+			</p>
+		</div>
+
+		<div class="mt-4 space-y-3">
+			{#each historicalReleases as release (release.id)}
+				<article class={card({ padding: 'md' })}>
+					<div class="flex flex-wrap items-start justify-between gap-3">
+						<div class="min-w-0">
+							<div class="flex flex-wrap items-center gap-2">
+								<h3 class="text-sm font-bold text-foreground">{release.label}</h3>
+								<span class={badge({ variant: 'outline' })}>Archive</span>
+								<span class={badge({ variant: releaseMeta(release.type).variant })}>
+									{releaseMeta(release.type).label}
+								</span>
+							</div>
+							<p class="mt-1 font-mono text-xs text-muted-foreground">
+								Published {releaseDateLabel(release)} · score {release.score_version}
+							</p>
+						</div>
+						<a
+							href={release.href}
+							class="shrink-0 text-xs font-medium text-primary hover:underline"
+							target={release.href.startsWith('http') ? '_blank' : undefined}
+							rel={release.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+							>Open archive record</a
+						>
+					</div>
+					<ul class="mt-3 space-y-1 text-sm leading-relaxed text-muted-foreground">
+						{#each release.notes as note}
+							<li>{note}</li>
+						{/each}
+					</ul>
+				</article>
+			{/each}
+		</div>
+	</section>
 </main>

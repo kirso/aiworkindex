@@ -1,92 +1,281 @@
 #!/usr/bin/env bun
 /**
- * build-site-status.ts — Build canonical public site-status and releases artifacts
- * so structural versioning, monitor vintages, and official update announcements
- * can be surfaced consistently across the site.
+ * Build the public V9 status and dated release-history artifacts.
  *
- * Run: bun run scripts/build-site-status.ts
+ * site-status.json describes only the current V9 public contract. Earlier
+ * models and experiments belong in releases.json as explicitly dated archives.
  */
 
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-import { DATA_VINTAGE } from '../src/lib/data/scoring-constants';
-
-const ROOT_DIR = path.join(import.meta.dir, '..');
+const ROOT_DIR = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const STATIC_DATA_DIR = path.join(ROOT_DIR, 'static', 'data');
 const SRC_DATA_DIR = path.join(ROOT_DIR, 'src', 'lib', 'data');
 
-const QUARTERLY_REPORT_FILE = path.join(STATIC_DATA_DIR, 'quarterly-report.json');
-const POSTINGS_MONITOR_FILE = path.join(STATIC_DATA_DIR, 'postings-monitor.json');
-const EMPLOYER_SIGNALS_FILE = path.join(STATIC_DATA_DIR, 'employer-signals.json');
-const BACKTEST_FILE = path.join(STATIC_DATA_DIR, 'backtests', 'current-validation.json');
-const MULTI_PERIOD_BACKTEST_FILE = path.join(
-	STATIC_DATA_DIR,
-	'backtests',
-	'multi-period-validation.json'
-);
-const CALIBRATION_DIAGNOSTICS_FILE = path.join(
-	STATIC_DATA_DIR,
-	'backtests',
-	'calibration-diagnostics.json'
-);
-const OCCUPATION_FAMILY_VALIDATION_FILE = path.join(
-	STATIC_DATA_DIR,
-	'backtests',
-	'occupation-family-validation.json'
-);
-const SENSITIVITY_ANALYSIS_FILE = path.join(
-	STATIC_DATA_DIR,
-	'backtests',
-	'sensitivity-analysis.json'
-);
-const IMF_CONVERGENCE_FILE = path.join(STATIC_DATA_DIR, 'backtests', 'imf-convergence.json');
-const FORECAST_HORIZON_FILE = path.join(
-	STATIC_DATA_DIR,
-	'backtests',
-	'forecast-horizon-validation.json'
-);
-const CONFIDENCE_RATINGS_FILE = path.join(STATIC_DATA_DIR, 'confidence-ratings.json');
-const SCENARIO_FAMILIES_FILE = path.join(STATIC_DATA_DIR, 'scenario-families.json');
-const ADOPTION_DIFFUSION_FILE = path.join(STATIC_DATA_DIR, 'adoption-diffusion.json');
-const AGE_STRUCTURE_FILE = path.join(STATIC_DATA_DIR, 'age-structure.json');
-const OFFSET_POTENTIAL_FILE = path.join(STATIC_DATA_DIR, 'sg-offset-potential-v4.json');
-const EXPERIMENTAL_METHODOLOGY_FILE = path.join(
-	STATIC_DATA_DIR,
-	'experimental-methodology-v43.json'
-);
-const V5_SIDECARS_FILE = path.join(STATIC_DATA_DIR, 'v5-sidecars.json');
-const V5_EXPERIMENTAL_VALIDATION_FILE = path.join(
-	STATIC_DATA_DIR,
-	'v5-experimental-validation.json'
-);
+const V9_RELEASE_FILE = path.join(ROOT_DIR, 'data', 'occupations-v9.json');
+const V9_MARKET_FILE = path.join(ROOT_DIR, 'data', 'v9-market-context.json');
+const V9_ECONOMIC_OBSERVATORY_FILE = path.join(ROOT_DIR, 'data', 'v9-economic-observatory.json');
+const V9_CAPABILITY_PROFILES_FILE = path.join(ROOT_DIR, 'data', 'v9-capability-profiles.json');
+const V9_RESEARCH_SIGNALS_FILE = path.join(ROOT_DIR, 'data', 'v9-research-signals.json');
+const V9_SKILLS_PILOT_FILE = path.join(ROOT_DIR, 'data', 'v9-skills-pilot.json');
+const V9_EVIDENCE_VECTOR_FILE = path.join(ROOT_DIR, 'data', 'v9-evidence-vector.json');
+const V9_SIGNAL_CHANGE_FILE = path.join(ROOT_DIR, 'data', 'v9-signal-change.json');
+const V9_ROLES_FILE = path.join(ROOT_DIR, 'data', 'synthetic-roles-v9.json');
+const V9_EXTERNAL_AUDIT_FILE = path.join(ROOT_DIR, 'data', 'v9-external-crosswalk-audit.json');
+const RESEARCH_LIBRARY_FILE = path.join(ROOT_DIR, 'data', 'research-library.json');
 
 const SITE_STATUS_OUT = path.join(STATIC_DATA_DIR, 'site-status.json');
 const SITE_STATUS_SRC_OUT = path.join(SRC_DATA_DIR, 'site-status.json');
 const RELEASES_OUT = path.join(STATIC_DATA_DIR, 'releases.json');
 const RELEASES_SRC_OUT = path.join(SRC_DATA_DIR, 'releases.json');
 
+type V9Release = {
+	generated_at: string;
+	counts: {
+		occupations: number;
+		scored: number;
+		insufficient_evidence: number;
+		direct_wages: number;
+	};
+};
+
+type DemandEvidence = {
+	source_key: string;
+	source_occupation: string;
+};
+
+type V9Market = {
+	generated_at: string;
+	taxonomy: string;
+	rules: {
+		demand: string;
+		postings: string;
+		headline_separation: string;
+	};
+	demand_by_code: Record<string, DemandEvidence[]>;
+	withheld_demand_mappings: Array<{
+		source_key: string;
+		source_occupation: string;
+		reason: string;
+	}>;
+	national: {
+		labour_market_q2_2026_advance: {
+			published_at: string;
+			url: string;
+			status: string;
+			limitation: string;
+		};
+		postings_monitor: {
+			status: string;
+			public_demand_input: boolean;
+			observed_through: string | null;
+			limitation: string;
+		};
+	};
+};
+
+type V9Roles = {
+	generated_at: string;
+	taxonomy: string;
+	counts: {
+		roles: number;
+		exact_title_matches: number;
+		reviewed_alias_matches: number;
+		official_query_matches: number;
+		non_official_roles: number;
+		composite_roles: number;
+		mapping_withheld: number;
+	};
+};
+
+type V9EconomicObservatory = {
+	generated_at: string;
+	headline_effect: 'none';
+	coverage: {
+		detailed_occupations: number;
+		pressure_ranked: number;
+		direct_wage: number;
+		named_demand: number;
+		broad_employment_context: number;
+		broad_labour_context: number;
+		detailed_ai_adoption: number;
+		detailed_output_or_price_elasticity: number;
+		detailed_new_task_creation: number;
+		detailed_job_quality_change: number;
+		causal_ai_labour_outcomes: number;
+		classified_economic_scenarios: number;
+	};
+	group_profiles: Record<string, { measurement_status: string }>;
+	publication_gates: Record<string, string>;
+};
+
+type V9CapabilityProfiles = {
+	generated_at: string;
+	headline_effect: 'none';
+	construct: string;
+	coverage: {
+		ssoc_occupations: number;
+		raw_exact_candidate_coverage: number;
+		available_reviewed_identity_profiles: number;
+		available_automated_title_rule_profiles: number;
+		available_manual_review_profiles: number;
+		unavailable_without_published_profile: number;
+		coverage_pct: number;
+		close_match_profiles_published: number;
+	};
+};
+
+type V9ResearchSignals = {
+	generated_at: string;
+	headline_effect: 'none';
+	coverage: {
+		ssoc_occupations: number;
+		reviewed_identity_profiles: number;
+		eloundou_theoretical_exposure_available: number;
+		anthropic_observed_exposure_available: number;
+		both_signals_available: number;
+		unavailable_without_reviewed_identity: number;
+		anthropic_unavailable_source_rows_after_identity: number;
+	};
+};
+
+type V9SkillsPilot = {
+	generated_at: string;
+	reviewed_at: string;
+	construct: string;
+	headline_effect: 'none';
+	coverage: {
+		ssoc_occupations: number;
+		sectors: number;
+		unique_occupations: number;
+		sector_role_profiles: number;
+		exact_title_profiles: number;
+		reviewed_definition_equivalent_profiles: number;
+		unavailable_outside_pilot: number;
+	};
+};
+
+type V9EvidenceVector = {
+	generated_at: string;
+	snapshot_id: string;
+	construct: string;
+	headline_effect: string;
+	claim_boundary: string;
+	coverage: {
+		ssoc_occupations: number;
+		shared_pressure_capability_subset: number;
+		dimensions: Record<string, number>;
+		pattern_counts: Record<string, number>;
+	};
+};
+
+type V9SignalChange = {
+	generated_at: string;
+	headline_effect: 'none';
+	construct: string;
+	claim_boundary: string;
+	baseline_snapshot: { id: string; artifact: string; status: string };
+	pressure_change: {
+		status: 'baseline_only';
+		current_snapshot: string;
+		previous_comparable_snapshot: null;
+		reason: string;
+	};
+	observed_changes: unknown[];
+	withheld_change_products: Record<string, string>;
+};
+
+type ResearchLibrary = {
+	version: string;
+	review_cutoff: string;
+	entry_count: number;
+};
+
+type V9ExternalAudit = {
+	status: string;
+	headline_effect: 'none';
+	quality: {
+		relevant_official_isco08_groups: number;
+		strict_mapped_isco08_groups: number;
+	};
+};
+
+function readJson<T>(filePath: string): T {
+	if (!fs.existsSync(filePath)) throw new Error(`Missing required V9 artifact: ${filePath}`);
+	return JSON.parse(fs.readFileSync(filePath, 'utf8')) as T;
+}
+
+function writeJson(filePath: string, payload: unknown): void {
+	fs.mkdirSync(path.dirname(filePath), { recursive: true });
+	fs.writeFileSync(filePath, `${JSON.stringify(payload, null, 2)}\n`, 'utf8');
+}
+
+const V9_RELEASE = readJson<V9Release>(V9_RELEASE_FILE);
+const V9_MARKET = readJson<V9Market>(V9_MARKET_FILE);
+const V9_ECONOMIC_OBSERVATORY = readJson<V9EconomicObservatory>(V9_ECONOMIC_OBSERVATORY_FILE);
+const V9_CAPABILITY_PROFILES = readJson<V9CapabilityProfiles>(V9_CAPABILITY_PROFILES_FILE);
+const V9_RESEARCH_SIGNALS = readJson<V9ResearchSignals>(V9_RESEARCH_SIGNALS_FILE);
+const V9_SKILLS_PILOT = readJson<V9SkillsPilot>(V9_SKILLS_PILOT_FILE);
+const V9_EVIDENCE_VECTOR = readJson<V9EvidenceVector>(V9_EVIDENCE_VECTOR_FILE);
+const V9_SIGNAL_CHANGE = readJson<V9SignalChange>(V9_SIGNAL_CHANGE_FILE);
+const V9_ROLES = readJson<V9Roles>(V9_ROLES_FILE);
+const V9_EXTERNAL_AUDIT = readJson<V9ExternalAudit>(V9_EXTERNAL_AUDIT_FILE);
+const RESEARCH_LIBRARY = readJson<ResearchLibrary>(RESEARCH_LIBRARY_FILE);
+
 const LATEST_OFFICIAL_LABOUR_REPORT = {
-	label: 'MOM Labour Market Report Q4 2025',
-	period: 'Q4 2025',
-	published_at: '2026-03-20',
-	url: 'https://stats.mom.gov.sg/Pages/Labour-Market-Report-4Q-2025.aspx',
-	status: 'published_live' as const
+	label: 'MOM Labour Market Advance Release Q2 2026',
+	period: 'Q2 2026',
+	published_at: V9_MARKET.national.labour_market_q2_2026_advance.published_at,
+	url: V9_MARKET.national.labour_market_q2_2026_advance.url,
+	status: 'preliminary_macro' as const
 };
 
 const STRUCTURAL_VERSION_HISTORY = [
+	{
+		id: 'public-v9-2026-08-19',
+		version_label: 'V9',
+		label: 'V9 Singapore AI Work Pressure release',
+		published_at: '2026-08-19',
+		display_date: '19 Aug 2026',
+		availability: 'current_report',
+		href: '/reports/v9-release',
+		notes: [
+			'Migrates the active occupation universe to SSOC 2024.',
+			'Uses ILO 2025 mean task exposure as the sole owner of the AI Work Pressure Rank.',
+			'Publishes official exposure categories, mapping ranges, task-score dispersion, direct wages and separate market evidence.'
+		]
+	},
+	{
+		id: 'public-v8-2026-07-15',
+		version_label: 'V8',
+		label: 'V8 AI exposure release',
+		published_at: '2026-07-15',
+		display_date: '15 Jul 2026',
+		availability: 'historical_snapshot',
+		href: '/data/sg-ai-occupations-v8.json',
+		notes: [
+			'Archived SSOC 2020 release retained for auditability.',
+			'At publication, V8 introduced a relative 0-100 Singapore AI exposure contract with substitution, augmentation, pathway, confidence and sensitivity fields.',
+			'At publication, demand, adoption, attrition, entry-level and transition economics were reported separately from the headline score.',
+			'At publication, United States and global occupation scores were withdrawn until local validation gates passed.',
+			'Its formulas, labels and sidecars are not part of V9 and must not be joined to V9 as a time series.'
+		]
+	},
 	{
 		id: 'structural-v7-2026-04-07',
 		version_label: 'V7',
 		label: 'V7 structural release',
 		published_at: '2026-04-07',
 		display_date: '7 Apr 2026',
-		availability: 'current_download',
-		href: '/data',
+		availability: 'historical_snapshot',
+		href: '/data/sg-ai-occupations-v7.json',
 		notes: [
-			'Promotes the live V7 release: a task-concentration exposure buffer and a demand-persistence proxy on top of the V6 two-axis structural model.',
-			'Revised 7 Jun 2026: the task-concentration term was corrected from an exposure amplifier to a buffer, matching the cited Hampole et al. (2025) finding that concentrated exposure offsets labour-demand losses.',
-			'The canonical public export, sitemap, release manifest, claims matrix, and LLM surfaces share the same V7 release contract. V6 remains preserved as the immediate previous structural baseline for auditability.'
+			'Archived SSOC 2020 structural release; superseded by V9.',
+			'V7 added a task-concentration exposure buffer and demand-persistence proxy to the V6 structural model.',
+			'Revised 7 June 2026: the task-concentration term was corrected from an exposure amplifier to a buffer.',
+			'V6 remains preserved as its immediate structural baseline.'
 		]
 	},
 	{
@@ -98,9 +287,9 @@ const STRUCTURAL_VERSION_HISTORY = [
 		availability: 'historical_snapshot',
 		href: '/data/sg-ai-occupations-v6.json',
 		notes: [
-			'Promotes the live V6 two-axis structural release: deterministic 4-source exposure ensemble, human bottleneck, displacement pressure, and explicit demand resilience.',
-			'The canonical public export now matches the live app dataset and release-governance artifacts.',
-			'Retained as the immediate pre-V7 structural baseline for auditability.'
+			'Archived SSOC 2020 structural release; superseded by V9.',
+			'V6 published a two-axis structural model built from an exposure ensemble, a human bottleneck, displacement pressure and demand resilience.',
+			'It is retained as the immediate pre-V7 structural baseline.'
 		]
 	},
 	{
@@ -112,9 +301,9 @@ const STRUCTURAL_VERSION_HISTORY = [
 		availability: 'historical_snapshot',
 		href: '/data/sg-ai-occupations-v5.json',
 		notes: [
-			'Promotes the V5 structural model: latent-source posterior exposure, task-mode blending, concentration-driven fragility, and heterogeneous augmentation.',
-			'Transition-adjusted and realized-risk layers are now published alongside the live structural score instead of being collapsed into the headline number.',
-			'Retained as the immediate pre-V6 live baseline for auditability.'
+			'Archived SSOC 2020 structural release; superseded by V9.',
+			'V5 published a latent-source posterior exposure model with task-mode blending, concentration-driven fragility and heterogeneous augmentation.',
+			'Transition-adjusted and realised-risk layers were adjunct fields in that release.'
 		]
 	},
 	{
@@ -126,9 +315,9 @@ const STRUCTURAL_VERSION_HISTORY = [
 		availability: 'historical_snapshot',
 		href: '/data/sg-ai-occupations-v43.json',
 		notes: [
-			'Retained task-aware structural snapshot from the V4 lineage.',
-			'The separate V4.3 shadow-governance artifact remains published with its own validation and anchor-review gates.',
-			'Retained for auditability beneath the later V5, V6, and V7 releases.'
+			'Archived SSOC 2020 structural release; superseded by V9.',
+			'V4.3 retained the task-aware structural snapshot from the V4 lineage.',
+			'Its separate shadow-governance artifact remains available with its historical validation and anchor-review gates.'
 		]
 	},
 	{
@@ -140,8 +329,9 @@ const STRUCTURAL_VERSION_HISTORY = [
 		availability: 'historical_snapshot',
 		href: '/data/sg-ai-occupations-v42.json',
 		notes: [
-			'Shared methodology core, bootstrap uncertainty, forecast separation, and governance hardening.',
-			'Retained as the final pre-promotion baseline before the task-aware V4.3 release.'
+			'Archived SSOC 2020 structural release; superseded by V9.',
+			'V4.2 introduced a shared methodology core, bootstrap uncertainty, forecast separation and governance hardening.',
+			'It is retained as the final pre-V4.3 baseline.'
 		]
 	},
 	{
@@ -153,8 +343,9 @@ const STRUCTURAL_VERSION_HISTORY = [
 		availability: 'history_only',
 		href: '/methodology',
 		notes: [
-			'Expanded exposure into the four-source ensemble: AIOE, Anthropic, Eloundou, and ILO.',
-			'Preceded the later V4.2 methodology hardening pass.'
+			'Methodology milestone retained for lineage; no standalone snapshot is published.',
+			'V4.0 expanded exposure into a four-source ensemble: AIOE, Anthropic, Eloundou and ILO.',
+			'It preceded the V4.2 methodology-hardening pass.'
 		]
 	},
 	{
@@ -166,8 +357,8 @@ const STRUCTURAL_VERSION_HISTORY = [
 		availability: 'history_only',
 		href: '/methodology',
 		notes: [
-			'Introduced the first ensemble-style exposure blend before the final four-source V4 lineage.',
-			'Tracked here for version continuity; no separate frozen public snapshot is retained.'
+			'Methodology milestone retained for lineage; no standalone snapshot is published.',
+			'V3.3 introduced the first ensemble-style exposure blend before the four-source V4 lineage.'
 		]
 	},
 	{
@@ -179,8 +370,8 @@ const STRUCTURAL_VERSION_HISTORY = [
 		availability: 'history_only',
 		href: '/methodology',
 		notes: [
-			'Surfaced confidence intervals and recalibrated seniority adjustments.',
-			'Tracked as a methodology milestone, not a retained standalone download.'
+			'Methodology milestone retained for lineage; no standalone snapshot is published.',
+			'V3.2 surfaced confidence intervals and recalibrated seniority adjustments.'
 		]
 	},
 	{
@@ -192,8 +383,8 @@ const STRUCTURAL_VERSION_HISTORY = [
 		availability: 'history_only',
 		href: '/methodology',
 		notes: [
-			'Added Anthropic observed usage and stronger Singapore demand/context layers.',
-			'Version tracked from git history; no separate retained public snapshot.'
+			'Methodology milestone retained for lineage; no standalone snapshot is published.',
+			'V3.1 added Anthropic observed-usage data and stronger Singapore demand/context layers.'
 		]
 	},
 	{
@@ -205,8 +396,8 @@ const STRUCTURAL_VERSION_HISTORY = [
 		availability: 'historical_snapshot',
 		href: '/data/sg-ai-occupations-v3.json',
 		notes: [
-			'First full three-layer structural score: exposure, bottleneck, and market modifier.',
-			'Historical public JSON snapshot is still retained.'
+			'Archived SSOC 2020 structural release; superseded by V9.',
+			'V3.0 published the first three-layer structural score: exposure, bottleneck and market modifier.'
 		]
 	},
 	{
@@ -218,8 +409,8 @@ const STRUCTURAL_VERSION_HISTORY = [
 		availability: 'history_only',
 		href: '/methodology',
 		notes: [
-			'Second-generation methodology before the V3 structural formula rewrite.',
-			'Tracked for lineage continuity; no retained standalone public snapshot.'
+			'Historical methodology lineage only; no standalone snapshot is published.',
+			'V2 was the second-generation Singapore occupation scorer before the V3 formula rewrite.'
 		]
 	},
 	{
@@ -231,494 +422,270 @@ const STRUCTURAL_VERSION_HISTORY = [
 		availability: 'history_only',
 		href: '/methodology',
 		notes: [
-			'First public alpha of the Singapore occupation AI-impact project.',
-			'Tracked for release lineage only.'
+			'Historical methodology lineage only; no standalone snapshot is published.',
+			'V1 was the first public alpha of the Singapore occupation AI-impact project.'
 		]
 	}
 ] as const;
 
-function readJson<T>(filePath: string): T | null {
-	if (!fs.existsSync(filePath)) return null;
-	return JSON.parse(fs.readFileSync(filePath, 'utf-8')) as T;
-}
-
-function formatExperimentalReleaseNote(
-	experimentalMethodology: {
-		summary: string;
-		shadow_score_published: boolean;
-		headline_promotion_ready: boolean;
-		blocker_count?: number;
-	} | null
-) {
-	if (!experimentalMethodology) return 'Experimental shadow-model artifact is not available.';
-	if ((experimentalMethodology.blocker_count ?? 0) > 0) {
-		return `${experimentalMethodology.summary} Required local inputs remain incomplete.`;
-	}
-	if (!experimentalMethodology.shadow_score_published) {
-		return `${experimentalMethodology.summary} All required local inputs are present; headline promotion still depends on publishing the shadow score and clearing validation review.`;
-	}
-	if (
-		experimentalMethodology.headline_promotion_ready &&
-		(DATA_VINTAGE.model_version === 'V4.3' ||
-			DATA_VINTAGE.model_version === 'V5' ||
-			DATA_VINTAGE.model_version === 'V6' ||
-			DATA_VINTAGE.model_version === 'V7')
-	) {
-		return DATA_VINTAGE.model_version === 'V6' || DATA_VINTAGE.model_version === 'V7'
-			? 'The former V4.3 shadow model remains published as part of the retained audit trail beneath later live releases.'
-			: DATA_VINTAGE.model_version === 'V5'
-				? 'The former V4.3 shadow model remains published as the retained pre-V5 live baseline and promotion trail.'
-				: 'The former V4.3 shadow model is now promoted into the live structural release. Shadow artifacts remain published for auditability.';
-	}
-	if (!experimentalMethodology.headline_promotion_ready) {
-		return 'Shadow score is published, but promotion into the headline model is still gated by validation and anchor review.';
-	}
-	return 'Shadow score is fully ready for headline-promotion review.';
-}
-
 function buildSiteStatus() {
-	const quarterlyReport = readJson<{
-		generated_at?: string;
-		current_snapshot: string;
-		previous_snapshot: string | null;
-	}>(QUARTERLY_REPORT_FILE);
-	const postingsMonitor = readJson<{
-		generated_at: string;
-		summary: { total_postings: number; posting_volume_30d: number };
-	}>(POSTINGS_MONITOR_FILE);
-	const employerSignals = readJson<{
-		generated_at: string;
-		summary: { total_signals: number; latest_signal_date: string | null };
-	}>(EMPLOYER_SIGNALS_FILE);
-	const currentBacktest = readJson<{
-		data_period: string;
-		summary?: { checks_passed: number; checks_total: number };
-	}>(BACKTEST_FILE);
-	const multiPeriodBacktest = readJson<{
-		metrics?: {
-			vacancy_rate_yoy?: { summary?: { avg_pairwise_accuracy: number; period_count: number } };
-			annual_hiring_net?: { summary?: { avg_pairwise_accuracy: number; period_count: number } };
-		};
-	}>(MULTI_PERIOD_BACKTEST_FILE);
-	const calibrationDiagnostics = readJson<{
-		segments?: {
-			by_match_quality?: {
-				direct?: { spearman_rho: number | null; sample_size: number };
-			};
-			by_confidence_level?: {
-				high_or_medium?: { spearman_rho: number | null; sample_size: number };
-				low?: { sample_size: number };
-			};
-		};
-	}>(CALIBRATION_DIAGNOSTICS_FILE);
-	const sensitivityAnalysis = readJson<{
-		recompute_fidelity?: { ok: boolean };
-		monte_carlo?: { spearman_p50: number; top20_jaccard_p50: number };
-	}>(SENSITIVITY_ANALYSIS_FILE);
-	const imfConvergence = readJson<{
-		employment_weighted_bins?: {
-			top_half?: { exposed_share_pct: number; high_to_low_ratio: number };
-		};
-	}>(IMF_CONVERGENCE_FILE);
-	const forecastHorizon = readJson<{
-		status?: string;
-		post_baseline_quarters_available?: number;
-	}>(FORECAST_HORIZON_FILE);
-	const confidenceRatings = readJson<{
-		summary?: {
-			counts?: { high?: number; medium?: number; low?: number };
-			top_limiting_factors?: Array<{ factor: string; count: number }>;
-		};
-	}>(CONFIDENCE_RATINGS_FILE);
-	const scenarioFamilies = readJson<{
-		summary?: {
-			scenario_count?: number;
-			base_avg_near_term_risk?: number | null;
-			fast_adoption_avg_near_term_risk?: number | null;
-		};
-	}>(SCENARIO_FAMILIES_FILE);
-	const adoptionDiffusion = readJson<{
-		summary?: {
-			headline_adoption_pct?: number;
-			headcount_reduction_among_adopters_pct?: number;
-			role_redesign_among_adopters_pct?: number;
-			top_sector?: { label: string; adoption_pct: number };
-		};
-	}>(ADOPTION_DIFFUSION_FILE);
-	const ageStructure = readJson<{
-		summary?: {
-			high_attrition_absorber_count?: number;
-			known_coverage_count?: number;
-			unknown_coverage_count?: number;
-			avg_age_50_plus_share?: number | null;
-		};
-	}>(AGE_STRUCTURE_FILE);
-	const occupationFamilyValidation = readJson<{
-		family_count: number;
-		spearman_rho: number;
-		p_value_below_01: boolean;
-	}>(OCCUPATION_FAMILY_VALIDATION_FILE);
-	const experimentalMethodology = readJson<{
-		version: string;
-		shadow_readiness: {
-			status:
-				| 'blocked'
-				| 'not_ready'
-				| 'ready_for_shadow_scoring'
-				| 'shadow_published'
-				| 'promoted';
-			summary: string;
-		};
-		shadow_score_published: boolean;
-		headline_promotion_ready: boolean;
-		coverage?: {
-			direct_task_weighted_occupation_count?: number;
-			median_direct_matched_task_weight_share?: number | null;
-		};
-		blockers?: Array<{ key: string }>;
-	}>(EXPERIMENTAL_METHODOLOGY_FILE);
-	const offsetPotential = readJson<{
-		generated_at: string;
-		entries?: Array<{ band: 'low' | 'medium' | 'high' }>;
-	}>(OFFSET_POTENTIAL_FILE);
-	const v5Sidecars = readJson<{
-		status: string;
-		summary: string;
-		sidecars?: Record<string, { status: string }>;
-	}>(V5_SIDECARS_FILE);
-	const v5ExperimentalValidation = readJson<{
-		status: string;
-		summary?: {
-			transition_band_flip_count?: number;
-			impact_flip_count?: number;
-		};
-		structural_validation?: {
-			bls_spearman_rho?: { pass: boolean };
-			occupation_family_spearman_rho?: { pass: boolean };
-		};
-		realized_validation?: {
-			vacancy_trend_rho?: { pass: boolean | null; scorable?: boolean };
-			hiring_net_pressure_rho?: { pass: boolean | null; scorable?: boolean };
-			retrenchment_incidence_rho?: { pass: boolean | null; scorable?: boolean };
-			employer_pressure_rho?: { pass: boolean | null; scorable?: boolean };
-		};
-		summary?: {
-			transition_band_flip_count?: number;
-			impact_flip_count?: number;
-			realized_pass_count?: number;
-			realized_scorable_check_count?: number;
-		};
-	}>(V5_EXPERIMENTAL_VALIDATION_FILE);
-	const v5StructuralPasses = v5ExperimentalValidation
-		? [
-				v5ExperimentalValidation.structural_validation?.bls_spearman_rho?.pass,
-				v5ExperimentalValidation.structural_validation?.occupation_family_spearman_rho?.pass
-			].filter(Boolean).length
-		: 0;
-	const v5RealizedPasses = v5ExperimentalValidation?.summary?.realized_pass_count ?? 0;
-	const v5RealizedScorableChecks =
-		v5ExperimentalValidation?.summary?.realized_scorable_check_count ?? 0;
+	const demandEvidence = Object.values(V9_MARKET.demand_by_code).flat();
+	const reviewedNamedLabels = new Set(
+		demandEvidence.map(item => `${item.source_key}\u0000${item.source_occupation}`)
+	);
+	const postings = V9_MARKET.national.postings_monitor;
 
 	return {
-		updated_at: new Date().toISOString(),
+		schema_version: '9.0',
+		updated_at: V9_EVIDENCE_VECTOR.generated_at,
 		structural_release: {
-			version: DATA_VINTAGE.model_version,
-			label: `${DATA_VINTAGE.model_version} structural release`,
-			generated_at: `${DATA_VINTAGE.last_updated}T00:00:00.000Z`,
-			score_dataset_generated_at: DATA_VINTAGE.last_updated,
-			release_manifest: `release-manifest-${DATA_VINTAGE.model_version.toLowerCase().replaceAll('.', '')}.json`
+			version: 'V9',
+			status: 'current',
+			label: 'V9 Singapore AI Work Pressure release',
+			generated_at: V9_RELEASE.generated_at,
+			score_dataset_generated_at: V9_RELEASE.generated_at,
+			release_manifest: 'release-manifest-v9.json',
+			taxonomy: 'SSOC 2024',
+			headline_construct: 'AI Work Pressure Rank',
+			headline_source: 'ILO 2025 mean_score_2025',
+			counts: V9_RELEASE.counts
 		},
-		experimental_release: experimentalMethodology
-			? {
-					version: experimentalMethodology.version,
-					label: `${experimentalMethodology.version} task-weighted shadow model`,
-					status: experimentalMethodology.shadow_readiness.status,
-					summary: experimentalMethodology.shadow_readiness.summary,
-					artifact: 'experimental-methodology-v43.json',
-					shadow_score_published: experimentalMethodology.shadow_score_published,
-					headline_promotion_ready: experimentalMethodology.headline_promotion_ready,
-					direct_task_weighted_occupation_count:
-						experimentalMethodology.coverage?.direct_task_weighted_occupation_count ?? 0,
-					median_direct_matched_task_weight_share:
-						experimentalMethodology.coverage?.median_direct_matched_task_weight_share ?? null,
-					blocker_count: experimentalMethodology.blockers?.length ?? 0
-				}
-			: null,
-		v5_program: v5Sidecars
-			? {
-					status:
-						DATA_VINTAGE.model_version === 'V5'
-							? 'promoted_live'
-							: DATA_VINTAGE.model_version === 'V6' || DATA_VINTAGE.model_version === 'V7'
-								? 'archived_live_release'
-								: v5ExperimentalValidation
-									? 'experimental_model_published'
-									: v5Sidecars.status,
-					summary: v5ExperimentalValidation
-						? DATA_VINTAGE.model_version === 'V5'
-							? 'V5 is now the live structural release. The retained V4.3 baseline and promotion-comparison artifacts remain published for auditability.'
-							: DATA_VINTAGE.model_version === 'V6' || DATA_VINTAGE.model_version === 'V7'
-								? 'The former live V5 model is archived with its published sidecars and comparison artifacts retained for auditability.'
-								: 'The first integrated V5 experimental model is published on top of the audited sidecars. It remains separate from the live headline score.'
-						: v5Sidecars.summary,
-					workstream_count: Object.keys(v5Sidecars.sidecars ?? {}).length,
-					experimental_model_published: !!v5ExperimentalValidation,
-					structural_validation_result: v5ExperimentalValidation ? `${v5StructuralPasses}/2` : null,
-					realized_validation_result: v5ExperimentalValidation
-						? `${v5RealizedPasses}/${v5RealizedScorableChecks}`
-						: null,
-					transition_band_flip_count:
-						v5ExperimentalValidation?.summary?.transition_band_flip_count ?? null,
-					impact_flip_count: v5ExperimentalValidation?.summary?.impact_flip_count ?? null
-				}
-			: null,
+		economic_observatory: {
+			status: 'descriptive_evidence_and_explicit_gaps',
+			artifact: 'v9-economic-observatory.json',
+			report: '/reports/labour-observatory',
+			generated_at: V9_ECONOMIC_OBSERVATORY.generated_at,
+			headline_effect: V9_ECONOMIC_OBSERVATORY.headline_effect,
+			coverage: V9_ECONOMIC_OBSERVATORY.coverage,
+			observed_broad_group_profiles: Object.values(V9_ECONOMIC_OBSERVATORY.group_profiles).filter(
+				profile => profile.measurement_status === 'observed_broad_occupation_group'
+			).length,
+			publication_gates: V9_ECONOMIC_OBSERVATORY.publication_gates
+		},
+		capability_profiles: {
+			status: 'published_reviewed_detailed_identity_subset',
+			artifact: 'v9-capability-profiles.json',
+			report: '/reports/ai-capabilities',
+			generated_at: V9_CAPABILITY_PROFILES.generated_at,
+			construct: V9_CAPABILITY_PROFILES.construct,
+			headline_effect: V9_CAPABILITY_PROFILES.headline_effect,
+			coverage: V9_CAPABILITY_PROFILES.coverage
+		},
+		official_skills_pilot: {
+			status: 'published_three_sector_pilot',
+			artifact: 'v9-skills-pilot.json',
+			report: '/reports/skills-pilot',
+			generated_at: V9_SKILLS_PILOT.generated_at,
+			reviewed_at: V9_SKILLS_PILOT.reviewed_at,
+			construct: V9_SKILLS_PILOT.construct,
+			headline_effect: V9_SKILLS_PILOT.headline_effect,
+			coverage: V9_SKILLS_PILOT.coverage
+		},
+		evidence_vector: {
+			status: 'published_separate_dimensions_and_comparable_change_only',
+			artifact: 'v9-evidence-vector.json',
+			change_artifact: 'v9-signal-change.json',
+			report: '/reports/evidence-patterns',
+			generated_at: V9_EVIDENCE_VECTOR.generated_at,
+			snapshot_id: V9_EVIDENCE_VECTOR.snapshot_id,
+			construct: V9_EVIDENCE_VECTOR.construct,
+			headline_effect: V9_EVIDENCE_VECTOR.headline_effect,
+			claim_boundary: V9_EVIDENCE_VECTOR.claim_boundary,
+			coverage: V9_EVIDENCE_VECTOR.coverage,
+			change_ledger: {
+				generated_at: V9_SIGNAL_CHANGE.generated_at,
+				construct: V9_SIGNAL_CHANGE.construct,
+				headline_effect: V9_SIGNAL_CHANGE.headline_effect,
+				claim_boundary: V9_SIGNAL_CHANGE.claim_boundary,
+				baseline_snapshot: V9_SIGNAL_CHANGE.baseline_snapshot,
+				observed_change_count: V9_SIGNAL_CHANGE.observed_changes.length,
+				withheld_change_products: V9_SIGNAL_CHANGE.withheld_change_products
+			}
+		},
+		role_query_layer: {
+			status: 'official_resolutions_composites_and_withheld_queries',
+			artifact: 'synthetic-roles-v9.json',
+			taxonomy_mapping: V9_ROLES.taxonomy,
+			count: V9_ROLES.counts.roles,
+			exact_title_match_count: V9_ROLES.counts.exact_title_matches,
+			reviewed_alias_match_count: V9_ROLES.counts.reviewed_alias_matches,
+			official_match_count: V9_ROLES.counts.official_query_matches,
+			non_official_count: V9_ROLES.counts.non_official_roles,
+			estimated_count: V9_ROLES.counts.composite_roles,
+			withheld_count: V9_ROLES.counts.mapping_withheld,
+			headline_effect: 'none'
+		},
+		external_comparisons: {
+			status: 'identity_gated_signals_published_separately',
+			headline_effect: 'none',
+			audit_artifact: 'v9-external-crosswalk-audit.json',
+			published_artifact: 'v9-research-signals.json',
+			audit_status: V9_EXTERNAL_AUDIT.status,
+			strict_candidate_chain_coverage: {
+				isco08_groups: V9_EXTERNAL_AUDIT.quality.strict_mapped_isco08_groups,
+				total_relevant_isco08_groups: V9_EXTERNAL_AUDIT.quality.relevant_official_isco08_groups
+			},
+			reason_code: 'broad_and_ambiguous_transfers_withheld_exact_identity_subset_published',
+			headline_field_coverage: {
+				aioe: { published: 0, total: V9_RELEASE.counts.occupations },
+				eloundou: { published: 0, total: V9_RELEASE.counts.occupations },
+				observed_ai_use: { published: 0, total: V9_RELEASE.counts.occupations },
+				potential_complementarity: { published: 0, total: V9_RELEASE.counts.occupations }
+			},
+			separate_signal_coverage: V9_RESEARCH_SIGNALS.coverage
+		},
 		live_monitor: {
-			labour_monitor_artifact_vintage: DATA_VINTAGE.labour_monitor,
-			labour_monitor_validation_vintage: currentBacktest?.data_period ?? 'Q4 2025',
-			labour_monitor_source_label: 'MOM cluster labour monitor artifact',
+			market_context_artifact: 'v9-market-context.json',
+			market_context_generated_at: V9_MARKET.generated_at,
 			latest_official_labour_report: LATEST_OFFICIAL_LABOUR_REPORT,
+			detailed_labour_evidence_vintage: 'Q1 2026',
+			macro_context_vintage: 'Q2 2026 advance release',
+			named_demand: {
+				occupation_count: Object.keys(V9_MARKET.demand_by_code).length,
+				reviewed_source_label_count: reviewedNamedLabels.size,
+				withheld_generic_label_count: V9_MARKET.withheld_demand_mappings.length,
+				mapping_rule: V9_MARKET.rules.demand
+			},
+			postings: {
+				status: postings.status,
+				public_demand_input: postings.public_demand_input,
+				observed_through: postings.observed_through,
+				limitation: postings.limitation
+			},
+			quarterly_comparison: {
+				status: 'withheld_until_two_comparable_v9_snapshots',
+				current_snapshot: V9_SIGNAL_CHANGE.pressure_change.current_snapshot,
+				previous_snapshot: null
+			},
+			research_review_cutoff: RESEARCH_LIBRARY.review_cutoff,
+			research_record_count: RESEARCH_LIBRARY.entry_count,
+			headline_separation: V9_MARKET.rules.headline_separation,
 			refresh_note:
-				'The live labour monitor now uses the full MOM Labour Market Report Q4 2025, including explicit Q3-to-Q4 deltas for vacancy, hiring, retrenchment and re-entry signals.',
-			macro_vintage: '2025 4Q',
-			ai_context_vintage: '2024 data',
-			postings_generated_at: postingsMonitor?.generated_at ?? null,
-			postings_volume_30d: postingsMonitor?.summary.posting_volume_30d ?? 0,
-			employer_pressure_generated_at: employerSignals?.generated_at ?? null,
-			employer_pressure_latest_signal_date: employerSignals?.summary.latest_signal_date ?? null,
-			quarterly_report_generated_at: quarterlyReport?.generated_at ?? null,
-			quarterly_current_snapshot: quarterlyReport?.current_snapshot ?? null,
-			quarterly_previous_snapshot: quarterlyReport?.previous_snapshot ?? null,
-			cluster_validation_checks_passed: currentBacktest?.summary?.checks_passed ?? null,
-			cluster_validation_checks_total: currentBacktest?.summary?.checks_total ?? null,
-			temporal_validation_vacancy_accuracy:
-				multiPeriodBacktest?.metrics?.vacancy_rate_yoy?.summary?.avg_pairwise_accuracy ?? null,
-			temporal_validation_vacancy_periods:
-				multiPeriodBacktest?.metrics?.vacancy_rate_yoy?.summary?.period_count ?? null,
-			temporal_validation_hiring_accuracy:
-				multiPeriodBacktest?.metrics?.annual_hiring_net?.summary?.avg_pairwise_accuracy ?? null,
-			temporal_validation_hiring_periods:
-				multiPeriodBacktest?.metrics?.annual_hiring_net?.summary?.period_count ?? null,
-			calibration_direct_rho:
-				calibrationDiagnostics?.segments?.by_match_quality?.direct?.spearman_rho ?? null,
-			calibration_direct_sample:
-				calibrationDiagnostics?.segments?.by_match_quality?.direct?.sample_size ?? null,
-			calibration_high_medium_rho:
-				calibrationDiagnostics?.segments?.by_confidence_level?.high_or_medium?.spearman_rho ?? null,
-			calibration_high_medium_sample:
-				calibrationDiagnostics?.segments?.by_confidence_level?.high_or_medium?.sample_size ?? null,
-			calibration_low_confidence_sample:
-				calibrationDiagnostics?.segments?.by_confidence_level?.low?.sample_size ?? null,
-			sensitivity_spearman_p50: sensitivityAnalysis?.monte_carlo?.spearman_p50 ?? null,
-			sensitivity_top20_jaccard_p50: sensitivityAnalysis?.monte_carlo?.top20_jaccard_p50 ?? null,
-			sensitivity_fidelity_ok: sensitivityAnalysis?.recompute_fidelity?.ok ?? null,
-			imf_top_half_exposed_share_pct:
-				imfConvergence?.employment_weighted_bins?.top_half?.exposed_share_pct ?? null,
-			imf_top_half_high_to_low_ratio:
-				imfConvergence?.employment_weighted_bins?.top_half?.high_to_low_ratio ?? null,
-			forecast_horizon_status: forecastHorizon?.status ?? null,
-			forecast_horizon_post_baseline_quarters:
-				forecastHorizon?.post_baseline_quarters_available ?? null,
-			confidence_rating_high_count: confidenceRatings?.summary?.counts?.high ?? null,
-			confidence_rating_medium_count: confidenceRatings?.summary?.counts?.medium ?? null,
-			confidence_rating_low_count: confidenceRatings?.summary?.counts?.low ?? null,
-			confidence_rating_top_limiter:
-				confidenceRatings?.summary?.top_limiting_factors?.[0]?.factor ?? null,
-			confidence_rating_top_limiter_count:
-				confidenceRatings?.summary?.top_limiting_factors?.[0]?.count ?? null,
-			scenario_family_count: scenarioFamilies?.summary?.scenario_count ?? null,
-			scenario_base_avg_near_term_risk: scenarioFamilies?.summary?.base_avg_near_term_risk ?? null,
-			scenario_fast_adoption_avg_near_term_risk:
-				scenarioFamilies?.summary?.fast_adoption_avg_near_term_risk ?? null,
-			adoption_diffusion_headline_pct: adoptionDiffusion?.summary?.headline_adoption_pct ?? null,
-			adoption_diffusion_headcount_reduction_pct:
-				adoptionDiffusion?.summary?.headcount_reduction_among_adopters_pct ?? null,
-			adoption_diffusion_role_redesign_pct:
-				adoptionDiffusion?.summary?.role_redesign_among_adopters_pct ?? null,
-			adoption_diffusion_top_sector_label: adoptionDiffusion?.summary?.top_sector?.label ?? null,
-			adoption_diffusion_top_sector_pct:
-				adoptionDiffusion?.summary?.top_sector?.adoption_pct ?? null,
-			age_structure_high_attrition_absorber_count:
-				ageStructure?.summary?.high_attrition_absorber_count ?? null,
-			age_structure_known_coverage_count: ageStructure?.summary?.known_coverage_count ?? null,
-			age_structure_unknown_coverage_count: ageStructure?.summary?.unknown_coverage_count ?? null,
-			age_structure_avg_age_50_plus_share: ageStructure?.summary?.avg_age_50_plus_share ?? null,
-			occupation_family_validation_rho: occupationFamilyValidation?.spearman_rho ?? null,
-			occupation_family_validation_family_count: occupationFamilyValidation?.family_count ?? null,
-			occupation_family_validation_significant:
-				occupationFamilyValidation?.p_value_below_01 ?? null,
-			offset_potential_generated_at: offsetPotential?.generated_at ?? null,
-			offset_potential_high_count: (offsetPotential?.entries ?? []).filter(
-				entry => entry.band === 'high'
-			).length
+				'Q1 2026 remains the latest detailed occupation-group evidence. Q2 2026 is preliminary national context and does not become an occupation-level outcome.'
+		},
+		archives: {
+			status: 'dated_historical_records_not_current_v9',
+			releases_artifact: 'releases.json',
+			release_history_page: '/changelog',
+			reports_index: '/reports',
+			methodology_boundary:
+				'V1-V8 scores, formulas, validation summaries and sidecars are historical records. They are not current V9 evidence and are not comparable as a V9 time series.'
 		},
 		homepage_banner: {
-			tag:
-				DATA_VINTAGE.model_version === 'V7' ||
-				DATA_VINTAGE.model_version === 'V6' ||
-				DATA_VINTAGE.model_version === 'V5' ||
-				DATA_VINTAGE.model_version === 'V4.3'
-					? 'Live now'
-					: 'Update',
-			title:
-				DATA_VINTAGE.model_version === 'V7'
-					? 'V7 is live across the app, downloads, and release surfaces'
-					: DATA_VINTAGE.model_version === 'V6'
-						? 'V6 is live across the app, downloads, and release surfaces'
-						: DATA_VINTAGE.model_version === 'V5' && v5ExperimentalValidation
-							? 'V5 is live with richer structural science and published short-run layers'
-							: DATA_VINTAGE.model_version === 'V4.3' && v5ExperimentalValidation
-								? 'V4.3 is live and the V5 experimental model is now published'
-								: 'MOM Labour Market Report Q4 2025 is now live in the monitor',
-			body:
-				DATA_VINTAGE.model_version === 'V7'
-					? 'V7 is now the live structural release. Task-concentration exposure, demand persistence, downloadable files, methodology artifacts, and SEO/LLM surfaces are aligned to the same release contract.'
-					: DATA_VINTAGE.model_version === 'V6'
-						? 'V6 is now the live structural release. The canonical app dataset, downloadable files, methodology artifacts, and report surfaces are aligned to the same release contract.'
-						: DATA_VINTAGE.model_version === 'V5' && v5ExperimentalValidation
-							? `V5 is live. Transition-adjusted and realized-risk layers are now published separately.`
-							: DATA_VINTAGE.model_version === 'V4.3' && v5ExperimentalValidation
-								? `Task-adjusted exposure is now live in the structural score. The V5 candidate currently clears ${v5StructuralPasses}/2 structural checks and ${v5RealizedPasses}/${v5RealizedScorableChecks} scorable short-run checks while remaining experimental only.`
-								: DATA_VINTAGE.model_version === 'V4.3'
-									? `Structural score is now ${DATA_VINTAGE.model_version}, with task-adjusted exposure live where weighted task evidence is strong. The labour monitor continues to run on ${DATA_VINTAGE.labour_monitor}, with explicit Q3 → Q4 deltas across the Singapore labour layer.`
-									: `Structural score remains ${DATA_VINTAGE.model_version}. The live labour monitor now runs on ${DATA_VINTAGE.labour_monitor}, with explicit Q3 → Q4 deltas across the Singapore labour layer.`,
-			link_href:
-				(DATA_VINTAGE.model_version === 'V5' || DATA_VINTAGE.model_version === 'V4.3') &&
-				v5ExperimentalValidation
-					? '/reports/v5-experimental'
-					: '/reports',
-			link_label:
-				DATA_VINTAGE.model_version === 'V7'
-					? 'Review release surfaces'
-					: DATA_VINTAGE.model_version === 'V6'
-						? 'Review release surfaces'
-						: DATA_VINTAGE.model_version === 'V5' && v5ExperimentalValidation
-							? 'V5 note'
-							: DATA_VINTAGE.model_version === 'V4.3' && v5ExperimentalValidation
-								? 'Review V5 experimental'
-								: 'See report updates'
+			tag: 'Live now',
+			title: 'V9 maps AI work pressure across SSOC 2024',
+			body: 'The current release covers 1,001 Singapore occupations. Pressure ranks come from ILO task exposure; wages, demand and labour evidence remain separate.',
+			link_href: '/methodology',
+			link_label: 'Read the V9 methodology'
 		}
 	};
 }
 
 function buildReleases(siteStatus: ReturnType<typeof buildSiteStatus>) {
+	const currentMonitorVintage = `${siteStatus.live_monitor.detailed_labour_evidence_vintage} detailed; ${siteStatus.live_monitor.macro_context_vintage}`;
+
 	return [
-		...STRUCTURAL_VERSION_HISTORY.map(entry => ({
-			id: entry.id,
-			type: 'structural_release',
-			label: entry.label,
-			version_label: entry.version_label,
-			published_at: entry.published_at,
-			display_date: entry.display_date,
-			score_version:
-				entry.version_label === DATA_VINTAGE.model_version
-					? DATA_VINTAGE.model_version
-					: entry.version_label,
-			monitor_vintage: siteStatus.live_monitor.labour_monitor_artifact_vintage,
-			href: entry.href,
-			availability: entry.availability,
-			notes: entry.notes
-		})),
+		...STRUCTURAL_VERSION_HISTORY.map(entry => {
+			const current = entry.version_label === 'V9';
+			return {
+				id: entry.id,
+				type: 'structural_release',
+				label: entry.label,
+				version_label: entry.version_label,
+				published_at: entry.published_at,
+				display_date: entry.display_date,
+				score_version: entry.version_label,
+				monitor_vintage: current ? currentMonitorVintage : null,
+				href: entry.href,
+				availability: entry.availability,
+				status: current ? 'current' : 'archive',
+				archive: !current,
+				notes: entry.notes
+			};
+		}),
 		{
-			id:
-				DATA_VINTAGE.model_version === 'V4.3' || DATA_VINTAGE.model_version === 'V5'
-					? 'shadow-score-v43-promoted'
-					: 'shadow-score-v43-published',
+			id: 'shadow-score-v43-published',
 			type: 'experimental_update',
-			label:
-				DATA_VINTAGE.model_version === 'V4.3' || DATA_VINTAGE.model_version === 'V5'
-					? 'V4.3 shadow model promoted'
-					: 'V4.3 shadow score published',
-			published_at: DATA_VINTAGE.last_updated,
+			label: 'V4.3 shadow score published',
+			version_label: null,
+			published_at: '2026-03-21',
 			display_date: '21 Mar 2026',
-			score_version: DATA_VINTAGE.model_version,
-			monitor_vintage: siteStatus.live_monitor.labour_monitor_artifact_vintage,
+			score_version: 'V4.3',
+			monitor_vintage: null,
 			href: '/reports/v4-3-shadow',
-			availability: 'current_download',
+			availability: 'archived_report',
+			status: 'archive',
+			archive: true,
 			notes: [
-				DATA_VINTAGE.model_version === 'V4.3'
-					? 'Task-weighted shadow evidence is now reflected in the live structural release, while the full shadow comparison remains published.'
-					: DATA_VINTAGE.model_version === 'V5'
-						? 'V4.3 remains retained as the immediate pre-V5 live baseline, while the full shadow comparison stays published for auditability.'
-						: 'V4.3 remains published as part of the retained audit trail beneath later live releases.',
-				formatExperimentalReleaseNote(siteStatus.experimental_release)
+				'Archived V4.3 shadow-model record. Its promotion gates and comparison metrics are not part of V9.'
 			]
 		},
-		...(siteStatus.v5_program
-			? [
-					{
-						id: 'v5-sidecars-published',
-						type: 'experimental_update',
-						label: 'V5 sidecars published',
-						published_at: DATA_VINTAGE.last_updated,
-						display_date: '21 Mar 2026',
-						score_version: DATA_VINTAGE.model_version,
-						monitor_vintage: siteStatus.live_monitor.labour_monitor_artifact_vintage,
-						href: '/reports/v5-roadmap',
-						availability: 'current_download',
-						notes: [
-							siteStatus.v5_program.summary,
-							'Each V5 workstream now ships as an auditable sidecar artifact before any future headline-score change.'
-						]
-					},
-					...(siteStatus.v5_program.experimental_model_published
-						? [
-								{
-									id:
-										DATA_VINTAGE.model_version === 'V5'
-											? 'v5-model-promoted'
-											: 'v5-experimental-model-published',
-									type: 'experimental_update',
-									label:
-										DATA_VINTAGE.model_version === 'V5'
-											? 'V5 model promoted'
-											: 'V5 experimental model published',
-									published_at: DATA_VINTAGE.last_updated,
-									display_date: '21 Mar 2026',
-									score_version: DATA_VINTAGE.model_version,
-									monitor_vintage: siteStatus.live_monitor.labour_monitor_artifact_vintage,
-									href: '/reports/v5-experimental',
-									availability: 'current_download',
-									notes: [
-										DATA_VINTAGE.model_version === 'V5'
-											? 'The V5 structural release is now live, while the transition-adjusted and realized-risk layers remain published as auditable adjunct fields.'
-											: DATA_VINTAGE.model_version === 'V6' || DATA_VINTAGE.model_version === 'V7'
-												? 'The former live V5 model is retained as a historical baseline together with its validation and adjunct artifacts.'
-												: 'Combines posterior uncertainty, augmentation heterogeneity, empirical mobility, and realized-risk calibration into one auditable candidate.',
-										`Current validation snapshot: structural ${siteStatus.v5_program.structural_validation_result}, realized ${siteStatus.v5_program.realized_validation_result}.`
-									]
-								}
-							]
-						: [])
-				]
-			: []),
 		{
-			id: 'official-labour-report-q4-2025',
+			id: 'v5-sidecars-published',
+			type: 'experimental_update',
+			label: 'V5 sidecars published',
+			version_label: null,
+			published_at: '2026-03-21',
+			display_date: '21 Mar 2026',
+			score_version: 'V5',
+			monitor_vintage: null,
+			href: '/reports/v5-roadmap',
+			availability: 'archived_report',
+			status: 'archive',
+			archive: true,
+			notes: ['Archived V5 sidecar record. Its fields do not contribute to V9.']
+		},
+		{
+			id: 'v5-experimental-model-published',
+			type: 'experimental_update',
+			label: 'V5 experimental model published',
+			version_label: null,
+			published_at: '2026-03-21',
+			display_date: '21 Mar 2026',
+			score_version: 'V5',
+			monitor_vintage: null,
+			href: '/reports/v5-experimental',
+			availability: 'archived_report',
+			status: 'archive',
+			archive: true,
+			notes: [
+				'Archived V5 experimental-model record. Its risk fields and validation are not part of V9.'
+			]
+		},
+		{
+			id: 'official-labour-advance-release-q2-2026',
 			type: 'official_update',
 			label: siteStatus.live_monitor.latest_official_labour_report.label,
+			version_label: null,
 			published_at: siteStatus.live_monitor.latest_official_labour_report.published_at,
-			display_date: '20 Mar 2026',
-			score_version: DATA_VINTAGE.model_version,
-			monitor_vintage: siteStatus.live_monitor.labour_monitor_artifact_vintage,
+			display_date: '31 Jul 2026',
+			score_version: 'V9',
+			monitor_vintage: currentMonitorVintage,
 			href: siteStatus.live_monitor.latest_official_labour_report.url,
-			availability: 'current_download',
+			availability: 'current_source',
+			status: 'current_evidence',
+			archive: false,
 			notes: [
-				'Fresh official labour report published by MOM.',
-				'Live labour monitor refreshed to the Q4 2025 full vintage.'
+				'Preliminary national labour-market figures published by MOM.',
+				'Q1 2026 remains the latest detailed occupation-group evidence until the full Q2 report.'
 			]
 		},
 		{
-			id: 'quarterly-briefing-2026-q1',
+			id: 'v9-quarterly-comparison-withheld',
 			type: 'report_refresh',
-			label: '2026 Q1 quarterly briefing',
-			published_at: DATA_VINTAGE.last_updated,
-			display_date: '21 Mar 2026',
-			score_version: DATA_VINTAGE.model_version,
-			monitor_vintage: siteStatus.live_monitor.labour_monitor_artifact_vintage,
+			label: 'V9 quarterly comparison pending',
+			version_label: null,
+			published_at: V9_RELEASE.generated_at,
+			display_date: '19 Aug 2026',
+			score_version: 'V9',
+			monitor_vintage: currentMonitorVintage,
 			href: '/reports',
-			availability: 'current_download',
+			availability: 'current_notice',
+			status: 'withheld',
+			archive: false,
 			notes: [
-				'Quarterly movers and briefing context refreshed from frozen snapshots.',
-				'Uses the live monitor artifact vintage current at the time of publication.'
+				'No V9 mover ranking is published until two comparable V9 snapshots exist.',
+				'Older structural snapshots are not treated as comparable to the SSOC 2024 release.'
 			]
 		}
 	];
@@ -727,12 +694,10 @@ function buildReleases(siteStatus: ReturnType<typeof buildSiteStatus>) {
 const siteStatus = buildSiteStatus();
 const releases = buildReleases(siteStatus);
 
-fs.mkdirSync(STATIC_DATA_DIR, { recursive: true });
-fs.mkdirSync(SRC_DATA_DIR, { recursive: true });
-fs.writeFileSync(SITE_STATUS_OUT, JSON.stringify(siteStatus, null, 2), 'utf-8');
-fs.writeFileSync(SITE_STATUS_SRC_OUT, JSON.stringify(siteStatus, null, 2), 'utf-8');
-fs.writeFileSync(RELEASES_OUT, JSON.stringify(releases, null, 2), 'utf-8');
-fs.writeFileSync(RELEASES_SRC_OUT, JSON.stringify(releases, null, 2), 'utf-8');
+writeJson(SITE_STATUS_OUT, siteStatus);
+writeJson(SITE_STATUS_SRC_OUT, siteStatus);
+writeJson(RELEASES_OUT, releases);
+writeJson(RELEASES_SRC_OUT, releases);
 
-console.log(`Built site status at ${SITE_STATUS_OUT}`);
-console.log(`Built releases history at ${RELEASES_OUT}`);
+console.log(`Built V9 site status at ${SITE_STATUS_OUT}`);
+console.log(`Built dated release history at ${RELEASES_OUT}`);

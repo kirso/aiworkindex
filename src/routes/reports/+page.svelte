@@ -1,531 +1,285 @@
 <script lang="ts">
-	import aiInSingapore from '$lib/data/ai-in-singapore.json';
-	import { experimentalStatusLabel } from '$lib/data/experimental-status-display';
-	import { employerPressure } from '$lib/data/employer-pressure';
-	import macroContext from '$lib/data/macro-context.json';
-	import { postingsMonitor } from '$lib/data/postings-monitor';
-	import { quarterlyReport } from '$lib/data/quarterly-report';
-	import { releases, siteStatus } from '$lib/data/site-status';
-	import { DATA_VINTAGE } from '$lib/data/scoring-constants';
-	import {
-		title as titleStyle,
-		pageLayout,
-		card,
-		sectionLabel,
-		microLabel,
-		badge
-	} from '$lib/design-system';
+	import { title as titleStyle, pageLayout, card, sectionLabel, badge } from '$lib/design-system';
 	import { cn } from '$lib/utils';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
-	import PageFooterNav from '$lib/components/ui/PageFooterNav.svelte';
+	import { siteStatus } from '$lib/data/site-status';
+	const v9Counts = siteStatus.structural_release.counts;
+	const capabilityCoverage = siteStatus.capability_profiles.coverage;
+	const researchCoverage = siteStatus.external_comparisons.separate_signal_coverage;
+	const skillsCoverage = siteStatus.official_skills_pilot.coverage;
+	const evidenceCoverage = siteStatus.evidence_vector.coverage;
 
-	const ai = aiInSingapore.metrics;
-	const employer = employerPressure;
-	const macro = macroContext.latest_snapshot;
-	const postings = postingsMonitor.summary;
-	const quarterly = quarterlyReport;
-	const isPromoted = siteStatus.experimental_release?.status === 'promoted';
-	const isV6Live =
-		siteStatus.structural_release.version === 'V6' ||
-		siteStatus.structural_release.version === 'V7';
-	const experimentalPositiveStates = ['ready_for_shadow_scoring', 'shadow_published', 'promoted'];
+	const archivedReports = [
+		{
+			href: '/reports/wage-exposure',
+			title: 'V8 Wage Exposure Analysis',
+			date: '17 July 2026',
+			summary:
+				'Legacy wage-pool analysis built from inferred employment. Preserved for audit, not a current V9 result.'
+		},
+		{
+			href: '/reports/v7-release',
+			title: 'V7 Release Note',
+			date: '7 April 2026',
+			summary:
+				'Task-concentration and demand-persistence methodology used before V8 and the SSOC 2024 break.'
+		},
+		{
+			href: '/reports/v6-release',
+			title: 'V6 Release Note',
+			date: '1 April 2026',
+			summary:
+				'Historical two-axis structural model with exposure, bottleneck and demand resilience.'
+		},
+		{
+			href: '/reports/v5-experimental',
+			title: 'V5 Experimental Model',
+			date: '16 July 2026 archive snapshot',
+			summary: 'Preserved experimental integration and validation record from the pre-V9 programme.'
+		},
+		{
+			href: '/reports/v5-roadmap',
+			title: 'V5 Roadmap',
+			date: '16 July 2026 archive snapshot',
+			summary: 'Historical research programme and sidecar roadmap.'
+		},
+		{
+			href: '/reports/v4-3-shadow',
+			title: 'V4.3 Shadow Model Note',
+			date: '16 July 2026 archive snapshot',
+			summary: 'Historical task-weighted shadow model, promotion gates and audit trail.'
+		},
+		{
+			href: '/reports/q4-2024',
+			title: 'Q4 2024 Scoring Report',
+			date: 'October–December 2024 period',
+			summary: 'Early scoring snapshot retained with its legacy terminology and assumptions.'
+		}
+	] as const;
 </script>
 
 <Seo
-	title="AI Work Index Reports"
-	description="Quarterly reports on AI impact, global methodology notes, labour-market trends, scoring updates, and analysis."
+	title="Singapore AI Jobs Reports — V9 and Labour Evidence"
+	description="Current V9 AI Work Pressure and Singapore labour-market reports, plus dated archives of earlier AI Work Index methods and findings."
 	path="/reports"
 />
 
 <main class={pageLayout({ width: 'content' })}>
 	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Reports' }]} />
 
-	<h1 class={titleStyle({ size: 'page' })}>Reports</h1>
-
-	<!-- Narrative lead — compact summary -->
-	<div class={cn(card({ padding: 'sm', variant: 'notice', accent: 'primary' }), 'mt-4')}>
-		<p class="text-sm text-foreground">
-			<span class="font-semibold">Latest context:</span>
-			{macro.resident_unemployment_rate.toFixed(1)}% resident unemployment ·
-			{ai.workforce.workers_using_ai_at_work_pct.toFixed(0)}% of workers using AI at work ·
-			{siteStatus.live_monitor.labour_monitor_artifact_vintage} labour monitor · updated
-			{DATA_VINTAGE.last_updated}
-		</p>
-	</div>
-
-	<p class={cn(sectionLabel(), 'mt-6 mb-3')}>Published Reports</p>
-	<div class="space-y-4">
-		<a href="/reports/v7-release" class="block no-underline">
-			<div class={cn(card({ padding: 'lg', hover: true }), 'flex items-start justify-between')}>
-				<div>
-					<div class="flex items-center gap-2">
-						<span class="text-base font-semibold text-foreground">V7 Release Note</span>
-						<span class={badge({ variant: 'info' })}>Current</span>
-					</div>
-					<p class="mt-1 text-sm text-muted-foreground">
-						V7 adds a task-concentration exposure buffer (Hampole et al.) and a demand-persistence
-						proxy to the structural formula. Corrected 7 Jun 2026: the concentration term now
-						buffers rather than amplifies exposure, matching the cited finding.
-					</p>
-				</div>
-				<svg
-					class="ml-4 mt-1 h-5 w-5 shrink-0 text-muted-foreground"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg
-				>
-			</div>
-		</a>
-
-		<a href="/reports/v6-release" class="block no-underline">
-			<div class={cn(card({ padding: 'lg', hover: true }), 'flex items-start justify-between')}>
-				<div>
-					<div class="flex items-center gap-2">
-						<span class="text-base font-semibold text-foreground">V6 Release Note</span>
-						<span class={badge({ variant: 'outline' })}>Archive</span>
-					</div>
-					<p class="mt-1 text-sm text-muted-foreground">
-						V6 introduced the two-axis structural formula with 4-source exposure ensemble, human
-						bottleneck, and explicit demand resilience. Superseded by V7.
-					</p>
-				</div>
-				<svg
-					class="ml-4 mt-1 h-5 w-5 shrink-0 text-muted-foreground"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg
-				>
-			</div>
-		</a>
-
-		<a href="/reports/v4-3-shadow" class="block no-underline">
-			<div class={cn(card({ padding: 'lg', hover: true }), 'flex items-start justify-between')}>
-				<div>
-					<div class="flex items-center gap-2">
-						<span class="text-base font-semibold text-foreground">V4.3 Shadow Model Note</span>
-						<span
-							class={experimentalPositiveStates.includes(
-								siteStatus.experimental_release?.status ?? ''
-							)
-								? badge({ variant: 'info' })
-								: siteStatus.experimental_release?.status === 'blocked'
-									? badge({ variant: 'danger' })
-									: badge({ variant: 'warning' })}
-							>{experimentalStatusLabel(siteStatus.experimental_release?.status)}</span
-						>
-					</div>
-					<p class="mt-1 text-sm text-muted-foreground">
-						{#if isV6Live}
-							Archived task-weighted shadow comparison retained inside the V4.3 → V5 → V6 → V7 audit
-							trail. It is not the current V7 headline formula.
-						{:else if isPromoted}
-							How the task-weighted shadow model was promoted into the live release, what changed,
-							and what remains published for auditability.
-						{:else}
-							What the task-weighted shadow model would change, which promotion gates remain open,
-							and why it stays separate from the live headline score.
-						{/if}
-					</p>
-					<p class="mt-2 text-xs text-muted-foreground">
-						{siteStatus.experimental_release?.summary}
-					</p>
-				</div>
-				<svg
-					class="ml-4 mt-1 h-5 w-5 shrink-0 text-muted-foreground"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-				>
-					<path d="M5 12h14M12 5l7 7-7 7" />
-				</svg>
-			</div>
-		</a>
-
-		<a href="/reports/v5-roadmap" class="block no-underline">
-			<div class={cn(card({ padding: 'lg', hover: true }), 'flex items-start justify-between')}>
-				<div>
-					<div class="flex items-center gap-2">
-						<span class="text-base font-semibold text-foreground">V5 Roadmap</span>
-						<span class={badge({ variant: 'outline' })}>{isV6Live ? 'Archive' : 'Next'}</span>
-					</div>
-					<p class="mt-1 text-sm text-muted-foreground">
-						{#if isV6Live}
-							Archived roadmap for the V5 research program that preceded the current V7 two-axis
-							release.
-						{:else}
-							The next scientific release program after V4.3: augmentation heterogeneity, empirical
-							mobility, posterior uncertainty, and realized-risk forecasting.
-						{/if}
-					</p>
-					<p class="mt-2 text-xs text-muted-foreground">
-						{#if isV6Live}
-							Preserved for auditability alongside the published sidecars and promotion trail.
-						{:else}
-							Planning surface for the V5 program. Sidecars are published and the first integrated
-							experimental model is now available separately.
-						{/if}
-					</p>
-				</div>
-				<svg
-					class="ml-4 mt-1 h-5 w-5 shrink-0 text-muted-foreground"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-				>
-					<path d="M5 12h14M12 5l7 7-7 7" />
-				</svg>
-			</div>
-		</a>
-
-		{#if siteStatus.v5_program?.experimental_model_published}
-			<a href="/reports/v5-experimental" class="block no-underline">
-				<div class={cn(card({ padding: 'lg', hover: true }), 'flex items-start justify-between')}>
-					<div>
-						<div class="flex items-center gap-2">
-							<span class="text-base font-semibold text-foreground"
-								>{isV6Live ? 'V5 Model Note' : 'V5 Experimental Model'}</span
-							>
-							<span class={badge({ variant: 'outline' })}
-								>{isV6Live ? 'Archived live note' : 'Experimental'}</span
-							>
-						</div>
-						<p class="mt-1 text-sm text-muted-foreground">
-							{#if isV6Live}
-								Archived promotion note for the former live V5 model, preserved so the V7 release
-								can still be compared against its immediate predecessor and retained adjunct layers.
-							{:else}
-								The first integrated V5 candidate now combines posterior uncertainty, augmentation
-								heterogeneity, empirical mobility, and realized-risk calibration into one auditable
-								model output.
-							{/if}
-						</p>
-						<p class="mt-2 text-xs text-muted-foreground">
-							Current validation snapshot: structural
-							{siteStatus.v5_program?.structural_validation_result}, realized
-							{siteStatus.v5_program?.realized_validation_result}.
-							{#if isV6Live}
-								The retained V4.3 baseline and promotion-comparison artifacts remain published.
-							{:else}
-								This remains separate from the live headline score.
-							{/if}
-						</p>
-					</div>
-					<svg
-						class="ml-4 mt-1 h-5 w-5 shrink-0 text-muted-foreground"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-					>
-						<path d="M5 12h14M12 5l7 7-7 7" />
-					</svg>
-				</div>
-			</a>
-		{/if}
-
-		<!-- Wage Exposure Analysis -->
-		<a href="/reports/wage-exposure" class="block no-underline">
-			<div class={cn(card({ padding: 'lg', hover: true }), 'flex items-start justify-between')}>
-				<div>
-					<div class="flex items-center gap-2">
-						<span class="text-base font-semibold text-foreground">Wage Exposure Analysis</span>
-						<span class={badge({ variant: 'danger' })}>Report</span>
-					</div>
-					<p class="mt-1 text-sm text-muted-foreground">
-						Annual wage-pool analysis for occupations under high structural AI pressure. Breakdown
-						by sector, risk-weighted wage exposure, and methodology notes.
-					</p>
-					<p class="mt-2 text-xs text-muted-foreground">
-						Based on {siteStatus.structural_release.version} scoring, updated {DATA_VINTAGE.last_updated}
-					</p>
-				</div>
-				<svg
-					class="ml-4 mt-1 h-5 w-5 shrink-0 text-muted-foreground"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-				>
-					<path d="M5 12h14M12 5l7 7-7 7" />
-				</svg>
-			</div>
-		</a>
-
-		<!-- Q4 2024 Report -->
-		<a href="/reports/q4-2024" class="block no-underline">
-			<div class={cn(card({ padding: 'lg', hover: true }), 'flex items-start justify-between')}>
-				<div>
-					<div class="flex items-center gap-2">
-						<span class="text-base font-semibold text-foreground">Q4 2024 Scoring Report</span>
-					</div>
-					<p class="mt-1 text-sm text-muted-foreground">
-						Initial V3 scoring results: 562 occupations scored across exposure, bottleneck, and
-						market resilience. Key findings on paradox roles, highest-risk occupations, and theory
-						vs practice gaps.
-					</p>
-					<p class="mt-2 text-xs text-muted-foreground">
-						Archived snapshot rebuilt under the current V7 pipeline, updated {DATA_VINTAGE.last_updated}
-					</p>
-				</div>
-				<svg
-					class="ml-4 mt-1 h-5 w-5 shrink-0 text-muted-foreground"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-				>
-					<path d="M5 12h14M12 5l7 7-7 7" />
-				</svg>
-			</div>
-		</a>
-	</div>
-
-	<p class={cn(sectionLabel(), 'mt-8 mb-3')}>Governance & Release Notes</p>
-	<div class="grid gap-4 md:grid-cols-2">
-		<a href="/changelog" class="block no-underline">
-			<div
-				class={cn(card({ padding: 'lg', hover: true }), 'flex h-full items-start justify-between')}
-			>
-				<div>
-					<div class="flex items-center gap-2">
-						<span class="text-base font-semibold text-foreground">Changelog</span>
-						<span class={badge({ variant: 'info' })}>Ledger</span>
-					</div>
-					<p class="mt-1 text-sm text-muted-foreground">
-						Canonical release ledger for structural releases, shadow-model notes, report refreshes,
-						and official labour-monitor updates.
-					</p>
-					<p class="mt-2 text-xs text-muted-foreground">
-						{releases.length} recorded events in the current public history
-					</p>
-				</div>
-				<svg
-					class="ml-4 mt-1 h-5 w-5 shrink-0 text-muted-foreground"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-				>
-					<path d="M5 12h14M12 5l7 7-7 7" />
-				</svg>
-			</div>
-		</a>
-
-		<div class={card({ padding: 'lg' })}>
-			<div class="flex items-center gap-2">
-				<span class="text-base font-semibold text-foreground">Latest release activity</span>
-				<span class={badge({ variant: 'outline' })}>Current</span>
-			</div>
-			<div class="mt-3 space-y-3">
-				{#each releases.slice(0, 3) as release (release.id)}
-					<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
-						<div class="flex items-start justify-between gap-3">
-							<div>
-								<p class="text-sm font-semibold text-foreground">{release.label}</p>
-								<p class="mt-1 text-xs text-muted-foreground">
-									Published {release.published_at} · {release.score_version}
-								</p>
-							</div>
-							<a
-								href={release.href}
-								class="text-xs text-primary hover:underline"
-								target={release.href.startsWith('http') ? '_blank' : undefined}
-								rel={release.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-							>
-								Open →
-							</a>
-						</div>
-					</div>
-				{/each}
-			</div>
-		</div>
-	</div>
-
-	<!-- Current Snapshot — live monitor metrics -->
-	<p class={cn(sectionLabel(), 'mt-8 mb-3')}>Current Snapshot</p>
-	<p class="mb-3 text-sm text-muted-foreground">
-		Live monitor metrics and signals, kept separate from the structural score.
+	<p class={sectionLabel()}>Current and archived analysis</p>
+	<h1 class={cn(titleStyle({ size: 'page' }), 'mt-2')}>Reports</h1>
+	<p class="mt-3 max-w-3xl text-base leading-relaxed text-muted-foreground">
+		The V9 release report documents the structural score. The job-market report tracks current
+		Singapore evidence that can change more frequently. Older reports remain accessible as dated
+		archives and are not mixed into current findings.
 	</p>
 
-	<div class="grid gap-3 sm:grid-cols-2 md:grid-cols-4">
-		<div class={card({ padding: 'sm', variant: 'metric' })}>
-			<p class={microLabel()}>AI Adoption · 2024</p>
-			<p class="mt-1 font-mono text-lg font-bold text-foreground">
-				{ai.enterprises.non_sme_ai_adoption_pct.toFixed(1)}%
-			</p>
-			<p class="text-xs text-muted-foreground">non-SME AI adoption</p>
-		</div>
-		<div class={card({ padding: 'sm', variant: 'metric' })}>
-			<p class={microLabel()}>Workers · 2024</p>
-			<p class="mt-1 font-mono text-lg font-bold text-foreground">
-				{ai.workforce.workers_using_ai_at_work_pct.toFixed(1)}%
-			</p>
-			<p class="text-xs text-muted-foreground">using AI at work</p>
-		</div>
-		<div class={card({ padding: 'sm', variant: 'metric' })}>
-			<p class={microLabel()}>Unemployment · 2025 4Q</p>
-			<p class="mt-1 font-mono text-lg font-bold text-foreground">
-				{macro.resident_unemployment_rate.toFixed(1)}%
-			</p>
-			<p class="text-xs text-muted-foreground">resident unemployment</p>
-		</div>
-		<div class={card({ padding: 'sm', variant: 'metric' })}>
-			<p class={microLabel()}>NAIIP · 2026</p>
-			<p class="mt-1 font-mono text-lg font-bold text-foreground">
-				{Math.round(ai.national_programmes.naiip_workers_target / 1000)}K
-			</p>
-			<p class="text-xs text-muted-foreground">AI-bilingual target</p>
-		</div>
-	</div>
+	<section class="mt-8">
+		<h2 class={sectionLabel()}>Current reports</h2>
+		<div class="mt-3 space-y-4">
+			<a href="/reports/evidence-patterns" class="block no-underline">
+				<article
+					class={cn(
+						card({ padding: 'lg', hover: true }),
+						'sm:flex sm:items-start sm:justify-between'
+					)}
+				>
+					<div>
+						<div class="flex flex-wrap items-center gap-2">
+							<h3 class="text-lg font-semibold text-foreground">Where the evidence disagrees</h3>
+							<span class={badge({ variant: 'info' })}>Eight separate signals</span>
+						</div>
+						<p class="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+							Compare task pressure, capability, observed use, pay, demand, labour context and
+							official skills without folding them into one score. Includes {evidenceCoverage.shared_pressure_capability_subset}
+							reviewed pressure–capability comparisons and the first V9 change baseline.
+						</p>
+					</div>
+					<span aria-hidden="true" class="mt-3 block text-primary sm:ml-6 sm:mt-1">→</span>
+				</article>
+			</a>
 
-	{#if postings.total_postings > 0}
-		<details class="mt-4">
-			<summary class="cursor-pointer text-sm font-medium text-foreground hover:text-primary">
-				Hiring Now Monitor ({postings.posting_volume_30d} postings, 30D)
-			</summary>
-			<div class={cn(card({ padding: 'md' }), 'mt-2')}>
-				<div class="grid gap-3 sm:grid-cols-3">
-					<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
-						<p class={microLabel()}>Top Skills</p>
-						<p class="mt-1 text-sm font-medium text-foreground">
-							{postings.top_skills
-								.slice(0, 3)
-								.map(skill => skill.label)
-								.join(' · ')}
+			<a href="/reports/skills-pilot" class="block no-underline">
+				<article
+					class={cn(
+						card({ padding: 'lg', hover: true }),
+						'sm:flex sm:items-start sm:justify-between'
+					)}
+				>
+					<div>
+						<div class="flex flex-wrap items-center gap-2">
+							<h3 class="text-lg font-semibold text-foreground">Skills to check and strengthen</h3>
+							<span class={badge({ variant: 'info' })}>Official Skills Framework pilot</span>
+						</div>
+						<p class="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+							Selected official skill names for {skillsCoverage.unique_occupations} occupations across
+							ICT, financial services and healthcare, with direct training discovery.
 						</p>
 					</div>
-					<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
-						<p class={microLabel()}>AI / Tools</p>
-						<p class="mt-1 text-sm font-medium text-foreground">
-							{postings.top_tools.length > 0
-								? postings.top_tools
-										.slice(0, 3)
-										.map(tool => tool.label)
-										.join(' · ')
-								: 'Sparse mention rate'}
-						</p>
-					</div>
-					<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
-						<p class={microLabel()}>As of</p>
-						<p class="mt-1 text-sm font-medium text-foreground">
-							{new Date(postingsMonitor.generated_at).toLocaleDateString('en', {
-								day: 'numeric',
-								month: 'short',
-								year: 'numeric'
-							})}
-						</p>
-					</div>
-				</div>
-			</div>
-		</details>
-	{/if}
+					<span aria-hidden="true" class="mt-3 block text-primary sm:ml-6 sm:mt-1">→</span>
+				</article>
+			</a>
 
-	{#if employer.summary.total_signals > 0}
-		<details class="mt-4">
-			<summary class="cursor-pointer text-sm font-medium text-foreground hover:text-primary">
-				Employer Pressure Monitor ({employer.summary.total_signals} signals)
-			</summary>
-			<div class={cn(card({ padding: 'md' }), 'mt-2')}>
-				<div class="grid gap-3 sm:grid-cols-3">
-					<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
-						<p class={microLabel()}>Highest Pressure</p>
-						<p class="mt-1 text-sm font-medium text-foreground">
-							{employer.summary.highest_pressure_archetypes.slice(0, 2).join(' · ')}
-						</p>
-						<p class="text-xs text-muted-foreground">
-							{employer.summary.highest_pressure_label ?? 'no pressure label'} signal tier
-						</p>
-					</div>
-					<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
-						<p class={microLabel()}>Latest Signal</p>
-						<p class="mt-1 text-sm font-medium text-foreground">
-							{employer.summary.latest_signal_date
-								? new Date(employer.summary.latest_signal_date).toLocaleDateString('en', {
-										day: 'numeric',
-										month: 'short',
-										year: 'numeric'
-									})
-								: '--'}
+			<a href="/reports/research-signals" class="block no-underline">
+				<article
+					class={cn(
+						card({ padding: 'lg', hover: true }),
+						'sm:flex sm:items-start sm:justify-between'
+					)}
+				>
+					<div>
+						<div class="flex flex-wrap items-center gap-2">
+							<h3 class="text-lg font-semibold text-foreground">
+								Possible AI scope versus observed use
+							</h3>
+							<span class={badge({ variant: 'info' })}>OpenAI + Anthropic</span>
+						</div>
+						<p class="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+							Eloundou theoretical exposure for {researchCoverage.eloundou_theoretical_exposure_available}
+							reviewed occupation identities and Anthropic observed Claude use for {researchCoverage.anthropic_observed_exposure_available},
+							kept separate from the Singapore pressure rank.
 						</p>
 					</div>
-				</div>
-			</div>
-		</details>
-	{/if}
+					<span aria-hidden="true" class="mt-3 block text-primary sm:ml-6 sm:mt-1">→</span>
+				</article>
+			</a>
 
-	{#if quarterly.previous_snapshot}
-		<details class="mt-4">
-			<summary class="cursor-pointer text-sm font-medium text-foreground hover:text-primary">
-				Quarterly Movers ({quarterly.band_movers.length} band changes, {quarterly.previous_snapshot} to
-				{quarterly.current_snapshot})
-			</summary>
-			<div class={cn(card({ padding: 'md' }), 'mt-2')}>
-				<div class="grid gap-3 sm:grid-cols-3">
-					<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
-						<p class={microLabel()}>Top Risers</p>
-						<p class="mt-1 text-sm font-medium text-foreground">
-							{quarterly.top_risers
-								.slice(0, 2)
-								.map(entry => entry.title)
-								.join(' · ') || 'No major risers'}
+			<a href="/reports/ai-capabilities" class="block no-underline">
+				<article
+					class={cn(
+						card({ padding: 'lg', hover: true }),
+						'sm:flex sm:items-start sm:justify-between'
+					)}
+				>
+					<div>
+						<div class="flex flex-wrap items-center gap-2">
+							<h3 class="text-lg font-semibold text-foreground">What current AI can do</h3>
+							<span class={badge({ variant: 'info' })}>OECD capability evidence</span>
+						</div>
+						<p class="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+							Nine capability domains for {capabilityCoverage.available_reviewed_identity_profiles}
+							Singapore occupations that pass an automated or explicit reviewed identity decision. Kept
+							separate from pressure and labour outcomes.
 						</p>
 					</div>
-					<div class="rounded-lg border border-border/60 bg-background/70 px-3 py-3">
-						<p class={microLabel()}>Top Fallers</p>
-						<p class="mt-1 text-sm font-medium text-foreground">
-							{quarterly.top_fallers
-								.slice(0, 2)
-								.map(entry => entry.title)
-								.join(' · ') || 'No major fallers'}
-						</p>
-					</div>
-				</div>
-				<div class="mt-3">
-					<a href="/rankings/quarterly-movers" class="text-xs text-primary hover:underline"
-						>Open full ranking →</a
-					>
-				</div>
-			</div>
-		</details>
-	{/if}
+					<span aria-hidden="true" class="mt-3 block text-primary sm:ml-6 sm:mt-1">→</span>
+				</article>
+			</a>
 
-	{#if quarterly.briefing}
-		<details class="mt-4">
-			<summary class="cursor-pointer text-sm font-medium text-foreground hover:text-primary">
-				Quarterly Briefing
-			</summary>
-			<div class="mt-2 grid gap-3 md:grid-cols-3">
-				<div class={card({ padding: 'sm', variant: 'flat' })}>
-					<p class="text-sm font-semibold text-foreground">What changed</p>
-					<ul class="mt-2 space-y-2 text-sm text-muted-foreground">
-						{#each quarterly.briefing.what_changed as item (item)}
-							<li>{item}</li>
-						{/each}
-					</ul>
-				</div>
-				<div class={card({ padding: 'sm', variant: 'flat' })}>
-					<p class="text-sm font-semibold text-foreground">Why it matters</p>
-					<ul class="mt-2 space-y-2 text-sm text-muted-foreground">
-						{#each quarterly.briefing.why_it_matters as item (item)}
-							<li>{item}</li>
-						{/each}
-					</ul>
-				</div>
-				<div class={card({ padding: 'sm', variant: 'flat' })}>
-					<p class="text-sm font-semibold text-foreground">What to watch</p>
-					<ul class="mt-2 space-y-2 text-sm text-muted-foreground">
-						{#each quarterly.briefing.what_to_watch as item (item)}
-							<li>{item}</li>
-						{/each}
-					</ul>
-				</div>
-			</div>
-		</details>
-	{/if}
-	<PageFooterNav />
+			<a href="/reports/v9-release" class="block no-underline">
+				<article
+					class={cn(
+						card({ padding: 'lg', hover: true }),
+						'sm:flex sm:items-start sm:justify-between'
+					)}
+				>
+					<div>
+						<div class="flex flex-wrap items-center gap-2">
+							<h3 class="text-lg font-semibold text-foreground">V9: Singapore AI Work Pressure</h3>
+							<span class={badge({ variant: 'info' })}>Current</span>
+						</div>
+						<p class="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+							SSOC 2024 migration, ILO-based pressure ranks, mapping uncertainty, synthetic roles,
+							Singapore market evidence and supporting research reviewed through 22 August 2026.
+						</p>
+						<p class="mt-2 text-xs text-muted-foreground">
+							{v9Counts.occupations.toLocaleString()} occupations · {v9Counts.scored.toLocaleString()}
+							scored ·
+							{v9Counts.direct_wages} direct wage rows
+						</p>
+					</div>
+					<span aria-hidden="true" class="mt-3 block text-primary sm:ml-6 sm:mt-1">→</span>
+				</article>
+			</a>
+
+			<a href="/reports/job-market-evidence" class="block no-underline">
+				<article
+					class={cn(
+						card({ padding: 'lg', hover: true }),
+						'sm:flex sm:items-start sm:justify-between'
+					)}
+				>
+					<div>
+						<div class="flex flex-wrap items-center gap-2">
+							<h3 class="text-lg font-semibold text-foreground">Singapore job-market evidence</h3>
+							<span class={badge({ variant: 'info' })}>Current context</span>
+						</div>
+						<p class="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+							Q2 2026 preliminary conditions, Q1 detailed labour evidence, 2025 vacancies, wages and
+							firm AI adoption. These measures do not change the pressure rank.
+						</p>
+					</div>
+					<span aria-hidden="true" class="mt-3 block text-primary sm:ml-6 sm:mt-1">→</span>
+				</article>
+			</a>
+
+			<a href="/reports/labour-observatory" class="block no-underline">
+				<article
+					class={cn(
+						card({ padding: 'lg', hover: true }),
+						'sm:flex sm:items-start sm:justify-between'
+					)}
+				>
+					<div>
+						<div class="flex flex-wrap items-center gap-2">
+							<h3 class="text-lg font-semibold text-foreground">Singapore AI labour observatory</h3>
+							<span class={badge({ variant: 'info' })}>Current evidence</span>
+						</div>
+						<p class="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+							Tracks the channels between task pressure and jobs: substitution, productivity and
+							demand, new work, human responsibility, adoption and worker adjustment. Broad evidence
+							stays broad; unsupported outcomes stay unknown.
+						</p>
+					</div>
+					<span aria-hidden="true" class="mt-3 block text-primary sm:ml-6 sm:mt-1">→</span>
+				</article>
+			</a>
+		</div>
+	</section>
+
+	<section class="mt-10 grid gap-4 sm:grid-cols-2">
+		<a href="/methodology" class={card({ padding: 'md', hover: true })}>
+			<h2 class="font-semibold text-foreground">How V9 is calculated</h2>
+			<p class="mt-2 text-sm text-muted-foreground">
+				The plain-language method, evidence boundaries, synthetic-role rules and limitations.
+			</p>
+		</a>
+		<a href="/research" class={card({ padding: 'md', hover: true })}>
+			<h2 class="font-semibold text-foreground">Research register</h2>
+			<p class="mt-2 text-sm text-muted-foreground">
+				Primary research and public datasets reviewed through 22 August 2026.
+			</p>
+		</a>
+	</section>
+
+	<section class="my-10">
+		<h2 class={sectionLabel()}>Methodology archives</h2>
+		<p class="mt-2 max-w-3xl text-sm text-muted-foreground">
+			These pages preserve what earlier releases published. Their scores and labels are not
+			comparable with V9 because the occupation taxonomy and methodology changed.
+		</p>
+		<div class="mt-4 divide-y divide-border border-y border-border">
+			{#each archivedReports as report}
+				<a href={report.href} class="group block py-4 no-underline">
+					<div class="flex items-start justify-between gap-4">
+						<div>
+							<div class="flex flex-wrap items-center gap-2">
+								<h3 class="font-semibold text-foreground group-hover:text-primary">
+									{report.title}
+								</h3>
+								<span class={badge({ variant: 'outline' })}>Archive</span>
+							</div>
+							<p class="mt-1 text-xs text-muted-foreground">{report.date}</p>
+							<p class="mt-2 text-sm leading-relaxed text-muted-foreground">{report.summary}</p>
+						</div>
+						<span aria-hidden="true" class="shrink-0 text-muted-foreground group-hover:text-primary"
+							>→</span
+						>
+					</div>
+				</a>
+			{/each}
+		</div>
+	</section>
 </main>

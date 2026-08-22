@@ -1,0 +1,498 @@
+{
+  "schema_version": "1.0",
+  "purpose": "URL continuity only. This artifact is forbidden from active data or methodology imports.",
+  "redirects": [
+    {
+      "ssoc2020": "21663",
+      "title": "Multimedia artist and animator",
+      "successors": [
+        {
+          "ssoc2024": "21662",
+          "title": "Multimedia designer/artist/animator"
+        }
+      ]
+    },
+    {
+      "ssoc2020": "21664",
+      "title": "Interaction designer",
+      "successors": [
+        {
+          "ssoc2024": "25124",
+          "title": "Interaction designer"
+        }
+      ]
+    },
+    {
+      "ssoc2020": "22150",
+      "title": "Other specialist medical practitioner (other specialisations) (e.g. occupational physician, radiation oncologist)",
+      "successors": [
+        {
+          "ssoc2024": "22149",
+          "title": "Specialist medical practitioner (other specialisation) n.e.c."
+        }
+      ]
+    },
+    {
+      "ssoc2020": "25140",
+      "title": "Applications/Systems programmer",
+      "successors": [
+        {
+          "ssoc2024": "25141",
+          "title": "Applications/Systems programmer"
+        }
+      ]
+    },
+    {
+      "ssoc2020": "26341",
+      "title": "Clinical psychologist",
+      "successors": [
+        {
+          "ssoc2024": "26611",
+          "title": "Clinical psychologist"
+        }
+      ]
+    },
+    {
+      "ssoc2020": "26342",
+      "title": "Educational psychologist",
+      "successors": [
+        {
+          "ssoc2024": "26612",
+          "title": "Educational psychologist"
+        }
+      ]
+    },
+    {
+      "ssoc2020": "26343",
+      "title": "Industrial and organisational psychologist",
+      "successors": [
+        {
+          "ssoc2024": "26613",
+          "title": "Industrial/Organisational psychologist"
+        }
+      ]
+    },
+    {
+      "ssoc2020": "26349",
+      "title": "Other psychologists",
+      "successors": [
+        {
+          "ssoc2024": "26619",
+          "title": "Psychologist n.e.c."
+        }
+      ]
+    },
+    {
+      "ssoc2020": "26351",
+      "title": "Social worker (general)",
+      "successors": [
+        {
+          "ssoc2024": "26621",
+          "title": "Social worker (general)"
+        }
+      ]
+    },
+    {
+      "ssoc2020": "26352",
+      "title": "Youth work professional",
+      "successors": [
+        {
+          "ssoc2024": "26623",
+          "title": "Youth work professional"
+        }
+      ]
+    },
+    {
+      "ssoc2020": "26353",
+      "title": "Medical social worker",
+      "successors": [
+        {
+          "ssoc2024": "26622",
+          "title": "Medical social worker"
+        }
+      ]
+    },
+    {
+      "ssoc2020": "26359",
+      "title": "Other social service professionals",
+      "successors": [
+        {
+          "ssoc2024": "26629",
+          "title": "Social work professional n.e.c."
+        }
+      ]
+    },
+    {
+      "ssoc2020": "26371",
+      "title": "Counsellor (rehabilitation)",
+      "successors": [
+        {
+          "ssoc2024": "26631",
+          "title": "Counsellor (rehabilitation)"
+        }
+      ]
+    },
+    {
+      "ssoc2020": "26372",
+      "title": "Counsellor (drugs and alcohol)",
+      "successors": [
+        {
+          "ssoc2024": "26632",
+          "title": "Counsellor (drugs/alcohol)"
+        }
+      ]
+    },
+    {
+      "ssoc2020": "26373",
+      "title": "Counsellor (family)",
+      "successors": [
+        {
+          "ssoc2024": "26633",
+          "title": "Counsellor (family)"
+        }
+      ]
+    },
+    {
+      "ssoc2020": "26374",
+      "title": "School counsellor",
+      "successors": [
+        {
+          "ssoc2024": "26634",
+          "title": "School counsellor"
+        }
+      ]
+    },
+    {
+      "ssoc2020": "26379",
+      "title": "Other counselling professionals",
+      "successors": [
+        {
+          "ssoc2024": "26639",
+          "title": "Counselling professional n.e.c."
+        }
+      ]
+    },
+    {
+      "ssoc2020": "33611",
+      "title": "Air transport equipment project executive",
+      "successors": [
+        {
+          "ssoc2024": "33601",
+          "title": "Air transport equipment project executive"
+        }
+      ]
+    },
+    {
+      "ssoc2020": "33612",
+      "title": "Rail transport equipment project executive",
+      "successors": [
+        {
+          "ssoc2024": "33602",
+          "title": "Rail transport equipment project executive"
+        }
+      ]
+    },
+    {
+      "ssoc2020": "33613",
+      "title": "Road transport equipment project executive",
+      "successors": [
+        {
+          "ssoc2024": "33603",
+          "title": "Road transport equipment project executive"
+        }
+      ]
+    },
+    {
+      "ssoc2020": "33614",
+      "title": "Water transport equipment project executive",
+      "successors": [
+        {
+          "ssoc2024": "33609",
+          "title": "Transport equipment project executive n.e.c."
+        }
+      ]
+    },
+    {
+      "ssoc2020": "33619",
+      "title": "Other transport equipment project executives",
+      "successors": [
+        {
+          "ssoc2024": "33609",
+          "title": "Transport equipment project executive n.e.c."
+        }
+      ]
+    },
+    {
+      "ssoc2020": "52411",
+      "title": "Fashion model",
+      "successors": [
+        {
+          "ssoc2024": "52410",
+          "title": "Fashion and related model"
+        }
+      ]
+    },
+    {
+      "ssoc2020": "52419",
+      "title": "Other models (e.g. artist's model)",
+      "successors": [
+        {
+          "ssoc2024": "52410",
+          "title": "Fashion and related model"
+        }
+      ]
+    },
+    {
+      "ssoc2020": "53115",
+      "title": "Educarer",
+      "successors": [
+        {
+          "ssoc2024": "36100",
+          "title": "Preschool education teacher"
+        }
+      ]
+    },
+    {
+      "ssoc2020": "61221",
+      "title": "Poultry farm worker",
+      "successors": [
+        {
+          "ssoc2024": "61220",
+          "title": "Poultry farm worker"
+        }
+      ]
+    },
+    {
+      "ssoc2020": "61222",
+      "title": "Poultry inseminator",
+      "successors": [
+        {
+          "ssoc2024": "61220",
+          "title": "Poultry farm worker"
+        }
+      ]
+    },
+    {
+      "ssoc2020": "71324",
+      "title": "Spray painter (except ships, motor vehicles and signs)",
+      "successors": [
+        {
+          "ssoc2024": "71323",
+          "title": "Spray painter (excluding ships and motor vehicles)"
+        }
+      ]
+    },
+    {
+      "ssoc2020": "72391",
+      "title": "Machinery mechanic",
+      "successors": [
+        {
+          "ssoc2024": "72390",
+          "title": "Machinery mechanic/fitter/repairer n.e.c."
+        }
+      ]
+    },
+    {
+      "ssoc2020": "72392",
+      "title": "Industrial/Office machinery mechanic",
+      "successors": [
+        {
+          "ssoc2024": "72390",
+          "title": "Machinery mechanic/fitter/repairer n.e.c."
+        }
+      ]
+    },
+    {
+      "ssoc2020": "72399",
+      "title": "Other machinery mechanics and repairers n.e.c. (e.g. agricultural machinery mechanic)",
+      "successors": [
+        {
+          "ssoc2024": "72390",
+          "title": "Machinery mechanic/fitter/repairer n.e.c."
+        }
+      ]
+    },
+    {
+      "ssoc2020": "74211",
+      "title": "Electronics fitter",
+      "successors": [
+        {
+          "ssoc2024": "74210",
+          "title": "Electronics fitter (excluding broadcasting and communication equipment)"
+        }
+      ]
+    },
+    {
+      "ssoc2020": "74212",
+      "title": "Consumer audio and video equipment mechanic",
+      "successors": [
+        {
+          "ssoc2024": "74221",
+          "title": "Consumer audio/video equipment/radar broadcasting/transmitting equipment fitter/mechanic"
+        }
+      ]
+    },
+    {
+      "ssoc2020": "75363",
+      "title": "Leather goods maker/assembler",
+      "successors": [
+        {
+          "ssoc2024": "75362",
+          "title": "Leather goods maker/assembler"
+        }
+      ]
+    },
+    {
+      "ssoc2020": "81811",
+      "title": "Glass/Ceramics kiln machine operator",
+      "successors": [
+        {
+          "ssoc2024": "81810",
+          "title": "Glass/Ceramics plant operator"
+        }
+      ]
+    },
+    {
+      "ssoc2020": "81812",
+      "title": "Fibreglass maker",
+      "successors": [
+        {
+          "ssoc2024": "81810",
+          "title": "Glass/Ceramics plant operator"
+        }
+      ]
+    },
+    {
+      "ssoc2020": "81819",
+      "title": "Other glass and ceramics plant operators",
+      "successors": [
+        {
+          "ssoc2024": "81810",
+          "title": "Glass/Ceramics plant operator"
+        }
+      ]
+    },
+    {
+      "ssoc2020": "83121",
+      "title": "Railway brakeman/signalman/shunter",
+      "successors": [
+        {
+          "ssoc2024": "83120",
+          "title": "Railway braker and related worker"
+        }
+      ]
+    },
+    {
+      "ssoc2020": "83129",
+      "title": "Other railway brakers and related workers",
+      "successors": [
+        {
+          "ssoc2024": "83120",
+          "title": "Railway braker and related worker"
+        }
+      ]
+    },
+    {
+      "ssoc2020": "96111",
+      "title": "General waste collection, recycling and material recovery worker",
+      "successors": [
+        {
+          "ssoc2024": "96101",
+          "title": "General waste collection/recycling/material recovery worker"
+        }
+      ]
+    },
+    {
+      "ssoc2020": "96112",
+      "title": "Waste recycling sorter",
+      "successors": [
+        {
+          "ssoc2024": "96102",
+          "title": "Waste recycling sorter"
+        }
+      ]
+    },
+    {
+      "ssoc2020": "96113",
+      "title": "Greasy waste collection, recycling and material recovery worker",
+      "successors": [
+        {
+          "ssoc2024": "96109",
+          "title": "Waste collection/recycling/material recovery worker n.e.c."
+        }
+      ]
+    },
+    {
+      "ssoc2020": "96119",
+      "title": "Other waste collection, recycling and material recovery workers",
+      "successors": [
+        {
+          "ssoc2024": "96109",
+          "title": "Waste collection/recycling/material recovery worker n.e.c."
+        }
+      ]
+    }
+  ],
+  "ambiguous": [
+    {
+      "ssoc2020": "24220",
+      "title": "Policy administration professional (e.g. policy analyst)",
+      "successors": [
+        {
+          "ssoc2024": "24221",
+          "title": "Policy administration professional"
+        },
+        {
+          "ssoc2024": "24222",
+          "title": "Risk analyst (non-financial)"
+        }
+      ]
+    },
+    {
+      "ssoc2020": "26375",
+      "title": "Career coach (counselling)",
+      "successors": [
+        {
+          "ssoc2024": "24231",
+          "title": "Human resource consultant (excluding executive search consultant)"
+        },
+        {
+          "ssoc2024": "26634",
+          "title": "School counsellor"
+        },
+        {
+          "ssoc2024": "26640",
+          "title": "Job coach (disability)"
+        }
+      ]
+    },
+    {
+      "ssoc2020": "33121",
+      "title": "Financial markets back office administrator",
+      "successors": [
+        {
+          "ssoc2024": "33120",
+          "title": "Credit/Loans officer"
+        },
+        {
+          "ssoc2024": "33160",
+          "title": "Financial services back office administrator"
+        }
+      ]
+    },
+    {
+      "ssoc2020": "33129",
+      "title": "Other credit and loans officers",
+      "successors": [
+        {
+          "ssoc2024": "33120",
+          "title": "Credit/Loans officer"
+        },
+        {
+          "ssoc2024": "33160",
+          "title": "Financial services back office administrator"
+        }
+      ]
+    }
+  ]
+}

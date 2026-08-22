@@ -1,0 +1,2285 @@
+{
+  "schema_version": "9.0",
+  "generated_at": "2026-08-19",
+  "reviewed_at": "2026-08-19",
+  "date_fields": {
+    "published_at": "When an official source was released.",
+    "observation_period": "When the reported measurement applies.",
+    "reviewed_at": "When AI Work Index last checked the source for V9.",
+    "generated_at": "The deterministic V9 artifact date; it is not an observation date."
+  },
+  "taxonomy": "SSOC 2024",
+  "rules": {
+    "demand": "Only reviewed named occupation matches. No code-prefix or parent-group inheritance.",
+    "labour_context": "Q1 2026 context is attached only at MOM published broad occupation-group grain.",
+    "postings": "Convenience-sample postings are withheld from current-demand interpretation when stale.",
+    "headline_separation": "No market field changes AI Work Pressure Rank."
+  },
+  "demand_by_code": {
+    "12132": [
+      {
+        "source_key": "mom_jobs_in_demand_2025",
+        "label": "MOM Jobs in Demand 2025",
+        "published_at": "2025-12-30",
+        "effective_at": null,
+        "url": "https://stats.mom.gov.sg/Pages/Infographic-Jobs-in-Demand-2025.aspx",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Strategic planning manager",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Exact current SSOC title.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      }
+    ],
+    "12212": [
+      {
+        "source_key": "mom_jobs_in_demand_2025",
+        "label": "MOM Jobs in Demand 2025",
+        "published_at": "2025-12-30",
+        "effective_at": null,
+        "url": "https://stats.mom.gov.sg/Pages/Infographic-Jobs-in-Demand-2025.aspx",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Business development manager",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Exact current SSOC title; replaces the obsolete advertising-manager mapping.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      }
+    ],
+    "13302": [
+      {
+        "source_key": "mom_sol_2026",
+        "label": "MOM COMPASS Shortage Occupation List 2026",
+        "published_at": "2025-11",
+        "effective_at": "2026-01-01",
+        "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility/compass-c5-skills-bonus-shortage-occupation-list-sol",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Software and applications manager",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Exact current SSOC title.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      }
+    ],
+    "21222": [
+      {
+        "source_key": "mom_jobs_in_demand_2025",
+        "label": "MOM Jobs in Demand 2025",
+        "published_at": "2025-12-30",
+        "effective_at": null,
+        "url": "https://stats.mom.gov.sg/Pages/Infographic-Jobs-in-Demand-2025.aspx",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Data scientist",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Exact current SSOC title; replaces the obsolete network-administrator mapping.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      },
+      {
+        "source_key": "mom_sol_2026",
+        "label": "MOM COMPASS Shortage Occupation List 2026",
+        "published_at": "2025-11",
+        "effective_at": "2026-01-01",
+        "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility/compass-c5-skills-bonus-shortage-occupation-list-sol",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Data scientist",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Exact current SSOC title.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      }
+    ],
+    "21333": [
+      {
+        "source_key": "mom_sol_2026",
+        "label": "MOM COMPASS Shortage Occupation List 2026",
+        "published_at": "2025-11",
+        "effective_at": "2026-01-01",
+        "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility/compass-c5-skills-bonus-shortage-occupation-list-sol",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Carbon rating analyst",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Current environmental-analyst synonyms include Carbon rating analyst.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      },
+      {
+        "source_key": "mom_sol_2026",
+        "label": "MOM COMPASS Shortage Occupation List 2026",
+        "published_at": "2025-11",
+        "effective_at": "2026-01-01",
+        "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility/compass-c5-skills-bonus-shortage-occupation-list-sol",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Carbon auditor",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Current environmental-analyst synonyms include Carbon Auditor.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      },
+      {
+        "source_key": "mom_sol_2026",
+        "label": "MOM COMPASS Shortage Occupation List 2026",
+        "published_at": "2025-11",
+        "effective_at": "2026-01-01",
+        "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility/compass-c5-skills-bonus-shortage-occupation-list-sol",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Carbon verification & audit specialist",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Current environmental-analyst synonyms include this specialty.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      }
+    ],
+    "21415": [
+      {
+        "source_key": "mom_sol_2026",
+        "label": "MOM COMPASS Shortage Occupation List 2026",
+        "published_at": "2025-11",
+        "effective_at": "2026-01-01",
+        "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility/compass-c5-skills-bonus-shortage-occupation-list-sol",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Process engineer",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Exact current SSOC title.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      }
+    ],
+    "21454": [
+      {
+        "source_key": "mom_sol_2026",
+        "label": "MOM COMPASS Shortage Occupation List 2026",
+        "published_at": "2025-11",
+        "effective_at": "2026-01-01",
+        "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility/compass-c5-skills-bonus-shortage-occupation-list-sol",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Alternative protein food application scientist",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Current SSOC synonyms include Food Application Scientist.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      },
+      {
+        "source_key": "mom_sol_2026",
+        "label": "MOM COMPASS Shortage Occupation List 2026",
+        "published_at": "2025-11",
+        "effective_at": "2026-01-01",
+        "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility/compass-c5-skills-bonus-shortage-occupation-list-sol",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Novel food biotechnologist",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Current SSOC synonyms include Food Biotechnologist.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      }
+    ],
+    "21521": [
+      {
+        "source_key": "mom_sol_2026",
+        "label": "MOM COMPASS Shortage Occupation List 2026",
+        "published_at": "2025-11",
+        "effective_at": "2026-01-01",
+        "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility/compass-c5-skills-bonus-shortage-occupation-list-sol",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Semiconductor engineer",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Current electronics-engineer synonyms include semiconductor engineer.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      }
+    ],
+    "21525": [
+      {
+        "source_key": "mom_sol_2026",
+        "label": "MOM COMPASS Shortage Occupation List 2026",
+        "published_at": "2025-11",
+        "effective_at": "2026-01-01",
+        "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility/compass-c5-skills-bonus-shortage-occupation-list-sol",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Instrumentation engineer",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Exact current SSOC title.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      }
+    ],
+    "21712": [
+      {
+        "source_key": "mom_sol_2026",
+        "label": "MOM COMPASS Shortage Occupation List 2026",
+        "published_at": "2025-11",
+        "effective_at": "2026-01-01",
+        "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility/compass-c5-skills-bonus-shortage-occupation-list-sol",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Marine technical superintendent",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Current technical-superintendent occupation.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      }
+    ],
+    "21714": [
+      {
+        "source_key": "mom_sol_2026",
+        "label": "MOM COMPASS Shortage Occupation List 2026",
+        "published_at": "2025-11",
+        "effective_at": "2026-01-01",
+        "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility/compass-c5-skills-bonus-shortage-occupation-list-sol",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Marine superintendent",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Exact current SSOC title.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      }
+    ],
+    "22200": [
+      {
+        "source_key": "mom_jobs_in_demand_2025",
+        "label": "MOM Jobs in Demand 2025",
+        "published_at": "2025-12-30",
+        "effective_at": null,
+        "url": "https://stats.mom.gov.sg/Pages/Infographic-Jobs-in-Demand-2025.aspx",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Nurse",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Reviewed one-to-many match to current registered and enrolled/assistant nurse occupations.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      },
+      {
+        "source_key": "mom_sol_2026",
+        "label": "MOM COMPASS Shortage Occupation List 2026",
+        "published_at": "2025-11",
+        "effective_at": "2026-01-01",
+        "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility/compass-c5-skills-bonus-shortage-occupation-list-sol",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Registered nurse",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Exact current registered-nurse occupation.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      }
+    ],
+    "22640": [
+      {
+        "source_key": "mom_sol_2026",
+        "label": "MOM COMPASS Shortage Occupation List 2026",
+        "published_at": "2025-11",
+        "effective_at": "2026-01-01",
+        "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility/compass-c5-skills-bonus-shortage-occupation-list-sol",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Physiotherapist",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Exact current SSOC title.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      }
+    ],
+    "22680": [
+      {
+        "source_key": "mom_sol_2026",
+        "label": "MOM COMPASS Shortage Occupation List 2026",
+        "published_at": "2025-11",
+        "effective_at": "2026-01-01",
+        "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility/compass-c5-skills-bonus-shortage-occupation-list-sol",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Occupational therapist",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Exact current SSOC title.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      }
+    ],
+    "22692": [
+      {
+        "source_key": "mom_sol_2026",
+        "label": "MOM COMPASS Shortage Occupation List 2026",
+        "published_at": "2025-11",
+        "effective_at": "2026-01-01",
+        "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility/compass-c5-skills-bonus-shortage-occupation-list-sol",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Podiatrist",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Exact current SSOC title.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      }
+    ],
+    "22693": [
+      {
+        "source_key": "mom_sol_2026",
+        "label": "MOM COMPASS Shortage Occupation List 2026",
+        "published_at": "2025-11",
+        "effective_at": "2026-01-01",
+        "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility/compass-c5-skills-bonus-shortage-occupation-list-sol",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Diagnostic radiographer",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Exact current SSOC title.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      }
+    ],
+    "24112": [
+      {
+        "source_key": "mom_jobs_in_demand_2025",
+        "label": "MOM Jobs in Demand 2025",
+        "published_at": "2025-12-30",
+        "effective_at": null,
+        "url": "https://stats.mom.gov.sg/Pages/Infographic-Jobs-in-Demand-2025.aspx",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Auditor",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Exact current accounting-auditor occupation.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      }
+    ],
+    "24121": [
+      {
+        "source_key": "mom_jobs_in_demand_2025",
+        "label": "MOM Jobs in Demand 2025",
+        "published_at": "2025-12-30",
+        "effective_at": null,
+        "url": "https://stats.mom.gov.sg/Pages/Infographic-Jobs-in-Demand-2025.aspx",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Financial/investment adviser",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Exact current SSOC title.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      },
+      {
+        "source_key": "mom_sol_2026",
+        "label": "MOM COMPASS Shortage Occupation List 2026",
+        "published_at": "2025-11",
+        "effective_at": "2026-01-01",
+        "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility/compass-c5-skills-bonus-shortage-occupation-list-sol",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Financial/Investment adviser (ultra-high/high net worth)",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Exact current occupation and relationship-manager synonyms.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      },
+      {
+        "source_key": "mom_sol_2026",
+        "label": "MOM COMPASS Shortage Occupation List 2026",
+        "published_at": "2025-11",
+        "effective_at": "2026-01-01",
+        "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility/compass-c5-skills-bonus-shortage-occupation-list-sol",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Relationship manager (ultra-high/high net worth)",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Current occupation synonyms include financial relationship manager.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      },
+      {
+        "source_key": "mom_sol_2026",
+        "label": "MOM COMPASS Shortage Occupation List 2026",
+        "published_at": "2025-11",
+        "effective_at": "2026-01-01",
+        "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility/compass-c5-skills-bonus-shortage-occupation-list-sol",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Wealth planner (ultra-high/high net worth)",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Current financial/investment adviser occupation.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      }
+    ],
+    "24214": [
+      {
+        "source_key": "mom_sol_2026",
+        "label": "MOM COMPASS Shortage Occupation List 2026",
+        "published_at": "2025-11",
+        "effective_at": "2026-01-01",
+        "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility/compass-c5-skills-bonus-shortage-occupation-list-sol",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Carbon programme manager",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Current sustainability project-management occupation.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      },
+      {
+        "source_key": "mom_sol_2026",
+        "label": "MOM COMPASS Shortage Occupation List 2026",
+        "published_at": "2025-11",
+        "effective_at": "2026-01-01",
+        "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility/compass-c5-skills-bonus-shortage-occupation-list-sol",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Carbon project originator",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Current SSOC synonyms include Carbon project originator/developer.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      },
+      {
+        "source_key": "mom_sol_2026",
+        "label": "MOM COMPASS Shortage Occupation List 2026",
+        "published_at": "2025-11",
+        "effective_at": "2026-01-01",
+        "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility/compass-c5-skills-bonus-shortage-occupation-list-sol",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Carbon project manager",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Current SSOC synonyms include Carbon project manager.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      },
+      {
+        "source_key": "mom_sol_2026",
+        "label": "MOM COMPASS Shortage Occupation List 2026",
+        "published_at": "2025-11",
+        "effective_at": "2026-01-01",
+        "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility/compass-c5-skills-bonus-shortage-occupation-list-sol",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Carbon standards & methodology developer",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Current SSOC synonyms include Carbon standard and methodology developer.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      }
+    ],
+    "24354": [
+      {
+        "source_key": "mom_sol_2026",
+        "label": "MOM COMPASS Shortage Occupation List 2026",
+        "published_at": "2025-11",
+        "effective_at": "2026-01-01",
+        "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility/compass-c5-skills-bonus-shortage-occupation-list-sol",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Carbon trader",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Current environmental-commodities-trader synonyms include Carbon trader.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      }
+    ],
+    "25121": [
+      {
+        "source_key": "mom_jobs_in_demand_2025",
+        "label": "MOM Jobs in Demand 2025",
+        "published_at": "2025-12-30",
+        "effective_at": null,
+        "url": "https://stats.mom.gov.sg/Pages/Infographic-Jobs-in-Demand-2025.aspx",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Software developer",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Exact current SSOC title.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      },
+      {
+        "source_key": "mom_sol_2026",
+        "label": "MOM COMPASS Shortage Occupation List 2026",
+        "published_at": "2025-11",
+        "effective_at": "2026-01-01",
+        "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility/compass-c5-skills-bonus-shortage-occupation-list-sol",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Software developer",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Exact current SSOC title.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      }
+    ],
+    "25122": [
+      {
+        "source_key": "mom_sol_2026",
+        "label": "MOM COMPASS Shortage Occupation List 2026",
+        "published_at": "2025-11",
+        "effective_at": "2026-01-01",
+        "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility/compass-c5-skills-bonus-shortage-occupation-list-sol",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Web/mobile applications developer",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Current web and mobile applications developer occupation.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      }
+    ],
+    "25141": [
+      {
+        "source_key": "mom_sol_2026",
+        "label": "MOM COMPASS Shortage Occupation List 2026",
+        "published_at": "2025-11",
+        "effective_at": "2026-01-01",
+        "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility/compass-c5-skills-bonus-shortage-occupation-list-sol",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Analyst programmer",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Current SSOC synonyms include Analyst programmer.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      }
+    ],
+    "25142": [
+      {
+        "source_key": "mom_sol_2026",
+        "label": "MOM COMPASS Shortage Occupation List 2026",
+        "published_at": "2025-11",
+        "effective_at": "2026-01-01",
+        "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility/compass-c5-skills-bonus-shortage-occupation-list-sol",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "AI researcher/scientist",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "New SSOC 2024 artificial-intelligence applied researcher occupation.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      }
+    ],
+    "25143": [
+      {
+        "source_key": "mom_sol_2026",
+        "label": "MOM COMPASS Shortage Occupation List 2026",
+        "published_at": "2025-11",
+        "effective_at": "2026-01-01",
+        "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility/compass-c5-skills-bonus-shortage-occupation-list-sol",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "AI engineer",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "New SSOC 2024 AI/ML engineer occupation; exact synonym.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      }
+    ],
+    "25231": [
+      {
+        "source_key": "mom_sol_2026",
+        "label": "MOM COMPASS Shortage Occupation List 2026",
+        "published_at": "2025-11",
+        "effective_at": "2026-01-01",
+        "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility/compass-c5-skills-bonus-shortage-occupation-list-sol",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Cloud architect/engineer",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Current cloud-specialist occupation.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      }
+    ],
+    "25242": [
+      {
+        "source_key": "mom_sol_2026",
+        "label": "MOM COMPASS Shortage Occupation List 2026",
+        "published_at": "2025-11",
+        "effective_at": "2026-01-01",
+        "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility/compass-c5-skills-bonus-shortage-occupation-list-sol",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Penetration testing specialist",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Exact current SSOC title.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      }
+    ],
+    "25244": [
+      {
+        "source_key": "mom_sol_2026",
+        "label": "MOM COMPASS Shortage Occupation List 2026",
+        "published_at": "2025-11",
+        "effective_at": "2026-01-01",
+        "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility/compass-c5-skills-bonus-shortage-occupation-list-sol",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Digital forensics specialist",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Exact new SSOC 2024 title.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      }
+    ],
+    "25245": [
+      {
+        "source_key": "mom_sol_2026",
+        "label": "MOM COMPASS Shortage Occupation List 2026",
+        "published_at": "2025-11",
+        "effective_at": "2026-01-01",
+        "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility/compass-c5-skills-bonus-shortage-occupation-list-sol",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Cybersecurity architect/engineer",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Current SSOC synonyms include Cybersecurity engineer.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      }
+    ],
+    "26611": [
+      {
+        "source_key": "mom_sol_2026",
+        "label": "MOM COMPASS Shortage Occupation List 2026",
+        "published_at": "2025-11",
+        "effective_at": "2026-01-01",
+        "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility/compass-c5-skills-bonus-shortage-occupation-list-sol",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Clinical psychologist",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Exact current SSOC title.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      }
+    ],
+    "26622": [
+      {
+        "source_key": "mom_sol_2026",
+        "label": "MOM COMPASS Shortage Occupation List 2026",
+        "published_at": "2025-11",
+        "effective_at": "2026-01-01",
+        "url": "https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility/compass-c5-skills-bonus-shortage-occupation-list-sol",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Medical social worker",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Exact current SSOC title.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      }
+    ],
+    "32200": [
+      {
+        "source_key": "mom_jobs_in_demand_2025",
+        "label": "MOM Jobs in Demand 2025",
+        "published_at": "2025-12-30",
+        "effective_at": null,
+        "url": "https://stats.mom.gov.sg/Pages/Infographic-Jobs-in-Demand-2025.aspx",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Nurse",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Reviewed one-to-many match to current registered and enrolled/assistant nurse occupations.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      }
+    ],
+    "51312": [
+      {
+        "source_key": "mom_jobs_in_demand_2025",
+        "label": "MOM Jobs in Demand 2025",
+        "published_at": "2025-12-30",
+        "effective_at": null,
+        "url": "https://stats.mom.gov.sg/Pages/Infographic-Jobs-in-Demand-2025.aspx",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Waiter",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Exact current SSOC title.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      }
+    ],
+    "52202": [
+      {
+        "source_key": "mom_jobs_in_demand_2025",
+        "label": "MOM Jobs in Demand 2025",
+        "published_at": "2025-12-30",
+        "effective_at": null,
+        "url": "https://stats.mom.gov.sg/Pages/Infographic-Jobs-in-Demand-2025.aspx",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Shop sales assistant",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Exact current SSOC title.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      }
+    ],
+    "54143": [
+      {
+        "source_key": "mom_jobs_in_demand_2025",
+        "label": "MOM Jobs in Demand 2025",
+        "published_at": "2025-12-30",
+        "effective_at": null,
+        "url": "https://stats.mom.gov.sg/Pages/Infographic-Jobs-in-Demand-2025.aspx",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Security officer",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Current senior and general private-security officer occupations.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      }
+    ],
+    "54144": [
+      {
+        "source_key": "mom_jobs_in_demand_2025",
+        "label": "MOM Jobs in Demand 2025",
+        "published_at": "2025-12-30",
+        "effective_at": null,
+        "url": "https://stats.mom.gov.sg/Pages/Infographic-Jobs-in-Demand-2025.aspx",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Security officer",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Current senior and general private-security officer occupations.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      }
+    ],
+    "93100": [
+      {
+        "source_key": "mom_jobs_in_demand_2025",
+        "label": "MOM Jobs in Demand 2025",
+        "published_at": "2025-12-30",
+        "effective_at": null,
+        "url": "https://stats.mom.gov.sg/Pages/Infographic-Jobs-in-Demand-2025.aspx",
+        "reviewed_at": "2026-08-19",
+        "source_occupation": "Construction labourer",
+        "mapping_basis": "reviewed_against_ssoc_2024_title_and_synonyms",
+        "rationale": "Current detailed construction-labourer occupation.",
+        "interpretation": "Positive named signal from this source; the source is not an exhaustive ranking of all occupations."
+      }
+    ]
+  },
+  "withheld_demand_mappings": [
+    {
+      "source_key": "mom_jobs_in_demand_2025",
+      "source_occupation": "Driver",
+      "reason": "Withheld: the published label spans several materially different detailed driver occupations."
+    }
+  ],
+  "labour_by_major_group": {
+    "1": {
+      "cluster_key": "pmet",
+      "vacancy": {
+        "latest_rate": 3.4,
+        "latest_quarter": "2026 Q1",
+        "trend_4q_pct": -2.86,
+        "signal": 0,
+        "qoq_delta_pp": 0.3,
+        "latest_count": 43,
+        "count_trend_4q_pct": -5.08,
+        "count_signal": -1,
+        "count_qoq_delta": 3.4,
+        "recent_quarters": [
+          {
+            "quarter": "2023",
+            "rate": 4
+          },
+          {
+            "quarter": "2024",
+            "rate": 3.3
+          },
+          {
+            "quarter": "2024 Q4",
+            "rate": 3.2
+          },
+          {
+            "quarter": "2025 Q1",
+            "rate": 3.5
+          },
+          {
+            "quarter": "2025 Q3",
+            "rate": 3.1
+          },
+          {
+            "quarter": "2025 Q4",
+            "rate": 3.1
+          },
+          {
+            "quarter": "2026 Q1",
+            "rate": 3.4
+          }
+        ],
+        "recent_counts": [
+          {
+            "quarter": "2024 Q3",
+            "count": 35.4
+          },
+          {
+            "quarter": "2024 Q4",
+            "count": 41.4
+          },
+          {
+            "quarter": "2025 Q1",
+            "count": 45.3
+          },
+          {
+            "quarter": "2025 Q2",
+            "count": 43.1
+          },
+          {
+            "quarter": "2025 Q3",
+            "count": 38.2
+          },
+          {
+            "quarter": "2025 Q4",
+            "count": 39.6
+          },
+          {
+            "quarter": "2026 Q1",
+            "count": 43
+          }
+        ],
+        "units": {
+          "rate": "percent",
+          "rate_change": "percentage_points",
+          "count": "thousand_vacancies",
+          "count_change": "thousand_vacancies",
+          "trend": "percent"
+        }
+      },
+      "hiring": {
+        "recruitment_rate": 1.2,
+        "resignation_rate": 0.7,
+        "quarter": "2026 Q1",
+        "recruitment_delta_pp": -0.1,
+        "resignation_delta_pp": -0.1,
+        "net_pressure_delta_pp": 0,
+        "note": "Hiring and resignation both slowed in Q1; recruitment still exceeded resignation.",
+        "units": {
+          "rate": "percent",
+          "rate_change": "percentage_points"
+        }
+      },
+      "retrenchment": {
+        "latest_count": 3320,
+        "latest_quarter": "2026 Q1",
+        "trend_4q_pct": 21.61,
+        "signal": -1,
+        "trend_direction": "rising",
+        "qoq_delta_count": 170,
+        "incidence_per_1000": 2.6,
+        "recent_quarters": [
+          {
+            "quarter": "2024 Q4",
+            "count": 2960
+          },
+          {
+            "quarter": "2025 Q1",
+            "count": 2730
+          },
+          {
+            "quarter": "2025 Q2",
+            "count": 2880
+          },
+          {
+            "quarter": "2025 Q3",
+            "count": 3110
+          },
+          {
+            "quarter": "2025 Q4",
+            "count": 3150
+          },
+          {
+            "quarter": "2026 Q1",
+            "count": 3320
+          }
+        ],
+        "units": {
+          "count": "workers",
+          "count_change": "workers",
+          "incidence": "workers_per_1000_employees",
+          "trend": "percent"
+        }
+      },
+      "re_entry": {
+        "rate_6m": 59.6,
+        "rate_12m": 69.1,
+        "quarter": "2026 Q1",
+        "rate_6m_delta_pp": 3.2,
+        "rate_12m_delta_pp": 1.4,
+        "note": "PMET re-entry improved at both the 6-month and 12-month marks.",
+        "units": {
+          "rate": "percent",
+          "rate_change": "percentage_points"
+        }
+      },
+      "summary": "PMET vacancies increased from Q4 and remained below their year-ago level. Hiring stayed net positive but slowed, while retrenchment incidence remained the highest of the three broad occupation groups.",
+      "data_as_of": "2026 Q1",
+      "source": "Labour Market Report Q1 2026, MRSD, MOM"
+    },
+    "2": {
+      "cluster_key": "pmet",
+      "vacancy": {
+        "latest_rate": 3.4,
+        "latest_quarter": "2026 Q1",
+        "trend_4q_pct": -2.86,
+        "signal": 0,
+        "qoq_delta_pp": 0.3,
+        "latest_count": 43,
+        "count_trend_4q_pct": -5.08,
+        "count_signal": -1,
+        "count_qoq_delta": 3.4,
+        "recent_quarters": [
+          {
+            "quarter": "2023",
+            "rate": 4
+          },
+          {
+            "quarter": "2024",
+            "rate": 3.3
+          },
+          {
+            "quarter": "2024 Q4",
+            "rate": 3.2
+          },
+          {
+            "quarter": "2025 Q1",
+            "rate": 3.5
+          },
+          {
+            "quarter": "2025 Q3",
+            "rate": 3.1
+          },
+          {
+            "quarter": "2025 Q4",
+            "rate": 3.1
+          },
+          {
+            "quarter": "2026 Q1",
+            "rate": 3.4
+          }
+        ],
+        "recent_counts": [
+          {
+            "quarter": "2024 Q3",
+            "count": 35.4
+          },
+          {
+            "quarter": "2024 Q4",
+            "count": 41.4
+          },
+          {
+            "quarter": "2025 Q1",
+            "count": 45.3
+          },
+          {
+            "quarter": "2025 Q2",
+            "count": 43.1
+          },
+          {
+            "quarter": "2025 Q3",
+            "count": 38.2
+          },
+          {
+            "quarter": "2025 Q4",
+            "count": 39.6
+          },
+          {
+            "quarter": "2026 Q1",
+            "count": 43
+          }
+        ],
+        "units": {
+          "rate": "percent",
+          "rate_change": "percentage_points",
+          "count": "thousand_vacancies",
+          "count_change": "thousand_vacancies",
+          "trend": "percent"
+        }
+      },
+      "hiring": {
+        "recruitment_rate": 1.2,
+        "resignation_rate": 0.7,
+        "quarter": "2026 Q1",
+        "recruitment_delta_pp": -0.1,
+        "resignation_delta_pp": -0.1,
+        "net_pressure_delta_pp": 0,
+        "note": "Hiring and resignation both slowed in Q1; recruitment still exceeded resignation.",
+        "units": {
+          "rate": "percent",
+          "rate_change": "percentage_points"
+        }
+      },
+      "retrenchment": {
+        "latest_count": 3320,
+        "latest_quarter": "2026 Q1",
+        "trend_4q_pct": 21.61,
+        "signal": -1,
+        "trend_direction": "rising",
+        "qoq_delta_count": 170,
+        "incidence_per_1000": 2.6,
+        "recent_quarters": [
+          {
+            "quarter": "2024 Q4",
+            "count": 2960
+          },
+          {
+            "quarter": "2025 Q1",
+            "count": 2730
+          },
+          {
+            "quarter": "2025 Q2",
+            "count": 2880
+          },
+          {
+            "quarter": "2025 Q3",
+            "count": 3110
+          },
+          {
+            "quarter": "2025 Q4",
+            "count": 3150
+          },
+          {
+            "quarter": "2026 Q1",
+            "count": 3320
+          }
+        ],
+        "units": {
+          "count": "workers",
+          "count_change": "workers",
+          "incidence": "workers_per_1000_employees",
+          "trend": "percent"
+        }
+      },
+      "re_entry": {
+        "rate_6m": 59.6,
+        "rate_12m": 69.1,
+        "quarter": "2026 Q1",
+        "rate_6m_delta_pp": 3.2,
+        "rate_12m_delta_pp": 1.4,
+        "note": "PMET re-entry improved at both the 6-month and 12-month marks.",
+        "units": {
+          "rate": "percent",
+          "rate_change": "percentage_points"
+        }
+      },
+      "summary": "PMET vacancies increased from Q4 and remained below their year-ago level. Hiring stayed net positive but slowed, while retrenchment incidence remained the highest of the three broad occupation groups.",
+      "data_as_of": "2026 Q1",
+      "source": "Labour Market Report Q1 2026, MRSD, MOM"
+    },
+    "3": {
+      "cluster_key": "pmet",
+      "vacancy": {
+        "latest_rate": 3.4,
+        "latest_quarter": "2026 Q1",
+        "trend_4q_pct": -2.86,
+        "signal": 0,
+        "qoq_delta_pp": 0.3,
+        "latest_count": 43,
+        "count_trend_4q_pct": -5.08,
+        "count_signal": -1,
+        "count_qoq_delta": 3.4,
+        "recent_quarters": [
+          {
+            "quarter": "2023",
+            "rate": 4
+          },
+          {
+            "quarter": "2024",
+            "rate": 3.3
+          },
+          {
+            "quarter": "2024 Q4",
+            "rate": 3.2
+          },
+          {
+            "quarter": "2025 Q1",
+            "rate": 3.5
+          },
+          {
+            "quarter": "2025 Q3",
+            "rate": 3.1
+          },
+          {
+            "quarter": "2025 Q4",
+            "rate": 3.1
+          },
+          {
+            "quarter": "2026 Q1",
+            "rate": 3.4
+          }
+        ],
+        "recent_counts": [
+          {
+            "quarter": "2024 Q3",
+            "count": 35.4
+          },
+          {
+            "quarter": "2024 Q4",
+            "count": 41.4
+          },
+          {
+            "quarter": "2025 Q1",
+            "count": 45.3
+          },
+          {
+            "quarter": "2025 Q2",
+            "count": 43.1
+          },
+          {
+            "quarter": "2025 Q3",
+            "count": 38.2
+          },
+          {
+            "quarter": "2025 Q4",
+            "count": 39.6
+          },
+          {
+            "quarter": "2026 Q1",
+            "count": 43
+          }
+        ],
+        "units": {
+          "rate": "percent",
+          "rate_change": "percentage_points",
+          "count": "thousand_vacancies",
+          "count_change": "thousand_vacancies",
+          "trend": "percent"
+        }
+      },
+      "hiring": {
+        "recruitment_rate": 1.2,
+        "resignation_rate": 0.7,
+        "quarter": "2026 Q1",
+        "recruitment_delta_pp": -0.1,
+        "resignation_delta_pp": -0.1,
+        "net_pressure_delta_pp": 0,
+        "note": "Hiring and resignation both slowed in Q1; recruitment still exceeded resignation.",
+        "units": {
+          "rate": "percent",
+          "rate_change": "percentage_points"
+        }
+      },
+      "retrenchment": {
+        "latest_count": 3320,
+        "latest_quarter": "2026 Q1",
+        "trend_4q_pct": 21.61,
+        "signal": -1,
+        "trend_direction": "rising",
+        "qoq_delta_count": 170,
+        "incidence_per_1000": 2.6,
+        "recent_quarters": [
+          {
+            "quarter": "2024 Q4",
+            "count": 2960
+          },
+          {
+            "quarter": "2025 Q1",
+            "count": 2730
+          },
+          {
+            "quarter": "2025 Q2",
+            "count": 2880
+          },
+          {
+            "quarter": "2025 Q3",
+            "count": 3110
+          },
+          {
+            "quarter": "2025 Q4",
+            "count": 3150
+          },
+          {
+            "quarter": "2026 Q1",
+            "count": 3320
+          }
+        ],
+        "units": {
+          "count": "workers",
+          "count_change": "workers",
+          "incidence": "workers_per_1000_employees",
+          "trend": "percent"
+        }
+      },
+      "re_entry": {
+        "rate_6m": 59.6,
+        "rate_12m": 69.1,
+        "quarter": "2026 Q1",
+        "rate_6m_delta_pp": 3.2,
+        "rate_12m_delta_pp": 1.4,
+        "note": "PMET re-entry improved at both the 6-month and 12-month marks.",
+        "units": {
+          "rate": "percent",
+          "rate_change": "percentage_points"
+        }
+      },
+      "summary": "PMET vacancies increased from Q4 and remained below their year-ago level. Hiring stayed net positive but slowed, while retrenchment incidence remained the highest of the three broad occupation groups.",
+      "data_as_of": "2026 Q1",
+      "source": "Labour Market Report Q1 2026, MRSD, MOM"
+    },
+    "4": {
+      "cluster_key": "clerical_sales_service",
+      "vacancy": {
+        "latest_rate": 3.2,
+        "latest_quarter": "2026 Q1",
+        "trend_4q_pct": -20,
+        "signal": -1,
+        "qoq_delta_pp": 0.1,
+        "latest_count": 14.9,
+        "count_trend_4q_pct": -20.32,
+        "count_signal": -1,
+        "count_qoq_delta": 0.6,
+        "recent_quarters": [
+          {
+            "quarter": "2023",
+            "rate": 4.7
+          },
+          {
+            "quarter": "2024",
+            "rate": 3.9
+          },
+          {
+            "quarter": "2024 Q4",
+            "rate": 3.5
+          },
+          {
+            "quarter": "2025 Q1",
+            "rate": 4
+          },
+          {
+            "quarter": "2025 Q3",
+            "rate": 3.3
+          },
+          {
+            "quarter": "2025 Q4",
+            "rate": 3.1
+          },
+          {
+            "quarter": "2026 Q1",
+            "rate": 3.2
+          }
+        ],
+        "recent_counts": [
+          {
+            "quarter": "2024 Q3",
+            "count": 14.8
+          },
+          {
+            "quarter": "2024 Q4",
+            "count": 16.4
+          },
+          {
+            "quarter": "2025 Q1",
+            "count": 18.7
+          },
+          {
+            "quarter": "2025 Q2",
+            "count": 16.7
+          },
+          {
+            "quarter": "2025 Q3",
+            "count": 14.9
+          },
+          {
+            "quarter": "2025 Q4",
+            "count": 14.3
+          },
+          {
+            "quarter": "2026 Q1",
+            "count": 14.9
+          }
+        ],
+        "units": {
+          "rate": "percent",
+          "rate_change": "percentage_points",
+          "count": "thousand_vacancies",
+          "count_change": "thousand_vacancies",
+          "trend": "percent"
+        }
+      },
+      "hiring": {
+        "recruitment_rate": 2.1,
+        "resignation_rate": 1.4,
+        "quarter": "2026 Q1",
+        "recruitment_delta_pp": -0.5,
+        "resignation_delta_pp": -0.5,
+        "net_pressure_delta_pp": 0,
+        "note": "Turnover slowed markedly, though recruitment continued to exceed resignation.",
+        "units": {
+          "rate": "percent",
+          "rate_change": "percentage_points"
+        }
+      },
+      "retrenchment": {
+        "latest_count": 320,
+        "latest_quarter": "2026 Q1",
+        "trend_4q_pct": 33.33,
+        "signal": -1,
+        "trend_direction": "rising",
+        "qoq_delta_count": 50,
+        "incidence_per_1000": 0.7,
+        "recent_quarters": [
+          {
+            "quarter": "2024 Q4",
+            "count": 250
+          },
+          {
+            "quarter": "2025 Q1",
+            "count": 240
+          },
+          {
+            "quarter": "2025 Q2",
+            "count": 280
+          },
+          {
+            "quarter": "2025 Q3",
+            "count": 410
+          },
+          {
+            "quarter": "2025 Q4",
+            "count": 270
+          },
+          {
+            "quarter": "2026 Q1",
+            "count": 320
+          }
+        ],
+        "units": {
+          "count": "workers",
+          "count_change": "workers",
+          "incidence": "workers_per_1000_employees",
+          "trend": "percent"
+        }
+      },
+      "re_entry": {
+        "rate_6m": 72.7,
+        "rate_12m": 68,
+        "quarter": "2026 Q1",
+        "rate_6m_delta_pp": 7.7,
+        "rate_12m_delta_pp": -10.5,
+        "note": "Six-month re-entry improved strongly, while the separate 12-month cohort recorded a lower rate.",
+        "units": {
+          "rate": "percent",
+          "rate_change": "percentage_points"
+        }
+      },
+      "summary": "Clerical, sales and service vacancies recovered slightly from Q4 but remained well below a year earlier. Hiring turnover slowed, retrenchment incidence stayed low, and six-month re-entry improved.",
+      "data_as_of": "2026 Q1",
+      "source": "Labour Market Report Q1 2026, MRSD, MOM"
+    },
+    "5": {
+      "cluster_key": "clerical_sales_service",
+      "vacancy": {
+        "latest_rate": 3.2,
+        "latest_quarter": "2026 Q1",
+        "trend_4q_pct": -20,
+        "signal": -1,
+        "qoq_delta_pp": 0.1,
+        "latest_count": 14.9,
+        "count_trend_4q_pct": -20.32,
+        "count_signal": -1,
+        "count_qoq_delta": 0.6,
+        "recent_quarters": [
+          {
+            "quarter": "2023",
+            "rate": 4.7
+          },
+          {
+            "quarter": "2024",
+            "rate": 3.9
+          },
+          {
+            "quarter": "2024 Q4",
+            "rate": 3.5
+          },
+          {
+            "quarter": "2025 Q1",
+            "rate": 4
+          },
+          {
+            "quarter": "2025 Q3",
+            "rate": 3.3
+          },
+          {
+            "quarter": "2025 Q4",
+            "rate": 3.1
+          },
+          {
+            "quarter": "2026 Q1",
+            "rate": 3.2
+          }
+        ],
+        "recent_counts": [
+          {
+            "quarter": "2024 Q3",
+            "count": 14.8
+          },
+          {
+            "quarter": "2024 Q4",
+            "count": 16.4
+          },
+          {
+            "quarter": "2025 Q1",
+            "count": 18.7
+          },
+          {
+            "quarter": "2025 Q2",
+            "count": 16.7
+          },
+          {
+            "quarter": "2025 Q3",
+            "count": 14.9
+          },
+          {
+            "quarter": "2025 Q4",
+            "count": 14.3
+          },
+          {
+            "quarter": "2026 Q1",
+            "count": 14.9
+          }
+        ],
+        "units": {
+          "rate": "percent",
+          "rate_change": "percentage_points",
+          "count": "thousand_vacancies",
+          "count_change": "thousand_vacancies",
+          "trend": "percent"
+        }
+      },
+      "hiring": {
+        "recruitment_rate": 2.1,
+        "resignation_rate": 1.4,
+        "quarter": "2026 Q1",
+        "recruitment_delta_pp": -0.5,
+        "resignation_delta_pp": -0.5,
+        "net_pressure_delta_pp": 0,
+        "note": "Turnover slowed markedly, though recruitment continued to exceed resignation.",
+        "units": {
+          "rate": "percent",
+          "rate_change": "percentage_points"
+        }
+      },
+      "retrenchment": {
+        "latest_count": 320,
+        "latest_quarter": "2026 Q1",
+        "trend_4q_pct": 33.33,
+        "signal": -1,
+        "trend_direction": "rising",
+        "qoq_delta_count": 50,
+        "incidence_per_1000": 0.7,
+        "recent_quarters": [
+          {
+            "quarter": "2024 Q4",
+            "count": 250
+          },
+          {
+            "quarter": "2025 Q1",
+            "count": 240
+          },
+          {
+            "quarter": "2025 Q2",
+            "count": 280
+          },
+          {
+            "quarter": "2025 Q3",
+            "count": 410
+          },
+          {
+            "quarter": "2025 Q4",
+            "count": 270
+          },
+          {
+            "quarter": "2026 Q1",
+            "count": 320
+          }
+        ],
+        "units": {
+          "count": "workers",
+          "count_change": "workers",
+          "incidence": "workers_per_1000_employees",
+          "trend": "percent"
+        }
+      },
+      "re_entry": {
+        "rate_6m": 72.7,
+        "rate_12m": 68,
+        "quarter": "2026 Q1",
+        "rate_6m_delta_pp": 7.7,
+        "rate_12m_delta_pp": -10.5,
+        "note": "Six-month re-entry improved strongly, while the separate 12-month cohort recorded a lower rate.",
+        "units": {
+          "rate": "percent",
+          "rate_change": "percentage_points"
+        }
+      },
+      "summary": "Clerical, sales and service vacancies recovered slightly from Q4 but remained well below a year earlier. Hiring turnover slowed, retrenchment incidence stayed low, and six-month re-entry improved.",
+      "data_as_of": "2026 Q1",
+      "source": "Labour Market Report Q1 2026, MRSD, MOM"
+    },
+    "6": {
+      "cluster_key": "production_transport",
+      "vacancy": {
+        "latest_rate": 2.3,
+        "latest_quarter": "2026 Q1",
+        "trend_4q_pct": -4.17,
+        "signal": 0,
+        "qoq_delta_pp": -0.5,
+        "latest_count": 17.2,
+        "count_trend_4q_pct": -6.01,
+        "count_signal": -1,
+        "count_qoq_delta": -4.5,
+        "recent_quarters": [
+          {
+            "quarter": "2023",
+            "rate": 2.7
+          },
+          {
+            "quarter": "2024",
+            "rate": 2.3
+          },
+          {
+            "quarter": "2024 Q4",
+            "rate": 2.4
+          },
+          {
+            "quarter": "2025 Q1",
+            "rate": 2.4
+          },
+          {
+            "quarter": "2025 Q3",
+            "rate": 2
+          },
+          {
+            "quarter": "2025 Q4",
+            "rate": 2.8
+          },
+          {
+            "quarter": "2026 Q1",
+            "rate": 2.3
+          }
+        ],
+        "recent_counts": [
+          {
+            "quarter": "2024 Q3",
+            "count": 11.2
+          },
+          {
+            "quarter": "2024 Q4",
+            "count": 18
+          },
+          {
+            "quarter": "2025 Q1",
+            "count": 18.3
+          },
+          {
+            "quarter": "2025 Q2",
+            "count": 18.2
+          },
+          {
+            "quarter": "2025 Q3",
+            "count": 14.8
+          },
+          {
+            "quarter": "2025 Q4",
+            "count": 21.7
+          },
+          {
+            "quarter": "2026 Q1",
+            "count": 17.2
+          }
+        ],
+        "units": {
+          "rate": "percent",
+          "rate_change": "percentage_points",
+          "count": "thousand_vacancies",
+          "count_change": "thousand_vacancies",
+          "trend": "percent"
+        }
+      },
+      "hiring": {
+        "recruitment_rate": 1.7,
+        "resignation_rate": 1.2,
+        "quarter": "2026 Q1",
+        "recruitment_delta_pp": -0.1,
+        "resignation_delta_pp": -0.2,
+        "net_pressure_delta_pp": 0.1,
+        "note": "Recruitment and resignation both slowed; the net hiring balance improved slightly.",
+        "units": {
+          "rate": "percent",
+          "rate_change": "percentage_points"
+        }
+      },
+      "retrenchment": {
+        "latest_count": 200,
+        "latest_quarter": "2026 Q1",
+        "trend_4q_pct": -68.25,
+        "signal": 1,
+        "trend_direction": "falling",
+        "qoq_delta_count": -80,
+        "incidence_per_1000": 0.3,
+        "recent_quarters": [
+          {
+            "quarter": "2024 Q4",
+            "count": 470
+          },
+          {
+            "quarter": "2025 Q1",
+            "count": 630
+          },
+          {
+            "quarter": "2025 Q2",
+            "count": 380
+          },
+          {
+            "quarter": "2025 Q3",
+            "count": 150
+          },
+          {
+            "quarter": "2025 Q4",
+            "count": 280
+          },
+          {
+            "quarter": "2026 Q1",
+            "count": 200
+          }
+        ],
+        "units": {
+          "count": "workers",
+          "count_change": "workers",
+          "incidence": "workers_per_1000_employees",
+          "trend": "percent"
+        }
+      },
+      "re_entry": {
+        "rate_6m": 72.5,
+        "rate_12m": 76.9,
+        "quarter": "2026 Q1",
+        "rate_6m_delta_pp": 7.7,
+        "rate_12m_delta_pp": -1.2,
+        "note": "Six-month re-entry recovered strongly; the separate 12-month cohort remained comparatively high.",
+        "units": {
+          "rate": "percent",
+          "rate_change": "percentage_points"
+        }
+      },
+      "summary": "Production and transport vacancies fell back from the Q4 spike and were slightly below a year earlier. Hiring remained net positive, retrenchments declined, and six-month re-entry improved.",
+      "data_as_of": "2026 Q1",
+      "source": "Labour Market Report Q1 2026, MRSD, MOM"
+    },
+    "7": {
+      "cluster_key": "production_transport",
+      "vacancy": {
+        "latest_rate": 2.3,
+        "latest_quarter": "2026 Q1",
+        "trend_4q_pct": -4.17,
+        "signal": 0,
+        "qoq_delta_pp": -0.5,
+        "latest_count": 17.2,
+        "count_trend_4q_pct": -6.01,
+        "count_signal": -1,
+        "count_qoq_delta": -4.5,
+        "recent_quarters": [
+          {
+            "quarter": "2023",
+            "rate": 2.7
+          },
+          {
+            "quarter": "2024",
+            "rate": 2.3
+          },
+          {
+            "quarter": "2024 Q4",
+            "rate": 2.4
+          },
+          {
+            "quarter": "2025 Q1",
+            "rate": 2.4
+          },
+          {
+            "quarter": "2025 Q3",
+            "rate": 2
+          },
+          {
+            "quarter": "2025 Q4",
+            "rate": 2.8
+          },
+          {
+            "quarter": "2026 Q1",
+            "rate": 2.3
+          }
+        ],
+        "recent_counts": [
+          {
+            "quarter": "2024 Q3",
+            "count": 11.2
+          },
+          {
+            "quarter": "2024 Q4",
+            "count": 18
+          },
+          {
+            "quarter": "2025 Q1",
+            "count": 18.3
+          },
+          {
+            "quarter": "2025 Q2",
+            "count": 18.2
+          },
+          {
+            "quarter": "2025 Q3",
+            "count": 14.8
+          },
+          {
+            "quarter": "2025 Q4",
+            "count": 21.7
+          },
+          {
+            "quarter": "2026 Q1",
+            "count": 17.2
+          }
+        ],
+        "units": {
+          "rate": "percent",
+          "rate_change": "percentage_points",
+          "count": "thousand_vacancies",
+          "count_change": "thousand_vacancies",
+          "trend": "percent"
+        }
+      },
+      "hiring": {
+        "recruitment_rate": 1.7,
+        "resignation_rate": 1.2,
+        "quarter": "2026 Q1",
+        "recruitment_delta_pp": -0.1,
+        "resignation_delta_pp": -0.2,
+        "net_pressure_delta_pp": 0.1,
+        "note": "Recruitment and resignation both slowed; the net hiring balance improved slightly.",
+        "units": {
+          "rate": "percent",
+          "rate_change": "percentage_points"
+        }
+      },
+      "retrenchment": {
+        "latest_count": 200,
+        "latest_quarter": "2026 Q1",
+        "trend_4q_pct": -68.25,
+        "signal": 1,
+        "trend_direction": "falling",
+        "qoq_delta_count": -80,
+        "incidence_per_1000": 0.3,
+        "recent_quarters": [
+          {
+            "quarter": "2024 Q4",
+            "count": 470
+          },
+          {
+            "quarter": "2025 Q1",
+            "count": 630
+          },
+          {
+            "quarter": "2025 Q2",
+            "count": 380
+          },
+          {
+            "quarter": "2025 Q3",
+            "count": 150
+          },
+          {
+            "quarter": "2025 Q4",
+            "count": 280
+          },
+          {
+            "quarter": "2026 Q1",
+            "count": 200
+          }
+        ],
+        "units": {
+          "count": "workers",
+          "count_change": "workers",
+          "incidence": "workers_per_1000_employees",
+          "trend": "percent"
+        }
+      },
+      "re_entry": {
+        "rate_6m": 72.5,
+        "rate_12m": 76.9,
+        "quarter": "2026 Q1",
+        "rate_6m_delta_pp": 7.7,
+        "rate_12m_delta_pp": -1.2,
+        "note": "Six-month re-entry recovered strongly; the separate 12-month cohort remained comparatively high.",
+        "units": {
+          "rate": "percent",
+          "rate_change": "percentage_points"
+        }
+      },
+      "summary": "Production and transport vacancies fell back from the Q4 spike and were slightly below a year earlier. Hiring remained net positive, retrenchments declined, and six-month re-entry improved.",
+      "data_as_of": "2026 Q1",
+      "source": "Labour Market Report Q1 2026, MRSD, MOM"
+    },
+    "8": {
+      "cluster_key": "production_transport",
+      "vacancy": {
+        "latest_rate": 2.3,
+        "latest_quarter": "2026 Q1",
+        "trend_4q_pct": -4.17,
+        "signal": 0,
+        "qoq_delta_pp": -0.5,
+        "latest_count": 17.2,
+        "count_trend_4q_pct": -6.01,
+        "count_signal": -1,
+        "count_qoq_delta": -4.5,
+        "recent_quarters": [
+          {
+            "quarter": "2023",
+            "rate": 2.7
+          },
+          {
+            "quarter": "2024",
+            "rate": 2.3
+          },
+          {
+            "quarter": "2024 Q4",
+            "rate": 2.4
+          },
+          {
+            "quarter": "2025 Q1",
+            "rate": 2.4
+          },
+          {
+            "quarter": "2025 Q3",
+            "rate": 2
+          },
+          {
+            "quarter": "2025 Q4",
+            "rate": 2.8
+          },
+          {
+            "quarter": "2026 Q1",
+            "rate": 2.3
+          }
+        ],
+        "recent_counts": [
+          {
+            "quarter": "2024 Q3",
+            "count": 11.2
+          },
+          {
+            "quarter": "2024 Q4",
+            "count": 18
+          },
+          {
+            "quarter": "2025 Q1",
+            "count": 18.3
+          },
+          {
+            "quarter": "2025 Q2",
+            "count": 18.2
+          },
+          {
+            "quarter": "2025 Q3",
+            "count": 14.8
+          },
+          {
+            "quarter": "2025 Q4",
+            "count": 21.7
+          },
+          {
+            "quarter": "2026 Q1",
+            "count": 17.2
+          }
+        ],
+        "units": {
+          "rate": "percent",
+          "rate_change": "percentage_points",
+          "count": "thousand_vacancies",
+          "count_change": "thousand_vacancies",
+          "trend": "percent"
+        }
+      },
+      "hiring": {
+        "recruitment_rate": 1.7,
+        "resignation_rate": 1.2,
+        "quarter": "2026 Q1",
+        "recruitment_delta_pp": -0.1,
+        "resignation_delta_pp": -0.2,
+        "net_pressure_delta_pp": 0.1,
+        "note": "Recruitment and resignation both slowed; the net hiring balance improved slightly.",
+        "units": {
+          "rate": "percent",
+          "rate_change": "percentage_points"
+        }
+      },
+      "retrenchment": {
+        "latest_count": 200,
+        "latest_quarter": "2026 Q1",
+        "trend_4q_pct": -68.25,
+        "signal": 1,
+        "trend_direction": "falling",
+        "qoq_delta_count": -80,
+        "incidence_per_1000": 0.3,
+        "recent_quarters": [
+          {
+            "quarter": "2024 Q4",
+            "count": 470
+          },
+          {
+            "quarter": "2025 Q1",
+            "count": 630
+          },
+          {
+            "quarter": "2025 Q2",
+            "count": 380
+          },
+          {
+            "quarter": "2025 Q3",
+            "count": 150
+          },
+          {
+            "quarter": "2025 Q4",
+            "count": 280
+          },
+          {
+            "quarter": "2026 Q1",
+            "count": 200
+          }
+        ],
+        "units": {
+          "count": "workers",
+          "count_change": "workers",
+          "incidence": "workers_per_1000_employees",
+          "trend": "percent"
+        }
+      },
+      "re_entry": {
+        "rate_6m": 72.5,
+        "rate_12m": 76.9,
+        "quarter": "2026 Q1",
+        "rate_6m_delta_pp": 7.7,
+        "rate_12m_delta_pp": -1.2,
+        "note": "Six-month re-entry recovered strongly; the separate 12-month cohort remained comparatively high.",
+        "units": {
+          "rate": "percent",
+          "rate_change": "percentage_points"
+        }
+      },
+      "summary": "Production and transport vacancies fell back from the Q4 spike and were slightly below a year earlier. Hiring remained net positive, retrenchments declined, and six-month re-entry improved.",
+      "data_as_of": "2026 Q1",
+      "source": "Labour Market Report Q1 2026, MRSD, MOM"
+    },
+    "9": {
+      "cluster_key": "production_transport",
+      "vacancy": {
+        "latest_rate": 2.3,
+        "latest_quarter": "2026 Q1",
+        "trend_4q_pct": -4.17,
+        "signal": 0,
+        "qoq_delta_pp": -0.5,
+        "latest_count": 17.2,
+        "count_trend_4q_pct": -6.01,
+        "count_signal": -1,
+        "count_qoq_delta": -4.5,
+        "recent_quarters": [
+          {
+            "quarter": "2023",
+            "rate": 2.7
+          },
+          {
+            "quarter": "2024",
+            "rate": 2.3
+          },
+          {
+            "quarter": "2024 Q4",
+            "rate": 2.4
+          },
+          {
+            "quarter": "2025 Q1",
+            "rate": 2.4
+          },
+          {
+            "quarter": "2025 Q3",
+            "rate": 2
+          },
+          {
+            "quarter": "2025 Q4",
+            "rate": 2.8
+          },
+          {
+            "quarter": "2026 Q1",
+            "rate": 2.3
+          }
+        ],
+        "recent_counts": [
+          {
+            "quarter": "2024 Q3",
+            "count": 11.2
+          },
+          {
+            "quarter": "2024 Q4",
+            "count": 18
+          },
+          {
+            "quarter": "2025 Q1",
+            "count": 18.3
+          },
+          {
+            "quarter": "2025 Q2",
+            "count": 18.2
+          },
+          {
+            "quarter": "2025 Q3",
+            "count": 14.8
+          },
+          {
+            "quarter": "2025 Q4",
+            "count": 21.7
+          },
+          {
+            "quarter": "2026 Q1",
+            "count": 17.2
+          }
+        ],
+        "units": {
+          "rate": "percent",
+          "rate_change": "percentage_points",
+          "count": "thousand_vacancies",
+          "count_change": "thousand_vacancies",
+          "trend": "percent"
+        }
+      },
+      "hiring": {
+        "recruitment_rate": 1.7,
+        "resignation_rate": 1.2,
+        "quarter": "2026 Q1",
+        "recruitment_delta_pp": -0.1,
+        "resignation_delta_pp": -0.2,
+        "net_pressure_delta_pp": 0.1,
+        "note": "Recruitment and resignation both slowed; the net hiring balance improved slightly.",
+        "units": {
+          "rate": "percent",
+          "rate_change": "percentage_points"
+        }
+      },
+      "retrenchment": {
+        "latest_count": 200,
+        "latest_quarter": "2026 Q1",
+        "trend_4q_pct": -68.25,
+        "signal": 1,
+        "trend_direction": "falling",
+        "qoq_delta_count": -80,
+        "incidence_per_1000": 0.3,
+        "recent_quarters": [
+          {
+            "quarter": "2024 Q4",
+            "count": 470
+          },
+          {
+            "quarter": "2025 Q1",
+            "count": 630
+          },
+          {
+            "quarter": "2025 Q2",
+            "count": 380
+          },
+          {
+            "quarter": "2025 Q3",
+            "count": 150
+          },
+          {
+            "quarter": "2025 Q4",
+            "count": 280
+          },
+          {
+            "quarter": "2026 Q1",
+            "count": 200
+          }
+        ],
+        "units": {
+          "count": "workers",
+          "count_change": "workers",
+          "incidence": "workers_per_1000_employees",
+          "trend": "percent"
+        }
+      },
+      "re_entry": {
+        "rate_6m": 72.5,
+        "rate_12m": 76.9,
+        "quarter": "2026 Q1",
+        "rate_6m_delta_pp": 7.7,
+        "rate_12m_delta_pp": -1.2,
+        "note": "Six-month re-entry recovered strongly; the separate 12-month cohort remained comparatively high.",
+        "units": {
+          "rate": "percent",
+          "rate_change": "percentage_points"
+        }
+      },
+      "summary": "Production and transport vacancies fell back from the Q4 spike and were slightly below a year earlier. Hiring remained net positive, retrenchments declined, and six-month re-entry improved.",
+      "data_as_of": "2026 Q1",
+      "source": "Labour Market Report Q1 2026, MRSD, MOM"
+    }
+  },
+  "national": {
+    "job_vacancies_2025": {
+      "source": {
+        "title": "Job Vacancies 2025",
+        "publisher": "Singapore Ministry of Manpower",
+        "url": "https://stats.mom.gov.sg/Pages/Job-Vacancies-2025.aspx",
+        "report_file": "data/raw/mom-job-vacancies-2025.pdf",
+        "vintage": "December 2025"
+      },
+      "national": {
+        "newly_created_positions_pct": 49.3,
+        "qualification_not_main_consideration_pct": 79.6,
+        "skills_based_hiring_better_outcomes_pct": 69.2,
+        "willing_to_consider_below_stated_qualification_pct": 66.9,
+        "remote_capable_vacancies_pct": 22.7,
+        "remote_capable_vacancies_2024_pct": 14.4,
+        "unfilled_at_least_six_months_pct": 17.1
+      },
+      "experience_required_pct": {
+        "total": {
+          "none": 31.5,
+          "one_year": 20.2,
+          "two_to_five_years": 39.6,
+          "six_to_nine_years": 5.2,
+          "ten_or_more_years": 3.5
+        },
+        "pmet": {
+          "none": 21.1,
+          "one_year": 13.5,
+          "two_to_five_years": 51.1,
+          "six_to_nine_years": 8.6,
+          "ten_or_more_years": 5.7
+        },
+        "non_pmet": {
+          "none": 46.2,
+          "one_year": 29.6,
+          "two_to_five_years": 23.4
+        }
+      },
+      "entry_level_pmet": {
+        "share_pct": 42.9,
+        "vacancies_thousands": 32.5,
+        "definition": "Vacancies suitable for fresh graduates, advertised to recruit local job seekers, with a minimum monthly salary from SGD 2,300 to SGD 5,000; sources include MOM surveys and online job portals.",
+        "source_boundary": "This measure uses a different source and denominator from the employer vacancy survey."
+      },
+      "no_experience_required_by_industry_pct": {
+        "information_communications": 7.4,
+        "professional_services": 14,
+        "financial_insurance_services": 17,
+        "manufacturing": 23.1,
+        "arts_entertainment_recreation": 23.7,
+        "construction": 24.4,
+        "wholesale_retail_trade": 26.1,
+        "accommodation": 36.9,
+        "real_estate_services": 42.1,
+        "health_social_services": 43.7,
+        "transportation_storage": 47.4,
+        "public_admin_education": 49.8,
+        "administrative_support_services": 50.3,
+        "food_beverage_services": 54.7
+      },
+      "named_hard_to_fill_pmet_jobs": [
+        "Software, web, multimedia and games developers and designers",
+        "Data scientists",
+        "Teaching and training professionals",
+        "Civil engineers",
+        "Applications and systems programmers"
+      ],
+      "limitations": [
+        "Industry figures are contextual and must not be assigned to every occupation in an industry.",
+        "Named jobs are examples from the report, not complete detailed-SSOC vacancy counts.",
+        "The entry-level PMET measure has a different source and denominator from the employer vacancy survey."
+      ],
+      "reviewed_at": "2026-08-19"
+    },
+    "job_vacancies_august_2026_update": {
+      "source_key": "mom_job_vacancies_august_2026_update",
+      "agency": "Singapore Ministry of Manpower",
+      "title": "Written Answer to PQ on Trends in Job Vacancies",
+      "published_at": "2026-08-05",
+      "url": "https://www.mom.gov.sg/newsroom/parliament-questions-and-replies/2026/0805-written-answer-to-pq-on-trends-in-job-vacancies",
+      "observation_period": "2025-12 to 2026-03",
+      "job_vacancies_thousands": {
+        "2025-12": 77.7,
+        "2026-03": 73.3
+      },
+      "entry_level_pmet_vacancies_thousands": {
+        "2025-12": 32.5,
+        "2026-03": 32.8
+      },
+      "vacancy_change_context": "The decline in vacancies was mainly in non-PMET roles.",
+      "ai_adopting_firms_employment_responses_pct": {
+        "reduced_headcount": 6,
+        "reduced_hiring": 8,
+        "redesigned_roles": 19,
+        "created_ai_roles": 14
+      },
+      "ai_response_population": "Firms that had adopted AI; about three in ten firms had adopted AI at the time of the cited survey.",
+      "rounding": "Employment-response percentages are rounded values reported in the parliamentary answer.",
+      "limitations": [
+        "The vacancy totals are national and cannot be assigned to detailed SSOC occupations.",
+        "The firm responses are reported among AI-adopting firms and do not identify AI's causal effect on employment.",
+        "Entry-level PMET openings use the source definition and are not a complete measure of outcomes for first-time jobseekers."
+      ],
+      "reviewed_at": "2026-08-19"
+    },
+    "ai_adoption_2026": {
+      "source_key": "mom_ai_adoption_2026",
+      "agency": "MOM",
+      "title": "Inaugural Release of Report on Adoption of Artificial Intelligence Among Firms",
+      "published_at": "2026-04-30",
+      "url": "https://www.mom.gov.sg/newsroom/press-releases/2026/0430-adoption-of-ai-among-firms",
+      "vintage": "2026",
+      "scope": "Private sector establishments with at least 10 employees.",
+      "usage_guidance": {
+        "use_for": [
+          "near-term AI adoption context",
+          "firm-size and sector adoption constraints",
+          "forecast-readiness gating"
+        ],
+        "do_not_use_for": [
+          "occupation-level score multipliers",
+          "job-loss forecasts",
+          "detailed SSOC employment estimates"
+        ]
+      },
+      "metrics": {
+        "firms_not_adopted_ai_pct": 71.5,
+        "firms_started_ai_adoption_pct": 28.5,
+        "firms_integrating_ai_core_processes_pct": 3.8,
+        "firms_planning_ai_pct": 7.4,
+        "firms_piloting_ai_pct": 6,
+        "small_firms_adoption_pct": 23.9,
+        "large_firms_adoption_pct": 76.4,
+        "information_and_communications_adoption_pct": 74.1,
+        "professional_services_adoption_pct": 57.5,
+        "financial_and_insurance_services_adoption_pct": 56.4,
+        "ai_adopting_firms_reduced_headcount_pct": 6.2,
+        "ai_adopting_firms_redesigning_roles_pct": 18.9,
+        "ai_adopting_firms_creating_new_ai_jobs_pct": 13.9,
+        "ai_adopting_firms_productivity_improvement_pct": 70.7,
+        "high_implementation_cost_constraint_pct": 44.9,
+        "lack_in_house_expertise_constraint_pct": 42.4,
+        "small_firms_lack_strategy_constraint_pct": 32.4,
+        "small_firms_low_trust_constraint_pct": 30.8,
+        "large_firms_integration_complexity_constraint_pct": 56.1,
+        "large_firms_data_security_constraint_pct": 55.4
+      },
+      "notes": "MOM reports AI adoption remains early and uneven, with no indication of significant job displacement at this point. The metrics are used as contextual adoption evidence, not as occupation-level realised displacement data.",
+      "reviewed_at": "2026-08-19"
+    },
+    "labour_market_q1_2026_detailed": {
+      "source": "Singapore Ministry of Manpower",
+      "title": "Labour Market Report 1Q 2026",
+      "published_at": "2026-06-15",
+      "observation_period": "2026-Q1",
+      "reviewed_at": "2026-08-19",
+      "url": "https://stats.mom.gov.sg/Pages/Labour-Market-Report-1Q-2026.aspx",
+      "status": "latest_detailed_quarter",
+      "quarter": "2026-Q1",
+      "vacancies": {
+        "value": 73.3,
+        "unit": "thousand_vacancies"
+      },
+      "job_vacancy_to_unemployed_ratio": {
+        "value": 1.46,
+        "unit": "ratio"
+      },
+      "total_employment_change": {
+        "value": 9.4,
+        "unit": "thousand_workers"
+      },
+      "resident_employment_change": {
+        "value": 5.4,
+        "unit": "thousand_workers"
+      },
+      "retrenchments": {
+        "value": 3830,
+        "unit": "workers"
+      },
+      "retrenchment_incidence": {
+        "value": 1.6,
+        "unit": "workers_per_1000_employees"
+      },
+      "re_entry_rate_within_six_months": {
+        "value": 60.7,
+        "unit": "percent"
+      },
+      "limitation": "National and broad labour-market context only. These values cannot be assigned to detailed occupations or attributed causally to AI."
+    },
+    "early_career_2025": {
+      "reviewed_at": "2026-08-19",
+      "source": {
+        "title": "Labour Force in Singapore 2025, advance release",
+        "publisher": "Singapore Ministry of Manpower",
+        "url": "https://stats.mom.gov.sg/iMAS_PdfLibrary/mrsd-labour-force-in-singapore-advance-release-2025.pdf",
+        "report_file": "data/raw/labour-force-singapore-2025.pdf",
+        "vintage": "2025"
+      },
+      "latest_full_report": {
+        "title": "Labour Force in Singapore 2025",
+        "published_at": "2026-01-29",
+        "url": "https://stats.mom.gov.sg/iMAS_Tables1/LabourForce/LabourForce_2025/mrsd_2025LabourForce_survey_findings.pdf"
+      },
+      "observation_period": "2025-06",
+      "population": "Singapore residents aged 15 to 29 with previous work experience",
+      "classification": "Unemployed residents are classified by their previous occupation as PMET or non-PMET.",
+      "seasonal_adjustment": "not_seasonally_adjusted",
+      "unit": "percent",
+      "pmet_unemployment_rate": 2.8,
+      "non_pmet_unemployment_rate": 4.1,
+      "limitations": [
+        "Excludes unemployed residents without work experience, including many never-employed fresh entrants.",
+        "The denominator is employed residents plus unemployed residents who previously worked in the occupation class.",
+        "These are not total youth-unemployment rates and do not identify an AI effect."
+      ]
+    },
+    "labour_market_q2_2026_advance": {
+      "source": "Singapore Ministry of Manpower",
+      "title": "Labour Market Advance Release 2Q 2026",
+      "published_at": "2026-07-31",
+      "observation_period": "2026-Q2",
+      "reviewed_at": "2026-08-19",
+      "url": "https://www.mom.gov.sg/newsroom/press-releases/2026/0731-labour-market-advance-release-2q-2026",
+      "status": "preliminary",
+      "total_employment_change": 10700,
+      "unemployment_rate_pct": {
+        "overall": 2,
+        "resident": 2.9,
+        "citizen": 3
+      },
+      "retrenchments": 4500,
+      "limitation": "Advance macro figures only. Q1 2026 remains the latest detailed occupation-group release until the full Q2 report."
+    },
+    "postings_monitor": {
+      "reviewed_at": "2026-08-19",
+      "status": "withheld_stale_convenience_sample",
+      "public_demand_input": false,
+      "observed_through": "2026-03-20T05:39:49.826Z",
+      "sample_postings": 564,
+      "source_count": 4,
+      "limitation": "The sample is not representative of Singapore hiring and contains no recent posting volume; it cannot rank current demand."
+    }
+  }
+}

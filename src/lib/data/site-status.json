@@ -1,101 +1,244 @@
 {
-  "updated_at": "2026-06-12T12:16:35.850Z",
+  "schema_version": "9.0",
+  "updated_at": "2026-08-22",
   "structural_release": {
-    "version": "V7",
-    "label": "V7 structural release",
-    "generated_at": "2026-06-11T00:00:00.000Z",
-    "score_dataset_generated_at": "2026-06-11",
-    "release_manifest": "release-manifest-v7.json"
+    "version": "V9",
+    "status": "current",
+    "label": "V9 Singapore AI Work Pressure release",
+    "generated_at": "2026-08-19",
+    "score_dataset_generated_at": "2026-08-19",
+    "release_manifest": "release-manifest-v9.json",
+    "taxonomy": "SSOC 2024",
+    "headline_construct": "AI Work Pressure Rank",
+    "headline_source": "ILO 2025 mean_score_2025",
+    "counts": {
+      "occupations": 1001,
+      "scored": 987,
+      "insufficient_evidence": 14,
+      "direct_wages": 523
+    }
   },
-  "experimental_release": {
-    "version": "V4.3-shadow",
-    "label": "V4.3-shadow task-weighted shadow model",
-    "status": "shadow_published",
-    "summary": "Shadow score is published. Promotion into the headline model still depends on validation and anchor-review sign-off.",
-    "artifact": "experimental-methodology-v43.json",
-    "shadow_score_published": true,
-    "headline_promotion_ready": false,
-    "direct_task_weighted_occupation_count": 453,
-    "median_direct_matched_task_weight_share": 1,
-    "blocker_count": 0
+  "economic_observatory": {
+    "status": "descriptive_evidence_and_explicit_gaps",
+    "artifact": "v9-economic-observatory.json",
+    "report": "/reports/labour-observatory",
+    "generated_at": "2026-08-19",
+    "headline_effect": "none",
+    "coverage": {
+      "detailed_occupations": 1001,
+      "pressure_ranked": 987,
+      "direct_wage": 523,
+      "named_demand": 37,
+      "broad_employment_context": 990,
+      "broad_labour_context": 1001,
+      "detailed_ai_adoption": 0,
+      "detailed_output_or_price_elasticity": 0,
+      "detailed_new_task_creation": 0,
+      "detailed_job_quality_change": 0,
+      "causal_ai_labour_outcomes": 0,
+      "classified_economic_scenarios": 0
+    },
+    "observed_broad_group_profiles": 8,
+    "publication_gates": {
+      "detailed_adoption": "Requires occupation-linked adoption observations with a stated sampling frame and period.",
+      "productivity_scale": "Requires compatible price, quantity or revenue evidence and a demand-response design.",
+      "new_tasks": "Requires versioned occupation or task observations showing genuinely new human work.",
+      "job_quality": "Requires hours, intensity, autonomy, monitoring or contract evidence at compatible grain.",
+      "causal_outcomes": "Requires adoption timing, a defensible comparison group and outcome data at compatible grain.",
+      "transitions": "Requires observed Singapore mobility and training outcomes rather than structural similarity alone.",
+      "longitudinal_pressure": "Requires a second methodologically comparable V9 task-pressure snapshot."
+    }
   },
-  "v5_program": {
-    "status": "archived_live_release",
-    "summary": "The former live V5 model is archived with its published sidecars and comparison artifacts retained for auditability.",
-    "workstream_count": 4,
-    "experimental_model_published": true,
-    "structural_validation_result": "2/2",
-    "realized_validation_result": "2/4",
-    "transition_band_flip_count": 166,
-    "impact_flip_count": 157
+  "capability_profiles": {
+    "status": "published_reviewed_detailed_identity_subset",
+    "artifact": "v9-capability-profiles.json",
+    "report": "/reports/ai-capabilities",
+    "generated_at": "2026-08-21",
+    "construct": "mapped_oecd_ai_capability_gap_profile",
+    "headline_effect": "none",
+    "coverage": {
+      "ssoc_occupations": 1001,
+      "raw_exact_candidate_coverage": 698,
+      "available_reviewed_identity_profiles": 75,
+      "available_automated_title_rule_profiles": 68,
+      "available_manual_review_profiles": 7,
+      "unavailable_without_published_profile": 926,
+      "coverage_pct": 7.4925,
+      "unique_oecd_rows_used": 75,
+      "profiles_with_several_title_identity_candidates": 0,
+      "profiles_with_nonzero_overall_mapping_range": 0,
+      "raw_exact_candidates_rejected_by_title_rule": 1606,
+      "occupations_available_only_if_close_matches_were_allowed": 230,
+      "close_match_profiles_published": 3
+    }
+  },
+  "official_skills_pilot": {
+    "status": "published_three_sector_pilot",
+    "artifact": "v9-skills-pilot.json",
+    "report": "/reports/skills-pilot",
+    "generated_at": "2026-08-22",
+    "reviewed_at": "2026-08-22",
+    "construct": "official_sector_role_skills_pilot",
+    "headline_effect": "none",
+    "coverage": {
+      "ssoc_occupations": 1001,
+      "sectors": 3,
+      "unique_occupations": 6,
+      "sector_role_profiles": 7,
+      "exact_title_profiles": 5,
+      "reviewed_definition_equivalent_profiles": 2,
+      "unavailable_outside_pilot": 995
+    }
+  },
+  "evidence_vector": {
+    "status": "published_separate_dimensions_and_comparable_change_only",
+    "artifact": "v9-evidence-vector.json",
+    "change_artifact": "v9-signal-change.json",
+    "report": "/reports/evidence-patterns",
+    "generated_at": "2026-08-22",
+    "snapshot_id": "v9-evidence-2026-08-22",
+    "construct": "multi_signal_occupation_evidence_vector",
+    "headline_effect": "none_except_existing_task_pressure_owner",
+    "claim_boundary": "An aligned view of separate evidence dimensions. It does not average them, estimate job loss or transfer broad context into a detailed occupation outcome.",
+    "coverage": {
+      "ssoc_occupations": 1001,
+      "shared_pressure_capability_subset": 75,
+      "dimensions": {
+        "task_pressure": 987,
+        "capability_proximity": 75,
+        "theoretical_exposure": 75,
+        "observed_use": 73,
+        "direct_pay": 523,
+        "named_demand": 37,
+        "broad_labour_context": 990,
+        "official_skills": 6
+      },
+      "pattern_counts": {
+        "capability_proximity_above_task_pressure": 18,
+        "high_pressure_with_named_demand": 17,
+        "high_pressure_with_official_skill_path": 4,
+        "task_pressure_above_capability_proximity": 19,
+        "technical_scope_ahead_of_observed_use": 51
+      }
+    },
+    "change_ledger": {
+      "generated_at": "2026-08-22",
+      "construct": "signal_specific_change_ledger",
+      "headline_effect": "none",
+      "claim_boundary": "Change is reported only when the same construct, source family and grain are comparable. A market update is never relabelled as a change in AI Work Pressure.",
+      "baseline_snapshot": {
+        "id": "v9-evidence-2026-08-22",
+        "artifact": "snapshots/v9-evidence-2026-08-22.json",
+        "status": "first_comparable_v9_evidence_snapshot"
+      },
+      "observed_change_count": 10,
+      "withheld_change_products": {
+        "quarterly_pressure_movers": "needs_second_comparable_v9_pressure_snapshot",
+        "detailed_demand_movers": "needs_repeated_same-grain occupation demand source",
+        "direct_wage_movers": "needs_repeated SSOC 2024 detailed wage table",
+        "observed_use_movers": "needs_second comparable source release and stable occupation mapping",
+        "capability_movers": "needs_second comparable OECD capability release"
+      }
+    }
+  },
+  "role_query_layer": {
+    "status": "official_resolutions_composites_and_withheld_queries",
+    "artifact": "synthetic-roles-v9.json",
+    "taxonomy_mapping": "SSOC 2024",
+    "count": 88,
+    "exact_title_match_count": 11,
+    "reviewed_alias_match_count": 56,
+    "official_match_count": 67,
+    "non_official_count": 21,
+    "estimated_count": 18,
+    "withheld_count": 3,
+    "headline_effect": "none"
+  },
+  "external_comparisons": {
+    "status": "identity_gated_signals_published_separately",
+    "headline_effect": "none",
+    "audit_artifact": "v9-external-crosswalk-audit.json",
+    "published_artifact": "v9-research-signals.json",
+    "audit_status": "crosswalk_chain_available_identity_gated_subset_published",
+    "strict_candidate_chain_coverage": {
+      "isco08_groups": 362,
+      "total_relevant_isco08_groups": 432
+    },
+    "reason_code": "broad_and_ambiguous_transfers_withheld_exact_identity_subset_published",
+    "headline_field_coverage": {
+      "aioe": {
+        "published": 0,
+        "total": 1001
+      },
+      "eloundou": {
+        "published": 0,
+        "total": 1001
+      },
+      "observed_ai_use": {
+        "published": 0,
+        "total": 1001
+      },
+      "potential_complementarity": {
+        "published": 0,
+        "total": 1001
+      }
+    },
+    "separate_signal_coverage": {
+      "ssoc_occupations": 1001,
+      "reviewed_identity_profiles": 75,
+      "eloundou_theoretical_exposure_available": 75,
+      "anthropic_observed_exposure_available": 73,
+      "both_signals_available": 73,
+      "unavailable_without_reviewed_identity": 926,
+      "anthropic_unavailable_source_rows_after_identity": 2
+    }
   },
   "live_monitor": {
-    "labour_monitor_artifact_vintage": "Q4 2025 full",
-    "labour_monitor_validation_vintage": "Q4 2025",
-    "labour_monitor_source_label": "MOM cluster labour monitor artifact",
+    "market_context_artifact": "v9-market-context.json",
+    "market_context_generated_at": "2026-08-19",
     "latest_official_labour_report": {
-      "label": "MOM Labour Market Report Q4 2025",
-      "period": "Q4 2025",
-      "published_at": "2026-03-20",
-      "url": "https://stats.mom.gov.sg/Pages/Labour-Market-Report-4Q-2025.aspx",
-      "status": "published_live"
+      "label": "MOM Labour Market Advance Release Q2 2026",
+      "period": "Q2 2026",
+      "published_at": "2026-07-31",
+      "url": "https://www.mom.gov.sg/newsroom/press-releases/2026/0731-labour-market-advance-release-2q-2026",
+      "status": "preliminary_macro"
     },
-    "refresh_note": "The live labour monitor now uses the full MOM Labour Market Report Q4 2025, including explicit Q3-to-Q4 deltas for vacancy, hiring, retrenchment and re-entry signals.",
-    "macro_vintage": "2025 4Q",
-    "ai_context_vintage": "2024 data",
-    "postings_generated_at": "2026-06-07T11:57:23.564Z",
-    "postings_volume_30d": 0,
-    "employer_pressure_generated_at": "2026-06-07T11:57:23.650Z",
-    "employer_pressure_latest_signal_date": "2025-10-06",
-    "quarterly_report_generated_at": "2026-06-08T11:02:59.640Z",
-    "quarterly_current_snapshot": "occupations-v7-2026-06.json",
-    "quarterly_previous_snapshot": "occupations-v7-2026-05.json",
-    "cluster_validation_checks_passed": 2,
-    "cluster_validation_checks_total": 3,
-    "temporal_validation_vacancy_accuracy": 1,
-    "temporal_validation_vacancy_periods": 2,
-    "temporal_validation_hiring_accuracy": 0.3,
-    "temporal_validation_hiring_periods": 10,
-    "calibration_direct_rho": -0.162,
-    "calibration_direct_sample": 479,
-    "calibration_high_medium_rho": -0.136,
-    "calibration_high_medium_sample": 516,
-    "calibration_low_confidence_sample": 14,
-    "sensitivity_spearman_p50": 0.9993,
-    "sensitivity_top20_jaccard_p50": 0.9048,
-    "sensitivity_fidelity_ok": true,
-    "imf_top_half_exposed_share_pct": 59.1,
-    "imf_top_half_high_to_low_ratio": 0.9,
-    "forecast_horizon_status": "pending_sufficient_quarters",
-    "forecast_horizon_post_baseline_quarters": 0,
-    "confidence_rating_high_count": 248,
-    "confidence_rating_medium_count": 142,
-    "confidence_rating_low_count": 172,
-    "confidence_rating_top_limiter": "Market Data Granularity",
-    "confidence_rating_top_limiter_count": 464,
-    "scenario_family_count": 3,
-    "scenario_base_avg_near_term_risk": 0.065,
-    "scenario_fast_adoption_avg_near_term_risk": 0.1295,
-    "adoption_diffusion_headline_pct": 28.5,
-    "adoption_diffusion_headcount_reduction_pct": 6.2,
-    "adoption_diffusion_role_redesign_pct": 18.9,
-    "adoption_diffusion_top_sector_label": "Information and communications",
-    "adoption_diffusion_top_sector_pct": 74.1,
-    "age_structure_high_attrition_absorber_count": 194,
-    "age_structure_known_coverage_count": 559,
-    "age_structure_unknown_coverage_count": 3,
-    "age_structure_avg_age_50_plus_share": 0.4058,
-    "occupation_family_validation_rho": -0.249,
-    "occupation_family_validation_family_count": 29,
-    "occupation_family_validation_significant": false,
-    "offset_potential_generated_at": "2026-06-07T11:57:23.728Z",
-    "offset_potential_high_count": 18
+    "detailed_labour_evidence_vintage": "Q1 2026",
+    "macro_context_vintage": "Q2 2026 advance release",
+    "named_demand": {
+      "occupation_count": 37,
+      "reviewed_source_label_count": 47,
+      "withheld_generic_label_count": 1,
+      "mapping_rule": "Only reviewed named occupation matches. No code-prefix or parent-group inheritance."
+    },
+    "postings": {
+      "status": "withheld_stale_convenience_sample",
+      "public_demand_input": false,
+      "observed_through": "2026-03-20T05:39:49.826Z",
+      "limitation": "The sample is not representative of Singapore hiring and contains no recent posting volume; it cannot rank current demand."
+    },
+    "quarterly_comparison": {
+      "status": "withheld_until_two_comparable_v9_snapshots",
+      "current_snapshot": "v9-evidence-2026-08-22",
+      "previous_snapshot": null
+    },
+    "research_review_cutoff": "2026-08-22",
+    "research_record_count": 56,
+    "headline_separation": "No market field changes AI Work Pressure Rank.",
+    "refresh_note": "Q1 2026 remains the latest detailed occupation-group evidence. Q2 2026 is preliminary national context and does not become an occupation-level outcome."
+  },
+  "archives": {
+    "status": "dated_historical_records_not_current_v9",
+    "releases_artifact": "releases.json",
+    "release_history_page": "/changelog",
+    "reports_index": "/reports",
+    "methodology_boundary": "V1-V8 scores, formulas, validation summaries and sidecars are historical records. They are not current V9 evidence and are not comparable as a V9 time series."
   },
   "homepage_banner": {
     "tag": "Live now",
-    "title": "V7 is live across the app, downloads, and release surfaces",
-    "body": "V7 is now the live structural release. Task-concentration exposure, demand persistence, downloadable files, methodology artifacts, and SEO/LLM surfaces are aligned to the same release contract.",
-    "link_href": "/reports",
-    "link_label": "Review release surfaces"
+    "title": "V9 maps AI work pressure across SSOC 2024",
+    "body": "The current release covers 1,001 Singapore occupations. Pressure ranks come from ILO task exposure; wages, demand and labour evidence remain separate.",
+    "link_href": "/methodology",
+    "link_label": "Read the V9 methodology"
   }
 }

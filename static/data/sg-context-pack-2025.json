@@ -1,6 +1,6 @@
 {
   "version": "V7",
-  "generated_at": "2026-06-11",
+  "generated_at": "2026-07-17",
   "description": "Singapore context bundle for AI Work Index. Context data is published separately from the structural score dataset and includes labour, worker, industry, wage-anchor, geography, macro, and national AI context.",
   "score_dataset": {
     "json": "sg-ai-occupations-v7.json",
@@ -12,7 +12,7 @@
     "worker_profile_groups": 8,
     "sector_wage_anchor_occupations": 481,
     "geography_groups": 8,
-    "macro_quarters": 136,
+    "macro_quarters": 137,
     "national_ai_sources": 4,
     "transition_programmes": 5,
     "lfr_occupation_families": 40
@@ -23,7 +23,7 @@
     "sector_wage_anchors": "2024",
     "geography_context": "2020",
     "macro_context": "2024-2025",
-    "labour_monitor": "Q4 2025 full",
+    "labour_monitor": "Q1 2026 full",
     "national_ai_context": "2025-2026",
     "transition_infrastructure": "2024-2026",
     "lfr_section_d": "2024-2025"
@@ -18375,7 +18375,7 @@
       "description": "Official Census 2020 geography context showing planning-area residence concentration and travel-time patterns by broad occupation group.",
       "data": {
         "version": "V7",
-        "generated_at": "2026-06-07T11:57:05.420Z",
+        "generated_at": "2026-07-16T00:13:35.289Z",
         "description": "Official Singapore geography context derived from Census of Population 2020 planning-area residence and travel-time occupation tables. This artifact is contextual and does not affect the structural score.",
         "residence": {
           "overall_top_planning_areas": [
@@ -18836,14 +18836,14 @@
       "description": "Official macro labour context covering unemployment and labour-tightness series for Singapore. Contextual only, not an occupation-level score input.",
       "data": {
         "version": "V7",
-        "generated_at": "2026-06-07T11:57:05.471Z",
+        "generated_at": "2026-07-17T01:36:38.237Z",
         "description": "Official Singapore macro labour context derived from unemployment and labour-tightness series. This artifact is contextual and does not affect the structural score.",
         "unemployment": {
           "latest": {
-            "quarter": "2025 4Q",
+            "quarter": "2026 1Q",
             "total_rate": 2,
             "resident_rate": 2.9,
-            "citizen_rate": 3
+            "citizen_rate": 3.1
           },
           "history": [
             {
@@ -19545,8 +19545,8 @@
             {
               "quarter": "2021 1Q",
               "total_rate": 2.9,
-              "resident_rate": 4,
-              "citizen_rate": 4.2
+              "resident_rate": 3.9,
+              "citizen_rate": 4.1
             },
             {
               "quarter": "2021 2Q",
@@ -19564,13 +19564,13 @@
               "quarter": "2021 4Q",
               "total_rate": 2.4,
               "resident_rate": 3.1,
-              "citizen_rate": 3.3
+              "citizen_rate": 3.4
             },
             {
               "quarter": "2022 1Q",
-              "total_rate": 2.3,
+              "total_rate": 2.2,
               "resident_rate": 3,
-              "citizen_rate": 3.2
+              "citizen_rate": 3.1
             },
             {
               "quarter": "2022 2Q",
@@ -19587,19 +19587,19 @@
             {
               "quarter": "2022 4Q",
               "total_rate": 2,
-              "resident_rate": 2.7,
+              "resident_rate": 2.8,
               "citizen_rate": 2.9
             },
             {
               "quarter": "2023 1Q",
               "total_rate": 1.8,
-              "resident_rate": 2.6,
-              "citizen_rate": 2.7
+              "resident_rate": 2.5,
+              "citizen_rate": 2.6
             },
             {
               "quarter": "2023 2Q",
-              "total_rate": 1.9,
-              "resident_rate": 2.7,
+              "total_rate": 2,
+              "resident_rate": 2.8,
               "citizen_rate": 2.9
             },
             {
@@ -19611,18 +19611,18 @@
             {
               "quarter": "2023 4Q",
               "total_rate": 2,
-              "resident_rate": 2.7,
+              "resident_rate": 2.8,
               "citizen_rate": 2.9
             },
             {
               "quarter": "2024 1Q",
-              "total_rate": 2.1,
-              "resident_rate": 2.9,
-              "citizen_rate": 3.1
+              "total_rate": 2,
+              "resident_rate": 2.8,
+              "citizen_rate": 3
             },
             {
               "quarter": "2024 2Q",
-              "total_rate": 1.9,
+              "total_rate": 2,
               "resident_rate": 2.7,
               "citizen_rate": 2.8
             },
@@ -19636,24 +19636,24 @@
               "quarter": "2024 4Q",
               "total_rate": 1.9,
               "resident_rate": 2.8,
-              "citizen_rate": 2.9
+              "citizen_rate": 3
             },
             {
               "quarter": "2025 1Q",
               "total_rate": 2,
-              "resident_rate": 2.9,
-              "citizen_rate": 3.1
+              "resident_rate": 2.8,
+              "citizen_rate": 3
             },
             {
               "quarter": "2025 2Q",
               "total_rate": 2,
-              "resident_rate": 2.8,
-              "citizen_rate": 2.9
+              "resident_rate": 2.7,
+              "citizen_rate": 2.8
             },
             {
               "quarter": "2025 3Q",
               "total_rate": 2,
-              "resident_rate": 2.8,
+              "resident_rate": 2.9,
               "citizen_rate": 3.1
             },
             {
@@ -19661,10 +19661,16 @@
               "total_rate": 2,
               "resident_rate": 2.9,
               "citizen_rate": 3
+            },
+            {
+              "quarter": "2026 1Q",
+              "total_rate": 2,
+              "resident_rate": 2.9,
+              "citizen_rate": 3.1
             }
           ],
           "change_vs_year_ago": {
-            "total_rate_pp": 0.1,
+            "total_rate_pp": 0,
             "resident_rate_pp": 0.1,
             "citizen_rate_pp": 0.1
           }
@@ -19787,17 +19793,41 @@
           "change_vs_prior_year": -0.31
         },
         "latest_snapshot": {
-          "quarter": "2025 4Q",
+          "quarter": "2026 1Q",
           "resident_unemployment_rate": 2.9,
           "total_unemployment_rate": 2,
-          "citizen_unemployment_rate": 3,
+          "citizen_unemployment_rate": 3.1,
           "job_vacancy_to_unemployed_ratio_year": "2024",
-          "job_vacancy_to_unemployed_ratio": 1.56
+          "job_vacancy_to_unemployed_ratio": 1.56,
+          "current_quarter_job_vacancy_to_unemployed_ratio": 1.46,
+          "current_quarter_vacancy_count_thousands": 73.3,
+          "total_employment_change_thousands": 9.4,
+          "resident_employment_change_thousands": 5.4,
+          "total_retrenchments": 3830,
+          "retrenchment_incidence_per_1000": 1.6,
+          "re_entry_rate_6m": 60.7,
+          "average_weekly_hours": 42.9,
+          "average_weekly_overtime_hours": 1.7
         },
         "metadata": {
+          "current_quarter_labour_tightness": {
+            "quarter": "2026 1Q",
+            "ratio": 1.46,
+            "vacancy_count_thousands": 73.3,
+            "total_employment_change_thousands": 9.4,
+            "resident_employment_change_thousands": 5.4,
+            "total_retrenchments": 3830,
+            "retrenchment_incidence_per_1000": 1.6,
+            "re_entry_rate_6m": 60.7,
+            "average_weekly_hours": 42.9,
+            "average_weekly_overtime_hours": 1.7,
+            "source": "MOM Labour Market Report Q1 2026",
+            "published_at": "2026-06-15",
+            "url": "https://stats.mom.gov.sg/Pages/Labour-Market-Report-1Q-2026.aspx"
+          },
           "notes": [
             "Unemployment rates are seasonally adjusted end-of-period series from MOM / SingStat.",
-            "Job-vacancy-to-unemployed ratio is an annual labour-tightness indicator based on quarterly averages.",
+            "The historical job-vacancy-to-unemployed series is annual; latest_snapshot separately publishes the latest official quarterly ratio.",
             "These metrics are published as macro context around the score and do not act as direct occupation-level multipliers."
           ]
         }
@@ -19808,7 +19838,7 @@
       "description": "Official IMDA and MOM national AI adoption, workforce, and programme context for Singapore. This is contextual evidence around the score, not an occupation-level input.",
       "data": {
         "version": "V7",
-        "generated_at": "2026-06-08T11:02:59.551Z",
+        "generated_at": "2026-07-17T01:39:47.957Z",
         "context_type": "national_ai_context",
         "description": "Official Singapore national AI adoption, workforce, and programme context from IMDA and MOM releases. This artifact supports reports and public context around the structural score.",
         "usage_guidance": {
@@ -19956,7 +19986,7 @@
       "description": "Official Singapore transition-infrastructure context covering Jobs Transformation Maps, major public career-transition programmes, and WSQ training-system activity.",
       "data": {
         "version": "V7",
-        "generated_at": "2026-06-07T11:57:05.536Z",
+        "generated_at": "2026-07-16T00:13:35.357Z",
         "description": "Official Singapore transition infrastructure anchors used around the heuristic transition-support layer. This artifact captures published programmes, training-system activity, and Jobs Transformation Map coverage.",
         "programmes": [
           {

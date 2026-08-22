@@ -1,0 +1,399 @@
+{
+  "schema_version": "1.0",
+  "data_as_of": "2023",
+  "construct": "broad_group_wage_movement",
+  "score_input": false,
+  "sources": [
+    {
+      "title": "Median Gross Monthly Income From Employment by Occupation and Sex",
+      "publisher": "Singapore Ministry of Manpower",
+      "file": "data/raw/median_income_by_occupation.csv"
+    },
+    {
+      "title": "Consumer Price Index, Monthly",
+      "publisher": "Singapore Department of Statistics",
+      "url": "https://data.gov.sg/collections/1630/view",
+      "file": "data/raw/cpi-monthly.json"
+    }
+  ],
+  "cpi": {
+    "series": "All Items",
+    "annual_average_2018": 85.457,
+    "annual_average_2023": 97.666
+  },
+  "series": [
+    {
+      "major_group_label": "Managers & Administrators (Including Working Proprietors)",
+      "sex": "male",
+      "latest_year": 2023,
+      "latest_median_monthly_income_sgd": 11297,
+      "movement": {
+        "1y": {
+          "from_year": 2022,
+          "nominal_change_pct": 6.72,
+          "real_change_pct": 1.8
+        },
+        "3y": {
+          "from_year": 2020,
+          "nominal_change_pct": 12.13,
+          "real_change_pct": -1.5
+        },
+        "5y": {
+          "from_year": 2018,
+          "nominal_change_pct": 11.34,
+          "real_change_pct": -2.58
+        }
+      }
+    },
+    {
+      "major_group_label": "Managers & Administrators (Including Working Proprietors)",
+      "sex": "female",
+      "latest_year": 2023,
+      "latest_median_monthly_income_sgd": 10020,
+      "movement": {
+        "1y": {
+          "from_year": 2022,
+          "nominal_change_pct": 2.24,
+          "real_change_pct": -2.47
+        },
+        "3y": {
+          "from_year": 2020,
+          "nominal_change_pct": 2.24,
+          "real_change_pct": -10.18
+        },
+        "5y": {
+          "from_year": 2018,
+          "nominal_change_pct": 4.56,
+          "real_change_pct": -8.51
+        }
+      }
+    },
+    {
+      "major_group_label": "Professionals",
+      "sex": "male",
+      "latest_year": 2023,
+      "latest_median_monthly_income_sgd": 8620,
+      "movement": {
+        "1y": {
+          "from_year": 2022,
+          "nominal_change_pct": 5.25,
+          "real_change_pct": 0.4
+        },
+        "3y": {
+          "from_year": 2020,
+          "nominal_change_pct": 16.94,
+          "real_change_pct": 2.73
+        },
+        "5y": {
+          "from_year": 2018,
+          "nominal_change_pct": 13.35,
+          "real_change_pct": -0.82
+        }
+      }
+    },
+    {
+      "major_group_label": "Professionals",
+      "sex": "female",
+      "latest_year": 2023,
+      "latest_median_monthly_income_sgd": 7520,
+      "movement": {
+        "1y": {
+          "from_year": 2022,
+          "nominal_change_pct": 4.16,
+          "real_change_pct": -0.65
+        },
+        "3y": {
+          "from_year": 2020,
+          "nominal_change_pct": 16.86,
+          "real_change_pct": 2.66
+        },
+        "5y": {
+          "from_year": 2018,
+          "nominal_change_pct": 16.86,
+          "real_change_pct": 2.25
+        }
+      }
+    },
+    {
+      "major_group_label": "Associate Professionals & Technicians",
+      "sex": "male",
+      "latest_year": 2023,
+      "latest_median_monthly_income_sgd": 4680,
+      "movement": {
+        "1y": {
+          "from_year": 2022,
+          "nominal_change_pct": 2.56,
+          "real_change_pct": -2.16
+        },
+        "3y": {
+          "from_year": 2020,
+          "nominal_change_pct": 10.35,
+          "real_change_pct": -3.06
+        },
+        "5y": {
+          "from_year": 2018,
+          "nominal_change_pct": 5.48,
+          "real_change_pct": -7.71
+        }
+      }
+    },
+    {
+      "major_group_label": "Associate Professionals & Technicians",
+      "sex": "female",
+      "latest_year": 2023,
+      "latest_median_monthly_income_sgd": 4680,
+      "movement": {
+        "1y": {
+          "from_year": 2022,
+          "nominal_change_pct": 5.48,
+          "real_change_pct": 0.61
+        },
+        "3y": {
+          "from_year": 2020,
+          "nominal_change_pct": 14.29,
+          "real_change_pct": 0.39
+        },
+        "5y": {
+          "from_year": 2018,
+          "nominal_change_pct": 11.91,
+          "real_change_pct": -2.08
+        }
+      }
+    },
+    {
+      "major_group_label": "Clerical Support Workers",
+      "sex": "male",
+      "latest_year": 2023,
+      "latest_median_monthly_income_sgd": 3194,
+      "movement": {
+        "1y": {
+          "from_year": 2022,
+          "nominal_change_pct": 7.04,
+          "real_change_pct": 2.1
+        },
+        "3y": {
+          "from_year": 2020,
+          "nominal_change_pct": 19.98,
+          "real_change_pct": 5.4
+        },
+        "5y": {
+          "from_year": 2018,
+          "nominal_change_pct": 18.69,
+          "real_change_pct": 3.85
+        }
+      }
+    },
+    {
+      "major_group_label": "Clerical Support Workers",
+      "sex": "female",
+      "latest_year": 2023,
+      "latest_median_monthly_income_sgd": 3413,
+      "movement": {
+        "1y": {
+          "from_year": 2022,
+          "nominal_change_pct": 3.55,
+          "real_change_pct": -1.22
+        },
+        "3y": {
+          "from_year": 2020,
+          "nominal_change_pct": 17.04,
+          "real_change_pct": 2.82
+        },
+        "5y": {
+          "from_year": 2018,
+          "nominal_change_pct": 14.42,
+          "real_change_pct": 0.11
+        }
+      }
+    },
+    {
+      "major_group_label": "Service & Sales Workers",
+      "sex": "male",
+      "latest_year": 2023,
+      "latest_median_monthly_income_sgd": 3038,
+      "movement": {
+        "1y": {
+          "from_year": 2022,
+          "nominal_change_pct": -0.13,
+          "real_change_pct": -4.74
+        },
+        "3y": {
+          "from_year": 2020,
+          "nominal_change_pct": 15.38,
+          "real_change_pct": 1.36
+        },
+        "5y": {
+          "from_year": 2018,
+          "nominal_change_pct": 14.12,
+          "real_change_pct": -0.14
+        }
+      }
+    },
+    {
+      "major_group_label": "Service & Sales Workers",
+      "sex": "female",
+      "latest_year": 2023,
+      "latest_median_monthly_income_sgd": 2535,
+      "movement": {
+        "1y": {
+          "from_year": 2022,
+          "nominal_change_pct": 5.23,
+          "real_change_pct": 0.38
+        },
+        "3y": {
+          "from_year": 2020,
+          "nominal_change_pct": 15.49,
+          "real_change_pct": 1.45
+        },
+        "5y": {
+          "from_year": 2018,
+          "nominal_change_pct": 12.17,
+          "real_change_pct": -1.85
+        }
+      }
+    },
+    {
+      "major_group_label": "Craftsmen & Related Trades Workers",
+      "sex": "male",
+      "latest_year": 2023,
+      "latest_median_monthly_income_sgd": 3000,
+      "movement": {
+        "1y": {
+          "from_year": 2022,
+          "nominal_change_pct": 3.81,
+          "real_change_pct": -0.98
+        },
+        "3y": {
+          "from_year": 2020,
+          "nominal_change_pct": 8.5,
+          "real_change_pct": -4.69
+        },
+        "5y": {
+          "from_year": 2018,
+          "nominal_change_pct": 5.15,
+          "real_change_pct": -7.99
+        }
+      }
+    },
+    {
+      "major_group_label": "Craftsmen & Related Trades Workers",
+      "sex": "female",
+      "latest_year": 2023,
+      "latest_median_monthly_income_sgd": 2319,
+      "movement": {
+        "1y": {
+          "from_year": 2022,
+          "nominal_change_pct": 7.86,
+          "real_change_pct": 2.89
+        },
+        "3y": {
+          "from_year": 2020,
+          "nominal_change_pct": 10.11,
+          "real_change_pct": -3.27
+        },
+        "5y": {
+          "from_year": 2018,
+          "nominal_change_pct": 7.01,
+          "real_change_pct": -6.36
+        }
+      }
+    },
+    {
+      "major_group_label": "Plant & Machine Operators & Assemblers",
+      "sex": "male",
+      "latest_year": 2023,
+      "latest_median_monthly_income_sgd": 2500,
+      "movement": {
+        "1y": {
+          "from_year": 2022,
+          "nominal_change_pct": 3.26,
+          "real_change_pct": -1.5
+        },
+        "3y": {
+          "from_year": 2020,
+          "nominal_change_pct": 25,
+          "real_change_pct": 9.81
+        },
+        "5y": {
+          "from_year": 2018,
+          "nominal_change_pct": 9.55,
+          "real_change_pct": -4.14
+        }
+      }
+    },
+    {
+      "major_group_label": "Plant & Machine Operators & Assemblers",
+      "sex": "female",
+      "latest_year": 2023,
+      "latest_median_monthly_income_sgd": 2106,
+      "movement": {
+        "1y": {
+          "from_year": 2022,
+          "nominal_change_pct": 5.3,
+          "real_change_pct": 0.44
+        },
+        "3y": {
+          "from_year": 2020,
+          "nominal_change_pct": 10.78,
+          "real_change_pct": -2.68
+        },
+        "5y": {
+          "from_year": 2018,
+          "nominal_change_pct": 20,
+          "real_change_pct": 5
+        }
+      }
+    },
+    {
+      "major_group_label": "Cleaners, Labourers & Related Workers",
+      "sex": "male",
+      "latest_year": 2023,
+      "latest_median_monthly_income_sgd": 1872,
+      "movement": {
+        "1y": {
+          "from_year": 2022,
+          "nominal_change_pct": 1.13,
+          "real_change_pct": -3.53
+        },
+        "3y": {
+          "from_year": 2020,
+          "nominal_change_pct": 14.78,
+          "real_change_pct": 0.82
+        },
+        "5y": {
+          "from_year": 2018,
+          "nominal_change_pct": 14.5,
+          "real_change_pct": 0.18
+        }
+      }
+    },
+    {
+      "major_group_label": "Cleaners, Labourers & Related Workers",
+      "sex": "female",
+      "latest_year": 2023,
+      "latest_median_monthly_income_sgd": 1832,
+      "movement": {
+        "1y": {
+          "from_year": 2022,
+          "nominal_change_pct": 9.77,
+          "real_change_pct": 4.71
+        },
+        "3y": {
+          "from_year": 2020,
+          "nominal_change_pct": 20.45,
+          "real_change_pct": 5.81
+        },
+        "5y": {
+          "from_year": 2018,
+          "nominal_change_pct": 24.12,
+          "real_change_pct": 8.6
+        }
+      }
+    }
+  ],
+  "limitations": [
+    "Published series are sex-specific medians; male and female medians are not averaged into a combined occupation-group median.",
+    "Real movement deflates nominal income with annual-average All Items CPI.",
+    "Broad occupation-group movement is context, not a detailed occupation outcome or an AI effect."
+  ]
+}

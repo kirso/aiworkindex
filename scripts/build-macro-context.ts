@@ -10,7 +10,7 @@
  * Outputs:
  *   - data/macro-context.json
  *   - src/lib/data/macro-context.json
- *   - static/data/sg-macro-context-2025.json
+ *   - static/data/sg-macro-context.json
  */
 
 import * as fs from 'fs';
@@ -29,7 +29,24 @@ const JV_TO_UE_FILE = path.join(RAW_DIR, 'job_vacancy_to_unemployed_ratio.json')
 
 const OUT_FILE = path.join(DATA_DIR, 'macro-context.json');
 const SRC_OUT_FILE = path.join(SRC_DATA_DIR, 'macro-context.json');
-const STATIC_OUT_FILE = path.join(STATIC_DATA_DIR, 'sg-macro-context-2025.json');
+const STATIC_OUT_FILE = path.join(STATIC_DATA_DIR, 'sg-macro-context.json');
+const LEGACY_STATIC_OUT_FILE = path.join(STATIC_DATA_DIR, 'sg-macro-context-2025.json');
+
+const CURRENT_QUARTER_LABOUR_TIGHTNESS = {
+	quarter: '2026 1Q',
+	ratio: 1.46,
+	vacancy_count_thousands: 73.3,
+	total_employment_change_thousands: 9.4,
+	resident_employment_change_thousands: 5.4,
+	total_retrenchments: 3830,
+	retrenchment_incidence_per_1000: 1.6,
+	re_entry_rate_6m: 60.7,
+	average_weekly_hours: 42.9,
+	average_weekly_overtime_hours: 1.7,
+	source: 'MOM Labour Market Report Q1 2026',
+	published_at: '2026-06-15',
+	url: 'https://stats.mom.gov.sg/Pages/Labour-Market-Report-1Q-2026.aspx'
+} as const;
 
 type RawRecord = Record<string, string | number | null>;
 
@@ -173,12 +190,26 @@ const payload = {
 		total_unemployment_rate: unemployment.latest?.total_rate ?? null,
 		citizen_unemployment_rate: unemployment.latest?.citizen_rate ?? null,
 		job_vacancy_to_unemployed_ratio_year: labourTightness.latest?.year ?? null,
-		job_vacancy_to_unemployed_ratio: labourTightness.latest?.ratio ?? null
+		job_vacancy_to_unemployed_ratio: labourTightness.latest?.ratio ?? null,
+		current_quarter_job_vacancy_to_unemployed_ratio: CURRENT_QUARTER_LABOUR_TIGHTNESS.ratio,
+		current_quarter_vacancy_count_thousands:
+			CURRENT_QUARTER_LABOUR_TIGHTNESS.vacancy_count_thousands,
+		total_employment_change_thousands:
+			CURRENT_QUARTER_LABOUR_TIGHTNESS.total_employment_change_thousands,
+		resident_employment_change_thousands:
+			CURRENT_QUARTER_LABOUR_TIGHTNESS.resident_employment_change_thousands,
+		total_retrenchments: CURRENT_QUARTER_LABOUR_TIGHTNESS.total_retrenchments,
+		retrenchment_incidence_per_1000:
+			CURRENT_QUARTER_LABOUR_TIGHTNESS.retrenchment_incidence_per_1000,
+		re_entry_rate_6m: CURRENT_QUARTER_LABOUR_TIGHTNESS.re_entry_rate_6m,
+		average_weekly_hours: CURRENT_QUARTER_LABOUR_TIGHTNESS.average_weekly_hours,
+		average_weekly_overtime_hours: CURRENT_QUARTER_LABOUR_TIGHTNESS.average_weekly_overtime_hours
 	},
 	metadata: {
+		current_quarter_labour_tightness: CURRENT_QUARTER_LABOUR_TIGHTNESS,
 		notes: [
 			'Unemployment rates are seasonally adjusted end-of-period series from MOM / SingStat.',
-			'Job-vacancy-to-unemployed ratio is an annual labour-tightness indicator based on quarterly averages.',
+			'The historical job-vacancy-to-unemployed series is annual; latest_snapshot separately publishes the latest official quarterly ratio.',
 			'These metrics are published as macro context around the score and do not act as direct occupation-level multipliers.'
 		]
 	}
@@ -192,5 +223,7 @@ const serialized = JSON.stringify(payload, null, 2);
 fs.writeFileSync(OUT_FILE, serialized, 'utf-8');
 fs.writeFileSync(SRC_OUT_FILE, serialized, 'utf-8');
 fs.writeFileSync(STATIC_OUT_FILE, serialized, 'utf-8');
+// Backward-compatible download alias. The payload carries its own current quarter and provenance.
+fs.writeFileSync(LEGACY_STATIC_OUT_FILE, serialized, 'utf-8');
 
 console.log(`Built macro context artifact at ${STATIC_OUT_FILE}`);

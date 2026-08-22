@@ -49,6 +49,15 @@ export interface PostingSourceSummary {
 
 export interface PostingsMonitor {
 	generated_at: string;
+	observed_through: string | null;
+	coverage: {
+		occupations_covered: number;
+		occupations_total: number;
+		occupation_coverage_pct: number;
+		roles_covered: number;
+		roles_total: number;
+		role_coverage_pct: number;
+	};
 	sources: PostingSourceSummary[];
 	summary: PostingsMonitorSummary;
 	by_ssoc: Record<string, PostingAggregate>;

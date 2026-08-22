@@ -1,8 +1,8 @@
 {
   "version": "V5-augmentation-sidecar",
-  "generated_at": "2026-06-07T11:57:23.837Z",
+  "generated_at": "2026-07-16T00:14:18.197Z",
   "live_version": "V7",
-  "live_release_date": "2026-06-07",
+  "live_release_date": "2026-06-11",
   "method": "workflow_and_archetype_prior_blend_v1 (pilot sidecar, not part of the live headline score)",
   "entries": [
     {

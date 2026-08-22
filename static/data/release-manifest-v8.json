@@ -1,0 +1,71 @@
+{
+  "version": "V8",
+  "generated_at": "2026-07-17T04:09:11.291Z",
+  "score_dataset_generated_at": "2026-07-17",
+  "artifacts": [
+    {
+      "file": "sg-ai-occupations-v8.json",
+      "label": "V8 clean public JSON",
+      "category": "structural_score",
+      "description": "Clean V8 Singapore public contract.",
+      "bytes": 1666068,
+      "sha256": "451ad8824b7a634f22e2bd30405f40b6923582b665bd53acc4a392de97d2c4a7",
+      "generated_at": "2026-07-17T01:39:47.834Z"
+    },
+    {
+      "file": "sg-ai-occupations-v8.csv",
+      "label": "V8 clean public CSV",
+      "category": "structural_score",
+      "description": "Flattened V8 Singapore public contract.",
+      "bytes": 177961,
+      "sha256": "c80077a1587d7317838f721fe2dafc3b4ff771e5f8d7c011c3b70a6bc29ef04e",
+      "generated_at": "2026-07-17T01:39:47.871Z"
+    },
+    {
+      "file": "claims-matrix-v8.json",
+      "label": "V8 public claims matrix",
+      "category": "governance",
+      "description": "Auditable registry of supported and unsupported claims.",
+      "bytes": 3879,
+      "sha256": "891caafdac79d0b9edd42f12ad5dfadf9b0b4e033c664768ebe93ddb3777f7a7",
+      "generated_at": "2026-07-17T01:39:47.899Z"
+    },
+    {
+      "file": "archive/v8/public-field-source-map.json",
+      "public_path": "/data/archive/v8/public-field-source-map.json",
+      "label": "Archived V8 public field source map",
+      "category": "provenance",
+      "description": "Field-level provenance for the superseded V8 public contract; not a current V9 artifact.",
+      "bytes": 5324,
+      "sha256": "7d51f971b0b5b2cdf16a55f4b06183e4886940043d9774709ceb45c6434abfb3",
+      "generated_at": "2026-07-17T01:39:47.926Z"
+    },
+    {
+      "file": "sg-context-pack-2025.json",
+      "label": "Singapore context pack",
+      "category": "context_bundle",
+      "description": "Official labour-market and adoption context reported separately from the score.",
+      "bytes": 672822,
+      "sha256": "cc1dcdaff3213472e5ea5453d2575c9a6e7e09b53155a248da6256ca7718a880",
+      "generated_at": "2026-07-17T01:39:47.983Z"
+    },
+    {
+      "file": "adoption-diffusion.json",
+      "label": "Singapore adoption context",
+      "category": "governance",
+      "description": "Non-scoring adoption context.",
+      "bytes": 2621,
+      "sha256": "01d458e524bf0f67a530bfdaa2f59bd536038c7adf88cbd74237d5d749348417",
+      "generated_at": "2026-07-16T00:14:03.106Z"
+    },
+    {
+      "file": "age-structure.json",
+      "label": "Singapore age structure",
+      "category": "governance",
+      "description": "Non-scoring attrition context.",
+      "bytes": 335210,
+      "sha256": "c3aa5b9727ae7f5c8a4497d1a2ad9942e1e8284bef81f5d699e97270c8f6fcf1",
+      "generated_at": "2026-07-16T00:14:03.145Z"
+    }
+  ]
+}

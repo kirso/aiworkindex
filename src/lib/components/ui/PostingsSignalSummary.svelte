@@ -62,7 +62,10 @@
 		<div>
 			<p class="text-xs font-semibold text-foreground">{label}</p>
 			<p class="text-xs text-muted-foreground">
-				{contextLabel ?? 'Live postings monitor'}{#if postings.latest_posted_date}
+				{contextLabel ??
+					(postings.hiring_state === 'stale'
+						? 'Archived postings snapshot'
+						: 'Postings monitor')}{#if postings.latest_posted_date}
 					· latest {new Date(postings.latest_posted_date).toLocaleDateString(locale, {
 						day: 'numeric',
 						month: 'short',
@@ -79,8 +82,13 @@
 	<div class="grid gap-3 sm:grid-cols-3">
 		<div>
 			<p class={microLabel()}>Volume</p>
-			<p class="mt-1.5 font-mono text-base text-foreground">{postings.posting_volume_30d}</p>
-			<p class="mt-0.5 text-xs text-muted-foreground">last 30 days</p>
+			{#if postings.hiring_state === 'stale'}
+				<p class="mt-1.5 text-sm font-medium text-foreground">Not current</p>
+				<p class="mt-0.5 text-xs text-muted-foreground">historical sample only</p>
+			{:else}
+				<p class="mt-1.5 font-mono text-base text-foreground">{postings.posting_volume_30d}</p>
+				<p class="mt-0.5 text-xs text-muted-foreground">last 30 days</p>
+			{/if}
 		</div>
 		<div>
 			<p class={microLabel()}>Trend</p>

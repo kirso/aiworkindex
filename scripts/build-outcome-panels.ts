@@ -6,7 +6,7 @@
  * v1 scope (deliberately boring): official MOM labour outcomes only — vacancy
  * rate, retrenchment count (the two fields with quarterly series), plus the
  * latest-quarter hiring (recruitment − resignation) and re-entry snapshots.
- * Postings volume, AI-skill share, and wage movement are reserved as null:
+ * Postings volume and AI-skill share are reserved as null:
  * per data/forecast-readiness.json they need scheduled postings snapshots, a
  * skills dictionary + denominator + time series, and a multi-year nominal +
  * CPI-adjusted transform respectively before they are valid outcomes.
@@ -123,11 +123,14 @@ function main() {
 		},
 		latest_quarter: latestQuarter,
 		outcomes_v1: ['vacancy_rate', 'retrenchment_count', 'hiring_net_pressure', 're_entry_rate'],
+		additional_annual_outcomes: {
+			wage_movement: 'data/wage-movement.json',
+			note: 'Broad-group sex-specific nominal and CPI-adjusted movement is published separately because it is annual and cannot be joined safely to the quarterly three-cluster panel.'
+		},
 		reserved_v2_outcomes: {
 			postings_volume: null,
 			ai_skill_share: null,
-			wage_movement: null,
-			note: 'Deferred per forecast-readiness: postings need scheduled snapshots, AI-skill share needs a fixed dictionary + denominator + time series, and wage movement needs a multi-year nominal + CPI-adjusted transform before use as outcomes.'
+			note: 'Deferred per forecast-readiness: postings need scheduled snapshots and AI-skill share needs a fixed dictionary, denominator, and time series.'
 		},
 		clusters
 	};

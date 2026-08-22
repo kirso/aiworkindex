@@ -18,6 +18,8 @@ export interface DriftEntry {
 
 export interface QuarterlyReport {
 	generated_at: string;
+	public_contract_version: string;
+	structural_snapshot_version: string;
 	current_snapshot: string;
 	previous_snapshot: string | null;
 	total_occupations: number;

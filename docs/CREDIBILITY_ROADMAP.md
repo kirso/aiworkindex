@@ -1,7 +1,12 @@
-# Credibility Roadmap (plan of record, June 2026)
+# Historical V7.1 Credibility Roadmap (June 2026)
+
+> **Historical document.** This is a closeout ledger for a superseded V7.1 branch, not the current
+> plan of record. Its `net_risk`, band, calibration, and sidecar claims do not describe V9. Use
+> `README.md`, `docs/RELEASE_CHECKLIST.md`, the V9 execution plan, and `/methodology` for the current
+> scientific and release boundary.
 
 Scope: the credibility and product work agreed in the June 2026 review sessions. This document is
-now both the plan of record and closeout ledger for the `v7.1-buffer-correction-and-ux` branch.
+the closeout ledger for the `v7.1-buffer-correction-and-ux` branch.
 Slices 0–3 did not change `net_risk` or `risk_band`; each shipped behind a green `bun run verify`.
 
 ## Track A — code and artifacts (sequential)

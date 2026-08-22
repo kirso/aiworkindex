@@ -1,8 +1,8 @@
 {
   "version": "V5-empirical-mobility-sidecar",
-  "generated_at": "2026-06-07T11:57:23.837Z",
+  "generated_at": "2026-07-16T00:14:18.197Z",
   "live_version": "V7",
-  "live_release_date": "2026-06-07",
+  "live_release_date": "2026-06-11",
   "method": "hybrid transition mobility score combining observed priors, destination quality, wage preservation, and training ease",
   "entries": [
     {

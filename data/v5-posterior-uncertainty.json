@@ -1,8 +1,8 @@
 {
   "version": "V5-posterior-uncertainty-sidecar",
-  "generated_at": "2026-06-07T11:57:23.837Z",
+  "generated_at": "2026-07-16T00:14:18.197Z",
   "live_version": "V7",
-  "live_release_date": "2026-06-07",
+  "live_release_date": "2026-06-11",
   "method": "latent_source_measurement_v1 over persisted exposure-source percentiles, calibrated against baseline exposure and optionally aligned to task-aware V4.3 evidence",
   "entries": [
     {

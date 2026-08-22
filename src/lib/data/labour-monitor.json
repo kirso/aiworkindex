@@ -3,15 +3,11 @@
     "cluster_key": "pmet",
     "cluster_label": "Professionals, Managers, Executives & Technicians",
     "vacancy": {
-      "latest_rate": 3.1,
-      "latest_quarter": "2025 Q4",
-      "trend_4q_pct": -3.13,
+      "latest_rate": 3.4,
+      "latest_quarter": "2026 Q1",
+      "trend_4q_pct": -2.86,
       "signal": 0,
       "recent_quarters": [
-        {
-          "quarter": "2022",
-          "rate": 5.3
-        },
         {
           "quarter": "2023",
           "rate": 4
@@ -21,12 +17,12 @@
           "rate": 3.3
         },
         {
-          "quarter": "2024 Q3",
-          "rate": 2.9
-        },
-        {
           "quarter": "2024 Q4",
           "rate": 3.2
+        },
+        {
+          "quarter": "2025 Q1",
+          "rate": 3.5
         },
         {
           "quarter": "2025 Q3",
@@ -35,6 +31,10 @@
         {
           "quarter": "2025 Q4",
           "rate": 3.1
+        },
+        {
+          "quarter": "2026 Q1",
+          "rate": 3.4
         }
       ],
       "annual_rates": [
@@ -59,14 +59,10 @@
           "rate": 3.1
         }
       ],
-      "latest_count": 39.6,
-      "count_trend_4q_pct": -4.35,
-      "count_signal": 0,
+      "latest_count": 43,
+      "count_trend_4q_pct": -5.08,
+      "count_signal": -1,
       "recent_counts": [
-        {
-          "quarter": "2023 Q4",
-          "count": 43.2
-        },
         {
           "quarter": "2024 Q3",
           "count": 35.4
@@ -90,6 +86,10 @@
         {
           "quarter": "2025 Q4",
           "count": 39.6
+        },
+        {
+          "quarter": "2026 Q1",
+          "count": 43
         }
       ],
       "annual_counts": [
@@ -114,32 +114,28 @@
           "count": 42200
         }
       ],
-      "qoq_delta_pp": 0,
-      "count_qoq_delta": 1.4
+      "qoq_delta_pp": 0.3,
+      "count_qoq_delta": 3.4
     },
     "hiring": {
-      "recruitment_rate": 1.5,
-      "resignation_rate": 0.9,
-      "net_pressure": 0.6,
+      "recruitment_rate": 1.2,
+      "resignation_rate": 0.7,
+      "net_pressure": 0.5,
       "signal": 1,
-      "quarter": "2025 Q4",
+      "quarter": "2026 Q1",
       "frequency": "quarterly",
-      "recruitment_delta_pp": -0.3,
-      "resignation_delta_pp": -0.3,
+      "recruitment_delta_pp": -0.1,
+      "resignation_delta_pp": -0.1,
       "net_pressure_delta_pp": 0,
-      "note": "Q4 hiring eased from Q3, but recruitment still exceeded resignation."
+      "note": "Hiring and resignation both slowed in Q1; recruitment still exceeded resignation."
     },
     "retrenchment": {
-      "latest_count": 3150,
-      "latest_quarter": "2025 Q4",
-      "trend_4q_pct": 6.42,
+      "latest_count": 3320,
+      "latest_quarter": "2026 Q1",
+      "trend_4q_pct": 21.61,
       "signal": -1,
       "trend_direction": "rising",
       "recent_quarters": [
-        {
-          "quarter": "2024 Q3",
-          "count": 2250
-        },
         {
           "quarter": "2024 Q4",
           "count": 2960
@@ -159,29 +155,35 @@
         {
           "quarter": "2025 Q4",
           "count": 3150
+        },
+        {
+          "quarter": "2026 Q1",
+          "count": 3320
         }
       ],
-      "incidence_per_1000": 1.5,
-      "qoq_delta_count": 40
+      "incidence_per_1000": 2.6,
+      "qoq_delta_count": 170
     },
     "re_entry": {
-      "rate_6m": 56.4,
-      "rate_12m": 67.7,
-      "quarter": "2025 Q4",
-      "rate_6m_delta_pp": 2.1,
-      "rate_12m_delta_pp": -5.3,
-      "note": "6-month PMET re-entry improved in Q4, but 12-month re-entry softened."
+      "rate_6m": 59.6,
+      "rate_12m": 69.1,
+      "quarter": "2026 Q1",
+      "rate_6m_delta_pp": 3.2,
+      "rate_12m_delta_pp": 1.4,
+      "note": "PMET re-entry improved at both the 6-month and 12-month marks."
     },
     "overall": "weak",
-    "summary": "PMET vacancy rate held at 3.1% in Dec 2025 while published vacancies rose slightly quarter on quarter. Hiring cooled from Q3 but remained net positive. Retrenchments stayed low in incidence terms, even as PMET retrenchment counts edged up.",
-    "data_as_of": "2025 Q4",
-    "source": "Labour Market Report Q4 2025, MRSD, MOM",
+    "summary": "PMET vacancies increased from Q4 and remained below their year-ago level. Hiring stayed net positive but slowed, while retrenchment incidence remained the highest of the three broad occupation groups.",
+    "data_as_of": "2026 Q1",
+    "source": "Labour Market Report Q1 2026, MRSD, MOM",
     "provenance": {
       "method": "raw_plus_report_enrichment",
       "report": {
-        "label": "MOM Labour Market Report Q4 2025",
-        "published_at": "2026-03-20",
-        "url": "https://stats.mom.gov.sg/Pages/Labour-Market-Report-4Q-2025.aspx"
+        "key": "mom_labour_market_report_q1_2026",
+        "period": "Q1 2026",
+        "label": "MOM Labour Market Report Q1 2026",
+        "published_at": "2026-06-15",
+        "url": "https://stats.mom.gov.sg/Pages/Labour-Market-Report-1Q-2026.aspx"
       },
       "fields": {
         "vacancy.annual_rates": {
@@ -192,98 +194,98 @@
           "transform": "Annualized from published vacancy-rate series by occupation group."
         },
         "vacancy.recent_quarters": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 vacancy tables / dashboard",
-          "note": "Latest quarter appended from the published Q4 2025 report because the raw vacancy-rate feed lags."
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 vacancy tables",
+          "note": "Latest quarter appended from the published report because the raw vacancy-rate feed lags."
         },
         "vacancy.latest_rate": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 vacancy table"
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 vacancy table"
         },
         "vacancy.qoq_delta_pp": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 quarter-on-quarter vacancy comparison"
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 quarter-on-quarter vacancy comparison"
         },
         "vacancy.latest_count": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 published vacancy-count table"
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 published vacancy-count table"
         },
         "vacancy.count_qoq_delta": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 published vacancy-count quarter comparison"
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 published vacancy-count quarter comparison"
         },
         "hiring.recruitment_rate": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 recruitment/resignation table",
-          "note": "Quarterly report values override the annualized raw dataset for the live Q4 2025 view."
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 recruitment/resignation table",
+          "note": "Quarterly report values override the annualized raw dataset for the current view."
         },
         "hiring.resignation_rate": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 recruitment/resignation table"
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 recruitment/resignation table"
         },
         "hiring.net_pressure": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "derived_official",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 recruitment/resignation table",
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 recruitment/resignation table",
           "transform": "Computed as recruitment_rate minus resignation_rate."
         },
         "retrenchment.latest_count": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 retrenchment table"
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 retrenchment table"
         },
         "retrenchment.qoq_delta_count": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 retrenchment quarter comparison"
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 retrenchment quarter comparison"
         },
         "retrenchment.incidence_per_1000": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 retrenchment incidence table"
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 retrenchment incidence table"
         },
         "re_entry.rate_6m": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 re-entry table"
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 re-entry table"
         },
         "re_entry.rate_12m": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 re-entry table"
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 re-entry table"
         },
         "overall": {
           "source_key": "ai_work_index_labour_monitor_rules",
           "source_type": "derived_official",
-          "vintage": "Q4 2025",
+          "vintage": "Q1 2026",
           "reference": "scripts/build-labour-monitor.ts",
           "transform": "Deterministic sum of vacancy, hiring, and retrenchment signals into strong / moderate / weak / deteriorating."
         },
         "summary": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "Curated narrative summary derived from the published MOM Labour Market Report Q4 2025.",
+          "vintage": "Q1 2026",
+          "reference": "Curated narrative summary derived from the published MOM Labour Market Report Q1 2026.",
           "note": "Narrative compression of the official figures; not a separate statistical input."
         }
       }
@@ -293,15 +295,11 @@
     "cluster_key": "clerical_sales_service",
     "cluster_label": "Clerical, Sales & Service Workers",
     "vacancy": {
-      "latest_rate": 3.1,
-      "latest_quarter": "2025 Q4",
-      "trend_4q_pct": -11.43,
+      "latest_rate": 3.2,
+      "latest_quarter": "2026 Q1",
+      "trend_4q_pct": -20,
       "signal": -1,
       "recent_quarters": [
-        {
-          "quarter": "2022",
-          "rate": 6
-        },
         {
           "quarter": "2023",
           "rate": 4.7
@@ -311,12 +309,12 @@
           "rate": 3.9
         },
         {
-          "quarter": "2024 Q3",
+          "quarter": "2024 Q4",
           "rate": 3.5
         },
         {
-          "quarter": "2024 Q4",
-          "rate": 3.5
+          "quarter": "2025 Q1",
+          "rate": 4
         },
         {
           "quarter": "2025 Q3",
@@ -325,6 +323,10 @@
         {
           "quarter": "2025 Q4",
           "rate": 3.1
+        },
+        {
+          "quarter": "2026 Q1",
+          "rate": 3.2
         }
       ],
       "annual_rates": [
@@ -349,14 +351,10 @@
           "rate": 3.3
         }
       ],
-      "latest_count": 14.3,
-      "count_trend_4q_pct": -12.8,
+      "latest_count": 14.9,
+      "count_trend_4q_pct": -20.32,
       "count_signal": -1,
       "recent_counts": [
-        {
-          "quarter": "2023 Q4",
-          "count": 19.4
-        },
         {
           "quarter": "2024 Q3",
           "count": 14.8
@@ -380,6 +378,10 @@
         {
           "quarter": "2025 Q4",
           "count": 14.3
+        },
+        {
+          "quarter": "2026 Q1",
+          "count": 14.9
         }
       ],
       "annual_counts": [
@@ -404,32 +406,28 @@
           "count": 16767
         }
       ],
-      "qoq_delta_pp": -0.2,
-      "count_qoq_delta": -0.6
+      "qoq_delta_pp": 0.1,
+      "count_qoq_delta": 0.6
     },
     "hiring": {
-      "recruitment_rate": 2.6,
-      "resignation_rate": 1.6,
-      "net_pressure": 1,
+      "recruitment_rate": 2.1,
+      "resignation_rate": 1.4,
+      "net_pressure": 0.7,
       "signal": 1,
-      "quarter": "2025 Q4",
+      "quarter": "2026 Q1",
       "frequency": "quarterly",
-      "recruitment_delta_pp": 0.1,
-      "resignation_delta_pp": 0.1,
+      "recruitment_delta_pp": -0.5,
+      "resignation_delta_pp": -0.5,
       "net_pressure_delta_pp": 0,
-      "note": "Higher-turnover cluster remained net positive, though vacancy demand eased further in Q4."
+      "note": "Turnover slowed markedly, though recruitment continued to exceed resignation."
     },
     "retrenchment": {
-      "latest_count": 270,
-      "latest_quarter": "2025 Q4",
-      "trend_4q_pct": 8,
+      "latest_count": 320,
+      "latest_quarter": "2026 Q1",
+      "trend_4q_pct": 33.33,
       "signal": -1,
       "trend_direction": "rising",
       "recent_quarters": [
-        {
-          "quarter": "2024 Q3",
-          "count": 240
-        },
         {
           "quarter": "2024 Q4",
           "count": 250
@@ -449,29 +447,35 @@
         {
           "quarter": "2025 Q4",
           "count": 270
+        },
+        {
+          "quarter": "2026 Q1",
+          "count": 320
         }
       ],
-      "incidence_per_1000": 1.5,
-      "qoq_delta_count": -140
+      "incidence_per_1000": 0.7,
+      "qoq_delta_count": 50
     },
     "re_entry": {
-      "rate_6m": 65,
-      "rate_12m": 78.5,
-      "quarter": "2025 Q4",
-      "rate_6m_delta_pp": 4.5,
-      "rate_12m_delta_pp": -1.6,
-      "note": "6-month re-entry improved strongly in Q4, while 12-month re-entry stayed high but eased slightly."
+      "rate_6m": 72.7,
+      "rate_12m": 68,
+      "quarter": "2026 Q1",
+      "rate_6m_delta_pp": 7.7,
+      "rate_12m_delta_pp": -10.5,
+      "note": "Six-month re-entry improved strongly, while the separate 12-month cohort recorded a lower rate."
     },
     "overall": "deteriorating",
-    "summary": "Clerical, sales and service vacancies eased further in Q4 2025, but net hiring remained positive and retrenchment counts fell from the Q3 spike. Re-entry improved meaningfully at the 6-month mark.",
-    "data_as_of": "2025 Q4",
-    "source": "Labour Market Report Q4 2025, MRSD, MOM",
+    "summary": "Clerical, sales and service vacancies recovered slightly from Q4 but remained well below a year earlier. Hiring turnover slowed, retrenchment incidence stayed low, and six-month re-entry improved.",
+    "data_as_of": "2026 Q1",
+    "source": "Labour Market Report Q1 2026, MRSD, MOM",
     "provenance": {
       "method": "raw_plus_report_enrichment",
       "report": {
-        "label": "MOM Labour Market Report Q4 2025",
-        "published_at": "2026-03-20",
-        "url": "https://stats.mom.gov.sg/Pages/Labour-Market-Report-4Q-2025.aspx"
+        "key": "mom_labour_market_report_q1_2026",
+        "period": "Q1 2026",
+        "label": "MOM Labour Market Report Q1 2026",
+        "published_at": "2026-06-15",
+        "url": "https://stats.mom.gov.sg/Pages/Labour-Market-Report-1Q-2026.aspx"
       },
       "fields": {
         "vacancy.annual_rates": {
@@ -482,98 +486,98 @@
           "transform": "Annualized from published vacancy-rate series by occupation group."
         },
         "vacancy.recent_quarters": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 vacancy tables / dashboard",
-          "note": "Latest quarter appended from the published Q4 2025 report because the raw vacancy-rate feed lags."
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 vacancy tables",
+          "note": "Latest quarter appended from the published report because the raw vacancy-rate feed lags."
         },
         "vacancy.latest_rate": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 vacancy table"
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 vacancy table"
         },
         "vacancy.qoq_delta_pp": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 quarter-on-quarter vacancy comparison"
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 quarter-on-quarter vacancy comparison"
         },
         "vacancy.latest_count": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 published vacancy-count table"
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 published vacancy-count table"
         },
         "vacancy.count_qoq_delta": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 published vacancy-count quarter comparison"
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 published vacancy-count quarter comparison"
         },
         "hiring.recruitment_rate": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 recruitment/resignation table",
-          "note": "Quarterly report values override the annualized raw dataset for the live Q4 2025 view."
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 recruitment/resignation table",
+          "note": "Quarterly report values override the annualized raw dataset for the current view."
         },
         "hiring.resignation_rate": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 recruitment/resignation table"
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 recruitment/resignation table"
         },
         "hiring.net_pressure": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "derived_official",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 recruitment/resignation table",
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 recruitment/resignation table",
           "transform": "Computed as recruitment_rate minus resignation_rate."
         },
         "retrenchment.latest_count": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 retrenchment table"
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 retrenchment table"
         },
         "retrenchment.qoq_delta_count": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 retrenchment quarter comparison"
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 retrenchment quarter comparison"
         },
         "retrenchment.incidence_per_1000": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 retrenchment incidence table"
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 retrenchment incidence table"
         },
         "re_entry.rate_6m": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 re-entry table"
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 re-entry table"
         },
         "re_entry.rate_12m": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 re-entry table"
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 re-entry table"
         },
         "overall": {
           "source_key": "ai_work_index_labour_monitor_rules",
           "source_type": "derived_official",
-          "vintage": "Q4 2025",
+          "vintage": "Q1 2026",
           "reference": "scripts/build-labour-monitor.ts",
           "transform": "Deterministic sum of vacancy, hiring, and retrenchment signals into strong / moderate / weak / deteriorating."
         },
         "summary": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "Curated narrative summary derived from the published MOM Labour Market Report Q4 2025.",
+          "vintage": "Q1 2026",
+          "reference": "Curated narrative summary derived from the published MOM Labour Market Report Q1 2026.",
           "note": "Narrative compression of the official figures; not a separate statistical input."
         }
       }
@@ -583,15 +587,11 @@
     "cluster_key": "production_transport",
     "cluster_label": "Production & Transport Operators, Cleaners & Labourers",
     "vacancy": {
-      "latest_rate": 2.8,
-      "latest_quarter": "2025 Q4",
-      "trend_4q_pct": 16.67,
-      "signal": 1,
+      "latest_rate": 2.3,
+      "latest_quarter": "2026 Q1",
+      "trend_4q_pct": -4.17,
+      "signal": 0,
       "recent_quarters": [
-        {
-          "quarter": "2022",
-          "rate": 4.2
-        },
         {
           "quarter": "2023",
           "rate": 2.7
@@ -601,11 +601,11 @@
           "rate": 2.3
         },
         {
-          "quarter": "2024 Q3",
-          "rate": 1.7
+          "quarter": "2024 Q4",
+          "rate": 2.4
         },
         {
-          "quarter": "2024 Q4",
+          "quarter": "2025 Q1",
           "rate": 2.4
         },
         {
@@ -615,6 +615,10 @@
         {
           "quarter": "2025 Q4",
           "rate": 2.8
+        },
+        {
+          "quarter": "2026 Q1",
+          "rate": 2.3
         }
       ],
       "annual_rates": [
@@ -639,14 +643,10 @@
           "rate": 2
         }
       ],
-      "latest_count": 21.7,
-      "count_trend_4q_pct": 20.56,
-      "count_signal": 1,
+      "latest_count": 17.2,
+      "count_trend_4q_pct": -6.01,
+      "count_signal": -1,
       "recent_counts": [
-        {
-          "quarter": "2023 Q4",
-          "count": 15.8
-        },
         {
           "quarter": "2024 Q3",
           "count": 11.2
@@ -670,6 +670,10 @@
         {
           "quarter": "2025 Q4",
           "count": 21.7
+        },
+        {
+          "quarter": "2026 Q1",
+          "count": 17.2
         }
       ],
       "annual_counts": [
@@ -694,32 +698,28 @@
           "count": 17100
         }
       ],
-      "qoq_delta_pp": 0.8,
-      "count_qoq_delta": 6.9
+      "qoq_delta_pp": -0.5,
+      "count_qoq_delta": -4.5
     },
     "hiring": {
-      "recruitment_rate": 2.4,
-      "resignation_rate": 1.5,
-      "net_pressure": 0.9,
+      "recruitment_rate": 1.7,
+      "resignation_rate": 1.2,
+      "net_pressure": 0.5,
       "signal": 1,
-      "quarter": "2025 Q4",
+      "quarter": "2026 Q1",
       "frequency": "quarterly",
-      "recruitment_delta_pp": 0.3,
-      "resignation_delta_pp": 0.2,
+      "recruitment_delta_pp": -0.1,
+      "resignation_delta_pp": -0.2,
       "net_pressure_delta_pp": 0.1,
-      "note": "Demand strengthened sharply into Q4, led by production and transport hiring."
+      "note": "Recruitment and resignation both slowed; the net hiring balance improved slightly."
     },
     "retrenchment": {
-      "latest_count": 280,
-      "latest_quarter": "2025 Q4",
-      "trend_4q_pct": -40.43,
+      "latest_count": 200,
+      "latest_quarter": "2026 Q1",
+      "trend_4q_pct": -68.25,
       "signal": 1,
       "trend_direction": "falling",
       "recent_quarters": [
-        {
-          "quarter": "2024 Q3",
-          "count": 410
-        },
         {
           "quarter": "2024 Q4",
           "count": 470
@@ -739,29 +739,35 @@
         {
           "quarter": "2025 Q4",
           "count": 280
+        },
+        {
+          "quarter": "2026 Q1",
+          "count": 200
         }
       ],
-      "incidence_per_1000": 1.5,
-      "qoq_delta_count": 130
+      "incidence_per_1000": 0.3,
+      "qoq_delta_count": -80
     },
     "re_entry": {
-      "rate_6m": 64.8,
-      "rate_12m": 78.1,
-      "quarter": "2025 Q4",
-      "rate_6m_delta_pp": -2.8,
-      "rate_12m_delta_pp": -4.5,
-      "note": "Vacancy demand rose sharply in Q4, though re-entry rates eased from a very strong Q3 base."
+      "rate_6m": 72.5,
+      "rate_12m": 76.9,
+      "quarter": "2026 Q1",
+      "rate_6m_delta_pp": 7.7,
+      "rate_12m_delta_pp": -1.2,
+      "note": "Six-month re-entry recovered strongly; the separate 12-month cohort remained comparatively high."
     },
     "overall": "strong",
-    "summary": "Production and transport demand strengthened sharply in Q4 2025, with vacancy rates and published vacancy counts both rising strongly. Hiring stayed net positive and retrenchments remained well below the year-ago quarter.",
-    "data_as_of": "2025 Q4",
-    "source": "Labour Market Report Q4 2025, MRSD, MOM",
+    "summary": "Production and transport vacancies fell back from the Q4 spike and were slightly below a year earlier. Hiring remained net positive, retrenchments declined, and six-month re-entry improved.",
+    "data_as_of": "2026 Q1",
+    "source": "Labour Market Report Q1 2026, MRSD, MOM",
     "provenance": {
       "method": "raw_plus_report_enrichment",
       "report": {
-        "label": "MOM Labour Market Report Q4 2025",
-        "published_at": "2026-03-20",
-        "url": "https://stats.mom.gov.sg/Pages/Labour-Market-Report-4Q-2025.aspx"
+        "key": "mom_labour_market_report_q1_2026",
+        "period": "Q1 2026",
+        "label": "MOM Labour Market Report Q1 2026",
+        "published_at": "2026-06-15",
+        "url": "https://stats.mom.gov.sg/Pages/Labour-Market-Report-1Q-2026.aspx"
       },
       "fields": {
         "vacancy.annual_rates": {
@@ -772,98 +778,98 @@
           "transform": "Annualized from published vacancy-rate series by occupation group."
         },
         "vacancy.recent_quarters": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 vacancy tables / dashboard",
-          "note": "Latest quarter appended from the published Q4 2025 report because the raw vacancy-rate feed lags."
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 vacancy tables",
+          "note": "Latest quarter appended from the published report because the raw vacancy-rate feed lags."
         },
         "vacancy.latest_rate": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 vacancy table"
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 vacancy table"
         },
         "vacancy.qoq_delta_pp": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 quarter-on-quarter vacancy comparison"
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 quarter-on-quarter vacancy comparison"
         },
         "vacancy.latest_count": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 published vacancy-count table"
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 published vacancy-count table"
         },
         "vacancy.count_qoq_delta": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 published vacancy-count quarter comparison"
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 published vacancy-count quarter comparison"
         },
         "hiring.recruitment_rate": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 recruitment/resignation table",
-          "note": "Quarterly report values override the annualized raw dataset for the live Q4 2025 view."
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 recruitment/resignation table",
+          "note": "Quarterly report values override the annualized raw dataset for the current view."
         },
         "hiring.resignation_rate": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 recruitment/resignation table"
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 recruitment/resignation table"
         },
         "hiring.net_pressure": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "derived_official",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 recruitment/resignation table",
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 recruitment/resignation table",
           "transform": "Computed as recruitment_rate minus resignation_rate."
         },
         "retrenchment.latest_count": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 retrenchment table"
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 retrenchment table"
         },
         "retrenchment.qoq_delta_count": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 retrenchment quarter comparison"
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 retrenchment quarter comparison"
         },
         "retrenchment.incidence_per_1000": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 retrenchment incidence table"
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 retrenchment incidence table"
         },
         "re_entry.rate_6m": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 re-entry table"
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 re-entry table"
         },
         "re_entry.rate_12m": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "MOM Labour Market Report Q4 2025 re-entry table"
+          "vintage": "Q1 2026",
+          "reference": "MOM Labour Market Report Q1 2026 re-entry table"
         },
         "overall": {
           "source_key": "ai_work_index_labour_monitor_rules",
           "source_type": "derived_official",
-          "vintage": "Q4 2025",
+          "vintage": "Q1 2026",
           "reference": "scripts/build-labour-monitor.ts",
           "transform": "Deterministic sum of vacancy, hiring, and retrenchment signals into strong / moderate / weak / deteriorating."
         },
         "summary": {
-          "source_key": "mom_labour_market_report_q4_2025",
+          "source_key": "mom_labour_market_report_q1_2026",
           "source_type": "official_report_table",
-          "vintage": "Q4 2025",
-          "reference": "Curated narrative summary derived from the published MOM Labour Market Report Q4 2025.",
+          "vintage": "Q1 2026",
+          "reference": "Curated narrative summary derived from the published MOM Labour Market Report Q1 2026.",
           "note": "Narrative compression of the official figures; not a separate statistical input."
         }
       }

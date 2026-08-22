@@ -2,6 +2,7 @@ import occupationsData from './occupations.json';
 import majorGroupsData from './major-groups.json';
 import labourMonitorData from './labour-monitor.json';
 import type { OccupationDataBasis, EmploymentBasis } from './data-contract';
+import type { V8OccupationProjection } from './v8-contract';
 
 // Current structural-release types
 export type RiskBand = 'very_low' | 'low' | 'moderate' | 'high' | 'very_high';
@@ -296,6 +297,8 @@ export interface Occupation {
 	exposure_v7?: number;
 	/** V6 baseline scores for comparison after V7 upgrade */
 	baseline_v6?: { net_risk: number; exposure: number };
+	/** V8 public interpretation projected from the retained V7 structural inputs. */
+	v8: V8OccupationProjection;
 	labour_monitor: LabourClusterMonitor | null;
 	raw: RawScores;
 	isco_codes_matched: string[];
@@ -382,10 +385,10 @@ export const riskBandColors: Record<RiskBand, string> = {
 };
 
 export const impactTypeLabels: Record<ImpactType, string> = {
-	ai_leveraged: 'Augmented',
-	at_risk: 'At Risk',
-	stable: 'Stable',
-	mixed: 'Mixed'
+	ai_leveraged: 'Augmentation-led',
+	at_risk: 'Substitution-led',
+	stable: 'Limited direct change',
+	mixed: 'Mixed pathway'
 };
 
 export const impactTypeColors: Record<ImpactType, string> = {

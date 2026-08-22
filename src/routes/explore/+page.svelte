@@ -1,116 +1,83 @@
 <script lang="ts">
-	import FilterPanel from '$lib/components/ui/FilterPanel.svelte';
-	import OccupationCard from '$lib/components/ui/OccupationCard.svelte';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
-	import { card, pageLayout, title as titleStyle, caption } from '$lib/design-system';
-	import { cn } from '$lib/utils';
-	import { DATA_VINTAGE, SITE } from '$lib/data/scoring-constants';
+	import OccupationExplorer from '$lib/components/v9-browser/OccupationExplorer.svelte';
+	import { badge, pageLayout, sectionLabel, title as titleStyle } from '$lib/design-system';
+	import { SITE } from '$lib/data/scoring-constants';
 
 	let { data } = $props();
 
-	const PAGE_SIZE = 30;
-
-	let filterResult: typeof data.occupations | null = $state(null);
-	let visibleCount = $state(PAGE_SIZE);
-	let filteredOccupations = $derived(filterResult ?? data.occupations);
-	let sortedOccupations = $derived(
-		[...filteredOccupations].sort((a, b) => a.title.localeCompare(b.title))
-	);
-	let visibleOccupations = $derived(sortedOccupations.slice(0, visibleCount));
-
-	function handleFilter(filtered: typeof data.occupations) {
-		filterResult = filtered;
-		visibleCount = PAGE_SIZE; // reset paging whenever the filter changes
-	}
-
-	const itemListJsonLd = $derived(
+	let itemListJsonLd = $derived(
 		`<script type="application/ld+json">${JSON.stringify({
 			'@context': 'https://schema.org',
 			'@type': 'ItemList',
-			name: 'Occupations',
-			description: `${DATA_VINTAGE.occupation_count} occupations scored for structural AI pressure`,
-			numberOfItems: sortedOccupations.length,
-			itemListElement: sortedOccupations.slice(0, 10).map((item, index) => ({
+			name: 'Singapore SSOC 2024 occupations with AI task-pressure evidence',
+			numberOfItems: data.counts.total,
+			itemListElement: data.featuredOccupations.map((item, index) => ({
 				'@type': 'ListItem',
 				position: index + 1,
 				name: item.title,
-				url: SITE.url + `/occupation/${item.ssoc}`
+				url: `${SITE.url}/occupation/${item.code}`
 			}))
 		})}<\/script>`
 	);
 </script>
 
 <Seo
-	title={`Browse Occupations — Structural AI Risk | ${SITE.name}`}
-	description={`Browse all ${DATA_VINTAGE.occupation_count} occupations scored for structural AI pressure. Filter by risk band, occupation group, and wage range.`}
+	title="Explore Singapore Jobs by AI Task Pressure"
+	description="Map and search all 1,001 SSOC 2024 occupations. Use the same filters across AI task pressure, direct Singapore wages, named demand evidence and exact occupation records."
 	path="/explore"
 	jsonLd={[itemListJsonLd]}
 />
 
-<main class={pageLayout({ width: 'content' })}>
-	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Browse Occupations' }]} />
+<main class={pageLayout({ width: 'data' })}>
+	<PageBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Explore occupations' }]} />
 
-	<div class="mb-6">
-		<h1 class={titleStyle({ size: 'page' })}>Browse Occupations</h1>
-		<p class={cn(caption(), 'mt-1')}>
-			All {DATA_VINTAGE.occupation_count} occupations in one place. Filter by risk band, occupation group,
-			and wage range, then open any occupation for the full evidence breakdown.
-		</p>
-	</div>
-
-	<div class="grid gap-6 lg:grid-cols-[18rem_minmax(0,1fr)]">
-		<aside class={cn(card({ padding: 'sm' }), 'h-fit')}>
-			<FilterPanel occupations={data.occupations} onfilter={handleFilter} valuePrefix="SGD" />
-		</aside>
-
-		<section>
-			<div class="mb-4">
-				<p class="text-sm text-muted-foreground">
-					{#if sortedOccupations.length === 0}
-						Showing 0 of {data.occupations.length} occupations
-					{:else}
-						Showing {Math.min(visibleCount, sortedOccupations.length)} of {sortedOccupations.length}
-						{sortedOccupations.length === data.occupations.length
-							? 'occupations'
-							: `matching occupations (${data.occupations.length} total)`}
-					{/if}
-				</p>
+	<header
+		class="mb-7 grid gap-5 border-b border-border pb-7 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end"
+	>
+		<div class="max-w-4xl">
+			<div class="flex flex-wrap items-center gap-2">
+				<p class={sectionLabel()}>Singapore occupation explorer</p>
+				<span class={badge({ variant: 'outline' })}>V9 · 19 Aug 2026</span>
 			</div>
+			<h1 class="mt-2 {titleStyle({ size: 'page' })}">Compare AI task pressure, pay and demand</h1>
+			<p class="mt-3 max-w-3xl text-base leading-relaxed text-text-secondary sm:text-lg">
+				Move between the occupation map, pressure-and-pay chart and exact list. Your filters carry
+				across all three views, so you can spot patterns, compare occupations and open the evidence
+				behind each result.
+			</p>
+		</div>
+		<dl
+			class="grid grid-cols-2 gap-x-6 gap-y-2 rounded-xl border border-border bg-card p-4 shadow-xs"
+		>
+			<div>
+				<dt class="text-xs text-muted-foreground">Official occupations</dt>
+				<dd class="mt-1 font-mono text-xl font-semibold tabular-nums">
+					{data.counts.total.toLocaleString()}
+				</dd>
+			</div>
+			<div>
+				<dt class="text-xs text-muted-foreground">Pressure unranked</dt>
+				<dd class="mt-1 font-mono text-xl font-semibold tabular-nums">
+					{data.counts.unranked}
+				</dd>
+			</div>
+		</dl>
+	</header>
 
-			{#if sortedOccupations.length === 0}
-				<div class={cn(card({ padding: 'lg' }), 'border-dashed text-center')}>
-					<p class="text-sm font-medium text-foreground">No occupations match your filters.</p>
-					<p class="mt-1 text-sm text-muted-foreground">
-						Try widening the risk band, occupation group, or wage range.
-					</p>
-					<button
-						type="button"
-						class="mt-3 text-sm font-medium text-primary hover:underline"
-						onclick={() => handleFilter(data.occupations)}
-					>
-						Clear filters
-					</button>
-				</div>
-			{:else}
-				<div class="space-y-2">
-					{#each visibleOccupations as occupation (occupation.ssoc)}
-						<OccupationCard {occupation} />
-					{/each}
-				</div>
+	<OccupationExplorer
+		items={data.occupations}
+		sourceUrl="/data/v9-search-index.json?v=2026-08-19-v9-role-guides"
+		expectedTotal={data.counts.total}
+	/>
 
-				{#if visibleCount < sortedOccupations.length}
-					<div class="mt-4 text-center">
-						<button
-							type="button"
-							class={cn(card({ padding: 'sm' }), 'w-full text-sm font-medium hover:bg-muted/50')}
-							onclick={() => (visibleCount += PAGE_SIZE)}
-						>
-							Show more ({sortedOccupations.length - visibleCount} remaining)
-						</button>
-					</div>
-				{/if}
-			{/if}
-		</section>
-	</div>
+	<aside class="mt-10 border-t border-border pt-6 text-sm leading-relaxed text-muted-foreground">
+		<p>
+			<strong class="text-foreground">How to read this:</strong> pressure is a relative percentile among
+			the 987 scored occupations in this V9 release. Use the map for the full occupation landscape, Pressure
+			& pay for wage relationships, and List for exact records. Open any occupation to see its Official
+			ILO category, Singapore evidence and source notes.
+		</p>
+	</aside>
 </main>

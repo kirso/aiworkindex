@@ -47,8 +47,7 @@
 	}
 
 	function compactTitleSegment(value: string, maxLength: number): string {
-		const withoutParentheticals = normalizeWhitespace(value.replace(/\s*\([^)]*\)/g, ' '));
-		return truncateAtWord(withoutParentheticals || value, maxLength);
+		return truncateAtWord(value, maxLength);
 	}
 
 	function buildFullTitle(value: string): string {
@@ -79,7 +78,7 @@
 	<meta name="description" content={metaDescription} />
 	<meta property="og:title" content={fullTitle} />
 	<meta property="og:description" content={metaDescription} />
-	<meta property="og:url" content={fullUrl} />
+	<meta property="og:url" content={canonicalUrl} />
 	<meta property="og:image" content={fullOgImage} />
 	<meta property="og:image:width" content="1200" />
 	<meta property="og:image:height" content="630" />
@@ -91,9 +90,11 @@
 		<link rel="alternate" hreflang={alternate.hreflang} href={alternate.href} />
 	{/each}
 	<meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow'} />
-	{#each jsonLdPayloads as ld (ld)}
-		<svelte:element this={'script'} type="application/ld+json">
-			{ld}
-		</svelte:element>
-	{/each}
+	{#if !noindex}
+		{#each jsonLdPayloads as ld (ld)}
+			<svelte:element this={'script'} type="application/ld+json">
+				{ld}
+			</svelte:element>
+		{/each}
+	{/if}
 </svelte:head>

@@ -1,23 +1,22 @@
 # Academic and Public-Credibility Packet
 
-This folder holds repo-side drafts for external credibility work that cannot be completed by the
-build pipeline alone. The site already ships the trust pages, citation block, contact path, release
-manifest, validation artifacts, and deterministic data downloads. These files package the next
-manual submissions.
+These are V9 preparation drafts, not approved submissions. They must be checked by the maintainer
+against the exact release commit before anything is sent to SSRN, Zenodo, OSF, or another registry.
+The earlier V7 methods are superseded and must not be submitted as current work.
 
 ## Order of operations
 
-1. Create or confirm the maintainer ORCID.
-2. Archive the current release on Zenodo using the GitHub release tarball and the notes in
-   `ZENODO_RELEASE_NOTES.md`.
-3. Submit the methodology working paper using `SSRN_METHODOLOGY_ABSTRACT.md` as the abstract and
-   the live methodology/data pages as reproducibility links.
-4. Register the forecast-horizon protocol on OSF using `OSF_FORECAST_PREREGISTRATION.md`.
-5. After the first post-baseline quarters land, update the OSF registration with results rather
-   than changing the pre-specified protocol.
+1. Finish and tag the V9 release; record the exact commit and public artifact checksums.
+2. Confirm the maintainer ORCID and preferred citation.
+3. Archive that immutable release on Zenodo using `ZENODO_RELEASE_NOTES.md`; add the DOI back to the
+   repository in a follow-up release.
+4. Review the methodology paper against `SSRN_METHODOLOGY_ABSTRACT.md`, `/methodology`, and the
+   machine-readable V9 contract before submission.
+5. Do not register `OSF_FORECAST_PREREGISTRATION.md` until its data-availability gates are met.
 
 ## Boundaries
 
-- Do not claim forecast validation until the sidecar has enough post-baseline quarters.
+- Describe V9 as relative GenAI task exposure, not displacement probability or forecast validation.
+- Keep observed use, complementarity, wages, demand, and labour outcomes separate from the rank.
 - Do not redistribute SSG raw task records unless the written permission explicitly allows it.
-- Keep the public framing as structural pressure, not job-loss prediction.
+- Publish null, withheld, and negative results without replacing them with broad-group fallbacks.

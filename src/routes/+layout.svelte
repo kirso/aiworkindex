@@ -2,7 +2,7 @@
 	import '../app.css';
 	import favicon from '$lib/assets/favicon.svg';
 	import { page } from '$app/state';
-	import { DATA_VINTAGE, SITE } from '$lib/data/scoring-constants';
+	import { SITE } from '$lib/data/scoring-constants';
 	import { siteStatus } from '$lib/data/site-status';
 	import * as Sheet from '$lib/components/ui/sheet/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
@@ -26,27 +26,27 @@
 	});
 
 	const navLinks = [
-		{ href: '/', label: 'Find' },
-		{ href: '/explore', label: 'Browse' },
-		{ href: '/rankings', label: 'Rankings' },
+		{ href: '/', label: 'Find a job' },
+		{ href: '/explore', label: 'Explore' },
+		{ href: '/roles', label: 'Modern roles' },
 		{ href: '/compare', label: 'Compare' },
-		{ href: '/calculator', label: 'Calculator' },
-		{ href: '/methodology', label: 'Methodology' }
+		{ href: '/will-ai-take-my-job', label: 'My work' }
 	];
 
 	const secondaryLinks = [
-		{ href: '/roles', label: 'Roles' },
+		{ href: '/watchlist', label: 'Saved jobs' },
+		{ href: '/rankings', label: 'Rankings' },
 		{ href: '/reports', label: 'Reports' },
 		{ href: '/research', label: 'Research' },
+		{ href: '/methodology', label: 'Methodology' },
 		{ href: '/data', label: 'Data' },
 		{ href: '/about', label: 'About' },
-		{ href: '/changelog', label: 'Changelog' },
-		{ href: '/watchlist', label: 'Watchlist' }
+		{ href: '/changelog', label: 'Changelog' }
 	];
 
 	const marketLinks = [
 		{ href: '/sg', label: countryConfigs.sg.name },
-		{ href: '/us', label: countryConfigs.us.name }
+		{ href: '/us', label: 'US Preview' }
 	];
 
 	let mobileMenuOpen = $state(false);
@@ -62,41 +62,34 @@
 		name: SITE.name,
 		alternateName: SITE.shortName,
 		url: `${SITE.url}/`,
-		description: `${DATA_VINTAGE.occupation_count} occupations scored for AI displacement risk using official data and published research.`,
+		description: `${siteStatus.structural_release.counts.scored} Singapore SSOC 2024 occupations ranked by AI Work Pressure using ILO 2025 task-exposure evidence, with ${siteStatus.structural_release.counts.insufficient_evidence} occupations explicitly unranked.`,
 		publisher: {
 			'@type': 'Organization',
 			'@id': `${SITE.url}/#organization`,
 			name: SITE.name,
 			url: `${SITE.url}/`,
-			description: 'Open-source AI displacement risk scoring for occupations and modern roles',
+			description:
+				'Open-source evidence on AI work pressure for Singapore occupations and clearly labelled modern-role estimates',
 			foundingDate: '2024',
 			knowsAbout: [
-				'AI displacement risk',
+				'AI task pressure',
 				'occupational exposure to artificial intelligence',
-				'labor economics',
-				'workforce automation',
-				'career transition planning'
+				'Singapore occupations',
+				'Singapore wages',
+				'Singapore labour demand',
+				'labour economics'
 			],
-			areaServed: [
-				{ '@type': 'Country', name: 'Singapore' },
-				{ '@type': 'Country', name: 'United States' }
-			],
+			areaServed: { '@type': 'Country', name: 'Singapore' },
 			sameAs: [SITE.github, SITE.authorUrl]
 		},
-		potentialAction: {
-			'@type': 'SearchAction',
-			target: `${SITE.url}/?q={search_term_string}`,
-			'query-input': 'required name=search_term_string'
-		},
 		inLanguage: 'en',
-		dateModified: DATA_VINTAGE.last_updated
+		dateModified: siteStatus.updated_at
 	})}<\/script>`;
 </script>
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
 	<meta property="og:site_name" content={SITE.name} />
-	<meta property="og:type" content="website" />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="author" content="Kirill So" />
 	{@html layoutJsonLd}
@@ -111,15 +104,17 @@
 		Skip to content
 	</a>
 
-	<!-- Header: Swiss editorial — signal topline, solid white bar, strong rule -->
-	<div class="h-[5px] bg-primary"></div>
+	<!-- Header -->
 	<header class="sticky top-0 z-50 border-b border-foreground bg-header-bg">
-		<div class="mx-auto max-w-screen-2xl px-5 sm:px-6 flex items-center justify-between h-12">
+		<div class="mx-auto flex h-12 max-w-screen-2xl items-center justify-between px-5 sm:px-6">
 			<a
 				href="/"
 				class="flex items-center gap-2 text-header-text transition-colors hover:text-primary"
 			>
 				<span class="text-sm font-black uppercase tracking-tight">{SITE.name}</span>
+				<span class="hidden border-l border-border pl-2 text-xs text-header-muted xl:inline"
+					>Singapore work and AI</span
+				>
 			</a>
 
 			<!-- Desktop nav -->
@@ -128,7 +123,7 @@
 					{#each navLinks as link (link.href)}
 						<a
 							href={link.href}
-							class="rounded-md px-2.5 py-1 text-xs font-medium transition-colors duration-100
+							class="inline-flex min-h-10 items-center rounded-none px-2.5 py-1 text-xs font-medium transition-colors duration-100
 								{isActive(link.href)
 								? 'bg-header-active-bg text-foreground'
 								: 'text-header-muted hover:text-foreground'}"
@@ -138,12 +133,12 @@
 					{/each}
 				</nav>
 				<div
-					class="ml-2 hidden items-center gap-1 rounded-full border border-header-active-bg bg-header-active-bg/20 p-0.5 lg:flex"
+					class="ml-2 hidden items-center gap-1 border border-header-active-bg bg-header-active-bg/20 p-0.5 lg:flex"
 				>
 					{#each marketLinks as market (market.href)}
 						<a
 							href={market.href}
-							class="rounded-full px-2.5 py-1 text-[11px] font-medium transition-colors duration-100
+							class="rounded-none px-2.5 py-1 text-[11px] font-medium transition-colors duration-100
 								{isActive(market.href)
 								? 'bg-header-active-bg text-foreground'
 								: 'text-header-muted hover:text-foreground'}"
@@ -153,6 +148,22 @@
 					{/each}
 				</div>
 				<CommandMenu />
+				<a
+					href="/watchlist"
+					class="ml-1 hidden min-h-11 items-center gap-1.5 border border-border px-2.5 text-xs font-medium text-header-muted transition-colors hover:border-foreground hover:text-foreground lg:inline-flex"
+				>
+					<svg
+						class="size-3.5"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						aria-hidden="true"
+					>
+						<path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+					</svg>
+					Saved
+				</a>
 			</div>
 
 			<!-- Mobile menu -->
@@ -164,7 +175,7 @@
 								{...props}
 								variant="ghost"
 								size="icon"
-								class="h-8 w-8 text-header-muted hover:text-foreground"
+								class="h-11 w-11 text-header-muted hover:text-foreground"
 							>
 								<svg
 									class="h-4.5 w-4.5"
@@ -192,7 +203,7 @@
 							{#each navLinks as link (link.href)}
 								<a
 									href={link.href}
-									class="rounded-md px-3 py-2 text-sm font-medium transition-colors duration-100
+									class="flex min-h-11 items-center rounded-md px-3 py-2 text-sm font-medium transition-colors duration-100
 										{isActive(link.href)
 										? 'bg-accent text-foreground'
 										: 'text-muted-foreground hover:bg-accent hover:text-foreground'}"
@@ -226,7 +237,7 @@
 							{#each secondaryLinks as link (link.href)}
 								<a
 									href={link.href}
-									class="rounded-md px-3 py-2 text-sm text-muted-foreground hover:bg-accent hover:text-foreground transition-colors duration-100"
+									class="flex min-h-11 items-center rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors duration-100 hover:bg-accent hover:text-foreground"
 								>
 									{link.label}
 								</a>
@@ -238,21 +249,21 @@
 		</div>
 	</header>
 
-	<main id="main-content" class="flex-1">
+	<div id="main-content" class="flex-1" tabindex="-1">
 		{@render children()}
-	</main>
+	</div>
 
 	<!-- Footer -->
 	<footer class="border-t border-border">
 		<div class="mx-auto max-w-screen-2xl px-5 sm:px-6 py-4">
 			<div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
 				<p class="text-xs text-muted-foreground">
-					AI displacement risk scores, not predictions.
-					<a href="/methodology" class="text-primary hover:underline">Methodology</a>
+					Explore how current AI overlaps with Singapore work, alongside pay and hiring signals.
+					<a href="/methodology" class="text-primary hover:underline">How it works</a>
 				</p>
 				<div class="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
 					<a href="/rankings" class="hover:text-foreground">Rankings</a>
-					<a href="/" class="hover:text-foreground">Find</a>
+					<a href="/watchlist" class="hover:text-foreground">Saved jobs</a>
 					<a href="/reports" class="hover:text-foreground">Reports</a>
 					<a href="/research" class="hover:text-foreground">Research</a>
 					<a href="/data" class="hover:text-foreground">Data</a>
@@ -267,8 +278,9 @@
 				</div>
 			</div>
 			<p class="mt-2 text-xs text-text-ghost">
-				{siteStatus.structural_release.version} · {DATA_VINTAGE.occupation_count} occupations · {DATA_VINTAGE.role_count}
-				roles · MIT Licensed ·
+				{siteStatus.structural_release.version} · {siteStatus.structural_release.counts.occupations.toLocaleString()}
+				SSOC 2024 occupations · {siteStatus.role_query_layer.count} modern-title journeys · Code under
+				MIT ·
 				<a
 					href={SITE.authorUrl}
 					target="_blank"

@@ -1,5 +1,5 @@
 {
-  "validation_date": "2026-06-11",
+  "validation_date": "2026-07-16",
   "model_version": "V7",
   "method": "Self-fidelity-gated in-memory recompute of net_risk from stored per-occupation inputs; one-at-a-time perturbations (+/-25%, +/-50%) of each ranking constant plus a seeded joint Monte-Carlo (all constants perturbed by independent uniform +/-25% factors). Rank stability measured by tie-corrected Spearman against the baseline ranking, risk-band flips, and top-20/top-50 Jaccard overlap.",
   "recompute_fidelity": {

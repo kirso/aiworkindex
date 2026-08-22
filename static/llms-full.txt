@@ -1,308 +1,1185 @@
-# AI Work Index — Full Reference
-
-> Structural AI pressure scores for 562 occupations and 88 modern roles. Current public release: V7. Deterministic scoring, open data, no LLM in the scoring loop.
-
-## Project Overview
-
-AI Work Index is a global occupation scoring project covering Singapore and the United States. The live V7 release measures structural AI pressure, not realised job loss and not a hiring forecast.
-
-- Author: Kirill So (https://www.linkedin.com/in/kirso/)
-- Website: https://aiworkindex.com
-- Source code: https://github.com/kirso/aiworkindex
-- Data vintage: V7, last updated 2026-06-07
-- Coverage: 562 SSOC occupations + 88 synthetic modern roles
-- Countries: Singapore, United States
-
-## Scoring Methodology
-
-### Core Formula
-
-headline_risk = displacement_pressure x (1 - demand_resilience)
-
-V7 additions:
-  task_signal = task_exposure_concentration x task_effective_coverage (Hampole et al. 2025 — concentrated exposure buffers labour-demand losses)
-  exposure_v7 = exposure x (1 - 0.20 x task_signal)
-  demand_persistence = ranked composite of market momentum, vacancy trends, scarcity, demand signals
-
-Where:
-  displacement_pressure = exposure_v7 x (1 - bottleneck)
-  demand_resilience = min(1.0, base_resilience x 0.45 + demand_signal_bonus + 0.10 x demand_persistence)
-  augmentation = exposure_v7 x bottleneck x market.market_resilience
-
-### Layer 1: Exposure
-
-The live V7 exposure layer is a deterministic reliability-weighted 4-source ensemble over:
-- Felten AIOE
-- Anthropic Economic Index / observed AI usage
-- Eloundou GPT exposure
-- ILO occupational exposure
-
-### Layer 2: Human Bottleneck
-
-Human bottleneck is based on Pizzinelli theta and captures judgment, presence, coordination, and responsibility that resist automation.
-
-### Layer 3: Demand Resilience
-
-Demand resilience is a separate country-specific demand buffer built from:
-- Base resilience from market momentum and occupation scarcity
-- Shortage Occupation List bonuses
-- Jobs in Demand bonuses
-
-It is not an occupation-level outcome measure. It reduces structural pressure but does not convert the score into a realised labour-market forecast.
-
-## Risk Classification
-
-### Risk Bands
-
-| Band | Net Risk Range | Label |
-|------|----------------|-------|
-| Very Low | < 0.05 | Very Low |
-| Low | 0.05-0.15 | Low |
-| Moderate | 0.15-0.30 | Moderate |
-| High | 0.30-0.50 | High |
-| Very High | >= 0.50 | Very High |
-
-### Impact Types
-
-Impact types are determined only by the headline risk x augmentation matrix:
-- AI-Leveraged: net_risk < 0.25 AND augmentation >= 0.12
-- At Risk: net_risk >= 0.25 AND augmentation < 0.12
-- Mixed: net_risk >= 0.25 AND augmentation >= 0.12
-- Stable: net_risk < 0.25 AND augmentation < 0.12
-
-Demand signals influence impact types only indirectly through demand_resilience and the resulting net_risk.
-
-## What The Data Supports
-
-- The live V7 dataset supports structural rankings across 562 occupations.
-- It supports downloadable public JSON and CSV exports.
-- It supports directional validation and current country context layers published separately from the core score.
-- It does not support claims about occupation-level realised job loss.
-
-## Current Public Artifacts
-
-- Dataset: https://aiworkindex.com/data/sg-ai-occupations-v7.json
-- Data dictionary: https://aiworkindex.com/data
-- Methodology: https://aiworkindex.com/methodology
-- Reports: https://aiworkindex.com/reports
-- Research library: https://aiworkindex.com/research
-
-## How to Cite
-
-"AI Work Index (V7, 2026). Structural AI pressure scores for occupations. https://aiworkindex.com"
-
-## Limitations
-
-1. Scores measure structural pressure, not actual or predicted job losses.
-2. Crosswalks between SSOC, ISCO, SOC, and O*NET introduce mapping noise.
-3. Exposure inputs reflect published source vintages and can lag capability changes.
-4. Labour-monitor and context layers are supportive evidence, not hidden scoring overrides.
-
-## Top 50 Highest-Risk Occupations
-
-| Occupation | Risk | Band | Impact |
-|------------|------|------|--------|
-| Clearing and forwarding agent | 74% | very high | at risk |
-| Shipping agent/Boarding officer | 73% | very high | at risk |
-| Data entry clerk | 69% | very high | at risk |
-| Typist and word processing operator | 67% | very high | at risk |
-| Securities clerk | 66% | very high | at risk |
-| Audit clerk | 65% | very high | at risk |
-| Bank operations clerk | 64% | very high | at risk |
-| Insurance sales agent/broker (including independent financial planner) | 63% | very high | at risk |
-| Insurance/Underwriting clerk | 63% | very high | at risk |
-| Secretary | 63% | very high | at risk |
-| Billing clerk | 62% | very high | at risk |
-| Data processing control clerk | 61% | very high | at risk |
-| Ledger and accounts clerk | 61% | very high | at risk |
-| Office clerk (including filing and copying) | 60% | very high | at risk |
-| Telemarketer | 60% | very high | at risk |
-| Statistical clerk | 59% | very high | at risk |
-| Bookkeeper | 59% | very high | at risk |
-| Payroll/Wages clerk | 59% | very high | at risk |
-| Procurement/Purchasing clerk | 59% | very high | at risk |
-| Enumerator/Market research interviewer | 58% | very high | at risk |
-| Pawnbroker | 58% | very high | at risk |
-| Intellectual property agent | 58% | very high | at risk |
-| Personnel/Human resource clerk | 56% | very high | at risk |
-| Content writer | 56% | very high | at risk |
-| Postman | 55% | very high | at risk |
-| Audit associate professional | 53% | very high | at risk |
-| Assistant accountant | 53% | very high | at risk |
-| Technical writer | 53% | very high | at risk |
-| Script writer and editor | 52% | very high | at risk |
-| Author | 52% | very high | at risk |
-| Operations research analyst | 52% | very high | at risk |
-| Proofreading clerk | 52% | very high | at risk |
-| Website administrator/Webmaster | 51% | very high | at risk |
-| Bill collector | 51% | very high | at risk |
-| Data centre engineer | 51% | very high | at risk |
-| Tax associate professional | 50% | very high | at risk |
-| Legal associate professional (e.g. paralegal) | 50% | high | at risk |
-| Multimedia (including games) developer | 49% | high | at risk |
-| Medical/Dental receptionist | 49% | high | at risk |
-| Database administrator | 49% | high | at risk |
-| Database architect | 49% | high | at risk |
-| Financial markets back office administrator | 49% | high | at risk |
-| Media and broadcasting engineer | 48% | high | at risk |
-| Statistical officer/Data analyst | 48% | high | mixed |
-| Library clerk | 47% | high | at risk |
-| Receptionist (general) | 47% | high | at risk |
-| Hotel receptionist (including hotel reservation and front desk clerk) | 47% | high | at risk |
-| Telecommunications engineer | 47% | high | at risk |
-| Actuary | 46% | high | at risk |
-| Legal clerk | 46% | high | at risk |
-
-## Top 50 Lowest-Risk Occupations
-
-| Occupation | Risk | Band | Impact |
-|------------|------|------|--------|
-| General dental practitioner | 0% | very low | stable |
-| Urologist | 0% | very low | stable |
-| Orthopaedic surgeon | 0% | very low | stable |
-| General surgeon | 0% | very low | stable |
-| Cardiothoracic surgeon | 0% | very low | stable |
-| Veterinarian | 0% | very low | ai leveraged |
-| Traditional Chinese medicine practitioner | 0% | very low | ai leveraged |
-| Early intervention teacher for infants and children | 0% | very low | ai leveraged |
-| Dermatologist | 1% | very low | ai leveraged |
-| Social service manager | 1% | very low | ai leveraged |
-| Psychiatrist | 1% | very low | ai leveraged |
-| Paediatrician | 1% | very low | ai leveraged |
-| Occupational therapist | 1% | very low | ai leveraged |
-| Internal medicine physician | 1% | very low | ai leveraged |
-| Physiotherapist | 1% | very low | stable |
-| General practitioner/physician | 1% | very low | stable |
-| Marine engineering officer (including third, fourth and fifth engineer) | 1% | very low | stable |
-| Port limit helmsman/steersman/engine driver/tugmaster | 1% | very low | stable |
-| Deckhand (including lighterman) | 1% | very low | stable |
-| Ophthalmologist | 1% | very low | ai leveraged |
-| Otorhinolaryngologist/Ear, nose, throat (ENT) specialist | 1% | very low | ai leveraged |
-| Diagnostic radiologist | 1% | very low | ai leveraged |
-| Obstetrician/Gynaecologist | 1% | very low | ai leveraged |
-| Emergency physician | 1% | very low | ai leveraged |
-| Anaesthesiologist | 1% | very low | ai leveraged |
-| Electrician | 1% | very low | stable |
-| Driving instructor/tester | 1% | very low | stable |
-| Flying instructor (except air force) | 1% | very low | ai leveraged |
-| Software and applications manager | 1% | very low | ai leveraged |
-| Production manager in agriculture and fisheries | 1% | very low | stable |
-| Commercial airline pilot | 1% | very low | stable |
-| Chief information officer/Chief technology officer/Chief security officer | 1% | very low | ai leveraged |
-| Network, communications and infrastructure manager | 1% | very low | ai leveraged |
-| ICT service manager | 1% | very low | ai leveraged |
-| Undertaker | 1% | very low | stable |
-| Supervisor/General foreman (building and related trades) | 1% | very low | ai leveraged |
-| Sports centre manager | 2% | very low | ai leveraged |
-| Plumber | 2% | very low | stable |
-| Research and development manager | 2% | very low | ai leveraged |
-| Carpenter | 2% | very low | stable |
-| Joiner | 2% | very low | stable |
-| School principal | 2% | very low | ai leveraged |
-| Underwater diver | 2% | very low | stable |
-| Risk management manager | 2% | very low | ai leveraged |
-| Strategic planning manager | 2% | very low | ai leveraged |
-| Landscape operations officer | 2% | very low | stable |
-| Premises and facilities maintenance officer | 2% | very low | stable |
-| Policy manager | 2% | very low | ai leveraged |
-| Optometrist | 2% | very low | ai leveraged |
-| Civil engineering/Building construction labourer | 2% | very low | stable |
-
-## Common Questions
-
-Q: Will AI replace Clearing and forwarding agent?
-A: Clearing and forwarding agent has an AI displacement risk of 74%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Shipping agent/Boarding officer?
-A: Shipping agent/Boarding officer has an AI displacement risk of 73%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Data entry clerk?
-A: Data entry clerk has an AI displacement risk of 69%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Typist and word processing operator?
-A: Typist and word processing operator has an AI displacement risk of 67%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Securities clerk?
-A: Securities clerk has an AI displacement risk of 66%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Audit clerk?
-A: Audit clerk has an AI displacement risk of 65%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Bank operations clerk?
-A: Bank operations clerk has an AI displacement risk of 64%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Insurance sales agent/broker (including independent financial planner)?
-A: Insurance sales agent/broker (including independent financial planner) has an AI displacement risk of 63%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Insurance/Underwriting clerk?
-A: Insurance/Underwriting clerk has an AI displacement risk of 63%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Secretary?
-A: Secretary has an AI displacement risk of 63%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Billing clerk?
-A: Billing clerk has an AI displacement risk of 62%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Data processing control clerk?
-A: Data processing control clerk has an AI displacement risk of 61%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Ledger and accounts clerk?
-A: Ledger and accounts clerk has an AI displacement risk of 61%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Office clerk (including filing and copying)?
-A: Office clerk (including filing and copying) has an AI displacement risk of 60%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Telemarketer?
-A: Telemarketer has an AI displacement risk of 60%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Statistical clerk?
-A: Statistical clerk has an AI displacement risk of 59%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Bookkeeper?
-A: Bookkeeper has an AI displacement risk of 59%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Payroll/Wages clerk?
-A: Payroll/Wages clerk has an AI displacement risk of 59%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Procurement/Purchasing clerk?
-A: Procurement/Purchasing clerk has an AI displacement risk of 59%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Enumerator/Market research interviewer?
-A: Enumerator/Market research interviewer has an AI displacement risk of 58%, rated Very High. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace General dental practitioner?
-A: General dental practitioner has an AI displacement risk of 0%, rated Very Low. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Urologist?
-A: Urologist has an AI displacement risk of 0%, rated Very Low. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Orthopaedic surgeon?
-A: Orthopaedic surgeon has an AI displacement risk of 0%, rated Very Low. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace General surgeon?
-A: General surgeon has an AI displacement risk of 0%, rated Very Low. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Cardiothoracic surgeon?
-A: Cardiothoracic surgeon has an AI displacement risk of 0%, rated Very Low. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Veterinarian?
-A: Veterinarian has an AI displacement risk of 0%, rated Very Low. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Traditional Chinese medicine practitioner?
-A: Traditional Chinese medicine practitioner has an AI displacement risk of 0%, rated Very Low. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Early intervention teacher for infants and children?
-A: Early intervention teacher for infants and children has an AI displacement risk of 0%, rated Very Low. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Dermatologist?
-A: Dermatologist has an AI displacement risk of 1%, rated Very Low. This is a structural pressure score, not a prediction of job loss.
-
-Q: Will AI replace Social service manager?
-A: Social service manager has an AI displacement risk of 1%, rated Very Low. This is a structural pressure score, not a prediction of job loss.
-
-
-## Contact
-
-- LinkedIn: https://www.linkedin.com/in/kirso/
-- GitHub: https://github.com/kirso/aiworkindex
-- Website: https://aiworkindex.com
+# AI Work Index V9 full reference
+
+## Direct answer
+
+AI Work Index measures relative generative-AI task pressure. It does not estimate the probability that a person will lose a job. Risk depends on capability, actual use, human responsibility, adoption, demand, regulation, and organisational choices. V9 keeps those constructs separate.
+
+The AI Work Pressure Rank is a midrank percentile across 987 scored SSOC 2024 occupations. A rank of 72 places an occupation at the 72nd midrank percentile for ILO 2025 mean task exposure in that comparison population. Tied exposure values share the same position. The rank is not a 72% probability of job loss, a forecast of employment decline, or the share of tasks that will be automated.
+
+## Release coverage
+
+- Taxonomy: Singapore Standard Occupational Classification 2024
+- Official numeric occupations: 1001
+- Ranked occupations: 987
+- Unranked because evidence is insufficient: 14
+- Direct MOM 2025 wage rows: 523
+- Modern role queries: 88; 67 resolve to official occupations (11 exact titles and 56 reviewed aliases), 18 use disclosed composites, and 3 are withheld because a fixed mapping would create false precision
+- Release date: 2026-08-19
+
+## Headline method
+
+1. Start with ILO 2025 mean_score_2025 at ISCO-08 unit-group grain.
+2. Connect SSOC 2024 occupations through the official Singapore correspondence.
+3. When an SSOC occupation has several scored official matches, use their median. Do not infer employment weights.
+4. Rank the resulting medians with midrank percentiles across the 987 scored SSOC occupations.
+5. Publish the underlying minimum and maximum, SD_2025 range, ILO potential25 category range, mapping quality, and any unscored official match.
+
+ILO potential25 categories are: Not Exposed; Minimal Exposure; Exposed: Gradient 1; Exposed: Gradient 2; Exposed: Gradient 3; Exposed: Gradient 4. These are the source's categories, not custom percentile bands.
+
+## Separate evidence
+
+- The attributed ILO task artifact retains all 3,265 task rows across 427 four-digit ISCO-08 groups. Occupation pages show bounded examples only through official SSOC-to-ISCO mappings. They are mapped examples, not exact five-digit SSOC duties, and they never change the headline rank.
+- The OECD capability artifact publishes nine capability domains for 75 occupations. Raw crosswalk candidates are only candidate generation; publication also requires the conservative title rule or an explicit reviewed title-and-definition decision. Missing profiles stay unavailable and do not change the ILO headline.
+- MOM wages are direct observations for full-time resident employees in establishments with at least 25 employees. Missing rows stay null.
+- MOM named-demand signals are reviewed against SSOC 2024 titles and synonyms. Absence from a named list does not mean weak demand.
+- Q1 2026 labour evidence is broad occupation-group context. Q2 2026 figures are preliminary national context.
+- The labour observatory supplies broad employment context to 990 detailed records by reference only. It publishes 0 causal occupation outcomes and 0 classified economic scenarios.
+- Productivity-led demand expansion, sometimes described as rebound or a Jevons-style effect, is a mechanism to test rather than an assumed outcome. Detailed adoption, output or price elasticity, and new-task coverage are currently 0, 0, and 0 occupations respectively.
+- External comparison blocks inside the headline occupation artifact remain null. A separate identity-gated artifact publishes Eloundou theoretical exposure for 75 occupations and Anthropic observed use for 73. Each published profile uses one reviewed detailed-title identity and one exact source occupation; broader and many-to-many transfers remain unavailable.
+- AIOE still lacks a verified SOC-edition bridge, and the complementarity proxy lacks a frozen source-level construct replication. The research-signal artifact and external crosswalk audit are available at https://aiworkindex.com/data/v9-research-signals.json and https://aiworkindex.com/data/v9-external-crosswalk-audit.json. Neither can change the headline rank.
+- The official Skills Framework pilot covers 6 occupations across 3 sectors. It republishes selected skill names and source proficiency labels only; it does not infer worker skill levels or alter the headline.
+- The multi-signal evidence vector aligns eight separately sourced dimensions by SSOC 2024 code and publishes descriptive disagreement flags. It never averages the dimensions. Pressure-versus-capability ranks use only the 75-occupation shared subset; absent values stay null.
+- The v9-evidence-2026-08-22 evidence snapshot is the first longitudinal V9 baseline. The change ledger publishes 10 same-construct, same-grain labour changes. V9 has one frozen ILO 2025 pressure snapshot. Earlier model versions use different taxonomies and formulas.
+- Stale convenience-sample job postings are withheld from current-demand interpretation.
+- The 11 exact SSOC title duplicates use the official occupation URL. The 56 reviewed familiar-title guides have their own explanatory URL but quote the matched occupation's official score unchanged. The remaining role pages are either disclosed editorial composites or deliberately withheld queries. None is a government classification.
+
+## All ranked official occupations
+
+The score column is ILO mean_score_2025. A parenthesised range appears when the official mapping has several scored ISCO matches.
+
+| Occupation | SSOC 2024 | AI Work Pressure Rank | ILO category or range | ILO mean score | MOM median gross monthly wage |
+|---|---:|---:|---|---:|---:|
+| [Data entry clerk](https://aiworkindex.com/occupation/41320) | 41320 | 100.0 | Exposed: Gradient 4 | 0.70 | SGD 2,100 |
+| [Typist/Word processing operator](https://aiworkindex.com/occupation/41310) | 41310 | 99.9 | Exposed: Gradient 4 | 0.65 | SGD 2,770 |
+| [Bookkeeper](https://aiworkindex.com/occupation/43111) | 43111 | 99.3 | Exposed: Gradient 4 | 0.64 | SGD 2,910 |
+| [Ledger/Accounts clerk](https://aiworkindex.com/occupation/43112) | 43112 | 99.3 | Exposed: Gradient 4 | 0.64 | SGD 3,470 |
+| [Audit clerk](https://aiworkindex.com/occupation/43113) | 43113 | 99.3 | Exposed: Gradient 4 | 0.64 | SGD 4,525 |
+| [Billing clerk](https://aiworkindex.com/occupation/43115) | 43115 | 99.3 | Exposed: Gradient 4 | 0.64 | SGD 3,296 |
+| [Procurement/Purchasing clerk](https://aiworkindex.com/occupation/43116) | 43116 | 99.3 | Exposed: Gradient 4 | 0.64 | SGD 2,800 |
+| [Accounting/Bookkeeping clerk n.e.c.](https://aiworkindex.com/occupation/43119) | 43119 | 99.3 | Exposed: Gradient 4 | 0.64 | Not available |
+| [Bank operations clerk](https://aiworkindex.com/occupation/43121) | 43121 | 99.3 | Exposed: Gradient 4 | 0.64 | SGD 5,294 |
+| [Insurance/Underwriting clerk](https://aiworkindex.com/occupation/43122) | 43122 | 99.3 | Exposed: Gradient 4 | 0.64 | SGD 4,534 |
+| [Securities clerk](https://aiworkindex.com/occupation/43123) | 43123 | 99.3 | Exposed: Gradient 4 | 0.64 | Not available |
+| [Finance/Insurance clerk n.e.c.](https://aiworkindex.com/occupation/43129) | 43129 | 99.3 | Exposed: Gradient 4 | 0.64 | Not available |
+| [Securities/Finance dealer](https://aiworkindex.com/occupation/24141) | 24141 | 98.2 | Exposed: Gradient 4 | 0.63 | SGD 8,075 |
+| [Foreign exchange dealer](https://aiworkindex.com/occupation/24142) | 24142 | 98.2 | Exposed: Gradient 4 | 0.63 | SGD 13,500 |
+| [Financial derivatives dealer](https://aiworkindex.com/occupation/24143) | 24143 | 98.2 | Exposed: Gradient 4 | 0.63 | SGD 20,000 |
+| [Securities/Finance dealer n.e.c.](https://aiworkindex.com/occupation/24149) | 24149 | 98.2 | Exposed: Gradient 4 | 0.63 | Not available |
+| [Securities/Finance broker](https://aiworkindex.com/occupation/24151) | 24151 | 98.2 | Exposed: Gradient 4 | 0.63 | Not available |
+| [Foreign exchange broker](https://aiworkindex.com/occupation/24152) | 24152 | 98.2 | Exposed: Gradient 4 | 0.63 | Not available |
+| [Financial derivatives broker](https://aiworkindex.com/occupation/24153) | 24153 | 98.2 | Exposed: Gradient 4 | 0.63 | Not available |
+| [Commodities/Freight derivatives broker](https://aiworkindex.com/occupation/24154) | 24154 | 98.2 | Exposed: Gradient 4 | 0.63 | SGD 10,174 |
+| [Securities/Finance broker n.e.c.](https://aiworkindex.com/occupation/24159) | 24159 | 98.2 | Exposed: Gradient 4 | 0.63 | Not available |
+| [Data processing control clerk](https://aiworkindex.com/occupation/43151) | 43151 | 98.2 | Exposed: Gradient 4 | 0.63 | SGD 2,857 |
+| [Computer operations clerk n.e.c.](https://aiworkindex.com/occupation/43159) | 43159 | 98.2 | Exposed: Gradient 4 | 0.63 | Not available |
+| [Other clerical support worker n.e.c.](https://aiworkindex.com/occupation/44199) | 44199 | 98.2 | Exposed: Gradient 4 | 0.63 | Not available |
+| [Financial analyst](https://aiworkindex.com/occupation/24131) | 24131 | 97.3 | Exposed: Gradient 4 | 0.62 | SGD 8,365 |
+| [Compliance officer/Risk analyst (financial)](https://aiworkindex.com/occupation/24132) | 24132 | 97.3 | Exposed: Gradient 4 | 0.62 | SGD 9,500 |
+| [Fund/Portfolio manager](https://aiworkindex.com/occupation/24133) | 24133 | 97.3 | Exposed: Gradient 4 | 0.62 | SGD 15,750 |
+| [Treasury manager](https://aiworkindex.com/occupation/24134) | 24134 | 97.3 | Exposed: Gradient 4 | 0.62 | SGD 12,000 |
+| [Financial product structurer](https://aiworkindex.com/occupation/24135) | 24135 | 97.3 | Exposed: Gradient 4 | 0.62 | SGD 9,987 |
+| [Energy portfolio manager](https://aiworkindex.com/occupation/24136) | 24136 | 97.3 | Exposed: Gradient 4 | 0.62 | Not available |
+| [Financial analyst and related professional n.e.c.](https://aiworkindex.com/occupation/24139) | 24139 | 97.3 | Exposed: Gradient 4 | 0.62 | Not available |
+| [Payroll/Wages clerk](https://aiworkindex.com/occupation/43114) | 43114 | 96.8 | Exposed: Gradient 4 | 0.61 | SGD 4,100 |
+| [Telemarketer](https://aiworkindex.com/occupation/52440) | 52440 | 96.8 | Exposed: Gradient 4 | 0.61 | SGD 2,710 |
+| [Web/Mobile applications developer](https://aiworkindex.com/occupation/25122) | 25122 | 96.5 | Exposed: Gradient 4 | 0.60 | SGD 6,290 |
+| [Credit/Loans officer](https://aiworkindex.com/occupation/33120) | 33120 | 96.5 | Exposed: Gradient 4 | 0.60 | SGD 4,826 |
+| [Financial services back office administrator](https://aiworkindex.com/occupation/33160) | 33160 | 96.5 | Exposed: Gradient 4 | 0.60 | SGD 5,868 |
+| [Personnel/Human resource clerk](https://aiworkindex.com/occupation/41102) | 41102 | 96.5 | Exposed: Gradient 4 | 0.60 | SGD 2,810 |
+| [General office clerk n.e.c.](https://aiworkindex.com/occupation/41109) | 41109 | 96.5 | Exposed: Gradient 1 to Exposed: Gradient 4 | 0.60 (0.37 to 0.60) | Not available |
+| [Translator](https://aiworkindex.com/occupation/26431) | 26431 | 96.1 | Exposed: Gradient 3 | 0.59 | SGD 6,839 |
+| [Interpreter](https://aiworkindex.com/occupation/26432) | 26432 | 96.1 | Exposed: Gradient 3 | 0.59 | Not available |
+| [Secretary](https://aiworkindex.com/occupation/41201) | 41201 | 95.6 | Exposed: Gradient 3 | 0.58 | SGD 4,480 |
+| [Verbatim reporter](https://aiworkindex.com/occupation/41202) | 41202 | 95.6 | Exposed: Gradient 3 | 0.58 | Not available |
+| [Bank teller](https://aiworkindex.com/occupation/42111) | 42111 | 95.6 | Exposed: Gradient 3 | 0.58 | SGD 4,571 |
+| [Postal service counter clerk](https://aiworkindex.com/occupation/42112) | 42112 | 95.6 | Exposed: Gradient 3 | 0.58 | Not available |
+| [Money changer](https://aiworkindex.com/occupation/42113) | 42113 | 95.6 | Exposed: Gradient 3 | 0.58 | SGD 3,511 |
+| [Bank teller and related counter clerk n.e.c.](https://aiworkindex.com/occupation/42119) | 42119 | 95.6 | Exposed: Gradient 3 | 0.58 | Not available |
+| [Contact centre information clerk](https://aiworkindex.com/occupation/42246) | 42246 | 95.6 | Exposed: Gradient 3 | 0.58 | SGD 3,304 |
+| [Statistical clerk](https://aiworkindex.com/occupation/43141) | 43141 | 95.2 | Exposed: Gradient 3 to Exposed: Gradient 4 | 0.57 (0.51 to 0.64) | SGD 4,321 |
+| [Financial/Investment adviser](https://aiworkindex.com/occupation/24121) | 24121 | 94.5 | Exposed: Gradient 3 | 0.57 | SGD 8,050 |
+| [Business valuer](https://aiworkindex.com/occupation/24122) | 24122 | 94.5 | Exposed: Gradient 3 | 0.57 | SGD 10,080 |
+| [Applications/Systems programmer](https://aiworkindex.com/occupation/25141) | 25141 | 94.5 | Exposed: Gradient 3 | 0.57 | SGD 8,209 |
+| [Artificial intelligence/Machine learning engineer](https://aiworkindex.com/occupation/25143) | 25143 | 94.5 | Exposed: Gradient 3 | 0.57 | SGD 10,700 |
+| [Data/Database administrator](https://aiworkindex.com/occupation/25211) | 25211 | 94.5 | Exposed: Gradient 3 | 0.57 | SGD 8,470 |
+| [Data/Database architect](https://aiworkindex.com/occupation/25212) | 25212 | 94.5 | Exposed: Gradient 3 | 0.57 | SGD 10,500 |
+| [Data engineer](https://aiworkindex.com/occupation/25213) | 25213 | 94.5 | Exposed: Gradient 3 | 0.57 | SGD 8,721 |
+| [Network/Server/Applications/Computer systems administrator](https://aiworkindex.com/occupation/25220) | 25220 | 94.5 | Exposed: Gradient 3 | 0.57 | SGD 6,167 |
+| [Clearing/Forwarding agent](https://aiworkindex.com/occupation/33311) | 33311 | 94.5 | Exposed: Gradient 3 | 0.57 | SGD 4,300 |
+| [Shipping agent/Boarding officer](https://aiworkindex.com/occupation/33312) | 33312 | 94.5 | Exposed: Gradient 3 | 0.57 | SGD 3,975 |
+| [Freight inspector](https://aiworkindex.com/occupation/33313) | 33313 | 94.5 | Exposed: Gradient 3 | 0.57 | Not available |
+| [Receptionist (general)](https://aiworkindex.com/occupation/42241) | 42241 | 94.5 | Exposed: Gradient 3 | 0.57 | SGD 2,849 |
+| [Customer service officer/clerk](https://aiworkindex.com/occupation/42245) | 42245 | 94.5 | Exposed: Gradient 3 | 0.57 | SGD 3,300 |
+| [Receptionist/Customer service/information clerk n.e.c.](https://aiworkindex.com/occupation/42249) | 42249 | 94.5 | Exposed: Gradient 3 | 0.57 | Not available |
+| [Statistical officer/Data analyst](https://aiworkindex.com/occupation/21231) | 21231 | 93.6 | Exposed: Gradient 3 | 0.56 (0.56 to 0.57) | SGD 5,869 |
+| [Other statistical/mathematical/actuarial professional n.e.c.](https://aiworkindex.com/occupation/21239) | 21239 | 93.6 | Exposed: Gradient 3 | 0.56 (0.56 to 0.57) | Not available |
+| [DevOps engineer](https://aiworkindex.com/occupation/25125) | 25125 | 93.6 | Exposed: Gradient 3 to Exposed: Gradient 4 | 0.56 (0.53 to 0.60) | SGD 6,561 |
+| [Mathematician](https://aiworkindex.com/occupation/21211) | 21211 | 93.1 | Exposed: Gradient 3 | 0.56 | Not available |
+| [Operations research analyst](https://aiworkindex.com/occupation/21212) | 21212 | 93.1 | Exposed: Gradient 3 | 0.56 | SGD 9,600 |
+| [Actuary](https://aiworkindex.com/occupation/21213) | 21213 | 93.1 | Exposed: Gradient 3 | 0.56 | SGD 7,953 |
+| [Statistician](https://aiworkindex.com/occupation/21221) | 21221 | 93.1 | Exposed: Gradient 3 | 0.56 | SGD 7,723 |
+| [Data scientist](https://aiworkindex.com/occupation/21222) | 21222 | 93.1 | Exposed: Gradient 3 | 0.56 | SGD 10,110 |
+| [Travel consultant/reservation executive](https://aiworkindex.com/occupation/42210) | 42210 | 93.1 | Exposed: Gradient 3 | 0.56 | SGD 3,500 |
+| [Passenger services agent](https://aiworkindex.com/occupation/42244) | 42244 | 93.1 | Exposed: Gradient 3 | 0.56 | SGD 3,233 |
+| [Creative advertising professional](https://aiworkindex.com/occupation/24311) | 24311 | 91.7 | Exposed: Gradient 3 | 0.55 | SGD 7,135 |
+| [Market research professional](https://aiworkindex.com/occupation/24312) | 24312 | 91.7 | Exposed: Gradient 3 | 0.55 | SGD 7,222 |
+| [Marketing strategy/planning professional](https://aiworkindex.com/occupation/24313) | 24313 | 91.7 | Exposed: Gradient 3 | 0.55 | SGD 9,000 |
+| [Digital marketing professional](https://aiworkindex.com/occupation/24314) | 24314 | 91.7 | Exposed: Gradient 3 | 0.55 | SGD 5,623 |
+| [Revenue specialist](https://aiworkindex.com/occupation/24315) | 24315 | 91.7 | Exposed: Gradient 3 | 0.55 | SGD 6,876 |
+| [Artificial intelligence applied researcher](https://aiworkindex.com/occupation/25142) | 25142 | 91.7 | Exposed: Gradient 3 | 0.55 | Not available |
+| [ICT quality assurance specialist](https://aiworkindex.com/occupation/25151) | 25151 | 91.7 | Exposed: Gradient 3 | 0.55 | SGD 7,022 |
+| [ICT auditor](https://aiworkindex.com/occupation/25152) | 25152 | 91.7 | Exposed: Gradient 3 | 0.55 | SGD 12,125 |
+| [Software and applications developer/analyst n.e.c.](https://aiworkindex.com/occupation/25190) | 25190 | 91.7 | Exposed: Gradient 3 | 0.55 | Not available |
+| [Librarian](https://aiworkindex.com/occupation/26221) | 26221 | 91.7 | Exposed: Gradient 3 | 0.55 | SGD 5,472 |
+| [Librarian and related information professional n.e.c.](https://aiworkindex.com/occupation/26229) | 26229 | 91.7 | Exposed: Gradient 3 | 0.55 | Not available |
+| [Economist](https://aiworkindex.com/occupation/26310) | 26310 | 91.7 | Exposed: Gradient 3 | 0.55 | SGD 12,995 |
+| [Author](https://aiworkindex.com/occupation/26411) | 26411 | 91.7 | Exposed: Gradient 3 | 0.55 | Not available |
+| [Script writer/editor](https://aiworkindex.com/occupation/26412) | 26412 | 91.7 | Exposed: Gradient 3 | 0.55 | SGD 10,439 |
+| [Content writer](https://aiworkindex.com/occupation/26413) | 26413 | 91.7 | Exposed: Gradient 3 | 0.55 | SGD 6,669 |
+| [Technical writer](https://aiworkindex.com/occupation/26414) | 26414 | 91.7 | Exposed: Gradient 3 | 0.55 | SGD 6,039 |
+| [Book editor](https://aiworkindex.com/occupation/26415) | 26415 | 91.7 | Exposed: Gradient 3 | 0.55 | Not available |
+| [Author and related writer n.e.c.](https://aiworkindex.com/occupation/26419) | 26419 | 91.7 | Exposed: Gradient 3 | 0.55 | Not available |
+| [Enumerator/Market research interviewer](https://aiworkindex.com/occupation/43142) | 43142 | 91.7 | Exposed: Gradient 3 | 0.55 | SGD 3,000 |
+| [Legal clerk](https://aiworkindex.com/occupation/44170) | 44170 | 91.7 | Exposed: Gradient 3 | 0.55 | SGD 4,500 |
+| [Multimedia-games developer/designer](https://aiworkindex.com/occupation/25123) | 25123 | 90.6 | Exposed: Gradient 2 to Exposed: Gradient 4 | 0.55 (0.49 to 0.60) | SGD 7,176 |
+| [Interaction designer](https://aiworkindex.com/occupation/25124) | 25124 | 90.6 | Exposed: Gradient 2 to Exposed: Gradient 4 | 0.55 (0.49 to 0.60) | SGD 10,477 |
+| [Proofreading clerk](https://aiworkindex.com/occupation/44191) | 44191 | 90.6 | Exposed: Gradient 3 | 0.55 (0.51 to 0.58) | Not available |
+| [Meteorologist](https://aiworkindex.com/occupation/21120) | 21120 | 90.2 | Exposed: Gradient 3 | 0.54 | Not available |
+| [Journalist](https://aiworkindex.com/occupation/26421) | 26421 | 90.2 | Exposed: Gradient 3 | 0.54 | SGD 6,222 |
+| [Editor (news/periodicals)](https://aiworkindex.com/occupation/26422) | 26422 | 90.2 | Exposed: Gradient 3 | 0.54 | SGD 10,369 |
+| [Executive secretary](https://aiworkindex.com/occupation/33494) | 33494 | 90.2 | Exposed: Gradient 3 | 0.54 | SGD 5,500 |
+| [Telephone operator](https://aiworkindex.com/occupation/42230) | 42230 | 90.2 | Exposed: Gradient 3 | 0.54 | SGD 2,614 |
+| [Insurance underwriter](https://aiworkindex.com/occupation/24160) | 24160 | 89.7 | Exposed: Gradient 3 | 0.53 | SGD 9,566 |
+| [Software developer](https://aiworkindex.com/occupation/25121) | 25121 | 89.7 | Exposed: Gradient 3 | 0.53 | SGD 7,808 |
+| [Insurance sales agent/broker](https://aiworkindex.com/occupation/33211) | 33211 | 89.7 | Exposed: Gradient 3 | 0.53 | SGD 6,050 |
+| [Insurance representative and related associate professional n.e.c.](https://aiworkindex.com/occupation/33219) | 33219 | 89.7 | Exposed: Gradient 3 | 0.53 | Not available |
+| [Website administrator/Webmaster](https://aiworkindex.com/occupation/35140) | 35140 | 89.7 | Exposed: Gradient 3 | 0.53 | SGD 3,169 |
+| [Medical/Dental receptionist](https://aiworkindex.com/occupation/42243) | 42243 | 89.4 | Exposed: Gradient 3 | 0.53 (0.52 to 0.53) | SGD 2,931 |
+| [ICT product manager](https://aiworkindex.com/occupation/25114) | 25114 | 89.1 | Exposed: Gradient 2 to Exposed: Gradient 3 | 0.52 (0.49 to 0.55) | Not available |
+| [Cloud specialist](https://aiworkindex.com/occupation/25231) | 25231 | 89.1 | Exposed: Gradient 3 | 0.52 | SGD 10,169 |
+| [IT infrastructure specialist](https://aiworkindex.com/occupation/25232) | 25232 | 89.1 | Exposed: Gradient 3 | 0.52 | SGD 7,836 |
+| [Computer network/infrastructure/platform professional n.e.c.](https://aiworkindex.com/occupation/25239) | 25239 | 89.1 | Exposed: Gradient 3 | 0.52 | Not available |
+| [Accountant (excluding tax accountant)](https://aiworkindex.com/occupation/24111) | 24111 | 88.5 | Exposed: Gradient 3 | 0.51 | SGD 5,968 |
+| [Auditor (accounting)](https://aiworkindex.com/occupation/24112) | 24112 | 88.5 | Exposed: Gradient 3 | 0.51 | SGD 5,750 |
+| [Tax accountant](https://aiworkindex.com/occupation/24113) | 24113 | 88.5 | Exposed: Gradient 3 | 0.51 | SGD 10,085 |
+| [ICT sales and services professional](https://aiworkindex.com/occupation/24333) | 24333 | 88.5 | Exposed: Gradient 3 | 0.51 | SGD 15,841 |
+| [Hotel receptionist](https://aiworkindex.com/occupation/42242) | 42242 | 88.5 | Exposed: Gradient 3 | 0.51 | SGD 3,100 |
+| [Hotel executive](https://aiworkindex.com/occupation/42247) | 42247 | 88.5 | Exposed: Gradient 3 | 0.51 | SGD 2,968 |
+| [Chief concierge (hotel)](https://aiworkindex.com/occupation/96271) | 96271 | 88.5 | Exposed: Gradient 3 | 0.51 | Not available |
+| [Concierge (hotel)](https://aiworkindex.com/occupation/96272) | 96272 | 88.5 | Exposed: Gradient 3 | 0.51 | SGD 3,222 |
+| [Enterprise/Solution/Software architect](https://aiworkindex.com/occupation/25113) | 25113 | 88.0 | Exposed: Gradient 2 to Exposed: Gradient 3 | 0.51 (0.49 to 0.52) | SGD 13,614 |
+| [Technical sales professional](https://aiworkindex.com/occupation/24331) | 24331 | 87.4 | Exposed: Gradient 3 | 0.50 | SGD 5,936 |
+| [Medical/Pharmaceutical products sales professional](https://aiworkindex.com/occupation/24332) | 24332 | 87.4 | Exposed: Gradient 3 | 0.50 | SGD 6,571 |
+| [Sales professional (institutional sales of financial products)](https://aiworkindex.com/occupation/24334) | 24334 | 87.4 | Exposed: Gradient 3 | 0.50 | SGD 11,837 |
+| [Air cargo officer](https://aiworkindex.com/occupation/31594) | 31594 | 87.4 | Exposed: Gradient 3 | 0.50 | SGD 4,000 |
+| [Load control officer (aircraft)](https://aiworkindex.com/occupation/31595) | 31595 | 87.4 | Exposed: Gradient 3 | 0.50 | Not available |
+| [Train operations officer](https://aiworkindex.com/occupation/31596) | 31596 | 87.4 | Exposed: Gradient 3 | 0.50 | SGD 3,711 |
+| [Road transport operations officer](https://aiworkindex.com/occupation/31597) | 31597 | 87.4 | Exposed: Gradient 3 | 0.50 | SGD 3,800 |
+| [Shipping clerk](https://aiworkindex.com/occupation/43231) | 43231 | 87.4 | Exposed: Gradient 3 | 0.50 | SGD 3,442 |
+| [Land transport clerk](https://aiworkindex.com/occupation/43232) | 43232 | 87.4 | Exposed: Gradient 3 | 0.50 | SGD 3,000 |
+| [Air transport clerk](https://aiworkindex.com/occupation/43233) | 43233 | 87.4 | Exposed: Gradient 3 | 0.50 | SGD 3,318 |
+| [Transport clerk n.e.c.](https://aiworkindex.com/occupation/43239) | 43239 | 87.4 | Exposed: Gradient 3 | 0.50 | Not available |
+| [Specialised goods sales professional n.e.c.](https://aiworkindex.com/occupation/24339) | 24339 | 86.8 | Exposed: Gradient 2 to Exposed: Gradient 3 | 0.49 (0.49 to 0.50) | Not available |
+| [Graphic designer](https://aiworkindex.com/occupation/21661) | 21661 | 85.4 | Exposed: Gradient 2 | 0.49 | SGD 4,225 |
+| [Multimedia designer/artist/animator](https://aiworkindex.com/occupation/21662) | 21662 | 85.4 | Exposed: Gradient 2 | 0.49 | SGD 5,400 |
+| [Graphic/Multimedia designer/artist n.e.c.](https://aiworkindex.com/occupation/21669) | 21669 | 85.4 | Exposed: Gradient 2 | 0.49 | Not available |
+| [Service designer](https://aiworkindex.com/occupation/21670) | 21670 | 85.4 | Exposed: Gradient 2 | 0.49 | SGD 10,400 |
+| [Systems designer/analyst](https://aiworkindex.com/occupation/25111) | 25111 | 85.4 | Exposed: Gradient 2 | 0.49 | SGD 6,840 |
+| [ICT business process consultant/business analyst](https://aiworkindex.com/occupation/25112) | 25112 | 85.4 | Exposed: Gradient 2 | 0.49 | SGD 8,445 |
+| [Cyber risk specialist](https://aiworkindex.com/occupation/25241) | 25241 | 85.4 | Exposed: Gradient 2 | 0.49 | SGD 10,495 |
+| [Penetration testing specialist](https://aiworkindex.com/occupation/25242) | 25242 | 85.4 | Exposed: Gradient 2 | 0.49 | Not available |
+| [Security operations specialist](https://aiworkindex.com/occupation/25243) | 25243 | 85.4 | Exposed: Gradient 2 | 0.49 | SGD 10,148 |
+| [Digital forensics specialist](https://aiworkindex.com/occupation/25244) | 25244 | 85.4 | Exposed: Gradient 2 | 0.49 | Not available |
+| [Cybersecurity architect](https://aiworkindex.com/occupation/25245) | 25245 | 85.4 | Exposed: Gradient 2 | 0.49 | SGD 9,820 |
+| [Cyber incident investigation specialist](https://aiworkindex.com/occupation/25246) | 25246 | 85.4 | Exposed: Gradient 2 | 0.49 | Not available |
+| [Threat analysis specialist](https://aiworkindex.com/occupation/25247) | 25247 | 85.4 | Exposed: Gradient 2 | 0.49 | SGD 7,940 |
+| [Cybersecurity professional n.e.c.](https://aiworkindex.com/occupation/25249) | 25249 | 85.4 | Exposed: Gradient 2 | 0.49 | Not available |
+| [Data centre engineer](https://aiworkindex.com/occupation/25291) | 25291 | 85.4 | Exposed: Gradient 2 | 0.49 | SGD 7,175 |
+| [Other database/network/infrastructure/cybersecurity professional n.e.c.](https://aiworkindex.com/occupation/25299) | 25299 | 85.4 | Exposed: Gradient 2 | 0.49 | Not available |
+| [Assistant accountant](https://aiworkindex.com/occupation/33131) | 33131 | 85.4 | Exposed: Gradient 2 | 0.49 | SGD 4,364 |
+| [Audit associate professional](https://aiworkindex.com/occupation/33132) | 33132 | 85.4 | Exposed: Gradient 2 | 0.49 | SGD 5,600 |
+| [Tax associate professional](https://aiworkindex.com/occupation/33133) | 33133 | 85.4 | Exposed: Gradient 2 | 0.49 | SGD 4,131 |
+| [Business development executive](https://aiworkindex.com/occupation/33221) | 33221 | 85.4 | Exposed: Gradient 2 | 0.49 | SGD 5,084 |
+| [After sales adviser/Client account service executive](https://aiworkindex.com/occupation/33222) | 33222 | 85.4 | Exposed: Gradient 2 | 0.49 | SGD 4,500 |
+| [Marketing and sales executive (food and beverage services)](https://aiworkindex.com/occupation/33223) | 33223 | 85.4 | Exposed: Gradient 2 | 0.49 | SGD 2,792 |
+| [Online sales channel executive](https://aiworkindex.com/occupation/33224) | 33224 | 85.4 | Exposed: Gradient 2 | 0.49 | SGD 4,065 |
+| [Merchandising/Category executive](https://aiworkindex.com/occupation/33225) | 33225 | 85.4 | Exposed: Gradient 2 | 0.49 | SGD 3,425 |
+| [Commercial/Marketing sales executive n.e.c.](https://aiworkindex.com/occupation/33229) | 33229 | 85.4 | Exposed: Gradient 2 | 0.49 | Not available |
+| [Government tax/excise official](https://aiworkindex.com/occupation/33591) | 33591 | 85.4 | Exposed: Gradient 2 | 0.49 | Not available |
+| [Office clerk](https://aiworkindex.com/occupation/41101) | 41101 | 84.1 | Exposed: Gradient 1 to Exposed: Gradient 4 | 0.48 (0.37 to 0.60) | SGD 2,286 |
+| [Media/Broadcast engineer](https://aiworkindex.com/occupation/21531) | 21531 | 83.7 | Exposed: Gradient 2 | 0.48 | SGD 5,540 |
+| [Telecommunications engineer](https://aiworkindex.com/occupation/21532) | 21532 | 83.7 | Exposed: Gradient 2 | 0.48 | SGD 6,228 |
+| [Sociologist/Anthropologist](https://aiworkindex.com/occupation/26321) | 26321 | 83.7 | Exposed: Gradient 2 | 0.48 | Not available |
+| [Social science researcher](https://aiworkindex.com/occupation/26322) | 26322 | 83.7 | Exposed: Gradient 2 | 0.48 | Not available |
+| [Exhibition/Conference/Event planner](https://aiworkindex.com/occupation/33320) | 33320 | 83.7 | Exposed: Gradient 2 | 0.48 | SGD 4,097 |
+| [Pawnbroker](https://aiworkindex.com/occupation/42131) | 42131 | 83.7 | Exposed: Gradient 2 | 0.48 | Not available |
+| [Moneylender](https://aiworkindex.com/occupation/42132) | 42132 | 83.7 | Exposed: Gradient 2 | 0.48 | Not available |
+| [Financial services manager](https://aiworkindex.com/occupation/13461) | 13461 | 82.8 | Exposed: Gradient 2 | 0.47 | SGD 11,600 |
+| [Insurance services manager](https://aiworkindex.com/occupation/13462) | 13462 | 82.8 | Exposed: Gradient 2 | 0.47 | SGD 11,450 |
+| [Financial risk manager](https://aiworkindex.com/occupation/13463) | 13463 | 82.8 | Exposed: Gradient 2 | 0.47 | SGD 13,058 |
+| [Archivist](https://aiworkindex.com/occupation/26211) | 26211 | 82.8 | Exposed: Gradient 2 | 0.47 | Not available |
+| [Curator](https://aiworkindex.com/occupation/26212) | 26212 | 82.8 | Exposed: Gradient 2 | 0.47 | SGD 5,938 |
+| [Conservator](https://aiworkindex.com/occupation/26213) | 26213 | 82.8 | Exposed: Gradient 2 | 0.47 | Not available |
+| [Political scientist](https://aiworkindex.com/occupation/26331) | 26331 | 82.8 | Exposed: Gradient 2 | 0.47 | Not available |
+| [Historian/Political scientist and related social science professional n.e.c.](https://aiworkindex.com/occupation/26339) | 26339 | 82.8 | Exposed: Gradient 2 | 0.47 | Not available |
+| [Radio/Television presenter](https://aiworkindex.com/occupation/26561) | 26561 | 82.8 | Exposed: Gradient 2 | 0.47 | Not available |
+| [Radio/Television presenter and related professional n.e.c.](https://aiworkindex.com/occupation/26569) | 26569 | 82.8 | Exposed: Gradient 2 | 0.47 | Not available |
+| [Information technology trainer (extracurriculum)](https://aiworkindex.com/occupation/36203) | 36203 | 82.8 | Exposed: Gradient 2 | 0.47 | Not available |
+| [Management consultant](https://aiworkindex.com/occupation/24211) | 24211 | 81.9 | Exposed: Gradient 2 | 0.46 | SGD 9,701 |
+| [Business consultant](https://aiworkindex.com/occupation/24212) | 24212 | 81.9 | Exposed: Gradient 2 | 0.46 | SGD 7,000 |
+| [Business/Financial project management professional](https://aiworkindex.com/occupation/24213) | 24213 | 81.9 | Exposed: Gradient 2 | 0.46 | SGD 7,670 |
+| [Library clerk](https://aiworkindex.com/occupation/44110) | 44110 | 81.9 | Exposed: Gradient 2 | 0.46 | SGD 2,580 |
+| [Salesperson (door-to-door)](https://aiworkindex.com/occupation/52422) | 52422 | 81.9 | Exposed: Gradient 2 | 0.46 | SGD 2,884 |
+| [Executive search consultant](https://aiworkindex.com/occupation/24232) | 24232 | 80.8 | Exposed: Gradient 2 | 0.45 | SGD 3,900 |
+| [Personnel/Human resource officer](https://aiworkindex.com/occupation/24233) | 24233 | 80.8 | Exposed: Gradient 2 | 0.45 | SGD 4,565 |
+| [Industrial relations officer](https://aiworkindex.com/occupation/24234) | 24234 | 80.8 | Exposed: Gradient 2 | 0.45 | SGD 5,843 |
+| [Appraiser/Valuer (excluding intangible asset valuer)](https://aiworkindex.com/occupation/33151) | 33151 | 80.8 | Exposed: Gradient 2 | 0.45 | SGD 3,296 |
+| [Assessor](https://aiworkindex.com/occupation/33152) | 33152 | 80.8 | Exposed: Gradient 2 | 0.45 | SGD 5,000 |
+| [Intangible asset valuer](https://aiworkindex.com/occupation/33153) | 33153 | 80.8 | Exposed: Gradient 2 | 0.45 | Not available |
+| [Government social benefits official](https://aiworkindex.com/occupation/33592) | 33592 | 80.8 | Exposed: Gradient 2 | 0.45 | Not available |
+| [IT infrastructure technician](https://aiworkindex.com/occupation/35121) | 35121 | 80.8 | Exposed: Gradient 2 | 0.45 (0.43 to 0.47) | SGD 5,189 |
+| [IT security technician](https://aiworkindex.com/occupation/35122) | 35122 | 80.8 | Exposed: Gradient 2 | 0.45 (0.43 to 0.47) | Not available |
+| [IT support technician](https://aiworkindex.com/occupation/35123) | 35123 | 80.8 | Exposed: Gradient 2 | 0.45 (0.43 to 0.47) | SGD 4,586 |
+| [Computer technician n.e.c.](https://aiworkindex.com/occupation/35129) | 35129 | 80.8 | Exposed: Gradient 2 | 0.45 (0.43 to 0.47) | Not available |
+| [Telecommunications engineering technician](https://aiworkindex.com/occupation/35220) | 35220 | 80.8 | Minimal Exposure | 0.45 | SGD 3,526 |
+| [Telecommunications service supervisor](https://aiworkindex.com/occupation/35231) | 35231 | 80.8 | Minimal Exposure | 0.45 | Not available |
+| [Radio-telephone operator (land-based)](https://aiworkindex.com/occupation/35232) | 35232 | 80.8 | Minimal Exposure | 0.45 | Not available |
+| [Telecommunications equipment operator n.e.c.](https://aiworkindex.com/occupation/35239) | 35239 | 80.8 | Minimal Exposure | 0.45 | Not available |
+| [Telecommunications/Broadcasting technician/Audio-visual operator n.e.c.](https://aiworkindex.com/occupation/35290) | 35290 | 80.8 | Minimal Exposure | 0.45 | Not available |
+| [Gaming supervisor](https://aiworkindex.com/occupation/51701) | 51701 | 80.8 | Exposed: Gradient 2 | 0.45 | SGD 4,000 |
+| [Bookmaker/Croupier/Casino dealer and related gaming worker](https://aiworkindex.com/occupation/51702) | 51702 | 80.8 | Exposed: Gradient 2 | 0.45 | SGD 3,958 |
+| [Automation and orchestration engineer](https://aiworkindex.com/occupation/25233) | 25233 | 79.8 | Minimal Exposure to Exposed: Gradient 3 | 0.45 (0.37 to 0.52) | Not available |
+| [Chief information officer/Chief technology officer/Chief information security officer](https://aiworkindex.com/occupation/13301) | 13301 | 78.3 | Exposed: Gradient 2 | 0.44 | SGD 17,812 |
+| [Software and applications manager](https://aiworkindex.com/occupation/13302) | 13302 | 78.3 | Exposed: Gradient 2 | 0.44 | SGD 12,500 |
+| [Network/Communications/Infrastructure manager](https://aiworkindex.com/occupation/13303) | 13303 | 78.3 | Exposed: Gradient 2 | 0.44 | SGD 10,911 |
+| [ICT service manager](https://aiworkindex.com/occupation/13304) | 13304 | 78.3 | Exposed: Gradient 2 | 0.44 | SGD 9,510 |
+| [ICT product design manager](https://aiworkindex.com/occupation/13306) | 13306 | 78.3 | Exposed: Gradient 2 | 0.44 | Not available |
+| [Retail manager](https://aiworkindex.com/occupation/14201) | 14201 | 78.3 | Exposed: Gradient 2 | 0.44 | SGD 5,270 |
+| [Wholesale trade manager](https://aiworkindex.com/occupation/14202) | 14202 | 78.3 | Exposed: Gradient 2 | 0.44 | SGD 10,650 |
+| [Land surveyor](https://aiworkindex.com/occupation/21651) | 21651 | 78.3 | Exposed: Gradient 2 | 0.44 | SGD 5,183 |
+| [Hydrographic surveyor](https://aiworkindex.com/occupation/21652) | 21652 | 78.3 | Exposed: Gradient 2 | 0.44 | Not available |
+| [Surveyor/Cartographer n.e.c.](https://aiworkindex.com/occupation/21659) | 21659 | 78.3 | Exposed: Gradient 2 | 0.44 | Not available |
+| [Intellectual property agent](https://aiworkindex.com/occupation/24251) | 24251 | 78.3 | Exposed: Gradient 2 | 0.44 | Not available |
+| [Research officer (non-statistical)](https://aiworkindex.com/occupation/24291) | 24291 | 78.3 | Minimal Exposure to Exposed: Gradient 2 | 0.44 (0.42 to 0.46) | SGD 6,100 |
+| [Other administration professional n.e.c.](https://aiworkindex.com/occupation/24299) | 24299 | 78.3 | Minimal Exposure to Exposed: Gradient 2 | 0.44 (0.42 to 0.46) | Not available |
+| [Commodities trader (excluding oil, bunker and environmental commodities)](https://aiworkindex.com/occupation/24351) | 24351 | 78.3 | Exposed: Gradient 2 | 0.44 | SGD 9,509 |
+| [Oil/Bunker trader](https://aiworkindex.com/occupation/24352) | 24352 | 78.3 | Exposed: Gradient 2 | 0.44 | SGD 10,883 |
+| [Ship charterer](https://aiworkindex.com/occupation/24353) | 24353 | 78.3 | Exposed: Gradient 2 | 0.44 | SGD 10,000 |
+| [Environmental commodities trader](https://aiworkindex.com/occupation/24354) | 24354 | 78.3 | Exposed: Gradient 2 | 0.44 | Not available |
+| [Trade broker](https://aiworkindex.com/occupation/24361) | 24361 | 78.3 | Exposed: Gradient 2 | 0.44 | SGD 9,750 |
+| [Ship broker](https://aiworkindex.com/occupation/24362) | 24362 | 78.3 | Exposed: Gradient 2 | 0.44 | SGD 13,792 |
+| [Intellectual property broker/transaction specialist](https://aiworkindex.com/occupation/33291) | 33291 | 78.3 | Exposed: Gradient 2 | 0.44 | Not available |
+| [Other sales and related associate professional n.e.c.](https://aiworkindex.com/occupation/33299) | 33299 | 78.3 | Exposed: Gradient 2 | 0.44 | Not available |
+| [Auctioneer](https://aiworkindex.com/occupation/33391) | 33391 | 78.3 | Exposed: Gradient 2 | 0.44 | Not available |
+| [Advertising salesperson](https://aiworkindex.com/occupation/33392) | 33392 | 78.3 | Exposed: Gradient 2 | 0.44 | SGD 5,722 |
+| [International market agent/representative](https://aiworkindex.com/occupation/33393) | 33393 | 78.3 | Exposed: Gradient 2 | 0.44 | Not available |
+| [Safety/Security consultant](https://aiworkindex.com/occupation/33394) | 33394 | 78.3 | Exposed: Gradient 2 | 0.44 | SGD 6,200 |
+| [Other business services agent n.e.c.](https://aiworkindex.com/occupation/33399) | 33399 | 78.3 | Exposed: Gradient 2 | 0.44 | Not available |
+| [Material planning clerk](https://aiworkindex.com/occupation/43221) | 43221 | 78.3 | Exposed: Gradient 2 | 0.44 | SGD 4,532 |
+| [Production planning clerk](https://aiworkindex.com/occupation/43222) | 43222 | 78.3 | Exposed: Gradient 2 | 0.44 | SGD 2,800 |
+| [Production clerk n.e.c.](https://aiworkindex.com/occupation/43229) | 43229 | 78.3 | Exposed: Gradient 2 | 0.44 | Not available |
+| [Public relations/Corporate communications professional](https://aiworkindex.com/occupation/24320) | 24320 | 76.5 | Exposed: Gradient 2 | 0.43 | SGD 5,000 |
+| [Government licensing official](https://aiworkindex.com/occupation/33593) | 33593 | 76.5 | Exposed: Gradient 2 | 0.43 | Not available |
+| [Computer systems operator](https://aiworkindex.com/occupation/35110) | 35110 | 76.5 | Exposed: Gradient 2 | 0.43 | SGD 5,025 |
+| [Office supervisor](https://aiworkindex.com/occupation/40000) | 40000 | 76.5 | Exposed: Gradient 2 | 0.43 | SGD 3,706 |
+| [Bill collector](https://aiworkindex.com/occupation/42141) | 42141 | 76.5 | Exposed: Gradient 2 | 0.43 | SGD 3,209 |
+| [Bill collector and related worker n.e.c.](https://aiworkindex.com/occupation/42149) | 42149 | 76.5 | Exposed: Gradient 2 | 0.43 | Not available |
+| [Chief product officer](https://aiworkindex.com/occupation/13305) | 13305 | 76.2 | Exposed: Gradient 2 | 0.42 (0.41 to 0.44) | Not available |
+| [Administration manager](https://aiworkindex.com/occupation/12112) | 12112 | 75.1 | Exposed: Gradient 2 | 0.42 | SGD 8,050 |
+| [Premises/Facilities maintenance manager (excluding building security)](https://aiworkindex.com/occupation/12191) | 12191 | 75.1 | Exposed: Gradient 2 | 0.42 | SGD 8,070 |
+| [Landscape manager](https://aiworkindex.com/occupation/12192) | 12192 | 75.1 | Exposed: Gradient 2 | 0.42 | SGD 4,826 |
+| [Cleaning operations manager](https://aiworkindex.com/occupation/12193) | 12193 | 75.1 | Exposed: Gradient 2 | 0.42 | SGD 4,925 |
+| [Security manager](https://aiworkindex.com/occupation/12194) | 12194 | 75.1 | Exposed: Gradient 2 | 0.42 | SGD 7,838 |
+| [Intellectual property manager](https://aiworkindex.com/occupation/12195) | 12195 | 75.1 | Exposed: Gradient 2 | 0.42 | Not available |
+| [Other business services/administration manager n.e.c.](https://aiworkindex.com/occupation/12199) | 12199 | 75.1 | Exposed: Gradient 2 | 0.42 | Not available |
+| [Customer service manager](https://aiworkindex.com/occupation/12241) | 12241 | 75.1 | Exposed: Gradient 2 | 0.42 | SGD 8,700 |
+| [Call centre manager](https://aiworkindex.com/occupation/12242) | 12242 | 75.1 | Exposed: Gradient 2 | 0.42 | SGD 6,428 |
+| [Electronics engineer](https://aiworkindex.com/occupation/21521) | 21521 | 75.1 | Exposed: Gradient 2 | 0.42 | SGD 8,200 |
+| [Computer engineer](https://aiworkindex.com/occupation/21522) | 21522 | 75.1 | Exposed: Gradient 2 | 0.42 | SGD 6,385 |
+| [Semi-conductor engineer](https://aiworkindex.com/occupation/21523) | 21523 | 75.1 | Exposed: Gradient 2 | 0.42 | SGD 6,863 |
+| [Audio/Video equipment engineer](https://aiworkindex.com/occupation/21524) | 21524 | 75.1 | Exposed: Gradient 2 | 0.42 | SGD 4,911 |
+| [Instrumentation engineer](https://aiworkindex.com/occupation/21525) | 21525 | 75.1 | Exposed: Gradient 2 | 0.42 | SGD 6,976 |
+| [Embedded systems engineer](https://aiworkindex.com/occupation/21526) | 21526 | 75.1 | Exposed: Gradient 2 | 0.42 | SGD 7,656 |
+| [Sustainability project development/management professional](https://aiworkindex.com/occupation/24214) | 24214 | 75.1 | Minimal Exposure to Exposed: Gradient 2 | 0.42 (0.38 to 0.46) | Not available |
+| [Policy administration professional](https://aiworkindex.com/occupation/24221) | 24221 | 75.1 | Minimal Exposure | 0.42 | SGD 6,180 |
+| [Risk analyst (non-financial)](https://aiworkindex.com/occupation/24222) | 24222 | 75.1 | Minimal Exposure | 0.42 | Not available |
+| [Client information clerk n.e.c.](https://aiworkindex.com/occupation/42290) | 42290 | 75.1 | Exposed: Gradient 2 | 0.42 | Not available |
+| [Sales demonstrator](https://aiworkindex.com/occupation/52421) | 52421 | 75.1 | Exposed: Gradient 2 | 0.42 | SGD 1,977 |
+| [Sales manager](https://aiworkindex.com/occupation/12211) | 12211 | 73.3 | Exposed: Gradient 2 | 0.41 | SGD 8,559 |
+| [Business development manager](https://aiworkindex.com/occupation/12212) | 12212 | 73.3 | Exposed: Gradient 2 | 0.41 | SGD 10,000 |
+| [Regional sales manager](https://aiworkindex.com/occupation/12213) | 12213 | 73.3 | Exposed: Gradient 2 | 0.41 | SGD 12,457 |
+| [Merchandising/Category manager](https://aiworkindex.com/occupation/12214) | 12214 | 73.3 | Exposed: Gradient 2 | 0.41 | SGD 8,670 |
+| [Online sales channel manager](https://aiworkindex.com/occupation/12215) | 12215 | 73.3 | Exposed: Gradient 2 | 0.41 | SGD 10,405 |
+| [Marketing manager](https://aiworkindex.com/occupation/12222) | 12222 | 73.3 | Exposed: Gradient 2 | 0.41 | SGD 10,069 |
+| [Urban planner](https://aiworkindex.com/occupation/21641) | 21641 | 73.3 | Minimal Exposure | 0.41 | Not available |
+| [Urban and related planner n.e.c.](https://aiworkindex.com/occupation/21649) | 21649 | 73.3 | Minimal Exposure | 0.41 | Not available |
+| [Dietitian](https://aiworkindex.com/occupation/22651) | 22651 | 73.3 | Minimal Exposure | 0.41 | SGD 5,125 |
+| [Nutritionist](https://aiworkindex.com/occupation/22652) | 22652 | 73.3 | Minimal Exposure | 0.41 | Not available |
+| [Training/Staff development professional](https://aiworkindex.com/occupation/24240) | 24240 | 73.3 | Exposed: Gradient 2 | 0.41 | SGD 5,955 |
+| [Postal service supervisor](https://aiworkindex.com/occupation/44121) | 44121 | 73.3 | Exposed: Gradient 2 | 0.41 | Not available |
+| [Postman](https://aiworkindex.com/occupation/44122) | 44122 | 73.3 | Exposed: Gradient 2 | 0.41 | Not available |
+| [Process server](https://aiworkindex.com/occupation/44123) | 44123 | 73.3 | Exposed: Gradient 2 | 0.41 | Not available |
+| [Mail carrier/sorting worker n.e.c.](https://aiworkindex.com/occupation/44129) | 44129 | 73.3 | Exposed: Gradient 2 | 0.41 | Not available |
+| [Research and development manager](https://aiworkindex.com/occupation/12230) | 12230 | 72.0 | Minimal Exposure | 0.40 | SGD 12,000 |
+| [Biologist](https://aiworkindex.com/occupation/21311) | 21311 | 72.0 | Exposed: Gradient 2 | 0.40 | SGD 7,320 |
+| [Zoologist](https://aiworkindex.com/occupation/21312) | 21312 | 72.0 | Exposed: Gradient 2 | 0.40 | Not available |
+| [Biologist/Botanist/Zoologist and related professional n.e.c.](https://aiworkindex.com/occupation/21319) | 21319 | 72.0 | Exposed: Gradient 2 | 0.40 | Not available |
+| [Pharmacologist](https://aiworkindex.com/occupation/21341) | 21341 | 72.0 | Exposed: Gradient 2 | 0.40 | Not available |
+| [Medical laboratory scientist](https://aiworkindex.com/occupation/21342) | 21342 | 72.0 | Exposed: Gradient 2 | 0.40 | SGD 7,436 |
+| [Biochemist](https://aiworkindex.com/occupation/21343) | 21343 | 72.0 | Exposed: Gradient 2 | 0.40 | SGD 9,226 |
+| [Physiologist](https://aiworkindex.com/occupation/21344) | 21344 | 72.0 | Exposed: Gradient 2 | 0.40 | Not available |
+| [Animal scientist](https://aiworkindex.com/occupation/21345) | 21345 | 72.0 | Exposed: Gradient 2 | 0.40 | Not available |
+| [Medical scientist](https://aiworkindex.com/occupation/21346) | 21346 | 72.0 | Exposed: Gradient 2 | 0.40 | SGD 9,203 |
+| [Clinical research professional](https://aiworkindex.com/occupation/21347) | 21347 | 72.0 | Exposed: Gradient 2 | 0.40 | SGD 8,342 |
+| [Pharmacologist and related professional n.e.c.](https://aiworkindex.com/occupation/21349) | 21349 | 72.0 | Exposed: Gradient 2 | 0.40 | Not available |
+| [Sales supervisor](https://aiworkindex.com/occupation/52201) | 52201 | 71.3 | Minimal Exposure to Exposed: Gradient 2 | 0.40 (0.36 to 0.43) | SGD 3,173 |
+| [Advertising/Public relations manager](https://aiworkindex.com/occupation/12221) | 12221 | 70.3 | Minimal Exposure | 0.39 | SGD 7,711 |
+| [Chemist](https://aiworkindex.com/occupation/21130) | 21130 | 70.3 | Minimal Exposure | 0.39 | SGD 6,770 |
+| [Education methods adviser](https://aiworkindex.com/occupation/23611) | 23611 | 70.3 | Exposed: Gradient 1 | 0.39 | Not available |
+| [Instructional designer/technologist](https://aiworkindex.com/occupation/23612) | 23612 | 70.3 | Exposed: Gradient 1 | 0.39 | Not available |
+| [Education methods specialist n.e.c.](https://aiworkindex.com/occupation/23619) | 23619 | 70.3 | Exposed: Gradient 1 | 0.39 | Not available |
+| [Clinical psychologist](https://aiworkindex.com/occupation/26611) | 26611 | 70.3 | Exposed: Gradient 1 | 0.39 | SGD 4,715 |
+| [Educational psychologist](https://aiworkindex.com/occupation/26612) | 26612 | 70.3 | Exposed: Gradient 1 | 0.39 | Not available |
+| [Industrial/Organisational psychologist](https://aiworkindex.com/occupation/26613) | 26613 | 70.3 | Exposed: Gradient 1 | 0.39 | Not available |
+| [Psychologist n.e.c.](https://aiworkindex.com/occupation/26619) | 26619 | 70.3 | Exposed: Gradient 1 | 0.39 | Not available |
+| [Buyer](https://aiworkindex.com/occupation/33231) | 33231 | 70.3 | Minimal Exposure | 0.39 | SGD 4,842 |
+| [Purchasing agent](https://aiworkindex.com/occupation/33232) | 33232 | 70.3 | Minimal Exposure | 0.39 | SGD 4,077 |
+| [Employment agent/Labour contractor](https://aiworkindex.com/occupation/33330) | 33330 | 70.3 | Minimal Exposure | 0.39 | SGD 4,313 |
+| [Legal associate professional](https://aiworkindex.com/occupation/34110) | 34110 | 70.3 | Exposed: Gradient 1 | 0.39 | SGD 5,725 |
+| [Photographer](https://aiworkindex.com/occupation/34310) | 34310 | 70.3 | Exposed: Gradient 1 | 0.39 | SGD 7,831 |
+| [Cage/Count supervisor](https://aiworkindex.com/occupation/52301) | 52301 | 70.3 | Exposed: Gradient 1 | 0.39 | Not available |
+| [Cashier (general)](https://aiworkindex.com/occupation/52302) | 52302 | 70.3 | Exposed: Gradient 1 | 0.39 | SGD 2,407 |
+| [Office cashier](https://aiworkindex.com/occupation/52303) | 52303 | 70.3 | Exposed: Gradient 1 | 0.39 | SGD 2,650 |
+| [Cashier/Ticket clerk n.e.c.](https://aiworkindex.com/occupation/52309) | 52309 | 70.3 | Exposed: Gradient 1 | 0.39 | Not available |
+| [Senior government official](https://aiworkindex.com/occupation/11121) | 11121 | 67.6 | Minimal Exposure | 0.38 | Not available |
+| [Senior statutory board official](https://aiworkindex.com/occupation/11122) | 11122 | 67.6 | Minimal Exposure | 0.38 | Not available |
+| [Managing director/Chief executive officer](https://aiworkindex.com/occupation/11201) | 11201 | 67.6 | Minimal Exposure | 0.38 | SGD 13,000 |
+| [Company director](https://aiworkindex.com/occupation/11202) | 11202 | 67.6 | Minimal Exposure | 0.38 | SGD 13,839 |
+| [Chief operating officer/General manager](https://aiworkindex.com/occupation/11203) | 11203 | 67.6 | Minimal Exposure | 0.38 | SGD 13,750 |
+| [Manufacturing manager](https://aiworkindex.com/occupation/13210) | 13210 | 67.6 | Minimal Exposure | 0.38 | SGD 7,315 |
+| [Supply and distribution/Logistics/Warehousing manager](https://aiworkindex.com/occupation/13241) | 13241 | 67.6 | Minimal Exposure | 0.38 | SGD 8,500 |
+| [Procurement/Purchasing manager](https://aiworkindex.com/occupation/13242) | 13242 | 67.6 | Minimal Exposure | 0.38 | SGD 8,644 |
+| [Transport/Technical operations manager (excluding port and shipping operations)](https://aiworkindex.com/occupation/13243) | 13243 | 67.6 | Minimal Exposure | 0.38 | SGD 6,297 |
+| [Postal service manager](https://aiworkindex.com/occupation/13244) | 13244 | 67.6 | Minimal Exposure | 0.38 | SGD 10,878 |
+| [Port/Shipping operations manager](https://aiworkindex.com/occupation/13245) | 13245 | 67.6 | Minimal Exposure | 0.38 | SGD 9,681 |
+| [National security/Civil defence/Immigration managerial officer](https://aiworkindex.com/occupation/13491) | 13491 | 67.6 | Minimal Exposure | 0.38 | Not available |
+| [Community partnership/relations manager](https://aiworkindex.com/occupation/13492) | 13492 | 67.6 | Minimal Exposure | 0.38 | SGD 7,600 |
+| [Media/Broadcast manager](https://aiworkindex.com/occupation/13493) | 13493 | 67.6 | Minimal Exposure | 0.38 | SGD 8,561 |
+| [Other professional/financial/community/social services manager n.e.c.](https://aiworkindex.com/occupation/13499) | 13499 | 67.6 | Minimal Exposure | 0.38 | Not available |
+| [Physicist/Astronomer](https://aiworkindex.com/occupation/21110) | 21110 | 67.6 | Exposed: Gradient 1 | 0.38 | Not available |
+| [Environmental officer (environmental protection)](https://aiworkindex.com/occupation/21331) | 21331 | 67.6 | Minimal Exposure | 0.38 | SGD 5,072 |
+| [Environment research scientist](https://aiworkindex.com/occupation/21332) | 21332 | 67.6 | Minimal Exposure | 0.38 | Not available |
+| [Environmental analyst](https://aiworkindex.com/occupation/21333) | 21333 | 67.6 | Minimal Exposure | 0.38 | Not available |
+| [Environmental protection and related professional n.e.c.](https://aiworkindex.com/occupation/21339) | 21339 | 67.6 | Minimal Exposure | 0.38 | Not available |
+| [Environmental engineer](https://aiworkindex.com/occupation/21430) | 21430 | 67.6 | Minimal Exposure | 0.38 | SGD 5,743 |
+| [Assistant electronics engineer](https://aiworkindex.com/occupation/31003) | 31003 | 67.6 | Minimal Exposure | 0.38 | SGD 4,332 |
+| [Semi-conductor technician](https://aiworkindex.com/occupation/31142) | 31142 | 67.6 | Minimal Exposure | 0.38 | SGD 5,232 |
+| [Audio/Video equipment technician](https://aiworkindex.com/occupation/31143) | 31143 | 67.6 | Minimal Exposure | 0.38 | SGD 4,235 |
+| [Instrumentation technician](https://aiworkindex.com/occupation/31144) | 31144 | 67.6 | Minimal Exposure | 0.38 | SGD 4,656 |
+| [Biological technician](https://aiworkindex.com/occupation/31411) | 31411 | 67.6 | Exposed: Gradient 1 | 0.38 | SGD 5,791 |
+| [Clinical research coordinator](https://aiworkindex.com/occupation/31412) | 31412 | 67.6 | Exposed: Gradient 1 | 0.38 | SGD 4,769 |
+| [Life science technician (excluding medical) n.e.c.](https://aiworkindex.com/occupation/31419) | 31419 | 67.6 | Exposed: Gradient 1 | 0.38 | Not available |
+| [Air transport service supervisor](https://aiworkindex.com/occupation/31571) | 31571 | 67.6 | Minimal Exposure | 0.38 | SGD 3,919 |
+| [Train service supervisor](https://aiworkindex.com/occupation/31572) | 31572 | 67.6 | Minimal Exposure | 0.38 | SGD 3,030 |
+| [Road transport supervisor](https://aiworkindex.com/occupation/31573) | 31573 | 67.6 | Minimal Exposure | 0.38 | SGD 3,812 |
+| [Port/Shipping operations supervisor](https://aiworkindex.com/occupation/31574) | 31574 | 67.6 | Minimal Exposure | 0.38 | SGD 5,477 |
+| [Transport operations supervisor n.e.c.](https://aiworkindex.com/occupation/31579) | 31579 | 67.6 | Minimal Exposure | 0.38 | Not available |
+| [Shop sales assistant](https://aiworkindex.com/occupation/52202) | 52202 | 67.6 | Exposed: Gradient 1 | 0.38 | SGD 2,305 |
+| [Pre-press trades worker](https://aiworkindex.com/occupation/73210) | 73210 | 67.6 | Exposed: Gradient 1 | 0.38 | Not available |
+| [Meter reader/Vending-machine collector](https://aiworkindex.com/occupation/96292) | 96292 | 67.6 | Exposed: Gradient 1 | 0.38 | Not available |
+| [Senior official of political party organisation](https://aiworkindex.com/occupation/11140) | 11140 | 63.6 | Minimal Exposure | 0.37 | Not available |
+| [Senior official of employers’/workers’ and related economic-interest organisation](https://aiworkindex.com/occupation/11150) | 11150 | 63.6 | Minimal Exposure | 0.37 | Not available |
+| [Senior official of humanitarian and other special-interest organisation](https://aiworkindex.com/occupation/11160) | 11160 | 63.6 | Minimal Exposure | 0.37 | Not available |
+| [Budgeting/Financial accounting manager](https://aiworkindex.com/occupation/12111) | 12111 | 63.6 | Minimal Exposure | 0.37 | SGD 10,136 |
+| [Audit manager](https://aiworkindex.com/occupation/12113) | 12113 | 63.6 | Minimal Exposure | 0.37 | SGD 10,650 |
+| [Social services manager](https://aiworkindex.com/occupation/13441) | 13441 | 63.6 | Minimal Exposure | 0.37 | SGD 6,580 |
+| [Volunteer manager](https://aiworkindex.com/occupation/13442) | 13442 | 63.6 | Minimal Exposure | 0.37 | Not available |
+| [Hotel operations/Lodging services manager](https://aiworkindex.com/occupation/14110) | 14110 | 63.6 | Exposed: Gradient 1 | 0.37 | SGD 5,143 |
+| [Manufacturing engineer](https://aiworkindex.com/occupation/21411) | 21411 | 63.6 | Minimal Exposure | 0.37 | SGD 6,476 |
+| [Production engineer](https://aiworkindex.com/occupation/21412) | 21412 | 63.6 | Minimal Exposure | 0.37 | SGD 5,783 |
+| [Automation engineer](https://aiworkindex.com/occupation/21413) | 21413 | 63.6 | Minimal Exposure | 0.37 | SGD 10,019 |
+| [Quality control/assurance engineer](https://aiworkindex.com/occupation/21414) | 21414 | 63.6 | Minimal Exposure | 0.37 | SGD 6,803 |
+| [Process engineer](https://aiworkindex.com/occupation/21415) | 21415 | 63.6 | Minimal Exposure | 0.37 | SGD 6,130 |
+| [Building architect](https://aiworkindex.com/occupation/21610) | 21610 | 63.6 | Minimal Exposure | 0.37 | SGD 6,051 |
+| [Landscape architect](https://aiworkindex.com/occupation/21621) | 21621 | 63.6 | Minimal Exposure | 0.37 | Not available |
+| [Landscape designer](https://aiworkindex.com/occupation/21622) | 21622 | 63.6 | Minimal Exposure | 0.37 | Not available |
+| [University lecturer](https://aiworkindex.com/occupation/23101) | 23101 | 63.6 | Minimal Exposure | 0.37 | SGD 13,403 |
+| [Polytechnic lecturer](https://aiworkindex.com/occupation/23102) | 23102 | 63.6 | Minimal Exposure | 0.37 | Not available |
+| [Teaching assistant/Tutor in university](https://aiworkindex.com/occupation/23103) | 23103 | 63.6 | Minimal Exposure | 0.37 | Not available |
+| [University/Polytechnic/Higher education teacher n.e.c.](https://aiworkindex.com/occupation/23109) | 23109 | 63.6 | Minimal Exposure | 0.37 | Not available |
+| [Intellectual property examiner](https://aiworkindex.com/occupation/24252) | 24252 | 63.6 | Not Exposed to Exposed: Gradient 2 | 0.37 (0.30 to 0.44) | Not available |
+| [Arbitrator/Mediator](https://aiworkindex.com/occupation/26191) | 26191 | 63.6 | Minimal Exposure | 0.37 | Not available |
+| [Other legal professional n.e.c.](https://aiworkindex.com/occupation/26199) | 26199 | 63.6 | Minimal Exposure | 0.37 | Not available |
+| [Producer (stage/film/television/commercial/video/radio)](https://aiworkindex.com/occupation/26541) | 26541 | 63.6 | Minimal Exposure | 0.37 | SGD 5,830 |
+| [Director (stage/film/television/commercial/video/radio)](https://aiworkindex.com/occupation/26542) | 26542 | 63.6 | Minimal Exposure | 0.37 | SGD 6,900 |
+| [Artistic director (stage/film/television/commercial/video/radio)](https://aiworkindex.com/occupation/26543) | 26543 | 63.6 | Minimal Exposure | 0.37 | SGD 5,500 |
+| [Editor (radio/television/video)](https://aiworkindex.com/occupation/26544) | 26544 | 63.6 | Minimal Exposure | 0.37 | SGD 5,618 |
+| [Film/Stage and related director/producer n.e.c.](https://aiworkindex.com/occupation/26549) | 26549 | 63.6 | Minimal Exposure | 0.37 | Not available |
+| [Sports coach](https://aiworkindex.com/occupation/34221) | 34221 | 63.6 | Minimal Exposure | 0.37 | SGD 3,600 |
+| [Martial arts instructor](https://aiworkindex.com/occupation/34222) | 34222 | 63.6 | Minimal Exposure | 0.37 | Not available |
+| [Sports official](https://aiworkindex.com/occupation/34224) | 34224 | 63.6 | Minimal Exposure | 0.37 | Not available |
+| [Interior designer](https://aiworkindex.com/occupation/34321) | 34321 | 63.6 | Minimal Exposure | 0.37 | SGD 4,130 |
+| [Decorator](https://aiworkindex.com/occupation/34322) | 34322 | 63.6 | Minimal Exposure | 0.37 | Not available |
+| [Visual merchandiser](https://aiworkindex.com/occupation/34323) | 34323 | 63.6 | Minimal Exposure | 0.37 | SGD 3,810 |
+| [Library officer](https://aiworkindex.com/occupation/34331) | 34331 | 63.6 | Exposed: Gradient 1 | 0.37 | SGD 2,974 |
+| [Gallery/Museum and related technician](https://aiworkindex.com/occupation/34332) | 34332 | 63.6 | Exposed: Gradient 1 | 0.37 | Not available |
+| [Stock records clerk](https://aiworkindex.com/occupation/43211) | 43211 | 63.6 | Minimal Exposure | 0.37 | SGD 2,580 |
+| [Storekeeper](https://aiworkindex.com/occupation/43212) | 43212 | 63.6 | Minimal Exposure | 0.37 | SGD 2,556 |
+| [Stock clerk n.e.c.](https://aiworkindex.com/occupation/43219) | 43219 | 63.6 | Minimal Exposure | 0.37 | Not available |
+| [Bell captain](https://aiworkindex.com/occupation/96211) | 96211 | 63.6 | Exposed: Gradient 1 | 0.37 | Not available |
+| [Bellboy/Hotel porter](https://aiworkindex.com/occupation/96212) | 96212 | 63.6 | Exposed: Gradient 1 | 0.37 | SGD 2,377 |
+| [Porter (excluding hotel)](https://aiworkindex.com/occupation/96213) | 96213 | 63.6 | Exposed: Gradient 1 | 0.37 | Not available |
+| [Human resource consultant (excluding executive search consultant)](https://aiworkindex.com/occupation/24231) | 24231 | 61.4 | Not Exposed to Exposed: Gradient 2 | 0.36 (0.28 to 0.45) | SGD 6,894 |
+| [Job coach (disability)](https://aiworkindex.com/occupation/26640) | 26640 | 61.4 | Not Exposed to Exposed: Gradient 2 | 0.36 (0.28 to 0.45) | Not available |
+| [Personnel/Human resource manager](https://aiworkindex.com/occupation/12121) | 12121 | 60.2 | Minimal Exposure | 0.36 | SGD 8,759 |
+| [Industrial relations manager](https://aiworkindex.com/occupation/12122) | 12122 | 60.2 | Minimal Exposure | 0.36 | SGD 7,804 |
+| [Training manager](https://aiworkindex.com/occupation/12123) | 12123 | 60.2 | Minimal Exposure | 0.36 | SGD 8,082 |
+| [Policy manager](https://aiworkindex.com/occupation/12131) | 12131 | 60.2 | Not Exposed | 0.36 | SGD 12,512 |
+| [Strategic planning manager](https://aiworkindex.com/occupation/12132) | 12132 | 60.2 | Not Exposed | 0.36 | SGD 11,150 |
+| [Risk management manager](https://aiworkindex.com/occupation/12133) | 12133 | 60.2 | Not Exposed | 0.36 | SGD 17,077 |
+| [Technical/Engineering services manager (excluding transport)](https://aiworkindex.com/occupation/13291) | 13291 | 60.2 | Minimal Exposure | 0.36 (0.34 to 0.38) | SGD 10,112 |
+| [Quality control/assurance manager](https://aiworkindex.com/occupation/13292) | 13292 | 60.2 | Minimal Exposure | 0.36 (0.34 to 0.38) | SGD 9,500 |
+| [Health services manager](https://aiworkindex.com/occupation/13420) | 13420 | 60.2 | Minimal Exposure | 0.36 | SGD 8,709 |
+| [School principal](https://aiworkindex.com/occupation/13451) | 13451 | 60.2 | Minimal Exposure | 0.36 | SGD 6,828 |
+| [Education/Training institution manager n.e.c.](https://aiworkindex.com/occupation/13459) | 13459 | 60.2 | Minimal Exposure | 0.36 | Not available |
+| [Restaurant manager](https://aiworkindex.com/occupation/14121) | 14121 | 60.2 | Minimal Exposure | 0.36 | SGD 3,900 |
+| [Catering manager](https://aiworkindex.com/occupation/14122) | 14122 | 60.2 | Minimal Exposure | 0.36 | SGD 4,884 |
+| [Food and beverage operations manager](https://aiworkindex.com/occupation/14123) | 14123 | 60.2 | Minimal Exposure | 0.36 | SGD 3,980 |
+| [Geologist](https://aiworkindex.com/occupation/21141) | 21141 | 60.2 | Minimal Exposure | 0.36 | Not available |
+| [Geophysicist](https://aiworkindex.com/occupation/21142) | 21142 | 60.2 | Minimal Exposure | 0.36 | Not available |
+| [Geologist/Geophysicist and related physical science professional n.e.c.](https://aiworkindex.com/occupation/21149) | 21149 | 60.2 | Minimal Exposure | 0.36 | Not available |
+| [Advocate/Solicitor (practising)](https://aiworkindex.com/occupation/26111) | 26111 | 60.2 | Minimal Exposure | 0.36 | SGD 10,000 |
+| [In-house legal counsel (excluding judiciary, ministries and statutory boards)](https://aiworkindex.com/occupation/26112) | 26112 | 60.2 | Minimal Exposure | 0.36 | SGD 13,000 |
+| [Lawyer n.e.c.](https://aiworkindex.com/occupation/26119) | 26119 | 60.2 | Minimal Exposure | 0.36 | Not available |
+| [Electronics engineering technician](https://aiworkindex.com/occupation/31141) | 31141 | 60.2 | Minimal Exposure | 0.36 (0.34 to 0.38) | SGD 3,843 |
+| [Other government associate professional n.e.c.](https://aiworkindex.com/occupation/33599) | 33599 | 60.2 | Minimal Exposure | 0.36 | Not available |
+| [Other production/operations manager n.e.c.](https://aiworkindex.com/occupation/13299) | 13299 | 57.4 | Minimal Exposure | 0.35 | Not available |
+| [Arts/Cultural centre manager](https://aiworkindex.com/occupation/14330) | 14330 | 57.4 | Minimal Exposure | 0.35 (0.32 to 0.38) | Not available |
+| [Chemical engineer (excluding petroleum and petrochemical)](https://aiworkindex.com/occupation/21451) | 21451 | 57.4 | Minimal Exposure | 0.35 | SGD 6,400 |
+| [Chemical engineer (petroleum)](https://aiworkindex.com/occupation/21452) | 21452 | 57.4 | Minimal Exposure | 0.35 | SGD 9,730 |
+| [Chemical engineer (petrochemical)](https://aiworkindex.com/occupation/21453) | 21453 | 57.4 | Minimal Exposure | 0.35 | Not available |
+| [Food/Drink technologist](https://aiworkindex.com/occupation/21454) | 21454 | 57.4 | Minimal Exposure | 0.35 | SGD 4,635 |
+| [Fashion designer](https://aiworkindex.com/occupation/21631) | 21631 | 57.4 | Minimal Exposure | 0.35 | SGD 4,175 |
+| [Product/Industrial designer](https://aiworkindex.com/occupation/21632) | 21632 | 57.4 | Minimal Exposure | 0.35 | SGD 6,296 |
+| [Technical/Vocational/Commercial education institute teacher/trainer](https://aiworkindex.com/occupation/23300) | 23300 | 57.4 | Minimal Exposure | 0.35 | SGD 4,629 |
+| [Mechanical draughtsperson](https://aiworkindex.com/occupation/31181) | 31181 | 57.4 | Minimal Exposure | 0.35 | SGD 3,670 |
+| [Electrical/Electronics draughtsperson](https://aiworkindex.com/occupation/31182) | 31182 | 57.4 | Minimal Exposure | 0.35 | SGD 4,119 |
+| [Civil/Structural engineering draughtsperson](https://aiworkindex.com/occupation/31183) | 31183 | 57.4 | Minimal Exposure | 0.35 | SGD 4,305 |
+| [Architectural draughtsperson](https://aiworkindex.com/occupation/31184) | 31184 | 57.4 | Minimal Exposure | 0.35 | SGD 4,785 |
+| [Marine draughtsperson](https://aiworkindex.com/occupation/31185) | 31185 | 57.4 | Minimal Exposure | 0.35 | SGD 4,550 |
+| [Draughtsperson n.e.c.](https://aiworkindex.com/occupation/31189) | 31189 | 57.4 | Minimal Exposure | 0.35 | Not available |
+| [Real estate agent](https://aiworkindex.com/occupation/33340) | 33340 | 57.4 | Minimal Exposure | 0.35 | Not available |
+| [Media/Broadcasting operations technician](https://aiworkindex.com/occupation/35211) | 35211 | 57.4 | Minimal Exposure | 0.35 | SGD 4,285 |
+| [Video camera operator](https://aiworkindex.com/occupation/35212) | 35212 | 57.4 | Minimal Exposure | 0.35 | SGD 5,588 |
+| [Television/Motion picture camera operator](https://aiworkindex.com/occupation/35213) | 35213 | 57.4 | Minimal Exposure | 0.35 | Not available |
+| [Radio/Television studio equipment operator](https://aiworkindex.com/occupation/35214) | 35214 | 57.4 | Minimal Exposure | 0.35 | Not available |
+| [Sound engineering technician](https://aiworkindex.com/occupation/35215) | 35215 | 57.4 | Minimal Exposure | 0.35 | Not available |
+| [Broadcasting technician/Audio-visual operator n.e.c.](https://aiworkindex.com/occupation/35219) | 35219 | 57.4 | Minimal Exposure | 0.35 | Not available |
+| [Art and craft instructor (extracurriculum)](https://aiworkindex.com/occupation/36202) | 36202 | 57.4 | Minimal Exposure | 0.35 | SGD 3,826 |
+| [Music instructor (extracurriculum)](https://aiworkindex.com/occupation/36204) | 36204 | 57.4 | Minimal Exposure | 0.35 | SGD 3,117 |
+| [Dance instructor (extracurriculum)](https://aiworkindex.com/occupation/36205) | 36205 | 57.4 | Minimal Exposure | 0.35 | Not available |
+| [Speech and drama instructor (extracurriculum)](https://aiworkindex.com/occupation/36206) | 36206 | 57.4 | Minimal Exposure | 0.35 | Not available |
+| [Supervisor/General foreman (metal/machinery and related trades)](https://aiworkindex.com/occupation/72000) | 72000 | 57.4 | Minimal Exposure | 0.35 | SGD 4,412 |
+| [Supervisor/General foreman (precision/handicraft/printing and related trades)](https://aiworkindex.com/occupation/73000) | 73000 | 57.4 | Minimal Exposure | 0.35 | SGD 3,700 |
+| [Lift supervisor](https://aiworkindex.com/occupation/74001) | 74001 | 57.4 | Minimal Exposure | 0.35 | SGD 4,701 |
+| [Supervisor/General foreman (electrical/electronic trades, excluding lift)](https://aiworkindex.com/occupation/74002) | 74002 | 57.4 | Minimal Exposure | 0.35 | SGD 3,733 |
+| [Supervisor/General foreman (food processing/woodworking/garment/leather and related trades)](https://aiworkindex.com/occupation/75000) | 75000 | 57.4 | Minimal Exposure | 0.35 | SGD 3,016 |
+| [Stationary plant/machine supervisor/general foreman](https://aiworkindex.com/occupation/81000) | 81000 | 57.4 | Minimal Exposure | 0.35 | SGD 4,312 |
+| [Supervisor/General foreman of assemblers/quality checkers](https://aiworkindex.com/occupation/82000) | 82000 | 57.4 | Minimal Exposure | 0.35 | SGD 3,486 |
+| [Construction manager](https://aiworkindex.com/occupation/13230) | 13230 | 55.6 | Minimal Exposure | 0.34 | SGD 6,000 |
+| [Aged care services manager](https://aiworkindex.com/occupation/13430) | 13430 | 55.6 | Minimal Exposure | 0.34 | SGD 7,149 |
+| [Language instructor (extracurriculum)](https://aiworkindex.com/occupation/36201) | 36201 | 55.6 | Minimal Exposure | 0.34 | SGD 4,124 |
+| [Pharmacist (patient care)](https://aiworkindex.com/occupation/22621) | 22621 | 54.9 | Minimal Exposure | 0.33 | SGD 5,612 |
+| [Pharmacist n.e.c.](https://aiworkindex.com/occupation/22629) | 22629 | 54.9 | Minimal Exposure | 0.33 | Not available |
+| [Teaching professional n.e.c.](https://aiworkindex.com/occupation/23690) | 23690 | 54.9 | Minimal Exposure | 0.33 | Not available |
+| [Youth work associate](https://aiworkindex.com/occupation/34121) | 34121 | 54.9 | Minimal Exposure | 0.33 | SGD 4,010 |
+| [Social work associate](https://aiworkindex.com/occupation/34122) | 34122 | 54.9 | Minimal Exposure | 0.33 | SGD 4,037 |
+| [Volunteer executive](https://aiworkindex.com/occupation/34123) | 34123 | 54.9 | Minimal Exposure | 0.33 | SGD 3,985 |
+| [Extracurriculum instructor n.e.c.](https://aiworkindex.com/occupation/36209) | 36209 | 54.9 | Minimal Exposure | 0.33 | Not available |
+| [Private tutor (academic)](https://aiworkindex.com/occupation/36910) | 36910 | 54.9 | Minimal Exposure | 0.33 | SGD 4,164 |
+| [Relief teacher](https://aiworkindex.com/occupation/36991) | 36991 | 54.9 | Minimal Exposure | 0.33 | SGD 3,550 |
+| [Other teaching associate professional n.e.c.](https://aiworkindex.com/occupation/36999) | 36999 | 54.9 | Minimal Exposure | 0.33 | Not available |
+| [Sports centre manager](https://aiworkindex.com/occupation/14310) | 14310 | 53.0 | Minimal Exposure | 0.32 | SGD 6,402 |
+| [Casino operations manager](https://aiworkindex.com/occupation/14321) | 14321 | 53.0 | Minimal Exposure | 0.32 | SGD 7,918 |
+| [Attractions manager](https://aiworkindex.com/occupation/14322) | 14322 | 53.0 | Minimal Exposure | 0.32 | SGD 5,558 |
+| [Discotheque/Karaoke/Nightclub manager](https://aiworkindex.com/occupation/14323) | 14323 | 53.0 | Minimal Exposure | 0.32 | Not available |
+| [Wellness centre manager](https://aiworkindex.com/occupation/14324) | 14324 | 53.0 | Minimal Exposure | 0.32 | SGD 6,000 |
+| [Country club manager](https://aiworkindex.com/occupation/14325) | 14325 | 53.0 | Minimal Exposure | 0.32 | Not available |
+| [Recreation centre manager n.e.c.](https://aiworkindex.com/occupation/14329) | 14329 | 53.0 | Minimal Exposure | 0.32 | Not available |
+| [Mechanical engineer](https://aiworkindex.com/occupation/21441) | 21441 | 53.0 | Not Exposed | 0.32 | SGD 6,015 |
+| [Industrial machinery/tools engineer](https://aiworkindex.com/occupation/21442) | 21442 | 53.0 | Not Exposed | 0.32 | SGD 5,969 |
+| [Air-conditioning/Refrigeration engineer](https://aiworkindex.com/occupation/21443) | 21443 | 53.0 | Not Exposed | 0.32 | SGD 6,497 |
+| [Port equipment engineer](https://aiworkindex.com/occupation/21444) | 21444 | 53.0 | Not Exposed | 0.32 | Not available |
+| [Aeronautical engineer](https://aiworkindex.com/occupation/21471) | 21471 | 53.0 | Not Exposed | 0.32 | SGD 6,329 |
+| [Automotive engineer](https://aiworkindex.com/occupation/21472) | 21472 | 53.0 | Not Exposed | 0.32 | SGD 4,796 |
+| [Marine engineer](https://aiworkindex.com/occupation/21473) | 21473 | 53.0 | Not Exposed | 0.32 | SGD 6,200 |
+| [Naval architect](https://aiworkindex.com/occupation/21474) | 21474 | 53.0 | Not Exposed | 0.32 | Not available |
+| [Rolling stock engineer](https://aiworkindex.com/occupation/21475) | 21475 | 53.0 | Not Exposed | 0.32 | SGD 6,146 |
+| [Traditional Chinese medicine practitioner](https://aiworkindex.com/occupation/22301) | 22301 | 53.0 | Minimal Exposure | 0.32 | SGD 4,170 |
+| [Traditional Chinese medicine acupuncturist](https://aiworkindex.com/occupation/22302) | 22302 | 53.0 | Minimal Exposure | 0.32 | Not available |
+| [Assistant chemical engineer](https://aiworkindex.com/occupation/31005) | 31005 | 53.0 | Not Exposed | 0.32 | Not available |
+| [Chemical engineering technician (excluding petroleum, natural gas and petrochemical)](https://aiworkindex.com/occupation/31161) | 31161 | 53.0 | Not Exposed | 0.32 | SGD 5,498 |
+| [Chemical engineering technician (petroleum/natural gas)](https://aiworkindex.com/occupation/31162) | 31162 | 53.0 | Not Exposed | 0.32 | SGD 5,628 |
+| [Chemical engineering technician (petrochemical)](https://aiworkindex.com/occupation/31163) | 31163 | 53.0 | Not Exposed | 0.32 | SGD 8,300 |
+| [Food science technician](https://aiworkindex.com/occupation/31164) | 31164 | 53.0 | Not Exposed | 0.32 | Not available |
+| [Customs/Immigration officer](https://aiworkindex.com/occupation/33510) | 33510 | 53.0 | Minimal Exposure | 0.32 | Not available |
+| [Tour guide](https://aiworkindex.com/occupation/51131) | 51131 | 53.0 | Minimal Exposure | 0.32 | SGD 2,237 |
+| [Attractions guide](https://aiworkindex.com/occupation/51132) | 51132 | 53.0 | Minimal Exposure | 0.32 | SGD 3,080 |
+| [Assembler n.e.c.](https://aiworkindex.com/occupation/82190) | 82190 | 53.0 | Minimal Exposure | 0.32 | Not available |
+| [Legislator](https://aiworkindex.com/occupation/11110) | 11110 | 51.0 | Not Exposed | 0.31 | Not available |
+| [Electrical engineer](https://aiworkindex.com/occupation/21511) | 21511 | 51.0 | Not Exposed | 0.31 | SGD 6,042 |
+| [Power generation/distribution engineer](https://aiworkindex.com/occupation/21512) | 21512 | 51.0 | Not Exposed | 0.31 | Not available |
+| [Lift engineer](https://aiworkindex.com/occupation/21513) | 21513 | 51.0 | Not Exposed | 0.31 | SGD 5,220 |
+| [Judge](https://aiworkindex.com/occupation/26120) | 26120 | 51.0 | Not Exposed | 0.31 | Not available |
+| [Actor](https://aiworkindex.com/occupation/26550) | 26550 | 51.0 | Minimal Exposure | 0.31 | Not available |
+| [Metal production process controller](https://aiworkindex.com/occupation/31350) | 31350 | 51.0 | Minimal Exposure | 0.31 | Not available |
+| [Air traffic controller](https://aiworkindex.com/occupation/31540) | 31540 | 51.0 | Minimal Exposure | 0.31 | Not available |
+| [Medical/Pathology laboratory technician](https://aiworkindex.com/occupation/32120) | 32120 | 51.0 | Minimal Exposure | 0.31 | SGD 4,655 |
+| [Sports coach/instructor/official and related associate professional n.e.c.](https://aiworkindex.com/occupation/34229) | 34229 | 51.0 | Not Exposed to Minimal Exposure | 0.31 (0.25 to 0.37) | Not available |
+| [Food and beverage taster/grader](https://aiworkindex.com/occupation/75150) | 75150 | 51.0 | Minimal Exposure | 0.31 | Not available |
+| [Electrical/Electronic products quality checker/tester](https://aiworkindex.com/occupation/82131) | 82131 | 51.0 | Minimal Exposure | 0.31 | SGD 2,325 |
+| [Mechanical products quality checker/tester](https://aiworkindex.com/occupation/82132) | 82132 | 51.0 | Minimal Exposure | 0.31 | SGD 3,396 |
+| [Quality checker/tester n.e.c.](https://aiworkindex.com/occupation/82139) | 82139 | 51.0 | Minimal Exposure | 0.31 | Not available |
+| [Preschool education/Early intervention centre manager](https://aiworkindex.com/occupation/13410) | 13410 | 49.4 | Minimal Exposure | 0.30 | SGD 8,242 |
+| [Civil engineer](https://aiworkindex.com/occupation/21421) | 21421 | 49.4 | Not Exposed | 0.30 | SGD 5,974 |
+| [Building construction engineer](https://aiworkindex.com/occupation/21422) | 21422 | 49.4 | Not Exposed | 0.30 | SGD 5,743 |
+| [Biomedical engineer](https://aiworkindex.com/occupation/21491) | 21491 | 49.4 | Not Exposed | 0.30 | SGD 8,625 |
+| [Materials engineer](https://aiworkindex.com/occupation/21492) | 21492 | 49.4 | Not Exposed | 0.30 | SGD 7,058 |
+| [Industrial safety engineer](https://aiworkindex.com/occupation/21493) | 21493 | 49.4 | Not Exposed | 0.30 | SGD 6,936 |
+| [Quantity surveyor](https://aiworkindex.com/occupation/21494) | 21494 | 49.4 | Not Exposed | 0.30 | SGD 4,800 |
+| [Intellectual property engineer](https://aiworkindex.com/occupation/21495) | 21495 | 49.4 | Not Exposed | 0.30 | Not available |
+| [Energy engineer](https://aiworkindex.com/occupation/21496) | 21496 | 49.4 | Not Exposed | 0.30 | Not available |
+| [Optical engineer](https://aiworkindex.com/occupation/21497) | 21497 | 49.4 | Not Exposed | 0.30 | SGD 9,502 |
+| [Procurement engineer](https://aiworkindex.com/occupation/21498) | 21498 | 49.4 | Not Exposed | 0.30 | SGD 7,756 |
+| [Other engineering professional n.e.c.](https://aiworkindex.com/occupation/21499) | 21499 | 49.4 | Not Exposed | 0.30 | Not available |
+| [Junior college/Pre-university teacher](https://aiworkindex.com/occupation/23200) | 23200 | 49.4 | Not Exposed | 0.30 | Not available |
+| [Secondary school teacher](https://aiworkindex.com/occupation/23400) | 23400 | 49.4 | Not Exposed | 0.30 | Not available |
+| [Pharmacy technician](https://aiworkindex.com/occupation/32130) | 32130 | 49.4 | Minimal Exposure | 0.30 | SGD 3,260 |
+| [Other health associate professional n.e.c.](https://aiworkindex.com/occupation/32599) | 32599 | 49.4 | Minimal Exposure | 0.30 | Not available |
+| [Astrologer/Fortune-teller and related worker](https://aiworkindex.com/occupation/51910) | 51910 | 49.4 | Minimal Exposure | 0.30 | Not available |
+| [Horticulturist/Arborist](https://aiworkindex.com/occupation/21321) | 21321 | 47.0 | Not Exposed | 0.29 | SGD 4,216 |
+| [Aquaculturist](https://aiworkindex.com/occupation/21322) | 21322 | 47.0 | Not Exposed | 0.29 | Not available |
+| [Agriculturist](https://aiworkindex.com/occupation/21323) | 21323 | 47.0 | Not Exposed | 0.29 | Not available |
+| [Farming/Forestry/Fishery adviser n.e.c.](https://aiworkindex.com/occupation/21329) | 21329 | 47.0 | Not Exposed | 0.29 | Not available |
+| [Mining engineer/Metallurgist and related professional](https://aiworkindex.com/occupation/21460) | 21460 | 47.0 | Not Exposed | 0.29 | Not available |
+| [Ship captain/Chief mate](https://aiworkindex.com/occupation/21713) | 21713 | 47.0 | Not Exposed | 0.29 | Not available |
+| [Marine superintendent](https://aiworkindex.com/occupation/21714) | 21714 | 47.0 | Not Exposed | 0.29 | SGD 12,000 |
+| [General practitioner/Physician](https://aiworkindex.com/occupation/22110) | 22110 | 47.0 | Not Exposed | 0.29 | SGD 7,165 |
+| [Process engineering technician](https://aiworkindex.com/occupation/31173) | 31173 | 47.0 | Not Exposed | 0.29 (0.26 to 0.32) | SGD 3,145 |
+| [Chemical processing/products plant controller](https://aiworkindex.com/occupation/31331) | 31331 | 47.0 | Not Exposed | 0.29 | Not available |
+| [Pharmaceutical products machine controller](https://aiworkindex.com/occupation/31332) | 31332 | 47.0 | Not Exposed | 0.29 | Not available |
+| [Petroleum/Natural gas refining plant operator](https://aiworkindex.com/occupation/31341) | 31341 | 47.0 | Not Exposed | 0.29 | Not available |
+| [Cylinder filler/tester (compressed/liquefied gases)](https://aiworkindex.com/occupation/31342) | 31342 | 47.0 | Not Exposed | 0.29 | Not available |
+| [Ship’s deck navigating officer](https://aiworkindex.com/occupation/31521) | 31521 | 47.0 | Not Exposed | 0.29 | Not available |
+| [Harbour pilot](https://aiworkindex.com/occupation/31522) | 31522 | 47.0 | Not Exposed | 0.29 | Not available |
+| [Ship’s deck officer/pilot n.e.c.](https://aiworkindex.com/occupation/31529) | 31529 | 47.0 | Not Exposed | 0.29 | Not available |
+| [Sea traffic controller](https://aiworkindex.com/occupation/31560) | 31560 | 47.0 | Not Exposed | 0.29 | Not available |
+| [Port master/Dockmaster](https://aiworkindex.com/occupation/31591) | 31591 | 47.0 | Not Exposed | 0.29 | Not available |
+| [Port captain](https://aiworkindex.com/occupation/31592) | 31592 | 47.0 | Not Exposed | 0.29 | Not available |
+| [Other transport controller and related worker n.e.c.](https://aiworkindex.com/occupation/31599) | 31599 | 47.0 | Not Exposed to Exposed: Gradient 3 | 0.29 (0.27 to 0.50) | Not available |
+| [Park ranger](https://aiworkindex.com/occupation/54194) | 54194 | 47.0 | Not Exposed to Minimal Exposure | 0.29 (0.20 to 0.38) | Not available |
+| [Other protective services and related worker n.e.c.](https://aiworkindex.com/occupation/54199) | 54199 | 47.0 | Not Exposed to Minimal Exposure | 0.29 (0.20 to 0.38) | Not available |
+| [Office/Library attendant](https://aiworkindex.com/occupation/96251) | 96251 | 47.0 | Minimal Exposure | 0.29 | SGD 3,100 |
+| [Laboratory attendant](https://aiworkindex.com/occupation/96252) | 96252 | 47.0 | Minimal Exposure | 0.29 | SGD 2,346 |
+| [Hospital/Clinic attendant](https://aiworkindex.com/occupation/96253) | 96253 | 47.0 | Minimal Exposure | 0.29 | SGD 1,700 |
+| [Car park attendant](https://aiworkindex.com/occupation/96254) | 96254 | 47.0 | Minimal Exposure | 0.29 | SGD 1,783 |
+| [Sports/Recreational attendant](https://aiworkindex.com/occupation/96255) | 96255 | 47.0 | Minimal Exposure | 0.29 | SGD 1,904 |
+| [Bus attendant](https://aiworkindex.com/occupation/96256) | 96256 | 47.0 | Minimal Exposure | 0.29 | SGD 1,600 |
+| [Restroom attendant](https://aiworkindex.com/occupation/96257) | 96257 | 47.0 | Minimal Exposure | 0.29 | SGD 2,325 |
+| [Attendant n.e.c.](https://aiworkindex.com/occupation/96259) | 96259 | 47.0 | Minimal Exposure | 0.29 | Not available |
+| [Doorman](https://aiworkindex.com/occupation/96262) | 96262 | 47.0 | Minimal Exposure | 0.29 | Not available |
+| [Stall sales worker n.e.c.](https://aiworkindex.com/occupation/52190) | 52190 | 45.3 | Not Exposed to Exposed: Gradient 1 | 0.28 (0.22 to 0.35) | Not available |
+| [Occupational health and safety professional](https://aiworkindex.com/occupation/22631) | 22631 | 43.1 | Not Exposed | 0.28 | SGD 5,777 |
+| [Environmental officer (public health)](https://aiworkindex.com/occupation/22632) | 22632 | 43.1 | Not Exposed | 0.28 | Not available |
+| [Environmental and occupational health and hygiene professional n.e.c.](https://aiworkindex.com/occupation/22639) | 22639 | 43.1 | Not Exposed | 0.28 | Not available |
+| [Physiotherapist](https://aiworkindex.com/occupation/22640) | 22640 | 43.1 | Minimal Exposure | 0.28 | SGD 5,349 |
+| [Teacher of the visually impaired](https://aiworkindex.com/occupation/23621) | 23621 | 43.1 | Not Exposed | 0.28 | Not available |
+| [Early intervention teacher for infants and children](https://aiworkindex.com/occupation/23622) | 23622 | 43.1 | Not Exposed | 0.28 | SGD 3,772 |
+| [Special education teacher n.e.c.](https://aiworkindex.com/occupation/23629) | 23629 | 43.1 | Not Exposed | 0.28 | Not available |
+| [Instrumentalist](https://aiworkindex.com/occupation/26521) | 26521 | 43.1 | Not Exposed | 0.28 | SGD 7,599 |
+| [Composer/Orchestrator](https://aiworkindex.com/occupation/26522) | 26522 | 43.1 | Not Exposed | 0.28 | Not available |
+| [Conductor/Director of orchestra/band/choir](https://aiworkindex.com/occupation/26523) | 26523 | 43.1 | Not Exposed | 0.28 | Not available |
+| [Singer](https://aiworkindex.com/occupation/26524) | 26524 | 43.1 | Not Exposed | 0.28 | Not available |
+| [Musician/Composer/Singer n.e.c.](https://aiworkindex.com/occupation/26529) | 26529 | 43.1 | Not Exposed | 0.28 | Not available |
+| [Social worker (general)](https://aiworkindex.com/occupation/26621) | 26621 | 43.1 | Not Exposed | 0.28 | SGD 4,570 |
+| [Medical social worker](https://aiworkindex.com/occupation/26622) | 26622 | 43.1 | Not Exposed | 0.28 | SGD 4,883 |
+| [Youth work professional](https://aiworkindex.com/occupation/26623) | 26623 | 43.1 | Not Exposed | 0.28 | Not available |
+| [Social work professional n.e.c.](https://aiworkindex.com/occupation/26629) | 26629 | 43.1 | Not Exposed | 0.28 | Not available |
+| [Counsellor (rehabilitation)](https://aiworkindex.com/occupation/26631) | 26631 | 43.1 | Not Exposed | 0.28 | Not available |
+| [Counsellor (drugs/alcohol)](https://aiworkindex.com/occupation/26632) | 26632 | 43.1 | Not Exposed | 0.28 | Not available |
+| [Counsellor (family)](https://aiworkindex.com/occupation/26633) | 26633 | 43.1 | Not Exposed | 0.28 | SGD 4,800 |
+| [School counsellor](https://aiworkindex.com/occupation/26634) | 26634 | 43.1 | Not Exposed | 0.28 | Not available |
+| [Counselling professional n.e.c.](https://aiworkindex.com/occupation/26639) | 26639 | 43.1 | Not Exposed | 0.28 | Not available |
+| [Assistant civil/structural engineer](https://aiworkindex.com/occupation/31001) | 31001 | 43.1 | Not Exposed | 0.28 | SGD 4,428 |
+| [Civil engineering technician](https://aiworkindex.com/occupation/31121) | 31121 | 43.1 | Not Exposed | 0.28 | SGD 3,623 |
+| [Building technician](https://aiworkindex.com/occupation/31122) | 31122 | 43.1 | Not Exposed | 0.28 | SGD 3,431 |
+| [Land surveying technician](https://aiworkindex.com/occupation/31123) | 31123 | 43.1 | Not Exposed | 0.28 | SGD 3,043 |
+| [Resident technical officer](https://aiworkindex.com/occupation/31124) | 31124 | 43.1 | Not Exposed | 0.28 | SGD 3,284 |
+| [Civil engineering technician n.e.c.](https://aiworkindex.com/occupation/31129) | 31129 | 43.1 | Not Exposed | 0.28 | Not available |
+| [Metallurgical technician](https://aiworkindex.com/occupation/31292) | 31292 | 43.1 | Not Exposed | 0.28 | Not available |
+| [Power generating plant operator](https://aiworkindex.com/occupation/31310) | 31310 | 43.1 | Not Exposed | 0.28 | Not available |
+| [Captain waiter/Waiter supervisor](https://aiworkindex.com/occupation/51311) | 51311 | 43.1 | Minimal Exposure | 0.28 | SGD 2,783 |
+| [Waiter](https://aiworkindex.com/occupation/51312) | 51312 | 43.1 | Minimal Exposure | 0.28 | SGD 1,600 |
+| [Sommelier](https://aiworkindex.com/occupation/51313) | 51313 | 43.1 | Minimal Exposure | 0.28 | SGD 4,792 |
+| [Supervisor/General foreman (building and related trades)](https://aiworkindex.com/occupation/71000) | 71000 | 43.1 | Not Exposed | 0.28 | SGD 2,000 |
+| [Electrical equipment/component assembler](https://aiworkindex.com/occupation/82121) | 82121 | 43.1 | Minimal Exposure | 0.28 | SGD 2,572 |
+| [Electronic equipment/component assembler](https://aiworkindex.com/occupation/82122) | 82122 | 43.1 | Minimal Exposure | 0.28 | SGD 2,121 |
+| [Battery assembler](https://aiworkindex.com/occupation/82123) | 82123 | 43.1 | Minimal Exposure | 0.28 | Not available |
+| [Taxi driver](https://aiworkindex.com/occupation/83221) | 83221 | 43.1 | Exposed: Gradient 1 | 0.28 | Not available |
+| [Chauffeur](https://aiworkindex.com/occupation/83222) | 83222 | 43.1 | Exposed: Gradient 1 | 0.28 | SGD 2,536 |
+| [Van driver](https://aiworkindex.com/occupation/83223) | 83223 | 43.1 | Exposed: Gradient 1 | 0.28 | SGD 2,150 |
+| [Ambulance driver](https://aiworkindex.com/occupation/83224) | 83224 | 43.1 | Exposed: Gradient 1 | 0.28 | SGD 2,934 |
+| [Parking valet](https://aiworkindex.com/occupation/83225) | 83225 | 43.1 | Exposed: Gradient 1 | 0.28 | Not available |
+| [Private-hire car driver](https://aiworkindex.com/occupation/83226) | 83226 | 43.1 | Exposed: Gradient 1 | 0.28 | Not available |
+| [Car/Taxi/Van/Light goods vehicle driver n.e.c.](https://aiworkindex.com/occupation/83229) | 83229 | 43.1 | Exposed: Gradient 1 | 0.28 | Not available |
+| [Building caretaker and related worker n.e.c.](https://aiworkindex.com/occupation/96269) | 96269 | 43.1 | Minimal Exposure | 0.28 (0.27 to 0.29) | Not available |
+| [Registered nurse and related nursing professional (excluding enrolled nurse)](https://aiworkindex.com/occupation/22200) | 22200 | 40.7 | Not Exposed to Minimal Exposure | 0.28 (0.25 to 0.30) | SGD 5,210 |
+| [Hawker/Stall holder (excluding prepared food and drinks)](https://aiworkindex.com/occupation/52110) | 52110 | 40.7 | Not Exposed to Exposed: Gradient 1 | 0.28 (0.20 to 0.35) | Not available |
+| [Commercial airline pilot](https://aiworkindex.com/occupation/21721) | 21721 | 38.1 | Not Exposed | 0.27 | SGD 17,053 |
+| [Aircraft pilot (excluding commercial airline and air force)](https://aiworkindex.com/occupation/21722) | 21722 | 38.1 | Not Exposed | 0.27 | Not available |
+| [Flying instructor (excluding air force)](https://aiworkindex.com/occupation/21723) | 21723 | 38.1 | Not Exposed | 0.27 | SGD 20,000 |
+| [Flight engineer](https://aiworkindex.com/occupation/21724) | 21724 | 38.1 | Not Exposed | 0.27 | Not available |
+| [Aircraft pilot and related professional n.e.c.](https://aiworkindex.com/occupation/21729) | 21729 | 38.1 | Not Exposed | 0.27 | Not available |
+| [Cardiologist](https://aiworkindex.com/occupation/22121) | 22121 | 38.1 | Not Exposed | 0.27 | Not available |
+| [Dermatologist](https://aiworkindex.com/occupation/22122) | 22122 | 38.1 | Not Exposed | 0.27 | Not available |
+| [Gastroenterologist](https://aiworkindex.com/occupation/22123) | 22123 | 38.1 | Not Exposed | 0.27 | Not available |
+| [Internal medicine physician](https://aiworkindex.com/occupation/22124) | 22124 | 38.1 | Not Exposed | 0.27 | SGD 8,883 |
+| [Medical oncologist](https://aiworkindex.com/occupation/22125) | 22125 | 38.1 | Not Exposed | 0.27 | Not available |
+| [Paediatrician](https://aiworkindex.com/occupation/22126) | 22126 | 38.1 | Not Exposed | 0.27 | Not available |
+| [Respiratory physician](https://aiworkindex.com/occupation/22127) | 22127 | 38.1 | Not Exposed | 0.27 | Not available |
+| [Psychiatrist](https://aiworkindex.com/occupation/22128) | 22128 | 38.1 | Not Exposed | 0.27 | Not available |
+| [Specialist medical practitioner (medical) n.e.c.](https://aiworkindex.com/occupation/22129) | 22129 | 38.1 | Not Exposed | 0.27 | Not available |
+| [General surgeon](https://aiworkindex.com/occupation/22131) | 22131 | 38.1 | Not Exposed | 0.27 | Not available |
+| [Cardiothoracic surgeon](https://aiworkindex.com/occupation/22132) | 22132 | 38.1 | Not Exposed | 0.27 | Not available |
+| [Hand surgeon](https://aiworkindex.com/occupation/22133) | 22133 | 38.1 | Not Exposed | 0.27 | Not available |
+| [Neurosurgeon](https://aiworkindex.com/occupation/22134) | 22134 | 38.1 | Not Exposed | 0.27 | Not available |
+| [Orthopaedic surgeon](https://aiworkindex.com/occupation/22135) | 22135 | 38.1 | Not Exposed | 0.27 | Not available |
+| [Paediatric surgeon](https://aiworkindex.com/occupation/22136) | 22136 | 38.1 | Not Exposed | 0.27 | Not available |
+| [Plastic surgeon](https://aiworkindex.com/occupation/22137) | 22137 | 38.1 | Not Exposed | 0.27 | Not available |
+| [Urologist](https://aiworkindex.com/occupation/22138) | 22138 | 38.1 | Not Exposed | 0.27 | Not available |
+| [Specialist medical practitioner (surgical) n.e.c.](https://aiworkindex.com/occupation/22139) | 22139 | 38.1 | Not Exposed | 0.27 | Not available |
+| [Anaesthesiologist](https://aiworkindex.com/occupation/22141) | 22141 | 38.1 | Not Exposed | 0.27 | Not available |
+| [Diagnostic radiologist](https://aiworkindex.com/occupation/22142) | 22142 | 38.1 | Not Exposed | 0.27 | SGD 20,000 |
+| [Emergency physician](https://aiworkindex.com/occupation/22143) | 22143 | 38.1 | Not Exposed | 0.27 | Not available |
+| [Obstetrician/Gynaecologist](https://aiworkindex.com/occupation/22144) | 22144 | 38.1 | Not Exposed | 0.27 | Not available |
+| [Ophthalmologist](https://aiworkindex.com/occupation/22145) | 22145 | 38.1 | Not Exposed | 0.27 | Not available |
+| [Pathologist](https://aiworkindex.com/occupation/22146) | 22146 | 38.1 | Not Exposed | 0.27 | Not available |
+| [Public health physician](https://aiworkindex.com/occupation/22147) | 22147 | 38.1 | Not Exposed | 0.27 | Not available |
+| [Otorhinolaryngologist/Ear, nose, throat (ENT) specialist](https://aiworkindex.com/occupation/22148) | 22148 | 38.1 | Not Exposed | 0.27 | Not available |
+| [Specialist medical practitioner (other specialisation) n.e.c.](https://aiworkindex.com/occupation/22149) | 22149 | 38.1 | Not Exposed | 0.27 | Not available |
+| [Assistant electrical engineer](https://aiworkindex.com/occupation/31002) | 31002 | 38.1 | Not Exposed | 0.27 | SGD 4,770 |
+| [Electrical engineering technician](https://aiworkindex.com/occupation/31131) | 31131 | 38.1 | Not Exposed | 0.27 | SGD 4,326 |
+| [Lift technician](https://aiworkindex.com/occupation/31132) | 31132 | 38.1 | Not Exposed | 0.27 | SGD 4,264 |
+| [Stationary engine operator](https://aiworkindex.com/occupation/31321) | 31321 | 38.1 | Not Exposed | 0.27 | Not available |
+| [Compressor operator](https://aiworkindex.com/occupation/31322) | 31322 | 38.1 | Not Exposed | 0.27 | Not available |
+| [Pumping station operator](https://aiworkindex.com/occupation/31323) | 31323 | 38.1 | Not Exposed | 0.27 | Not available |
+| [Water treatment machine operator (waterworks)](https://aiworkindex.com/occupation/31324) | 31324 | 38.1 | Not Exposed | 0.27 | Not available |
+| [Refrigeration system operator](https://aiworkindex.com/occupation/31325) | 31325 | 38.1 | Not Exposed | 0.27 | Not available |
+| [Incinerator/Water treatment plant and related machine operator n.e.c.](https://aiworkindex.com/occupation/31329) | 31329 | 38.1 | Not Exposed | 0.27 | Not available |
+| [Flight operations officer](https://aiworkindex.com/occupation/31593) | 31593 | 38.1 | Not Exposed | 0.27 | SGD 4,813 |
+| [Premises/Facilities maintenance officer](https://aiworkindex.com/occupation/31601) | 31601 | 38.1 | Minimal Exposure | 0.27 | SGD 3,933 |
+| [Fire and safety inspector](https://aiworkindex.com/occupation/31711) | 31711 | 38.1 | Not Exposed | 0.27 (0.26 to 0.28) | SGD 4,925 |
+| [Building/Fire inspector n.e.c.](https://aiworkindex.com/occupation/31719) | 31719 | 38.1 | Not Exposed | 0.27 (0.26 to 0.28) | Not available |
+| [Waiter/Bartender n.e.c.](https://aiworkindex.com/occupation/51390) | 51390 | 38.1 | Not Exposed to Minimal Exposure | 0.27 (0.26 to 0.28) | Not available |
+| [Photographic products machine operator](https://aiworkindex.com/occupation/81320) | 81320 | 38.1 | Not Exposed | 0.27 | Not available |
+| [Mechanical equipment/component assembler](https://aiworkindex.com/occupation/82110) | 82110 | 38.1 | Minimal Exposure | 0.27 | SGD 1,845 |
+| [Building caretaker](https://aiworkindex.com/occupation/96261) | 96261 | 38.1 | Minimal Exposure | 0.27 | SGD 2,483 |
+| [Primary school teacher](https://aiworkindex.com/occupation/23500) | 23500 | 33.8 | Not Exposed | 0.26 | Not available |
+| [Assistant mechanical engineer](https://aiworkindex.com/occupation/31004) | 31004 | 33.8 | Not Exposed | 0.26 | SGD 4,488 |
+| [Assistant manufacturing engineer](https://aiworkindex.com/occupation/31006) | 31006 | 33.8 | Not Exposed | 0.26 | SGD 3,656 |
+| [Assistant engineer n.e.c.](https://aiworkindex.com/occupation/31009) | 31009 | 33.8 | Not Exposed | 0.26 | Not available |
+| [Chemistry technician](https://aiworkindex.com/occupation/31111) | 31111 | 33.8 | Not Exposed | 0.26 | SGD 4,303 |
+| [Physics technician](https://aiworkindex.com/occupation/31112) | 31112 | 33.8 | Not Exposed | 0.26 | Not available |
+| [Chemical/Physical science technician n.e.c.](https://aiworkindex.com/occupation/31119) | 31119 | 33.8 | Not Exposed | 0.26 | Not available |
+| [Mechanical engineering technician](https://aiworkindex.com/occupation/31151) | 31151 | 33.8 | Not Exposed | 0.26 | SGD 3,780 |
+| [Air-conditioning/Refrigeration engineering technician](https://aiworkindex.com/occupation/31152) | 31152 | 33.8 | Not Exposed | 0.26 | SGD 3,765 |
+| [Machining/Tooling technician](https://aiworkindex.com/occupation/31153) | 31153 | 33.8 | Not Exposed | 0.26 | SGD 3,344 |
+| [Manufacturing engineering technician](https://aiworkindex.com/occupation/31171) | 31171 | 33.8 | Not Exposed | 0.26 | SGD 5,092 |
+| [Production engineering technician](https://aiworkindex.com/occupation/31172) | 31172 | 33.8 | Not Exposed | 0.26 | SGD 3,690 |
+| [Automation technician](https://aiworkindex.com/occupation/31174) | 31174 | 33.8 | Not Exposed | 0.26 | SGD 3,984 |
+| [Quality assurance technician](https://aiworkindex.com/occupation/31175) | 31175 | 33.8 | Not Exposed | 0.26 | SGD 4,362 |
+| [Aeronautical engineering technician](https://aiworkindex.com/occupation/31211) | 31211 | 33.8 | Not Exposed | 0.26 | SGD 5,400 |
+| [Automotive engineering technician](https://aiworkindex.com/occupation/31212) | 31212 | 33.8 | Not Exposed | 0.26 | SGD 3,597 |
+| [Marine surveyor (ship/nautical)](https://aiworkindex.com/occupation/31213) | 31213 | 33.8 | Not Exposed | 0.26 | SGD 8,121 |
+| [Rolling stock engineering technician](https://aiworkindex.com/occupation/31214) | 31214 | 33.8 | Not Exposed | 0.26 | SGD 3,620 |
+| [Mechatronics technician](https://aiworkindex.com/occupation/31291) | 31291 | 33.8 | Not Exposed | 0.26 | Not available |
+| [Precision optics technician](https://aiworkindex.com/occupation/31293) | 31293 | 33.8 | Not Exposed | 0.26 | Not available |
+| [Quantity surveying technician](https://aiworkindex.com/occupation/31294) | 31294 | 33.8 | Not Exposed | 0.26 | Not available |
+| [Airport maintenance technician](https://aiworkindex.com/occupation/31295) | 31295 | 33.8 | Not Exposed | 0.26 | SGD 3,699 |
+| [Other physical/engineering science technician n.e.c.](https://aiworkindex.com/occupation/31299) | 31299 | 33.8 | Not Exposed | 0.26 | Not available |
+| [Horticultural technician](https://aiworkindex.com/occupation/31421) | 31421 | 33.8 | Not Exposed | 0.26 | Not available |
+| [Plant tissue culture technician](https://aiworkindex.com/occupation/31422) | 31422 | 33.8 | Not Exposed | 0.26 | Not available |
+| [Farming technician (animal production)](https://aiworkindex.com/occupation/31423) | 31423 | 33.8 | Not Exposed | 0.26 | Not available |
+| [Logistics/Production planner](https://aiworkindex.com/occupation/33461) | 33461 | 33.8 | Not Exposed | 0.26 | SGD 4,442 |
+| [Maintenance planner](https://aiworkindex.com/occupation/33462) | 33462 | 33.8 | Not Exposed | 0.26 | SGD 5,340 |
+| [Air transport equipment project executive](https://aiworkindex.com/occupation/33601) | 33601 | 33.8 | Not Exposed | 0.26 | SGD 3,989 |
+| [Rail transport equipment project executive](https://aiworkindex.com/occupation/33602) | 33602 | 33.8 | Not Exposed | 0.26 | Not available |
+| [Road transport equipment project executive](https://aiworkindex.com/occupation/33603) | 33603 | 33.8 | Not Exposed | 0.26 | Not available |
+| [Transport equipment project executive n.e.c.](https://aiworkindex.com/occupation/33609) | 33609 | 33.8 | Not Exposed | 0.26 | Not available |
+| [Bartender/Mixologist](https://aiworkindex.com/occupation/51321) | 51321 | 33.8 | Not Exposed | 0.26 | SGD 2,751 |
+| [Barista](https://aiworkindex.com/occupation/51322) | 51322 | 33.8 | Not Exposed | 0.26 | SGD 2,242 |
+| [Metal melter/caster/rolling mill operator](https://aiworkindex.com/occupation/81210) | 81210 | 33.8 | Not Exposed | 0.26 | Not available |
+| [Metal heat treating plant operator](https://aiworkindex.com/occupation/81220) | 81220 | 33.8 | Not Exposed | 0.26 | Not available |
+| [Metal drawer/extruder](https://aiworkindex.com/occupation/81230) | 81230 | 33.8 | Not Exposed | 0.26 | Not available |
+| [Chemical processing/chemical/photographic products plant/machine operator n.e.c.](https://aiworkindex.com/occupation/81390) | 81390 | 31.8 | Not Exposed | 0.26 (0.24 to 0.27) | Not available |
+| [Safety inspector (vehicles/processes/products)](https://aiworkindex.com/occupation/31720) | 31720 | 31.1 | Not Exposed | 0.25 (0.24 to 0.26) | SGD 3,844 |
+| [Physical fitness instructor](https://aiworkindex.com/occupation/34223) | 34223 | 31.1 | Not Exposed | 0.25 | SGD 2,730 |
+| [Chef (excluding pastry chef)](https://aiworkindex.com/occupation/34341) | 34341 | 31.1 | Not Exposed | 0.25 | SGD 3,650 |
+| [Kitchen operations head/supervisor](https://aiworkindex.com/occupation/34342) | 34342 | 31.1 | Not Exposed | 0.25 | SGD 4,517 |
+| [Pastry chef](https://aiworkindex.com/occupation/34343) | 34343 | 31.1 | Not Exposed | 0.25 | SGD 3,436 |
+| [Rail station service assistant](https://aiworkindex.com/occupation/51121) | 51121 | 31.1 | Minimal Exposure | 0.25 | SGD 3,564 |
+| [Ticket inspector](https://aiworkindex.com/occupation/51122) | 51122 | 31.1 | Minimal Exposure | 0.25 | Not available |
+| [Transport service inspector and related worker n.e.c.](https://aiworkindex.com/occupation/51129) | 51129 | 31.1 | Minimal Exposure | 0.25 | Not available |
+| [Fashion and related model](https://aiworkindex.com/occupation/52410) | 52410 | 31.1 | Not Exposed | 0.25 | Not available |
+| [Nursing aide/assistant](https://aiworkindex.com/occupation/53202) | 53202 | 31.1 | Minimal Exposure | 0.25 | SGD 2,762 |
+| [Printer](https://aiworkindex.com/occupation/73220) | 73220 | 31.1 | Not Exposed | 0.25 | Not available |
+| [Electronics fitter (excluding broadcasting and communication equipment)](https://aiworkindex.com/occupation/74210) | 74210 | 31.1 | Not Exposed | 0.25 | Not available |
+| [Motorcycle delivery worker](https://aiworkindex.com/occupation/83211) | 83211 | 31.1 | Minimal Exposure | 0.25 | SGD 2,181 |
+| [Delivery worker using motorised personal mobility aids/devices](https://aiworkindex.com/occupation/83212) | 83212 | 31.1 | Minimal Exposure | 0.25 | Not available |
+| [Production manager in agriculture/fisheries](https://aiworkindex.com/occupation/13100) | 13100 | 30.3 | Not Exposed to Minimal Exposure | 0.24 (0.22 to 0.27) | Not available |
+| [Consumer audio/video equipment/radar broadcasting/transmitting equipment fitter/mechanic](https://aiworkindex.com/occupation/74221) | 74221 | 30.3 | Not Exposed | 0.24 (0.24 to 0.25) | Not available |
+| [Audiologist](https://aiworkindex.com/occupation/22661) | 22661 | 29.2 | Not Exposed | 0.24 | SGD 5,457 |
+| [Speech therapist](https://aiworkindex.com/occupation/22662) | 22662 | 29.2 | Not Exposed | 0.24 | SGD 4,900 |
+| [Optometrist](https://aiworkindex.com/occupation/22670) | 22670 | 29.2 | Not Exposed | 0.24 | SGD 5,561 |
+| [Optician](https://aiworkindex.com/occupation/32540) | 32540 | 29.2 | Not Exposed | 0.24 | SGD 4,250 |
+| [Environmental inspector (environmental public health)](https://aiworkindex.com/occupation/32571) | 32571 | 29.2 | Not Exposed | 0.24 | SGD 7,470 |
+| [Occupational health and safety inspector](https://aiworkindex.com/occupation/32572) | 32572 | 29.2 | Not Exposed | 0.24 | SGD 5,000 |
+| [Petrol station attendant](https://aiworkindex.com/occupation/52491) | 52491 | 29.2 | Minimal Exposure | 0.24 | SGD 1,724 |
+| [Food service counter attendant](https://aiworkindex.com/occupation/52492) | 52492 | 29.2 | Not Exposed | 0.24 | SGD 2,279 |
+| [Teacher aide](https://aiworkindex.com/occupation/53120) | 53120 | 29.2 | Not Exposed | 0.24 | SGD 3,092 |
+| [Computer and related electronic equipment mechanic](https://aiworkindex.com/occupation/74222) | 74222 | 29.2 | Not Exposed | 0.24 | Not available |
+| [Telecommunications lineman](https://aiworkindex.com/occupation/74223) | 74223 | 29.2 | Not Exposed | 0.24 | Not available |
+| [Telecommunications installer/servicer](https://aiworkindex.com/occupation/74224) | 74224 | 29.2 | Not Exposed | 0.24 | Not available |
+| [Chemical processing/products plant/machine operator](https://aiworkindex.com/occupation/81311) | 81311 | 29.2 | Not Exposed | 0.24 | SGD 4,168 |
+| [Pharmaceutical products machine operator](https://aiworkindex.com/occupation/81312) | 81312 | 29.2 | Not Exposed | 0.24 | Not available |
+| [Lorry driver](https://aiworkindex.com/occupation/83321) | 83321 | 29.2 | Minimal Exposure | 0.24 | SGD 2,200 |
+| [Trailer-truck driver](https://aiworkindex.com/occupation/83322) | 83322 | 29.2 | Minimal Exposure | 0.24 | SGD 3,070 |
+| [Concrete mix truck driver](https://aiworkindex.com/occupation/83323) | 83323 | 29.2 | Minimal Exposure | 0.24 | SGD 3,131 |
+| [Waste truck driver](https://aiworkindex.com/occupation/83324) | 83324 | 29.2 | Minimal Exposure | 0.24 | SGD 4,235 |
+| [Heavy truck/Lorry driver n.e.c.](https://aiworkindex.com/occupation/83329) | 83329 | 29.2 | Minimal Exposure | 0.24 | Not available |
+| [Printing machine operator](https://aiworkindex.com/occupation/81841) | 81841 | 28.2 | Not Exposed | 0.23 (0.22 to 0.25) | Not available |
+| [Chief/Second engineer (ship)](https://aiworkindex.com/occupation/21711) | 21711 | 27.8 | Not Exposed | 0.23 | Not available |
+| [Technical superintendent](https://aiworkindex.com/occupation/21712) | 21712 | 27.8 | Not Exposed | 0.23 | SGD 8,087 |
+| [Marine engineering officer](https://aiworkindex.com/occupation/31510) | 31510 | 27.8 | Not Exposed | 0.23 | SGD 4,025 |
+| [Police inspector](https://aiworkindex.com/occupation/33551) | 33551 | 27.8 | Not Exposed | 0.23 | Not available |
+| [Auxiliary police officer supervisor](https://aiworkindex.com/occupation/33552) | 33552 | 27.8 | Not Exposed | 0.23 | Not available |
+| [Athlete/Sportsperson](https://aiworkindex.com/occupation/34210) | 34210 | 27.8 | Not Exposed | 0.23 | Not available |
+| [Paramedic](https://aiworkindex.com/occupation/32591) | 32591 | 27.5 | Not Exposed | 0.23 (0.22 to 0.23) | SGD 3,724 |
+| [Diagnostic radiographer](https://aiworkindex.com/occupation/22693) | 22693 | 26.2 | Not Exposed | 0.22 | SGD 6,031 |
+| [Radiation therapist](https://aiworkindex.com/occupation/22694) | 22694 | 26.2 | Not Exposed | 0.22 | SGD 5,622 |
+| [Sonographer](https://aiworkindex.com/occupation/32111) | 32111 | 26.2 | Not Exposed | 0.22 | SGD 5,709 |
+| [Medical X-ray technician](https://aiworkindex.com/occupation/32112) | 32112 | 26.2 | Not Exposed | 0.22 | Not available |
+| [Medical imaging/therapeutic equipment technician n.e.c.](https://aiworkindex.com/occupation/32119) | 32119 | 26.2 | Not Exposed | 0.22 | Not available |
+| [Enrolled/Assistant nurse (excluding registered nurse)](https://aiworkindex.com/occupation/32200) | 32200 | 26.2 | Not Exposed to Exposed: Gradient 1 | 0.22 (0.20 to 0.35) | SGD 3,439 |
+| [Community health worker](https://aiworkindex.com/occupation/32530) | 32530 | 26.2 | Not Exposed | 0.22 | Not available |
+| [Chief steward](https://aiworkindex.com/occupation/51111) | 51111 | 26.2 | Not Exposed | 0.22 | SGD 7,375 |
+| [Cabin attendant/steward](https://aiworkindex.com/occupation/51112) | 51112 | 26.2 | Not Exposed | 0.22 | SGD 4,290 |
+| [Housekeeper (hotel and related establishment)](https://aiworkindex.com/occupation/51501) | 51501 | 26.2 | Not Exposed | 0.22 | SGD 3,264 |
+| [House steward](https://aiworkindex.com/occupation/51502) | 51502 | 26.2 | Not Exposed | 0.22 | SGD 2,672 |
+| [Housekeeping matron](https://aiworkindex.com/occupation/51503) | 51503 | 26.2 | Not Exposed | 0.22 | SGD 2,455 |
+| [Head butler (hotel and related establishment)](https://aiworkindex.com/occupation/51504) | 51504 | 26.2 | Not Exposed | 0.22 | Not available |
+| [Butler (hotel and related establishment)](https://aiworkindex.com/occupation/51505) | 51505 | 26.2 | Not Exposed | 0.22 | Not available |
+| [Hawker/Stall holder (prepared food/drinks)](https://aiworkindex.com/occupation/52120) | 52120 | 26.2 | Not Exposed | 0.22 | Not available |
+| [Fish/Prawn farm worker](https://aiworkindex.com/occupation/62211) | 62211 | 26.2 | Not Exposed | 0.22 | Not available |
+| [Aquarium fish farm worker](https://aiworkindex.com/occupation/62212) | 62212 | 26.2 | Not Exposed | 0.22 | Not available |
+| [Aquaculture worker n.e.c.](https://aiworkindex.com/occupation/62219) | 62219 | 26.2 | Not Exposed | 0.22 | Not available |
+| [Wood treater](https://aiworkindex.com/occupation/75210) | 75210 | 26.2 | Not Exposed | 0.22 | Not available |
+| [Cement and related mineral products machine operator](https://aiworkindex.com/occupation/81140) | 81140 | 26.2 | Not Exposed | 0.22 (0.21 to 0.23) | Not available |
+| [Wood processing/Papermaking plant operator](https://aiworkindex.com/occupation/81700) | 81700 | 26.2 | Not Exposed to Minimal Exposure | 0.22 (0.14 to 0.28) | Not available |
+| [Packing/Bottling/Labelling machine operator](https://aiworkindex.com/occupation/81830) | 81830 | 26.2 | Not Exposed | 0.22 | SGD 1,988 |
+| [Bookbinding machine operator](https://aiworkindex.com/occupation/81842) | 81842 | 26.2 | Not Exposed | 0.22 | Not available |
+| [Printing/Binding and related machine operator n.e.c.](https://aiworkindex.com/occupation/81849) | 81849 | 26.2 | Not Exposed | 0.22 | Not available |
+| [Cleaning supervisor](https://aiworkindex.com/occupation/91000) | 91000 | 26.2 | Not Exposed | 0.22 | SGD 2,129 |
+| [Other personal services worker n.e.c.](https://aiworkindex.com/occupation/51999) | 51999 | 24.8 | Not Exposed | 0.21 (0.21 to 0.22) | Not available |
+| [Other health professional n.e.c.](https://aiworkindex.com/occupation/22699) | 22699 | 23.9 | Not Exposed | 0.21 (0.20 to 0.22) | Not available |
+| [Painter](https://aiworkindex.com/occupation/26511) | 26511 | 23.9 | Not Exposed | 0.21 | Not available |
+| [Visual artist n.e.c.](https://aiworkindex.com/occupation/26519) | 26519 | 23.9 | Not Exposed | 0.21 | Not available |
+| [Landscape operations officer](https://aiworkindex.com/occupation/31602) | 31602 | 23.9 | Not Exposed | 0.21 | SGD 3,287 |
+| [Parks officer](https://aiworkindex.com/occupation/31603) | 31603 | 23.9 | Not Exposed | 0.21 | Not available |
+| [Preschool education teacher](https://aiworkindex.com/occupation/36100) | 36100 | 23.9 | Not Exposed | 0.21 | SGD 4,062 |
+| [Bar/Lounge hostess](https://aiworkindex.com/occupation/51330) | 51330 | 23.9 | Not Exposed | 0.21 | Not available |
+| [Housekeeper and related worker n.e.c.](https://aiworkindex.com/occupation/51509) | 51509 | 23.9 | Not Exposed | 0.21 (0.20 to 0.22) | Not available |
+| [Social escort](https://aiworkindex.com/occupation/51991) | 51991 | 23.9 | Not Exposed | 0.21 | Not available |
+| [Services worker n.e.c.](https://aiworkindex.com/occupation/59000) | 59000 | 23.9 | Not Exposed | 0.21 | Not available |
+| [Air-conditioning/Refrigeration equipment mechanic](https://aiworkindex.com/occupation/71271) | 71271 | 23.9 | Not Exposed | 0.21 | SGD 2,771 |
+| [Air-conditioning/Refrigeration plant installer](https://aiworkindex.com/occupation/71272) | 71272 | 23.9 | Not Exposed | 0.21 | Not available |
+| [Sheet metal worker](https://aiworkindex.com/occupation/72130) | 72130 | 23.9 | Not Exposed | 0.21 | Not available |
+| [Watch/Clock assembler/repairer](https://aiworkindex.com/occupation/73111) | 73111 | 23.9 | Not Exposed | 0.21 | Not available |
+| [Optical instrument maker/repairer](https://aiworkindex.com/occupation/73112) | 73112 | 23.9 | Not Exposed | 0.21 | Not available |
+| [Medical device assembler/repairer](https://aiworkindex.com/occupation/73113) | 73113 | 23.9 | Not Exposed | 0.21 | SGD 2,946 |
+| [Precision instrument maker/repairer n.e.c.](https://aiworkindex.com/occupation/73119) | 73119 | 23.9 | Not Exposed | 0.21 | Not available |
+| [Hand/Pedal vehicle driver](https://aiworkindex.com/occupation/93310) | 93310 | 23.9 | Not Exposed | 0.21 | Not available |
+| [Occupational therapist](https://aiworkindex.com/occupation/22680) | 22680 | 21.8 | Not Exposed | 0.20 | SGD 4,962 |
+| [Chiropractor](https://aiworkindex.com/occupation/22691) | 22691 | 21.8 | Not Exposed | 0.20 | Not available |
+| [Podiatrist](https://aiworkindex.com/occupation/22692) | 22692 | 21.8 | Not Exposed | 0.20 | Not available |
+| [Driving instructor/tester](https://aiworkindex.com/occupation/51950) | 51950 | 21.8 | Not Exposed | 0.20 | SGD 4,015 |
+| [Newsvendor](https://aiworkindex.com/occupation/52130) | 52130 | 21.8 | Not Exposed | 0.20 | Not available |
+| [Senior security supervisor](https://aiworkindex.com/occupation/54141) | 54141 | 21.8 | Not Exposed | 0.20 | SGD 3,835 |
+| [Security supervisor](https://aiworkindex.com/occupation/54142) | 54142 | 21.8 | Not Exposed | 0.20 | SGD 3,470 |
+| [Senior private security officer](https://aiworkindex.com/occupation/54143) | 54143 | 21.8 | Not Exposed | 0.20 | SGD 3,304 |
+| [Private security officer](https://aiworkindex.com/occupation/54144) | 54144 | 21.8 | Not Exposed | 0.20 | SGD 2,990 |
+| [Lifeguard](https://aiworkindex.com/occupation/54150) | 54150 | 21.8 | Not Exposed | 0.20 | SGD 2,829 |
+| [Private investigator](https://aiworkindex.com/occupation/54191) | 54191 | 21.8 | Not Exposed | 0.20 | Not available |
+| [Industrial investigator](https://aiworkindex.com/occupation/54192) | 54192 | 21.8 | Not Exposed | 0.20 | Not available |
+| [Insurance investigator](https://aiworkindex.com/occupation/54193) | 54193 | 21.8 | Not Exposed | 0.20 | Not available |
+| [Tool/Die maker](https://aiworkindex.com/occupation/72221) | 72221 | 21.8 | Not Exposed | 0.20 | SGD 3,323 |
+| [Locksmith](https://aiworkindex.com/occupation/72222) | 72222 | 21.8 | Not Exposed | 0.20 | Not available |
+| [Toolmaker and related worker n.e.c.](https://aiworkindex.com/occupation/72229) | 72229 | 21.8 | Not Exposed | 0.20 | Not available |
+| [Metal finishing/plating/coating machine operator](https://aiworkindex.com/occupation/81240) | 81240 | 21.8 | Not Exposed | 0.20 | Not available |
+| [Boiler fireman](https://aiworkindex.com/occupation/81821) | 81821 | 21.8 | Not Exposed | 0.20 | Not available |
+| [Ship’s oiler/greaser](https://aiworkindex.com/occupation/81822) | 81822 | 21.8 | Not Exposed | 0.20 | Not available |
+| [Steam engine/boiler operator n.e.c.](https://aiworkindex.com/occupation/81829) | 81829 | 21.8 | Not Exposed | 0.20 | Not available |
+| [Train operator](https://aiworkindex.com/occupation/83110) | 83110 | 21.8 | Not Exposed | 0.20 | SGD 2,875 |
+| [Fork lift truck operator](https://aiworkindex.com/occupation/83441) | 83441 | 21.8 | Not Exposed | 0.20 | SGD 2,669 |
+| [Lifting truck operator n.e.c.](https://aiworkindex.com/occupation/83449) | 83449 | 21.8 | Not Exposed | 0.20 | Not available |
+| [Hand packer](https://aiworkindex.com/occupation/93201) | 93201 | 21.8 | Not Exposed | 0.20 | SGD 1,630 |
+| [Landscape/Plant nursery supervisor](https://aiworkindex.com/occupation/61131) | 61131 | 20.5 | Not Exposed | 0.20 (0.18 to 0.21) | SGD 1,740 |
+| [Dancer/Choreographer](https://aiworkindex.com/occupation/26530) | 26530 | 19.8 | Not Exposed | 0.19 | Not available |
+| [Traditional and complementary medicine associate professional](https://aiworkindex.com/occupation/32300) | 32300 | 19.8 | Not Exposed | 0.19 | Not available |
+| [Babysitter/Infant care-giver](https://aiworkindex.com/occupation/53111) | 53111 | 19.8 | Not Exposed | 0.19 | Not available |
+| [Confinement nanny](https://aiworkindex.com/occupation/53112) | 53112 | 19.8 | Not Exposed | 0.19 | Not available |
+| [Child/After school care centre worker](https://aiworkindex.com/occupation/53113) | 53113 | 19.8 | Not Exposed | 0.19 | SGD 2,350 |
+| [Child/Youth residential care assistant](https://aiworkindex.com/occupation/53114) | 53114 | 19.8 | Not Exposed | 0.19 | Not available |
+| [Poultry farm worker](https://aiworkindex.com/occupation/61220) | 61220 | 19.8 | Not Exposed | 0.19 | Not available |
+| [Aircraft engine mechanic/repairer](https://aiworkindex.com/occupation/72320) | 72320 | 19.8 | Not Exposed | 0.19 | Not available |
+| [Glass maker/cutter/grinder/finisher](https://aiworkindex.com/occupation/73150) | 73150 | 19.8 | Not Exposed | 0.19 | Not available |
+| [Electrician](https://aiworkindex.com/occupation/74110) | 74110 | 19.8 | Not Exposed | 0.19 | SGD 2,400 |
+| [Well driller/borer and related mining worker](https://aiworkindex.com/occupation/81130) | 81130 | 19.8 | Not Exposed | 0.19 (0.17 to 0.29) | Not available |
+| [Airport mobile equipment operator](https://aiworkindex.com/occupation/83492) | 83492 | 19.8 | Not Exposed | 0.19 (0.18 to 0.20) | SGD 3,202 |
+| [Dairy/Confectionery products machine operator](https://aiworkindex.com/occupation/81602) | 81602 | 19.2 | Not Exposed | 0.18 (0.15 to 0.22) | SGD 2,617 |
+| [Prosthetist/Orthotist](https://aiworkindex.com/occupation/32141) | 32141 | 17.4 | Not Exposed | 0.18 | Not available |
+| [Prosthetic/Orthotic technician](https://aiworkindex.com/occupation/32142) | 32142 | 17.4 | Not Exposed | 0.18 | Not available |
+| [Dental technician](https://aiworkindex.com/occupation/32143) | 32143 | 17.4 | Not Exposed | 0.18 | SGD 2,990 |
+| [Cook](https://aiworkindex.com/occupation/51201) | 51201 | 17.4 | Not Exposed | 0.18 | SGD 1,897 |
+| [Senior cook](https://aiworkindex.com/occupation/51202) | 51202 | 17.4 | Not Exposed | 0.18 | SGD 2,515 |
+| [Beautician](https://aiworkindex.com/occupation/51421) | 51421 | 17.4 | Not Exposed | 0.18 | SGD 1,618 |
+| [Manicurist](https://aiworkindex.com/occupation/51422) | 51422 | 17.4 | Not Exposed | 0.18 | SGD 2,050 |
+| [Makeup artist (stage/film/studio)](https://aiworkindex.com/occupation/51423) | 51423 | 17.4 | Not Exposed | 0.18 | Not available |
+| [Masseur (non-medical)](https://aiworkindex.com/occupation/51491) | 51491 | 17.4 | Not Exposed | 0.18 | Not available |
+| [Slimming consultant](https://aiworkindex.com/occupation/51492) | 51492 | 17.4 | Not Exposed | 0.18 | Not available |
+| [Other wellness related worker n.e.c.](https://aiworkindex.com/occupation/51499) | 51499 | 17.4 | Not Exposed | 0.18 | Not available |
+| [Fire-fighting/Rescue officer](https://aiworkindex.com/occupation/54110) | 54110 | 17.4 | Not Exposed | 0.18 | Not available |
+| [Plant nursery worker](https://aiworkindex.com/occupation/61132) | 61132 | 17.4 | Not Exposed | 0.18 | SGD 1,860 |
+| [Plumber](https://aiworkindex.com/occupation/71261) | 71261 | 17.4 | Not Exposed | 0.18 | SGD 2,500 |
+| [Pipe fitter](https://aiworkindex.com/occupation/71262) | 71262 | 17.4 | Not Exposed | 0.18 | SGD 1,700 |
+| [Pipe/Drain layer](https://aiworkindex.com/occupation/71263) | 71263 | 17.4 | Not Exposed | 0.18 | Not available |
+| [Automotive mechanic](https://aiworkindex.com/occupation/72310) | 72310 | 17.4 | Not Exposed | 0.18 | SGD 2,500 |
+| [Jewellery/Precious metal worker](https://aiworkindex.com/occupation/73130) | 73130 | 17.4 | Not Exposed | 0.18 | Not available |
+| [Potter and related worker](https://aiworkindex.com/occupation/73140) | 73140 | 17.4 | Not Exposed | 0.18 | Not available |
+| [Furniture maker and related trades worker n.e.c.](https://aiworkindex.com/occupation/75290) | 75290 | 17.4 | Not Exposed | 0.18 (0.14 to 0.22) | Not available |
+| [Upholsterer and related worker](https://aiworkindex.com/occupation/75340) | 75340 | 17.4 | Not Exposed | 0.18 | Not available |
+| [Metalworking machine setter-operator](https://aiworkindex.com/occupation/81251) | 81251 | 17.4 | Not Exposed | 0.18 | SGD 2,718 |
+| [Precision grinding machine setter-operator](https://aiworkindex.com/occupation/81252) | 81252 | 17.4 | Not Exposed | 0.18 | SGD 2,784 |
+| [Machine-tool setter-operator n.e.c.](https://aiworkindex.com/occupation/81259) | 81259 | 17.4 | Not Exposed | 0.18 | Not available |
+| [Rubber products machine operator](https://aiworkindex.com/occupation/81410) | 81410 | 17.4 | Not Exposed | 0.18 | Not available |
+| [Paper/Paperboard products machine operator](https://aiworkindex.com/occupation/81430) | 81430 | 17.4 | Not Exposed | 0.18 | Not available |
+| [Mobile machinery supervisor/general foreman](https://aiworkindex.com/occupation/83000) | 83000 | 17.4 | Not Exposed | 0.18 (0.12 to 0.28) | SGD 2,766 |
+| [Bus driver](https://aiworkindex.com/occupation/83311) | 83311 | 17.4 | Not Exposed | 0.18 | SGD 3,618 |
+| [Tram driver](https://aiworkindex.com/occupation/83312) | 83312 | 17.4 | Not Exposed | 0.18 | Not available |
+| [Crane/Hoist operator (excluding port)](https://aiworkindex.com/occupation/83431) | 83431 | 17.4 | Not Exposed | 0.18 | SGD 5,194 |
+| [Crane operator (on-site)](https://aiworkindex.com/occupation/83432) | 83432 | 17.4 | Not Exposed | 0.18 | SGD 2,998 |
+| [Crane/Hoist and related equipment operator n.e.c.](https://aiworkindex.com/occupation/83439) | 83439 | 17.4 | Not Exposed | 0.18 | Not available |
+| [Fast food preparer](https://aiworkindex.com/occupation/94103) | 94103 | 17.4 | Not Exposed | 0.18 | SGD 2,420 |
+| [Waste recycling sorter](https://aiworkindex.com/occupation/96102) | 96102 | 17.4 | Not Exposed | 0.18 | SGD 2,455 |
+| [Coastal waters/Deep sea fishery worker](https://aiworkindex.com/occupation/62220) | 62220 | 15.6 | Not Exposed | 0.17 (0.17 to 0.18) | Not available |
+| [Minister of religion](https://aiworkindex.com/occupation/26361) | 26361 | 14.2 | Not Exposed | 0.17 | SGD 5,424 |
+| [Religious professional n.e.c.](https://aiworkindex.com/occupation/26369) | 26369 | 14.2 | Not Exposed | 0.17 | Not available |
+| [Massage therapist](https://aiworkindex.com/occupation/32551) | 32551 | 14.2 | Not Exposed | 0.17 | Not available |
+| [Physiotherapy technician and related associate professional n.e.c.](https://aiworkindex.com/occupation/32559) | 32559 | 14.2 | Not Exposed | 0.17 | Not available |
+| [Hair stylist/Hairdresser](https://aiworkindex.com/occupation/51411) | 51411 | 14.2 | Not Exposed | 0.17 | SGD 1,600 |
+| [Barber](https://aiworkindex.com/occupation/51412) | 51412 | 14.2 | Not Exposed | 0.17 | Not available |
+| [Hairdresser/Barber and related worker n.e.c.](https://aiworkindex.com/occupation/51419) | 51419 | 14.2 | Not Exposed | 0.17 | Not available |
+| [Funeral director](https://aiworkindex.com/occupation/51931) | 51931 | 14.2 | Not Exposed | 0.17 | SGD 3,572 |
+| [Embalmer](https://aiworkindex.com/occupation/51932) | 51932 | 14.2 | Not Exposed | 0.17 | Not available |
+| [Agricultural worker n.e.c.](https://aiworkindex.com/occupation/61900) | 61900 | 14.2 | Not Exposed | 0.17 (0.09 to 0.22) | Not available |
+| [Blacksmith/Hammersmith/Forging-press worker](https://aiworkindex.com/occupation/72210) | 72210 | 14.2 | Not Exposed | 0.17 | Not available |
+| [Metal polisher/Wheel grinder/Tool sharpener](https://aiworkindex.com/occupation/72240) | 72240 | 14.2 | Not Exposed | 0.17 | SGD 2,387 |
+| [Rolling stock mechanic](https://aiworkindex.com/occupation/72330) | 72330 | 14.2 | Not Exposed | 0.17 | Not available |
+| [Marine engine mechanic/repairer](https://aiworkindex.com/occupation/72350) | 72350 | 14.2 | Not Exposed | 0.17 | Not available |
+| [Machinery mechanic/fitter/repairer n.e.c.](https://aiworkindex.com/occupation/72390) | 72390 | 14.2 | Not Exposed | 0.17 | Not available |
+| [Electrical fitter](https://aiworkindex.com/occupation/74121) | 74121 | 14.2 | Not Exposed | 0.17 | SGD 2,491 |
+| [Electrical lift/escalator and related equipment fitter](https://aiworkindex.com/occupation/74122) | 74122 | 14.2 | Not Exposed | 0.17 | SGD 3,750 |
+| [Electrical household appliance repairer](https://aiworkindex.com/occupation/74123) | 74123 | 14.2 | Not Exposed | 0.17 | Not available |
+| [Baker](https://aiworkindex.com/occupation/75121) | 75121 | 14.2 | Not Exposed | 0.17 | SGD 2,000 |
+| [Pastry/Confectionery maker](https://aiworkindex.com/occupation/75122) | 75122 | 14.2 | Not Exposed | 0.17 | SGD 2,341 |
+| [Garment and related pattern-maker/cutter](https://aiworkindex.com/occupation/75320) | 75320 | 14.2 | Not Exposed | 0.17 | Not available |
+| [Shoemaker/Cobbler](https://aiworkindex.com/occupation/75361) | 75361 | 14.2 | Not Exposed | 0.17 | Not available |
+| [Leather goods maker/assembler](https://aiworkindex.com/occupation/75362) | 75362 | 14.2 | Not Exposed | 0.17 | Not available |
+| [Shoemaker and related worker n.e.c.](https://aiworkindex.com/occupation/75369) | 75369 | 14.2 | Not Exposed | 0.17 | Not available |
+| [Plastic products machine operator](https://aiworkindex.com/occupation/81420) | 81420 | 14.2 | Not Exposed | 0.17 | SGD 1,624 |
+| [Glass/Ceramics plant operator](https://aiworkindex.com/occupation/81810) | 81810 | 14.2 | Not Exposed | 0.17 | Not available |
+| [Railway braker and related worker](https://aiworkindex.com/occupation/83120) | 83120 | 14.2 | Not Exposed | 0.17 | Not available |
+| [Oral health therapist](https://aiworkindex.com/occupation/32510) | 32510 | 12.6 | Not Exposed | 0.16 | Not available |
+| [Cabinet maker/Wood related trades worker](https://aiworkindex.com/occupation/75220) | 75220 | 12.6 | Not Exposed | 0.16 | Not available |
+| [Underwater diver](https://aiworkindex.com/occupation/75410) | 75410 | 12.6 | Not Exposed | 0.16 | Not available |
+| [Laundry/Dry cleaning worker (machine, non-household)](https://aiworkindex.com/occupation/81502) | 81502 | 12.6 | Not Exposed | 0.16 | SGD 1,825 |
+| [Textile/Fur/Leather products machine operator n.e.c.](https://aiworkindex.com/occupation/81509) | 81509 | 12.6 | Not Exposed | 0.16 (0.15 to 0.21) | Not available |
+| [Vegetable farm worker](https://aiworkindex.com/occupation/61110) | 61110 | 12.2 | Not Exposed | 0.15 (0.13 to 0.18) | Not available |
+| [Other elementary worker n.e.c.](https://aiworkindex.com/occupation/96299) | 96299 | 12.2 | Not Exposed to Minimal Exposure | 0.15 (0.09 to 0.29) | Not available |
+| [General dental practitioner](https://aiworkindex.com/occupation/22611) | 22611 | 11.3 | Not Exposed | 0.15 | SGD 5,007 |
+| [Specialised dentist](https://aiworkindex.com/occupation/22612) | 22612 | 11.3 | Not Exposed | 0.15 | SGD 5,104 |
+| [Dental aide/assistant](https://aiworkindex.com/occupation/53203) | 53203 | 11.3 | Not Exposed | 0.15 | SGD 2,887 |
+| [Healthcare assistant and related personal care worker n.e.c.](https://aiworkindex.com/occupation/53209) | 53209 | 11.3 | Not Exposed | 0.15 | Not available |
+| [Gardener/Horticultural worker](https://aiworkindex.com/occupation/61133) | 61133 | 11.3 | Not Exposed | 0.15 (0.12 to 0.18) | SGD 1,850 |
+| [Livestock/Dairy farm worker](https://aiworkindex.com/occupation/61210) | 61210 | 11.3 | Not Exposed | 0.15 (0.13 to 0.17) | Not available |
+| [Sign writer/Decorative painter/Engraver/Etcher](https://aiworkindex.com/occupation/73160) | 73160 | 11.3 | Not Exposed | 0.15 (0.12 to 0.18) | Not available |
+| [Electrical line installer (overhead)](https://aiworkindex.com/occupation/74131) | 74131 | 11.3 | Not Exposed | 0.15 | Not available |
+| [Electric cable jointer](https://aiworkindex.com/occupation/74132) | 74132 | 11.3 | Not Exposed | 0.15 | Not available |
+| [Underground electrical line installer/repairer](https://aiworkindex.com/occupation/74133) | 74133 | 11.3 | Not Exposed | 0.15 | Not available |
+| [Food processing and related trades worker n.e.c.](https://aiworkindex.com/occupation/75190) | 75190 | 11.3 | Not Exposed | 0.15 (0.14 to 0.22) | Not available |
+| [Tailor/Dressmaker](https://aiworkindex.com/occupation/75310) | 75310 | 11.3 | Not Exposed | 0.15 | SGD 2,318 |
+| [Sewing machine operator](https://aiworkindex.com/occupation/81501) | 81501 | 11.3 | Not Exposed | 0.15 | SGD 1,800 |
+| [Meat/Fish products machine operator](https://aiworkindex.com/occupation/81601) | 81601 | 11.3 | Not Exposed | 0.15 | Not available |
+| [Baked/Cereal products machine operator](https://aiworkindex.com/occupation/81603) | 81603 | 11.3 | Not Exposed | 0.15 | Not available |
+| [Brewer/Wine and related beverages machine operator](https://aiworkindex.com/occupation/81604) | 81604 | 11.3 | Not Exposed | 0.15 | Not available |
+| [Food and related products machine operator n.e.c.](https://aiworkindex.com/occupation/81609) | 81609 | 11.3 | Not Exposed | 0.15 | Not available |
+| [Veterinarian](https://aiworkindex.com/occupation/22500) | 22500 | 9.0 | Not Exposed | 0.14 | SGD 9,312 |
+| [Veterinary technician/assistant](https://aiworkindex.com/occupation/32400) | 32400 | 9.0 | Not Exposed | 0.14 | SGD 4,210 |
+| [Pet groomer](https://aiworkindex.com/occupation/51941) | 51941 | 9.0 | Not Exposed | 0.14 | Not available |
+| [Keeper/Trainer in zoological/bird/aquatic park](https://aiworkindex.com/occupation/51942) | 51942 | 9.0 | Not Exposed | 0.14 | SGD 3,164 |
+| [Horse trainer](https://aiworkindex.com/occupation/51943) | 51943 | 9.0 | Not Exposed | 0.14 | Not available |
+| [Dog trainer](https://aiworkindex.com/occupation/51944) | 51944 | 9.0 | Not Exposed | 0.14 | Not available |
+| [Pet groomer/Animal keeper/trainer n.e.c.](https://aiworkindex.com/occupation/51949) | 51949 | 9.0 | Not Exposed | 0.14 | Not available |
+| [Healthcare assistant](https://aiworkindex.com/occupation/53201) | 53201 | 9.0 | Not Exposed | 0.14 | SGD 2,410 |
+| [Police officer](https://aiworkindex.com/occupation/54121) | 54121 | 9.0 | Not Exposed | 0.14 | Not available |
+| [Narcotics officer](https://aiworkindex.com/occupation/54122) | 54122 | 9.0 | Not Exposed | 0.14 | Not available |
+| [Auxiliary police officer](https://aiworkindex.com/occupation/54123) | 54123 | 9.0 | Not Exposed | 0.14 | Not available |
+| [Prison officer](https://aiworkindex.com/occupation/54130) | 54130 | 9.0 | Not Exposed | 0.14 | Not available |
+| [Glazier](https://aiworkindex.com/occupation/71250) | 71250 | 9.0 | Not Exposed | 0.14 | Not available |
+| [Building finisher and related trades worker n.e.c.](https://aiworkindex.com/occupation/71290) | 71290 | 9.0 | Not Exposed | 0.14 | Not available |
+| [Musical instrument maker/repairer/tuner](https://aiworkindex.com/occupation/73120) | 73120 | 9.0 | Not Exposed | 0.14 | Not available |
+| [Port limit helmsman/steersman/engine driver/tugmaster](https://aiworkindex.com/occupation/83501) | 83501 | 9.0 | Not Exposed | 0.14 | SGD 3,000 |
+| [Deckhand](https://aiworkindex.com/occupation/83502) | 83502 | 9.0 | Not Exposed | 0.14 | Not available |
+| [Ship’s deck crew and related worker n.e.c.](https://aiworkindex.com/occupation/83509) | 83509 | 9.0 | Not Exposed | 0.14 | Not available |
+| [Hand launderer/presser (non-household)](https://aiworkindex.com/occupation/91210) | 91210 | 9.0 | Not Exposed | 0.14 | SGD 1,600 |
+| [Domestic helper/cleaner](https://aiworkindex.com/occupation/91300) | 91300 | 9.0 | Not Exposed | 0.14 | Not available |
+| [Stevedore](https://aiworkindex.com/occupation/93331) | 93331 | 9.0 | Not Exposed | 0.14 | Not available |
+| [Railway/Road vehicle loader](https://aiworkindex.com/occupation/93332) | 93332 | 9.0 | Not Exposed | 0.14 | Not available |
+| [Aircraft loader](https://aiworkindex.com/occupation/93333) | 93333 | 9.0 | Not Exposed | 0.14 | SGD 2,003 |
+| [Warehouse worker](https://aiworkindex.com/occupation/93334) | 93334 | 9.0 | Not Exposed | 0.14 | SGD 2,526 |
+| [Vehicle attendant](https://aiworkindex.com/occupation/93335) | 93335 | 9.0 | Not Exposed | 0.14 | SGD 2,000 |
+| [Mover](https://aiworkindex.com/occupation/93336) | 93336 | 9.0 | Not Exposed | 0.14 | SGD 2,183 |
+| [Lashing worker](https://aiworkindex.com/occupation/93337) | 93337 | 9.0 | Not Exposed | 0.14 | Not available |
+| [Material/Freight handling worker n.e.c.](https://aiworkindex.com/occupation/93339) | 93339 | 9.0 | Not Exposed | 0.14 | Not available |
+| [Waste collection/recycling/material recovery supervisor](https://aiworkindex.com/occupation/96000) | 96000 | 7.5 | Not Exposed | 0.14 (0.09 to 0.18) | SGD 4,300 |
+| [Waste collection/recycling/material recovery worker n.e.c.](https://aiworkindex.com/occupation/96109) | 96109 | 7.5 | Not Exposed | 0.14 (0.09 to 0.18) | Not available |
+| [Disc jockey](https://aiworkindex.com/occupation/34401) | 34401 | 6.1 | Not Exposed | 0.13 | Not available |
+| [Creative/Performing arts associate professional n.e.c.](https://aiworkindex.com/occupation/34409) | 34409 | 6.1 | Not Exposed | 0.13 | Not available |
+| [Carpenter](https://aiworkindex.com/occupation/71151) | 71151 | 6.1 | Not Exposed | 0.13 | SGD 1,630 |
+| [Joiner](https://aiworkindex.com/occupation/71152) | 71152 | 6.1 | Not Exposed | 0.13 | Not available |
+| [Roofer](https://aiworkindex.com/occupation/71210) | 71210 | 6.1 | Not Exposed | 0.13 | Not available |
+| [Refrigeration/Air-conditioning equipment insulator](https://aiworkindex.com/occupation/71241) | 71241 | 6.1 | Not Exposed | 0.13 | Not available |
+| [Boiler/Pipe insulator](https://aiworkindex.com/occupation/71242) | 71242 | 6.1 | Not Exposed | 0.13 | Not available |
+| [Insulation worker n.e.c.](https://aiworkindex.com/occupation/71249) | 71249 | 6.1 | Not Exposed | 0.13 | Not available |
+| [Building painter](https://aiworkindex.com/occupation/71311) | 71311 | 6.1 | Not Exposed | 0.13 | SGD 1,600 |
+| [Wall/Ceiling paperhanger](https://aiworkindex.com/occupation/71312) | 71312 | 6.1 | Not Exposed | 0.13 | Not available |
+| [Metal moulder/coremaker](https://aiworkindex.com/occupation/72110) | 72110 | 6.1 | Not Exposed | 0.13 | Not available |
+| [Welder/Flame cutter](https://aiworkindex.com/occupation/72120) | 72120 | 6.1 | Not Exposed | 0.13 | SGD 3,000 |
+| [Rigger/Cable splicer](https://aiworkindex.com/occupation/72150) | 72150 | 6.1 | Not Exposed | 0.13 | Not available |
+| [Bicycle and related repairer](https://aiworkindex.com/occupation/72340) | 72340 | 6.1 | Not Exposed | 0.13 | Not available |
+| [Butcher/Fishmonger and related food preparer](https://aiworkindex.com/occupation/75110) | 75110 | 6.1 | Not Exposed | 0.13 | SGD 2,780 |
+| [Fumigator and related pest/weed controller](https://aiworkindex.com/occupation/75440) | 75440 | 6.1 | Not Exposed | 0.13 | SGD 2,400 |
+| [Craft and related worker n.e.c.](https://aiworkindex.com/occupation/75490) | 75490 | 6.1 | Not Exposed | 0.13 (0.12 to 0.14) | Not available |
+| [Excavating/Trench digging machine operator](https://aiworkindex.com/occupation/83421) | 83421 | 6.1 | Not Exposed | 0.13 | SGD 3,652 |
+| [Dredge operator](https://aiworkindex.com/occupation/83422) | 83422 | 6.1 | Not Exposed | 0.13 | Not available |
+| [Pile driver/drilling machine operator](https://aiworkindex.com/occupation/83423) | 83423 | 6.1 | Not Exposed | 0.13 | Not available |
+| [Tunnelling machine operator](https://aiworkindex.com/occupation/83424) | 83424 | 6.1 | Not Exposed | 0.13 | Not available |
+| [Earth moving and related machinery operator n.e.c.](https://aiworkindex.com/occupation/83429) | 83429 | 6.1 | Not Exposed | 0.13 | Not available |
+| [Kitchen assistant](https://aiworkindex.com/occupation/94101) | 94101 | 6.1 | Not Exposed | 0.13 | SGD 1,620 |
+| [Food/Drink stall assistant](https://aiworkindex.com/occupation/94102) | 94102 | 6.1 | Not Exposed | 0.13 | SGD 1,600 |
+| [Tea server/steward (excluding bartender, barista and food/drink stall assistant)](https://aiworkindex.com/occupation/94104) | 94104 | 6.1 | Not Exposed | 0.13 | SGD 1,800 |
+| [Food and beverage establishment general cleaner](https://aiworkindex.com/occupation/91151) | 91151 | 4.6 | Not Exposed | 0.13 (0.12 to 0.13) | SGD 1,600 |
+| [Table-top cleaner](https://aiworkindex.com/occupation/91152) | 91152 | 4.6 | Not Exposed | 0.13 (0.12 to 0.13) | SGD 1,800 |
+| [Dishwasher](https://aiworkindex.com/occupation/91153) | 91153 | 4.6 | Not Exposed | 0.13 (0.12 to 0.13) | SGD 1,600 |
+| [Food and beverage establishment multi-skilled cleaner cum machine operator](https://aiworkindex.com/occupation/91154) | 91154 | 4.6 | Not Exposed | 0.13 (0.12 to 0.13) | Not available |
+| [Non-ordained religious associate professional](https://aiworkindex.com/occupation/39910) | 39910 | 3.7 | Not Exposed | 0.12 | SGD 4,000 |
+| [Structural steel/Ship painter](https://aiworkindex.com/occupation/71321) | 71321 | 3.7 | Not Exposed | 0.12 | Not available |
+| [Motor vehicle spray painter](https://aiworkindex.com/occupation/71322) | 71322 | 3.7 | Not Exposed | 0.12 | Not available |
+| [Spray painter (excluding ships and motor vehicles)](https://aiworkindex.com/occupation/71323) | 71323 | 3.7 | Not Exposed | 0.12 | Not available |
+| [Spray painter/Varnisher and related painter n.e.c.](https://aiworkindex.com/occupation/71329) | 71329 | 3.7 | Not Exposed | 0.12 | Not available |
+| [Garment/Leather and related trades worker n.e.c.](https://aiworkindex.com/occupation/75390) | 75390 | 3.7 | Not Exposed | 0.12 (0.11 to 0.13) | Not available |
+| [Motorised sweeper operator](https://aiworkindex.com/occupation/83491) | 83491 | 3.7 | Not Exposed | 0.12 | SGD 3,566 |
+| [Other mobile machinery operator n.e.c.](https://aiworkindex.com/occupation/83499) | 83499 | 3.7 | Not Exposed | 0.12 | Not available |
+| [Housekeeping/Linen room attendant](https://aiworkindex.com/occupation/91121) | 91121 | 3.7 | Not Exposed | 0.12 | SGD 2,110 |
+| [Hotel cleaner](https://aiworkindex.com/occupation/91122) | 91122 | 3.7 | Not Exposed | 0.12 | SGD 2,093 |
+| [Cleaner/Helper in hotel and related establishment n.e.c.](https://aiworkindex.com/occupation/91129) | 91129 | 3.7 | Not Exposed | 0.12 | Not available |
+| [Tree worker/technician](https://aiworkindex.com/occupation/92141) | 92141 | 3.7 | Not Exposed | 0.12 | SGD 2,200 |
+| [Landscape worker](https://aiworkindex.com/occupation/92142) | 92142 | 3.7 | Not Exposed | 0.12 | SGD 1,865 |
+| [Park/Garden/Landscape maintenance worker n.e.c.](https://aiworkindex.com/occupation/92149) | 92149 | 3.7 | Not Exposed | 0.12 | Not available |
+| [Manufacturing labourer and related worker n.e.c.](https://aiworkindex.com/occupation/93209) | 93209 | 3.7 | Not Exposed | 0.12 | Not available |
+| [Other building frame and related trades worker n.e.c.](https://aiworkindex.com/occupation/71199) | 71199 | 2.8 | Not Exposed | 0.12 (0.09 to 0.14) | Not available |
+| [Stonemason/Stone cutter/splitter/carver](https://aiworkindex.com/occupation/71130) | 71130 | 2.4 | Not Exposed | 0.11 | Not available |
+| [Cladding/Curtain wall erector](https://aiworkindex.com/occupation/71192) | 71192 | 2.4 | Not Exposed | 0.11 (0.09 to 0.13) | Not available |
+| [Plasterer](https://aiworkindex.com/occupation/71230) | 71230 | 2.4 | Not Exposed | 0.11 | Not available |
+| [Structural metal preparer/erector](https://aiworkindex.com/occupation/72140) | 72140 | 2.4 | Not Exposed | 0.11 | Not available |
+| [Window cleaner](https://aiworkindex.com/occupation/91230) | 91230 | 2.4 | Not Exposed | 0.11 | Not available |
+| [Agricultural/Fishery and related labourer n.e.c.](https://aiworkindex.com/occupation/92190) | 92190 | 2.4 | Not Exposed | 0.11 (0.09 to 0.12) | Not available |
+| [Leaflet/Newspaper distributor/deliverer](https://aiworkindex.com/occupation/96291) | 96291 | 2.4 | Not Exposed | 0.11 | Not available |
+| [Odd job person](https://aiworkindex.com/occupation/96293) | 96293 | 2.4 | Not Exposed | 0.11 | SGD 1,600 |
+| [Office/Commercial/Industrial establishment indoor cleaner](https://aiworkindex.com/occupation/91131) | 91131 | 1.7 | Not Exposed | 0.10 (0.09 to 0.12) | SGD 1,820 |
+| [Office/Commercial/Industrial establishment outdoor cleaner](https://aiworkindex.com/occupation/91132) | 91132 | 1.7 | Not Exposed | 0.10 (0.09 to 0.12) | SGD 2,218 |
+| [Office/Commercial/Industrial establishment multi-skilled cleaner cum machine operator](https://aiworkindex.com/occupation/91133) | 91133 | 1.7 | Not Exposed | 0.10 (0.09 to 0.12) | SGD 2,307 |
+| [Residential/Open areas general cleaner](https://aiworkindex.com/occupation/91161) | 91161 | 1.7 | Not Exposed | 0.10 (0.09 to 0.12) | SGD 1,850 |
+| [Residential/Open areas multi-skilled cleaner cum machine operator](https://aiworkindex.com/occupation/91162) | 91162 | 1.7 | Not Exposed | 0.10 (0.09 to 0.12) | SGD 2,323 |
+| [Concrete form worker](https://aiworkindex.com/occupation/71141) | 71141 | 1.1 | Not Exposed | 0.10 | Not available |
+| [Cement finisher/Screeder](https://aiworkindex.com/occupation/71142) | 71142 | 1.1 | Not Exposed | 0.10 | Not available |
+| [Concrete placer/finisher and related worker n.e.c.](https://aiworkindex.com/occupation/71149) | 71149 | 1.1 | Not Exposed | 0.10 | Not available |
+| [Floor/Wall tiler](https://aiworkindex.com/occupation/71220) | 71220 | 1.1 | Not Exposed | 0.10 | SGD 1,600 |
+| [Ship/Ship tank cleaner](https://aiworkindex.com/occupation/91291) | 91291 | 1.1 | Not Exposed | 0.10 | Not available |
+| [Aircraft cleaner](https://aiworkindex.com/occupation/91292) | 91292 | 1.1 | Not Exposed | 0.10 | SGD 2,848 |
+| [Railway carriage cleaner](https://aiworkindex.com/occupation/91293) | 91293 | 1.1 | Not Exposed | 0.10 | Not available |
+| [Other cleaning worker n.e.c.](https://aiworkindex.com/occupation/91299) | 91299 | 1.1 | Not Exposed | 0.10 | Not available |
+| [Bricklayer/Blocklayer](https://aiworkindex.com/occupation/71120) | 71120 | 0.3 | Not Exposed | 0.09 | Not available |
+| [Scaffolder](https://aiworkindex.com/occupation/71191) | 71191 | 0.3 | Not Exposed | 0.09 | Not available |
+| [Building maintenance worker](https://aiworkindex.com/occupation/71331) | 71331 | 0.3 | Not Exposed | 0.09 | SGD 2,621 |
+| [Building structure cleaner and related worker](https://aiworkindex.com/occupation/71332) | 71332 | 0.3 | Not Exposed | 0.09 | Not available |
+| [Motor vehicle cleaner/polisher](https://aiworkindex.com/occupation/91220) | 91220 | 0.3 | Not Exposed | 0.09 | SGD 3,660 |
+| [Civil engineering/Building construction labourer](https://aiworkindex.com/occupation/93100) | 93100 | 0.3 | Not Exposed | 0.09 | SGD 1,600 |
+| [General waste collection/recycling/material recovery worker](https://aiworkindex.com/occupation/96101) | 96101 | 0.3 | Not Exposed | 0.09 | SGD 2,691 |
+
+## Official occupations without a pressure rank
+
+These pages remain useful classification records. Missing exposure is not zero.
+
+| Occupation | SSOC 2024 | Official ISCO-08 candidates | Reason |
+|---|---:|---|---|
+| [Event manager](https://aiworkindex.com/occupation/14391) | 14391 | 1439 | No usable ILO 2025 score through the official mapping |
+| [Travel agency manager](https://aiworkindex.com/occupation/14392) | 14392 | 1439 | No usable ILO 2025 score through the official mapping |
+| [Other services manager n.e.c.](https://aiworkindex.com/occupation/14399) | 14399 | 1439 | No usable ILO 2025 score through the official mapping |
+| [Remote crane operator](https://aiworkindex.com/occupation/31391) | 31391 | 3139 | No usable ILO 2025 score through the official mapping |
+| [Automated assembly line/Industrial robot operator](https://aiworkindex.com/occupation/31392) | 31392 | 3139 | No usable ILO 2025 score through the official mapping |
+| [Other process control technician n.e.c.](https://aiworkindex.com/occupation/31399) | 31399 | 3139 | No usable ILO 2025 score through the official mapping |
+| [Management executive](https://aiworkindex.com/occupation/33491) | 33491 | None | No usable ILO 2025 score through the official mapping |
+| [Operations officer (administrative)](https://aiworkindex.com/occupation/33492) | 33492 | None | No usable ILO 2025 score through the official mapping |
+| [Crewing executive (ship)](https://aiworkindex.com/occupation/33493) | 33493 | None | No usable ILO 2025 score through the official mapping |
+| [Other administrative and related associate professional n.e.c.](https://aiworkindex.com/occupation/33499) | 33499 | None | No usable ILO 2025 score through the official mapping |
+| [Tattooist](https://aiworkindex.com/occupation/34391) | 34391 | 3435 | No usable ILO 2025 score through the official mapping |
+| [Other artistic/cultural associate professional n.e.c.](https://aiworkindex.com/occupation/34399) | 34399 | 3435 | No usable ILO 2025 score through the official mapping |
+| [Other sales worker n.e.c.](https://aiworkindex.com/occupation/52499) | 52499 | 5249 | No usable ILO 2025 score through the official mapping |
+| [Stationary plant/machine operator n.e.c.](https://aiworkindex.com/occupation/81890) | 81890 | 8189 | No usable ILO 2025 score through the official mapping |
+
+## Cross-occupation estimates and titles needing context
+
+The estimated pages below use disclosed, reviewed SSOC 2024 composites. The withheld pages publish no score because a fixed occupational mapping would create false precision. None is an official SSOC occupation.
+
+- [Project Manager](https://aiworkindex.com/role/project-manager)
+- [Recruiter](https://aiworkindex.com/role/recruiter)
+- [Community Manager](https://aiworkindex.com/role/community-manager)
+- [Developer Advocate](https://aiworkindex.com/role/developer-advocate)
+- [Investment Banker](https://aiworkindex.com/role/investment-banker)
+- [Technical Product Manager](https://aiworkindex.com/role/technical-product-manager)
+- [RevOps Manager](https://aiworkindex.com/role/revops-manager)
+- [Growth Marketer](https://aiworkindex.com/role/growth-marketer)
+- [Chief of Staff](https://aiworkindex.com/role/chief-of-staff)
+- [Private Equity Associate](https://aiworkindex.com/role/private-equity-associate)
+- [Compliance Officer](https://aiworkindex.com/role/compliance-officer)
+- [Cloud Architect](https://aiworkindex.com/role/cloud-architect)
+- [IT Manager](https://aiworkindex.com/role/it-manager)
+- [Office Manager](https://aiworkindex.com/role/office-manager)
+- [Prompt Engineer](https://aiworkindex.com/role/prompt-engineer)
+- [AI Product Manager](https://aiworkindex.com/role/ai-product-manager)
+- [IT Security Manager](https://aiworkindex.com/role/it-security-manager)
+- [Delivery Rider](https://aiworkindex.com/role/delivery-rider)
+- [E-Commerce Seller](https://aiworkindex.com/role/e-commerce-seller)
+- [Content Creator](https://aiworkindex.com/role/content-creator)
+- [Virtual Assistant](https://aiworkindex.com/role/virtual-assistant)
+
+## Familiar-title guides with a reviewed official match
+
+These 56 guides explain why a familiar title maps to one SSOC 2024 occupation. Each page shows the official occupation's rank verbatim, keeps pay and demand separate, and labels family-level actions as guidance rather than score input.
+
+- [Product Manager](https://aiworkindex.com/role/product-manager) — Product & Design; SSOC 25114; official pressure rank 89.1
+- [HR Business Partner](https://aiworkindex.com/role/hr-business-partner) — People & HR; SSOC 24231; official pressure rank 61.4
+- [Customer Success Manager](https://aiworkindex.com/role/customer-success-manager) — Customer & Service; SSOC 24333; official pressure rank 88.5
+- [Account Executive](https://aiworkindex.com/role/account-executive) — Sales & Business Development; SSOC 33221; official pressure rank 85.4
+- [Platform Engineer](https://aiworkindex.com/role/platform-engineer) — Engineering; SSOC 25239; official pressure rank 89.1
+- [UX Designer](https://aiworkindex.com/role/ux-designer) — Product & Design; SSOC 25124; official pressure rank 90.6
+- [Venture Capitalist](https://aiworkindex.com/role/venture-capitalist) — Finance & Legal; SSOC 24133; official pressure rank 97.3
+- [Solutions Engineer](https://aiworkindex.com/role/solutions-engineer) — Engineering; SSOC 24333; official pressure rank 88.5
+- [Operations Analyst](https://aiworkindex.com/role/operations-analyst) — Data & AI; SSOC 21212; official pressure rank 93.1
+- [Brand Manager](https://aiworkindex.com/role/brand-manager) — Marketing & Growth; SSOC 12222; official pressure rank 73.3
+- [Sales Engineer](https://aiworkindex.com/role/sales-engineer) — Engineering; SSOC 24331; official pressure rank 87.4
+- [Partnerships Manager](https://aiworkindex.com/role/partnerships-manager) — Sales & Business Development; SSOC 12212; official pressure rank 73.3
+- [Supply Chain Analyst](https://aiworkindex.com/role/supply-chain-analyst) — Operations; SSOC 33461; official pressure rank 33.8
+- [ML Engineer](https://aiworkindex.com/role/ml-engineer) — Data & AI; SSOC 25143; official pressure rank 94.5
+- [People Partner](https://aiworkindex.com/role/people-partner) — People & HR; SSOC 24231; official pressure rank 61.4
+- [Procurement Manager](https://aiworkindex.com/role/procurement-manager) — Operations; SSOC 13242; official pressure rank 67.6
+- [Frontend Engineer](https://aiworkindex.com/role/frontend-engineer) — Engineering; SSOC 25121; official pressure rank 89.7
+- [Backend Engineer](https://aiworkindex.com/role/backend-engineer) — Engineering; SSOC 25121; official pressure rank 89.7
+- [Full-Stack Developer](https://aiworkindex.com/role/full-stack-developer) — Engineering; SSOC 25121; official pressure rank 89.7
+- [Mobile Engineer](https://aiworkindex.com/role/mobile-engineer) — Engineering; SSOC 25122; official pressure rank 96.5
+- [Security Engineer](https://aiworkindex.com/role/security-engineer) — Engineering; SSOC 25245; official pressure rank 85.4
+- [Site Reliability Engineer](https://aiworkindex.com/role/site-reliability-engineer) — Engineering; SSOC 25232; official pressure rank 89.1
+- [Engineering Manager](https://aiworkindex.com/role/engineering-manager) — Engineering; SSOC 13302; official pressure rank 78.3
+- [Startup CTO](https://aiworkindex.com/role/startup-cto) — Engineering; SSOC 13301; official pressure rank 78.3
+- [Content Strategist](https://aiworkindex.com/role/content-strategist) — Marketing & Growth; SSOC 24313; official pressure rank 91.7
+- [Policy Analyst](https://aiworkindex.com/role/policy-analyst) — Strategy & Advisory; SSOC 24221; official pressure rank 75.1
+- [Founder Associate](https://aiworkindex.com/role/founder-associate) — Strategy & Advisory; SSOC 33491; official pressure rank not ranked
+- [Quant Researcher](https://aiworkindex.com/role/quant-researcher) — Finance & Legal; SSOC 21212; official pressure rank 93.1
+- [FP&A Analyst](https://aiworkindex.com/role/fpa-analyst) — Finance & Legal; SSOC 24111; official pressure rank 88.5
+- [Treasury Analyst](https://aiworkindex.com/role/treasury-analyst) — Finance & Legal; SSOC 24134; official pressure rank 97.3
+- [Game Developer](https://aiworkindex.com/role/game-developer) — Engineering; SSOC 25123; official pressure rank 90.6
+- [QA Engineer](https://aiworkindex.com/role/qa-engineer) — Engineering; SSOC 25151; official pressure rank 91.7
+- [Systems Analyst](https://aiworkindex.com/role/systems-analyst) — Engineering; SSOC 25111; official pressure rank 85.4
+- [Financial Adviser](https://aiworkindex.com/role/financial-adviser) — Finance & Legal; SSOC 24121; official pressure rank 94.5
+- [Auditor](https://aiworkindex.com/role/auditor) — Finance & Legal; SSOC 24112; official pressure rank 88.5
+- [Data Analyst](https://aiworkindex.com/role/data-analyst) — Data & AI; SSOC 21231; official pressure rank 93.6
+- [Business Analyst](https://aiworkindex.com/role/business-analyst) — Data & AI; SSOC 25112; official pressure rank 85.4
+- [Scrum Master](https://aiworkindex.com/role/scrum-master) — Operations; SSOC 24213; official pressure rank 81.9
+- [SEO Specialist](https://aiworkindex.com/role/seo-specialist) — Marketing & Growth; SSOC 24314; official pressure rank 91.7
+- [Social Media Manager](https://aiworkindex.com/role/social-media-manager) — Marketing & Growth; SSOC 24314; official pressure rank 91.7
+- [Product Designer](https://aiworkindex.com/role/product-designer) — Product & Design; SSOC 25124; official pressure rank 90.6
+- [Database Administrator](https://aiworkindex.com/role/database-administrator) — Data & AI; SSOC 25211; official pressure rank 94.5
+- [Network Engineer](https://aiworkindex.com/role/network-engineer) — Engineering; SSOC 25232; official pressure rank 89.1
+- [Customer Support Specialist](https://aiworkindex.com/role/customer-support-specialist) — Customer & Service; SSOC 35123; official pressure rank 80.8
+- [HR Manager](https://aiworkindex.com/role/hr-manager) — People & HR; SSOC 12121; official pressure rank 60.2
+- [Talent Acquisition Lead](https://aiworkindex.com/role/talent-acquisition-lead) — People & HR; SSOC 12121; official pressure rank 60.2
+- [Legal Counsel](https://aiworkindex.com/role/legal-counsel) — Finance & Legal; SSOC 26112; official pressure rank 60.2
+- [Finance Manager](https://aiworkindex.com/role/finance-manager) — Finance & Legal; SSOC 12111; official pressure rank 63.6
+- [Accountant](https://aiworkindex.com/role/accountant) — Finance & Legal; SSOC 24111; official pressure rank 88.5
+- [Executive Assistant](https://aiworkindex.com/role/executive-assistant) — Operations; SSOC 33494; official pressure rank 90.2
+- [AI Engineer](https://aiworkindex.com/role/ai-engineer) — Data & AI; SSOC 25143; official pressure rank 94.5
+- [Data Architect](https://aiworkindex.com/role/data-architect) — Data & AI; SSOC 25212; official pressure rank 94.5
+- [Ride-Hail Driver](https://aiworkindex.com/role/ride-hail-driver) — Operations; SSOC 83226; official pressure rank 43.1
+- [Freelance Designer](https://aiworkindex.com/role/freelance-designer) — Design & Creative; SSOC 21661; official pressure rank 85.4
+- [Startup Founder / CEO](https://aiworkindex.com/role/startup-founder) — Leadership & New Ventures; SSOC 11201; official pressure rank 67.6
+- [Sustainability Manager](https://aiworkindex.com/role/sustainability-manager) — Leadership & New Ventures; SSOC 24214; official pressure rank 75.1
+
+## Exact modern titles that use the official occupation URL
+
+These 11 query labels normalize to an official SSOC 2024 title. Their role URLs redirect to the official record; no duplicate guide or score is published.
+
+- [DevOps Engineer](https://aiworkindex.com/occupation/25125)
+- [Data Engineer](https://aiworkindex.com/occupation/25213)
+- [Insurance Underwriter](https://aiworkindex.com/occupation/24160)
+- [Data Scientist](https://aiworkindex.com/occupation/21222)
+- [Management Consultant](https://aiworkindex.com/occupation/24211)
+- [Technical Writer](https://aiworkindex.com/occupation/26414)
+- [Graphic Designer](https://aiworkindex.com/occupation/21661)
+- [Business Development Manager](https://aiworkindex.com/occupation/12212)
+- [Marketing Manager](https://aiworkindex.com/occupation/12222)
+- [Sales Manager](https://aiworkindex.com/occupation/12211)
+- [Event Manager](https://aiworkindex.com/occupation/14391)
+
+## Source and citation links
+
+- ILO refined exposure index: https://www.ilo.org/publications/generative-ai-and-jobs-refined-global-index-occupational-exposure
+- Singapore methodology: https://aiworkindex.com/methodology
+- Research register: https://aiworkindex.com/research
+- Current JSON: https://aiworkindex.com/data/sg-ai-occupations-v9.json
+- Current CSV: https://aiworkindex.com/data/sg-ai-occupations-v9.csv
+- Market sidecar: https://aiworkindex.com/data/v9-market-context.json
+- Singapore AI labour observatory: https://aiworkindex.com/reports/labour-observatory
+- Labour observatory data: https://aiworkindex.com/data/v9-economic-observatory.json
+- AI capability report: https://aiworkindex.com/reports/ai-capabilities
+- AI capability profile data: https://aiworkindex.com/data/v9-capability-profiles.json
+- Theoretical scope vs observed use: https://aiworkindex.com/reports/research-signals
+- Research signal data: https://aiworkindex.com/data/v9-research-signals.json
+- Official skills pilot: https://aiworkindex.com/reports/skills-pilot
+- Official skills pilot data: https://aiworkindex.com/data/v9-skills-pilot.json
+- Evidence pattern report: https://aiworkindex.com/reports/evidence-patterns
+- Multi-signal evidence vector: https://aiworkindex.com/data/v9-evidence-vector.json
+- Signal-specific change ledger: https://aiworkindex.com/data/v9-signal-change.json
+- Mapped ILO task evidence: https://aiworkindex.com/data/ilo-isco-task-evidence-v9.json
+
+Suggested citation: AI Work Index, Singapore AI Work Pressure V9, 2026-08-19, https://aiworkindex.com.

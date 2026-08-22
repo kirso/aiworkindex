@@ -1,106 +1,52 @@
 <script lang="ts">
-	import RankingTable from '$lib/components/ui/RankingTable.svelte';
-	import RankingNavPills from '$lib/components/ui/RankingNavPills.svelte';
-	import { title as titleStyle, pageLayout } from '$lib/design-system';
-	import type { Occupation } from '$lib/data';
-	import { countryConfigs } from '$lib/data/country-config';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
-	import FaqList from '$lib/components/ui/FaqList.svelte';
-	import { buildItemListJsonLd, buildFaqJsonLd } from '$lib/data/ranking-jsonld';
-	import PageFooterNav from '$lib/components/ui/PageFooterNav.svelte';
+	import OccupationResultList from '$lib/components/v9-browser/OccupationResultList.svelte';
+	import RankingNav from '$lib/components/v9-browser/RankingNav.svelte';
+	import { badge, card, pageLayout, title as titleStyle } from '$lib/design-system';
 
 	let { data } = $props();
-	const currency = countryConfigs.sg.currency ?? 'SGD';
-
-	const columns = [
-		{
-			key: 'augmentation',
-			label: 'Augmentation',
-			format: (occ: Occupation) => `${(occ.augmentation * 100).toFixed(1)}%`,
-			align: 'right' as const
-		},
-		{
-			key: 'exposure',
-			label: 'Exposure',
-			format: (occ: Occupation) => `${(occ.exposure * 100).toFixed(0)}%`,
-			align: 'right' as const
-		},
-		{
-			key: 'bottleneck',
-			label: 'Bottleneck',
-			format: (occ: Occupation) => `${(occ.bottleneck * 100).toFixed(0)}%`,
-			align: 'right' as const
-		},
-		{
-			key: 'wage',
-			label: 'Median Wage',
-			format: (occ: Occupation) => `${currency} ${occ.gross_wage_median.toLocaleString()}`,
-			align: 'right' as const
-		}
-	];
-
-	let itemListJsonLd = $derived(
-		buildItemListJsonLd(
-			'AI-Augmented Occupations',
-			'Top 25 occupations where AI augments rather than replaces workers, ranked by augmentation potential',
-			data.ranked
-		)
-	);
-
-	const faqItems = [
-		{
-			question: 'Which jobs benefit most from AI augmentation?',
-			answer:
-				'Occupations with high AI exposure but strong human bottlenecks — judgment, creativity, and interpersonal skills mean AI augments rather than replaces. These roles score net_risk < 0.25 with augmentation >= 0.12.'
-		},
-		{
-			question: 'What is augmentation in the AI Work Index?',
-			answer:
-				'Augmentation measures the productive overlap between AI capabilities and human strengths. High augmentation means AI tools can boost productivity in the role without displacing the worker.'
-		}
-	];
-
-	const faqJsonLd = buildFaqJsonLd(faqItems);
 </script>
 
 <Seo
-	title="25 AI-Augmented Jobs — High Exposure, Strong Moats"
-	description="Occupations where AI augments rather than replaces — high exposure but strong human bottlenecks create augmentation potential."
+	title="Singapore jobs with the highest AI task overlap"
+	description="SSOC 2024 occupations whose mapped ILO evidence reaches the highest overlap band, ordered by V9 AI work pressure."
 	path="/rankings/ai-leveraged"
-	jsonLd={[itemListJsonLd, faqJsonLd]}
 />
 
-<main class={pageLayout({ width: 'content' })}>
+<main class={pageLayout({ width: 'feature' })}>
 	<PageBreadcrumb
 		items={[
 			{ label: 'Home', href: '/' },
 			{ label: 'Rankings', href: '/rankings' },
-			{ label: 'Augmented' }
+			{ label: 'Highest overlap' }
 		]}
 	/>
 
-	<h1 class={titleStyle({ size: 'page' })}>AI-Augmented Occupations</h1>
-	<p class="mt-2 text-sm text-muted-foreground">
-		High AI exposure but strong human bottlenecks — AI augments rather than replaces. Occupations
-		ranked by augmentation potential.
+	<header class="mb-7 max-w-4xl">
+		<span class={badge({ variant: 'outline' })}>Highest overlap band</span>
+		<h1 class="mt-3 {titleStyle({ size: 'page' })}">Jobs with the highest AI task overlap</h1>
+		<p class="mt-3 text-base leading-relaxed text-muted-foreground">
+			These {data.ranked.length} occupations map to ILO evidence in the highest overlap band. A range
+			appears when official mappings disagree. How-calculated records the ILO codebook name.
+		</p>
+	</header>
+
+	<div class="mb-6 {card({ padding: 'md', variant: 'notice', accent: 'primary' })}">
+		<p class="text-sm leading-relaxed text-muted-foreground">
+			This URL was used for an earlier “AI-leveraged” ranking. V9 does not infer augmentation or a
+			positive job pathway from exposure alone. It now shows the official category the evidence can
+			support.
+		</p>
+	</div>
+
+	<OccupationResultList items={data.ranked} detail="category" />
+
+	<p class="mt-4 text-xs leading-relaxed text-muted-foreground">
+		The ILO codebook calls this band Exposed: Gradient 4. That name is the source label, not a
+		job-loss forecast. It does not say whether employers will automate, augment or redesign the
+		work.
 	</p>
 
-	<section class="mt-6">
-		<RankingTable occupations={data.ranked} {columns} />
-	</section>
-
-	<p class="mt-4 text-xs text-muted-foreground">
-		Augmented = net_risk &lt; 0.25 AND augmentation &ge; 0.12.
-		<a href="/methodology" class="text-primary underline">Learn more</a>
-	</p>
-	<FaqList items={faqItems} />
-	<RankingNavPills />
-	<PageFooterNav
-		links={[
-			{ href: '/rankings', label: 'All rankings' },
-			{ href: '/explore', label: 'Browse occupations' },
-			{ href: '/methodology', label: 'Methodology' }
-		]}
-	/>
+	<RankingNav current="/rankings/ai-leveraged" />
 </main>

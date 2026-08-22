@@ -1,5 +1,5 @@
 {
-  "validation_date": "2026-06-11",
+  "validation_date": "2026-07-16",
   "model_version": "V7",
   "framing_caveat": "The IMF reports absolute economy-wide employment shares (77% of Singapore workers highly exposed); this model's exposure is percentile-ranked within 562 SG occupations and cannot reproduce absolute shares by construction. Only the employment-weighted complementarity split among the most-exposed occupations and its direction are comparable. This is a convergent-directional check, not occupation-level validation.",
   "imf_targets": {

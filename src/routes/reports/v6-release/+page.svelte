@@ -3,15 +3,22 @@
 	import { cn } from '$lib/utils';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
+	import ArchivedReportNotice from '$lib/components/v9/ArchivedReportNotice.svelte';
 </script>
 
 <Seo
 	title="V6 Release Note"
 	description="Archived release note for the V6 two-axis structural model. V6 introduced the deterministic 4-source exposure ensemble, human bottleneck, and explicit demand resilience separation."
 	path="/reports/v6-release"
+	noindex={true}
 />
 
 <main class={pageLayout({ width: 'content' })}>
+	<ArchivedReportNotice
+		release="V6"
+		date="1 April 2026"
+		note="This release note preserves the V6 two-axis formula and validation claims. Its score is not comparable with V9."
+	/>
 	<PageBreadcrumb
 		items={[
 			{ label: 'Home', href: '/' },

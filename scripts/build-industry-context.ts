@@ -196,6 +196,12 @@ function round(value: number, digits: number = 4): number {
 	return Math.round(value * factor) / factor;
 }
 
+function formatQuarter(raw: string): string {
+	const match = raw.match(/^(\d{4})([1-4])Q$/);
+	if (!match) throw new Error(`Unexpected vacancy quarter format: ${raw}`);
+	return `${match[1]} Q${match[2]}`;
+}
+
 function vacancySignalFromTrend(trend: number | null): VacancySignal | null {
 	if (trend === null) return null;
 	if (trend > 0.05) return 'rising';
@@ -341,9 +347,7 @@ function parseVacancyByIndustry(): Map<
 			key: normalizedKey,
 			label: label.replace(/ And /g, ' & '),
 			vacancy_latest: latest !== null ? round(latest, 0) : null,
-			vacancy_quarter: latestQuarter
-				? `${latestQuarter.slice(0, 4)} Q${latestQuarter.slice(5, 6)}`
-				: null,
+			vacancy_quarter: formatQuarter(latestQuarter),
 			vacancy_trend_4q_pct: trend !== null ? round(trend, 4) : null,
 			vacancy_signal: vacancySignalFromTrend(trend),
 			vacancy_share_latest: null,

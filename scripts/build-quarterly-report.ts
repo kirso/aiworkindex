@@ -58,6 +58,8 @@ interface DriftEntry {
 
 interface QuarterlyReport {
 	generated_at: string;
+	public_contract_version: string;
+	structural_snapshot_version: string;
 	current_snapshot: string;
 	previous_snapshot: string | null;
 	total_occupations: number;
@@ -195,6 +197,8 @@ function main() {
 
 	const report: QuarterlyReport = {
 		generated_at: now.toISOString(),
+		public_contract_version: DATA_VINTAGE.public_version,
+		structural_snapshot_version: DATA_VINTAGE.model_version,
 		current_snapshot: snapshotName,
 		previous_snapshot: previousSnapshot,
 		total_occupations: current.length,

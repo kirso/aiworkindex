@@ -1,6 +1,6 @@
 {
   "version": "V4.3-shadow",
-  "generated_at": "2026-06-07T11:57:12.097Z",
+  "generated_at": "2026-07-16T00:22:40.674Z",
   "published_baseline_version": "V4.2",
   "live_structural_version": "V7",
   "shadow_readiness": {
@@ -61,7 +61,7 @@
       "threshold": "at_least_2_of_3",
       "actual": "2/3",
       "state": "pass",
-      "note": "Requires at least 2 of 3 external checks to match or improve baseline. Current results: cluster directional accuracy 0.3333 vs 1; BLS rho -0.167 vs -0.1385; family rho -0.4633 vs -0.249."
+      "note": "Requires at least 2 of 3 external checks to match or improve baseline. Current results: cluster directional accuracy 0.3333 vs 1; BLS rho -0.167 vs 0.0138; family rho -0.4633 vs -0.249."
     },
     {
       "key": "anchor_review",

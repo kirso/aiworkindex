@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0",
+  "data_as_of": "December 2025",
+  "construct": "vacancy_composition_and_entry_level_context",
+  "score_input": false,
+  "source": {
+    "title": "Job Vacancies 2025",
+    "publisher": "Singapore Ministry of Manpower",
+    "url": "https://stats.mom.gov.sg/Pages/Job-Vacancies-2025.aspx",
+    "report_file": "data/raw/mom-job-vacancies-2025.pdf",
+    "vintage": "December 2025"
+  },
+  "national": {
+    "newly_created_positions_pct": 49.3,
+    "qualification_not_main_consideration_pct": 79.6,
+    "skills_based_hiring_better_outcomes_pct": 69.2,
+    "willing_to_consider_below_stated_qualification_pct": 66.9,
+    "remote_capable_vacancies_pct": 22.7,
+    "remote_capable_vacancies_2024_pct": 14.4,
+    "unfilled_at_least_six_months_pct": 17.1
+  },
+  "experience_required_pct": {
+    "total": {
+      "none": 31.5,
+      "one_year": 20.2,
+      "two_to_five_years": 39.6,
+      "six_to_nine_years": 5.2,
+      "ten_or_more_years": 3.5
+    },
+    "pmet": {
+      "none": 21.1,
+      "one_year": 13.5,
+      "two_to_five_years": 51.1,
+      "six_to_nine_years": 8.6,
+      "ten_or_more_years": 5.7
+    },
+    "non_pmet": {
+      "none": 46.2,
+      "one_year": 29.6,
+      "two_to_five_years": 23.4
+    }
+  },
+  "entry_level_pmet": {
+    "share_pct": 42.9,
+    "vacancies_thousands": 32.5,
+    "definition": "PMET vacancies with offered monthly salary from SGD 2,300 to SGD 5,000, from job portals and openings reported by local job seekers.",
+    "source_boundary": "This measure uses a different source and denominator from the employer vacancy survey."
+  },
+  "no_experience_required_by_industry_pct": {
+    "information_communications": 7.4,
+    "professional_services": 14,
+    "financial_insurance_services": 17,
+    "manufacturing": 23.1,
+    "arts_entertainment_recreation": 23.7,
+    "construction": 24.4,
+    "wholesale_retail_trade": 26.1,
+    "accommodation": 36.9,
+    "real_estate_services": 42.1,
+    "health_social_services": 43.7,
+    "transportation_storage": 47.4,
+    "public_admin_education": 49.8,
+    "administrative_support_services": 50.3,
+    "food_beverage_services": 54.7
+  },
+  "named_hard_to_fill_pmet_jobs": [
+    "Software, web, multimedia and games developers and designers",
+    "Data scientists",
+    "Teaching and training professionals",
+    "Civil engineers",
+    "Applications and systems programmers"
+  ],
+  "limitations": [
+    "Industry figures are contextual and must not be assigned to every occupation in an industry.",
+    "Named jobs are examples from the report, not complete detailed-SSOC vacancy counts.",
+    "The entry-level PMET measure has a different source and denominator from the employer vacancy survey."
+  ]
+}

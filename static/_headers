@@ -10,6 +10,98 @@
 /data/*.json
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
 
+# Superseded releases and sidecars remain downloadable archives, but must not compete with V9.
+/data/archive/*
+  X-Robots-Tag: noindex, nofollow
+/data/backtests/*
+  X-Robots-Tag: noindex, nofollow
+/data/global/*
+  X-Robots-Tag: noindex, nofollow
+/data/claims-matrix-*
+  X-Robots-Tag: noindex, nofollow
+/data/countries/*
+  X-Robots-Tag: noindex, nofollow
+/data/release-manifest-v3*
+  X-Robots-Tag: noindex, nofollow
+/data/release-manifest-v4*
+  X-Robots-Tag: noindex, nofollow
+/data/release-manifest-v5*
+  X-Robots-Tag: noindex, nofollow
+/data/release-manifest-v6*
+  X-Robots-Tag: noindex, nofollow
+/data/release-manifest-v7*
+  X-Robots-Tag: noindex, nofollow
+/data/release-manifest-v8*
+  X-Robots-Tag: noindex, nofollow
+/data/sg-ai-occupations-2024*
+  X-Robots-Tag: noindex, nofollow
+/data/sg-ai-occupations-v3*
+  X-Robots-Tag: noindex, nofollow
+/data/sg-ai-occupations-v4*
+  X-Robots-Tag: noindex, nofollow
+/data/sg-ai-occupations-v5*
+  X-Robots-Tag: noindex, nofollow
+/data/sg-ai-occupations-v6*
+  X-Robots-Tag: noindex, nofollow
+/data/sg-ai-occupations-v7*
+  X-Robots-Tag: noindex, nofollow
+/data/sg-ai-occupations-v8*
+  X-Robots-Tag: noindex, nofollow
+/data/v5-*
+  X-Robots-Tag: noindex, nofollow
+/data/shadow-*
+  X-Robots-Tag: noindex, nofollow
+/data/adoption-*
+  X-Robots-Tag: noindex, nofollow
+/data/age-*
+  X-Robots-Tag: noindex, nofollow
+/data/confidence-*
+  X-Robots-Tag: noindex, nofollow
+/data/detailed-*
+  X-Robots-Tag: noindex, nofollow
+/data/employer-*
+  X-Robots-Tag: noindex, nofollow
+/data/experimental-*
+  X-Robots-Tag: noindex, nofollow
+/data/family-*
+  X-Robots-Tag: noindex, nofollow
+/data/forecast-*
+  X-Robots-Tag: noindex, nofollow
+/data/job-*
+  X-Robots-Tag: noindex, nofollow
+/data/onet-*
+  X-Robots-Tag: noindex, nofollow
+/data/postings-*
+  X-Robots-Tag: noindex, nofollow
+/data/public-*
+  X-Robots-Tag: noindex, nofollow
+/data/quarterly-*
+  X-Robots-Tag: noindex, nofollow
+/data/raw-*
+  X-Robots-Tag: noindex, nofollow
+/data/scenario-*
+  X-Robots-Tag: noindex, nofollow
+/data/sg-ai-in-*
+  X-Robots-Tag: noindex, nofollow
+/data/sg-context-*
+  X-Robots-Tag: noindex, nofollow
+/data/sg-geography-*
+  X-Robots-Tag: noindex, nofollow
+/data/sg-labour-*
+  X-Robots-Tag: noindex, nofollow
+/data/sg-lfr-*
+  X-Robots-Tag: noindex, nofollow
+/data/sg-macro-*
+  X-Robots-Tag: noindex, nofollow
+/data/sg-offset-*
+  X-Robots-Tag: noindex, nofollow
+/data/sg-transition-*
+  X-Robots-Tag: noindex, nofollow
+/data/sg-worker-*
+  X-Robots-Tag: noindex, nofollow
+/data/wage-*
+  X-Robots-Tag: noindex, nofollow
+
 # CSV data downloads — cache 1 hour, revalidate
 /data/*.csv
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400

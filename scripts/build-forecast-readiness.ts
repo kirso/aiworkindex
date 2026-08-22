@@ -25,6 +25,7 @@ const STATIC_OUT_FILE = path.join(STATIC_DATA_DIR, `forecast-readiness-${VERSION
 type Construct = 'realised_labour_pressure' | 'near_term_adoption' | 'validation_protocol';
 type InputStatus =
 	| 'ready_for_directional_validation'
+	| 'mapped_context_only'
 	| 'partial_proxy_needs_snapshots'
 	| 'source_available_not_modeled'
 	| 'protocol_only'
@@ -65,6 +66,13 @@ function readJson<T>(relativePath: string): T {
 const occupations = readJson<unknown[]>('data/occupations.json');
 const labourMonitor = readJson<Array<{ cluster_key: string }>>('data/labour-monitor.json');
 const postingsMonitor = readJson<{
+	observed_through?: string | null;
+	coverage?: {
+		occupations_covered: number;
+		occupations_total: number;
+		roles_covered: number;
+		roles_total: number;
+	};
 	summary: { total_postings: number; source_count: number; latest_posted_date: string | null };
 	sources: unknown[];
 }>('data/postings/postings-monitor.json');
@@ -110,17 +118,17 @@ const inputs: ForecastInput[] = [
 		construct: 'realised_labour_pressure',
 		status: 'ready_for_directional_validation',
 		evidence_tier: 'official_sg',
-		source_keys: ['mom_job_vacancy_rates', 'mom_labour_market_report_q4_2025'],
+		source_keys: ['mom_job_vacancy_rates', 'mom_labour_market_report_q1_2026'],
 		source_urls: [
 			'https://data.gov.sg/datasets?resultId=d_1e10046c33418c507bb2483c26dca489&sort=updatedAt',
-			'https://www.mom.gov.sg/newsroom/press-releases/2026/0320-labour-market-4q-2025'
+			'https://stats.mom.gov.sg/Pages/Labour-Market-Report-1Q-2026.aspx'
 		],
 		raw_files: ['data/raw/vacancy_rates_by_occupation_group.csv'],
 		existing_artifacts: ['data/labour-monitor.json'],
 		pipeline_owners: ['scripts/build-labour-monitor.ts'],
 		public_fields: ['labour-monitor.vacancy.latest_rate', 'labour-monitor.vacancy.latest_quarter'],
 		transformation:
-			'Direct published vacancy-rate series, with Q4 2025 report-table enrichment where the feed lagged at build time.',
+			'Direct published vacancy-rate series, with Q1 2026 report-table enrichment where the feed lagged at build time.',
 		granularity: 'Broad occupation clusters.',
 		confidence_for_forecast: 'strong_directional',
 		non_duplication_rule:
@@ -134,10 +142,10 @@ const inputs: ForecastInput[] = [
 		construct: 'realised_labour_pressure',
 		status: 'ready_for_directional_validation',
 		evidence_tier: 'derived_from_official_sg',
-		source_keys: ['mom_recruitment_resignation_rates', 'mom_labour_market_report_q4_2025'],
+		source_keys: ['mom_recruitment_resignation_rates', 'mom_labour_market_report_q1_2026'],
 		source_urls: [
 			'https://data.gov.sg/collections/682/datasets/d_236436f8bdb9bbac677c4e5637c6430e/view',
-			'https://www.mom.gov.sg/newsroom/press-releases/2026/0320-labour-market-4q-2025'
+			'https://stats.mom.gov.sg/Pages/Labour-Market-Report-1Q-2026.aspx'
 		],
 		raw_files: ['data/raw/recruitment_resignation_rates.json'],
 		existing_artifacts: ['data/labour-monitor.json'],
@@ -159,10 +167,10 @@ const inputs: ForecastInput[] = [
 		construct: 'realised_labour_pressure',
 		status: 'ready_for_directional_validation',
 		evidence_tier: 'official_sg',
-		source_keys: ['mom_retrenchment_by_occupation_group', 'mom_labour_market_report_q4_2025'],
+		source_keys: ['mom_retrenchment_by_occupation_group', 'mom_labour_market_report_q1_2026'],
 		source_urls: [
 			'https://data.gov.sg/datasets?resultId=d_3eaf52cdcc405a80b602d031d0bd092b&sort=updatedAt',
-			'https://www.mom.gov.sg/newsroom/press-releases/2026/0320-labour-market-4q-2025'
+			'https://stats.mom.gov.sg/Pages/Labour-Market-Report-1Q-2026.aspx'
 		],
 		raw_files: ['data/raw/retrenchment_by_occupation_group.json'],
 		existing_artifacts: ['data/labour-monitor.json'],
@@ -183,22 +191,22 @@ const inputs: ForecastInput[] = [
 		key: 'wage_movement',
 		label: 'Wage movement',
 		construct: 'realised_labour_pressure',
-		status: 'source_available_not_modeled',
+		status: 'ready_for_directional_validation',
 		evidence_tier: 'official_sg',
 		source_keys: ['mom_median_income_by_occupation'],
 		source_urls: ['https://data.gov.sg/datasets/d_8f024ddf2553d81ee00ede55b1d9b0ff/view'],
 		raw_files: ['data/raw/median_income_by_occupation.csv'],
-		existing_artifacts: ['data/raw-data-audit.json'],
-		pipeline_owners: ['scripts/build-raw-data-audit.ts'],
-		public_fields: ['raw-data-audit.median_income_by_occupation'],
+		existing_artifacts: ['data/wage-movement.json'],
+		pipeline_owners: ['scripts/build-wage-movement.ts'],
+		public_fields: ['wage-movement.series.*.movement'],
 		transformation:
-			'Raw annual wage series is present, but forecast-grade movement needs a long-window and real-wage transform before it should be used as an outcome.',
+			'Sex-specific broad-group median income is converted to 1-, 3-, and 5-year nominal and All Items CPI-adjusted movement. Male and female medians remain separate.',
 		granularity: 'Broad occupation groups and sex splits; annual, sample-survey based.',
 		confidence_for_forecast: 'medium_directional',
 		non_duplication_rule:
 			'Do not duplicate gross_wage_median or sector wage anchors; build a separate wage-outcome transform only if it becomes a validation outcome.',
 		next_step:
-			'Create a wage-outcome panel with 5-year nominal and CPI-adjusted movement, then label it broad-group only.'
+			'Keep the annual broad-group sidecar separate from quarterly cluster panels and test it only at matching granularity.'
 	},
 	{
 		key: 'postings_volume',
@@ -259,7 +267,7 @@ const inputs: ForecastInput[] = [
 		key: 'firm_ai_adoption',
 		label: 'Firm AI adoption',
 		construct: 'near_term_adoption',
-		status: 'source_available_not_modeled',
+		status: 'mapped_context_only',
 		evidence_tier: 'official_sg',
 		source_keys: ['mom_ai_adoption_2026', 'imda_sgde_2025'],
 		source_urls: [
@@ -267,17 +275,28 @@ const inputs: ForecastInput[] = [
 			'https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches/press-releases/2025/singapore-digital-economy'
 		],
 		raw_files: ['data/raw/mom-ai-adoption-2026.json'],
-		existing_artifacts: ['data/ai-in-singapore.json'],
-		pipeline_owners: ['scripts/build-ai-in-singapore.ts'],
-		public_fields: ['ai-in-singapore.metrics.mom_firm_ai_adoption_2026'],
+		existing_artifacts: [
+			'data/ai-in-singapore.json',
+			'data/adoption-diffusion.json',
+			'data/occupations.json'
+		],
+		pipeline_owners: [
+			'scripts/build-ai-in-singapore.ts',
+			'scripts/build-adoption-diffusion.ts',
+			'scripts/build-v8-release.ts'
+		],
+		public_fields: [
+			'occupations.*.v8.market_context.adoption',
+			'occupations.*.v8.market_context.adoption_coverage'
+		],
 		transformation:
-			'Official firm-size and sector adoption metrics are retained as context. They are not mapped to detailed occupations until a transparent sector-to-occupation adoption model is built.',
+			'Official sector adoption is mapped through each occupation major group industry footprint, with explicit partial or unavailable coverage. It remains contextual and does not alter exposure ranks.',
 		granularity: 'Firm-size and broad sector, not occupation-level.',
 		confidence_for_forecast: 'medium_directional',
 		non_duplication_rule:
-			'Keep national adoption data in ai-in-singapore.json and forecast-readiness; do not multiply it into V7 occupation scores.',
+			'Reuse the V8 market-context mapping and do not multiply adoption into occupation exposure or substitution ranks.',
 		next_step:
-			'Build a near-term adoption sidecar only after mapping sector adoption to occupation industry footprints with confidence tiers.'
+			'Refresh the existing context mapping when MOM publishes a new sector adoption table; do not promote it as observed occupation adoption.'
 	},
 	{
 		key: 'forecast_horizon_protocol',
@@ -341,12 +360,12 @@ const readiness = {
 	generated_at: new Date().toISOString(),
 	status: 'non_promoted_forecast_readiness_layer',
 	description:
-		'Source, duplication, and validation protocol matrix for moving from structural AI pressure to forecast-grade labour-market claims. This artifact does not change the headline V7 score.',
+		'Source, duplication, and validation protocol matrix for moving from comparative V8 AI exposure to forecast-grade labour-market claims. This artifact does not change the headline V8 ranks.',
 	non_duplication_policy: {
 		headline_score_mutated: false,
 		realized_risk_score_created: false,
 		decision:
-			'Do not create a second realised-risk model while v5-realized-risk.json, labour-monitor.json, postings-monitor.json, and ai-in-singapore.json already exist. Forecast-readiness references those owners and records missing validation gates.',
+			'Do not create a second realised-risk model while labour-monitor.json, postings-monitor.json, ai-in-singapore.json, and the V8 context fields already exist. Forecast-readiness references those owners and records missing validation gates.',
 		existing_artifacts_reused: [
 			'data/labour-monitor.json',
 			'data/postings/postings-monitor.json',
@@ -362,6 +381,13 @@ const readiness = {
 		postings_total: postingsMonitor.summary.total_postings,
 		posting_source_count: postingsMonitor.summary.source_count,
 		postings_latest_posted_date: postingsMonitor.summary.latest_posted_date,
+		postings_observed_through: postingsMonitor.observed_through ?? null,
+		postings_occupation_coverage: postingsMonitor.coverage
+			? `${postingsMonitor.coverage.occupations_covered}/${postingsMonitor.coverage.occupations_total}`
+			: null,
+		postings_role_coverage: postingsMonitor.coverage
+			? `${postingsMonitor.coverage.roles_covered}/${postingsMonitor.coverage.roles_total}`
+			: null,
 		mom_ai_adoption_report_published_at: momAiAdoption.published_at,
 		mom_ai_adopting_firms_pct: momAiAdoption.metrics.firms_started_ai_adoption_pct,
 		status_counts: statusCounts()
@@ -370,7 +396,7 @@ const readiness = {
 	file_health: inputs.map(fileHealth),
 	validation_protocol: {
 		claim_boundary:
-			'V7 may claim structural pressure and directional validation. It should not claim forecast-grade occupation displacement until the gates below pass out of sample.',
+			'V8 may claim comparative AI exposure and publish separate directional labour context. It should not claim forecast-grade occupation displacement until the gates below pass out of sample.',
 		score_freeze: 'Use data/snapshots/occupations-v7-2026-05.json as the first V7 frozen baseline.',
 		horizons: ['t+1Q', 't+2Q', 't+4Q'],
 		outcomes: [
@@ -398,7 +424,7 @@ const readiness = {
 		]
 	},
 	next_steps: [
-		'Do not alter V7 headline scoring.',
+		'Do not alter V8 headline ranks with outcome context.',
 		'Materialize outcome panels under data/outcomes/ only from existing official labour/postings owners.',
 		'Add monthly postings snapshots before computing AI-skill share trends.',
 		'Forecast-horizon harness is built (status pending_sufficient_quarters); rerun as each MOM quarter lands and promote only past the 4-quarter gate.',

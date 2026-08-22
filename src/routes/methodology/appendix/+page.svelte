@@ -1,429 +1,399 @@
 <script lang="ts">
-	import { pageLayout, sectionLabel, caption, title as titleStyle } from '$lib/design-system';
+	import { pageLayout, sectionLabel, title as titleStyle, card, mono } from '$lib/design-system';
 	import { cn } from '$lib/utils';
-	import { DATA_VINTAGE } from '$lib/data/scoring-constants';
+	import { siteStatus } from '$lib/data/site-status';
 	import PageBreadcrumb from '$lib/components/ui/PageBreadcrumb.svelte';
 	import Seo from '$lib/components/ui/Seo.svelte';
+
+	const v9Counts = siteStatus.structural_release.counts;
+	const researchCoverage = siteStatus.external_comparisons.separate_signal_coverage;
+
+	const evidenceFields = [
+		['construct', 'The concept being reported.'],
+		['evidence_kind', 'Observed, derived, modelled or context.'],
+		[
+			'value',
+			'A typed value when the evidence block exists. If no defensible value exists, the whole block is null.'
+		],
+		['geography', 'The population or market represented by the source.'],
+		['reference_period', 'When the underlying observation applies.'],
+		['source', 'Publisher, title, URL and publication date.'],
+		['mapping', 'Method and quality when the evidence is crosswalked.'],
+		['limitations', 'Specific reasons the value may be misread.']
+	] as const;
+	const coverageMetrics = [
+		{ value: v9Counts.occupations, label: 'numeric SSOC 2024 occupations' },
+		{ value: v9Counts.scored, label: 'in the pressure ranking' },
+		{ value: v9Counts.insufficient_evidence, label: 'outside the ranking' },
+		{ value: v9Counts.direct_wages, label: 'with direct wage evidence' }
+	] as const;
+	const mappingStates = [
+		['one_to_one', 'One official ISCO candidate', 'Direct mapped evidence'],
+		['one_to_many', 'Several official candidates', 'Median point with full range'],
+		[
+			'partial',
+			'Official correspondence marks at least one link as partial',
+			'Publish the partial-link flag; list any unscored candidates separately'
+		],
+		['unmatched', 'No usable official candidate', 'Insufficient evidence; no fallback']
+	] as const;
 </script>
 
 <Seo
-	title={`Implementation Appendix — ${DATA_VINTAGE.model_version} Scoring Rules`}
-	description={`Complete implementation reference for the ${DATA_VINTAGE.model_version} scoring pipeline: risk bands, impact classification, seniority modifiers, confidence, demand resilience, stability, synthetic role rules, and separate support layers.`}
+	title="V9 Technical Appendix: AI Work Pressure Rank"
+	description="Formula, mappings, uncertainty, null rules, synthetic-role estimates and validation requirements for the Singapore AI Work Index V9 release."
 	path="/methodology/appendix"
 />
 
-<main class={pageLayout({ width: 'content' })}>
+<main class={pageLayout({ width: 'feature' })}>
 	<PageBreadcrumb
 		items={[
 			{ label: 'Home', href: '/' },
 			{ label: 'Methodology', href: '/methodology' },
-			{ label: 'Appendix' }
+			{ label: 'Technical appendix' }
 		]}
 	/>
 
-	<h1 class={titleStyle({ size: 'page' })}>Implementation Appendix</h1>
-	<p class="mt-2 text-sm text-muted-foreground">
-		Complete {DATA_VINTAGE.model_version} implementation reference. All thresholds match
-		<code class="rounded bg-muted px-1 text-xs">score.ts</code>,
-		<code class="rounded bg-muted px-1 text-xs">synthetic-roles.ts</code>, and
-		<code class="rounded bg-muted px-1 text-xs">validate.ts</code>. This appendix documents the
-		current Singapore reference implementation, including heuristic components that should not be
-		read as causal proof. The country-agnostic structural contract is defined on the main
-		methodology page.
-	</p>
-
-	<!-- Core Formula -->
-	<section class="mt-8 mb-8">
-		<p class={sectionLabel()}>Core Formula</p>
-		<div class="mt-3 space-y-2">
-			<p class="rounded-md bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
-				headline_risk = displacement_pressure × (1 − demand_resilience)
-			</p>
-			<p class="rounded-md bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
-				displacement_pressure = exposure_v7 × (1 − bottleneck)
-			</p>
-			<p class="rounded-md bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
-				exposure_v7 = clamp01(exposure × (1 − 0.20 × task_signal))
-			</p>
-			<p class="rounded-md bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
-				task_signal = task_exposure_concentration × task_effective_coverage
-			</p>
-			<p class="text-xs text-muted-foreground">
-				Where exposure and bottleneck are percentile-ranked (0–1) across all {DATA_VINTAGE.occupation_count}
-				occupations. The task-concentration buffer follows Hampole et al. (2025): concentrated exposure
-				offsets labour-demand losses, so it reduces effective exposure. task_signal = 0 where task data
-				is unavailable.
-			</p>
-		</div>
-	</section>
-
-	<!-- Risk Band Boundaries -->
-	<section class="mb-8">
-		<p class={sectionLabel()}>Risk Band Boundaries</p>
-		<div class="mt-3 overflow-x-auto">
-			<table class="w-full text-left text-sm">
-				<thead>
-					<tr class="border-b border-border">
-						<th class="py-2 pr-3 font-medium text-text-secondary">Band</th>
-						<th class="py-2 pr-3 font-medium text-text-secondary">Threshold</th>
-						<th class="py-2 font-medium text-text-secondary">Meaning</th>
-					</tr>
-				</thead>
-				<tbody class="text-muted-foreground">
-					<tr class="border-b border-border/50">
-						<td class="py-2 pr-3 font-medium">very_low</td>
-						<td class="py-2 pr-3 font-mono">&lt; 0.05</td>
-						<td class="py-2">Negligible displacement pressure</td>
-					</tr>
-					<tr class="border-b border-border/50">
-						<td class="py-2 pr-3 font-medium">low</td>
-						<td class="py-2 pr-3 font-mono">0.05 – 0.15</td>
-						<td class="py-2">Limited pressure; AI likely augments</td>
-					</tr>
-					<tr class="border-b border-border/50">
-						<td class="py-2 pr-3 font-medium">moderate</td>
-						<td class="py-2 pr-3 font-mono">0.15 – 0.30</td>
-						<td class="py-2">Mixed; bottlenecks or market provide buffer</td>
-					</tr>
-					<tr class="border-b border-border/50">
-						<td class="py-2 pr-3 font-medium">high</td>
-						<td class="py-2 pr-3 font-mono">0.30 – 0.50</td>
-						<td class="py-2">Significant pressure; weaker buffers</td>
-					</tr>
-					<tr>
-						<td class="py-2 pr-3 font-medium">very_high</td>
-						<td class="py-2 pr-3 font-mono">&ge; 0.50</td>
-						<td class="py-2">Strong pressure across multiple signals</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<p class="mt-2 text-sm text-muted-foreground">
-			These thresholds determine <code class="rounded bg-muted px-1 text-xs"
-				>confidence.threshold_level</code
-			>. The published <code class="rounded bg-muted px-1 text-xs">confidence.level</code> may be capped
-			below that raw threshold for fallback mappings, sparse-source cases, or contested signals.
+	<div class="max-w-3xl">
+		<p class={sectionLabel()}>V9 · schema 9.0</p>
+		<h1 class={cn(titleStyle({ size: 'page' }), 'mt-2')}>AI Work Pressure technical appendix</h1>
+		<p class="mt-3 text-sm leading-relaxed text-muted-foreground">
+			This page specifies the current calculation and data contract. AI Work Pressure is a relative
+			GenAI task-exposure rank. It is not a probability, employment forecast, automated-task share,
+			or estimate of jobs or wages lost.
 		</p>
-	</section>
-
-	<!-- Impact Type Classification -->
-	<section class="mb-8">
-		<p class={sectionLabel()}>Impact Type Classification</p>
-		<p class="mt-2 text-xs text-muted-foreground">
-			Based on a pure headline-risk × augmentation 2×2 matrix. SOL / Jobs in Demand now enter only
-			through demand resilience, not as a separate label override.
-		</p>
-		<div class="mt-3 overflow-x-auto">
-			<table class="w-full text-left text-sm">
-				<thead>
-					<tr class="border-b border-border">
-						<th class="py-2 pr-3 font-medium text-text-secondary">Type</th>
-						<th class="py-2 pr-3 font-medium text-text-secondary">Rule</th>
-						<th class="py-2 font-medium text-text-secondary">Description</th>
-					</tr>
-				</thead>
-				<tbody class="text-muted-foreground">
-					<tr class="border-b border-border/50">
-						<td class="py-2 pr-3 font-medium">ai_leveraged</td>
-						<td class="py-2 pr-3">
-							<code class="rounded bg-muted px-1 text-xs"
-								>net_risk &lt; 0.25 AND augmentation &ge; 0.12</code
-							>
-						</td>
-						<td class="py-2">Low displacement with meaningful augmentation potential</td>
-					</tr>
-					<tr class="border-b border-border/50">
-						<td class="py-2 pr-3 font-medium">at_risk</td>
-						<td class="py-2 pr-3">
-							<code class="rounded bg-muted px-1 text-xs"
-								>net_risk &ge; 0.25 AND augmentation &lt; 0.12</code
-							>
-						</td>
-						<td class="py-2">High displacement, low augmentation</td>
-					</tr>
-					<tr class="border-b border-border/50">
-						<td class="py-2 pr-3 font-medium">mixed</td>
-						<td class="py-2 pr-3">
-							<code class="rounded bg-muted px-1 text-xs"
-								>net_risk &ge; 0.25 AND augmentation &ge; 0.12</code
-							>
-						</td>
-						<td class="py-2">High displacement but still meaningfully augmentation-shaped</td>
-					</tr>
-					<tr>
-						<td class="py-2 pr-3 font-medium">stable</td>
-						<td class="py-2 pr-3">
-							<code class="rounded bg-muted px-1 text-xs"
-								>net_risk &lt; 0.25 AND augmentation &lt; 0.12</code
-							>
-						</td>
-						<td class="py-2">Low displacement, low augmentation — minimal AI impact</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</section>
-
-	<!-- Augmentation -->
-	<section class="mb-8">
-		<p class={sectionLabel()}>Augmentation Score</p>
-		<p class="mt-2 rounded-md bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
-			augmentation = exposure_v7 × bottleneck × market_resilience
-		</p>
-		<p class="mt-2 text-sm text-muted-foreground">
-			The same published <code class="rounded bg-muted px-1 text-xs">market_resilience</code> field is
-			used as the base resilience input for both augmentation and demand resilience. Demand bonuses are
-			applied inside the resilience path before the final result is capped to the 0–1 range.
-		</p>
-		<div class="mt-3 overflow-x-auto">
-			<table class="w-full text-left text-sm">
-				<thead>
-					<tr class="border-b border-border">
-						<th class="py-2 pr-3 font-medium text-text-secondary">Band</th>
-						<th class="py-2 font-medium text-text-secondary">Threshold</th>
-					</tr>
-				</thead>
-				<tbody class="text-muted-foreground">
-					<tr class="border-b border-border/50">
-						<td class="py-2 pr-3 font-medium">very_high</td>
-						<td class="py-2 font-mono">&ge; 0.8</td>
-					</tr>
-					<tr class="border-b border-border/50">
-						<td class="py-2 pr-3 font-medium">high</td>
-						<td class="py-2 font-mono">&ge; 0.6</td>
-					</tr>
-					<tr class="border-b border-border/50">
-						<td class="py-2 pr-3 font-medium">moderate</td>
-						<td class="py-2 font-mono">&ge; 0.4</td>
-					</tr>
-					<tr class="border-b border-border/50">
-						<td class="py-2 pr-3 font-medium">low</td>
-						<td class="py-2 font-mono">&ge; 0.2</td>
-					</tr>
-					<tr>
-						<td class="py-2 pr-3 font-medium">very_low</td>
-						<td class="py-2 font-mono">&lt; 0.2</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</section>
-
-	<!-- Market Modifier -->
-	<section class="mb-8">
-		<p class={sectionLabel()}>Demand Resilience</p>
-		<div class="mt-3 space-y-2">
-			<p class="rounded-md bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
-				market_resilience = 0.6 × market_momentum + 0.4 × occupation_scarcity
-			</p>
-			<p class="rounded-md bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
-				demand_resilience = min(1.0, base_resilience × 0.45 + demand_signal_bonus + 0.10 ×
-				demand_persistence)
-			</p>
-			<p class="rounded-md bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
-				demand_persistence = 0.4 × momentum_rank + 0.3 × vacancy_rank + 0.2 × scarcity_rank + 0.1 ×
-				demand_bonus_rank
-			</p>
-		</div>
-		<p class="mt-2 text-sm text-muted-foreground">
-			When occupation-level industry footprint data exists, the employment side of
-			<code class="rounded bg-muted px-1 text-xs">market_momentum</code> is blended toward that occupation-specific
-			industry growth signal instead of relying only on the major-group prior.
-		</p>
-		<p class={cn(caption({ weight: 'medium' }), 'mt-3')}>Singapore demand signal bonuses:</p>
-		<div class="mt-2 overflow-x-auto">
-			<table class="w-full text-left text-sm">
-				<thead>
-					<tr class="border-b border-border">
-						<th class="py-2 pr-3 font-medium text-text-secondary">Source</th>
-						<th class="py-2 pr-3 font-medium text-text-secondary">Match</th>
-						<th class="py-2 font-medium text-text-secondary">Bonus</th>
-					</tr>
-				</thead>
-				<tbody class="text-muted-foreground">
-					<tr class="border-b border-border/50">
-						<td class="py-2 pr-3">SOL 2026</td>
-						<td class="py-2 pr-3">exact</td>
-						<td class="py-2 font-mono">+0.15</td>
-					</tr>
-					<tr class="border-b border-border/50">
-						<td class="py-2 pr-3">SOL 2026</td>
-						<td class="py-2 pr-3">prefix</td>
-						<td class="py-2 font-mono">+0.08</td>
-					</tr>
-					<tr class="border-b border-border/50">
-						<td class="py-2 pr-3">Jobs in Demand 2025</td>
-						<td class="py-2 pr-3">exact</td>
-						<td class="py-2 font-mono">+0.12</td>
-					</tr>
-					<tr>
-						<td class="py-2 pr-3">Jobs in Demand 2025</td>
-						<td class="py-2 pr-3">prefix</td>
-						<td class="py-2 font-mono">+0.06</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</section>
-
-	<!-- Confidence -->
-	<section class="mb-8">
-		<p class={sectionLabel()}>Confidence Scoring</p>
-		<p class="mt-2 rounded-md bg-muted px-3 py-2 font-mono text-sm text-text-secondary">
-			confidence = weighted_sum(crosswalk, market, freshness, coverage, agreement, sensitivity) −
-			penalties
-		</p>
-		<ul class="mt-2 list-inside list-disc space-y-1 text-sm text-muted-foreground">
-			<li>Weights: crosswalk 0.25, market granularity 0.15, source freshness 0.10</li>
-			<li>Weights: source coverage 0.20, signal agreement 0.15, sensitivity 0.15</li>
-			<li>
-				Penalties: one-source direct = 0.05, one-source sub-major fallback = 0.08, one-source major
-				fallback = 0.12, contested signal = 0.04
-			</li>
-		</ul>
-		<div class="mt-3 overflow-x-auto">
-			<table class="w-full text-left text-sm">
-				<thead>
-					<tr class="border-b border-border">
-						<th class="py-2 pr-3 font-medium text-text-secondary">Level</th>
-						<th class="py-2 font-medium text-text-secondary">Score</th>
-					</tr>
-				</thead>
-				<tbody class="text-muted-foreground">
-					<tr class="border-b border-border/50">
-						<td class="py-2 pr-3 font-medium">high</td>
-						<td class="py-2 font-mono">&ge; 0.7</td>
-					</tr>
-					<tr class="border-b border-border/50">
-						<td class="py-2 pr-3 font-medium">medium</td>
-						<td class="py-2 font-mono">0.45 – 0.7</td>
-					</tr>
-					<tr>
-						<td class="py-2 pr-3 font-medium">low</td>
-						<td class="py-2 font-mono">&lt; 0.45</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</section>
-
-	<!-- Stability -->
-	<section class="mb-8">
-		<p class={sectionLabel()}>Stability Stress Test</p>
-		<p class="mt-2 text-sm text-muted-foreground">
-			{DATA_VINTAGE.model_version} uses a seeded 1,000-run Monte Carlo perturbation of exposure, bottleneck,
-			and market resilience. The current implementation perturbs the three inputs independently but deterministically,
-			so identical source data reproduces the same 10th/90th percentile optimistic and pessimistic bounds
-			across builds.
-		</p>
-		<div class="mt-3 overflow-x-auto">
-			<table class="w-full text-left text-sm">
-				<thead>
-					<tr class="border-b border-border">
-						<th class="py-2 pr-3 font-medium text-text-secondary">Label</th>
-						<th class="py-2 font-medium text-text-secondary">Condition</th>
-					</tr>
-				</thead>
-				<tbody class="text-muted-foreground">
-					<tr class="border-b border-border/50">
-						<td class="py-2 pr-3 font-medium">stable</td>
-						<td class="py-2">Band unchanged under all perturbations</td>
-					</tr>
-					<tr class="border-b border-border/50">
-						<td class="py-2 pr-3 font-medium">watch</td>
-						<td class="py-2">±1 band shift</td>
-					</tr>
-					<tr>
-						<td class="py-2 pr-3 font-medium">sensitive</td>
-						<td class="py-2">±2+ band shifts</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</section>
-
-	<!-- Seniority Modifiers -->
-	<section class="mb-8">
-		<p class={sectionLabel()}>Seniority Modifiers ({DATA_VINTAGE.model_version})</p>
-		<p class="mt-2 text-sm text-muted-foreground">
-			Applied in the Outlook engine. Adjustments scale with the occupation's variant_sensitivity
-			(0–1), derived from institutional knowledge, relationship intensity, regulatory weight, and
-			coordination requirements. The shifts are applied in latent percentile space, not as raw
-			linear additions to already-ranked percentiles.
-		</p>
-		<div class="mt-3 overflow-x-auto">
-			<table class="w-full text-left text-sm">
-				<thead>
-					<tr class="border-b border-border">
-						<th class="py-2 pr-3 font-medium text-text-secondary">Level</th>
-						<th class="py-2 pr-3 font-medium text-text-secondary">Exposure</th>
-						<th class="py-2 font-medium text-text-secondary">Bottleneck</th>
-					</tr>
-				</thead>
-				<tbody class="text-muted-foreground">
-					<tr class="border-b border-border/50">
-						<td class="py-2 pr-3 font-medium">Entry-level</td>
-						<td class="py-2 pr-3 font-mono">+0.14 × sensitivity</td>
-						<td class="py-2 font-mono">−0.12 × sensitivity</td>
-					</tr>
-					<tr class="border-b border-border/50">
-						<td class="py-2 pr-3 font-medium">Mid-career</td>
-						<td class="py-2 pr-3 font-mono">0</td>
-						<td class="py-2 font-mono">0</td>
-					</tr>
-					<tr>
-						<td class="py-2 pr-3 font-medium">Senior / Lead</td>
-						<td class="py-2 pr-3 font-mono">−0.10 × sensitivity</td>
-						<td class="py-2 font-mono">+0.12 × sensitivity</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</section>
-
-	<!-- Synthetic Roles -->
-	<section class="mb-8">
-		<p class={sectionLabel()}>Synthetic Role Rules</p>
-		<ul class="mt-2 list-inside list-disc space-y-1.5 text-sm text-muted-foreground">
-			<li>Base score = weighted blend of 2–4 component SSOC occupation scores</li>
-			<li>Workflow context adjustment is bounded to 0.85–1.15 around the blended prior</li>
-			<li>All component SSOC codes validated against occupations.json at build time</li>
-			<li>
-				Confidence depends on component coverage, dispersion, primary-match distance, and workflow
-				variant sensitivity
-			</li>
-			<li>
-				Founder, gig, and independent-role families cannot publish <strong>High</strong> confidence
-			</li>
-			<li>
-				High-dispersion roles (stddev &gt; 0.08) show risk range visualization, widened by variant
-				sensitivity
-			</li>
-			<li>Low-dispersion roles (&lt; 3pp from primary) link to closest official occupation</li>
-			<li>Always labeled "Estimated modern role" in the UI</li>
-		</ul>
-	</section>
-
-	<!-- Validation -->
-	<section class="mb-8">
-		<p class={sectionLabel()}>Validation Checks ({DATA_VINTAGE.validation_checks} total)</p>
-		<ul class="mt-2 list-inside list-disc space-y-1.5 text-sm text-muted-foreground">
-			<li>Record completeness ({DATA_VINTAGE.occupation_count} occupations, all fields present)</li>
-			<li>Crosswalk coverage and evidence signals</li>
-			<li>Distribution sanity (band counts, impact type ratios)</li>
-			<li>Anchor occupation directional checks (5 occupations)</li>
-			<li>Confidence coverage, source-weight, and contested-signal checks</li>
-			<li>Labour monitor data integrity</li>
-			<li>Synthetic role SSOC validity (all components must exist)</li>
-			<li>Synthetic role workflow and confidence sanity checks</li>
-			<li>Alias SSOC validity (all references must exist)</li>
-			<li>Archetype classification coverage (no professional/manager gets field_manual)</li>
-			<li>Workflow overlay completeness (17 archetypes)</li>
-			<li>Transition capacity sanity checks</li>
-		</ul>
-	</section>
-
-	<div class="mt-10 border-t border-border pt-4 text-sm text-muted-foreground">
-		<a href="/methodology" class="hover:text-foreground">&larr; Back to Methodology</a>
 	</div>
+
+	<section class="mt-10">
+		<h2 class={sectionLabel()}>Reference population</h2>
+		<div class="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+			{#each coverageMetrics as metric}
+				<div class={card({ padding: 'sm', variant: 'metric' })}>
+					<p class="text-2xl font-semibold tabular-nums">{metric.value.toLocaleString()}</p>
+					<p class="text-xs text-muted-foreground">{metric.label}</p>
+				</div>
+			{/each}
+		</div>
+		<p class="mt-3 max-w-3xl text-xs leading-relaxed text-muted-foreground">
+			The source registry contains 1,006 detailed SSOC entries: 1,001 numeric occupations and five
+			residual entries. Residual entries are retained for taxonomy integrity but are not scored or
+			published as occupation pages.
+		</p>
+	</section>
+
+	<section class="mt-10">
+		<h2 class={sectionLabel()}>Headline algorithm</h2>
+		<div class={cn(card({ padding: 'lg', variant: 'inset' }), 'mt-3 space-y-5')}>
+			<div>
+				<h3 class="font-semibold text-foreground">1. Select official matches</h3>
+				<p class="mt-1 text-sm text-muted-foreground">
+					For each SSOC 2024 code, read every ISCO-08 candidate in the official Singapore
+					correspondence. Remove no candidate because its score appears inconvenient.
+				</p>
+			</div>
+			<div>
+				<h3 class="font-semibold text-foreground">2. Join ILO evidence</h3>
+				<p class="mt-1 text-sm text-muted-foreground">
+					For each candidate, retain <code>mean_score_2025</code>, <code>SD_2025</code> and
+					<code>potential25</code>. Record official candidates without an ILO value as unscored.
+				</p>
+			</div>
+			<div>
+				<h3 class="font-semibold text-foreground">3. Aggregate without invented weights</h3>
+				<p class={cn(mono({ size: 'sm' }), 'mt-2')}>
+					point estimate = median(mean_score_2025 of scored official matches)
+				</p>
+				<p class="mt-1 text-sm text-muted-foreground">
+					Also retain the minimum, maximum, every scored match, every unscored match,
+					task-dispersion range and official category set.
+				</p>
+			</div>
+			<div>
+				<h3 class="font-semibold text-foreground">4. Rank with ties</h3>
+				<p class={cn(mono({ size: 'sm' }), 'mt-2')}>
+					percentile = 100 × (midrank position − 1) / (N − 1)
+				</p>
+				<p class="mt-1 text-sm text-muted-foreground">
+					N = {v9Counts.scored}. Equal point estimates share the average of their occupied rank
+					positions. Percentiles are rounded to one decimal only after ranking.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="mt-10">
+		<h2 class={sectionLabel()}>Mapping states</h2>
+		<div class={cn(card({ padding: 'none' }), 'mt-3 overflow-hidden')}>
+			<div class="hidden sm:block">
+				<table class="w-full table-fixed text-left text-sm">
+					<thead class="border-b bg-muted/40">
+						<tr
+							><th class="p-3">State</th><th class="p-3">Meaning</th><th class="p-3"
+								>Published treatment</th
+							></tr
+						>
+					</thead>
+					<tbody class="divide-y divide-border text-muted-foreground">
+						{#each mappingStates as state}
+							<tr>
+								<td class="break-words p-3 font-mono text-xs text-foreground">{state[0]}</td>
+								<td class="break-words p-3">{state[1]}</td>
+								<td class="break-words p-3">{state[2]}</td>
+							</tr>
+						{/each}
+					</tbody>
+				</table>
+			</div>
+			<dl class="divide-y divide-border sm:hidden">
+				{#each mappingStates as state}
+					<div class="space-y-1 p-4">
+						<dt class="font-mono text-xs font-semibold text-foreground">{state[0]}</dt>
+						<dd class="text-sm text-muted-foreground">{state[1]}</dd>
+						<dd class="text-sm text-foreground">{state[2]}</dd>
+					</div>
+				{/each}
+			</dl>
+		</div>
+		<p class="mt-3 max-w-3xl text-sm text-muted-foreground">
+			V9 never assigns a unit-group, minor-group or major-group exposure average to an unscored
+			occupation. It also never treats absence from a named demand list as evidence of weak demand.
+		</p>
+	</section>
+
+	<section class="mt-10">
+		<h2 class={sectionLabel()}>ILO category and dispersion fields</h2>
+		<div class="mt-3 grid gap-3 md:grid-cols-2">
+			<div class={card({ padding: 'md' })}>
+				<h3 class="font-semibold text-foreground"><code>potential25</code></h3>
+				<p class="mt-2 text-sm text-muted-foreground">
+					Preserves the official category for every scored ISCO match. With several categories, V9
+					publishes the complete set plus least- and most-exposed endpoints. It does not manufacture
+					a new SSOC category from the percentile.
+				</p>
+			</div>
+			<div class={card({ padding: 'md' })}>
+				<h3 class="font-semibold text-foreground"><code>task_score_sd_2025</code></h3>
+				<p class="mt-2 text-sm text-muted-foreground">
+					Describes the unweighted variation across the listed ILO task scores inside an ISCO
+					occupation. V9 publishes its median and range across official matches. It is not a
+					confidence interval, a measure of variation across workers, or a time-weighted task
+					concentration measure.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="mt-10">
+		<h2 class={sectionLabel()}>Mapped ILO task-evidence artifact</h2>
+		<div class={cn(card({ padding: 'lg', variant: 'inset' }), 'mt-3 space-y-3')}>
+			<p class="text-sm text-muted-foreground">
+				<code>ilo-isco-task-evidence-v9.json</code> retains all 3,265 source task rows across 427
+				four-digit ISCO-08 groups. Each row keeps the ILO task ID, exact task text,
+				<code>score_2025</code> and source-status field.
+			</p>
+			<p class="text-sm text-muted-foreground">
+				Occupation pages join this artifact only through the official SSOC 2024 to ISCO-08 candidate
+				codes already published in the headline record. They show up to three highest and three
+				lowest task scores per mapped group. The selection is an interface summary, not a new score.
+			</p>
+			<p class={mono({ size: 'sm' })}>
+				headline effect = none · published grain = ISCO-08 four-digit group
+			</p>
+			<p class="text-sm text-muted-foreground">
+				Task rows may explain why an ISCO mean is high or low. They must not be described as exact
+				five-digit SSOC duties, worker-level observations, adoption, time shares or job-loss
+				probabilities.
+			</p>
+		</div>
+	</section>
+
+	<section class="mt-10">
+		<h2 class={sectionLabel()}>Date fields</h2>
+		<dl class="mt-3 grid gap-3 sm:grid-cols-2">
+			{#each [['published_at', 'When the source was released to the public.'], ['observation_period', 'When the source data or measurement applies.'], ['reviewed_at', 'When AI Work Index last checked the source for V9.'], ['generated_at', 'When the deterministic V9 artifact was produced; not when the underlying event happened.']] as dateField}
+				<div class={card({ padding: 'sm' })}>
+					<dt class="font-mono text-xs font-semibold text-foreground">{dateField[0]}</dt>
+					<dd class="mt-1 text-sm text-muted-foreground">{dateField[1]}</dd>
+				</div>
+			{/each}
+		</dl>
+	</section>
+
+	<section class="mt-10">
+		<h2 class={sectionLabel()}>Independent evidence block</h2>
+		<p class="mt-3 max-w-3xl text-sm text-muted-foreground">
+			Observed use, complementarity, wages, demand and labour context share a provenance envelope.
+			No value inside this envelope is read by the headline-rank function.
+		</p>
+		<p class="mt-2 max-w-3xl text-sm text-muted-foreground">
+			The four comparison fields inside the headline occupation artifact remain null for all 1,001
+			occupations. A separate artifact publishes Eloundou theoretical exposure for {researchCoverage.eloundou_theoretical_exposure_available}
+			reviewed identities and Anthropic observed use for {researchCoverage.anthropic_observed_exposure_available}
+			of them. This avoids a broad or many-to-many aggregation and keeps the main score contract unchanged.
+			AIOE still lacks a verified SOC-edition bridge; the complementarity proxy still lacks a frozen source-level
+			construct replication. Every external signal has no headline effect.
+		</p>
+		<div class={cn(card({ padding: 'none' }), 'mt-3 overflow-hidden')}>
+			<div class="hidden sm:block">
+				<table class="w-full table-fixed text-left text-sm">
+					<thead class="border-b bg-muted/40"
+						><tr><th class="p-3">Field</th><th class="p-3">Contract</th></tr></thead
+					>
+					<tbody class="divide-y divide-border">
+						{#each evidenceFields as field}
+							<tr
+								><td class="break-words p-3 font-mono text-xs text-foreground">{field[0]}</td><td
+									class="break-words p-3 text-muted-foreground">{field[1]}</td
+								></tr
+							>
+						{/each}
+					</tbody>
+				</table>
+			</div>
+			<dl class="divide-y divide-border sm:hidden">
+				{#each evidenceFields as field}
+					<div class="p-4">
+						<dt class="font-mono text-xs font-semibold">{field[0]}</dt>
+						<dd class="mt-1 text-sm text-muted-foreground">{field[1]}</dd>
+					</div>
+				{/each}
+			</dl>
+		</div>
+	</section>
+
+	<section class="mt-10">
+		<h2 class={sectionLabel()}>OECD capability-profile contract</h2>
+		<div class={cn(card({ padding: 'lg', variant: 'inset' }), 'mt-3 space-y-3')}>
+			<p class={mono({ size: 'sm' })}>
+				candidate = official SSOC→ISCO candidate + official ESCO→O*NET relation + identical O*NET
+				code
+			</p>
+			<p class={mono({ size: 'sm' })}>
+				published profile = candidate + conservative title rule or explicit reviewed identity
+			</p>
+			<p class="text-sm text-muted-foreground">
+				The automated rule retains parenthetical qualifiers, splits only explicit slash variants and
+				requires contiguous occupation-specific title tokens. A small allow-list may accept an
+				official exact or close candidate after a dated title-and-definition review; every decision
+				publishes its rationale.
+			</p>
+			<p class="text-sm text-muted-foreground">
+				Of 1,001 occupations, 698 have at least one raw exact candidate, 68 pass the automated title
+				rule and seven more pass explicit review. All 1,001 retain a status. The output keeps all
+				nine OECD domain values, source scales, O*NET codes, titles and the O*NET 2019-to-30.3
+				transfer limitation.
+			</p>
+			<p class={mono({ size: 'sm' })}>
+				headline effect = none · reviewed close matches = 3 · fuzzy or group fallback = none
+			</p>
+		</div>
+	</section>
+
+	<section class="mt-10">
+		<h2 class={sectionLabel()}>Null and source-grain rules</h2>
+		<ul
+			class="mt-3 max-w-3xl list-disc space-y-2 pl-5 text-sm leading-relaxed text-muted-foreground"
+		>
+			<li><code>null</code> means not available or not defensibly mapped; it never means zero.</li>
+			<li>Direct occupation wages remain null when MOM publishes no detailed SSOC 2024 row.</li>
+			<li>
+				Named official demand evidence attaches only after a reviewed occupation match. Prefix
+				matches are not used.
+			</li>
+			<li>National, sector and firm-size adoption statistics remain context at that grain.</li>
+			<li>US or platform evidence must disclose its geography, population and mapping method.</li>
+			<li>Stale job-posting samples cannot be labelled current or determine a public ranking.</li>
+		</ul>
+	</section>
+
+	<section class="mt-10">
+		<h2 class={sectionLabel()}>Economic-observatory contract</h2>
+		<div class={cn(card({ padding: 'lg', variant: 'inset' }), 'mt-3 space-y-3')}>
+			<p class="text-sm text-muted-foreground">
+				<code>v9-economic-observatory.json</code> joins only evidence that can retain its published geography,
+				population, period and grain. Detailed occupation records carry availability flags; broad observations
+				remain in separate major-group profiles.
+			</p>
+			<p class={mono({ size: 'sm' })}>
+				labour outcome = displacement + productivity and scale + new tasks + composition +
+				adjustment
+			</p>
+			<p class="text-sm text-muted-foreground">
+				The identity is a causal checklist, not an additive numeric model. V9 assigns no
+				coefficients and publishes no contraction, expansion, complementarity, slow-diffusion or
+				polarisation scenario. A scenario requires compatible adoption, market-response and
+				labour-outcome evidence.
+			</p>
+			<p class={mono({ size: 'sm' })}>
+				headline effect = none · detailed occupations = 1,001 · classified outcomes = 0
+			</p>
+		</div>
+		<ul class="mt-3 max-w-3xl list-disc space-y-2 pl-5 text-sm text-muted-foreground">
+			<li>Annual employment and workforce composition are broad occupation-group observations.</li>
+			<li>Industry footprints are broad occupation group by industry.</li>
+			<li>
+				Quarterly vacancy, hiring and retrenchment evidence uses MOM's published broad clusters.
+			</li>
+			<li>Major group 6 remains unavailable where the retained source has no separate row.</li>
+			<li>
+				Every derived change is descriptive; none is attributed to AI without a causal design.
+			</li>
+		</ul>
+	</section>
+
+	<section class="mt-10">
+		<h2 class={sectionLabel()}>Modern-role query resolution and calculation</h2>
+		<div class={cn(card({ padding: 'lg', variant: 'inset' }), 'mt-3 space-y-3')}>
+			<p class="text-sm text-muted-foreground">
+				Normalized exact titles resolve first. An explicit reviewed title, synonym or definition
+				match may then resolve a query to one official SSOC 2024 occupation. The build does not
+				globally auto-resolve synonyms. Labels that genuinely span occupations may use a reviewed
+				composite; cross-sector or unstable labels are withheld.
+			</p>
+			<p class={mono({ size: 'sm' })}>
+				role exposure = Σ(component weight × component point estimate)
+			</p>
+			<p class="text-sm text-muted-foreground">
+				Composite components are unique, scored official occupations; editorial weights sum to one.
+				The result is labelled non-official wherever it appears.
+			</p>
+			<p class="text-sm text-muted-foreground">
+				Mapping sensitivity uses weighted component minima and maxima. Weight sensitivity compares
+				the editorial result with equal weights and leave-one-component-out variants. These ranges
+				describe model dependence, not sampling error.
+			</p>
+		</div>
+	</section>
+
+	<section class="mt-10">
+		<h2 class={sectionLabel()}>Release invariants</h2>
+		<ul class="mt-3 grid gap-2 md:grid-cols-2">
+			{#each ['1,001 numeric SSOC occupations; five residual records excluded from scoring', '987 scored and 14 explicitly insufficient-evidence occupations', '523 direct MOM 2025 detailed wage matches', '3,265 mapped task rows retain their four-digit ISCO grain and have no headline effect', 'Every scored occupation traces to an official SSOC–ISCO candidate', 'All ties use midranks and all ranks use the scored V9 population', 'Changing a sidecar cannot change any headline pressure rank', 'Missing evidence never renders as zero or a negative market signal', 'Every published record carries source, limitation and 19 August 2026 cutoff metadata'] as invariant}
+				<li class={card({ padding: 'sm' })}>
+					<span class="text-sm text-muted-foreground">{invariant}</span>
+				</li>
+			{/each}
+		</ul>
+	</section>
+
+	<section class="my-10">
+		<h2 class={sectionLabel()}>Reproduction commands</h2>
+		<div class={cn(card({ padding: 'md', variant: 'inset' }), 'mt-3 overflow-x-auto')}>
+			<pre class="min-w-max text-xs leading-6 text-foreground"><code
+					>bun run download:ssoc-2024
+	bun run download:mom-wages-2025
+	bun run build:taxonomy
+	bun run build:economics:v9
+	bun run build:capabilities:v9
+	bun run release:generate
+	bun run verify
+	bun run build</code
+				></pre>
+		</div>
+		<p class="mt-3 text-sm text-muted-foreground">
+			Inspect the <a href="/data" class="text-primary underline">data dictionary and downloads</a>
+			or return to the
+			<a href="/methodology" class="text-primary underline">plain-language method</a>.
+		</p>
+	</section>
 </main>
