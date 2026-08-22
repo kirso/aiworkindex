@@ -10,6 +10,7 @@ import { loadV9Release } from './v9-public-export';
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const STATIC = path.join(ROOT, 'static');
 const STATIC_DATA = path.join(STATIC, 'data');
+const MANIFEST_GENERATED_AT = '2026-08-22';
 
 const definitions = [
 	{
@@ -199,14 +200,14 @@ const artifacts = definitions.map(definition => {
 		description: definition.description,
 		bytes: stat.size,
 		sha256: createHash('sha256').update(bytes).digest('hex'),
-		generated_at: release.generated_at
+		generated_at: MANIFEST_GENERATED_AT
 	};
 });
 
 const manifest = {
 	version: 'V9',
 	schema_version: '9.0',
-	generated_at: release.generated_at,
+	generated_at: MANIFEST_GENERATED_AT,
 	score_dataset_generated_at: release.generated_at,
 	taxonomy: 'SSOC 2024',
 	headline: 'AI Work Pressure Rank',

@@ -446,7 +446,8 @@
 						</p>
 						{#if entity.theoryUseGap != null}
 							<p class="mt-1 text-xs text-muted-foreground">
-								Possible scope is {(entity.theoryUseGap * 100).toFixed(1)} points higher than observed use.
+								Possible scope is {(entity.theoryUseGap * 100).toFixed(1)} points higher than observed
+								use.
 							</p>
 						{:else}
 							<p class="mt-1 text-xs text-muted-foreground">No compatible observed-use row.</p>
@@ -489,7 +490,9 @@
 							</p>
 						{:else}
 							<p class="text-sm font-bold">Outside the three-sector pilot</p>
-							<p class="mt-1 text-xs text-muted-foreground">No occupation-level fallback is used.</p>
+							<p class="mt-1 text-xs text-muted-foreground">
+								No occupation-level fallback is used.
+							</p>
 						{/if}
 					</div>
 				{/each}
@@ -546,7 +549,7 @@
 		<section class="mt-6 grid gap-4 sm:grid-cols-2 xl:hidden" aria-label="Job comparison cards">
 			{#each selected as entity (entity.id)}
 				<article class="min-w-0 border border-border bg-card">
-				<header class="border-b border-border bg-surface-subtle p-4">
+					<header class="border-b border-border bg-surface-subtle p-4">
 						<div class="flex items-start justify-between gap-3">
 							<div class="min-w-0">
 								<p class="text-xs text-muted-foreground">{entity.statusLabel}</p>
@@ -596,12 +599,16 @@
 							<dd class="mt-1 font-mono font-bold">
 								{researchText(entity.theoreticalExposure)}
 							</dd>
-							<p class="mt-1 text-xs text-muted-foreground">Eloundou technical exposure; US task evidence.</p>
+							<p class="mt-1 text-xs text-muted-foreground">
+								Eloundou technical exposure; US task evidence.
+							</p>
 						</div>
 						<div class="p-4">
 							<dt class="text-xs text-muted-foreground">Observed AI use</dt>
 							<dd class="mt-1 font-mono font-bold">{researchText(entity.observedUse)}</dd>
-							<p class="mt-1 text-xs text-muted-foreground">Work-related Claude activity; not Singapore adoption.</p>
+							<p class="mt-1 text-xs text-muted-foreground">
+								Work-related Claude activity; not Singapore adoption.
+							</p>
 						</div>
 						<div class="p-4">
 							<dt class="text-xs text-muted-foreground">Pay in Singapore</dt>
@@ -621,7 +628,9 @@
 									: 'Outside the three-sector pilot'}
 							</dd>
 							{#if entity.officialSkills.length > 0}
-								<p class="mt-1 text-xs text-muted-foreground">{entity.officialSkills.join(' · ')}</p>
+								<p class="mt-1 text-xs text-muted-foreground">
+									{entity.officialSkills.join(' · ')}
+								</p>
 							{/if}
 						</div>
 						<div class="p-4">

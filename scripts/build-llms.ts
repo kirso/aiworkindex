@@ -100,6 +100,8 @@ const llms = `# AI Work Index
 
 > Evidence on AI work pressure and job risk across Singapore's SSOC 2024 occupations. Current public release: V9, dated ${release.generated_at}.
 
+Supporting capability, research-signal, official-skills and evidence-synthesis layers were last updated on 22 August 2026. The structural pressure release remains dated ${release.generated_at}.
+
 AI Work Index covers ${release.counts.occupations} official numeric SSOC 2024 occupations. ${release.counts.scored} have an AI Work Pressure Rank, ${release.counts.insufficient_evidence} are explicitly unranked, and ${release.counts.direct_wages} have a direct MOM 2025 wage observation.
 
 The modern-title lookup covers ${syntheticRoleV9Counts.roles} familiar titles: ${syntheticRoleV9Counts.exact_title_matches} exact official titles, ${syntheticRoleV9Counts.reviewed_alias_matches} reviewed familiar-title guides that reuse an official score unchanged, ${syntheticRoleV9Counts.composite_roles} disclosed cross-occupation estimates, and ${syntheticRoleV9Counts.mapping_withheld} titles that need more work context before comparison.

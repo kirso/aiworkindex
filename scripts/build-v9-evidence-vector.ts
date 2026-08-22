@@ -30,7 +30,12 @@ const CHANGE_OUTPUTS = [
 const SNAPSHOT_FILE = path.join(ROOT, 'data', 'snapshots', `${SNAPSHOT_ID}.json`);
 
 interface OccupationRelease {
-	counts: { occupations: number; scored: number; insufficient_evidence: number; direct_wages: number };
+	counts: {
+		occupations: number;
+		scored: number;
+		insufficient_evidence: number;
+		direct_wages: number;
+	};
 	occupations: Array<{
 		taxonomy: {
 			code: string;
@@ -71,7 +76,12 @@ interface CapabilityArtifact {
 			};
 		}
 	>;
-	source: { publisher: string; publication_title: string; publication_date: string; publication_url: string };
+	source: {
+		publisher: string;
+		publication_title: string;
+		publication_date: string;
+		publication_url: string;
+	};
 }
 
 interface ResearchArtifact {
@@ -92,7 +102,12 @@ interface ResearchArtifact {
 		}
 	>;
 	sources: {
-		eloundou: { publisher: string; publication_title: string; publication_date: string; publication_url: string };
+		eloundou: {
+			publisher: string;
+			publication_title: string;
+			publication_date: string;
+			publication_url: string;
+		};
 		anthropic_observed_exposure: {
 			publisher: string;
 			publication_title: string;
@@ -106,7 +121,13 @@ interface ResearchArtifact {
 interface MarketArtifact {
 	demand_by_code: Record<
 		string,
-		Array<{ source_key: string; label: string; published_at: string; url: string; source_occupation: string }>
+		Array<{
+			source_key: string;
+			label: string;
+			published_at: string;
+			url: string;
+			source_occupation: string;
+		}>
 	>;
 	national: {
 		job_vacancies_august_2026_update: {
@@ -180,7 +201,8 @@ function midrankPercentiles(values: Map<string, number>): Map<string, number> {
 	while (start < rows.length) {
 		let end = start;
 		while (end + 1 < rows.length && rows[end + 1]![1] === rows[start]![1]) end += 1;
-		const percentile = rows.length === 1 ? 100 : round((((start + end) / 2) / (rows.length - 1)) * 100);
+		const percentile =
+			rows.length === 1 ? 100 : round(((start + end) / 2 / (rows.length - 1)) * 100);
 		for (let index = start; index <= end; index += 1) result.set(rows[index]![0], percentile);
 		start = end + 1;
 	}
@@ -194,14 +216,18 @@ const market = readJson<MarketArtifact>(FILES.market);
 const economics = readJson<EconomicArtifact>(FILES.economics);
 const skills = readJson<SkillsArtifact>(FILES.skills);
 
-if (occupations.occupations.length !== 1001) throw new Error('Evidence vector requires 1,001 V9 occupations');
+if (occupations.occupations.length !== 1001)
+	throw new Error('Evidence vector requires 1,001 V9 occupations');
 
 const sharedPressureValues = new Map<string, number>();
 const sharedCapabilityValues = new Map<string, number>();
 for (const occupation of occupations.occupations) {
 	const capability = capabilities.profiles[occupation.taxonomy.code];
 	if (capability && occupation.genai_task_exposure) {
-		sharedPressureValues.set(occupation.taxonomy.code, occupation.genai_task_exposure.mean_score_2025.median);
+		sharedPressureValues.set(
+			occupation.taxonomy.code,
+			occupation.genai_task_exposure.mean_score_2025.median
+		);
 		sharedCapabilityValues.set(
 			occupation.taxonomy.code,
 			capability.overall.ai_capability_proximity_0_1.median
@@ -264,7 +290,8 @@ const records = occupations.occupations.map(occupation => {
 		patterns.push({
 			key: 'high_pressure_with_official_skill_path',
 			label: 'High pressure with an official skills profile',
-			basis: 'Pressure is at or above percentile 75 and the three-sector Skills Framework pilot has a reviewed role profile.'
+			basis:
+				'Pressure is at or above percentile 75 and the three-sector Skills Framework pilot has a reviewed role profile.'
 		});
 	}
 	for (const pattern of patterns) countPattern(pattern.key);
@@ -289,7 +316,10 @@ const records = occupations.occupations.map(occupation => {
 						value: {
 							pressure_midrank_percentile: pressure.pressure_rank.percentile,
 							mean_score_2025: pressure.mean_score_2025.median,
-							category_range: [pressure.potential25.least_exposed, pressure.potential25.most_exposed]
+							category_range: [
+								pressure.potential25.least_exposed,
+								pressure.potential25.most_exposed
+							]
 						}
 					}
 				: null,
@@ -359,7 +389,11 @@ const records = occupations.occupations.map(occupation => {
 						geography: 'Singapore',
 						period: demand.map(row => row.published_at).join(', '),
 						grain: 'named occupation or source list entry',
-						source: demand.map(row => ({ title: row.label, url: row.url, source_label: row.source_occupation })),
+						source: demand.map(row => ({
+							title: row.label,
+							url: row.url,
+							source_label: row.source_occupation
+						})),
 						mapping_quality: 'reviewed against SSOC 2024 title and synonyms',
 						headline_effect: 'none',
 						value: { source_count: demand.length }
@@ -428,10 +462,7 @@ const dimensionKeys = [
 	'official_skills'
 ] as const;
 const coverage = Object.fromEntries(
-	dimensionKeys.map(key => [
-		key,
-		records.filter(record => record.dimensions[key] !== null).length
-	])
+	dimensionKeys.map(key => [key, records.filter(record => record.dimensions[key] !== null).length])
 );
 
 const vector = {
@@ -495,7 +526,8 @@ const changeLedger = {
 		status: 'baseline_only',
 		current_snapshot: SNAPSHOT_ID,
 		previous_comparable_snapshot: null,
-		reason: 'V9 has one frozen ILO 2025 pressure snapshot. Earlier model versions use different taxonomies and formulas.'
+		reason:
+			'V9 has one frozen ILO 2025 pressure snapshot. Earlier model versions use different taxonomies and formulas.'
 	},
 	observed_changes: [
 		{
@@ -503,8 +535,14 @@ const changeLedger = {
 			label: 'National job vacancies',
 			geography: 'Singapore',
 			grain: 'national',
-			from: { period: vacancyPeriods[0], value: vacancy.job_vacancies_thousands[vacancyPeriods[0]!] },
-			to: { period: vacancyPeriods.at(-1), value: vacancy.job_vacancies_thousands[vacancyPeriods.at(-1)!] },
+			from: {
+				period: vacancyPeriods[0],
+				value: vacancy.job_vacancies_thousands[vacancyPeriods[0]!]
+			},
+			to: {
+				period: vacancyPeriods.at(-1),
+				value: vacancy.job_vacancies_thousands[vacancyPeriods.at(-1)!]
+			},
 			unit: 'thousand vacancies',
 			change_pct: percentageChange(
 				vacancy.job_vacancies_thousands[vacancyPeriods[0]!]!,
@@ -517,8 +555,14 @@ const changeLedger = {
 			label: 'Entry-level PMET vacancies',
 			geography: 'Singapore',
 			grain: 'national source definition',
-			from: { period: entryPeriods[0], value: vacancy.entry_level_pmet_vacancies_thousands[entryPeriods[0]!] },
-			to: { period: entryPeriods.at(-1), value: vacancy.entry_level_pmet_vacancies_thousands[entryPeriods.at(-1)!] },
+			from: {
+				period: entryPeriods[0],
+				value: vacancy.entry_level_pmet_vacancies_thousands[entryPeriods[0]!]
+			},
+			to: {
+				period: entryPeriods.at(-1),
+				value: vacancy.entry_level_pmet_vacancies_thousands[entryPeriods.at(-1)!]
+			},
 			unit: 'thousand vacancies',
 			change_pct: percentageChange(
 				vacancy.entry_level_pmet_vacancies_thousands[entryPeriods[0]!]!,
@@ -552,8 +596,7 @@ const snapshot = {
 			{
 				pressure_percentile:
 					record.dimensions.task_pressure?.value.pressure_midrank_percentile ?? null,
-				capability_proximity:
-					record.dimensions.capability_proximity?.value.proximity_0_1 ?? null,
+				capability_proximity: record.dimensions.capability_proximity?.value.proximity_0_1 ?? null,
 				theoretical_exposure: record.dimensions.theoretical_exposure?.value ?? null,
 				observed_use: record.dimensions.observed_use?.value ?? null,
 				gross_monthly_median_sgd: record.dimensions.direct_pay?.value.median ?? null,

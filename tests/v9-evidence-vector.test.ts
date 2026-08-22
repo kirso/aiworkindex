@@ -66,7 +66,9 @@ describe('V9 multi-signal evidence vector and change ledger', () => {
 			technical_scope_ahead_of_observed_use: 51
 		});
 		for (const record of artifact.records) {
-			assert(record.patterns.every(pattern => pattern.label.length > 10 && pattern.basis.length > 20));
+			assert(
+				record.patterns.every(pattern => pattern.label.length > 10 && pattern.basis.length > 20)
+			);
 		}
 	});
 

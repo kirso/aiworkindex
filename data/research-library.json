@@ -1,8 +1,8 @@
 {
   "version": "V9",
-  "generated_at": "2026-08-19",
-  "review_cutoff": "2026-08-19",
-  "reviewed_at": "2026-08-19",
+  "generated_at": "2026-08-22",
+  "review_cutoff": "2026-08-22",
+  "reviewed_at": "2026-08-22",
   "date_fields": {
     "published_at": "When the source was published or publicly released.",
     "observation_period": "When the underlying observations apply, when the source reports it.",
@@ -60,7 +60,7 @@
       "summary": "Audits public frontier-capability evidence through 12 August 2026 and documents sparse joins, benchmark succession breaks and concentrated provenance that complicate extrapolation.",
       "limitations": "A single-author preprint and audit sample rather than a census; it diagnoses measurement weaknesses but does not supply a replacement capability or labour-market scalar.",
       "repo_notes": "Supports versioned, source-dependent capability context and the decision not to convert frontier trend lines into occupation-level Singapore forecasts.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "openai_signals_global_work_2026",
@@ -90,7 +90,7 @@
       "summary": "Publishes Q2 2026 country-level ChatGPT usage patterns and distinguishes output-producing or task-completing use from information-seeking use.",
       "limitations": "Reflects individual ChatGPT accounts rather than firms or the workforce, includes work-use classifications rather than verified jobs, and uses self-reported age for age patterns.",
       "repo_notes": "Latest global platform-use context through the V9 cutoff. Any Singapore view remains a platform signal and cannot replace MOM or IMDA adoption evidence.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "openai_work_at_frontier_2026",
@@ -121,7 +121,7 @@
       "summary": "Analyzes more than 800,000 messages from US ChatGPT users and finds that 43.5% of occupation-specific messages concern tasks associated with another occupation after generic work is excluded.",
       "limitations": "Platform users, inferred occupations and message classifications are not a workforce sample; task crossover is not occupational mobility, employment growth or displacement.",
       "repo_notes": "Supports showing that job boundaries can change and why synthetic roles are useful query layers. It does not validate synthetic-role weights or change V9 ranks.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "oecd_skills_ai_age_2026",
@@ -152,7 +152,7 @@
       "summary": "Reviews how AI changes skill demand and why domain knowledge, problem solving, social skills, management and continuing learning remain important alongside technical AI skills.",
       "limitations": "A policy synthesis, not a detailed Singapore occupation dataset or a measure of whether a worker is protected from displacement.",
       "repo_notes": "Informs practical guidance and the human-work research agenda. It supplies no occupation score and does not change V9 ranks.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "oecd_employment_outlook_2026",
@@ -183,7 +183,7 @@
       "summary": "Finds resilient but weakening OECD labour markets, rising difficulty for young entrants, large regional disparities and little evidence to date of broad AI-driven job loss.",
       "limitations": "Cross-country synthesis with heterogeneous source years and exposure measures; it does not isolate causal AI effects or provide detailed Singapore occupation estimates.",
       "repo_notes": "Current international validation context through the V9 cutoff. It informs interpretation but not the Singapore headline score.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "anthropic_economic_index_cadences_2026",
@@ -220,7 +220,7 @@
       "summary": "Updates the Economic Index with continuously sampled Claude usage, output classifications across conversations and API traffic, and a linked survey of about 9,700 users.",
       "limitations": "Claude users and products are selected populations; self-reported expectations are not labour outcomes, and the report does not establish occupation-level Singapore adoption.",
       "repo_notes": "The current Anthropic usage reference through the V9 cutoff. It is an independent platform proxy and does not replace the frozen January artifact or change the headline score.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "openai_agents_transforming_work_2026",
@@ -251,7 +251,7 @@
       "summary": "Describes longer-horizon Codex use, cross-functional task execution and rapid non-developer adoption among sampled users and within OpenAI.",
       "limitations": "Frontier-user and vendor-workplace evidence with model-estimated task horizons; it is highly selected and not representative of occupations or Singapore firms.",
       "repo_notes": "Capability and workflow context only. It does not provide an occupation exposure score, adoption rate or employment outcome for Singapore.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "oecd_productivity_compendium_2026",
@@ -283,7 +283,7 @@
       "summary": "Shows that aggregate productivity patterns conceal large differences across industries and firms, while current AI attribution remains tentative and difficult to isolate in official statistics.",
       "limitations": "International aggregate and industry evidence does not isolate a causal AI effect for Singapore or a detailed occupation.",
       "repo_notes": "Supports treating productivity and demand expansion as monitored outcomes rather than assuming a rebound coefficient.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "althoff_reichardt_task_specific_change_2026",
@@ -315,7 +315,7 @@
       "summary": "Models how task-specific augmentation, automation and simplification can change comparative advantage, occupations, skills and wages in general equilibrium.",
       "limitations": "Model-based scenario results depend on estimated US task and skill structures and assumed AI progress and adoption costs; they are not observed Singapore outcomes.",
       "repo_notes": "Used to explain why partial-equilibrium exposure rankings cannot predict wage or employment outcomes. It does not supply a V9 modifier.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "yin_ogut_2026",
@@ -344,7 +344,7 @@
       "summary": "Platform-log exposure measures conflate task-level AI applicability with the occupational composition of platform users; reweighting to BLS employment shares attenuates post-ChatGPT employment estimates by 42-93%, and swapping platforms changes coefficients 1.9x.",
       "limitations": "US workforce reweighting; the direction of bias for Singapore depends on local adoption composition, which is not measured at occupation level.",
       "repo_notes": "Core disclosure for every platform-derived observed-use layer. Platform evidence remains a separate proxy and never changes the V9 headline rank.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "oecd_ai_capability_gap_2026",
@@ -376,7 +376,7 @@
       "summary": "Maps current AI capabilities across nine cognitive, social and physical domains to occupation requirements and reports an updateable AI Capability Gap index.",
       "limitations": "Uses US O*NET occupation requirements and model-assisted ratings. It measures capability proximity, not adoption or labour outcomes. The O*NET edition differs from the official crosswalk edition, so V9 publishes only identical codes that also pass a conservative detailed-title rule.",
       "repo_notes": "The public row-level workbook, licence and checksum are pinned. V9 publishes a separate nine-domain profile for 75 SSOC occupations: 68 pass the conservative title rule and seven pass explicit title-and-definition review. It is not a headline input; all other occupations remain explicitly unavailable.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "metr_time_horizons_2026",
@@ -404,7 +404,7 @@
       "summary": "Tracks the human task duration associated with a 50% model success rate and was updated on 8 May 2026 with newer frontier-model measurements.",
       "limitations": "The benchmark is primarily software engineering, machine learning and cybersecurity; task duration is difficulty for a low-context expert, not autonomous runtime or a share of jobs automatable.",
       "repo_notes": "Scenario context only. METR time horizons neither alter the V9 occupation score nor forecast Singapore job loss.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "onet_database_30_3",
@@ -434,7 +434,7 @@
       "summary": "Current O*NET release reviewed for US task and occupation context after the repository snapshot was frozen.",
       "limitations": "No 30.3 source files are checked into this release. O*NET is US-based and does not represent Singapore task content directly.",
       "repo_notes": "Research currency record only. The frozen repository artifact remains 30.2, and neither version changes the Singapore V9 headline.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "openai_jobs_transition_2026",
@@ -465,7 +465,7 @@
       "summary": "Classifies 921 US occupations using technical task capability, continued human centrality and possible demand response to distinguish higher automation concern, reorganisation, potential growth and less immediate change.",
       "limitations": "A scenario framework rather than a causal forecast; its US occupation mappings, human-centrality judgements and demand assumptions are not calibrated to Singapore.",
       "repo_notes": "Used to structure plain-language risk profiles. Its categories and percentages are not imported as Singapore scores or predictions.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "microsoft_future_of_work_2026",
@@ -505,7 +505,7 @@
       "summary": "Synthesizes Microsoft and external field, lab and theory research on productivity, collaboration, learning, judgement and the uneven distribution of workplace AI benefits.",
       "limitations": "A broad vendor-authored synthesis rather than a single causal estimate, occupation dataset or Singapore study.",
       "repo_notes": "Interpretation and research-routing context only; it does not support a universal augmentation factor or occupation-level outcome claim.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "afrouzi_etal_career_dynamics_2026",
@@ -539,7 +539,7 @@
       "summary": "Models how automation can alter learning-by-doing and worker-to-manager progression when junior tasks are part of skill formation.",
       "limitations": "A general-equilibrium model, not observed evidence that a particular occupation or Singapore career ladder has already weakened.",
       "repo_notes": "Supports treating career progression as a separate dynamic question. V9 publishes no occupation transition probability or junior-work penalty.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "yin_vu_persico_2026",
@@ -569,7 +569,7 @@
       "summary": "Replicating the Eloundou-style exposure rubric with three frontier LLMs yields a 3.6-fold divergence in mean exposure and inter-model agreement as low as 57%; downstream employment estimates vary 2.4x and can flip sign by annotating model.",
       "limitations": "Measures annotator instability, not which annotation is correct; ensemble averaging across independent measures dilutes but does not remove the error.",
       "repo_notes": "Used to disclose annotator and model instability in task-exposure research. The ILO score remains the V9 headline input, with uncertainty shown rather than averaged away.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "dellacqua_etal_2025",
@@ -599,7 +599,7 @@
       "summary": "Highlights that AI gains are jagged across tasks and expertise levels rather than smooth across a whole occupation.",
       "limitations": "The 758-participant BCG experiment tested selected consulting tasks; its effects cannot be transferred to every workflow or occupation.",
       "repo_notes": "Interpretation only in V9; constrained experiments do not calibrate a Singapore occupation score.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "anthropic_labor_market_impacts_2026",
@@ -630,7 +630,7 @@
       "summary": "Combines theoretical task capability with work-related Claude usage, weighting automated use more than augmentative use, then tests early US unemployment and hiring patterns.",
       "limitations": "Uses US outcome data and a platform-linked usage measure, so it still needs Singapore-specific interpretation.",
       "repo_notes": "Independent external proxy and validation reference only. It is not representative Singapore adoption, an occupation-level displacement probability, or a V9 score weight.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "baslandze_etal_corporate_ai_2026",
@@ -669,7 +669,7 @@
       "summary": "Finds heterogeneous adoption and productivity reports across nearly 750 corporate executives, little near-term aggregate employment decline, and different expected workforce effects by firm size.",
       "limitations": "Executive survey evidence is not a causal Singapore occupation panel, and perceived productivity can differ from measured gains.",
       "repo_notes": "Validates the V9 separation of adoption, productivity, scale and workforce composition. No reported coefficient is transferred into Singapore occupations.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "imas_shukla_2026",
@@ -699,7 +699,7 @@
       "summary": "Argues exposure alone cannot predict displacement: output-demand price elasticity (elastic demand can expand hiring as AI cuts costs) and job dimensionality (low-task jobs are easier to automate fully) are the missing variables.",
       "limitations": "Commentary rather than peer-reviewed estimation; proposes collecting new price/quantity data rather than a ready-made occupation-level measure.",
       "repo_notes": "Used as a readable statement of missing economic mechanisms. V9 presents direct demand evidence separately and does not turn it into an exposure modifier.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "acemoglu_autor_johnson_pro_worker_ai_2026",
@@ -733,7 +733,7 @@
       "summary": "Distinguishes labour-augmenting, capital-augmenting, automating, expertise-levelling and new-task-creating technologies, arguing that only new-task creation is unambiguously pro-worker.",
       "limitations": "A conceptual and policy framework, not an occupation-level empirical measure or evidence that current AI systems will follow a particular path.",
       "repo_notes": "Used to keep automation, productivity, expertise and new-work channels conceptually separate; it is not a scoring formula.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "yotzov_etal_firm_data_ai_2026",
@@ -776,7 +776,7 @@
       "summary": "Surveys nearly 6,000 senior executives in four countries: 69% report active AI use, while nine in ten report no employment or productivity effect at their firm over the previous three years.",
       "limitations": "Executive survey responses from the US, UK, Germany and Australia are not Singapore occupation outcomes; forward expectations are not realised effects.",
       "repo_notes": "Validates the separation of adoption, expected effects and observed outcomes. It does not change any occupation rank or create a Singapore forecast.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "onet_database_2024",
@@ -813,7 +813,7 @@
       "summary": "Provides the task statements, technology skills, and job-zone context used for explanation and task matching.",
       "limitations": "O*NET is US-based and enters the Singapore product mainly as explanatory or crosswalk context.",
       "repo_notes": "The checked-in O*NET text files are the frozen 30.2 artifact. External US context only; they do not alter Singapore V9 exposure, demand or risk interpretation.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "anthropic_economic_index_2026",
@@ -855,7 +855,7 @@
       "summary": "Introduces task complexity, skill, purpose, autonomy and success measures using sampled Claude conversations from November 2025.",
       "limitations": "Observed Claude usage is not a full labour-market census and is still a platform-specific measure.",
       "repo_notes": "The linked source key identifies a frozen pre-V9 input. V9 treats it as platform-specific observed-use context, never as a Singapore outcome or headline-score weight.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "manning_aguirre_adaptive_capacity_2026",
@@ -886,7 +886,7 @@
       "summary": "Constructs a US occupation-level adaptive-capacity index and shows that exposure alone obscures large differences in workers’ resources for managing a transition if displacement occurs.",
       "limitations": "US worker characteristics and a conditional displacement scenario; the index does not estimate whether displacement will occur and cannot be transferred to Singapore without local microdata.",
       "repo_notes": "Used to explain why worker vulnerability is distinct from task pressure. It does not create a Singapore transition or risk score.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "anthropic_work_transforming_2025",
@@ -917,7 +917,7 @@
       "summary": "Shows how AI changes engineering and research workflows inside Anthropic, adding a concrete adoption case study.",
       "limitations": "Internal workplace evidence is highly specific to Anthropic and should not be generalized into a country labour market without adjustment.",
       "repo_notes": "Useful as a contextual adoption case study and a reminder that augmentation can change task mix, learning speed, and workflow design.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "coyle_poquiz_2025",
@@ -947,7 +947,7 @@
       "summary": "Argues that AI measurement should become more granular, task-based, and outcome-focused than current official statistics.",
       "limitations": "This is a measurement agenda rather than an occupation-scoring formula.",
       "repo_notes": "Used to support transparent uncertainty and task-level measurement rather than heuristic confidence labels.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "bls_occupational_projections_2024_2034",
@@ -981,7 +981,7 @@
       "summary": "Provides official US occupation projections used for the US preview and directional research comparisons.",
       "limitations": "This is US evidence and should not be interpreted as Singapore occupation outcome truth.",
       "repo_notes": "V9 does not use US projected employment to infer Singapore employment, jobs affected or wage pools.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "brynjolfsson_chandar_chen_2025",
@@ -1011,7 +1011,7 @@
       "summary": "The linked Stanford publication reports no broad displacement, but a 16% relative employment decline for workers aged 22-25 in the most AI-exposed occupations, concentrated in reduced hiring and occupations where AI use more often automates tasks.",
       "limitations": "Descriptive US payroll evidence, not a causal Singapore estimate; education controls attenuate the pattern, some trends predate generative AI, and the ADP sample shows larger effects than national survey benchmarks.",
       "repo_notes": "Used as an early-warning context signal only. V9 does not apply age or seniority modifiers to an occupation score.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "microsoft_working_with_ai_2025",
@@ -1047,7 +1047,7 @@
       "summary": "Maps 200,000 privacy-scrubbed Bing Copilot conversations to work activities, task success and scope to estimate US occupation-level AI applicability.",
       "limitations": "Bing Copilot usage from January to September 2024 is platform-selected, difficult to separate into work and leisure, US/O*NET-based, and limited to chatbot activity.",
       "repo_notes": "External observed-use comparison only. Microsoft explicitly cautions that applicability does not measure job replacement; it is not a Singapore score weight.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "ilo_genai_exposure_2025",
@@ -1090,7 +1090,7 @@
       "summary": "Builds an ISCO-08-aligned exposure index from nearly 30,000 tasks using worker input, expert review and model predictions, with four exposure gradients defined by mean task exposure and dispersion.",
       "limitations": "Measures potential task exposure under the assessed technology, not adoption, displacement, wages or Singapore employment outcomes; SSOC-to-ISCO mapping adds uncertainty.",
       "repo_notes": "The sole V9 headline research source. SSOC 2024 occupations inherit the median across official ISCO matches, with the full mapping range retained; no other research source changes that rank.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "dillon_etal_2025",
@@ -1122,7 +1122,7 @@
       "summary": "Finds time savings in email and outside normal working hours after enterprise Copilot access, but no detected change in the quantity or composition of tasks beyond those savings.",
       "limitations": "The study measures work patterns in a specific enterprise setting and does not identify occupation-level employment effects.",
       "repo_notes": "Used to show that measured time savings need not imply more completed tasks; it is not a V9 score input.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "humlum_vestergaard_2025",
@@ -1152,7 +1152,7 @@
       "summary": "Links Danish adoption surveys to administrative records and finds widespread task reorganisation but precise null average effects on earnings and recorded hours two years after ChatGPT, ruling out effects larger than 2%.",
       "limitations": "Denmark-specific early evidence; null average earnings and hours effects do not rule out distributional changes, hiring effects or longer-run displacement.",
       "repo_notes": "Issued May 2025 and revised March 2026. Validation and interpretation only: it supports separating task pressure from realised outcomes, not a numeric shrinkage factor.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "acemoglu_kong_restrepo_tasks_at_work_2024",
@@ -1186,7 +1186,7 @@
       "summary": "Shows why automation, labour augmentation, capital augmentation and new tasks have different effects on labour demand, wages and productivity once substitution and general-equilibrium responses are considered.",
       "limitations": "A general labour-economics framework rather than a measured Singapore generative-AI outcome panel.",
       "repo_notes": "Supports V9 withholding a single job-outcome score when adoption, demand response, substitution and new-task evidence are unavailable.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "hampole_etal_2025",
@@ -1219,7 +1219,7 @@
       "summary": "Shows that mean exposure and concentration of exposure in a few tasks can have different labour-demand implications.",
       "limitations": "The firm-task estimates are US-specific and do not identify a transferable occupation-level adjustment for Singapore.",
       "repo_notes": "V9 uses this to interpret why equal mean exposure can lead to different outcomes; it does not apply a concentration buffer to the headline score.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "bls_skills_data_2025",
@@ -1251,7 +1251,7 @@
       "summary": "Official 17-skill summary for occupations, built on O*NET inputs and BLS projections occupations.",
       "limitations": "It is a summarized skills view, not a direct task-by-task automation score.",
       "repo_notes": "Best public structured skill overlay for the US country layer.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "bls_cps_demographics_2025",
@@ -1283,7 +1283,7 @@
       "summary": "Occupation-linked demographic and labor-force context drawn from the Current Population Survey.",
       "limitations": "Occupation/industry classification changes reduce perfect longitudinal comparability.",
       "repo_notes": "Useful for showing who is exposed and for planning transition context, not for changing the structural pressure score.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "bls_oews_2025",
@@ -1315,7 +1315,7 @@
       "summary": "Official occupation-level wage and employment statistics for the United States.",
       "limitations": "OEWS is US-specific and must not be interpreted as a global wage distribution.",
       "repo_notes": "Best public source for the US wage layer and the richest local wage context currently available.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "bls_ooh_2025",
@@ -1346,7 +1346,7 @@
       "summary": "Official occupation profiles used for narrative, education, and work-environment context.",
       "limitations": "Designed for career guidance rather than AI-risk scoring.",
       "repo_notes": "Adds the human-readable occupation narrative layer for the US market.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "bls_ors_2025",
@@ -1378,7 +1378,7 @@
       "summary": "Official occupation requirements survey covering the physical, cognitive, and preparation demands of work.",
       "limitations": "ORS is not a labour-market outcome series; it is a requirements survey used for bottleneck and friction context.",
       "repo_notes": "The best current official analogue for transition friction and human-bottleneck validation in the US layer.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "oecd_piaac_singapore_2024",
@@ -1409,7 +1409,7 @@
       "summary": "Reports literacy, numeracy and adaptive problem-solving results from 5,011 adults aged 16-65, representing about 2.8 million Singapore residents.",
       "limitations": "The country note is population evidence. It does not publish a reliable score for every detailed SSOC 2024 occupation and cannot be used as an occupation resilience measure without weighted microdata analysis.",
       "repo_notes": "Corrects the outdated implication that Singapore lacks PIAAC evidence. It may support future national or carefully weighted subgroup context, but it is not a V9 score input.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "bick_blandin_deming_2025",
@@ -1440,7 +1440,7 @@
       "summary": "Documents that workplace generative-AI adoption is fast, supporting a separate adoption layer in forecast models.",
       "limitations": "Adoption speed alone does not identify realised labour displacement or productivity effects.",
       "repo_notes": "US adoption context only; it does not calibrate Singapore adoption or change V9 occupation ranks.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "autor_chin_salomons_seegmiller_2024",
@@ -1471,7 +1471,7 @@
       "summary": "60% of 2018 US employment is in job titles that did not exist in 1940; new work emerges disproportionately in occupations exposed to augmenting rather than automating innovations.",
       "limitations": "Historical US evidence; no AI-era occupation-level reinstatement rate yet exists that could serve as a score input.",
       "repo_notes": "The canonical quantified evidence for why displacement-only scores overstate long-run risk; cited in the central limitation.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "imf_occupational_mobility_2024",
@@ -1497,7 +1497,7 @@
       "summary": "Suggests that mobility responses to AI pressure follow structured pathways rather than generic occupational distance rules.",
       "limitations": "Cross-country evidence informs the transition design, but the repo still needs a Singapore-specific mobility dataset.",
       "repo_notes": "Experimental transition context only; it does not recommend a pathway or alter the V9 pressure rank.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "oecd_using_ai_workplace_2024",
@@ -1529,7 +1529,7 @@
       "summary": "Synthesizes employer and worker evidence on performance, job enjoyment, work intensity, data collection, inequality and workplace AI governance.",
       "limitations": "Cross-country survey and policy evidence cannot identify detailed Singapore occupation outcomes.",
       "repo_notes": "Keeps job quality and worker agency visible as separate outcomes. V9 publishes no detailed job-quality estimate until compatible local observations exist.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "khan_imf_singapore_2024",
@@ -1558,7 +1558,7 @@
       "summary": "IMF Singapore-specific estimates: ~77% of Singapore workers are highly exposed to AI (vs ~60% advanced-economy / ~40% emerging-market averages), split roughly evenly between high- and low-complementarity exposure.",
       "limitations": "Aggregate exposure and complementarity shares at economy level, not occupation-by-occupation scores; it uses the IMF framework rather than the ILO 2025 V9 headline measure.",
       "repo_notes": "The most directly relevant external Singapore benchmark, used for directional comparison rather than formal calibration or score weighting.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "pizzinelli_etal_2023",
@@ -1592,7 +1592,7 @@
       "summary": "Provides a cross-country framework for distinguishing AI exposure from potential complementarity with human work.",
       "limitations": "Designed as a broad labour-exposure framing rather than a Singapore occupation-level calibrated outcome model.",
       "repo_notes": "V9 reviewed this for an independent potential-complementarity sidecar but withholds every occupation value because the available cross-system mapping and construct replication do not pass the publication gate.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "brynjolfsson_li_raymond_2023",
@@ -1623,7 +1623,7 @@
       "summary": "Shows heterogeneous productivity gains from generative-AI assistance in one customer-support workflow.",
       "limitations": "The effect size is workflow-specific and should not be generalized into a universal augmentation constant.",
       "repo_notes": "Interpretation only in V9; its effect size is never transferred into an occupation-level Singapore augmentation or risk score.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "eloundou_etal_2023",
@@ -1660,7 +1660,7 @@
       "summary": "Frames LLM exposure around task feasibility and time-saving potential and provides an early GPT-oriented occupation rubric.",
       "limitations": "Like other exposure indices, it measures capability overlap rather than realised displacement.",
       "repo_notes": "The sole registry record for the OpenAI/Eloundou study. Its source key preserves the historical artifact; it is not averaged into the V9 headline score.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "lewandowski_etal_2022",
@@ -1692,7 +1692,7 @@
       "summary": "Worker-survey evidence across 46 countries: task content differs substantially across countries within the same occupation, so US O*NET-based task measures misstate task content abroad.",
       "limitations": "Singapore is not in the PIAAC/STEP samples, so the bias cannot be directly corrected; high-income economies show smaller divergence from US task content.",
       "repo_notes": "The canonical citation for the SSOC-ISCO-SOC-O*NET crosswalk caveat; motivates benchmarking against Singapore-native task data (SkillsFuture Skills Framework).",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "del_rio_chanona_etal_2021",
@@ -1725,7 +1725,7 @@
       "summary": "Network model on empirical occupational transitions: whether an automation shock produces unemployment or smooth reallocation depends on the topology of the transition network around an occupation, not its exposure alone.",
       "limitations": "US transition-network data; Singapore-specific mobility networks are not yet measured, so similarity cannot establish feasible worker transitions.",
       "repo_notes": "Experimental transition context only; structural similarity is not evidence that a Singapore worker can or should make a particular move.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "felten_raj_seamans_2021",
@@ -1760,7 +1760,7 @@
       "summary": "Provides a published occupation-level AI exposure measure used for historical comparison and methodological context.",
       "limitations": "Measures theoretical exposure rather than realised AI use or job outcomes.",
       "repo_notes": "The source key preserves the frozen pre-V9 artifact. AIOE is not averaged into the V9 headline score.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "acemoglu_restrepo_automation_new_tasks_2019",
@@ -1792,7 +1792,7 @@
       "summary": "Distinguishes the labour-displacing effect of automation from productivity effects and the reinstatement of labour through new tasks.",
       "limitations": "A general task framework and historical empirical analysis; it does not identify the current effect of generative AI in Singapore.",
       "repo_notes": "Owns the V9 economic-observatory mechanism taxonomy. It does not change occupation pressure ranks or supply a displacement coefficient.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "card_kluve_weber_2018",
@@ -1822,7 +1822,7 @@
       "summary": "Meta-analysis of 200+ active labour market programme evaluations: average training impacts are close to zero in the short run and only modestly positive 2-3 years post-programme.",
       "limitations": "Pre-AI-era programmes, mostly Europe/US; Singapore schemes (SkillsFuture, SCTP, CCP) have published only selection-biased administrative outcomes, no causal evaluation.",
       "repo_notes": "Grounds the caveat that transition-capacity scores measure structural skill adjacency, not evidence that retraining works.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     },
     {
       "key": "felten_raj_seamans_2018",
@@ -1855,7 +1855,7 @@
       "summary": "Introduces the task-ability linkage approach that underpins modern AI-exposure measurement.",
       "limitations": "Provides the conceptual bridge from AI capabilities to work content, but not current observed usage or Singapore-specific outcomes.",
       "repo_notes": "Historical methodology context only in V9; it does not alter the SSOC 2024 headline pressure rank.",
-      "reviewed_at": "2026-08-19"
+      "reviewed_at": "2026-08-22"
     }
   ]
 }

@@ -340,6 +340,7 @@ const uiIndex = readJson<{
 }>(path.join(STATIC_DATA, 'v9-ui-index.json'));
 const siteStatus = readJson<{
 	schema_version: string;
+	updated_at: string;
 	structural_release: {
 		version: string;
 		status: string;
@@ -476,6 +477,7 @@ const manifest = readJson<{
 	version: string;
 	schema_version: string;
 	generated_at: string;
+	score_dataset_generated_at: string;
 	taxonomy: string;
 	counts: V9PublicRelease['counts'];
 	artifacts: Array<{ file: string; public_path: string; sha256: string; generated_at: string }>;
@@ -907,6 +909,7 @@ assert.deepEqual(
 
 assert.equal(siteStatus.structural_release.version, 'V9');
 assert.equal(siteStatus.schema_version, '9.0');
+assert.equal(siteStatus.updated_at, '2026-08-22');
 assert.equal(siteStatus.structural_release.status, 'current');
 assert.equal(siteStatus.structural_release.release_manifest, 'release-manifest-v9.json');
 assert.equal(siteStatus.structural_release.taxonomy, 'SSOC 2024');
@@ -1159,6 +1162,8 @@ assert.equal(
 
 assert.equal(manifest.version, 'V9');
 assert.equal(manifest.schema_version, '9.0');
+assert.equal(manifest.generated_at, '2026-08-22');
+assert.equal(manifest.score_dataset_generated_at, core.generated_at);
 assert.equal(manifest.taxonomy, 'SSOC 2024');
 assert.deepEqual(manifest.counts, publicRelease.counts);
 assert.equal(
@@ -1255,8 +1260,13 @@ for (const role of roleRelease.roles) {
 }
 
 const sitemapLocs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => match[1]!);
+const sitemapLastModified = [...sitemap.matchAll(/<lastmod>([^<]+)<\/lastmod>/g)].map(
+	match => match[1]!
+);
 const sitemapSet = new Set(sitemapLocs);
 assert.equal(sitemapLocs.length, sitemapSet.size, 'sitemap contains duplicate URLs');
+assert.equal(sitemapLastModified.length, sitemapLocs.length);
+assert(sitemapLastModified.every(value => value === '2026-08-22'));
 assert(sitemapLocs.every(url => url.startsWith(`${SITE_URL}/`)));
 for (const occupation of publicRelease.occupations) {
 	assert(

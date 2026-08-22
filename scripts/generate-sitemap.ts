@@ -9,6 +9,7 @@ import { loadV9Release } from './v9-public-export';
 
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT_FILE = path.join(ROOT, 'static', 'sitemap.xml');
+const SITE_UPDATED_AT = '2026-08-22';
 
 interface SitemapEntry {
 	path: string;
@@ -119,7 +120,7 @@ function main() {
 	const urls = entries
 		.map(
 			entry =>
-				`  <url><loc>${xml(`${SITE.url}${entry.path}`)}</loc><lastmod>${release.generated_at}</lastmod><changefreq>${entry.changefreq}</changefreq><priority>${entry.priority}</priority></url>`
+				`  <url><loc>${xml(`${SITE.url}${entry.path}`)}</loc><lastmod>${SITE_UPDATED_AT}</lastmod><changefreq>${entry.changefreq}</changefreq><priority>${entry.priority}</priority></url>`
 		)
 		.join('\n');
 	fs.writeFileSync(

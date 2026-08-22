@@ -2,6 +2,8 @@
 
 > Evidence on AI work pressure and job risk across Singapore's SSOC 2024 occupations. Current public release: V9, dated 2026-08-19.
 
+Supporting capability, research-signal, official-skills and evidence-synthesis layers were last updated on 22 August 2026. The structural pressure release remains dated 2026-08-19.
+
 AI Work Index covers 1001 official numeric SSOC 2024 occupations. 987 have an AI Work Pressure Rank, 14 are explicitly unranked, and 523 have a direct MOM 2025 wage observation.
 
 The modern-title lookup covers 88 familiar titles: 11 exact official titles, 56 reviewed familiar-title guides that reuse an official score unchanged, 18 disclosed cross-occupation estimates, and 3 titles that need more work context before comparison.

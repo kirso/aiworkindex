@@ -42,7 +42,7 @@ export interface ResearchEntry {
 	local_artifact_path?: string;
 }
 
-export const RESEARCH_REVIEW_CUTOFF = '2026-08-19';
+export const RESEARCH_REVIEW_CUTOFF = '2026-08-22';
 export const RESEARCH_LIBRARY_VERSION = 'V9';
 export const V9_HEADLINE_RESEARCH_KEY = 'ilo_genai_exposure_2025';
 

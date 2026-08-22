@@ -99,7 +99,7 @@ describe('V9 consumer occupation explorer', () => {
 		assert.match(builder, /v9-capability-profiles\.json/);
 		assert.equal(
 			artifact.browser_occupations.filter(item => item.capabilityProximity != null).length,
-			68
+			75
 		);
 	});
 

@@ -45,7 +45,9 @@
 				<div class="max-w-4xl">
 					<div class="flex flex-wrap items-center gap-2">
 						<span class={badge({ variant: 'outline' })}>Singapore · SSOC 2024 · V9</span>
-						<span class="text-xs text-muted-foreground">Updated 19 August 2026</span>
+						<span class="text-xs text-muted-foreground"
+							>V9 released 19 Aug · evidence updated 22 Aug</span
+						>
 					</div>
 					<h1
 						class="mt-3 max-w-4xl text-3xl font-black tracking-tight text-foreground sm:text-4xl lg:text-5xl"

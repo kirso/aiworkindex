@@ -284,10 +284,9 @@
 			</div>
 			<div class="space-y-3 text-sm leading-relaxed text-muted-foreground">
 				<p>
-					Each occupation can have task pressure, capability proximity, theoretical scope,
-					observed use, direct pay, named demand, broad labour context and official skills. The
-					values share an SSOC code, but not a scale, geography or causal meaning, so V9 never
-					averages them.
+					Each occupation can have task pressure, capability proximity, theoretical scope, observed
+					use, direct pay, named demand, broad labour context and official skills. The values share
+					an SSOC code, but not a scale, geography or causal meaning, so V9 never averages them.
 				</p>
 				<p>
 					Pressure and capability are compared only among occupations with both measures. V9
@@ -370,9 +369,7 @@
 			>. The index covers nearly 30,000 tasks using worker input, expert review and model-assisted
 			assessment.
 		</p>
-		<div
-			class={cn(card({ padding: 'md', variant: 'notice' }), 'mt-4 max-w-4xl')}
-		>
+		<div class={cn(card({ padding: 'md', variant: 'notice' }), 'mt-4 max-w-4xl')}>
 			<h3 class="font-semibold text-foreground">How task examples appear on occupation pages</h3>
 			<p class={body({ class: 'mt-2 text-muted-foreground' })}>
 				The downloadable ILO artifact contains 3,265 task rows across 427 four-digit ISCO groups. An

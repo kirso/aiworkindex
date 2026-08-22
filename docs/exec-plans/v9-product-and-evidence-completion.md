@@ -74,8 +74,10 @@ agree or disagree instead of receiving a falsely precise average.
   first frozen V9 baseline, a same-grain change ledger and consumer report. Compare now exposes
   Eloundou theoretical scope, Anthropic observed use and official Skills Framework evidence where
   available. No composite score or causal outcome was introduced.
-- [ ] Milestone 7: finish copy, SEO/AEO/GEO/LLMO, accessibility, performance, release generation,
-  commits, push and pull-request handoff.
+- [x] (2026-08-22) Milestone 7: completed active-surface copy and discovery updates,
+  deterministic release generation, responsive and keyboard browser QA, static production build,
+  commits and pull-request handoff. Automated local QA is complete; moderated customer sessions,
+  manual VoiceOver/NVDA checks and deployed Core Web Vitals/RUM remain external validation.
 
 ## Surprises & Discoveries
 
@@ -196,6 +198,27 @@ states and leaves all other occupations unavailable rather than zero. The main o
 still stores null external-comparison fields. Twenty-four focused contract and release tests pass,
 `svelte-check` reports zero diagnostics, and `release-check` passes with 1,001 occupations, 77
 modern-title guides and 1,118 sitemap URLs.
+
+The completed product publishes one eight-dimension evidence vector per occupation and a separate
+same-grain change ledger without averaging unlike constructs. The current release covers 1,001
+official occupations, 987 pressure ranks, 523 direct pay rows, 37 named-demand matches, 75 OECD and
+Eloundou profiles, 73 Anthropic observed-use profiles and a six-occupation official skills pilot.
+The supporting research library is reviewed through 22 August 2026; the structural V9 score release
+date remains 19 August 2026.
+
+Final local validation regenerated all release artifacts, passed 150 tests, ESLint, Prettier,
+`svelte-check` with zero diagnostics, strict public-copy lint with zero warnings, `release-check`
+with 1,120 canonical sitemap URLs, and the SvelteKit static production build. Production-build
+browser QA covered 38 route/viewport cases and three interaction journeys with zero overflow,
+scrolling tables, unnamed controls, broken images, duplicate IDs, console errors or page errors. It
+also verified a hydrated familiar-title destination, one-click map navigation, shared explorer URL
+state and keyboard scatter navigation. The first production build exposed and then verified the fix
+for a prerender-only query-state error.
+
+The remaining work requires evidence outside the repository: moderated comprehension and
+actionability sessions, manual VoiceOver and NVDA use, and deployed production Core Web Vitals/RUM.
+The Chrome DevTools performance-trace MCP was not available in this session, so no synthetic local
+performance score is recorded as production evidence.
 
 ## Context and Orientation
 
@@ -538,8 +561,9 @@ Current structural baseline at plan creation:
 - 75 published OECD capability profiles; 926 unavailable under the current reviewed rule.
 - 75 Eloundou theoretical-exposure profiles and 73 Anthropic observed-use profiles.
 - 6 occupations and 7 sector-role profiles in the three-sector official Skills Framework pilot.
-- 56 research-registry records reviewed through 19 August 2026.
-- zero published AIOE, Eloundou, Anthropic-use and complementarity sidecars.
+- 56 research-registry records reviewed through 22 August 2026.
+- no published AIOE or complementarity sidecars; Eloundou and Anthropic are published only for the
+  reviewed identity-gated subset above.
 - no second comparable V9 pressure snapshot.
 
 Frozen pre-product-change SHA-256 values:

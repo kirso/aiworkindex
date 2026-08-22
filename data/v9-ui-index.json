@@ -1,6 +1,6 @@
 {
   "schema_version": "9.0",
-  "generated_at": "2026-08-19",
+  "generated_at": "2026-08-22",
   "query_aliases": {
     "role:product-manager": "occupation:25114",
     "role:devops-engineer": "occupation:25125",

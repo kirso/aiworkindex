@@ -22023,7 +22023,7 @@
       "mappingQuality": "partial",
       "mappedScoreRangeWidth": 0.04999999999999999,
       "mappedIscoCount": 2,
-      "capabilityProximity": null,
+      "capabilityProximity": 0.6638,
       "searchSynonyms": []
     },
     {
@@ -22155,7 +22155,7 @@
       "mappingQuality": "one_to_one",
       "mappedScoreRangeWidth": 0,
       "mappedIscoCount": 1,
-      "capabilityProximity": null,
+      "capabilityProximity": 0.798,
       "searchSynonyms": []
     },
     {
@@ -22265,7 +22265,7 @@
       "mappingQuality": "one_to_one",
       "mappedScoreRangeWidth": 0,
       "mappedIscoCount": 1,
-      "capabilityProximity": null,
+      "capabilityProximity": 0.6788,
       "searchSynonyms": []
     },
     {
@@ -23410,7 +23410,7 @@
       "mappingQuality": "partial",
       "mappedScoreRangeWidth": 0.08000000000000002,
       "mappedIscoCount": 2,
-      "capabilityProximity": null,
+      "capabilityProximity": 0.8345,
       "searchSynonyms": []
     },
     {
@@ -24053,7 +24053,7 @@
       "mappingQuality": "one_to_one",
       "mappedScoreRangeWidth": 0,
       "mappedIscoCount": 1,
-      "capabilityProximity": null,
+      "capabilityProximity": 0.8246,
       "searchSynonyms": []
     },
     {
@@ -24098,7 +24098,7 @@
       "mappingQuality": "partial",
       "mappedScoreRangeWidth": 0.030000000000000027,
       "mappedIscoCount": 2,
-      "capabilityProximity": null,
+      "capabilityProximity": 0.8036,
       "searchSynonyms": []
     },
     {
@@ -24432,7 +24432,7 @@
       "mappingQuality": "one_to_one",
       "mappedScoreRangeWidth": 0,
       "mappedIscoCount": 1,
-      "capabilityProximity": null,
+      "capabilityProximity": 0.9547,
       "searchSynonyms": []
     },
     {

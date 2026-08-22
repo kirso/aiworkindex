@@ -81,7 +81,10 @@
 		<div class="mt-3 space-y-4">
 			<a href="/reports/evidence-patterns" class="block no-underline">
 				<article
-					class={cn(card({ padding: 'lg', hover: true }), 'sm:flex sm:items-start sm:justify-between')}
+					class={cn(
+						card({ padding: 'lg', hover: true }),
+						'sm:flex sm:items-start sm:justify-between'
+					)}
 				>
 					<div>
 						<div class="flex flex-wrap items-center gap-2">
@@ -179,7 +182,7 @@
 						</div>
 						<p class="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
 							SSOC 2024 migration, ILO-based pressure ranks, mapping uncertainty, synthetic roles,
-							Singapore market evidence and the 19 August 2026 research review.
+							Singapore market evidence and supporting research reviewed through 22 August 2026.
 						</p>
 						<p class="mt-2 text-xs text-muted-foreground">
 							{v9Counts.occupations.toLocaleString()} occupations · {v9Counts.scored.toLocaleString()}
@@ -246,7 +249,7 @@
 		<a href="/research" class={card({ padding: 'md', hover: true })}>
 			<h2 class="font-semibold text-foreground">Research register</h2>
 			<p class="mt-2 text-sm text-muted-foreground">
-				Primary research and public datasets reviewed through 19 August 2026.
+				Primary research and public datasets reviewed through 22 August 2026.
 			</p>
 		</a>
 	</section>

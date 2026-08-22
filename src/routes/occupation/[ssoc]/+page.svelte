@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { page } from '$app/state';
+	import { onMount } from 'svelte';
 	import SaveJobButton from '$lib/components/product/SaveJobButton.svelte';
 	import CapabilityProfile from '$lib/components/product/CapabilityProfile.svelte';
 	import EconomicOutcomeEvidence from '$lib/components/product/EconomicOutcomeEvidence.svelte';
@@ -25,8 +25,9 @@
 	let { data } = $props();
 	let view = $derived(data.view);
 	let modernQueries = $derived(data.modernQueries);
+	let familiarQuerySlug = $state<string | null>(null);
 	let familiarQuery = $derived(
-		modernQueries.find(query => query.slug === page.url.searchParams.get('as')) ?? null
+		modernQueries.find(query => query.slug === familiarQuerySlug) ?? null
 	);
 	let occupation = $derived(view.occupation);
 	let spokenTitle = $derived(
@@ -38,6 +39,11 @@
 	);
 	let exposure = $derived(occupation.genai_task_exposure);
 	let wage = $derived(occupation.singapore_market.wages);
+
+	onMount(() => {
+		familiarQuerySlug = new URLSearchParams(window.location.search).get('as');
+	});
+
 	function formatPercentile(value: number | null): string {
 		if (value == null) return 'Unranked';
 		return `Percentile ${value.toFixed(value % 1 === 0 ? 0 : 1)}`;

@@ -153,8 +153,8 @@
     "artifact": "data/v9-research-signals.json",
     "method": "one reviewed detailed-title identity to one exact source occupation; no broad, close, or many-to-many aggregation",
     "coverage": {
-      "eloundou": 68,
-      "anthropic_observed_use": 66,
+      "eloundou": 75,
+      "anthropic_observed_use": 73,
       "ssoc_denominator": 1001
     },
     "headline_effect": "none"

@@ -66,7 +66,7 @@
 
 	<div class="max-w-4xl">
 		<div class="flex flex-wrap items-center gap-2">
-			<p class={sectionLabel()}>Published 19 August · capability update 21 August 2026</p>
+			<p class={sectionLabel()}>Published 19 August · supporting evidence updated 22 August 2026</p>
 			<span class={badge({ variant: 'info' })}>Current release</span>
 		</div>
 		<h1 class={cn(titleStyle({ size: 'page' }), 'mt-2')}>V9: Singapore AI Work Pressure</h1>

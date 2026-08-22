@@ -16,7 +16,7 @@ const queryAliases = Object.fromEntries(
 );
 const output = {
 	schema_version: '9.0',
-	generated_at: '2026-08-19',
+	generated_at: '2026-08-22',
 	query_aliases: queryAliases,
 	checker_entries: buildV9CheckerEntries(),
 	compare_entities: buildV9CompareEntities()

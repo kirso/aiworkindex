@@ -610,8 +610,8 @@ describe('research registry invariants', () => {
 		}
 
 		assert.equal(researchLibrary.version, 'V9');
-		assert.equal(researchLibrary.review_cutoff, '2026-08-19');
-		assert.equal(researchLibrary.reviewed_at, '2026-08-19');
+		assert.equal(researchLibrary.review_cutoff, '2026-08-22');
+		assert.equal(researchLibrary.reviewed_at, '2026-08-22');
 		assert.match(researchLibrary.date_fields.published_at, /published/);
 		assert.match(researchLibrary.date_fields.observation_period, /observations/);
 		assert.match(researchLibrary.date_fields.reviewed_at, /last checked/);

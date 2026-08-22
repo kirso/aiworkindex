@@ -437,7 +437,7 @@ function buildSiteStatus() {
 
 	return {
 		schema_version: '9.0',
-		updated_at: V9_RELEASE.generated_at,
+		updated_at: V9_EVIDENCE_VECTOR.generated_at,
 		structural_release: {
 			version: 'V9',
 			status: 'current',

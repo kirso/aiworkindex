@@ -1,7 +1,7 @@
 {
   "version": "V9",
   "schema_version": "9.0",
-  "generated_at": "2026-08-19",
+  "generated_at": "2026-08-22",
   "score_dataset_generated_at": "2026-08-19",
   "taxonomy": "SSOC 2024",
   "headline": "AI Work Pressure Rank",
@@ -20,7 +20,7 @@
       "description": "SSOC 2024 AI Work Pressure ranks, uncertainty, wages, and evidence links.",
       "bytes": 4826022,
       "sha256": "5e8c13b0cdfb62fe4c4dfc9593b65a893eabf94737444195778355fa1da59349",
-      "generated_at": "2026-08-19"
+      "generated_at": "2026-08-22"
     },
     {
       "file": "sg-ai-occupations-v9.csv",
@@ -30,7 +30,7 @@
       "description": "Flattened V9 occupation evidence with nullable fields.",
       "bytes": 484380,
       "sha256": "5f8544f35a00183660d9e0ae0614189388530992346a5f3a21cd451b997bc51c",
-      "generated_at": "2026-08-19"
+      "generated_at": "2026-08-22"
     },
     {
       "file": "v9-market-context.json",
@@ -40,7 +40,7 @@
       "description": "Reviewed demand signals and labour evidence kept separate from pressure ranks.",
       "bytes": 81185,
       "sha256": "e49176f7fecf57f837c40b22ce0b371dc225bd7fd5b82de816fdc1e9e5dad177",
-      "generated_at": "2026-08-19"
+      "generated_at": "2026-08-22"
     },
     {
       "file": "v9-economic-observatory.json",
@@ -50,7 +50,7 @@
       "description": "Broad official labour observations, six causal mechanisms, detailed evidence availability and explicit publication gates; no headline effect.",
       "bytes": 619346,
       "sha256": "c9738614758dc12f7a0bd0f5da0ddf3d14ec0cc65c0092cd3ab2d7046982b16d",
-      "generated_at": "2026-08-19"
+      "generated_at": "2026-08-22"
     },
     {
       "file": "v9-capability-profiles.json",
@@ -60,7 +60,7 @@
       "description": "Nine-domain OECD capability profiles for the reviewed detailed-identity subset; automated and manual identity decisions are explicit, missingness is preserved, and the headline effect is none.",
       "bytes": 817281,
       "sha256": "2f5aa9bc0074ce6a5b9895b279c11b593cd39875904a8311e4628e5676ff03b3",
-      "generated_at": "2026-08-19"
+      "generated_at": "2026-08-22"
     },
     {
       "file": "v9-research-signals.json",
@@ -70,7 +70,7 @@
       "description": "Identity-gated Eloundou theoretical exposure and Anthropic observed Claude-use measures, published separately with explicit missingness and no headline effect.",
       "bytes": 384328,
       "sha256": "be5fa93eac7642ebdd9e80e8cf37539c66ba398ea768f2d781a0b3bb2b0cb120",
-      "generated_at": "2026-08-19"
+      "generated_at": "2026-08-22"
     },
     {
       "file": "v9-skills-pilot.json",
@@ -80,7 +80,7 @@
       "description": "Selected official skill names for seven reviewed sector-role profiles across ICT, financial services and healthcare; no headline effect.",
       "bytes": 74445,
       "sha256": "906f554b3490ded90a438a06df962f2ae8f318a18f1ba7a9a7697bdd132519e8",
-      "generated_at": "2026-08-19"
+      "generated_at": "2026-08-22"
     },
     {
       "file": "v9-evidence-vector.json",
@@ -90,7 +90,7 @@
       "description": "Eight evidence dimensions aligned by SSOC 2024 occupation without averaging them into a composite score.",
       "bytes": 2795694,
       "sha256": "8dad4edb57d6724214ec51581784fa43e191373c9d9b1ded7f9944290ace7342",
-      "generated_at": "2026-08-19"
+      "generated_at": "2026-08-22"
     },
     {
       "file": "v9-signal-change.json",
@@ -100,7 +100,7 @@
       "description": "Comparable changes in public Singapore labour signals plus explicit gates for pressure and other unavailable movers.",
       "bytes": 6152,
       "sha256": "e0fe7410e7f187878c93407ee88fe61ea758705a70d22f0b793c8fcdcba345b3",
-      "generated_at": "2026-08-19"
+      "generated_at": "2026-08-22"
     },
     {
       "file": "ilo-isco-task-evidence-v9.json",
@@ -110,7 +110,7 @@
       "description": "Attributed ILO task text and 2025 scores at four-digit ISCO grain; mapped examples never change occupation pressure ranks.",
       "bytes": 842967,
       "sha256": "9f39f5062f65c5de9b3a267a69c2ad825f1336935e0feb52cd604339f662fa52",
-      "generated_at": "2026-08-19"
+      "generated_at": "2026-08-22"
     },
     {
       "file": "v9-external-crosswalk-audit.json",
@@ -119,8 +119,8 @@
       "category": "external_evidence",
       "description": "Checksum-pinned ESCO-O*NET candidate mapping audit and explicit publication gates; no external values enter the headline.",
       "bytes": 375438,
-      "sha256": "2940c6272d1db6209939f6f6f5e9d1e964a6422736c6f29f30fbfb153ada96a9",
-      "generated_at": "2026-08-19"
+      "sha256": "33858006c1b56182b5c11901850c0cc096e59957449a0b6e2774469fbbbbbfe7",
+      "generated_at": "2026-08-22"
     },
     {
       "file": "synthetic-roles-v9.json",
@@ -130,7 +130,7 @@
       "description": "Exact and explicitly reviewed official-occupation resolutions plus non-official composites, withheld mappings, editorial weights and sensitivity checks.",
       "bytes": 346301,
       "sha256": "c4936bc77494568a29bbe99af0c9c490a96b3f11dade1794a90adac3a192f5f8",
-      "generated_at": "2026-08-19"
+      "generated_at": "2026-08-22"
     },
     {
       "file": "v9-search-index.json",
@@ -138,9 +138,9 @@
       "label": "V9 search index",
       "category": "discovery",
       "description": "Lightweight occupation and non-official role-query search records plus canonical aliases for exact and explicitly reviewed official-occupation matches.",
-      "bytes": 1380440,
-      "sha256": "d166bf6044c883827fc039da7c2342c2cdc1d5be63ce26957c43bdbe5f9ca41e",
-      "generated_at": "2026-08-19"
+      "bytes": 1380453,
+      "sha256": "0c705adbfbfbf5553d36d2af51d77c8e08bba987c8fc0ad5da1caa8d1976c103",
+      "generated_at": "2026-08-22"
     },
     {
       "file": "v9-ui-index.json",
@@ -149,8 +149,8 @@
       "category": "discovery",
       "description": "Route-specific evidence projections loaded on demand by the calculator and comparison tools.",
       "bytes": 3741310,
-      "sha256": "7683c1b7d742ca09b30cade4efd69403ad8be1542e1cd324189d58df22092a76",
-      "generated_at": "2026-08-19"
+      "sha256": "1d3d4d9c1f88f92af8552872500b53e13c6a78b9485f4f313c4c57b066461f86",
+      "generated_at": "2026-08-22"
     },
     {
       "file": "research-library.json",
@@ -159,8 +159,8 @@
       "category": "research",
       "description": "Versioned research claims, roles, sources, and limitations.",
       "bytes": 75849,
-      "sha256": "05c950ba61697e4acc8a9e5b962b65f179de3ce65ad1dbfdfce018c8d4efd10d",
-      "generated_at": "2026-08-19"
+      "sha256": "8f20c79f73ebedad07227acb9612af4575f77d2207486b22c7e28f3b1b2c4e4e",
+      "generated_at": "2026-08-22"
     },
     {
       "file": "site-status.json",
@@ -169,8 +169,8 @@
       "category": "governance",
       "description": "Bounded current V9 facts, evidence vintages, withheld inputs, and archive links.",
       "bytes": 10085,
-      "sha256": "083aa4d318361549fbd4bafdcfbb771f8b19071269a9e218a5b03de933fb669d",
-      "generated_at": "2026-08-19"
+      "sha256": "191f854b50513c45e0f2dfd5f9d5de5cc4a2875d6598a9158002fc772b60d46c",
+      "generated_at": "2026-08-22"
     },
     {
       "file": "releases.json",
@@ -180,7 +180,7 @@
       "description": "Current V9 release notes and explicitly dated archives of superseded methods.",
       "bytes": 12513,
       "sha256": "c3a203daa4c9905215a69c80a67b32623be964bfd8e3222862814fe5560e07d4",
-      "generated_at": "2026-08-19"
+      "generated_at": "2026-08-22"
     },
     {
       "file": "llms.txt",
@@ -188,9 +188,9 @@
       "label": "Concise machine-readable guide",
       "category": "discovery",
       "description": "Concise V9 scope, interpretation, and canonical links.",
-      "bytes": 5253,
-      "sha256": "3cb80a82b83fa80c9739f21bde02cf171c9011ac60a81a008d002fd33a43a7b6",
-      "generated_at": "2026-08-19"
+      "bytes": 5435,
+      "sha256": "d08722ce9f0f848fe2040fecf212d62c586dad4c3c6c25bf3e03fc2996937ab4",
+      "generated_at": "2026-08-22"
     },
     {
       "file": "llms-full.txt",
@@ -200,7 +200,7 @@
       "description": "Full V9 method, limitations, official occupations, reviewed modern-title resolutions and non-official role-query links.",
       "bytes": 151312,
       "sha256": "cfde8072b36967746576d9063da2a11f30bf96bdeca3637fcfcaeaf2c79e8dea",
-      "generated_at": "2026-08-19"
+      "generated_at": "2026-08-22"
     },
     {
       "file": "sitemap.xml",
@@ -209,8 +209,8 @@
       "category": "discovery",
       "description": "Indexable V9 pages on the canonical host.",
       "bytes": 168615,
-      "sha256": "82a8605bb56158a6ffccbea2f9c79e0153f26a0a7645f3051a1f93d0961af533",
-      "generated_at": "2026-08-19"
+      "sha256": "5bad3e361cfcb958ce58cd5cbf6363a1be3c6e661d0adf1614f37ed01c89ded1",
+      "generated_at": "2026-08-22"
     }
   ]
 }
